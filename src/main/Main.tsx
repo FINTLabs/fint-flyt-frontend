@@ -3,20 +3,15 @@ import {
     AppBar,
     Box,
     Drawer,
-    Icon,
-    List,
-    ListItem,
     Theme,
     Toolbar,
     Typography
 } from "@mui/material";
 
 import FintLogo from "../images/fint-by-vigo-white.svg";
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
 import {createStyles, makeStyles} from "@mui/styles";
 import Router from "../config/router";
-import routes from "../util/routes";
+import MenuItems from "./MenuItems";
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme: Theme) =>
@@ -124,18 +119,7 @@ function Main() {
                 }}
             >
                 <Toolbar />
-                <Box sx={{ overflow: 'auto' }}>
-                    <List>
-                        {routes.map((route) => (
-                            <ListItem button key={route.name}>
-                                <ListItemIcon>
-                                    <Icon>{route.icon}</Icon>
-                                </ListItemIcon>
-                                <ListItemText primary={route.name} />
-                            </ListItem>
-                        ))}
-                    </List>
-                </Box>
+                <MenuItems/>
             </Drawer>
             <main className={classes.content}>
                 <Router/>

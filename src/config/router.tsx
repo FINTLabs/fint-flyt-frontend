@@ -1,12 +1,10 @@
-import {BrowserRouter, Route, RouteComponentProps, Switch} from "react-router-dom"
+import {Route, RouteComponentProps} from "react-router-dom"
 import routes from "../util/routes";
 import React from "react";
 
-const Router: React.FunctionComponent<{}> = props => {
-
+const Router: React.FunctionComponent = () => {
     return (
-        <BrowserRouter>
-            <Switch>
+            <div>
                 {routes.map((route, index) => {
                     return (
                         <Route
@@ -23,8 +21,7 @@ const Router: React.FunctionComponent<{}> = props => {
                         />
                     );
                 })}
-            </Switch>
-        </BrowserRouter>
+            </div>
     );
 }
 

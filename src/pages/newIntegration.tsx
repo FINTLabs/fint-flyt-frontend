@@ -1,11 +1,10 @@
 import React from 'react';
-import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 
-const NewIntegration: React.FunctionComponent<RouteComponentProps<any>> = props => {
+const NewIntegration: React.FunctionComponent<RouteComponentProps<any>> = () => {
     return (
         <div>
             <p>Ny integrasjon</p>
-            <Link to="/">Gå til Dashboard</Link>
         </div>
     );
 }
