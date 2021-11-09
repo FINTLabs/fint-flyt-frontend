@@ -1,7 +1,6 @@
 import IRoute from '../interfaces/route';
 import Dashboard from "../pages/dashboard";
 import newIntegration from "../pages/newIntegration";
-import dashboard from "../pages/dashboard";
 
 const routes: IRoute[] = [
     {

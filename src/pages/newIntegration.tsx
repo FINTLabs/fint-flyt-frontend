@@ -1,10 +1,11 @@
 import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
+import {Typography} from "@mui/material";
 
 const NewIntegration: React.FunctionComponent<RouteComponentProps<any>> = () => {
     return (
         <div>
-            <p>Ny integrasjon</p>
+            <Typography>Ny integrasjon</Typography>
         </div>
     );
 }

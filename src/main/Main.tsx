@@ -17,46 +17,12 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         appBar: {
-            zIndex: theme.zIndex.drawer + 5,
-            transition: theme.transitions.create(["width", "margin"], {
-                easing: theme.transitions.easing.sharp,
-                duration: theme.transitions.duration.leavingScreen
-            })
+            zIndex: theme.zIndex.drawer + 1
         },
-        appBarShift: {
-            marginLeft: drawerWidth,
-            width: `calc(100% - ${drawerWidth}px)`,
-            transition: theme.transitions.create(["width", "margin"], {
-                easing: theme.transitions.easing.sharp,
-                duration: theme.transitions.duration.enteringScreen
-            })
-        },
-        menuButton: {
-            marginLeft: 12,
-            marginRight: 36
-        },
-        hide: {
-            display: "none"
-        },
-        drawerPaper: {
-            position: "relative",
-            whiteSpace: "nowrap",
+        drawer: {
             width: drawerWidth,
-            transition: theme.transitions.create("width", {
-                easing: theme.transitions.easing.sharp,
-                duration: theme.transitions.duration.enteringScreen
-            })
-        },
-        drawerPaperClose: {
-            overflowX: "hidden",
-            transition: theme.transitions.create("width", {
-                easing: theme.transitions.easing.sharp,
-                duration: theme.transitions.duration.leavingScreen
-            }),
-            width: theme.spacing(7),
-            [theme.breakpoints.up("sm")]: {
-                width: theme.spacing(9)
-            }
+            flexShrink: 0,
+            [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' }
         },
         toolbar: {
             display: "flex",
@@ -85,11 +51,6 @@ const useStyles = makeStyles((theme: Theme) =>
         flex: {
             flex: 1
         },
-        flexName: {
-            flex: 1,
-            textAlign: "end",
-            marginBottom: "2px"
-        },
     }));
 
 function Main() {
@@ -98,26 +59,14 @@ function Main() {
     return (
         <Box display="flex" position="relative" width={1} height={1}>
             <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
-                <Toolbar id={"toolbar"}>
+                <Toolbar className={classes.toolbar} id={"toolbar"}>
                     <img src={FintLogo} alt="logo" className={classes.logo}/>
-                    <Typography
-                        variant="h6"
-                        color="inherit"
-                        noWrap
-                        className={classes.flex}
-                    >
+                    <Typography variant="h6" color="inherit" noWrap className={classes.flex}>
                         Skjema til arkivintegrasjon
                     </Typography>
                 </Toolbar>
             </AppBar>
-            <Drawer
-                variant="permanent"
-                sx={{
-                    width: drawerWidth,
-                    flexShrink: 0,
-                    [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
-                }}
-            >
+            <Drawer variant="permanent" className={classes.drawer}>
                 <Toolbar />
                 <MenuItems/>
             </Drawer>
