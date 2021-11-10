@@ -1,6 +1,7 @@
-import IRoute from '../interfaces/route';
-import Dashboard from "../pages/dashboard";
-import newIntegration from "../pages/newIntegration";
+import IRoute from '../interfaces/Route';
+import Dashboard from "../pages/Dashboard";
+import NewIntegration from "../pages/NewIntegration";
+import LogPage from "../pages/LogPage";
 
 const routes: IRoute[] = [
     {
@@ -8,23 +9,25 @@ const routes: IRoute[] = [
         name: 'Dashboard',
         component: Dashboard,
         exact: true,
-        icon: 'dashboard'
     },
     {
         path: '/new_integration',
         name: 'Ny integrasjon',
-        component: newIntegration,
+        component: NewIntegration,
         exact: true,
-        icon: 'add'
     },
     {
         path: '/integration_overview',
         name: 'Integrasjonsoversikt',
-        component: newIntegration,
+        component: NewIntegration,
         exact: true,
-        icon: 'sync'
+    },
+    {
+        path: '/log_page',
+        name: 'Logg',
+        component: LogPage,
+        exact: true
     }
-
 ]
 
 export default routes;

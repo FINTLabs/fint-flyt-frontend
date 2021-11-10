@@ -10,8 +10,8 @@ import {
 
 import FintLogo from "../images/fint-by-vigo-white.svg";
 import {createStyles, makeStyles} from "@mui/styles";
-import Router from "../config/router";
-import MenuItems from "./menuItems";
+import Router from "../config/Router";
+import MenuItems from "./MenuItems";
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme: Theme) =>

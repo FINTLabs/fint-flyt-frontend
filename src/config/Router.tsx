@@ -1,5 +1,5 @@
 import {Route, RouteComponentProps} from "react-router-dom"
-import routes from "../util/routes";
+import routes from "../util/Routes";
 import React from "react";
 
 const Router: React.FunctionComponent = () => {
