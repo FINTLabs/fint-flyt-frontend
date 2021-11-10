@@ -9,24 +9,32 @@ const routes: IRoute[] = [
         name: 'Dashboard',
         component: Dashboard,
         exact: true,
+        icon: 'dashboard',
+        navMenu: true
     },
     {
         path: '/new_integration',
         name: 'Ny integrasjon',
         component: NewIntegration,
         exact: true,
+        icon: 'add',
+        navMenu: true
     },
     {
         path: '/integration_overview',
         name: 'Integrasjonsoversikt',
         component: NewIntegration,
         exact: true,
+        icon: 'sync',
+        navMenu: true
     },
     {
         path: '/log_page',
         name: 'Logg',
         component: LogPage,
-        exact: true
+        icon: 'receipt',
+        exact: true,
+        navMenu: true
     }
 ]
 
