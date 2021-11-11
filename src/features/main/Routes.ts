@@ -10,7 +10,7 @@ const routes: IRoute[] = [
         component: Dashboard,
         exact: true,
         icon: 'dashboard',
-        navMenu: true
+        inNavigationMenu: true
     },
     {
         path: '/new_integration',
@@ -18,7 +18,7 @@ const routes: IRoute[] = [
         component: NewIntegration,
         exact: true,
         icon: 'add',
-        navMenu: true
+        inNavigationMenu: true
     },
     {
         path: '/integration_overview',
@@ -26,7 +26,7 @@ const routes: IRoute[] = [
         component: NewIntegration,
         exact: true,
         icon: 'sync',
-        navMenu: true
+        inNavigationMenu: true
     },
     {
         path: '/log',
@@ -34,7 +34,7 @@ const routes: IRoute[] = [
         component: Log,
         icon: 'receipt',
         exact: true,
-        navMenu: true
+        inNavigationMenu: true
     }
 ]
 

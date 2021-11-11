@@ -5,5 +5,5 @@ export default interface IRoute {
     component: any;
     props?: any;
     icon?: string;
-    navMenu?: boolean;
+    inNavigationMenu?: boolean;
 }

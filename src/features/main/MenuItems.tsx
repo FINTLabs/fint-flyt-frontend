@@ -14,7 +14,7 @@ const MenuItems = () => {
 
     return (
         <List id="menuList">
-            {routes.filter(route => route.navMenu).map((route, index) => (
+            {routes.filter(route => route.inNavigationMenu).map((route, index) => (
                 <ListItemButton
                     component={Link}
                     to={route.path}
