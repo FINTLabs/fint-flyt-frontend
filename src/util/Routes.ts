@@ -1,7 +1,7 @@
 import IRoute from '../interfaces/Route';
 import Dashboard from "../pages/Dashboard";
 import NewIntegration from "../pages/NewIntegration";
-import LogPage from "../pages/LogPage";
+import Log from "../pages/Log";
 
 const routes: IRoute[] = [
     {
@@ -29,9 +29,9 @@ const routes: IRoute[] = [
         navMenu: true
     },
     {
-        path: '/log_page',
+        path: '/log',
         name: 'Logg',
-        component: LogPage,
+        component: Log,
         icon: 'receipt',
         exact: true,
         navMenu: true

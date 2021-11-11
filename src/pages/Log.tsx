@@ -2,7 +2,7 @@ import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import {Typography} from "@mui/material";
 
-const LogPage: React.FunctionComponent<RouteComponentProps<any>> = () => {
+const Log: React.FunctionComponent<RouteComponentProps<any>> = () => {
     return (
         <div>
             <Typography>Logg</Typography>
@@ -10,4 +10,4 @@ const LogPage: React.FunctionComponent<RouteComponentProps<any>> = () => {
     );
 }
 
-export default withRouter(LogPage);
+export default withRouter(Log);
