@@ -8,9 +8,9 @@ import {
     Typography
 } from "@mui/material";
 
-import FintLogo from "../images/fint-by-vigo-white.svg";
+import FintLogo from "../../images/fint-by-vigo-white.svg";
 import {createStyles, makeStyles} from "@mui/styles";
-import Router from "../config/Router";
+import Router from "./Router";
 import MenuItems from "./MenuItems";
 
 const drawerWidth = 240;

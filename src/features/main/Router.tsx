@@ -1,10 +1,10 @@
 import {Route, RouteComponentProps} from "react-router-dom"
-import routes from "../util/Routes";
+import routes from "./Routes";
 import React from "react";
 
 const Router: React.FunctionComponent = () => {
     return (
-            <div>
+            <>
                 {routes.map((route, index) => {
                     return (
                         <Route
@@ -21,7 +21,7 @@ const Router: React.FunctionComponent = () => {
                         />
                     );
                 })}
-            </div>
+            </>
     );
 }
 

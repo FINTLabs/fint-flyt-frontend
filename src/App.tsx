@@ -1,6 +1,6 @@
 import React from 'react';
 import {createTheme, ThemeProvider} from "@mui/material";
-import Main from "./main/Main";
+import Main from "./features/main/Main";
 import {BrowserRouter} from "react-router-dom";
 
 const theme = createTheme({

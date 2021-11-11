@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 import {Icon, List, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
-import routes from "../util/Routes";
+import routes from "./Routes";
 
 const MenuItems = () => {
     const [selectedIndex, setSelectedIndex] = React.useState(0);

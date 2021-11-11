@@ -1,7 +1,7 @@
-import IRoute from '../interfaces/Route';
-import Dashboard from "../pages/Dashboard";
-import NewIntegration from "../pages/NewIntegration";
-import Log from "../pages/Log";
+import IRoute from './Route';
+import Dashboard from "../dashboard/Dashboard";
+import NewIntegration from "../integration/NewIntegration";
+import Log from "../log/Log";
 
 const routes: IRoute[] = [
     {
