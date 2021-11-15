@@ -8,6 +8,7 @@ import {
     Typography
 } from "@mui/material";
 
+// @ts-ignore
 import FintLogo from "../../images/fint-by-vigo-white.svg";
 import {createStyles, makeStyles} from "@mui/styles";
 import Router from "./Router";
@@ -55,7 +56,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function Main() {
     const classes = useStyles();
-
     return (
         <Box display="flex" position="relative" width={1} height={1}>
             <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
