@@ -1,53 +1,54 @@
-import React from "react";
-import { useState } from 'react';
-import {RouteComponentProps, useHistory, withRouter} from 'react-router-dom';
+import * as React from "react";
+import { useForm } from "react-hook-form";
+import {RouteComponentProps, withRouter} from "react-router-dom";
 import {
-    Box,
-    Button, SelectChangeEvent,
-    Theme,
+    Button,
+    FormControl, FormControlLabel, FormGroup,
+    FormHelperText, FormLabel,
+    InputLabel,
+    MenuItem, Radio, RadioGroup,
+    Select, SelectChangeEvent, TextField,
     Typography
 } from "@mui/material";
-import {createStyles, makeStyles, useTheme} from "@mui/styles";
-import FormStepper from "./components/FormStepper";
-import NewIntegrationForm from "./form/NewIntegrationForm";
-import CaseConfigurationForm from "./form/CaseConfigurationForm";
 
-const formSteps = [
-    'Avleveringslogikk', 'Sak', 'Oppsummering'
-];
-/*
-const formSteps = [
-    'Avleveringslogikk', 'Sak', 'Journalpost', 'Dokument- og objektbeskrivelse', 'Avsender', 'Oppsummering'
-];
-*/
+type FormValues = {
+    casetypeToArchive: string;
+    selectedForm: string;
+    title: string;
+    officialTitle: string;
+    casetype: string;
+};
 
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        stepper: {
-            width: '350px',
-            height: '400px'
-        }
-    }));
+const forms = [
+    { label: "TT-skjema", value: "TT" },
+    { label: "Moroskjema", value: "fun_form" },
+    { label: "Fellesskjema", value: "joint_form" }
+];
+const casetypesToArchive = [
+    {label: 'Som ny sak',value: 'NEW',  description: 'Innsendt skjema oppretter en ny sak i Elements'},
+    {label: 'På eksisterende sak', value: 'EXISTING',  description: 'Innsendt skjema gjenfinner eksisterende sak i ' +
+            'Elements basert på informasjon i skjemaet. Dersom det ikke fins en eksisterende sak opprettes en ny sak' },
+    {label: 'På eksisterende sak', value: 'COLLECTION', description: 'Innsendt skjema skal leveres til en forhåndsdefinert samlesak'}
+
+];
+const casetypes = [{label: 'Sakstype Foo', value: 'SAK1'},{label: 'Sakstype Bar', value: 'SAK2'}]
+
 
 const NewIntegration: React.FunctionComponent<RouteComponentProps<any>> = () => {
-    const [activeStep, setActiveStep] = useState(0);
-    const showStepper = false;
-    const [form, setForm] = useState('');
-    const [casetype, setCasetype] = useState('');
-    const [data, setData] = useState({
-        form: {
-            form: '',
-            selected: 'NEW'
-        },
-        case: {}
+    const {
+        register,
+        handleSubmit,
+        watch,
+        setValue,
+        formState: { errors }
+    } = useForm<FormValues>({
+        defaultValues: { casetypeToArchive: 'NEW', selectedForm: '', title: '', officialTitle: '', casetype:'' }
     });
+    const selectedForm = watch("selectedForm");
+    const casetype = watch("casetype");
 
-    const classes = useStyles();
-    const history = useHistory();
-
-    function handleCancelButton() {
-        history.push("/");
-    }
+    const [activeStep, setActiveStep] = React.useState(0);
+    const onSubmit = handleSubmit((data) => console.log(JSON.stringify(data, null)));
 
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -57,42 +58,72 @@ const NewIntegration: React.FunctionComponent<RouteComponentProps<any>> = () => 
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
 
-    const handleReset = () => {
-        setActiveStep(0);
-    };
+    React.useEffect(() => {
+        register("casetypeToArchive", {
+            validate: (value) => !!value || "This is required."
+        });
+        register("selectedForm", {
+            validate: (value) => !!value || "This is required."
+        });
+    }, [register]);
 
     return (
-        <Box display="flex" position="relative" width={1} height={1}>
-            {showStepper && <FormStepper formSteps={formSteps} activeStep={activeStep} class={classes}/>}
-            <Box>
-                {activeStep === formSteps.length ? (
-                    <React.Fragment>
-                        <Typography sx={{ mt: 2, mb: 1 }}>Ferdig</Typography>
-                        <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-                            <Button onClick={handleReset} variant="outlined">Tilbake</Button>
-                        </Box>
-                    </React.Fragment>
-                ) : (
-                    <React.Fragment>
-                        <Typography variant={"h6"} sx={{ mb: 0 }}>Integrasjonkonfigurasjon - Steg {activeStep + 1}{casetype}</Typography>
-                        <Typography sx={{ mt: 1, mb: 3 }}>Konfigurer sak</Typography>
-                        {activeStep === 0 && <NewIntegrationForm/>}
-                        {activeStep === 1 && <CaseConfigurationForm/>}
-                        {activeStep === 2 && <div> Oppsummering </div>}
-                        <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-                            <Button onClick={handleCancelButton} variant="outlined">Avbryt</Button>
-                            <Box sx={{ flex: '1 1 auto' }} />
-                            <Button disabled={activeStep === 0} onClick={handleBack} sx={{ mr: 1 }} variant="outlined">
-                                Tilbake
-                            </Button>
-                                <Button onClick={handleNext} variant="outlined">
-                                    {activeStep === formSteps.length - 1 ? 'Ferdig' : 'Neste'}
-                                </Button>
-                        </Box>
-                    </React.Fragment>
-                )}
-            </Box>
-        </Box>
+        <div>
+            <Typography variant={"h6"}>React Hook Form - NestedValue</Typography>
+            <form className="form" onSubmit={onSubmit}>
+                {activeStep === 0 && <section>
+                    <FormControl fullWidth size="small" sx={{ mt: 3 }}>
+                        <InputLabel>Skjema</InputLabel>
+                        <Select
+                            value={selectedForm}
+                            onChange={(e: SelectChangeEvent) => setValue("selectedForm", e.target.value as string)}
+                            error={Boolean(errors?.selectedForm)}
+                        >
+                            {forms.map((item, index) => (
+                                <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
+                            ))}
+                        </Select>
+                        <FormHelperText error={Boolean(errors?.selectedForm)}>
+                            {errors?.selectedForm?.message}
+                        </FormHelperText>
+                    </FormControl>
+                    <FormControl component="fieldset" sx={{ width: 750 }}>
+                        <FormLabel>Velg hvordan skjema skal sendes til arkivet</FormLabel>
+                        <RadioGroup onChange={(e) => setValue("casetypeToArchive", e.target.value as string)} defaultValue={casetypesToArchive[0].value} sx={{maxWidth: 400}}>
+                            {casetypesToArchive.map((configuration, index) => (
+                                <div key={index}>
+                                    <FormControlLabel value={configuration.value} control={<Radio />} label={configuration.label} />
+                                    <Typography sx={{ fontSize: 14 }}>{configuration.description}</Typography>
+                                </div>
+                            ))}
+                        </RadioGroup>
+                    </FormControl>
+                </section>}
+                {activeStep=== 1 &&
+                <section>
+                    <FormGroup>
+                        <FormControl>
+                            <TextField size="small" variant="outlined" label="Tittel" sx={{ mb: 3 }}/>
+                            <TextField size="small" variant="outlined" label="Offentlig tittel" sx={{ mb: 3 }}/>
+                            <InputLabel sx={{ mb: 3 }}>Sakstype</InputLabel>
+                            <Select size="small" sx={{ mb: 3 }}
+                                    value={casetype}
+                                    onChange={(e: SelectChangeEvent) => setValue("casetype", e.target.value as string)}
+                                    error={Boolean(errors?.casetype)}
+                            >
+                                {casetypes.map((item, index) => (
+                                    <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                    </FormGroup>
+                </section>}
+                <Button disabled={activeStep===0} onClick={handleBack} type="button" className="button">Tilbake</Button>
+                <Button onClick={handleNext} type="button" className="button">Neste</Button>
+
+                <input type="submit" className="button"/>
+            </form>
+        </div>
     );
 }
 
