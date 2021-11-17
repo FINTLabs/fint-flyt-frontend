@@ -193,6 +193,10 @@ const NewIntegrationForm: React.FunctionComponent<RouteComponentProps<any>> = ()
                                     <TextField onChange={(e) => setValue("accessCode", e.target.value as string)}
                                                size="small" variant="outlined" label="Tilgangskode (Jp.TGkode)" sx={{ mb: 3 }}/>
                                 </FormControl>
+                                <FormControl>
+                                    <TextField disabled={accessCode === ''} onChange={(e) => setValue("legalbasis", e.target.value as string)}
+                                               size="small" variant="outlined" label="Hjemmel" sx={{ mb: 3 }}/>
+                                </FormControl>
                             </FormGroup>
                         </AccordionDetails>
                     </Accordion>

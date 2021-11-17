@@ -1,18 +1,19 @@
-import React from "react";
+import React, {ReactNode} from "react";
 import {
-    AppBar,
+    AppBar, Badge,
     Box,
-    Drawer,
+    Drawer, IconButton, MenuItem,
     Theme,
     Toolbar,
     Typography
 } from "@mui/material";
-
-// @ts-ignore
+import NotificationsIcon from '@mui/icons-material/Notifications';
 import FintLogo from "../../images/fint-by-vigo-white.svg";
-import {createStyles, makeStyles} from "@mui/styles";
+import {createStyles, makeStyles, useTheme} from "@mui/styles";
 import Router from "./Router";
 import MenuItems from "./MenuItems";
+import {red} from "@mui/material/colors";
+import {log} from "util";
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme: Theme) =>
@@ -52,10 +53,16 @@ const useStyles = makeStyles((theme: Theme) =>
         flex: {
             flex: 1
         },
+        badge: {
+            cursor: 'pointer',
+        }
     }));
+
 
 function Main() {
     const classes = useStyles();
+    const numberOfNotifications: number = 4;
+
     return (
         <Box display="flex" position="relative" width={1} height={1}>
             <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
@@ -64,6 +71,12 @@ function Main() {
                     <Typography variant="h6" color="inherit" noWrap className={classes.flex}>
                         Skjema til arkivintegrasjon
                     </Typography>
+                    <Badge className={classes.badge}
+                           badgeContent={numberOfNotifications}
+                           color="secondary"
+                           onClick={(e)=> console.log('notifications', numberOfNotifications)}>
+                        <NotificationsIcon/>
+                    </Badge>
                 </Toolbar>
             </AppBar>
             <Drawer variant="permanent" className={classes.drawer}>

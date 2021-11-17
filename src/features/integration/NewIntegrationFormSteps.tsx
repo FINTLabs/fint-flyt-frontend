@@ -96,11 +96,14 @@ const NewIntegrationForm: React.FunctionComponent<RouteComponentProps<any>> = ()
 
     const {handleSubmit, watch, setValue, formState: { errors }} = useForm<FormValues>({
         defaultValues: { selectedForm: '', casetypeToArchive: 'NEW', title: '', officialTitle: '', casetype:'',
-            administrativeUnit:'', archiveSection:'', journalUnit:'', accessCode:'', legalbasis:'', caseWorker: '', principle:'', classN:'', caseId:'' }
+            administrativeUnit:'', archiveSection:'', legalbasis: '', journalUnit:'', accessCode:'', caseWorker: '', principle:'', classN:'', caseId:'' }
     });
 
     const selectedForm = watch("selectedForm");
     const casetype = watch("casetype");
+    const administrativeUnit = watch("administrativeUnit");
+    const archiveSection = watch("archiveSection");
+    const legalBasis = watch("legalbasis");
 
 
     const onSubmit = handleSubmit((data) => console.log(data));
@@ -156,7 +159,7 @@ const NewIntegrationForm: React.FunctionComponent<RouteComponentProps<any>> = ()
                                 </FormControl>
                                 <FormControl>
                                     <InputLabel>Administrativ enhet</InputLabel>
-                                    <Select size="small" sx={{ mb: 3 }} value={''} onChange={(e: SelectChangeEvent) => setValue("administrativeUnit", e.target.value as string)}>
+                                    <Select size="small" sx={{ mb: 3 }} value={administrativeUnit} onChange={(e: SelectChangeEvent) => setValue("administrativeUnit", e.target.value as string)}>
                                         {administrativeUnits.map((item, index) => (
                                             <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
                                         ))}
@@ -172,7 +175,7 @@ const NewIntegrationForm: React.FunctionComponent<RouteComponentProps<any>> = ()
                                 </FormControl>
                                 <FormControl>
                                     <InputLabel>Arkivdel</InputLabel>
-                                    <Select size="small" sx={{ mb: 3 }} value={''} onChange={(e: SelectChangeEvent) => setValue("archiveSection", e.target.value as string)}>
+                                    <Select size="small" sx={{ mb: 3 }} value={archiveSection} onChange={(e: SelectChangeEvent) => setValue("archiveSection", e.target.value as string)}>
                                         {archiveSections.map((item, index) => (
                                             <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
                                         ))}
@@ -189,6 +192,10 @@ const NewIntegrationForm: React.FunctionComponent<RouteComponentProps<any>> = ()
                                 <FormControl>
                                     <TextField onChange={(e) => setValue("accessCode", e.target.value as string)}
                                                size="small" variant="outlined" label="Tilgangskode (Jp.TGkode)" sx={{ mb: 3 }}/>
+                                </FormControl>
+                                <FormControl>
+                                    <TextField onChange={(e) => setValue("legalbasis", e.target.value as string)}
+                                               size="small" variant="outlined" label="Hjemmel" sx={{ mb: 3 }}/>
                                 </FormControl>
                         </FormGroup>
                     </section>}
