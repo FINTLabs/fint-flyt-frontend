@@ -1,19 +1,17 @@
-import React, {ReactNode} from "react";
+import React from "react";
 import {
     AppBar, Badge,
     Box,
-    Drawer, IconButton, MenuItem,
+    Drawer,
     Theme,
     Toolbar,
     Typography
 } from "@mui/material";
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import FintLogo from "../../images/fint-by-vigo-white.svg";
-import {createStyles, makeStyles, useTheme} from "@mui/styles";
+import {createStyles, makeStyles} from "@mui/styles";
 import Router from "./Router";
 import MenuItems from "./MenuItems";
-import {red} from "@mui/material/colors";
-import {log} from "util";
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme: Theme) =>
@@ -73,8 +71,7 @@ function Main() {
                     </Typography>
                     <Badge className={classes.badge}
                            badgeContent={numberOfNotifications}
-                           color="secondary"
-                           onClick={(e)=> console.log('notifications', numberOfNotifications)}>
+                           color="secondary">
                         <NotificationsIcon/>
                     </Badge>
                 </Toolbar>

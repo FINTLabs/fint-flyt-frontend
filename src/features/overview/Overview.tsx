@@ -1,4 +1,4 @@
-import {Box, Button, Card, CardActions, CardContent, CardMedia, Theme, Typography} from '@mui/material';
+import {Box, Theme, Typography} from '@mui/material';
 import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import {createStyles, makeStyles} from "@mui/styles";
@@ -12,7 +12,7 @@ const Overview: React.FunctionComponent<RouteComponentProps<any>> = () => {
 
     return (
         <Box display="flex" position="relative" width={1} height={1}>
-            Oversikt
+            <Typography>Oversikt</Typography>
         </Box>
     );
 }

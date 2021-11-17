@@ -4,6 +4,7 @@ import Log from "../log/Log";
 import NewIntegrationForm from "../integration/NewIntegrationForm";
 import NewIntegrationFormSteps from "../integration/NewIntegrationFormSteps";
 import Overview from "../overview/Overview";
+import Support from "../support/support";
 
 const routes: IRoute[] = [
     {
@@ -31,7 +32,7 @@ const routes: IRoute[] = [
         inNavigationMenu: true
     },
     {
-        path: '/integration_overview',
+        path: '/overview',
         name: 'Integratsjonsoversikt',
         component: Overview,
         exact: true,
@@ -43,6 +44,15 @@ const routes: IRoute[] = [
         name: 'Logg',
         component: Log,
         icon: 'receipt',
+        exact: true,
+        inNavigationMenu: true
+    }
+    ,
+    {
+        path: '/support',
+        name: 'Support',
+        component: Support,
+        icon: 'contact_support',
         exact: true,
         inNavigationMenu: true
     }
