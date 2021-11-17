@@ -38,10 +38,10 @@ const useStyles = makeStyles((theme: Theme) =>
             backgroundColor: theme.palette.background.default,
             padding: 24,
             minHeight: "100vh",
-            marginTop: 56,
+            marginTop: theme.spacing(7),
             [theme.breakpoints.up("sm")]: {
                 height: "calc(100% - 64px)",
-                marginTop: 64
+                marginTop: theme.spacing(8)
             }
         },
         logo: {

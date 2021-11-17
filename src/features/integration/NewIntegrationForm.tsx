@@ -30,13 +30,13 @@ const useStyles = makeStyles((theme: Theme) =>
             width: 750
         },
         accordion: {
-            marginBottom: 16
+            marginBottom: theme.spacing(2)
         },
         submitButton: {
             backgroundColor: theme.palette.primary.dark,
             border: 'none',
             color: 'white',
-            padding: 16,
+            padding: theme.spacing(2),
             cursor: 'pointer'
         }
     }));
@@ -111,10 +111,7 @@ const NewIntegrationForm: React.FunctionComponent<RouteComponentProps<any>> = ()
                 <Typography variant={"h5"} sx={{mb: 2}}>Integrasjonskonfigurasjon</Typography>
                 <form className={classes.form} onSubmit={onSubmit}>
                     <Accordion className={classes.accordion} defaultExpanded={true}>
-                        <AccordionSummary  expandIcon={<ExpandMoreIcon />}
-                                           aria-controls="panel1a-content"
-                                           id="panel1a-header"
-                        >
+                        <AccordionSummary  expandIcon={<ExpandMoreIcon />}>
                             <Typography variant={"h6"}>Integrasjonslogikk</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
@@ -204,7 +201,6 @@ const NewIntegrationForm: React.FunctionComponent<RouteComponentProps<any>> = ()
                             <Typography variant={"h6"}>Journalpost</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-
                         </AccordionDetails>
                     </Accordion>
                     <Accordion className={classes.accordion}>
@@ -220,7 +216,6 @@ const NewIntegrationForm: React.FunctionComponent<RouteComponentProps<any>> = ()
                             <Typography variant={"h6"}>Avsender</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-
                         </AccordionDetails>
                     </Accordion>
                     <Accordion className={classes.accordion}>
@@ -228,8 +223,10 @@ const NewIntegrationForm: React.FunctionComponent<RouteComponentProps<any>> = ()
                             <Typography variant={"h6"}>Kontroller skjema</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
+                            <Typography variant={"h6"}>Integrasjonslogikk</Typography>
                             <Typography>skjema: {selectedForm}</Typography>
                             <Typography>Type sak: {casetypeToArchive}</Typography>
+                            <Typography variant={"h6"}>Sak</Typography>
                             <Typography>caseId: {caseId}</Typography>
                             <Typography>Tittel: {title}</Typography>
                             <Typography>Offisiell tittel: {officialTitle}</Typography>
