@@ -2,6 +2,7 @@ import IRoute from './Route';
 import Dashboard from "../dashboard/Dashboard";
 import Log from "../log/Log";
 import NewIntegrationForm from "../integration/NewIntegrationForm";
+import NewIntegrationFormSteps from "../integration/NewIntegrationFormSteps";
 
 const routes: IRoute[] = [
     {
@@ -14,7 +15,7 @@ const routes: IRoute[] = [
     },
     {
         path: '/new_integration',
-        name: 'Ny integrasjon',
+        name: 'Ny integrasjon (acc)',
         component: NewIntegrationForm,
         exact: true,
         icon: 'add',
@@ -22,8 +23,8 @@ const routes: IRoute[] = [
     },
     {
         path: '/integration_overview',
-        name: 'Integrasjonsoversikt',
-        component: NewIntegrationForm,
+        name: 'Ny integrasjon (step)',
+        component: NewIntegrationFormSteps,
         exact: true,
         icon: 'sync',
         inNavigationMenu: true
