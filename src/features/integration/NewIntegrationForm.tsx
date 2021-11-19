@@ -20,6 +20,11 @@ import {
 } from "@mui/material";
 import {createStyles, makeStyles} from "@mui/styles";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import RecordConfiguration from "./components/RecordConfiguration";
+import DocumentConfiguration from "./components/DocumentConfiguration";
+import ApplicantConfiguration from "./components/ApplicantConfiguration";
+import CaseConfiguration from "./components/CaseConfiguration";
+import {FormValues} from "./resources/FormValues";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -41,32 +46,10 @@ const useStyles = makeStyles((theme: Theme) =>
         }
     }));
 
-type FormValues = {
-    name: string,
-    description: string,
-    selectedForm: string;
-    creationStrategy: string;
-    title: string;
-    officialTitle: string;
-    caseType: string;
-    caseId: string;
-    administrativeUnit: string;
-    archiveUnit: string;
-    journalUnit: string;
-    accessCode: string;
-    legalbasis: string;
-    caseWorker: string;
-    principle: string;
-    primaryClass: string;
-    secondPrinciple: string;
-    secondaryClass: string;
-    createdBy: string;
-};
-
 const forms = [
     { label: "TT-skjema", value: "TT" },
-    { label: "Søknadsskjema", value: "application_form" },
-    { label: "Registreringsskjema", value: "registration_form" }
+    { label: "Skjema1", value: "1_form" },
+    { label: "Skjema2", value: "2_form" }
 ];
 const creationStrategies = [
     {label: 'Som ny sak',value: 'NEW',  description: 'Innsendt skjema oppretter en ny sak i Elements'},
@@ -74,49 +57,14 @@ const creationStrategies = [
             'Elements basert på informasjon i skjemaet. Dersom det ikke fins en eksisterende sak opprettes en ny sak' },
     {label: 'På eksisterende sak', value: 'COLLECTION', description: 'Innsendt skjema skal leveres til en forhåndsdefinert samlesak'}
 ];
-const casetypes = [
-    {label: 'Sakstype Foo', value: 'SAK1'},
-    {label: 'Sakstype Bar', value: 'SAK2'}
-]
-const administrativeUnits = [
-    {label: 'Enhet Foo', value: '1HET'},
-    {label: 'Enhet Bar', value: '2HET'}
-]
-
-const primaryClasses = [
-    { label: 'personnummer', value: 2 },
-    { label: '', value: 34 },
-    { label: 'Klasse 12-3b', value: '12-3b' },
-    { label: 'Klasse x52S', value: 'x52s' }
-]
-const archiveSections = [{value: 'arkivdel1', label: 'arkivdel1'},{value: 'arkivdel2', label: 'arkivdel2'}];
 
 
 const NewIntegrationForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const classes = useStyles();
 
     const {handleSubmit, watch, setValue, formState: {}} = useForm<FormValues>({
-        defaultValues: { name: '', description: '', selectedForm: '', creationStrategy: 'NEW', title: '', officialTitle: '', caseType:'',
-            administrativeUnit:'', archiveUnit:'', journalUnit:'', accessCode:'', legalbasis:'', caseWorker: '', createdBy:'', principle: '', primaryClass: '', caseId:'' }
+        defaultValues: { selectedForm: '', creationStrategy: 'NEW', title: '', administrativeUnit:'', archiveUnit:'', caseType: ''}
     });
-
-    const name = watch("name")
-    const description = watch("description")
-    const selectedForm = watch("selectedForm");
-    const caseType = watch("caseType");
-    const creationStrategy = watch("creationStrategy");
-    const caseId = watch("caseId");
-    const title = watch("title");
-    const officialTitle = watch("officialTitle");
-    const administrativeUnit = watch("administrativeUnit");
-    const archiveUnit = watch("archiveUnit");
-    const journalUnit = watch("journalUnit");
-    const accessCode = watch("accessCode");
-    const legalbasis = watch("legalbasis");
-    const caseWorker = watch("caseWorker");
-    const principle = watch("principle");
-    const primaryClass = watch("primaryClass");
-    const createdBy = watch("createdBy");
 
     const onSubmit = handleSubmit((data) => console.log(data));
 
@@ -144,7 +92,7 @@ const NewIntegrationForm: React.FunctionComponent<RouteComponentProps<any>> = ()
                                 <FormControl className={classes.formControl} size="small" sx={{ mt: 1, mb: 1 }}>
                                     <InputLabel>Skjema</InputLabel>
                                     <Select
-                                        value={selectedForm}
+                                        value={watch("selectedForm")}
                                         onChange={(e: SelectChangeEvent) => setValue("selectedForm", e.target.value as string)}
                                     >
                                         {forms.map((item, index) => (
@@ -168,72 +116,11 @@ const NewIntegrationForm: React.FunctionComponent<RouteComponentProps<any>> = ()
                     </Accordion>
                     <Accordion className={classes.accordion}>
                         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                            <Typography variant={"h6"}>Konfigurer sak</Typography>
+                            <Typography variant={"h6"}>Sakspost</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                            <FormGroup className={classes.formControl}>
-                                {creationStrategy === 'COLLECTION' && <FormControl>
-                                    <TextField
-                                        onChange={(e) => setValue("caseId", e.target.value as string)}
-                                        size="small" variant="outlined" label="SaksId" sx={{ mb: 3 }}/>
-                                </FormControl>}
-                                <FormControl>
-                                    <TextField onChange={(e) => setValue("title", e.target.value as string)}
-                                               size="small" variant="outlined" label="Tittel" sx={{ mb: 3 }}/>
-                                </FormControl>
-                                <FormControl>
-                                    <TextField onChange={(e) => setValue("officialTitle", e.target.value as string)}
-                                               size="small" variant="outlined" label="Offentlig tittel" sx={{ mb: 3 }}/>
-                                </FormControl>
-                                <FormControl>
-                                    <InputLabel>Type</InputLabel>
-                                    <Select size="small" sx={{ mb: 3 }} value={caseType} onChange={(e: SelectChangeEvent) => setValue("caseType", e.target.value as string)}>
-                                        {casetypes.map((item, index) => (
-                                            <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
-                                        ))}
-                                    </Select>
-                                </FormControl>
-                                <FormControl>
-                                    <InputLabel>Administrativ enhet</InputLabel>
-                                    <Select size="small" sx={{ mb: 3 }} value={administrativeUnit} onChange={(e: SelectChangeEvent) => setValue("administrativeUnit", e.target.value as string)}>
-                                        {administrativeUnits.map((item, index) => (
-                                            <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
-                                        ))}
-                                    </Select>
-                                </FormControl>
-                                <FormControl>
-                                    <TextField onChange={(e) => setValue("journalUnit", e.target.value as string)}
-                                               size="small" variant="outlined" label="Journalenhet" sx={{ mb: 3 }}/>
-                                </FormControl>
-                                <FormControl>
-                                    <InputLabel id="archive-section-label">Arkivdel</InputLabel>
-                                    <Select labelId="archive-section-label" size="small" sx={{ mb: 3 }} value={archiveUnit} onChange={(e: SelectChangeEvent) => setValue("archiveUnit", e.target.value as string)}>
-                                        {archiveSections.map((item, index) => (
-                                            <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
-                                        ))}
-                                    </Select>
-                                </FormControl>
-                                <FormControl>
-                                    <TextField onChange={(e) => setValue("caseWorker", e.target.value as string)}
-                                               size="small" variant="outlined" label="Saksbehandler" sx={{ mb: 3 }}/>
-                                </FormControl>
-                                <FormControl>
-                                    <TextField onChange={(e) => setValue("accessCode", e.target.value as string)}
-                                               size="small" variant="outlined" label="Tilgangskode (Jp.TGkode)" sx={{ mb: 3 }}/>
-                                </FormControl>
-                                <FormControl>
-                                    <TextField disabled={accessCode === ''} onChange={(e) => setValue("legalbasis", e.target.value as string)}
-                                               size="small" variant="outlined" label="Hjemmel" sx={{ mb: 3 }}/>
-                                </FormControl>
-                                <FormControl>
-                                    <TextField onChange={(e) => setValue("principle", e.target.value as string)}
-                                               size="small" variant="outlined" label="Primærklassering" sx={{ mb: 3 }}/>
-                                </FormControl>
-                                <FormControl>
-                                    <TextField onChange={(e) => setValue("createdBy", e.target.value as string)}
-                                               size="small" variant="outlined" label="Opprettet av" sx={{ mb: 3 }}/>
-                                </FormControl>
-                            </FormGroup>
+                            <CaseConfiguration style={classes} setValue={setValue} creationStrategy={watch("creationStrategy")} caseType={watch("caseType")} administrativeUnit={watch("administrativeUnit")}
+                                               archiveUnit={watch("archiveUnit")}/>
                         </AccordionDetails>
                     </Accordion>
                     <Accordion className={classes.accordion}>
@@ -241,6 +128,7 @@ const NewIntegrationForm: React.FunctionComponent<RouteComponentProps<any>> = ()
                             <Typography variant={"h6"}>Journalpost</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
+                            <RecordConfiguration style={classes} setValue={setValue} />
                         </AccordionDetails>
                     </Accordion>
                     <Accordion className={classes.accordion}>
@@ -248,7 +136,7 @@ const NewIntegrationForm: React.FunctionComponent<RouteComponentProps<any>> = ()
                             <Typography variant={"h6"}>Dokument- og objektbeskrivelse</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-
+                            <DocumentConfiguration style={classes} setValue={setValue}/>
                         </AccordionDetails>
                     </Accordion>
                     <Accordion className={classes.accordion}>
@@ -256,6 +144,7 @@ const NewIntegrationForm: React.FunctionComponent<RouteComponentProps<any>> = ()
                             <Typography variant={"h6"}>Avsender</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
+                            <ApplicantConfiguration style={classes} setValue={setValue}/>
                         </AccordionDetails>
                     </Accordion>
                     <Accordion className={classes.accordion}>
@@ -264,23 +153,38 @@ const NewIntegrationForm: React.FunctionComponent<RouteComponentProps<any>> = ()
                         </AccordionSummary>
                         <AccordionDetails>
                             <Typography variant={"h6"}>Integrasjonslogikk</Typography>
-                            <Typography>navn: {name}</Typography>
-                            <Typography>beskrivelse: {description}</Typography>
-                            <Typography>skjema: {selectedForm}</Typography>
-                            <Typography>Type sak: {creationStrategy}</Typography>
-                            <Typography variant={"h6"}>Sak</Typography>
-                            <Typography>caseId: {caseId}</Typography>
-                            <Typography>Tittel: {title}</Typography>
-                            <Typography>Offentlig tittel: {officialTitle}</Typography>
-                            <Typography>Administrativ enhet: {administrativeUnit}</Typography>
-                            <Typography>Saksbehandler: {caseWorker}</Typography>
-                            <Typography>Arkivdel: {archiveUnit}</Typography>
-                            <Typography>Tigangskode: {accessCode}</Typography>
-                            <Typography>Hjemmel: {legalbasis}</Typography>
-                            <Typography>Klasse: {primaryClass}</Typography>
-                            <Typography>Ordningsprinsipp: {principle}</Typography>
-                            <Typography>Journalenhet: {journalUnit}</Typography>
-                            <Typography>Opprettet av: {createdBy}</Typography>
+                            <Typography>navn: {watch("name")}</Typography>
+                            <Typography>beskrivelse: {watch("description")}</Typography>
+                            <Typography>skjema: {watch("selectedForm")}</Typography>
+                            <Typography>sakstype: {watch("caseId")}</Typography>
+                            <Typography>Type sak: {watch("creationStrategy")}</Typography>
+                            <Typography variant={"h6"} sx={{mt: 3, mb: 3}}>Sak</Typography>
+                            <Typography>caseId: {watch("caseId")}</Typography>
+                            <Typography>Tittel: {watch("title")}</Typography>
+                            <Typography>Offentlig tittel: {watch("publicTitle")}</Typography>
+                            <Typography>Administrativ enhet: {watch("administrativeUnit")}</Typography>
+                            <Typography>Arkivdel: {watch("archiveUnit")}</Typography>
+                            <Typography>Journalenhet: {watch("recordUnit")}</Typography>
+                            <Typography>Tigangskode: {watch("accessCode")}</Typography>
+                            <Typography>Hjemmel: {watch("paragraph")}</Typography>
+                            <Typography>Saksbehandler: {watch("caseWorker")}</Typography>
+                            <Typography>Klassering(Ordningsprinsipp): {watch("classification")}</Typography>
+                            <Typography>Primærklasse: {watch("primaryClass")}</Typography>
+                            <Typography>Sekundærklasse: {watch("secondaryClass")}</Typography>
+                            <Typography>Opprettet av: {watch("createdBy")}</Typography>
+                            <Typography variant={"h6"} sx={{mt: 3, mb: 3}}>Dokument</Typography>
+                            <Typography>Tittel: {watch("documentTitle")}</Typography>
+                            <Typography>Tilgangskode: {watch("documentAccessCode")}</Typography>
+                            <Typography>Hjemmel: {watch("documentParagraph")}</Typography>
+                            <Typography>Variant: {watch("documentVariant")}</Typography>
+                            <Typography>Format: {watch("documentFormat")}</Typography>
+                            <Typography variant={"h6"} sx={{mt: 3, mb: 3}}>Avsender</Typography>
+                            <Typography>Navn: {watch("applicantName")}</Typography>
+                            <Typography>Adresse: {watch("applicantAddress")}</Typography>
+                            <Typography>Postnr: {watch("applicantPostalCode")}</Typography>
+                            <Typography>Poststed: {watch("applicantCity")}</Typography>
+                            <Typography>Tlf: {watch("applicantPhoneNumber")}</Typography>
+                            <Typography>Epost: {watch("applicantEmail")}</Typography>
                         </AccordionDetails>
                     </Accordion>
                     <div>
