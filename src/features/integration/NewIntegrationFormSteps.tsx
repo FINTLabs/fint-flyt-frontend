@@ -18,7 +18,7 @@ import {
     Typography
 } from "@mui/material";
 import {createStyles, makeStyles} from "@mui/styles";
-import FormStepper from "./components/FormStepper";
+import FormStepper from "./FormStepper";
 import {useState} from "react";
 
 const useStyles = makeStyles((theme: Theme) =>

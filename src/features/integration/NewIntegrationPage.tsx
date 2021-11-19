@@ -4,17 +4,6 @@ import {RouteComponentProps, withRouter} from "react-router-dom";
 import {
     Accordion, AccordionDetails, AccordionSummary,
     Box,
-    FormControl,
-    FormControlLabel,
-    FormGroup,
-    FormLabel,
-    InputLabel,
-    MenuItem,
-    Radio,
-    RadioGroup,
-    Select,
-    SelectChangeEvent,
-    TextField,
     Theme,
     Typography
 } from "@mui/material";
@@ -25,6 +14,7 @@ import DocumentConfiguration from "./components/DocumentConfiguration";
 import ApplicantConfiguration from "./components/ApplicantConfiguration";
 import CaseConfiguration from "./components/CaseConfiguration";
 import {FormValues} from "./resources/FormValues";
+import CaseInformation from "./components/CaseInformation";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -46,20 +36,8 @@ const useStyles = makeStyles((theme: Theme) =>
         }
     }));
 
-const forms = [
-    { label: "TT-skjema", value: "TT" },
-    { label: "Skjema1", value: "1_form" },
-    { label: "Skjema2", value: "2_form" }
-];
-const creationStrategies = [
-    {label: 'Som ny sak',value: 'NEW',  description: 'Innsendt skjema oppretter en ny sak i Elements'},
-    {label: 'På eksisterende sak', value: 'EXISTING',  description: 'Innsendt skjema gjenfinner eksisterende sak i ' +
-            'Elements basert på informasjon i skjemaet. Dersom det ikke fins en eksisterende sak opprettes en ny sak' },
-    {label: 'På eksisterende sak', value: 'COLLECTION', description: 'Innsendt skjema skal leveres til en forhåndsdefinert samlesak'}
-];
 
-
-const NewIntegrationForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
+const NewIntegrationPage: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const classes = useStyles();
 
     const {handleSubmit, watch, setValue, formState: {}} = useForm<FormValues>({
@@ -78,42 +56,10 @@ const NewIntegrationForm: React.FunctionComponent<RouteComponentProps<any>> = ()
                             <Typography variant={"h6"}>Integrasjonslogikk</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                            <FormGroup>
-                                <FormControl className={classes.formControl}>
-                                    <TextField onChange={(e) => setValue("name", e.target.value as string)}
-                                               size="small" variant="outlined" label="Navn" sx={{ mb: 3 }}/>
-                                </FormControl>
-                                <FormControl className={classes.formControl}>
-                                    <TextField onChange={(e) => setValue("description", e.target.value as string)}
-                                               size="small" variant="outlined" label="Beskrivelse" sx={{ mb: 3 }}/>
-                                </FormControl>
-                            </FormGroup>
-                            <FormGroup>
-                                <FormControl className={classes.formControl} size="small" sx={{ mt: 1, mb: 1 }}>
-                                    <InputLabel>Skjema</InputLabel>
-                                    <Select
-                                        value={watch("selectedForm")}
-                                        onChange={(e: SelectChangeEvent) => setValue("selectedForm", e.target.value as string)}
-                                    >
-                                        {forms.map((item, index) => (
-                                            <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
-                                        ))}
-                                    </Select>
-                                </FormControl>
-                                <FormControl className={classes.formControl} component="fieldset">
-                                    <FormLabel>Velg hvordan skjema skal sendes til arkivet</FormLabel>
-                                    <RadioGroup onChange={(e) => setValue("creationStrategy", e.target.value as string)} defaultValue={creationStrategies[0].value} sx={{maxWidth: 400}}>
-                                        {creationStrategies.map((configuration, index) => (
-                                            <div key={index}>
-                                                <FormControlLabel value={configuration.value} control={<Radio />} label={configuration.label} />
-                                                <Typography sx={{ fontSize: 14 }}>{configuration.description}</Typography>
-                                            </div>
-                                        ))}
-                                    </RadioGroup>
-                                </FormControl>
-                            </FormGroup>
+                            <CaseInformation setValue={setValue} style={classes} creationStrategy={watch("creationStrategy")} selectedForm={watch("selectedForm")} />
                         </AccordionDetails>
                     </Accordion>
+
                     <Accordion className={classes.accordion}>
                         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                             <Typography variant={"h6"}>Sakspost</Typography>
@@ -196,4 +142,4 @@ const NewIntegrationForm: React.FunctionComponent<RouteComponentProps<any>> = ()
     );
 }
 
-export default withRouter(NewIntegrationForm);
+export default withRouter(NewIntegrationPage);
