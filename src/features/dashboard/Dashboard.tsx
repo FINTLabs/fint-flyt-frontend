@@ -1,7 +1,8 @@
 import {Box, Button, Card, CardActions, CardContent, Theme, Typography} from '@mui/material';
-import React from 'react';
+import React, {useContext} from 'react';
 import { RouteComponentProps, withRouter, Link as RouterLink } from 'react-router-dom';
 import {createStyles, makeStyles} from "@mui/styles";
+import {AppContext} from "../../App";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -13,8 +14,7 @@ const useStyles = makeStyles((theme: Theme) =>
     }));
 
 const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
-    const numberOfIntegrations= 17;
-    const numberOfErrors= 4;
+    const context = useContext(AppContext);
     const classes = useStyles();
 
     return (
@@ -22,7 +22,7 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
             <Card className={classes.card} sx={{ maxWidth: 345 }}>
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
-                        {numberOfIntegrations} Skjema
+                        {context.numberOfIntegrations} Skjema
                     </Typography>
                 </CardContent>
                 <CardActions>
@@ -33,12 +33,12 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
             <Card className={classes.card} sx={{ maxWidth: 345 }}>
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
-                        {numberOfErrors} Feilmeldinger
+                        {context.numberOfErrors} Feilmeldinger
                     </Typography>
                 </CardContent>
                 <CardActions>
                     <Button size="small" variant="outlined" component={RouterLink} to="/log">Se logg</Button>
-                    <Button size="small" variant="outlined" component={RouterLink} to="/log">Opprett supportsak</Button>
+                    <Button size="small" variant="outlined" component={RouterLink} to="/support">Opprett supportsak</Button>
                 </CardActions>
             </Card>
         </Box>

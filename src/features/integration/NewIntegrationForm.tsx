@@ -42,20 +42,25 @@ const useStyles = makeStyles((theme: Theme) =>
     }));
 
 type FormValues = {
-    casetypeToArchive: string;
+    name: string,
+    description: string,
     selectedForm: string;
+    creationStrategy: string;
     title: string;
     officialTitle: string;
-    casetype: string;
+    caseType: string;
     caseId: string;
     administrativeUnit: string;
-    archiveSection: string;
+    archiveUnit: string;
     journalUnit: string;
     accessCode: string;
     legalbasis: string;
     caseWorker: string;
     principle: string;
-    classN: string;
+    primaryClass: string;
+    secondPrinciple: string;
+    secondaryClass: string;
+    createdBy: string;
 };
 
 const forms = [
@@ -63,7 +68,7 @@ const forms = [
     { label: "Søknadsskjema", value: "application_form" },
     { label: "Registreringsskjema", value: "registration_form" }
 ];
-const casetypesToArchive = [
+const creationStrategies = [
     {label: 'Som ny sak',value: 'NEW',  description: 'Innsendt skjema oppretter en ny sak i Elements'},
     {label: 'På eksisterende sak', value: 'EXISTING',  description: 'Innsendt skjema gjenfinner eksisterende sak i ' +
             'Elements basert på informasjon i skjemaet. Dersom det ikke fins en eksisterende sak opprettes en ny sak' },
@@ -77,31 +82,41 @@ const administrativeUnits = [
     {label: 'Enhet Foo', value: '1HET'},
     {label: 'Enhet Bar', value: '2HET'}
 ]
+
+const primaryClasses = [
+    { label: 'personnummer', value: 2 },
+    { label: '', value: 34 },
+    { label: 'Klasse 12-3b', value: '12-3b' },
+    { label: 'Klasse x52S', value: 'x52s' }
+]
 const archiveSections = [{value: 'arkivdel1', label: 'arkivdel1'},{value: 'arkivdel2', label: 'arkivdel2'}];
 
 
 const NewIntegrationForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const classes = useStyles();
 
-    const {handleSubmit, watch, setValue, formState: { errors }} = useForm<FormValues>({
-        defaultValues: { selectedForm: '', casetypeToArchive: 'NEW', title: '', officialTitle: '', casetype:'',
-            administrativeUnit:'', archiveSection:'', journalUnit:'', accessCode:'', legalbasis:'', caseWorker: '', principle:'', classN:'', caseId:'' }
+    const {handleSubmit, watch, setValue, formState: {}} = useForm<FormValues>({
+        defaultValues: { name: '', description: '', selectedForm: '', creationStrategy: 'NEW', title: '', officialTitle: '', caseType:'',
+            administrativeUnit:'', archiveUnit:'', journalUnit:'', accessCode:'', legalbasis:'', caseWorker: '', createdBy:'', principle: '', primaryClass: '', caseId:'' }
     });
 
+    const name = watch("name")
+    const description = watch("description")
     const selectedForm = watch("selectedForm");
-    const casetype = watch("casetype");
-    const casetypeToArchive = watch("casetypeToArchive");
+    const caseType = watch("caseType");
+    const creationStrategy = watch("creationStrategy");
     const caseId = watch("caseId");
     const title = watch("title");
     const officialTitle = watch("officialTitle");
     const administrativeUnit = watch("administrativeUnit");
-    const archiveSection = watch("archiveSection");
+    const archiveUnit = watch("archiveUnit");
     const journalUnit = watch("journalUnit");
     const accessCode = watch("accessCode");
     const legalbasis = watch("legalbasis");
     const caseWorker = watch("caseWorker");
     const principle = watch("principle");
-    const classN = watch("classN");
+    const primaryClass = watch("primaryClass");
+    const createdBy = watch("createdBy");
 
     const onSubmit = handleSubmit((data) => console.log(data));
 
@@ -115,28 +130,40 @@ const NewIntegrationForm: React.FunctionComponent<RouteComponentProps<any>> = ()
                             <Typography variant={"h6"}>Integrasjonslogikk</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                            <FormControl className={classes.formControl} size="small" sx={{ mt: 1, mb: 1 }}>
-                                <InputLabel>Skjema</InputLabel>
-                                <Select
-                                    value={selectedForm}
-                                    onChange={(e: SelectChangeEvent) => setValue("selectedForm", e.target.value as string)}
-                                >
-                                    {forms.map((item, index) => (
-                                        <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl>
-                            <FormControl className={classes.formControl} component="fieldset">
-                                <FormLabel>Velg hvordan skjema skal sendes til arkivet</FormLabel>
-                                <RadioGroup onChange={(e) => setValue("casetypeToArchive", e.target.value as string)} defaultValue={casetypesToArchive[0].value} sx={{maxWidth: 400}}>
-                                    {casetypesToArchive.map((configuration, index) => (
-                                        <div key={index}>
-                                            <FormControlLabel value={configuration.value} control={<Radio />} label={configuration.label} />
-                                            <Typography sx={{ fontSize: 14 }}>{configuration.description}</Typography>
-                                        </div>
-                                    ))}
-                                </RadioGroup>
-                            </FormControl>
+                            <FormGroup>
+                                <FormControl className={classes.formControl}>
+                                    <TextField onChange={(e) => setValue("name", e.target.value as string)}
+                                               size="small" variant="outlined" label="Navn" sx={{ mb: 3 }}/>
+                                </FormControl>
+                                <FormControl className={classes.formControl}>
+                                    <TextField onChange={(e) => setValue("description", e.target.value as string)}
+                                               size="small" variant="outlined" label="Beskrivelse" sx={{ mb: 3 }}/>
+                                </FormControl>
+                            </FormGroup>
+                            <FormGroup>
+                                <FormControl className={classes.formControl} size="small" sx={{ mt: 1, mb: 1 }}>
+                                    <InputLabel>Skjema</InputLabel>
+                                    <Select
+                                        value={selectedForm}
+                                        onChange={(e: SelectChangeEvent) => setValue("selectedForm", e.target.value as string)}
+                                    >
+                                        {forms.map((item, index) => (
+                                            <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
+                                        ))}
+                                    </Select>
+                                </FormControl>
+                                <FormControl className={classes.formControl} component="fieldset">
+                                    <FormLabel>Velg hvordan skjema skal sendes til arkivet</FormLabel>
+                                    <RadioGroup onChange={(e) => setValue("creationStrategy", e.target.value as string)} defaultValue={creationStrategies[0].value} sx={{maxWidth: 400}}>
+                                        {creationStrategies.map((configuration, index) => (
+                                            <div key={index}>
+                                                <FormControlLabel value={configuration.value} control={<Radio />} label={configuration.label} />
+                                                <Typography sx={{ fontSize: 14 }}>{configuration.description}</Typography>
+                                            </div>
+                                        ))}
+                                    </RadioGroup>
+                                </FormControl>
+                            </FormGroup>
                         </AccordionDetails>
                     </Accordion>
                     <Accordion className={classes.accordion}>
@@ -145,42 +172,11 @@ const NewIntegrationForm: React.FunctionComponent<RouteComponentProps<any>> = ()
                         </AccordionSummary>
                         <AccordionDetails>
                             <FormGroup className={classes.formControl}>
-                                <FormControl>
-                                    <TextField onChange={(e) => setValue("caseId", e.target.value as string)}
-                                               size="small" variant="outlined" label="SaksId" sx={{ mb: 3 }}/>
-                                </FormControl>
-                                <FormControl>
-                                    <InputLabel>Sakstype</InputLabel>
-                                    <Select size="small" sx={{ mb: 3 }} value={casetype} onChange={(e: SelectChangeEvent) => setValue("casetype", e.target.value as string)} error={Boolean(errors?.casetype)}>
-                                        {casetypes.map((item, index) => (
-                                            <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
-                                        ))}
-                                    </Select>
-                                </FormControl>
-                                <FormControl>
-                                    <InputLabel>Administrativ enhet</InputLabel>
-                                    <Select size="small" sx={{ mb: 3 }} value={administrativeUnit} onChange={(e: SelectChangeEvent) => setValue("administrativeUnit", e.target.value as string)} error={Boolean(errors?.casetype)}>
-                                        {administrativeUnits.map((item, index) => (
-                                            <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
-                                        ))}
-                                    </Select>
-                                </FormControl>
-                                <FormControl>
-                                    <TextField onChange={(e) => setValue("caseWorker", e.target.value as string)}
-                                               size="small" variant="outlined" label="Saksbehandler" sx={{ mb: 3 }}/>
-                                </FormControl>
-                                <FormControl>
-                                    <TextField onChange={(e) => setValue("journalUnit", e.target.value as string)}
-                                               size="small" variant="outlined" label="Journalenhet" sx={{ mb: 3 }}/>
-                                </FormControl>
-                                <FormControl>
-                                    <InputLabel>Arkivdel</InputLabel>
-                                    <Select size="small" sx={{ mb: 3 }} value={archiveSection} onChange={(e: SelectChangeEvent) => setValue("archiveSection", e.target.value as string)}>
-                                        {archiveSections.map((item, index) => (
-                                            <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
-                                        ))}
-                                    </Select>
-                                </FormControl>
+                                {creationStrategy === 'COLLECTION' && <FormControl>
+                                    <TextField
+                                        onChange={(e) => setValue("caseId", e.target.value as string)}
+                                        size="small" variant="outlined" label="SaksId" sx={{ mb: 3 }}/>
+                                </FormControl>}
                                 <FormControl>
                                     <TextField onChange={(e) => setValue("title", e.target.value as string)}
                                                size="small" variant="outlined" label="Tittel" sx={{ mb: 3 }}/>
@@ -190,12 +186,52 @@ const NewIntegrationForm: React.FunctionComponent<RouteComponentProps<any>> = ()
                                                size="small" variant="outlined" label="Offentlig tittel" sx={{ mb: 3 }}/>
                                 </FormControl>
                                 <FormControl>
+                                    <InputLabel>Type</InputLabel>
+                                    <Select size="small" sx={{ mb: 3 }} value={caseType} onChange={(e: SelectChangeEvent) => setValue("caseType", e.target.value as string)}>
+                                        {casetypes.map((item, index) => (
+                                            <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
+                                        ))}
+                                    </Select>
+                                </FormControl>
+                                <FormControl>
+                                    <InputLabel>Administrativ enhet</InputLabel>
+                                    <Select size="small" sx={{ mb: 3 }} value={administrativeUnit} onChange={(e: SelectChangeEvent) => setValue("administrativeUnit", e.target.value as string)}>
+                                        {administrativeUnits.map((item, index) => (
+                                            <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
+                                        ))}
+                                    </Select>
+                                </FormControl>
+                                <FormControl>
+                                    <TextField onChange={(e) => setValue("journalUnit", e.target.value as string)}
+                                               size="small" variant="outlined" label="Journalenhet" sx={{ mb: 3 }}/>
+                                </FormControl>
+                                <FormControl>
+                                    <InputLabel id="archive-section-label">Arkivdel</InputLabel>
+                                    <Select labelId="archive-section-label" size="small" sx={{ mb: 3 }} value={archiveUnit} onChange={(e: SelectChangeEvent) => setValue("archiveUnit", e.target.value as string)}>
+                                        {archiveSections.map((item, index) => (
+                                            <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
+                                        ))}
+                                    </Select>
+                                </FormControl>
+                                <FormControl>
+                                    <TextField onChange={(e) => setValue("caseWorker", e.target.value as string)}
+                                               size="small" variant="outlined" label="Saksbehandler" sx={{ mb: 3 }}/>
+                                </FormControl>
+                                <FormControl>
                                     <TextField onChange={(e) => setValue("accessCode", e.target.value as string)}
                                                size="small" variant="outlined" label="Tilgangskode (Jp.TGkode)" sx={{ mb: 3 }}/>
                                 </FormControl>
                                 <FormControl>
                                     <TextField disabled={accessCode === ''} onChange={(e) => setValue("legalbasis", e.target.value as string)}
                                                size="small" variant="outlined" label="Hjemmel" sx={{ mb: 3 }}/>
+                                </FormControl>
+                                <FormControl>
+                                    <TextField onChange={(e) => setValue("principle", e.target.value as string)}
+                                               size="small" variant="outlined" label="Primærklassering" sx={{ mb: 3 }}/>
+                                </FormControl>
+                                <FormControl>
+                                    <TextField onChange={(e) => setValue("createdBy", e.target.value as string)}
+                                               size="small" variant="outlined" label="Opprettet av" sx={{ mb: 3 }}/>
                                 </FormControl>
                             </FormGroup>
                         </AccordionDetails>
@@ -228,20 +264,23 @@ const NewIntegrationForm: React.FunctionComponent<RouteComponentProps<any>> = ()
                         </AccordionSummary>
                         <AccordionDetails>
                             <Typography variant={"h6"}>Integrasjonslogikk</Typography>
+                            <Typography>navn: {name}</Typography>
+                            <Typography>beskrivelse: {description}</Typography>
                             <Typography>skjema: {selectedForm}</Typography>
-                            <Typography>Type sak: {casetypeToArchive}</Typography>
+                            <Typography>Type sak: {creationStrategy}</Typography>
                             <Typography variant={"h6"}>Sak</Typography>
                             <Typography>caseId: {caseId}</Typography>
                             <Typography>Tittel: {title}</Typography>
-                            <Typography>Offisiell tittel: {officialTitle}</Typography>
+                            <Typography>Offentlig tittel: {officialTitle}</Typography>
                             <Typography>Administrativ enhet: {administrativeUnit}</Typography>
                             <Typography>Saksbehandler: {caseWorker}</Typography>
-                            <Typography>Arkivdel: {archiveSection}</Typography>
+                            <Typography>Arkivdel: {archiveUnit}</Typography>
                             <Typography>Tigangskode: {accessCode}</Typography>
                             <Typography>Hjemmel: {legalbasis}</Typography>
-                            <Typography>Klasse: {classN}</Typography>
+                            <Typography>Klasse: {primaryClass}</Typography>
                             <Typography>Ordningsprinsipp: {principle}</Typography>
                             <Typography>Journalenhet: {journalUnit}</Typography>
+                            <Typography>Opprettet av: {createdBy}</Typography>
                         </AccordionDetails>
                     </Accordion>
                     <div>
