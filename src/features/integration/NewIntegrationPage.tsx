@@ -13,7 +13,7 @@ import RecordConfiguration from "./components/RecordConfiguration";
 import DocumentConfiguration from "./components/DocumentConfiguration";
 import ApplicantConfiguration from "./components/ApplicantConfiguration";
 import CaseConfiguration from "./components/CaseConfiguration";
-import {FormValues} from "./resources/FormValues";
+import IFormData from "./types/FormData";
 import CaseInformation from "./components/CaseInformation";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -27,6 +27,9 @@ const useStyles = makeStyles((theme: Theme) =>
         accordion: {
             marginBottom: theme.spacing(2)
         },
+        button: {
+            marginRight: theme.spacing(1)
+        },
         submitButton: {
             backgroundColor: theme.palette.primary.dark,
             border: 'none',
@@ -36,15 +39,15 @@ const useStyles = makeStyles((theme: Theme) =>
         }
     }));
 
-
 const NewIntegrationPage: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const classes = useStyles();
 
-    const {handleSubmit, watch, setValue, formState: {}} = useForm<FormValues>({
+    const {handleSubmit, watch, setValue, formState: {}} = useForm<IFormData>({
         defaultValues: { selectedForm: '', creationStrategy: 'NEW', title: '', administrativeUnit:'', archiveUnit:'', caseType: ''}
     });
 
-    const onSubmit = handleSubmit((data) => console.log(data));
+
+    const onSubmit = handleSubmit((data: IFormData) => console.log(data));
 
     return (
         <Box display="flex" position="relative" width={1} height={1}>
@@ -59,7 +62,6 @@ const NewIntegrationPage: React.FunctionComponent<RouteComponentProps<any>> = ()
                             <CaseInformation setValue={setValue} style={classes} creationStrategy={watch("creationStrategy")} selectedForm={watch("selectedForm")} />
                         </AccordionDetails>
                     </Accordion>
-
                     <Accordion className={classes.accordion}>
                         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                             <Typography variant={"h6"}>Sakspost</Typography>
@@ -119,18 +121,18 @@ const NewIntegrationPage: React.FunctionComponent<RouteComponentProps<any>> = ()
                             <Typography>Sekundærklasse: {watch("secondaryClass")}</Typography>
                             <Typography>Opprettet av: {watch("createdBy")}</Typography>
                             <Typography variant={"h6"} sx={{mt: 3, mb: 3}}>Dokument</Typography>
-                            <Typography>Tittel: {watch("documentTitle")}</Typography>
-                            <Typography>Tilgangskode: {watch("documentAccessCode")}</Typography>
-                            <Typography>Hjemmel: {watch("documentParagraph")}</Typography>
-                            <Typography>Variant: {watch("documentVariant")}</Typography>
-                            <Typography>Format: {watch("documentFormat")}</Typography>
+                            <Typography>Tittel: {watch("documentData.title")}</Typography>
+                            <Typography>Tilgangskode: {watch("documentData.accessCode")}</Typography>
+                            <Typography>Hjemmel: {watch("documentData.paragraph")}</Typography>
+                            <Typography>Variant: {watch("documentData.variant")}</Typography>
+                            <Typography>Format: {watch("documentData.format")}</Typography>
                             <Typography variant={"h6"} sx={{mt: 3, mb: 3}}>Avsender</Typography>
-                            <Typography>Navn: {watch("applicantName")}</Typography>
-                            <Typography>Adresse: {watch("applicantAddress")}</Typography>
-                            <Typography>Postnr: {watch("applicantPostalCode")}</Typography>
-                            <Typography>Poststed: {watch("applicantCity")}</Typography>
-                            <Typography>Tlf: {watch("applicantPhoneNumber")}</Typography>
-                            <Typography>Epost: {watch("applicantEmail")}</Typography>
+                            <Typography>Navn: {watch("applicantData.name")}</Typography>
+                            <Typography>Adresse: {watch("applicantData.address")}</Typography>
+                            <Typography>Postnr: {watch("applicantData.postalCode")}</Typography>
+                            <Typography>Poststed: {watch("applicantData.city")}</Typography>
+                            <Typography>Tlf: {watch("applicantData.phoneNumber")}</Typography>
+                            <Typography>Epost: {watch("applicantData.email")}</Typography>
                         </AccordionDetails>
                     </Accordion>
                     <div>

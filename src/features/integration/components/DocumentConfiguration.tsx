@@ -1,32 +1,28 @@
-import {FormControl, FormGroup, TextField} from '@mui/material';
 import React from 'react';
+import {FormControl, FormGroup, TextField} from "@mui/material";
 
 const DocumentConfiguration: React.FunctionComponent<any> = (props) => {
     return (
         <FormGroup className={props.style.formControl}>
             <FormControl>
-                <TextField onChange={(e) => props.setValue("applicantName", e.target.value as string)}
-                           size="small" variant="outlined" label="Navn" sx={{ mb: 3 }}/>
+                <TextField onChange={(e) => props.setValue("documentData.title", e.target.value as string)}
+                           size="small" variant="outlined" label="Tittel" sx={{ mb: 3 }}/>
             </FormControl>
             <FormControl>
-                <TextField onChange={(e) => props.setValue("applicantAddress", e.target.value as string)}
-                           size="small" variant="outlined" label="Adresse" sx={{ mb: 3 }}/>
+                <TextField onChange={(e) => props.setValue("documentData.accessCode", e.target.value as string)}
+                           size="small" variant="outlined" label="Tilgangskode" sx={{ mb: 3 }}/>
             </FormControl>
             <FormControl>
-                <TextField onChange={(e) => props.setValue("applicantPostalCode", e.target.value as string)}
-                           size="small" variant="outlined" label="Postnummer" sx={{ mb: 3 }}/>
+                <TextField onChange={(e) => props.setValue("documentData.paragraph", e.target.value as string)}
+                           size="small" variant="outlined" label="Hjemmel" sx={{ mb: 3 }}/>
             </FormControl>
             <FormControl>
-                <TextField onChange={(e) => props.setValue("applicantCity", e.target.value as string)}
-                           size="small" variant="outlined" label="By" sx={{ mb: 3 }}/>
+                <TextField onChange={(e) => props.setValue("documentData.variant", e.target.value as string)}
+                           size="small" variant="outlined" label="Variant" sx={{ mb: 3 }}/>
             </FormControl>
             <FormControl>
-                <TextField onChange={(e) => props.setValue("applicantPhoneNumber", e.target.value as string)}
-                           size="small" variant="outlined" label="Telefonnummer" sx={{ mb: 3 }}/>
-            </FormControl>
-            <FormControl>
-                <TextField onChange={(e) => props.setValue("applicantEmail", e.target.value as string)}
-                           size="small" variant="outlined" label="Epost" sx={{ mb: 3 }}/>
+                <TextField onChange={(e) => props.setValue("documentData.format", e.target.value as string)}
+                           size="small" variant="outlined" label="Format" sx={{ mb: 3 }}/>
             </FormControl>
         </FormGroup>
     );

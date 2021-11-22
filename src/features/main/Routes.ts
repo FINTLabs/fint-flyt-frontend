@@ -29,7 +29,7 @@ const routes: IRoute[] = [
         component: NewIntegrationFormSteps,
         exact: true,
         icon: 'add',
-        inNavigationMenu: true
+        inNavigationMenu: false
     },
     {
         path: '/overview',
