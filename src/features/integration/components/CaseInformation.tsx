@@ -50,7 +50,7 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
                 </FormControl>
                 <FormControl className={props.style.formControl} component="fieldset">
                     <FormLabel>Velg hvordan skjema skal sendes til arkivet</FormLabel>
-                    <RadioGroup onChange={(e) => props.setValue("creationStrategy", e.target.value as string)} defaultValue={creationStrategies[0].value} sx={{maxWidth: 400}}>
+                    <RadioGroup onChange={(e) => props.setValue("caseData.caseCreationStrategy", e.target.value as string)} defaultValue={creationStrategies[0].value} sx={{maxWidth: 400}}>
                         {creationStrategies.map((configuration, index) => (
                             <div key={index}>
                                 <FormControlLabel value={configuration.value} control={<Radio />} label={configuration.label} />

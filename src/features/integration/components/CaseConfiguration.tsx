@@ -27,20 +27,20 @@ const CaseConfiguration: React.FunctionComponent<any> = (props) => {
             <FormGroup className={props.style.formControl}>
                 {props.creationStrategy === 'COLLECTION' && <FormControl>
                     <TextField
-                        onChange={(e) => props.setValue("caseId", e.target.value as string)}
+                        onChange={(e) => props.setValue("caseData.caseId", e.target.value as string)}
                         size="small" variant="outlined" label="SaksId" sx={{ mb: 3 }}/>
                 </FormControl>}
                 <FormControl>
-                    <TextField onChange={(e) => props.setValue("title", e.target.value as string)}
+                    <TextField onChange={(e) => props.setValue("caseData.title", e.target.value as string)}
                                size="small" variant="outlined" label="Tittel" sx={{ mb: 3 }}/>
                 </FormControl>
                 <FormControl>
-                    <TextField onChange={(e) => props.setValue("publicTitle", e.target.value as string)}
+                    <TextField onChange={(e) => props.setValue("caseData.publicTitle", e.target.value as string)}
                                size="small" variant="outlined" label="Offentlig tittel" sx={{ mb: 3 }}/>
                 </FormControl>
                 <FormControl>
                     <InputLabel>Type</InputLabel>
-                    <Select size="small" sx={{ mb: 3 }} value={props.caseType} onChange={(e: SelectChangeEvent) => props.setValue("caseType", e.target.value as string)}>
+                    <Select size="small" sx={{ mb: 3 }} value={props.caseType} onChange={(e: SelectChangeEvent) => props.setValue("caseData.caseType", e.target.value as string)}>
                         {casetypes.map((item, index) => (
                             <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
                         ))}
@@ -48,7 +48,7 @@ const CaseConfiguration: React.FunctionComponent<any> = (props) => {
                 </FormControl>
                 <FormControl>
                     <InputLabel>Administrativ enhet</InputLabel>
-                    <Select size="small" sx={{ mb: 3 }} value={props.administrativeUnit} onChange={(e: SelectChangeEvent) => props.setValue("administrativeUnit", e.target.value as string)}>
+                    <Select size="small" sx={{ mb: 3 }} value={props.administrativeUnit} onChange={(e: SelectChangeEvent) => props.setValue("caseData.administrativeUnit", e.target.value as string)}>
                         {administrativeUnits.map((item, index) => (
                             <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
                         ))}
@@ -56,42 +56,42 @@ const CaseConfiguration: React.FunctionComponent<any> = (props) => {
                 </FormControl>
                 <FormControl>
                     <InputLabel id="archive-section-label">Arkivdel</InputLabel>
-                    <Select labelId="archive-section-label" size="small" sx={{ mb: 3 }} value={props.archiveUnit} onChange={(e: SelectChangeEvent) => props.setValue("archiveUnit", e.target.value as string)}>
+                    <Select labelId="archive-section-label" size="small" sx={{ mb: 3 }} value={props.archiveUnit} onChange={(e: SelectChangeEvent) => props.setValue("caseData.archiveUnit", e.target.value as string)}>
                         {archiveSections.map((item, index) => (
                             <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
                         ))}
                     </Select>
                 </FormControl>
                 <FormControl>
-                    <TextField onChange={(e) => props.setValue("recordUnit", e.target.value as string)}
+                    <TextField onChange={(e) => props.setValue("caseData.recordUnit", e.target.value as string)}
                                size="small" variant="outlined" label="Journalenhet" sx={{ mb: 3 }}/>
                 </FormControl>
                 <FormControl>
-                    <TextField onChange={(e) => props.setValue("accessCode", e.target.value as string)}
+                    <TextField onChange={(e) => props.setValue("caseData.accessCode", e.target.value as string)}
                                size="small" variant="outlined" label="Tilgangskode (Jp.TGkode)" sx={{ mb: 3 }}/>
                 </FormControl>
                 <FormControl>
-                    <TextField onChange={(e) => props.setValue("paragraph", e.target.value as string)}
+                    <TextField onChange={(e) => props.setValue("caseData.paragraph", e.target.value as string)}
                                size="small" variant="outlined" label="Hjemmel" sx={{ mb: 3 }}/>
                 </FormControl>
                 <FormControl>
-                    <TextField onChange={(e) => props.setValue("caseWorker", e.target.value as string)}
+                    <TextField onChange={(e) => props.setValue("caseData.caseWorker", e.target.value as string)}
                                size="small" variant="outlined" label="Saksbehandler" sx={{ mb: 3 }}/>
                 </FormControl>
                 <FormControl>
-                    <TextField onChange={(e) => props.setValue("classification", e.target.value as string)}
+                    <TextField onChange={(e) => props.setValue("caseData.classification", e.target.value as string)}
                                size="small" variant="outlined" label="Klassering(Ordningsprinsipp)" sx={{ mb: 3 }}/>
                 </FormControl>
                 <FormControl>
-                    <TextField onChange={(e) => props.setValue("primaryClass", e.target.value as string)}
+                    <TextField onChange={(e) => props.setValue("caseData.primaryClass", e.target.value as string)}
                                size="small" variant="outlined" label="Primærklassering" sx={{ mb: 3 }}/>
                 </FormControl>
                 <FormControl>
-                    <TextField onChange={(e) => props.setValue("secondaryClass", e.target.value as string)}
+                    <TextField onChange={(e) => props.setValue("caseData.secondaryClass", e.target.value as string)}
                                size="small" variant="outlined" label="Sekundærklassering" sx={{ mb: 3 }}/>
                 </FormControl>
                 <FormControl>
-                    <TextField onChange={(e) => props.setValue("createdBy", e.target.value as string)}
+                    <TextField onChange={(e) => props.setValue("caseData.createdBy", e.target.value as string)}
                                size="small" variant="outlined" label="Opprettet av" sx={{ mb: 3 }}/>
                 </FormControl>
             </FormGroup>

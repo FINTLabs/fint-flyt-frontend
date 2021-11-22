@@ -9,8 +9,8 @@ const getLatestByID = (id: any) => {
     return http.get<Array<IFormData>>(`/integration/configuration/${id}/latest`);
 }
 
-const get = (id: any) => {
-    return http.get<IFormData>(`/integration/configuration/${id}`);
+const get = () => {
+    return http.get<IFormData>(`/integration/configuration/`);
 };
 
 const getByIdAndVersion = (id: any, version: any) => {

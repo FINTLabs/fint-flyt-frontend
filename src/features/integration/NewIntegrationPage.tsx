@@ -15,6 +15,7 @@ import ApplicantConfiguration from "./components/ApplicantConfiguration";
 import CaseConfiguration from "./components/CaseConfiguration";
 import IFormData from "./types/FormData";
 import CaseInformation from "./components/CaseInformation";
+import IntegrationService from "./service/IntegrationService";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -41,13 +42,36 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const NewIntegrationPage: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const classes = useStyles();
-
     const {handleSubmit, watch, setValue, formState: {}} = useForm<IFormData>({
-        defaultValues: { selectedForm: '', creationStrategy: 'NEW', title: '', administrativeUnit:'', archiveUnit:'', caseType: ''}
+        defaultValues: {
+            selectedForm: '',
+            caseData : {
+                caseCreationStrategy: 'NEW',
+                title: '',
+                administrativeUnit:'',
+                archiveUnit:'',
+                caseType: ''
+            }
+        }
     });
 
-
-    const onSubmit = handleSubmit((data: IFormData) => console.log(data));
+    const onSubmit = handleSubmit((data: IFormData) => {
+        const req = {
+            name: data.name,
+            description: data.description,
+            caseConfiguration: data.caseData,
+            recordConfiguration: data.recordData,
+            documentConfiguration: data.documentData,
+            applicantConfiguration: data.applicantData
+        }
+        IntegrationService.create(req)
+            .then((response: any) => {
+                console.log(response.data);
+            })
+            .catch((e: Error) => {
+                console.log(e);
+            });
+    });
 
     return (
         <Box display="flex" position="relative" width={1} height={1}>
@@ -59,7 +83,7 @@ const NewIntegrationPage: React.FunctionComponent<RouteComponentProps<any>> = ()
                             <Typography variant={"h6"}>Integrasjonslogikk</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                            <CaseInformation setValue={setValue} style={classes} creationStrategy={watch("creationStrategy")} selectedForm={watch("selectedForm")} />
+                            <CaseInformation setValue={setValue} style={classes} caseCreationStrategy={watch("caseData.caseCreationStrategy")} selectedForm={watch("selectedForm")} />
                         </AccordionDetails>
                     </Accordion>
                     <Accordion className={classes.accordion}>
@@ -67,8 +91,8 @@ const NewIntegrationPage: React.FunctionComponent<RouteComponentProps<any>> = ()
                             <Typography variant={"h6"}>Sakspost</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                            <CaseConfiguration style={classes} setValue={setValue} creationStrategy={watch("creationStrategy")} caseType={watch("caseType")} administrativeUnit={watch("administrativeUnit")}
-                                               archiveUnit={watch("archiveUnit")}/>
+                            <CaseConfiguration style={classes} setValue={setValue} caseCreationStrategy={watch("caseData.caseCreationStrategy")} caseType={watch("caseData.caseType")} administrativeUnit={watch("caseData.administrativeUnit")}
+                                               archiveUnit={watch("caseData.archiveUnit")}/>
                         </AccordionDetails>
                     </Accordion>
                     <Accordion className={classes.accordion}>
@@ -105,21 +129,21 @@ const NewIntegrationPage: React.FunctionComponent<RouteComponentProps<any>> = ()
                             <Typography>beskrivelse: {watch("description")}</Typography>
                             <Typography>skjema: {watch("selectedForm")}</Typography>
                             <Typography>sakstype: {watch("caseId")}</Typography>
-                            <Typography>Type sak: {watch("creationStrategy")}</Typography>
+                            <Typography>Type sak: {watch("caseData.caseCreationStrategy")}</Typography>
                             <Typography variant={"h6"} sx={{mt: 3, mb: 3}}>Sak</Typography>
                             <Typography>caseId: {watch("caseId")}</Typography>
-                            <Typography>Tittel: {watch("title")}</Typography>
-                            <Typography>Offentlig tittel: {watch("publicTitle")}</Typography>
-                            <Typography>Administrativ enhet: {watch("administrativeUnit")}</Typography>
-                            <Typography>Arkivdel: {watch("archiveUnit")}</Typography>
-                            <Typography>Journalenhet: {watch("recordUnit")}</Typography>
-                            <Typography>Tigangskode: {watch("accessCode")}</Typography>
-                            <Typography>Hjemmel: {watch("paragraph")}</Typography>
-                            <Typography>Saksbehandler: {watch("caseWorker")}</Typography>
-                            <Typography>Klassering(Ordningsprinsipp): {watch("classification")}</Typography>
-                            <Typography>Primærklasse: {watch("primaryClass")}</Typography>
-                            <Typography>Sekundærklasse: {watch("secondaryClass")}</Typography>
-                            <Typography>Opprettet av: {watch("createdBy")}</Typography>
+                            <Typography>Tittel: {watch("caseData.title")}</Typography>
+                            <Typography>Offentlig tittel: {watch("caseData.publicTitle")}</Typography>
+                            <Typography>Administrativ enhet: {watch("caseData.administrativeUnit")}</Typography>
+                            <Typography>Arkivdel: {watch("caseData.archiveUnit")}</Typography>
+                            <Typography>Journalenhet: {watch("caseData.recordUnit")}</Typography>
+                            <Typography>Tigangskode: {watch("caseData.accessCode")}</Typography>
+                            <Typography>Hjemmel: {watch("caseData.paragraph")}</Typography>
+                            <Typography>Saksbehandler: {watch("caseData.caseWorker")}</Typography>
+                            <Typography>Klassering(Ordningsprinsipp): {watch("caseData.classification")}</Typography>
+                            <Typography>Primærklasse: {watch("caseData.primaryClass")}</Typography>
+                            <Typography>Sekundærklasse: {watch("caseData.secondaryClass")}</Typography>
+                            <Typography>Opprettet av: {watch("caseData.createdBy")}</Typography>
                             <Typography variant={"h6"} sx={{mt: 3, mb: 3}}>Dokument</Typography>
                             <Typography>Tittel: {watch("documentData.title")}</Typography>
                             <Typography>Tilgangskode: {watch("documentData.accessCode")}</Typography>
