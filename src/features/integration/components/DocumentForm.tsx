@@ -1,7 +1,7 @@
 import React from 'react';
 import {FormControl, FormGroup, TextField} from "@mui/material";
 
-const DocumentConfiguration: React.FunctionComponent<any> = (props) => {
+const DocumentForm: React.FunctionComponent<any> = (props) => {
     return (
         <FormGroup className={props.style.formControl}>
             <FormControl>
@@ -28,4 +28,4 @@ const DocumentConfiguration: React.FunctionComponent<any> = (props) => {
     );
 }
 
-export default DocumentConfiguration;
+export default DocumentForm;

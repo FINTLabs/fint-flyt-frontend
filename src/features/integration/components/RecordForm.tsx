@@ -1,7 +1,7 @@
 import {FormControl, FormGroup, TextField} from '@mui/material';
 import React from 'react';
 
-const RecordConfiguration: React.FunctionComponent<any> = (props) => {
+const RecordForm: React.FunctionComponent<any> = (props) => {
     return (
         <FormGroup className={props.style.formControl}>
             <FormControl>
@@ -36,4 +36,4 @@ const RecordConfiguration: React.FunctionComponent<any> = (props) => {
     );
 }
 
-export default RecordConfiguration;
+export default RecordForm;

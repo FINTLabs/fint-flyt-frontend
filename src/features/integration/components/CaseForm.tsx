@@ -20,7 +20,7 @@ const administrativeUnits = [
 const archiveSections = [{value: 'arkivdel1', label: 'arkivdel1'},{value: 'arkivdel2', label: 'arkivdel2'}];
 
 
-const CaseConfiguration: React.FunctionComponent<any> = (props) => {
+const CaseForm: React.FunctionComponent<any> = (props) => {
 
     return (
         <div>
@@ -99,4 +99,4 @@ const CaseConfiguration: React.FunctionComponent<any> = (props) => {
     );
 }
 
-export default CaseConfiguration;
+export default CaseForm;

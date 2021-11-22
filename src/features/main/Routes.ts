@@ -1,8 +1,7 @@
 import IRoute from './Route';
 import Dashboard from "../dashboard/Dashboard";
 import Log from "../log/Log";
-import NewIntegrationPage from "../integration/NewIntegrationPage";
-import NewIntegrationFormSteps from "../integration/NewIntegrationFormSteps";
+import IntegrationConfigurationForm from "../integration/IntegrationConfigurationForm";
 import Overview from "../overview/Overview";
 import Support from "../support/support";
 
@@ -16,20 +15,12 @@ const routes: IRoute[] = [
         inNavigationMenu: true
     },
     {
-        path: '/new_integration',
-        name: 'Ny integrasjon (acc)',
-        component: NewIntegrationPage,
+        path: '/integration_configuration',
+        name: 'Ny integrasjon',
+        component: IntegrationConfigurationForm,
         exact: true,
         icon: 'add',
         inNavigationMenu: true
-    },
-    {
-        path: '/new_integration_steps',
-        name: 'Ny integrasjon (step)',
-        component: NewIntegrationFormSteps,
-        exact: true,
-        icon: 'add',
-        inNavigationMenu: false
     },
     {
         path: '/overview',
@@ -46,8 +37,7 @@ const routes: IRoute[] = [
         icon: 'receipt',
         exact: true,
         inNavigationMenu: true
-    }
-    ,
+    },
     {
         path: '/support',
         name: 'Support',

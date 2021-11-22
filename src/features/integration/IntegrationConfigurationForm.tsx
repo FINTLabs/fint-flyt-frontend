@@ -9,10 +9,10 @@ import {
 } from "@mui/material";
 import {createStyles, makeStyles} from "@mui/styles";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import RecordConfiguration from "./components/RecordConfiguration";
-import DocumentConfiguration from "./components/DocumentConfiguration";
-import ApplicantConfiguration from "./components/ApplicantConfiguration";
-import CaseConfiguration from "./components/CaseConfiguration";
+import RecordForm from "./components/RecordForm";
+import DocumentForm from "./components/DocumentForm";
+import ApplicantForm from "./components/ApplicantForm";
+import CaseForm from "./components/CaseForm";
 import IFormData from "./types/FormData";
 import CaseInformation from "./components/CaseInformation";
 import IntegrationService from "./service/IntegrationService";
@@ -40,14 +40,13 @@ const useStyles = makeStyles((theme: Theme) =>
         }
     }));
 
-const NewIntegrationPage: React.FunctionComponent<RouteComponentProps<any>> = () => {
+const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const classes = useStyles();
     const {handleSubmit, watch, setValue, formState: {}} = useForm<IFormData>({
         defaultValues: {
             selectedForm: '',
             caseData : {
                 caseCreationStrategy: 'NEW',
-                title: '',
                 administrativeUnit:'',
                 archiveUnit:'',
                 caseType: ''
@@ -110,8 +109,8 @@ const NewIntegrationPage: React.FunctionComponent<RouteComponentProps<any>> = ()
                             <Typography variant={"h6"}>Sakspost</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                            <CaseConfiguration style={classes} setValue={setValue} caseCreationStrategy={watch("caseData.caseCreationStrategy")} caseType={watch("caseData.caseType")} administrativeUnit={watch("caseData.administrativeUnit")}
-                                               archiveUnit={watch("caseData.archiveUnit")}/>
+                            <CaseForm style={classes} setValue={setValue} caseCreationStrategy={watch("caseData.caseCreationStrategy")} caseType={watch("caseData.caseType")} administrativeUnit={watch("caseData.administrativeUnit")}
+                                      archiveUnit={watch("caseData.archiveUnit")}/>
                         </AccordionDetails>
                     </Accordion>
                     <Accordion className={classes.accordion}>
@@ -119,7 +118,7 @@ const NewIntegrationPage: React.FunctionComponent<RouteComponentProps<any>> = ()
                             <Typography variant={"h6"}>Journalpost</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                            <RecordConfiguration style={classes} setValue={setValue} />
+                            <RecordForm style={classes} setValue={setValue} />
                         </AccordionDetails>
                     </Accordion>
                     <Accordion className={classes.accordion}>
@@ -127,7 +126,7 @@ const NewIntegrationPage: React.FunctionComponent<RouteComponentProps<any>> = ()
                             <Typography variant={"h6"}>Dokument- og objektbeskrivelse</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                            <DocumentConfiguration style={classes} setValue={setValue}/>
+                            <DocumentForm style={classes} setValue={setValue}/>
                         </AccordionDetails>
                     </Accordion>
                     <Accordion className={classes.accordion}>
@@ -135,7 +134,7 @@ const NewIntegrationPage: React.FunctionComponent<RouteComponentProps<any>> = ()
                             <Typography variant={"h6"}>Avsender</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                            <ApplicantConfiguration style={classes} setValue={setValue}/>
+                            <ApplicantForm style={classes} setValue={setValue}/>
                         </AccordionDetails>
                     </Accordion>
                     <Accordion className={classes.accordion}>
@@ -187,4 +186,4 @@ const NewIntegrationPage: React.FunctionComponent<RouteComponentProps<any>> = ()
     );
 }
 
-export default withRouter(NewIntegrationPage);
+export default withRouter(IntegrationConfigurationForm);
