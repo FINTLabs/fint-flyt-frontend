@@ -25,9 +25,9 @@ const CaseConfiguration: React.FunctionComponent<any> = (props) => {
     return (
         <div>
             <FormGroup className={props.style.formControl}>
-                {props.creationStrategy === 'COLLECTION' && <FormControl>
+                {props.caseCreationStrategy === 'EXISTING' && <FormControl>
                     <TextField
-                        onChange={(e) => props.setValue("caseData.caseId", e.target.value as string)}
+                        onChange={(e) => props.setValue("id", e.target.value as string)}
                         size="small" variant="outlined" label="SaksId" sx={{ mb: 3 }}/>
                 </FormControl>}
                 <FormControl>

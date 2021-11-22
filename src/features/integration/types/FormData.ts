@@ -4,7 +4,7 @@ import IRecordData from "./RecordData";
 import ICaseData from "./CaseData";
 
 export default interface IFormData {
-    caseId?: string;
+    id?: string;
     name: string,
     description: string,
     version?: string,

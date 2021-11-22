@@ -55,8 +55,29 @@ const NewIntegrationPage: React.FunctionComponent<RouteComponentProps<any>> = ()
         }
     });
 
+    const createNewConfiguration = (data: IFormData) => {
+        IntegrationService.create(data)
+            .then(response => {
+                console.log('created new configuraton', data);
+            })
+            .catch((e: Error) => {
+                console.log(e);
+            });
+    }
+
+    const updateConfiguration = (data: IFormData, id: any) =>{
+        IntegrationService.update(id, data)
+            .then(response => {
+                console.log('updated configuration', id);
+            })
+            .catch((e: Error) => {
+                console.log(e);
+            })
+    }
+
     const onSubmit = handleSubmit((data: IFormData) => {
         const req = {
+            id: data.id,
             name: data.name,
             description: data.description,
             caseConfiguration: data.caseData,
@@ -64,13 +85,11 @@ const NewIntegrationPage: React.FunctionComponent<RouteComponentProps<any>> = ()
             documentConfiguration: data.documentData,
             applicantConfiguration: data.applicantData
         }
-        IntegrationService.create(req)
-            .then((response: any) => {
-                console.log(response.data);
-            })
-            .catch((e: Error) => {
-                console.log(e);
-            });
+        if(data.id) {
+            updateConfiguration(req, req.id);
+        } else {
+            createNewConfiguration(req);
+        }
     });
 
     return (
@@ -128,10 +147,10 @@ const NewIntegrationPage: React.FunctionComponent<RouteComponentProps<any>> = ()
                             <Typography>navn: {watch("name")}</Typography>
                             <Typography>beskrivelse: {watch("description")}</Typography>
                             <Typography>skjema: {watch("selectedForm")}</Typography>
-                            <Typography>sakstype: {watch("caseId")}</Typography>
+                            <Typography>sakstype: {watch("caseData.caseType")}</Typography>
                             <Typography>Type sak: {watch("caseData.caseCreationStrategy")}</Typography>
                             <Typography variant={"h6"} sx={{mt: 3, mb: 3}}>Sak</Typography>
-                            <Typography>caseId: {watch("caseId")}</Typography>
+                            <Typography>caseId: {watch("id")}</Typography>
                             <Typography>Tittel: {watch("caseData.title")}</Typography>
                             <Typography>Offentlig tittel: {watch("caseData.publicTitle")}</Typography>
                             <Typography>Administrativ enhet: {watch("caseData.administrativeUnit")}</Typography>
