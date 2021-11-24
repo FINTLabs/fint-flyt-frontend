@@ -1,5 +1,5 @@
 import http from "../../../http-common";
-import IFormData from "../types/FormData";
+import IFormData from "../types/Form/FormData";
 
 const getLatest = () => {
     return http.get<Array<IFormData>>("/integration/configuration");
@@ -17,11 +17,11 @@ const getByIdAndVersion = (id: any, version: any) => {
     return http.get<IFormData>(`/integration/configuration/${id}/${version}`);
 };
 
-const create = (data: IFormData) => {
-    return http.post<IFormData>("/integration/configuration", data);
+const create = (data: any) => {
+    return http.post<any>("/integration/configuration", data);
 };
 
-const update = (id: any, data: IFormData) => {
+const update = (id: any, data: any) => {
     return http.put<any>(`/integration/configuration/${id}`, data);
 };
 

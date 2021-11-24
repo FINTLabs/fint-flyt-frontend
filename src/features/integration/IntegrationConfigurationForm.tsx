@@ -1,21 +1,18 @@
 import * as React from "react";
 import { useForm } from "react-hook-form";
 import {RouteComponentProps, withRouter} from "react-router-dom";
-import {
-    Accordion, AccordionDetails, AccordionSummary,
-    Box,
-    Theme,
-    Typography
-} from "@mui/material";
+import {Accordion, AccordionDetails, AccordionSummary, Box, Theme, Typography} from "@mui/material";
 import {createStyles, makeStyles} from "@mui/styles";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import RecordForm from "./components/RecordForm";
 import DocumentForm from "./components/DocumentForm";
 import ApplicantForm from "./components/ApplicantForm";
 import CaseForm from "./components/CaseForm";
-import IFormData from "./types/FormData";
+import IFormData from "./types/Form/FormData";
 import CaseInformation from "./components/CaseInformation";
 import IntegrationService from "./service/IntegrationService";
+import {defaultValues} from "./DefaultValues";
+import {mapToDto} from "./util";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -43,51 +40,36 @@ const useStyles = makeStyles((theme: Theme) =>
 const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const classes = useStyles();
     const {handleSubmit, watch, setValue, formState: {}} = useForm<IFormData>({
-        defaultValues: {
-            selectedForm: '',
-            caseData : {
-                caseCreationStrategy: 'NEW',
-                administrativeUnit:'',
-                archiveUnit:'',
-                caseType: ''
-            }
-        }
+        defaultValues: defaultValues
     });
 
-    const createNewConfiguration = (data: IFormData) => {
+    const createNewConfiguration = (data: any) => {
         IntegrationService.create(data)
             .then(response => {
                 console.log('created new configuraton', data);
             })
             .catch((e: Error) => {
-                console.log(e);
+                console.log('errror creating new', e);
             });
     }
 
-    const updateConfiguration = (data: IFormData, id: any) =>{
+    const updateConfiguration = (data: any, id: any) =>{
         IntegrationService.update(id, data)
             .then(response => {
                 console.log('updated configuration', id);
             })
             .catch((e: Error) => {
-                console.log(e);
+                console.log('errror updating',e);
             })
     }
 
     const onSubmit = handleSubmit((data: IFormData) => {
-        const req = {
-            id: data.id,
-            name: data.name,
-            description: data.description,
-            caseConfiguration: data.caseData,
-            recordConfiguration: data.recordData,
-            documentConfiguration: data.documentData,
-            applicantConfiguration: data.applicantData
-        }
+        const dto = mapToDto(data);
+
         if(data.id) {
-            updateConfiguration(req, req.id);
+            updateConfiguration(dto, data.id);
         } else {
-            createNewConfiguration(req);
+            createNewConfiguration(dto);
         }
     });
 
@@ -109,8 +91,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                             <Typography variant={"h6"}>Sakspost</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                            <CaseForm style={classes} setValue={setValue} caseCreationStrategy={watch("caseData.caseCreationStrategy")} caseType={watch("caseData.caseType")} administrativeUnit={watch("caseData.administrativeUnit")}
-                                      archiveUnit={watch("caseData.archiveUnit")}/>
+                            <CaseForm style={classes} watch={watch} setValue={setValue}/>
                         </AccordionDetails>
                     </Accordion>
                     <Accordion className={classes.accordion}>
@@ -118,7 +99,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                             <Typography variant={"h6"}>Journalpost</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                            <RecordForm style={classes} setValue={setValue} />
+                            <RecordForm style={classes} watch={watch}  setValue={setValue} />
                         </AccordionDetails>
                     </Accordion>
                     <Accordion className={classes.accordion}>
@@ -126,7 +107,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                             <Typography variant={"h6"}>Dokument- og objektbeskrivelse</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                            <DocumentForm style={classes} setValue={setValue}/>
+                            <DocumentForm style={classes} watch={watch} setValue={setValue}/>
                         </AccordionDetails>
                     </Accordion>
                     <Accordion className={classes.accordion}>
@@ -134,7 +115,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                             <Typography variant={"h6"}>Avsender</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                            <ApplicantForm style={classes} setValue={setValue}/>
+                            <ApplicantForm style={classes} watch={watch} setValue={setValue}/>
                         </AccordionDetails>
                     </Accordion>
                     <Accordion className={classes.accordion}>
@@ -142,39 +123,10 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                             <Typography variant={"h6"}>Kontroller skjema</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                            <Typography variant={"h6"}>Integrasjonslogikk</Typography>
-                            <Typography>navn: {watch("name")}</Typography>
-                            <Typography>beskrivelse: {watch("description")}</Typography>
-                            <Typography>skjema: {watch("selectedForm")}</Typography>
-                            <Typography>sakstype: {watch("caseData.caseType")}</Typography>
-                            <Typography>Type sak: {watch("caseData.caseCreationStrategy")}</Typography>
-                            <Typography variant={"h6"} sx={{mt: 3, mb: 3}}>Sak</Typography>
-                            <Typography>caseId: {watch("id")}</Typography>
-                            <Typography>Tittel: {watch("caseData.title")}</Typography>
-                            <Typography>Offentlig tittel: {watch("caseData.publicTitle")}</Typography>
-                            <Typography>Administrativ enhet: {watch("caseData.administrativeUnit")}</Typography>
-                            <Typography>Arkivdel: {watch("caseData.archiveUnit")}</Typography>
+                            <Typography>tittel: {watch("caseData.title")}</Typography>
+                            <Typography>pub.tittel: {watch("caseData.publicTitle")}</Typography>
                             <Typography>Journalenhet: {watch("caseData.recordUnit")}</Typography>
-                            <Typography>Tigangskode: {watch("caseData.accessCode")}</Typography>
-                            <Typography>Hjemmel: {watch("caseData.paragraph")}</Typography>
-                            <Typography>Saksbehandler: {watch("caseData.caseWorker")}</Typography>
-                            <Typography>Klassering(Ordningsprinsipp): {watch("caseData.classification")}</Typography>
-                            <Typography>Primærklasse: {watch("caseData.primaryClass")}</Typography>
-                            <Typography>Sekundærklasse: {watch("caseData.secondaryClass")}</Typography>
-                            <Typography>Opprettet av: {watch("caseData.createdBy")}</Typography>
-                            <Typography variant={"h6"} sx={{mt: 3, mb: 3}}>Dokument</Typography>
-                            <Typography>Tittel: {watch("documentData.title")}</Typography>
-                            <Typography>Tilgangskode: {watch("documentData.accessCode")}</Typography>
-                            <Typography>Hjemmel: {watch("documentData.paragraph")}</Typography>
-                            <Typography>Variant: {watch("documentData.variant")}</Typography>
-                            <Typography>Format: {watch("documentData.format")}</Typography>
-                            <Typography variant={"h6"} sx={{mt: 3, mb: 3}}>Avsender</Typography>
-                            <Typography>Navn: {watch("applicantData.name")}</Typography>
-                            <Typography>Adresse: {watch("applicantData.address")}</Typography>
-                            <Typography>Postnr: {watch("applicantData.postalCode")}</Typography>
-                            <Typography>Poststed: {watch("applicantData.city")}</Typography>
-                            <Typography>Tlf: {watch("applicantData.phoneNumber")}</Typography>
-                            <Typography>Epost: {watch("applicantData.email")}</Typography>
+                            <Typography>sakstype: {watch("caseData.caseType")}</Typography>
                         </AccordionDetails>
                     </Accordion>
                     <div>
