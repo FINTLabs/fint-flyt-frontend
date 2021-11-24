@@ -11,8 +11,8 @@ import CaseForm from "./components/CaseForm";
 import IFormData from "./types/Form/FormData";
 import CaseInformation from "./components/CaseInformation";
 import IntegrationService from "./service/IntegrationService";
-import {defaultValues} from "./DefaultValues";
-import {mapToDto} from "./util";
+import {defaultValues} from "./util/DefaultValues";
+import {mapToDto} from "./util/util";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

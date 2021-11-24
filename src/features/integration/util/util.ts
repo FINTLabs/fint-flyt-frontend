@@ -1,6 +1,6 @@
-import IFormData from "./types/Form/FormData";
-import {ConfigurationDto} from "./types/ConfigurationDto";
-import {VALUE_BUILDER_STRATEGY} from "./types/Field";
+import IFormData from "../types/Form/FormData";
+import {ConfigurationDto} from "../types/ConfigurationDto";
+import {VALUE_BUILDER_STRATEGY} from "../types/Field";
 
 export function mapToDto(data: IFormData): ConfigurationDto {
     return {
