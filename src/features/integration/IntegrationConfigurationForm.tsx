@@ -40,10 +40,10 @@ const useStyles = makeStyles((theme: Theme) =>
 const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState<string | false>(false);
-    const handleChange =
-        (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
-            setExpanded(isExpanded ? panel : false);
-        };
+
+    const handleChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+        setExpanded(isExpanded ? panel : false);
+    };
 
     const {handleSubmit, watch, setValue, formState: {}} = useForm<IFormData>({
         defaultValues: defaultValues
@@ -58,7 +58,6 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                 console.log('errror creating new', e);
             });
     }
-
     const updateConfiguration = (data: any, id: any) =>{
         IntegrationService.update(id, data)
             .then(response => {
@@ -71,7 +70,6 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
 
     const onSubmit = handleSubmit((data: IFormData) => {
         const dto = mapToDto(data);
-
         if(data.id) {
             updateConfiguration(dto, data.id);
         } else {
@@ -84,7 +82,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
             <Box>
                 <Typography variant={"h5"} sx={{mb: 2}}>Integrasjonskonfigurasjon</Typography>
                 <form className={classes.form} onSubmit={onSubmit}>
-                    <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')} className={classes.accordion} defaultExpanded={true}>
+                    <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')} className={classes.accordion}>
                         <AccordionSummary  expandIcon={<ExpandMoreIcon />}>
                             <Typography variant={"h6"}>Integrasjonslogikk</Typography>
                         </AccordionSummary>

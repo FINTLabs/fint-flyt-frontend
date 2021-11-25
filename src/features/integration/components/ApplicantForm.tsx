@@ -1,5 +1,6 @@
-import {FormControl, FormGroup, TextField} from '@mui/material';
+import {FormControl, FormGroup, InputLabel, MenuItem, Select, SelectChangeEvent, TextField} from '@mui/material';
 import React from 'react';
+import {dropdownPlaceholder} from "../util/DefaultValues";
 
 const ApplicantForm: React.FunctionComponent<any> = (props) => {
     return (
@@ -27,6 +28,18 @@ const ApplicantForm: React.FunctionComponent<any> = (props) => {
             <FormControl>
                 <TextField onChange={(e) => props.setValue("applicantData.email", e.target.value as string)}
                            size="small" variant="outlined" label="Epost" sx={{ mb: 3 }}/>
+            </FormControl>
+            <FormControl size="small" sx={{ mb: 3 }}>
+                <InputLabel>Skjerming</InputLabel>
+                <Select
+                    value={props.watch("applicantData.visibility")}
+                    label={"Skjerming"}
+                    onChange={(e: SelectChangeEvent) => props.setValue("applicantData.visibility", e.target.value as string)}
+                >
+                    {dropdownPlaceholder.map((item, index) => (
+                        <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
+                    ))}
+                </Select>
             </FormControl>
         </FormGroup>
     );

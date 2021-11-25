@@ -25,6 +25,9 @@ export const defaultValues = {
         paragraph: '',
         variant: '',
         format: '',
+    },
+    applicantData: {
+        visibility: ''
     }
 }
 
