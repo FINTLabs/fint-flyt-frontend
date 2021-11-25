@@ -27,7 +27,7 @@ export const defaultValues = {
         format: '',
     },
     applicantData: {
-        visibility: ''
+        hidden: ''
     }
 }
 

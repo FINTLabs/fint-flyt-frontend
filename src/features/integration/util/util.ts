@@ -7,7 +7,7 @@ export interface property {
 }
 
 export interface propertyString {
-    value?: string;
+    value: string;
     properties?: property[]
 }
 
@@ -17,22 +17,17 @@ export enum VALUE_BUILDER_STRATEGY {
 }
 
 export function createValueBuilder(inputString: any): ValueBuilder {
-    let inputTags = inputString.match(/[^{\}]+(?=})/g)
-    let valueString = inputString.replaceAll(/({[^{]*?)\w(?=\})}/g, "%s")
+    let foundTags = inputString.match(/[^{\}]+(?=})/g)
+    let stringWithReplacedTags = inputString.replaceAll(/({[^{]*?)\w(?=\})}/g, "%s")
 
-    let propertyTest: propertyString = {}
-
-    if(inputTags) {
-        propertyTest = {
-            value: valueString,
-            properties: inputTags?.map((tag: any, index: number): property => {
-                return {
-                    key: tag,
-                    order: index,
-                    source: 'FORM'
-                }
-            })
-        }
+    return {
+        value: stringWithReplacedTags,
+        properties: foundTags?.map((tag: any, index: number): property => {
+            return {
+                key: tag,
+                order: index,
+                source: 'FORM'
+            }
+        })
     }
-    return propertyTest
 }

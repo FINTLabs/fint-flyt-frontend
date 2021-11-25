@@ -32,9 +32,9 @@ const ApplicantForm: React.FunctionComponent<any> = (props) => {
             <FormControl size="small" sx={{ mb: 3 }}>
                 <InputLabel>Skjerming</InputLabel>
                 <Select
-                    value={props.watch("applicantData.visibility")}
+                    value={props.watch("applicantData.hidden")}
                     label={"Skjerming"}
-                    onChange={(e: SelectChangeEvent) => props.setValue("applicantData.visibility", e.target.value as string)}
+                    onChange={(e: SelectChangeEvent) => props.setValue("applicantData.hidden", e.target.value as string)}
                 >
                     {dropdownPlaceholder.map((item, index) => (
                         <MenuItem key={index} value={item.value}>{item.label}</MenuItem>

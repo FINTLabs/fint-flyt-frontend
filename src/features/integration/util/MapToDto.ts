@@ -238,7 +238,7 @@ export function mapToDto(data: IFormData): ConfigurationDto {
                     field: "skjerming",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
                     valueBuilder: {
-                        value: data.applicantData?.visibility
+                        value: data.applicantData?.hidden
                     }
                 }
             ]
