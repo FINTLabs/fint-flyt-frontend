@@ -102,17 +102,12 @@ export function mapToDto(data: IFormData): ConfigurationDto {
                 {
                     field: "tittel",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                    valueBuilder: {
-                        value: data.recordData?.title,
-                        properties: []
-                    }
+                    valueBuilder: createValueBuilder(data.recordData?.title?.value)
                 },
                 {
                     field: "offentigTittel",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                    valueBuilder: {
-                        value: data.recordData?.publicTitle
-                    }
+                    valueBuilder: createValueBuilder(data.recordData?.publicTitle?.value)
                 },
                 {
                     field: "dokumentkategori",

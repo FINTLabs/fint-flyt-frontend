@@ -16,10 +16,15 @@ export enum VALUE_BUILDER_STRATEGY {
     COMBINE_STRING_VALUE
 }
 
+/* TODO: Remove empty check after validation ensures no empty fields */
 export function createValueBuilder(inputString: any): ValueBuilder {
-    let foundTags = inputString.match(/[^{\}]+(?=})/g)
-    let stringWithReplacedTags = inputString.replaceAll(/({[^{]*?)\w(?=\})}/g, "%s")
+    let foundTags;
+    let stringWithReplacedTags;
 
+    if (inputString) {
+        foundTags = inputString.match(/[^{\}]+(?=})/g)
+        stringWithReplacedTags = inputString.replaceAll(/({[^{]*?)\w(?=\})}/g, "%s")
+    }
     return {
         value: stringWithReplacedTags,
         properties: foundTags?.map((tag: any, index: number): property => {

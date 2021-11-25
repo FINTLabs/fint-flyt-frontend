@@ -10,11 +10,11 @@ const RecordForm: React.FunctionComponent<any> = (props) => {
     return (
         <FormGroup className={props.style.formControl}>
             <FormControl>
-                <TextField onChange={(e) => props.setValue("recordData.title", e.target.value as string)}
+                <TextField onChange={(e) => props.setValue("recordData.title.value", e.target.value as string)}
                            size="small" variant="outlined" label="Tittel" sx={{ mb: 3 }}/>
             </FormControl>
             <FormControl>
-                <TextField onChange={(e) => props.setValue("recordData.publicTitle", e.target.value as string)}
+                <TextField onChange={(e) => props.setValue("recordData.publicTitle.value", e.target.value as string)}
                            size="small" variant="outlined" label="Offentlig tittel" sx={{ mb: 3 }}/>
             </FormControl>
             <FormControl size="small" sx={{ mb: 3 }}>
