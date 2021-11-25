@@ -129,10 +129,6 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                             <Typography variant={"h6"}>Kontroller skjema</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                            <Typography>tittel: {watch("caseData.title")}</Typography>
-                            <Typography>pub.tittel: {watch("caseData.publicTitle")}</Typography>
-                            <Typography>Journalenhet: {watch("caseData.recordUnit")}</Typography>
-                            <Typography>sakstype: {watch("caseData.caseType")}</Typography>
                         </AccordionDetails>
                     </Accordion>
                     <div>
