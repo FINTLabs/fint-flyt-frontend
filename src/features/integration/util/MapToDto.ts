@@ -14,16 +14,26 @@ export function mapToDto(data: IFormData): ConfigurationDto {
                     field: "tittel",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
                     valueBuilder: {
-                        value: data.caseData?.title.value, // søknadsskjema for %s %s
-                        properties: data.caseData?.title.properties
+                        value: data.caseData?.title, // "søknadsskjema for %s %s"
+                        properties: [
+                            {
+                                order: 0,
+                                key: 'fornavn',
+                                source: 'FORM'
+                            },
+                            {
+                                order: 1,
+                                key: 'etternavn',
+                                source: 'FORM'
+                            }
+                        ]
                     }
                 },
                 {
                     field: "offentligTittel",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
                     valueBuilder: {
-                        value: data.caseData?.publicTitle.value,
-                        properties: data.caseData?.publicTitle.properties
+                        value: data.caseData?.publicTitle
                     }
                 },
                 {
@@ -79,8 +89,14 @@ export function mapToDto(data: IFormData): ConfigurationDto {
                     field: "klassifisering",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
                     valueBuilder: {
-                        value: data.caseData?.classification.value, // %s
-                        properties: data.caseData?.classification.properties
+                        value: data.caseData?.classification, // %s
+                        properties: [
+                            {
+                                order: 0,
+                                key: 'fodselsnummer',
+                                source: 'FORM'
+                            }
+                        ]
                     }
                 },
                 {

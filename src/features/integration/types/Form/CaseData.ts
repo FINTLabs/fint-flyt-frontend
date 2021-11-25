@@ -1,9 +1,7 @@
-import {propertyString} from "../../util/util";
-
 export default interface ICaseData {
     caseCreationStrategy: string;
-    title: propertyString;
-    publicTitle: propertyString;
+    title: string;
+    publicTitle: string;
     caseType: string;
     administrativeUnit: string;
     archiveUnit: string;
@@ -11,7 +9,7 @@ export default interface ICaseData {
     accessCode: string;
     paragraph: string;
     caseWorker: string;
-    classification: propertyString;
+    classification: string;
     primaryClass: string;
     secondaryClass: string;
     createdBy: string;
