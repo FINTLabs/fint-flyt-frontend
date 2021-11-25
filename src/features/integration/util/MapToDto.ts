@@ -151,9 +151,7 @@ export function mapToDto(data: IFormData): ConfigurationDto {
                 {
                     field: "tittel",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                    valueBuilder: {
-                        value: data.documentData?.title
-                    }
+                    valueBuilder: createValueBuilder(data.documentData?.title?.value)
                 },
                 {
                     field: "tilgangskode",
