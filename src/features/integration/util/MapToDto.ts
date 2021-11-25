@@ -188,44 +188,37 @@ export function mapToDto(data: IFormData): ConfigurationDto {
                 {
                     field: "navn",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                    valueBuilder: {
-                        value: data.applicantData?.name
-                    }
+                    valueBuilder: createValueBuilder(data.applicantData?.name?.value)
                 },
                 {
                     field: "adresselinje",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                    valueBuilder: {
-                        value: data.applicantData?.address
-                    }
+                    valueBuilder: createValueBuilder(data.applicantData?.address?.value)
                 },
                 {
                     field: "postnummer",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                    valueBuilder: {
-                        value: data.applicantData?.postalCode
-                    }
+                    valueBuilder: createValueBuilder(data.applicantData?.postalCode?.value)
                 },
                 {
                     field: "poststed",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                    valueBuilder: {
-                        value: data.applicantData?.city
-                    }
+                    valueBuilder: createValueBuilder(data.applicantData?.city?.value)
+                },
+                {
+                    field: "kontaktperson",
+                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
+                    valueBuilder: createValueBuilder(data.applicantData?.contact?.value)
                 },
                 {
                     field: "telefonnummer",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                    valueBuilder: {
-                        value: data.applicantData?.address
-                    }
+                    valueBuilder: createValueBuilder(data.applicantData?.phoneNumber?.value)
                 },
                 {
                     field: "epostadresse",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                    valueBuilder: {
-                        value: data.applicantData?.email
-                    }
+                    valueBuilder: createValueBuilder(data.applicantData?.email?.value)
                 },
                 {
                     field: "skjerming",

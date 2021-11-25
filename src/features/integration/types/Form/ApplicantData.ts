@@ -1,9 +1,12 @@
+import {propertyString} from "../../util/util";
+
 export default interface IApplicantData {
-    name: string,
-    address: string;
-    postalCode: string;
-    city: string;
-    phoneNumber: string;
-    email: string;
+    name: propertyString;
+    address: propertyString;
+    postalCode: propertyString;
+    city: propertyString;
+    contact: propertyString;
+    phoneNumber: propertyString;
+    email: propertyString;
     hidden: string;
 }
