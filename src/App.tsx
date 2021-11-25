@@ -24,18 +24,12 @@ const theme = createTheme({
     }
 });
 
-export const AppContext = React.createContext({
-    numberOfErrors: 0,
-    numberOfIntegrations: 0
-});
 function App() {
     return (
         <ThemeProvider theme={theme}>
-            <AppContext.Provider value={{numberOfErrors: 5, numberOfIntegrations: 18}}>
                 <BrowserRouter>
                     <Main/>
                 </BrowserRouter>
-            </AppContext.Provider>
         </ThemeProvider>
     );
 }

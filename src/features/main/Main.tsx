@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React from "react";
 import {
     AppBar, Badge,
     Box,
@@ -12,7 +12,6 @@ import FintLogo from "../../images/fint-by-vigo-white.svg";
 import {createStyles, makeStyles} from "@mui/styles";
 import Router from "./Router";
 import MenuItems from "./MenuItems";
-import {AppContext} from "../../App";
 import {Link as RouterLink} from "react-router-dom";
 
 const drawerWidth = 240;
@@ -61,7 +60,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function Main() {
     const classes = useStyles();
-    const context = useContext(AppContext)
 
     return (
         <Box display="flex" position="relative" width={1} height={1}>
@@ -72,7 +70,7 @@ function Main() {
                         Skjema til arkivintegrasjon
                     </Typography>
                     <Badge className={classes.badge}
-                           badgeContent={context.numberOfErrors}
+                           badgeContent={"5"}
                            color="secondary"
                            component={RouterLink} to="/log">
                         <NotificationsIcon htmlColor={"white"}/>
