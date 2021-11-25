@@ -28,11 +28,11 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
                         size="small" variant="outlined" label="SaksId" sx={{ mb: 3 }}/>
                 </FormControl>}
                 <FormControl>
-                    <TextField onChange={(e) => props.setValue("caseData.title", e.target.value as string)}
+                    <TextField onChange={(e) => props.setValue("caseData.title.value", e.target.value as string)}
                                size="small" variant="outlined" label="Tittel" sx={{ mb: 3 }}/>
                 </FormControl>
                 <FormControl>
-                    <TextField onChange={(e) => props.setValue("caseData.publicTitle", e.target.value as string)}
+                    <TextField onChange={(e) => props.setValue("caseData.publicTitle.value", e.target.value as string)}
                                size="small" variant="outlined" label="Offentlig tittel" sx={{ mb: 3 }}/>
                 </FormControl>
                 <FormControl size="small" sx={{ mb: 3 }}>
@@ -121,7 +121,7 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
                     </Select>
                 </FormControl>
                 <FormControl>
-                    <TextField onChange={(e) => props.setValue("caseData.classification", e.target.value as string)}
+                    <TextField onChange={(e) => props.setValue("caseData.classification.value", e.target.value as string)}
                                size="small" variant="outlined" label="Klassering(Ordningsprinsipp)" sx={{ mb: 3 }}/>
                 </FormControl>
                 <FormControl size="small" sx={{ mb: 3 }}>

@@ -9,7 +9,6 @@ export const defaultValues = {
         accessCode: '',
         paragraph: '',
         caseWorker: '',
-        classification: '',
         primaryClass: '',
         secondaryClass: '',
         createdBy: '',

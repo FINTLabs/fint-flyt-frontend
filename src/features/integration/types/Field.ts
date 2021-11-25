@@ -1,3 +1,5 @@
+import {property, VALUE_BUILDER_STRATEGY} from "../util/util";
+
 export interface IField {
     field?: string;
     valueBuildStrategy?: VALUE_BUILDER_STRATEGY,
@@ -5,15 +7,4 @@ export interface IField {
         value?: string;
         properties?: property[]
     }
-}
-
-export enum VALUE_BUILDER_STRATEGY {
-    FIXED_ARCHIVE_CODE_VALUE,
-    COMBINE_STRING_VALUE
-}
-
-export interface property {
-    order: number;
-    key: string;
-    source: string;
 }

@@ -41,6 +41,7 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
                     <InputLabel>Skjema</InputLabel>
                     <Select
                         value={props.selectedForm}
+                        label={"Skjema"}
                         onChange={(e: SelectChangeEvent) => props.setValue("selectedForm", e.target.value as string)}
                     >
                         {forms.map((item, index) => (
