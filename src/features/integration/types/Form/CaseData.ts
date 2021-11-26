@@ -9,8 +9,8 @@ export default interface ICaseData {
     accessCode: string;
     paragraph: string;
     caseWorker: string;
-    classification: string;
+    primaryClassification: string;
+    secondaryClassification: string;
     primaryClass: string;
     secondaryClass: string;
-    createdBy: string;
 }

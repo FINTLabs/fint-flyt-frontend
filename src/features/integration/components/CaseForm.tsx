@@ -8,13 +8,7 @@ import {
     TextField
 } from '@mui/material';
 import React from 'react';
-
-const dropdownOptions = [
-    {label: 'Foo', value: 'foo'},
-    {label: 'Bar', value: 'bar'},
-    {label: 'Bubu', value: 'bubu'}
-]
-
+import {dropdownPlaceholder} from "../util/DefaultValues";
 
 const CaseForm: React.FunctionComponent<any> = (props) => {
 
@@ -42,7 +36,7 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
                         label={"Sakstype"}
                         onChange={(e: SelectChangeEvent) => props.setValue("caseData.caseType", e.target.value as string)}
                     >
-                        {dropdownOptions.map((item, index) => (
+                        {dropdownPlaceholder.map((item, index) => (
                             <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
                         ))}
                     </Select>
@@ -54,7 +48,7 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
                         label={"Administrativ enhet"}
                         onChange={(e: SelectChangeEvent) => props.setValue("caseData.administrativeUnit", e.target.value as string)}
                     >
-                        {dropdownOptions.map((item, index) => (
+                        {dropdownPlaceholder.map((item, index) => (
                             <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
                         ))}
                     </Select>
@@ -67,7 +61,7 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
                         value={props.watch("caseData.archiveUnit")}
                         onChange={(e: SelectChangeEvent) => props.setValue("caseData.archiveUnit", e.target.value as string)}
                     >
-                        {dropdownOptions.map((item, index) => (
+                        {dropdownPlaceholder.map((item, index) => (
                             <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
                         ))}
                     </Select>
@@ -79,7 +73,7 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
                         value={props.watch("caseData.recordUnit")}
                         onChange={(e: SelectChangeEvent) => props.setValue("caseData.recordUnit", e.target.value as string)}
                     >
-                        {dropdownOptions.map((item, index) => (
+                        {dropdownPlaceholder.map((item, index) => (
                             <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
                         ))}
                     </Select>
@@ -91,7 +85,7 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
                         value={props.watch("caseData.accessCode")}
                         onChange={(e: SelectChangeEvent) => props.setValue("caseData.accessCode", e.target.value as string)}
                     >
-                        {dropdownOptions.map((item, index) => (
+                        {dropdownPlaceholder.map((item, index) => (
                             <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
                         ))}
                     </Select>
@@ -103,7 +97,7 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
                         value={props.watch("caseData.paragraph")}
                         onChange={(e: SelectChangeEvent) => props.setValue("caseData.paragraph", e.target.value as string)}
                     >
-                        {dropdownOptions.map((item, index) => (
+                        {dropdownPlaceholder.map((item, index) => (
                             <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
                         ))}
                     </Select>
@@ -115,42 +109,42 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
                         value={props.watch("caseData.caseWorker")}
                         onChange={(e: SelectChangeEvent) => props.setValue("caseData.caseWorker", e.target.value as string)}
                     >
-                        {dropdownOptions.map((item, index) => (
+                        {dropdownPlaceholder.map((item, index) => (
                             <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
                         ))}
                     </Select>
                 </FormControl>
                 <FormControl>
-                    <TextField onChange={(e) => props.setValue("caseData.classification", e.target.value as string)}
-                               size="small" variant="outlined" label="Klassering(Ordningsprinsipp)" sx={{ mb: 3 }}/>
+                    <TextField onChange={(e) => props.setValue("caseData.primaryClassification", e.target.value as string)}
+                               size="small" variant="outlined" label="Primær ordningsprinsipp" sx={{ mb: 3 }}/>
+                </FormControl>
+                <FormControl>
+                    <TextField onChange={(e) => props.setValue("caseData.secondaryClassification", e.target.value as string)}
+                               size="small" variant="outlined" label="Sekundær ordningsprinsipp" sx={{ mb: 3 }}/>
                 </FormControl>
                 <FormControl size="small" sx={{ mb: 3 }}>
-                    <InputLabel>Primærklassering</InputLabel>
+                    <InputLabel>Primærklasse</InputLabel>
                     <Select
-                        label={"Primærklassering"}
+                        label={"Primærklasse"}
                         value={props.watch("caseData.primaryClass")}
                         onChange={(e: SelectChangeEvent) => props.setValue("caseData.primaryClass", e.target.value as string)}
                     >
-                        {dropdownOptions.map((item, index) => (
+                        {dropdownPlaceholder.map((item, index) => (
                             <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
                         ))}
                     </Select>
                 </FormControl>
                 <FormControl size="small" sx={{ mb: 3 }}>
-                    <InputLabel>Sekundærklassering</InputLabel>
+                    <InputLabel>Sekundærklasse</InputLabel>
                     <Select
-                        label={"Sekundærklassering"}
+                        label={"Sekundærklasse"}
                         value={props.watch("caseData.secondaryClass")}
                         onChange={(e: SelectChangeEvent) => props.setValue("caseData.secondaryClass", e.target.value as string)}
                     >
-                        {dropdownOptions.map((item, index) => (
+                        {dropdownPlaceholder.map((item, index) => (
                             <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
                         ))}
                     </Select>
-                </FormControl>
-                <FormControl>
-                    <TextField onChange={(e) => props.setValue("caseData.createdBy", e.target.value as string)}
-                               size="small" variant="outlined" label="Opprettet av" sx={{ mb: 3 }}/>
                 </FormControl>
             </FormGroup>
         </div>

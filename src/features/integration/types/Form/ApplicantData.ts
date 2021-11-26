@@ -5,4 +5,6 @@ export default interface IApplicantData {
     city: string;
     phoneNumber: string;
     email: string;
+    accessCode: string;
+    paragraph: string;
 }

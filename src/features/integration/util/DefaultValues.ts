@@ -11,20 +11,25 @@ export const defaultValues = {
         caseWorker: '',
         primaryClass: '',
         secondaryClass: '',
-        createdBy: '',
     },
     recordData: {
         category: '',
         administrativeUnit: '',
         status: '',
         caseWorker: '',
+        accessCode: '',
         paragraph: '',
     },
     documentData: {
+        documentStatus: '',
         accessCode: '',
         paragraph: '',
         variant: '',
         format: '',
+    },
+    applicantData: {
+        accessCode: '',
+        paragraph: '',
     }
 }
 

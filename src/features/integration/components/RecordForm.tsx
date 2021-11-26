@@ -1,10 +1,6 @@
 import {FormControl, FormGroup, InputLabel, MenuItem, Select, SelectChangeEvent, TextField} from '@mui/material';
 import React from 'react';
-
-const categories = [
-    {label: 'K1', value: 'k1'},
-    {label: 'K2', value: 'k2'}
-]
+import {dropdownPlaceholder} from "../util/DefaultValues";
 
 const RecordForm: React.FunctionComponent<any> = (props) => {
     return (
@@ -23,7 +19,7 @@ const RecordForm: React.FunctionComponent<any> = (props) => {
                         label={"Kategori"}
                         onChange={(e: SelectChangeEvent) => props.setValue("recordData.category", e.target.value as string)}
                 >
-                    {categories.map((item, index) => (
+                    {dropdownPlaceholder.map((item, index) => (
                         <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
                     ))}
                 </Select>
@@ -35,7 +31,7 @@ const RecordForm: React.FunctionComponent<any> = (props) => {
                     label={"Administrativ enhet"}
                     onChange={(e: SelectChangeEvent) => props.setValue("recordData.administrativeUnit", e.target.value as string)}
                 >
-                    {categories.map((item, index) => (
+                    {dropdownPlaceholder.map((item, index) => (
                         <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
                     ))}
                 </Select>
@@ -47,19 +43,19 @@ const RecordForm: React.FunctionComponent<any> = (props) => {
                     label={"Status"}
                     onChange={(e: SelectChangeEvent) => props.setValue("recordData.status", e.target.value as string)}
                 >
-                    {categories.map((item, index) => (
+                    {dropdownPlaceholder.map((item, index) => (
                         <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
                     ))}
                 </Select>
             </FormControl>
             <FormControl size="small" sx={{ mb: 3 }}>
-                <InputLabel>Saksansvarlig</InputLabel>
+                <InputLabel>Tilgangskode</InputLabel>
                 <Select
-                    value={props.watch("recordData.caseWorker")}
-                    label={"Saksansvarlig"}
-                    onChange={(e: SelectChangeEvent) => props.setValue("recordData.caseWorker", e.target.value as string)}
+                    value={props.watch("recordData.accessCode")}
+                    label={"Tilgangskode"}
+                    onChange={(e: SelectChangeEvent) => props.setValue("recordData.accessCode", e.target.value as string)}
                 >
-                    {categories.map((item, index) => (
+                    {dropdownPlaceholder.map((item, index) => (
                         <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
                     ))}
                 </Select>
@@ -71,7 +67,7 @@ const RecordForm: React.FunctionComponent<any> = (props) => {
                     label={"Hjemmel"}
                     onChange={(e: SelectChangeEvent) => props.setValue("recordData.paragraph", e.target.value as string)}
                 >
-                    {categories.map((item, index) => (
+                    {dropdownPlaceholder.map((item, index) => (
                         <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
                     ))}
                 </Select>

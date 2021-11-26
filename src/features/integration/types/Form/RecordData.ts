@@ -4,6 +4,6 @@ export default interface IRecordData {
     category: string;
     administrativeUnit: string;
     status: string;
-    caseWorker: string;
+    accessCode: string;
     paragraph: string;
 }
