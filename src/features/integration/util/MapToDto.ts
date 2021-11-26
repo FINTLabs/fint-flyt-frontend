@@ -14,19 +14,7 @@ export function mapToDto(data: IFormData): ConfigurationDto {
                     field: "tittel",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
                     valueBuilder: {
-                        value: data.caseData?.title, // "søknadsskjema for %s %s"
-                        properties: [
-                            {
-                                order: 0,
-                                key: 'fornavn',
-                                source: 'FORM'
-                            },
-                            {
-                                order: 1,
-                                key: 'etternavn',
-                                source: 'FORM'
-                            }
-                        ]
+                        value: data.caseData?.title
                     }
                 },
                 {
@@ -89,22 +77,15 @@ export function mapToDto(data: IFormData): ConfigurationDto {
                     field: "klassifisering",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
                     valueBuilder: {
-                        value: data.caseData?.classification, // %s
-                        properties: [
-                            {
-                                order: 0,
-                                key: 'fodselsnummer',
-                                source: 'FORM'
-                            }
-                        ]
+                        value: data.caseData?.classification
+                       
                     }
                 },
                 {
                     field: "Primærklasse",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
                     valueBuilder: {
-                        value: data.caseData?.primaryClass,
-                        properties: []
+                        value: data.caseData?.primaryClass
                     }
                 },
                 {
@@ -129,19 +110,7 @@ export function mapToDto(data: IFormData): ConfigurationDto {
                     field: "tittel",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
                     valueBuilder: {
-                        value: data.recordData?.title,
-                        properties: [
-                            {
-                                "order": 0,
-                                "key": "fornavn",
-                                "source": "FORM"
-                            },
-                            {
-                                "order": 1,
-                                "key": "etternavn",
-                                "source": "FORM"
-                            }
-                        ]
+                        value: data.recordData?.title
                     }
                 },
                 {
