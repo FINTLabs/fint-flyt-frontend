@@ -1,6 +1,6 @@
 import {FormControl, FormGroup, InputLabel, MenuItem, Select, SelectChangeEvent, TextField} from '@mui/material';
 import React from 'react';
-import {dropdownPlaceholder} from "../util/DefaultValues";
+import {dropdownPlaceholder} from "../../util/DefaultValues";
 
 const DocumentForm: React.FunctionComponent<any> = (props) => {
     return (

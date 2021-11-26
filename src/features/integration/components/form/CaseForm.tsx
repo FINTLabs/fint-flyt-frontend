@@ -8,7 +8,7 @@ import {
     TextField
 } from '@mui/material';
 import React from 'react';
-import {dropdownPlaceholder} from "../util/DefaultValues";
+import {dropdownPlaceholder} from "../../util/DefaultValues";
 
 const CaseForm: React.FunctionComponent<any> = (props) => {
 
