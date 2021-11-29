@@ -1,5 +1,4 @@
 import {
-    Box,
     FormControl, FormControlLabel,
     FormGroup,
     FormLabel,
@@ -25,7 +24,7 @@ const creationStrategies = [
 
 const CaseInformation: React.FunctionComponent<any> = (props) => {
     return (
-        <Box>
+        <>
             <FormGroup>
                 <FormControl className={props.style.formControl}>
                     <TextField onChange={(e) => props.setValue("name", e.target.value as string)}
@@ -61,7 +60,7 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
                     </RadioGroup>
                 </FormControl>
             </FormGroup>
-        </Box>
+        </>
     );
 }
 

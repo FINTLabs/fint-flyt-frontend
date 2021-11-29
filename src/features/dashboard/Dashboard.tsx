@@ -25,7 +25,7 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
                 </CardContent>
                 <CardActions>
                     <Button size="small" variant="outlined" component={RouterLink} to="/overview">Se integrasjoner</Button>
-                    <Button size="small" variant="outlined" component={RouterLink} to="/integration_configuration">Ny integrasjon</Button>
+                    <Button size="small" variant="outlined" component={RouterLink} to="/integration/configuration/new">Ny integrasjon</Button>
                 </CardActions>
             </Card>
             <Card className={classes.card} sx={{ maxWidth: 345 }}>

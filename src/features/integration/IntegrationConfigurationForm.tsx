@@ -10,9 +10,9 @@ import ApplicantForm from "./components/form/ApplicantForm";
 import CaseForm from "./components/form/CaseForm";
 import IFormData from "./types/Form/FormData";
 import CaseInformation from "./components/form/CaseInformation";
-import IntegrationService from "./service/IntegrationService";
+import IntegrationRepository from "./repository/IntegrationRepository";
 import {defaultValues} from "./util/DefaultValues";
-import {mapToDto} from "./util/MapToDto";
+import {toIntegrationConfiguration} from "./util/ToIntegrationConfiguration";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -39,18 +39,13 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const classes = useStyles();
-    const [expanded, setExpanded] = React.useState<string | false>(false);
-    const handleChange =
-        (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
-            setExpanded(isExpanded ? panel : false);
-        };
 
     const {handleSubmit, watch, setValue, formState: {}} = useForm<IFormData>({
         defaultValues: defaultValues
     });
 
     const createNewConfiguration = (data: any) => {
-        IntegrationService.create(data)
+        IntegrationRepository.create(data)
             .then(response => {
                 console.log('created new configuraton', data);
             })
@@ -60,7 +55,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     }
 
     const updateConfiguration = (data: any, id: any) =>{
-        IntegrationService.update(id, data)
+        IntegrationRepository.update(id, data)
             .then(response => {
                 console.log('updated configuration', id);
             })
@@ -70,7 +65,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     }
 
     const onSubmit = handleSubmit((data: IFormData) => {
-        const dto = mapToDto(data);
+        const dto = toIntegrationConfiguration(data);
 
         if(data.id) {
             updateConfiguration(dto, data.id);
@@ -84,7 +79,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
             <Box>
                 <Typography variant={"h5"} sx={{mb: 2}}>Integrasjonskonfigurasjon</Typography>
                 <form className={classes.form} onSubmit={onSubmit}>
-                    <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')} className={classes.accordion} defaultExpanded={true}>
+                    <Accordion className={classes.accordion} defaultExpanded={true}>
                         <AccordionSummary  expandIcon={<ExpandMoreIcon />}>
                             <Typography variant={"h6"}>Integrasjonslogikk</Typography>
                         </AccordionSummary>
@@ -92,7 +87,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                             <CaseInformation setValue={setValue} style={classes} caseCreationStrategy={watch("caseData.caseCreationStrategy")} selectedForm={watch("selectedForm")} />
                         </AccordionDetails>
                     </Accordion>
-                    <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')} className={classes.accordion}>
+                    <Accordion className={classes.accordion}>
                         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                             <Typography variant={"h6"}>Sakspost</Typography>
                         </AccordionSummary>
@@ -100,7 +95,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                             <CaseForm style={classes} watch={watch} setValue={setValue}/>
                         </AccordionDetails>
                     </Accordion>
-                    <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')} className={classes.accordion}>
+                    <Accordion className={classes.accordion}>
                         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                             <Typography variant={"h6"}>Journalpost</Typography>
                         </AccordionSummary>
@@ -108,7 +103,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                             <RecordForm style={classes} watch={watch}  setValue={setValue} />
                         </AccordionDetails>
                     </Accordion>
-                    <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')} className={classes.accordion}>
+                    <Accordion className={classes.accordion}>
                         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                             <Typography variant={"h6"}>Dokument- og objektbeskrivelse</Typography>
                         </AccordionSummary>
@@ -116,7 +111,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                             <DocumentForm style={classes} watch={watch} setValue={setValue}/>
                         </AccordionDetails>
                     </Accordion>
-                    <Accordion expanded={expanded === 'panel5'} onChange={handleChange('panel5')} className={classes.accordion}>
+                    <Accordion className={classes.accordion}>
                         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                             <Typography variant={"h6"}>Avsender</Typography>
                         </AccordionSummary>
@@ -124,7 +119,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                             <ApplicantForm style={classes} watch={watch} setValue={setValue}/>
                         </AccordionDetails>
                     </Accordion>
-                    <Accordion expanded={expanded === 'panel6'} onChange={handleChange('panel6')} className={classes.accordion}>
+                    <Accordion className={classes.accordion}>
                         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                             <Typography variant={"h6"}>Kontroller skjema</Typography>
                         </AccordionSummary>
