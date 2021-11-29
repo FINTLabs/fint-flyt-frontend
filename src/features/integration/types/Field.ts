@@ -1,4 +1,5 @@
-import {property, VALUE_BUILDER_STRATEGY} from "../util/util";
+import {VALUE_BUILDER_STRATEGY} from "./ValueBuilderStrategy.enum";
+import {Property} from "./Property";
 
 export interface IField {
     field?: string;
@@ -8,5 +9,5 @@ export interface IField {
 
 export interface ValueBuilder {
     value?: string;
-    properties?: property[]
+    properties?: Property[]
 }

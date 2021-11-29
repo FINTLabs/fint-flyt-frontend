@@ -1,7 +1,7 @@
-import {propertyString} from "../../util/util";
+import {PropertyString} from "../Property";
 
 export default interface IDocumentData {
-    title: propertyString;
+    title: PropertyString;
     accessCode: string;
     paragraph: string;
     variant: string;

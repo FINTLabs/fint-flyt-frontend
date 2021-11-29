@@ -1,8 +1,8 @@
-import {propertyString} from "../../util/util";
+import {PropertyString} from "../Property";
 
 export default interface IRecordData {
-    title: propertyString;
-    publicTitle: propertyString;
+    title: PropertyString;
+    publicTitle: PropertyString;
     category: string;
     administrativeUnit: string;
     status: string;
