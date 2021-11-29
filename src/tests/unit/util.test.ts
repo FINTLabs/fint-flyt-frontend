@@ -1,6 +1,6 @@
 // @ts-ignore
-import {ValueBuilder} from "../../features/integration/types/Field";
-import {createValueBuilder} from "../../features/integration/util/util";
+import {ValueBuilder} from "../../features/integration/types/ValueBuilder";
+import {createValueBuilder} from "../../features/integration/util/Util";
 
 const expectedValueBuilderWithTags: ValueBuilder = {
     value: "Lorem ipsum %s %s",

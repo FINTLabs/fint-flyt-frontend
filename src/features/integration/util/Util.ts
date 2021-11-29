@@ -1,4 +1,4 @@
-import {ValueBuilder} from "../types/Field";
+import {ValueBuilder} from "../types/ValueBuilder";
 import {Property} from "../types/Property";
 
 /* TODO: Remove empty check after validation ensures no empty fields */

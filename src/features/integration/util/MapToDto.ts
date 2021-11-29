@@ -1,6 +1,6 @@
 import IFormData from "../types/Form/FormData";
 import {ConfigurationDto} from "../types/ConfigurationDto";
-import {createValueBuilder} from "./util";
+import {createValueBuilder} from "./Util";
 import {VALUE_BUILDER_STRATEGY} from "../types/ValueBuilderStrategy.enum";
 
 export function mapToDto(data: IFormData): ConfigurationDto {
