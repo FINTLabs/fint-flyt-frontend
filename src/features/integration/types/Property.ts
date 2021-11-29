@@ -1,10 +1,5 @@
-export interface Property {
+export interface IProperty {
     order: number;
     key: string;
     source: string;
-}
-
-export interface PropertyString {
-    value?: string;
-    properties?: Property[]
 }

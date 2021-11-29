@@ -1,28 +1,28 @@
 import {IField} from "./Field";
 
-interface CaseConfigurationDto {
+interface ICaseConfigurationDto {
     caseCreationStrategy?: string;
     fields: IField[];
 }
-interface RecordConfigurationDto {
+interface IRecordConfigurationDto {
     fields: IField[];
 }
-interface DocumentConfigurationDto {
+interface IDocumentConfigurationDto {
     fields: IField[];
 }
-interface ApplicantConfigurationDto {
+interface IApplicantConfigurationDto {
     fields: IField[];
 }
 
-export interface ConfigurationDto {
+export interface IConfigurationDto {
     id?: string;
     name?: string,
     description?: string,
     version?: string,
     selectedForm?: string;
 
-    caseConfiguration?:CaseConfigurationDto;
-    recordConfiguration?: RecordConfigurationDto;
-    documentConfiguration?: DocumentConfigurationDto;
-    applicantConfiguration?: ApplicantConfigurationDto;
+    caseConfiguration?:ICaseConfigurationDto;
+    recordConfiguration?: IRecordConfigurationDto;
+    documentConfiguration?: IDocumentConfigurationDto;
+    applicantConfiguration?: IApplicantConfigurationDto;
 }
