@@ -1,0 +1,5 @@
+export enum INPUT_TYPES {
+    TEXT_FIELD,
+    DROPDOWN,
+    AUTOCOMPLETE
+}
