@@ -1,8 +1,8 @@
 import IFormData from "../types/Form/FormData";
-import {IConfigurationDto} from "../types/ConfigurationDto";
+import {IIntegrationConfiguration} from "../types/IntegrationConfiguration";
 import {VALUE_BUILDER_STRATEGY} from "../types/ValueBuilderStrategy.enum";
 
-export function toIntegrationConfiguration(data: IFormData): IConfigurationDto {
+export function toIntegrationConfiguration(data: IFormData): IIntegrationConfiguration {
     return {
         id: data.id,
         name: data.name,

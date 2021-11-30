@@ -65,12 +65,12 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     }
 
     const onSubmit = handleSubmit((data: IFormData) => {
-        const dto = toIntegrationConfiguration(data);
+        const integrationConfiguration = toIntegrationConfiguration(data);
 
         if(data.id) {
-            updateConfiguration(dto, data.id);
+            updateConfiguration(integrationConfiguration, data.id);
         } else {
-            createNewConfiguration(dto);
+            createNewConfiguration(integrationConfiguration);
         }
     });
 
