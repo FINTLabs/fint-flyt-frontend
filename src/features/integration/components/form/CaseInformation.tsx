@@ -39,7 +39,7 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
                 <FormControl className={props.style.formControl} size="small" sx={{ mt: 1, mb: 1 }}>
                     <InputLabel>Skjema</InputLabel>
                     <Select
-                        value={props.selectedForm}
+                        value={props.watch("selectedForm")}
                         label={"Skjema"}
                         onChange={(e: SelectChangeEvent) => props.setValue("selectedForm", e.target.value as string)}
                     >

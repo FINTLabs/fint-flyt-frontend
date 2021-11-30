@@ -1,18 +1,14 @@
 import * as React from "react";
-import { useForm } from "react-hook-form";
+import {useForm} from "react-hook-form";
 import {RouteComponentProps, withRouter} from "react-router-dom";
-import {Accordion, AccordionDetails, AccordionSummary, Box, Theme, Typography} from "@mui/material";
+import {Box, Theme, Typography} from "@mui/material";
 import {createStyles, makeStyles} from "@mui/styles";
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import RecordForm from "./components/form/RecordForm";
-import DocumentForm from "./components/form/DocumentForm";
-import ApplicantForm from "./components/form/ApplicantForm";
-import CaseForm from "./components/form/CaseForm";
 import IFormData from "./types/Form/FormData";
-import CaseInformation from "./components/form/CaseInformation";
 import IntegrationRepository from "./repository/IntegrationRepository";
 import {defaultValues} from "./util/DefaultValues";
 import {toIntegrationConfiguration} from "./util/ToIntegrationConfiguration";
+import AccordionForm from "./components/AccordionForm";
+import {ACCORDION_FORM, IAccordion} from "./types/Accordion";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -35,11 +31,19 @@ const useStyles = makeStyles((theme: Theme) =>
             padding: theme.spacing(2),
             cursor: 'pointer'
         }
-    }));
+    })
+);
+
+const accordionList: IAccordion[] = [
+    {summary: "Integrasjonslogikk", accordionForm: ACCORDION_FORM.CASE_INFORMATION, defaultExpanded: true},
+    {summary: "Sakspost", accordionForm: ACCORDION_FORM.CASE_FORM, defaultExpanded: false},
+    {summary: "Journalpost", accordionForm: ACCORDION_FORM.RECORD_FORM, defaultExpanded: false},
+    {summary: "Dokument- og objektbeskrivelse", accordionForm: ACCORDION_FORM.DOCUMENT_FORM, defaultExpanded: false},
+    {summary: "Avsender", accordionForm: ACCORDION_FORM.APPLICANT_FORM, defaultExpanded: false}
+]
 
 const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const classes = useStyles();
-
     const {handleSubmit, watch, setValue, formState: {}} = useForm<IFormData>({
         defaultValues: defaultValues
     });
@@ -79,53 +83,18 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
             <Box>
                 <Typography variant={"h5"} sx={{mb: 2}}>Integrasjonskonfigurasjon</Typography>
                 <form className={classes.form} onSubmit={onSubmit}>
-                    <Accordion className={classes.accordion} defaultExpanded={true}>
-                        <AccordionSummary  expandIcon={<ExpandMoreIcon />}>
-                            <Typography variant={"h6"}>Integrasjonslogikk</Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                            <CaseInformation setValue={setValue} style={classes} caseCreationStrategy={watch("caseData.caseCreationStrategy")} selectedForm={watch("selectedForm")} />
-                        </AccordionDetails>
-                    </Accordion>
-                    <Accordion className={classes.accordion}>
-                        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                            <Typography variant={"h6"}>Sakspost</Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                            <CaseForm style={classes} watch={watch} setValue={setValue}/>
-                        </AccordionDetails>
-                    </Accordion>
-                    <Accordion className={classes.accordion}>
-                        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                            <Typography variant={"h6"}>Journalpost</Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                            <RecordForm style={classes} watch={watch}  setValue={setValue} />
-                        </AccordionDetails>
-                    </Accordion>
-                    <Accordion className={classes.accordion}>
-                        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                            <Typography variant={"h6"}>Dokument- og objektbeskrivelse</Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                            <DocumentForm style={classes} watch={watch} setValue={setValue}/>
-                        </AccordionDetails>
-                    </Accordion>
-                    <Accordion className={classes.accordion}>
-                        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                            <Typography variant={"h6"}>Avsender</Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                            <ApplicantForm style={classes} watch={watch} setValue={setValue}/>
-                        </AccordionDetails>
-                    </Accordion>
-                    <Accordion className={classes.accordion}>
-                        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                            <Typography variant={"h6"}>Kontroller skjema</Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                        </AccordionDetails>
-                    </Accordion>
+                    {accordionList.map((accordion, index) => {
+                        return (
+                            <AccordionForm
+                                key={index}
+                                style={classes}
+                                summary={accordion.summary}
+                                accordionForm={accordion.accordionForm}
+                                defaultExpanded={accordion.defaultExpanded}
+                                watch={watch}
+                                setValue={setValue}
+                            />
+                        )})}
                     <div>
                         <input type="submit" className={classes.submitButton}/>
                     </div>
