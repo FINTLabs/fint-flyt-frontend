@@ -3,8 +3,3 @@ export interface Property {
     key: string;
     source: string;
 }
-
-export interface PropertyString {
-    value?: string;
-    properties?: Property[]
-}

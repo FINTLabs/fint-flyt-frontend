@@ -1,4 +1,4 @@
-import {PropertyString} from "../Property";
+import {PropertyString} from "../PropertyString";
 
 export default interface ICaseData {
     caseCreationStrategy: string;
