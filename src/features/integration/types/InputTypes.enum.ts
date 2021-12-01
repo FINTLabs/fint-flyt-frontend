@@ -1,4 +1,4 @@
-export enum INPUT_TYPES {
+export enum INPUT_TYPE {
     TEXT_FIELD,
     DROPDOWN,
     AUTOCOMPLETE

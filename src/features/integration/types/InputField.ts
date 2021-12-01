@@ -1,7 +1,7 @@
-import {INPUT_TYPES} from "./InputTypes.enum";
+import {INPUT_TYPE} from "./InputTypes.enum";
 
 export interface IInputField {
-    input: INPUT_TYPES;
+    input: INPUT_TYPE;
     label: string;
     value?: Function;
     formValue: string;
