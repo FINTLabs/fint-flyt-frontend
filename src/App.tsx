@@ -27,9 +27,9 @@ const theme = createTheme({
 function App() {
     return (
         <ThemeProvider theme={theme}>
-                <BrowserRouter>
-                    <Main/>
-                </BrowserRouter>
+            <BrowserRouter>
+                <Main/>
+            </BrowserRouter>
         </ThemeProvider>
     );
 }

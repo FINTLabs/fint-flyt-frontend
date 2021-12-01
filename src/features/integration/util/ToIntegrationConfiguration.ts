@@ -1,9 +1,9 @@
 import IFormData from "../types/Form/FormData";
-import {ConfigurationDto} from "../types/ConfigurationDto";
-import {createValueBuilder} from "./Util";
+import {IIntegrationConfiguration} from "../types/IntegrationConfiguration";
 import {VALUE_BUILDER_STRATEGY} from "../types/ValueBuilderStrategy.enum";
+import {createValueBuilder} from "./Util";
 
-export function mapToDto(data: IFormData): ConfigurationDto {
+export function toIntegrationConfiguration(data: IFormData): IIntegrationConfiguration {
     return {
         id: data.id,
         name: data.name,
@@ -22,21 +22,21 @@ export function mapToDto(data: IFormData): ConfigurationDto {
                     valueBuilder: createValueBuilder(data.caseData?.publicTitle?.value)
                 },
                 {
-                    field: "sakstype",
+                    field: "caseType",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
                     valueBuilder: {
                         value: data.caseData?.caseType
                     }
                 },
                 {
-                    field: 'administrativEnhet',
+                    field: 'administrativenhet',
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
                     valueBuilder: {
                         value: data.caseData?.administrativeUnit
                     }
                 },
                 {
-                    field: "arkivenhet",
+                    field: "arkivdel",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
                     valueBuilder: {
                         value: data.caseData?.archiveUnit
@@ -50,14 +50,14 @@ export function mapToDto(data: IFormData): ConfigurationDto {
                     }
                 },
                 {
-                    field: "tilgangskode",
+                    field: "tilgangsrestriksjon",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
                     valueBuilder: {
                         value: data.caseData?.accessCode
                     }
                 },
                 {
-                    field: "hjemmel",
+                    field: "skjermingshjemmel",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
                     valueBuilder: {
                         value: data.caseData?.paragraph
@@ -71,9 +71,14 @@ export function mapToDto(data: IFormData): ConfigurationDto {
                     }
                 },
                 {
-                    field: "klassifisering",
+                    field: "primarordningsprinsipp",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                    valueBuilder: createValueBuilder(data.caseData?.classification?.value)
+                    valueBuilder: createValueBuilder(data.caseData?.primaryClassification?.value)
+                },
+                {
+                    field: "sekundarordningsprinsipp",
+                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
+                    valueBuilder: createValueBuilder(data.caseData?.secondaryClassification?.value)
                 },
                 {
                     field: "primarklasse",
@@ -85,16 +90,8 @@ export function mapToDto(data: IFormData): ConfigurationDto {
                 {
                     field: "sekundarklasse",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                    valueBuilder: {
-                        value: data.caseData?.secondaryClass
-                    }
-                },
-                {
-                    field: "opprettetAv",
-                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                    valueBuilder: {
-                        value: data.caseData?.createdBy
-                    }
+                    valueBuilder: createValueBuilder(data.caseData?.secondaryClass)
+
                 }
             ]
         },
@@ -104,42 +101,44 @@ export function mapToDto(data: IFormData): ConfigurationDto {
                     field: "tittel",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
                     valueBuilder: createValueBuilder(data.recordData?.title?.value)
+
                 },
                 {
                     field: "offentigTittel",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
                     valueBuilder: createValueBuilder(data.recordData?.publicTitle?.value)
+
                 },
                 {
-                    field: "dokumentkategori",
+                    field: "DokumentBeskrivelse.dokumentType",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
                     valueBuilder: {
                         value: data.recordData?.category
                     }
                 },
                 {
-                    field: "administrativEnhet",
+                    field: "administrativenhet",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
                     valueBuilder: {
                         value: data.recordData?.administrativeUnit
                     }
                 },
                 {
-                    field: "status",
+                    field: "journalstatus",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
                     valueBuilder: {
                         value: data.recordData?.status
                     }
                 },
                 {
-                    field: "saksansvarlig",
+                    field: "tilgangsrestriksjon",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
                     valueBuilder: {
-                        value: data.recordData?.caseWorker
+                        value: data.recordData?.accessCode
                     }
                 },
                 {
-                    field: "hjemmel",
+                    field: "skjermingshjemmel",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
                     valueBuilder: {
                         value: data.recordData?.paragraph
@@ -155,28 +154,35 @@ export function mapToDto(data: IFormData): ConfigurationDto {
                     valueBuilder: createValueBuilder(data.documentData?.title?.value)
                 },
                 {
-                    field: "tilgangskode",
+                    field: "dokumentStatus",
+                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
+                    valueBuilder: {
+                        value: data.documentData?.documentStatus
+                    }
+                },
+                {
+                    field: "tilgangsrestriksjon",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
                     valueBuilder: {
                         value: data.documentData?.accessCode
                     }
                 },
                 {
-                    field: "hjemmel",
+                    field: "skjermingshjemmel",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
                     valueBuilder: {
                         value: data.documentData?.paragraph
                     }
                 },
                 {
-                    field: "variant",
+                    field: "DokumentBeskrivelse.dokumentObjekt.variantFormat",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
                     valueBuilder: {
                         value: data.documentData?.variant
                     }
                 },
                 {
-                    field: "format",
+                    field: "DokumentBeskrivelse.dokumentObjekt.filformat",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
                     valueBuilder: {
                         value: data.documentData?.format
@@ -187,47 +193,49 @@ export function mapToDto(data: IFormData): ConfigurationDto {
         applicantConfiguration: {
             fields: [
                 {
-                    field: "navn",
+                    field: "korrespondasepartNavn",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
                     valueBuilder: createValueBuilder(data.applicantData?.name?.value)
                 },
                 {
-                    field: "adresselinje",
+                    field: "Adresse.adresselinje",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
                     valueBuilder: createValueBuilder(data.applicantData?.address?.value)
                 },
                 {
-                    field: "postnummer",
+                    field: "Adresse.postnummer",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
                     valueBuilder: createValueBuilder(data.applicantData?.postalCode?.value)
                 },
                 {
-                    field: "poststed",
+                    field: "Adresse.poststed",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
                     valueBuilder: createValueBuilder(data.applicantData?.city?.value)
                 },
                 {
-                    field: "kontaktperson",
-                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                    valueBuilder: createValueBuilder(data.applicantData?.contact?.value)
-                },
-                {
-                    field: "telefonnummer",
+                    field: "Kontaktinformasjon.mobiltelefonnummer",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
                     valueBuilder: createValueBuilder(data.applicantData?.phoneNumber?.value)
                 },
                 {
-                    field: "epostadresse",
+                    field: "Kontaktinformasjon.epostadresse",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
                     valueBuilder: createValueBuilder(data.applicantData?.email?.value)
                 },
                 {
-                    field: "skjerming",
+                    field: "tilgangsrestriksjon",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
                     valueBuilder: {
-                        value: data.applicantData?.hidden
+                        value: data.applicantData?.accessCode
                     }
-                }
+                },
+                {
+                    field: "skjermingshjemmel",
+                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
+                    valueBuilder: {
+                        value: data.applicantData?.paragraph
+                    }
+                },
             ]
         }
     }

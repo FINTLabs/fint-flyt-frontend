@@ -5,8 +5,8 @@ export default interface IApplicantData {
     address: PropertyString;
     postalCode: PropertyString;
     city: PropertyString;
-    contact: PropertyString;
     phoneNumber: PropertyString;
     email: PropertyString;
-    hidden: string;
+    accessCode: string;
+    paragraph: string;
 }

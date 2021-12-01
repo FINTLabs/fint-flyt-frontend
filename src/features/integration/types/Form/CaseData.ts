@@ -11,11 +11,8 @@ export default interface ICaseData {
     accessCode: string;
     paragraph: string;
     caseWorker: string;
-    classification: PropertyString;
+    primaryClassification: PropertyString;
+    secondaryClassification: PropertyString;
     primaryClass: string;
     secondaryClass: string;
-    createdBy: string;
 }
-
-
-
