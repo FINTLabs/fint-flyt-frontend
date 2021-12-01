@@ -1,77 +1,34 @@
-import {FormControl, FormGroup, InputLabel, MenuItem, Select, SelectChangeEvent, TextField} from '@mui/material';
+import {FormGroup} from '@mui/material';
 import React from 'react';
 import {dropdownPlaceholder} from "../../util/DefaultValues";
+import {IInputField} from "../../types/InputField";
+import {INPUT_TYPE} from "../../types/InputTypes.enum";
+import InputField from "./InputField";
 
 const RecordForm: React.FunctionComponent<any> = (props) => {
+    const recordFormFields: IInputField[] = [
+        {input: INPUT_TYPE.TEXT_FIELD, label: "Tittel", formValue: "recordData.title"},
+        {input: INPUT_TYPE.TEXT_FIELD, label: "Offentlig tittel", formValue: "recordData.publicTitle"},
+        {input: INPUT_TYPE.DROPDOWN, label: "Kategori", value: props.watch("recordData.category"), formValue: "recordData.category", dropDownItems: dropdownPlaceholder},
+        {input: INPUT_TYPE.DROPDOWN, label: "Administrativ enhet", value: props.watch("recordData.administrativeUnit"), formValue: "recordData.administrativeUnit", dropDownItems: dropdownPlaceholder},
+        {input: INPUT_TYPE.DROPDOWN, label: "Status", value: props.watch("recordData.status"), formValue: "recordData.status", dropDownItems: dropdownPlaceholder},
+        {input: INPUT_TYPE.DROPDOWN, label: "Tilgangskode", value: props.watch("recordData.accessCode"), formValue: "recordData.accessCode", dropDownItems: dropdownPlaceholder},
+        {input: INPUT_TYPE.DROPDOWN, label: "Hjemmel", value: props.watch("recordData.paragraph"), formValue: "recordData.paragraph", dropDownItems: dropdownPlaceholder},
+   ]
     return (
         <FormGroup className={props.style.formControl}>
-            <FormControl>
-                <TextField onChange={(e) => props.setValue("recordData.title", e.target.value as string)}
-                           size="small" variant="outlined" label="Tittel" sx={{ mb: 3 }}/>
-            </FormControl>
-            <FormControl>
-                <TextField onChange={(e) => props.setValue("recordData.publicTitle", e.target.value as string)}
-                           size="small" variant="outlined" label="Offentlig tittel" sx={{ mb: 3 }}/>
-            </FormControl>
-            <FormControl size="small" sx={{ mb: 3 }}>
-                <InputLabel>Kategori</InputLabel>
-                <Select value={props.watch("recordData.category")}
-                        label={"Kategori"}
-                        onChange={(e: SelectChangeEvent) => props.setValue("recordData.category", e.target.value as string)}
-                >
-                    {dropdownPlaceholder.map((item, index) => (
-                        <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
-                    ))}
-                </Select>
-            </FormControl>
-            <FormControl size="small" sx={{ mb: 3 }}>
-                <InputLabel>Administrativ enhet</InputLabel>
-                <Select
-                    value={props.watch("recordData.administrativeUnit")}
-                    label={"Administrativ enhet"}
-                    onChange={(e: SelectChangeEvent) => props.setValue("recordData.administrativeUnit", e.target.value as string)}
-                >
-                    {dropdownPlaceholder.map((item, index) => (
-                        <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
-                    ))}
-                </Select>
-            </FormControl>
-            <FormControl size="small" sx={{ mb: 3 }}>
-                <InputLabel>Status</InputLabel>
-                <Select
-                    value={props.watch("recordData.status")}
-                    label={"Status"}
-                    onChange={(e: SelectChangeEvent) => props.setValue("recordData.status", e.target.value as string)}
-                >
-                    {dropdownPlaceholder.map((item, index) => (
-                        <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
-                    ))}
-                </Select>
-            </FormControl>
-            <FormControl size="small" sx={{ mb: 3 }}>
-                <InputLabel>Tilgangskode</InputLabel>
-                <Select
-                    value={props.watch("recordData.accessCode")}
-                    label={"Tilgangskode"}
-                    onChange={(e: SelectChangeEvent) => props.setValue("recordData.accessCode", e.target.value as string)}
-                >
-                    {dropdownPlaceholder.map((item, index) => (
-                        <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
-                    ))}
-                </Select>
-            </FormControl>
-            <FormControl size="small" sx={{ mb: 3 }}>
-                <InputLabel>Hjemmel</InputLabel>
-                <Select
-                    value={props.watch("recordData.paragraph")}
-                    label={"Hjemmel"}
-                    onChange={(e: SelectChangeEvent) => props.setValue("recordData.paragraph", e.target.value as string)}
-                >
-                    {dropdownPlaceholder.map((item, index) => (
-                        <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
-                    ))}
-                </Select>
-            </FormControl>
+            {recordFormFields.map((field, index) => {
+                return (
+                    <InputField key={index}
+                                input={field.input}
+                                label={field.label}
+                                value={field.value}
+                                formValue={field.formValue}
+                                dropdownItems={field.dropDownItems}
+                                setValue={props.setValue}
+                    />
+                )}
+            )}
         </FormGroup>
     );
 }

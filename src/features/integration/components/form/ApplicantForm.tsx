@@ -19,16 +19,17 @@ const ApplicantForm: React.FunctionComponent<any> = (props) => {
 
     return (
         <FormGroup className={props.style.formControl}>
-            {applicantFormFields.map((inputInfo, index) => {
+            {applicantFormFields.map((field, index) => {
                 return (
                     <InputField key={index}
-                                input={inputInfo.input}
-                                label={inputInfo.label}
-                                value={inputInfo.value}
-                                formValue={inputInfo.formValue}
-                                dropdownItems={inputInfo.dropDownItems}
+                                input={field.input}
+                                label={field.label}
+                                value={field.value}
+                                formValue={field.formValue}
+                                dropdownItems={field.dropDownItems}
                                 setValue={props.setValue}/>
-                )})}
+                )}
+            )}
         </FormGroup>
     );
 }
