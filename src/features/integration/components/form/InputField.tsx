@@ -38,9 +38,6 @@ const InputField: React.FunctionComponent<any> = (props) => {
                     ))}
                 </RadioGroup>
             </FormControl>
-
-
-
         )
     }
     else {
