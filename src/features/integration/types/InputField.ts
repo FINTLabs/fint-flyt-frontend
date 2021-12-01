@@ -1,4 +1,4 @@
-import {INPUT_TYPE} from "./InputTypes.enum";
+import {INPUT_TYPE} from "./InputType.enum";
 
 export interface IInputField {
     input: INPUT_TYPE;
@@ -6,9 +6,12 @@ export interface IInputField {
     value?: Function;
     formValue: string;
     dropDownItems?: ISelect[];
+    radioOptions?: ISelect[];
+    defaultValue?: string;
 }
 
 export interface ISelect {
     label: string,
-    value: string
+    value: string,
+    description?: string
 }

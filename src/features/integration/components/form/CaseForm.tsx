@@ -2,7 +2,7 @@ import {FormGroup} from '@mui/material';
 import React from 'react';
 import {dropdownPlaceholder} from "../../util/DefaultValues";
 import {IInputField} from "../../types/InputField";
-import {INPUT_TYPE} from "../../types/InputTypes.enum";
+import {INPUT_TYPE} from "../../types/InputType.enum";
 import InputField from "./InputField";
 
 const CaseForm: React.FunctionComponent<any> = (props) => {

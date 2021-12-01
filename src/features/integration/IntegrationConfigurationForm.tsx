@@ -13,10 +13,10 @@ import {ACCORDION_FORM, IAccordion} from "./types/Accordion";
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         form: {
-            width: 1200
+            width: theme.spacing(120)
         },
         formControl: {
-            width: 750
+            width: theme.spacing(80)
         },
         accordion: {
             marginBottom: theme.spacing(2)

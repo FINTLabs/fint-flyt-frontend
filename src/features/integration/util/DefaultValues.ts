@@ -46,5 +46,15 @@ export const dropdownPlaceholder = [
     {label: 'Alternativ 10', value: '9'}
 ]
 
+export const creationStrategies = [
+    {label: 'Som ny sak',value: 'NEW',  description: 'Innsendt skjema oppretter en ny sak i Elements'},
+    {label: 'På eksisterende sak', value: 'EXISTING',  description: 'Innsendt skjema gjenfinner eksisterende sak i ' +
+            'Elements basert på informasjon i skjemaet. Dersom det ikke fins en eksisterende sak opprettes en ny sak' },
+    {label: 'På samlesak', value: 'COLLECTION', description: 'Innsendt skjema skal leveres til en forhåndsdefinert samlesak'}
+];
 
-
+export const forms = [
+    { label: "TT-skjema", value: "TT" },
+    { label: "Skjema1", value: "1_form" },
+    { label: "Skjema2", value: "2_form" }
+];
