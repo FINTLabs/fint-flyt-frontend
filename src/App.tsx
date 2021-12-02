@@ -2,6 +2,8 @@ import React from 'react';
 import {createTheme, ThemeProvider} from "@mui/material";
 import Main from "./features/main/Main";
 import {BrowserRouter} from "react-router-dom";
+import {HTML5Backend} from "react-dnd-html5-backend";
+import {DndProvider} from "react-dnd";
 
 const theme = createTheme({
     palette: {
@@ -28,7 +30,9 @@ function App() {
     return (
         <ThemeProvider theme={theme}>
             <BrowserRouter>
-                <Main/>
+                <DndProvider backend={HTML5Backend}>
+                    <Main/>
+                </DndProvider>
             </BrowserRouter>
         </ThemeProvider>
     );
