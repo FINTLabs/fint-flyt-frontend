@@ -2,6 +2,7 @@
   "name": "fint-skjema-integration-frontend",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:8080/api",
   "dependencies": {
     "@emotion/react": "^11.5.0",
     "@emotion/styled": "^11.3.0",
@@ -24,6 +25,7 @@
     "loadash": "^1.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-hook-form": "^7.19.5",
     "react-redux": "^7.2.6",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",

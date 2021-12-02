@@ -16,6 +16,7 @@ const theme = createTheme({
             dark: '#15373e',
         },
     },
+    spacing: 8,
     typography: {
          fontFamily: [
              "Nunito Sans", 'sans-serif'

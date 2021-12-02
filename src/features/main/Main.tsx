@@ -1,17 +1,18 @@
 import React from "react";
 import {
-    AppBar,
+    AppBar, Badge,
     Box,
     Drawer,
     Theme,
     Toolbar,
     Typography
 } from "@mui/material";
-
+import NotificationsIcon from '@mui/icons-material/Notifications';
 import FintLogo from "../../images/fint-by-vigo-white.svg";
 import {createStyles, makeStyles} from "@mui/styles";
 import Router from "./Router";
 import MenuItems from "./MenuItems";
+import {Link as RouterLink} from "react-router-dom";
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme: Theme) =>
@@ -37,10 +38,10 @@ const useStyles = makeStyles((theme: Theme) =>
             backgroundColor: theme.palette.background.default,
             padding: 24,
             minHeight: "100vh",
-            marginTop: 56,
+            marginTop: theme.spacing(7),
             [theme.breakpoints.up("sm")]: {
                 height: "calc(100% - 64px)",
-                marginTop: 64
+                marginTop: theme.spacing(8)
             }
         },
         logo: {
@@ -51,7 +52,11 @@ const useStyles = makeStyles((theme: Theme) =>
         flex: {
             flex: 1
         },
+        badge: {
+            cursor: 'pointer',
+        }
     }));
+
 
 function Main() {
     const classes = useStyles();
@@ -64,6 +69,12 @@ function Main() {
                     <Typography variant="h6" color="inherit" noWrap className={classes.flex}>
                         Skjema til arkivintegrasjon
                     </Typography>
+                    <Badge className={classes.badge}
+                           badgeContent={"5"}
+                           color="secondary"
+                           component={RouterLink} to="/log">
+                        <NotificationsIcon htmlColor={"white"}/>
+                    </Badge>
                 </Toolbar>
             </AppBar>
             <Drawer variant="permanent" className={classes.drawer}>

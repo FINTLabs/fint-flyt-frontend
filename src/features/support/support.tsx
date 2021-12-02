@@ -2,12 +2,12 @@ import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import {Typography} from "@mui/material";
 
-const Log: React.FunctionComponent<RouteComponentProps<any>> = () => {
+const Support: React.FunctionComponent<RouteComponentProps<any>> = () => {
     return (
         <>
-            <Typography>Logg</Typography>
+            <Typography>Opprett support sak</Typography>
         </>
     );
 }
 
-export default withRouter(Log);
+export default withRouter(Support);
