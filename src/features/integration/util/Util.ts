@@ -1,5 +1,5 @@
 import {ValueBuilder} from "../types/ValueBuilder";
-import {Property} from "../types/Property";
+import {IProperty} from "../types/Property";
 
 /* TODO: Remove empty check after validation ensures no empty fields */
 export function createValueBuilder(inputString: any): ValueBuilder {
@@ -12,7 +12,7 @@ export function createValueBuilder(inputString: any): ValueBuilder {
     }
     return {
         value: stringWithReplacedTags,
-        properties: foundTags ? foundTags.map((tag: any, index: number): Property => {
+        properties: foundTags ? foundTags.map((tag: any, index: number): IProperty => {
             return {
                 key: tag,
                 order: index,

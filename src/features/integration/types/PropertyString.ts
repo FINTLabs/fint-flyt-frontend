@@ -1,6 +1,6 @@
-import {Property} from "./Property";
+import {IProperty} from "./Property";
 
 export interface PropertyString {
     value?: string;
-    properties?: Property[]
+    properties?: IProperty[]
 }

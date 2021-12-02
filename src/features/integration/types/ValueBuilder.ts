@@ -1,6 +1,6 @@
-import {Property} from "./Property";
+import {IProperty} from "./Property";
 
 export interface ValueBuilder {
     value?: string;
-    properties?: Property[]
+    properties?: IProperty[]
 }
