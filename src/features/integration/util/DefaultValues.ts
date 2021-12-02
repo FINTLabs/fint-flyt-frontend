@@ -1,3 +1,5 @@
+import {ISelect} from "../types/InputField";
+
 export const defaultValues = {
     selectedForm: '',
     caseData: {
@@ -33,7 +35,7 @@ export const defaultValues = {
     }
 }
 
-export const dropdownPlaceholder = [
+export const dropdownPlaceholder: ISelect[] = [
     {label: 'Alternativ 1', value: '0'},
     {label: 'Alternativ 2', value: '1'},
     {label: 'Alternativ 3', value: '2'},
@@ -46,15 +48,31 @@ export const dropdownPlaceholder = [
     {label: 'Alternativ 10', value: '9'}
 ]
 
-export const creationStrategies = [
+export const creationStrategies: ISelect[] = [
     {label: 'Som ny sak',value: 'NEW',  description: 'Innsendt skjema oppretter en ny sak i Elements'},
     {label: 'På eksisterende sak', value: 'EXISTING',  description: 'Innsendt skjema gjenfinner eksisterende sak i ' +
             'Elements basert på informasjon i skjemaet. Dersom det ikke fins en eksisterende sak opprettes en ny sak' },
     {label: 'På samlesak', value: 'COLLECTION', description: 'Innsendt skjema skal leveres til en forhåndsdefinert samlesak'}
 ];
 
-export const forms = [
+export const forms: ISelect[] = [
     { label: "TT-skjema", value: "TT" },
     { label: "Skjema1", value: "1_form" },
     { label: "Skjema2", value: "2_form" }
 ];
+
+export const caseWorkers: ISelect[] = [
+    {label: 'Brendan Costanza', value: 'hotdog'},
+    {label: 'Diana Seelix', value: 'hardball'},
+    {label: 'Dwight Saunders', value: 'flattop'},
+    {label: 'Kara Thrace', value: 'starbuck'},
+    {label: 'Karl Agathon', value: 'helo'},
+    {label: 'Lee Adama', value: 'apollo'},
+    {label: 'Louanne Katraine', value: 'kat'},
+    {label: 'Marcia Case', value: 'showboat'},
+    {label: 'Samuel Anders', value: 'longshot'},
+    {label: 'Sharon Valerii', value: 'boomer'},
+    {label: 'Sharon Agathon', value: 'athena'},
+    {label: 'Paolo McKay', value: 'redwing'},
+    {label: 'William Adama', value: 'husker'}
+]
