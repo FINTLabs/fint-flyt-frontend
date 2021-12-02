@@ -14,12 +14,12 @@ export function toIntegrationConfiguration(data: IFormData): IIntegrationConfigu
                 {
                     field: "tittel",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                    valueBuilder: createValueBuilder(data.caseData?.title?.value)
+                    valueBuilder: createValueBuilder(data.caseData?.title)
                 },
                 {
                     field: "offentligTittel",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                    valueBuilder: createValueBuilder(data.caseData?.publicTitle?.value)
+                    valueBuilder: createValueBuilder(data.caseData?.publicTitle)
                 },
                 {
                     field: "caseType",
@@ -73,12 +73,12 @@ export function toIntegrationConfiguration(data: IFormData): IIntegrationConfigu
                 {
                     field: "primarordningsprinsipp",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                    valueBuilder: createValueBuilder(data.caseData?.primaryClassification?.value)
+                    valueBuilder: createValueBuilder(data.caseData?.primaryClassification)
                 },
                 {
                     field: "sekundarordningsprinsipp",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                    valueBuilder: createValueBuilder(data.caseData?.secondaryClassification?.value)
+                    valueBuilder: createValueBuilder(data.caseData?.secondaryClassification)
                 },
                 {
                     field: "primarklasse",
@@ -100,13 +100,13 @@ export function toIntegrationConfiguration(data: IFormData): IIntegrationConfigu
                 {
                     field: "tittel",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                    valueBuilder: createValueBuilder(data.recordData?.title?.value)
+                    valueBuilder: createValueBuilder(data.recordData?.title)
 
                 },
                 {
                     field: "offentigTittel",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                    valueBuilder: createValueBuilder(data.recordData?.publicTitle?.value)
+                    valueBuilder: createValueBuilder(data.recordData?.publicTitle)
 
                 },
                 {
@@ -151,7 +151,7 @@ export function toIntegrationConfiguration(data: IFormData): IIntegrationConfigu
                 {
                     field: "tittel",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                    valueBuilder: createValueBuilder(data.documentData?.title?.value)
+                    valueBuilder: createValueBuilder(data.documentData?.title)
                 },
                 {
                     field: "dokumentStatus",
@@ -195,32 +195,32 @@ export function toIntegrationConfiguration(data: IFormData): IIntegrationConfigu
                 {
                     field: "korrespondasepartNavn",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                    valueBuilder: createValueBuilder(data.applicantData?.name?.value)
+                    valueBuilder: createValueBuilder(data.applicantData?.name)
                 },
                 {
                     field: "Adresse.adresselinje",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                    valueBuilder: createValueBuilder(data.applicantData?.address?.value)
+                    valueBuilder: createValueBuilder(data.applicantData?.address)
                 },
                 {
                     field: "Adresse.postnummer",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                    valueBuilder: createValueBuilder(data.applicantData?.postalCode?.value)
+                    valueBuilder: createValueBuilder(data.applicantData?.postalCode)
                 },
                 {
                     field: "Adresse.poststed",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                    valueBuilder: createValueBuilder(data.applicantData?.city?.value)
+                    valueBuilder: createValueBuilder(data.applicantData?.city)
                 },
                 {
                     field: "Kontaktinformasjon.mobiltelefonnummer",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                    valueBuilder: createValueBuilder(data.applicantData?.phoneNumber?.value)
+                    valueBuilder: createValueBuilder(data.applicantData?.phoneNumber)
                 },
                 {
                     field: "Kontaktinformasjon.epostadresse",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                    valueBuilder: createValueBuilder(data.applicantData?.email?.value)
+                    valueBuilder: createValueBuilder(data.applicantData?.email)
                 },
                 {
                     field: "tilgangsrestriksjon",
