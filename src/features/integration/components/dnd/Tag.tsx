@@ -13,23 +13,24 @@ const style: CSSProperties = {
     float: 'left',
 }
 
-export interface BoxProps {
+export interface TagProps {
     name: string,
-    value?: string
+    value: string,
+    setValue?: Function
 }
 
 interface DropResult {
     name: string
 }
 
-export const Tag: FC<BoxProps> = function Tag({ name, value }) {
+export const Tag: FC<TagProps> = function Tag({ name, value, setValue }) {
     const [{ isDragging }, drag] = useDrag(() => ({
-        type: ItemTypes.BOX,
-        item: {name, value},
+        type: ItemTypes.TAG,
+        item: {name, value, setValue},
         end: (item, monitor) => {
             const dropResult = monitor.getDropResult<DropResult>()
             if (item && dropResult) {
-                console.log(`You dropped ${item.name} ${item.value}  into ${dropResult.name}!`)
+                console.log(`You dropped ${item.name} with the tag ${item.value}!`)
             }
         },
         collect: (monitor) => ({

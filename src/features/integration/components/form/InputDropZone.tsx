@@ -1,30 +1,28 @@
 import React, {CSSProperties, useState} from 'react'
 import { useDrop } from 'react-dnd'
-import { ItemTypes } from './ItemTypes'
-import {TagProps} from "./Tag";
-import {TextField, Typography} from "@mui/material";
+import { ItemTypes } from '../dnd/ItemTypes'
+import {TagProps} from "../dnd/Tag";
+import {FormControl, TextField} from "@mui/material";
 
 const style: CSSProperties = {
-    width: '100rem',
+    width: '750px',
     marginRight: '1.5rem',
     marginBottom: '1.5rem',
     color: 'black',
-    padding: '1rem',
     textAlign: 'left',
     fontSize: '1rem',
     lineHeight: 'normal',
     float: 'left',
 }
 
-export const Dropzone: React.FunctionComponent<any> = (props) => {
-    const [value, setValue] = useState('empty string waiting for tags')
+export const InputDropzone: React.FunctionComponent<any> = (props) => {
     const [inputValue, setInputValue] = useState('')
     const [{ canDrop, isOver }, drop] = useDrop(() => ({
         accept: ItemTypes.TAG,
         drop: (tag:TagProps) => {
             console.log('tag', tag.value);
-            setValue(prevState => prevState + ' ' + tag.value)
             setInputValue(prevState => prevState + ' ' + tag.value)
+            props.setValue(props.formValue, inputValue)
         },
         collect: (monitor) => ({
             isOver: monitor.isOver(),
@@ -33,18 +31,21 @@ export const Dropzone: React.FunctionComponent<any> = (props) => {
     }))
 
     const isActive = canDrop && isOver
-    let backgroundColor = 'lightblue'
+    let backgroundColor = 'white'
     if (isActive) {
-        backgroundColor = 'lightpink'
-    } else if (canDrop) {
         backgroundColor = 'lightgreen'
+    } else if (canDrop) {
+        backgroundColor = 'lightblue'
+    }
+
+    function handleChange(e: any): void {
+        setInputValue(e.target.value as string)
+        props.setValue(props.formValue, e.target.value as string)
     }
 
     return (
-        <div ref={drop} role={'Dropzone'} style={{...style, backgroundColor}}>
-            <TextField sx={{width: 750}} label="tittel" value={inputValue} onChange={event => setInputValue(event.target.value as string)}/>
-            <Typography>{value}</Typography>
-            <Typography>{inputValue}</Typography>
-        </div>
+        <FormControl ref={drop} role={'InputDropzone'} style={{...style, backgroundColor}}>
+            <TextField size="small" label={props.label} value={inputValue} onChange={event => handleChange(event)}/>
+        </FormControl>
     );
 }
