@@ -35,7 +35,7 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button size="small" variant="outlined" component={RouterLink} to="/log">Se logg</Button>
+                    <Button size="small" variant="outlined" component={RouterLink} to="/log">Se feillogg</Button>
                     <Button size="small" variant="outlined" component={RouterLink} to="/support">Opprett supportsak</Button>
                 </CardActions>
             </Card>

@@ -12,6 +12,7 @@ import {
 import React from 'react';
 import {INPUT_TYPE} from "../../types/InputType.enum";
 import {ISelect} from "../../types/InputField";
+import {InputDropZone} from "../dnd/InputDropZone";
 
 const InputField: React.FunctionComponent<any> = (props) => {
     if (props.input === INPUT_TYPE.DROPDOWN) {
@@ -43,22 +44,27 @@ const InputField: React.FunctionComponent<any> = (props) => {
         )
     } else if (props.input === INPUT_TYPE.AUTOCOMPLETE) {
         return (
-        <FormControl size="small">
-            <Autocomplete
-                sx={{ mb: 3 }}
-                id="tags-outlined"
-                options={props.dropdownItems}
-                onChange={(event, value) => props.setValue(props.formValue, value?.value)}
-                getOptionLabel={(option: ISelect) => option.label}
-                renderInput={(params) => (
-                    <TextField
-                        {...params}
-                        label={props.label}
-                        placeholder={props.label}
-                    />
-                )}
-            />
-        </FormControl>
+            <FormControl size="small">
+                <Autocomplete
+                    sx={{ mb: 3 }}
+                    id="tags-outlined"
+                    options={props.dropdownItems}
+                    onChange={(event, value) => props.setValue(props.formValue, value?.value)}
+                    getOptionLabel={(option: ISelect) => option.label}
+                    renderInput={(params) => (
+                        <TextField
+                            {...params}
+                            label={props.label}
+                            placeholder={props.label}
+                        />
+                    )}
+                />
+            </FormControl>
+        )
+    }
+    else if (props.input === INPUT_TYPE.DRAG_DROP_TEXT_FIELD) {
+        return (
+            <InputDropZone label={props.label} setValue={props.setValue} formValue={props.formValue}/>
         )
     }
     else {

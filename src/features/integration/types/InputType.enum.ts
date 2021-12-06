@@ -2,5 +2,6 @@ export enum INPUT_TYPE {
     TEXT_FIELD,
     DROPDOWN,
     AUTOCOMPLETE,
-    RADIO
+    RADIO,
+    DRAG_DROP_TEXT_FIELD
 }

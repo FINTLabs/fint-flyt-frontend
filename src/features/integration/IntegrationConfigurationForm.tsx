@@ -81,7 +81,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     return (
         <Box display="flex" position="relative" width={1} height={1}>
             <Box>
-                <Typography variant={"h5"} sx={{mb: 2}}>Integrasjonskonfigurasjon</Typography>
+                <Typography variant={"h5"} sx={{mb: 2}}>Integrasjon til arkiv</Typography>
                 <form className={classes.form} onSubmit={onSubmit}>
                     {accordionList.map((accordion, index) => {
                         return (

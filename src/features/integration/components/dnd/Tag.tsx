@@ -1,6 +1,6 @@
 import { CSSProperties, FC } from 'react'
 import { useDrag } from 'react-dnd'
-import { ItemTypes } from './ItemTypes'
+import { DraggableTypes } from './DraggableTypes'
 
 const style: CSSProperties = {
     border: '1px  gray',
@@ -25,7 +25,7 @@ interface DropResult {
 
 export const Tag: FC<TagProps> = function Tag({ name, value, setValue }) {
     const [{ isDragging }, drag] = useDrag(() => ({
-        type: ItemTypes.TAG,
+        type: DraggableTypes.TAG,
         item: {name, value, setValue},
         end: (item, monitor) => {
             const dropResult = monitor.getDropResult<DropResult>()

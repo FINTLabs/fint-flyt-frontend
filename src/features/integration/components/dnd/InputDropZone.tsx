@@ -1,24 +1,13 @@
-import React, {CSSProperties, useState} from 'react'
+import React, {useState} from 'react'
 import { useDrop } from 'react-dnd'
-import { ItemTypes } from '../dnd/ItemTypes'
-import {TagProps} from "../dnd/Tag";
+import { DraggableTypes } from './DraggableTypes'
+import {TagProps} from "./Tag";
 import {FormControl, TextField} from "@mui/material";
 
-const style: CSSProperties = {
-    width: '750px',
-    marginRight: '1.5rem',
-    marginBottom: '1.5rem',
-    color: 'black',
-    textAlign: 'left',
-    fontSize: '1rem',
-    lineHeight: 'normal',
-    float: 'left',
-}
-
-export const InputDropzone: React.FunctionComponent<any> = (props) => {
+export const InputDropZone: React.FunctionComponent<any> = (props) => {
     const [inputValue, setInputValue] = useState('')
     const [{ canDrop, isOver }, drop] = useDrop(() => ({
-        accept: ItemTypes.TAG,
+        accept: DraggableTypes.TAG,
         drop: (tag:TagProps) => {
             console.log('tag', tag.value);
             setInputValue(prevState => prevState + ' ' + tag.value)
@@ -44,7 +33,7 @@ export const InputDropzone: React.FunctionComponent<any> = (props) => {
     }
 
     return (
-        <FormControl ref={drop} role={'InputDropzone'} style={{...style, backgroundColor}}>
+        <FormControl ref={drop} role={'InputDropZone'} size="small" sx={{mb: 3}} style={{backgroundColor}}>
             <TextField size="small" label={props.label} value={inputValue} onChange={event => handleChange(event)}/>
         </FormControl>
     );
