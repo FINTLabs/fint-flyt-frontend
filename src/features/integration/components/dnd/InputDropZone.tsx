@@ -1,15 +1,14 @@
 import React, {useState} from 'react'
 import { useDrop } from 'react-dnd'
 import { DraggableTypes } from './DraggableTypes'
-import {TagProps} from "./Tag";
 import {FormControl, TextField} from "@mui/material";
+import {ITag} from "../../types/Tag";
 
 export const InputDropZone: React.FunctionComponent<any> = (props) => {
     const [inputValue, setInputValue] = useState('')
     const [{ canDrop, isOver }, drop] = useDrop(() => ({
         accept: DraggableTypes.TAG,
-        drop: (tag:TagProps) => {
-            console.log('tag', tag.value);
+        drop: (tag:ITag) => {
             setInputValue(prevState => prevState + ' ' + tag.value)
             props.setValue(props.formValue, inputValue)
         },
@@ -22,9 +21,9 @@ export const InputDropZone: React.FunctionComponent<any> = (props) => {
     const isActive = canDrop && isOver
     let backgroundColor = 'white'
     if (isActive) {
-        backgroundColor = 'lightgreen'
+        backgroundColor = 'palegreen';
     } else if (canDrop) {
-        backgroundColor = 'lightblue'
+        backgroundColor = 'aliceblue'
     }
 
     function handleChange(e: any): void {

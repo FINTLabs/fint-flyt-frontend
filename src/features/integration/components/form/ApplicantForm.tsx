@@ -1,10 +1,9 @@
-import {FormGroup, Typography} from '@mui/material';
+import {FormGroup} from '@mui/material';
 import React from 'react';
 import {dropdownPlaceholder} from "../../util/DefaultValues";
 import InputField from "./InputField";
 import {INPUT_TYPE} from "../../types/InputType.enum";
 import {IInputField} from "../../types/InputField";
-import {Tag} from "../dnd/Tag";
 
 const ApplicantForm: React.FunctionComponent<any> = (props) => {
     const applicantFormFields: IInputField[] = [
@@ -33,17 +32,6 @@ const ApplicantForm: React.FunctionComponent<any> = (props) => {
                     )}
                 )}
             </FormGroup>
-            <div style={{ width: '600px', overflow: 'hidden', clear: 'both', border: 'solid black 1px', padding: '5px'}}>
-                <Typography> Data fra skjema</Typography>
-                <Tag value="{fornavn}" name="Fornavn"/>
-                <Tag value={"{etternavn}"} name="Etternavn"/>
-                <Tag value={"{fodselsnummer}"} name="Fødselsnummer" />
-                <Tag value={"{adresse}"} name="Adresse" />
-                <Tag value={"{postnummer}"} name="Postnummer" />
-                <Tag value={"{poststed}"} name="Poststed" />
-                <Tag value={"{telefonnummer}"} name="Telefonnummer" />
-                <Tag value={"{email}"} name="Email" />
-            </div>
         </div>
     );
 }

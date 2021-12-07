@@ -7,8 +7,8 @@ import {creationStrategies, forms} from "../../util/DefaultValues";
 
 const CaseInformation: React.FunctionComponent<any> = (props) => {
     const caseInformationFields: IInputField[] = [
-        {input: INPUT_TYPE.DRAG_DROP_TEXT_FIELD, label: "Navn", formValue: "name"},
-        {input: INPUT_TYPE.DRAG_DROP_TEXT_FIELD, label: "Beskrivelse", formValue: "description"},
+        {input: INPUT_TYPE.TEXT_FIELD, label: "Navn", formValue: "name"},
+        {input: INPUT_TYPE.TEXT_FIELD, label: "Beskrivelse", formValue: "description"},
         {input: INPUT_TYPE.DROPDOWN, label: "Skjema", value: props.watch("selectedForm"), formValue: "selectedForm", dropDownItems: forms},
         {input: INPUT_TYPE.RADIO, label: "Velg hvordan skjema skal sendes til arkivet", value: props.watch("caseData.caseCreationStrategy"),
             formValue: "caseData.caseCreationStrategy", radioOptions: creationStrategies, defaultValue: creationStrategies[0].value}

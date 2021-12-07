@@ -9,11 +9,26 @@ import {defaultValues} from "./util/DefaultValues";
 import {toIntegrationConfiguration} from "./util/ToIntegrationConfiguration";
 import AccordionForm from "./components/AccordionForm";
 import {ACCORDION_FORM, IAccordion} from "./types/Accordion";
+import TagList from "./components/dnd/TagList";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         form: {
             width: theme.spacing(120)
+        },
+        row: {
+            display: 'flex'
+        },
+        column: {
+            flex: '50%',
+            paddingLeft: theme.spacing(2)
+        },
+        box: {
+            marginLeft: theme.spacing(8),
+            padding: theme.spacing(2),
+            border: 'solid 2px',
+            borderRadius: '2px',
+            height: theme.spacing(30)
         },
         formControl: {
             width: theme.spacing(80)
@@ -30,6 +45,13 @@ const useStyles = makeStyles((theme: Theme) =>
             color: 'white',
             padding: theme.spacing(2),
             cursor: 'pointer'
+        },
+        tagList: {
+            marginLeft: theme.spacing(2),
+            opacity: 0.99,
+            border: 'solid 2px',
+            width: theme.spacing(40),
+            height: 'fit-content'
         }
     })
 );
@@ -100,6 +122,8 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                     </div>
                 </form>
             </Box>
+            <Typography variant={"h5"} sx={{mb: 2}}>Data fra skjema</Typography>
+            <TagList style={classes.tagList}/>
         </Box>
     );
 }

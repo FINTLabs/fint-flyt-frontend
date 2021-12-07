@@ -1,4 +1,5 @@
 import {ISelect} from "../types/InputField";
+import {ITag} from "../types/Tag";
 
 export const defaultValues = {
     selectedForm: '',
@@ -75,4 +76,15 @@ export const caseWorkers: ISelect[] = [
     {label: 'Sharon Agathon', value: 'athena'},
     {label: 'Paolo McKay', value: 'redwing'},
     {label: 'William Adama', value: 'husker'}
+]
+
+export const tagList: ITag[] = [
+    {value:"{fornavn}",  name:"Fornavn"},
+    {value:"{etternavn}",  name:"Etternavn"},
+    {value:"{fodselsnummer}",  name:"Fødselsnummer"},
+    {value:"{adresse}",  name:"Adresse"},
+    {value:"{postnummer}",  name:"Postnummer"},
+    {value:"{poststed}",  name:"Poststed"},
+    {value:"{telefonnummer}",  name:"Telefonnummer"},
+    {value:"{email}",  name:"Email"}
 ]
