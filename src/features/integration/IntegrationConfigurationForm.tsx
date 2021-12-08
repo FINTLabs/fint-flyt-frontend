@@ -10,6 +10,8 @@ import {toIntegrationConfiguration} from "./util/ToIntegrationConfiguration";
 import AccordionForm from "./components/AccordionForm";
 import {ACCORDION_FORM, IAccordion} from "./types/Accordion";
 import TagList from "./components/dnd/TagList";
+import {HTML5Backend} from "react-dnd-html5-backend";
+import {DndProvider} from "react-dnd";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -101,30 +103,34 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     });
 
     return (
-        <Box display="flex" position="relative" width={1} height={1}>
-            <Box>
-                <Typography variant={"h5"} sx={{mb: 2}}>Integrasjon til arkiv</Typography>
-                <form className={classes.form} onSubmit={onSubmit}>
-                    {accordionList.map((accordion, index) => {
-                        return (
-                            <AccordionForm
-                                key={index}
-                                style={classes}
-                                summary={accordion.summary}
-                                accordionForm={accordion.accordionForm}
-                                defaultExpanded={accordion.defaultExpanded}
-                                watch={watch}
-                                setValue={setValue}
-                            />
-                        )})}
-                    <div>
-                        <input type="submit" className={classes.submitButton}/>
-                    </div>
-                </form>
+        <DndProvider backend={HTML5Backend}>
+            <Box display="flex" position="relative" width={1} height={1}>
+                <Box>
+                    <Typography variant={"h5"} sx={{mb: 2}}>Integrasjon til arkiv</Typography>
+                    <form className={classes.form} onSubmit={onSubmit}>
+                        {accordionList.map((accordion, index) => {
+                            return (
+                                <AccordionForm
+                                    key={index}
+                                    style={classes}
+                                    summary={accordion.summary}
+                                    accordionForm={accordion.accordionForm}
+                                    defaultExpanded={accordion.defaultExpanded}
+                                    watch={watch}
+                                    setValue={setValue}
+                                />
+                            )})}
+                        <div>
+                            <input type="submit" className={classes.submitButton}/>
+                        </div>
+                    </form>
+                </Box>
+                <Box>
+                <Typography variant={"h5"} sx={{mb: 2}}>Data fra skjema</Typography>
+                <TagList style={classes.tagList}/>
+                </Box>
             </Box>
-            <Typography variant={"h5"} sx={{mb: 2}}>Data fra skjema</Typography>
-            <TagList style={classes.tagList}/>
-        </Box>
+        </DndProvider>
     );
 }
 

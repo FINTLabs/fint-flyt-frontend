@@ -1,30 +1,32 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { useDrop } from 'react-dnd'
 import { DraggableTypes } from './DraggableTypes'
 import {FormControl, TextField} from "@mui/material";
 import {ITag} from "../../types/Tag";
 
 export const InputDropZone: React.FunctionComponent<any> = (props) => {
+    let backgroundColor = 'white'
+
     const [inputValue, setInputValue] = useState('')
     const [{ canDrop, isOver }, drop] = useDrop(() => ({
         accept: DraggableTypes.TAG,
         drop: (tag:ITag) => {
-            setInputValue(prevState => prevState + ' ' + tag.value)
-            props.setValue(props.formValue, inputValue)
+            setInputValue(prevState => prevState + '' + tag.value)
         },
         collect: (monitor) => ({
             isOver: monitor.isOver(),
             canDrop: monitor.canDrop(),
         }),
     }))
-
-    const isActive = canDrop && isOver
-    let backgroundColor = 'white'
-    if (isActive) {
+    if (canDrop && isOver) {
         backgroundColor = 'palegreen';
     } else if (canDrop) {
         backgroundColor = 'aliceblue'
     }
+
+    useEffect(() => {
+        props.setValue(props.formValue, inputValue)
+    }, [inputValue, setInputValue]);
 
     function handleChange(e: any): void {
         setInputValue(e.target.value as string)
@@ -33,7 +35,8 @@ export const InputDropZone: React.FunctionComponent<any> = (props) => {
 
     return (
         <FormControl ref={drop} role={'InputDropZone'} size="small" sx={{mb: 3}} style={{backgroundColor}}>
-            <TextField size="small" label={props.label} value={inputValue} onChange={event => handleChange(event)}/>
+            <TextField size="small" label={props.label} value={inputValue} onChange={e => handleChange(e)}/>
+            {inputValue}
         </FormControl>
     );
 }
