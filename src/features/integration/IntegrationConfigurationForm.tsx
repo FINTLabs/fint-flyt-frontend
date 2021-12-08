@@ -43,6 +43,9 @@ const useStyles = makeStyles((theme: Theme) =>
         accordion: {
             marginBottom: theme.spacing(2)
         },
+        accordionSummary: {
+            backgroundColor: theme.palette.primary.light,
+        },
         button: {
             marginRight: theme.spacing(1)
         },

@@ -1,4 +1,5 @@
 export default interface IApplicantData {
+    type: string;
     name: string;
     address: string;
     postalCode: string;

@@ -30,9 +30,9 @@ const InputField: React.FunctionComponent<any> = (props) => {
     }
     else if (props.input === INPUT_TYPE.RADIO) {
         return (
-            <FormControl component="fieldset">
-                <FormLabel>Velg hvordan skjema skal sendes til arkivet</FormLabel>
-                <RadioGroup onChange={(e) => props.setValue(props.formValue, e.target.value as string)} defaultValue={props.defaultValue} sx={{maxWidth: 400}}>
+            <FormControl component="fieldset" disabled={props.disabled}>
+                <FormLabel>{props.label}</FormLabel>
+                <RadioGroup row={true} onChange={(e) => props.setValue(props.formValue, e.target.value as string)} defaultValue={props.defaultValue} sx={{maxWidth: 400}}>
                     {props.radioOptions.map((option: any, index: number) => (
                         <div key={index}>
                             <FormControlLabel value={option.value} control={<Radio />} label={option.label} />

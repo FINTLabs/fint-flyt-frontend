@@ -11,7 +11,7 @@ import {ACCORDION_FORM} from "../types/Accordion";
 const AccordionForm: React.FunctionComponent<any> = (props) => {
     return (
         <Accordion className={props.style.accordion} defaultExpanded={props.defaultExpanded}>
-            <AccordionSummary  expandIcon={<ExpandMoreIcon />}>
+            <AccordionSummary className={props.style.accordionSummary} expandIcon={<ExpandMoreIcon />}>
                 <Typography variant={"h6"}>{props.summary}</Typography>
             </AccordionSummary>
             <AccordionDetails>

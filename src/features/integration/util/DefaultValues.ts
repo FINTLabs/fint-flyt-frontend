@@ -31,6 +31,7 @@ export const defaultValues = {
         format: '',
     },
     applicantData: {
+        type: 'PERSON',
         accessCode: '',
         paragraph: '',
     }
@@ -54,6 +55,11 @@ export const creationStrategies: ISelect[] = [
     {label: 'På eksisterende sak', value: 'EXISTING',  description: 'Innsendt skjema gjenfinner eksisterende sak i ' +
             'Elements basert på informasjon i skjemaet. Dersom det ikke fins en eksisterende sak opprettes en ny sak' },
     {label: 'På samlesak', value: 'COLLECTION', description: 'Innsendt skjema skal leveres til en forhåndsdefinert samlesak'}
+];
+
+export const applicantOptions: ISelect[] = [
+    {label: 'Privatperson',value: 'PERSON'},
+    {label: 'Organisasjon', value: 'COMPANY'}
 ];
 
 export const forms: ISelect[] = [
