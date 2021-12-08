@@ -60,9 +60,6 @@ const useStyles = makeStyles((theme: Theme) =>
             opacity: 0.99,
             width: theme.spacing(40),
             height: 'fit-content'
-        },
-        popover: {
-
         }
     })
 );
