@@ -4,7 +4,7 @@ import { DraggableTypes } from './DraggableTypes'
 import {FormControl, TextField} from "@mui/material";
 import {ITag} from "../../types/Tag";
 
-export const InputDropZone: React.FunctionComponent<any> = (props) => {
+export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
     let backgroundColor = 'white'
 
     const [inputValue, setInputValue] = useState('')
@@ -34,7 +34,7 @@ export const InputDropZone: React.FunctionComponent<any> = (props) => {
     }
 
     return (
-        <FormControl ref={drop} role={'InputDropZone'} size="small" sx={{mb: 3}} style={{backgroundColor}}>
+        <FormControl ref={drop} role={'TextFieldWithDropZone'} size="small" sx={{mb: 3}} style={{backgroundColor}}>
             <TextField size="small" label={props.label} value={inputValue} onChange={e => handleChange(e)}/>
         </FormControl>
     );

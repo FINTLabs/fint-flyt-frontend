@@ -12,7 +12,7 @@ import {
 import React from 'react';
 import {INPUT_TYPE} from "../../types/InputType.enum";
 import {ISelect} from "../../types/InputField";
-import {InputDropZone} from "../dnd/InputDropZone";
+import {TextFieldWithDropZone} from "../dnd/TextFieldWithDropZone";
 
 const InputField: React.FunctionComponent<any> = (props) => {
     if (props.input === INPUT_TYPE.DROPDOWN) {
@@ -64,7 +64,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
     }
     else if (props.input === INPUT_TYPE.DRAG_DROP_TEXT_FIELD) {
         return (
-            <InputDropZone label={props.label} setValue={props.setValue} formValue={props.formValue}/>
+            <TextFieldWithDropZone label={props.label} setValue={props.setValue} formValue={props.formValue}/>
         )
     }
     else {
