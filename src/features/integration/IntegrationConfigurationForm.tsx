@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
             flex: '50%',
             paddingLeft: theme.spacing(2)
         },
-        box: {
+        taglistContainer: {
             marginTop: theme.spacing(6),
             marginLeft: theme.spacing(8),
             padding: theme.spacing(2),
@@ -60,6 +60,9 @@ const useStyles = makeStyles((theme: Theme) =>
             opacity: 0.99,
             width: theme.spacing(40),
             height: 'fit-content'
+        },
+        popover: {
+
         }
     })
 );
@@ -131,9 +134,8 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                         </div>
                     </form>
                 </Box>
-                <Box className={classes.box}>
-                    <Typography variant={"h6"} sx={{mb: 2}}>Data fra skjema</Typography>
-                    <TagList style={classes.tagList}/>
+                <Box className={classes.taglistContainer}>
+                    <TagList style={classes}/>
                 </Box>
             </Box>
         </DndProvider>

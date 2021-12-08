@@ -94,3 +94,6 @@ export const tagList: ITag[] = [
     {value:"{telefonnummer}",  name:"Telefonnummer"},
     {value:"{email}",  name:"Email"}
 ]
+
+export const helpTextTag: string = 'I tekstfeltene til i de ulike postene kan du benytte data fra skjema for å utfylle disse. \n\n' +
+    'Naviger til feltet du ønsker å fylle,og dra inn tag fra listen under.'
