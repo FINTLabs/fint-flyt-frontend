@@ -26,12 +26,17 @@ const useStyles = makeStyles((theme: Theme) =>
             paddingLeft: theme.spacing(2)
         },
         box: {
+            marginTop: theme.spacing(6),
             marginLeft: theme.spacing(8),
             padding: theme.spacing(2),
             border: 'solid 2px',
-            borderRadius: '2px',
-            height: theme.spacing(30)
-        },
+            borderColor: 'rgba(0, 0, 0, 0.37)',
+            borderRadius: '4px',
+            boxShadow: '0px 2px 2px -1px',
+            height: theme.spacing(30),
+            position: 'sticky',
+            top: theme.spacing(16)
+            },
         formControl: {
             width: theme.spacing(80)
         },
@@ -49,9 +54,7 @@ const useStyles = makeStyles((theme: Theme) =>
             cursor: 'pointer'
         },
         tagList: {
-            marginLeft: theme.spacing(2),
             opacity: 0.99,
-            border: 'solid 2px',
             width: theme.spacing(40),
             height: 'fit-content'
         }
@@ -125,9 +128,9 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                         </div>
                     </form>
                 </Box>
-                <Box>
-                <Typography variant={"h5"} sx={{mb: 2}}>Data fra skjema</Typography>
-                <TagList style={classes.tagList}/>
+                <Box className={classes.box}>
+                    <Typography variant={"h6"} sx={{mb: 2}}>Data fra skjema</Typography>
+                    <TagList style={classes.tagList}/>
                 </Box>
             </Box>
         </DndProvider>

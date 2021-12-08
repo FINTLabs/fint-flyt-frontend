@@ -11,7 +11,7 @@ export const InputDropZone: React.FunctionComponent<any> = (props) => {
     const [{ canDrop, isOver }, drop] = useDrop(() => ({
         accept: DraggableTypes.TAG,
         drop: (tag:ITag) => {
-            setInputValue(prevState => prevState + '' + tag.value)
+            setInputValue(prevState => prevState + tag.value + ' ')
         },
         collect: (monitor) => ({
             isOver: monitor.isOver(),
@@ -36,7 +36,6 @@ export const InputDropZone: React.FunctionComponent<any> = (props) => {
     return (
         <FormControl ref={drop} role={'InputDropZone'} size="small" sx={{mb: 3}} style={{backgroundColor}}>
             <TextField size="small" label={props.label} value={inputValue} onChange={e => handleChange(e)}/>
-            {inputValue}
         </FormControl>
     );
 }
