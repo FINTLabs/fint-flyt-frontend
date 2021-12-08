@@ -5,9 +5,8 @@ import {FormControl, TextField} from "@mui/material";
 import {ITag} from "../../types/Tag";
 
 export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
-    let backgroundColor = 'white'
-
-    const [inputValue, setInputValue] = useState('')
+    let backgroundColor = 'white';
+    const [inputValue, setInputValue] = useState('');
     const [{ canDrop, isOver }, drop] = useDrop(() => ({
         accept: DraggableTypes.TAG,
         drop: (tag:ITag) => {
@@ -18,6 +17,7 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
             canDrop: monitor.canDrop(),
         }),
     }))
+
     if (canDrop && isOver) {
         backgroundColor = 'palegreen';
     } else if (canDrop) {
@@ -28,14 +28,9 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
         props.setValue(props.formValue, inputValue)
     }, [inputValue, setInputValue]);
 
-    function handleChange(e: any): void {
-        setInputValue(e.target.value as string)
-        props.setValue(props.formValue, e.target.value as string)
-    }
-
     return (
         <FormControl ref={drop} role={'TextFieldWithDropZone'} size="small" sx={{mb: 3}} style={{backgroundColor}}>
-            <TextField size="small" label={props.label} value={inputValue} onChange={e => handleChange(e)}/>
+            <TextField size="small" label={props.label} value={inputValue} onChange={e => setInputValue(e.target.value as string)}/>
         </FormControl>
     );
 }
