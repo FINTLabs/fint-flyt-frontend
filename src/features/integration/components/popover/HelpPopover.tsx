@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 import {IconButton} from "@mui/material";
 import HelpIcon from '@mui/icons-material/Help';
 
-const InfoPopover: React.FunctionComponent<any> = (props) => {
+const HelpPopover: React.FunctionComponent<any> = (props) => {
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -44,4 +44,4 @@ const InfoPopover: React.FunctionComponent<any> = (props) => {
     );
 }
 
-export default InfoPopover;
+export default HelpPopover;

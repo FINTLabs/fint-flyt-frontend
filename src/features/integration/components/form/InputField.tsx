@@ -62,7 +62,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
             </FormControl>
         )
     }
-    else if (props.input === INPUT_TYPE.DRAG_DROP_TEXT_FIELD) {
+    else if (props.input === INPUT_TYPE.DROPZONE_TEXT_FIELD) {
         return (
             <TextFieldWithDropZone label={props.label} setValue={props.setValue} formValue={props.formValue}/>
         )

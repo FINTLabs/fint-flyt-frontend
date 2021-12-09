@@ -5,9 +5,9 @@ import ICaseData from "./CaseData";
 
 export default interface IFormData {
     id?: string;
-    name: string,
-    description: string,
-    version?: string,
+    name: string;
+    description: string;
+    version?: string;
     selectedForm?: string;
 
     caseData?: ICaseData;

@@ -7,8 +7,8 @@ import InputField from "./InputField";
 
 const CaseForm: React.FunctionComponent<any> = (props) => {
     const caseFormFields: IInputField[] = [
-        {input: INPUT_TYPE.DRAG_DROP_TEXT_FIELD, label: "Tittel", formValue: "caseData.title"},
-        {input: INPUT_TYPE.DRAG_DROP_TEXT_FIELD, label: "Offentlig tittel", formValue: "caseData.publicTitle"},
+        {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "Tittel", formValue: "caseData.title"},
+        {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "Offentlig tittel", formValue: "caseData.publicTitle"},
         {input: INPUT_TYPE.DROPDOWN, label: "Sakstype", value: props.watch("caseData.caseType"), formValue: "caseData.caseType", dropDownItems: dropdownPlaceholder},
         {input: INPUT_TYPE.DROPDOWN, label: "Administrativ enhet", value: props.watch("caseData.administrativeUnit"), formValue: "caseData.administrativeUnit", dropDownItems: dropdownPlaceholder},
         {input: INPUT_TYPE.DROPDOWN, label: "Arkivdel", value: props.watch("caseData.archiveUnit"), formValue: "caseData.archiveUnit", dropDownItems: dropdownPlaceholder},
@@ -16,8 +16,8 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
         {input: INPUT_TYPE.DROPDOWN, label: "Tilgangskode", value: props.watch("caseData.accessCode"), formValue: "caseData.accessCode", dropDownItems: dropdownPlaceholder},
         {input: INPUT_TYPE.DROPDOWN, label: "Hjemmel", value: props.watch("caseData.paragraph"), formValue: "caseData.paragraph", dropDownItems: dropdownPlaceholder},
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "Saksansvarlig", dropDownItems: caseWorkers, formValue: "caseData.caseWorker"},
-        {input: INPUT_TYPE.DRAG_DROP_TEXT_FIELD, label: "Primær ordningsprinsipp", formValue: "caseData.primaryClassification"},
-        {input: INPUT_TYPE.DRAG_DROP_TEXT_FIELD, label: "Sekundær ordningsprinsipp", formValue: "caseData.secondaryClassification"},
+        {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "Primær ordningsprinsipp", formValue: "caseData.primaryClassification"},
+        {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "Sekundær ordningsprinsipp", formValue: "caseData.secondaryClassification"},
         {input: INPUT_TYPE.DROPDOWN, label: "Primærklasse", value: props.watch("caseData.primaryClass"), formValue: "caseData.primaryClass", dropDownItems: dropdownPlaceholder},
         {input: INPUT_TYPE.DROPDOWN, label: "Sekundærklasse", value: props.watch("caseData.secondaryClass"), formValue: "caseData.secondaryClass", dropDownItems: dropdownPlaceholder}
     ]
