@@ -22,7 +22,6 @@ export const Tag: FC<ITag> = function Tag({ name, value }) {
               role="Tag"
               label={name}
               style={{ cursor: 'move', backgroundColor: 'white', margin:8, opacity }}
-              data-testid={`box-${name}`}
         />
     )
 }
