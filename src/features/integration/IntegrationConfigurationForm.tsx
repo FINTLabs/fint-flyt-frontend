@@ -99,16 +99,6 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
             })
     }
 
-    const getConfigs = () => {
-        IntegrationRepository.get()
-            .then(response => {
-                console.log(response)
-            })
-            .catch((e: Error) => {
-                console.log('error fetching configurations')
-            })
-    }
-
     const onSubmit = handleSubmit((data: IFormData) => {
         const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data);
         if(data.id) {
@@ -145,10 +135,6 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                     <TagList style={classes}/>
                 </Box>
             </Box>
-            {watch("name")}
-            {watch("id")}
-            {watch("applicantData.name")}
-            {watch("applicantData.address")}
         </DndProvider>
     );
 }
