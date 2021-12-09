@@ -7,7 +7,7 @@ import {IInputField} from "../../types/InputField";
 
 const ApplicantForm: React.FunctionComponent<any> = (props) => {
     const applicantFormFields: IInputField[] = [
-        {input: INPUT_TYPE.RADIO, label: "Velg avsendertype", formValue: "applicantData.type", disabled:true, value: props.watch("applicantData.type"), radioOptions: applicantOptions, defaultValue: applicantOptions[0].value},
+        {input: INPUT_TYPE.RADIO, label: "Velg avsendertype", formValue: "applicantData.type", value: props.watch("applicantData.type"), radioOptions: applicantOptions, defaultValue: applicantOptions[0].value},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "Navn", formValue: "applicantData.name"},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "Adresse", formValue: "applicantData.address"},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "Postnummer", formValue: "applicantData.postalCode"},
@@ -32,7 +32,9 @@ const ApplicantForm: React.FunctionComponent<any> = (props) => {
                                     dropdownItems={field.dropDownItems}
                                     radioOptions={field.radioOptions}
                                     defaultValue={field.defaultValue}
-                                    setValue={props.setValue}/>
+                                    setValue={props.setValue}
+                                    watch={props.watch}
+                        />
                     )}
                 )}
             </FormGroup>

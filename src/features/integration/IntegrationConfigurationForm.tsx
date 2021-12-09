@@ -12,6 +12,7 @@ import {ACCORDION_FORM, IAccordion} from "./types/Accordion";
 import TagList from "./components/dnd/TagList";
 import {HTML5Backend} from "react-dnd-html5-backend";
 import {DndProvider} from "react-dnd";
+import {IIntegrationConfiguration} from "./types/IntegrationConfiguration";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -78,17 +79,17 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
         defaultValues: defaultValues
     });
 
-    const createNewConfiguration = (data: any) => {
+    const createNewConfiguration = (data: IIntegrationConfiguration) => {
         IntegrationRepository.create(data)
             .then(response => {
                 console.log('created new configuraton', data);
             })
             .catch((e: Error) => {
-                console.log('errror creating new', e);
+                console.log('error creating new', e);
             });
     }
 
-    const updateConfiguration = (data: any, id: any) =>{
+    const updateConfiguration = (data: IIntegrationConfiguration, id: string) =>{
         IntegrationRepository.update(id, data)
             .then(response => {
                 console.log('updated configuration', id);
@@ -98,9 +99,18 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
             })
     }
 
-    const onSubmit = handleSubmit((data: IFormData) => {
-        const integrationConfiguration = toIntegrationConfiguration(data);
+    const getConfigs = () => {
+        IntegrationRepository.get()
+            .then(response => {
+                console.log(response)
+            })
+            .catch((e: Error) => {
+                console.log('error fetching configurations')
+            })
+    }
 
+    const onSubmit = handleSubmit((data: IFormData) => {
+        const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data);
         if(data.id) {
             updateConfiguration(integrationConfiguration, data.id);
         } else {
@@ -135,6 +145,10 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                     <TagList style={classes}/>
                 </Box>
             </Box>
+            {watch("name")}
+            {watch("id")}
+            {watch("applicantData.name")}
+            {watch("applicantData.address")}
         </DndProvider>
     );
 }

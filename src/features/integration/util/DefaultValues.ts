@@ -1,10 +1,11 @@
 import {ISelect} from "../types/InputField";
 import {ITag} from "../types/Tag";
+import {CreationStretegy} from "../types/CreationStretegy";
 
 export const defaultValues = {
     selectedForm: '',
     caseData: {
-        caseCreationStrategy: 'NEW',
+        caseCreationStrategy: CreationStretegy.NEW,
         administrativeUnit:'',
         archiveUnit:'',
         caseType: '',

@@ -1,12 +1,13 @@
 import IFormData from "../../features/integration/types/Form/FormData";
 import {IIntegrationConfiguration} from "../../features/integration/types/IntegrationConfiguration";
+import {CreationStretegy} from "../../features/integration/types/CreationStretegy";
 
 export const newForm: IFormData = {
     name: 'testform',
     description: 'form to test mapping',
     selectedForm: 'selected_form',
     caseData: {
-        caseCreationStrategy: 'NEW',
+        caseCreationStrategy: CreationStretegy.NEW,
         title: 'Title of case',
         publicTitle: 'public title',
         caseType: 'casetype',
@@ -56,7 +57,7 @@ export const newFormWithTags: IFormData = {
     description: 'form to test mapping with form tags',
     selectedForm: 'selected_form',
     caseData: {
-        caseCreationStrategy: 'NEW',
+        caseCreationStrategy: CreationStretegy.NEW,
         title: 'Title of case with {tags}',
         publicTitle: 'public title also with {two} {tags}',
         caseType: 'casetype',

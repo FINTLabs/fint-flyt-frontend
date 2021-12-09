@@ -4,9 +4,11 @@ import {caseWorkers, dropdownPlaceholder} from "../../util/DefaultValues";
 import {IInputField} from "../../types/InputField";
 import {INPUT_TYPE} from "../../types/InputType.enum";
 import InputField from "./InputField";
+import {CreationStretegy} from "../../types/CreationStretegy";
 
 const CaseForm: React.FunctionComponent<any> = (props) => {
     const caseFormFields: IInputField[] = [
+        {input: INPUT_TYPE.TEXT_FIELD, label: "Mappe/saksID", formValue: "id", disabled:(props.watch("caseData.caseCreationStrategy") !== CreationStretegy.EXISTING)},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "Tittel", formValue: "caseData.title"},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "Offentlig tittel", formValue: "caseData.publicTitle"},
         {input: INPUT_TYPE.DROPDOWN, label: "Sakstype", value: props.watch("caseData.caseType"), formValue: "caseData.caseType", dropDownItems: dropdownPlaceholder},
@@ -26,12 +28,14 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
             {caseFormFields.map((field, index) => {
                 return (
                     <InputField key={index}
+                                disabled={field.disabled}
                                 input={field.input}
                                 label={field.label}
                                 value={field.value}
                                 formValue={field.formValue}
                                 dropdownItems={field.dropDownItems}
                                 setValue={props.setValue}
+                                watch={props.watch}
                     />
                 )}
             )}

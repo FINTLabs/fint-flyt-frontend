@@ -18,6 +18,7 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
             {caseInformationFields.map((field, index) => {
                 return (
                     <InputField key={index}
+                                disabled={field.disabled}
                                 input={field.input}
                                 label={field.label}
                                 value={field.value}
@@ -26,6 +27,7 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
                                 radioOptions={field.radioOptions}
                                 defaultValue={field.defaultValue}
                                 setValue={props.setValue}
+                                watch={props.watch}
                     />
                 )}
             )}
