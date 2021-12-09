@@ -74,7 +74,7 @@ const accordionList: IAccordion[] = [
 
 const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const classes = useStyles();
-    const {handleSubmit, watch, setValue, formState: {}} = useForm<IFormData>({
+    const {handleSubmit, watch, setValue} = useForm<IFormData>({
         defaultValues: defaultValues
     });
 
