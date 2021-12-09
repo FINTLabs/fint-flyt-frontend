@@ -6,6 +6,7 @@ import {ITag} from "../../types/Tag";
 
 export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
     let backgroundColor = 'white';
+    const setPropValue = props.setValue;
     const [inputValue, setInputValue] = useState('');
     const [{ canDrop, isOver }, drop] = useDrop(() => ({
         accept: DraggableTypes.TAG,
@@ -25,8 +26,8 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
     }
 
     useEffect(() => {
-        props.setValue(props.formValue, inputValue)
-    }, [inputValue, setInputValue]);
+        setPropValue(props.formValue, inputValue)
+    }, [inputValue, setInputValue, setPropValue, props.formValue]);
 
     return (
         <FormControl ref={drop} role={'TextFieldWithDropZone'} size="small" sx={{mb: 3}} style={{backgroundColor}}>

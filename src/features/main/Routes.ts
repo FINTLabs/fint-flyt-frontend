@@ -24,7 +24,7 @@ const routes: IRoute[] = [
     },
     {
         path: '/overview',
-        name: 'Integratsjonsoversikt',
+        name: 'Integrasjonsoversikt',
         component: Overview,
         exact: true,
         icon: 'sync',
