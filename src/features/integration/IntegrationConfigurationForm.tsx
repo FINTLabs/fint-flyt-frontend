@@ -78,33 +78,25 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     const {handleSubmit, watch, setValue, formState: {}} = useForm<IFormData>({
         defaultValues: defaultValues
     });
+    let configurationStrategy = watch("caseData.caseCreationStrategy");
 
     const createNewConfiguration = (data: IIntegrationConfiguration) => {
         IntegrationRepository.create(data)
             .then(response => {
-                console.log('created new configuraton', data);
+                console.log('created new configuraton', data, response);
             })
             .catch((e: Error) => {
                 console.log('error creating new', e);
             });
     }
 
-    const updateConfiguration = (data: IIntegrationConfiguration, id: string) =>{
-        IntegrationRepository.update(id, data)
-            .then(response => {
-                console.log('updated configuration', id);
-            })
-            .catch((e: Error) => {
-                console.log('errror updating',e);
-            })
-    }
-
     const onSubmit = handleSubmit((data: IFormData) => {
         const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data);
-        if(data.id) {
-            updateConfiguration(integrationConfiguration, data.id);
-        } else {
+        if(configurationStrategy) {
             createNewConfiguration(integrationConfiguration);
+        } else {
+            //TODO: Handle error
+            return;
         }
     });
 

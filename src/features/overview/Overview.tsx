@@ -1,9 +1,10 @@
-import {Box, Button, Theme, Typography} from '@mui/material';
-import React, {useState} from 'react';
+import {Box, Theme, Typography} from '@mui/material';
+import React, {useEffect, useState} from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import {createStyles, makeStyles} from "@mui/styles";
 import IntegrationRepository from "../integration/repository/IntegrationRepository";
 import {DataGrid, GridColDef, GridToolbar} from '@mui/x-data-grid';
+import {IRow} from "./types/Row";
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -23,42 +24,40 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Overview: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const classes = useStyles();
-    let responseRows: RowModel[] = [];
-    const [configList, setConfigList] = useState<RowModel[]>([]);
-
-    interface RowModel {
-        id: any,
-        name: string,
-        description: string,
-        version: number
-    }
+    const [configList, setConfigList] = useState<IRow[]>([]);
 
     const columns: GridColDef[] = [
-        { field: 'id', headerName: 'ID', width: 350 },
-        { field: 'version', headerName: 'Versjon', width: 150 },
+        { field: 'id', hide: true},
         { field: 'name', headerName: 'Navn', width: 250 },
-        { field: 'description', headerName: 'Beskrivelse', width: 650 }
+        { field: 'description', headerName: 'Beskrivelse', width: 650 },
+        { field: 'version', headerName: 'Versjon', width: 150 }
     ];
 
-    function getConfigs() {
+    useEffect(()=> {
         IntegrationRepository.get()
             .then(response => {
                 let data = response.data.content;
-                data.map((content: any) => {
-                    responseRows.push({id: content.id,name: content.name, description: content.description, version: content.version})
-                })
-                setConfigList(responseRows);
+                let gridRows: IRow[] = [];
+                data.map((content: any) => (
+                    gridRows.push({
+                        id: content.id,
+                        name: content.name,
+                        description: content.description,
+                        version: content.version
+                    })
+                ))
+                setConfigList(gridRows);
             })
             .catch((e: Error) => {
                 console.log('error fetching configurations', e)
             })
-    }
+    })
+
     return (
         <>
             <Box>
                 <Typography>Oversikt</Typography>
             </Box>
-            <Button variant="outlined" onClick={getConfigs}>Hent konfigurasjoner</Button>
             <Box display="flex" position="relative" width={1} height={1}>
                 <Box className={classes.dataGridBox}>
                     <DataGrid
@@ -75,7 +74,7 @@ const Overview: React.FunctionComponent<RouteComponentProps<any>> = () => {
                                 filterModel: {
                                     items: [
                                         {
-                                            columnField: 'id',
+                                            columnField: 'name',
                                             operatorValue: 'contains'
                                         },
                                     ],

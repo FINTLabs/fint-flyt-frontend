@@ -8,7 +8,6 @@ import {CreationStretegy} from "../../types/CreationStretegy";
 
 const CaseForm: React.FunctionComponent<any> = (props) => {
     const caseFormFields: IInputField[] = [
-        {input: INPUT_TYPE.TEXT_FIELD, label: "Mappe/saksID", formValue: "id", disabled:(props.watch("caseData.caseCreationStrategy") !== CreationStretegy.EXISTING)},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "Tittel", formValue: "caseData.title"},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "Offentlig tittel", formValue: "caseData.publicTitle"},
         {input: INPUT_TYPE.DROPDOWN, label: "Sakstype", value: props.watch("caseData.caseType"), formValue: "caseData.caseType", dropDownItems: dropdownPlaceholder},
@@ -23,9 +22,15 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
         {input: INPUT_TYPE.DROPDOWN, label: "Primærklasse", value: props.watch("caseData.primaryClass"), formValue: "caseData.primaryClass", dropDownItems: dropdownPlaceholder},
         {input: INPUT_TYPE.DROPDOWN, label: "Sekundærklasse", value: props.watch("caseData.secondaryClass"), formValue: "caseData.secondaryClass", dropDownItems: dropdownPlaceholder}
     ]
+    const caseFormFieldsCollection: IInputField[] = [
+        {input: INPUT_TYPE.TEXT_FIELD, label: "Saksnummer", formValue: "id",},
+   ]
+
+    let requiredFields = (props.watch("caseData.caseCreationStrategy") === CreationStretegy.COLLECTION) ? caseFormFieldsCollection : caseFormFields
+
     return (
         <FormGroup className={props.style.formControl}>
-            {caseFormFields.map((field, index) => {
+            {requiredFields.map((field, index) => {
                 return (
                     <InputField key={index}
                                 disabled={field.disabled}
