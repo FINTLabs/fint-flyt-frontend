@@ -13,6 +13,7 @@ import TagList from "./components/dnd/TagList";
 import {HTML5Backend} from "react-dnd-html5-backend";
 import {DndProvider} from "react-dnd";
 import {IIntegrationConfiguration} from "./types/IntegrationConfiguration";
+import {CreationStretegy} from "./types/CreationStretegy";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -65,20 +66,19 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 );
 
-const accordionList: IAccordion[] = [
-    {summary: "Integrasjonslogikk", accordionForm: ACCORDION_FORM.CASE_INFORMATION, defaultExpanded: true},
-    {summary: "Sakspost", accordionForm: ACCORDION_FORM.CASE_FORM, defaultExpanded: false},
-    {summary: "Journalpost", accordionForm: ACCORDION_FORM.RECORD_FORM, defaultExpanded: false},
-    {summary: "Dokument- og objektbeskrivelse", accordionForm: ACCORDION_FORM.DOCUMENT_FORM, defaultExpanded: false},
-    {summary: "Avsender", accordionForm: ACCORDION_FORM.APPLICANT_FORM, defaultExpanded: false}
-]
-
 const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const classes = useStyles();
-    const {handleSubmit, watch, setValue, formState: {}} = useForm<IFormData>({
+    const {handleSubmit, watch, setValue} = useForm<IFormData>({
         defaultValues: defaultValues
     });
-    let configurationStrategy = watch("caseData.caseCreationStrategy");
+
+    const accordionList: IAccordion[] = [
+        {summary: "Integrasjonslogikk", accordionForm: ACCORDION_FORM.CASE_INFORMATION, defaultExpanded: true},
+        {summary: "Sakspost", accordionForm: ACCORDION_FORM.CASE_FORM, defaultExpanded: false, hidden: watch("caseData.caseCreationStrategy") === CreationStretegy.COLLECTION},
+        {summary: "Journalpost", accordionForm: ACCORDION_FORM.RECORD_FORM, defaultExpanded: false},
+        {summary: "Dokument- og objektbeskrivelse", accordionForm: ACCORDION_FORM.DOCUMENT_FORM, defaultExpanded: false},
+        {summary: "Avsender", accordionForm: ACCORDION_FORM.APPLICANT_FORM, defaultExpanded: false}
+    ]
 
     const createNewConfiguration = (data: IIntegrationConfiguration) => {
         IntegrationRepository.create(data)
@@ -92,7 +92,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
 
     const onSubmit = handleSubmit((data: IFormData) => {
         const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data);
-        if(configurationStrategy) {
+        if(integrationConfiguration) {
             createNewConfiguration(integrationConfiguration);
         } else {
             //TODO: Handle error
@@ -114,6 +114,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                                     summary={accordion.summary}
                                     accordionForm={accordion.accordionForm}
                                     defaultExpanded={accordion.defaultExpanded}
+                                    hidden={accordion.hidden}
                                     watch={watch}
                                     setValue={setValue}
                                 />

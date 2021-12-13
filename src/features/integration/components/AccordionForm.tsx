@@ -9,7 +9,7 @@ import RecordForm from "./form/RecordForm";
 import {ACCORDION_FORM} from "../types/Accordion";
 
 const AccordionForm: React.FunctionComponent<any> = (props) => {
-    return (
+    return props.hidden ? (<></>) : (
         <Accordion className={props.style.accordion} defaultExpanded={props.defaultExpanded}>
             <AccordionSummary className={props.style.accordionSummary} expandIcon={<ExpandMoreIcon />}>
                 <Typography variant={"h6"}>{props.summary}</Typography>

@@ -33,7 +33,7 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
             {requiredFields.map((field, index) => {
                 return (
                     <InputField key={index}
-                                disabled={field.disabled}
+                                disabled={field.hidden}
                                 input={field.input}
                                 label={field.label}
                                 value={field.value}

@@ -11,6 +11,7 @@ interface IDocumentConfiguration {
     fields: IField[];
 }
 interface IApplicantConfiguration {
+    applicantType?: string;
     fields: IField[];
 }
 

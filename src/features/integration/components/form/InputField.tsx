@@ -17,7 +17,7 @@ import {TextFieldWithDropZone} from "../dnd/TextFieldWithDropZone";
 const InputField: React.FunctionComponent<any> = (props) => {
     if (props.input === INPUT_TYPE.DROPDOWN) {
         return (
-            <FormControl size="small" sx={{ mb: 3 }} disabled={props.disabled}>
+            <FormControl size="small" sx={{ mb: 3 }} disabled={props.hidden}>
                 <InputLabel>{props.label}</InputLabel>
                 <Select value={props.value}
                         label={props.label}
@@ -33,7 +33,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
     }
     else if (props.input === INPUT_TYPE.RADIO) {
         return (
-            <FormControl component="fieldset" disabled={props.disabled}>
+            <FormControl component="fieldset" sx={{ mb: 3 }} disabled={props.hidden}>
                 <FormLabel>{props.label}</FormLabel>
                 <RadioGroup row={true}
                             onChange={(e) =>
@@ -58,7 +58,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
         return (
             <FormControl size="small">
                 <Autocomplete
-                    disabled={props.disabled}
+                    disabled={props.hidden}
                     sx={{ mb: 3 }}
                     id="tags-outlined"
                     options={props.dropdownItems}
@@ -82,7 +82,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                 label={props.label}
                 setValue={props.setValue}
                 formValue={props.formValue}
-                disabled={props.disabled}
+                hidden={props.hidden}
             />
         )
     }
@@ -90,13 +90,13 @@ const InputField: React.FunctionComponent<any> = (props) => {
         return (
             <FormControl>
                 <TextField
+                    hidden={props.hidden}
                     size="small"
                     variant="outlined"
                     onChange={(e) =>
                     props.setValue(props.formValue, e.target.value as string)}
                     label={props.label}
                     sx={{ mb: 3 }}
-                    disabled={props.disabled}
                 />
             </FormControl>
         )

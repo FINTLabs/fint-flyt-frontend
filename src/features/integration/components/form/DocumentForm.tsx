@@ -19,7 +19,7 @@ const DocumentForm: React.FunctionComponent<any> = (props) => {
             {documentFormFields.map((field, index) => {
                 return (
                     <InputField key={index}
-                                disabled={field.disabled}
+                                hidden={field.hidden}
                                 input={field.input}
                                 label={field.label}
                                 value={field.value}

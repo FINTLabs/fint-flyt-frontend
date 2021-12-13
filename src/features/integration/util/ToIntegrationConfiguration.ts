@@ -2,14 +2,19 @@ import IFormData from "../types/Form/FormData";
 import {IIntegrationConfiguration} from "../types/IntegrationConfiguration";
 import {VALUE_BUILDER_STRATEGY} from "../types/ValueBuilderStrategy.enum";
 import {createValueBuilder} from "./Util";
+import {CreationStretegy} from "../types/CreationStretegy";
 
 export function toIntegrationConfiguration(data: IFormData): IIntegrationConfiguration {
+    const collectionStrategy: boolean = data.caseData?.caseCreationStrategy === CreationStretegy.COLLECTION
     return {
         id: data.id,
         name: data.name,
         description: data.description,
-        caseConfiguration: {
-            caseCreationStrategy: data.caseData?.caseCreationStrategy,
+        caseConfiguration: collectionStrategy ?
+            {caseCreationStrategy: data.caseData?.caseCreationStrategy,
+                fields:[]
+            } :
+            {caseCreationStrategy: data.caseData?.caseCreationStrategy,
             fields: [
                 {
                     field: "tittel",
@@ -94,7 +99,7 @@ export function toIntegrationConfiguration(data: IFormData): IIntegrationConfigu
 
                 }
             ]
-        },
+            },
         recordConfiguration: {
             fields: [
                 {
@@ -191,6 +196,7 @@ export function toIntegrationConfiguration(data: IFormData): IIntegrationConfigu
             ]
         },
         applicantConfiguration: {
+            applicantType: data.applicantData?.type,
             fields: [
                 {
                     field: "korrespondasepartNavn",
