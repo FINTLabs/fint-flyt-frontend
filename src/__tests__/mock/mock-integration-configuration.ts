@@ -40,7 +40,7 @@ export const newForm: IFormData = {
         format: 'pdf-a',
     },
     applicantData: {
-        type: 'person',
+        type: 'PERSON',
         name: 'Anakin Skywalker',
         address: 'highstreet 22',
         postalCode: '1234',
@@ -90,7 +90,7 @@ export const newFormWithTags: IFormData = {
         format: 'pdf-a',
     },
     applicantData: {
-        type: 'person',
+        type: 'COMPANY',
         name: 'Luke Skywalker',
         address: 'highstreet 22',
         postalCode: '1234',
@@ -104,6 +104,7 @@ export const newFormWithTags: IFormData = {
 
 export const expectedIntegrationConfig: IIntegrationConfiguration = {
     "applicantConfiguration": {
+        "applicantType": 'PERSON',
         "fields": [
             {
                 "field": "korrespondasepartNavn",
@@ -378,6 +379,7 @@ export const expectedIntegrationConfig: IIntegrationConfiguration = {
 
 export const expectedIntegrationConfigWithTags: IIntegrationConfiguration = {
     "applicantConfiguration": {
+        "applicantType": 'COMPANY',
         "fields": [
             {
                 "field": "korrespondasepartNavn",
