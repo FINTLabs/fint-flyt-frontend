@@ -197,6 +197,7 @@ export function toIntegrationConfiguration(data: IFormData): IIntegrationConfigu
         },
         applicantConfiguration: {
             applicantType: data.applicantData?.type,
+            organisationNumber: data.applicantData?.organisationNumber,
             fields: [
                 {
                     field: "korrespondasepartNavn",

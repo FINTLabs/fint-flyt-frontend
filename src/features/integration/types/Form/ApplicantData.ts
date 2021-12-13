@@ -1,5 +1,6 @@
 export default interface IApplicantData {
     type: string;
+    organisationNumber?: number
     name: string;
     address: string;
     postalCode: string;

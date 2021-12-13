@@ -4,10 +4,12 @@ import {applicantOptions, dropdownPlaceholder} from "../../util/DefaultValues";
 import InputField from "./InputField";
 import {INPUT_TYPE} from "../../types/InputType.enum";
 import {IInputField} from "../../types/InputField";
+import {ApplicantType} from "../../types/ApplicantType";
 
 const ApplicantForm: React.FunctionComponent<any> = (props) => {
     const applicantFormFields: IInputField[] = [
         {input: INPUT_TYPE.RADIO, label: "Velg avsendertype", formValue: "applicantData.type", value: props.watch("applicantData.type"), radioOptions: applicantOptions, defaultValue: applicantOptions[0].value},
+        {input: INPUT_TYPE.TEXT_FIELD, label: "Organisasjonsnummer", formValue: "applicantData.organisationNumber", hidden:(props.watch("applicantData.type") !== ApplicantType.ORGANISATION)},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "Navn", formValue: "applicantData.name"},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "Adresse", formValue: "applicantData.address"},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "Postnummer", formValue: "applicantData.postalCode"},
@@ -23,18 +25,20 @@ const ApplicantForm: React.FunctionComponent<any> = (props) => {
             <FormGroup className={props.style.formControl}>
                 {applicantFormFields.map((field, index) => {
                     return (
-                        <InputField key={index}
-                                    hidden={field.hidden}
-                                    input={field.input}
-                                    label={field.label}
-                                    value={field.value}
-                                    formValue={field.formValue}
-                                    dropdownItems={field.dropDownItems}
-                                    radioOptions={field.radioOptions}
-                                    defaultValue={field.defaultValue}
-                                    setValue={props.setValue}
-                                    watch={props.watch}
-                        />
+                        field.hidden ?
+                            <div key={index}/> :
+                            <InputField key={index}
+                                        disabled={field.hidden}
+                                        input={field.input}
+                                        label={field.label}
+                                        value={field.value}
+                                        formValue={field.formValue}
+                                        dropdownItems={field.dropDownItems}
+                                        radioOptions={field.radioOptions}
+                                        defaultValue={field.defaultValue}
+                                        setValue={props.setValue}
+                                        watch={props.watch}
+                            />
                     )}
                 )}
             </FormGroup>

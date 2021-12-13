@@ -11,11 +11,11 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
     const [{ canDrop, isOver }, drop] = useDrop(() => ({
         accept: DraggableTypes.TAG,
         drop: (tag:ITag) => {
-            if(!props.hidden) setInputValue(prevState => prevState + tag.value + ' ');
+            if(!props.disabled) setInputValue(prevState => prevState + tag.value + ' ');
         },
         collect: (monitor) => ({
             isOver: monitor.isOver(),
-            canDrop: monitor.canDrop() && !props.hidden,
+            canDrop: monitor.canDrop() && !props.disabled,
         }),
     }))
 
@@ -31,7 +31,7 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
 
     return (
         <FormControl ref={drop} role={'TextFieldWithDropZone'} size="small" sx={{mb: 3}} style={{backgroundColor}}>
-            <TextField disabled={props.hidden} size="small" label={props.label} value={inputValue} onChange={e => setInputValue(e.target.value as string)}/>
+            <TextField disabled={props.disabled} size="small" label={props.label} value={inputValue} onChange={e => setInputValue(e.target.value as string)}/>
         </FormControl>
     );
 }

@@ -17,7 +17,7 @@ import {TextFieldWithDropZone} from "../dnd/TextFieldWithDropZone";
 const InputField: React.FunctionComponent<any> = (props) => {
     if (props.input === INPUT_TYPE.DROPDOWN) {
         return (
-            <FormControl size="small" sx={{ mb: 3 }} disabled={props.hidden}>
+            <FormControl size="small" sx={{ mb: 3 }}>
                 <InputLabel>{props.label}</InputLabel>
                 <Select value={props.value}
                         label={props.label}
@@ -33,7 +33,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
     }
     else if (props.input === INPUT_TYPE.RADIO) {
         return (
-            <FormControl component="fieldset" sx={{ mb: 3 }} disabled={props.hidden}>
+            <FormControl component="fieldset" sx={{ mb: 3 }}>
                 <FormLabel>{props.label}</FormLabel>
                 <RadioGroup row={true}
                             onChange={(e) =>
@@ -58,7 +58,6 @@ const InputField: React.FunctionComponent<any> = (props) => {
         return (
             <FormControl size="small">
                 <Autocomplete
-                    disabled={props.hidden}
                     sx={{ mb: 3 }}
                     id="tags-outlined"
                     options={props.dropdownItems}
@@ -82,7 +81,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                 label={props.label}
                 setValue={props.setValue}
                 formValue={props.formValue}
-                hidden={props.hidden}
+                disabled={props.disabled}
             />
         )
     }
@@ -90,7 +89,6 @@ const InputField: React.FunctionComponent<any> = (props) => {
         return (
             <FormControl>
                 <TextField
-                    hidden={props.hidden}
                     size="small"
                     variant="outlined"
                     onChange={(e) =>

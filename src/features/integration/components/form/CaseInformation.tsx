@@ -23,7 +23,7 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
                     field.hidden ?
                         <div key={index}/> :
                         <InputField key={index}
-                                    hidden={field.hidden}
+                                    disabled={field.hidden}
                                     input={field.input}
                                     label={field.label}
                                     value={field.value}
