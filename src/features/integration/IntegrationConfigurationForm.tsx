@@ -1,7 +1,7 @@
 import * as React from "react";
 import {useForm} from "react-hook-form";
-import {RouteComponentProps, withRouter} from "react-router-dom";
-import {Box, Theme, Typography} from "@mui/material";
+import {Link as RouterLink, RouteComponentProps, withRouter} from "react-router-dom";
+import {Box, Button, Theme, Typography} from "@mui/material";
 import {createStyles, makeStyles} from "@mui/styles";
 import IFormData from "./types/Form/FormData";
 import IntegrationRepository from "./repository/IntegrationRepository";
@@ -14,6 +14,7 @@ import {HTML5Backend} from "react-dnd-html5-backend";
 import {DndProvider} from "react-dnd";
 import {IIntegrationConfiguration} from "./types/IntegrationConfiguration";
 import {CreationStretegy} from "./types/CreationStretegy";
+import {useState} from "react";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -68,7 +69,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const classes = useStyles();
-    const {handleSubmit, watch, setValue} = useForm<IFormData>({
+    const [formSubmitted, setFormSubmitted] = useState(false)
+    const {handleSubmit, watch, setValue, register, reset} = useForm<IFormData>({
         defaultValues: defaultValues
     });
 
@@ -84,6 +86,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
         IntegrationRepository.create(data)
             .then(response => {
                 console.log('created new configuraton', data, response);
+                setFormSubmitted(response.status === 201);
             })
             .catch((e: Error) => {
                 console.log('error creating new', e);
@@ -94,6 +97,8 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
         const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data);
         if(integrationConfiguration) {
             createNewConfiguration(integrationConfiguration);
+            //TODO: resets form STATE, but also need to empty and reset fields?
+             reset({ ...defaultValues })
         } else {
             //TODO: Handle error
             return;
@@ -102,6 +107,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
 
     return (
         <DndProvider backend={HTML5Backend}>
+            {!formSubmitted &&
             <Box display="flex" position="relative" width={1} height={1}>
                 <Box>
                     <Typography variant={"h5"} sx={{mb: 2}}>Integrasjon til arkiv</Typography>
@@ -116,6 +122,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                                     defaultExpanded={accordion.defaultExpanded}
                                     hidden={accordion.hidden}
                                     watch={watch}
+                                    register={register}
                                     setValue={setValue}
                                 />
                             )})}
@@ -128,6 +135,12 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                     <TagList style={classes}/>
                 </Box>
             </Box>
+            }
+            {formSubmitted &&
+            <Box style={{minHeight: 'fit-content'}}>
+                <Typography variant={"h5"} sx={{mb: 2}}>Integrasjon til arkiv - Ferdig</Typography>
+                <Button size="small" variant="contained" component={RouterLink} to="/overview">Se integrasjoner</Button>
+            </Box>}
         </DndProvider>
     );
 }
