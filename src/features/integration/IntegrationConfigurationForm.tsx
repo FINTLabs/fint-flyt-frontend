@@ -1,5 +1,6 @@
 import * as React from "react";
 import {useForm} from "react-hook-form";
+import { ErrorMessage } from '@hookform/error-message';
 import {Link as RouterLink, RouteComponentProps, withRouter} from "react-router-dom";
 import {Box, Button, Theme, Typography} from "@mui/material";
 import {createStyles, makeStyles} from "@mui/styles";
@@ -70,7 +71,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const classes = useStyles();
     const [submitSuccess, setSubmitSuccess] = useState(false)
-    const {handleSubmit, watch, setValue, control, register, reset, formState: { errors }} = useForm<IFormData>({
+    const {handleSubmit, watch, setValue, control, reset, formState: { errors }} = useForm<IFormData>({
         defaultValues: defaultValues
     });
 
@@ -122,12 +123,16 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                                     defaultExpanded={accordion.defaultExpanded}
                                     hidden={accordion.hidden}
                                     watch={watch}
-                                    register={register}
                                     control={control}
                                     setValue={setValue}
                                     errors={errors}
                                 />
                             )})}
+                        <Box>
+                            <ErrorMessage errors={errors} name="name" render={({ message }) => <Typography color="red">{message}</Typography>}/>
+                            <ErrorMessage errors={errors} name="description"
+                                          render={({ message }) => <Typography color="red">{message}</Typography>}/>
+                        </Box>
                         <div>
                             <input type="submit" className={classes.submitButton}/>
                         </div>

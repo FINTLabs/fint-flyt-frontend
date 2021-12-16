@@ -16,6 +16,7 @@ import {ISelect} from "../../types/InputField";
 import {TextFieldWithDropZone} from "../dnd/TextFieldWithDropZone";
 
 const InputField: React.FunctionComponent<any> = (props) => {
+    let errorMessage: string = 'Du må oppgi ' + props.label;
     if (props.input === INPUT_TYPE.DROPDOWN) {
         return (
             <FormControl size="small" sx={{ mb: 3 }}>
@@ -98,13 +99,14 @@ const InputField: React.FunctionComponent<any> = (props) => {
                         size="small"
                         variant="outlined"
                         sx={{ mb: 3 }}
-                        onChange={onChange} // send value to hook form
-                        onBlur={onBlur} // notify when input is touched/blur
+                        onChange={onChange}
+                        onBlur={onBlur}
                         value={value}
                         error={!!props.error}
+                        helperText={props.error ? 'Obligatorisk felt' : ''}
                     />
                 )}
-                rules={{ required: { value: true, message: 'Invalid input' } }}
+                rules={{ required: { value: true, message: errorMessage } }}
             />
         )
     }
