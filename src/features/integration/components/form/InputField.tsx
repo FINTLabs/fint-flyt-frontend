@@ -58,23 +58,29 @@ const InputField: React.FunctionComponent<any> = (props) => {
         )
     } else if (props.input === INPUT_TYPE.AUTOCOMPLETE) {
         return (
-            <FormControl size="small">
-                <Autocomplete
-                    sx={{ mb: 3 }}
-                    id="tags-outlined"
-                    options={props.dropdownItems}
-                    onChange={(event, value) =>
-                        props.setValue(props.formValue, value?.value)}
-                    getOptionLabel={(option: ISelect) => option.label}
-                    renderInput={(params) => (
-                        <TextField
-                            {...params}
-                            label={props.label}
-                            placeholder={props.label}
-                        />
-                    )}
-                />
-            </FormControl>
+            <Controller
+                name={props.formValue}
+                control={props.control}
+                render={({ field: { onChange } }) => (
+                    <Autocomplete
+                        sx={{ mb: 3 }}
+                        options={props.dropdownItems}
+                        getOptionLabel={(option: ISelect) => option.label}
+                        renderInput={(params) => (
+                            <TextField
+                                {...params}
+                                size="small"
+                                label={props.label}
+                                placeholder={props.label}
+                                error={!!props.error}
+                                helperText={props.error ? 'Obligatorisk felt' : ''}
+                            />
+                        )}
+                        onChange={(_, data) => onChange(data?.value)}
+                    />
+                )}
+                rules={{ required: { value: true, message: errorMessage } }}
+            />
         )
     }
     else if (props.input === INPUT_TYPE.DROPZONE_TEXT_FIELD) {

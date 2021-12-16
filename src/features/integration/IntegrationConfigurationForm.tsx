@@ -130,8 +130,8 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                                 />
                             )})}
                         <Box>
-                            {requiredFields.map((field) => {
-                                return(<ErrorMessage errors={errors} name={field} render={({ message }) => <Typography color="red">{message}</Typography>}/>)
+                            {requiredFields.map((field, index) => {
+                                return(<ErrorMessage key={index} errors={errors} name={field} render={({ message }) => <Typography color="red">{message}</Typography>}/>)
                             })}
                      </Box>
                         <div>

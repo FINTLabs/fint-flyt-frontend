@@ -5,8 +5,10 @@ import {IInputField} from "../../types/InputField";
 import {INPUT_TYPE} from "../../types/InputType.enum";
 import InputField from "./InputField";
 import {CreationStretegy} from "../../types/CreationStretegy";
+import {FieldErrors} from "react-hook-form";
 
 const CaseForm: React.FunctionComponent<any> = (props) => {
+    let errors: FieldErrors = props.errors
     const caseFormFields: IInputField[] = [
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "Tittel", formValue: "caseData.title"},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "Offentlig tittel", formValue: "caseData.publicTitle"},
@@ -16,7 +18,7 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
         {input: INPUT_TYPE.DROPDOWN, label: "Journalenhet", value: props.watch("caseData.recordUnit"), formValue: "caseData.recordUnit", dropDownItems: dropdownPlaceholder},
         {input: INPUT_TYPE.DROPDOWN, label: "Tilgangskode", value: props.watch("caseData.accessCode"), formValue: "caseData.accessCode", dropDownItems: dropdownPlaceholder},
         {input: INPUT_TYPE.DROPDOWN, label: "Hjemmel", value: props.watch("caseData.paragraph"), formValue: "caseData.paragraph", dropDownItems: dropdownPlaceholder},
-        {input: INPUT_TYPE.AUTOCOMPLETE, label: "Saksansvarlig", dropDownItems: caseWorkers, formValue: "caseData.caseWorker"},
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "Saksansvarlig", dropDownItems: caseWorkers, formValue: "caseData.caseWorker", required: props.validation, error:errors.caseData?.caseWorker},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "Primær ordningsprinsipp", formValue: "caseData.primaryClassification"},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "Sekundær ordningsprinsipp", formValue: "caseData.secondaryClassification"},
         {input: INPUT_TYPE.DROPDOWN, label: "Primærklasse", value: props.watch("caseData.primaryClass"), formValue: "caseData.primaryClass", dropDownItems: dropdownPlaceholder},
@@ -33,6 +35,8 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
             {requiredFields.map((field, index) => {
                 return (
                     <InputField key={index}
+                                required={field.required}
+                                error={field.error}
                                 disabled={field.hidden}
                                 input={field.input}
                                 label={field.label}
