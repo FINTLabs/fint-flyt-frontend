@@ -12,7 +12,7 @@ interface IDocumentConfiguration {
 }
 interface IApplicantConfiguration {
     applicantType?: string;
-    organisationNumber?: number;
+    organisationNumber?: string;
     fields: IField[];
 }
 

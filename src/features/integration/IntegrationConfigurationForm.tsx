@@ -131,8 +131,8 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                             )})}
                         <Box>
                             <ErrorMessage errors={errors} name="name" render={({ message }) => <Typography color="red">{message}</Typography>}/>
-                            <ErrorMessage errors={errors} name="description"
-                                          render={({ message }) => <Typography color="red">{message}</Typography>}/>
+                            <ErrorMessage errors={errors} name="description" render={({ message }) => <Typography color="red">{message}</Typography>}/>
+                            <ErrorMessage errors={errors} name="applicantData.organisationNumber" render={({ message }) => <Typography color="red">{message}</Typography>}/>
                         </Box>
                         <div>
                             <input type="submit" className={classes.submitButton}/>

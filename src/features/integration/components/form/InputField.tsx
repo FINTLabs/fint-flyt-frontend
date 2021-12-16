@@ -106,7 +106,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                         helperText={props.error ? 'Obligatorisk felt' : ''}
                     />
                 )}
-                rules={{ required: { value: true, message: errorMessage } }}
+                rules={{ required: { value: props.required, message: errorMessage } }}
             />
         )
     }

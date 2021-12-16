@@ -5,11 +5,14 @@ import InputField from "./InputField";
 import {INPUT_TYPE} from "../../types/InputType.enum";
 import {IInputField} from "../../types/InputField";
 import {ApplicantType} from "../../types/ApplicantType";
+import {FieldErrors} from "react-hook-form";
 
 const ApplicantForm: React.FunctionComponent<any> = (props) => {
+    let isOrganisation = props.watch("applicantData.type") === ApplicantType.ORGANISATION
+    let errors: FieldErrors = props.errors
     const applicantFormFields: IInputField[] = [
         {input: INPUT_TYPE.RADIO, label: "Velg avsendertype", formValue: "applicantData.type", value: props.watch("applicantData.type"), radioOptions: applicantOptions, defaultValue: applicantOptions[0].value},
-        {input: INPUT_TYPE.TEXT_FIELD, label: "Organisasjonsnummer", formValue: "applicantData.organisationNumber", hidden:(props.watch("applicantData.type") !== ApplicantType.ORGANISATION)},
+        {input: INPUT_TYPE.TEXT_FIELD, label: "Organisasjonsnummer", formValue: "applicantData.organisationNumber", required:isOrganisation, hidden:!isOrganisation, error:errors.applicantData?.organisationNumber},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "Navn", formValue: "applicantData.name"},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "Adresse", formValue: "applicantData.address"},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "Postnummer", formValue: "applicantData.postalCode"},
@@ -28,6 +31,8 @@ const ApplicantForm: React.FunctionComponent<any> = (props) => {
                         field.hidden ?
                             <div key={index}/> :
                             <InputField key={index}
+                                        required={field.required}
+                                        error={field.error}
                                         disabled={field.hidden}
                                         input={field.input}
                                         label={field.label}
