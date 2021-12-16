@@ -10,6 +10,7 @@ import {
     TextField, Typography
 } from '@mui/material';
 import React from 'react';
+import {Controller} from 'react-hook-form';
 import {INPUT_TYPE} from "../../types/InputType.enum";
 import {ISelect} from "../../types/InputField";
 import {TextFieldWithDropZone} from "../dnd/TextFieldWithDropZone";
@@ -85,6 +86,28 @@ const InputField: React.FunctionComponent<any> = (props) => {
             />
         )
     }
+    else if (props.input === INPUT_TYPE.TEXT_FIELD){
+        return (
+            <Controller
+                control={props.control}
+                name={props.formValue}
+                defaultValue=""
+                render={({ field: { onChange, onBlur, value, ref } }) => (
+                    <TextField
+                        label={props.label}
+                        size="small"
+                        variant="outlined"
+                        sx={{ mb: 3 }}
+                        onChange={onChange} // send value to hook form
+                        onBlur={onBlur} // notify when input is touched/blur
+                        value={value}
+                        error={!!props.error}
+                    />
+                )}
+                rules={{ required: { value: true, message: 'Invalid input' } }}
+            />
+        )
+    }
     else {
         return (
             <FormControl>
@@ -92,13 +115,14 @@ const InputField: React.FunctionComponent<any> = (props) => {
                     size="small"
                     variant="outlined"
                     onChange={(e) =>
-                    props.setValue(props.formValue, e.target.value as string)}
+                        props.setValue(props.formValue, e.target.value as string)}
                     label={props.label}
                     sx={{ mb: 3 }}
                 />
             </FormControl>
         )
     }
+
 }
 
 export default InputField;

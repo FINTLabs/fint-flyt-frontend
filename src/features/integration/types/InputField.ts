@@ -10,6 +10,7 @@ export interface IInputField {
     defaultValue?: string;
     hidden?: boolean;
     required?: boolean;
+    error?: string;
 }
 
 export interface ISelect {

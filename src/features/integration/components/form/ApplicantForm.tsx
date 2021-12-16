@@ -38,6 +38,7 @@ const ApplicantForm: React.FunctionComponent<any> = (props) => {
                                         defaultValue={field.defaultValue}
                                         setValue={props.setValue}
                                         watch={props.watch}
+                                        control={props.control}
                             />
                     )}
                 )}

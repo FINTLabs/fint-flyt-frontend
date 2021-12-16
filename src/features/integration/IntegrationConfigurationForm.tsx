@@ -69,8 +69,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const classes = useStyles();
-    const [formSubmitted, setFormSubmitted] = useState(false)
-    const {handleSubmit, watch, setValue, register, reset} = useForm<IFormData>({
+    const [submitSuccess, setSubmitSuccess] = useState(false)
+    const {handleSubmit, watch, setValue, control, register, reset, formState: { errors }} = useForm<IFormData>({
         defaultValues: defaultValues
     });
 
@@ -86,7 +86,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
         IntegrationRepository.create(data)
             .then(response => {
                 console.log('created new configuraton', data, response);
-                setFormSubmitted(response.status === 201);
+                setSubmitSuccess(response.status === 201);
             })
             .catch((e: Error) => {
                 console.log('error creating new', e);
@@ -107,7 +107,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
 
     return (
         <DndProvider backend={HTML5Backend}>
-            {!formSubmitted &&
+            {!submitSuccess &&
             <Box display="flex" position="relative" width={1} height={1}>
                 <Box>
                     <Typography variant={"h5"} sx={{mb: 2}}>Integrasjon til arkiv</Typography>
@@ -123,7 +123,9 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                                     hidden={accordion.hidden}
                                     watch={watch}
                                     register={register}
+                                    control={control}
                                     setValue={setValue}
+                                    errors={errors}
                                 />
                             )})}
                         <div>
@@ -136,10 +138,11 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                 </Box>
             </Box>
             }
-            {formSubmitted &&
+            {submitSuccess &&
             <Box style={{minHeight: 'fit-content'}}>
                 <Typography variant={"h5"} sx={{mb: 2}}>Integrasjon til arkiv - Ferdig</Typography>
                 <Button size="small" variant="contained" component={RouterLink} to="/overview">Se integrasjoner</Button>
+                <Button onClick={() => window.location.reload()} size="small" variant="contained">Ny integrasjon</Button>
             </Box>}
         </DndProvider>
     );

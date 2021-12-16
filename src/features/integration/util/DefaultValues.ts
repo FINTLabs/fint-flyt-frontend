@@ -3,6 +3,8 @@ import {ITag} from "../types/Tag";
 import {CreationStretegy} from "../types/CreationStretegy";
 
 export const defaultValues = {
+    name: '',
+    description: '',
     selectedForm: '',
     caseData: {
         caseCreationStrategy: CreationStretegy.NEW,
@@ -33,6 +35,7 @@ export const defaultValues = {
     },
     applicantData: {
         type: 'PERSON',
+        organisationNumber: undefined,
         accessCode: '',
         paragraph: '',
     }
