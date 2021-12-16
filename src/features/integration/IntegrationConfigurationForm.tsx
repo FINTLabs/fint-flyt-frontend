@@ -6,7 +6,7 @@ import {Box, Button, Theme, Typography} from "@mui/material";
 import {createStyles, makeStyles} from "@mui/styles";
 import IFormData from "./types/Form/FormData";
 import IntegrationRepository from "./repository/IntegrationRepository";
-import {defaultValues} from "./util/DefaultValues";
+import {defaultValues, requiredFields} from "./util/DefaultValues";
 import {toIntegrationConfiguration} from "./util/ToIntegrationConfiguration";
 import AccordionForm from "./components/AccordionForm";
 import {ACCORDION_FORM, IAccordion} from "./types/Accordion";
@@ -130,10 +130,10 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                                 />
                             )})}
                         <Box>
-                            <ErrorMessage errors={errors} name="name" render={({ message }) => <Typography color="red">{message}</Typography>}/>
-                            <ErrorMessage errors={errors} name="description" render={({ message }) => <Typography color="red">{message}</Typography>}/>
-                            <ErrorMessage errors={errors} name="applicantData.organisationNumber" render={({ message }) => <Typography color="red">{message}</Typography>}/>
-                        </Box>
+                            {requiredFields.map((field) => {
+                                return(<ErrorMessage errors={errors} name={field} render={({ message }) => <Typography color="red">{message}</Typography>}/>)
+                            })}
+                     </Box>
                         <div>
                             <input type="submit" className={classes.submitButton}/>
                         </div>
