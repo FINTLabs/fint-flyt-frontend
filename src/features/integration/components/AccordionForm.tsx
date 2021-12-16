@@ -15,11 +15,11 @@ const AccordionForm: React.FunctionComponent<any> = (props) => {
                 <Typography variant={"h6"}>{props.summary}</Typography>
             </AccordionSummary>
             <AccordionDetails>
-                {props.accordionForm === ACCORDION_FORM.CASE_INFORMATION && <CaseInformation setValue={props.setValue} style={props.style} watch={props.watch} control={props.control} errors={props.errors} />}
-                {props.accordionForm === ACCORDION_FORM.CASE_FORM && <CaseForm setValue={props.setValue} style={props.style} watch={props.watch} control={props.control} errors={props.errors} />}
-                {props.accordionForm === ACCORDION_FORM.RECORD_FORM && <RecordForm setValue={props.setValue} style={props.style} watch={props.watch} control={props.control} errors={props.errors} />}
-                {props.accordionForm === ACCORDION_FORM.DOCUMENT_FORM && <DocumentForm setValue={props.setValue} style={props.style} watch={props.watch} control={props.control} errors={props.errors} />}
-                {props.accordionForm === ACCORDION_FORM.APPLICANT_FORM && <ApplicantForm setValue={props.setValue} style={props.style} watch={props.watch} control={props.control} errors={props.errors} />}
+                {props.accordionForm === ACCORDION_FORM.CASE_INFORMATION && <CaseInformation {...props}/>}
+                {props.accordionForm === ACCORDION_FORM.CASE_FORM && <CaseForm {...props} />}
+                {props.accordionForm === ACCORDION_FORM.RECORD_FORM && <RecordForm {...props} />}
+                {props.accordionForm === ACCORDION_FORM.DOCUMENT_FORM && <DocumentForm {...props} />}
+                {props.accordionForm === ACCORDION_FORM.APPLICANT_FORM && <ApplicantForm {...props} />}
          </AccordionDetails>
         </Accordion>
     );

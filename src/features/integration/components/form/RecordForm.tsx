@@ -26,8 +26,7 @@ const RecordForm: React.FunctionComponent<any> = (props) => {
                                 value={field.value}
                                 formValue={field.formValue}
                                 dropdownItems={field.dropDownItems}
-                                setValue={props.setValue}
-                                watch={props.watch}
+                                {...props}
                     />
                 )}
             )}

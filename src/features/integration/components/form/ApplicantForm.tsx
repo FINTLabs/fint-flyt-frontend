@@ -36,9 +36,7 @@ const ApplicantForm: React.FunctionComponent<any> = (props) => {
                                         dropdownItems={field.dropDownItems}
                                         radioOptions={field.radioOptions}
                                         defaultValue={field.defaultValue}
-                                        setValue={props.setValue}
-                                        watch={props.watch}
-                                        control={props.control}
+                                        {...props}
                             />
                     )}
                 )}

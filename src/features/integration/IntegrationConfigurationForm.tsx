@@ -126,6 +126,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                                     control={control}
                                     setValue={setValue}
                                     errors={errors}
+                                    validation={true}
                                 />
                             )})}
                         <Box>

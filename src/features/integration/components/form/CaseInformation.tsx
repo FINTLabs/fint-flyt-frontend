@@ -10,7 +10,7 @@ import {FieldErrors} from "react-hook-form";
 const CaseInformation: React.FunctionComponent<any> = (props) => {
     let errors: FieldErrors = props.errors
     const caseInformationFields: IInputField[] = [
-        {input: INPUT_TYPE.TEXT_FIELD, label: "Navn", formValue: "name", required: true, error:errors.name},
+        {input: INPUT_TYPE.TEXT_FIELD, label: "Navn", formValue: "name", required: props.validation, error:errors.name},
         {input: INPUT_TYPE.TEXT_FIELD, label: "Beskrivelse", formValue: "description", required: true, error:errors.description},
         {input: INPUT_TYPE.DROPDOWN, label: "Skjema", value: props.watch("selectedForm"), formValue: "selectedForm", dropDownItems: forms},
         {input: INPUT_TYPE.RADIO, label: "Velg hvordan skjema skal sendes til arkivet", value: props.watch("caseData.caseCreationStrategy"),
@@ -35,10 +35,7 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
                                     dropdownItems={field.dropDownItems}
                                     radioOptions={field.radioOptions}
                                     defaultValue={field.defaultValue}
-                                    setValue={props.setValue}
-                                    watch={props.watch}
-                                    control={props.control}
-                                    errors={props.errors}
+                                    {...props}
                         />
                 )}
             )}
