@@ -98,7 +98,6 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
         const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data);
         if(integrationConfiguration) {
             createNewConfiguration(integrationConfiguration);
-            //TODO: resets form STATE, but also need to empty and reset fields?
              reset({ ...defaultValues })
         } else {
             //TODO: Handle error

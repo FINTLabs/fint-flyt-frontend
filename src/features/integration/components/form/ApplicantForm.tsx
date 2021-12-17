@@ -33,7 +33,6 @@ const ApplicantForm: React.FunctionComponent<any> = (props) => {
                             <InputField key={index}
                                         required={field.required}
                                         error={field.error}
-                                        disabled={field.hidden}
                                         input={field.input}
                                         label={field.label}
                                         value={field.value}

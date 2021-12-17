@@ -20,7 +20,8 @@ const RecordForm: React.FunctionComponent<any> = (props) => {
             {recordFormFields.map((field, index) => {
                 return (
                     <InputField key={index}
-                                disabled={field.hidden}
+                                required={field.required}
+                                error={field.error}
                                 input={field.input}
                                 label={field.label}
                                 value={field.value}
