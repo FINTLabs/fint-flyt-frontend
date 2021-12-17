@@ -104,6 +104,7 @@ export const TaglistPopoverContent: string = 'I tekstfeltene til i de ulike post
     'Naviger til feltet du ønsker å fylle,og dra inn tag fra listen under.'
 
 export const requiredFields: string[] = [
+    'id',
     'name',
     'description',
     'selectedForm',

@@ -70,7 +70,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                             <TextField
                                 {...params}
                                 size="small"
-                                label={props.label}
+                                label={props.required ? (props.label+'*') : props.label}
                                 placeholder={props.label}
                                 error={!!props.error}
                                 helperText={props.error ? 'Obligatorisk felt' : ''}
@@ -93,7 +93,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
             />
         )
     }
-    else if (props.input === INPUT_TYPE.TEXT_FIELD){
+    else {
         return (
             <Controller
                 control={props.control}
@@ -101,7 +101,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                 defaultValue=""
                 render={({ field: { onChange, onBlur, value, ref } }) => (
                     <TextField
-                        label={props.label}
+                        label={props.required ? (props.label+'*') : props.label}
                         size="small"
                         variant="outlined"
                         sx={{ mb: 3 }}
@@ -116,21 +116,6 @@ const InputField: React.FunctionComponent<any> = (props) => {
             />
         )
     }
-    else {
-        return (
-            <FormControl>
-                <TextField
-                    size="small"
-                    variant="outlined"
-                    onChange={(e) =>
-                        props.setValue(props.formValue, e.target.value as string)}
-                    label={props.label}
-                    sx={{ mb: 3 }}
-                />
-            </FormControl>
-        )
-    }
-
 }
 
 export default InputField;

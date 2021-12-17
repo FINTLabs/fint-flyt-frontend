@@ -8,6 +8,7 @@ import {CreationStretegy} from "../../types/CreationStretegy";
 import {FieldErrors} from "react-hook-form";
 
 const CaseInformation: React.FunctionComponent<any> = (props) => {
+    let isCollection = props.watch("caseData.caseCreationStrategy") === CreationStretegy.COLLECTION
     let errors: FieldErrors = props.errors
     const caseInformationFields: IInputField[] = [
         {input: INPUT_TYPE.TEXT_FIELD, label: "Navn", formValue: "name", required: props.validation, error:errors.name},
@@ -15,7 +16,7 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
         {input: INPUT_TYPE.DROPDOWN, label: "Skjema", value: props.watch("selectedForm"), formValue: "selectedForm", dropDownItems: forms},
         {input: INPUT_TYPE.RADIO, label: "Velg hvordan skjema skal sendes til arkivet", value: props.watch("caseData.caseCreationStrategy"),
             formValue: "caseData.caseCreationStrategy", radioOptions: creationStrategies, defaultValue: creationStrategies[0].value},
-        {input: INPUT_TYPE.TEXT_FIELD, label: "Saksnummer", formValue: "id", hidden:(props.watch("caseData.caseCreationStrategy") !== CreationStretegy.COLLECTION)},
+        {input: INPUT_TYPE.TEXT_FIELD, label: "Saksnummer", formValue: "id", hidden:!isCollection, required:isCollection, error:errors.id},
 
     ]
     return (
