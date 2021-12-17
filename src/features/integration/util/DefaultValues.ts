@@ -1,4 +1,5 @@
 import {ISelect} from "../types/InputField";
+import {ITag} from "../types/Tag";
 
 export const defaultValues = {
     selectedForm: '',
@@ -30,6 +31,7 @@ export const defaultValues = {
         format: '',
     },
     applicantData: {
+        type: 'PERSON',
         accessCode: '',
         paragraph: '',
     }
@@ -55,6 +57,11 @@ export const creationStrategies: ISelect[] = [
     {label: 'På samlesak', value: 'COLLECTION', description: 'Innsendt skjema skal leveres til en forhåndsdefinert samlesak'}
 ];
 
+export const applicantOptions: ISelect[] = [
+    {label: 'Privatperson',value: 'PERSON'},
+    {label: 'Organisasjon', value: 'COMPANY'}
+];
+
 export const forms: ISelect[] = [
     { label: "TT-skjema", value: "TT" },
     { label: "Skjema1", value: "1_form" },
@@ -76,3 +83,17 @@ export const caseWorkers: ISelect[] = [
     {label: 'Paolo McKay', value: 'redwing'},
     {label: 'William Adama', value: 'husker'}
 ]
+
+export const tagList: ITag[] = [
+    {value:"{fornavn}",  name:"Fornavn"},
+    {value:"{etternavn}",  name:"Etternavn"},
+    {value:"{fodselsnummer}",  name:"Fødselsnummer"},
+    {value:"{adresse}",  name:"Adresse"},
+    {value:"{postnummer}",  name:"Postnummer"},
+    {value:"{poststed}",  name:"Poststed"},
+    {value:"{telefonnummer}",  name:"Telefonnummer"},
+    {value:"{email}",  name:"Email"}
+]
+
+export const TaglistPopoverContent: string = 'I tekstfeltene til i de ulike postene kan du benytte data fra skjema for å utfylle disse. \n\n' +
+    'Naviger til feltet du ønsker å fylle,og dra inn tag fra listen under.'

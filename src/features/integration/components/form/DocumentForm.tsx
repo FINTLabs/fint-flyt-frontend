@@ -7,7 +7,7 @@ import InputField from "./InputField";
 
 const DocumentForm: React.FunctionComponent<any> = (props) => {
     const documentFormFields: IInputField[] = [
-        {input: INPUT_TYPE.TEXT_FIELD, label: "Tittel", formValue: "documentData.title"},
+        {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "Tittel", formValue: "documentData.title"},
         {input: INPUT_TYPE.DROPDOWN, label: "Status", value: props.watch("documentData.documentStatus"), formValue: "documentData.documentStatus", dropDownItems: dropdownPlaceholder},
         {input: INPUT_TYPE.DROPDOWN, label: "Tilgangskode", value: props.watch("documentData.accessCode"), formValue: "documentData.accessCode", dropDownItems: dropdownPlaceholder},
         {input: INPUT_TYPE.DROPDOWN, label: "Hjemmel", value: props.watch("documentData.paragraph"), formValue: "documentData.paragraph", dropDownItems: dropdownPlaceholder},

@@ -8,6 +8,7 @@ export interface IInputField {
     dropDownItems?: ISelect[];
     radioOptions?: ISelect[];
     defaultValue?: string;
+    disabled?: boolean
 }
 
 export interface ISelect {

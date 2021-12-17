@@ -12,6 +12,7 @@ import {
 import React from 'react';
 import {INPUT_TYPE} from "../../types/InputType.enum";
 import {ISelect} from "../../types/InputField";
+import {TextFieldWithDropZone} from "../dnd/TextFieldWithDropZone";
 
 const InputField: React.FunctionComponent<any> = (props) => {
     if (props.input === INPUT_TYPE.DROPDOWN) {
@@ -29,9 +30,9 @@ const InputField: React.FunctionComponent<any> = (props) => {
     }
     else if (props.input === INPUT_TYPE.RADIO) {
         return (
-            <FormControl className={props.style} component="fieldset">
-                <FormLabel>Velg hvordan skjema skal sendes til arkivet</FormLabel>
-                <RadioGroup onChange={(e) => props.setValue(props.formValue, e.target.value as string)} defaultValue={props.defaultValue} sx={{maxWidth: 400}}>
+            <FormControl component="fieldset" disabled={props.disabled}>
+                <FormLabel>{props.label}</FormLabel>
+                <RadioGroup row={true} onChange={(e) => props.setValue(props.formValue, e.target.value as string)} defaultValue={props.defaultValue} sx={{maxWidth: 400}}>
                     {props.radioOptions.map((option: any, index: number) => (
                         <div key={index}>
                             <FormControlLabel value={option.value} control={<Radio />} label={option.label} />
@@ -43,22 +44,27 @@ const InputField: React.FunctionComponent<any> = (props) => {
         )
     } else if (props.input === INPUT_TYPE.AUTOCOMPLETE) {
         return (
-        <FormControl size="small">
-            <Autocomplete
-                sx={{ mb: 3 }}
-                id="tags-outlined"
-                options={props.dropdownItems}
-                onChange={(event, value) => props.setValue(props.formValue, value?.value)}
-                getOptionLabel={(option: ISelect) => option.label}
-                renderInput={(params) => (
-                    <TextField
-                        {...params}
-                        label={props.label}
-                        placeholder={props.label}
-                    />
-                )}
-            />
-        </FormControl>
+            <FormControl size="small">
+                <Autocomplete
+                    sx={{ mb: 3 }}
+                    id="tags-outlined"
+                    options={props.dropdownItems}
+                    onChange={(event, value) => props.setValue(props.formValue, value?.value)}
+                    getOptionLabel={(option: ISelect) => option.label}
+                    renderInput={(params) => (
+                        <TextField
+                            {...params}
+                            label={props.label}
+                            placeholder={props.label}
+                        />
+                    )}
+                />
+            </FormControl>
+        )
+    }
+    else if (props.input === INPUT_TYPE.DROPZONE_TEXT_FIELD) {
+        return (
+            <TextFieldWithDropZone label={props.label} setValue={props.setValue} formValue={props.formValue}/>
         )
     }
     else {

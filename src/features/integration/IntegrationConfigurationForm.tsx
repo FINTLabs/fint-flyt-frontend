@@ -9,17 +9,42 @@ import {defaultValues} from "./util/DefaultValues";
 import {toIntegrationConfiguration} from "./util/ToIntegrationConfiguration";
 import AccordionForm from "./components/AccordionForm";
 import {ACCORDION_FORM, IAccordion} from "./types/Accordion";
+import TagList from "./components/dnd/TagList";
+import {HTML5Backend} from "react-dnd-html5-backend";
+import {DndProvider} from "react-dnd";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         form: {
             width: theme.spacing(120)
         },
+        row: {
+            display: 'flex'
+        },
+        column: {
+            flex: '50%',
+            paddingLeft: theme.spacing(2)
+        },
+        taglistContainer: {
+            marginTop: theme.spacing(6),
+            marginLeft: theme.spacing(8),
+            padding: theme.spacing(2),
+            border: 'solid 2px',
+            borderColor: 'rgba(0, 0, 0, 0.37)',
+            borderRadius: '4px',
+            boxShadow: '0px 2px 2px -1px',
+            height: theme.spacing(30),
+            position: 'sticky',
+            top: theme.spacing(16)
+            },
         formControl: {
             width: theme.spacing(80)
         },
         accordion: {
             marginBottom: theme.spacing(2)
+        },
+        accordionSummary: {
+            backgroundColor: theme.palette.primary.light,
         },
         button: {
             marginRight: theme.spacing(1)
@@ -30,6 +55,11 @@ const useStyles = makeStyles((theme: Theme) =>
             color: 'white',
             padding: theme.spacing(2),
             cursor: 'pointer'
+        },
+        tagList: {
+            opacity: 0.99,
+            width: theme.spacing(40),
+            height: 'fit-content'
         }
     })
 );
@@ -44,7 +74,7 @@ const accordionList: IAccordion[] = [
 
 const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const classes = useStyles();
-    const {handleSubmit, watch, setValue, formState: {}} = useForm<IFormData>({
+    const {handleSubmit, watch, setValue} = useForm<IFormData>({
         defaultValues: defaultValues
     });
 
@@ -79,28 +109,33 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     });
 
     return (
-        <Box display="flex" position="relative" width={1} height={1}>
-            <Box>
-                <Typography variant={"h5"} sx={{mb: 2}}>Integrasjonskonfigurasjon</Typography>
-                <form className={classes.form} onSubmit={onSubmit}>
-                    {accordionList.map((accordion, index) => {
-                        return (
-                            <AccordionForm
-                                key={index}
-                                style={classes}
-                                summary={accordion.summary}
-                                accordionForm={accordion.accordionForm}
-                                defaultExpanded={accordion.defaultExpanded}
-                                watch={watch}
-                                setValue={setValue}
-                            />
-                        )})}
-                    <div>
-                        <input type="submit" className={classes.submitButton}/>
-                    </div>
-                </form>
+        <DndProvider backend={HTML5Backend}>
+            <Box display="flex" position="relative" width={1} height={1}>
+                <Box>
+                    <Typography variant={"h5"} sx={{mb: 2}}>Integrasjon til arkiv</Typography>
+                    <form className={classes.form} onSubmit={onSubmit}>
+                        {accordionList.map((accordion, index) => {
+                            return (
+                                <AccordionForm
+                                    key={index}
+                                    style={classes}
+                                    summary={accordion.summary}
+                                    accordionForm={accordion.accordionForm}
+                                    defaultExpanded={accordion.defaultExpanded}
+                                    watch={watch}
+                                    setValue={setValue}
+                                />
+                            )})}
+                        <div>
+                            <input type="submit" className={classes.submitButton}/>
+                        </div>
+                    </form>
+                </Box>
+                <Box className={classes.taglistContainer}>
+                    <TagList style={classes}/>
+                </Box>
             </Box>
-        </Box>
+        </DndProvider>
     );
 }
 

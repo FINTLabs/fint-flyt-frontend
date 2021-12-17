@@ -18,9 +18,9 @@ const theme = createTheme({
     },
     spacing: 8,
     typography: {
-         fontFamily: [
-             "Nunito Sans", 'sans-serif'
-         ].join(',')
+        fontFamily: [
+            "Nunito Sans", 'sans-serif'
+        ].join(',')
     }
 });
 
@@ -35,5 +35,3 @@ function App() {
 }
 
 export default App;
-
-
