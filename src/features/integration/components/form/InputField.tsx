@@ -91,9 +91,12 @@ const InputField: React.FunctionComponent<any> = (props) => {
     else if (props.input === INPUT_TYPE.DROPZONE_TEXT_FIELD) {
         return (
             <TextFieldWithDropZone
+                control={props.control}
+                error={props.error}
                 label={props.label}
                 setValue={props.setValue}
                 formValue={props.formValue}
+                required={props.required}
             />
         )
     }
