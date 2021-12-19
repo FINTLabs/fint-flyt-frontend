@@ -1,8 +1,8 @@
 import {Box, Typography} from "@mui/material";
-import {Tag} from "./Tag";
-import {TaglistPopoverContent, tagList} from "../../util/DefaultValues";
+import {Tag} from "./dnd/Tag";
+import {TaglistPopoverContent, tagList} from "../util/DefaultValues";
 import * as React from "react";
-import HelpPopover from "../popover/HelpPopover";
+import HelpPopover from "./popover/HelpPopover";
 
 const TagList: React.FunctionComponent<any> = (props) => {
     return (
