@@ -1,12 +1,11 @@
 import * as React from "react";
 import {useForm} from "react-hook-form";
-import { ErrorMessage } from '@hookform/error-message';
 import {Link as RouterLink, RouteComponentProps, withRouter} from "react-router-dom";
 import {Box, Button, Theme, Typography} from "@mui/material";
 import {createStyles, makeStyles} from "@mui/styles";
 import IFormData from "./types/Form/FormData";
 import IntegrationRepository from "./repository/IntegrationRepository";
-import {defaultValues, requiredFields} from "./util/DefaultValues";
+import {defaultValues} from "./util/DefaultValues";
 import {toIntegrationConfiguration} from "./util/ToIntegrationConfiguration";
 import AccordionForm from "./components/AccordionForm";
 import {ACCORDION_FORM, IAccordion} from "./types/Accordion";
@@ -40,7 +39,7 @@ const useStyles = makeStyles((theme: Theme) =>
             height: theme.spacing(30),
             position: 'sticky',
             top: theme.spacing(16)
-            },
+        },
         formControl: {
             width: theme.spacing(80)
         },
@@ -71,9 +70,10 @@ const useStyles = makeStyles((theme: Theme) =>
 const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const classes = useStyles();
     const [submitSuccess, setSubmitSuccess] = useState(false)
-    const {handleSubmit, watch, setValue, control, reset, formState: { errors }} = useForm<IFormData>({
+    const {handleSubmit, watch, setValue, control, reset, formState} = useForm<IFormData>({
         defaultValues: defaultValues
     });
+    const { errors } = formState;
 
     const accordionList: IAccordion[] = [
         {summary: "Integrasjonslogikk", accordionForm: ACCORDION_FORM.CASE_INFORMATION, defaultExpanded: true},
@@ -98,7 +98,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
         const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data);
         if(integrationConfiguration) {
             createNewConfiguration(integrationConfiguration);
-             reset({ ...defaultValues })
+            reset({ ...defaultValues })
         } else {
             //TODO: Handle error
             return;
@@ -128,13 +128,8 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                                     validation={true}
                                 />
                             )})}
-                        <Box>
-                            {requiredFields.map((field, index) => {
-                                return(<ErrorMessage key={index} errors={errors} name={field} render={({ message }) => <Typography color="red">{message}</Typography>}/>)
-                            })}
-                     </Box>
                         <div>
-                            <input type="submit" className={classes.submitButton}/>
+                            <Button type="submit" variant="contained">Send inn</Button>
                         </div>
                     </form>
                 </Box>

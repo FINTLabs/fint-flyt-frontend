@@ -35,28 +35,32 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
         <Controller
             control={props.control}
             name={props.formValue}
-            render={({ field: { onChange } }) => (
-                <div
-                    ref={drop}
-                    role={'TextFieldWithDropZone'}
-                >
-                    <TextField
-                        id="drag-and-drop-field"
-                        size="small"
-                        style={{backgroundColor}}
-                        sx={{ mb: 3, width: 750 }}
-                        label={props.required ? (props.label+'*') : props.label}
-                        value={inputValue}
-                        onChange={(e) => {
-                            setInputValue(e.target.value as string);
-                            onChange(e);
-                        }}
-                        error={inputValue === '' && !!props.error}
-                        helperText={props.error ? 'Obligatorisk felt' : ''}
-                    />
-                </div>
-            )}
-            rules={{ required: { value: props.required, message: errorMessage } }}
+            render={({ field: { onChange, value } }) => {
+                value=inputValue;
+                return (
+                    <div
+                        ref={drop}
+                        role={'TextFieldWithDropZone'}
+                    >
+                        <TextField
+                            id="drag-and-drop-field"
+                            size="small"
+                            style={{backgroundColor}}
+                            sx={{ mb: 3, width: 750 }}
+                            label={props.required ? (props.label+'*') : props.label}
+                            value={value}
+                            onChange={(e) => {
+                                setInputValue(e.target.value as string);
+                                onChange(e);
+                            }}
+                            error={value === '' && !!props.error}
+                            helperText={props.error ? 'Obligatorisk felt' : ''}
+                        />
+                    </div>)
+            }}
+            rules={{
+                required: { value: props.required, message: errorMessage }
+            }}
         />
     )
 }

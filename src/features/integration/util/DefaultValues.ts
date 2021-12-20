@@ -102,39 +102,3 @@ export const tagList: ITag[] = [
 
 export const TaglistPopoverContent: string = 'I tekstfeltene til i de ulike postene kan du benytte data fra skjema for å utfylle disse. \n\n' +
     'Naviger til feltet du ønsker å fylle,og dra inn tag fra listen under.'
-
-export const requiredFields: string[] = [
-    'id',
-    'name',
-    'description',
-    'selectedForm',
-    'caseData.caseCreationStrategy',
-    'caseData.title',
-    'caseData.publicTitle',
-    'caseData.administrativeUnit',
-    'caseData.archiveUnit',
-    'caseData.caseType',
-    'caseData.recordUnit',
-    'caseData.accessCode',
-    'caseData.paragraph',
-    'caseData.caseWorker',
-    'caseData.primaryClassification',
-    'caseData.secondaryClassification',
-    'caseData.primaryClass',
-    'caseData.secondaryClass',
-    'recordData.category',
-    'recordData.administrativeUnit',
-    'recordData.status',
-    'recordData.caseWorker',
-    'recordData.accessCode',
-    'recordData.paragraph',
-    'documentData.documentStatus',
-    'documentData.accessCode',
-    'documentData.paragraph',
-    'documentData.variant',
-    'documentData.format',
-    'applicantData.organisationNumber',
-    'applicantData.accessCode',
-    'applicantData.paragraph',
-    'applicantData'
-]
