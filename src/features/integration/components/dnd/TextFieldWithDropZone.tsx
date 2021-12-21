@@ -38,12 +38,9 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
             render={({ field: { onChange, value } }) => {
                 value=inputValue;
                 return (
-                    <div
-                        ref={drop}
-                        role={'TextFieldWithDropZone'}
-                    >
                         <TextField
                             id="drag-and-drop-field"
+                            ref={drop}
                             size="small"
                             style={{backgroundColor}}
                             sx={{ mb: 3, width: 750 }}
@@ -55,8 +52,7 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
                             }}
                             error={value === '' && !!props.error}
                             helperText={props.error ? 'Obligatorisk felt' : ''}
-                        />
-                    </div>)
+                        />)
             }}
             rules={{
                 required: { value: props.required, message: errorMessage }
