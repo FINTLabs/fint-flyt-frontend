@@ -7,12 +7,15 @@ import {CreationStretegy} from "../types/CreationStretegy";
 export function toIntegrationConfiguration(data: IFormData): IIntegrationConfiguration {
     const collectionStrategy: boolean = data.caseData?.caseCreationStrategy === CreationStretegy.COLLECTION
     return {
-        id: data.id,
         name: data.name,
         description: data.description,
         caseConfiguration: collectionStrategy ?
             {caseCreationStrategy: data.caseData?.caseCreationStrategy,
-                fields:[]
+                fields:[{
+                    field: "saksnummer",
+                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
+                    valueBuilder: {value:data.id}
+                }]
             } :
             {caseCreationStrategy: data.caseData?.caseCreationStrategy,
             fields: [
@@ -197,8 +200,14 @@ export function toIntegrationConfiguration(data: IFormData): IIntegrationConfigu
         },
         applicantConfiguration: {
             applicantType: data.applicantData?.type,
-            organisationNumber: data.applicantData?.organisationNumber,
             fields: [
+                {
+                    field: "organisasjonsNummer",
+                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
+                    valueBuilder: {
+                        value: data.applicantData?.organisationNumber
+                    }
+                },
                 {
                     field: "korrespondasepartNavn",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
