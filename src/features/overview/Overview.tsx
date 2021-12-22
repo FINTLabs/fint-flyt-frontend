@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Overview: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const classes = useStyles();
-    const [configList, setConfigList] = useState<IRow[]>([]);
+    const [configurations, getConfigurations] = useState<IRow[]>([]);
 
     const columns: GridColDef[] = [
         { field: 'id', hide: true},
@@ -34,24 +34,18 @@ const Overview: React.FunctionComponent<RouteComponentProps<any>> = () => {
     ];
 
     useEffect(()=> {
+        getAllConfigurations();
+    }, [])
+
+    const getAllConfigurations = () => {
         IntegrationRepository.get()
-            .then(response => {
-                let data = response.data.content;
-                let gridRows: IRow[] = [];
-                data.map((content: any) => (
-                    gridRows.push({
-                        id: content.id,
-                        name: content.name,
-                        description: content.description,
-                        version: content.version
-                    })
-                ))
-                setConfigList(gridRows);
+            .then((response) => {
+                const allConfigurations = response.data.content;
+                getConfigurations(allConfigurations)
+
             })
-            .catch((e: Error) => {
-                console.log('error fetching configurations', e)
-            })
-    })
+            .catch(e => console.error('Error: ', e))
+    }
 
     return (
         <>
@@ -61,7 +55,7 @@ const Overview: React.FunctionComponent<RouteComponentProps<any>> = () => {
             <Box display="flex" position="relative" width={1} height={1}>
                 <Box className={classes.dataGridBox}>
                     <DataGrid
-                        rows={configList}
+                        rows={configurations}
                         columns={columns}
                         pageSize={15}
                         rowsPerPageOptions={[15]}
