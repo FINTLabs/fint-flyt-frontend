@@ -10,98 +10,97 @@ export function toIntegrationConfiguration(data: IFormData): IIntegrationConfigu
         name: data.name,
         description: data.description,
         caseConfiguration: collectionStrategy ?
-            {caseCreationStrategy: data.caseData?.caseCreationStrategy,
-                fields:[{
-                    field: "saksnummer",
-                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                    valueBuilder: {value:data.id}
-                }]
+            {
+                caseCreationStrategy: data.caseData?.caseCreationStrategy,
+                caseNumber: data.caseData?.caseNumber,
+                fields: []
             } :
-            {caseCreationStrategy: data.caseData?.caseCreationStrategy,
-            fields: [
-                {
-                    field: "tittel",
-                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                    valueBuilder: createValueBuilder(data.caseData?.title)
-                },
-                {
-                    field: "offentligTittel",
-                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                    valueBuilder: createValueBuilder(data.caseData?.publicTitle)
-                },
-                {
-                    field: "caseType",
-                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                    valueBuilder: {
-                        value: data.caseData?.caseType
-                    }
-                },
-                {
-                    field: 'administrativenhet',
-                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                    valueBuilder: {
-                        value: data.caseData?.administrativeUnit
-                    }
-                },
-                {
-                    field: "arkivdel",
-                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                    valueBuilder: {
-                        value: data.caseData?.archiveUnit
-                    }
-                },
-                {
-                    field: "journalenhet",
-                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                    valueBuilder: {
-                        value: data.caseData?.recordUnit
-                    }
-                },
-                {
-                    field: "tilgangsrestriksjon",
-                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                    valueBuilder: {
-                        value: data.caseData?.accessCode
-                    }
-                },
-                {
-                    field: "skjermingshjemmel",
-                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                    valueBuilder: {
-                        value: data.caseData?.paragraph
-                    }
-                },
-                {
-                    field: "saksansvarlig",
-                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                    valueBuilder: {
-                        value: data.caseData?.caseWorker
-                    }
-                },
-                {
-                    field: "primarordningsprinsipp",
-                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                    valueBuilder: createValueBuilder(data.caseData?.primaryClassification)
-                },
-                {
-                    field: "sekundarordningsprinsipp",
-                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                    valueBuilder: createValueBuilder(data.caseData?.secondaryClassification)
-                },
-                {
-                    field: "primarklasse",
-                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                    valueBuilder: {
-                        value: data.caseData?.primaryClass
-                    }
-                },
-                {
-                    field: "sekundarklasse",
-                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                    valueBuilder: createValueBuilder(data.caseData?.secondaryClass)
+            {
+                caseCreationStrategy: data.caseData?.caseCreationStrategy,
+                fields: [
+                    {
+                        field: "tittel",
+                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
+                        valueBuilder: createValueBuilder(data.caseData?.title)
+                    },
+                    {
+                        field: "offentligTittel",
+                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
+                        valueBuilder: createValueBuilder(data.caseData?.publicTitle)
+                    },
+                    {
+                        field: "caseType",
+                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
+                        valueBuilder: {
+                            value: data.caseData?.caseType
+                        }
+                    },
+                    {
+                        field: 'administrativenhet',
+                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
+                        valueBuilder: {
+                            value: data.caseData?.administrativeUnit
+                        }
+                    },
+                    {
+                        field: "arkivdel",
+                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
+                        valueBuilder: {
+                            value: data.caseData?.archiveUnit
+                        }
+                    },
+                    {
+                        field: "journalenhet",
+                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
+                        valueBuilder: {
+                            value: data.caseData?.recordUnit
+                        }
+                    },
+                    {
+                        field: "tilgangsrestriksjon",
+                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
+                        valueBuilder: {
+                            value: data.caseData?.accessCode
+                        }
+                    },
+                    {
+                        field: "skjermingshjemmel",
+                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
+                        valueBuilder: {
+                            value: data.caseData?.paragraph
+                        }
+                    },
+                    {
+                        field: "saksansvarlig",
+                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
+                        valueBuilder: {
+                            value: data.caseData?.caseWorker
+                        }
+                    },
+                    {
+                        field: "primarordningsprinsipp",
+                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
+                        valueBuilder: createValueBuilder(data.caseData?.primaryClassification)
+                    },
+                    {
+                        field: "sekundarordningsprinsipp",
+                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
+                        valueBuilder: createValueBuilder(data.caseData?.secondaryClassification)
+                    },
+                    {
+                        field: "primarklasse",
+                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
+                        valueBuilder: {
+                            value: data.caseData?.primaryClass
+                        }
+                    },
+                    {
+                        field: "sekundarklasse",
+                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
+                        valueBuilder: createValueBuilder(data.caseData?.secondaryClass)
 
-                }
-            ]
+                    }
+                ]
             },
         recordConfiguration: {
             fields: [
@@ -200,14 +199,8 @@ export function toIntegrationConfiguration(data: IFormData): IIntegrationConfigu
         },
         applicantConfiguration: {
             applicantType: data.applicantData?.type,
+            organisationNumber: data.applicantData?.organisationNumber,
             fields: [
-                {
-                    field: "organisasjonsNummer",
-                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                    valueBuilder: {
-                        value: data.applicantData?.organisationNumber
-                    }
-                },
                 {
                     field: "korrespondasepartNavn",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,

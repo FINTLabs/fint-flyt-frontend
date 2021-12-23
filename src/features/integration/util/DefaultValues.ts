@@ -35,7 +35,6 @@ export const defaultValues = {
     },
     applicantData: {
         type: 'PERSON',
-        organisationNumber: '',
         accessCode: '',
         paragraph: '',
     }

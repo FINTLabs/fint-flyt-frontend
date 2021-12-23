@@ -2,6 +2,7 @@ import {IField} from "./Field";
 
 interface ICaseConfiguration {
     caseCreationStrategy?: string;
+    caseNumber?: string;
     fields: IField[];
 }
 interface IRecordConfiguration {

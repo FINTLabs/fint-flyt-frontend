@@ -71,7 +71,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     const classes = useStyles();
     const [submitSuccess, setSubmitSuccess] = useState(false)
     const {handleSubmit, watch, setValue, control, reset, formState} = useForm<IFormData>({
-        defaultValues: defaultValues
+        defaultValues: defaultValues, reValidateMode: 'onChange'
     });
     const { errors } = formState;
 
@@ -125,7 +125,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                                     control={control}
                                     setValue={setValue}
                                     errors={errors}
-                                    validation={true}
+                                    validation={false}
                                 />
                             )})}
                         <div>

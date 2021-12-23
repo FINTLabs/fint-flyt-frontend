@@ -1,5 +1,6 @@
 export default interface ICaseData {
     caseCreationStrategy: string;
+    caseNumber: string;
     title: string;
     publicTitle: string;
     caseType: string;
