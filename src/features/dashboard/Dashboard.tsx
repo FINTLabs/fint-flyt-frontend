@@ -20,8 +20,7 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
     useEffect(()=> {
         IntegrationRepository.get()
             .then(response => {
-                let data = response.data.numberOfElements;
-                setConfigValue(data);
+                setConfigValue(response.data.numberOfElements);
             })
             .catch((e: Error) => {
                 console.log('error fetching configurations', e)
