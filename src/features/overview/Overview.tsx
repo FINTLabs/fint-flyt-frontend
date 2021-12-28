@@ -3,8 +3,9 @@ import React, {useEffect, useState} from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import {createStyles, makeStyles} from "@mui/styles";
 import IntegrationRepository from "../integration/repository/IntegrationRepository";
-import {DataGrid, GridColDef, GridToolbar} from '@mui/x-data-grid';
+import {DataGrid, GridCellParams, GridColDef, GridToolbar} from '@mui/x-data-grid';
 import {IRow} from "./types/Row";
+import IntegrationConfigurationPage from "./IntegrationConfigurationPage";
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -25,6 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const Overview: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const classes = useStyles();
     const [configurations, getConfigurations] = useState<IRow[]>([]);
+    const [selectedConfiguration, setSelectedConfiguration] = useState<GridCellParams>();
 
     const columns: GridColDef[] = [
         { field: 'id', hide: true},
@@ -47,19 +49,29 @@ const Overview: React.FunctionComponent<RouteComponentProps<any>> = () => {
             .catch(e => console.error('Error: ', e))
     }
 
+    function handleClick() {
+        setSelectedConfiguration(undefined)
+    }
+
     return (
         <>
             <Box>
                 <Typography>Oversikt</Typography>
             </Box>
-            <Box display="flex" position="relative" width={1} height={1}>
+            {!selectedConfiguration && <Box display="flex" position="relative" width={1} height={1}>
                 <Box className={classes.dataGridBox}>
                     <DataGrid
+                        onCellDoubleClick={(params, event) => {
+                            if (!event.ctrlKey) {
+                                event.defaultMuiPrevented = true;
+                                console.log(params.row)
+                                setSelectedConfiguration(params.row)
+                            }
+                        }}
                         rows={configurations}
                         columns={columns}
                         pageSize={15}
                         rowsPerPageOptions={[15]}
-                        disableSelectionOnClick
                         components={{
                             Toolbar: GridToolbar,
                         }}
@@ -77,7 +89,13 @@ const Overview: React.FunctionComponent<RouteComponentProps<any>> = () => {
                         }}
                     />
                 </Box>
-            </Box>
+            </Box>}
+            {selectedConfiguration &&
+                <IntegrationConfigurationPage
+                    handleClick={handleClick}
+                    initialConfiguration={selectedConfiguration}
+                />
+            }
         </>
     );
 }

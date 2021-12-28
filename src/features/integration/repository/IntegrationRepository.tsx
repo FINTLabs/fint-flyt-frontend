@@ -15,7 +15,7 @@ const get = () => {
 };
 
 const getByIdAndVersion = (id: any, version: any) => {
-    return axios.get<IFormData>(`/integration/configuration/${id}/${version}`);
+    return axios.get<any>(`/integration/configuration/${id}/${version}`);
 };
 
 const create = (data: IIntegrationConfiguration) => {
