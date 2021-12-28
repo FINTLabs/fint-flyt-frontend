@@ -49,52 +49,53 @@ const Overview: React.FunctionComponent<RouteComponentProps<any>> = () => {
             .catch(e => console.error('Error: ', e))
     }
 
-    function handleClick() {
+    function resetConfiguration() {
         setSelectedConfiguration(undefined)
     }
 
     return (
         <>
+            {!selectedConfiguration &&
             <Box>
                 <Typography>Oversikt</Typography>
-            </Box>
-            {!selectedConfiguration && <Box display="flex" position="relative" width={1} height={1}>
-                <Box className={classes.dataGridBox}>
-                    <DataGrid
-                        onCellDoubleClick={(params, event) => {
-                            if (!event.ctrlKey) {
-                                event.defaultMuiPrevented = true;
-                                console.log(params.row)
-                                setSelectedConfiguration(params.row)
-                            }
-                        }}
-                        rows={configurations}
-                        columns={columns}
-                        pageSize={15}
-                        rowsPerPageOptions={[15]}
-                        components={{
-                            Toolbar: GridToolbar,
-                        }}
-                        initialState={{
-                            filter: {
-                                filterModel: {
-                                    items: [
-                                        {
-                                            columnField: 'name',
-                                            operatorValue: 'contains'
-                                        },
-                                    ],
+                <Box display="flex" position="relative" width={1} height={1}>
+                    <Box className={classes.dataGridBox}>
+                        <DataGrid
+                            onCellDoubleClick={(params, event) => {
+                                if (!event.ctrlKey) {
+                                    event.defaultMuiPrevented = true;
+                                    console.log(params.row)
+                                    setSelectedConfiguration(params.row)
+                                }
+                            }}
+                            rows={configurations}
+                            columns={columns}
+                            pageSize={15}
+                            rowsPerPageOptions={[15]}
+                            components={{
+                                Toolbar: GridToolbar,
+                            }}
+                            initialState={{
+                                filter: {
+                                    filterModel: {
+                                        items: [
+                                            {
+                                                columnField: 'name',
+                                                operatorValue: 'contains'
+                                            },
+                                        ],
+                                    },
                                 },
-                            },
-                        }}
-                    />
+                            }}
+                        />
+                    </Box>
                 </Box>
             </Box>}
             {selectedConfiguration &&
-                <IntegrationConfigurationPage
-                    handleClick={handleClick}
-                    initialConfiguration={selectedConfiguration}
-                />
+            <IntegrationConfigurationPage
+                reset={resetConfiguration}
+                initialConfiguration={selectedConfiguration}
+            />
             }
         </>
     );

@@ -1,38 +1,69 @@
-import {Box, Typography, Button} from "@mui/material";
+import {
+    Box,
+    Typography,
+    Button,
+    MenuItem,
+    FormControl,
+    Select,
+    InputLabel,
+    SelectChangeEvent
+} from "@mui/material";
 import * as React from "react";
 import {useEffect, useState} from "react";
 import IntegrationRepository from "../integration/repository/IntegrationRepository";
 
 const IntegrationConfigurationPage: React.FunctionComponent<any> = (props) => {
-
     const id = props.initialConfiguration.id;
-    const [configuration, setConfiguration] = useState(props.initialConfiguration)
+    const initialVersion: number = props.initialConfiguration.version;
+    const [activeConfiguration, setActiveConfiguration] = useState(props.initialConfiguration)
     const [version, setVersion] = useState(props.initialConfiguration.version)
+    const versions = [];
+    for (let i = 1; i<=initialVersion; i++) {
+        versions.push({label: i, value: i})
+    }
 
     useEffect(()=> {
         getConfiguration(version);
     }, [version, setVersion])
 
-    const getConfiguration = (version: number) => {
+    const getConfiguration = (version: any) => {
         IntegrationRepository.getByIdAndVersion(id, version)
             .then((response) => {
                 console.log(response)
                 const configuration = response.data;
-                setConfiguration(configuration)
+                setActiveConfiguration(configuration)
 
             })
             .catch(e => console.error('Error: ', e))
     }
 
-    return (
-        <Box>
-            <Typography>id: {configuration.id}</Typography>
-            <Typography>navn: {configuration.name}</Typography>
-            <Typography>beskrivelse: {configuration.description}</Typography>
-            <Typography>versjon: {configuration.version}</Typography>
-            <Typography>orgnummer: {configuration.applicantConfiguration.organisationNumber}</Typography>
+    const handleChange = (event: SelectChangeEvent) => {
+        setVersion(event.target.value);
+    };
 
-            <Button variant="contained" onClick={props.handleClick}>Tilbake</Button>
+    return (
+        <Box width={750}>
+            <FormControl size='small' sx={{float: 'right', width: 300, mb: 5}}>
+                <InputLabel id="demo-simple-select-label">Versjon</InputLabel>
+                <Select
+                    labelId="version-select-label"
+                    id="version-select"
+                    value={version}
+                    label="Versjon"
+                    onChange={handleChange}
+                >
+                    {versions.map((item: any, index: number) => (
+                        <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
+                    ))}
+                </Select>
+            </FormControl>
+            <Typography>id: {activeConfiguration.id}</Typography>
+            <Typography>navn: {activeConfiguration.name}</Typography>
+            <Typography>beskrivelse: {activeConfiguration.description}</Typography>
+            <Typography>versjon: {activeConfiguration.version}</Typography>
+            <Typography>orgnummer: {activeConfiguration.applicantConfiguration.organisationNumber}</Typography>
+
+            <Button variant="contained" onClick={props.reset}>Tilbake</Button>
 
         </Box>
     );
