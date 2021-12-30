@@ -1,6 +1,6 @@
-import {Box, Theme, Typography} from '@mui/material';
+import {Box, Breadcrumbs, Theme, Typography} from '@mui/material';
 import React, {useEffect, useState} from 'react';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
+import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {createStyles, makeStyles} from "@mui/styles";
 import IntegrationRepository from "../integration/repository/IntegrationRepository";
 import {DataGrid, GridCellParams, GridColDef, GridToolbar} from '@mui/x-data-grid';
@@ -55,9 +55,12 @@ const Overview: React.FunctionComponent<RouteComponentProps<any>> = () => {
 
     return (
         <>
+            <Breadcrumbs aria-label="breadcrumb">
+                <Typography style={{cursor:'pointer'}} onClick={resetConfiguration}>Oversikt</Typography>
+                <Typography>{selectedConfiguration ? 'Konfigurasjonsdetaljer' : ''}</Typography>
+            </Breadcrumbs>
             {!selectedConfiguration &&
             <Box>
-                <Typography>Oversikt</Typography>
                 <Box display="flex" position="relative" width={1} height={1}>
                     <Box className={classes.dataGridBox}>
                         <DataGrid
@@ -68,6 +71,7 @@ const Overview: React.FunctionComponent<RouteComponentProps<any>> = () => {
                                     setSelectedConfiguration(params.row)
                                 }
                             }}
+                            density='compact'
                             rows={configurations}
                             columns={columns}
                             pageSize={15}

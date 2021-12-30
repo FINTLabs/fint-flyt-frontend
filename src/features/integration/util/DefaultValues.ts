@@ -41,16 +41,16 @@ export const defaultValues = {
 }
 
 export const dropdownPlaceholder: ISelect[] = [
-    {label: 'Alternativ 1', value: '0'},
-    {label: 'Alternativ 2', value: '1'},
-    {label: 'Alternativ 3', value: '2'},
-    {label: 'Alternativ 4', value: '3'},
-    {label: 'Alternativ 5', value: '4'},
-    {label: 'Alternativ 6', value: '5'},
-    {label: 'Alternativ 7', value: '6'},
-    {label: 'Alternativ 8', value: '7'},
-    {label: 'Alternativ 9', value: '8'},
-    {label: 'Alternativ 10', value: '9'}
+    {label: 'Alternativ 1', value: 'alt1'},
+    {label: 'Alternativ 2', value: 'alt1'},
+    {label: 'Alternativ 3', value: 'alt3'},
+    {label: 'Alternativ 4', value: 'alt4'},
+    {label: 'Alternativ 5', value: 'alt5'},
+    {label: 'Alternativ 6', value: 'alt6'},
+    {label: 'Alternativ 7', value: 'alt7'},
+    {label: 'Alternativ 8', value: 'alt8'},
+    {label: 'Alternativ 9', value: 'alt9'},
+    {label: 'Alternativ 10', value: 'alt10'}
 ]
 
 export const creationStrategies: ISelect[] = [

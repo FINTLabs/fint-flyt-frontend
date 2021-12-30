@@ -37,7 +37,6 @@ const useStyles = makeStyles((theme: Theme) =>
             flexGrow: 1,
             backgroundColor: theme.palette.background.default,
             padding: 24,
-            minHeight: "100vh",
             marginTop: theme.spacing(7),
             [theme.breakpoints.up("sm")]: {
                 height: "calc(100% - 64px)",
