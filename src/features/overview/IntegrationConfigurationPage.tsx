@@ -13,6 +13,7 @@ import * as React from "react";
 import {useEffect, useState} from "react";
 import IntegrationRepository from "../integration/repository/IntegrationRepository";
 import {Link as RouterLink} from "react-router-dom";
+import {toValueString} from "../integration/util/Util";
 
 const IntegrationConfigurationPage: React.FunctionComponent<any> = (props) => {
     console.log(props.initialConfiguration)
@@ -72,30 +73,21 @@ const IntegrationConfigurationPage: React.FunctionComponent<any> = (props) => {
                     <Typography variant={"h6"}>Sakspost</Typography>
                     <Typography>Saksnummer: {activeConfiguration.caseConfiguration.caseNumber}</Typography>
                     {activeConfiguration.caseConfiguration.fields.map((field: any, index: number) => {
-                        return <Typography key={index}>{field.field}: {field.valueBuilder.value}
-                            {field.valueBuilder.properties?.map((property: any) => {
-                                return ' {' + property.key + '} ';
-                            })}</Typography>
+                        return<Typography key={index}>{field.field}: {toValueString(field.valueBuilder)}</Typography>
                     })}
                 </CardContent>
                 <Divider />
                 <CardContent>
                     <Typography variant={"h6"}>Journalpost</Typography>
                     {activeConfiguration.recordConfiguration.fields.map((field: any, index: number) => {
-                        return <Typography key={index}>{field.field}: {field.valueBuilder.value}
-                            {field.valueBuilder.properties?.map((property: any) => {
-                                return ' {' + property.key + '} ';
-                            })}</Typography>
+                        return<Typography key={index}>{field.field}: {toValueString(field.valueBuilder)}</Typography>
                     })}
                 </CardContent>
                 <Divider />
                 <CardContent>
                     <Typography variant={"h6"}>Dokument- og objektbeskrivelse</Typography>
                     {activeConfiguration.documentConfiguration.fields.map((field: any, index: number) => {
-                        return <Typography key={index}>{field.field}: {field.valueBuilder.value}
-                            {field.valueBuilder.properties?.map((property: any) => {
-                                return ' {' + property.key + '} ';
-                            })}</Typography>
+                        return<Typography key={index}>{field.field}: {toValueString(field.valueBuilder)}</Typography>
                     })}
                 </CardContent>
                 <Divider />
@@ -103,10 +95,7 @@ const IntegrationConfigurationPage: React.FunctionComponent<any> = (props) => {
                     <Typography variant={"h6"}>Avsender</Typography>
                     <Typography>orgnummer: {activeConfiguration.applicantConfiguration.organisationNumber}</Typography>
                     {activeConfiguration.applicantConfiguration.fields.map((field: any, index: number) => {
-                        return <Typography key={index}>{field.field}: {field.valueBuilder.value}
-                            {field.valueBuilder.properties?.map((property: any) => {
-                                return ' {' + property.key + '} ';
-                            })}</Typography>
+                        return<Typography key={index}>{field.field}: {toValueString(field.valueBuilder)}</Typography>
                     })}
                 </CardContent>
             </Card>

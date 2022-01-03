@@ -21,3 +21,15 @@ export function createValueBuilder(inputString: any): ValueBuilder {
         }) : []
     }
 }
+
+export function toValueString(inputValue: ValueBuilder): string {
+    let valueString = inputValue.value? inputValue.value : '';
+    if (valueString !== '' && inputValue.properties !== undefined) {
+        let helperString;
+        inputValue.properties?.map((property => {
+            helperString = valueString?.replace("%s", '{' + property.key + '}')
+            valueString = helperString;
+        }))
+    }
+    return valueString;
+}
