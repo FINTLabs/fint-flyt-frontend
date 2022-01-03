@@ -11,11 +11,11 @@ import {
 } from "@mui/material";
 import * as React from "react";
 import {useEffect, useState} from "react";
-import IntegrationRepository from "../integration/repository/IntegrationRepository";
+import IntegrationRepository from "../../integration/repository/IntegrationRepository";
 import {Link as RouterLink} from "react-router-dom";
-import {toValueString} from "../integration/util/Util";
+import {toValueString} from "../../integration/util/Util";
 
-const IntegrationConfigurationPage: React.FunctionComponent<any> = (props) => {
+const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) => {
     console.log(props.initialConfiguration)
     const id = props.initialConfiguration.id;
     const initialVersion: number = props.initialConfiguration.version;
@@ -108,4 +108,4 @@ const IntegrationConfigurationPage: React.FunctionComponent<any> = (props) => {
     );
 }
 
-export default IntegrationConfigurationPage;
+export default IntegrationConfigurationDetails;
