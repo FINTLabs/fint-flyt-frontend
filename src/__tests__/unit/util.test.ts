@@ -18,6 +18,9 @@ const valueBuilderOnlyTags: ValueBuilder = {
 const valueBuilderEmptyString: ValueBuilder = {
     value: "", properties: []
 }
+const valueBuilderNoProperties: ValueBuilder = {
+    value: "Lorem ipsum, foo, bar"
+}
 
 const valueBuilderEmpty: ValueBuilder = {}
 
@@ -55,4 +58,8 @@ test('It should convert from valueBuilder with no tags to valueString correctly'
 
 test('It should handle empty valuebuilder', () => {
     expect(toValueString(valueBuilderEmpty)).toEqual("");
+});
+
+test('It should handle no properties', () => {
+    expect(toValueString(valueBuilderNoProperties)).toEqual("Lorem ipsum, foo, bar");
 });
