@@ -142,7 +142,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
             <Box style={{minHeight: 'fit-content'}}>
                 <Typography variant={"h5"} sx={{mb: 2}}>Integrasjon til arkiv - Ferdig</Typography>
                 <Button size="small" variant="contained" component={RouterLink} to="/overview">Se integrasjoner</Button>
-                <Button onClick={() => window.location.reload()} size="small" variant="contained">Ny integrasjon</Button>
+                <Button size="small" variant="contained" sx={{ml: 2}} onClick={() => window.location.reload()}>Ny integrasjon</Button>
             </Box>}
         </DndProvider>
     );

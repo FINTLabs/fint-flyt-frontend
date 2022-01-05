@@ -24,8 +24,8 @@ export interface IIntegrationConfiguration {
     version?: string,
     selectedForm?: string;
 
-    caseConfiguration?:ICaseConfiguration;
-    recordConfiguration?: IRecordConfiguration;
-    documentConfiguration?: IDocumentConfiguration;
-    applicantConfiguration?: IApplicantConfiguration;
+    caseConfiguration:ICaseConfiguration;
+    recordConfiguration: IRecordConfiguration;
+    documentConfiguration: IDocumentConfiguration;
+    applicantConfiguration: IApplicantConfiguration;
 }

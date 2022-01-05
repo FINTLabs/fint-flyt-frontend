@@ -1,5 +1,6 @@
 import {ValueBuilder} from "../types/ValueBuilder";
 import {IProperty} from "../types/Property";
+import {IField} from "../types/Field";
 
 /* TODO: Remove empty check after validation ensures no empty fields */
 export function createValueBuilder(inputString: any): ValueBuilder {
@@ -32,4 +33,12 @@ export function toValueString(inputValue: ValueBuilder): string {
         }))
     }
     return valueString;
+}
+
+export function fieldToString(configuration: any, configurationField: string, valueString?: boolean): string {
+    const fields =  configuration.fields.filter((field: IField) => field.field == configurationField)
+    if (valueString) {
+        return fields.length > 0 ? toValueString(fields[0].valueBuilder) : '';
+    }
+    return fields.length > 0 ? fields[0].valueBuilder.value : '';
 }

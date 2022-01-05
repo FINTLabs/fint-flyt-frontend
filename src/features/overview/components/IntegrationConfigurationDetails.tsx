@@ -14,12 +14,15 @@ import {useEffect, useState} from "react";
 import IntegrationRepository from "../../integration/repository/IntegrationRepository";
 import {Link as RouterLink} from "react-router-dom";
 import {toValueString} from "../../integration/util/Util";
+import {toFormData} from "../../integration/util/ToFormData";
+import IFormData from "../../integration/types/Form/FormData";
 
 const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) => {
     console.log(props.initialConfiguration)
     const id = props.initialConfiguration.id;
     const initialVersion: number = props.initialConfiguration.version;
     const [activeConfiguration, setActiveConfiguration] = useState(props.initialConfiguration)
+    const [formData, setFormData] = useState<IFormData>(toFormData(props.initialConfiguration))
     const [version, setVersion] = useState(props.initialConfiguration.version)
     const versions = [];
     for (let i = 1; i<=initialVersion; i++) {
@@ -33,8 +36,10 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
     const getConfiguration = (version: any) => {
         IntegrationRepository.getByIdAndVersion(id, version)
             .then((response) => {
-                console.log(response)
                 const configuration = response.data;
+                const formData2 = toFormData(configuration);
+                setFormData(toFormData(configuration));
+                console.log(formData2)
                 setActiveConfiguration(configuration)
 
             })
@@ -66,6 +71,7 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
                     <Typography>Id: {activeConfiguration.id}</Typography>
                     <Typography>Navn: {activeConfiguration.name}</Typography>
                     <Typography>Beskrivelse: {activeConfiguration.description}</Typography>
+                    <Typography>Integrasjonslogikk: {activeConfiguration.caseConfiguration.caseCreationStrategy}</Typography>
                     <Typography>Versjon: {activeConfiguration.version}</Typography>
                 </CardContent>
                 <Divider />
