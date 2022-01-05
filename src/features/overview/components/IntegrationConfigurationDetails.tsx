@@ -16,7 +16,6 @@ import {Link as RouterLink} from "react-router-dom";
 import {toValueString} from "../../integration/util/Util";
 
 const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) => {
-    console.log(props.initialConfiguration)
     const id = props.initialConfiguration.id;
     const initialVersion: number = props.initialConfiguration.version;
     const [activeConfiguration, setActiveConfiguration] = useState(props.initialConfiguration)
@@ -33,10 +32,8 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
     const getConfiguration = (version: any) => {
         IntegrationRepository.getByIdAndVersion(id, version)
             .then((response) => {
-                console.log(response)
                 const configuration = response.data;
                 setActiveConfiguration(configuration)
-
             })
             .catch(e => console.error('Error: ', e))
     }
