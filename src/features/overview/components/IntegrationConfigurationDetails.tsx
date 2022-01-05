@@ -12,17 +12,18 @@ import {
 import * as React from "react";
 import {useEffect, useState} from "react";
 import IntegrationRepository from "../../integration/repository/IntegrationRepository";
-import {Link as RouterLink} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import {toValueString} from "../../integration/util/Util";
 import {toFormData} from "../../integration/util/ToFormData";
-import IFormData from "../../integration/types/Form/FormData";
+import {IIntegrationConfiguration} from "../../integration/types/IntegrationConfiguration";
+
 
 const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) => {
     console.log(props.initialConfiguration)
+    let history = useHistory();
     const id = props.initialConfiguration.id;
     const initialVersion: number = props.initialConfiguration.version;
-    const [activeConfiguration, setActiveConfiguration] = useState(props.initialConfiguration)
-    const [formData, setFormData] = useState<IFormData>(toFormData(props.initialConfiguration))
+    const [activeConfiguration, setActiveConfiguration] = useState<IIntegrationConfiguration>(props.initialConfiguration)
     const [version, setVersion] = useState(props.initialConfiguration.version)
     const versions = [];
     for (let i = 1; i<=initialVersion; i++) {
@@ -37,8 +38,8 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
         IntegrationRepository.getByIdAndVersion(id, version)
             .then((response) => {
                 const configuration = response.data;
+                console.log('conf', configuration)
                 const formData2 = toFormData(configuration);
-                setFormData(toFormData(configuration));
                 console.log(formData2)
                 setActiveConfiguration(configuration)
 
@@ -49,6 +50,13 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
     const handleChange = (event: SelectChangeEvent) => {
         setVersion(event.target.value);
     };
+
+    function handleEdit() {
+        history.push({
+            pathname: '/integration/configuration/edit',
+            state: activeConfiguration
+        })
+    }
 
     return (
         <Box width={750}>
@@ -108,8 +116,9 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
             <Button variant="contained" onClick={props.reset}>Tilbake</Button>
             <Button sx={{float: 'right'}}
                     variant="contained"
-                    component={RouterLink}
-                    to="/integration/configuration/edit">Rediger integrasjon</Button>
+                    onClick={handleEdit}>
+                Rediger med state
+            </Button>
         </Box>
     );
 }

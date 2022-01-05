@@ -1,6 +1,6 @@
 import * as React from "react";
 import {useForm} from "react-hook-form";
-import {Link as RouterLink, RouteComponentProps, withRouter} from "react-router-dom";
+import {Link as RouterLink, RouteComponentProps, useLocation, withRouter} from "react-router-dom";
 import {Box, Button, Theme, Typography} from "@mui/material";
 import {createStyles, makeStyles} from "@mui/styles";
 import IFormData from "./types/Form/FormData";
@@ -14,7 +14,8 @@ import {HTML5Backend} from "react-dnd-html5-backend";
 import {DndProvider} from "react-dnd";
 import {IIntegrationConfiguration} from "./types/IntegrationConfiguration";
 import {CreationStretegy} from "./types/CreationStretegy";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {toFormData} from "./util/ToFormData";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -69,11 +70,28 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const classes = useStyles();
+    const location = useLocation();
     const [submitSuccess, setSubmitSuccess] = useState(false)
+    const [defaults, setDefaults] = useState(defaultValues)
+    let activeConfiguration: IIntegrationConfiguration;
+
     const {handleSubmit, watch, setValue, control, reset, formState} = useForm<IFormData>({
-        defaultValues: defaultValues, reValidateMode: 'onChange'
+        defaultValues: location.state ? toFormData(location.state as IIntegrationConfiguration) : defaultValues,
+        reValidateMode: 'onChange'
     });
     const { errors } = formState;
+
+//TODO: mulig denne kan fjernes
+    useEffect(() => {
+        console.log(location.pathname);
+        console.log(location.state);
+        activeConfiguration = location.state as IIntegrationConfiguration;
+        if (activeConfiguration) {
+            console.log(toFormData(activeConfiguration))
+            setDefaults(toFormData(activeConfiguration));
+        }
+        console.log(defaults)
+    }, [location]);
 
     const accordionList: IAccordion[] = [
         {summary: "Integrasjonslogikk", accordionForm: ACCORDION_FORM.CASE_INFORMATION, defaultExpanded: true},

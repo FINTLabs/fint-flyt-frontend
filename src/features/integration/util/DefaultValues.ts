@@ -1,32 +1,41 @@
 import {ISelect} from "../types/InputField";
 import {ITag} from "../types/Tag";
 import {CreationStretegy} from "../types/CreationStretegy";
+import IFormData from "../types/Form/FormData";
 
-export const defaultValues = {
+export const defaultValues: IFormData = {
     name: '',
     description: '',
+    version: '',
     selectedForm: '',
     caseData: {
         caseCreationStrategy: CreationStretegy.NEW,
+        caseNumber: '',
+        title: '',
+        publicTitle: '',
+        caseType: '',
         administrativeUnit:'',
         archiveUnit:'',
-        caseType: '',
         recordUnit: '',
         accessCode: '',
         paragraph: '',
         caseWorker: '',
+        primaryClassification: '',
+        secondaryClassification: '',
         primaryClass: '',
         secondaryClass: '',
     },
     recordData: {
+        title: '',
+        publicTitle: '',
         category: '',
         administrativeUnit: '',
         status: '',
-        caseWorker: '',
         accessCode: '',
         paragraph: '',
     },
     documentData: {
+        title: '',
         documentStatus: '',
         accessCode: '',
         paragraph: '',
@@ -35,6 +44,13 @@ export const defaultValues = {
     },
     applicantData: {
         type: 'PERSON',
+        organisationNumber: '',
+        name: '',
+        address: '',
+        postalCode: '',
+        city: '',
+        phoneNumber: '',
+        email: '',
         accessCode: '',
         paragraph: '',
     }
