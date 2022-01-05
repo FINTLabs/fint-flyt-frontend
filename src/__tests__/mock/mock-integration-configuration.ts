@@ -2,10 +2,10 @@ import IFormData from "../../features/integration/types/Form/FormData";
 import {IIntegrationConfiguration} from "../../features/integration/types/IntegrationConfiguration";
 import {CreationStretegy} from "../../features/integration/types/CreationStretegy";
 
-export const newForm: IFormData = {
+export const MOCK_FORMDATA: IFormData = {
     name: 'testform',
     description: 'form to test mapping',
-    selectedForm: 'selected_form',
+    selectedForm: 'form3',
     caseData: {
         caseCreationStrategy: CreationStretegy.NEW,
         title: 'Title of case',
@@ -52,10 +52,10 @@ export const newForm: IFormData = {
     }
 }
 
-export const newFormWithTags: IFormData = {
+export const MOCK_FORMDATA_WITH_TAGS: IFormData = {
     name: 'testform with tags',
     description: 'form to test mapping with form tags',
-    selectedForm: 'selected_form',
+    selectedForm: 'form3',
     caseData: {
         caseCreationStrategy: CreationStretegy.NEW,
         title: 'Title of case with {tags}',
@@ -103,7 +103,7 @@ export const newFormWithTags: IFormData = {
     }
 }
 
-export const expectedIntegrationConfig: IIntegrationConfiguration = {
+export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
     "applicantConfiguration": {
         "applicantType": 'PERSON',
         "fields": [
@@ -378,7 +378,7 @@ export const expectedIntegrationConfig: IIntegrationConfiguration = {
     }
 }
 
-export const expectedIntegrationConfigWithTags: IIntegrationConfiguration = {
+export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
     "applicantConfiguration": {
         "applicantType": 'ORGANISATION',
         "organisationNumber": '123456789',

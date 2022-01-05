@@ -1,6 +1,7 @@
 // @ts-ignore
 import {ValueBuilder} from "../../features/integration/types/ValueBuilder";
-import {createValueBuilder, toValueString} from "../../features/integration/util/Util";
+import {createValueBuilder, fieldToString, toValueString} from "../../features/integration/util/Util";
+import {MOCK_CASE_CONFIGURATION} from "../mock/mock-case-configuration";
 
 const valueBuilderWithTags: ValueBuilder = {
     value: "Lorem ipsum %s %s",
@@ -62,4 +63,12 @@ test('It should handle empty valuebuilder', () => {
 
 test('It should handle no properties', () => {
     expect(toValueString(valueBuilderNoProperties)).toEqual("Lorem ipsum, foo, bar");
+});
+
+test('It should convert field to string', () => {
+    expect(fieldToString(MOCK_CASE_CONFIGURATION, "administrativenhet")).toEqual("unit4");
+});
+
+test('It should convert field with tags to string', () => {
+    expect(fieldToString(MOCK_CASE_CONFIGURATION, "offentligTittel", true)).toEqual("public title also with {two} {tags}");
 });
