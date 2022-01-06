@@ -58,7 +58,7 @@ export const defaultValues: IFormData = {
 
 export const dropdownPlaceholder: ISelect[] = [
     {label: 'Alternativ 1', value: 'alt1'},
-    {label: 'Alternativ 2', value: 'alt1'},
+    {label: 'Alternativ 2', value: 'alt2'},
     {label: 'Alternativ 3', value: 'alt3'},
     {label: 'Alternativ 4', value: 'alt4'},
     {label: 'Alternativ 5', value: 'alt5'},
