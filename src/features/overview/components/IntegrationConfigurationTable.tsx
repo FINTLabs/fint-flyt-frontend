@@ -19,12 +19,6 @@ const IntegrationConfigurationTable: React.FunctionComponent<any> = (props) => {
             <Box display="flex" position="relative" width={1} height={1}>
                 <Box className={classes.dataGridBox}>
                     <DataGrid
-                        onCellDoubleClick={(params, event) => {
-                            if (!event.ctrlKey) {
-                                event.defaultMuiPrevented = true;
-                                props.setSelectedConfiguration(params.row)
-                            }
-                        }}
                         density='compact'
                         rows={props.configurations}
                         columns={columns}
