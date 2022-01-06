@@ -85,6 +85,7 @@ export const applicantOptions: ISelect[] = [
 export const forms: ISelect[] = [
     { label: "TT-skjema", value: "TT" },
     { label: "Skjema1", value: "1_form" },
+    { label: "Skjema33", value: "form3" },
     { label: "Skjema2", value: "2_form" }
 ];
 
