@@ -36,7 +36,7 @@ export function toValueString(inputValue: ValueBuilder): string {
 }
 
 export function fieldToString(configuration: any, configurationField: string, valueString?: boolean): string {
-    const fields =  configuration.fields.filter((field: IField) => field.field == configurationField)
+    const fields = configuration.fields.filter((field: IField) => field.field === configurationField)
     if (valueString) {
         return fields.length > 0 ? toValueString(fields[0].valueBuilder) : '';
     }

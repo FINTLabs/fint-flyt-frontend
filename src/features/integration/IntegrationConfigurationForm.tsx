@@ -14,7 +14,7 @@ import {HTML5Backend} from "react-dnd-html5-backend";
 import {DndProvider} from "react-dnd";
 import {IIntegrationConfiguration} from "./types/IntegrationConfiguration";
 import {CreationStretegy} from "./types/CreationStretegy";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {toFormData} from "./util/ToFormData";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -72,26 +72,13 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     const classes = useStyles();
     const location = useLocation();
     const [submitSuccess, setSubmitSuccess] = useState(false)
-    const [defaults, setDefaults] = useState(defaultValues)
-    let activeConfiguration: IIntegrationConfiguration;
+    let activeConfiguration = location.state ? location.state as IIntegrationConfiguration : undefined;
 
     const {handleSubmit, watch, setValue, control, reset, formState} = useForm<IFormData>({
         defaultValues: location.state ? toFormData(location.state as IIntegrationConfiguration) : defaultValues,
         reValidateMode: 'onChange'
     });
     const { errors } = formState;
-
-//TODO: mulig denne kan fjernes
-    useEffect(() => {
-        console.log(location.pathname);
-        console.log(location.state);
-        activeConfiguration = location.state as IIntegrationConfiguration;
-        if (activeConfiguration) {
-            console.log(toFormData(activeConfiguration))
-            setDefaults(toFormData(activeConfiguration));
-        }
-        console.log(defaults)
-    }, [location]);
 
     const accordionList: IAccordion[] = [
         {summary: "Integrasjonslogikk", accordionForm: ACCORDION_FORM.CASE_INFORMATION, defaultExpanded: true},
@@ -112,9 +99,26 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
             });
     }
 
+    const updateConfiguration = (id: string, data: IIntegrationConfiguration) => {
+        IntegrationRepository.update(id, data)
+            .then(response => {
+                console.log('updated configuraton: ', id,  data, response);
+                setSubmitSuccess(response.status === 200);
+            })
+            .catch((e: Error) => {
+                console.log('error updating configuration', e);
+            });
+    }
+
     const onSubmit = handleSubmit((data: IFormData) => {
+        console.log('on submit', data, 'active conf: ', activeConfiguration)
         const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data);
-        if(integrationConfiguration) {
+        if (integrationConfiguration && activeConfiguration?.id !== undefined) {
+            const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data, activeConfiguration.id);
+            updateConfiguration(activeConfiguration.id, integrationConfiguration)
+        }
+        else if(integrationConfiguration) {
+            const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data);
             createNewConfiguration(integrationConfiguration);
             reset({ ...defaultValues })
         } else {

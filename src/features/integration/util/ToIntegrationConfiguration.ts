@@ -4,9 +4,10 @@ import {VALUE_BUILDER_STRATEGY} from "../types/ValueBuilderStrategy.enum";
 import {createValueBuilder} from "./Util";
 import {CreationStretegy} from "../types/CreationStretegy";
 
-export function toIntegrationConfiguration(data: IFormData): IIntegrationConfiguration {
+export function toIntegrationConfiguration(data: IFormData, id?: string): IIntegrationConfiguration {
     const collectionStrategy: boolean = data.caseData?.caseCreationStrategy === CreationStretegy.COLLECTION
     return {
+        id: id,
         name: data.name,
         description: data.description,
         caseConfiguration: collectionStrategy ?
