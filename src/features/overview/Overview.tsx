@@ -45,6 +45,7 @@ const Overview: React.FunctionComponent<RouteComponentProps<any>> = () => {
 
     function resetConfiguration() {
         setSelectedConfiguration(undefined)
+        getAllConfigurations();
     }
 
     return (

@@ -46,7 +46,7 @@ export function toFormData(data: IIntegrationConfiguration): IFormData {
         applicantData: {
             type: data.applicantConfiguration.organisationNumber ? 'ORGANISATION' : 'PERSON',
             organisationNumber: data.applicantConfiguration.organisationNumber,
-            name: fieldToString(data.applicantConfiguration, 'korrespondasepartNavn', true),
+            name: fieldToString(data.applicantConfiguration, 'KorrespondansepartNavn', true),
             address: fieldToString(data.applicantConfiguration, 'Adresse.adresselinje', true),
             postalCode: fieldToString(data.applicantConfiguration, 'Adresse.postnummer', true),
             city: fieldToString(data.applicantConfiguration, 'Adresse.poststed', true),

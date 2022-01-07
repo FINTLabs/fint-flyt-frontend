@@ -203,7 +203,7 @@ export function toIntegrationConfiguration(data: IFormData, id?: string): IInteg
             organisationNumber: data.applicantData?.organisationNumber,
             fields: [
                 {
-                    field: "korrespondasepartNavn",
+                    field: "KorrespondansepartNavn",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
                     valueBuilder: createValueBuilder(data.applicantData?.name)
                 },
