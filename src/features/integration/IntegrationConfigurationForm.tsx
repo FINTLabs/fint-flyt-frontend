@@ -111,11 +111,11 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     }
 
     const onSubmit = handleSubmit((data: IFormData) => {
-        console.log('on submit', data, 'active conf: ', activeConfiguration)
         const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data);
         if (integrationConfiguration && activeConfiguration?.id !== undefined) {
             const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data, activeConfiguration.id);
             updateConfiguration(activeConfiguration.id, integrationConfiguration)
+            reset({ ...defaultValues })
         }
         else if(integrationConfiguration) {
             const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data);
@@ -164,7 +164,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
             <Box style={{minHeight: 'fit-content'}}>
                 <Typography variant={"h5"} sx={{mb: 2}}>Integrasjon til arkiv - Ferdig</Typography>
                 <Button size="small" variant="contained" component={RouterLink} to="/overview">Se integrasjoner</Button>
-                <Button size="small" variant="contained" sx={{ml: 2}} onClick={() => window.location.reload()}>Ny integrasjon</Button>
+                <Button size="small" variant="contained" sx={{ml: 2}} component={RouterLink} to="/">Dashboard</Button>
             </Box>}
         </DndProvider>
     );
