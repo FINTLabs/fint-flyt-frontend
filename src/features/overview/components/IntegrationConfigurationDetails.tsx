@@ -98,11 +98,11 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
                         {version !== initialVersion && <Button onClick={handleVersionChange}>Bruk denne versjonen</Button>}
                     </FormControl>
                     <CardContent>
-                        <Typography>Id: {activeConfiguration.id}</Typography>
-                        <Typography>Navn: {activeConfiguration.name}</Typography>
-                        <Typography>Beskrivelse: {activeConfiguration.description}</Typography>
-                        <Typography>Integrasjonslogikk: {activeConfiguration.caseConfiguration.caseCreationStrategy}</Typography>
-                        <Typography>Versjon: {activeConfiguration.version}</Typography>
+                        <Typography><strong>Id: </strong>{activeConfiguration.id}</Typography>
+                        <Typography><strong>Navn: </strong>{activeConfiguration.name}</Typography>
+                        <Typography><strong>Beskrivelse: </strong>{activeConfiguration.description}</Typography>
+                        <Typography><strong>Integrasjonslogikk: </strong>{activeConfiguration.caseConfiguration.caseCreationStrategy}</Typography>
+                        <Typography><strong>Versjon: </strong>{activeConfiguration.version}</Typography>
                     </CardContent>
                     <Divider />
                     <CardContent>
