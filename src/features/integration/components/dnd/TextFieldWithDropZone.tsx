@@ -8,8 +8,9 @@ import {ITag} from "../../types/Tag";
 export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
     let backgroundColor = 'white';
     let errorMessage: string = 'Du må oppgi ' + props.label;
+    let initValue: string = props.value;
     const setPropValue = props.setValue;
-    const [inputValue, setInputValue] = useState('');
+    const [inputValue, setInputValue] = useState(initValue);
     const [{ canDrop, isOver }, drop] = useDrop(() => ({
         accept: DraggableTypes.TAG,
         drop: (tag:ITag) => {

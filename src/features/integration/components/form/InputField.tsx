@@ -94,6 +94,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                 control={props.control}
                 error={props.error}
                 label={props.label}
+                value={props.value}
                 setValue={props.setValue}
                 formValue={props.formValue}
                 required={props.required}
