@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter, Link as RouterLink } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import {Chip, Typography} from "@mui/material";
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
@@ -14,13 +14,12 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
-import EditIcon from '@mui/icons-material/Edit';
 import Details from "./Details";
 
 function createData(
     time: string,
+    title: string,
     name: string,
-    id: string,
     status: string,
     version: number
 ) {
@@ -28,47 +27,31 @@ function createData(
         status,
         time,
         name,
-        id,
+        title,
         version,
         history: [
             {
                 date: '2020-01-05 22:02:23',
-                service: 'lagring til arkiv',
+                action: 'lagring til arkiv',
+                service: 'CaseService',
                 status: 'feilet',
+                errorMsg: 'vis'
             },
             {
                 date: '2020-01-02 22:01:00',
-                service: 'overføring til arkiv',
+                action: 'overføring til arkiv',
+                service: 'ServiceController',
                 status: 'ok',
+                errorMsg: '-'
             },
             {
                 date: '2020-01-02 21:59:23',
-                service: 'opprette konfigurasjon',
+                action: 'opprette konfigurasjon',
+                service: 'FormIntegration',
                 status: 'ok',
+                errorMsg: '-'
             },
-        ],
-        links: [
-            {
-                name: 'Rediger',
-                value: '/integration/configuration/new',
-                external: false
-            },
-            {
-                name: 'Åpne i arkivsystem',
-                value: '/',
-                external: true
-            },
-            {
-                name: 'Åpne i skjemasystem',
-                value: '/',
-                external: true
-            },
-            {
-                name: 'Rediger i skjemaeditor',
-                value: '/',
-                external: true
-            },
-        ],
+        ]
     };
 }
 
@@ -89,10 +72,10 @@ function Row(props: { row: ReturnType<typeof createData> }) {
                 <TableCell component="th" scope="row">
                     {row.time}
                 </TableCell>
-                <TableCell>{row.name}</TableCell>
+                <TableCell>{row.name}
+                </TableCell>
                 <TableCell>
-                    {row.id}
-                    <IconButton size='small' component={RouterLink} target="_blank" to={"/integration/configuration/new"}> <EditIcon fontSize="small"/></IconButton>
+                    {row.title}
                 </TableCell>
                 <TableCell>
                     <IconButton
@@ -116,18 +99,14 @@ function Row(props: { row: ReturnType<typeof createData> }) {
 }
 
 const rows = [
-    createData('2020-12-21', 'TT-kort John Doe ', 'fser24-72hs-ef2' , 'ok', 1),
-    createData('2020-12-05', 'Søknadskjema for Navn Navnesen', '94igu-94hv-0os', 'ok', 2),
-    createData('2020-11-2', 'Skjemaskjema', '0dowh-92ud-9rg', 'ok',2),
-    createData('2020-10-24', 'Søknad om tillatelse for kyllingoppdrett - Mikkel Rev', 'fth24-1f3r-op3', 'feilet',4),
-    createData('2020-08-05', 'UU-søknad for Urban Ugle', '2fr24-498f-er3', 'ok',1),
-    createData('2020-07-25', 'Søknad om tillatese - Ulv Fåreklær', '6usfg-w45g-g54', 'ok',2),
-    createData('2020-07-05', 'loremskjema - Rand Althor', '34fes-gs4f-j6e', 'feilet',1),
-    createData('2020-07-05', 'ipsumsøknad - Jane Doe', 'kl87f-rgrs-l8t', 'ok',4),
-    createData('2020-12-21', 'TT-kort Robert Jordan', 'lej57-48uf-32q' , 'ok', 1),
-
-
-
+    createData('2020-12-21', 'TT-kort John Doe ', 'Søknad of TT-kort' , 'ok', 1),
+    createData('2020-12-05', 'TT-kort Wb.Samson', 'Søknad of TT-kort', 'ok', 2),
+    createData('2020-10-24', 'Søknad om tillatelse for kyllingoppdrett - Mikkel Rev', 'Søknad om dyrehold', 'feilet',4),
+    createData('2020-08-05', 'Busskortsøknad for Urban Ugle', 'Søknad om skoleskyss', 'ok',1),
+    createData('2020-07-25', 'Søknad om fellingstillatelse - S. Heep', 'Fellingssøknad - rovdyr', 'ok',2),
+    createData('2020-07-05', 'loremskjema - Rand Althor', 'Søknad om tillatelse for Lorem Ipsum', 'feilet',1),
+    createData('2020-07-05', 'ipsumsøknad - Jane Doe', 'Søknad om tillatelse for Lorem Ipsum', 'ok',4),
+    createData('2020-12-21', 'TT-kort Robert Jordan', 'Søknad of TT-kort' , 'ok', 1),
 ];
 
 function Log() {
@@ -140,13 +119,13 @@ function Log() {
                         <TableCell>Status</TableCell>
                         <TableCell>Tidspunkt</TableCell>
                         <TableCell>Navn</TableCell>
-                        <TableCell>id</TableCell>
+                        <TableCell>Tittel</TableCell>
                         <TableCell>Detaljer</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {rows.map((row) => (
-                        <Row key={row.id} row={row} />
+                        <Row key={row.title} row={row} />
                     ))}
                 </TableBody>
             </Table>
