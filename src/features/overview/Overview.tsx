@@ -54,17 +54,16 @@ const Overview: React.FunctionComponent<RouteComponentProps<any>> = () => {
                 <Typography style={{cursor:'pointer'}} onClick={resetConfiguration}>Oversikt</Typography>
                 <Typography>{selectedConfiguration ? 'Konfigurasjonsdetaljer' : ''}</Typography>
             </Breadcrumbs>
-            {!selectedConfiguration &&
-            <IntegrationConfigurationTable
-                classes={classes}
-                configurations={configurations}
-                setSelectedConfiguration={setSelectedConfiguration}
-            />}
-            {selectedConfiguration &&
-            <IntegrationConfigurationDetails
-                reset={resetConfiguration}
-                initialConfiguration={selectedConfiguration}
-            />
+            {selectedConfiguration ?
+                <IntegrationConfigurationDetails
+                    reset={resetConfiguration}
+                    initialConfiguration={selectedConfiguration}
+                /> :
+                <IntegrationConfigurationTable
+                    classes={classes}
+                    configurations={configurations}
+                    setSelectedConfiguration={setSelectedConfiguration}
+                />
             }
         </>
     );

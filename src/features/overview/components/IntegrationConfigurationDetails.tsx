@@ -107,31 +107,31 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
                     <Divider />
                     <CardContent>
                         <Typography variant={"h6"}>Sakspost</Typography>
-                        <Typography>Saksnummer: {activeConfiguration.caseConfiguration.caseNumber}</Typography>
+                        <Typography><strong>Saksnummer: </strong>{activeConfiguration.caseConfiguration.caseNumber}</Typography>
                         {activeConfiguration.caseConfiguration.fields.map((field: any, index: number) => {
-                            return<Typography key={index}>{field.field}: {toValueString(field.valueBuilder)}</Typography>
+                            return<Typography key={index}><strong>{field.field}:</strong> {toValueString(field.valueBuilder)}</Typography>
                         })}
                     </CardContent>
                     <Divider />
                     <CardContent>
                         <Typography variant={"h6"}>Journalpost</Typography>
                         {activeConfiguration.recordConfiguration.fields.map((field: any, index: number) => {
-                            return<Typography key={index}>{field.field}: {toValueString(field.valueBuilder)}</Typography>
+                            return<Typography key={index}><strong>{field.field}:</strong> {toValueString(field.valueBuilder)}</Typography>
                         })}
                     </CardContent>
                     <Divider />
                     <CardContent>
                         <Typography variant={"h6"}>Dokument- og objektbeskrivelse</Typography>
                         {activeConfiguration.documentConfiguration.fields.map((field: any, index: number) => {
-                            return<Typography key={index}>{field.field}: {toValueString(field.valueBuilder)}</Typography>
+                            return<Typography key={index}><strong>{field.field}:</strong> {toValueString(field.valueBuilder)}</Typography>
                         })}
                     </CardContent>
                     <Divider />
                     <CardContent>
                         <Typography variant={"h6"}>Avsender</Typography>
-                        <Typography>orgnummer: {activeConfiguration.applicantConfiguration.organisationNumber}</Typography>
+                        <Typography><strong>orgnummer:</strong> {activeConfiguration.applicantConfiguration.organisationNumber}</Typography>
                         {activeConfiguration.applicantConfiguration.fields.map((field: any, index: number) => {
-                            return<Typography key={index}>{field.field}: {toValueString(field.valueBuilder)}</Typography>
+                            return<Typography key={index}><strong>{field.field}:</strong> {toValueString(field.valueBuilder)}</Typography>
                         })}
                     </CardContent>
                 </Card>
