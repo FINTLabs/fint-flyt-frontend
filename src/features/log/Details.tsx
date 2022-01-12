@@ -7,7 +7,6 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
-import IconButton from "@mui/material/IconButton";
 
 const links = [
     {
@@ -40,18 +39,16 @@ const Details: React.FunctionComponent<any> = (props) => {
             <Box display="flex" justifyContent="space-between">
                 <Box sx={{ margin: 1 }}>
                     <Typography variant="h6" gutterBottom component="div">Detaljer</Typography>
-                    <Typography>Arkivsystem id (mappe-id): 2022/163</Typography>
-                    <Typography>Skjemasystem id: 12351-sdf4i-134</Typography>
-                    <Typography>Versjon: {props.row.version}</Typography>
+                    <Typography><strong>Arkivsystem id:</strong> 2022/163</Typography>
+                    <Typography><strong>Skjemasystem id:</strong> 12351-sdf4i-134</Typography>
+                    <Typography><strong>Versjon:</strong> {props.row.version}</Typography>
                 </Box>
                 <Box sx={{ margin: 1 }}>
                     <Box>{links.map((link: any) => {
                         return <div>
                             {link.external ?
                                 <RouterLink target="_blank" to={"/"}> {link.name}
-                                    <IconButton size='small' component={RouterLink} target="_blank" to={"/"}>
                                         <OpenInNewIcon fontSize="small"/>
-                                    </IconButton>
                                 </RouterLink> :
                                 <RouterLink to={"/integration/configuration/new"}> {link.name}
                                 </RouterLink>}
@@ -65,20 +62,20 @@ const Details: React.FunctionComponent<any> = (props) => {
                     <TableHead>
                         <TableRow>
                             <TableCell>Tidspunkt</TableCell>
-                            <TableCell>Handling</TableCell>
                             <TableCell>Tjeneste</TableCell>
+                            <TableCell>Hendelse</TableCell>
                             <TableCell>Status</TableCell>
-                            <TableCell align="right">Feilmelding</TableCell>
+                            <TableCell align="right">Melding</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {props.row.history.map((historyRow: any) => (
                             <TableRow key={historyRow.date}>
                                 <TableCell component="th" scope="row">{historyRow.date}</TableCell>
-                                <TableCell>{historyRow.action}</TableCell>
                                 <TableCell>{historyRow.service}</TableCell>
+                                <TableCell>{historyRow.action}</TableCell>
                                 <TableCell>{historyRow.status}</TableCell>
-                                <TableCell align="right">{historyRow.errorMsg}</TableCell>
+                                <TableCell align="right">{historyRow.msg}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

@@ -15,13 +15,97 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import Details from "./Details";
+import {ChipPropsColorOverrides} from "@mui/material/Chip/Chip";
+import {OverridableStringUnion} from "@mui/types";
+
+const failedHistory = [
+    {
+        date: '2020-01-05 22:02:23',
+        action: 'lagring til arkiv',
+        service: 'CaseService',
+        status: 'feilet',
+        msg: 'vis'
+    },
+    {
+        date: '2020-01-02 22:01:00',
+        action: 'overføring til arkiv',
+        service: 'ServiceController',
+        status: 'ok',
+        msg: '-'
+    },
+    {
+        date: '2020-01-02 21:59:23',
+        action: 'opprette konfigurasjon',
+        service: 'FormIntegration',
+        status: 'ok',
+        msg: '-'
+    },
+]
+
+const successHistory = [
+    {
+        date: '2020-01-05 22:02:23',
+        action: 'lagring til arkiv',
+        service: 'CaseService',
+        status: 'ok',
+        msg: '-'
+    },
+    {
+        date: '2020-01-02 22:01:00',
+        action: 'overføring til arkiv',
+        service: 'ServiceController',
+        status: 'ok',
+        msg: '-'
+    },
+    {
+        date: '2020-01-02 21:59:23',
+        action: 'opprette konfigurasjon',
+        service: 'FormIntegration',
+        status: 'ok',
+        msg: '-'
+    },
+]
+
+const sortedHistory = [
+    {
+        date: '2020-01-05 22:02:23',
+        action: 'manuell lagring',
+        service: 'ExtArchive',
+        status: 'ok',
+        msg: '-'
+    },
+    {
+        date: '2020-01-05 22:02:23',
+        action: 'lagring til arkiv',
+        service: 'CaseService',
+        status: 'feilet',
+        msg: 'vis'
+    },
+    {
+        date: '2020-01-02 22:01:00',
+        action: 'overføring til arkiv',
+        service: 'ServiceController',
+        status: 'ok',
+        msg: '-'
+    },
+    {
+        date: '2020-01-02 21:59:23',
+        action: 'opprette konfigurasjon',
+        service: 'FormIntegration',
+        status: 'ok',
+        msg: '-'
+    },
+]
+
+
 
 function createData(
     time: string,
     title: string,
     name: string,
     status: string,
-    version: number
+    version: number,
+    history: any
 ) {
     return {
         status,
@@ -29,30 +113,18 @@ function createData(
         name,
         title,
         version,
-        history: [
-            {
-                date: '2020-01-05 22:02:23',
-                action: 'lagring til arkiv',
-                service: 'CaseService',
-                status: 'feilet',
-                errorMsg: 'vis'
-            },
-            {
-                date: '2020-01-02 22:01:00',
-                action: 'overføring til arkiv',
-                service: 'ServiceController',
-                status: 'ok',
-                errorMsg: '-'
-            },
-            {
-                date: '2020-01-02 21:59:23',
-                action: 'opprette konfigurasjon',
-                service: 'FormIntegration',
-                status: 'ok',
-                errorMsg: '-'
-            },
-        ]
+        history
     };
+}
+
+function returnColor(inputStatus: string): OverridableStringUnion<
+    'default' | 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning',
+    ChipPropsColorOverrides
+    > {
+    if (inputStatus === 'ok') {return 'success'}
+    if (inputStatus === 'feilet') {return 'error'}
+    if (inputStatus === 'løst') {return 'info'}
+    else return 'primary'
 }
 
 function Row(props: { row: ReturnType<typeof createData> }) {
@@ -65,7 +137,7 @@ function Row(props: { row: ReturnType<typeof createData> }) {
                 <TableCell>
                     <Chip variant="outlined"
                           icon={row.status == 'ok'? <CheckCircleOutlineIcon/> : <ErrorOutlineIcon/>}
-                          color={row.status == 'ok'? 'success' : 'error'}
+                          color={returnColor(row.status)}
                           label={row.status}
                     />
                 </TableCell>
@@ -99,14 +171,14 @@ function Row(props: { row: ReturnType<typeof createData> }) {
 }
 
 const rows = [
-    createData('2020-12-21', 'TT-kort John Doe ', 'Søknad of TT-kort' , 'ok', 1),
-    createData('2020-12-05', 'TT-kort Wb.Samson', 'Søknad of TT-kort', 'ok', 2),
-    createData('2020-10-24', 'Søknad om tillatelse for kyllingoppdrett - Mikkel Rev', 'Søknad om dyrehold', 'feilet',4),
-    createData('2020-08-05', 'Busskortsøknad for Urban Ugle', 'Søknad om skoleskyss', 'ok',1),
-    createData('2020-07-25', 'Søknad om fellingstillatelse - S. Heep', 'Fellingssøknad - rovdyr', 'ok',2),
-    createData('2020-07-05', 'loremskjema - Rand Althor', 'Søknad om tillatelse for Lorem Ipsum', 'feilet',1),
-    createData('2020-07-05', 'ipsumsøknad - Jane Doe', 'Søknad om tillatelse for Lorem Ipsum', 'ok',4),
-    createData('2020-12-21', 'TT-kort Robert Jordan', 'Søknad of TT-kort' , 'ok', 1),
+    createData('2020-12-21', 'TT-kort John Doe ', 'Søknad of TT-kort' , 'ok', 1, successHistory),
+    createData('2020-12-05', 'TT-kort Wb.Samson', 'Søknad of TT-kort', 'ok', 2, successHistory),
+    createData('2020-10-24', 'Søknad om tillatelse for kyllingoppdrett - Mikkel Rev', 'Søknad om dyrehold', 'feilet',4, failedHistory),
+    createData('2020-08-05', 'Busskortsøknad for Urban Ugle', 'Søknad om skoleskyss', 'ok',1, successHistory),
+    createData('2020-07-25', 'Søknad om fellingstillatelse - S. Heep', 'Fellingssøknad - rovdyr', 'løst',2, sortedHistory),
+    createData('2020-07-05', 'loremskjema - Rand Althor', 'Søknad om tillatelse for Lorem Ipsum', 'feilet',1, failedHistory),
+    createData('2020-07-05', 'ipsumsøknad - Jane Doe', 'Søknad om tillatelse for Lorem Ipsum', 'ok',4, successHistory),
+    createData('2020-12-21', 'TT-kort Robert Jordan', 'Søknad of TT-kort' , 'ok', 1, successHistory),
 ];
 
 function Log() {
