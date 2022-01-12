@@ -13,7 +13,7 @@ const ApplicantForm: React.FunctionComponent<any> = (props) => {
     let required: boolean = props.validation;
     const applicantFormFields: IInputField[] = [
         {input: INPUT_TYPE.RADIO, label: "Velg avsendertype", formValue: "applicantData.type", value: props.watch("applicantData.type"), radioOptions: applicantOptions, defaultValue: props.watch("applicantData.type")},
-        {input: INPUT_TYPE.TEXT_FIELD, label: "Organisasjonsnummer", formValue: "applicantData.organisationNumber", required:isOrganisation, hidden:!isOrganisation, error:errors.applicantData?.organisationNumber},
+        {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "Organisasjonsnummer", formValue: "applicantData.organisationNumber", required:isOrganisation && required, hidden:!isOrganisation, error:errors.applicantData?.organisationNumber, value:props.watch("applicantData.organisationNumber")},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "Navn", formValue: "applicantData.name", required:required, error:errors.applicantData?.name, value: props.watch("applicantData.name")},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "Adresse", formValue: "applicantData.address", required:required, error:errors.applicantData?.address, value: props.watch("applicantData.address")},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "Postnummer", formValue: "applicantData.postalCode", required:required, error:errors.applicantData?.postalCode, value: props.watch("applicantData.postalCode")},

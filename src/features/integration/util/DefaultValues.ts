@@ -106,14 +106,15 @@ export const caseWorkers: ISelect[] = [
 ]
 
 export const tagList: ITag[] = [
+    {value:"{fodselsnummer}",  name:"Fødselsnummer"},
     {value:"{fornavn}",  name:"Fornavn"},
     {value:"{etternavn}",  name:"Etternavn"},
-    {value:"{fodselsnummer}",  name:"Fødselsnummer"},
     {value:"{adresse}",  name:"Adresse"},
     {value:"{postnummer}",  name:"Postnummer"},
     {value:"{poststed}",  name:"Poststed"},
     {value:"{telefonnummer}",  name:"Telefonnummer"},
-    {value:"{email}",  name:"Email"}
+    {value:"{email}",  name:"Email"},
+    {value:"{organisasjonsnummer}",  name:"Organisasjonsnummer"}
 ]
 
 export const TaglistPopoverContent: string = 'I tekstfeltene til i de ulike postene kan du benytte data fra skjema for å utfylle disse. \n\n' +

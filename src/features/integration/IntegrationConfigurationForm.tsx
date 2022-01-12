@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
             borderColor: 'rgba(0, 0, 0, 0.37)',
             borderRadius: '4px',
             boxShadow: '0px 2px 2px -1px',
-            height: theme.spacing(30),
+            height: 'fit-content',
             position: 'sticky',
             top: theme.spacing(16)
         },
@@ -147,7 +147,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                                     control={control}
                                     setValue={setValue}
                                     errors={errors}
-                                    validation={false}
+                                    validation={true}
                                 />
                             )})}
                         <div>
