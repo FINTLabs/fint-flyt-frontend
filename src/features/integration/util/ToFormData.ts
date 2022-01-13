@@ -41,7 +41,6 @@ export function toFormData(data: IIntegrationConfiguration): IFormData {
             paragraph: fieldToString(data.documentConfiguration, 'skjermingshjemmel'),
             variant: fieldToString(data.documentConfiguration, 'DokumentBeskrivelse.dokumentObjekt.variantFormat'),
             format: fieldToString(data.documentConfiguration, 'DokumentBeskrivelse.dokumentObjekt.filformat'),
-
         },
         applicantData: {
             type: data.applicantConfiguration.organisationNumber ? 'ORGANISATION' : 'PERSON',
