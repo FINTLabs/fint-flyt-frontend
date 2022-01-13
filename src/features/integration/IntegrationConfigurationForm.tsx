@@ -153,7 +153,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                                 />
                             )})}
                         <div>
-                            <Button type="submit" variant="contained">Send inn</Button>
+                            <Button type="submit" variant="contained">Lagre</Button>
                         </div>
                     </form>
                 </Box>
