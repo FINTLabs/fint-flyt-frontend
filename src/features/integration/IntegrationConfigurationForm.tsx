@@ -73,9 +73,10 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     const location = useLocation();
     const [submitSuccess, setSubmitSuccess] = useState(false)
     let activeConfiguration = location.state ? location.state as IIntegrationConfiguration : undefined;
+    let activeFormData = location.state ? toFormData(location.state as IIntegrationConfiguration) : undefined;
 
     const {handleSubmit, watch, setValue, control, reset, formState} = useForm<IFormData>({
-        defaultValues: location.state ? toFormData(location.state as IIntegrationConfiguration) : defaultValues,
+        defaultValues: activeFormData ? activeFormData : defaultValues,
         reValidateMode: 'onChange'
     });
     const { errors } = formState;
@@ -137,6 +138,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                         {accordionList.map((accordion, index) => {
                             return (
                                 <AccordionForm
+                                    activeFormData={activeFormData}
                                     key={index}
                                     style={classes}
                                     summary={accordion.summary}
