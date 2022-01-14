@@ -20,12 +20,12 @@ const links = [
         external: true
     },
     {
-        name: 'Åpne i skjemasystem(søknad) (åpnes i ny fane)',
+        name: 'Åpne i skjemaeditor (åpnes i ny fane)',
         value: '/',
         external: true
     },
     {
-        name: 'Åpne i skjemasystem(editor) (åpnes i ny fane)',
+        name: 'Åpne søknad i skjemasystem (åpnes i ny fane)',
         value: '/',
         external: true
     }
