@@ -73,10 +73,10 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     const location = useLocation();
     const [submitSuccess, setSubmitSuccess] = useState(false)
     let activeConfiguration = location.state ? location.state as IIntegrationConfiguration : undefined;
-    let activeFormData = location.state ? toFormData(location.state as IIntegrationConfiguration) : undefined;
+    let activeFormData = location.state ? toFormData(location.state as IIntegrationConfiguration) : defaultValues;
 
     const {handleSubmit, watch, setValue, control, reset, formState} = useForm<IFormData>({
-        defaultValues: activeFormData ? activeFormData : defaultValues,
+        defaultValues: activeFormData,
         reValidateMode: 'onChange'
     });
     const { errors } = formState;
