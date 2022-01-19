@@ -52,7 +52,7 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
                                 onChange(e);
                             }}
                             error={value === '' && !!props.error}
-                            helperText={props.error ? 'Obligatorisk felt' : ''}
+                            helperText={(value === '' && props.error) ? 'Obligatorisk felt' : ''}
                         />)
             }}
             rules={{
