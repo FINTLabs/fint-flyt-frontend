@@ -1,5 +1,5 @@
 import {
-    Autocomplete,
+    Autocomplete, createFilterOptions,
     FormControl, FormControlLabel,
     FormLabel,
     MenuItem, Radio,
@@ -11,8 +11,22 @@ import {Controller} from 'react-hook-form';
 import {INPUT_TYPE} from "../../types/InputType.enum";
 import {ISelect} from "../../types/InputField";
 import {TextFieldWithDropZone} from "../dnd/TextFieldWithDropZone";
+import {makeStyles} from "@mui/styles";
+import {dropdownPlaceholder} from "../../util/DefaultValues";
 
+
+const useStyles = makeStyles(theme => ({
+    menu: {
+        height: 450
+    }
+}));
 const InputField: React.FunctionComponent<any> = (props) => {
+    const classes = useStyles();
+    const filterOptions = createFilterOptions({
+        matchFrom: 'any',
+        stringify: (option: ISelect) => option.label,
+        limit: 50
+    });
     let errorMessage: string = 'Du må oppgi ' + props.label;
     if (props.input === INPUT_TYPE.DROPDOWN) {
         return (
@@ -26,6 +40,11 @@ const InputField: React.FunctionComponent<any> = (props) => {
                         sx={{ mb: 3 }}
                         value={props.value}
                         label={props.required ? (props.label+'*') : props.label}
+                        SelectProps={{
+                            MenuProps: {
+                                className: classes.menu
+                            },
+                        }}
                         onChange={e => onChange(e.target.value)}
                         error={!!props.error}
                         helperText={props.error ? 'Obligatorisk felt' : ''}
@@ -63,6 +82,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
             </FormControl>
         )
     } else if (props.input === INPUT_TYPE.AUTOCOMPLETE) {
+        let dropdowns: ISelect[] = props.dropdownItems ? props.dropdownItems : dropdownPlaceholder
         return (
             <Controller
                 name={props.formValue}
@@ -70,7 +90,8 @@ const InputField: React.FunctionComponent<any> = (props) => {
                 render={({ field: { onChange } }) => (
                     <Autocomplete
                         sx={{ mb: 3 }}
-                        options={props.dropdownItems}
+                        filterOptions={filterOptions}
+                        options={dropdowns}
                         getOptionLabel={(option: ISelect) => option.label}
                         renderInput={(params) => (
                             <TextField
@@ -99,6 +120,8 @@ const InputField: React.FunctionComponent<any> = (props) => {
                 formValue={props.formValue}
                 required={props.required}
             />
+
+
         )
     }
     else {

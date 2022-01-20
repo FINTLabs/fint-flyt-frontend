@@ -1,4 +1,5 @@
 import * as React from "react";
+import {useState} from "react";
 import {useForm} from "react-hook-form";
 import {Link as RouterLink, RouteComponentProps, useLocation, withRouter} from "react-router-dom";
 import {Box, Button, Theme, Typography} from "@mui/material";
@@ -14,8 +15,8 @@ import {HTML5Backend} from "react-dnd-html5-backend";
 import {DndProvider} from "react-dnd";
 import {IIntegrationConfiguration} from "./types/IntegrationConfiguration";
 import {CreationStretegy} from "./types/CreationStretegy";
-import {useState} from "react";
 import {toFormData} from "./util/ToFormData";
+import {useResourceContext} from "../../context/Store";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -72,6 +73,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     const classes = useStyles();
     const location = useLocation();
     const [submitSuccess, setSubmitSuccess] = useState(false)
+    const [resources, setResources] = useResourceContext();
     let activeConfiguration = location.state ? location.state as IIntegrationConfiguration : undefined;
     let activeFormData = location.state ? toFormData(location.state as IIntegrationConfiguration) : defaultValues;
 
@@ -149,7 +151,8 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                                     control={control}
                                     setValue={setValue}
                                     errors={errors}
-                                    validation={true}
+                                    validation={false}
+                                    resources={resources}
                                 />
                             )})}
                         <div>
