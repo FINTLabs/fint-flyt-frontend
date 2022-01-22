@@ -1,5 +1,5 @@
 import * as React from "react";
-import {useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
 import {Link as RouterLink, RouteComponentProps, useLocation, withRouter} from "react-router-dom";
 import {Box, Button, Theme, Typography} from "@mui/material";
@@ -16,7 +16,7 @@ import {DndProvider} from "react-dnd";
 import {IIntegrationConfiguration} from "./types/IntegrationConfiguration";
 import {CreationStretegy} from "./types/CreationStretegy";
 import {toFormData} from "./util/ToFormData";
-import {useResourceContext} from "../../context/Store";
+import {ResourcesContext} from "../../resourcesContext";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -73,7 +73,6 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     const classes = useStyles();
     const location = useLocation();
     const [submitSuccess, setSubmitSuccess] = useState(false)
-    const [resources, setResources] = useResourceContext();
     let activeConfiguration = location.state ? location.state as IIntegrationConfiguration : undefined;
     let activeFormData = location.state ? toFormData(location.state as IIntegrationConfiguration) : defaultValues;
 
@@ -82,6 +81,23 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
         reValidateMode: 'onChange'
     });
     const { errors } = formState;
+
+    const { administrativeUnits, accessCodes, paragraphs, statuses, documentTypes, documentStatuses, archiveSections, classificationSystems,
+       // getAccessCodes, getAdministrativeUnits, getParagraphs, getStatuses, getDocumentTypes, getDocumentStatuses, getArchiveSections, getClassificationSystems,
+        getAll } = useContext(ResourcesContext);
+
+    useEffect(()=> {
+        // getAdministrativeUnits();
+        // getAccessCodes();
+        // getParagraphs();
+        // getStatuses();
+        // getDocumentTypes();
+        // getDocumentStatuses();
+        // getArchiveSections();
+        // getClassificationSystems();
+        getAll();
+    }, [])
+
 
     const accordionList: IAccordion[] = [
         {summary: "Integrasjonslogikk", accordionForm: ACCORDION_FORM.CASE_INFORMATION, defaultExpanded: true},
@@ -152,7 +168,14 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                                     setValue={setValue}
                                     errors={errors}
                                     validation={false}
-                                    resources={resources}
+                                    administrativeUnits={administrativeUnits}
+                                    accessCodes={accessCodes}
+                                    statuses={statuses}
+                                    paragraphs={paragraphs}
+                                    documentTypes={documentTypes}
+                                    documentStatuses={documentStatuses}
+                                    archiveSections={archiveSections}
+                                    classificationSystems={classificationSystems}
                                 />
                             )})}
                         <div>

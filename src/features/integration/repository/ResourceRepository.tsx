@@ -8,6 +8,10 @@ const getClassificationSystems = () => {
     return axios.get<any>("/kodeverk/klassifikasjonssystem");
 };
 
+const getClasses = (link: string) => {
+    return axios.get<any>(`/kodeverk/klasse/${link}`);
+};
+
 const getStatuses = () => {
     return axios.get<any>("/kodeverk/sakstatus");
 };
@@ -39,6 +43,7 @@ const getDocumentTypes = () => {
 const ResourceRepository = {
     getAdministrativeUnits,
     getClassificationSystems,
+    getClasses,
     getStatuses,
     getArchiveSections,
     getAccessCodes,

@@ -11,9 +11,9 @@ const DocumentForm: React.FunctionComponent<any> = (props) => {
     let required: boolean = props.validation;
     const documentFormFields: IInputField[] = [
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "Tittel", formValue: "documentData.title", required: required, error:errors.documentData?.title, value: props.activeFormData?.documentData?.title},
-        {input: INPUT_TYPE.DROPDOWN, label: "Status", value: props.watch("documentData.documentStatus"), formValue: "documentData.documentStatus", dropDownItems: dropdownPlaceholder, required: required, error:errors.documentData?.documentStatus},
-        {input: INPUT_TYPE.DROPDOWN, label: "Tilgangskode", value: props.watch("documentData.accessCode"), formValue: "documentData.accessCode", dropDownItems: dropdownPlaceholder, required: required, error:errors.documentData?.accessCode},
-        {input: INPUT_TYPE.DROPDOWN, label: "Hjemmel", value: props.watch("documentData.paragraph"), formValue: "documentData.paragraph", dropDownItems: dropdownPlaceholder, required: required, error:errors.documentData?.paragraph},
+        {input: INPUT_TYPE.DROPDOWN, label: "Status", value: props.watch("documentData.documentStatus"), formValue: "documentData.documentStatus", dropDownItems: props.documentStatuses, required: required, error:errors.documentData?.documentStatus},
+        {input: INPUT_TYPE.DROPDOWN, label: "Tilgangskode", value: props.watch("documentData.accessCode"), formValue: "documentData.accessCode", dropDownItems: props.accessCodes, required: required, error:errors.documentData?.accessCode},
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "Hjemmel", value: props.watch("documentData.paragraph"), formValue: "documentData.paragraph", dropDownItems: props.paragraphs, required: required, error:errors.documentData?.paragraph},
         {input: INPUT_TYPE.DROPDOWN, label: "Variant", value: props.watch("documentData.variant"), formValue: "documentData.variant", dropDownItems: dropdownPlaceholder, required: required, error:errors.documentData?.variant},
         {input: INPUT_TYPE.DROPDOWN, label: "Format", value: props.watch("documentData.format"), formValue: "documentData.format", dropDownItems: dropdownPlaceholder, required: required, error:errors.documentData?.format}
     ]

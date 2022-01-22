@@ -1,6 +1,6 @@
 import {FormGroup} from '@mui/material';
 import React from 'react';
-import {applicantOptions, dropdownPlaceholder} from "../../util/DefaultValues";
+import {applicantOptions} from "../../util/DefaultValues";
 import InputField from "./InputField";
 import {INPUT_TYPE} from "../../types/InputType.enum";
 import {IInputField} from "../../types/InputField";
@@ -20,8 +20,8 @@ const ApplicantForm: React.FunctionComponent<any> = (props) => {
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "Poststed", formValue: "applicantData.city", required:required, error:errors.applicantData?.city, value: props.activeFormData?.applicantData?.city},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "Telefonnummer", formValue: "applicantData.phoneNumber", required:required, error:errors.applicantData?.phoneNumber, value: props.activeFormData?.applicantData?.phoneNumber},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "Epost", formValue: "applicantData.email", required:required, error:errors.applicantData?.email, value: props.activeFormData?.applicantData?.email},
-        {input: INPUT_TYPE.DROPDOWN, label: "Tilgangskode", value: props.watch("applicantData.accessCode"), formValue: "applicantData.accessCode", dropDownItems: dropdownPlaceholder, required:required, error:errors.applicantData?.accessCode},
-        {input: INPUT_TYPE.DROPDOWN, label: "Hjemmel", value: props.watch("applicantData.paragraph"), formValue: "applicantData.paragraph", dropDownItems: dropdownPlaceholder, required:required, error:errors.applicantData?.paragraph},
+        {input: INPUT_TYPE.DROPDOWN, label: "Tilgangskode", value: props.watch("applicantData.accessCode"), formValue: "applicantData.accessCode", dropDownItems: props.accessCodes, required:required, error:errors.applicantData?.accessCode},
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "Hjemmel", value: props.watch("applicantData.paragraph"), formValue: "applicantData.paragraph", dropDownItems: props.accessCodes, required:required, error:errors.applicantData?.paragraph},
     ]
 
     return (
