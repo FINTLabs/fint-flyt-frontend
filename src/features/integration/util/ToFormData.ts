@@ -17,6 +17,7 @@ export function toFormData(data: IIntegrationConfiguration): IFormData {
             administrativeUnit: fieldToString(data.caseConfiguration, 'administrativenhet'),
             archiveUnit: fieldToString(data.caseConfiguration, 'arkivdel'),
             recordUnit: fieldToString(data.caseConfiguration, 'journalenhet'),
+            status: fieldToString(data.caseConfiguration, 'status'),
             accessCode: fieldToString(data.caseConfiguration, 'tilgangsrestriksjon'),
             paragraph: fieldToString(data.caseConfiguration, 'skjermingshjemmel'),
             caseWorker: fieldToString(data.caseConfiguration, 'saksansvarlig'),

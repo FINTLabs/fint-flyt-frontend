@@ -17,6 +17,7 @@ export const defaultValues: IFormData = {
         administrativeUnit:'',
         archiveUnit:'',
         recordUnit: '',
+        status: '',
         accessCode: '',
         paragraph: '',
         caseWorker: '',

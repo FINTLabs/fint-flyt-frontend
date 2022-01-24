@@ -58,6 +58,13 @@ export function toIntegrationConfiguration(data: IFormData, id?: string): IInteg
                         }
                     },
                     {
+                        field: "status",
+                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
+                        valueBuilder: {
+                            value: data.caseData?.status
+                        }
+                    },
+                    {
                         field: "tilgangsrestriksjon",
                         valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
                         valueBuilder: {
