@@ -4,14 +4,6 @@ const getAdministrativeUnits = () => {
     return axios.get<any>("/kodeverk/administrativenhet");
 };
 
-const getClassificationSystems = () => {
-    return axios.get<any>("/kodeverk/klassifikasjonssystem");
-};
-
-const getClasses = (link: string) => {
-    return axios.get<any>(`/kodeverk/klasse/${link}`);
-};
-
 const getStatuses = () => {
     return axios.get<any>("/kodeverk/sakstatus");
 };
@@ -20,16 +12,33 @@ const getArchiveSections = () => {
     return axios.get<any>("/kodeverk/arkivdel");
 };
 
+const getArchiveResources = () => {
+    return axios.get<any>("/kodeverk/arkivressurs");
+};
+
+const getClassificationSystems = () => {
+    return axios.get<any>("/kodeverk/klassifikasjonssystem");
+};
+
+const getClasses = (link: string) => {
+    let encodedLink = encodeURIComponent(link);
+    return axios.get<any>(`/kodeverk/klasse/${encodedLink}`);
+};
+
 const getAccessCodes = () => {
     return axios.get<any>("/kodeverk/tilgangsrestriksjon");
 };
 
-const getClassificationTypes = () => {
-    return axios.get<any>("/kodeverk/klassifikasjonstype");
-};
-
 const getParagraphs = () => {
     return axios.get<any>("/kodeverk/skjermingshjemmel");
+};
+
+const getJournalStatuses = () => {
+    return axios.get<any>("/kodeverk/journalstatus");
+};
+
+const getVariants = () => {
+    return axios.get<any>("/kodeverk/variantformat");
 };
 
 const getDocumentStatuses = () => {
@@ -42,15 +51,17 @@ const getDocumentTypes = () => {
 
 const ResourceRepository = {
     getAdministrativeUnits,
-    getClassificationSystems,
-    getClasses,
-    getStatuses,
-    getArchiveSections,
     getAccessCodes,
     getParagraphs,
-    getClassificationTypes,
+    getStatuses,
+    getArchiveSections,
+    getArchiveResources,
+    getClassificationSystems,
+    getClasses,
+    getDocumentTypes,
+    getJournalStatuses,
     getDocumentStatuses,
-    getDocumentTypes
+    getVariants
 };
 
 export default ResourceRepository;

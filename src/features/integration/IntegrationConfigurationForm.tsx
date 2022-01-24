@@ -82,21 +82,14 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     });
     const { errors } = formState;
 
-    const { administrativeUnits, accessCodes, paragraphs, statuses, documentTypes, documentStatuses, archiveSections, classificationSystems,
-       // getAccessCodes, getAdministrativeUnits, getParagraphs, getStatuses, getDocumentTypes, getDocumentStatuses, getArchiveSections, getClassificationSystems,
-        getAll } = useContext(ResourcesContext);
+    const {administrativeUnits, accessCodes, paragraphs, statuses, archiveSections,
+        archiveResources, classificationSystems, primaryClassification, secondaryClassification,
+        tertiaryClassification, primaryClass, secondaryClass, documentTypes, journalStatuses, documentStatuses, variants,
+        getAllResources, setPrimaryClassification, setSecondaryClassification } = useContext(ResourcesContext);
 
     useEffect(()=> {
-        // getAdministrativeUnits();
-        // getAccessCodes();
-        // getParagraphs();
-        // getStatuses();
-        // getDocumentTypes();
-        // getDocumentStatuses();
-        // getArchiveSections();
-        // getClassificationSystems();
-        getAll();
-    }, [])
+        getAllResources();
+    }, [primaryClassification, setPrimaryClassification])
 
 
     const accordionList: IAccordion[] = [
@@ -170,16 +163,29 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                                     validation={false}
                                     administrativeUnits={administrativeUnits}
                                     accessCodes={accessCodes}
-                                    statuses={statuses}
                                     paragraphs={paragraphs}
-                                    documentTypes={documentTypes}
-                                    documentStatuses={documentStatuses}
+                                    statuses={statuses}
                                     archiveSections={archiveSections}
+                                    archiveResources={archiveResources}
                                     classificationSystems={classificationSystems}
+                                    primaryClassification={primaryClassification}
+                                    primaryClass={primaryClass}
+                                    secondaryClassification={secondaryClassification}
+                                    secondaryClass={secondaryClass}
+                                    tertiaryClassification={tertiaryClassification}
+                                    documentTypes={documentTypes}
+                                    journalStatuses={journalStatuses}
+                                    documentStatuses={documentStatuses}
+                                    variants={variants}
+
+                                    setPrimaryClassification={setPrimaryClassification}
+                                    setSecondaryClassification={setSecondaryClassification}
                                 />
                             )})}
                         <div>
                             <Button type="submit" variant="contained">Lagre</Button>
+                            <Button onClick={() => setPrimaryClassification({label: 'Fødselsnummer',
+                                value: 'https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/FNR'})} variant="contained">sett primær</Button>
                         </div>
                     </form>
                 </Box>

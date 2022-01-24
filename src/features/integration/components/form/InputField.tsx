@@ -16,7 +16,7 @@ import {dropdownPlaceholder} from "../../util/DefaultValues";
 
 
 const useStyles = makeStyles(theme => ({
-    menu: {
+    dropdownPopover: {
         height: 450
     }
 }));
@@ -25,7 +25,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
     const filterOptions = createFilterOptions({
         matchFrom: 'any',
         stringify: (option: ISelect) => option.label,
-        limit: 50
+        limit: 250
     });
     let errorMessage: string = 'Du må oppgi ' + props.label;
     if (props.input === INPUT_TYPE.DROPDOWN) {
@@ -42,7 +42,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                         label={props.required ? (props.label+'*') : props.label}
                         SelectProps={{
                             MenuProps: {
-                                className: classes.menu
+                                className: classes.dropdownPopover
                             },
                         }}
                         onChange={e => onChange(e.target.value)}
@@ -93,6 +93,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                         filterOptions={filterOptions}
                         options={dropdowns}
                         getOptionLabel={(option: ISelect) => option.label}
+                        value={props.dropdownItems.find( ({value} : {value:any}) => value === props.value )}
                         renderInput={(params) => (
                             <TextField
                                 {...params}

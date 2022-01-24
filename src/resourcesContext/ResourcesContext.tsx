@@ -7,27 +7,37 @@ const contextDefaultValues: ResourceContextState = {
     accessCodes: [],
     paragraphs: [],
     statuses: [],
-    documentTypes: [],
-    documentStatuses: [],
     archiveSections: [],
+    archiveResources: [],
     classificationSystems: [],
-    classificationTypes: [],
     classes: [],
-    primaryClassification: [],
-    secondaryClassification: [],
-    tertiaryClassification: [],
-    primaryClass: [],
-    secondaryClass: [],
-    tertiaryClass: [],
+    primaryClassification: {label: '', value: ''},
+    secondaryClassification: {label: '', value: ''},
+    tertiaryClassification: {label: '', value: ''},
+    primaryClass: [{label: 'velg primær ordningsprinsipp først', value: ''}],
+    secondaryClass: [{label: 'velg sekundær ordningsprinsipp først', value: ''}],
+    tertiaryClass: [{label: 'velg tertiær ordningsprinsipp først', value: ''}],
+
+    documentTypes: [],
+    journalStatuses: [],
+
+    documentStatuses: [],
+    variants: [],
+ getAllResources: () => {},
     getAdministrativeUnits: () => {},
     getAccessCodes: () => {},
     getParagraphs: () => {},
     getStatuses: () => {},
-    getDocumentTypes: () => {},
-    getDocumentStatuses: () => {},
     getArchiveSections: () => {},
+    getArchiveResources: () => {},
     getClassificationSystems: () => {},
-    getAll: () => {},
+    setPrimaryClassification: (primary: IResourceItem) => {},
+    setSecondaryClassification: (secondary: IResourceItem) => {},
+    setTertiaryClassification: (tertiary: IResourceItem) => {},
+    getDocumentTypes: () => {},
+    getJournalStatuses: () => {},
+    getDocumentStatuses: () => {},
+    getVariants: () => {}
 };
 
 export const ResourcesContext = createContext<ResourceContextState>(
@@ -38,16 +48,18 @@ const ResourcesProvider: FC = ({ children }) => {
     const [administrativeUnits, setAdministrativeUnits] = useState<IResourceItem[]>(contextDefaultValues.administrativeUnits);
     const [statuses, setStatuses] = useState<IResourceItem[]>(contextDefaultValues.statuses);
     const [archiveSections, setArchiveSections] = useState<IResourceItem[]>(contextDefaultValues.archiveSections);
+    const [archiveResources, setArchiveResources] = useState<IResourceItem[]>(contextDefaultValues.archiveResources);
     const [accessCodes, setAccessCodes] = useState<IResourceItem[]>(contextDefaultValues.accessCodes);
     const [paragraphs, setParagraph] = useState<IResourceItem[]>(contextDefaultValues.paragraphs);
     const [documentStatuses, setDocumentStatuses] = useState<IResourceItem[]>(contextDefaultValues.documentStatuses);
+    const [journalStatuses, setJournalStatuses] = useState<IResourceItem[]>(contextDefaultValues.journalStatuses);
+    const [variants, setVariants] = useState<IResourceItem[]>(contextDefaultValues.variants);
     const [documentTypes, setDocumentTypes] = useState<IResourceItem[]>(contextDefaultValues.documentTypes);
     const [classificationSystems, setClassificationSystems] = useState<IResourceItem[]>(contextDefaultValues.classificationSystems);
-    const [classificationTypes, setClassificationTypes] = useState<IResourceItem[]>(contextDefaultValues.classificationTypes);
     const [classes, setClasses] = useState<IResourceItem[]>(contextDefaultValues.classes);
-    const [primaryClassification, setPrimaryClassification] = useState<IResourceItem[]>(contextDefaultValues.primaryClassification);
-    const [secondaryClassification, setSecondaryClassification] = useState<IResourceItem[]>(contextDefaultValues.secondaryClassification);
-    const [tertiaryClassification, setTertiaryClassification] = useState<IResourceItem[]>(contextDefaultValues.tertiaryClassification);
+    const [primaryClassification, setPrimaryClassification] = useState<IResourceItem>(contextDefaultValues.primaryClassification);
+    const [secondaryClassification, setSecondaryClassification] = useState<IResourceItem>(contextDefaultValues.secondaryClassification);
+    const [tertiaryClassification, setTertiaryClassification] = useState<IResourceItem>(contextDefaultValues.tertiaryClassification);
     const [primaryClass, setPrimaryClass] = useState<IResourceItem[]>(contextDefaultValues.primaryClass);
     const [secondaryClass, setSecondaryClass] = useState<IResourceItem[]>(contextDefaultValues.secondaryClass);
     const [tertiaryClass, setTertiaryClass] = useState<IResourceItem[]>(contextDefaultValues.tertiaryClass);
@@ -108,34 +120,6 @@ const ResourcesProvider: FC = ({ children }) => {
             })
     }
 
-    const getDocumentTypes = () => {
-        let list: IResourceItem[] = [];
-        ResourceRepository.getDocumentTypes()
-            .then(response => {
-                response.data.map((resource: any) => {
-                    list.push({label: resource.displayName, value: resource.id})
-                })
-                setDocumentTypes(documentTypes.concat(list))
-            })
-            .catch((err) => {
-                console.error(err);
-            })
-    }
-
-    const getDocumentStatuses = () => {
-        let list: IResourceItem[] = [];
-        ResourceRepository.getDocumentStatuses()
-            .then(response => {
-                response.data.map((resource: any) => {
-                    list.push({label: resource.displayName, value: resource.id})
-                })
-                setDocumentStatuses(documentStatuses.concat(list))
-            })
-            .catch((err) => {
-                console.error(err);
-            })
-    }
-
     const getArchiveSections = () => {
         let list: IResourceItem[] = [];
         ResourceRepository.getArchiveSections()
@@ -144,6 +128,20 @@ const ResourcesProvider: FC = ({ children }) => {
                     list.push({label: resource.displayName, value: resource.id})
                 })
                 setArchiveSections(archiveSections.concat(list))
+            })
+            .catch((err) => {
+                console.error(err);
+            })
+    }
+
+    const getArchiveResources = () => {
+        let list: IResourceItem[] = [];
+        ResourceRepository.getArchiveResources()
+            .then(response => {
+                response.data.map((resource: any) => {
+                    list.push({label: resource.displayName, value: resource.id})
+                })
+                setArchiveResources(archiveResources.concat(list))
             })
             .catch((err) => {
                 console.error(err);
@@ -165,29 +163,129 @@ const ResourcesProvider: FC = ({ children }) => {
     }
 
     const getPrimaryClass = () => {
+        console.log(primaryClassification)
         let list: IResourceItem[] = [];
-        ResourceRepository.getClasses("primary")
+        if(primaryClassification.value !== '') {
+            ResourceRepository.getClasses(primaryClassification.value)
+                .then(response => {
+                    response.data.map((resource: any) => {
+                        list.push({label: resource.displayName, value: resource.id})
+                    })
+                    setPrimaryClass(list)
+                })
+                .catch((err) => {
+                    console.error(err);
+                })
+        }
+    }
+
+    const getSecondaryClass = () => {
+        let list: IResourceItem[] = [];
+        if(secondaryClassification.value !== '') {
+            ResourceRepository.getClasses(secondaryClassification.value)
+                .then(response => {
+                    response.data.map((resource: any) => {
+                        list.push({label: resource.displayName, value: resource.id})
+                    })
+                    setSecondaryClass(list)
+                })
+                .catch((err) => {
+                    console.error(err);
+                })
+        }
+
+    }
+
+    const getTertiaryClass = () => {
+        let list: IResourceItem[] = [];
+        if(tertiaryClassification.value !== '') {
+            ResourceRepository.getClasses(tertiaryClassification.value)
+                .then(response => {
+                    response.data.map((resource: any) => {
+                        list.push({label: resource.displayName, value: resource.id})
+                    })
+                    setTertiaryClass(list)
+                })
+                .catch((err) => {
+                    console.error(err);
+                })
+        }
+
+    }
+
+    const getDocumentTypes = () => {
+        let list: IResourceItem[] = [];
+        ResourceRepository.getDocumentTypes()
             .then(response => {
                 response.data.map((resource: any) => {
                     list.push({label: resource.displayName, value: resource.id})
                 })
-                setPrimaryClass(primaryClass.concat(list))
+                setDocumentTypes(documentTypes.concat(list))
             })
             .catch((err) => {
                 console.error(err);
             })
     }
 
-    const getAll = () => {
+    const getJournalStatuses = () => {
+        let list: IResourceItem[] = [];
+        ResourceRepository.getJournalStatuses()
+            .then(response => {
+                response.data.map((resource: any) => {
+                    list.push({label: resource.displayName, value: resource.id})
+                })
+                setJournalStatuses(journalStatuses.concat(list))
+            })
+            .catch((err) => {
+                console.error(err);
+            })
+    }
+
+    const getDocumentStatuses = () => {
+        let list: IResourceItem[] = [];
+        ResourceRepository.getDocumentStatuses()
+            .then(response => {
+                response.data.map((resource: any) => {
+                    list.push({label: resource.displayName, value: resource.id})
+                })
+                setDocumentStatuses(documentStatuses.concat(list))
+            })
+            .catch((err) => {
+                console.error(err);
+            })
+    }
+
+    const getVariants = () => {
+        let list: IResourceItem[] = [];
+        ResourceRepository.getVariants()
+            .then(response => {
+                response.data.map((resource: any) => {
+                    list.push({label: resource.displayName, value: resource.id})
+                })
+                setVariants(variants.concat(list))
+            })
+            .catch((err) => {
+                console.error(err);
+            })
+    }
+
+
+    const getAllResources = () => {
         getAdministrativeUnits();
         getAccessCodes();
         getParagraphs();
-        getStatuses();
-        getDocumentTypes();
-        getDocumentStatuses();
         getArchiveSections();
+        getArchiveResources();
+        getStatuses();
         getClassificationSystems();
         getPrimaryClass();
+        getSecondaryClass();
+        getTertiaryClass();
+        getDocumentTypes();
+        getJournalStatuses();
+        getDocumentStatuses();
+        getVariants();
+
     }
 
     return (
@@ -197,11 +295,9 @@ const ResourcesProvider: FC = ({ children }) => {
                 accessCodes,
                 paragraphs,
                 statuses,
-                documentTypes,
-                documentStatuses,
                 archiveSections,
+                archiveResources,
                 classificationSystems,
-                classificationTypes,
                 classes,
                 primaryClassification,
                 secondaryClassification,
@@ -209,15 +305,25 @@ const ResourcesProvider: FC = ({ children }) => {
                 primaryClass,
                 secondaryClass,
                 tertiaryClass,
+                documentTypes,
+                journalStatuses,
+                documentStatuses,
+                variants,
                 getAdministrativeUnits,
                 getAccessCodes,
                 getParagraphs,
                 getStatuses,
-                getDocumentTypes,
-                getDocumentStatuses,
                 getArchiveSections,
+                getArchiveResources,
                 getClassificationSystems,
-                getAll
+                getDocumentTypes,
+                getJournalStatuses,
+                getDocumentStatuses,
+                getVariants,
+                getAllResources,
+                setPrimaryClassification,
+                setSecondaryClassification,
+                setTertiaryClassification
             }}
         >
             {children}

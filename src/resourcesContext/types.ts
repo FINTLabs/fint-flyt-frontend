@@ -3,38 +3,47 @@ export interface IResourceItem {
     value: string;
 }
 
-export interface IResources {
-    administrativeUnits?: IResourceItem[],
-    accessCodes?: IResourceItem[],
-    paragraphs?: IResourceItem[],
-    classes?: IResourceItem[],
-    classificationTypes?: IResourceItem[]
-}
-
 export type ResourceContextState = {
     administrativeUnits: IResourceItem[];
     accessCodes: IResourceItem[];
     paragraphs: IResourceItem[];
+
     statuses: IResourceItem[];
-    documentTypes: IResourceItem[];
-    documentStatuses: IResourceItem[];
     archiveSections: IResourceItem[];
+    archiveResources: IResourceItem[];
     classificationSystems: IResourceItem[];
-    classificationTypes: IResourceItem[];
     classes: IResourceItem[];
-    primaryClassification: IResourceItem[];
-    secondaryClassification: IResourceItem[];
-    tertiaryClassification: IResourceItem[];
+    primaryClassification: IResourceItem;
+    secondaryClassification: IResourceItem;
+    tertiaryClassification: IResourceItem;
     primaryClass: IResourceItem[];
     secondaryClass: IResourceItem[];
     tertiaryClass: IResourceItem[];
+
+    documentTypes: IResourceItem[];
+    journalStatuses: IResourceItem[];
+
+    documentStatuses: IResourceItem[];
+    variants: IResourceItem[];
+
+    getAllResources: () => void;
+
     getAdministrativeUnits: () => void;
     getAccessCodes: () => void;
     getParagraphs: () => void;
+
     getStatuses: () => void;
-    getDocumentTypes: () => void;
-    getDocumentStatuses: () => void;
     getArchiveSections: () => void;
+    getArchiveResources: () => void;
     getClassificationSystems: () => void;
-    getAll: () => void;
+    setPrimaryClassification: (primary: IResourceItem) => void;
+    setSecondaryClassification: (secondary: IResourceItem) => void;
+    setTertiaryClassification: (tertiary: IResourceItem) => void;
+
+    getDocumentTypes: () => void;
+    getJournalStatuses: () => void;
+
+    getDocumentStatuses: () => void;
+    getVariants: () => void;
+
 };
