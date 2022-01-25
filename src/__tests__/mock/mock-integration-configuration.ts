@@ -1,13 +1,13 @@
 import IFormData from "../../features/integration/types/Form/FormData";
 import {IIntegrationConfiguration} from "../../features/integration/types/IntegrationConfiguration";
-import {CreationStretegy} from "../../features/integration/types/CreationStretegy";
+import {CreationStrategy} from "../../features/integration/types/CreationStrategy";
 
 export const MOCK_FORMDATA: IFormData = {
     name: 'testform',
     description: 'form to test mapping',
     selectedForm: 'form3',
     caseData: {
-        caseCreationStrategy: CreationStretegy.NEW,
+        caseCreationStrategy: CreationStrategy.NEW,
         title: 'Title of case',
         publicTitle: 'public title',
         caseType: 'casetype',
@@ -57,7 +57,7 @@ export const MOCK_FORMDATA_WITH_TAGS: IFormData = {
     description: 'form to test mapping with form tags',
     selectedForm: 'form3',
     caseData: {
-        caseCreationStrategy: CreationStretegy.NEW,
+        caseCreationStrategy: CreationStrategy.NEW,
         title: 'Title of case with {tags}',
         publicTitle: 'public title also with {two} {tags}',
         caseType: 'casetype',
