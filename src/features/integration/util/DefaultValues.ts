@@ -1,6 +1,6 @@
 import {ISelect} from "../types/InputField";
 import {ITag} from "../types/Tag";
-import {CreationStretegy} from "../types/CreationStretegy";
+import {CreationStrategy} from "../types/CreationStrategy";
 import IFormData from "../types/Form/FormData";
 
 export const defaultValues: IFormData = {
@@ -9,7 +9,7 @@ export const defaultValues: IFormData = {
     version: '',
     selectedForm: '',
     caseData: {
-        caseCreationStrategy: CreationStretegy.NEW,
+        caseCreationStrategy: CreationStrategy.NEW,
         caseNumber: '',
         title: '',
         publicTitle: '',

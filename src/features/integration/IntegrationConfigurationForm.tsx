@@ -14,7 +14,7 @@ import TagList from "./components/TagList";
 import {HTML5Backend} from "react-dnd-html5-backend";
 import {DndProvider} from "react-dnd";
 import {IIntegrationConfiguration} from "./types/IntegrationConfiguration";
-import {CreationStretegy} from "./types/CreationStretegy";
+import {CreationStrategy} from "./types/CreationStrategy";
 import {toFormData} from "./util/ToFormData";
 import {ResourcesContext} from "../../resourcesContext";
 
@@ -94,7 +94,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
 
     const accordionList: IAccordion[] = [
         {summary: "Integrasjonslogikk", accordionForm: ACCORDION_FORM.CASE_INFORMATION, defaultExpanded: true},
-        {summary: "Sakspost", accordionForm: ACCORDION_FORM.CASE_FORM, defaultExpanded: false, hidden: watch("caseData.caseCreationStrategy") === CreationStretegy.COLLECTION},
+        {summary: "Sakspost", accordionForm: ACCORDION_FORM.CASE_FORM, defaultExpanded: false, hidden: watch("caseData.caseCreationStrategy") === CreationStrategy.COLLECTION},
         {summary: "Journalpost", accordionForm: ACCORDION_FORM.RECORD_FORM, defaultExpanded: false},
         {summary: "Dokument- og objektbeskrivelse", accordionForm: ACCORDION_FORM.DOCUMENT_FORM, defaultExpanded: false},
         {summary: "Avsender", accordionForm: ACCORDION_FORM.APPLICANT_FORM, defaultExpanded: false}

@@ -21,7 +21,7 @@ const ApplicantForm: React.FunctionComponent<any> = (props) => {
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "Telefonnummer", formValue: "applicantData.phoneNumber", required:required, error:errors.applicantData?.phoneNumber, value: props.activeFormData?.applicantData?.phoneNumber},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "Epost", formValue: "applicantData.email", required:required, error:errors.applicantData?.email, value: props.activeFormData?.applicantData?.email},
         {input: INPUT_TYPE.DROPDOWN, label: "Tilgangskode", value: props.watch("applicantData.accessCode"), formValue: "applicantData.accessCode", dropDownItems: props.accessCodes, required:required, error:errors.applicantData?.accessCode},
-        {input: INPUT_TYPE.AUTOCOMPLETE, label: "Hjemmel", value: props.watch("applicantData.paragraph"), formValue: "applicantData.paragraph", dropDownItems: props.accessCodes, required:required, error:errors.applicantData?.paragraph},
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "Hjemmel", value: props.watch("applicantData.paragraph"), formValue: "applicantData.paragraph", dropDownItems: props.paragraphs, required:required, error:errors.applicantData?.paragraph},
     ]
 
     return (

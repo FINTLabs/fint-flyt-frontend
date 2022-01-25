@@ -4,11 +4,11 @@ import InputField from "./InputField";
 import {INPUT_TYPE} from "../../types/InputType.enum";
 import {IInputField} from "../../types/InputField";
 import {creationStrategies, forms} from "../../util/DefaultValues";
-import {CreationStretegy} from "../../types/CreationStretegy";
+import {CreationStrategy} from "../../types/CreationStrategy";
 import {FieldErrors} from "react-hook-form";
 
 const CaseInformation: React.FunctionComponent<any> = (props) => {
-    let isCollection = props.watch("caseData.caseCreationStrategy") === CreationStretegy.COLLECTION
+    let isCollection = props.watch("caseData.caseCreationStrategy") === CreationStrategy.COLLECTION
     let errors: FieldErrors = props.errors
     const caseInformationFields: IInputField[] = [
         {input: INPUT_TYPE.TEXT_FIELD, label: "Navn", formValue: "name", required: props.validation, error:errors.name},

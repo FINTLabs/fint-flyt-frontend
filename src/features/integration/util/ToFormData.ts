@@ -1,6 +1,6 @@
 import IFormData from "../types/Form/FormData";
 import {IIntegrationConfiguration} from "../types/IntegrationConfiguration";
-import {fieldToString} from "./Util";
+import {fieldToString} from "./ValueBuilderUtil";
 
 export function toFormData(data: IIntegrationConfiguration): IFormData {
     return {
