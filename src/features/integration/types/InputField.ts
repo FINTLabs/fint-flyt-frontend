@@ -3,12 +3,14 @@ import {INPUT_TYPE} from "./InputType.enum";
 export interface IInputField {
     input: INPUT_TYPE;
     label: string;
-    value?: Function;
     formValue: string;
+    value?: Function;
     dropDownItems?: ISelect[];
     radioOptions?: ISelect[];
     defaultValue?: string;
-    disabled?: boolean
+    hidden?: boolean;
+    required?: boolean;
+    error?: string;
 }
 
 export interface ISelect {

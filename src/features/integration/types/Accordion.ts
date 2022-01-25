@@ -2,6 +2,7 @@ export interface IAccordion {
     summary: string;
     accordionForm: ACCORDION_FORM;
     defaultExpanded: boolean;
+    hidden?: boolean;
 }
 
 export enum ACCORDION_FORM {

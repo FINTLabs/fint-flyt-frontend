@@ -23,8 +23,14 @@ const routes: IRoute[] = [
         inNavigationMenu: true
     },
     {
+        path: '/integration/configuration/edit',
+        name: 'Rediger integrasjon',
+        component: IntegrationConfigurationForm,
+        exact: true
+    },
+    {
         path: '/overview',
-        name: 'Integratsjonsoversikt',
+        name: 'Integrasjonsoversikt',
         component: Overview,
         exact: true,
         icon: 'sync',

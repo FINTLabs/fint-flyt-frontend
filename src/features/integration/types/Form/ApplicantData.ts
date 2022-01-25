@@ -1,11 +1,12 @@
 export default interface IApplicantData {
-    type: string;
-    name: string;
-    address: string;
-    postalCode: string;
-    city: string;
-    phoneNumber: string;
-    email: string;
-    accessCode: string;
-    paragraph: string;
+    type?: string;
+    organisationNumber?: string;
+    name?: string;
+    address?: string;
+    postalCode?: string;
+    city?: string;
+    phoneNumber?: string;
+    email?: string;
+    accessCode?: string;
+    paragraph?: string;
 }
