@@ -112,13 +112,12 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     }
 
     const onSubmit = handleSubmit((data: IFormData) => {
-        const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data);
-        if (integrationConfiguration && activeConfiguration?.id !== undefined) {
+        if (data && activeConfiguration?.id !== undefined) {
             const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data, activeConfiguration.id);
             updateConfiguration(activeConfiguration.id, integrationConfiguration)
             reset({ ...defaultValues })
         }
-        else if(integrationConfiguration) {
+        else if(data) {
             const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data);
             createNewConfiguration(integrationConfiguration);
             reset({ ...defaultValues })
@@ -149,7 +148,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                                     control={control}
                                     setValue={setValue}
                                     errors={errors}
-                                    validation={true}
+                                    validation={false}
                                 />
                             )})}
                         <div>
