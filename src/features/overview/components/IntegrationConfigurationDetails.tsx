@@ -13,7 +13,7 @@ import * as React from "react";
 import {useEffect, useState} from "react";
 import IntegrationRepository from "../../integration/repository/IntegrationRepository";
 import {useHistory} from "react-router-dom";
-import {toValueString} from "../../integration/util/Util";
+import {toValueString} from "../../integration/util/ValueBuilderUtil";
 import {IIntegrationConfiguration} from "../../integration/types/IntegrationConfiguration";
 
 
