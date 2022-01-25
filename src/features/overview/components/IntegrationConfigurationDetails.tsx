@@ -14,12 +14,10 @@ import {useEffect, useState} from "react";
 import IntegrationRepository from "../../integration/repository/IntegrationRepository";
 import {useHistory} from "react-router-dom";
 import {toValueString} from "../../integration/util/Util";
-import {toFormData} from "../../integration/util/ToFormData";
 import {IIntegrationConfiguration} from "../../integration/types/IntegrationConfiguration";
 
 
 const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) => {
-    console.log(props.initialConfiguration)
     let history = useHistory();
     const id = props.initialConfiguration.id;
     const initialVersion: number = props.initialConfiguration.version;
@@ -39,9 +37,6 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
         IntegrationRepository.getByIdAndVersion(id, version)
             .then((response) => {
                 const configuration = response.data;
-                console.log('conf', configuration)
-                const formData2 = toFormData(configuration);
-                console.log(formData2)
                 setActiveConfiguration(configuration)
 
             })
@@ -71,7 +66,6 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
     }
 
     function handleVersionChange() {
-        console.log(activeConfiguration.version)
         if(activeConfiguration.id) {
             updateConfiguration(activeConfiguration.id, activeConfiguration);
         }
