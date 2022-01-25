@@ -71,7 +71,7 @@ const ResourcesProvider: FC = ({ children }) => {
                 response.data.map((resource: any) => {
                     list.push({label: resource.displayName, value: resource.id})
                 })
-                setAdministrativeUnits(administrativeUnits.concat(list))
+                setAdministrativeUnits(list)
             })
             .catch((err) => {
                 console.error(err);
@@ -85,7 +85,7 @@ const ResourcesProvider: FC = ({ children }) => {
                 response.data.map((resource: any) => {
                     list.push({label: resource.displayName, value: resource.id})
                 })
-                setAccessCodes(accessCodes.concat(list))
+                setAccessCodes(list)
             })
             .catch((err) => {
                 console.error(err);
@@ -99,7 +99,7 @@ const ResourcesProvider: FC = ({ children }) => {
                 response.data.map((resource: any) => {
                     list.push({label: resource.displayName, value: resource.id})
                 })
-                setParagraph(paragraphs.concat(list))
+                setParagraph(list)
             })
             .catch((err) => {
                 console.error(err);
@@ -113,7 +113,7 @@ const ResourcesProvider: FC = ({ children }) => {
                 response.data.map((resource: any) => {
                     list.push({label: resource.displayName, value: resource.id})
                 })
-                setStatuses(statuses.concat(list))
+                setStatuses(list)
             })
             .catch((err) => {
                 console.error(err);
@@ -127,7 +127,7 @@ const ResourcesProvider: FC = ({ children }) => {
                 response.data.map((resource: any) => {
                     list.push({label: resource.displayName, value: resource.id})
                 })
-                setArchiveSections(archiveSections.concat(list))
+                setArchiveSections(list)
             })
             .catch((err) => {
                 console.error(err);
@@ -141,7 +141,7 @@ const ResourcesProvider: FC = ({ children }) => {
                 response.data.map((resource: any) => {
                     list.push({label: resource.displayName, value: resource.id})
                 })
-                setArchiveResources(archiveResources.concat(list))
+                setArchiveResources(list)
             })
             .catch((err) => {
                 console.error(err);
@@ -155,7 +155,7 @@ const ResourcesProvider: FC = ({ children }) => {
                 response.data.map((resource: any) => {
                     list.push({label: resource.displayName, value: resource.id})
                 })
-                setClassificationSystems(classificationSystems.concat(list))
+                setClassificationSystems(list)
             })
             .catch((err) => {
                 console.error(err);
@@ -220,7 +220,7 @@ const ResourcesProvider: FC = ({ children }) => {
                 response.data.map((resource: any) => {
                     list.push({label: resource.displayName, value: resource.id})
                 })
-                setDocumentTypes(documentTypes.concat(list))
+                setDocumentTypes(list)
             })
             .catch((err) => {
                 console.error(err);
@@ -234,7 +234,7 @@ const ResourcesProvider: FC = ({ children }) => {
                 response.data.map((resource: any) => {
                     list.push({label: resource.displayName, value: resource.id})
                 })
-                setJournalStatuses(journalStatuses.concat(list))
+                setJournalStatuses(list)
             })
             .catch((err) => {
                 console.error(err);
@@ -248,7 +248,7 @@ const ResourcesProvider: FC = ({ children }) => {
                 response.data.map((resource: any) => {
                     list.push({label: resource.displayName, value: resource.id})
                 })
-                setDocumentStatuses(documentStatuses.concat(list))
+                setDocumentStatuses(list)
             })
             .catch((err) => {
                 console.error(err);
@@ -262,7 +262,7 @@ const ResourcesProvider: FC = ({ children }) => {
                 response.data.map((resource: any) => {
                     list.push({label: resource.displayName, value: resource.id})
                 })
-                setVariants(variants.concat(list))
+                setVariants(list)
             })
             .catch((err) => {
                 console.error(err);

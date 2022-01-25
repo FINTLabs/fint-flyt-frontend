@@ -184,8 +184,8 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                             )})}
                         <div>
                             <Button type="submit" variant="contained">Lagre</Button>
-                            <Button onClick={() => setPrimaryClassification({label: 'Fødselsnummer',
-                                value: 'https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/FNR'})} variant="contained">sett primær</Button>
+                            <Button onClick={() => setPrimaryClassification({label: 'Emnekode',
+                                value: 'https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/EMNE'})} variant="contained">sett primær</Button>
                         </div>
                     </form>
                 </Box>
