@@ -33,7 +33,7 @@ const getParagraphs = () => {
     return axios.get<any>("/kodeverk/skjermingshjemmel");
 };
 
-const getJournalStatuses = () => {
+const getRecordStatuses = () => {
     return axios.get<any>("/kodeverk/journalstatus");
 };
 
@@ -59,7 +59,7 @@ const ResourceRepository = {
     getClassificationSystems,
     getClasses,
     getDocumentTypes,
-    getJournalStatuses,
+    getRecordStatuses,
     getDocumentStatuses,
     getVariants
 };

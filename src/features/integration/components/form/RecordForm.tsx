@@ -13,7 +13,7 @@ const RecordForm: React.FunctionComponent<any> = (props) => {
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "Offentlig tittel", formValue: "recordData.publicTitle", required: required, error:errors.recordData?.publicTitle, value: props.activeFormData?.recordData?.publicTitle},
         {input: INPUT_TYPE.DROPDOWN, label: "Kategori", value: props.watch("recordData.category"), formValue: "recordData.category", dropDownItems: props.documentTypes, required: required, error:errors.recordData?.category},
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "Administrativ enhet", value: props.watch("recordData.administrativeUnit"), formValue: "recordData.administrativeUnit", dropDownItems: props.administrativeUnits, required: required, error:errors.recordData?.administrativeUnit},
-        {input: INPUT_TYPE.DROPDOWN, label: "Status", value: props.watch("recordData.status"), formValue: "recordData.status", dropDownItems: props.journalStatuses, required: required, error:errors.recordData?.status},
+        {input: INPUT_TYPE.DROPDOWN, label: "Status", value: props.watch("recordData.status"), formValue: "recordData.status", dropDownItems: props.recordStatuses, required: required, error:errors.recordData?.status},
         {input: INPUT_TYPE.DROPDOWN, label: "Tilgangskode", value: props.watch("recordData.accessCode"), formValue: "recordData.accessCode", dropDownItems: props.accessCodes, required: required, error:errors.recordData?.accessCode},
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "Hjemmel", value: props.watch("recordData.paragraph"), formValue: "recordData.paragraph", dropDownItems: props.paragraphs, required: required, error:errors.recordData?.paragraph}
    ]

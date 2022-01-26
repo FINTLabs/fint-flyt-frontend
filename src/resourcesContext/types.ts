@@ -21,7 +21,7 @@ export type ResourceContextState = {
     tertiaryClass: IResourceItem[];
 
     documentTypes: IResourceItem[];
-    journalStatuses: IResourceItem[];
+    recordStatuses: IResourceItem[];
 
     documentStatuses: IResourceItem[];
     variants: IResourceItem[];
@@ -41,7 +41,7 @@ export type ResourceContextState = {
     setTertiaryClassification: (tertiary: IResourceItem) => void;
 
     getDocumentTypes: () => void;
-    getJournalStatuses: () => void;
+    getRecordStatuses: () => void;
 
     getDocumentStatuses: () => void;
     getVariants: () => void;

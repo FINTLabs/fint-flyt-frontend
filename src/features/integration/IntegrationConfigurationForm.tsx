@@ -84,7 +84,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
 
     const {administrativeUnits, accessCodes, paragraphs, statuses, archiveSections,
         archiveResources, classificationSystems, primaryClassification, secondaryClassification,
-        tertiaryClassification, primaryClass, secondaryClass, documentTypes, journalStatuses, documentStatuses, variants,
+        tertiaryClassification, primaryClass, secondaryClass, documentTypes, recordStatuses, documentStatuses, variants,
         getAllResources, setPrimaryClassification, setSecondaryClassification } = useContext(ResourcesContext);
 
     useEffect(()=> {
@@ -174,7 +174,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                                     secondaryClass={secondaryClass}
                                     tertiaryClassification={tertiaryClassification}
                                     documentTypes={documentTypes}
-                                    journalStatuses={journalStatuses}
+                                    recordStatuses={recordStatuses}
                                     documentStatuses={documentStatuses}
                                     variants={variants}
 

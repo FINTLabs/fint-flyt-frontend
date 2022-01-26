@@ -19,7 +19,7 @@ const contextDefaultValues: ResourceContextState = {
     tertiaryClass: [{label: 'velg tertiær ordningsprinsipp først', value: ''}],
 
     documentTypes: [],
-    journalStatuses: [],
+    recordStatuses: [],
 
     documentStatuses: [],
     variants: [],
@@ -35,7 +35,7 @@ const contextDefaultValues: ResourceContextState = {
     setSecondaryClassification: (secondary: IResourceItem) => {},
     setTertiaryClassification: (tertiary: IResourceItem) => {},
     getDocumentTypes: () => {},
-    getJournalStatuses: () => {},
+    getRecordStatuses: () => {},
     getDocumentStatuses: () => {},
     getVariants: () => {}
 };
@@ -52,7 +52,7 @@ const ResourcesProvider: FC = ({ children }) => {
     const [accessCodes, setAccessCodes] = useState<IResourceItem[]>(contextDefaultValues.accessCodes);
     const [paragraphs, setParagraph] = useState<IResourceItem[]>(contextDefaultValues.paragraphs);
     const [documentStatuses, setDocumentStatuses] = useState<IResourceItem[]>(contextDefaultValues.documentStatuses);
-    const [journalStatuses, setJournalStatuses] = useState<IResourceItem[]>(contextDefaultValues.journalStatuses);
+    const [recordStatuses, setRecordStatuses] = useState<IResourceItem[]>(contextDefaultValues.recordStatuses);
     const [variants, setVariants] = useState<IResourceItem[]>(contextDefaultValues.variants);
     const [documentTypes, setDocumentTypes] = useState<IResourceItem[]>(contextDefaultValues.documentTypes);
     const [classificationSystems, setClassificationSystems] = useState<IResourceItem[]>(contextDefaultValues.classificationSystems);
@@ -227,14 +227,14 @@ const ResourcesProvider: FC = ({ children }) => {
             })
     }
 
-    const getJournalStatuses = () => {
+    const getRecordStatuses = () => {
         let list: IResourceItem[] = [];
-        ResourceRepository.getJournalStatuses()
+        ResourceRepository.getRecordStatuses()
             .then(response => {
                 response.data.map((resource: any) => {
                     list.push({label: resource.displayName, value: resource.id})
                 })
-                setJournalStatuses(list)
+                setRecordStatuses(list)
             })
             .catch((err) => {
                 console.error(err);
@@ -282,7 +282,7 @@ const ResourcesProvider: FC = ({ children }) => {
         getSecondaryClass();
         getTertiaryClass();
         getDocumentTypes();
-        getJournalStatuses();
+        getRecordStatuses();
         getDocumentStatuses();
         getVariants();
 
@@ -306,7 +306,7 @@ const ResourcesProvider: FC = ({ children }) => {
                 secondaryClass,
                 tertiaryClass,
                 documentTypes,
-                journalStatuses,
+                recordStatuses: recordStatuses,
                 documentStatuses,
                 variants,
                 getAdministrativeUnits,
@@ -317,7 +317,7 @@ const ResourcesProvider: FC = ({ children }) => {
                 getArchiveResources,
                 getClassificationSystems,
                 getDocumentTypes,
-                getJournalStatuses,
+                getRecordStatuses: getRecordStatuses,
                 getDocumentStatuses,
                 getVariants,
                 getAllResources,
