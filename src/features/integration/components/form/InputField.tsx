@@ -93,7 +93,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                         filterOptions={filterOptions}
                         options={dropdowns}
                         getOptionLabel={(option: ISelect) => option.label}
-                        value={props.dropdownItems.find( ({value} : {value:any}) => value === props.value )}
+                        value={props.value? props.dropdownItems.find( ({value} : {value:any}) => value === props.value ): null}
                         renderInput={(params) => (
                             <TextField
                                 {...params}

@@ -163,7 +163,6 @@ const ResourcesProvider: FC = ({ children }) => {
     }
 
     const getPrimaryClass = () => {
-        console.log(primaryClassification)
         let list: IResourceItem[] = [];
         if(primaryClassification.value !== '') {
             ResourceRepository.getClasses(primaryClassification.value)
