@@ -82,6 +82,8 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     });
     const { errors } = formState;
 
+    const watcher = watch("caseData.primaryClassification") ? watch("caseData.primaryClassification") : '';
+
     const {administrativeUnits, accessCodes, paragraphs, statuses, archiveSections,
         archiveResources, classificationSystems, primaryClassification, secondaryClassification,
         tertiaryClassification, primaryClass, secondaryClass, documentTypes, recordStatuses, documentStatuses, variants,
@@ -184,8 +186,8 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                             )})}
                         <div>
                             <Button type="submit" variant="contained">Lagre</Button>
-                            <Button onClick={() => setPrimaryClassification({label: 'Emnekode',
-                                value: 'https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/EMNE'})} variant="contained">sett primær</Button>
+                            <Button onClick={() => setPrimaryClassification({label: 'KTILLEGG',
+                                value: watcher !== undefined ? watcher : ''})} variant="contained">sett primær</Button>
                         </div>
                     </form>
                 </Box>
