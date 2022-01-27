@@ -3,7 +3,7 @@ export default interface IRecordData {
     publicTitle?: string;
     category?: string;
     administrativeUnit?: string;
-    status?: string;
+    recordStatus?: string;
     accessCode?: string;
     paragraph?: string;
 }

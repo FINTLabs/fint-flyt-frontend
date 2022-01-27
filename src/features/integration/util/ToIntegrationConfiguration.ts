@@ -142,7 +142,7 @@ export function toIntegrationConfiguration(data: IFormData, id?: string): IInteg
                     field: "journalstatus",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
                     valueBuilder: {
-                        value: data.recordData?.status
+                        value: data.recordData?.recordStatus
                     }
                 },
                 {

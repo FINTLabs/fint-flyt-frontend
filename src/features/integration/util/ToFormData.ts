@@ -31,7 +31,7 @@ export function toFormData(data: IIntegrationConfiguration): IFormData {
             publicTitle: fieldToString(data.recordConfiguration, 'offentigTittel', true),
             category: fieldToString(data.recordConfiguration, 'DokumentBeskrivelse.dokumentType'),
             administrativeUnit: fieldToString(data.recordConfiguration, 'administrativenhet'),
-            status: fieldToString(data.recordConfiguration, 'journalstatus'),
+            recordStatus: fieldToString(data.recordConfiguration, 'journalstatus'),
             accessCode: fieldToString(data.recordConfiguration, 'tilgangsrestriksjon'),
             paragraph: fieldToString(data.recordConfiguration, 'skjermingshjemmel'),
         },

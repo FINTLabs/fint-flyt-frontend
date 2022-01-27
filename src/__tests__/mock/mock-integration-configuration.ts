@@ -27,7 +27,7 @@ export const MOCK_FORMDATA: IFormData = {
         publicTitle: 'public record title',
         category: 'cat8',
         administrativeUnit: 'unit33',
-        status: 'N',
+        recordStatus: 'N',
         accessCode: 'code89',
         paragraph: 'p34',
     },
@@ -77,7 +77,7 @@ export const MOCK_FORMDATA_WITH_TAGS: IFormData = {
         publicTitle: '{singletag}',
         category: 'cat8',
         administrativeUnit: 'unit33',
-        status: 'N',
+        recordStatus: 'N',
         accessCode: 'code89',
         paragraph: 'p34',
     },
@@ -105,7 +105,7 @@ export const MOCK_FORMDATA_WITH_TAGS: IFormData = {
 
 export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
     "applicantConfiguration": {
-        "applicantType": 'PERSON',
+        "applicantType": "PERSON",
         "fields": [
             {
                 "field": "KorrespondansepartNavn",
@@ -217,6 +217,11 @@ export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
                 "valueBuilder": {
                     "value": "unit0"
                 }
+            },
+            {
+                "field": "status",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {}
             },
             {
                 "field": "tilgangsrestriksjon",
@@ -380,8 +385,7 @@ export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
 
 export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
     "applicantConfiguration": {
-        "applicantType": 'ORGANISATION',
-        "organisationNumber": '123456789',
+        "applicantType": "ORGANISATION",
         "fields": [
             {
                 "field": "KorrespondansepartNavn",
@@ -445,7 +449,8 @@ export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
                     "value": "p3"
                 }
             }
-        ]
+        ],
+        "organisationNumber": "123456789"
     },
     "caseConfiguration": {
         "caseCreationStrategy": "NEW",
@@ -510,6 +515,11 @@ export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
                 "valueBuilder": {
                     "value": "unit0"
                 }
+            },
+            {
+                "field": "status",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {}
             },
             {
                 "field": "tilgangsrestriksjon",

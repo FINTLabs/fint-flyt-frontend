@@ -31,7 +31,7 @@ export const defaultValues: IFormData = {
         publicTitle: '',
         category: '',
         administrativeUnit: '',
-        status: '',
+        recordStatus: '',
         accessCode: '',
         paragraph: '',
     },
