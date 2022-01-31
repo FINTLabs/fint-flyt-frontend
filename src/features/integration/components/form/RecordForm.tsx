@@ -1,21 +1,23 @@
 import {FormGroup} from '@mui/material';
-import React from 'react';
+import React, {useContext} from 'react';
 import {IInputField} from "../../types/InputField";
 import {INPUT_TYPE} from "../../types/InputType.enum";
 import InputField from "./InputField";
 import {FieldErrors} from "react-hook-form";
+import {ResourcesContext} from "../../../../resourcesContext";
 
 const RecordForm: React.FunctionComponent<any> = (props) => {
+    const {administrativeUnits, accessCodes, paragraphs,  documentTypes, recordStatuses } = useContext(ResourcesContext);
     let errors: FieldErrors = props.errors;
     let required: boolean = props.validation;
     const recordFormFields: IInputField[] = [
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "Tittel", formValue: "recordData.title", required: required, error:errors.recordData?.title, value: props.activeFormData?.recordData?.title},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "Offentlig tittel", formValue: "recordData.publicTitle", required: required, error:errors.recordData?.publicTitle, value: props.activeFormData?.recordData?.publicTitle},
-        {input: INPUT_TYPE.DROPDOWN, label: "Kategori", value: props.watch("recordData.category"), formValue: "recordData.category", dropDownItems: props.documentTypes, required: required, error:errors.recordData?.category},
-        {input: INPUT_TYPE.AUTOCOMPLETE, label: "Administrativ enhet", value: props.watch("recordData.administrativeUnit"), formValue: "recordData.administrativeUnit", dropDownItems: props.administrativeUnits, required: required, error:errors.recordData?.administrativeUnit},
-        {input: INPUT_TYPE.DROPDOWN, label: "Status", value: props.watch("recordData.recordStatus"), formValue: "recordData.recordStatus", dropDownItems: props.recordStatuses, required: required, error:errors.recordData?.status},
-        {input: INPUT_TYPE.DROPDOWN, label: "Tilgangskode", value: props.watch("recordData.accessCode"), formValue: "recordData.accessCode", dropDownItems: props.accessCodes, required: required, error:errors.recordData?.accessCode},
-        {input: INPUT_TYPE.AUTOCOMPLETE, label: "Hjemmel", value: props.watch("recordData.paragraph"), formValue: "recordData.paragraph", dropDownItems: props.paragraphs, required: required, error:errors.recordData?.paragraph}
+        {input: INPUT_TYPE.DROPDOWN, label: "Kategori", value: props.watch("recordData.category"), formValue: "recordData.category", dropDownItems: documentTypes, required: required, error:errors.recordData?.category},
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "Administrativ enhet", value: props.watch("recordData.administrativeUnit"), formValue: "recordData.administrativeUnit", dropDownItems: administrativeUnits, required: required, error:errors.recordData?.administrativeUnit},
+        {input: INPUT_TYPE.DROPDOWN, label: "Status", value: props.watch("recordData.recordStatus"), formValue: "recordData.recordStatus", dropDownItems: recordStatuses, required: required, error:errors.recordData?.status},
+        {input: INPUT_TYPE.DROPDOWN, label: "Tilgangskode", value: props.watch("recordData.accessCode"), formValue: "recordData.accessCode", dropDownItems: accessCodes, required: required, error:errors.recordData?.accessCode},
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "Hjemmel", value: props.watch("recordData.paragraph"), formValue: "recordData.paragraph", dropDownItems: paragraphs, required: required, error:errors.recordData?.paragraph}
    ]
     return (
         <FormGroup className={props.style.formControl}>

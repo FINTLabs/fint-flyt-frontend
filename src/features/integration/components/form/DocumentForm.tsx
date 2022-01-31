@@ -1,21 +1,21 @@
 import {FormGroup} from '@mui/material';
-import React from 'react';
-import {dropdownPlaceholder} from "../../util/DefaultValues";
+import React, {useContext} from 'react';
 import {IInputField} from "../../types/InputField";
 import {INPUT_TYPE} from "../../types/InputType.enum";
 import InputField from "./InputField";
 import {FieldErrors} from "react-hook-form";
+import {ResourcesContext} from "../../../../resourcesContext";
 
 const DocumentForm: React.FunctionComponent<any> = (props) => {
+    const {accessCodes, paragraphs, documentStatuses, variants} = useContext(ResourcesContext);
     let errors: FieldErrors = props.errors;
     let required: boolean = props.validation;
     const documentFormFields: IInputField[] = [
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "Tittel", formValue: "documentData.title", required: required, error:errors.documentData?.title, value: props.activeFormData?.documentData?.title},
-        {input: INPUT_TYPE.DROPDOWN, label: "Status", value: props.watch("documentData.documentStatus"), formValue: "documentData.documentStatus", dropDownItems: props.documentStatuses, required: required, error:errors.documentData?.documentStatus},
-        {input: INPUT_TYPE.DROPDOWN, label: "Tilgangskode", value: props.watch("documentData.accessCode"), formValue: "documentData.accessCode", dropDownItems: props.accessCodes, required: required, error:errors.documentData?.accessCode},
-        {input: INPUT_TYPE.AUTOCOMPLETE, label: "Hjemmel", value: props.watch("documentData.paragraph"), formValue: "documentData.paragraph", dropDownItems: props.paragraphs, required: required, error:errors.documentData?.paragraph},
-        {input: INPUT_TYPE.DROPDOWN, label: "Variant", value: props.watch("documentData.variant"), formValue: "documentData.variant", dropDownItems: props.variants, required: required, error:errors.documentData?.variant},
-        {input: INPUT_TYPE.DROPDOWN, label: "Format", value: props.watch("documentData.format"), formValue: "documentData.format", dropDownItems: dropdownPlaceholder, required: required, error:errors.documentData?.format}
+        {input: INPUT_TYPE.DROPDOWN, label: "Status", value: props.watch("documentData.documentStatus"), formValue: "documentData.documentStatus", dropDownItems: documentStatuses, required: required, error:errors.documentData?.documentStatus},
+        {input: INPUT_TYPE.DROPDOWN, label: "Tilgangskode", value: props.watch("documentData.accessCode"), formValue: "documentData.accessCode", dropDownItems: accessCodes, required: required, error:errors.documentData?.accessCode},
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "Hjemmel", value: props.watch("documentData.paragraph"), formValue: "documentData.paragraph", dropDownItems: paragraphs, required: required, error:errors.documentData?.paragraph},
+        {input: INPUT_TYPE.DROPDOWN, label: "Variant", value: props.watch("documentData.variant"), formValue: "documentData.variant", dropDownItems: variants, required: required, error:errors.documentData?.variant},
     ]
     return (
         <FormGroup className={props.style.formControl}>

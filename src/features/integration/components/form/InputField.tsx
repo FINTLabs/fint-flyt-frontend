@@ -14,7 +14,6 @@ import {TextFieldWithDropZone} from "../dnd/TextFieldWithDropZone";
 import {makeStyles} from "@mui/styles";
 import {dropdownPlaceholder} from "../../util/DefaultValues";
 
-
 const useStyles = makeStyles(theme => ({
     dropdownPopover: {
         height: 450
@@ -45,7 +44,10 @@ const InputField: React.FunctionComponent<any> = (props) => {
                                 className: classes.dropdownPopover
                             },
                         }}
-                        onChange={e => onChange(e.target.value)}
+                        onChange={e => {
+                            props.setter && props.setter(e.target)
+                            onChange(e.target.value);
+                        }}
                         error={!!props.error}
                         helperText={props.error ? 'Obligatorisk felt' : ''}
                     >
@@ -103,8 +105,10 @@ const InputField: React.FunctionComponent<any> = (props) => {
                                 helperText={props.error ? 'Obligatorisk felt' : ''}
                             />
                         )}
-                        onChange={(_, data) => onChange(data?.value)}
-                    />
+                        onChange={(_, data) => {
+                            onChange(data?.value)
+                        }
+                    }/>
                 )}
                 rules={{ required: { value: props.required, message: errorMessage } }}
             />
@@ -121,8 +125,6 @@ const InputField: React.FunctionComponent<any> = (props) => {
                 formValue={props.formValue}
                 required={props.required}
             />
-
-
         )
     }
     else {

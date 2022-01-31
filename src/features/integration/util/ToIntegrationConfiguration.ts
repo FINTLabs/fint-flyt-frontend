@@ -195,13 +195,6 @@ export function toIntegrationConfiguration(data: IFormData, id?: string): IInteg
                     valueBuilder: {
                         value: data.documentData?.variant
                     }
-                },
-                {
-                    field: "DokumentBeskrivelse.dokumentObjekt.filformat",
-                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                    valueBuilder: {
-                        value: data.documentData?.format
-                    }
                 }
             ]
         },

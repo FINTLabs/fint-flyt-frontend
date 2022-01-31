@@ -84,10 +84,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
 
     const watcher = watch("caseData.primaryClassification") ? watch("caseData.primaryClassification") : '';
 
-    const {administrativeUnits, accessCodes, paragraphs, statuses, archiveSections,
-        archiveResources, classificationSystems, primaryClassification, secondaryClassification,
-        tertiaryClassification, primaryClass, secondaryClass, documentTypes, recordStatuses, documentStatuses, variants,
-        getAllResources, setPrimaryClassification, setSecondaryClassification } = useContext(ResourcesContext);
+    const { primaryClassification, getAllResources, setPrimaryClassification } = useContext(ResourcesContext);
 
     useEffect(()=> {
         getAllResources();
@@ -163,25 +160,6 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                                     setValue={setValue}
                                     errors={errors}
                                     validation={false}
-                                    administrativeUnits={administrativeUnits}
-                                    accessCodes={accessCodes}
-                                    paragraphs={paragraphs}
-                                    statuses={statuses}
-                                    archiveSections={archiveSections}
-                                    archiveResources={archiveResources}
-                                    classificationSystems={classificationSystems}
-                                    primaryClassification={primaryClassification}
-                                    primaryClass={primaryClass}
-                                    secondaryClassification={secondaryClassification}
-                                    secondaryClass={secondaryClass}
-                                    tertiaryClassification={tertiaryClassification}
-                                    documentTypes={documentTypes}
-                                    recordStatuses={recordStatuses}
-                                    documentStatuses={documentStatuses}
-                                    variants={variants}
-
-                                    setPrimaryClassification={setPrimaryClassification}
-                                    setSecondaryClassification={setSecondaryClassification}
                                 />
                             )})}
                         <div>

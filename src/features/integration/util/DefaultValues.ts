@@ -40,8 +40,7 @@ export const defaultValues: IFormData = {
         documentStatus: '',
         accessCode: '',
         paragraph: '',
-        variant: '',
-        format: '',
+        variant: ''
     },
     applicantData: {
         type: 'PERSON',
