@@ -39,6 +39,8 @@ export type ResourceContextState = {
     setPrimaryClassification: (primary: IResourceItem) => void;
     setSecondaryClassification: (secondary: IResourceItem) => void;
     setTertiaryClassification: (tertiary: IResourceItem) => void;
+    getPrimaryClass: () => void;
+    getSecondaryClass: () => void;
 
     getDocumentTypes: () => void;
     getRecordStatuses: () => void;

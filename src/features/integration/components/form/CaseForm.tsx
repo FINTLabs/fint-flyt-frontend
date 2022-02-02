@@ -8,14 +8,17 @@ import {FieldErrors} from "react-hook-form";
 import {ResourcesContext} from "../../../../resourcesContext";
 
 const CaseForm: React.FunctionComponent<any> = (props) => {
-    const {administrativeUnits, accessCodes, paragraphs, statuses, archiveSections,
-        archiveResources, classificationSystems, primaryClassification, secondaryClassification,
-        tertiaryClassification, primaryClass, secondaryClass,
-        getAllResources, setPrimaryClassification } = useContext(ResourcesContext);
+    const {administrativeUnits, accessCodes, paragraphs, statuses, archiveSections, archiveResources,
+        classificationSystems, primaryClassification, secondaryClassification, primaryClass, secondaryClass,
+        getPrimaryClass, getSecondaryClass, setPrimaryClassification, setSecondaryClassification } = useContext(ResourcesContext);
 
     useEffect(()=> {
-        getAllResources();
+        getPrimaryClass();
     }, [primaryClassification, setPrimaryClassification])
+
+    useEffect(()=> {
+        getSecondaryClass();
+    }, [secondaryClassification, setSecondaryClassification])
 
 
     let errors: FieldErrors = props.errors;
@@ -33,8 +36,8 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "Saksansvarlig", value: props.watch("caseData.caseWorker"), formValue: "caseData.caseWorker", dropDownItems: archiveResources, required: required, error:errors.caseData?.caseWorker},
         {input: INPUT_TYPE.DROPDOWN, label: "Primær ordningsprinsipp", value: props.watch("caseData.primaryClassification"), formValue: "caseData.primaryClassification", dropDownItems: classificationSystems, required: required, error:errors.caseData?.primaryClassification, setter: setPrimaryClassification},
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "Primærklasse", value: props.watch("caseData.primaryClass"), formValue: "caseData.primaryClass", dropDownItems: primaryClass, required: required, error:errors.caseData?.primaryClass},
-        {input: INPUT_TYPE.DROPDOWN, label: "Sekundær ordningsprinsipp", value: props.watch("caseData.secondaryClassification"), formValue: "caseData.secondaryClassification", dropDownItems: classificationSystems, required: required, error:errors.caseData?.secondaryClassification},
-        {input: INPUT_TYPE.DROPDOWN, label: "Sekundærklasse", value: props.watch("caseData.secondaryClass"), formValue: "caseData.secondaryClass", dropDownItems: secondaryClass, required: required, error:errors.caseData?.secondaryClass},
+        {input: INPUT_TYPE.DROPDOWN, label: "Sekundær ordningsprinsipp", value: props.watch("caseData.secondaryClassification"), formValue: "caseData.secondaryClassification", dropDownItems: classificationSystems, required: required, error:errors.caseData?.secondaryClassification, setter: setSecondaryClassification},
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "Sekundærklasse", value: props.watch("caseData.secondaryClass"), formValue: "caseData.secondaryClass", dropDownItems: secondaryClass, required: required, error:errors.caseData?.secondaryClass},
     ]
 
     return (

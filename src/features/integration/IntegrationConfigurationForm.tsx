@@ -82,13 +82,11 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     });
     const { errors } = formState;
 
-    const watcher = watch("caseData.primaryClassification") ? watch("caseData.primaryClassification") : '';
-
-    const { primaryClassification, getAllResources, setPrimaryClassification } = useContext(ResourcesContext);
+    const { getAllResources } = useContext(ResourcesContext);
 
     useEffect(()=> {
         getAllResources();
-    }, [primaryClassification, setPrimaryClassification])
+    }, [])
 
 
     const accordionList: IAccordion[] = [
@@ -141,45 +139,41 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     return (
         <DndProvider backend={HTML5Backend}>
             {!submitSuccess &&
-            <Box display="flex" position="relative" width={1} height={1}>
-                <Box>
-                    <Typography variant={"h5"} sx={{mb: 2}}>Integrasjon til arkiv</Typography>
-                    <form className={classes.form} onSubmit={onSubmit}>
-                        {accordionList.map((accordion, index) => {
-                            return (
-                                <AccordionForm
-                                    activeFormData={activeFormData}
-                                    key={index}
-                                    style={classes}
-                                    summary={accordion.summary}
-                                    accordionForm={accordion.accordionForm}
-                                    defaultExpanded={accordion.defaultExpanded}
-                                    hidden={accordion.hidden}
-                                    watch={watch}
-                                    control={control}
-                                    setValue={setValue}
-                                    errors={errors}
-                                    validation={false}
-                                />
-                            )})}
-                        <div>
+                <Box display="flex" position="relative" width={1} height={1}>
+                    <Box>
+                        <Typography variant={"h5"} sx={{mb: 2}}>Integrasjon til arkiv</Typography>
+                        <form className={classes.form} onSubmit={onSubmit}>
+                            {accordionList.map((accordion, index) => {
+                                return (
+                                    <AccordionForm
+                                        activeFormData={activeFormData}
+                                        key={index}
+                                        style={classes}
+                                        summary={accordion.summary}
+                                        accordionForm={accordion.accordionForm}
+                                        defaultExpanded={accordion.defaultExpanded}
+                                        hidden={accordion.hidden}
+                                        watch={watch}
+                                        control={control}
+                                        setValue={setValue}
+                                        errors={errors}
+                                        validation={false}
+                                    />
+                                )})}
                             <Button type="submit" variant="contained">Lagre</Button>
-                            <Button onClick={() => setPrimaryClassification({label: 'KTILLEGG',
-                                value: watcher !== undefined ? watcher : ''})} variant="contained">sett primær</Button>
-                        </div>
-                    </form>
+                        </form>
+                    </Box>
+                    <Box className={classes.taglistContainer}>
+                        <TagList style={classes}/>
+                    </Box>
                 </Box>
-                <Box className={classes.taglistContainer}>
-                    <TagList style={classes}/>
-                </Box>
-            </Box>
             }
             {submitSuccess &&
-            <Box style={{minHeight: 'fit-content'}}>
-                <Typography variant={"h5"} sx={{mb: 2}}>Integrasjon til arkiv - Ferdig</Typography>
-                <Button size="small" variant="contained" component={RouterLink} to="/overview">Se integrasjoner</Button>
-                <Button size="small" variant="contained" sx={{ml: 2}} component={RouterLink} to="/">Dashboard</Button>
-            </Box>}
+                <Box style={{minHeight: 'fit-content'}}>
+                    <Typography variant={"h5"} sx={{mb: 2}}>Integrasjon til arkiv - Ferdig</Typography>
+                    <Button size="small" variant="contained" component={RouterLink} to="/overview">Se integrasjoner</Button>
+                    <Button size="small" variant="contained" sx={{ml: 2}} component={RouterLink} to="/">Dashboard</Button>
+                </Box>}
         </DndProvider>
     );
 }

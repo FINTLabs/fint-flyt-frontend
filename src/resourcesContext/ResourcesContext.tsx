@@ -23,7 +23,7 @@ const contextDefaultValues: ResourceContextState = {
 
     documentStatuses: [],
     variants: [],
- getAllResources: () => {},
+    getAllResources: () => {},
     getAdministrativeUnits: () => {},
     getAccessCodes: () => {},
     getParagraphs: () => {},
@@ -34,6 +34,8 @@ const contextDefaultValues: ResourceContextState = {
     setPrimaryClassification: (primary: IResourceItem) => {},
     setSecondaryClassification: (secondary: IResourceItem) => {},
     setTertiaryClassification: (tertiary: IResourceItem) => {},
+    getPrimaryClass: () => {},
+    getSecondaryClass: () => {},
     getDocumentTypes: () => {},
     getRecordStatuses: () => {},
     getDocumentStatuses: () => {},
@@ -46,8 +48,10 @@ export const ResourcesContext = createContext<ResourceContextState>(
 
 const ResourcesProvider: FC = ({ children }) => {
     const [administrativeUnits, setAdministrativeUnits] = useState<IResourceItem[]>(contextDefaultValues.administrativeUnits);
+    const [administrativeUnit, setAdministrativeUnit] = useState<IResourceItem[]>([]);
     const [statuses, setStatuses] = useState<IResourceItem[]>(contextDefaultValues.statuses);
     const [archiveSections, setArchiveSections] = useState<IResourceItem[]>(contextDefaultValues.archiveSections);
+    const [archiveSection, setArchiveSection] = useState<IResourceItem[]>(contextDefaultValues.archiveSections);
     const [archiveResources, setArchiveResources] = useState<IResourceItem[]>(contextDefaultValues.archiveResources);
     const [accessCodes, setAccessCodes] = useState<IResourceItem[]>(contextDefaultValues.accessCodes);
     const [paragraphs, setParagraph] = useState<IResourceItem[]>(contextDefaultValues.paragraphs);
@@ -316,9 +320,11 @@ const ResourcesProvider: FC = ({ children }) => {
                 getArchiveResources,
                 getClassificationSystems,
                 getDocumentTypes,
-                getRecordStatuses: getRecordStatuses,
+                getRecordStatuses,
                 getDocumentStatuses,
                 getVariants,
+                getPrimaryClass,
+                getSecondaryClass,
                 getAllResources,
                 setPrimaryClassification,
                 setSecondaryClassification,
