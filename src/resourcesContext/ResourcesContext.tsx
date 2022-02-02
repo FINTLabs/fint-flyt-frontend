@@ -10,17 +10,14 @@ const contextDefaultValues: ResourceContextState = {
     archiveSections: [],
     archiveResources: [],
     classificationSystems: [],
-    classes: [],
     primaryClassification: {label: '', value: ''},
     secondaryClassification: {label: '', value: ''},
     tertiaryClassification: {label: '', value: ''},
     primaryClass: [{label: 'velg primær ordningsprinsipp først', value: ''}],
     secondaryClass: [{label: 'velg sekundær ordningsprinsipp først', value: ''}],
     tertiaryClass: [{label: 'velg tertiær ordningsprinsipp først', value: ''}],
-
     documentTypes: [],
     recordStatuses: [],
-
     documentStatuses: [],
     variants: [],
     getAllResources: () => {},
@@ -60,7 +57,6 @@ const ResourcesProvider: FC = ({ children }) => {
     const [variants, setVariants] = useState<IResourceItem[]>(contextDefaultValues.variants);
     const [documentTypes, setDocumentTypes] = useState<IResourceItem[]>(contextDefaultValues.documentTypes);
     const [classificationSystems, setClassificationSystems] = useState<IResourceItem[]>(contextDefaultValues.classificationSystems);
-    const [classes, setClasses] = useState<IResourceItem[]>(contextDefaultValues.classes);
     const [primaryClassification, setPrimaryClassification] = useState<IResourceItem>(contextDefaultValues.primaryClassification);
     const [secondaryClassification, setSecondaryClassification] = useState<IResourceItem>(contextDefaultValues.secondaryClassification);
     const [tertiaryClassification, setTertiaryClassification] = useState<IResourceItem>(contextDefaultValues.tertiaryClassification);
@@ -301,7 +297,6 @@ const ResourcesProvider: FC = ({ children }) => {
                 archiveSections,
                 archiveResources,
                 classificationSystems,
-                classes,
                 primaryClassification,
                 secondaryClassification,
                 tertiaryClassification,

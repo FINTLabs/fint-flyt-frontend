@@ -12,7 +12,6 @@ export type ResourceContextState = {
     archiveSections: IResourceItem[];
     archiveResources: IResourceItem[];
     classificationSystems: IResourceItem[];
-    classes: IResourceItem[];
     primaryClassification: IResourceItem;
     secondaryClassification: IResourceItem;
     tertiaryClassification: IResourceItem;
