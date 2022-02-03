@@ -119,3 +119,69 @@ export const tagList: ITag[] = [
 
 export const TaglistPopoverContent: string = 'I tekstfeltene til i de ulike postene kan du benytte data fra skjema for å utfylle disse. \n\n' +
     'Naviger til feltet du ønsker å fylle,og dra inn tag fra listen under.'
+
+export const fieldHelp = {
+    name: '',
+    description: '',
+    version: '',
+    selectedForm: '',
+    caseData: {
+        caseCreationStrategy: CreationStrategy.NEW,
+        caseNumber: '2021/12345',
+        title: 'Tittel kan være en konkret tekststreng, eller en kombinasjon\n' +
+            ' av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak.\n' +
+            '  (Se Noark))',
+        publicTitle: 'Se Noark (Del av tittel som skal skjermes)',
+        status: '-',
+        caseType: '',
+        administrativeUnit:'Avdeling eller enhet som skal behandle saken.',
+        archiveUnit:'Eksempel: kompetanse, sakarkiv, personal',
+        recordUnit: 'Navnet på journalførende enhet.\n' +
+            'Eksempel: Viken fylkesråd',
+        accessCode: 'Dersom noe skjermes må man også sette tilgangskode. \n' +
+            'Eksempel: Unntatt offentlighet, personal, varslingssak, ugradert. ',
+        paragraph: 'Dersom det settes tilgangskode må det også settes hjemmel. \n' +
+            'Det må være en lovmessig hjemmel for skjerming eller begrenset tilgang. \n' +
+            '\n' +
+            'Eksempel:\n' +
+            '\n' +
+            'Offl. §13 ',
+        caseWorker: 'Konkret saksbehandler eller ufordelt.',
+        classification: 'Det må kunne settes flere klasseringer på en sak,\n' +
+            ' slik at sjemaet kan lete fram riktig sak.\n' +
+            'Eksempel: Primærkode=K-koder, \n' +
+            'Sekundærkode=organisasjonsnummer eller personnummer',
+        class: 'Vi må kunne fylle ut verdi og betegnelse.\n' +
+            'Eksempel: K-kode: Verdi 003, Betegnelse: Målbruk.\n' +
+            'Person: verdi: fødselsnummer, betegnelse = personnavn.',
+    },
+    recordData: {
+        title: '',
+        publicTitle: '',
+        category: '',
+        administrativeUnit: '',
+        status: '',
+        accessCode: '',
+        paragraph: '',
+    },
+    documentData: {
+        title: '',
+        documentStatus: '',
+        accessCode: '',
+        paragraph: '',
+        variant: '',
+        format: '',
+    },
+    applicantData: {
+        type: 'PERSON',
+        organisationNumber: '',
+        name: '',
+        address: '',
+        postalCode: '',
+        city: '',
+        phoneNumber: '',
+        email: '',
+        accessCode: '',
+        paragraph: '',
+    }
+}

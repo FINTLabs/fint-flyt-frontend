@@ -21,7 +21,7 @@ import {ResourcesContext} from "../../resourcesContext";
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         form: {
-            width: theme.spacing(120)
+            width: theme.spacing(100)
         },
         row: {
             display: 'flex'
@@ -42,14 +42,20 @@ const useStyles = makeStyles((theme: Theme) =>
             position: 'sticky',
             top: theme.spacing(16)
         },
-        formControl: {
-            width: theme.spacing(80)
+        tagList: {
+            opacity: 0.99,
+            width: theme.spacing(40),
+            height: 'fit-content'
         },
         accordion: {
-            marginBottom: theme.spacing(2)
+            marginBottom: theme.spacing(2),
+            width: theme.spacing(100)
         },
         accordionSummary: {
             backgroundColor: theme.palette.primary.light,
+        },
+        formControl: {
+            width: theme.spacing(80)
         },
         button: {
             marginRight: theme.spacing(1)
@@ -60,11 +66,6 @@ const useStyles = makeStyles((theme: Theme) =>
             color: 'white',
             padding: theme.spacing(2),
             cursor: 'pointer'
-        },
-        tagList: {
-            opacity: 0.99,
-            width: theme.spacing(40),
-            height: 'fit-content'
         }
     })
 );
@@ -91,7 +92,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
 
     const accordionList: IAccordion[] = [
         {summary: "Integrasjonslogikk", accordionForm: ACCORDION_FORM.CASE_INFORMATION, defaultExpanded: true},
-        {summary: "Sakspost", accordionForm: ACCORDION_FORM.CASE_FORM, defaultExpanded: false, hidden: watch("caseData.caseCreationStrategy") === CreationStrategy.COLLECTION},
+        {summary: "Sak", accordionForm: ACCORDION_FORM.CASE_FORM, defaultExpanded: false, hidden: watch("caseData.caseCreationStrategy") === CreationStrategy.COLLECTION},
         {summary: "Journalpost", accordionForm: ACCORDION_FORM.RECORD_FORM, defaultExpanded: false},
         {summary: "Dokument- og objektbeskrivelse", accordionForm: ACCORDION_FORM.DOCUMENT_FORM, defaultExpanded: false},
         {summary: "Avsender", accordionForm: ACCORDION_FORM.APPLICANT_FORM, defaultExpanded: false}
@@ -160,7 +161,9 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                                         validation={false}
                                     />
                                 )})}
-                            <Button type="submit" variant="contained">Lagre</Button>
+                            <div>
+                                <Button type="submit" variant="contained">Lagre</Button>
+                            </div>
                         </form>
                     </Box>
                     <Box className={classes.taglistContainer}>

@@ -12,7 +12,8 @@ export interface IInputField {
     hidden?: boolean;
     required?: boolean;
     error?: string;
-    setter?: (primary: IResourceItem) => void
+    helpText?: string;
+    setter?: (item: IResourceItem) => void
 }
 
 
