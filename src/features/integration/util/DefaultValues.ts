@@ -29,7 +29,7 @@ export const defaultValues: IFormData = {
     recordData: {
         title: '',
         publicTitle: '',
-        category: '',
+        type: '',
         administrativeUnit: '',
         recordStatus: '',
         accessCode: '',
@@ -158,7 +158,7 @@ export const fieldHelp = {
     recordData: {
         title: '',
         publicTitle: '',
-        category: '',
+        type: '',
         administrativeUnit: '',
         status: '',
         accessCode: '',

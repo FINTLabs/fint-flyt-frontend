@@ -25,7 +25,7 @@ export const MOCK_FORMDATA: IFormData = {
     recordData: {
         title: 'record title',
         publicTitle: 'public record title',
-        category: 'cat8',
+        type: 'cat8',
         administrativeUnit: 'unit33',
         recordStatus: 'N',
         accessCode: 'code89',
@@ -74,7 +74,7 @@ export const MOCK_FORMDATA_WITH_TAGS: IFormData = {
     recordData: {
         title: '{just} {tags}',
         publicTitle: '{singletag}',
-        category: 'cat8',
+        type: 'cat8',
         administrativeUnit: 'unit33',
         recordStatus: 'N',
         accessCode: 'code89',
