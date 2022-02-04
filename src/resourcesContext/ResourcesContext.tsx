@@ -1,43 +1,6 @@
 import React, { createContext, useState, FC } from "react";
-import {IResourceItem, ResourceContextState} from "./types";
+import {contextDefaultValues, IResourceItem, ResourceContextState} from "./types";
 import ResourceRepository from "../features/integration/repository/ResourceRepository";
-
-const contextDefaultValues: ResourceContextState = {
-    administrativeUnits: [],
-    accessCodes: [],
-    paragraphs: [],
-    statuses: [],
-    archiveSections: [],
-    archiveResources: [],
-    classificationSystems: [],
-    primaryClassification: {label: '', value: ''},
-    secondaryClassification: {label: '', value: ''},
-    tertiaryClassification: {label: '', value: ''},
-    primaryClass: [{label: 'velg primær ordningsprinsipp først', value: ''}],
-    secondaryClass: [{label: 'velg sekundær ordningsprinsipp først', value: ''}],
-    tertiaryClass: [{label: 'velg tertiær ordningsprinsipp først', value: ''}],
-    documentTypes: [],
-    recordStatuses: [],
-    documentStatuses: [],
-    variants: [],
-    getAllResources: () => {},
-    getAdministrativeUnits: () => {},
-    getAccessCodes: () => {},
-    getParagraphs: () => {},
-    getStatuses: () => {},
-    getArchiveSections: () => {},
-    getArchiveResources: () => {},
-    getClassificationSystems: () => {},
-    setPrimaryClassification: (primary: IResourceItem) => {},
-    setSecondaryClassification: (secondary: IResourceItem) => {},
-    setTertiaryClassification: (tertiary: IResourceItem) => {},
-    getPrimaryClass: () => {},
-    getSecondaryClass: () => {},
-    getDocumentTypes: () => {},
-    getRecordStatuses: () => {},
-    getDocumentStatuses: () => {},
-    getVariants: () => {}
-};
 
 export const ResourcesContext = createContext<ResourceContextState>(
     contextDefaultValues
