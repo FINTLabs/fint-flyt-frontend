@@ -10,12 +10,13 @@ import {
     SelectChangeEvent, CardContent, Divider
 } from "@mui/material";
 import * as React from "react";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import IntegrationRepository from "../../integration/repository/IntegrationRepository";
 import {useHistory} from "react-router-dom";
 import {toValueString} from "../../util/ValueBuilderUtil";
 import {toFormData} from "../../util/ToFormData";
 import {IIntegrationConfiguration} from "../../integration/types/IntegrationConfiguration";
+import {ResourcesContext} from "../../../resourcesContext";
 
 
 const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) => {
@@ -30,6 +31,11 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
     for (let i = 1; i<=initialVersion; i++) {
         versions.push({label: i, value: i})
     }
+    const { getAllResources } = useContext(ResourcesContext);
+
+    useEffect(()=> {
+        getAllResources();
+    }, [])
 
     useEffect(()=> {
         getConfiguration(version);
