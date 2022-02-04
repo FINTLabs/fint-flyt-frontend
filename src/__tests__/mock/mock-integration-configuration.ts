@@ -375,7 +375,8 @@ export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
                 }
             }
         ]
-    }
+    },
+    selectedForm: 'form3'
 }
 
 export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
@@ -685,5 +686,6 @@ export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
                 }
             }
         ]
-    }
+    },
+    selectedForm: 'form3'
 }

@@ -7,7 +7,7 @@ export function toFormData(data: IIntegrationConfiguration): IFormData {
         name: data.name,
         description: data.description,
         version: data.version,
-        selectedForm: 'form3', //TODO: lagre denne i config?
+        selectedForm: data.selectedForm,
         caseData: {
             caseCreationStrategy: data.caseConfiguration.caseCreationStrategy,
             caseNumber: data.caseConfiguration.caseNumber,
