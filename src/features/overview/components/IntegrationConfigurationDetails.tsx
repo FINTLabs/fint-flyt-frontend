@@ -19,7 +19,6 @@ import {ResourcesContext} from "../../../resourcesContext";
 
 
 const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) => {
-    console.log(props.initialConfiguration)
     let history = useHistory();
     const id = props.initialConfiguration.id;
     const initialVersion: number = props.initialConfiguration.version;
