@@ -14,7 +14,6 @@ import {useContext, useEffect, useState} from "react";
 import IntegrationRepository from "../../integration/repository/IntegrationRepository";
 import {useHistory} from "react-router-dom";
 import {toValueString} from "../../util/ValueBuilderUtil";
-import {toFormData} from "../../util/ToFormData";
 import {IIntegrationConfiguration} from "../../integration/types/IntegrationConfiguration";
 import {ResourcesContext} from "../../../resourcesContext";
 
@@ -45,11 +44,7 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
         IntegrationRepository.getByIdAndVersion(id, version)
             .then((response) => {
                 const configuration = response.data;
-                console.log('conf', configuration)
-                const formData2 = toFormData(configuration);
-                console.log(formData2)
                 setActiveConfiguration(configuration)
-
             })
             .catch(e => console.error('Error: ', e))
     }
