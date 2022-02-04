@@ -1,5 +1,5 @@
-import IFormData from "../types/Form/FormData";
-import {IIntegrationConfiguration} from "../types/IntegrationConfiguration";
+import IFormData from "../integration/types/Form/FormData";
+import {IIntegrationConfiguration} from "../integration/types/IntegrationConfiguration";
 import {fieldToString} from "./ValueBuilderUtil";
 
 export function toFormData(data: IIntegrationConfiguration): IFormData {

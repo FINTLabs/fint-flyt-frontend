@@ -4,7 +4,7 @@ import {
     MOCK_FORMDATA,
     MOCK_FORMDATA_WITH_TAGS
 } from "../mock/mock-integration-configuration";
-import {toFormData} from "../../features/integration/util/ToFormData";
+import {toFormData} from "../../features/util/ToFormData";
 
 test('It should map integration configuration to form data correctly', () => {
     const formData = toFormData(MOCK_INTEGRATION_CONFIG);

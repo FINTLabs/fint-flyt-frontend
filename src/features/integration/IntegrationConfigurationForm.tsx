@@ -6,8 +6,8 @@ import {Box, Button, Theme, Typography} from "@mui/material";
 import {createStyles, makeStyles} from "@mui/styles";
 import IFormData from "./types/Form/FormData";
 import IntegrationRepository from "./repository/IntegrationRepository";
-import {defaultValues} from "./util/DefaultValues";
-import {toIntegrationConfiguration} from "./util/ToIntegrationConfiguration";
+import {defaultValues} from "./defaults/DefaultValues";
+import {toIntegrationConfiguration} from "../util/ToIntegrationConfiguration";
 import AccordionForm from "./components/AccordionForm";
 import {ACCORDION_FORM, IAccordion} from "./types/Accordion";
 import TagList from "./components/TagList";
@@ -15,7 +15,7 @@ import {HTML5Backend} from "react-dnd-html5-backend";
 import {DndProvider} from "react-dnd";
 import {IIntegrationConfiguration} from "./types/IntegrationConfiguration";
 import {CreationStrategy} from "./types/CreationStrategy";
-import {toFormData} from "./util/ToFormData";
+import {toFormData} from "../util/ToFormData";
 import {ResourcesContext} from "../../resourcesContext";
 
 const useStyles = makeStyles((theme: Theme) =>

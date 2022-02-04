@@ -13,8 +13,8 @@ import * as React from "react";
 import {useEffect, useState} from "react";
 import IntegrationRepository from "../../integration/repository/IntegrationRepository";
 import {useHistory} from "react-router-dom";
-import {toValueString} from "../../integration/util/ValueBuilderUtil";
-import {toFormData} from "../../integration/util/ToFormData";
+import {toValueString} from "../../util/ValueBuilderUtil";
+import {toFormData} from "../../util/ToFormData";
 import {IIntegrationConfiguration} from "../../integration/types/IntegrationConfiguration";
 
 

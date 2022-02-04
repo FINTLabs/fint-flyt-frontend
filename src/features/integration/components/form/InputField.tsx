@@ -12,7 +12,7 @@ import {INPUT_TYPE} from "../../types/InputType.enum";
 import {ISelect} from "../../types/InputField";
 import {TextFieldWithDropZone} from "../dnd/TextFieldWithDropZone";
 import {makeStyles} from "@mui/styles";
-import {dropdownPlaceholder} from "../../util/DefaultValues";
+import {dropdownPlaceholder} from "../../defaults/DefaultValues";
 
 const useStyles = makeStyles(theme => ({
     dropdownPopover: {

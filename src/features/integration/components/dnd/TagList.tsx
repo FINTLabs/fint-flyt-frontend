@@ -1,6 +1,6 @@
 import {Box, Typography} from "@mui/material";
 import {Tag} from "./Tag";
-import {TaglistPopoverContent, tagList} from "../../util/DefaultValues";
+import {TaglistPopoverContent, tagList} from "../../defaults/DefaultValues";
 import * as React from "react";
 import HelpPopover from "../popover/HelpPopover";
 

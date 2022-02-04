@@ -1,6 +1,6 @@
 import {Box, Divider, FormGroup, Typography} from '@mui/material';
 import React, {useContext, useEffect} from 'react';
-import {dropdownPlaceholder, fieldHelp} from "../../util/DefaultValues";
+import {dropdownPlaceholder, fieldHelp} from "../../defaults/DefaultValues";
 import {IInputField} from "../../types/InputField";
 import {INPUT_TYPE} from "../../types/InputType.enum";
 import InputField from "./InputField";
