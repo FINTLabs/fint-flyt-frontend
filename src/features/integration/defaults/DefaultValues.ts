@@ -133,7 +133,7 @@ export const fieldHelp = {
             '  (Se Noark))',
         publicTitle: 'Se Noark (Del av tittel som skal skjermes)',
         status: '-',
-        caseType: '',
+        caseType: 'Eksempel: Kompetanse, personal, rekrutering etc.',
         administrativeUnit:'Avdeling eller enhet som skal behandle saken.',
         archiveUnit:'Eksempel: kompetanse, sakarkiv, personal',
         recordUnit: 'Navnet på journalførende enhet.\n' +

@@ -101,6 +101,7 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
                         <Typography><strong>Id: </strong>{activeConfiguration.id}</Typography>
                         <Typography><strong>Navn: </strong>{activeConfiguration.name}</Typography>
                         <Typography><strong>Beskrivelse: </strong>{activeConfiguration.description}</Typography>
+                        <Typography><strong>Skjema: </strong>{activeConfiguration.selectedForm}</Typography>
                         <Typography><strong>Integrasjonslogikk: </strong>{activeConfiguration.caseConfiguration.caseCreationStrategy}</Typography>
                         <Typography><strong>Versjon: </strong>{activeConfiguration.version}</Typography>
                     </CardContent>
