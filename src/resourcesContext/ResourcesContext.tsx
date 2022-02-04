@@ -14,6 +14,7 @@ const ResourcesProvider: FC = ({ children }) => {
     const [archiveSection, setArchiveSection] = useState<IResourceItem[]>(contextDefaultValues.archiveSections);
     const [archiveResources, setArchiveResources] = useState<IResourceItem[]>(contextDefaultValues.archiveResources);
     const [accessCodes, setAccessCodes] = useState<IResourceItem[]>(contextDefaultValues.accessCodes);
+    const [accessCode, setAccessCode] = useState<IResourceItem[]>(contextDefaultValues.accessCodes);
     const [paragraphs, setParagraph] = useState<IResourceItem[]>(contextDefaultValues.paragraphs);
     const [documentStatuses, setDocumentStatuses] = useState<IResourceItem[]>(contextDefaultValues.documentStatuses);
     const [recordStatuses, setRecordStatuses] = useState<IResourceItem[]>(contextDefaultValues.recordStatuses);
@@ -267,7 +268,7 @@ const ResourcesProvider: FC = ({ children }) => {
                 secondaryClass,
                 tertiaryClass,
                 documentTypes,
-                recordStatuses: recordStatuses,
+                recordStatuses,
                 documentStatuses,
                 variants,
                 getAdministrativeUnits,
