@@ -1,14 +1,4 @@
-import {
-    Box,
-    Card,
-    Typography,
-    Button,
-    MenuItem,
-    FormControl,
-    Select,
-    InputLabel,
-    SelectChangeEvent, CardContent, Divider
-} from "@mui/material";
+import {Box, Card, Typography, Button, MenuItem, FormControl, Select, InputLabel, SelectChangeEvent, CardContent, Divider} from "@mui/material";
 import * as React from "react";
 import {useContext, useEffect, useState} from "react";
 import IntegrationRepository from "../../integration/repository/IntegrationRepository";
@@ -80,7 +70,7 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
     return (
         <>
             {!updateSuccess &&
-            <Box width={750}>
+            <Box width={950}>
                 <Card sx={{mb: 4}}>
                     <FormControl size='small' sx={{float: 'right', width: 300, m: 2}}>
                         <InputLabel id="version-select-input-label">Versjon</InputLabel>
