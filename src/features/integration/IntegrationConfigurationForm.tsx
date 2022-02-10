@@ -1,7 +1,7 @@
 import * as React from "react";
 import {useContext, useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
-import {Link as RouterLink, RouteComponentProps, useLocation, withRouter} from "react-router-dom";
+import {Link as RouterLink, RouteComponentProps, useHistory, withRouter} from "react-router-dom";
 import {Box, Button, Theme, Typography} from "@mui/material";
 import {createStyles, makeStyles} from "@mui/styles";
 import IFormData from "./types/Form/FormData";
@@ -17,6 +17,7 @@ import {IIntegrationConfiguration} from "./types/IntegrationConfiguration";
 import {CreationStrategy} from "./types/CreationStrategy";
 import {toFormData} from "../util/ToFormData";
 import {ResourcesContext} from "../../resourcesContext";
+import {IntegrationContext} from "../../integrationContext";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -72,10 +73,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const classes = useStyles();
-    const location = useLocation();
+    let history = useHistory();
+    const editConfig: boolean = window.location.pathname === '/integration/configuration/edit'
     const [submitSuccess, setSubmitSuccess] = useState(false)
-    let activeConfiguration = location.state ? location.state as IIntegrationConfiguration : undefined;
-    let activeFormData = location.state ? toFormData(location.state as IIntegrationConfiguration) : defaultValues;
+    const { integration, setIntegration } = useContext(IntegrationContext)
+    let activeConfiguration = integration.id && editConfig ? integration : undefined;
+    let activeFormData = integration.id && editConfig ? toFormData(integration) : defaultValues;
 
     const {handleSubmit, watch, setValue, control, reset, formState} = useForm<IFormData>({
         defaultValues: activeFormData,
@@ -84,7 +87,6 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     const { errors } = formState;
 
     const { getAllResources } = useContext(ResourcesContext);
-
     useEffect(()=> {
         getAllResources();
     }, [])
@@ -118,6 +120,13 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
             .catch((e: Error) => {
                 console.log('error updating configuration', e);
             });
+    }
+
+    function handleCancel() {
+        history.push({
+            pathname: '/',
+        })
+        setIntegration({});
     }
 
     const onSubmit = handleSubmit((data: IFormData) => {
@@ -161,8 +170,9 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                                         validation={false}
                                     />
                                 )})}
-                            <div>
-                                <Button type="submit" variant="contained">Lagre</Button>
+                            <div >
+                                <Button onClick={handleCancel} variant="contained">Avbryt</Button>
+                                <Button sx={{float: 'right'}}  type="submit" variant="contained">Publiser</Button>
                             </div>
                         </form>
                     </Box>

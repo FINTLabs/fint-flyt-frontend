@@ -9,8 +9,8 @@ export function toFormData(data: IIntegrationConfiguration): IFormData {
         version: data.version,
         selectedForm: 'form3', //TODO: lagre denne i config?
         caseData: {
-            caseCreationStrategy: data.caseConfiguration.caseCreationStrategy,
-            caseNumber: data.caseConfiguration.caseNumber,
+            caseCreationStrategy: data.caseConfiguration?.caseCreationStrategy,
+            caseNumber: data.caseConfiguration?.caseNumber,
             title: fieldToString(data.caseConfiguration, 'tittel', true),
             publicTitle: fieldToString(data.caseConfiguration, 'offentligTittel', true),
             caseType: fieldToString(data.caseConfiguration, 'caseType'),
@@ -43,8 +43,8 @@ export function toFormData(data: IIntegrationConfiguration): IFormData {
             variant: fieldToString(data.documentConfiguration, 'DokumentBeskrivelse.dokumentObjekt.variantFormat'),
         },
         applicantData: {
-            type: data.applicantConfiguration.organisationNumber ? 'ORGANISATION' : 'PERSON',
-            organisationNumber: data.applicantConfiguration.organisationNumber,
+            type: data.applicantConfiguration?.organisationNumber ? 'ORGANISATION' : 'PERSON',
+            organisationNumber: data.applicantConfiguration?.organisationNumber,
             name: fieldToString(data.applicantConfiguration, 'KorrespondansepartNavn', true),
             address: fieldToString(data.applicantConfiguration, 'Adresse.adresselinje', true),
             postalCode: fieldToString(data.applicantConfiguration, 'Adresse.postnummer', true),

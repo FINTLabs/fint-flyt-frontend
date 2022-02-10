@@ -21,11 +21,11 @@ export interface IIntegrationConfiguration {
     id?: string;
     name?: string,
     description?: string,
-    version?: string,
+    version?: number,
     selectedForm?: string;
 
-    caseConfiguration:ICaseConfiguration;
-    recordConfiguration: IRecordConfiguration;
-    documentConfiguration: IDocumentConfiguration;
-    applicantConfiguration: IApplicantConfiguration;
+    caseConfiguration?:ICaseConfiguration;
+    recordConfiguration?: IRecordConfiguration;
+    documentConfiguration?: IDocumentConfiguration;
+    applicantConfiguration?: IApplicantConfiguration;
 }

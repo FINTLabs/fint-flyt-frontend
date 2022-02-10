@@ -37,6 +37,12 @@ const routes: IRoute[] = [
         inNavigationMenu: true
     },
     {
+        path: '/overview/details',
+        name: 'Detaljer',
+        component: Overview,
+        exact: true,
+    },
+    {
         path: '/log',
         name: 'Logg',
         component: Log,
