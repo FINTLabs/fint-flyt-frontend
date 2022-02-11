@@ -14,9 +14,10 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
     const [activeConfiguration, setActiveConfiguration] = useState<IIntegrationConfiguration>(props.initialConfiguration)
     const [updateSuccess, setUpdateSuccess] = useState(false)
     const [version, setVersion] = useState(props.initialConfiguration.version)
+    const latestVersion = props.initialConfiguration.version;
     const {integration, setIntegration} = useContext(IntegrationContext);
     const versions = [];
-    for (let i = 1; i<=props.initialVersion; i++) {
+    for (let i = 1; i<=latestVersion; i++) {
         versions.push({label: i, value: i})
     }
     const { getAllResources } = useContext(ResourcesContext);
@@ -30,7 +31,6 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
     }, [version, setVersion])
 
     const getConfiguration = (version: any) => {
-        console.log(integration.id)
         IntegrationRepository.getByIdAndVersion(integration.id, version)
             .then((response) => {
                 const configuration = response.data;
