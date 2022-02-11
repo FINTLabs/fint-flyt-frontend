@@ -28,7 +28,6 @@ const Overview: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const classes = useStyles();
     const showDetails: boolean = window.location.pathname === '/overview/details'
     const [configurations, getConfigurations] = useState<IRow[]>([]);
-    const [version, setVersion] = useState();
     const {integration, setIntegration} = useContext(IntegrationContext)
 
     useEffect(()=> {
@@ -59,14 +58,12 @@ const Overview: React.FunctionComponent<RouteComponentProps<any>> = () => {
             {integration.id && showDetails ?
                 <IntegrationConfigurationDetails
                     reset={resetConfiguration}
-                    initialVersion={version}
                     initialConfiguration={integration}
                 /> :
                 <IntegrationConfigurationTable
                     classes={classes}
                     configurations={configurations}
                     setIntegration={setIntegration}
-                    setVersion={setVersion}
                 />
             }
         </>
