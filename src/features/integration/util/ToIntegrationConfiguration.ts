@@ -10,7 +10,9 @@ export function toIntegrationConfiguration(data: IFormData, id?: string): IInteg
         id: id,
         name: data.name,
         description: data.description,
-        selectedForm: data.selectedForm,
+        sourceApplication: data.sourceApplication,
+        sourceApplicationIntegrationId: data.sourceApplicationIntegrationId,
+        orgId: data.orgId,
         caseConfiguration: collectionStrategy ?
             {
                 caseCreationStrategy: data.caseData?.caseCreationStrategy,
@@ -188,13 +190,6 @@ export function toIntegrationConfiguration(data: IFormData, id?: string): IInteg
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
                     valueBuilder: {
                         value: data.documentData?.variant
-                    }
-                },
-                {
-                    field: "DokumentBeskrivelse.dokumentObjekt.filformat",
-                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                    valueBuilder: {
-                        value: data.documentData?.format
                     }
                 }
             ]

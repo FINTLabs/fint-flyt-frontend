@@ -7,7 +7,9 @@ export default interface IFormData {
     name?: string;
     description?: string;
     version?: string;
-    selectedForm?: string;
+    sourceApplication?: string;
+    sourceApplicationIntegrationId?: string;
+    orgId?: string;
 
     caseData?: ICaseData;
     recordData?: IRecordData;

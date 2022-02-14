@@ -7,7 +7,7 @@ export const defaultValues: IFormData = {
     name: '',
     description: '',
     version: '',
-    selectedForm: '',
+    sourceApplicationIntegrationId: '',
     caseData: {
         caseCreationStrategy: CreationStrategy.NEW,
         caseNumber: '',

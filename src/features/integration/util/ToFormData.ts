@@ -6,8 +6,10 @@ export function toFormData(data: IIntegrationConfiguration): IFormData {
     return {
         name: data.name,
         description: data.description,
+        sourceApplication: data.sourceApplication,
+        sourceApplicationIntegrationId: data.sourceApplicationIntegrationId,
+        orgId: data.orgId,
         version: data.version,
-        selectedForm: data.selectedForm,
         caseData: {
             caseCreationStrategy: data.caseConfiguration.caseCreationStrategy,
             caseNumber: data.caseConfiguration.caseNumber,

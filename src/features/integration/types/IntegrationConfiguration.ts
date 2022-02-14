@@ -19,10 +19,12 @@ export interface IApplicantConfiguration {
 
 export interface IIntegrationConfiguration {
     id?: string;
-    name?: string,
-    description?: string,
-    version?: string,
-    selectedForm?: string;
+    name?: string;
+    description?: string;
+    version?: string;
+    sourceApplication?: string;
+    sourceApplicationIntegrationId?: string;
+    orgId?: string;
 
     caseConfiguration:ICaseConfiguration;
     recordConfiguration: IRecordConfiguration;

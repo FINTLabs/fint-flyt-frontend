@@ -5,7 +5,7 @@ import {CreationStrategy} from "../../features/integration/types/CreationStrateg
 export const MOCK_FORMDATA: IFormData = {
     name: 'testform',
     description: 'form to test mapping',
-    selectedForm: 'form3',
+    sourceApplicationIntegrationId: 'form3',
     caseData: {
         caseCreationStrategy: CreationStrategy.NEW,
         title: 'Title of case',
@@ -55,7 +55,7 @@ export const MOCK_FORMDATA: IFormData = {
 export const MOCK_FORMDATA_WITH_TAGS: IFormData = {
     name: 'testform with tags',
     description: 'form to test mapping with form tags',
-    selectedForm: 'form3',
+    sourceApplicationIntegrationId: 'form3',
     caseData: {
         caseCreationStrategy: CreationStrategy.NEW,
         title: 'Title of case with {tags}',
@@ -376,7 +376,7 @@ export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
             }
         ]
     },
-    selectedForm: 'form3'
+    sourceApplicationIntegrationId: 'form3'
 }
 
 export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
@@ -687,5 +687,5 @@ export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
             }
         ]
     },
-    selectedForm: 'form3'
+    sourceApplicationIntegrationId: 'form3'
 }
