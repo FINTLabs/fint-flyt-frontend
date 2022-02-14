@@ -32,9 +32,7 @@ const ResourcesProvider: FC = ({ children }) => {
         let list: IResourceItem[] = [];
         ResourceRepository.getAdministrativeUnits()
             .then(response => {
-                response.data.map((resource: any) => {
-                    list.push({label: resource.displayName, value: resource.id})
-                })
+                response.data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
                 setAdministrativeUnits(list)
             })
             .catch((err) => {
@@ -46,9 +44,7 @@ const ResourcesProvider: FC = ({ children }) => {
         let list: IResourceItem[] = [];
         ResourceRepository.getAccessCodes()
             .then(response => {
-                response.data.map((resource: any) => {
-                    list.push({label: resource.displayName, value: resource.id})
-                })
+                response.data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
                 setAccessCodes(list)
             })
             .catch((err) => {
@@ -60,9 +56,7 @@ const ResourcesProvider: FC = ({ children }) => {
         let list: IResourceItem[] = [];
         ResourceRepository.getParagraphs()
             .then(response => {
-                response.data.map((resource: any) => {
-                    list.push({label: resource.displayName, value: resource.id})
-                })
+                response.data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
                 setParagraph(list)
             })
             .catch((err) => {
@@ -74,9 +68,7 @@ const ResourcesProvider: FC = ({ children }) => {
         let list: IResourceItem[] = [];
         ResourceRepository.getStatuses()
             .then(response => {
-                response.data.map((resource: any) => {
-                    list.push({label: resource.displayName, value: resource.id})
-                })
+                response.data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
                 setStatuses(list)
             })
             .catch((err) => {
@@ -88,9 +80,7 @@ const ResourcesProvider: FC = ({ children }) => {
         let list: IResourceItem[] = [];
         ResourceRepository.getArchiveSections()
             .then(response => {
-                response.data.map((resource: any) => {
-                    list.push({label: resource.displayName, value: resource.id})
-                })
+                response.data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
                 setArchiveSections(list)
             })
             .catch((err) => {
@@ -102,9 +92,7 @@ const ResourcesProvider: FC = ({ children }) => {
         let list: IResourceItem[] = [];
         ResourceRepository.getArchiveResources()
             .then(response => {
-                response.data.map((resource: any) => {
-                    list.push({label: resource.displayName, value: resource.id})
-                })
+                response.data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
                 setArchiveResources(list)
             })
             .catch((err) => {
@@ -116,9 +104,7 @@ const ResourcesProvider: FC = ({ children }) => {
         let list: IResourceItem[] = [];
         ResourceRepository.getClassificationSystems()
             .then(response => {
-                response.data.map((resource: any) => {
-                    list.push({label: resource.displayName, value: resource.id})
-                })
+                response.data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
                 setClassificationSystems(list)
             })
             .catch((err) => {
@@ -131,9 +117,7 @@ const ResourcesProvider: FC = ({ children }) => {
         if(primaryClassification.value !== '') {
             ResourceRepository.getClasses(primaryClassification.value)
                 .then(response => {
-                    response.data.map((resource: any) => {
-                        list.push({label: resource.displayName, value: resource.id})
-                    })
+                    response.data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
                     setPrimaryClass(list)
                 })
                 .catch((err) => {
@@ -147,9 +131,7 @@ const ResourcesProvider: FC = ({ children }) => {
         if(secondaryClassification.value !== '') {
             ResourceRepository.getClasses(secondaryClassification.value)
                 .then(response => {
-                    response.data.map((resource: any) => {
-                        list.push({label: resource.displayName, value: resource.id})
-                    })
+                    response.data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
                     setSecondaryClass(list)
                 })
                 .catch((err) => {
@@ -164,9 +146,7 @@ const ResourcesProvider: FC = ({ children }) => {
         if(tertiaryClassification.value !== '') {
             ResourceRepository.getClasses(tertiaryClassification.value)
                 .then(response => {
-                    response.data.map((resource: any) => {
-                        list.push({label: resource.displayName, value: resource.id})
-                    })
+                    response.data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
                     setTertiaryClass(list)
                 })
                 .catch((err) => {
@@ -180,9 +160,7 @@ const ResourcesProvider: FC = ({ children }) => {
         let list: IResourceItem[] = [];
         ResourceRepository.getDocumentTypes()
             .then(response => {
-                response.data.map((resource: any) => {
-                    list.push({label: resource.displayName, value: resource.id})
-                })
+                response.data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
                 setDocumentTypes(list)
             })
             .catch((err) => {
@@ -194,9 +172,7 @@ const ResourcesProvider: FC = ({ children }) => {
         let list: IResourceItem[] = [];
         ResourceRepository.getRecordStatuses()
             .then(response => {
-                response.data.map((resource: any) => {
-                    list.push({label: resource.displayName, value: resource.id})
-                })
+                response.data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
                 setRecordStatuses(list)
             })
             .catch((err) => {
@@ -208,9 +184,7 @@ const ResourcesProvider: FC = ({ children }) => {
         let list: IResourceItem[] = [];
         ResourceRepository.getDocumentStatuses()
             .then(response => {
-                response.data.map((resource: any) => {
-                    list.push({label: resource.displayName, value: resource.id})
-                })
+                response.data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
                 setDocumentStatuses(list)
             })
             .catch((err) => {
@@ -222,9 +196,7 @@ const ResourcesProvider: FC = ({ children }) => {
         let list: IResourceItem[] = [];
         ResourceRepository.getVariants()
             .then(response => {
-                response.data.map((resource: any) => {
-                    list.push({label: resource.displayName, value: resource.id})
-                })
+                response.data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
                 setVariants(list)
             })
             .catch((err) => {
