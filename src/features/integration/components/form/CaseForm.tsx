@@ -11,7 +11,13 @@ import HelpPopover from "../popover/HelpPopover";
 const CaseForm: React.FunctionComponent<any> = (props) => {
     const {administrativeUnits, accessCodes, paragraphs, statuses, archiveSections, archiveResources,
         classificationSystems, primaryClassification, secondaryClassification, primaryClass, secondaryClass,
-        getPrimaryClass, getSecondaryClass, setPrimaryClassification, setSecondaryClassification } = useContext(ResourcesContext);
+        resetAllResources, getPrimaryClass, getSecondaryClass, setPrimaryClassification, setSecondaryClassification } = useContext(ResourcesContext);
+
+    useEffect(() => {
+        if(!props.editConfig) {
+            resetAllResources();
+        }
+    }, [])
 
     useEffect(()=> {
         getPrimaryClass();
@@ -21,9 +27,9 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
         getSecondaryClass();
     }, [secondaryClassification, setSecondaryClassification])
 
-
     let errors: FieldErrors = props.errors;
     let required: boolean = props.validation;
+
     const caseFormFields: IInputField[] = [
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "Tittel", formValue: "caseData.title", required: required, error:errors.caseData?.title, value: props.activeFormData?.caseData?.title, helpText: fieldHelp.caseData.title},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "Offentlig tittel", formValue: "caseData.publicTitle", required: required, error:errors.caseData?.publicTitle, value: props.activeFormData?.caseData?.publicTitle, helpText: fieldHelp.caseData.publicTitle},

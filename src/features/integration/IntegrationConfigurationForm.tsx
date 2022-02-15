@@ -91,7 +91,6 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
         getAllResources();
     }, [])
 
-
     const accordionList: IAccordion[] = [
         {summary: "Integrasjonslogikk", accordionForm: ACCORDION_FORM.CASE_INFORMATION, defaultExpanded: true},
         {summary: "Sak", accordionForm: ACCORDION_FORM.CASE_FORM, defaultExpanded: false, hidden: watch("caseData.caseCreationStrategy") === CreationStrategy.COLLECTION},
@@ -168,6 +167,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                                         setValue={setValue}
                                         errors={errors}
                                         validation={false}
+                                        editConfig={editConfig}
                                     />
                                 )})}
                             <div >

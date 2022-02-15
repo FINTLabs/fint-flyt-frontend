@@ -26,6 +26,7 @@ export type ResourceContextState = {
     variants: IResourceItem[];
 
     getAllResources: () => void;
+    resetAllResources: () => void;
 
     getAdministrativeUnits: () => void;
     getAccessCodes: () => void;
@@ -68,6 +69,7 @@ export const contextDefaultValues: ResourceContextState = {
     documentStatuses: [],
     variants: [],
     getAllResources: () => {},
+    resetAllResources: () => {},
     getAdministrativeUnits: () => {},
     getAccessCodes: () => {},
     getParagraphs: () => {},
