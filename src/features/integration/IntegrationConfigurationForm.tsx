@@ -86,9 +86,12 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     });
     const { errors } = formState;
 
-    const { getAllResources } = useContext(ResourcesContext);
+    const { getAllResources, resetAllResources } = useContext(ResourcesContext);
     useEffect(()=> {
         getAllResources();
+        return () => {
+            resetAllResources()
+        };
     }, [])
 
     const accordionList: IAccordion[] = [
@@ -103,6 +106,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
         IntegrationRepository.create(data)
             .then(response => {
                 console.log('created new configuraton', data, response);
+                resetAllResources();
                 setSubmitSuccess(response.status === 201);
             })
             .catch((e: Error) => {
@@ -114,6 +118,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
         IntegrationRepository.update(id, data)
             .then(response => {
                 console.log('updated configuraton: ', id,  data, response);
+                resetAllResources();
                 setSubmitSuccess(response.status === 200);
             })
             .catch((e: Error) => {

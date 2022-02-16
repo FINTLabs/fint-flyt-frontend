@@ -10,14 +10,7 @@ import HelpPopover from "../popover/HelpPopover";
 
 const CaseForm: React.FunctionComponent<any> = (props) => {
     const {administrativeUnits, accessCodes, paragraphs, statuses, archiveSections, archiveResources,
-        classificationSystems, primaryClassification, secondaryClassification, primaryClass, secondaryClass,
-        resetAllResources, getPrimaryClass, getSecondaryClass, setPrimaryClassification, setSecondaryClassification } = useContext(ResourcesContext);
-
-    useEffect(() => {
-        if(!props.editConfig) {
-            resetAllResources();
-        }
-    }, [])
+        classificationSystems, primaryClassification, secondaryClassification, primaryClass, secondaryClass, getPrimaryClass, getSecondaryClass, setPrimaryClassification, setSecondaryClassification } = useContext(ResourcesContext);
 
     useEffect(()=> {
         getPrimaryClass();
