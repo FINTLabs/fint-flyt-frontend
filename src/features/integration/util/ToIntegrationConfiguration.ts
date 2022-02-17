@@ -7,7 +7,7 @@ import {CreationStrategy} from "../types/CreationStrategy";
 export function toIntegrationConfiguration(data: IFormData, id?: string): IIntegrationConfiguration {
     const collectionStrategy: boolean = data.caseData?.caseCreationStrategy === CreationStrategy.COLLECTION
     return {
-        id: id,
+        integrationId: id,
         name: data.name,
         description: data.description,
         sourceApplication: data.sourceApplication,

@@ -112,9 +112,9 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     }
 
     const onSubmit = handleSubmit((data: IFormData) => {
-        if (data && activeConfiguration?.id !== undefined) {
-            const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data, activeConfiguration.id);
-            updateConfiguration(activeConfiguration.id, integrationConfiguration)
+        if (data && activeConfiguration?.integrationId !== undefined) {
+            const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data, activeConfiguration.integrationId);
+            updateConfiguration(activeConfiguration.integrationId, integrationConfiguration)
             reset({ ...defaultValues })
         }
         else if(data) {

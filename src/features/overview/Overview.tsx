@@ -31,11 +31,13 @@ const Overview: React.FunctionComponent<RouteComponentProps<any>> = () => {
 
     useEffect(()=> {
         getAllConfigurations();
+        console.log(configurations)
     }, [])
 
     const getAllConfigurations = () => {
         IntegrationRepository.get()
             .then((response) => {
+                console.log(response.data.content)
                 const allConfigurations = response.data.content;
                 getConfigurations(allConfigurations)
 

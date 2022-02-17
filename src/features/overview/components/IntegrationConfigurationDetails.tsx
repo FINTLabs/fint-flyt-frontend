@@ -19,7 +19,7 @@ import {IIntegrationConfiguration} from "../../integration/types/IntegrationConf
 
 const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) => {
     let history = useHistory();
-    const id = props.initialConfiguration.id;
+    const id = props.initialConfiguration.integrationId;
     const initialVersion: number = props.initialConfiguration.version;
     const [activeConfiguration, setActiveConfiguration] = useState<IIntegrationConfiguration>(props.initialConfiguration)
     const [updateSuccess, setUpdateSuccess] = useState(false)
@@ -66,8 +66,8 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
     }
 
     function handleVersionChange() {
-        if(activeConfiguration.id) {
-            updateConfiguration(activeConfiguration.id, activeConfiguration);
+        if(activeConfiguration.integrationId) {
+            updateConfiguration(activeConfiguration.integrationId, activeConfiguration);
         }
     }
 
@@ -92,9 +92,12 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
                         {version !== initialVersion && <Button onClick={handleVersionChange}>Bruk denne versjonen</Button>}
                     </FormControl>
                     <CardContent>
-                        <Typography><strong>Id: </strong>{activeConfiguration.id}</Typography>
+                        <Typography><strong>Id: </strong>{activeConfiguration.integrationId}</Typography>
                         <Typography><strong>Navn: </strong>{activeConfiguration.name}</Typography>
                         <Typography><strong>Beskrivelse: </strong>{activeConfiguration.description}</Typography>
+                        <Typography><strong>Skjemaleverandør: </strong>{activeConfiguration.sourceApplication}</Typography>
+                        <Typography><strong>Skjema: </strong>{activeConfiguration.sourceApplicationIntegrationId}</Typography>
+                        <Typography><strong>OrgId: </strong>{activeConfiguration.orgId}</Typography>
                         <Typography><strong>Integrasjonslogikk: </strong>{activeConfiguration.caseConfiguration.caseCreationStrategy}</Typography>
                         <Typography><strong>Versjon: </strong>{activeConfiguration.version}</Typography>
                     </CardContent>
