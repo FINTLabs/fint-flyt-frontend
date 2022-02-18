@@ -68,7 +68,7 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
                 }
             )}
             {isCollection && <Button onClick={handleClick} variant="outlined" sx={{width: 20}}>Søk</Button>}
-            {_case ? <Typography>{_case}</Typography> : ''}
+            {isCollection && _case ? <Typography>{_case}</Typography> : ''}
         </FormGroup>
     );
 }
