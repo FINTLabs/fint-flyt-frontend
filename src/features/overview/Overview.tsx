@@ -44,7 +44,7 @@ const Overview: React.FunctionComponent<RouteComponentProps<any>> = () => {
             .catch(e => console.error('Error: ', e))
     }
 
-    function resetConfiguration() {
+    const resetConfiguration = () => {
         setIntegration({})
         getAllConfigurations();
     }

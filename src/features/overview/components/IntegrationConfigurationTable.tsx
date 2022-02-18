@@ -16,7 +16,7 @@ const IntegrationConfigurationTable: React.FunctionComponent<any> = (props) => {
         { field: 'version', headerName: 'Versjon', width: 150 }
     ];
 
-    function setHistory() {
+    const setHistory = () => {
         history.push({
             pathname: '/overview/details',
         })

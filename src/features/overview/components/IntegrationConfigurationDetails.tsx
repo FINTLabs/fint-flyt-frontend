@@ -55,14 +55,14 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
         setVersion(event.target.value);
     };
 
-    function handleEdit() {
+    const handleEdit = () => {
         history.push({
             pathname: '/integration/configuration/edit',
         })
         setIntegration(activeConfiguration);
     }
 
-    function handleVersionChange() {
+    const handleVersionChange = () => {
         console.log(activeConfiguration.version)
         if(activeConfiguration.id) {
             updateConfiguration(activeConfiguration.id, activeConfiguration);

@@ -126,7 +126,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
             });
     }
 
-    function handleCancel() {
+    const handleCancel = () => {
         history.push({
             pathname: '/',
         })
