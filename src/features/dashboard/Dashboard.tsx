@@ -1,4 +1,4 @@
-import {Box, Button, Card, CardActions, CardContent, TextField, Theme, Typography} from '@mui/material';
+import {Box, Button, Card, CardActions, CardContent, FormControl, TextField, Theme, Typography} from '@mui/material';
 import React from 'react';
 import { RouteComponentProps, withRouter, Link as RouterLink } from 'react-router-dom';
 import {createStyles, makeStyles} from "@mui/styles";
@@ -17,53 +17,51 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const classes = useStyles();
     const [_case, setCase] = React.useState('');
     const [status, setStatus] = React.useState('');
-    const [caseYear, setCaseYear] = React.useState('');
-    const [caseNumber, setCaseNumber] = React.useState('');
-    let res: any;
-    const handleYearChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setCaseYear(event.target.value);
+    const [caseInput, setCaseInput] = React.useState('');
+    const [helperText, setHelperText] = React.useState('');
+    const handleCaseInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setCaseInput(event.target.value);
     };
-    const handleNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setCaseNumber(event.target.value);
-    };
+    let caseInputPattern = /^((19|20)\d{2})\/([0-9]{1,6})/g;
+
 
     function handleClick() {
-        IntegrationRepository.getSak(caseYear, caseNumber)
-            .then((response) => {
-                res = response;
-                setCase(response.data)
-                setStatus(', status ' + response.statusText)
-                console.log(response)
-            })
-            .catch(e => {
-                console.error('Error: ', e)
-                setCase('Ikke funnet');
-                setStatus('404')
-            }
-        )
+        if(caseInputPattern.test(caseInput)) {
+            setHelperText('');
+            let caseId = caseInput.split('/')
+            IntegrationRepository.getSak(caseId[0], caseId[1])
+                .then((response) => {
+                    setCase(response.data)
+                    setStatus(', status ' + response.statusText)
+                    console.log(response)
+                })
+                .catch(e => {
+                        console.error('Error: ', e)
+                        setCase('Ikke funnet');
+                        setStatus('404')
+                    }
+                )
+        } else setHelperText('Saksnummer må være på formatet 2021/03')
     }
+
 
     return (
         <Box flexDirection={"row"} position="relative" width={1} height={1}>
             <Box
                 component="form"
                 sx={{'& > :not(style)': { m: 1, width: '25ch' }}}
-                noValidate
                 autoComplete="off"
             >
-                <TextField
-                    id="outlined-name"
-                    label="Year"
-                    value={caseYear}
-                    onChange={handleYearChange}
-                />
-                <TextField
-                    id="outlined-name"
-                    label="Casenumber"
-                    value={caseNumber}
-                    onChange={handleNumberChange}
-                />
-                <Button onClick={handleClick}>Click</Button>
+                <FormControl>
+                    <TextField
+                        id="outlined-name"
+                        label="Saksnummer"
+                        value={caseInput}
+                        onChange={handleCaseInputChange}
+                        helperText={helperText}
+                    />
+                    <Button onClick={handleClick}>Click</Button>
+                </FormControl>
                 {_case} {status}
             </Box>
             <Box display="flex" sx={{mt: 5}}>

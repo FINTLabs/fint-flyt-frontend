@@ -11,6 +11,7 @@ export interface IInputField {
     hidden?: boolean;
     required?: boolean;
     error?: string;
+    rules?: string;
 }
 
 export interface ISelect {
