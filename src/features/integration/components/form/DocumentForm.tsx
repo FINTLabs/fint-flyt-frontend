@@ -14,8 +14,7 @@ const DocumentForm: React.FunctionComponent<any> = (props) => {
         {input: INPUT_TYPE.DROPDOWN, label: "Status", value: props.watch("documentData.documentStatus"), formValue: "documentData.documentStatus", dropDownItems: dropdownPlaceholder, required: required, error:errors.documentData?.documentStatus},
         {input: INPUT_TYPE.DROPDOWN, label: "Tilgangskode", value: props.watch("documentData.accessCode"), formValue: "documentData.accessCode", dropDownItems: dropdownPlaceholder, required: required, error:errors.documentData?.accessCode},
         {input: INPUT_TYPE.DROPDOWN, label: "Hjemmel", value: props.watch("documentData.paragraph"), formValue: "documentData.paragraph", dropDownItems: dropdownPlaceholder, required: required, error:errors.documentData?.paragraph},
-        {input: INPUT_TYPE.DROPDOWN, label: "Variant", value: props.watch("documentData.variant"), formValue: "documentData.variant", dropDownItems: dropdownPlaceholder, required: required, error:errors.documentData?.variant},
-        {input: INPUT_TYPE.DROPDOWN, label: "Format", value: props.watch("documentData.format"), formValue: "documentData.format", dropDownItems: dropdownPlaceholder, required: required, error:errors.documentData?.format}
+        {input: INPUT_TYPE.DROPDOWN, label: "Variant", value: props.watch("documentData.variant"), formValue: "documentData.variant", dropDownItems: dropdownPlaceholder, required: required, error:errors.documentData?.variant}
     ]
     return (
         <FormGroup className={props.style.formControl}>

@@ -41,8 +41,7 @@ export function toFormData(data: IIntegrationConfiguration): IFormData {
             documentStatus: fieldToString(data.documentConfiguration, 'dokumentStatus'),
             accessCode: fieldToString(data.documentConfiguration, 'tilgangsrestriksjon'),
             paragraph: fieldToString(data.documentConfiguration, 'skjermingshjemmel'),
-            variant: fieldToString(data.documentConfiguration, 'DokumentBeskrivelse.dokumentObjekt.variantFormat'),
-            format: fieldToString(data.documentConfiguration, 'DokumentBeskrivelse.dokumentObjekt.filformat'),
+            variant: fieldToString(data.documentConfiguration, 'DokumentBeskrivelse.dokumentObjekt.variantFormat')
         },
         applicantData: {
             type: data.applicantConfiguration.organisationNumber ? 'ORGANISATION' : 'PERSON',

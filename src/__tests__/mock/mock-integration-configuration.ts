@@ -3,59 +3,62 @@ import {IIntegrationConfiguration} from "../../features/integration/types/Integr
 import {CreationStrategy} from "../../features/integration/types/CreationStrategy";
 
 export const MOCK_FORMDATA: IFormData = {
-    name: 'testform',
-    description: 'form to test mapping',
-    sourceApplicationIntegrationId: 'form3',
-    caseData: {
-        caseCreationStrategy: CreationStrategy.NEW,
-        title: 'Title of case',
-        publicTitle: 'public title',
-        caseType: 'casetype',
-        administrativeUnit: 'unit4',
-        archiveUnit: 'unit3',
-        recordUnit: 'unit0',
-        accessCode: 'code42',
-        paragraph: 'number6',
-        caseWorker: 'rand',
-        primaryClassification: 'prim',
-        secondaryClassification: 'rose',
-        primaryClass: '1class',
-        secondaryClass: '2class',
+    "applicantData": {
+        "accessCode": "code2",
+        "address": "highstreet 22",
+        "city": "Moria",
+        "email": "hello@world.no",
+        "name": "Anakin Skywalker",
+        "paragraph": "p3",
+        "phoneNumber": "12345678",
+        "postalCode": "1234",
+        "type": "PERSON"
     },
-    recordData: {
-        title: 'record title',
-        publicTitle: 'public record title',
-        category: 'cat8',
-        administrativeUnit: 'unit33',
-        status: 'N',
-        accessCode: 'code89',
-        paragraph: 'p34',
+    "caseData": {
+        "accessCode": "code42",
+        "administrativeUnit": "unit4",
+        "archiveUnit": "unit3",
+        "caseCreationStrategy": "NEW",
+        "caseType": "casetype",
+        "caseWorker": "rand",
+        "paragraph": "number6",
+        "primaryClass": "1class",
+        "primaryClassification": "prim",
+        "publicTitle": "public title",
+        "recordUnit": "unit0",
+        "secondaryClass": "2class",
+        "secondaryClassification": "rose",
+        "title": "Title of case"
     },
-    documentData: {
-        title: 'document title',
-        documentStatus: 'D9',
-        accessCode: 'code2',
-        paragraph: 'p07',
-        variant: 'var',
-        format: 'pdf-a',
+    "description": "form to test mapping",
+    "documentData": {
+        "accessCode": "code2",
+        "documentStatus": "D9",
+        "paragraph": "p07",
+        "title": "document title",
+        "variant": "var"
     },
-    applicantData: {
-        type: 'PERSON',
-        name: 'Anakin Skywalker',
-        address: 'highstreet 22',
-        postalCode: '1234',
-        city: 'Moria',
-        phoneNumber: '12345678',
-        email: 'hello@world.no',
-        accessCode: 'code2',
-        paragraph: 'p3',
-    }
+    "name": "testform",
+    "orgId": "viken.no",
+    "recordData": {
+        "accessCode": "code89",
+        "administrativeUnit": "unit33",
+        "category": "cat8",
+        "paragraph": "p34",
+        "publicTitle": "public record title",
+        "status": "N",
+        "title": "record title"
+    },
+    "sourceApplication": "Acos",
+    "sourceApplicationIntegrationId": "VIK116"
 }
 
 export const MOCK_FORMDATA_WITH_TAGS: IFormData = {
     name: 'testform with tags',
     description: 'form to test mapping with form tags',
-    sourceApplicationIntegrationId: 'form3',
+    sourceApplication: 'Acos',
+    sourceApplicationIntegrationId: 'VIK116',
+    orgId:'vtfk.no',
     caseData: {
         caseCreationStrategy: CreationStrategy.NEW,
         title: 'Title of case with {tags}',
@@ -86,8 +89,7 @@ export const MOCK_FORMDATA_WITH_TAGS: IFormData = {
         documentStatus: 'D9',
         accessCode: 'code3',
         paragraph: 'p02',
-        variant: 'var6',
-        format: 'pdf-a',
+        variant: 'var6'
     },
     applicantData: {
         type: 'ORGANISATION',
@@ -310,17 +312,11 @@ export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
                 "valueBuilder": {
                     "value": "var"
                 }
-            },
-            {
-                "field": "DokumentBeskrivelse.dokumentObjekt.filformat",
-                "valueBuildStrategy": 0,
-                "valueBuilder": {
-                    "value": "pdf-a"
-                }
             }
         ]
     },
     "name": "testform",
+    "orgId": 'viken.no',
     "recordConfiguration": {
         "fields": [
             {
@@ -376,13 +372,13 @@ export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
             }
         ]
     },
-    sourceApplicationIntegrationId: 'form3'
+    sourceApplication: 'Acos',
+    sourceApplicationIntegrationId: 'VIK116',
 }
 
 export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
     "applicantConfiguration": {
-        "applicantType": 'ORGANISATION',
-        "organisationNumber": '123456789',
+        "applicantType": "ORGANISATION",
         "fields": [
             {
                 "field": "KorrespondansepartNavn",
@@ -446,7 +442,8 @@ export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
                     "value": "p3"
                 }
             }
-        ]
+        ],
+        "organisationNumber": "123456789"
     },
     "caseConfiguration": {
         "caseCreationStrategy": "NEW",
@@ -604,17 +601,11 @@ export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
                 "valueBuilder": {
                     "value": "var6"
                 }
-            },
-            {
-                "field": "DokumentBeskrivelse.dokumentObjekt.filformat",
-                "valueBuildStrategy": 0,
-                "valueBuilder": {
-                    "value": "pdf-a"
-                }
             }
         ]
     },
     "name": "testform with tags",
+    "orgId": "vtfk.no",
     "recordConfiguration": {
         "fields": [
             {
@@ -687,5 +678,6 @@ export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
             }
         ]
     },
-    sourceApplicationIntegrationId: 'form3'
+    "sourceApplication": "Acos",
+    "sourceApplicationIntegrationId": "VIK116"
 }

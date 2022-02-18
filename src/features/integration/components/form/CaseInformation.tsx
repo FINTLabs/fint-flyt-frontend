@@ -15,7 +15,7 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
         {input: INPUT_TYPE.TEXT_FIELD, label: "Beskrivelse", formValue: "description", required: props.validation, error:errors.description},
         {input: INPUT_TYPE.TEXT_FIELD, label: "Skjemaleverandør", formValue: "sourceApplication", required: props.validation, error:errors.sourceApplication},
         {input: INPUT_TYPE.DROPDOWN, label: "Skjema", value: props.watch("sourceApplicationIntegrationId"), formValue: "sourceApplicationIntegrationId", dropDownItems: forms},
-        {input: INPUT_TYPE.TEXT_FIELD, label: "orgId", formValue: "orgId", required: props.validation, error:errors.orgId},
+        {input: INPUT_TYPE.TEXT_FIELD, label: "OrgId", formValue: "orgId", required: props.validation, error:errors.orgId},
         {input: INPUT_TYPE.RADIO, label: "Velg hvordan skjema skal sendes til arkivet", value: props.watch("caseData.caseCreationStrategy"),
             formValue: "caseData.caseCreationStrategy", radioOptions: creationStrategies, defaultValue: props.watch("caseData.caseCreationStrategy")},
         {input: INPUT_TYPE.TEXT_FIELD, label: "Saksnummer", formValue: "caseData.caseNumber", hidden:!isCollection, required:isCollection && props.validation, error:errors.caseData?.caseNumber}

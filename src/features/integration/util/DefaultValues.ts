@@ -42,7 +42,6 @@ export const defaultValues: IFormData = {
         accessCode: '',
         paragraph: '',
         variant: '',
-        format: '',
     },
     applicantData: {
         type: 'PERSON',
