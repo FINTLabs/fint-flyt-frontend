@@ -2,6 +2,8 @@ import React from 'react';
 import {createTheme, ThemeProvider} from "@mui/material";
 import Main from "./features/main/Main";
 import {BrowserRouter} from "react-router-dom";
+import ResourcesProvider from "./resourcesContext";
+import IntegrationProvider from "./integrationContext";
 
 const theme = createTheme({
     palette: {
@@ -27,9 +29,13 @@ const theme = createTheme({
 function App() {
     return (
         <ThemeProvider theme={theme}>
-            <BrowserRouter>
-                <Main/>
-            </BrowserRouter>
+            <ResourcesProvider>
+                <IntegrationProvider>
+                    <BrowserRouter>
+                        <Main/>
+                    </BrowserRouter>
+                </IntegrationProvider>
+            </ResourcesProvider>
         </ThemeProvider>
     );
 }

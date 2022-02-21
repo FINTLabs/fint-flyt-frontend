@@ -4,5 +4,4 @@ export default interface IDocumentData {
     accessCode?: string;
     paragraph?: string;
     variant?: string;
-    format?: string;
 }

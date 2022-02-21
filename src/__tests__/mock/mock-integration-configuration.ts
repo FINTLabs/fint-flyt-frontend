@@ -25,9 +25,9 @@ export const MOCK_FORMDATA: IFormData = {
     recordData: {
         title: 'record title',
         publicTitle: 'public record title',
-        category: 'cat8',
+        type: 'cat8',
         administrativeUnit: 'unit33',
-        status: 'N',
+        recordStatus: 'N',
         accessCode: 'code89',
         paragraph: 'p34',
     },
@@ -36,8 +36,7 @@ export const MOCK_FORMDATA: IFormData = {
         documentStatus: 'D9',
         accessCode: 'code2',
         paragraph: 'p07',
-        variant: 'var',
-        format: 'pdf-a',
+        variant: 'var'
     },
     applicantData: {
         type: 'PERSON',
@@ -75,9 +74,9 @@ export const MOCK_FORMDATA_WITH_TAGS: IFormData = {
     recordData: {
         title: '{just} {tags}',
         publicTitle: '{singletag}',
-        category: 'cat8',
+        type: 'cat8',
         administrativeUnit: 'unit33',
-        status: 'N',
+        recordStatus: 'N',
         accessCode: 'code89',
         paragraph: 'p34',
     },
@@ -86,8 +85,7 @@ export const MOCK_FORMDATA_WITH_TAGS: IFormData = {
         documentStatus: 'D9',
         accessCode: 'code3',
         paragraph: 'p02',
-        variant: 'var6',
-        format: 'pdf-a',
+        variant: 'var6'
     },
     applicantData: {
         type: 'ORGANISATION',
@@ -105,7 +103,7 @@ export const MOCK_FORMDATA_WITH_TAGS: IFormData = {
 
 export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
     "applicantConfiguration": {
-        "applicantType": 'PERSON',
+        "applicantType": "PERSON",
         "fields": [
             {
                 "field": "KorrespondansepartNavn",
@@ -219,6 +217,11 @@ export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
                 }
             },
             {
+                "field": "status",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {}
+            },
+            {
                 "field": "tilgangsrestriksjon",
                 "valueBuildStrategy": 0,
                 "valueBuilder": {
@@ -310,13 +313,6 @@ export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
                 "valueBuilder": {
                     "value": "var"
                 }
-            },
-            {
-                "field": "DokumentBeskrivelse.dokumentObjekt.filformat",
-                "valueBuildStrategy": 0,
-                "valueBuilder": {
-                    "value": "pdf-a"
-                }
             }
         ]
     },
@@ -380,8 +376,7 @@ export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
 
 export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
     "applicantConfiguration": {
-        "applicantType": 'ORGANISATION',
-        "organisationNumber": '123456789',
+        "applicantType": "ORGANISATION",
         "fields": [
             {
                 "field": "KorrespondansepartNavn",
@@ -445,7 +440,8 @@ export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
                     "value": "p3"
                 }
             }
-        ]
+        ],
+        "organisationNumber": "123456789"
     },
     "caseConfiguration": {
         "caseCreationStrategy": "NEW",
@@ -510,6 +506,11 @@ export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
                 "valueBuilder": {
                     "value": "unit0"
                 }
+            },
+            {
+                "field": "status",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {}
             },
             {
                 "field": "tilgangsrestriksjon",
@@ -602,13 +603,6 @@ export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
                 "valueBuildStrategy": 0,
                 "valueBuilder": {
                     "value": "var6"
-                }
-            },
-            {
-                "field": "DokumentBeskrivelse.dokumentObjekt.filformat",
-                "valueBuildStrategy": 0,
-                "valueBuilder": {
-                    "value": "pdf-a"
                 }
             }
         ]

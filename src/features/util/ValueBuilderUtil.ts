@@ -1,7 +1,8 @@
-import {ValueBuilder} from "../types/ValueBuilder";
-import {IProperty} from "../types/Property";
-import {IField} from "../types/Field";
+import {ValueBuilder} from "../integration/types/ValueBuilder";
+import {IProperty} from "../integration/types/Property";
+import {IField} from "../integration/types/Field";
 
+/* TODO: Remove empty check after validation ensures no empty fields */
 export function createValueBuilder(inputString: any): ValueBuilder {
     let foundTags;
     let stringWithReplacedTags = "";

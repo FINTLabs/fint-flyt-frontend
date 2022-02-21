@@ -3,9 +3,11 @@ import {
 } from "@mui/material";
 import {DataGrid, GridColDef, GridToolbar} from "@mui/x-data-grid";
 import * as React from "react";
+import {useHistory} from "react-router-dom";
 
 const IntegrationConfigurationTable: React.FunctionComponent<any> = (props) => {
     const classes = props.classes;
+    let history = useHistory();
 
     const columns: GridColDef[] = [
         { field: 'id', hide: true},
@@ -13,6 +15,12 @@ const IntegrationConfigurationTable: React.FunctionComponent<any> = (props) => {
         { field: 'description', headerName: 'Beskrivelse', width: 650 },
         { field: 'version', headerName: 'Versjon', width: 150 }
     ];
+
+    const setHistory = () => {
+        history.push({
+            pathname: '/overview/details',
+        })
+    }
 
     return (
         <Box>
@@ -22,7 +30,8 @@ const IntegrationConfigurationTable: React.FunctionComponent<any> = (props) => {
                         onCellDoubleClick={(params, event) => {
                             if (!event.ctrlKey) {
                                 event.defaultMuiPrevented = true;
-                                props.setSelectedConfiguration(params.row)
+                                props.setIntegration(params.row)
+                                setHistory();
                             }
                         }}
                         density='compact'

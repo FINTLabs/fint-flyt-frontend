@@ -1,9 +1,9 @@
 export default interface IRecordData {
     title?: string;
     publicTitle?: string;
-    category?: string;
+    type?: string;
     administrativeUnit?: string;
-    status?: string;
+    recordStatus?: string;
     accessCode?: string;
     paragraph?: string;
 }

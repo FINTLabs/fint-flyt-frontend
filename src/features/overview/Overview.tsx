@@ -1,12 +1,12 @@
 import {Breadcrumbs, Theme, Typography} from '@mui/material';
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {createStyles, makeStyles} from "@mui/styles";
 import IntegrationRepository from "../integration/repository/IntegrationRepository";
-import {GridCellParams} from '@mui/x-data-grid';
 import {IRow} from "./types/Row";
 import IntegrationConfigurationDetails from "./components/IntegrationConfigurationDetails";
 import IntegrationConfigurationTable from "./components/IntegrationConfigurationTable";
+import {IntegrationContext} from "../../integrationContext";
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -26,8 +26,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Overview: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const classes = useStyles();
+    const showDetails: boolean = window.location.pathname === '/overview/details'
     const [configurations, getConfigurations] = useState<IRow[]>([]);
-    const [selectedConfiguration, setSelectedConfiguration] = useState<GridCellParams>();
+    const {integration, setIntegration} = useContext(IntegrationContext)
 
     useEffect(()=> {
         getAllConfigurations();
@@ -43,8 +44,8 @@ const Overview: React.FunctionComponent<RouteComponentProps<any>> = () => {
             .catch(e => console.error('Error: ', e))
     }
 
-    function resetConfiguration() {
-        setSelectedConfiguration(undefined)
+    const resetConfiguration = () => {
+        setIntegration({})
         getAllConfigurations();
     }
 
@@ -52,17 +53,17 @@ const Overview: React.FunctionComponent<RouteComponentProps<any>> = () => {
         <>
             <Breadcrumbs aria-label="breadcrumb">
                 <Typography style={{cursor:'pointer'}} onClick={resetConfiguration}>Oversikt</Typography>
-                <Typography>{selectedConfiguration ? 'Konfigurasjonsdetaljer' : ''}</Typography>
+                <Typography>{integration.id && showDetails ? 'Konfigurasjonsdetaljer' : ''}</Typography>
             </Breadcrumbs>
-            {selectedConfiguration ?
+            {integration.id && showDetails ?
                 <IntegrationConfigurationDetails
                     reset={resetConfiguration}
-                    initialConfiguration={selectedConfiguration}
+                    initialConfiguration={integration}
                 /> :
                 <IntegrationConfigurationTable
                     classes={classes}
                     configurations={configurations}
-                    setSelectedConfiguration={setSelectedConfiguration}
+                    setIntegration={setIntegration}
                 />
             }
         </>
