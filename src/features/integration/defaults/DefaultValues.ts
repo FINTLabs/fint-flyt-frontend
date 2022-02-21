@@ -156,32 +156,35 @@ export const fieldHelp = {
             'Person: verdi: fødselsnummer, betegnelse = personnavn.',
     },
     recordData: {
-        title: '',
-        publicTitle: '',
-        type: '',
-        administrativeUnit: '',
-        status: '',
-        accessCode: '',
-        paragraph: '',
+        title: 'Tittel kan være en konkret tekststreng, eller en kombinasjon\n' +
+            ' av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak.\n' +
+            '  (Se Noark))',
+        publicTitle: 'Se Noark (Del av tittel som skal skjermes)',
+        type: 'I, U, N, X',
+        administrativeUnit: 'Enheten/avdelingen. Nedtrekksmeny fra Elements',
+        status: 'R,F,E,J',
+        accessCode: 'Eksempel: Unntatt offentlighet, persona,l varslingssak, ugradert. ',
+        paragraph: 'Eksempel: Offl. §13 ',
     },
     documentData: {
-        title: '',
-        documentStatus: '',
-        accessCode: '',
-        paragraph: '',
-        variant: '',
-        format: '',
+        title: 'Tittel kan være en konkret tekststreng, eller en kombinasjon\n' +
+            ' av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak.\n' +
+            '  (Se Noark))',
+        documentStatus: 'Eksempel: B, F',
+        accessCode: 'Eksempel: Unntatt offentlighet, persona,l varslingssak, ugradert. ',
+        paragraph: 'Eksempel: Offl. §13',
+        variant: 'Arkivformat/ produksjonsformat / offentlig variant'
     },
     applicantData: {
-        type: 'PERSON',
-        organisationNumber: '',
-        name: '',
-        address: '',
-        postalCode: '',
-        city: '',
-        phoneNumber: '',
-        email: '',
-        accessCode: '',
-        paragraph: '',
+        type: 'Person eller organisasjon/bedrift',
+        organisationNumber: 'Personnummer for person, orgnr for bedrift',
+        name: 'Navn på bedrift/org, eller person',
+        address: 'Postadresse',
+        postalCode: 'Postkode',
+        city: 'Poststed',
+        phoneNumber: 'Telefonnummer',
+        email: 'epostadresse',
+        accessCode: 'velge om avsender skal være skjermet',
+        paragraph: 'Denne skal fjernes',
     }
 }
