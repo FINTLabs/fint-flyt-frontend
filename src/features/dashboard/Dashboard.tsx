@@ -1,8 +1,7 @@
 import {Box, Button, Card, CardActions, CardContent, Theme, Typography} from '@mui/material';
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import { RouteComponentProps, withRouter, Link as RouterLink } from 'react-router-dom';
 import {createStyles, makeStyles} from "@mui/styles";
-import IntegrationRepository from "../integration/repository/IntegrationRepository";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -15,25 +14,13 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const classes = useStyles();
-    const [configValue, setConfigValue] = useState();
-
-    useEffect(()=> {
-        IntegrationRepository.get()
-            .then(response => {
-                let data = response.data.numberOfElements;
-                setConfigValue(data);
-            })
-            .catch((e: Error) => {
-                console.log('error fetching configurations', e)
-            })
-    })
 
     return (
         <Box display="flex" position="relative" width={1} height={1}>
             <Card className={classes.card} sx={{ maxWidth: 345 }}>
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
-                        {configValue} Skjema
+                        5 Skjema
                     </Typography>
                 </CardContent>
                 <CardActions>
@@ -48,7 +35,7 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button size="small" variant="outlined" component={RouterLink} to="/log">Se feillogg</Button>
+                    <Button size="small" variant="outlined" component={RouterLink} to="/log">Se logg</Button>
                     <Button size="small" variant="outlined" component={RouterLink} to="/support">Opprett supportsak</Button>
                 </CardActions>
             </Card>
