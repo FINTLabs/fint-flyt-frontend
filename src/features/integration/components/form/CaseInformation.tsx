@@ -3,7 +3,7 @@ import React from 'react';
 import InputField from "./InputField";
 import {INPUT_TYPE} from "../../types/InputType.enum";
 import {IInputField} from "../../types/InputField";
-import {creationStrategies, forms} from "../../util/DefaultValues";
+import {creationStrategies, forms} from "../../defaults/DefaultValues";
 import {CreationStrategy} from "../../types/CreationStrategy";
 import {FieldErrors} from "react-hook-form";
 import IntegrationRepository from "../../repository/IntegrationRepository";

@@ -1,6 +1,6 @@
 // @ts-ignore
 import {ValueBuilder} from "../../features/integration/types/ValueBuilder";
-import {toIntegrationConfiguration} from "../../features/integration/util/ToIntegrationConfiguration";
+import {toIntegrationConfiguration} from "../../features/util/ToIntegrationConfiguration";
 import {
     MOCK_INTEGRATION_CONFIG,
     MOCK_INTEGRATION_CONFIG_WITH_TAGS,

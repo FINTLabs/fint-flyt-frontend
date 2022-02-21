@@ -7,6 +7,7 @@ export default interface ICaseData {
     administrativeUnit?: string;
     archiveUnit?: string;
     recordUnit?: string;
+    status?: string;
     accessCode?: string;
     paragraph?: string;
     caseWorker?: string;

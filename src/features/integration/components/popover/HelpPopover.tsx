@@ -30,12 +30,12 @@ const HelpPopover: React.FunctionComponent<any> = (props) => {
                 onClose={handleClose}
                 style={{whiteSpace: 'pre-wrap'}}
                 anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'center',
+                    vertical: 'center',
+                    horizontal: 'right',
                 }}
                 transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'center',
+                    vertical: 'center',
+                    horizontal: 'left',
                 }}
             >
                 <Typography sx={{ p: 3 }}>{props.popoverContent}</Typography>

@@ -17,6 +17,7 @@ export const defaultValues: IFormData = {
         administrativeUnit:'',
         archiveUnit:'',
         recordUnit: '',
+        status: '',
         accessCode: '',
         paragraph: '',
         caseWorker: '',
@@ -28,9 +29,9 @@ export const defaultValues: IFormData = {
     recordData: {
         title: '',
         publicTitle: '',
-        category: '',
+        type: '',
         administrativeUnit: '',
-        status: '',
+        recordStatus: '',
         accessCode: '',
         paragraph: '',
     },
@@ -39,8 +40,7 @@ export const defaultValues: IFormData = {
         documentStatus: '',
         accessCode: '',
         paragraph: '',
-        variant: '',
-        format: '',
+        variant: ''
     },
     applicantData: {
         type: 'PERSON',
@@ -119,3 +119,72 @@ export const tagList: ITag[] = [
 
 export const TaglistPopoverContent: string = 'I tekstfeltene til i de ulike postene kan du benytte data fra skjema for å utfylle disse. \n\n' +
     'Naviger til feltet du ønsker å fylle,og dra inn tag fra listen under.'
+
+export const fieldHelp = {
+    name: '',
+    description: '',
+    version: '',
+    selectedForm: '',
+    caseData: {
+        caseCreationStrategy: CreationStrategy.NEW,
+        caseNumber: '2021/12345',
+        title: 'Tittel kan være en konkret tekststreng, eller en kombinasjon\n' +
+            ' av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak.\n' +
+            '  (Se Noark))',
+        publicTitle: 'Se Noark (Del av tittel som skal skjermes)',
+        status: '-',
+        caseType: 'Eksempel: Kompetanse, personal, rekrutering etc.',
+        administrativeUnit:'Avdeling eller enhet som skal behandle saken.',
+        archiveUnit:'Eksempel: kompetanse, sakarkiv, personal',
+        recordUnit: 'Navnet på journalførende enhet.\n' +
+            'Eksempel: Viken fylkesråd',
+        accessCode: 'Dersom noe skjermes må man også sette tilgangskode. \n' +
+            'Eksempel: Unntatt offentlighet, personal, varslingssak, ugradert. ',
+        paragraph: 'Dersom det settes tilgangskode må det også settes hjemmel. \n' +
+            'Det må være en lovmessig hjemmel for skjerming eller begrenset tilgang. \n' +
+            '\n' +
+            'Eksempel:\n' +
+            '\n' +
+            'Offl. §13 ',
+        caseWorker: 'Konkret saksbehandler eller ufordelt.',
+        classification: 'Det må kunne settes flere klasseringer på en sak,\n' +
+            ' slik at sjemaet kan lete fram riktig sak.\n' +
+            'Eksempel: Primærkode=K-koder, \n' +
+            'Sekundærkode=organisasjonsnummer eller personnummer',
+        class: 'Vi må kunne fylle ut verdi og betegnelse.\n' +
+            'Eksempel: K-kode: Verdi 003, Betegnelse: Målbruk.\n' +
+            'Person: verdi: fødselsnummer, betegnelse = personnavn.',
+    },
+    recordData: {
+        title: 'Tittel kan være en konkret tekststreng, eller en kombinasjon\n' +
+            ' av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak.\n' +
+            '  (Se Noark))',
+        publicTitle: 'Se Noark (Del av tittel som skal skjermes)',
+        type: 'I, U, N, X',
+        administrativeUnit: 'Enheten/avdelingen. Nedtrekksmeny fra Elements',
+        status: 'R,F,E,J',
+        accessCode: 'Eksempel: Unntatt offentlighet, persona,l varslingssak, ugradert. ',
+        paragraph: 'Eksempel: Offl. §13 ',
+    },
+    documentData: {
+        title: 'Tittel kan være en konkret tekststreng, eller en kombinasjon\n' +
+            ' av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak.\n' +
+            '  (Se Noark))',
+        documentStatus: 'Eksempel: B, F',
+        accessCode: 'Eksempel: Unntatt offentlighet, persona,l varslingssak, ugradert. ',
+        paragraph: 'Eksempel: Offl. §13',
+        variant: 'Arkivformat/ produksjonsformat / offentlig variant'
+    },
+    applicantData: {
+        type: 'Person eller organisasjon/bedrift',
+        organisationNumber: 'Personnummer for person, orgnr for bedrift',
+        name: 'Navn på bedrift/org, eller person',
+        address: 'Postadresse',
+        postalCode: 'Postkode',
+        city: 'Poststed',
+        phoneNumber: 'Telefonnummer',
+        email: 'epostadresse',
+        accessCode: 'velge om avsender skal være skjermet',
+        paragraph: 'Denne skal fjernes',
+    }
+}

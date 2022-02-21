@@ -1,6 +1,6 @@
 // @ts-ignore
 import {ValueBuilder} from "../../features/integration/types/ValueBuilder";
-import {createValueBuilder, fieldToString, toValueString} from "../../features/integration/util/ValueBuilderUtil";
+import {createValueBuilder, fieldToString, toValueString} from "../../features/util/ValueBuilderUtil";
 import {MOCK_CASE_CONFIGURATION} from "../mock/mock-case-configuration";
 
 const valueBuilderWithTags: ValueBuilder = {
