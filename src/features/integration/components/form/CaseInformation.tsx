@@ -11,29 +11,24 @@ import IntegrationRepository from "../../repository/IntegrationRepository";
 const CaseInformation: React.FunctionComponent<any> = (props) => {
 
     const [_case, setCase] = React.useState('');
-    const [status, setStatus] = React.useState('');
-    const [helperText, setHelperText] = React.useState('');
     let caseInputPattern = /^((19|20)\d{2})\/([0-9]{1,6})/g;
 
     function handleClick() {
-        setCase('Søker...')
         let caseInput = props.watch("caseData.caseNumber");
         console.log(caseInput)
         if(caseInputPattern.test(props.watch("caseData.caseNumber"))) {
+            setCase('Søker...')
             let caseId = caseInput.split('/')
             IntegrationRepository.getSak(caseId[0], caseId[1])
                 .then((response) => {
                     setCase(response.data)
-                    setStatus(', status ' + response.statusText)
-                    console.log(response)
                 })
                 .catch(e => {
                         console.error('Error: ', e)
                         setCase('Ingen treff');
-                        setStatus('404')
                     }
                 )
-        } else setHelperText('Saksnummer må være på formatet 2021/03')
+        } else setCase('Saksnummer må være på formatet 2021/03')
     }
 
     let isCollection = props.watch("caseData.caseCreationStrategy") === CreationStrategy.COLLECTION
