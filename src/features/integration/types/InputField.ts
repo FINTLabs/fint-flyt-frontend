@@ -14,7 +14,6 @@ export interface IInputField {
     error?: string;
     helpText?: string;
     setter?: (item: IResourceItem) => void
-    rules?: string;
 }
 
 export interface ISelect {
