@@ -1,4 +1,4 @@
-import {Button, FormGroup, Typography} from '@mui/material';
+import {Box, Button, FormGroup, Typography} from '@mui/material';
 import React from 'react';
 import InputField from "./InputField";
 import {INPUT_TYPE} from "../../types/InputType.enum";
@@ -15,7 +15,6 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
 
     function handleClick() {
         let caseInput = props.watch("caseData.caseNumber");
-        console.log(caseInput)
         if(caseInputPattern.test(props.watch("caseData.caseNumber"))) {
             setCase('Søker...')
             let caseId = caseInput.split('/')
@@ -39,7 +38,7 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
         {input: INPUT_TYPE.DROPDOWN, label: "Skjema", value: props.watch("selectedForm"), formValue: "selectedForm", dropDownItems: forms},
         {input: INPUT_TYPE.RADIO, label: "Velg hvordan skjema skal sendes til arkivet", value: props.watch("caseData.caseCreationStrategy"),
             formValue: "caseData.caseCreationStrategy", radioOptions: creationStrategies, defaultValue: props.watch("caseData.caseCreationStrategy")},
-        {input: INPUT_TYPE.TEXT_FIELD, label: "Saksnummer", formValue: "caseData.caseNumber", hidden:!isCollection, required:isCollection && props.validation, error:errors.caseData?.caseNumber}
+        {input: INPUT_TYPE.TEXT_FIELD, label: "Saksnummer", formValue: "caseData.caseNumber", hidden:!isCollection, required:isCollection && props.validation, error:errors.caseData?.caseNumber, searchOption: true}
     ]
     return (
         <FormGroup className={props.style.formControl}>
@@ -47,19 +46,25 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
                     return (
                         field.hidden ?
                             <div key={index}/> :
-                            <InputField key={index}
-                                        required={field.required}
-                                        error={field.error}
-                                        input={field.input}
-                                        label={field.label}
-                                        value={field.value}
-                                        formValue={field.formValue}
-                                        dropdownItems={field.dropDownItems}
-                                        radioOptions={field.radioOptions}
-                                        defaultValue={field.defaultValue}
-                                        {...props}
-                            />
-                    )
+                            <Box sx={{display: 'flex'}} key={index}>
+                                <Box width={'100%'}>
+                                    <InputField key={index}
+                                                required={field.required}
+                                                error={field.error}
+                                                input={field.input}
+                                                label={field.label}
+                                                value={field.value}
+                                                formValue={field.formValue}
+                                                dropdownItems={field.dropDownItems}
+                                                radioOptions={field.radioOptions}
+                                                defaultValue={field.defaultValue}
+                                                {...props}
+                                    />
+                                    {isCollection && field.searchOption &&
+                                        <Button onClick={handleClick} variant="outlined" sx={{width: 20}}>Søk</Button>}
+                                </Box>
+                            </Box>
+                    );
                 }
             )}
             {isCollection && <Button onClick={handleClick} variant="outlined" sx={{width: 20}}>Søk</Button>}

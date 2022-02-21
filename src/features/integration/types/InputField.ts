@@ -13,7 +13,8 @@ export interface IInputField {
     required?: boolean;
     error?: string;
     helpText?: string;
-    setter?: (item: IResourceItem) => void
+    setter?: (item: IResourceItem) => void;
+    searchOption?: boolean;
 }
 
 export interface ISelect {
