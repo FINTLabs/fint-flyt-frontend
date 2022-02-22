@@ -7,15 +7,16 @@ import {creationStrategies, forms} from "../../defaults/DefaultValues";
 import {CreationStrategy} from "../../types/CreationStrategy";
 import {FieldErrors} from "react-hook-form";
 import IntegrationRepository from "../../repository/IntegrationRepository";
+import HelpPopover from "../popover/HelpPopover";
 
 const CaseInformation: React.FunctionComponent<any> = (props) => {
 
     const [_case, setCase] = React.useState('');
+    let caseInput = props.watch("caseData.caseNumber");
     let caseInputPattern = /^((19|20)\d{2})\/([0-9]{1,6})/g;
 
-    function handleClick() {
-        let caseInput = props.watch("caseData.caseNumber");
-        if(caseInputPattern.test(props.watch("caseData.caseNumber"))) {
+    const handleCaseSearch = () => {
+        if(caseInputPattern.test(caseInput)) {
             setCase('Søker...')
             let caseId = caseInput.split('/')
             IntegrationRepository.getSak(caseId[0], caseId[1])
@@ -27,7 +28,7 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
                         setCase('Ingen treff');
                     }
                 )
-        } else setCase('Saksnummer må være på formatet 2021/03')
+        } else setCase('Saksnummer må være på formatet "saksår/saksnummer", f.eks 2021/03')
     }
 
     let isCollection = props.watch("caseData.caseCreationStrategy") === CreationStrategy.COLLECTION
@@ -60,14 +61,15 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
                                                 defaultValue={field.defaultValue}
                                                 {...props}
                                     />
-                                    {isCollection && field.searchOption &&
-                                        <Button onClick={handleClick} variant="outlined" sx={{width: 20}}>Søk</Button>}
                                 </Box>
+                                {isCollection && field.searchOption &&
+                                    <Box>
+                                        <Button onClick={handleCaseSearch} variant="outlined" sx={{ml: 2}}>Søk</Button>
+                                    </Box>}
                             </Box>
                     );
                 }
             )}
-            {isCollection && <Button onClick={handleClick} variant="outlined" sx={{width: 20}}>Søk</Button>}
             {isCollection && _case ? <Typography>{_case}</Typography> : ''}
         </FormGroup>
     );
