@@ -1,4 +1,4 @@
-FROM cypress/base:12.22.8 as TEST
+FROM cypress/base:16.14.0 as TEST
 WORKDIR /src
 COPY package.json .
 COPY . /src
@@ -8,7 +8,7 @@ ENV CI=true
 RUN yarn install --frozen-lockfile
 RUN yarn ci
 
-FROM node:12.22-alpine AS builder
+FROM node:16.14.0-alpine AS builder
 COPY . /src
 WORKDIR /src
 RUN yarn && yarn test:ci && yarn build
