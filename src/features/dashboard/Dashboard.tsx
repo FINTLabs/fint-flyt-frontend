@@ -6,7 +6,7 @@ import {createStyles, makeStyles} from "@mui/styles";
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         card: {
-            border: 'solid 2px',
+            border: 'solid 1px',
             marginRight: theme.spacing(2),
             borderColor: theme.palette.primary.main
         }
