@@ -1,4 +1,5 @@
 import {INPUT_TYPE} from "./InputType.enum";
+import {IResourceItem} from "../../../resourcesContext/types";
 
 export interface IInputField {
     input: INPUT_TYPE;
@@ -11,7 +12,10 @@ export interface IInputField {
     hidden?: boolean;
     required?: boolean;
     error?: string;
+    helpText?: string;
+    setter?: (item: IResourceItem) => void
 }
+
 
 export interface ISelect {
     label: string,

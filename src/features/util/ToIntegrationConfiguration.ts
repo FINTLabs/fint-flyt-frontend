@@ -1,8 +1,8 @@
-import IFormData from "../types/Form/FormData";
-import {IIntegrationConfiguration} from "../types/IntegrationConfiguration";
-import {VALUE_BUILDER_STRATEGY} from "../types/ValueBuilderStrategy.enum";
+import IFormData from "../integration/types/Form/FormData";
+import {IIntegrationConfiguration} from "../integration/types/IntegrationConfiguration";
+import {VALUE_BUILDER_STRATEGY} from "../integration/types/ValueBuilderStrategy.enum";
 import {createValueBuilder} from "./ValueBuilderUtil";
-import {CreationStrategy} from "../types/CreationStrategy";
+import {CreationStrategy} from "../integration/types/CreationStrategy";
 
 export function toIntegrationConfiguration(data: IFormData, id?: string): IIntegrationConfiguration {
     const collectionStrategy: boolean = data.caseData?.caseCreationStrategy === CreationStrategy.COLLECTION
@@ -57,6 +57,13 @@ export function toIntegrationConfiguration(data: IFormData, id?: string): IInteg
                         valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
                         valueBuilder: {
                             value: data.caseData?.recordUnit
+                        }
+                    },
+                    {
+                        field: "status",
+                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
+                        valueBuilder: {
+                            value: data.caseData?.status
                         }
                     },
                     {
@@ -123,7 +130,7 @@ export function toIntegrationConfiguration(data: IFormData, id?: string): IInteg
                     field: "DokumentBeskrivelse.dokumentType",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
                     valueBuilder: {
-                        value: data.recordData?.category
+                        value: data.recordData?.type
                     }
                 },
                 {
@@ -137,7 +144,7 @@ export function toIntegrationConfiguration(data: IFormData, id?: string): IInteg
                     field: "journalstatus",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
                     valueBuilder: {
-                        value: data.recordData?.status
+                        value: data.recordData?.recordStatus
                     }
                 },
                 {

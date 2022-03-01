@@ -1,5 +1,5 @@
-import IFormData from "../types/Form/FormData";
-import {IIntegrationConfiguration} from "../types/IntegrationConfiguration";
+import IFormData from "../integration/types/Form/FormData";
+import {IIntegrationConfiguration} from "../integration/types/IntegrationConfiguration";
 import {fieldToString} from "./ValueBuilderUtil";
 
 export function toFormData(data: IIntegrationConfiguration): IFormData {
@@ -10,14 +10,15 @@ export function toFormData(data: IIntegrationConfiguration): IFormData {
         sourceApplicationIntegrationId: data.sourceApplicationIntegrationId,
         version: data.version,
         caseData: {
-            caseCreationStrategy: data.caseConfiguration.caseCreationStrategy,
-            caseNumber: data.caseConfiguration.caseNumber,
+            caseCreationStrategy: data.caseConfiguration?.caseCreationStrategy,
+            caseNumber: data.caseConfiguration?.caseNumber,
             title: fieldToString(data.caseConfiguration, 'tittel', true),
             publicTitle: fieldToString(data.caseConfiguration, 'offentligTittel', true),
             caseType: fieldToString(data.caseConfiguration, 'caseType'),
             administrativeUnit: fieldToString(data.caseConfiguration, 'administrativenhet'),
             archiveUnit: fieldToString(data.caseConfiguration, 'arkivdel'),
             recordUnit: fieldToString(data.caseConfiguration, 'journalenhet'),
+            status: fieldToString(data.caseConfiguration, 'status'),
             accessCode: fieldToString(data.caseConfiguration, 'tilgangsrestriksjon'),
             paragraph: fieldToString(data.caseConfiguration, 'skjermingshjemmel'),
             caseWorker: fieldToString(data.caseConfiguration, 'saksansvarlig'),
@@ -29,9 +30,9 @@ export function toFormData(data: IIntegrationConfiguration): IFormData {
         recordData: {
             title: fieldToString(data.recordConfiguration, 'tittel', true),
             publicTitle: fieldToString(data.recordConfiguration, 'offentigTittel', true),
-            category: fieldToString(data.recordConfiguration, 'DokumentBeskrivelse.dokumentType'),
+            type: fieldToString(data.recordConfiguration, 'DokumentBeskrivelse.dokumentType'),
             administrativeUnit: fieldToString(data.recordConfiguration, 'administrativenhet'),
-            status: fieldToString(data.recordConfiguration, 'journalstatus'),
+            recordStatus: fieldToString(data.recordConfiguration, 'journalstatus'),
             accessCode: fieldToString(data.recordConfiguration, 'tilgangsrestriksjon'),
             paragraph: fieldToString(data.recordConfiguration, 'skjermingshjemmel'),
         },
@@ -40,11 +41,11 @@ export function toFormData(data: IIntegrationConfiguration): IFormData {
             documentStatus: fieldToString(data.documentConfiguration, 'dokumentStatus'),
             accessCode: fieldToString(data.documentConfiguration, 'tilgangsrestriksjon'),
             paragraph: fieldToString(data.documentConfiguration, 'skjermingshjemmel'),
-            variant: fieldToString(data.documentConfiguration, 'DokumentBeskrivelse.dokumentObjekt.variantFormat')
+            variant: fieldToString(data.documentConfiguration, 'DokumentBeskrivelse.dokumentObjekt.variantFormat'),
         },
         applicantData: {
-            type: data.applicantConfiguration.organisationNumber ? 'ORGANISATION' : 'PERSON',
-            organisationNumber: data.applicantConfiguration.organisationNumber,
+            type: data.applicantConfiguration?.organisationNumber ? 'ORGANISATION' : 'PERSON',
+            organisationNumber: data.applicantConfiguration?.organisationNumber,
             name: fieldToString(data.applicantConfiguration, 'KorrespondansepartNavn', true),
             address: fieldToString(data.applicantConfiguration, 'Adresse.adresselinje', true),
             postalCode: fieldToString(data.applicantConfiguration, 'Adresse.postnummer', true),

@@ -44,7 +44,7 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
                             ref={drop}
                             size="small"
                             style={{backgroundColor}}
-                            sx={{ mb: 3, width: 750 }}
+                            sx={{ mb: 3, width: 'inherit' }}
                             label={props.required ? (props.label+'*') : props.label}
                             value={value}
                             onChange={(e) => {

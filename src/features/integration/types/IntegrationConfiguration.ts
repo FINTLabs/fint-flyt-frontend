@@ -25,8 +25,8 @@ export interface IIntegrationConfiguration {
     sourceApplication?: string;
     sourceApplicationIntegrationId?: string;
 
-    caseConfiguration:ICaseConfiguration;
-    recordConfiguration: IRecordConfiguration;
-    documentConfiguration: IDocumentConfiguration;
-    applicantConfiguration: IApplicantConfiguration;
+    caseConfiguration?:ICaseConfiguration;
+    recordConfiguration?: IRecordConfiguration;
+    documentConfiguration?: IDocumentConfiguration;
+    applicantConfiguration?: IApplicantConfiguration;
 }
