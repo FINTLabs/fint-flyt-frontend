@@ -11,15 +11,13 @@ import {IntegrationContext} from "../../../integrationContext";
 
 const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) => {
     let history = useHistory();
-    const id = props.initialConfiguration.integrationId;
     const initialVersion: number = props.initialConfiguration.version;
     const [activeConfiguration, setActiveConfiguration] = useState<IIntegrationConfiguration>(props.initialConfiguration)
     const [updateSuccess, setUpdateSuccess] = useState(false)
     const [version, setVersion] = useState(props.initialConfiguration.version)
-    const latestVersion = props.initialConfiguration.version;
     const {integration, setIntegration} = useContext(IntegrationContext);
     const versions = [];
-    for (let i = 1; i<=latestVersion; i++) {
+    for (let i = 1; i<=initialVersion; i++) {
         versions.push({label: i, value: i})
     }
     const { getAllResources } = useContext(ResourcesContext);
@@ -33,7 +31,7 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
     }, [version, setVersion])
 
     const getConfiguration = (version: any) => {
-        IntegrationRepository.getByIdAndVersion(integration.id, version)
+        IntegrationRepository.getByIdAndVersion(integration.integrationId, version)
             .then((response) => {
                 const configuration = response.data;
                 setActiveConfiguration(configuration)
@@ -66,8 +64,8 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
 
     const handleVersionChange = () => {
         console.log(activeConfiguration.version)
-        if(activeConfiguration.id) {
-            updateConfiguration(activeConfiguration.id, activeConfiguration);
+        if(activeConfiguration.integrationId) {
+            updateConfiguration(activeConfiguration.integrationId, activeConfiguration);
         }
     }
 
@@ -89,7 +87,7 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
                                 <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
                             ))}
                         </Select>
-                        {version !== integration.id && <Button onClick={handleVersionChange}>Bruk denne versjonen</Button>}
+                        {version !== integration.integrationId && <Button onClick={handleVersionChange}>Bruk denne versjonen</Button>}
                     </FormControl>
                     <CardContent>
                         <Typography><strong>Id: </strong>{activeConfiguration.integrationId}</Typography>
@@ -97,7 +95,7 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
                         <Typography><strong>Beskrivelse: </strong>{activeConfiguration.description}</Typography>
                         <Typography><strong>Skjemaleverandør: </strong>{activeConfiguration.sourceApplication}</Typography>
                         <Typography><strong>Skjema: </strong>{activeConfiguration.sourceApplicationIntegrationId}</Typography>
-                        <Typography><strong>Integrasjonslogikk: </strong>{activeConfiguration.caseConfiguration.caseCreationStrategy}</Typography>
+                        <Typography><strong>Integrasjonslogikk: </strong>{activeConfiguration.caseConfiguration?.caseCreationStrategy}</Typography>
                         <Typography><strong>Versjon: </strong>{activeConfiguration.version}</Typography>
                     </CardContent>
                     <Divider />
