@@ -9,7 +9,6 @@ export const defaultValues: IFormData = {
     version: '',
     sourceApplication: '',
     sourceApplicationIntegrationId: '',
-    orgId: '',
     caseData: {
         caseCreationStrategy: CreationStrategy.NEW,
         caseNumber: '',
@@ -88,6 +87,12 @@ export const forms: ISelect[] = [
     { label: "Skjema1", value: "1_form" },
     { label: "Skjema33", value: "form3" },
     { label: "Skjema2", value: "2_form" }
+];
+
+export const sourceApplications: ISelect[] = [
+    { label: "ACOS", value: "1" },
+    { label: "Altinn", value: "2" },
+    { label: "Vigo", value: "3" }
 ];
 
 export const caseWorkers: ISelect[] = [

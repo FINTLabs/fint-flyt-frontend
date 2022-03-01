@@ -24,7 +24,6 @@ export interface IIntegrationConfiguration {
     version?: string;
     sourceApplication?: string;
     sourceApplicationIntegrationId?: string;
-    orgId?: string;
 
     caseConfiguration:ICaseConfiguration;
     recordConfiguration: IRecordConfiguration;

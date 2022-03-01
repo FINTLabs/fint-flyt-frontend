@@ -39,7 +39,6 @@ export const MOCK_FORMDATA: IFormData = {
         "variant": "var"
     },
     "name": "testform",
-    "orgId": "viken.no",
     "recordData": {
         "accessCode": "code89",
         "administrativeUnit": "unit33",
@@ -58,7 +57,6 @@ export const MOCK_FORMDATA_WITH_TAGS: IFormData = {
     description: 'form to test mapping with form tags',
     sourceApplication: 'Acos',
     sourceApplicationIntegrationId: 'VIK116',
-    orgId:'vtfk.no',
     caseData: {
         caseCreationStrategy: CreationStrategy.NEW,
         title: 'Title of case with {tags}',
@@ -316,7 +314,6 @@ export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
         ]
     },
     "name": "testform",
-    "orgId": 'viken.no',
     "recordConfiguration": {
         "fields": [
             {
@@ -605,7 +602,6 @@ export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
         ]
     },
     "name": "testform with tags",
-    "orgId": "vtfk.no",
     "recordConfiguration": {
         "fields": [
             {

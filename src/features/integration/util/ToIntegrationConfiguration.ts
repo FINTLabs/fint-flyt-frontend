@@ -12,7 +12,6 @@ export function toIntegrationConfiguration(data: IFormData, id?: string): IInteg
         description: data.description,
         sourceApplication: data.sourceApplication,
         sourceApplicationIntegrationId: data.sourceApplicationIntegrationId,
-        orgId: data.orgId,
         caseConfiguration: collectionStrategy ?
             {
                 caseCreationStrategy: data.caseData?.caseCreationStrategy,

@@ -97,7 +97,6 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
                         <Typography><strong>Beskrivelse: </strong>{activeConfiguration.description}</Typography>
                         <Typography><strong>Skjemaleverandør: </strong>{activeConfiguration.sourceApplication}</Typography>
                         <Typography><strong>Skjema: </strong>{activeConfiguration.sourceApplicationIntegrationId}</Typography>
-                        <Typography><strong>OrgId: </strong>{activeConfiguration.orgId}</Typography>
                         <Typography><strong>Integrasjonslogikk: </strong>{activeConfiguration.caseConfiguration.caseCreationStrategy}</Typography>
                         <Typography><strong>Versjon: </strong>{activeConfiguration.version}</Typography>
                     </CardContent>
