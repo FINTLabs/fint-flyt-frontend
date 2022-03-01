@@ -2,13 +2,14 @@
   "name": "fint-skjema-integration-frontend",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:8080/api",
+  "proxy": "http://localhost:8082/api",
   "dependencies": {
     "@emotion/react": "^11.5.0",
     "@emotion/styled": "^11.3.0",
     "@mui/icons-material": "^5.0.5",
     "@mui/material": "^5.0.6",
     "@mui/styles": "^5.0.2",
+    "@mui/x-data-grid": "^5.2.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -20,7 +21,7 @@
     "@types/react-dom": "^17.0.0",
     "@types/react-redux": "^7.1.20",
     "@types/redux": "^3.6.0",
-    "axios": "^0.24.0",
+    "axios": "^0.26.0",
     "classnames": "^2.3.1",
     "immutability-helper": "^3.1.1",
     "loadash": "^1.0.0",
@@ -31,8 +32,9 @@
     "react-hook-form": "^7.19.5",
     "react-redux": "^7.2.6",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.3",
+    "react-scripts": "5.0.0",
     "redux": "^4.1.2",
+    "start-server-and-test": "^1.14.0",
     "typescript": "^4.1.2",
     "web-vitals": "^1.0.1"
   },
@@ -40,7 +42,14 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test:ci": "CI=true react-scripts test",
+    "eject": "react-scripts eject",
+    "ci": "start-server-and-test start http://localhost:3000 test"
+  },
+  "jest": {
+    "testMatch": [
+      "**/?(*.)+(test).[jt]s?(x)"
+    ]
   },
   "eslintConfig": {
     "extends": [

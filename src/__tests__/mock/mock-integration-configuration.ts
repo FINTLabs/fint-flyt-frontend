@@ -1,12 +1,13 @@
 import IFormData from "../../features/integration/types/Form/FormData";
 import {IIntegrationConfiguration} from "../../features/integration/types/IntegrationConfiguration";
+import {CreationStrategy} from "../../features/integration/types/CreationStrategy";
 
-export const newForm: IFormData = {
+export const MOCK_FORMDATA: IFormData = {
     name: 'testform',
     description: 'form to test mapping',
-    selectedForm: 'selected_form',
+    selectedForm: 'form3',
     caseData: {
-        caseCreationStrategy: 'NEW',
+        caseCreationStrategy: CreationStrategy.NEW,
         title: 'Title of case',
         publicTitle: 'public title',
         caseType: 'casetype',
@@ -24,9 +25,9 @@ export const newForm: IFormData = {
     recordData: {
         title: 'record title',
         publicTitle: 'public record title',
-        category: 'cat8',
+        type: 'cat8',
         administrativeUnit: 'unit33',
-        status: 'N',
+        recordStatus: 'N',
         accessCode: 'code89',
         paragraph: 'p34',
     },
@@ -35,11 +36,10 @@ export const newForm: IFormData = {
         documentStatus: 'D9',
         accessCode: 'code2',
         paragraph: 'p07',
-        variant: 'var',
-        format: 'pdf-a',
+        variant: 'var'
     },
     applicantData: {
-        type: 'person',
+        type: 'PERSON',
         name: 'Anakin Skywalker',
         address: 'highstreet 22',
         postalCode: '1234',
@@ -51,12 +51,12 @@ export const newForm: IFormData = {
     }
 }
 
-export const newFormWithTags: IFormData = {
+export const MOCK_FORMDATA_WITH_TAGS: IFormData = {
     name: 'testform with tags',
     description: 'form to test mapping with form tags',
-    selectedForm: 'selected_form',
+    selectedForm: 'form3',
     caseData: {
-        caseCreationStrategy: 'NEW',
+        caseCreationStrategy: CreationStrategy.NEW,
         title: 'Title of case with {tags}',
         publicTitle: 'public title also with {two} {tags}',
         caseType: 'casetype',
@@ -74,9 +74,9 @@ export const newFormWithTags: IFormData = {
     recordData: {
         title: '{just} {tags}',
         publicTitle: '{singletag}',
-        category: 'cat8',
+        type: 'cat8',
         administrativeUnit: 'unit33',
-        status: 'N',
+        recordStatus: 'N',
         accessCode: 'code89',
         paragraph: 'p34',
     },
@@ -85,11 +85,11 @@ export const newFormWithTags: IFormData = {
         documentStatus: 'D9',
         accessCode: 'code3',
         paragraph: 'p02',
-        variant: 'var6',
-        format: 'pdf-a',
+        variant: 'var6'
     },
     applicantData: {
-        type: 'person',
+        type: 'ORGANISATION',
+        organisationNumber: '123456789',
         name: 'Luke Skywalker',
         address: 'highstreet 22',
         postalCode: '1234',
@@ -101,11 +101,12 @@ export const newFormWithTags: IFormData = {
     }
 }
 
-export const expectedIntegrationConfig: IIntegrationConfiguration = {
+export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
     "applicantConfiguration": {
+        "applicantType": "PERSON",
         "fields": [
             {
-                "field": "korrespondasepartNavn",
+                "field": "KorrespondansepartNavn",
                 "valueBuildStrategy": 1,
                 "valueBuilder": {
                     "properties": [],
@@ -216,6 +217,11 @@ export const expectedIntegrationConfig: IIntegrationConfiguration = {
                 }
             },
             {
+                "field": "status",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {}
+            },
+            {
                 "field": "tilgangsrestriksjon",
                 "valueBuildStrategy": 0,
                 "valueBuilder": {
@@ -307,13 +313,6 @@ export const expectedIntegrationConfig: IIntegrationConfiguration = {
                 "valueBuilder": {
                     "value": "var"
                 }
-            },
-            {
-                "field": "DokumentBeskrivelse.dokumentObjekt.filformat",
-                "valueBuildStrategy": 0,
-                "valueBuilder": {
-                    "value": "pdf-a"
-                }
             }
         ]
     },
@@ -375,11 +374,12 @@ export const expectedIntegrationConfig: IIntegrationConfiguration = {
     }
 }
 
-export const expectedIntegrationConfigWithTags: IIntegrationConfiguration = {
+export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
     "applicantConfiguration": {
+        "applicantType": "ORGANISATION",
         "fields": [
             {
-                "field": "korrespondasepartNavn",
+                "field": "KorrespondansepartNavn",
                 "valueBuildStrategy": 1,
                 "valueBuilder": {
                     "properties": [],
@@ -440,7 +440,8 @@ export const expectedIntegrationConfigWithTags: IIntegrationConfiguration = {
                     "value": "p3"
                 }
             }
-        ]
+        ],
+        "organisationNumber": "123456789"
     },
     "caseConfiguration": {
         "caseCreationStrategy": "NEW",
@@ -505,6 +506,11 @@ export const expectedIntegrationConfigWithTags: IIntegrationConfiguration = {
                 "valueBuilder": {
                     "value": "unit0"
                 }
+            },
+            {
+                "field": "status",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {}
             },
             {
                 "field": "tilgangsrestriksjon",
@@ -597,13 +603,6 @@ export const expectedIntegrationConfigWithTags: IIntegrationConfiguration = {
                 "valueBuildStrategy": 0,
                 "valueBuilder": {
                     "value": "var6"
-                }
-            },
-            {
-                "field": "DokumentBeskrivelse.dokumentObjekt.filformat",
-                "valueBuildStrategy": 0,
-                "valueBuilder": {
-                    "value": "pdf-a"
                 }
             }
         ]

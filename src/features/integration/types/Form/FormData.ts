@@ -4,10 +4,9 @@ import IRecordData from "./RecordData";
 import ICaseData from "./CaseData";
 
 export default interface IFormData {
-    id?: string;
-    name: string;
-    description: string;
-    version?: string;
+    name?: string;
+    description?: string;
+    version?: string | number;
     selectedForm?: string;
 
     caseData?: ICaseData;

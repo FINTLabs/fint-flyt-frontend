@@ -1,16 +1,19 @@
 import {IField} from "./Field";
 
-interface ICaseConfiguration {
+export interface ICaseConfiguration {
     caseCreationStrategy?: string;
+    caseNumber?: string;
     fields: IField[];
 }
-interface IRecordConfiguration {
+export interface IRecordConfiguration {
     fields: IField[];
 }
-interface IDocumentConfiguration {
+export interface IDocumentConfiguration {
     fields: IField[];
 }
-interface IApplicantConfiguration {
+export interface IApplicantConfiguration {
+    applicantType?: string;
+    organisationNumber?: string;
     fields: IField[];
 }
 
@@ -18,7 +21,7 @@ export interface IIntegrationConfiguration {
     id?: string;
     name?: string,
     description?: string,
-    version?: string,
+    version?: number,
     selectedForm?: string;
 
     caseConfiguration?:ICaseConfiguration;
