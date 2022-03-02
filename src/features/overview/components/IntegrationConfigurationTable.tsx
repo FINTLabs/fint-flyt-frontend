@@ -14,7 +14,7 @@ const IntegrationConfigurationTable: React.FunctionComponent<any> = (props) => {
         { field: 'id', hide: true},
         { field: 'name', headerName: 'Navn', width: 250 },
         { field: 'description', headerName: 'Beskrivelse', width: 650 },
-        { field: 'version', headerName: 'Versjon', width: 150 }
+        { field: 'version', headerName: 'Revisjon', width: 150 }
     ];
 
     const setHistory = () => {

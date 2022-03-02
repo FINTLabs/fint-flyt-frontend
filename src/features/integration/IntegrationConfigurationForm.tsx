@@ -214,7 +214,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                                 )})}
                             <div >
                                 <Button onClick={handleCancel} variant="contained">Avbryt</Button>
-                                <Button sx={{float: 'right'}} type="submit" variant="contained">Publiser</Button>
+                                <Button disabled={true} sx={{float: 'right'}} type="submit" variant="contained">Publiser</Button>
                                 <Button sx={{float: 'right', mr: 2}} variant="contained">Lagre</Button>
                             </div>
                         </form>
