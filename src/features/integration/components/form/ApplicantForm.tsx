@@ -1,4 +1,4 @@
-import {Box, FormGroup} from '@mui/material';
+import {Box, Button, FormGroup} from '@mui/material';
 import React, {useContext} from 'react';
 import {applicantOptions, fieldHelp} from "../../defaults/DefaultValues";
 import InputField from "./InputField";
@@ -57,6 +57,7 @@ const ApplicantForm: React.FunctionComponent<any> = (props) => {
                     )}
                 )}
             </FormGroup>
+            <Button sx={{mb: 2}} onClick={props.onSave} variant="contained">Lagre</Button>
         </div>
     );
 }

@@ -75,6 +75,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     let history = useHistory();
     const editConfig: boolean = window.location.pathname === '/integration/configuration/edit'
     const [submitSuccess, setSubmitSuccess] = useState(false)
+    const [activeId, setActiveId] = useState<any>(undefined)
     const { integration, setIntegration } = useContext(IntegrationContext)
     let activeConfiguration = integration.id && editConfig ? integration : undefined;
     let activeFormData = integration.id && editConfig ? toFormData(integration) : defaultValues;
@@ -110,6 +111,27 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
             })
             .catch((e: Error) => {
                 console.log('error creating new', e);
+            });
+    }
+
+    const saveNewConfiguration = (data: IIntegrationConfiguration) => {
+        IntegrationRepository.create(data)
+            .then(response => {
+                console.log('created new configuraton', data, response);
+                console.log(response)
+                setActiveId(response.data)
+            })
+            .catch((e: Error) => {
+                console.log('error creating new', e);
+            });
+    }
+    const saveConfiguration = (id: string, data: IIntegrationConfiguration) => {
+        IntegrationRepository.update(id, data)
+            .then(response => {
+                console.log('updated configuraton: ', id,  data, response);
+            })
+            .catch((e: Error) => {
+                console.log('error updating configuration', e);
             });
     }
 
@@ -149,6 +171,21 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
         }
     });
 
+    const onSave = handleSubmit((data: IFormData) => {
+        const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data);
+        console.log(activeId)
+        if(integrationConfiguration && activeId !== undefined) {
+            const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data, activeId);
+            saveConfiguration(activeId, integrationConfiguration)
+        }
+        else if(integrationConfiguration) {
+            saveNewConfiguration(integrationConfiguration);
+        } else {
+            //TODO: Handle error
+            return;
+        }
+    });
+
     return (
         <DndProvider backend={HTML5Backend}>
             {!submitSuccess &&
@@ -172,11 +209,13 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                                         errors={errors}
                                         validation={false}
                                         editConfig={editConfig}
+                                        onSave={onSave}
                                     />
                                 )})}
                             <div >
                                 <Button onClick={handleCancel} variant="contained">Avbryt</Button>
-                                <Button sx={{float: 'right'}}  type="submit" variant="contained">Publiser</Button>
+                                <Button sx={{float: 'right'}} type="submit" variant="contained">Publiser</Button>
+                                <Button sx={{float: 'right', mr: 2}} variant="contained">Lagre</Button>
                             </div>
                         </form>
                     </Box>

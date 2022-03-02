@@ -1,4 +1,4 @@
-import {Box, Divider, FormGroup, Typography} from '@mui/material';
+import {Box, Button, Divider, FormGroup, Typography} from '@mui/material';
 import React, {useContext, useEffect} from 'react';
 import {dropdownPlaceholder, fieldHelp} from "../../defaults/DefaultValues";
 import {IInputField} from "../../types/InputField";
@@ -43,52 +43,56 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
     ]
 
     return (
-        <FormGroup className={props.style.formControl}>
-            {caseFormFields.map((field, index) => {
-                return (
-                    <Box sx={{display: 'flex'}} key={index}>
-                        <Box width={'100%'}>
-                            <InputField required={field.required}
-                                        error={field.error}
-                                        input={field.input}
-                                        label={field.label}
-                                        value={field.value}
-                                        formValue={field.formValue}
-                                        dropdownItems={field.dropDownItems}
-                                        setter={field.setter}
-                                        {...props}
-                            />
+        <div>
+            <FormGroup className={props.style.formControl}>
+                {caseFormFields.map((field, index) => {
+                    return (
+                        <Box sx={{display: 'flex'}} key={index}>
+                            <Box width={'100%'}>
+                                <InputField required={field.required}
+                                            error={field.error}
+                                            input={field.input}
+                                            label={field.label}
+                                            value={field.value}
+                                            formValue={field.formValue}
+                                            dropdownItems={field.dropDownItems}
+                                            setter={field.setter}
+                                            {...props}
+                                />
+                            </Box>
+                            <Box>
+                                <HelpPopover popoverContent={field.helpText}/>
+                            </Box>
                         </Box>
-                        <Box>
-                            <HelpPopover popoverContent={field.helpText}/>
-                        </Box>
-                    </Box>
+                    )}
                 )}
-            )}
-            <Typography>Klassering</Typography>
-            <Divider sx={{mb: 3}}/>
-            {classificationFormFields.map((field, index) => {
-                return (
-                    <Box sx={{display: 'flex'}} key={index}>
-                        <Box width={'100%'}>
-                            <InputField required={field.required}
-                                        error={field.error}
-                                        input={field.input}
-                                        label={field.label}
-                                        value={field.value}
-                                        formValue={field.formValue}
-                                        dropdownItems={field.dropDownItems}
-                                        setter={field.setter}
-                                        {...props}
-                            />
+                <Typography>Klassering</Typography>
+                <Divider sx={{mb: 3}}/>
+                {classificationFormFields.map((field, index) => {
+                    return (
+                        <Box sx={{display: 'flex'}} key={index}>
+                            <Box width={'100%'}>
+                                <InputField required={field.required}
+                                            error={field.error}
+                                            input={field.input}
+                                            label={field.label}
+                                            value={field.value}
+                                            formValue={field.formValue}
+                                            dropdownItems={field.dropDownItems}
+                                            setter={field.setter}
+                                            {...props}
+                                />
+                            </Box>
+                            <Box>
+                                <HelpPopover popoverContent={field.helpText}/>
+                            </Box>
                         </Box>
-                        <Box>
-                            <HelpPopover popoverContent={field.helpText}/>
-                        </Box>
-                    </Box>
+                    )}
                 )}
-            )}
-        </FormGroup>
+            </FormGroup>
+            <Button sx={{mb: 2}} onClick={props.onSave} variant="contained">Lagre</Button>
+        </div>
+
     );
 }
 
