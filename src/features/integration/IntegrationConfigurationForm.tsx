@@ -35,10 +35,9 @@ const useStyles = makeStyles((theme: Theme) =>
             marginTop: theme.spacing(6),
             marginLeft: theme.spacing(8),
             padding: theme.spacing(2),
-            border: 'solid 2px',
-            borderColor: 'rgba(0, 0, 0, 0.37)',
+            border: 'solid 1px',
+            borderColor: 'black',
             borderRadius: '4px',
-            boxShadow: '0px 2px 2px -1px',
             height: 'fit-content',
             position: 'sticky',
             top: theme.spacing(16)

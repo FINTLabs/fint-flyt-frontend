@@ -16,12 +16,14 @@ export const Tag: FC<ITag> = function Tag({ name, value }) {
 
     const opacity = isDragging ? 0.4 : 1
     return (
-        <Chip icon={<DragIndicatorIcon/>}
-              ref={drag}
-              variant="outlined"
-              role="Tag"
-              label={name}
-              style={{ cursor: 'move', backgroundColor: 'white', margin:8, opacity }}
+        <Chip
+            sx={{borderRadius: '14px'}}
+            icon={<DragIndicatorIcon/>}
+            ref={drag}
+            variant="outlined"
+            role="Tag"
+            label={name}
+            style={{ cursor: 'move', backgroundColor: 'white', margin:8, opacity }}
         />
     )
 }
