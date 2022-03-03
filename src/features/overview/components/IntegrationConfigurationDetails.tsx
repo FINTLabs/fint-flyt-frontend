@@ -17,7 +17,6 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
     const latestVersion = props.initialVersion;
     const {integration, setIntegration} = useContext(IntegrationContext);
     const versions = [];
-    console.log(latestVersion)
     for (let i = 1; i<=latestVersion; i++) {
         versions.push({label: i, value: i})
     }

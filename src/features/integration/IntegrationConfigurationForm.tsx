@@ -2,7 +2,7 @@ import * as React from "react";
 import {useContext, useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
 import {Link as RouterLink, RouteComponentProps, useHistory, withRouter} from "react-router-dom";
-import {Box, Button, Theme, Typography} from "@mui/material";
+import {Box, Button, IconButton, Snackbar, Theme, Typography} from "@mui/material";
 import {createStyles, makeStyles} from "@mui/styles";
 import IFormData from "./types/Form/FormData";
 import IntegrationRepository from "./repository/IntegrationRepository";
@@ -18,6 +18,7 @@ import {CreationStrategy} from "./types/CreationStrategy";
 import {toFormData} from "../util/ToFormData";
 import {ResourcesContext} from "../../resourcesContext";
 import {IntegrationContext} from "../../integrationContext";
+import CloseIcon from '@mui/icons-material/Close';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -79,6 +80,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     const { integration, setIntegration } = useContext(IntegrationContext)
     let activeConfiguration = integration.id && editConfig ? integration : undefined;
     let activeFormData = integration.id && editConfig ? toFormData(integration) : defaultValues;
+    const [open, setOpen] = React.useState(false);
 
     const {handleSubmit, watch, setValue, control, reset, formState} = useForm<IFormData>({
         defaultValues: activeFormData,
@@ -120,6 +122,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                 console.log('created new configuraton', data, response);
                 console.log(response)
                 setActiveId(response.data)
+                setOpen(true);
             })
             .catch((e: Error) => {
                 console.log('error creating new', e);
@@ -129,6 +132,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
         IntegrationRepository.update(id, data)
             .then(response => {
                 console.log('updated configuraton: ', id,  data, response);
+                setOpen(true);
             })
             .catch((e: Error) => {
                 console.log('error updating configuration', e);
@@ -154,6 +158,30 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
         setIntegration({});
     }
 
+    const handleClose = (event: React.SyntheticEvent | Event, reason?: string) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpen(false);
+    };
+
+    const action = (
+        <React.Fragment>
+            <Button color="secondary" size="small" onClick={handleClose}>
+                Lukk
+            </Button>
+            <IconButton
+                size="small"
+                aria-label="close"
+                color="inherit"
+                onClick={handleClose}
+            >
+                <CloseIcon fontSize="small" />
+            </IconButton>
+        </React.Fragment>
+    );
+
     const onSubmit = handleSubmit((data: IFormData) => {
         const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data);
         if (integrationConfiguration && activeConfiguration?.id !== undefined) {
@@ -173,7 +201,6 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
 
     const onSave = handleSubmit((data: IFormData) => {
         const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data);
-        console.log(activeId)
         if(integrationConfiguration && activeId !== undefined) {
             const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data, activeId);
             saveConfiguration(activeId, integrationConfiguration)
@@ -213,15 +240,22 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                                     />
                                 )})}
                             <div >
-                                <Button onClick={handleCancel} variant="contained">Avbryt</Button>
-                                <Button disabled={true} sx={{float: 'right'}} type="submit" variant="contained">Publiser</Button>
-                                <Button sx={{float: 'right', mr: 2}} variant="contained">Lagre</Button>
+                                <Button sx={{mr: 2}} variant="contained">Lagre</Button>
+                                <Button disabled={true} type="submit" variant="contained">Publiser</Button>
+                                <Button sx={{float: 'right'}} onClick={handleCancel} variant="contained">Avbryt</Button>
                             </div>
                         </form>
                     </Box>
                     <Box className={classes.taglistContainer}>
                         <TagList style={classes}/>
                     </Box>
+                    <Snackbar
+                        open={open}
+                        autoHideDuration={6000}
+                        onClose={handleClose}
+                        message="Lagret"
+                        action={action}
+                    />
                 </Box>
             }
             {submitSuccess &&
