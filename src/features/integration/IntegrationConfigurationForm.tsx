@@ -80,7 +80,8 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     const { integration, setIntegration } = useContext(IntegrationContext)
     let activeConfiguration = integration.id && editConfig ? integration : undefined;
     let activeFormData = integration.id && editConfig ? toFormData(integration) : defaultValues;
-    const [open, setOpen] = React.useState(false);
+    const [saved, setSaved] = React.useState(false);
+    const [saveError, setSaveError] = React.useState(false);
 
     const {handleSubmit, watch, setValue, control, reset, formState} = useForm<IFormData>({
         defaultValues: activeFormData,
@@ -122,9 +123,10 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                 console.log('created new configuraton', data, response);
                 console.log(response)
                 setActiveId(response.data)
-                setOpen(true);
+                setSaved(true);
             })
             .catch((e: Error) => {
+                setSaveError(true);
                 console.log('error creating new', e);
             });
     }
@@ -132,9 +134,10 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
         IntegrationRepository.update(id, data)
             .then(response => {
                 console.log('updated configuraton: ', id,  data, response);
-                setOpen(true);
+                setSaved(true);
             })
             .catch((e: Error) => {
+                setSaveError(true);
                 console.log('error updating configuration', e);
             });
     }
@@ -162,8 +165,8 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
         if (reason === 'clickaway') {
             return;
         }
-
-        setOpen(false);
+        setSaved(false);
+        setSaveError(false);
     };
 
     const action = (
@@ -241,7 +244,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                                 )})}
                             <div >
                                 <Button sx={{mr: 2}} variant="contained">Lagre</Button>
-                                <Button disabled={true} type="submit" variant="contained">Publiser</Button>
+                                <Button disabled={true} type="submit" variant="contained">Ferdigstille</Button>
                                 <Button sx={{float: 'right'}} onClick={handleCancel} variant="contained">Avbryt</Button>
                             </div>
                         </form>
@@ -250,10 +253,17 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                         <TagList style={classes}/>
                     </Box>
                     <Snackbar
-                        open={open}
+                        open={saved}
                         autoHideDuration={6000}
                         onClose={handleClose}
                         message="Lagret"
+                        action={action}
+                    />
+                    <Snackbar
+                        open={saveError}
+                        autoHideDuration={6000}
+                        onClose={handleClose}
+                        message="En feil har oppstått"
                         action={action}
                     />
                 </Box>
