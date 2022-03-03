@@ -171,9 +171,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
 
     const action = (
         <React.Fragment>
-            <Button color="secondary" size="small" onClick={handleClose}>
-                Lukk
-            </Button>
+            <Button color="secondary" size="small" onClick={handleClose}>Lukk</Button>
             <IconButton
                 size="small"
                 aria-label="close"
