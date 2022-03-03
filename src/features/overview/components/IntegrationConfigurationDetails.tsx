@@ -14,7 +14,7 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
     const [activeConfiguration, setActiveConfiguration] = useState<IIntegrationConfiguration>(props.initialConfiguration)
     const [updateSuccess, setUpdateSuccess] = useState(false)
     const [version, setVersion] = useState(props.initialConfiguration.version)
-    const latestVersion = props.initialConfiguration.version;
+    const latestVersion = props.initialVersion;
     const {integration, setIntegration} = useContext(IntegrationContext);
     const versions = [];
     for (let i = 1; i<=latestVersion; i++) {
@@ -63,7 +63,6 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
     }
 
     const handleVersionChange = () => {
-        console.log(activeConfiguration.version)
         if(activeConfiguration.id) {
             updateConfiguration(activeConfiguration.id, activeConfiguration);
         }
@@ -133,10 +132,10 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
             </Box>
             }
             {updateSuccess &&
-            <Box>
-                <Typography>Endret til versjon {activeConfiguration.version}</Typography>
-                <Button variant="contained" onClick={props.reset}>Tilbake</Button>
-            </Box>
+                <Box>
+                    <Typography>Endret til revisjon {activeConfiguration.version}</Typography>
+                    <Button variant="contained" onClick={props.reset}>Tilbake</Button>
+                </Box>
             }
 
         </>
