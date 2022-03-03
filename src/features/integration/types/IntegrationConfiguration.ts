@@ -14,6 +14,7 @@ export interface IDocumentConfiguration {
 export interface IApplicantConfiguration {
     applicantType?: string;
     organisationNumber?: string;
+    socialSecurityNumber?: string;
     fields: IField[];
 }
 
@@ -24,6 +25,7 @@ export interface IIntegrationConfiguration {
     version?: string;
     sourceApplication?: string;
     sourceApplicationIntegrationId?: string;
+    isPublished?: boolean;
 
     caseConfiguration?:ICaseConfiguration;
     recordConfiguration?: IRecordConfiguration;

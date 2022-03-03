@@ -11,13 +11,13 @@ import {IntegrationContext} from "../../../integrationContext";
 
 const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) => {
     let history = useHistory();
-    const initialVersion: number = props.initialConfiguration.version;
     const [activeConfiguration, setActiveConfiguration] = useState<IIntegrationConfiguration>(props.initialConfiguration)
     const [updateSuccess, setUpdateSuccess] = useState(false)
     const [version, setVersion] = useState(props.initialConfiguration.version)
+    const latestVersion = props.initialVersion;
     const {integration, setIntegration} = useContext(IntegrationContext);
     const versions = [];
-    for (let i = 1; i<=initialVersion; i++) {
+    for (let i = 1; i<=latestVersion; i++) {
         versions.push({label: i, value: i})
     }
     const { getAllResources } = useContext(ResourcesContext);
@@ -124,6 +124,7 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
                     <CardContent>
                         <Typography variant={"h6"}>Avsender</Typography>
                         <Typography><strong>orgnummer:</strong> {activeConfiguration.applicantConfiguration?.organisationNumber}</Typography>
+                        <Typography><strong>persnummer:</strong> {activeConfiguration.applicantConfiguration?.socialSecurityNumber}</Typography>
                         {activeConfiguration.applicantConfiguration?.fields.map((field: any, index: number) => {
                             return<Typography key={index}><strong>{field.field}:</strong> {toValueString(field.valueBuilder)}</Typography>
                         })}

@@ -203,6 +203,7 @@ export function toIntegrationConfiguration(data: IFormData, id?: string): IInteg
         applicantConfiguration: {
             applicantType: data.applicantData?.type,
             organisationNumber: data.applicantData?.organisationNumber,
+            socialSecurityNumber: data.applicantData?.socialSecurityNumber,
             fields: [
                 {
                     field: "KorrespondansepartNavn",

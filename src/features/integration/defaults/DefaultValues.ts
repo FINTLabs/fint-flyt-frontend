@@ -46,6 +46,7 @@ export const defaultValues: IFormData = {
     applicantData: {
         type: 'PERSON',
         organisationNumber: '',
+        socialSecurityNumber: '',
         name: '',
         address: '',
         postalCode: '',
@@ -184,7 +185,8 @@ export const fieldHelp = {
     },
     applicantData: {
         type: 'Person eller organisasjon/bedrift',
-        organisationNumber: 'Personnummer for person, orgnr for bedrift',
+        organisationNumber: 'Organisasjonsnummer for bedrift',
+        socialSecurityNumber: 'Personnummer for person',
         name: 'Navn på bedrift/org, eller person',
         address: 'Postadresse',
         postalCode: 'Postkode',
