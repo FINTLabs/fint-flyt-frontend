@@ -10,7 +10,7 @@ import {ACCORDION_FORM} from "../types/Accordion";
 
 const AccordionForm: React.FunctionComponent<any> = (props) => {
     return props.hidden ? (<></>) : (
-        <Accordion className={props.style.accordion} defaultExpanded={props.defaultExpanded}>
+        <Accordion sx={{border: 'solid 1px', boxShadow: 'none', borderRadius: '4px' }} className={props.style.accordion} defaultExpanded={props.defaultExpanded}>
             <AccordionSummary className={props.style.accordionSummary} expandIcon={<ExpandMoreIcon />}>
                 <Typography variant={"h6"}>{props.summary}</Typography>
             </AccordionSummary>
