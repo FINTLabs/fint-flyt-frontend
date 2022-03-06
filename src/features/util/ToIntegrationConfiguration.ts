@@ -10,6 +10,7 @@ export function toIntegrationConfiguration(data: IFormData, id?: string): IInteg
         id: id,
         name: data.name,
         description: data.description,
+        isPublished: data.isPublished,
         caseConfiguration: collectionStrategy ?
             {
                 caseCreationStrategy: data.caseData?.caseCreationStrategy,

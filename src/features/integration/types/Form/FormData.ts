@@ -8,6 +8,7 @@ export default interface IFormData {
     description?: string;
     version?: string | number;
     selectedForm?: string;
+    isPublished?: boolean;
 
     caseData?: ICaseData;
     recordData?: IRecordData;

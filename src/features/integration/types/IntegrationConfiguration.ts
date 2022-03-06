@@ -23,6 +23,7 @@ export interface IIntegrationConfiguration {
     description?: string,
     version?: number,
     selectedForm?: string;
+    isPublished?: boolean;
 
     caseConfiguration?:ICaseConfiguration;
     recordConfiguration?: IRecordConfiguration;
