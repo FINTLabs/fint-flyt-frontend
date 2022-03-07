@@ -195,9 +195,11 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
 
     const onSubmit = handleSubmit((data: IFormData) => {
         console.log("onSubmit")
+        console.log('activeId', activeId)
+        console.log('activeConfig.id', activeConfiguration?.id)
         data.isPublished = true;
         const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data);
-        if(integrationConfiguration && activeId !== undefined) {
+        if(integrationConfiguration && activeId !== undefined && activeConfiguration?.id == undefined) {
             const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data, activeId);
             publishConfiguration(activeId, integrationConfiguration)
             reset({ ...defaultValues })
@@ -219,10 +221,16 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
 
     const onSave = handleSubmit((data: IFormData) => {
         console.log("onsave")
+        console.log('activeId', activeId)
+        console.log('activeConfig.id', activeConfiguration?.id)
         const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data);
         if(integrationConfiguration && activeId !== undefined) {
             const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data, activeId);
             saveConfiguration(activeId, integrationConfiguration)
+        }
+        else if(integrationConfiguration && activeConfiguration?.id !== undefined) {
+            const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data, activeConfiguration.id);
+            saveConfiguration(activeConfiguration.id, integrationConfiguration)
         }
         else if(integrationConfiguration) {
             saveNewConfiguration(integrationConfiguration);
@@ -278,14 +286,14 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                     </Box>
                     <Snackbar
                         open={saved}
-                        autoHideDuration={6000}
+                        autoHideDuration={4000}
                         onClose={handleClose}
                         message="Lagret"
                         action={action}
                     />
                     <Snackbar
                         open={saveError}
-                        autoHideDuration={6000}
+                        autoHideDuration={4000}
                         onClose={handleClose}
                         message="En feil har oppstått"
                         action={action}
