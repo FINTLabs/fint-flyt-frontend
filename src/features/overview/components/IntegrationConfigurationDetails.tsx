@@ -64,7 +64,6 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
     }
 
     const handleVersionChange = () => {
-        console.log(activeConfiguration.version)
         if(activeConfiguration.id) {
             updateConfiguration(activeConfiguration.id, activeConfiguration);
         }
@@ -134,10 +133,10 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
             </Box>
             }
             {updateSuccess &&
-            <Box>
-                <Typography>Endret til versjon {activeConfiguration.version}</Typography>
-                <Button variant="contained" onClick={props.reset}>Tilbake</Button>
-            </Box>
+                <Box>
+                    <Typography>Endret til revisjon {activeConfiguration.version}</Typography>
+                    <Button variant="contained" onClick={props.reset}>Tilbake</Button>
+                </Box>
             }
 
         </>
