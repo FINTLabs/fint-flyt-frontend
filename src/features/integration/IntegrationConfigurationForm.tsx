@@ -194,9 +194,6 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     );
 
     const onSubmit = handleSubmit((data: IFormData) => {
-        console.log("onSubmit")
-        console.log('activeId', activeId)
-        console.log('activeConfig.id', activeConfiguration?.id)
         data.isPublished = true;
         const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data);
         if(integrationConfiguration && activeId !== undefined && activeConfiguration?.id == undefined) {
@@ -210,7 +207,6 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
             reset({ ...defaultValues })
         }
         else if(integrationConfiguration) {
-            const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data);
             publishNewConfiguration(integrationConfiguration);
             reset({ ...defaultValues })
         } else {
@@ -220,9 +216,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     });
 
     const onSave = handleSubmit((data: IFormData) => {
-        console.log("onsave")
-        console.log('activeId', activeId)
-        console.log('activeConfig.id', activeConfiguration?.id)
+        data.isPublished = false;
         const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data);
         if(integrationConfiguration && activeId !== undefined) {
             const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data, activeId);
