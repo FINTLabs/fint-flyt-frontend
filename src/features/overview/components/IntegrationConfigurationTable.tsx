@@ -11,7 +11,7 @@ const IntegrationConfigurationTable: React.FunctionComponent<any> = (props) => {
     let history = useHistory();
 
     const columns: GridColDef[] = [
-        { field: 'id', hide: true},
+        { field: 'integrationId', hide: true},
         { field: 'name', headerName: 'Navn', width: 250 },
         { field: 'description', headerName: 'Beskrivelse', width: 650 },
         { field: 'version', headerName: 'Versjon', width: 150 }
@@ -29,6 +29,7 @@ const IntegrationConfigurationTable: React.FunctionComponent<any> = (props) => {
                 <Box className={classes.dataGridBox}>
                     <DataGrid
                         localeText={noNB}
+                        getRowId={(row) => row.integrationId}
                         onCellDoubleClick={(params, event) => {
                             if (!event.ctrlKey) {
                                 event.defaultMuiPrevented = true;

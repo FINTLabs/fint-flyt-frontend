@@ -54,9 +54,9 @@ const Overview: React.FunctionComponent<RouteComponentProps<any>> = () => {
         <>
             <Breadcrumbs aria-label="breadcrumb">
                 <Typography style={{cursor:'pointer'}} onClick={resetConfiguration}>Oversikt</Typography>
-                <Typography>{integration.id && showDetails ? 'Konfigurasjonsdetaljer' : ''}</Typography>
+                <Typography>{integration.integrationId && showDetails ? 'Konfigurasjonsdetaljer' : ''}</Typography>
             </Breadcrumbs>
-            {integration.id && showDetails ?
+            {integration.integrationId && showDetails ?
                 <IntegrationConfigurationDetails
                     reset={resetConfiguration}
                     initialConfiguration={integration}

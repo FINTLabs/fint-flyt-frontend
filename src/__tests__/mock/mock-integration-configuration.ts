@@ -1,104 +1,109 @@
 import IFormData from "../../features/integration/types/Form/FormData";
 import {IIntegrationConfiguration} from "../../features/integration/types/IntegrationConfiguration";
-import {CreationStrategy} from "../../features/integration/types/CreationStrategy";
 
 export const MOCK_FORMDATA: IFormData = {
-    name: 'testform',
-    description: 'form to test mapping',
-    selectedForm: 'form3',
-    caseData: {
-        caseCreationStrategy: CreationStrategy.NEW,
-        title: 'Title of case',
-        publicTitle: 'public title',
-        caseType: 'casetype',
-        administrativeUnit: 'unit4',
-        archiveUnit: 'unit3',
-        recordUnit: 'unit0',
-        accessCode: 'code42',
-        paragraph: 'number6',
-        caseWorker: 'rand',
-        primaryClassification: 'prim',
-        secondaryClassification: 'rose',
-        primaryClass: '1class',
-        secondaryClass: '2class',
+    "applicantData": {
+        "accessCode": "code2",
+        "address": "highstreet 22",
+        "city": "Moria",
+        "email": "hello@world.no",
+        "name": "Anakin Skywalker",
+        "paragraph": "p3",
+        "phoneNumber": "12345678",
+        "postalCode": "1234",
+        "type": "PERSON"
     },
-    recordData: {
-        title: 'record title',
-        publicTitle: 'public record title',
-        type: 'cat8',
-        administrativeUnit: 'unit33',
-        recordStatus: 'N',
-        accessCode: 'code89',
-        paragraph: 'p34',
+    "caseData": {
+        "accessCode": "code42",
+        "administrativeUnit": "unit4",
+        "archiveUnit": "unit3",
+        "caseCreationStrategy": "NEW",
+        "caseType": "casetype",
+        "caseWorker": "rand",
+        "paragraph": "number6",
+        "primaryClass": "1class",
+        "primaryClassification": "prim",
+        "publicTitle": "public title",
+        "recordUnit": "unit0",
+        "secondaryClass": "2class",
+        "secondaryClassification": "rose",
+        "status": "",
+        "title": "Title of case"
     },
-    documentData: {
-        title: 'document title',
-        documentStatus: 'D9',
-        accessCode: 'code2',
-        paragraph: 'p07',
-        variant: 'var'
+    "description": "form to test mapping",
+    "documentData": {
+        "accessCode": "code2",
+        "documentStatus": "D9",
+        "paragraph": "p07",
+        "title": "document title",
+        "variant": "var"
     },
-    applicantData: {
-        type: 'PERSON',
-        name: 'Anakin Skywalker',
-        address: 'highstreet 22',
-        postalCode: '1234',
-        city: 'Moria',
-        phoneNumber: '12345678',
-        email: 'hello@world.no',
-        accessCode: 'code2',
-        paragraph: 'p3',
-    }
+    "isPublished": false,
+    "name": "testform",
+    "recordData": {
+        "accessCode": "code89",
+        "administrativeUnit": "unit33",
+        "paragraph": "p34",
+        "publicTitle": "public record title",
+        "recordStatus": "N",
+        "title": "record title",
+        "type": "cat8"
+    },
+    "sourceApplication": "Acos",
+    "sourceApplicationIntegrationId": "VIK116"
 }
 
 export const MOCK_FORMDATA_WITH_TAGS: IFormData = {
-    name: 'testform with tags',
-    description: 'form to test mapping with form tags',
-    selectedForm: 'form3',
-    caseData: {
-        caseCreationStrategy: CreationStrategy.NEW,
-        title: 'Title of case with {tags}',
-        publicTitle: 'public title also with {two} {tags}',
-        caseType: 'casetype',
-        administrativeUnit: 'unit4',
-        archiveUnit: 'unit3',
-        recordUnit: 'unit0',
-        accessCode: 'code42',
-        paragraph: 'number6',
-        caseWorker: 'rand',
-        primaryClassification: 'prim',
-        secondaryClassification: 'rose',
-        primaryClass: '1class',
-        secondaryClass: '2class',
+    "applicantData": {
+        "accessCode": "code2",
+        "address": "highstreet 22",
+        "city": "Moria",
+        "email": "hello@world.no",
+        "name": "Luke Skywalker",
+        "organisationNumber": "123456789",
+        "paragraph": "p3",
+        "phoneNumber": "12345678",
+        "postalCode": "1234",
+        "type": "ORGANISATION"
     },
-    recordData: {
-        title: '{just} {tags}',
-        publicTitle: '{singletag}',
-        type: 'cat8',
-        administrativeUnit: 'unit33',
-        recordStatus: 'N',
-        accessCode: 'code89',
-        paragraph: 'p34',
+    "caseData": {
+        "accessCode": "code42",
+        "administrativeUnit": "unit4",
+        "archiveUnit": "unit3",
+        "caseCreationStrategy": "NEW",
+        "caseType": "casetype",
+        "caseWorker": "rand",
+        "paragraph": "number6",
+        "primaryClass": "1class",
+        "primaryClassification": "prim",
+        "publicTitle": "public title also with {two} {tags}",
+        "recordUnit": "unit0",
+        "secondaryClass": "2class",
+        "secondaryClassification": "rose",
+        "status": "",
+        "title": "Title of case with {tags}"
     },
-    documentData: {
-        title: 'document title',
-        documentStatus: 'D9',
-        accessCode: 'code3',
-        paragraph: 'p02',
-        variant: 'var6'
+    "description": "form to test mapping with form tags",
+    "documentData": {
+        "accessCode": "code3",
+        "documentStatus": "D9",
+        "paragraph": "p02",
+        "title": "document title",
+        "variant": "var6"
     },
-    applicantData: {
-        type: 'ORGANISATION',
-        organisationNumber: '123456789',
-        name: 'Luke Skywalker',
-        address: 'highstreet 22',
-        postalCode: '1234',
-        city: 'Moria',
-        phoneNumber: '12345678',
-        email: 'hello@world.no',
-        accessCode: 'code2',
-        paragraph: 'p3',
-    }
+    "isPublished": false,
+    "name": "testform with tags",
+    "recordData": {
+        "accessCode": "code89",
+        "administrativeUnit": "unit33",
+        "paragraph": "p34",
+        "publicTitle": "{singletag}",
+        "recordStatus": "N",
+        "title": "{just} {tags}",
+        "type": "cat8"
+    },
+    "sourceApplication": "Acos",
+    "sourceApplicationIntegrationId": "VIK116"
 }
 
 export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
@@ -219,7 +224,9 @@ export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
             {
                 "field": "status",
                 "valueBuildStrategy": 0,
-                "valueBuilder": {}
+                "valueBuilder": {
+                    "value": ""
+                }
             },
             {
                 "field": "tilgangsrestriksjon",
@@ -316,6 +323,7 @@ export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
             }
         ]
     },
+    "isPublished": false,
     "name": "testform",
     "recordConfiguration": {
         "fields": [
@@ -371,7 +379,9 @@ export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
                 }
             }
         ]
-    }
+    },
+    "sourceApplication": "Acos",
+    "sourceApplicationIntegrationId": "VIK116"
 }
 
 export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
@@ -510,7 +520,9 @@ export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
             {
                 "field": "status",
                 "valueBuildStrategy": 0,
-                "valueBuilder": {}
+                "valueBuilder": {
+                    "value": ""
+                }
             },
             {
                 "field": "tilgangsrestriksjon",
@@ -607,6 +619,7 @@ export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
             }
         ]
     },
+    "isPublished": false,
     "name": "testform with tags",
     "recordConfiguration": {
         "fields": [
@@ -679,5 +692,7 @@ export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
                 }
             }
         ]
-    }
+    },
+    "sourceApplication": "Acos",
+    "sourceApplicationIntegrationId": "VIK116"
 }

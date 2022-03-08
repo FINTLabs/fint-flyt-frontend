@@ -31,7 +31,7 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
     }, [version, setVersion])
 
     const getConfiguration = (version: any) => {
-        IntegrationRepository.getByIdAndVersion(integration.id, version)
+        IntegrationRepository.getByIdAndVersion(integration.integrationId, version)
             .then((response) => {
                 const configuration = response.data;
                 setActiveConfiguration(configuration)
@@ -63,8 +63,8 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
     }
 
     const handleVersionChange = () => {
-        if(activeConfiguration.id) {
-            updateConfiguration(activeConfiguration.id, activeConfiguration);
+        if(activeConfiguration.integrationId) {
+            updateConfiguration(activeConfiguration.integrationId, activeConfiguration);
         }
     }
 
@@ -86,14 +86,16 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
                                 <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
                             ))}
                         </Select>
-                        {version !== integration.id && <Button onClick={handleVersionChange}>Bruk denne versjonen</Button>}
+                        {version !== integration.integrationId && <Button onClick={handleVersionChange}>Bruk denne versjonen</Button>}
                     </FormControl>
                     <CardContent>
-                        <Typography><strong>Id: </strong>{activeConfiguration.id}</Typography>
+                        <Typography><strong>Id: </strong>{activeConfiguration.integrationId}</Typography>
                         <Typography><strong>Navn: </strong>{activeConfiguration.name}</Typography>
                         <Typography><strong>Beskrivelse: </strong>{activeConfiguration.description}</Typography>
-                        <Typography><strong>Skjema: </strong>{activeConfiguration.selectedForm}</Typography>
+                        <Typography><strong>Skjemaleverandør: </strong>{activeConfiguration.sourceApplication}</Typography>
+                        <Typography><strong>Skjema: </strong>{activeConfiguration.sourceApplicationIntegrationId}</Typography>
                         <Typography><strong>Integrasjonslogikk: </strong>{activeConfiguration.caseConfiguration?.caseCreationStrategy}</Typography>
+                        <Typography><strong>Publisert: </strong>{activeConfiguration.isPublished? 'Ja' : 'Nei'}</Typography>
                         <Typography><strong>Versjon: </strong>{activeConfiguration.version}</Typography>
                     </CardContent>
                     <Divider />
@@ -122,6 +124,7 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
                     <CardContent>
                         <Typography variant={"h6"}>Avsender</Typography>
                         <Typography><strong>orgnummer:</strong> {activeConfiguration.applicantConfiguration?.organisationNumber}</Typography>
+                        <Typography><strong>persnummer:</strong> {activeConfiguration.applicantConfiguration?.nationalIdentityNumber}</Typography>
                         {activeConfiguration.applicantConfiguration?.fields.map((field: any, index: number) => {
                             return<Typography key={index}><strong>{field.field}:</strong> {toValueString(field.valueBuilder)}</Typography>
                         })}
