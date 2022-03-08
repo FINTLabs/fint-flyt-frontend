@@ -38,6 +38,7 @@ export const MOCK_FORMDATA: IFormData = {
         "title": "document title",
         "variant": "var"
     },
+    "isPublished": false,
     "name": "testform",
     "recordData": {
         "accessCode": "code89",
@@ -90,6 +91,7 @@ export const MOCK_FORMDATA_WITH_TAGS: IFormData = {
         "title": "document title",
         "variant": "var6"
     },
+    "isPublished": false,
     "name": "testform with tags",
     "recordData": {
         "accessCode": "code89",
@@ -321,6 +323,7 @@ export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
             }
         ]
     },
+    "isPublished": false,
     "name": "testform",
     "recordConfiguration": {
         "fields": [
@@ -616,6 +619,7 @@ export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
             }
         ]
     },
+    "isPublished": false,
     "name": "testform with tags",
     "recordConfiguration": {
         "fields": [
