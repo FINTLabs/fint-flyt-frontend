@@ -88,8 +88,8 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     const [submitSuccess, setSubmitSuccess] = useState(false)
     const [activeId, setActiveId] = useState<any>(undefined)
     const { integration, setIntegration } = useContext(IntegrationContext)
-    let activeConfiguration = integration.id && editConfig ? integration : undefined;
-    let activeFormData = integration.id && editConfig ? toFormData(integration) : defaultValues;
+    let activeConfiguration = integration.integrationId && editConfig ? integration : undefined;
+    let activeFormData = integration.integrationId && editConfig ? toFormData(integration) : defaultValues;
     const [saved, setSaved] = React.useState(false);
     const [saveError, setSaveError] = React.useState(false);
     const [checked, setChecked] = React.useState(false);
@@ -196,14 +196,14 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     const onSubmit = handleSubmit((data: IFormData) => {
         data.isPublished = true;
         const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data);
-        if(integrationConfiguration && activeId !== undefined && activeConfiguration?.id == undefined) {
+        if(integrationConfiguration && activeId !== undefined && activeConfiguration?.integrationId == undefined) {
             const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data, activeId);
             publishConfiguration(activeId, integrationConfiguration)
             reset({ ...defaultValues })
         }
-        else if (integrationConfiguration && activeId == undefined && activeConfiguration?.id !== undefined) {
+        else if (integrationConfiguration && activeId == undefined && activeConfiguration?.integrationId !== undefined) {
             const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data, activeConfiguration.id);
-            publishConfiguration(activeConfiguration.id, integrationConfiguration)
+            publishConfiguration(activeConfiguration.integrationId, integrationConfiguration)
             reset({ ...defaultValues })
         }
         else if(integrationConfiguration) {
@@ -222,9 +222,9 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
             const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data, activeId);
             saveConfiguration(activeId, integrationConfiguration)
         }
-        else if(integrationConfiguration && activeConfiguration?.id !== undefined) {
-            const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data, activeConfiguration.id);
-            saveConfiguration(activeConfiguration.id, integrationConfiguration)
+        else if(integrationConfiguration && activeConfiguration?.integrationId !== undefined) {
+            const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data, activeConfiguration.integrationId);
+            saveConfiguration(activeConfiguration.integrationId, integrationConfiguration)
         }
         else if(integrationConfiguration) {
             saveNewConfiguration(integrationConfiguration);

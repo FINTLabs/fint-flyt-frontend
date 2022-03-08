@@ -14,15 +14,17 @@ export interface IDocumentConfiguration {
 export interface IApplicantConfiguration {
     applicantType?: string;
     organisationNumber?: string;
+    nationalIdentityNumber?: string;
     fields: IField[];
 }
 
 export interface IIntegrationConfiguration {
-    id?: string;
-    name?: string,
-    description?: string,
-    version?: number,
-    selectedForm?: string;
+    integrationId?: string;
+    name?: string;
+    description?: string;
+    version?: string;
+    sourceApplication?: string;
+    sourceApplicationIntegrationId?: string;
     isPublished?: boolean;
 
     caseConfiguration?:ICaseConfiguration;

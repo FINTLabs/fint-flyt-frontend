@@ -7,7 +7,9 @@ export const defaultValues: IFormData = {
     name: '',
     description: '',
     version: '',
-    selectedForm: '',
+    sourceApplication: '',
+    sourceApplicationIntegrationId: '',
+    isPublished: false,
     caseData: {
         caseCreationStrategy: CreationStrategy.NEW,
         caseNumber: '',
@@ -24,7 +26,7 @@ export const defaultValues: IFormData = {
         primaryClassification: '',
         secondaryClassification: '',
         primaryClass: '',
-        secondaryClass: '',
+        secondaryClass: ''
     },
     recordData: {
         title: '',
@@ -33,7 +35,7 @@ export const defaultValues: IFormData = {
         administrativeUnit: '',
         recordStatus: '',
         accessCode: '',
-        paragraph: '',
+        paragraph: ''
     },
     documentData: {
         title: '',
@@ -45,6 +47,7 @@ export const defaultValues: IFormData = {
     applicantData: {
         type: 'PERSON',
         organisationNumber: '',
+        nationalIdentityNumber: '',
         name: '',
         address: '',
         postalCode: '',
@@ -52,7 +55,7 @@ export const defaultValues: IFormData = {
         phoneNumber: '',
         email: '',
         accessCode: '',
-        paragraph: '',
+        paragraph: ''
     }
 }
 
@@ -87,6 +90,12 @@ export const forms: ISelect[] = [
     { label: "Skjema1", value: "1_form" },
     { label: "Skjema33", value: "form3" },
     { label: "Skjema2", value: "2_form" }
+];
+
+export const sourceApplications: ISelect[] = [
+    { label: "ACOS", value: "1" },
+    { label: "Altinn", value: "2" },
+    { label: "Vigo", value: "3" }
 ];
 
 export const caseWorkers: ISelect[] = [
