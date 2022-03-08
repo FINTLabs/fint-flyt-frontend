@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme: Theme) =>
             backgroundColor: theme.palette.primary.light,
         },
         formControl: {
-            width: theme.spacing(80)
+            width: theme.spacing(70)
         },
         button: {
             marginRight: theme.spacing(1)

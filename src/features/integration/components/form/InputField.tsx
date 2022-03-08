@@ -138,7 +138,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                         label={props.required ? (props.label+'*') : props.label}
                         size="small"
                         variant="outlined"
-                        sx={{ mb: 3 }}
+                        sx={{ mb: 3, width: 'inherit'}}
                         onChange={onChange}
                         onBlur={onBlur}
                         value={value}

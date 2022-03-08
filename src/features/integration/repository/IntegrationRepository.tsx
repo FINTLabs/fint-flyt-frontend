@@ -30,6 +30,10 @@ const remove = (id: any) => {
     return axios.delete<any>(`/integration/configuration/${id}`);
 };
 
+const getSak = (caseYear: any, caseNumber: any) => {
+    return axios.get<any>(`/sak/tittel/mappeid/${caseYear}/${caseNumber}`, {timeout: 5000})
+}
+
 const IntegrationRepository = {
     getByIdAndVersion,
     get,
@@ -37,7 +41,8 @@ const IntegrationRepository = {
     getLatestByID,
     create,
     update,
-    remove
+    remove,
+    getSak
 };
 
 export default IntegrationRepository;
