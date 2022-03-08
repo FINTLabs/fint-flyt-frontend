@@ -78,8 +78,8 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     const [submitSuccess, setSubmitSuccess] = useState(false)
     const [activeId, setActiveId] = useState<any>(undefined)
     const { integration, setIntegration } = useContext(IntegrationContext)
-    let activeConfiguration = integration.id && editConfig ? integration : undefined;
-    let activeFormData = integration.id && editConfig ? toFormData(integration) : defaultValues;
+    let activeConfiguration = integration.integrationId && editConfig ? integration : undefined;
+    let activeFormData = integration.integrationId && editConfig ? toFormData(integration) : defaultValues;
     const [saved, setSaved] = React.useState(false);
     const [saveError, setSaveError] = React.useState(false);
 
@@ -185,9 +185,9 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
 
     const onSubmit = handleSubmit((data: IFormData) => {
         const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data);
-        if (integrationConfiguration && activeConfiguration?.id !== undefined) {
-            const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data, activeConfiguration.id);
-            updateConfiguration(activeConfiguration.id, integrationConfiguration)
+        if (integrationConfiguration && activeConfiguration?.integrationId !== undefined) {
+            const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data, activeConfiguration.integrationId);
+            updateConfiguration(activeConfiguration.integrationId, integrationConfiguration)
             reset({ ...defaultValues })
         }
         else if(integrationConfiguration) {

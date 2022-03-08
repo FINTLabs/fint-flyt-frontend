@@ -6,8 +6,10 @@ export function toFormData(data: IIntegrationConfiguration): IFormData {
     return {
         name: data.name,
         description: data.description,
+        sourceApplication: data.sourceApplication,
+        sourceApplicationIntegrationId: data.sourceApplicationIntegrationId,
         version: data.version,
-        selectedForm: 'form3', //TODO: lagre denne i config?
+        isPublished: data.isPublished,
         caseData: {
             caseCreationStrategy: data.caseConfiguration?.caseCreationStrategy,
             caseNumber: data.caseConfiguration?.caseNumber,
@@ -45,6 +47,7 @@ export function toFormData(data: IIntegrationConfiguration): IFormData {
         applicantData: {
             type: data.applicantConfiguration?.organisationNumber ? 'ORGANISATION' : 'PERSON',
             organisationNumber: data.applicantConfiguration?.organisationNumber,
+            nationalIdentityNumber: data.applicantConfiguration?.nationalIdentityNumber,
             name: fieldToString(data.applicantConfiguration, 'KorrespondansepartNavn', true),
             address: fieldToString(data.applicantConfiguration, 'Adresse.adresselinje', true),
             postalCode: fieldToString(data.applicantConfiguration, 'Adresse.postnummer', true),

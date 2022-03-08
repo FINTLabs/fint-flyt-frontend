@@ -7,9 +7,12 @@ import {CreationStrategy} from "../integration/types/CreationStrategy";
 export function toIntegrationConfiguration(data: IFormData, id?: string): IIntegrationConfiguration {
     const collectionStrategy: boolean = data.caseData?.caseCreationStrategy === CreationStrategy.COLLECTION
     return {
-        id: id,
+        integrationId: id,
         name: data.name,
         description: data.description,
+        sourceApplication: data.sourceApplication,
+        sourceApplicationIntegrationId: data.sourceApplicationIntegrationId,
+        isPublished: data.isPublished,
         caseConfiguration: collectionStrategy ?
             {
                 caseCreationStrategy: data.caseData?.caseCreationStrategy,
@@ -201,6 +204,7 @@ export function toIntegrationConfiguration(data: IFormData, id?: string): IInteg
         applicantConfiguration: {
             applicantType: data.applicantData?.type,
             organisationNumber: data.applicantData?.organisationNumber,
+            nationalIdentityNumber: data.applicantData?.nationalIdentityNumber,
             fields: [
                 {
                     field: "KorrespondansepartNavn",
