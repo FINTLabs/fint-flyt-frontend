@@ -9,6 +9,7 @@ export const defaultValues: IFormData = {
     version: '',
     sourceApplication: '',
     sourceApplicationIntegrationId: '',
+    isPublished: false,
     caseData: {
         caseCreationStrategy: CreationStrategy.NEW,
         caseNumber: '',
@@ -46,7 +47,7 @@ export const defaultValues: IFormData = {
     applicantData: {
         type: 'PERSON',
         organisationNumber: '',
-        socialSecurityNumber: '',
+        nationalIdentityNumber: '',
         name: '',
         address: '',
         postalCode: '',

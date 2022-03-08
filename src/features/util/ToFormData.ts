@@ -9,6 +9,7 @@ export function toFormData(data: IIntegrationConfiguration): IFormData {
         sourceApplication: data.sourceApplication,
         sourceApplicationIntegrationId: data.sourceApplicationIntegrationId,
         version: data.version,
+        isPublished: data.isPublished,
         caseData: {
             caseCreationStrategy: data.caseConfiguration?.caseCreationStrategy,
             caseNumber: data.caseConfiguration?.caseNumber,
@@ -46,7 +47,7 @@ export function toFormData(data: IIntegrationConfiguration): IFormData {
         applicantData: {
             type: data.applicantConfiguration?.organisationNumber ? 'ORGANISATION' : 'PERSON',
             organisationNumber: data.applicantConfiguration?.organisationNumber,
-            socialSecurityNumber: data.applicantConfiguration?.socialSecurityNumber,
+            nationalIdentityNumber: data.applicantConfiguration?.nationalIdentityNumber,
             name: fieldToString(data.applicantConfiguration, 'KorrespondansepartNavn', true),
             address: fieldToString(data.applicantConfiguration, 'Adresse.adresselinje', true),
             postalCode: fieldToString(data.applicantConfiguration, 'Adresse.postnummer', true),

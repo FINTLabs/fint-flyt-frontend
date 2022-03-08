@@ -14,7 +14,7 @@ export interface IDocumentConfiguration {
 export interface IApplicantConfiguration {
     applicantType?: string;
     organisationNumber?: string;
-    socialSecurityNumber?: string;
+    nationalIdentityNumber?: string;
     fields: IField[];
 }
 

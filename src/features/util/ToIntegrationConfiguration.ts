@@ -12,6 +12,7 @@ export function toIntegrationConfiguration(data: IFormData, id?: string): IInteg
         description: data.description,
         sourceApplication: data.sourceApplication,
         sourceApplicationIntegrationId: data.sourceApplicationIntegrationId,
+        isPublished: data.isPublished,
         caseConfiguration: collectionStrategy ?
             {
                 caseCreationStrategy: data.caseData?.caseCreationStrategy,
@@ -203,7 +204,7 @@ export function toIntegrationConfiguration(data: IFormData, id?: string): IInteg
         applicantConfiguration: {
             applicantType: data.applicantData?.type,
             organisationNumber: data.applicantData?.organisationNumber,
-            socialSecurityNumber: data.applicantData?.socialSecurityNumber,
+            nationalIdentityNumber: data.applicantData?.nationalIdentityNumber,
             fields: [
                 {
                     field: "KorrespondansepartNavn",

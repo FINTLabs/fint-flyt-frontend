@@ -96,6 +96,7 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
                         <Typography><strong>Skjemaleverandør: </strong>{activeConfiguration.sourceApplication}</Typography>
                         <Typography><strong>Skjema: </strong>{activeConfiguration.sourceApplicationIntegrationId}</Typography>
                         <Typography><strong>Integrasjonslogikk: </strong>{activeConfiguration.caseConfiguration?.caseCreationStrategy}</Typography>
+                        <Typography><strong>Publisert: </strong>{activeConfiguration.isPublished? 'Ja' : 'Nei'}</Typography>
                         <Typography><strong>Versjon: </strong>{activeConfiguration.version}</Typography>
                     </CardContent>
                     <Divider />
@@ -124,7 +125,7 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
                     <CardContent>
                         <Typography variant={"h6"}>Avsender</Typography>
                         <Typography><strong>orgnummer:</strong> {activeConfiguration.applicantConfiguration?.organisationNumber}</Typography>
-                        <Typography><strong>persnummer:</strong> {activeConfiguration.applicantConfiguration?.socialSecurityNumber}</Typography>
+                        <Typography><strong>persnummer:</strong> {activeConfiguration.applicantConfiguration?.nationalIdentityNumber}</Typography>
                         {activeConfiguration.applicantConfiguration?.fields.map((field: any, index: number) => {
                             return<Typography key={index}><strong>{field.field}:</strong> {toValueString(field.valueBuilder)}</Typography>
                         })}
