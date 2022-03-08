@@ -202,7 +202,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
             reset({ ...defaultValues })
         }
         else if (integrationConfiguration && activeId == undefined && activeConfiguration?.integrationId !== undefined) {
-            const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data, activeConfiguration.id);
+            const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data, activeConfiguration.integrationId);
             publishConfiguration(activeConfiguration.integrationId, integrationConfiguration)
             reset({ ...defaultValues })
         }

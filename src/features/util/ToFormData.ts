@@ -9,7 +9,7 @@ export function toFormData(data: IIntegrationConfiguration): IFormData {
         sourceApplication: data.sourceApplication,
         sourceApplicationIntegrationId: data.sourceApplicationIntegrationId,
         version: data.version,
-        isPublished: data.isPublished,
+        isPublished: data.published,
         caseData: {
             caseCreationStrategy: data.caseConfiguration?.caseCreationStrategy,
             caseNumber: data.caseConfiguration?.caseNumber,
