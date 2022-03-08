@@ -194,7 +194,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     );
 
     const onSubmit = handleSubmit((data: IFormData) => {
-        data.isPublished = true;
+        data.published = true;
         const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data);
         if(integrationConfiguration && activeId !== undefined && activeConfiguration?.integrationId == undefined) {
             const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data, activeId);
@@ -216,7 +216,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     });
 
     const onSave = handleSubmit((data: IFormData) => {
-        data.isPublished = false;
+        data.published = false;
         const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data);
         if(integrationConfiguration && activeId !== undefined) {
             const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data, activeId);

@@ -12,7 +12,7 @@ export function toIntegrationConfiguration(data: IFormData, id?: string): IInteg
         description: data.description,
         sourceApplication: data.sourceApplication,
         sourceApplicationIntegrationId: data.sourceApplicationIntegrationId,
-        published: data.isPublished,
+        published: data.published,
         caseConfiguration: collectionStrategy ?
             {
                 caseCreationStrategy: data.caseData?.caseCreationStrategy,
