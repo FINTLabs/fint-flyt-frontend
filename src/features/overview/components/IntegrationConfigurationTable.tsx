@@ -4,6 +4,7 @@ import {
 import {DataGrid, GridColDef, GridToolbar} from "@mui/x-data-grid";
 import * as React from "react";
 import {useHistory} from "react-router-dom";
+import {noNB} from "../../util/locale/noNB";
 
 const IntegrationConfigurationTable: React.FunctionComponent<any> = (props) => {
     const classes = props.classes;
@@ -27,6 +28,7 @@ const IntegrationConfigurationTable: React.FunctionComponent<any> = (props) => {
             <Box display="flex" position="relative" width={1} height={1}>
                 <Box className={classes.dataGridBox}>
                     <DataGrid
+                        localeText={noNB}
                         getRowId={(row) => row.integrationId}
                         onCellDoubleClick={(params, event) => {
                             if (!event.ctrlKey) {
