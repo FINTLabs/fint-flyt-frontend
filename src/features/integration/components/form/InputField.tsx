@@ -13,6 +13,7 @@ import {ISelect} from "../../types/InputField";
 import {TextFieldWithDropZone} from "../dnd/TextFieldWithDropZone";
 import {makeStyles} from "@mui/styles";
 import {dropdownPlaceholder} from "../../defaults/DefaultValues";
+import LockIcon from '@mui/icons-material/Lock';
 
 const useStyles = makeStyles(theme => ({
     dropdownPopover: {
@@ -28,6 +29,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
     });
     let errorMessage: string = 'Du må oppgi ' + props.label;
     if (props.input === INPUT_TYPE.DROPDOWN) {
+        let disabled = props.disabled;
         return (
             <Controller
                 name={props.formValue}
@@ -35,6 +37,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                 render={({ field: { onChange } }) => (
                     <TextField
                         select
+                        disabled={props.disabled}
                         size="small"
                         sx={{ mb: 3, width: 'inherit' }}
                         value={props.value}
@@ -44,6 +47,8 @@ const InputField: React.FunctionComponent<any> = (props) => {
                                 className: classes.dropdownPopover
                             },
                         }}
+                        InputProps={{endAdornment: disabled ?
+                                <LockIcon/> : null}}
                         onChange={e => {
                             props.setter && props.setter(e.target)
                             onChange(e.target.value);

@@ -18,6 +18,7 @@ import {CreationStrategy} from "./types/CreationStrategy";
 import {toFormData} from "../util/ToFormData";
 import {ResourcesContext} from "../../resourcesContext";
 import {IntegrationContext} from "../../integrationContext";
+import FormModal from "./components/FormModal";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -75,7 +76,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     let history = useHistory();
     const editConfig: boolean = window.location.pathname === '/integration/configuration/edit'
     const [submitSuccess, setSubmitSuccess] = useState(false)
-    const { integration, setIntegration } = useContext(IntegrationContext)
+    const { integration, setIntegration, resetSourceAndDestination } = useContext(IntegrationContext)
     let activeConfiguration = integration.integrationId && editConfig ? integration : undefined;
     let activeFormData = integration.integrationId && editConfig ? toFormData(integration) : defaultValues;
 
@@ -89,12 +90,13 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     useEffect(()=> {
         getAllResources();
         return () => {
-            resetAllResources()
+            resetAllResources();
+            resetSourceAndDestination();
         };
     }, [])
 
     const accordionList: IAccordion[] = [
-        {summary: "Integrasjonslogikk", accordionForm: ACCORDION_FORM.CASE_INFORMATION, defaultExpanded: true},
+        {summary: "Integrasjonslogikk", accordionForm: ACCORDION_FORM.CASE_INFORMATION, defaultExpanded: false},
         {summary: "Sak", accordionForm: ACCORDION_FORM.CASE_FORM, defaultExpanded: false, hidden: watch("caseData.caseCreationStrategy") === CreationStrategy.COLLECTION},
         {summary: "Journalpost", accordionForm: ACCORDION_FORM.RECORD_FORM, defaultExpanded: false},
         {summary: "Dokument- og objektbeskrivelse", accordionForm: ACCORDION_FORM.DOCUMENT_FORM, defaultExpanded: false},
@@ -151,6 +153,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
 
     return (
         <DndProvider backend={HTML5Backend}>
+            <FormModal/>
             {!submitSuccess &&
                 <Box display="flex" position="relative" width={1} height={1}>
                     <Box>
@@ -190,7 +193,8 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                     <Typography variant={"h5"} sx={{mb: 2}}>Integrasjon til arkiv - Ferdig</Typography>
                     <Button size="small" variant="contained" component={RouterLink} to="/overview">Se integrasjoner</Button>
                     <Button size="small" variant="contained" sx={{ml: 2}} component={RouterLink} to="/">Dashboard</Button>
-                </Box>}
+                </Box>
+            }
         </DndProvider>
     );
 }
