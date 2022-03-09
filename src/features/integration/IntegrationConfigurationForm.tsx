@@ -124,8 +124,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
         IntegrationRepository.create(data)
             .then(response => {
                 console.log('created new configuraton', data, response);
-                console.log(response)
-                setActiveId(response.data)
+                setActiveId(response.headers.location.split('/').pop())
                 setSaved(true);
             })
             .catch((e: Error) => {
@@ -150,7 +149,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
             .then(response => {
                 console.log('created new configuraton', data, response);
                 resetAllResources();
-                setSubmitSuccess(response.status === 200);
+                setSubmitSuccess(response.status === 201);
             })
             .catch((e: Error) => {
                 console.log('error creating new', e);
