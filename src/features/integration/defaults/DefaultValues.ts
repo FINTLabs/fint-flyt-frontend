@@ -94,9 +94,15 @@ export const forms: ISelect[] = [
 ];
 
 export const sourceApplications: ISelect[] = [
-    { label: "ACOS", value: "1" },
-    { label: "Altinn", value: "2" },
-    { label: "Vigo", value: "3" }
+    { label: "ACOS", value: "acos" },
+    { label: "Altinn", value: "altinn" },
+    { label: "Vigo", value: "vigo" }
+];
+
+export const destinations: ISelect[] = [
+    { label: "Fylkesråd", value: "fylkesrad" },
+    { label: "Fylkesting", value: "fylkesting" },
+    { label: "Arkiv51", value: "arkiv51" }
 ];
 
 export const caseWorkers: ISelect[] = [

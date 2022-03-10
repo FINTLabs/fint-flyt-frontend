@@ -18,7 +18,7 @@ import {CreationStrategy} from "./types/CreationStrategy";
 import {toFormData} from "../util/ToFormData";
 import {ResourcesContext} from "../../resourcesContext";
 import {IntegrationContext} from "../../integrationContext";
-import FormModal from "./components/FormModal";
+import {FormSettings} from "./components/FormSettings";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -76,6 +76,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     let history = useHistory();
     const editConfig: boolean = window.location.pathname === '/integration/configuration/edit'
     const [submitSuccess, setSubmitSuccess] = useState(false)
+    const [settings, setSettings] = useState(false)
     const { integration, setIntegration, resetSourceAndDestination } = useContext(IntegrationContext)
     let activeConfiguration = integration.integrationId && editConfig ? integration : undefined;
     let activeFormData = integration.integrationId && editConfig ? toFormData(integration) : defaultValues;
@@ -153,8 +154,9 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
 
     return (
         <DndProvider backend={HTML5Backend}>
-            <FormModal/>
-            {!submitSuccess &&
+            {/*<FormModal/>*/}
+            {!settings && <FormSettings setSettings={setSettings}/>}
+            {!submitSuccess && settings &&
                 <Box display="flex" position="relative" width={1} height={1}>
                     <Box>
                         <Typography variant={"h5"} sx={{mb: 2}}>Integrasjon til arkiv</Typography>
@@ -188,7 +190,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                     </Box>
                 </Box>
             }
-            {submitSuccess &&
+            {submitSuccess && settings &&
                 <Box style={{minHeight: 'fit-content'}}>
                     <Typography variant={"h5"} sx={{mb: 2}}>Integrasjon til arkiv - Ferdig</Typography>
                     <Button size="small" variant="contained" component={RouterLink} to="/overview">Se integrasjoner</Button>

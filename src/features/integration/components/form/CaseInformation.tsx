@@ -1,13 +1,14 @@
-import {Box, Button, FormGroup, Typography} from '@mui/material';
+import {Box, Button, FormGroup, IconButton, Typography} from '@mui/material';
 import React, {useContext} from 'react';
 import InputField from "./InputField";
 import {INPUT_TYPE} from "../../types/InputType.enum";
 import {IInputField} from "../../types/InputField";
-import {creationStrategies, forms, sourceApplications} from "../../defaults/DefaultValues";
+import {creationStrategies, destinations, forms, sourceApplications} from "../../defaults/DefaultValues";
 import {CreationStrategy} from "../../types/CreationStrategy";
 import {FieldErrors} from "react-hook-form";
 import IntegrationRepository from "../../repository/IntegrationRepository";
 import {IntegrationContext} from "../../../../integrationContext";
+import LockIcon from '@mui/icons-material/Lock';
 
 const CaseInformation: React.FunctionComponent<any> = (props) => {
     const { destination, sourceApplication } = useContext(IntegrationContext)
@@ -34,8 +35,8 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
     let isCollection = props.watch("caseData.caseCreationStrategy") === CreationStrategy.COLLECTION
     let errors: FieldErrors = props.errors
     const caseInformationFields: IInputField[] = [
-        {input: INPUT_TYPE.DROPDOWN, label: "Skjemaleverandør", value: sourceApplication, formValue: "sourceApplication", dropDownItems: sourceApplications, disabled: true},
-        {input: INPUT_TYPE.DROPDOWN, label: "Destinasjon", value: destination, formValue: "destination", dropDownItems: sourceApplications, disabled: true},
+        {input: INPUT_TYPE.DROPDOWN, label: "Skjemaleverandør", value: sourceApplication, formValue: "sourceApplication", dropDownItems: sourceApplications, disabled: true, lockIcon: true},
+        {input: INPUT_TYPE.DROPDOWN, label: "Destinasjon", value: destination, formValue: "destination", dropDownItems: destinations, disabled: true, lockIcon: true},
         {input: INPUT_TYPE.TEXT_FIELD, label: "Navn", formValue: "name", required: props.validation, error:errors.name},
         {input: INPUT_TYPE.TEXT_FIELD, label: "Beskrivelse", formValue: "description", required: props.validation, error:errors.description},
         {input: INPUT_TYPE.DROPDOWN, label: "Skjema", value: props.watch("sourceApplicationIntegrationId"), formValue: "sourceApplicationIntegrationId", dropDownItems: forms},
@@ -65,6 +66,8 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
                                                 {...props}
                                     />
                                 </Box>
+                                {field.lockIcon && <div>
+                                    <IconButton aria-label="locked" disabled={true}><LockIcon /></IconButton></div>}
                                 {isCollection && field.searchOption &&
                                     <Box>
                                         <Button onClick={handleCaseSearch} variant="outlined" sx={{ml: 2}}>Søk</Button>

@@ -14,6 +14,7 @@ export interface IInputField {
     required?: boolean;
     error?: string;
     helpText?: string;
+    lockIcon?: boolean;
     setter?: (item: IResourceItem) => void;
     searchOption?: boolean;
 }
