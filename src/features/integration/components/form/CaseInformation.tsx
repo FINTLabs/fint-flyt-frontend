@@ -38,7 +38,7 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
         {input: INPUT_TYPE.DROPDOWN, label: "Skjemaleverandør", value:props.watch("sourceApplication"), formValue: "sourceApplication", dropDownItems: sourceApplications},
         {input: INPUT_TYPE.DROPDOWN, label: "Skjema", value: props.watch("sourceApplicationIntegrationId"), formValue: "sourceApplicationIntegrationId", dropDownItems: forms},
         {input: INPUT_TYPE.RADIO, label: "Velg hvordan skjema skal sendes til arkivet", value: props.watch("caseData.caseCreationStrategy"),
-            formValue: "caseData.caseCreationStrategy", radioOptions: creationStrategies, defaultValue: props.watch("caseData.caseCreationStrategy")},
+            formValue: "caseData.caseCreationStrategy", radioOptions: creationStrategies},
         {input: INPUT_TYPE.TEXT_FIELD, label: "Saksnummer", formValue: "caseData.caseNumber", hidden:!isCollection, required:isCollection && props.validation, error:errors.caseData?.caseNumber, searchOption: true}
     ]
     return (
@@ -59,7 +59,6 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
                                                     formValue={field.formValue}
                                                     dropdownItems={field.dropDownItems}
                                                     radioOptions={field.radioOptions}
-                                                    defaultValue={field.defaultValue}
                                                     {...props}
                                         />
                                     </Box>

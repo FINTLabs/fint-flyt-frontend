@@ -2,6 +2,7 @@ import {ISelect} from "../types/InputField";
 import {ITag} from "../types/Tag";
 import {CreationStrategy} from "../types/CreationStrategy";
 import IFormData from "../types/Form/FormData";
+import {ApplicantType} from "../types/ApplicantType";
 
 export const defaultValues: IFormData = {
     name: '',
@@ -45,7 +46,7 @@ export const defaultValues: IFormData = {
         variant: ''
     },
     applicantData: {
-        type: 'PERSON',
+        type: ApplicantType.PERSON,
         organisationNumber: '',
         nationalIdentityNumber: '',
         name: '',
