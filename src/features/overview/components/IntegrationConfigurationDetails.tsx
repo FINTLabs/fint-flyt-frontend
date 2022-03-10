@@ -90,9 +90,10 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
                     </FormControl>
                     <CardContent>
                         <Typography><strong>Id: </strong>{activeConfiguration.integrationId}</Typography>
+                        <Typography><strong>Skjemaleverandør: </strong>{activeConfiguration.sourceApplication}</Typography>
+                        <Typography><strong>Destinasjon: </strong>{activeConfiguration.destination}</Typography>
                         <Typography><strong>Navn: </strong>{activeConfiguration.name}</Typography>
                         <Typography><strong>Beskrivelse: </strong>{activeConfiguration.description}</Typography>
-                        <Typography><strong>Skjemaleverandør: </strong>{activeConfiguration.sourceApplication}</Typography>
                         <Typography><strong>Skjema: </strong>{activeConfiguration.sourceApplicationIntegrationId}</Typography>
                         <Typography><strong>Integrasjonslogikk: </strong>{activeConfiguration.caseConfiguration?.caseCreationStrategy}</Typography>
                         <Typography><strong>Publisert: </strong>{activeConfiguration.isPublished? 'Ja' : 'Nei'}</Typography>

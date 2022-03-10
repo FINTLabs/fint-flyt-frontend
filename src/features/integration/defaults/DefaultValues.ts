@@ -137,13 +137,15 @@ export const TaglistPopoverContent: string = 'I tekstfeltene til i de ulike post
     'Naviger til feltet du ønsker å fylle,og dra inn tag fra listen under.'
 
 export const fieldHelp = {
-    name: '',
-    description: '',
+    name: 'Navn på integrasjon',
+    description: 'besrkrivelse',
     version: '',
-    selectedForm: '',
+    sourceApplication: 'Skjemaleverandør, f.eks ACOS',
+    sourceApplicationIntegrationId: 'Skjema, f.eks VIK103',
+    destination: '-',
     caseData: {
-        caseCreationStrategy: CreationStrategy.NEW,
-        caseNumber: '2021/12345',
+        caseCreationStrategy: 'Avleveringslogikk ...',
+        caseNumber: ' må være på formatet saksår/sekvensnr, f.eks 2021/12345',
         title: 'Tittel kan være en konkret tekststreng, eller en kombinasjon\n' +
             ' av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak.\n' +
             '  (Se Noark))',

@@ -77,7 +77,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     const editConfig: boolean = window.location.pathname === '/integration/configuration/edit'
     const [submitSuccess, setSubmitSuccess] = useState(false)
     const [settings, setSettings] = useState(false)
-    const { integration, setIntegration, resetSourceAndDestination } = useContext(IntegrationContext)
+    const { integration, sourceApplication, destination, setIntegration, resetSourceAndDestination } = useContext(IntegrationContext)
     let activeConfiguration = integration.integrationId && editConfig ? integration : undefined;
     let activeFormData = integration.integrationId && editConfig ? toFormData(integration) : defaultValues;
 
@@ -136,6 +136,8 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     }
 
     const onSubmit = handleSubmit((data: IFormData) => {
+        data.sourceApplication = sourceApplication;
+        data.destination = destination;
         const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data);
         if (integrationConfiguration && activeConfiguration?.integrationId !== undefined) {
             const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data, activeConfiguration.integrationId);
