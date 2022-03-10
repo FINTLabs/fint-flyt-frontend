@@ -269,7 +269,6 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                                         label="Ferdigstilt" />
                                 </FormGroup>
                                 <Button sx={{mr: 2}} onClick={checked? onSubmit:onSave} variant="contained">Lagre</Button>
-                                <Button disabled={true} type="submit" variant="contained">Ferdigstille</Button>
                                 <Button sx={{float: 'right'}} onClick={handleCancel} variant="contained">Avbryt</Button>
                             </div>
                         </form>
