@@ -157,8 +157,8 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     return (
         <DndProvider backend={HTML5Backend}>
             {/*<FormModal/>*/}
-            {!settings && <FormSettings setSettings={setSettings}/>}
-            {!submitSuccess && settings &&
+            {!settings && !activeConfiguration && <FormSettings setSettings={setSettings}/>}
+            {!submitSuccess && (activeConfiguration || settings) &&
                 <Box display="flex" position="relative" width={1} height={1}>
                     <Box>
                         <Typography variant={"h5"} sx={{mb: 2}}>Integrasjon til arkiv</Typography>

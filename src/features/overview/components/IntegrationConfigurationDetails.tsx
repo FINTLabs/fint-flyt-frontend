@@ -15,7 +15,7 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
     const [updateSuccess, setUpdateSuccess] = useState(false)
     const [version, setVersion] = useState(props.initialConfiguration.version)
     const latestVersion = props.initialVersion;
-    const {integration, setIntegration} = useContext(IntegrationContext);
+    const {integration, setIntegration, setSourceApplication, setDestination} = useContext(IntegrationContext);
     const versions = [];
     for (let i = 1; i<=latestVersion; i++) {
         versions.push({label: i, value: i})
@@ -60,6 +60,8 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
             pathname: '/integration/configuration/edit',
         })
         setIntegration(activeConfiguration);
+        setSourceApplication(activeConfiguration?.sourceApplication ? activeConfiguration.sourceApplication : '');
+        setDestination(activeConfiguration.destination ? activeConfiguration.destination : '');
     }
 
     const handleVersionChange = () => {
