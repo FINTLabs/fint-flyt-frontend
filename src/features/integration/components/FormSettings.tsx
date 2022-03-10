@@ -65,7 +65,7 @@ export const FormSettings: React.FunctionComponent<any> = (props) => {
                 </Box>
                 <Box sx={{mt: 2}}>
                     <Button onClick={cancel} variant="contained">Avbryt</Button>
-                    <Button sx={{float: 'right'}} onClick={confirm} variant="contained">Videre</Button>
+                    <Button sx={{float: 'right'}} onClick={confirm} variant="contained">Neste</Button>
                 </Box>
             </Box>
         </>
