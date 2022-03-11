@@ -38,9 +38,9 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
     const caseInformationFields: IInputField[] = [
         {input: INPUT_TYPE.DROPDOWN, label: "Skjemaleverandør", value: sourceApplication, formValue: "sourceApplication", dropDownItems: sourceApplications, disabled: true, lockIcon: true},
         {input: INPUT_TYPE.DROPDOWN, label: "Destinasjon", value: destination, formValue: "destination", dropDownItems: destinations, disabled: true, lockIcon: true},
+        {input: INPUT_TYPE.DROPDOWN, label: "Skjema", value: props.watch("sourceApplicationIntegrationId"), required: props.validation, formValue: "sourceApplicationIntegrationId", dropDownItems: forms, helpText: fieldHelp.sourceApplicationIntegrationId},
         {input: INPUT_TYPE.TEXT_FIELD, label: "Navn", formValue: "name", required: props.validation, error:errors.name, helpText: fieldHelp.name},
         {input: INPUT_TYPE.TEXT_FIELD, label: "Beskrivelse", formValue: "description", required: props.validation, error:errors.description, helpText: fieldHelp.description},
-        {input: INPUT_TYPE.DROPDOWN, label: "Skjema", value: props.watch("sourceApplicationIntegrationId"), formValue: "sourceApplicationIntegrationId", dropDownItems: forms, helpText: fieldHelp.sourceApplicationIntegrationId},
         {input: INPUT_TYPE.RADIO, label: "Velg hvordan skjema skal sendes til arkivet", value: props.watch("caseData.caseCreationStrategy"),
             formValue: "caseData.caseCreationStrategy", radioOptions: creationStrategies, defaultValue: props.watch("caseData.caseCreationStrategy"), helpText: fieldHelp.caseData.caseCreationStrategy},
         {input: INPUT_TYPE.TEXT_FIELD, label: "Saksnummer", formValue: "caseData.caseNumber", hidden:!isCollection, required:isCollection && props.validation, error:errors.caseData?.caseNumber, searchOption: true, helpText: fieldHelp.caseData.caseNumber}
@@ -70,12 +70,9 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
                                 {field.lockIcon && <div>
                                     <IconButton aria-label="locked" disabled={true}><LockIcon /></IconButton></div>}
                                 {!field.lockIcon && <Box>
-                                        <HelpPopover popoverContent={field.helpText}/>
-                                    </Box>}
-                                {isCollection && field.searchOption &&
-                                    <Box>
-                                        <Button onClick={handleCaseSearch} variant="outlined" sx={{ml: 2}}>Søk</Button>
-                                    </Box>}
+                                    <HelpPopover popoverContent={field.helpText}/></Box>}
+                                {isCollection && field.searchOption && <Box>
+                                    <Button onClick={handleCaseSearch} variant="outlined" sx={{ml: 2}}>Søk</Button></Box>}
                             </Box>
                     );
                 }

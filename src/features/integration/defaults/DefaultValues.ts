@@ -87,16 +87,14 @@ export const applicantOptions: ISelect[] = [
 ];
 
 export const forms: ISelect[] = [
-    { label: "TT-skjema", value: "TT" },
-    { label: "Skjema1", value: "1_form" },
-    { label: "Skjema33", value: "form3" },
-    { label: "Skjema2", value: "2_form" }
+    { label: "Søknad om reservasjon av skoleplass", value: "VIK014" },
+    { label: "Søknad til kombinasjonsprogram", value: "VIK036" },
+    { label: "Søknad om TT-kort", value: "VIK108" },
+    { label: "Samtykke - fotografering/video/lyd", value: "VIK132" }
 ];
 
 export const sourceApplications: ISelect[] = [
-    { label: "ACOS", value: "acos" },
-    { label: "Altinn", value: "altinn" },
-    { label: "Vigo", value: "vigo" }
+    { label: "ACOS", value: "acos" }
 ];
 
 export const destinations: ISelect[] = [
