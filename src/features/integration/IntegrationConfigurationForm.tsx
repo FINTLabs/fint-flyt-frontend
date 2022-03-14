@@ -10,7 +10,7 @@ import {defaultValues} from "./defaults/DefaultValues";
 import {toIntegrationConfiguration} from "../util/ToIntegrationConfiguration";
 import AccordionForm from "./components/AccordionForm";
 import {ACCORDION_FORM, IAccordion} from "./types/Accordion";
-import TagList from "./components/TagList";
+import SourceApplicationForm from "./components/SourceApplicationForm";
 import {HTML5Backend} from "react-dnd-html5-backend";
 import {DndProvider} from "react-dnd";
 import {IIntegrationConfiguration} from "./types/IntegrationConfiguration";
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
             flex: '50%',
             paddingLeft: theme.spacing(2)
         },
-        taglistContainer: {
+        sourceApplicationFormContainer: {
             marginTop: theme.spacing(6),
             marginLeft: theme.spacing(8),
             padding: theme.spacing(2),
@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme: Theme) =>
             position: 'sticky',
             top: theme.spacing(16)
         },
-        tagList: {
+        sourceApplicationForm: {
             opacity: 0.99,
             width: theme.spacing(40),
             height: 'fit-content'
@@ -180,8 +180,8 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                             </div>
                         </form>
                     </Box>
-                    <Box className={classes.taglistContainer}>
-                        <TagList style={classes}/>
+                    <Box className={classes.sourceApplicationFormContainer}>
+                        <SourceApplicationForm style={classes}/>
                     </Box>
                 </Box>
             }

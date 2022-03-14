@@ -1,15 +1,15 @@
 import {Box, Typography} from "@mui/material";
 import {Tag} from "./dnd/Tag";
-import {TaglistPopoverContent, tagList} from "../defaults/DefaultValues";
+import {sourceApplicationFormPopoverContent, tagList} from "../defaults/DefaultValues";
 import * as React from "react";
 import HelpPopover from "./popover/HelpPopover";
 
-const TagList: React.FunctionComponent<any> = (props) => {
+const SourceApplicationForm: React.FunctionComponent<any> = (props) => {
     return (
         <Box className={props.style.tagList}>
             <Box className={props.style.row}>
                 <Typography variant={"h6"}>Data fra skjema</Typography>
-                <HelpPopover popoverContent={TaglistPopoverContent}/>
+                <HelpPopover popoverContent={sourceApplicationFormPopoverContent}/>
             </Box>
             {tagList.map((tag, index) => {
                     return (
@@ -20,5 +20,4 @@ const TagList: React.FunctionComponent<any> = (props) => {
     );
 }
 
-
-export default TagList;
+export default SourceApplicationForm;
