@@ -6,6 +6,7 @@ export default interface IApplicantData {
     address?: string;
     postalCode?: string;
     city?: string;
+    contactPerson?: string;
     phoneNumber?: string;
     email?: string;
     accessCode?: string;

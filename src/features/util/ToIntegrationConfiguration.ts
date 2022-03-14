@@ -149,6 +149,13 @@ export function toIntegrationConfiguration(data: IFormData, id?: string): IInteg
                     }
                 },
                 {
+                    field: "saksbehandler",
+                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
+                    valueBuilder: {
+                        value: data.recordData?.caseWorker
+                    }
+                },
+                {
                     field: "tilgangsrestriksjon",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
                     valueBuilder: {
@@ -225,6 +232,11 @@ export function toIntegrationConfiguration(data: IFormData, id?: string): IInteg
                     field: "Adresse.poststed",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
                     valueBuilder: createValueBuilder(data.applicantData?.city)
+                },
+                {
+                    field: "kontaktperson",
+                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
+                    valueBuilder: createValueBuilder(data.applicantData?.contactPerson)
                 },
                 {
                     field: "Kontaktinformasjon.mobiltelefonnummer",

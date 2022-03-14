@@ -280,276 +280,276 @@ export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
 
 export const MOCK_INTEGRATION_CONFIG_NOT_PUBLISHED = {
     "applicantConfiguration": {
-    "applicantType": "PERSON",
+        "applicantType": "PERSON",
         "fields": [
-        {
-            "field": "KorrespondansepartNavn",
-            "valueBuildStrategy": 1,
-            "valueBuilder": {
-                "properties": [],
-                "value": "Anakin Skywalker"
+            {
+                "field": "KorrespondansepartNavn",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "Anakin Skywalker"
+                }
+            },
+            {
+                "field": "Adresse.adresselinje",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "highstreet 22"
+                }
+            },
+            {
+                "field": "Adresse.postnummer",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "1234"
+                }
+            },
+            {
+                "field": "Adresse.poststed",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "Moria"
+                }
+            },
+            {
+                "field": "Kontaktinformasjon.mobiltelefonnummer",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "12345678"
+                }
+            },
+            {
+                "field": "Kontaktinformasjon.epostadresse",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "hello@world.no"
+                }
+            },
+            {
+                "field": "tilgangsrestriksjon",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {
+                    "value": "code2"
+                }
+            },
+            {
+                "field": "skjermingshjemmel",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {
+                    "value": "p3"
+                }
             }
-        },
-        {
-            "field": "Adresse.adresselinje",
-            "valueBuildStrategy": 1,
-            "valueBuilder": {
-                "properties": [],
-                "value": "highstreet 22"
-            }
-        },
-        {
-            "field": "Adresse.postnummer",
-            "valueBuildStrategy": 1,
-            "valueBuilder": {
-                "properties": [],
-                "value": "1234"
-            }
-        },
-        {
-            "field": "Adresse.poststed",
-            "valueBuildStrategy": 1,
-            "valueBuilder": {
-                "properties": [],
-                "value": "Moria"
-            }
-        },
-        {
-            "field": "Kontaktinformasjon.mobiltelefonnummer",
-            "valueBuildStrategy": 1,
-            "valueBuilder": {
-                "properties": [],
-                "value": "12345678"
-            }
-        },
-        {
-            "field": "Kontaktinformasjon.epostadresse",
-            "valueBuildStrategy": 1,
-            "valueBuilder": {
-                "properties": [],
-                "value": "hello@world.no"
-            }
-        },
-        {
-            "field": "tilgangsrestriksjon",
-            "valueBuildStrategy": 0,
-            "valueBuilder": {
-                "value": "code2"
-            }
-        },
-        {
-            "field": "skjermingshjemmel",
-            "valueBuildStrategy": 0,
-            "valueBuilder": {
-                "value": "p3"
-            }
-        }
-    ]
-},
+        ]
+    },
     "caseConfiguration": {
-    "caseCreationStrategy": "NEW",
+        "caseCreationStrategy": "NEW",
         "fields": [
-        {
-            "field": "tittel",
-            "valueBuildStrategy": 1,
-            "valueBuilder": {
-                "properties": [],
-                "value": "Title of case"
+            {
+                "field": "tittel",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "Title of case"
+                }
+            },
+            {
+                "field": "offentligTittel",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "public title"
+                }
+            },
+            {
+                "field": "caseType",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {
+                    "value": "casetype"
+                }
+            },
+            {
+                "field": "administrativenhet",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {
+                    "value": "unit4"
+                }
+            },
+            {
+                "field": "arkivdel",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {
+                    "value": "unit3"
+                }
+            },
+            {
+                "field": "journalenhet",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {
+                    "value": "unit0"
+                }
+            },
+            {
+                "field": "status",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {}
+            },
+            {
+                "field": "tilgangsrestriksjon",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {
+                    "value": "code42"
+                }
+            },
+            {
+                "field": "skjermingshjemmel",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {
+                    "value": "number6"
+                }
+            },
+            {
+                "field": "saksansvarlig",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {
+                    "value": "rand"
+                }
+            },
+            {
+                "field": "primarordningsprinsipp",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "prim"
+                }
+            },
+            {
+                "field": "sekundarordningsprinsipp",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "rose"
+                }
+            },
+            {
+                "field": "primarklasse",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {
+                    "value": "1class"
+                }
+            },
+            {
+                "field": "sekundarklasse",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "2class"
+                }
             }
-        },
-        {
-            "field": "offentligTittel",
-            "valueBuildStrategy": 1,
-            "valueBuilder": {
-                "properties": [],
-                "value": "public title"
-            }
-        },
-        {
-            "field": "caseType",
-            "valueBuildStrategy": 0,
-            "valueBuilder": {
-                "value": "casetype"
-            }
-        },
-        {
-            "field": "administrativenhet",
-            "valueBuildStrategy": 0,
-            "valueBuilder": {
-                "value": "unit4"
-            }
-        },
-        {
-            "field": "arkivdel",
-            "valueBuildStrategy": 0,
-            "valueBuilder": {
-                "value": "unit3"
-            }
-        },
-        {
-            "field": "journalenhet",
-            "valueBuildStrategy": 0,
-            "valueBuilder": {
-                "value": "unit0"
-            }
-        },
-        {
-            "field": "status",
-            "valueBuildStrategy": 0,
-            "valueBuilder": {}
-        },
-        {
-            "field": "tilgangsrestriksjon",
-            "valueBuildStrategy": 0,
-            "valueBuilder": {
-                "value": "code42"
-            }
-        },
-        {
-            "field": "skjermingshjemmel",
-            "valueBuildStrategy": 0,
-            "valueBuilder": {
-                "value": "number6"
-            }
-        },
-        {
-            "field": "saksansvarlig",
-            "valueBuildStrategy": 0,
-            "valueBuilder": {
-                "value": "rand"
-            }
-        },
-        {
-            "field": "primarordningsprinsipp",
-            "valueBuildStrategy": 1,
-            "valueBuilder": {
-                "properties": [],
-                "value": "prim"
-            }
-        },
-        {
-            "field": "sekundarordningsprinsipp",
-            "valueBuildStrategy": 1,
-            "valueBuilder": {
-                "properties": [],
-                "value": "rose"
-            }
-        },
-        {
-            "field": "primarklasse",
-            "valueBuildStrategy": 0,
-            "valueBuilder": {
-                "value": "1class"
-            }
-        },
-        {
-            "field": "sekundarklasse",
-            "valueBuildStrategy": 0,
-            "valueBuilder": {
-                "properties": [],
-                "value": "2class"
-            }
-        }
-    ]
-},
+        ]
+    },
     "description": "form to test mapping not published",
     "documentConfiguration": {
-    "fields": [
-        {
-            "field": "tittel",
-            "valueBuildStrategy": 1,
-            "valueBuilder": {
-                "properties": [],
-                "value": "document title"
+        "fields": [
+            {
+                "field": "tittel",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "document title"
+                }
+            },
+            {
+                "field": "dokumentStatus",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {
+                    "value": "D9"
+                }
+            },
+            {
+                "field": "tilgangsrestriksjon",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {
+                    "value": "code2"
+                }
+            },
+            {
+                "field": "skjermingshjemmel",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {
+                    "value": "p07"
+                }
+            },
+            {
+                "field": "DokumentBeskrivelse.dokumentObjekt.variantFormat",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {
+                    "value": "var"
+                }
             }
-        },
-        {
-            "field": "dokumentStatus",
-            "valueBuildStrategy": 0,
-            "valueBuilder": {
-                "value": "D9"
-            }
-        },
-        {
-            "field": "tilgangsrestriksjon",
-            "valueBuildStrategy": 0,
-            "valueBuilder": {
-                "value": "code2"
-            }
-        },
-        {
-            "field": "skjermingshjemmel",
-            "valueBuildStrategy": 0,
-            "valueBuilder": {
-                "value": "p07"
-            }
-        },
-        {
-            "field": "DokumentBeskrivelse.dokumentObjekt.variantFormat",
-            "valueBuildStrategy": 0,
-            "valueBuilder": {
-                "value": "var"
-            }
-        }
-    ]
-},
+        ]
+    },
     "published": false,
     "name": "testform",
     "recordConfiguration": {
-    "fields": [
-        {
-            "field": "tittel",
-            "valueBuildStrategy": 1,
-            "valueBuilder": {
-                "properties": [],
-                "value": "record title"
+        "fields": [
+            {
+                "field": "tittel",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "record title"
+                }
+            },
+            {
+                "field": "offentigTittel",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "public record title"
+                }
+            },
+            {
+                "field": "DokumentBeskrivelse.dokumentType",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {
+                    "value": "cat8"
+                }
+            },
+            {
+                "field": "administrativenhet",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {
+                    "value": "unit33"
+                }
+            },
+            {
+                "field": "journalstatus",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {
+                    "value": "N"
+                }
+            },
+            {
+                "field": "tilgangsrestriksjon",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {
+                    "value": "code89"
+                }
+            },
+            {
+                "field": "skjermingshjemmel",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {
+                    "value": "p34"
+                }
             }
-        },
-        {
-            "field": "offentigTittel",
-            "valueBuildStrategy": 1,
-            "valueBuilder": {
-                "properties": [],
-                "value": "public record title"
-            }
-        },
-        {
-            "field": "DokumentBeskrivelse.dokumentType",
-            "valueBuildStrategy": 0,
-            "valueBuilder": {
-                "value": "cat8"
-            }
-        },
-        {
-            "field": "administrativenhet",
-            "valueBuildStrategy": 0,
-            "valueBuilder": {
-                "value": "unit33"
-            }
-        },
-        {
-            "field": "journalstatus",
-            "valueBuildStrategy": 0,
-            "valueBuilder": {
-                "value": "N"
-            }
-        },
-        {
-            "field": "tilgangsrestriksjon",
-            "valueBuildStrategy": 0,
-            "valueBuilder": {
-                "value": "code89"
-            }
-        },
-        {
-            "field": "skjermingshjemmel",
-            "valueBuildStrategy": 0,
-            "valueBuilder": {
-                "value": "p34"
-            }
-        }
-    ]
-}
+        ]
+    }
 }
 
 export const MOCK_INTEGRATION_CONFIG_PUBLISHED = {
@@ -586,6 +586,14 @@ export const MOCK_INTEGRATION_CONFIG_PUBLISHED = {
                 "valueBuilder": {
                     "properties": [],
                     "value": "Moria"
+                }
+            },
+            {
+                "field": "kontaktperson",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "bella"
                 }
             },
             {
@@ -809,6 +817,13 @@ export const MOCK_INTEGRATION_CONFIG_PUBLISHED = {
                 }
             },
             {
+                "field": "saksbehandler",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {
+                    "value": "grogu"
+                }
+            },
+            {
                 "field": "tilgangsrestriksjon",
                 "valueBuildStrategy": 0,
                 "valueBuilder": {
@@ -861,6 +876,14 @@ export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
                 "valueBuilder": {
                     "properties": [],
                     "value": "Moria"
+                }
+            },
+            {
+                "field": "kontaktperson",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "donna"
                 }
             },
             {
@@ -1118,6 +1141,13 @@ export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
                 "valueBuildStrategy": 0,
                 "valueBuilder": {
                     "value": "N"
+                }
+            },
+            {
+                "field": "saksbehandler",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {
+                    "value": "mando"
                 }
             },
             {
