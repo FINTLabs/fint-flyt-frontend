@@ -37,6 +37,7 @@ const IntegrationConfigurationTable: React.FunctionComponent<any> = (props) => {
                             if (!event.ctrlKey) {
                                 event.defaultMuiPrevented = true;
                                 props.setIntegration(params.row)
+                                props.setInitialVersion(params.row.version)
                                 setHistory();
                             }
                         }}
