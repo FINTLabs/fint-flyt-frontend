@@ -1,56 +1,58 @@
 import IFormData from "../../features/integration/types/Form/FormData";
 import {CreationStrategy} from "../../features/integration/types/CreationStrategy";
 
-export const MOCK_FORMDATA: IFormData ={
-    "applicantData": {
-        "accessCode": "code2",
-        "address": "highstreet 22",
-        "city": "Moria",
-        "email": "hello@world.no",
-        "name": "Anakin Skywalker",
-        "paragraph": "p3",
-        "phoneNumber": "12345678",
-        "postalCode": "1234",
-        "type": "PERSON"
+export const MOCK_FORMDATA: IFormData = {
+    name: 'testform',
+    description: 'form to test mapping',
+    published: false,
+    caseData: {
+        caseCreationStrategy: CreationStrategy.NEW,
+        title: 'Title of case',
+        publicTitle: 'public title',
+        caseType: 'casetype',
+        administrativeUnit: 'unit4',
+        archiveUnit: 'unit3',
+        recordUnit: 'unit0',
+        accessCode: 'code42',
+        paragraph: 'number6',
+        caseWorker: 'rand',
+        primaryClassification: 'prim',
+        secondaryClassification: 'rose',
+        status: '',
+        primaryClass: '1class',
+        secondaryClass: '2class',
     },
-    "caseData": {
-        "accessCode": "code42",
-        "administrativeUnit": "unit4",
-        "archiveUnit": "unit3",
-        "caseCreationStrategy": "NEW",
-        "caseType": "casetype",
-        "caseWorker": "rand",
-        "paragraph": "number6",
-        "primaryClass": "1class",
-        "primaryClassification": "prim",
-        "publicTitle": "public title",
-        "recordUnit": "unit0",
-        "secondaryClass": "2class",
-        "secondaryClassification": "rose",
-        "status": "",
-        "title": "Title of case"
+    recordData: {
+        title: 'record title',
+        publicTitle: 'public record title',
+        type: 'cat8',
+        administrativeUnit: 'unit33',
+        recordStatus: 'N',
+        accessCode: 'code89',
+        caseWorker: 'boba',
+        paragraph: 'p34',
     },
-    "description": "form to test mapping",
-    "documentData": {
-        "accessCode": "code2",
-        "documentStatus": "D9",
-        "paragraph": "p07",
-        "title": "document title",
-        "variant": "var"
+    documentData: {
+        title: 'document title',
+        documentStatus: 'D9',
+        accessCode: 'code2',
+        paragraph: 'p07',
+        variant: 'var'
     },
-    "published": false,
-    "name": "testform",
-    "recordData": {
-        "accessCode": "code89",
-        "administrativeUnit": "unit33",
-        "paragraph": "p34",
-        "publicTitle": "public record title",
-        "recordStatus": "N",
-        "title": "record title",
-        "type": "cat8"
+    applicantData: {
+        type: 'PERSON',
+        name: 'Anakin Skywalker',
+        address: 'highstreet 22',
+        postalCode: '1234',
+        city: 'Moria',
+        contactPerson: 'donna',
+        phoneNumber: '12345678',
+        email: 'hello@world.no',
+        accessCode: 'code2',
+        paragraph: 'p3',
     },
-    "sourceApplication": "Acos",
-    "sourceApplicationIntegrationId": "VIK116"
+    sourceApplication: 'Acos',
+    sourceApplicationIntegrationId: 'VIK116'
 }
 
 export const MOCK_FORMDATA_NOT_PUBLISHED: IFormData = {
@@ -79,6 +81,7 @@ export const MOCK_FORMDATA_NOT_PUBLISHED: IFormData = {
         type: 'cat8',
         administrativeUnit: 'unit33',
         recordStatus: 'N',
+        caseWorker: 'boba',
         accessCode: 'code89',
         paragraph: 'p34',
     },
@@ -95,6 +98,7 @@ export const MOCK_FORMDATA_NOT_PUBLISHED: IFormData = {
         address: 'highstreet 22',
         postalCode: '1234',
         city: 'Moria',
+        contactPerson: 'donna',
         phoneNumber: '12345678',
         email: 'hello@world.no',
         accessCode: 'code2',
@@ -128,6 +132,7 @@ export const MOCK_FORMDATA_PUBLISHED: IFormData = {
         type: 'cat8',
         administrativeUnit: 'unit33',
         recordStatus: 'N',
+        caseWorker: 'leia',
         accessCode: 'code89',
         paragraph: 'p34',
     },
@@ -144,6 +149,7 @@ export const MOCK_FORMDATA_PUBLISHED: IFormData = {
         address: 'highstreet 22',
         postalCode: '1234',
         city: 'Moria',
+        contactPerson: 'bella',
         phoneNumber: '12345678',
         email: 'hello@world.no',
         accessCode: 'code2',
@@ -151,11 +157,13 @@ export const MOCK_FORMDATA_PUBLISHED: IFormData = {
     }
 }
 
+
 export const MOCK_FORMDATA_WITH_TAGS: IFormData = {
     "applicantData": {
         "accessCode": "code2",
         "address": "highstreet 22",
         "city": "Moria",
+        "contactPerson": "donna",
         "email": "hello@world.no",
         "name": "Luke Skywalker",
         "organisationNumber": "123456789",
@@ -194,6 +202,7 @@ export const MOCK_FORMDATA_WITH_TAGS: IFormData = {
     "recordData": {
         "accessCode": "code89",
         "administrativeUnit": "unit33",
+        "caseWorker": "mando",
         "paragraph": "p34",
         "publicTitle": "{singletag}",
         "recordStatus": "N",

@@ -37,6 +37,14 @@ export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
                 }
             },
             {
+                "field": "kontaktperson",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "donna"
+                }
+            },
+            {
                 "field": "Kontaktinformasjon.mobiltelefonnummer",
                 "valueBuildStrategy": 1,
                 "valueBuilder": {
@@ -259,6 +267,13 @@ export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
                 }
             },
             {
+                "field": "saksbehandler",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {
+                    "value": "boba"
+                }
+            },
+            {
                 "field": "tilgangsrestriksjon",
                 "valueBuildStrategy": 0,
                 "valueBuilder": {
@@ -312,6 +327,14 @@ export const MOCK_INTEGRATION_CONFIG_NOT_PUBLISHED = {
                 "valueBuilder": {
                     "properties": [],
                     "value": "Moria"
+                }
+            },
+            {
+                "field": "kontaktperson",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "donna"
                 }
             },
             {
@@ -532,6 +555,13 @@ export const MOCK_INTEGRATION_CONFIG_NOT_PUBLISHED = {
                 "valueBuildStrategy": 0,
                 "valueBuilder": {
                     "value": "N"
+                }
+            },
+            {
+                "field": "saksbehandler",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {
+                    "value": "boba"
                 }
             },
             {
@@ -820,7 +850,7 @@ export const MOCK_INTEGRATION_CONFIG_PUBLISHED = {
                 "field": "saksbehandler",
                 "valueBuildStrategy": 0,
                 "valueBuilder": {
-                    "value": "grogu"
+                    "value": "leia"
                 }
             },
             {
