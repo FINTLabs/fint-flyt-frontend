@@ -234,6 +234,11 @@ export function toIntegrationConfiguration(data: IFormData, id?: string): IInteg
                     valueBuilder: createValueBuilder(data.applicantData?.city)
                 },
                 {
+                    field: "kontaktperson",
+                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
+                    valueBuilder: createValueBuilder(data.applicantData?.contactPerson)
+                },
+                {
                     field: "Kontaktinformasjon.mobiltelefonnummer",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
                     valueBuilder: createValueBuilder(data.applicantData?.phoneNumber)

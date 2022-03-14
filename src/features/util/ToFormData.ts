@@ -53,6 +53,7 @@ export function toFormData(data: IIntegrationConfiguration): IFormData {
             address: fieldToString(data.applicantConfiguration, 'Adresse.adresselinje', true),
             postalCode: fieldToString(data.applicantConfiguration, 'Adresse.postnummer', true),
             city: fieldToString(data.applicantConfiguration, 'Adresse.poststed', true),
+            contactPerson: fieldToString(data.applicantConfiguration, 'kontaktperson', true),
             phoneNumber: fieldToString(data.applicantConfiguration, 'Kontaktinformasjon.mobiltelefonnummer', true),
             email: fieldToString(data.applicantConfiguration, 'Kontaktinformasjon.epostadresse', true),
             accessCode: fieldToString(data.applicantConfiguration, 'tilgangsrestriksjon'),

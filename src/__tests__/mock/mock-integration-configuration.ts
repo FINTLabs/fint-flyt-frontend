@@ -6,6 +6,7 @@ export const MOCK_FORMDATA: IFormData = {
         "accessCode": "code2",
         "address": "highstreet 22",
         "city": "Moria",
+        "contactPerson": "bella",
         "email": "hello@world.no",
         "name": "Anakin Skywalker",
         "paragraph": "p3",
@@ -59,6 +60,7 @@ export const MOCK_FORMDATA_WITH_TAGS: IFormData = {
         "accessCode": "code2",
         "address": "highstreet 22",
         "city": "Moria",
+        "contactPerson": "donna",
         "email": "hello@world.no",
         "name": "Luke Skywalker",
         "organisationNumber": "123456789",
@@ -142,6 +144,14 @@ export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
                 "valueBuilder": {
                     "properties": [],
                     "value": "Moria"
+                }
+            },
+            {
+                "field": "kontaktperson",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "bella"
                 }
             },
             {
@@ -427,6 +437,14 @@ export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
                 "valueBuilder": {
                     "properties": [],
                     "value": "Moria"
+                }
+            },
+            {
+                "field": "kontaktperson",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "donna"
                 }
             },
             {
