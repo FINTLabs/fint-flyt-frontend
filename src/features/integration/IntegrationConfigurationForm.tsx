@@ -260,7 +260,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                                     />
                                 )})}
                             <div >
-                                <FormGroup>
+                                <FormGroup sx={{ml: 2, mb: 2}} >
                                     <FormControlLabel
                                         control={<Checkbox
                                             checked={checked}
@@ -268,8 +268,8 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                                             inputProps={{ 'aria-label': 'ferdigstilt-checkbox' }}/>}
                                         label="Ferdigstilt" />
                                 </FormGroup>
-                                <Button sx={{mr: 2}} onClick={checked? onSubmit:onSave} variant="contained">Lagre</Button>
-                                <Button sx={{float: 'right'}} onClick={handleCancel} variant="contained">Avbryt</Button>
+                                <Button sx={{ml: 2, mr: 2}} onClick={checked? onSubmit:onSave} variant="contained">Lagre</Button>
+                                <Button onClick={handleCancel} variant="contained">Avbryt</Button>
                             </div>
                         </form>
                     </Box>

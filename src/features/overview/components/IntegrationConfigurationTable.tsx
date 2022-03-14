@@ -12,12 +12,12 @@ const IntegrationConfigurationTable: React.FunctionComponent<any> = (props) => {
 
     const columns: GridColDef[] = [
         { field: 'integrationId', type: 'string', hide: true},
-        { field: 'sourceApplication', type: 'string', headerName: 'Skjemaleverandør', width: 150 },
-        { field: 'sourceApplicationIntegrationId', type: 'string', headerName: 'Skjema', width: 150 },
-        { field: 'name', type: 'string', headerName: 'Navn', width: 250 },
-        { field: 'description', type: 'string', headerName: 'Beskrivelse', width: 350 },
-        { field: 'published', type: 'boolean', headerName: 'Ferdigstilt', width: 150 },
-        { field: 'version', type: 'string', headerName: 'Revisjon', width: 150 }
+        { field: 'sourceApplication', type: 'string', headerName: 'Skjemaleverandør', flex: 1 },
+        { field: 'sourceApplicationIntegrationId', type: 'string', headerName: 'SkjemaId', flex: 1 },
+        { field: 'name', type: 'string', headerName: 'Navn', flex: 2 },
+        { field: 'description', type: 'string', headerName: 'Beskrivelse', flex: 2 },
+        { field: 'published', type: 'boolean', headerName: 'Ferdigstilt', flex: 1 },
+        { field: 'version', type: 'string', headerName: 'Revisjon', flex: 1 }
     ];
 
     const setHistory = () => {
@@ -53,7 +53,7 @@ const IntegrationConfigurationTable: React.FunctionComponent<any> = (props) => {
                                 filterModel: {
                                     items: [
                                         {
-                                            columnField: 'name',
+                                            columnField: 'sourceApplicationIntegrationId',
                                             operatorValue: 'contains'
                                         },
                                     ],
