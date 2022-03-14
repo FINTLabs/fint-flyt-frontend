@@ -6,7 +6,7 @@ import HelpPopover from "./popover/HelpPopover";
 
 const SourceApplicationForm: React.FunctionComponent<any> = (props) => {
     return (
-        <Box className={props.style.tagList}>
+        <Box className={props.style.sourceApplicationForm}>
             <Box className={props.style.row}>
                 <Typography variant={"h6"}>Data fra skjema</Typography>
                 <HelpPopover popoverContent={sourceApplicationFormPopoverContent}/>
