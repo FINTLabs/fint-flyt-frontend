@@ -149,6 +149,13 @@ export function toIntegrationConfiguration(data: IFormData, id?: string): IInteg
                     }
                 },
                 {
+                    field: "saksbehandler",
+                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
+                    valueBuilder: {
+                        value: data.recordData?.caseWorker
+                    }
+                },
+                {
                     field: "tilgangsrestriksjon",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
                     valueBuilder: {

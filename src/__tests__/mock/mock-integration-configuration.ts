@@ -43,6 +43,7 @@ export const MOCK_FORMDATA: IFormData = {
     "recordData": {
         "accessCode": "code89",
         "administrativeUnit": "unit33",
+        "caseWorker": "grogu",
         "paragraph": "p34",
         "publicTitle": "public record title",
         "recordStatus": "N",
@@ -96,6 +97,7 @@ export const MOCK_FORMDATA_WITH_TAGS: IFormData = {
     "recordData": {
         "accessCode": "code89",
         "administrativeUnit": "unit33",
+        "caseWorker": "mando",
         "paragraph": "p34",
         "publicTitle": "{singletag}",
         "recordStatus": "N",
@@ -362,6 +364,13 @@ export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
                 "valueBuildStrategy": 0,
                 "valueBuilder": {
                     "value": "N"
+                }
+            },
+            {
+                "field": "saksbehandler",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {
+                    "value": "grogu"
                 }
             },
             {
@@ -675,6 +684,13 @@ export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
                 "valueBuildStrategy": 0,
                 "valueBuilder": {
                     "value": "N"
+                }
+            },
+            {
+                "field": "saksbehandler",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {
+                    "value": "mando"
                 }
             },
             {

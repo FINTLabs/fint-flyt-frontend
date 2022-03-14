@@ -9,7 +9,7 @@ import HelpPopover from "../popover/HelpPopover";
 import {fieldHelp} from "../../defaults/DefaultValues";
 
 const RecordForm: React.FunctionComponent<any> = (props) => {
-    const {administrativeUnits, accessCodes, paragraphs,  documentTypes, recordStatuses } = useContext(ResourcesContext);
+    const {administrativeUnits, accessCodes, paragraphs, documentTypes, recordStatuses, archiveResources } = useContext(ResourcesContext);
     let errors: FieldErrors = props.errors;
     let required: boolean = props.validation;
     const recordFormFields: IInputField[] = [
@@ -18,6 +18,7 @@ const RecordForm: React.FunctionComponent<any> = (props) => {
         {input: INPUT_TYPE.DROPDOWN, label: "Dokumenttype", value: props.watch("recordData.type"), formValue: "recordData.type", dropDownItems: documentTypes, required: required, error:errors.recordData?.type, helpText: fieldHelp.recordData.type},
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "Administrativ enhet", value: props.watch("recordData.administrativeUnit"), formValue: "recordData.administrativeUnit", dropDownItems: administrativeUnits, required: required, error:errors.recordData?.administrativeUnit, helpText: fieldHelp.recordData.administrativeUnit},
         {input: INPUT_TYPE.DROPDOWN, label: "Status", value: props.watch("recordData.recordStatus"), formValue: "recordData.recordStatus", dropDownItems: recordStatuses, required: required, error:errors.recordData?.status, helpText: fieldHelp.recordData.status},
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "Saksbehandler", value: props.watch("recordData.caseWorker"), formValue: "recordData.caseWorker", dropDownItems: archiveResources, required: required, error:errors.recordData?.caseWorker, helpText: fieldHelp.recordData.caseWorker},
         {input: INPUT_TYPE.DROPDOWN, label: "Tilgangskode", value: props.watch("recordData.accessCode"), formValue: "recordData.accessCode", dropDownItems: accessCodes, required: required, error:errors.recordData?.accessCode, helpText: fieldHelp.recordData.accessCode},
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "Hjemmel", value: props.watch("recordData.paragraph"), formValue: "recordData.paragraph", dropDownItems: paragraphs, required: required, error:errors.recordData?.paragraph, helpText: fieldHelp.recordData.paragraph}
    ]

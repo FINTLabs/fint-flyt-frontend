@@ -34,6 +34,7 @@ export const defaultValues: IFormData = {
         type: '',
         administrativeUnit: '',
         recordStatus: '',
+        caseWorker: '',
         accessCode: '',
         paragraph: ''
     },
@@ -172,6 +173,7 @@ export const fieldHelp = {
         type: 'I, U, N, X',
         administrativeUnit: 'Enheten/avdelingen. Nedtrekksmeny fra Elements',
         status: 'R,F,E,J',
+        caseWorker: 'En sak kan ha en ansvarlig saksbehandler men det kan være ulike saksbehandlere på ulike journalposter.',
         accessCode: 'Eksempel: Unntatt offentlighet, persona,l varslingssak, ugradert. ',
         paragraph: 'Eksempel: Offl. §13 ',
     },
