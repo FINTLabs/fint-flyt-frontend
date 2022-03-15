@@ -145,7 +145,7 @@ export const fieldHelp = {
     version: '',
     sourceApplication: 'Skjemaleverandør, f.eks ACOS',
     sourceApplicationIntegrationId: 'Skjema, f.eks VIK103',
-    destination: '-',
+    destination: 'fylkesting, fylkesråd, kollektiv ++',
     caseData: {
         caseCreationStrategy: 'Avleveringslogikk ...',
         caseNumber: ' må være på formatet saksår/sekvensnr, f.eks 2021/12345',

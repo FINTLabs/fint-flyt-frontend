@@ -42,7 +42,7 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
         {input: INPUT_TYPE.TEXT_FIELD, label: "Navn", formValue: "name", required: props.validation, error:errors.name, helpText: fieldHelp.name},
         {input: INPUT_TYPE.TEXT_FIELD, label: "Beskrivelse", formValue: "description", required: props.validation, error:errors.description, helpText: fieldHelp.description},
         {input: INPUT_TYPE.RADIO, label: "Velg hvordan skjema skal sendes til arkivet", value: props.watch("caseData.caseCreationStrategy"),
-            formValue: "caseData.caseCreationStrategy", radioOptions: creationStrategies, defaultValue: props.watch("caseData.caseCreationStrategy"), helpText: fieldHelp.caseData.caseCreationStrategy},
+            formValue: "caseData.caseCreationStrategy", radioOptions: creationStrategies, helpText: fieldHelp.caseData.caseCreationStrategy},
         {input: INPUT_TYPE.TEXT_FIELD, label: "Saksnummer", formValue: "caseData.caseNumber", hidden:!isCollection, required:isCollection && props.validation, error:errors.caseData?.caseNumber, searchOption: true, helpText: fieldHelp.caseData.caseNumber}
     ]
     return (
@@ -62,7 +62,6 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
                                                 formValue={field.formValue}
                                                 dropdownItems={field.dropDownItems}
                                                 radioOptions={field.radioOptions}
-                                                defaultValue={field.defaultValue}
                                                 disabled={field.disabled}
                                                 {...props}
                                     />
