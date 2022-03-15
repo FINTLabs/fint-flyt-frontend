@@ -240,7 +240,6 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
 
     return (
         <DndProvider backend={HTML5Backend}>
-            {/*<FormModal/>*/}
             {!settings && !activeConfiguration && <FormSettings setSettings={setSettings}/>}
             {!submitSuccess && (activeConfiguration || settings) &&
                 <Box display="flex" position="relative" width={1} height={1}>
