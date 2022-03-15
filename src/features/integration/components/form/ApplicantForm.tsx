@@ -1,4 +1,4 @@
-import {Box, FormGroup} from '@mui/material';
+import {Box, Button, FormGroup} from '@mui/material';
 import React, {useContext} from 'react';
 import {applicantOptions, fieldHelp} from "../../defaults/DefaultValues";
 import InputField from "./InputField";
@@ -15,9 +15,9 @@ const ApplicantForm: React.FunctionComponent<any> = (props) => {
     let errors: FieldErrors = props.errors;
     let required: boolean = props.validation;
     const applicantFormFields: IInputField[] = [
-        {input: INPUT_TYPE.RADIO, label: "Velg avsendertype", formValue: "applicantData.type", value: props.watch("applicantData.type"), radioOptions: applicantOptions, defaultValue: props.watch("applicantData.type"), helpText: fieldHelp.applicantData.type},
+        {input: INPUT_TYPE.RADIO, label: "Velg avsendertype", formValue: "applicantData.type", value: props.watch("applicantData.type"), radioOptions: applicantOptions, helpText: fieldHelp.applicantData.type},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "Organisasjonsnummer", formValue: "applicantData.organisationNumber", required:isOrganisation && required, hidden:!isOrganisation, error:errors.applicantData?.organisationNumber, value: props.activeFormData?.applicantData?.organisationNumber, helpText: fieldHelp.applicantData.organisationNumber},
-        {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "Personnummer", formValue: "applicantData.socialSecurityNumber", required:!isOrganisation && required, hidden:isOrganisation, error:errors.applicantData?.socialSecurityNumber, value: props.activeFormData?.applicantData?.socialSecurityNumber, helpText: fieldHelp.applicantData.socialSecurityNumber},
+        {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "Personnummer", formValue: "applicantData.nationalIdentityNumber", required:!isOrganisation && required, hidden:isOrganisation, error:errors.applicantData?.nationalIdentityNumber, value: props.activeFormData?.applicantData?.nationalIdentityNumber, helpText: fieldHelp.applicantData.nationalIdentityNumber},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "Navn", formValue: "applicantData.name", required:required, error:errors.applicantData?.name, value: props.activeFormData?.applicantData?.name, helpText: fieldHelp.applicantData.name},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "Adresse", formValue: "applicantData.address", required:required, error:errors.applicantData?.address, value: props.activeFormData?.applicantData?.address, helpText: fieldHelp.applicantData.address},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "Postnummer", formValue: "applicantData.postalCode", required:required, error:errors.applicantData?.postalCode, value: props.activeFormData?.applicantData?.postalCode, helpText: fieldHelp.applicantData.postalCode},
@@ -45,7 +45,6 @@ const ApplicantForm: React.FunctionComponent<any> = (props) => {
                                                 value={field.value}
                                                 formValue={field.formValue}
                                                 radioOptions={field.radioOptions}
-                                                defaultValue={field.defaultValue}
                                                 dropdownItems={field.dropDownItems}
                                                 setter={field.setter}
                                                 {...props}
@@ -58,6 +57,7 @@ const ApplicantForm: React.FunctionComponent<any> = (props) => {
                     )}
                 )}
             </FormGroup>
+            <Button sx={{mb: 2}} onClick={props.onSave} variant="contained">Lagre</Button>
         </div>
     );
 }

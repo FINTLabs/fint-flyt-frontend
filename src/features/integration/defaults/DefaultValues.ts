@@ -2,6 +2,7 @@ import {ISelect} from "../types/InputField";
 import {ITag} from "../types/Tag";
 import {CreationStrategy} from "../types/CreationStrategy";
 import IFormData from "../types/Form/FormData";
+import {ApplicantType} from "../types/ApplicantType";
 
 export const defaultValues: IFormData = {
     name: '',
@@ -9,7 +10,7 @@ export const defaultValues: IFormData = {
     version: '',
     sourceApplication: '',
     sourceApplicationIntegrationId: '',
-    isPublished: false,
+    published: false,
     caseData: {
         caseCreationStrategy: CreationStrategy.NEW,
         caseNumber: '',
@@ -46,7 +47,7 @@ export const defaultValues: IFormData = {
         variant: ''
     },
     applicantData: {
-        type: 'PERSON',
+        type: ApplicantType.PERSON,
         organisationNumber: '',
         nationalIdentityNumber: '',
         name: '',
@@ -87,17 +88,15 @@ export const applicantOptions: ISelect[] = [
     {label: 'Organisasjon', value: 'ORGANISATION'}
 ];
 
-export const forms: ISelect[] = [
-    { label: "TT-skjema", value: "TT" },
-    { label: "Skjema1", value: "1_form" },
-    { label: "Skjema33", value: "form3" },
-    { label: "Skjema2", value: "2_form" }
+export const sourceApplicationIntegrations: ISelect[] = [
+    { label: "Søknad om reservasjon av skoleplass", value: "VIK014" },
+    { label: "Søknad til kombinasjonsprogram", value: "VIK036" },
+    { label: "Søknad om TT-kort", value: "VIK108" },
+    { label: "Samtykke - fotografering/video/lyd", value: "VIK132" }
 ];
 
 export const sourceApplications: ISelect[] = [
-    { label: "ACOS", value: "1" },
-    { label: "Altinn", value: "2" },
-    { label: "Vigo", value: "3" }
+    { label: "ACOS", value: "acos" }
 ];
 
 export const caseWorkers: ISelect[] = [
@@ -189,8 +188,8 @@ export const fieldHelp = {
     },
     applicantData: {
         type: 'Person eller organisasjon/bedrift',
-        organisationNumber: 'Organisasjonsnummer for bedrift',
-        socialSecurityNumber: 'Personnummer for person',
+        organisationNumber: 'Orgnr for avsenderbedrift',
+        nationalIdentityNumber: 'Personnummer for avsender',
         name: 'Navn på bedrift/org, eller person',
         address: 'Postadresse',
         postalCode: 'Postkode',

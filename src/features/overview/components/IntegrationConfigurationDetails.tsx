@@ -74,19 +74,19 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
             <Box width={950}>
                 <Card sx={{mb: 4}}>
                     <FormControl size='small' sx={{float: 'right', width: 300, m: 2}}>
-                        <InputLabel id="version-select-input-label">Versjon</InputLabel>
+                        <InputLabel id="version-select-input-label">Revisjon</InputLabel>
                         <Select
                             labelId="version-select-label"
                             id="version-select"
                             value={version}
-                            label="Versjon"
+                            label="Revisjon"
                             onChange={handleChange}
                         >
                             {versions.map((item: any, index: number) => (
                                 <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
                             ))}
                         </Select>
-                        {version !== integration.integrationId && <Button onClick={handleVersionChange}>Bruk denne versjonen</Button>}
+                        {version !== integration.integrationId && <Button onClick={handleVersionChange}>Bruk denne revisjonen</Button>}
                     </FormControl>
                     <CardContent>
                         <Typography><strong>Id: </strong>{activeConfiguration.integrationId}</Typography>
@@ -95,8 +95,8 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
                         <Typography><strong>Skjemaleverandør: </strong>{activeConfiguration.sourceApplication}</Typography>
                         <Typography><strong>Skjema: </strong>{activeConfiguration.sourceApplicationIntegrationId}</Typography>
                         <Typography><strong>Integrasjonslogikk: </strong>{activeConfiguration.caseConfiguration?.caseCreationStrategy}</Typography>
-                        <Typography><strong>Publisert: </strong>{activeConfiguration.isPublished? 'Ja' : 'Nei'}</Typography>
-                        <Typography><strong>Versjon: </strong>{activeConfiguration.version}</Typography>
+                        <Typography><strong>Publisert: </strong>{activeConfiguration.published? 'Ja' : 'Nei'}</Typography>
+                        <Typography><strong>Revisjon: </strong>{activeConfiguration.version}</Typography>
                     </CardContent>
                     <Divider />
                     <CardContent>
@@ -135,10 +135,10 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
             </Box>
             }
             {updateSuccess &&
-                <Box>
-                    <Typography>Endret til revisjon {activeConfiguration.version}</Typography>
-                    <Button variant="contained" onClick={props.reset}>Tilbake</Button>
-                </Box>
+            <Box>
+                <Typography>Endret til revisjon {activeConfiguration.version}</Typography>
+                <Button variant="contained" onClick={props.reset}>Tilbake</Button>
+            </Box>
             }
 
         </>
