@@ -18,7 +18,7 @@ export const noNB: Partial<GridLocaleText> = {
     toolbarColumnsLabel: 'Velg kolonne',
 
     // Filters toolbar button text
-    toolbarFilters: 'Filter',
+    toolbarFilters: 'Søk',
     toolbarFiltersLabel: 'Vis filtre',
     toolbarFiltersTooltipHide: 'Skjul filtre',
     toolbarFiltersTooltipShow: 'Vis filtre',

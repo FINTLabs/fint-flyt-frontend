@@ -31,7 +31,7 @@ const remove = (id: any) => {
 };
 
 const getSak = (caseYear: any, caseNumber: any) => {
-    return axios.get<any>(`/sak/tittel/mappeid/${caseYear}/${caseNumber}`, {timeout: 5000})
+    return axios.get<any>(`/sak/mappeid/${caseYear}/${caseNumber}/tittel`, {timeout: 5000})
 }
 
 const IntegrationRepository = {

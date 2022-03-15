@@ -2,6 +2,7 @@ import {ISelect} from "../types/InputField";
 import {ITag} from "../types/Tag";
 import {CreationStrategy} from "../types/CreationStrategy";
 import IFormData from "../types/Form/FormData";
+import {ApplicantType} from "../types/ApplicantType";
 
 export const defaultValues: IFormData = {
     name: '',
@@ -10,7 +11,7 @@ export const defaultValues: IFormData = {
     sourceApplication: '',
     sourceApplicationIntegrationId: '',
     destination: '',
-    isPublished: false,
+    published: false,
     caseData: {
         caseCreationStrategy: CreationStrategy.NEW,
         caseNumber: '',
@@ -35,6 +36,7 @@ export const defaultValues: IFormData = {
         type: '',
         administrativeUnit: '',
         recordStatus: '',
+        caseWorker: '',
         accessCode: '',
         paragraph: ''
     },
@@ -46,13 +48,14 @@ export const defaultValues: IFormData = {
         variant: ''
     },
     applicantData: {
-        type: 'PERSON',
+        type: ApplicantType.PERSON,
         organisationNumber: '',
         nationalIdentityNumber: '',
         name: '',
         address: '',
         postalCode: '',
         city: '',
+        contactPerson: '',
         phoneNumber: '',
         email: '',
         accessCode: '',
@@ -133,7 +136,7 @@ export const tagList: ITag[] = [
     {value:"{organisasjonsnummer}",  name:"Organisasjonsnummer"}
 ]
 
-export const TaglistPopoverContent: string = 'I tekstfeltene til i de ulike postene kan du benytte data fra skjema for å utfylle disse. \n\n' +
+export const sourceApplicationFormPopoverContent: string = 'I tekstfeltene til i de ulike postene kan du benytte data fra skjema for å utfylle disse. \n\n' +
     'Naviger til feltet du ønsker å fylle,og dra inn tag fra listen under.'
 
 export const fieldHelp = {
@@ -181,6 +184,7 @@ export const fieldHelp = {
         type: 'I, U, N, X',
         administrativeUnit: 'Enheten/avdelingen. Nedtrekksmeny fra Elements',
         status: 'R,F,E,J',
+        caseWorker: 'En sak kan ha en ansvarlig saksbehandler men det kan være ulike saksbehandlere på ulike journalposter.',
         accessCode: 'Eksempel: Unntatt offentlighet, persona,l varslingssak, ugradert. ',
         paragraph: 'Eksempel: Offl. §13 ',
     },
@@ -195,12 +199,13 @@ export const fieldHelp = {
     },
     applicantData: {
         type: 'Person eller organisasjon/bedrift',
-        organisationNumber: 'Organisasjonsnummer for bedrift',
-        socialSecurityNumber: 'Personnummer for person',
+        organisationNumber: 'Orgnr for avsenderbedrift',
+        nationalIdentityNumber: 'Personnummer for avsender',
         name: 'Navn på bedrift/org, eller person',
         address: 'Postadresse',
         postalCode: 'Postkode',
         city: 'Poststed',
+        contactPerson: 'Navn på søker er ikke alltid lik med kontaktperson',
         phoneNumber: 'Telefonnummer',
         email: 'epostadresse',
         accessCode: 'velge om avsender skal være skjermet',

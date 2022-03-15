@@ -15,7 +15,7 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
     const { destination, sourceApplication } = useContext(IntegrationContext)
     const [_case, setCase] = React.useState('');
     let caseInput = props.watch("caseData.caseNumber");
-    let caseInputPattern = /^((19|20)*\d{2})\/([0-9]{1,20})$/g;
+    let caseInputPattern = /^((19|20)*\d{2})\/([0-9]{1,6})/g;
 
     const handleCaseSearch = () => {
         if(caseInputPattern.test(caseInput)) {

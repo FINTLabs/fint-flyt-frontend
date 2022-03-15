@@ -64,11 +64,11 @@ const InputField: React.FunctionComponent<any> = (props) => {
     else if (props.input === INPUT_TYPE.RADIO) {
         return (
             <FormControl component="fieldset" sx={{ mb: 3 }}>
-                <FormLabel>{props.label}</FormLabel>
+                <FormLabel role="label">{props.label}</FormLabel>
                 <RadioGroup row={true}
                             onChange={(e) =>
                                 props.setValue(props.formValue, e.target.value as string)}
-                            defaultValue={props.defaultValue}
+                            value={props.value}
                             sx={{maxWidth: 400}}
                 >
                     {props.radioOptions.map((option: any, index: number) => (
@@ -109,7 +109,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                         onChange={(_, data) => {
                             onChange(data?.value)
                         }
-                    }/>
+                        }/>
                 )}
                 rules={{ required: { value: props.required, message: errorMessage } }}
             />

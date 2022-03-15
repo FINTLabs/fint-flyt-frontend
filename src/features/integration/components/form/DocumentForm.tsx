@@ -1,4 +1,4 @@
-import {Box, Divider, FormGroup, Typography} from '@mui/material';
+import {Box, Button, Divider, FormGroup, Typography} from '@mui/material';
 import React, {useContext} from 'react';
 import {IInputField} from "../../types/InputField";
 import {INPUT_TYPE} from "../../types/InputType.enum";
@@ -22,54 +22,57 @@ const DocumentForm: React.FunctionComponent<any> = (props) => {
         {input: INPUT_TYPE.DROPDOWN, label: "Variant", value: props.watch("documentData.variant"), formValue: "documentData.variant", dropDownItems: variants, required: required, error:errors.documentData?.variant, helpText: fieldHelp.documentData.variant}
     ]
     return (
-        <FormGroup className={props.style.formControl}>
-            <Typography>Dokumentbeskrivelse</Typography>
-            <Divider sx={{mb: 3}}/>
-            {documentFormFields.map((field, index) => {
-                return (
-                    <Box sx={{display: 'flex'}} key={index}>
-                        <Box width={'100%'}>
-                            <InputField required={field.required}
-                                        error={field.error}
-                                        input={field.input}
-                                        label={field.label}
-                                        value={field.value}
-                                        formValue={field.formValue}
-                                        dropdownItems={field.dropDownItems}
-                                        setter={field.setter}
-                                        {...props}
-                            />
+        <div>
+            <FormGroup className={props.style.formControl}>
+                <Typography>Dokumentbeskrivelse</Typography>
+                <Divider sx={{mb: 3}}/>
+                {documentFormFields.map((field, index) => {
+                    return (
+                        <Box sx={{display: 'flex'}} key={index}>
+                            <Box width={'100%'}>
+                                <InputField required={field.required}
+                                            error={field.error}
+                                            input={field.input}
+                                            label={field.label}
+                                            value={field.value}
+                                            formValue={field.formValue}
+                                            dropdownItems={field.dropDownItems}
+                                            setter={field.setter}
+                                            {...props}
+                                />
+                            </Box>
+                            <Box>
+                                <HelpPopover popoverContent={field.helpText}/>
+                            </Box>
                         </Box>
-                        <Box>
-                            <HelpPopover popoverContent={field.helpText}/>
-                        </Box>
-                    </Box>
+                    )}
                 )}
-            )}
-            <Typography>Objektbeskrivelse</Typography>
-            <Divider sx={{mb: 3}}/>
-            {objectFormFields.map((field, index) => {
-                return (
-                    <Box sx={{display: 'flex'}} key={index}>
-                        <Box width={'100%'}>
-                            <InputField required={field.required}
-                                        error={field.error}
-                                        input={field.input}
-                                        label={field.label}
-                                        value={field.value}
-                                        formValue={field.formValue}
-                                        dropdownItems={field.dropDownItems}
-                                        setter={field.setter}
-                                        {...props}
-                            />
+                <Typography>Objektbeskrivelse</Typography>
+                <Divider sx={{mb: 3}}/>
+                {objectFormFields.map((field, index) => {
+                    return (
+                        <Box sx={{display: 'flex'}} key={index}>
+                            <Box width={'100%'}>
+                                <InputField required={field.required}
+                                            error={field.error}
+                                            input={field.input}
+                                            label={field.label}
+                                            value={field.value}
+                                            formValue={field.formValue}
+                                            dropdownItems={field.dropDownItems}
+                                            setter={field.setter}
+                                            {...props}
+                                />
+                            </Box>
+                            <Box>
+                                <HelpPopover popoverContent={field.helpText}/>
+                            </Box>
                         </Box>
-                        <Box>
-                            <HelpPopover popoverContent={field.helpText}/>
-                        </Box>
-                    </Box>
+                    )}
                 )}
-            )}
-        </FormGroup>
+            </FormGroup>
+            <Button sx={{mb: 2}} onClick={props.onSave} variant="contained">Lagre</Button>
+        </div>
     );
 }
 

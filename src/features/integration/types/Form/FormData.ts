@@ -10,7 +10,7 @@ export default interface IFormData {
     sourceApplication?: string;
     sourceApplicationIntegrationId?: string;
     destination?: string;
-    isPublished?: boolean;
+    published?: boolean;
 
     caseData?: ICaseData;
     recordData?: IRecordData;
