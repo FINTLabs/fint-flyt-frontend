@@ -1,7 +1,8 @@
 import {Box, Button, Card, CardActions, CardContent, Theme, Typography} from '@mui/material';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { RouteComponentProps, withRouter, Link as RouterLink } from 'react-router-dom';
 import {createStyles, makeStyles} from "@mui/styles";
+import IntegrationRepository from "../integration/repository/IntegrationRepository";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -14,13 +15,25 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const classes = useStyles();
+    const [numberOfIntegrations, setNumberOfIntegrations] = useState();
+
+    useEffect(()=> {
+        IntegrationRepository.get()
+            .then(response => {
+                let data = response.data.numberOfElements;
+                setNumberOfIntegrations(data);
+            })
+            .catch((e: Error) => {
+                console.log('error fetching configurations', e)
+            })
+    })
 
     return (
     <Box display="flex" position="relative" width={1} height={1}>
         <Card className={classes.card} sx={{ maxWidth: 345 }}>
             <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
-                    5 Skjema
+                    {numberOfIntegrations == 0 ? 'Ingen' : numberOfIntegrations } skjema
                 </Typography>
             </CardContent>
             <CardActions>
@@ -31,7 +44,7 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
         <Card className={classes.card} sx={{ maxWidth: 345 }}>
             <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
-                    17 Feilmeldinger
+                    Ingen feilmeldinger
                 </Typography>
             </CardContent>
             <CardActions>
