@@ -22,7 +22,7 @@ metadata:
     #nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   rules:
-    - host: "viken-no.skjema.vigoiks.no"
+    - host: "viken-no-skjema.vigoiks.no"
       http:
         paths:
           - path: /

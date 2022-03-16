@@ -14,5 +14,5 @@ WORKDIR /src
 RUN yarn && yarn test:ci && yarn build
 
 FROM nginx:1.17.6
-COPY --from=builder /src/build/ /html/ui/
+COPY --from=builder /src/build/ /html/
 COPY nginx.conf mime.types /etc/nginx/
