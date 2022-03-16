@@ -6,13 +6,3 @@ export interface IField {
     valueBuildStrategy: VALUE_BUILDER_STRATEGY,
     valueBuilder: ValueBuilder;
 }
-
-export interface ILink {
-    name: string,
-    href: string
-}
-export interface ICard {
-    value: any,
-    content: string,
-    links?: ILink[],
-}

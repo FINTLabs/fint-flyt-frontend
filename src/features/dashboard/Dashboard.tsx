@@ -8,7 +8,7 @@ import {IntegrationContext} from "../../integrationContext";
 import IntegrationConfigurationTable from "../overview/components/IntegrationConfigurationTable";
 import IntegrationConfigurationDetails from "../overview/components/IntegrationConfigurationDetails";
 import DashboardCard from "./DashboardCard";
-import {ICard} from "../integration/types/Field";
+import {ICard} from "./types/Card";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

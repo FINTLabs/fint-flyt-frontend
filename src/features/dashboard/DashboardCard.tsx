@@ -1,8 +1,7 @@
 import {Button, Card, CardActions, CardContent, Typography} from "@mui/material";
 import * as React from "react";
 import {Link as RouterLink} from "react-router-dom";
-import {ILink} from "../integration/types/Field";
-
+import {ILink} from "./types/Link";
 
 const DashboardCard: React.FunctionComponent<any> = (props) => {
     const classes = props.classes;
