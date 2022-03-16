@@ -11,10 +11,13 @@ const IntegrationConfigurationTable: React.FunctionComponent<any> = (props) => {
     let history = useHistory();
 
     const columns: GridColDef[] = [
-        { field: 'id', hide: true},
-        { field: 'name', headerName: 'Navn', width: 250 },
-        { field: 'description', headerName: 'Beskrivelse', width: 650 },
-        { field: 'version', headerName: 'Versjon', width: 150 }
+        { field: 'integrationId', type: 'string', hide: true},
+        { field: 'sourceApplication', type: 'string', headerName: 'Skjemaleverandør', flex: 1 },
+        { field: 'sourceApplicationIntegrationId', type: 'string', headerName: 'SkjemaId', flex: 1 },
+        { field: 'name', type: 'string', headerName: 'Navn', flex: 2 },
+        { field: 'description', type: 'string', headerName: 'Beskrivelse', flex: 2 },
+        { field: 'published', type: 'boolean', headerName: 'Ferdigstilt', flex: 1 },
+        { field: 'version', type: 'string', headerName: 'Revisjon', flex: 1 }
     ];
 
     const setHistory = () => {
@@ -29,10 +32,12 @@ const IntegrationConfigurationTable: React.FunctionComponent<any> = (props) => {
                 <Box className={classes.dataGridBox}>
                     <DataGrid
                         localeText={noNB}
+                        getRowId={(row) => row.integrationId}
                         onCellDoubleClick={(params, event) => {
                             if (!event.ctrlKey) {
                                 event.defaultMuiPrevented = true;
                                 props.setIntegration(params.row)
+                                props.setInitialVersion(params.row.version)
                                 setHistory();
                             }
                         }}
@@ -49,7 +54,7 @@ const IntegrationConfigurationTable: React.FunctionComponent<any> = (props) => {
                                 filterModel: {
                                     items: [
                                         {
-                                            columnField: 'name',
+                                            columnField: 'sourceApplicationIntegrationId',
                                             operatorValue: 'contains'
                                         },
                                     ],

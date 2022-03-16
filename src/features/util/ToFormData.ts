@@ -6,8 +6,10 @@ export function toFormData(data: IIntegrationConfiguration): IFormData {
     return {
         name: data.name,
         description: data.description,
+        sourceApplication: data.sourceApplication,
+        sourceApplicationIntegrationId: data.sourceApplicationIntegrationId,
         version: data.version,
-        selectedForm: 'form3', //TODO: lagre denne i config?
+        published: data.published,
         caseData: {
             caseCreationStrategy: data.caseConfiguration?.caseCreationStrategy,
             caseNumber: data.caseConfiguration?.caseNumber,
@@ -32,6 +34,7 @@ export function toFormData(data: IIntegrationConfiguration): IFormData {
             type: fieldToString(data.recordConfiguration, 'DokumentBeskrivelse.dokumentType'),
             administrativeUnit: fieldToString(data.recordConfiguration, 'administrativenhet'),
             recordStatus: fieldToString(data.recordConfiguration, 'journalstatus'),
+            caseWorker: fieldToString(data.recordConfiguration, 'saksbehandler'),
             accessCode: fieldToString(data.recordConfiguration, 'tilgangsrestriksjon'),
             paragraph: fieldToString(data.recordConfiguration, 'skjermingshjemmel'),
         },
@@ -45,10 +48,12 @@ export function toFormData(data: IIntegrationConfiguration): IFormData {
         applicantData: {
             type: data.applicantConfiguration?.organisationNumber ? 'ORGANISATION' : 'PERSON',
             organisationNumber: data.applicantConfiguration?.organisationNumber,
+            nationalIdentityNumber: data.applicantConfiguration?.nationalIdentityNumber,
             name: fieldToString(data.applicantConfiguration, 'KorrespondansepartNavn', true),
             address: fieldToString(data.applicantConfiguration, 'Adresse.adresselinje', true),
             postalCode: fieldToString(data.applicantConfiguration, 'Adresse.postnummer', true),
             city: fieldToString(data.applicantConfiguration, 'Adresse.poststed', true),
+            contactPerson: fieldToString(data.applicantConfiguration, 'kontaktperson', true),
             phoneNumber: fieldToString(data.applicantConfiguration, 'Kontaktinformasjon.mobiltelefonnummer', true),
             email: fieldToString(data.applicantConfiguration, 'Kontaktinformasjon.epostadresse', true),
             accessCode: fieldToString(data.applicantConfiguration, 'tilgangsrestriksjon'),

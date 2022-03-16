@@ -2,12 +2,15 @@ import {ISelect} from "../types/InputField";
 import {ITag} from "../types/Tag";
 import {CreationStrategy} from "../types/CreationStrategy";
 import IFormData from "../types/Form/FormData";
+import {ApplicantType} from "../types/ApplicantType";
 
 export const defaultValues: IFormData = {
     name: '',
     description: '',
     version: '',
-    selectedForm: '',
+    sourceApplication: '',
+    sourceApplicationIntegrationId: '',
+    published: false,
     caseData: {
         caseCreationStrategy: CreationStrategy.NEW,
         caseNumber: '',
@@ -24,7 +27,7 @@ export const defaultValues: IFormData = {
         primaryClassification: '',
         secondaryClassification: '',
         primaryClass: '',
-        secondaryClass: '',
+        secondaryClass: ''
     },
     recordData: {
         title: '',
@@ -32,8 +35,9 @@ export const defaultValues: IFormData = {
         type: '',
         administrativeUnit: '',
         recordStatus: '',
+        caseWorker: '',
         accessCode: '',
-        paragraph: '',
+        paragraph: ''
     },
     documentData: {
         title: '',
@@ -43,16 +47,18 @@ export const defaultValues: IFormData = {
         variant: ''
     },
     applicantData: {
-        type: 'PERSON',
+        type: ApplicantType.PERSON,
         organisationNumber: '',
+        nationalIdentityNumber: '',
         name: '',
         address: '',
         postalCode: '',
         city: '',
+        contactPerson: '',
         phoneNumber: '',
         email: '',
         accessCode: '',
-        paragraph: '',
+        paragraph: ''
     }
 }
 
@@ -82,11 +88,15 @@ export const applicantOptions: ISelect[] = [
     {label: 'Organisasjon', value: 'ORGANISATION'}
 ];
 
-export const forms: ISelect[] = [
-    { label: "TT-skjema", value: "TT" },
-    { label: "Skjema1", value: "1_form" },
-    { label: "Skjema33", value: "form3" },
-    { label: "Skjema2", value: "2_form" }
+export const sourceApplicationIntegrations: ISelect[] = [
+    { label: "Søknad om reservasjon av skoleplass", value: "VIK014" },
+    { label: "Søknad til kombinasjonsprogram", value: "VIK036" },
+    { label: "Søknad om TT-kort", value: "VIK108" },
+    { label: "Samtykke - fotografering/video/lyd", value: "VIK132" }
+];
+
+export const sourceApplications: ISelect[] = [
+    { label: "ACOS", value: "acos" }
 ];
 
 export const caseWorkers: ISelect[] = [
@@ -117,7 +127,7 @@ export const tagList: ITag[] = [
     {value:"{organisasjonsnummer}",  name:"Organisasjonsnummer"}
 ]
 
-export const TaglistPopoverContent: string = 'I tekstfeltene til i de ulike postene kan du benytte data fra skjema for å utfylle disse. \n\n' +
+export const sourceApplicationFormPopoverContent: string = 'I tekstfeltene til i de ulike postene kan du benytte data fra skjema for å utfylle disse. \n\n' +
     'Naviger til feltet du ønsker å fylle,og dra inn tag fra listen under.'
 
 export const fieldHelp = {
@@ -163,6 +173,7 @@ export const fieldHelp = {
         type: 'I, U, N, X',
         administrativeUnit: 'Enheten/avdelingen. Nedtrekksmeny fra Elements',
         status: 'R,F,E,J',
+        caseWorker: 'En sak kan ha en ansvarlig saksbehandler men det kan være ulike saksbehandlere på ulike journalposter.',
         accessCode: 'Eksempel: Unntatt offentlighet, persona,l varslingssak, ugradert. ',
         paragraph: 'Eksempel: Offl. §13 ',
     },
@@ -177,11 +188,13 @@ export const fieldHelp = {
     },
     applicantData: {
         type: 'Person eller organisasjon/bedrift',
-        organisationNumber: 'Personnummer for person, orgnr for bedrift',
+        organisationNumber: 'Orgnr for avsenderbedrift',
+        nationalIdentityNumber: 'Personnummer for avsender',
         name: 'Navn på bedrift/org, eller person',
         address: 'Postadresse',
         postalCode: 'Postkode',
         city: 'Poststed',
+        contactPerson: 'Navn på søker er ikke alltid lik med kontaktperson',
         phoneNumber: 'Telefonnummer',
         email: 'epostadresse',
         accessCode: 'velge om avsender skal være skjermet',

@@ -8,14 +8,13 @@ export interface IInputField {
     value?: Function;
     dropDownItems?: ISelect[];
     radioOptions?: ISelect[];
-    defaultValue?: string;
     hidden?: boolean;
     required?: boolean;
     error?: string;
     helpText?: string;
-    setter?: (item: IResourceItem) => void
+    setter?: (item: IResourceItem) => void;
+    searchOption?: boolean;
 }
-
 
 export interface ISelect {
     label: string,

@@ -1,5 +1,5 @@
 export interface IRow {
-    id: any;
+    integrationId: any;
     name: string;
     description: string;
     version: number;

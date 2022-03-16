@@ -29,6 +29,7 @@ const Overview: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const showDetails: boolean = window.location.pathname === '/overview/details'
     const [configurations, getConfigurations] = useState<IRow[]>([]);
     const {integration, setIntegration} = useContext(IntegrationContext)
+    const [initialVersion, setInitialVersion] = useState(integration.version);
 
     useEffect(()=> {
         getAllConfigurations();
@@ -53,17 +54,19 @@ const Overview: React.FunctionComponent<RouteComponentProps<any>> = () => {
         <>
             <Breadcrumbs aria-label="breadcrumb">
                 <Typography style={{cursor:'pointer'}} onClick={resetConfiguration}>Oversikt</Typography>
-                <Typography>{integration.id && showDetails ? 'Konfigurasjonsdetaljer' : ''}</Typography>
+                <Typography>{integration.integrationId && showDetails ? 'Konfigurasjonsdetaljer' : ''}</Typography>
             </Breadcrumbs>
-            {integration.id && showDetails ?
+            {integration.integrationId && showDetails ?
                 <IntegrationConfigurationDetails
                     reset={resetConfiguration}
                     initialConfiguration={integration}
+                    initialVersion={initialVersion}
                 /> :
                 <IntegrationConfigurationTable
                     classes={classes}
                     configurations={configurations}
                     setIntegration={setIntegration}
+                    setInitialVersion={setInitialVersion}
                 />
             }
         </>

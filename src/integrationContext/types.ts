@@ -9,9 +9,11 @@ export const contextDefaultValues: IntegrationContextState = {
     integration: {
         name: '',
         description: '',
-        id: '',
+        integrationId: '',
+        sourceApplication: '',
+        sourceApplicationIntegrationId: '',
         version: undefined,
-        selectedForm: '',
+        published: false,
         applicantConfiguration: {fields: []},
         caseConfiguration: {fields: []},
         recordConfiguration: {fields: []},
