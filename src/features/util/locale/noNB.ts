@@ -46,7 +46,7 @@ export const noNB: Partial<GridLocaleText> = {
     // filterPanelOperatorOr: 'Or',
     filterPanelColumns: 'Kolonne',
     filterPanelInputLabel: 'Verdi',
-    filterPanelInputPlaceholder: 'Filter verdi',
+    filterPanelInputPlaceholder: 'Søk',
 
     // Filter operators text
     filterOperatorContains: 'Inneholder',
