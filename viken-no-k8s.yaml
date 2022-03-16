@@ -6,7 +6,7 @@ metadata:
   name: fint-skjema-integration-frontend
 spec:
   ports:
-    - port: 80
+    - port: 8000
   type: ClusterIP
   selector:
     io.kompose.service: fint-skjema-integration-frontend
@@ -28,7 +28,7 @@ spec:
               service:
                 name: fint-skjema-integration-frontend
                 port:
-                  number: 80
+                  number: 8000
 ---
 apiVersion: apps/v1
 kind: Deployment

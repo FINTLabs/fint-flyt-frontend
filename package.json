@@ -2,7 +2,8 @@
   "name": "fint-skjema-integration-frontend",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:8082/api",
+  "proxy": "http://localhost:8080",
+  "homepage": ".",
   "dependencies": {
     "@babel/core": "^7.17.5",
     "@babel/plugin-syntax-flow": "^7.16.7",
