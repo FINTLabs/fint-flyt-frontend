@@ -64,3 +64,5 @@ spec:
           env:
             - name: TZ
               value: Europe/Oslo
+            - name: PUBLIC_URL
+              value: /viken-no/ui
