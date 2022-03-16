@@ -31,7 +31,7 @@ function App() {
         <ThemeProvider theme={theme}>
             <ResourcesProvider>
                 <IntegrationProvider>
-                    <BrowserRouter basename="/ui">
+                    <BrowserRouter basename="./ui">
                         <Main/>
                     </BrowserRouter>
                 </IntegrationProvider>
