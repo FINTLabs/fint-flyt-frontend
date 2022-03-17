@@ -101,11 +101,7 @@ export const sourceApplications: ISelect[] = [
 ];
 
 export const destinations: ISelect[] = [
-    { label: "Fylkesråd", value: "fylkesrad" },
-    { label: "Fylkesting", value: "fylkesting" },
-    { label: "Kollektiv", value: "kollektiv" },
-    { label: "Revisjon", value: "revisjon" },
-    { label: "Kontrollutvalg", value: "kontrollutvalg" }
+    { label: "Fylkesråd", value: "fylkesrad" }
 ];
 
 export const caseWorkers: ISelect[] = [
