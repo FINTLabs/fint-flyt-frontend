@@ -220,6 +220,8 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     });
 
     const onSave = handleSubmit((data: IFormData) => {
+        data.sourceApplication = sourceApplication;
+        data.destination = destination;
         data.published = false;
         const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data);
         if(integrationConfiguration && activeId !== undefined) {
