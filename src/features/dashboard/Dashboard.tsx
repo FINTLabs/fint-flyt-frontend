@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const classes = useStyles();
     const [numberOfIntegrations, setNumberOfIntegrations] = useState();
-    const showDetails: boolean = window.location.pathname === '/overview/details'
+    const showDetails: boolean = window.location.pathname === '/integration/configuration/details'
     const [configurations, getConfigurations] = useState<IRow[]>([]);
     const {integration, setIntegration} = useContext(IntegrationContext)
     const [initialVersion, setInitialVersion] = useState(integration.version);

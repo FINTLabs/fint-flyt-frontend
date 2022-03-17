@@ -22,7 +22,7 @@ const IntegrationConfigurationTable: React.FunctionComponent<any> = (props) => {
 
     const setHistory = () => {
         history.push({
-            pathname: '/overview/details',
+            pathname: '/integration/configuration/details',
         })
     }
 
