@@ -20,7 +20,7 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
             let caseId = caseInput.split('/')
             IntegrationRepository.getSak(caseId[0], caseId[1])
                 .then((response) => {
-                    setCase(response.data)
+                    setCase(response.data.value)
                 })
                 .catch(e => {
                         console.error('Error: ', e)
@@ -43,7 +43,7 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
     ]
     return (
         <div>
-            <FormGroup className={props.style.formControl}>
+            <FormGroup id="case-information" className={props.style.formControl}>
                 {caseInformationFields.map((field, index) => {
                         return (
                             field.hidden ?
@@ -51,6 +51,7 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
                                 <Box sx={{display: 'flex'}} key={index}>
                                     <Box width={'100%'}>
                                         <InputField key={index}
+                                                    id={field.formValue}
                                                     required={field.required}
                                                     error={field.error}
                                                     input={field.input}
@@ -64,15 +65,15 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
                                     </Box>
                                     {isCollection && field.searchOption &&
                                         <Box>
-                                            <Button onClick={handleCaseSearch} variant="outlined" sx={{ml: 2}}>Søk</Button>
+                                            <Button id="case-information-search-btn" onClick={handleCaseSearch} variant="outlined" sx={{ml: 2}}>Søk</Button>
                                         </Box>}
                                 </Box>
                         );
                     }
                 )}
-                {isCollection && _case ? <Typography sx={{mb:2}}>{_case}</Typography> : ''}
+                {isCollection && _case ? <Typography id="case-information-case-search-result" sx={{mb:2}}>{_case}</Typography> : ''}
             </FormGroup>
-            <Button sx={{mb: 2}} onClick={props.onSave} variant="contained">Lagre</Button>
+            <Button id="case-information-save-btn" sx={{mb: 2}} onClick={props.onSave} variant="contained">Lagre</Button>
         </div>
 
     );

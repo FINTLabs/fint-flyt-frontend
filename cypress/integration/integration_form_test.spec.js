@@ -4,23 +4,64 @@ describe('Testing Integration Form', () => {
         });
 
         it('should have header', () => {
-            cy.get('.MuiTypography-h5').should('contain', 'Integrasjon til arkiv')
+            cy.get('#integration-form-header').should('contain', 'Integrasjon til arkiv')
         });
 
         it('should have accordion headers', () => {
-            cy.get('.MuiPaper-root.Mui-expanded > .MuiAccordionSummary-root > .MuiAccordionSummary-content > .MuiTypography-root').should('contain', 'Integrasjonslogikk')
-            cy.get(':nth-child(2) > .MuiAccordionSummary-root > .MuiAccordionSummary-content > .MuiTypography-root').should('contain', 'Sak')
-            cy.get(':nth-child(3) > .MuiAccordionSummary-root > .MuiAccordionSummary-content > .MuiTypography-root').should('contain', 'Journalpost')
-            cy.get(':nth-child(4) > .MuiAccordionSummary-root > .MuiAccordionSummary-content > .MuiTypography-root').should('contain', 'Dokument- og objektbeskrivelse')
-            cy.get(':nth-child(5) > .MuiAccordionSummary-root > .MuiAccordionSummary-content > .MuiTypography-root').should('contain', 'Avsender')
+            cy.get('#case-information > .MuiAccordionSummary-root').should('contain', 'Integrasjonslogikk')
+            cy.get('#case-form > .MuiAccordionSummary-root').should('contain', 'Sak')
+            cy.get('#record-form > .MuiAccordionSummary-root').should('contain', 'Journalpost')
+            cy.get('#document-object-form > .MuiAccordionSummary-root').should('contain', 'Dokument- og objektbeskrivelse')
+            cy.get('#applicant-form > .MuiAccordionSummary-root').should('contain', 'Avsender')
         });
 
-        it('should have show case number field on collection strategy', () => {
-            cy.get(':nth-child(3) > .MuiFormControlLabel-root > .MuiRadio-root > .PrivateSwitchBase-input').click()
-            cy.get('#mui-41').should('be.visible')
-            cy.get('#mui-41').type('2021/06')
-            cy.get('.css-0 > .MuiButton-root').click()
-            cy.get('.css-16u1nra-MuiTypography-root').should('be.visible')
+        it('should open and close accordions by click', () => {
+            cy.get('#case-information > .MuiAccordionSummary-root').click()
+            cy.get('#case-information-details').should('not.be.visible')
+
+            cy.get('#case-information > .MuiAccordionSummary-root').click()
+            cy.get('#case-form > .MuiAccordionSummary-root').click()
+            cy.get('#record-form > .MuiAccordionSummary-root').click()
+            cy.get('#document-object-form > .MuiAccordionSummary-root').click()
+            cy.get('#applicant-form > .MuiAccordionSummary-root').click()
+            cy.get('#case-information-details').should('be.visible')
+            cy.get('#case-form-details').should('be.visible')
+            cy.get('#record-form-details').should('be.visible')
+            cy.get('#document-object-form-details').should('be.visible')
+            cy.get('#applicant-form-details').should('be.visible')
+
+        })
+
+        it('should check complete form', () => {
+            cy.get('#form-complete').check()
+            cy.get('#form-complete').should('be.checked')
+        })
+
+        it('should fill case information form', () => {
+            cy.get("#name").type("test name")
+            cy.get("#description").type("test description")
+            cy.get("#sourceApplication").click()
+            cy.get('[data-value="acos"]').click()
+            cy.get("#sourceApplicationIntegrationId").click()
+            cy.get('[data-value="VIK036"]').click()
+        })
+
+        it('should fill record form', () => {
+            cy.get('#recordData\\.title').type("test title")
+            cy.get('#recordData\\.publicTitle').type("test public title")
+        })
+
+        it('should have case number field on collection strategy', () => {
+            cy.get('#caseData\\.caseCreationStrategy-COLLECTION > .MuiFormControlLabel-root > .MuiTypography-root').click()
+            cy.get('#caseData\\.caseNumber').should('be.visible')
+            cy.get('#caseData\\.caseNumber').type('2021/06')
+            cy.get('#case-information-search-btn').click()
+            cy.get('#case-information-case-search-result').should('be.visible')
+        });
+
+        it('should hide case form section field on collection strategy', () => {
+            cy.get('#caseData\\.caseCreationStrategy-COLLECTION > .MuiFormControlLabel-root > .MuiTypography-root').click()
+            cy.get('#caseData\\.caseNumber').should('be.visible')
         });
     }
 )
