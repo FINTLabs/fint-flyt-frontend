@@ -4,11 +4,13 @@ describe('Testing Routes', () => {
 
         it('should open all links', () => {
             links.forEach(link => {
+                cy.intercept('GET', '/configuration', {fixture: 'configuration.json'})
                 cy.visit(link)
             })
         });
 
         it('should open all pages in navigation drawer on click', () => {
+            cy.intercept('GET', '/configuration', {fixture: 'configuration.json'})
             cy.visit('/');
             pages.forEach(page => {
                 cy.contains(page).click()
