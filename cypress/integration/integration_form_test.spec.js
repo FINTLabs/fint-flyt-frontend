@@ -3,7 +3,7 @@ describe('Testing Integration Form', () => {
             cy.visit('/integration/configuration/new')
         });
 
-        it('should have header', () => {
+        it('should have correct header', () => {
             cy.get('#integration-form-header').should('contain', 'Integrasjon til arkiv')
         });
 
@@ -29,26 +29,6 @@ describe('Testing Integration Form', () => {
             cy.get('#record-form-details').should('be.visible')
             cy.get('#document-object-form-details').should('be.visible')
             cy.get('#applicant-form-details').should('be.visible')
-
-        })
-
-        it('should check complete form', () => {
-            cy.get('#form-complete').check()
-            cy.get('#form-complete').should('be.checked')
-        })
-
-        it('should fill case information form', () => {
-            cy.get("#name").type("test name")
-            cy.get("#description").type("test description")
-            cy.get("#sourceApplication").click()
-            cy.get('[data-value="acos"]').click()
-            cy.get("#sourceApplicationIntegrationId").click()
-            cy.get('[data-value="VIK036"]').click()
-        })
-
-        it('should fill record form', () => {
-            cy.get('#recordData\\.title').type("test title")
-            cy.get('#recordData\\.publicTitle').type("test public title")
         })
 
         it('should have case number field on collection strategy', () => {

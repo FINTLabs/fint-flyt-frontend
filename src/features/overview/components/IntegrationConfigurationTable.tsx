@@ -29,7 +29,7 @@ const IntegrationConfigurationTable: React.FunctionComponent<any> = (props) => {
     return (
         <Box>
             <Box display="flex" position="relative" width={1} height={1}>
-                <Box className={classes.dataGridBox}>
+                <Box id="integration-list" className={classes.dataGridBox}>
                     <DataGrid
                         localeText={noNB}
                         getRowId={(row) => row.integrationId}

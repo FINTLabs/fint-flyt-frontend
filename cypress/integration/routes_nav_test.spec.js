@@ -4,7 +4,6 @@ describe('Testing Routes', () => {
 
         it('should open all links', () => {
             links.forEach(link => {
-                cy.intercept('GET', '/configuration', {fixture: 'configuration.json'})
                 cy.visit(link)
             })
         });
