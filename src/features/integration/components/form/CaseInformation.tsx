@@ -46,38 +46,41 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
         {input: INPUT_TYPE.TEXT_FIELD, label: "Saksnummer", formValue: "caseData.caseNumber", hidden:!isCollection, required:isCollection && props.validation, error:errors.caseData?.caseNumber, searchOption: true, helpText: fieldHelp.caseData.caseNumber}
     ]
     return (
-        <FormGroup className={props.style.formControl}>
-            {caseInformationFields.map((field, index) => {
-                    return (
-                        field.hidden ?
-                            <div key={index}/> :
-                            <Box sx={{display: 'flex'}} key={index}>
-                                <Box width={'100%'}>
-                                    <InputField key={index}
-                                                required={field.required}
-                                                error={field.error}
-                                                input={field.input}
-                                                label={field.label}
-                                                value={field.value}
-                                                formValue={field.formValue}
-                                                dropdownItems={field.dropDownItems}
-                                                radioOptions={field.radioOptions}
-                                                disabled={field.disabled}
-                                                {...props}
-                                    />
+        <div>
+            <FormGroup className={props.style.formControl}>
+                {caseInformationFields.map((field, index) => {
+                        return (
+                            field.hidden ?
+                                <div key={index}/> :
+                                <Box sx={{display: 'flex'}} key={index}>
+                                    <Box width={'100%'}>
+                                        <InputField key={index}
+                                                    required={field.required}
+                                                    error={field.error}
+                                                    input={field.input}
+                                                    label={field.label}
+                                                    value={field.value}
+                                                    formValue={field.formValue}
+                                                    dropdownItems={field.dropDownItems}
+                                                    radioOptions={field.radioOptions}
+                                                    disabled={field.disabled}
+                                                    {...props}
+                                        />
+                                    </Box>
+                                    {field.lockIcon && <div>
+                                        <IconButton aria-label="locked" disabled={true}><LockIcon /></IconButton></div>}
+                                    {!field.lockIcon && <Box>
+                                        <HelpPopover popoverContent={field.helpText}/></Box>}
+                                    {isCollection && field.searchOption && <Box>
+                                        <Button onClick={handleCaseSearch} variant="outlined" sx={{ml: 2}}>Søk</Button></Box>}
                                 </Box>
-                                {field.lockIcon && <div>
-                                    <IconButton aria-label="locked" disabled={true}><LockIcon /></IconButton></div>}
-                                {!field.lockIcon && <Box>
-                                    <HelpPopover popoverContent={field.helpText}/></Box>}
-                                {isCollection && field.searchOption && <Box>
-                                    <Button onClick={handleCaseSearch} variant="outlined" sx={{ml: 2}}>Søk</Button></Box>}
-                            </Box>
-                    );
-                }
-            )}
-            {isCollection && _case ? <Typography>{_case}</Typography> : ''}
-        </FormGroup>
+                        );
+                    }
+                )}
+                {isCollection && _case ? <Typography>{_case}</Typography> : ''}
+            </FormGroup>
+            <Button sx={{mb: 2}} onClick={props.onSave} variant="contained">Lagre</Button>
+        </div>
     );
 }
 
