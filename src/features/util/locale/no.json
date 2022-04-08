@@ -12,7 +12,15 @@
     },
     "pages": {
         "dashboard": {
-            "header": "Dashbord"
+            "form": "skjema",
+            "empty": "Ingen",
+            "errors": "feilmeldinger",
+            "links": {
+                "integrationList": "Se integrasjoner",
+                "newIntegration": "Ny integrasjon",
+                "log": "Se logg",
+                "support": "Kontakt support"
+            }
         },
         "integrationForm": {
             "header": "Integrasjon til arkiv",

@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react';
 import { RouteComponentProps, withRouter, Link as RouterLink } from 'react-router-dom';
 import {createStyles, makeStyles} from "@mui/styles";
 import IntegrationRepository from "../integration/repository/IntegrationRepository";
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -14,8 +15,9 @@ const useStyles = makeStyles((theme: Theme) =>
     }));
 
 const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
+    const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.dashboard'});
     const classes = useStyles();
-    const [numberOfIntegrations, setNumberOfIntegrations] = useState();
+    const [numberOfIntegrations, setNumberOfIntegrations] = useState(0);
 
     useEffect(()=> {
         IntegrationRepository.get()
@@ -33,23 +35,23 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
         <Card className={classes.card} sx={{ maxWidth: 345 }}>
             <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
-                    {numberOfIntegrations == 0 ? 'Ingen' : numberOfIntegrations } skjema
+                    {numberOfIntegrations == 0 ? t('empty') : numberOfIntegrations} {t('form')}
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small" variant="outlined" component={RouterLink} to="/overview">Se integrasjoner</Button>
-                <Button size="small" variant="outlined" component={RouterLink} to="/integration/configuration/new">Ny integrasjon</Button>
+                <Button size="small" variant="outlined" component={RouterLink} to="/overview">{t('links.integrationList')}</Button>
+                <Button size="small" variant="outlined" component={RouterLink} to="/integration/configuration/new">{t('links.newIntegration')}</Button>
             </CardActions>
         </Card>
         <Card className={classes.card} sx={{ maxWidth: 345 }}>
             <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
-                    Ingen feilmeldinger
+                    {t('empty')} {t('errors')}
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small" variant="outlined" component={RouterLink} to="/log">Se logg</Button>
-                <Button size="small" variant="outlined" component={RouterLink} to="/support">Opprett supportsak</Button>
+                <Button size="small" variant="outlined" component={RouterLink} to="/log">{t('links.log')}</Button>
+                <Button size="small" variant="outlined" component={RouterLink} to="/support">{t('links.support')}</Button>
             </CardActions>
         </Card>
     </Box>
