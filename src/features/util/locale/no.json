@@ -1,0 +1,112 @@
+{
+    "appbarHeader": "Flyt",
+    "language": "Språk",
+    "menuItems": {
+        "dashboard": "Dashbord",
+        "newIntegration": "Ny integrasjon",
+        "editIntegartion": "Rediger integrasjon",
+        "integrationList": "Integrasjonsoversikt",
+        "integrationDetails": "Detaljer",
+        "log": "Logg",
+        "support": "Support"
+    },
+    "pages": {
+        "dashboard": {
+            "header": "Dashbord"
+        },
+        "integrationForm": {
+            "header": "Integrasjon til arkiv",
+            "accordions": {
+                "caseInformation": {
+                    "header": "Integrasjonslogikk"
+                },
+                "caseForm": {
+                    "header": "Sak"
+                },
+                "recordForm": {
+                    "header": "Journalpost"
+                },
+                "documentForm": {
+                    "header": "Dokument- og objektbeskrivelse"
+                },
+                "applicationForm": {
+                    "header": "Avsender"
+                }
+            },
+            "messages": {
+                "saved": "Lagret",
+                "error": "Det har oppstått en feil"
+            }
+        },
+        "integrationList": {
+            "header": "Oversikt",
+            "details": "Konfigurasjonsdetaljer"
+        },
+        "log": {
+            "header": "Logg"
+        },
+        "support": {
+            "header": "Kontakt support"
+        }
+    },
+    "models": {
+        "integrationConfiguration": {
+            "name": "Name",
+            "description": "Description",
+            "version": "Version",
+            "sourceApplication": "Source application",
+            "sourceApplicationIntegrationId": "Form",
+            "published": "Published",
+            "caseConfiguration": {
+                "caseCreationStrategy": "",
+                "caseNumber": "",
+                "title": "",
+                "publicTitle": "",
+                "administrativeUnit": "",
+                "archiveUnit": "",
+                "recordUnit": "",
+                "status": "",
+                "accessCode": "",
+                "caseWorker": "",
+                "primaryClassification": "",
+                "secondaryClassification": "",
+                "primaryClass": "",
+                "secondaryClass": ""
+            },
+            "recordConfiguration": {
+                "title": "",
+                "publicTitle": "",
+                "type": "",
+                "administrativeUnit": "",
+                "recordStatus": "",
+                "caseWorker": "",
+                "accessCode": "",
+                "paragraph": ""
+            },
+            "documentConfiguration": {
+                "title": "",
+                "documentStatus": "",
+                "accessCode": "",
+                "paragraph": "",
+                "variant": ""
+            },
+            "applicantConfiguration": {
+                "type": "",
+                "organisationNumber": "",
+                "nationalIdentityNumber": "",
+                "name": "",
+                "address": "",
+                "postalCode": "",
+                "city": "",
+                "contactPerson": "",
+                "phoneNumber": "",
+                "email": "",
+                "accessCode": "",
+                "paragraph": ""
+            }
+        }
+    },
+    "errors": {
+        "code0": "Generell feil"
+    }
+}

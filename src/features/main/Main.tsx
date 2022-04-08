@@ -3,16 +3,26 @@ import {
     AppBar, Badge,
     Box,
     Drawer,
+    FormControl,
+    InputLabel,
+    MenuItem,
+    Select,
     Theme,
     Toolbar,
-    Typography
+    Typography,
+    SelectChangeEvent
 } from "@mui/material";
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import FintLogo from "../../images/fint-by-vigo-white.svg";
-import {createStyles, makeStyles} from "@mui/styles";
+import Norway from "../../images/Norway.png";
+import UK from "../../images/UK.png";
+
+import { createStyles, makeStyles } from "@mui/styles";
 import Router from "./Router";
 import MenuItems from "./MenuItems";
-import {Link as RouterLink} from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
+import { useTranslation, Trans } from "react-i18next";
+
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme: Theme) =>
@@ -53,35 +63,63 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         badge: {
             cursor: 'pointer',
+        },
+        button: {
+            display: "block",
+            marginTop: theme.spacing(2)
+        },
+        formControl: {
+            margin: theme.spacing(5),
+            minWidth: 120,
+            backgroundColor: "transparent"
+        },
+        select: {
+            textAlign: "center",
+            textDecoration: "none"
         }
     }));
+
 
 
 function Main() {
     const classes = useStyles();
 
+    const { t, i18n } = useTranslation();
+
+    const changeLanguage = (lng: string) => {
+        i18n.changeLanguage(lng);
+    };
+
+
+    const handleChange = (event: SelectChangeEvent) => {
+        console.log(event.target);
+        changeLanguage(event.target.value);
+    };
+
     return (
         <Box display="flex" position="relative" width={1} height={1}>
             <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
                 <Toolbar className={classes.toolbar} id={"toolbar"}>
-                    <img src={FintLogo} alt="logo" className={classes.logo}/>
+                    <img src={FintLogo} alt="logo" className={classes.logo} />
                     <Typography variant="h6" color="inherit" noWrap className={classes.flex}>
-                        Skjema til arkivintegrasjon
+                        {t('appbarHeader')}
                     </Typography>
+                    <button onClick={() => changeLanguage("no")}>no</button>
+                    <button onClick={() => changeLanguage("en")}>en</button>
                     <Badge className={classes.badge}
-                           badgeContent={"5"}
-                           color="secondary"
-                           component={RouterLink} to="/log">
-                        <NotificationsIcon htmlColor={"white"}/>
+                        badgeContent={"5"}
+                        color="secondary"
+                        component={RouterLink} to="/log">
+                        <NotificationsIcon htmlColor={"white"} />
                     </Badge>
                 </Toolbar>
             </AppBar>
             <Drawer variant="permanent" className={classes.drawer}>
                 <Toolbar />
-                <MenuItems/>
+                <MenuItems />
             </Drawer>
             <main className={classes.content}>
-                <Router/>
+                <Router />
             </main>
         </Box>
     );

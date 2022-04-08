@@ -8,7 +8,7 @@ import Support from "../support/support";
 const routes: IRoute[] = [
     {
         path: '/',
-        name: 'Dashboard',
+        name: 'dashboard',
         component: Dashboard,
         exact: true,
         icon: 'dashboard',
@@ -16,7 +16,7 @@ const routes: IRoute[] = [
     },
     {
         path: '/integration/configuration/new',
-        name: 'Ny integrasjon',
+        name: 'newIntegration',
         component: IntegrationConfigurationForm,
         exact: true,
         icon: 'add',
@@ -24,13 +24,13 @@ const routes: IRoute[] = [
     },
     {
         path: '/integration/configuration/edit',
-        name: 'Rediger integrasjon',
+        name: 'editIntegartion',
         component: IntegrationConfigurationForm,
         exact: true
     },
     {
         path: '/overview',
-        name: 'Integrasjonsoversikt',
+        name: 'integrationList',
         component: Overview,
         exact: true,
         icon: 'sync',
@@ -38,13 +38,13 @@ const routes: IRoute[] = [
     },
     {
         path: '/overview/details',
-        name: 'Detaljer',
+        name: 'integrationDetails',
         component: Overview,
         exact: true,
     },
     {
         path: '/log',
-        name: 'Logg',
+        name: 'log',
         component: Log,
         icon: 'receipt',
         exact: true,
@@ -52,7 +52,7 @@ const routes: IRoute[] = [
     },
     {
         path: '/support',
-        name: 'Support',
+        name: 'support',
         component: Support,
         icon: 'contact_support',
         exact: true,

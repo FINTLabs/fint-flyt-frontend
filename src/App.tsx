@@ -4,6 +4,7 @@ import Main from "./features/main/Main";
 import {BrowserRouter} from "react-router-dom";
 import ResourcesProvider from "./resourcesContext";
 import IntegrationProvider from "./integrationContext";
+import { useTranslation, Trans } from "react-i18next";
 
 const theme = createTheme({
     palette: {
@@ -27,6 +28,11 @@ const theme = createTheme({
 });
 
 function App() {
+    const { t, i18n } = useTranslation();
+
+    const changeLanguage = (lng: string) => {
+      i18n.changeLanguage(lng);
+    };
     return (
         <ThemeProvider theme={theme}>
             <ResourcesProvider>

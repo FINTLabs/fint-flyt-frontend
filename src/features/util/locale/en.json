@@ -1,0 +1,88 @@
+{
+    "appbarHeader": "Flyt",
+    "language": "Language",
+    "menuItems": {
+      "dashboard": "Dashboard",
+      "newIntegration": "New integration",
+      "editIntegartion": "Edit integration",
+      "integrationList": "Integration list",
+      "integrationDetails": "Details",
+      "log": "Log",
+      "support": "Support"
+    },
+    "pages": {
+      "dashboard": {
+        "header": "Dashboard"
+      },
+      "integrationForm": {
+        "header": "Integration to archive"
+      },
+      "integrationList": {
+        "header": "Overview",
+        "details": "Configuration details"
+      },
+      "log": {
+        "header": "Log"
+      },
+      "support": {
+        "header": "Contact support"
+      }
+    },
+    "models": {
+      "integrationConfiguration": {
+        "name": "Name",
+        "description": "Description",
+        "version": "Version",
+        "sourceApplication": "Source application",
+        "sourceApplicationIntegrationId": "Form",
+        "published": "Published",
+        "caseConfiguration": {
+          "caseCreationStrategy": "",
+          "caseNumber": "",
+          "title": "",
+          "publicTitle": "",
+          "administrativeUnit": "",
+          "archiveUnit": "",
+          "recordUnit": "",
+          "status": "",                
+          "accessCode": "",
+          "caseWorker": "",
+          "primaryClassification": "",
+          "secondaryClassification": "",
+          "primaryClass": "",
+          "secondaryClass": ""
+        },
+        "recordConfiguration": {
+          "title": "",
+          "publicTitle": "",
+          "type": "",
+          "administrativeUnit": "",
+          "recordStatus": "",
+          "caseWorker": "",
+          "accessCode": "",
+          "paragraph": ""
+        },
+        "documentConfiguration": {
+          "title": "",
+          "documentStatus": "",
+          "accessCode": "",
+          "paragraph": "",
+          "variant": ""
+        },
+        "applicantConfiguration": {
+          "type": "",
+          "organisationNumber": "",
+          "nationalIdentityNumber": "",
+          "name": "",
+          "address": "",
+          "postalCode": "",
+          "city": "",
+          "contactPerson": "",
+          "phoneNumber": "",
+          "email": "",
+          "accessCode": "",
+          "paragraph": ""
+        }
+      }
+    }
+  }
