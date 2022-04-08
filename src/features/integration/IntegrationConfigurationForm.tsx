@@ -29,6 +29,7 @@ import {toFormData} from "../util/ToFormData";
 import {ResourcesContext} from "../../resourcesContext";
 import {IntegrationContext} from "../../integrationContext";
 import CloseIcon from '@mui/icons-material/Close';
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -82,18 +83,19 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
+    const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.integrationForm'});
     const classes = useStyles();
-    let history = useHistory();
     const editConfig: boolean = window.location.pathname === '/integration/configuration/edit'
     const [submitSuccess, setSubmitSuccess] = useState(false)
     const [activeId, setActiveId] = useState<any>(undefined)
     const { integration, setIntegration } = useContext(IntegrationContext)
-    let activeConfiguration = integration.integrationId && editConfig ? integration : undefined;
-    let activeFormData = integration.integrationId && editConfig ? toFormData(integration) : defaultValues;
     const [saved, setSaved] = React.useState(false);
     const [saveError, setSaveError] = React.useState(false);
     const [checked, setChecked] = React.useState(false);
-
+    let history = useHistory();
+    let activeConfiguration = integration.integrationId && editConfig ? integration : undefined;
+    let activeFormData = integration.integrationId && editConfig ? toFormData(integration) : defaultValues;
+   
     const handleCheckChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setChecked(event.target.checked);
     };
