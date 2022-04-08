@@ -3,7 +3,7 @@ import Dashboard from "../dashboard/Dashboard";
 import Log from "../log/Log";
 import IntegrationConfigurationForm from "../integration/IntegrationConfigurationForm";
 import Overview from "../overview/Overview";
-import Support from "../support/support";
+import Support from "../support/Support";
 
 const routes: IRoute[] = [
     {

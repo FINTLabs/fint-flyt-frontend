@@ -15,8 +15,6 @@ const MenuItems = () => {
         setSelectedIndex(index);
     };
 
-    console.log(routes)
-
     return (
         <List id="menuList">
             {routes.filter(route => route.inNavigationMenu).map((route, index) => (

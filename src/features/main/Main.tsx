@@ -91,9 +91,6 @@ function Main() {
         i18n.changeLanguage(lng);
     };
 
-    console.log(i18n);
-
-
     return (
         <Box display="flex" position="relative" width={1} height={1}>
             <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
