@@ -1,29 +1,28 @@
 
 export interface IEvent {
     id: string;
+    name: string;
+    timeStamp: Date;
+    type: string;
+    errors: IError[];
+    skjemaEventHeaders: ISkjemaEventHeaders[];
+}
+
+export interface ISkjemaEventHeaders {
     orgId: string;
+    service: string;
     sourceApplication: string;
     sourceApplicationIntegrationId: string;
     sourceApplicationInstanceId: string;
-    instanceId: string;
-    correlationId: string;
-    timestamp: string;
-    type: string;
-    description: string;
-    data: IData[];
-    errors: IError[];
-}
-
-export interface IData {
-    id: string;
-    contentType: string;
-    content: string;
+    correlationId: number;
+    instanceId: number;
+    configurationId: number;
+    caseId: number;
+    dispatchId: number;
 }
 
 export interface IError {
     id: string;
     errorCode: string;
-    description: string;
-    timestamp: string;
     args: string[]
 }
