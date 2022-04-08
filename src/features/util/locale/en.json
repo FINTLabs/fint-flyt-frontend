@@ -27,14 +27,30 @@
             "accordions": {
                 "caseInformation": {
                     "header": "Integration logic",
-                    "caseCreationInfo": "Select creation strategy",
-                    "caseCreationNew": "As new case",
-                     "caseCreationNewInfo": "Form submitted creates a new case in Elements",                 
-                     "caseCreationExisting": "On existing case",
-                     "caseCreationExistingInfo": "Form submitted finds existing form in Elements based on data in the form. If no matching case - a new case is created",
-                     "caseCreationCollection": "On case collection",
-                     "caseCreationCollectionInfo": "Form submitted will be added to predefined case collecting. This option requires a valid case number"
-               },
+                    "labels": {
+                        "name": "Name",
+                        "description": "Description",
+                        "sourceApplication": "Source application",
+                        "sourceApplicationIntegrationId": "Form",
+                        "caseCreationInfo": "Select creation strategy",
+                        "caseCreationNew": "As new case",
+                        "caseCreationNewInfo": "Form submitted creates a new case in Elements",
+                        "caseCreationExisting": "On existing case",
+                        "caseCreationExistingInfo": "Form submitted finds existing form in Elements based on data in the form. If no matching case - a new case is created",
+                        "caseCreationCollection": "On case collection",
+                        "caseCreationCollectionInfo": "Form submitted will be added to predefined case collecting. This option requires a valid case number"
+                    },
+                    "button": {
+                        "search": "Search",
+                        "save": "Save"
+                    },
+                    "caseSearch": {
+                        "caseNumber": "Case number",
+                        "searching": "Searching...",
+                        "info": "Case number must be correct format 'case year/case number', i.e. 2021/03",
+                        "noMatch": "No match"
+                    }
+                },
                 "caseForm": {
                     "header": "Case description"
                 },

@@ -27,13 +27,29 @@
             "accordions": {
                 "caseInformation": {
                     "header": "Integrasjonslogikk",
-                    "caseCreationInfo": "Velg hvordan skjema skal sendes til arkivet",
-                    "caseCreationNew": "Som ny sak",                    
-                    "caseCreationNewInfo": "Innsendt skjema oppretter en ny sak i Elements",                 
-                    "caseCreationExisting": "På eksisterende sak",
-                    "caseCreationExistingInfo": "Innsendt skjema gjenfinner eksisterende sak i Elements basert på informasjon i skjemaet. Dersom det ikke fins en eksisterende sak opprettes en ny sak",
-                    "caseCreationCollection": "På samlesak",
-                    "caseCreationCollectionInfo": "Innsendt skjema skal leveres til en forhåndsdefinert samlesak. Her må du opplyse om saksnummer"
+                     "labels": {
+                        "name": "Navn",
+                        "description": "Beskrivelse",
+                        "sourceApplication": "Skjemaleverandør",
+                        "sourceApplicationIntegrationId": "Skjema",
+                        "caseCreationInfo": "Velg hvordan skjema skal sendes til arkivet",
+                        "caseCreationNew": "Som ny sak",
+                        "caseCreationNewInfo": "Innsendt skjema oppretter en ny sak i Elements",
+                        "caseCreationExisting": "På eksisterende sak",
+                        "caseCreationExistingInfo": "Innsendt skjema gjenfinner eksisterende sak i Elements basert på informasjon i skjemaet. Dersom det ikke fins en eksisterende sak opprettes en ny sak",
+                        "caseCreationCollection": "På samlesak",
+                        "caseCreationCollectionInfo": "Innsendt skjema skal leveres til en forhåndsdefinert samlesak. Her må du opplyse om saksnummer"    
+                    },
+                    "button": {
+                        "search": "Søk",
+                        "save": "Lagre"
+                    },
+                    "caseSearch": {
+                        "caseNumber": "Saksnummer",
+                        "searching": "Søker...",
+                        "info": "Saksnummer må være på formatet 'saksår/saksnummer', f.eks 2021/03",
+                        "noMatch": "Ingen treff"
+                    }
                 },
                 "caseForm": {
                     "header": "Sak"

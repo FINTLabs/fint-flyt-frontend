@@ -7,16 +7,17 @@ import {creationStrategies, sourceApplicationIntegrations, sourceApplications} f
 import {CreationStrategy} from "../../types/CreationStrategy";
 import {FieldErrors} from "react-hook-form";
 import IntegrationRepository from "../../repository/IntegrationRepository";
+import { useTranslation } from 'react-i18next';
 
 const CaseInformation: React.FunctionComponent<any> = (props) => {
-
+    const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.integrationForm.accordions.caseInformation'});
     const [_case, setCase] = React.useState('');
     let caseInput = props.watch("caseData.caseNumber");
     let caseInputPattern = /^((19|20)*\d{2})\/([0-9]{1,6})/g;
 
     const handleCaseSearch = () => {
         if(caseInputPattern.test(caseInput)) {
-            setCase('Søker...')
+            setCase(t('caseSearch.searching'))
             let caseId = caseInput.split('/')
             IntegrationRepository.getSak(caseId[0], caseId[1])
                 .then((response) => {
@@ -24,10 +25,10 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
                 })
                 .catch(e => {
                         console.error('Error: ', e)
-                        setCase('Ingen treff');
+                        setCase(t('caseSearch.noMatch'));
                     }
                 )
-        } else setCase('Saksnummer må være på formatet "saksår/saksnummer", f.eks 2021/03')
+        } else setCase(t('caseSearch.info'))
     }
 
     let isCollection = props.watch("caseData.caseCreationStrategy") === CreationStrategy.COLLECTION
@@ -64,7 +65,7 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
                                     </Box>
                                     {isCollection && field.searchOption &&
                                         <Box>
-                                            <Button onClick={handleCaseSearch} variant="outlined" sx={{ml: 2}}>Søk</Button>
+                                            <Button onClick={handleCaseSearch} variant="outlined" sx={{ml: 2}}>{t('button.search')}</Button>
                                         </Box>}
                                 </Box>
                         );
@@ -72,7 +73,7 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
                 )}
                 {isCollection && _case ? <Typography sx={{mb:2}}>{_case}</Typography> : ''}
             </FormGroup>
-            <Button sx={{mb: 2}} onClick={props.onSave} variant="contained">Lagre</Button>
+            <Button sx={{mb: 2}} onClick={props.onSave} variant="contained">{t('button.save')}</Button>
         </div>
 
     );
