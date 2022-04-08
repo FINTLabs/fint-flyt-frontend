@@ -23,7 +23,43 @@
             }
         },
         "integrationForm": {
-            "header": "Integration to archive"
+            "header": "Integration to archive",
+            "accordions": {
+                "caseInformation": {
+                    "header": "Integration logic",
+                    "caseCreationInfo": "Select creation strategy",
+                    "caseCreationNew": "As new case",
+                     "caseCreationNewInfo": "Form submitted creates a new case in Elements",                 
+                     "caseCreationExisting": "On existing case",
+                     "caseCreationExistingInfo": "Form submitted finds existing form in Elements based on data in the form. If no matching case - a new case is created",
+                     "caseCreationCollection": "On case collection",
+                     "caseCreationCollectionInfo": "Form submitted will be added to predefined case collecting. This option requires a valid case number"
+               },
+                "caseForm": {
+                    "header": "Case description"
+                },
+                "recordForm": {
+                    "header": "Record description"
+                },
+                "documentForm": {
+                    "header": "Document and object description"
+                },
+                "applicationForm": {
+                    "header": "Applicant"
+                }
+            },
+            "checkLabel": "Completed",
+            "button": {
+                "save": "Save",
+                "cancel": "Cancel",
+                "integrationList": "See integrations",
+                "dashboard": "Dashboard",
+                "close": "Close"
+            },
+            "messages": {
+                "success": "Saved",
+                "error": "There was an error saving"
+            }
         },
         "integrationList": {
             "header": "Overview",

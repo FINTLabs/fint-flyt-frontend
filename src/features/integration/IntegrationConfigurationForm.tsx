@@ -1,7 +1,7 @@
 import * as React from "react";
-import {useContext, useEffect, useState} from "react";
-import {useForm} from "react-hook-form";
-import {Link as RouterLink, RouteComponentProps, useHistory, withRouter} from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { Link as RouterLink, RouteComponentProps, useHistory, withRouter } from "react-router-dom";
 import {
     Box,
     Button,
@@ -13,21 +13,21 @@ import {
     Theme,
     Typography
 } from "@mui/material";
-import {createStyles, makeStyles} from "@mui/styles";
+import { createStyles, makeStyles } from "@mui/styles";
 import IFormData from "./types/Form/FormData";
 import IntegrationRepository from "./repository/IntegrationRepository";
-import {defaultValues} from "./defaults/DefaultValues";
-import {toIntegrationConfiguration} from "../util/ToIntegrationConfiguration";
+import { defaultValues } from "./defaults/DefaultValues";
+import { toIntegrationConfiguration } from "../util/ToIntegrationConfiguration";
 import AccordionForm from "./components/AccordionForm";
-import {ACCORDION_FORM, IAccordion} from "./types/Accordion";
+import { ACCORDION_FORM, IAccordion } from "./types/Accordion";
 import SourceApplicationForm from "./components/SourceApplicationForm";
-import {HTML5Backend} from "react-dnd-html5-backend";
-import {DndProvider} from "react-dnd";
-import {IIntegrationConfiguration} from "./types/IntegrationConfiguration";
-import {CreationStrategy} from "./types/CreationStrategy";
-import {toFormData} from "../util/ToFormData";
-import {ResourcesContext} from "../../resourcesContext";
-import {IntegrationContext} from "../../integrationContext";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { DndProvider } from "react-dnd";
+import { IIntegrationConfiguration } from "./types/IntegrationConfiguration";
+import { CreationStrategy } from "./types/CreationStrategy";
+import { toFormData } from "../util/ToFormData";
+import { ResourcesContext } from "../../resourcesContext";
+import { IntegrationContext } from "../../integrationContext";
 import CloseIcon from '@mui/icons-material/Close';
 import { useTranslation } from "react-i18next";
 
@@ -83,7 +83,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
-    const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.integrationForm'});
+    const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.integrationForm' });
     const classes = useStyles();
     const editConfig: boolean = window.location.pathname === '/integration/configuration/edit'
     const [submitSuccess, setSubmitSuccess] = useState(false)
@@ -95,19 +95,19 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     let history = useHistory();
     let activeConfiguration = integration.integrationId && editConfig ? integration : undefined;
     let activeFormData = integration.integrationId && editConfig ? toFormData(integration) : defaultValues;
-   
+
     const handleCheckChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setChecked(event.target.checked);
     };
 
-    const {handleSubmit, watch, setValue, control, reset, formState} = useForm<IFormData>({
+    const { handleSubmit, watch, setValue, control, reset, formState } = useForm<IFormData>({
         defaultValues: activeFormData,
         reValidateMode: 'onChange'
     });
     const { errors } = formState;
 
     const { getAllResources, resetAllResources } = useContext(ResourcesContext);
-    useEffect(()=> {
+    useEffect(() => {
         getAllResources();
         return () => {
             resetAllResources()
@@ -115,11 +115,11 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     }, [])
 
     const accordionList: IAccordion[] = [
-        {summary: "Integrasjonslogikk", accordionForm: ACCORDION_FORM.CASE_INFORMATION, defaultExpanded: true},
-        {summary: "Sak", accordionForm: ACCORDION_FORM.CASE_FORM, defaultExpanded: false, hidden: watch("caseData.caseCreationStrategy") === CreationStrategy.COLLECTION},
-        {summary: "Journalpost", accordionForm: ACCORDION_FORM.RECORD_FORM, defaultExpanded: false},
-        {summary: "Dokument- og objektbeskrivelse", accordionForm: ACCORDION_FORM.DOCUMENT_FORM, defaultExpanded: false},
-        {summary: "Avsender", accordionForm: ACCORDION_FORM.APPLICANT_FORM, defaultExpanded: false}
+        { summary: "caseInformation.header", accordionForm: ACCORDION_FORM.CASE_INFORMATION, defaultExpanded: true },
+        { summary: "caseForm.header", accordionForm: ACCORDION_FORM.CASE_FORM, defaultExpanded: false, hidden: watch("caseData.caseCreationStrategy") === CreationStrategy.COLLECTION },
+        { summary: "recordForm.header", accordionForm: ACCORDION_FORM.RECORD_FORM, defaultExpanded: false },
+        { summary: "documentForm.header", accordionForm: ACCORDION_FORM.DOCUMENT_FORM, defaultExpanded: false },
+        { summary: "applicationForm.header", accordionForm: ACCORDION_FORM.APPLICANT_FORM, defaultExpanded: false }
     ]
 
     const saveNewConfiguration = (data: IIntegrationConfiguration) => {
@@ -137,7 +137,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     const saveConfiguration = (id: string, data: IIntegrationConfiguration) => {
         IntegrationRepository.update(id, data)
             .then(response => {
-                console.log('updated configuraton: ', id,  data, response);
+                console.log('updated configuraton: ', id, data, response);
                 setSaved(true);
             })
             .catch((e: Error) => {
@@ -161,7 +161,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     const publishConfiguration = (id: string, data: IIntegrationConfiguration) => {
         IntegrationRepository.update(id, data)
             .then(response => {
-                console.log('updated configuraton: ', id,  data, response);
+                console.log('updated configuraton: ', id, data, response);
                 resetAllResources();
                 setSubmitSuccess(response.status === 200);
             })
@@ -187,7 +187,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
 
     const action = (
         <React.Fragment>
-            <Button color="secondary" size="small" onClick={handleClose}>Lukk</Button>
+            <Button color="secondary" size="small" onClick={handleClose}>{t('button.close')}</Button>
             <IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
                 <CloseIcon fontSize="small" />
             </IconButton>
@@ -197,7 +197,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     const onSubmit = handleSubmit((data: IFormData) => {
         data.published = true;
         const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data);
-        if(integrationConfiguration && activeId !== undefined && activeConfiguration?.integrationId == undefined) {
+        if (integrationConfiguration && activeId !== undefined && activeConfiguration?.integrationId == undefined) {
             const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data, activeId);
             publishConfiguration(activeId, integrationConfiguration)
             reset({ ...defaultValues })
@@ -207,7 +207,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
             publishConfiguration(activeConfiguration.integrationId, integrationConfiguration)
             reset({ ...defaultValues })
         }
-        else if(integrationConfiguration) {
+        else if (integrationConfiguration) {
             publishNewConfiguration(integrationConfiguration);
             reset({ ...defaultValues })
         } else {
@@ -219,15 +219,15 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     const onSave = handleSubmit((data: IFormData) => {
         data.published = false;
         const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data);
-        if(integrationConfiguration && activeId !== undefined) {
+        if (integrationConfiguration && activeId !== undefined) {
             const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data, activeId);
             saveConfiguration(activeId, integrationConfiguration)
         }
-        else if(integrationConfiguration && activeConfiguration?.integrationId !== undefined) {
+        else if (integrationConfiguration && activeConfiguration?.integrationId !== undefined) {
             const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data, activeConfiguration.integrationId);
             saveConfiguration(activeConfiguration.integrationId, integrationConfiguration)
         }
-        else if(integrationConfiguration) {
+        else if (integrationConfiguration) {
             saveNewConfiguration(integrationConfiguration);
         } else {
             //TODO: Handle error
@@ -240,7 +240,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
             {!submitSuccess &&
                 <Box display="flex" position="relative" width={1} height={1}>
                     <Box>
-                        <Typography aria-label="Integrasjon til arkiv" variant={"h5"} sx={{mb: 2}}>Integrasjon til arkiv</Typography>
+                        <Typography aria-label="integration-form-header" variant={"h5"} sx={{ mb: 2 }}>{t('header')}</Typography>
                         <form className={classes.form} onSubmit={onSubmit}>
                             {accordionList.map((accordion, index) => {
                                 return (
@@ -260,45 +260,46 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                                         editConfig={editConfig}
                                         onSave={onSave}
                                     />
-                                )})}
+                                )
+                            })}
                             <div >
-                                <FormGroup sx={{ml: 2, mb: 2}} >
-                                    <FormControlLabel
-                                        control={<Checkbox
-                                            checked={checked}
+                                <FormGroup sx={{ ml: 2, mb: 2 }} >
+                                    <FormControlLabel control={
+                                        <Checkbox checked={checked}
                                             onChange={handleCheckChange}
-                                            inputProps={{ 'aria-label': 'ferdigstilt-checkbox' }}/>}
-                                        label="Ferdigstilt" />
+                                            inputProps={{ 'aria-label': 'completed-checkbox' }}
+                                        />}
+                                        label={t('checkLabel') as string} />
                                 </FormGroup>
-                                <Button sx={{ml: 2, mr: 2}} onClick={checked? onSubmit:onSave} variant="contained">Lagre</Button>
-                                <Button onClick={handleCancel} variant="contained">Avbryt</Button>
+                                <Button sx={{ ml: 2, mr: 2 }} onClick={checked ? onSubmit : onSave} variant="contained">{t('button.save')}</Button>
+                                <Button onClick={handleCancel} variant="contained">{t('button.cancel')}</Button>
                             </div>
                         </form>
                     </Box>
                     <Box className={classes.sourceApplicationFormContainer}>
-                        <SourceApplicationForm style={classes}/>
+                        <SourceApplicationForm style={classes} />
                     </Box>
                     <Snackbar
                         open={saved}
                         autoHideDuration={4000}
                         onClose={handleClose}
-                        message="Lagret"
+                        message={t('messages.error')}
                         action={action}
                     />
                     <Snackbar
                         open={saveError}
                         autoHideDuration={4000}
                         onClose={handleClose}
-                        message="En feil har oppstått"
+                        message={t('messages.error')}
                         action={action}
                     />
                 </Box>
             }
             {submitSuccess &&
-                <Box style={{minHeight: 'fit-content'}}>
-                    <Typography variant={"h5"} sx={{mb: 2}}>Integrasjon til arkiv - Ferdig</Typography>
-                    <Button size="small" variant="contained" component={RouterLink} to="/overview">Se integrasjoner</Button>
-                    <Button size="small" variant="contained" sx={{ml: 2}} component={RouterLink} to="/">Dashboard</Button>
+                <Box style={{ minHeight: 'fit-content' }}>
+                    <Typography variant={"h5"} sx={{ mb: 2 }}>Integrasjon til arkiv - Ferdig</Typography>
+                    <Button size="small" variant="contained" component={RouterLink} to="/overview">{t('button.integrationList')}</Button>
+                    <Button size="small" variant="contained" sx={{ ml: 2 }} component={RouterLink} to="/">{t('button.dashboard')}</Button>
                 </Box>}
         </DndProvider>
     );

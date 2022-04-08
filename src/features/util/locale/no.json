@@ -26,7 +26,14 @@
             "header": "Integrasjon til arkiv",
             "accordions": {
                 "caseInformation": {
-                    "header": "Integrasjonslogikk"
+                    "header": "Integrasjonslogikk",
+                    "caseCreationInfo": "Velg hvordan skjema skal sendes til arkivet",
+                    "caseCreationNew": "Som ny sak",                    
+                    "caseCreationNewInfo": "Innsendt skjema oppretter en ny sak i Elements",                 
+                    "caseCreationExisting": "På eksisterende sak",
+                    "caseCreationExistingInfo": "Innsendt skjema gjenfinner eksisterende sak i Elements basert på informasjon i skjemaet. Dersom det ikke fins en eksisterende sak opprettes en ny sak",
+                    "caseCreationCollection": "På samlesak",
+                    "caseCreationCollectionInfo": "Innsendt skjema skal leveres til en forhåndsdefinert samlesak. Her må du opplyse om saksnummer"
                 },
                 "caseForm": {
                     "header": "Sak"
@@ -41,8 +48,16 @@
                     "header": "Avsender"
                 }
             },
+            "checkLabel": "Ferdigstilt",
+            "button": {
+                "save": "Lagre",
+                "cancel": "Avbryt",
+                "integrationList": "Se integrasjoner",
+                "dashboard": "Dashbord",
+                "close": "Lukk"
+            },
             "messages": {
-                "saved": "Lagret",
+                "success": "Lagret",
                 "error": "Det har oppstått en feil"
             }
         },

@@ -7,12 +7,14 @@ import CaseInformation from "./form/CaseInformation";
 import ApplicantForm from "./form/ApplicantForm";
 import RecordForm from "./form/RecordForm";
 import {ACCORDION_FORM} from "../types/Accordion";
+import { useTranslation } from 'react-i18next';
 
 const AccordionForm: React.FunctionComponent<any> = (props) => {
+    const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationForm.accordions'});
     return props.hidden ? (<></>) : (
         <Accordion sx={{border: 'solid 1px', boxShadow: 'none', borderRadius: '4px' }} className={props.style.accordion} defaultExpanded={props.defaultExpanded}>
             <AccordionSummary className={props.style.accordionSummary} expandIcon={<ExpandMoreIcon />}>
-                <Typography variant={"h6"}>{props.summary}</Typography>
+                <Typography variant={"h6"}>{t(props.summary)}</Typography>
             </AccordionSummary>
             <AccordionDetails>
                 {props.accordionForm === ACCORDION_FORM.CASE_INFORMATION && <CaseInformation {...props}/>}
