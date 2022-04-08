@@ -10,7 +10,8 @@ import {
     Theme,
     Toolbar,
     Typography,
-    SelectChangeEvent
+    SelectChangeEvent,
+    Button
 } from "@mui/material";
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import FintLogo from "../../images/fint-by-vigo-white.svg";
@@ -90,11 +91,8 @@ function Main() {
         i18n.changeLanguage(lng);
     };
 
+    console.log(i18n);
 
-    const handleChange = (event: SelectChangeEvent) => {
-        console.log(event.target);
-        changeLanguage(event.target.value);
-    };
 
     return (
         <Box display="flex" position="relative" width={1} height={1}>
@@ -104,8 +102,10 @@ function Main() {
                     <Typography variant="h6" color="inherit" noWrap className={classes.flex}>
                         {t('appbarHeader')}
                     </Typography>
-                    <button onClick={() => changeLanguage("no")}>no</button>
-                    <button onClick={() => changeLanguage("en")}>en</button>
+                    <Box sx={{ mr: 2 }}>
+                        {i18n.language == 'no' && <Button size="small" variant="contained" onClick={() => changeLanguage("en")}>English</Button>}
+                        {i18n.language == 'en' && <Button size="small" variant="contained" onClick={() => changeLanguage("no")}>Norsk</Button>}
+                    </Box>
                     <Badge className={classes.badge}
                         badgeContent={"5"}
                         color="secondary"
