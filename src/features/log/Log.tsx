@@ -4,7 +4,7 @@ import {Typography} from "@mui/material";
 import { useTranslation } from 'react-i18next';
 
 const Log: React.FunctionComponent<RouteComponentProps<any>> = () => {
-    const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.log'});
+    const { t } = useTranslation('translations', { keyPrefix: 'pages.log'});
     return (
         <>
             <Typography>{t('header')}</Typography>
