@@ -28,7 +28,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
         stringify: (option: ISelect) => option.label,
         limit: 250
     });
-    let errorMessage: string = 'Du må oppgi ' + props.label;
+    let errorMessage: string = t('errorMessage') + t(props.label);
     if (props.input === INPUT_TYPE.DROPDOWN) {
         return (
             <Controller
@@ -40,7 +40,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                         size="small"
                         sx={{ mb: 3, width: 'inherit' }}
                         value={props.value}
-                        label={props.required ? (props.label+'*') : props.label}
+                        label={props.required ? (t(props.label)+'*') : t(props.label)}
                         SelectProps={{
                             MenuProps: {
                                 className: classes.dropdownPopover
@@ -102,7 +102,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                             <TextField
                                 {...params}
                                 size="small"
-                                label={props.required ? (props.label+'*') : props.label}
+                                label={props.required ? t((props.label)+'*') : t(props.label)}
                                 error={!!props.error}
                                 helperText={props.error ? t('requiredField') : ''}
                             />
