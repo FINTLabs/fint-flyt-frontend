@@ -3,8 +3,10 @@ import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
 import {IconButton} from "@mui/material";
 import HelpIcon from '@mui/icons-material/Help';
+import { useTranslation } from 'react-i18next';
 
 const HelpPopover: React.FunctionComponent<any> = (props) => {
+    const { t } = useTranslation('translations', { keyPrefix: 'fieldHelp'});
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -38,7 +40,7 @@ const HelpPopover: React.FunctionComponent<any> = (props) => {
                     horizontal: 'left',
                 }}
             >
-                <Typography sx={{ p: 3 }}>{props.popoverContent}</Typography>
+                <Typography sx={{ p: 3 }}>{t(props.popoverContent)}</Typography>
             </Popover>
         </div>
     );

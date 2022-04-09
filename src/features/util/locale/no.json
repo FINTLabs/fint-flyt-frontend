@@ -195,5 +195,59 @@
     },
     "errors": {
         "code0": "Generell feil"
+    },
+    "fieldHelp": {
+        "sourceApplicationFormPopoverContent": "I tekstfeltene til i de ulike postene kan du benytte data fra skjema for å utfylle disse. Naviger til feltet du ønsker å fylle,og dra inn tag fra listen under.",
+        "name": "",
+        "description": "",
+        "version": "",
+        "selectedForm": "",
+        "caseData": {
+            "caseCreationStrategy": "CreationStrategy.NEW",
+            "caseNumber": "2021/12345",
+            "title": "Tittel kan være en konkret tekststreng, eller en kombinasjon av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak.  (Se Noark))",
+            "publicTitle": "Se Noark (Del av tittel som skal skjermes)",
+            "status": "-",
+            "caseType": "Eksempel: Kompetanse, personal, rekrutering etc.",
+            "administrativeUnit":"Avdeling eller enhet som skal behandle saken.",
+            "archiveUnit":"Eksempel: kompetanse, sakarkiv, personal",
+            "recordUnit": "Navnet på journalførende enhet.Eksempel: Viken fylkesråd",
+            "accessCode": "Dersom noe skjermes må man også sette tilgangskode.Eksempel: Unntatt offentlighet, personal, varslingssak, ugradert. ",
+            "paragraph": "Dersom det settes tilgangskode må det også settes hjemmel. Det må være en lovmessig hjemmel for skjerming eller begrenset tilgang.Eksempel:'Offl. §13 '",
+            "caseWorker": "Konkret saksbehandler eller ufordelt.",
+            "classification": "Det må kunne settes flere klasseringer på en sak, slik at sjemaet kan lete fram riktig sak. Eksempel: Primærkode=K-koder 'Sekundærkode=organisasjonsnummer eller personnummer'",
+            "class": "Vi må kunne fylle ut verdi og betegnelse.Eksempel: K-kode: Verdi 003, Betegnelse: Målbruk.Person: verdi: fødselsnummer, betegnelse = personnavn."
+        },
+        "recordData": {
+            "title": "Tittel kan være en konkret tekststreng, eller en kombinasjon av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak. (Se Noark))",
+            "publicTitle": "Se Noark (Del av tittel som skal skjermes)",
+            "type": "I, U, N, X",
+            "administrativeUnit": "Enheten/avdelingen. Nedtrekksmeny fra Elements",
+            "status": "R,F,E,J",
+            "caseWorker": "En sak kan ha en ansvarlig saksbehandler men det kan være ulike saksbehandlere på ulike journalposter.",
+            "accessCode": "Eksempel: Unntatt offentlighet, personal varslingssak, ugradert. ",
+            "paragraph": "Eksempel: Offl. §13 "
+        },
+        "documentData": {
+            "title": "Tittel kan være en konkret tekststreng, eller en kombinasjon av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak.(Se Noark))",
+            "documentStatus": "Eksempel: B, F",
+            "accessCode": "Eksempel: Unntatt offentlighet, persona,l varslingssak, ugradert. ",
+            "paragraph": "Eksempel: Offl. §13",
+            "variant": "Arkivformat/ produksjonsformat / offentlig variant"
+        },
+        "applicantData": {
+            "type": "Person eller organisasjon/bedrift",
+            "organisationNumber": "Orgnr for avsenderbedrift",
+            "nationalIdentityNumber": "Personnummer for avsender",
+            "name": "Navn på bedrift/org, eller person",
+            "address": "Postadresse",
+            "postalCode": "Postkode",
+            "city": "Poststed",
+            "contactPerson": "Navn på søker er ikke alltid lik med kontaktperson",
+            "phoneNumber": "Telefonnummer",
+            "email": "epostadresse",
+            "accessCode": "velge om avsender skal være skjermet",
+            "paragraph": "Denne skal fjernes"
+        }
     }
 }

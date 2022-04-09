@@ -9,7 +9,7 @@ const SourceApplicationForm: React.FunctionComponent<any> = (props) => {
         <Box className={props.style.sourceApplicationForm}>
             <Box className={props.style.row}>
                 <Typography variant={"h6"}>Data fra skjema</Typography>
-                <HelpPopover popoverContent={sourceApplicationFormPopoverContent}/>
+                <HelpPopover popoverContent="sourceApplicationFormPopoverContent"/>
             </Box>
             {tagList.map((tag, index) => {
                     return (
