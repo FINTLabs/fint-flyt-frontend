@@ -17,7 +17,7 @@ const ApplicantForm: React.FunctionComponent<any> = (props) => {
     let errors: FieldErrors = props.errors;
     let required: boolean = props.validation;
     const applicantFormFields: IInputField[] = [
-        {input: INPUT_TYPE.RADIO, label: "Velg avsendertype", formValue: "applicantData.type", value: props.watch("applicantData.type"), radioOptions: applicantOptions, helpText: fieldHelp.applicantData.type},
+        {input: INPUT_TYPE.RADIO, label: "labels.type", formValue: "applicantData.type", value: props.watch("applicantData.type"), radioOptions: applicantOptions, helpText: fieldHelp.applicantData.type},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "Organisasjonsnummer", formValue: "applicantData.organisationNumber", required:isOrganisation && required, hidden:!isOrganisation, error:errors.applicantData?.organisationNumber, value: props.activeFormData?.applicantData?.organisationNumber, helpText: fieldHelp.applicantData.organisationNumber},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "Personnummer", formValue: "applicantData.nationalIdentityNumber", required:!isOrganisation && required, hidden:isOrganisation, error:errors.applicantData?.nationalIdentityNumber, value: props.activeFormData?.applicantData?.nationalIdentityNumber, helpText: fieldHelp.applicantData.nationalIdentityNumber},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "Navn", formValue: "applicantData.name", required:required, error:errors.applicantData?.name, value: props.activeFormData?.applicantData?.name, helpText: fieldHelp.applicantData.name},

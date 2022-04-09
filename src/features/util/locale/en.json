@@ -27,19 +27,6 @@
             "accordions": {
                 "caseInformation": {
                     "header": "Integration logic",
-                    "labels": {
-                        "name": "Name",
-                        "description": "Description",
-                        "sourceApplication": "Source application",
-                        "sourceApplicationIntegrationId": "Form",
-                        "caseCreationInfo": "Select creation strategy",
-                        "caseCreationNew": "As new case",
-                        "caseCreationNewInfo": "Form submitted creates a new case in Elements",
-                        "caseCreationExisting": "On existing case",
-                        "caseCreationExistingInfo": "Form submitted finds existing form in Elements based on data in the form. If no matching case - a new case is created",
-                        "caseCreationCollection": "On case collection",
-                        "caseCreationCollectionInfo": "Form submitted will be added to predefined case collecting. This option requires a valid case number"
-                    },
                     "button": {
                         "search": "Search",
                         "save": "Save"
@@ -54,36 +41,12 @@
                 "caseForm": {
                     "header": "Case description",
                     "classification": "Classification",
-                    "labels": {
-                        "title": "Title",
-                        "publicTitle": "Public title",
-                        "administrativeUnit": "Administrative unit",
-                        "archiveUnit": "Archive unit",
-                        "recordUnit": "Record unit",
-                        "status": "Status",
-                        "accessCode": "Access code",
-                        "paragraph": "Paragraph",
-                        "caseWorker": "Responsible case worker",
-                        "primaryClassification": "Primary classification",
-                        "secondaryClassification": "Secondary classification",
-                        "primaryClass": "Primary class",
-                        "secondaryClass": "Secondary class" },
                     "button": {
                         "save": "Save"
                     }
                 },
                 "recordForm": {
                     "header": "Record description",
-                    "labels": {
-                        "title": "Title",
-                        "publicTitle": "Public title",
-                        "type": "Type",
-                        "administrativeUnit": "Administrative unit",
-                        "recordStatus": "Record status",
-                        "caseWorker": "Case worker",
-                        "accessCode": "Access code",
-                        "paragraph": "Paragraph"
-                    },
                     "button": {
                         "save": "Save"
                     }
@@ -92,33 +55,12 @@
                     "header": "Document and object description",
                     "documentDescription": "Document description",
                     "objectDescription": "Object description",
-                    "labels": {
-                        "title": "Title",
-                        "documentStatus": "Document status",
-                        "accessCode": "Access code",
-                        "paragraph": "Paragraph",
-                        "variant": "Variant"
-                    },
                     "button": {
                         "save": "Save"
                     }
                 },
                 "applicationForm": {
                     "header": "Applicant",
-                    "labels": {
-                        "type": "Select applicant type",
-                        "organisationNumber": "organisationNumber",
-                        "nationalIdentityNumber": "nationalIdentityNumber",
-                        "name": "Name",
-                        "address": "Address",
-                        "postalCode": "Postal code",
-                        "city": "City",
-                        "contactPerson": "Contact person",
-                        "phoneNumber": "Phone number",
-                        "email": "Email",
-                        "accessCode": "Access code",
-                        "paragraph": "Paragraph"
-                    },
                     "button": {
                         "save": "Save"
                     }
@@ -147,6 +89,52 @@
         "support": {
             "header": "Contact support"
         }
+    },
+    "inputField": {
+        "errorMessage": "You must provide ",
+        "requiredField": "Required field",
+        "labels": {
+            "name": "Name",
+            "description": "Description",
+            "sourceApplication": "Source application",
+            "sourceApplicationIntegrationId": "Form",
+            "caseCreationInfo": "Select creation strategy",
+            "caseCreationNew": "As new case",
+            "caseCreationNewInfo": "Form submitted creates a new case in Elements",
+            "caseCreationExisting": "On existing case",
+            "caseCreationExistingInfo": "Form submitted finds existing form in Elements based on data in the form. If no matching case - a new case is created",
+            "caseCreationCollection": "On case collection",
+            "caseCreationCollectionInfo": "Form submitted will be added to predefined case collecting. This option requires a valid case number",
+            "caseNumber": "Case number",
+            "title": "Title",
+            "publicTitle": "Public title",
+            "administrativeUnit": "Administrative unit",
+            "archiveUnit": "Archive unit",
+            "recordUnit": "Record unit",
+            "status": "Status",
+            "accessCode": "Access code",
+            "paragraph": "Paragraph",
+            "responsibleCaseWorker": "Responsible case worker",
+            "primaryClassification": "Primary classification",
+            "secondaryClassification": "Secondary classification",
+            "primaryClass": "Primary class",
+            "secondaryClass": "Secondary class",
+            "type": "Type",
+            "recordStatus": "Record status",
+            "caseWorker": "Case worker",
+            "documentStatus": "Document status",
+            "variant": "Variant",
+            "applicantType": "Select applicant type",
+            "organisationNumber": "organisationNumber",
+            "nationalIdentityNumber": "nationalIdentityNumber",
+            "applicantName": "Name",
+            "address": "Address",
+            "postalCode": "Postal code",
+            "city": "City",
+            "contactPerson": "Contact person",
+            "phoneNumber": "Phone number",
+            "email": "Email"
+        } 
     },
     "models": {
         "integrationConfiguration": {
@@ -204,5 +192,8 @@
                 "paragraph": ""
             }
         }
+    },
+    "errors": {
+        "code0": "General error"
     }
 }

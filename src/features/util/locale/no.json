@@ -27,19 +27,6 @@
             "accordions": {
                 "caseInformation": {
                     "header": "Integrasjonslogikk",
-                    "labels": {
-                        "name": "Navn",
-                        "description": "Beskrivelse",
-                        "sourceApplication": "Skjemaleverandør",
-                        "sourceApplicationIntegrationId": "Skjema",
-                        "caseCreationInfo": "Velg hvordan skjema skal sendes til arkivet",
-                        "caseCreationNew": "Som ny sak",
-                        "caseCreationNewInfo": "Innsendt skjema oppretter en ny sak i Elements",
-                        "caseCreationExisting": "På eksisterende sak",
-                        "caseCreationExistingInfo": "Innsendt skjema gjenfinner eksisterende sak i Elements basert på informasjon i skjemaet. Dersom det ikke fins en eksisterende sak opprettes en ny sak",
-                        "caseCreationCollection": "På samlesak",
-                        "caseCreationCollectionInfo": "Innsendt skjema skal leveres til en forhåndsdefinert samlesak. Her må du opplyse om saksnummer"
-                    },
                     "button": {
                         "search": "Søk",
                         "save": "Lagre"
@@ -54,37 +41,12 @@
                 "caseForm": {
                     "header": "Sak",
                     "classification": "Klassifisering",
-                    "labels": {
-                        "title": "Tittel",
-                        "publicTitle": "Offentlig tittel",
-                        "administrativeUnit": "Administrativ enhet",
-                        "archiveUnit": "Arkivdel",
-                        "recordUnit": "Journalenhet",
-                        "status": "Status",
-                        "accessCode": "Tilgangskode",
-                        "paragraph": "Hjemmel",
-                        "caseWorker": "Ansvarlig saksbehandler",
-                        "primaryClassification": "Primær ordningsprinsipp",
-                        "secondaryClassification": "Sekundær ordningsprinsipp",
-                        "primaryClass": "Primærklasse",
-                        "secondaryClass": "Sekundærklasse"
-                    },
                     "button": {
                         "save": "Lagre"
                     }
                 },
                 "recordForm": {
                     "header": "Journalpost",
-                    "labels": {
-                        "title": "Tittel",
-                        "publicTitle": "Offentlig tittel",
-                        "type": "Type",
-                        "administrativeUnit": "Administrativ enhet",
-                        "recordStatus": "Journalstatus",
-                        "caseWorker": "Saksbehandler",
-                        "accessCode": "Tilgangskode",
-                        "paragraph": "Hjemmel"
-                    },
                     "button": {
                         "save": "Lagre"
                     }
@@ -93,33 +55,12 @@
                     "header": "Dokument- og objektbeskrivelse",
                     "documentDescription": "Dokumentbeskrivelse",
                     "objectDescription": "Objektbeskrivelse",
-                    "labels": {
-                        "title": "Tittel",
-                        "documentStatus": "Dokumentstatus",
-                        "accessCode": "Tilgangskode",
-                        "paragraph": "Hjemmel",
-                        "variant": "Variant"
-                    },
                     "button": {
                         "save": "Lagre"
                     }
                 },
                 "applicationForm": {
                     "header": "Avsender",
-                    "labels": {
-                        "type": "Velg avsendertype",
-                        "organisationNumber": "Organisasjonsnummer",
-                        "nationalIdentityNumber": "Personnummer",
-                        "name": "Navn",
-                        "address": "Adresse",
-                        "postalCode": "Postnummer",
-                        "city": "Poststed",
-                        "contactPerson": "Kontaktperson",
-                        "phoneNumber": "Telefonnummer",
-                        "email": "Epost",
-                        "accessCode": "Tilgangskode",
-                        "paragraph": "Hjemmel"
-                    },
                     "button": {
                         "save": "Lagre"
                     }
@@ -148,6 +89,52 @@
         "support": {
             "header": "Kontakt support"
         }
+    },
+    "inputField": {
+        "errorMessage": "Du må oppgi ",
+        "requiredField": "Obligatorisk felt",
+        "labels": {
+            "name": "Navn",
+            "description": "Beskrivelse",
+            "sourceApplication": "Skjemaleverandør",
+            "sourceApplicationIntegrationId": "Skjema",
+            "caseCreationInfo": "Velg hvordan skjema skal sendes til arkivet",
+            "caseCreationNew": "Som ny sak",
+            "caseCreationNewInfo": "Innsendt skjema oppretter en ny sak i Elements",
+            "caseCreationExisting": "På eksisterende sak",
+            "caseCreationExistingInfo": "Innsendt skjema gjenfinner eksisterende sak i Elements basert på informasjon i skjemaet. Dersom det ikke fins en eksisterende sak opprettes en ny sak",
+            "caseCreationCollection": "På samlesak",
+            "caseCreationCollectionInfo": "Innsendt skjema skal leveres til en forhåndsdefinert samlesak. Her må du opplyse om saksnummer",
+            "caseNumber": "Saksnummer",
+            "title": "Tittel",
+            "publicTitle": "Offentlig tittel",
+            "administrativeUnit": "Administrativ enhet",
+            "archiveUnit": "Arkivdel",
+            "recordUnit": "Journalenhet",
+            "status": "Status",
+            "accessCode": "Tilgangskode",
+            "paragraph": "Hjemmel2",
+            "responsibleCaseWorker": "Ansvarlig saksbehandler",
+            "primaryClassification": "Primær ordningsprinsipp",
+            "secondaryClassification": "Sekundær ordningsprinsipp",
+            "primaryClass": "Primærklasse",
+            "secondaryClass": "Sekundærklasse",
+            "type": "Type",
+            "recordStatus": "Journalstatus",
+            "caseWorker": "Saksbehandler",
+            "documentStatus": "Dokumentstatus",
+            "variant": "Variant",
+            "applicantType": "Velg avsendertype",
+            "organisationNumber": "Organisasjonsnummer",
+            "nationalIdentityNumber": "Personnummer",
+            "applicantnName": "Navn",
+            "address": "Adresse",
+            "postalCode": "Postnummer",
+            "city": "Poststed",
+            "contactPerson": "Kontaktperson",
+            "phoneNumber": "Telefonnummer",
+            "email": "Epost"
+        } 
     },
     "models": {
         "integrationConfiguration": {

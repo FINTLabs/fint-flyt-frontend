@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 const InputField: React.FunctionComponent<any> = (props) => {
-    const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationForm.accordions'});
+    const { t } = useTranslation('translations', { keyPrefix: 'inputField'});
     const classes = useStyles();
     const filterOptions = createFilterOptions({
         matchFrom: 'any',
@@ -51,7 +51,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                             onChange(e.target.value);
                         }}
                         error={!!props.error}
-                        helperText={props.error ? 'Obligatorisk felt' : ''}
+                        helperText={props.error ? t('requiredField') : ''}
                     >
                         {props.dropdownItems.map((item: any, index: number) => (
                             <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
@@ -65,7 +65,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
     else if (props.input === INPUT_TYPE.RADIO) {
         return (
             <FormControl component="fieldset" sx={{ mb: 3 }}>
-                <FormLabel role="label">{props.label}</FormLabel>
+                <FormLabel role="label">{t(props.label)}</FormLabel>
                 <RadioGroup row={true}
                             onChange={(e) =>
                                 props.setValue(props.formValue, e.target.value as string)}
@@ -104,7 +104,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                                 size="small"
                                 label={props.required ? (props.label+'*') : props.label}
                                 error={!!props.error}
-                                helperText={props.error ? 'Obligatorisk felt' : ''}
+                                helperText={props.error ? t('requiredField') : ''}
                             />
                         )}
                         onChange={(_, data) => {
@@ -145,7 +145,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                         onBlur={onBlur}
                         value={value}
                         error={!!props.error}
-                        helperText={props.error ? 'Obligatorisk felt' : ''}
+                        helperText={props.error ? t('requiredField') : ''}
                     />
                 )}
                 rules={{ required: { value: props.required, message: errorMessage }} }
