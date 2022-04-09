@@ -76,16 +76,14 @@ export const dropdownPlaceholder: ISelect[] = [
 ]
 
 export const creationStrategies: ISelect[] = [
-    {label: 'Som ny sak',value: 'NEW',  description: 'Innsendt skjema oppretter en ny sak i Elements'},
-    {label: 'På eksisterende sak', value: 'EXISTING',  description: 'Innsendt skjema gjenfinner eksisterende sak i ' +
-            'Elements basert på informasjon i skjemaet. Dersom det ikke fins en eksisterende sak opprettes en ny sak' },
-    {label: 'På samlesak', value: 'COLLECTION', description: 'Innsendt skjema skal leveres til en forhåndsdefinert samlesak. ' +
-            'Her må du opplyse om saksnummer'}
+    {label: 'selects.creationStrategies.new', value: 'NEW',  description: "selects.creationStrategies.newDesc"},
+    {label: 'selects.creationStrategies.exisiting', value: 'EXISTING',  description: "selects.creationStrategies.exisitingDesc"},
+    {label: 'selects.creationStrategies.collection', value: 'COLLECTION', description: "selects.creationStrategies.collectionDesc"}
 ];
 
 export const applicantOptions: ISelect[] = [
-    {label: 'Privatperson',value: 'PERSON'},
-    {label: 'Organisasjon', value: 'ORGANISATION'}
+    {label: 'selects.applicantOptions.individual',value: 'PERSON'},
+    {label: 'selects.applicantOptions.organisation', value: 'ORGANISATION'}
 ];
 
 export const sourceApplicationIntegrations: ISelect[] = [

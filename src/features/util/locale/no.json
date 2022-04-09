@@ -134,7 +134,30 @@
             "contactPerson": "Kontaktperson",
             "phoneNumber": "Telefonnummer",
             "email": "Epost"
-        } 
+        },
+        "selects": {
+            "creationStrategies": {
+                "new":"Som ny sak",
+                "newDesc":"Innsendt skjema oppretter en ny sak i Elements",
+                "exisiting":"På eksisterende sak",
+                "exisitingDesc":"Innsendt skjema gjenfinner eksisterende sak i Elements basert på informasjon i skjemaet. Dersom det ikke fins en eksisterende sak opprettes en ny sak",
+                "collection":"På samlesak",
+                "collectionDesc":"Innsendt skjema skal leveres til en forhåndsdefinert samlesak. Her må du opplyse om saksnummer"
+            },
+            "applicantOptions": {                
+                "individual":"Privatperson",
+                "organisation":"Organisasjon"
+            },
+            "sourceApplicationIntegrations": { 
+                "VIK014": "Søknad om reservasjon av skoleplass",
+                "VIK036": "Søknad til kombinasjonsprogram",
+                "VIK108": "Søknad om TT-kort",
+                "VIK132": "Samtykke - fotografering/video/lyd"
+            },
+            "sourceApplications": { 
+                "label": "ACOS" 
+            }
+        }
     },
     "models": {
         "integrationConfiguration": {

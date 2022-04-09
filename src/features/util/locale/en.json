@@ -99,12 +99,6 @@
             "sourceApplication": "Source application",
             "sourceApplicationIntegrationId": "Form",
             "caseCreationInfo": "Select creation strategy",
-            "caseCreationNew": "As new case",
-            "caseCreationNewInfo": "Form submitted creates a new case in Elements",
-            "caseCreationExisting": "On existing case",
-            "caseCreationExistingInfo": "Form submitted finds existing form in Elements based on data in the form. If no matching case - a new case is created",
-            "caseCreationCollection": "On case collection",
-            "caseCreationCollectionInfo": "Form submitted will be added to predefined case collecting. This option requires a valid case number",
             "caseNumber": "Case number",
             "title": "Title",
             "publicTitle": "Public title",
@@ -134,6 +128,29 @@
             "contactPerson": "Contact person",
             "phoneNumber": "Phone number",
             "email": "Email"
+        },
+        "selects": {
+            "creationStrategies": {
+                "new":"As a new case",
+                "newDesc":"Submitted form created new case in Elements",
+                "exisiting":"On an exisiting case",
+                "exisitingDesc":"Form submitted finds existing form in Elements based on data in the form. If no matching case - a new case is created",
+                "collection":"On a case collection",
+                "collectionDesc":"Form submitted will be added to predefined case collection. This option requires a valid case number"
+            },
+            "applicantOptions": {                
+                "individual":"Individual",
+                "organisation":"Organisation"
+            },
+            "sourceApplicationIntegrations": { 
+                "VIK014": "Søknad om reservasjon av skoleplass",
+                "VIK036": "Søknad til kombinasjonsprogram",
+                "VIK108": "Søknad om TT-kort",
+                "VIK132": "Samtykke - fotografering/video/lyd"
+            },
+            "sourceApplications": { 
+                "label": "ACOS" 
+            }
         }
     },
     "models": {

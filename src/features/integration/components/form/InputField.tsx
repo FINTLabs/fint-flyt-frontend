@@ -77,9 +77,9 @@ const InputField: React.FunctionComponent<any> = (props) => {
                             <FormControlLabel
                                 value={option.value}
                                 control={<Radio />}
-                                label={option.label}
+                                label={t(option.label) as string}
                             />
-                            <Typography sx={{ fontSize: 14 }}>{option.description}</Typography>
+                            <Typography sx={{ fontSize: 14 }}>{option.description ? t(option.description) : ''}</Typography>
                         </div>
                     ))}
                 </RadioGroup>
