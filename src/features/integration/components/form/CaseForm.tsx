@@ -7,8 +7,10 @@ import InputField from "./InputField";
 import {FieldErrors} from "react-hook-form";
 import {ResourcesContext} from "../../../../resourcesContext";
 import HelpPopover from "../popover/HelpPopover";
+import { useTranslation } from 'react-i18next';
 
 const CaseForm: React.FunctionComponent<any> = (props) => {
+    const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationForm.accordions.caseForm'});
     const {administrativeUnits, accessCodes, paragraphs, statuses, archiveSections, archiveResources,
         classificationSystems, primaryClassification, secondaryClassification, primaryClass, secondaryClass, getPrimaryClass, getSecondaryClass, setPrimaryClassification, setSecondaryClassification } = useContext(ResourcesContext);
 
@@ -66,7 +68,7 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
                         </Box>
                     )}
                 )}
-                <Typography>Klassering</Typography>
+                <Typography>{t('classification')}</Typography>
                 <Divider sx={{mb: 3}}/>
                 {classificationFormFields.map((field, index) => {
                     return (
@@ -90,7 +92,7 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
                     )}
                 )}
             </FormGroup>
-            <Button sx={{mb: 2}} onClick={props.onSave} variant="contained">Lagre</Button>
+            <Button sx={{mb: 2}} onClick={props.onSave} variant="contained">{t('button.save')}</Button>
         </div>
 
     );

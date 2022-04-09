@@ -7,8 +7,10 @@ import {FieldErrors} from "react-hook-form";
 import {ResourcesContext} from "../../../../resourcesContext";
 import HelpPopover from "../popover/HelpPopover";
 import {fieldHelp} from "../../defaults/DefaultValues";
+import { useTranslation } from 'react-i18next';
 
 const RecordForm: React.FunctionComponent<any> = (props) => {
+    const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationForm.accordions.recordForm'});
     const {administrativeUnits, accessCodes, paragraphs, documentTypes, recordStatuses, archiveResources } = useContext(ResourcesContext);
     let errors: FieldErrors = props.errors;
     let required: boolean = props.validation;
@@ -47,7 +49,7 @@ const RecordForm: React.FunctionComponent<any> = (props) => {
                     )}
                 )}
             </FormGroup>
-            <Button sx={{mb: 2}} onClick={props.onSave} variant="contained">Lagre</Button>
+            <Button sx={{mb: 2}} onClick={props.onSave} variant="contained">{t('button.save')}</Button>
         </div>
     );
 }

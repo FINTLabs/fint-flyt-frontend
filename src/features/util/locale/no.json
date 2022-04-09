@@ -27,7 +27,7 @@
             "accordions": {
                 "caseInformation": {
                     "header": "Integrasjonslogikk",
-                     "labels": {
+                    "labels": {
                         "name": "Navn",
                         "description": "Beskrivelse",
                         "sourceApplication": "Skjemaleverandør",
@@ -38,7 +38,7 @@
                         "caseCreationExisting": "På eksisterende sak",
                         "caseCreationExistingInfo": "Innsendt skjema gjenfinner eksisterende sak i Elements basert på informasjon i skjemaet. Dersom det ikke fins en eksisterende sak opprettes en ny sak",
                         "caseCreationCollection": "På samlesak",
-                        "caseCreationCollectionInfo": "Innsendt skjema skal leveres til en forhåndsdefinert samlesak. Her må du opplyse om saksnummer"    
+                        "caseCreationCollectionInfo": "Innsendt skjema skal leveres til en forhåndsdefinert samlesak. Her må du opplyse om saksnummer"
                     },
                     "button": {
                         "search": "Søk",
@@ -52,16 +52,77 @@
                     }
                 },
                 "caseForm": {
-                    "header": "Sak"
+                    "header": "Sak",
+                    "classification": "Klassifisering",
+                    "labels": {
+                        "title": "Tittel",
+                        "publicTitle": "Offentlig tittel",
+                        "administrativeUnit": "Administrativ enhet",
+                        "archiveUnit": "Arkivdel",
+                        "recordUnit": "Journalenhet",
+                        "status": "Status",
+                        "accessCode": "Tilgangskode",
+                        "paragraph": "Hjemmel",
+                        "caseWorker": "Ansvarlig saksbehandler",
+                        "primaryClassification": "Primær ordningsprinsipp",
+                        "secondaryClassification": "Sekundær ordningsprinsipp",
+                        "primaryClass": "Primærklasse",
+                        "secondaryClass": "Sekundærklasse"
+                    },
+                    "button": {
+                        "save": "Lagre"
+                    }
                 },
                 "recordForm": {
-                    "header": "Journalpost"
+                    "header": "Journalpost",
+                    "labels": {
+                        "title": "Tittel",
+                        "publicTitle": "Offentlig tittel",
+                        "type": "Type",
+                        "administrativeUnit": "Administrativ enhet",
+                        "recordStatus": "Journalstatus",
+                        "caseWorker": "Saksbehandler",
+                        "accessCode": "Tilgangskode",
+                        "paragraph": "Hjemmel"
+                    },
+                    "button": {
+                        "save": "Lagre"
+                    }
                 },
                 "documentForm": {
-                    "header": "Dokument- og objektbeskrivelse"
+                    "header": "Dokument- og objektbeskrivelse",
+                    "documentDescription": "Dokumentbeskrivelse",
+                    "objectDescription": "Objektbeskrivelse",
+                    "labels": {
+                        "title": "Tittel",
+                        "documentStatus": "Dokumentstatus",
+                        "accessCode": "Tilgangskode",
+                        "paragraph": "Hjemmel",
+                        "variant": "Variant"
+                    },
+                    "button": {
+                        "save": "Lagre"
+                    }
                 },
                 "applicationForm": {
-                    "header": "Avsender"
+                    "header": "Avsender",
+                    "labels": {
+                        "type": "Velg avsendertype",
+                        "organisationNumber": "Organisasjonsnummer",
+                        "nationalIdentityNumber": "Personnummer",
+                        "name": "Navn",
+                        "address": "Adresse",
+                        "postalCode": "Postnummer",
+                        "city": "Poststed",
+                        "contactPerson": "Kontaktperson",
+                        "phoneNumber": "Telefonnummer",
+                        "email": "Epost",
+                        "accessCode": "Tilgangskode",
+                        "paragraph": "Hjemmel"
+                    },
+                    "button": {
+                        "save": "Lagre"
+                    }
                 }
             },
             "checkLabel": "Ferdigstilt",

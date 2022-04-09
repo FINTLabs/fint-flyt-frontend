@@ -52,16 +52,76 @@
                     }
                 },
                 "caseForm": {
-                    "header": "Case description"
+                    "header": "Case description",
+                    "classification": "Classification",
+                    "labels": {
+                        "title": "Title",
+                        "publicTitle": "Public title",
+                        "administrativeUnit": "Administrative unit",
+                        "archiveUnit": "Archive unit",
+                        "recordUnit": "Record unit",
+                        "status": "Status",
+                        "accessCode": "Access code",
+                        "paragraph": "Paragraph",
+                        "caseWorker": "Responsible case worker",
+                        "primaryClassification": "Primary classification",
+                        "secondaryClassification": "Secondary classification",
+                        "primaryClass": "Primary class",
+                        "secondaryClass": "Secondary class" },
+                    "button": {
+                        "save": "Save"
+                    }
                 },
                 "recordForm": {
-                    "header": "Record description"
+                    "header": "Record description",
+                    "labels": {
+                        "title": "Title",
+                        "publicTitle": "Public title",
+                        "type": "Type",
+                        "administrativeUnit": "Administrative unit",
+                        "recordStatus": "Record status",
+                        "caseWorker": "Case worker",
+                        "accessCode": "Access code",
+                        "paragraph": "Paragraph"
+                    },
+                    "button": {
+                        "save": "Save"
+                    }
                 },
                 "documentForm": {
-                    "header": "Document and object description"
+                    "header": "Document and object description",
+                    "documentDescription": "Document description",
+                    "objectDescription": "Object description",
+                    "labels": {
+                        "title": "Title",
+                        "documentStatus": "Document status",
+                        "accessCode": "Access code",
+                        "paragraph": "Paragraph",
+                        "variant": "Variant"
+                    },
+                    "button": {
+                        "save": "Save"
+                    }
                 },
                 "applicationForm": {
-                    "header": "Applicant"
+                    "header": "Applicant",
+                    "labels": {
+                        "type": "Select applicant type",
+                        "organisationNumber": "organisationNumber",
+                        "nationalIdentityNumber": "nationalIdentityNumber",
+                        "name": "Name",
+                        "address": "Address",
+                        "postalCode": "Postal code",
+                        "city": "City",
+                        "contactPerson": "Contact person",
+                        "phoneNumber": "Phone number",
+                        "email": "Email",
+                        "accessCode": "Access code",
+                        "paragraph": "Paragraph"
+                    },
+                    "button": {
+                        "save": "Save"
+                    }
                 }
             },
             "checkLabel": "Completed",

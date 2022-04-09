@@ -8,8 +8,10 @@ import {ApplicantType} from "../../types/ApplicantType";
 import {FieldErrors} from "react-hook-form";
 import {ResourcesContext} from "../../../../resourcesContext";
 import HelpPopover from "../popover/HelpPopover";
+import { useTranslation } from 'react-i18next';
 
 const ApplicantForm: React.FunctionComponent<any> = (props) => {
+    const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationForm.accordions.applicationForm'});
     const {accessCodes, paragraphs} = useContext(ResourcesContext);
     let isOrganisation = props.watch("applicantData.type") === ApplicantType.ORGANISATION
     let errors: FieldErrors = props.errors;
@@ -57,7 +59,7 @@ const ApplicantForm: React.FunctionComponent<any> = (props) => {
                     )}
                 )}
             </FormGroup>
-            <Button sx={{mb: 2}} onClick={props.onSave} variant="contained">Lagre</Button>
+            <Button sx={{mb: 2}} onClick={props.onSave} variant="contained">{t('button.save')}</Button>
         </div>
     );
 }

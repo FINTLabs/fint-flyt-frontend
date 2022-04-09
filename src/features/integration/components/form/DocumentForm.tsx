@@ -7,8 +7,10 @@ import {FieldErrors} from "react-hook-form";
 import {ResourcesContext} from "../../../../resourcesContext";
 import {fieldHelp} from "../../defaults/DefaultValues";
 import HelpPopover from "../popover/HelpPopover";
+import { useTranslation } from 'react-i18next';
 
 const DocumentForm: React.FunctionComponent<any> = (props) => {
+    const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationForm.accordions.documentForm'});
     const {accessCodes, paragraphs, documentStatuses, variants} = useContext(ResourcesContext);
     let errors: FieldErrors = props.errors;
     let required: boolean = props.validation;
@@ -24,7 +26,7 @@ const DocumentForm: React.FunctionComponent<any> = (props) => {
     return (
         <div>
             <FormGroup className={props.style.formControl}>
-                <Typography>Dokumentbeskrivelse</Typography>
+                <Typography>{t('documentDescription')}</Typography>
                 <Divider sx={{mb: 3}}/>
                 {documentFormFields.map((field, index) => {
                     return (
@@ -47,7 +49,7 @@ const DocumentForm: React.FunctionComponent<any> = (props) => {
                         </Box>
                     )}
                 )}
-                <Typography>Objektbeskrivelse</Typography>
+                <Typography>{t('objectDescription')}</Typography>
                 <Divider sx={{mb: 3}}/>
                 {objectFormFields.map((field, index) => {
                     return (
@@ -71,7 +73,7 @@ const DocumentForm: React.FunctionComponent<any> = (props) => {
                     )}
                 )}
             </FormGroup>
-            <Button sx={{mb: 2}} onClick={props.onSave} variant="contained">Lagre</Button>
+            <Button sx={{mb: 2}} onClick={props.onSave} variant="contained">{t('button.save')}</Button>
         </div>
     );
 }
