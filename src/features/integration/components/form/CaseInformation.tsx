@@ -34,13 +34,13 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
     let isCollection = props.watch("caseData.caseCreationStrategy") === CreationStrategy.COLLECTION
     let errors: FieldErrors = props.errors
     const caseInformationFields: IInputField[] = [
-        {input: INPUT_TYPE.TEXT_FIELD, label: "Navn", formValue: "name", required: props.validation, error:errors.name},
-        {input: INPUT_TYPE.TEXT_FIELD, label: "Beskrivelse", formValue: "description", required: props.validation, error:errors.description},
+        {input: INPUT_TYPE.TEXT_FIELD, label: "caseInformation.labels.name", formValue: "name", required: props.validation, error:errors.name},
+        {input: INPUT_TYPE.TEXT_FIELD, label: "caseInformation.labels.description", formValue: "description", required: props.validation, error:errors.description},
         {input: INPUT_TYPE.DROPDOWN, label: "Skjemaleverandør", value:props.watch("sourceApplication"), formValue: "sourceApplication", dropDownItems: sourceApplications},
         {input: INPUT_TYPE.DROPDOWN, label: "Skjema", value: props.watch("sourceApplicationIntegrationId"), formValue: "sourceApplicationIntegrationId", dropDownItems: sourceApplicationIntegrations},
         {input: INPUT_TYPE.RADIO, label: "Velg hvordan skjema skal sendes til arkivet", value: props.watch("caseData.caseCreationStrategy"),
             formValue: "caseData.caseCreationStrategy", radioOptions: creationStrategies},
-        {input: INPUT_TYPE.TEXT_FIELD, label: "Saksnummer", formValue: "caseData.caseNumber", hidden:!isCollection, required:isCollection && props.validation, error:errors.caseData?.caseNumber, searchOption: true}
+        {input: INPUT_TYPE.TEXT_FIELD, label: "caseInformation.caseSearch.caseNumber", formValue: "caseData.caseNumber", hidden:!isCollection, required:isCollection && props.validation, error:errors.caseData?.caseNumber, searchOption: true}
     ]
     return (
         <div>

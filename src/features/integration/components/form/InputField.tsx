@@ -13,6 +13,7 @@ import {ISelect} from "../../types/InputField";
 import {TextFieldWithDropZone} from "../dnd/TextFieldWithDropZone";
 import {makeStyles} from "@mui/styles";
 import {dropdownPlaceholder} from "../../defaults/DefaultValues";
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles(theme => ({
     dropdownPopover: {
@@ -20,6 +21,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 const InputField: React.FunctionComponent<any> = (props) => {
+    const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationForm.accordions'});
     const classes = useStyles();
     const filterOptions = createFilterOptions({
         matchFrom: 'any',
@@ -135,7 +137,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                 defaultValue=""
                 render={({ field: { onChange, onBlur, value } }) => (
                     <TextField
-                        label={props.required ? (props.label+'*') : props.label}
+                        label={props.required ? (t(props.label)+'*') : t(props.label)}
                         size="small"
                         variant="outlined"
                         sx={{ mb: 3, width: 'inherit'}}
