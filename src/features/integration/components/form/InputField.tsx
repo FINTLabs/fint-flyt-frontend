@@ -35,6 +35,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                 render={({ field: { onChange } }) => (
                     <TextField
                         select
+                        disabled={props.disabled}
                         size="small"
                         sx={{ mb: 3, width: 'inherit' }}
                         value={props.value}

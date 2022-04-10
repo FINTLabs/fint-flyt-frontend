@@ -28,6 +28,7 @@ import {CreationStrategy} from "./types/CreationStrategy";
 import {toFormData} from "../util/ToFormData";
 import {ResourcesContext} from "../../resourcesContext";
 import {IntegrationContext} from "../../integrationContext";
+import {FormSettings} from "./components/FormSettings";
 import CloseIcon from '@mui/icons-material/Close';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -86,8 +87,9 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     let history = useHistory();
     const editConfig: boolean = window.location.pathname === '/integration/configuration/edit'
     const [submitSuccess, setSubmitSuccess] = useState(false)
+    const [settings, setSettings] = useState(false)
+    const { integration, sourceApplication, destination, setIntegration, resetSourceAndDestination } = useContext(IntegrationContext)
     const [activeId, setActiveId] = useState<any>(undefined)
-    const { integration, setIntegration } = useContext(IntegrationContext)
     let activeConfiguration = integration.integrationId && editConfig ? integration : undefined;
     let activeFormData = integration.integrationId && editConfig ? toFormData(integration) : defaultValues;
     const [saved, setSaved] = React.useState(false);
@@ -108,7 +110,8 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     useEffect(()=> {
         getAllResources();
         return () => {
-            resetAllResources()
+            resetAllResources();
+            resetSourceAndDestination();
         };
     }, [])
 
@@ -193,6 +196,8 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     );
 
     const onSubmit = handleSubmit((data: IFormData) => {
+        data.sourceApplication = sourceApplication;
+        data.destination = destination;
         data.published = true;
         const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data);
         if(integrationConfiguration && activeId !== undefined && activeConfiguration?.integrationId == undefined) {
@@ -215,6 +220,8 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     });
 
     const onSave = handleSubmit((data: IFormData) => {
+        data.sourceApplication = sourceApplication;
+        data.destination = destination;
         data.published = false;
         const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data);
         if(integrationConfiguration && activeId !== undefined) {
@@ -235,7 +242,8 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
 
     return (
         <DndProvider backend={HTML5Backend}>
-            {!submitSuccess &&
+            {!settings && !activeConfiguration && <FormSettings setSettings={setSettings}/>}
+            {!submitSuccess && (activeConfiguration || settings) &&
                 <Box display="flex" position="relative" width={1} height={1}>
                     <Box>
                         <Typography aria-label="Integrasjon til arkiv" variant={"h5"} sx={{mb: 2}}>Integrasjon til arkiv</Typography>
@@ -292,12 +300,13 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                     />
                 </Box>
             }
-            {submitSuccess &&
+            {submitSuccess && settings &&
                 <Box style={{minHeight: 'fit-content'}}>
                     <Typography variant={"h5"} sx={{mb: 2}}>Integrasjon til arkiv - Ferdig</Typography>
                     <Button size="small" variant="contained" component={RouterLink} to="/overview">Se integrasjoner</Button>
                     <Button size="small" variant="contained" sx={{ml: 2}} component={RouterLink} to="/">Dashboard</Button>
-                </Box>}
+                </Box>
+            }
         </DndProvider>
     );
 }
