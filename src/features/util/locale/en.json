@@ -212,6 +212,11 @@
     },
     "errors": {
         "code0": "General error"
+    },    
+    "components": {
+        "SourceApplicationForm": {
+            "header": "Data from form"
+        }
     },
     "fieldHelp": {
         "sourceApplicationFormPopoverContent": "In the forms text fields you can use data from the selected form to fill these. Drag and drop to the field.",

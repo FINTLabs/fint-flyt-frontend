@@ -6,7 +6,7 @@
         "newIntegration": "Ny integrasjon",
         "editIntegartion": "Rediger integrasjon",
         "integrationList": "Integrasjonsoversikt",
-        "integrationDetails": "Detaljer",
+        "integrationDetails": "Detaljar",
         "log": "Logg",
         "support": "Support"
     },
@@ -16,9 +16,9 @@
             "empty": "Ingen",
             "errors": "feilmeldinger",
             "links": {
-                "integrationList": "Se integrasjoner",
+                "integrationList": "Sjå integrasjoner",
                 "newIntegration": "Ny integrasjon",
-                "log": "Se logg",
+                "log": "Sjå logg",
                 "support": "Kontakt support"
             }
         },
@@ -33,7 +33,7 @@
                     },
                     "caseSearch": {
                         "caseNumber": "Saksnummer",
-                        "searching": "Søker...",
+                        "searching": "Søkar...",
                         "info": "Saksnummer må være på formatet 'saksår/saksnummer', f.eks 2021/03",
                         "noMatch": "Ingen treff"
                     }
@@ -52,15 +52,15 @@
                     }
                 },
                 "documentForm": {
-                    "header": "Dokument- og objektbeskrivelse",
-                    "documentDescription": "Dokumentbeskrivelse",
-                    "objectDescription": "Objektbeskrivelse",
+                    "header": "Dokument- og objektbeskriving",
+                    "documentDescription": "Dokumentbeskriving",
+                    "objectDescription": "Objektbeskriving",
                     "button": {
                         "save": "Lagre"
                     }
                 },
                 "applicationForm": {
-                    "header": "Avsender",
+                    "header": "Avsendar",
                     "button": {
                         "save": "Lagre"
                     }
@@ -70,13 +70,13 @@
             "button": {
                 "save": "Lagre",
                 "cancel": "Avbryt",
-                "integrationList": "Se integrasjoner",
+                "integrationList": "Sjå integrasjoner",
                 "dashboard": "Dashbord",
                 "close": "Lukk"
             },
             "messages": {
-                "success": "Lagret",
-                "error": "Det har oppstått en feil"
+                "success": "Lagra",
+                "error": "Det har oppstått ein feil"
             }
         },
         "integrationList": {
@@ -95,16 +95,16 @@
         "requiredField": "Obligatorisk felt",
         "labels": {
             "name": "Navn",
-            "description": "Beskrivelse",
+            "description": "Beskriving",
             "sourceApplication": "Skjemaleverandør",
             "sourceApplicationIntegrationId": "Skjema",
-            "caseCreationInfo": "Velg hvordan skjema skal sendes til arkivet",
+            "caseCreationInfo": "Velg korelis skjema skal sendast til arkivet",
             "caseCreationNew": "Som ny sak",
-            "caseCreationNewInfo": "Innsendt skjema oppretter en ny sak i Elements",
-            "caseCreationExisting": "På eksisterende sak",
-            "caseCreationExistingInfo": "Innsendt skjema gjenfinner eksisterende sak i Elements basert på informasjon i skjemaet. Dersom det ikke fins en eksisterende sak opprettes en ny sak",
+            "caseCreationNewInfo": "Innsendt skjema opprettar ein ny sak i Elements",
+            "caseCreationExisting": "På eksisterande sak",
+            "caseCreationExistingInfo": "Innsendt skjema gjenfinner eksisterande sak i Elements basert på informasjon i skjema. Dersom det ikkje fins ein eksisterende sak blir ein ny sak oppretta",
             "caseCreationCollection": "På samlesak",
-            "caseCreationCollectionInfo": "Innsendt skjema skal leveres til en forhåndsdefinert samlesak. Her må du opplyse om saksnummer",
+            "caseCreationCollectionInfo": "Innsendt skjema skal leverast til ein forhåndsdefinert samlesak. Her må du opplyse om saksnummer",
             "caseNumber": "Saksnummer",
             "title": "Tittel",
             "publicTitle": "Offentlig tittel",
@@ -114,23 +114,23 @@
             "status": "Status",
             "accessCode": "Tilgangskode",
             "paragraph": "Hjemmel",
-            "responsibleCaseWorker": "Ansvarlig saksbehandler",
+            "responsibleCaseWorker": "Ansvarleg saksbehandlar",
             "primaryClassification": "Primær ordningsprinsipp",
             "secondaryClassification": "Sekundær ordningsprinsipp",
             "primaryClass": "Primærklasse",
             "secondaryClass": "Sekundærklasse",
             "type": "Type",
             "recordStatus": "Status",
-            "caseWorker": "Saksbehandler",
+            "caseWorker": "Saksbehandlar",
             "documentStatus": "Status",
             "variant": "Variant",
-            "applicantType": "Velg avsendertype",
+            "applicantType": "Velg avsendartype",
             "organisationNumber": "Organisasjonsnummer",
             "nationalIdentityNumber": "Personnummer",
             "applicantnName": "Navn",
             "address": "Adresse",
             "postalCode": "Postnummer",
-            "city": "Poststed",
+            "city": "Poststad",
             "contactPerson": "Kontaktperson",
             "phoneNumber": "Telefonnummer",
             "email": "Epost"
@@ -138,11 +138,11 @@
         "selects": {
             "creationStrategies": {
                 "new":"Som ny sak",
-                "newDesc":"Innsendt skjema oppretter en ny sak i Elements",
-                "exisiting":"På eksisterende sak",
-                "exisitingDesc":"Innsendt skjema gjenfinner eksisterende sak i Elements basert på informasjon i skjemaet. Dersom det ikke fins en eksisterende sak opprettes en ny sak",
+                "newDesc":"Innsendt skjema oppretter ein ny sak i Elements",
+                "exisiting":"På eksisterande sak",
+                "exisitingDesc":"Innsendt skjema gjenfinner eksisterande sak i Elements basert på informasjon i skjema. Dersom det ikkje fins ein eksisterende sak blir ein ny sak oppretta",
                 "collection":"På samlesak",
-                "collectionDesc":"Innsendt skjema skal leveres til en forhåndsdefinert samlesak. Her må du opplyse om saksnummer"
+                "collectionDesc":"Innsendt skjema skal leveres til ein forhåndsdefinert samlesak. Her må du opplyse om saksnummer"
             },
             "applicantOptions": {                
                 "individual":"Privatperson",
@@ -221,11 +221,11 @@
     },
     "components": {
         "SourceApplicationForm": {
-            "header": "Data fra skjema"
+            "header": "Data frå skjema"
         }
     },
     "fieldHelp": {
-        "sourceApplicationFormPopoverContent": "I tekstfeltene til i de ulike postene kan du benytte data fra skjema for å utfylle disse. Naviger til feltet du ønsker å fylle,og dra inn tag fra listen under.",
+        "sourceApplicationFormPopoverContent": "I tekstfelta til i de ulike postane kan du benytte data frå skjema for å utfylle desse. Naviger til feltet du ynskjer å fylle, og dra inn tag frå lista under.",
         "name": "",
         "description": "",
         "version": "",
@@ -233,7 +233,7 @@
         "caseData": {
             "caseCreationStrategy": "CreationStrategy.NEW",
             "caseNumber": "2021/12345",
-            "title": "Tittel kan være en konkret tekststreng, eller en kombinasjon av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak.  (Se Noark))",
+            "title": "Tittel kan være ein konkret tekststreng, eller ein kombinasjon av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak.  (Se Noark))",
             "publicTitle": "Se Noark (Del av tittel som skal skjermes)",
             "status": "-",
             "caseType": "Eksempel: Kompetanse, personal, rekrutering etc.",
@@ -241,23 +241,23 @@
             "archiveUnit":"Eksempel: kompetanse, sakarkiv, personal",
             "recordUnit": "Navnet på journalførende enhet.Eksempel: Viken fylkesråd",
             "accessCode": "Dersom noe skjermes må man også sette tilgangskode.Eksempel: Unntatt offentlighet, personal, varslingssak, ugradert. ",
-            "paragraph": "Dersom det settes tilgangskode må det også settes hjemmel. Det må være en lovmessig hjemmel for skjerming eller begrenset tilgang.Eksempel:'Offl. §13 '",
+            "paragraph": "Dersom det settes tilgangskode må det også settes hjemmel. Det må være ein lovmessig hjemmel for skjerming eller begrenset tilgang.Eksempel:'Offl. §13 '",
             "caseWorker": "Konkret saksbehandler eller ufordelt.",
-            "classification": "Det må kunne settes flere klasseringer på en sak, slik at sjemaet kan lete fram riktig sak. Eksempel: Primærkode=K-koder 'Sekundærkode=organisasjonsnummer eller personnummer'",
+            "classification": "Det må kunne settes flere klasseringer på ein sak, slik at sjemaet kan lete fram riktig sak. Eksempel: Primærkode=K-koder 'Sekundærkode=organisasjonsnummer eller personnummer'",
             "class": "Vi må kunne fylle ut verdi og betegnelse.Eksempel: K-kode: Verdi 003, Betegnelse: Målbruk.Person: verdi: fødselsnummer, betegnelse = personnavn."
         },
         "recordData": {
-            "title": "Tittel kan være en konkret tekststreng, eller en kombinasjon av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak. (Se Noark))",
+            "title": "Tittel kan være ein konkret tekststreng, eller ein kombinasjon av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak. (Se Noark))",
             "publicTitle": "Se Noark (Del av tittel som skal skjermes)",
             "type": "I, U, N, X",
             "administrativeUnit": "Enheten/avdelingen. Nedtrekksmeny fra Elements",
             "status": "R,F,E,J",
-            "caseWorker": "En sak kan ha en ansvarlig saksbehandler men det kan være ulike saksbehandlere på ulike journalposter.",
+            "caseWorker": "En sak kan ha ein ansvarlig saksbehandler men det kan være ulike saksbehandlere på ulike journalposter.",
             "accessCode": "Eksempel: Unntatt offentlighet, personal varslingssak, ugradert. ",
             "paragraph": "Eksempel: Offl. §13 "
         },
         "documentData": {
-            "title": "Tittel kan være en konkret tekststreng, eller en kombinasjon av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak.(Se Noark))",
+            "title": "Tittel kan være ein konkret tekststreng, eller ein kombinasjon av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak.(Se Noark))",
             "documentStatus": "Eksempel: B, F",
             "accessCode": "Eksempel: Unntatt offentlighet, persona,l varslingssak, ugradert. ",
             "paragraph": "Eksempel: Offl. §13",
@@ -266,16 +266,16 @@
         "applicantData": {
             "type": "Person eller organisasjon/bedrift",
             "organisationNumber": "Orgnr for avsenderbedrift",
-            "nationalIdentityNumber": "Personnummer for avsender",
+            "nationalIdentityNumber": "Personnummer for avsendar",
             "name": "Navn på bedrift/org, eller person",
             "address": "Postadresse",
             "postalCode": "Postkode",
             "city": "Poststed",
-            "contactPerson": "Navn på søker er ikke alltid lik med kontaktperson",
+            "contactPerson": "Navn på søkar er ikkje alltid likt med kontaktperson",
             "phoneNumber": "Telefonnummer",
             "email": "epostadresse",
-            "accessCode": "velge om avsender skal være skjermet",
-            "paragraph": "Denne skal fjernes"
+            "accessCode": "Velge om avsender skal være skjerma",
+            "paragraph": "Denne skal fjernast"
         }
     }
 }
