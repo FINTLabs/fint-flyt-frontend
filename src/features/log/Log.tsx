@@ -16,7 +16,7 @@ import {IEvent} from "./types/Event";
 import EventRepository from "./repository/EventRepository";
 import {noNB} from "../util/locale/noNB";
 import {addId} from "../util/JsonUtil";
-import {IconButton} from "@mui/material";
+import {IconButton, Typography} from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import moment from "moment";
 
@@ -49,7 +49,7 @@ function DetailPanelContent({ row: rowProp }) {
         </Stack>
     );
 }
-const columns2: GridColumns = [
+const columns: GridColumns = [
     { field: 'id', hide: true, type: 'number', headerName: 'id', flex: 0.5 },
     {...GRID_DETAIL_PANEL_TOGGLE_COL_DEF, headerName: 'Detaljer', flex: 0.5,
         renderCell: (params) => ( <CustomDetailPanelToggle id={params.id} value={params.value} row={params.row} />),
@@ -125,8 +125,9 @@ function Log() {
 
     return (
         <Box sx={{ width: 1, height: 1200 }}>
+            <Typography>Logg</Typography>
             <DataGridPro
-                columns={columns2}
+                columns={columns}
                 localeText={noNB}
                 rows={allEvents}
                 rowThreshold={0}

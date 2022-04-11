@@ -1,19 +1,19 @@
 import axios from "axios";
 
 const getEvents = () => {
-    return axios.get<any>(`http://localhost:8084/api/sakshistorikk/hendelser`);
+    return axios.get<any>(`/api/sakshistorikk/hendelser`);
 };
 
 const getEventsByCorrelationId = (id: any) => {
-    return axios.get<any>(`http://localhost:8084/api/sakshistorikk/korrelasjonsid/${id}`);
+    return axios.get<any>(`/api/sakshistorikk/korrelasjonsid/${id}`);
 };
 
 const getEventsByInstanceId = (id: any) => {
-    return axios.get<any>(`http://localhost:8084/api/sakshistorikk/instansid/${id}`);
+    return axios.get<any>(`/api/sakshistorikk/instansid/${id}`);
 };
 
 const getEventsByIntegrationId = (id: any) => {
-    return axios.get<any>(`http://localhost:8084/api/sakshistorikk/integrasjonsid/${id}`);
+    return axios.get<any>(`/api/sakshistorikk/integrasjonsid/${id}`);
 };
 
 const ResourceRepository = {
