@@ -8,12 +8,24 @@ export const IntegrationContext = createContext<IntegrationContextState>(
 
 const IntegrationProvider: FC = ({ children }) => {
     const [integration, setIntegration] = useState<IIntegrationConfiguration>({});
+    const [destination, setDestination] = useState<string>('');
+    const [sourceApplication, setSourceApplication] = useState<string>('');
+
+    const resetSourceAndDestination = () => {
+        setDestination('');
+        setSourceApplication('');
+    }
 
     return (
         <IntegrationContext.Provider
             value={{
                 integration,
-                setIntegration
+                setIntegration,
+                destination,
+                setDestination,
+                sourceApplication,
+                setSourceApplication,
+                resetSourceAndDestination
             }}
         >
             {children}

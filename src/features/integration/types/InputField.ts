@@ -5,13 +5,15 @@ export interface IInputField {
     input: INPUT_TYPE;
     label: string;
     formValue: string;
-    value?: Function;
+    value?: Function | string;
     dropDownItems?: ISelect[];
     radioOptions?: ISelect[];
     hidden?: boolean;
+    disabled?: boolean;
     required?: boolean;
     error?: string;
     helpText?: string;
+    lockIcon?: boolean;
     setter?: (item: IResourceItem) => void;
     searchOption?: boolean;
 }

@@ -9,6 +9,7 @@ export default interface IFormData {
     version?: string;
     sourceApplication?: string;
     sourceApplicationIntegrationId?: string;
+    destination?: string;
     published?: boolean;
 
     caseData?: ICaseData;
