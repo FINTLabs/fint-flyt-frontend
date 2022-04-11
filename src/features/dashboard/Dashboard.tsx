@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const classes = useStyles();
-    const [numberOfIntegrations, setNumberOfIntegrations] = useState();
+    const [numberOfIntegrations, setNumberOfIntegrations] = useState(0);
     const showDetails: boolean = window.location.pathname === '/integration/configuration/details'
     const [configurations, getConfigurations] = useState<IRow[]>([]);
     const {integration, setIntegration} = useContext(IntegrationContext)
@@ -68,12 +68,7 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
         { value: 'Ingen', content: 'feilmeldinger', links: [
                 {name: 'Se logg', href: '/log'}
             ]
-        },
-        // { value: 53, content: 'innsendte siste døgn', links: [
-        //         {name: 'Se logg', href: '/log'}
-        //     ]
-        // },
-        // { value: '99%', content: 'suksessrate'}
+        }
     ]
 
     return (
