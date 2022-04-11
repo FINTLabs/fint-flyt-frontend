@@ -36,6 +36,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                     <TextField
                         id={props.formValue}
                         select
+                        disabled={props.disabled}
                         size="small"
                         sx={{ mb: 3, width: 'inherit' }}
                         value={props.value}

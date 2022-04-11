@@ -1,52 +1,52 @@
 import axios from "axios";
 
 const getAdministrativeUnits = () => {
-    return axios.get<any>("/kodeverk/administrativenhet");
+    return axios.get<any>("/api/kodeverk/administrativenhet");
 };
 
 const getStatuses = () => {
-    return axios.get<any>("/kodeverk/sakstatus");
+    return axios.get<any>("/api/kodeverk/sakstatus");
 };
 
 const getArchiveSections = () => {
-    return axios.get<any>("/kodeverk/arkivdel");
+    return axios.get<any>("/api/kodeverk/arkivdel");
 };
 
 const getArchiveResources = () => {
-    return axios.get<any>("/kodeverk/arkivressurs");
+    return axios.get<any>("/api/kodeverk/arkivressurs");
 };
 
 const getClassificationSystems = () => {
-    return axios.get<any>("/kodeverk/klassifikasjonssystem");
+    return axios.get<any>("/api/kodeverk/klassifikasjonssystem");
 };
 
 const getClasses = (link: string) => {
     let encodedLink = encodeURIComponent(link);
-    return axios.get<any>(`/kodeverk/klasse/${encodedLink}`);
+    return axios.get<any>(`/api/kodeverk/klasse/${encodedLink}`);
 };
 
 const getAccessCodes = () => {
-    return axios.get<any>("/kodeverk/tilgangsrestriksjon");
+    return axios.get<any>("/api/kodeverk/tilgangsrestriksjon");
 };
 
 const getParagraphs = () => {
-    return axios.get<any>("/kodeverk/skjermingshjemmel");
+    return axios.get<any>("/api/kodeverk/skjermingshjemmel");
 };
 
 const getRecordStatuses = () => {
-    return axios.get<any>("/kodeverk/journalstatus");
+    return axios.get<any>("/api/kodeverk/journalstatus");
 };
 
 const getVariants = () => {
-    return axios.get<any>("/kodeverk/variantformat");
+    return axios.get<any>("/api/kodeverk/variantformat");
 };
 
 const getDocumentStatuses = () => {
-    return axios.get<any>("/kodeverk/dokumentstatus");
+    return axios.get<any>("/api/kodeverk/dokumentstatus");
 };
 
 const getDocumentTypes = () => {
-    return axios.get<any>("/kodeverk/dokumenttype");
+    return axios.get<any>("/api/kodeverk/dokumenttype");
 };
 
 const ResourceRepository = {

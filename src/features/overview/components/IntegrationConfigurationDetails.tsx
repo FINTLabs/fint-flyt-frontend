@@ -15,7 +15,7 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
     const [updateSuccess, setUpdateSuccess] = useState(false)
     const [version, setVersion] = useState(props.initialConfiguration.version)
     const latestVersion = props.initialVersion;
-    const {integration, setIntegration} = useContext(IntegrationContext);
+    const {integration, setIntegration, setSourceApplication, setDestination} = useContext(IntegrationContext);
     const versions = [];
     for (let i = 1; i<=latestVersion; i++) {
         versions.push({label: i, value: i})
@@ -60,6 +60,8 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
             pathname: '/integration/configuration/edit',
         })
         setIntegration(activeConfiguration);
+        setSourceApplication(activeConfiguration?.sourceApplication ? activeConfiguration.sourceApplication : '');
+        setDestination(activeConfiguration.destination ? activeConfiguration.destination : '');
     }
 
     const handleVersionChange = () => {
@@ -90,9 +92,10 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
                     </FormControl>
                     <CardContent>
                         <Typography id="details-id"><strong>Id: </strong>{activeConfiguration.integrationId}</Typography>
+                        <Typography id="details-sourceApplication"><strong>Skjemaleverandør: </strong>{activeConfiguration.sourceApplication}</Typography>
+                        <Typography id="details-destination"><strong>Destinasjon: </strong>{activeConfiguration.destination}</Typography>
                         <Typography id="details-name"><strong>Navn: </strong>{activeConfiguration.name}</Typography>
                         <Typography id="details-description"><strong>Beskrivelse: </strong>{activeConfiguration.description}</Typography>
-                        <Typography id="details-sourceApplication"><strong>Skjemaleverandør: </strong>{activeConfiguration.sourceApplication}</Typography>
                         <Typography id="details-sourceApplicationIntegrationId"><strong>Skjema: </strong>{activeConfiguration.sourceApplicationIntegrationId}</Typography>
                         <Typography id="details-caseConfiguration-caseCreation"><strong>Integrasjonslogikk: </strong>{activeConfiguration.caseConfiguration?.caseCreationStrategy}</Typography>
                         <Typography id="details-published"><strong>Publisert: </strong>{activeConfiguration.published? 'Ja' : 'Nei'}</Typography>
