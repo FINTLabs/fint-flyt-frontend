@@ -1,7 +1,7 @@
 import * as React from "react";
-import { useContext, useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { Link as RouterLink, RouteComponentProps, useHistory, withRouter } from "react-router-dom";
+import {useContext, useEffect, useState} from "react";
+import {useForm} from "react-hook-form";
+import {Link as RouterLink, RouteComponentProps, useHistory, withRouter} from "react-router-dom";
 import {
     Box,
     Button,
@@ -13,21 +13,22 @@ import {
     Theme,
     Typography
 } from "@mui/material";
-import { createStyles, makeStyles } from "@mui/styles";
+import {createStyles, makeStyles} from "@mui/styles";
 import IFormData from "./types/Form/FormData";
 import IntegrationRepository from "./repository/IntegrationRepository";
-import { defaultValues } from "./defaults/DefaultValues";
-import { toIntegrationConfiguration } from "../util/ToIntegrationConfiguration";
+import {defaultValues} from "./defaults/DefaultValues";
+import {toIntegrationConfiguration} from "../util/ToIntegrationConfiguration";
 import AccordionForm from "./components/AccordionForm";
-import { ACCORDION_FORM, IAccordion } from "./types/Accordion";
+import {ACCORDION_FORM, IAccordion} from "./types/Accordion";
 import SourceApplicationForm from "./components/SourceApplicationForm";
-import { HTML5Backend } from "react-dnd-html5-backend";
-import { DndProvider } from "react-dnd";
-import { IIntegrationConfiguration } from "./types/IntegrationConfiguration";
-import { CreationStrategy } from "./types/CreationStrategy";
-import { toFormData } from "../util/ToFormData";
-import { ResourcesContext } from "../../resourcesContext";
-import { IntegrationContext } from "../../integrationContext";
+import {HTML5Backend} from "react-dnd-html5-backend";
+import {DndProvider} from "react-dnd";
+import {IIntegrationConfiguration} from "./types/IntegrationConfiguration";
+import {CreationStrategy} from "./types/CreationStrategy";
+import {toFormData} from "../util/ToFormData";
+import {ResourcesContext} from "../../resourcesContext";
+import {IntegrationContext} from "../../integrationContext";
+import {FormSettings} from "./components/FormSettings";
 import CloseIcon from '@mui/icons-material/Close';
 import { useTranslation } from "react-i18next";
 
@@ -87,8 +88,9 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     const classes = useStyles();
     const editConfig: boolean = window.location.pathname === '/integration/configuration/edit'
     const [submitSuccess, setSubmitSuccess] = useState(false)
+    const [settings, setSettings] = useState(false)
+    const { integration, sourceApplication, destination, setIntegration, resetSourceAndDestination } = useContext(IntegrationContext)
     const [activeId, setActiveId] = useState<any>(undefined)
-    const { integration, setIntegration } = useContext(IntegrationContext)
     const [saved, setSaved] = React.useState(false);
     const [saveError, setSaveError] = React.useState(false);
     const [checked, setChecked] = React.useState(false);
@@ -100,7 +102,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
         setChecked(event.target.checked);
     };
 
-    const { handleSubmit, watch, setValue, control, reset, formState } = useForm<IFormData>({
+    const {handleSubmit, watch, setValue, control, reset, formState} = useForm<IFormData>({
         defaultValues: activeFormData,
         reValidateMode: 'onChange'
     });
@@ -110,7 +112,8 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     useEffect(() => {
         getAllResources();
         return () => {
-            resetAllResources()
+            resetAllResources();
+            resetSourceAndDestination();
         };
     }, [])
 
@@ -195,6 +198,8 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     );
 
     const onSubmit = handleSubmit((data: IFormData) => {
+        data.sourceApplication = sourceApplication;
+        data.destination = destination;
         data.published = true;
         const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data);
         if (integrationConfiguration && activeId !== undefined && activeConfiguration?.integrationId == undefined) {
@@ -217,6 +222,8 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     });
 
     const onSave = handleSubmit((data: IFormData) => {
+        data.sourceApplication = sourceApplication;
+        data.destination = destination;
         data.published = false;
         const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data);
         if (integrationConfiguration && activeId !== undefined) {
@@ -237,7 +244,8 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
 
     return (
         <DndProvider backend={HTML5Backend}>
-            {!submitSuccess &&
+            {!settings && !activeConfiguration && <FormSettings setSettings={setSettings}/>}
+            {!submitSuccess && (activeConfiguration || settings) &&
                 <Box display="flex" position="relative" width={1} height={1}>
                     <Box>
                         <Typography aria-label="integration-form-header" variant={"h5"} sx={{ mb: 2 }}>{t('header')}</Typography>

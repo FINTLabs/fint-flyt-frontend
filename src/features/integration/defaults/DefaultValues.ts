@@ -10,6 +10,7 @@ export const defaultValues: IFormData = {
     version: '',
     sourceApplication: '',
     sourceApplicationIntegrationId: '',
+    destination: '',
     published: false,
     caseData: {
         caseCreationStrategy: CreationStrategy.NEW,
@@ -86,7 +87,7 @@ export const applicantOptions: ISelect[] = [
     {label: 'selects.applicantOptions.organisation', value: 'ORGANISATION'}
 ];
 
-export const sourceApplicationIntegrations: ISelect[] = [
+export const forms: ISelect[] = [
     { label: "Søknad om reservasjon av skoleplass", value: "VIK014" },
     { label: "Søknad til kombinasjonsprogram", value: "VIK036" },
     { label: "Søknad om TT-kort", value: "VIK108" },
@@ -95,6 +96,10 @@ export const sourceApplicationIntegrations: ISelect[] = [
 
 export const sourceApplications: ISelect[] = [
     { label: "ACOS", value: "acos" }
+];
+
+export const destinations: ISelect[] = [
+    { label: "Fylkesråd", value: "fylkesrad" }
 ];
 
 export const caseWorkers: ISelect[] = [
@@ -129,13 +134,15 @@ export const sourceApplicationFormPopoverContent: string = 'I tekstfeltene til i
     'Naviger til feltet du ønsker å fylle,og dra inn tag fra listen under.'
 
 export const fieldHelp = {
-    name: '',
-    description: '',
+    name: 'Navn på integrasjon',
+    description: 'besrkrivelse',
     version: '',
-    selectedForm: '',
+    sourceApplication: 'Skjemaleverandør, f.eks ACOS',
+    sourceApplicationIntegrationId: 'Skjema, f.eks VIK103',
+    destination: 'fylkesting, fylkesråd, kollektiv ++',
     caseData: {
-        caseCreationStrategy: CreationStrategy.NEW,
-        caseNumber: '2021/12345',
+        caseCreationStrategy: 'Avleveringslogikk ...',
+        caseNumber: ' må være på formatet saksår/sekvensnr, f.eks 2021/12345',
         title: 'Tittel kan være en konkret tekststreng, eller en kombinasjon\n' +
             ' av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak.\n' +
             '  (Se Noark))',
