@@ -3,26 +3,19 @@ import {
     AppBar, Badge,
     Box,
     Drawer,
-    FormControl,
-    InputLabel,
-    MenuItem,
-    Select,
     Theme,
     Toolbar,
     Typography,
-    SelectChangeEvent,
     Button
 } from "@mui/material";
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import FintLogo from "../../images/fint-by-vigo-white.svg";
-import Norway from "../../images/Norway.png";
-import UK from "../../images/UK.png";
 
 import { createStyles, makeStyles } from "@mui/styles";
 import Router from "./Router";
 import MenuItems from "./MenuItems";
 import { Link as RouterLink } from "react-router-dom";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 
 const drawerWidth = 240;
@@ -100,8 +93,8 @@ function Main() {
                         {t('appbarHeader')}
                     </Typography>
                     <Box sx={{ mr: 2 }}>
-                        {i18n.language == 'no' && <Button size="small" variant="contained" onClick={() => changeLanguage("en")}>English</Button>}
-                        {i18n.language == 'en' && <Button size="small" variant="contained" onClick={() => changeLanguage("no")}>Norsk</Button>}
+                        {i18n.language == 'no' && <Button size="small" variant="contained" onClick={() => changeLanguage("en")}>{t('language.english')}</Button>}
+                        {i18n.language == 'en' && <Button size="small" variant="contained" onClick={() => changeLanguage("no")}>{t('language.norwegian')}</Button>}
                     </Box>
                     <Badge className={classes.badge}
                         badgeContent={"5"}

@@ -1,7 +1,10 @@
 {
     "appbarHeader": "Flyt",
-    "language": "Language",
-    "menuItems": {
+    "language": {
+        "language": "Language",
+        "norwegian": "Norsk",
+        "english": "English"
+    },    "menuItems": {
         "dashboard": "Dashboard",
         "newIntegration": "New integration",
         "editIntegartion": "Edit integration",
@@ -81,10 +84,30 @@
         },
         "integrationList": {
             "header": "Overview",
-            "details": "Configuration details"
+            "details": "Configuration details",
+            "table": {
+                "columns": {
+                    "sourceApplicationIntegrationId": "Form",
+                    "sourceApplication": "Source application",
+                    "name": "Name",
+                    "description": "Description",
+                    "published": "Published",
+                    "revision": "Revision"
+                }
+            }
         },
         "log": {
-            "header": "Log"
+            "header": "Log",
+            "table": {
+                "columns": {
+                    "details": "Details",
+                    "type": "Type",
+                    "timestamp": "Time",
+                    "name": "Name",
+                    "sourceApplicationIntegrationId": "Form",
+                    "sourceApplication": "Source application"
+                }
+            }
         },
         "support": {
             "header": "Contact support"
@@ -216,10 +239,25 @@
     "components": {
         "SourceApplicationForm": {
             "header": "Data from form"
+        },
+        "formSettings": {
+            "header": "Select source application and destination",
+            "error": "You must select source application and destination",
+            "labels": {
+                "sourceApplication": "Source application",
+                "destination": "Destination"
+            },
+            "button": {
+                "next": "Next",
+                "cancel": "Cancel"
+            }
         }
     },
     "fieldHelp": {
         "sourceApplicationFormPopoverContent": "In the forms text fields you can use data from the selected form to fill these. Drag and drop to the field.",
+        "sourceApplication": "Source appliation, i.e. ACOS",
+        "sourceApplicationIntegrationId": "Form",
+        "destination": "Destination, i.e. fylkesting, fylkesråd, kollektiv ++",
         "name": "Integration name",
         "description": "",
         "version": "",

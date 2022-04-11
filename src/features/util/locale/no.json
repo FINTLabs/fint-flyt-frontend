@@ -1,6 +1,10 @@
 {
     "appbarHeader": "Flyt",
-    "language": "Språk",
+    "language": {
+        "language": "Språk",
+        "norwegian": "Norsk",
+        "english": "English"
+    },
     "menuItems": {
         "dashboard": "Dashbord",
         "newIntegration": "Ny integrasjon",
@@ -81,10 +85,30 @@
         },
         "integrationList": {
             "header": "Oversikt",
-            "details": "Konfigurasjonsdetaljer"
+            "details": "Konfigurasjonsdetaljer",
+            "table": {
+                "columns": {
+                    "sourceApplicationIntegrationId": "Skjema",
+                    "sourceApplication": "Skjemaleverandør",
+                    "name": "Navn",
+                    "description": "Beskrivelse",
+                    "published": "Ferdigstilt",
+                    "revision": "Revisjon"
+                }
+            }
         },
         "log": {
-            "header": "Logg"
+            "header": "Logg",
+            "table": {
+                "columns": {
+                    "details": "Detaljer",
+                    "type": "Type",
+                    "timestamp": "Tidspunkt",
+                    "name": "Navn",
+                    "sourceApplicationIntegrationId": "Skjema",
+                    "sourceApplication": "Skjemaleverandør"
+                }
+            }
         },
         "support": {
             "header": "Kontakt support"
@@ -222,16 +246,31 @@
     "components": {
         "SourceApplicationForm": {
             "header": "Data fra skjema"
+        },
+        "formSettings": {
+            "header": "Velg skjemaleverandør og destinasjon",
+            "error": "du må velge skjemaleverandør og destinasjon",
+            "labels": {
+                "sourceApplication": "Skjemaleverandør",
+                "destination": "Destinasjon"
+            },
+            "button": {
+                "next": "Neste",
+                "cancel": "Avbryt"
+            }
         }
     },
     "fieldHelp": {
         "sourceApplicationFormPopoverContent": "I tekstfeltene til i de ulike postene kan du benytte data fra skjema for å utfylle disse. Naviger til feltet du ønsker å fylle,og dra inn tag fra listen under.",
+        "sourceApplication": "Skjemaleverandør, f.eks ACOS",
+        "sourceApplicationIntegrationId": "Skjema",
+        "destination": "fylkesting, fylkesråd, kollektiv ++",
         "name": "",
         "description": "",
         "version": "",
         "selectedForm": "",
         "caseData": {
-            "caseCreationStrategy": "CreationStrategy.NEW",
+            "caseCreationStrategy": "Integrasjonslogikk",
             "caseNumber": "2021/12345",
             "title": "Tittel kan være en konkret tekststreng, eller en kombinasjon av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak.  (Se Noark))",
             "publicTitle": "Se Noark (Del av tittel som skal skjermes)",

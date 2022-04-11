@@ -14,7 +14,7 @@ import {withRouter} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {IEvent} from "./types/Event";
 import EventRepository from "./repository/EventRepository";
-import {noNB} from "../util/locale/noNB";
+import {gridLocaleNoNB} from "../util/locale/gridLocaleNoNB";
 import {addId} from "../util/JsonUtil";
 import {IconButton, Typography} from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -50,23 +50,6 @@ function DetailPanelContent({ row: rowProp }) {
         </Stack>
     );
 }
-const columns: GridColumns = [
-    { field: 'id', hide: true, type: 'number', headerName: 'id', flex: 0.5 },
-    {...GRID_DETAIL_PANEL_TOGGLE_COL_DEF, headerName: 'Detaljer', flex: 0.5,
-        renderCell: (params) => ( <CustomDetailPanelToggle id={params.id} value={params.value} row={params.row} />),
-    },
-    { field: 'type', type: 'string', headerName: 'Type', flex: 0.5 },
-    { field: 'timestamp', type: 'string', headerName: 'Tidspunkt', flex: 1,
-        valueGetter: (params) => moment(params.row.timestamp).format('DD/MM/YY HH:mm')
-    },
-    { field: 'name', type: 'string', headerName: 'Navn', flex: 1 },
-    { field: 'sourceApplicationIntegrationId', type: 'string', headerName: 'Skjema', flex: 1,
-        valueGetter: (params) => params.row.skjemaEventHeaders.sourceApplicationIntegrationId
-    },
-    { field: 'sourceApplication', type: 'string', headerName: 'SkjemaLeverandør', flex: 1,
-        valueGetter: (params) => params.row.skjemaEventHeaders.sourceApplication
-    }
-];
 
 function CustomDetailPanelToggle(props: Pick<GridRenderCellParams, 'id' | 'value' | 'row'>) {
     const { id, value: isExpanded, row } = props;
@@ -99,11 +82,29 @@ function CustomDetailPanelToggle(props: Pick<GridRenderCellParams, 'id' | 'value
 }
 
 function Log() {
-    const { t } = useTranslation('translations', { keyPrefix: 'pages.log'});
+    const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationList'});
     const [allEvents, setAllEvents] = useState<IEvent[]>([]);
     useEffect(()=> {
         getAllEvents();
     }, []);
+
+    const columns: GridColumns = [
+        { field: 'id', hide: true, type: 'number', headerName: 'id', flex: 0.5 },
+        {...GRID_DETAIL_PANEL_TOGGLE_COL_DEF, headerName: t('table.columns.details'), flex: 0.5,
+            renderCell: (params) => ( <CustomDetailPanelToggle id={params.id} value={params.value} row={params.row} />),
+        },
+        { field: 'type', type: 'string', headerName: t('table.columns.type'), flex: 0.5 },
+        { field: 'timestamp', type: 'string', headerName: t('table.columns.timestamp'), flex: 1,
+            valueGetter: (params) => moment(params.row.timestamp).format('DD/MM/YY HH:mm')
+        },
+        { field: 'name', type: 'string', headerName: t('table.columns.name'), flex: 1 },
+        { field: 'sourceApplicationIntegrationId', type: 'string', headerName: t('table.columns.sourceApplicationIntegrationId'), flex: 1,
+            valueGetter: (params) => params.row.skjemaEventHeaders.sourceApplicationIntegrationId
+        },
+        { field: 'sourceApplication', type: 'string', headerName: t('table.columns.sourceApplication'), flex: 1,
+            valueGetter: (params) => params.row.skjemaEventHeaders.sourceApplication
+        }
+    ];
 
     const getAllEvents = () => {
         EventRepository.getEvents()
@@ -130,7 +131,7 @@ function Log() {
             <Typography>{t('header')}</Typography>
             <DataGridPro
                 columns={columns}
-                localeText={noNB}
+                localeText={gridLocaleNoNB}
                 rows={allEvents}
                 rowThreshold={0}
                 getDetailPanelHeight={getDetailPanelHeight}

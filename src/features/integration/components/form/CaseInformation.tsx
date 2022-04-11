@@ -3,7 +3,7 @@ import React, {useContext} from 'react';
 import InputField from "./InputField";
 import {INPUT_TYPE} from "../../types/InputType.enum";
 import {IInputField} from "../../types/InputField";
-import {creationStrategies, destinations, fieldHelp, forms, sourceApplications} from "../../defaults/DefaultValues";
+import {creationStrategies, destinations, forms, sourceApplications} from "../../defaults/DefaultValues";
 import {CreationStrategy} from "../../types/CreationStrategy";
 import {FieldErrors} from "react-hook-form";
 import IntegrationRepository from "../../repository/IntegrationRepository";
@@ -40,12 +40,12 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
     const caseInformationFields: IInputField[] = [
         {input: INPUT_TYPE.DROPDOWN, label: "labels.sourceApplication", value: sourceApplication, formValue: "sourceApplication", dropDownItems: sourceApplications, disabled: true, lockIcon: true},
         {input: INPUT_TYPE.DROPDOWN, label: "labels.destination", value: destination, formValue: "destination", dropDownItems: destinations, disabled: true, lockIcon: true},
-        {input: INPUT_TYPE.DROPDOWN, label: "labels.sourceApplicationIntegrationId", value: props.watch("sourceApplicationIntegrationId"), required: props.validation, formValue: "sourceApplicationIntegrationId", dropDownItems: forms, helpText: fieldHelp.sourceApplicationIntegrationId},
-        {input: INPUT_TYPE.TEXT_FIELD, label: "labels.name", formValue: "name", required: props.validation, error:errors.name, helpText: fieldHelp.name},
-        {input: INPUT_TYPE.TEXT_FIELD, label: "labels.description", formValue: "description", required: props.validation, error:errors.description, helpText: fieldHelp.description},
+        {input: INPUT_TYPE.DROPDOWN, label: "labels.sourceApplicationIntegrationId", value: props.watch("sourceApplicationIntegrationId"), required: props.validation, formValue: "sourceApplicationIntegrationId", dropDownItems: forms, helpText: "sourceApplicationIntegrationId"},
+        {input: INPUT_TYPE.TEXT_FIELD, label: "labels.name", formValue: "name", required: props.validation, error:errors.name, helpText: "name"},
+        {input: INPUT_TYPE.TEXT_FIELD, label: "labels.description", formValue: "description", required: props.validation, error:errors.description, helpText: "description"},
         {input: INPUT_TYPE.RADIO, label: "labels.caseCreationInfo", value: props.watch("caseData.caseCreationStrategy"),
-            formValue: "caseData.caseCreationStrategy", radioOptions: creationStrategies, helpText: fieldHelp.caseData.caseCreationStrategy},
-        {input: INPUT_TYPE.TEXT_FIELD, label: "labels.caseNumber", formValue: "caseData.caseNumber", hidden:!isCollection, required:isCollection && props.validation, error:errors.caseData?.caseNumber, searchOption: true, helpText: fieldHelp.caseData.caseNumber}
+            formValue: "caseData.caseCreationStrategy", radioOptions: creationStrategies, helpText: "caseData.caseCreationStrategy"},
+        {input: INPUT_TYPE.TEXT_FIELD, label: "labels.caseNumber", formValue: "caseData.caseNumber", hidden:!isCollection, required:isCollection && props.validation, error:errors.caseData?.caseNumber, searchOption: true, helpText: "caseData.caseNumber"}
     ]
     return (
         <div>

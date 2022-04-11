@@ -5,19 +5,21 @@ import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
 import * as React from "react";
 import { useHistory } from "react-router-dom";
 import { gridLocaleNoNB } from "../../util/locale/gridLocaleNoNB";
+import {useTranslation} from "react-i18next";
 
 const IntegrationConfigurationTable: React.FunctionComponent<any> = (props) => {
+    const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationList'});
     const classes = props.classes;
     let history = useHistory();
 
     const columns: GridColDef[] = [
         { field: 'integrationId', type: 'string', hide: true },
-        { field: 'sourceApplication', type: 'string', headerName: 'Skjemaleverandør', flex: 1 },
-        { field: 'sourceApplicationIntegrationId', type: 'string', headerName: 'SkjemaId', flex: 1 },
-        { field: 'name', type: 'string', headerName: 'Navn', flex: 2 },
-        { field: 'description', type: 'string', headerName: 'Beskrivelse', flex: 2 },
-        { field: 'published', type: 'boolean', headerName: 'Ferdigstilt', flex: 1 },
-        { field: 'version', type: 'string', headerName: 'Revisjon', flex: 1 }
+        { field: 'sourceApplication', type: 'string', headerName: t('table.columns.sourceApplication'), flex: 1 },
+        { field: 'sourceApplicationIntegrationId', type: 'string', headerName: t('table.columns.sourceApplicationIntegrationId'), flex: 1 },
+        { field: 'name', type: 'string', headerName: t('table.columns.name'), flex: 2 },
+        { field: 'description', type: 'string', headerName: t('table.columns.description'), flex: 2 },
+        { field: 'published', type: 'boolean', headerName: t('table.columns.published'), flex: 1 },
+        { field: 'version', type: 'string', headerName: t('table.columns.revision'), flex: 1 }
     ];
 
     const setHistory = () => {
