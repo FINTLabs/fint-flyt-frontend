@@ -4,7 +4,12 @@ describe('Testing Integration Form', () => {
         });
 
         it('should have correct header', () => {
-            cy.get('#integration-form-header').should('contain', 'Integrasjon til arkiv')
+            cy.get('#integration-form-settings-header').should('contain', 'Velg skjemaleverandør og destinasjon')
+            cy.get("#sourceApplication").click()
+            cy.get('[data-value="acos"]').click()
+            cy.get("#destination").click()
+            cy.get('[data-value="fylkesrad"]').click()
+            cy.get("#form-settings-confirm-btn").click()
         });
 
         it('should have accordion headers', () => {

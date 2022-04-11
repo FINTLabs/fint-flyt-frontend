@@ -69,11 +69,11 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
                 {name: 'Se logg', href: '/log'}
             ]
         },
-        { value: 53, content: 'innsendte siste døgn', links: [
-                {name: 'Se logg', href: '/log'}
-            ]
-        },
-        { value: '99%', content: 'suksessrate'}
+        // { value: 53, content: 'innsendte siste døgn', links: [
+        //         {name: 'Se logg', href: '/log'}
+        //     ]
+        // },
+        // { value: '99%', content: 'suksessrate'}
     ]
 
     return (

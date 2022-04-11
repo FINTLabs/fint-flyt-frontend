@@ -12,12 +12,19 @@ describe('Testing filling Integration Form', () => {
         cy.intercept('GET', '**/kodeverk/tilgangsrestriksjon', {fixture: 'tilgangrestriksjon.json'}).as('getAccessCodes')
         cy.intercept('GET', '**/kodeverk/variantformat', {fixture: 'variantformat.json'}).as('getVariants')
     })
-    it('should fill case information form', () => {
+
+    it('should fill form settings', () => {
         cy.visit('/integration/configuration/new')
-        cy.get("#name").type("test name")
-        cy.get("#description").type("test description")
         cy.get("#sourceApplication").click()
         cy.get('[data-value="acos"]').click()
+        cy.get("#destination").click()
+        cy.get('[data-value="fylkesrad"]').click()
+        cy.get("#form-settings-confirm-btn").click()
+    })
+
+    it('should fill case information form', () => {
+        cy.get("#name").type("test name")
+        cy.get("#description").type("test description")
         cy.get("#sourceApplicationIntegrationId").click()
         cy.get('[data-value="VIK036"]').click()
     })
