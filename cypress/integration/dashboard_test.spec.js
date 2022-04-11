@@ -1,7 +1,7 @@
 describe('Testing dashboard', () => {
     before(() => {
         cy.intercept(
-            'GET', '**/api/integration/configuration', { fixture: 'configuration.json' })
+            'GET', '**/integration/configuration', { fixture: 'configuration.json' })
             .as('getConfigurations')
     })
 
