@@ -1,13 +1,17 @@
 {
     "appbarHeader": "Flyt",
-    "language": "Språk",
+    "language": {
+        "language": "Språk",
+        "norwegian": "Norsk",
+        "english": "English"
+    },
     "menuItems": {
         "dashboard": "Dashbord",
         "newIntegration": "Ny integrasjon",
         "editIntegration": "Rediger integrasjon",
         "integrationList": "Integrasjonsoversikt",
         "integrationDetails": "Detaljar",
-        "log": "Logg",
+        "log": "Logg [beta]",
         "support": "Support"
     },
     "pages": {
@@ -81,10 +85,30 @@
         },
         "integrationList": {
             "header": "Oversikt",
-            "details": "Konfigurasjonsdetaljer"
+            "details": "Konfigurasjonsdetaljer",
+            "table": {
+                "columns": {
+                    "sourceApplicationIntegrationId": "Skjema",
+                    "sourceApplication": "Skjemaleverandør",
+                    "name": "Namn",
+                    "description": "Beskriving",
+                    "published": "Ferdigstilt",
+                    "revision": "Revisjon"
+                }
+            }
         },
         "log": {
-            "header": "Logg"
+            "header": "Logg",
+            "table": {
+                "columns": {
+                    "details": "Detaljar",
+                    "type": "Type",
+                    "timestamp": "Tidspunkt",
+                    "name": "Namn",
+                    "sourceApplicationIntegrationId": "Skjema",
+                    "sourceApplication": "Skjemaleverandør"
+                }
+            }
         },
         "support": {
             "header": "Kontakt support"
@@ -94,11 +118,11 @@
         "errorMessage": "Du må oppgi ",
         "requiredField": "Obligatorisk felt",
         "labels": {
-            "name": "Navn",
+            "name": "Namn",
             "description": "Beskriving",
             "sourceApplication": "Skjemaleverandør",
             "sourceApplicationIntegrationId": "Skjema",
-            "caseCreationInfo": "Velg korelis skjema skal sendast til arkivet",
+            "caseCreationInfo": "Velg korleis skjema skal sendast til arkivet",
             "caseCreationNew": "Som ny sak",
             "caseCreationNewInfo": "Innsendt skjema opprettar ein ny sak i Elements",
             "caseCreationExisting": "På eksisterande sak",
@@ -222,16 +246,31 @@
     "components": {
         "SourceApplicationForm": {
             "header": "Data frå skjema"
+        },
+        "formSettings": {
+            "header": "Velg skjemaleverandør og destinasjon",
+            "error": "Du må velge skjemaleverandør og destinasjon",
+            "labels": {
+                "sourceApplication": "Skjemaleverandør",
+                "destination": "Destinasjon"
+            },
+            "button": {
+                "next": "Neste",
+                "cancel": "Avbryt"
+            }
         }
     },
     "fieldHelp": {
         "sourceApplicationFormPopoverContent": "I tekstfelta til i de ulike postane kan du benytte data frå skjema for å utfylle desse. Naviger til feltet du ynskjer å fylle, og dra inn tag frå lista under.",
+        "sourceApplication": "Skjemaleverandør, f.eks ACOS",
+        "sourceApplicationIntegrationId": "Skjema",
+        "destination": "fylkesting, fylkesråd, kollektiv ++",
         "name": "",
         "description": "",
         "version": "",
         "selectedForm": "",
         "caseData": {
-            "caseCreationStrategy": "CreationStrategy.NEW",
+            "caseCreationStrategy": "Integrasjonslogikk",
             "caseNumber": "2021/12345",
             "title": "Tittel kan være ein konkret tekststreng, eller ein kombinasjon av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak.  (Se Noark))",
             "publicTitle": "Se Noark (Del av tittel som skal skjermes)",
