@@ -4,7 +4,7 @@
     "menuItems": {
         "dashboard": "Dashbord",
         "newIntegration": "Ny integrasjon",
-        "editIntegartion": "Rediger integrasjon",
+        "editIntegration": "Rediger integrasjon",
         "integrationList": "Integrasjonsoversikt",
         "integrationDetails": "Detaljar",
         "log": "Logg",

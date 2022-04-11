@@ -24,7 +24,7 @@ const routes: IRoute[] = [
     },
     {
         path: '/integration/configuration/edit',
-        name: 'editIntegartion',
+        name: 'editIntegration',
         component: IntegrationConfigurationForm,
         exact: true
     },

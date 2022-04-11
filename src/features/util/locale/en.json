@@ -7,7 +7,7 @@
     },    "menuItems": {
         "dashboard": "Dashboard",
         "newIntegration": "New integration",
-        "editIntegartion": "Edit integration",
+        "editIntegration": "Edit integration",
         "integrationList": "Integration list",
         "integrationDetails": "Details",
         "log": "Log [beta]",
