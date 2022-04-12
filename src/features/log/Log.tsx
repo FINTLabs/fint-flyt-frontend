@@ -82,7 +82,7 @@ function CustomDetailPanelToggle(props: Pick<GridRenderCellParams, 'id' | 'value
 }
 
 function Log() {
-    const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationList'});
+    const { t } = useTranslation('translations', { keyPrefix: 'pages.log'});
     const [allEvents, setAllEvents] = useState<IEvent[]>([]);
     useEffect(()=> {
         getAllEvents();

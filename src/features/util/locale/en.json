@@ -119,6 +119,7 @@
         "labels": {
             "name": "Name",
             "description": "Description",
+            "destination": "Destination",
             "sourceApplication": "Source application",
             "sourceApplicationIntegrationId": "Form",
             "caseCreationInfo": "Select creation strategy",
@@ -161,18 +162,18 @@
                 "collection":"On a case collection",
                 "collectionDesc":"Form submitted will be added to predefined case collection. This option requires a valid case number"
             },
-            "applicantOptions": {                
+            "applicantOptions": {
                 "individual":"Individual",
                 "organisation":"Organisation"
             },
-            "sourceApplicationIntegrations": { 
+            "sourceApplicationIntegrations": {
                 "VIK014": "Søknad om reservasjon av skoleplass",
                 "VIK036": "Søknad til kombinasjonsprogram",
                 "VIK108": "Søknad om TT-kort",
                 "VIK132": "Samtykke - fotografering/video/lyd"
             },
-            "sourceApplications": { 
-                "label": "ACOS" 
+            "sourceApplications": {
+                "label": "ACOS"
             }
         }
     },
@@ -235,7 +236,7 @@
     },
     "errors": {
         "code0": "General error"
-    },    
+    },
     "components": {
         "SourceApplicationForm": {
             "header": "Data from form"

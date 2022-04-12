@@ -120,6 +120,7 @@
         "labels": {
             "name": "Navn",
             "description": "Beskrivelse",
+            "destination": "Destinasjon",
             "sourceApplication": "Skjemaleverandør",
             "sourceApplicationIntegrationId": "Skjema",
             "caseCreationInfo": "Velg hvordan skjema skal sendes til arkivet",

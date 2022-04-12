@@ -99,15 +99,13 @@
         },
         "log": {
             "header": "Logg",
-            "table": {
-                "columns": {
-                    "details": "Detaljar",
-                    "type": "Type",
-                    "timestamp": "Tidspunkt",
-                    "name": "Namn",
-                    "sourceApplicationIntegrationId": "Skjema",
-                    "sourceApplication": "Skjemaleverandør"
-                }
+            "columns": {
+                "details": "Detaljar",
+                "eventType": "Type",
+                "timestamp": "Tidspunkt",
+                "name": "Namn",
+                "sourceApplicationIntegrationId": "Skjema",
+                "sourceApplication": "Skjemaleverandør"
             }
         },
         "support": {
@@ -120,6 +118,7 @@
         "labels": {
             "name": "Namn",
             "description": "Beskriving",
+            "destination": "Destinasjon",
             "sourceApplication": "Skjemaleverandør",
             "sourceApplicationIntegrationId": "Skjema",
             "caseCreationInfo": "Velg korleis skjema skal sendast til arkivet",
@@ -168,18 +167,18 @@
                 "collection":"På samlesak",
                 "collectionDesc":"Innsendt skjema skal leveres til ein forhåndsdefinert samlesak. Her må du opplyse om saksnummer"
             },
-            "applicantOptions": {                
+            "applicantOptions": {
                 "individual":"Privatperson",
                 "organisation":"Organisasjon"
             },
-            "sourceApplicationIntegrations": { 
+            "sourceApplicationIntegrations": {
                 "VIK014": "Søknad om reservasjon av skoleplass",
                 "VIK036": "Søknad til kombinasjonsprogram",
                 "VIK108": "Søknad om TT-kort",
                 "VIK132": "Samtykke - fotografering/video/lyd"
             },
-            "sourceApplications": { 
-                "label": "ACOS" 
+            "sourceApplications": {
+                "label": "ACOS"
             }
         }
     },
