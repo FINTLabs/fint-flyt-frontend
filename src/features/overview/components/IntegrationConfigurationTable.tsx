@@ -8,7 +8,7 @@ import { gridLocaleNoNB } from "../../util/locale/gridLocaleNoNB";
 import {useTranslation} from "react-i18next";
 
 const IntegrationConfigurationTable: React.FunctionComponent<any> = (props) => {
-    const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationList'});
+    const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.integrationList'});
     const classes = props.classes;
     let history = useHistory();
 
@@ -33,7 +33,7 @@ const IntegrationConfigurationTable: React.FunctionComponent<any> = (props) => {
             <Box display="flex" position="relative" width={1} height={1}>
                 <Box className={classes.dataGridBox}>
                     <DataGrid
-                        localeText={gridLocaleNoNB}
+                        localeText={i18n.language=='no' ? gridLocaleNoNB : undefined}
                         getRowId={(row) => row.integrationId}
                         onCellDoubleClick={(params, event) => {
                             if (!event.ctrlKey) {
