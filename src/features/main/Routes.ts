@@ -44,7 +44,7 @@ const routes: IRoute[] = [
     },
     {
         path: '/log',
-        name: 'Logg',
+        name: 'Logg [beta]',
         component: Log,
         icon: 'receipt',
         exact: true,
