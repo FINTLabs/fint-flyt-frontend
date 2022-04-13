@@ -22,7 +22,6 @@ import moment from "moment";
 
 // @ts-ignore
 function DetailPanelContent({ row: rowProp }) {
-    console.log(rowProp)
     return (
         <Stack id={rowProp.type+ `-panel`} sx={{ py: 2, height: 1, boxSizing: 'border-box' }} direction="column">
                 <Stack direction="column" sx={{ height: 1 }}>
