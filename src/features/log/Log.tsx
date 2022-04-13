@@ -22,8 +22,9 @@ import moment from "moment";
 
 // @ts-ignore
 function DetailPanelContent({ row: rowProp }) {
+    console.log(rowProp)
     return (
-        <Stack sx={{ py: 2, height: 1, boxSizing: 'border-box' }} direction="column">
+        <Stack id={rowProp.type+ `-panel`} sx={{ py: 2, height: 1, boxSizing: 'border-box' }} direction="column">
                 <Stack direction="column" sx={{ height: 1 }}>
                     <DataGridPro
                         disableColumnPinning={false}
@@ -36,7 +37,7 @@ function DetailPanelContent({ row: rowProp }) {
                         treeData={false}
                         density="compact"
                         columns={[
-                            { field: 'args', headerName: 'Feilmelding', type: 'string', minWidth: 200,
+                            { field: 'args', headerName: 'Feilmelding', type: 'string', flex: 1,
                                 valueGetter: (params) => `${params.row.args.arg0 || ''} ${params.row.args.arg1 || ''}`
                             },
                         ]}
@@ -62,7 +63,7 @@ const columns: GridColumns = [
     { field: 'sourceApplicationIntegrationId', type: 'string', headerName: 'Skjema', flex: 1,
         valueGetter: (params) => params.row.skjemaEventHeaders.sourceApplicationIntegrationId
     },
-    { field: 'sourceApplication', type: 'string', headerName: 'SkjemaLeverandør', flex: 1,
+    { field: 'sourceApplication', type: 'string', headerName: 'Skjemaleverandør', flex: 1,
         valueGetter: (params) => params.row.skjemaEventHeaders.sourceApplication
     }
 ];
