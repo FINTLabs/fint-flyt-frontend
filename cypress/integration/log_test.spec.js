@@ -22,4 +22,10 @@ describe('Testing log', () => {
         cy.get('[data-testid=ExpandMoreIcon]').click()
         cy.get('#ERROR-panel').should('be.visible')
     })
+
+    it('error panel should contain correct column', () => {
+        cy.get('#ERROR-panel').should('contain.text', "Feilmelding")
+        cy.get('#ERROR-panel').should("not.contain.text", 'not_a_column')
+
+    })
 });

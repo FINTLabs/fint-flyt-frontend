@@ -57,7 +57,7 @@
   }, {
     "errorCode":"1",
     "args":{
-      "arg0":"feil i mapping mellom felt i instans og skjema. mangler:",
+      "arg0":"feil i mapping mellom felt i instans og skjema. felt:",
       "arg1":"'administrativ enhet'"
     }
   }]
