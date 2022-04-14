@@ -291,7 +291,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                         open={saved}
                         autoHideDuration={4000}
                         onClose={handleClose}
-                        message={t('messages.error')}
+                        message={t('messages.success')}
                         action={action}
                     />
                     <Snackbar
