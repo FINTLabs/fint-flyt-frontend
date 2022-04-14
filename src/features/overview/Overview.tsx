@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const Overview: React.FunctionComponent<RouteComponentProps<any>> = () => {
-    const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.integrationList'});
+    const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationList'});
     const classes = useStyles();
     const showDetails: boolean = window.location.pathname === '/overview/details'
     const [configurations, getConfigurations] = useState<IRow[]>([]);

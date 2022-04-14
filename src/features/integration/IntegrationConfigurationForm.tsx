@@ -84,7 +84,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
-    const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.integrationForm' });
+    const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationForm' });
     const classes = useStyles();
     const editConfig: boolean = window.location.pathname === '/integration/configuration/edit'
     const [submitSuccess, setSubmitSuccess] = useState(false)

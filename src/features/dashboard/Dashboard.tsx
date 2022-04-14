@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
     }));
 
 const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
-    const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.dashboard'});
+    const { t } = useTranslation('translations', { keyPrefix: 'pages.dashboard'});
     const classes = useStyles();
     const [numberOfIntegrations, setNumberOfIntegrations] = useState(0);
     const showDetails: boolean = window.location.pathname === '/integration/configuration/details'

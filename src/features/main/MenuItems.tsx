@@ -5,7 +5,7 @@ import routes from "./Routes";
 import { useTranslation } from 'react-i18next';
 
 const MenuItems = () => {
-    const { t, i18n } = useTranslation('translations', { keyPrefix: 'menuItems'});
+    const { t } = useTranslation('translations', { keyPrefix: 'menuItems'});
 
     const [selectedIndex, setSelectedIndex] = React.useState(0);
     const handleListItemClick = (

@@ -6,7 +6,6 @@ import InputField from "./InputField";
 import {FieldErrors} from "react-hook-form";
 import {ResourcesContext} from "../../../../resourcesContext";
 import HelpPopover from "../popover/HelpPopover";
-import {fieldHelp} from "../../defaults/DefaultValues";
 import { useTranslation } from 'react-i18next';
 
 const RecordForm: React.FunctionComponent<any> = (props) => {

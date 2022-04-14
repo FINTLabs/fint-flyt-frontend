@@ -1,6 +1,6 @@
 import {Box, Typography} from "@mui/material";
 import {Tag} from "./dnd/Tag";
-import {sourceApplicationFormPopoverContent, tagList} from "../defaults/DefaultValues";
+import {tagList} from "../defaults/DefaultValues";
 import * as React from "react";
 import HelpPopover from "./popover/HelpPopover";
 import { useTranslation } from "react-i18next";

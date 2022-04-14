@@ -1,6 +1,6 @@
 import {Box, Button, FormGroup} from '@mui/material';
 import React, {useContext} from 'react';
-import {applicantOptions, fieldHelp} from "../../defaults/DefaultValues";
+import {applicantOptions} from "../../defaults/DefaultValues";
 import InputField from "./InputField";
 import {INPUT_TYPE} from "../../types/InputType.enum";
 import {IInputField} from "../../types/InputField";
