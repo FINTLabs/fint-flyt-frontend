@@ -27,6 +27,7 @@
         },
         "integrationForm": {
             "header": "Integration to archive",
+            "successHeader": "Integration to archive - finished",
             "accordions": {
                 "caseInformation": {
                     "header": "Integration logic",

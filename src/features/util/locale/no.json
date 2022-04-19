@@ -28,6 +28,7 @@
         },
         "integrationForm": {
             "header": "Integrasjon til arkiv",
+            "successHeader": "Integrasjon til arkiv - ferdig",
             "accordions": {
                 "caseInformation": {
                     "header": "Integrasjonslogikk",
