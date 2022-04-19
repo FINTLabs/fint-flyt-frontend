@@ -107,11 +107,13 @@ function Log() {
         EventRepository.getEvents()
             .then((response) => {
                 let data = response.data;
-                data.forEach(addId(0, 'name'))
-                data.forEach((event: any) =>
-                   event.errors.forEach(addId(0, 'errorCode'))
-                );
-                setAllEvents(data);
+                if (data) {
+                    data.forEach(addId(0, 'name'))
+                    data.forEach((event: any) =>
+                        event.errors.forEach(addId(0, 'errorCode'))
+                    );
+                    setAllEvents(data);
+                }
             })
             .catch(e => console.error('Error: ', e))
     }
