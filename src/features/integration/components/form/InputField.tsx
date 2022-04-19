@@ -36,6 +36,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                 control={props.control}
                 render={({ field: { onChange } }) => (
                     <TextField
+                        id={props.formValue}
                         select
                         disabled={props.disabled}
                         size="small"
@@ -67,14 +68,15 @@ const InputField: React.FunctionComponent<any> = (props) => {
         return (
             <FormControl component="fieldset" sx={{ mb: 3 }}>
                 <FormLabel role="label">{t(props.label)}</FormLabel>
-                <RadioGroup row={true}
+                <RadioGroup id={props.formValue}
+                            row={true}
                             onChange={(e) =>
                                 props.setValue(props.formValue, e.target.value as string)}
                             value={props.value}
                             sx={{maxWidth: 400}}
                 >
                     {props.radioOptions.map((option: any, index: number) => (
-                        <div key={index}>
+                        <div key={index} id={props.formValue + `-` + option.value}>
                             <FormControlLabel
                                 value={option.value}
                                 control={<Radio />}
@@ -94,6 +96,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                 control={props.control}
                 render={({ field: { onChange } }) => (
                     <Autocomplete
+                        id={props.formValue}
                         sx={{ mb: 3 }}
                         filterOptions={filterOptions}
                         options={dropdowns}
@@ -120,6 +123,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
     else if (props.input === INPUT_TYPE.DROPZONE_TEXT_FIELD) {
         return (
             <TextFieldWithDropZone
+                id={props.formValue}
                 control={props.control}
                 error={props.error}
                 label={props.label}
@@ -138,6 +142,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                 defaultValue=""
                 render={({ field: { onChange, onBlur, value } }) => (
                     <TextField
+                        id={props.formValue}
                         label={props.required ? (t(props.label)+'*') : t(props.label)}
                         size="small"
                         variant="outlined"

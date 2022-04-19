@@ -31,9 +31,10 @@ export const FormSettings: React.FunctionComponent<any> = (props) => {
         <>
             <Box sx={{width: '40%', maxWidth: '60%'}}>
                 <Box>
-                    <Typography sx={{mb: 2}}>{t('header')}</Typography>
+                    <Typography id="integration-form-settings-header" sx={{mb: 2}}>{t('header')}</Typography>
                     <Box sx={{width: '100%', display: 'flex'}}>
                         <TextField
+                            id='sourceApplication'
                             select
                             size="small"
                             sx={{ mb: 3, width: 'inherit' }}
@@ -49,6 +50,7 @@ export const FormSettings: React.FunctionComponent<any> = (props) => {
                     </Box>
                     <Box sx={{width: '100%', display: 'flex'}}>
                         <TextField
+                            id='destination'
                             select
                             size="small"
                             sx={{ mb: 1, width: 'inherit' }}
@@ -65,8 +67,8 @@ export const FormSettings: React.FunctionComponent<any> = (props) => {
                     <Typography color={"error"}>{!sourceApplication || !destination? error : ''}</Typography>
                 </Box>
                 <Box sx={{mt: 2}}>
-                    <Button onClick={cancel} variant="contained">{t('button.cancel')}</Button>
-                    <Button sx={{float: 'right'}} onClick={confirm} variant="contained">{t('button.next')}</Button>
+                    <Button id="form-settings-cancel-btn"  onClick={cancel} variant="contained">{t('button.cancel')}</Button>
+                    <Button id="form-settings-confirm-btn" sx={{float: 'right'}} onClick={confirm} variant="contained">{t('button.next')}</Button>
                 </Box>
             </Box>
         </>

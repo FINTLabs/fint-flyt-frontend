@@ -42,7 +42,7 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
                 value=inputValue;
                 return (
                         <TextField
-                            id="drag-and-drop-field"
+                            id={props.id}
                             ref={drop}
                             size="small"
                             style={{backgroundColor}}

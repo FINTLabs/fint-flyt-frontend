@@ -24,14 +24,14 @@ const IntegrationConfigurationTable: React.FunctionComponent<any> = (props) => {
 
     const setHistory = () => {
         history.push({
-            pathname: '/overview/details',
+            pathname: '/integration/configuration/details',
         })
     }
 
     return (
         <Box>
             <Box display="flex" position="relative" width={1} height={1}>
-                <Box className={classes.dataGridBox}>
+                <Box id="integration-list" className={classes.dataGridBox}>
                     <DataGrid
                         localeText={i18n.language=='no' ? gridLocaleNoNB : undefined}
                         getRowId={(row) => row.integrationId}

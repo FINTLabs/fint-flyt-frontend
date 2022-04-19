@@ -118,11 +118,11 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     }, [])
 
     const accordionList: IAccordion[] = [
-        { summary: "caseInformation.header", accordionForm: ACCORDION_FORM.CASE_INFORMATION, defaultExpanded: true },
-        { summary: "caseForm.header", accordionForm: ACCORDION_FORM.CASE_FORM, defaultExpanded: false, hidden: watch("caseData.caseCreationStrategy") === CreationStrategy.COLLECTION },
-        { summary: "recordForm.header", accordionForm: ACCORDION_FORM.RECORD_FORM, defaultExpanded: false },
-        { summary: "documentForm.header", accordionForm: ACCORDION_FORM.DOCUMENT_FORM, defaultExpanded: false },
-        { summary: "applicationForm.header", accordionForm: ACCORDION_FORM.APPLICANT_FORM, defaultExpanded: false }
+        {id: 'case-information', summary: "caseInformation.header", accordionForm: ACCORDION_FORM.CASE_INFORMATION, defaultExpanded: true },
+        {id: 'case-form',  summary: "caseForm.header", accordionForm: ACCORDION_FORM.CASE_FORM, defaultExpanded: false, hidden: watch("caseData.caseCreationStrategy") === CreationStrategy.COLLECTION },
+        {id: 'record-form', summary: "recordForm.header", accordionForm: ACCORDION_FORM.RECORD_FORM, defaultExpanded: false },
+        {id: 'document-object-form', summary: "documentForm.header", accordionForm: ACCORDION_FORM.DOCUMENT_FORM, defaultExpanded: false },
+        {id: 'applicant-form', summary: "applicationForm.header", accordionForm: ACCORDION_FORM.APPLICANT_FORM, defaultExpanded: false }
     ]
 
     const saveNewConfiguration = (data: IIntegrationConfiguration) => {
@@ -248,11 +248,12 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
             {!submitSuccess && (activeConfiguration || settings) &&
                 <Box display="flex" position="relative" width={1} height={1}>
                     <Box>
-                        <Typography aria-label="integration-form-header" variant={"h5"} sx={{ mb: 2 }}>{t('header')}</Typography>
-                        <form className={classes.form} onSubmit={onSubmit}>
+                        <Typography id="integration-form-header" aria-label="integration-form-header" variant={"h5"} sx={{ mb: 2 }}>{t('header')}</Typography>
+                        <form id="integration-form"  className={classes.form} onSubmit={onSubmit}>
                             {accordionList.map((accordion, index) => {
                                 return (
                                     <AccordionForm
+                                        id={accordion.id}
                                         activeFormData={activeFormData}
                                         key={index}
                                         style={classes}
@@ -272,15 +273,17 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                             })}
                             <div >
                                 <FormGroup sx={{ ml: 2, mb: 2 }} >
-                                    <FormControlLabel control={
-                                        <Checkbox checked={checked}
+                                    <FormControlLabel
+                                        control={
+                                            <Checkbox
+                                            id="form-complete"
+                                            checked={checked}
                                             onChange={handleCheckChange}
-                                            inputProps={{ 'aria-label': 'completed-checkbox' }}
-                                        />}
+                                            inputProps={{ 'aria-label': 'completed-checkbox' }}/>}
                                         label={t('checkLabel') as string} />
                                 </FormGroup>
-                                <Button sx={{ ml: 2, mr: 2 }} onClick={checked ? onSubmit : onSave} variant="contained">{t('button.save')}</Button>
-                                <Button onClick={handleCancel} variant="contained">{t('button.cancel')}</Button>
+                                <Button id="integration-form-submit-btn" sx={{ ml: 2, mr: 2 }} onClick={checked ? onSubmit : onSave} variant="contained">{t('button.save')}</Button>
+                                <Button id="integration-form-cancel-btn" onClick={handleCancel} variant="contained">{t('button.cancel')}</Button>
                             </div>
                         </form>
                     </Box>
@@ -288,6 +291,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                         <SourceApplicationForm style={classes} />
                     </Box>
                     <Snackbar
+                        id="integration-form-snackbar-saved"
                         open={saved}
                         autoHideDuration={4000}
                         onClose={handleClose}
@@ -295,6 +299,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                         action={action}
                     />
                     <Snackbar
+                        id="integration-form-snackbar-error"
                         open={saveError}
                         autoHideDuration={4000}
                         onClose={handleClose}

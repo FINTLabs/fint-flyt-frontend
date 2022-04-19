@@ -29,7 +29,7 @@ const routes: IRoute[] = [
         exact: true
     },
     {
-        path: '/overview',
+        path: '/integration/configuration/list',
         name: 'integrationList',
         component: Overview,
         exact: true,
@@ -37,7 +37,7 @@ const routes: IRoute[] = [
         inNavigationMenu: true
     },
     {
-        path: '/overview/details',
+        path: '/integration/configuration/details',
         name: 'integrationDetails',
         component: Overview,
         exact: true,

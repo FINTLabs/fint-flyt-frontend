@@ -24,7 +24,7 @@ import { useTranslation } from 'react-i18next';
 // @ts-ignore
 function DetailPanelContent({ row: rowProp }) {
     return (
-        <Stack sx={{ py: 2, height: 1, boxSizing: 'border-box' }} direction="column">
+        <Stack id={rowProp.type+ `-panel`} sx={{ py: 2, height: 1, boxSizing: 'border-box' }} direction="column">
                 <Stack direction="column" sx={{ height: 1 }}>
                     <DataGridPro
                         disableColumnPinning={false}
@@ -37,7 +37,7 @@ function DetailPanelContent({ row: rowProp }) {
                         treeData={false}
                         density="compact"
                         columns={[
-                            { field: 'args', headerName: 'Feilmelding', type: 'string', minWidth: 200,
+                            { field: 'args', headerName: 'Feilmelding', type: 'string', flex: 1,
                                 valueGetter: (params) => `${params.row.args.arg0 || ''} ${params.row.args.arg1 || ''}`
                             },
                         ]}
@@ -110,11 +110,13 @@ function Log() {
         EventRepository.getEvents()
             .then((response) => {
                 let data = response.data;
-                data.forEach(addId(0, 'name'))
-                data.forEach((event: any) =>
-                   event.errors.forEach(addId(0, 'errorCode'))
-                );
-                setAllEvents(data);
+                if (data) {
+                    data.forEach(addId(0, 'name'))
+                    data.forEach((event: any) =>
+                        event.errors.forEach(addId(0, 'errorCode'))
+                    );
+                    setAllEvents(data);
+                }
             })
             .catch(e => console.error('Error: ', e))
     }

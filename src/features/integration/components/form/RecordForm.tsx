@@ -42,7 +42,7 @@ const RecordForm: React.FunctionComponent<any> = (props) => {
                                 />
                             </Box>
                             <Box>
-                                <HelpPopover popoverContent={field.helpText}/>
+                                <HelpPopover id={field.formValue} popoverContent={field.helpText}/>
                             </Box>
                         </Box>
                     )}
