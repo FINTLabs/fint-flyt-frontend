@@ -1,4 +1,5 @@
 export interface IAccordion {
+    id: string;
     summary: string;
     accordionForm: ACCORDION_FORM;
     defaultExpanded: boolean;

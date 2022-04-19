@@ -91,15 +91,15 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
                         {version !== integration.integrationId && <Button onClick={handleVersionChange}>Bruk denne revisjonen</Button>}
                     </FormControl>
                     <CardContent>
-                        <Typography><strong>Id: </strong>{activeConfiguration.integrationId}</Typography>
-                        <Typography><strong>Skjemaleverandør: </strong>{activeConfiguration.sourceApplication}</Typography>
-                        <Typography><strong>Destinasjon: </strong>{activeConfiguration.destination}</Typography>
-                        <Typography><strong>Navn: </strong>{activeConfiguration.name}</Typography>
-                        <Typography><strong>Beskrivelse: </strong>{activeConfiguration.description}</Typography>
-                        <Typography><strong>Skjema: </strong>{activeConfiguration.sourceApplicationIntegrationId}</Typography>
-                        <Typography><strong>Integrasjonslogikk: </strong>{activeConfiguration.caseConfiguration?.caseCreationStrategy}</Typography>
-                        <Typography><strong>Publisert: </strong>{activeConfiguration.published? 'Ja' : 'Nei'}</Typography>
-                        <Typography><strong>Revisjon: </strong>{activeConfiguration.version}</Typography>
+                        <Typography id="details-id"><strong>Id: </strong>{activeConfiguration.integrationId}</Typography>
+                        <Typography id="details-sourceApplication"><strong>Skjemaleverandør: </strong>{activeConfiguration.sourceApplication}</Typography>
+                        <Typography id="details-destination"><strong>Destinasjon: </strong>{activeConfiguration.destination}</Typography>
+                        <Typography id="details-name"><strong>Navn: </strong>{activeConfiguration.name}</Typography>
+                        <Typography id="details-description"><strong>Beskrivelse: </strong>{activeConfiguration.description}</Typography>
+                        <Typography id="details-sourceApplicationIntegrationId"><strong>Skjema: </strong>{activeConfiguration.sourceApplicationIntegrationId}</Typography>
+                        <Typography id="details-caseConfiguration-caseCreation"><strong>Integrasjonslogikk: </strong>{activeConfiguration.caseConfiguration?.caseCreationStrategy}</Typography>
+                        <Typography id="details-published"><strong>Publisert: </strong>{activeConfiguration.published? 'Ja' : 'Nei'}</Typography>
+                        <Typography id="details-version"><strong>Revisjon: </strong>{activeConfiguration.version}</Typography>
                     </CardContent>
                     <Divider />
                     <CardContent>

@@ -1,8 +1,14 @@
-import {Box, Button, Card, CardActions, CardContent, Theme, Typography} from '@mui/material';
-import React, {useEffect, useState} from 'react';
-import { RouteComponentProps, withRouter, Link as RouterLink } from 'react-router-dom';
+import {Box, Card, CardContent, Theme} from '@mui/material';
+import React, {useContext, useEffect, useState} from 'react';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import {createStyles, makeStyles} from "@mui/styles";
 import IntegrationRepository from "../integration/repository/IntegrationRepository";
+import {IRow} from "../overview/types/Row";
+import {IntegrationContext} from "../../integrationContext";
+import IntegrationConfigurationTable from "../overview/components/IntegrationConfigurationTable";
+import IntegrationConfigurationDetails from "../overview/components/IntegrationConfigurationDetails";
+import DashboardCard from "./DashboardCard";
+import {ICard} from "./types/Card";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -10,50 +16,92 @@ const useStyles = makeStyles((theme: Theme) =>
             border: 'solid 1px',
             marginRight: theme.spacing(2),
             borderColor: theme.palette.primary.main
+        },
+        form: {
+            width: theme.spacing(120)
+        },
+        row: {
+            display: 'flex'
+        },
+        dataGridContainer: {
+            marginTop: theme.spacing(4)
+        },
+        dataGridBox: {
+            minHeight: '400px',
+            maxHeight: '2500px',
+            width: '100%'
         }
     }));
 
 const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const classes = useStyles();
-    const [numberOfIntegrations, setNumberOfIntegrations] = useState();
+    const [numberOfIntegrations, setNumberOfIntegrations] = useState(0);
+    const showDetails: boolean = window.location.pathname === '/integration/configuration/details'
+    const [configurations, getConfigurations] = useState<IRow[]>([]);
+    const {integration, setIntegration} = useContext(IntegrationContext)
+    const [initialVersion, setInitialVersion] = useState(integration.version);
 
     useEffect(()=> {
+        getAllConfigurations();
+    }, [])
+
+    const getAllConfigurations = () => {
         IntegrationRepository.get()
-            .then(response => {
-                let data = response.data.numberOfElements;
-                setNumberOfIntegrations(data);
+            .then((response) => {
+                const allConfigurations = response.data.content;
+                setNumberOfIntegrations(response.data.numberOfElements);
+                getConfigurations(allConfigurations)
             })
-            .catch((e: Error) => {
-                console.log('error fetching configurations', e)
-            })
-    })
+            .catch(e => console.error('Error: ', e))
+    }
+
+    const resetConfiguration = () => {
+        setIntegration({})
+        getAllConfigurations();
+    }
+
+    const cards: ICard[] = [
+        { value: numberOfIntegrations == 0 ? 'Ingen' : numberOfIntegrations, content: 'skjema', links: [
+                {name: 'Ny integrasjon', href: '/integration/configuration/new'}
+            ]
+        },
+        { value: 'Ingen', content: 'feilmeldinger', links: [
+                {name: 'Se logg', href: '/log'}
+            ]
+        }
+    ]
 
     return (
-    <Box display="flex" position="relative" width={1} height={1}>
-        <Card className={classes.card} sx={{ maxWidth: 345 }}>
-            <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                    {numberOfIntegrations == 0 ? 'Ingen' : numberOfIntegrations } skjema
-                </Typography>
-            </CardContent>
-            <CardActions>
-                <Button size="small" variant="outlined" component={RouterLink} to="/overview">Se integrasjoner</Button>
-                <Button size="small" variant="outlined" component={RouterLink} to="/integration/configuration/new">Ny integrasjon</Button>
-            </CardActions>
-        </Card>
-        <Card className={classes.card} sx={{ maxWidth: 345 }}>
-            <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                    Ingen feilmeldinger
-                </Typography>
-            </CardContent>
-            <CardActions>
-                <Button size="small" variant="outlined" component={RouterLink} to="/log">Se logg</Button>
-                <Button size="small" variant="outlined" component={RouterLink} to="/support">Opprett supportsak</Button>
-            </CardActions>
-        </Card>
-    </Box>
-);
+        <Box>
+            <Box display="flex" position="relative" width={1} height={1}>
+                {cards.map(card => {
+                    return (
+                        <DashboardCard
+                            value={card.value}
+                            content={card.content}
+                            links={card.links}
+                            classes={classes}
+                        />)
+                })}
+            </Box>
+            <Card className={classes.card} sx={{mt: 4}}>
+                <CardContent>
+                    {integration.integrationId && showDetails ?
+                        <IntegrationConfigurationDetails
+                            reset={resetConfiguration}
+                            initialConfiguration={integration}
+                            initialVersion={initialVersion}
+                        /> :
+                        <IntegrationConfigurationTable
+                            classes={classes}
+                            configurations={configurations}
+                            setIntegration={setIntegration}
+                            setInitialVersion={setInitialVersion}
+                        />}
+                </CardContent>
+            </Card>
+        </Box>
+    );
 }
 
 export default withRouter(Dashboard);

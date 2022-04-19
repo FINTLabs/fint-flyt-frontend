@@ -31,12 +31,12 @@ const ApplicantForm: React.FunctionComponent<any> = (props) => {
 
     return (
         <div>
-            <FormGroup className={props.style.formControl}>
+            <FormGroup id="applicant-form" className={props.style.formControl}>
                 {applicantFormFields.map((field, index) => {
                     return (
                         field.hidden ?
                             <div key={index}/> :
-                            <Box sx={{display: 'flex'}} key={index}>
+                            <Box sx={{display: 'flex'}} key={index} id={field.formValue}>
                                 <Box width={'100%'}>
                                     <InputField required={field.required}
                                                 error={field.error}

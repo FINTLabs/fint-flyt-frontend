@@ -19,7 +19,7 @@ const HelpPopover: React.FunctionComponent<any> = (props) => {
     const id = open ? 'info-popover' : undefined;
 
     return (
-        <div>
+        <div id={props.id + `-help-button`}>
             <IconButton aria-label="help" color="primary" onClick={handleClick}>
                 <HelpIcon />
             </IconButton>

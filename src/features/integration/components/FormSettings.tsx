@@ -30,9 +30,10 @@ export const FormSettings: React.FunctionComponent<any> = (props) => {
         <>
             <Box sx={{width: '40%', maxWidth: '60%'}}>
                 <Box>
-                    <Typography sx={{mb: 2}}>Velg skjemaleverandør og destinasjon</Typography>
+                    <Typography id="integration-form-settings-header" sx={{mb: 2}}>Velg skjemaleverandør og destinasjon</Typography>
                     <Box sx={{width: '100%', display: 'flex'}}>
                         <TextField
+                            id='sourceApplication'
                             select
                             size="small"
                             sx={{ mb: 3, width: 'inherit' }}
@@ -48,6 +49,7 @@ export const FormSettings: React.FunctionComponent<any> = (props) => {
                     </Box>
                     <Box sx={{width: '100%', display: 'flex'}}>
                         <TextField
+                            id='destination'
                             select
                             size="small"
                             sx={{ mb: 1, width: 'inherit' }}
@@ -64,8 +66,8 @@ export const FormSettings: React.FunctionComponent<any> = (props) => {
                     <Typography color={"error"}>{!sourceApplication || !destination? error : ''}</Typography>
                 </Box>
                 <Box sx={{mt: 2}}>
-                    <Button onClick={cancel} variant="contained">Avbryt</Button>
-                    <Button sx={{float: 'right'}} onClick={confirm} variant="contained">Neste</Button>
+                    <Button id="form-settings-cancel-btn" onClick={cancel} variant="contained">Avbryt</Button>
+                    <Button id="form-settings-confirm-btn" sx={{float: 'right'}} onClick={confirm} variant="contained">Neste</Button>
                 </Box>
             </Box>
         </>
