@@ -152,7 +152,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
             .then(response => {
                 console.log('created new configuraton', data, response);
                 resetAllResources();
-                setSubmitSuccess(response.status === 201);
+                setSubmitSuccess(true);
             })
             .catch((e: Error) => {
                 console.log('error creating new', e);
@@ -164,7 +164,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
             .then(response => {
                 console.log('updated configuraton: ', id,  data, response);
                 resetAllResources();
-                setSubmitSuccess(response.status === 200);
+                setSubmitSuccess(true);
             })
             .catch((e: Error) => {
                 console.log('error updating configuration', e);
@@ -306,7 +306,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                     />
                 </Box>
             }
-            {submitSuccess && settings &&
+            {submitSuccess &&
                 <Box style={{minHeight: 'fit-content'}}>
                     <Typography variant={"h5"} sx={{mb: 2}}>Integrasjon til arkiv - Ferdig</Typography>
                     <Button size="small" variant="contained" component={RouterLink} to="/integration/configuration/list">Se integrasjoner</Button>
