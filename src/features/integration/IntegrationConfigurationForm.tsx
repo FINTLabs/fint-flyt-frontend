@@ -84,12 +84,12 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
-    const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationForm' });
+    const {t} = useTranslation('translations', {keyPrefix: 'pages.integrationForm'});
     const classes = useStyles();
     const editConfig: boolean = window.location.pathname === '/integration/configuration/edit'
     const [submitSuccess, setSubmitSuccess] = useState(false)
     const [settings, setSettings] = useState(false)
-    const { integration, sourceApplication, destination, setIntegration, resetSourceAndDestination } = useContext(IntegrationContext)
+    const {integration, sourceApplication, destination, setIntegration, resetSourceAndDestination} = useContext(IntegrationContext)
     const [activeId, setActiveId] = useState<any>(undefined)
     const [saved, setSaved] = React.useState(false);
     const [saveError, setSaveError] = React.useState(false);
@@ -118,11 +118,11 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     }, [])
 
     const accordionList: IAccordion[] = [
-        {id: 'case-information', summary: "caseInformation.header", accordionForm: ACCORDION_FORM.CASE_INFORMATION, defaultExpanded: true },
-        {id: 'case-form',  summary: "caseForm.header", accordionForm: ACCORDION_FORM.CASE_FORM, defaultExpanded: false, hidden: watch("caseData.caseCreationStrategy") === CreationStrategy.COLLECTION },
-        {id: 'record-form', summary: "recordForm.header", accordionForm: ACCORDION_FORM.RECORD_FORM, defaultExpanded: false },
-        {id: 'document-object-form', summary: "documentForm.header", accordionForm: ACCORDION_FORM.DOCUMENT_FORM, defaultExpanded: false },
-        {id: 'applicant-form', summary: "applicationForm.header", accordionForm: ACCORDION_FORM.APPLICANT_FORM, defaultExpanded: false }
+        {id: 'case-information', summary: "caseInformation.header", accordionForm: ACCORDION_FORM.CASE_INFORMATION, defaultExpanded: true},
+        {id: 'case-form',  summary: "caseForm.header", accordionForm: ACCORDION_FORM.CASE_FORM, defaultExpanded: false, hidden: watch("caseData.caseCreationStrategy") === CreationStrategy.COLLECTION},
+        {id: 'record-form', summary: "recordForm.header", accordionForm: ACCORDION_FORM.RECORD_FORM, defaultExpanded: false},
+        {id: 'document-object-form', summary: "documentForm.header", accordionForm: ACCORDION_FORM.DOCUMENT_FORM, defaultExpanded: false},
+        {id: 'applicant-form', summary: "applicationForm.header", accordionForm: ACCORDION_FORM.APPLICANT_FORM, defaultExpanded: false}
     ]
 
     const saveNewConfiguration = (data: IIntegrationConfiguration) => {
@@ -154,7 +154,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
             .then(response => {
                 console.log('created new configuraton', data, response);
                 resetAllResources();
-                setSubmitSuccess(response.status === 201);
+                setSubmitSuccess(true);
             })
             .catch((e: Error) => {
                 console.log('error creating new', e);
@@ -166,7 +166,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
             .then(response => {
                 console.log('updated configuraton: ', id, data, response);
                 resetAllResources();
-                setSubmitSuccess(response.status === 200);
+                setSubmitSuccess(true);
             })
             .catch((e: Error) => {
                 console.log('error updating configuration', e);
