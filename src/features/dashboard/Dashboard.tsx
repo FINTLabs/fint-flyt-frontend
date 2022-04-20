@@ -76,9 +76,11 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
     return (
         <Box>
             <Box display="flex" position="relative" width={1} height={1}>
-                {cards.map(card => {
+                {cards.map((card: ICard, index) => {
                     return (
                         <DashboardCard
+                            key={index}
+                            id={`dashboard-card-` + index}
                             value={card.value}
                             content={card.content}
                             links={card.links}
