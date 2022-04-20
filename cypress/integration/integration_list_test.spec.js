@@ -1,4 +1,4 @@
-describe('Testing dashboard', () => {
+describe('Testing integration list', () => {
     beforeEach(() => {
         cy.intercept(
             'GET', '**/integration/configuration', { fixture: 'configuration.json' })
@@ -11,7 +11,7 @@ describe('Testing dashboard', () => {
     })
 
     it('should contain correct colunms', () => {
-        let columns = ['Skjemaleverandør', 'SkjemaId', 'Navn', 'Beskrivelse', 'Ferdigstilt', 'Revisjon']
+        let columns = ['Skjemaleverandør', 'Skjema', 'Navn', 'Beskrivelse', 'Ferdigstilt', 'Revisjon']
         columns.forEach(column => {
             cy.get('.MuiDataGrid-root').should("contain.text", column)
         })
