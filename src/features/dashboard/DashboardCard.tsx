@@ -14,9 +14,9 @@ const DashboardCard: React.FunctionComponent<any> = (props) => {
                 </Typography>
             </CardContent>
             <CardActions>
-                {props.links && props.links.map((link: ILink, key: number) => {
+                {props.links && props.links.map((link: ILink, index: number) => {
                     return (
-                        <Button id={`card-button-` + key} size="small" variant="text" component={RouterLink} to={link.href}>{link.name}</Button>
+                        <Button key={index} id={props.id + `-btn-` + index} size="small" variant="text" component={RouterLink} to={link.href}>{link.name}</Button>
                     )
                 })}
             </CardActions>

@@ -13,6 +13,7 @@ import {ISelect} from "../../types/InputField";
 import {TextFieldWithDropZone} from "../dnd/TextFieldWithDropZone";
 import {makeStyles} from "@mui/styles";
 import {dropdownPlaceholder} from "../../defaults/DefaultValues";
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles(theme => ({
     dropdownPopover: {
@@ -20,13 +21,14 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 const InputField: React.FunctionComponent<any> = (props) => {
+    const { t } = useTranslation('translations', { keyPrefix: 'inputField'});
     const classes = useStyles();
     const filterOptions = createFilterOptions({
         matchFrom: 'any',
         stringify: (option: ISelect) => option.label,
         limit: 250
     });
-    let errorMessage: string = 'Du må oppgi ' + props.label;
+    let errorMessage: string = t('errorMessage') + t(props.label);
     if (props.input === INPUT_TYPE.DROPDOWN) {
         return (
             <Controller
@@ -40,7 +42,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                         size="small"
                         sx={{ mb: 3, width: 'inherit' }}
                         value={props.value}
-                        label={props.required ? (props.label+'*') : props.label}
+                        label={props.required ? (t(props.label)+'*') : t(props.label)}
                         SelectProps={{
                             MenuProps: {
                                 className: classes.dropdownPopover
@@ -51,7 +53,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                             onChange(e.target.value);
                         }}
                         error={!!props.error}
-                        helperText={props.error ? 'Obligatorisk felt' : ''}
+                        helperText={props.error ? t('requiredField') : ''}
                     >
                         {props.dropdownItems.map((item: any, index: number) => (
                             <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
@@ -65,7 +67,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
     else if (props.input === INPUT_TYPE.RADIO) {
         return (
             <FormControl component="fieldset" sx={{ mb: 3 }}>
-                <FormLabel role="label">{props.label}</FormLabel>
+                <FormLabel role="label">{t(props.label)}</FormLabel>
                 <RadioGroup id={props.formValue}
                             row={true}
                             onChange={(e) =>
@@ -78,9 +80,9 @@ const InputField: React.FunctionComponent<any> = (props) => {
                             <FormControlLabel
                                 value={option.value}
                                 control={<Radio />}
-                                label={option.label}
+                                label={t(option.label) as string}
                             />
-                            <Typography sx={{ fontSize: 14 }}>{option.description}</Typography>
+                            <Typography sx={{ fontSize: 14 }}>{option.description ? t(option.description) : ''}</Typography>
                         </div>
                     ))}
                 </RadioGroup>
@@ -104,9 +106,9 @@ const InputField: React.FunctionComponent<any> = (props) => {
                             <TextField
                                 {...params}
                                 size="small"
-                                label={props.required ? (props.label+'*') : props.label}
+                                label={props.required ? t((props.label)+'*') : t(props.label)}
                                 error={!!props.error}
-                                helperText={props.error ? 'Obligatorisk felt' : ''}
+                                helperText={props.error ? t('requiredField') : ''}
                             />
                         )}
                         onChange={(_, data) => {
@@ -141,7 +143,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                 render={({ field: { onChange, onBlur, value } }) => (
                     <TextField
                         id={props.formValue}
-                        label={props.required ? (props.label+'*') : props.label}
+                        label={props.required ? (t(props.label)+'*') : t(props.label)}
                         size="small"
                         variant="outlined"
                         sx={{ mb: 3, width: 'inherit'}}
@@ -149,7 +151,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                         onBlur={onBlur}
                         value={value}
                         error={!!props.error}
-                        helperText={props.error ? 'Obligatorisk felt' : ''}
+                        helperText={props.error ? t('requiredField') : ''}
                     />
                 )}
                 rules={{ required: { value: props.required, message: errorMessage }} }

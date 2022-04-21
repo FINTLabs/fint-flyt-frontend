@@ -5,26 +5,27 @@ import {INPUT_TYPE} from "../../types/InputType.enum";
 import InputField from "./InputField";
 import {FieldErrors} from "react-hook-form";
 import {ResourcesContext} from "../../../../resourcesContext";
-import {fieldHelp} from "../../defaults/DefaultValues";
 import HelpPopover from "../popover/HelpPopover";
+import { useTranslation } from 'react-i18next';
 
 const DocumentForm: React.FunctionComponent<any> = (props) => {
+    const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationForm.accordions.documentForm'});
     const {accessCodes, paragraphs, documentStatuses, variants} = useContext(ResourcesContext);
     let errors: FieldErrors = props.errors;
     let required: boolean = props.validation;
     const documentFormFields: IInputField[] = [
-        {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "Tittel", formValue: "documentData.title", required: required, error:errors.documentData?.title, value: props.activeFormData?.documentData?.title, helpText: fieldHelp.documentData.title},
-        {input: INPUT_TYPE.DROPDOWN, label: "Status", value: props.watch("documentData.documentStatus"), formValue: "documentData.documentStatus", dropDownItems: documentStatuses, required: required, error:errors.documentData?.documentStatus, helpText: fieldHelp.documentData.documentStatus},
-        {input: INPUT_TYPE.DROPDOWN, label: "Tilgangskode", value: props.watch("documentData.accessCode"), formValue: "documentData.accessCode", dropDownItems: accessCodes, required: required, error:errors.documentData?.accessCode, helpText: fieldHelp.documentData.accessCode},
-        {input: INPUT_TYPE.AUTOCOMPLETE, label: "Hjemmel", value: props.watch("documentData.paragraph"), formValue: "documentData.paragraph", dropDownItems: paragraphs, required: required, error:errors.documentData?.paragraph, helpText: fieldHelp.documentData.paragraph}
+        {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.title", formValue: "documentData.title", required: required, error:errors.documentData?.title, value: props.activeFormData?.documentData?.title, helpText: "documentData.title"},
+        {input: INPUT_TYPE.DROPDOWN, label: "labels.documentStatus", value: props.watch("documentData.documentStatus"), formValue: "documentData.documentStatus", dropDownItems: documentStatuses, required: required, error:errors.documentData?.documentStatus, helpText: "documentData.documentStatus"},
+        {input: INPUT_TYPE.DROPDOWN, label: "labels.accessCode", value: props.watch("documentData.accessCode"), formValue: "documentData.accessCode", dropDownItems: accessCodes, required: required, error:errors.documentData?.accessCode, helpText: "documentData.accessCode"},
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.paragraph", value: props.watch("documentData.paragraph"), formValue: "documentData.paragraph", dropDownItems: paragraphs, required: required, error:errors.documentData?.paragraph, helpText: "documentData.paragraph"}
     ]
     const objectFormFields: IInputField[] = [
-        {input: INPUT_TYPE.DROPDOWN, label: "Variant", value: props.watch("documentData.variant"), formValue: "documentData.variant", dropDownItems: variants, required: required, error:errors.documentData?.variant, helpText: fieldHelp.documentData.variant}
+        {input: INPUT_TYPE.DROPDOWN, label: "labels.variant", value: props.watch("documentData.variant"), formValue: "documentData.variant", dropDownItems: variants, required: required, error:errors.documentData?.variant, helpText: "documentData.variant"}
     ]
     return (
         <div>
             <FormGroup className={props.style.formControl}>
-                <Typography>Dokumentbeskrivelse</Typography>
+                <Typography>{t('documentDescription')}</Typography>
                 <Divider sx={{mb: 3}}/>
                 {documentFormFields.map((field, index) => {
                     return (
@@ -47,7 +48,7 @@ const DocumentForm: React.FunctionComponent<any> = (props) => {
                         </Box>
                     )}
                 )}
-                <Typography>Objektbeskrivelse</Typography>
+                <Typography>{t('objectDescription')}</Typography>
                 <Divider sx={{mb: 3}}/>
                 {objectFormFields.map((field, index) => {
                     return (
@@ -71,7 +72,7 @@ const DocumentForm: React.FunctionComponent<any> = (props) => {
                     )}
                 )}
             </FormGroup>
-            <Button sx={{mb: 2}} onClick={props.onSave} variant="contained">Lagre</Button>
+            <Button sx={{mb: 2}} onClick={props.onSave} variant="contained">{t('button.save')}</Button>
         </div>
     );
 }

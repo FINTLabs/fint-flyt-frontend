@@ -9,6 +9,7 @@ import IntegrationConfigurationTable from "../overview/components/IntegrationCon
 import IntegrationConfigurationDetails from "../overview/components/IntegrationConfigurationDetails";
 import DashboardCard from "./DashboardCard";
 import {ICard} from "./types/Card";
+import {useTranslation} from "react-i18next";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -34,6 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
     }));
 
 const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
+    const { t } = useTranslation('translations', { keyPrefix: 'pages.dashboard'});
     const classes = useStyles();
     const [numberOfIntegrations, setNumberOfIntegrations] = useState(0);
     const showDetails: boolean = window.location.pathname === '/integration/configuration/details'
@@ -61,12 +63,12 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
     }
 
     const cards: ICard[] = [
-        { value: numberOfIntegrations == 0 ? 'Ingen' : numberOfIntegrations, content: 'skjema', links: [
-                {name: 'Ny integrasjon', href: '/integration/configuration/new'}
+        { value: numberOfIntegrations == 0 ? t('empty') : numberOfIntegrations, content: t('form'), links: [
+                {name: t('links.newIntegration'), href: '/integration/configuration/new'}
             ]
         },
-        { value: 'Ingen', content: 'feilmeldinger', links: [
-                {name: 'Se logg', href: '/log'}
+        { value: t('empty'), content: t('errors'), links: [
+                {name: t('links.log'), href: '/log'}
             ]
         }
     ]
@@ -74,9 +76,11 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
     return (
         <Box>
             <Box display="flex" position="relative" width={1} height={1}>
-                {cards.map(card => {
+                {cards.map((card: ICard, index) => {
                     return (
                         <DashboardCard
+                            key={index}
+                            id={`dashboard-card-` + index}
                             value={card.value}
                             content={card.content}
                             links={card.links}

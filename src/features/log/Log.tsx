@@ -18,9 +18,11 @@ import {
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import moment from "moment";
 import {DataGrid, GridCellParams, GridColumns} from "@mui/x-data-grid";
-import {noNB} from "../util/locale/noNB";
+import {gridLocaleNoNB} from "../util/locale/gridLocaleNoNB";
+import { useTranslation } from 'react-i18next';
 
 function Log() {
+    const {t} = useTranslation('translations', {keyPrefix: 'pages.log'})
     const [allEvents, setAllEvents] = useState<IEvent[]>([]);
     const [selectedRow, setSelectedRow] = useState<IEvent>();
     const [open, setOpen] = React.useState(false);
@@ -38,6 +40,7 @@ function Log() {
         { field: 'sourceApplication', type: 'string', headerName: 'Skjemaleverandør', flex: 1,
             valueGetter: (params) => params.row.skjemaEventHeaders.sourceApplication}
     ];
+
     function CustomDetailPanelToggle(props: GridCellParams["row"]) {
         const hasErrors: boolean = props.row.errors.length > 0;
         return (
@@ -59,7 +62,7 @@ function Log() {
                     aria-labelledby="alert-dialog-title"
                     aria-describedby="alert-dialog-description"
                 >
-                    <DialogTitle id="alert-dialog-title">Hendelse - feilmeldinger</DialogTitle>
+                    <DialogTitle id="alert-dialog-title">{t('dialogHeader')}</DialogTitle>
                     <DialogContent>
                         {selectedRow &&
                             <Stack id={props.row.type+ `-panel`} sx={{ py: 2, boxSizing: 'border-box', height: '250px', minWidth: '500px' }} direction="column">
@@ -67,7 +70,7 @@ function Log() {
                                     <DataGrid
                                         density="compact"
                                         columns={[
-                                            { field: 'args', headerName: 'Feilmelding', type: 'string', flex: 1,
+                                            { field: 'args', headerName: t('table.columns.errorMessage'), type: 'string', flex: 1,
                                                 valueGetter: (params) => `${params.row.args.arg0 || ''} ${params.row.args.arg1 || ''}`
                                             }
                                         ]}
@@ -80,7 +83,7 @@ function Log() {
                             </Stack>}
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={handleClose} autoFocus>Lukk</Button>
+                        <Button onClick={handleClose} autoFocus>{t('button.close')}</Button>
                     </DialogActions>
                 </Dialog>
             </div>
@@ -116,11 +119,11 @@ function Log() {
 
     return (
         <Box sx={{ width: 1, height: 1200 }}>
-            <Typography>Logg</Typography>
+            <Typography>{t('header')}</Typography>
             <AlertDialog row={selectedRow}/>
             <DataGrid
                 columns={columns}
-                localeText={noNB}
+                localeText={gridLocaleNoNB}
                 rows={allEvents}
                 rowThreshold={0}
             />

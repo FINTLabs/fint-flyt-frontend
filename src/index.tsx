@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import './features/util/locale/i18n.ts';
 
 ReactDOM.render(
   <React.StrictMode>

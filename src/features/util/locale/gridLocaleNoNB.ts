@@ -1,6 +1,6 @@
 import {GridLocaleText} from "@mui/x-data-grid";
 
-export const noNB: Partial<GridLocaleText> = {
+export const gridLocaleNoNB: Partial<GridLocaleText> = {
     // Root
     noRowsLabel: 'Ingen rader',
     noResultsOverlayLabel: 'Ingen resultater',

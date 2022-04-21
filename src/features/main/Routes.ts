@@ -3,12 +3,12 @@ import Dashboard from "../dashboard/Dashboard";
 import Log from "../log/Log";
 import IntegrationConfigurationForm from "../integration/IntegrationConfigurationForm";
 import Overview from "../overview/Overview";
-import Support from "../support/support";
+import Support from "../support/Support";
 
 const routes: IRoute[] = [
     {
         path: '/',
-        name: 'Dashboard',
+        name: 'dashboard',
         component: Dashboard,
         exact: true,
         icon: 'dashboard',
@@ -16,7 +16,7 @@ const routes: IRoute[] = [
     },
     {
         path: '/integration/configuration/new',
-        name: 'Ny integrasjon',
+        name: 'newIntegration',
         component: IntegrationConfigurationForm,
         exact: true,
         icon: 'add',
@@ -24,13 +24,13 @@ const routes: IRoute[] = [
     },
     {
         path: '/integration/configuration/edit',
-        name: 'Rediger integrasjon',
+        name: 'editIntegration',
         component: IntegrationConfigurationForm,
         exact: true
     },
     {
         path: '/integration/configuration/list',
-        name: 'Integrasjonsoversikt',
+        name: 'integrationList',
         component: Overview,
         exact: true,
         icon: 'sync',
@@ -38,13 +38,13 @@ const routes: IRoute[] = [
     },
     {
         path: '/integration/configuration/details',
-        name: 'Detaljer',
+        name: 'integrationDetails',
         component: Overview,
         exact: true,
     },
     {
         path: '/log',
-        name: 'Logg [beta]',
+        name: 'log',
         component: Log,
         icon: 'receipt',
         exact: true,
@@ -52,7 +52,7 @@ const routes: IRoute[] = [
     },
     {
         path: '/support',
-        name: 'Support',
+        name: 'support',
         component: Support,
         icon: 'contact_support',
         exact: true,
