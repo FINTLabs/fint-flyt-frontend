@@ -30,7 +30,7 @@ function Log() {
     const columns: GridColumns = [
         { field: 'id', hide: true, type: 'number', headerName: 'id', flex: 0.5 },
         { field: 'details', headerName: 'Detaljer', flex: 0.2, sortable: false, filterable: false,
-            renderCell: (params) => ( <CustomDetailPanelToggle row={params.row} />)},
+            renderCell: (params) => ( <CustomDialogToggle row={params.row} />)},
         { field: 'type', type: 'string', headerName: 'Type', flex: 0.5 },
         { field: 'timestamp', type: 'string', headerName: 'Tidspunkt', flex: 1,
             valueGetter: (params) => moment(params.row.timestamp).format('DD/MM/YY HH:mm')},
@@ -41,7 +41,7 @@ function Log() {
             valueGetter: (params) => params.row.skjemaEventHeaders.sourceApplication}
     ];
 
-    function CustomDetailPanelToggle(props: GridCellParams["row"]) {
+    function CustomDialogToggle(props: GridCellParams["row"]) {
         const hasErrors: boolean = props.row.errors.length > 0;
         return (
             <>
