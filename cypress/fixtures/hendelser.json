@@ -2,9 +2,9 @@
   "skjemaEventHeaders": {
     "orgId":"df5f5006-736e-47b0-9d58-2e3330fa7a87",
     "service":"service",
-    "sourceApplication":"sourceApplication",
-    "sourceApplicationIntegrationId":"sourceApplicationIntegrationId",
-    "sourceApplicationInstanceId":"sourceApplicationInstanceId",
+    "sourceApplication":"ACOS",
+    "sourceApplicationIntegrationId":"VIK036",
+    "sourceApplicationInstanceId":"42t63",
     "correlationId":1,
     "instanceId":null,
     "configurationId":null,

@@ -46,7 +46,7 @@ function Log() {
         return (
             <>
                 {hasErrors && <IconButton size="small" onClick={() => {setSelectedRow(props.row); handleClickOpen()}} tabIndex={-1}>
-                    <OpenInNewIcon fontSize="inherit"/>
+                    <OpenInNewIcon id={props.row.id + `-icon`} fontSize="inherit"/>
                 </IconButton>}
             </>
         );

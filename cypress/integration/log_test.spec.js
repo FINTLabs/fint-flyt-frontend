@@ -19,13 +19,15 @@ describe('Testing log', () => {
     })
 
     it('should show details on details expand icon click', () => {
-        cy.get('[data-testid=ExpandMoreIcon]').click()
-        cy.get('#ERROR-panel').should('be.visible')
+        cy.get('.MuiDataGrid-cell--withRenderer > .MuiButtonBase-root').click()
+        cy.get('#alert-dialog-title').should('be.visible')
     })
 
     it('error panel should contain correct column', () => {
-        cy.get('#ERROR-panel').should('contain.text', "Feilmelding")
+        cy.get('#ERROR-panel').should('contain.text', "Feilmeldinger")
         cy.get('#ERROR-panel').should("not.contain.text", 'not_a_column')
-
+    })
+    it('should close the dialog on close button', () => {
+        cy.get('.MuiButton-root').click()
     })
 });
