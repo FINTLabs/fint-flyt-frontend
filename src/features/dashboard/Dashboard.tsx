@@ -63,7 +63,7 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
     }
 
     const cards: ICard[] = [
-        { value: numberOfIntegrations == 0 ? t('empty') : numberOfIntegrations, content: t('form'), links: [
+        { value: numberOfIntegrations === 0 ? t('empty') : numberOfIntegrations, content: t('form'), links: [
                 {name: t('links.newIntegration'), href: '/integration/configuration/new'}
             ]
         },

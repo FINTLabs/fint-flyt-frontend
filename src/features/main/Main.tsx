@@ -92,10 +92,10 @@ function Main() {
                     <Typography variant="h6" color="inherit" noWrap className={classes.flex}>
                         {t('appbarHeader')}
                     </Typography>
-                    <Box sx={{ mr: 2 }}>
-                        {i18n.language == 'no' && <Button size="small" variant="contained" onClick={() => changeLanguage("en")}>{t('language.english')}</Button>}
-                        {i18n.language == 'en' && <Button size="small" variant="contained" onClick={() => changeLanguage("no")}>{t('language.norwegian')}</Button>}
-                    </Box>
+                    {/*<Box sx={{ mr: 2 }}>
+                        {i18n.language === 'no' && <Button size="small" variant="contained" onClick={() => changeLanguage("en")}>{t('language.english')}</Button>}
+                        {i18n.language === 'en' && <Button size="small" variant="contained" onClick={() => changeLanguage("no")}>{t('language.norwegian')}</Button>}
+                    </Box>*/}
                     <Badge className={classes.badge}
                         badgeContent={"5"}
                         color="secondary"

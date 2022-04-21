@@ -202,12 +202,12 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
         data.destination = destination;
         data.published = true;
         const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data);
-        if (integrationConfiguration && activeId !== undefined && activeConfiguration?.integrationId == undefined) {
+        if (integrationConfiguration && activeId !== undefined && activeConfiguration?.integrationId === undefined) {
             const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data, activeId);
             publishConfiguration(activeId, integrationConfiguration)
             reset({ ...defaultValues })
         }
-        else if (integrationConfiguration && activeId == undefined && activeConfiguration?.integrationId !== undefined) {
+        else if (integrationConfiguration && activeId === undefined && activeConfiguration?.integrationId !== undefined) {
             const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data, activeConfiguration.integrationId);
             publishConfiguration(activeConfiguration.integrationId, integrationConfiguration)
             reset({ ...defaultValues })
