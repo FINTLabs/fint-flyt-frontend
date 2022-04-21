@@ -156,7 +156,7 @@
             "applicantType": "Velg avsendartype",
             "organisationNumber": "Organisasjonsnummer",
             "nationalIdentityNumber": "Personnummer",
-            "applicantnName": "Navn",
+            "applicantName": "Navn",
             "address": "Adresse",
             "postalCode": "Postnummer",
             "city": "Poststad",
