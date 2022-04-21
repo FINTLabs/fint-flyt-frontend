@@ -100,6 +100,7 @@
         },
         "log": {
             "header": "Logg",
+            "dialogHeader": "Hendelse - meldinger",
             "table": {
                 "columns": {
                     "details": "Detaljer",
@@ -107,8 +108,12 @@
                     "timestamp": "Tidspunkt",
                     "name": "Navn",
                     "sourceApplicationIntegrationId": "Skjema",
-                    "sourceApplication": "Skjemaleverandør"
+                    "sourceApplication": "Skjemaleverandør",
+                    "errorMessage": "Feilmeldinger"
                 }
+            },
+            "button": {
+                "close": "Lukk"
             }
         },
         "support": {

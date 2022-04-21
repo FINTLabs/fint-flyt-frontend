@@ -100,13 +100,18 @@
         },
         "log": {
             "header": "Logg",
+            "dialogHeader": "Hending - meldingar",
             "columns": {
                 "details": "Detaljar",
                 "eventType": "Type",
                 "timestamp": "Tidspunkt",
                 "name": "Namn",
                 "sourceApplicationIntegrationId": "Skjema",
-                "sourceApplication": "Skjemaleverandør"
+                "sourceApplication": "Skjemaleverandør",
+                "errorMessage": "Feilmeldingar"
+            },
+            "button": {
+                "close": "Lukk"
             }
         },
         "support": {

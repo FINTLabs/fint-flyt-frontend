@@ -22,6 +22,7 @@ import {gridLocaleNoNB} from "../util/locale/gridLocaleNoNB";
 import { useTranslation } from 'react-i18next';
 
 function Log() {
+    const {t} = useTranslation('translations', {keyPrefix: 'pages.log'})
     const [allEvents, setAllEvents] = useState<IEvent[]>([]);
     const [selectedRow, setSelectedRow] = useState<IEvent>();
     const [open, setOpen] = React.useState(false);
@@ -38,24 +39,6 @@ function Log() {
             valueGetter: (params) => params.row.skjemaEventHeaders.sourceApplicationIntegrationId},
         { field: 'sourceApplication', type: 'string', headerName: 'Skjemaleverandør', flex: 1,
             valueGetter: (params) => params.row.skjemaEventHeaders.sourceApplication}
-    ];
-
-    const columns: GridColumns = [
-        { field: 'id', hide: true, type: 'number', headerName: 'id', flex: 0.5 },
-        {...GRID_DETAIL_PANEL_TOGGLE_COL_DEF, headerName: t('table.columns.details'), flex: 0.5,
-            renderCell: (params) => ( <CustomDetailPanelToggle id={params.id} value={params.value} row={params.row} />),
-        },
-        { field: 'type', type: 'string', headerName: t('table.columns.type'), flex: 0.5 },
-        { field: 'timestamp', type: 'string', headerName: t('table.columns.timestamp'), flex: 1,
-            valueGetter: (params) => moment(params.row.timestamp).format('DD/MM/YY HH:mm')
-        },
-        { field: 'name', type: 'string', headerName: t('table.columns.name'), flex: 1 },
-        { field: 'sourceApplicationIntegrationId', type: 'string', headerName: t('table.columns.sourceApplicationIntegrationId'), flex: 1,
-            valueGetter: (params) => params.row.skjemaEventHeaders.sourceApplicationIntegrationId
-        },
-        { field: 'sourceApplication', type: 'string', headerName: t('table.columns.sourceApplication'), flex: 1,
-            valueGetter: (params) => params.row.skjemaEventHeaders.sourceApplication
-        }
     ];
 
     function CustomDetailPanelToggle(props: GridCellParams["row"]) {
@@ -79,7 +62,7 @@ function Log() {
                     aria-labelledby="alert-dialog-title"
                     aria-describedby="alert-dialog-description"
                 >
-                    <DialogTitle id="alert-dialog-title">Hendelse - feilmeldinger</DialogTitle>
+                    <DialogTitle id="alert-dialog-title">{t('dialogHeader')}</DialogTitle>
                     <DialogContent>
                         {selectedRow &&
                             <Stack id={props.row.type+ `-panel`} sx={{ py: 2, boxSizing: 'border-box', height: '250px', minWidth: '500px' }} direction="column">
@@ -100,7 +83,7 @@ function Log() {
                             </Stack>}
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={handleClose} autoFocus>Lukk</Button>
+                        <Button onClick={handleClose} autoFocus>{t('button.close')}</Button>
                     </DialogActions>
                 </Dialog>
             </div>

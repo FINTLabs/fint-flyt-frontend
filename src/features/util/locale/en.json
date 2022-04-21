@@ -99,6 +99,7 @@
         },
         "log": {
             "header": "Log",
+            "dialogHeader": "Event - messages",
             "table": {
                 "columns": {
                     "details": "Details",
@@ -106,8 +107,12 @@
                     "timestamp": "Time",
                     "name": "Name",
                     "sourceApplicationIntegrationId": "Form",
-                    "sourceApplication": "Source application"
+                    "sourceApplication": "Source application",
+                    "errorMessage": "Error message"
                 }
+            },
+            "button": {
+                "close": "Close"
             }
         },
         "support": {
