@@ -1,92 +1,44 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import {
-    DataGridPro,
-    GRID_DETAIL_PANEL_TOGGLE_COL_DEF,
-    gridDetailPanelExpandedRowsContentCacheSelector,
-    useGridApiContext,
-    GridColumns,
-    GridRenderCellParams,
-    useGridSelector
-} from '@mui/x-data-grid-pro';
 import {withRouter} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {IEvent} from "./types/Event";
 import EventRepository from "./repository/EventRepository";
-import {gridLocaleNoNB} from "../util/locale/gridLocaleNoNB";
 import {addId} from "../util/JsonUtil";
-import {IconButton, Typography} from "@mui/material";
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import {
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    IconButton,
+    Typography
+} from "@mui/material";
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import moment from "moment";
+import {DataGrid, GridCellParams, GridColumns} from "@mui/x-data-grid";
+import {gridLocaleNoNB} from "../util/locale/gridLocaleNoNB";
 import { useTranslation } from 'react-i18next';
 
-// @ts-ignore
-function DetailPanelContent({ row: rowProp }) {
-    return (
-        <Stack id={rowProp.type+ `-panel`} sx={{ py: 2, height: 1, boxSizing: 'border-box' }} direction="column">
-                <Stack direction="column" sx={{ height: 1 }}>
-                    <DataGridPro
-                        disableColumnPinning={false}
-                        disableChildrenFiltering={false}
-                        disableRowGrouping={false}
-                        defaultGroupingExpansionDepth={0}
-                        disableChildrenSorting={false}
-                        rowGroupingColumnMode='single'
-                        scrollEndThreshold={80}
-                        treeData={false}
-                        density="compact"
-                        columns={[
-                            { field: 'args', headerName: 'Feilmelding', type: 'string', flex: 1,
-                                valueGetter: (params) => `${params.row.args.arg0 || ''} ${params.row.args.arg1 || ''}`
-                            },
-                        ]}
-                        rows={rowProp.errors}
-                        getRowId={(row) => row.errorCode}
-                        sx={{ flex: 1 }}
-                        hideFooter
-                    />
-                </Stack>
-        </Stack>
-    );
-}
-
-function CustomDetailPanelToggle(props: Pick<GridRenderCellParams, 'id' | 'value' | 'row'>) {
-    const { id, value: isExpanded, row } = props;
-    const hasErrors: boolean = row.errors.length > 0;
-    const apiRef = useGridApiContext();
-    const contentCache = useGridSelector(apiRef, gridDetailPanelExpandedRowsContentCacheSelector);
-    const hasDetail = React.isValidElement(contentCache[id]);
-
-    return (
-        <>
-            {hasErrors && <IconButton
-                size="small"
-                tabIndex={-1}
-                disabled={!hasDetail}
-                aria-label={isExpanded ? 'Close' : 'Open'}
-            >
-                <ExpandMoreIcon
-                    sx={{
-                        transform: `rotateZ(${isExpanded ? 180 : 0}deg)`,
-                        transition: (theme) =>
-                            theme.transitions.create('transform', {
-                                duration: theme.transitions.duration.shortest,
-                            }),
-                    }}
-                    fontSize="inherit"
-                />
-            </IconButton>}
-        </>
-    );
-}
-
 function Log() {
-    const { t } = useTranslation('translations', { keyPrefix: 'pages.log'});
     const [allEvents, setAllEvents] = useState<IEvent[]>([]);
-    useEffect(()=> {
-        getAllEvents();
-    }, []);
+    const [selectedRow, setSelectedRow] = useState<IEvent>();
+    const [open, setOpen] = React.useState(false);
+
+    const columns: GridColumns = [
+        { field: 'id', hide: true, type: 'number', headerName: 'id', flex: 0.5 },
+        { field: 'details', headerName: 'Detaljer', flex: 0.2, sortable: false, filterable: false,
+            renderCell: (params) => ( <CustomDetailPanelToggle row={params.row} />)},
+        { field: 'type', type: 'string', headerName: 'Type', flex: 0.5 },
+        { field: 'timestamp', type: 'string', headerName: 'Tidspunkt', flex: 1,
+            valueGetter: (params) => moment(params.row.timestamp).format('DD/MM/YY HH:mm')},
+        { field: 'name', type: 'string', headerName: 'Navn', flex: 1 },
+        { field: 'sourceApplicationIntegrationId', type: 'string', headerName: 'Skjema', flex: 1,
+            valueGetter: (params) => params.row.skjemaEventHeaders.sourceApplicationIntegrationId},
+        { field: 'sourceApplication', type: 'string', headerName: 'Skjemaleverandør', flex: 1,
+            valueGetter: (params) => params.row.skjemaEventHeaders.sourceApplication}
+    ];
 
     const columns: GridColumns = [
         { field: 'id', hide: true, type: 'number', headerName: 'id', flex: 0.5 },
@@ -106,6 +58,67 @@ function Log() {
         }
     ];
 
+    function CustomDetailPanelToggle(props: GridCellParams["row"]) {
+        const hasErrors: boolean = props.row.errors.length > 0;
+        return (
+            <>
+                {hasErrors && <IconButton size="small" onClick={() => {setSelectedRow(props.row); handleClickOpen()}} tabIndex={-1}>
+                    <OpenInNewIcon fontSize="inherit"/>
+                </IconButton>}
+            </>
+        );
+    }
+
+    function AlertDialog(props: any) {
+        return (
+            <div>
+                <Dialog
+                    open={open}
+                    fullWidth={true}
+                    onClose={handleClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <DialogTitle id="alert-dialog-title">Hendelse - feilmeldinger</DialogTitle>
+                    <DialogContent>
+                        {selectedRow &&
+                            <Stack id={props.row.type+ `-panel`} sx={{ py: 2, boxSizing: 'border-box', height: '250px', minWidth: '500px' }} direction="column">
+                                <Stack direction="column" sx={{ height: 1 }}>
+                                    <DataGrid
+                                        density="compact"
+                                        columns={[
+                                            { field: 'args', headerName: t('table.columns.errorMessage'), type: 'string', flex: 1,
+                                                valueGetter: (params) => `${params.row.args.arg0 || ''} ${params.row.args.arg1 || ''}`
+                                            }
+                                        ]}
+                                        rows={props.row.errors}
+                                        getRowId={(row) => row.errorCode}
+                                        sx={{ flex: 1 }}
+                                        hideFooter
+                                    />
+                                </Stack>
+                            </Stack>}
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleClose} autoFocus>Lukk</Button>
+                    </DialogActions>
+                </Dialog>
+            </div>
+        )
+    }
+
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+    useEffect(()=> {
+        getAllEvents();
+    }, []);
+
     const getAllEvents = () => {
         EventRepository.getEvents()
             .then((response) => {
@@ -121,31 +134,15 @@ function Log() {
             .catch(e => console.error('Error: ', e))
     }
 
-    const getDetailPanelContent = React.useCallback(
-        ({ row }) => row.errors.length > 0 ? <DetailPanelContent row={row}/> : null,
-        [],
-    );
-
-    const getDetailPanelHeight = React.useCallback(() => 300, []);
-
     return (
         <Box sx={{ width: 1, height: 1200 }}>
             <Typography>{t('header')}</Typography>
-            <DataGridPro
+            <AlertDialog row={selectedRow}/>
+            <DataGrid
                 columns={columns}
                 localeText={gridLocaleNoNB}
                 rows={allEvents}
                 rowThreshold={0}
-                getDetailPanelHeight={getDetailPanelHeight}
-                getDetailPanelContent={getDetailPanelContent}
-                disableColumnPinning={false}
-                disableChildrenFiltering={false}
-                disableRowGrouping={false}
-                defaultGroupingExpansionDepth={0}
-                disableChildrenSorting={false}
-                rowGroupingColumnMode='single'
-                scrollEndThreshold={80}
-                treeData={false}
             />
         </Box>
     );
