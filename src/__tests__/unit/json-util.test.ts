@@ -4,6 +4,15 @@ const array = [
     {
         "name":"name0",
         "type":"INFO",
+    }, {
+        "name":"name1",
+        "type":"ERROR",
+    }
+]
+const nestedArray = [
+    {
+        "name":"name0",
+        "type":"INFO",
         "errors":[]
     }, {
         "name":"name1",
@@ -20,15 +29,10 @@ const expectedArray = [
         "id": 0,
         "name":"name0",
         "type":"INFO",
-        "errors":[]
     }, {
         "name":"name1",
         "id": 1,
         "type":"ERROR",
-        "errors":[
-            {"errorCode":"error0Code"},
-            {"errorCode":"error1Code"}
-        ]
     }
 ]
 
@@ -53,9 +57,9 @@ test('It should add id field to json object, where there is a "name" field', () 
 });
 
 test('It should add id field to nested json object, where there is a "errorCode" field', () => {
-    array.forEach((item: any) =>
+    nestedArray.forEach((item: any) =>
         item.errors.forEach(addId(0, 'errorCode'))
     );
-    expect(array).toEqual(expectedNestedArray);
+    expect(nestedArray).toEqual(expectedNestedArray);
 });
 
