@@ -3000,6 +3000,11 @@ axe-core@^4.3.5:
   resolved "https://registry.npmjs.org/axe-core/-/axe-core-4.4.1.tgz"
   integrity sha512-gd1kmb21kwNuWr6BQz8fv6GNECPBnUasepcoLbekws23NVBLODdsClRZ+bQ8+9Uomf3Sm3+Vwn0oYG9NvwnJCw==
 
+axios-auth-refresh@^3.2.2:
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/axios-auth-refresh/-/axios-auth-refresh-3.2.2.tgz#e3ef505932d33318c74c2ffce04c0fdc9767ffe0"
+  integrity sha512-Ocu8leYhuhNejH/RBC0tWpUuv0cOplvdwltIQuYmkhihbZ8AqR0qPIZs+fV5V3JL6L5IM4Y5rjHgXyQWozjM7g==
+
 axios@^0.21.1:
   version "0.21.4"
   resolved "https://registry.npmjs.org/axios/-/axios-0.21.4.tgz"
