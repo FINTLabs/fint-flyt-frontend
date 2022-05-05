@@ -127,7 +127,7 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
                     <CardContent>
                         <Typography variant={"h6"}>Avsender</Typography>
                         <Typography><strong>Organisasjonsnummer:</strong> {activeConfiguration.applicantConfiguration?.organisationNumber}</Typography>
-                        <Typography><strong>Personnummer:</strong> {activeConfiguration.applicantConfiguration?.nationalIdentityNumber}</Typography>
+                        <Typography><strong>Fødselsnummer:</strong> {activeConfiguration.applicantConfiguration?.nationalIdentityNumber}</Typography>
                         {activeConfiguration.applicantConfiguration?.fields.map((field: any, index: number) => {
                             return<Typography key={index}><strong>{field.field}:</strong> {toValueString(field.valueBuilder)}</Typography>
                         })}
