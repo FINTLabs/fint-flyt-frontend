@@ -3,7 +3,7 @@ import * as React from "react";
 import {useContext, useEffect, useState} from "react";
 import IntegrationRepository from "../../integration/repository/IntegrationRepository";
 import {useHistory} from "react-router-dom";
-import {toValueString} from "../../util/ValueBuilderUtil";
+import {fieldToValue, toValueString} from "../../util/ValueBuilderUtil";
 import {IIntegrationConfiguration} from "../../integration/types/IntegrationConfiguration";
 import {ResourcesContext} from "../../../resourcesContext";
 import {IntegrationContext} from "../../../integrationContext";
@@ -16,13 +16,16 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
     const [version, setVersion] = useState(props.initialConfiguration.version)
     const latestVersion = props.initialVersion;
     const {integration, setIntegration, setSourceApplication, setDestination} = useContext(IntegrationContext);
+    const {setPrimaryClassification, setSecondaryClassification} = useContext(ResourcesContext);
+
     const versions = [];
     for (let i = 1; i<=latestVersion; i++) {
         versions.push({label: i, value: i})
     }
     const { getAllResources } = useContext(ResourcesContext);
-
     useEffect(()=> {
+        setPrimaryClassification({label: '', value: fieldToValue(integration.caseConfiguration, 'primarordningsprinsipp')})
+        setSecondaryClassification({label: '', value: fieldToValue(integration.caseConfiguration, 'sekundarordningsprinsipp')})
         getAllResources();
     }, [])
 
@@ -106,6 +109,8 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
                         <Typography variant={"h6"}>Sakspost</Typography>
                         <Typography><strong>Saksnummer: </strong>{activeConfiguration.caseConfiguration?.caseNumber}</Typography>
                         {activeConfiguration.caseConfiguration?.fields.map((field: any, index: number) => {
+                            console.log(field)
+                            console.log(fieldToValue(activeConfiguration.caseConfiguration, field.field))
                             return<Typography key={index}><strong>{field.field}:</strong> {toValueString(field.valueBuilder)}</Typography>
                         })}
                     </CardContent>
