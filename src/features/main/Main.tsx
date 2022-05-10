@@ -86,11 +86,11 @@ function Main() {
 
     const nav = useHistory();
 
-    const setError = async (f: any) => {
+    const redirect = async (f: any) => {
         nav.push('/oauth2/sign_out')
     };
 
-    createAuthRefreshInterceptor(axios, setError, {
+    createAuthRefreshInterceptor(axios, redirect, {
         statusCodes: [ 401, 403 ]
     });
 
