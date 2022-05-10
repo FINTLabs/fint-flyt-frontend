@@ -4,7 +4,6 @@ import Main from "./features/main/Main";
 import {BrowserRouter} from "react-router-dom";
 import ResourcesProvider from "./context/resourcesContext";
 import IntegrationProvider from "./context/integrationContext";
-import AppProvider from "./context/appContext";
 
 const theme = createTheme({
     palette: {
@@ -30,15 +29,13 @@ const theme = createTheme({
 function App() {
     return (
         <ThemeProvider theme={theme}>
-            <AppProvider>
-                <ResourcesProvider>
-                    <IntegrationProvider>
-                        <BrowserRouter>
-                            <Main/>
-                        </BrowserRouter>
-                    </IntegrationProvider>
-                </ResourcesProvider>
-            </AppProvider>
+            <ResourcesProvider>
+                <IntegrationProvider>
+                    <BrowserRouter>
+                        <Main/>
+                    </BrowserRouter>
+                </IntegrationProvider>
+            </ResourcesProvider>
         </ThemeProvider>
     );
 }
