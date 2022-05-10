@@ -194,7 +194,7 @@ export const fieldHelp = {
     applicantData: {
         type: 'Person eller organisasjon/bedrift',
         organisationNumber: 'Orgnr for avsenderbedrift',
-        nationalIdentityNumber: 'Personnummer for avsender',
+        nationalIdentityNumber: 'Fødselsnummer for avsender',
         name: 'Navn på bedrift/org, eller person',
         address: 'Postadresse',
         postalCode: 'Postkode',

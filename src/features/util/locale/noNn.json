@@ -45,7 +45,7 @@
                 },
                 "caseForm": {
                     "header": "Sak",
-                    "classification": "Klassifisering",
+                    "classification": "Klassering",
                     "button": {
                         "save": "Lagre"
                     }
@@ -155,7 +155,7 @@
             "variant": "Variant",
             "applicantType": "Velg avsendartype",
             "organisationNumber": "Organisasjonsnummer",
-            "nationalIdentityNumber": "Personnummer",
+            "nationalIdentityNumber": "Fødselsnummer",
             "applicantName": "Navn",
             "address": "Adresse",
             "postalCode": "Postnummer",
@@ -258,7 +258,7 @@
             "error": "Du må velge skjemaleverandør og destinasjon",
             "labels": {
                 "sourceApplication": "Skjemaleverandør",
-                "destination": "Destinasjon"
+                "destination": "Destinasjon/Base"
             },
             "button": {
                 "next": "Neste",
@@ -270,7 +270,7 @@
         "sourceApplicationFormPopoverContent": "I tekstfelta til i de ulike postane kan du benytte data frå skjema for å utfylle desse. Naviger til feltet du ynskjer å fylle, og dra inn tag frå lista under.",
         "sourceApplication": "Skjemaleverandør, f.eks ACOS",
         "sourceApplicationIntegrationId": "Skjema",
-        "destination": "fylkesting, fylkesråd, kollektiv ++",
+        "destination": "Velg hvilken base skjemaet skal overføres til",
         "name": "",
         "description": "",
         "version": "",
@@ -311,7 +311,7 @@
         "applicantData": {
             "type": "Person eller organisasjon/bedrift",
             "organisationNumber": "Orgnr for avsenderbedrift",
-            "nationalIdentityNumber": "Personnummer for avsendar",
+            "nationalIdentityNumber": "Fødselsnummer for avsendar",
             "name": "Navn på bedrift/org, eller person",
             "address": "Postadresse",
             "postalCode": "Postkode",

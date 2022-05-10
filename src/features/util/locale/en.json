@@ -272,7 +272,7 @@
         "sourceApplicationFormPopoverContent": "In the forms text fields you can use data from the selected form to fill these. Drag and drop to the field.",
         "sourceApplication": "Source appliation, i.e. ACOS",
         "sourceApplicationIntegrationId": "Form",
-        "destination": "Destination, i.e. fylkesting, fylkesråd, kollektiv ++",
+        "destination": "Choose base to transfer form to",
         "name": "Integration name",
         "description": "",
         "version": "",
@@ -313,7 +313,7 @@
         "applicantData": {
             "type": "Person eller organisasjon/bedrift",
             "organisationNumber": "Orgnr for avsenderbedrift",
-            "nationalIdentityNumber": "Personnummer for avsender",
+            "nationalIdentityNumber": "Fødselsnummer for avsender",
             "name": "Navn på bedrift/org, eller person",
             "address": "Postadresse",
             "postalCode": "Postkode",
