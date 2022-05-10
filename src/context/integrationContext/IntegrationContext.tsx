@@ -1,6 +1,6 @@
 import React, { createContext, useState, FC } from "react";
 import {contextDefaultValues, IntegrationContextState} from "./types";
-import {IIntegrationConfiguration} from "../features/integration/types/IntegrationConfiguration";
+import {IIntegrationConfiguration} from "../../features/integration/types/IntegrationConfiguration";
 
 export const IntegrationContext = createContext<IntegrationContextState>(
     contextDefaultValues

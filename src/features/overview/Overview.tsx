@@ -6,7 +6,7 @@ import IntegrationRepository from "../integration/repository/IntegrationReposito
 import {IRow} from "./types/Row";
 import IntegrationConfigurationDetails from "./components/IntegrationConfigurationDetails";
 import IntegrationConfigurationTable from "./components/IntegrationConfigurationTable";
-import {IntegrationContext} from "../../integrationContext";
+import {IntegrationContext} from "../../context/integrationContext";
 import { useTranslation } from 'react-i18next';
 
 

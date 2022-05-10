@@ -4,7 +4,7 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 import {createStyles, makeStyles} from "@mui/styles";
 import IntegrationRepository from "../integration/repository/IntegrationRepository";
 import {IRow} from "../overview/types/Row";
-import {IntegrationContext} from "../../integrationContext";
+import {IntegrationContext} from "../../context/integrationContext";
 import IntegrationConfigurationTable from "../overview/components/IntegrationConfigurationTable";
 import IntegrationConfigurationDetails from "../overview/components/IntegrationConfigurationDetails";
 import DashboardCard from "./DashboardCard";

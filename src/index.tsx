@@ -3,14 +3,6 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './features/util/locale/i18n.ts';
-import axios from 'axios';
-import createAuthRefreshInterceptor from 'axios-auth-refresh';
-
-const refreshAuthLogic = async (f: any) => {
-    window.location.reload();
-};
-
-createAuthRefreshInterceptor(axios, refreshAuthLogic);
 
 ReactDOM.render(
   <React.StrictMode>

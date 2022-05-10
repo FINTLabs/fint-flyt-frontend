@@ -2,7 +2,7 @@ import React, {useContext, useState} from 'react';
 import {destinations, sourceApplications} from "../defaults/DefaultValues";
 import {Box, Button, MenuItem, TextField, Typography} from "@mui/material";
 import {useHistory} from "react-router-dom";
-import {IntegrationContext} from "../../../integrationContext";
+import {IntegrationContext} from "../../../context/integrationContext";
 import HelpPopover from "./popover/HelpPopover";
 import {useTranslation} from "react-i18next";
 

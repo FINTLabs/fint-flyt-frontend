@@ -1,5 +1,5 @@
 import {INPUT_TYPE} from "./InputType.enum";
-import {IResourceItem} from "../../../resourcesContext/types";
+import {IResourceItem} from "../../../context/resourcesContext/types";
 
 export interface IInputField {
     input: INPUT_TYPE;

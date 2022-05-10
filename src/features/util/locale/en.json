@@ -4,7 +4,8 @@
         "language": "Language",
         "norwegian": "Norsk",
         "english": "English"
-    },    "menuItems": {
+    },
+    "menuItems": {
         "dashboard": "Dashboard",
         "newIntegration": "New integration",
         "editIntegration": "Edit integration",
@@ -129,6 +130,12 @@
             "sourceApplication": "Source application",
             "sourceApplicationIntegrationId": "Form",
             "caseCreationInfo": "Select creation strategy",
+            "caseCreationNew": "As new case",
+            "caseCreationNewInfo": "Form creates new case in Elements",
+            "caseCreationExisting": "On existing case",
+            "caseCreationExistingInfo": "On existing case based on information in form, if no match a new case is created",
+            "caseCreationCollection": "On case collection",
+            "caseCreationCollectionInfo": "Form is part of predefined case collection, here you must provide a case number",
             "caseNumber": "Case number",
             "title": "Title",
             "publicTitle": "Public title",
@@ -241,6 +248,7 @@
         }
     },
     "errors": {
+        "connection": "Tilkoblingsfeil",
         "code0": "General error"
     },
     "components": {

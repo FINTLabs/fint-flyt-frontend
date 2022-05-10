@@ -246,6 +246,7 @@
         }
     },
     "errors": {
+        "connection": "Tilkoblingsfeil",
         "code0": "Generell feil"
     },
     "components": {

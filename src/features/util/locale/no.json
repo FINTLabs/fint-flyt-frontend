@@ -248,6 +248,7 @@
         }
     },
     "errors": {
+        "connection": "En eller flere tjenester mangler ",
         "code0": "Generell feil"
     },
     "components": {
