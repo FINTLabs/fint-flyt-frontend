@@ -77,14 +77,11 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function Main() {
     const classes = useStyles();
-
+    const nav = useHistory();
     const { t, i18n } = useTranslation();
-
     const changeLanguage = (lng: string) => {
         i18n.changeLanguage(lng);
     };
-
-    const nav = useHistory();
 
     const redirect = async (f: any) => {
         nav.push('/oauth2/sign_out')
