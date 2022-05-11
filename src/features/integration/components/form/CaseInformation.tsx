@@ -7,7 +7,7 @@ import {creationStrategies, destinations, forms, sourceApplications} from "../..
 import {CreationStrategy} from "../../types/CreationStrategy";
 import {FieldErrors} from "react-hook-form";
 import IntegrationRepository from "../../repository/IntegrationRepository";
-import {IntegrationContext} from "../../../../integrationContext";
+import {IntegrationContext} from "../../../../context/integrationContext";
 import LockIcon from '@mui/icons-material/Lock';
 import HelpPopover from "../popover/HelpPopover";
 import { useTranslation } from 'react-i18next';

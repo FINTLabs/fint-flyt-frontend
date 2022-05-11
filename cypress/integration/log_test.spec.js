@@ -28,6 +28,6 @@ describe('Testing log', () => {
         cy.get('#ERROR-panel').should("not.contain.text", 'not_a_column')
     })
     it('should close the dialog on close button', () => {
-        cy.get('.MuiButton-root').click()
+        cy.get('.MuiDialogActions-root > .MuiButton-root').click()
     })
 });

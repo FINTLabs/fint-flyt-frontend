@@ -6,7 +6,7 @@ import {INPUT_TYPE} from "../../types/InputType.enum";
 import {IInputField} from "../../types/InputField";
 import {ApplicantType} from "../../types/ApplicantType";
 import {FieldErrors} from "react-hook-form";
-import {ResourcesContext} from "../../../../resourcesContext";
+import {ResourcesContext} from "../../../../context/resourcesContext";
 import HelpPopover from "../popover/HelpPopover";
 import { useTranslation } from 'react-i18next';
 

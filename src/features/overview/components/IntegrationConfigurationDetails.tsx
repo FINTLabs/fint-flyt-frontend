@@ -5,8 +5,8 @@ import IntegrationRepository from "../../integration/repository/IntegrationRepos
 import {useHistory} from "react-router-dom";
 import {toValueString} from "../../util/ValueBuilderUtil";
 import {IIntegrationConfiguration} from "../../integration/types/IntegrationConfiguration";
-import {ResourcesContext} from "../../../resourcesContext";
-import {IntegrationContext} from "../../../integrationContext";
+import {ResourcesContext} from "../../../context/resourcesContext";
+import {IntegrationContext} from "../../../context/integrationContext";
 
 
 const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) => {

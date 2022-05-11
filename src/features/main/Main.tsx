@@ -5,8 +5,7 @@ import {
     Drawer,
     Theme,
     Toolbar,
-    Typography,
-    Button
+    Typography
 } from "@mui/material";
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import FintLogo from "../../images/fint-by-vigo-white.svg";
@@ -14,9 +13,10 @@ import FintLogo from "../../images/fint-by-vigo-white.svg";
 import { createStyles, makeStyles } from "@mui/styles";
 import Router from "./Router";
 import MenuItems from "./MenuItems";
-import { Link as RouterLink } from "react-router-dom";
+import {Link as RouterLink, useHistory} from "react-router-dom";
 import { useTranslation } from "react-i18next";
-
+import createAuthRefreshInterceptor from "axios-auth-refresh";
+import axios from "axios";
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme: Theme) =>
@@ -77,12 +77,19 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function Main() {
     const classes = useStyles();
-
+    const nav = useHistory();
     const { t, i18n } = useTranslation();
-
     const changeLanguage = (lng: string) => {
         i18n.changeLanguage(lng);
     };
+
+    const redirect = async (f: any) => {
+        nav.push('/oauth2/sign_out')
+    };
+
+    createAuthRefreshInterceptor(axios, redirect, {
+        statusCodes: [ 401, 403 ]
+    });
 
     return (
         <Box display="flex" position="relative" width={1} height={1}>

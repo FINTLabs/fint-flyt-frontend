@@ -1,4 +1,4 @@
-import {IIntegrationConfiguration} from "../features/integration/types/IntegrationConfiguration";
+import {IIntegrationConfiguration} from "../../features/integration/types/IntegrationConfiguration";
 
 export type IntegrationContextState = {
     integration: IIntegrationConfiguration;
