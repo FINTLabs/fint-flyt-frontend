@@ -85,6 +85,7 @@ function Main() {
 
     const redirect = async (f: any) => {
         nav.push('/oauth2/sign_out')
+        window.location.reload();
     };
 
     createAuthRefreshInterceptor(axios, redirect, {
