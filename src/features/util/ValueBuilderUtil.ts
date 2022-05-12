@@ -47,6 +47,5 @@ export function fieldToValue(configuration: any, inputField: string) {
     let test = configuration?.fields.filter((field: any) => {
         return field.field == inputField
     })
-    console.log(test)
     return test[0] ? test[0].valueBuilder.value : null;
 }

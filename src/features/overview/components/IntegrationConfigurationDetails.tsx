@@ -109,8 +109,6 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
                         <Typography variant={"h6"}>Sakspost</Typography>
                         <Typography><strong>Saksnummer: </strong>{activeConfiguration.caseConfiguration?.caseNumber}</Typography>
                         {activeConfiguration.caseConfiguration?.fields.map((field: any, index: number) => {
-                            console.log(field)
-                            console.log(fieldToValue(activeConfiguration.caseConfiguration, field.field))
                             return<Typography key={index}><strong>{field.field}:</strong> {toValueString(field.valueBuilder)}</Typography>
                         })}
                     </CardContent>
