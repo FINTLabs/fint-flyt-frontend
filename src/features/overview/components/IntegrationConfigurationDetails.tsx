@@ -3,7 +3,7 @@ import * as React from "react";
 import {useContext, useEffect, useState} from "react";
 import IntegrationRepository from "../../integration/repository/IntegrationRepository";
 import {useHistory} from "react-router-dom";
-import {fieldToValue, toValueString} from "../../util/ValueBuilderUtil";
+import {fieldToString, toValueString} from "../../util/ValueBuilderUtil";
 import {IIntegrationConfiguration} from "../../integration/types/IntegrationConfiguration";
 import {ResourcesContext} from "../../../resourcesContext";
 import {IntegrationContext} from "../../../integrationContext";
@@ -24,8 +24,8 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
     }
     const { getAllResources } = useContext(ResourcesContext);
     useEffect(()=> {
-        setPrimaryClassification({label: '', value: fieldToValue(integration.caseConfiguration, 'primarordningsprinsipp')})
-        setSecondaryClassification({label: '', value: fieldToValue(integration.caseConfiguration, 'sekundarordningsprinsipp')})
+        setPrimaryClassification({label: '', value: fieldToString(integration.caseConfiguration, 'primarordningsprinsipp')})
+        setSecondaryClassification({label: '', value: fieldToString(integration.caseConfiguration, 'sekundarordningsprinsipp')})
         getAllResources();
     }, [])
 

@@ -42,10 +42,3 @@ export function fieldToString(configuration: any, configurationField: string, va
     }
     return fields.length > 0 ? fields[0].valueBuilder.value : '';
 }
-
-export function fieldToValue(configuration: any, inputField: string) {
-    let test = configuration?.fields.filter((field: any) => {
-        return field.field == inputField
-    })
-    return test[0] ? test[0].valueBuilder.value : null;
-}
