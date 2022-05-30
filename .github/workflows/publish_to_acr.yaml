@@ -1,7 +1,5 @@
 name: publish image to ACR
 on:
-  repository_dispatch:
-    types: [trigger-to-publish]
 
   workflow_dispatch:
 
