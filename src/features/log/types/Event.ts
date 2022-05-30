@@ -5,20 +5,21 @@ export interface IEvent {
     timeStamp: Date;
     type: string;
     errors: IError[];
-    skjemaEventHeaders: ISkjemaEventHeaders[];
+    instanceFlowHeaders: IInstanceFlowHeadersEmbeddable[];
 }
 
-export interface ISkjemaEventHeaders {
+export interface IInstanceFlowHeadersEmbeddable {
     orgId: string;
     service: string;
     sourceApplication: string;
     sourceApplicationIntegrationId: string;
     sourceApplicationInstanceId: string;
-    correlationId: number;
-    instanceId: number;
-    configurationId: number;
-    caseId: number;
-    dispatchId: number;
+    integrationId: string;
+    correlationId: string;
+    instanceId: string;
+    configurationId: string;
+    caseId: string;
+    dispatchId: string;
 }
 
 export interface IError {
