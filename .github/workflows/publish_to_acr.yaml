@@ -1,5 +1,6 @@
 name: publish image to ACR
 on:
+  push:
 
   workflow_dispatch:
 
