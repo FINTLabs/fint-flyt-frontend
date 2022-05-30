@@ -8,6 +8,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        node-version: [12.0.0]
     steps:
       - name: Checkout repository
         uses: actions/checkout@main
@@ -16,9 +19,14 @@ jobs:
         id: get_repo
         run: echo ::set-output name=REPO::${GITHUB_REPOSITORY#*/}
 
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
       - name: Build artefacts
         run: |
-          gradle build --no-daemon
+          npm run build
           mkdir data
           cp ./build/libs/${GITHUB_REPOSITORY#*/}-*.jar ./data/app.jar
           echo "Branch: ${{ github.ref}}"
