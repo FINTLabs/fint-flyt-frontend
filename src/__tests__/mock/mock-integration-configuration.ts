@@ -168,9 +168,18 @@ export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
                 }
             },
             {
+                "field": "tertiarordningsprinsipp",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "everdeen"
+                }
+            },
+            {
                 "field": "primarklasse",
                 "valueBuildStrategy": 0,
                 "valueBuilder": {
+                    "properties": [],
                     "value": "1class"
                 }
             },
@@ -180,6 +189,15 @@ export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
                 "valueBuilder": {
                     "properties": [],
                     "value": "2class"
+                }
+            }
+            ,
+            {
+                "field": "tertiarklasse",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "3class"
                 }
             }
         ]
@@ -459,9 +477,18 @@ export const MOCK_INTEGRATION_CONFIG_NOT_PUBLISHED = {
                 }
             },
             {
+                "field": "tertiarordningsprinsipp",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "everdeen"
+                }
+            },
+            {
                 "field": "primarklasse",
                 "valueBuildStrategy": 0,
                 "valueBuilder": {
+                    "properties": [],
                     "value": "1class"
                 }
             },
@@ -471,6 +498,14 @@ export const MOCK_INTEGRATION_CONFIG_NOT_PUBLISHED = {
                 "valueBuilder": {
                     "properties": [],
                     "value": "2class"
+                }
+            },
+            {
+                "field": "tertiarklasse",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "3class"
                 }
             }
         ]
@@ -748,9 +783,18 @@ export const MOCK_INTEGRATION_CONFIG_PUBLISHED = {
                 }
             },
             {
+                "field": "tertiarordningsprinsipp",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "everdeen"
+                }
+            },
+            {
                 "field": "primarklasse",
                 "valueBuildStrategy": 0,
                 "valueBuilder": {
+                    "properties": [],
                     "value": "1class"
                 }
             },
@@ -760,6 +804,14 @@ export const MOCK_INTEGRATION_CONFIG_PUBLISHED = {
                 "valueBuilder": {
                     "properties": [],
                     "value": "2class"
+                }
+            },
+            {
+                "field": "tertiarklasse",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "3class"
                 }
             }
         ]
@@ -1058,9 +1110,18 @@ export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
                 }
             },
             {
+                "field": "tertiarordningsprinsipp",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "everdeen"
+                }
+            },
+            {
                 "field": "primarklasse",
                 "valueBuildStrategy": 0,
                 "valueBuilder": {
+                    "properties": [],
                     "value": "1class"
                 }
             },
@@ -1070,6 +1131,14 @@ export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
                 "valueBuilder": {
                     "properties": [],
                     "value": "2class"
+                }
+            },
+            {
+                "field": "tertiarklasse",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "3class"
                 }
             }
         ]
