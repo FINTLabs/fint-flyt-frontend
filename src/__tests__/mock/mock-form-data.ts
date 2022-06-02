@@ -18,9 +18,11 @@ export const MOCK_FORMDATA: IFormData = {
         caseWorker: 'rand',
         primaryClassification: 'prim',
         secondaryClassification: 'rose',
+        tertiaryClassification: 'everdeen',
         status: '',
         primaryClass: '1class',
         secondaryClass: '2class',
+        tertiaryClass: '3class',
     },
     recordData: {
         title: 'record title',
@@ -72,8 +74,10 @@ export const MOCK_FORMDATA_NOT_PUBLISHED: IFormData = {
         caseWorker: 'rand',
         primaryClassification: 'prim',
         secondaryClassification: 'rose',
+        tertiaryClassification: 'everdeen',
         primaryClass: '1class',
         secondaryClass: '2class',
+        tertiaryClass: '3class',
     },
     recordData: {
         title: 'record title',
@@ -123,8 +127,10 @@ export const MOCK_FORMDATA_PUBLISHED: IFormData = {
         caseWorker: 'rand',
         primaryClassification: 'prim',
         secondaryClassification: 'rose',
+        tertiaryClassification: 'everdeen',
         primaryClass: '1class',
         secondaryClass: '2class',
+        tertiaryClass: '3class',
     },
     recordData: {
         title: 'record title',
@@ -187,6 +193,8 @@ export const MOCK_FORMDATA_WITH_TAGS: IFormData = {
         "secondaryClass": "2class",
         "secondaryClassification": "rose",
         "status": "",
+        "tertiaryClass": "3class",
+        "tertiaryClassification": "everdeen",
         "title": "Title of case with {tags}"
     },
     "description": "form to test mapping with form tags",

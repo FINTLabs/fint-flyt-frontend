@@ -100,17 +100,25 @@ export function toIntegrationConfiguration(data: IFormData, id?: string): IInteg
                         valueBuilder: createValueBuilder(data.caseData?.secondaryClassification)
                     },
                     {
+                        field: "tertiarordningsprinsipp",
+                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
+                        valueBuilder: createValueBuilder(data.caseData?.tertiaryClassification)
+                    },
+                    {
                         field: "primarklasse",
                         valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                        valueBuilder: {
-                            value: data.caseData?.primaryClass
-                        }
+                        valueBuilder: createValueBuilder(data.caseData?.primaryClass)
                     },
                     {
                         field: "sekundarklasse",
                         valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
                         valueBuilder: createValueBuilder(data.caseData?.secondaryClass)
-
+                    }
+                    ,
+                    {
+                        field: "tertiarklasse",
+                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
+                        valueBuilder: createValueBuilder(data.caseData?.tertiaryClass)
                     }
                 ]
             },

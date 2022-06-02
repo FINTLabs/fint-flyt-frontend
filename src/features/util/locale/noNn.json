@@ -146,8 +146,10 @@
             "responsibleCaseWorker": "Ansvarleg saksbehandlar",
             "primaryClassification": "Primær ordningsprinsipp",
             "secondaryClassification": "Sekundær ordningsprinsipp",
+            "tertiaryClassification": "Tertiær ordningsprinsipp",
             "primaryClass": "Primærklasse",
             "secondaryClass": "Sekundærklasse",
+            "tertiaryClass": "Tertiærklasse",
             "type": "Type",
             "recordStatus": "Status",
             "caseWorker": "Saksbehandlar",
@@ -209,8 +211,10 @@
                 "caseWorker": "",
                 "primaryClassification": "",
                 "secondaryClassification": "",
+                "tertiaryClassification": "",
                 "primaryClass": "",
-                "secondaryClass": ""
+                "secondaryClass": "",
+                "tertiaryClass": ""
             },
             "recordConfiguration": {
                 "title": "",

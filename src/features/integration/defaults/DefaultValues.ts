@@ -27,8 +27,10 @@ export const defaultValues: IFormData = {
         caseWorker: '',
         primaryClassification: '',
         secondaryClassification: '',
+        tertiaryClassification: '',
         primaryClass: '',
-        secondaryClass: ''
+        secondaryClass: '',
+        tertiaryClass: ''
     },
     recordData: {
         title: '',

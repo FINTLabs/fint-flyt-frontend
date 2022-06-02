@@ -148,8 +148,10 @@
             "responsibleCaseWorker": "Ansvarlig saksbehandler",
             "primaryClassification": "Primær ordningsprinsipp",
             "secondaryClassification": "Sekundær ordningsprinsipp",
+            "tertiaryClassification": "Tertiær ordningsprinsipp",
             "primaryClass": "Primærklasse",
             "secondaryClass": "Sekundærklasse",
+            "tertiaryClass": "Tertiærklasse",
             "type": "Type",
             "recordStatus": "Status",
             "caseWorker": "Saksbehandler",
@@ -175,18 +177,18 @@
                 "collection":"På samlesak",
                 "collectionDesc":"Innsendt skjema skal leveres til en forhåndsdefinert samlesak. Her må du opplyse om saksnummer"
             },
-            "applicantOptions": {                
+            "applicantOptions": {
                 "individual":"Privatperson",
                 "organisation":"Organisasjon"
             },
-            "sourceApplicationIntegrations": { 
+            "sourceApplicationIntegrations": {
                 "VIK014": "Søknad om reservasjon av skoleplass",
                 "VIK036": "Søknad til kombinasjonsprogram",
                 "VIK108": "Søknad om TT-kort",
                 "VIK132": "Samtykke - fotografering/video/lyd"
             },
-            "sourceApplications": { 
-                "label": "ACOS" 
+            "sourceApplications": {
+                "label": "ACOS"
             }
         }
     },
@@ -211,8 +213,10 @@
                 "caseWorker": "",
                 "primaryClassification": "",
                 "secondaryClassification": "",
+                "tertiaryClassification": "",
                 "primaryClass": "",
-                "secondaryClass": ""
+                "secondaryClass": "",
+                "tertiaryClass": ""
             },
             "recordConfiguration": {
                 "title": "",

@@ -148,8 +148,10 @@
             "responsibleCaseWorker": "Responsible case worker",
             "primaryClassification": "Primary classification",
             "secondaryClassification": "Secondary classification",
+            "tertiaryClassification": "Tertiary classification",
             "primaryClass": "Primary class",
             "secondaryClass": "Secondary class",
+            "tertiaryClass": "Tertiary class",
             "type": "Type",
             "recordStatus": "Status",
             "caseWorker": "Case worker",
@@ -211,8 +213,10 @@
                 "caseWorker": "",
                 "primaryClassification": "",
                 "secondaryClassification": "",
+                "tertiaryClassification": "",
                 "primaryClass": "",
-                "secondaryClass": ""
+                "secondaryClass": "",
+                "tertiaryClass": ""
             },
             "recordConfiguration": {
                 "title": "",

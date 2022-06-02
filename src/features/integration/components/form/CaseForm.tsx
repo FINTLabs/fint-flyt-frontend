@@ -11,7 +11,9 @@ import { useTranslation } from 'react-i18next';
 const CaseForm: React.FunctionComponent<any> = (props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationForm.accordions.caseForm'});
     const {administrativeUnits, accessCodes, paragraphs, statuses, archiveSections, archiveResources,
-        classificationSystems, primaryClassification, secondaryClassification, primaryClass, secondaryClass, getPrimaryClass, getSecondaryClass, setPrimaryClassification, setSecondaryClassification } = useContext(ResourcesContext);
+        classificationSystems, primaryClassification, secondaryClassification, tertiaryClassification,
+        primaryClass, secondaryClass, tertiaryClass, getPrimaryClass, getSecondaryClass, getTertiaryClass,
+        setPrimaryClassification, setSecondaryClassification, setTertiaryClassification } = useContext(ResourcesContext);
 
     useEffect(()=> {
         getPrimaryClass();
@@ -20,6 +22,10 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
     useEffect(()=> {
         getSecondaryClass();
     }, [secondaryClassification, setSecondaryClassification])
+
+    useEffect(()=> {
+        getTertiaryClass();
+    }, [tertiaryClassification, setTertiaryClassification])
 
     let errors: FieldErrors = props.errors;
     let required: boolean = props.validation;
@@ -40,7 +46,9 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
         {input: INPUT_TYPE.DROPDOWN, label: "labels.primaryClassification", value: props.watch("caseData.primaryClassification"), formValue: "caseData.primaryClassification", dropDownItems: classificationSystems, required: required, error:errors.caseData?.primaryClassification, setter: setPrimaryClassification, helpText: "caseData.classification"},
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.primaryClass", value: props.watch("caseData.primaryClass"), formValue: "caseData.primaryClass", dropDownItems: primaryClass, required: required, error:errors.caseData?.primaryClass, helpText: "caseData.class"},
         {input: INPUT_TYPE.DROPDOWN, label: "labels.secondaryClassification", value: props.watch("caseData.secondaryClassification"), formValue: "caseData.secondaryClassification", dropDownItems: classificationSystems, required: required, error:errors.caseData?.secondaryClassification, setter: setSecondaryClassification, helpText: "caseData.classification"},
-        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.secondaryClass", value: props.watch("caseData.secondaryClass"), formValue: "caseData.secondaryClass", dropDownItems: secondaryClass, required: required, error:errors.caseData?.secondaryClass, helpText: "caseData.class"}
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.secondaryClass", value: props.watch("caseData.secondaryClass"), formValue: "caseData.secondaryClass", dropDownItems: secondaryClass, required: required, error:errors.caseData?.secondaryClass, helpText: "caseData.class"},
+        {input: INPUT_TYPE.DROPDOWN, label: "labels.tertiaryClassification", value: props.watch("caseData.tertiaryClassification"), formValue: "caseData.tertiaryClassification", dropDownItems: classificationSystems, required: required, error:errors.caseData?.tertiaryClassification, setter: setTertiaryClassification, helpText: "caseData.classification"},
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.tertiaryClass", value: props.watch("caseData.tertiaryClass"), formValue: "caseData.tertiaryClass", dropDownItems: tertiaryClass, required: required, error:errors.caseData?.tertiaryClass, helpText: "caseData.class"}
     ]
 
     return (

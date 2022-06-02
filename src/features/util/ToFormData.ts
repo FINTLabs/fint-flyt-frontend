@@ -26,8 +26,10 @@ export function toFormData(data: IIntegrationConfiguration): IFormData {
             caseWorker: fieldToString(data.caseConfiguration, 'saksansvarlig'),
             primaryClassification: fieldToString(data.caseConfiguration, 'primarordningsprinsipp', true),
             secondaryClassification: fieldToString(data.caseConfiguration, 'sekundarordningsprinsipp', true),
+            tertiaryClassification: fieldToString(data.caseConfiguration, 'tertiarordningsprinsipp', true),
             primaryClass: fieldToString(data.caseConfiguration, 'primarklasse'),
-            secondaryClass: fieldToString(data.caseConfiguration, 'sekundarklasse')
+            secondaryClass: fieldToString(data.caseConfiguration, 'sekundarklasse'),
+            tertiaryClass: fieldToString(data.caseConfiguration, 'tertiarklasse')
         },
         recordData: {
             title: fieldToString(data.recordConfiguration, 'tittel', true),
