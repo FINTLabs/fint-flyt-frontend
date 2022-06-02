@@ -3,7 +3,7 @@ import * as React from "react";
 import {useContext, useEffect, useState} from "react";
 import IntegrationRepository from "../../integration/repository/IntegrationRepository";
 import {useHistory} from "react-router-dom";
-import {toValueString} from "../../util/ValueBuilderUtil";
+import {fieldToString, toValueString} from "../../util/ValueBuilderUtil";
 import {IIntegrationConfiguration} from "../../integration/types/IntegrationConfiguration";
 import {ResourcesContext} from "../../../context/resourcesContext";
 import {IntegrationContext} from "../../../context/integrationContext";
@@ -16,13 +16,16 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
     const [version, setVersion] = useState(props.initialConfiguration.version)
     const latestVersion = props.initialVersion;
     const {integration, setIntegration, setSourceApplication, setDestination} = useContext(IntegrationContext);
+    const {setPrimaryClassification, setSecondaryClassification} = useContext(ResourcesContext);
+
     const versions = [];
     for (let i = 1; i<=latestVersion; i++) {
         versions.push({label: i, value: i})
     }
     const { getAllResources } = useContext(ResourcesContext);
-
     useEffect(()=> {
+        setPrimaryClassification({label: '', value: fieldToString(integration.caseConfiguration, 'primarordningsprinsipp')})
+        setSecondaryClassification({label: '', value: fieldToString(integration.caseConfiguration, 'sekundarordningsprinsipp')})
         getAllResources();
     }, [])
 
