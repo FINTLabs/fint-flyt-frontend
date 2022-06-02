@@ -102,22 +102,6 @@ export const destinations: ISelect[] = [
     { label: "Fylkesråd", value: "fylkesrad" }
 ];
 
-export const caseWorkers: ISelect[] = [
-    {label: 'Brendan Costanza', value: 'hotdog'},
-    {label: 'Diana Seelix', value: 'hardball'},
-    {label: 'Dwight Saunders', value: 'flattop'},
-    {label: 'Kara Thrace', value: 'starbuck'},
-    {label: 'Karl Agathon', value: 'helo'},
-    {label: 'Lee Adama', value: 'apollo'},
-    {label: 'Louanne Katraine', value: 'kat'},
-    {label: 'Marcia Case', value: 'showboat'},
-    {label: 'Samuel Anders', value: 'longshot'},
-    {label: 'Sharon Valerii', value: 'boomer'},
-    {label: 'Sharon Agathon', value: 'athena'},
-    {label: 'Paolo McKay', value: 'redwing'},
-    {label: 'William Adama', value: 'husker'}
-]
-
 export const tagList: ITag[] = [
     {value:"{fodselsnummer}",  name:"Fødselsnummer"},
     {value:"{fornavn}",  name:"Fornavn"},
@@ -129,9 +113,6 @@ export const tagList: ITag[] = [
     {value:"{email}",  name:"Email"},
     {value:"{organisasjonsnummer}",  name:"Organisasjonsnummer"}
 ]
-
-export const sourceApplicationFormPopoverContent: string = 'I tekstfeltene til i de ulike postene kan du benytte data fra skjema for å utfylle disse. \n\n' +
-    'Naviger til feltet du ønsker å fylle,og dra inn tag fra listen under.'
 
 export const fieldHelp = {
     name: 'Navn på integrasjon',

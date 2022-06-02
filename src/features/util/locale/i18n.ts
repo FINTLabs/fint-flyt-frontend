@@ -6,7 +6,6 @@ import noNB from './no.json';
 i18n
   .use(initReactI18next)
   .init({
-    // we init with resources
     resources: {
       no: {
         translations: noNB
@@ -18,11 +17,10 @@ i18n
     fallbackLng: "no",
     debug: true,
 
-    // have a common namespace used around the full app
     ns: ["translations"],
     defaultNS: "translations",
 
-    keySeparator: '.', // we use content as keys
+    keySeparator: '.',
 
     interpolation: {
       escapeValue: false
