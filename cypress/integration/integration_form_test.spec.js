@@ -1,4 +1,18 @@
 describe('Testing Integration Form', () => {
+    before(() => {
+        cy.intercept('GET', '**/api/kodeverk/administrativenhet', {fixture: 'administrativenhet.json'}).as('getAdminstrativeUnits')
+        cy.intercept('GET', '**/api/kodeverk/arkivdel', {fixture: 'arkivdel.json'}).as('getArchiveSection')
+        cy.intercept('GET', '**/api/kodeverk/arkivressurs', {fixture: 'arkivressurs.json'}).as('getArchiveResources')
+        cy.intercept('GET', '**/api/kodeverk/dokumentstatus', {fixture: 'dokumentstatus.json'}).as('getDocumentStatuses')
+        cy.intercept('GET', '**/api/kodeverk/dokumenttype', {fixture: 'dokumenttype.json'}).as('getDocumentTypes')
+        cy.intercept('GET', '**/api/kodeverk/journalstatus', {fixture: 'journalstatus.json'}).as('getJournalStatuses')
+        cy.intercept('GET', '**/api/kodeverk/klassifikasjonssystem', {fixture: 'klassifikasjonssystem.json'}).as('getAdminstrativeUnits')
+        cy.intercept('GET', '**/api/kodeverk/sakstatus', {fixture: 'sakstatus.json'}).as('getStatuses')
+        cy.intercept('GET', '**/api/kodeverk/skjermingshjemmel', {fixture: 'skjermingshjemmel.json'}).as('getParagraphs')
+        cy.intercept('GET', '**/api/kodeverk/tilgangsrestriksjon', {fixture: 'tilgangrestriksjon.json'}).as('getAccessCodes')
+        cy.intercept('GET', '**/api/kodeverk/variantformat', {fixture: 'variantformat.json'}).as('getVariants')
+    })
+
         it('should open', () => {
             cy.visit('/integration/configuration/new')
         });
@@ -40,6 +54,7 @@ describe('Testing Integration Form', () => {
             cy.get('#caseData\\.caseCreationStrategy-COLLECTION > .MuiFormControlLabel-root > .MuiTypography-root').click()
             cy.get('#caseData\\.caseNumber').should('be.visible')
             cy.get('#caseData\\.caseNumber').type('2021/06')
+            cy.intercept('GET', '**/api/sak/mappeid/**', {fixture: 'tittel.json'}).as('getTittel')
             cy.get('#case-information-search-btn').click()
             cy.get('#case-information-case-search-result').should('be.visible')
         });
