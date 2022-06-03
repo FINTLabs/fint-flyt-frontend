@@ -1,16 +1,17 @@
 describe('Testing filling Integration Form', () => {
     before(() => {
-        cy.intercept('GET', '**/kodeverk/administrativenhet', {fixture: 'administrativenhet.json'}).as('getAdminstrativeUnits')
-        cy.intercept('GET', '**/kodeverk/arkivdel', {fixture: 'arkivdel.json'}).as('getArchiveSection')
-        cy.intercept('GET', '**/kodeverk/arkivressurs', {fixture: 'arkivressurs.json'}).as('getArchiveResources')
-        cy.intercept('GET', '**/kodeverk/dokumentstatus', {fixture: 'dokumentstatus.json'}).as('getDocumentStatuses')
-        cy.intercept('GET', '**/kodeverk/dokumenttype', {fixture: 'dokumenttype.json'}).as('getDocumentTypes')
-        cy.intercept('GET', '**/kodeverk/journalstatus', {fixture: 'journalstatus.json'}).as('getJournalStatuses')
-        cy.intercept('GET', '**/kodeverk/klassifikasjonssystem', {fixture: 'klassifikasjonssystem.json'}).as('getAdminstrativeUnits')
-        cy.intercept('GET', '**/kodeverk/sakstatus', {fixture: 'sakstatus.json'}).as('getStatuses')
-        cy.intercept('GET', '**/kodeverk/skjermingshjemmel', {fixture: 'skjermingshjemmel.json'}).as('getParagraphs')
-        cy.intercept('GET', '**/kodeverk/tilgangsrestriksjon', {fixture: 'tilgangrestriksjon.json'}).as('getAccessCodes')
-        cy.intercept('GET', '**/kodeverk/variantformat', {fixture: 'variantformat.json'}).as('getVariants')
+        cy.intercept('GET', '**/api/kodeverk/administrativenhet', {fixture: 'administrativenhet.json'}).as('getAdminstrativeUnits')
+        cy.intercept('GET', '**/api/kodeverk/arkivdel', {fixture: 'arkivdel.json'}).as('getArchiveSection')
+        cy.intercept('GET', '**/api/kodeverk/arkivressurs', {fixture: 'arkivressurs.json'}).as('getArchiveResources')
+        cy.intercept('GET', '**/api/kodeverk/dokumentstatus', {fixture: 'dokumentstatus.json'}).as('getDocumentStatuses')
+        cy.intercept('GET', '**/api/kodeverk/dokumenttype', {fixture: 'dokumenttype.json'}).as('getDocumentTypes')
+        cy.intercept('GET', '**/api/kodeverk/journalstatus', {fixture: 'journalstatus.json'}).as('getJournalStatuses')
+        cy.intercept('GET', '**/api/kodeverk/klassifikasjonssystem', {fixture: 'klassifikasjonssystem.json'}).as('getAdminstrativeUnits')
+        cy.intercept('GET', '**/api/kodeverk/sakstatus', {fixture: 'sakstatus.json'}).as('getStatuses')
+        cy.intercept('GET', '**/api/kodeverk/skjermingshjemmel', {fixture: 'skjermingshjemmel.json'}).as('getParagraphs')
+        cy.intercept('GET', '**/api/kodeverk/tilgangsrestriksjon', {fixture: 'tilgangrestriksjon.json'}).as('getAccessCodes')
+        cy.intercept('GET', '**/api/kodeverk/variantformat', {fixture: 'variantformat.json'}).as('getVariants')
+        cy.intercept('GET', '**/api/kodeverk/klasse/**', {fixture: 'klasse1.json'}).as('getKlasse')
     })
 
     it('should fill form settings', () => {
@@ -44,16 +45,16 @@ describe('Testing filling Case Form', () => {
         cy.get('[data-value="https://beta.felleskomponent.no/arkiv/kodeverk/tilgangsrestriksjon/systemid/PS"]').click()
         cy.get('#caseData\\.paragraph').type('22').type('{downarrow}').type('{enter}');
         cy.get('#caseData\\.caseWorker').type('Mrsic').type('{downarrow}').type('{enter}');
-        cy.get('#caseData\\.primaryClassification').click()
+        cy.get('#caseData\\.primaryClassification').click();
+        cy.intercept('GET', '**/api/kodeverk/klasse/**', {fixture: 'klasse1.json'}).as('getClasses')
         cy.get('[data-value="https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/EMNE"]').click()
-        cy.intercept('GET', '**/kodeverk/klasse/**', {fixture: 'klasse1.json'}).as('getClasses')
         cy.wait(2000)
         cy.get('#caseData\\.primaryClass').type('Sentrale').type('{downarrow}').type('{enter}');
         cy.get('#caseData\\.secondaryClassification').click()
-        cy.get('[data-value="https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/ORGNR"]').click()
-        cy.intercept('GET', '**/kodeverk/klasse/**', {fixture: 'klasse2.json'}).as('getClasses')
+        cy.get('[data-value="https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/EMNE"]').click()
+        cy.intercept('GET', '**/api/kodeverk/klasse/**', {fixture: 'klasse1.json'}).as('getClasses')
         cy.wait(2000)
-        cy.get('#caseData\\.secondaryClass').type('frida').type('{downarrow}').type('{enter}');
+        cy.get('#caseData\\.secondaryClass').type('Lokale').type('{downarrow}').type('{enter}');
     })
 })
 
