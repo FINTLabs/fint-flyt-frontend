@@ -28,6 +28,8 @@ export const defaultValues: IFormData = {
         primaryClassification: '',
         secondaryClassification: '',
         primaryClass: '',
+        primaryClassSsNbr: '',
+        primaryClassOrg: '',
         secondaryClass: ''
     },
     recordData: {

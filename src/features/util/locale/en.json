@@ -149,6 +149,8 @@
             "primaryClassification": "Primary classification",
             "secondaryClassification": "Secondary classification",
             "primaryClass": "Primary class",
+            "primaryClassOrg": "Primary class (organisation number)",
+            "primaryClassSsNbr": "Primary class (social security number or D-number)",
             "secondaryClass": "Secondary class",
             "type": "Type",
             "recordStatus": "Status",

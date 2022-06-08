@@ -149,6 +149,8 @@
             "primaryClassification": "Primær ordningsprinsipp",
             "secondaryClassification": "Sekundær ordningsprinsipp",
             "primaryClass": "Primærklasse",
+            "primaryClassOrg": "Primærklasse (organisasjonsnummer)",
+            "primaryClassSsNbr": "Primærklasse (offentlignummer)",
             "secondaryClass": "Sekundærklasse",
             "type": "Type",
             "recordStatus": "Status",
@@ -175,18 +177,18 @@
                 "collection":"På samlesak",
                 "collectionDesc":"Innsendt skjema skal leveres til en forhåndsdefinert samlesak. Her må du opplyse om saksnummer"
             },
-            "applicantOptions": {                
+            "applicantOptions": {
                 "individual":"Privatperson",
                 "organisation":"Organisasjon"
             },
-            "sourceApplicationIntegrations": { 
+            "sourceApplicationIntegrations": {
                 "VIK014": "Søknad om reservasjon av skoleplass",
                 "VIK036": "Søknad til kombinasjonsprogram",
                 "VIK108": "Søknad om TT-kort",
                 "VIK132": "Samtykke - fotografering/video/lyd"
             },
-            "sourceApplications": { 
-                "label": "ACOS" 
+            "sourceApplications": {
+                "label": "ACOS"
             }
         }
     },
