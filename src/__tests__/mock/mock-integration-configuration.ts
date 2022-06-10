@@ -169,8 +169,9 @@ export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
             },
             {
                 "field": "primarklasse",
-                "valueBuildStrategy": 0,
+                "valueBuildStrategy": 1,
                 "valueBuilder": {
+                    "properties": [],
                     "value": "1class"
                 }
             },
@@ -460,8 +461,9 @@ export const MOCK_INTEGRATION_CONFIG_NOT_PUBLISHED = {
             },
             {
                 "field": "primarklasse",
-                "valueBuildStrategy": 0,
+                "valueBuildStrategy": 1,
                 "valueBuilder": {
+                    "properties": [],
                     "value": "1class"
                 }
             },
@@ -749,8 +751,9 @@ export const MOCK_INTEGRATION_CONFIG_PUBLISHED = {
             },
             {
                 "field": "primarklasse",
-                "valueBuildStrategy": 0,
+                "valueBuildStrategy": 1,
                 "valueBuilder": {
+                    "properties": [],
                     "value": "1class"
                 }
             },
@@ -1059,8 +1062,9 @@ export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
             },
             {
                 "field": "primarklasse",
-                "valueBuildStrategy": 0,
+                "valueBuildStrategy": 1,
                 "valueBuilder": {
+                    "properties": [],
                     "value": "1class"
                 }
             },
