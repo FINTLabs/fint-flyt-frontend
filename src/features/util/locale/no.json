@@ -148,10 +148,15 @@
             "responsibleCaseWorker": "Ansvarlig saksbehandler",
             "primaryClassification": "Primær ordningsprinsipp",
             "secondaryClassification": "Sekundær ordningsprinsipp",
+            "tertiaryClassification": "Tertiær ordningsprinsipp",
             "primaryClass": "Primærklasse",
             "primaryClassOrg": "Primærklasse (organisasjonsnummer)",
             "primaryClassSsNbr": "Primærklasse (offentlignummer)",
             "secondaryClass": "Sekundærklasse",
+            "tertiaryClass": "Tertiærklasse",
+            "primaryTitle": "Primærtittel",
+            "secondaryTitle": "Sekundærtittel",
+            "tertiaryTitle": "Tertiærtittel",
             "type": "Type",
             "recordStatus": "Status",
             "caseWorker": "Saksbehandler",
@@ -213,8 +218,13 @@
                 "caseWorker": "",
                 "primaryClassification": "",
                 "secondaryClassification": "",
+                "tertiaryClassification": "",
                 "primaryClass": "",
-                "secondaryClass": ""
+                "secondaryClass": "",
+                "tertiaryClass": "",
+                "primaryTitle": "",
+                "secondaryTitle": "",
+                "tertiaryTitle": ""
             },
             "recordConfiguration": {
                 "title": "",
@@ -293,7 +303,8 @@
             "paragraph": "Dersom det settes tilgangskode må det også settes hjemmel. Det må være en lovmessig hjemmel for skjerming eller begrenset tilgang.Eksempel:'Offl. §13 '",
             "caseWorker": "Konkret saksbehandler eller ufordelt.",
             "classification": "Det må kunne settes flere klasseringer på en sak, slik at sjemaet kan lete fram riktig sak. Eksempel: Primærkode=K-koder 'Sekundærkode=organisasjonsnummer eller personnummer'",
-            "class": "Vi må kunne fylle ut verdi og betegnelse.Eksempel: K-kode: Verdi 003, Betegnelse: Målbruk.Person: verdi: fødselsnummer, betegnelse = personnavn."
+            "class": "Vi må kunne fylle ut verdi og betegnelse.Eksempel: K-kode: Verdi 003, Betegnelse: Målbruk.Person: verdi: fødselsnummer, betegnelse = personnavn.",
+            "classTitle": "Tittel/Beskrivelse"
         },
         "recordData": {
             "title": "Tittel kan være en konkret tekststreng, eller en kombinasjon av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak. (Se Noark))",
