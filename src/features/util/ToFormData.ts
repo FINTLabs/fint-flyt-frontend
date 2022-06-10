@@ -27,7 +27,7 @@ export function toFormData(data: IIntegrationConfiguration): IFormData {
             primaryClassification: fieldToString(data.caseConfiguration, 'primarordningsprinsipp', true),
             secondaryClassification: fieldToString(data.caseConfiguration, 'sekundarordningsprinsipp', true),
             tertiaryClassification: fieldToString(data.caseConfiguration, 'tertiarordningsprinsipp', true),
-            primaryClass: fieldToString(data.caseConfiguration, 'primarklasse'),
+            primaryClass: fieldToString(data.caseConfiguration, 'primarklasse', true),
             secondaryClass: fieldToString(data.caseConfiguration, 'sekundarklasse'),
             tertiaryClass: fieldToString(data.caseConfiguration, 'tertiarklasse'),
             primaryTitle: fieldToString(data.caseConfiguration, 'primartittel', true),
