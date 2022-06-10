@@ -13,6 +13,7 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
     const {administrativeUnits, accessCodes, paragraphs, statuses, archiveSections, archiveResources,
         classificationSystems, primaryClassification, secondaryClassification, primaryClass, secondaryClass, getPrimaryClass, getSecondaryClass, setPrimaryClassification, setSecondaryClassification } = useContext(ResourcesContext);
 
+
     useEffect(()=> {
         getPrimaryClass();
     }, [primaryClassification, setPrimaryClassification])
@@ -23,11 +24,13 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
 
     let errors: FieldErrors = props.errors;
     let required: boolean = props.validation;
+    let socialSecurityCode: string = 'https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/FNR'
+    let orgNumberCode: string = 'https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/ORGNR'
 
     const caseFormFields: IInputField[] = [
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.title", formValue: "caseData.title", required: required, error:errors.caseData?.title, value: props.activeFormData?.caseData?.title, helpText: "caseData.title"},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.publicTitle", formValue: "caseData.publicTitle", required: required, error:errors.caseData?.publicTitle, value: props.activeFormData?.caseData?.publicTitle, helpText: "caseData.publicTitle"},
-      //  {input: INPUT_TYPE.DROPDOWN, label: "labels.type", value: props.watch("caseData.caseType"), formValue: "caseData.caseType", dropDownItems: dropdownPlaceholder, required: required, error:errors.caseData?.caseType, helpText: "caseData.caseType"},
+        //  {input: INPUT_TYPE.DROPDOWN, label: "labels.type", value: props.watch("caseData.caseType"), formValue: "caseData.caseType", dropDownItems: dropdownPlaceholder, required: required, error:errors.caseData?.caseType, helpText: "caseData.caseType"},
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.administrativeUnit", value: props.watch("caseData.administrativeUnit"), formValue: "caseData.administrativeUnit", dropDownItems: administrativeUnits, required: required, error:errors.caseData?.administrativeUnit, helpText: "caseData.administrativeUnit"},
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.responsibleCaseWorker", value: props.watch("caseData.caseWorker"), formValue: "caseData.caseWorker", dropDownItems: archiveResources, required: required, error:errors.caseData?.caseWorker, helpText: "caseData.caseWorker"},
         {input: INPUT_TYPE.DROPDOWN, label: "labels.archiveUnit", value: props.watch("caseData.archiveUnit"), formValue: "caseData.archiveUnit", dropDownItems: archiveSections, required: required, error:errors.caseData?.archiveUnit, helpText: "caseData.archiveUnit"},
@@ -38,7 +41,9 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
     ]
     const classificationFormFields: IInputField[] = [
         {input: INPUT_TYPE.DROPDOWN, label: "labels.primaryClassification", value: props.watch("caseData.primaryClassification"), formValue: "caseData.primaryClassification", dropDownItems: classificationSystems, required: required, error:errors.caseData?.primaryClassification, setter: setPrimaryClassification, helpText: "caseData.classification"},
-        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.primaryClass", value: props.watch("caseData.primaryClass"), formValue: "caseData.primaryClass", dropDownItems: primaryClass, required: required, error:errors.caseData?.primaryClass, helpText: "caseData.class"},
+        {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.primaryClassSsNbr", value: props.activeFormData?.caseData.primaryClass, formValue: "caseData.primaryClass", hidden: props.watch("caseData.primaryClassification") !== socialSecurityCode, required: required, error:errors.caseData?.primaryClass, helpText: "caseData.class"},
+        {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.primaryClassOrg", value: props.activeFormData?.caseData?.primaryClass, formValue: "caseData.primaryClass", hidden: props.watch("caseData.primaryClassification") !== orgNumberCode, required: required, error:errors.caseData?.primaryClass, helpText: "caseData.class"},
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.primaryClass", value: props.watch("caseData.primaryClass"), formValue: "caseData.primaryClass", hidden: props.watch("caseData.primaryClassification") === socialSecurityCode || props.watch("caseData.primaryClassification") === orgNumberCode, dropDownItems: primaryClass, required: required, error:errors.caseData?.primaryClass, helpText: "caseData.class"},
         {input: INPUT_TYPE.DROPDOWN, label: "labels.secondaryClassification", value: props.watch("caseData.secondaryClassification"), formValue: "caseData.secondaryClassification", dropDownItems: classificationSystems, required: required, error:errors.caseData?.secondaryClassification, setter: setSecondaryClassification, helpText: "caseData.classification"},
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.secondaryClass", value: props.watch("caseData.secondaryClass"), formValue: "caseData.secondaryClass", dropDownItems: secondaryClass, required: required, error:errors.caseData?.secondaryClass, helpText: "caseData.class"}
     ]
@@ -48,46 +53,50 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
             <FormGroup className={props.style.formControl}>
                 {caseFormFields.map((field, index) => {
                     return (
-                        <Box sx={{display: 'flex'}} key={index}>
-                            <Box width={'100%'}>
-                                <InputField required={field.required}
-                                            error={field.error}
-                                            input={field.input}
-                                            label={field.label}
-                                            value={field.value}
-                                            formValue={field.formValue}
-                                            dropdownItems={field.dropDownItems}
-                                            setter={field.setter}
-                                            {...props}
-                                />
+                        field.hidden ?
+                            <div key={index}/> :
+                            <Box sx={{display: 'flex'}} key={index}>
+                                <Box width={'100%'}>
+                                    <InputField required={field.required}
+                                                error={field.error}
+                                                input={field.input}
+                                                label={field.label}
+                                                value={field.value}
+                                                formValue={field.formValue}
+                                                dropdownItems={field.dropDownItems}
+                                                setter={field.setter}
+                                                {...props}
+                                    />
+                                </Box>
+                                <Box>
+                                    <HelpPopover popoverContent={field.helpText}/>
+                                </Box>
                             </Box>
-                            <Box>
-                                <HelpPopover popoverContent={field.helpText}/>
-                            </Box>
-                        </Box>
                     )}
                 )}
                 <Typography>{t('classification')}</Typography>
                 <Divider sx={{mb: 3}}/>
                 {classificationFormFields.map((field, index) => {
                     return (
-                        <Box sx={{display: 'flex'}} key={index}>
-                            <Box width={'100%'}>
-                                <InputField required={field.required}
-                                            error={field.error}
-                                            input={field.input}
-                                            label={field.label}
-                                            value={field.value}
-                                            formValue={field.formValue}
-                                            dropdownItems={field.dropDownItems}
-                                            setter={field.setter}
-                                            {...props}
-                                />
+                        field.hidden ?
+                            <div key={index}/> :
+                            <Box sx={{display: 'flex'}} key={index}>
+                                <Box width={'100%'}>
+                                    <InputField required={field.required}
+                                                error={field.error}
+                                                input={field.input}
+                                                label={field.label}
+                                                value={field.value}
+                                                formValue={field.formValue}
+                                                dropdownItems={field.dropDownItems}
+                                                setter={field.setter}
+                                                {...props}
+                                    />
+                                </Box>
+                                <Box>
+                                    <HelpPopover popoverContent={field.helpText}/>
+                                </Box>
                             </Box>
-                            <Box>
-                                <HelpPopover popoverContent={field.helpText}/>
-                            </Box>
-                        </Box>
                     )}
                 )}
             </FormGroup>

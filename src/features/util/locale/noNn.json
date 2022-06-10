@@ -147,6 +147,8 @@
             "primaryClassification": "Primær ordningsprinsipp",
             "secondaryClassification": "Sekundær ordningsprinsipp",
             "primaryClass": "Primærklasse",
+            "primaryClassOrg": "Primærklasse (organisasjonsnummer)",
+            "primaryClassSsNbr": "Primærklasse (offentlignummer)",
             "secondaryClass": "Sekundærklasse",
             "type": "Type",
             "recordStatus": "Status",
