@@ -23,6 +23,9 @@ export const MOCK_FORMDATA: IFormData = {
         primaryClass: '1class',
         secondaryClass: '2class',
         tertiaryClass: '3class',
+        primaryTitle: 'primTitle',
+        secondaryTitle: 'secTitle',
+        tertiaryTitle: 'tertTitle'
     },
     recordData: {
         title: 'record title',
@@ -78,6 +81,9 @@ export const MOCK_FORMDATA_NOT_PUBLISHED: IFormData = {
         primaryClass: '1class',
         secondaryClass: '2class',
         tertiaryClass: '3class',
+        primaryTitle: 'primTitle',
+        secondaryTitle: 'secTitle',
+        tertiaryTitle: 'tertTitle'
     },
     recordData: {
         title: 'record title',
@@ -131,6 +137,9 @@ export const MOCK_FORMDATA_PUBLISHED: IFormData = {
         primaryClass: '1class',
         secondaryClass: '2class',
         tertiaryClass: '3class',
+        primaryTitle: 'primTitle',
+        secondaryTitle: 'secTitle',
+        tertiaryTitle: 'tertTitle'
     },
     recordData: {
         title: 'record title',
@@ -188,13 +197,16 @@ export const MOCK_FORMDATA_WITH_TAGS: IFormData = {
         "paragraph": "number6",
         "primaryClass": "1class",
         "primaryClassification": "prim",
+        "primaryTitle": 'primTitle',
         "publicTitle": "public title also with {two} {tags}",
         "recordUnit": "unit0",
         "secondaryClass": "2class",
         "secondaryClassification": "rose",
+        "secondaryTitle": 'secTitle',
         "status": "",
         "tertiaryClass": "3class",
         "tertiaryClassification": "everdeen",
+        "tertiaryTitle": 'tertTitle',
         "title": "Title of case with {tags}"
     },
     "description": "form to test mapping with form tags",

@@ -30,7 +30,10 @@ export const defaultValues: IFormData = {
         tertiaryClassification: '',
         primaryClass: '',
         secondaryClass: '',
-        tertiaryClass: ''
+        tertiaryClass: '',
+        primaryTitle: '',
+        secondaryTitle: '',
+        tertiaryTitle: ''
     },
     recordData: {
         title: '',

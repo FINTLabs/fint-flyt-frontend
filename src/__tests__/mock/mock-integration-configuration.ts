@@ -190,14 +190,37 @@ export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
                     "properties": [],
                     "value": "2class"
                 }
-            }
-            ,
+            },
             {
                 "field": "tertiarklasse",
                 "valueBuildStrategy": 0,
                 "valueBuilder": {
                     "properties": [],
                     "value": "3class"
+                }
+            },
+            {
+                "field": "primartittel",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "primTitle"
+                }
+            },
+            {
+                "field": "sekundartittel",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "secTitle"
+                }
+            },
+            {
+                "field": "tertiartittel",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "tertTitle"
                 }
             }
         ]
@@ -243,8 +266,8 @@ export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
             }
         ]
     },
-    "published": false,
     "name": "testform",
+    "published": false,
     "recordConfiguration": {
         "fields": [
             {
@@ -507,6 +530,30 @@ export const MOCK_INTEGRATION_CONFIG_NOT_PUBLISHED = {
                     "properties": [],
                     "value": "3class"
                 }
+            },
+            {
+                "field": "primartittel",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "primTitle"
+                }
+            },
+            {
+                "field": "sekundartittel",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "secTitle"
+                }
+            },
+            {
+                "field": "tertiartittel",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "tertTitle"
+                }
             }
         ]
     },
@@ -551,8 +598,8 @@ export const MOCK_INTEGRATION_CONFIG_NOT_PUBLISHED = {
             }
         ]
     },
-    "published": false,
     "name": "testform",
+    "published": false,
     "recordConfiguration": {
         "fields": [
             {
@@ -813,6 +860,30 @@ export const MOCK_INTEGRATION_CONFIG_PUBLISHED = {
                     "properties": [],
                     "value": "3class"
                 }
+            },
+            {
+                "field": "primartittel",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "primTitle"
+                }
+            },
+            {
+                "field": "sekundartittel",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "secTitle"
+                }
+            },
+            {
+                "field": "tertiartittel",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "tertTitle"
+                }
             }
         ]
     },
@@ -857,8 +928,8 @@ export const MOCK_INTEGRATION_CONFIG_PUBLISHED = {
             }
         ]
     },
-    "published": true,
     "name": "testform",
+    "published": true,
     "recordConfiguration": {
         "fields": [
             {
@@ -1140,6 +1211,30 @@ export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
                     "properties": [],
                     "value": "3class"
                 }
+            },
+            {
+                "field": "primartittel",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "primTitle"
+                }
+            },
+            {
+                "field": "sekundartittel",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "secTitle"
+                }
+            },
+            {
+                "field": "tertiartittel",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "tertTitle"
+                }
             }
         ]
     },
@@ -1184,8 +1279,8 @@ export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
             }
         ]
     },
-    "published": false,
     "name": "testform with tags",
+    "published": false,
     "recordConfiguration": {
         "fields": [
             {

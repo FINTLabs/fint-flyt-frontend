@@ -29,7 +29,10 @@ export function toFormData(data: IIntegrationConfiguration): IFormData {
             tertiaryClassification: fieldToString(data.caseConfiguration, 'tertiarordningsprinsipp', true),
             primaryClass: fieldToString(data.caseConfiguration, 'primarklasse'),
             secondaryClass: fieldToString(data.caseConfiguration, 'sekundarklasse'),
-            tertiaryClass: fieldToString(data.caseConfiguration, 'tertiarklasse')
+            tertiaryClass: fieldToString(data.caseConfiguration, 'tertiarklasse'),
+            primaryTitle: fieldToString(data.caseConfiguration, 'primartittel', true),
+            secondaryTitle: fieldToString(data.caseConfiguration, 'sekundartittel', true),
+            tertiaryTitle: fieldToString(data.caseConfiguration, 'tertiartittel', true)
         },
         recordData: {
             title: fieldToString(data.recordConfiguration, 'tittel', true),

@@ -119,6 +119,21 @@ export function toIntegrationConfiguration(data: IFormData, id?: string): IInteg
                         field: "tertiarklasse",
                         valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
                         valueBuilder: createValueBuilder(data.caseData?.tertiaryClass)
+                    },
+                    {
+                        field: "primartittel",
+                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
+                        valueBuilder: createValueBuilder(data.caseData?.primaryTitle)
+                    },
+                    {
+                        field: "sekundartittel",
+                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
+                        valueBuilder: createValueBuilder(data.caseData?.secondaryTitle)
+                    },
+                    {
+                        field: "tertiartittel",
+                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
+                        valueBuilder: createValueBuilder(data.caseData?.tertiaryTitle)
                     }
                 ]
             },
