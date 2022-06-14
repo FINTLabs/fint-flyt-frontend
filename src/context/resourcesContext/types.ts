@@ -41,6 +41,7 @@ export type ResourceContextState = {
     setTertiaryClassification: (tertiary: IResourceItem) => void;
     getPrimaryClass: () => void;
     getSecondaryClass: () => void;
+    getTertiaryClass: () => void;
 
     getDocumentTypes: () => void;
     getRecordStatuses: () => void;
@@ -82,6 +83,7 @@ export const contextDefaultValues: ResourceContextState = {
     setTertiaryClassification: (tertiary: IResourceItem) => {},
     getPrimaryClass: () => {},
     getSecondaryClass: () => {},
+    getTertiaryClass: () => {},
     getDocumentTypes: () => {},
     getRecordStatuses: () => {},
     getDocumentStatuses: () => {},

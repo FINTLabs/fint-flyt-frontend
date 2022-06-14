@@ -264,6 +264,7 @@ const ResourcesProvider: FC = ({ children }) => {
                 getVariants,
                 getPrimaryClass,
                 getSecondaryClass,
+                getTertiaryClass,
                 getAllResources,
                 resetAllResources,
                 setPrimaryClassification,

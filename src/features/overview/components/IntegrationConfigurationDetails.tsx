@@ -16,7 +16,7 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
     const [version, setVersion] = useState(props.initialConfiguration.version)
     const latestVersion = props.initialVersion;
     const {integration, setIntegration, setSourceApplication, setDestination} = useContext(IntegrationContext);
-    const {setPrimaryClassification, setSecondaryClassification} = useContext(ResourcesContext);
+    const {setPrimaryClassification, setSecondaryClassification, setTertiaryClassification} = useContext(ResourcesContext);
 
     const versions = [];
     for (let i = 1; i<=latestVersion; i++) {
@@ -26,6 +26,7 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
     useEffect(()=> {
         setPrimaryClassification({label: '', value: fieldToString(integration.caseConfiguration, 'primarordningsprinsipp')})
         setSecondaryClassification({label: '', value: fieldToString(integration.caseConfiguration, 'sekundarordningsprinsipp')})
+        setTertiaryClassification({label: '', value: fieldToString(integration.caseConfiguration, 'tertiarordningsprinsipp')})
         getAllResources();
     }, [])
 

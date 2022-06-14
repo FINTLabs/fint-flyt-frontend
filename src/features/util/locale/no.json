@@ -148,8 +148,15 @@
             "responsibleCaseWorker": "Ansvarlig saksbehandler",
             "primaryClassification": "Primær ordningsprinsipp",
             "secondaryClassification": "Sekundær ordningsprinsipp",
+            "tertiaryClassification": "Tertiær ordningsprinsipp",
             "primaryClass": "Primærklasse",
+            "primaryClassOrg": "Primærklasse (organisasjonsnummer)",
+            "primaryClassSsNbr": "Primærklasse (fødselsnummer)",
             "secondaryClass": "Sekundærklasse",
+            "tertiaryClass": "Tertiærklasse",
+            "primaryTitle": "Primærtittel",
+            "secondaryTitle": "Sekundærtittel",
+            "tertiaryTitle": "Tertiærtittel",
             "type": "Type",
             "recordStatus": "Status",
             "caseWorker": "Saksbehandler",
@@ -175,18 +182,18 @@
                 "collection":"På samlesak",
                 "collectionDesc":"Innsendt skjema skal leveres til en forhåndsdefinert samlesak. Her må du opplyse om saksnummer"
             },
-            "applicantOptions": {                
+            "applicantOptions": {
                 "individual":"Privatperson",
                 "organisation":"Organisasjon"
             },
-            "sourceApplicationIntegrations": { 
+            "sourceApplicationIntegrations": {
                 "VIK014": "Søknad om reservasjon av skoleplass",
                 "VIK036": "Søknad til kombinasjonsprogram",
                 "VIK108": "Søknad om TT-kort",
                 "VIK132": "Samtykke - fotografering/video/lyd"
             },
-            "sourceApplications": { 
-                "label": "ACOS" 
+            "sourceApplications": {
+                "label": "ACOS"
             }
         }
     },
@@ -211,8 +218,13 @@
                 "caseWorker": "",
                 "primaryClassification": "",
                 "secondaryClassification": "",
+                "tertiaryClassification": "",
                 "primaryClass": "",
-                "secondaryClass": ""
+                "secondaryClass": "",
+                "tertiaryClass": "",
+                "primaryTitle": "",
+                "secondaryTitle": "",
+                "tertiaryTitle": ""
             },
             "recordConfiguration": {
                 "title": "",
@@ -291,7 +303,8 @@
             "paragraph": "Dersom det settes tilgangskode må det også settes hjemmel. Det må være en lovmessig hjemmel for skjerming eller begrenset tilgang.Eksempel:'Offl. §13 '",
             "caseWorker": "Konkret saksbehandler eller ufordelt.",
             "classification": "Det må kunne settes flere klasseringer på en sak, slik at sjemaet kan lete fram riktig sak. Eksempel: Primærkode=K-koder 'Sekundærkode=organisasjonsnummer eller personnummer'",
-            "class": "Vi må kunne fylle ut verdi og betegnelse.Eksempel: K-kode: Verdi 003, Betegnelse: Målbruk.Person: verdi: fødselsnummer, betegnelse = personnavn."
+            "class": "Vi må kunne fylle ut verdi og betegnelse.Eksempel: K-kode: Verdi 003, Betegnelse: Målbruk.Person: verdi: fødselsnummer, betegnelse = personnavn.",
+            "classTitle": "Tittel/Beskrivelse"
         },
         "recordData": {
             "title": "Tittel kan være en konkret tekststreng, eller en kombinasjon av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak. (Se Noark))",
