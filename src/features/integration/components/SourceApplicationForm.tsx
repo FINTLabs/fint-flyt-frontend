@@ -21,14 +21,14 @@ const SourceApplicationForm: React.FunctionComponent<any> = (props) => {
                         {/*<Typography>{step.name}</Typography>*/}
                         {step.groups.map((group: IGroup) => {
                             return (
-                                <div>
-                                    <Typography>{group.name}</Typography>
+                                <Box>
+                                    {group.elements.find(e => e.type === 'inputBox') && <Typography>{group.name}</Typography>}
                                     {group.elements.map((element, index) => {
                                         return element.type === 'inputBox' && (
                                             <Tag key={index} value={toTagValue(element.name)} name={element.name}/>
                                         )
                                     })}
-                                </div>
+                                </Box>
                             )
                         })}
                     </Box>
