@@ -1,5 +1,4 @@
 import {ISelect} from "../types/InputField";
-import {ITag} from "../types/Tag";
 import {CreationStrategy} from "../types/CreationStrategy";
 import IFormData from "../types/Form/FormData";
 import {ApplicantType} from "../types/ApplicantType";
@@ -108,18 +107,6 @@ export const sourceApplications: ISelect[] = [
 export const destinations: ISelect[] = [
     { label: "Fylkesråd", value: "fylkesrad" }
 ];
-
-export const tagList: ITag[] = [
-    {value:"{fodselsnummer}",  name:"Fødselsnummer"},
-    {value:"{fornavn}",  name:"Fornavn"},
-    {value:"{etternavn}",  name:"Etternavn"},
-    {value:"{adresse}",  name:"Adresse"},
-    {value:"{postnummer}",  name:"Postnummer"},
-    {value:"{poststed}",  name:"Poststed"},
-    {value:"{telefonnummer}",  name:"Telefonnummer"},
-    {value:"{email}",  name:"Email"},
-    {value:"{organisasjonsnummer}",  name:"Organisasjonsnummer"}
-]
 
 export const fieldHelp = {
     name: 'Navn på integrasjon',

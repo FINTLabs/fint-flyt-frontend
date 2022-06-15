@@ -8,3 +8,11 @@ export function addId(id: number, field: string) {
         });
     };
 }
+
+export function toTagValue(input: string): string {
+    let value = input.toLowerCase()
+        .replace('ø', 'o')
+        .replace('æ', 'a')
+        .replace('å', 'aa');
+    return '{' + value + '}';
+}
