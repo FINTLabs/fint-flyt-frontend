@@ -13,7 +13,7 @@ export const MOCK_SKJEMA_METADATA: IFormMetadata = {
             "groups":
                 [
                     {
-                        "name": "Person 1",
+                        "name": "Gruppe: Person 1",
                         "elements": [
                             {
                                 "name":"Fornavn",
@@ -26,7 +26,7 @@ export const MOCK_SKJEMA_METADATA: IFormMetadata = {
                         ]
                     },
                     {
-                        "name": "Person 2",
+                        "name": "Gruppe: Person 2",
                         "elements": [
                             {
                                 "name":"Fornavn2",
@@ -39,7 +39,7 @@ export const MOCK_SKJEMA_METADATA: IFormMetadata = {
                         ]
                     },
                     {
-                        "name": "Valg",
+                        "name": "Gruppe: Valg",
                         "elements": [
                             {
                                 "name":"Ukedag",
@@ -52,7 +52,7 @@ export const MOCK_SKJEMA_METADATA: IFormMetadata = {
                         ]
                     },
                     {
-                        "name": "Avsender",
+                        "name": "Gruppe: Avsender",
                         "elements": [
                             {
                                 "name":"Fødselsnummer",
