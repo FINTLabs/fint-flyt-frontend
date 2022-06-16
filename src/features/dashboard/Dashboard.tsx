@@ -42,6 +42,7 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const [configurations, getConfigurations] = useState<IRow[]>([]);
     const {integration, setIntegration} = useContext(IntegrationContext)
     const [initialVersion, setInitialVersion] = useState(integration.version);
+    const [loading, setLoading] = useState(true);
 
     useEffect(()=> {
         getAllConfigurations();
@@ -53,6 +54,7 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
                 const allConfigurations = response.data.content;
                 setNumberOfIntegrations(response.data.numberOfElements);
                 getConfigurations(allConfigurations)
+                setLoading(false);
             })
             .catch(e => console.error('Error: ', e))
     }
@@ -98,6 +100,7 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
                         /> :
                         <IntegrationConfigurationTable
                             classes={classes}
+                            loading={loading}
                             configurations={configurations}
                             setIntegration={setIntegration}
                             setInitialVersion={setInitialVersion}
