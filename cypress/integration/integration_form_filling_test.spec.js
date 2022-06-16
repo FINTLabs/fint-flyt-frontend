@@ -47,6 +47,11 @@ describe('Testing filling Case Form', () => {
         cy.get('#caseData\\.caseWorker').type('Mrsic').type('{downarrow}').type('{enter}');
         cy.get('#caseData\\.primaryClassification').click();
         cy.intercept('GET', '**/api/kodeverk/klasse/**', {fixture: 'klasse1.json'}).as('getClasses')
+        cy.get('[data-value="https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/FNR"]').click()
+        cy.wait(2000)
+        cy.get('#caseData\\.primaryClass').type('{fodselsnummer}', { parseSpecialCharSequences: false })
+        cy.get('#caseData\\.primaryClassification').click();
+        cy.intercept('GET', '**/api/kodeverk/klasse/**', {fixture: 'klasse1.json'}).as('getClasses')
         cy.get('[data-value="https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/EMNE"]').click()
         cy.wait(2000)
         cy.get('#caseData\\.primaryClass').type('Sentrale').type('{downarrow}').type('{enter}');
