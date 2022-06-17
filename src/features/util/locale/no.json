@@ -87,6 +87,17 @@
         "integrationList": {
             "header": "Oversikt",
             "details": "Konfigurasjonsdetaljer",
+            "revision": "Revisjon",
+            "case": "Sakspost",
+            "record": "Journalpost",
+            "document": "Dokument- og objektbeskrivelse",
+            "applicant": "Avsender",
+            "changedMsg": "Endret til revisjon",
+            "button": {
+                "edit": "Rediger",
+                "back": "Tilbake",
+                "changeVersion": "Bruk denne konfigurasjonen"
+            },
             "table": {
                 "columns": {
                     "sourceApplicationIntegrationId": "Skjema",
@@ -96,6 +107,49 @@
                     "published": "Ferdigstilt",
                     "revision": "Revisjon"
                 }
+            },
+            "labels": {
+                "name": "Navn: ",
+                "description": "Beskrivelse: ",
+                "destination": "Destinasjon: ",
+                "sourceApplication": "Skjemaleverandør: ",
+                "sourceApplicationIntegrationId": "Skjema: ",
+                "caseCreationStrategy": "Avleveringslogikk: ",
+                "published": "Publisert: ",
+                "version": "Versjon: ",
+                "caseNumber": "Saksnummer: ",
+                "title": "Tittel: ",
+                "publicTitle": "Offentlig tittel: ",
+                "administrativeUnit": "Administrativ enhet: ",
+                "archiveUnit": "Arkivdel: ",
+                "recordUnit": "Journalenhet: ",
+                "status": "Status: ",
+                "accessCode": "Tilgangskode: ",
+                "paragraph": "Hjemmel: ",
+                "responsibleCaseWorker": "Ansvarlig saksbehandler: ",
+                "primaryClassification": "Primær ordningsprinsipp: ",
+                "secondaryClassification": "Sekundær ordningsprinsipp: ",
+                "tertiaryClassification": "Tertiær ordningsprinsipp: ",
+                "primaryClass": "Primærklasse: ",
+                "secondaryClass": "Sekundærklasse: ",
+                "tertiaryClass": "Tertiærklasse: ",
+                "primaryTitle": "Primærtittel: ",
+                "secondaryTitle": "Sekundærtittel: ",
+                "tertiaryTitle": "Tertiærtittel: ",
+                "type": "Type: ",
+                "recordStatus": "Status: ",
+                "caseWorker": "Saksbehandler: ",
+                "documentStatus": "Status: ",
+                "variant": "Variant: ",
+                "organisationNumber": "Organisasjonsnummer: ",
+                "nationalIdentityNumber": "Fødselsnummer: ",
+                "applicantName": "Navn: ",
+                "address": "Adresse: ",
+                "postalCode": "Postnummer: ",
+                "city": "Poststed: ",
+                "contactPerson": "Kontaktperson: ",
+                "phoneNumber": "Telefonnummer: ",
+                "email": "Epost: "
             }
         },
         "log": {

@@ -87,6 +87,17 @@
         "integrationList": {
             "header": "Overview",
             "details": "Configuration details",
+            "revision": "Revision",
+            "case": "Case description",
+            "record": "Record description",
+            "document": "Document and object description",
+            "applicant": "Applicant",
+            "changedMsg": "Changed to revision",
+            "button": {
+                "edit": "Edit",
+                "back": "Back",
+                "changeVersion": "Use this configuration"
+            },
             "table": {
                 "columns": {
                     "sourceApplicationIntegrationId": "Form",
@@ -96,6 +107,49 @@
                     "published": "Published",
                     "revision": "Revision"
                 }
+            },
+            "labels": {
+                "name": "Name: ",
+                "description": "Description: ",
+                "destination": "Destination: ",
+                "sourceApplication": "Source application: ",
+                "sourceApplicationIntegrationId": "Form: ",
+                "caseCreationStrategy": "Creation strategy: ",
+                "published": "Published: ",
+                "version": "Version: ",
+                "caseNumber": "Case number: ",
+                "title": "Title: ",
+                "publicTitle": "Public title: ",
+                "administrativeUnit": "Administrative unit: ",
+                "archiveUnit": "Archive unit: ",
+                "recordUnit": "Record unit: ",
+                "status": "Status: ",
+                "accessCode": "Access code: ",
+                "paragraph": "Paragraph: ",
+                "responsibleCaseWorker": "Responsible case worker: ",
+                "primaryClassification": "Primary classification: ",
+                "secondaryClassification": "Secondary classification: ",
+                "tertiaryClassification": "Tertiary classification: ",
+                "primaryClass": "Primary class: ",
+                "secondaryClass": "Secondary class: ",
+                "tertiaryClass": "Tertiary class: ",
+                "primaryTitle": "Primary title: ",
+                "secondaryTitle": "Secondary title: ",
+                "tertiaryTitle": "Tertiary title: ",
+                "type": "Type: ",
+                "recordStatus": "Status: ",
+                "caseWorker": "Case worker: ",
+                "documentStatus": "Status: ",
+                "variant": "Variant: ",
+                "organisationNumber": "Organisation number: ",
+                "nationalIdentityNumber": "National identity number: ",
+                "applicantName": "Name: ",
+                "address": "Address: ",
+                "postalCode": "Postal code: ",
+                "city": "City: ",
+                "contactPerson": "Contact person: ",
+                "phoneNumber": "Phone number: ",
+                "email": "Email: "
             }
         },
         "log": {
