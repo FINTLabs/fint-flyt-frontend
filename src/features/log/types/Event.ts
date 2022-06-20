@@ -1,11 +1,11 @@
 
 export interface IEvent {
-    id: string;
+    id?: string;
     name: string;
     timeStamp: Date;
     type: string;
     errors: IError[];
-    instanceFlowHeaders: IInstanceFlowHeadersEmbeddable[];
+    instanceFlowHeaders: IInstanceFlowHeadersEmbeddable;
 }
 
 export interface IInstanceFlowHeadersEmbeddable {
@@ -23,7 +23,12 @@ export interface IInstanceFlowHeadersEmbeddable {
 }
 
 export interface IError {
-    id: string;
+    id?: string;
     errorCode: string;
-    args: string[]
+    args: errorArgs;
+}
+
+export interface errorArgs {
+    arg0: string;
+    arg1: string;
 }
