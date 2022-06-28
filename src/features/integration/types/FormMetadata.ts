@@ -1,22 +1,17 @@
 export interface IFormMetadata {
-    metadata: {
-        name: string;
-        sourceApplicationIntegrationId: string
-    }
-    steps: IStep[];
+    id: string;
+    displayName: string;
+    instanceElementMetadata: IInstanceElementMetadata[];
 }
 
-export interface IStep {
-    name: string;
-    groups: IGroup[];
+export interface IInstanceElementMetadata {
+    id: string;
+    displayName: string;
+    children: ITagGroup[];
 }
 
-export interface IGroup {
-    name: string;
-    elements: IElements[];
-}
-
-export interface IElements {
-    name: string;
-    type: string;
+export interface ITagGroup {
+    id: string;
+    displayName: string;
+    children: ITagGroup[]
 }
