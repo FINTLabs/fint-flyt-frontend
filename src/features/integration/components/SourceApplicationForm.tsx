@@ -7,58 +7,27 @@ import {MOCK_SKJEMA_METADATA} from "../../../__tests__/mock/mock-skjema-metadata
 import {toTagValue} from "../../util/JsonUtil";
 
 const SourceApplicationForm: React.FunctionComponent<any> = (props) => {
-    let myObj = {
-        name: 'TEST',
-        instanceElementMetadata: [
-            {
-                id: 'a',
-                displayName: 'a',
-                children: [
-                    {
-                        id: 'b1',
-                        displayName: 'b1',
-                        children: [
-                            {
-                                id: 'c1',
-                                displayName: 'c1',
-                                children: [
-                                    {
-                                        id: 'e1',
-                                        displayName: 'e1',
-                                        children: [],
-                                    },
-                                ],
-                            },
-                            {
-                                id: 'd2',
-                                displayName: 'd2',
-                                children: [],
-                            },
-                        ],
-                    },
-                    {
-                        id: 'b2',
-                        displayName: 'b2',
-                        children: [],
-                    },
-                ],
-            },
-        ],
-    };
     const { t } = useTranslation('translations', { keyPrefix: 'components.SourceApplicationForm'});
 
-    function createArrayUsingMap() {
-        let recursiveFn = (obj: any) => {
-            if (obj.id && obj.displayName) {
-                obj.children.length == 0 ? console.log(obj.id, obj.displayName) : console.log(obj.displayName)
-            }
-            obj.children.map(recursiveFn);
-        };
-        recursiveFn(MOCK_SKJEMA_METADATA.instanceElementMetadata[0]);
+    function TagTree({items, depth = 0}: any ) {
+        if (!items || !items.length) {
+            return null
+        }
+
+        return items.map((item: any) => (
+            <React.Fragment key={item.id}>
+                {item.children.length > 0 ?
+                    <div style={{ paddingLeft: depth * 15, fontSize: depth * 12 }}>
+                        <Typography>{item.displayName}</Typography>
+                    </div> :
+                    <div style={{ paddingLeft: depth * 15 }}>
+                        <Tag name={item.displayName} value={toTagValue(item.id)}/>
+                    </div>}
+                {/* And here's the recursion! */}
+                <TagTree items={item.children} depth={depth + 1}/>
+            </React.Fragment>
+        ))
     }
-
-
-    if (MOCK_SKJEMA_METADATA) createArrayUsingMap();
 
     return (
         <Box className={props.style.sourceApplicationForm}>
@@ -66,24 +35,7 @@ const SourceApplicationForm: React.FunctionComponent<any> = (props) => {
                 <Typography variant={"h6"}>{t('header')}</Typography>
                 <HelpPopover popoverContent="sourceApplicationFormPopoverContent"/>
             </Box>
-            {/*{MOCK_SKJEMA_METADATA.steps.map((step: IStep) => {*/}
-            {/*    return (*/}
-            {/*        <Box>*/}
-            {/*            <Typography>{step.name}</Typography>*/}
-            {/*            {step.groups.map((group: IGroup) => {*/}
-            {/*                return (*/}
-            {/*                    <Box>*/}
-            {/*                        {group.elements.map((element, index) => {*/}
-            {/*                            return element.type === 'inputBox' && (*/}
-            {/*                                <Tag key={index} value={toTagValue(element.name)} name={element.name}/>*/}
-            {/*                            )*/}
-            {/*                        })}*/}
-            {/*                    </Box>*/}
-            {/*                )*/}
-            {/*            })}*/}
-            {/*        </Box>*/}
-            {/*    )*/}
-            {/*})}*/}
+            {MOCK_SKJEMA_METADATA && <TagTree items={MOCK_SKJEMA_METADATA.instanceElementMetadata}/>}
         </Box>
     );
 }
