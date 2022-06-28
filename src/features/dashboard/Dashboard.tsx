@@ -51,9 +51,10 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const getAllConfigurations = () => {
         IntegrationRepository.get()
             .then((response) => {
-                const allConfigurations = response.data.content;
-                setNumberOfIntegrations(response.data.numberOfElements);
-                getConfigurations(allConfigurations)
+                if(response.data.content) {
+                    setNumberOfIntegrations(response.data.numberOfElements);
+                    getConfigurations(response.data.content)
+                }
                 setLoading(false);
             })
             .catch(e => console.error('Error: ', e))
