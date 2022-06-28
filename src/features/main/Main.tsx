@@ -88,8 +88,17 @@ function Main() {
         window.location.reload();
     };
 
+    const redirectLogin = async (f: any) => {
+        nav.push('/oauth2/start?rd=%2F')
+        window.location.reload();
+    };
+
     createAuthRefreshInterceptor(axios, redirect, {
         statusCodes: [ 401, 403 ]
+    });
+
+    createAuthRefreshInterceptor(axios, redirectLogin, {
+        statusCodes: [ 302 ]
     });
 
     return (
