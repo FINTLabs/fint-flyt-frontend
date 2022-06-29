@@ -99,7 +99,7 @@ function Main() {
     };
 
     const handleOnActive = (event: any) => {
-        console.log('Check if we are authenticated ', event);
+        console.log('Check if authenticated ', event);
         console.log('location: ', window.location, window.location.origin, window.location.href);
         IntegrationRepository.get()
             .then((result: AxiosResponse) => {
