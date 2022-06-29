@@ -99,17 +99,13 @@ function Main() {
     };
 
     const handleOnActive = (event: any) => {
-        console.log('Check if authenticated ', event);
-        console.log('location: ', window.location, window.location.origin, window.location.href);
         IntegrationRepository.get()
             .then((result: AxiosResponse) => {
-                console.log('result', result);
-                console.log('location', window.location);
-                console.log('origin', window.location.origin);
-                console.log('href',  window.location.href);
                 console.log(result);
-                if (result.status === 200 && !result.data.content) {
+                console.log(window.location);
+                if (result.status === 200 && !result.data.content && window.location.origin.includes('viken-no-skjema')) {
                     console.log('We\'re still authenticated, no content');
+                    window.location.href = 'https://viken-no-skjema.vigoiks.no/oauth2/start?rd=%2F'
                 } else {
                     console.log(result, window.location, window.location.origin, window.location.href);
                     if (window.location.origin.includes('viken-no-skjema')) {
@@ -118,16 +114,7 @@ function Main() {
                 }
             })
             .catch((reason: AxiosError) => {
-                // eslint-disable-next-line no-console
-                console.log('reason ', reason)
-                console.log('reason response ', reason.response!)
-                if (reason.response!.status === 302) {
-                    console.log(reason, '302. We need to re-authenticate!', window.location);
-                    if (window.location.origin.includes('viken-no-skjema')) {
-                        console.log('origin viken-no-skjema')
-                    }
-                        //window.location.href = 'https://viken-no-skjema.vigoiks.no/oauth2/start?rd=%2F';
-                }
+                console.log('error: ', reason)
             });
     };
     useIdleTimer({
