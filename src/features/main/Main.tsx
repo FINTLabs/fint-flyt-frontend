@@ -89,7 +89,7 @@ function Main() {
     };
 
     const redirectLogin = async (f: any) => {
-        nav.push('/oauth2/start?rd=%2F')
+        nav.replace('/oauth2/start?rd=%2F')
         window.location.reload();
     };
 
