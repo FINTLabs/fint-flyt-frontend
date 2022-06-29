@@ -108,8 +108,8 @@ function Main() {
                 console.log('origin', window.location.origin);
                 console.log('href',  window.location.href);
                 console.log(result);
-                if (result.status === 200) {
-                    console.log('We\'re still authenticated');
+                if (result.status === 200 && !result.data.content) {
+                    console.log('We\'re still authenticated, no content');
                 } else {
                     console.log(result, window.location, window.location.origin, window.location.href);
                     if (window.location.origin.includes('viken-no-skjema')) {
