@@ -98,19 +98,15 @@ function Main() {
         console.log('user is idle');
     };
 
+    //TODO:
     const handleOnActive = (event: any) => {
         IntegrationRepository.get()
             .then((result: AxiosResponse) => {
-                console.log(result);
-                console.log(window.location);
                 if (result.status === 200 && !result.data.content && window.location.origin.includes('viken-no-skjema')) {
-                    console.log('We\'re still authenticated, no content');
+                    console.log('We\'re still authenticated, no content, trigger reload');
                     window.location.href = 'https://viken-no-skjema.vigoiks.no/oauth2/start?rd=%2F'
                 } else {
-                    console.log(result, window.location, window.location.origin, window.location.href);
-                    if (window.location.origin.includes('viken-no-skjema')) {
-                        console.log('origin viken-no-skjema')
-                    }
+                    console.log('authenticated, has content')
                 }
             })
             .catch((reason: AxiosError) => {
