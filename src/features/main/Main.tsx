@@ -16,7 +16,9 @@ import MenuItems from "./MenuItems";
 import {Link as RouterLink, useHistory} from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import createAuthRefreshInterceptor from "axios-auth-refresh";
-import axios from "axios";
+import axios, {AxiosError, AxiosResponse} from "axios";
+import { useIdleTimer } from 'react-idle-timer';
+import IntegrationRepository from "../integration/repository/IntegrationRepository";
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme: Theme) =>
@@ -91,6 +93,51 @@ function Main() {
     createAuthRefreshInterceptor(axios, redirect, {
         statusCodes: [ 401, 403 ]
     });
+
+    const handleOnIdle = () => {
+        console.log('user is idle');
+    };
+
+    //TODO: make general, not Viken specific
+    const handleOnActive = (event: any) => {
+        console.log('Check if we are authenticated ', event);
+        console.log('location: ', window.location, window.location.origin, window.location.href);
+        IntegrationRepository.get()
+            .then((result: AxiosResponse) => {
+                console.log('result', result);
+                console.log('location', window.location);
+                console.log('origin', window.location.origin);
+                console.log('href',  window.location.href);
+                console.log(result);
+                if (result.status === 200) {
+                    console.log('We\'re still authenticated');
+                } else {
+                    console.log(result, window.location, window.location.origin, window.location.href);
+                    if (window.location.origin.includes('viken-no-skjema')) {
+                        console.log('origin viken-no-skjema')
+                    }
+                }
+            })
+            .catch((reason: AxiosError) => {
+                // eslint-disable-next-line no-console
+                console.log('reason ', reason)
+                console.log('reason response ', reason.response!)
+                if (reason.response!.status === 302) {
+                    console.log(reason, '302. We need to re-authenticate!', window.location);
+                    if (window.location.origin.includes('viken-no-skjema')) {
+                        console.log('origin viken-no-skjema')
+                    }
+                        //window.location.href = 'https://viken-no-skjema.vigoiks.no/oauth2/start?rd=%2F';
+                }
+            });
+    };
+    useIdleTimer({
+        timeout: 9000,
+        onIdle: handleOnIdle,
+        onActive: handleOnActive,
+        debounce: 500,
+    });
+
 
     return (
         <Box display="flex" position="relative" width={1} height={1}>
