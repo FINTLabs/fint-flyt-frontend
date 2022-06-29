@@ -98,7 +98,6 @@ function Main() {
         console.log('user is idle');
     };
 
-    //TODO: make general, not Viken specific
     const handleOnActive = (event: any) => {
         console.log('Check if we are authenticated ', event);
         console.log('location: ', window.location, window.location.origin, window.location.href);
