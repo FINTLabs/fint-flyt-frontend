@@ -1,52 +1,52 @@
 import axios from "axios";
 
 const getAdministrativeUnits = () => {
-    return axios.get<any>("/api/kodeverk/administrativenhet");
+    return axios.get<any>("/api/intern/kodeverk/administrativenhet");
 };
 
 const getStatuses = () => {
-    return axios.get<any>("/api/kodeverk/sakstatus");
+    return axios.get<any>("/api/intern/kodeverk/sakstatus");
 };
 
 const getArchiveSections = () => {
-    return axios.get<any>("/api/kodeverk/arkivdel");
+    return axios.get<any>("/api/intern/kodeverk/arkivdel");
 };
 
 const getArchiveResources = () => {
-    return axios.get<any>("/api/kodeverk/arkivressurs");
+    return axios.get<any>("/api/intern/kodeverk/arkivressurs");
 };
 
 const getClassificationSystems = () => {
-    return axios.get<any>("/api/kodeverk/klassifikasjonssystem");
+    return axios.get<any>("/api/intern/kodeverk/klassifikasjonssystem");
 };
 
 const getClasses = (link: string) => {
     let encodedLink = encodeURIComponent(link);
-    return axios.get<any>(`/api/kodeverk/klasse/${encodedLink}`);
+    return axios.get<any>(`/api/intern/kodeverk/klasse/${encodedLink}`);
 };
 
 const getAccessCodes = () => {
-    return axios.get<any>("/api/kodeverk/tilgangsrestriksjon");
+    return axios.get<any>("/api/intern/kodeverk/tilgangsrestriksjon");
 };
 
 const getParagraphs = () => {
-    return axios.get<any>("/api/kodeverk/skjermingshjemmel");
+    return axios.get<any>("/api/intern/kodeverk/skjermingshjemmel");
 };
 
 const getRecordStatuses = () => {
-    return axios.get<any>("/api/kodeverk/journalstatus");
+    return axios.get<any>("/api/intern/kodeverk/journalstatus");
 };
 
 const getVariants = () => {
-    return axios.get<any>("/api/kodeverk/variantformat");
+    return axios.get<any>("/api/intern/kodeverk/variantformat");
 };
 
 const getDocumentStatuses = () => {
-    return axios.get<any>("/api/kodeverk/dokumentstatus");
+    return axios.get<any>("/api/intern/kodeverk/dokumentstatus");
 };
 
 const getDocumentTypes = () => {
-    return axios.get<any>("/api/kodeverk/dokumenttype");
+    return axios.get<any>("/api/intern/kodeverk/dokumenttype");
 };
 
 const ResourceRepository = {
