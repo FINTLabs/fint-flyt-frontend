@@ -39,7 +39,7 @@ export const FormSettings: React.FunctionComponent<any> = (props) => {
                             size="small"
                             sx={{ mb: 3, width: 'inherit' }}
                             value={sourceApplication}
-                            label={t('labels.sourceApplication')}
+                            label={t('labels.sourceApplication')+'*'}
                             onChange={event => setSourceApplication(event.target.value)}
                         >
                             {sourceApplications.map((item: any, index: number) => (
@@ -55,7 +55,7 @@ export const FormSettings: React.FunctionComponent<any> = (props) => {
                             size="small"
                             sx={{ mb: 1, width: 'inherit' }}
                             value={destination}
-                            label={t('labels.destination')}
+                            label={t('labels.destination')+'*'}
                             onChange={event => setDestination(event.target.value)}
                         >
                             {destinations.map((item: any, index: number) => (

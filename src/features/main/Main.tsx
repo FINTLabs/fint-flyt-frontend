@@ -16,7 +16,9 @@ import MenuItems from "./MenuItems";
 import {Link as RouterLink, useHistory} from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import createAuthRefreshInterceptor from "axios-auth-refresh";
-import axios from "axios";
+import axios, {AxiosError, AxiosResponse} from "axios";
+import { useIdleTimer } from 'react-idle-timer';
+import IntegrationRepository from "../integration/repository/IntegrationRepository";
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme: Theme) =>
@@ -91,6 +93,33 @@ function Main() {
     createAuthRefreshInterceptor(axios, redirect, {
         statusCodes: [ 401, 403 ]
     });
+
+    const handleOnIdle = () => {
+        console.log('user is idle');
+    };
+
+    //TODO:
+    const handleOnActive = (event: any) => {
+        IntegrationRepository.get()
+            .then((result: AxiosResponse) => {
+                if (result.status === 200 && !result.data.content && window.location.origin.includes('viken-no-skjema')) {
+                    console.log('We\'re still authenticated, no content, trigger reload');
+                    window.location.href = 'https://viken-no-skjema.vigoiks.no/oauth2/start?rd=%2F'
+                } else {
+                    console.log('authenticated, has content')
+                }
+            })
+            .catch((reason: AxiosError) => {
+                console.log('error: ', reason)
+            });
+    };
+    useIdleTimer({
+        timeout: 9000,
+        onIdle: handleOnIdle,
+        onActive: handleOnActive,
+        debounce: 500,
+    });
+
 
     return (
         <Box display="flex" position="relative" width={1} height={1}>
