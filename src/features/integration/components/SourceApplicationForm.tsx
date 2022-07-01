@@ -17,7 +17,7 @@ const SourceApplicationForm: React.FunctionComponent<any> = (props) => {
         return items.map((item: any) => (
             <React.Fragment key={item.id}>
                 {item.children.length > 0 ?
-                    <div style={{ paddingLeft: depth * 15, fontSize: depth * 12 }}>
+                    <div style={{ paddingLeft: depth * 15 }}>
                         <Typography>{item.displayName}</Typography>
                     </div> :
                     <div style={{ paddingLeft: depth * 15 }}>
@@ -31,7 +31,7 @@ const SourceApplicationForm: React.FunctionComponent<any> = (props) => {
     return (
         <Box className={props.style.sourceApplicationForm}>
             <Box className={props.style.row}>
-                <Typography variant={"h6"}>{t('header')}</Typography>
+                <Typography variant={"h6"}>{t('header')}: {MOCK_SKJEMA_METADATA.displayName}</Typography>
                 <HelpPopover popoverContent="sourceApplicationFormPopoverContent"/>
             </Box>
             {MOCK_SKJEMA_METADATA && <TagTree items={MOCK_SKJEMA_METADATA.instanceElementMetadata}/>}
