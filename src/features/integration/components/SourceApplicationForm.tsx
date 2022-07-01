@@ -23,7 +23,6 @@ const SourceApplicationForm: React.FunctionComponent<any> = (props) => {
                     <div style={{ paddingLeft: depth * 15 }}>
                         <Tag name={item.displayName} value={toTagValue(item.id)}/>
                     </div>}
-                {/* And here's the recursion! */}
                 <TagTree items={item.children} depth={depth + 1}/>
             </React.Fragment>
         ))
