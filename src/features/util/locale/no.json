@@ -71,7 +71,7 @@
                     }
                 }
             },
-            "checkLabel": "Ferdigstilt",
+            "checkLabel": "Publisert",
             "button": {
                 "save": "Lagre",
                 "cancel": "Avbryt",
@@ -104,7 +104,7 @@
                     "sourceApplication": "Skjemaleverandør",
                     "name": "Navn",
                     "description": "Beskrivelse",
-                    "published": "Ferdigstilt",
+                    "published": "Publisert",
                     "revision": "Revisjon"
                 }
             },

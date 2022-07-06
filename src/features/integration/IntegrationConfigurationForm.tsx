@@ -93,7 +93,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     const [activeId, setActiveId] = useState<any>(undefined)
     const [saved, setSaved] = React.useState(false);
     const [saveError, setSaveError] = React.useState(false);
-    const [checked, setChecked] = React.useState(false);
+    const [checked, setChecked] = React.useState(integration.integrationId && editConfig ? integration.published : false);
     let history = useHistory();
     let activeConfiguration = integration.integrationId && editConfig ? integration : undefined;
     let activeFormData = integration.integrationId && editConfig ? toFormData(integration) : defaultValues;
