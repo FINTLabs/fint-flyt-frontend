@@ -20,7 +20,7 @@ describe('Testing integration list', () => {
     })
 
     it('should contain correct colunms', () => {
-        let columns = ['Skjemaleverandør', 'Skjema', 'Navn', 'Beskrivelse', 'Ferdigstilt', 'Revisjon']
+        let columns = ['Skjemaleverandør', 'Skjema', 'Navn', 'Beskrivelse', 'Publisert', 'Revisjon']
         columns.forEach(column => {
             cy.get('.MuiDataGrid-root').should("contain.text", column)
         })
