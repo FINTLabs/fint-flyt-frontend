@@ -184,6 +184,7 @@
             "destination": "Destinasjon",
             "sourceApplication": "Skjemaleverandør",
             "sourceApplicationIntegrationId": "Skjema",
+            "searchAlternatives": "Søkealternativ",
             "caseCreationInfo": "Velg hvordan skjema skal sendes til arkivet",
             "caseCreationNew": "Som ny sak",
             "caseCreationNewInfo": "Innsendt skjema oppretter en ny sak i Elements",
@@ -237,6 +238,13 @@
                 "exisitingDesc":"Innsendt skjema gjenfinner eksisterende sak i Elements basert på informasjon i skjemaet. Dersom det ikke fins en eksisterende sak opprettes en ny sak",
                 "collection":"På samlesak",
                 "collectionDesc":"Innsendt skjema skal leveres til en forhåndsdefinert samlesak. Her må du opplyse om saksnummer"
+            },
+            "searchStrategies": {
+                "class": "Klassering/ordningsverdi",
+                "classArch": "Klassering/ordningsverdi og arkivdel",
+                "classType": "Klassering/ordningsverdi og sakstype",
+                "classArchType": "Klassering/ordningsverdi, arkivdel og sakstype",
+                "classAccArchType": "Klassering/ordningsverdi, arkivdel, tilgangskode og sakstype"
             },
             "applicantOptions": {
                 "individual":"Privatperson",
@@ -331,6 +339,8 @@
                 "destination": "Destinasjon/Base"
             },
             "button": {
+                "save": "Lagre",
+                "search": "Søk",
                 "next": "Neste",
                 "cancel": "Avbryt"
             }

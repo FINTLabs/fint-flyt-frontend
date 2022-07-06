@@ -4,7 +4,7 @@ import {IResourceItem} from "../../../context/resourcesContext/types";
 export interface IInputField {
     input: INPUT_TYPE;
     label: string;
-    formValue: string;
+    formValue?: string;
     value?: Function | string;
     dropDownItems?: ISelect[];
     radioOptions?: ISelect[];
