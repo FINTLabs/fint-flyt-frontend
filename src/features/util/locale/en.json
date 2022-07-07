@@ -184,7 +184,7 @@
             "destination": "Destination",
             "sourceApplication": "Source application",
             "sourceApplicationIntegrationId": "Form",
-            "searchAlternatives": "Search alternatives",
+            "searchAlternatives": "Search combination for searching existing case",
             "caseCreationInfo": "Select creation strategy",
             "caseCreationNew": "As new case",
             "caseCreationNewInfo": "Form creates new case in Elements",

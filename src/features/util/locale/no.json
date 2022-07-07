@@ -184,7 +184,7 @@
             "destination": "Destinasjon",
             "sourceApplication": "Skjemaleverandør",
             "sourceApplicationIntegrationId": "Skjema",
-            "searchAlternatives": "Søkealternativ",
+            "searchAlternatives": "Kombinasjon å søke etter eksisterende sak",
             "caseCreationInfo": "Velg hvordan skjema skal sendes til arkivet",
             "caseCreationNew": "Som ny sak",
             "caseCreationNewInfo": "Innsendt skjema oppretter en ny sak i Elements",

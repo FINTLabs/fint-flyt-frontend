@@ -1,4 +1,4 @@
-import {Box, Button, FormGroup, MenuItem, TextField} from '@mui/material';
+import {Box, Button, FormGroup, MenuItem, TextField, Typography} from '@mui/material';
 import React, {useContext, useEffect} from 'react';
 import InputField from "./InputField";
 import {INPUT_TYPE} from "../../types/InputType.enum";
@@ -10,11 +10,14 @@ import {dropdownPlaceholder, exisingCaseSearchCombinations} from "../../defaults
 import {ICaseSearchParams} from "../../types/CaseSearchParams";
 
 const ExistingCaseForm: React.FunctionComponent<any> = (props) => {
-    const { t } = useTranslation('translations');
-    const [_case, setCase] = React.useState('');
     const required = props.validation;
+    const errors: FieldErrors = props.errors
+    const { t } = useTranslation('translations');
+    const [existingCase, setExistingCase] = React.useState('');
     const { accessCodes, archiveSections, classificationSystems, primaryClassification, primaryClass, getPrimaryClass, setPrimaryClassification} = useContext(ResourcesContext);
     const [searchStrategy, setSearchStrategy] = React.useState('CLASS');
+    let socialSecurityCode: string = 'https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/FNR'
+    let orgNumberCode: string = 'https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/ORGNR'
     let searchParams: ICaseSearchParams = {
         searchStrategy: searchStrategy,
         primaryClassification: props.watch("caseData.primaryClassification"),
@@ -28,9 +31,6 @@ const ExistingCaseForm: React.FunctionComponent<any> = (props) => {
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchStrategy(event.target.value);
     };
-    let socialSecurityCode: string = 'https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/FNR'
-    let orgNumberCode: string = 'https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/ORGNR'
-
 
     useEffect(()=> {
         getPrimaryClass();
@@ -38,10 +38,8 @@ const ExistingCaseForm: React.FunctionComponent<any> = (props) => {
 
     const handleExistingCaseSearch = () => {
         console.log(searchParams)
-        return 'treff';
+        setExistingCase('Vis søkeresultat her');
     }
-
-    let errors: FieldErrors = props.errors
 
     const exisitingCaseInformation: IInputField[] = [
         {input: INPUT_TYPE.DROPDOWN, label: "labels.primaryClassification", value: props.watch("caseData.primaryClassification"), formValue: "caseData.primaryClassification", dropDownItems: classificationSystems, required: required, error:errors.caseData?.primaryClassification, setter: setPrimaryClassification, helpText: "caseData.classification"},
@@ -97,9 +95,10 @@ const ExistingCaseForm: React.FunctionComponent<any> = (props) => {
                     }
                 )}
             </FormGroup>
-            <Box>
-                <Button id="case-information-search-btn" onClick={handleExistingCaseSearch} variant="outlined" sx={{mb: 4}}>{t('components.formSettings.button.search')}</Button></Box>
-
+            <Box sx={{mb: 4}}>
+                <Button id="case-information-search-btn" onClick={handleExistingCaseSearch} variant="outlined">{t('components.formSettings.button.search')}</Button>
+                <Typography>{existingCase}</Typography>
+            </Box>
         </div>
     );
 }
