@@ -84,7 +84,7 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
             <Box width={950}>
                 <Card sx={{mb: 4}}>
                     <FormControl size='small' sx={{float: 'right', width: 300, m: 2}}>
-                        <InputLabel id="version-select-input-label">Revisjon</InputLabel>
+                        <InputLabel id="version-select-input-label">{t('revision')}</InputLabel>
                         <Select
                             labelId="version-select-label"
                             id="version-select"

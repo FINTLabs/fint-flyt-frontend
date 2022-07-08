@@ -5,7 +5,7 @@ import {createValueBuilder} from "./ValueBuilderUtil";
 import {CreationStrategy} from "../integration/types/CreationStrategy";
 
 export function toIntegrationConfiguration(data: IFormData, id?: string): IIntegrationConfiguration {
-    const collectionStrategy: boolean = data.caseData?.caseCreationStrategy === CreationStrategy.COLLECTION
+    const newCaseCreationStrategy: boolean = data.caseData?.caseCreationStrategy !== CreationStrategy.COLLECTION
     return {
         integrationId: id,
         name: data.name,
@@ -14,12 +14,7 @@ export function toIntegrationConfiguration(data: IFormData, id?: string): IInteg
         sourceApplicationIntegrationId: data.sourceApplicationIntegrationId,
         destination: data.destination,
         published: data.published,
-        caseConfiguration: collectionStrategy ?
-            {
-                caseCreationStrategy: data.caseData?.caseCreationStrategy,
-                caseNumber: data.caseData?.caseNumber,
-                fields: []
-            } :
+        caseConfiguration: newCaseCreationStrategy ?
             {
                 caseCreationStrategy: data.caseData?.caseCreationStrategy,
                 fields: [
@@ -135,6 +130,10 @@ export function toIntegrationConfiguration(data: IFormData, id?: string): IInteg
                         valueBuilder: createValueBuilder(data.caseData?.tertiaryTitle)
                     }
                 ]
+            } : {
+                caseCreationStrategy: data.caseData?.caseCreationStrategy,
+                caseNumber: data.caseData?.caseNumber,
+                fields: []
             },
         recordConfiguration: {
             fields: [

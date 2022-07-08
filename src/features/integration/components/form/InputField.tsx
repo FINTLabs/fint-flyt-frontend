@@ -42,7 +42,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                         size="small"
                         sx={{ mb: 3, width: 'inherit' }}
                         value={props.value}
-                        label={props.required ? (t(props.label)+'*') : t(props.label)}
+                        label={props.required ? (t(props.label)) +'*' : t(props.label)}
                         SelectProps={{
                             MenuProps: {
                                 className: classes.dropdownPopover
@@ -106,7 +106,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                             <TextField
                                 {...params}
                                 size="small"
-                                label={props.required ? t((props.label)+'*') : t(props.label)}
+                                label={props.required ? t((props.label)) +'*' : t(props.label)}
                                 error={!!props.error}
                                 helperText={props.error ? t('requiredField') : ''}
                             />
@@ -143,7 +143,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                 render={({ field: { onChange, onBlur, value } }) => (
                     <TextField
                         id={props.formValue}
-                        label={props.required ? (t(props.label)+'*') : t(props.label)}
+                        label={props.required ? (t(props.label)) +'*' : t(props.label)}
                         size="small"
                         variant="outlined"
                         sx={{ mb: 3, width: 'inherit'}}

@@ -71,7 +71,7 @@
                     }
                 }
             },
-            "checkLabel": "Ferdigstilt",
+            "checkLabel": "Publisert",
             "button": {
                 "save": "Lagre",
                 "cancel": "Avbryt",
@@ -104,7 +104,7 @@
                     "sourceApplication": "Skjemaleverandør",
                     "name": "Navn",
                     "description": "Beskrivelse",
-                    "published": "Ferdigstilt",
+                    "published": "Publisert",
                     "revision": "Revisjon"
                 }
             },
@@ -137,7 +137,7 @@
                 "secondaryTitle": "Sekundærtittel: ",
                 "tertiaryTitle": "Tertiærtittel: ",
                 "type": "Type: ",
-                "recordStatus": "Status: ",
+                "recordStatus": "Journalstatus: ",
                 "caseWorker": "Saksbehandler: ",
                 "documentStatus": "Status: ",
                 "variant": "Variant: ",
@@ -212,7 +212,7 @@
             "secondaryTitle": "Sekundærtittel",
             "tertiaryTitle": "Tertiærtittel",
             "type": "Type",
-            "recordStatus": "Status",
+            "recordStatus": "Journalstatus",
             "caseWorker": "Saksbehandler",
             "documentStatus": "Status",
             "variant": "Variant",
@@ -365,7 +365,7 @@
             "publicTitle": "Se Noark (Del av tittel som skal skjermes)",
             "type": "I, U, N, X",
             "administrativeUnit": "Enheten/avdelingen. Nedtrekksmeny fra Elements",
-            "status": "R,F,E,J",
+            "recordStatus": "R,F,E,J",
             "caseWorker": "En sak kan ha en ansvarlig saksbehandler men det kan være ulike saksbehandlere på ulike journalposter.",
             "accessCode": "Eksempel: Unntatt offentlighet, personal varslingssak, ugradert. ",
             "paragraph": "Eksempel: Offl. §13 "

@@ -41,10 +41,11 @@ const Overview: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const getAllConfigurations = () => {
         IntegrationRepository.get()
             .then((response) => {
-                const allConfigurations = response.data.content;
-                getConfigurations(allConfigurations);
+                if(response.data.content) {
+                    const allConfigurations = response.data.content;
+                    getConfigurations(allConfigurations);
+                }
                 setLoading(false);
-
             })
             .catch(e => console.error('Error: ', e))
     }
