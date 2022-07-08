@@ -1,11 +1,12 @@
 import {IEvent} from "../../features/log/types/Event";
 
-export const MOCK_HENDELSER: IEvent[] = [{
+export const MOCK_HENDELSER: IEvent[] = [
+    {
     "instanceFlowHeaders": {
         "orgId":"df5f5006-736e-47b0-9d58-2e3330fa7a87",
         "service":"service",
         "sourceApplication":"ACOS",
-        "sourceApplicationIntegrationId":"VIK036",
+        "sourceApplicationIntegrationId":"VIK026",
         "sourceApplicationInstanceId":"42t63",
         "integrationId": "integration-id",
         "correlationId":"1",
@@ -18,7 +19,8 @@ export const MOCK_HENDELSER: IEvent[] = [{
     "timeStamp":new Date("2022-04-06T13:08:01.956374"),
     "type":"INFO",
     "errors":[]
-}, {
+},
+    {
     "instanceFlowHeaders":{
         "orgId":"3dc51477-12ca-4cb7-a717-2b28b462a1cc",
         "service":"service",
@@ -36,7 +38,8 @@ export const MOCK_HENDELSER: IEvent[] = [{
     "timeStamp": new Date("2022-04-06T13:08:01.956935"),
     "type":"INFO",
     "errors":[]
-},{
+},
+    {
     "instanceFlowHeaders":{
         "orgId":"54bd03a6-0bf2-42da-97d8-ed7d749d8be0",
         "service":"service",
@@ -66,4 +69,24 @@ export const MOCK_HENDELSER: IEvent[] = [{
             "arg1":"'administrativ enhet'"
         }
     }]
-}]
+},
+    {
+        "instanceFlowHeaders":{
+            "orgId":"3dc51477-12ca-4cb7-a717-2b28b462a1cc",
+            "service":"service",
+            "sourceApplication":"ACOS",
+            "sourceApplicationIntegrationId":"VIK031",
+            "sourceApplicationInstanceId":"1225",
+            "integrationId": "integration-id",
+            "correlationId":"1",
+            "instanceId":"1",
+            "configurationId":"null",
+            "caseId":"null",
+            "dispatchId":"null"
+        },
+        "name":"new-instance",
+        "timeStamp": new Date("2022-05-06T13:08:01.956935"),
+        "type":"INFO",
+        "errors":[]
+    },
+]

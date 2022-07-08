@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import moment from "moment";
-import {DataGrid, GridCellParams, GridColumns} from "@mui/x-data-grid";
+import {DataGrid, GridCellParams, GridColumns, GridToolbar} from "@mui/x-data-grid";
 import {gridLocaleNoNB} from "../util/locale/gridLocaleNoNB";
 import { useTranslation } from 'react-i18next';
 import {MOCK_HENDELSER} from "../../__tests__/mock/mock-hendelser-data";
@@ -135,9 +135,25 @@ function Log() {
             <AlertDialog row={selectedRow}/>
             <DataGrid
                 columns={columns}
+                density='compact'
                 localeText={gridLocaleNoNB}
                 rows={allEvents}
+                components={{
+                    Toolbar: GridToolbar,
+                }}
                 rowThreshold={0}
+                initialState={{
+                    filter: {
+                        filterModel: {
+                            items: [
+                                {
+                                    columnField: 'sourceApplicationIntegrationId',
+                                    operatorValue: 'contains'
+                                },
+                            ],
+                        },
+                    },
+                }}
             />
         </Box>
     );
