@@ -5,7 +5,7 @@ import {createValueBuilder} from "./ValueBuilderUtil";
 import {CreationStrategy} from "../integration/types/CreationStrategy";
 
 export function toIntegrationConfiguration(data: IFormData, id?: string): IIntegrationConfiguration {
-    const newCaseCreationStrategy: boolean = data.caseData?.caseCreationStrategy === CreationStrategy.NEW
+    const newCaseCreationStrategy: boolean = data.caseData?.caseCreationStrategy !== CreationStrategy.COLLECTION
     return {
         integrationId: id,
         name: data.name,
