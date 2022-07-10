@@ -32,6 +32,7 @@
             "accordions": {
                 "caseInformation": {
                     "header": "Integrasjonslogikk",
+                    "classification": "Klassering",
                     "button": {
                         "search": "Søk",
                         "save": "Lagre"

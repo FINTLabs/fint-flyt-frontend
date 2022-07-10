@@ -1,18 +1,16 @@
+import {ValueBuilder} from "./ValueBuilder";
+
 export interface ICaseSearchParams {
-    searchStrategy: string;
     primaryClassification?: string;
-    primaryClass?: string;
-    primaryTitle?: string;
+    primaryClass?: string| ValueBuilder;
+    primaryTitle?: string| ValueBuilder;
+    secondaryClassification?: string
+    secondaryClass?: string | ValueBuilder;
+    secondaryTitle?: string | ValueBuilder;
+    tertiaryClassification?: string;
+    tertiaryClass?: string | ValueBuilder;
+    tertiaryTitle?: string | ValueBuilder;
     archiveSection?: string;
     type?: string;
     accessCode?: string;
 }
-
-export const SEARCH_STRATEGY = {
-    CLASS: 'CLASS',
-    CLASS_ARCHIVESECTION: 'CLASS_ARCHIVESECTION',
-    CLASS_TYPE: 'CLASS_TYPE',
-    CLASS_ARCHIVESECTION_TYPE: 'CLASS_ARCHIVESECTION_TYPE',
-    CLASS_ACCESSCODE_ARCHIVESECTION_TYPE: 'CLASS_ACCESSCODE_ARCHIVESECTION_TYPE'
-}
-

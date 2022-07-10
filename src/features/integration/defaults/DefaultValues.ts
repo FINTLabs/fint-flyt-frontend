@@ -83,14 +83,6 @@ export const dropdownPlaceholder: ISelect[] = [
     {label: 'Alternativ 10', value: 'alt10'}
 ]
 
-export const exisingCaseSearchCombinations: ISelect[] = [
-    {label: 'inputField.selects.searchStrategies.class', value: 'CLASS'},
-    {label: 'inputField.selects.searchStrategies.classArch', value: 'CLASS_ARCHIVESECTION'},
-    {label: 'inputField.selects.searchStrategies.classType', value: 'CLASS_TYPE'},
-    {label: 'inputField.selects.searchStrategies.classArchType', value: 'CLASS_ARCHIVESECTION_TYPE'},
-    {label: 'inputField.selects.searchStrategies.classAccArchType', value: 'CLASS_ACCESSCODE_ARCHIVESECTION_TYPE'}
-];
-
 export const creationStrategies: ISelect[] = [
     {label: 'selects.creationStrategies.new', value: 'NEW',  description: "selects.creationStrategies.newDesc"},
     {label: 'selects.creationStrategies.exisiting', value: 'EXISTING',  description: "selects.creationStrategies.exisitingDesc"},

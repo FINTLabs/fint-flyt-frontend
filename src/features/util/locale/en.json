@@ -32,6 +32,7 @@
             "accordions": {
                 "caseInformation": {
                     "header": "Integration logic",
+                    "classification": "Classification",
                     "button": {
                         "search": "Search",
                         "save": "Save"
