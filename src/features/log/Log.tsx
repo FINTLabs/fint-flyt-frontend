@@ -28,6 +28,7 @@ function Log() {
     const [selectedRow, setSelectedRow] = useState<IEvent>();
     const [open, setOpen] = React.useState(false);
     let events = MOCK_HENDELSER;
+    console.log(events)
 
     const columns: GridColumns = [
         { field: 'id', hide: true, type: 'string', headerName: 'id', flex: 0.5 },
@@ -35,7 +36,7 @@ function Log() {
             renderCell: (params) => ( <CustomDialogToggle row={params.row} />)},
         { field: 'type', type: 'string', headerName: 'Type', flex: 0.5 },
         { field: 'timestamp', type: 'string', headerName: 'Tidspunkt', flex: 1,
-            valueGetter: (params) => moment(params.row.timestamp).format('DD/MM/YY HH:mm')},
+            valueGetter: (params) => moment(params.row.timeStamp).format('DD/MM/YY HH:mm')},
         { field: 'name', type: 'string', headerName: 'Navn', flex: 1 },
         { field: 'sourceApplicationIntegrationId', type: 'string', headerName: 'Skjema', flex: 1,
             valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplicationIntegrationId},
@@ -131,7 +132,8 @@ function Log() {
 
     return (
         <Box sx={{ width: 1, height: 1200 }}>
-            <Typography>{t('header')}</Typography>
+            {/*TODO: remove header*/}
+            <Typography>{t('header')} (NB! KUN DEMO, IKKE REELLE DATA) </Typography>
             <AlertDialog row={selectedRow}/>
             <DataGrid
                 columns={columns}

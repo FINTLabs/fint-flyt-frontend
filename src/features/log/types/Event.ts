@@ -2,7 +2,7 @@
 export interface IEvent {
     id?: string;
     name: string;
-    timeStamp: Date;
+    timeStamp: string | Date;
     type: string;
     errors: IError[];
     instanceFlowHeaders: IInstanceFlowHeadersEmbeddable;
