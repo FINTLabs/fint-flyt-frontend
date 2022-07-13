@@ -102,7 +102,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
         setChecked(event.target.checked);
     };
 
-    const {handleSubmit, watch, setValue, control, reset, formState} = useForm<IFormData>({
+    const {handleSubmit, watch, setValue, control, reset, formState, getValues} = useForm<IFormData>({
         defaultValues: activeFormData,
         reValidateMode: 'onChange'
     });
@@ -254,6 +254,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                                 return (
                                     <AccordionForm
                                         id={accordion.id}
+                                        getValues={getValues}
                                         activeFormData={activeFormData}
                                         key={index}
                                         style={classes}

@@ -10,9 +10,12 @@ import {dropdownPlaceholder} from "../../defaults/DefaultValues";
 import {ICaseSearchParams} from "../../types/CaseSearchParams";
 import AddIcon from '@mui/icons-material/Add';
 import {createValueBuilder} from "../../../util/ValueBuilderUtil";
+import {IField} from "../../types/Field";
+import {toExistingCaseSearchParams} from "../../../util/ToExistingCaseSearchParams";
 
 const ExistingCaseForm: React.FunctionComponent<any> = (props) => {
     const required = props.validation;
+    const getValues = props.getValues;
     const errors: FieldErrors = props.errors
     const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationForm.accordions.caseInformation'});
     const [existingCase, setExistingCase] = React.useState('');
@@ -36,6 +39,7 @@ const ExistingCaseForm: React.FunctionComponent<any> = (props) => {
         type: props.watch("caseData.type"),
         accessCode: props.watch("caseData.accessCode")
     }
+    let searches: IField[] = toExistingCaseSearchParams(getValues("caseData"))
 
 
     useEffect(()=> {
@@ -50,6 +54,7 @@ const ExistingCaseForm: React.FunctionComponent<any> = (props) => {
 
     const handleExistingCaseSearch = () => {
         console.log(searchParams)
+        console.log(searches)
         setExistingCase('Vis søkeresultat her');
     }
 
@@ -76,7 +81,7 @@ const ExistingCaseForm: React.FunctionComponent<any> = (props) => {
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.tertiaryTitle", formValue: "caseData.tertiaryTitle", hidden: !showTertiary, required: required, error:errors.caseData?.tertiaryTitle, value: props.activeFormData?.caseData?.tertiaryTitle, helpText: "caseData.classTitle"},
   ]
 
-    const exisitingCaseInformation: IInputField[] = [
+    const existingCaseInformation: IInputField[] = [
         {input: INPUT_TYPE.DROPDOWN, label: "labels.archiveUnit", value: props.watch("caseData.archiveUnit"), formValue: "caseData.archiveUnit", dropDownItems: archiveSections, required: props.validation, error:errors.caseData?.archiveUnit, helpText: "caseData.archiveUnit"},
         {input: INPUT_TYPE.DROPDOWN, label: "labels.accessCode", value: props.watch("caseData.accessCode"), formValue: "caseData.accessCode", dropDownItems: accessCodes, required: props.validation, error:errors.caseData?.accessCode, helpText: "caseData.accessCode"},
         {input: INPUT_TYPE.DROPDOWN, label: "labels.type", value: props.watch("caseData.caseType"), formValue: "caseData.caseType", dropDownItems: dropdownPlaceholder, required: false, disabled:true, error:errors.caseData?.caseType, helpText: "caseData.caseType"},
@@ -115,7 +120,7 @@ const ExistingCaseForm: React.FunctionComponent<any> = (props) => {
                 {!showSecondary && <AddIcon sx={{cursor: 'pointer'}} onClick={handleToggleSecondary}/>}
                 {showSecondary && !showTertiary && <AddIcon sx={{cursor: 'pointer'}} onClick={handleToggleTertiary}/>}
                 <Divider sx={{mb: 3}}/>
-                {exisitingCaseInformation.map((field, index) => {
+                {existingCaseInformation.map((field, index) => {
                         return (
                             field.hidden ?
                                 <div key={index}/> :
