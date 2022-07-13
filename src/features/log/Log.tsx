@@ -133,7 +133,7 @@ function Log() {
     return (
         <Box sx={{ width: 1, height: 1200 }}>
             {/*TODO: remove header*/}
-            <Typography>{t('header')} (NB! KUN DEMO, IKKE REELLE DATA) </Typography>
+            <Typography>{t('header')} (NB! UNDER UTVIKLING, KUN DEMO, IKKE REELLE DATA) </Typography>
             <AlertDialog row={selectedRow}/>
             <DataGrid
                 columns={columns}
