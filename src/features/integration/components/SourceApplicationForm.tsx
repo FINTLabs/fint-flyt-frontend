@@ -3,7 +3,7 @@ import {Tag} from "./dnd/Tag";
 import * as React from "react";
 import HelpPopover from "./popover/HelpPopover";
 import {useTranslation} from "react-i18next";
-import {MOCK_SKJEMA_METADATA} from "../../../__tests__/mock/mock-skjema-metadata";
+import {MOCK_SKJEMA_METADATA, MOCK_SKJEMA_METADATA_TEMP} from "../../../__tests__/mock/mock-skjema-metadata";
 import {toTagValue} from "../../util/JsonUtil";
 
 const SourceApplicationForm: React.FunctionComponent<any> = (props) => {
@@ -31,10 +31,10 @@ const SourceApplicationForm: React.FunctionComponent<any> = (props) => {
     return (
         <Box className={props.style.sourceApplicationForm}>
             <Box className={props.style.row}>
-                <Typography variant={"h6"}>{t('header')}: {MOCK_SKJEMA_METADATA.displayName}</Typography>
+                <Typography variant={"h6"}>{t('header')}: {MOCK_SKJEMA_METADATA_TEMP.displayName}</Typography>
                 <HelpPopover popoverContent="sourceApplicationFormPopoverContent"/>
             </Box>
-            {MOCK_SKJEMA_METADATA && <TagTree items={MOCK_SKJEMA_METADATA.instanceElementMetadata}/>}
+            {MOCK_SKJEMA_METADATA && <TagTree items={MOCK_SKJEMA_METADATA_TEMP.instanceElementMetadata}/>}
         </Box>
     );
 }
