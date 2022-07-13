@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         sourceApplicationForm: {
             opacity: 0.99,
-            width: theme.spacing(40),
+            width: theme.spacing(50),
             height: 'fit-content'
         },
         accordion: {
