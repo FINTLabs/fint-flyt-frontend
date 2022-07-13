@@ -18,7 +18,7 @@ export const MOCK_SKJEMA_METADATA: IFormMetadata = {
                             "children": []
                         },
                         {
-                            "id": "Etternavn_1",
+                            "id": "etternavn_1",
                             "displayName": "Etternavn",
                             "children": []
                         }
@@ -68,7 +68,7 @@ export const MOCK_SKJEMA_METADATA: IFormMetadata = {
                     "children": []
                 },
                 {
-                    "id": "Etternavn_3",
+                    "id": "etternavn_3",
                     "displayName": "Etternavn",
                     "children": []
                 }
