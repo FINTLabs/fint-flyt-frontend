@@ -17,15 +17,18 @@ import {
 } from "@mui/material";
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import moment from "moment";
-import {DataGrid, GridCellParams, GridColumns} from "@mui/x-data-grid";
+import {DataGrid, GridCellParams, GridColumns, GridToolbar} from "@mui/x-data-grid";
 import {gridLocaleNoNB} from "../util/locale/gridLocaleNoNB";
 import { useTranslation } from 'react-i18next';
+import {MOCK_HENDELSER} from "../../__tests__/mock/mock-hendelser-data";
 
 function Log() {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.log'})
     const [allEvents, setAllEvents] = useState<IEvent[]>([]);
     const [selectedRow, setSelectedRow] = useState<IEvent>();
     const [open, setOpen] = React.useState(false);
+    let events = MOCK_HENDELSER;
+    console.log(events)
 
     const columns: GridColumns = [
         { field: 'id', hide: true, type: 'string', headerName: 'id', flex: 0.5 },
@@ -33,7 +36,7 @@ function Log() {
             renderCell: (params) => ( <CustomDialogToggle row={params.row} />)},
         { field: 'type', type: 'string', headerName: 'Type', flex: 0.5 },
         { field: 'timestamp', type: 'string', headerName: 'Tidspunkt', flex: 1,
-            valueGetter: (params) => moment(params.row.timestamp).format('DD/MM/YY HH:mm')},
+            valueGetter: (params) => moment(params.row.timeStamp).format('DD/MM/YY HH:mm')},
         { field: 'name', type: 'string', headerName: 'Navn', flex: 1 },
         { field: 'sourceApplicationIntegrationId', type: 'string', headerName: 'Skjema', flex: 1,
             valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplicationIntegrationId},
@@ -103,9 +106,19 @@ function Log() {
     }, []);
 
     const getAllEvents = () => {
-        EventRepository.getEvents()
+        let data = events;
+        console.log(data)
+        if (data) {
+            data.forEach(addId(0, 'name'))
+            data.forEach((event: any) =>
+                event.errors.forEach(addId(0, 'errorCode'))
+            );
+            setAllEvents(data);
+        }
+/*        EventRepository.getEvents()
             .then((response) => {
-                let data = response.data;
+                let data = events;
+                console.log(data)
                 if (data) {
                     data.forEach(addId(0, 'name'))
                     data.forEach((event: any) =>
@@ -114,18 +127,35 @@ function Log() {
                     setAllEvents(data);
                 }
             })
-            .catch(e => console.error('Error: ', e))
+            .catch(e => console.error('Error: ', e))*/
     }
 
     return (
         <Box sx={{ width: 1, height: 1200 }}>
-            <Typography>{t('header')}</Typography>
+            {/*TODO: remove header*/}
+            <Typography>{t('header')} (NB! UNDER UTVIKLING, KUN DEMO, IKKE REELLE DATA) </Typography>
             <AlertDialog row={selectedRow}/>
             <DataGrid
                 columns={columns}
+                density='compact'
                 localeText={gridLocaleNoNB}
                 rows={allEvents}
+                components={{
+                    Toolbar: GridToolbar,
+                }}
                 rowThreshold={0}
+                initialState={{
+                    filter: {
+                        filterModel: {
+                            items: [
+                                {
+                                    columnField: 'sourceApplicationIntegrationId',
+                                    operatorValue: 'contains'
+                                },
+                            ],
+                        },
+                    },
+                }}
             />
         </Box>
     );
