@@ -28,7 +28,6 @@ function Log() {
     const [selectedRow, setSelectedRow] = useState<IEvent>();
     const [open, setOpen] = React.useState(false);
     let events = MOCK_HENDELSER;
-    console.log(events)
 
     const columns: GridColumns = [
         { field: 'id', hide: true, type: 'string', headerName: 'id', flex: 0.5 },
@@ -107,7 +106,6 @@ function Log() {
 
     const getAllEvents = () => {
         let data = events;
-        console.log(data)
         if (data) {
             data.forEach(addId(0, 'name'))
             data.forEach((event: any) =>
