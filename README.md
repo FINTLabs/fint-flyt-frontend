@@ -1,4 +1,4 @@
-# FINT Skjema Integration Frontend
+# FINT Flyt Integration Frontend
 
 ### run application
 `yarn start`

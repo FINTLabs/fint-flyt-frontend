@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         sourceApplicationForm: {
             opacity: 0.99,
-            width: theme.spacing(40),
+            width: theme.spacing(50),
             height: 'fit-content'
         },
         accordion: {
@@ -93,7 +93,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     const [activeId, setActiveId] = useState<any>(undefined)
     const [saved, setSaved] = React.useState(false);
     const [saveError, setSaveError] = React.useState(false);
-    const [checked, setChecked] = React.useState(false);
+    const [checked, setChecked] = React.useState(integration.integrationId && editConfig ? integration.published : false);
     let history = useHistory();
     let activeConfiguration = integration.integrationId && editConfig ? integration : undefined;
     let activeFormData = integration.integrationId && editConfig ? toFormData(integration) : defaultValues;
@@ -119,7 +119,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
 
     const accordionList: IAccordion[] = [
         {id: 'case-information', summary: "caseInformation.header", accordionForm: ACCORDION_FORM.CASE_INFORMATION, defaultExpanded: true},
-        {id: 'case-form', summary: "caseForm.header", accordionForm: ACCORDION_FORM.CASE_FORM, defaultExpanded: false, hidden: watch("caseData.caseCreationStrategy") === CreationStrategy.COLLECTION},
+        {id: 'case-form', summary: "caseForm.header", accordionForm: ACCORDION_FORM.CASE_FORM, defaultExpanded: false, hidden: watch("caseData.caseCreationStrategy") == CreationStrategy.COLLECTION},
         {id: 'record-form', summary: "recordForm.header", accordionForm: ACCORDION_FORM.RECORD_FORM, defaultExpanded: false},
         {id: 'document-object-form', summary: "documentForm.header", accordionForm: ACCORDION_FORM.DOCUMENT_FORM, defaultExpanded: false},
         {id: 'applicant-form', summary: "applicationForm.header", accordionForm: ACCORDION_FORM.APPLICANT_FORM, defaultExpanded: false}

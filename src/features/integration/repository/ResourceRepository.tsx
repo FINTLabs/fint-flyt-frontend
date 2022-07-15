@@ -21,8 +21,7 @@ const getClassificationSystems = () => {
 };
 
 const getClasses = (link: string) => {
-    let encodedLink = encodeURIComponent(link);
-    return axios.get<any>(`/api/intern/kodeverk/klasse/${encodedLink}`);
+    return axios.get<any>(`/api/intern/kodeverk/klasse/`, {params: {klassifikasjonssystemLink: link}});
 };
 
 const getAccessCodes = () => {

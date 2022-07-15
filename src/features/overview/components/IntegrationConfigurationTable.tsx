@@ -33,6 +33,7 @@ const IntegrationConfigurationTable: React.FunctionComponent<any> = (props) => {
             <Box display="flex" position="relative" width={1} height={1}>
                 <Box id="integration-list" className={classes.dataGridBox}>
                     <DataGrid
+                        loading={props.loading}
                         localeText={i18n.language === 'no' ? gridLocaleNoNB : undefined}
                         getRowId={(row) => row.integrationId}
                         onCellDoubleClick={(params, event) => {

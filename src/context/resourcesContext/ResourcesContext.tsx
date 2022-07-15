@@ -117,7 +117,7 @@ const ResourcesProvider: FC = ({ children }) => {
         if(primaryClassification.value !== '') {
             ResourceRepository.getClasses(primaryClassification.value)
                 .then(response => {
-                    response.data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
+                    response.data.map((resource: any) => list.push({label: resource.id + ' - ' + resource.displayName, value: resource.id}))
                     setPrimaryClass(list)
                 })
                 .catch((err) => {
@@ -131,7 +131,7 @@ const ResourcesProvider: FC = ({ children }) => {
         if(secondaryClassification.value !== '') {
             ResourceRepository.getClasses(secondaryClassification.value)
                 .then(response => {
-                    response.data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
+                    response.data.map((resource: any) => list.push({label: resource.id + ' - ' + resource.displayName, value: resource.id}))
                     setSecondaryClass(list)
                 })
                 .catch((err) => {
@@ -146,7 +146,7 @@ const ResourcesProvider: FC = ({ children }) => {
         if(tertiaryClassification.value !== '') {
             ResourceRepository.getClasses(tertiaryClassification.value)
                 .then(response => {
-                    response.data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
+                    response.data.map((resource: any) => list.push({label: resource.id + ' - ' + resource.displayName, value: resource.id}))
                     setTertiaryClass(list)
                 })
                 .catch((err) => {
@@ -264,6 +264,7 @@ const ResourcesProvider: FC = ({ children }) => {
                 getVariants,
                 getPrimaryClass,
                 getSecondaryClass,
+                getTertiaryClass,
                 getAllResources,
                 resetAllResources,
                 setPrimaryClassification,

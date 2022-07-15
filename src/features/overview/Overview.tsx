@@ -32,6 +32,7 @@ const Overview: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const [configurations, getConfigurations] = useState<IRow[]>([]);
     const {integration, setIntegration} = useContext(IntegrationContext)
     const [initialVersion, setInitialVersion] = useState(integration.version);
+    const [loading, setLoading] = useState(true);
 
     useEffect(()=> {
         getAllConfigurations();
@@ -40,9 +41,11 @@ const Overview: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const getAllConfigurations = () => {
         IntegrationRepository.get()
             .then((response) => {
-                const allConfigurations = response.data.content;
-                getConfigurations(allConfigurations)
-
+                if(response.data.content) {
+                    const allConfigurations = response.data.content;
+                    getConfigurations(allConfigurations);
+                }
+                setLoading(false);
             })
             .catch(e => console.error('Error: ', e))
     }
@@ -66,6 +69,7 @@ const Overview: React.FunctionComponent<RouteComponentProps<any>> = () => {
                 /> :
                 <IntegrationConfigurationTable
                     classes={classes}
+                    loading={loading}
                     configurations={configurations}
                     setIntegration={setIntegration}
                     setInitialVersion={setInitialVersion}

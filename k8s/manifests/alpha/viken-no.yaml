@@ -2,19 +2,19 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    io.kompose.service: fint-skjema-integration-frontend
-  name: fint-skjema-integration-frontend
+    io.kompose.service: fint-flyt-integration-frontend
+  name: fint-flyt-integration-frontend
 spec:
   ports:
     - port: 8000
   type: ClusterIP
   selector:
-    io.kompose.service: fint-skjema-integration-frontend
+    io.kompose.service: fint-flyt-integration-frontend
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ingress-fint-skjema-integration-frontend
+  name: ingress-fint-flyt-integration-frontend
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
@@ -27,7 +27,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: fint-skjema-integration-frontend
+                name: fint-flyt-integration-frontend
                 port:
                   number: 8000
 ---
@@ -36,24 +36,24 @@ kind: Deployment
 metadata:
   annotations:
   labels:
-    io.kompose.service: fint-skjema-integration-frontend
-  name: fint-skjema-integration-frontend
+    io.kompose.service: fint-flyt-integration-frontend
+  name: fint-flyt-integration-frontend
 spec:
   replicas: 1
   strategy:
     type: Recreate
   selector:
     matchLabels:
-      io.kompose.service: fint-skjema-integration-frontend
+      io.kompose.service: fint-flyt-integration-frontend
   template:
     metadata:
       labels:
-        io.kompose.service: fint-skjema-integration-frontend
+        io.kompose.service: fint-flyt-integration-frontend
     spec:
       restartPolicy: Always
       containers:
-        - image: fintlabsacr.azurecr.io/fint-skjema-integration-frontend:dummy
-          name: fint-skjema-integration-frontend
+        - image: fintlabsacr.azurecr.io/fint-flyt-integration-frontend:dummy
+          name: fint-flyt-integration-frontend
           resources:
             limits:
               cpu: 500m

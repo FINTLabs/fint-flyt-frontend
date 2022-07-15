@@ -71,7 +71,7 @@
                     }
                 }
             },
-            "checkLabel": "Ferdigstilt",
+            "checkLabel": "Publisert",
             "button": {
                 "save": "Lagre",
                 "cancel": "Avbryt",
@@ -87,15 +87,69 @@
         "integrationList": {
             "header": "Oversikt",
             "details": "Konfigurasjonsdetaljer",
+            "revision": "Revisjon",
+            "case": "Sakspost",
+            "record": "Journalpost",
+            "document": "Dokument- og objektbeskrivelse",
+            "applicant": "Avsender",
+            "changedMsg": "Endret til revisjon",
+            "button": {
+                "edit": "Rediger",
+                "back": "Tilbake",
+                "changeVersion": "Bruk denne konfigurasjonen"
+            },
             "table": {
                 "columns": {
                     "sourceApplicationIntegrationId": "Skjema",
                     "sourceApplication": "Skjemaleverandør",
                     "name": "Navn",
                     "description": "Beskrivelse",
-                    "published": "Ferdigstilt",
+                    "published": "Publisert",
                     "revision": "Revisjon"
                 }
+            },
+            "labels": {
+                "name": "Navn: ",
+                "description": "Beskrivelse: ",
+                "destination": "Destinasjon: ",
+                "sourceApplication": "Skjemaleverandør: ",
+                "sourceApplicationIntegrationId": "Skjema: ",
+                "caseCreationStrategy": "Avleveringslogikk: ",
+                "published": "Publisert: ",
+                "version": "Versjon: ",
+                "caseNumber": "Saksnummer: ",
+                "title": "Tittel: ",
+                "publicTitle": "Offentlig tittel: ",
+                "administrativeUnit": "Administrativ enhet: ",
+                "archiveUnit": "Arkivdel: ",
+                "recordUnit": "Journalenhet: ",
+                "status": "Status: ",
+                "accessCode": "Tilgangskode: ",
+                "paragraph": "Hjemmel: ",
+                "responsibleCaseWorker": "Ansvarlig saksbehandler: ",
+                "primaryClassification": "Primær ordningsprinsipp: ",
+                "secondaryClassification": "Sekundær ordningsprinsipp: ",
+                "tertiaryClassification": "Tertiær ordningsprinsipp: ",
+                "primaryClass": "Primærklasse: ",
+                "secondaryClass": "Sekundærklasse: ",
+                "tertiaryClass": "Tertiærklasse: ",
+                "primaryTitle": "Primærtittel: ",
+                "secondaryTitle": "Sekundærtittel: ",
+                "tertiaryTitle": "Tertiærtittel: ",
+                "type": "Type: ",
+                "recordStatus": "Journalstatus: ",
+                "caseWorker": "Saksbehandler: ",
+                "documentStatus": "Status: ",
+                "variant": "Variant: ",
+                "organisationNumber": "Organisasjonsnummer: ",
+                "nationalIdentityNumber": "Fødselsnummer: ",
+                "applicantName": "Navn: ",
+                "address": "Adresse: ",
+                "postalCode": "Postnummer: ",
+                "city": "Poststed: ",
+                "contactPerson": "Kontaktperson: ",
+                "phoneNumber": "Telefonnummer: ",
+                "email": "Epost: "
             }
         },
         "log": {
@@ -148,10 +202,17 @@
             "responsibleCaseWorker": "Ansvarlig saksbehandler",
             "primaryClassification": "Primær ordningsprinsipp",
             "secondaryClassification": "Sekundær ordningsprinsipp",
+            "tertiaryClassification": "Tertiær ordningsprinsipp",
             "primaryClass": "Primærklasse",
+            "primaryClassOrg": "Primærklasse (organisasjonsnummer)",
+            "primaryClassSsNbr": "Primærklasse (fødselsnummer)",
             "secondaryClass": "Sekundærklasse",
+            "tertiaryClass": "Tertiærklasse",
+            "primaryTitle": "Primærtittel",
+            "secondaryTitle": "Sekundærtittel",
+            "tertiaryTitle": "Tertiærtittel",
             "type": "Type",
-            "recordStatus": "Status",
+            "recordStatus": "Journalstatus",
             "caseWorker": "Saksbehandler",
             "documentStatus": "Status",
             "variant": "Variant",
@@ -175,18 +236,18 @@
                 "collection":"På samlesak",
                 "collectionDesc":"Innsendt skjema skal leveres til en forhåndsdefinert samlesak. Her må du opplyse om saksnummer"
             },
-            "applicantOptions": {                
+            "applicantOptions": {
                 "individual":"Privatperson",
                 "organisation":"Organisasjon"
             },
-            "sourceApplicationIntegrations": { 
+            "sourceApplicationIntegrations": {
                 "VIK014": "Søknad om reservasjon av skoleplass",
                 "VIK036": "Søknad til kombinasjonsprogram",
                 "VIK108": "Søknad om TT-kort",
                 "VIK132": "Samtykke - fotografering/video/lyd"
             },
-            "sourceApplications": { 
-                "label": "ACOS" 
+            "sourceApplications": {
+                "label": "ACOS"
             }
         }
     },
@@ -211,8 +272,13 @@
                 "caseWorker": "",
                 "primaryClassification": "",
                 "secondaryClassification": "",
+                "tertiaryClassification": "",
                 "primaryClass": "",
-                "secondaryClass": ""
+                "secondaryClass": "",
+                "tertiaryClass": "",
+                "primaryTitle": "",
+                "secondaryTitle": "",
+                "tertiaryTitle": ""
             },
             "recordConfiguration": {
                 "title": "",
@@ -291,14 +357,15 @@
             "paragraph": "Dersom det settes tilgangskode må det også settes hjemmel. Det må være en lovmessig hjemmel for skjerming eller begrenset tilgang.Eksempel:'Offl. §13 '",
             "caseWorker": "Konkret saksbehandler eller ufordelt.",
             "classification": "Det må kunne settes flere klasseringer på en sak, slik at sjemaet kan lete fram riktig sak. Eksempel: Primærkode=K-koder 'Sekundærkode=organisasjonsnummer eller personnummer'",
-            "class": "Vi må kunne fylle ut verdi og betegnelse.Eksempel: K-kode: Verdi 003, Betegnelse: Målbruk.Person: verdi: fødselsnummer, betegnelse = personnavn."
+            "class": "Vi må kunne fylle ut verdi og betegnelse.Eksempel: K-kode: Verdi 003, Betegnelse: Målbruk.Person: verdi: fødselsnummer, betegnelse = personnavn.",
+            "classTitle": "Tittel/Beskrivelse"
         },
         "recordData": {
             "title": "Tittel kan være en konkret tekststreng, eller en kombinasjon av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak. (Se Noark))",
             "publicTitle": "Se Noark (Del av tittel som skal skjermes)",
             "type": "I, U, N, X",
             "administrativeUnit": "Enheten/avdelingen. Nedtrekksmeny fra Elements",
-            "status": "R,F,E,J",
+            "recordStatus": "R,F,E,J",
             "caseWorker": "En sak kan ha en ansvarlig saksbehandler men det kan være ulike saksbehandlere på ulike journalposter.",
             "accessCode": "Eksempel: Unntatt offentlighet, personal varslingssak, ugradert. ",
             "paragraph": "Eksempel: Offl. §13 "

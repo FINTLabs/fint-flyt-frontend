@@ -13,6 +13,13 @@ export default interface ICaseData {
     caseWorker?: string;
     primaryClassification?: string;
     secondaryClassification?: string;
+    tertiaryClassification?: string;
     primaryClass?: string;
+    primaryClassSsNbr?: string;
+    primaryClassOrg?: string;
     secondaryClass?: string;
+    tertiaryClass?: string;
+    primaryTitle?: string;
+    secondaryTitle?: string;
+    tertiaryTitle?: string;
 }

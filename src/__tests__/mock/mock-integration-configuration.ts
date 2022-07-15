@@ -168,9 +168,18 @@ export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
                 }
             },
             {
-                "field": "primarklasse",
-                "valueBuildStrategy": 0,
+                "field": "tertiarordningsprinsipp",
+                "valueBuildStrategy": 1,
                 "valueBuilder": {
+                    "properties": [],
+                    "value": "everdeen"
+                }
+            },
+            {
+                "field": "primarklasse",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
                     "value": "1class"
                 }
             },
@@ -180,6 +189,38 @@ export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
                 "valueBuilder": {
                     "properties": [],
                     "value": "2class"
+                }
+            },
+            {
+                "field": "tertiarklasse",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "3class"
+                }
+            },
+            {
+                "field": "primartittel",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "primTitle"
+                }
+            },
+            {
+                "field": "sekundartittel",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "secTitle"
+                }
+            },
+            {
+                "field": "tertiartittel",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "tertTitle"
                 }
             }
         ]
@@ -225,8 +266,8 @@ export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
             }
         ]
     },
-    "published": false,
     "name": "testform",
+    "published": false,
     "recordConfiguration": {
         "fields": [
             {
@@ -459,9 +500,18 @@ export const MOCK_INTEGRATION_CONFIG_NOT_PUBLISHED = {
                 }
             },
             {
-                "field": "primarklasse",
-                "valueBuildStrategy": 0,
+                "field": "tertiarordningsprinsipp",
+                "valueBuildStrategy": 1,
                 "valueBuilder": {
+                    "properties": [],
+                    "value": "everdeen"
+                }
+            },
+            {
+                "field": "primarklasse",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
                     "value": "1class"
                 }
             },
@@ -471,6 +521,38 @@ export const MOCK_INTEGRATION_CONFIG_NOT_PUBLISHED = {
                 "valueBuilder": {
                     "properties": [],
                     "value": "2class"
+                }
+            },
+            {
+                "field": "tertiarklasse",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "3class"
+                }
+            },
+            {
+                "field": "primartittel",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "primTitle"
+                }
+            },
+            {
+                "field": "sekundartittel",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "secTitle"
+                }
+            },
+            {
+                "field": "tertiartittel",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "tertTitle"
                 }
             }
         ]
@@ -516,8 +598,8 @@ export const MOCK_INTEGRATION_CONFIG_NOT_PUBLISHED = {
             }
         ]
     },
-    "published": false,
     "name": "testform",
+    "published": false,
     "recordConfiguration": {
         "fields": [
             {
@@ -748,9 +830,18 @@ export const MOCK_INTEGRATION_CONFIG_PUBLISHED = {
                 }
             },
             {
-                "field": "primarklasse",
-                "valueBuildStrategy": 0,
+                "field": "tertiarordningsprinsipp",
+                "valueBuildStrategy": 1,
                 "valueBuilder": {
+                    "properties": [],
+                    "value": "everdeen"
+                }
+            },
+            {
+                "field": "primarklasse",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
                     "value": "1class"
                 }
             },
@@ -760,6 +851,38 @@ export const MOCK_INTEGRATION_CONFIG_PUBLISHED = {
                 "valueBuilder": {
                     "properties": [],
                     "value": "2class"
+                }
+            },
+            {
+                "field": "tertiarklasse",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "3class"
+                }
+            },
+            {
+                "field": "primartittel",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "primTitle"
+                }
+            },
+            {
+                "field": "sekundartittel",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "secTitle"
+                }
+            },
+            {
+                "field": "tertiartittel",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "tertTitle"
                 }
             }
         ]
@@ -805,8 +928,8 @@ export const MOCK_INTEGRATION_CONFIG_PUBLISHED = {
             }
         ]
     },
-    "published": true,
     "name": "testform",
+    "published": true,
     "recordConfiguration": {
         "fields": [
             {
@@ -1058,9 +1181,18 @@ export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
                 }
             },
             {
-                "field": "primarklasse",
-                "valueBuildStrategy": 0,
+                "field": "tertiarordningsprinsipp",
+                "valueBuildStrategy": 1,
                 "valueBuilder": {
+                    "properties": [],
+                    "value": "everdeen"
+                }
+            },
+            {
+                "field": "primarklasse",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
                     "value": "1class"
                 }
             },
@@ -1070,6 +1202,38 @@ export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
                 "valueBuilder": {
                     "properties": [],
                     "value": "2class"
+                }
+            },
+            {
+                "field": "tertiarklasse",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "3class"
+                }
+            },
+            {
+                "field": "primartittel",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "primTitle"
+                }
+            },
+            {
+                "field": "sekundartittel",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "secTitle"
+                }
+            },
+            {
+                "field": "tertiartittel",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "tertTitle"
                 }
             }
         ]
@@ -1115,8 +1279,8 @@ export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
             }
         ]
     },
-    "published": false,
     "name": "testform with tags",
+    "published": false,
     "recordConfiguration": {
         "fields": [
             {
