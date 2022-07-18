@@ -1,3 +1,5 @@
+// noinspection DuplicatedCode
+
 describe('Testing integration list', () => {
     beforeEach(() => {
         cy.intercept('GET', '**/integration/configuration', { fixture: 'configuration.json' }).as('getConfigurations')

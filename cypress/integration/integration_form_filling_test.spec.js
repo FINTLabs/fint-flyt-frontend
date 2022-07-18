@@ -1,3 +1,5 @@
+// noinspection DuplicatedCode
+
 describe('Testing filling Integration Form', () => {
     before(() => {
         cy.intercept('GET', '**/api/intern/kodeverk/administrativenhet', {fixture: 'administrativenhet.json'}).as('getAdminstrativeUnits')
