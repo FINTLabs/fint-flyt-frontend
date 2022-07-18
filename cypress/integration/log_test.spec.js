@@ -19,7 +19,7 @@ describe('Testing log', () => {
     })
 
     it('should show details on details expand icon click', () => {
-        cy.get('.MuiDataGrid-cell--withRenderer > .MuiButtonBase-root').click()
+        cy.get('#\\32  > [data-testid="OpenInNewIcon"] > path').click()
         cy.get('#alert-dialog-title').should('be.visible')
     })
 
