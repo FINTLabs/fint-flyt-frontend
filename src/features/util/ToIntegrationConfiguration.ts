@@ -14,6 +14,7 @@ export function toIntegrationConfiguration(data: IFormData, id?: string): IInteg
         sourceApplicationIntegrationId: data.sourceApplicationIntegrationId,
         destination: data.destination,
         published: data.published,
+        existingCaseSearchFields: data.existingCaseSearchFields,
         caseConfiguration: newCaseCreationStrategy ?
             {
                 caseCreationStrategy: data.caseData?.caseCreationStrategy,

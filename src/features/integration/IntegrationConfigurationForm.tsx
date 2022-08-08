@@ -94,11 +94,21 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     const [saved, setSaved] = React.useState(false);
     const [saveError, setSaveError] = React.useState(false);
     const [checked, setChecked] = React.useState(integration.integrationId && editConfig ? integration.published : false);
+    const [checkState, setCheckState] = React.useState({classification: false, archiveUnit: false, accessCode: false, caseType: false});
+
+    const handleCheckChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setCheckState({
+            ...checkState,
+            [event.target.name]: event.target.checked,
+        });
+    };
+
+    const { classification, archiveUnit, accessCode, caseType } = checkState;
     let history = useHistory();
     let activeConfiguration = integration.integrationId && editConfig ? integration : undefined;
     let activeFormData = integration.integrationId && editConfig ? toFormData(integration) : defaultValues;
 
-    const handleCheckChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handlePublishCheckChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setChecked(event.target.checked);
     };
 
@@ -201,6 +211,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
         data.sourceApplication = sourceApplication;
         data.destination = destination;
         data.published = true;
+        data.existingCaseSearchFields = checkState;
         const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data);
         if (integrationConfiguration && activeId !== undefined && activeConfiguration?.integrationId === undefined) {
             const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data, activeId);
@@ -225,6 +236,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
         data.sourceApplication = sourceApplication;
         data.destination = destination;
         data.published = false;
+        data.existingCaseSearchFields = checkState;
         const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data);
         if (integrationConfiguration && activeId !== undefined) {
             const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data, activeId);
@@ -262,6 +274,8 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                                         accordionForm={accordion.accordionForm}
                                         defaultExpanded={accordion.defaultExpanded}
                                         hidden={accordion.hidden}
+                                        handleChange={handleCheckChange}
+                                        checkState={checkState}
                                         watch={watch}
                                         control={control}
                                         setValue={setValue}
@@ -279,7 +293,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                                             <Checkbox
                                             id="form-complete"
                                             checked={checked}
-                                            onChange={handleCheckChange}
+                                            onChange={handlePublishCheckChange}
                                             inputProps={{ 'aria-label': 'completed-checkbox' }}/>}
                                         label={t('checkLabel') as string} />
                                 </FormGroup>

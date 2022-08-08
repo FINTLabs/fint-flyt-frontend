@@ -1,4 +1,4 @@
-import {Box, Button, FormGroup, IconButton, Typography} from '@mui/material';
+import {Box, Button, Checkbox, FormControlLabel, FormGroup, IconButton, Typography} from '@mui/material';
 import React, {useContext} from 'react';
 import InputField from "./InputField";
 import {INPUT_TYPE} from "../../types/InputType.enum";
@@ -11,7 +11,6 @@ import {IntegrationContext} from "../../../../context/integrationContext";
 import LockIcon from '@mui/icons-material/Lock';
 import HelpPopover from "../popover/HelpPopover";
 import { useTranslation } from 'react-i18next';
-import ExistingCaseForm from "./ExistingCaseForm";
 
 const CaseInformation: React.FunctionComponent<any> = (props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationForm.accordions.caseInformation'});
@@ -48,6 +47,13 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
         {input: INPUT_TYPE.RADIO, label: "labels.caseCreationInfo", value: props.watch("caseData.caseCreationStrategy"),
             formValue: "caseData.caseCreationStrategy", radioOptions: creationStrategies, helpText: "caseData.caseCreationStrategy"},
         {input: INPUT_TYPE.TEXT_FIELD, label: "labels.caseNumber", formValue: "caseData.caseNumber", hidden:!isCollection, required:isCollection && props.validation, error:errors.caseData?.caseNumber, searchOption: true, helpText: "caseData.caseNumber"},
+    ]
+
+    const existingCaseCheckBoxes: any[] = [
+        {label:"Klassering", checked: props.checkState.classification, name:"classification"},
+        {label:"Arkivdel", checked: props.checkState.archiveUnit, name:"archiveUnit"},
+        {label:"Tilgangskode", checked: props.checkState.accessCode, name:"accessCode"},
+        {label:"Sakstype", checked: props.checkState.caseType, name:"caseType"},
     ]
 
     return (
@@ -87,7 +93,20 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
                 )}
                 {isCollection && _case ? <Typography id="case-information-case-search-result" sx={{mb:2}}>{_case}</Typography> : ''}
             </FormGroup>
-            {isExisting && <ExistingCaseForm {...props}/>}
+            {isExisting && <div>
+                <Typography>Velg hvilke felter å kjenne igjen eksisterende sak på</Typography>
+                <FormGroup id="existing-case-information" className={props.style.formControl}>
+                    {existingCaseCheckBoxes.map((box, index) => {
+                        return (<FormControlLabel key={index}
+                            control={
+                                <Checkbox checked={box.checked} onChange={props.handleChange} name={box.name} />
+                            }
+                            label={box.label}
+                        />)
+                    })}
+                </FormGroup>
+            </div>
+            }
             <Button id="case-information-save-btn" sx={{mb: 2}} onClick={props.onSave} variant="contained">{t('button.save')}</Button>
         </div>
     );

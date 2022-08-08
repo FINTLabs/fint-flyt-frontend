@@ -1,4 +1,5 @@
 import {IField} from "./Field";
+import {ISearchField} from "./CaseSearchField";
 
 export interface ICaseConfiguration {
     caseCreationStrategy?: string;
@@ -27,6 +28,8 @@ export interface IIntegrationConfiguration {
     sourceApplicationIntegrationId?: string;
     destination?: string;
     published?: boolean;
+    existingCaseSearchFields?: ISearchField;
+
 
     caseConfiguration?:ICaseConfiguration;
     recordConfiguration?: IRecordConfiguration;

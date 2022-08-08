@@ -11,6 +11,7 @@ export function toFormData(data: IIntegrationConfiguration): IFormData {
         version: data.version,
         destination: data.destination,
         published: data.published,
+        existingCaseSearchFields: data.existingCaseSearchFields,
         caseData: {
             caseCreationStrategy: data.caseConfiguration?.caseCreationStrategy,
             caseNumber: data.caseConfiguration?.caseNumber,
