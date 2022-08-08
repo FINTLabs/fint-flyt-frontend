@@ -1,3 +1,5 @@
+// noinspection SpellCheckingInspection
+
 import {GridLocaleText} from "@mui/x-data-grid";
 
 export const gridLocaleNoNB: Partial<GridLocaleText> = {
@@ -89,8 +91,8 @@ export const gridLocaleNoNB: Partial<GridLocaleText> = {
             ? `${count.toLocaleString()} rader valgt`
             : `${count.toLocaleString()} rader valgt`,
 
-    // Total rows footer text
-    footerTotalRows: 'Totale rader:',
+    // Total rows' footer text
+    footerTotalRows: 'Totalt antall rader:',
 
     // Total visible rows footer text
     footerTotalVisibleRows: (visibleCount, totalCount) =>

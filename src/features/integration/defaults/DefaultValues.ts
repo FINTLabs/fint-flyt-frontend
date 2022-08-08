@@ -1,3 +1,5 @@
+// noinspection SpellCheckingInspection
+
 import {ISelect} from "../types/InputField";
 import {CreationStrategy} from "../types/CreationStrategy";
 import IFormData from "../types/Form/FormData";
