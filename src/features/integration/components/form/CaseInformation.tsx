@@ -94,7 +94,7 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
                 {isCollection && _case ? <Typography id="case-information-case-search-result" sx={{mb:2}}>{_case}</Typography> : ''}
             </FormGroup>
             {isExisting && <div>
-                <Typography>Velg hvilke felter å kjenne igjen eksisterende sak på</Typography>
+                <Typography>Velg hvilke felter å sammenligne med eksisterende sak på</Typography>
                 <FormGroup id="existing-case-information" className={props.style.formControl}>
                     {existingCaseCheckBoxes.map((box, index) => {
                         return (<FormControlLabel key={index}
