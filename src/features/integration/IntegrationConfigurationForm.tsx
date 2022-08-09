@@ -103,7 +103,6 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
         });
     };
 
-    const { classification, archiveUnit, accessCode, caseType } = checkState;
     let history = useHistory();
     let activeConfiguration = integration.integrationId && editConfig ? integration : undefined;
     let activeFormData = integration.integrationId && editConfig ? toFormData(integration) : defaultValues;
