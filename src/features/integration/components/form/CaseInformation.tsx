@@ -53,7 +53,7 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
         {label:"Klassering", checked: props.checkState.classification, name:"classification"},
         {label:"Arkivdel", checked: props.checkState.archiveUnit, name:"archiveUnit"},
         {label:"Tilgangskode", checked: props.checkState.accessCode, name:"accessCode"},
-        {label:"Sakstype", checked: props.checkState.caseType, name:"caseType"},
+        {label:"Sakstype", checked: props.checkState.caseType, name:"caseType", disabled:true},
     ]
 
     return (
@@ -97,12 +97,16 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
                 <Typography>Velg hvilke felter å finne eksisterende sak på</Typography>
                 <FormGroup id="existing-case-information" className={props.style.formControl}>
                     {existingCaseCheckBoxes.map((box, index) => {
-                        return (<FormControlLabel key={index}
-                            control={
-                                <Checkbox checked={box.checked} onChange={props.handleChange} name={box.name} />
-                            }
-                            label={box.label}
-                        />)
+                        return (
+                            <FormControlLabel
+                                key={index}
+                                disabled={box.disabled}
+                                control={
+                                    <Checkbox checked={box.checked} onChange={props.handleChange} name={box.name} />
+                                }
+                                label={box.label}
+                            />
+                        )
                     })}
                 </FormGroup>
             </div>
