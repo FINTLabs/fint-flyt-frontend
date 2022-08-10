@@ -190,7 +190,7 @@
             "caseCreationNew": "Som ny sak",
             "caseCreationNewInfo": "Innsendt skjema oppretter en ny sak i Elements",
             "caseCreationExisting": "På eksisterende sak",
-            "caseCreationExistingInfo": "Innsendt skjema gjenfinner eksisterende sak i Elements basert på informasjon i skjemaet. Dersom det ikke fins en eksisterende sak opprettes en ny sak",
+            "caseCreationExistingInfo": "Innsendt skjema skal finne eksisterende sak i Elements basert på informasjon i skjemaet. Dersom det ikke fins en eksisterende sak skal det opprettes en ny sak. Her må du velge hvilke felter i tillegg til klassering saken skal gjenkjennes på",
             "caseCreationCollection": "På samlesak",
             "caseCreationCollectionInfo": "Innsendt skjema skal leveres til en forhåndsdefinert samlesak. Her må du opplyse om saksnummer",
             "caseNumber": "Saksnummer",
@@ -236,7 +236,7 @@
                 "new":"Som ny sak",
                 "newDesc":"Innsendt skjema oppretter en ny sak i Elements",
                 "exisiting":"På eksisterende sak",
-                "exisitingDesc":"Innsendt skjema gjenfinner eksisterende sak i Elements basert på informasjon i skjemaet. Dersom det ikke fins en eksisterende sak opprettes en ny sak",
+                "exisitingDesc": "Innsendt skjema skal finne eksisterende sak i Elements basert på informasjon i skjemaet. Dersom det ikke fins en eksisterende sak skal det opprettes en ny sak. Her må du velge hvilke felter i tillegg til klassering saken skal gjenkjennes på",
                 "collection":"På samlesak",
                 "collectionDesc":"Innsendt skjema skal leveres til en forhåndsdefinert samlesak. Her må du opplyse om saksnummer"
             },

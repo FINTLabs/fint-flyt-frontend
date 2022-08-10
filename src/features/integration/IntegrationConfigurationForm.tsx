@@ -94,7 +94,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     const [saved, setSaved] = React.useState(false);
     const [saveError, setSaveError] = React.useState(false);
     const [checked, setChecked] = React.useState(integration.integrationId && editConfig ? integration.published : false);
-    const [checkState, setCheckState] = React.useState({classification: false, archiveUnit: false, accessCode: false, caseType: false});
+    const [checkState, setCheckState] = React.useState({archiveUnit: false, accessCode: false, caseType: false});
 
     const handleCheckChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setCheckState({
@@ -279,7 +279,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                                         control={control}
                                         setValue={setValue}
                                         errors={errors}
-                                        validation={false}
+                                        validation={checked}
                                         editConfig={editConfig}
                                         onSave={onSave}
                                     />

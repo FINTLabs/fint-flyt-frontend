@@ -50,7 +50,6 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
     ]
 
     const existingCaseCheckBoxes: any[] = [
-        {label:"Klassering", checked: props.checkState.classification, name:"classification"},
         {label:"Arkivdel", checked: props.checkState.archiveUnit, name:"archiveUnit"},
         {label:"Tilgangskode", checked: props.checkState.accessCode, name:"accessCode"},
         {label:"Sakstype", checked: props.checkState.caseType, name:"caseType", disabled:true},
@@ -94,7 +93,7 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
                 {isCollection && _case ? <Typography id="case-information-case-search-result" sx={{mb:2}}>{_case}</Typography> : ''}
             </FormGroup>
             {isExisting && <div>
-                <Typography>Velg hvilke felter å finne eksisterende sak på</Typography>
+                <Typography>Felter å gjenkjenne eksisterende sak på</Typography>
                 <FormGroup id="existing-case-information" className={props.style.formControl}>
                     {existingCaseCheckBoxes.map((box, index) => {
                         return (
