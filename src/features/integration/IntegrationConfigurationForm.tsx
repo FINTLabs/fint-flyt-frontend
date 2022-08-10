@@ -128,7 +128,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     const saveNewConfiguration = (data: IIntegrationConfiguration) => {
         IntegrationRepository.create(data)
             .then(response => {
-                console.log('created new configuraton', data, response);
+                console.log('created new configuration', data, response);
                 setActiveId(response.headers.location.split('/').pop())
                 setSaved(true);
             })
@@ -140,7 +140,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     const saveConfiguration = (id: string, data: IIntegrationConfiguration) => {
         IntegrationRepository.update(id, data)
             .then(response => {
-                console.log('updated configuraton: ', id, data, response);
+                console.log('updated configuration: ', id, data, response);
                 setSaved(true);
             })
             .catch((e: Error) => {
@@ -152,7 +152,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     const publishNewConfiguration = (data: IIntegrationConfiguration) => {
         IntegrationRepository.create(data)
             .then(response => {
-                console.log('created new configuraton', data, response);
+                console.log('created new configuration', data, response);
                 resetAllResources();
                 setSubmitSuccess(true);
             })
@@ -164,7 +164,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     const publishConfiguration = (id: string, data: IIntegrationConfiguration) => {
         IntegrationRepository.update(id, data)
             .then(response => {
-                console.log('updated configuraton: ', id, data, response);
+                console.log('updated configuration: ', id, data, response);
                 resetAllResources();
                 setSubmitSuccess(true);
             })

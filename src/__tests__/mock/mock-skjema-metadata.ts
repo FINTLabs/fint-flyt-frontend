@@ -82,6 +82,10 @@ export const MOCK_SKJEMA_METADATA_TEMP: IFormMetadata = {
     "displayName": "DEMO",
     "instanceElementMetadata": [
         {
+            "id": "referansenummer",
+            "displayName": "Referansenummer",
+            "children": []
+        }, {
             "id": "person_2",
             "displayName": "Organisasjon",
             "children": [

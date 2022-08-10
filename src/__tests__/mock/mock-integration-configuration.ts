@@ -1,3 +1,5 @@
+// noinspection DuplicatedCode
+
 import {IIntegrationConfiguration} from "../../features/integration/types/IntegrationConfiguration";
 
 export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
