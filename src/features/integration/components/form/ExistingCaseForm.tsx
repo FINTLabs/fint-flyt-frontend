@@ -1,4 +1,4 @@
-import {Box, Button, Divider, FormGroup, Typography} from '@mui/material';
+import {Box, Divider, FormGroup, Typography} from '@mui/material';
 import React, {useContext, useEffect} from 'react';
 import InputField from "./InputField";
 import {INPUT_TYPE} from "../../types/InputType.enum";
@@ -18,7 +18,6 @@ const ExistingCaseForm: React.FunctionComponent<any> = (props) => {
     const getValues = props.getValues;
     const errors: FieldErrors = props.errors
     const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationForm.accordions.caseInformation'});
-    const [existingCase, setExistingCase] = React.useState('');
     const [showSecondary, setShowSecondary] = React.useState(false);
     const [showTertiary, setShowTertiary] = React.useState(false);
     const {accessCodes, archiveSections, classificationSystems, primaryClassification, secondaryClassification, tertiaryClassification, primaryClass, secondaryClass, tertiaryClass, getPrimaryClass, getSecondaryClass, getTertiaryClass,
@@ -51,12 +50,6 @@ const ExistingCaseForm: React.FunctionComponent<any> = (props) => {
     useEffect(()=> {
         getTertiaryClass();
     }, [tertiaryClassification, setTertiaryClassification])
-
-    const handleExistingCaseSearch = () => {
-        console.log(searchParams)
-        console.log(searches)
-        setExistingCase('Vis søkeresultat her');
-    }
 
     const handleToggleSecondary = () => {
         setShowSecondary(prevState => !prevState)
@@ -145,12 +138,7 @@ const ExistingCaseForm: React.FunctionComponent<any> = (props) => {
                         );
                     }
                 )}
-
             </FormGroup>
-            <Box sx={{mb: 4}}>
-                <Button id="case-information-search-btn" onClick={handleExistingCaseSearch} variant="outlined">{t('button.search')}</Button>
-                <Typography>{existingCase}</Typography>
-            </Box>
         </div>
     );
 }
