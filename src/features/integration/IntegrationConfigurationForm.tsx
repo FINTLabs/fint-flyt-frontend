@@ -202,7 +202,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
         data.sourceApplication = sourceApplication;
         data.destination = destination;
         data.published = true;
-        data.applicantData.protected = protectedCheck ? 'skjermet' : 'ikke skjermet';
+        data.applicantData.protected = protectedCheck;
         const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data);
         if (integrationConfiguration && activeId !== undefined && activeConfiguration?.integrationId === undefined) {
             const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data, activeId);
@@ -227,7 +227,8 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
         data.sourceApplication = sourceApplication;
         data.destination = destination;
         data.published = false;
-        data.applicantData.protected = protectedCheck ? 'skjermet' : 'ikke skjermet';
+        data.applicantData.protected = protectedCheck;
+        console.log(data.applicantData.protected)
         const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data);
         if (integrationConfiguration && activeId !== undefined) {
             const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data, activeId);

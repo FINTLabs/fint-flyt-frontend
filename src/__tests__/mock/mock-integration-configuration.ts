@@ -7,13 +7,6 @@ export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
         "applicantType": "PERSON",
         "fields": [
             {
-                "field": "skjerming",
-                "valueBuildStrategy": 0,
-                "valueBuilder": {
-                    "value": "Ja"
-                }
-            },
-            {
                 "field": "KorrespondansepartNavn",
                 "valueBuildStrategy": 1,
                 "valueBuilder": {
@@ -83,7 +76,8 @@ export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
                     "value": "p3"
                 }
             }
-        ]
+        ],
+        "protected": true
     },
     "caseConfiguration": {
         "caseCreationStrategy": "NEW",
@@ -353,13 +347,6 @@ export const MOCK_INTEGRATION_CONFIG_NOT_PUBLISHED = {
         "applicantType": "PERSON",
         "fields": [
             {
-                "field": "skjerming",
-                "valueBuildStrategy": 0,
-                "valueBuilder": {
-                    "value": "Ja"
-                }
-            },
-            {
                 "field": "KorrespondansepartNavn",
                 "valueBuildStrategy": 1,
                 "valueBuilder": {
@@ -429,7 +416,8 @@ export const MOCK_INTEGRATION_CONFIG_NOT_PUBLISHED = {
                     "value": "p3"
                 }
             }
-        ]
+        ],
+        "protected": true
     },
     "caseConfiguration": {
         "caseCreationStrategy": "NEW",
@@ -697,13 +685,6 @@ export const MOCK_INTEGRATION_CONFIG_PUBLISHED = {
         "applicantType": "PERSON",
         "fields": [
             {
-                "field": "skjerming",
-                "valueBuildStrategy": 0,
-                "valueBuilder": {
-                    "value": "Ja"
-                }
-            },
-            {
                 "field": "KorrespondansepartNavn",
                 "valueBuildStrategy": 1,
                 "valueBuilder": {
@@ -773,7 +754,8 @@ export const MOCK_INTEGRATION_CONFIG_PUBLISHED = {
                     "value": "p3"
                 }
             }
-        ]
+        ],
+        "protected": true
     },
     "caseConfiguration": {
         "caseCreationStrategy": "NEW",
@@ -1034,18 +1016,10 @@ export const MOCK_INTEGRATION_CONFIG_PUBLISHED = {
     }
 }
 
-
 export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
     "applicantConfiguration": {
         "applicantType": "ORGANISATION",
         "fields": [
-            {
-                "field": "skjerming",
-                "valueBuildStrategy": 0,
-                "valueBuilder": {
-                    "value": "Ja"
-                }
-            },
             {
                 "field": "KorrespondansepartNavn",
                 "valueBuildStrategy": 1,
@@ -1117,7 +1091,8 @@ export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
                 }
             }
         ],
-        "organisationNumber": "123456789"
+        "organisationNumber": "123456789",
+        "protected": true
     },
     "caseConfiguration": {
         "caseCreationStrategy": "NEW",

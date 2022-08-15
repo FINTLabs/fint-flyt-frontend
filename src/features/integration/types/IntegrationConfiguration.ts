@@ -15,6 +15,7 @@ export interface IApplicantConfiguration {
     applicantType?: string;
     organisationNumber?: string;
     nationalIdentityNumber?: string;
+    protected?: boolean;
     fields: IField[];
 }
 

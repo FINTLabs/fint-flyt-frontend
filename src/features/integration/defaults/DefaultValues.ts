@@ -57,7 +57,7 @@ export const defaultValues: IFormData = {
         variant: ''
     },
     applicantData: {
-        protected: '',
+        protected: false,
         type: ApplicantType.PERSON,
         organisationNumber: '',
         nationalIdentityNumber: '',

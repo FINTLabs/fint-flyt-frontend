@@ -51,7 +51,7 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
     const updateConfiguration = (integrationId: string, data: IIntegrationConfiguration) => {
         IntegrationRepository.update(integrationId, data)
             .then(response => {
-                console.log('updated configuraton: ', integrationId,  data, response);
+                console.log('updated configuration: ', integrationId,  data, response);
                 setUpdateSuccess(response.status === 200);
             })
             .catch((e: Error) => {
@@ -169,7 +169,7 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
                         <Typography><strong>{t('labels.email')}</strong>{activeFormData.applicantData?.email}</Typography>
                         <Typography><strong>{t('labels.accessCode')}</strong>{activeFormData.applicantData?.accessCode}</Typography>
                         <Typography><strong>{t('labels.paragraph')}</strong>{activeFormData.applicantData?.paragraph}</Typography>
-                        <Typography><strong>{t('labels.protected')}</strong>{activeFormData.applicantData?.protected}</Typography>
+                        <Typography><strong>{t('labels.protected')}</strong>{activeFormData.applicantData?.protected ? 'Ja' : 'Nei'}</Typography>
                     </CardContent>
                 </Card>
                 <Button variant="contained" onClick={props.reset}>{t('button.back')}</Button>

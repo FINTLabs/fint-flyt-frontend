@@ -242,15 +242,9 @@ export function toIntegrationConfiguration(data: IFormData, id?: string): IInteg
             applicantType: data.applicantData?.type,
             organisationNumber: data.applicantData?.organisationNumber,
             nationalIdentityNumber: data.applicantData?.nationalIdentityNumber,
+            protected: data.applicantData?.protected,
             fields: [
                 //TODO: corresponding field or move to applicantConfig
-                {
-                    field: "skjerming",
-                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                    valueBuilder: {
-                        value: data.applicantData?.protected ? 'Ja' : 'Nei'
-                    }
-                },
                 {
                     field: "KorrespondansepartNavn",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
