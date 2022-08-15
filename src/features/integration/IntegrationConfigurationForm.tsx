@@ -269,7 +269,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                                         control={control}
                                         setValue={setValue}
                                         errors={errors}
-                                        validation={false}
+                                        validation={checked}
                                         editConfig={editConfig}
                                         onSave={onSave}
                                         protectedCheck={protectedCheck}
