@@ -66,6 +66,7 @@
                 },
                 "applicationForm": {
                     "header": "Avsender",
+                    "protectedLabel": "Skjermet",
                     "button": {
                         "save": "Lagre"
                     }
@@ -118,6 +119,7 @@
                 "published": "Publisert: ",
                 "version": "Versjon: ",
                 "caseNumber": "Saksnummer: ",
+                "caseType": "Sakstype: ",
                 "title": "Tittel: ",
                 "publicTitle": "Offentlig tittel: ",
                 "administrativeUnit": "Administrativ enhet: ",
@@ -140,6 +142,7 @@
                 "recordStatus": "Journalstatus: ",
                 "caseWorker": "Saksbehandler: ",
                 "documentStatus": "Status: ",
+                "documentCategory": "Kategori: ",
                 "variant": "Variant: ",
                 "organisationNumber": "Organisasjonsnummer: ",
                 "nationalIdentityNumber": "Fødselsnummer: ",
@@ -149,7 +152,8 @@
                 "city": "Poststed: ",
                 "contactPerson": "Kontaktperson: ",
                 "phoneNumber": "Telefonnummer: ",
-                "email": "Epost: "
+                "email": "Epost: ",
+                "protected": "Skjerming: "
             }
         },
         "log": {
@@ -191,6 +195,7 @@
             "caseCreationCollection": "På samlesak",
             "caseCreationCollectionInfo": "Innsendt skjema skal leveres til en forhåndsdefinert samlesak. Her må du opplyse om saksnummer",
             "caseNumber": "Saksnummer",
+            "caseType": "Sakstype",
             "title": "Tittel",
             "publicTitle": "Offentlig tittel",
             "administrativeUnit": "Administrativ enhet",
@@ -215,6 +220,7 @@
             "recordStatus": "Journalstatus",
             "caseWorker": "Saksbehandler",
             "documentStatus": "Status",
+            "documentCategory": "Dokumentkategori",
             "variant": "Variant",
             "applicantType": "Velg avsendertype",
             "organisationNumber": "Organisasjonsnummer",
@@ -225,7 +231,8 @@
             "city": "Poststed",
             "contactPerson": "Kontaktperson",
             "phoneNumber": "Telefonnummer",
-            "email": "Epost"
+            "email": "Epost",
+            "protected": "Skjerming"
         },
         "selects": {
             "creationStrategies": {
@@ -349,7 +356,7 @@
             "title": "Tittel kan være en konkret tekststreng, eller en kombinasjon av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak.  (Se Noark))",
             "publicTitle": "Se Noark (Del av tittel som skal skjermes)",
             "status": "-",
-            "caseType": "Eksempel: Kompetanse, personal, rekrutering etc.",
+            "caseType": "Eksempel: Kompetanse, personal, rekruttering etc.",
             "administrativeUnit":"Avdeling eller enhet som skal behandle saken.",
             "archiveUnit":"Eksempel: kompetanse, sakarkiv, personal",
             "recordUnit": "Navnet på journalførende enhet.Eksempel: Viken fylkesråd",
@@ -373,11 +380,13 @@
         "documentData": {
             "title": "Tittel kan være en konkret tekststreng, eller en kombinasjon av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak.(Se Noark))",
             "documentStatus": "Eksempel: B, F",
+            "documentCategory": "TODO",
             "accessCode": "Eksempel: Unntatt offentlighet, persona,l varslingssak, ugradert. ",
             "paragraph": "Eksempel: Offl. §13",
             "variant": "Arkivformat/ produksjonsformat / offentlig variant"
         },
         "applicantData": {
+            "protected": "Skjerming",
             "type": "Person eller organisasjon/bedrift",
             "organisationNumber": "Orgnr for avsenderbedrift",
             "nationalIdentityNumber": "Fødselsnummer for avsender",

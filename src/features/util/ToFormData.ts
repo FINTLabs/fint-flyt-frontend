@@ -16,7 +16,7 @@ export function toFormData(data: IIntegrationConfiguration): IFormData {
             caseNumber: data.caseConfiguration?.caseNumber,
             title: fieldToString(data.caseConfiguration, 'tittel', true),
             publicTitle: fieldToString(data.caseConfiguration, 'offentligTittel', true),
-            caseType: fieldToString(data.caseConfiguration, 'caseType'),
+            caseType: fieldToString(data.caseConfiguration, 'saksmappetype'),
             administrativeUnit: fieldToString(data.caseConfiguration, 'administrativenhet'),
             archiveUnit: fieldToString(data.caseConfiguration, 'arkivdel'),
             recordUnit: fieldToString(data.caseConfiguration, 'journalenhet'),
@@ -47,6 +47,8 @@ export function toFormData(data: IIntegrationConfiguration): IFormData {
         documentData: {
             title: fieldToString(data.documentConfiguration, 'tittel', true),
             documentStatus: fieldToString(data.documentConfiguration, 'dokumentStatus'),
+            //TODO: whats the correct name for this configField?
+            documentCategory: fieldToString(data.documentConfiguration, 'DokumentBeskrivelse.dokumentKategori'),
             accessCode: fieldToString(data.documentConfiguration, 'tilgangsrestriksjon'),
             paragraph: fieldToString(data.documentConfiguration, 'skjermingshjemmel'),
             variant: fieldToString(data.documentConfiguration, 'DokumentBeskrivelse.dokumentObjekt.variantFormat'),
@@ -55,6 +57,7 @@ export function toFormData(data: IIntegrationConfiguration): IFormData {
             type: data.applicantConfiguration?.organisationNumber ? 'ORGANISATION' : 'PERSON',
             organisationNumber: data.applicantConfiguration?.organisationNumber,
             nationalIdentityNumber: data.applicantConfiguration?.nationalIdentityNumber,
+            protected: fieldToString(data.applicantConfiguration, 'skjerming'),
             name: fieldToString(data.applicantConfiguration, 'KorrespondansepartNavn', true),
             address: fieldToString(data.applicantConfiguration, 'Adresse.adresselinje', true),
             postalCode: fieldToString(data.applicantConfiguration, 'Adresse.postnummer', true),

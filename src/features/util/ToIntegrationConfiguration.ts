@@ -29,7 +29,7 @@ export function toIntegrationConfiguration(data: IFormData, id?: string): IInteg
                         valueBuilder: createValueBuilder(data.caseData?.publicTitle)
                     },
                     {
-                        field: "caseType",
+                        field: "saksmappetype",
                         valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
                         valueBuilder: {
                             value: data.caseData?.caseType
@@ -207,6 +207,14 @@ export function toIntegrationConfiguration(data: IFormData, id?: string): IInteg
                         value: data.documentData?.documentStatus
                     }
                 },
+                //TODO: what is the corresponding field here
+                {
+                    field: "DokumentBeskrivelse.dokumentKategori",
+                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
+                    valueBuilder: {
+                        value: data.documentData?.documentCategory
+                    }
+                },
                 {
                     field: "tilgangsrestriksjon",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
@@ -235,6 +243,14 @@ export function toIntegrationConfiguration(data: IFormData, id?: string): IInteg
             organisationNumber: data.applicantData?.organisationNumber,
             nationalIdentityNumber: data.applicantData?.nationalIdentityNumber,
             fields: [
+                //TODO: corresponding field or move to applicantConfig
+                {
+                    field: "skjerming",
+                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
+                    valueBuilder: {
+                        value: data.applicantData?.protected ? 'Ja' : 'Nei'
+                    }
+                },
                 {
                     field: "KorrespondansepartNavn",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,

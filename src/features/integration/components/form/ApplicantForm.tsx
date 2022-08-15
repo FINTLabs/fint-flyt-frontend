@@ -1,4 +1,4 @@
-import {Box, Button, FormGroup} from '@mui/material';
+import {Box, Button, Checkbox, FormControlLabel, FormGroup} from '@mui/material';
 import React, {useContext} from 'react';
 import {applicantOptions} from "../../defaults/DefaultValues";
 import InputField from "./InputField";
@@ -27,9 +27,13 @@ const ApplicantForm: React.FunctionComponent<any> = (props) => {
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.contactPerson", formValue: "applicantData.contactPerson", hidden: !isOrganisation, required:required, error:errors.applicantData?.contactPerson, value: props.activeFormData?.applicantData?.contactPerson, helpText: "applicantData.contactPerson"},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.phoneNumber", formValue: "applicantData.phoneNumber", required:required, error:errors.applicantData?.phoneNumber, value: props.activeFormData?.applicantData?.phoneNumber, helpText: "applicantData.phoneNumber"},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.email", formValue: "applicantData.email", required:required, error:errors.applicantData?.email, value: props.activeFormData?.applicantData?.email, helpText: "applicantData.email"},
-        {input: INPUT_TYPE.DROPDOWN, label: "labels.accessCode", value: props.watch("applicantData.accessCode"), formValue: "applicantData.accessCode", dropDownItems: accessCodes, required:required, error:errors.applicantData?.accessCode, helpText: "applicantData.accessCode"},
-        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.paragraph", value: props.watch("applicantData.paragraph"), formValue: "applicantData.paragraph", dropDownItems: paragraphs, required:required, error:errors.applicantData?.paragraph, helpText: "applicantData.paragraph"}
+      //  {input: INPUT_TYPE.DROPDOWN, label: "labels.accessCode", value: props.watch("applicantData.accessCode"), formValue: "applicantData.accessCode", dropDownItems: accessCodes, required:required, error:errors.applicantData?.accessCode, helpText: "applicantData.accessCode"},
+      //  {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.paragraph", value: props.watch("applicantData.paragraph"), formValue: "applicantData.paragraph", dropDownItems: paragraphs, required:required, error:errors.applicantData?.paragraph, helpText: "applicantData.paragraph"}
     ]
+
+    const handleCheckChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        props.setProtectedChecked(event.target.checked);
+    };
 
     return (
         <div>
@@ -58,6 +62,18 @@ const ApplicantForm: React.FunctionComponent<any> = (props) => {
                             </Box>
                     )}
                 )}
+            </FormGroup>
+            <FormGroup sx={{ ml: 2, mb: 2, flexDirection: 'row'}} >
+                <FormControlLabel
+                    control={
+                        <Checkbox
+                            id="form-complete"
+                            checked={props.protectedChecked}
+                            onChange={event => props.setProtectedChecked(event.target.checked)}
+                            inputProps={{ 'aria-label': 'completed-checkbox' }}/>}
+                    label={t('protectedLabel') as string}
+                />
+                <HelpPopover popoverContent={"applicantData.protected"}/>
             </FormGroup>
             <Button sx={{mb: 2}} onClick={props.onSave} variant="contained">{t('button.save')}</Button>
         </div>

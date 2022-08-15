@@ -51,11 +51,13 @@ export const defaultValues: IFormData = {
     documentData: {
         title: '',
         documentStatus: '',
+        documentCategory: '',
         accessCode: '',
         paragraph: '',
         variant: ''
     },
     applicantData: {
+        protected: '',
         type: ApplicantType.PERSON,
         organisationNumber: '',
         nationalIdentityNumber: '',

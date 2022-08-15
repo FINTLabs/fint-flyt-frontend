@@ -94,6 +94,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     const [saved, setSaved] = React.useState(false);
     const [saveError, setSaveError] = React.useState(false);
     const [checked, setChecked] = React.useState(integration.integrationId && editConfig ? integration.published : false);
+    const [protectedCheck, setProtectedChecked] = React.useState(false);
     let history = useHistory();
     let activeConfiguration = integration.integrationId && editConfig ? integration : undefined;
     let activeFormData = integration.integrationId && editConfig ? toFormData(integration) : defaultValues;
@@ -201,6 +202,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
         data.sourceApplication = sourceApplication;
         data.destination = destination;
         data.published = true;
+        data.applicantData.protected = protectedCheck ? 'skjermet' : 'ikke skjermet';
         const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data);
         if (integrationConfiguration && activeId !== undefined && activeConfiguration?.integrationId === undefined) {
             const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data, activeId);
@@ -225,6 +227,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
         data.sourceApplication = sourceApplication;
         data.destination = destination;
         data.published = false;
+        data.applicantData.protected = protectedCheck ? 'skjermet' : 'ikke skjermet';
         const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data);
         if (integrationConfiguration && activeId !== undefined) {
             const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data, activeId);
@@ -268,6 +271,8 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                                         validation={false}
                                         editConfig={editConfig}
                                         onSave={onSave}
+                                        protectedCheck={protectedCheck}
+                                        setProtectedChecked={setProtectedChecked}
                                     />
                                 )
                             })}
