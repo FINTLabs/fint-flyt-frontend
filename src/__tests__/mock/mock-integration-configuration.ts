@@ -7,6 +7,13 @@ export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
         "applicantType": "PERSON",
         "fields": [
             {
+                "field": "skjerming",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {
+                    "value": "Ja"
+                }
+            },
+            {
                 "field": "KorrespondansepartNavn",
                 "valueBuildStrategy": 1,
                 "valueBuilder": {
@@ -98,7 +105,7 @@ export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
                 }
             },
             {
-                "field": "caseType",
+                "field": "saksmappetype",
                 "valueBuildStrategy": 0,
                 "valueBuilder": {
                     "value": "casetype"
@@ -246,6 +253,11 @@ export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
                 }
             },
             {
+                "field": "DokumentBeskrivelse.dokumentKategori",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {}
+            },
+            {
                 "field": "tilgangsrestriksjon",
                 "valueBuildStrategy": 0,
                 "valueBuilder": {
@@ -341,6 +353,13 @@ export const MOCK_INTEGRATION_CONFIG_NOT_PUBLISHED = {
         "applicantType": "PERSON",
         "fields": [
             {
+                "field": "skjerming",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {
+                    "value": "Ja"
+                }
+            },
+            {
                 "field": "KorrespondansepartNavn",
                 "valueBuildStrategy": 1,
                 "valueBuilder": {
@@ -432,7 +451,7 @@ export const MOCK_INTEGRATION_CONFIG_NOT_PUBLISHED = {
                 }
             },
             {
-                "field": "caseType",
+                "field": "saksmappetype",
                 "valueBuildStrategy": 0,
                 "valueBuilder": {
                     "value": "casetype"
@@ -578,6 +597,13 @@ export const MOCK_INTEGRATION_CONFIG_NOT_PUBLISHED = {
                 }
             },
             {
+                "field": "DokumentBeskrivelse.dokumentKategori",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {
+                    "value": "sefg"
+                }
+            },
+            {
                 "field": "tilgangsrestriksjon",
                 "valueBuildStrategy": 0,
                 "valueBuilder": {
@@ -671,6 +697,13 @@ export const MOCK_INTEGRATION_CONFIG_PUBLISHED = {
         "applicantType": "PERSON",
         "fields": [
             {
+                "field": "skjerming",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {
+                    "value": "Ja"
+                }
+            },
+            {
                 "field": "KorrespondansepartNavn",
                 "valueBuildStrategy": 1,
                 "valueBuilder": {
@@ -762,7 +795,7 @@ export const MOCK_INTEGRATION_CONFIG_PUBLISHED = {
                 }
             },
             {
-                "field": "caseType",
+                "field": "saksmappetype",
                 "valueBuildStrategy": 0,
                 "valueBuilder": {
                     "value": "casetype"
@@ -908,6 +941,11 @@ export const MOCK_INTEGRATION_CONFIG_PUBLISHED = {
                 }
             },
             {
+                "field": "DokumentBeskrivelse.dokumentKategori",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {}
+            },
+            {
                 "field": "tilgangsrestriksjon",
                 "valueBuildStrategy": 0,
                 "valueBuilder": {
@@ -1001,6 +1039,13 @@ export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
     "applicantConfiguration": {
         "applicantType": "ORGANISATION",
         "fields": [
+            {
+                "field": "skjerming",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {
+                    "value": "Ja"
+                }
+            },
             {
                 "field": "KorrespondansepartNavn",
                 "valueBuildStrategy": 1,
@@ -1111,7 +1156,7 @@ export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
                 }
             },
             {
-                "field": "caseType",
+                "field": "saksmappetype",
                 "valueBuildStrategy": 0,
                 "valueBuilder": {
                     "value": "casetype"
@@ -1257,6 +1302,11 @@ export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
                 "valueBuilder": {
                     "value": "D9"
                 }
+            },
+            {
+                "field": "DokumentBeskrivelse.dokumentKategori",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {}
             },
             {
                 "field": "tilgangsrestriksjon",

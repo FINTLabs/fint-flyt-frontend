@@ -45,6 +45,7 @@ export const MOCK_FORMDATA: IFormData = {
         variant: 'var'
     },
     applicantData: {
+        protected: 'Ja',
         type: 'PERSON',
         name: 'Anakin Skywalker',
         address: 'highstreet 22',
@@ -98,11 +99,13 @@ export const MOCK_FORMDATA_NOT_PUBLISHED: IFormData = {
     documentData: {
         title: 'document title',
         documentStatus: 'D9',
+        documentCategory: 'sefg',
         accessCode: 'code2',
         paragraph: 'p07',
         variant: 'var'
     },
     applicantData: {
+        protected: 'Ja',
         type: 'PERSON',
         name: 'Anakin Skywalker',
         address: 'highstreet 22',
@@ -159,6 +162,7 @@ export const MOCK_FORMDATA_PUBLISHED: IFormData = {
         variant: 'var'
     },
     applicantData: {
+        protected: 'Ja',
         type: 'PERSON',
         name: 'Anakin Skywalker',
         address: 'highstreet 22',
@@ -185,6 +189,7 @@ export const MOCK_FORMDATA_WITH_TAGS: IFormData = {
         "paragraph": "p3",
         "phoneNumber": "12345678",
         "postalCode": "1234",
+        "protected": "Ja",
         "type": "ORGANISATION"
     },
     "caseData": {
