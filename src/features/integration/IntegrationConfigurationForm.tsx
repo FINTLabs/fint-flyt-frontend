@@ -98,8 +98,6 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     let activeConfiguration = integration.integrationId && editConfig ? integration : undefined;
     let activeFormData = integration.integrationId && editConfig ? toFormData(integration) : defaultValues;
 
-    console.log(activeFormData)
-
     const handleCheckChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setChecked(event.target.checked);
     };
