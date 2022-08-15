@@ -42,7 +42,7 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
         {input: INPUT_TYPE.DROPDOWN, label: "labels.destination", value: destination, formValue: "destination", dropDownItems: destinations, disabled: true, lockIcon: true},
         {input: INPUT_TYPE.DROPDOWN, label: "labels.sourceApplicationIntegrationId", value: props.watch("sourceApplicationIntegrationId"), required: props.validation, formValue: "sourceApplicationIntegrationId", error:errors.sourceApplicationIntegrationId, dropDownItems: forms, helpText: "sourceApplicationIntegrationId"},
         {input: INPUT_TYPE.TEXT_FIELD, label: "labels.name", formValue: "name", required: props.validation, error:errors.name, helpText: "name"},
-        {input: INPUT_TYPE.TEXT_FIELD, label: "labels.description", formValue: "description", required: props.validation, error:errors.description, helpText: "description"},
+        {input: INPUT_TYPE.TEXT_FIELD, label: "labels.description", formValue: "description", error:errors.description, helpText: "description"},
         {input: INPUT_TYPE.RADIO, label: "labels.caseCreationInfo", value: props.watch("caseData.caseCreationStrategy"),
             formValue: "caseData.caseCreationStrategy", radioOptions: creationStrategies, helpText: "caseData.caseCreationStrategy"},
         {input: INPUT_TYPE.TEXT_FIELD, label: "labels.caseNumber", formValue: "caseData.caseNumber", hidden:!isCollection, required:isCollection && props.validation, error:errors.caseData?.caseNumber, searchOption: true, helpText: "caseData.caseNumber"}
