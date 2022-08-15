@@ -3,6 +3,7 @@ import {IIntegrationConfiguration} from "../integration/types/IntegrationConfigu
 import {fieldToString} from "./ValueBuilderUtil";
 
 export function toFormData(data: IIntegrationConfiguration): IFormData {
+    console.log(data)
     return {
         name: data.name,
         description: data.description,
