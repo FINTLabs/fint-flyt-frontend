@@ -232,9 +232,17 @@ export function toIntegrationConfiguration(data: IFormData, id?: string): IInteg
         },
         applicantConfiguration: {
             applicantType: data.applicantData?.type,
-            organisationNumber: data.applicantData?.organisationNumber,
-            nationalIdentityNumber: data.applicantData?.nationalIdentityNumber,
             fields: [
+                {
+                    field: "organisasjonsnummer",
+                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
+                    valueBuilder: createValueBuilder(data.applicantData?.organisationNumber)
+                },
+                {
+                    field: "fødselsnummer",
+                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
+                    valueBuilder: createValueBuilder(data.applicantData?.nationalIdentityNumber)
+                },
                 {
                     field: "KorrespondansepartNavn",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
