@@ -30,7 +30,7 @@ export const MOCK_FORMDATA: IFormData = {
     recordData: {
         title: 'record title',
         publicTitle: 'public record title',
-        type: 'cat8',
+        documentType: 'cat8',
         administrativeUnit: 'unit33',
         recordStatus: 'N',
         accessCode: 'code89',
@@ -89,7 +89,7 @@ export const MOCK_FORMDATA_NOT_PUBLISHED: IFormData = {
     recordData: {
         title: 'record title',
         publicTitle: 'public record title',
-        type: 'cat8',
+        documentType: 'cat8',
         administrativeUnit: 'unit33',
         recordStatus: 'N',
         caseWorker: 'boba',
@@ -147,7 +147,7 @@ export const MOCK_FORMDATA_PUBLISHED: IFormData = {
     recordData: {
         title: 'record title',
         publicTitle: 'public record title',
-        type: 'cat8',
+        documentType: 'cat8',
         administrativeUnit: 'unit33',
         recordStatus: 'N',
         caseWorker: 'leia',
@@ -232,7 +232,7 @@ export const MOCK_FORMDATA_WITH_TAGS: IFormData = {
         "publicTitle": "{singletag}",
         "recordStatus": "N",
         "title": "{just} {tags}",
-        "type": "cat8"
+        "documentType": "cat8"
     },
     "sourceApplication": "Acos",
     "sourceApplicationIntegrationId": "VIK116"

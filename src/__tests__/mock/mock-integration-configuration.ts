@@ -7,6 +7,14 @@ export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
         "applicantType": "PERSON",
         "fields": [
             {
+                "field": "fødselsnummer",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": ""
+                }
+            },
+            {
                 "field": "KorrespondansepartNavn",
                 "valueBuildStrategy": 1,
                 "valueBuilder": {
@@ -77,6 +85,7 @@ export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
                 }
             }
         ],
+        "organisationNumber": false,
         "protected": true
     },
     "caseConfiguration": {
@@ -347,6 +356,14 @@ export const MOCK_INTEGRATION_CONFIG_NOT_PUBLISHED = {
         "applicantType": "PERSON",
         "fields": [
             {
+                "field": "fødselsnummer",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": ""
+                }
+            },
+            {
                 "field": "KorrespondansepartNavn",
                 "valueBuildStrategy": 1,
                 "valueBuilder": {
@@ -417,6 +434,7 @@ export const MOCK_INTEGRATION_CONFIG_NOT_PUBLISHED = {
                 }
             }
         ],
+        "organisationNumber": false,
         "protected": true
     },
     "caseConfiguration": {
@@ -685,6 +703,14 @@ export const MOCK_INTEGRATION_CONFIG_PUBLISHED = {
         "applicantType": "PERSON",
         "fields": [
             {
+                "field": "fødselsnummer",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": ""
+                }
+            },
+            {
                 "field": "KorrespondansepartNavn",
                 "valueBuildStrategy": 1,
                 "valueBuilder": {
@@ -755,6 +781,7 @@ export const MOCK_INTEGRATION_CONFIG_PUBLISHED = {
                 }
             }
         ],
+        "organisationNumber": false,
         "protected": true
     },
     "caseConfiguration": {
@@ -1016,10 +1043,19 @@ export const MOCK_INTEGRATION_CONFIG_PUBLISHED = {
     }
 }
 
+
 export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
     "applicantConfiguration": {
-        "applicantType": "ORGANISATION",
+        "applicantType": "PERSON",
         "fields": [
+            {
+                "field": "fødselsnummer",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "124356"
+                }
+            },
             {
                 "field": "KorrespondansepartNavn",
                 "valueBuildStrategy": 1,
@@ -1091,7 +1127,7 @@ export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
                 }
             }
         ],
-        "organisationNumber": "123456789",
+        "organisationNumber": false,
         "protected": true
     },
     "caseConfiguration": {

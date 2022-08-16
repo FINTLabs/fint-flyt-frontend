@@ -1,7 +1,7 @@
 export default interface IRecordData {
     title?: string;
     publicTitle?: string;
-    type?: string;
+    documentType?: string;
     administrativeUnit?: string;
     recordStatus?: string;
     caseWorker?: string;

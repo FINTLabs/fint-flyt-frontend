@@ -153,7 +153,7 @@ export function toIntegrationConfiguration(data: IFormData, id?: string): IInteg
                     field: "DokumentBeskrivelse.dokumentType",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
                     valueBuilder: {
-                        value: data.recordData?.type
+                        value: data.recordData?.documentType
                     }
                 },
                 {
@@ -240,11 +240,21 @@ export function toIntegrationConfiguration(data: IFormData, id?: string): IInteg
         },
         applicantConfiguration: {
             applicantType: data.applicantData?.type,
-            organisationNumber: data.applicantData?.organisationNumber,
-            nationalIdentityNumber: data.applicantData?.nationalIdentityNumber,
+            organisationNumber: !!data.applicantData?.organisationNumber,
             protected: data.applicantData?.protected,
             fields: [
                 //TODO: corresponding field or move to applicantConfig
+                data.applicantData?.type === 'ORGANISATION' ?
+                    {
+                    field: "organisasjonsnummer",
+                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
+                    valueBuilder: createValueBuilder(data.applicantData?.organisationNumber)
+                    } :
+                    {
+                    field: "fødselsnummer",
+                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
+                    valueBuilder: createValueBuilder(data.applicantData?.nationalIdentityNumber)
+                    },
                 {
                     field: "KorrespondansepartNavn",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,

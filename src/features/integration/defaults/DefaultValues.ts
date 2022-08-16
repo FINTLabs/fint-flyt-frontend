@@ -41,7 +41,7 @@ export const defaultValues: IFormData = {
     recordData: {
         title: '',
         publicTitle: '',
-        type: '',
+        documentType: '',
         administrativeUnit: '',
         recordStatus: '',
         caseWorker: '',
