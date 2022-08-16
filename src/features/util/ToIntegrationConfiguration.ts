@@ -153,7 +153,7 @@ export function toIntegrationConfiguration(data: IFormData, id?: string): IInteg
                     field: "DokumentBeskrivelse.dokumentType",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
                     valueBuilder: {
-                        value: data.recordData?.type
+                        value: data.recordData?.documentType
                     }
                 },
                 {
