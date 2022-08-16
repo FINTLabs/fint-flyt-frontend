@@ -1046,14 +1046,14 @@ export const MOCK_INTEGRATION_CONFIG_PUBLISHED = {
 
 export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
     "applicantConfiguration": {
-        "applicantType": "PERSON",
+        "applicantType": "ORGANISATION",
         "fields": [
             {
-                "field": "fødselsnummer",
+                "field": "organisasjonsnummer",
                 "valueBuildStrategy": 1,
                 "valueBuilder": {
                     "properties": [],
-                    "value": "124356"
+                    "value": "123456789"
                 }
             },
             {
@@ -1127,7 +1127,7 @@ export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
                 }
             }
         ],
-        "organisationNumber": false,
+        "organisationNumber": true,
         "protected": true
     },
     "caseConfiguration": {
