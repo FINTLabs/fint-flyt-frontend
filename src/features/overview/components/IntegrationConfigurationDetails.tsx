@@ -138,7 +138,7 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
                         <Typography variant={"h6"}>{t('record')}</Typography>
                         <Typography><strong>{t('labels.title')}</strong>{activeFormData.recordData?.title}</Typography>
                         <Typography><strong>{t('labels.publicTitle')}</strong>{activeFormData.recordData?.publicTitle}</Typography>
-                        <Typography><strong>{t('labels.type')}</strong>{activeFormData.recordData?.type}</Typography>
+                        <Typography><strong>{t('labels.documentType')}</strong>{activeFormData.recordData?.documentType}</Typography>
                         <Typography><strong>{t('labels.administrativeUnit')}</strong>{activeFormData.recordData?.administrativeUnit}</Typography>
                         <Typography><strong>{t('labels.recordStatus')}</strong>{activeFormData.recordData?.recordStatus}</Typography>
                         <Typography><strong>{t('labels.caseWorker')}</strong>{activeFormData.recordData?.caseWorker}</Typography>
