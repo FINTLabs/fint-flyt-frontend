@@ -102,7 +102,6 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
                         <Typography id="details-id"><strong>Id: </strong>{activeConfiguration.integrationId}</Typography>
                         <Typography id="details-sourceApplication"><strong>{t('labels.sourceApplication')} </strong>{activeFormData.sourceApplication}</Typography>
                         <Typography id="details-destination"><strong>{t('labels.destination')} </strong>{activeFormData.destination}</Typography>
-                        <Typography id="details-name"><strong>{t('labels.name')}</strong>{activeFormData.name}</Typography>
                         <Typography id="details-description"><strong>{t('labels.description')}</strong>{activeFormData.description}</Typography>
                         <Typography id="details-sourceApplicationIntegrationId"><strong>{t('labels.sourceApplicationIntegrationId')}</strong>{activeFormData.sourceApplicationIntegrationId}</Typography>
                         <Typography id="details-caseConfiguration-caseCreation"><strong>{t('labels.caseCreationStrategy')}</strong>{activeFormData.caseData?.caseCreationStrategy}</Typography>

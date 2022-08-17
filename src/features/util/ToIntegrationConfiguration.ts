@@ -8,7 +8,6 @@ export function toIntegrationConfiguration(data: IFormData, id?: string): IInteg
     const newCaseCreationStrategy: boolean = data.caseData?.caseCreationStrategy !== CreationStrategy.COLLECTION
     return {
         integrationId: id,
-        name: data.name,
         description: data.description,
         sourceApplication: data.sourceApplication,
         sourceApplicationIntegrationId: data.sourceApplicationIntegrationId,

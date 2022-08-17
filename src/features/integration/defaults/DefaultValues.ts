@@ -6,7 +6,6 @@ import IFormData from "../types/Form/FormData";
 import {ApplicantType} from "../types/ApplicantType";
 
 export const defaultValues: IFormData = {
-    name: '',
     description: '',
     version: '',
     sourceApplication: '',
