@@ -44,6 +44,7 @@ export const defaultValues: IFormData = {
         documentType: '',
         administrativeUnit: '',
         recordStatus: '',
+        recordType: '',
         caseWorker: '',
         accessCode: '',
         paragraph: ''

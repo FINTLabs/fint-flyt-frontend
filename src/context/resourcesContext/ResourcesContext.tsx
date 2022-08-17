@@ -18,6 +18,7 @@ const ResourcesProvider: FC = ({ children }) => {
     const [paragraphs, setParagraph] = useState<IResourceItem[]>(contextDefaultValues.paragraphs);
     const [documentStatuses, setDocumentStatuses] = useState<IResourceItem[]>(contextDefaultValues.documentStatuses);
     const [recordStatuses, setRecordStatuses] = useState<IResourceItem[]>(contextDefaultValues.recordStatuses);
+    const [recordTypes, setRecordTypes] = useState<IResourceItem[]>(contextDefaultValues.recordTypes);
     const [variants, setVariants] = useState<IResourceItem[]>(contextDefaultValues.variants);
     const [documentTypes, setDocumentTypes] = useState<IResourceItem[]>(contextDefaultValues.documentTypes);
     const [classificationSystems, setClassificationSystems] = useState<IResourceItem[]>(contextDefaultValues.classificationSystems);
@@ -180,6 +181,18 @@ const ResourcesProvider: FC = ({ children }) => {
             })
     }
 
+    const getRecordTypes = () => {
+        let list: IResourceItem[] = [];
+        ResourceRepository.getRecordTypes()
+            .then(response => {
+                response.data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
+                setRecordTypes(list)
+            })
+            .catch((err) => {
+                console.error(err);
+            })
+    }
+
     const getDocumentStatuses = () => {
         let list: IResourceItem[] = [];
         ResourceRepository.getDocumentStatuses()
@@ -218,6 +231,7 @@ const ResourcesProvider: FC = ({ children }) => {
         getTertiaryClass();
         getDocumentTypes();
         getRecordStatuses();
+        getRecordTypes();
         getDocumentStatuses();
         getVariants();
     }
@@ -249,6 +263,7 @@ const ResourcesProvider: FC = ({ children }) => {
                 tertiaryClass,
                 documentTypes,
                 recordStatuses,
+                recordTypes,
                 documentStatuses,
                 variants,
                 getAdministrativeUnits,
@@ -260,6 +275,7 @@ const ResourcesProvider: FC = ({ children }) => {
                 getClassificationSystems,
                 getDocumentTypes,
                 getRecordStatuses,
+                getRecordTypes,
                 getDocumentStatuses,
                 getVariants,
                 getPrimaryClass,

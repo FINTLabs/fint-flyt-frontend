@@ -325,6 +325,13 @@ export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
                 }
             },
             {
+                "field": "journalposttype",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {
+                    "value": "A"
+                }
+            },
+            {
                 "field": "saksbehandler",
                 "valueBuildStrategy": 0,
                 "valueBuilder": {
@@ -674,6 +681,13 @@ export const MOCK_INTEGRATION_CONFIG_NOT_PUBLISHED = {
                 }
             },
             {
+                "field": "journalposttype",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {
+                    "value": "A"
+                }
+            },
+            {
                 "field": "saksbehandler",
                 "valueBuildStrategy": 0,
                 "valueBuilder": {
@@ -1016,6 +1030,13 @@ export const MOCK_INTEGRATION_CONFIG_PUBLISHED = {
                 "valueBuildStrategy": 0,
                 "valueBuilder": {
                     "value": "N"
+                }
+            },
+            {
+                "field": "journalposttype",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {
+                    "value": "A"
                 }
             },
             {
@@ -1398,6 +1419,13 @@ export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
                 "valueBuildStrategy": 0,
                 "valueBuilder": {
                     "value": "N"
+                }
+            },
+            {
+                "field": "journalposttype",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {
+                    "value": "A"
                 }
             },
             {

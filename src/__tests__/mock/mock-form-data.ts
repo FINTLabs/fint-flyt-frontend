@@ -57,6 +57,7 @@ export const MOCK_FORMDATA: IFormData = {
         "paragraph": "p34",
         "publicTitle": "public record title",
         "recordStatus": "N",
+        "recordType": "A",
         "title": "record title"
     },
     "sourceApplication": "Acos",
@@ -94,6 +95,7 @@ export const MOCK_FORMDATA_NOT_PUBLISHED: IFormData = {
         documentType: 'cat8',
         administrativeUnit: 'unit33',
         recordStatus: 'N',
+        recordType: "A",
         caseWorker: 'boba',
         accessCode: 'code89',
         paragraph: 'p34',
@@ -152,6 +154,7 @@ export const MOCK_FORMDATA_PUBLISHED: IFormData = {
         documentType: 'cat8',
         administrativeUnit: 'unit33',
         recordStatus: 'N',
+        recordType: "A",
         caseWorker: 'leia',
         accessCode: 'code89',
         paragraph: 'p34',
@@ -235,6 +238,7 @@ export const MOCK_FORMDATA_WITH_TAGS: IFormData = {
         "paragraph": "p34",
         "publicTitle": "{singletag}",
         "recordStatus": "N",
+        "recordType": "A",
         "title": "{just} {tags}"
     },
     "sourceApplication": "Acos",

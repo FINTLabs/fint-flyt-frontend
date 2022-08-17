@@ -171,6 +171,13 @@ export function toIntegrationConfiguration(data: IFormData, id?: string): IInteg
                     }
                 },
                 {
+                    field: "journalposttype",
+                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
+                    valueBuilder: {
+                        value: data.recordData?.recordType
+                    }
+                },
+                {
                     field: "saksbehandler",
                     valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
                     valueBuilder: {

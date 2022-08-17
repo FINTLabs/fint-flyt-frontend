@@ -141,6 +141,7 @@
                 "type": "Type: ",
                 "documentType": "Dokumenttype: ",
                 "recordStatus": "Journalstatus: ",
+                "recordType": "Journalposttype: ",
                 "caseWorker": "Saksbehandler: ",
                 "documentStatus": "Status: ",
                 "documentCategory": "Kategori: ",
@@ -220,6 +221,7 @@
             "type": "Type",
             "documentType": "Dokumenttype",
             "recordStatus": "Journalstatus",
+            "recordType": "Journalposttype",
             "caseWorker": "Saksbehandler",
             "documentStatus": "Status",
             "documentCategory": "Dokumentkategori",
@@ -295,6 +297,7 @@
                 "documentType": "",
                 "administrativeUnit": "",
                 "recordStatus": "",
+                "recordType": "",
                 "caseWorker": "",
                 "accessCode": "",
                 "paragraph": ""
@@ -372,10 +375,10 @@
         "recordData": {
             "title": "Tittel kan være en konkret tekststreng, eller en kombinasjon av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak. (Se Noark))",
             "publicTitle": "Se Noark (Del av tittel som skal skjermes)",
-            "type": "I, U, N, X",
-            "documentType": "",
+            "documentType": "Eksempel: Avtaler, Innsynsbehandling, Følgebrev, Juridisk ..",
             "administrativeUnit": "Enheten/avdelingen. Nedtrekksmeny fra Elements",
             "recordStatus": "R,F,E,J",
+            "recordType": "I, U, N, X",
             "caseWorker": "En sak kan ha en ansvarlig saksbehandler men det kan være ulike saksbehandlere på ulike journalposter.",
             "accessCode": "Eksempel: Unntatt offentlighet, personal varslingssak, ugradert. ",
             "paragraph": "Eksempel: Offl. §13 "

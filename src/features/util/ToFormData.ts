@@ -40,6 +40,7 @@ export function toFormData(data: IIntegrationConfiguration): IFormData {
             documentType: fieldToString(data.recordConfiguration, 'DokumentBeskrivelse.dokumentType'),
             administrativeUnit: fieldToString(data.recordConfiguration, 'administrativenhet'),
             recordStatus: fieldToString(data.recordConfiguration, 'journalstatus'),
+            recordType: fieldToString(data.recordConfiguration, 'journalposttype'),
             caseWorker: fieldToString(data.recordConfiguration, 'saksbehandler'),
             accessCode: fieldToString(data.recordConfiguration, 'tilgangsrestriksjon'),
             paragraph: fieldToString(data.recordConfiguration, 'skjermingshjemmel'),
