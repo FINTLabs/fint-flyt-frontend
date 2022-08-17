@@ -242,69 +242,118 @@ export function toIntegrationConfiguration(data: IFormData, id?: string): IInteg
             applicantType: data.applicantData?.type,
             organisationNumber: !!data.applicantData?.organisationNumber,
             protected: data.applicantData?.protected,
-            fields: [
-                //TODO: corresponding field or move to applicantConfig
-                data.applicantData?.type === 'ORGANISATION' ?
-                    {
-                    field: "organisasjonsnummer",
-                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                    valueBuilder: createValueBuilder(data.applicantData?.organisationNumber)
-                    } :
-                    {
-                    field: "fødselsnummer",
-                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                    valueBuilder: createValueBuilder(data.applicantData?.nationalIdentityNumber)
-                    },
-                {
-                    field: "KorrespondansepartNavn",
-                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                    valueBuilder: createValueBuilder(data.applicantData?.name)
-                },
-                {
-                    field: "Adresse.adresselinje",
-                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                    valueBuilder: createValueBuilder(data.applicantData?.address)
-                },
-                {
-                    field: "Adresse.postnummer",
-                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                    valueBuilder: createValueBuilder(data.applicantData?.postalCode)
-                },
-                {
-                    field: "Adresse.poststed",
-                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                    valueBuilder: createValueBuilder(data.applicantData?.city)
-                },
-                {
-                    field: "kontaktperson",
-                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                    valueBuilder: createValueBuilder(data.applicantData?.contactPerson)
-                },
-                {
-                    field: "Kontaktinformasjon.mobiltelefonnummer",
-                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                    valueBuilder: createValueBuilder(data.applicantData?.phoneNumber)
-                },
-                {
-                    field: "Kontaktinformasjon.epostadresse",
-                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                    valueBuilder: createValueBuilder(data.applicantData?.email)
-                },
-                {
-                    field: "tilgangsrestriksjon",
-                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                    valueBuilder: {
-                        value: data.applicantData?.accessCode
-                    }
-                },
-                {
-                    field: "skjermingshjemmel",
-                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                    valueBuilder: {
-                        value: data.applicantData?.paragraph
-                    }
-                },
-            ]
+            fields:
+                data.applicantData?.protected ?
+                    [
+                        //TODO: corresponding field or move to applicantConfig
+                        data.applicantData?.type === 'ORGANISATION' ?
+                            {
+                                field: "organisasjonsnummer",
+                                valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
+                                valueBuilder: createValueBuilder(data.applicantData?.organisationNumber)
+                            } :
+                            {
+                                field: "fødselsnummer",
+                                valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
+                                valueBuilder: createValueBuilder(data.applicantData?.nationalIdentityNumber)
+                            },
+                        {
+                            field: "KorrespondansepartNavn",
+                            valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
+                            valueBuilder: createValueBuilder(data.applicantData?.name)
+                        },
+                        {
+                            field: "Adresse.adresselinje",
+                            valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
+                            valueBuilder: createValueBuilder(data.applicantData?.address)
+                        },
+                        {
+                            field: "Adresse.postnummer",
+                            valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
+                            valueBuilder: createValueBuilder(data.applicantData?.postalCode)
+                        },
+                        {
+                            field: "Adresse.poststed",
+                            valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
+                            valueBuilder: createValueBuilder(data.applicantData?.city)
+                        },
+                        {
+                            field: "kontaktperson",
+                            valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
+                            valueBuilder: createValueBuilder(data.applicantData?.contactPerson)
+                        },
+                        {
+                            field: "Kontaktinformasjon.mobiltelefonnummer",
+                            valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
+                            valueBuilder: createValueBuilder(data.applicantData?.phoneNumber)
+                        },
+                        {
+                            field: "Kontaktinformasjon.epostadresse",
+                            valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
+                            valueBuilder: createValueBuilder(data.applicantData?.email)
+                        },
+                        {
+                            field: "tilgangsrestriksjon",
+                            valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
+                            valueBuilder: {
+                                value: data.applicantData?.accessCode
+                            }
+                        },
+                        {
+                            field: "skjermingshjemmel",
+                            valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
+                            valueBuilder: {
+                                value: data.applicantData?.paragraph
+                            }
+                        }
+                    ] : [
+                        data.applicantData?.type === 'ORGANISATION' ?
+                            {
+                                field: "organisasjonsnummer",
+                                valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
+                                valueBuilder: createValueBuilder(data.applicantData?.organisationNumber)
+                            } :
+                            {
+                                field: "fødselsnummer",
+                                valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
+                                valueBuilder: createValueBuilder(data.applicantData?.nationalIdentityNumber)
+                            },
+                        {
+                            field: "KorrespondansepartNavn",
+                            valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
+                            valueBuilder: createValueBuilder(data.applicantData?.name)
+                        },
+                        {
+                            field: "Adresse.adresselinje",
+                            valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
+                            valueBuilder: createValueBuilder(data.applicantData?.address)
+                        },
+                        {
+                            field: "Adresse.postnummer",
+                            valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
+                            valueBuilder: createValueBuilder(data.applicantData?.postalCode)
+                        },
+                        {
+                            field: "Adresse.poststed",
+                            valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
+                            valueBuilder: createValueBuilder(data.applicantData?.city)
+                        },
+                        {
+                            field: "kontaktperson",
+                            valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
+                            valueBuilder: createValueBuilder(data.applicantData?.contactPerson)
+                        },
+                        {
+                            field: "Kontaktinformasjon.mobiltelefonnummer",
+                            valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
+                            valueBuilder: createValueBuilder(data.applicantData?.phoneNumber)
+                        },
+                        {
+                            field: "Kontaktinformasjon.epostadresse",
+                            valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
+                            valueBuilder: createValueBuilder(data.applicantData?.email)
+                        }
+                    ]
         }
     }
 }
