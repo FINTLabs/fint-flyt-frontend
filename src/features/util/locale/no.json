@@ -110,7 +110,6 @@
                 }
             },
             "labels": {
-                "name": "Navn: ",
                 "description": "Beskrivelse: ",
                 "destination": "Destinasjon: ",
                 "sourceApplication": "Skjemaleverandør: ",
@@ -166,7 +165,6 @@
                     "details": "Detaljer",
                     "type": "Type",
                     "timestamp": "Tidspunkt",
-                    "name": "Navn",
                     "sourceApplicationIntegrationId": "Skjema",
                     "sourceApplication": "Skjemaleverandør",
                     "errorMessage": "Feilmeldinger"
@@ -184,7 +182,6 @@
         "errorMessage": "Du må oppgi ",
         "requiredField": "Obligatorisk felt",
         "labels": {
-            "name": "Navn",
             "description": "Beskrivelse",
             "destination": "Destinasjon",
             "sourceApplication": "Skjemaleverandør",
@@ -264,7 +261,6 @@
     },
     "models": {
         "integrationConfiguration": {
-            "name": "Name",
             "description": "Description",
             "version": "Version",
             "sourceApplication": "Source application",
@@ -351,7 +347,6 @@
         "sourceApplication": "Skjemaleverandør, f.eks ACOS",
         "sourceApplicationIntegrationId": "Skjema",
         "destination": "Velg hvilken base skjemaet skal overføres til",
-        "name": "",
         "description": "",
         "version": "",
         "selectedForm": "",

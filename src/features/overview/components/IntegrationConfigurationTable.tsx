@@ -13,10 +13,9 @@ const IntegrationConfigurationTable: React.FunctionComponent<any> = (props) => {
     let history = useHistory();
 
     const columns: GridColDef[] = [
-        { field: 'integrationId', type: 'string', hide: true },
+        { field: 'integrationId', type: 'string', flex: 1 },
         { field: 'sourceApplication', type: 'string', headerName: t('table.columns.sourceApplication'), flex: 1 },
         { field: 'sourceApplicationIntegrationId', type: 'string', headerName: t('table.columns.sourceApplicationIntegrationId'), flex: 1 },
-        { field: 'name', type: 'string', headerName: t('table.columns.name'), flex: 2 },
         { field: 'description', type: 'string', headerName: t('table.columns.description'), flex: 2 },
         { field: 'published', type: 'boolean', headerName: t('table.columns.published'), flex: 1 },
         { field: 'version', type: 'string', headerName: t('table.columns.revision'), flex: 1 }

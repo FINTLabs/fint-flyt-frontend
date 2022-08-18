@@ -6,7 +6,6 @@ import IFormData from "../types/Form/FormData";
 import {ApplicantType} from "../types/ApplicantType";
 
 export const defaultValues: IFormData = {
-    name: '',
     description: '',
     version: '',
     sourceApplication: '',
@@ -99,10 +98,27 @@ export const applicantOptions: ISelect[] = [
 ];
 
 export const forms: ISelect[] = [
-    { label: "Søknad om reservasjon av skoleplass", value: "VIK014" },
-    { label: "Søknad til kombinasjonsprogram", value: "VIK036" },
-    { label: "Søknad om TT-kort", value: "VIK108" },
-    { label: "Samtykke - fotografering/video/lyd", value: "VIK132" }
+    { label: "VIK014 - Søknad om reservasjon av skoleplass", value: "VIK014" },
+    { label: "VIK017 - Bestilling av lærekontrakt/opplæringskontrakt", value: "VIK017" },
+    { label: "VIK022 - Endring av kontraktstype eller planlagt måloppnåelse", value: "VIK022" },
+    { label: "VIK027 - Melding om flytting til barnevernsinstitusjon i Viken", value: "VIK027" },
+    { label: "VIK036 - Søknad til kombinasjonsprogram", value: "VIK036" },
+    { label: "VIK050 - Vedtak om spesialundervisning for elever i friskoler", value: "VIK050" },
+    { label: "VIK066 - Praksiskalkulator for praksiskandidater", value: "VIK066" },
+    { label: "VIK069 - Klage på ikke bestått fag-/svenne- eller kompetanseprøve", value: "VIK069" },
+    { label: "VIK083 - Søknad om tilskudd til publikumsutvikling", value: "VIK083" },
+    { label: "VIK088 - Avtale om bruk av PC/nettbrett for prøvenemndsmedlemmer i Viken", value: "VIK088" },
+    { label: "VIK097 - Lærebedriftens sluttrapport for bruk av særskilt tilskudd for lærlinger og lærekandidater", value: "VIK097" },
+    { label: "VIK109 - Legeerklæring til søknad om TT-kort", value: "VIK109" },
+    { label: "VIK129 - Fag- og yrkesopplæringspriser i Viken fylkeskommune", value: "VIK129" },
+    { label: "VIK132 - Samtykke - fotografering/video/lyd", value: "VIK132" },
+    { label: "VIK146 - Akseptskjema for tilskudd", value: "VIK146" },
+    { label: "VIK148 - Oppfølging av leverandører som følge av Schrems II-dommen", value: "VIK148" },
+    { label: "VIK183 - Søknadsskjema - Fagskolen i Viken, studiested Geilo", value: "VIK183" },
+    { label: "VIK190 - Søknad til fagskolen i Viken - Vedlikeholdsteknikk 4.0", value: "VIK190" },
+    { label: "VIK223 - Bærekraftsjekken for Viken", value: "VIK223" },
+    { label: "VIK238 - Søknadsskjema for lån eller leie av fylkeskommunale skolelokaler i Viken", value: "VIK238" },
+    { label: "VIK264 - Søknad - Tilskudd til pilotprosjekt", value: "VIK264" },
 ];
 
 export const sourceApplications: ISelect[] = [
