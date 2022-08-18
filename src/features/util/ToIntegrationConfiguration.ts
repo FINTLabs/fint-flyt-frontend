@@ -247,7 +247,7 @@ export function toIntegrationConfiguration(data: IFormData, id?: string): IInteg
         applicantConfiguration: {
             applicantType: data.applicantData?.type,
             organisationNumber: !!data.applicantData?.organisationNumber,
-            protected: data.applicantData?.protected,
+            protected: data.applicantData.protected,
             fields:
                 data.applicantData?.protected ?
                     [
