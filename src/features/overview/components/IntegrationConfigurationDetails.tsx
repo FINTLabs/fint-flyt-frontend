@@ -160,7 +160,7 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
                         <Typography variant={"h6"}>{t('applicant')}</Typography>
                         <Typography><strong>{t('labels.organisationNumber')}</strong>{activeFormData.applicantData?.organisationNumber}</Typography>
                         <Typography><strong>{t('labels.nationalIdentityNumber')}</strong>{activeFormData.applicantData?.nationalIdentityNumber}</Typography>
-                        <Typography><strong>{t('labels.name')}</strong>{activeFormData.applicantData?.name}</Typography>
+                        <Typography><strong>{t('labels.applicantName')}</strong>{activeFormData.applicantData?.name}</Typography>
                         <Typography><strong>{t('labels.address')}</strong>{activeFormData.applicantData?.address}</Typography>
                         <Typography><strong>{t('labels.postalCode')}</strong>{activeFormData.applicantData?.postalCode}</Typography>
                         <Typography><strong>{t('labels.city')}</strong>{activeFormData.applicantData?.city}</Typography>
