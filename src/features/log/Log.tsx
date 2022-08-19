@@ -39,8 +39,8 @@ function Log() {
         { field: 'name', type: 'string', headerName: 'Navn', flex: 1 },
         { field: 'sourceApplicationIntegrationId', type: 'string', headerName: 'Skjema', flex: 1,
             valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplicationIntegrationId},
-        { field: 'sourceApplication', type: 'string', headerName: 'Skjemaleverandør', flex: 1,
-            valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplication}
+        { field: 'sourceApplicationId', type: 'string', headerName: 'Skjemaleverandør', flex: 1,
+            valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplicationId}
     ];
 
     function CustomDialogToggle(props: GridCellParams["row"]) {

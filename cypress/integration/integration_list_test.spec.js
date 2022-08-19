@@ -32,7 +32,7 @@ describe('Testing integration list', () => {
 
     it('should show details on row double click', () => {
         cy.intercept('GET', '**/integration/configuration/7ac4b75a-9e0a-463a-b12c-b44d71b749fe/2', { fixture: 'configuration1.json' }).as('getConfigurationDetails')
-        cy.get('.MuiDataGrid-row > [data-field="sourceApplication"]').dblclick()
+        cy.get('.MuiDataGrid-row > [data-field="sourceApplicationId"]').dblclick()
         cy.get('.MuiBreadcrumbs-ol').should('contain', 'Konfigurasjonsdetaljer')
     })
 

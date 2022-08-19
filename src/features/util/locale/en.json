@@ -101,7 +101,7 @@
             "table": {
                 "columns": {
                     "sourceApplicationIntegrationId": "Form",
-                    "sourceApplication": "Source application",
+                    "sourceApplicationId": "Source application",
                     "name": "Name",
                     "description": "Description",
                     "published": "Published",
@@ -112,7 +112,7 @@
                 "name": "Name: ",
                 "description": "Description: ",
                 "destination": "Destination: ",
-                "sourceApplication": "Source application: ",
+                "sourceApplicationId": "Source application: ",
                 "sourceApplicationIntegrationId": "Form: ",
                 "caseCreationStrategy": "Creation strategy: ",
                 "published": "Published: ",

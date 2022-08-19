@@ -9,7 +9,7 @@ import {useTranslation} from "react-i18next";
 export const FormSettings: React.FunctionComponent<any> = (props) => {
     let history = useHistory();
     const { t } = useTranslation('translations', { keyPrefix: 'components.formSettings'});
-    const { destination, sourceApplication, setDestination, setSourceApplication } = useContext(IntegrationContext)
+    const { destination, sourceApplicationId, setDestination, setSourceApplicationId } = useContext(IntegrationContext)
     const [error, setError] = useState<string>('');
     const cancel = () => {
         history.push({
@@ -18,7 +18,7 @@ export const FormSettings: React.FunctionComponent<any> = (props) => {
     }
 
     const confirm = () => {
-        if(destination && sourceApplication) {
+        if(destination && sourceApplicationId) {
             props.setSettings(true)
             setError('');
         }
@@ -34,13 +34,13 @@ export const FormSettings: React.FunctionComponent<any> = (props) => {
                     <Typography id="integration-form-settings-header" sx={{mb: 2}}>{t('header')}</Typography>
                     <Box sx={{width: '100%', display: 'flex'}}>
                         <TextField
-                            id='sourceApplication'
+                            id='sourceApplicationId'
                             select
                             size="small"
                             sx={{ mb: 3, width: 'inherit' }}
-                            value={sourceApplication}
-                            label={t('labels.sourceApplication')+'*'}
-                            onChange={event => setSourceApplication(event.target.value)}
+                            value={sourceApplicationId}
+                            label={t('labels.sourceApplicationId')+'*'}
+                            onChange={event => setSourceApplicationId(event.target.value)}
                         >
                             {sourceApplications.map((item: any, index: number) => (
                                 <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
@@ -64,7 +64,7 @@ export const FormSettings: React.FunctionComponent<any> = (props) => {
                         </TextField>
                         <HelpPopover popoverContent={'destination'}/>
                     </Box>
-                    <Typography color={"error"}>{!sourceApplication || !destination? error : ''}</Typography>
+                    <Typography color={"error"}>{!sourceApplicationId || !destination? error : ''}</Typography>
                 </Box>
                 <Box sx={{mt: 2}}>
                     <Button id="form-settings-cancel-btn"  onClick={cancel} variant="contained">{t('button.cancel')}</Button>

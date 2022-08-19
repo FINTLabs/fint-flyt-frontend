@@ -14,7 +14,7 @@ import { useTranslation } from 'react-i18next';
 
 const CaseInformation: React.FunctionComponent<any> = (props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationForm.accordions.caseInformation'});
-    const { destination, sourceApplication } = useContext(IntegrationContext)
+    const { destination, sourceApplicationId } = useContext(IntegrationContext)
     const [_case, setCase] = React.useState('');
     let caseInput = props.watch("caseData.caseNumber");
     let caseInputPattern = /^((19|20)*\d{2})\/([0-9]{1,6})/g;
@@ -38,7 +38,7 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
     let isCollection = props.watch("caseData.caseCreationStrategy") === CreationStrategy.COLLECTION
     let errors: FieldErrors = props.errors
     const caseInformationFields: IInputField[] = [
-        {input: INPUT_TYPE.DROPDOWN, label: "labels.sourceApplication", value: sourceApplication, formValue: "sourceApplication", dropDownItems: sourceApplications, disabled: true, lockIcon: true},
+        {input: INPUT_TYPE.DROPDOWN, label: "labels.sourceApplicationId", value: sourceApplicationId, formValue: "sourceApplicationId", dropDownItems: sourceApplications, disabled: true, lockIcon: true},
         {input: INPUT_TYPE.DROPDOWN, label: "labels.destination", value: destination, formValue: "destination", dropDownItems: destinations, disabled: true, lockIcon: true},
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.sourceApplicationIntegrationId", value: props.watch("sourceApplicationIntegrationId"), required: props.validation, formValue: "sourceApplicationIntegrationId", error:errors.sourceApplicationIntegrationId, dropDownItems: forms, helpText: "sourceApplicationIntegrationId"},
         {input: INPUT_TYPE.TEXT_FIELD, label: "labels.name", value: props.watch("sourceApplicationIntegrationId"), formValue: "name", required: props.validation, error:errors.name, helpText: "name"},

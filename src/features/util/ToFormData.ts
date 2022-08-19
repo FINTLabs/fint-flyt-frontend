@@ -7,7 +7,7 @@ export function toFormData(data: IIntegrationConfiguration): IFormData {
     return {
         name: data.name,
         description: data.description,
-        sourceApplication: data.sourceApplication,
+        sourceApplicationId: data.sourceApplicationId,
         sourceApplicationIntegrationId: data.sourceApplicationIntegrationId,
         version: data.version,
         destination: data.destination,

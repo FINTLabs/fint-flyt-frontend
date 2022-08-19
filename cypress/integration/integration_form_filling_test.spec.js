@@ -18,7 +18,7 @@ describe('Testing filling Integration Form', () => {
 
     it('should fill form settings', () => {
         cy.visit('/integration/configuration/new')
-        cy.get("#sourceApplication").click()
+        cy.get("#sourceApplicationId").click()
         cy.get('[data-value="acos"]').click()
         cy.get("#destination").click()
         cy.get('[data-value="fylkesrad"]').click()
