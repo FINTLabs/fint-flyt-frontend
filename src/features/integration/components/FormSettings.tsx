@@ -36,7 +36,7 @@ export const FormSettings: React.FunctionComponent<any> = (props) => {
     }
 
     const confirm = () => {
-        if (destination && sourceApplication) {
+        if (destination && sourceApplicationIntegrationId && sourceApplication) {
             props.setSettings(true)
             setError('');
         } else {
