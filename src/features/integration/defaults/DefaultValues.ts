@@ -6,7 +6,6 @@ import IFormData from "../types/Form/FormData";
 import {ApplicantType} from "../types/ApplicantType";
 
 export const defaultValues: IFormData = {
-    name: '',
     description: '',
     version: '',
     sourceApplicationId: '',
@@ -128,7 +127,6 @@ export const destinations: ISelect[] = [
 ];
 
 export const fieldHelp = {
-    name: 'Navn på integrasjon',
     description: 'besrkrivelse',
     version: '',
     sourceApplicationId: 'Skjemaleverandør, f.eks ACOS',

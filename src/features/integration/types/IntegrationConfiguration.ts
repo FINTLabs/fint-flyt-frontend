@@ -18,7 +18,6 @@ export interface IApplicantConfiguration {
 }
 
 export interface IIntegrationConfiguration {
-    name?: string;
     description?: string;
     version?: string;
     sourceApplicationId?: string;

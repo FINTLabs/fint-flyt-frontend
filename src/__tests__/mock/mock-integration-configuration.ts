@@ -277,7 +277,6 @@ export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
             }
         ]
     },
-    "name": "testform",
     "published": false,
     "recordConfiguration": {
         "fields": [
@@ -1316,7 +1315,6 @@ export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
             }
         ]
     },
-    "name": "testform with tags",
     "published": false,
     "recordConfiguration": {
         "fields": [

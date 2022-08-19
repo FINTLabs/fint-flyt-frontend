@@ -101,7 +101,6 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
                     <CardContent>
                         <Typography id="details-sourceApplicationId"><strong>{t('labels.sourceApplicationId')} </strong>{activeFormData.sourceApplicationId}</Typography>
                         <Typography id="details-destination"><strong>{t('labels.destination')} </strong>{activeFormData.destination}</Typography>
-                        <Typography id="details-name"><strong>{t('labels.name')}</strong>{activeFormData.name}</Typography>
                         <Typography id="details-description"><strong>{t('labels.description')}</strong>{activeFormData.description}</Typography>
                         <Typography id="details-sourceApplicationIntegrationId"><strong>{t('labels.sourceApplicationIntegrationId')}</strong>{activeFormData.sourceApplicationIntegrationId}</Typography>
                         <Typography id="details-caseConfiguration-caseCreation"><strong>{t('labels.caseCreationStrategy')}</strong>{activeFormData.caseData?.caseCreationStrategy}</Typography>
@@ -158,7 +157,7 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
                         <Typography variant={"h6"}>{t('applicant')}</Typography>
                         <Typography><strong>{t('labels.organisationNumber')}</strong>{activeFormData.applicantData?.organisationNumber}</Typography>
                         <Typography><strong>{t('labels.nationalIdentityNumber')}</strong>{activeFormData.applicantData?.nationalIdentityNumber}</Typography>
-                        <Typography><strong>{t('labels.name')}</strong>{activeFormData.applicantData?.name}</Typography>
+                        <Typography><strong>{t('labels.applicantName')}</strong>{activeFormData.applicantData?.name}</Typography>
                         <Typography><strong>{t('labels.address')}</strong>{activeFormData.applicantData?.address}</Typography>
                         <Typography><strong>{t('labels.postalCode')}</strong>{activeFormData.applicantData?.postalCode}</Typography>
                         <Typography><strong>{t('labels.city')}</strong>{activeFormData.applicantData?.city}</Typography>

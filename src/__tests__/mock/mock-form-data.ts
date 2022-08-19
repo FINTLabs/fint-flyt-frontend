@@ -8,7 +8,6 @@ export const MOCK_FORMDATA: IFormData = {
         "city": "Moria",
         "contactPerson": "donna",
         "email": "hello@world.no",
-        "name": "Anakin Skywalker",
         "nationalIdentityNumber": "",
         "organisationNumber": "",
         "paragraph": "p3",
@@ -46,7 +45,6 @@ export const MOCK_FORMDATA: IFormData = {
         "title": "document title",
         "variant": "var"
     },
-    "name": "testform",
     "published": false,
     "recordData": {
         "accessCode": "code89",
@@ -63,7 +61,6 @@ export const MOCK_FORMDATA: IFormData = {
 }
 
 export const MOCK_FORMDATA_NOT_PUBLISHED: IFormData = {
-    name: 'testform',
     description: 'form to test mapping not published',
     published: false,
     caseData: {
@@ -119,7 +116,6 @@ export const MOCK_FORMDATA_NOT_PUBLISHED: IFormData = {
 }
 
 export const MOCK_FORMDATA_PUBLISHED: IFormData = {
-    name: 'testform',
     description: 'form to test mapping published',
     published: true,
     caseData: {
@@ -220,7 +216,6 @@ export const MOCK_FORMDATA_WITH_TAGS: IFormData = {
         "title": "document title",
         "variant": "var6"
     },
-    "name": "testform with tags",
     "published": false,
     "recordData": {
         "accessCode": "code89",

@@ -12,7 +12,6 @@ export type IntegrationContextState = {
 
 export const contextDefaultValues: IntegrationContextState = {
     integration: {
-        name: '',
         description: '',
         sourceApplicationId: '',
         sourceApplicationIntegrationId: '',

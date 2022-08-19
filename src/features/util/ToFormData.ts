@@ -4,7 +4,6 @@ import {fieldToString} from "./ValueBuilderUtil";
 
 export function toFormData(data: IIntegrationConfiguration): IFormData {
     return {
-        name: data.name,
         description: data.description,
         sourceApplicationId: data.sourceApplicationId,
         sourceApplicationIntegrationId: data.sourceApplicationIntegrationId,
