@@ -8,6 +8,7 @@ export const MOCK_FORMDATA: IFormData = {
         "city": "Moria",
         "contactPerson": "donna",
         "email": "hello@world.no",
+        "name": "Anakin Skywalker",
         "nationalIdentityNumber": "",
         "organisationNumber": "",
         "paragraph": "p3",
@@ -50,11 +51,11 @@ export const MOCK_FORMDATA: IFormData = {
         "accessCode": "code89",
         "administrativeUnit": "unit33",
         "caseWorker": "boba",
+        "documentType": "cat8",
         "paragraph": "p34",
         "publicTitle": "public record title",
         "recordStatus": "N",
-        "title": "record title",
-        "documentType": "cat8"
+        "title": "record title"
     },
     "sourceApplicationId": "Acos",
     "sourceApplicationIntegrationId": "VIK116"

@@ -617,7 +617,6 @@ export const MOCK_INTEGRATION_CONFIG_NOT_PUBLISHED = {
             }
         ]
     },
-    "name": "testform",
     "published": false,
     "recordConfiguration": {
         "fields": [
@@ -956,7 +955,6 @@ export const MOCK_INTEGRATION_CONFIG_PUBLISHED = {
             }
         ]
     },
-    "name": "testform",
     "published": true,
     "recordConfiguration": {
         "fields": [
