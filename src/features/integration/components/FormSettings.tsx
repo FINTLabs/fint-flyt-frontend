@@ -46,7 +46,7 @@ export const FormSettings: React.FunctionComponent<any> = (props) => {
                                 <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
                             ))}
                         </TextField>
-                        <HelpPopover popoverContent={'sourceApplication'}/>
+                        <HelpPopover popoverContent={'sourceApplicationId'}/>
                     </Box>
                     <Box sx={{width: '100%', display: 'flex'}}>
                         <TextField
