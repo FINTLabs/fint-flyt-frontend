@@ -21,7 +21,7 @@ describe('Testing Integration Form', () => {
 
         it('should have correct header', () => {
             cy.get('#integration-form-settings-header').should('contain', 'Velg skjemaleverandør og destinasjon')
-            cy.get("#sourceApplication").click()
+            cy.get("#sourceApplicationId").click()
             cy.get('[data-value="acos"]').click()
             cy.get("#destination").click()
             cy.get('[data-value="fylkesrad"]').click()

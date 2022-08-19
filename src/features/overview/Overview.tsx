@@ -59,9 +59,9 @@ const Overview: React.FunctionComponent<RouteComponentProps<any>> = () => {
         <>
             <Breadcrumbs aria-label="breadcrumb">
                 <Typography style={{cursor:'pointer'}} onClick={resetConfiguration}>{t('header')}</Typography>
-                <Typography>{integration.integrationId && showDetails ? t('details') : ''}</Typography>
+                <Typography>{integration.sourceApplicationIntegrationId && showDetails ? t('details') : ''}</Typography>
             </Breadcrumbs>
-            {integration.integrationId && showDetails ?
+            {integration.sourceApplicationIntegrationId && showDetails ?
                 <IntegrationConfigurationDetails
                     reset={resetConfiguration}
                     initialConfiguration={integration}

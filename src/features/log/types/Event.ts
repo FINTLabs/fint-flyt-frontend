@@ -11,10 +11,9 @@ export interface IEvent {
 export interface IInstanceFlowHeadersEmbeddable {
     orgId: string;
     service: string;
-    sourceApplication: string;
+    sourceApplicationId: string;
     sourceApplicationIntegrationId: string;
     sourceApplicationInstanceId: string;
-    integrationId: string;
     correlationId: string;
     instanceId: string;
     configurationId: string;

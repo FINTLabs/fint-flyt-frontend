@@ -18,7 +18,7 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
     const [updateSuccess, setUpdateSuccess] = useState(false)
     const [version, setVersion] = useState(props.initialConfiguration.version)
     const latestVersion = props.initialVersion;
-    const {integration, setIntegration, setSourceApplication, setDestination} = useContext(IntegrationContext);
+    const {integration, setIntegration, setSourceApplicationId, setDestination} = useContext(IntegrationContext);
     const {setPrimaryClassification, setSecondaryClassification, setTertiaryClassification} = useContext(ResourcesContext);
     let activeFormData =  toFormData(integration)
 
@@ -39,7 +39,7 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
     }, [version, setVersion])
 
     const getConfiguration = (version: any) => {
-        IntegrationRepository.getByIdAndVersion(integration.integrationId, version)
+        IntegrationRepository.getByIdAndVersion(integration.sourceApplicationIntegrationId, version)
             .then((response) => {
                 const configuration = response.data;
                 setActiveConfiguration(configuration)
@@ -48,10 +48,10 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
             .catch(e => console.error('Error: ', e))
     }
 
-    const updateConfiguration = (integrationId: string, data: IIntegrationConfiguration) => {
-        IntegrationRepository.update(integrationId, data)
+    const updateConfiguration = (sourceApplicationIntegrationId: string, data: IIntegrationConfiguration) => {
+        IntegrationRepository.update(sourceApplicationIntegrationId, data)
             .then(response => {
-                console.log('updated configuraton: ', integrationId,  data, response);
+                console.log('updated configuraton: ', sourceApplicationIntegrationId,  data, response);
                 setUpdateSuccess(response.status === 200);
             })
             .catch((e: Error) => {
@@ -68,13 +68,13 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
             pathname: '/integration/configuration/edit',
         })
         setIntegration(activeConfiguration);
-        setSourceApplication(activeConfiguration?.sourceApplication ? activeConfiguration.sourceApplication : '');
+        setSourceApplicationId(activeConfiguration?.sourceApplicationId ? activeConfiguration.sourceApplicationId : '');
         setDestination(activeConfiguration.destination ? activeConfiguration.destination : '');
     }
 
     const handleVersionChange = () => {
-        if(activeConfiguration.integrationId) {
-            updateConfiguration(activeConfiguration.integrationId, activeConfiguration);
+        if(activeConfiguration.sourceApplicationIntegrationId) {
+            updateConfiguration(activeConfiguration.sourceApplicationIntegrationId, activeConfiguration);
         }
     }
 
@@ -96,13 +96,11 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
                                 <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
                             ))}
                         </Select>
-                        {version !== integration.integrationId && <Button onClick={handleVersionChange}>{t('button.changeVersion')}</Button>}
+                        {version !== integration.sourceApplicationIntegrationId && <Button onClick={handleVersionChange}>{t('button.changeVersion')}</Button>}
                     </FormControl>
                     <CardContent>
-                        <Typography id="details-id"><strong>Id: </strong>{activeConfiguration.integrationId}</Typography>
-                        <Typography id="details-sourceApplication"><strong>{t('labels.sourceApplication')} </strong>{activeFormData.sourceApplication}</Typography>
+                        <Typography id="details-sourceApplicationId"><strong>{t('labels.sourceApplicationId')} </strong>{activeFormData.sourceApplicationId}</Typography>
                         <Typography id="details-destination"><strong>{t('labels.destination')} </strong>{activeFormData.destination}</Typography>
-                        <Typography id="details-name"><strong>{t('labels.name')}</strong>{activeFormData.name}</Typography>
                         <Typography id="details-description"><strong>{t('labels.description')}</strong>{activeFormData.description}</Typography>
                         <Typography id="details-sourceApplicationIntegrationId"><strong>{t('labels.sourceApplicationIntegrationId')}</strong>{activeFormData.sourceApplicationIntegrationId}</Typography>
                         <Typography id="details-caseConfiguration-caseCreation"><strong>{t('labels.caseCreationStrategy')}</strong>{activeFormData.caseData?.caseCreationStrategy}</Typography>
@@ -159,7 +157,7 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
                         <Typography variant={"h6"}>{t('applicant')}</Typography>
                         <Typography><strong>{t('labels.organisationNumber')}</strong>{activeFormData.applicantData?.organisationNumber}</Typography>
                         <Typography><strong>{t('labels.nationalIdentityNumber')}</strong>{activeFormData.applicantData?.nationalIdentityNumber}</Typography>
-                        <Typography><strong>{t('labels.name')}</strong>{activeFormData.applicantData?.name}</Typography>
+                        <Typography><strong>{t('labels.applicantName')}</strong>{activeFormData.applicantData?.name}</Typography>
                         <Typography><strong>{t('labels.address')}</strong>{activeFormData.applicantData?.address}</Typography>
                         <Typography><strong>{t('labels.postalCode')}</strong>{activeFormData.applicantData?.postalCode}</Typography>
                         <Typography><strong>{t('labels.city')}</strong>{activeFormData.applicantData?.city}</Typography>

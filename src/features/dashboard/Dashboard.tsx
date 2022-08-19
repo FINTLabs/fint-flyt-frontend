@@ -93,7 +93,7 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
             </Box>
             <Card className={classes.card} sx={{mt: 4}}>
                 <CardContent>
-                    {integration.integrationId && showDetails ?
+                    {integration.sourceApplicationIntegrationId && showDetails ?
                         <IntegrationConfigurationDetails
                             reset={resetConfiguration}
                             initialConfiguration={integration}
