@@ -101,7 +101,7 @@
             "table": {
                 "columns": {
                     "sourceApplicationIntegrationId": "Skjema",
-                    "sourceApplication": "Skjemaleverandør",
+                    "sourceApplicationId": "Skjemaleverandør",
                     "name": "Navn",
                     "description": "Beskrivelse",
                     "published": "Publisert",
@@ -112,7 +112,7 @@
                 "name": "Navn: ",
                 "description": "Beskrivelse: ",
                 "destination": "Destinasjon: ",
-                "sourceApplication": "Skjemaleverandør: ",
+                "sourceApplicationId": "Skjemaleverandør: ",
                 "sourceApplicationIntegrationId": "Skjema: ",
                 "caseCreationStrategy": "Avleveringslogikk: ",
                 "published": "Publisert: ",
@@ -163,7 +163,7 @@
                     "timestamp": "Tidspunkt",
                     "name": "Navn",
                     "sourceApplicationIntegrationId": "Skjema",
-                    "sourceApplication": "Skjemaleverandør",
+                    "sourceApplicationId": "Skjemaleverandør",
                     "errorMessage": "Feilmeldinger"
                 }
             },
@@ -182,7 +182,7 @@
             "name": "Navn",
             "description": "Beskrivelse",
             "destination": "Destinasjon",
-            "sourceApplication": "Skjemaleverandør",
+            "sourceApplicationId": "Skjemaleverandør",
             "sourceApplicationIntegrationId": "Skjema",
             "caseCreationInfo": "Velg hvordan skjema skal sendes til arkivet",
             "caseCreationNew": "Som ny sak",
@@ -258,7 +258,7 @@
             "name": "Name",
             "description": "Description",
             "version": "Version",
-            "sourceApplication": "Source application",
+            "sourceApplicationId": "Source application",
             "sourceApplicationIntegrationId": "Form",
             "published": "Published",
             "caseConfiguration": {
@@ -327,7 +327,7 @@
             "header": "Velg skjemaleverandør og destinasjon",
             "error": "du må velge skjemaleverandør og destinasjon",
             "labels": {
-                "sourceApplication": "Skjemaleverandør",
+                "sourceApplicationId": "Skjemaleverandør",
                 "destination": "Destinasjon/Base"
             },
             "button": {
@@ -338,7 +338,7 @@
     },
     "fieldHelp": {
         "sourceApplicationFormPopoverContent": "I tekstfeltene til i de ulike postene kan du benytte data fra skjema for å utfylle disse. Naviger til feltet du ønsker å fylle,og dra inn tag fra listen under.",
-        "sourceApplication": "Skjemaleverandør, f.eks ACOS",
+        "sourceApplicationId": "Skjemaleverandør, f.eks ACOS",
         "sourceApplicationIntegrationId": "Skjema",
         "destination": "Velg hvilken base skjemaet skal overføres til",
         "name": "",
