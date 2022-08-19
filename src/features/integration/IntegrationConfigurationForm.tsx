@@ -129,7 +129,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
         IntegrationRepository.create(data)
             .then(response => {
                 console.log('created new configuration', data, response);
-                setActiveId(response.headers.location.split('/').pop())
+                setActiveId(data.sourceApplicationIntegrationId)
                 setSaved(true);
             })
             .catch((e: Error) => {
