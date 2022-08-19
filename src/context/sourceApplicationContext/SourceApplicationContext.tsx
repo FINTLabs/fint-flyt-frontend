@@ -6,19 +6,22 @@ import {
 } from "./types";
 import {forms} from "../../features/integration/defaults/DefaultValues";
 import IntegrationRepository from "../../features/integration/repository/IntegrationRepository";
+import {IIntegrationConfiguration} from "../../features/integration/types/IntegrationConfiguration";
 
 export const SourceApplicationContext = createContext<SourceApplicationContextState>(
     contextDefaultValues
 );
 
 const SourceApplicationProvider: FC = ({ children }) => {
+    const [allForms, setAllForms] = useState<ISourceApplicationItem>(contextDefaultValues.availableForms);
     const [availableForms, setAvailableForms] = useState<ISourceApplicationItem>(contextDefaultValues.availableForms);
 
 
     const getForms = () => {
         IntegrationRepository.get()
             .then(response => {
-                let ids: string[] = response.data.content.map((config: any) => config.sourceApplicationIntegrationId)
+                let ids: string[] = response.data.content.map((config: IIntegrationConfiguration) => config.sourceApplicationIntegrationId)
+                setAllForms({sourceApplication: 'acos', sourceApplicationForms: forms})
                 let selectableForms = forms.filter(form => !ids.includes(form.value));
                 setAvailableForms({sourceApplication: 'acos', sourceApplicationForms: selectableForms})
             })
@@ -29,12 +32,13 @@ const SourceApplicationProvider: FC = ({ children }) => {
 
     //TODO: get all forms from sourceApplication when avaliable
     const getAllForms = () => {
-        return;
+        setAllForms({sourceApplication: 'acos', sourceApplicationForms: forms})
     }
 
     return (
         <SourceApplicationContext.Provider
             value={{
+                allForms,
                 availableForms,
                 getForms,
                 getAllForms

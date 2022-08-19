@@ -90,7 +90,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     const editConfig: boolean = window.location.pathname === '/integration/configuration/edit'
     const [submitSuccess, setSubmitSuccess] = useState(false)
     const [settings, setSettings] = useState(false)
-    const {integration, sourceApplication, destination, setIntegration, resetSourceAndDestination} = useContext(IntegrationContext)
+    const {integration, sourceApplication, destination, sourceApplicationIntegrationId, setIntegration, resetSourceAndDestination} = useContext(IntegrationContext)
     const [activeId, setActiveId] = useState<any>(undefined)
     const [saved, setSaved] = React.useState(false);
     const [saveError, setSaveError] = React.useState(false);
@@ -111,10 +111,11 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     const { errors } = formState;
 
     const { getAllResources, resetAllResources } = useContext(ResourcesContext);
-    const { getForms } = useContext(SourceApplicationContext);
+    const { getForms, getAllForms } = useContext(SourceApplicationContext);
 
     useEffect(() => {
         getForms();
+        getAllForms();
         getAllResources();
         return () => {
             resetAllResources();
@@ -204,6 +205,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
 
     const onSubmit = handleSubmit((data: IFormData) => {
         data.sourceApplication = sourceApplication;
+        data.sourceApplicationIntegrationId = sourceApplicationIntegrationId;
         data.destination = destination;
         data.published = true;
         data.applicantData.protected = protectedCheck;
@@ -229,6 +231,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
 
     const onSave = handleSubmit((data: IFormData) => {
         data.sourceApplication = sourceApplication;
+        data.sourceApplicationIntegrationId = sourceApplicationIntegrationId;
         data.destination = destination;
         data.published = false;
         data.applicantData.protected = protectedCheck;

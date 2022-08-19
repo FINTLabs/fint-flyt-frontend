@@ -10,10 +10,12 @@ const IntegrationProvider: FC = ({ children }) => {
     const [integration, setIntegration] = useState<IIntegrationConfiguration>({});
     const [destination, setDestination] = useState<string>('');
     const [sourceApplication, setSourceApplication] = useState<string>('');
+    const [sourceApplicationIntegrationId, setSourceApplicationIntegrationId] = useState<string>('');
 
     const resetSourceAndDestination = () => {
         setDestination('');
         setSourceApplication('');
+        setSourceApplicationIntegrationId('');
     }
 
     return (
@@ -25,6 +27,8 @@ const IntegrationProvider: FC = ({ children }) => {
                 setDestination,
                 sourceApplication,
                 setSourceApplication,
+                sourceApplicationIntegrationId,
+                setSourceApplicationIntegrationId,
                 resetSourceAndDestination
             }}
         >

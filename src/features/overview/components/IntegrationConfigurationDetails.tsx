@@ -18,7 +18,7 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
     const [updateSuccess, setUpdateSuccess] = useState(false)
     const [version, setVersion] = useState(props.initialConfiguration.version)
     const latestVersion = props.initialVersion;
-    const {integration, setIntegration, setSourceApplication, setDestination} = useContext(IntegrationContext);
+    const {integration, setIntegration, setSourceApplication, setSourceApplicationIntegrationId, setDestination} = useContext(IntegrationContext);
     const {setPrimaryClassification, setSecondaryClassification, setTertiaryClassification} = useContext(ResourcesContext);
     let activeFormData =  toFormData(integration)
 
@@ -69,6 +69,7 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
         })
         setIntegration(activeConfiguration);
         setSourceApplication(activeConfiguration?.sourceApplication ? activeConfiguration.sourceApplication : '');
+        setSourceApplicationIntegrationId(activeConfiguration?.sourceApplicationIntegrationId ? activeConfiguration.sourceApplicationIntegrationId : '');
         setDestination(activeConfiguration.destination ? activeConfiguration.destination : '');
     }
 
