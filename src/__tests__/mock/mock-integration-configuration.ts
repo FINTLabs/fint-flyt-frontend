@@ -353,7 +353,7 @@ export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
             }
         ]
     },
-    "sourceApplication": "Acos",
+    "sourceApplicationId": "Acos",
     "sourceApplicationIntegrationId": "VIK116"
 }
 
@@ -1447,6 +1447,6 @@ export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
             }
         ]
     },
-    "sourceApplication": "Acos",
+    "sourceApplicationId": "Acos",
     "sourceApplicationIntegrationId": "VIK116"
 }
