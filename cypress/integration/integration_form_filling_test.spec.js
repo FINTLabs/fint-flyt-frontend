@@ -18,7 +18,7 @@ describe('Testing filling Integration Form', () => {
 
     it('should fill form settings', () => {
         cy.visit('/integration/configuration/new')
-        cy.get("#sourceApplication").click()
+        cy.get("#sourceApplicationId").click()
         cy.get('[data-value="acos"]').click()
         cy.get("#destination").click()
         cy.get('[data-value="fylkesrad"]').click()
@@ -70,7 +70,7 @@ describe('Testing filling Record Form', () => {
         cy.get('#record-form > .MuiAccordionSummary-root').click()
         cy.get('#recordData\\.title').type("test title")
         cy.get('#recordData\\.publicTitle').type("test public title")
-        cy.get('#recordData\\.type').click()
+        cy.get('#recordData\\.documentType').click()
         cy.get('[data-value="https://beta.felleskomponent.no/arkiv/kodeverk/dokumenttype/systemid/TSS"]').click()
         cy.get('#recordData\\.administrativeUnit').type('KARBUS').type('{downarrow}').type('{enter}');
         cy.get('#recordData\\.recordStatus').click()

@@ -4,10 +4,9 @@ import IRecordData from "./RecordData";
 import ICaseData from "./CaseData";
 
 export default interface IFormData {
-    name?: string;
     description?: string;
     version?: string;
-    sourceApplication?: string;
+    sourceApplicationId?: string;
     sourceApplicationIntegrationId?: string;
     destination?: string;
     published?: boolean;

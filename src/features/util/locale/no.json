@@ -101,7 +101,7 @@
             "table": {
                 "columns": {
                     "sourceApplicationIntegrationId": "Skjema",
-                    "sourceApplication": "Skjemaleverandør",
+                    "sourceApplicationId": "Skjemaleverandør",
                     "name": "Navn",
                     "description": "Beskrivelse",
                     "published": "Publisert",
@@ -112,7 +112,7 @@
                 "name": "Navn: ",
                 "description": "Beskrivelse: ",
                 "destination": "Destinasjon: ",
-                "sourceApplication": "Skjemaleverandør: ",
+                "sourceApplicationId": "Skjemaleverandør: ",
                 "sourceApplicationIntegrationId": "Skjema: ",
                 "caseCreationStrategy": "Avleveringslogikk: ",
                 "published": "Publisert: ",
@@ -137,6 +137,7 @@
                 "secondaryTitle": "Sekundærtittel: ",
                 "tertiaryTitle": "Tertiærtittel: ",
                 "type": "Type: ",
+                "documentType": "Dokumenttype: ",
                 "recordStatus": "Journalstatus: ",
                 "caseWorker": "Saksbehandler: ",
                 "documentStatus": "Status: ",
@@ -162,7 +163,7 @@
                     "timestamp": "Tidspunkt",
                     "name": "Navn",
                     "sourceApplicationIntegrationId": "Skjema",
-                    "sourceApplication": "Skjemaleverandør",
+                    "sourceApplicationId": "Skjemaleverandør",
                     "errorMessage": "Feilmeldinger"
                 }
             },
@@ -181,7 +182,7 @@
             "name": "Navn",
             "description": "Beskrivelse",
             "destination": "Destinasjon",
-            "sourceApplication": "Skjemaleverandør",
+            "sourceApplicationId": "Skjemaleverandør",
             "sourceApplicationIntegrationId": "Skjema",
             "caseCreationInfo": "Velg hvordan skjema skal sendes til arkivet",
             "caseCreationNew": "Som ny sak",
@@ -212,6 +213,7 @@
             "secondaryTitle": "Sekundærtittel",
             "tertiaryTitle": "Tertiærtittel",
             "type": "Type",
+            "documentType": "Dokumenttype",
             "recordStatus": "Journalstatus",
             "caseWorker": "Saksbehandler",
             "documentStatus": "Status",
@@ -256,7 +258,7 @@
             "name": "Name",
             "description": "Description",
             "version": "Version",
-            "sourceApplication": "Source application",
+            "sourceApplicationId": "Source application",
             "sourceApplicationIntegrationId": "Form",
             "published": "Published",
             "caseConfiguration": {
@@ -283,7 +285,7 @@
             "recordConfiguration": {
                 "title": "",
                 "publicTitle": "",
-                "type": "",
+                "documentType": "",
                 "administrativeUnit": "",
                 "recordStatus": "",
                 "caseWorker": "",
@@ -325,7 +327,7 @@
             "header": "Velg skjemaleverandør og destinasjon",
             "error": "du må velge skjemaleverandør og destinasjon",
             "labels": {
-                "sourceApplication": "Skjemaleverandør",
+                "sourceApplicationId": "Skjemaleverandør",
                 "destination": "Destinasjon/Base"
             },
             "button": {
@@ -336,7 +338,7 @@
     },
     "fieldHelp": {
         "sourceApplicationFormPopoverContent": "I tekstfeltene til i de ulike postene kan du benytte data fra skjema for å utfylle disse. Naviger til feltet du ønsker å fylle,og dra inn tag fra listen under.",
-        "sourceApplication": "Skjemaleverandør, f.eks ACOS",
+        "sourceApplicationId": "Skjemaleverandør, f.eks ACOS",
         "sourceApplicationIntegrationId": "Skjema",
         "destination": "Velg hvilken base skjemaet skal overføres til",
         "name": "",
@@ -364,6 +366,7 @@
             "title": "Tittel kan være en konkret tekststreng, eller en kombinasjon av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak. (Se Noark))",
             "publicTitle": "Se Noark (Del av tittel som skal skjermes)",
             "type": "I, U, N, X",
+            "documentType": "",
             "administrativeUnit": "Enheten/avdelingen. Nedtrekksmeny fra Elements",
             "recordStatus": "R,F,E,J",
             "caseWorker": "En sak kan ha en ansvarlig saksbehandler men det kan være ulike saksbehandlere på ulike journalposter.",

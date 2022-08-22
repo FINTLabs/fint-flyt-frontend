@@ -4,9 +4,8 @@ import {fieldToString} from "./ValueBuilderUtil";
 
 export function toFormData(data: IIntegrationConfiguration): IFormData {
     return {
-        name: data.name,
         description: data.description,
-        sourceApplication: data.sourceApplication,
+        sourceApplicationId: data.sourceApplicationId,
         sourceApplicationIntegrationId: data.sourceApplicationIntegrationId,
         version: data.version,
         destination: data.destination,
@@ -37,7 +36,7 @@ export function toFormData(data: IIntegrationConfiguration): IFormData {
         recordData: {
             title: fieldToString(data.recordConfiguration, 'tittel', true),
             publicTitle: fieldToString(data.recordConfiguration, 'offentigTittel', true),
-            type: fieldToString(data.recordConfiguration, 'DokumentBeskrivelse.dokumentType'),
+            documentType: fieldToString(data.recordConfiguration, 'DokumentBeskrivelse.dokumentType'),
             administrativeUnit: fieldToString(data.recordConfiguration, 'administrativenhet'),
             recordStatus: fieldToString(data.recordConfiguration, 'journalstatus'),
             caseWorker: fieldToString(data.recordConfiguration, 'saksbehandler'),
@@ -53,8 +52,8 @@ export function toFormData(data: IIntegrationConfiguration): IFormData {
         },
         applicantData: {
             type: data.applicantConfiguration?.organisationNumber ? 'ORGANISATION' : 'PERSON',
-            organisationNumber: data.applicantConfiguration?.organisationNumber,
-            nationalIdentityNumber: data.applicantConfiguration?.nationalIdentityNumber,
+            organisationNumber: fieldToString(data.applicantConfiguration, 'organisasjonsnummer', true),
+            nationalIdentityNumber: fieldToString(data.applicantConfiguration, 'fødselsnummer', true),
             name: fieldToString(data.applicantConfiguration, 'KorrespondansepartNavn', true),
             address: fieldToString(data.applicantConfiguration, 'Adresse.adresselinje', true),
             postalCode: fieldToString(data.applicantConfiguration, 'Adresse.postnummer', true),

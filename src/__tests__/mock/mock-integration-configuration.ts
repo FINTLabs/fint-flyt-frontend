@@ -7,6 +7,14 @@ export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
         "applicantType": "PERSON",
         "fields": [
             {
+                "field": "fødselsnummer",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": ""
+                }
+            },
+            {
                 "field": "KorrespondansepartNavn",
                 "valueBuildStrategy": 1,
                 "valueBuilder": {
@@ -76,7 +84,8 @@ export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
                     "value": "p3"
                 }
             }
-        ]
+        ],
+        "organisationNumber": false
     },
     "caseConfiguration": {
         "caseCreationStrategy": "NEW",
@@ -268,7 +277,6 @@ export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
             }
         ]
     },
-    "name": "testform",
     "published": false,
     "recordConfiguration": {
         "fields": [
@@ -332,7 +340,7 @@ export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
             }
         ]
     },
-    "sourceApplication": "Acos",
+    "sourceApplicationId": "Acos",
     "sourceApplicationIntegrationId": "VIK116"
 }
 
@@ -340,6 +348,14 @@ export const MOCK_INTEGRATION_CONFIG_NOT_PUBLISHED = {
     "applicantConfiguration": {
         "applicantType": "PERSON",
         "fields": [
+            {
+                "field": "fødselsnummer",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": ""
+                }
+            },
             {
                 "field": "KorrespondansepartNavn",
                 "valueBuildStrategy": 1,
@@ -410,7 +426,8 @@ export const MOCK_INTEGRATION_CONFIG_NOT_PUBLISHED = {
                     "value": "p3"
                 }
             }
-        ]
+        ],
+        "organisationNumber": false
     },
     "caseConfiguration": {
         "caseCreationStrategy": "NEW",
@@ -600,7 +617,6 @@ export const MOCK_INTEGRATION_CONFIG_NOT_PUBLISHED = {
             }
         ]
     },
-    "name": "testform",
     "published": false,
     "recordConfiguration": {
         "fields": [
@@ -671,6 +687,14 @@ export const MOCK_INTEGRATION_CONFIG_PUBLISHED = {
         "applicantType": "PERSON",
         "fields": [
             {
+                "field": "fødselsnummer",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": ""
+                }
+            },
+            {
                 "field": "KorrespondansepartNavn",
                 "valueBuildStrategy": 1,
                 "valueBuilder": {
@@ -740,7 +764,8 @@ export const MOCK_INTEGRATION_CONFIG_PUBLISHED = {
                     "value": "p3"
                 }
             }
-        ]
+        ],
+        "organisationNumber": false
     },
     "caseConfiguration": {
         "caseCreationStrategy": "NEW",
@@ -930,7 +955,6 @@ export const MOCK_INTEGRATION_CONFIG_PUBLISHED = {
             }
         ]
     },
-    "name": "testform",
     "published": true,
     "recordConfiguration": {
         "fields": [
@@ -999,8 +1023,16 @@ export const MOCK_INTEGRATION_CONFIG_PUBLISHED = {
 
 export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
     "applicantConfiguration": {
-        "applicantType": "ORGANISATION",
+        "applicantType": "PERSON",
         "fields": [
+            {
+                "field": "fødselsnummer",
+                "valueBuildStrategy": 1,
+                "valueBuilder": {
+                    "properties": [],
+                    "value": "124356"
+                }
+            },
             {
                 "field": "KorrespondansepartNavn",
                 "valueBuildStrategy": 1,
@@ -1072,7 +1104,7 @@ export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
                 }
             }
         ],
-        "organisationNumber": "123456789"
+        "organisationNumber": false
     },
     "caseConfiguration": {
         "caseCreationStrategy": "NEW",
@@ -1281,7 +1313,6 @@ export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
             }
         ]
     },
-    "name": "testform with tags",
     "published": false,
     "recordConfiguration": {
         "fields": [
@@ -1362,6 +1393,6 @@ export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
             }
         ]
     },
-    "sourceApplication": "Acos",
+    "sourceApplicationId": "Acos",
     "sourceApplicationIntegrationId": "VIK116"
 }

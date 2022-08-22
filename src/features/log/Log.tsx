@@ -28,7 +28,6 @@ function Log() {
     const [selectedRow, setSelectedRow] = useState<IEvent>();
     const [open, setOpen] = React.useState(false);
     let events = MOCK_HENDELSER;
-    console.log(events)
 
     const columns: GridColumns = [
         { field: 'id', hide: true, type: 'string', headerName: 'id', flex: 0.5 },
@@ -37,11 +36,10 @@ function Log() {
         { field: 'type', type: 'string', headerName: 'Type', flex: 0.5 },
         { field: 'timestamp', type: 'string', headerName: 'Tidspunkt', flex: 1,
             valueGetter: (params) => moment(params.row.timeStamp).format('DD/MM/YY HH:mm')},
-        { field: 'name', type: 'string', headerName: 'Navn', flex: 1 },
         { field: 'sourceApplicationIntegrationId', type: 'string', headerName: 'Skjema', flex: 1,
             valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplicationIntegrationId},
-        { field: 'sourceApplication', type: 'string', headerName: 'Skjemaleverandør', flex: 1,
-            valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplication}
+        { field: 'sourceApplicationId', type: 'string', headerName: 'Skjemaleverandør', flex: 1,
+            valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplicationId}
     ];
 
     function CustomDialogToggle(props: GridCellParams["row"]) {
