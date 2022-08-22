@@ -19,10 +19,9 @@ export interface IApplicantConfiguration {
 }
 
 export interface IIntegrationConfiguration {
-    integrationId?: string;
     description?: string;
     version?: string;
-    sourceApplication?: string;
+    sourceApplicationId?: string;
     sourceApplicationIntegrationId?: string;
     destination?: string;
     published?: boolean;

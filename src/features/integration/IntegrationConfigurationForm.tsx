@@ -90,15 +90,15 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     const editConfig: boolean = window.location.pathname === '/integration/configuration/edit'
     const [submitSuccess, setSubmitSuccess] = useState(false)
     const [settings, setSettings] = useState(false)
-    const {integration, sourceApplication, destination, sourceApplicationIntegrationId, setIntegration, resetSourceAndDestination} = useContext(IntegrationContext)
+    const {integration, sourceApplicationId, destination, sourceApplicationIntegrationId, setIntegration, resetSourceAndDestination} = useContext(IntegrationContext)
     const [activeId, setActiveId] = useState<any>(undefined)
     const [saved, setSaved] = React.useState(false);
     const [saveError, setSaveError] = React.useState(false);
-    const [checked, setChecked] = React.useState(integration.integrationId && editConfig ? integration.published : false);
+    const [checked, setChecked] = React.useState(integration.sourceApplicationIntegrationId && editConfig ? integration.published : false);
     const [protectedCheck, setProtectedChecked] = React.useState(false);
     let history = useHistory();
-    let activeConfiguration = integration.integrationId && editConfig ? integration : undefined;
-    let activeFormData = integration.integrationId && editConfig ? toFormData(integration) : defaultValues;
+    let activeConfiguration = integration.sourceApplicationIntegrationId && editConfig ? integration : undefined;
+    let activeFormData = integration.sourceApplicationIntegrationId && editConfig ? toFormData(integration) : defaultValues;
 
     const handleCheckChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setChecked(event.target.checked);
@@ -135,7 +135,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
         IntegrationRepository.create(data)
             .then(response => {
                 console.log('created new configuration', data, response);
-                setActiveId(response.headers.location.split('/').pop())
+                setActiveId(data.sourceApplicationIntegrationId)
                 setSaved(true);
             })
             .catch((e: Error) => {
@@ -204,20 +204,20 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     );
 
     const onSubmit = handleSubmit((data: IFormData) => {
-        data.sourceApplication = sourceApplication;
+        data.sourceApplicationId = sourceApplicationId;
         data.sourceApplicationIntegrationId = sourceApplicationIntegrationId;
         data.destination = destination;
         data.published = true;
         data.applicantData.protected = protectedCheck;
         const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data);
-        if (integrationConfiguration && activeId !== undefined && activeConfiguration?.integrationId === undefined) {
+        if (integrationConfiguration && activeId !== undefined && activeConfiguration?.sourceApplicationIntegrationId === undefined) {
             const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data, activeId);
             publishConfiguration(activeId, integrationConfiguration)
             reset({ ...defaultValues })
         }
-        else if (integrationConfiguration && activeId === undefined && activeConfiguration?.integrationId !== undefined) {
-            const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data, activeConfiguration.integrationId);
-            publishConfiguration(activeConfiguration.integrationId, integrationConfiguration)
+        else if (integrationConfiguration && activeId === undefined && activeConfiguration?.sourceApplicationIntegrationId !== undefined) {
+            const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data, activeConfiguration.sourceApplicationIntegrationId);
+            publishConfiguration(activeConfiguration.sourceApplicationIntegrationId, integrationConfiguration)
             reset({ ...defaultValues })
         }
         else if (integrationConfiguration) {
@@ -230,20 +230,19 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     });
 
     const onSave = handleSubmit((data: IFormData) => {
-        data.sourceApplication = sourceApplication;
+        data.sourceApplicationId = sourceApplicationId;
         data.sourceApplicationIntegrationId = sourceApplicationIntegrationId;
         data.destination = destination;
         data.published = false;
         data.applicantData.protected = protectedCheck;
-        console.log(data.applicantData.protected)
         const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data);
         if (integrationConfiguration && activeId !== undefined) {
             const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data, activeId);
             saveConfiguration(activeId, integrationConfiguration)
         }
-        else if (integrationConfiguration && activeConfiguration?.integrationId !== undefined) {
-            const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data, activeConfiguration.integrationId);
-            saveConfiguration(activeConfiguration.integrationId, integrationConfiguration)
+        else if (integrationConfiguration && activeConfiguration?.sourceApplicationIntegrationId !== undefined) {
+            const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data, activeConfiguration.sourceApplicationIntegrationId);
+            saveConfiguration(activeConfiguration.sourceApplicationIntegrationId, integrationConfiguration)
         }
         else if (integrationConfiguration) {
             saveNewConfiguration(integrationConfiguration);

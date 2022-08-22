@@ -59,7 +59,7 @@ export const MOCK_FORMDATA: IFormData = {
         "recordType": "A",
         "title": "record title"
     },
-    "sourceApplication": "Acos",
+    "sourceApplicationId": "Acos",
     "sourceApplicationIntegrationId": "VIK116"
 }
 
@@ -237,6 +237,6 @@ export const MOCK_FORMDATA_WITH_TAGS: IFormData = {
         "recordType": "A",
         "title": "{just} {tags}"
     },
-    "sourceApplication": "Acos",
+    "sourceApplicationId": "Acos",
     "sourceApplicationIntegrationId": "VIK116"
 }

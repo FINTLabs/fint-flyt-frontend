@@ -21,10 +21,10 @@ export const FormSettings: React.FunctionComponent<any> = (props) => {
     const {t} = useTranslation('translations', {keyPrefix: 'components.formSettings'});
     const {
         destination,
-        sourceApplication,
+        sourceApplicationId,
         sourceApplicationIntegrationId,
         setDestination,
-        setSourceApplication,
+        setSourceApplicationId,
         setSourceApplicationIntegrationId
     } = useContext(IntegrationContext)
     const {availableForms} = useContext(SourceApplicationContext)
@@ -36,7 +36,7 @@ export const FormSettings: React.FunctionComponent<any> = (props) => {
     }
 
     const confirm = () => {
-        if (destination && sourceApplicationIntegrationId && sourceApplication) {
+        if (destination && sourceApplicationIntegrationId && sourceApplicationId) {
             props.setSettings(true)
             setError('');
         } else {
@@ -51,21 +51,20 @@ export const FormSettings: React.FunctionComponent<any> = (props) => {
                     <Typography id="integration-form-settings-header" sx={{mb: 2}}>{t('header')}</Typography>
                     <Box sx={{width: '100%', display: 'flex'}}>
                         <TextField
-                            id='sourceApplication'
+                            id='sourceApplicationId'
                             select
                             size="small"
-                            sx={{mb: 3, width: 'inherit'}}
-                            value={sourceApplication}
-                            label={t('labels.sourceApplication') + '*'}
-                            onChange={event => setSourceApplication(event.target.value)}
+                            sx={{ mb: 3, width: 'inherit' }}
+                            value={sourceApplicationId}
+                            label={t('labels.sourceApplicationId')+'*'}
+                            onChange={event => setSourceApplicationId(event.target.value)}
                         >
                             {sourceApplications.map((item: any, index: number) => (
                                 <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
                             ))}
                         </TextField>
-                        <HelpPopover popoverContent={'sourceApplication'}/>
+                        <HelpPopover popoverContent={'sourceApplicationId'}/>
                     </Box>
-
                     <Box sx={{width: '100%', display: 'flex'}}>
                         <Autocomplete
                             sx={{ minWidth:'520px', mb: 3}}
@@ -117,7 +116,7 @@ export const FormSettings: React.FunctionComponent<any> = (props) => {
                         </TextField>
                         <HelpPopover popoverContent={'destination'}/>
                     </Box>
-                    <Typography color={"error"}>{!sourceApplication || !destination? error : ''}</Typography>
+                    <Typography color={"error"}>{!sourceApplicationId || !destination? error : ''}</Typography>
                 </Box>
                 <Box sx={{mt: 2}}>
                     <Button id="form-settings-cancel-btn"  onClick={cancel} variant="contained">{t('button.cancel')}</Button>

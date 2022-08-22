@@ -13,8 +13,7 @@ const IntegrationConfigurationTable: React.FunctionComponent<any> = (props) => {
     let history = useHistory();
 
     const columns: GridColDef[] = [
-        { field: 'integrationId', type: 'string', flex: 1 },
-        { field: 'sourceApplication', type: 'string', headerName: t('table.columns.sourceApplication'), flex: 1 },
+        { field: 'sourceApplicationId', type: 'string', headerName: t('table.columns.sourceApplicationId'), flex: 1 },
         { field: 'sourceApplicationIntegrationId', type: 'string', headerName: t('table.columns.sourceApplicationIntegrationId'), flex: 1 },
         { field: 'description', type: 'string', headerName: t('table.columns.description'), flex: 2 },
         { field: 'published', type: 'boolean', headerName: t('table.columns.published'), flex: 1 },
@@ -34,7 +33,7 @@ const IntegrationConfigurationTable: React.FunctionComponent<any> = (props) => {
                     <DataGrid
                         loading={props.loading}
                         localeText={i18n.language === 'no' ? gridLocaleNoNB : undefined}
-                        getRowId={(row) => row.integrationId}
+                        getRowId={(row) => row.sourceApplicationIntegrationId}
                         onCellDoubleClick={(params, event) => {
                             if (!event.ctrlKey) {
                                 event.defaultMuiPrevented = true;
