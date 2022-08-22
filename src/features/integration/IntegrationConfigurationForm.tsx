@@ -95,7 +95,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     const [saved, setSaved] = React.useState(false);
     const [saveError, setSaveError] = React.useState(false);
     const [checked, setChecked] = React.useState(integration.sourceApplicationIntegrationId && editConfig ? integration.published : false);
-    const [protectedCheck, setProtectedChecked] = React.useState(false);
+    const [protectedCheck, setProtectedChecked] = React.useState(integration.applicantConfiguration?.protected && editConfig ? integration.applicantConfiguration.protected : false);
     let history = useHistory();
     let activeConfiguration = integration.sourceApplicationIntegrationId && editConfig ? integration : undefined;
     let activeFormData = integration.sourceApplicationIntegrationId && editConfig ? toFormData(integration) : defaultValues;

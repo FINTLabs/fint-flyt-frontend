@@ -31,9 +31,6 @@ const ApplicantForm: React.FunctionComponent<any> = (props) => {
       //  {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.paragraph", value: props.watch("applicantData.paragraph"), formValue: "applicantData.paragraph", dropDownItems: paragraphs, required:false, error:errors.applicantData?.paragraph, helpText: "applicantData.paragraph"}
     ]
 
-    const handleCheckChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        props.setProtectedChecked(event.target.checked);
-    };
 
     return (
         <div>
@@ -68,7 +65,7 @@ const ApplicantForm: React.FunctionComponent<any> = (props) => {
                     control={
                         <Checkbox
                             id="form-complete"
-                            checked={props.protectedChecked}
+                            checked={props.protectedCheck}
                             onChange={event => props.setProtectedChecked(event.target.checked)}
                             inputProps={{ 'aria-label': 'completed-checkbox' }}/>}
                     label={t('protectedLabel') as string}
