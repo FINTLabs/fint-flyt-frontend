@@ -105,7 +105,6 @@ function Log() {
 
     const getAllEvents = () => {
         let data = events;
-        console.log(data)
         if (data) {
             data.forEach(addId(0, 'name'))
             data.forEach((event: any) =>
