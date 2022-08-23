@@ -18,6 +18,7 @@ const IntegrationProvider: FC = ({ children }) => {
         setSourceApplicationIntegrationId('');
     }
 
+
     return (
         <IntegrationContext.Provider
             value={{
@@ -26,6 +27,8 @@ const IntegrationProvider: FC = ({ children }) => {
                 destination,
                 setDestination,
                 sourceApplicationId,
+                sourceApplicationIntegrationId,
+                setSourceApplicationIntegrationId,
                 setSourceApplicationId,
                 sourceApplicationIntegrationId,
                 setSourceApplicationIntegrationId,

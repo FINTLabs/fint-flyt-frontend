@@ -16,7 +16,7 @@ import {SourceApplicationContext} from "../../../../context/sourceApplicationCon
 const CaseInformation: React.FunctionComponent<any> = (props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationForm.accordions.caseInformation'});
     const { destination, sourceApplicationId, sourceApplicationIntegrationId } = useContext(IntegrationContext)
-    const {allForms} = useContext(SourceApplicationContext)
+    const {allForms} = useContext(SourceApplicationContext);
     const [_case, setCase] = React.useState('');
     let caseInput = props.watch("caseData.caseNumber");
     let caseInputPattern = /^((19|20)*\d{2})\/([0-9]{1,6})/g;

@@ -84,7 +84,7 @@ export const FormSettings: React.FunctionComponent<any> = (props) => {
                         />
                         <HelpPopover popoverContent={'sourceApplicationIntegrationId'}/>
                     </Box>
-{/*                    <Box sx={{width: '100%', display: 'flex'}}>
+                    {/*                    <Box sx={{width: '100%', display: 'flex'}}>
                         <TextField
                             id='sourceApplicationIntegrationId'
                             select
