@@ -324,10 +324,11 @@
             "header": "Data fra skjema"
         },
         "formSettings": {
-            "header": "Velg skjemaleverandør og destinasjon",
-            "error": "du må velge skjemaleverandør og destinasjon",
+            "header": "Velg skjemaleverandør, skjema og destinasjon",
+            "error": "du må velge skjemaleverandør, skjema og destinasjon",
             "labels": {
                 "sourceApplicationId": "Skjemaleverandør",
+                "sourceApplicationIntegrationId": "Skjema",
                 "destination": "Destinasjon/Base"
             },
             "button": {
