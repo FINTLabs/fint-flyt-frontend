@@ -40,7 +40,7 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
     const caseInformationFields: IInputField[] = [
         {input: INPUT_TYPE.DROPDOWN, label: "labels.sourceApplicationId", value: sourceApplicationId, formValue: "sourceApplicationId", dropDownItems: sourceApplications, disabled: true, lockIcon: true},
         {input: INPUT_TYPE.DROPDOWN, label: "labels.destination", value: destination, formValue: "destination", dropDownItems: destinations, disabled: true, lockIcon: true},
-        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.sourceApplicationIntegrationId", value: props.watch("sourceApplicationIntegrationId"), required: props.validation, formValue: "sourceApplicationIntegrationId", error:errors.sourceApplicationIntegrationId, dropDownItems: forms, helpText: "sourceApplicationIntegrationId"},
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.sourceApplicationIntegrationId", value: props.watch("sourceApplicationIntegrationId"), required: true, formValue: "sourceApplicationIntegrationId", error:errors.sourceApplicationIntegrationId, dropDownItems: forms, helpText: "sourceApplicationIntegrationId"},
         {input: INPUT_TYPE.TEXT_FIELD, label: "labels.description", formValue: "description", error:errors.description, helpText: "description"},
         {input: INPUT_TYPE.RADIO, label: "labels.caseCreationInfo", value: props.watch("caseData.caseCreationStrategy"),
             formValue: "caseData.caseCreationStrategy", radioOptions: creationStrategies, helpText: "caseData.caseCreationStrategy"},
