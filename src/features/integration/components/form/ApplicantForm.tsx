@@ -62,6 +62,7 @@ const ApplicantForm: React.FunctionComponent<any> = (props) => {
             </FormGroup>
             <FormGroup sx={{ ml: 2, mb: 2, flexDirection: 'row'}} >
                 <FormControlLabel
+                    disabled={true}
                     control={
                         <Checkbox
                             id="form-complete"
