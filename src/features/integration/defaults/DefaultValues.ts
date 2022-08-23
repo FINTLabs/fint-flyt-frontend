@@ -6,10 +6,9 @@ import IFormData from "../types/Form/FormData";
 import {ApplicantType} from "../types/ApplicantType";
 
 export const defaultValues: IFormData = {
-    name: '',
     description: '',
     version: '',
-    sourceApplication: '',
+    sourceApplicationId: '',
     sourceApplicationIntegrationId: '',
     destination: '',
     published: false,
@@ -128,10 +127,9 @@ export const destinations: ISelect[] = [
 ];
 
 export const fieldHelp = {
-    name: 'Navn på integrasjon',
     description: 'besrkrivelse',
     version: '',
-    sourceApplication: 'Skjemaleverandør, f.eks ACOS',
+    sourceApplicationId: 'Skjemaleverandør, f.eks ACOS',
     sourceApplicationIntegrationId: 'Skjema, f.eks VIK103',
     destination: 'fylkesting, fylkesråd, kollektiv ++',
     caseData: {

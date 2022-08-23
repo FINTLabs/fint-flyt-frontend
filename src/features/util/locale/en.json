@@ -102,7 +102,7 @@
             "table": {
                 "columns": {
                     "sourceApplicationIntegrationId": "Form",
-                    "sourceApplication": "Source application",
+                    "sourceApplicationId": "Source application",
                     "name": "Name",
                     "description": "Description",
                     "published": "Published",
@@ -113,7 +113,7 @@
                 "name": "Name: ",
                 "description": "Description: ",
                 "destination": "Destination: ",
-                "sourceApplication": "Source application: ",
+                "sourceApplicationId": "Source application: ",
                 "sourceApplicationIntegrationId": "Form: ",
                 "caseCreationStrategy": "Creation strategy: ",
                 "published": "Published: ",
@@ -164,7 +164,7 @@
                     "timestamp": "Time",
                     "name": "Name",
                     "sourceApplicationIntegrationId": "Form",
-                    "sourceApplication": "Source application",
+                    "sourceApplicationId": "Source application",
                     "errorMessage": "Error message"
                 }
             },
@@ -183,7 +183,7 @@
             "name": "Name",
             "description": "Description",
             "destination": "Destination",
-            "sourceApplication": "Source application",
+            "sourceApplicationId": "Source application",
             "sourceApplicationIntegrationId": "Form",
             "searchAlternatives": "Search combination for searching existing case",
             "caseCreationInfo": "Select creation strategy",
@@ -267,7 +267,7 @@
             "name": "Name",
             "description": "Description",
             "version": "Version",
-            "sourceApplication": "Source application",
+            "sourceApplicationId": "Source application",
             "sourceApplicationIntegrationId": "Form",
             "published": "Published",
             "caseConfiguration": {
@@ -336,7 +336,7 @@
             "header": "Select source application and destination",
             "error": "You must select source application and destination",
             "labels": {
-                "sourceApplication": "Source application",
+                "sourceApplicationId": "Source application",
                 "destination": "Destination"
             },
             "button": {
@@ -349,7 +349,7 @@
     },
     "fieldHelp": {
         "sourceApplicationFormPopoverContent": "In the forms text fields you can use data from the selected form to fill these. Drag and drop to the field.",
-        "sourceApplication": "Source appliation, i.e. ACOS",
+        "sourceApplicationId": "Source appliation, i.e. ACOS",
         "sourceApplicationIntegrationId": "Form",
         "destination": "Choose base to transfer form to",
         "name": "Integration name",

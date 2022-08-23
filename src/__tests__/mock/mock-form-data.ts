@@ -46,24 +46,22 @@ export const MOCK_FORMDATA: IFormData = {
         "title": "document title",
         "variant": "var"
     },
-    "name": "testform",
     "published": false,
     "recordData": {
         "accessCode": "code89",
         "administrativeUnit": "unit33",
         "caseWorker": "boba",
+        "documentType": "cat8",
         "paragraph": "p34",
         "publicTitle": "public record title",
         "recordStatus": "N",
-        "title": "record title",
-        "documentType": "cat8"
+        "title": "record title"
     },
-    "sourceApplication": "Acos",
+    "sourceApplicationId": "Acos",
     "sourceApplicationIntegrationId": "VIK116"
 }
 
 export const MOCK_FORMDATA_NOT_PUBLISHED: IFormData = {
-    name: 'testform',
     description: 'form to test mapping not published',
     published: false,
     caseData: {
@@ -119,7 +117,6 @@ export const MOCK_FORMDATA_NOT_PUBLISHED: IFormData = {
 }
 
 export const MOCK_FORMDATA_PUBLISHED: IFormData = {
-    name: 'testform',
     description: 'form to test mapping published',
     published: true,
     caseData: {
@@ -220,7 +217,6 @@ export const MOCK_FORMDATA_WITH_TAGS: IFormData = {
         "title": "document title",
         "variant": "var6"
     },
-    "name": "testform with tags",
     "published": false,
     "recordData": {
         "accessCode": "code89",
@@ -232,6 +228,6 @@ export const MOCK_FORMDATA_WITH_TAGS: IFormData = {
         "title": "{just} {tags}",
         "documentType": "cat8"
     },
-    "sourceApplication": "Acos",
+    "sourceApplicationId": "Acos",
     "sourceApplicationIntegrationId": "VIK116"
 }

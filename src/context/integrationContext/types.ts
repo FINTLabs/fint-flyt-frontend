@@ -5,17 +5,15 @@ export type IntegrationContextState = {
     setIntegration: (configuration: IIntegrationConfiguration) => void;
     destination: string,
     setDestination: (destination: string) => void;
-    sourceApplication: string,
-    setSourceApplication: (destination: string) => void,
+    sourceApplicationId: string,
+    setSourceApplicationId: (destination: string) => void,
     resetSourceAndDestination: () => void;
 };
 
 export const contextDefaultValues: IntegrationContextState = {
     integration: {
-        name: '',
         description: '',
-        integrationId: '',
-        sourceApplication: '',
+        sourceApplicationId: '',
         sourceApplicationIntegrationId: '',
         version: undefined,
         published: false,
@@ -27,7 +25,7 @@ export const contextDefaultValues: IntegrationContextState = {
     setIntegration: () => {},
     destination: '',
     setDestination: () => {},
-    sourceApplication: '',
-    setSourceApplication: () => {},
+    sourceApplicationId: '',
+    setSourceApplicationId: () => {},
     resetSourceAndDestination: () => {},
 };
