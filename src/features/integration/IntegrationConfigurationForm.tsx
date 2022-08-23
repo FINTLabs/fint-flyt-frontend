@@ -95,13 +95,15 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     const [saveError, setSaveError] = React.useState(false);
     const [checked, setChecked] = React.useState(integration.sourceApplicationIntegrationId && editConfig ? integration.published : false);
     const [checkState, setCheckState] = React.useState({archiveUnit: false, accessCode: false, caseType: false});
+    let activeConfiguration = integration.sourceApplicationIntegrationId && editConfig ? integration : undefined;
+    let activeFormData = integration.sourceApplicationIntegrationId && editConfig ? toFormData(integration) : defaultValues;
+    let history = useHistory();
     const {handleSubmit, watch, setValue, control, reset, formState, getValues} = useForm<IFormData>({
         defaultValues: activeFormData,
         reValidateMode: 'onChange'
     });
-    const { errors } = formState;let activeConfiguration = integration.sourceApplicationIntegrationId && editConfig ? integration : undefined;
-    let activeFormData = integration.sourceApplicationIntegrationId && editConfig ? toFormData(integration) : defaultValues;
-    let history = useHistory();
+    const { errors } = formState;
+
 
     const handlePublishCheckChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setChecked(event.target.checked);
