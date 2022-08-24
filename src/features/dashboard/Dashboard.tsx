@@ -2,8 +2,6 @@ import {Box, Card, CardContent, Theme} from '@mui/material';
 import React, {useContext, useEffect, useState} from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import {createStyles, makeStyles} from "@mui/styles";
-import IntegrationRepository from "../integration/repository/IntegrationRepository";
-import {IRow} from "../overview/types/Row";
 import {IntegrationContext} from "../../context/integrationContext";
 import IntegrationConfigurationTable from "../overview/components/IntegrationConfigurationTable";
 import IntegrationConfigurationDetails from "../overview/components/IntegrationConfigurationDetails";
@@ -37,36 +35,22 @@ const useStyles = makeStyles((theme: Theme) =>
 const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.dashboard'});
     const classes = useStyles();
-    const [numberOfIntegrations, setNumberOfIntegrations] = useState(0);
     const showDetails: boolean = window.location.pathname === '/integration/configuration/details'
-    const [configurations, getConfigurations] = useState<IRow[]>([]);
-    const {integration, setIntegration} = useContext(IntegrationContext)
+    const {integration, setIntegration, integrations, getIntegrations} = useContext(IntegrationContext)
     const [initialVersion, setInitialVersion] = useState(integration.version);
-    const [loading, setLoading] = useState(true);
 
     useEffect(()=> {
-        getAllConfigurations();
+        getIntegrations();
     }, [])
 
-    const getAllConfigurations = () => {
-        IntegrationRepository.get()
-            .then((response) => {
-                if(response.data.content) {
-                    setNumberOfIntegrations(response.data.numberOfElements);
-                    getConfigurations(response.data.content)
-                }
-                setLoading(false);
-            })
-            .catch(e => console.error('Error: ', e))
-    }
 
     const resetConfiguration = () => {
         setIntegration({})
-        getAllConfigurations();
+        getIntegrations();
     }
 
     const cards: ICard[] = [
-        { value: numberOfIntegrations === 0 ? t('empty') : numberOfIntegrations, content: t('form'), links: [
+        { value: integrations.length === 0 ? t('empty') : integrations.length, content: t('form'), links: [
                 {name: t('links.newIntegration'), href: '/integration/configuration/new'}
             ]
         },
@@ -101,8 +85,8 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
                         /> :
                         <IntegrationConfigurationTable
                             classes={classes}
-                            loading={loading}
-                            configurations={configurations}
+                            loading={integrations.length === 0}
+                            configurations={integrations}
                             setIntegration={setIntegration}
                             setInitialVersion={setInitialVersion}
                         />}
