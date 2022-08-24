@@ -24,8 +24,7 @@ const IntegrationProvider: FC = ({ children }) => {
         IntegrationRepository.get()
             .then((response) => {
                 if(response.data.content) {
-                    const allConfigurations = response.data.content;
-                    setIntegrations(allConfigurations);
+                    setIntegrations(response.data.content);
                 }
             })
             .catch(e => console.error('Error: ', e))
