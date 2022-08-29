@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
             display: 'flex'
         },
         dataGridBox: {
-            height: "750px",
+            height: "900px",
             width: '100%'
         }
     })

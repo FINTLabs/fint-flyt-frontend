@@ -46,7 +46,7 @@ function Log() {
     }, []);
 
     const getAllEvents = () => {
-       EventRepository.getEvents()
+        EventRepository.getEvents()
             .then((response) => {
                 let data = response.data;
                 if (data) {
@@ -61,7 +61,7 @@ function Log() {
     }
 
     return (
-        <Box sx={{ width: 1, height: 1200 }}>
+        <Box sx={{ width: 1, height: 900 }}>
             {/*TODO: remove header*/}
             <Typography>{t('header')} (NB! UNDER UTVIKLING, KUN DEMO, IKKE REELLE DATA) </Typography>
             <AlertDialog row={selectedRow}/>
@@ -94,9 +94,17 @@ function Log() {
         const hasErrors: boolean = props.row.errors.length > 0;
         return (
             <>
-                {hasErrors && <IconButton id={props.row.id} size="small" onClick={() => {setSelectedRow(props.row); handleClickOpen()}} tabIndex={-1}>
-                    <OpenInNewIcon id={props.row.id + `-icon`} fontSize="inherit"/>
-                </IconButton>}
+                {hasErrors &&
+                    <IconButton
+                        id={props.row.id}
+                        size="small"
+                        onClick={() => {
+                            setSelectedRow(props.row);
+                            handleClickOpen()}}
+                        tabIndex={-1}>
+                        <OpenInNewIcon id={props.row.id + `-icon`} fontSize="inherit"/>
+                    </IconButton>
+                }
             </>
         );
     }
@@ -111,16 +119,15 @@ function Log() {
                     aria-labelledby="alert-dialog-title"
                     aria-describedby="alert-dialog-description"
                 >
-                    <DialogTitle id="alert-dialog-title">{t('dialogHeader')}</DialogTitle>
                     <DialogContent>
                         {selectedRow &&
-                            <Stack id={props.row.type+ `-panel`} sx={{ py: 2, boxSizing: 'border-box', height: '250px', minWidth: '500px' }} direction="column">
+                            <Stack id={props.row.type+ `-panel`} sx={{ py: 2, boxSizing: 'border-box', height: '350px', minWidth: '700px' }} direction="column">
                                 <Stack direction="column" sx={{ height: 1 }}>
                                     <DataGrid
                                         density="compact"
                                         columns={[
                                             { field: 'args', headerName: t('table.columns.errorMessage'), type: 'string', flex: 1,
-                                                valueGetter: (params) => `${params.row.args.arg0 || ''} ${params.row.args.arg1 || ''}`
+                                                valueGetter: (params) => `${params.row.errorCode || ''}`
                                             }
                                         ]}
                                         rows={props.row.errors}

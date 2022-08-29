@@ -19,7 +19,6 @@ describe('Testing Routes', () => {
         cy.intercept('GET', '**/api/intern/kodeverk/variantformat', {fixture: 'variantformat.json'}).as('getVariants')
     })
 
-
     it('should open all links', () => {
             links.forEach(link => {
                 cy.visit(link)
