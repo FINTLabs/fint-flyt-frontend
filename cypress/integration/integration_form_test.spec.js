@@ -56,7 +56,7 @@ describe('Testing Integration Form', () => {
             cy.get('#caseData\\.caseCreationStrategy-COLLECTION > .MuiFormControlLabel-root > .MuiTypography-root').click()
             cy.get('#caseData\\.caseNumber').should('be.visible')
             cy.get('#caseData\\.caseNumber').type('2021/06')
-            cy.intercept('GET', '**/api/sak/mappeid/**', {fixture: 'tittel.json'}).as('getTittel')
+            cy.intercept('GET', '**/api/intern/sakstittel/mappeid/**', {fixture: 'tittel.json'}).as('getTittel')
             cy.get('#case-information-search-btn').click()
             cy.get('#case-information-case-search-result').should('be.visible')
         });

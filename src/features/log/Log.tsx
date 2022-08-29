@@ -37,9 +37,7 @@ function Log() {
         { field: 'timestamp', type: 'string', headerName: 'Tidspunkt', flex: 1,
             valueGetter: (params) => moment(params.row.timeStamp).format('DD/MM/YY HH:mm')},
         { field: 'sourceApplicationIntegrationId', type: 'string', headerName: 'Skjema', flex: 1,
-            valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplicationIntegrationId},
-        { field: 'sourceApplicationId', type: 'string', headerName: 'Skjemaleverandør', flex: 1,
-            valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplicationId}
+            valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplicationIntegrationId}
     ];
 
     function CustomDialogToggle(props: GridCellParams["row"]) {
@@ -104,7 +102,7 @@ function Log() {
     }, []);
 
     const getAllEvents = () => {
-        let data = events;
+/*        let data = events;
         console.log(data)
         if (data) {
             data.forEach(addId(0, 'name'))
@@ -113,9 +111,10 @@ function Log() {
             );
             setAllEvents(data);
         }
-/*        EventRepository.getEvents()
+        */
+   EventRepository.getEvents()
             .then((response) => {
-                let data = events;
+                let data = response.data;
                 console.log(data)
                 if (data) {
                     data.forEach(addId(0, 'name'))
@@ -125,7 +124,7 @@ function Log() {
                     setAllEvents(data);
                 }
             })
-            .catch(e => console.error('Error: ', e))*/
+            .catch(e => console.error('Error: ', e))
     }
 
     return (

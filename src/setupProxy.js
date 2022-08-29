@@ -12,7 +12,7 @@ module.exports = function (app) {
         })
     );
     app.use(
-        createProxyMiddleware('/api/integration/configuration', {
+        createProxyMiddleware('/api/intern/integrasjon/konfigurasjon', {
             target: 'http://localhost:8082', // API endpoint 2
             changeOrigin: true,
             pathRewrite: {"^/api2": ""},
@@ -22,7 +22,7 @@ module.exports = function (app) {
         })
     );
     app.use(
-        createProxyMiddleware('/api/sak', {
+        createProxyMiddleware('/api/intern/sakstittel', {
             target: 'http://localhost:8085', // API endpoint 2
             changeOrigin: true,
             pathRewrite: {"^/api3": ""},
@@ -32,8 +32,8 @@ module.exports = function (app) {
         })
     );
     app.use(
-        createProxyMiddleware('/api/sakshistorikk/hendelser', {
-            target: 'http://localhost:8084', // API endpoint 2
+        createProxyMiddleware('/api/intern/historikk/hendelser', {
+            target: 'http://localhost:8083', // API endpoint 2
             changeOrigin: true,
             pathRewrite: {"^/api4": ""},
             headers: {
