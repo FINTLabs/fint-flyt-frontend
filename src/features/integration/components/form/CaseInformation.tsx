@@ -15,8 +15,8 @@ import {SourceApplicationContext} from "../../../../context/sourceApplicationCon
 
 const CaseInformation: React.FunctionComponent<any> = (props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationForm.accordions.caseInformation'});
-    const { destination, sourceApplicationId } = useContext(IntegrationContext)
-    const {availableForms} = useContext(SourceApplicationContext)
+    const { destination, sourceApplicationId, sourceApplicationIntegrationId } = useContext(IntegrationContext)
+    const {allForms} = useContext(SourceApplicationContext);
     const [_case, setCase] = React.useState('');
     let caseInput = props.watch("caseData.caseNumber");
     let caseInputPattern = /^((19|20)*\d{2})\/([0-9]{1,6})/g;
@@ -42,7 +42,7 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
     const caseInformationFields: IInputField[] = [
         {input: INPUT_TYPE.DROPDOWN, label: "labels.sourceApplicationId", value: sourceApplicationId, formValue: "sourceApplicationId", dropDownItems: sourceApplications, disabled: true, lockIcon: true},
         {input: INPUT_TYPE.DROPDOWN, label: "labels.destination", value: destination, formValue: "destination", dropDownItems: destinations, disabled: true, lockIcon: true},
-        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.sourceApplicationIntegrationId", value: props.watch("sourceApplicationIntegrationId"), required: true, formValue: "sourceApplicationIntegrationId", error:errors.sourceApplicationIntegrationId, dropDownItems: availableForms.sourceApplicationForms, helpText: "sourceApplicationIntegrationId"},
+        {input: INPUT_TYPE.DROPDOWN, label: "labels.sourceApplicationIntegrationId", value: sourceApplicationIntegrationId, formValue: "sourceApplicationIntegrationId", dropDownItems: allForms.sourceApplicationForms, disabled: true, lockIcon: true},
         {input: INPUT_TYPE.TEXT_FIELD, label: "labels.description", formValue: "description", error:errors.description, helpText: "description"},
         {input: INPUT_TYPE.RADIO, label: "labels.caseCreationInfo", value: props.watch("caseData.caseCreationStrategy"),
             formValue: "caseData.caseCreationStrategy", radioOptions: creationStrategies, helpText: "caseData.caseCreationStrategy"},
