@@ -1,6 +1,6 @@
 describe('Testing Routes', () => {
-        const links = ['/', '/integration/configuration/new', '/integration/configuration/list', '/log', '/support']
-        const pages = ['Ny integrasjon', 'Integrasjonsoversikt', 'Logg', 'Support']
+        const links = ['/', '/integration/configuration/new', '/integration/configuration/list', '/integration/instance/list', '/log', '/support']
+        const pages = ['Ny integrasjon', 'Integrasjonsoversikt', 'Instansoversikt', 'Logg', 'Support']
 
     beforeEach(() => {
         cy.intercept(

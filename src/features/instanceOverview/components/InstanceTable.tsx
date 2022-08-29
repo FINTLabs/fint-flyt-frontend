@@ -1,0 +1,75 @@
+import {Box, Typography} from "@mui/material";
+import {DataGrid, GridColumns, GridToolbar} from "@mui/x-data-grid";
+import * as React from "react";
+import { gridLocaleNoNB } from "../../util/locale/gridLocaleNoNB";
+import {useTranslation} from "react-i18next";
+import {useEffect, useState} from "react";
+import {IEvent} from "../../log/types/Event";
+import moment from "moment";
+import EventRepository from "../../log/repository/EventRepository";
+import {addId} from "../../util/JsonUtil";
+
+const InstanceTable: React.FunctionComponent<any> = (props) => {
+    const {t} = useTranslation('translations', {keyPrefix: 'pages.log'})
+    const [allEvents, setAllEvents] = useState<IEvent[]>([]);
+
+    const columns: GridColumns = [
+        { field: 'id', hide: true, type: 'string', headerName: 'id', flex: 0.5 },
+        { field: 'sourceApplicationInstanceId', type: 'string', headerName: 'InstansId', flex: 0.5,
+            valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplicationInstanceId
+        },
+        { field: 'timestamp', type: 'string', headerName: 'Tidspunkt', flex: 1,
+            valueGetter: (params) => moment(params.row.timestamp).format('DD/MM/YY HH:mm')
+        },
+        { field: 'sourceApplicationIntegrationId', type: 'string', headerName: 'Skjema', flex: 3,
+            valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplicationIntegrationId
+        }
+    ];
+
+    useEffect(()=> {
+        getAllEvents();
+    }, []);
+
+    const getAllEvents = () => {
+        EventRepository.getEvents()
+            .then((response) => {
+                let data = response.data;
+                if (data) {
+                    data.forEach(addId(0, 'name'))
+                    setAllEvents(data);
+                }
+            })
+            .catch(e => console.error('Error: ', e))
+    }
+
+    return (
+        <Box sx={{ width: 1, height: 1200 }}>
+            {/*TODO: remove header*/}
+            <Typography>{t('header')} (NB! UNDER UTVIKLING, KUN DEMO, IKKE REELLE DATA) </Typography>
+            <DataGrid
+                columns={columns}
+                density='compact'
+                localeText={gridLocaleNoNB}
+                rows={allEvents}
+                components={{
+                    Toolbar: GridToolbar,
+                }}
+                rowThreshold={0}
+                initialState={{
+                    filter: {
+                        filterModel: {
+                            items: [
+                                {
+                                    columnField: 'sourceApplicationInstanceId',
+                                    operatorValue: 'contains'
+                                },
+                            ],
+                        },
+                    },
+                }}
+            />
+        </Box>
+    );
+}
+
+export default InstanceTable;
