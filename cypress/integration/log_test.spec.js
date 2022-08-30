@@ -1,7 +1,7 @@
 describe('Testing log', () => {
     before(() => {
         cy.intercept(
-            'GET', '**/sakshistorikk/hendelser', { fixture: 'hendelser.json' })
+            'GET', '**/intern/historikk/hendelser', { fixture: 'hendelser.json' })
             .as('getHendelser')
     })
 
@@ -11,7 +11,7 @@ describe('Testing log', () => {
     })
 
     it('should contain correct colunms', () => {
-        let columns = ['Detaljer', 'Type', 'Tidspunkt', 'Navn', 'Skjema', 'Skjemaleverandør']
+        let columns = ['Detaljer', 'Type', 'Tidspunkt', 'Skjema']
         columns.forEach(column => {
             cy.get('.MuiDataGrid-root').should("contain.text", column)
         })
@@ -20,7 +20,7 @@ describe('Testing log', () => {
 
     it('should show details on details expand icon click', () => {
         cy.get('#\\32  > [data-testid="OpenInNewIcon"] > path').click()
-        cy.get('#alert-dialog-title').should('be.visible')
+        cy.get('.MuiDialogContent-root').should('be.visible')
     })
 
     it('error panel should contain correct column', () => {

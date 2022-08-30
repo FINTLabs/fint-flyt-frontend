@@ -3,9 +3,8 @@ describe('Testing Routes', () => {
         const pages = ['Ny integrasjon', 'Integrasjonsoversikt', 'Instansoversikt', 'Logg', 'Support']
 
     beforeEach(() => {
-        cy.intercept(
-            'GET', '**/integration/configuration', { fixture: 'configuration.json' })
-            .as('getConfigurations')
+        cy.intercept('GET', '**/integrasjon/konfigurasjon', { fixture: 'configuration.json' }).as('getConfigurations')
+        cy.intercept('GET', '**/intern/historikk/hendelser', { fixture: 'hendelser.json' }).as('getHendelser')
         cy.intercept('GET', '**/api/intern/kodeverk/administrativenhet', {fixture: 'administrativenhet.json'}).as('getAdminstrativeUnits')
         cy.intercept('GET', '**/api/intern/kodeverk/arkivdel', {fixture: 'arkivdel.json'}).as('getArchiveSection')
         cy.intercept('GET', '**/api/intern/kodeverk/arkivressurs', {fixture: 'arkivressurs.json'}).as('getArchiveResources')
