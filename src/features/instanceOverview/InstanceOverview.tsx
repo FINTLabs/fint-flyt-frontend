@@ -14,18 +14,29 @@ const InstanceOverview: React.FunctionComponent<RouteComponentProps<any>> = () =
     const {t} = useTranslation('translations', {keyPrefix: 'pages.instanceOverview'})
     const [allEvents, setAllEvents] = useState<IEvent[]>([]);
 
+
     const columns: GridColumns = [
         { field: 'id', hide: true, type: 'string', headerName: 'id', flex: 0.5 },
-        { field: 'sourceApplicationInstanceId', type: 'string', headerName: 'InstansId', flex: 0.5,
+        { field: 'sourceApplicationInstanceId', type: 'string', headerName: 'Kilde instans ID', flex: 1,
             valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplicationInstanceId
         },
-        { field: 'timestamp', type: 'string', headerName: 'Tidspunkt', flex: 1,
+        { field: 'timestamp', type: 'string', headerName: 'Sist hendelse', flex: 1,
             valueGetter: (params) => moment(params.row.timestamp).format('DD/MM/YY HH:mm')
         },
-        { field: 'sourceApplicationIntegrationId', type: 'string', headerName: 'Skjema', flex: 3,
+        { field: 'name', type: 'string', headerName: 'Status', flex: 2},
+        { field: 'sourceApplication', type: 'string', headerName: 'Kildeapplikasjon', flex: 2,
+            valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplication
+        },
+        { field: 'sourceApplicationIntegrationId', type: 'string', headerName: 'Skjema', flex: 2,
             valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplicationIntegrationId
         },
-        { field: 'details', headerName: 'Resend', flex: 1, sortable: false, filterable: false,
+        { field: 'archiveCaseId', type: 'string', headerName: 'Arkivsak ID', flex: 2,
+            valueGetter: (params) => params.row.instanceFlowHeaders.archiveCaseId
+        },
+        { field: 'configurationId', type: 'string', headerName: 'Konfigurasjon ID', flex: 2,
+            valueGetter: (params) => params.row.instanceFlowHeaders.configurationId
+        },
+        { field: 'details', headerName: 'Send inn på nytt', flex: 1, sortable: false, filterable: false,
             renderCell: (params) => ( <CustomButtonToggle row={params.row} />)}
     ];
 
