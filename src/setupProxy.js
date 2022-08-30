@@ -32,7 +32,7 @@ module.exports = function (app) {
         })
     );
     app.use(
-        createProxyMiddleware('/api/intern/historikk/hendelser', {
+        createProxyMiddleware('/api/intern/historikk', {
             target: 'http://localhost:8083', // API endpoint 2
             changeOrigin: true,
             pathRewrite: {"^/api4": ""},
