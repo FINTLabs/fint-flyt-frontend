@@ -11,7 +11,6 @@ import {
     Dialog,
     DialogActions,
     DialogContent,
-    DialogTitle,
     IconButton,
     Typography
 } from "@mui/material";
@@ -43,6 +42,7 @@ function Log() {
 
     useEffect(()=> {
         getAllEvents();
+        getStatistics();
     }, []);
 
     const getAllEvents = () => {
@@ -58,6 +58,12 @@ function Log() {
                 }
             })
             .catch(e => console.error('Error: ', e))
+    }
+
+    const getStatistics = () => {
+        EventRepository.getStatistics().then((response) => {
+            console.log(response)
+        }).catch(e => console.log('error', e))
     }
 
     return (

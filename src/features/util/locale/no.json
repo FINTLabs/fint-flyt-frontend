@@ -155,6 +155,10 @@
             }
         },
         "instanceOverview": {
+            "instance-to-case-mapping": "instans mapping",
+            "incoming-instance": "incoming instans",
+            "new-instance": "ny instans",
+            "case-dispatched": "sak sendt",
             "header": "Instansoversikt",
             "button": {
                 "edit": "Rediger",

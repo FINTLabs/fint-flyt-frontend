@@ -14,7 +14,6 @@ const InstanceOverview: React.FunctionComponent<RouteComponentProps<any>> = () =
     const {t} = useTranslation('translations', {keyPrefix: 'pages.instanceOverview'})
     const [allEvents, setAllEvents] = useState<IEvent[]>([]);
 
-
     const columns: GridColumns = [
         { field: 'id', hide: true, type: 'string', headerName: 'id', flex: 0.5 },
         { field: 'sourceApplicationInstanceId', type: 'string', headerName: 'Kilde instans ID', flex: 1,
@@ -23,7 +22,7 @@ const InstanceOverview: React.FunctionComponent<RouteComponentProps<any>> = () =
         { field: 'timestamp', type: 'string', headerName: 'Sist hendelse', flex: 1,
             valueGetter: (params) => moment(params.row.timestamp).format('DD/MM/YY HH:mm')
         },
-        { field: 'name', type: 'string', headerName: 'Status', flex: 2},
+        { field: 'name', type: 'string', headerName: 'Status', flex: 2, valueGetter: params => t(params.row.name)},
         { field: 'sourceApplication', type: 'string', headerName: 'Kildeapplikasjon', flex: 2,
             valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplication
         },
@@ -39,7 +38,6 @@ const InstanceOverview: React.FunctionComponent<RouteComponentProps<any>> = () =
         { field: 'details', headerName: 'Send inn på nytt', flex: 1, sortable: false, filterable: false,
             renderCell: (params) => ( <CustomButtonToggle row={params.row} />)}
     ];
-
     useEffect(()=> {
         getAllEvents();
     }, []);
