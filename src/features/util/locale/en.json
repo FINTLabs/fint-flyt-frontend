@@ -9,7 +9,7 @@
         "dashboard": "Dashboard",
         "newIntegration": "New integration",
         "editIntegration": "Edit integration",
-        "integrationList": "Integration list",
+        "integrationOverview": "Integration list",
         "integrationDetails": "Details",
         "log": "Log [beta]",
         "support": "Support"
@@ -20,7 +20,7 @@
             "empty": "No",
             "errors": "errors",
             "links": {
-                "integrationList": "View integrations",
+                "integrationOverview": "View integrations",
                 "newIntegration": "New integration",
                 "log": "View log",
                 "support": "Contact support"
@@ -75,7 +75,7 @@
             "button": {
                 "save": "Save",
                 "cancel": "Cancel",
-                "integrationList": "See integrations",
+                "integrationOverview": "See integrations",
                 "dashboard": "Dashboard",
                 "close": "Close"
             },
@@ -84,7 +84,7 @@
                 "error": "There was an error saving"
             }
         },
-        "integrationList": {
+        "integrationOverview": {
             "header": "Overview",
             "details": "Configuration details",
             "revision": "Revision",

@@ -9,9 +9,10 @@
         "dashboard": "Dashbord",
         "newIntegration": "Ny integrasjon",
         "editIntegration": "Rediger integrasjon",
-        "integrationList": "Integrasjonsoversikt",
+        "integrationOverview": "Integrasjonsoversikt",
+        "instanceOverview": "Instansoversikt (wip)",
         "integrationDetails": "Detaljer",
-        "log": "Logg [beta]",
+        "log": "Logg (wip)",
         "support": "Support"
     },
     "pages": {
@@ -20,7 +21,7 @@
             "empty": "Ingen",
             "errors": "feilmeldinger",
             "links": {
-                "integrationList": "Se integrasjoner",
+                "integrationOverview": "Se integrasjoner",
                 "newIntegration": "Ny integrasjon",
                 "log": "Se logg",
                 "support": "Kontakt support"
@@ -76,7 +77,7 @@
             "button": {
                 "save": "Lagre",
                 "cancel": "Avbryt",
-                "integrationList": "Se integrasjoner",
+                "integrationOverview": "Se integrasjoner",
                 "dashboard": "Dashbord",
                 "close": "Lukk"
             },
@@ -85,8 +86,8 @@
                 "error": "Det har oppstått en feil"
             }
         },
-        "integrationList": {
-            "header": "Oversikt",
+        "integrationOverview": {
+            "header": "Integrasjonsoversikt",
             "details": "Konfigurasjonsdetaljer",
             "revision": "Revisjon",
             "case": "Sakspost",
@@ -157,8 +158,71 @@
                 "protected": "Skjerming: "
             }
         },
+        "instanceOverview": {
+            "header": "Instansoversikt",
+            "button": {
+                "edit": "Rediger",
+                "back": "Tilbake",
+                "changeVersion": "Bruk denne konfigurasjonen"
+            },
+            "table": {
+                "columns": {
+                    "sourceApplicationIntegrationId": "Skjema",
+                    "sourceApplicationId": "Skjemaleverandør",
+                    "name": "Navn",
+                    "description": "Beskrivelse",
+                    "published": "Publisert",
+                    "revision": "Revisjon"
+                }
+            },
+            "labels": {
+                "name": "Navn: ",
+                "description": "Beskrivelse: ",
+                "destination": "Destinasjon: ",
+                "sourceApplicationId": "Skjemaleverandør: ",
+                "sourceApplicationIntegrationId": "Skjema: ",
+                "caseCreationStrategy": "Avleveringslogikk: ",
+                "published": "Publisert: ",
+                "version": "Versjon: ",
+                "caseNumber": "Saksnummer: ",
+                "title": "Tittel: ",
+                "publicTitle": "Offentlig tittel: ",
+                "administrativeUnit": "Administrativ enhet: ",
+                "archiveUnit": "Arkivdel: ",
+                "recordUnit": "Journalenhet: ",
+                "status": "Status: ",
+                "accessCode": "Tilgangskode: ",
+                "paragraph": "Hjemmel: ",
+                "responsibleCaseWorker": "Ansvarlig saksbehandler: ",
+                "primaryClassification": "Primær ordningsprinsipp: ",
+                "secondaryClassification": "Sekundær ordningsprinsipp: ",
+                "tertiaryClassification": "Tertiær ordningsprinsipp: ",
+                "primaryClass": "Primærklasse: ",
+                "secondaryClass": "Sekundærklasse: ",
+                "tertiaryClass": "Tertiærklasse: ",
+                "primaryTitle": "Primærtittel: ",
+                "secondaryTitle": "Sekundærtittel: ",
+                "tertiaryTitle": "Tertiærtittel: ",
+                "type": "Type: ",
+                "documentType": "Dokumenttype: ",
+                "recordStatus": "Journalstatus: ",
+                "caseWorker": "Saksbehandler: ",
+                "documentStatus": "Status: ",
+                "variant": "Variant: ",
+                "organisationNumber": "Organisasjonsnummer: ",
+                "nationalIdentityNumber": "Fødselsnummer: ",
+                "applicantName": "Navn: ",
+                "address": "Adresse: ",
+                "postalCode": "Postnummer: ",
+                "city": "Poststed: ",
+                "contactPerson": "Kontaktperson: ",
+                "phoneNumber": "Telefonnummer: ",
+                "email": "Epost: "
+            }
+        },
+
         "log": {
-            "header": "Logg",
+            "header": "Hendelseslogg",
             "dialogHeader": "Hendelse - meldinger",
             "table": {
                 "columns": {

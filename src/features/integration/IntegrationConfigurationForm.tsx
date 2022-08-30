@@ -90,7 +90,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     const editConfig: boolean = window.location.pathname === '/integration/configuration/edit'
     const [submitSuccess, setSubmitSuccess] = useState(false)
     const [settings, setSettings] = useState(false)
-    const {integration, sourceApplicationId, destination, sourceApplicationIntegrationId, setIntegration, resetSourceAndDestination} = useContext(IntegrationContext)
+    const {integration, sourceApplicationId, destination, sourceApplicationIntegrationId, setIntegration, resetSourceAndDestination, getIntegrations} = useContext(IntegrationContext);
     const [activeId, setActiveId] = useState<any>(undefined)
     const [saved, setSaved] = React.useState(false);
     const [saveError, setSaveError] = React.useState(false);
@@ -137,6 +137,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                 console.log('created new configuration', data, response);
                 setActiveId(data.sourceApplicationIntegrationId)
                 setSaved(true);
+                getIntegrations();
             })
             .catch((e: Error) => {
                 setSaveError(true);
@@ -148,6 +149,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
             .then(response => {
                 console.log('updated configuration: ', id, data, response);
                 setSaved(true);
+                getIntegrations();
             })
             .catch((e: Error) => {
                 setSaveError(true);
@@ -161,6 +163,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                 console.log('created new configuration', data, response);
                 resetAllResources();
                 setSubmitSuccess(true);
+                getIntegrations();
             })
             .catch((e: Error) => {
                 console.log('error creating new', e);
@@ -173,6 +176,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                 console.log('updated configuration: ', id, data, response);
                 resetAllResources();
                 setSubmitSuccess(true);
+                getIntegrations();
             })
             .catch((e: Error) => {
                 console.log('error updating configuration', e);
@@ -323,7 +327,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
             {submitSuccess &&
                 <Box style={{ minHeight: 'fit-content' }}>
                     <Typography variant={"h5"} sx={{ mb: 2 }}>{t('successHeader')}</Typography>
-                    <Button size="small" variant="contained" component={RouterLink} to="/integration/configuration/list">{t('button.integrationList')}</Button>
+                    <Button size="small" variant="contained" component={RouterLink} to="/integration/configuration/list">{t('button.integrationOverview')}</Button>
                     <Button size="small" variant="contained" sx={{ ml: 2 }} component={RouterLink} to="/">{t('button.dashboard')}</Button>
                 </Box>}
         </DndProvider>
