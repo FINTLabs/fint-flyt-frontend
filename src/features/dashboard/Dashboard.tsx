@@ -2,8 +2,6 @@ import {Box, Card, CardContent, Theme} from '@mui/material';
 import React, {useContext, useEffect, useState} from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import {createStyles, makeStyles} from "@mui/styles";
-import IntegrationRepository from "../integration/repository/IntegrationRepository";
-import {IRow} from "../integrationOverview/types/Row";
 import {IntegrationContext} from "../../context/integrationContext";
 import IntegrationConfigurationTable from "../integrationOverview/components/IntegrationConfigurationTable";
 import IntegrationConfigurationDetails from "../integrationOverview/components/IntegrationConfigurationDetails";
