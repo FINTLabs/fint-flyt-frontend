@@ -17,14 +17,14 @@ const useStyles = makeStyles((theme: Theme) =>
             display: 'flex'
         },
         dataGridBox: {
-            height: "750px",
+            height: "900px",
             width: '100%'
         }
     })
 );
 
-const Overview: React.FunctionComponent<RouteComponentProps<any>> = () => {
-    const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationList'});
+const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = () => {
+    const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationOverview'});
     const classes = useStyles();
     const showDetails: boolean = window.location.pathname === '/integration/configuration/details'
     const {integration, setIntegration, integrations, getIntegrations} = useContext(IntegrationContext)
@@ -63,4 +63,4 @@ const Overview: React.FunctionComponent<RouteComponentProps<any>> = () => {
     );
 }
 
-export default withRouter(Overview);
+export default withRouter(IntegrationOverview);

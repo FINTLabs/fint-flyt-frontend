@@ -13,7 +13,7 @@ import {useTranslation} from "react-i18next";
 
 const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) => {
     let history = useHistory();
-    const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationList'});
+    const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationOverview'});
     const [activeConfiguration, setActiveConfiguration] = useState<IIntegrationConfiguration>(props.initialConfiguration)
     const [updateSuccess, setUpdateSuccess] = useState(false)
     const [version, setVersion] = useState(props.initialConfiguration.version)
