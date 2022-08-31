@@ -88,7 +88,7 @@ export const dropdownPlaceholder: ISelect[] = [
 
 export const creationStrategies: ISelect[] = [
     {label: 'selects.creationStrategies.new', value: 'NEW',  description: "selects.creationStrategies.newDesc"},
-    {label: 'selects.creationStrategies.exisiting', value: 'EXISTING',  description: "selects.creationStrategies.exisitingDesc"},
+    {label: 'selects.creationStrategies.existing', value: 'EXISTING',  description: "selects.creationStrategies.existingDesc"},
     {label: 'selects.creationStrategies.collection', value: 'COLLECTION', description: "selects.creationStrategies.collectionDesc"}
 ];
 
