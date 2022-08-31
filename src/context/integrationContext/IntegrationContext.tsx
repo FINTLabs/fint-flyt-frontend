@@ -42,8 +42,8 @@ const IntegrationProvider: FC = ({ children }) => {
                 setDestination,
                 sourceApplicationId,
                 sourceApplicationIntegrationId,
-                setSourceApplicationId,
                 setSourceApplicationIntegrationId,
+                setSourceApplicationId,
                 resetSourceAndDestination
             }}
         >
