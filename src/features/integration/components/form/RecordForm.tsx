@@ -10,12 +10,13 @@ import { useTranslation } from 'react-i18next';
 
 const RecordForm: React.FunctionComponent<any> = (props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationForm.accordions.recordForm'});
-    const {administrativeUnits, accessCodes, paragraphs, documentTypes, recordStatuses, archiveResources } = useContext(ResourcesContext);
+    const {administrativeUnits, accessCodes, paragraphs, documentTypes, recordStatuses, recordTypes, archiveResources } = useContext(ResourcesContext);
     let errors: FieldErrors = props.errors;
     let required: boolean = props.validation;
     const recordFormFields: IInputField[] = [
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.title", formValue: "recordData.title", required: required, error:errors.recordData?.title, value: props.activeFormData?.recordData?.title, helpText: "recordData.title"},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.publicTitle", formValue: "recordData.publicTitle", required: false, error:errors.recordData?.publicTitle, value: props.activeFormData?.recordData?.publicTitle, helpText: "recordData.publicTitle"},
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.recordType", value: props.watch("recordData.recordType"), formValue: "recordData.recordType", dropDownItems: recordTypes, required: false, error:errors.recordData?.recordType, helpText: "recordData.recordType"},
         {input: INPUT_TYPE.DROPDOWN, label: "labels.documentType", value: props.watch("recordData.documentType"), formValue: "recordData.documentType", dropDownItems: documentTypes, required: required, error:errors.recordData?.documentType, helpText: "recordData.documentType"},
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.administrativeUnit", value: props.watch("recordData.administrativeUnit"), formValue: "recordData.administrativeUnit", dropDownItems: administrativeUnits, required: required, error:errors.recordData?.administrativeUnit, helpText: "recordData.administrativeUnit"},
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.caseWorker", value: props.watch("recordData.caseWorker"), formValue: "recordData.caseWorker", dropDownItems: archiveResources, required: required, error:errors.recordData?.caseWorker, helpText: "recordData.caseWorker"},

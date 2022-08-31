@@ -14,6 +14,7 @@ export interface IDocumentConfiguration {
 export interface IApplicantConfiguration {
     applicantType?: string;
     organisationNumber?: boolean;
+    protected?: boolean;
     fields: IField[];
 }
 

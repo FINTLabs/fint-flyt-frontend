@@ -51,7 +51,7 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
     const updateConfiguration = (sourceApplicationIntegrationId: string, data: IIntegrationConfiguration) => {
         IntegrationRepository.update(sourceApplicationIntegrationId, data)
             .then(response => {
-                console.log('updated configuraton: ', sourceApplicationIntegrationId,  data, response);
+                console.log('updated configuration: ', sourceApplicationIntegrationId,  data, response);
                 setUpdateSuccess(response.status === 200);
             })
             .catch((e: Error) => {
@@ -114,7 +114,7 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
                         <Typography><strong>{t('labels.caseNumber')}</strong>{activeFormData.caseData?.caseNumber}</Typography>
                         <Typography><strong>{t('labels.title')}</strong>{activeFormData.caseData?.title}</Typography>
                         <Typography><strong>{t('labels.publicTitle')}</strong>{activeFormData.caseData?.publicTitle}</Typography>
-                        <Typography><strong>{t('labels.type')}</strong>{activeFormData.caseData?.caseType}</Typography>
+                        <Typography><strong>{t('labels.caseType')}</strong>{activeFormData.caseData?.caseType}</Typography>
                         <Typography><strong>{t('labels.administrativeUnit')}</strong>{activeFormData.caseData?.administrativeUnit}</Typography>
                         <Typography><strong>{t('labels.archiveUnit')}</strong>{activeFormData.caseData?.archiveUnit}</Typography>
                         <Typography><strong>{t('labels.recordUnit')}</strong>{activeFormData.caseData?.recordUnit}</Typography>
@@ -137,6 +137,7 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
                         <Typography variant={"h6"}>{t('record')}</Typography>
                         <Typography><strong>{t('labels.title')}</strong>{activeFormData.recordData?.title}</Typography>
                         <Typography><strong>{t('labels.publicTitle')}</strong>{activeFormData.recordData?.publicTitle}</Typography>
+                        <Typography><strong>{t('labels.recordType')}</strong>{activeFormData.recordData?.recordType}</Typography>
                         <Typography><strong>{t('labels.documentType')}</strong>{activeFormData.recordData?.documentType}</Typography>
                         <Typography><strong>{t('labels.administrativeUnit')}</strong>{activeFormData.recordData?.administrativeUnit}</Typography>
                         <Typography><strong>{t('labels.recordStatus')}</strong>{activeFormData.recordData?.recordStatus}</Typography>
@@ -149,6 +150,7 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
                         <Typography variant={"h6"}>{t('document')}</Typography>
                         <Typography><strong>{t('labels.title')}</strong>{activeFormData.documentData?.title}</Typography>
                         <Typography><strong>{t('labels.documentStatus')}</strong>{activeFormData.documentData?.documentStatus}</Typography>
+                        <Typography><strong>{t('labels.documentCategory')}</strong>{activeFormData.documentData?.documentCategory}</Typography>
                         <Typography><strong>{t('labels.accessCode')}</strong>{activeFormData.documentData?.accessCode}</Typography>
                         <Typography><strong>{t('labels.paragraph')}</strong>{activeFormData.documentData?.paragraph}</Typography>
                         <Typography><strong>{t('labels.variant')}</strong>{activeFormData.documentData?.variant}</Typography>
@@ -167,6 +169,7 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
                         <Typography><strong>{t('labels.email')}</strong>{activeFormData.applicantData?.email}</Typography>
                         <Typography><strong>{t('labels.accessCode')}</strong>{activeFormData.applicantData?.accessCode}</Typography>
                         <Typography><strong>{t('labels.paragraph')}</strong>{activeFormData.applicantData?.paragraph}</Typography>
+                        <Typography><strong>{t('labels.protected')}</strong>{activeFormData.applicantData?.protected ? 'Ja' : 'Nei'}</Typography>
                     </CardContent>
                 </Card>
                 <Button variant="contained" onClick={props.reset}>{t('button.back')}</Button>

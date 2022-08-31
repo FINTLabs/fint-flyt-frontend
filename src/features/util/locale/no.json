@@ -67,6 +67,7 @@
                 },
                 "applicationForm": {
                     "header": "Avsender",
+                    "protectedLabel": "Skjermet",
                     "button": {
                         "save": "Lagre"
                     }
@@ -110,7 +111,6 @@
                 }
             },
             "labels": {
-                "name": "Navn: ",
                 "description": "Beskrivelse: ",
                 "destination": "Destinasjon: ",
                 "sourceApplicationId": "Skjemaleverandør: ",
@@ -119,6 +119,7 @@
                 "published": "Publisert: ",
                 "version": "Versjon: ",
                 "caseNumber": "Saksnummer: ",
+                "caseType": "Sakstype: ",
                 "title": "Tittel: ",
                 "publicTitle": "Offentlig tittel: ",
                 "administrativeUnit": "Administrativ enhet: ",
@@ -140,8 +141,10 @@
                 "type": "Type: ",
                 "documentType": "Dokumenttype: ",
                 "recordStatus": "Journalstatus: ",
+                "recordType": "Journalposttype: ",
                 "caseWorker": "Saksbehandler: ",
                 "documentStatus": "Status: ",
+                "documentCategory": "Kategori: ",
                 "variant": "Variant: ",
                 "organisationNumber": "Organisasjonsnummer: ",
                 "nationalIdentityNumber": "Fødselsnummer: ",
@@ -151,7 +154,8 @@
                 "city": "Poststed: ",
                 "contactPerson": "Kontaktperson: ",
                 "phoneNumber": "Telefonnummer: ",
-                "email": "Epost: "
+                "email": "Epost: ",
+                "protected": "Skjerming: "
             }
         },
         "instanceOverview": {
@@ -225,7 +229,6 @@
                     "details": "Detaljer",
                     "type": "Type",
                     "timestamp": "Tidspunkt",
-                    "name": "Navn",
                     "sourceApplicationIntegrationId": "Skjema",
                     "sourceApplicationId": "Skjemaleverandør",
                     "errorMessage": "Feilmeldinger"
@@ -243,7 +246,6 @@
         "errorMessage": "Du må oppgi ",
         "requiredField": "Obligatorisk felt",
         "labels": {
-            "name": "Navn",
             "description": "Beskrivelse",
             "destination": "Destinasjon",
             "sourceApplicationId": "Skjemaleverandør",
@@ -256,6 +258,7 @@
             "caseCreationCollection": "På samlesak",
             "caseCreationCollectionInfo": "Innsendt skjema skal leveres til en forhåndsdefinert samlesak. Her må du opplyse om saksnummer",
             "caseNumber": "Saksnummer",
+            "caseType": "Sakstype",
             "title": "Tittel",
             "publicTitle": "Offentlig tittel",
             "administrativeUnit": "Administrativ enhet",
@@ -279,8 +282,10 @@
             "type": "Type",
             "documentType": "Dokumenttype",
             "recordStatus": "Journalstatus",
+            "recordType": "Journalposttype",
             "caseWorker": "Saksbehandler",
             "documentStatus": "Status",
+            "documentCategory": "Dokumentkategori",
             "variant": "Variant",
             "applicantType": "Velg avsendertype",
             "organisationNumber": "Organisasjonsnummer",
@@ -291,7 +296,8 @@
             "city": "Poststed",
             "contactPerson": "Kontaktperson",
             "phoneNumber": "Telefonnummer",
-            "email": "Epost"
+            "email": "Epost",
+            "protected": "Skjerming"
         },
         "selects": {
             "creationStrategies": {
@@ -319,7 +325,6 @@
     },
     "models": {
         "integrationConfiguration": {
-            "name": "Name",
             "description": "Description",
             "version": "Version",
             "sourceApplicationId": "Source application",
@@ -352,6 +357,7 @@
                 "documentType": "",
                 "administrativeUnit": "",
                 "recordStatus": "",
+                "recordType": "",
                 "caseWorker": "",
                 "accessCode": "",
                 "paragraph": ""
@@ -406,7 +412,6 @@
         "sourceApplicationId": "Skjemaleverandør, f.eks ACOS",
         "sourceApplicationIntegrationId": "Skjema",
         "destination": "Velg hvilken base skjemaet skal overføres til",
-        "name": "",
         "description": "",
         "version": "",
         "selectedForm": "",
@@ -416,7 +421,7 @@
             "title": "Tittel kan være en konkret tekststreng, eller en kombinasjon av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak.  (Se Noark))",
             "publicTitle": "Se Noark (Del av tittel som skal skjermes)",
             "status": "-",
-            "caseType": "Eksempel: Kompetanse, personal, rekrutering etc.",
+            "caseType": "Eksempel: Kompetanse, personal, rekruttering etc.",
             "administrativeUnit":"Avdeling eller enhet som skal behandle saken.",
             "archiveUnit":"Eksempel: kompetanse, sakarkiv, personal",
             "recordUnit": "Navnet på journalførende enhet.Eksempel: Viken fylkesråd",
@@ -430,10 +435,10 @@
         "recordData": {
             "title": "Tittel kan være en konkret tekststreng, eller en kombinasjon av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak. (Se Noark))",
             "publicTitle": "Se Noark (Del av tittel som skal skjermes)",
-            "type": "I, U, N, X",
-            "documentType": "",
+            "documentType": "Eksempel: Avtaler, Innsynsbehandling, Følgebrev, Juridisk ..",
             "administrativeUnit": "Enheten/avdelingen. Nedtrekksmeny fra Elements",
             "recordStatus": "R,F,E,J",
+            "recordType": "I, U, N, X",
             "caseWorker": "En sak kan ha en ansvarlig saksbehandler men det kan være ulike saksbehandlere på ulike journalposter.",
             "accessCode": "Eksempel: Unntatt offentlighet, personal varslingssak, ugradert. ",
             "paragraph": "Eksempel: Offl. §13 "
@@ -441,11 +446,13 @@
         "documentData": {
             "title": "Tittel kan være en konkret tekststreng, eller en kombinasjon av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak.(Se Noark))",
             "documentStatus": "Eksempel: B, F",
+            "documentCategory": "TODO",
             "accessCode": "Eksempel: Unntatt offentlighet, persona,l varslingssak, ugradert. ",
             "paragraph": "Eksempel: Offl. §13",
             "variant": "Arkivformat/ produksjonsformat / offentlig variant"
         },
         "applicantData": {
+            "protected": "Skjerming",
             "type": "Person eller organisasjon/bedrift",
             "organisationNumber": "Orgnr for avsenderbedrift",
             "nationalIdentityNumber": "Fødselsnummer for avsender",
