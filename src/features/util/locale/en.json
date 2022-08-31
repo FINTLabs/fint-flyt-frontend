@@ -230,8 +230,8 @@
             "creationStrategies": {
                 "new":"As a new case",
                 "newDesc":"Submitted form created new case in Elements",
-                "exisiting":"On an exisiting case",
-                "exisitingDesc":"Form submitted finds existing form in Elements based on data in the form. If no matching case - a new case is created",
+                "existing":"On an existing case",
+                "existingDesc":"Form submitted finds existing form in Elements based on data in the form. If no matching case - a new case is created",
                 "collection":"On a case collection",
                 "collectionDesc":"Form submitted will be added to predefined case collection. This option requires a valid case number"
             },

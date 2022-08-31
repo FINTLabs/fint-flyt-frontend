@@ -26,7 +26,7 @@ const SourceApplicationProvider: FC = ({ children }) => {
             })
     }
 
-    //TODO: get all forms from sourceApplication when avaliable
+    //TODO: get all forms from sourceApplication when available
     const getAllForms = () => {
         setAllForms({sourceApplication: 'acos', sourceApplicationForms: forms})
     }
