@@ -2,7 +2,8 @@ import IRoute from './Route';
 import Dashboard from "../dashboard/Dashboard";
 import Log from "../log/Log";
 import IntegrationConfigurationForm from "../integration/IntegrationConfigurationForm";
-import Overview from "../overview/Overview";
+import IntegrationOverview from "../integrationOverview/IntegrationOverview";
+import InstanceOverview from "../instanceOverview/InstanceOverview";
 import Support from "../support/Support";
 
 const routes: IRoute[] = [
@@ -30,8 +31,8 @@ const routes: IRoute[] = [
     },
     {
         path: '/integration/configuration/list',
-        name: 'integrationList',
-        component: Overview,
+        name: 'integrationOverview',
+        component: IntegrationOverview,
         exact: true,
         icon: 'sync',
         inNavigationMenu: true
@@ -39,8 +40,16 @@ const routes: IRoute[] = [
     {
         path: '/integration/configuration/details',
         name: 'integrationDetails',
-        component: Overview,
+        component: IntegrationOverview,
         exact: true,
+    },
+    {
+        path: '/integration/instance/list',
+        name: 'instanceOverview',
+        component: InstanceOverview,
+        exact: true,
+        icon: 'receipt',
+        inNavigationMenu: true
     },
     {
         path: '/log',

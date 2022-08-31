@@ -8,7 +8,7 @@ import { gridLocaleNoNB } from "../../util/locale/gridLocaleNoNB";
 import {useTranslation} from "react-i18next";
 
 const IntegrationConfigurationTable: React.FunctionComponent<any> = (props) => {
-    const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.integrationList'});
+    const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.integrationOverview'});
     const classes = props.classes;
     let history = useHistory();
 

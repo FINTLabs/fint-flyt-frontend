@@ -68,7 +68,7 @@ export const FormSettings: React.FunctionComponent<any> = (props) => {
                     <Box sx={{width: '100%', display: 'flex'}}>
                         <Autocomplete
                             sx={{ minWidth:'520px', mb: 3}}
-                            id='labels.sourceApplication'
+                            id='sourceApplicationIntegrationId'
                             options={availableForms.sourceApplicationForms}
                             renderInput={params => (
                                 <TextField {...params}

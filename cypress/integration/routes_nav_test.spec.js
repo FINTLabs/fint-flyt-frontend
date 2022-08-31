@@ -1,11 +1,10 @@
 describe('Testing Routes', () => {
-        const links = ['/', '/integration/configuration/new', '/integration/configuration/list', '/log', '/support']
-        const pages = ['Ny integrasjon', 'Integrasjonsoversikt', 'Logg', 'Support']
+        const links = ['/', '/integration/configuration/new', '/integration/configuration/list', '/integration/instance/list', '/log', '/support']
+        const pages = ['Ny integrasjon', 'Integrasjonsoversikt', 'Instansoversikt', 'Logg', 'Support']
 
     beforeEach(() => {
-        cy.intercept(
-            'GET', '**/integration/configuration', { fixture: 'configuration.json' })
-            .as('getConfigurations')
+        cy.intercept('GET', '**/integrasjon/konfigurasjon', { fixture: 'configuration.json' }).as('getConfigurations')
+        cy.intercept('GET', '**/intern/historikk/hendelser', { fixture: 'hendelser.json' }).as('getHendelser')
         cy.intercept('GET', '**/api/intern/kodeverk/administrativenhet', {fixture: 'administrativenhet.json'}).as('getAdminstrativeUnits')
         cy.intercept('GET', '**/api/intern/kodeverk/arkivdel', {fixture: 'arkivdel.json'}).as('getArchiveSection')
         cy.intercept('GET', '**/api/intern/kodeverk/arkivressurs', {fixture: 'arkivressurs.json'}).as('getArchiveResources')
@@ -18,7 +17,6 @@ describe('Testing Routes', () => {
         cy.intercept('GET', '**/api/intern/kodeverk/tilgangsrestriksjon', {fixture: 'tilgangrestriksjon.json'}).as('getAccessCodes')
         cy.intercept('GET', '**/api/intern/kodeverk/variantformat', {fixture: 'variantformat.json'}).as('getVariants')
     })
-
 
     it('should open all links', () => {
             links.forEach(link => {
