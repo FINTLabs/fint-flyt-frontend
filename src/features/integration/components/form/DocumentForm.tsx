@@ -14,6 +14,8 @@ const DocumentForm: React.FunctionComponent<any> = (props) => {
     const {accessCodes, paragraphs, documentStatuses, variants} = useContext(ResourcesContext);
     let errors: FieldErrors = props.errors;
     let required: boolean = props.validation;
+
+    //TODO: remove disable check docuCat after 3.11
     const documentFormFields: IInputField[] = [
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.title", formValue: "documentData.title", required: required, error:errors.documentData?.title, value: props.activeFormData?.documentData?.title, helpText: "documentData.title"},
         {input: INPUT_TYPE.DROPDOWN, label: "labels.documentStatus", value: props.watch("documentData.documentStatus"), formValue: "documentData.documentStatus", dropDownItems: documentStatuses, required: false, error:errors.documentData?.documentStatus, helpText: "documentData.documentStatus"},

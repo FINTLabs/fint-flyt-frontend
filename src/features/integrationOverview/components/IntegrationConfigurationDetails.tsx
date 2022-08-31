@@ -170,6 +170,7 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
                         <Typography><strong>{t('labels.protected')}</strong>{activeFormData.applicantData?.protected ? 'Ja' : 'Nei'}</Typography>
                         <Typography><strong>{t('labels.accessCode')}</strong>{activeFormData.applicantData?.accessCode}</Typography>
                         <Typography><strong>{t('labels.paragraph')}</strong>{activeFormData.applicantData?.paragraph}</Typography>
+                        <Typography><strong>{t('labels.protected')}</strong>{activeFormData.applicantData?.protected ? 'Ja' : 'Nei'}</Typography>
                     </CardContent>
                 </Card>
                 <Button variant="contained" onClick={props.reset}>{t('button.back')}</Button>

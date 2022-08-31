@@ -1,9 +1,5 @@
 import React, { createContext, useState, FC } from "react";
-import {
-    contextDefaultValues,
-    ISourceApplicationItem,
-    SourceApplicationContextState
-} from "./types";
+import {contextDefaultValues, ISourceApplicationItem, SourceApplicationContextState} from "./types";
 import {forms} from "../../features/integration/defaults/DefaultValues";
 import IntegrationRepository from "../../features/integration/repository/IntegrationRepository";
 import {IIntegrationConfiguration} from "../../features/integration/types/IntegrationConfiguration";

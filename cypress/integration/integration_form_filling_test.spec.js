@@ -14,22 +14,21 @@ describe('Testing filling Integration Form', () => {
         cy.intercept('GET', '**/api/intern/kodeverk/tilgangsrestriksjon', {fixture: 'tilgangrestriksjon.json'}).as('getAccessCodes')
         cy.intercept('GET', '**/api/intern/kodeverk/variantformat', {fixture: 'variantformat.json'}).as('getVariants')
         cy.intercept('GET', '**/api/intern/kodeverk/klasse/**', {fixture: 'klasse1.json'}).as('getKlasse')
+        cy.intercept('GET', '**/api/intern/integrasjon/konfigurasjon/**', {fixture: 'configuration.json'}).as('get')
     })
 
     it('should fill form settings', () => {
         cy.visit('/integration/configuration/new')
         cy.get("#sourceApplicationId").click()
         cy.get('[data-value="acos"]').click()
+        cy.get("#sourceApplicationIntegrationId").type('17').type('{downarrow}').type('{enter}');
         cy.get("#destination").click()
         cy.get('[data-value="fylkesrad"]').click()
         cy.get("#form-settings-confirm-btn").click()
     })
 
     it('should fill case information form', () => {
-        cy.get("#name").type("test name")
         cy.get("#description").type("test description")
-        cy.get("#sourceApplicationIntegrationId").click()
-        cy.get('[data-value="VIK036"]').click()
     })
 })
 describe('Testing filling Case Form', () => {
@@ -57,7 +56,8 @@ describe('Testing filling Case Form', () => {
         cy.get('[data-value="https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/EMNE"]').click()
         cy.wait(2000)
         cy.get('#caseData\\.primaryClass').type('Sentrale').type('{downarrow}').type('{enter}');
-        cy.get('#caseData\\.secondaryClassification').click()
+        cy.get('[data-testid="AddIcon"]').click();
+        cy.get('#caseData\\.secondaryClassification').click();
         cy.get('[data-value="https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/EMNE"]').click()
         cy.intercept('GET', '**/api/intern/kodeverk/klasse/**', {fixture: 'klasse1.json'}).as('getClasses')
         cy.wait(2000)

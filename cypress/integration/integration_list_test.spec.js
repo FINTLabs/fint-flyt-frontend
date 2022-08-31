@@ -2,7 +2,7 @@
 
 describe('Testing integration list', () => {
     beforeEach(() => {
-        cy.intercept('GET', '**/integration/configuration', { fixture: 'configuration.json' }).as('getConfigurations')
+        cy.intercept('GET', '**/integrasjon/konfigurasjon', { fixture: 'configuration.json' }).as('getConfigurations')
         cy.intercept('GET', '**/api/intern/kodeverk/administrativenhet', {fixture: 'administrativenhet.json'}).as('getAdminstrativeUnits')
         cy.intercept('GET', '**/api/intern/kodeverk/arkivdel', {fixture: 'arkivdel.json'}).as('getArchiveSection')
         cy.intercept('GET', '**/api/intern/kodeverk/arkivressurs', {fixture: 'arkivressurs.json'}).as('getArchiveResources')
@@ -22,7 +22,7 @@ describe('Testing integration list', () => {
     })
 
     it('should contain correct colunms', () => {
-        let columns = ['Skjemaleverandør', 'Skjema', 'Navn', 'Beskrivelse', 'Publisert', 'Revisjon']
+        let columns = ['Skjemaleverandør', 'Skjema', 'Beskrivelse', 'Publisert', 'Revisjon']
         columns.forEach(column => {
             cy.get('.MuiDataGrid-root').should("contain.text", column)
         })
@@ -31,12 +31,12 @@ describe('Testing integration list', () => {
     })
 
     it('should show details on row double click', () => {
-        cy.intercept('GET', '**/integration/configuration/7ac4b75a-9e0a-463a-b12c-b44d71b749fe/2', { fixture: 'configuration1.json' }).as('getConfigurationDetails')
+        cy.intercept('GET', '**/integrasjon/konfigurasjon/VIK014/2', { fixture: 'configuration1.json' }).as('getConfigurationDetails')
         cy.get('.MuiDataGrid-row > [data-field="sourceApplicationId"]').dblclick()
         cy.get('.MuiBreadcrumbs-ol').should('contain', 'Konfigurasjonsdetaljer')
     })
 
     it('should show correct details', () => {
-        cy.get('#details-id').should('contain', '7ac4b75a-9e0a-463a-b12c-b44d71b749fe')
+        cy.get('#details-sourceApplicationIntegrationId').should('contain', 'VIK014')
     })
 });
