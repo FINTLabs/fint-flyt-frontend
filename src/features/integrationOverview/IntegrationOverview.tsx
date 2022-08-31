@@ -6,6 +6,7 @@ import IntegrationConfigurationDetails from "./components/IntegrationConfigurati
 import IntegrationConfigurationTable from "./components/IntegrationConfigurationTable";
 import {IntegrationContext} from "../../context/integrationContext";
 import { useTranslation } from 'react-i18next';
+import EventRepository from "../log/repository/EventRepository";
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -32,11 +33,19 @@ const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = (
 
     useEffect(()=> {
         getIntegrations();
+        getStatistics();
     }, []);
 
     const resetConfiguration = () => {
         setIntegration({})
         getIntegrations();
+    }
+
+    const getStatistics = () => {
+        EventRepository.getStatistics().then((response) => {
+            const data = response.data
+            console.log(data.statisticsPerIntegrationId, integrations)
+        }).catch(e => console.log('error', e))
     }
 
     return (
