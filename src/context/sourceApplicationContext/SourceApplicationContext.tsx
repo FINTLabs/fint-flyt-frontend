@@ -1,9 +1,5 @@
 import React, { createContext, useState, FC } from "react";
-import {
-    contextDefaultValues,
-    ISourceApplicationItem,
-    SourceApplicationContextState
-} from "./types";
+import {contextDefaultValues, ISourceApplicationItem, SourceApplicationContextState} from "./types";
 import {forms} from "../../features/integration/defaults/DefaultValues";
 import IntegrationRepository from "../../features/integration/repository/IntegrationRepository";
 import {IIntegrationConfiguration} from "../../features/integration/types/IntegrationConfiguration";
@@ -30,7 +26,7 @@ const SourceApplicationProvider: FC = ({ children }) => {
             })
     }
 
-    //TODO: get all forms from sourceApplication when avaliable
+    //TODO: get all forms from sourceApplication when available
     const getAllForms = () => {
         setAllForms({sourceApplication: 'acos', sourceApplicationForms: forms})
     }

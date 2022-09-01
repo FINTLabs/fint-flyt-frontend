@@ -21,6 +21,7 @@ export type ResourceContextState = {
 
     documentTypes: IResourceItem[];
     recordStatuses: IResourceItem[];
+    recordTypes: IResourceItem[];
 
     documentStatuses: IResourceItem[];
     variants: IResourceItem[];
@@ -45,6 +46,7 @@ export type ResourceContextState = {
 
     getDocumentTypes: () => void;
     getRecordStatuses: () => void;
+    getRecordTypes: () => void;
 
     getDocumentStatuses: () => void;
     getVariants: () => void;
@@ -67,6 +69,7 @@ export const contextDefaultValues: ResourceContextState = {
     tertiaryClass: [{label: 'velg tertiær ordningsprinsipp først', value: ''}],
     documentTypes: [],
     recordStatuses: [],
+    recordTypes: [],
     documentStatuses: [],
     variants: [],
     getAllResources: () => {},
@@ -86,6 +89,7 @@ export const contextDefaultValues: ResourceContextState = {
     getTertiaryClass: () => {},
     getDocumentTypes: () => {},
     getRecordStatuses: () => {},
+    getRecordTypes: () => {},
     getDocumentStatuses: () => {},
     getVariants: () => {}
 };

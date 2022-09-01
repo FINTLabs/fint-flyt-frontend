@@ -95,6 +95,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     const [saved, setSaved] = React.useState(false);
     const [saveError, setSaveError] = React.useState(false);
     const [checked, setChecked] = React.useState(integration.sourceApplicationIntegrationId && editConfig ? integration.published : false);
+    const [protectedCheck, setProtectedChecked] = React.useState(false);
     let history = useHistory();
     let activeConfiguration = integration.sourceApplicationIntegrationId && editConfig ? integration : undefined;
     let activeFormData = integration.sourceApplicationIntegrationId && editConfig ? toFormData(integration) : defaultValues;
@@ -124,7 +125,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
 
     const accordionList: IAccordion[] = [
         {id: 'case-information', summary: "caseInformation.header", accordionForm: ACCORDION_FORM.CASE_INFORMATION, defaultExpanded: true},
-        {id: 'case-form', summary: "caseForm.header", accordionForm: ACCORDION_FORM.CASE_FORM, defaultExpanded: false, hidden: watch("caseData.caseCreationStrategy") == CreationStrategy.COLLECTION},
+        {id: 'case-form', summary: "caseForm.header", accordionForm: ACCORDION_FORM.CASE_FORM, defaultExpanded: false, hidden: watch("caseData.caseCreationStrategy") === CreationStrategy.COLLECTION},
         {id: 'record-form', summary: "recordForm.header", accordionForm: ACCORDION_FORM.RECORD_FORM, defaultExpanded: false},
         {id: 'document-object-form', summary: "documentForm.header", accordionForm: ACCORDION_FORM.DOCUMENT_FORM, defaultExpanded: false},
         {id: 'applicant-form', summary: "applicationForm.header", accordionForm: ACCORDION_FORM.APPLICANT_FORM, defaultExpanded: false}
@@ -211,6 +212,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
         data.sourceApplicationIntegrationId = sourceApplicationIntegrationId;
         data.destination = destination;
         data.published = true;
+        data.applicantData.protected = protectedCheck;
         const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data);
         if (integrationConfiguration && activeId !== undefined && activeConfiguration?.sourceApplicationIntegrationId === undefined) {
             const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data, activeId);
@@ -236,6 +238,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
         data.sourceApplicationIntegrationId = sourceApplicationIntegrationId;
         data.destination = destination;
         data.published = false;
+        data.applicantData.protected = protectedCheck;
         const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data);
         if (integrationConfiguration && activeId !== undefined) {
             const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data, activeId);
@@ -279,6 +282,8 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                                         validation={checked}
                                         editConfig={editConfig}
                                         onSave={onSave}
+                                        protectedCheck={protectedCheck}
+                                        setProtectedChecked={setProtectedChecked}
                                     />
                                 )
                             })}

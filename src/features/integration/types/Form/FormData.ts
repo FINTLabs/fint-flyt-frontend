@@ -11,8 +11,8 @@ export default interface IFormData {
     destination?: string;
     published?: boolean;
 
-    caseData?: ICaseData;
-    recordData?: IRecordData;
-    documentData?: IDocumentData;
-    applicantData?: IApplicantData;
+    caseData: ICaseData;
+    recordData: IRecordData;
+    documentData: IDocumentData;
+    applicantData: IApplicantData;
 }

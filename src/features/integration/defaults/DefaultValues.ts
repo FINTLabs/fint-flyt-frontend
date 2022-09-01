@@ -43,6 +43,7 @@ export const defaultValues: IFormData = {
         documentType: '',
         administrativeUnit: '',
         recordStatus: '',
+        recordType: '',
         caseWorker: '',
         accessCode: '',
         paragraph: ''
@@ -50,11 +51,13 @@ export const defaultValues: IFormData = {
     documentData: {
         title: '',
         documentStatus: '',
+        documentCategory: '',
         accessCode: '',
         paragraph: '',
         variant: ''
     },
     applicantData: {
+        protected: false,
         type: ApplicantType.PERSON,
         organisationNumber: '',
         nationalIdentityNumber: '',
@@ -85,7 +88,7 @@ export const dropdownPlaceholder: ISelect[] = [
 
 export const creationStrategies: ISelect[] = [
     {label: 'selects.creationStrategies.new', value: 'NEW',  description: "selects.creationStrategies.newDesc"},
-    {label: 'selects.creationStrategies.exisiting', value: 'EXISTING',  description: "selects.creationStrategies.exisitingDesc"},
+    {label: 'selects.creationStrategies.existing', value: 'EXISTING',  description: "selects.creationStrategies.existingDesc"},
     {label: 'selects.creationStrategies.collection', value: 'COLLECTION', description: "selects.creationStrategies.collectionDesc"}
 ];
 

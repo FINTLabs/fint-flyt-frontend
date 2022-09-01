@@ -14,6 +14,7 @@ export const MOCK_FORMDATA: IFormData = {
         "paragraph": "p3",
         "phoneNumber": "12345678",
         "postalCode": "1234",
+        "protected": true,
         "type": "PERSON"
     },
     "caseData": {
@@ -55,6 +56,7 @@ export const MOCK_FORMDATA: IFormData = {
         "paragraph": "p34",
         "publicTitle": "public record title",
         "recordStatus": "N",
+        "recordType": "A",
         "title": "record title"
     },
     "sourceApplicationId": "Acos",
@@ -91,6 +93,7 @@ export const MOCK_FORMDATA_NOT_PUBLISHED: IFormData = {
         documentType: 'cat8',
         administrativeUnit: 'unit33',
         recordStatus: 'N',
+        recordType: "A",
         caseWorker: 'boba',
         accessCode: 'code89',
         paragraph: 'p34',
@@ -98,11 +101,13 @@ export const MOCK_FORMDATA_NOT_PUBLISHED: IFormData = {
     documentData: {
         title: 'document title',
         documentStatus: 'D9',
+        documentCategory: 'sefg',
         accessCode: 'code2',
         paragraph: 'p07',
         variant: 'var'
     },
     applicantData: {
+        protected: true,
         type: 'PERSON',
         name: 'Anakin Skywalker',
         address: 'highstreet 22',
@@ -146,6 +151,7 @@ export const MOCK_FORMDATA_PUBLISHED: IFormData = {
         documentType: 'cat8',
         administrativeUnit: 'unit33',
         recordStatus: 'N',
+        recordType: "A",
         caseWorker: 'leia',
         accessCode: 'code89',
         paragraph: 'p34',
@@ -158,6 +164,7 @@ export const MOCK_FORMDATA_PUBLISHED: IFormData = {
         variant: 'var'
     },
     applicantData: {
+        protected: true,
         type: 'PERSON',
         name: 'Anakin Skywalker',
         address: 'highstreet 22',
@@ -180,12 +187,13 @@ export const MOCK_FORMDATA_WITH_TAGS: IFormData = {
         "contactPerson": "donna",
         "email": "hello@world.no",
         "name": "Luke Skywalker",
-        "nationalIdentityNumber": "124356",
-        "organisationNumber": "",
+        "nationalIdentityNumber": "",
+        "organisationNumber": "123456789",
         "paragraph": "p3",
         "phoneNumber": "12345678",
         "postalCode": "1234",
-        "type": "PERSON"
+        "protected": true,
+        "type": "ORGANISATION"
     },
     "caseData": {
         "accessCode": "code42",
@@ -222,11 +230,12 @@ export const MOCK_FORMDATA_WITH_TAGS: IFormData = {
         "accessCode": "code89",
         "administrativeUnit": "unit33",
         "caseWorker": "mando",
+        "documentType": "cat8",
         "paragraph": "p34",
         "publicTitle": "{singletag}",
         "recordStatus": "N",
-        "title": "{just} {tags}",
-        "documentType": "cat8"
+        "recordType": "A",
+        "title": "{just} {tags}"
     },
     "sourceApplicationId": "Acos",
     "sourceApplicationIntegrationId": "VIK116"

@@ -85,7 +85,8 @@ export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
                 }
             }
         ],
-        "organisationNumber": false
+        "organisationNumber": false,
+        "protected": true
     },
     "caseConfiguration": {
         "caseCreationStrategy": "NEW",
@@ -107,7 +108,7 @@ export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
                 }
             },
             {
-                "field": "caseType",
+                "field": "saksmappetype",
                 "valueBuildStrategy": 0,
                 "valueBuilder": {
                     "value": "casetype"
@@ -255,6 +256,11 @@ export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
                 }
             },
             {
+                "field": "DokumentBeskrivelse.dokumentKategori",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {}
+            },
+            {
                 "field": "tilgangsrestriksjon",
                 "valueBuildStrategy": 0,
                 "valueBuilder": {
@@ -315,6 +321,13 @@ export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
                 "valueBuildStrategy": 0,
                 "valueBuilder": {
                     "value": "N"
+                }
+            },
+            {
+                "field": "journalposttype",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {
+                    "value": "A"
                 }
             },
             {
@@ -427,7 +440,8 @@ export const MOCK_INTEGRATION_CONFIG_NOT_PUBLISHED = {
                 }
             }
         ],
-        "organisationNumber": false
+        "organisationNumber": false,
+        "protected": true
     },
     "caseConfiguration": {
         "caseCreationStrategy": "NEW",
@@ -449,7 +463,7 @@ export const MOCK_INTEGRATION_CONFIG_NOT_PUBLISHED = {
                 }
             },
             {
-                "field": "caseType",
+                "field": "saksmappetype",
                 "valueBuildStrategy": 0,
                 "valueBuilder": {
                     "value": "casetype"
@@ -595,6 +609,13 @@ export const MOCK_INTEGRATION_CONFIG_NOT_PUBLISHED = {
                 }
             },
             {
+                "field": "DokumentBeskrivelse.dokumentKategori",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {
+                    "value": "sefg"
+                }
+            },
+            {
                 "field": "tilgangsrestriksjon",
                 "valueBuildStrategy": 0,
                 "valueBuilder": {
@@ -655,6 +676,13 @@ export const MOCK_INTEGRATION_CONFIG_NOT_PUBLISHED = {
                 "valueBuildStrategy": 0,
                 "valueBuilder": {
                     "value": "N"
+                }
+            },
+            {
+                "field": "journalposttype",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {
+                    "value": "A"
                 }
             },
             {
@@ -765,7 +793,8 @@ export const MOCK_INTEGRATION_CONFIG_PUBLISHED = {
                 }
             }
         ],
-        "organisationNumber": false
+        "organisationNumber": false,
+        "protected": true
     },
     "caseConfiguration": {
         "caseCreationStrategy": "NEW",
@@ -787,7 +816,7 @@ export const MOCK_INTEGRATION_CONFIG_PUBLISHED = {
                 }
             },
             {
-                "field": "caseType",
+                "field": "saksmappetype",
                 "valueBuildStrategy": 0,
                 "valueBuilder": {
                     "value": "casetype"
@@ -933,6 +962,11 @@ export const MOCK_INTEGRATION_CONFIG_PUBLISHED = {
                 }
             },
             {
+                "field": "DokumentBeskrivelse.dokumentKategori",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {}
+            },
+            {
                 "field": "tilgangsrestriksjon",
                 "valueBuildStrategy": 0,
                 "valueBuilder": {
@@ -996,6 +1030,13 @@ export const MOCK_INTEGRATION_CONFIG_PUBLISHED = {
                 }
             },
             {
+                "field": "journalposttype",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {
+                    "value": "A"
+                }
+            },
+            {
                 "field": "saksbehandler",
                 "valueBuildStrategy": 0,
                 "valueBuilder": {
@@ -1023,14 +1064,14 @@ export const MOCK_INTEGRATION_CONFIG_PUBLISHED = {
 
 export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
     "applicantConfiguration": {
-        "applicantType": "PERSON",
+        "applicantType": "ORGANISATION",
         "fields": [
             {
-                "field": "fødselsnummer",
+                "field": "organisasjonsnummer",
                 "valueBuildStrategy": 1,
                 "valueBuilder": {
                     "properties": [],
-                    "value": "124356"
+                    "value": "123456789"
                 }
             },
             {
@@ -1104,7 +1145,8 @@ export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
                 }
             }
         ],
-        "organisationNumber": false
+        "organisationNumber": true,
+        "protected": true
     },
     "caseConfiguration": {
         "caseCreationStrategy": "NEW",
@@ -1143,7 +1185,7 @@ export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
                 }
             },
             {
-                "field": "caseType",
+                "field": "saksmappetype",
                 "valueBuildStrategy": 0,
                 "valueBuilder": {
                     "value": "casetype"
@@ -1291,6 +1333,11 @@ export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
                 }
             },
             {
+                "field": "DokumentBeskrivelse.dokumentKategori",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {}
+            },
+            {
                 "field": "tilgangsrestriksjon",
                 "valueBuildStrategy": 0,
                 "valueBuilder": {
@@ -1368,6 +1415,13 @@ export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
                 "valueBuildStrategy": 0,
                 "valueBuilder": {
                     "value": "N"
+                }
+            },
+            {
+                "field": "journalposttype",
+                "valueBuildStrategy": 0,
+                "valueBuilder": {
+                    "value": "A"
                 }
             },
             {
