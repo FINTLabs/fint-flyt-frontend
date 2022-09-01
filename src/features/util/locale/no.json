@@ -224,8 +224,8 @@
                 "email": "Epost: "
             }
         },
-
         "log": {
+            "FINT_SKJEMA_CASE_SERVICE_MISSING_MAPPING_FIELD_FOR_CASE": "manglende felt for sak",
             "header": "Hendelseslogg",
             "dialogHeader": "Hendelse - meldinger",
             "table": {

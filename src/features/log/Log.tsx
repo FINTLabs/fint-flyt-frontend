@@ -48,6 +48,7 @@ function Log() {
         EventRepository.getEvents()
             .then((response) => {
                 let data = response.data;
+                console.log(data)
                 if (data) {
                     data.forEach(addId(0, 'name'))
                     data.forEach((event: any) =>
@@ -125,12 +126,15 @@ function Log() {
                                     <DataGrid
                                         density="compact"
                                         columns={[
-                                            { field: 'args', headerName: t('table.columns.errorMessage'), type: 'string', flex: 1,
-                                                valueGetter: (params) => `${params.row.errorCode || ''}`
+                                            { field: 'errorMessage', headerName: t('table.columns.errorMessage'), type: 'string', flex: 1,
+                                                //TODO: 01/09-22 fix translation file with corresponding error codes
+                                                valueGetter: (params) => t(params.row.errorCode)
+                                            },
+                                            { field: 'args', headerName: "felt", type: 'string', flex: 1,
+                                                valueGetter: (params) => `${params.row.args.mappingField || ''}`
                                             }
                                         ]}
                                         rows={props.row.errors}
-                                        getRowId={(row) => row.errorCode}
                                         sx={{ flex: 1 }}
                                         hideFooter
                                     />
