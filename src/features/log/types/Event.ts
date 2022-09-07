@@ -28,6 +28,8 @@ export interface IError {
 }
 
 export interface errorArgs {
-    arg0: string;
-    arg1: string;
+    mappingField?: string;
+    instanceField?: string;
+    configurationField?: string;
+    status?: string;
 }

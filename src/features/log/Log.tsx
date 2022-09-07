@@ -115,23 +115,31 @@ function Log() {
                 <Dialog
                     open={open}
                     fullWidth={true}
+                    maxWidth={"lg"}
                     onClose={handleClose}
-                    aria-labelledby="alert-dialog-title"
-                    aria-describedby="alert-dialog-description"
                 >
                     <DialogContent>
                         {selectedRow &&
-                            <Stack id={props.row.type+ `-panel`} sx={{ py: 2, boxSizing: 'border-box', height: '350px', minWidth: '700px' }} direction="column">
+                            <Stack id={props.row.type+ `-panel`} sx={{ py: 2, boxSizing: 'border-box', height: '350px', minWidth: '900px' }} direction="column">
                                 <Stack direction="column" sx={{ height: 1 }}>
                                     <DataGrid
                                         density="compact"
                                         columns={[
-                                            { field: 'errorMessage', headerName: t('table.columns.errorMessage'), type: 'string', flex: 1,
+                                            { field: 'errorMessage', headerName: t('table.columns.errorMessage'), type: 'string', flex: 2,
                                                 //TODO: 01/09-22 fix translation file with corresponding error codes
                                                 valueGetter: (params) => t(params.row.errorCode)
                                             },
-                                            { field: 'args', headerName: "felt", type: 'string', flex: 1,
-                                                valueGetter: (params) => `${params.row.args.mappingField || ''}`
+                                            { field: 'args.mappingField', headerName: "Mappingfelt", type: 'string', flex: 1,
+                                                valueGetter: (params) => `${(params.row.args.mappingField || "")}`
+                                            },
+                                            { field: 'args.configurationField', headerName: "Konfigurasjonsfelt", type: 'string', flex: 1,
+                                                valueGetter: (params) => `${ (params.row.args.configurationField || "")}`
+                                            },
+                                            { field: 'args.instanceField', headerName: "Instansfelt", type: 'string', flex: 1,
+                                                valueGetter: (params) => `${(params.row.args.instanceField || "")}`
+                                            },
+                                            { field: 'args.status', headerName: "Status", type: 'string', flex: 1,
+                                                valueGetter: (params) => `${params.row.args.status ? t(params.row.args.status) : ""}`
                                             }
                                         ]}
                                         rows={props.row.errors}
