@@ -89,6 +89,7 @@
         "integrationOverview": {
             "header": "Integrasjonsoversikt",
             "details": "Konfigurasjonsdetaljer",
+            "testString": "Mangler felt ‘%s’ i instans, som kreves for å sette felt ‘%s’ i sak",
             "revision": "Revisjon",
             "case": "Sakspost",
             "record": "Journalpost",
@@ -107,7 +108,9 @@
                     "name": "Navn",
                     "description": "Beskrivelse",
                     "published": "Publisert",
-                    "revision": "Revisjon"
+                    "revision": "Revisjon",
+                    "dispatched": "Dispatched",
+                    "errors": "Feilmeldinger"
                 }
             },
             "labels": {
@@ -230,7 +233,7 @@
             "FINT_FLYT_INSTANCE_SERVICE_GENERAL_SYSTEM_ERROR": "Systemfeil",
             "FINT_FLYT_CASE_SERVICE_GENERAL_SYSTEM_ERROR": "Det har oppstått en feil",
             "FINT_FLYT_CASE_SERVICE_NO_CONFIGURATION_FOR_INTEGRATION": "Ingen konfigurasjon for valgte integrasjon",
-            "FINT_FLYT_CASE_SERVICE_MISSING_INSTANCE_FIELD_FOR_CASE_CONFIGURATION_FIELD": "Manglende instansfelt for sakspost",
+            "FINT_FLYT_CASE_SERVICE_MISSING_INSTANCE_FIELD_FOR_CASE_CONFIGURATION_FIELD": "Mangler felt ‘%s’ i instans, som kreves for å sette felt ‘%s’ i sak",
             "FINT_FLYT_CASE_SERVICE_MISSING_INSTANCE_FIELD_FOR_RECORD_CONFIGURATION_FIELD": "Manglende instansfelt for journalpost",
             "FINT_FLYT_CASE_SERVICE_MISSING_INSTANCE_FIELD_FOR_DOCUMENT_CONFIGURATION_FIELD": "Manglende instansfelt for dokument- og objektbeskrivelse",
             "FINT_FLYT_CASE_SERVICE_MISSING_MAPPING_FIELD_FOR_CASE": "manglende felt for sakspost",

@@ -19,6 +19,7 @@ import moment from "moment";
 import {DataGrid, GridCellParams, GridColumns, GridToolbar} from "@mui/x-data-grid";
 import {gridLocaleNoNB} from "../util/locale/gridLocaleNoNB";
 import { useTranslation } from 'react-i18next';
+import {stringReplace} from "../util/StringUtil";
 
 function Log() {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.log'})
@@ -127,18 +128,32 @@ function Log() {
                                         columns={[
                                             { field: 'errorMessage', headerName: t('table.columns.errorMessage'), type: 'string', flex: 2,
                                                 //TODO: 01/09-22 fix translation file with corresponding error codes
-                                                valueGetter: (params) => t(params.row.errorCode)
+                                                valueGetter: (params) => {
+                                                    console.log(stringReplace(t(params.row.errorCode), [
+                                                        (params.row.args.mappingField || ""),
+                                                        (params.row.args.configurationField || ""),
+                                                        (params.row.args.instanceField || ""),
+                                                        (params.row.args.status || "")
+                                                        ]
+                                                    ))
+                                                    return (stringReplace(t(params.row.errorCode), [
+                                                        (params.row.args.mappingField || ""),
+                                                        (params.row.args.configurationField || ""),
+                                                        (params.row.args.instanceField || ""),
+                                                        (params.row.args.status || "")
+                                                    ]))
+                                                }
                                             },
-                                            { field: 'args.mappingField', headerName: "Mappingfelt", type: 'string', flex: 1,
+                                            { field: 'args.mappingField', headerName: "Mappingfelt", type: 'string', flex: 1, hide: true,
                                                 valueGetter: (params) => `${(params.row.args.mappingField || "")}`
                                             },
-                                            { field: 'args.configurationField', headerName: "Konfigurasjonsfelt", type: 'string', flex: 1,
+                                            { field: 'args.configurationField', headerName: "Konfigurasjonsfelt", type: 'string', flex: 1, hide: true,
                                                 valueGetter: (params) => `${ (params.row.args.configurationField || "")}`
                                             },
-                                            { field: 'args.instanceField', headerName: "Instansfelt", type: 'string', flex: 1,
+                                            { field: 'args.instanceField', headerName: "Instansfelt", type: 'string', flex: 1, hide: true,
                                                 valueGetter: (params) => `${(params.row.args.instanceField || "")}`
                                             },
-                                            { field: 'args.status', headerName: "Status", type: 'string', flex: 1,
+                                            { field: 'args.status', headerName: "Status", type: 'string', flex: 1, hide: true,
                                                 valueGetter: (params) => `${params.row.args.status ? t(params.row.args.status) : ""}`
                                             }
                                         ]}
