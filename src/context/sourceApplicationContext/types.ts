@@ -10,11 +10,13 @@ export type SourceApplicationContextState = {
     availableForms: ISourceApplicationItem;
     getAllForms: () => void;
     getForms: () => void;
+    getMetadata: () => void;
 };
 
 export const contextDefaultValues: SourceApplicationContextState = {
     allForms: {sourceApplication: '', sourceApplicationForms: []},
     availableForms: {sourceApplication: '', sourceApplicationForms: []},
     getAllForms: () => {},
-    getForms: () => {}
+    getForms: () => {},
+    getMetadata: () => {}
 };

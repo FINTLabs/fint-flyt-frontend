@@ -11,7 +11,6 @@ import {
     Dialog,
     DialogActions,
     DialogContent,
-    DialogTitle,
     IconButton,
     Typography
 } from "@mui/material";
@@ -35,11 +34,10 @@ function Log() {
             renderCell: (params) => ( <CustomDialogToggle row={params.row} />)},
         { field: 'type', type: 'string', headerName: 'Type', flex: 0.5 },
         { field: 'timestamp', type: 'string', headerName: 'Tidspunkt', flex: 1,
-            valueGetter: (params) => moment(params.row.timestamp as string).format('DD/MM/YY HH:mm')},
+            valueGetter: (params) => moment(params.row.timestamp as string).format('YYYY/MM/DD HH:mm')},
         { field: 'sourceApplicationIntegrationId', type: 'string', headerName: 'Skjema', flex: 1,
             valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplicationIntegrationId}
     ];
-
 
     useEffect(()=> {
         getAllEvents();
