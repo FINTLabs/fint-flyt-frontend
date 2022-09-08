@@ -9,9 +9,10 @@
         "dashboard": "Dashbord",
         "newIntegration": "Ny integrasjon",
         "editIntegration": "Rediger integrasjon",
-        "integrationList": "Integrasjonsoversikt",
+        "integrationOverview": "Integrasjonsoversikt",
+        "instanceOverview": "Instansoversikt (wip)",
         "integrationDetails": "Detaljer",
-        "log": "Logg [beta]",
+        "log": "Logg (wip)",
         "support": "Support"
     },
     "pages": {
@@ -20,7 +21,7 @@
             "empty": "Ingen",
             "errors": "feilmeldinger",
             "links": {
-                "integrationList": "Se integrasjoner",
+                "integrationOverview": "Se integrasjoner",
                 "newIntegration": "Ny integrasjon",
                 "log": "Se logg",
                 "support": "Kontakt support"
@@ -66,6 +67,7 @@
                 },
                 "applicationForm": {
                     "header": "Avsender",
+                    "protectedLabel": "Skjermet",
                     "button": {
                         "save": "Lagre"
                     }
@@ -75,7 +77,7 @@
             "button": {
                 "save": "Lagre",
                 "cancel": "Avbryt",
-                "integrationList": "Se integrasjoner",
+                "integrationOverview": "Se integrasjoner",
                 "dashboard": "Dashbord",
                 "close": "Lukk"
             },
@@ -84,8 +86,8 @@
                 "error": "Det har oppstått en feil"
             }
         },
-        "integrationList": {
-            "header": "Oversikt",
+        "integrationOverview": {
+            "header": "Integrasjonsoversikt",
             "details": "Konfigurasjonsdetaljer",
             "revision": "Revisjon",
             "case": "Sakspost",
@@ -93,6 +95,71 @@
             "document": "Dokument- og objektbeskrivelse",
             "applicant": "Avsender",
             "changedMsg": "Endret til revisjon",
+            "button": {
+                "edit": "Rediger",
+                "back": "Tilbake",
+                "changeVersion": "Bruk denne konfigurasjonen"
+            },
+            "table": {
+                "columns": {
+                    "sourceApplicationIntegrationId": "Skjema",
+                    "sourceApplicationId": "Skjemaleverandør",
+                    "name": "Navn",
+                    "description": "Beskrivelse",
+                    "published": "Publisert",
+                    "revision": "Revisjon"
+                }
+            },
+            "labels": {
+                "description": "Beskrivelse: ",
+                "destination": "Destinasjon: ",
+                "sourceApplicationId": "Skjemaleverandør: ",
+                "sourceApplicationIntegrationId": "Skjema: ",
+                "caseCreationStrategy": "Avleveringslogikk: ",
+                "published": "Publisert: ",
+                "version": "Versjon: ",
+                "caseNumber": "Saksnummer: ",
+                "caseType": "Sakstype: ",
+                "title": "Tittel: ",
+                "publicTitle": "Offentlig tittel: ",
+                "administrativeUnit": "Administrativ enhet: ",
+                "archiveUnit": "Arkivdel: ",
+                "recordUnit": "Journalenhet: ",
+                "status": "Status: ",
+                "accessCode": "Tilgangskode: ",
+                "paragraph": "Hjemmel: ",
+                "responsibleCaseWorker": "Ansvarlig saksbehandler: ",
+                "primaryClassification": "Primær ordningsprinsipp: ",
+                "secondaryClassification": "Sekundær ordningsprinsipp: ",
+                "tertiaryClassification": "Tertiær ordningsprinsipp: ",
+                "primaryClass": "Primærklasse: ",
+                "secondaryClass": "Sekundærklasse: ",
+                "tertiaryClass": "Tertiærklasse: ",
+                "primaryTitle": "Primærtittel: ",
+                "secondaryTitle": "Sekundærtittel: ",
+                "tertiaryTitle": "Tertiærtittel: ",
+                "type": "Type: ",
+                "documentType": "Dokumenttype: ",
+                "recordStatus": "Journalstatus: ",
+                "recordType": "Journalposttype: ",
+                "caseWorker": "Saksbehandler: ",
+                "documentStatus": "Status: ",
+                "documentCategory": "Kategori: ",
+                "variant": "Variant: ",
+                "organisationNumber": "Organisasjonsnummer: ",
+                "nationalIdentityNumber": "Fødselsnummer: ",
+                "applicantName": "Navn: ",
+                "address": "Adresse: ",
+                "postalCode": "Postnummer: ",
+                "city": "Poststed: ",
+                "contactPerson": "Kontaktperson: ",
+                "phoneNumber": "Telefonnummer: ",
+                "email": "Epost: ",
+                "protected": "Skjerming: "
+            }
+        },
+        "instanceOverview": {
+            "header": "Instansoversikt",
             "button": {
                 "edit": "Rediger",
                 "back": "Tilbake",
@@ -153,15 +220,15 @@
                 "email": "Epost: "
             }
         },
+
         "log": {
-            "header": "Logg",
+            "header": "Hendelseslogg",
             "dialogHeader": "Hendelse - meldinger",
             "table": {
                 "columns": {
                     "details": "Detaljer",
                     "type": "Type",
                     "timestamp": "Tidspunkt",
-                    "name": "Navn",
                     "sourceApplicationIntegrationId": "Skjema",
                     "sourceApplicationId": "Skjemaleverandør",
                     "errorMessage": "Feilmeldinger"
@@ -179,7 +246,6 @@
         "errorMessage": "Du må oppgi ",
         "requiredField": "Obligatorisk felt",
         "labels": {
-            "name": "Navn",
             "description": "Beskrivelse",
             "destination": "Destinasjon",
             "sourceApplicationId": "Skjemaleverandør",
@@ -192,6 +258,7 @@
             "caseCreationCollection": "På samlesak",
             "caseCreationCollectionInfo": "Innsendt skjema skal leveres til en forhåndsdefinert samlesak. Her må du opplyse om saksnummer",
             "caseNumber": "Saksnummer",
+            "caseType": "Sakstype",
             "title": "Tittel",
             "publicTitle": "Offentlig tittel",
             "administrativeUnit": "Administrativ enhet",
@@ -215,8 +282,10 @@
             "type": "Type",
             "documentType": "Dokumenttype",
             "recordStatus": "Journalstatus",
+            "recordType": "Journalposttype",
             "caseWorker": "Saksbehandler",
             "documentStatus": "Status",
+            "documentCategory": "Dokumentkategori",
             "variant": "Variant",
             "applicantType": "Velg avsendertype",
             "organisationNumber": "Organisasjonsnummer",
@@ -227,14 +296,15 @@
             "city": "Poststed",
             "contactPerson": "Kontaktperson",
             "phoneNumber": "Telefonnummer",
-            "email": "Epost"
+            "email": "Epost",
+            "protected": "Skjerming"
         },
         "selects": {
             "creationStrategies": {
                 "new":"Som ny sak",
                 "newDesc":"Innsendt skjema oppretter en ny sak i Elements",
-                "exisiting":"På eksisterende sak",
-                "exisitingDesc":"Innsendt skjema gjenfinner eksisterende sak i Elements basert på informasjon i skjemaet. Dersom det ikke fins en eksisterende sak opprettes en ny sak",
+                "existing":"På eksisterende sak",
+                "existingDesc":"Innsendt skjema gjenfinner eksisterende sak i Elements basert på informasjon i skjemaet. Dersom det ikke fins en eksisterende sak opprettes en ny sak",
                 "collection":"På samlesak",
                 "collectionDesc":"Innsendt skjema skal leveres til en forhåndsdefinert samlesak. Her må du opplyse om saksnummer"
             },
@@ -255,7 +325,6 @@
     },
     "models": {
         "integrationConfiguration": {
-            "name": "Name",
             "description": "Description",
             "version": "Version",
             "sourceApplicationId": "Source application",
@@ -288,6 +357,7 @@
                 "documentType": "",
                 "administrativeUnit": "",
                 "recordStatus": "",
+                "recordType": "",
                 "caseWorker": "",
                 "accessCode": "",
                 "paragraph": ""
@@ -324,10 +394,11 @@
             "header": "Data fra skjema"
         },
         "formSettings": {
-            "header": "Velg skjemaleverandør og destinasjon",
-            "error": "du må velge skjemaleverandør og destinasjon",
+            "header": "Velg skjemaleverandør, skjema og destinasjon",
+            "error": "du må velge skjemaleverandør, skjema og destinasjon",
             "labels": {
                 "sourceApplicationId": "Skjemaleverandør",
+                "sourceApplicationIntegrationId": "Skjema",
                 "destination": "Destinasjon/Base"
             },
             "button": {
@@ -341,7 +412,6 @@
         "sourceApplicationId": "Skjemaleverandør, f.eks ACOS",
         "sourceApplicationIntegrationId": "Skjema",
         "destination": "Velg hvilken base skjemaet skal overføres til",
-        "name": "",
         "description": "",
         "version": "",
         "selectedForm": "",
@@ -351,7 +421,7 @@
             "title": "Tittel kan være en konkret tekststreng, eller en kombinasjon av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak.  (Se Noark))",
             "publicTitle": "Se Noark (Del av tittel som skal skjermes)",
             "status": "-",
-            "caseType": "Eksempel: Kompetanse, personal, rekrutering etc.",
+            "caseType": "Eksempel: Kompetanse, personal, rekruttering etc.",
             "administrativeUnit":"Avdeling eller enhet som skal behandle saken.",
             "archiveUnit":"Eksempel: kompetanse, sakarkiv, personal",
             "recordUnit": "Navnet på journalførende enhet.Eksempel: Viken fylkesråd",
@@ -365,10 +435,10 @@
         "recordData": {
             "title": "Tittel kan være en konkret tekststreng, eller en kombinasjon av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak. (Se Noark))",
             "publicTitle": "Se Noark (Del av tittel som skal skjermes)",
-            "type": "I, U, N, X",
-            "documentType": "",
+            "documentType": "Eksempel: Avtaler, Innsynsbehandling, Følgebrev, Juridisk ..",
             "administrativeUnit": "Enheten/avdelingen. Nedtrekksmeny fra Elements",
             "recordStatus": "R,F,E,J",
+            "recordType": "I, U, N, X",
             "caseWorker": "En sak kan ha en ansvarlig saksbehandler men det kan være ulike saksbehandlere på ulike journalposter.",
             "accessCode": "Eksempel: Unntatt offentlighet, personal varslingssak, ugradert. ",
             "paragraph": "Eksempel: Offl. §13 "
@@ -376,11 +446,13 @@
         "documentData": {
             "title": "Tittel kan være en konkret tekststreng, eller en kombinasjon av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak.(Se Noark))",
             "documentStatus": "Eksempel: B, F",
+            "documentCategory": "TODO",
             "accessCode": "Eksempel: Unntatt offentlighet, persona,l varslingssak, ugradert. ",
             "paragraph": "Eksempel: Offl. §13",
             "variant": "Arkivformat/ produksjonsformat / offentlig variant"
         },
         "applicantData": {
+            "protected": "Skjerming",
             "type": "Person eller organisasjon/bedrift",
             "organisationNumber": "Orgnr for avsenderbedrift",
             "nationalIdentityNumber": "Fødselsnummer for avsender",

@@ -36,6 +36,10 @@ const getRecordStatuses = () => {
     return axios.get<any>("/api/intern/kodeverk/journalstatus");
 };
 
+const getRecordTypes = () => {
+    return axios.get<any>("/api/intern/kodeverk/journalposttype");
+};
+
 const getVariants = () => {
     return axios.get<any>("/api/intern/kodeverk/variantformat");
 };
@@ -59,6 +63,7 @@ const ResourceRepository = {
     getClasses,
     getDocumentTypes,
     getRecordStatuses,
+    getRecordTypes,
     getDocumentStatuses,
     getVariants
 };

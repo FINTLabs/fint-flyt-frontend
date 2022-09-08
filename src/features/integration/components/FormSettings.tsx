@@ -1,15 +1,33 @@
 import React, {useContext, useState} from 'react';
 import {destinations, sourceApplications} from "../defaults/DefaultValues";
-import {Box, Button, MenuItem, TextField, Typography} from "@mui/material";
+import {Autocomplete, Box, Button, FormGroup, MenuItem, TextField, Theme, Typography} from "@mui/material";
 import {useHistory} from "react-router-dom";
 import {IntegrationContext} from "../../../context/integrationContext";
 import HelpPopover from "./popover/HelpPopover";
 import {useTranslation} from "react-i18next";
+import {SourceApplicationContext} from "../../../context/sourceApplicationContext";
+import {createStyles, makeStyles} from "@mui/styles";
+
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        formControl: {
+            width: theme.spacing(70)
+        }
+    }));
 
 export const FormSettings: React.FunctionComponent<any> = (props) => {
+    const classes = useStyles();
     let history = useHistory();
-    const { t } = useTranslation('translations', { keyPrefix: 'components.formSettings'});
-    const { destination, sourceApplicationId, setDestination, setSourceApplicationId } = useContext(IntegrationContext)
+    const {t} = useTranslation('translations', {keyPrefix: 'components.formSettings'});
+    const {
+        destination,
+        sourceApplicationId,
+        sourceApplicationIntegrationId,
+        setDestination,
+        setSourceApplicationId,
+        setSourceApplicationIntegrationId
+    } = useContext(IntegrationContext)
+    const {availableForms} = useContext(SourceApplicationContext)
     const [error, setError] = useState<string>('');
     const cancel = () => {
         history.push({
@@ -18,18 +36,17 @@ export const FormSettings: React.FunctionComponent<any> = (props) => {
     }
 
     const confirm = () => {
-        if(destination && sourceApplicationId) {
+        if (destination && sourceApplicationIntegrationId && sourceApplicationId) {
             props.setSettings(true)
             setError('');
-        }
-        else {
+        } else {
             setError(t('error'))
         }
     }
 
-    return(
+    return (
         <>
-            <Box sx={{width: '40%', maxWidth: '60%'}}>
+            <FormGroup id="case-information" className={classes.formControl}>
                 <Box>
                     <Typography id="integration-form-settings-header" sx={{mb: 2}}>{t('header')}</Typography>
                     <Box sx={{width: '100%', display: 'flex'}}>
@@ -48,6 +65,41 @@ export const FormSettings: React.FunctionComponent<any> = (props) => {
                         </TextField>
                         <HelpPopover popoverContent={'sourceApplicationId'}/>
                     </Box>
+                    <Box sx={{width: '100%', display: 'flex'}}>
+                        <Autocomplete
+                            sx={{ minWidth:'520px', mb: 3}}
+                            id='sourceApplicationIntegrationId'
+                            options={availableForms.sourceApplicationForms}
+                            renderInput={params => (
+                                <TextField {...params}
+                                           size="small"
+                                           label={t('labels.sourceApplicationIntegrationId') + '*'}
+                                           variant="outlined" />
+                            )}
+                            getOptionLabel={option => option.label}
+                            value={sourceApplicationIntegrationId? availableForms.sourceApplicationForms.find( ({value} : {value:any}) => value === sourceApplicationIntegrationId ): null}
+                            onChange={(_event, newTeam) => {
+                                setSourceApplicationIntegrationId(newTeam? newTeam.value : '');
+                            }}
+                        />
+                        <HelpPopover popoverContent={'sourceApplicationIntegrationId'}/>
+                    </Box>
+                    {/*                    <Box sx={{width: '100%', display: 'flex'}}>
+                        <TextField
+                            id='sourceApplicationIntegrationId'
+                            select
+                            size="small"
+                            sx={{mb: 3, width: 'inherit'}}
+                            value={sourceApplicationIntegrationId}
+                            label={t('labels.sourceApplicationIntegrationId') + '*'}
+                            onChange={event => setSourceApplicationIntegrationId(event.target.value)}
+                        >
+                            {availableForms.sourceApplicationForms.map((item: any, index: number) => (
+                                <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
+                            ))}
+                        </TextField>
+                        <HelpPopover popoverContent={'sourceApplication'}/>
+                    </Box>*/}
                     <Box sx={{width: '100%', display: 'flex'}}>
                         <TextField
                             id='destination'
@@ -70,7 +122,7 @@ export const FormSettings: React.FunctionComponent<any> = (props) => {
                     <Button id="form-settings-cancel-btn"  onClick={cancel} variant="contained">{t('button.cancel')}</Button>
                     <Button id="form-settings-confirm-btn" sx={{float: 'right'}} onClick={confirm} variant="contained">{t('button.next')}</Button>
                 </Box>
-            </Box>
+            </FormGroup>
         </>
     )
 }

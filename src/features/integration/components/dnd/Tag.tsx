@@ -17,7 +17,7 @@ export const Tag: FC<ITag> = function Tag({ name, value }) {
     const opacity = isDragging ? 0.4 : 1
     return (
         <Chip
-            sx={{borderRadius: '14px'}}
+            sx={{borderRadius: '4px'}}
             icon={<DragIndicatorIcon/>}
             ref={drag}
             variant="outlined"

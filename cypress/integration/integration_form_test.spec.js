@@ -13,6 +13,7 @@ describe('Testing Integration Form', () => {
         cy.intercept('GET', '**/api/intern/kodeverk/skjermingshjemmel', {fixture: 'skjermingshjemmel.json'}).as('getParagraphs')
         cy.intercept('GET', '**/api/intern/kodeverk/tilgangsrestriksjon', {fixture: 'tilgangrestriksjon.json'}).as('getAccessCodes')
         cy.intercept('GET', '**/api/intern/kodeverk/variantformat', {fixture: 'variantformat.json'}).as('getVariants')
+        cy.intercept('GET', '**/api/intern/integrasjon/konfigurasjon/**', {fixture: 'configuration.json'}).as('get')
     })
 
         it('should open', () => {
@@ -20,9 +21,10 @@ describe('Testing Integration Form', () => {
         });
 
         it('should have correct header', () => {
-            cy.get('#integration-form-settings-header').should('contain', 'Velg skjemaleverandør og destinasjon')
+            cy.get('#integration-form-settings-header').should('contain', 'Velg skjemaleverandør, skjema og destinasjon')
             cy.get("#sourceApplicationId").click()
             cy.get('[data-value="acos"]').click()
+            cy.get("#sourceApplicationIntegrationId").type('17').type('{downarrow}').type('{enter}');
             cy.get("#destination").click()
             cy.get('[data-value="fylkesrad"]').click()
             cy.get("#form-settings-confirm-btn").click()

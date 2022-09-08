@@ -1,5 +1,6 @@
 export default interface IApplicantData {
     type?: string;
+    protected?: boolean;
     organisationNumber?: string;
     nationalIdentityNumber?: string;
     name?: string;

@@ -3,7 +3,12 @@ import {IIntegrationConfiguration} from "../../features/integration/types/Integr
 export type IntegrationContextState = {
     integration: IIntegrationConfiguration;
     setIntegration: (configuration: IIntegrationConfiguration) => void;
+    integrations: IIntegrationConfiguration[];
+    setIntegrations: (configurations: IIntegrationConfiguration[]) => void;
+    getIntegrations: () => void;
     destination: string,
+    sourceApplicationIntegrationId: string,
+    setSourceApplicationIntegrationId: (id: string) => void,
     setDestination: (destination: string) => void;
     sourceApplicationId: string,
     setSourceApplicationId: (destination: string) => void,
@@ -23,9 +28,15 @@ export const contextDefaultValues: IntegrationContextState = {
         documentConfiguration: {fields:[]}
     },
     setIntegration: () => {},
+    integrations: [],
+    setIntegrations: () => {},
+    getIntegrations: () => {},
     destination: '',
+
     setDestination: () => {},
     sourceApplicationId: '',
     setSourceApplicationId: () => {},
+    sourceApplicationIntegrationId: '',
+    setSourceApplicationIntegrationId: () => {},
     resetSourceAndDestination: () => {},
 };

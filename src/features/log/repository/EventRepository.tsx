@@ -16,11 +16,16 @@ const getEventsByIntegrationId = (id: any) => {
     return axios.get<any>(`/api/intern/historikk/integrasjonsid/${id}`);
 };
 
+const getStatistics = () => {
+    return axios.get<any>(`/api/intern/historikk/statistikk/integrasjon`);
+};
+
 const ResourceRepository = {
     getEvents,
     getEventsByCorrelationId,
     getEventsByInstanceId,
-    getEventsByIntegrationId
+    getEventsByIntegrationId,
+    getStatistics
 };
 
 export default ResourceRepository;
