@@ -8,6 +8,7 @@ import IntegrationConfigurationDetails from "../integrationOverview/components/I
 import DashboardCard from "./DashboardCard";
 import {ICard} from "./types/Card";
 import {useTranslation} from "react-i18next";
+import SourceApplicationRepository from "../integration/repository/SourceApplicationRepository";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -41,12 +42,23 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
 
     useEffect(()=> {
         getIntegrations();
+        getMeta();
     }, [])
 
 
     const resetConfiguration = () => {
         setIntegration({})
         getIntegrations();
+    }
+
+    const getMeta = () => {
+        SourceApplicationRepository.getMetadata()
+            .then((response) => {
+                if(response.data) {
+                    console.log(response)
+                }
+            })
+            .catch(e => console.error('Error: ', e))
     }
 
     const cards: ICard[] = [

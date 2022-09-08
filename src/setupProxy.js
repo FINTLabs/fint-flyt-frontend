@@ -12,6 +12,16 @@ module.exports = function (app) {
         })
     );
     app.use(
+        createProxyMiddleware('/api/intern/integrasjon/metadata', {
+            target: 'http://localhost:8084', // API endpoint 5
+            changeOrigin: true,
+            pathRewrite: {"^/api5": ""},
+            headers: {
+                Connection: "keep-alive"
+            }
+        })
+    );
+    app.use(
         createProxyMiddleware('/api/intern/integrasjon/konfigurasjon', {
             target: 'http://localhost:8082', // API endpoint 2
             changeOrigin: true,
