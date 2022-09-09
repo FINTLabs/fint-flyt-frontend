@@ -1,32 +1,23 @@
+import {ErrorType} from "../log/types/ErrorType";
+
 export function stringReplace(baseString: string, errorArgs: IErrorArg[]) {
     let errorString = baseString;
     let helpString: string;
-
-    errorArgs.map(arg => {
-        if (arg.type === ErrorType.INSTANCE_FIELD && arg.value !== undefined) {
-            helpString = errorString.replace(ErrorType.INSTANCE_FIELD, arg.value)
-            errorString = helpString
-        }
-        if (arg.type === ErrorType.MAPPING_FIELD && arg.value !== undefined) {
-            helpString = errorString.replace(ErrorType.MAPPING_FIELD, arg.value)
-            errorString = helpString
-        }
-        if (arg.type === ErrorType.CONFIGURATION_FIELD && arg.value !== undefined) {
-            helpString = errorString.replace(ErrorType.CONFIGURATION_FIELD, arg.value)
-            errorString = helpString;
-        }
-        if (arg.type === ErrorType.STATUS && arg.value !== undefined) {
-            helpString = errorString.replace(ErrorType.STATUS, arg.value)
-            errorString = helpString
-        }
-        if (arg.type === ErrorType.ERROR_MESSAGE && arg.value !== undefined) {
-            helpString = errorString.replace(ErrorType.ERROR_MESSAGE, arg.value)
-            errorString = helpString
-        }
-        if (arg.type === ErrorType.FIELD_PATH && arg.value !== undefined) {
-            helpString = errorString.replace(ErrorType.FIELD_PATH, arg.value)
-            errorString = helpString
-        }
+    const errorTypes = [
+        ErrorType.INSTANCE_FIELD,
+        ErrorType.CONFIGURATION_FIELD,
+        ErrorType.MAPPING_FIELD,
+        ErrorType.STATUS,
+        ErrorType.ERROR_MESSAGE,
+        ErrorType.FIELD_PATH,
+    ]
+    errorTypes.map(errorType => {
+        errorArgs.map(arg => {
+            if (arg.type === errorType && arg.value !== undefined) {
+                helpString = errorString.replace(errorType, arg.value)
+                errorString = helpString
+            }
+        })
     })
     return errorString;
 }
@@ -34,13 +25,4 @@ export function stringReplace(baseString: string, errorArgs: IErrorArg[]) {
 interface IErrorArg {
     type: string,
     value: string
-}
-
-export const ErrorType = {
-    INSTANCE_FIELD : '#instanceField#',
-    MAPPING_FIELD : '#mappingField#',
-    CONFIGURATION_FIELD : '#configurationField#',
-    STATUS : '#status#',
-    ERROR_MESSAGE : '#errorMessage#',
-    FIELD_PATH : '#fieldPath#',
 }

@@ -32,4 +32,6 @@ export interface errorArgs {
     instanceField?: string;
     configurationField?: string;
     status?: string;
+    fieldPath?: string;
+    errorMessage?: string;
 }

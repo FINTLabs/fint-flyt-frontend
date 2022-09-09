@@ -19,7 +19,8 @@ import moment from "moment";
 import {DataGrid, GridCellParams, GridColumns, GridToolbar} from "@mui/x-data-grid";
 import {gridLocaleNoNB} from "../util/locale/gridLocaleNoNB";
 import { useTranslation } from 'react-i18next';
-import {ErrorType, stringReplace} from "../util/StringUtil";
+import {stringReplace} from "../util/StringUtil";
+import {ErrorType} from "./types/ErrorType";
 
 function Log() {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.log'})
@@ -137,7 +138,9 @@ function Log() {
                                                         {type: ErrorType.MAPPING_FIELD, value: params.row.args.mappingField},
                                                         {type: ErrorType.CONFIGURATION_FIELD, value: params.row.args.configurationField},
                                                         {type: ErrorType.INSTANCE_FIELD, value: params.row.args.instanceField},
-                                                        {type: ErrorType.STATUS, value: params.row.args.status}
+                                                        {type: ErrorType.STATUS, value: params.row.args.status},
+                                                        {type: ErrorType.FIELD_PATH, value: params.row.args.fieldPath},
+                                                        {type: ErrorType.ERROR_MESSAGE, value: params.row.args.errorMessage}
                                                     ]))
                                                 }
                                             }

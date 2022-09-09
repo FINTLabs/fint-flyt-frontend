@@ -229,7 +229,7 @@
             }
         },
         "log": {
-            "FINT_FLYT_ACOS_INSTANCE_GATEWAY_INSTANCE_VALIDATION_ERROR": "Valideringsfeil i mottak av instans, '#fieldPath# '#errorMessage#",
+            "FINT_FLYT_ACOS_INSTANCE_GATEWAY_INSTANCE_VALIDATION_ERROR": "Valideringsfeil i mottak av instans, '#fieldPath# #errorMessage#",
             "FINT_FLYT_ACOS_INSTANCE_GATEWAY_GENERAL_SYSTEM_ERROR": "Systemfeil, kontakt support",
             "FINT_FLYT_INSTANCE_SERVICE_GENERAL_SYSTEM_ERROR": "Systemfeil",
             "FINT_FLYT_CASE_SERVICE_GENERAL_SYSTEM_ERROR": "Det har oppstått en feil",
