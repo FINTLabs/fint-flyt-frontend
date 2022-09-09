@@ -20,7 +20,7 @@ const InstanceOverview: React.FunctionComponent<RouteComponentProps<any>> = () =
             valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplicationInstanceId
         },
         { field: 'timestamp', type: 'string', headerName: 'Sist hendelse', flex: 1,
-            valueGetter: (params) => moment(params.row.timestamp).format('DD/MM/YY HH:mm')
+            valueGetter: (params) => moment(params.row.timestamp).format('YYYY/MM/DD HH:mm')
         },
         { field: 'name', type: 'string', headerName: 'Status', flex: 2, valueGetter: params => t(params.row.name)},
         { field: 'sourceApplication', type: 'string', headerName: 'Kildeapplikasjon', flex: 2,
@@ -38,6 +38,7 @@ const InstanceOverview: React.FunctionComponent<RouteComponentProps<any>> = () =
         { field: 'details', headerName: 'Send inn på nytt', flex: 1, sortable: false, filterable: false,
             renderCell: (params) => ( <CustomButtonToggle row={params.row} />)}
     ];
+
     useEffect(()=> {
         getAllEvents();
     }, []);
@@ -78,6 +79,9 @@ const InstanceOverview: React.FunctionComponent<RouteComponentProps<any>> = () =
                     }}
                     rowThreshold={0}
                     initialState={{
+                        sorting: {
+                            sortModel: [{ field: 'timestamp', sort: 'desc' }],
+                        },
                         filter: {
                             filterModel: {
                                 items: [
