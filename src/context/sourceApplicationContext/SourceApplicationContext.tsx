@@ -29,18 +29,21 @@ const SourceApplicationProvider: FC = ({ children }) => {
     }
 
     const getMetadata = () => {
-        SourceApplicationRepository.getMetadata()
-            .then(response => {
-                console.log(response.data)
-            })
-            .catch((err)=> {
-                console.error(err);
-            })
+        //TODO:
     }
 
     //TODO: get all forms from sourceApplication when available
     const getAllForms = () => {
-        setAllForms({sourceApplication: 'acos', sourceApplicationForms: forms})
+        SourceApplicationRepository.getMetadata()
+            .then(response => {
+                let data: Map<string, IIntegrationMetadata> = response.data;
+                //TODO: data.forEach, new ISelect[] -> {data.integrationDisplayName = label, data.sourceApplicationIntegrationId = value} replace "forms"
+                setAllForms({sourceApplication: 'acos', sourceApplicationForms: forms})
+
+            })
+            .catch((err)=> {
+                console.error(err);
+            })
     }
 
     return (

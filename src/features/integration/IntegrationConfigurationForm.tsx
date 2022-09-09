@@ -111,13 +111,12 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     const { errors } = formState;
 
     const { getAllResources, resetAllResources } = useContext(ResourcesContext);
-    const { getForms, getAllForms, getMetadata } = useContext(SourceApplicationContext);
+    const { getForms, getAllForms } = useContext(SourceApplicationContext);
 
     useEffect(() => {
         getAllResources();
         getForms();
         getAllForms();
-        getMetadata();
         return () => {
             resetAllResources();
             resetSourceAndDestination();
