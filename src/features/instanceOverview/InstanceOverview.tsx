@@ -48,7 +48,7 @@ const InstanceOverview: React.FunctionComponent<RouteComponentProps<any>> = () =
         return (
             <>
                 {hasErrors &&
-                    <Button size="small" variant="outlined">Send</Button>
+                    <Button disabled={true} size="small" variant="outlined">Send</Button>
                 }
             </>
         );
