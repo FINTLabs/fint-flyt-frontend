@@ -19,8 +19,15 @@ export function stringReplace(baseString: string, errorArgs: IErrorArg[]) {
             helpString = errorString.replace(ErrorType.STATUS, arg.value)
             errorString = helpString
         }
+        if (arg.type === ErrorType.ERROR_MESSAGE && arg.value !== undefined) {
+            helpString = errorString.replace(ErrorType.ERROR_MESSAGE, arg.value)
+            errorString = helpString
+        }
+        if (arg.type === ErrorType.FIELD_PATH && arg.value !== undefined) {
+            helpString = errorString.replace(ErrorType.FIELD_PATH, arg.value)
+            errorString = helpString
+        }
     })
-
     return errorString;
 }
 
@@ -33,5 +40,7 @@ export const ErrorType = {
     INSTANCE_FIELD : '#instanceField#',
     MAPPING_FIELD : '#mappingField#',
     CONFIGURATION_FIELD : '#configurationField#',
-    STATUS : '#status#'
+    STATUS : '#status#',
+    ERROR_MESSAGE : '#errorMessage#',
+    FIELD_PATH : '#fieldPath#',
 }
