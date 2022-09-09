@@ -89,6 +89,7 @@
         "integrationOverview": {
             "header": "Integrasjonsoversikt",
             "details": "Konfigurasjonsdetaljer",
+            "testString": "Mangler felt ‘%s’ i instans, som kreves for å sette felt ‘%s’ i sak",
             "revision": "Revisjon",
             "case": "Sakspost",
             "record": "Journalpost",
@@ -107,7 +108,9 @@
                     "name": "Navn",
                     "description": "Beskrivelse",
                     "published": "Publisert",
-                    "revision": "Revisjon"
+                    "revision": "Revisjon",
+                    "dispatched": "Dispatched",
+                    "errors": "Feilmeldinger"
                 }
             },
             "labels": {
@@ -159,6 +162,11 @@
             }
         },
         "instanceOverview": {
+            "instance-to-case-mapping": "instans mapping",
+            "incoming-instance": "incoming instans",
+            "new-instance": "ny instans",
+            "case-dispatched": "sak sendt",
+            "case-dispatch-error": "sending av sak feilet",
             "header": "Instansoversikt",
             "button": {
                 "edit": "Rediger",
@@ -220,8 +228,24 @@
                 "email": "Epost: "
             }
         },
-
         "log": {
+            "FINT_FLYT_ACOS_INSTANCE_GATEWAY_GENERAL_SYSTEM_ERROR": "Feil i mottak fra ACOS",
+            "FINT_FLYT_INSTANCE_SERVICE_GENERAL_SYSTEM_ERROR": "Systemfeil",
+            "FINT_FLYT_CASE_SERVICE_GENERAL_SYSTEM_ERROR": "Det har oppstått en feil",
+            "FINT_FLYT_CASE_SERVICE_NO_CONFIGURATION_FOR_INTEGRATION": "Ingen konfigurasjon for valgte integrasjon",
+            "FINT_FLYT_CASE_SERVICE_MISSING_INSTANCE_FIELD_FOR_CASE_CONFIGURATION_FIELD": "Mangler felt ‘#instanceField#’ i instans, som kreves for å sette felt ‘#configurationField#’ i sak",
+            "FINT_FLYT_CASE_SERVICE_MISSING_INSTANCE_FIELD_FOR_RECORD_CONFIGURATION_FIELD": "Mangler felt ‘#instanceField#’ i instans, som kreves for å sette felt ‘#configurationField#’ i journalpost",
+            "FINT_FLYT_CASE_SERVICE_MISSING_INSTANCE_FIELD_FOR_DOCUMENT_CONFIGURATION_FIELD": "Mangler felt ‘#instanceField#’ i instans, som kreves for å sette felt ‘#configurationField#’ i dokument- og objektbeskrivelse",
+            "FINT_FLYT_CASE_SERVICE_MISSING_MAPPING_FIELD_FOR_CASE": "Mangler felt '#mappingField#' for sakspost",
+            "FINT_FLYT_CASE_SERVICE_MISSING_MAPPING_FIELD_FOR_RECORD": "Mangler felt '#mappingField#' for journalpost",
+            "FINT_FLYT_CASE_SERVICE_MISSING_MAPPING_FIELD_FOR_DOCUMENT": "Mangler felt '#mappingField#' for dokument- og objektbeskrivelse",
+            "FINT_FLYT_DISPATCH_SERVICE_GENERAL_SYSTEM_ERROR": "Det har oppstått en feil ved innsending",
+            "FINT_FLYT_DISPATCH_SERVICE_CASE_DISPATCH_ERROR": "Innsending av sak feilet, status '#status#'",
+            "REQUESTED": "Forespurt",
+            "SENT": "Sendt",
+            "FAILED": "Feilet",
+            "ACCEPTED": "Akseptert",
+            "DECLINED": "Avvist",
             "header": "Hendelseslogg",
             "dialogHeader": "Hendelse - meldinger",
             "table": {

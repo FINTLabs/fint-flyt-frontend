@@ -19,6 +19,7 @@ import moment from "moment";
 import {DataGrid, GridCellParams, GridColumns, GridToolbar} from "@mui/x-data-grid";
 import {gridLocaleNoNB} from "../util/locale/gridLocaleNoNB";
 import { useTranslation } from 'react-i18next';
+import {ErrorType, stringReplace} from "../util/StringUtil";
 
 function Log() {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.log'})
@@ -49,6 +50,7 @@ function Log() {
         EventRepository.getEvents()
             .then((response) => {
                 let data = response.data;
+                console.log(data)
                 if (data) {
                     data.forEach(addId(0, 'name'))
                     data.forEach((event: any) =>
@@ -118,23 +120,29 @@ function Log() {
                 <Dialog
                     open={open}
                     fullWidth={true}
+                    maxWidth={"lg"}
                     onClose={handleClose}
-                    aria-labelledby="alert-dialog-title"
-                    aria-describedby="alert-dialog-description"
                 >
                     <DialogContent>
                         {selectedRow &&
-                            <Stack id={props.row.type+ `-panel`} sx={{ py: 2, boxSizing: 'border-box', height: '350px', minWidth: '700px' }} direction="column">
+                            <Stack id={props.row.type+ `-panel`} sx={{ py: 2, boxSizing: 'border-box', height: '350px', minWidth: '900px' }} direction="column">
                                 <Stack direction="column" sx={{ height: 1 }}>
                                     <DataGrid
                                         density="compact"
                                         columns={[
-                                            { field: 'args', headerName: t('table.columns.errorMessage'), type: 'string', flex: 1,
-                                                valueGetter: (params) => `${params.row.errorCode || ''}`
+                                            { field: 'errorMessage', headerName: t('table.columns.errorMessage'), type: 'string', flex: 2,
+                                                //TODO: 01/09-22 fix translation file with corresponding error codes
+                                                valueGetter: (params) => {
+                                                    return (stringReplace(t(params.row.errorCode),  [
+                                                        {type: ErrorType.MAPPING_FIELD, value: params.row.args.mappingField},
+                                                        {type: ErrorType.CONFIGURATION_FIELD, value: params.row.args.configurationField},
+                                                        {type: ErrorType.INSTANCE_FIELD, value: params.row.args.instanceField},
+                                                        {type: ErrorType.STATUS, value: params.row.args.status}
+                                                    ]))
+                                                }
                                             }
                                         ]}
                                         rows={props.row.errors}
-                                        getRowId={(row) => row.errorCode}
                                         sx={{ flex: 1 }}
                                         hideFooter
                                     />
