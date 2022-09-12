@@ -51,7 +51,6 @@ function Log() {
         EventRepository.getEvents()
             .then((response) => {
                 let data = response.data;
-                console.log(data)
                 if (data) {
                     data.forEach(addId(0, 'name'))
                     data.forEach((event: any) =>
