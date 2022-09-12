@@ -55,16 +55,10 @@ export const MOCK_HENDELSER: IEvent[] = [
         "type":"ERROR",
         "errors":[{
             "errorCode":"0",
-            "args":{
-                "arg0":"manglende felt i skjema",
-                "arg1":"'fornavn'"
-            }
+            "args":{}
         }, {
             "errorCode":"1",
-            "args":{
-                "arg0":"feil i mapping mellom felt i instans og skjema. felt:",
-                "arg1":"'administrativ enhet'"
-            }
+            "args":{}
         }]
     },
     {
@@ -121,10 +115,7 @@ export const MOCK_HENDELSER: IEvent[] = [
         "type":"ERROR",
         "errors":[{
             "errorCode":"0",
-            "args":{
-                "arg0":"manglende obligatorisk felt i skjema",
-                "arg1":"'fødselsnummer'"
-            }
+            "args":{}
         }]
     },
     {
@@ -145,10 +136,7 @@ export const MOCK_HENDELSER: IEvent[] = [
         "type":"ERROR",
         "errors":[{
             "errorCode":"0",
-            "args":{
-                "arg0":"mangler data fra",
-                "arg1":"'Elements'"
-            }
+            "args":{}
         }]
     },
 ]
