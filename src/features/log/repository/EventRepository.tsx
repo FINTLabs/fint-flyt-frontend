@@ -1,4 +1,5 @@
 import axios from "axios";
+import {IIntegrationStatistics} from "../types/IntegrationStatistics";
 
 const getEvents = () => {
     return axios.get<any>(`/api/intern/historikk/hendelser`);
@@ -17,7 +18,7 @@ const getEventsByIntegrationId = (id: any) => {
 };
 
 const getStatistics = () => {
-    return axios.get<any>(`/api/intern/historikk/statistikk/integrasjon`);
+    return axios.get<Map<string, IIntegrationStatistics>>(`/api/intern/historikk/statistikk/integrasjon`);
 };
 
 const ResourceRepository = {

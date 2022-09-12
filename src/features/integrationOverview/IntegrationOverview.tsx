@@ -7,6 +7,7 @@ import IntegrationConfigurationTable from "./components/IntegrationConfiguration
 import {IntegrationContext} from "../../context/integrationContext";
 import { useTranslation } from 'react-i18next';
 import EventRepository from "../log/repository/EventRepository";
+import {IIntegrationStatistics} from "../log/types/IntegrationStatistics";
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -30,11 +31,7 @@ const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = (
     const showDetails: boolean = window.location.pathname === '/integration/configuration/details'
     const {integration, setIntegration, integrations, getIntegrations} = useContext(IntegrationContext)
     const [initialVersion, setInitialVersion] = useState(integration.version);
-    type statistics = {
-        currentErrors: string,
-        dispatchedInstances: string
-    }
-    let integrationStats: Map<string, statistics>;
+    let integrationStats: Map<string, IIntegrationStatistics>;
 
 
     useEffect(()=> {
@@ -51,6 +48,7 @@ const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = (
         EventRepository.getStatistics()
             .then((response) => {
             integrationStats = response.data;
+                console.log(integrationStats)
         }).catch(e => console.log('error', e))
     }
 
