@@ -25,6 +25,8 @@ export interface IIntegrationConfiguration {
     sourceApplicationIntegrationId?: string;
     destination?: string;
     published?: boolean;
+    dispatched?: number;
+    errors?: number;
 
     caseConfiguration?:ICaseConfiguration;
     recordConfiguration?: IRecordConfiguration;

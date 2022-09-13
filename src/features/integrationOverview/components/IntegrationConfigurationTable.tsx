@@ -18,8 +18,8 @@ const IntegrationConfigurationTable: React.FunctionComponent<any> = (props) => {
         { field: 'description', type: 'string', headerName: t('table.columns.description'), flex: 2 },
         { field: 'published', type: 'boolean', headerName: t('table.columns.published'), flex: 1 },
         { field: 'version', type: 'string', headerName: t('table.columns.revision'), flex: 1 },
-        { field: 'dispatched', type: 'string', headerName: t('table.columns.dispatched'), flex: 1 },
-        { field: 'errors', type: 'string', headerName: t('table.columns.errors'), flex: 1 }
+        { field: 'dispatched', type: 'number', headerName: t('table.columns.dispatched'), flex: 1 },
+        { field: 'errors', type: 'number', headerName: t('table.columns.errors'), flex: 1 }
     ];
 
     const setHistory = () => {
