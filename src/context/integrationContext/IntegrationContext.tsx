@@ -3,6 +3,8 @@ import {contextDefaultValues, IntegrationContextState} from "./types";
 import {IIntegrationConfiguration} from "../../features/integration/types/IntegrationConfiguration";
 import IntegrationRepository from "../../features/integration/repository/IntegrationRepository";
 import {IForm} from "../../features/integration/types/Form";
+import EventRepository from "../../features/log/repository/EventRepository";
+import {IIntegrationStatistics} from "../../features/log/types/IntegrationStatistics";
 
 export const IntegrationContext = createContext<IntegrationContextState>(
     contextDefaultValues
@@ -23,14 +25,33 @@ const IntegrationProvider: FC = ({ children }) => {
         setSelectedForm({sourceApplicationIntegrationId: '', sourceApplicationIntegrationUri: '', instanceElementMetadata: []})
     }
 
+    //TODO: fix after api change
     const getIntegrations = () => {
-        IntegrationRepository.get()
+        EventRepository.getStatistics()
             .then((response) => {
-                if(response.data.content) {
-                    setIntegrations(response.data.content);
-                }
-            })
-            .catch(e => console.error('Error: ', e))
+                let data = response.data.statisticsPerIntegrationId;
+                let statisticsMap: Map<string, IIntegrationStatistics> = new Map<string, IIntegrationStatistics>(
+                    Object.keys(data)
+                        .map(key => [key, data[key as keyof typeof data]])
+                        .map(entry => entry as [string, IIntegrationStatistics])
+                );
+                IntegrationRepository.get()
+                    .then((response) => {
+                        if(response.data.content) {
+                            let mergedList: IIntegrationConfiguration[] = response.data.content;
+                            statisticsMap.forEach((value, key) => {
+                                mergedList.map((integration: IIntegrationConfiguration) => {
+                                    if (integration.sourceApplicationIntegrationId === key) {
+                                        integration.errors = value.currentErrors;
+                                        integration.dispatched = value.dispatchedInstances;
+                                    }
+                                })
+                            })
+                            setIntegrations(mergedList);
+                        }
+                    })
+                    .catch(e => console.error('Error: ', e))
+            }).catch(e => console.log('error', e))
     }
 
     return (

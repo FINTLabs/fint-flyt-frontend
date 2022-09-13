@@ -6,9 +6,6 @@ import IntegrationConfigurationDetails from "./components/IntegrationConfigurati
 import IntegrationConfigurationTable from "./components/IntegrationConfigurationTable";
 import {IntegrationContext} from "../../context/integrationContext";
 import { useTranslation } from 'react-i18next';
-import EventRepository from "../log/repository/EventRepository";
-import {IIntegrationStatistics} from "../log/types/IntegrationStatistics";
-
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -29,27 +26,17 @@ const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = (
     const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationOverview'});
     const classes = useStyles();
     const showDetails: boolean = window.location.pathname === '/integration/configuration/details'
-    const {integration, setIntegration, integrations, getIntegrations} = useContext(IntegrationContext)
+        const {integration, setIntegration, integrations, getIntegrations} = useContext(IntegrationContext)
     const [initialVersion, setInitialVersion] = useState(integration.version);
-    let integrationStats: Map<string, IIntegrationStatistics>;
 
 
     useEffect(()=> {
         getIntegrations();
-        getStatistics();
     }, []);
 
     const resetConfiguration = () => {
         setIntegration({})
         getIntegrations();
-    }
-
-    const getStatistics = () => {
-        EventRepository.getStatistics()
-            .then((response) => {
-            integrationStats = response.data;
-                console.log(integrationStats)
-        }).catch(e => console.log('error', e))
     }
 
     return (
