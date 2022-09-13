@@ -1,4 +1,4 @@
-import React, { createContext, useState, FC } from "react";
+import React, {createContext, FC, useState} from "react";
 import {contextDefaultValues, ISourceApplicationItem, SourceApplicationContextState} from "./types";
 import {forms} from "../../features/integration/defaults/DefaultValues";
 import IntegrationRepository from "../../features/integration/repository/IntegrationRepository";
@@ -10,16 +10,15 @@ export const SourceApplicationContext = createContext<SourceApplicationContextSt
     contextDefaultValues
 );
 
-const SourceApplicationProvider: FC = ({ children }) => {
+const SourceApplicationProvider: FC = ({children}) => {
     const [allForms, setAllForms] = useState<ISourceApplicationItem>(contextDefaultValues.availableForms);
     const [availableForms, setAvailableForms] = useState<ISourceApplicationItem>(contextDefaultValues.availableForms);
 
 
-    const getForms = () => {
+    const getAvailableForms = () => {
         IntegrationRepository.get()
             .then(response => {
                 let ids: string[] = response.data.content.map((config: IIntegrationConfiguration) => config.sourceApplicationIntegrationId)
-                setAllForms({sourceApplication: 'acos', sourceApplicationForms: forms})
                 let selectableForms = forms.filter(form => !ids.includes(form.value));
                 setAvailableForms({sourceApplication: 'acos', sourceApplicationForms: selectableForms})
             })
@@ -36,13 +35,17 @@ const SourceApplicationProvider: FC = ({ children }) => {
     const getAllForms = () => {
         SourceApplicationRepository.getMetadata("1")
             .then(response => {
-                let data: Map<string, IIntegrationMetadata> = response.data;
-                console.log(data)
+                let data: Object = response.data.integrationMetadataPerSourceApplicationIntegrationId;
+                let map: Map<string, IIntegrationMetadata> = new Map<string, IIntegrationMetadata>(
+                    Object.keys(data)
+                        .map(key => [key, data[key as keyof typeof data]])
+                        .map(entry => entry as [string, IIntegrationMetadata])
+                );
+                console.log(map.get("Test04883"))
                 //TODO: data.get/map/forEach, new ISelect[] -> {data.integrationDisplayName = label, data.sourceApplicationIntegrationId = value} replace "forms"
                 setAllForms({sourceApplication: 'acos', sourceApplicationForms: forms})
-
             })
-            .catch((err)=> {
+            .catch((err) => {
                 console.error(err);
             })
     }
@@ -52,7 +55,7 @@ const SourceApplicationProvider: FC = ({ children }) => {
             value={{
                 allForms,
                 availableForms,
-                getForms,
+                getAvailableForms,
                 getMetadata,
                 getAllForms
             }}

@@ -1,8 +1,7 @@
 import axios from "axios";
-import {IIntegrationMetadata} from "../types/IntegrationMetadata";
 
 const getMetadata = (id: string) => {
-    return axios.get<Map<string, IIntegrationMetadata>>("/api/intern/integrasjon/metadata", {params: {sourceApplicationId: id}});
+    return axios.get<any>("/api/intern/integrasjon/metadata", {params: {sourceApplicationId: id}})
 };
 
 const SourceApplicationRepository = {
