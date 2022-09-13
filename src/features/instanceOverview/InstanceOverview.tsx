@@ -68,7 +68,7 @@ const InstanceOverview: React.FunctionComponent<RouteComponentProps<any>> = () =
     return (
         <Box sx={{ width: 1, height: 900 }}>
                 {/*TODO: remove header*/}
-                <Typography>{t('header')} (NB! UNDER UTVIKLING, KUN DEMO, IKKE REELLE DATA) </Typography>
+                <Typography>{t('header')} (NB! UNDER UTVIKLING, DEMO) </Typography>
                 <DataGrid
                     columns={columns}
                     density='compact'
