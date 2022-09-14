@@ -29,19 +29,15 @@ const IntegrationProvider: FC = ({ children }) => {
     const getIntegrations = () => {
         EventRepository.getStatistics()
             .then((response) => {
-                let data = response.data.statisticsPerIntegrationId;
-                let statisticsMap: Map<string, IIntegrationStatistics> = new Map<string, IIntegrationStatistics>(
-                    Object.keys(data)
-                        .map(key => [key, data[key as keyof typeof data]])
-                        .map(entry => entry as [string, IIntegrationStatistics])
-                );
+                console.log(response.data)
+                let statistics = response.data;
                 IntegrationRepository.get()
                     .then((response) => {
                         if(response.data.content) {
                             let mergedList: IIntegrationConfiguration[] = response.data.content;
-                            statisticsMap.forEach((value, key) => {
+                            statistics.forEach((value: IIntegrationStatistics) => {
                                 mergedList.map((integration: IIntegrationConfiguration) => {
-                                    if (integration.sourceApplicationIntegrationId === key) {
+                                    if (integration.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {
                                         integration.errors = value.currentErrors;
                                         integration.dispatched = value.dispatchedInstances;
                                     }
