@@ -102,7 +102,7 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
                     <CardContent>
                         <Typography id="details-sourceApplicationId"><strong>{t('labels.sourceApplicationId')} </strong>{activeFormData.sourceApplicationId}</Typography>
                         <Typography id="details-destination"><strong>{t('labels.destination')} </strong>{activeFormData.destination}</Typography>
-                        <Typography id="details-description"><strong>{t('labels.description')}</strong>{activeFormData.description}</Typography>
+                        <Typography id="details-comment"><strong>{t('labels.comment')}</strong>{activeFormData.comment}</Typography>
                         <Typography id="details-sourceApplicationIntegrationId"><strong>{t('labels.sourceApplicationIntegrationId')}</strong>{activeFormData.sourceApplicationIntegrationId}</Typography>
                         <Typography id="details-caseConfiguration-caseCreation"><strong>{t('labels.caseCreationStrategy')}</strong>{activeFormData.caseData?.caseCreationStrategy}</Typography>
                         <Typography id="details-published"><strong>{t('labels.published')}</strong>{activeFormData.published? 'Ja' : 'Nei'}</Typography>

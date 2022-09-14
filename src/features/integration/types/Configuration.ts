@@ -3,28 +3,28 @@ import {IField} from "./Field";
 export interface ICaseConfiguration {
     caseCreationStrategy?: string;
     caseNumber?: string;
-    fields: IField[];
+    fields?: IField[];
 }
 export interface IRecordConfiguration {
-    fields: IField[];
+    fields?: IField[];
 }
 export interface IDocumentConfiguration {
-    fields: IField[];
+    fields?: IField[];
 }
 export interface IApplicantConfiguration {
     applicantType?: string;
     organisationNumber?: boolean;
     protected?: boolean;
-    fields: IField[];
+    fields?: IField[];
 }
 
-export interface IIntegrationConfiguration {
+export interface IConfiguration {
+    configurationId?: string;
+    integrationId?: string;
     comment?: string;
-    version?: string;
-    sourceApplicationId?: string;
-    sourceApplicationIntegrationId?: string;
-    destination?: string;
-    published?: boolean;
+    version?: number;
+    metadataId?: number;
+    completed?: boolean;
 
     caseConfiguration?:ICaseConfiguration;
     recordConfiguration?: IRecordConfiguration;

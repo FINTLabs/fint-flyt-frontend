@@ -103,13 +103,13 @@
                     "sourceApplicationIntegrationId": "Form",
                     "sourceApplicationId": "Source application",
                     "name": "Name",
-                    "description": "Description",
+                    "comment": "Comment",
                     "published": "Published",
                     "revision": "Revision"
                 }
             },
             "labels": {
-                "description": "Description: ",
+                "comment": "Comment",
                 "destination": "Destination: ",
                 "sourceApplicationId": "Source application: ",
                 "sourceApplicationIntegrationId": "Form: ",
@@ -177,7 +177,7 @@
         "errorMessage": "You must provide ",
         "requiredField": "Required field",
         "labels": {
-            "description": "Description",
+            "comment": "Comment",
             "destination": "Destination",
             "sourceApplicationId": "Source application",
             "sourceApplicationIntegrationId": "Form",
@@ -252,7 +252,7 @@
     },
     "models": {
         "integrationConfiguration": {
-            "description": "Description",
+            "comment": "Comment",
             "version": "Version",
             "sourceApplicationId": "Source application",
             "sourceApplicationIntegrationId": "Form",
@@ -338,7 +338,7 @@
         "sourceApplicationId": "Source appliation, i.e. ACOS",
         "sourceApplicationIntegrationId": "Form",
         "destination": "Choose base to transfer form to",
-        "description": "",
+        "comment": "",
         "version": "",
         "selectedForm": ",",
         "caseData": {

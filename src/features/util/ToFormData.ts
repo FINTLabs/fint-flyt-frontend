@@ -1,10 +1,10 @@
-import IFormData from "../integration/types/Form/FormData";
+import {IFormData} from "../integration/types/Form/FormData";
 import {IIntegrationConfiguration} from "../integration/types/IntegrationConfiguration";
 import {fieldToString} from "./ValueBuilderUtil";
 
 export function toFormData(data: IIntegrationConfiguration): IFormData {
     return {
-        description: data.description,
+        comment: data.comment,
         sourceApplicationId: data.sourceApplicationId,
         sourceApplicationIntegrationId: data.sourceApplicationIntegrationId,
         version: data.version,

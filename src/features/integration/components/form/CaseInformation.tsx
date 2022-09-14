@@ -43,7 +43,7 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
         {input: INPUT_TYPE.DROPDOWN, label: "labels.sourceApplicationId", value: sourceApplicationId, formValue: "sourceApplicationId", dropDownItems: sourceApplications, disabled: true, lockIcon: true},
         {input: INPUT_TYPE.DROPDOWN, label: "labels.destination", value: destination, formValue: "destination", dropDownItems: destinations, disabled: true, lockIcon: true},
         {input: INPUT_TYPE.DROPDOWN, label: "labels.sourceApplicationIntegrationId", value: sourceApplicationIntegrationId, formValue: "sourceApplicationIntegrationId", dropDownItems: allForms.sourceApplicationForms, disabled: true, lockIcon: true},
-        {input: INPUT_TYPE.TEXT_FIELD, label: "labels.description", formValue: "description", error:errors.description, helpText: "description"},
+        {input: INPUT_TYPE.TEXT_FIELD, label: "labels.comment", formValue: "comment", error:errors.comment, helpText: "comment"},
         {input: INPUT_TYPE.RADIO, label: "labels.caseCreationInfo", value: props.watch("caseData.caseCreationStrategy"),
             formValue: "caseData.caseCreationStrategy", radioOptions: creationStrategies, helpText: "caseData.caseCreationStrategy"},
         {input: INPUT_TYPE.TEXT_FIELD, label: "labels.caseNumber", formValue: "caseData.caseNumber", hidden:!isCollection, required:isCollection && props.validation, error:errors.caseData?.caseNumber, searchOption: true, helpText: "caseData.caseNumber"}

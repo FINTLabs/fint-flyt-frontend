@@ -3,16 +3,24 @@ import IDocumentData from "./DocumentData";
 import IRecordData from "./RecordData";
 import ICaseData from "./CaseData";
 
-export default interface IFormData {
-    description?: string;
+export interface IFormData {
+    comment?: string;
     version?: string;
     sourceApplicationId?: string;
     sourceApplicationIntegrationId?: string;
     destination?: string;
     published?: boolean;
+    active?: boolean;
 
     caseData: ICaseData;
     recordData: IRecordData;
     documentData: IDocumentData;
     applicantData: IApplicantData;
+    completed?:boolean;
+}
+
+export interface IFormIntegration {
+    sourceApplicationId?: string;
+    sourceApplicationIntegrationId?: string;
+    destination?: string;
 }

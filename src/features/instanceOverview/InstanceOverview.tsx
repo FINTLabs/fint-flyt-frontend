@@ -36,7 +36,8 @@ const InstanceOverview: React.FunctionComponent<RouteComponentProps<any>> = () =
             valueGetter: (params) => params.row.instanceFlowHeaders.configurationId
         },
         { field: 'details', headerName: 'Send inn på nytt', flex: 1, sortable: false, filterable: false,
-            renderCell: (params) => ( <CustomButtonToggle row={params.row} />)}
+            renderCell: (params) => ( <CustomButtonToggle row={params.row} />)
+        }
     ];
 
     useEffect(()=> {

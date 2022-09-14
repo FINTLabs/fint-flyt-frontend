@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext, useEffect} from "react";
 import {
     AppBar, Badge,
     Box,
@@ -19,6 +19,7 @@ import createAuthRefreshInterceptor from "axios-auth-refresh";
 import axios, {AxiosError, AxiosResponse} from "axios";
 import { useIdleTimer } from 'react-idle-timer';
 import IntegrationRepository from "../integration/repository/IntegrationRepository";
+import {IntegrationContext} from "../../context/integrationContext";
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme: Theme) =>
@@ -95,7 +96,7 @@ function Main() {
     });
 
     const handleOnIdle = () => {
-        console.log('user is idle');
+       // console.log('user is idle');
     };
 
     //TODO:
@@ -103,10 +104,10 @@ function Main() {
         IntegrationRepository.get()
             .then((result: AxiosResponse) => {
                 if (result.status === 200 && !result.data.content && window.location.origin.includes('viken-no-skjema')) {
-                    console.log('We\'re still authenticated, no content, trigger reload');
+                   // console.log('We\'re still authenticated, no content, trigger reload');
                     window.location.href = 'https://viken-no-skjema.vigoiks.no/oauth2/start?rd=%2F'
                 } else {
-                    console.log('authenticated, has content')
+                   // console.log('authenticated, has content')
                 }
             })
             .catch((reason: AxiosError) => {

@@ -44,6 +44,12 @@ const routes: IRoute[] = [
         exact: true,
     },
     {
+        path: '/integration/',
+        name: 'integrationPanel',
+        component: IntegrationOverview,
+        exact: true,
+    },
+    {
         path: '/integration/instance/list',
         name: 'instanceOverview',
         component: InstanceOverview,

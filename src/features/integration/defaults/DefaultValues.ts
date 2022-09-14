@@ -2,15 +2,20 @@
 
 import {ISelect} from "../types/InputField";
 import {CreationStrategy} from "../types/CreationStrategy";
-import IFormData from "../types/Form/FormData";
+import {IFormData} from "../types/Form/FormData";
 import {ApplicantType} from "../types/ApplicantType";
+import {IIntegration} from "../types/Integration";
+import {
+    IApplicantConfiguration,
+    ICaseConfiguration,
+    IConfiguration,
+    IDocumentConfiguration,
+    IRecordConfiguration
+} from "../types/Configuration";
 
 export const defaultValues: IFormData = {
-    description: '',
+    comment: '',
     version: '',
-    sourceApplicationId: '',
-    sourceApplicationIntegrationId: '',
-    destination: '',
     published: false,
     caseData: {
         caseCreationStrategy: CreationStrategy.NEW,
@@ -130,7 +135,7 @@ export const destinations: ISelect[] = [
 ];
 
 export const fieldHelp = {
-    description: 'besrkrivelse',
+    comment: 'Kommentar',
     version: '',
     sourceApplicationId: 'Skjemaleverandør, f.eks ACOS',
     sourceApplicationIntegrationId: 'Skjema, f.eks VIK103',
@@ -201,3 +206,82 @@ export const fieldHelp = {
         paragraph: 'Denne skal fjernes',
     }
 }
+
+export const newInts: IIntegration[] = [
+    {
+        integrationId: '123',
+        destination: 'fylkesråd',
+        sourceApplicationId: 'ACOS',
+        sourceApplicationIntegrationId: 'TEST123'
+    },
+    {
+        integrationId: '234',
+        destination: 'fylkesråd',
+        sourceApplicationId: 'ACOS',
+        sourceApplicationIntegrationId: 'TEST234'
+    },
+    {
+        integrationId: '345',
+        destination: 'fylkesråd',
+        sourceApplicationId: 'ACOS',
+        sourceApplicationIntegrationId: 'TEST345'
+    },
+    {
+        integrationId: '456',
+        destination: 'fylkesråd',
+        sourceApplicationId: 'ACOS',
+        sourceApplicationIntegrationId: 'TEST456'
+    },
+    {
+        integrationId: '567',
+        destination: 'fylkesråd',
+        sourceApplicationId: 'ACOS',
+        sourceApplicationIntegrationId: 'TEST567'
+    },
+    {
+        integrationId: '678',
+        destination: 'fylkesråd',
+        sourceApplicationId: 'ACOS',
+        sourceApplicationIntegrationId: 'TEST678'
+    },
+]
+
+export const newConfs: IConfiguration[] = [
+/*    {
+        integrationId: '678',
+        version: 1,
+        completed: false,
+        caseConfiguration: {caseCreationStrategy: CreationStrategy.NEW, fields: []}
+    },
+    {
+        integrationId: '456',
+        version: 1,
+        completed: false,
+        caseConfiguration: {caseCreationStrategy: CreationStrategy.COLLECTION, caseNumber: '2022/123'}
+    },*/
+    {
+        configurationId: 'id0',
+        integrationId: '123',
+        version: 1,
+        comment: 'Første versjon - avventer endringer',
+        completed: false,
+    },
+    {
+        configurationId: 'id1',
+        integrationId: '123',
+        version: 2,
+        completed: false,
+        comment: 'Opprettet ny pga x, y, z',
+        caseConfiguration: {caseCreationStrategy: CreationStrategy.NEW},
+        applicantConfiguration: {applicantType: ApplicantType.PERSON}
+    },
+    {
+        configurationId: 'id2',
+        integrationId: '123',
+        version: 3,
+        completed: true,
+        comment: 'Ferdigstilt ',
+        caseConfiguration: {caseCreationStrategy: CreationStrategy.NEW},
+        applicantConfiguration: {applicantType: ApplicantType.PERSON}
+    }
+]

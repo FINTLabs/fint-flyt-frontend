@@ -15,16 +15,14 @@ const IntegrationConfigurationTable: React.FunctionComponent<any> = (props) => {
     const columns: GridColDef[] = [
         { field: 'sourceApplicationId', type: 'string', headerName: t('table.columns.sourceApplicationId'), flex: 1 },
         { field: 'sourceApplicationIntegrationId', type: 'string', headerName: t('table.columns.sourceApplicationIntegrationId'), flex: 1 },
-        { field: 'description', type: 'string', headerName: t('table.columns.description'), flex: 2 },
-        { field: 'published', type: 'boolean', headerName: t('table.columns.published'), flex: 1 },
-        { field: 'version', type: 'string', headerName: t('table.columns.revision'), flex: 1 },
-        { field: 'dispatched', type: 'string', headerName: t('table.columns.dispatched'), flex: 1 },
-        { field: 'errors', type: 'string', headerName: t('table.columns.errors'), flex: 1 }
+        { field: 'destination', type: 'string', headerName:  t('table.columns.destination'), flex: 1 },
+        { field: 'dispatched', type: 'string', headerName:  t('table.columns.dispatched'), flex: 1 },
+        { field: 'errors', type: 'string', headerName:  t('table.columns.errors'), flex: 1 }
     ];
 
     const setHistory = () => {
         history.push({
-            pathname: '/integration/configuration/details',
+            pathname: '/integration',
         })
     }
 
@@ -40,12 +38,12 @@ const IntegrationConfigurationTable: React.FunctionComponent<any> = (props) => {
                             if (!event.ctrlKey) {
                                 event.defaultMuiPrevented = true;
                                 props.setIntegration(params.row)
-                                props.setInitialVersion(params.row.version)
+                                props.getConfigurations(params.row.sourceApplicationIntegration)
                                 setHistory();
                             }
                         }}
                         density='compact'
-                        rows={props.configurations}
+                        rows={props.integrations}
                         columns={columns}
                         pageSize={20}
                         rowsPerPageOptions={[20]}

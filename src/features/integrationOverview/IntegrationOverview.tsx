@@ -7,6 +7,7 @@ import IntegrationConfigurationTable from "./components/IntegrationConfiguration
 import {IntegrationContext} from "../../context/integrationContext";
 import { useTranslation } from 'react-i18next';
 import EventRepository from "../log/repository/EventRepository";
+import IntegrationPanel from "./components/IntegrationPanel";
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -20,6 +21,10 @@ const useStyles = makeStyles((theme: Theme) =>
         dataGridBox: {
             height: "900px",
             width: '100%'
+        },
+        dataPanelBox: {
+            height: "500px",
+            width: '100%'
         }
     })
 );
@@ -27,9 +32,8 @@ const useStyles = makeStyles((theme: Theme) =>
 const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationOverview'});
     const classes = useStyles();
-    const showDetails: boolean = window.location.pathname === '/integration/configuration/details'
-    const {integration, setIntegration, integrations, getIntegrations} = useContext(IntegrationContext)
-    const [initialVersion, setInitialVersion] = useState(integration.version);
+    const showPanel: boolean = window.location.pathname === '/integration'
+    const {newIntegration, setNewIntegration, newIntegrations, getNewIntegrations, configurations, getConfigurations} = useContext(IntegrationContext)
     type statistics = {
         currentErrors: string,
         dispatchedInstances: string
@@ -38,13 +42,13 @@ const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = (
 
 
     useEffect(()=> {
-        getIntegrations();
+        getNewIntegrations();
         getStatistics();
     }, []);
 
     const resetConfiguration = () => {
-        setIntegration({})
-        getIntegrations();
+        setNewIntegration({integrationId: ''})
+        getNewIntegrations();
     }
 
     const getStatistics = () => {
@@ -58,20 +62,21 @@ const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = (
         <>
             <Breadcrumbs aria-label="breadcrumb">
                 <Typography style={{cursor:'pointer'}} onClick={resetConfiguration}>{t('header')}</Typography>
-                <Typography>{integration.sourceApplicationIntegrationId && showDetails ? t('details') : ''}</Typography>
+                <Typography>{newIntegration?.sourceApplicationIntegrationId && showPanel ? t('details') : ''}</Typography>
             </Breadcrumbs>
-            {integration.sourceApplicationIntegrationId && showDetails ?
-                <IntegrationConfigurationDetails
-                    reset={resetConfiguration}
-                    initialConfiguration={integration}
-                    initialVersion={initialVersion}
+            {newIntegration?.sourceApplicationIntegrationId && showPanel ?
+                <IntegrationPanel
+                    classes={classes}
+                    loading={configurations.length === 0}
+                    initialConfiguration={newIntegration}
+                    configurations={configurations}
                 /> :
                 <IntegrationConfigurationTable
                     classes={classes}
-                    loading={integrations.length === 0}
-                    configurations={integrations}
-                    setIntegration={setIntegration}
-                    setInitialVersion={setInitialVersion}
+                    loading={newIntegrations.length === 0}
+                    integrations={newIntegrations}
+                    getConfigurations={getConfigurations}
+                    setIntegration={setNewIntegration}
                 />
             }
         </>

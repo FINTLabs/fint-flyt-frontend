@@ -1,7 +1,7 @@
 import * as React from "react";
 import {useContext, useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
-import {Link as RouterLink, RouteComponentProps, useHistory, withRouter} from "react-router-dom";
+import {Link as RouterLink, RouteComponentProps, useHistory, withRouter, useLocation} from "react-router-dom";
 import {
     Box,
     Button,
@@ -14,7 +14,7 @@ import {
     Typography
 } from "@mui/material";
 import {createStyles, makeStyles} from "@mui/styles";
-import IFormData from "./types/Form/FormData";
+import {IFormData} from "./types/Form/FormData";
 import IntegrationRepository from "./repository/IntegrationRepository";
 import {defaultValues} from "./defaults/DefaultValues";
 import {toIntegrationConfiguration} from "../util/ToIntegrationConfiguration";
@@ -90,7 +90,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     const editConfig: boolean = window.location.pathname === '/integration/configuration/edit'
     const [submitSuccess, setSubmitSuccess] = useState(false)
     const [settings, setSettings] = useState(false)
-    const {integration, sourceApplicationId, destination, sourceApplicationIntegrationId, setIntegration, resetSourceAndDestination, getIntegrations} = useContext(IntegrationContext);
+    const {newIntegration, setNewIntegration, integration, sourceApplicationId, destination, sourceApplicationIntegrationId, setIntegration, resetSourceAndDestination, getIntegrations} = useContext(IntegrationContext);
     const [activeId, setActiveId] = useState<any>(undefined)
     const [saved, setSaved] = React.useState(false);
     const [saveError, setSaveError] = React.useState(false);
@@ -118,6 +118,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
         getForms();
         getAllForms();
         return () => {
+            setNewIntegration(undefined);
             resetAllResources();
             resetSourceAndDestination();
         };
@@ -258,8 +259,12 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
 
     return (
         <DndProvider backend={HTML5Backend}>
-            {!settings && !activeConfiguration && <FormSettings setSettings={setSettings}/>}
-            {!submitSuccess && (activeConfiguration || settings) &&
+            <Typography>{newIntegration?.integrationId}</Typography>
+            <Typography>{newIntegration?.sourceApplicationId}</Typography>
+            <Typography>{newIntegration?.sourceApplicationIntegrationId}</Typography>
+            <Typography>{newIntegration?.destination}</Typography>
+            {!newIntegration && <FormSettings setSettings={setSettings}/>}
+            {!submitSuccess && newIntegration &&
                 <Box display="flex" position="relative" width={1} height={1}>
                     <Box>
                         <Typography id="integration-form-header" aria-label="integration-form-header" variant={"h5"} sx={{ mb: 2 }}>{t('header')}</Typography>

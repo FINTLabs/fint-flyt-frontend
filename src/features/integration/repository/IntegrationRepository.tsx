@@ -1,6 +1,8 @@
 import axios from "axios";
-import IFormData from "../types/Form/FormData";
+import {IFormData} from "../types/Form/FormData";
 import {IIntegrationConfiguration} from "../types/IntegrationConfiguration";
+import {IIntegration} from "../types/Integration";
+import {IConfiguration} from "../types/Configuration";
 
 const getLatest = () => {
     return axios.get<Array<IFormData>>("/api/intern/integrasjon/konfigurasjon");
@@ -34,6 +36,32 @@ const getSak = (caseYear: any, caseNumber: any) => {
     return axios.get<any>(`/api/intern/sakstittel/mappeid/${caseYear}/${caseNumber}`, {timeout: 5000})
 }
 
+//TODO: test with updated API urls
+const createIntegration = (data: IIntegration) => {
+    return axios.post<any>("/api/intern/integrasjoner", data);
+}
+const getIntegrations = () => {
+    return axios.get<IIntegration[]>("/api/intern/integrasjoner");
+}
+const getIntegrationById = (integrationId: string) => {
+    return axios.get<IIntegration>(`/api/intern/integrasjoner/${integrationId}`);
+}
+const getIntegrationState = (integrationId: string) => {
+    return axios.get<any>(`/api/intern/integrasjoner/${integrationId}/konfigurasjoner`);
+}
+const setIntegrationState = (integrationId: string, active: boolean) => {
+    return axios.put<any>(`/api/intern/integrasjoner/${integrationId}/konfigurasjoner`, active);
+}
+const createConfiguration = (integrationId: string, data: IConfiguration) => {
+    return axios.post<any>(`/api/intern/integrasjoner/${integrationId}/konfigurasjoner`, data);
+}
+const getConfigurations = (integrationId: string) => {
+    return axios.get<any>(`/api/intern/integrasjoner/${integrationId}/konfigurasjoner`);
+}
+const setActiveConfiguration = (integrationId: string, configurationId: string) => {
+        return axios.put<any>(`/api/intern/integrasjoner/${integrationId}/aktiv-konfigurasjon/${configurationId}`);
+}
+
 const IntegrationRepository = {
     getByIdAndVersion,
     get,
@@ -42,7 +70,15 @@ const IntegrationRepository = {
     create,
     update,
     remove,
-    getSak
+    getSak,
+    createIntegration,
+    getIntegrations,
+    getIntegrationById,
+    getIntegrationState,
+    setIntegrationState,
+    createConfiguration,
+    getConfigurations,
+    setActiveConfiguration
 };
 
 export default IntegrationRepository;

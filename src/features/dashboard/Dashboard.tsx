@@ -86,7 +86,7 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
                         <IntegrationConfigurationTable
                             classes={classes}
                             loading={integrations.length === 0}
-                            configurations={integrations}
+                            integrations={integrations}
                             setIntegration={setIntegration}
                             setInitialVersion={setInitialVersion}
                         />}

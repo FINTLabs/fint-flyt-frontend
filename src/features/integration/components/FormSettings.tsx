@@ -7,6 +7,9 @@ import HelpPopover from "./popover/HelpPopover";
 import {useTranslation} from "react-i18next";
 import {SourceApplicationContext} from "../../../context/sourceApplicationContext";
 import {createStyles, makeStyles} from "@mui/styles";
+import IntegrationRepository from "../repository/IntegrationRepository";
+import {toIntegration} from "../../util/ToIntegration";
+import {IFormIntegration} from "../types/Form/FormData";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -25,7 +28,8 @@ export const FormSettings: React.FunctionComponent<any> = (props) => {
         sourceApplicationIntegrationId,
         setDestination,
         setSourceApplicationId,
-        setSourceApplicationIntegrationId
+        setSourceApplicationIntegrationId,
+        setNewIntegration
     } = useContext(IntegrationContext)
     const {availableForms} = useContext(SourceApplicationContext)
     const [error, setError] = useState<string>('');
@@ -37,9 +41,18 @@ export const FormSettings: React.FunctionComponent<any> = (props) => {
 
     const confirm = () => {
         if (destination && sourceApplicationIntegrationId && sourceApplicationId) {
+            //TODO: change to new URLs
+/*            let formConfiguration: IFormIntegration = {destination: destination, sourceApplicationIntegrationId: sourceApplicationIntegrationId, sourceApplicationId: sourceApplicationId}
+            IntegrationRepository.createIntegration(toIntegration(formConfiguration))
+                .then((response) => {
+                    setSourceApplicationIntegrationId(response.data)
+                })
+                .catch(e => console.error(e))*/
+            setNewIntegration({integrationId: '234', sourceApplicationIntegrationId: sourceApplicationIntegrationId, sourceApplicationId: sourceApplicationId, destination: destination})
             props.setSettings(true)
             setError('');
         } else {
+
             setError(t('error'))
         }
     }
@@ -84,22 +97,7 @@ export const FormSettings: React.FunctionComponent<any> = (props) => {
                         />
                         <HelpPopover popoverContent={'sourceApplicationIntegrationId'}/>
                     </Box>
-                    {/*                    <Box sx={{width: '100%', display: 'flex'}}>
-                        <TextField
-                            id='sourceApplicationIntegrationId'
-                            select
-                            size="small"
-                            sx={{mb: 3, width: 'inherit'}}
-                            value={sourceApplicationIntegrationId}
-                            label={t('labels.sourceApplicationIntegrationId') + '*'}
-                            onChange={event => setSourceApplicationIntegrationId(event.target.value)}
-                        >
-                            {availableForms.sourceApplicationForms.map((item: any, index: number) => (
-                                <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
-                            ))}
-                        </TextField>
-                        <HelpPopover popoverContent={'sourceApplication'}/>
-                    </Box>*/}
+
                     <Box sx={{width: '100%', display: 'flex'}}>
                         <TextField
                             id='destination'

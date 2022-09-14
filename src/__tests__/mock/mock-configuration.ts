@@ -1,8 +1,14 @@
 // noinspection DuplicatedCode
 
-import {IIntegrationConfiguration} from "../../features/integration/types/IntegrationConfiguration";
 
-export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
+import {IConfiguration} from "../../features/integration/types/Configuration";
+
+export const MOCK_CONFIGURATION: IConfiguration = {
+    "configurationId": "id0",
+    "integrationId": "TEST123",
+    "comment": "form to test mapping",
+    "version": "1",
+    "completed": false,
     "applicantConfiguration": {
         "applicantType": "PERSON",
         "fields": [
@@ -237,7 +243,6 @@ export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
             }
         ]
     },
-    "comment": "form to test mapping",
     "documentConfiguration": {
         "fields": [
             {
@@ -283,7 +288,6 @@ export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
             }
         ]
     },
-    "published": false,
     "recordConfiguration": {
         "fields": [
             {
@@ -353,11 +357,14 @@ export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
             }
         ]
     },
-    "sourceApplicationId": "Acos",
-    "sourceApplicationIntegrationId": "VIK116"
 }
 
-export const MOCK_INTEGRATION_CONFIG_NOT_PUBLISHED = {
+export const MOCK_CONFIGURATION_NOT_COMPLETE: IConfiguration = {
+    "configurationId": "id1",
+    "integrationId": "TEST123",
+    "comment": "test config not complete",
+    "version": "2",
+    "completed": false,
     "applicantConfiguration": {
         "applicantType": "PERSON",
         "fields": [
@@ -590,7 +597,6 @@ export const MOCK_INTEGRATION_CONFIG_NOT_PUBLISHED = {
             }
         ]
     },
-    "comment": "form to test mapping not published",
     "documentConfiguration": {
         "fields": [
             {
@@ -638,7 +644,6 @@ export const MOCK_INTEGRATION_CONFIG_NOT_PUBLISHED = {
             }
         ]
     },
-    "published": false,
     "recordConfiguration": {
         "fields": [
             {
@@ -710,8 +715,13 @@ export const MOCK_INTEGRATION_CONFIG_NOT_PUBLISHED = {
     }
 }
 
-export const MOCK_INTEGRATION_CONFIG_PUBLISHED = {
-    "applicantConfiguration": {
+export const MOCK_CONFIGURATION_COMPLETE: IConfiguration = {
+    "configurationId": "id2",
+    "integrationId": "TEST123",
+    "comment": "test config, finished",
+    "version": "3",
+    "completed": true,
+    "applicantConfiguration":   {
         "applicantType": "PERSON",
         "fields": [
             {
@@ -943,7 +953,6 @@ export const MOCK_INTEGRATION_CONFIG_PUBLISHED = {
             }
         ]
     },
-    "comment": "form to test mapping published",
     "documentConfiguration": {
         "fields": [
             {
@@ -989,7 +998,6 @@ export const MOCK_INTEGRATION_CONFIG_PUBLISHED = {
             }
         ]
     },
-    "published": true,
     "recordConfiguration": {
         "fields": [
             {
@@ -1061,8 +1069,12 @@ export const MOCK_INTEGRATION_CONFIG_PUBLISHED = {
     }
 }
 
-
-export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
+export const MOCK_CONFIGURATION_WITH_TAGS: IConfiguration = {
+    "configurationId": "id0",
+    "integrationId": "TEST234",
+    "comment": "test config, with tags",
+    "version": "1",
+    "completed": false,
     "applicantConfiguration": {
         "applicantType": "ORGANISATION",
         "fields": [
@@ -1314,7 +1326,6 @@ export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
             }
         ]
     },
-    "comment": "form to test mapping with form tags",
     "documentConfiguration": {
         "fields": [
             {
@@ -1360,7 +1371,6 @@ export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
             }
         ]
     },
-    "published": false,
     "recordConfiguration": {
         "fields": [
             {
@@ -1447,6 +1457,4 @@ export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
             }
         ]
     },
-    "sourceApplicationId": "Acos",
-    "sourceApplicationIntegrationId": "VIK116"
 }
