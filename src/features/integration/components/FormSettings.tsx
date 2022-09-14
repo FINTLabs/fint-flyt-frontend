@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {destinations, sourceApplications} from "../defaults/DefaultValues";
 import {Autocomplete, Box, Button, FormGroup, MenuItem, TextField, Theme, Typography} from "@mui/material";
 import {useHistory} from "react-router-dom";
@@ -27,13 +27,17 @@ export const FormSettings: React.FunctionComponent<any> = (props) => {
         setSourceApplicationId,
         setSourceApplicationIntegrationId
     } = useContext(IntegrationContext)
-    const {availableForms} = useContext(SourceApplicationContext)
+    const {getAvailableForms, availableForms} = useContext(SourceApplicationContext)
     const [error, setError] = useState<string>('');
     const cancel = () => {
         history.push({
             pathname: '/',
         })
     }
+
+    useEffect(() => {
+        getAvailableForms();
+    }, [])
 
     const confirm = () => {
         if (destination && sourceApplicationIntegrationId && sourceApplicationId) {
@@ -69,7 +73,7 @@ export const FormSettings: React.FunctionComponent<any> = (props) => {
                         <Autocomplete
                             sx={{ minWidth:'520px', mb: 3}}
                             id='sourceApplicationIntegrationId'
-                            options={availableForms.sourceApplicationForms}
+                            options={availableForms.sourceApplicationForms ? availableForms.sourceApplicationForms : [{label: 'Velg skjemaleverandør først', value: 'null'}]}
                             renderInput={params => (
                                 <TextField {...params}
                                            size="small"

@@ -109,7 +109,7 @@
                     "description": "Beskrivelse",
                     "published": "Publisert",
                     "revision": "Revisjon",
-                    "dispatched": "Dispatched",
+                    "dispatched": "Sendt til arkiv",
                     "errors": "Feilmeldinger"
                 }
             },
