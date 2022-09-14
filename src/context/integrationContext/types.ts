@@ -1,5 +1,5 @@
 import {IIntegrationConfiguration} from "../../features/integration/types/IntegrationConfiguration";
-import {IForm} from "../../features/integration/types/Form";
+import {IIntegrationMetadata} from "../../features/integration/types/IntegrationMetadata";
 
 export type IntegrationContextState = {
     integration: IIntegrationConfiguration;
@@ -8,8 +8,8 @@ export type IntegrationContextState = {
     setIntegrations: (configurations: IIntegrationConfiguration[]) => void;
     getIntegrations: () => void;
     destination: string,
-    selectedForm: IForm;
-    setSelectedForm: (form: IForm) => void,
+    selectedForm: IIntegrationMetadata;
+    setSelectedForm: (form: IIntegrationMetadata) => void,
     sourceApplicationIntegrationId: string,
     setSourceApplicationIntegrationId: (id: string) => void,
     setDestination: (destination: string) => void;
@@ -38,7 +38,10 @@ export const contextDefaultValues: IntegrationContextState = {
     selectedForm: {
         instanceElementMetadata: [],
         sourceApplicationIntegrationUri: '',
-        sourceApplicationIntegrationId: ''
+        sourceApplicationIntegrationId: '',
+        sourceApplicationId: '',
+        integrationDisplayName: '',
+        version: 0
     },
     setSelectedForm: () => {},
     setDestination: () => {},

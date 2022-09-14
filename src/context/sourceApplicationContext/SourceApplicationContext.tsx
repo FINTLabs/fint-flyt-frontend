@@ -4,6 +4,7 @@ import IntegrationRepository from "../../features/integration/repository/Integra
 import {IIntegrationConfiguration} from "../../features/integration/types/IntegrationConfiguration";
 import SourceApplicationRepository from "../../features/integration/repository/SourceApplicationRepository";
 import {ISelect} from "../../features/integration/types/InputField";
+import {IIntegrationMetadata} from "../../features/integration/types/IntegrationMetadata";
 
 export const SourceApplicationContext = createContext<SourceApplicationContextState>(
     contextDefaultValues
@@ -12,6 +13,7 @@ export const SourceApplicationContext = createContext<SourceApplicationContextSt
 const SourceApplicationProvider: FC = ({children}) => {
     const [sourceApplicationForms, setSourceApplicationForms] = useState<ISourceApplicationItem>(contextDefaultValues.availableForms);
     const [availableForms, setAvailableForms] = useState<ISourceApplicationItem>(contextDefaultValues.availableForms);
+    const [metadata, setMetadata] = useState<IIntegrationMetadata[]>(contextDefaultValues.metadata)
 
 
     const getAvailableForms = () => {
@@ -31,7 +33,14 @@ const SourceApplicationProvider: FC = ({children}) => {
     }
 
     const getMetadata = () => {
-        //TODO:
+        SourceApplicationRepository.getMetadata("1")
+            .then(response => {
+                let data: IIntegrationMetadata[] = response.data
+                setMetadata(data)
+            })
+            .catch((err) => {
+                console.error(err);
+            })
     }
 
     //TODO: get all forms from sourceApplication when available
@@ -53,6 +62,7 @@ const SourceApplicationProvider: FC = ({children}) => {
                 allForms: sourceApplicationForms,
                 availableForms,
                 getAvailableForms,
+                metadata,
                 getMetadata,
                 getAllForms
             }}

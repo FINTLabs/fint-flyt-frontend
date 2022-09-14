@@ -2,9 +2,9 @@ import React, { createContext, useState, FC } from "react";
 import {contextDefaultValues, IntegrationContextState} from "./types";
 import {IIntegrationConfiguration} from "../../features/integration/types/IntegrationConfiguration";
 import IntegrationRepository from "../../features/integration/repository/IntegrationRepository";
-import {IForm} from "../../features/integration/types/Form";
 import EventRepository from "../../features/log/repository/EventRepository";
 import {IIntegrationStatistics} from "../../features/log/types/IntegrationStatistics";
+import {IIntegrationMetadata} from "../../features/integration/types/IntegrationMetadata";
 
 export const IntegrationContext = createContext<IntegrationContextState>(
     contextDefaultValues
@@ -14,7 +14,7 @@ const IntegrationProvider: FC = ({ children }) => {
     const [integration, setIntegration] = useState<IIntegrationConfiguration>({});
     const [integrations, setIntegrations] = useState<IIntegrationConfiguration[]>([]);
     const [destination, setDestination] = useState<string>('');
-    const [selectedForm, setSelectedForm] = useState<IForm>({sourceApplicationIntegrationId: '', sourceApplicationIntegrationUri: '', instanceElementMetadata: []});
+    const [selectedForm, setSelectedForm] = useState<IIntegrationMetadata>(contextDefaultValues.selectedForm);
     const [sourceApplicationIntegrationId, setSourceApplicationIntegrationId] = useState<string>('');
     const [sourceApplicationId, setSourceApplicationId] = useState<string>('');
 
@@ -22,7 +22,7 @@ const IntegrationProvider: FC = ({ children }) => {
         setDestination('');
         setSourceApplicationId('');
         setSourceApplicationIntegrationId('');
-        setSelectedForm({sourceApplicationIntegrationId: '', sourceApplicationIntegrationUri: '', instanceElementMetadata: []})
+        setSelectedForm(contextDefaultValues.selectedForm)
     }
 
     //TODO: fix after api change

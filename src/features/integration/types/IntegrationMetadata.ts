@@ -1,5 +1,5 @@
 export interface IInstanceElementMetadata {
-    id?: number;
+    id: string;
     key: string;
     displayName: string;
     children: IInstanceElementMetadata[];

@@ -24,10 +24,11 @@ export const FormSettings: React.FunctionComponent<any> = (props) => {
         sourceApplicationId,
         sourceApplicationIntegrationId,
         setDestination,
+        setSelectedForm,
         setSourceApplicationId,
         setSourceApplicationIntegrationId
     } = useContext(IntegrationContext)
-    const {getAvailableForms, availableForms} = useContext(SourceApplicationContext)
+    const {getAvailableForms, availableForms, metadata, getMetadata} = useContext(SourceApplicationContext)
     const [error, setError] = useState<string>('');
     const cancel = () => {
         history.push({
@@ -37,10 +38,13 @@ export const FormSettings: React.FunctionComponent<any> = (props) => {
 
     useEffect(() => {
         getAvailableForms();
+        getMetadata();
     }, [])
 
     const confirm = () => {
         if (destination && sourceApplicationIntegrationId && sourceApplicationId) {
+            let selectedForm = metadata.filter(md => md.sourceApplicationIntegrationId === sourceApplicationIntegrationId)
+            setSelectedForm(selectedForm[0])
             props.setSettings(true)
             setError('');
         } else {
@@ -82,8 +86,8 @@ export const FormSettings: React.FunctionComponent<any> = (props) => {
                             )}
                             getOptionLabel={option => option.label}
                             value={sourceApplicationIntegrationId? availableForms.sourceApplicationForms.find( ({value} : {value:any}) => value === sourceApplicationIntegrationId ): null}
-                            onChange={(_event, newTeam) => {
-                                setSourceApplicationIntegrationId(newTeam? newTeam.value : '');
+                            onChange={(_event, select) => {
+                                setSourceApplicationIntegrationId(select? select.value : '');
                             }}
                         />
                         <HelpPopover popoverContent={'sourceApplicationIntegrationId'}/>

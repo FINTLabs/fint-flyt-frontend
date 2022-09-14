@@ -1,4 +1,5 @@
 import {ISelect} from "../../features/integration/types/InputField";
+import {IIntegrationMetadata} from "../../features/integration/types/IntegrationMetadata";
 
 export interface ISourceApplicationItem {
     sourceApplication: string;
@@ -10,6 +11,7 @@ export type SourceApplicationContextState = {
     availableForms: ISourceApplicationItem;
     getAllForms: (forms: ISelect[]) => void;
     getAvailableForms: () => void;
+    metadata: IIntegrationMetadata[];
     getMetadata: () => void;
 };
 
@@ -18,5 +20,12 @@ export const contextDefaultValues: SourceApplicationContextState = {
     availableForms: {sourceApplication: '', sourceApplicationForms: []},
     getAllForms: () => {},
     getAvailableForms: () => {},
+    metadata: [{instanceElementMetadata: [],
+        sourceApplicationIntegrationUri: '',
+        sourceApplicationIntegrationId: '',
+        sourceApplicationId: '',
+        integrationDisplayName: '',
+        version: 0
+    }],
     getMetadata: () => {}
 };
