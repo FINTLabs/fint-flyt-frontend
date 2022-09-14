@@ -8,7 +8,7 @@ export interface ISourceApplicationItem {
 export type SourceApplicationContextState = {
     allForms: ISourceApplicationItem;
     availableForms: ISourceApplicationItem;
-    getAllForms: () => void;
+    getAllForms: (forms: ISelect[]) => void;
     getAvailableForms: () => void;
     getMetadata: () => void;
 };

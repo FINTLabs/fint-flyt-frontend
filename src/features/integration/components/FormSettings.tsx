@@ -73,7 +73,7 @@ export const FormSettings: React.FunctionComponent<any> = (props) => {
                         <Autocomplete
                             sx={{ minWidth:'520px', mb: 3}}
                             id='sourceApplicationIntegrationId'
-                            options={availableForms.sourceApplicationForms}
+                            options={availableForms.sourceApplicationForms ? availableForms.sourceApplicationForms : [{label: 'Velg skjemaleverandør først', value: 'null'}]}
                             renderInput={params => (
                                 <TextField {...params}
                                            size="small"
