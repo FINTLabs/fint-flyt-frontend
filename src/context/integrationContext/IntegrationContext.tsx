@@ -29,7 +29,6 @@ const IntegrationProvider: FC = ({ children }) => {
     const getIntegrations = () => {
         EventRepository.getStatistics()
             .then((response) => {
-                console.log(response.data)
                 let statistics = response.data;
                 IntegrationRepository.get()
                     .then((response) => {
