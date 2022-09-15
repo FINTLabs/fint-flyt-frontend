@@ -24,7 +24,7 @@ export const contextDefaultValues: SourceApplicationContextState = {
         sourceApplicationIntegrationUri: '',
         sourceApplicationIntegrationId: '',
         sourceApplicationId: '',
-        integrationDisplayName: '',
+        integrationDisplayName: 'INGEN DATA',
         version: 0
     }],
     getMetadata: () => {}

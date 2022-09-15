@@ -4,6 +4,7 @@ import {ISelect} from "../types/InputField";
 import {CreationStrategy} from "../types/CreationStrategy";
 import IFormData from "../types/Form/FormData";
 import {ApplicantType} from "../types/ApplicantType";
+import {IIntegrationMetadata} from "../types/IntegrationMetadata";
 
 export const defaultValues: IFormData = {
     description: '',
@@ -129,6 +130,18 @@ export const destinations: ISelect[] = [
     { label: "Fylkesråd", value: "fylkesrad" }
 ];
 
+//TODO after removing old forms
+export const SOURCE_FORM_NO_VALUES: IIntegrationMetadata[] = [
+    {
+        sourceApplicationId: "string",
+        sourceApplicationIntegrationId: "string",
+        sourceApplicationIntegrationUri: "string",
+        integrationDisplayName: "INGEN DATA",
+        instanceElementMetadata: [],
+        version: 0
+    }
+]
+
 export const fieldHelp = {
     description: 'besrkrivelse',
     version: '',
@@ -201,3 +214,4 @@ export const fieldHelp = {
         paragraph: 'Denne skal fjernes',
     }
 }
+
