@@ -31,7 +31,6 @@ import {IntegrationContext} from "../../context/integrationContext";
 import {FormSettings} from "./components/FormSettings";
 import CloseIcon from '@mui/icons-material/Close';
 import { useTranslation } from "react-i18next";
-import {SourceApplicationContext} from "../../context/sourceApplicationContext";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -111,12 +110,9 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     const { errors } = formState;
 
     const { getAllResources, resetAllResources } = useContext(ResourcesContext);
-    const { getForms, getAllForms } = useContext(SourceApplicationContext);
 
     useEffect(() => {
         getAllResources();
-        getForms();
-        getAllForms();
         return () => {
             setNewIntegration(undefined);
             resetAllResources();

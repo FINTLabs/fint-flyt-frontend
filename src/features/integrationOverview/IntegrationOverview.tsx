@@ -39,23 +39,19 @@ const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = (
         dispatchedInstances: string
     }
     let integrationStats: Map<string, statistics>;
+    const showDetails: boolean = window.location.pathname === '/integration/configuration/details'
+        const {integration, setIntegration, integrations, getIntegrations} = useContext(IntegrationContext)
+    const [initialVersion, setInitialVersion] = useState(integration.version);
 
 
     useEffect(()=> {
+        getIntegrations();
         getNewIntegrations();
-        getStatistics();
     }, []);
 
     const resetConfiguration = () => {
         setNewIntegration({integrationId: ''})
         getNewIntegrations();
-    }
-
-    const getStatistics = () => {
-        EventRepository.getStatistics()
-            .then((response) => {
-            integrationStats = response.data;
-        }).catch(e => console.log('error', e))
     }
 
     return (

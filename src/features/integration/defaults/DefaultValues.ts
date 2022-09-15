@@ -4,6 +4,7 @@ import {ISelect} from "../types/InputField";
 import {CreationStrategy} from "../types/CreationStrategy";
 import {IFormData} from "../types/Form/FormData";
 import {ApplicantType} from "../types/ApplicantType";
+import {IIntegrationMetadata} from "../types/IntegrationMetadata";
 import {IIntegration} from "../types/Integration";
 import {
     IApplicantConfiguration,
@@ -133,6 +134,18 @@ export const sourceApplications: ISelect[] = [
 export const destinations: ISelect[] = [
     { label: "Fylkesråd", value: "fylkesrad" }
 ];
+
+//TODO after removing old forms
+export const SOURCE_FORM_NO_VALUES: IIntegrationMetadata[] = [
+    {
+        sourceApplicationId: "string",
+        sourceApplicationIntegrationId: "string",
+        sourceApplicationIntegrationUri: "string",
+        integrationDisplayName: "INGEN DATA",
+        instanceElementMetadata: [],
+        version: 0
+    }
+]
 
 export const fieldHelp = {
     comment: 'Kommentar',

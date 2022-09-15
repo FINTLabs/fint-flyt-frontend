@@ -9,6 +9,8 @@ import {ResourcesContext} from "../../../context/resourcesContext";
 import {IntegrationContext} from "../../../context/integrationContext";
 import {toFormData} from "../../util/ToFormData";
 import {useTranslation} from "react-i18next";
+import {SourceApplicationContext} from "../../../context/sourceApplicationContext";
+import {SOURCE_FORM_NO_VALUES} from "../../integration/defaults/DefaultValues";
 
 
 const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) => {
@@ -18,9 +20,11 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
     const [updateSuccess, setUpdateSuccess] = useState(false)
     const [version, setVersion] = useState(props.initialConfiguration.version)
     const latestVersion = props.initialVersion;
-    const {integration, setIntegration, setSourceApplicationId, setSourceApplicationIntegrationId, setDestination} = useContext(IntegrationContext);
+    const {integration, setIntegration,setSelectedForm,  setSourceApplicationId, setSourceApplicationIntegrationId, setDestination} = useContext(IntegrationContext);
     const {setPrimaryClassification, setSecondaryClassification, setTertiaryClassification} = useContext(ResourcesContext);
     let activeFormData =  toFormData(integration)
+
+    const {getAvailableForms, metadata, getMetadata} = useContext(SourceApplicationContext)
 
     const versions = [];
     for (let i = 1; i<=latestVersion; i++) {
@@ -28,6 +32,8 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
     }
     const { getAllResources } = useContext(ResourcesContext);
     useEffect(()=> {
+        getAvailableForms();
+        getMetadata();
         setPrimaryClassification({label: '', value: fieldToString(integration.caseConfiguration, 'primarordningsprinsipp')})
         setSecondaryClassification({label: '', value: fieldToString(integration.caseConfiguration, 'sekundarordningsprinsipp')})
         setTertiaryClassification({label: '', value: fieldToString(integration.caseConfiguration, 'tertiarordningsprinsipp')})
@@ -67,6 +73,9 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
         history.push({
             pathname: '/integration/configuration/edit',
         })
+        let selectedForm = metadata.filter(md => md.sourceApplicationIntegrationId === activeConfiguration.sourceApplicationIntegrationId)
+        //TODO: remove when we can no longer use old forms
+        setSelectedForm(selectedForm.length > 0 ? selectedForm[0] : SOURCE_FORM_NO_VALUES[0])
         setIntegration(activeConfiguration);
         setSourceApplicationId(activeConfiguration?.sourceApplicationId ? activeConfiguration.sourceApplicationId : '');
         setSourceApplicationIntegrationId(activeConfiguration?.sourceApplicationIntegrationId ? activeConfiguration.sourceApplicationIntegrationId : '');

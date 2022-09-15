@@ -5,6 +5,9 @@ import IntegrationRepository from "../../features/integration/repository/Integra
 import {newConfs, newInts} from "../../features/integration/defaults/DefaultValues";
 import {IIntegration} from "../../features/integration/types/Integration";
 import {IConfiguration} from "../../features/integration/types/Configuration";
+import EventRepository from "../../features/log/repository/EventRepository";
+import {IIntegrationStatistics} from "../../features/log/types/IntegrationStatistics";
+import {IIntegrationMetadata} from "../../features/integration/types/IntegrationMetadata";
 
 export const IntegrationContext = createContext<IntegrationContextState>(
     contextDefaultValues
@@ -18,6 +21,7 @@ const IntegrationProvider: FC = ({ children }) => {
     const [configuration, setConfiguration] = useState<IConfiguration>({});
     const [configurations, setConfigurations] = useState<IConfiguration[]>([]);
     const [destination, setDestination] = useState<string>('');
+    const [selectedForm, setSelectedForm] = useState<IIntegrationMetadata>(contextDefaultValues.selectedForm);
     const [sourceApplicationIntegrationId, setSourceApplicationIntegrationId] = useState<string>('');
     const [sourceApplicationId, setSourceApplicationId] = useState<string>('');
 
@@ -25,6 +29,7 @@ const IntegrationProvider: FC = ({ children }) => {
         setDestination('');
         setSourceApplicationId('');
         setSourceApplicationIntegrationId('');
+        setSelectedForm(contextDefaultValues.selectedForm)
     }
 
     const getNewIntegrations = () => {
@@ -38,13 +43,26 @@ const IntegrationProvider: FC = ({ children }) => {
     }
 
     const getIntegrations = () => {
-        IntegrationRepository.get()
+        EventRepository.getStatistics()
             .then((response) => {
-                if(response.data.content) {
-                    setNewIntegrations(newInts);
-                }
-            })
-            .catch(e => console.error('Error: ', e))
+                let statistics = response.data;
+                IntegrationRepository.get()
+                    .then((response) => {
+                        if(response.data.content) {
+                            let mergedList: IIntegration[] = response.data.content;
+                            statistics.forEach((value: IIntegrationStatistics) => {
+                                mergedList.map((integration: IIntegration) => {
+                                    if (integration.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {
+                                        integration.errors = value.currentErrors;
+                                        integration.dispatched = value.dispatchedInstances;
+                                    }
+                                })
+                            })
+                            setNewIntegrations(mergedList);
+                        }
+                    })
+                    .catch(e => console.error('Error: ', e))
+            }).catch(e => console.log('error', e))
     }
 
     const getConfigurations = (integrationId: string) => {
@@ -75,6 +93,8 @@ const IntegrationProvider: FC = ({ children }) => {
                 setConfigurations,
                 destination,
                 setDestination,
+                selectedForm,
+                setSelectedForm,
                 sourceApplicationId,
                 sourceApplicationIntegrationId,
                 setSourceApplicationIntegrationId,

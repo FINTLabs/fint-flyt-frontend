@@ -16,8 +16,8 @@ const IntegrationConfigurationTable: React.FunctionComponent<any> = (props) => {
         { field: 'sourceApplicationId', type: 'string', headerName: t('table.columns.sourceApplicationId'), flex: 1 },
         { field: 'sourceApplicationIntegrationId', type: 'string', headerName: t('table.columns.sourceApplicationIntegrationId'), flex: 1 },
         { field: 'destination', type: 'string', headerName:  t('table.columns.destination'), flex: 1 },
-        { field: 'dispatched', type: 'string', headerName:  t('table.columns.dispatched'), flex: 1 },
-        { field: 'errors', type: 'string', headerName:  t('table.columns.errors'), flex: 1 }
+        { field: 'dispatched', type: 'number', headerName: t('table.columns.dispatched'), flex: 1 },
+        { field: 'errors', type: 'number', headerName: t('table.columns.errors'), flex: 1 }
     ];
 
     const setHistory = () => {

@@ -14,6 +14,11 @@ const InstanceOverview: React.FunctionComponent<RouteComponentProps<any>> = () =
     const {t} = useTranslation('translations', {keyPrefix: 'pages.instanceOverview'})
     const [allEvents, setAllEvents] = useState<IEvent[]>([]);
 
+    const  resend = (event: any, instanceId: string) => {
+        //TODO: try resending instance
+        console.log('resend instance', instanceId)
+    }
+
     const columns: GridColumns = [
         { field: 'id', hide: true, type: 'string', headerName: 'id', flex: 0.5 },
         { field: 'sourceApplicationInstanceId', type: 'string', headerName: 'Kilde instans ID', flex: 1,
@@ -49,7 +54,9 @@ const InstanceOverview: React.FunctionComponent<RouteComponentProps<any>> = () =
         return (
             <>
                 {hasErrors &&
-                    <Button disabled={true} size="small" variant="outlined">Send</Button>
+                    <Button size="small" variant="outlined" onClick={(e) => {
+                        resend(e, props.row.instanceFlowHeaders.instanceId);
+                    }}>Send</Button>
                 }
             </>
         );

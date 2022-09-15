@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {destinations, sourceApplications} from "../defaults/DefaultValues";
 import {Autocomplete, Box, Button, FormGroup, MenuItem, TextField, Theme, Typography} from "@mui/material";
 import {useHistory} from "react-router-dom";
@@ -27,11 +27,12 @@ export const FormSettings: React.FunctionComponent<any> = (props) => {
         sourceApplicationId,
         sourceApplicationIntegrationId,
         setDestination,
+        setSelectedForm,
         setSourceApplicationId,
         setSourceApplicationIntegrationId,
         setNewIntegration
     } = useContext(IntegrationContext)
-    const {availableForms} = useContext(SourceApplicationContext)
+    const {getAvailableForms, availableForms, metadata, getMetadata} = useContext(SourceApplicationContext)
     const [error, setError] = useState<string>('');
     const cancel = () => {
         history.push({
@@ -39,8 +40,15 @@ export const FormSettings: React.FunctionComponent<any> = (props) => {
         })
     }
 
+    useEffect(() => {
+        getAvailableForms();
+        getMetadata();
+    }, [])
+
     const confirm = () => {
         if (destination && sourceApplicationIntegrationId && sourceApplicationId) {
+            let selectedForm = metadata.filter(md => md.sourceApplicationIntegrationId === sourceApplicationIntegrationId)
+            setSelectedForm(selectedForm[0])
             //TODO: change to new URLs
 /*            let formConfiguration: IFormIntegration = {destination: destination, sourceApplicationIntegrationId: sourceApplicationIntegrationId, sourceApplicationId: sourceApplicationId}
             IntegrationRepository.createIntegration(toIntegration(formConfiguration))
@@ -52,7 +60,6 @@ export const FormSettings: React.FunctionComponent<any> = (props) => {
             props.setSettings(true)
             setError('');
         } else {
-
             setError(t('error'))
         }
     }
@@ -82,7 +89,7 @@ export const FormSettings: React.FunctionComponent<any> = (props) => {
                         <Autocomplete
                             sx={{ minWidth:'520px', mb: 3}}
                             id='sourceApplicationIntegrationId'
-                            options={availableForms.sourceApplicationForms}
+                            options={availableForms.sourceApplicationForms ? availableForms.sourceApplicationForms : [{label: 'Velg skjemaleverandør først', value: 'null'}]}
                             renderInput={params => (
                                 <TextField {...params}
                                            size="small"
@@ -91,8 +98,8 @@ export const FormSettings: React.FunctionComponent<any> = (props) => {
                             )}
                             getOptionLabel={option => option.label}
                             value={sourceApplicationIntegrationId? availableForms.sourceApplicationForms.find( ({value} : {value:any}) => value === sourceApplicationIntegrationId ): null}
-                            onChange={(_event, newTeam) => {
-                                setSourceApplicationIntegrationId(newTeam? newTeam.value : '');
+                            onChange={(_event, select) => {
+                                setSourceApplicationIntegrationId(select? select.value : '');
                             }}
                         />
                         <HelpPopover popoverContent={'sourceApplicationIntegrationId'}/>

@@ -1,6 +1,7 @@
 import {IIntegrationConfiguration} from "../../features/integration/types/IntegrationConfiguration";
 import {IIntegration} from "../../features/integration/types/Integration";
 import {IConfiguration} from "../../features/integration/types/Configuration";
+import {IIntegrationMetadata} from "../../features/integration/types/IntegrationMetadata";
 
 export type IntegrationContextState = {
     integration: IIntegrationConfiguration;
@@ -17,6 +18,8 @@ export type IntegrationContextState = {
     setConfigurations: (configurations: IConfiguration[]) => void;
     getConfigurations: (integration: string) => void;
     destination: string,
+    selectedForm: IIntegrationMetadata;
+    setSelectedForm: (form: IIntegrationMetadata) => void,
     sourceApplicationIntegrationId: string,
     setSourceApplicationIntegrationId: (id: string) => void,
     setDestination: (destination: string) => void;
@@ -52,7 +55,15 @@ export const contextDefaultValues: IntegrationContextState = {
     getConfigurations: () => {},
     setConfigurations: () => {},
     destination: '',
-
+    selectedForm: {
+        instanceElementMetadata: [],
+        sourceApplicationIntegrationUri: '',
+        sourceApplicationIntegrationId: '',
+        sourceApplicationId: '',
+        integrationDisplayName: '',
+        version: 0
+    },
+    setSelectedForm: () => {},
     setDestination: () => {},
     sourceApplicationId: '',
     setSourceApplicationId: () => {},
