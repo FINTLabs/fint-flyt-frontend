@@ -1,30 +1,21 @@
 import axios from "axios";
 
-const getEvents = () => {
-    return axios.get<any>(`/api/intern/historikk/hendelser`);
-};
-
-const getEventsByCorrelationId = (id: any) => {
-    return axios.get<any>(`/api/intern/historikk/korrelasjonsid/${id}`);
-};
-
-const getEventsByInstanceId = (id: any) => {
-    return axios.get<any>(`/api/intern/historikk/instansid/${id}`);
-};
-
-const getEventsByIntegrationId = (id: any) => {
-    return axios.get<any>(`/api/intern/historikk/integrasjonsid/${id}`);
+const getEvents = (correlationId?: string, instanceId?: string, integrationId?: string, onlyLastest?: boolean) => {
+    return axios.get<any>(`/api/intern/historikk/hendelser`, {
+        params: {
+            correlationId: correlationId,
+            instanceId: instanceId,
+            integrationId: integrationId,
+            onlyLatest: onlyLastest
+        }});
 };
 
 const getStatistics = () => {
-    return axios.get<any>(`/api/intern/historikk/statistikk/integrasjon`);
+    return axios.get<any>(`/api/intern/historikk/integrasjoner/statistikk`);
 };
 
 const ResourceRepository = {
     getEvents,
-    getEventsByCorrelationId,
-    getEventsByInstanceId,
-    getEventsByIntegrationId,
     getStatistics
 };
 

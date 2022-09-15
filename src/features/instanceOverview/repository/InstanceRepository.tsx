@@ -1,10 +1,8 @@
 import axios from "axios";
 
 const resendInstance = (instanceId: string) => {
-    //TODO 12/09 add possibility to resend failed instance
-    return;
+    return axios.post<string>( `api/intern/instanser/instanceId/${instanceId}/prov-igjen`);
 };
-
 
 const ResourceRepository = {
     resendInstance
