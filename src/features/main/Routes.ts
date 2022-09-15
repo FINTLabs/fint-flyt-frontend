@@ -34,7 +34,7 @@ const routes: IRoute[] = [
         name: 'integrationOverview',
         component: IntegrationOverview,
         exact: true,
-        icon: 'sync',
+        icon: 'format_list_bulleted',
         inNavigationMenu: true
     },
     {
@@ -44,18 +44,24 @@ const routes: IRoute[] = [
         exact: true,
     },
     {
+        path: '/integration/',
+        name: 'integrationPanel',
+        component: IntegrationOverview,
+        exact: true,
+    },
+    {
         path: '/integration/instance/list',
         name: 'instanceOverview',
         component: InstanceOverview,
         exact: true,
-        icon: 'receipt',
+        icon: 'format_list_bulleted',
         inNavigationMenu: true
     },
     {
         path: '/log',
         name: 'log',
         component: Log,
-        icon: 'receipt',
+        icon: 'event-note-icon',
         exact: true,
         inNavigationMenu: true
     },
