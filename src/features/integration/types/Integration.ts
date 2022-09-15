@@ -5,4 +5,6 @@ export interface IIntegration {
     destination?: string;
     active?: boolean;
     activeConfigurationId?: string;
+    dispatched?: number;
+    errors?: number;
 }

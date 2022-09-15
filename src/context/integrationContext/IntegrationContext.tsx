@@ -32,7 +32,7 @@ const IntegrationProvider: FC = ({ children }) => {
         setSelectedForm(contextDefaultValues.selectedForm)
     }
 
-    const getNewIntegrations = () => {
+    const getIntegrations = () => {
         IntegrationRepository.get()
             .then((response) => {
                 if(response.data.content) {
@@ -42,7 +42,7 @@ const IntegrationProvider: FC = ({ children }) => {
             .catch(e => console.error('Error: ', e))
     }
 
-    const getIntegrations = () => {
+    const getNewIntegrations = () => {
         EventRepository.getStatistics()
             .then((response) => {
                 let statistics = response.data;

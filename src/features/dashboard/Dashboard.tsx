@@ -36,21 +36,20 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.dashboard'});
     const classes = useStyles();
     const showDetails: boolean = window.location.pathname === '/integration/configuration/details'
-    const {integration, setIntegration, integrations, getIntegrations} = useContext(IntegrationContext)
-    const [initialVersion, setInitialVersion] = useState(integration.version);
+    const {integration, setIntegration, newIntegrations, getNewIntegrations} = useContext(IntegrationContext)
 
     useEffect(()=> {
-        getIntegrations();
+        getNewIntegrations();
     }, [])
 
 
     const resetConfiguration = () => {
         setIntegration({})
-        getIntegrations();
+        getNewIntegrations();
     }
 
     const cards: ICard[] = [
-        { value: integrations.length === 0 ? t('empty') : integrations.length, content: t('form'), links: [
+        { value: newIntegrations.length === 0 ? t('empty') : newIntegrations.length, content: t('form'), links: [
                 {name: t('links.newIntegration'), href: '/integration/configuration/new'}
             ]
         },
@@ -77,19 +76,12 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
             </Box>
             <Card className={classes.card} sx={{mt: 4}}>
                 <CardContent>
-                    {integration.sourceApplicationIntegrationId && showDetails ?
-                        <IntegrationConfigurationDetails
-                            reset={resetConfiguration}
-                            initialConfiguration={integration}
-                            initialVersion={initialVersion}
-                        /> :
                         <IntegrationConfigurationTable
                             classes={classes}
-                            loading={integrations.length === 0}
-                            integrations={integrations}
+                            loading={newIntegrations.length === 0}
+                            integrations={newIntegrations}
                             setIntegration={setIntegration}
-                            setInitialVersion={setInitialVersion}
-                        />}
+                        />
                 </CardContent>
             </Card>
         </Box>
