@@ -190,7 +190,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
         history.push({
             pathname: '/',
         })
-        setIntegration({});
+        setConfiguration({});
     }
 
     const handleClose = (event: React.SyntheticEvent | Event, reason?: string) => {
