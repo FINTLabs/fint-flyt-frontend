@@ -24,7 +24,7 @@ const InstanceOverview: React.FunctionComponent<RouteComponentProps<any>> = () =
         { field: 'sourceApplicationInstanceId', type: 'string', headerName: 'Kilde instans ID', flex: 1,
             valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplicationInstanceId
         },
-        { field: 'timestamp', type: 'string', headerName: 'Sist hendelse', flex: 1,
+        { field: 'timestamp', type: 'string', headerName: 'Sist hendelse', flex: 2,
             valueGetter: (params) => moment(params.row.timestamp).format('YYYY/MM/DD HH:mm')
         },
         { field: 'name', type: 'string', headerName: 'Status', flex: 2, valueGetter: params => t(params.row.name)},
@@ -34,10 +34,10 @@ const InstanceOverview: React.FunctionComponent<RouteComponentProps<any>> = () =
         { field: 'sourceApplicationIntegrationId', type: 'string', headerName: 'Skjema', flex: 2,
             valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplicationIntegrationId
         },
-        { field: 'archiveCaseId', type: 'string', headerName: 'Arkivsak ID', flex: 2,
+        { field: 'archiveCaseId', type: 'string', headerName: 'Arkivsak ID', flex: 1,
             valueGetter: (params) => params.row.instanceFlowHeaders.archiveCaseId
         },
-        { field: 'configurationId', type: 'string', headerName: 'Konfigurasjon ID', flex: 2,
+        { field: 'configurationId', type: 'string', headerName: 'Konfigurasjon ID', flex: 1,
             valueGetter: (params) => params.row.instanceFlowHeaders.configurationId
         },
         { field: 'details', headerName: 'Send inn på nytt', flex: 1, sortable: false, filterable: false,

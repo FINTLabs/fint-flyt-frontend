@@ -24,7 +24,7 @@ export interface IIntegrationConfiguration {
     sourceApplicationId?: string;
     sourceApplicationIntegrationId?: string;
     destination?: string;
-    published?: boolean;
+    finished?: boolean;
     dispatched?: number;
     errors?: number;
 

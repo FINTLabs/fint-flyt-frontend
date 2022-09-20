@@ -28,11 +28,11 @@
             }
         },
         "integrationForm": {
-            "header": "Integrasjon til arkiv",
-            "successHeader": "Integrasjon til arkiv - ferdig",
+            "header": "Konfigurasjon",
+            "successHeader": "Konfigurasjon - ferdigstilt",
             "accordions": {
                 "caseInformation": {
-                    "header": "Integrasjonslogikk",
+                    "header": "Integrasjon",
                     "button": {
                         "search": "Søk",
                         "save": "Lagre"
@@ -73,7 +73,7 @@
                     }
                 }
             },
-            "checkLabel": "Publisert",
+            "checkLabel": "Ferdigstilt",
             "button": {
                 "save": "Lagre",
                 "cancel": "Avbryt",
@@ -108,7 +108,7 @@
                     "sourceApplicationId": "Skjemaleverandør",
                     "name": "Navn",
                     "comment": "Kommentar",
-                    "published": "Publisert",
+                    "finished": "Ferdigstilt",
                     "revision": "Revisjon",
                     "dispatched": "Sendt til arkiv",
                     "errors": "Feilmeldinger"
@@ -120,7 +120,7 @@
                 "sourceApplicationId": "Skjemaleverandør: ",
                 "sourceApplicationIntegrationId": "Skjema: ",
                 "caseCreationStrategy": "Avleveringslogikk: ",
-                "published": "Publisert: ",
+                "finished": "Ferdigstilt: ",
                 "version": "Versjon: ",
                 "caseNumber": "Saksnummer: ",
                 "caseType": "Sakstype: ",
@@ -190,7 +190,7 @@
                     "sourceApplicationId": "Skjemaleverandør",
                     "name": "Navn",
                     "comment": "Kommentar",
-                    "published": "Publisert",
+                    "finished": "Ferdigstilt",
                     "revision": "Revisjon"
                 }
             },
@@ -201,7 +201,7 @@
                 "sourceApplicationId": "Skjemaleverandør: ",
                 "sourceApplicationIntegrationId": "Skjema: ",
                 "caseCreationStrategy": "Avleveringslogikk: ",
-                "published": "Publisert: ",
+                "finished": "Ferdigstilt: ",
                 "version": "Versjon: ",
                 "caseNumber": "Saksnummer: ",
                 "title": "Tittel: ",
@@ -365,7 +365,7 @@
             "version": "Version",
             "sourceApplicationId": "Source application",
             "sourceApplicationIntegrationId": "Form",
-            "published": "Published",
+            "finished": "finished",
             "caseConfiguration": {
                 "caseCreationStrategy": "",
                 "caseNumber": "",

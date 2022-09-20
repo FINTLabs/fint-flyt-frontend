@@ -11,7 +11,7 @@ export function toIntegrationConfiguration(data: IFormData, sourceApplicationInt
         sourceApplicationId: data.sourceApplicationId,
         sourceApplicationIntegrationId: data.sourceApplicationIntegrationId,
         destination: data.destination,
-        published: data.published,
+        finished: data.finished,
         caseConfiguration: newCaseCreationStrategy ?
             {
                 caseCreationStrategy: data.caseData?.caseCreationStrategy,

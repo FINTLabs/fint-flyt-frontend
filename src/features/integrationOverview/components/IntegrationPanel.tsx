@@ -8,6 +8,7 @@ import {useTranslation} from "react-i18next";
 import {useContext} from "react";
 import {IntegrationContext} from "../../../context/integrationContext";
 import { Link } from 'react-router-dom';
+import {SourceApplicationContext} from "../../../context/sourceApplicationContext";
 
 const IntegrationPanel: React.FunctionComponent<any> = (props) => {
     const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.integrationOverview'});
@@ -44,7 +45,6 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
 
 
     const openConfiguration = (event: any, configurationId: string) => {
-        //TODO: try resending instance
         console.log('open config', configurationId)
     }
 
@@ -94,17 +94,9 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                     />
                 </Box>
             </Box>
-            <Link style={{background: '#1F4F59', padding: '6px 16px 6px 16px', borderRadius: '6px', textDecoration:'none', color:'white', position: 'absolute', marginTop: '6px', border: 'solid 1px', fontFamily: 'sans-serif'}} to='/integration/configuration/new'>Ny konfigurasjon
-            </Link>
-
-{/*            <Button
-                    size="small"
-                    variant="contained"
-                   onClick={(e) => {
-                        openNewConfigurationDialog(e, newIntegration.integrationId);
-                    }}
-                >Ny konfigurasjon
-            </Button>*/}
+            <Link
+                style={{background: '#1F4F59', padding: '6px 16px 6px 16px', borderRadius: '6px', textDecoration:'none', color:'white', position: 'absolute', marginTop: '6px', border: 'solid 1px', fontFamily: 'sans-serif'}}
+                to='/integration/configuration/new'>Ny konfigurasjon</Link>
         </Box>
     );
 }

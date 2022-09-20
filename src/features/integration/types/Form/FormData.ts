@@ -9,7 +9,7 @@ export interface IFormData {
     sourceApplicationId?: string;
     sourceApplicationIntegrationId?: string;
     destination?: string;
-    published?: boolean;
+    finished?: boolean;
     active?: boolean;
 
     caseData: ICaseData;

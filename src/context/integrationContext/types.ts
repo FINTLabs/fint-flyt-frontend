@@ -34,7 +34,7 @@ export const contextDefaultValues: IntegrationContextState = {
         sourceApplicationId: '',
         sourceApplicationIntegrationId: '',
         version: undefined,
-        published: false,
+        finished: false,
         applicantConfiguration: {fields: []},
         caseConfiguration: {fields: []},
         recordConfiguration: {fields: []},

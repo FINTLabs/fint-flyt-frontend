@@ -31,6 +31,8 @@ import {IntegrationContext} from "../../context/integrationContext";
 import {FormSettings} from "./components/FormSettings";
 import CloseIcon from '@mui/icons-material/Close';
 import { useTranslation } from "react-i18next";
+import InputField from "./components/form/InputField";
+import {INPUT_TYPE} from "./types/InputType.enum";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -93,7 +95,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     const [activeId, setActiveId] = useState<any>(undefined)
     const [saved, setSaved] = React.useState(false);
     const [saveError, setSaveError] = React.useState(false);
-    const [checked, setChecked] = React.useState(integration.sourceApplicationIntegrationId && editConfig ? integration.published : false);
+    const [checked, setChecked] = React.useState(integration.sourceApplicationIntegrationId && editConfig ? integration.finished : false);
     const [protectedCheck, setProtectedChecked] = React.useState(false);
     let history = useHistory();
     let activeConfiguration = integration.sourceApplicationIntegrationId && editConfig ? integration : undefined;
@@ -208,7 +210,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
         data.sourceApplicationId = sourceApplicationId;
         data.sourceApplicationIntegrationId = sourceApplicationIntegrationId;
         data.destination = destination;
-        data.published = true;
+        data.finished = true;
         data.applicantData.protected = protectedCheck;
         const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data);
         if (integrationConfiguration && activeId !== undefined && activeConfiguration?.sourceApplicationIntegrationId === undefined) {
@@ -234,7 +236,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
         data.sourceApplicationId = sourceApplicationId;
         data.sourceApplicationIntegrationId = sourceApplicationIntegrationId;
         data.destination = destination;
-        data.published = false;
+        data.finished = false;
         data.applicantData.protected = protectedCheck;
         const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data);
         if (integrationConfiguration && activeId !== undefined) {
@@ -255,10 +257,6 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
 
     return (
         <DndProvider backend={HTML5Backend}>
-            <Typography>{newIntegration?.integrationId}</Typography>
-            <Typography>{newIntegration?.sourceApplicationId}</Typography>
-            <Typography>{newIntegration?.sourceApplicationIntegrationId}</Typography>
-            <Typography>{newIntegration?.destination}</Typography>
             {!newIntegration && <FormSettings setSettings={setSettings}/>}
             {!submitSuccess && newIntegration &&
                 <Box display="flex" position="relative" width={1} height={1}>
@@ -288,15 +286,20 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                                     />
                                 )
                             })}
-                            <div >
+                            <div>
+                                <Box sx={{display: 'flex'}}>
+                                    <Box width={'80%'}>
+                                        <InputField input={INPUT_TYPE.TEXT_FIELD} control={control} label="labels.comment" formValue="comment" error={errors.comment} helpText="comment"/>
+                                    </Box>
+                                </Box>
                                 <FormGroup sx={{ ml: 2, mb: 2 }} >
                                     <FormControlLabel
                                         control={
                                             <Checkbox
-                                            id="form-complete"
-                                            checked={checked}
-                                            onChange={handleCheckChange}
-                                            inputProps={{ 'aria-label': 'completed-checkbox' }}/>}
+                                                id="form-complete"
+                                                checked={checked}
+                                                onChange={handleCheckChange}
+                                                inputProps={{ 'aria-label': 'completed-checkbox' }}/>}
                                         label={t('checkLabel') as string} />
                                 </FormGroup>
                                 <Button id="integration-form-submit-btn" sx={{ ml: 2, mr: 2 }} onClick={checked ? onSubmit : onSave} variant="contained">{t('button.save')}</Button>

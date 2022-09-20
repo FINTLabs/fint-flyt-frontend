@@ -17,7 +17,7 @@ import {
 export const defaultValues: IFormData = {
     comment: '',
     version: '',
-    published: false,
+    finished: false,
     caseData: {
         caseCreationStrategy: CreationStrategy.NEW,
         caseNumber: '',

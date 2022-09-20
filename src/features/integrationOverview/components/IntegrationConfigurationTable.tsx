@@ -6,11 +6,18 @@ import * as React from "react";
 import { useHistory } from "react-router-dom";
 import { gridLocaleNoNB } from "../../util/locale/gridLocaleNoNB";
 import {useTranslation} from "react-i18next";
+import {useContext} from "react";
+import {SourceApplicationContext} from "../../../context/sourceApplicationContext";
+import {SOURCE_FORM_NO_VALUES} from "../../integration/defaults/DefaultValues";
+import {IntegrationContext} from "../../../context/integrationContext";
 
 const IntegrationConfigurationTable: React.FunctionComponent<any> = (props) => {
     const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.integrationOverview'});
     const classes = props.classes;
     let history = useHistory();
+    const { metadata } = useContext(SourceApplicationContext)
+    const { setSelectedForm } = useContext(IntegrationContext);
+
 
     const columns: GridColDef[] = [
         { field: 'sourceApplicationId', type: 'string', headerName: t('table.columns.sourceApplicationId'), flex: 1 },
@@ -38,6 +45,9 @@ const IntegrationConfigurationTable: React.FunctionComponent<any> = (props) => {
                             if (!event.ctrlKey) {
                                 event.defaultMuiPrevented = true;
                                 props.setIntegration(params.row)
+                                let selectedForm = metadata.filter(md => md.sourceApplicationIntegrationId === params.row.sourceApplicationIntegrationId)
+                                //TODO: remove when we can no longer use old forms
+                                setSelectedForm(selectedForm.length > 0 ? selectedForm[0] : SOURCE_FORM_NO_VALUES[0])
                                 props.getConfigurations(params.row.sourceApplicationIntegration)
                                 setHistory();
                             }

@@ -283,7 +283,7 @@ export const MOCK_INTEGRATION_CONFIG: IIntegrationConfiguration = {
             }
         ]
     },
-    "published": false,
+    "finished": false,
     "recordConfiguration": {
         "fields": [
             {
@@ -638,7 +638,7 @@ export const MOCK_INTEGRATION_CONFIG_NOT_PUBLISHED = {
             }
         ]
     },
-    "published": false,
+    "finished": false,
     "recordConfiguration": {
         "fields": [
             {
@@ -989,7 +989,7 @@ export const MOCK_INTEGRATION_CONFIG_PUBLISHED = {
             }
         ]
     },
-    "published": true,
+    "finished": true,
     "recordConfiguration": {
         "fields": [
             {
@@ -1360,7 +1360,7 @@ export const MOCK_INTEGRATION_CONFIG_WITH_TAGS: IIntegrationConfiguration = {
             }
         ]
     },
-    "published": false,
+    "finished": false,
     "recordConfiguration": {
         "fields": [
             {

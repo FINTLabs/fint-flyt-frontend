@@ -114,7 +114,7 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
                         <Typography id="details-comment"><strong>{t('labels.comment')}</strong>{activeFormData.comment}</Typography>
                         <Typography id="details-sourceApplicationIntegrationId"><strong>{t('labels.sourceApplicationIntegrationId')}</strong>{activeFormData.sourceApplicationIntegrationId}</Typography>
                         <Typography id="details-caseConfiguration-caseCreation"><strong>{t('labels.caseCreationStrategy')}</strong>{activeFormData.caseData?.caseCreationStrategy}</Typography>
-                        <Typography id="details-published"><strong>{t('labels.published')}</strong>{activeFormData.published? 'Ja' : 'Nei'}</Typography>
+                        <Typography id="details-finished"><strong>{t('labels.finished')}</strong>{activeFormData.finished? 'Ja' : 'Nei'}</Typography>
                         <Typography id="details-version"><strong>{t('labels.version')}</strong>{activeFormData.version}</Typography>
                     </CardContent>
                     <Divider />

@@ -47,7 +47,7 @@ export const MOCK_FORMDATA: IFormData = {
         "title": "document title",
         "variant": "var"
     },
-    "published": false,
+    "finished": false,
     "recordData": {
         "accessCode": "code89",
         "administrativeUnit": "unit33",
@@ -65,7 +65,7 @@ export const MOCK_FORMDATA: IFormData = {
 
 export const MOCK_FORMDATA_NOT_PUBLISHED: IFormData = {
     comment: 'form to test mapping not published',
-    published: false,
+    finished: false,
     caseData: {
         caseCreationStrategy: CreationStrategy.NEW,
         title: 'Title of case',
@@ -123,7 +123,7 @@ export const MOCK_FORMDATA_NOT_PUBLISHED: IFormData = {
 
 export const MOCK_FORMDATA_PUBLISHED: IFormData = {
     comment: 'form to test mapping published',
-    published: true,
+    finished: true,
     caseData: {
         caseCreationStrategy: CreationStrategy.NEW,
         title: 'Title of case',
@@ -225,7 +225,7 @@ export const MOCK_FORMDATA_WITH_TAGS: IFormData = {
         title: "document title",
         variant: "var6"
     },
-    published: false,
+    finished: false,
     recordData: {
         accessCode: "code89",
         administrativeUnit: "unit33",
