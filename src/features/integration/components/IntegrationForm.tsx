@@ -17,13 +17,12 @@ const useStyles = makeStyles((theme: Theme) =>
         }
     }));
 
-export const FormSettings: React.FunctionComponent<any> = (props) => {
+export const IntegrationForm: React.FunctionComponent<any> = (props) => {
     const classes = useStyles();
     let history = useHistory();
     const {t} = useTranslation('translations', {keyPrefix: 'components.formSettings'});
     const {
         destination,
-        newIntegration,
         sourceApplicationId,
         sourceApplicationIntegrationId,
         setDestination,
@@ -58,7 +57,6 @@ export const FormSettings: React.FunctionComponent<any> = (props) => {
                 .catch(e => console.error(e))*/
             let formConfiguration: IFormIntegration = {destination: destination, sourceApplicationIntegrationId: sourceApplicationIntegrationId, sourceApplicationId: sourceApplicationId}
             setNewIntegration({integrationId: '234', sourceApplicationIntegrationId: sourceApplicationIntegrationId, sourceApplicationId: sourceApplicationId, destination: destination})
-            props.setSettings(true)
             console.log('create new integration', toIntegration(formConfiguration))
             setError('');
         } else {

@@ -26,7 +26,7 @@ import {CreationStrategy} from "./types/CreationStrategy";
 import {toFormConfigData} from "../util/ToFormData";
 import {ResourcesContext} from "../../context/resourcesContext";
 import {IntegrationContext} from "../../context/integrationContext";
-import {FormSettings} from "./components/FormSettings";
+import {IntegrationForm} from "./components/IntegrationForm";
 import CloseIcon from '@mui/icons-material/Close';
 import { useTranslation } from "react-i18next";
 import InputField from "./components/form/InputField";
@@ -90,7 +90,6 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     const classes = useStyles();
     const editConfig: boolean = window.location.pathname === '/integration/configuration/edit'
     const [submitSuccess, setSubmitSuccess] = useState(false)
-    const [settings, setSettings] = useState(false)
     const {newIntegration, setNewIntegration, configuration, setConfiguration, resetSourceAndDestination, getIntegrations} = useContext(IntegrationContext);
     const [saved, setSaved] = React.useState(false);
     const [saveError, setSaveError] = React.useState(false);
@@ -246,7 +245,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
 
     return (
         <DndProvider backend={HTML5Backend}>
-            {!newIntegration && <FormSettings setSettings={setSettings}/>}
+            {!newIntegration && <IntegrationForm/>}
             {!submitSuccess && newIntegration &&
                 <Box display="flex" position="relative" width={1} height={1}>
                     <Box>
