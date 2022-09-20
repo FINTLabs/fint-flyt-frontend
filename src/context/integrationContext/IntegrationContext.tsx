@@ -18,7 +18,7 @@ const IntegrationProvider: FC = ({ children }) => {
     const [integrations, setIntegrations] = useState<IIntegrationConfiguration[]>([]);
     const [newIntegration, setNewIntegration] = useState<IIntegration | undefined>(undefined);
     const [newIntegrations, setNewIntegrations] = useState<IIntegration[]>([]);
-    const [configuration, setConfiguration] = useState<IConfiguration>({});
+    const [configuration, setConfiguration] = useState<IConfiguration>(contextDefaultValues.configuration);
     const [configurations, setConfigurations] = useState<IConfiguration[]>([]);
     const [destination, setDestination] = useState<string>('');
     const [selectedForm, setSelectedForm] = useState<IIntegrationMetadata>(contextDefaultValues.selectedForm);
@@ -88,6 +88,8 @@ const IntegrationProvider: FC = ({ children }) => {
                 newIntegrations,
                 setNewIntegrations,
                 getNewIntegrations,
+                configuration,
+                setConfiguration,
                 configurations,
                 getConfigurations,
                 setConfigurations,

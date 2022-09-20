@@ -1,13 +1,14 @@
-import {IFormData} from "../integration/types/Form/FormData";
+import {IFormConfiguration} from "../integration/types/Form/FormData";
 import {VALUE_BUILDER_STRATEGY} from "../integration/types/ValueBuilderStrategy.enum";
 import {createValueBuilder} from "./ValueBuilderUtil";
 import {CreationStrategy} from "../integration/types/CreationStrategy";
 import {IConfiguration} from "../integration/types/Configuration";
 
-export function toConfiguration(data: IFormData, integrationId?: string): IConfiguration {
+export function toConfiguration(data: IFormConfiguration, integrationId?: string, configurationId?: string): IConfiguration {
     const newCaseCreationStrategy: boolean = data.caseData?.caseCreationStrategy !== CreationStrategy.COLLECTION
     return {
         integrationId: integrationId,
+        configurationId: configurationId,
         completed: data.completed,
         caseConfiguration: newCaseCreationStrategy ?
             {

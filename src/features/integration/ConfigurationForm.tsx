@@ -1,7 +1,7 @@
 import * as React from "react";
 import {useContext, useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
-import {Link as RouterLink, RouteComponentProps, useHistory, withRouter, useLocation} from "react-router-dom";
+import {Link as RouterLink, RouteComponentProps, useHistory, withRouter} from "react-router-dom";
 import {
     Box,
     Button,
@@ -14,18 +14,16 @@ import {
     Typography
 } from "@mui/material";
 import {createStyles, makeStyles} from "@mui/styles";
-import {IFormData} from "./types/Form/FormData";
+import {IFormConfiguration} from "./types/Form/FormData";
 import IntegrationRepository from "./repository/IntegrationRepository";
-import {defaultValues} from "./defaults/DefaultValues";
-import {toIntegrationConfiguration} from "../util/ToIntegrationConfiguration";
+import {defaultConfigurationValues} from "./defaults/DefaultValues";
 import AccordionForm from "./components/AccordionForm";
 import {ACCORDION_FORM, IAccordion} from "./types/Accordion";
 import SourceApplicationForm from "./components/SourceApplicationForm";
 import {HTML5Backend} from "react-dnd-html5-backend";
 import {DndProvider} from "react-dnd";
-import {IIntegrationConfiguration} from "./types/IntegrationConfiguration";
 import {CreationStrategy} from "./types/CreationStrategy";
-import {toFormData} from "../util/ToFormData";
+import {toFormConfigData} from "../util/ToFormData";
 import {ResourcesContext} from "../../context/resourcesContext";
 import {IntegrationContext} from "../../context/integrationContext";
 import {FormSettings} from "./components/FormSettings";
@@ -33,6 +31,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useTranslation } from "react-i18next";
 import InputField from "./components/form/InputField";
 import {INPUT_TYPE} from "./types/InputType.enum";
+import {toConfiguration} from "../util/ToConfiguration";
+import {IConfiguration} from "./types/Configuration";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -85,27 +85,26 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 );
 
-const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
+const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.integrationForm'});
     const classes = useStyles();
     const editConfig: boolean = window.location.pathname === '/integration/configuration/edit'
     const [submitSuccess, setSubmitSuccess] = useState(false)
     const [settings, setSettings] = useState(false)
-    const {newIntegration, setNewIntegration, integration, sourceApplicationId, destination, sourceApplicationIntegrationId, setIntegration, resetSourceAndDestination, getIntegrations} = useContext(IntegrationContext);
-    const [activeId, setActiveId] = useState<any>(undefined)
+    const {newIntegration, setNewIntegration, configuration, setConfiguration, resetSourceAndDestination, getIntegrations} = useContext(IntegrationContext);
     const [saved, setSaved] = React.useState(false);
     const [saveError, setSaveError] = React.useState(false);
-    const [checked, setChecked] = React.useState(integration.sourceApplicationIntegrationId && editConfig ? integration.finished : false);
+    const [checked, setChecked] = React.useState(configuration && editConfig ? configuration.completed : false);
     const [protectedCheck, setProtectedChecked] = React.useState(false);
     let history = useHistory();
-    let activeConfiguration = integration.sourceApplicationIntegrationId && editConfig ? integration : undefined;
-    let activeFormData = integration.sourceApplicationIntegrationId && editConfig ? toFormData(integration) : defaultValues;
+    let activeConfiguration = configuration.configurationId && editConfig ? configuration : undefined;
+    let activeFormData = activeConfiguration && editConfig ? toFormConfigData(configuration) : defaultConfigurationValues;
 
     const handleCheckChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setChecked(event.target.checked);
     };
 
-    const {handleSubmit, watch, setValue, control, reset, formState} = useForm<IFormData>({
+    const {handleSubmit, watch, setValue, control, reset, formState} = useForm<IFormConfiguration>({
         defaultValues: activeFormData,
         reValidateMode: 'onChange'
     });
@@ -130,11 +129,13 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
         {id: 'applicant-form', summary: "applicationForm.header", accordionForm: ACCORDION_FORM.APPLICANT_FORM, defaultExpanded: false}
     ]
 
-    const saveNewConfiguration = (data: IIntegrationConfiguration) => {
-        IntegrationRepository.create(data)
+    const saveNewConfiguration = (integrationId: string, data: IConfiguration) => {
+        console.log('save new config', integrationId, data)
+        IntegrationRepository.createConfiguration(integrationId, data)
             .then(response => {
-                console.log('created new configuration', data, response);
-                setActiveId(data.sourceApplicationIntegrationId)
+                console.log('created new configuration on integration ', integrationId, data, response);
+                //TODO: fix and set active ID
+                setConfiguration(response.data)
                 setSaved(true);
                 getIntegrations();
             })
@@ -143,10 +144,11 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                 console.log('error creating new', e);
             });
     }
-    const saveConfiguration = (id: string, data: IIntegrationConfiguration) => {
-        IntegrationRepository.update(id, data)
+    const saveConfiguration = (integrationId: string, configurationId: string, data: IConfiguration) => {
+        console.log('save config', integrationId, configurationId, data)
+        IntegrationRepository.updateConfiguration(integrationId, configurationId, data)
             .then(response => {
-                console.log('updated configuration: ', id, data, response);
+                console.log('updated configuration: ', configurationId, data, response);
                 setSaved(true);
                 getIntegrations();
             })
@@ -156,8 +158,9 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
             });
     }
 
-    const publishNewConfiguration = (data: IIntegrationConfiguration) => {
-        IntegrationRepository.create(data)
+    const publishNewConfiguration = (integrationId: string, data: IConfiguration) => {
+        console.log('publish new config', integrationId, data)
+        IntegrationRepository.createConfiguration(integrationId, data)
             .then(response => {
                 console.log('created new configuration', data, response);
                 resetAllResources();
@@ -169,10 +172,11 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
             });
     }
 
-    const publishConfiguration = (id: string, data: IIntegrationConfiguration) => {
-        IntegrationRepository.update(id, data)
+    const publishConfiguration = (integrationId: string, configurationId: string, data: IConfiguration) => {
+        console.log('publish config', integrationId, configurationId, data)
+        IntegrationRepository.updateConfiguration(integrationId, configurationId, data)
             .then(response => {
-                console.log('updated configuration: ', id, data, response);
+                console.log('updated configuration: ', integrationId, data, response);
                 resetAllResources();
                 setSubmitSuccess(true);
                 getIntegrations();
@@ -206,49 +210,34 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
         </React.Fragment>
     );
 
-    const onSubmit = handleSubmit((data: IFormData) => {
-        data.sourceApplicationId = sourceApplicationId;
-        data.sourceApplicationIntegrationId = sourceApplicationIntegrationId;
-        data.destination = destination;
-        data.finished = true;
+    const onSubmit = handleSubmit((data: IFormConfiguration) => {
+        data.completed = true;
         data.applicantData.protected = protectedCheck;
-        const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data);
-        if (integrationConfiguration && activeId !== undefined && activeConfiguration?.sourceApplicationIntegrationId === undefined) {
-            const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data, activeId);
-            publishConfiguration(activeId, integrationConfiguration)
-            reset({ ...defaultValues })
+        const configuration: IConfiguration = toConfiguration(data);
+        if (configuration && activeConfiguration?.configurationId !== undefined && newIntegration?.integrationId !== undefined) {
+            const configuration: IConfiguration = toConfiguration(data, activeConfiguration.configurationId);
+            publishConfiguration(newIntegration.integrationId, activeConfiguration.configurationId, configuration)
+            reset({ ...defaultConfigurationValues })
         }
-        else if (integrationConfiguration && activeId === undefined && activeConfiguration?.sourceApplicationIntegrationId !== undefined) {
-            const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data, activeConfiguration.sourceApplicationIntegrationId);
-            publishConfiguration(activeConfiguration.sourceApplicationIntegrationId, integrationConfiguration)
-            reset({ ...defaultValues })
-        }
-        else if (integrationConfiguration) {
-            publishNewConfiguration(integrationConfiguration);
-            reset({ ...defaultValues })
+        else if (configuration && newIntegration?.integrationId) {
+            publishNewConfiguration(newIntegration?.integrationId, configuration);
+            reset({ ...defaultConfigurationValues })
         } else {
             //TODO: Handle error
             return;
         }
     });
 
-    const onSave = handleSubmit((data: IFormData) => {
-        data.sourceApplicationId = sourceApplicationId;
-        data.sourceApplicationIntegrationId = sourceApplicationIntegrationId;
-        data.destination = destination;
-        data.finished = false;
+    const onSave = handleSubmit((data: IFormConfiguration) => {
+        data.completed = false;
         data.applicantData.protected = protectedCheck;
-        const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data);
-        if (integrationConfiguration && activeId !== undefined) {
-            const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data, activeId);
-            saveConfiguration(activeId, integrationConfiguration)
+        const configuration: IConfiguration = toConfiguration(data);
+        if (configuration && activeConfiguration?.configurationId !== undefined && newIntegration?.integrationId !== undefined) {
+            const iConfiguration: IConfiguration = toConfiguration(data, activeConfiguration.configurationId);
+            saveConfiguration(newIntegration?.integrationId, activeConfiguration.configurationId, iConfiguration)
         }
-        else if (integrationConfiguration && activeConfiguration?.sourceApplicationIntegrationId !== undefined) {
-            const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data, activeConfiguration.sourceApplicationIntegrationId);
-            saveConfiguration(activeConfiguration.sourceApplicationIntegrationId, integrationConfiguration)
-        }
-        else if (integrationConfiguration) {
-            saveNewConfiguration(integrationConfiguration);
+        else if (newIntegration?.integrationId && configuration) {
+            saveNewConfiguration(newIntegration.integrationId, configuration);
         } else {
             //TODO: Handle error
             return;
@@ -338,4 +327,4 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     );
 }
 
-export default withRouter(IntegrationConfigurationForm);
+export default withRouter(ConfigurationForm);

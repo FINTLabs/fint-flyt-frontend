@@ -8,15 +8,12 @@ import {useTranslation} from "react-i18next";
 import {useContext} from "react";
 import {IntegrationContext} from "../../../context/integrationContext";
 import { Link } from 'react-router-dom';
-import {SourceApplicationContext} from "../../../context/sourceApplicationContext";
 
 const IntegrationPanel: React.FunctionComponent<any> = (props) => {
     const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.integrationOverview'});
     const classes = props.classes;
-    const {newIntegration, setIntegration, integrations, getIntegrations, configurations, getConfigurations} = useContext(IntegrationContext)
+    const {newIntegration} = useContext(IntegrationContext)
 
-
-    console.log(newIntegration, configurations)
     const columns: GridColDef[] = [
         { field: 'configurationId', type: 'string', headerName: 'KonfigurasjonsId', flex: 1, hide: true},
         { field: 'version', type: 'number', headerName: 'Versjon', flex: 0.5 },

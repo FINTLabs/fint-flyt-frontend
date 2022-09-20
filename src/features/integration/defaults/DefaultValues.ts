@@ -2,22 +2,82 @@
 
 import {ISelect} from "../types/InputField";
 import {CreationStrategy} from "../types/CreationStrategy";
-import {IFormData} from "../types/Form/FormData";
+import {IFormConfiguration, IFormData} from "../types/Form/FormData";
 import {ApplicantType} from "../types/ApplicantType";
 import {IIntegrationMetadata} from "../types/IntegrationMetadata";
 import {IIntegration} from "../types/Integration";
 import {
-    IApplicantConfiguration,
-    ICaseConfiguration,
     IConfiguration,
-    IDocumentConfiguration,
-    IRecordConfiguration
 } from "../types/Configuration";
 
 export const defaultValues: IFormData = {
     comment: '',
     version: '',
     finished: false,
+    caseData: {
+        caseCreationStrategy: CreationStrategy.NEW,
+        caseNumber: '',
+        title: '',
+        publicTitle: '',
+        caseType: '',
+        administrativeUnit:'',
+        archiveUnit:'',
+        recordUnit: '',
+        status: '',
+        accessCode: '',
+        paragraph: '',
+        caseWorker: '',
+        primaryClassification: '',
+        secondaryClassification: '',
+        tertiaryClassification: '',
+        primaryClass: '',
+        primaryClassSsNbr: '',
+        primaryClassOrg: '',
+        secondaryClass: '',
+        tertiaryClass: '',
+        primaryTitle: '',
+        secondaryTitle: '',
+        tertiaryTitle: ''
+    },
+    recordData: {
+        title: '',
+        publicTitle: '',
+        documentType: '',
+        administrativeUnit: '',
+        recordStatus: '',
+        recordType: '',
+        caseWorker: '',
+        accessCode: '',
+        paragraph: ''
+    },
+    documentData: {
+        title: '',
+        documentStatus: '',
+        documentCategory: '',
+        accessCode: '',
+        paragraph: '',
+        variant: ''
+    },
+    applicantData: {
+        protected: false,
+        type: ApplicantType.PERSON,
+        organisationNumber: '',
+        nationalIdentityNumber: '',
+        name: '',
+        address: '',
+        postalCode: '',
+        city: '',
+        contactPerson: '',
+        phoneNumber: '',
+        email: '',
+        accessCode: '',
+        paragraph: ''
+    }
+}
+
+export const defaultConfigurationValues: IFormConfiguration = {
+    comment: '',
+    completed: false,
     caseData: {
         caseCreationStrategy: CreationStrategy.NEW,
         caseNumber: '',

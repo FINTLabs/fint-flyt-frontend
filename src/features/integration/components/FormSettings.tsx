@@ -7,7 +7,6 @@ import HelpPopover from "./popover/HelpPopover";
 import {useTranslation} from "react-i18next";
 import {SourceApplicationContext} from "../../../context/sourceApplicationContext";
 import {createStyles, makeStyles} from "@mui/styles";
-import IntegrationRepository from "../repository/IntegrationRepository";
 import {toIntegration} from "../../util/ToIntegration";
 import {IFormIntegration} from "../types/Form/FormData";
 
@@ -24,6 +23,7 @@ export const FormSettings: React.FunctionComponent<any> = (props) => {
     const {t} = useTranslation('translations', {keyPrefix: 'components.formSettings'});
     const {
         destination,
+        newIntegration,
         sourceApplicationId,
         sourceApplicationIntegrationId,
         setDestination,
@@ -56,8 +56,10 @@ export const FormSettings: React.FunctionComponent<any> = (props) => {
                     setSourceApplicationIntegrationId(response.data)
                 })
                 .catch(e => console.error(e))*/
+            let formConfiguration: IFormIntegration = {destination: destination, sourceApplicationIntegrationId: sourceApplicationIntegrationId, sourceApplicationId: sourceApplicationId}
             setNewIntegration({integrationId: '234', sourceApplicationIntegrationId: sourceApplicationIntegrationId, sourceApplicationId: sourceApplicationId, destination: destination})
             props.setSettings(true)
+            console.log('create new integration', toIntegration(formConfiguration))
             setError('');
         } else {
             setError(t('error'))

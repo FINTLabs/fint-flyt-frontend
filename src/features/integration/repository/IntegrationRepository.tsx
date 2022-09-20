@@ -55,6 +55,9 @@ const setIntegrationState = (integrationId: string, active: boolean) => {
 const createConfiguration = (integrationId: string, data: IConfiguration) => {
     return axios.post<any>(`/api/intern/integrasjoner/${integrationId}/konfigurasjoner`, data);
 }
+const updateConfiguration = (integrationId: string, configurationId: string, data: IConfiguration) => {
+    return axios.post<any>(`/api/intern/integrasjoner/${integrationId}/konfigurasjoner/${configurationId}`, data);
+}
 const getConfigurations = (integrationId: string) => {
     return axios.get<any>(`/api/intern/integrasjoner/${integrationId}/konfigurasjoner`);
 }
@@ -77,6 +80,7 @@ const IntegrationRepository = {
     getIntegrationState,
     setIntegrationState,
     createConfiguration,
+    updateConfiguration,
     getConfigurations,
     setActiveConfiguration
 };

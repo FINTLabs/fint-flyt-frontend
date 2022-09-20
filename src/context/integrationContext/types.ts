@@ -14,6 +14,8 @@ export type IntegrationContextState = {
     newIntegrations: IIntegration[];
     setNewIntegrations: (integrations: IIntegration[]) => void;
     getNewIntegrations: () => void;
+    configuration: IConfiguration;
+    setConfiguration: (configuration: IConfiguration) => void;
     configurations: IConfiguration[];
     setConfigurations: (configurations: IConfiguration[]) => void;
     getConfigurations: (integration: string) => void;
@@ -51,6 +53,8 @@ export const contextDefaultValues: IntegrationContextState = {
     newIntegrations: [],
     setNewIntegrations: () => {},
     getNewIntegrations: () => {},
+    configuration: {},
+    setConfiguration: () => {},
     configurations: [],
     getConfigurations: () => {},
     setConfigurations: () => {},

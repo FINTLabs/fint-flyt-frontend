@@ -26,6 +26,12 @@ export interface IConfiguration {
     metadataId?: number;
     completed?: boolean;
 
+    caseCreationStrategy?: string;
+    caseNumber?: string;
+    applicantType?: string;
+    organisationNumber?: boolean;
+    protected?: boolean;
+
     caseConfiguration?:ICaseConfiguration;
     recordConfiguration?: IRecordConfiguration;
     documentConfiguration?: IDocumentConfiguration;
