@@ -1,5 +1,5 @@
 import {
-    Box, Button, Card, CardContent, Typography
+    Box, Card, CardContent, Typography
 } from "@mui/material";
 import {DataGrid, GridCellParams, GridColDef, GridToolbar} from "@mui/x-data-grid";
 import * as React from "react";
@@ -32,9 +32,10 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
         return (
             <>
                 {!completed &&
-                    <Button size="small" variant="outlined" onClick={(e) => {
-                        openConfiguration(e, props.row.configurationId);
-                    }}>Åpne</Button>
+                    <Link
+                    style={{background: '#1F4F59', padding: '6px 16px 6px 16px', borderRadius: '6px', textDecoration:'none', color:'white', position: 'absolute', border: 'solid 1px', fontFamily: 'sans-serif'}}
+                    to='/integration/configuration/edit'>Åpne
+                    </Link>
                 }
             </>
         );

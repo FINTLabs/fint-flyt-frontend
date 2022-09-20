@@ -27,13 +27,9 @@ const ApplicantForm: React.FunctionComponent<any> = (props) => {
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.contactPerson", formValue: "applicantData.contactPerson", hidden: !isOrganisation, required:false, error:errors.applicantData?.contactPerson, value: props.activeFormData?.applicantData?.contactPerson, helpText: "applicantData.contactPerson"},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.phoneNumber", formValue: "applicantData.phoneNumber", required:false, error:errors.applicantData?.phoneNumber, value: props.activeFormData?.applicantData?.phoneNumber, helpText: "applicantData.phoneNumber"},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.email", formValue: "applicantData.email", required:false, error:errors.applicantData?.email, value: props.activeFormData?.applicantData?.email, helpText: "applicantData.email"},
-      //  {input: INPUT_TYPE.DROPDOWN, label: "labels.accessCode", value: props.watch("applicantData.accessCode"), formValue: "applicantData.accessCode", dropDownItems: accessCodes, required:false, error:errors.applicantData?.accessCode, helpText: "applicantData.accessCode", hidden: !props.protectedChecked},
-      //  {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.paragraph", value: props.watch("applicantData.paragraph"), formValue: "applicantData.paragraph", dropDownItems: paragraphs, required:false, error:errors.applicantData?.paragraph, helpText: "applicantData.paragraph", hidden: !props.protectedChecked}
+        {input: INPUT_TYPE.DROPDOWN, label: "labels.accessCode", value: props.watch("applicantData.accessCode"), formValue: "applicantData.accessCode", dropDownItems: accessCodes, required:required && props.protectedCheck, error:errors.applicantData?.accessCode, helpText: "applicantData.accessCode", hidden: !props.protectedCheck},
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.paragraph", value: props.watch("applicantData.paragraph"), formValue: "applicantData.paragraph", dropDownItems: paragraphs, required:required && props.protectedCheck, error:errors.applicantData?.paragraph, helpText: "applicantData.paragraph", hidden: !props.protectedCheck}
     ]
-
-    const handleCheckChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        props.setProtectedChecked(event.target.checked);
-    };
 
     //TODO: remove disable check after 3.11
     return (
@@ -68,7 +64,6 @@ const ApplicantForm: React.FunctionComponent<any> = (props) => {
                 <FormControlLabel
                     control={
                         <Checkbox
-                            disabled={true}
                             id="form-complete"
                             checked={props.protectedChecked}
                             onChange={event => props.setProtectedChecked(event.target.checked)}

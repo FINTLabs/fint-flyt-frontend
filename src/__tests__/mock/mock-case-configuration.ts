@@ -1,4 +1,4 @@
-import {ICaseConfiguration} from "../../features/integration/types/IntegrationConfiguration";
+import {ICaseConfiguration} from "../../features/integration/types/Configuration";
 
 export const MOCK_CASE_CONFIGURATION: ICaseConfiguration = {
     "caseCreationStrategy": "NEW",

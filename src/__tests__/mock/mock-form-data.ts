@@ -1,4 +1,4 @@
-import {IFormData} from "../../features/integration/types/Form/FormData";
+import {IFormConfiguration, IFormData} from "../../features/integration/types/Form/FormData";
 import {CreationStrategy} from "../../features/integration/types/CreationStrategy";
 
 export const MOCK_FORMDATA: IFormData = {
@@ -61,6 +61,67 @@ export const MOCK_FORMDATA: IFormData = {
     },
     "sourceApplicationId": "Acos",
     "sourceApplicationIntegrationId": "VIK116"
+}
+
+export const MOCK_CONFIG_FORMDATA: IFormConfiguration = {
+    completed: false,
+    metadataId: 1,
+    applicantData: {
+        accessCode: "code2",
+        address: "highstreet 22",
+        city: "Moria",
+        contactPerson: "donna",
+        email: "hello@world.no",
+        name: "Anakin Skywalker",
+        nationalIdentityNumber: "",
+        organisationNumber: "",
+        paragraph: "p3",
+        phoneNumber: "12345678",
+        postalCode: "1234",
+        protected: true,
+        type: "PERSON"
+    },
+    caseData: {
+        accessCode: "code42",
+        administrativeUnit: "unit4",
+        archiveUnit: "unit3",
+        caseCreationStrategy: "NEW",
+        caseType: "casetype",
+        caseWorker: "rand",
+        paragraph: "number6",
+        primaryClass: "1class",
+        primaryClassification: "prim",
+        primaryTitle: "primTitle",
+        publicTitle: "public title",
+        recordUnit: "unit0",
+        secondaryClass: "2class",
+        secondaryClassification: "rose",
+        secondaryTitle: "secTitle",
+        status: "",
+        tertiaryClass: "3class",
+        tertiaryClassification: "everdeen",
+        tertiaryTitle: "tertTitle",
+        title: "Title of case"
+    },
+    comment: "form to test mapping",
+    documentData: {
+        accessCode: "code2",
+        documentStatus: "D9",
+        paragraph: "p07",
+        title: "document title",
+        variant: "var"
+    },
+    recordData: {
+        accessCode: "code89",
+        administrativeUnit: "unit33",
+        caseWorker: "boba",
+        documentType: "cat8",
+        paragraph: "p34",
+        publicTitle: "public record title",
+        recordStatus: "N",
+        recordType: "A",
+        title: "record title"
+    }
 }
 
 export const MOCK_FORMDATA_NOT_PUBLISHED: IFormData = {
@@ -180,63 +241,61 @@ export const MOCK_FORMDATA_PUBLISHED: IFormData = {
 
 
 export const MOCK_FORMDATA_WITH_TAGS: IFormData = {
-    applicantData: {
-        accessCode: "code2",
-        address: "highstreet 22",
-        city: "Moria",
-        contactPerson: "donna",
-        email: "hello@world.no",
-        name: "Luke Skywalker",
-        nationalIdentityNumber: "",
-        organisationNumber: "123456789",
-        paragraph: "p3",
-        phoneNumber: "12345678",
-        postalCode: "1234",
-        protected: true,
-        type: "ORGANISATION"
+    "applicantData": {
+        "accessCode": "code2",
+        "address": "highstreet 22",
+        "city": "Moria",
+        "contactPerson": "donna",
+        "email": "hello@world.no",
+        "name": "Luke Skywalker",
+        "nationalIdentityNumber": "",
+        "organisationNumber": "123456789",
+        "paragraph": "p3",
+        "phoneNumber": "12345678",
+        "postalCode": "1234",
+        "protected": true,
+        "type": "ORGANISATION"
     },
-    caseData: {
-        accessCode: "code42",
-        administrativeUnit: "unit4",
-        archiveUnit: "unit3",
-        caseCreationStrategy: "NEW",
-        caseType: "casetype",
-        caseWorker: "rand",
-        paragraph: "number6",
-        primaryClass: "1class",
-        primaryClassification: "prim",
-        primaryTitle: "primTitle",
-        publicTitle: "public title also with {two} {tags}",
-        recordUnit: "unit0",
-        secondaryClass: "2class",
-        secondaryClassification: "rose",
-        secondaryTitle: "secTitle",
-        status: "",
-        tertiaryClass: "3class",
-        tertiaryClassification: "everdeen",
-        tertiaryTitle: "tertTitle",
-        title: "Title of case with {tags}"
+    "caseData": {
+        "accessCode": "code42",
+        "administrativeUnit": "unit4",
+        "archiveUnit": "unit3",
+        "caseCreationStrategy": "NEW",
+        "caseType": "casetype",
+        "caseWorker": "rand",
+        "paragraph": "number6",
+        "primaryClass": "1class",
+        "primaryClassification": "prim",
+        "primaryTitle": "primTitle",
+        "publicTitle": "public title also with {two} {tags}",
+        "recordUnit": "unit0",
+        "secondaryClass": "2class",
+        "secondaryClassification": "rose",
+        "secondaryTitle": "secTitle",
+        "status": "",
+        "tertiaryClass": "3class",
+        "tertiaryClassification": "everdeen",
+        "tertiaryTitle": "tertTitle",
+        "title": "Title of case with {tags}"
     },
-    comment: "form to test mapping with form tags",
-    documentData: {
-        accessCode: "code3",
-        documentStatus: "D9",
-        paragraph: "p02",
-        title: "document title",
-        variant: "var6"
+    "comment": "form to test mapping with form tags",
+    "completed": false,
+    "documentData": {
+        "accessCode": "code3",
+        "documentStatus": "D9",
+        "paragraph": "p02",
+        "title": "document title",
+        "variant": "var6"
     },
-    finished: false,
-    recordData: {
-        accessCode: "code89",
-        administrativeUnit: "unit33",
-        caseWorker: "mando",
-        documentType: "cat8",
-        paragraph: "p34",
-        publicTitle: "{singletag}",
-        recordStatus: "N",
-        recordType: "A",
-        title: "{just} {tags}"
-    },
-    sourceApplicationId: "Acos",
-    sourceApplicationIntegrationId: "VIK116"
+    "recordData": {
+        "accessCode": "code89",
+        "administrativeUnit": "unit33",
+        "caseWorker": "mando",
+        "documentType": "cat8",
+        "paragraph": "p34",
+        "publicTitle": "{singletag}",
+        "recordStatus": "N",
+        "recordType": "A",
+        "title": "{just} {tags}"
+    }
 }

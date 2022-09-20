@@ -1,10 +1,9 @@
 import {Box, Card, CardContent, Theme} from '@mui/material';
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect} from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import {createStyles, makeStyles} from "@mui/styles";
 import {IntegrationContext} from "../../context/integrationContext";
-import IntegrationConfigurationTable from "../integrationOverview/components/IntegrationConfigurationTable";
-import IntegrationConfigurationDetails from "../integrationOverview/components/IntegrationConfigurationDetails";
+import IntegrationTable from "../integrationOverview/components/IntegrationTable";
 import DashboardCard from "./DashboardCard";
 import {ICard} from "./types/Card";
 import {useTranslation} from "react-i18next";
@@ -35,18 +34,12 @@ const useStyles = makeStyles((theme: Theme) =>
 const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.dashboard'});
     const classes = useStyles();
-    const showDetails: boolean = window.location.pathname === '/integration/configuration/details'
-    const {integration, setIntegration, newIntegrations, getNewIntegrations} = useContext(IntegrationContext)
+    const {setNewIntegration, newIntegrations, getNewIntegrations} = useContext(IntegrationContext)
 
     useEffect(()=> {
         getNewIntegrations();
     }, [])
 
-
-    const resetConfiguration = () => {
-        setIntegration({})
-        getNewIntegrations();
-    }
 
     const cards: ICard[] = [
         { value: newIntegrations.length === 0 ? t('empty') : newIntegrations.length, content: t('form'), links: [
@@ -76,11 +69,11 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
             </Box>
             <Card className={classes.card} sx={{mt: 4}}>
                 <CardContent>
-                        <IntegrationConfigurationTable
+                        <IntegrationTable
                             classes={classes}
                             loading={newIntegrations.length === 0}
                             integrations={newIntegrations}
-                            setIntegration={setIntegration}
+                            setIntegration={setNewIntegration}
                         />
                 </CardContent>
             </Card>

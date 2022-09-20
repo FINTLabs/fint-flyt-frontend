@@ -14,7 +14,6 @@ export const MOCK_INTEGRATION_NOT_ACTIVE: IIntegration  = {
     destination: "fylkesrad",
     sourceApplicationIntegrationId: "TEST234",
     active: false
-
 }
 
 export const MOCK_INTEGRATION_ACTIVE: IIntegration  = {

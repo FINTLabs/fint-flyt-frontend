@@ -15,7 +15,6 @@ import {
 } from "@mui/material";
 import {createStyles, makeStyles} from "@mui/styles";
 import {IFormConfiguration} from "./types/Form/FormData";
-import IntegrationRepository from "./repository/IntegrationRepository";
 import {defaultConfigurationValues} from "./defaults/DefaultValues";
 import AccordionForm from "./components/AccordionForm";
 import {ACCORDION_FORM, IAccordion} from "./types/Accordion";
@@ -33,6 +32,7 @@ import InputField from "./components/form/InputField";
 import {INPUT_TYPE} from "./types/InputType.enum";
 import {toConfiguration} from "../util/ToConfiguration";
 import {IConfiguration} from "./types/Configuration";
+import ConfigurationRepository from "./repository/ConfigurationRepository";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -90,10 +90,12 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     const classes = useStyles();
     const editConfig: boolean = window.location.pathname === '/integration/configuration/edit'
     const [submitSuccess, setSubmitSuccess] = useState(false)
-    const {newIntegration, setNewIntegration, configuration, setConfiguration, resetSourceAndDestination, getIntegrations} = useContext(IntegrationContext);
+    const {newIntegration, setNewIntegration, configuration, setConfiguration, resetSourceAndDestination, getNewIntegrations} = useContext(IntegrationContext);
     const [saved, setSaved] = React.useState(false);
     const [saveError, setSaveError] = React.useState(false);
+    const [activeConfigId, setActiveConfigId] = React.useState(undefined);
     const [checked, setChecked] = React.useState(configuration && editConfig ? configuration.completed : false);
+    const [activeChecked, setActiveChecked] = React.useState(false);
     const [protectedCheck, setProtectedChecked] = React.useState(false);
     let history = useHistory();
     let activeConfiguration = configuration.configurationId && editConfig ? configuration : undefined;
@@ -101,6 +103,10 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
 
     const handleCheckChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setChecked(event.target.checked);
+        setActiveChecked(false);
+    };
+    const handleActiveCheckChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setActiveChecked(event.target.checked);
     };
 
     const {handleSubmit, watch, setValue, control, reset, formState} = useForm<IFormConfiguration>({
@@ -130,13 +136,13 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
 
     const saveNewConfiguration = (integrationId: string, data: IConfiguration) => {
         console.log('save new config', integrationId, data)
-        IntegrationRepository.createConfiguration(integrationId, data)
+        ConfigurationRepository.createConfiguration(integrationId, data)
             .then(response => {
                 console.log('created new configuration on integration ', integrationId, data, response);
                 //TODO: fix and set active ID
                 setConfiguration(response.data)
                 setSaved(true);
-                getIntegrations();
+                getNewIntegrations();
             })
             .catch((e: Error) => {
                 setSaveError(true);
@@ -145,11 +151,11 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     }
     const saveConfiguration = (integrationId: string, configurationId: string, data: IConfiguration) => {
         console.log('save config', integrationId, configurationId, data)
-        IntegrationRepository.updateConfiguration(integrationId, configurationId, data)
+        ConfigurationRepository.updateConfiguration(configurationId, data)
             .then(response => {
                 console.log('updated configuration: ', configurationId, data, response);
                 setSaved(true);
-                getIntegrations();
+                getNewIntegrations();
             })
             .catch((e: Error) => {
                 setSaveError(true);
@@ -157,28 +163,28 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
             });
     }
 
-    const publishNewConfiguration = (integrationId: string, data: IConfiguration) => {
+    const activateNewConfiguration = (integrationId: string, data: IConfiguration) => {
         console.log('publish new config', integrationId, data)
-        IntegrationRepository.createConfiguration(integrationId, data)
+        ConfigurationRepository.createConfiguration(integrationId, data)
             .then(response => {
                 console.log('created new configuration', data, response);
                 resetAllResources();
                 setSubmitSuccess(true);
-                getIntegrations();
+                getNewIntegrations();
             })
             .catch((e: Error) => {
                 console.log('error creating new', e);
             });
     }
 
-    const publishConfiguration = (integrationId: string, configurationId: string, data: IConfiguration) => {
-        console.log('publish config', integrationId, configurationId, data)
-        IntegrationRepository.updateConfiguration(integrationId, configurationId, data)
+    const activateConfiguration = (configurationId: string, data: IConfiguration) => {
+        console.log('publish config', configurationId, data)
+        ConfigurationRepository.updateConfiguration(configurationId, data)
             .then(response => {
-                console.log('updated configuration: ', integrationId, data, response);
+                console.log('updated configuration: ', data, response);
                 resetAllResources();
                 setSubmitSuccess(true);
-                getIntegrations();
+                getNewIntegrations();
             })
             .catch((e: Error) => {
                 console.log('error updating configuration', e);
@@ -215,11 +221,11 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
         const configuration: IConfiguration = toConfiguration(data);
         if (configuration && activeConfiguration?.configurationId !== undefined && newIntegration?.integrationId !== undefined) {
             const configuration: IConfiguration = toConfiguration(data, activeConfiguration.configurationId);
-            publishConfiguration(newIntegration.integrationId, activeConfiguration.configurationId, configuration)
+            activateConfiguration(activeConfiguration.configurationId, configuration)
             reset({ ...defaultConfigurationValues })
         }
         else if (configuration && newIntegration?.integrationId) {
-            publishNewConfiguration(newIntegration?.integrationId, configuration);
+            activateNewConfiguration(newIntegration?.integrationId, configuration);
             reset({ ...defaultConfigurationValues })
         } else {
             //TODO: Handle error
@@ -289,6 +295,14 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                                                 onChange={handleCheckChange}
                                                 inputProps={{ 'aria-label': 'completed-checkbox' }}/>}
                                         label={t('checkLabel') as string} />
+                                    {checked && <FormControlLabel
+                                        control={
+                                            <Checkbox
+                                                id="form-complete"
+                                                checked={activeChecked}
+                                                onChange={handleActiveCheckChange}
+                                                inputProps={{ 'aria-label': 'active-checkbox' }}/>}
+                                        label="Aktiv" />}
                                 </FormGroup>
                                 <Button id="integration-form-submit-btn" sx={{ ml: 2, mr: 2 }} onClick={checked ? onSubmit : onSave} variant="contained">{t('button.save')}</Button>
                                 <Button id="integration-form-cancel-btn" onClick={handleCancel} variant="contained">{t('button.cancel')}</Button>

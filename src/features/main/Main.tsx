@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from "react";
+import React from "react";
 import {
     AppBar, Badge,
     Box,
@@ -18,8 +18,7 @@ import { useTranslation } from "react-i18next";
 import createAuthRefreshInterceptor from "axios-auth-refresh";
 import axios, {AxiosError, AxiosResponse} from "axios";
 import { useIdleTimer } from 'react-idle-timer';
-import IntegrationRepository from "../integration/repository/IntegrationRepository";
-import {IntegrationContext} from "../../context/integrationContext";
+import SourceApplicationRepository from "../integration/repository/SourceApplicationRepository";
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme: Theme) =>
@@ -101,7 +100,7 @@ function Main() {
 
     //TODO:
     const handleOnActive = (event: any) => {
-        IntegrationRepository.get()
+        SourceApplicationRepository.getMetadata("1")
             .then((result: AxiosResponse) => {
                 if (result.status === 200 && !result.data.content && window.location.origin.includes('viken-no-skjema')) {
                    // console.log('We\'re still authenticated, no content, trigger reload');

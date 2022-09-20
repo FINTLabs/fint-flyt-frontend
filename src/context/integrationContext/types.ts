@@ -1,14 +1,8 @@
-import {IIntegrationConfiguration} from "../../features/integration/types/IntegrationConfiguration";
 import {IIntegration} from "../../features/integration/types/Integration";
 import {IConfiguration} from "../../features/integration/types/Configuration";
 import {IIntegrationMetadata} from "../../features/integration/types/IntegrationMetadata";
 
 export type IntegrationContextState = {
-    integration: IIntegrationConfiguration;
-    setIntegration: (configuration: IIntegrationConfiguration) => void;
-    integrations: IIntegrationConfiguration[];
-    setIntegrations: (integrations: IIntegrationConfiguration[]) => void;
-    getIntegrations: () => void;
     newIntegration: IIntegration | undefined;
     setNewIntegration: (integration: IIntegration | undefined) => void;
     newIntegrations: IIntegration[];
@@ -31,21 +25,6 @@ export type IntegrationContextState = {
 };
 
 export const contextDefaultValues: IntegrationContextState = {
-    integration: {
-        comment: '',
-        sourceApplicationId: '',
-        sourceApplicationIntegrationId: '',
-        version: undefined,
-        finished: false,
-        applicantConfiguration: {fields: []},
-        caseConfiguration: {fields: []},
-        recordConfiguration: {fields: []},
-        documentConfiguration: {fields:[]}
-    },
-    setIntegration: () => {},
-    integrations: [],
-    setIntegrations: () => {},
-    getIntegrations: () => {},
     newIntegration: {
         integrationId: ''
     },

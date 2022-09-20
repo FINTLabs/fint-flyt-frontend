@@ -282,10 +282,10 @@ export const fieldHelp = {
 
 export const newInts: IIntegration[] = [
     {
-        integrationId: '123',
+        integrationId: '488',
         destination: 'fylkesråd',
         sourceApplicationId: 'ACOS',
-        sourceApplicationIntegrationId: 'TEST123'
+        sourceApplicationIntegrationId: 'TEST0488'
     },
     {
         integrationId: '234',

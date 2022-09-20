@@ -1,8 +1,8 @@
 import {Breadcrumbs, Theme, Typography} from '@mui/material';
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {createStyles, makeStyles} from "@mui/styles";
-import IntegrationConfigurationTable from "./components/IntegrationConfigurationTable";
+import IntegrationTable from "./components/IntegrationTable";
 import {IntegrationContext} from "../../context/integrationContext";
 import { useTranslation } from 'react-i18next';
 import IntegrationPanel from "./components/IntegrationPanel";
@@ -55,7 +55,7 @@ const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = (
                     initialConfiguration={newIntegration}
                     configurations={configurations}
                 /> :
-                <IntegrationConfigurationTable
+                <IntegrationTable
                     classes={classes}
                     loading={newIntegrations.length === 0}
                     integrations={newIntegrations}

@@ -1,10 +1,9 @@
 import React, {createContext, FC, useState} from "react";
 import {contextDefaultValues, ISourceApplicationItem, SourceApplicationContextState} from "./types";
-import IntegrationRepository from "../../features/integration/repository/IntegrationRepository";
-import {IIntegrationConfiguration} from "../../features/integration/types/IntegrationConfiguration";
 import SourceApplicationRepository from "../../features/integration/repository/SourceApplicationRepository";
 import {ISelect} from "../../features/integration/types/InputField";
 import {IIntegrationMetadata} from "../../features/integration/types/IntegrationMetadata";
+import {newInts} from "../../features/integration/defaults/DefaultValues";
 
 export const SourceApplicationContext = createContext<SourceApplicationContextState>(
     contextDefaultValues
@@ -45,15 +44,19 @@ const SourceApplicationProvider: FC = ({children}) => {
 
     //TODO: get all forms from sourceApplication when available
     const getAllForms = (forms: ISelect[]) => {
-        IntegrationRepository.get()
+        let ids: (string | undefined)[] = newInts.map((integration) => integration.sourceApplicationIntegrationId)
+        let selectableForms = forms.filter(form => !ids.includes(form.value))
+        setAvailableForms({sourceApplication: 'acos', sourceApplicationForms: selectableForms})
+
+       /* IntegrationRepository.getIntegrations()
             .then(response => {
-                let ids: string[] = response.data.content.map((config: IIntegrationConfiguration) => config.sourceApplicationIntegrationId)
+                let ids: string[] = response.data.map((config: any) => config.sourceApplicationIntegrationId)
                 let selectableForms = forms.filter(form => !ids.includes(form.value));
                 setAvailableForms({sourceApplication: 'acos', sourceApplicationForms: selectableForms})
             })
             .catch((err) => {
                 console.error(err);
-            })
+            })*/
     }
 
     return (

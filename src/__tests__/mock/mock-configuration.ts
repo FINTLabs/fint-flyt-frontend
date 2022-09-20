@@ -4,11 +4,6 @@
 import {IConfiguration} from "../../features/integration/types/Configuration";
 
 export const MOCK_CONFIGURATION: IConfiguration = {
-    "configurationId": "id0",
-    "integrationId": "TEST123",
-    "comment": "form to test mapping",
-    "version": "1",
-    "completed": false,
     "applicantConfiguration": {
         "applicantType": "PERSON",
         "fields": [
@@ -243,6 +238,8 @@ export const MOCK_CONFIGURATION: IConfiguration = {
             }
         ]
     },
+    "completed": false,
+    "configurationId": "123",
     "documentConfiguration": {
         "fields": [
             {
@@ -288,6 +285,7 @@ export const MOCK_CONFIGURATION: IConfiguration = {
             }
         ]
     },
+    "integrationId": "id0",
     "recordConfiguration": {
         "fields": [
             {
@@ -356,14 +354,14 @@ export const MOCK_CONFIGURATION: IConfiguration = {
                 }
             }
         ]
-    },
+    }
 }
 
 export const MOCK_CONFIGURATION_NOT_COMPLETE: IConfiguration = {
     "configurationId": "id1",
     "integrationId": "TEST123",
     "comment": "test config not complete",
-    "version": "2",
+    "version": 2,
     "completed": false,
     "applicantConfiguration": {
         "applicantType": "PERSON",
@@ -719,7 +717,7 @@ export const MOCK_CONFIGURATION_COMPLETE: IConfiguration = {
     "configurationId": "id2",
     "integrationId": "TEST123",
     "comment": "test config, finished",
-    "version": "3",
+    "version": 3,
     "completed": true,
     "applicantConfiguration":   {
         "applicantType": "PERSON",
@@ -1073,7 +1071,7 @@ export const MOCK_CONFIGURATION_WITH_TAGS: IConfiguration = {
     "configurationId": "id0",
     "integrationId": "TEST234",
     "comment": "test config, with tags",
-    "version": "1",
+    "version": 1,
     "completed": false,
     "applicantConfiguration": {
         "applicantType": "ORGANISATION",

@@ -1,21 +1,19 @@
-import {Box, Button, FormGroup, IconButton, Typography} from '@mui/material';
+import {Box, Button, FormGroup, Typography} from '@mui/material';
 import React, {useContext} from 'react';
 import InputField from "./InputField";
 import {INPUT_TYPE} from "../../types/InputType.enum";
 import {IInputField} from "../../types/InputField";
-import {creationStrategies, destinations, sourceApplications} from "../../defaults/DefaultValues";
+import {creationStrategies} from "../../defaults/DefaultValues";
 import {CreationStrategy} from "../../types/CreationStrategy";
 import {FieldErrors} from "react-hook-form";
-import IntegrationRepository from "../../repository/IntegrationRepository";
 import {IntegrationContext} from "../../../../context/integrationContext";
 import HelpPopover from "../popover/HelpPopover";
 import { useTranslation } from 'react-i18next';
-import {SourceApplicationContext} from "../../../../context/sourceApplicationContext";
+import ResourceRepository from "../../repository/ResourceRepository";
 
 const CaseInformation: React.FunctionComponent<any> = (props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationForm.accordions.caseInformation'});
-    const { destination, sourceApplicationId, sourceApplicationIntegrationId, newIntegration } = useContext(IntegrationContext)
-    const {allForms} = useContext(SourceApplicationContext);
+    const { newIntegration } = useContext(IntegrationContext)
     const [_case, setCase] = React.useState('');
     let caseInput = props.watch("caseData.caseNumber");
     let caseInputPattern = /^((19|20)*\d{2})\/([0-9]{1,6})/g;
@@ -24,7 +22,7 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
         if(caseInputPattern.test(caseInput)) {
             setCase(t('caseSearch.searching'))
             let caseId = caseInput.split('/')
-            IntegrationRepository.getSak(caseId[0], caseId[1])
+            ResourceRepository.getSak(caseId[0], caseId[1])
                 .then((response) => {
                     setCase(response.data.value)
                 })

@@ -11,7 +11,7 @@ import {SourceApplicationContext} from "../../../context/sourceApplicationContex
 import {SOURCE_FORM_NO_VALUES} from "../../integration/defaults/DefaultValues";
 import {IntegrationContext} from "../../../context/integrationContext";
 
-const IntegrationConfigurationTable: React.FunctionComponent<any> = (props) => {
+const IntegrationTable: React.FunctionComponent<any> = (props) => {
     const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.integrationOverview'});
     const classes = props.classes;
     let history = useHistory();
@@ -79,4 +79,4 @@ const IntegrationConfigurationTable: React.FunctionComponent<any> = (props) => {
     );
 }
 
-export default IntegrationConfigurationTable;
+export default IntegrationTable;
