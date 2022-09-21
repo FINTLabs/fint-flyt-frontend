@@ -7,6 +7,8 @@ import IntegrationTable from "../integrationOverview/components/IntegrationTable
 import DashboardCard from "./DashboardCard";
 import {ICard} from "./types/Card";
 import {useTranslation} from "react-i18next";
+import {newToFormData} from "../util/ToFormData";
+import {MOCK_NEW_CONFIG} from "../../__tests__/mock/mock-configuration";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -40,6 +42,7 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
         getNewIntegrations();
     }, [])
 
+    console.log(newToFormData(MOCK_NEW_CONFIG))
 
     const cards: ICard[] = [
         { value: newIntegrations.length === 0 ? t('empty') : newIntegrations.length, content: t('form'), links: [

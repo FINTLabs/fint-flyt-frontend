@@ -299,3 +299,17 @@ export const MOCK_FORMDATA_WITH_TAGS: IFormData = {
         "title": "{just} {tags}"
     }
 }
+
+export const MOCK_NEW_FORMDATA: IFormConfiguration = {
+    applicantData: {},
+    caseData: {
+        recordUnit: "https://beta.felleskomponent.no/arkiv/noark/administrativenhet/systemid/191",
+        title: "{foo} {bar} {bubu}"
+    },
+    comment: "Ferdigstilt ",
+    completed: true,
+    documentData: {},
+    recordData: {
+        title: "{foo} bar"
+    }
+}

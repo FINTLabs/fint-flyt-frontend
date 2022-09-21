@@ -1,6 +1,7 @@
 import {ValueBuilder} from "../integration/types/ValueBuilder";
 import {IProperty} from "../integration/types/Property";
 import {IField} from "../integration/types/Field";
+import {IConfigurationField} from "../integration/types/Configuration";
 
 export function createValueBuilder(inputString: any): ValueBuilder {
     let foundTags;
@@ -40,4 +41,14 @@ export function fieldToString(configuration: any, configurationField: string, va
         return fields.length > 0 ? toValueString(fields[0].valueBuilder) : '';
     }
     return fields.length > 0 ? fields[0].valueBuilder.value : '';
+}
+
+export function newFieldToString(configuration: IConfigurationField[], configurationField: string, valueString?: boolean): string | undefined {
+    if(configuration[0] !== undefined && configuration[0].children) {
+        const configField = configuration[0].children.filter((configField) => configField.key === configurationField)
+        if (valueString && configField[0] !== undefined && configField[0].valueBuilder) {
+            return configField.length > 0 ? toValueString(configField[0].valueBuilder) : '';
+        }
+        return configField.length > 0 ? configField[0].valueBuilder?.value : '';
+    }
 }

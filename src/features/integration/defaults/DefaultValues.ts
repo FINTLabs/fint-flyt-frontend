@@ -6,9 +6,8 @@ import {IFormConfiguration, IFormData} from "../types/Form/FormData";
 import {ApplicantType} from "../types/ApplicantType";
 import {IIntegrationMetadata} from "../types/IntegrationMetadata";
 import {IIntegration} from "../types/Integration";
-import {
-    IConfiguration,
-} from "../types/Configuration";
+import {IConfiguration,} from "../types/Configuration";
+import {VALUE_BUILDER_STRATEGY} from "../types/ValueBuilderStrategy.enum";
 
 export const defaultValues: IFormData = {
     comment: '',
@@ -358,3 +357,52 @@ export const newConfs: IConfiguration[] = [
         applicantConfiguration: {applicantType: ApplicantType.PERSON}
     }
 ]
+
+export const newConfigMdodel: IConfiguration = {
+    configurationId: 'id2',
+    integrationId: '123',
+    version: 3,
+    completed: true,
+    comment: 'Ferdigstilt ',
+    configurationFields: [
+        {
+            key: 'case',
+            children: [
+                {
+                    key: 'tittel',
+                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
+                    valueBuilder: {
+                        value: "%s %s %s",
+                        properties: [
+                            {key: "foo", order: 0, source: "FORM"},
+                            {key: "bar", order: 1, source: "FORM"},
+                            {key: "bubu", order: 2, source: "FORM"}
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            key: 'record',
+            children: [
+                {
+                    key: 'tittel',
+                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
+                    valueBuilder: {
+                        value: "%s bar",
+                        properties: [
+                            {key: "foo", order: 0, source: "FORM"},
+                        ]
+                    }
+                },
+                {
+                    key: 'administrativeenhet',
+                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
+                    valueBuilder: {
+                       value:  "https://beta.felleskomponent.no/arkiv/noark/administrativenhet/systemid/191"
+                    }
+                }
+            ]
+        }
+    ]
+}

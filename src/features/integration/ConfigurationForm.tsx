@@ -30,7 +30,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useTranslation } from "react-i18next";
 import InputField from "./components/form/InputField";
 import {INPUT_TYPE} from "./types/InputType.enum";
-import {toConfiguration} from "../util/ToConfiguration";
+import {toNewConfiguration} from "../util/ToConfiguration";
 import {IConfiguration} from "./types/Configuration";
 import ConfigurationRepository from "./repository/ConfigurationRepository";
 
@@ -218,9 +218,9 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     const onSubmit = handleSubmit((data: IFormConfiguration) => {
         data.completed = true;
         data.applicantData.protected = protectedCheck;
-        const configuration: IConfiguration = toConfiguration(data);
+        const configuration: IConfiguration = toNewConfiguration(data);
         if (configuration && activeConfiguration?.configurationId !== undefined && newIntegration?.integrationId !== undefined) {
-            const configuration: IConfiguration = toConfiguration(data, activeConfiguration.configurationId);
+            const configuration: IConfiguration = toNewConfiguration(data,newIntegration.integrationId, activeConfiguration.configurationId);
             activateConfiguration(activeConfiguration.configurationId, configuration)
             reset({ ...defaultConfigurationValues })
         }
@@ -236,9 +236,9 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     const onSave = handleSubmit((data: IFormConfiguration) => {
         data.completed = false;
         data.applicantData.protected = protectedCheck;
-        const configuration: IConfiguration = toConfiguration(data);
+        const configuration: IConfiguration = toNewConfiguration(data);
         if (configuration && activeConfiguration?.configurationId !== undefined && newIntegration?.integrationId !== undefined) {
-            const iConfiguration: IConfiguration = toConfiguration(data, activeConfiguration.configurationId);
+            const iConfiguration: IConfiguration = toNewConfiguration(data, newIntegration.integrationId, activeConfiguration.configurationId);
             saveConfiguration(newIntegration?.integrationId, activeConfiguration.configurationId, iConfiguration)
         }
         else if (newIntegration?.integrationId && configuration) {
