@@ -301,15 +301,40 @@ export const MOCK_FORMDATA_WITH_TAGS: IFormData = {
 }
 
 export const MOCK_NEW_FORMDATA: IFormConfiguration = {
-    applicantData: {},
-    caseData: {
-        recordUnit: "https://beta.felleskomponent.no/arkiv/noark/administrativenhet/systemid/191",
-        title: "{foo} {bar} {bubu}"
+    "applicantData": {},
+    "caseData": {
+        "accessCode": "",
+        "administrativeUnit": "",
+        "archiveUnit": "",
+        "caseType": "",
+        "caseWorker": "",
+        "paragraph": "",
+        "primaryClass": "",
+        "primaryClassification": "",
+        "primaryTitle": "",
+        "publicTitle": "{foo} {bar} {bubu}",
+        "recordUnit": "https://beta.felleskomponent.no/arkiv/noark/administrativenhet/systemid/191",
+        "secondaryClass": "",
+        "secondaryClassification": "",
+        "secondaryTitle": "",
+        "status": "",
+        "tertiaryClass": "",
+        "tertiaryClassification": "",
+        "tertiaryTitle": "",
+        "title": "{foo} {bar} {bubu}"
     },
-    comment: "Ferdigstilt ",
-    completed: true,
-    documentData: {},
-    recordData: {
-        title: "{foo} bar"
+    "comment": "Ferdigstilt ",
+    "completed": true,
+    "documentData": {},
+    "recordData": {
+        "accessCode": "",
+        "administrativeUnit": "",
+        "caseWorker": "",
+        "documentType": "",
+        "paragraph": "",
+        "publicTitle": "",
+        "recordStatus": "",
+        "recordType": "",
+        "title": "{foo} bar"
     }
 }
