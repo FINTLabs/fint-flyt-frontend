@@ -63,6 +63,7 @@ const IntegrationProvider: FC = ({ children }) => {
     }
 
     const getConfigurations = (integrationId: string) => {
+        //TODO: remove hard set configurations
         setConfigurations(newConfs);
         ConfigurationRepository.getConfigurations(integrationId)
             .then((response) => {
