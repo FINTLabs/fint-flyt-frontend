@@ -215,7 +215,7 @@ export const fieldHelp = {
     }
 }
 
-export const newInts: IIntegration[] = [
+export const MOCK_INTEGRATIONS: IIntegration[] = [
     {
         integrationId: '488',
         destination: 'fylkesråd',
@@ -254,7 +254,7 @@ export const newInts: IIntegration[] = [
     },
 ]
 
-export const newConfs: newIConfiguration[] = [
+export const MOCK_NEWCONFIGURATIONS: newIConfiguration[] = [
 /*    {
         integrationId: '678',
         version: 1,

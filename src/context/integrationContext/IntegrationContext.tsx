@@ -1,6 +1,6 @@
 import React, { createContext, useState, FC } from "react";
 import {contextDefaultValues, IntegrationContextState} from "./types";
-import {newConfs, newInts} from "../../features/integration/defaults/DefaultValues";
+import {MOCK_NEWCONFIGURATIONS, MOCK_INTEGRATIONS} from "../../features/integration/defaults/DefaultValues";
 import {IIntegration} from "../../features/integration/types/Integration";
 import {newIConfiguration} from "../../features/integration/types/Configuration";
 import EventRepository from "../../features/log/repository/EventRepository";
@@ -33,7 +33,7 @@ const IntegrationProvider: FC = ({ children }) => {
         EventRepository.getStatistics()
             .then((response) => {
                 let statistics = response.data;
-                let mergedList: IIntegration[] = newInts;
+                let mergedList: IIntegration[] = MOCK_INTEGRATIONS;
                 statistics.forEach((value: IIntegrationStatistics) => {
                     mergedList.map((integration: IIntegration) => {
                         if (integration.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {
@@ -64,11 +64,11 @@ const IntegrationProvider: FC = ({ children }) => {
 
     const getConfigurations = (integrationId: string) => {
         //TODO: remove hard set configurations
-        setConfigurations(newConfs);
+        setConfigurations(MOCK_NEWCONFIGURATIONS);
         ConfigurationRepository.getConfigurations(integrationId)
             .then((response) => {
                 if(response.data.content) {
-                    setConfigurations(newConfs);
+                    setConfigurations(MOCK_NEWCONFIGURATIONS);
                 }
             })
             .catch(e => console.error('Error: ', e))

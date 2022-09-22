@@ -3,7 +3,7 @@ import {contextDefaultValues, ISourceApplicationItem, SourceApplicationContextSt
 import SourceApplicationRepository from "../../features/integration/repository/SourceApplicationRepository";
 import {ISelect} from "../../features/integration/types/InputField";
 import {IIntegrationMetadata} from "../../features/integration/types/IntegrationMetadata";
-import {newInts} from "../../features/integration/defaults/DefaultValues";
+import {MOCK_INTEGRATIONS} from "../../features/integration/defaults/DefaultValues";
 
 export const SourceApplicationContext = createContext<SourceApplicationContextState>(
     contextDefaultValues
@@ -44,7 +44,7 @@ const SourceApplicationProvider: FC = ({children}) => {
 
     //TODO: get all forms from sourceApplication when available
     const getAllForms = (forms: ISelect[]) => {
-        let ids: (string | undefined)[] = newInts.map((integration) => integration.sourceApplicationIntegrationId)
+        let ids: (string | undefined)[] = MOCK_INTEGRATIONS.map((integration) => integration.sourceApplicationIntegrationId)
         let selectableForms = forms.filter(form => !ids.includes(form.value))
         setAvailableForms({sourceApplication: 'acos', sourceApplicationForms: selectableForms})
 

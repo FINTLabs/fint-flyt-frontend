@@ -98,7 +98,6 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     const [activeChecked, setActiveChecked] = React.useState(false);
     const [protectedCheck, setProtectedChecked] = React.useState(false);
     let history = useHistory();
-    console.log(configuration)
     let activeConfiguration = configuration.configurationId && editConfig ? configuration : undefined;
     let activeFormData = activeConfiguration && editConfig ? newToFormData(configuration) : defaultConfigurationValues;
 

@@ -1,5 +1,5 @@
 import {
-    Box, Card, CardContent, Typography
+    Box, Button, Card, CardContent, Typography
 } from "@mui/material";
 import {DataGrid, GridCellParams, GridColDef, GridToolbar} from "@mui/x-data-grid";
 import * as React from "react";
@@ -22,12 +22,15 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
         },
         { field: 'comment', type: 'string', headerName: 'Kommentar', flex: 1},
 
-        { field: 'details', headerName: 'Rediger', flex: 1, sortable: false, filterable: false,
-            renderCell: (params) => ( <OpenButtonToggle row={params.row} />)
+        { field: 'details', headerName: 'Rediger', flex: 0.5, sortable: false, filterable: false,
+            renderCell: (params) => ( <EditButtonToggle row={params.row} />)
+        },
+        { field: 'activate', headerName: 'Aktiver', flex: 0.5, sortable: false, filterable: false,
+            renderCell: (params) => ( <ActiveButtonToggle row={params.row} />)
         }
     ];
 
-    function OpenButtonToggle(props: GridCellParams["row"]) {
+    function EditButtonToggle(props: GridCellParams["row"]) {
         const completed: boolean = props.row.completed
         //TODO: test setConfiguration
         return (
@@ -39,16 +42,28 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                             setConfiguration(props.row)}
                         }
                         style={{background: '#1F4F59', padding: '6px 16px 6px 16px', borderRadius: '6px', textDecoration:'none', color:'white', position: 'absolute', border: 'solid 1px', fontFamily: 'sans-serif'}}
-                        to='/integration/configuration/edit'>Åpne
+                        to='/integration/configuration/edit'>REDIGER
                     </Link>
                 }
             </>
         );
     }
 
+    function ActiveButtonToggle(props: GridCellParams["row"]) {
+        const completed: boolean = props.row.completed
+        //TODO: test setConfiguration
+        return (
+            <>
+                {completed &&
+                    <Button onClick={e => activateConfiguration(e, props.row.configurationId)} size="small" variant="contained" >Aktiver</Button>
+                }
+            </>
+        );
+    }
 
-    const openConfiguration = (event: any, configurationId: string) => {
-        console.log('open config', configurationId)
+
+    const activateConfiguration = (event: any, configurationId: string) => {
+        console.log('set avtive config, integrationId', newIntegration?.integrationId, 'configurationId', configurationId)
     }
 
     const openNewConfigurationDialog = (event: any, integrationId: string) => {
@@ -99,7 +114,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
             </Box>
             <Link
                 style={{background: '#1F4F59', padding: '6px 16px 6px 16px', borderRadius: '6px', textDecoration:'none', color:'white', position: 'absolute', marginTop: '6px', border: 'solid 1px', fontFamily: 'sans-serif'}}
-                to='/integration/configuration/new'>Ny konfigurasjon</Link>
+                to='/integration/configuration/new'>NY KONFIGURASJON</Link>
         </Box>
     );
 }
