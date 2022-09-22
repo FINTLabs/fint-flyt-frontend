@@ -74,18 +74,32 @@ export const MOCK_CONFIG_FORMDATA: IFormConfiguration = {
 }
 
 export const MOCK_NEW_FORMDATA: IFormConfiguration = {
-    "applicantData": {},
+    "applicantData": {
+        "accessCode": "",
+        "address": "",
+        "city": "",
+        "contactPerson": "",
+        "email": "",
+        "name": "",
+        "nationalIdentityNumber": "",
+        "organisationNumber": "",
+        "paragraph": "",
+        "phoneNumber": "",
+        "postalCode": "",
+        "type": "PERSON"
+    },
     "caseData": {
         "accessCode": "",
         "administrativeUnit": "",
         "archiveUnit": "",
+        "caseCreationStrategy": "NEW",
         "caseType": "",
         "caseWorker": "",
         "paragraph": "",
         "primaryClass": "",
         "primaryClassification": "",
         "primaryTitle": "",
-        "publicTitle": "{foo} {bar} {bubu}",
+        "publicTitle": "",
         "recordUnit": "https://beta.felleskomponent.no/arkiv/noark/administrativenhet/systemid/191",
         "secondaryClass": "",
         "secondaryClassification": "",
@@ -98,7 +112,14 @@ export const MOCK_NEW_FORMDATA: IFormConfiguration = {
     },
     "comment": "Ferdigstilt ",
     "completed": true,
-    "documentData": {},
+    "documentData": {
+        "accessCode": "",
+        "documentCategory": "",
+        "documentStatus": "",
+        "paragraph": "",
+        "title": "",
+        "variant": ""
+    },
     "recordData": {
         "accessCode": "",
         "administrativeUnit": "",
