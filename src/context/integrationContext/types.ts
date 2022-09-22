@@ -1,5 +1,5 @@
 import {IIntegration} from "../../features/integration/types/Integration";
-import {IConfiguration} from "../../features/integration/types/Configuration";
+import {newIConfiguration} from "../../features/integration/types/Configuration";
 import {IIntegrationMetadata} from "../../features/integration/types/IntegrationMetadata";
 
 export type IntegrationContextState = {
@@ -8,10 +8,10 @@ export type IntegrationContextState = {
     newIntegrations: IIntegration[];
     setNewIntegrations: (integrations: IIntegration[]) => void;
     getNewIntegrations: () => void;
-    configuration: IConfiguration;
-    setConfiguration: (configuration: IConfiguration) => void;
-    configurations: IConfiguration[];
-    setConfigurations: (configurations: IConfiguration[]) => void;
+    configuration: newIConfiguration;
+    setConfiguration: (configuration: newIConfiguration) => void;
+    configurations: newIConfiguration[];
+    setConfigurations: (configurations: newIConfiguration[]) => void;
     getConfigurations: (integration: string) => void;
     destination: string,
     selectedForm: IIntegrationMetadata;
@@ -32,7 +32,7 @@ export const contextDefaultValues: IntegrationContextState = {
     newIntegrations: [],
     setNewIntegrations: () => {},
     getNewIntegrations: () => {},
-    configuration: {},
+    configuration: {configurationFields: []},
     setConfiguration: () => {},
     configurations: [],
     getConfigurations: () => {},

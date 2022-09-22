@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 const IntegrationPanel: React.FunctionComponent<any> = (props) => {
     const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.integrationOverview'});
     const classes = props.classes;
-    const {newIntegration} = useContext(IntegrationContext)
+    const {newIntegration, setConfiguration} = useContext(IntegrationContext)
 
     const columns: GridColDef[] = [
         { field: 'configurationId', type: 'string', headerName: 'KonfigurasjonsId', flex: 1, hide: true},
@@ -29,12 +29,17 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
 
     function OpenButtonToggle(props: GridCellParams["row"]) {
         const completed: boolean = props.row.completed
+        //TODO: test setConfiguration
         return (
             <>
                 {!completed &&
                     <Link
-                    style={{background: '#1F4F59', padding: '6px 16px 6px 16px', borderRadius: '6px', textDecoration:'none', color:'white', position: 'absolute', border: 'solid 1px', fontFamily: 'sans-serif'}}
-                    to='/integration/configuration/edit'>Åpne
+                        onClick={(e) => {
+                            console.log(props.row)
+                            setConfiguration(props.row)}
+                        }
+                        style={{background: '#1F4F59', padding: '6px 16px 6px 16px', borderRadius: '6px', textDecoration:'none', color:'white', position: 'absolute', border: 'solid 1px', fontFamily: 'sans-serif'}}
+                        to='/integration/configuration/edit'>Åpne
                     </Link>
                 }
             </>

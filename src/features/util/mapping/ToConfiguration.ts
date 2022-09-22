@@ -1,7 +1,8 @@
-import {IFormConfiguration} from "../integration/types/Form/FormData";
-import {VALUE_BUILDER_STRATEGY} from "../integration/types/ValueBuilderStrategy.enum";
-import {createValueBuilder} from "./ValueBuilderUtil";
-import {newIConfiguration} from "../integration/types/Configuration";
+import { newIConfiguration } from "../../integration/types/Configuration";
+import { IFormConfiguration } from "../../integration/types/Form/FormData";
+import { VALUE_BUILDER_STRATEGY } from "../../integration/types/ValueBuilderStrategy.enum";
+import { createValueBuilder } from "../ValueBuilderUtil";
+
 
 export function toNewConfiguration(data: IFormConfiguration, integrationId?: string, configurationId?: string, metadataId?: number,): newIConfiguration {
     return {

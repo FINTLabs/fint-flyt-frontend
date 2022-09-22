@@ -7,7 +7,7 @@ import HelpPopover from "./popover/HelpPopover";
 import {useTranslation} from "react-i18next";
 import {SourceApplicationContext} from "../../../context/sourceApplicationContext";
 import {createStyles, makeStyles} from "@mui/styles";
-import {toIntegration} from "../../util/ToIntegration";
+import {toIntegration} from "../../util/mapping/ToIntegration";
 import {IFormIntegration} from "../types/Form/FormData";
 
 const useStyles = makeStyles((theme: Theme) =>

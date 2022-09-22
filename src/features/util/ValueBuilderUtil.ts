@@ -16,8 +16,7 @@ export function createValueBuilder(inputString: any): ValueBuilder {
         properties: foundTags ? foundTags.map((tag: any, index: number): IProperty => {
             return {
                 key: tag,
-                order: index,
-                source: 'FORM'
+                order: index
             }
         }) : []
     }
@@ -43,12 +42,13 @@ export function fieldToString(configuration: any, configurationField: string, va
     return fields.length > 0 ? fields[0].valueBuilder.value : '';
 }
 
-export function newFieldToString(configuration: IConfigurationField[], configurationField: string, valueString?: boolean): string | undefined {
+export function newFieldToString(configuration: IConfigurationField[], configurationField: string, valueString?: boolean): string {
     if(configuration[0] !== undefined && configuration[0].children) {
         const configField = configuration[0].children.filter((configField) => configField.key === configurationField)
         if (valueString && configField[0] !== undefined && configField[0].valueBuilder) {
             return configField.length > 0 ? toValueString(configField[0].valueBuilder) : '';
         }
-        return configField.length > 0 ? configField[0].valueBuilder?.value : '';
+        return (configField.length > 0 && configField[0].valueBuilder?.value) ? configField[0].valueBuilder?.value : '';
     }
+    return '';
 }

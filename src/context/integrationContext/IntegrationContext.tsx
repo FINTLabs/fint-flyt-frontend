@@ -2,7 +2,7 @@ import React, { createContext, useState, FC } from "react";
 import {contextDefaultValues, IntegrationContextState} from "./types";
 import {newConfs, newInts} from "../../features/integration/defaults/DefaultValues";
 import {IIntegration} from "../../features/integration/types/Integration";
-import {IConfiguration} from "../../features/integration/types/Configuration";
+import {newIConfiguration} from "../../features/integration/types/Configuration";
 import EventRepository from "../../features/log/repository/EventRepository";
 import {IIntegrationStatistics} from "../../features/log/types/IntegrationStatistics";
 import {IIntegrationMetadata} from "../../features/integration/types/IntegrationMetadata";
@@ -15,8 +15,8 @@ export const IntegrationContext = createContext<IntegrationContextState>(
 const IntegrationProvider: FC = ({ children }) => {
     const [newIntegration, setNewIntegration] = useState<IIntegration | undefined>(undefined);
     const [newIntegrations, setNewIntegrations] = useState<IIntegration[]>([]);
-    const [configuration, setConfiguration] = useState<IConfiguration>(contextDefaultValues.configuration);
-    const [configurations, setConfigurations] = useState<IConfiguration[]>([]);
+    const [configuration, setConfiguration] = useState<newIConfiguration>(contextDefaultValues.configuration);
+    const [configurations, setConfigurations] = useState<newIConfiguration[]>([]);
     const [destination, setDestination] = useState<string>('');
     const [selectedForm, setSelectedForm] = useState<IIntegrationMetadata>(contextDefaultValues.selectedForm);
     const [sourceApplicationIntegrationId, setSourceApplicationIntegrationId] = useState<string>('');

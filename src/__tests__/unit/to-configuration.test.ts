@@ -1,4 +1,4 @@
-import {toNewConfiguration} from "../../features/util/ToConfiguration";
+import {toNewConfiguration} from "../../features/util/mapping/ToConfiguration";
 import {MOCK_CONFIG_FORMDATA} from "../mock/mock-form-data";
 import {MOCK_CONFIGURATION} from "../mock/mock-configuration";
 

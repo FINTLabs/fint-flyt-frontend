@@ -2,15 +2,15 @@ import {Box, Card, Typography, Button, CardContent, Divider} from "@mui/material
 import * as React from "react";
 import {useContext, useEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
-import {fieldToString} from "../../util/ValueBuilderUtil";
+import {newFieldToString} from "../../util/ValueBuilderUtil";
 import {ResourcesContext} from "../../../context/resourcesContext";
 import {IntegrationContext} from "../../../context/integrationContext";
-import {toFormConfigData} from "../../util/ToFormData";
+import {newToFormData} from "../../util/mapping/ToFormData";
 import {useTranslation} from "react-i18next";
 import {SourceApplicationContext} from "../../../context/sourceApplicationContext";
 import {SOURCE_FORM_NO_VALUES} from "../../integration/defaults/DefaultValues";
 import {IFormConfiguration} from "../../integration/types/Form/FormData";
-import {IConfiguration} from "../../integration/types/Configuration";
+import {newIConfiguration} from "../../integration/types/Configuration";
 
 
 const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) => {
@@ -18,18 +18,18 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
     const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationOverview'});
     const {newIntegration, configuration, setConfiguration, setSelectedForm} = useContext(IntegrationContext);
     const {setPrimaryClassification, setSecondaryClassification, setTertiaryClassification} = useContext(ResourcesContext);
-    let activeConfigData: IFormConfiguration = toFormConfigData(configuration)
-    const [activeConfiguration, setActiveConfiguration] = useState<IConfiguration>(configuration)
-
+    let activeConfigData: IFormConfiguration = newToFormData(configuration)
+    const [activeConfiguration, setActiveConfiguration] = useState<newIConfiguration>(configuration)
+    const cases = configuration.configurationFields?.filter(cf => cf.key === 'case');
     const {getAvailableForms, metadata, getMetadata} = useContext(SourceApplicationContext)
 
     const { getAllResources } = useContext(ResourcesContext);
     useEffect(()=> {
         getAvailableForms();
         getMetadata();
-        setPrimaryClassification({label: '', value: fieldToString(configuration.caseConfiguration, 'primarordningsprinsipp')})
-        setSecondaryClassification({label: '', value: fieldToString(configuration.caseConfiguration, 'sekundarordningsprinsipp')})
-        setTertiaryClassification({label: '', value: fieldToString(configuration.caseConfiguration, 'tertiarordningsprinsipp')})
+        setPrimaryClassification({label: '', value: newFieldToString(cases, 'primarordningsprinsipp')})
+        setSecondaryClassification({label: '', value: newFieldToString(cases, 'sekundarordningsprinsipp')})
+        setTertiaryClassification({label: '', value: newFieldToString(cases, 'tertiarordningsprinsipp')})
         getAllResources();
     }, [])
 

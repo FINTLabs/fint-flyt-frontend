@@ -2,77 +2,13 @@
 
 import {ISelect} from "../types/InputField";
 import {CreationStrategy} from "../types/CreationStrategy";
-import {IFormConfiguration, IFormData} from "../types/Form/FormData";
+import {IFormConfiguration} from "../types/Form/FormData";
 import {ApplicantType} from "../types/ApplicantType";
 import {IIntegrationMetadata} from "../types/IntegrationMetadata";
 import {IIntegration} from "../types/Integration";
-import {IConfiguration,} from "../types/Configuration";
+import {newIConfiguration} from "../types/Configuration";
 import {VALUE_BUILDER_STRATEGY} from "../types/ValueBuilderStrategy.enum";
 
-export const defaultValues: IFormData = {
-    comment: '',
-    version: '',
-    finished: false,
-    caseData: {
-        caseCreationStrategy: CreationStrategy.NEW,
-        caseNumber: '',
-        title: '',
-        publicTitle: '',
-        caseType: '',
-        administrativeUnit:'',
-        archiveUnit:'',
-        recordUnit: '',
-        status: '',
-        accessCode: '',
-        paragraph: '',
-        caseWorker: '',
-        primaryClassification: '',
-        secondaryClassification: '',
-        tertiaryClassification: '',
-        primaryClass: '',
-        primaryClassSsNbr: '',
-        primaryClassOrg: '',
-        secondaryClass: '',
-        tertiaryClass: '',
-        primaryTitle: '',
-        secondaryTitle: '',
-        tertiaryTitle: ''
-    },
-    recordData: {
-        title: '',
-        publicTitle: '',
-        documentType: '',
-        administrativeUnit: '',
-        recordStatus: '',
-        recordType: '',
-        caseWorker: '',
-        accessCode: '',
-        paragraph: ''
-    },
-    documentData: {
-        title: '',
-        documentStatus: '',
-        documentCategory: '',
-        accessCode: '',
-        paragraph: '',
-        variant: ''
-    },
-    applicantData: {
-        protected: false,
-        type: ApplicantType.PERSON,
-        organisationNumber: '',
-        nationalIdentityNumber: '',
-        name: '',
-        address: '',
-        postalCode: '',
-        city: '',
-        contactPerson: '',
-        phoneNumber: '',
-        email: '',
-        accessCode: '',
-        paragraph: ''
-    }
-}
 
 export const defaultConfigurationValues: IFormConfiguration = {
     comment: '',
@@ -299,10 +235,10 @@ export const newInts: IIntegration[] = [
         sourceApplicationIntegrationId: 'TEST345'
     },
     {
-        integrationId: '456',
+        integrationId: '999',
         destination: 'fylkesråd',
         sourceApplicationId: 'ACOS',
-        sourceApplicationIntegrationId: 'TEST456'
+        sourceApplicationIntegrationId: 'TEST999'
     },
     {
         integrationId: '567',
@@ -318,7 +254,7 @@ export const newInts: IIntegration[] = [
     },
 ]
 
-export const newConfs: IConfiguration[] = [
+export const newConfs: newIConfiguration[] = [
 /*    {
         integrationId: '678',
         version: 1,
@@ -333,76 +269,108 @@ export const newConfs: IConfiguration[] = [
     },*/
     {
         configurationId: 'id0',
-        integrationId: '123',
+        integrationId: '999',
         version: 1,
         comment: 'Første versjon - avventer endringer',
         completed: false,
+        configurationFields: []
     },
     {
         configurationId: 'id1',
-        integrationId: '123',
+        integrationId: '999',
         version: 2,
         completed: false,
         comment: 'Opprettet ny pga x, y, z',
-        caseConfiguration: {caseCreationStrategy: CreationStrategy.NEW},
-        applicantConfiguration: {applicantType: ApplicantType.PERSON}
+        configurationFields: [
+            {
+                key: 'case',
+                children: [
+                    {
+                        key: 'tittel',
+                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
+                        valueBuilder: {
+                            value: "%s %s %s",
+                            properties: [
+                                {key: "foo", order: 0},
+                                {key: "bar", order: 1},
+                                {key: "bubu", order: 2}
+                            ]
+                        }
+                    },
+                ]
+            }
+        ]
+
     },
     {
         configurationId: 'id2',
-        integrationId: '123',
+        integrationId: '999',
         version: 3,
         completed: true,
         comment: 'Ferdigstilt ',
-        caseConfiguration: {caseCreationStrategy: CreationStrategy.NEW},
-        applicantConfiguration: {applicantType: ApplicantType.PERSON}
+        configurationFields: []
+
     }
 ]
 
-export const newConfigMdodel: IConfiguration = {
-    configurationId: 'id2',
-    integrationId: '123',
-    version: 3,
-    completed: true,
-    comment: 'Ferdigstilt ',
-    configurationFields: [
-        {
-            key: 'case',
-            children: [
-                {
-                    key: 'tittel',
-                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                    valueBuilder: {
-                        value: "%s %s %s",
-                        properties: [
-                            {key: "foo", order: 0, source: "FORM"},
-                            {key: "bar", order: 1, source: "FORM"},
-                            {key: "bubu", order: 2, source: "FORM"}
-                        ]
-                    }
-                }
-            ]
-        },
-        {
-            key: 'record',
-            children: [
-                {
-                    key: 'tittel',
-                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                    valueBuilder: {
-                        value: "%s bar",
-                        properties: [
-                            {key: "foo", order: 0, source: "FORM"},
-                        ]
-                    }
-                },
-                {
-                    key: 'administrativeenhet',
-                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                    valueBuilder: {
-                       value:  "https://beta.felleskomponent.no/arkiv/noark/administrativenhet/systemid/191"
-                    }
-                }
-            ]
-        }
-    ]
+export const EXAMPLE_FORM: IFormConfiguration = {
+    "applicantData": {
+        "type": ApplicantType.PERSON,
+        "protected": false,
+        "organisationNumber": '',
+        "nationalIdentityNumber": '',
+        "name": '',
+        "address": '',
+        "postalCode": '',
+        "city": '',
+        "contactPerson": '',
+        "phoneNumber": '',
+        "email": '',
+        "accessCode": '',
+        "paragraph": ''
+    },
+    "caseData": {
+        "accessCode": '',
+        "administrativeUnit": '',
+        "archiveUnit": '',
+        "caseCreationStrategy": CreationStrategy.NEW,
+        "caseType": '',
+        "caseWorker": '',
+        "paragraph": '',
+        "primaryClass": '',
+        "primaryClassification": '',
+        "primaryTitle": '',
+        "publicTitle": "{foo} {bar} {bubu}",
+        "recordUnit": "https://beta.felleskomponent.no/arkiv/noark/administrativenhet/systemid/191",
+        "secondaryClass": '',
+        "secondaryClassification": '',
+        "secondaryTitle": '',
+        "status": '',
+        "tertiaryClass": '',
+        "tertiaryClassification": '',
+        "tertiaryTitle": '',
+        "title": "{foo} {bar} {bubu}"
+    },
+    "comment": "Ferdigstilt ",
+    "completed": true,
+    "documentData": {
+        "title": '',
+        "documentCategory": '',
+        "documentStatus": '',
+        "accessCode": '',
+        "paragraph": '',
+        "variant": '',
+    },
+    "integrationId": 'TEST999',
+    "recordData": {
+        "accessCode": '',
+        "administrativeUnit": '',
+        "caseWorker": '',
+        "documentType": '',
+        "paragraph": '',
+        "publicTitle": '',
+        "recordStatus": '',
+        "recordType": '',
+        "title": "{foo} bar"
+    }
 }

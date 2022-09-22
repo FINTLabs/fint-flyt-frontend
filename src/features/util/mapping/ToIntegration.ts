@@ -1,5 +1,5 @@
-import {IFormIntegration} from "../integration/types/Form/FormData";
-import {IIntegration} from "../integration/types/Integration";
+import {IFormIntegration} from "../../integration/types/Form/FormData";
+import {IIntegration} from "../../integration/types/Integration";
 
 export function toIntegration(data: IFormIntegration, active?: boolean): IIntegration {
     return {
