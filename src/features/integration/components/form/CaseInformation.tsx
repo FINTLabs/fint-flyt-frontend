@@ -3,7 +3,7 @@ import React, {useContext} from 'react';
 import InputField from "./InputField";
 import {INPUT_TYPE} from "../../types/InputType.enum";
 import {IInputField} from "../../types/InputField";
-import {creationStrategies, destinations, sourceApplications} from "../../defaults/DefaultValues";
+import {creationStrategies} from "../../defaults/DefaultValues";
 import {CreationStrategy} from "../../types/CreationStrategy";
 import {FieldErrors} from "react-hook-form";
 import IntegrationRepository from "../../repository/IntegrationRepository";
@@ -11,12 +11,10 @@ import {IntegrationContext} from "../../../../context/integrationContext";
 import LockIcon from '@mui/icons-material/Lock';
 import HelpPopover from "../popover/HelpPopover";
 import { useTranslation } from 'react-i18next';
-import {SourceApplicationContext} from "../../../../context/sourceApplicationContext";
 
 const CaseInformation: React.FunctionComponent<any> = (props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationForm.accordions.caseInformation'});
-    const { destination, sourceApplicationId, sourceApplicationIntegrationId } = useContext(IntegrationContext)
-    const {allForms} = useContext(SourceApplicationContext);
+    const { selectedForm, destination, sourceApplicationId, sourceApplicationIntegrationId } = useContext(IntegrationContext)
     const [_case, setCase] = React.useState('');
     let caseInput = props.watch("caseData.caseNumber");
     let caseInputPattern = /^((19|20)*\d{2})\/([0-9]{1,6})/g;
@@ -40,9 +38,6 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
     let isCollection = props.watch("caseData.caseCreationStrategy") === CreationStrategy.COLLECTION
     let errors: FieldErrors = props.errors
     const caseInformationFields: IInputField[] = [
-        {input: INPUT_TYPE.DROPDOWN, label: "labels.sourceApplicationId", value: sourceApplicationId, formValue: "sourceApplicationId", dropDownItems: sourceApplications, disabled: true, lockIcon: true},
-        {input: INPUT_TYPE.DROPDOWN, label: "labels.destination", value: destination, formValue: "destination", dropDownItems: destinations, disabled: true, lockIcon: true},
-        {input: INPUT_TYPE.DROPDOWN, label: "labels.sourceApplicationIntegrationId", value: sourceApplicationIntegrationId, formValue: "sourceApplicationIntegrationId", dropDownItems: allForms.sourceApplicationForms, disabled: true, lockIcon: true},
         {input: INPUT_TYPE.TEXT_FIELD, label: "labels.description", formValue: "description", error:errors.description, helpText: "description"},
         {input: INPUT_TYPE.RADIO, label: "labels.caseCreationInfo", value: props.watch("caseData.caseCreationStrategy"),
             formValue: "caseData.caseCreationStrategy", radioOptions: creationStrategies, helpText: "caseData.caseCreationStrategy"},
@@ -51,6 +46,9 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
     return (
         <div>
             <FormGroup id="case-information" className={props.style.formControl}>
+                <Typography><strong>Destinasjon: </strong>{destination}</Typography>
+                <Typography><strong>Skjemaleverandør: </strong>{sourceApplicationId}</Typography>
+                <Typography sx={{mb: 2}}><strong>Skjema: </strong>{sourceApplicationIntegrationId + ' - ' + selectedForm.integrationDisplayName }</Typography>
                 {caseInformationFields.map((field, index) => {
                         return (
                             field.hidden ?
