@@ -1,365 +1,253 @@
 // noinspection DuplicatedCode
 
 
-import {newIConfiguration} from "../../features/integration/types/Configuration";
-import {VALUE_BUILDER_STRATEGY} from "../../features/integration/types/ValueBuilderStrategy.enum";
+import {FieldConfigurationType, newIConfiguration} from "../../features/integration/types/Configuration";
 
 export const MOCK_CONFIGURATION: newIConfiguration = {
     "comment": "form to test mapping",
     "completed": false,
-    "configurationFields": [
+    "elements": [
         {
-            "children": [
+            "fieldConfigurations": [
                 {
                     "key": "tittel",
-                    "valueBuildStrategy": 1,
-                    "valueBuilder": {
-                        "properties": [],
-                        "value": "Title of case"
-                    }
+                    "type": FieldConfigurationType.DYNAMIC_STRING,
+                    "value": "Title of case"
                 },
                 {
                     "key": "offentligTittel",
-                    "valueBuildStrategy": 1,
-                    "valueBuilder": {
-                        "properties": [],
-                        "value": "public title"
-                    }
+                    "type": FieldConfigurationType.DYNAMIC_STRING,
+                    "value": "public title"
                 },
                 {
                     "key": "saksmappetype",
-                    "valueBuildStrategy": 0,
-                    "valueBuilder": {
-                        "value": "casetype"
-                    }
+                    "type": FieldConfigurationType.STRING,
+                    "value": "casetype"
                 },
                 {
                     "key": "administrativenhet",
-                    "valueBuildStrategy": 0,
-                    "valueBuilder": {
-                        "value": "unit4"
-                    }
+                    "type": FieldConfigurationType.STRING,
+                    "value": "unit4"
                 },
                 {
                     "key": "arkivdel",
-                    "valueBuildStrategy": 0,
-                    "valueBuilder": {
-                        "value": "unit3"
-                    }
+                    "type": FieldConfigurationType.STRING,
+                    "value": "unit3"
                 },
                 {
                     "key": "journalenhet",
-                    "valueBuildStrategy": 0,
-                    "valueBuilder": {
-                        "value": "unit0"
-                    }
+                    "type": FieldConfigurationType.STRING,
+                    "value": "unit0"
                 },
                 {
                     "key": "status",
-                    "valueBuildStrategy": 0,
-                    "valueBuilder": {
-                        "value": ""
-                    }
+                    "type": FieldConfigurationType.STRING,
+                    "value": ""
                 },
                 {
                     "key": "tilgangsrestriksjon",
-                    "valueBuildStrategy": 0,
-                    "valueBuilder": {
-                        "value": "code42"
-                    }
+                    "type": FieldConfigurationType.STRING,
+                    "value": "code42"
                 },
                 {
                     "key": "skjermingshjemmel",
-                    "valueBuildStrategy": 0,
-                    "valueBuilder": {
-                        "value": "number6"
-                    }
+                    "type": FieldConfigurationType.STRING,
+                    "value": "number6"
                 },
                 {
                     "key": "saksansvarlig",
-                    "valueBuildStrategy": 0,
-                    "valueBuilder": {
-                        "value": "rand"
-                    }
+                    "type": FieldConfigurationType.STRING,
+                    "value": "rand"
                 },
                 {
                     "key": "primarordningsprinsipp",
-                    "valueBuildStrategy": 1,
-                    "valueBuilder": {
-                        "properties": [],
-                        "value": "prim"
-                    }
+                    "type": FieldConfigurationType.STRING,
+                    "value": "prim"
                 },
                 {
                     "key": "sekundarordningsprinsipp",
-                    "valueBuildStrategy": 1,
-                    "valueBuilder": {
-                        "properties": [],
-                        "value": "rose"
-                    }
+                    "type": FieldConfigurationType.STRING,
+                    "value": "rose"
                 },
                 {
                     "key": "tertiarordningsprinsipp",
-                    "valueBuildStrategy": 1,
-                    "valueBuilder": {
-                        "properties": [],
-                        "value": "everdeen"
-                    }
+                    "type": FieldConfigurationType.STRING,
+                    "value": "everdeen"
                 },
                 {
                     "key": "primarklasse",
-                    "valueBuildStrategy": 1,
-                    "valueBuilder": {
-                        "properties": [],
-                        "value": "1class"
-                    }
+                    "type": FieldConfigurationType.DYNAMIC_STRING,
+                    "value": "1class"
                 },
                 {
                     "key": "sekundarklasse",
-                    "valueBuildStrategy": 0,
-                    "valueBuilder": {
-                        "properties": [],
-                        "value": "2class"
-                    }
+                    "type": FieldConfigurationType.DYNAMIC_STRING,
+                    "value": "2class"
                 },
                 {
                     "key": "tertiarklasse",
-                    "valueBuildStrategy": 0,
-                    "valueBuilder": {
-                        "properties": [],
-                        "value": "3class"
-                    }
+                    "type": FieldConfigurationType.DYNAMIC_STRING,
+                    "value": "3class"
                 },
                 {
                     "key": "primartittel",
-                    "valueBuildStrategy": 1,
-                    "valueBuilder": {
-                        "properties": [],
-                        "value": "primTitle"
-                    }
+                    "type": FieldConfigurationType.DYNAMIC_STRING,
+                    "value": "primTitle"
                 },
                 {
                     "key": "sekundartittel",
-                    "valueBuildStrategy": 1,
-                    "valueBuilder": {
-                        "properties": [],
-                        "value": "secTitle"
-                    }
+                    "type": FieldConfigurationType.DYNAMIC_STRING,
+                    "value": "secTitle"
                 },
                 {
                     "key": "tertiartittel",
-                    "valueBuildStrategy": 1,
-                    "valueBuilder": {
-                        "properties": [],
-                        "value": "tertTitle"
-                    }
+                    "type": FieldConfigurationType.DYNAMIC_STRING,
+                    "value": "tertTitle"
                 }
             ],
             "key": "case"
         },
         {
-            "children": [
+            "fieldConfigurations": [
                 {
                     "key": "tittel",
-                    "valueBuildStrategy": 1,
-                    "valueBuilder": {
-                        "properties": [],
-                        "value": "record title"
-                    }
+                    "type": FieldConfigurationType.DYNAMIC_STRING,
+                    "value": "record title"
                 },
                 {
                     "key": "offentigTittel",
-                    "valueBuildStrategy": 1,
-                    "valueBuilder": {
-                        "properties": [],
-                        "value": "public record title"
-                    }
+                    "type": FieldConfigurationType.DYNAMIC_STRING,
+                    "value": "public record title"
                 },
                 {
                     "key": "DokumentBeskrivelse.dokumentType",
-                    "valueBuildStrategy": 0,
-                    "valueBuilder": {
-                        "value": "cat8"
-                    }
+                    "type": FieldConfigurationType.STRING,
+                    "value": "cat8"
                 },
                 {
                     "key": "administrativenhet",
-                    "valueBuildStrategy": 0,
-                    "valueBuilder": {
-                        "value": "unit33"
-                    }
+                    "type": FieldConfigurationType.STRING,
+                    "value": "unit33"
                 },
                 {
                     "key": "journalstatus",
-                    "valueBuildStrategy": 0,
-                    "valueBuilder": {
-                        "value": "N"
-                    }
+                    "type": FieldConfigurationType.STRING,
+                    "value": "N"
                 },
                 {
                     "key": "journalposttype",
-                    "valueBuildStrategy": 0,
-                    "valueBuilder": {
-                        "value": "A"
-                    }
+                    "type": FieldConfigurationType.STRING,
+                    "value": "A"
                 },
                 {
                     "key": "saksbehandler",
-                    "valueBuildStrategy": 0,
-                    "valueBuilder": {
-                        "value": "boba"
-                    }
+                    "type": FieldConfigurationType.STRING,
+                    "value": "boba"
                 },
                 {
                     "key": "tilgangsrestriksjon",
-                    "valueBuildStrategy": 0,
-                    "valueBuilder": {
-                        "value": "code89"
-                    }
+                    "type": FieldConfigurationType.STRING,
+                    "value": "code89"
                 },
                 {
                     "key": "skjermingshjemmel",
-                    "valueBuildStrategy": 0,
-                    "valueBuilder": {
-                        "value": "p34"
-                    }
+                    "type": FieldConfigurationType.STRING,
+                    "value": "p34"
                 }
             ],
             "key": "record"
         },
         {
-            "children": [
+            "fieldConfigurations": [
                 {
                     "key": "tittel",
-                    "valueBuildStrategy": 1,
-                    "valueBuilder": {
-                        "properties": [],
-                        "value": "document title"
-                    }
+                    type: FieldConfigurationType.DYNAMIC_STRING,
+                    "value": "document title"
                 },
                 {
                     "key": "dokumentStatus",
-                    "valueBuildStrategy": 0,
-                    "valueBuilder": {
-                        "value": "D9"
-                    }
+                    "type": FieldConfigurationType.STRING,
+                    "value": "D9"
                 },
                 {
                     "key": "DokumentBeskrivelse.dokumentKategori",
-                    "valueBuildStrategy": 0,
-                    "valueBuilder": {}
+                    "type": FieldConfigurationType.STRING,
+                    "value": "cat1"
                 },
                 {
                     "key": "tilgangsrestriksjon",
-                    "valueBuildStrategy": 0,
-                    "valueBuilder": {
-                        "value": "code2"
-                    }
+                    "type": FieldConfigurationType.STRING,
+                    "value": "code2"
                 },
                 {
                     "key": "skjermingshjemmel",
-                    "valueBuildStrategy": 0,
-                    "valueBuilder": {
-                        "value": "p07"
-                    }
+                    "type": FieldConfigurationType.STRING,
+                    "value": "p07"
                 },
                 {
                     "key": "DokumentBeskrivelse.dokumentObjekt.variantFormat",
-                    "valueBuildStrategy": 0,
-                    "valueBuilder": {
-                        "value": "var"
-                    }
+                    "type": FieldConfigurationType.STRING,
+                    "value": "var"
                 }
             ],
             "key": "document"
         },
         {
-            "children": [
+            "fieldConfigurations": [
                 {
                     "key": "organisasjonsnummer",
-                    "valueBuildStrategy": 1,
-                    "valueBuilder": {
-                        "properties": [],
-                        "value": ""
-                    }
+                    "type": FieldConfigurationType.DYNAMIC_STRING,
+                    "value": ""
                 },
                 {
                     "key": "fødselsnummer",
-                    "valueBuildStrategy": 1,
-                    "valueBuilder": {
-                        "properties": [],
-                        "value": ""
-                    }
+                    "type": FieldConfigurationType.DYNAMIC_STRING,
+                    "value": ""
                 },
                 {
                     "key": "KorrespondansepartNavn",
-                    "valueBuildStrategy": 1,
-                    "valueBuilder": {
-                        "properties": [],
-                        "value": "Anakin Skywalker"
-                    }
+                    "type": FieldConfigurationType.DYNAMIC_STRING,
+                    "value": "Anakin Skywalker"
                 },
                 {
                     "key": "Adresse.adresselinje",
-                    "valueBuildStrategy": 1,
-                    "valueBuilder": {
-                        "properties": [],
-                        "value": "highstreet 22"
-                    }
+                    "type": FieldConfigurationType.DYNAMIC_STRING,
+                    "value": "highstreet 22"
                 },
                 {
                     "key": "Adresse.postnummer",
-                    "valueBuildStrategy": 1,
-                    "valueBuilder": {
-                        "properties": [],
-                        "value": "1234"
-                    }
+                    "type": FieldConfigurationType.DYNAMIC_STRING,
+                    "value": "1234"
                 },
                 {
                     "key": "Adresse.poststed",
-                    "valueBuildStrategy": 1,
-                    "valueBuilder": {
-                        "properties": [],
-                        "value": "Moria"
-                    }
+                    "type": FieldConfigurationType.DYNAMIC_STRING,
+                    "value": "Moria"
                 },
                 {
                     "key": "kontaktperson",
-                    "valueBuildStrategy": 1,
-                    "valueBuilder": {
-                        "properties": [],
-                        "value": "donna"
-                    }
+                    "type": FieldConfigurationType.DYNAMIC_STRING,
+                    "value": "donna"
                 },
                 {
                     "key": "Kontaktinformasjon.mobiltelefonnummer",
-                    "valueBuildStrategy": 1,
-                    "valueBuilder": {
-                        "properties": [],
-                        "value": "12345678"
-                    }
+                    "type": FieldConfigurationType.DYNAMIC_STRING,
+                    "value": "12345678"
                 },
                 {
                     "key": "Kontaktinformasjon.epostadresse",
-                    "valueBuildStrategy": 1,
-                    "valueBuilder": {
-                        "properties": [],
-                        "value": "hello@world.no"
-                    }
+                    "type": FieldConfigurationType.DYNAMIC_STRING,
+                    "value": "hello@world.no"
                 },
                 {
                     "key": "tilgangsrestriksjon",
-                    "valueBuildStrategy": 0,
-                    "valueBuilder": {
-                        "value": "code2"
-                    }
+                    "type": FieldConfigurationType.DYNAMIC_STRING,
+                    "value": "code2"
                 },
                 {
                     "key": "skjermingshjemmel",
-                    "valueBuildStrategy": 0,
-                    "valueBuilder": {
-                        "value": "p3"
-                    }
+                    "type": FieldConfigurationType.DYNAMIC_STRING,
+                    "value": "p3"
                 }
             ],
             "key": "applicant"
@@ -375,50 +263,36 @@ export const MOCK_NEW_CONFIG: newIConfiguration = {
     version: 3,
     completed: true,
     comment: 'Ferdigstilt ',
-    configurationFields: [
+    elements: [
         {
             key: 'case',
-            children: [
+            fieldConfigurations: [
                 {
                     key: 'tittel',
-                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                    valueBuilder: {
-                        value: "%s %s %s",
-                        properties: [
-                            {key: "foo", order: 0},
-                            {key: "bar", order: 1},
-                            {key: "bubu", order: 2}
-                        ]
-                    }
+                    type: FieldConfigurationType.DYNAMIC_STRING,
+                    value: '$iem{foo} $iem{bar}'
                 },
                 {
                     key: 'journalenhet',
-                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                    valueBuilder: {
-                        value:  "https://beta.felleskomponent.no/arkiv/noark/administrativenhet/systemid/191"
-                    }
+                    type: FieldConfigurationType.STRING,
+                    value:  "https://beta.felleskomponent.no/arkiv/noark/administrativenhet/systemid/191"
+
                 }
             ]
         },
         {
             key: 'record',
-            children: [
+            fieldConfigurations: [
                 {
                     key: 'tittel',
-                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                    valueBuilder: {
-                        value: "%s bar",
-                        properties: [
-                            {key: "foo", order: 0},
-                        ]
-                    }
+                    type: FieldConfigurationType.DYNAMIC_STRING,
+                    value: 'foo $iem{bar}'
                 },
                 {
                     key: 'administrativeenhet',
-                    valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                    valueBuilder: {
-                        value:  "https://beta.felleskomponent.no/arkiv/noark/administrativenhet/systemid/191"
-                    }
+                    type: FieldConfigurationType.STRING,
+                    value:  "https://beta.felleskomponent.no/arkiv/noark/administrativenhet/systemid/191"
+
                 }
             ]
         }

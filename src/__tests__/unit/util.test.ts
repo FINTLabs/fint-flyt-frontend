@@ -70,5 +70,5 @@ test('It should convert field to string', () => {
 });
 
 test('It should convert field with tags to string', () => {
-    expect(newFieldToString(MOCK_CASE_FIELDS, "offentligTittel", true)).toEqual("public title {test}");
+    expect(newFieldToString(MOCK_CASE_FIELDS, "offentligTittel")).toEqual("public title $iem{test}");
 });

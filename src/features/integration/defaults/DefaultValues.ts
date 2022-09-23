@@ -6,9 +6,7 @@ import {IFormConfiguration} from "../types/Form/FormData";
 import {ApplicantType} from "../types/ApplicantType";
 import {IIntegrationMetadata} from "../types/IntegrationMetadata";
 import {IIntegration} from "../types/Integration";
-import {newIConfiguration} from "../types/Configuration";
-import {VALUE_BUILDER_STRATEGY} from "../types/ValueBuilderStrategy.enum";
-
+import {FieldConfigurationType, newIConfiguration} from "../types/Configuration";
 
 export const defaultConfigurationValues: IFormConfiguration = {
     comment: '',
@@ -274,7 +272,7 @@ export const MOCK_NEWCONFIGURATIONS: newIConfiguration[] = [
         version: 1,
         comment: 'Opprette konfigurasjon',
         completed: false,
-        configurationFields: []
+        elements: []
     },
     {
         configurationId: 'id0',
@@ -282,7 +280,7 @@ export const MOCK_NEWCONFIGURATIONS: newIConfiguration[] = [
         version: 2,
         comment: 'Første versjon - avventer endringer',
         completed: false,
-        configurationFields: []
+        elements: []
     },
     {
         configurationId: 'id1',
@@ -290,21 +288,14 @@ export const MOCK_NEWCONFIGURATIONS: newIConfiguration[] = [
         version: 3,
         completed: false,
         comment: 'Opprettet ny pga x, y, z',
-        configurationFields: [
+        elements: [
             {
                 key: 'case',
-                children: [
+                fieldConfigurations: [
                     {
                         key: 'tittel',
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                        valueBuilder: {
-                            value: "%s %s %s",
-                            properties: [
-                                {key: "foo", order: 0},
-                                {key: "bar", order: 1},
-                                {key: "bubu", order: 2}
-                            ]
-                        }
+                        type: FieldConfigurationType.DYNAMIC_STRING,
+                        value: "iem{foo} iem{bar} iem{bubu}",
                     },
                 ]
             }
@@ -316,71 +307,44 @@ export const MOCK_NEWCONFIGURATIONS: newIConfiguration[] = [
         version: 4,
         completed: true,
         comment: 'Ferdigstilt ',
-        configurationFields: [
+        elements: [
             {
                 key: 'case',
-                children: [
+                fieldConfigurations: [
                     {
                         key: 'tittel',
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                        valueBuilder: {
-                            value: "%s %s %s",
-                            properties: [
-                                {key: "foo", order: 0},
-                                {key: "bar", order: 1},
-                                {key: "bubu", order: 2}
-                            ]
-                        }
+                        type: FieldConfigurationType.DYNAMIC_STRING,
+                        value: "$iem{foo} $iem{bar} $iem{bubu}",
                     },
                     {
                         key: 'offentligTittel',
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                        valueBuilder: {
-                            value: "%s test",
-                            properties: [
-                                {key: "foo", order: 0},
-                            ]
-                        }
+                        type: FieldConfigurationType.DYNAMIC_STRING,
+                        value: "$iem{foo} test",
                     },
                     {
                         key: "administrativenhet",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                        valueBuilder: {
-                            value: "https://beta.felleskomponent.no/arkiv/noark/administrativenhet/systemid/193",
-                            properties: []
-                        }
+                        type: FieldConfigurationType.STRING,
+                        value: "https://beta.felleskomponent.no/arkiv/noark/administrativenhet/systemid/193",
                     },
                     {
                         key: "journalenhet",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                        valueBuilder: {
-                            value: "https://beta.felleskomponent.no/arkiv/noark/administrativenhet/systemid/241",
-                            properties: []
-                        }
+                        type: FieldConfigurationType.STRING,
+                        value: "https://beta.felleskomponent.no/arkiv/noark/administrativenhet/systemid/241",
                     },
                     {
                         key: "status",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                        valueBuilder: {
-                            value: "https://beta.felleskomponent.no/arkiv/kodeverk/saksstatus/systemid/F",
-                            properties: []
-                        }
+                        type: FieldConfigurationType.STRING,
+                        value: "https://beta.felleskomponent.no/arkiv/kodeverk/saksstatus/systemid/F",
                     },
                     {
                         key: "primarordningsprinsipp",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                        valueBuilder: {
-                            value: "https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/EMNE",
-                            properties: []
-                        }
+                        type: FieldConfigurationType.STRING,
+                        value: "https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/EMNE",
                     },
                     {
                         key: "arkivdel",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                        valueBuilder: {
-                            value: "https://beta.felleskomponent.no/arkiv/noark/arkivdel/systemid/OESMU",
-                            properties: []
-                        }
+                        type: FieldConfigurationType.STRING,
+                        value: "https://beta.felleskomponent.no/arkiv/noark/arkivdel/systemid/OESMU"
                     },
                 ]
             }
@@ -392,71 +356,44 @@ export const MOCK_NEWCONFIGURATIONS: newIConfiguration[] = [
         version: 5,
         completed: true,
         comment: 'Ferdigstilt versjon 2',
-        configurationFields: [
+        elements: [
             {
                 key: 'case',
-                children: [
+                fieldConfigurations: [
                     {
                         key: 'tittel',
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                        valueBuilder: {
-                            value: "%s %s %s",
-                            properties: [
-                                {key: "foo", order: 0},
-                                {key: "bar", order: 1},
-                                {key: "bubu", order: 2}
-                            ]
-                        }
+                        type: FieldConfigurationType.DYNAMIC_STRING,
+                        value: "$iem{foo} $iem{bar} $iem{bubu}",
                     },
                     {
                         key: 'offentligTittel',
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                        valueBuilder: {
-                            value: "%s test",
-                            properties: [
-                                {key: "foo", order: 0},
-                            ]
-                        }
+                        type: FieldConfigurationType.DYNAMIC_STRING,
+                        value: "$iem{foo} test",
                     },
                     {
                         key: "administrativenhet",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                        valueBuilder: {
-                            value: "https://beta.felleskomponent.no/arkiv/noark/administrativenhet/systemid/193",
-                            properties: []
-                        }
+                        type: FieldConfigurationType.STRING,
+                        value: "https://beta.felleskomponent.no/arkiv/noark/administrativenhet/systemid/193",
                     },
                     {
                         key: "journalenhet",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                        valueBuilder: {
-                            value: "https://beta.felleskomponent.no/arkiv/noark/administrativenhet/systemid/241",
-                            properties: []
-                        }
+                        type: FieldConfigurationType.STRING,
+                        value: "https://beta.felleskomponent.no/arkiv/noark/administrativenhet/systemid/241",
                     },
                     {
                         key: "status",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                        valueBuilder: {
-                            value: "https://beta.felleskomponent.no/arkiv/kodeverk/saksstatus/systemid/F",
-                            properties: []
-                        }
+                        type: FieldConfigurationType.STRING,
+                        value: "https://beta.felleskomponent.no/arkiv/kodeverk/saksstatus/systemid/F",
                     },
                     {
                         key: "primarordningsprinsipp",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                        valueBuilder: {
-                            value: "https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/EMNE",
-                            properties: []
-                        }
+                        type: FieldConfigurationType.STRING,
+                        value: "https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/EMNE",
                     },
                     {
                         key: "arkivdel",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                        valueBuilder: {
-                            value: "https://beta.felleskomponent.no/arkiv/noark/arkivdel/systemid/OESMU",
-                            properties: []
-                        }
+                        type: FieldConfigurationType.STRING,
+                        value: "https://beta.felleskomponent.no/arkiv/noark/arkivdel/systemid/OESMU"
                     },
                 ]
             }

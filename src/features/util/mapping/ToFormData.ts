@@ -1,21 +1,20 @@
 import {newFieldToString} from "../ValueBuilderUtil";
 import {IFormConfiguration} from "../../integration/types/Form/FormData";
-import {IConfigurationField, newIConfiguration} from "../../integration/types/Configuration";
+import {IConfigurationElement, newIConfiguration} from "../../integration/types/Configuration";
 import {CreationStrategy} from "../../integration/types/CreationStrategy";
 import {ApplicantType} from "../../integration/types/ApplicantType";
 
 export function newToFormData(data: newIConfiguration): IFormConfiguration {
-    console.log(data)
-    const caseFields: IConfigurationField[] = data.configurationFields?.filter(confField => confField.key === 'case');
-    const recordFields: IConfigurationField[] = data.configurationFields?.filter(confField => confField.key === 'record');
-    const documentFields: IConfigurationField[] = data.configurationFields?.filter(confField => confField.key === 'document');
-    const applicantFields: IConfigurationField[] = data.configurationFields?.filter(confField => confField.key === 'applicant');
+    const caseFields: IConfigurationElement[] = data.elements?.filter(confField => confField.key === 'case');
+    const recordFields: IConfigurationElement[] = data.elements?.filter(confField => confField.key === 'record');
+    const documentFields: IConfigurationElement[] = data.elements?.filter(confField => confField.key === 'document');
+    const applicantFields: IConfigurationElement[] = data.elements?.filter(confField => confField.key === 'applicant');
     return {
         comment: data.comment,
         completed: data.completed,
         caseData: {
-            title: newFieldToString(caseFields, 'tittel', true),
-            publicTitle: newFieldToString(caseFields, 'offentligTittel', true),
+            title: newFieldToString(caseFields, 'tittel'),
+            publicTitle: newFieldToString(caseFields, 'offentligTittel'),
             recordUnit: newFieldToString(caseFields, 'journalenhet'),
             //TODO: fix this
             caseCreationStrategy: CreationStrategy.NEW,
@@ -26,19 +25,19 @@ export function newToFormData(data: newIConfiguration): IFormConfiguration {
             accessCode: newFieldToString(caseFields, 'tilgangsrestriksjon'),
             paragraph: newFieldToString(caseFields, 'skjermingshjemmel'),
             caseWorker: newFieldToString(caseFields, 'saksansvarlig'),
-            primaryClassification: newFieldToString(caseFields, 'primarordningsprinsipp', true),
-            secondaryClassification: newFieldToString(caseFields, 'sekundarordningsprinsipp', true),
-            tertiaryClassification: newFieldToString(caseFields, 'tertiarordningsprinsipp', true),
-            primaryClass: newFieldToString(caseFields, 'primarklasse', true),
+            primaryClassification: newFieldToString(caseFields, 'primarordningsprinsipp'),
+            secondaryClassification: newFieldToString(caseFields, 'sekundarordningsprinsipp'),
+            tertiaryClassification: newFieldToString(caseFields, 'tertiarordningsprinsipp'),
+            primaryClass: newFieldToString(caseFields, 'primarklasse'),
             secondaryClass: newFieldToString(caseFields, 'sekundarklasse'),
             tertiaryClass: newFieldToString(caseFields, 'tertiarklasse'),
-            primaryTitle: newFieldToString(caseFields, 'primartittel', true),
-            secondaryTitle: newFieldToString(caseFields, 'sekundartittel', true),
-            tertiaryTitle: newFieldToString(caseFields, 'tertiartittel', true)
+            primaryTitle: newFieldToString(caseFields, 'primartittel'),
+            secondaryTitle: newFieldToString(caseFields, 'sekundartittel'),
+            tertiaryTitle: newFieldToString(caseFields, 'tertiartittel')
         },
         recordData: {
-            title: newFieldToString(recordFields, 'tittel', true),
-            publicTitle: newFieldToString(recordFields, 'offentigTittel', true),
+            title: newFieldToString(recordFields, 'tittel'),
+            publicTitle: newFieldToString(recordFields, 'offentigTittel'),
             documentType: newFieldToString(recordFields, 'DokumentBeskrivelse.dokumentType'),
             administrativeUnit: newFieldToString(recordFields, 'administrativenhet'),
             recordStatus: newFieldToString(recordFields, 'journalstatus'),
@@ -48,7 +47,7 @@ export function newToFormData(data: newIConfiguration): IFormConfiguration {
             paragraph: newFieldToString(recordFields, 'skjermingshjemmel'),
         },
         documentData: {
-            title: newFieldToString(documentFields, 'tittel', true),
+            title: newFieldToString(documentFields, 'tittel'),
             documentStatus: newFieldToString(documentFields, 'dokumentStatus'),
             //TODO: whats the correct name for this configField?
             documentCategory: newFieldToString(documentFields, 'DokumentBeskrivelse.dokumentKategori'),
@@ -59,15 +58,15 @@ export function newToFormData(data: newIConfiguration): IFormConfiguration {
         applicantData: {
             //TODO: fix mapping of type
             type: ApplicantType.PERSON,
-            organisationNumber: newFieldToString(applicantFields, 'organisasjonsnummer', true),
-            nationalIdentityNumber: newFieldToString(applicantFields, 'fødselsnummer', true),
-            name: newFieldToString(applicantFields, 'KorrespondansepartNavn', true),
-            address: newFieldToString(applicantFields, 'Adresse.adresselinje', true),
-            postalCode: newFieldToString(applicantFields, 'Adresse.postnummer', true),
-            city: newFieldToString(applicantFields, 'Adresse.poststed', true),
-            contactPerson: newFieldToString(applicantFields, 'kontaktperson', true),
-            phoneNumber: newFieldToString(applicantFields, 'Kontaktinformasjon.mobiltelefonnummer', true),
-            email: newFieldToString(applicantFields, 'Kontaktinformasjon.epostadresse', true),
+            organisationNumber: newFieldToString(applicantFields, 'organisasjonsnummer'),
+            nationalIdentityNumber: newFieldToString(applicantFields, 'fødselsnummer'),
+            name: newFieldToString(applicantFields, 'KorrespondansepartNavn'),
+            address: newFieldToString(applicantFields, 'Adresse.adresselinje'),
+            postalCode: newFieldToString(applicantFields, 'Adresse.postnummer'),
+            city: newFieldToString(applicantFields, 'Adresse.poststed'),
+            contactPerson: newFieldToString(applicantFields, 'kontaktperson'),
+            phoneNumber: newFieldToString(applicantFields, 'Kontaktinformasjon.mobiltelefonnummer'),
+            email: newFieldToString(applicantFields, 'Kontaktinformasjon.epostadresse'),
             accessCode: newFieldToString(applicantFields, 'tilgangsrestriksjon'),
             paragraph: newFieldToString(applicantFields, 'skjermingshjemmel'),
         },

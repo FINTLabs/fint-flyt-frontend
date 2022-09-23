@@ -56,6 +56,7 @@ export const MOCK_CONFIG_FORMDATA: IFormConfiguration = {
     documentData: {
         accessCode: "code2",
         documentStatus: "D9",
+        documentCategory: "cat1",
         paragraph: "p07",
         title: "document title",
         variant: "var"
@@ -108,7 +109,7 @@ export const MOCK_NEW_FORMDATA: IFormConfiguration = {
         "tertiaryClass": "",
         "tertiaryClassification": "",
         "tertiaryTitle": "",
-        "title": "{foo} {bar} {bubu}"
+        "title": "$iem{foo} $iem{bar}"
     },
     "comment": "Ferdigstilt ",
     "completed": true,
@@ -129,6 +130,6 @@ export const MOCK_NEW_FORMDATA: IFormConfiguration = {
         "publicTitle": "",
         "recordStatus": "",
         "recordType": "",
-        "title": "{foo} bar"
+        "title": "foo $iem{bar}"
     }
 }

@@ -195,7 +195,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
         history.push({
             pathname: '/',
         })
-        setConfiguration({configurationFields: []});
+        setConfiguration({elements: []});
     }
 
     const handleClose = (event: React.SyntheticEvent | Event, reason?: string) => {

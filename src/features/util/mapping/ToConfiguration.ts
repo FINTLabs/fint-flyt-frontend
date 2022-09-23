@@ -1,8 +1,5 @@
-import { newIConfiguration } from "../../integration/types/Configuration";
+import {FieldConfigurationType, newIConfiguration} from "../../integration/types/Configuration";
 import { IFormConfiguration } from "../../integration/types/Form/FormData";
-import { VALUE_BUILDER_STRATEGY } from "../../integration/types/ValueBuilderStrategy.enum";
-import { createValueBuilder } from "../ValueBuilderUtil";
-
 
 export function toNewConfiguration(data: IFormConfiguration, integrationId?: string, configurationId?: string, metadataId?: number,): newIConfiguration {
     return {
@@ -11,296 +8,265 @@ export function toNewConfiguration(data: IFormConfiguration, integrationId?: str
         completed: data.completed,
         metadataId: metadataId,
         comment: data.comment,
-        configurationFields: [
+        elements: [
             {
                 key: 'case',
-                children: [
+                fieldConfigurations: [
                     {
                         key: "tittel",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                        valueBuilder: createValueBuilder(data.caseData?.title)
+                        type: FieldConfigurationType.DYNAMIC_STRING,
+                        value: data.caseData?.title
                     },
                     {
                         key: "offentligTittel",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                        valueBuilder: createValueBuilder(data.caseData?.publicTitle)
+                        type: FieldConfigurationType.DYNAMIC_STRING,
+                        value: data.caseData?.publicTitle
                     },
                     {
                         key: "saksmappetype",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                        valueBuilder: {
-                            value: data.caseData?.caseType
-                        }
+                        type: FieldConfigurationType.STRING,
+                        value: data.caseData?.caseType
                     },
                     {
                         key: 'administrativenhet',
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                        valueBuilder: {
-                            value: data.caseData?.administrativeUnit
-                        }
+                        type: FieldConfigurationType.STRING,
+                        value: data.caseData?.administrativeUnit
+
                     },
                     {
                         key: "arkivdel",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                        valueBuilder: {
-                            value: data.caseData?.archiveUnit
-                        }
+                        type: FieldConfigurationType.STRING,
+                        value: data.caseData?.archiveUnit
+
                     },
                     {
                         key: "journalenhet",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                        valueBuilder: {
-                            value: data.caseData?.recordUnit
-                        }
+                        type: FieldConfigurationType.STRING,
+                        value: data.caseData?.recordUnit
+
                     },
                     {
                         key: "status",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                        valueBuilder: {
-                            value: data.caseData?.status
-                        }
+                        type: FieldConfigurationType.STRING,
+                        value: data.caseData?.status
+
                     },
                     {
                         key: "tilgangsrestriksjon",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                        valueBuilder: {
-                            value: data.caseData?.accessCode
-                        }
+                        type: FieldConfigurationType.STRING,
+                        value: data.caseData?.accessCode
+
                     },
                     {
                         key: "skjermingshjemmel",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                        valueBuilder: {
-                            value: data.caseData?.paragraph
-                        }
+                        type: FieldConfigurationType.STRING,
+                        value: data.caseData?.paragraph
+
                     },
                     {
                         key: "saksansvarlig",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                        valueBuilder: {
-                            value: data.caseData?.caseWorker
-                        }
+                        type: FieldConfigurationType.STRING,
+                        value: data.caseData?.caseWorker
+
                     },
                     {
                         key: "primarordningsprinsipp",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                        valueBuilder: createValueBuilder(data.caseData?.primaryClassification)
+                        type: FieldConfigurationType.STRING,
+                        value: data.caseData?.primaryClassification
                     },
                     {
                         key: "sekundarordningsprinsipp",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                        valueBuilder: createValueBuilder(data.caseData?.secondaryClassification)
+                        type: FieldConfigurationType.STRING,
+                        value: data.caseData?.secondaryClassification
                     },
                     {
                         key: "tertiarordningsprinsipp",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                        valueBuilder: createValueBuilder(data.caseData?.tertiaryClassification)
+                        type: FieldConfigurationType.STRING,
+                        value: data.caseData?.tertiaryClassification
                     },
                     {
                         key: "primarklasse",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                        valueBuilder: createValueBuilder(data.caseData?.primaryClass),
+                        type: FieldConfigurationType.DYNAMIC_STRING,
+                        value: data.caseData?.primaryClass
                     },
                     {
                         key: "sekundarklasse",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                        valueBuilder: createValueBuilder(data.caseData?.secondaryClass)
+                        type: FieldConfigurationType.DYNAMIC_STRING,
+                        value: data.caseData?.secondaryClass
                     },
                     {
                         key: "tertiarklasse",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                        valueBuilder: createValueBuilder(data.caseData?.tertiaryClass)
+                        type: FieldConfigurationType.DYNAMIC_STRING,
+                        value: data.caseData?.tertiaryClass
                     },
                     {
                         key: "primartittel",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                        valueBuilder: createValueBuilder(data.caseData?.primaryTitle)
+                        type: FieldConfigurationType.DYNAMIC_STRING,
+                        value: data.caseData?.primaryTitle
                     },
                     {
                         key: "sekundartittel",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                        valueBuilder: createValueBuilder(data.caseData?.secondaryTitle)
+                        type: FieldConfigurationType.DYNAMIC_STRING,
+                        value: data.caseData?.secondaryTitle
                     },
                     {
                         key: "tertiartittel",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                        valueBuilder: createValueBuilder(data.caseData?.tertiaryTitle)
+                        type: FieldConfigurationType.DYNAMIC_STRING,
+                        value: data.caseData?.tertiaryTitle
                     }
                 ]
             },
             {
                 key: 'record',
-                children: [
+                fieldConfigurations: [
                     {
                         key: "tittel",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                        valueBuilder: createValueBuilder(data.recordData?.title)
+                        type: FieldConfigurationType.DYNAMIC_STRING,
+                        value: data.recordData?.title
+
 
                     },
                     {
                         key: "offentigTittel",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                        valueBuilder: createValueBuilder(data.recordData?.publicTitle)
+                        type: FieldConfigurationType.DYNAMIC_STRING,
+                        value: data.recordData?.publicTitle
 
                     },
                     {
                         key: "DokumentBeskrivelse.dokumentType",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                        valueBuilder: {
-                            value: data.recordData?.documentType
-                        }
+                        type: FieldConfigurationType.STRING,
+                        value: data.recordData?.documentType
+
                     },
                     {
                         key: "administrativenhet",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                        valueBuilder: {
-                            value: data.recordData?.administrativeUnit
-                        }
+                        type: FieldConfigurationType.STRING,
+                        value: data.recordData?.administrativeUnit
+
                     },
                     {
                         key: "journalstatus",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                        valueBuilder: {
-                            value: data.recordData?.recordStatus
-                        }
+                        type: FieldConfigurationType.STRING,
+                        value: data.recordData?.recordStatus
                     },
                     {
                         key: "journalposttype",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                        valueBuilder: {
-                            value: data.recordData?.recordType
-                        }
+                        type: FieldConfigurationType.STRING,
+                        value: data.recordData?.recordType
                     },
                     {
                         key: "saksbehandler",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                        valueBuilder: {
-                            value: data.recordData?.caseWorker
-                        }
+                        type: FieldConfigurationType.STRING,
+                        value: data.recordData?.caseWorker
+
                     },
                     {
                         key: "tilgangsrestriksjon",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                        valueBuilder: {
-                            value: data.recordData?.accessCode
-                        }
+                        type: FieldConfigurationType.STRING,
+                        value: data.recordData?.accessCode
+
                     },
                     {
                         key: "skjermingshjemmel",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                        valueBuilder: {
-                            value: data.recordData?.paragraph
-                        }
+                        type: FieldConfigurationType.STRING,
+                        value: data.recordData?.paragraph
                     }
                 ]
             },
             {
                 key: 'document',
-                children: [
+                fieldConfigurations: [
                     {
                         key: "tittel",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                        valueBuilder: createValueBuilder(data.documentData?.title)
+                        type: FieldConfigurationType.DYNAMIC_STRING,
+                        value: data.documentData?.title
                     },
                     {
                         key: "dokumentStatus",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                        valueBuilder: {
-                            value: data.documentData?.documentStatus
-                        }
+                        type: FieldConfigurationType.STRING,
+                        value: data.documentData?.documentStatus
                     },
                     //TODO: what is the corresponding field here
                     {
                         key: "DokumentBeskrivelse.dokumentKategori",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                        valueBuilder: {
-                            value: data.documentData?.documentCategory
-                        }
+                        type: FieldConfigurationType.STRING,
+                        value: data.documentData?.documentCategory
                     },
                     {
                         key: "tilgangsrestriksjon",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                        valueBuilder: {
-                            value: data.documentData?.accessCode
-                        }
+                        type: FieldConfigurationType.STRING,
+                        value: data.documentData?.accessCode
                     },
                     {
                         key: "skjermingshjemmel",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                        valueBuilder: {
-                            value: data.documentData?.paragraph
-                        }
+                        type: FieldConfigurationType.STRING,
+                        value: data.documentData?.paragraph
+
                     },
                     {
                         key: "DokumentBeskrivelse.dokumentObjekt.variantFormat",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                        valueBuilder: {
-                            value: data.documentData?.variant
-                        }
+                        type: FieldConfigurationType.STRING,
+                        value: data.documentData?.variant
                     }
                 ]
             },
             {
                 key: 'applicant',
-                children: [
+                fieldConfigurations: [
                     {
                         key: "organisasjonsnummer",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                        valueBuilder: createValueBuilder(data.applicantData?.organisationNumber)
+                        type: FieldConfigurationType.DYNAMIC_STRING,
+                        value: data.applicantData?.organisationNumber
                     },
                     {
                         key: "fødselsnummer",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                        valueBuilder: createValueBuilder(data.applicantData?.nationalIdentityNumber)
+                        type: FieldConfigurationType.DYNAMIC_STRING,
+                        value: data.applicantData?.organisationNumber
                     },
                     {
                         key: "KorrespondansepartNavn",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                        valueBuilder: createValueBuilder(data.applicantData?.name)
+                        type: FieldConfigurationType.DYNAMIC_STRING,
+                        value: data.applicantData?.name
                     },
                     {
                         key: "Adresse.adresselinje",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                        valueBuilder: createValueBuilder(data.applicantData?.address)
+                        type: FieldConfigurationType.DYNAMIC_STRING,
+                        value: data.applicantData?.address
                     },
                     {
                         key: "Adresse.postnummer",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                        valueBuilder: createValueBuilder(data.applicantData?.postalCode)
+                        type: FieldConfigurationType.DYNAMIC_STRING,
+                        value: data.applicantData?.postalCode
                     },
                     {
                         key: "Adresse.poststed",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                        valueBuilder: createValueBuilder(data.applicantData?.city)
+                        type: FieldConfigurationType.DYNAMIC_STRING,
+                        value: data.applicantData?.city
                     },
                     {
                         key: "kontaktperson",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                        valueBuilder: createValueBuilder(data.applicantData?.contactPerson)
+                        type: FieldConfigurationType.DYNAMIC_STRING,
+                        value: data.applicantData?.contactPerson
                     },
                     {
                         key: "Kontaktinformasjon.mobiltelefonnummer",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                        valueBuilder: createValueBuilder(data.applicantData?.phoneNumber)
+                        type: FieldConfigurationType.DYNAMIC_STRING,
+                        value: data.applicantData?.phoneNumber
                     },
                     {
                         key: "Kontaktinformasjon.epostadresse",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
-                        valueBuilder: createValueBuilder(data.applicantData?.email)
+                        type: FieldConfigurationType.DYNAMIC_STRING,
+                        value: data.applicantData?.email
                     },
                     {
                         key: "tilgangsrestriksjon",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                        valueBuilder: {
-                            value: data.applicantData?.accessCode
-                        }
+                        type: FieldConfigurationType.DYNAMIC_STRING,
+                        value: data.applicantData?.accessCode
                     },
                     {
                         key: "skjermingshjemmel",
-                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
-                        valueBuilder: {
-                            value: data.applicantData?.paragraph
-                        }
+                        type: FieldConfigurationType.DYNAMIC_STRING,
+                        value: data.applicantData?.paragraph
                     }
                 ]
             }

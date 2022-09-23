@@ -1,153 +1,113 @@
-import {IConfigurationField} from "../../features/integration/types/Configuration";
+import {IConfigurationElement} from "../../features/integration/types/Configuration";
 
-export const MOCK_CASE_FIELDS: IConfigurationField[] = [
+export const MOCK_CASE_FIELDS: IConfigurationElement[] = [
     {
-        "children": [
+        "fieldConfigurations": [
             {
                 "key": "tittel",
-                "valueBuildStrategy": 1,
-                "valueBuilder": {
-                    "properties": [],
-                    "value": "Title of case"
-                }
+                "type": "DYNAMIC_STRING",
+                "value": "Title of case"
             },
             {
                 "key": "offentligTittel",
-                "valueBuildStrategy": 1,
-                "valueBuilder": {
-                    "properties": [
-                        {"key": "test", "order": 0, "source": "FORM"}
-                    ],
-                    "value": "public title %s"
-                }
+                "type": "DYNAMIC_STRING",
+                "value": "public title $iem{test}"
             },
             {
                 "key": "saksmappetype",
-                "valueBuildStrategy": 0,
-                "valueBuilder": {
-                    "value": "casetype"
-                }
+                "type": "STRING",
+                "value": "casetype"
+
             },
             {
                 "key": "administrativenhet",
-                "valueBuildStrategy": 0,
-                "valueBuilder": {
-                    "value": "unit4"
-                }
+                "type": "STRING",
+                "value": "unit4"
+
             },
             {
                 "key": "arkivdel",
-                "valueBuildStrategy": 0,
-                "valueBuilder": {
-                    "value": "unit3"
-                }
+                "type": "STRING",
+                "value": "unit3"
+
             },
             {
                 "key": "journalenhet",
-                "valueBuildStrategy": 0,
-                "valueBuilder": {
-                    "value": "unit0"
-                }
+                "type": "STRING",
+                "value": "unit0"
+
             },
             {
                 "key": "status",
-                "valueBuildStrategy": 0,
-                "valueBuilder": {
-                    "value": ""
-                }
+                "type": "STRING",
+                "value": ""
+
             },
             {
                 "key": "tilgangsrestriksjon",
-                "valueBuildStrategy": 0,
-                "valueBuilder": {
-                    "value": "code42"
-                }
+                "type": "STRING",
+                "value": "code42"
             },
             {
                 "key": "skjermingshjemmel",
-                "valueBuildStrategy": 0,
-                "valueBuilder": {
-                    "value": "number6"
-                }
+                "type": "STRING",
+                "value": "number6"
+
             },
             {
                 "key": "saksansvarlig",
-                "valueBuildStrategy": 0,
-                "valueBuilder": {
-                    "value": "rand"
-                }
+                "type": "STRING",
+                "value": "rand"
+
             },
             {
                 "key": "primarordningsprinsipp",
-                "valueBuildStrategy": 1,
-                "valueBuilder": {
-                    "properties": [],
-                    "value": "prim"
-                }
+                "type": "STRING",
+                "value": "prim"
             },
             {
                 "key": "sekundarordningsprinsipp",
-                "valueBuildStrategy": 1,
-                "valueBuilder": {
-                    "properties": [],
-                    "value": "rose"
-                }
+                "type": "STRING",
+                "value": "rose"
             },
             {
                 "key": "tertiarordningsprinsipp",
-                "valueBuildStrategy": 1,
-                "valueBuilder": {
-                    "properties": [],
-                    "value": "everdeen"
-                }
+                "type": "STRING",
+
+                "value": "everdeen"
             },
             {
                 "key": "primarklasse",
-                "valueBuildStrategy": 1,
-                "valueBuilder": {
-                    "properties": [],
-                    "value": "1class"
-                }
+                "type": "DYNAMIC_STRING",
+                "value": "1class"
+
             },
             {
                 "key": "sekundarklasse",
-                "valueBuildStrategy": 0,
-                "valueBuilder": {
-                    "properties": [],
-                    "value": "2class"
-                }
+                "type": "DYNAMIC_STRING",
+                "value": "2class"
+
             },
             {
                 "key": "tertiarklasse",
-                "valueBuildStrategy": 0,
-                "valueBuilder": {
-                    "properties": [],
-                    "value": "3class"
-                }
+                "type": "DYNAMIC_STRING",
+                "value": "3class"
+
             },
             {
                 "key": "primartittel",
-                "valueBuildStrategy": 1,
-                "valueBuilder": {
-                    "properties": [],
-                    "value": "primTitle"
-                }
+                "type": "DYNAMIC_STRING",
+                "value": "primTitle"
             },
             {
                 "key": "sekundartittel",
-                "valueBuildStrategy": 1,
-                "valueBuilder": {
-                    "properties": [],
-                    "value": "secTitle"
-                }
+                "type": "DYNAMIC_STRING",
+                "value": "secTitle"
             },
             {
                 "key": "tertiartittel",
-                "valueBuildStrategy": 1,
-                "valueBuilder": {
-                    "properties": [],
-                    "value": "tertTitle"
-                }
+                "type": "DYNAMIC_STRING",
+                "value": "tertTitle"
             }
         ],
         "key": "case"

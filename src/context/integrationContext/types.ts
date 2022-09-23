@@ -32,7 +32,7 @@ export const contextDefaultValues: IntegrationContextState = {
     newIntegrations: [],
     setNewIntegrations: () => {},
     getNewIntegrations: () => {},
-    configuration: {configurationFields: []},
+    configuration: {elements: []},
     setConfiguration: () => {},
     configurations: [],
     getConfigurations: () => {},

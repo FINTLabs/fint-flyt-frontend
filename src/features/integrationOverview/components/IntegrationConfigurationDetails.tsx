@@ -20,7 +20,7 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
     const {setPrimaryClassification, setSecondaryClassification, setTertiaryClassification} = useContext(ResourcesContext);
     let activeConfigData: IFormConfiguration = newToFormData(configuration)
     const [activeConfiguration, setActiveConfiguration] = useState<newIConfiguration>(configuration)
-    const cases = configuration.configurationFields?.filter(cf => cf.key === 'case');
+    const cases = configuration.elements?.filter(cf => cf.key === 'case');
     const {getAvailableForms, metadata, getMetadata} = useContext(SourceApplicationContext)
 
     const { getAllResources } = useContext(ResourcesContext);

@@ -1,12 +1,14 @@
-import {VALUE_BUILDER_STRATEGY} from "./ValueBuilderStrategy.enum";
-import {ValueBuilder} from "./ValueBuilder";
-
-
-export interface IConfigurationField {
+export interface IFieldConfiguration {
+    id?: string;
     key: string;
-    valueBuildStrategy?: VALUE_BUILDER_STRATEGY,
-    valueBuilder?: ValueBuilder;
-    children?: IConfigurationField[];
+    type: string;
+    value: string | undefined;
+}
+export interface IConfigurationElement {
+    id?: string;
+    key: string;
+    elements?: IConfigurationElement[];
+    fieldConfigurations?: IFieldConfiguration[];
 }
 
 export interface newIConfiguration {
@@ -16,6 +18,18 @@ export interface newIConfiguration {
     version?: number;
     metadataId?: number;
     completed?: boolean;
+    elements: IConfigurationElement[];
+}
 
-    configurationFields: IConfigurationField[];
+export const FieldConfigurationType = {
+    STRING: 'STRING',
+    DYNAMIC_STRING: 'DYNAMIC_STRING',
+    URL: 'URL',
+    BOOLEAN: 'BOOLEAN'
+}
+
+export const FieldCollectionType = {
+    STRING: 'STRING',
+    URL: 'URL',
+    BOOLEAN: 'BOOLEAN'
 }
