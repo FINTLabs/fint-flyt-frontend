@@ -17,11 +17,10 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
     const columns: GridColDef[] = [
         { field: 'configurationId', type: 'string', headerName: 'KonfigurasjonsId', flex: 1, hide: true},
         { field: 'version', type: 'number', headerName: 'Versjon', flex: 0.5 },
-        { field: 'completed', type: 'string', headerName: 'Ferdigstilt', flex: 1,
+        { field: 'comment', type: 'string', headerName: 'Kommentar', flex: 1},
+        { field: 'completed', type: 'string', headerName: 'Ferdigstilt', flex: 0.5,
             valueGetter: (params) => params.row.completed ? 'Ja' : 'Nei'
         },
-        { field: 'comment', type: 'string', headerName: 'Kommentar', flex: 1},
-
         { field: 'details', headerName: 'Rediger', flex: 0.5, sortable: false, filterable: false,
             renderCell: (params) => ( <EditButtonToggle row={params.row} />)
         },
@@ -35,16 +34,14 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
         //TODO: test setConfiguration
         return (
             <>
-                {!completed &&
                     <Link
                         onClick={(e) => {
                             console.log(props.row)
                             setConfiguration(props.row)}
                         }
-                        style={{background: '#1F4F59', padding: '6px 16px 6px 16px', borderRadius: '6px', textDecoration:'none', color:'white', position: 'absolute', border: 'solid 1px', fontFamily: 'sans-serif'}}
-                        to='/integration/configuration/edit'>REDIGER
+                        style={{background: '#1F4F59', padding: '3px 8px 3px 8px', borderRadius: '6px', textDecoration:'none', color:'white', position: 'absolute', border: 'solid 1px', fontFamily: 'sans-serif'}}
+                        to='/integration/configuration/edit'>{completed ? 'VIS' : 'REDIGER'}
                     </Link>
-                }
             </>
         );
     }

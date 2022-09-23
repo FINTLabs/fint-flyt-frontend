@@ -255,18 +255,18 @@ export const MOCK_INTEGRATIONS: IIntegration[] = [
 ]
 
 export const MOCK_NEWCONFIGURATIONS: newIConfiguration[] = [
-/*    {
-        integrationId: '678',
-        version: 1,
-        completed: false,
-        caseConfiguration: {caseCreationStrategy: CreationStrategy.NEW, fields: []}
-    },
-    {
-        integrationId: '456',
-        version: 1,
-        completed: false,
-        caseConfiguration: {caseCreationStrategy: CreationStrategy.COLLECTION, caseNumber: '2022/123'}
-    },*/
+    /*    {
+            integrationId: '678',
+            version: 1,
+            completed: false,
+            caseConfiguration: {caseCreationStrategy: CreationStrategy.NEW, fields: []}
+        },
+        {
+            integrationId: '456',
+            version: 1,
+            completed: false,
+            caseConfiguration: {caseCreationStrategy: CreationStrategy.COLLECTION, caseNumber: '2022/123'}
+        },*/
     {
         configurationId: 'id0',
         integrationId: '999',
@@ -300,7 +300,6 @@ export const MOCK_NEWCONFIGURATIONS: newIConfiguration[] = [
                 ]
             }
         ]
-
     },
     {
         configurationId: 'id2',
@@ -308,7 +307,37 @@ export const MOCK_NEWCONFIGURATIONS: newIConfiguration[] = [
         version: 3,
         completed: true,
         comment: 'Ferdigstilt ',
-        configurationFields: []
+        configurationFields: [
+            {
+                key: 'case',
+                children: [
+                    {
+                        key: 'tittel',
+                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
+                        valueBuilder: {
+                            value: "%s %s %s",
+                            properties: [
+                                {key: "foo", order: 0},
+                                {key: "bar", order: 1},
+                                {key: "bubu", order: 2}
+                            ]
+                        }
+                    },
+                    {
+                        key: 'offentligTittel',
+                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
+                        valueBuilder: {
+                            value: "%s %s %s",
+                            properties: [
+                                {key: "foo", order: 0},
+                                {key: "bar", order: 1},
+                                {key: "bubu", order: 2}
+                            ]
+                        }
+                    },
+                ]
+            }
+        ]
 
     }
 ]
