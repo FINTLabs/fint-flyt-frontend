@@ -115,7 +115,8 @@
                 }
             },
             "labels": {
-                "comment": "Kommentar",
+                "comment": "Kommentar: ",
+                "activeConfigurationId": "Aktiv konfigurasjon: ",
                 "destination": "Destinasjon: ",
                 "sourceApplicationId": "Skjemaleverandør: ",
                 "sourceApplicationIntegrationId": "Skjema: ",

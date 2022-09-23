@@ -21,11 +21,14 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
         { field: 'completed', type: 'string', headerName: 'Ferdigstilt', flex: 0.5,
             valueGetter: (params) => params.row.completed ? 'Ja' : 'Nei'
         },
-        { field: 'details', headerName: 'Rediger', flex: 0.5, sortable: false, filterable: false,
+        { field: 'details', headerName: 'Vis/Rediger', flex: 0.5, sortable: false, filterable: false,
             renderCell: (params) => ( <EditButtonToggle row={params.row} />)
         },
-        { field: 'activate', headerName: 'Aktiver', flex: 0.5, sortable: false, filterable: false,
+        { field: 'activate', headerName: 'Sett aktiv konfigurasjon', flex: 0.5, sortable: false, filterable: false,
             renderCell: (params) => ( <ActiveButtonToggle row={params.row} />)
+        },
+        { field: 'delete', headerName: 'Slett konfigurasjon', flex: 0.5, sortable: false, filterable: false,
+            renderCell: (params) => ( <DeleteButtonToggle row={params.row} />)
         }
     ];
 
@@ -34,26 +37,37 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
         //TODO: test setConfiguration
         return (
             <>
-                    <Link
-                        onClick={(e) => {
-                            console.log(props.row)
-                            setConfiguration(props.row)}
-                        }
-                        style={{background: '#1F4F59', padding: '3px 8px 3px 8px', borderRadius: '6px', textDecoration:'none', color:'white', position: 'absolute', border: 'solid 1px', fontFamily: 'sans-serif'}}
-                        to='/integration/configuration/edit'>{completed ? 'VIS' : 'REDIGER'}
-                    </Link>
+                <Link
+                    onClick={(e) => {
+                        console.log(props.row)
+                        setConfiguration(props.row)}
+                    }
+                    style={{background: '#1F4F59', padding: '3px 8px 3px 8px', borderRadius: '6px', textDecoration:'none', color:'white', position: 'absolute', border: 'solid 1px', fontFamily: 'sans-serif'}}
+                    to='/integration/configuration/edit'>{completed ? 'VIS' : 'REDIGER'}
+                </Link>
             </>
         );
     }
 
     function ActiveButtonToggle(props: GridCellParams["row"]) {
         const completed: boolean = props.row.completed
+        const active: boolean = props.row.configurationId === newIntegration?.activeConfigurationId;
         //TODO: test setConfiguration
         return (
             <>
-                {completed &&
-                    <Button onClick={e => activateConfiguration(e, props.row.configurationId)} size="small" variant="contained" >Aktiver</Button>
-                }
+                <Button onClick={e => activateConfiguration(e, props.row.configurationId)} size="small" variant="contained" disabled={!completed || active}>Aktiver</Button>
+
+            </>
+        );
+    }
+
+    function DeleteButtonToggle(props: GridCellParams["row"]) {
+        //TODO: test setConfiguration
+        const active: boolean = props.row.configurationId === newIntegration?.activeConfigurationId;
+        return (
+            <>
+                    <Button onClick={e => deleteConfiguration(e, props.row.configurationId)} size="small" variant="contained" disabled={active}>Slett</Button>
+
             </>
         );
     }
@@ -61,6 +75,10 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
 
     const activateConfiguration = (event: any, configurationId: string) => {
         console.log('set avtive config, integrationId', newIntegration?.integrationId, 'configurationId', configurationId)
+    }
+
+    const deleteConfiguration = (event: any, configurationId: string) => {
+        console.log('delete config, configurationId: ', configurationId)
     }
 
     const openNewConfigurationDialog = (event: any, integrationId: string) => {
@@ -75,6 +93,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                     <Typography id="details-sourceApplicationIntegrationId"><strong>{t('labels.sourceApplicationIntegrationId')}</strong>{newIntegration?.sourceApplicationIntegrationId}</Typography>
                     <Typography id="details-sourceApplicationId"><strong>{t('labels.sourceApplicationId')} </strong>{newIntegration?.sourceApplicationId}</Typography>
                     <Typography id="details-destination"><strong>{t('labels.destination')} </strong>{newIntegration?.destination}</Typography>
+                    <Typography id="details-activeConfiguration"><strong>{t('labels.activeConfigurationId')} </strong>{newIntegration?.activeConfigurationId ? newIntegration?.activeConfigurationId : 'Ingen'}</Typography>
                 </CardContent>
             </Card>
             <Box display="flex" position="relative" width={1} height={1}>

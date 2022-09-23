@@ -238,7 +238,8 @@ export const MOCK_INTEGRATIONS: IIntegration[] = [
         integrationId: '999',
         destination: 'fylkesråd',
         sourceApplicationId: 'ACOS',
-        sourceApplicationIntegrationId: 'TEST999'
+        sourceApplicationIntegrationId: 'TEST999',
+        activeConfigurationId: 'id2'
     },
     {
         integrationId: '567',
@@ -268,9 +269,17 @@ export const MOCK_NEWCONFIGURATIONS: newIConfiguration[] = [
             caseConfiguration: {caseCreationStrategy: CreationStrategy.COLLECTION, caseNumber: '2022/123'}
         },*/
     {
-        configurationId: 'id0',
+        configurationId: 'id00',
         integrationId: '999',
         version: 1,
+        comment: 'Opprette konfigurasjon',
+        completed: false,
+        configurationFields: []
+    },
+    {
+        configurationId: 'id0',
+        integrationId: '999',
+        version: 2,
         comment: 'Første versjon - avventer endringer',
         completed: false,
         configurationFields: []
@@ -278,7 +287,7 @@ export const MOCK_NEWCONFIGURATIONS: newIConfiguration[] = [
     {
         configurationId: 'id1',
         integrationId: '999',
-        version: 2,
+        version: 3,
         completed: false,
         comment: 'Opprettet ny pga x, y, z',
         configurationFields: [
@@ -304,7 +313,7 @@ export const MOCK_NEWCONFIGURATIONS: newIConfiguration[] = [
     {
         configurationId: 'id2',
         integrationId: '999',
-        version: 3,
+        version: 4,
         completed: true,
         comment: 'Ferdigstilt ',
         configurationFields: [
@@ -327,6 +336,70 @@ export const MOCK_NEWCONFIGURATIONS: newIConfiguration[] = [
                         key: 'offentligTittel',
                         valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
                         valueBuilder: {
+                            value: "%s test",
+                            properties: [
+                                {key: "foo", order: 0},
+                            ]
+                        }
+                    },
+                    {
+                        key: "administrativenhet",
+                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
+                        valueBuilder: {
+                            value: "https://beta.felleskomponent.no/arkiv/noark/administrativenhet/systemid/193",
+                            properties: []
+                        }
+                    },
+                    {
+                        key: "journalenhet",
+                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
+                        valueBuilder: {
+                            value: "https://beta.felleskomponent.no/arkiv/noark/administrativenhet/systemid/241",
+                            properties: []
+                        }
+                    },
+                    {
+                        key: "status",
+                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
+                        valueBuilder: {
+                            value: "https://beta.felleskomponent.no/arkiv/kodeverk/saksstatus/systemid/F",
+                            properties: []
+                        }
+                    },
+                    {
+                        key: "primarordningsprinsipp",
+                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
+                        valueBuilder: {
+                            value: "https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/EMNE",
+                            properties: []
+                        }
+                    },
+                    {
+                        key: "arkivdel",
+                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
+                        valueBuilder: {
+                            value: "https://beta.felleskomponent.no/arkiv/noark/arkivdel/systemid/OESMU",
+                            properties: []
+                        }
+                    },
+                ]
+            }
+        ]
+    },
+    {
+        configurationId: 'id3',
+        integrationId: '999',
+        version: 5,
+        completed: true,
+        comment: 'Ferdigstilt versjon 2',
+        configurationFields: [
+            {
+                key: 'case',
+                children: [
+                    {
+                        key: 'tittel',
+                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
+                        valueBuilder: {
                             value: "%s %s %s",
                             properties: [
                                 {key: "foo", order: 0},
@@ -335,10 +408,59 @@ export const MOCK_NEWCONFIGURATIONS: newIConfiguration[] = [
                             ]
                         }
                     },
+                    {
+                        key: 'offentligTittel',
+                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.COMBINE_STRING_VALUE,
+                        valueBuilder: {
+                            value: "%s test",
+                            properties: [
+                                {key: "foo", order: 0},
+                            ]
+                        }
+                    },
+                    {
+                        key: "administrativenhet",
+                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
+                        valueBuilder: {
+                            value: "https://beta.felleskomponent.no/arkiv/noark/administrativenhet/systemid/193",
+                            properties: []
+                        }
+                    },
+                    {
+                        key: "journalenhet",
+                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
+                        valueBuilder: {
+                            value: "https://beta.felleskomponent.no/arkiv/noark/administrativenhet/systemid/241",
+                            properties: []
+                        }
+                    },
+                    {
+                        key: "status",
+                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
+                        valueBuilder: {
+                            value: "https://beta.felleskomponent.no/arkiv/kodeverk/saksstatus/systemid/F",
+                            properties: []
+                        }
+                    },
+                    {
+                        key: "primarordningsprinsipp",
+                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
+                        valueBuilder: {
+                            value: "https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/EMNE",
+                            properties: []
+                        }
+                    },
+                    {
+                        key: "arkivdel",
+                        valueBuildStrategy: VALUE_BUILDER_STRATEGY.FIXED_ARCHIVE_CODE_VALUE,
+                        valueBuilder: {
+                            value: "https://beta.felleskomponent.no/arkiv/noark/arkivdel/systemid/OESMU",
+                            properties: []
+                        }
+                    },
                 ]
             }
         ]
-
     }
 ]
 
