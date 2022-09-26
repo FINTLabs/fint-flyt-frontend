@@ -8,3 +8,9 @@ export interface IIntegration {
     dispatched?: number;
     errors?: number;
 }
+
+export const IntegrationState = {
+    ACTIVE: "ACTIVE",
+    DEACTIVATED: "DEACTIVATED"
+}
+

@@ -6,102 +6,108 @@ import {FieldConfigurationType, newIConfiguration} from "../../features/integrat
 export const MOCK_CONFIGURATION: newIConfiguration = {
     "comment": "form to test mapping",
     "completed": false,
+    "configurationId": "123",
     "elements": [
         {
             "fieldConfigurations": [
                 {
+                    "key": "creationStrategy",
+                    "type": "STRING",
+                    "value": "NEW"
+                },
+                {
                     "key": "tittel",
-                    "type": FieldConfigurationType.DYNAMIC_STRING,
+                    "type": "DYNAMIC_STRING",
                     "value": "Title of case"
                 },
                 {
                     "key": "offentligTittel",
-                    "type": FieldConfigurationType.DYNAMIC_STRING,
+                    "type": "DYNAMIC_STRING",
                     "value": "public title"
                 },
                 {
                     "key": "saksmappetype",
-                    "type": FieldConfigurationType.STRING,
+                    "type": "STRING",
                     "value": "casetype"
                 },
                 {
                     "key": "administrativenhet",
-                    "type": FieldConfigurationType.STRING,
+                    "type": "STRING",
                     "value": "unit4"
                 },
                 {
                     "key": "arkivdel",
-                    "type": FieldConfigurationType.STRING,
+                    "type": "STRING",
                     "value": "unit3"
                 },
                 {
                     "key": "journalenhet",
-                    "type": FieldConfigurationType.STRING,
+                    "type": "STRING",
                     "value": "unit0"
                 },
                 {
                     "key": "status",
-                    "type": FieldConfigurationType.STRING,
+                    "type": "STRING",
                     "value": ""
                 },
                 {
                     "key": "tilgangsrestriksjon",
-                    "type": FieldConfigurationType.STRING,
+                    "type": "STRING",
                     "value": "code42"
                 },
                 {
                     "key": "skjermingshjemmel",
-                    "type": FieldConfigurationType.STRING,
+                    "type": "STRING",
                     "value": "number6"
                 },
                 {
                     "key": "saksansvarlig",
-                    "type": FieldConfigurationType.STRING,
+                    "type": "STRING",
                     "value": "rand"
                 },
                 {
                     "key": "primarordningsprinsipp",
-                    "type": FieldConfigurationType.STRING,
+                    "type": "STRING",
                     "value": "prim"
                 },
                 {
                     "key": "sekundarordningsprinsipp",
-                    "type": FieldConfigurationType.STRING,
+                    "type": "STRING",
                     "value": "rose"
                 },
                 {
                     "key": "tertiarordningsprinsipp",
-                    "type": FieldConfigurationType.STRING,
+                    "type": "STRING",
                     "value": "everdeen"
                 },
                 {
                     "key": "primarklasse",
-                    "type": FieldConfigurationType.DYNAMIC_STRING,
+                    "type": "DYNAMIC_STRING",
                     "value": "1class"
                 },
                 {
                     "key": "sekundarklasse",
-                    "type": FieldConfigurationType.DYNAMIC_STRING,
+                    "type": "DYNAMIC_STRING",
                     "value": "2class"
                 },
                 {
                     "key": "tertiarklasse",
-                    "type": FieldConfigurationType.DYNAMIC_STRING,
+                    "type": "DYNAMIC_STRING",
                     "value": "3class"
                 },
                 {
                     "key": "primartittel",
-                    "type": FieldConfigurationType.DYNAMIC_STRING,
+                    "type": "DYNAMIC_STRING",
                     "value": "primTitle"
                 },
                 {
                     "key": "sekundartittel",
-                    "type": FieldConfigurationType.DYNAMIC_STRING,
+                    "type": "DYNAMIC_STRING",
                     "value": "secTitle"
                 },
                 {
                     "key": "tertiartittel",
-                    "type": FieldConfigurationType.DYNAMIC_STRING,
+                    "type": "DYNAMIC_STRING",
                     "value": "tertTitle"
                 }
             ],
@@ -111,47 +117,47 @@ export const MOCK_CONFIGURATION: newIConfiguration = {
             "fieldConfigurations": [
                 {
                     "key": "tittel",
-                    "type": FieldConfigurationType.DYNAMIC_STRING,
+                    "type": "DYNAMIC_STRING",
                     "value": "record title"
                 },
                 {
                     "key": "offentigTittel",
-                    "type": FieldConfigurationType.DYNAMIC_STRING,
+                    "type": "DYNAMIC_STRING",
                     "value": "public record title"
                 },
                 {
                     "key": "DokumentBeskrivelse.dokumentType",
-                    "type": FieldConfigurationType.STRING,
+                    "type": "STRING",
                     "value": "cat8"
                 },
                 {
                     "key": "administrativenhet",
-                    "type": FieldConfigurationType.STRING,
+                    "type": "STRING",
                     "value": "unit33"
                 },
                 {
                     "key": "journalstatus",
-                    "type": FieldConfigurationType.STRING,
+                    "type": "STRING",
                     "value": "N"
                 },
                 {
                     "key": "journalposttype",
-                    "type": FieldConfigurationType.STRING,
+                    "type": "STRING",
                     "value": "A"
                 },
                 {
                     "key": "saksbehandler",
-                    "type": FieldConfigurationType.STRING,
+                    "type": "STRING",
                     "value": "boba"
                 },
                 {
                     "key": "tilgangsrestriksjon",
-                    "type": FieldConfigurationType.STRING,
+                    "type": "STRING",
                     "value": "code89"
                 },
                 {
                     "key": "skjermingshjemmel",
-                    "type": FieldConfigurationType.STRING,
+                    "type": "STRING",
                     "value": "p34"
                 }
             ],
@@ -161,32 +167,32 @@ export const MOCK_CONFIGURATION: newIConfiguration = {
             "fieldConfigurations": [
                 {
                     "key": "tittel",
-                    type: FieldConfigurationType.DYNAMIC_STRING,
+                    "type": "DYNAMIC_STRING",
                     "value": "document title"
                 },
                 {
                     "key": "dokumentStatus",
-                    "type": FieldConfigurationType.STRING,
+                    "type": "STRING",
                     "value": "D9"
                 },
                 {
                     "key": "DokumentBeskrivelse.dokumentKategori",
-                    "type": FieldConfigurationType.STRING,
+                    "type": "STRING",
                     "value": "cat1"
                 },
                 {
                     "key": "tilgangsrestriksjon",
-                    "type": FieldConfigurationType.STRING,
+                    "type": "STRING",
                     "value": "code2"
                 },
                 {
                     "key": "skjermingshjemmel",
-                    "type": FieldConfigurationType.STRING,
+                    "type": "STRING",
                     "value": "p07"
                 },
                 {
                     "key": "DokumentBeskrivelse.dokumentObjekt.variantFormat",
-                    "type": FieldConfigurationType.STRING,
+                    "type": "STRING",
                     "value": "var"
                 }
             ],
@@ -195,65 +201,69 @@ export const MOCK_CONFIGURATION: newIConfiguration = {
         {
             "fieldConfigurations": [
                 {
+                    "key": "protected",
+                    "type": "BOOLEAN",
+                    "value": "true"
+                },
+                {
                     "key": "organisasjonsnummer",
-                    "type": FieldConfigurationType.DYNAMIC_STRING,
+                    "type": "DYNAMIC_STRING",
                     "value": ""
                 },
                 {
                     "key": "fødselsnummer",
-                    "type": FieldConfigurationType.DYNAMIC_STRING,
+                    "type": "DYNAMIC_STRING",
                     "value": ""
                 },
                 {
                     "key": "KorrespondansepartNavn",
-                    "type": FieldConfigurationType.DYNAMIC_STRING,
+                    "type": "DYNAMIC_STRING",
                     "value": "Anakin Skywalker"
                 },
                 {
                     "key": "Adresse.adresselinje",
-                    "type": FieldConfigurationType.DYNAMIC_STRING,
+                    "type": "DYNAMIC_STRING",
                     "value": "highstreet 22"
                 },
                 {
                     "key": "Adresse.postnummer",
-                    "type": FieldConfigurationType.DYNAMIC_STRING,
+                    "type": "DYNAMIC_STRING",
                     "value": "1234"
                 },
                 {
                     "key": "Adresse.poststed",
-                    "type": FieldConfigurationType.DYNAMIC_STRING,
+                    "type": "DYNAMIC_STRING",
                     "value": "Moria"
                 },
                 {
                     "key": "kontaktperson",
-                    "type": FieldConfigurationType.DYNAMIC_STRING,
+                    "type": "DYNAMIC_STRING",
                     "value": "donna"
                 },
                 {
                     "key": "Kontaktinformasjon.mobiltelefonnummer",
-                    "type": FieldConfigurationType.DYNAMIC_STRING,
+                    "type": "DYNAMIC_STRING",
                     "value": "12345678"
                 },
                 {
                     "key": "Kontaktinformasjon.epostadresse",
-                    "type": FieldConfigurationType.DYNAMIC_STRING,
+                    "type": "DYNAMIC_STRING",
                     "value": "hello@world.no"
                 },
                 {
                     "key": "tilgangsrestriksjon",
-                    "type": FieldConfigurationType.DYNAMIC_STRING,
+                    "type": "DYNAMIC_STRING",
                     "value": "code2"
                 },
                 {
                     "key": "skjermingshjemmel",
-                    "type": FieldConfigurationType.DYNAMIC_STRING,
+                    "type": "DYNAMIC_STRING",
                     "value": "p3"
                 }
             ],
             "key": "applicant"
         }
     ],
-    "configurationId": "123",
     "integrationId": "id0"
 }
 

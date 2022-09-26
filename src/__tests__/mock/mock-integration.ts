@@ -1,18 +1,18 @@
 // noinspection DuplicatedCode
 
-import {IIntegration} from "../../features/integration/types/Integration";
+import {IIntegration, IntegrationState} from "../../features/integration/types/Integration";
 
 export const MOCK_INTEGRATION_NOT_ACTIVE: IIntegration  = {
     sourceApplicationId: "ACOS",
     destination: "fylkesrad",
     sourceApplicationIntegrationId: "TEST234",
-    active: false
+    state: IntegrationState.DEACTIVATED
 }
 
 export const MOCK_INTEGRATION_ACTIVE: IIntegration  = {
     sourceApplicationId: "ACOS",
     destination: "fylkesrad",
     sourceApplicationIntegrationId: "TEST345",
-    active: true,
+    state: IntegrationState.ACTIVE,
 
 }
