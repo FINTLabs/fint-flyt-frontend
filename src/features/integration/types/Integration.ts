@@ -3,7 +3,7 @@ export interface IIntegration {
     sourceApplicationId?: string;
     sourceApplicationIntegrationId?: string;
     destination?: string;
-    active?: boolean;
+    state?: string;
     activeConfigurationId?: string;
     dispatched?: number;
     errors?: number;

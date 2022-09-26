@@ -9,6 +9,7 @@ import {SourceApplicationContext} from "../../../context/sourceApplicationContex
 import {createStyles, makeStyles} from "@mui/styles";
 import {toIntegration} from "../../util/mapping/ToIntegration";
 import {IFormIntegration} from "../types/Form/FormData";
+import IntegrationRepository from '../repository/IntegrationRepository';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -46,16 +47,16 @@ export const IntegrationForm: React.FunctionComponent<any> = (props) => {
 
     const confirm = () => {
         if (destination && sourceApplicationIntegrationId && sourceApplicationId) {
-            let selectedForm = metadata.filter(md => md.sourceApplicationIntegrationId === sourceApplicationIntegrationId)
+            let selectedForm = metadata.filter((md:any) => md.sourceApplicationIntegrationId === sourceApplicationIntegrationId)
             setSelectedForm(selectedForm[0])
             //TODO: change to new URLs
-/*            let formConfiguration: IFormIntegration = {destination: destination, sourceApplicationIntegrationId: sourceApplicationIntegrationId, sourceApplicationId: sourceApplicationId}
+       let formConfiguration: IFormIntegration = {destination: destination, sourceApplicationIntegrationId: sourceApplicationIntegrationId, sourceApplicationId: sourceApplicationId}
             IntegrationRepository.createIntegration(toIntegration(formConfiguration))
                 .then((response) => {
                     setSourceApplicationIntegrationId(response.data)
                 })
-                .catch(e => console.error(e))*/
-            let formConfiguration: IFormIntegration = {destination: destination, sourceApplicationIntegrationId: sourceApplicationIntegrationId, sourceApplicationId: sourceApplicationId}
+                .catch(e => console.error(e))
+           // let formConfiguration: IFormIntegration = {destination: destination, sourceApplicationIntegrationId: sourceApplicationIntegrationId, sourceApplicationId: sourceApplicationId}
             setNewIntegration({integrationId: '234', sourceApplicationIntegrationId: sourceApplicationIntegrationId, sourceApplicationId: sourceApplicationId, destination: destination})
             console.log('create new integration', toIntegration(formConfiguration))
             setError('');
