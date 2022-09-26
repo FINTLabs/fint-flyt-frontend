@@ -2,7 +2,7 @@ import {Box, Card, Typography, Button, CardContent, Divider} from "@mui/material
 import * as React from "react";
 import {useContext, useEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
-import {newFieldToString} from "../../util/ValueBuilderUtil";
+import {configurationFieldToString} from "../../util/MappingUtil";
 import {ResourcesContext} from "../../../context/resourcesContext";
 import {IntegrationContext} from "../../../context/integrationContext";
 import {newToFormData} from "../../util/mapping/ToFormData";
@@ -27,9 +27,9 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
     useEffect(()=> {
         getAvailableForms();
         getMetadata();
-        setPrimaryClassification({label: '', value: newFieldToString(cases, 'primarordningsprinsipp')})
-        setSecondaryClassification({label: '', value: newFieldToString(cases, 'sekundarordningsprinsipp')})
-        setTertiaryClassification({label: '', value: newFieldToString(cases, 'tertiarordningsprinsipp')})
+        setPrimaryClassification({label: '', value: configurationFieldToString(cases, 'primarordningsprinsipp')})
+        setSecondaryClassification({label: '', value: configurationFieldToString(cases, 'sekundarordningsprinsipp')})
+        setTertiaryClassification({label: '', value: configurationFieldToString(cases, 'tertiarordningsprinsipp')})
         getAllResources();
     }, [])
 

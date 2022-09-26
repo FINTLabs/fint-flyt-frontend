@@ -2,6 +2,8 @@
 
 
 import {FieldConfigurationType, newIConfiguration} from "../../features/integration/types/Configuration";
+import {ApplicantType} from "../../features/integration/types/ApplicantType";
+import {CreationStrategy} from "../../features/integration/types/CreationStrategy";
 
 export const MOCK_CONFIGURATION: newIConfiguration = {
     "comment": "form to test mapping",
@@ -201,6 +203,11 @@ export const MOCK_CONFIGURATION: newIConfiguration = {
         {
             "fieldConfigurations": [
                 {
+                    "key": "type",
+                    "type": "STRING",
+                    "value": "PERSON"
+                },
+                {
                     "key": "protected",
                     "type": "BOOLEAN",
                     "value": "true"
@@ -278,6 +285,11 @@ export const MOCK_NEW_CONFIG: newIConfiguration = {
             key: 'case',
             fieldConfigurations: [
                 {
+                    key: 'creationStrategy',
+                    type: FieldConfigurationType.STRING,
+                    value:  CreationStrategy.NEW
+                },
+                {
                     key: 'tittel',
                     type: FieldConfigurationType.DYNAMIC_STRING,
                     value: '$iem{foo} $iem{bar}'
@@ -286,7 +298,6 @@ export const MOCK_NEW_CONFIG: newIConfiguration = {
                     key: 'journalenhet',
                     type: FieldConfigurationType.STRING,
                     value:  "https://beta.felleskomponent.no/arkiv/noark/administrativenhet/systemid/191"
-
                 }
             ]
         },
@@ -297,6 +308,11 @@ export const MOCK_NEW_CONFIG: newIConfiguration = {
                     key: 'protected',
                     type: FieldConfigurationType.BOOLEAN,
                     value: 'true'
+                },
+                {
+                    key: 'type',
+                    type: FieldConfigurationType.STRING,
+                    value: ApplicantType.PERSON
                 }
             ]
         },

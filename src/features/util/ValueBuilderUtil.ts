@@ -1,7 +1,6 @@
 import {ValueBuilder} from "../integration/types/ValueBuilder";
 import {IProperty} from "../integration/types/Property";
 import {IField} from "../integration/types/Field";
-import {IConfigurationElement} from "../integration/types/Configuration";
 
 //TODO clean up unused valuebuilder code
 export function createValueBuilder(inputString: any): ValueBuilder {
@@ -41,22 +40,4 @@ export function fieldToString(configuration: any, configurationField: string, va
         return fields.length > 0 ? toValueString(fields[0].valueBuilder) : '';
     }
     return fields.length > 0 ? fields[0].valueBuilder.value : '';
-}
-
-export function newFieldToString(configuration: IConfigurationElement[], configurationField: string): string {
-    if(configuration[0] !== undefined && configuration[0].fieldConfigurations) {
-        const configField = configuration[0].fieldConfigurations.filter((configField) => configField.key === configurationField)
-        return (configField.length > 0 && configField[0]?.value) ? configField[0]?.value : '';
-    }
-    return '';
-}
-
-export function newFieldToBoolean(configuration: IConfigurationElement[], configurationField: string): boolean {
-    if(configuration[0] !== undefined && configuration[0].fieldConfigurations) {
-        const configField = configuration[0].fieldConfigurations.filter((configField) => configField.key === configurationField)
-        if (configField[0].value) {
-            return JSON.parse(configField[0].value);
-        }
-    }
-    return false;
 }

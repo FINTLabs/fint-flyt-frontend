@@ -219,6 +219,11 @@ export function toNewConfiguration(data: IFormConfiguration, integrationId?: str
                 key: 'applicant',
                 fieldConfigurations: [
                     {
+                        key: "type",
+                        type: FieldConfigurationType.STRING,
+                        value: data.applicantData?.type
+                    },
+                    {
                         key: "protected",
                         type: FieldConfigurationType.BOOLEAN,
                         value: data.applicantData?.protected?.toString()
