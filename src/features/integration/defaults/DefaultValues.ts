@@ -215,38 +215,38 @@ export const fieldHelp = {
 
 export const MOCK_INTEGRATIONS: IIntegration[] = [
     {
-        integrationId: '488',
+        id: '488',
         destination: 'fylkesråd',
         sourceApplicationId: 'ACOS',
         sourceApplicationIntegrationId: 'TEST0488'
     },
     {
-        integrationId: '234',
+        id: '234',
         destination: 'fylkesråd',
         sourceApplicationId: 'ACOS',
         sourceApplicationIntegrationId: 'TEST234'
     },
     {
-        integrationId: '345',
+        id: '345',
         destination: 'fylkesråd',
         sourceApplicationId: 'ACOS',
         sourceApplicationIntegrationId: 'TEST345'
     },
     {
-        integrationId: '999',
+        id: '999',
         destination: 'fylkesråd',
         sourceApplicationId: 'ACOS',
         sourceApplicationIntegrationId: 'TEST999',
         activeConfigurationId: 'id2'
     },
     {
-        integrationId: '567',
+        id: '567',
         destination: 'fylkesråd',
         sourceApplicationId: 'ACOS',
         sourceApplicationIntegrationId: 'TEST567'
     },
     {
-        integrationId: '678',
+        id: '678',
         destination: 'fylkesråd',
         sourceApplicationId: 'ACOS',
         sourceApplicationIntegrationId: 'TEST678'

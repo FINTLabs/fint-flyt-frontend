@@ -87,7 +87,7 @@ export const MOCK_NEW_FORMDATA: IFormConfiguration = {
         "paragraph": "",
         "phoneNumber": "",
         "postalCode": "",
-        "type": "PERSON"
+        "protected": true
     },
     "caseData": {
         "accessCode": "",

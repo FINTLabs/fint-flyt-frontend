@@ -25,9 +25,7 @@ export type IntegrationContextState = {
 };
 
 export const contextDefaultValues: IntegrationContextState = {
-    newIntegration: {
-        integrationId: ''
-    },
+    newIntegration: {},
     setNewIntegration: () => {},
     newIntegrations: [],
     setNewIntegrations: () => {},

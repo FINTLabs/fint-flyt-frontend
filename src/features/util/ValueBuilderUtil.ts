@@ -50,3 +50,13 @@ export function newFieldToString(configuration: IConfigurationElement[], configu
     }
     return '';
 }
+
+export function newFieldToBoolean(configuration: IConfigurationElement[], configurationField: string): boolean {
+    if(configuration[0] !== undefined && configuration[0].fieldConfigurations) {
+        const configField = configuration[0].fieldConfigurations.filter((configField) => configField.key === configurationField)
+        if (configField[0].value) {
+            return JSON.parse(configField[0].value);
+        }
+    }
+    return false;
+}

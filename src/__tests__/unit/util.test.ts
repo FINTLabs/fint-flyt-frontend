@@ -1,7 +1,12 @@
 // @ts-ignore
 import {ValueBuilder} from "../../features/integration/types/ValueBuilder";
-import {createValueBuilder, newFieldToString, toValueString} from "../../features/util/ValueBuilderUtil";
-import {MOCK_CASE_FIELDS} from "../mock/mock-case-configuration";
+import {
+    createValueBuilder,
+    newFieldToBoolean,
+    newFieldToString,
+    toValueString
+} from "../../features/util/ValueBuilderUtil";
+import {MOCK_APPLICANT_FIELDS, MOCK_CASE_FIELDS} from "../mock/mock-case-configuration";
 
 const valueBuilderWithTags: ValueBuilder = {
     value: "Lorem ipsum %s %s",
@@ -71,4 +76,8 @@ test('It should convert field to string', () => {
 
 test('It should convert field with tags to string', () => {
     expect(newFieldToString(MOCK_CASE_FIELDS, "offentligTittel")).toEqual("public title $iem{test}");
+});
+
+test('It should convert applicant field to boolean', () => {
+    expect(newFieldToBoolean(MOCK_APPLICANT_FIELDS, "protected")).toBe(true);
 });

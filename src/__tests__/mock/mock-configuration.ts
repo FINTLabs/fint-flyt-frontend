@@ -291,6 +291,16 @@ export const MOCK_NEW_CONFIG: newIConfiguration = {
             ]
         },
         {
+            key: 'applicant',
+            fieldConfigurations: [
+                {
+                    key: 'protected',
+                    type: FieldConfigurationType.BOOLEAN,
+                    value: 'true'
+                }
+            ]
+        },
+        {
             key: 'record',
             fieldConfigurations: [
                 {

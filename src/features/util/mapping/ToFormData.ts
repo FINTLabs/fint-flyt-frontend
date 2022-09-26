@@ -1,4 +1,4 @@
-import {newFieldToString} from "../ValueBuilderUtil";
+import {newFieldToBoolean, newFieldToString} from "../ValueBuilderUtil";
 import {IFormConfiguration} from "../../integration/types/Form/FormData";
 import {IConfigurationElement, newIConfiguration} from "../../integration/types/Configuration";
 import {CreationStrategy} from "../../integration/types/CreationStrategy";
@@ -57,7 +57,7 @@ export function newToFormData(data: newIConfiguration): IFormConfiguration {
         },
         applicantData: {
             //TODO: fix mapping of type
-            type: ApplicantType.PERSON,
+            protected: newFieldToBoolean(applicantFields, 'protected'),
             organisationNumber: newFieldToString(applicantFields, 'organisasjonsnummer'),
             nationalIdentityNumber: newFieldToString(applicantFields, 'fødselsnummer'),
             name: newFieldToString(applicantFields, 'KorrespondansepartNavn'),

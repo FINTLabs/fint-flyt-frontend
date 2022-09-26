@@ -3,7 +3,7 @@ import {contextDefaultValues, ISourceApplicationItem, SourceApplicationContextSt
 import SourceApplicationRepository from "../../features/integration/repository/SourceApplicationRepository";
 import {ISelect} from "../../features/integration/types/InputField";
 import {IIntegrationMetadata} from "../../features/integration/types/IntegrationMetadata";
-import {MOCK_INTEGRATIONS} from "../../features/integration/defaults/DefaultValues";
+import IntegrationRepository from "../../features/integration/repository/IntegrationRepository";
 
 export const SourceApplicationContext = createContext<SourceApplicationContextState>(
     contextDefaultValues
@@ -44,11 +44,7 @@ const SourceApplicationProvider: FC = ({children}) => {
 
     //TODO: get all forms from sourceApplication when available
     const getAllForms = (forms: ISelect[]) => {
-        let ids: (string | undefined)[] = MOCK_INTEGRATIONS.map((integration) => integration.sourceApplicationIntegrationId)
-        let selectableForms = forms.filter(form => !ids.includes(form.value))
-        setAvailableForms({sourceApplication: 'acos', sourceApplicationForms: selectableForms})
-
-       /* IntegrationRepository.getIntegrations()
+        IntegrationRepository.getIntegrations()
             .then(response => {
                 let ids: string[] = response.data.map((config: any) => config.sourceApplicationIntegrationId)
                 let selectableForms = forms.filter(form => !ids.includes(form.value));
@@ -56,7 +52,7 @@ const SourceApplicationProvider: FC = ({children}) => {
             })
             .catch((err) => {
                 console.error(err);
-            })*/
+            })
     }
 
     return (

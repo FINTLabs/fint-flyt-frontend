@@ -71,7 +71,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
 
 
     const activateConfiguration = (event: any, configurationId: string) => {
-        console.log('set avtive config, integrationId', newIntegration?.integrationId, 'configurationId', configurationId)
+        console.log('set avtive config, integrationId', newIntegration?.id, 'configurationId', configurationId)
     }
 
     const deleteConfiguration = (event: any, configurationId: string) => {

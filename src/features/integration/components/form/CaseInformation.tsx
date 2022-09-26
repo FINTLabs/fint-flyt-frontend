@@ -45,7 +45,7 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
     ]
     return (
         <div>
-            <Typography><strong>IntegrasjonId: </strong>{newIntegration?.integrationId}</Typography>
+            <Typography><strong>IntegrasjonId: </strong>{newIntegration?.id}</Typography>
             <Typography><strong>Skjemaleverandør: </strong>{newIntegration?.sourceApplicationId}</Typography>
             <Typography><strong>Skjema: </strong>{newIntegration?.sourceApplicationIntegrationId}</Typography>
             <Typography><strong>Destinasjon: </strong>{newIntegration?.destination}</Typography>

@@ -1,12 +1,13 @@
 import React, { createContext, useState, FC } from "react";
 import {contextDefaultValues, IntegrationContextState} from "./types";
-import {MOCK_NEWCONFIGURATIONS, MOCK_INTEGRATIONS} from "../../features/integration/defaults/DefaultValues";
+import {MOCK_NEWCONFIGURATIONS} from "../../features/integration/defaults/DefaultValues";
 import {IIntegration} from "../../features/integration/types/Integration";
 import {newIConfiguration} from "../../features/integration/types/Configuration";
 import EventRepository from "../../features/log/repository/EventRepository";
 import {IIntegrationStatistics} from "../../features/log/types/IntegrationStatistics";
 import {IIntegrationMetadata} from "../../features/integration/types/IntegrationMetadata";
 import ConfigurationRepository from "../../features/integration/repository/ConfigurationRepository";
+import IntegrationRepository from "../../features/integration/repository/IntegrationRepository";
 
 export const IntegrationContext = createContext<IntegrationContextState>(
     contextDefaultValues
@@ -33,17 +34,7 @@ const IntegrationProvider: FC = ({ children }) => {
         EventRepository.getStatistics()
             .then((response) => {
                 let statistics = response.data;
-                let mergedList: IIntegration[] = MOCK_INTEGRATIONS;
-                statistics.forEach((value: IIntegrationStatistics) => {
-                    mergedList.map((integration: IIntegration) => {
-                        if (integration.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {
-                            integration.errors = value.currentErrors;
-                            integration.dispatched = value.dispatchedInstances;
-                        }
-                    })
-                })
-                setNewIntegrations(mergedList);
-/*                IntegrationRepository.getIntegrations()
+           IntegrationRepository.getIntegrations()
                     .then((response) => {
                         if(response.data) {
                             let mergedList: IIntegration[] = response.data;
@@ -58,7 +49,7 @@ const IntegrationProvider: FC = ({ children }) => {
                             setNewIntegrations(mergedList);
                         }
                     })
-                    .catch(e => console.error('Error: ', e))*/
+                    .catch(e => console.error('Error: ', e))
             }).catch(e => console.log('error', e))
     }
 

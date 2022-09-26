@@ -113,3 +113,16 @@ export const MOCK_CASE_FIELDS: IConfigurationElement[] = [
         "key": "case"
     }
 ]
+
+export const MOCK_APPLICANT_FIELDS: IConfigurationElement[] = [
+    {
+        "fieldConfigurations": [
+            {
+                "key": "protected",
+                "type": "BOOLEAN",
+                "value": "true"
+            }
+        ],
+        "key": "applicant"
+    }
+]

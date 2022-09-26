@@ -219,13 +219,13 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
         data.completed = true;
         data.applicantData.protected = protectedCheck;
         const configuration: newIConfiguration = toNewConfiguration(data);
-        if (configuration && activeConfiguration?.configurationId !== undefined && newIntegration?.integrationId !== undefined) {
-            const configuration: newIConfiguration = toNewConfiguration(data,newIntegration.integrationId, activeConfiguration.configurationId);
+        if (configuration && activeConfiguration?.configurationId !== undefined && newIntegration?.id !== undefined) {
+            const configuration: newIConfiguration = toNewConfiguration(data,newIntegration.id, activeConfiguration.configurationId);
             activateConfiguration(activeConfiguration.configurationId, configuration)
             reset({ ...defaultConfigurationValues })
         }
-        else if (configuration && newIntegration?.integrationId) {
-            activateNewConfiguration(newIntegration?.integrationId, configuration);
+        else if (configuration && newIntegration?.id) {
+            activateNewConfiguration(newIntegration?.id, configuration);
             reset({ ...defaultConfigurationValues })
         } else {
             //TODO: Handle error
@@ -237,12 +237,12 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
         data.completed = false;
         data.applicantData.protected = protectedCheck;
         const configuration: newIConfiguration = toNewConfiguration(data);
-        if (configuration && activeConfiguration?.configurationId !== undefined && newIntegration?.integrationId !== undefined) {
-            const iConfiguration: newIConfiguration = toNewConfiguration(data, newIntegration.integrationId, activeConfiguration.configurationId);
-            saveConfiguration(newIntegration?.integrationId, activeConfiguration.configurationId, iConfiguration)
+        if (configuration && activeConfiguration?.configurationId !== undefined && newIntegration?.id !== undefined) {
+            const iConfiguration: newIConfiguration = toNewConfiguration(data, newIntegration.id, activeConfiguration.configurationId);
+            saveConfiguration(newIntegration?.id, activeConfiguration.configurationId, iConfiguration)
         }
-        else if (newIntegration?.integrationId && configuration) {
-            saveNewConfiguration(newIntegration.integrationId, configuration);
+        else if (newIntegration?.id && configuration) {
+            saveNewConfiguration(newIntegration.id, configuration);
         } else {
             //TODO: Handle error
             return;

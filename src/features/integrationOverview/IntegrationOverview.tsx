@@ -38,7 +38,7 @@ const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = (
     }, []);
 
     const resetConfiguration = () => {
-        setNewIntegration({integrationId: ''})
+        setNewIntegration({})
         getNewIntegrations();
     }
 

@@ -10,6 +10,7 @@ import {createStyles, makeStyles} from "@mui/styles";
 import {toIntegration} from "../../util/mapping/ToIntegration";
 import {IFormIntegration} from "../types/Form/FormData";
 import IntegrationRepository from '../repository/IntegrationRepository';
+import {IntegrationState} from "../types/Integration";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -51,14 +52,16 @@ export const IntegrationForm: React.FunctionComponent<any> = (props) => {
             setSelectedForm(selectedForm[0])
             //TODO: change to new URLs
        let formConfiguration: IFormIntegration = {destination: destination, sourceApplicationIntegrationId: sourceApplicationIntegrationId, sourceApplicationId: sourceApplicationId}
-            IntegrationRepository.createIntegration(toIntegration(formConfiguration))
+            IntegrationRepository.createIntegration(toIntegration(formConfiguration, IntegrationState.DEACTIVATED))
                 .then((response) => {
                     setSourceApplicationIntegrationId(response.data)
+                    console.log(response.data)
+                    setNewIntegration(response.data)
+
                 })
                 .catch(e => console.error(e))
            // let formConfiguration: IFormIntegration = {destination: destination, sourceApplicationIntegrationId: sourceApplicationIntegrationId, sourceApplicationId: sourceApplicationId}
-            setNewIntegration({integrationId: '234', sourceApplicationIntegrationId: sourceApplicationIntegrationId, sourceApplicationId: sourceApplicationId, destination: destination})
-            console.log('create new integration', toIntegration(formConfiguration))
+            console.log('create new integration', toIntegration(formConfiguration, IntegrationState.DEACTIVATED))
             setError('');
         } else {
             setError(t('error'))

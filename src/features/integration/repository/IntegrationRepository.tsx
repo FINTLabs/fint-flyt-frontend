@@ -3,7 +3,7 @@ import {IIntegration} from "../types/Integration";
 
 //TODO: test with updated API urls
 const getIntegrations = (integrationId?: string) => {
-    return axios.get<IIntegration | IIntegration[]>("/api/intern/integrasjoner", {params: {integrationId: integrationId}});
+    return axios.get<IIntegration[]>("/api/intern/integrasjoner", {params: {integrationId: integrationId}});
 }
 const createIntegration = (data: IIntegration) => {
     return axios.post<any>("/api/intern/integrasjoner", data);
