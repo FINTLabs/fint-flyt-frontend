@@ -269,7 +269,7 @@ export const MOCK_NEWCONFIGURATIONS: newIConfiguration[] = [
     {
         configurationId: 'id00',
         integrationId: '999',
-        version: 1,
+        version: null,
         comment: 'Opprette konfigurasjon',
         completed: false,
         elements: []
@@ -277,7 +277,7 @@ export const MOCK_NEWCONFIGURATIONS: newIConfiguration[] = [
     {
         configurationId: 'id0',
         integrationId: '999',
-        version: 2,
+        version: null,
         comment: 'Første versjon - avventer endringer',
         completed: false,
         elements: []
@@ -285,7 +285,7 @@ export const MOCK_NEWCONFIGURATIONS: newIConfiguration[] = [
     {
         configurationId: 'id1',
         integrationId: '999',
-        version: 3,
+        version: null,
         completed: false,
         comment: 'Opprettet ny pga x, y, z',
         elements: [
@@ -304,7 +304,7 @@ export const MOCK_NEWCONFIGURATIONS: newIConfiguration[] = [
     {
         configurationId: 'id2',
         integrationId: '999',
-        version: 4,
+        version: 1,
         completed: true,
         comment: 'Ferdigstilt ',
         elements: [
@@ -353,7 +353,7 @@ export const MOCK_NEWCONFIGURATIONS: newIConfiguration[] = [
     {
         configurationId: 'id3',
         integrationId: '999',
-        version: 5,
+        version: 2,
         completed: true,
         comment: 'Ferdigstilt versjon 2',
         elements: [

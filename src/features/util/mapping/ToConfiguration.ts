@@ -13,6 +13,11 @@ export function toNewConfiguration(data: IFormConfiguration, integrationId?: str
                 key: 'case',
                 fieldConfigurations: [
                     {
+                        key: "creationStrategy",
+                        type: FieldConfigurationType.STRING,
+                        value: data.caseData.caseCreationStrategy
+                    },
+                    {
                         key: "tittel",
                         type: FieldConfigurationType.DYNAMIC_STRING,
                         value: data.caseData?.title
@@ -213,6 +218,11 @@ export function toNewConfiguration(data: IFormConfiguration, integrationId?: str
             {
                 key: 'applicant',
                 fieldConfigurations: [
+                    {
+                        key: "protected",
+                        type: FieldConfigurationType.BOOLEAN,
+                        value: data.applicantData?.protected?.toString()
+                    },
                     {
                         key: "organisasjonsnummer",
                         type: FieldConfigurationType.DYNAMIC_STRING,

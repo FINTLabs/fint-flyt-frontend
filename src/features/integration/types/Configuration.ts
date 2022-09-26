@@ -15,7 +15,7 @@ export interface newIConfiguration {
     configurationId?: string;
     integrationId?: string;
     comment?: string;
-    version?: number;
+    version?: number | null;
     metadataId?: number;
     completed?: boolean;
     elements: IConfigurationElement[];
