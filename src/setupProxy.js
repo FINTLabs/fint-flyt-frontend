@@ -51,4 +51,14 @@ module.exports = function (app) {
             }
         })
     );
+    app.use(
+        createProxyMiddleware('/api/intern/integrasjoner', {
+            target: 'http://localhost:8090', // API endpoint 2
+            changeOrigin: true,
+            pathRewrite: {"^/api6": ""},
+            headers: {
+                Connection: "keep-alive"
+            }
+        })
+    );
 }
