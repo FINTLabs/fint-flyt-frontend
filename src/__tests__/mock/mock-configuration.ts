@@ -8,7 +8,6 @@ import {CreationStrategy} from "../../features/integration/types/CreationStrateg
 export const MOCK_CONFIGURATION: newIConfiguration = {
     "comment": "form to test mapping",
     "completed": false,
-    "id": "123",
     "elements": [
         {
             "fieldConfigurations": [
@@ -259,18 +258,19 @@ export const MOCK_CONFIGURATION: newIConfiguration = {
                 },
                 {
                     "key": "tilgangsrestriksjon",
-                    "type": "DYNAMIC_STRING",
+                    "type": "STRING",
                     "value": "code2"
                 },
                 {
                     "key": "skjermingshjemmel",
-                    "type": "DYNAMIC_STRING",
+                    "type": "STRING",
                     "value": "p3"
                 }
             ],
             "key": "applicant"
         }
     ],
+    "id": "123",
     "integrationId": "id0"
 }
 
