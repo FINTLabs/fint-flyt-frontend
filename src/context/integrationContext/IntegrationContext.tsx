@@ -14,6 +14,7 @@ export const IntegrationContext = createContext<IntegrationContextState>(
 );
 
 const IntegrationProvider: FC = ({ children }) => {
+    const [existingIntegration, setExistingIntegration] = useState<IIntegration | undefined>(undefined);
     const [newIntegration, setNewIntegration] = useState<IIntegration | undefined>(undefined);
     const [newIntegrations, setNewIntegrations] = useState<IIntegration[]>([]);
     const [configuration, setConfiguration] = useState<newIConfiguration>(contextDefaultValues.configuration);
@@ -22,6 +23,7 @@ const IntegrationProvider: FC = ({ children }) => {
     const [selectedForm, setSelectedForm] = useState<IIntegrationMetadata>(contextDefaultValues.selectedForm);
     const [sourceApplicationIntegrationId, setSourceApplicationIntegrationId] = useState<string>('');
     const [sourceApplicationId, setSourceApplicationId] = useState<string>('');
+    const [statistics, setStatistics] = useState<any>(contextDefaultValues.statistics);
 
     const resetSourceAndDestination = () => {
         setDestination('');
@@ -33,12 +35,13 @@ const IntegrationProvider: FC = ({ children }) => {
     const getNewIntegrations = () => {
         EventRepository.getStatistics()
             .then((response) => {
-                let statistics = response.data;
+                setStatistics(response.data)
+                let stats = response.data;
            IntegrationRepository.getIntegrations()
                     .then((response) => {
                         if(response.data) {
                             let mergedList: IIntegration[] = response.data;
-                            statistics.forEach((value: IIntegrationStatistics) => {
+                            stats.forEach((value: IIntegrationStatistics) => {
                                 mergedList.map((integration: IIntegration) => {
                                     if (integration.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {
                                         integration.errors = value.currentErrors;
@@ -68,8 +71,11 @@ const IntegrationProvider: FC = ({ children }) => {
     return (
         <IntegrationContext.Provider
             value={{
+                statistics,
                 newIntegration,
                 setNewIntegration,
+                existingIntegration,
+                setExistingIntegration,
                 newIntegrations,
                 setNewIntegrations,
                 getNewIntegrations,

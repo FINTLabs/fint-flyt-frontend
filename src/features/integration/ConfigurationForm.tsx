@@ -90,7 +90,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     const classes = useStyles();
     const editConfig: boolean = window.location.pathname === '/integration/configuration/edit'
     const [submitSuccess, setSubmitSuccess] = useState(false)
-    const {newIntegration, setNewIntegration, configuration, setConfiguration, resetSourceAndDestination, getNewIntegrations} = useContext(IntegrationContext);
+    const {newIntegration, existingIntegration, setExistingIntegration, setNewIntegration, configuration, setConfiguration, resetSourceAndDestination, getNewIntegrations} = useContext(IntegrationContext);
     const [saved, setSaved] = React.useState(false);
     const [saveError, setSaveError] = React.useState(false);
     const [activeConfigId, setActiveConfigId] = React.useState(undefined);
@@ -98,8 +98,10 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     const [activeChecked, setActiveChecked] = React.useState(false);
     const [protectedCheck, setProtectedChecked] = React.useState(false);
     let history = useHistory();
+    let activeIntegration = (editConfig || (!editConfig && existingIntegration)) ? existingIntegration : newIntegration;
     let activeConfiguration = configuration.configurationId && editConfig ? configuration : undefined;
     let activeFormData = activeConfiguration && editConfig ? newToFormData(configuration) : defaultConfigurationValues;
+
 
     const handleCheckChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setChecked(event.target.checked);
@@ -121,6 +123,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
         getAllResources();
         return () => {
             setNewIntegration(undefined);
+            setExistingIntegration(undefined);
             resetAllResources();
             resetSourceAndDestination();
         };
@@ -219,13 +222,13 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
         data.completed = true;
         data.applicantData.protected = protectedCheck;
         const configuration: newIConfiguration = toNewConfiguration(data);
-        if (configuration && activeConfiguration?.configurationId !== undefined && newIntegration?.id !== undefined) {
-            const configuration: newIConfiguration = toNewConfiguration(data,newIntegration.id, activeConfiguration.configurationId);
+        if (configuration && activeConfiguration?.configurationId !== undefined && activeIntegration?.id !== undefined) {
+            const configuration: newIConfiguration = toNewConfiguration(data,activeIntegration.id, activeConfiguration.configurationId);
             activateConfiguration(activeConfiguration.configurationId, configuration)
             reset({ ...defaultConfigurationValues })
         }
-        else if (configuration && newIntegration?.id) {
-            activateNewConfiguration(newIntegration?.id, configuration);
+        else if (configuration && activeIntegration?.id) {
+            activateNewConfiguration(activeIntegration?.id, configuration);
             reset({ ...defaultConfigurationValues })
         } else {
             //TODO: Handle error
@@ -237,12 +240,12 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
         data.completed = false;
         data.applicantData.protected = protectedCheck;
         const configuration: newIConfiguration = toNewConfiguration(data);
-        if (configuration && activeConfiguration?.configurationId !== undefined && newIntegration?.id !== undefined) {
-            const iConfiguration: newIConfiguration = toNewConfiguration(data, newIntegration.id, activeConfiguration.configurationId);
-            saveConfiguration(newIntegration?.id, activeConfiguration.configurationId, iConfiguration)
+        if (configuration && activeConfiguration?.configurationId !== undefined && activeIntegration?.id !== undefined) {
+            const iConfiguration: newIConfiguration = toNewConfiguration(data, activeIntegration.id, activeConfiguration.configurationId);
+            saveConfiguration(activeIntegration?.id, activeConfiguration.configurationId, iConfiguration)
         }
-        else if (newIntegration?.id && configuration) {
-            saveNewConfiguration(newIntegration.id, configuration);
+        else if (activeIntegration?.id && configuration) {
+            saveNewConfiguration(activeIntegration.id, configuration);
         } else {
             //TODO: Handle error
             return;
@@ -251,8 +254,8 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
 
     return (
         <DndProvider backend={HTML5Backend}>
-            {!newIntegration && <IntegrationForm/>}
-            {!submitSuccess && newIntegration &&
+            {!existingIntegration && !newIntegration && <IntegrationForm/>}
+            {!submitSuccess && (existingIntegration || newIntegration) &&
                 <Box display="flex" position="relative" width={1} height={1}>
                     <Box>
                         <Typography id="integration-form-header" aria-label="integration-form-header" variant={"h5"} sx={{ mb: 2 }}>{t('header')}</Typography>
@@ -268,6 +271,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                                         accordionForm={accordion.accordionForm}
                                         defaultExpanded={accordion.defaultExpanded}
                                         hidden={accordion.hidden}
+                                        integration={activeIntegration}
                                         watch={watch}
                                         control={control}
                                         setValue={setValue}

@@ -294,6 +294,11 @@ export const MOCK_NEWCONFIGURATIONS: newIConfiguration[] = [
                 key: 'case',
                 fieldConfigurations: [
                     {
+                        key: 'creationStrategy',
+                        type: FieldConfigurationType.STRING,
+                        value: CreationStrategy.NEW,
+                    },
+                    {
                         key: 'tittel',
                         type: FieldConfigurationType.DYNAMIC_STRING,
                         value: "iem{foo} iem{bar} iem{bubu}",

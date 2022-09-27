@@ -13,7 +13,7 @@ import { ISelect } from "../../integration/types/InputField";
 const IntegrationPanel: React.FunctionComponent<any> = (props) => {
     const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.integrationOverview'});
     const classes = props.classes;
-    const {newIntegration, setConfiguration} = useContext(IntegrationContext)
+    const {existingIntegration, setConfiguration} = useContext(IntegrationContext)
 
     const [version, setVersion] = useState('null');
 
@@ -23,8 +23,6 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
             versionsToActivate.push({value: configuration.configurationId, label: 'versjon ' + configuration.version})
         }
     })
-
-    console.log(versionsToActivate)
 
     const columns: GridColDef[] = [
         { field: 'configurationId', type: 'string', headerName: 'KonfigurasjonsId', flex: 1, hide: true},
@@ -60,7 +58,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
 
     function DeleteButtonToggle(props: GridCellParams["row"]) {
         //TODO: test setConfiguration
-        const active: boolean = props.row.configurationId === newIntegration?.activeConfigurationId;
+        const active: boolean = props.row.configurationId === existingIntegration?.activeConfigurationId;
         return (
             <>
                     <Button onClick={e => deleteConfiguration(e, props.row.configurationId)} size="small" variant="contained" disabled={active}>Slett</Button>
@@ -71,7 +69,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
 
 
     const activateConfiguration = (event: any, configurationId: string) => {
-        console.log('set avtive config, integrationId', newIntegration?.id, 'configurationId', configurationId)
+        console.log('set active config, integrationId', existingIntegration?.id, 'configurationId', configurationId)
     }
 
     const deleteConfiguration = (event: any, configurationId: string) => {
@@ -92,10 +90,10 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
         <Box>
             <Card>
                 <CardContent>
-                    <Typography id="details-sourceApplicationIntegrationId"><strong>{t('labels.sourceApplicationIntegrationId')}</strong>{newIntegration?.sourceApplicationIntegrationId}</Typography>
-                    <Typography id="details-sourceApplicationId"><strong>{t('labels.sourceApplicationId')} </strong>{newIntegration?.sourceApplicationId}</Typography>
-                    <Typography id="details-destination"><strong>{t('labels.destination')} </strong>{newIntegration?.destination}</Typography>
-                    <Typography id="details-activeConfiguration"><strong>{t('labels.activeConfigurationId')} </strong>{newIntegration?.activeConfigurationId ? newIntegration?.activeConfigurationId : 'Ingen'}</Typography>
+                    <Typography id="details-sourceApplicationIntegrationId"><strong>{t('labels.sourceApplicationIntegrationId')}</strong>{existingIntegration?.sourceApplicationIntegrationId}</Typography>
+                    <Typography id="details-sourceApplicationId"><strong>{t('labels.sourceApplicationId')} </strong>{existingIntegration?.sourceApplicationId}</Typography>
+                    <Typography id="details-destination"><strong>{t('labels.destination')} </strong>{existingIntegration?.destination}</Typography>
+                    <Typography id="details-activeConfiguration"><strong>{t('labels.activeConfigurationId')} </strong>{existingIntegration?.activeConfigurationId ? existingIntegration?.activeConfigurationId : 'Ingen'}</Typography>
                 </CardContent>
                 <FormControl size='small' sx={{float: 'left', width: 300, m: 2}}>
                     <InputLabel id="version-select-input-label">{t('version')}</InputLabel>

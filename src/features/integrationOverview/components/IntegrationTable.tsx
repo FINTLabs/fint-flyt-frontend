@@ -46,7 +46,7 @@ const IntegrationTable: React.FunctionComponent<any> = (props) => {
                         onCellDoubleClick={(params, event) => {
                             if (!event.ctrlKey) {
                                 event.defaultMuiPrevented = true;
-                                props.setIntegration(params.row)
+                                props.setExistingIntegration(params.row)
                                 let selectedForm = metadata.filter(md => md.sourceApplicationIntegrationId === params.row.sourceApplicationIntegrationId)
                                 //TODO: remove when we can no longer use old forms
                                 setSelectedForm(selectedForm.length > 0 ? selectedForm[0] : SOURCE_FORM_NO_VALUES[0])

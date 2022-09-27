@@ -31,7 +31,7 @@ const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = (
     const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationOverview'});
     const classes = useStyles();
     const showPanel: boolean = window.location.pathname === '/integration'
-    const {newIntegration, setNewIntegration, newIntegrations, getNewIntegrations, configurations, getConfigurations} = useContext(IntegrationContext)
+    const {existingIntegration, setNewIntegration, setExistingIntegration, newIntegrations, getNewIntegrations, configurations, getConfigurations} = useContext(IntegrationContext)
 
     useEffect(()=> {
         getNewIntegrations();
@@ -46,13 +46,13 @@ const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = (
         <>
             <Breadcrumbs aria-label="breadcrumb">
                 <Typography style={{cursor:'pointer'}} onClick={resetConfiguration}>{t('header')}</Typography>
-                <Typography>{newIntegration?.sourceApplicationIntegrationId && showPanel ? t('details') : ''}</Typography>
+                <Typography>{existingIntegration?.sourceApplicationIntegrationId && showPanel ? t('details') : ''}</Typography>
             </Breadcrumbs>
-            {newIntegration?.sourceApplicationIntegrationId && showPanel ?
+            {existingIntegration?.sourceApplicationIntegrationId && showPanel ?
                 <IntegrationPanel
                     classes={classes}
                     loading={configurations.length === 0}
-                    initialConfiguration={newIntegration}
+                    initialConfiguration={existingIntegration}
                     configurations={configurations}
                 /> :
                 <IntegrationTable
@@ -60,7 +60,7 @@ const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = (
                     loading={newIntegrations.length === 0}
                     integrations={newIntegrations}
                     getConfigurations={getConfigurations}
-                    setIntegration={setNewIntegration}
+                    setExistingIntegration={setExistingIntegration}
                 />
             }
         </>

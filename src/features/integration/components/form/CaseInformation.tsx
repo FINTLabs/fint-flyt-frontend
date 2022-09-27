@@ -1,19 +1,17 @@
 import {Box, Button, FormGroup, Typography} from '@mui/material';
-import React, {useContext} from 'react';
+import React from 'react';
 import InputField from "./InputField";
 import {INPUT_TYPE} from "../../types/InputType.enum";
 import {IInputField} from "../../types/InputField";
 import {creationStrategies} from "../../defaults/DefaultValues";
 import {CreationStrategy} from "../../types/CreationStrategy";
 import {FieldErrors} from "react-hook-form";
-import {IntegrationContext} from "../../../../context/integrationContext";
 import HelpPopover from "../popover/HelpPopover";
 import { useTranslation } from 'react-i18next';
 import ResourceRepository from "../../repository/ResourceRepository";
 
 const CaseInformation: React.FunctionComponent<any> = (props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationForm.accordions.caseInformation'});
-    const { newIntegration } = useContext(IntegrationContext)
     const [_case, setCase] = React.useState('');
     let caseInput = props.watch("caseData.caseNumber");
     let caseInputPattern = /^((19|20)*\d{2})\/([0-9]{1,6})/g;
@@ -45,10 +43,10 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
     ]
     return (
         <div>
-            <Typography><strong>IntegrasjonId: </strong>{newIntegration?.id}</Typography>
-            <Typography><strong>Skjemaleverandør: </strong>{newIntegration?.sourceApplicationId}</Typography>
-            <Typography><strong>Skjema: </strong>{newIntegration?.sourceApplicationIntegrationId}</Typography>
-            <Typography><strong>Destinasjon: </strong>{newIntegration?.destination}</Typography>
+            <Typography><strong>IntegrasjonId: </strong>{props.integration?.id}</Typography>
+            <Typography><strong>Skjemaleverandør: </strong>{props.integration?.sourceApplicationId}</Typography>
+            <Typography><strong>Skjema: </strong>{props.integration?.sourceApplicationIntegrationId}</Typography>
+            <Typography><strong>Destinasjon: </strong>{props.integration?.destination}</Typography>
             <FormGroup id="case-information" className={props.style.formControl} sx={{mt: 4}}>
                 {caseInformationFields.map((field, index) => {
                         return (

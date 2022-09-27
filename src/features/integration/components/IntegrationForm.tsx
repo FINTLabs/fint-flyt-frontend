@@ -86,6 +86,7 @@ export const IntegrationForm: React.FunctionComponent<any> = (props) => {
                             onChange={event => {
                                 setSourceApplication(event.target.value)
                                 setSourceApplicationId(event.target.value)
+                                setSourceApplicationIntegrationId('')
                             }}
                         >
                             {sourceApplications.map((item: any, index: number) => (

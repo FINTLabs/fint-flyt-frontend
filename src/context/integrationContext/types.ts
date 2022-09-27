@@ -4,7 +4,9 @@ import {IIntegrationMetadata} from "../../features/integration/types/Integration
 
 export type IntegrationContextState = {
     newIntegration: IIntegration | undefined;
+    existingIntegration: IIntegration | undefined;
     setNewIntegration: (integration: IIntegration | undefined) => void;
+    setExistingIntegration: (integration: IIntegration | undefined) => void;
     newIntegrations: IIntegration[];
     setNewIntegrations: (integrations: IIntegration[]) => void;
     getNewIntegrations: () => void;
@@ -22,11 +24,14 @@ export type IntegrationContextState = {
     sourceApplicationId: string,
     setSourceApplicationId: (destination: string) => void,
     resetSourceAndDestination: () => void;
+    statistics: any
 };
 
 export const contextDefaultValues: IntegrationContextState = {
     newIntegration: {},
+    existingIntegration: {},
     setNewIntegration: () => {},
+    setExistingIntegration: () => {},
     newIntegrations: [],
     setNewIntegrations: () => {},
     getNewIntegrations: () => {},
@@ -51,4 +56,5 @@ export const contextDefaultValues: IntegrationContextState = {
     sourceApplicationIntegrationId: '',
     setSourceApplicationIntegrationId: () => {},
     resetSourceAndDestination: () => {},
+    statistics: []
 };
