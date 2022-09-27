@@ -8,7 +8,7 @@ import {CreationStrategy} from "../../features/integration/types/CreationStrateg
 export const MOCK_CONFIGURATION: newIConfiguration = {
     "comment": "form to test mapping",
     "completed": false,
-    "configurationId": "123",
+    "id": "123",
     "elements": [
         {
             "fieldConfigurations": [
@@ -275,7 +275,7 @@ export const MOCK_CONFIGURATION: newIConfiguration = {
 }
 
 export const MOCK_NEW_CONFIG: newIConfiguration = {
-    configurationId: 'id2',
+    id: 'id2',
     integrationId: '123',
     version: 3,
     completed: true,

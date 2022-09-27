@@ -12,11 +12,18 @@ export interface IConfigurationElement {
 }
 
 export interface newIConfiguration {
-    configurationId?: string;
+    id?: string;
     integrationId?: string;
     comment?: string;
     version?: number | null;
-    metadataId?: number;
+    integrationMetadataId?: number;
+    completed?: boolean;
+    elements: IConfigurationElement[];
+}
+
+export interface IConfigurationPatch {
+    comment?: string;
+    integrationMetadataId?: number;
     completed?: boolean;
     elements: IConfigurationElement[];
 }

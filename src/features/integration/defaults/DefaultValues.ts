@@ -141,6 +141,204 @@ export const SOURCE_FORM_NO_VALUES: IIntegrationMetadata[] = [
     }
 ]
 
+export const MOCK_SOURCE_FORM: IIntegrationMetadata[] =
+    [
+        {
+            "sourceApplicationId":"1",
+            "sourceApplicationIntegrationId":"PROD0195",
+            "sourceApplicationIntegrationUri":"",
+            "integrationDisplayName":"Oversett lister med datakilder",
+            "instanceElementMetadata":[
+                {
+                    "key":null,
+                    "type": 'STRING',
+                    "displayName":"Første kolonne",
+                    "children":[
+                        {
+                            "key":null,
+                            "type": 'STRING',
+                            "displayName":"Arkivsystem",
+                            "children":[
+                                {
+                                    "key":"Nedtrekk",
+                                    "type": 'STRING',
+                                    "displayName":"Nedtrekk",
+                                    "children":[]
+                                },
+                                {
+                                    "key":"Radioknapp",
+                                    "type": 'STRING',
+                                    "displayName":"Radioknapp",
+                                    "children":[]
+                                },
+                                {
+                                    "key":"Sjekkbokser",
+                                    "type": 'STRING',
+                                    "displayName":"Sjekkbokser",
+                                    "children":[]
+                                }
+                            ]
+                        },
+                        {
+                            "key":null,
+                            "type": 'STRING',
+                            "displayName":"Stedsnavn",
+                            "children":[
+                                {
+                                    "key":"Nedtrekk2",
+                                    "type": 'STRING',
+                                    "displayName":"Nedtrekk",
+                                    "children":[]
+                                },
+                                {
+                                    "key":"Radioknappliste",
+                                    "type": 'STRING',
+                                    "displayName":"Radioknappliste",
+                                    "children":[]
+                                },
+                                {
+                                    "key":"Sjekkbokser2",
+                                    "type": 'STRING',
+                                    "displayName":"Sjekkbokser",
+                                    "children":[]
+                                }
+                            ]
+                        },
+                        {
+                            "key":null,
+                            "type": 'STRING',
+                            "displayName":"Med grab - sted",
+                            "children":[
+                                {
+                                    "key":"Nedtrekk5",
+                                    "type": 'STRING',
+                                    "displayName":"Nedtrekk",
+                                    "children":[]
+                                }
+                            ]
+                        },
+                        {
+                            "key":null,
+                            "type": 'STRING',
+                            "displayName":"Gruppe",
+                            "children":[
+                                {
+                                    "key":"Nedtrekk6",
+                                    "type": 'STRING',
+                                    "displayName":"Nedtrekk",
+                                    "children":[]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "key":null,
+                    "type": 'STRING',
+                    "displayName":"Ny første kolonne",
+                    "children":[
+                        {
+                            "key":null,
+                            "type": 'STRING',
+                            "displayName":"Gruppe",
+                            "children":[
+                                {
+                                    "key":"Nedtrekk3",
+                                    "type": 'STRING',
+                                    "displayName":"Nedtrekk",
+                                    "children":[]
+                                },
+                                {
+                                    "key":"Radioknappliste2",
+                                    "type": 'STRING',
+                                    "displayName":"Radioknappliste",
+                                    "children":[]
+                                },
+                                {
+                                    "key":"Sjekkbokser3",
+                                    "type": 'STRING',
+                                    "displayName":"Sjekkbokser",
+                                    "children":[]
+                                }
+                            ]
+                        },
+                        {
+                            "key":null,
+                            "type": 'STRING',
+                            "displayName":"Med Grab",
+                            "children":[
+                                {
+                                    "key":"Nedtrekk4",
+                                    "type": 'STRING',
+                                    "displayName":"Nedtrekk",
+                                    "children":[]
+                                },
+                                {
+                                    "key":"Radioknappliste3",
+                                    "type": 'STRING',
+                                    "displayName":"Radioknappliste",
+                                    "children":[]
+                                },
+                                {
+                                    "key":"Sjekkboks2",
+                                    "type": 'STRING',
+                                    "displayName":"Sjekkboks",
+                                    "children":[]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "key":null,
+                    "type": 'STRING',
+                    "displayName":"Andre kolonne",
+                    "children":[
+                        {
+                            "key":null,
+                            "type": 'STRING',
+                            "displayName":"Gruppe",
+                            "children":[
+                                {
+                                    "key":"Nedtrekk7",
+                                    "type": 'STRING',
+                                    "displayName":"Nedtrekk",
+                                    "children":[]
+                                },
+                                {
+                                    "key":"Radioknappliste4",
+                                    "type": 'STRING',
+                                    "displayName":"Radioknappliste",
+                                    "children":[]
+                                },
+                                {
+                                    "key":"Sjekkbokser4",
+                                    "type": 'STRING',
+                                    "displayName":"Sjekkbokser",
+                                    "children":[]
+                                }
+                            ]
+                        },
+                        {
+                            "key":null,
+                            "type": 'STRING',
+                            "displayName":"Gruppe",
+                            "children":[
+                                {
+                                    "key":"Nedtrekk8",
+                                    "type": 'STRING',
+                                    "displayName":"Nedtrekk",
+                                    "children":[]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "version":1
+        }
+    ]
+
 export const fieldHelp = {
     comment: 'Kommentar',
     version: '',
@@ -268,7 +466,7 @@ export const MOCK_NEWCONFIGURATIONS: newIConfiguration[] = [
             caseConfiguration: {caseCreationStrategy: CreationStrategy.COLLECTION, caseNumber: '2022/123'}
         },*/
     {
-        configurationId: 'id00',
+        id: 'id00',
         integrationId: '999',
         version: null,
         comment: 'Opprette konfigurasjon',
@@ -276,7 +474,7 @@ export const MOCK_NEWCONFIGURATIONS: newIConfiguration[] = [
         elements: []
     },
     {
-        configurationId: 'id0',
+        id: 'id0',
         integrationId: '999',
         version: null,
         comment: 'Første versjon - avventer endringer',
@@ -284,7 +482,7 @@ export const MOCK_NEWCONFIGURATIONS: newIConfiguration[] = [
         elements: []
     },
     {
-        configurationId: 'id1',
+        id: 'id1',
         integrationId: '999',
         version: null,
         completed: false,
@@ -308,7 +506,7 @@ export const MOCK_NEWCONFIGURATIONS: newIConfiguration[] = [
         ]
     },
     {
-        configurationId: 'id2',
+        id: 'id2',
         integrationId: '999',
         version: 1,
         completed: true,
@@ -357,7 +555,7 @@ export const MOCK_NEWCONFIGURATIONS: newIConfiguration[] = [
         ]
     },
     {
-        configurationId: 'id3',
+        id: 'id3',
         integrationId: '999',
         version: 2,
         completed: true,

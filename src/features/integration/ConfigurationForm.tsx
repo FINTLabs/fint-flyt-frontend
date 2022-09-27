@@ -30,8 +30,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useTranslation } from "react-i18next";
 import InputField from "./components/form/InputField";
 import {INPUT_TYPE} from "./types/InputType.enum";
-import {toNewConfiguration} from "../util/mapping/ToConfiguration";
-import {newIConfiguration} from "./types/Configuration";
+import {toConfigurationPatch, toNewConfiguration} from "../util/mapping/ToConfiguration";
+import {IConfigurationPatch, newIConfiguration} from "./types/Configuration";
 import ConfigurationRepository from "./repository/ConfigurationRepository";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -93,15 +93,15 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     const {newIntegration, existingIntegration, setExistingIntegration, setNewIntegration, configuration, setConfiguration, resetSourceAndDestination, getNewIntegrations} = useContext(IntegrationContext);
     const [saved, setSaved] = React.useState(false);
     const [saveError, setSaveError] = React.useState(false);
-    const [activeConfigId, setActiveConfigId] = React.useState(undefined);
-    const [checked, setChecked] = React.useState(configuration && editConfig ? configuration.completed : false);
+    //const [checked, setChecked] = React.useState(configuration && editConfig ? configuration.completed : false);
+    const [checked, setChecked] = React.useState(false);
     const [activeChecked, setActiveChecked] = React.useState(false);
     const [protectedCheck, setProtectedChecked] = React.useState(false);
     let history = useHistory();
     let activeIntegration = (editConfig || (!editConfig && existingIntegration)) ? existingIntegration : newIntegration;
-    let activeConfiguration = configuration.configurationId && editConfig ? configuration : undefined;
+    let activeConfiguration = configuration.id && editConfig ? configuration : undefined;
+    const [activeConfigId, setActiveConfigId] = React.useState(activeConfiguration?.id);
     let activeFormData = activeConfiguration && editConfig ? newToFormData(configuration) : defaultConfigurationValues;
-
 
     const handleCheckChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setChecked(event.target.checked);
@@ -144,6 +144,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                 console.log('created new configuration on integration ', integrationId, data, response);
                 //TODO: fix and set active ID
                 setConfiguration(response.data)
+                setActiveConfigId(response.data.id)
                 setSaved(true);
                 getNewIntegrations();
             })
@@ -152,7 +153,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                 console.log('error creating new', e);
             });
     }
-    const saveConfiguration = (integrationId: string, configurationId: string, data: newIConfiguration) => {
+    const saveConfiguration = (integrationId: string, configurationId: string, data: IConfigurationPatch) => {
         console.log('save config', integrationId, configurationId, data)
         ConfigurationRepository.updateConfiguration(configurationId, data)
             .then(response => {
@@ -180,7 +181,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
             });
     }
 
-    const activateConfiguration = (configurationId: string, data: newIConfiguration) => {
+    const activateConfiguration = (integrationId: string, configurationId: string, data: IConfigurationPatch) => {
         console.log('publish config', configurationId, data)
         ConfigurationRepository.updateConfiguration(configurationId, data)
             .then(response => {
@@ -221,10 +222,10 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     const onSubmit = handleSubmit((data: IFormConfiguration) => {
         data.completed = true;
         data.applicantData.protected = protectedCheck;
-        const configuration: newIConfiguration = toNewConfiguration(data);
-        if (configuration && activeConfiguration?.configurationId !== undefined && activeIntegration?.id !== undefined) {
-            const configuration: newIConfiguration = toNewConfiguration(data,activeIntegration.id, activeConfiguration.configurationId);
-            activateConfiguration(activeConfiguration.configurationId, configuration)
+        const configuration: newIConfiguration = toNewConfiguration(data, activeConfigId);
+        if (configuration && activeConfigId !== undefined) {
+            const iConfiguration: newIConfiguration = toConfigurationPatch(data);
+            activateConfiguration(activeIntegration?.id, activeConfigId, iConfiguration)
             reset({ ...defaultConfigurationValues })
         }
         else if (configuration && activeIntegration?.id) {
@@ -239,10 +240,11 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     const onSave = handleSubmit((data: IFormConfiguration) => {
         data.completed = false;
         data.applicantData.protected = protectedCheck;
-        const configuration: newIConfiguration = toNewConfiguration(data);
-        if (configuration && activeConfiguration?.configurationId !== undefined && activeIntegration?.id !== undefined) {
-            const iConfiguration: newIConfiguration = toNewConfiguration(data, activeIntegration.id, activeConfiguration.configurationId);
-            saveConfiguration(activeIntegration?.id, activeConfiguration.configurationId, iConfiguration)
+        const configuration: newIConfiguration = toNewConfiguration(data, activeConfigId);
+        if (configuration && activeConfigId !== undefined) {
+            console.log('in before saveConfig')
+            const iConfiguration: newIConfiguration = toConfigurationPatch(data);
+            saveConfiguration(activeIntegration?.id, activeConfigId, iConfiguration)
         }
         else if (activeIntegration?.id && configuration) {
             saveNewConfiguration(activeIntegration.id, configuration);
@@ -308,7 +310,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                                                 inputProps={{ 'aria-label': 'active-checkbox' }}/>}
                                         label="Aktiv" />}
                                 </FormGroup>
-                                <Button id="integration-form-submit-btn" sx={{ ml: 2, mr: 2 }} onClick={checked ? onSubmit : onSave} variant="contained">{t('button.save')}</Button>
+                                <Button id="integration-form-submit-btn" sx={{ ml: 2, mr: 2 }} onClick={checked ? onSubmit : onSave} variant="contained">{checked ? 'Fullfør' : t('button.save')}</Button>
                                 <Button id="integration-form-cancel-btn" onClick={handleCancel} variant="contained">{t('button.cancel')}</Button>
                             </div>
                         </form>

@@ -90,6 +90,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
         <Box>
             <Card>
                 <CardContent>
+                    <Typography id="details-sourceApplicationIntegrationId"><strong>id:</strong>{existingIntegration?.id}</Typography>
                     <Typography id="details-sourceApplicationIntegrationId"><strong>{t('labels.sourceApplicationIntegrationId')}</strong>{existingIntegration?.sourceApplicationIntegrationId}</Typography>
                     <Typography id="details-sourceApplicationId"><strong>{t('labels.sourceApplicationId')} </strong>{existingIntegration?.sourceApplicationId}</Typography>
                     <Typography id="details-destination"><strong>{t('labels.destination')} </strong>{existingIntegration?.destination}</Typography>
@@ -115,7 +116,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                     <DataGrid
                         loading={props.loading}
                         localeText={i18n.language === 'no' ? gridLocaleNoNB : undefined}
-                        getRowId={(row) => row.configurationId}
+                        //getRowId={(row) => row.configurationId}
                         density='compact'
                         rows={props.configurations}
                         columns={columns}

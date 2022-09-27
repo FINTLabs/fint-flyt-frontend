@@ -1,6 +1,5 @@
 import React, { createContext, useState, FC } from "react";
 import {contextDefaultValues, IntegrationContextState} from "./types";
-import {MOCK_NEWCONFIGURATIONS} from "../../features/integration/defaults/DefaultValues";
 import {IIntegration} from "../../features/integration/types/Integration";
 import {newIConfiguration} from "../../features/integration/types/Configuration";
 import EventRepository from "../../features/log/repository/EventRepository";
@@ -56,15 +55,14 @@ const IntegrationProvider: FC = ({ children }) => {
             }).catch(e => console.log('error', e))
     }
 
-    const getConfigurations = (integrationId: string) => {
+    const getConfigurations = () => {
         //TODO: remove hard set configurations
-        setConfigurations(MOCK_NEWCONFIGURATIONS);
-        ConfigurationRepository.getConfigurations(integrationId)
+        console.log(existingIntegration)
+        ConfigurationRepository.getConfigurations(existingIntegration?.id.toString())
             .then((response) => {
-                if(response.data.content) {
-                    setConfigurations(MOCK_NEWCONFIGURATIONS);
-                }
-            })
+                let configurations: newIConfiguration[] = response.data;
+                    setConfigurations(configurations);
+                })
             .catch(e => console.error('Error: ', e))
     }
 
