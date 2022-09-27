@@ -4,6 +4,7 @@ import SourceApplicationRepository from "../../features/integration/repository/S
 import {ISelect} from "../../features/integration/types/InputField";
 import {IIntegrationMetadata} from "../../features/integration/types/IntegrationMetadata";
 import IntegrationRepository from "../../features/integration/repository/IntegrationRepository";
+import {getSourceApplicationDisplayName} from "../../features/integration/defaults/DefaultValues";
 
 export const SourceApplicationContext = createContext<SourceApplicationContextState>(
     contextDefaultValues
@@ -13,17 +14,18 @@ const SourceApplicationProvider: FC = ({children}) => {
     const [sourceApplicationForms, setSourceApplicationForms] = useState<ISourceApplicationItem>(contextDefaultValues.availableForms);
     const [availableForms, setAvailableForms] = useState<ISourceApplicationItem>(contextDefaultValues.availableForms);
     const [metadata, setMetadata] = useState<IIntegrationMetadata[]>(contextDefaultValues.metadata)
+    const [sourceApplication, setSourceApplication] = useState<string | null>(contextDefaultValues.sourceApplication);
 
 
     const getAvailableForms = () => {
-        SourceApplicationRepository.getMetadata("1")
+        SourceApplicationRepository.getMetadata(sourceApplication !== null ? sourceApplication : '1')
             .then(response => {
                 let data = response.data
                 let selects: ISelect[] = [];
                 data.forEach((value: any) => {
                     selects.push({value: value.sourceApplicationIntegrationId, label: value.sourceApplicationIntegrationId + ' - ' + value.integrationDisplayName})
                 })
-                setSourceApplicationForms({sourceApplication: 'acos', sourceApplicationForms: selects})
+                setSourceApplicationForms({sourceApplicationDisplayName: 'acos', sourceApplicationId: '1', forms: selects})
                 getAllForms(selects)
             })
             .catch((err) => {
@@ -48,7 +50,9 @@ const SourceApplicationProvider: FC = ({children}) => {
             .then(response => {
                 let ids: string[] = response.data.map((config: any) => config.sourceApplicationIntegrationId)
                 let selectableForms = forms.filter(form => !ids.includes(form.value));
-                setAvailableForms({sourceApplication: 'acos', sourceApplicationForms: selectableForms})
+                if(sourceApplication !== null) {
+                    setAvailableForms({sourceApplicationDisplayName: getSourceApplicationDisplayName(sourceApplication), sourceApplicationId: sourceApplication, forms: selectableForms})
+                }
             })
             .catch((err) => {
                 console.error(err);
@@ -58,12 +62,14 @@ const SourceApplicationProvider: FC = ({children}) => {
     return (
         <SourceApplicationContext.Provider
             value={{
-                allForms: sourceApplicationForms,
+                sourceApplicationForms,
                 availableForms,
                 getAvailableForms,
                 metadata,
                 getMetadata,
-                getAllForms
+                getAllForms,
+                sourceApplication,
+                setSourceApplication
             }}
         >
             {children}

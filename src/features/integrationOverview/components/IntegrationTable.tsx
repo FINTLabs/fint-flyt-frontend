@@ -8,7 +8,7 @@ import { gridLocaleNoNB } from "../../util/locale/gridLocaleNoNB";
 import {useTranslation} from "react-i18next";
 import {useContext} from "react";
 import {SourceApplicationContext} from "../../../context/sourceApplicationContext";
-import {SOURCE_FORM_NO_VALUES} from "../../integration/defaults/DefaultValues";
+import {getSourceApplicationDisplayName, SOURCE_FORM_NO_VALUES} from "../../integration/defaults/DefaultValues";
 import {IntegrationContext} from "../../../context/integrationContext";
 
 const IntegrationTable: React.FunctionComponent<any> = (props) => {
@@ -20,7 +20,9 @@ const IntegrationTable: React.FunctionComponent<any> = (props) => {
 
 
     const columns: GridColDef[] = [
-        { field: 'sourceApplicationId', type: 'string', headerName: t('table.columns.sourceApplicationId'), flex: 1 },
+        { field: 'sourceApplicationId', type: 'string', headerName: t('table.columns.sourceApplicationId'), flex: 1,
+            valueGetter: (params) => (getSourceApplicationDisplayName(params.row.sourceApplicationId))
+        },
         { field: 'sourceApplicationIntegrationId', type: 'string', headerName: t('table.columns.sourceApplicationIntegrationId'), flex: 1 },
         { field: 'destination', type: 'string', headerName:  t('table.columns.destination'), flex: 1 },
         { field: 'dispatched', type: 'number', headerName: t('table.columns.dispatched'), flex: 1 },

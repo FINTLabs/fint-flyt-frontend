@@ -121,7 +121,8 @@ export const forms: ISelect[] = [
 ];
 
 export const sourceApplications: ISelect[] = [
-    { label: "ACOS", value: "acos" }
+    { label: "ACOS", value: "1" },
+    { label: "eGrunnerverv", value: "2" }
 ];
 
 export const destinations: ISelect[] = [
@@ -461,4 +462,10 @@ export const EXAMPLE_FORM: IFormConfiguration = {
         "recordType": '',
         "title": "{foo} bar"
     }
+}
+
+export function getSourceApplicationDisplayName(id: string): string {
+    if (id === '1') return 'ACOS';
+    if (id === '2') return 'eGrunnerverv';
+    else return "ukjent";
 }
