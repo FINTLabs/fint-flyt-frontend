@@ -14,16 +14,13 @@ const createConfiguration = (integrationId: string, data: newIConfiguration) => 
 const updateConfiguration = (configurationId: string, data: IConfigurationPatch) => {
     return axios.patch<any>(`/api/intern/konfigurasjoner/${configurationId}`, data);
 }
-const deleteConfiguration = (configurationId: string) => {
-    return axios.delete<any>(`/api/intern/integrasjoner/${configurationId}`);
-}
+
 
 const ConfigurationRepository = {
     createConfiguration,
     updateConfiguration,
     getConfigurations,
-    getConfiguration,
-    deleteConfiguration
+    getConfiguration
 };
 
 export default ConfigurationRepository;

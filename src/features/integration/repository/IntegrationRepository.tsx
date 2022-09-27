@@ -12,7 +12,7 @@ const setIntegrationState = (integrationId: string) => {
     return axios.put<any>(`/api/intern/integrasjoner/${integrationId}/tilstand`);
 }
 const setActiveConfiguration = (integrationId: string, configurationId: string) => {
-    return axios.put<any>(`/api/intern/integrasjoner/${integrationId}/aktiv-konfigurasjon/${configurationId}`);
+    return axios.put<any>(`/api/intern/integrasjoner/${integrationId}/aktiv-konfigurasjon-id`, {activeConfigurationId: configurationId});
 }
 
 const IntegrationRepository = {

@@ -9,6 +9,8 @@ import {useContext, useState} from "react";
 import {IntegrationContext} from "../../../context/integrationContext";
 import { Link } from 'react-router-dom';
 import { ISelect } from "../../integration/types/InputField";
+import ConfigurationRepository from "../../integration/repository/ConfigurationRepository";
+import IntegrationRepository from "../../integration/repository/IntegrationRepository";
 
 const IntegrationPanel: React.FunctionComponent<any> = (props) => {
     const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.integrationOverview'});
@@ -17,12 +19,14 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
 
     const [version, setVersion] = useState('null');
 
-    const versionsToActivate: ISelect [] = [{value: 'null', label: 'velg aktiv versjon'}];
+    const versionsToActivate: any[] = [{value: 'null', label: 'velg aktiv versjon'}];
     props.configurations.map((configuration: any) => {
         if (configuration.completed) {
-            versionsToActivate.push({value: configuration.configurationId, label: 'versjon ' + configuration.version})
+            versionsToActivate.push({value: configuration.id, label: 'versjon ' + configuration.version})
         }
     })
+
+    console.log(versionsToActivate)
 
     const columns: GridColDef[] = [
         { field: 'configurationId', type: 'string', headerName: 'KonfigurasjonsId', flex: 1, hide: true},
@@ -69,6 +73,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
 
 
     const activateConfiguration = (event: any, configurationId: string) => {
+        IntegrationRepository.setActiveConfiguration(existingIntegration?.id, configurationId)
         console.log('set active config, integrationId', existingIntegration?.id, 'configurationId', configurationId)
     }
 
@@ -83,7 +88,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
 
     const handleChange = (event: SelectChangeEvent) => {
         setVersion(event.target.value)
-        console.log('set avtive config, integrationId', event.target.value);
+        activateConfiguration(existingIntegration?.id, event.target.value)
     };
 
     return (
