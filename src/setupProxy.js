@@ -22,7 +22,7 @@ module.exports = function (app) {
         })
     );
     app.use(
-        createProxyMiddleware('/api/intern/integrasjon/konfigurasjon', {
+        createProxyMiddleware('/api/intern/konfigurasjoner', {
             target: 'http://localhost:8082', // API endpoint 2
             changeOrigin: true,
             pathRewrite: {"^/api2": ""},
