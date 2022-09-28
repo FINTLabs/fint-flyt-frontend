@@ -51,7 +51,6 @@ const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = (
             {existingIntegration?.sourceApplicationIntegrationId && showPanel ?
                 <IntegrationPanel
                     classes={classes}
-                    loading={configurations.length === 0}
                     initialConfiguration={existingIntegration}
                     configurations={configurations}
                 /> :

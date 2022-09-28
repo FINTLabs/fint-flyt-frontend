@@ -1,5 +1,5 @@
 import {
-    Box, Button, Card, CardContent, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Typography
+    Box, Card, CardContent, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Typography
 } from "@mui/material";
 import {DataGrid, GridCellParams, GridColDef, GridToolbar} from "@mui/x-data-grid";
 import * as React from "react";
@@ -9,7 +9,6 @@ import {useContext, useState} from "react";
 import {IntegrationContext} from "../../../context/integrationContext";
 import { Link } from 'react-router-dom';
 import { ISelect } from "../../integration/types/InputField";
-import ConfigurationRepository from "../../integration/repository/ConfigurationRepository";
 import IntegrationRepository from "../../integration/repository/IntegrationRepository";
 
 const IntegrationPanel: React.FunctionComponent<any> = (props) => {
@@ -26,8 +25,6 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
         }
     })
 
-    console.log(versionsToActivate)
-
     const columns: GridColDef[] = [
         { field: 'id', type: 'string', headerName: 'KonfigurasjonsId', flex: 1, hide: true},
         { field: 'version', type: 'number', headerName: 'Versjon', flex: 0.5 },
@@ -37,9 +34,6 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
         },
         { field: 'details', headerName: 'Vis/Rediger', flex: 0.5, sortable: false, filterable: false,
             renderCell: (params) => ( <EditButtonToggle row={params.row} />)
-        },
-        { field: 'delete', headerName: 'Slett konfigurasjon', flex: 0.5, sortable: false, filterable: false,
-            renderCell: (params) => ( <DeleteButtonToggle row={params.row} />)
         }
     ];
 
@@ -60,25 +54,10 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
         );
     }
 
-    function DeleteButtonToggle(props: GridCellParams["row"]) {
-        //TODO: test setConfiguration
-        const active: boolean = props.row.configurationId === existingIntegration?.activeConfigurationId;
-        return (
-            <>
-                    <Button onClick={e => deleteConfiguration(e, props.row.configurationId)} size="small" variant="contained" disabled={active}>Slett</Button>
-
-            </>
-        );
-    }
-
 
     const activateConfiguration = (event: any, configurationId: string) => {
         IntegrationRepository.setActiveConfiguration(existingIntegration?.id, configurationId)
         console.log('set active config, integrationId', existingIntegration?.id, 'configurationId', configurationId)
-    }
-
-    const deleteConfiguration = (event: any, configurationId: string) => {
-        console.log('delete config, configurationId: ', configurationId)
     }
 
     const openNewConfigurationDialog = (event: any, integrationId: string) => {
@@ -150,7 +129,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
             </Box>
             <Link
                 style={{background: '#1F4F59', padding: '6px 16px 6px 16px', borderRadius: '6px', textDecoration:'none', color:'white', position: 'absolute', marginTop: '6px', border: 'solid 1px', fontFamily: 'sans-serif'}}
-                to='/integration/configuration/new'>NY KONFIGURASJON</Link>
+                to='/integration/configuration/new-configuration'>NY KONFIGURASJON</Link>
         </Box>
     );
 }

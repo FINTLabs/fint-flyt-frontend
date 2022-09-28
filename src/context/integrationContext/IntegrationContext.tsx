@@ -55,10 +55,8 @@ const IntegrationProvider: FC = ({ children }) => {
             }).catch(e => console.log('error', e))
     }
 
-    const getConfigurations = () => {
-        //TODO: remove hard set configurations
-        console.log(existingIntegration)
-        ConfigurationRepository.getConfigurations(existingIntegration?.id.toString())
+    const getConfigurations = (id: any) => {
+        ConfigurationRepository.getConfigurations(id.toString())
             .then((response) => {
                 let configurations: newIConfiguration[] = response.data;
                     setConfigurations(configurations);

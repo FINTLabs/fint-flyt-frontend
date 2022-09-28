@@ -271,7 +271,8 @@ export const MOCK_CONFIGURATION: newIConfiguration = {
         }
     ],
     "id": "123",
-    "integrationId": "id0"
+    "integrationId": "id0",
+    "integrationMetadataId": 123
 }
 
 export const MOCK_NEW_CONFIG: newIConfiguration = {

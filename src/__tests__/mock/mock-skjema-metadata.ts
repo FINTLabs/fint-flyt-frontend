@@ -8,19 +8,23 @@ export const MOCK_SKJEMA_METADATA: IIntegrationMetadata = {
     "instanceElementMetadata": [
         {
             "key": "person_med_valg",
+            "type": "STRING",
             "displayName": "Personer med valg",
             "children": [
                 {
                     "key": "person_1",
+                    "type": "STRING",
                     "displayName": "Person 1",
                     "children": [
                         {
                             "key": "fornavn_1",
+                            "type": "STRING",
                             "displayName": "Fornavn",
                             "children": []
                         },
                         {
                             "key": "etternavn_1",
+                            "type": "STRING",
                             "displayName": "Etternavn",
                             "children": []
                         }
@@ -28,15 +32,18 @@ export const MOCK_SKJEMA_METADATA: IIntegrationMetadata = {
                 },
                 {
                     "key": "person_2",
+                    "type": "STRING",
                     "displayName": "Person 2",
                     "children": [
                         {
                             "key": "fornavn_2",
+                            "type": "STRING",
                             "displayName": "Fornavn",
                             "children": []
                         },
                         {
                             "key": "etternavn_2",
+                            "type": "STRING",
                             "displayName": "Etternavn",
                             "children": []
                         }
@@ -44,15 +51,18 @@ export const MOCK_SKJEMA_METADATA: IIntegrationMetadata = {
                 },
                 {
                     "key": "valg",
+                    "type": "STRING",
                     "displayName": "Valg",
                     "children": [
                         {
                             "key": "ukedag",
+                            "type": "STRING",
                             "displayName": "Ukedag",
                             "children": []
                         },
                         {
                             "key": "farge_pa_bil",
+                            "type": "STRING",
                             "displayName": "Farge på bil",
                             "children": []
                         }
@@ -62,15 +72,18 @@ export const MOCK_SKJEMA_METADATA: IIntegrationMetadata = {
         },
         {
             "key": "person_3",
+            "type": "STRING",
             "displayName": "Person 3",
             "children": [
                 {
                     "key": "fornavn_3",
+                    "type": "STRING",
                     "displayName": "Fornavn",
                     "children": []
                 },
                 {
                     "key": "etternavn_3",
+                    "type": "STRING",
                     "displayName": "Etternavn",
                     "children": []
                 }
@@ -90,54 +103,67 @@ export const MOCK_SKJEMA_METADATA_TEMP: IIntegrationMetadata[] =
             "instanceElementMetadata":[
                 {
                     "key":null,
+                    "type": "STRING",
                     "displayName":"Første kolonne",
                     "children":[
                         {
                             "key":null,
+                            "type": "STRING",
                             "displayName":"Arkivsystem",
                             "children":[
                                 {
                                     "key":"Nedtrekk",
+                                    "type": "STRING",
                                     "displayName":"Nedtrekk",
                                     "children":[]
                                 },
                                 {
                                     "key":"Radioknapp",
+                                    "type": "STRING",
                                     "displayName":"Radioknapp",
                                     "children":[]
                                 },
                                 {
-                                    "key":"Sjekkbokser","displayName":"Sjekkbokser",
+                                    "key":"Sjekkbokser",
+                                    "type": "STRING",
+                                    "displayName":"Sjekkbokser",
                                     "children":[]
                                 }
                             ]
                         },
                         {
                             "key":null,
+                            "type": "STRING",
                             "displayName":"Stedsnavn",
                             "children":[
                                 {
                                     "key":"Nedtrekk2",
+                                    "type": "STRING",
                                     "displayName":"Nedtrekk",
                                     "children":[]
                                 },
                                 {
                                     "key":"Radioknappliste",
+                                    "type": "STRING",
                                     "displayName":"Radioknappliste",
                                     "children":[]
                                 },
                                 {
-                                    "key":"Sjekkbokser2","displayName":"Sjekkbokser",
+                                    "key":"Sjekkbokser2",
+                                    "type": "STRING",
+                                    "displayName":"Sjekkbokser",
                                     "children":[]
                                 }
                             ]
                         },
                         {
                             "key":null,
+                            "type": "STRING",
                             "displayName":"Med grab - sted",
                             "children":[
                                 {
                                     "key":"Nedtrekk5",
+                                    "type": "STRING",
                                     "displayName":"Nedtrekk",
                                     "children":[]
                                 }
@@ -145,10 +171,12 @@ export const MOCK_SKJEMA_METADATA_TEMP: IIntegrationMetadata[] =
                         },
                         {
                             "key":null,
+                            "type": "STRING",
                             "displayName":"Gruppe",
                             "children":[
                                 {
                                     "key":"Nedtrekk6",
+                                    "type": "STRING",
                                     "displayName":"Nedtrekk",
                                     "children":[]
                                 }
@@ -158,24 +186,29 @@ export const MOCK_SKJEMA_METADATA_TEMP: IIntegrationMetadata[] =
                 },
                 {
                     "key":null,
+                    "type": "STRING",
                     "displayName":"Ny første kolonne",
                     "children":[
                         {
                             "key":null,
+                            "type": "STRING",
                             "displayName":"Gruppe",
                             "children":[
                                 {
                                     "key":"Nedtrekk3",
+                                    "type": "STRING",
                                     "displayName":"Nedtrekk",
                                     "children":[]
                                 },
                                 {
                                     "key":"Radioknappliste2",
+                                    "type": "STRING",
                                     "displayName":"Radioknappliste",
                                     "children":[]
                                 },
                                 {
                                     "key":"Sjekkbokser3",
+                                    "type": "STRING",
                                     "displayName":"Sjekkbokser",
                                     "children":[]
                                 }
@@ -183,20 +216,24 @@ export const MOCK_SKJEMA_METADATA_TEMP: IIntegrationMetadata[] =
                         },
                         {
                             "key":null,
+                            "type": "STRING",
                             "displayName":"Med Grab",
                             "children":[
                                 {
                                     "key":"Nedtrekk4",
+                                    "type": "STRING",
                                     "displayName":"Nedtrekk",
                                     "children":[]
                                 },
                                 {
                                     "key":"Radioknappliste3",
+                                    "type": "STRING",
                                     "displayName":"Radioknappliste",
                                     "children":[]
                                 },
                                 {
                                     "key":"Sjekkboks2",
+                                    "type": "STRING",
                                     "displayName":"Sjekkboks",
                                     "children":[]
                                 }
@@ -206,24 +243,29 @@ export const MOCK_SKJEMA_METADATA_TEMP: IIntegrationMetadata[] =
                 },
                 {
                     "key":null,
+                    "type": "STRING",
                     "displayName":"Andre kolonne",
                     "children":[
                         {
                             "key":null,
+                            "type": "STRING",
                             "displayName":"Gruppe",
                             "children":[
                                 {
                                     "key":"Nedtrekk7",
+                                    "type": "STRING",
                                     "displayName":"Nedtrekk",
                                     "children":[]
                                 },
                                 {
                                     "key":"Radioknappliste4",
+                                    "type": "STRING",
                                     "displayName":"Radioknappliste",
                                     "children":[]
                                 },
                                 {
                                     "key":"Sjekkbokser4",
+                                    "type": "STRING",
                                     "displayName":"Sjekkbokser",
                                     "children":[]
                                 }
@@ -231,10 +273,12 @@ export const MOCK_SKJEMA_METADATA_TEMP: IIntegrationMetadata[] =
                         },
                         {
                             "key":null,
+                            "type": "STRING",
                             "displayName":"Gruppe",
                             "children":[
                                 {
                                     "key":"Nedtrekk8",
+                                    "type": "STRING",
                                     "displayName":"Nedtrekk",
                                     "children":[]
                                 }
@@ -253,29 +297,35 @@ export const MOCK_SKJEMA_METADATA_TEMP: IIntegrationMetadata[] =
             "instanceElementMetadata": [
                 {
                     "key": "referansenummer",
+                    "type": "STRING",
                     "displayName": "Referansenummer",
                     "children": []
                 }, {
                     "key": "person_2",
+                    "type": "STRING",
                     "displayName": "Organisasjon",
                     "children": [
                         {
                             "key": "fornavn_2",
+                            "type": "STRING",
                             "displayName": "Fornavn",
                             "children": []
                         },
                         {
                             "key": "etternavn_2",
+                            "type": "STRING",
                             "displayName": "Etternavn",
                             "children": []
                         },
                         {
                             "key": "organisasjonsnavn",
+                            "type": "STRING",
                             "displayName": "Organisasjonsnavn",
                             "children": []
                         },
                         {
                             "key": "organisasjonsnummer",
+                            "type": "STRING",
                             "displayName": "Organisasjonsnummer",
                             "children": []
                         }
@@ -283,45 +333,54 @@ export const MOCK_SKJEMA_METADATA_TEMP: IIntegrationMetadata[] =
                 },
                 {
                     "key": "person_1",
+                    "type": "STRING",
                     "displayName": "Avsender",
                     "children": [
                         {
                             "key": "fornavn_1",
+                            "type": "STRING",
                             "displayName": "Fornavn",
                             "children": []
                         },
                         {
                             "key": "etternavn_1",
+                            "type": "STRING",
                             "displayName": "Etternavn",
                             "children": []
                         },
                         {
                             "key": "adresse",
+                            "type": "STRING",
                             "displayName": "Adresse",
                             "children": []
                         },
                         {
                             "key": "postnummer",
+                            "type": "STRING",
                             "displayName": "Postnummer",
                             "children": []
                         },
                         {
                             "key": "poststed",
+                            "type": "STRING",
                             "displayName": "Poststed",
                             "children": []
                         },
                         {
                             "key": "telefonnummer",
+                            "type": "STRING",
                             "displayName": "Telefonnummer",
                             "children": []
                         },
                         {
                             "key": "epost",
+                            "type": "STRING",
                             "displayName": "Epost",
                             "children": []
                         },
                         {
                             "key": "fodselssnummer",
+                            "type": "STRING",
                             "displayName": "Fødselssnummer",
                             "children": []
                         }

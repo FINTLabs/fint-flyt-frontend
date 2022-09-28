@@ -30,6 +30,12 @@ const routes: IRoute[] = [
         exact: true
     },
     {
+        path: '/integration/configuration/new-configuration',
+        name: 'newConfiguration',
+        component: ConfigurationForm,
+        exact: true
+    },
+    {
         path: '/integration/configuration/list',
         name: 'integrationOverview',
         component: IntegrationOverview,
