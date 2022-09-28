@@ -19,7 +19,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
 
     const [version, setVersion] = useState('null');
 
-    const versionsToActivate: any[] = [{value: 'null', label: 'velg aktiv versjon'}];
+    const versionsToActivate: ISelect[] = [{value: 'null', label: 'velg aktiv versjon'}];
     props.configurations.map((configuration: any) => {
         if (configuration.completed) {
             versionsToActivate.push({value: configuration.id, label: 'versjon ' + configuration.version})
@@ -29,7 +29,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
     console.log(versionsToActivate)
 
     const columns: GridColDef[] = [
-        { field: 'configurationId', type: 'string', headerName: 'KonfigurasjonsId', flex: 1, hide: true},
+        { field: 'id', type: 'string', headerName: 'KonfigurasjonsId', flex: 1, hide: true},
         { field: 'version', type: 'number', headerName: 'Versjon', flex: 0.5 },
         { field: 'comment', type: 'string', headerName: 'Kommentar', flex: 1},
         { field: 'completed', type: 'string', headerName: 'Ferdigstilt', flex: 1,

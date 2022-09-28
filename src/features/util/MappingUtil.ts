@@ -3,7 +3,7 @@ import {IConfigurationElement} from "../integration/types/Configuration";
 export function configurationFieldToString(configuration: IConfigurationElement[], configurationField: string): string {
     if(configuration[0] !== undefined && configuration[0].fieldConfigurations) {
         const configField = configuration[0].fieldConfigurations.filter((configField) => configField.key === configurationField)
-        return (configField.length > 0 && configField[0]?.value) ? configField[0]?.value : '';
+        return (configField.length > 0 && configField[0]?.value) ? (configField[0]?.value).toString() : '';
     }
     return '';
 }
