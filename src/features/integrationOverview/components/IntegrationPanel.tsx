@@ -1,5 +1,5 @@
 import {
-    Box, Card, CardContent, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Typography
+    Box, Button, Card, CardContent, FormControl, InputLabel, Menu, MenuItem, Select, SelectChangeEvent, Typography
 } from "@mui/material";
 import {DataGrid, GridCellParams, GridColDef, GridToolbar} from "@mui/x-data-grid";
 import * as React from "react";
@@ -10,14 +10,25 @@ import {IntegrationContext} from "../../../context/integrationContext";
 import { Link } from 'react-router-dom';
 import { ISelect } from "../../integration/types/InputField";
 import IntegrationRepository from "../../integration/repository/IntegrationRepository";
+import {configurationFieldToString} from "../../util/MappingUtil";
+import {ResourcesContext} from "../../../context/resourcesContext";
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import { Link as RouterLink } from 'react-router-dom';
 
 const IntegrationPanel: React.FunctionComponent<any> = (props) => {
     const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.integrationOverview'});
     const classes = props.classes;
     const {existingIntegration, setConfiguration} = useContext(IntegrationContext)
-
+    const {setPrimaryClassification, setSecondaryClassification, setTertiaryClassification} = useContext(ResourcesContext);
     const [version, setVersion] = useState('null');
-
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
     const versionsToActivate: ISelect[] = [{value: 'null', label: 'velg aktiv versjon'}];
     props.configurations.map((configuration: any) => {
         if (configuration.completed) {
@@ -39,12 +50,16 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
 
     function EditButtonToggle(props: GridCellParams["row"]) {
         const completed: boolean = props.row.completed
+        let cases = props.row.elements.filter((element: { key: string; }) => element.key === 'case')
         //TODO: test setConfiguration
         return (
             <>
                 <Link
                     onClick={(e) => {
                         console.log(props.row)
+                        setPrimaryClassification({label: '', value: configurationFieldToString(cases, 'primarordningsprinsipp')})
+                        setSecondaryClassification({label: '', value: configurationFieldToString(cases, 'sekundarordningsprinsipp')})
+                        setTertiaryClassification({label: '', value: configurationFieldToString(cases, 'tertiarordningsprinsipp')})
                         setConfiguration(props.row)}
                     }
                     style={{background: '#1F4F59', padding: '4px 10px 4px 10px', borderRadius: '6px', textDecoration:'none', color:'white', position: 'absolute', border: 'solid 1px', fontFamily: 'sans-serif'}}
@@ -127,9 +142,35 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                     />
                 </Box>
             </Box>
-            <Link
-                style={{background: '#1F4F59', padding: '6px 16px 6px 16px', borderRadius: '6px', textDecoration:'none', color:'white', position: 'absolute', marginTop: '6px', border: 'solid 1px', fontFamily: 'sans-serif'}}
-                to='/integration/configuration/new-configuration'>NY KONFIGURASJON</Link>
+            <Button
+                id="demo-positioned-button"
+                variant="contained"
+                aria-controls={open ? 'demo-positioned-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? 'true' : undefined}
+                onClick={handleClick}
+                endIcon={<ArrowDropDownIcon />}
+            >
+                NY KONFIGURASJON
+            </Button>
+            <Menu
+                id="demo-positioned-menu"
+                aria-labelledby="demo-positioned-button"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                }}
+                transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'left',
+                }}
+            >
+                <MenuItem component={RouterLink} to='/integration/configuration/new-configuration' onClick={handleClose}>Blank konfigurasjon</MenuItem>
+                <MenuItem disabled={true} onClick={handleClose}>Basert på eksisterende versjon</MenuItem>
+            </Menu>
         </Box>
     );
 }

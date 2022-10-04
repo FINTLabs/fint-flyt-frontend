@@ -64,6 +64,7 @@ const ApplicantForm: React.FunctionComponent<any> = (props) => {
                 <FormControlLabel
                     control={
                         <Checkbox
+                            disabled={props.disabled}
                             id="form-complete"
                             checked={props.protectedChecked}
                             onChange={event => props.setProtectedChecked(event.target.checked)}
@@ -72,7 +73,7 @@ const ApplicantForm: React.FunctionComponent<any> = (props) => {
                 />
                 <HelpPopover popoverContent={"applicantData.protected"}/>
             </FormGroup>
-            <Button sx={{mb: 2}} onClick={props.onSave} variant="contained">{t('button.save')}</Button>
+            <Button disabled={props.disabled} sx={{mb: 2}} onClick={props.onSave} variant="contained">{t('button.save')}</Button>
         </div>
     );
 }

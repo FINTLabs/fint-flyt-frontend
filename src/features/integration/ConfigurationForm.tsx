@@ -94,13 +94,13 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     const [saved, setSaved] = React.useState(false);
     const [saveError, setSaveError] = React.useState(false);
     const [checked, setChecked] = React.useState(configuration && editConfig ? configuration.completed : false);
-    //const [checked, setChecked] = React.useState(false);
     const [activeChecked, setActiveChecked] = React.useState(false);
     const [protectedCheck, setProtectedChecked] = React.useState(false);
     let history = useHistory();
     let activeIntegration = (editConfig || (!editConfig && existingIntegration)) ? existingIntegration : newIntegration;
     let activeConfiguration = configuration.id && editConfig ? configuration : undefined;
     const [activeConfigId, setActiveConfigId] = React.useState(activeConfiguration?.id);
+    const [completed, setCompleted] = React.useState(!!activeConfiguration?.completed);
     let activeFormData = activeConfiguration && editConfig ? newToFormData(configuration) : defaultConfigurationValues;
 
     const handleCheckChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -131,10 +131,10 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
 
     const accordionList: IAccordion[] = [
         {id: 'case-information', summary: "caseInformation.header", accordionForm: ACCORDION_FORM.CASE_INFORMATION, defaultExpanded: true},
-        {id: 'case-form', summary: "caseForm.header", accordionForm: ACCORDION_FORM.CASE_FORM, defaultExpanded: false, hidden: watch("caseData.caseCreationStrategy") === CreationStrategy.COLLECTION},
-        {id: 'record-form', summary: "recordForm.header", accordionForm: ACCORDION_FORM.RECORD_FORM, defaultExpanded: false},
-        {id: 'document-object-form', summary: "documentForm.header", accordionForm: ACCORDION_FORM.DOCUMENT_FORM, defaultExpanded: false},
-        {id: 'applicant-form', summary: "applicationForm.header", accordionForm: ACCORDION_FORM.APPLICANT_FORM, defaultExpanded: false}
+        {id: 'case-form', summary: "caseForm.header", accordionForm: ACCORDION_FORM.CASE_FORM, defaultExpanded: completed, hidden: watch("caseData.caseCreationStrategy") === CreationStrategy.COLLECTION},
+        {id: 'record-form', summary: "recordForm.header", accordionForm: ACCORDION_FORM.RECORD_FORM, defaultExpanded: completed},
+        {id: 'document-object-form', summary: "documentForm.header", accordionForm: ACCORDION_FORM.DOCUMENT_FORM, defaultExpanded: completed},
+        {id: 'applicant-form', summary: "applicationForm.header", accordionForm: ACCORDION_FORM.APPLICANT_FORM, defaultExpanded: completed}
     ]
 
     const saveNewConfiguration = (integrationId: string, data: newIConfiguration) => {
@@ -280,6 +280,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                                         setValue={setValue}
                                         errors={errors}
                                         validation={checked}
+                                        disabled={completed}
                                         editConfig={editConfig}
                                         onSave={onSave}
                                         protectedCheck={protectedCheck}
@@ -290,13 +291,14 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                             <div>
                                 <Box sx={{display: 'flex'}}>
                                     <Box width={'80%'}>
-                                        <InputField input={INPUT_TYPE.TEXT_FIELD} control={control} label="labels.comment" formValue="comment" error={errors.comment} helpText="comment"/>
+                                        <InputField disabled={completed} input={INPUT_TYPE.TEXT_FIELD} control={control} label="labels.comment" formValue="comment" error={errors.comment} helpText="comment"/>
                                     </Box>
                                 </Box>
                                 <FormGroup sx={{ ml: 2, mb: 2 }} >
                                     <FormControlLabel
                                         control={
                                             <Checkbox
+                                                disabled={completed}
                                                 id="form-complete"
                                                 checked={checked}
                                                 onChange={handleCheckChange}
@@ -305,13 +307,14 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                                     {checked && <FormControlLabel
                                         control={
                                             <Checkbox
+                                                disabled={completed}
                                                 id="form-complete"
                                                 checked={activeChecked}
                                                 onChange={handleActiveCheckChange}
                                                 inputProps={{ 'aria-label': 'active-checkbox' }}/>}
                                         label="Aktiv" />}
                                 </FormGroup>
-                                <Button id="integration-form-submit-btn" sx={{ ml: 2, mr: 2 }} onClick={checked ? onSubmit : onSave} variant="contained">{checked ? 'Fullfør' : t('button.save')}</Button>
+                                <Button disabled={completed} id="integration-form-submit-btn" sx={{ ml: 2, mr: 2 }} onClick={checked ? onSubmit : onSave} variant="contained">{checked ? 'Fullfør' : t('button.save')}</Button>
                                 <Button id="integration-form-cancel-btn" onClick={handleCancel} variant="contained">{t('button.cancel')}</Button>
                             </div>
                         </form>

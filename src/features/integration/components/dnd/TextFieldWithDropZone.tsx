@@ -42,6 +42,7 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
                 value=inputValue;
                 return (
                         <TextField
+                            disabled={props.disabled}
                             id={props.id}
                             ref={drop}
                             size="small"

@@ -78,6 +78,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                     {props.radioOptions.map((option: any, index: number) => (
                         <div key={index} id={props.formValue + `-` + option.value}>
                             <FormControlLabel
+                                disabled={props.disabled}
                                 value={option.value}
                                 control={<Radio />}
                                 label={t(option.label) as string}
@@ -97,6 +98,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                 render={({ field: { onChange } }) => (
                     <Autocomplete
                         id={props.formValue}
+                        disabled={props.disabled}
                         sx={{ mb: 3 }}
                         filterOptions={filterOptions}
                         options={dropdowns}
@@ -131,6 +133,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                 setValue={props.setValue}
                 formValue={props.formValue}
                 required={props.required}
+                disabled={props.disabled}
             />
         )
     }

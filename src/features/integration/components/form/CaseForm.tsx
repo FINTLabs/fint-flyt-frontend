@@ -13,8 +13,9 @@ import {dropdownPlaceholder} from "../../defaults/DefaultValues";
 
 const CaseForm: React.FunctionComponent<any> = (props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationForm.accordions.caseForm'});
-    const [showSecondary, setShowSecondary] = React.useState(false);
-    const [showTertiary, setShowTertiary] = React.useState(false);
+    const disabled: boolean = props.disabled
+    const [showSecondary, setShowSecondary] = React.useState(disabled);
+    const [showTertiary, setShowTertiary] = React.useState(disabled);
     const {administrativeUnits, accessCodes, paragraphs, statuses, archiveSections, archiveResources,
         classificationSystems, primaryClassification, secondaryClassification, tertiaryClassification,
         primaryClass, secondaryClass, tertiaryClass, getPrimaryClass, getSecondaryClass, getTertiaryClass,
@@ -122,7 +123,7 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
                 {!showSecondary && <AddIcon sx={{cursor: 'pointer', mb: 2}} onClick={handleToggleSecondary}/>}
                 {showSecondary && !showTertiary && <AddIcon sx={{cursor: 'pointer', mb: 2}} onClick={handleToggleTertiary}/>}
             </FormGroup>
-            <Button sx={{mb: 2}} onClick={props.onSave} variant="contained">{t('button.save')}</Button>
+            <Button disabled={props.disabled} sx={{mb: 2}} onClick={props.onSave} variant="contained">{t('button.save')}</Button>
         </div>
 
     );

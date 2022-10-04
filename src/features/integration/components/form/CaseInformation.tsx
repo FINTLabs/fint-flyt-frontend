@@ -80,7 +80,7 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
                 )}
                 {isCollection && _case ? <Typography id="case-information-case-search-result" sx={{mb:2}}>{_case}</Typography> : ''}
             </FormGroup>
-            <Button id="case-information-save-btn" sx={{mb: 2}} onClick={props.onSave} variant="contained">{t('button.save')}</Button>
+            <Button disabled={props.disabled} id="case-information-save-btn" sx={{mb: 2}} onClick={props.onSave} variant="contained">{t('button.save')}</Button>
         </div>
     );
 }
