@@ -439,7 +439,7 @@
                 "destination": "Destinasjon/Base"
             },
             "button": {
-                "next": "Neste",
+                "confirm": "Opprett",
                 "cancel": "Avbryt"
             }
         }

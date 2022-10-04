@@ -328,7 +328,7 @@
                 "destination": "Destination"
             },
             "button": {
-                "next": "Next",
+                "confirm": "Confirm",
                 "cancel": "Cancel"
             }
         }

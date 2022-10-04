@@ -51,7 +51,6 @@ export const IntegrationForm: React.FunctionComponent<any> = (props) => {
     }, [sourceApplication, setSourceApplication])
 
     const confirm = () => {
-        console.log(destination, sourceApplicationId, sourceApplicationIntegrationId)
         if (destination && sourceApplicationId && sourceApplicationIntegrationId) {
             let selectedForm = metadata.filter((md:any) => md.sourceApplicationIntegrationId === sourceApplicationIntegrationId)
             setSelectedForm(selectedForm[0])
@@ -135,7 +134,7 @@ export const IntegrationForm: React.FunctionComponent<any> = (props) => {
                 </Box>
                 <Box sx={{mt: 2}}>
                     <Button id="form-settings-cancel-btn"  onClick={cancel} variant="contained">{t('button.cancel')}</Button>
-                    <Button id="form-settings-confirm-btn" sx={{float: 'right'}} onClick={confirm} variant="contained">{t('button.next')}</Button>
+                    <Button id="form-settings-confirm-btn" sx={{float: 'right'}} onClick={confirm} variant="contained">{t('button.confirm')}</Button>
                 </Box>
             </FormGroup>
         </>
