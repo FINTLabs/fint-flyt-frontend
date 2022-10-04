@@ -1,5 +1,16 @@
 import {
-    Box, Button, Card, CardContent, FormControl, InputLabel, Menu, MenuItem, Select, SelectChangeEvent, Typography
+    Box,
+    Button,
+    Card,
+    CardContent,
+    FormControl,
+    InputLabel,
+    Menu,
+    MenuItem,
+    Select,
+    SelectChangeEvent,
+    Tooltip,
+    Typography
 } from "@mui/material";
 import {DataGrid, GridCellParams, GridColDef, GridToolbar} from "@mui/x-data-grid";
 import * as React from "react";
@@ -12,7 +23,7 @@ import { ISelect } from "../../integration/types/InputField";
 import IntegrationRepository from "../../integration/repository/IntegrationRepository";
 import {configurationFieldToString} from "../../util/MappingUtil";
 import {ResourcesContext} from "../../../context/resourcesContext";
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { Link as RouterLink } from 'react-router-dom';
 
 const IntegrationPanel: React.FunctionComponent<any> = (props) => {
@@ -40,10 +51,10 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
         { field: 'id', type: 'string', headerName: 'KonfigurasjonsId', flex: 1, hide: true},
         { field: 'version', type: 'number', headerName: 'Versjon', flex: 0.5 },
         { field: 'comment', type: 'string', headerName: 'Kommentar', flex: 1},
-        { field: 'completed', type: 'string', headerName: 'Ferdigstilt', flex: 1,
+        { field: 'completed', type: 'string', headerName: 'Ferdigstilt', flex: 1, description: "Kun ferdigstilte konfigurasjoner kan settes som aktive",
             valueGetter: (params) => params.row.completed ? 'Ja' : 'Nei'
         },
-        { field: 'details', headerName: 'Vis/Rediger', flex: 0.5, sortable: false, filterable: false,
+        { field: 'details', headerName: 'Vis/Rediger', flex: 0.5, sortable: false, filterable: false, description: "Ferdigstilte konfigurasjoner kan ikke redigeres",
             renderCell: (params) => ( <EditButtonToggle row={params.row} />)
         }
     ];
@@ -149,7 +160,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
                 onClick={handleClick}
-                endIcon={<ArrowDropDownIcon />}
+                endIcon={<ArrowRightIcon />}
             >
                 NY KONFIGURASJON
             </Button>
@@ -169,7 +180,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                 }}
             >
                 <MenuItem component={RouterLink} to='/integration/configuration/new-configuration' onClick={handleClose}>Blank konfigurasjon</MenuItem>
-                <MenuItem disabled={true} onClick={handleClose}>Basert på eksisterende versjon</MenuItem>
+                <MenuItem disabled={true} onClick={handleClose}>Basert på eksisterende versjon (kommer)</MenuItem>
             </Menu>
         </Box>
     );
