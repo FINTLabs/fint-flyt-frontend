@@ -148,7 +148,7 @@ export const MOCK_SOURCE_FORM: IIntegrationMetadata[] =
             "sourceApplicationIntegrationId":"PROD0195",
             "sourceApplicationIntegrationUri":"",
             "integrationDisplayName":"Oversett lister med datakilder",
-            "instanceElementMetadata":[
+            instanceElementMetadata:[
                 {
                     "key":null,
                     "type": 'STRING',

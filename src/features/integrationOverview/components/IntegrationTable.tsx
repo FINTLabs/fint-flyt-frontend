@@ -48,7 +48,7 @@ const IntegrationTable: React.FunctionComponent<any> = (props) => {
                                 event.defaultMuiPrevented = true;
                                 props.setExistingIntegration(params.row)
                                 let selectedForm = metadata.filter(md => md.sourceApplicationIntegrationId === params.row.sourceApplicationIntegrationId)
-                                //TODO: remove when we can no longer use old forms
+                                //TODO: remove when we can no longer use old forms, and use selected sourceApplication and sourceApplicationIntegrationId to get the right metadata
                                 setSelectedForm(selectedForm.length > 0 ? selectedForm[0] : SOURCE_FORM_NO_VALUES[0])
                                 props.getConfigurations(params.row.id)
                                 setHistory();
