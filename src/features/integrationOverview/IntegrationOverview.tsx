@@ -6,6 +6,7 @@ import IntegrationTable from "./components/IntegrationTable";
 import {IntegrationContext} from "../../context/integrationContext";
 import { useTranslation } from 'react-i18next';
 import IntegrationPanel from "./components/IntegrationPanel";
+import {SourceApplicationContext} from "../../context/sourceApplicationContext";
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -32,9 +33,11 @@ const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = (
     const classes = useStyles();
     const showPanel: boolean = window.location.pathname === '/integration'
     const {existingIntegration, setNewIntegration, setExistingIntegration, newIntegrations, getNewIntegrations, configurations, getConfigurations} = useContext(IntegrationContext)
+    const {getMetadata} = useContext(SourceApplicationContext)
 
     useEffect(()=> {
         getNewIntegrations();
+        getMetadata();
     }, []);
 
     const resetConfiguration = () => {
@@ -51,6 +54,7 @@ const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = (
             {existingIntegration?.sourceApplicationIntegrationId && showPanel ?
                 <IntegrationPanel
                     classes={classes}
+                    loading={configurations && configurations.length === 0}
                     initialConfiguration={existingIntegration}
                     configurations={configurations}
                 /> :

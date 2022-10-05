@@ -9,7 +9,6 @@ import {
     MenuItem,
     Select,
     SelectChangeEvent,
-    Tooltip,
     Typography
 } from "@mui/material";
 import {DataGrid, GridCellParams, GridColDef, GridToolbar} from "@mui/x-data-grid";
@@ -33,12 +32,20 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
     const {setPrimaryClassification, setSecondaryClassification, setTertiaryClassification} = useContext(ResourcesContext);
     const [version, setVersion] = useState('null');
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const [anchorSubEl, setAnchorSubEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
+    const openSub = Boolean(anchorSubEl);
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
     };
     const handleClose = () => {
         setAnchorEl(null);
+    };
+    const handleSubClick = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorSubEl(event.currentTarget);
+    };
+    const handleSubClose = () => {
+        setAnchorSubEl(null);
     };
     const versionsToActivate: ISelect[] = [{value: 'null', label: 'velg aktiv versjon'}];
     props.configurations.map((configuration: any) => {
@@ -179,8 +186,42 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                     horizontal: 'left',
                 }}
             >
-                <MenuItem component={RouterLink} to='/integration/configuration/new-configuration' onClick={handleClose}>Blank konfigurasjon</MenuItem>
-                <MenuItem disabled={true} onClick={handleClose}>Basert på eksisterende versjon (kommer)</MenuItem>
+                <MenuItem component={RouterLink} to='/integration/configuration/new-configuration' onClick={handleClose}>
+                    <Button id="demo-positioned-button">
+                        Blank konfigurasjon
+                    </Button>
+                </MenuItem>
+
+                <MenuItem>
+                    <Button
+                        id="demo-positioned-button"
+                        aria-controls={openSub ? 'demo-positioned-menu' : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={openSub ? 'true' : undefined}
+                        onClick={handleSubClick}
+                        endIcon={<ArrowRightIcon />}
+                    >
+                        Basert på eksisterende versjon (kommer)
+                    </Button>
+                    <Menu
+                        id="demo-positioned-menu"
+                        aria-labelledby="demo-positioned-button"
+                        anchorEl={anchorSubEl}
+                        open={openSub}
+                        onClose={handleSubClose}
+                        anchorOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right',
+                        }}
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'left',
+                        }}
+                    >
+                        <MenuItem disabled={true} onClick={handleSubClose}>Versjon 1</MenuItem>
+                        <MenuItem disabled={true} onClick={handleSubClose}>Versjon 2</MenuItem>
+                    </Menu>
+                </MenuItem>
             </Menu>
         </Box>
     );

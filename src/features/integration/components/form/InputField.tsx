@@ -3,7 +3,7 @@ import {
     FormControl, FormControlLabel,
     FormLabel,
     MenuItem, Radio,
-    RadioGroup,
+    RadioGroup, TextareaAutosize,
     TextField, Typography
 } from '@mui/material';
 import React from 'react';
@@ -134,6 +134,27 @@ const InputField: React.FunctionComponent<any> = (props) => {
                 formValue={props.formValue}
                 required={props.required}
                 disabled={props.disabled}
+            />
+        )
+    }
+    else if (props.input === INPUT_TYPE.TEXT_AREA) {
+        return (
+            <Controller
+                control={props.control}
+                name={props.formValue}
+                defaultValue=""
+                render={({ field: { onChange, onBlur, value } }) => (
+                    <TextareaAutosize
+                        id={props.formValue}
+                        placeholder={props.required ? (t(props.label)) +'*' : t(props.label)}
+                        onChange={onChange}
+                        onBlur={onBlur}
+                        value={value}
+                        minRows={3}
+                        style={{fontFamily: 'sans-serif', fontSize: '16px', width: '600px'}}
+                    />
+                )}
+                rules={{ required: { value: props.required, message: errorMessage }} }
             />
         )
     }

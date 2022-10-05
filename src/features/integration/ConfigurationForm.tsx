@@ -291,7 +291,8 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                             <div>
                                 <Box sx={{display: 'flex'}}>
                                     <Box width={'80%'}>
-                                        <InputField disabled={completed} input={INPUT_TYPE.TEXT_FIELD} control={control} label="labels.comment" formValue="comment" error={errors.comment} helpText="comment"/>
+                                        <Typography>Kommentar:</Typography>
+                                        <InputField disabled={completed} input={INPUT_TYPE.TEXT_AREA} control={control} label="labels.comment" formValue="comment" error={errors.comment} helpText="comment"/>
                                     </Box>
                                 </Box>
                                 <FormGroup sx={{ ml: 2, mb: 2 }} >

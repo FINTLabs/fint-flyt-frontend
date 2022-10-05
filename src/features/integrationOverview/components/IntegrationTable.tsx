@@ -45,7 +45,6 @@ const IntegrationTable: React.FunctionComponent<any> = (props) => {
                         getRowId={(row) => row.sourceApplicationIntegrationId}
                         onCellDoubleClick={(params, event) => {
                             if (!event.ctrlKey) {
-                                console.log(params.row)
                                 event.defaultMuiPrevented = true;
                                 props.setExistingIntegration(params.row)
                                 let selectedForm = metadata.filter(md => md.sourceApplicationIntegrationId === params.row.sourceApplicationIntegrationId)
