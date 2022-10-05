@@ -1,4 +1,4 @@
-import {Box, Typography} from "@mui/material";
+import {Box, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Typography} from "@mui/material";
 import {Tag} from "./dnd/Tag";
 import * as React from "react";
 import HelpPopover from "./popover/HelpPopover";
@@ -11,6 +11,11 @@ import {Link} from 'react-router-dom'
 const SourceApplicationForm: React.FunctionComponent<any> = (props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'components.SourceApplicationForm'});
     const { selectedForm } = useContext(IntegrationContext)
+    const [age, setAge] = React.useState('');
+
+    const handleChange = (event: SelectChangeEvent) => {
+        setAge(event.target.value);
+    };
 
     function TagTree({items, depth = 0}: any ) {
         if (!items || !items.length) {
@@ -36,6 +41,20 @@ const SourceApplicationForm: React.FunctionComponent<any> = (props) => {
             <Box className={props.style.row}>
                 <Typography variant={"h6"}>{t('header')}: {selectedForm.integrationDisplayName}</Typography>
                 <HelpPopover popoverContent="sourceApplicationFormPopoverContent"/>
+                <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+                    <InputLabel id="demo-select-small">Versjon</InputLabel>
+                    <Select
+                        labelId="version-select"
+                        id="version-select"
+                        value={age}
+                        label="Versjon"
+                        onChange={handleChange}
+                    >
+                        <MenuItem value={10}>Ten</MenuItem>
+                        <MenuItem value={20}>Twenty</MenuItem>
+                        <MenuItem value={30}>Thirty</MenuItem>
+                    </Select>
+                </FormControl>
             </Box>
             {selectedForm && <TagTree items={selectedForm.instanceElementMetadata}/>}
             <Link style={{fontFamily: 'sans-serif'}} to={{pathname: selectedForm.sourceApplicationIntegrationUri}} target="_blank">Åpne i skjemaadministrator</Link>

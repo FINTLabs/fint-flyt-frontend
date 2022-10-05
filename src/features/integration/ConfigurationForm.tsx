@@ -40,7 +40,8 @@ const useStyles = makeStyles((theme: Theme) =>
             width: theme.spacing(100)
         },
         row: {
-            display: 'flex'
+            display: 'flex',
+            alignItems: 'center',
         },
         column: {
             flex: '50%',
@@ -59,7 +60,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         sourceApplicationForm: {
             opacity: 0.99,
-            width: theme.spacing(50),
+            width: theme.spacing(60),
             height: 'fit-content'
         },
         accordion: {
