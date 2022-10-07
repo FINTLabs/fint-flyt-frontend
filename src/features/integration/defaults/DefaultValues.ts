@@ -499,7 +499,7 @@ export const MOCK_NEWCONFIGURATIONS: newIConfiguration[] = [
                     {
                         key: 'tittel',
                         type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: "iem{foo} iem{bar} iem{bubu}",
+                        value: "$if{foo} $if{bar} $if{bubu}",
                     },
                 ]
             }
@@ -518,12 +518,12 @@ export const MOCK_NEWCONFIGURATIONS: newIConfiguration[] = [
                     {
                         key: 'tittel',
                         type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: "$iem{foo} $iem{bar} $iem{bubu}",
+                        value: "$if{foo} $if{bar} $if{bubu}",
                     },
                     {
                         key: 'offentligTittel',
                         type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: "$iem{foo} test",
+                        value: "$if{foo} test",
                     },
                     {
                         key: "administrativenhet",
@@ -567,12 +567,12 @@ export const MOCK_NEWCONFIGURATIONS: newIConfiguration[] = [
                     {
                         key: 'tittel',
                         type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: "$iem{foo} $iem{bar} $iem{bubu}",
+                        value: "$if{foo} $if{bar} $if{bubu}",
                     },
                     {
                         key: 'offentligTittel',
                         type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: "$iem{foo} test",
+                        value: "$if{foo} test",
                     },
                     {
                         key: "administrativenhet",

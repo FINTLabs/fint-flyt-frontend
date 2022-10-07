@@ -34,12 +34,13 @@ const useStyles = makeStyles((theme: Theme) =>
 const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.dashboard'});
     const classes = useStyles();
-    const {setNewIntegration, newIntegrations, getNewIntegrations, statistics} = useContext(IntegrationContext)
+    const {setNewIntegration, newIntegrations, getNewIntegrations, statistics, resetIntegrations} = useContext(IntegrationContext)
     let totalErrors = 0;
     statistics.map((stat: any) => {totalErrors += stat.currentErrors})
 
     useEffect(()=> {
         getNewIntegrations();
+        resetIntegrations();
     }, [])
 
     const cards: ICard[] = [

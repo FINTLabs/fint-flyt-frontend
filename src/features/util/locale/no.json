@@ -7,8 +7,8 @@
     },
     "menuItems": {
         "dashboard": "Dashbord",
-        "newIntegration": "Ny integrasjon",
-        "editIntegration": "Rediger integrasjon",
+        "newIntegration": "Ny",
+        "editIntegration": "Rediger",
         "integrationOverview": "Integrasjonsoversikt",
         "instanceOverview": "Instansoversikt (wip)",
         "integrationDetails": "Detaljer",

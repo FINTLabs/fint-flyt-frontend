@@ -1,5 +1,5 @@
 import React, { createContext, useState, FC } from "react";
-import ResourceRepository from "../../features/integration/repository/ResourceRepository";
+import ResourceRepository from "../../shared/repositories/ResourceRepository";
 import {contextDefaultValues, IResourceItem, ResourceContextState} from "./types";
 
 export const ResourcesContext = createContext<ResourceContextState>(

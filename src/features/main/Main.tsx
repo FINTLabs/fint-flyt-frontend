@@ -18,7 +18,7 @@ import { useTranslation } from "react-i18next";
 import createAuthRefreshInterceptor from "axios-auth-refresh";
 import axios, {AxiosError, AxiosResponse} from "axios";
 import { useIdleTimer } from 'react-idle-timer';
-import SourceApplicationRepository from "../integration/repository/SourceApplicationRepository";
+import SourceApplicationRepository from "../../shared/repositories/SourceApplicationRepository";
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme: Theme) =>

@@ -9,7 +9,7 @@ import {SourceApplicationContext} from "../../../context/sourceApplicationContex
 import {createStyles, makeStyles} from "@mui/styles";
 import {toIntegration} from "../../util/mapping/ToIntegration";
 import {IFormIntegration} from "../types/Form/FormData";
-import IntegrationRepository from '../repository/IntegrationRepository';
+import IntegrationRepository from '../../../shared/repositories/IntegrationRepository';
 import {IntegrationState} from "../types/Integration";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -39,7 +39,6 @@ export const IntegrationForm: React.FunctionComponent<any> = (props) => {
     }
 
     useEffect(() => {
-        getMetadata();
         return () => {
             setSourceApplication(null)
         }
@@ -47,6 +46,7 @@ export const IntegrationForm: React.FunctionComponent<any> = (props) => {
 
 
     useEffect(() => {
+        getMetadata();
         getAvailableForms();
     }, [sourceApplication, setSourceApplication])
 

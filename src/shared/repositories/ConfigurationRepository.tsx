@@ -1,5 +1,5 @@
 import axios from "axios";
-import {IConfigurationPatch, newIConfiguration} from "../types/Configuration";
+import {IConfigurationPatch, newIConfiguration} from "../../features/integration/types/Configuration";
 
 //TODO: test with updated API urls
 const getConfigurations = (integrationId: string) => {

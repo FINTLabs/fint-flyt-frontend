@@ -293,7 +293,7 @@ export const MOCK_NEW_CONFIG: newIConfiguration = {
                 {
                     key: 'tittel',
                     type: FieldConfigurationType.DYNAMIC_STRING,
-                    value: '$iem{foo} $iem{bar}'
+                    value: '$if{foo} $if{bar}'
                 },
                 {
                     key: 'journalenhet',
@@ -323,7 +323,7 @@ export const MOCK_NEW_CONFIG: newIConfiguration = {
                 {
                     key: 'tittel',
                     type: FieldConfigurationType.DYNAMIC_STRING,
-                    value: 'foo $iem{bar}'
+                    value: 'foo $if{bar}'
                 },
                 {
                     key: 'administrativeenhet',

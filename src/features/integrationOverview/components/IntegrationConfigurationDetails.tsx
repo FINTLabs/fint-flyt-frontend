@@ -14,6 +14,7 @@ import {newIConfiguration} from "../../integration/types/Configuration";
 
 
 const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) => {
+    //TODO REMOVE COMPONENT
     let history = useHistory();
     const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationOverview'});
     const {newIntegration, configuration, setConfiguration, setSelectedForm} = useContext(IntegrationContext);

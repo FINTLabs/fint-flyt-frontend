@@ -8,16 +8,13 @@ import { gridLocaleNoNB } from "../../util/locale/gridLocaleNoNB";
 import {useTranslation} from "react-i18next";
 import {useContext} from "react";
 import {SourceApplicationContext} from "../../../context/sourceApplicationContext";
-import {getSourceApplicationDisplayName, SOURCE_FORM_NO_VALUES} from "../../integration/defaults/DefaultValues";
-import {IntegrationContext} from "../../../context/integrationContext";
+import {getSourceApplicationDisplayName} from "../../integration/defaults/DefaultValues";
 
 const IntegrationTable: React.FunctionComponent<any> = (props) => {
     const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.integrationOverview'});
     const classes = props.classes;
     let history = useHistory();
-    const { metadata } = useContext(SourceApplicationContext)
-    const { setSelectedForm } = useContext(IntegrationContext);
-
+    const { setSourceApplication, getMetadata } = useContext(SourceApplicationContext)
 
     const columns: GridColDef[] = [
         { field: 'sourceApplicationId', type: 'string', headerName: t('table.columns.sourceApplicationId'), flex: 1,
@@ -47,9 +44,9 @@ const IntegrationTable: React.FunctionComponent<any> = (props) => {
                             if (!event.ctrlKey) {
                                 event.defaultMuiPrevented = true;
                                 props.setExistingIntegration(params.row)
-                                let selectedForm = metadata.filter(md => md.sourceApplicationIntegrationId === params.row.sourceApplicationIntegrationId)
+                                setSourceApplication(params.row.sourceApplicationId)
+                                getMetadata();
                                 //TODO: remove when we can no longer use old forms, and use selected sourceApplication and sourceApplicationIntegrationId to get the right metadata
-                                setSelectedForm(selectedForm.length > 0 ? selectedForm[0] : SOURCE_FORM_NO_VALUES[0])
                                 props.getConfigurations(params.row.id)
                                 setHistory();
                             }

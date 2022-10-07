@@ -48,7 +48,7 @@ const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = (
     return (
         <>
             <Breadcrumbs aria-label="breadcrumb">
-                <Typography style={{cursor:'pointer'}} onClick={resetConfiguration}>{t('header')}</Typography>
+                <Typography onClick={resetConfiguration}>{t('header')}</Typography>
                 <Typography>{existingIntegration?.sourceApplicationIntegrationId && showPanel ? t('details') : ''}</Typography>
             </Breadcrumbs>
             {existingIntegration?.sourceApplicationIntegrationId && showPanel ?

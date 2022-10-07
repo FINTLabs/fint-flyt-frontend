@@ -11,7 +11,7 @@ export const MOCK_CASE_FIELDS: IConfigurationElement[] = [
             {
                 "key": "offentligTittel",
                 "type": "DYNAMIC_STRING",
-                "value": "public title $iem{test}"
+                "value": "public title $if{test}"
             },
             {
                 "key": "saksmappetype",

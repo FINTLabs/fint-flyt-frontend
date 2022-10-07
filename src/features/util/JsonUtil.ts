@@ -10,5 +10,5 @@ export function addId(id: number, field: string) {
 }
 
 export function toTagValue(input: string): string {
-    return '$iem{' + input + '}';
+    return '$if{' + input + '}';
 }

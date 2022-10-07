@@ -8,7 +8,6 @@ export interface ISourceApplicationItem {
 }
 
 export type SourceApplicationContextState = {
-    sourceApplicationForms: ISourceApplicationItem;
     availableForms: ISourceApplicationItem;
     getAllForms: (forms: ISelect[]) => void;
     getAvailableForms: () => void;
@@ -19,7 +18,6 @@ export type SourceApplicationContextState = {
 };
 
 export const contextDefaultValues: SourceApplicationContextState = {
-    sourceApplicationForms: {sourceApplicationDisplayName: '', sourceApplicationId: '1', forms: []},
     availableForms: {sourceApplicationDisplayName: '', sourceApplicationId: '1', forms: [{value: 'null', label: 'Velg skjemaleverandør først'}]},
     getAllForms: () => {},
     getAvailableForms: () => {},

@@ -15,20 +15,23 @@ import {DataGrid, GridCellParams, GridColDef, GridToolbar} from "@mui/x-data-gri
 import * as React from "react";
 import { gridLocaleNoNB } from "../../util/locale/gridLocaleNoNB";
 import {useTranslation} from "react-i18next";
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {IntegrationContext} from "../../../context/integrationContext";
 import { Link } from 'react-router-dom';
 import { ISelect } from "../../integration/types/InputField";
-import IntegrationRepository from "../../integration/repository/IntegrationRepository";
+import IntegrationRepository from "../../../shared/repositories/IntegrationRepository";
 import {configurationFieldToString} from "../../util/MappingUtil";
 import {ResourcesContext} from "../../../context/resourcesContext";
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { Link as RouterLink } from 'react-router-dom';
+import {SourceApplicationContext} from "../../../context/sourceApplicationContext";
+import {SOURCE_FORM_NO_VALUES} from "../../integration/defaults/DefaultValues";
 
 const IntegrationPanel: React.FunctionComponent<any> = (props) => {
     const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.integrationOverview'});
     const classes = props.classes;
-    const {existingIntegration, setConfiguration} = useContext(IntegrationContext)
+    const {existingIntegration, setConfiguration, setSelectedForm} = useContext(IntegrationContext)
+    const { metadata, getMetadata} = useContext(SourceApplicationContext)
     const {setPrimaryClassification, setSecondaryClassification, setTertiaryClassification} = useContext(ResourcesContext);
     const [version, setVersion] = useState('null');
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -54,6 +57,10 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
         }
     })
 
+    useEffect(()=> {
+        getMetadata()
+    }, [])
+
     const columns: GridColDef[] = [
         { field: 'id', type: 'string', headerName: 'KonfigurasjonsId', flex: 1, hide: true},
         { field: 'version', type: 'number', headerName: 'Versjon', flex: 0.5 },
@@ -74,7 +81,8 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
             <>
                 <Link
                     onClick={(e) => {
-                        console.log(props.row)
+                        let selectedForm = metadata.filter(md => md.sourceApplicationIntegrationId === existingIntegration?.sourceApplicationIntegrationId)
+                        setSelectedForm(selectedForm.length > 0 ? selectedForm[0] : SOURCE_FORM_NO_VALUES[0])
                         setPrimaryClassification({label: '', value: configurationFieldToString(cases, 'primarordningsprinsipp')})
                         setSecondaryClassification({label: '', value: configurationFieldToString(cases, 'sekundarordningsprinsipp')})
                         setTertiaryClassification({label: '', value: configurationFieldToString(cases, 'tertiarordningsprinsipp')})
@@ -187,7 +195,11 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                 }}
             >
                 <MenuItem component={RouterLink} to='/integration/configuration/new-configuration' onClick={handleClose}>
-                    <Button id="demo-positioned-button">
+                    <Button id="demo-positioned-button" onClick={(e) => {
+                        let selectedForm = metadata.filter(md => md.sourceApplicationIntegrationId === existingIntegration?.sourceApplicationIntegrationId)
+                        setSelectedForm(selectedForm.length > 0 ? selectedForm[0] : SOURCE_FORM_NO_VALUES[0])
+                    }}
+                    >
                         Blank konfigurasjon
                     </Button>
                 </MenuItem>
@@ -218,8 +230,8 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                             horizontal: 'left',
                         }}
                     >
-                        <MenuItem disabled={true} onClick={handleSubClose}>Versjon 1</MenuItem>
-                        <MenuItem disabled={true} onClick={handleSubClose}>Versjon 2</MenuItem>
+                        <MenuItem disabled={true} onClick={handleSubClose}>...</MenuItem>
+                        <MenuItem disabled={true} onClick={handleSubClose}>...</MenuItem>
                     </Menu>
                 </MenuItem>
             </Menu>

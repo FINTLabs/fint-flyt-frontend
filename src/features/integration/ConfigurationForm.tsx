@@ -32,7 +32,7 @@ import InputField from "./components/form/InputField";
 import {INPUT_TYPE} from "./types/InputType.enum";
 import {toConfigurationPatch, toNewConfiguration} from "../util/mapping/ToConfiguration";
 import {IConfigurationPatch, newIConfiguration} from "./types/Configuration";
-import ConfigurationRepository from "./repository/ConfigurationRepository";
+import ConfigurationRepository from "../../shared/repositories/ConfigurationRepository";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -42,6 +42,9 @@ const useStyles = makeStyles((theme: Theme) =>
         row: {
             display: 'flex',
             alignItems: 'center',
+            position: 'sticky',
+            top: 0,
+            background: 'white'
         },
         column: {
             flex: '50%',

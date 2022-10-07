@@ -74,7 +74,7 @@ test('It should convert field to string', () => {
 });
 
 test('It should convert field with tags to string', () => {
-    expect(configurationFieldToString(MOCK_CASE_FIELDS, "offentligTittel")).toEqual("public title $iem{test}");
+    expect(configurationFieldToString(MOCK_CASE_FIELDS, "offentligTittel")).toEqual("public title $if{test}");
 });
 
 test('It should convert applicant field to boolean', () => {

@@ -1,5 +1,5 @@
 import axios from "axios";
-import {IIntegration} from "../types/Integration";
+import {IIntegration} from "../../features/integration/types/Integration";
 
 //TODO: test with updated API urls
 const getIntegrations = (integrationId?: string) => {

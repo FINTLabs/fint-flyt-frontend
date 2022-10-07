@@ -5,8 +5,8 @@ import {newIConfiguration} from "../../features/integration/types/Configuration"
 import EventRepository from "../../features/log/repository/EventRepository";
 import {IIntegrationStatistics} from "../../features/log/types/IntegrationStatistics";
 import {IIntegrationMetadata} from "../../features/integration/types/IntegrationMetadata";
-import ConfigurationRepository from "../../features/integration/repository/ConfigurationRepository";
-import IntegrationRepository from "../../features/integration/repository/IntegrationRepository";
+import ConfigurationRepository from "../../shared/repositories/ConfigurationRepository";
+import IntegrationRepository from "../../shared/repositories/IntegrationRepository";
 
 export const IntegrationContext = createContext<IntegrationContextState>(
     contextDefaultValues
@@ -29,6 +29,11 @@ const IntegrationProvider: FC = ({ children }) => {
         setSourceApplicationId('');
         setSourceApplicationIntegrationId('');
         setSelectedForm(contextDefaultValues.selectedForm)
+    }
+
+    const resetIntegrations = () => {
+        setNewIntegration(undefined);
+        setExistingIntegration(undefined)
     }
 
     const getNewIntegrations = () => {
@@ -88,7 +93,8 @@ const IntegrationProvider: FC = ({ children }) => {
                 sourceApplicationIntegrationId,
                 setSourceApplicationIntegrationId,
                 setSourceApplicationId,
-                resetSourceAndDestination
+                resetSourceAndDestination,
+                resetIntegrations
             }}
         >
             {children}

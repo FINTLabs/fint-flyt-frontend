@@ -112,7 +112,7 @@ export const MOCK_NEW_FORMDATA: IFormConfiguration = {
         "tertiaryClass": "",
         "tertiaryClassification": "",
         "tertiaryTitle": "",
-        "title": "$iem{foo} $iem{bar}"
+        "title": "$if{foo} $if{bar}"
     },
     "comment": "Ferdigstilt ",
     "completed": true,
@@ -133,6 +133,6 @@ export const MOCK_NEW_FORMDATA: IFormConfiguration = {
         "publicTitle": "",
         "recordStatus": "",
         "recordType": "",
-        "title": "foo $iem{bar}"
+        "title": "foo $if{bar}"
     }
 }
