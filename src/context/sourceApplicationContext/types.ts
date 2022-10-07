@@ -1,20 +1,34 @@
 import {ISelect} from "../../features/integration/types/InputField";
+import {IIntegrationMetadata} from "../../features/integration/types/IntegrationMetadata";
 
 export interface ISourceApplicationItem {
-    sourceApplication: string;
-    sourceApplicationForms: ISelect[];
+    sourceApplicationDisplayName: string;
+    sourceApplicationId: string;
+    forms: ISelect[];
 }
 
 export type SourceApplicationContextState = {
-    allForms: ISourceApplicationItem;
     availableForms: ISourceApplicationItem;
-    getAllForms: () => void;
-    getForms: () => void;
+    getAllForms: (forms: ISelect[]) => void;
+    getAvailableForms: () => void;
+    metadata: IIntegrationMetadata[];
+    getMetadata: () => void;
+    sourceApplication: string | null;
+    setSourceApplication: (id: string | null) => void;
 };
 
 export const contextDefaultValues: SourceApplicationContextState = {
-    allForms: {sourceApplication: '', sourceApplicationForms: []},
-    availableForms: {sourceApplication: '', sourceApplicationForms: []},
+    availableForms: {sourceApplicationDisplayName: '', sourceApplicationId: '1', forms: [{value: 'null', label: 'Velg skjemaleverandør først'}]},
     getAllForms: () => {},
-    getForms: () => {}
+    getAvailableForms: () => {},
+    metadata: [{instanceElementMetadata: [],
+        sourceApplicationIntegrationUri: '',
+        sourceApplicationIntegrationId: '',
+        sourceApplicationId: '',
+        integrationDisplayName: 'INGEN DATA',
+        version: 0
+    }],
+    getMetadata: () => {},
+    sourceApplication: null,
+    setSourceApplication: () => {}
 };

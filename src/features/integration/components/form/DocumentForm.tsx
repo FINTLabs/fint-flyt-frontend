@@ -77,7 +77,7 @@ const DocumentForm: React.FunctionComponent<any> = (props) => {
                     )}
                 )}
             </FormGroup>
-            <Button sx={{mb: 2}} onClick={props.onSave} variant="contained">{t('button.save')}</Button>
+            <Button disabled={props.disabled} sx={{mb: 2}} onClick={props.onSave} variant="contained">{t('button.save')}</Button>
         </div>
     );
 }

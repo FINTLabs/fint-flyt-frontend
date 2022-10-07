@@ -1,50 +1,100 @@
 import React, { createContext, useState, FC } from "react";
 import {contextDefaultValues, IntegrationContextState} from "./types";
-import {IIntegrationConfiguration} from "../../features/integration/types/IntegrationConfiguration";
-import IntegrationRepository from "../../features/integration/repository/IntegrationRepository";
+import {IIntegration} from "../../features/integration/types/Integration";
+import {newIConfiguration} from "../../features/integration/types/Configuration";
+import EventRepository from "../../features/log/repository/EventRepository";
+import {IIntegrationStatistics} from "../../features/log/types/IntegrationStatistics";
+import {IIntegrationMetadata} from "../../features/integration/types/IntegrationMetadata";
+import ConfigurationRepository from "../../shared/repositories/ConfigurationRepository";
+import IntegrationRepository from "../../shared/repositories/IntegrationRepository";
 
 export const IntegrationContext = createContext<IntegrationContextState>(
     contextDefaultValues
 );
 
 const IntegrationProvider: FC = ({ children }) => {
-    const [integration, setIntegration] = useState<IIntegrationConfiguration>({});
-    const [integrations, setIntegrations] = useState<IIntegrationConfiguration[]>([]);
+    const [existingIntegration, setExistingIntegration] = useState<IIntegration | undefined>(undefined);
+    const [newIntegration, setNewIntegration] = useState<IIntegration | undefined>(undefined);
+    const [newIntegrations, setNewIntegrations] = useState<IIntegration[]>([]);
+    const [configuration, setConfiguration] = useState<newIConfiguration>(contextDefaultValues.configuration);
+    const [configurations, setConfigurations] = useState<newIConfiguration[]>([]);
     const [destination, setDestination] = useState<string>('');
+    const [selectedForm, setSelectedForm] = useState<IIntegrationMetadata>(contextDefaultValues.selectedForm);
     const [sourceApplicationIntegrationId, setSourceApplicationIntegrationId] = useState<string>('');
     const [sourceApplicationId, setSourceApplicationId] = useState<string>('');
+    const [statistics, setStatistics] = useState<any>(contextDefaultValues.statistics);
 
     const resetSourceAndDestination = () => {
         setDestination('');
         setSourceApplicationId('');
         setSourceApplicationIntegrationId('');
+        setSelectedForm(contextDefaultValues.selectedForm)
     }
 
-    const getIntegrations = () => {
-        IntegrationRepository.get()
+    const resetIntegrations = () => {
+        setNewIntegration(undefined);
+        setExistingIntegration(undefined)
+    }
+
+    const getNewIntegrations = () => {
+        EventRepository.getStatistics()
             .then((response) => {
-                if(response.data.content) {
-                    setIntegrations(response.data.content);
-                }
-            })
+                setStatistics(response.data)
+                let stats = response.data;
+           IntegrationRepository.getIntegrations()
+                    .then((response) => {
+                        if(response.data) {
+                            let mergedList: IIntegration[] = response.data;
+                            stats.forEach((value: IIntegrationStatistics) => {
+                                mergedList.map((integration: IIntegration) => {
+                                    if (integration.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {
+                                        integration.errors = value.currentErrors;
+                                        integration.dispatched = value.dispatchedInstances;
+                                    }
+                                })
+                            })
+                            setNewIntegrations(mergedList);
+                        }
+                    })
+                    .catch(e => console.error('Error: ', e))
+            }).catch(e => console.log('error', e))
+    }
+
+    const getConfigurations = (id: any) => {
+        ConfigurationRepository.getConfigurations(id.toString())
+            .then((response) => {
+                let configurations: newIConfiguration[] = response.data;
+                    setConfigurations(configurations);
+                })
             .catch(e => console.error('Error: ', e))
     }
 
     return (
         <IntegrationContext.Provider
             value={{
-                integration,
-                setIntegration,
-                integrations,
-                setIntegrations,
-                getIntegrations,
+                statistics,
+                newIntegration,
+                setNewIntegration,
+                existingIntegration,
+                setExistingIntegration,
+                newIntegrations,
+                setNewIntegrations,
+                getNewIntegrations,
+                configuration,
+                setConfiguration,
+                configurations,
+                getConfigurations,
+                setConfigurations,
                 destination,
                 setDestination,
+                selectedForm,
+                setSelectedForm,
                 sourceApplicationId,
                 sourceApplicationIntegrationId,
                 setSourceApplicationIntegrationId,
                 setSourceApplicationId,
-                resetSourceAndDestination
+                resetSourceAndDestination,
+                resetIntegrations
             }}
         >
             {children}

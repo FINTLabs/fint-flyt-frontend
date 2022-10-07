@@ -1,20 +1,24 @@
 // @ts-ignore
 import {ValueBuilder} from "../../features/integration/types/ValueBuilder";
-import {createValueBuilder, fieldToString, toValueString} from "../../features/util/ValueBuilderUtil";
-import {MOCK_CASE_CONFIGURATION} from "../mock/mock-case-configuration";
+import {
+    configurationFieldToBoolean,
+    configurationFieldToString,
+} from "../../features/util/MappingUtil";
+import {MOCK_APPLICANT_FIELDS, MOCK_CASE_FIELDS} from "../mock/mock-case-configuration";
+import {createValueBuilder, toValueString} from "../../features/util/ValueBuilderUtil";
 
 const valueBuilderWithTags: ValueBuilder = {
     value: "Lorem ipsum %s %s",
-    properties: [{key: "foo", order: 0, source: "FORM"}, {key: "bar", order: 1, source: "FORM"}]}
+    properties: [{key: "foo", order: 0}, {key: "bar", order: 1}]}
 
 const valueBuilderNoTags: ValueBuilder = {
     value: "Lorem ipsum foo bar", properties: []}
 
 const valueBuilderOnlyTag: ValueBuilder = {
-    value: "%s", properties: [{key: "foo", order: 0, source: "FORM"}]}
+    value: "%s", properties: [{key: "foo", order: 0}]}
 
 const valueBuilderOnlyTags: ValueBuilder = {
-    value: "%s %s %s", properties: [{key: "foo", order: 0, source: "FORM"}, {key: "bar", order: 1, source: "FORM"}, {key: "bubu", order: 2, source: "FORM"}]}
+    value: "%s %s %s", properties: [{key: "foo", order: 0}, {key: "bar", order: 1}, {key: "bubu", order: 2}]}
 
 const valueBuilderEmptyString: ValueBuilder = {
     value: "", properties: []
@@ -66,9 +70,13 @@ test('It should handle no properties', () => {
 });
 
 test('It should convert field to string', () => {
-    expect(fieldToString(MOCK_CASE_CONFIGURATION, "administrativenhet")).toEqual("unit4");
+    expect(configurationFieldToString(MOCK_CASE_FIELDS, "administrativenhet")).toEqual("unit4");
 });
 
 test('It should convert field with tags to string', () => {
-    expect(fieldToString(MOCK_CASE_CONFIGURATION, "offentligTittel", true)).toEqual("public title also with {two} {tags}");
+    expect(configurationFieldToString(MOCK_CASE_FIELDS, "offentligTittel")).toEqual("public title $if{test}");
+});
+
+test('It should convert applicant field to boolean', () => {
+    expect(configurationFieldToBoolean(MOCK_APPLICANT_FIELDS, "protected")).toBe(true);
 });

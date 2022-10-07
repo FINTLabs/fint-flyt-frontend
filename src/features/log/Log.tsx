@@ -11,7 +11,6 @@ import {
     Dialog,
     DialogActions,
     DialogContent,
-    DialogTitle,
     IconButton,
     Typography
 } from "@mui/material";
@@ -20,6 +19,8 @@ import moment from "moment";
 import {DataGrid, GridCellParams, GridColumns, GridToolbar} from "@mui/x-data-grid";
 import {gridLocaleNoNB} from "../util/locale/gridLocaleNoNB";
 import { useTranslation } from 'react-i18next';
+import {stringReplace} from "../util/StringUtil";
+import {ErrorType} from "./types/ErrorType";
 
 function Log() {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.log'})
@@ -35,7 +36,8 @@ function Log() {
             renderCell: (params) => ( <CustomDialogToggle row={params.row} />)},
         { field: 'type', type: 'string', headerName: 'Type', flex: 0.5 },
         { field: 'timestamp', type: 'string', headerName: 'Tidspunkt', flex: 1,
-            valueGetter: (params) => moment(params.row.timestamp as string).format('DD/MM/YY HH:mm')},
+            valueGetter: (params) => moment(params.row.timestamp as string).format('YYYY/MM/DD HH:mm')
+        },
         { field: 'sourceApplicationIntegrationId', type: 'string', headerName: 'Skjema', flex: 1,
             valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplicationIntegrationId}
     ];
@@ -63,7 +65,7 @@ function Log() {
     return (
         <Box sx={{ width: 1, height: 900 }}>
             {/*TODO: remove header*/}
-            <Typography>{t('header')} (NB! UNDER UTVIKLING, KUN DEMO, IKKE REELLE DATA) </Typography>
+            <Typography>{t('header')} (NB! UNDER UTVIKLING, DEMO) </Typography>
             <AlertDialog row={selectedRow}/>
             <DataGrid
                 columns={columns}
@@ -75,6 +77,9 @@ function Log() {
                 }}
                 rowThreshold={0}
                 initialState={{
+                    sorting: {
+                        sortModel: [{ field: 'timestamp', sort: 'desc' }],
+                    },
                     filter: {
                         filterModel: {
                             items: [
@@ -115,23 +120,31 @@ function Log() {
                 <Dialog
                     open={open}
                     fullWidth={true}
+                    maxWidth={"lg"}
                     onClose={handleClose}
-                    aria-labelledby="alert-dialog-title"
-                    aria-describedby="alert-dialog-description"
                 >
                     <DialogContent>
                         {selectedRow &&
-                            <Stack id={props.row.type+ `-panel`} sx={{ py: 2, boxSizing: 'border-box', height: '350px', minWidth: '700px' }} direction="column">
+                            <Stack id={props.row.type+ `-panel`} sx={{ py: 2, boxSizing: 'border-box', height: '350px', minWidth: '900px' }} direction="column">
                                 <Stack direction="column" sx={{ height: 1 }}>
                                     <DataGrid
                                         density="compact"
                                         columns={[
-                                            { field: 'args', headerName: t('table.columns.errorMessage'), type: 'string', flex: 1,
-                                                valueGetter: (params) => `${params.row.errorCode || ''}`
+                                            { field: 'errorMessage', headerName: t('table.columns.errorMessage'), type: 'string', flex: 2,
+                                                //TODO: 01/09-22 fix translation file with corresponding error codes
+                                                valueGetter: (params) => {
+                                                    return (stringReplace(t(params.row.errorCode),  [
+                                                        {type: ErrorType.MAPPING_FIELD, value: params.row.args.mappingField},
+                                                        {type: ErrorType.CONFIGURATION_FIELD, value: params.row.args.configurationField},
+                                                        {type: ErrorType.INSTANCE_FIELD, value: params.row.args.instanceField},
+                                                        {type: ErrorType.STATUS, value: params.row.args.status},
+                                                        {type: ErrorType.FIELD_PATH, value: params.row.args.fieldPath},
+                                                        {type: ErrorType.ERROR_MESSAGE, value: params.row.args.errorMessage}
+                                                    ]))
+                                                }
                                             }
                                         ]}
                                         rows={props.row.errors}
-                                        getRowId={(row) => row.errorCode}
                                         sx={{ flex: 1 }}
                                         hideFooter
                                     />

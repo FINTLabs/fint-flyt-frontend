@@ -1,43 +1,75 @@
-import React, { createContext, useState, FC } from "react";
+import React, {createContext, FC, useState} from "react";
 import {contextDefaultValues, ISourceApplicationItem, SourceApplicationContextState} from "./types";
-import {forms} from "../../features/integration/defaults/DefaultValues";
-import IntegrationRepository from "../../features/integration/repository/IntegrationRepository";
-import {IIntegrationConfiguration} from "../../features/integration/types/IntegrationConfiguration";
+import SourceApplicationRepository from "../../shared/repositories/SourceApplicationRepository";
+import {ISelect} from "../../features/integration/types/InputField";
+import {IIntegrationMetadata} from "../../features/integration/types/IntegrationMetadata";
+import IntegrationRepository from "../../shared/repositories/IntegrationRepository";
+import {getSourceApplicationDisplayName} from "../../features/integration/defaults/DefaultValues";
 
 export const SourceApplicationContext = createContext<SourceApplicationContextState>(
     contextDefaultValues
 );
 
-const SourceApplicationProvider: FC = ({ children }) => {
-    const [allForms, setAllForms] = useState<ISourceApplicationItem>(contextDefaultValues.availableForms);
+const SourceApplicationProvider: FC = ({children}) => {
     const [availableForms, setAvailableForms] = useState<ISourceApplicationItem>(contextDefaultValues.availableForms);
+    const [metadata, setMetadata] = useState<IIntegrationMetadata[]>(contextDefaultValues.metadata)
+    const [sourceApplication, setSourceApplication] = useState<string | null>(contextDefaultValues.sourceApplication);
 
 
-    const getForms = () => {
-        IntegrationRepository.get()
+    const getAvailableForms = () => {
+        SourceApplicationRepository.getMetadata(sourceApplication !== null ? sourceApplication : "1")
             .then(response => {
-                let ids: string[] = response.data.content.map((config: IIntegrationConfiguration) => config.sourceApplicationIntegrationId)
-                setAllForms({sourceApplication: 'acos', sourceApplicationForms: forms})
-                let selectableForms = forms.filter(form => !ids.includes(form.value));
-                setAvailableForms({sourceApplication: 'acos', sourceApplicationForms: selectableForms})
+                let data = response.data
+                let selects: ISelect[] = [];
+                data.forEach((value: any) => {
+                    selects.push({value: value.sourceApplicationIntegrationId, label: value.integrationDisplayName})
+                })
+                getAllForms(selects)
             })
             .catch((err) => {
                 console.error(err);
             })
     }
 
+    const getMetadata = () => {
+        if (sourceApplication) {
+            SourceApplicationRepository.getMetadata(sourceApplication)
+                .then(response => {
+                    let data: IIntegrationMetadata[] = response.data
+                    setMetadata(data)
+                })
+                .catch((err) => {
+                    console.error(err);
+                })
+        }
+
+    }
+
     //TODO: get all forms from sourceApplication when available
-    const getAllForms = () => {
-        setAllForms({sourceApplication: 'acos', sourceApplicationForms: forms})
+    const getAllForms = (forms: ISelect[]) => {
+        IntegrationRepository.getIntegrations()
+            .then(response => {
+                let ids: string[] = response.data.map((config: any) => config.sourceApplicationIntegrationId)
+                let selectableForms = forms.filter(form => !ids.includes(form.value));
+                if(sourceApplication !== null) {
+                    setAvailableForms({sourceApplicationDisplayName: getSourceApplicationDisplayName(sourceApplication), sourceApplicationId: sourceApplication, forms: selectableForms})
+                }
+            })
+            .catch((err) => {
+                console.error(err);
+            })
     }
 
     return (
         <SourceApplicationContext.Provider
             value={{
-                allForms,
                 availableForms,
-                getForms,
-                getAllForms
+                getAvailableForms,
+                metadata,
+                getMetadata,
+                getAllForms,
+                sourceApplication,
+                setSourceApplication
             }}
         >
             {children}

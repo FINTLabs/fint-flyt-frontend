@@ -1,10 +1,10 @@
 import IRoute from './Route';
 import Dashboard from "../dashboard/Dashboard";
 import Log from "../log/Log";
-import IntegrationConfigurationForm from "../integration/IntegrationConfigurationForm";
 import IntegrationOverview from "../integrationOverview/IntegrationOverview";
 import InstanceOverview from "../instanceOverview/InstanceOverview";
 import Support from "../support/Support";
+import ConfigurationForm from "../integration/ConfigurationForm";
 
 const routes: IRoute[] = [
     {
@@ -18,7 +18,7 @@ const routes: IRoute[] = [
     {
         path: '/integration/configuration/new',
         name: 'newIntegration',
-        component: IntegrationConfigurationForm,
+        component: ConfigurationForm,
         exact: true,
         icon: 'add',
         inNavigationMenu: true
@@ -26,7 +26,13 @@ const routes: IRoute[] = [
     {
         path: '/integration/configuration/edit',
         name: 'editIntegration',
-        component: IntegrationConfigurationForm,
+        component: ConfigurationForm,
+        exact: true
+    },
+    {
+        path: '/integration/configuration/new-configuration',
+        name: 'newConfiguration',
+        component: ConfigurationForm,
         exact: true
     },
     {
@@ -34,7 +40,7 @@ const routes: IRoute[] = [
         name: 'integrationOverview',
         component: IntegrationOverview,
         exact: true,
-        icon: 'sync',
+        icon: 'format_list_bulleted',
         inNavigationMenu: true
     },
     {
@@ -44,18 +50,24 @@ const routes: IRoute[] = [
         exact: true,
     },
     {
+        path: '/integration/',
+        name: 'integrationPanel',
+        component: IntegrationOverview,
+        exact: true,
+    },
+    {
         path: '/integration/instance/list',
         name: 'instanceOverview',
         component: InstanceOverview,
         exact: true,
-        icon: 'receipt',
+        icon: 'format_list_bulleted',
         inNavigationMenu: true
     },
     {
         path: '/log',
         name: 'log',
         component: Log,
-        icon: 'receipt',
+        icon: 'event-note-icon',
         exact: true,
         inNavigationMenu: true
     },

@@ -1,5 +1,9 @@
 import axios from "axios";
 
+const getSak = (caseYear: any, caseNumber: any) => {
+    return axios.get<any>(`/api/intern/sakstittel/mappeid/${caseYear}/${caseNumber}`, {timeout: 5000})
+}
+
 const getAdministrativeUnits = () => {
     return axios.get<any>("/api/intern/kodeverk/administrativenhet");
 };
@@ -52,7 +56,12 @@ const getDocumentTypes = () => {
     return axios.get<any>("/api/intern/kodeverk/dokumenttype");
 };
 
+const getResource = (resource: string) => {
+    return axios.get<any>(`/api/intern/kodeverk/${resource}`);
+}
+
 const ResourceRepository = {
+    getSak,
     getAdministrativeUnits,
     getAccessCodes,
     getParagraphs,
@@ -65,7 +74,8 @@ const ResourceRepository = {
     getRecordStatuses,
     getRecordTypes,
     getDocumentStatuses,
-    getVariants
+    getVariants,
+    getResource
 };
 
 export default ResourceRepository;

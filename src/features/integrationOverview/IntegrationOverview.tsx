@@ -1,11 +1,12 @@
 import {Breadcrumbs, Theme, Typography} from '@mui/material';
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {createStyles, makeStyles} from "@mui/styles";
-import IntegrationConfigurationDetails from "./components/IntegrationConfigurationDetails";
-import IntegrationConfigurationTable from "./components/IntegrationConfigurationTable";
+import IntegrationTable from "./components/IntegrationTable";
 import {IntegrationContext} from "../../context/integrationContext";
 import { useTranslation } from 'react-i18next';
+import IntegrationPanel from "./components/IntegrationPanel";
+import {SourceApplicationContext} from "../../context/sourceApplicationContext";
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -19,6 +20,10 @@ const useStyles = makeStyles((theme: Theme) =>
         dataGridBox: {
             height: "900px",
             width: '100%'
+        },
+        dataPanelBox: {
+            height: "500px",
+            width: '100%'
         }
     })
 );
@@ -26,37 +31,39 @@ const useStyles = makeStyles((theme: Theme) =>
 const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationOverview'});
     const classes = useStyles();
-    const showDetails: boolean = window.location.pathname === '/integration/configuration/details'
-    const {integration, setIntegration, integrations, getIntegrations} = useContext(IntegrationContext)
-    const [initialVersion, setInitialVersion] = useState(integration.version);
+    const showPanel: boolean = window.location.pathname === '/integration'
+    const {existingIntegration, setNewIntegration, setExistingIntegration, newIntegrations, getNewIntegrations, configurations, getConfigurations} = useContext(IntegrationContext)
+    const {getMetadata} = useContext(SourceApplicationContext)
 
     useEffect(()=> {
-        getIntegrations();
+        getNewIntegrations();
+        getMetadata();
     }, []);
 
     const resetConfiguration = () => {
-        setIntegration({})
-        getIntegrations();
+        setNewIntegration({})
+        getNewIntegrations();
     }
 
     return (
         <>
             <Breadcrumbs aria-label="breadcrumb">
-                <Typography style={{cursor:'pointer'}} onClick={resetConfiguration}>{t('header')}</Typography>
-                <Typography>{integration.sourceApplicationIntegrationId && showDetails ? t('details') : ''}</Typography>
+                <Typography onClick={resetConfiguration}>{t('header')}</Typography>
+                <Typography>{existingIntegration?.sourceApplicationIntegrationId && showPanel ? t('details') : ''}</Typography>
             </Breadcrumbs>
-            {integration.sourceApplicationIntegrationId && showDetails ?
-                <IntegrationConfigurationDetails
-                    reset={resetConfiguration}
-                    initialConfiguration={integration}
-                    initialVersion={initialVersion}
-                /> :
-                <IntegrationConfigurationTable
+            {existingIntegration?.sourceApplicationIntegrationId && showPanel ?
+                <IntegrationPanel
                     classes={classes}
-                    loading={integrations.length === 0}
-                    configurations={integrations}
-                    setIntegration={setIntegration}
-                    setInitialVersion={setInitialVersion}
+                    loading={configurations && configurations.length === 0}
+                    initialConfiguration={existingIntegration}
+                    configurations={configurations}
+                /> :
+                <IntegrationTable
+                    classes={classes}
+                    loading={newIntegrations.length === 0}
+                    integrations={newIntegrations}
+                    getConfigurations={getConfigurations}
+                    setExistingIntegration={setExistingIntegration}
                 />
             }
         </>

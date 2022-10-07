@@ -1,120 +1,128 @@
-import {ICaseConfiguration} from "../../features/integration/types/IntegrationConfiguration";
+import {IConfigurationElement} from "../../features/integration/types/Configuration";
 
-export const MOCK_CASE_CONFIGURATION: ICaseConfiguration = {
-    "caseCreationStrategy": "NEW",
-        "fields": [
-        {
-            "field": "tittel",
-            "valueBuildStrategy": 1,
-            "valueBuilder": {
-                "properties": [
-                    {
-                        "key": "tags",
-                        "order": 0,
-                        "source": "FORM"
-                    }
-                ],
-                "value": "Title of case with %s"
-            }
-        },
-        {
-            "field": "offentligTittel",
-            "valueBuildStrategy": 1,
-            "valueBuilder": {
-                "properties": [
-                    {
-                        "key": "two",
-                        "order": 0,
-                        "source": "FORM"
-                    },
-                    {
-                        "key": "tags",
-                        "order": 1,
-                        "source": "FORM"
-                    }
-                ],
-                "value": "public title also with %s %s"
-            }
-        },
-        {
-            "field": "caseType",
-            "valueBuildStrategy": 0,
-            "valueBuilder": {
+export const MOCK_CASE_FIELDS: IConfigurationElement[] = [
+    {
+        "fieldConfigurations": [
+            {
+                "key": "tittel",
+                "type": "DYNAMIC_STRING",
+                "value": "Title of case"
+            },
+            {
+                "key": "offentligTittel",
+                "type": "DYNAMIC_STRING",
+                "value": "public title $if{test}"
+            },
+            {
+                "key": "saksmappetype",
+                "type": "STRING",
                 "value": "casetype"
-            }
-        },
-        {
-            "field": "administrativenhet",
-            "valueBuildStrategy": 0,
-            "valueBuilder": {
+
+            },
+            {
+                "key": "administrativenhet",
+                "type": "STRING",
                 "value": "unit4"
-            }
-        },
-        {
-            "field": "arkivdel",
-            "valueBuildStrategy": 0,
-            "valueBuilder": {
+
+            },
+            {
+                "key": "arkivdel",
+                "type": "STRING",
                 "value": "unit3"
-            }
-        },
-        {
-            "field": "journalenhet",
-            "valueBuildStrategy": 0,
-            "valueBuilder": {
+
+            },
+            {
+                "key": "journalenhet",
+                "type": "STRING",
                 "value": "unit0"
-            }
-        },
-        {
-            "field": "tilgangsrestriksjon",
-            "valueBuildStrategy": 0,
-            "valueBuilder": {
+
+            },
+            {
+                "key": "status",
+                "type": "STRING",
+                "value": ""
+
+            },
+            {
+                "key": "tilgangsrestriksjon",
+                "type": "STRING",
                 "value": "code42"
-            }
-        },
-        {
-            "field": "skjermingshjemmel",
-            "valueBuildStrategy": 0,
-            "valueBuilder": {
+            },
+            {
+                "key": "skjermingshjemmel",
+                "type": "STRING",
                 "value": "number6"
-            }
-        },
-        {
-            "field": "saksansvarlig",
-            "valueBuildStrategy": 0,
-            "valueBuilder": {
+
+            },
+            {
+                "key": "saksansvarlig",
+                "type": "STRING",
                 "value": "rand"
-            }
-        },
-        {
-            "field": "primarordningsprinsipp",
-            "valueBuildStrategy": 1,
-            "valueBuilder": {
-                "properties": [],
+
+            },
+            {
+                "key": "primarordningsprinsipp",
+                "type": "STRING",
                 "value": "prim"
-            }
-        },
-        {
-            "field": "sekundarordningsprinsipp",
-            "valueBuildStrategy": 1,
-            "valueBuilder": {
-                "properties": [],
+            },
+            {
+                "key": "sekundarordningsprinsipp",
+                "type": "STRING",
                 "value": "rose"
-            }
-        },
-        {
-            "field": "primarklasse",
-            "valueBuildStrategy": 0,
-            "valueBuilder": {
+            },
+            {
+                "key": "tertiarordningsprinsipp",
+                "type": "STRING",
+
+                "value": "everdeen"
+            },
+            {
+                "key": "primarklasse",
+                "type": "DYNAMIC_STRING",
                 "value": "1class"
-            }
-        },
-        {
-            "field": "sekundarklasse",
-            "valueBuildStrategy": 0,
-            "valueBuilder": {
-                "properties": [],
+
+            },
+            {
+                "key": "sekundarklasse",
+                "type": "DYNAMIC_STRING",
                 "value": "2class"
+
+            },
+            {
+                "key": "tertiarklasse",
+                "type": "DYNAMIC_STRING",
+                "value": "3class"
+
+            },
+            {
+                "key": "primartittel",
+                "type": "DYNAMIC_STRING",
+                "value": "primTitle"
+            },
+            {
+                "key": "sekundartittel",
+                "type": "DYNAMIC_STRING",
+                "value": "secTitle"
+            },
+            {
+                "key": "tertiartittel",
+                "type": "DYNAMIC_STRING",
+                "value": "tertTitle"
             }
-        }
-    ]
-}
+        ],
+        "key": "case"
+    }
+]
+
+export const MOCK_APPLICANT_FIELDS: IConfigurationElement[] = [
+    {
+        "fieldConfigurations": [
+            {
+                "key": "protected",
+                "type": "BOOLEAN",
+                "value": "true"
+            }
+        ],
+        "key": "applicant"
+    }
+]

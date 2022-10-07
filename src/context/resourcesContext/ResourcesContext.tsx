@@ -1,5 +1,5 @@
 import React, { createContext, useState, FC } from "react";
-import ResourceRepository from "../../features/integration/repository/ResourceRepository";
+import ResourceRepository from "../../shared/repositories/ResourceRepository";
 import {contextDefaultValues, IResourceItem, ResourceContextState} from "./types";
 
 export const ResourcesContext = createContext<ResourceContextState>(
@@ -159,7 +159,7 @@ const ResourcesProvider: FC = ({ children }) => {
 
     const getDocumentTypes = () => {
         let list: IResourceItem[] = [];
-        ResourceRepository.getDocumentTypes()
+        ResourceRepository.getResource('dokumenttype')
             .then(response => {
                 response.data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
                 setDocumentTypes(list)

@@ -7,8 +7,8 @@
     },
     "menuItems": {
         "dashboard": "Dashbord",
-        "newIntegration": "Ny integrasjon",
-        "editIntegration": "Rediger integrasjon",
+        "newIntegration": "Ny",
+        "editIntegration": "Rediger",
         "integrationOverview": "Integrasjonsoversikt",
         "instanceOverview": "Instansoversikt (wip)",
         "integrationDetails": "Detaljer",
@@ -28,11 +28,11 @@
             }
         },
         "integrationForm": {
-            "header": "Integrasjon til arkiv",
-            "successHeader": "Integrasjon til arkiv - ferdig",
+            "header": "Konfigurasjon",
+            "successHeader": "Konfigurasjon - ferdigstilt",
             "accordions": {
                 "caseInformation": {
-                    "header": "Integrasjonslogikk",
+                    "header": "Integrasjon",
                     "button": {
                         "search": "Søk",
                         "save": "Lagre"
@@ -73,7 +73,7 @@
                     }
                 }
             },
-            "checkLabel": "Publisert",
+            "checkLabel": "Ferdigstilt",
             "button": {
                 "save": "Lagre",
                 "cancel": "Avbryt",
@@ -89,7 +89,8 @@
         "integrationOverview": {
             "header": "Integrasjonsoversikt",
             "details": "Konfigurasjonsdetaljer",
-            "revision": "Revisjon",
+            "testString": "Mangler felt ‘%s’ i instans, som kreves for å sette felt ‘%s’ i sak",
+            "version": "Versjon",
             "case": "Sakspost",
             "record": "Journalpost",
             "document": "Dokument- og objektbeskrivelse",
@@ -102,21 +103,25 @@
             },
             "table": {
                 "columns": {
+                    "destination": "Destinasjon/base",
                     "sourceApplicationIntegrationId": "Skjema",
                     "sourceApplicationId": "Skjemaleverandør",
                     "name": "Navn",
-                    "description": "Beskrivelse",
-                    "published": "Publisert",
-                    "revision": "Revisjon"
+                    "comment": "Kommentar",
+                    "finished": "Ferdigstilt",
+                    "version": "Version",
+                    "dispatched": "Sendt til arkiv",
+                    "errors": "Feilmeldinger"
                 }
             },
             "labels": {
-                "description": "Beskrivelse: ",
+                "comment": "Kommentar: ",
+                "activeConfigurationId": "Aktiv konfigurasjon: ",
                 "destination": "Destinasjon: ",
                 "sourceApplicationId": "Skjemaleverandør: ",
                 "sourceApplicationIntegrationId": "Skjema: ",
                 "caseCreationStrategy": "Avleveringslogikk: ",
-                "published": "Publisert: ",
+                "finished": "Ferdigstilt: ",
                 "version": "Versjon: ",
                 "caseNumber": "Saksnummer: ",
                 "caseType": "Sakstype: ",
@@ -159,6 +164,20 @@
             }
         },
         "instanceOverview": {
+            "instance-to-case-mapping": "instans mapping",
+            "incoming-instance": "incoming instans",
+            "new-instance": "ny instans",
+            "case-dispatch-error": "sending av sak feilet",
+            "instance-received": "Instans mottatt",
+            "instance-registered": "Instans registrert",
+            "instance-requested-for-retry": "Instans forespurt for nytt forsøk",
+            "case-created": "Sak opprettet",
+            "case-dispatched": "Sak arkivert",
+            "instance-receival-error": "Feilet under mottak av instans",
+            "instance-registration-error": "Feilet under registrering av instans",
+            "instance-retry-request-error": "Feilet under forespørsel for nytt forsøk",
+            "case-creation-error": "Feilet under oppretting av sak",
+            "case-dispatching-error": "Feilet under arkivering av sak",
             "header": "Instansoversikt",
             "button": {
                 "edit": "Rediger",
@@ -167,22 +186,23 @@
             },
             "table": {
                 "columns": {
+                    "destination": "Destinasjon/base",
                     "sourceApplicationIntegrationId": "Skjema",
                     "sourceApplicationId": "Skjemaleverandør",
                     "name": "Navn",
-                    "description": "Beskrivelse",
-                    "published": "Publisert",
-                    "revision": "Revisjon"
+                    "comment": "Kommentar",
+                    "finished": "Ferdigstilt",
+                    "version": "Versjon"
                 }
             },
             "labels": {
                 "name": "Navn: ",
-                "description": "Beskrivelse: ",
+                "comment": "Kommentar",
                 "destination": "Destinasjon: ",
                 "sourceApplicationId": "Skjemaleverandør: ",
                 "sourceApplicationIntegrationId": "Skjema: ",
                 "caseCreationStrategy": "Avleveringslogikk: ",
-                "published": "Publisert: ",
+                "finished": "Ferdigstilt: ",
                 "version": "Versjon: ",
                 "caseNumber": "Saksnummer: ",
                 "title": "Tittel: ",
@@ -220,8 +240,25 @@
                 "email": "Epost: "
             }
         },
-
         "log": {
+            "FINT_FLYT_ACOS_INSTANCE_GATEWAY_INSTANCE_VALIDATION_ERROR": "Valideringsfeil i mottak av instans, '#fieldPath# #errorMessage#'",
+            "FINT_FLYT_ACOS_INSTANCE_GATEWAY_GENERAL_SYSTEM_ERROR": "Systemfeil. Ta kontakt med FINT",
+            "FINT_FLYT_INSTANCE_SERVICE_GENERAL_SYSTEM_ERROR":  "Systemfeil. Ta kontakt med FINT",
+            "FINT_FLYT_CASE_SERVICE_GENERAL_SYSTEM_ERROR": "Det har oppstått en feil",
+            "FINT_FLYT_CASE_SERVICE_NO_CONFIGURATION_FOR_INTEGRATION": "Ingen konfigurasjon for valgt integrasjon",
+            "FINT_FLYT_CASE_SERVICE_MISSING_INSTANCE_FIELD_FOR_CASE_CONFIGURATION_FIELD": "Mangler felt ‘#instanceField#’ i instans, som kreves for å sette felt ‘#configurationField#’ i sak",
+            "FINT_FLYT_CASE_SERVICE_MISSING_INSTANCE_FIELD_FOR_RECORD_CONFIGURATION_FIELD": "Mangler felt ‘#instanceField#’ i instans, som kreves for å sette felt ‘#configurationField#’ i journalpost",
+            "FINT_FLYT_CASE_SERVICE_MISSING_INSTANCE_FIELD_FOR_DOCUMENT_CONFIGURATION_FIELD": "Mangler felt ‘#instanceField#’ i instans, som kreves for å sette felt ‘#configurationField#’ i dokument- og objektbeskrivelse",
+            "FINT_FLYT_CASE_SERVICE_MISSING_MAPPING_FIELD_FOR_CASE": "Mangler felt '#mappingField#' for sakspost",
+            "FINT_FLYT_CASE_SERVICE_MISSING_MAPPING_FIELD_FOR_RECORD": "Mangler felt '#mappingField#' for journalpost",
+            "FINT_FLYT_CASE_SERVICE_MISSING_MAPPING_FIELD_FOR_DOCUMENT": "Mangler felt '#mappingField#' for dokument- og objektbeskrivelse",
+            "FINT_FLYT_DISPATCH_SERVICE_GENERAL_SYSTEM_ERROR": "Systemfeil. Ta kontakt med FINT",
+            "FINT_FLYT_DISPATCH_SERVICE_CASE_DISPATCH_ERROR": "Innsending av sak feilet med status '#status#'",
+            "REQUESTED": "Forespurt",
+            "SENT": "Sendt",
+            "FAILED": "Feilet",
+            "ACCEPTED": "Akseptert",
+            "DECLINED": "Avvist",
             "header": "Hendelseslogg",
             "dialogHeader": "Hendelse - meldinger",
             "table": {
@@ -246,7 +283,7 @@
         "errorMessage": "Du må oppgi ",
         "requiredField": "Obligatorisk felt",
         "labels": {
-            "description": "Beskrivelse",
+            "comment": "Kommentar",
             "destination": "Destinasjon",
             "sourceApplicationId": "Skjemaleverandør",
             "sourceApplicationIntegrationId": "Skjema",
@@ -325,11 +362,11 @@
     },
     "models": {
         "integrationConfiguration": {
-            "description": "Description",
+            "comment": "Comment",
             "version": "Version",
             "sourceApplicationId": "Source application",
             "sourceApplicationIntegrationId": "Form",
-            "published": "Published",
+            "finished": "finished",
             "caseConfiguration": {
                 "caseCreationStrategy": "",
                 "caseNumber": "",
@@ -402,7 +439,7 @@
                 "destination": "Destinasjon/Base"
             },
             "button": {
-                "next": "Neste",
+                "confirm": "Opprett",
                 "cancel": "Avbryt"
             }
         }
@@ -412,7 +449,7 @@
         "sourceApplicationId": "Skjemaleverandør, f.eks ACOS",
         "sourceApplicationIntegrationId": "Skjema",
         "destination": "Velg hvilken base skjemaet skal overføres til",
-        "description": "",
+        "comment": "",
         "version": "",
         "selectedForm": "",
         "caseData": {
