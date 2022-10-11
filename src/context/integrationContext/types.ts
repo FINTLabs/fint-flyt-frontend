@@ -7,17 +7,17 @@ export type IntegrationContextState = {
     existingIntegration: IIntegration | undefined;
     setNewIntegration: (integration: IIntegration | undefined) => void;
     setExistingIntegration: (integration: IIntegration | undefined) => void;
-    newIntegrations: IIntegration[];
+    newIntegrations: IIntegration[] | undefined;
     setNewIntegrations: (integrations: IIntegration[]) => void;
     getNewIntegrations: () => void;
     configuration: newIConfiguration;
     setConfiguration: (configuration: newIConfiguration) => void;
-    configurations: newIConfiguration[];
+    configurations: newIConfiguration[] | undefined;
     setConfigurations: (configurations: newIConfiguration[]) => void;
     getConfigurations: (integration: string) => void;
     destination: string,
-    selectedForm: IIntegrationMetadata;
-    setSelectedForm: (form: IIntegrationMetadata) => void,
+    selectedMetadata: IIntegrationMetadata;
+    setSelectedMetadata: (form: IIntegrationMetadata) => void,
     sourceApplicationIntegrationId: string,
     setSourceApplicationIntegrationId: (id: string) => void,
     setDestination: (destination: string) => void;
@@ -38,11 +38,11 @@ export const contextDefaultValues: IntegrationContextState = {
     getNewIntegrations: () => {},
     configuration: {elements: []},
     setConfiguration: () => {},
-    configurations: [],
+    configurations: undefined,
     getConfigurations: () => {},
     setConfigurations: () => {},
     destination: '',
-    selectedForm: {
+    selectedMetadata: {
         instanceElementMetadata: [],
         sourceApplicationIntegrationUri: '',
         sourceApplicationIntegrationId: '',
@@ -50,7 +50,7 @@ export const contextDefaultValues: IntegrationContextState = {
         integrationDisplayName: '',
         version: 0
     },
-    setSelectedForm: () => {},
+    setSelectedMetadata: () => {},
     setDestination: () => {},
     sourceApplicationId: '',
     setSourceApplicationId: () => {},

@@ -7,10 +7,12 @@ import {toTagValue} from "../../util/JsonUtil";
 import {useContext} from "react";
 import {IntegrationContext} from "../../../context/integrationContext";
 import {Link} from 'react-router-dom'
+import {SourceApplicationContext} from "../../../context/sourceApplicationContext";
 
 const SourceApplicationForm: React.FunctionComponent<any> = (props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'components.SourceApplicationForm'});
-    const { selectedForm } = useContext(IntegrationContext)
+    const { selectedMetadata } = useContext(IntegrationContext)
+    const { allMetadata, instanceElementMetadata } = useContext(SourceApplicationContext)
     const [age, setAge] = React.useState('');
 
     const handleChange = (event: SelectChangeEvent) => {
@@ -39,7 +41,7 @@ const SourceApplicationForm: React.FunctionComponent<any> = (props) => {
     return (
         <Box className={props.style.sourceApplicationForm}>
             <Box className={props.style.row}>
-                <Typography variant={"h6"}>{t('header')}: {selectedForm.integrationDisplayName}</Typography>
+                <Typography variant={"h6"}>{t('header')}: {selectedMetadata.integrationDisplayName}</Typography>
                 <HelpPopover popoverContent="sourceApplicationFormPopoverContent"/>
                 <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
                     <InputLabel id="demo-select-small">Versjon</InputLabel>
@@ -50,14 +52,14 @@ const SourceApplicationForm: React.FunctionComponent<any> = (props) => {
                         label="Versjon"
                         onChange={handleChange}
                     >
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
+                        <MenuItem value={10}>...</MenuItem>
+{/*                        <MenuItem value={20}>Twenty</MenuItem>
+                        <MenuItem value={30}>Thirty</MenuItem>*/}
                     </Select>
                 </FormControl>
             </Box>
-            {selectedForm && <TagTree items={selectedForm.instanceElementMetadata}/>}
-            <Link style={{fontFamily: 'sans-serif'}} to={{pathname: selectedForm.sourceApplicationIntegrationUri}} target="_blank">Åpne i skjemaadministrator</Link>
+            {instanceElementMetadata && <TagTree items={instanceElementMetadata}/>}
+            <Link style={{fontFamily: 'sans-serif'}} to={{pathname: selectedMetadata.sourceApplicationIntegrationUri}} target="_blank">Åpne i skjemaadministrator</Link>
 
         </Box>
     );

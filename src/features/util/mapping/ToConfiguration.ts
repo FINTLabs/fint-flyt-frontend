@@ -1,13 +1,13 @@
 import {FieldConfigurationType, IConfigurationPatch, newIConfiguration} from "../../integration/types/Configuration";
 import { IFormConfiguration } from "../../integration/types/Form/FormData";
 
-export function toNewConfiguration(data: IFormConfiguration, integrationId: string, configurationId: any, metadataId: any): newIConfiguration {
+export function toNewConfiguration(data: IFormConfiguration, integrationId: string, configurationId: any, metadataId: number): newIConfiguration {
     //TODO: fix metadataId
     return {
         integrationId: integrationId,
         id: configurationId,
         completed: data.completed,
-        integrationMetadataId: 123,
+        integrationMetadataId: metadataId,
         comment: data.comment,
         elements: [
             {

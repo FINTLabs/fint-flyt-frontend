@@ -33,11 +33,11 @@ const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = (
     const classes = useStyles();
     const showPanel: boolean = window.location.pathname === '/integration'
     const {existingIntegration, setNewIntegration, setExistingIntegration, newIntegrations, getNewIntegrations, configurations, getConfigurations} = useContext(IntegrationContext)
-    const {getMetadata} = useContext(SourceApplicationContext)
+    const {getAllMetadata} = useContext(SourceApplicationContext)
 
     useEffect(()=> {
         getNewIntegrations();
-        getMetadata();
+        getAllMetadata();
     }, []);
 
     const resetConfiguration = () => {
@@ -54,13 +54,13 @@ const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = (
             {existingIntegration?.sourceApplicationIntegrationId && showPanel ?
                 <IntegrationPanel
                     classes={classes}
-                    loading={configurations && configurations.length === 0}
+                    loading={configurations === undefined}
                     initialConfiguration={existingIntegration}
                     configurations={configurations}
                 /> :
                 <IntegrationTable
                     classes={classes}
-                    loading={newIntegrations.length === 0}
+                    loading={newIntegrations === undefined}
                     integrations={newIntegrations}
                     getConfigurations={getConfigurations}
                     setExistingIntegration={setExistingIntegration}

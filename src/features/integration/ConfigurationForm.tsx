@@ -96,7 +96,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     const classes = useStyles();
     const editConfig: boolean = window.location.pathname === '/integration/configuration/edit'
     const [submitSuccess, setSubmitSuccess] = useState(false)
-    const {newIntegration, existingIntegration, setExistingIntegration, setNewIntegration, selectedForm, configuration, setConfiguration, resetSourceAndDestination, getNewIntegrations} = useContext(IntegrationContext);
+    const {newIntegration, existingIntegration, setExistingIntegration, setNewIntegration, selectedMetadata, configuration, setConfiguration, resetSourceAndDestination, getNewIntegrations} = useContext(IntegrationContext);
     const [saved, setSaved] = React.useState(false);
     const [saveError, setSaveError] = React.useState(false);
     const [checked, setChecked] = React.useState(configuration && editConfig ? configuration.completed : false);
@@ -228,7 +228,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     const onSubmit = handleSubmit((data: IFormConfiguration) => {
         data.completed = true;
         data.applicantData.protected = protectedCheck;
-        const configuration: newIConfiguration = toNewConfiguration(data, activeIntegration?.id, activeConfigId, selectedForm.id);
+        const configuration: newIConfiguration = toNewConfiguration(data, activeIntegration?.id, activeConfigId, selectedMetadata.id);
         if (configuration && activeConfigId !== undefined) {
             const iConfiguration: newIConfiguration = toConfigurationPatch(data);
             activateConfiguration(activeIntegration?.id, activeConfigId, iConfiguration)
@@ -246,9 +246,8 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     const onSave = handleSubmit((data: IFormConfiguration) => {
         data.completed = false;
         data.applicantData.protected = protectedCheck;
-        const configuration: newIConfiguration = toNewConfiguration(data, activeIntegration?.id, activeConfigId, selectedForm.id);
+        const configuration: newIConfiguration = toNewConfiguration(data, activeIntegration?.id, activeConfigId, selectedMetadata.id);
         if (configuration && activeConfigId !== undefined) {
-            console.log('in before saveConfig')
             const iConfiguration: newIConfiguration = toConfigurationPatch(data);
             saveConfiguration(activeIntegration?.id, activeConfigId, iConfiguration)
         }

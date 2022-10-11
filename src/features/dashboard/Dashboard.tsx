@@ -44,7 +44,7 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
     }, [])
 
     const cards: ICard[] = [
-        { value: newIntegrations.length === 0 ? t('empty') : newIntegrations.length, content: t('form'), links: [
+        { value: newIntegrations === undefined ? t('empty') : newIntegrations.length, content: t('form'), links: [
                 {name: t('links.newIntegration'), href: '/integration/configuration/new'}
             ]
         },
@@ -73,7 +73,7 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
                 <CardContent>
                         <IntegrationTable
                             classes={classes}
-                            loading={newIntegrations.length === 0}
+                            loading={newIntegrations === undefined}
                             integrations={newIntegrations}
                             setIntegration={setNewIntegration}
                         />

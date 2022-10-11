@@ -30,8 +30,8 @@ import {SOURCE_FORM_NO_VALUES} from "../../integration/defaults/DefaultValues";
 const IntegrationPanel: React.FunctionComponent<any> = (props) => {
     const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.integrationOverview'});
     const classes = props.classes;
-    const {existingIntegration, setConfiguration, setSelectedForm} = useContext(IntegrationContext)
-    const { metadata, getMetadata} = useContext(SourceApplicationContext)
+    const {existingIntegration, setConfiguration, setSelectedMetadata} = useContext(IntegrationContext)
+    const { allMetadata, getAllMetadata, getInstanceElementMetadata} = useContext(SourceApplicationContext)
     const {setPrimaryClassification, setSecondaryClassification, setTertiaryClassification} = useContext(ResourcesContext);
     const [version, setVersion] = useState('null');
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -51,14 +51,14 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
         setAnchorSubEl(null);
     };
     const versionsToActivate: ISelect[] = [{value: 'null', label: 'velg aktiv versjon'}];
-    props.configurations.map((configuration: any) => {
+    props.configurations?.map((configuration: any) => {
         if (configuration.completed) {
             versionsToActivate.push({value: configuration.id, label: 'versjon ' + configuration.version})
         }
     })
 
     useEffect(()=> {
-        getMetadata()
+        getAllMetadata()
     }, [])
 
     const columns: GridColDef[] = [
@@ -81,8 +81,9 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
             <>
                 <Link
                     onClick={(e) => {
-                        let selectedForm = metadata.filter(md => md.sourceApplicationIntegrationId === existingIntegration?.sourceApplicationIntegrationId)
-                        setSelectedForm(selectedForm.length > 0 ? selectedForm[0] : SOURCE_FORM_NO_VALUES[0])
+                        let selectedForm = allMetadata.filter(md => md.sourceApplicationIntegrationId === existingIntegration?.sourceApplicationIntegrationId)
+                        setSelectedMetadata(selectedForm.length > 0 ? selectedForm[0] : SOURCE_FORM_NO_VALUES[0])
+                        getInstanceElementMetadata(selectedForm[0].id)
                         setPrimaryClassification({label: '', value: configurationFieldToString(cases, 'primarordningsprinsipp')})
                         setSecondaryClassification({label: '', value: configurationFieldToString(cases, 'sekundarordningsprinsipp')})
                         setTertiaryClassification({label: '', value: configurationFieldToString(cases, 'tertiarordningsprinsipp')})
@@ -143,7 +144,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                         localeText={i18n.language === 'no' ? gridLocaleNoNB : undefined}
                         //getRowId={(row) => row.configurationId}
                         density='compact'
-                        rows={props.configurations}
+                        rows={props.configurations ? props.configurations : []}
                         columns={columns}
                         pageSize={20}
                         rowsPerPageOptions={[20]}
@@ -196,8 +197,9 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
             >
                 <MenuItem component={RouterLink} to='/integration/configuration/new-configuration' onClick={handleClose}>
                     <Button id="demo-positioned-button" onClick={(e) => {
-                        let selectedForm = metadata.filter(md => md.sourceApplicationIntegrationId === existingIntegration?.sourceApplicationIntegrationId)
-                        setSelectedForm(selectedForm.length > 0 ? selectedForm[0] : SOURCE_FORM_NO_VALUES[0])
+                        let selectedForm = allMetadata.filter(md => md.sourceApplicationIntegrationId === existingIntegration?.sourceApplicationIntegrationId)
+                        setSelectedMetadata(selectedForm.length > 0 ? selectedForm[0] : SOURCE_FORM_NO_VALUES[0])
+                        getInstanceElementMetadata(selectedForm[0].id)
                     }}
                     >
                         Blank konfigurasjon

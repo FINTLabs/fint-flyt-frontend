@@ -17,17 +17,17 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
     //TODO REMOVE COMPONENT
     let history = useHistory();
     const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationOverview'});
-    const {newIntegration, configuration, setConfiguration, setSelectedForm} = useContext(IntegrationContext);
+    const {newIntegration, configuration, setConfiguration, setSelectedMetadata} = useContext(IntegrationContext);
     const {setPrimaryClassification, setSecondaryClassification, setTertiaryClassification} = useContext(ResourcesContext);
     let activeConfigData: IFormConfiguration = newToFormData(configuration)
     const [activeConfiguration, setActiveConfiguration] = useState<newIConfiguration>(configuration)
     const cases = configuration.elements?.filter(cf => cf.key === 'case');
-    const {getAvailableForms, metadata, getMetadata} = useContext(SourceApplicationContext)
+    const {getAvailableForms, allMetadata, getAllMetadata} = useContext(SourceApplicationContext)
 
     const { getAllResources } = useContext(ResourcesContext);
     useEffect(()=> {
         getAvailableForms();
-        getMetadata();
+        getAllMetadata();
         setPrimaryClassification({label: '', value: configurationFieldToString(cases, 'primarordningsprinsipp')})
         setSecondaryClassification({label: '', value: configurationFieldToString(cases, 'sekundarordningsprinsipp')})
         setTertiaryClassification({label: '', value: configurationFieldToString(cases, 'tertiarordningsprinsipp')})
@@ -39,9 +39,9 @@ const IntegrationConfigurationDetails: React.FunctionComponent<any> = (props) =>
         history.push({
             pathname: '/integration/configuration/edit',
         })
-        let selectedForm = metadata.filter(md => md.sourceApplicationIntegrationId === newIntegration?.sourceApplicationIntegrationId)
+        let selectedForm = allMetadata.filter(md => md.sourceApplicationIntegrationId === newIntegration?.sourceApplicationIntegrationId)
         //TODO: remove when we can no longer use old forms
-        setSelectedForm(selectedForm.length > 0 ? selectedForm[0] : SOURCE_FORM_NO_VALUES[0])
+        setSelectedMetadata(selectedForm.length > 0 ? selectedForm[0] : SOURCE_FORM_NO_VALUES[0])
         setConfiguration(activeConfiguration);
     }
 

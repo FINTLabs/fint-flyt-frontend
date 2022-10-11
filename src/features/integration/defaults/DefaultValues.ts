@@ -4,7 +4,7 @@ import {ISelect} from "../types/InputField";
 import {CreationStrategy} from "../types/CreationStrategy";
 import {IFormConfiguration} from "../types/Form/FormData";
 import {ApplicantType} from "../types/ApplicantType";
-import {IIntegrationMetadata} from "../types/IntegrationMetadata";
+import {IIntegrationMetadata, Type} from "../types/IntegrationMetadata";
 import {IIntegration} from "../types/Integration";
 import {FieldConfigurationType, newIConfiguration} from "../types/Configuration";
 
@@ -151,29 +151,29 @@ export const MOCK_SOURCE_FORM: IIntegrationMetadata[] =
             instanceElementMetadata:[
                 {
                     "key":null,
-                    "type": 'STRING',
+                    "type": Type.STRING,
                     "displayName":"Første kolonne",
                     "children":[
                         {
                             "key":null,
-                            "type": 'STRING',
+                            "type": Type.STRING,
                             "displayName":"Arkivsystem",
                             "children":[
                                 {
                                     "key":"Nedtrekk",
-                                    "type": 'STRING',
+                                    "type": Type.STRING,
                                     "displayName":"Nedtrekk",
                                     "children":[]
                                 },
                                 {
                                     "key":"Radioknapp",
-                                    "type": 'STRING',
+                                    "type": Type.STRING,
                                     "displayName":"Radioknapp",
                                     "children":[]
                                 },
                                 {
                                     "key":"Sjekkbokser",
-                                    "type": 'STRING',
+                                    "type": Type.STRING,
                                     "displayName":"Sjekkbokser",
                                     "children":[]
                                 }
@@ -181,24 +181,24 @@ export const MOCK_SOURCE_FORM: IIntegrationMetadata[] =
                         },
                         {
                             "key":null,
-                            "type": 'STRING',
+                            "type": Type.STRING,
                             "displayName":"Stedsnavn",
                             "children":[
                                 {
                                     "key":"Nedtrekk2",
-                                    "type": 'STRING',
+                                    "type": Type.STRING,
                                     "displayName":"Nedtrekk",
                                     "children":[]
                                 },
                                 {
                                     "key":"Radioknappliste",
-                                    "type": 'STRING',
+                                    "type": Type.STRING,
                                     "displayName":"Radioknappliste",
                                     "children":[]
                                 },
                                 {
                                     "key":"Sjekkbokser2",
-                                    "type": 'STRING',
+                                    "type": Type.STRING,
                                     "displayName":"Sjekkbokser",
                                     "children":[]
                                 }
@@ -206,12 +206,12 @@ export const MOCK_SOURCE_FORM: IIntegrationMetadata[] =
                         },
                         {
                             "key":null,
-                            "type": 'STRING',
+                            "type": Type.STRING,
                             "displayName":"Med grab - sted",
                             "children":[
                                 {
                                     "key":"Nedtrekk5",
-                                    "type": 'STRING',
+                                    "type": Type.STRING,
                                     "displayName":"Nedtrekk",
                                     "children":[]
                                 }
@@ -219,12 +219,12 @@ export const MOCK_SOURCE_FORM: IIntegrationMetadata[] =
                         },
                         {
                             "key":null,
-                            "type": 'STRING',
+                            "type": Type.STRING,
                             "displayName":"Gruppe",
                             "children":[
                                 {
                                     "key":"Nedtrekk6",
-                                    "type": 'STRING',
+                                    "type": Type.STRING,
                                     "displayName":"Nedtrekk",
                                     "children":[]
                                 }
@@ -234,29 +234,29 @@ export const MOCK_SOURCE_FORM: IIntegrationMetadata[] =
                 },
                 {
                     "key":null,
-                    "type": 'STRING',
+                    "type": Type.STRING,
                     "displayName":"Ny første kolonne",
                     "children":[
                         {
                             "key":null,
-                            "type": 'STRING',
+                            "type": Type.STRING,
                             "displayName":"Gruppe",
                             "children":[
                                 {
                                     "key":"Nedtrekk3",
-                                    "type": 'STRING',
+                                    "type": Type.STRING,
                                     "displayName":"Nedtrekk",
                                     "children":[]
                                 },
                                 {
                                     "key":"Radioknappliste2",
-                                    "type": 'STRING',
+                                    "type": Type.STRING,
                                     "displayName":"Radioknappliste",
                                     "children":[]
                                 },
                                 {
                                     "key":"Sjekkbokser3",
-                                    "type": 'STRING',
+                                    "type": Type.STRING,
                                     "displayName":"Sjekkbokser",
                                     "children":[]
                                 }
@@ -264,24 +264,24 @@ export const MOCK_SOURCE_FORM: IIntegrationMetadata[] =
                         },
                         {
                             "key":null,
-                            "type": 'STRING',
+                            "type": Type.STRING,
                             "displayName":"Med Grab",
                             "children":[
                                 {
                                     "key":"Nedtrekk4",
-                                    "type": 'STRING',
+                                    "type": Type.STRING,
                                     "displayName":"Nedtrekk",
                                     "children":[]
                                 },
                                 {
                                     "key":"Radioknappliste3",
-                                    "type": 'STRING',
+                                    "type": Type.STRING,
                                     "displayName":"Radioknappliste",
                                     "children":[]
                                 },
                                 {
                                     "key":"Sjekkboks2",
-                                    "type": 'STRING',
+                                    "type": Type.STRING,
                                     "displayName":"Sjekkboks",
                                     "children":[]
                                 }
@@ -291,29 +291,29 @@ export const MOCK_SOURCE_FORM: IIntegrationMetadata[] =
                 },
                 {
                     "key":null,
-                    "type": 'STRING',
+                    "type": Type.STRING,
                     "displayName":"Andre kolonne",
                     "children":[
                         {
                             "key":null,
-                            "type": 'STRING',
+                            "type": Type.STRING,
                             "displayName":"Gruppe",
                             "children":[
                                 {
                                     "key":"Nedtrekk7",
-                                    "type": 'STRING',
+                                    "type": Type.STRING,
                                     "displayName":"Nedtrekk",
                                     "children":[]
                                 },
                                 {
                                     "key":"Radioknappliste4",
-                                    "type": 'STRING',
+                                    "type": Type.STRING,
                                     "displayName":"Radioknappliste",
                                     "children":[]
                                 },
                                 {
                                     "key":"Sjekkbokser4",
-                                    "type": 'STRING',
+                                    "type": Type.STRING,
                                     "displayName":"Sjekkbokser",
                                     "children":[]
                                 }
@@ -321,12 +321,12 @@ export const MOCK_SOURCE_FORM: IIntegrationMetadata[] =
                         },
                         {
                             "key":null,
-                            "type": 'STRING',
+                            "type": Type.STRING,
                             "displayName":"Gruppe",
                             "children":[
                                 {
                                     "key":"Nedtrekk8",
-                                    "type": 'STRING',
+                                    "type": Type.STRING,
                                     "displayName":"Nedtrekk",
                                     "children":[]
                                 }
@@ -667,8 +667,8 @@ export const EXAMPLE_FORM: IFormConfiguration = {
     }
 }
 
-export function getSourceApplicationDisplayName(id: string): string {
-    if (id === '1') return 'ACOS';
-    if (id === '2') return 'eGrunnerverv';
+export function getSourceApplicationDisplayName(id: number): string {
+    if (id === 1) return 'ACOS';
+    if (id === 2) return 'eGrunnerverv';
     else return "ukjent";
 }
