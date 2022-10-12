@@ -22,7 +22,7 @@ export function stringReplace(baseString: string, errorArgs: IErrorArg[]) {
     return errorString;
 }
 
-interface IErrorArg {
+export interface IErrorArg {
     type: string,
     value: string
 }
