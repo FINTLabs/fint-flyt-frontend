@@ -64,6 +64,12 @@ const routes: IRoute[] = [
         inNavigationMenu: true
     },
     {
+        path: '/instance/',
+        name: 'instancePanel',
+        component: InstanceOverview,
+        exact: true,
+    },
+    {
         path: '/log',
         name: 'log',
         component: Log,
