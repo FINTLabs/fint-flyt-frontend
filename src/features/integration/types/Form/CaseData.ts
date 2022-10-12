@@ -15,8 +15,6 @@ export default interface ICaseData {
     secondaryClassification?: string;
     tertiaryClassification?: string;
     primaryClass?: string;
-    primaryClassSsNbr?: string;
-    primaryClassOrg?: string;
     secondaryClass?: string;
     tertiaryClass?: string;
     primaryTitle?: string;

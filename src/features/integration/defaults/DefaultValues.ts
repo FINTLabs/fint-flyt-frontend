@@ -28,8 +28,6 @@ export const defaultConfigurationValues: IFormConfiguration = {
         secondaryClassification: '',
         tertiaryClassification: '',
         primaryClass: '',
-        primaryClassSsNbr: '',
-        primaryClassOrg: '',
         secondaryClass: '',
         tertiaryClass: '',
         primaryTitle: '',
