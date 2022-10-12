@@ -14,7 +14,7 @@ const IntegrationTable: React.FunctionComponent<any> = (props) => {
     const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.integrationOverview'});
     const classes = props.classes;
     let history = useHistory();
-    const { setSourceApplication, getMetadata } = useContext(SourceApplicationContext)
+    const { setSourceApplication, getAllMetadata } = useContext(SourceApplicationContext)
 
     const columns: GridColDef[] = [
         { field: 'sourceApplicationId', type: 'string', headerName: t('table.columns.sourceApplicationId'), flex: 1,
@@ -22,6 +22,7 @@ const IntegrationTable: React.FunctionComponent<any> = (props) => {
         },
         { field: 'sourceApplicationIntegrationId', type: 'string', headerName: t('table.columns.sourceApplicationIntegrationId'), flex: 1 },
         { field: 'destination', type: 'string', headerName:  t('table.columns.destination'), flex: 1 },
+        { field: 'state', type: 'string', headerName:  t('table.columns.state'), flex: 1 },
         { field: 'dispatched', type: 'number', headerName: t('table.columns.dispatched'), flex: 1 },
         { field: 'errors', type: 'number', headerName: t('table.columns.errors'), flex: 1 }
     ];
@@ -45,14 +46,14 @@ const IntegrationTable: React.FunctionComponent<any> = (props) => {
                                 event.defaultMuiPrevented = true;
                                 props.setExistingIntegration(params.row)
                                 setSourceApplication(params.row.sourceApplicationId)
-                                getMetadata();
+                                getAllMetadata();
                                 //TODO: remove when we can no longer use old forms, and use selected sourceApplication and sourceApplicationIntegrationId to get the right metadata
                                 props.getConfigurations(params.row.id)
                                 setHistory();
                             }
                         }}
                         density='compact'
-                        rows={props.integrations}
+                        rows={props.integrations? props.integrations : []}
                         columns={columns}
                         pageSize={20}
                         rowsPerPageOptions={[20]}

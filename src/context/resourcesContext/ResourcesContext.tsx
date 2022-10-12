@@ -29,84 +29,27 @@ const ResourcesProvider: FC = ({ children }) => {
     const [secondaryClass, setSecondaryClass] = useState<IResourceItem[]>(contextDefaultValues.secondaryClass);
     const [tertiaryClass, setTertiaryClass] = useState<IResourceItem[]>(contextDefaultValues.tertiaryClass);
 
-    const getAdministrativeUnits = () => {
-        let list: IResourceItem[] = [];
-        ResourceRepository.getAdministrativeUnits()
-            .then(response => {
-                response.data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
-                setAdministrativeUnits(list)
-            })
-            .catch((err) => {
-                console.error(err);
-            })
-    }
+    const resourceList: any[] = [
+        {resource: 'administrativenhet', setter: setAdministrativeUnits},
+        {resource: 'sakstatus', setter: setStatuses},
+        {resource: 'arkivdel', setter: setArchiveSections},
+        {resource: 'arkivressurs', setter: setArchiveResources},
+        {resource: 'klassifikasjonssystem', setter: setClassificationSystems},
+        {resource: 'tilgangsrestriksjon', setter: setAccessCodes},
+        {resource: 'skjermingshjemmel', setter: setParagraph},
+        {resource: 'journalstatus', setter: setRecordStatuses},
+        {resource: 'journalposttype', setter: setRecordTypes},
+        {resource: 'variantformat', setter: setVariants},
+        {resource: 'dokumentstatus', setter: setDocumentStatuses},
+        {resource: 'dokumenttype', setter: setDocumentTypes},
+    ]
 
-    const getAccessCodes = () => {
+    const getResource = (resource: string, resourceSetter: any) => {
         let list: IResourceItem[] = [];
-        ResourceRepository.getAccessCodes()
+        ResourceRepository.getResource(resource)
             .then(response => {
                 response.data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
-                setAccessCodes(list)
-            })
-            .catch((err) => {
-                console.error(err);
-            })
-    }
-
-    const getParagraphs = () => {
-        let list: IResourceItem[] = [];
-        ResourceRepository.getParagraphs()
-            .then(response => {
-                response.data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
-                setParagraph(list)
-            })
-            .catch((err) => {
-                console.error(err);
-            })
-    }
-
-    const getStatuses = () => {
-        let list: IResourceItem[] = [];
-        ResourceRepository.getStatuses()
-            .then(response => {
-                response.data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
-                setStatuses(list)
-            })
-            .catch((err) => {
-                console.error(err);
-            })
-    }
-
-    const getArchiveSections = () => {
-        let list: IResourceItem[] = [];
-        ResourceRepository.getArchiveSections()
-            .then(response => {
-                response.data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
-                setArchiveSections(list)
-            })
-            .catch((err) => {
-                console.error(err);
-            })
-    }
-
-    const getArchiveResources = () => {
-        let list: IResourceItem[] = [];
-        ResourceRepository.getArchiveResources()
-            .then(response => {
-                response.data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
-                setArchiveResources(list)
-            })
-            .catch((err) => {
-                console.error(err);
-            })
-    }
-
-    const getClassificationSystems = () => {
-        let list: IResourceItem[] = [];
-        ResourceRepository.getClassificationSystems()
-            .then(response => {
-                response.data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
-                setClassificationSystems(list)
+                resourceSetter(list)
             })
             .catch((err) => {
                 console.error(err);
@@ -157,83 +100,10 @@ const ResourcesProvider: FC = ({ children }) => {
 
     }
 
-    const getDocumentTypes = () => {
-        let list: IResourceItem[] = [];
-        ResourceRepository.getResource('dokumenttype')
-            .then(response => {
-                response.data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
-                setDocumentTypes(list)
-            })
-            .catch((err) => {
-                console.error(err);
-            })
-    }
-
-    const getRecordStatuses = () => {
-        let list: IResourceItem[] = [];
-        ResourceRepository.getRecordStatuses()
-            .then(response => {
-                response.data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
-                setRecordStatuses(list)
-            })
-            .catch((err) => {
-                console.error(err);
-            })
-    }
-
-    const getRecordTypes = () => {
-        let list: IResourceItem[] = [];
-        ResourceRepository.getRecordTypes()
-            .then(response => {
-                response.data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
-                setRecordTypes(list)
-            })
-            .catch((err) => {
-                console.error(err);
-            })
-    }
-
-    const getDocumentStatuses = () => {
-        let list: IResourceItem[] = [];
-        ResourceRepository.getDocumentStatuses()
-            .then(response => {
-                response.data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
-                setDocumentStatuses(list)
-            })
-            .catch((err) => {
-                console.error(err);
-            })
-    }
-
-    const getVariants = () => {
-        let list: IResourceItem[] = [];
-        ResourceRepository.getVariants()
-            .then(response => {
-                response.data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
-                setVariants(list)
-            })
-            .catch((err) => {
-                console.error(err);
-            })
-    }
-
-
     const getAllResources = () => {
-        getAdministrativeUnits();
-        getAccessCodes();
-        getParagraphs();
-        getArchiveSections();
-        getArchiveResources();
-        getStatuses();
-        getClassificationSystems();
-        getPrimaryClass();
-        getSecondaryClass();
-        getTertiaryClass();
-        getDocumentTypes();
-        getRecordStatuses();
-        getRecordTypes();
-        getDocumentStatuses();
-        getVariants();
+        resourceList.map((r) => {
+            getResource(r.resource, r.setter)
+        })
     }
 
     const resetAllResources = () => {
@@ -266,18 +136,6 @@ const ResourcesProvider: FC = ({ children }) => {
                 recordTypes,
                 documentStatuses,
                 variants,
-                getAdministrativeUnits,
-                getAccessCodes,
-                getParagraphs,
-                getStatuses,
-                getArchiveSections,
-                getArchiveResources,
-                getClassificationSystems,
-                getDocumentTypes,
-                getRecordStatuses,
-                getRecordTypes,
-                getDocumentStatuses,
-                getVariants,
                 getPrimaryClass,
                 getSecondaryClass,
                 getTertiaryClass,

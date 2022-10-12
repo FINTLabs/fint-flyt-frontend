@@ -15,11 +15,11 @@ export const IntegrationContext = createContext<IntegrationContextState>(
 const IntegrationProvider: FC = ({ children }) => {
     const [existingIntegration, setExistingIntegration] = useState<IIntegration | undefined>(undefined);
     const [newIntegration, setNewIntegration] = useState<IIntegration | undefined>(undefined);
-    const [newIntegrations, setNewIntegrations] = useState<IIntegration[]>([]);
+    const [newIntegrations, setNewIntegrations] = useState<IIntegration[] | undefined>(undefined);
     const [configuration, setConfiguration] = useState<newIConfiguration>(contextDefaultValues.configuration);
-    const [configurations, setConfigurations] = useState<newIConfiguration[]>([]);
+    const [configurations, setConfigurations] = useState<newIConfiguration[] | undefined>(contextDefaultValues.configurations);
     const [destination, setDestination] = useState<string>('');
-    const [selectedForm, setSelectedForm] = useState<IIntegrationMetadata>(contextDefaultValues.selectedForm);
+    const [selectedMetadata, setSelectedMetadata] = useState<IIntegrationMetadata>(contextDefaultValues.selectedMetadata);
     const [sourceApplicationIntegrationId, setSourceApplicationIntegrationId] = useState<string>('');
     const [sourceApplicationId, setSourceApplicationId] = useState<string>('');
     const [statistics, setStatistics] = useState<any>(contextDefaultValues.statistics);
@@ -28,7 +28,7 @@ const IntegrationProvider: FC = ({ children }) => {
         setDestination('');
         setSourceApplicationId('');
         setSourceApplicationIntegrationId('');
-        setSelectedForm(contextDefaultValues.selectedForm)
+        setSelectedMetadata(contextDefaultValues.selectedMetadata)
     }
 
     const resetIntegrations = () => {
@@ -56,7 +56,10 @@ const IntegrationProvider: FC = ({ children }) => {
                             setNewIntegrations(mergedList);
                         }
                     })
-                    .catch(e => console.error('Error: ', e))
+                    .catch((e) => {
+                        console.error('Error: ', e)
+                        setNewIntegrations([]);
+                    })
             }).catch(e => console.log('error', e))
     }
 
@@ -66,7 +69,10 @@ const IntegrationProvider: FC = ({ children }) => {
                 let configurations: newIConfiguration[] = response.data;
                     setConfigurations(configurations);
                 })
-            .catch(e => console.error('Error: ', e))
+            .catch((e) => {
+                console.error('Error: ', e)
+                setConfigurations([]);
+            })
     }
 
     return (
@@ -87,8 +93,8 @@ const IntegrationProvider: FC = ({ children }) => {
                 setConfigurations,
                 destination,
                 setDestination,
-                selectedForm,
-                setSelectedForm,
+                selectedMetadata,
+                setSelectedMetadata,
                 sourceApplicationId,
                 sourceApplicationIntegrationId,
                 setSourceApplicationIntegrationId,

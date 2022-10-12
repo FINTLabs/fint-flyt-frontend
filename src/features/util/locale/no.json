@@ -107,6 +107,7 @@
                     "sourceApplicationIntegrationId": "Skjema",
                     "sourceApplicationId": "Skjemaleverandør",
                     "name": "Navn",
+                    "state": "Tilstand",
                     "comment": "Kommentar",
                     "finished": "Ferdigstilt",
                     "version": "Version",

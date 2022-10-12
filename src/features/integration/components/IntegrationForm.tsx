@@ -24,10 +24,10 @@ export const IntegrationForm: React.FunctionComponent<any> = (props) => {
     let history = useHistory();
     const {t} = useTranslation('translations', {keyPrefix: 'components.formSettings'});
     const {
-        setSelectedForm,
+        setSelectedMetadata,
         setNewIntegration
     } = useContext(IntegrationContext)
-    const {getAvailableForms, sourceApplication, setSourceApplication, availableForms, metadata, getMetadata} = useContext(SourceApplicationContext)
+    const {getAvailableForms, sourceApplication, setSourceApplication, availableForms, allMetadata, getAllMetadata, getInstanceElementMetadata} = useContext(SourceApplicationContext)
     const [error, setError] = useState<string>('');
     const [destination, setDestination] = useState<string>('');
     const [sourceApplicationId, setSourceApplicationId] = useState<string>('');
@@ -46,14 +46,15 @@ export const IntegrationForm: React.FunctionComponent<any> = (props) => {
 
 
     useEffect(() => {
-        getMetadata();
+        getAllMetadata();
         getAvailableForms();
     }, [sourceApplication, setSourceApplication])
 
     const confirm = () => {
         if (destination && sourceApplicationId && sourceApplicationIntegrationId) {
-            let selectedForm = metadata.filter((md:any) => md.sourceApplicationIntegrationId === sourceApplicationIntegrationId)
-            setSelectedForm(selectedForm[0])
+            let selectedForm = allMetadata.filter((md:any) => md.sourceApplicationIntegrationId === sourceApplicationIntegrationId)
+            setSelectedMetadata(selectedForm[0])
+            getInstanceElementMetadata(selectedForm[0].id)
             //TODO: change to new URLs
        let formConfiguration: IFormIntegration = {destination: destination, sourceApplicationIntegrationId: sourceApplicationIntegrationId, sourceApplicationId: sourceApplicationId}
             IntegrationRepository.createIntegration(toIntegration(formConfiguration, IntegrationState.DEACTIVATED))
@@ -83,7 +84,7 @@ export const IntegrationForm: React.FunctionComponent<any> = (props) => {
                             value={sourceApplicationId}
                             label={t('labels.sourceApplicationId')+'*'}
                             onChange={event => {
-                                setSourceApplication(event.target.value)
+                                setSourceApplication(Number(event.target.value))
                                 setSourceApplicationId(event.target.value)
                                 setSourceApplicationIntegrationId('')
                             }}

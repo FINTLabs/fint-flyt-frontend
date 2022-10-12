@@ -3,7 +3,7 @@ import {IConfigurationPatch, newIConfiguration} from "../../features/integration
 
 //TODO: test with updated API urls
 const getConfigurations = (integrationId: string) => {
-    return axios.get<any>('/api/intern/konfigurasjoner/', { params: { integrationId: integrationId } });
+    return axios.get<any>('/api/intern/konfigurasjoner/', { params: { integrasjonId: integrationId } });
 }
 const getConfiguration = (configurationId: string) => {
     return axios.get<any>(`/api/intern/konfigurasjoner/${configurationId}`);
@@ -14,13 +14,17 @@ const createConfiguration = (integrationId: string, data: newIConfiguration) => 
 const updateConfiguration = (configurationId: string, data: IConfigurationPatch) => {
     return axios.patch<any>(`/api/intern/konfigurasjoner/${configurationId}`, data);
 }
+const deleteConfiguration = (configurationId: string) => {
+    return axios.delete<any>(`/api/intern/konfigurasjoner/${configurationId}`);
+}
 
 
 const ConfigurationRepository = {
     createConfiguration,
     updateConfiguration,
     getConfigurations,
-    getConfiguration
+    getConfiguration,
+    deleteConfiguration
 };
 
 export default ConfigurationRepository;

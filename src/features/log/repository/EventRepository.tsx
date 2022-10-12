@@ -1,7 +1,20 @@
 import axios from "axios";
 
-const getEvents = () => {
-    return axios.get<any>(`/api/intern/historikk/hendelser`);
+const getEvents = (kildeapplikasjonId?: string, kildeapplikasjonInstansId?: string) => {
+    return axios.get<any>(`/api/intern/historikk/hendelser`, {
+        params: {
+            kildeapplikasjonsId: kildeapplikasjonId,
+            kildeapplikasjonInstansId: kildeapplikasjonInstansId
+        }
+    });
+};
+
+const getLatestEvents = () => {
+    return axios.get<any>(`/api/intern/historikk/hendelser`, {
+        params: {
+            bareSistePerInstans: true
+        }
+    });
 };
 
 const getEventsByCorrelationId = (id: any) => {
@@ -17,7 +30,7 @@ const getEventsByIntegrationId = (id: any) => {
 };
 
 const getStatistics = () => {
-    return axios.get<any>(`/api/intern/historikk/statistikk/integrasjon`);
+    return axios.get<any>(`/api/intern/historikk/statistikk/integrasjoner`);
 };
 
 const ResourceRepository = {
