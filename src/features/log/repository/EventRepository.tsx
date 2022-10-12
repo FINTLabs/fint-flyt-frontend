@@ -17,16 +17,15 @@ const getLatestEvents = () => {
     });
 };
 
-const getEventsByCorrelationId = (id: any) => {
-    return axios.get<any>(`/api/intern/historikk/korrelasjonsid/${id}`);
-};
-
-const getEventsByInstanceId = (id: any) => {
-    return axios.get<any>(`/api/intern/historikk/instansid/${id}`);
-};
-
-const getEventsByIntegrationId = (id: any) => {
-    return axios.get<any>(`/api/intern/historikk/integrasjonsid/${id}`);
+const getEventsByInstanceId = (kildeapplikasjonId?: string, kildeapplikasjonInstansId?: string) => {
+    return axios.get<any>(`/api/intern/historikk/hendelser`, {
+        params: {
+            kildeapplikasjonId: kildeapplikasjonId,
+            kildeapplikasjonInstansId: kildeapplikasjonInstansId
+        }
+    });};
+const getAllStatistics = () => {
+    return axios.get<any>(`/api/intern/historikk/statistikk`);
 };
 
 const getStatistics = () => {
@@ -35,9 +34,9 @@ const getStatistics = () => {
 
 const ResourceRepository = {
     getEvents,
-    getEventsByCorrelationId,
+    getLatestEvents,
     getEventsByInstanceId,
-    getEventsByIntegrationId,
+    getAllStatistics,
     getStatistics
 };
 

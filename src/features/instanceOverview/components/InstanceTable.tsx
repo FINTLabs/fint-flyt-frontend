@@ -6,10 +6,14 @@ import {gridLocaleNoNB} from "../../util/locale/gridLocaleNoNB";
 import {useTranslation} from "react-i18next";
 
 import moment from "moment";
+import {useContext, useEffect} from "react";
+import {HistoryContext} from "../../../context/historyContext";
 
 const InstanceTable: React.FunctionComponent<any> = (props) => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.instanceOverview'})
     let history = useHistory();
+    const {latestInstances, getLatestInstances, getSelectedInstances} = useContext(HistoryContext)
+
 
     const columns: GridColumns = [
         { field: 'id', hide: true, type: 'string', headerName: 'id', flex: 0.5 },
@@ -42,6 +46,15 @@ const InstanceTable: React.FunctionComponent<any> = (props) => {
         console.log('resend instance', instanceId)
     }
 
+    useEffect(()=> {
+        getLatestInstances();
+    }, []);
+
+    const getEventsWithInstanceId = (sourceApplicationID: string, instanceId: string) => {
+        getSelectedInstances(sourceApplicationID, instanceId)
+        setHistory();
+    }
+
     function CustomButtonToggle(props: GridCellParams["row"]) {
         const hasErrors: boolean = props.row.errors.length > 0;
         return (
@@ -69,9 +82,15 @@ const InstanceTable: React.FunctionComponent<any> = (props) => {
                 columns={columns}
                 density='compact'
                 localeText={gridLocaleNoNB}
-                rows={props.instances}
+                rows={latestInstances ? latestInstances : []}
                 components={{
                     Toolbar: GridToolbar,
+                }}
+                onCellDoubleClick={(params, event) => {
+                    if (!event.ctrlKey) {
+                        event.defaultMuiPrevented = true;
+                        getEventsWithInstanceId(params.row.instanceFlowHeaders.sourceApplicationId, params.row.instanceFlowHeaders.sourceApplicationInstanceId)
+                    }
                 }}
                 rowThreshold={0}
                 initialState={{
