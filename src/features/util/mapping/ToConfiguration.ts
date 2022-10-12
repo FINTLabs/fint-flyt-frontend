@@ -2,7 +2,7 @@ import {FieldConfigurationType, IConfigurationPatch, newIConfiguration} from "..
 import { IFormConfiguration } from "../../integration/types/Form/FormData";
 
 export function toNewConfiguration(data: IFormConfiguration, integrationId: string, configurationId: any, metadataId: number): newIConfiguration {
-    //TODO: fix metadataId
+    console.log(data)
     return {
         integrationId: integrationId,
         id: configurationId,
@@ -290,7 +290,7 @@ export function toNewConfiguration(data: IFormConfiguration, integrationId: stri
     }
 }
 
-export function toConfigurationPatch(data: IFormConfiguration, metadataId?: number): IConfigurationPatch {
+export function toConfigurationPatch(data: IFormConfiguration, metadataId: any): IConfigurationPatch {
     return {
         completed: data.completed,
         integrationMetadataId: metadataId,

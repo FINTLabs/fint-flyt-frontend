@@ -13,19 +13,19 @@ import {
 } from "@mui/material";
 import {DataGrid, GridCellParams, GridColDef, GridToolbar} from "@mui/x-data-grid";
 import * as React from "react";
-import { gridLocaleNoNB } from "../../util/locale/gridLocaleNoNB";
-import {useTranslation} from "react-i18next";
 import {useContext, useEffect, useState} from "react";
+import {gridLocaleNoNB} from "../../util/locale/gridLocaleNoNB";
+import {useTranslation} from "react-i18next";
 import {IntegrationContext} from "../../../context/integrationContext";
-import { Link } from 'react-router-dom';
-import { ISelect } from "../../integration/types/InputField";
+import {Link, Link as RouterLink} from 'react-router-dom';
+import {ISelect} from "../../integration/types/InputField";
 import IntegrationRepository from "../../../shared/repositories/IntegrationRepository";
 import {configurationFieldToString} from "../../util/MappingUtil";
 import {ResourcesContext} from "../../../context/resourcesContext";
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
-import { Link as RouterLink } from 'react-router-dom';
 import {SourceApplicationContext} from "../../../context/sourceApplicationContext";
 import {SOURCE_FORM_NO_VALUES} from "../../integration/defaults/DefaultValues";
+import {IntegrationState} from "../../integration/types/IntegrationState.enum";
 
 const IntegrationPanel: React.FunctionComponent<any> = (props) => {
     const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.integrationOverview'});
@@ -34,6 +34,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
     const { allMetadata, getAllMetadata, getInstanceElementMetadata} = useContext(SourceApplicationContext)
     const {setPrimaryClassification, setSecondaryClassification, setTertiaryClassification} = useContext(ResourcesContext);
     const [version, setVersion] = useState('null');
+    const [activeVersion, setActiveVersion] = useState(existingIntegration?.activeConfigurationId ? existingIntegration?.activeConfigurationId : 'Ingen');
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [anchorSubEl, setAnchorSubEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
@@ -51,6 +52,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
         setAnchorSubEl(null);
     };
     const versionsToActivate: ISelect[] = [{value: 'null', label: 'velg aktiv versjon'}];
+    console.log(props.configurations)
     props.configurations?.map((configuration: any) => {
         if (configuration.completed) {
             versionsToActivate.push({value: configuration.id, label: 'versjon ' + configuration.version})
@@ -62,8 +64,8 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
     }, [])
 
     const columns: GridColDef[] = [
-        { field: 'id', type: 'string', headerName: 'KonfigurasjonsId', flex: 1, hide: true},
-        { field: 'version', type: 'number', headerName: 'Versjon', flex: 0.5 },
+        { field: 'id', type: 'string', headerName: 'KonfigurasjonsId', flex: 0.5},
+        { field: 'version', type: 'number', headerName: 'Versjon', flex: 0.5},
         { field: 'comment', type: 'string', headerName: 'Kommentar', flex: 1},
         { field: 'completed', type: 'string', headerName: 'Ferdigstilt', flex: 1, description: "Kun ferdigstilte konfigurasjoner kan settes som aktive",
             valueGetter: (params) => params.row.completed ? 'Ja' : 'Nei'
@@ -98,7 +100,13 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
 
 
     const activateConfiguration = (event: any, configurationId: string) => {
-        IntegrationRepository.setActiveConfiguration(existingIntegration?.id, configurationId)
+        IntegrationRepository.setActiveConfiguration(existingIntegration?.id, configurationId).then(
+            (response) => {
+                setActiveVersion(response.data.activeConfigurationId)
+                console.log(response)
+                IntegrationRepository.setIntegrationState(existingIntegration?.id, IntegrationState.ACTIVE).then(response => {console.log('activated configuration')})
+            }
+        ).catch(e => console.error(e))
         console.log('set active config, integrationId', existingIntegration?.id, 'configurationId', configurationId)
     }
 
@@ -120,7 +128,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                     <Typography id="details-sourceApplicationIntegrationId"><strong>{t('labels.sourceApplicationIntegrationId')}</strong>{existingIntegration?.sourceApplicationIntegrationId}</Typography>
                     <Typography id="details-sourceApplicationId"><strong>{t('labels.sourceApplicationId')} </strong>{existingIntegration?.sourceApplicationId}</Typography>
                     <Typography id="details-destination"><strong>{t('labels.destination')} </strong>{existingIntegration?.destination}</Typography>
-                    <Typography id="details-activeConfiguration"><strong>{t('labels.activeConfigurationId')} </strong>{existingIntegration?.activeConfigurationId ? existingIntegration?.activeConfigurationId : 'Ingen'}</Typography>
+                    <Typography id="details-activeConfiguration"><strong>{t('labels.activeConfigurationId')} </strong>{activeVersion}</Typography>
                 </CardContent>
                 <FormControl size='small' sx={{float: 'left', width: 300, m: 2}}>
                     <InputLabel id="version-select-input-label">{t('version')}</InputLabel>
