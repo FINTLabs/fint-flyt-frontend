@@ -2,7 +2,7 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 
 module.exports = function (app) {
     app.use(
-        createProxyMiddleware('/api/intern/kodeverk', {
+        createProxyMiddleware('/api/intern/arkiv', {
             target: 'http://localhost:8085', // API endpoint 1
             changeOrigin: true,
             pathRewrite: {"^/api1": ""},
@@ -12,7 +12,7 @@ module.exports = function (app) {
         })
     );
     app.use(
-        createProxyMiddleware('/api/intern/integrasjon/metadata', {
+        createProxyMiddleware('/api/intern/metadata', {
             target: 'http://localhost:8084', // API endpoint 5
             changeOrigin: true,
             pathRewrite: {"^/api5": ""},
@@ -56,6 +56,17 @@ module.exports = function (app) {
             target: 'http://localhost:8090', // API endpoint 2
             changeOrigin: true,
             pathRewrite: {"^/api6": ""},
+            headers: {
+                Connection: "keep-alive"
+            }
+        })
+    );
+
+    app.use(
+        createProxyMiddleware('/api/intern/handlinger/instanser', {
+            target: 'http://localhost:8081', // API endpoint 2
+            changeOrigin: true,
+            pathRewrite: {"^/api7": ""},
             headers: {
                 Connection: "keep-alive"
             }
