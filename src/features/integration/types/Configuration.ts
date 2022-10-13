@@ -4,11 +4,20 @@ export interface IFieldConfiguration {
     type: string;
     value: string | undefined;
 }
+
+export interface ICollectionFieldConfiguration {
+    id?: string;
+    key: string;
+    type: string;
+    values: string[] | undefined;
+}
+
 export interface IConfigurationElement {
     id?: string;
     key: string;
     elements?: IConfigurationElement[];
     fieldConfigurations?: IFieldConfiguration[];
+    collectionFieldConfigurations?: ICollectionFieldConfiguration[]
 }
 
 export interface newIConfiguration {

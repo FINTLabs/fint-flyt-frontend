@@ -78,7 +78,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
     function EditButtonToggle(props: GridCellParams["row"]) {
         const completed: boolean = props.row.completed
         let cases = props.row.elements.filter((element: { key: string; }) => element.key === 'case')
-        //TODO: test setConfiguration
+        //TODO: fix dependent fields
         return (
             <>
                 <Link

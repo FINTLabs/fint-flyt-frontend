@@ -165,7 +165,6 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
         ConfigurationRepository.createConfiguration(integrationId, data)
             .then(response => {
                 console.log('created new configuration on integration ', integrationId, data, response);
-                //TODO: fix and set active ID
                 setConfiguration(response.data)
                 setActiveConfigId(response.data.id)
                 setSaved(true);
@@ -283,7 +282,6 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
         }
     });
 
-    //TODO: fix showing integration or config form based on edit, new or new-new
     return (
         <DndProvider backend={HTML5Backend}>
             {!existingIntegration && !newIntegration && <IntegrationForm/>}

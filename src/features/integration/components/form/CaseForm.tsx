@@ -43,7 +43,7 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
         'https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/FNR', 'https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/ORGNR'
     ]
 
-    //TODO: remove disable check caseType after 3.11
+    //TODO: add kodeverk for caseType
   const caseFormFields: IInputField[] = [
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.title", formValue: "caseData.title", required: required && !isCollection, error:errors.caseData?.title, value: props.activeFormData?.caseData?.title, helpText: "caseData.title"},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.publicTitle", formValue: "caseData.publicTitle", required: false, error:errors.caseData?.publicTitle, value: props.activeFormData?.caseData?.publicTitle, helpText: "caseData.publicTitle"},

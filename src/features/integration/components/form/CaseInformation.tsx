@@ -34,12 +34,10 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
 
     let isCollection = props.watch("caseData.caseCreationStrategy") === CreationStrategy.COLLECTION
     let errors: FieldErrors = props.errors
-    //TODO: 20/9 - decide on where to show comment
     const caseInformationFields: IInputField[] = [
         {input: INPUT_TYPE.RADIO, label: "labels.caseCreationInfo", value: props.watch("caseData.caseCreationStrategy"),
             formValue: "caseData.caseCreationStrategy", radioOptions: creationStrategies, helpText: "caseData.caseCreationStrategy"},
         {input: INPUT_TYPE.TEXT_FIELD, label: "labels.caseNumber", formValue: "caseData.caseNumber", hidden:!isCollection, required:isCollection && props.validation, error:errors.caseData?.caseNumber, searchOption: true, helpText: "caseData.caseNumber"},
-        // {input: INPUT_TYPE.TEXT_FIELD, label: "labels.comment", formValue: "comment", error:errors.comment, helpText: "comment"}
     ]
     return (
         <div>

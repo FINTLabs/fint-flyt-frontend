@@ -8,6 +8,7 @@ import {useTranslation} from "react-i18next";
 import moment from "moment";
 import {useContext, useEffect} from "react";
 import {HistoryContext} from "../../../context/historyContext";
+import InstanceRepository from "../repository/InstanceRepository";
 
 const InstanceTable: React.FunctionComponent<any> = (props) => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.instanceOverview'})
@@ -42,8 +43,12 @@ const InstanceTable: React.FunctionComponent<any> = (props) => {
     ];
 
     const  resend = (event: any, instanceId: string) => {
-        //TODO: try resending instance
-        console.log('resend instance', instanceId)
+        //TODO: add notifatication on successful or failed resending
+        InstanceRepository.resendInstance(instanceId)
+            .then(response => {
+                console.log('resend instance', response)
+            })
+            .catch(e => {console.error(e)})
     }
 
     useEffect(()=> {

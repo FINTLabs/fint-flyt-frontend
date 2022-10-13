@@ -31,7 +31,6 @@ const ApplicantForm: React.FunctionComponent<any> = (props) => {
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.paragraph", value: props.watch("applicantData.paragraph"), formValue: "applicantData.paragraph", dropDownItems: paragraphs, required:required && props.protectedCheck, error:errors.applicantData?.paragraph, helpText: "applicantData.paragraph", hidden: !props.protectedCheck}
     ]
 
-    //TODO: remove disable check after 3.11
     return (
         <div>
             <FormGroup id="applicant-form" className={props.style.formControl}>
