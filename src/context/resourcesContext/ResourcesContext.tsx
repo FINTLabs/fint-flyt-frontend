@@ -48,8 +48,11 @@ const ResourcesProvider: FC = ({ children }) => {
         let list: IResourceItem[] = [];
         ResourceRepository.getResource(resource)
             .then(response => {
-                response.data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
-                resourceSetter(list)
+                let data = response.data;
+                if (data) {
+                    data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
+                    resourceSetter(list)
+                }
             })
             .catch((err) => {
                 console.error(err);
@@ -61,8 +64,11 @@ const ResourcesProvider: FC = ({ children }) => {
         if(primaryClassification.value !== '') {
             ResourceRepository.getClasses(primaryClassification.value)
                 .then(response => {
-                    response.data.map((resource: any) => list.push({label: resource.id + ' - ' + resource.displayName, value: resource.id}))
-                    setPrimaryClass(list)
+                    let data = response.data;
+                    if (data) {
+                        data.map((resource: any) => list.push({label: resource.id + ' - ' + resource.displayName, value: resource.id}))
+                        setPrimaryClass(list)
+                    }
                 })
                 .catch((err) => {
                     console.error(err);
@@ -75,8 +81,14 @@ const ResourcesProvider: FC = ({ children }) => {
         if(secondaryClassification.value !== '') {
             ResourceRepository.getClasses(secondaryClassification.value)
                 .then(response => {
-                    response.data.map((resource: any) => list.push({label: resource.id + ' - ' + resource.displayName, value: resource.id}))
-                    setSecondaryClass(list)
+                    let data = response.data;
+                    if (data) {
+                        data.map((resource: any) => list.push({
+                            label: resource.id + ' - ' + resource.displayName,
+                            value: resource.id
+                        }))
+                        setSecondaryClass(list)
+                    }
                 })
                 .catch((err) => {
                     console.error(err);
@@ -90,8 +102,14 @@ const ResourcesProvider: FC = ({ children }) => {
         if(tertiaryClassification.value !== '') {
             ResourceRepository.getClasses(tertiaryClassification.value)
                 .then(response => {
-                    response.data.map((resource: any) => list.push({label: resource.id + ' - ' + resource.displayName, value: resource.id}))
-                    setTertiaryClass(list)
+                    let data = response.data;
+                    if (data) {
+                        data.map((resource: any) => list.push({
+                            label: resource.id + ' - ' + resource.displayName,
+                            value: resource.id
+                        }))
+                        setTertiaryClass(list)
+                    }
                 })
                 .catch((err) => {
                     console.error(err);

@@ -44,36 +44,42 @@ const IntegrationProvider: FC = ({ children }) => {
     const getNewIntegrations = () => {
         EventRepository.getStatistics()
             .then((response) => {
-                setStatistics(response.data)
-                let stats = response.data;
-           IntegrationRepository.getIntegrations()
-                    .then((response) => {
-                        if(response.data) {
-                            let mergedList: IIntegration[] = response.data;
-                            stats.forEach((value: IIntegrationStatistics) => {
-                                mergedList.map((integration: IIntegration) => {
-                                    if (integration.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {
-                                        integration.errors = value.currentErrors;
-                                        integration.dispatched = value.dispatchedInstances;
-                                    }
+                let data = response.data;
+                if (data) {
+                    setStatistics(data)
+                    let stats = data;
+                    IntegrationRepository.getIntegrations()
+                        .then((response) => {
+                            if (response.data) {
+                                let mergedList: IIntegration[] = response.data;
+                                stats.forEach((value: IIntegrationStatistics) => {
+                                    mergedList.map((integration: IIntegration) => {
+                                        if (integration.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {
+                                            integration.errors = value.currentErrors;
+                                            integration.dispatched = value.dispatchedInstances;
+                                        }
+                                    })
                                 })
-                            })
-                            setNewIntegrations(mergedList);
-                        }
-                    })
-                    .catch((e) => {
-                        console.error('Error: ', e)
-                        setNewIntegrations([]);
-                    })
+                                setNewIntegrations(mergedList);
+                            }
+                        })
+                        .catch((e) => {
+                            console.error('Error: ', e)
+                            setNewIntegrations([]);
+                        })
+                }
             }).catch(e => console.log('error', e))
     }
 
     const getConfigurations = (id: any, excludeElements?: boolean) => {
         ConfigurationRepository.getConfigurations(id.toString(), excludeElements)
             .then((response) => {
-                let configurations: newIConfiguration[] = response.data;
+                let data = response.data;
+                if (data) {
+                let configurations: newIConfiguration[] = data;
                     setConfigurations(configurations);
-                })
+                }
+            })
             .catch((e) => {
                 console.error('Error: ', e)
                 setConfigurations([]);
@@ -83,8 +89,11 @@ const IntegrationProvider: FC = ({ children }) => {
     const getConfiguration = async (id: any, excludeElements?: boolean) => {
         ConfigurationRepository.getConfiguration(id.toString(), excludeElements)
             .then((response) => {
-                let configuration: newIConfiguration = response.data;
-                setConfiguration(configuration);
+                let data = response.data;
+                if (data) {
+                    let configuration: newIConfiguration = data;
+                    setConfiguration(configuration);
+                }
             })
             .catch((e) => {
                 console.error('Error: ', e)

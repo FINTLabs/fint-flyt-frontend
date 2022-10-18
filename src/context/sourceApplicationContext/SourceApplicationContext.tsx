@@ -21,11 +21,14 @@ const SourceApplicationProvider: FC = ({children}) => {
         SourceApplicationRepository.getMetadata(sourceApplication !== null ? sourceApplication.toString() : "1")
             .then(response => {
                 let data = response.data
-                let selects: ISelect[] = [];
-                data.forEach((value: any) => {
-                    selects.push({value: value.sourceApplicationIntegrationId, label: value.integrationDisplayName})
-                })
-                getAllForms(selects)
+                if (data) {
+                    let selects: ISelect[] = [];
+                    data.forEach((value: any) => {
+                        selects.push({value: value.sourceApplicationIntegrationId, label: value.integrationDisplayName})
+                    })
+                    getAllForms(selects)
+                }
+
             })
             .catch((err) => {
                 console.error(err);
@@ -37,7 +40,9 @@ const SourceApplicationProvider: FC = ({children}) => {
             SourceApplicationRepository.getMetadata(sourceApplication.toString())
                 .then(response => {
                     let data: IIntegrationMetadata[] = response.data
-                    setAllMetadata(data)
+                    if (data) {
+                        setAllMetadata(data)
+                    }
                 })
                 .catch((err) => {
                     console.error(err);
@@ -49,9 +54,13 @@ const SourceApplicationProvider: FC = ({children}) => {
         SourceApplicationRepository.getInstanceElementMetadata(metadataId)
             .then(response => {
                 let data: IInstanceElementMetadata = response.data
-                setInstanceElementMetadata(data)
+                if(data) {
+                    setInstanceElementMetadata(data)
+                }
+
             })
             .catch((err) => {
+                setInstanceElementMetadata(undefined)
                 console.error(err)
             })
     }
@@ -60,14 +69,18 @@ const SourceApplicationProvider: FC = ({children}) => {
     const getAllForms = (forms: ISelect[]) => {
         IntegrationRepository.getIntegrations()
             .then(response => {
-                let ids: string[] = response.data.map((config: any) => config.sourceApplicationIntegrationId)
-                let selectableForms = forms.filter(form => !ids.includes(form.value));
-                if(sourceApplication !== null) {
-                    setAvailableForms({sourceApplicationDisplayName: getSourceApplicationDisplayName(sourceApplication), sourceApplicationId: sourceApplication.toString(), forms: selectableForms})
+                let data = response.data;
+                if (data) {
+                    let ids: string[] = response.data.map((config: any) => config.sourceApplicationIntegrationId)
+                    let selectableForms = forms.filter(form => !ids.includes(form.value));
+                    if(sourceApplication !== null) {
+                        setAvailableForms({sourceApplicationDisplayName: getSourceApplicationDisplayName(sourceApplication), sourceApplicationId: sourceApplication.toString(), forms: selectableForms})
+                    }
                 }
             })
             .catch((err) => {
                 console.error(err);
+                setAvailableForms({sourceApplicationDisplayName: '', sourceApplicationId: '1', forms: [{value: 'null', label: 'No options'}]})
             })
     }
 
