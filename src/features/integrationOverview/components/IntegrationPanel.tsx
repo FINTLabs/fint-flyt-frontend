@@ -2,7 +2,7 @@ import {
     Box,
     Button,
     Card,
-    CardContent,
+    CardContent, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
     FormControl,
     InputLabel,
     Menu,
@@ -39,20 +39,26 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
     const [anchorSubEl, setAnchorSubEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const openSub = Boolean(anchorSubEl);
-    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-    const handleSubClick = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorSubEl(event.currentTarget);
-    };
-    const handleSubClose = () => {
-        setAnchorSubEl(null);
-    };
+    const handleNewConfigClick = (event: React.MouseEvent<HTMLElement>) => {setAnchorEl(event.currentTarget);};
+    const handleNewConfigClose = () => {setAnchorEl(null);};
+    const handleNewConfigSubClick = (event: React.MouseEvent<HTMLElement>) => {setAnchorSubEl(event.currentTarget);};
+    const handleNewConfigSubClose = () => {setAnchorSubEl(null);};
     const versionsToActivate: ISelect[] = [{value: 'null', label: 'velg aktiv versjon'}];
-    console.log(props.configurations)
+    const [openDialog, setOpenDialog] = React.useState(false);
+    const [configToActivate, setConfigToActivate] = React.useState<string>('')
+
+    console.log(existingIntegration)
+
+    const handleClose = () => {
+        setOpenDialog(false);
+    };
+
+    const handleActivateButton = () => {
+        setVersion(configToActivate)
+        activateConfiguration(existingIntegration?.id, configToActivate)
+        setOpenDialog(false)
+    }
+
     props.configurations?.map((configuration: any) => {
         if (configuration.completed) {
             versionsToActivate.push({value: configuration.id, label: 'versjon ' + configuration.version})
@@ -100,7 +106,6 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
         );
     }
 
-
     const activateConfiguration = (event: any, configurationId: string) => {
         IntegrationRepository.setActiveConfiguration(existingIntegration?.id, configurationId).then(
             (response) => {
@@ -118,19 +123,40 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
     }
 
     const handleChange = (event: SelectChangeEvent) => {
-        setVersion(event.target.value)
-        activateConfiguration(existingIntegration?.id, event.target.value)
+        setOpenDialog(true)
+        setConfigToActivate(event.target.value)
     };
 
     return (
         <Box>
+            <Dialog
+                open={openDialog}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">
+                    {"Aktiver konfigurasjon?"}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        Bekreft aktivering av konfigurasjon
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose}>Avbryt</Button>
+                    <Button onClick={handleActivateButton} autoFocus>
+                        Ja
+                    </Button>
+                </DialogActions>
+            </Dialog>
             <Card>
                 <CardContent>
                     <Typography id="details-sourceApplicationIntegrationId"><strong>id:</strong>{existingIntegration?.id}</Typography>
                     <Typography id="details-sourceApplicationIntegrationId"><strong>{t('labels.sourceApplicationIntegrationId')}</strong>{existingIntegration?.sourceApplicationIntegrationId}</Typography>
                     <Typography id="details-sourceApplicationId"><strong>{t('labels.sourceApplicationId')} </strong>{existingIntegration?.sourceApplicationId}</Typography>
                     <Typography id="details-destination"><strong>{t('labels.destination')} </strong>{existingIntegration?.destination}</Typography>
-                    <Typography id="details-activeConfiguration"><strong>{t('labels.activeConfigurationId')} </strong>{activeVersion}</Typography>
+                    <Typography id="details-activeConfiguration"><strong>{t('labels.activeConfigurationId')} </strong>konfigurasjon {activeVersion}</Typography>
                 </CardContent>
                 <FormControl size='small' sx={{float: 'left', width: 300, m: 2}}>
                     <InputLabel id="version-select-input-label">{t('version')}</InputLabel>
@@ -185,7 +211,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                 aria-controls={open ? 'demo-positioned-menu' : undefined}
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
-                onClick={handleClick}
+                onClick={handleNewConfigClick}
                 endIcon={<ArrowRightIcon />}
             >
                 NY KONFIGURASJON
@@ -195,7 +221,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                 aria-labelledby="demo-positioned-button"
                 anchorEl={anchorEl}
                 open={open}
-                onClose={handleClose}
+                onClose={handleNewConfigClose}
                 anchorOrigin={{
                     vertical: 'top',
                     horizontal: 'right',
@@ -205,7 +231,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                     horizontal: 'left',
                 }}
             >
-                <MenuItem component={RouterLink} to='/integration/configuration/new-configuration' onClick={handleClose}>
+                <MenuItem component={RouterLink} to='/integration/configuration/new-configuration' onClick={handleNewConfigClose}>
                     <Button id="demo-positioned-button" onClick={(e) => {
                         let selectedForm = allMetadata.filter(md => md.sourceApplicationIntegrationId === existingIntegration?.sourceApplicationIntegrationId)
                         setSelectedMetadata(selectedForm.length > 0 ? selectedForm[0] : SOURCE_FORM_NO_VALUES[0])
@@ -222,7 +248,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                         aria-controls={openSub ? 'demo-positioned-menu' : undefined}
                         aria-haspopup="true"
                         aria-expanded={openSub ? 'true' : undefined}
-                        onClick={handleSubClick}
+                        onClick={handleNewConfigSubClick}
                         endIcon={<ArrowRightIcon />}
                     >
                         Basert på eksisterende versjon (kommer)
@@ -232,7 +258,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                         aria-labelledby="demo-positioned-button"
                         anchorEl={anchorSubEl}
                         open={openSub}
-                        onClose={handleSubClose}
+                        onClose={handleNewConfigSubClose}
                         anchorOrigin={{
                             vertical: 'top',
                             horizontal: 'right',
@@ -242,8 +268,8 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                             horizontal: 'left',
                         }}
                     >
-                        <MenuItem disabled={true} onClick={handleSubClose}>...</MenuItem>
-                        <MenuItem disabled={true} onClick={handleSubClose}>...</MenuItem>
+                        <MenuItem disabled={true} onClick={handleNewConfigSubClose}>...</MenuItem>
+                        <MenuItem disabled={true} onClick={handleNewConfigSubClose}>...</MenuItem>
                     </Menu>
                 </MenuItem>
             </Menu>
