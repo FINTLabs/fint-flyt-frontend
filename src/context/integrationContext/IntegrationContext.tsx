@@ -16,7 +16,7 @@ const IntegrationProvider: FC = ({ children }) => {
     const [existingIntegration, setExistingIntegration] = useState<IIntegration | undefined>(undefined);
     const [newIntegration, setNewIntegration] = useState<IIntegration | undefined>(undefined);
     const [newIntegrations, setNewIntegrations] = useState<IIntegration[] | undefined>(undefined);
-    const [configuration, setConfiguration] = useState<newIConfiguration>(contextDefaultValues.configuration);
+    const [configuration, setConfiguration] = useState<newIConfiguration | undefined>(contextDefaultValues.configuration);
     const [configurations, setConfigurations] = useState<newIConfiguration[] | undefined>(contextDefaultValues.configurations);
     const [destination, setDestination] = useState<string>('');
     const [selectedMetadata, setSelectedMetadata] = useState<IIntegrationMetadata>(contextDefaultValues.selectedMetadata);
@@ -34,6 +34,11 @@ const IntegrationProvider: FC = ({ children }) => {
     const resetIntegrations = () => {
         setNewIntegration(undefined);
         setExistingIntegration(undefined)
+    }
+
+    const resetConfiguration = () => {
+        setConfigurations(undefined)
+        setConfiguration(undefined)
     }
 
     const getNewIntegrations = () => {
@@ -63,8 +68,8 @@ const IntegrationProvider: FC = ({ children }) => {
             }).catch(e => console.log('error', e))
     }
 
-    const getConfigurations = (id: any) => {
-        ConfigurationRepository.getConfigurations(id.toString())
+    const getConfigurations = (id: any, excludeElements?: boolean) => {
+        ConfigurationRepository.getConfigurations(id.toString(), excludeElements)
             .then((response) => {
                 let configurations: newIConfiguration[] = response.data;
                     setConfigurations(configurations);
@@ -75,8 +80,8 @@ const IntegrationProvider: FC = ({ children }) => {
             })
     }
 
-    const getConfiguration = (id: any, includeElements?: boolean) => {
-        ConfigurationRepository.getConfiguration(id.toString(), includeElements)
+    const getConfiguration = async (id: any, excludeElements?: boolean) => {
+        ConfigurationRepository.getConfiguration(id.toString(), excludeElements)
             .then((response) => {
                 let configuration: newIConfiguration = response.data;
                 setConfiguration(configuration);

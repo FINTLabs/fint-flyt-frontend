@@ -106,10 +106,13 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     const [protectedCheck, setProtectedChecked] = React.useState(false);
     let history = useHistory();
     let activeIntegration = (editConfig || (!editConfig && existingIntegration)) ? existingIntegration : newIntegration;
-    let activeConfiguration = configuration.id && editConfig ? configuration : undefined;
+    let activeConfiguration = configuration?.id && editConfig ? configuration : undefined;
     const [activeConfigId, setActiveConfigId] = React.useState(activeConfiguration?.id);
     const [completed, setCompleted] = React.useState(!!activeConfiguration?.completed);
-    let activeFormData = activeConfiguration && editConfig ? newToFormData(configuration) : defaultConfigurationValues;
+    let activeFormData = activeConfiguration && editConfig && configuration? newToFormData(configuration) : defaultConfigurationValues;
+
+
+    console.log(configuration)
 
     const handleCheckChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setChecked(event.target.checked);
@@ -136,6 +139,8 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
             resetSourceAndDestination();
         };
     }, [])
+
+
 
     const accordionList: IAccordion[] = [
         {id: 'case-information', summary: "caseInformation.header", accordionForm: ACCORDION_FORM.CASE_INFORMATION, defaultExpanded: true},

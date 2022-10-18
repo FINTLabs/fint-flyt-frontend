@@ -10,12 +10,12 @@ export type IntegrationContextState = {
     newIntegrations: IIntegration[] | undefined;
     setNewIntegrations: (integrations: IIntegration[]) => void;
     getNewIntegrations: () => void;
-    configuration: newIConfiguration;
-    setConfiguration: (configuration: newIConfiguration) => void;
+    configuration: newIConfiguration | undefined;
+    setConfiguration: (configuration: newIConfiguration | undefined) => void;
     configurations: newIConfiguration[] | undefined;
     setConfigurations: (configurations: newIConfiguration[]) => void;
-    getConfiguration: (integration: string, includeElements: boolean) => void;
-    getConfigurations: (integration: string) => void;
+    getConfiguration: (integration: string, excludeElements: boolean) => void;
+    getConfigurations: (integration: string, excludeElements: boolean) => void;
     destination: string,
     selectedMetadata: IIntegrationMetadata;
     setSelectedMetadata: (form: IIntegrationMetadata) => void,
@@ -37,7 +37,7 @@ export const contextDefaultValues: IntegrationContextState = {
     newIntegrations: [],
     setNewIntegrations: () => {},
     getNewIntegrations: () => {},
-    configuration: {elements: []},
+    configuration: undefined,
     setConfiguration: () => {},
     configurations: undefined,
     getConfiguration: () => {},

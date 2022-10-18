@@ -17,24 +17,26 @@ import {useContext, useEffect, useState} from "react";
 import {gridLocaleNoNB} from "../../util/locale/gridLocaleNoNB";
 import {useTranslation} from "react-i18next";
 import {IntegrationContext} from "../../../context/integrationContext";
-import {Link, Link as RouterLink} from 'react-router-dom';
+import {Link as RouterLink, useHistory} from 'react-router-dom';
 import {ISelect} from "../../integration/types/InputField";
 import IntegrationRepository from "../../../shared/repositories/IntegrationRepository";
-import {configurationFieldToString} from "../../util/MappingUtil";
 import {ResourcesContext} from "../../../context/resourcesContext";
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import {SourceApplicationContext} from "../../../context/sourceApplicationContext";
 import {SOURCE_FORM_NO_VALUES} from "../../integration/defaults/DefaultValues";
 import {IntegrationState} from "../../integration/types/IntegrationState.enum";
+import ConfigurationRepository from "../../../shared/repositories/ConfigurationRepository";
+import {newIConfiguration} from "../../integration/types/Configuration";
 
 const IntegrationPanel: React.FunctionComponent<any> = (props) => {
     const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.integrationOverview'});
     const classes = props.classes;
-    const {existingIntegration, getConfiguration, setSelectedMetadata} = useContext(IntegrationContext)
+    let history = useHistory();
+    const {existingIntegration, getConfiguration, setConfiguration, setSelectedMetadata} = useContext(IntegrationContext)
     const { allMetadata, getAllMetadata, getInstanceElementMetadata} = useContext(SourceApplicationContext)
     const {setPrimaryClassification, setSecondaryClassification, setTertiaryClassification} = useContext(ResourcesContext);
     const [version, setVersion] = useState('null');
-    const [activeVersion, setActiveVersion] = useState(existingIntegration?.activeConfigurationId ? existingIntegration?.activeConfigurationId : 'Ingen');
+    const [activeVersion, setActiveVersion] = useState(existingIntegration?.activeConfigurationId ? 'konfigurasjon' + existingIntegration?.activeConfigurationId : 'Ingen');
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [anchorSubEl, setAnchorSubEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
@@ -81,27 +83,33 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
         }
     ];
 
+    async function handleEditShowButtonClick(id: string, excludeElements: boolean) {
+        let selectedForm = allMetadata.filter(md => md.sourceApplicationIntegrationId === existingIntegration?.sourceApplicationIntegrationId)
+        setSelectedMetadata(selectedForm.length > 0 ? selectedForm[0] : SOURCE_FORM_NO_VALUES[0])
+        getInstanceElementMetadata(selectedForm[0].id)
+        await ConfigurationRepository.getConfiguration(id.toString(), excludeElements)
+                .then((response) => {
+                   let configuration: newIConfiguration = response.data;
+                   setConfiguration(configuration);
+                })
+            .catch((e) => {
+                    console.error('Error: ', e)
+                    setConfiguration(undefined);
+            })
+        history.push("/integration/configuration/edit");
+    }
+
     function EditButtonToggle(props: GridCellParams["row"]) {
         const completed: boolean = props.row.completed
-        let cases = props.row.elements.filter((element: { key: string; }) => element.key === 'case')
         //TODO: fix dependent fields
         return (
             <>
-                <Link
-                    onClick={(e) => {
-                        console.log(props.row)
-                        let selectedForm = allMetadata.filter(md => md.sourceApplicationIntegrationId === existingIntegration?.sourceApplicationIntegrationId)
-                        setSelectedMetadata(selectedForm.length > 0 ? selectedForm[0] : SOURCE_FORM_NO_VALUES[0])
-                        getInstanceElementMetadata(selectedForm[0].id)
-                        setPrimaryClassification({label: '', value: configurationFieldToString(cases, 'primarordningsprinsipp')})
-                        setSecondaryClassification({label: '', value: configurationFieldToString(cases, 'sekundarordningsprinsipp')})
-                        setTertiaryClassification({label: '', value: configurationFieldToString(cases, 'tertiarordningsprinsipp')})
-                        getConfiguration(props.row.id, true)
-                    }
-                    }
-                    style={{background: '#1F4F59', padding: '4px 10px 4px 10px', borderRadius: '6px', textDecoration:'none', color:'white', position: 'absolute', border: 'solid 1px', fontFamily: 'sans-serif'}}
-                    to='/integration/configuration/edit'>{completed ? 'VIS' : 'REDIGER'}
-                </Link>
+                <Button
+                    size="small"
+                    variant="contained"
+                    onClick={(e) => {handleEditShowButtonClick(props.row.id, false)}}
+                    >{completed ? 'VIS' : 'REDIGER'}
+                </Button>
             </>
         );
     }
@@ -156,7 +164,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                     <Typography id="details-sourceApplicationIntegrationId"><strong>{t('labels.sourceApplicationIntegrationId')}</strong>{existingIntegration?.sourceApplicationIntegrationId}</Typography>
                     <Typography id="details-sourceApplicationId"><strong>{t('labels.sourceApplicationId')} </strong>{existingIntegration?.sourceApplicationId}</Typography>
                     <Typography id="details-destination"><strong>{t('labels.destination')} </strong>{existingIntegration?.destination}</Typography>
-                    <Typography id="details-activeConfiguration"><strong>{t('labels.activeConfigurationId')} </strong>konfigurasjon {activeVersion}</Typography>
+                    <Typography id="details-activeConfiguration"><strong>{t('labels.activeConfigurationId')} </strong>{activeVersion}</Typography>
                 </CardContent>
                 <FormControl size='small' sx={{float: 'left', width: 300, m: 2}}>
                     <InputLabel id="version-select-input-label">{t('version')}</InputLabel>

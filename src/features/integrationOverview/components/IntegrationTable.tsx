@@ -48,7 +48,7 @@ const IntegrationTable: React.FunctionComponent<any> = (props) => {
                                 setSourceApplication(params.row.sourceApplicationId)
                                 getAllMetadata();
                                 //TODO: remove when we can no longer use old forms, and use selected sourceApplication and sourceApplicationIntegrationId to get the right metadata
-                                props.getConfigurations(params.row.id)
+                                props.getConfigurations(params.row.id, true)
                                 setHistory();
                             }
                         }}

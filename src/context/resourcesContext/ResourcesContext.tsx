@@ -56,7 +56,7 @@ const ResourcesProvider: FC = ({ children }) => {
             })
     }
 
-    const getPrimaryClass = () => {
+    const getPrimaryClass = async () => {
         let list: IResourceItem[] = [];
         if(primaryClassification.value !== '') {
             ResourceRepository.getClasses(primaryClassification.value)
@@ -70,7 +70,7 @@ const ResourcesProvider: FC = ({ children }) => {
         }
     }
 
-    const getSecondaryClass = () => {
+    const getSecondaryClass = async () => {
         let list: IResourceItem[] = [];
         if(secondaryClassification.value !== '') {
             ResourceRepository.getClasses(secondaryClassification.value)
@@ -85,7 +85,7 @@ const ResourcesProvider: FC = ({ children }) => {
 
     }
 
-    const getTertiaryClass = () => {
+    const getTertiaryClass = async () => {
         let list: IResourceItem[] = [];
         if(tertiaryClassification.value !== '') {
             ResourceRepository.getClasses(tertiaryClassification.value)
