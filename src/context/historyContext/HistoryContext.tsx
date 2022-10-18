@@ -25,7 +25,11 @@ const HistoryProvider: FC = ({children}) => {
                     setEvents(data);
                 }
             })
-            .catch(e => console.error('Error: ', e))    }
+            .catch(e => {
+                console.error('Error: ', e)
+                setEvents([]);
+            })
+    }
 
     const getLatestInstances = () => {
         EventRepository.getLatestEvents()
@@ -36,7 +40,10 @@ const HistoryProvider: FC = ({children}) => {
                     setLatestInstances(data);
                 }
             })
-            .catch(e => console.error('Error: ', e))
+            .catch(e => {
+                console.error('Error: ', e)
+                setLatestInstances([]);
+            })
     }
     const getSelectedInstances = (sourceApplicationId: string, instanceId: string) => {
         EventRepository.getEventsByInstanceId(sourceApplicationId, instanceId)
@@ -48,7 +55,10 @@ const HistoryProvider: FC = ({children}) => {
                 }
                 setSelectedInstances(response.data)
             })
-            .catch(e=> {console.error(e)})
+            .catch(e => {
+                console.error('Error: ', e)
+                setSelectedInstances([]);
+            })
     }
 
     return (
