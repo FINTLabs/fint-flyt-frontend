@@ -2,7 +2,6 @@ import {FieldConfigurationType, IConfigurationPatch, newIConfiguration} from "..
 import { IFormConfiguration } from "../../integration/types/Form/FormData";
 
 export function toNewConfiguration(data: IFormConfiguration, integrationId: string, configurationId: any, metadataId: number): newIConfiguration {
-    console.log(data)
     return {
         integrationId: integrationId,
         id: configurationId,

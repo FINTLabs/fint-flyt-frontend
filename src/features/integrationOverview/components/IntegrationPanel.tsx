@@ -49,8 +49,6 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
     const [openDialog, setOpenDialog] = React.useState(false);
     const [configToActivate, setConfigToActivate] = React.useState<string>('')
 
-    console.log(existingIntegration)
-
     const handleClose = () => {
         setOpenDialog(false);
     };
@@ -118,7 +116,6 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
         IntegrationRepository.setActiveConfiguration(existingIntegration?.id, configurationId).then(
             (response) => {
                 setActiveVersion(response.data.activeConfigurationId)
-                console.log(response)
                 IntegrationRepository.setIntegrationState(existingIntegration?.id, IntegrationState.ACTIVE).then(response => {console.log('activated configuration')})
             }
         ).catch(e => console.error(e))

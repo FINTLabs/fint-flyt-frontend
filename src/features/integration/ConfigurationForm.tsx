@@ -111,9 +111,6 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     const [completed, setCompleted] = React.useState(!!activeConfiguration?.completed);
     let activeFormData = activeConfiguration && editConfig && configuration? newToFormData(configuration) : defaultConfigurationValues;
 
-
-    console.log(configuration)
-
     const handleCheckChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setChecked(event.target.checked);
         setActiveChecked(false);
