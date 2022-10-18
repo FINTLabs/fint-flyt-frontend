@@ -66,6 +66,7 @@ const IntegrationProvider: FC = ({ children }) => {
                         .catch((e) => {
                             console.error('Error: ', e)
                             setNewIntegrations([]);
+                            setStatistics([])
                         })
                 }
             }).catch(e => console.log('error', e))
