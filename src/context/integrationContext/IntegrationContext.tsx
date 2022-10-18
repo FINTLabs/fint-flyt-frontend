@@ -22,7 +22,7 @@ const IntegrationProvider: FC = ({ children }) => {
     const [selectedMetadata, setSelectedMetadata] = useState<IIntegrationMetadata>(contextDefaultValues.selectedMetadata);
     const [sourceApplicationIntegrationId, setSourceApplicationIntegrationId] = useState<string>('');
     const [sourceApplicationId, setSourceApplicationId] = useState<string>('');
-    const [statistics, setStatistics] = useState<any>(contextDefaultValues.statistics);
+    const [statistics, setStatistics] = useState<any[]>(contextDefaultValues.statistics);
 
     const resetSourceAndDestination = () => {
         setDestination('');

@@ -26,7 +26,7 @@ export type IntegrationContextState = {
     setSourceApplicationId: (destination: string) => void,
     resetSourceAndDestination: () => void;
     resetIntegrations: () => void;
-    statistics: any
+    statistics: any[]
 };
 
 export const contextDefaultValues: IntegrationContextState = {
