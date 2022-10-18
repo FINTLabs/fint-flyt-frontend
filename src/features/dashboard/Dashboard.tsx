@@ -36,7 +36,7 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const classes = useStyles();
     const {setNewIntegration, newIntegrations, getNewIntegrations, statistics, resetIntegrations} = useContext(IntegrationContext)
     let totalErrors = 0;
-    statistics.map((stat: any) => {totalErrors += stat.currentErrors})
+    statistics?.map((stat: any) => {totalErrors += stat.currentErrors})
 
     useEffect(()=> {
         getNewIntegrations();
