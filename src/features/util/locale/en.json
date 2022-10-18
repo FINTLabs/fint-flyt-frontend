@@ -103,18 +103,18 @@
                     "sourceApplicationIntegrationId": "Form",
                     "sourceApplicationId": "Source application",
                     "name": "Name",
-                    "description": "Description",
-                    "published": "Published",
+                    "comment": "Comment",
+                    "finished": "Finished",
                     "revision": "Revision"
                 }
             },
             "labels": {
-                "description": "Description: ",
+                "comment": "Comment",
                 "destination": "Destination: ",
                 "sourceApplicationId": "Source application: ",
                 "sourceApplicationIntegrationId": "Form: ",
                 "caseCreationStrategy": "Creation strategy: ",
-                "published": "Published: ",
+                "finished": "finished: ",
                 "version": "Version: ",
                 "caseNumber": "Case number: ",
                 "title": "Title: ",
@@ -177,7 +177,7 @@
         "errorMessage": "You must provide ",
         "requiredField": "Required field",
         "labels": {
-            "description": "Description",
+            "comment": "Comment",
             "destination": "Destination",
             "sourceApplicationId": "Source application",
             "sourceApplicationIntegrationId": "Form",
@@ -202,8 +202,6 @@
             "secondaryClassification": "Secondary classification",
             "tertiaryClassification": "Tertiary classification",
             "primaryClass": "Primary class",
-            "primaryClassOrg": "Primary class (organisation number)",
-            "primaryClassSsNbr": "Primary class (social security number or D-number)",
             "secondaryClass": "Secondary class",
             "tertiaryClass": "Tertiary class",
             "primaryTitle": "Primary title",
@@ -252,11 +250,11 @@
     },
     "models": {
         "integrationConfiguration": {
-            "description": "Description",
+            "comment": "Comment",
             "version": "Version",
             "sourceApplicationId": "Source application",
             "sourceApplicationIntegrationId": "Form",
-            "published": "Published",
+            "finished": "Finished",
             "caseConfiguration": {
                 "caseCreationStrategy": "",
                 "caseNumber": "",
@@ -328,7 +326,7 @@
                 "destination": "Destination"
             },
             "button": {
-                "next": "Next",
+                "confirm": "Confirm",
                 "cancel": "Cancel"
             }
         }
@@ -338,7 +336,7 @@
         "sourceApplicationId": "Source appliation, i.e. ACOS",
         "sourceApplicationIntegrationId": "Form",
         "destination": "Choose base to transfer form to",
-        "description": "",
+        "comment": "",
         "version": "",
         "selectedForm": ",",
         "caseData": {

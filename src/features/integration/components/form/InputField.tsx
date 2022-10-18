@@ -3,7 +3,7 @@ import {
     FormControl, FormControlLabel,
     FormLabel,
     MenuItem, Radio,
-    RadioGroup,
+    RadioGroup, TextareaAutosize,
     TextField, Typography
 } from '@mui/material';
 import React from 'react';
@@ -78,6 +78,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                     {props.radioOptions.map((option: any, index: number) => (
                         <div key={index} id={props.formValue + `-` + option.value}>
                             <FormControlLabel
+                                disabled={props.disabled}
                                 value={option.value}
                                 control={<Radio />}
                                 label={t(option.label) as string}
@@ -97,6 +98,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                 render={({ field: { onChange } }) => (
                     <Autocomplete
                         id={props.formValue}
+                        disabled={props.disabled}
                         sx={{ mb: 3 }}
                         filterOptions={filterOptions}
                         options={dropdowns}
@@ -131,6 +133,28 @@ const InputField: React.FunctionComponent<any> = (props) => {
                 setValue={props.setValue}
                 formValue={props.formValue}
                 required={props.required}
+                disabled={props.disabled}
+            />
+        )
+    }
+    else if (props.input === INPUT_TYPE.TEXT_AREA) {
+        return (
+            <Controller
+                control={props.control}
+                name={props.formValue}
+                defaultValue=""
+                render={({ field: { onChange, onBlur, value } }) => (
+                    <TextareaAutosize
+                        id={props.formValue}
+                        placeholder={props.required ? (t(props.label)) +'*' : t(props.label)}
+                        onChange={onChange}
+                        onBlur={onBlur}
+                        value={value}
+                        minRows={3}
+                        style={{fontFamily: 'sans-serif', fontSize: '16px', width: '600px'}}
+                    />
+                )}
+                rules={{ required: { value: props.required, message: errorMessage }} }
             />
         )
     }

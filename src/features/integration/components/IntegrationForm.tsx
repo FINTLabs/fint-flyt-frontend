@@ -7,6 +7,10 @@ import HelpPopover from "./popover/HelpPopover";
 import {useTranslation} from "react-i18next";
 import {SourceApplicationContext} from "../../../context/sourceApplicationContext";
 import {createStyles, makeStyles} from "@mui/styles";
+import {toIntegration} from "../../util/mapping/ToIntegration";
+import {IFormIntegration} from "../types/Form/FormData";
+import IntegrationRepository from '../../../shared/repositories/IntegrationRepository';
+import {IntegrationState} from "../types/Integration";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -15,21 +19,19 @@ const useStyles = makeStyles((theme: Theme) =>
         }
     }));
 
-export const FormSettings: React.FunctionComponent<any> = (props) => {
+export const IntegrationForm: React.FunctionComponent<any> = (props) => {
     const classes = useStyles();
     let history = useHistory();
     const {t} = useTranslation('translations', {keyPrefix: 'components.formSettings'});
     const {
-        destination,
-        sourceApplicationId,
-        sourceApplicationIntegrationId,
-        setDestination,
-        setSelectedForm,
-        setSourceApplicationId,
-        setSourceApplicationIntegrationId
+        setSelectedMetadata,
+        setNewIntegration
     } = useContext(IntegrationContext)
-    const {getAvailableForms, availableForms, metadata, getMetadata} = useContext(SourceApplicationContext)
+    const {getAvailableForms, sourceApplication, setSourceApplication, availableForms, allMetadata, getAllMetadata, getInstanceElementMetadata} = useContext(SourceApplicationContext)
     const [error, setError] = useState<string>('');
+    const [destination, setDestination] = useState<string>('');
+    const [sourceApplicationId, setSourceApplicationId] = useState<string>('');
+    const [sourceApplicationIntegrationId, setSourceApplicationIntegrationId] = useState<string>('');
     const cancel = () => {
         history.push({
             pathname: '/',
@@ -37,15 +39,31 @@ export const FormSettings: React.FunctionComponent<any> = (props) => {
     }
 
     useEffect(() => {
-        getAvailableForms();
-        getMetadata();
+        return () => {
+            setSourceApplication(null)
+        }
     }, [])
 
+
+    useEffect(() => {
+        getAllMetadata();
+        getAvailableForms();
+    }, [sourceApplication, setSourceApplication])
+
     const confirm = () => {
-        if (destination && sourceApplicationIntegrationId && sourceApplicationId) {
-            let selectedForm = metadata.filter(md => md.sourceApplicationIntegrationId === sourceApplicationIntegrationId)
-            setSelectedForm(selectedForm[0])
-            props.setSettings(true)
+        if (destination && sourceApplicationId && sourceApplicationIntegrationId) {
+            let selectedForm = allMetadata.filter((md:any) => md.sourceApplicationIntegrationId === sourceApplicationIntegrationId)
+            setSelectedMetadata(selectedForm[0])
+            getInstanceElementMetadata(selectedForm[0].id)
+            //TODO: change to new URLs
+       let formConfiguration: IFormIntegration = {destination: destination, sourceApplicationIntegrationId: sourceApplicationIntegrationId, sourceApplicationId: sourceApplicationId}
+            IntegrationRepository.createIntegration(toIntegration(formConfiguration, IntegrationState.DEACTIVATED))
+                .then((response) => {
+                    setSourceApplicationIntegrationId(response.data.sourceApplicationIntegrationId)
+                    setNewIntegration(response.data)
+                })
+                .catch(e => console.error(e))
+            console.log('create new integration', toIntegration(formConfiguration, IntegrationState.DEACTIVATED))
             setError('');
         } else {
             setError(t('error'))
@@ -65,7 +83,11 @@ export const FormSettings: React.FunctionComponent<any> = (props) => {
                             sx={{ mb: 3, width: 'inherit' }}
                             value={sourceApplicationId}
                             label={t('labels.sourceApplicationId')+'*'}
-                            onChange={event => setSourceApplicationId(event.target.value)}
+                            onChange={event => {
+                                setSourceApplication(Number(event.target.value))
+                                setSourceApplicationId(event.target.value)
+                                setSourceApplicationIntegrationId('')
+                            }}
                         >
                             {sourceApplications.map((item: any, index: number) => (
                                 <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
@@ -77,7 +99,7 @@ export const FormSettings: React.FunctionComponent<any> = (props) => {
                         <Autocomplete
                             sx={{ minWidth:'520px', mb: 3}}
                             id='sourceApplicationIntegrationId'
-                            options={availableForms.sourceApplicationForms ? availableForms.sourceApplicationForms : [{label: 'Velg skjemaleverandør først', value: 'null'}]}
+                            options={sourceApplication && availableForms.forms ? availableForms.forms : [{label: 'Velg skjemaleverandør først', value: 'null'}]}
                             renderInput={params => (
                                 <TextField {...params}
                                            size="small"
@@ -85,29 +107,14 @@ export const FormSettings: React.FunctionComponent<any> = (props) => {
                                            variant="outlined" />
                             )}
                             getOptionLabel={option => option.label}
-                            value={sourceApplicationIntegrationId? availableForms.sourceApplicationForms.find( ({value} : {value:any}) => value === sourceApplicationIntegrationId ): null}
+                            value={sourceApplicationIntegrationId? availableForms.forms.find( ({value} : {value:any}) => value === sourceApplicationIntegrationId ): null}
                             onChange={(_event, select) => {
                                 setSourceApplicationIntegrationId(select? select.value : '');
                             }}
                         />
                         <HelpPopover popoverContent={'sourceApplicationIntegrationId'}/>
                     </Box>
-                    {/*                    <Box sx={{width: '100%', display: 'flex'}}>
-                        <TextField
-                            id='sourceApplicationIntegrationId'
-                            select
-                            size="small"
-                            sx={{mb: 3, width: 'inherit'}}
-                            value={sourceApplicationIntegrationId}
-                            label={t('labels.sourceApplicationIntegrationId') + '*'}
-                            onChange={event => setSourceApplicationIntegrationId(event.target.value)}
-                        >
-                            {availableForms.sourceApplicationForms.map((item: any, index: number) => (
-                                <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
-                            ))}
-                        </TextField>
-                        <HelpPopover popoverContent={'sourceApplication'}/>
-                    </Box>*/}
+
                     <Box sx={{width: '100%', display: 'flex'}}>
                         <TextField
                             id='destination'
@@ -124,11 +131,11 @@ export const FormSettings: React.FunctionComponent<any> = (props) => {
                         </TextField>
                         <HelpPopover popoverContent={'destination'}/>
                     </Box>
-                    <Typography color={"error"}>{!sourceApplicationId || !destination? error : ''}</Typography>
+                    <Typography color={"error"}>{!sourceApplicationId || !sourceApplicationIntegrationId || !destination ? error : ''}</Typography>
                 </Box>
                 <Box sx={{mt: 2}}>
                     <Button id="form-settings-cancel-btn"  onClick={cancel} variant="contained">{t('button.cancel')}</Button>
-                    <Button id="form-settings-confirm-btn" sx={{float: 'right'}} onClick={confirm} variant="contained">{t('button.next')}</Button>
+                    <Button id="form-settings-confirm-btn" sx={{float: 'right'}} onClick={confirm} variant="contained">{t('button.confirm')}</Button>
                 </Box>
             </FormGroup>
         </>

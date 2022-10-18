@@ -1,71 +1,124 @@
 import React, { createContext, useState, FC } from "react";
 import {contextDefaultValues, IntegrationContextState} from "./types";
-import {IIntegrationConfiguration} from "../../features/integration/types/IntegrationConfiguration";
-import IntegrationRepository from "../../features/integration/repository/IntegrationRepository";
+import {IIntegration} from "../../features/integration/types/Integration";
+import {newIConfiguration} from "../../features/integration/types/Configuration";
 import EventRepository from "../../features/log/repository/EventRepository";
 import {IIntegrationStatistics} from "../../features/log/types/IntegrationStatistics";
 import {IIntegrationMetadata} from "../../features/integration/types/IntegrationMetadata";
+import ConfigurationRepository from "../../shared/repositories/ConfigurationRepository";
+import IntegrationRepository from "../../shared/repositories/IntegrationRepository";
 
 export const IntegrationContext = createContext<IntegrationContextState>(
     contextDefaultValues
 );
 
 const IntegrationProvider: FC = ({ children }) => {
-    const [integration, setIntegration] = useState<IIntegrationConfiguration>({});
-    const [integrations, setIntegrations] = useState<IIntegrationConfiguration[]>([]);
+    const [existingIntegration, setExistingIntegration] = useState<IIntegration | undefined>(undefined);
+    const [newIntegration, setNewIntegration] = useState<IIntegration | undefined>(undefined);
+    const [newIntegrations, setNewIntegrations] = useState<IIntegration[] | undefined>(undefined);
+    const [configuration, setConfiguration] = useState<newIConfiguration | undefined>(contextDefaultValues.configuration);
+    const [configurations, setConfigurations] = useState<newIConfiguration[] | undefined>(contextDefaultValues.configurations);
     const [destination, setDestination] = useState<string>('');
-    const [selectedForm, setSelectedForm] = useState<IIntegrationMetadata>(contextDefaultValues.selectedForm);
+    const [selectedMetadata, setSelectedMetadata] = useState<IIntegrationMetadata>(contextDefaultValues.selectedMetadata);
     const [sourceApplicationIntegrationId, setSourceApplicationIntegrationId] = useState<string>('');
     const [sourceApplicationId, setSourceApplicationId] = useState<string>('');
+    const [statistics, setStatistics] = useState<any>(contextDefaultValues.statistics);
 
     const resetSourceAndDestination = () => {
         setDestination('');
         setSourceApplicationId('');
         setSourceApplicationIntegrationId('');
-        setSelectedForm(contextDefaultValues.selectedForm)
+        setSelectedMetadata(contextDefaultValues.selectedMetadata)
     }
 
-    //TODO: fix after api change
-    const getIntegrations = () => {
+    const resetIntegrations = () => {
+        setNewIntegration(undefined);
+        setExistingIntegration(undefined)
+    }
+
+    const resetConfiguration = () => {
+        setConfigurations(undefined)
+        setConfiguration(undefined)
+    }
+
+    const getNewIntegrations = () => {
         EventRepository.getStatistics()
             .then((response) => {
-                let statistics = response.data;
-                IntegrationRepository.get()
+                setStatistics(response.data)
+                let stats = response.data;
+           IntegrationRepository.getIntegrations()
                     .then((response) => {
-                        if(response.data.content) {
-                            let mergedList: IIntegrationConfiguration[] = response.data.content;
-                            statistics.forEach((value: IIntegrationStatistics) => {
-                                mergedList.map((integration: IIntegrationConfiguration) => {
+                        if(response.data) {
+                            let mergedList: IIntegration[] = response.data;
+                            stats.forEach((value: IIntegrationStatistics) => {
+                                mergedList.map((integration: IIntegration) => {
                                     if (integration.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {
                                         integration.errors = value.currentErrors;
                                         integration.dispatched = value.dispatchedInstances;
                                     }
                                 })
                             })
-                            setIntegrations(mergedList);
+                            setNewIntegrations(mergedList);
                         }
                     })
-                    .catch(e => console.error('Error: ', e))
+                    .catch((e) => {
+                        console.error('Error: ', e)
+                        setNewIntegrations([]);
+                    })
             }).catch(e => console.log('error', e))
+    }
+
+    const getConfigurations = (id: any, excludeElements?: boolean) => {
+        ConfigurationRepository.getConfigurations(id.toString(), excludeElements)
+            .then((response) => {
+                let configurations: newIConfiguration[] = response.data;
+                    setConfigurations(configurations);
+                })
+            .catch((e) => {
+                console.error('Error: ', e)
+                setConfigurations([]);
+            })
+    }
+
+    const getConfiguration = async (id: any, excludeElements?: boolean) => {
+        ConfigurationRepository.getConfiguration(id.toString(), excludeElements)
+            .then((response) => {
+                let configuration: newIConfiguration = response.data;
+                setConfiguration(configuration);
+            })
+            .catch((e) => {
+                console.error('Error: ', e)
+                setConfiguration(contextDefaultValues.configuration);
+            })
     }
 
     return (
         <IntegrationContext.Provider
             value={{
-                integration,
-                setIntegration,
-                integrations,
-                setIntegrations,
-                getIntegrations,
+                statistics,
+                newIntegration,
+                setNewIntegration,
+                existingIntegration,
+                setExistingIntegration,
+                newIntegrations,
+                setNewIntegrations,
+                getNewIntegrations,
+                configuration,
+                setConfiguration,
+                getConfiguration,
+                configurations,
+                getConfigurations,
+                setConfigurations,
                 destination,
                 setDestination,
-                selectedForm,
-                setSelectedForm,
+                selectedMetadata,
+                setSelectedMetadata,
                 sourceApplicationId,
                 sourceApplicationIntegrationId,
                 setSourceApplicationIntegrationId,
                 setSourceApplicationId,
-                resetSourceAndDestination
+                resetSourceAndDestination,
+                resetIntegrations
             }}
         >
             {children}

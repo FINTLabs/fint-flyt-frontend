@@ -1,7 +1,7 @@
 {"content":[
   {"documentId":"6241690743156a3e374251bb",
     "documentCreatedDate":null,
-    "description":"szerg",
+    "comment":"szerg",
     "sourceApplicationId":"acos",
     "sourceApplicationIntegrationId":"VIK014",
     "orgId":null,
@@ -214,6 +214,6 @@
       }, {
         "valueBuildStrategy":"FIXED_ARCHIVE_CODE_VALUE","field":"skjermingshjemmel","valueBuilder":{"value":"","properties":[]}}]
     },
-    "published":true
+    "finished":true
   }
 ],"pageable":{"sort":{"empty":true,"sorted":false,"unsorted":true},"offset":0,"pageNumber":0,"pageSize":50,"paged":true,"unpaged":false},"last":true,"totalPages":1,"totalElements":1,"first":true,"size":50,"number":0,"sort":{"empty":true,"sorted":false,"unsorted":true},"numberOfElements":1,"empty":false}

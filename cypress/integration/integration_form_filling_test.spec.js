@@ -28,7 +28,7 @@ describe('Testing filling Integration Form', () => {
     })
 
     it('should fill case information form', () => {
-        cy.get("#description").type("test description")
+        cy.get("#comment").type("test comment")
     })
 })
 describe('Testing filling Case Form', () => {

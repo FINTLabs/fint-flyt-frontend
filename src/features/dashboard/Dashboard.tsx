@@ -1,10 +1,9 @@
 import {Box, Card, CardContent, Theme} from '@mui/material';
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect} from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import {createStyles, makeStyles} from "@mui/styles";
 import {IntegrationContext} from "../../context/integrationContext";
-import IntegrationConfigurationTable from "../integrationOverview/components/IntegrationConfigurationTable";
-import IntegrationConfigurationDetails from "../integrationOverview/components/IntegrationConfigurationDetails";
+import IntegrationTable from "../integrationOverview/components/IntegrationTable";
 import DashboardCard from "./DashboardCard";
 import {ICard} from "./types/Card";
 import {useTranslation} from "react-i18next";
@@ -35,26 +34,21 @@ const useStyles = makeStyles((theme: Theme) =>
 const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.dashboard'});
     const classes = useStyles();
-    const showDetails: boolean = window.location.pathname === '/integration/configuration/details'
-    const {integration, setIntegration, integrations, getIntegrations} = useContext(IntegrationContext)
-    const [initialVersion, setInitialVersion] = useState(integration.version);
+    const {setNewIntegration, newIntegrations, getNewIntegrations, statistics, resetIntegrations} = useContext(IntegrationContext)
+    let totalErrors = 0;
+    statistics.map((stat: any) => {totalErrors += stat.currentErrors})
 
     useEffect(()=> {
-        getIntegrations();
+        getNewIntegrations();
+        resetIntegrations();
     }, [])
 
-
-    const resetConfiguration = () => {
-        setIntegration({})
-        getIntegrations();
-    }
-
     const cards: ICard[] = [
-        { value: integrations.length === 0 ? t('empty') : integrations.length, content: t('form'), links: [
+        { value: newIntegrations === undefined ? t('empty') : newIntegrations.length, content: t('form'), links: [
                 {name: t('links.newIntegration'), href: '/integration/configuration/new'}
             ]
         },
-        { value: t('empty'), content: t('errors'), links: [
+        { value: totalErrors.toString(), content: t('errors'), links: [
                 {name: t('links.log'), href: '/log'}
             ]
         }
@@ -77,19 +71,12 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
             </Box>
             <Card className={classes.card} sx={{mt: 4}}>
                 <CardContent>
-                    {integration.sourceApplicationIntegrationId && showDetails ?
-                        <IntegrationConfigurationDetails
-                            reset={resetConfiguration}
-                            initialConfiguration={integration}
-                            initialVersion={initialVersion}
-                        /> :
-                        <IntegrationConfigurationTable
+                        <IntegrationTable
                             classes={classes}
-                            loading={integrations.length === 0}
-                            configurations={integrations}
-                            setIntegration={setIntegration}
-                            setInitialVersion={setInitialVersion}
-                        />}
+                            loading={newIntegrations === undefined}
+                            integrations={newIntegrations}
+                            setIntegration={setNewIntegration}
+                        />
                 </CardContent>
             </Card>
         </Box>

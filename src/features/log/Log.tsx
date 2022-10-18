@@ -2,10 +2,9 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import {withRouter} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {IEvent} from "./types/Event";
-import EventRepository from "./repository/EventRepository";
-import {addId} from "../util/JsonUtil";
+
 import {
     Button,
     Dialog,
@@ -21,14 +20,16 @@ import {gridLocaleNoNB} from "../util/locale/gridLocaleNoNB";
 import { useTranslation } from 'react-i18next';
 import {stringReplace} from "../util/StringUtil";
 import {ErrorType} from "./types/ErrorType";
+import {HistoryContext} from "../../context/historyContext";
 
 function Log() {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.log'})
-    const [allEvents, setAllEvents] = useState<IEvent[]>([]);
     const [selectedRow, setSelectedRow] = useState<IEvent>();
     const [open, setOpen] = React.useState(false);
     const handleClickOpen = () => {setOpen(true);};
     const handleClose = () => {setOpen(false);};
+    const {events, getEvents} = useContext(HistoryContext)
+
 
     const columns: GridColumns = [
         { field: 'id', hide: true, type: 'string', headerName: 'id', flex: 0.5 },
@@ -44,23 +45,8 @@ function Log() {
 
 
     useEffect(()=> {
-        getAllEvents();
+        getEvents();
     }, []);
-
-    const getAllEvents = () => {
-        EventRepository.getEvents()
-            .then((response) => {
-                let data = response.data;
-                if (data) {
-                    data.forEach(addId(0, 'name'))
-                    data.forEach((event: any) =>
-                        event.errors.forEach(addId(0, 'errorCode'))
-                    );
-                    setAllEvents(data);
-                }
-            })
-            .catch(e => console.error('Error: ', e))
-    }
 
     return (
         <Box sx={{ width: 1, height: 900 }}>
@@ -69,9 +55,10 @@ function Log() {
             <AlertDialog row={selectedRow}/>
             <DataGrid
                 columns={columns}
+                loading={events == undefined}
                 density='compact'
                 localeText={gridLocaleNoNB}
-                rows={allEvents}
+                rows={events? events : []}
                 components={{
                     Toolbar: GridToolbar,
                 }}

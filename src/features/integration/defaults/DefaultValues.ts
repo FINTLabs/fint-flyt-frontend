@@ -2,17 +2,15 @@
 
 import {ISelect} from "../types/InputField";
 import {CreationStrategy} from "../types/CreationStrategy";
-import IFormData from "../types/Form/FormData";
+import {IFormConfiguration} from "../types/Form/FormData";
 import {ApplicantType} from "../types/ApplicantType";
-import {IIntegrationMetadata} from "../types/IntegrationMetadata";
+import {IIntegrationMetadata, Type} from "../types/IntegrationMetadata";
+import {IIntegration} from "../types/Integration";
+import {FieldConfigurationType, newIConfiguration} from "../types/Configuration";
 
-export const defaultValues: IFormData = {
-    description: '',
-    version: '',
-    sourceApplicationId: '',
-    sourceApplicationIntegrationId: '',
-    destination: '',
-    published: false,
+export const defaultConfigurationValues: IFormConfiguration = {
+    comment: '',
+    completed: false,
     caseData: {
         caseCreationStrategy: CreationStrategy.NEW,
         caseNumber: '',
@@ -30,8 +28,6 @@ export const defaultValues: IFormData = {
         secondaryClassification: '',
         tertiaryClassification: '',
         primaryClass: '',
-        primaryClassSsNbr: '',
-        primaryClassOrg: '',
         secondaryClass: '',
         tertiaryClass: '',
         primaryTitle: '',
@@ -123,7 +119,8 @@ export const forms: ISelect[] = [
 ];
 
 export const sourceApplications: ISelect[] = [
-    { label: "ACOS", value: "acos" }
+    { label: "ACOS", value: "1" },
+    { label: "eGrunnerverv", value: "2" }
 ];
 
 export const destinations: ISelect[] = [
@@ -142,8 +139,206 @@ export const SOURCE_FORM_NO_VALUES: IIntegrationMetadata[] = [
     }
 ]
 
+export const MOCK_SOURCE_FORM: IIntegrationMetadata[] =
+    [
+        {
+            "sourceApplicationId":"1",
+            "sourceApplicationIntegrationId":"PROD0195",
+            "sourceApplicationIntegrationUri":"",
+            "integrationDisplayName":"Oversett lister med datakilder",
+            instanceElementMetadata:[
+                {
+                    "key":null,
+                    "type": Type.STRING,
+                    "displayName":"Første kolonne",
+                    "children":[
+                        {
+                            "key":null,
+                            "type": Type.STRING,
+                            "displayName":"Arkivsystem",
+                            "children":[
+                                {
+                                    "key":"Nedtrekk",
+                                    "type": Type.STRING,
+                                    "displayName":"Nedtrekk",
+                                    "children":[]
+                                },
+                                {
+                                    "key":"Radioknapp",
+                                    "type": Type.STRING,
+                                    "displayName":"Radioknapp",
+                                    "children":[]
+                                },
+                                {
+                                    "key":"Sjekkbokser",
+                                    "type": Type.STRING,
+                                    "displayName":"Sjekkbokser",
+                                    "children":[]
+                                }
+                            ]
+                        },
+                        {
+                            "key":null,
+                            "type": Type.STRING,
+                            "displayName":"Stedsnavn",
+                            "children":[
+                                {
+                                    "key":"Nedtrekk2",
+                                    "type": Type.STRING,
+                                    "displayName":"Nedtrekk",
+                                    "children":[]
+                                },
+                                {
+                                    "key":"Radioknappliste",
+                                    "type": Type.STRING,
+                                    "displayName":"Radioknappliste",
+                                    "children":[]
+                                },
+                                {
+                                    "key":"Sjekkbokser2",
+                                    "type": Type.STRING,
+                                    "displayName":"Sjekkbokser",
+                                    "children":[]
+                                }
+                            ]
+                        },
+                        {
+                            "key":null,
+                            "type": Type.STRING,
+                            "displayName":"Med grab - sted",
+                            "children":[
+                                {
+                                    "key":"Nedtrekk5",
+                                    "type": Type.STRING,
+                                    "displayName":"Nedtrekk",
+                                    "children":[]
+                                }
+                            ]
+                        },
+                        {
+                            "key":null,
+                            "type": Type.STRING,
+                            "displayName":"Gruppe",
+                            "children":[
+                                {
+                                    "key":"Nedtrekk6",
+                                    "type": Type.STRING,
+                                    "displayName":"Nedtrekk",
+                                    "children":[]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "key":null,
+                    "type": Type.STRING,
+                    "displayName":"Ny første kolonne",
+                    "children":[
+                        {
+                            "key":null,
+                            "type": Type.STRING,
+                            "displayName":"Gruppe",
+                            "children":[
+                                {
+                                    "key":"Nedtrekk3",
+                                    "type": Type.STRING,
+                                    "displayName":"Nedtrekk",
+                                    "children":[]
+                                },
+                                {
+                                    "key":"Radioknappliste2",
+                                    "type": Type.STRING,
+                                    "displayName":"Radioknappliste",
+                                    "children":[]
+                                },
+                                {
+                                    "key":"Sjekkbokser3",
+                                    "type": Type.STRING,
+                                    "displayName":"Sjekkbokser",
+                                    "children":[]
+                                }
+                            ]
+                        },
+                        {
+                            "key":null,
+                            "type": Type.STRING,
+                            "displayName":"Med Grab",
+                            "children":[
+                                {
+                                    "key":"Nedtrekk4",
+                                    "type": Type.STRING,
+                                    "displayName":"Nedtrekk",
+                                    "children":[]
+                                },
+                                {
+                                    "key":"Radioknappliste3",
+                                    "type": Type.STRING,
+                                    "displayName":"Radioknappliste",
+                                    "children":[]
+                                },
+                                {
+                                    "key":"Sjekkboks2",
+                                    "type": Type.STRING,
+                                    "displayName":"Sjekkboks",
+                                    "children":[]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "key":null,
+                    "type": Type.STRING,
+                    "displayName":"Andre kolonne",
+                    "children":[
+                        {
+                            "key":null,
+                            "type": Type.STRING,
+                            "displayName":"Gruppe",
+                            "children":[
+                                {
+                                    "key":"Nedtrekk7",
+                                    "type": Type.STRING,
+                                    "displayName":"Nedtrekk",
+                                    "children":[]
+                                },
+                                {
+                                    "key":"Radioknappliste4",
+                                    "type": Type.STRING,
+                                    "displayName":"Radioknappliste",
+                                    "children":[]
+                                },
+                                {
+                                    "key":"Sjekkbokser4",
+                                    "type": Type.STRING,
+                                    "displayName":"Sjekkbokser",
+                                    "children":[]
+                                }
+                            ]
+                        },
+                        {
+                            "key":null,
+                            "type": Type.STRING,
+                            "displayName":"Gruppe",
+                            "children":[
+                                {
+                                    "key":"Nedtrekk8",
+                                    "type": Type.STRING,
+                                    "displayName":"Nedtrekk",
+                                    "children":[]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "version":1
+        }
+    ]
+
 export const fieldHelp = {
-    description: 'besrkrivelse',
+    comment: 'Kommentar',
     version: '',
     sourceApplicationId: 'Skjemaleverandør, f.eks ACOS',
     sourceApplicationIntegrationId: 'Skjema, f.eks VIK103',
@@ -215,3 +410,263 @@ export const fieldHelp = {
     }
 }
 
+export const MOCK_INTEGRATIONS: IIntegration[] = [
+    {
+        id: '488',
+        destination: 'fylkesråd',
+        sourceApplicationId: 'ACOS',
+        sourceApplicationIntegrationId: 'TEST0488'
+    },
+    {
+        id: '234',
+        destination: 'fylkesråd',
+        sourceApplicationId: 'ACOS',
+        sourceApplicationIntegrationId: 'TEST234'
+    },
+    {
+        id: '345',
+        destination: 'fylkesråd',
+        sourceApplicationId: 'ACOS',
+        sourceApplicationIntegrationId: 'TEST345'
+    },
+    {
+        id: '999',
+        destination: 'fylkesråd',
+        sourceApplicationId: 'ACOS',
+        sourceApplicationIntegrationId: 'TEST999',
+        activeConfigurationId: 'id2'
+    },
+    {
+        id: '567',
+        destination: 'fylkesråd',
+        sourceApplicationId: 'ACOS',
+        sourceApplicationIntegrationId: 'TEST567'
+    },
+    {
+        id: '678',
+        destination: 'fylkesråd',
+        sourceApplicationId: 'ACOS',
+        sourceApplicationIntegrationId: 'TEST678'
+    },
+]
+
+export const MOCK_NEWCONFIGURATIONS: newIConfiguration[] = [
+    /*    {
+            integrationId: '678',
+            version: 1,
+            completed: false,
+            caseConfiguration: {caseCreationStrategy: CreationStrategy.NEW, fields: []}
+        },
+        {
+            integrationId: '456',
+            version: 1,
+            completed: false,
+            caseConfiguration: {caseCreationStrategy: CreationStrategy.COLLECTION, caseNumber: '2022/123'}
+        },*/
+    {
+        id: 'id00',
+        integrationId: '999',
+        version: null,
+        comment: 'Opprette konfigurasjon',
+        completed: false,
+        elements: []
+    },
+    {
+        id: 'id0',
+        integrationId: '999',
+        version: null,
+        comment: 'Første versjon - avventer endringer',
+        completed: false,
+        elements: []
+    },
+    {
+        id: 'id1',
+        integrationId: '999',
+        version: null,
+        completed: false,
+        comment: 'Opprettet ny pga x, y, z',
+        elements: [
+            {
+                key: 'case',
+                fieldConfigurations: [
+                    {
+                        key: 'creationStrategy',
+                        type: FieldConfigurationType.STRING,
+                        value: CreationStrategy.NEW,
+                    },
+                    {
+                        key: 'tittel',
+                        type: FieldConfigurationType.DYNAMIC_STRING,
+                        value: "$if{foo} $if{bar} $if{bubu}",
+                    },
+                ]
+            }
+        ]
+    },
+    {
+        id: 'id2',
+        integrationId: '999',
+        version: 1,
+        completed: true,
+        comment: 'Ferdigstilt ',
+        elements: [
+            {
+                key: 'case',
+                fieldConfigurations: [
+                    {
+                        key: 'tittel',
+                        type: FieldConfigurationType.DYNAMIC_STRING,
+                        value: "$if{foo} $if{bar} $if{bubu}",
+                    },
+                    {
+                        key: 'offentligTittel',
+                        type: FieldConfigurationType.DYNAMIC_STRING,
+                        value: "$if{foo} test",
+                    },
+                    {
+                        key: "administrativenhet",
+                        type: FieldConfigurationType.STRING,
+                        value: "https://beta.felleskomponent.no/arkiv/noark/administrativenhet/systemid/193",
+                    },
+                    {
+                        key: "journalenhet",
+                        type: FieldConfigurationType.STRING,
+                        value: "https://beta.felleskomponent.no/arkiv/noark/administrativenhet/systemid/241",
+                    },
+                    {
+                        key: "status",
+                        type: FieldConfigurationType.STRING,
+                        value: "https://beta.felleskomponent.no/arkiv/kodeverk/saksstatus/systemid/F",
+                    },
+                    {
+                        key: "primarordningsprinsipp",
+                        type: FieldConfigurationType.STRING,
+                        value: "https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/EMNE",
+                    },
+                    {
+                        key: "arkivdel",
+                        type: FieldConfigurationType.STRING,
+                        value: "https://beta.felleskomponent.no/arkiv/noark/arkivdel/systemid/OESMU"
+                    },
+                ]
+            }
+        ]
+    },
+    {
+        id: 'id3',
+        integrationId: '999',
+        version: 2,
+        completed: true,
+        comment: 'Ferdigstilt versjon 2',
+        elements: [
+            {
+                key: 'case',
+                fieldConfigurations: [
+                    {
+                        key: 'tittel',
+                        type: FieldConfigurationType.DYNAMIC_STRING,
+                        value: "$if{foo} $if{bar} $if{bubu}",
+                    },
+                    {
+                        key: 'offentligTittel',
+                        type: FieldConfigurationType.DYNAMIC_STRING,
+                        value: "$if{foo} test",
+                    },
+                    {
+                        key: "administrativenhet",
+                        type: FieldConfigurationType.STRING,
+                        value: "https://beta.felleskomponent.no/arkiv/noark/administrativenhet/systemid/193",
+                    },
+                    {
+                        key: "journalenhet",
+                        type: FieldConfigurationType.STRING,
+                        value: "https://beta.felleskomponent.no/arkiv/noark/administrativenhet/systemid/241",
+                    },
+                    {
+                        key: "status",
+                        type: FieldConfigurationType.STRING,
+                        value: "https://beta.felleskomponent.no/arkiv/kodeverk/saksstatus/systemid/F",
+                    },
+                    {
+                        key: "primarordningsprinsipp",
+                        type: FieldConfigurationType.STRING,
+                        value: "https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/EMNE",
+                    },
+                    {
+                        key: "arkivdel",
+                        type: FieldConfigurationType.STRING,
+                        value: "https://beta.felleskomponent.no/arkiv/noark/arkivdel/systemid/OESMU"
+                    },
+                ]
+            }
+        ]
+    }
+]
+
+export const EXAMPLE_FORM: IFormConfiguration = {
+    "applicantData": {
+        "type": ApplicantType.PERSON,
+        "protected": false,
+        "organisationNumber": '',
+        "nationalIdentityNumber": '',
+        "name": '',
+        "address": '',
+        "postalCode": '',
+        "city": '',
+        "contactPerson": '',
+        "phoneNumber": '',
+        "email": '',
+        "accessCode": '',
+        "paragraph": ''
+    },
+    "caseData": {
+        "accessCode": '',
+        "administrativeUnit": '',
+        "archiveUnit": '',
+        "caseCreationStrategy": CreationStrategy.NEW,
+        "caseType": '',
+        "caseWorker": '',
+        "paragraph": '',
+        "primaryClass": '',
+        "primaryClassification": '',
+        "primaryTitle": '',
+        "publicTitle": "{foo} {bar} {bubu}",
+        "recordUnit": "https://beta.felleskomponent.no/arkiv/noark/administrativenhet/systemid/191",
+        "secondaryClass": '',
+        "secondaryClassification": '',
+        "secondaryTitle": '',
+        "status": '',
+        "tertiaryClass": '',
+        "tertiaryClassification": '',
+        "tertiaryTitle": '',
+        "title": "{foo} {bar} {bubu}"
+    },
+    "comment": "Ferdigstilt ",
+    "completed": true,
+    "documentData": {
+        "title": '',
+        "documentCategory": '',
+        "documentStatus": '',
+        "accessCode": '',
+        "paragraph": '',
+        "variant": '',
+    },
+    "integrationId": 'TEST999',
+    "recordData": {
+        "accessCode": '',
+        "administrativeUnit": '',
+        "caseWorker": '',
+        "documentType": '',
+        "paragraph": '',
+        "publicTitle": '',
+        "recordStatus": '',
+        "recordType": '',
+        "title": "{foo} bar"
+    }
+}
+
+export function getSourceApplicationDisplayName(id: number): string {
+    if (id === 1) return 'ACOS';
+    if (id === 2) return 'eGrunnerverv';
+    else return "ukjent";
+}

@@ -6,25 +6,30 @@ import * as React from "react";
 import { useHistory } from "react-router-dom";
 import { gridLocaleNoNB } from "../../util/locale/gridLocaleNoNB";
 import {useTranslation} from "react-i18next";
+import {useContext} from "react";
+import {SourceApplicationContext} from "../../../context/sourceApplicationContext";
+import {getSourceApplicationDisplayName} from "../../integration/defaults/DefaultValues";
 
-const IntegrationConfigurationTable: React.FunctionComponent<any> = (props) => {
+const IntegrationTable: React.FunctionComponent<any> = (props) => {
     const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.integrationOverview'});
     const classes = props.classes;
     let history = useHistory();
+    const { setSourceApplication, getAllMetadata } = useContext(SourceApplicationContext)
 
     const columns: GridColDef[] = [
-        { field: 'sourceApplicationId', type: 'string', headerName: t('table.columns.sourceApplicationId'), flex: 1 },
+        { field: 'sourceApplicationId', type: 'string', headerName: t('table.columns.sourceApplicationId'), flex: 1,
+            valueGetter: (params) => (getSourceApplicationDisplayName(params.row.sourceApplicationId))
+        },
         { field: 'sourceApplicationIntegrationId', type: 'string', headerName: t('table.columns.sourceApplicationIntegrationId'), flex: 1 },
-        { field: 'description', type: 'string', headerName: t('table.columns.description'), flex: 2 },
-        { field: 'published', type: 'boolean', headerName: t('table.columns.published'), flex: 1 },
-        { field: 'version', type: 'string', headerName: t('table.columns.revision'), flex: 1 },
+        { field: 'destination', type: 'string', headerName:  t('table.columns.destination'), flex: 1 },
+        { field: 'state', type: 'string', headerName:  t('table.columns.state'), flex: 1 },
         { field: 'dispatched', type: 'number', headerName: t('table.columns.dispatched'), flex: 1 },
         { field: 'errors', type: 'number', headerName: t('table.columns.errors'), flex: 1 }
     ];
 
     const setHistory = () => {
         history.push({
-            pathname: '/integration/configuration/details',
+            pathname: '/integration',
         })
     }
 
@@ -39,13 +44,16 @@ const IntegrationConfigurationTable: React.FunctionComponent<any> = (props) => {
                         onCellDoubleClick={(params, event) => {
                             if (!event.ctrlKey) {
                                 event.defaultMuiPrevented = true;
-                                props.setIntegration(params.row)
-                                props.setInitialVersion(params.row.version)
+                                props.setExistingIntegration(params.row)
+                                setSourceApplication(params.row.sourceApplicationId)
+                                getAllMetadata();
+                                //TODO: remove when we can no longer use old forms, and use selected sourceApplication and sourceApplicationIntegrationId to get the right metadata
+                                props.getConfigurations(params.row.id, true)
                                 setHistory();
                             }
                         }}
                         density='compact'
-                        rows={props.configurations}
+                        rows={props.integrations? props.integrations : []}
                         columns={columns}
                         pageSize={20}
                         rowsPerPageOptions={[20]}
@@ -71,4 +79,4 @@ const IntegrationConfigurationTable: React.FunctionComponent<any> = (props) => {
     );
 }
 
-export default IntegrationConfigurationTable;
+export default IntegrationTable;

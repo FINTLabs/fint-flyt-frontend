@@ -7,12 +7,12 @@
     },
     "menuItems": {
         "dashboard": "Dashbord",
-        "newIntegration": "Ny integrasjon",
-        "editIntegration": "Rediger integrasjon",
+        "newIntegration": "Ny",
+        "editIntegration": "Rediger",
         "integrationOverview": "Integrasjonsoversikt",
-        "instanceOverview": "Instansoversikt (wip)",
+        "instanceOverview": "Instansoversikt",
         "integrationDetails": "Detaljer",
-        "log": "Logg (wip)",
+        "log": "Logg",
         "support": "Support"
     },
     "pages": {
@@ -28,11 +28,11 @@
             }
         },
         "integrationForm": {
-            "header": "Integrasjon til arkiv",
-            "successHeader": "Integrasjon til arkiv - ferdig",
+            "header": "Konfigurasjon",
+            "successHeader": "Konfigurasjon - ferdigstilt",
             "accordions": {
                 "caseInformation": {
-                    "header": "Integrasjonslogikk",
+                    "header": "Integrasjon",
                     "button": {
                         "search": "Søk",
                         "save": "Lagre"
@@ -73,7 +73,7 @@
                     }
                 }
             },
-            "checkLabel": "Publisert",
+            "checkLabel": "Ferdigstilt",
             "button": {
                 "save": "Lagre",
                 "cancel": "Avbryt",
@@ -90,7 +90,7 @@
             "header": "Integrasjonsoversikt",
             "details": "Konfigurasjonsdetaljer",
             "testString": "Mangler felt ‘%s’ i instans, som kreves for å sette felt ‘%s’ i sak",
-            "revision": "Revisjon",
+            "version": "Versjon",
             "case": "Sakspost",
             "record": "Journalpost",
             "document": "Dokument- og objektbeskrivelse",
@@ -103,23 +103,26 @@
             },
             "table": {
                 "columns": {
+                    "destination": "Destinasjon/base",
                     "sourceApplicationIntegrationId": "Skjema",
                     "sourceApplicationId": "Skjemaleverandør",
                     "name": "Navn",
-                    "description": "Beskrivelse",
-                    "published": "Publisert",
-                    "revision": "Revisjon",
+                    "state": "Tilstand",
+                    "comment": "Kommentar",
+                    "finished": "Ferdigstilt",
+                    "version": "Version",
                     "dispatched": "Sendt til arkiv",
                     "errors": "Feilmeldinger"
                 }
             },
             "labels": {
-                "description": "Beskrivelse: ",
+                "comment": "Kommentar: ",
+                "activeConfigurationId": "Aktiv konfigurasjon: ",
                 "destination": "Destinasjon: ",
                 "sourceApplicationId": "Skjemaleverandør: ",
                 "sourceApplicationIntegrationId": "Skjema: ",
                 "caseCreationStrategy": "Avleveringslogikk: ",
-                "published": "Publisert: ",
+                "finished": "Ferdigstilt: ",
                 "version": "Versjon: ",
                 "caseNumber": "Saksnummer: ",
                 "caseType": "Sakstype: ",
@@ -184,22 +187,23 @@
             },
             "table": {
                 "columns": {
+                    "destination": "Destinasjon/base",
                     "sourceApplicationIntegrationId": "Skjema",
                     "sourceApplicationId": "Skjemaleverandør",
                     "name": "Navn",
-                    "description": "Beskrivelse",
-                    "published": "Publisert",
-                    "revision": "Revisjon"
+                    "comment": "Kommentar",
+                    "finished": "Ferdigstilt",
+                    "version": "Versjon"
                 }
             },
             "labels": {
                 "name": "Navn: ",
-                "description": "Beskrivelse: ",
+                "comment": "Kommentar",
                 "destination": "Destinasjon: ",
                 "sourceApplicationId": "Skjemaleverandør: ",
                 "sourceApplicationIntegrationId": "Skjema: ",
                 "caseCreationStrategy": "Avleveringslogikk: ",
-                "published": "Publisert: ",
+                "finished": "Ferdigstilt: ",
                 "version": "Versjon: ",
                 "caseNumber": "Saksnummer: ",
                 "title": "Tittel: ",
@@ -280,7 +284,7 @@
         "errorMessage": "Du må oppgi ",
         "requiredField": "Obligatorisk felt",
         "labels": {
-            "description": "Beskrivelse",
+            "comment": "Kommentar",
             "destination": "Destinasjon",
             "sourceApplicationId": "Skjemaleverandør",
             "sourceApplicationIntegrationId": "Skjema",
@@ -306,8 +310,6 @@
             "secondaryClassification": "Sekundær ordningsprinsipp",
             "tertiaryClassification": "Tertiær ordningsprinsipp",
             "primaryClass": "Primærklasse",
-            "primaryClassOrg": "Primærklasse (organisasjonsnummer)",
-            "primaryClassSsNbr": "Primærklasse (fødselsnummer)",
             "secondaryClass": "Sekundærklasse",
             "tertiaryClass": "Tertiærklasse",
             "primaryTitle": "Primærtittel",
@@ -359,11 +361,11 @@
     },
     "models": {
         "integrationConfiguration": {
-            "description": "Description",
+            "comment": "Comment",
             "version": "Version",
             "sourceApplicationId": "Source application",
             "sourceApplicationIntegrationId": "Form",
-            "published": "Published",
+            "finished": "finished",
             "caseConfiguration": {
                 "caseCreationStrategy": "",
                 "caseNumber": "",
@@ -436,7 +438,7 @@
                 "destination": "Destinasjon/Base"
             },
             "button": {
-                "next": "Neste",
+                "confirm": "Opprett",
                 "cancel": "Avbryt"
             }
         }
@@ -446,7 +448,7 @@
         "sourceApplicationId": "Skjemaleverandør, f.eks ACOS",
         "sourceApplicationIntegrationId": "Skjema",
         "destination": "Velg hvilken base skjemaet skal overføres til",
-        "description": "",
+        "comment": "",
         "version": "",
         "selectedForm": "",
         "caseData": {

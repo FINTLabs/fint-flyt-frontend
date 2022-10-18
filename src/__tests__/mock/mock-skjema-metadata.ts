@@ -1,56 +1,68 @@
-import {IFormMetadata} from "../../features/integration/types/FormMetadata";
+import {IIntegrationMetadata, Type} from "../../features/integration/types/IntegrationMetadata";
 
-export const MOCK_SKJEMA_METADATA: IFormMetadata = {
-    "id": "Test0488",
-    "displayName": "Test Skjema",
-    "instanceElementMetadata": [
+export const MOCK_SKJEMA_METADATA: IIntegrationMetadata = {
+    sourceApplicationIntegrationId: "Test0488",
+    sourceApplicationIntegrationUri: "",
+    integrationDisplayName: "Test Skjema",
+    sourceApplicationId: "1",
+    instanceElementMetadata: [
         {
-            "id": "person_med_valg",
-            "displayName": "Personer med valg",
-            "children": [
+            key: "person_med_valg",
+            type: Type.STRING,
+            displayName: "Personer med valg",
+            children: [
                 {
-                    "id": "person_1",
+                    "key": "person_1",
+                    "type": Type.STRING,
                     "displayName": "Person 1",
                     "children": [
                         {
-                            "id": "fornavn_1",
+                            "key": "fornavn_1",
+                            "type": Type.STRING,
                             "displayName": "Fornavn",
                             "children": []
                         },
                         {
-                            "id": "etternavn_1",
+                            "key": "etternavn_1",
+                            "type": Type.STRING,
                             "displayName": "Etternavn",
                             "children": []
                         }
                     ]
                 },
                 {
-                    "id": "person_2",
+                    "key": "person_2",
+                    "type": Type.STRING,
                     "displayName": "Person 2",
                     "children": [
                         {
-                            "id": "fornavn_2",
+                            "key": "fornavn_2",
+                            "type": Type.STRING,
                             "displayName": "Fornavn",
                             "children": []
                         },
                         {
-                            "id": "etternavn_2",
+                            "key": "etternavn_2",
+                            "type": Type.STRING,
                             "displayName": "Etternavn",
                             "children": []
                         }
                     ]
                 },
                 {
-                    "id": "valg",
+                    "key": "valg",
+                    "type": Type.STRING,
                     "displayName": "Valg",
                     "children": [
                         {
-                            "id": "ukedag",
+                            "key": "ukedag",
+                            "type": Type.STRING,
                             "displayName": "Ukedag",
                             "children": []
                         },
                         {
-                            "id": "farge_pa_bil",
+                            "key": "farge_pa_bil",
+                            "type": Type.STRING,
                             "displayName": "Farge på bil",
                             "children": []
                         }
@@ -59,104 +71,322 @@ export const MOCK_SKJEMA_METADATA: IFormMetadata = {
             ]
         },
         {
-            "id": "person_3",
+            "key": "person_3",
+            "type": Type.STRING,
             "displayName": "Person 3",
             "children": [
                 {
-                    "id": "fornavn_3",
+                    "key": "fornavn_3",
+                    "type": Type.STRING,
                     "displayName": "Fornavn",
                     "children": []
                 },
                 {
-                    "id": "etternavn_3",
+                    "key": "etternavn_3",
+                    "type": Type.STRING,
                     "displayName": "Etternavn",
                     "children": []
                 }
             ]
         }
-    ]
+    ],
+    version: 2
 }
 
-export const MOCK_SKJEMA_METADATA_TEMP: IFormMetadata = {
-    "id": "Test0488",
-    "displayName": "DEMO",
-    "instanceElementMetadata": [
+export const MOCK_SKJEMA_METADATA_TEMP: IIntegrationMetadata[] =
+    [
         {
-            "id": "referansenummer",
-            "displayName": "Referansenummer",
-            "children": []
-        }, {
-            "id": "person_2",
-            "displayName": "Organisasjon",
-            "children": [
+            "sourceApplicationId":"1",
+            "sourceApplicationIntegrationId":"PROD0195",
+            "sourceApplicationIntegrationUri":"",
+            "integrationDisplayName":"Oversett lister med datakilder",
+            "instanceElementMetadata":[
                 {
-                    "id": "fornavn_2",
-                    "displayName": "Fornavn",
-                    "children": []
+                    "key":null,
+                    "type": Type.STRING,
+                    "displayName":"Første kolonne",
+                    "children":[
+                        {
+                            "key":null,
+                            "type": Type.STRING,
+                            "displayName":"Arkivsystem",
+                            "children":[
+                                {
+                                    "key":"Nedtrekk",
+                                    "type": Type.STRING,
+                                    "displayName":"Nedtrekk",
+                                    "children":[]
+                                },
+                                {
+                                    "key":"Radioknapp",
+                                    "type": Type.STRING,
+                                    "displayName":"Radioknapp",
+                                    "children":[]
+                                },
+                                {
+                                    "key":"Sjekkbokser",
+                                    "type": Type.STRING,
+                                    "displayName":"Sjekkbokser",
+                                    "children":[]
+                                }
+                            ]
+                        },
+                        {
+                            "key":null,
+                            "type": Type.STRING,
+                            "displayName":"Stedsnavn",
+                            "children":[
+                                {
+                                    "key":"Nedtrekk2",
+                                    "type": Type.STRING,
+                                    "displayName":"Nedtrekk",
+                                    "children":[]
+                                },
+                                {
+                                    "key":"Radioknappliste",
+                                    "type": Type.STRING,
+                                    "displayName":"Radioknappliste",
+                                    "children":[]
+                                },
+                                {
+                                    "key":"Sjekkbokser2",
+                                    "type": Type.STRING,
+                                    "displayName":"Sjekkbokser",
+                                    "children":[]
+                                }
+                            ]
+                        },
+                        {
+                            "key":null,
+                            "type": Type.STRING,
+                            "displayName":"Med grab - sted",
+                            "children":[
+                                {
+                                    "key":"Nedtrekk5",
+                                    "type": Type.STRING,
+                                    "displayName":"Nedtrekk",
+                                    "children":[]
+                                }
+                            ]
+                        },
+                        {
+                            "key":null,
+                            "type": Type.STRING,
+                            "displayName":"Gruppe",
+                            "children":[
+                                {
+                                    "key":"Nedtrekk6",
+                                    "type": Type.STRING,
+                                    "displayName":"Nedtrekk",
+                                    "children":[]
+                                }
+                            ]
+                        }
+                    ]
                 },
                 {
-                    "id": "etternavn_2",
-                    "displayName": "Etternavn",
-                    "children": []
+                    "key":null,
+                    "type": Type.STRING,
+                    "displayName":"Ny første kolonne",
+                    "children":[
+                        {
+                            "key":null,
+                            "type": Type.STRING,
+                            "displayName":"Gruppe",
+                            "children":[
+                                {
+                                    "key":"Nedtrekk3",
+                                    "type": Type.STRING,
+                                    "displayName":"Nedtrekk",
+                                    "children":[]
+                                },
+                                {
+                                    "key":"Radioknappliste2",
+                                    "type": Type.STRING,
+                                    "displayName":"Radioknappliste",
+                                    "children":[]
+                                },
+                                {
+                                    "key":"Sjekkbokser3",
+                                    "type": Type.STRING,
+                                    "displayName":"Sjekkbokser",
+                                    "children":[]
+                                }
+                            ]
+                        },
+                        {
+                            "key":null,
+                            "type": Type.STRING,
+                            "displayName":"Med Grab",
+                            "children":[
+                                {
+                                    "key":"Nedtrekk4",
+                                    "type": Type.STRING,
+                                    "displayName":"Nedtrekk",
+                                    "children":[]
+                                },
+                                {
+                                    "key":"Radioknappliste3",
+                                    "type": Type.STRING,
+                                    "displayName":"Radioknappliste",
+                                    "children":[]
+                                },
+                                {
+                                    "key":"Sjekkboks2",
+                                    "type": Type.STRING,
+                                    "displayName":"Sjekkboks",
+                                    "children":[]
+                                }
+                            ]
+                        }
+                    ]
                 },
                 {
-                    "id": "organisasjonsnavn",
-                    "displayName": "Organisasjonsnavn",
-                    "children": []
-                },
-                {
-                    "id": "organisasjonsnummer",
-                    "displayName": "Organisasjonsnummer",
-                    "children": []
+                    "key":null,
+                    "type": Type.STRING,
+                    "displayName":"Andre kolonne",
+                    "children":[
+                        {
+                            "key":null,
+                            "type": Type.STRING,
+                            "displayName":"Gruppe",
+                            "children":[
+                                {
+                                    "key":"Nedtrekk7",
+                                    "type": Type.STRING,
+                                    "displayName":"Nedtrekk",
+                                    "children":[]
+                                },
+                                {
+                                    "key":"Radioknappliste4",
+                                    "type": Type.STRING,
+                                    "displayName":"Radioknappliste",
+                                    "children":[]
+                                },
+                                {
+                                    "key":"Sjekkbokser4",
+                                    "type": Type.STRING,
+                                    "displayName":"Sjekkbokser",
+                                    "children":[]
+                                }
+                            ]
+                        },
+                        {
+                            "key":null,
+                            "type": Type.STRING,
+                            "displayName":"Gruppe",
+                            "children":[
+                                {
+                                    "key":"Nedtrekk8",
+                                    "type": Type.STRING,
+                                    "displayName":"Nedtrekk",
+                                    "children":[]
+                                }
+                            ]
+                        }
+                    ]
                 }
-            ]
+            ],
+            "version":1
         },
         {
-            "id": "person_1",
-            "displayName": "Avsender",
-            "children": [
+            "sourceApplicationId":"1",
+            "sourceApplicationIntegrationId":"Test0488",
+            "sourceApplicationIntegrationUri":"",
+            "integrationDisplayName":"DEMO",
+            "instanceElementMetadata": [
                 {
-                    "id": "fornavn_1",
-                    "displayName": "Fornavn",
+                    "key": "referansenummer",
+                    "type": Type.STRING,
+                    "displayName": "Referansenummer",
                     "children": []
+                }, {
+                    "key": "person_2",
+                    "type": Type.STRING,
+                    "displayName": "Organisasjon",
+                    "children": [
+                        {
+                            "key": "fornavn_2",
+                            "type": Type.STRING,
+                            "displayName": "Fornavn",
+                            "children": []
+                        },
+                        {
+                            "key": "etternavn_2",
+                            "type": Type.STRING,
+                            "displayName": "Etternavn",
+                            "children": []
+                        },
+                        {
+                            "key": "organisasjonsnavn",
+                            "type": Type.STRING,
+                            "displayName": "Organisasjonsnavn",
+                            "children": []
+                        },
+                        {
+                            "key": "organisasjonsnummer",
+                            "type": Type.STRING,
+                            "displayName": "Organisasjonsnummer",
+                            "children": []
+                        }
+                    ]
                 },
                 {
-                    "id": "etternavn_1",
-                    "displayName": "Etternavn",
-                    "children": []
-                },
-                {
-                    "id": "adresse",
-                    "displayName": "Adresse",
-                    "children": []
-                },
-                {
-                    "id": "postnummer",
-                    "displayName": "Postnummer",
-                    "children": []
-                },
-                {
-                    "id": "poststed",
-                    "displayName": "Poststed",
-                    "children": []
-                },
-                {
-                    "id": "telefonnummer",
-                    "displayName": "Telefonnummer",
-                    "children": []
-                },
-                {
-                    "id": "epost",
-                    "displayName": "Epost",
-                    "children": []
-                },
-                {
-                    "id": "fodselssnummer",
-                    "displayName": "Fødselssnummer",
-                    "children": []
+                    "key": "person_1",
+                    "type": Type.STRING,
+                    "displayName": "Avsender",
+                    "children": [
+                        {
+                            "key": "fornavn_1",
+                            "type": Type.STRING,
+                            "displayName": "Fornavn",
+                            "children": []
+                        },
+                        {
+                            "key": "etternavn_1",
+                            "type": Type.STRING,
+                            "displayName": "Etternavn",
+                            "children": []
+                        },
+                        {
+                            "key": "adresse",
+                            "type": Type.STRING,
+                            "displayName": "Adresse",
+                            "children": []
+                        },
+                        {
+                            "key": "postnummer",
+                            "type": Type.STRING,
+                            "displayName": "Postnummer",
+                            "children": []
+                        },
+                        {
+                            "key": "poststed",
+                            "type": Type.STRING,
+                            "displayName": "Poststed",
+                            "children": []
+                        },
+                        {
+                            "key": "telefonnummer",
+                            "type": Type.STRING,
+                            "displayName": "Telefonnummer",
+                            "children": []
+                        },
+                        {
+                            "key": "epost",
+                            "type": Type.STRING,
+                            "displayName": "Epost",
+                            "children": []
+                        },
+                        {
+                            "key": "fodselssnummer",
+                            "type": Type.STRING,
+                            "displayName": "Fødselssnummer",
+                            "children": []
+                        }
+                    ]
                 }
-            ]
+            ],
+            version: 2
         }
     ]
-}
-

@@ -13,8 +13,9 @@ import {dropdownPlaceholder} from "../../defaults/DefaultValues";
 
 const CaseForm: React.FunctionComponent<any> = (props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationForm.accordions.caseForm'});
-    const [showSecondary, setShowSecondary] = React.useState(false);
-    const [showTertiary, setShowTertiary] = React.useState(false);
+    const disabled: boolean = props.disabled
+    const [showSecondary, setShowSecondary] = React.useState(disabled);
+    const [showTertiary, setShowTertiary] = React.useState(disabled);
     const {administrativeUnits, accessCodes, paragraphs, statuses, archiveSections, archiveResources,
         classificationSystems, primaryClassification, secondaryClassification, tertiaryClassification,
         primaryClass, secondaryClass, tertiaryClass, getPrimaryClass, getSecondaryClass, getTertiaryClass,
@@ -36,11 +37,13 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
 
     let errors: FieldErrors = props.errors;
     let required: boolean = props.validation;
-    let socialSecurityCode: string = 'https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/FNR'
-    let orgNumberCode: string = 'https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/ORGNR'
     let isCollection = props.watch("caseData.caseCreationStrategy") === CreationStrategy.COLLECTION
 
-    //TODO: remove disable check caseType after 3.11
+    let listOfClassificationsWithDynamicField: string [] = [
+        'https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/FNR', 'https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/ORGNR'
+    ]
+
+    //TODO: add kodeverk for caseType
   const caseFormFields: IInputField[] = [
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.title", formValue: "caseData.title", required: required && !isCollection, error:errors.caseData?.title, value: props.activeFormData?.caseData?.title, helpText: "caseData.title"},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.publicTitle", formValue: "caseData.publicTitle", required: false, error:errors.caseData?.publicTitle, value: props.activeFormData?.caseData?.publicTitle, helpText: "caseData.publicTitle"},
@@ -55,9 +58,8 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
     ]
     const classificationFormFields: IInputField[] = [
         {input: INPUT_TYPE.DROPDOWN, label: "labels.primaryClassification", value: props.watch("caseData.primaryClassification"), formValue: "caseData.primaryClassification", dropDownItems: classificationSystems, required: required, error:errors.caseData?.primaryClassification, setter: setPrimaryClassification, helpText: "caseData.classification"},
-        {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.primaryClassSsNbr", value: props.activeFormData?.caseData.primaryClass, formValue: "caseData.primaryClass", hidden: props.watch("caseData.primaryClassification") !== socialSecurityCode, required: required, error:errors.caseData?.primaryClass, helpText: "caseData.class"},
-        {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.primaryClassOrg", value: props.activeFormData?.caseData?.primaryClass, formValue: "caseData.primaryClass", hidden: props.watch("caseData.primaryClassification") !== orgNumberCode, required: required, error:errors.caseData?.primaryClass, helpText: "caseData.class"},
-        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.primaryClass", value: props.watch("caseData.primaryClass"), formValue: "caseData.primaryClass", hidden: props.watch("caseData.primaryClassification") === socialSecurityCode || props.watch("caseData.primaryClassification") === orgNumberCode, dropDownItems: primaryClass, required: required, error:errors.caseData?.primaryClass, helpText: "caseData.class"},
+        {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.primaryClass", value: props.activeFormData?.caseData.primaryClass, formValue: "caseData.primaryClass", hidden: !listOfClassificationsWithDynamicField.includes(props.watch("caseData.primaryClassification")), required: required, error:errors.caseData?.primaryClass, helpText: "caseData.class"},
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.primaryClass", value: props.watch("caseData.primaryClass"), formValue: "caseData.primaryClass", hidden: listOfClassificationsWithDynamicField.includes(props.watch("caseData.primaryClassification")), dropDownItems: primaryClass, required: required, error:errors.caseData?.primaryClass, helpText: "caseData.class"},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.primaryTitle", formValue: "caseData.primaryTitle", required: false, error:errors.caseData?.primaryTitle, value: props.activeFormData?.caseData?.primaryTitle, helpText: "caseData.classTitle"},
         {input: INPUT_TYPE.DROPDOWN, label: "labels.secondaryClassification", value: props.watch("caseData.secondaryClassification"), formValue: "caseData.secondaryClassification", dropDownItems: classificationSystems, required: false, error:errors.caseData?.secondaryClassification, setter: setSecondaryClassification, helpText: "caseData.classification", hidden: !showSecondary},
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.secondaryClass", value: props.watch("caseData.secondaryClass"), formValue: "caseData.secondaryClass", dropDownItems: secondaryClass, required: false, error:errors.caseData?.secondaryClass, helpText: "caseData.class", hidden: !showSecondary},
@@ -122,7 +124,7 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
                 {!showSecondary && <AddIcon sx={{cursor: 'pointer', mb: 2}} onClick={handleToggleSecondary}/>}
                 {showSecondary && !showTertiary && <AddIcon sx={{cursor: 'pointer', mb: 2}} onClick={handleToggleTertiary}/>}
             </FormGroup>
-            <Button sx={{mb: 2}} onClick={props.onSave} variant="contained">{t('button.save')}</Button>
+            <Button disabled={props.disabled} sx={{mb: 2}} onClick={props.onSave} variant="contained">{t('button.save')}</Button>
         </div>
 
     );

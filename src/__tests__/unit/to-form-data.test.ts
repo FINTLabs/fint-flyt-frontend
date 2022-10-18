@@ -1,16 +1,8 @@
-import {
-    MOCK_INTEGRATION_CONFIG,
-    MOCK_INTEGRATION_CONFIG_WITH_TAGS,
-} from "../mock/mock-integration-configuration";
-import {toFormData} from "../../features/util/ToFormData";
-import {MOCK_FORMDATA, MOCK_FORMDATA_WITH_TAGS} from "../mock/mock-form-data";
-
-test('It should map integration configuration to form data correctly', () => {
-    const formData = toFormData(MOCK_INTEGRATION_CONFIG);
-    expect(formData).toEqual(MOCK_FORMDATA);
-});
+import {newToFormData} from "../../features/util/mapping/ToFormData";
+import {MOCK_NEW_FORMDATA} from "../mock/mock-form-data";
+import {MOCK_NEW_CONFIG} from "../mock/mock-configuration";
 
 test('It should map integration configuration with tags to form data correctly', () => {
-    const formData = toFormData(MOCK_INTEGRATION_CONFIG_WITH_TAGS);
-    expect(formData).toEqual(MOCK_FORMDATA_WITH_TAGS);
+    const formData = newToFormData(MOCK_NEW_CONFIG);
+    expect(formData).toEqual(MOCK_NEW_FORMDATA);
 });

@@ -7,7 +7,6 @@ export type ResourceContextState = {
     administrativeUnits: IResourceItem[];
     accessCodes: IResourceItem[];
     paragraphs: IResourceItem[];
-
     statuses: IResourceItem[];
     archiveSections: IResourceItem[];
     archiveResources: IResourceItem[];
@@ -18,7 +17,6 @@ export type ResourceContextState = {
     primaryClass: IResourceItem[];
     secondaryClass: IResourceItem[];
     tertiaryClass: IResourceItem[];
-
     documentTypes: IResourceItem[];
     recordStatuses: IResourceItem[];
     recordTypes: IResourceItem[];
@@ -29,28 +27,12 @@ export type ResourceContextState = {
     getAllResources: () => void;
     resetAllResources: () => void;
 
-    getAdministrativeUnits: () => void;
-    getAccessCodes: () => void;
-    getParagraphs: () => void;
-
-    getStatuses: () => void;
-    getArchiveSections: () => void;
-    getArchiveResources: () => void;
-    getClassificationSystems: () => void;
     setPrimaryClassification: (primary: IResourceItem) => void;
     setSecondaryClassification: (secondary: IResourceItem) => void;
     setTertiaryClassification: (tertiary: IResourceItem) => void;
     getPrimaryClass: () => void;
     getSecondaryClass: () => void;
     getTertiaryClass: () => void;
-
-    getDocumentTypes: () => void;
-    getRecordStatuses: () => void;
-    getRecordTypes: () => void;
-
-    getDocumentStatuses: () => void;
-    getVariants: () => void;
-
 };
 
 export const contextDefaultValues: ResourceContextState = {
@@ -74,22 +56,10 @@ export const contextDefaultValues: ResourceContextState = {
     variants: [],
     getAllResources: () => {},
     resetAllResources: () => {},
-    getAdministrativeUnits: () => {},
-    getAccessCodes: () => {},
-    getParagraphs: () => {},
-    getStatuses: () => {},
-    getArchiveSections: () => {},
-    getArchiveResources: () => {},
-    getClassificationSystems: () => {},
     setPrimaryClassification: (primary: IResourceItem) => {},
     setSecondaryClassification: (secondary: IResourceItem) => {},
     setTertiaryClassification: (tertiary: IResourceItem) => {},
     getPrimaryClass: () => {},
     getSecondaryClass: () => {},
     getTertiaryClass: () => {},
-    getDocumentTypes: () => {},
-    getRecordStatuses: () => {},
-    getRecordTypes: () => {},
-    getDocumentStatuses: () => {},
-    getVariants: () => {}
 };

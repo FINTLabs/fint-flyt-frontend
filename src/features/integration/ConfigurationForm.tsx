@@ -14,23 +14,27 @@ import {
     Typography
 } from "@mui/material";
 import {createStyles, makeStyles} from "@mui/styles";
-import IFormData from "./types/Form/FormData";
-import IntegrationRepository from "./repository/IntegrationRepository";
-import {defaultValues} from "./defaults/DefaultValues";
-import {toIntegrationConfiguration} from "../util/ToIntegrationConfiguration";
+import {IFormConfiguration} from "./types/Form/FormData";
+import {defaultConfigurationValues} from "./defaults/DefaultValues";
 import AccordionForm from "./components/AccordionForm";
 import {ACCORDION_FORM, IAccordion} from "./types/Accordion";
 import SourceApplicationForm from "./components/SourceApplicationForm";
 import {HTML5Backend} from "react-dnd-html5-backend";
 import {DndProvider} from "react-dnd";
-import {IIntegrationConfiguration} from "./types/IntegrationConfiguration";
 import {CreationStrategy} from "./types/CreationStrategy";
-import {toFormData} from "../util/ToFormData";
+import {newToFormData} from "../util/mapping/ToFormData";
 import {ResourcesContext} from "../../context/resourcesContext";
 import {IntegrationContext} from "../../context/integrationContext";
-import {FormSettings} from "./components/FormSettings";
+import {IntegrationForm} from "./components/IntegrationForm";
 import CloseIcon from '@mui/icons-material/Close';
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
+import InputField from "./components/form/InputField";
+import {INPUT_TYPE} from "./types/InputType.enum";
+import {toConfigurationPatch, toNewConfiguration} from "../util/mapping/ToConfiguration";
+import {IConfigurationPatch, newIConfiguration} from "./types/Configuration";
+import ConfigurationRepository from "../../shared/repositories/ConfigurationRepository";
+import IntegrationRepository from "../../shared/repositories/IntegrationRepository";
+import {IntegrationState} from "./types/IntegrationState.enum";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -38,7 +42,11 @@ const useStyles = makeStyles((theme: Theme) =>
             width: theme.spacing(100)
         },
         row: {
-            display: 'flex'
+            display: 'flex',
+            alignItems: 'center',
+            position: 'sticky',
+            top: 0,
+            background: 'white'
         },
         column: {
             flex: '50%',
@@ -57,8 +65,10 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         sourceApplicationForm: {
             opacity: 0.99,
-            width: theme.spacing(50),
-            height: 'fit-content'
+            width: theme.spacing(60),
+            height: 'fit-content',
+            overflow: 'auto',
+            maxHeight: theme.spacing(100)
         },
         accordion: {
             marginBottom: theme.spacing(2),
@@ -83,27 +93,33 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 );
 
-const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
+const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.integrationForm'});
     const classes = useStyles();
     const editConfig: boolean = window.location.pathname === '/integration/configuration/edit'
     const [submitSuccess, setSubmitSuccess] = useState(false)
-    const [settings, setSettings] = useState(false)
-    const {integration, sourceApplicationId, destination, sourceApplicationIntegrationId, setIntegration, resetSourceAndDestination, getIntegrations} = useContext(IntegrationContext);
-    const [activeId, setActiveId] = useState<any>(undefined)
+    const {newIntegration, existingIntegration, setExistingIntegration, setNewIntegration, selectedMetadata, configuration, setConfiguration, resetSourceAndDestination, getNewIntegrations} = useContext(IntegrationContext);
     const [saved, setSaved] = React.useState(false);
     const [saveError, setSaveError] = React.useState(false);
-    const [checked, setChecked] = React.useState(integration.sourceApplicationIntegrationId && editConfig ? integration.published : false);
+    const [checked, setChecked] = React.useState(configuration && editConfig ? configuration.completed : false);
+    const [activeChecked, setActiveChecked] = React.useState(false);
     const [protectedCheck, setProtectedChecked] = React.useState(false);
     let history = useHistory();
-    let activeConfiguration = integration.sourceApplicationIntegrationId && editConfig ? integration : undefined;
-    let activeFormData = integration.sourceApplicationIntegrationId && editConfig ? toFormData(integration) : defaultValues;
+    let activeIntegration = (editConfig || (!editConfig && existingIntegration)) ? existingIntegration : newIntegration;
+    let activeConfiguration = configuration?.id && editConfig ? configuration : undefined;
+    const [activeConfigId, setActiveConfigId] = React.useState(activeConfiguration?.id);
+    const [completed, setCompleted] = React.useState(!!activeConfiguration?.completed);
+    let activeFormData = activeConfiguration && editConfig && configuration? newToFormData(configuration) : defaultConfigurationValues;
 
     const handleCheckChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setChecked(event.target.checked);
+        setActiveChecked(false);
+    };
+    const handleActiveCheckChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setActiveChecked(event.target.checked);
     };
 
-    const {handleSubmit, watch, setValue, control, reset, formState} = useForm<IFormData>({
+    const {handleSubmit, watch, setValue, control, reset, formState} = useForm<IFormConfiguration>({
         defaultValues: activeFormData,
         reValidateMode: 'onChange'
     });
@@ -114,38 +130,61 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     useEffect(() => {
         getAllResources();
         return () => {
+            setNewIntegration(undefined);
+            setExistingIntegration(undefined);
             resetAllResources();
             resetSourceAndDestination();
         };
     }, [])
 
+
+
     const accordionList: IAccordion[] = [
         {id: 'case-information', summary: "caseInformation.header", accordionForm: ACCORDION_FORM.CASE_INFORMATION, defaultExpanded: true},
-        {id: 'case-form', summary: "caseForm.header", accordionForm: ACCORDION_FORM.CASE_FORM, defaultExpanded: false, hidden: watch("caseData.caseCreationStrategy") === CreationStrategy.COLLECTION},
-        {id: 'record-form', summary: "recordForm.header", accordionForm: ACCORDION_FORM.RECORD_FORM, defaultExpanded: false},
-        {id: 'document-object-form', summary: "documentForm.header", accordionForm: ACCORDION_FORM.DOCUMENT_FORM, defaultExpanded: false},
-        {id: 'applicant-form', summary: "applicationForm.header", accordionForm: ACCORDION_FORM.APPLICANT_FORM, defaultExpanded: false}
+        {id: 'case-form', summary: "caseForm.header", accordionForm: ACCORDION_FORM.CASE_FORM, defaultExpanded: completed, hidden: watch("caseData.caseCreationStrategy") === CreationStrategy.COLLECTION},
+        {id: 'record-form', summary: "recordForm.header", accordionForm: ACCORDION_FORM.RECORD_FORM, defaultExpanded: completed},
+        {id: 'document-object-form', summary: "documentForm.header", accordionForm: ACCORDION_FORM.DOCUMENT_FORM, defaultExpanded: completed},
+        {id: 'applicant-form', summary: "applicationForm.header", accordionForm: ACCORDION_FORM.APPLICANT_FORM, defaultExpanded: completed}
     ]
 
-    const saveNewConfiguration = (data: IIntegrationConfiguration) => {
-        IntegrationRepository.create(data)
+    const activateConfigurationAndSetIntegrationState = (integrationId: string, configurationId: string, state: IntegrationState) => {
+        IntegrationRepository.setActiveConfiguration(integrationId, configurationId)
             .then(response => {
-                console.log('created new configuration', data, response);
-                setActiveId(data.sourceApplicationIntegrationId)
+                console.log('set active configuration: ', configurationId, ' active: ')
+                IntegrationRepository.setIntegrationState(integrationId, state)
+                    .then(response => {
+                        console.log('set integration:', integrationId, ' state: ', state)
+                    }).catch((e)=> {
+                    console.log('could not set integration state', e)
+                })
+            }).catch((e)=> {
+            console.log('could not set active configuration', e)
+        })
+    }
+
+    const saveNewConfiguration = (integrationId: string, data: newIConfiguration) => {
+        console.log('save new config', integrationId, data)
+        ConfigurationRepository.createConfiguration(integrationId, data)
+            .then(response => {
+                console.log('created new configuration on integration ', integrationId, data, response);
+                setConfiguration(response.data)
+                setActiveConfigId(response.data.id)
                 setSaved(true);
-                getIntegrations();
+                getNewIntegrations();
             })
             .catch((e: Error) => {
                 setSaveError(true);
                 console.log('error creating new', e);
             });
     }
-    const saveConfiguration = (id: string, data: IIntegrationConfiguration) => {
-        IntegrationRepository.update(id, data)
+
+    const saveConfiguration = (integrationId: string, configurationId: string, data: IConfigurationPatch) => {
+        console.log('save config', integrationId, configurationId, data)
+        ConfigurationRepository.updateConfiguration(configurationId, data)
             .then(response => {
-                console.log('updated configuration: ', id, data, response);
+                console.log('updated configuration: ', configurationId, data, response);
                 setSaved(true);
-                getIntegrations();
+                getNewIntegrations();
             })
             .catch((e: Error) => {
                 setSaveError(true);
@@ -153,26 +192,34 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
             });
     }
 
-    const publishNewConfiguration = (data: IIntegrationConfiguration) => {
-        IntegrationRepository.create(data)
+    const activateNewConfiguration = (integrationId: string, data: newIConfiguration) => {
+        console.log('publish new config', integrationId, data)
+        ConfigurationRepository.createConfiguration(integrationId, data)
             .then(response => {
                 console.log('created new configuration', data, response);
+                if(activeChecked) {
+                    activateConfigurationAndSetIntegrationState(response.data.integrationId, response.data.id, IntegrationState.ACTIVE)
+                }
                 resetAllResources();
                 setSubmitSuccess(true);
-                getIntegrations();
+                getNewIntegrations();
             })
             .catch((e: Error) => {
                 console.log('error creating new', e);
             });
     }
 
-    const publishConfiguration = (id: string, data: IIntegrationConfiguration) => {
-        IntegrationRepository.update(id, data)
+    const activateConfiguration = (integrationId: string, configurationId: string, data: IConfigurationPatch) => {
+        console.log('publish config', configurationId, data)
+        ConfigurationRepository.updateConfiguration(configurationId, data)
             .then(response => {
-                console.log('updated configuration: ', id, data, response);
+                if(activeChecked) {
+                    activateConfigurationAndSetIntegrationState(response.data.integrationId, response.data.id, IntegrationState.ACTIVE)
+                }
+                console.log('updated configuration: ', data, response);
                 resetAllResources();
                 setSubmitSuccess(true);
-                getIntegrations();
+                getNewIntegrations();
             })
             .catch((e: Error) => {
                 console.log('error updating configuration', e);
@@ -183,7 +230,7 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
         history.push({
             pathname: '/',
         })
-        setIntegration({});
+        setConfiguration({elements: []});
     }
 
     const handleClose = (event: React.SyntheticEvent | Event, reason?: string) => {
@@ -203,49 +250,34 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
         </React.Fragment>
     );
 
-    const onSubmit = handleSubmit((data: IFormData) => {
-        data.sourceApplicationId = sourceApplicationId;
-        data.sourceApplicationIntegrationId = sourceApplicationIntegrationId;
-        data.destination = destination;
-        data.published = true;
+    const onSubmit = handleSubmit((data: IFormConfiguration) => {
+        data.completed = true;
         data.applicantData.protected = protectedCheck;
-        const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data);
-        if (integrationConfiguration && activeId !== undefined && activeConfiguration?.sourceApplicationIntegrationId === undefined) {
-            const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data, activeId);
-            publishConfiguration(activeId, integrationConfiguration)
-            reset({ ...defaultValues })
+        const configuration: newIConfiguration = toNewConfiguration(data, activeIntegration?.id, activeConfigId, selectedMetadata.id);
+        if (configuration && activeConfigId !== undefined) {
+            const iConfiguration: newIConfiguration = toConfigurationPatch(data, selectedMetadata.id);
+            activateConfiguration(activeIntegration?.id, activeConfigId, iConfiguration)
+            reset({ ...defaultConfigurationValues })
         }
-        else if (integrationConfiguration && activeId === undefined && activeConfiguration?.sourceApplicationIntegrationId !== undefined) {
-            const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data, activeConfiguration.sourceApplicationIntegrationId);
-            publishConfiguration(activeConfiguration.sourceApplicationIntegrationId, integrationConfiguration)
-            reset({ ...defaultValues })
-        }
-        else if (integrationConfiguration) {
-            publishNewConfiguration(integrationConfiguration);
-            reset({ ...defaultValues })
+        else if (configuration && activeIntegration?.id) {
+            activateNewConfiguration(activeIntegration?.id, configuration);
+            reset({ ...defaultConfigurationValues })
         } else {
             //TODO: Handle error
             return;
         }
     });
 
-    const onSave = handleSubmit((data: IFormData) => {
-        data.sourceApplicationId = sourceApplicationId;
-        data.sourceApplicationIntegrationId = sourceApplicationIntegrationId;
-        data.destination = destination;
-        data.published = false;
+    const onSave = handleSubmit((data: IFormConfiguration) => {
+        data.completed = false;
         data.applicantData.protected = protectedCheck;
-        const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data);
-        if (integrationConfiguration && activeId !== undefined) {
-            const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data, activeId);
-            saveConfiguration(activeId, integrationConfiguration)
+        const configuration: newIConfiguration = toNewConfiguration(data, activeIntegration?.id, activeConfigId, selectedMetadata.id);
+        if (configuration && activeConfigId !== undefined) {
+            const iConfiguration: newIConfiguration = toConfigurationPatch(data, selectedMetadata.id);
+            saveConfiguration(activeIntegration?.id, activeConfigId, iConfiguration)
         }
-        else if (integrationConfiguration && activeConfiguration?.sourceApplicationIntegrationId !== undefined) {
-            const integrationConfiguration: IIntegrationConfiguration = toIntegrationConfiguration(data, activeConfiguration.sourceApplicationIntegrationId);
-            saveConfiguration(activeConfiguration.sourceApplicationIntegrationId, integrationConfiguration)
-        }
-        else if (integrationConfiguration) {
-            saveNewConfiguration(integrationConfiguration);
+        else if (activeIntegration?.id && configuration) {
+            saveNewConfiguration(activeIntegration.id, configuration);
         } else {
             //TODO: Handle error
             return;
@@ -254,8 +286,8 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
 
     return (
         <DndProvider backend={HTML5Backend}>
-            {!settings && !activeConfiguration && <FormSettings setSettings={setSettings}/>}
-            {!submitSuccess && (activeConfiguration || settings) &&
+            {!existingIntegration && !newIntegration && <IntegrationForm/>}
+            {!submitSuccess && (existingIntegration || newIntegration) &&
                 <Box display="flex" position="relative" width={1} height={1}>
                     <Box>
                         <Typography id="integration-form-header" aria-label="integration-form-header" variant={"h5"} sx={{ mb: 2 }}>{t('header')}</Typography>
@@ -271,11 +303,13 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                                         accordionForm={accordion.accordionForm}
                                         defaultExpanded={accordion.defaultExpanded}
                                         hidden={accordion.hidden}
+                                        integration={activeIntegration}
                                         watch={watch}
                                         control={control}
                                         setValue={setValue}
                                         errors={errors}
                                         validation={checked}
+                                        disabled={completed}
                                         editConfig={editConfig}
                                         onSave={onSave}
                                         protectedCheck={protectedCheck}
@@ -283,18 +317,34 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
                                     />
                                 )
                             })}
-                            <div >
+                            <div>
+                                <Box sx={{display: 'flex'}}>
+                                    <Box width={'80%'}>
+                                        <Typography>Kommentar:</Typography>
+                                        <InputField disabled={completed} input={INPUT_TYPE.TEXT_AREA} control={control} label="labels.comment" formValue="comment" error={errors.comment} helpText="comment"/>
+                                    </Box>
+                                </Box>
                                 <FormGroup sx={{ ml: 2, mb: 2 }} >
                                     <FormControlLabel
                                         control={
                                             <Checkbox
-                                            id="form-complete"
-                                            checked={checked}
-                                            onChange={handleCheckChange}
-                                            inputProps={{ 'aria-label': 'completed-checkbox' }}/>}
+                                                disabled={completed}
+                                                id="form-complete"
+                                                checked={checked}
+                                                onChange={handleCheckChange}
+                                                inputProps={{ 'aria-label': 'completed-checkbox' }}/>}
                                         label={t('checkLabel') as string} />
+                                    {checked && <FormControlLabel
+                                        control={
+                                            <Checkbox
+                                                disabled={completed}
+                                                id="form-complete"
+                                                checked={activeChecked}
+                                                onChange={handleActiveCheckChange}
+                                                inputProps={{ 'aria-label': 'active-checkbox' }}/>}
+                                        label="Aktiv" />}
                                 </FormGroup>
-                                <Button id="integration-form-submit-btn" sx={{ ml: 2, mr: 2 }} onClick={checked ? onSubmit : onSave} variant="contained">{t('button.save')}</Button>
+                                <Button disabled={completed} id="integration-form-submit-btn" sx={{ ml: 2, mr: 2 }} onClick={checked ? onSubmit : onSave} variant="contained">{checked ? 'Fullfør' : t('button.save')}</Button>
                                 <Button id="integration-form-cancel-btn" onClick={handleCancel} variant="contained">{t('button.cancel')}</Button>
                             </div>
                         </form>
@@ -330,4 +380,4 @@ const IntegrationConfigurationForm: React.FunctionComponent<RouteComponentProps<
     );
 }
 
-export default withRouter(IntegrationConfigurationForm);
+export default withRouter(ConfigurationForm);

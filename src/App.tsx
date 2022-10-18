@@ -5,6 +5,7 @@ import {BrowserRouter} from "react-router-dom";
 import ResourcesProvider from "./context/resourcesContext";
 import IntegrationProvider from "./context/integrationContext";
 import SourceApplicationProvider from "./context/sourceApplicationContext";
+import HistoryProvider from "./context/historyContext";
 
 const theme = createTheme({
     palette: {
@@ -31,13 +32,15 @@ function App() {
     return (
         <ThemeProvider theme={theme}>
             <ResourcesProvider>
-                <SourceApplicationProvider>
-                    <IntegrationProvider>
-                        <BrowserRouter>
-                            <Main/>
-                        </BrowserRouter>
-                    </IntegrationProvider>
-                </SourceApplicationProvider>
+                <HistoryProvider>
+                    <SourceApplicationProvider>
+                        <IntegrationProvider>
+                            <BrowserRouter>
+                                <Main/>
+                            </BrowserRouter>
+                        </IntegrationProvider>
+                    </SourceApplicationProvider>
+                </HistoryProvider>
             </ResourcesProvider>
         </ThemeProvider>
     );
