@@ -14,6 +14,7 @@ export type IntegrationContextState = {
     setConfiguration: (configuration: newIConfiguration) => void;
     configurations: newIConfiguration[] | undefined;
     setConfigurations: (configurations: newIConfiguration[]) => void;
+    getConfiguration: (integration: string, includeElements: boolean) => void;
     getConfigurations: (integration: string) => void;
     destination: string,
     selectedMetadata: IIntegrationMetadata;
@@ -39,6 +40,7 @@ export const contextDefaultValues: IntegrationContextState = {
     configuration: {elements: []},
     setConfiguration: () => {},
     configurations: undefined,
+    getConfiguration: () => {},
     getConfigurations: () => {},
     setConfigurations: () => {},
     destination: '',

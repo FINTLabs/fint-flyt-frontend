@@ -5,8 +5,8 @@ import {IConfigurationPatch, newIConfiguration} from "../../features/integration
 const getConfigurations = (integrationId: string) => {
     return axios.get<any>('/api/intern/konfigurasjoner/', { params: { integrasjonId: integrationId } });
 }
-const getConfiguration = (configurationId: string) => {
-    return axios.get<any>(`/api/intern/konfigurasjoner/${configurationId}`);
+const getConfiguration = (configurationId: string, includeElements?: boolean) => {
+    return axios.get<any>(`/api/intern/konfigurasjoner/${configurationId}`, { params: { inkluderElementer: includeElements } });
 }
 const createConfiguration = (integrationId: string, data: newIConfiguration) => {
     return axios.post<any>(`/api/intern/konfigurasjoner`, data);

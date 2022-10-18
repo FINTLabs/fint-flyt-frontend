@@ -75,6 +75,18 @@ const IntegrationProvider: FC = ({ children }) => {
             })
     }
 
+    const getConfiguration = (id: any, includeElements?: boolean) => {
+        ConfigurationRepository.getConfiguration(id.toString(), includeElements)
+            .then((response) => {
+                let configuration: newIConfiguration = response.data;
+                setConfiguration(configuration);
+            })
+            .catch((e) => {
+                console.error('Error: ', e)
+                setConfiguration(contextDefaultValues.configuration);
+            })
+    }
+
     return (
         <IntegrationContext.Provider
             value={{
@@ -88,6 +100,7 @@ const IntegrationProvider: FC = ({ children }) => {
                 getNewIntegrations,
                 configuration,
                 setConfiguration,
+                getConfiguration,
                 configurations,
                 getConfigurations,
                 setConfigurations,

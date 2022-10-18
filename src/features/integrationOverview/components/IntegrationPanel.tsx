@@ -30,7 +30,7 @@ import {IntegrationState} from "../../integration/types/IntegrationState.enum";
 const IntegrationPanel: React.FunctionComponent<any> = (props) => {
     const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.integrationOverview'});
     const classes = props.classes;
-    const {existingIntegration, setConfiguration, setSelectedMetadata} = useContext(IntegrationContext)
+    const {existingIntegration, getConfiguration, setSelectedMetadata} = useContext(IntegrationContext)
     const { allMetadata, getAllMetadata, getInstanceElementMetadata} = useContext(SourceApplicationContext)
     const {setPrimaryClassification, setSecondaryClassification, setTertiaryClassification} = useContext(ResourcesContext);
     const [version, setVersion] = useState('null');
@@ -83,13 +83,15 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
             <>
                 <Link
                     onClick={(e) => {
+                        console.log(props.row)
                         let selectedForm = allMetadata.filter(md => md.sourceApplicationIntegrationId === existingIntegration?.sourceApplicationIntegrationId)
                         setSelectedMetadata(selectedForm.length > 0 ? selectedForm[0] : SOURCE_FORM_NO_VALUES[0])
                         getInstanceElementMetadata(selectedForm[0].id)
                         setPrimaryClassification({label: '', value: configurationFieldToString(cases, 'primarordningsprinsipp')})
                         setSecondaryClassification({label: '', value: configurationFieldToString(cases, 'sekundarordningsprinsipp')})
                         setTertiaryClassification({label: '', value: configurationFieldToString(cases, 'tertiarordningsprinsipp')})
-                        setConfiguration(props.row)}
+                        getConfiguration(props.row.id, true)
+                    }
                     }
                     style={{background: '#1F4F59', padding: '4px 10px 4px 10px', borderRadius: '6px', textDecoration:'none', color:'white', position: 'absolute', border: 'solid 1px', fontFamily: 'sans-serif'}}
                     to='/integration/configuration/edit'>{completed ? 'VIS' : 'REDIGER'}
