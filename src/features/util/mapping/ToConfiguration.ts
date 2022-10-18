@@ -236,7 +236,7 @@ export function toNewConfiguration(data: IFormConfiguration, integrationId: stri
                     {
                         key: "fødselsnummer",
                         type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: data.applicantData?.organisationNumber
+                        value: data.applicantData?.nationalIdentityNumber
                     },
                     {
                         key: "KorrespondansepartNavn",
