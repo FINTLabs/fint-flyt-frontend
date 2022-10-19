@@ -50,7 +50,7 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
             ]
         },
         { value: totalErrors.toString(), content: t('errors'), links: [
-                {name: t('links.log'), href: '/log'}
+                {name: t('links.instanceOverview'), href: '/integration/instance/list'}
             ]
         }
     ]

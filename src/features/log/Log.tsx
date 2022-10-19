@@ -50,8 +50,7 @@ function Log() {
 
     return (
         <Box sx={{ width: 1, height: 900 }}>
-            {/*TODO: remove header*/}
-            <Typography>{t('header')} (NB! UNDER UTVIKLING, DEMO) </Typography>
+            <Typography>{t('header')}</Typography>
             <AlertDialog row={selectedRow}/>
             <DataGrid
                 columns={columns}
