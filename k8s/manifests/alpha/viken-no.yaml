@@ -26,6 +26,8 @@ spec:
       services:
         - name: fint-flyt-integration-frontend
           port: 8000
+      middlewares:
+        - name: fint-flyt-auth-forward
 ---
 apiVersion: apps/v1
 kind: Deployment
