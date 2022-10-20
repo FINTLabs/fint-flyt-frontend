@@ -166,7 +166,7 @@
             }
         },
         "instanceOverview": {
-            "instance-mapping-error": "Feil under mapping av instans",
+            "instance-mapping-error": "Feil under konvertering av instans",
             "instance-to-case-mapping": "instans mapping",
             "incoming-instance": "incoming instans",
             "new-instance": "ny instans",
