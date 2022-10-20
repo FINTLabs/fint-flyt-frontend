@@ -34,7 +34,7 @@ import {toConfigurationPatch, toNewConfiguration} from "../util/mapping/ToConfig
 import {IConfigurationPatch, newIConfiguration} from "./types/Configuration";
 import ConfigurationRepository from "../../shared/repositories/ConfigurationRepository";
 import IntegrationRepository from "../../shared/repositories/IntegrationRepository";
-import {IntegrationState} from "./types/IntegrationState.enum";
+import {IIntegrationPatch, IntegrationState} from "./types/Integration";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -147,16 +147,15 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
         {id: 'applicant-form', summary: "applicationForm.header", accordionForm: ACCORDION_FORM.APPLICANT_FORM, defaultExpanded: completed}
     ]
 
-    const activateConfigurationAndSetIntegrationState = (integrationId: string, configurationId: string, state: IntegrationState) => {
-        IntegrationRepository.setActiveConfiguration(integrationId, configurationId)
-            .then(response => {
-                console.log('set active configuration: ', configurationId, ' active: ')
-                IntegrationRepository.setIntegrationState(integrationId, state)
-                    .then(response => {
-                        console.log('set integration:', integrationId, ' state: ', state)
-                    }).catch((e)=> {
-                    console.log('could not set integration state', e)
-                })
+    const updateIntegration = (integrationId: string, configuration: any) => {
+        let patch: IIntegrationPatch = {
+            activeConfigurationId: configuration.id,
+            state: IntegrationState.ACTIVE,
+            destination: configuration.destination
+        }
+        IntegrationRepository.updateIntegration(integrationId, patch)
+       .then(response => {
+                console.log('set active configuration: ', response.data.activeConfigurationId, ' active: ')
             }).catch((e)=> {
             console.log('could not set active configuration', e)
         })
@@ -198,7 +197,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
             .then(response => {
                 console.log('created new configuration', data, response);
                 if(activeChecked) {
-                    activateConfigurationAndSetIntegrationState(response.data.integrationId, response.data.id, IntegrationState.ACTIVE)
+                    updateIntegration(response.data.integrationId, response.data)
                 }
                 resetAllResources();
                 setSubmitSuccess(true);
@@ -214,7 +213,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
         ConfigurationRepository.updateConfiguration(configurationId, data)
             .then(response => {
                 if(activeChecked) {
-                    activateConfigurationAndSetIntegrationState(response.data.integrationId, response.data.id, IntegrationState.ACTIVE)
+                    updateIntegration(response.data.integrationId, response.data)
                 }
                 console.log('updated configuration: ', data, response);
                 resetAllResources();

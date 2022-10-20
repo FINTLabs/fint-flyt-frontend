@@ -14,3 +14,8 @@ export const IntegrationState = {
     DEACTIVATED: "DEACTIVATED"
 }
 
+export interface IIntegrationPatch {
+    destination?: string;
+    state?: string;
+    activeConfigurationId?: string;
+}

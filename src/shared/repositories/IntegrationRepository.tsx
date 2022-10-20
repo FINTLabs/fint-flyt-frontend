@@ -1,6 +1,5 @@
 import axios from "axios";
-import {IIntegration} from "../../features/integration/types/Integration";
-import {IntegrationState} from "../../features/integration/types/IntegrationState.enum";
+import {IIntegration, IIntegrationPatch} from "../../features/integration/types/Integration";
 
 //TODO: test with updated API urls
 const getIntegrations = (integrationId?: string) => {
@@ -9,18 +8,15 @@ const getIntegrations = (integrationId?: string) => {
 const createIntegration = (data: IIntegration) => {
     return axios.post<any>("/api/intern/integrasjoner", data);
 }
-const setIntegrationState = (integrationId: string, state: IntegrationState) => {
-    return axios.put<any>(`/api/intern/integrasjoner/${integrationId}/tilstand`, {state: state});
+const updateIntegration = (integrationId: string, data: IIntegrationPatch) => {
+    return axios.patch(`/api/intern/integrasjoner/${integrationId}`, data)
 }
-const setActiveConfiguration = (integrationId: string, configurationId: string) => {
-    return axios.put<any>(`/api/intern/integrasjoner/${integrationId}/aktiv-konfigurasjon-id`, {activeConfigurationId: configurationId});
-}
+
 
 const IntegrationRepository = {
     createIntegration,
     getIntegrations,
-    setIntegrationState,
-    setActiveConfiguration
+    updateIntegration
 };
 
 export default IntegrationRepository;

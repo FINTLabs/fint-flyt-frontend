@@ -27,6 +27,7 @@ import {SOURCE_FORM_NO_VALUES} from "../../integration/defaults/DefaultValues";
 import {IntegrationState} from "../../integration/types/IntegrationState.enum";
 import ConfigurationRepository from "../../../shared/repositories/ConfigurationRepository";
 import {newIConfiguration} from "../../integration/types/Configuration";
+import {IIntegrationPatch} from "../../integration/types/Integration";
 
 const IntegrationPanel: React.FunctionComponent<any> = (props) => {
     const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.integrationOverview'});
@@ -55,7 +56,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
 
     const handleActivateButton = () => {
         setVersion(configToActivate)
-        activateConfiguration(existingIntegration?.id, configToActivate)
+        activateConfiguration(configToActivate)
         setOpenDialog(false)
     }
 
@@ -112,11 +113,15 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
         );
     }
 
-    const activateConfiguration = (event: any, configurationId: string) => {
-        IntegrationRepository.setActiveConfiguration(existingIntegration?.id, configurationId).then(
+    const activateConfiguration = (configurationId: string) => {
+        let patch: IIntegrationPatch = {
+            activeConfigurationId: configurationId,
+            state: 'ACTIVE'
+        }
+        IntegrationRepository.updateIntegration(existingIntegration?.id, patch).then(
             (response) => {
+                console.log(response)
                 setActiveVersion(response.data.activeConfigurationId)
-                IntegrationRepository.setIntegrationState(existingIntegration?.id, IntegrationState.ACTIVE).then(response => {console.log('activated configuration')})
             }
         ).catch(e => console.error(e))
         console.log('set active config, integrationId', existingIntegration?.id, 'configurationId', configurationId)
