@@ -18,7 +18,7 @@ const SourceApplicationProvider: FC = ({children}) => {
 
 
     const getAvailableForms = () => {
-        SourceApplicationRepository.getMetadata(sourceApplication !== null ? sourceApplication.toString() : "1")
+        SourceApplicationRepository.getMetadata(sourceApplication !== null ? sourceApplication.toString() : "1", true)
             .then(response => {
                 let data = response.data
                 if (data) {
@@ -37,7 +37,7 @@ const SourceApplicationProvider: FC = ({children}) => {
 
     const getAllMetadata = () => {
         if (sourceApplication) {
-            SourceApplicationRepository.getMetadata(sourceApplication.toString())
+            SourceApplicationRepository.getMetadata(sourceApplication.toString(), true)
                 .then(response => {
                     let data: IIntegrationMetadata[] = response.data
                     if (data) {
@@ -45,6 +45,8 @@ const SourceApplicationProvider: FC = ({children}) => {
                     }
                 })
                 .catch((err) => {
+                    setAllMetadata(contextDefaultValues.allMetadata)
+                    setAvailableForms({sourceApplicationDisplayName: '', sourceApplicationId: '1', forms: [{value: 'null', label: 'No options'}]})
                     console.error(err);
                 })
         }

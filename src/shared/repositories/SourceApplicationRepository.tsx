@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const getMetadata = (id: string) => {
-    return axios.get<any>("/api/intern/metadata", {params: {kildeapplikasjonId: id}})
+const getMetadata = (id: string, onlyLastestVersion?: boolean) => {
+    return axios.get<any>("/api/intern/metadata", {params: {kildeapplikasjonId: id, bareSisteVersjoner: onlyLastestVersion}})
 };
 
 const getInstanceElementMetadata = (metadataId: string) => {
