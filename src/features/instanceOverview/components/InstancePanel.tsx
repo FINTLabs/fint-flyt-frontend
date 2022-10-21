@@ -19,7 +19,7 @@ const InstancePanel: React.FunctionComponent<any> = (props) => {
             valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplicationInstanceId
         },
         { field: 'timestamp', type: 'string', headerName: 'Sist hendelse', flex: 2,
-            valueGetter: (params) => moment(params.row.timestamp).format('YYYY/MM/DD HH:mm')
+            valueGetter: (params) => moment(params.row.timestamp).format('YYYY/MM/DD HH:mm:ss.sss')
         },
         { field: 'name', type: 'string', headerName: 'Status', flex: 2, valueGetter: params => t(params.row.name)},
         { field: 'sourceApplication', type: 'string', headerName: 'Kildeapplikasjon', flex: 2,
@@ -54,7 +54,7 @@ const InstancePanel: React.FunctionComponent<any> = (props) => {
                         }}
                         initialState={{
                             sorting: {
-                                sortModel: [{ field: 'version', sort: 'desc' }],
+                                sortModel: [{ field: 'timestamp', sort: 'desc' }],
                             },
                             filter: {
                                 filterModel: {
