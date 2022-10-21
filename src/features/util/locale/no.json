@@ -167,6 +167,7 @@
         },
         "instanceOverview": {
             "instance-mapping-error": "Feil under konvertering av instans",
+            "instance-dispatching-error": "Feil under sending",
             "instance-to-case-mapping": "instans mapping",
             "incoming-instance": "incoming instans",
             "new-instance": "ny instans",
