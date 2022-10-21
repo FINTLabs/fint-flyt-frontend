@@ -37,7 +37,7 @@ const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = (
 
     useEffect(()=> {
         getNewIntegrations();
-        getAllMetadata();
+        getAllMetadata(true);
     }, []);
 
     const resetConfiguration = () => {

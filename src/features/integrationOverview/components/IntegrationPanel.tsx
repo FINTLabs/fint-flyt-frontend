@@ -33,7 +33,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
     const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.integrationOverview'});
     const classes = props.classes;
     let history = useHistory();
-    const {existingIntegration, getConfiguration, setConfiguration, setSelectedMetadata} = useContext(IntegrationContext)
+    const {existingIntegration, setConfiguration, setSelectedMetadata} = useContext(IntegrationContext)
     const { allMetadata, getAllMetadata, getInstanceElementMetadata} = useContext(SourceApplicationContext)
     const {setPrimaryClassification, setSecondaryClassification, setTertiaryClassification} = useContext(ResourcesContext);
     const [version, setVersion] = useState('null');
@@ -67,7 +67,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
     })
 
     useEffect(()=> {
-        getAllMetadata()
+        getAllMetadata(true)
     }, [])
 
     const columns: GridColDef[] = [

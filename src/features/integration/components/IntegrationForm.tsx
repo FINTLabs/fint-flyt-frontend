@@ -46,7 +46,7 @@ export const IntegrationForm: React.FunctionComponent<any> = (props) => {
 
 
     useEffect(() => {
-        getAllMetadata();
+        getAllMetadata(true);
         getAvailableForms();
     }, [sourceApplication, setSourceApplication])
 

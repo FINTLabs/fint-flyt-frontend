@@ -4,7 +4,7 @@ import * as React from "react";
 import HelpPopover from "./popover/HelpPopover";
 import {useTranslation} from "react-i18next";
 import {toTagValue} from "../../util/JsonUtil";
-import {useContext} from "react";
+import {useContext, useEffect} from "react";
 import {IntegrationContext} from "../../../context/integrationContext";
 import {Link} from 'react-router-dom'
 import {SourceApplicationContext} from "../../../context/sourceApplicationContext";
@@ -12,12 +12,28 @@ import {SourceApplicationContext} from "../../../context/sourceApplicationContex
 const SourceApplicationForm: React.FunctionComponent<any> = (props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'components.SourceApplicationForm'});
     const { selectedMetadata } = useContext(IntegrationContext)
-    const { allMetadata, instanceElementMetadata } = useContext(SourceApplicationContext)
-    const [age, setAge] = React.useState('');
+    const { allMetadata, instanceElementMetadata, getInstanceElementMetadata, getAllMetadata } = useContext(SourceApplicationContext)
+    const { setSelectedMetadata } = useContext(IntegrationContext)
+    const [version, setVersion] = React.useState('');
 
     const handleChange = (event: SelectChangeEvent) => {
-        setAge(event.target.value);
+        setVersion(event.target.value);
+        let version: number = Number(event.target.value)
+        let config = availableVersions.filter(metadata => {
+            return metadata.version === version
+        })
+        setSelectedMetadata(config[0])
+        getInstanceElementMetadata(config[0].id)
     };
+
+    useEffect(() => {
+        getAllMetadata(false)
+    }, [])
+
+    const availableVersions = allMetadata.filter(md => {
+        return md.sourceApplicationId === selectedMetadata.sourceApplicationId &&
+            md.sourceApplicationIntegrationId === selectedMetadata.sourceApplicationIntegrationId
+    })
 
     function TagTree({items, depth = 0}: any ) {
         if (!items || !items.length) {
@@ -48,13 +64,13 @@ const SourceApplicationForm: React.FunctionComponent<any> = (props) => {
                     <Select
                         labelId="version-select"
                         id="version-select"
-                        value={age}
+                        value={version}
                         label="Versjon"
                         onChange={handleChange}
                     >
-                        <MenuItem value={10}>...</MenuItem>
-{/*                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>*/}
+                        {availableVersions.map(md => {
+                            return <MenuItem value={md.version}>Versjon {md.version}</MenuItem>
+                        })}
                     </Select>
                 </FormControl>
             </Box>

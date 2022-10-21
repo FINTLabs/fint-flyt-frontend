@@ -18,7 +18,6 @@ const deleteConfiguration = (configurationId: string) => {
     return axios.delete<any>(`/api/intern/konfigurasjoner/${configurationId}`);
 }
 
-
 const ConfigurationRepository = {
     createConfiguration,
     updateConfiguration,

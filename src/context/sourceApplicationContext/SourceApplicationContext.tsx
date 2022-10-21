@@ -35,9 +35,9 @@ const SourceApplicationProvider: FC = ({children}) => {
             })
     }
 
-    const getAllMetadata = () => {
+    const getAllMetadata = (onlyLatest: boolean) => {
         if (sourceApplication) {
-            SourceApplicationRepository.getMetadata(sourceApplication.toString(), true)
+            SourceApplicationRepository.getMetadata(sourceApplication.toString(), onlyLatest)
                 .then(response => {
                     let data: IIntegrationMetadata[] = response.data
                     if (data) {
@@ -59,7 +59,6 @@ const SourceApplicationProvider: FC = ({children}) => {
                 if(data) {
                     setInstanceElementMetadata(data)
                 }
-
             })
             .catch((err) => {
                 setInstanceElementMetadata(undefined)
