@@ -21,7 +21,7 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`viken-no-skjema.vigoiks.no`) && PathPrefix(`/`)
+    - match: Host(`viken-no-skjema.vigoiks.no`) && Path(`/`)
       kind: Rule
       services:
         - name: fint-flyt-integration-frontend
