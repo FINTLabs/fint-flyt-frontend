@@ -6,6 +6,7 @@ export interface IResourceItem {
 export type ResourceContextState = {
     administrativeUnits: IResourceItem[];
     accessCodes: IResourceItem[];
+    caseTypes: IResourceItem[];
     paragraphs: IResourceItem[];
     statuses: IResourceItem[];
     archiveSections: IResourceItem[];
@@ -38,6 +39,7 @@ export type ResourceContextState = {
 export const contextDefaultValues: ResourceContextState = {
     administrativeUnits: [],
     accessCodes: [],
+    caseTypes: [],
     paragraphs: [],
     statuses: [],
     archiveSections: [],

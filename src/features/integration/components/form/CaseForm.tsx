@@ -9,14 +9,13 @@ import HelpPopover from "../popover/HelpPopover";
 import { useTranslation } from 'react-i18next';
 import AddIcon from '@mui/icons-material/Add';
 import {CreationStrategy} from "../../types/CreationStrategy";
-import {dropdownPlaceholder} from "../../defaults/DefaultValues";
 
 const CaseForm: React.FunctionComponent<any> = (props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationForm.accordions.caseForm'});
     const disabled: boolean = props.disabled
     const [showSecondary, setShowSecondary] = React.useState(disabled);
     const [showTertiary, setShowTertiary] = React.useState(disabled);
-    const {administrativeUnits, accessCodes, paragraphs, statuses, archiveSections, archiveResources,
+    const {administrativeUnits, accessCodes, caseTypes, paragraphs, statuses, archiveSections, archiveResources,
         classificationSystems, primaryClassification, secondaryClassification, tertiaryClassification,
         primaryClass, secondaryClass, tertiaryClass, getPrimaryClass, getSecondaryClass, getTertiaryClass,
         setPrimaryClassification, setSecondaryClassification, setTertiaryClassification } = useContext(ResourcesContext);
@@ -47,7 +46,7 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
   const caseFormFields: IInputField[] = [
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.title", formValue: "caseData.title", required: required && !isCollection, error:errors.caseData?.title, value: props.activeFormData?.caseData?.title, helpText: "caseData.title"},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.publicTitle", formValue: "caseData.publicTitle", required: false, error:errors.caseData?.publicTitle, value: props.activeFormData?.caseData?.publicTitle, helpText: "caseData.publicTitle"},
-        {input: INPUT_TYPE.DROPDOWN, label: "labels.caseType", value: props.watch("caseData.caseType"), formValue: "caseData.caseType", dropDownItems: dropdownPlaceholder, required: false, error:errors.caseData?.caseType, helpText: "caseData.caseType", disabled: true},
+        {input: INPUT_TYPE.DROPDOWN, label: "labels.caseType", value: props.watch("caseData.caseType"), formValue: "caseData.caseType", dropDownItems: caseTypes, required: false, error:errors.caseData?.caseType, helpText: "caseData.caseType", disabled: true},
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.administrativeUnit", value: props.watch("caseData.administrativeUnit"), formValue: "caseData.administrativeUnit", dropDownItems: administrativeUnits, required: required && !isCollection, error:errors.caseData?.administrativeUnit, helpText: "caseData.administrativeUnit"},
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.responsibleCaseWorker", value: props.watch("caseData.caseWorker"), formValue: "caseData.caseWorker", dropDownItems: archiveResources, required: false, error:errors.caseData?.caseWorker, helpText: "caseData.caseWorker"},
         {input: INPUT_TYPE.DROPDOWN, label: "labels.archiveUnit", value: props.watch("caseData.archiveUnit"), formValue: "caseData.archiveUnit", dropDownItems: archiveSections, required: required && !isCollection, error:errors.caseData?.archiveUnit, helpText: "caseData.archiveUnit"},

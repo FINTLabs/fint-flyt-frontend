@@ -15,6 +15,7 @@ const ResourcesProvider: FC = ({ children }) => {
     const [archiveResources, setArchiveResources] = useState<IResourceItem[]>(contextDefaultValues.archiveResources);
     const [accessCodes, setAccessCodes] = useState<IResourceItem[]>(contextDefaultValues.accessCodes);
     const [accessCode, setAccessCode] = useState<IResourceItem[]>(contextDefaultValues.accessCodes);
+    const [caseTypes, setCaseTypes] = useState<IResourceItem[]>(contextDefaultValues.caseTypes);
     const [paragraphs, setParagraph] = useState<IResourceItem[]>(contextDefaultValues.paragraphs);
     const [documentStatuses, setDocumentStatuses] = useState<IResourceItem[]>(contextDefaultValues.documentStatuses);
     const [recordStatuses, setRecordStatuses] = useState<IResourceItem[]>(contextDefaultValues.recordStatuses);
@@ -34,6 +35,7 @@ const ResourcesProvider: FC = ({ children }) => {
         {resource: 'sakstatus', setter: setStatuses},
         {resource: 'arkivdel', setter: setArchiveSections},
         {resource: 'arkivressurs', setter: setArchiveResources},
+        {resource: 'saksmappetype', setter: setCaseTypes},
         {resource: 'klassifikasjonssystem', setter: setClassificationSystems},
         {resource: 'tilgangsrestriksjon', setter: setAccessCodes},
         {resource: 'skjermingshjemmel', setter: setParagraph},
@@ -138,6 +140,7 @@ const ResourcesProvider: FC = ({ children }) => {
             value={{
                 administrativeUnits,
                 accessCodes,
+                caseTypes,
                 paragraphs,
                 statuses,
                 archiveSections,

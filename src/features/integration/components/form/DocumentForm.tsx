@@ -7,11 +7,10 @@ import {FieldErrors} from "react-hook-form";
 import {ResourcesContext} from "../../../../context/resourcesContext";
 import HelpPopover from "../popover/HelpPopover";
 import { useTranslation } from 'react-i18next';
-import {dropdownPlaceholder} from "../../defaults/DefaultValues";
 
 const DocumentForm: React.FunctionComponent<any> = (props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationForm.accordions.documentForm'});
-    const {accessCodes, paragraphs, documentStatuses, variants} = useContext(ResourcesContext);
+    const {accessCodes, paragraphs, documentStatuses,documentTypes, variants} = useContext(ResourcesContext);
     let errors: FieldErrors = props.errors;
     let required: boolean = props.validation;
 
@@ -19,7 +18,7 @@ const DocumentForm: React.FunctionComponent<any> = (props) => {
     const documentFormFields: IInputField[] = [
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.title", formValue: "documentData.title", required: required, error:errors.documentData?.title, value: props.activeFormData?.documentData?.title, helpText: "documentData.title"},
         {input: INPUT_TYPE.DROPDOWN, label: "labels.documentStatus", value: props.watch("documentData.documentStatus"), formValue: "documentData.documentStatus", dropDownItems: documentStatuses, required: false, error:errors.documentData?.documentStatus, helpText: "documentData.documentStatus"},
-        {input: INPUT_TYPE.DROPDOWN, label: "labels.documentCategory", value: props.watch("documentData.documentCategory"), formValue: "documentData.documentCategory", dropDownItems: dropdownPlaceholder, required: false, error:errors.documentData?.documentCategory, helpText: "documentData.documentCategory", disabled: true},
+        {input: INPUT_TYPE.DROPDOWN, label: "labels.documentCategory", value: props.watch("documentData.documentCategory"), formValue: "documentData.documentCategory", dropDownItems: documentTypes, required: false, error:errors.documentData?.documentCategory, helpText: "documentData.documentCategory", disabled: true},
         {input: INPUT_TYPE.DROPDOWN, label: "labels.accessCode", value: props.watch("documentData.accessCode"), formValue: "documentData.accessCode", dropDownItems: accessCodes, required: false, error:errors.documentData?.accessCode, helpText: "documentData.accessCode"},
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.paragraph", value: props.watch("documentData.paragraph"), formValue: "documentData.paragraph", dropDownItems: paragraphs, required: false, error:errors.documentData?.paragraph, helpText: "documentData.paragraph"}
     ]
