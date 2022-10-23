@@ -1,9 +1,12 @@
-import {Box, Button, Typography} from "@mui/material";
-import {DataGrid, GridCellParams, GridColumns, GridToolbar} from "@mui/x-data-grid";
+import {Box, Button, IconButton, Typography} from "@mui/material";
+import {DataGrid, GridCellParams, GridColumns, GridComparatorFn, GridToolbar} from "@mui/x-data-grid";
 import * as React from "react";
 import {useHistory} from "react-router-dom";
 import {gridLocaleNoNB} from "../../util/locale/gridLocaleNoNB";
 import {useTranslation} from "react-i18next";
+import ErrorIcon from '@mui/icons-material/Error';
+import InfoIcon from '@mui/icons-material/Info';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 import moment from "moment";
 import {useContext, useEffect} from "react";
@@ -15,16 +18,17 @@ const InstanceTable: React.FunctionComponent<any> = (props) => {
     let history = useHistory();
     const {latestInstances, getLatestInstances, getSelectedInstances} = useContext(HistoryContext)
 
-
     const columns: GridColumns = [
         { field: 'id', hide: true, type: 'string', headerName: 'id', flex: 0.5 },
         { field: 'sourceApplicationInstanceId', type: 'string', headerName: 'Kilde instans ID', flex: 1,
             valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplicationInstanceId
         },
-        { field: 'timestamp', type: 'string', headerName: 'Sist hendelse', flex: 2,
-            valueGetter: (params) => moment(params.row.timestamp).format('YYYY/MM/DD HH:mm')
+        { field: 'timestamp', type: 'dateTime', headerName: 'Sist hendelse', flex: 2,
+            valueGetter: (params) => moment(params.row.timestamp).format('YYYY/MM/DD HH:mm:ss.sss'),
         },
-        { field: 'name', type: 'string', headerName: 'Status', flex: 2, valueGetter: params => t(params.row.name)},
+        { field: 'name', type: 'string', headerName: 'Status', flex: 2,
+            renderCell: params => ( <CustomCellRender row={params.row} />)
+        },
         { field: 'sourceApplication', type: 'string', headerName: 'Kildeapplikasjon', flex: 2,
             valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplication
         },
@@ -42,6 +46,17 @@ const InstanceTable: React.FunctionComponent<any> = (props) => {
         }
     ];
 
+    function CustomCellRender(props: GridCellParams["row"]) {
+        return (
+            <>
+                {props.row.type === 'ERROR' && <ErrorIcon color="error"/>}
+                {props.row.type === 'INFO' && props.row.name !== 'case-dispatched' && <InfoIcon color="info"/>}
+                {props.row.name === 'case-dispatched' && <CheckCircleIcon color="success"/>}
+                {t(props.row.name)}
+            </>
+        );
+    }
+
     const  resend = (event: any, instanceId: string) => {
         //TODO: add notifatication on successful or failed resending
         InstanceRepository.resendInstance(instanceId)
@@ -52,11 +67,11 @@ const InstanceTable: React.FunctionComponent<any> = (props) => {
     }
 
     useEffect(()=> {
-        getLatestInstances();
+        getLatestInstances(0, 100, "timestamp", "DESC");
     }, []);
 
     const getEventsWithInstanceId = (sourceApplicationID: string, instanceId: string) => {
-        getSelectedInstances(sourceApplicationID, instanceId)
+        getSelectedInstances(0, 100, "timestamp", "DESC", sourceApplicationID, instanceId)
         setHistory();
     }
 
@@ -98,6 +113,9 @@ const InstanceTable: React.FunctionComponent<any> = (props) => {
                 }}
                 rowThreshold={0}
                 initialState={{
+                    pagination: {
+                        pageSize: 20,
+                    },
                     sorting: {
                         sortModel: [{ field: 'timestamp', sort: 'desc' }],
                     },

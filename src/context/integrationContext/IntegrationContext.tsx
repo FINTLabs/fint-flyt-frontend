@@ -48,10 +48,10 @@ const IntegrationProvider: FC = ({ children }) => {
                 if (data) {
                     setStatistics(data)
                     let stats = data;
-                    IntegrationRepository.getIntegrations()
+                    IntegrationRepository.getIntegrations(0, 100, "state", "ASC")
                         .then((response) => {
-                            if (response.data) {
-                                let mergedList: IIntegration[] = response.data;
+                            if (response.data.content) {
+                                let mergedList: IIntegration[] = response.data.content;
                                 stats.forEach((value: IIntegrationStatistics) => {
                                     mergedList.map((integration: IIntegration) => {
                                         if (integration.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {

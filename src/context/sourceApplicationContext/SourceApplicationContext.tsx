@@ -68,11 +68,11 @@ const SourceApplicationProvider: FC = ({children}) => {
 
     //TODO: get all forms from sourceApplication when available
     const getAllForms = (forms: ISelect[]) => {
-        IntegrationRepository.getIntegrations()
+        IntegrationRepository.getIntegrations(0, 100, "state", "DESC")
             .then(response => {
-                let data = response.data;
+                let data = response.data.content;
                 if (data) {
-                    let ids: string[] = response.data.map((config: any) => config.sourceApplicationIntegrationId)
+                    let ids: string[] = data.map((config: any) => config.sourceApplicationIntegrationId)
                     let selectableForms = forms.filter(form => !ids.includes(form.value));
                     if(sourceApplication !== null) {
                         setAvailableForms({sourceApplicationDisplayName: getSourceApplicationDisplayName(sourceApplication), sourceApplicationId: sourceApplication.toString(), forms: selectableForms})

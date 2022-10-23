@@ -1,29 +1,42 @@
 import axios from "axios";
 
-const getEvents = (kildeapplikasjonId?: string, kildeapplikasjonInstansId?: string) => {
+const getEvents = (page: number, size: number, sortProperty: string, sortDirection: string) => {
     return axios.get<any>(`/api/intern/historikk/hendelser`, {
         params: {
-            kildeapplikasjonsId: kildeapplikasjonId,
-            kildeapplikasjonInstansId: kildeapplikasjonInstansId
+            side: page,
+            antall: size,
+            sorteringFelt: sortProperty,
+            sorteringRetning: sortDirection,
+            bareSistePerInstans: false
         }
     });
 };
 
-const getLatestEvents = () => {
+const getLatestEvents = (page: number, size: number, sortProperty: string, sortDirection: string) => {
     return axios.get<any>(`/api/intern/historikk/hendelser`, {
         params: {
+            side: page,
+            antall: size,
+            sorteringFelt: sortProperty,
+            sorteringRetning: sortDirection,
             bareSistePerInstans: true
         }
     });
 };
 
-const getEventsByInstanceId = (kildeapplikasjonId?: string, kildeapplikasjonInstansId?: string) => {
+const getEventsByInstanceId = (page: number, size: number, sortProperty: string, sortDirection: string, kildeapplikasjonId?: string, kildeapplikasjonInstansId?: string) => {
     return axios.get<any>(`/api/intern/historikk/hendelser`, {
         params: {
+            side: page,
+            antall: size,
+            sorteringFelt: sortProperty,
+            sorteringRetning: sortDirection,
             kildeapplikasjonId: kildeapplikasjonId,
             kildeapplikasjonInstansId: kildeapplikasjonInstansId
         }
-    });};
+    });
+};
+
 const getAllStatistics = () => {
     return axios.get<any>(`/api/intern/historikk/statistikk`);
 };

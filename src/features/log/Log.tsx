@@ -45,7 +45,7 @@ function Log() {
 
 
     useEffect(()=> {
-        getEvents();
+        getEvents(0, 100, "timestamp", "DESC");
     }, []);
 
     return (

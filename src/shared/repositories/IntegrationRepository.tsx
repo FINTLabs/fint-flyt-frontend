@@ -1,8 +1,19 @@
 import axios from "axios";
 import {IIntegration, IIntegrationPatch} from "../../features/integration/types/Integration";
 
-const getIntegrations = (integrationId?: string) => {
-    return axios.get<IIntegration[]>("/api/intern/integrasjoner", {params: {integrationId: integrationId}});
+const getIntegrations = (page: number, size: number, sortProperty: string, sortDirection: string) => {
+    return axios.get<any>("/api/intern/integrasjoner", {
+        params: {
+            side: page,
+            antall: size,
+            sorteringFelt: sortProperty,
+            sorteringRetning: sortDirection
+        }
+    });
+}
+
+const getIntegration = (integrationId: string) => {
+    return axios.get<any>(`/api/intern/integrasjoner/${integrationId}`)
 }
 const createIntegration = (data: IIntegration) => {
     return axios.post<any>("/api/intern/integrasjoner", data);

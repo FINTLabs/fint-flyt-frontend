@@ -13,10 +13,10 @@ const HistoryProvider: FC = ({children}) => {
     const [latestInstances, setLatestInstances] = useState<IEvent[] | undefined>(contextDefaultValues.latestInstances);
     const [selectedInstances, setSelectedInstances] = useState<IEvent[] | undefined>(contextDefaultValues.selectedInstances)
 
-    const getEvents = () => {
-        EventRepository.getEvents()
+    const getEvents = (page: number, size: number, sortProperty: string, sortDirection: string) => {
+        EventRepository.getEvents(page, size, sortProperty, sortDirection)
             .then((response) => {
-                let data = response.data;
+                let data = response.data.content;
                 if (data) {
                     data.forEach(addId(0, 'name'))
                     data.forEach((event: any) =>
@@ -31,10 +31,10 @@ const HistoryProvider: FC = ({children}) => {
             })
     }
 
-    const getLatestInstances = () => {
-        EventRepository.getLatestEvents()
+    const getLatestInstances = (page: number, size: number, sortProperty: string, sortDirection: string) => {
+        EventRepository.getLatestEvents(page, size, sortProperty, sortDirection)
             .then((response) => {
-                let data = response.data;
+                let data = response.data.content;
                 if (data) {
                     data.forEach(addId(0, 'name'))
                     setLatestInstances(data);
@@ -45,15 +45,15 @@ const HistoryProvider: FC = ({children}) => {
                 setLatestInstances([]);
             })
     }
-    const getSelectedInstances = (sourceApplicationId: string, instanceId: string) => {
-        EventRepository.getEventsByInstanceId(sourceApplicationId, instanceId)
+    const getSelectedInstances = (page: number, size: number, sortProperty: string, sortDirection: string, sourceApplicationId: string, instanceId: string) => {
+        EventRepository.getEventsByInstanceId(page, size, sortProperty, sortDirection, sourceApplicationId, instanceId)
             .then((response) => {
-                let data = response.data
+                let data = response.data.content
                 if (data) {
                     data.forEach(addId(0, 'name'))
                     setLatestInstances(data);
                 }
-                setSelectedInstances(response.data)
+                setSelectedInstances(response.data.content)
             })
             .catch(e => {
                 console.error('Error: ', e)
