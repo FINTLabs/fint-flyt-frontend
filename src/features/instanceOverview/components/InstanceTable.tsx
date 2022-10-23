@@ -1,5 +1,5 @@
-import {Box, Button, IconButton, Typography} from "@mui/material";
-import {DataGrid, GridCellParams, GridColumns, GridComparatorFn, GridToolbar} from "@mui/x-data-grid";
+import {Box, Button, Typography} from "@mui/material";
+import {DataGrid, GridCellParams, GridColumns, GridToolbar} from "@mui/x-data-grid";
 import * as React from "react";
 import {useHistory} from "react-router-dom";
 import {gridLocaleNoNB} from "../../util/locale/gridLocaleNoNB";
@@ -67,11 +67,11 @@ const InstanceTable: React.FunctionComponent<any> = (props) => {
     }
 
     useEffect(()=> {
-        getLatestInstances(0, 100, "timestamp", "DESC");
+        getLatestInstances(0, 1000, "timestamp", "DESC");
     }, []);
 
     const getEventsWithInstanceId = (sourceApplicationID: string, instanceId: string) => {
-        getSelectedInstances(0, 100, "timestamp", "DESC", sourceApplicationID, instanceId)
+        getSelectedInstances(0, 1000, "timestamp", "DESC", sourceApplicationID, instanceId)
         setHistory();
     }
 

@@ -68,7 +68,7 @@ const SourceApplicationProvider: FC = ({children}) => {
 
     //TODO: get all forms from sourceApplication when available
     const getAllForms = (forms: ISelect[]) => {
-        IntegrationRepository.getIntegrations(0, 100, "state", "DESC")
+        IntegrationRepository.getIntegrations(0, 1000, "state", "DESC")
             .then(response => {
                 let data = response.data.content;
                 if (data) {

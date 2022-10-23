@@ -48,7 +48,7 @@ const IntegrationProvider: FC = ({ children }) => {
                 if (data) {
                     setStatistics(data)
                     let stats = data;
-                    IntegrationRepository.getIntegrations(0, 100, "state", "ASC")
+                    IntegrationRepository.getIntegrations(0, 1000, "state", "ASC")
                         .then((response) => {
                             if (response.data.content) {
                                 let mergedList: IIntegration[] = response.data.content;
