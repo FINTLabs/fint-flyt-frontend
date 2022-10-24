@@ -68,9 +68,9 @@ const SourceApplicationProvider: FC = ({children}) => {
 
     //TODO: get all forms from sourceApplication when available
     const getAllForms = (forms: ISelect[]) => {
-        IntegrationRepository.getIntegrations(0, 1000, "state", "DESC")
+        IntegrationRepository.getAllIntegrations()
             .then(response => {
-                let data = response.data.content;
+                let data = response.data;
                 if (data) {
                     let ids: string[] = data.map((config: any) => config.sourceApplicationIntegrationId)
                     let selectableForms = forms.filter(form => !ids.includes(form.value));

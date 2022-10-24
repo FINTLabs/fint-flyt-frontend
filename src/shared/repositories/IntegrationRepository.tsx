@@ -1,6 +1,10 @@
 import axios from "axios";
 import {IIntegration, IIntegrationPatch} from "../../features/integration/types/Integration";
 
+const getAllIntegrations = () => {
+    return axios.get<any>("/api/intern/integrasjoner");
+}
+
 const getIntegrations = (page: number, size: number, sortProperty: string, sortDirection: string) => {
     return axios.get<any>("/api/intern/integrasjoner", {
         params: {
@@ -23,9 +27,11 @@ const updateIntegration = (integrationId: string, data: IIntegrationPatch) => {
 }
 
 const IntegrationRepository = {
+    getIntegration,
     createIntegration,
     getIntegrations,
-    updateIntegration
+    updateIntegration,
+    getAllIntegrations
 };
 
 export default IntegrationRepository;

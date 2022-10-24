@@ -37,6 +37,9 @@ const HistoryProvider: FC = ({children}) => {
                 let data = response.data.content;
                 if (data) {
                     data.forEach(addId(0, 'name'))
+                    data.forEach((event: any) =>
+                        event.errors.forEach(addId(0, 'errorCode'))
+                    );
                     setLatestInstances(data);
                 }
             })
@@ -51,6 +54,9 @@ const HistoryProvider: FC = ({children}) => {
                 let data = response.data.content
                 if (data) {
                     data.forEach(addId(0, 'name'))
+                    data.forEach((event: any) =>
+                        event.errors.forEach(addId(0, 'errorCode'))
+                    );
                     setLatestInstances(data);
                 }
                 setSelectedInstances(response.data.content)

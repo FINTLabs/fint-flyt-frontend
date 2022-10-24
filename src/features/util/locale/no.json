@@ -166,6 +166,25 @@
             }
         },
         "instanceOverview": {
+            "FINT_FLYT_ACOS_INSTANCE_GATEWAY_INSTANCE_VALIDATION_ERROR": "Valideringsfeil i mottak av instans, '#fieldPath# #errorMessage#'",
+            "FINT_FLYT_ACOS_INSTANCE_GATEWAY_GENERAL_SYSTEM_ERROR": "Systemfeil. Ta kontakt med FINT",
+            "FINT_FLYT_INSTANCE_SERVICE_GENERAL_SYSTEM_ERROR":  "Systemfeil. Ta kontakt med FINT",
+            "FINT_FLYT_CASE_SERVICE_GENERAL_SYSTEM_ERROR": "Det har oppstått en feil",
+            "FINT_FLYT_CASE_SERVICE_NO_CONFIGURATION_FOR_INTEGRATION": "Ingen konfigurasjon for valgt integrasjon",
+            "FINT_FLYT_CASE_SERVICE_MISSING_INSTANCE_FIELD_FOR_CASE_CONFIGURATION_FIELD": "Mangler felt ‘#instanceField#’ i instans, som kreves for å sette felt ‘#configurationField#’ i sak",
+            "FINT_FLYT_CASE_SERVICE_MISSING_INSTANCE_FIELD_FOR_RECORD_CONFIGURATION_FIELD": "Mangler felt ‘#instanceField#’ i instans, som kreves for å sette felt ‘#configurationField#’ i journalpost",
+            "FINT_FLYT_CASE_SERVICE_MISSING_INSTANCE_FIELD_FOR_DOCUMENT_CONFIGURATION_FIELD": "Mangler felt ‘#instanceField#’ i instans, som kreves for å sette felt ‘#configurationField#’ i dokument- og objektbeskrivelse",
+            "FINT_FLYT_CASE_SERVICE_MISSING_MAPPING_FIELD_FOR_CASE": "Mangler felt '#mappingField#' for sakspost",
+            "FINT_FLYT_CASE_SERVICE_MISSING_MAPPING_FIELD_FOR_RECORD": "Mangler felt '#mappingField#' for journalpost",
+            "FINT_FLYT_CASE_SERVICE_MISSING_MAPPING_FIELD_FOR_DOCUMENT": "Mangler felt '#mappingField#' for dokument- og objektbeskrivelse",
+            "FINT_FLYT_DISPATCH_SERVICE_GENERAL_SYSTEM_ERROR": "Systemfeil. Ta kontakt med FINT",
+            "FINT_FLYT_DISPATCH_SERVICE_CASE_DISPATCH_ERROR": "Innsending av sak feilet med status '#status#'",
+            "REQUESTED": "Forespurt",
+            "SENT": "Sendt",
+            "FAILED": "Feilet",
+            "ACCEPTED": "Akseptert",
+            "DECLINED": "Avvist",
+            "dialogHeader": "Hendelse - meldinger",
             "instance-mapping-error": "Feil under konvertering av instans",
             "instance-dispatching-error": "Feil under sending",
             "instance-mapped": "instans konvertert",
@@ -185,12 +204,14 @@
             "case-dispatching-error": "Feilet under arkivering av sak",
             "header": "Instansoversikt",
             "button": {
+                "close": "Lukk",
                 "edit": "Rediger",
                 "back": "Tilbake",
                 "changeVersion": "Bruk denne konfigurasjonen"
             },
             "table": {
                 "columns": {
+                    "errorMessage": "Feilmeldinger",
                     "destination": "Destinasjon/base",
                     "sourceApplicationIntegrationId": "Skjema",
                     "sourceApplicationId": "Skjemaleverandør",
