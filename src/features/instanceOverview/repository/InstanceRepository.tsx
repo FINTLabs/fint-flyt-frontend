@@ -5,8 +5,8 @@ const resendInstance = (instanceId: string) => {
 };
 
 
-const ResourceRepository = {
+const InstanceRepository = {
     resendInstance
 };
 
-export default ResourceRepository;
+export default InstanceRepository;

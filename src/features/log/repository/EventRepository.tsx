@@ -45,7 +45,7 @@ const getStatistics = () => {
     return axios.get<any>(`/api/intern/historikk/statistikk/integrasjoner`);
 };
 
-const ResourceRepository = {
+const EventRepository = {
     getEvents,
     getLatestEvents,
     getEventsByInstanceId,
@@ -53,4 +53,4 @@ const ResourceRepository = {
     getStatistics
 };
 
-export default ResourceRepository;
+export default EventRepository;

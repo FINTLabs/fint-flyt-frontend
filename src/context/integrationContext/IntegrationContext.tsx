@@ -19,6 +19,7 @@ const IntegrationProvider: FC = ({ children }) => {
     const [newIntegrations, setNewIntegrations] = useState<IIntegration[] | undefined>(undefined);
     const [configuration, setConfiguration] = useState<newIConfiguration | undefined>(contextDefaultValues.configuration);
     const [configurations, setConfigurations] = useState<newIConfiguration[] | undefined>(contextDefaultValues.configurations);
+    const [completedConfigurations, setCompletedConfigurations] = useState<newIConfiguration[] | undefined>(contextDefaultValues.completedConfigurations);
     const [destination, setDestination] = useState<string>('');
     const [selectedMetadata, setSelectedMetadata] = useState<IIntegrationMetadata>(contextDefaultValues.selectedMetadata);
     const [sourceApplicationIntegrationId, setSourceApplicationIntegrationId] = useState<string>('');
@@ -74,10 +75,10 @@ const IntegrationProvider: FC = ({ children }) => {
             }).catch(e => console.log('error', e))
     }
 
-    const getConfigurations = (id: any, excludeElements?: boolean) => {
-        ConfigurationRepository.getConfigurations(id.toString(), excludeElements)
+    const getConfigurations = (page: number, size: number, sortProperty: string, sortDirection: string, complete: boolean, id: any, excludeElements?: boolean) => {
+        ConfigurationRepository.getConfigurations(page, size, sortProperty, sortDirection, complete, id.toString(), excludeElements)
             .then((response) => {
-                let data = response.data;
+                let data = response.data.content;
                 if (data) {
                 let configurations: newIConfiguration[] = data;
                     setConfigurations(configurations);
@@ -88,6 +89,20 @@ const IntegrationProvider: FC = ({ children }) => {
                 setConfigurations([]);
             })
     }
+
+    const getCompletedConfigurations = (page: number, size: number, sortProperty: string, sortDirection: string, complete: boolean, id: any, excludeElements?: boolean) => {
+        ConfigurationRepository.getConfigurations(page, size, sortProperty, sortDirection, complete, id.toString(), excludeElements)
+            .then((response) => {
+                let data = response.data.content;
+                if (data) {
+                    let configurations: newIConfiguration[] = data;
+                    setCompletedConfigurations(configurations);
+                }
+            })
+            .catch((e) => {
+                console.error('Error: ', e)
+                setCompletedConfigurations([]);
+            })    }
 
     const getConfiguration = async (id: any, excludeElements?: boolean) => {
         ConfigurationRepository.getConfiguration(id.toString(), excludeElements)
@@ -121,8 +136,11 @@ const IntegrationProvider: FC = ({ children }) => {
                 setConfiguration,
                 getConfiguration,
                 configurations,
+                completedConfigurations,
                 getConfigurations,
+                getCompletedConfigurations,
                 setConfigurations,
+                setCompletedConfigurations,
                 destination,
                 setDestination,
                 selectedMetadata,

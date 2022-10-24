@@ -20,11 +20,9 @@ import {IntegrationContext} from "../../../context/integrationContext";
 import {Link as RouterLink, useHistory} from 'react-router-dom';
 import {ISelect} from "../../integration/types/InputField";
 import IntegrationRepository from "../../../shared/repositories/IntegrationRepository";
-import {ResourcesContext} from "../../../context/resourcesContext";
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import {SourceApplicationContext} from "../../../context/sourceApplicationContext";
 import {SOURCE_FORM_NO_VALUES} from "../../integration/defaults/DefaultValues";
-import {IntegrationState} from "../../integration/types/IntegrationState.enum";
 import ConfigurationRepository from "../../../shared/repositories/ConfigurationRepository";
 import {newIConfiguration} from "../../integration/types/Configuration";
 import {IIntegrationPatch} from "../../integration/types/Integration";
@@ -35,7 +33,6 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
     let history = useHistory();
     const {existingIntegration, setConfiguration, setSelectedMetadata} = useContext(IntegrationContext)
     const { allMetadata, getAllMetadata, getInstanceElementMetadata} = useContext(SourceApplicationContext)
-    const {setPrimaryClassification, setSecondaryClassification, setTertiaryClassification} = useContext(ResourcesContext);
     const [version, setVersion] = useState('null');
     const [activeVersion, setActiveVersion] = useState(existingIntegration?.activeConfigurationId ? 'konfigurasjon' + existingIntegration?.activeConfigurationId : 'Ingen');
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -74,10 +71,15 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
         { field: 'id', type: 'string', headerName: 'KonfigurasjonsId', flex: 0.5},
         { field: 'version', type: 'number', headerName: 'Versjon', flex: 0.5},
         { field: 'comment', type: 'string', headerName: 'Kommentar', flex: 1},
-        { field: 'completed', type: 'string', headerName: 'Ferdigstilt', flex: 1, description: "Kun ferdigstilte konfigurasjoner kan settes som aktive",
-            valueGetter: (params) => params.row.completed ? 'Ja' : 'Nei'
-        },
-        { field: 'details', headerName: 'Vis/Rediger', flex: 0.5, sortable: false, filterable: false, description: "Ferdigstilte konfigurasjoner kan ikke redigeres",
+        { field: 'details', headerName: 'Vis', flex: 0.5, sortable: false, filterable: false, description: "Ferdigstilte konfigurasjoner kan ikke redigeres",
+            renderCell: (params) => ( <EditButtonToggle row={params.row} />)
+        }
+    ];
+
+    const draftColumns: GridColDef[] = [
+        { field: 'id', type: 'string', headerName: 'KonfigurasjonsId', flex: 0.5},
+        { field: 'comment', type: 'string', headerName: 'Kommentar', flex: 1},
+        { field: 'details', headerName: 'Rediger', flex: 0.5, sortable: false, filterable: false, description: "Ferdigstilte konfigurasjoner kan ikke redigeres",
             renderCell: (params) => ( <EditButtonToggle row={params.row} />)
         }
     ];
@@ -127,11 +129,6 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
         console.log('set active config, integrationId', existingIntegration?.id, 'configurationId', configurationId)
     }
 
-    const openNewConfigurationDialog = (event: any, integrationId: string) => {
-        //TODO: open new/edit config
-        console.log('new config on integrationId: ', integrationId)
-    }
-
     const handleChange = (event: SelectChangeEvent) => {
         setOpenDialog(true)
         setConfigToActivate(event.target.value)
@@ -155,12 +152,10 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Avbryt</Button>
-                    <Button onClick={handleActivateButton} autoFocus>
-                        Ja
-                    </Button>
+                    <Button onClick={handleActivateButton} autoFocus>Ja</Button>
                 </DialogActions>
             </Dialog>
-            <Card>
+            <Card sx={{mb: 2}}>
                 <CardContent>
                     <Typography id="details-sourceApplicationIntegrationId"><strong>id:</strong>{existingIntegration?.id}</Typography>
                     <Typography id="details-sourceApplicationIntegrationId"><strong>{t('labels.sourceApplicationIntegrationId')}</strong>{existingIntegration?.sourceApplicationIntegrationId}</Typography>
@@ -184,14 +179,46 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                 </FormControl>
             </Card>
             <Box display="flex" position="relative" width={1} height={1}>
+                <Box id="completed-integration-list" className={classes.dataPanelBox}>
+                    <Typography>Ferdigstilt:</Typography>
+                    <DataGrid
+                        loading={props.loading}
+                        localeText={i18n.language === 'no' ? gridLocaleNoNB : undefined}
+                        //getRowId={(row) => row.configurationId}
+                        density='compact'
+                        rows={props.completedConfigurations ? props.completedConfigurations : []}
+                        columns={columns}
+                        pageSize={20}
+                        rowsPerPageOptions={[20]}
+                        components={{
+                            Toolbar: GridToolbar,
+                        }}
+                        initialState={{
+                            sorting: {
+                                sortModel: [{ field: 'version', sort: 'desc' }],
+                            },
+                            filter: {
+                                filterModel: {
+                                    items: [
+                                        {
+                                            columnField: 'sourceApplicationIntegrationId',
+                                            operatorValue: 'contains'
+                                        },
+                                    ],
+                                },
+                            },
+                        }}
+                    />
+                </Box>
                 <Box id="integration-list" className={classes.dataPanelBox}>
+                    <Typography>Utkast:</Typography>
                     <DataGrid
                         loading={props.loading}
                         localeText={i18n.language === 'no' ? gridLocaleNoNB : undefined}
                         //getRowId={(row) => row.configurationId}
                         density='compact'
                         rows={props.configurations ? props.configurations : []}
-                        columns={columns}
+                        columns={draftColumns}
                         pageSize={20}
                         rowsPerPageOptions={[20]}
                         components={{
@@ -216,6 +243,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                 </Box>
             </Box>
             <Button
+                sx={{mt: 5}}
                 id="demo-positioned-button"
                 variant="contained"
                 aria-controls={open ? 'demo-positioned-menu' : undefined}

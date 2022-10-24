@@ -34,6 +34,9 @@ export type ResourceContextState = {
     getPrimaryClass: () => void;
     getSecondaryClass: () => void;
     getTertiaryClass: () => void;
+    setPrimaryClass: (primary: IResourceItem[]) => void;
+    setSecondaryClass: (primary: IResourceItem[]) => void;
+    setTertiaryClass: (primary: IResourceItem[]) => void;
 };
 
 export const contextDefaultValues: ResourceContextState = {
@@ -64,4 +67,7 @@ export const contextDefaultValues: ResourceContextState = {
     getPrimaryClass: () => {},
     getSecondaryClass: () => {},
     getTertiaryClass: () => {},
+    setPrimaryClass: (primary: IResourceItem[]) => {},
+    setSecondaryClass: (primary: IResourceItem[]) => {},
+    setTertiaryClass: (primary: IResourceItem[]) => {}
 };
