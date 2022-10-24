@@ -1,5 +1,6 @@
 import {FieldConfigurationType, IConfigurationPatch, newIConfiguration} from "../../integration/types/Configuration";
 import { IFormConfiguration } from "../../integration/types/Form/FormData";
+import {CreationStrategy} from "../../integration/types/CreationStrategy";
 
 export function toNewConfiguration(data: IFormConfiguration, integrationId: string, configurationId: any, metadataId: number): newIConfiguration {
     return {
@@ -9,7 +10,23 @@ export function toNewConfiguration(data: IFormConfiguration, integrationId: stri
         integrationMetadataId: metadataId,
         comment: data.comment,
         elements: [
-            {
+            data.caseData.caseCreationStrategy === CreationStrategy.COLLECTION ?
+                {
+                    key: 'case',
+                    fieldConfigurations: [
+                        {
+                            key: "creationStrategy",
+                            type: FieldConfigurationType.STRING,
+                            value: data.caseData.caseCreationStrategy
+                        },
+                        {
+                            key: "saksnummer",
+                            type: FieldConfigurationType.STRING,
+                            value: data.caseData.caseNumber
+                        },
+                    ]
+                }
+:            {
                 key: 'case',
                 fieldConfigurations: [
                     {
@@ -295,7 +312,24 @@ export function toConfigurationPatch(data: IFormConfiguration, metadataId: any):
         integrationMetadataId: metadataId,
         comment: data.comment,
         elements: [
-            {
+            data.caseData.caseCreationStrategy === CreationStrategy.COLLECTION ?
+                {
+                    key: 'case',
+                    fieldConfigurations: [
+                        {
+                            key: "creationStrategy",
+                            type: FieldConfigurationType.STRING,
+                            value: data.caseData.caseCreationStrategy
+                        },
+                        {
+                            key: "saksnummer",
+                            type: FieldConfigurationType.STRING,
+                            value: data.caseData.caseNumber
+                        },
+                    ]
+                }
+                :
+                {
                 key: 'case',
                 fieldConfigurations: [
                     {

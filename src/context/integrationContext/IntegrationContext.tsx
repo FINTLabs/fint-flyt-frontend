@@ -14,6 +14,7 @@ export const IntegrationContext = createContext<IntegrationContextState>(
 
 const IntegrationProvider: FC = ({ children }) => {
     const [existingIntegration, setExistingIntegration] = useState<IIntegration | undefined>(undefined);
+    const [caseNumber, setCaseNumber] = useState<string | undefined>(undefined);
     const [newIntegration, setNewIntegration] = useState<IIntegration | undefined>(undefined);
     const [newIntegrations, setNewIntegrations] = useState<IIntegration[] | undefined>(undefined);
     const [configuration, setConfiguration] = useState<newIConfiguration | undefined>(contextDefaultValues.configuration);
@@ -29,6 +30,7 @@ const IntegrationProvider: FC = ({ children }) => {
         setSourceApplicationId('');
         setSourceApplicationIntegrationId('');
         setSelectedMetadata(contextDefaultValues.selectedMetadata)
+        setCaseNumber(undefined)
     }
 
     const resetIntegrations = () => {
@@ -105,6 +107,8 @@ const IntegrationProvider: FC = ({ children }) => {
     return (
         <IntegrationContext.Provider
             value={{
+                caseNumber,
+                setCaseNumber,
                 statistics,
                 newIntegration,
                 setNewIntegration,

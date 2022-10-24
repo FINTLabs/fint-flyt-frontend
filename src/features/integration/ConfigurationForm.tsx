@@ -98,7 +98,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     const classes = useStyles();
     const editConfig: boolean = window.location.pathname === '/integration/configuration/edit'
     const [submitSuccess, setSubmitSuccess] = useState(false)
-    const {newIntegration, existingIntegration, setExistingIntegration, setNewIntegration, selectedMetadata, configuration, setConfiguration, resetSourceAndDestination, getNewIntegrations} = useContext(IntegrationContext);
+    const {caseNumber, newIntegration, existingIntegration, setExistingIntegration, setNewIntegration, selectedMetadata, configuration, setConfiguration, resetSourceAndDestination, getNewIntegrations} = useContext(IntegrationContext);
     const [saved, setSaved] = React.useState(false);
     const [saveError, setSaveError] = React.useState(false);
     const [checked, setChecked] = React.useState(configuration && editConfig ? configuration.completed : false);
@@ -248,6 +248,13 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     );
 
     const onSubmit = handleSubmit((data: IFormConfiguration) => {
+        if (data.caseData.caseCreationStrategy === CreationStrategy.COLLECTION && caseNumber === undefined) {
+            setSaveError(true)
+            return;
+        }
+        if (data.caseData.caseCreationStrategy === CreationStrategy.COLLECTION && caseNumber) {
+            data.caseData.caseNumber = caseNumber
+        }
         data.completed = true;
         data.applicantData.protected = protectedCheck;
         const configuration: newIConfiguration = toNewConfiguration(data, activeIntegration?.id, activeConfigId, selectedMetadata.id);
@@ -266,6 +273,13 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     });
 
     const onSave = handleSubmit((data: IFormConfiguration) => {
+        if (data.caseData.caseCreationStrategy === CreationStrategy.COLLECTION && caseNumber === undefined) {
+            setSaveError(true)
+            return;
+        }
+        if (data.caseData.caseCreationStrategy === CreationStrategy.COLLECTION && caseNumber) {
+            data.caseData.caseNumber = caseNumber
+        }
         data.completed = false;
         data.applicantData.protected = protectedCheck;
         const configuration: newIConfiguration = toNewConfiguration(data, activeIntegration?.id, activeConfigId, selectedMetadata.id);

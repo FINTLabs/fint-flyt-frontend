@@ -11,6 +11,7 @@ export function newToFormData(data: newIConfiguration): IFormConfiguration {
         comment: data.comment,
         completed: data.completed,
         caseData: {
+            caseNumber: configurationFieldToString(caseFields, 'saksnummer'),
             title: configurationFieldToString(caseFields, 'tittel'),
             publicTitle: configurationFieldToString(caseFields, 'offentligTittel'),
             recordUnit: configurationFieldToString(caseFields, 'journalenhet'),

@@ -1,5 +1,5 @@
 import {Box, Button, FormGroup, Typography} from '@mui/material';
-import React from 'react';
+import React, {useContext, useEffect} from 'react';
 import InputField from "./InputField";
 import {INPUT_TYPE} from "../../types/InputType.enum";
 import {IInputField} from "../../types/InputField";
@@ -9,12 +9,32 @@ import {FieldErrors} from "react-hook-form";
 import HelpPopover from "../popover/HelpPopover";
 import { useTranslation } from 'react-i18next';
 import ResourceRepository from "../../../../shared/repositories/ResourceRepository";
+import {IntegrationContext} from "../../../../context/integrationContext";
 
 const CaseInformation: React.FunctionComponent<any> = (props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationForm.accordions.caseInformation'});
     const [_case, setCase] = React.useState('');
+    const {setCaseNumber} = useContext(IntegrationContext)
     let caseInput = props.watch("caseData.caseNumber");
     let caseInputPattern = /^((19|20)*\d{2})\/([0-9]{1,6})/g;
+
+    useEffect(() => {
+        if(caseInput) {
+            setCaseNumber(caseInput)
+            let caseId = caseInput.split('/')
+            ResourceRepository.getSak(caseId[0], caseId[1])
+                .then((response) => {
+                    setCase(response.data.value)
+                    setCaseNumber(caseInput)
+                })
+                .catch(e => {
+                        console.error('Error: ', e)
+                        setCaseNumber(undefined)
+                        setCase(t('caseSearch.noMatch'));
+                    }
+                )
+        }
+    }, [])
 
     const handleCaseSearch = () => {
         if(caseInputPattern.test(caseInput)) {
@@ -23,13 +43,18 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
             ResourceRepository.getSak(caseId[0], caseId[1])
                 .then((response) => {
                     setCase(response.data.value)
+                    setCaseNumber(caseInput)
                 })
                 .catch(e => {
                         console.error('Error: ', e)
+                        setCaseNumber(undefined)
                         setCase(t('caseSearch.noMatch'));
                     }
                 )
-        } else setCase(t('caseSearch.info'))
+        } else {
+            setCase(t('caseSearch.info'))
+            setCaseNumber(undefined)
+        }
     }
 
     let isCollection = props.watch("caseData.caseCreationStrategy") === CreationStrategy.COLLECTION

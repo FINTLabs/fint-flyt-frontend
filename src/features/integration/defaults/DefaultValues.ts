@@ -13,7 +13,7 @@ export const defaultConfigurationValues: IFormConfiguration = {
     completed: false,
     caseData: {
         caseCreationStrategy: CreationStrategy.NEW,
-        caseNumber: '',
+        caseNumber: undefined,
         title: '',
         publicTitle: '',
         caseType: '',

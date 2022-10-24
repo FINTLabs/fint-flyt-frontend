@@ -3,6 +3,8 @@ import {newIConfiguration} from "../../features/integration/types/Configuration"
 import {IIntegrationMetadata} from "../../features/integration/types/IntegrationMetadata";
 
 export type IntegrationContextState = {
+    caseNumber: string | undefined;
+    setCaseNumber: (number: string | undefined) => void;
     newIntegration: IIntegration | undefined;
     existingIntegration: IIntegration | undefined;
     setNewIntegration: (integration: IIntegration | undefined) => void;
@@ -30,6 +32,8 @@ export type IntegrationContextState = {
 };
 
 export const contextDefaultValues: IntegrationContextState = {
+    caseNumber: undefined,
+    setCaseNumber: (number: string | undefined) => {},
     newIntegration: {},
     existingIntegration: {},
     setNewIntegration: () => {},
