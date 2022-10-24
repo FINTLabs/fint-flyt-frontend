@@ -1,5 +1,4 @@
 import {IFormConfiguration, IFormIntegration} from "../../features/integration/types/Form/FormData";
-import {ApplicantType} from "../../features/integration/types/ApplicantType";
 import {CreationStrategy} from "../../features/integration/types/CreationStrategy";
 
 export const MOCK_INTEGRATION_FORMDATA: IFormIntegration = {
@@ -90,13 +89,14 @@ export const MOCK_NEW_FORMDATA: IFormConfiguration = {
         "phoneNumber": "",
         "postalCode": "",
         "protected": true,
-        "type": ApplicantType.PERSON
+        "type": "PERSON"
     },
     "caseData": {
         "accessCode": "",
         "administrativeUnit": "",
         "archiveUnit": "",
-        "caseCreationStrategy": CreationStrategy.NEW,
+        "caseCreationStrategy": "NEW",
+        "caseNumber": "",
         "caseType": "",
         "caseWorker": "",
         "paragraph": "",
