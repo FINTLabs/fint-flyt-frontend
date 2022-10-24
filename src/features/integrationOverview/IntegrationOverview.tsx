@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
             width: '100%'
         },
         dataPanelBox: {
-            height: "500px",
+            height: '1200px',
             width: '100%'
         }
     })

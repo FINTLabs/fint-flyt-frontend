@@ -11,6 +11,9 @@ import Stack from "@mui/material/Stack";
 import {stringReplace} from "../../util/StringUtil";
 import {ErrorType} from "../../log/types/ErrorType";
 import {IEvent} from "../../log/types/Event";
+import ErrorIcon from "@mui/icons-material/Error";
+import InfoIcon from "@mui/icons-material/Info";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 const InstancePanel: React.FunctionComponent<any> = (props) => {
     const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.instanceOverview'});
@@ -29,7 +32,9 @@ const InstancePanel: React.FunctionComponent<any> = (props) => {
         { field: 'timestamp', type: 'string', headerName: 'Sist hendelse', flex: 1,
             valueGetter: (params) => moment(params.row.timestamp).format('YYYY/MM/DD HH:mm:ss.sss')
         },
-        { field: 'name', type: 'string', headerName: 'Status', flex: 2, valueGetter: params => t(params.row.name)},
+        { field: 'name', type: 'string', headerName: 'Status', flex: 2,
+            renderCell: params => ( <CustomCellRender row={params.row} />)
+        },
         { field: 'details', headerName: 'Detaljer', flex: 0.5, sortable: false, filterable: false,
             renderCell: (params) => ( <CustomDialogToggle row={params.row} />)},
         { field: 'sourceApplication', type: 'string', headerName: 'Kildeapplikasjon', flex: 1,
@@ -45,6 +50,17 @@ const InstancePanel: React.FunctionComponent<any> = (props) => {
             valueGetter: (params) => params.row.instanceFlowHeaders.configurationId
         }
     ];
+
+    function CustomCellRender(props: GridCellParams["row"]) {
+        return (
+            <>
+                {props.row.type === 'ERROR' && <ErrorIcon color="error"/>}
+                {props.row.type === 'INFO' && props.row.name !== 'case-dispatched' && <InfoIcon color="info"/>}
+                {props.row.name === 'case-dispatched' && <CheckCircleIcon color="success"/>}
+                {t(props.row.name)}
+            </>
+        );
+    }
 
     return (
         <Box>
