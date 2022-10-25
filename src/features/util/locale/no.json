@@ -367,7 +367,7 @@
             "creationStrategies": {
                 "new":"Som ny sak",
                 "newDesc":"Innsendt skjema oppretter en ny sak i Elements",
-                "existing":"På eksisterende sak",
+                "existing":"På eksisterende sak (kommer)",
                 "existingDesc":"Innsendt skjema gjenfinner eksisterende sak i Elements basert på informasjon i skjemaet. Dersom det ikke fins en eksisterende sak opprettes en ny sak",
                 "collection":"På samlesak",
                 "collectionDesc":"Innsendt skjema skal leveres til en forhåndsdefinert samlesak. Her må du opplyse om saksnummer"

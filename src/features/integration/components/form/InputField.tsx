@@ -78,7 +78,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                     {props.radioOptions.map((option: any, index: number) => (
                         <div key={index} id={props.formValue + `-` + option.value}>
                             <FormControlLabel
-                                disabled={props.disabled}
+                                disabled={props.disabled || option.disabled}
                                 value={option.value}
                                 control={<Radio />}
                                 label={t(option.label) as string}

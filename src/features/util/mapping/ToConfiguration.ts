@@ -213,7 +213,7 @@ export function toNewConfiguration(data: IFormConfiguration, integrationId: stri
                         key: "DokumentBeskrivelse.dokumentKategori",
                         type: FieldConfigurationType.STRING,
                         value: data.documentData?.documentCategory
-                    },*/
+                    },
                     {
                         key: "tilgangsrestriksjon",
                         type: FieldConfigurationType.STRING,
@@ -224,7 +224,7 @@ export function toNewConfiguration(data: IFormConfiguration, integrationId: stri
                         type: FieldConfigurationType.STRING,
                         value: data.documentData?.paragraph
 
-                    },
+                    },*/
                     {
                         key: "DokumentBeskrivelse.dokumentObjekt.variantFormat",
                         type: FieldConfigurationType.STRING,
@@ -516,7 +516,7 @@ export function toConfigurationPatch(data: IFormConfiguration, metadataId: any):
                         key: "DokumentBeskrivelse.dokumentKategori",
                         type: FieldConfigurationType.STRING,
                         value: data.documentData?.documentCategory
-                    },*/
+                    },
                     {
                         key: "tilgangsrestriksjon",
                         type: FieldConfigurationType.STRING,
@@ -527,7 +527,7 @@ export function toConfigurationPatch(data: IFormConfiguration, metadataId: any):
                         type: FieldConfigurationType.STRING,
                         value: data.documentData?.paragraph
 
-                    },
+                    },*/
                     {
                         key: "DokumentBeskrivelse.dokumentObjekt.variantFormat",
                         type: FieldConfigurationType.STRING,

@@ -21,5 +21,6 @@ export interface IInputField {
 export interface ISelect {
     label: string,
     value: string,
-    description?: string
+    description?: string,
+    disabled?: boolean
 }

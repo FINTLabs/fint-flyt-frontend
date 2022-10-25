@@ -83,9 +83,13 @@ export const dropdownPlaceholder: ISelect[] = [
     {label: 'Alternativ 10', value: 'alt10'}
 ]
 
+export const variantOptions: ISelect[] = [
+    {label: 'Produksjonsformat', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/variantformat/systemid/P'}
+]
+
 export const creationStrategies: ISelect[] = [
     {label: 'selects.creationStrategies.new', value: 'NEW',  description: "selects.creationStrategies.newDesc"},
-    {label: 'selects.creationStrategies.existing', value: 'EXISTING',  description: "selects.creationStrategies.existingDesc"},
+    {label: 'selects.creationStrategies.existing', value: 'EXISTING',  description: "selects.creationStrategies.existingDesc", disabled: true},
     {label: 'selects.creationStrategies.collection', value: 'COLLECTION', description: "selects.creationStrategies.collectionDesc"}
 ];
 

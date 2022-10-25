@@ -117,10 +117,10 @@ export const MOCK_NEW_FORMDATA: IFormConfiguration = {
     "comment": "Ferdigstilt ",
     "completed": true,
     "documentData": {
-        "accessCode": "",
+     //   "accessCode": "",
      //   "documentCategory": "",
         "documentStatus": "",
-        "paragraph": "",
+     //   "paragraph": "",
         "title": "",
         "variant": ""
     },

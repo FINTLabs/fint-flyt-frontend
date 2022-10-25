@@ -180,7 +180,7 @@ export const MOCK_CONFIGURATION: newIConfiguration = {
                     "key": "DokumentBeskrivelse.dokumentKategori",
                     "type": "STRING",
                     "value": "cat1"
-                },*/
+
                 {
                     "key": "tilgangsrestriksjon",
                     "type": "STRING",
@@ -190,7 +190,7 @@ export const MOCK_CONFIGURATION: newIConfiguration = {
                     "key": "skjermingshjemmel",
                     "type": "STRING",
                     "value": "p07"
-                },
+                },*/
                 {
                     "key": "DokumentBeskrivelse.dokumentObjekt.variantFormat",
                     "type": "STRING",
