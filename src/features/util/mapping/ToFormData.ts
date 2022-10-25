@@ -48,7 +48,7 @@ export function newToFormData(data: newIConfiguration): IFormConfiguration {
             title: configurationFieldToString(documentFields, 'tittel'),
             documentStatus: configurationFieldToString(documentFields, 'dokumentStatus'),
             //TODO: whats the correct name for this configField?
-            documentCategory: configurationFieldToString(documentFields, 'DokumentBeskrivelse.dokumentKategori'),
+            //documentCategory: configurationFieldToString(documentFields, 'DokumentBeskrivelse.dokumentKategori'),
             accessCode: configurationFieldToString(documentFields, 'tilgangsrestriksjon'),
             paragraph: configurationFieldToString(documentFields, 'skjermingshjemmel'),
             variant: configurationFieldToString(documentFields, 'DokumentBeskrivelse.dokumentObjekt.variantFormat'),

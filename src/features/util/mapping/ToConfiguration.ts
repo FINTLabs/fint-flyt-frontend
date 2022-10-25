@@ -209,11 +209,11 @@ export function toNewConfiguration(data: IFormConfiguration, integrationId: stri
                         value: data.documentData?.documentStatus
                     },
                     //TODO: what is the corresponding field here
-                    {
+/*                    {
                         key: "DokumentBeskrivelse.dokumentKategori",
                         type: FieldConfigurationType.STRING,
                         value: data.documentData?.documentCategory
-                    },
+                    },*/
                     {
                         key: "tilgangsrestriksjon",
                         type: FieldConfigurationType.STRING,
@@ -512,11 +512,11 @@ export function toConfigurationPatch(data: IFormConfiguration, metadataId: any):
                         value: data.documentData?.documentStatus
                     },
                     //TODO: what is the corresponding field here
-                    {
+/*                    {
                         key: "DokumentBeskrivelse.dokumentKategori",
                         type: FieldConfigurationType.STRING,
                         value: data.documentData?.documentCategory
-                    },
+                    },*/
                     {
                         key: "tilgangsrestriksjon",
                         type: FieldConfigurationType.STRING,
