@@ -57,7 +57,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
         setOpenDialog(false)
     }
 
-    props.configurations?.map((configuration: any) => {
+    props.completedConfigurations?.map((configuration: any) => {
         if (configuration.completed) {
             versionsToActivate.push({value: configuration.id, label: 'versjon ' + configuration.version})
         }
