@@ -50,8 +50,8 @@ const InstanceTable: React.FunctionComponent<any> = (props) => {
         return (
             <>
                 {props.row.type === 'ERROR' && <ErrorIcon color="error"/>}
-                {props.row.type === 'INFO' && props.row.name !== 'case-dispatched' && <InfoIcon color="info"/>}
-                {props.row.name === 'case-dispatched' && <CheckCircleIcon color="success"/>}
+                {props.row.type === 'INFO' && props.row.name !== 'instance-dispatched' && <InfoIcon color="info"/>}
+                {props.row.name === 'instance-dispatched' && <CheckCircleIcon color="success"/>}
                 {t(props.row.name)}
             </>
         );

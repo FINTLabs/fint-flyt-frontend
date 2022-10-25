@@ -198,6 +198,7 @@
             "instance-received": "Instans mottatt",
             "instance-registered": "Instans registrert",
             "instance-requested-for-retry": "Instans forespurt for nytt forsøk",
+            "instance-dispatched": "Instans arkivert",
             "case-created": "Sak opprettet",
             "case-dispatched": "Sak arkivert",
             "instance-receival-error": "Feilet under mottak av instans",
