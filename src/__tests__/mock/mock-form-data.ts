@@ -1,5 +1,6 @@
 import {IFormConfiguration, IFormIntegration} from "../../features/integration/types/Form/FormData";
 import {CreationStrategy} from "../../features/integration/types/CreationStrategy";
+import {ApplicantType} from "../../features/integration/types/ApplicantType";
 
 export const MOCK_INTEGRATION_FORMDATA: IFormIntegration = {
     sourceApplicationIntegrationId: 'TEST234',
@@ -23,13 +24,13 @@ export const MOCK_CONFIG_FORMDATA: IFormConfiguration = {
         contactPerson: "donna",
         email: "hello@world.no",
         name: "Anakin Skywalker",
-        nationalIdentityNumber: "",
+        nationalIdentityNumber: "123456789",
         organisationNumber: "",
         paragraph: "p3",
         phoneNumber: "12345678",
         postalCode: "1234",
         protected: true,
-        type: "PERSON"
+        type: ApplicantType.PERSON
     },
     caseData: {
         accessCode: "code42",

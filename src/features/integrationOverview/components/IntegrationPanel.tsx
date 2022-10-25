@@ -24,15 +24,19 @@ import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import {SourceApplicationContext} from "../../../context/sourceApplicationContext";
 import {SOURCE_FORM_NO_VALUES} from "../../integration/defaults/DefaultValues";
 import ConfigurationRepository from "../../../shared/repositories/ConfigurationRepository";
-import {newIConfiguration} from "../../integration/types/Configuration";
 import {IIntegrationPatch} from "../../integration/types/Integration";
+import {ResourcesContext} from "../../../context/resourcesContext";
+import {configurationFieldToString} from "../../util/MappingUtil";
+import ResourceRepository from "../../../shared/repositories/ResourceRepository";
+import {IResourceItem} from "../../../context/resourcesContext/types";
 
 const IntegrationPanel: React.FunctionComponent<any> = (props) => {
     const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.integrationOverview'});
     const classes = props.classes;
     let history = useHistory();
     const {existingIntegration, setConfiguration, setSelectedMetadata} = useContext(IntegrationContext)
-    const { allMetadata, getAllMetadata, getInstanceElementMetadata} = useContext(SourceApplicationContext)
+    const {allMetadata, getAllMetadata, getInstanceElementMetadata} = useContext(SourceApplicationContext)
+    const {setPrimaryClass, setSecondaryClass, setTertiaryClass} = useContext(ResourcesContext)
     const [version, setVersion] = useState('null');
     const [activeVersion, setActiveVersion] = useState(existingIntegration?.activeConfigurationId ? 'konfigurasjon' + existingIntegration?.activeConfigurationId : 'Ingen');
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -84,14 +88,40 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
         }
     ];
 
+    //TODO: refactor
     async function handleEditShowButtonClick(id: string, excludeElements: boolean) {
+        let list: IResourceItem[] = [];
         let selectedForm = allMetadata.filter(md => md.sourceApplicationIntegrationId === existingIntegration?.sourceApplicationIntegrationId)
         setSelectedMetadata(selectedForm.length > 0 ? selectedForm[0] : SOURCE_FORM_NO_VALUES[0])
         getInstanceElementMetadata(selectedForm[0].id)
         await ConfigurationRepository.getConfiguration(id.toString(), excludeElements)
-                .then((response) => {
-                   let configuration: newIConfiguration = response.data;
-                   setConfiguration(configuration);
+                .then(async (response) => {
+                    setConfiguration(response.data);
+                    let cases = response.data?.elements.filter((confField: any) => confField.key === 'case')
+                    let primaryClass = configurationFieldToString(cases ? cases : [], 'primarordningsprinsipp')
+                    let secondaryClass = configurationFieldToString(cases ? cases : [], 'sekundarordningsprinsipp')
+                    let tertiaryClass = configurationFieldToString(cases ? cases : [], 'tertiarordningsprinsipp')
+                    await ResourceRepository.getClasses(primaryClass).then(response => {
+                            if (response.data) {response.data.map((resource: any) => list.push({label: resource.id + ' - ' + resource.displayName, value: resource.id}))
+                                setPrimaryClass(list)
+                            }
+                        })
+                        .then(response => {
+                            ResourceRepository.getClasses(secondaryClass).then(response => {
+                                    if (response.data) {response.data.map((resource: any) => list.push({label: resource.id + ' - ' + resource.displayName, value: resource.id}))
+                                        setSecondaryClass(list)
+                                    }
+                                })
+                        }).then(response => {
+                            ResourceRepository.getClasses(tertiaryClass).then(response => {
+                                    if (response.data) {response.data.map((resource: any) => list.push({label: resource.id + ' - ' + resource.displayName, value: resource.id}))
+                                        setTertiaryClass(list)
+                                    }
+                                })
+                        })
+                        .catch((err) => {
+                            console.error(err);
+                        })
                 })
             .catch((e) => {
                     console.error('Error: ', e)

@@ -1,6 +1,7 @@
 import {FieldConfigurationType, IConfigurationPatch, newIConfiguration} from "../../integration/types/Configuration";
 import { IFormConfiguration } from "../../integration/types/Form/FormData";
 import {CreationStrategy} from "../../integration/types/CreationStrategy";
+import {ApplicantType} from "../../integration/types/ApplicantType";
 
 export function toNewConfiguration(data: IFormConfiguration, integrationId: string, configurationId: any, metadataId: number): newIConfiguration {
     return {
@@ -26,118 +27,118 @@ export function toNewConfiguration(data: IFormConfiguration, integrationId: stri
                         },
                     ]
                 }
-:            {
-                key: 'case',
-                fieldConfigurations: [
-                    {
-                        key: "creationStrategy",
-                        type: FieldConfigurationType.STRING,
-                        value: data.caseData.caseCreationStrategy
-                    },
-                    {
-                        key: "tittel",
-                        type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: data.caseData?.title
-                    },
-                    {
-                        key: "offentligTittel",
-                        type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: data.caseData?.publicTitle
-                    },
-                    {
-                        key: "saksmappetype",
-                        type: FieldConfigurationType.STRING,
-                        value: data.caseData?.caseType
-                    },
-                    {
-                        key: 'administrativenhet',
-                        type: FieldConfigurationType.STRING,
-                        value: data.caseData?.administrativeUnit
+                :            {
+                    key: 'case',
+                    fieldConfigurations: [
+                        {
+                            key: "creationStrategy",
+                            type: FieldConfigurationType.STRING,
+                            value: data.caseData.caseCreationStrategy
+                        },
+                        {
+                            key: "tittel",
+                            type: FieldConfigurationType.DYNAMIC_STRING,
+                            value: data.caseData?.title
+                        },
+                        {
+                            key: "offentligTittel",
+                            type: FieldConfigurationType.DYNAMIC_STRING,
+                            value: data.caseData?.publicTitle
+                        },
+                        {
+                            key: "saksmappetype",
+                            type: FieldConfigurationType.STRING,
+                            value: data.caseData?.caseType
+                        },
+                        {
+                            key: 'administrativenhet',
+                            type: FieldConfigurationType.STRING,
+                            value: data.caseData?.administrativeUnit
 
-                    },
-                    {
-                        key: "arkivdel",
-                        type: FieldConfigurationType.STRING,
-                        value: data.caseData?.archiveUnit
+                        },
+                        {
+                            key: "arkivdel",
+                            type: FieldConfigurationType.STRING,
+                            value: data.caseData?.archiveUnit
 
-                    },
-                    {
-                        key: "journalenhet",
-                        type: FieldConfigurationType.STRING,
-                        value: data.caseData?.recordUnit
+                        },
+                        {
+                            key: "journalenhet",
+                            type: FieldConfigurationType.STRING,
+                            value: data.caseData?.recordUnit
 
-                    },
-                    {
-                        key: "status",
-                        type: FieldConfigurationType.STRING,
-                        value: data.caseData?.status
+                        },
+                        {
+                            key: "status",
+                            type: FieldConfigurationType.STRING,
+                            value: data.caseData?.status
 
-                    },
-                    {
-                        key: "tilgangsrestriksjon",
-                        type: FieldConfigurationType.STRING,
-                        value: data.caseData?.accessCode
+                        },
+                        {
+                            key: "tilgangsrestriksjon",
+                            type: FieldConfigurationType.STRING,
+                            value: data.caseData?.accessCode
 
-                    },
-                    {
-                        key: "skjermingshjemmel",
-                        type: FieldConfigurationType.STRING,
-                        value: data.caseData?.paragraph
+                        },
+                        {
+                            key: "skjermingshjemmel",
+                            type: FieldConfigurationType.STRING,
+                            value: data.caseData?.paragraph
 
-                    },
-                    {
-                        key: "saksansvarlig",
-                        type: FieldConfigurationType.STRING,
-                        value: data.caseData?.caseWorker
+                        },
+                        {
+                            key: "saksansvarlig",
+                            type: FieldConfigurationType.STRING,
+                            value: data.caseData?.caseWorker
 
-                    },
-                    {
-                        key: "primarordningsprinsipp",
-                        type: FieldConfigurationType.STRING,
-                        value: data.caseData?.primaryClassification
-                    },
-                    {
-                        key: "sekundarordningsprinsipp",
-                        type: FieldConfigurationType.STRING,
-                        value: data.caseData?.secondaryClassification
-                    },
-                    {
-                        key: "tertiarordningsprinsipp",
-                        type: FieldConfigurationType.STRING,
-                        value: data.caseData?.tertiaryClassification
-                    },
-                    {
-                        key: "primarklasse",
-                        type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: data.caseData?.primaryClass
-                    },
-                    {
-                        key: "sekundarklasse",
-                        type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: data.caseData?.secondaryClass
-                    },
-                    {
-                        key: "tertiarklasse",
-                        type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: data.caseData?.tertiaryClass
-                    },
-                    {
-                        key: "primartittel",
-                        type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: data.caseData?.primaryTitle
-                    },
-                    {
-                        key: "sekundartittel",
-                        type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: data.caseData?.secondaryTitle
-                    },
-                    {
-                        key: "tertiartittel",
-                        type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: data.caseData?.tertiaryTitle
-                    }
-                ]
-            },
+                        },
+                        {
+                            key: "primarordningsprinsipp",
+                            type: FieldConfigurationType.STRING,
+                            value: data.caseData?.primaryClassification
+                        },
+                        {
+                            key: "sekundarordningsprinsipp",
+                            type: FieldConfigurationType.STRING,
+                            value: data.caseData?.secondaryClassification
+                        },
+                        {
+                            key: "tertiarordningsprinsipp",
+                            type: FieldConfigurationType.STRING,
+                            value: data.caseData?.tertiaryClassification
+                        },
+                        {
+                            key: "primarklasse",
+                            type: FieldConfigurationType.DYNAMIC_STRING,
+                            value: data.caseData?.primaryClass
+                        },
+                        {
+                            key: "sekundarklasse",
+                            type: FieldConfigurationType.DYNAMIC_STRING,
+                            value: data.caseData?.secondaryClass
+                        },
+                        {
+                            key: "tertiarklasse",
+                            type: FieldConfigurationType.DYNAMIC_STRING,
+                            value: data.caseData?.tertiaryClass
+                        },
+                        {
+                            key: "primartittel",
+                            type: FieldConfigurationType.DYNAMIC_STRING,
+                            value: data.caseData?.primaryTitle
+                        },
+                        {
+                            key: "sekundartittel",
+                            type: FieldConfigurationType.DYNAMIC_STRING,
+                            value: data.caseData?.secondaryTitle
+                        },
+                        {
+                            key: "tertiartittel",
+                            type: FieldConfigurationType.DYNAMIC_STRING,
+                            value: data.caseData?.tertiaryTitle
+                        }
+                    ]
+                },
             {
                 key: 'record',
                 fieldConfigurations: [
@@ -149,7 +150,7 @@ export function toNewConfiguration(data: IFormConfiguration, integrationId: stri
 
                     },
                     {
-                        key: "offentigTittel",
+                        key: "offentligTittel",
                         type: FieldConfigurationType.DYNAMIC_STRING,
                         value: data.recordData?.publicTitle
 
@@ -209,22 +210,22 @@ export function toNewConfiguration(data: IFormConfiguration, integrationId: stri
                         value: data.documentData?.documentStatus
                     },
                     //TODO: what is the corresponding field here
-/*                    {
-                        key: "DokumentBeskrivelse.dokumentKategori",
-                        type: FieldConfigurationType.STRING,
-                        value: data.documentData?.documentCategory
-                    },
-                    {
-                        key: "tilgangsrestriksjon",
-                        type: FieldConfigurationType.STRING,
-                        value: data.documentData?.accessCode
-                    },
-                    {
-                        key: "skjermingshjemmel",
-                        type: FieldConfigurationType.STRING,
-                        value: data.documentData?.paragraph
+                    /*                    {
+                                            key: "DokumentBeskrivelse.dokumentKategori",
+                                            type: FieldConfigurationType.STRING,
+                                            value: data.documentData?.documentCategory
+                                        },
+                                        {
+                                            key: "tilgangsrestriksjon",
+                                            type: FieldConfigurationType.STRING,
+                                            value: data.documentData?.accessCode
+                                        },
+                                        {
+                                            key: "skjermingshjemmel",
+                                            type: FieldConfigurationType.STRING,
+                                            value: data.documentData?.paragraph
 
-                    },*/
+                                        },*/
                     {
                         key: "DokumentBeskrivelse.dokumentObjekt.variantFormat",
                         type: FieldConfigurationType.STRING,
@@ -245,16 +246,16 @@ export function toNewConfiguration(data: IFormConfiguration, integrationId: stri
                         type: FieldConfigurationType.BOOLEAN,
                         value: data.applicantData?.protected?.toString()
                     },
-                    {
-                        key: "organisasjonsnummer",
-                        type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: data.applicantData?.organisationNumber
-                    },
-                    {
-                        key: "fødselsnummer",
-                        type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: data.applicantData?.nationalIdentityNumber
-                    },
+                    data.applicantData.type === ApplicantType.PERSON ?
+                        {
+                            key: "fødselsnummer",
+                            type: FieldConfigurationType.DYNAMIC_STRING,
+                            value: data.applicantData?.nationalIdentityNumber ? data.applicantData.nationalIdentityNumber : undefined
+                        } : {
+                            key: "organisasjonsnummer",
+                            type: FieldConfigurationType.DYNAMIC_STRING,
+                            value: data.applicantData?.organisationNumber ? data.applicantData.organisationNumber : undefined
+                        },
                     {
                         key: "KorrespondansepartNavn",
                         type: FieldConfigurationType.DYNAMIC_STRING,
@@ -330,117 +331,117 @@ export function toConfigurationPatch(data: IFormConfiguration, metadataId: any):
                 }
                 :
                 {
-                key: 'case',
-                fieldConfigurations: [
-                    {
-                        key: "creationStrategy",
-                        type: FieldConfigurationType.STRING,
-                        value: data.caseData.caseCreationStrategy
-                    },
-                    {
-                        key: "tittel",
-                        type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: data.caseData?.title
-                    },
-                    {
-                        key: "offentligTittel",
-                        type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: data.caseData?.publicTitle
-                    },
-                    {
-                        key: "saksmappetype",
-                        type: FieldConfigurationType.STRING,
-                        value: data.caseData?.caseType
-                    },
-                    {
-                        key: 'administrativenhet',
-                        type: FieldConfigurationType.STRING,
-                        value: data.caseData?.administrativeUnit
+                    key: 'case',
+                    fieldConfigurations: [
+                        {
+                            key: "creationStrategy",
+                            type: FieldConfigurationType.STRING,
+                            value: data.caseData.caseCreationStrategy
+                        },
+                        {
+                            key: "tittel",
+                            type: FieldConfigurationType.DYNAMIC_STRING,
+                            value: data.caseData?.title
+                        },
+                        {
+                            key: "offentligTittel",
+                            type: FieldConfigurationType.DYNAMIC_STRING,
+                            value: data.caseData?.publicTitle
+                        },
+                        {
+                            key: "saksmappetype",
+                            type: FieldConfigurationType.STRING,
+                            value: data.caseData?.caseType
+                        },
+                        {
+                            key: 'administrativenhet',
+                            type: FieldConfigurationType.STRING,
+                            value: data.caseData?.administrativeUnit
 
-                    },
-                    {
-                        key: "arkivdel",
-                        type: FieldConfigurationType.STRING,
-                        value: data.caseData?.archiveUnit
+                        },
+                        {
+                            key: "arkivdel",
+                            type: FieldConfigurationType.STRING,
+                            value: data.caseData?.archiveUnit
 
-                    },
-                    {
-                        key: "journalenhet",
-                        type: FieldConfigurationType.STRING,
-                        value: data.caseData?.recordUnit
+                        },
+                        {
+                            key: "journalenhet",
+                            type: FieldConfigurationType.STRING,
+                            value: data.caseData?.recordUnit
 
-                    },
-                    {
-                        key: "status",
-                        type: FieldConfigurationType.STRING,
-                        value: data.caseData?.status
+                        },
+                        {
+                            key: "status",
+                            type: FieldConfigurationType.STRING,
+                            value: data.caseData?.status
 
-                    },
-                    {
-                        key: "tilgangsrestriksjon",
-                        type: FieldConfigurationType.STRING,
-                        value: data.caseData?.accessCode
+                        },
+                        {
+                            key: "tilgangsrestriksjon",
+                            type: FieldConfigurationType.STRING,
+                            value: data.caseData?.accessCode
 
-                    },
-                    {
-                        key: "skjermingshjemmel",
-                        type: FieldConfigurationType.STRING,
-                        value: data.caseData?.paragraph
+                        },
+                        {
+                            key: "skjermingshjemmel",
+                            type: FieldConfigurationType.STRING,
+                            value: data.caseData?.paragraph
 
-                    },
-                    {
-                        key: "saksansvarlig",
-                        type: FieldConfigurationType.STRING,
-                        value: data.caseData?.caseWorker
+                        },
+                        {
+                            key: "saksansvarlig",
+                            type: FieldConfigurationType.STRING,
+                            value: data.caseData?.caseWorker
 
-                    },
-                    {
-                        key: "primarordningsprinsipp",
-                        type: FieldConfigurationType.STRING,
-                        value: data.caseData?.primaryClassification
-                    },
-                    {
-                        key: "sekundarordningsprinsipp",
-                        type: FieldConfigurationType.STRING,
-                        value: data.caseData?.secondaryClassification
-                    },
-                    {
-                        key: "tertiarordningsprinsipp",
-                        type: FieldConfigurationType.STRING,
-                        value: data.caseData?.tertiaryClassification
-                    },
-                    {
-                        key: "primarklasse",
-                        type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: data.caseData?.primaryClass
-                    },
-                    {
-                        key: "sekundarklasse",
-                        type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: data.caseData?.secondaryClass
-                    },
-                    {
-                        key: "tertiarklasse",
-                        type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: data.caseData?.tertiaryClass
-                    },
-                    {
-                        key: "primartittel",
-                        type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: data.caseData?.primaryTitle
-                    },
-                    {
-                        key: "sekundartittel",
-                        type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: data.caseData?.secondaryTitle
-                    },
-                    {
-                        key: "tertiartittel",
-                        type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: data.caseData?.tertiaryTitle
-                    }
-                ]
-            },
+                        },
+                        {
+                            key: "primarordningsprinsipp",
+                            type: FieldConfigurationType.STRING,
+                            value: data.caseData?.primaryClassification
+                        },
+                        {
+                            key: "sekundarordningsprinsipp",
+                            type: FieldConfigurationType.STRING,
+                            value: data.caseData?.secondaryClassification
+                        },
+                        {
+                            key: "tertiarordningsprinsipp",
+                            type: FieldConfigurationType.STRING,
+                            value: data.caseData?.tertiaryClassification
+                        },
+                        {
+                            key: "primarklasse",
+                            type: FieldConfigurationType.DYNAMIC_STRING,
+                            value: data.caseData?.primaryClass
+                        },
+                        {
+                            key: "sekundarklasse",
+                            type: FieldConfigurationType.DYNAMIC_STRING,
+                            value: data.caseData?.secondaryClass
+                        },
+                        {
+                            key: "tertiarklasse",
+                            type: FieldConfigurationType.DYNAMIC_STRING,
+                            value: data.caseData?.tertiaryClass
+                        },
+                        {
+                            key: "primartittel",
+                            type: FieldConfigurationType.DYNAMIC_STRING,
+                            value: data.caseData?.primaryTitle
+                        },
+                        {
+                            key: "sekundartittel",
+                            type: FieldConfigurationType.DYNAMIC_STRING,
+                            value: data.caseData?.secondaryTitle
+                        },
+                        {
+                            key: "tertiartittel",
+                            type: FieldConfigurationType.DYNAMIC_STRING,
+                            value: data.caseData?.tertiaryTitle
+                        }
+                    ]
+                },
             {
                 key: 'record',
                 fieldConfigurations: [
@@ -452,7 +453,7 @@ export function toConfigurationPatch(data: IFormConfiguration, metadataId: any):
 
                     },
                     {
-                        key: "offentigTittel",
+                        key: "offentligTittel",
                         type: FieldConfigurationType.DYNAMIC_STRING,
                         value: data.recordData?.publicTitle
 
@@ -512,22 +513,22 @@ export function toConfigurationPatch(data: IFormConfiguration, metadataId: any):
                         value: data.documentData?.documentStatus
                     },
                     //TODO: what is the corresponding field here
-/*                    {
-                        key: "DokumentBeskrivelse.dokumentKategori",
-                        type: FieldConfigurationType.STRING,
-                        value: data.documentData?.documentCategory
-                    },
-                    {
-                        key: "tilgangsrestriksjon",
-                        type: FieldConfigurationType.STRING,
-                        value: data.documentData?.accessCode
-                    },
-                    {
-                        key: "skjermingshjemmel",
-                        type: FieldConfigurationType.STRING,
-                        value: data.documentData?.paragraph
+                    /*                    {
+                                            key: "DokumentBeskrivelse.dokumentKategori",
+                                            type: FieldConfigurationType.STRING,
+                                            value: data.documentData?.documentCategory
+                                        },
+                                        {
+                                            key: "tilgangsrestriksjon",
+                                            type: FieldConfigurationType.STRING,
+                                            value: data.documentData?.accessCode
+                                        },
+                                        {
+                                            key: "skjermingshjemmel",
+                                            type: FieldConfigurationType.STRING,
+                                            value: data.documentData?.paragraph
 
-                    },*/
+                                        },*/
                     {
                         key: "DokumentBeskrivelse.dokumentObjekt.variantFormat",
                         type: FieldConfigurationType.STRING,
@@ -548,15 +549,14 @@ export function toConfigurationPatch(data: IFormConfiguration, metadataId: any):
                         type: FieldConfigurationType.BOOLEAN,
                         value: data.applicantData?.protected?.toString()
                     },
-                    {
-                        key: "organisasjonsnummer",
-                        type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: data.applicantData?.organisationNumber
-                    },
-                    {
+                    data.applicantData.type === ApplicantType.PERSON ? {
                         key: "fødselsnummer",
                         type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: data.applicantData?.organisationNumber
+                        value: data.applicantData?.nationalIdentityNumber ? data.applicantData.organisationNumber : undefined
+                    } : {
+                        key: "organisasjonsnummer",
+                        type: FieldConfigurationType.DYNAMIC_STRING,
+                        value: data.applicantData?.organisationNumber ? data.applicantData.organisationNumber : undefined
                     },
                     {
                         key: "KorrespondansepartNavn",

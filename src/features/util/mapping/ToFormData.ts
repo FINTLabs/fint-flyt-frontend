@@ -35,7 +35,7 @@ export function newToFormData(data: newIConfiguration): IFormConfiguration {
         },
         recordData: {
             title: configurationFieldToString(recordFields, 'tittel'),
-            publicTitle: configurationFieldToString(recordFields, 'offentigTittel'),
+            publicTitle: configurationFieldToString(recordFields, 'offentligTittel'),
             documentType: configurationFieldToString(recordFields, 'DokumentBeskrivelse.dokumentType'),
             administrativeUnit: configurationFieldToString(recordFields, 'administrativenhet'),
             recordStatus: configurationFieldToString(recordFields, 'journalstatus'),

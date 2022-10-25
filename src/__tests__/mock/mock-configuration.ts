@@ -122,7 +122,7 @@ export const MOCK_CONFIGURATION: newIConfiguration = {
                     "value": "record title"
                 },
                 {
-                    "key": "offentigTittel",
+                    "key": "offentligTittel",
                     "type": "DYNAMIC_STRING",
                     "value": "public record title"
                 },
@@ -176,21 +176,6 @@ export const MOCK_CONFIGURATION: newIConfiguration = {
                     "type": "STRING",
                     "value": "D9"
                 },
-/*                {
-                    "key": "DokumentBeskrivelse.dokumentKategori",
-                    "type": "STRING",
-                    "value": "cat1"
-
-                {
-                    "key": "tilgangsrestriksjon",
-                    "type": "STRING",
-                    "value": "code2"
-                },
-                {
-                    "key": "skjermingshjemmel",
-                    "type": "STRING",
-                    "value": "p07"
-                },*/
                 {
                     "key": "DokumentBeskrivelse.dokumentObjekt.variantFormat",
                     "type": "STRING",
@@ -212,14 +197,9 @@ export const MOCK_CONFIGURATION: newIConfiguration = {
                     "value": "true"
                 },
                 {
-                    "key": "organisasjonsnummer",
-                    "type": "DYNAMIC_STRING",
-                    "value": ""
-                },
-                {
                     "key": "fødselsnummer",
                     "type": "DYNAMIC_STRING",
-                    "value": ""
+                    "value": "123456789"
                 },
                 {
                     "key": "KorrespondansepartNavn",
@@ -272,7 +252,7 @@ export const MOCK_CONFIGURATION: newIConfiguration = {
     ],
     "id": "123",
     "integrationId": "id0",
-    integrationMetadataId: 321
+    "integrationMetadataId": 321
 }
 
 export const MOCK_NEW_CONFIG: newIConfiguration = {

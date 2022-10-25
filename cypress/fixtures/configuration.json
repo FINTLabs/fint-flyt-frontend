@@ -17,7 +17,7 @@
         },
         {
           "valueBuildStrategy":"COMBINE_STRING_VALUE",
-          "field":"offentigTittel",
+          "field":"offentligTittel",
           "valueBuilder":{
             "value":"","properties":[]}
         },{
