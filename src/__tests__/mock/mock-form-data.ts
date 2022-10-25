@@ -118,7 +118,7 @@ export const MOCK_NEW_FORMDATA: IFormConfiguration = {
     "completed": true,
     "documentData": {
         "accessCode": "",
-        "documentCategory": "",
+     //   "documentCategory": "",
         "documentStatus": "",
         "paragraph": "",
         "title": "",

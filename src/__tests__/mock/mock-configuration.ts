@@ -176,11 +176,11 @@ export const MOCK_CONFIGURATION: newIConfiguration = {
                     "type": "STRING",
                     "value": "D9"
                 },
-                {
+/*                {
                     "key": "DokumentBeskrivelse.dokumentKategori",
                     "type": "STRING",
                     "value": "cat1"
-                },
+                },*/
                 {
                     "key": "tilgangsrestriksjon",
                     "type": "STRING",
