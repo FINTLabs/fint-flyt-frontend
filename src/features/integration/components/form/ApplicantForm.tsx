@@ -1,4 +1,4 @@
-import {Box, Button, Checkbox, FormControlLabel, FormGroup} from '@mui/material';
+import {Box, Checkbox, FormControlLabel, FormGroup} from '@mui/material';
 import React, {useContext} from 'react';
 import {applicantOptions} from "../../defaults/DefaultValues";
 import InputField from "./InputField";
@@ -72,7 +72,6 @@ const ApplicantForm: React.FunctionComponent<any> = (props) => {
                 />
                 <HelpPopover popoverContent={"applicantData.protected"}/>
             </FormGroup>
-            <Button disabled={props.disabled} sx={{mb: 2}} onClick={props.onSave} variant="contained">{t('button.save')}</Button>
         </div>
     );
 }

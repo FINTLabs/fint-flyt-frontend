@@ -1,4 +1,4 @@
-import {Box, Button, Divider, FormGroup, Typography} from '@mui/material';
+import {Box, Divider, FormGroup, Typography} from '@mui/material';
 import React, {useContext} from 'react';
 import {IInputField} from "../../types/InputField";
 import {INPUT_TYPE} from "../../types/InputType.enum";
@@ -77,7 +77,6 @@ const DocumentForm: React.FunctionComponent<any> = (props) => {
                     )}
                 )}
             </FormGroup>
-            <Button disabled={props.disabled} sx={{mb: 2}} onClick={props.onSave} variant="contained">{t('button.save')}</Button>
         </div>
     );
 }

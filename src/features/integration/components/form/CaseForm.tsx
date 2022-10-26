@@ -1,4 +1,4 @@
-import {Box, Button, Divider, FormGroup, Typography} from '@mui/material';
+import {Box, Divider, FormGroup, Typography} from '@mui/material';
 import React, {useContext, useEffect} from 'react';
 import {IInputField} from "../../types/InputField";
 import {INPUT_TYPE} from "../../types/InputType.enum";
@@ -123,7 +123,6 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
                 {!showSecondary && <AddIcon sx={{cursor: 'pointer', mb: 2}} onClick={handleToggleSecondary}/>}
                 {showSecondary && !showTertiary && <AddIcon sx={{cursor: 'pointer', mb: 2}} onClick={handleToggleTertiary}/>}
             </FormGroup>
-            <Button disabled={props.disabled} sx={{mb: 2}} onClick={props.onSave} variant="contained">{t('button.save')}</Button>
         </div>
 
     );

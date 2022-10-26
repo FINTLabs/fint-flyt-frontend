@@ -72,7 +72,12 @@ const IntegrationProvider: FC = ({ children }) => {
                             setStatistics([])
                         })
                 }
-            }).catch(e => console.log('error', e))
+            }).catch(e => {
+                setNewIntegrations([]);
+                setStatistics([])
+                console.log('error', e)
+            }
+        )
     }
 
     const getConfigurations = (page: number, size: number, sortProperty: string, sortDirection: string, complete: boolean, id: any, excludeElements?: boolean) => {
@@ -80,7 +85,7 @@ const IntegrationProvider: FC = ({ children }) => {
             .then((response) => {
                 let data = response.data.content;
                 if (data) {
-                let configurations: newIConfiguration[] = data;
+                    let configurations: newIConfiguration[] = data;
                     setConfigurations(configurations);
                 }
             })

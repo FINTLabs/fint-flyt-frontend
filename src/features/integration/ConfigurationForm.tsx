@@ -52,6 +52,15 @@ const useStyles = makeStyles((theme: Theme) =>
             flex: '50%',
             paddingLeft: theme.spacing(2)
         },
+        buttonContainer: {
+            background: 'white',
+            padding: theme.spacing(2),
+            height: 'fit-content',
+            position: 'sticky',
+            bottom: theme.spacing(0),
+            zIndex: 1,
+            width: '100%'
+        },
         sourceApplicationFormContainer: {
             marginTop: theme.spacing(6),
             marginLeft: theme.spacing(8),
@@ -152,7 +161,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
             destination: configuration.destination
         }
         IntegrationRepository.updateIntegration(integrationId, patch)
-       .then(response => {
+            .then(response => {
                 console.log('set active configuration: ', response.data.activeConfigurationId, ' active: ')
             }).catch((e)=> {
             console.log('could not set active configuration', e)
@@ -355,9 +364,12 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                                                 inputProps={{ 'aria-label': 'active-checkbox' }}/>}
                                         label="Aktiv" />}
                                 </FormGroup>
+                            </div>
+                            <Box className={classes.buttonContainer}>
+
                                 <Button disabled={completed} id="integration-form-submit-btn" sx={{ ml: 2, mr: 2 }} onClick={checked ? onSubmit : onSave} variant="contained">{checked ? 'Fullfør' : t('button.save')}</Button>
                                 <Button id="integration-form-cancel-btn" onClick={handleCancel} variant="contained">{t('button.cancel')}</Button>
-                            </div>
+                            </Box>
                         </form>
                     </Box>
                     <Box className={classes.sourceApplicationFormContainer}>

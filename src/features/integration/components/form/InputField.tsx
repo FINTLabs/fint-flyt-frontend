@@ -145,6 +145,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                 defaultValue=""
                 render={({ field: { onChange, onBlur, value } }) => (
                     <TextareaAutosize
+                        disabled={props.disabled}
                         id={props.formValue}
                         placeholder={props.required ? (t(props.label)) +'*' : t(props.label)}
                         onChange={onChange}
@@ -166,6 +167,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                 defaultValue=""
                 render={({ field: { onChange, onBlur, value } }) => (
                     <TextField
+                        disabled={props.disabled}
                         id={props.formValue}
                         label={props.required ? (t(props.label)) +'*' : t(props.label)}
                         size="small"
