@@ -250,11 +250,11 @@ export function toNewConfiguration(data: IFormConfiguration, integrationId: stri
                         {
                             key: "fødselsnummer",
                             type: FieldConfigurationType.DYNAMIC_STRING,
-                            value: data.applicantData?.nationalIdentityNumber ? data.applicantData.nationalIdentityNumber : undefined
+                            value: data.applicantData?.nationalIdentityNumber
                         } : {
                             key: "organisasjonsnummer",
                             type: FieldConfigurationType.DYNAMIC_STRING,
-                            value: data.applicantData?.organisationNumber ? data.applicantData.organisationNumber : undefined
+                            value: data.applicantData?.organisationNumber
                         },
                     {
                         key: "KorrespondansepartNavn",
@@ -552,11 +552,11 @@ export function toConfigurationPatch(data: IFormConfiguration, metadataId: any):
                     data.applicantData.type === ApplicantType.PERSON ? {
                         key: "fødselsnummer",
                         type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: data.applicantData?.nationalIdentityNumber ? data.applicantData.organisationNumber : undefined
+                        value: data.applicantData?.nationalIdentityNumber
                     } : {
                         key: "organisasjonsnummer",
                         type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: data.applicantData?.organisationNumber ? data.applicantData.organisationNumber : undefined
+                        value: data.applicantData?.organisationNumber
                     },
                     {
                         key: "KorrespondansepartNavn",
