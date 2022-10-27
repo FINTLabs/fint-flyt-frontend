@@ -8,6 +8,7 @@ import {ResourcesContext} from "../../../../context/resourcesContext";
 import HelpPopover from "../popover/HelpPopover";
 import { useTranslation } from 'react-i18next';
 import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
 import {CreationStrategy} from "../../types/CreationStrategy";
 
 const CaseForm: React.FunctionComponent<any> = (props) => {
@@ -18,9 +19,27 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
     const {administrativeUnits, accessCodes, caseTypes, paragraphs, statuses, archiveSections, archiveResources,
         classificationSystems, primaryClassification, secondaryClassification, tertiaryClassification,
         primaryClass, secondaryClass, tertiaryClass, getPrimaryClass, getSecondaryClass, getTertiaryClass,
-        setPrimaryClassification, setSecondaryClassification, setTertiaryClassification } = useContext(ResourcesContext);
+        setPrimaryClassification, setSecondaryClassification, setTertiaryClassification, setSecondaryClass, setTertiaryClass} = useContext(ResourcesContext);
     const handleToggleSecondary = () => {setShowSecondary(prevState => !prevState)}
     const handleToggleTertiary = () => {setShowTertiary(prevState => !prevState)}
+    const handleToggleRemove = async () => {
+        if (showTertiary) {
+            setShowTertiary(prevState => !prevState);
+            setTertiaryClassification({label: '', value: ''})
+            setTertiaryClass([{label: 'velg tertiær ordningsprinsipp først', value: ''}])
+            props.setValue("caseData.tertiaryClassification", '')
+            props.setValue("caseData.tertiaryClass", '')
+            props.setValue("caseData.tertiaryTitle", '')
+        }
+        else if(showSecondary) {
+            setShowSecondary(prevState => !prevState);
+            setSecondaryClassification({label: '', value: ''})
+            setSecondaryClass([{label: 'velg sekundær ordningsprinsipp først', value: ''}])
+            props.setValue("caseData.secondaryClassification", '')
+            props.setValue("caseData.secondaryClass", '')
+            props.setValue("caseData.secondaryTitle", '')
+        }
+    }
 
     useEffect(()=> {
         getPrimaryClass();
@@ -42,7 +61,6 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
         'https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/FNR', 'https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/ORGNR'
     ]
 
-    //TODO: add kodeverk for caseType
   const caseFormFields: IInputField[] = [
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.title", formValue: "caseData.title", required: required && !isCollection, error:errors.caseData?.title, value: props.activeFormData?.caseData?.title, helpText: "caseData.title"},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.publicTitle", formValue: "caseData.publicTitle", required: false, error:errors.caseData?.publicTitle, value: props.activeFormData?.caseData?.publicTitle, helpText: "caseData.publicTitle"},
@@ -120,8 +138,11 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
                             </Box>
                     )}
                 )}
+                {!disabled && <Box sx={{display: 'flex'}}>
                 {!showSecondary && <AddIcon sx={{cursor: 'pointer', mb: 2}} onClick={handleToggleSecondary}/>}
                 {showSecondary && !showTertiary && <AddIcon sx={{cursor: 'pointer', mb: 2}} onClick={handleToggleTertiary}/>}
+                {(showSecondary || showTertiary) && <RemoveIcon sx={{cursor: 'pointer', mb: 2, ml: 2}} onClick={handleToggleRemove}/>}
+                </Box>}
             </FormGroup>
         </div>
 
