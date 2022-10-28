@@ -2,14 +2,14 @@ export interface IFieldConfiguration {
     id?: string;
     key: string;
     type: string;
-    value: string | undefined;
+    value: string | null;
 }
 
 export interface ICollectionFieldConfiguration {
     id?: string;
     key: string;
     type: string;
-    values: string[] | undefined;
+    values: string[] | null;
 }
 
 export interface IConfigurationElement {

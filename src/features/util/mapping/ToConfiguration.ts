@@ -23,11 +23,10 @@ export function toNewConfiguration(data: IFormConfiguration, integrationId: stri
                         {
                             key: "saksnummer",
                             type: FieldConfigurationType.STRING,
-                            value: data.caseData.caseNumber
-                        },
+                            value: data.caseData.caseNumber ? data.caseData.caseNumber : null
+                        }
                     ]
-                }
-                :            {
+                } : {
                     key: 'case',
                     fieldConfigurations: [
                         {
@@ -38,7 +37,7 @@ export function toNewConfiguration(data: IFormConfiguration, integrationId: stri
                         {
                             key: "tittel",
                             type: FieldConfigurationType.DYNAMIC_STRING,
-                            value: data.caseData?.title
+                            value: data.caseData.title
                         },
                         {
                             key: "offentligTittel",
@@ -156,12 +155,6 @@ export function toNewConfiguration(data: IFormConfiguration, integrationId: stri
 
                     },
                     {
-                        key: "DokumentBeskrivelse.dokumentType",
-                        type: FieldConfigurationType.STRING,
-                        value: data.recordData?.documentType
-
-                    },
-                    {
                         key: "administrativenhet",
                         type: FieldConfigurationType.STRING,
                         value: data.recordData?.administrativeUnit
@@ -209,6 +202,11 @@ export function toNewConfiguration(data: IFormConfiguration, integrationId: stri
                         type: FieldConfigurationType.STRING,
                         value: data.documentData?.documentStatus
                     },
+                    {
+                        key: "dokumentType",
+                        type: FieldConfigurationType.STRING,
+                        value: data.documentData?.documentType
+                    },
                     //TODO: what is the corresponding field here
                     /*                    {
                                             key: "DokumentBeskrivelse.dokumentKategori",
@@ -227,7 +225,7 @@ export function toNewConfiguration(data: IFormConfiguration, integrationId: stri
 
                                         },*/
                     {
-                        key: "DokumentBeskrivelse.dokumentObjekt.variantFormat",
+                        key: "dokumentObjekt.variantFormat",
                         type: FieldConfigurationType.STRING,
                         value: data.documentData?.variant
                     }
@@ -244,14 +242,14 @@ export function toNewConfiguration(data: IFormConfiguration, integrationId: stri
                     {
                         key: "protected",
                         type: FieldConfigurationType.BOOLEAN,
-                        value: data.applicantData?.protected?.toString()
+                        value: data.applicantData?.protected ? data.applicantData.protected.toString() : null
                     },
-                    data.applicantData.type === ApplicantType.PERSON ?
-                        {
+                    data.applicantData.type === ApplicantType.PERSON ? {
                             key: "fødselsnummer",
                             type: FieldConfigurationType.DYNAMIC_STRING,
                             value: data.applicantData?.nationalIdentityNumber
-                        } : {
+                        } :
+                        {
                             key: "organisasjonsnummer",
                             type: FieldConfigurationType.DYNAMIC_STRING,
                             value: data.applicantData?.organisationNumber
@@ -325,18 +323,21 @@ export function toConfigurationPatch(data: IFormConfiguration, metadataId: any):
                         {
                             key: "saksnummer",
                             type: FieldConfigurationType.STRING,
-                            value: data.caseData.caseNumber
-                        },
+                            value: data.caseData.caseNumber ? data.caseData.caseNumber : null
+                        }
                     ]
-                }
-                :
-                {
+                } : {
                     key: 'case',
                     fieldConfigurations: [
                         {
                             key: "creationStrategy",
                             type: FieldConfigurationType.STRING,
                             value: data.caseData.caseCreationStrategy
+                        },
+                        {
+                            key: "saksnummer",
+                            type: FieldConfigurationType.STRING,
+                            value: data.caseData.caseNumber ? data.caseData.caseNumber : null
                         },
                         {
                             key: "tittel",
@@ -449,19 +450,11 @@ export function toConfigurationPatch(data: IFormConfiguration, metadataId: any):
                         key: "tittel",
                         type: FieldConfigurationType.DYNAMIC_STRING,
                         value: data.recordData?.title
-
-
                     },
                     {
                         key: "offentligTittel",
                         type: FieldConfigurationType.DYNAMIC_STRING,
                         value: data.recordData?.publicTitle
-
-                    },
-                    {
-                        key: "DokumentBeskrivelse.dokumentType",
-                        type: FieldConfigurationType.STRING,
-                        value: data.recordData?.documentType
 
                     },
                     {
@@ -512,25 +505,13 @@ export function toConfigurationPatch(data: IFormConfiguration, metadataId: any):
                         type: FieldConfigurationType.STRING,
                         value: data.documentData?.documentStatus
                     },
-                    //TODO: what is the corresponding field here
-                    /*                    {
-                                            key: "DokumentBeskrivelse.dokumentKategori",
-                                            type: FieldConfigurationType.STRING,
-                                            value: data.documentData?.documentCategory
-                                        },
-                                        {
-                                            key: "tilgangsrestriksjon",
-                                            type: FieldConfigurationType.STRING,
-                                            value: data.documentData?.accessCode
-                                        },
-                                        {
-                                            key: "skjermingshjemmel",
-                                            type: FieldConfigurationType.STRING,
-                                            value: data.documentData?.paragraph
-
-                                        },*/
                     {
-                        key: "DokumentBeskrivelse.dokumentObjekt.variantFormat",
+                        key: "dokumentType",
+                        type: FieldConfigurationType.STRING,
+                        value: data.documentData?.documentType
+                    },
+                    {
+                        key: "dokumentObjekt.variantFormat",
                         type: FieldConfigurationType.STRING,
                         value: data.documentData?.variant
                     }
@@ -547,17 +528,18 @@ export function toConfigurationPatch(data: IFormConfiguration, metadataId: any):
                     {
                         key: "protected",
                         type: FieldConfigurationType.BOOLEAN,
-                        value: data.applicantData?.protected?.toString()
+                        value: data.applicantData?.protected ? data.applicantData.protected.toString() : null
                     },
                     data.applicantData.type === ApplicantType.PERSON ? {
-                        key: "fødselsnummer",
-                        type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: data.applicantData?.nationalIdentityNumber
-                    } : {
-                        key: "organisasjonsnummer",
-                        type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: data.applicantData?.organisationNumber
-                    },
+                            key: "fødselsnummer",
+                            type: FieldConfigurationType.DYNAMIC_STRING,
+                            value: data.applicantData?.nationalIdentityNumber
+                        } :
+                        {
+                            key: "organisasjonsnummer",
+                            type: FieldConfigurationType.DYNAMIC_STRING,
+                            value: data.applicantData?.organisationNumber
+                        },
                     {
                         key: "KorrespondansepartNavn",
                         type: FieldConfigurationType.DYNAMIC_STRING,

@@ -1,11 +1,10 @@
 export default interface IRecordData {
-    title?: string;
-    publicTitle?: string;
-    documentType?: string;
-    administrativeUnit?: string;
-    recordStatus?: string;
-    recordType?: string;
-    caseWorker?: string;
-    accessCode?: string;
-    paragraph?: string;
+    title: string | null;
+    publicTitle: string | null;
+    administrativeUnit: string | null;
+    recordStatus: string | null;
+    recordType: string | null;
+    caseWorker: string | null;
+    accessCode: string | null;
+    paragraph: string | null;
 }

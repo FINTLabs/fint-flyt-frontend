@@ -36,7 +36,6 @@ export function newToFormData(data: newIConfiguration): IFormConfiguration {
         recordData: {
             title: configurationFieldToString(recordFields, 'tittel'),
             publicTitle: configurationFieldToString(recordFields, 'offentligTittel'),
-            documentType: configurationFieldToString(recordFields, 'DokumentBeskrivelse.dokumentType'),
             administrativeUnit: configurationFieldToString(recordFields, 'administrativenhet'),
             recordStatus: configurationFieldToString(recordFields, 'journalstatus'),
             recordType: configurationFieldToString(recordFields, 'journalposttype'),
@@ -47,11 +46,9 @@ export function newToFormData(data: newIConfiguration): IFormConfiguration {
         documentData: {
             title: configurationFieldToString(documentFields, 'tittel'),
             documentStatus: configurationFieldToString(documentFields, 'dokumentStatus'),
+            documentType: configurationFieldToString(documentFields, 'dokumentType'),
             //TODO: whats the correct name for this configField?
-            //documentCategory: configurationFieldToString(documentFields, 'DokumentBeskrivelse.dokumentKategori'),
-            //accessCode: configurationFieldToString(documentFields, 'tilgangsrestriksjon'),
-            //paragraph: configurationFieldToString(documentFields, 'skjermingshjemmel'),
-            variant: configurationFieldToString(documentFields, 'DokumentBeskrivelse.dokumentObjekt.variantFormat'),
+            variant: configurationFieldToString(documentFields, 'dokumentObjekt.variantFormat'),
         },
         applicantData: {
             protected: configurationFieldToBoolean(applicantFields, 'protected'),

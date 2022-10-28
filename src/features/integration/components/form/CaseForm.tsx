@@ -14,9 +14,9 @@ import {CreationStrategy} from "../../types/CreationStrategy";
 const CaseForm: React.FunctionComponent<any> = (props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationForm.accordions.caseForm'});
     const disabled: boolean = props.disabled
-    const hasPrimary = props.watch("caseData.primaryClassification") !== '';
-    const hasSecondary = props.watch("caseData.secondaryClassification") !== '';
-    const hasTertiary = props.watch("caseData.tertiaryClassification") !== '';
+    const hasPrimary = props.watch("caseData.primaryClassification") !== null;
+    const hasSecondary = props.watch("caseData.secondaryClassification") !== null;
+    const hasTertiary = props.watch("caseData.tertiaryClassification") !== null;
     const [showSecondary, setShowSecondary] = React.useState(hasSecondary);
     const [showTertiary, setShowTertiary] = React.useState(hasTertiary);
     const {administrativeUnits, accessCodes, caseTypes, paragraphs, statuses, archiveSections, archiveResources,
@@ -30,17 +30,17 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
             setShowTertiary(prevState => !prevState);
             setTertiaryClassification({label: '', value: ''})
             setTertiaryClass([{label: 'velg tertiær ordningsprinsipp først', value: ''}])
-            props.setValue("caseData.tertiaryClassification", '')
-            props.setValue("caseData.tertiaryClass", '')
-            props.setValue("caseData.tertiaryTitle", '')
+            props.setValue("caseData.tertiaryClassification", null)
+            props.setValue("caseData.tertiaryClass", null)
+            props.setValue("caseData.tertiaryTitle", null)
         }
         else if(showSecondary) {
             setShowSecondary(prevState => !prevState);
             setSecondaryClassification({label: '', value: ''})
             setSecondaryClass([{label: 'velg sekundær ordningsprinsipp først', value: ''}])
-            props.setValue("caseData.secondaryClassification", '')
-            props.setValue("caseData.secondaryClass", '')
-            props.setValue("caseData.secondaryTitle", '')
+            props.setValue("caseData.secondaryClassification", null)
+            props.setValue("caseData.secondaryClass", null)
+            props.setValue("caseData.secondaryTitle", null)
         }
     }
     console.log(hasPrimary, hasSecondary, hasTertiary)

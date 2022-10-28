@@ -1,15 +1,15 @@
 export default interface IApplicantData {
-    type?: string;
+    type: string | null;
     protected?: boolean;
-    organisationNumber?: string;
-    nationalIdentityNumber?: string;
-    name?: string;
-    address?: string;
-    postalCode?: string;
-    city?: string;
-    contactPerson?: string;
-    phoneNumber?: string;
-    email?: string;
-    accessCode?: string;
-    paragraph?: string;
+    organisationNumber: string | null;
+    nationalIdentityNumber: string | null;
+    name: string | null;
+    address: string | null;
+    postalCode: string | null;
+    city: string | null;
+    contactPerson: string | null;
+    phoneNumber: string | null;
+    email: string | null;
+    accessCode: string | null;
+    paragraph: string | null;
 }

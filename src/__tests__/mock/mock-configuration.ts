@@ -127,11 +127,6 @@ export const MOCK_CONFIGURATION: newIConfiguration = {
                     "value": "public record title"
                 },
                 {
-                    "key": "DokumentBeskrivelse.dokumentType",
-                    "type": "STRING",
-                    "value": "cat8"
-                },
-                {
                     "key": "administrativenhet",
                     "type": "STRING",
                     "value": "unit33"
@@ -177,7 +172,12 @@ export const MOCK_CONFIGURATION: newIConfiguration = {
                     "value": "D9"
                 },
                 {
-                    "key": "DokumentBeskrivelse.dokumentObjekt.variantFormat",
+                    "key": "dokumentType",
+                    "type": "STRING",
+                    "value": "cat8"
+                },
+                {
+                    "key": "dokumentObjekt.variantFormat",
                     "type": "STRING",
                     "value": "var"
                 }
