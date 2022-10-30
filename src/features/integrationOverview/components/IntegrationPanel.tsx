@@ -171,7 +171,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                 setConfiguration(undefined);
             })
         history.push("/integration/configuration/edit");
-    };
+    }
 
 
     function EditButtonToggle(props: GridCellParams["row"]) {
@@ -356,6 +356,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
 
                 <MenuItem>
                     <Button
+                        disabled={props.completedConfigurations.length <= 0}
                         id="demo-positioned-button"
                         aria-controls={openSub ? 'demo-positioned-menu' : undefined}
                         aria-haspopup="true"
@@ -363,7 +364,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                         onClick={handleNewConfigSubClick}
                         endIcon={<ArrowRightIcon />}
                     >
-                        Basert på eksisterende versjon (kommer)
+                        Basert på eksisterende versjon
                     </Button>
                     <Menu
                         id="demo-positioned-menu"
