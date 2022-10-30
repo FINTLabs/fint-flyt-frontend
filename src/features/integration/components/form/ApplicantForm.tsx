@@ -65,7 +65,7 @@ const ApplicantForm: React.FunctionComponent<any> = (props) => {
                         <Checkbox
                             disabled={props.disabled}
                             id="form-complete"
-                            checked={props.protectedChecked}
+                            checked={props.protectedCheck}
                             onChange={event => props.setProtectedChecked(event.target.checked)}
                             inputProps={{ 'aria-label': 'completed-checkbox' }}/>}
                     label={t('protectedLabel') as string}

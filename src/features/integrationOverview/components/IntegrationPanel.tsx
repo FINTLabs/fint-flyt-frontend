@@ -29,6 +29,7 @@ import {ResourcesContext} from "../../../context/resourcesContext";
 import {configurationFieldToString} from "../../util/MappingUtil";
 import ResourceRepository from "../../../shared/repositories/ResourceRepository";
 import {IResourceItem} from "../../../context/resourcesContext/types";
+import {newIConfiguration} from "../../integration/types/Configuration";
 
 const IntegrationPanel: React.FunctionComponent<any> = (props) => {
     const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.integrationOverview'});
@@ -47,6 +48,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
     const handleNewConfigClose = () => {setAnchorEl(null);};
     const handleNewConfigSubClick = (event: React.MouseEvent<HTMLElement>) => {setAnchorSubEl(event.currentTarget);};
     const handleNewConfigSubClose = () => {setAnchorSubEl(null);};
+
     const versionsToActivate: ISelect[] = [{value: 'null', label: 'velg aktiv versjon'}];
     const [openDialog, setOpenDialog] = React.useState(false);
     const [configToActivate, setConfigToActivate] = React.useState<string>('')
@@ -62,9 +64,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
     }
 
     props.completedConfigurations?.map((configuration: any) => {
-        if (configuration.completed) {
-            versionsToActivate.push({value: configuration.id, label: 'versjon ' + configuration.version})
-        }
+        versionsToActivate.push({value: configuration.id, label: 'versjon ' + configuration.version})
     })
 
     useEffect(()=> {
@@ -95,40 +95,84 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
         setSelectedMetadata(selectedForm.length > 0 ? selectedForm[0] : SOURCE_FORM_NO_VALUES[0])
         getInstanceElementMetadata(selectedForm[0].id)
         await ConfigurationRepository.getConfiguration(id.toString(), excludeElements)
-                .then(async (response) => {
-                    setConfiguration(response.data);
-                    let cases = response.data?.elements.filter((confField: any) => confField.key === 'case')
-                    let primaryClass = configurationFieldToString(cases ? cases : [], 'primarordningsprinsipp')
-                    let secondaryClass = configurationFieldToString(cases ? cases : [], 'sekundarordningsprinsipp')
-                    let tertiaryClass = configurationFieldToString(cases ? cases : [], 'tertiarordningsprinsipp')
-                    await ResourceRepository.getClasses(primaryClass !== null ? primaryClass : '').then(async response => {
+            .then(async (response) => {
+                setConfiguration(response.data);
+                let cases = response.data?.elements.filter((confField: any) => confField.key === 'case')
+                let primaryClass = configurationFieldToString(cases ? cases : [], 'primarordningsprinsipp')
+                let secondaryClass = configurationFieldToString(cases ? cases : [], 'sekundarordningsprinsipp')
+                let tertiaryClass = configurationFieldToString(cases ? cases : [], 'tertiarordningsprinsipp')
+                await ResourceRepository.getClasses(primaryClass !== null ? primaryClass : '').then(async response => {
+                    if (response.data) {response.data.map((resource: any) => list.push({label: resource.id + ' - ' + resource.displayName, value: resource.id}))
+                        setPrimaryClass(list)
+                    }
+                })
+                    .then(async response => {
+                        await ResourceRepository.getClasses(secondaryClass !== null ? secondaryClass : '').then(response => {
                             if (response.data) {response.data.map((resource: any) => list.push({label: resource.id + ' - ' + resource.displayName, value: resource.id}))
-                                setPrimaryClass(list)
+                                setSecondaryClass(list)
                             }
                         })
-                        .then(async response => {
-                            await ResourceRepository.getClasses(secondaryClass !== null ? secondaryClass : '').then(response => {
-                                    if (response.data) {response.data.map((resource: any) => list.push({label: resource.id + ' - ' + resource.displayName, value: resource.id}))
-                                        setSecondaryClass(list)
-                                    }
-                                })
-                        }).then(async response => {
-                            await ResourceRepository.getClasses(tertiaryClass !== null ? tertiaryClass : '').then(response => {
-                                    if (response.data) {response.data.map((resource: any) => list.push({label: resource.id + ' - ' + resource.displayName, value: resource.id}))
-                                        setTertiaryClass(list)
-                                    }
-                                })
+                    }).then(async response => {
+                        await ResourceRepository.getClasses(tertiaryClass !== null ? tertiaryClass : '').then(response => {
+                            if (response.data) {response.data.map((resource: any) => list.push({label: resource.id + ' - ' + resource.displayName, value: resource.id}))
+                                setTertiaryClass(list)
+                            }
                         })
-                        .catch((err) => {
-                            console.error(err);
-                        })
-                })
+                    })
+                    .catch((err) => {
+                        console.error(err);
+                    })
+            })
             .catch((e) => {
-                    console.error('Error: ', e)
-                    setConfiguration(undefined);
+                console.error('Error: ', e)
+                setConfiguration(undefined);
             })
         history.push("/integration/configuration/edit");
     }
+
+    async function handleNewConfigTemplateClick(event: React.MouseEvent<HTMLElement>, version: any, id: any) {
+        let list: IResourceItem[] = [];
+        let selectedForm = allMetadata.filter(md => md.sourceApplicationIntegrationId === existingIntegration?.sourceApplicationIntegrationId)
+        setSelectedMetadata(selectedForm.length > 0 ? selectedForm[0] : SOURCE_FORM_NO_VALUES[0])
+        getInstanceElementMetadata(selectedForm[0].id)
+        await ConfigurationRepository.getConfiguration(id.toString(), false)
+            .then(async (response) => {
+                let data: newIConfiguration = response.data
+                data.id = undefined;
+                data.completed = false;
+                setConfiguration(data);
+                let cases = data?.elements.filter((confField: any) => confField.key === 'case')
+                let primaryClass = configurationFieldToString(cases ? cases : [], 'primarordningsprinsipp')
+                let secondaryClass = configurationFieldToString(cases ? cases : [], 'sekundarordningsprinsipp')
+                let tertiaryClass = configurationFieldToString(cases ? cases : [], 'tertiarordningsprinsipp')
+                await ResourceRepository.getClasses(primaryClass !== null ? primaryClass : '').then(async response => {
+                    if (response.data) {response.data.map((resource: any) => list.push({label: resource.id + ' - ' + resource.displayName, value: resource.id}))
+                        setPrimaryClass(list)
+                    }
+                }).then(async response => {
+                    await ResourceRepository.getClasses(secondaryClass !== null ? secondaryClass : '').then(response => {
+                        if (response.data) {response.data.map((resource: any) => list.push({label: resource.id + ' - ' + resource.displayName, value: resource.id}))
+                            setSecondaryClass(list)
+                        }
+                    })
+                }).then(async response => {
+                    await ResourceRepository.getClasses(tertiaryClass !== null ? tertiaryClass : '').then(response => {
+                        if (response.data) {response.data.map((resource: any) => list.push({label: resource.id + ' - ' + resource.displayName, value: resource.id}))
+                            setTertiaryClass(list)
+                        }
+                    })
+                })
+                    .catch((err) => {
+                        console.error(err);
+                    })
+            })
+            .catch((e) => {
+                console.error('Error: ', e)
+                setConfiguration(undefined);
+            })
+        history.push("/integration/configuration/edit");
+    };
+
 
     function EditButtonToggle(props: GridCellParams["row"]) {
         const completed: boolean = props.row.completed
@@ -139,7 +183,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                     size="small"
                     variant="contained"
                     onClick={(e) => {handleEditShowButtonClick(props.row.id, false)}}
-                    >{completed ? 'VIS' : 'REDIGER'}
+                >{completed ? 'VIS' : 'REDIGER'}
                 </Button>
             </>
         );
@@ -336,8 +380,14 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                             horizontal: 'left',
                         }}
                     >
-                        <MenuItem disabled={true} onClick={handleNewConfigSubClose}>...</MenuItem>
-                        <MenuItem disabled={true} onClick={handleNewConfigSubClose}>...</MenuItem>
+                        {props.completedConfigurations && props.completedConfigurations.map((config: any) => {
+                                return <MenuItem onClick={handleNewConfigSubClose}>
+                                    <Button id="demo-positioned-button" onClick={(e) => {handleNewConfigTemplateClick(e, config.version, config.id)}}>
+                                        {config.version}
+                                    </Button>
+                                </MenuItem>
+                            }
+                        )}
                     </Menu>
                 </MenuItem>
             </Menu>

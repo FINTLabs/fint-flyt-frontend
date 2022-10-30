@@ -517,6 +517,78 @@ export function toConfigurationPatch(data: IFormConfiguration, metadataId: any):
                     }
                 ]
             },
+            data.applicantData.protected ?
+                {
+                    key: 'applicant',
+                    fieldConfigurations: [
+                        {
+                            key: "type",
+                            type: FieldConfigurationType.STRING,
+                            value: data.applicantData?.type
+                        },
+                        {
+                            key: "protected",
+                            type: FieldConfigurationType.BOOLEAN,
+                            value: data.applicantData.protected.toString()
+                        },
+                        data.applicantData.type === ApplicantType.PERSON ? {
+                                key: "fødselsnummer",
+                                type: FieldConfigurationType.DYNAMIC_STRING,
+                                value: data.applicantData?.nationalIdentityNumber
+                            } :
+                            {
+                                key: "organisasjonsnummer",
+                                type: FieldConfigurationType.DYNAMIC_STRING,
+                                value: data.applicantData?.organisationNumber
+                            },
+                        {
+                            key: "KorrespondansepartNavn",
+                            type: FieldConfigurationType.DYNAMIC_STRING,
+                            value: data.applicantData?.name
+                        },
+                        {
+                            key: "Adresse.adresselinje",
+                            type: FieldConfigurationType.DYNAMIC_STRING,
+                            value: data.applicantData?.address
+                        },
+                        {
+                            key: "Adresse.postnummer",
+                            type: FieldConfigurationType.DYNAMIC_STRING,
+                            value: data.applicantData?.postalCode
+                        },
+                        {
+                            key: "Adresse.poststed",
+                            type: FieldConfigurationType.DYNAMIC_STRING,
+                            value: data.applicantData?.city
+                        },
+                        {
+                            key: "kontaktperson",
+                            type: FieldConfigurationType.DYNAMIC_STRING,
+                            value: data.applicantData?.contactPerson
+                        },
+                        {
+                            key: "Kontaktinformasjon.mobiltelefonnummer",
+                            type: FieldConfigurationType.DYNAMIC_STRING,
+                            value: data.applicantData?.phoneNumber
+                        },
+                        {
+                            key: "Kontaktinformasjon.epostadresse",
+                            type: FieldConfigurationType.DYNAMIC_STRING,
+                            value: data.applicantData?.email
+                        },
+                        {
+                            key: "tilgangsrestriksjon",
+                            type: FieldConfigurationType.STRING,
+                            value: data.applicantData?.accessCode
+                        },
+                        {
+                            key: "skjermingshjemmel",
+                            type: FieldConfigurationType.STRING,
+                            value: data.applicantData?.paragraph
+                        }
+                    ]
+                }
+                :
             {
                 key: 'applicant',
                 fieldConfigurations: [
@@ -528,7 +600,7 @@ export function toConfigurationPatch(data: IFormConfiguration, metadataId: any):
                     {
                         key: "protected",
                         type: FieldConfigurationType.BOOLEAN,
-                        value: data.applicantData?.protected ? data.applicantData.protected.toString() : null
+                        value: null
                     },
                     data.applicantData.type === ApplicantType.PERSON ? {
                             key: "fødselsnummer",
@@ -574,16 +646,6 @@ export function toConfigurationPatch(data: IFormConfiguration, metadataId: any):
                         key: "Kontaktinformasjon.epostadresse",
                         type: FieldConfigurationType.DYNAMIC_STRING,
                         value: data.applicantData?.email
-                    },
-                    {
-                        key: "tilgangsrestriksjon",
-                        type: FieldConfigurationType.STRING,
-                        value: data.applicantData?.accessCode
-                    },
-                    {
-                        key: "skjermingshjemmel",
-                        type: FieldConfigurationType.STRING,
-                        value: data.applicantData?.paragraph
                     }
                 ]
             }

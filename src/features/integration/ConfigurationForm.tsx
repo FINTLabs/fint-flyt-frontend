@@ -112,13 +112,13 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     const [saveError, setSaveError] = React.useState(false);
     const [checked, setChecked] = React.useState(configuration && editConfig ? configuration.completed : false);
     const [activeChecked, setActiveChecked] = React.useState(false);
-    const [protectedCheck, setProtectedChecked] = React.useState(false);
     let history = useHistory();
     let activeIntegration = (editConfig || (!editConfig && existingIntegration)) ? existingIntegration : newIntegration;
-    let activeConfiguration = configuration?.id && editConfig ? configuration : undefined;
+    let activeConfiguration = configuration && editConfig ? configuration : undefined;
     const [activeConfigId, setActiveConfigId] = React.useState(activeConfiguration?.id);
     const [completed, setCompleted] = React.useState(!!activeConfiguration?.completed);
     let activeFormData = activeConfiguration && editConfig && configuration? newToFormData(configuration) : defaultConfigurationValues;
+    const [protectedCheck, setProtectedChecked] = React.useState(activeFormData.applicantData.protected);
 
     const handleCheckChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setChecked(event.target.checked);
