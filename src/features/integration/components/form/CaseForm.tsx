@@ -43,7 +43,6 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
             props.setValue("caseData.secondaryTitle", null)
         }
     }
-    console.log(hasPrimary, hasSecondary, hasTertiary)
 
     useEffect(()=> {
         getPrimaryClass();
