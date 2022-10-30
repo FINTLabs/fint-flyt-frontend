@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import {
     AppBar, Badge,
     Box,
@@ -15,6 +15,7 @@ import Router from "./Router";
 import MenuItems from "./MenuItems";
 import {Link as RouterLink} from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import {IntegrationContext} from "../../context/integrationContext";
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme: Theme) =>
@@ -80,6 +81,10 @@ function Main() {
         i18n.changeLanguage(lng);
     };
 
+    const {statistics} = useContext(IntegrationContext)
+    let totalErrors = 0;
+    statistics?.map((stat: any) => {totalErrors += stat.currentErrors})
+
 
     return (
         <Box display="flex" position="relative" width={1} height={1}>
@@ -94,9 +99,9 @@ function Main() {
                         {i18n.language === 'en' && <Button size="small" variant="contained" onClick={() => changeLanguage("no")}>{t('language.norwegian')}</Button>}
                     </Box>*/}
                     <Badge className={classes.badge}
-                        badgeContent={"5"}
+                        badgeContent={totalErrors}
                         color="secondary"
-                        component={RouterLink} to="/log">
+                        component={RouterLink} to="/integration/instance/list">
                         <NotificationsIcon htmlColor={"white"} />
                     </Badge>
                 </Toolbar>
