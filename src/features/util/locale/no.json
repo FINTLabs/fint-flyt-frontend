@@ -502,7 +502,6 @@
         "recordData": {
             "title": "Tittel kan være en konkret tekststreng, eller en kombinasjon av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak. (Se Noark))",
             "publicTitle": "Offentlig tittel på arkivenheten, ord som skal skjermes er fjernet fra innholdet i tittelen (erstattet med ******)",
-            "documentType": "Eksempel: Avtaler, Innsynsbehandling, Følgebrev, Juridisk ..",
             "administrativeUnit":"Navn på avdeling, kontor eller annen administrativ enhet som har ansvaret for saksbehandlingen.",
             "recordStatus": "Status til journalposten, dvs. om dokumentet er registrert, under behandling eller endelig arkivert.",
             "recordType": "Navn på type journalpost.",
@@ -514,6 +513,7 @@
             "title": "Tittel eller navn på arkivenheten.",
             "documentStatus": "Status til dokumentet. Eksempel: B, F",
             "documentCategory": "TODO",
+            "documentType": "Eksempel: Avtaler, Innsynsbehandling, Følgebrev, Juridisk ..",
             "accessCode": "Eksempel: Unntatt offentlighet, persona,l varslingssak, ugradert. ",
             "paragraph": "Eksempel: Offl. §13",
             "variant": "Angivelse av hvilken variant et dokument forekommer. - Produksjonsformat"
