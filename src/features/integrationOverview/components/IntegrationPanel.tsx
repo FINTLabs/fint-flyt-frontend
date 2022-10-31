@@ -356,7 +356,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
 
                 <MenuItem>
                     <Button
-                        disabled={props.completedConfigurations.length <= 0}
+                        disabled={!props.completedConfigurations}
                         id="demo-positioned-button"
                         aria-controls={openSub ? 'demo-positioned-menu' : undefined}
                         aria-haspopup="true"
