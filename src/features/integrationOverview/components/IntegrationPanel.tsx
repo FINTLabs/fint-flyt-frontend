@@ -75,7 +75,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
         { field: 'id', type: 'string', headerName: 'KonfigurasjonsId', flex: 0.5},
         { field: 'version', type: 'number', headerName: 'Versjon', flex: 0.5},
         { field: 'comment', type: 'string', headerName: 'Kommentar', flex: 1},
-        { field: 'details', headerName: 'Vis', flex: 0.5, sortable: false, filterable: false, description: "Ferdigstilte konfigurasjoner kan ikke redigeres",
+        { field: 'details', headerName: 'Vis', flex: 0.5, sortable: false, filterable: false,
             renderCell: (params) => ( <EditButtonToggle row={params.row} />)
         }
     ];
@@ -83,7 +83,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
     const draftColumns: GridColDef[] = [
         { field: 'id', type: 'string', headerName: 'KonfigurasjonsId', flex: 0.5},
         { field: 'comment', type: 'string', headerName: 'Kommentar', flex: 1},
-        { field: 'details', headerName: 'Rediger', flex: 0.5, sortable: false, filterable: false, description: "Ferdigstilte konfigurasjoner kan ikke redigeres",
+        { field: 'details', headerName: 'Rediger', flex: 0.5, sortable: false, filterable: false,
             renderCell: (params) => ( <EditButtonToggle row={params.row} />)
         }
     ];
