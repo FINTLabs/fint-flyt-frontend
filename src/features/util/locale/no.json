@@ -90,20 +90,31 @@
         "integrationOverview": {
             "header": "Integrasjonsoversikt",
             "details": "Konfigurasjonsdetaljer",
-            "testString": "Mangler felt ‘%s’ i instans, som kreves for å sette felt ‘%s’ i sak",
             "version": "Versjon",
             "case": "Sakspost",
             "record": "Journalpost",
             "document": "Dokument- og objektbeskrivelse",
             "applicant": "Avsender",
-            "changedMsg": "Endret til revisjon",
             "button": {
+                "show": "Vis",
                 "edit": "Rediger",
                 "back": "Tilbake",
-                "changeVersion": "Bruk denne konfigurasjonen"
+                "changeVersion": "Bruk denne konfigurasjonen",
+                "newConfiguration": "NY KONFIGURASJON",
+                "blankConfiguration": "Blank konfigurasjon",
+                "templateConfiguration": "Basert på eksisterende versjon"
+            },
+            "dialog": {
+                "header": "Aktiver konfigurasjon?",
+                "confirmMsg": "Bekreft aktivering av konfigurasjon",
+                "yes": "Ja",
+                "cancel": "Avbryt"
             },
             "table": {
+                "completed": "Ferdigstilt",
+                "drafts": "Utkast",
                 "columns": {
+                    "configurationId": "KonfigurasjonsId",
                     "destination": "Destinasjon/base",
                     "sourceApplicationIntegrationId": "Integrasjon",
                     "sourceApplicationId": "Kildeapplikasjon",
@@ -111,9 +122,11 @@
                     "state": "Tilstand",
                     "comment": "Kommentar",
                     "finished": "Ferdigstilt",
-                    "version": "Version",
+                    "version": "Versjon",
                     "dispatched": "Antall arkiverte instanser",
-                    "errors": "Antall gjeldende feil"
+                    "errors": "Antall gjeldende feil",
+                    "show": "Vis",
+                    "edit": "Rediger"
                 }
             },
             "labels": {
@@ -124,45 +137,7 @@
                 "sourceApplicationIntegrationId": "Integrasjon: ",
                 "caseCreationStrategy": "Avleveringslogikk: ",
                 "finished": "Ferdigstilt: ",
-                "version": "Versjon: ",
-                "caseNumber": "Saksnummer: ",
-                "caseType": "Sakstype: ",
-                "title": "Tittel: ",
-                "publicTitle": "Offentlig tittel: ",
-                "administrativeUnit": "Administrativ enhet: ",
-                "archiveUnit": "Arkivdel: ",
-                "recordUnit": "Journalenhet: ",
-                "status": "Status: ",
-                "accessCode": "Tilgangskode: ",
-                "paragraph": "Hjemmel: ",
-                "responsibleCaseWorker": "Ansvarlig saksbehandler: ",
-                "primaryClassification": "Primær ordningsprinsipp: ",
-                "secondaryClassification": "Sekundær ordningsprinsipp: ",
-                "tertiaryClassification": "Tertiær ordningsprinsipp: ",
-                "primaryClass": "Primærklasse: ",
-                "secondaryClass": "Sekundærklasse: ",
-                "tertiaryClass": "Tertiærklasse: ",
-                "primaryTitle": "Primærtittel: ",
-                "secondaryTitle": "Sekundærtittel: ",
-                "tertiaryTitle": "Tertiærtittel: ",
-                "type": "Type: ",
-                "documentType": "Dokumenttype: ",
-                "recordStatus": "Journalstatus: ",
-                "recordType": "Journalposttype: ",
-                "caseWorker": "Saksbehandler: ",
-                "documentStatus": "Status: ",
-                "documentCategory": "Kategori: ",
-                "variant": "Variant: ",
-                "organisationNumber": "Organisasjonsnummer: ",
-                "nationalIdentityNumber": "Fødselsnummer: ",
-                "applicantName": "Navn: ",
-                "address": "Adresse: ",
-                "postalCode": "Postnummer: ",
-                "city": "Poststed: ",
-                "contactPerson": "Kontaktperson: ",
-                "phoneNumber": "Telefonnummer: ",
-                "email": "Epost: ",
-                "protected": "Skjerming: "
+                "version": "Versjon: "
             }
         },
         "instanceOverview": {
@@ -196,18 +171,22 @@
                 "close": "Lukk",
                 "edit": "Rediger",
                 "back": "Tilbake",
+                "retry": "Prøv igjen",
                 "changeVersion": "Bruk denne konfigurasjonen"
             },
             "table": {
                 "columns": {
-                    "errorMessage": "Feilmeldinger",
-                    "destination": "Destinasjon/base",
-                    "sourceApplicationIntegrationId": "Integrasjon",
-                    "sourceApplicationId": "Kildeapplikasjon",
-                    "name": "Navn",
-                    "comment": "Kommentar",
-                    "finished": "Ferdigstilt",
-                    "version": "Versjon"
+                        "destination": "Destinasjon/base",
+                        "sourceApplicationIntegrationId": "Integrasjon",
+                        "sourceApplicationId": "Kildeapplikasjon",
+                        "sourceApplicationInstanceId": "Kilde instans ID",
+                        "configurationId": "Konfigurasjon ID",
+                        "archiveCaseId": "Arkivsak ID",
+                        "timestamp": "Tidspunkt",
+                        "timestampLatest": "Sist hendelse",
+                        "name": "Status",
+                        "actions": "Handlinger",
+                        "details": "Detaljer"
                 }
             },
             "labels": {

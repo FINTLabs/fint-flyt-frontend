@@ -22,7 +22,11 @@ import {ISelect} from "../../integration/types/InputField";
 import IntegrationRepository from "../../../shared/repositories/IntegrationRepository";
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import {SourceApplicationContext} from "../../../context/sourceApplicationContext";
-import {SOURCE_FORM_NO_VALUES} from "../../integration/defaults/DefaultValues";
+import {
+    getDestinationDisplayName,
+    getSourceApplicationDisplayName,
+    SOURCE_FORM_NO_VALUES
+} from "../../integration/defaults/DefaultValues";
 import ConfigurationRepository from "../../../shared/repositories/ConfigurationRepository";
 import {IIntegrationPatch} from "../../integration/types/Integration";
 import {ResourcesContext} from "../../../context/resourcesContext";
@@ -37,9 +41,9 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
     let history = useHistory();
     const {existingIntegration, setConfiguration, setSelectedMetadata} = useContext(IntegrationContext)
     const {allMetadata, getAllMetadata, getInstanceElementMetadata} = useContext(SourceApplicationContext)
-    const {setPrimaryClass, setSecondaryClass, setTertiaryClass} = useContext(ResourcesContext)
+    const {setPrimaryClass, setSecondaryClass, setTertiaryClass, getAllResources} = useContext(ResourcesContext)
     const [version, setVersion] = useState('null');
-    const [activeVersion, setActiveVersion] = useState(existingIntegration?.activeConfigurationId ? 'konfigurasjon' + existingIntegration?.activeConfigurationId : 'Ingen');
+    const [activeVersion, setActiveVersion] = useState(existingIntegration?.activeConfigurationId ? 'konfigurasjon ' + existingIntegration?.activeConfigurationId : 'Ingen');
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [anchorSubEl, setAnchorSubEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
@@ -72,65 +76,25 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
     }, [])
 
     const columns: GridColDef[] = [
-        { field: 'id', type: 'string', headerName: 'KonfigurasjonsId', flex: 0.5},
-        { field: 'version', type: 'number', headerName: 'Versjon', flex: 0.5},
-        { field: 'comment', type: 'string', headerName: 'Kommentar', flex: 1},
-        { field: 'details', headerName: 'Vis', flex: 0.5, sortable: false, filterable: false,
+        { field: 'id', type: 'string', headerName: t('table.columns.configurationId'), flex: 0.5},
+        { field: 'version', type: 'number', headerName: t('table.columns.version'), flex: 0.5},
+        { field: 'comment', type: 'string', headerName: t('table.columns.comment'), flex: 1},
+        { field: 'details', headerName: t('table.columns.show'), flex: 0.5, sortable: false, filterable: false,
             renderCell: (params) => ( <EditButtonToggle row={params.row} />)
         }
     ];
 
     const draftColumns: GridColDef[] = [
-        { field: 'id', type: 'string', headerName: 'KonfigurasjonsId', flex: 0.5},
-        { field: 'comment', type: 'string', headerName: 'Kommentar', flex: 1},
-        { field: 'details', headerName: 'Rediger', flex: 0.5, sortable: false, filterable: false,
+        { field: 'id', type: 'string', headerName: t('table.columns.configurationId'), flex: 0.5},
+        { field: 'comment', type: 'string', headerName: t('table.columns.comment'), flex: 1},
+        { field: 'details', headerName: t('table.columns.edit'), flex: 0.5, sortable: false, filterable: false,
             renderCell: (params) => ( <EditButtonToggle row={params.row} />)
         }
     ];
 
-    //TODO: refactor
-    async function handleEditShowButtonClick(id: string, excludeElements: boolean) {
-        let list: IResourceItem[] = [];
-        let selectedForm = allMetadata.filter(md => md.sourceApplicationIntegrationId === existingIntegration?.sourceApplicationIntegrationId)
-        setSelectedMetadata(selectedForm.length > 0 ? selectedForm[0] : SOURCE_FORM_NO_VALUES[0])
-        getInstanceElementMetadata(selectedForm[0].id)
-        await ConfigurationRepository.getConfiguration(id.toString(), excludeElements)
-            .then(async (response) => {
-                setConfiguration(response.data);
-                let cases = response.data?.elements.filter((confField: any) => confField.key === 'case')
-                let primaryClass = configurationFieldToString(cases ? cases : [], 'primarordningsprinsipp')
-                let secondaryClass = configurationFieldToString(cases ? cases : [], 'sekundarordningsprinsipp')
-                let tertiaryClass = configurationFieldToString(cases ? cases : [], 'tertiarordningsprinsipp')
-                await ResourceRepository.getClasses(primaryClass !== null ? primaryClass : '').then(async response => {
-                    if (response.data) {response.data.map((resource: any) => list.push({label: resource.id + ' - ' + resource.displayName, value: resource.id}))
-                        setPrimaryClass(list)
-                    }
-                })
-                    .then(async response => {
-                        await ResourceRepository.getClasses(secondaryClass !== null ? secondaryClass : '').then(response => {
-                            if (response.data) {response.data.map((resource: any) => list.push({label: resource.id + ' - ' + resource.displayName, value: resource.id}))
-                                setSecondaryClass(list)
-                            }
-                        })
-                    }).then(async response => {
-                        await ResourceRepository.getClasses(tertiaryClass !== null ? tertiaryClass : '').then(response => {
-                            if (response.data) {response.data.map((resource: any) => list.push({label: resource.id + ' - ' + resource.displayName, value: resource.id}))
-                                setTertiaryClass(list)
-                            }
-                        })
-                    })
-                    .catch((err) => {
-                        console.error(err);
-                    })
-            })
-            .catch((e) => {
-                console.error('Error: ', e)
-                setConfiguration(undefined);
-            })
-        history.push("/integration/configuration/edit");
-    }
 
-    async function handleNewConfigTemplateClick(event: React.MouseEvent<HTMLElement>, version: any, id: any) {
+    async function handleNewOrEditConfigClick(id: any, version?: any) {
+        getAllResources();
         let list: IResourceItem[] = [];
         let selectedForm = allMetadata.filter(md => md.sourceApplicationIntegrationId === existingIntegration?.sourceApplicationIntegrationId)
         setSelectedMetadata(selectedForm.length > 0 ? selectedForm[0] : SOURCE_FORM_NO_VALUES[0])
@@ -138,8 +102,10 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
         await ConfigurationRepository.getConfiguration(id.toString(), false)
             .then(async (response) => {
                 let data: newIConfiguration = response.data
-                data.id = undefined;
-                data.completed = false;
+                if (version) {
+                    data.id = undefined;
+                    data.completed = false;
+                }
                 setConfiguration(data);
                 let cases = data?.elements.filter((confField: any) => confField.key === 'case')
                 let primaryClass = configurationFieldToString(cases ? cases : [], 'primarordningsprinsipp')
@@ -170,7 +136,6 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                 console.error('Error: ', e)
                 setConfiguration(undefined);
             })
-        history.push("/integration/configuration/edit");
     }
 
 
@@ -182,8 +147,9 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                 <Button
                     size="small"
                     variant="contained"
-                    onClick={(e) => {handleEditShowButtonClick(props.row.id, false)}}
-                >{completed ? 'VIS' : 'REDIGER'}
+                    onClick={(e) => {handleNewOrEditConfigClick(props.row.id).then(r => history.push("/integration/configuration/edit")
+                    )}}
+                >{completed ? t('button.show') : t('button.edit')}
                 </Button>
             </>
         );
@@ -217,24 +183,24 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                 aria-describedby="alert-dialog-description"
             >
                 <DialogTitle id="alert-dialog-title">
-                    {"Aktiver konfigurasjon?"}
+                    {t('dialog.header')}
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        Bekreft aktivering av konfigurasjon
+                        {t('dialog.confirmMsg')}
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose}>Avbryt</Button>
-                    <Button onClick={handleActivateButton} autoFocus>Ja</Button>
+                    <Button onClick={handleClose}>{t('dialog.cancel')}</Button>
+                    <Button onClick={handleActivateButton} autoFocus>{t('dialog.yes')}</Button>
                 </DialogActions>
             </Dialog>
             <Card sx={{mb: 2}}>
                 <CardContent>
                     <Typography id="details-sourceApplicationIntegrationId"><strong>id:</strong>{existingIntegration?.id}</Typography>
                     <Typography id="details-sourceApplicationIntegrationId"><strong>{t('labels.sourceApplicationIntegrationId')}</strong>{existingIntegration?.sourceApplicationIntegrationId}</Typography>
-                    <Typography id="details-sourceApplicationId"><strong>{t('labels.sourceApplicationId')} </strong>{existingIntegration?.sourceApplicationId}</Typography>
-                    <Typography id="details-destination"><strong>{t('labels.destination')} </strong>{existingIntegration?.destination}</Typography>
+                    <Typography id="details-sourceApplicationId"><strong>{t('labels.sourceApplicationId')} </strong>{getSourceApplicationDisplayName(existingIntegration?.sourceApplicationId)}</Typography>
+                    <Typography id="details-destination"><strong>{t('labels.destination')} </strong>{getDestinationDisplayName(existingIntegration?.destination)}</Typography>
                     <Typography id="details-activeConfiguration"><strong>{t('labels.activeConfigurationId')} </strong>{activeVersion}</Typography>
                 </CardContent>
                 <FormControl size='small' sx={{float: 'left', width: 300, m: 2}}>
@@ -254,7 +220,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
             </Card>
             <Box display="flex" position="relative" width={1} height={1}>
                 <Box id="completed-integration-list" className={classes.dataPanelBox}>
-                    <Typography>Ferdigstilt:</Typography>
+                    <Typography>{t('table.completed')}:</Typography>
                     <DataGrid
                         loading={props.loading}
                         localeText={i18n.language === 'no' ? gridLocaleNoNB : undefined}
@@ -285,7 +251,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                     />
                 </Box>
                 <Box id="integration-list" className={classes.dataPanelBox}>
-                    <Typography>Utkast:</Typography>
+                    <Typography>{t('table.drafts')}:</Typography>
                     <DataGrid
                         loading={props.loading}
                         localeText={i18n.language === 'no' ? gridLocaleNoNB : undefined}
@@ -326,7 +292,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                 onClick={handleNewConfigClick}
                 endIcon={<ArrowRightIcon />}
             >
-                NY KONFIGURASJON
+                {t('button.newConfiguration')}
             </Button>
             <Menu
                 id="demo-positioned-menu"
@@ -350,7 +316,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                         getInstanceElementMetadata(selectedForm[0].id)
                     }}
                     >
-                        Blank konfigurasjon
+                        {t('button.blankConfiguration')}
                     </Button>
                 </MenuItem>
 
@@ -364,7 +330,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                         onClick={handleNewConfigSubClick}
                         endIcon={<ArrowRightIcon />}
                     >
-                        Basert på eksisterende versjon
+                        {t('button.templateConfiguration')}
                     </Button>
                     <Menu
                         id="demo-positioned-menu"
@@ -383,7 +349,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                     >
                         {props.completedConfigurations && props.completedConfigurations.map((config: any) => {
                                 return <MenuItem onClick={handleNewConfigSubClose}>
-                                    <Button id="demo-positioned-button" onClick={(e) => {handleNewConfigTemplateClick(e, config.version, config.id)}}>
+                                    <Button id="version-button" onClick={(e) => {handleNewOrEditConfigClick(config.id, config.version).then(r => history.push("/integration/configuration/edit"))}}>
                                         {config.version}
                                     </Button>
                                 </MenuItem>

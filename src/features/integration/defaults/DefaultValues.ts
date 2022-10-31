@@ -640,7 +640,7 @@ export const EXAMPLE_FORM: IFormConfiguration = {
     }
 }
 
-export function getSourceApplicationDisplayName(id: number): string {
+export function getSourceApplicationDisplayName(id: any): string {
     if (id === 1) return 'ACOS';
     if (id === 2) return 'eGrunnerverv';
     else return "ukjent";

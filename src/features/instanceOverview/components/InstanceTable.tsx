@@ -21,28 +21,28 @@ const InstanceTable: React.FunctionComponent<any> = (props) => {
 
     const columns: GridColumns = [
         { field: 'id', hide: true, type: 'string', headerName: 'id', flex: 0.5 },
-        { field: 'sourceApplicationId', type: 'string', headerName: 'Kildeapplikasjon', flex: 1,
+        { field: 'sourceApplicationId', type: 'string', headerName: t('table.columns.sourceApplicationId'), flex: 1,
             valueGetter: (params) => getSourceApplicationDisplayName(params.row.instanceFlowHeaders.sourceApplicationId)
         },
-        { field: 'sourceApplicationIntegrationId', type: 'string', headerName: 'Integrasjon', flex: 1,
+        { field: 'sourceApplicationIntegrationId', type: 'string', headerName: t('table.columns.sourceApplicationIntegrationId'), flex: 1,
             valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplicationIntegrationId
         },
-        { field: 'sourceApplicationInstanceId', type: 'string', headerName: 'Kilde instans ID', flex: 1,
+        { field: 'sourceApplicationInstanceId', type: 'string', headerName: t('table.columns.sourceApplicationInstanceId'), flex: 1,
             valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplicationInstanceId
         },
-        { field: 'configurationId', type: 'string', headerName: 'Konfigurasjon ID', flex: 1,
+        { field: 'configurationId', type: 'string', headerName: t('table.columns.configurationId'), flex: 1,
             valueGetter: (params) => params.row.instanceFlowHeaders.configurationId
         },
-        { field: 'archiveCaseId', type: 'string', headerName: 'Arkivsak ID', flex: 1,
+        { field: 'archiveCaseId', type: 'string', headerName: t('table.columns.archiveCaseId'), flex: 1,
             valueGetter: (params) => params.row.instanceFlowHeaders.archiveCaseId
         },
-        { field: 'timestamp', type: 'dateTime', headerName: 'Sist hendelse', flex: 2,
+        { field: 'timestamp', type: 'dateTime', headerName: t('table.columns.timestamp'), flex: 2,
             valueGetter: (params) => moment(params.row.timestamp).format('YYYY/MM/DD HH:mm:ss.sss'),
         },
-        { field: 'name', type: 'string', headerName: 'Status', flex: 3,
+        { field: 'name', type: 'string', headerName: t('table.columns.name'), flex: 3,
             renderCell: params => ( <CustomCellRender row={params.row} />)
         },
-        { field: 'details', headerName: 'Handlinger', flex: 1, sortable: false, filterable: false,
+        { field: 'actions', headerName: t('table.columns.actions'), flex: 1, sortable: false, filterable: false,
             renderCell: (params) => ( <CustomButtonToggle row={params.row} />)
         }
     ];
@@ -83,7 +83,7 @@ const InstanceTable: React.FunctionComponent<any> = (props) => {
                 {hasErrors &&
                     <Button size="small" variant="outlined" onClick={(e) => {
                         resend(e, props.row.instanceFlowHeaders.instanceId);
-                    }}>Prøv igjen</Button>
+                    }}>{t('button.retry')}</Button>
                 }
             </>
         );
