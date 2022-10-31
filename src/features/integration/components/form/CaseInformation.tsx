@@ -67,8 +67,8 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
     return (
         <div>
             <Typography><strong>IntegrasjonId: </strong>{props.integration?.id}</Typography>
-            <Typography><strong>Skjemaleverandør: </strong>{getSourceApplicationDisplayName(props.integration?.sourceApplicationId)}</Typography>
-            <Typography><strong>Skjema: </strong>{props.integration?.sourceApplicationIntegrationId}</Typography>
+            <Typography><strong>Kildeapplikasjon: </strong>{getSourceApplicationDisplayName(props.integration?.sourceApplicationId)}</Typography>
+            <Typography><strong>Integrasjon: </strong>{props.integration?.sourceApplicationIntegrationId}</Typography>
             <Typography><strong>Destinasjon: </strong>{props.integration?.destination}</Typography>
             <FormGroup id="case-information" className={props.style.formControl} sx={{mt: 4}}>
                 {caseInformationFields.map((field, index) => {

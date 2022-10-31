@@ -39,7 +39,7 @@ function Log() {
         { field: 'timestamp', type: 'string', headerName: 'Tidspunkt', flex: 1,
             valueGetter: (params) => moment(params.row.timestamp as string).format('YYYY/MM/DD HH:mm')
         },
-        { field: 'sourceApplicationIntegrationId', type: 'string', headerName: 'Skjema', flex: 1,
+        { field: 'sourceApplicationIntegrationId', type: 'string', headerName: 'Integrasjon', flex: 1,
             valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplicationIntegrationId}
     ];
 

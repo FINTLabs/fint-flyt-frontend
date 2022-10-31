@@ -317,8 +317,8 @@ export const MOCK_SOURCE_FORM: IIntegrationMetadata[] =
 export const fieldHelp = {
     comment: 'Kommentar',
     version: '',
-    sourceApplicationId: 'Skjemaleverandør, f.eks ACOS',
-    sourceApplicationIntegrationId: 'Skjema, f.eks VIK103',
+    sourceApplicationId: 'Kildeapplikasjon, f.eks ACOS',
+    sourceApplicationIntegrationId: 'Integrasjon, f.eks VIK103',
     destination: 'fylkesting, fylkesråd, kollektiv ++',
     caseData: {
         caseCreationStrategy: 'Avleveringslogikk ...',
@@ -645,3 +645,15 @@ export function getSourceApplicationDisplayName(id: number): string {
     if (id === 2) return 'eGrunnerverv';
     else return "ukjent";
 }
+
+export function getDestinationDisplayName(id: any): string {
+    if (id === 'fylkesrad') return 'Fylkesråd';
+    else return "ukjent";
+}
+
+export function getStateDisplayName(id: any): string {
+    if (id === 'ACTIVE') return 'Aktiv';
+    if (id === 'DEACTIVATED') return 'Deaktivert';
+    else return "ukjent";
+}
+

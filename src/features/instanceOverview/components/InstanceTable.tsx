@@ -12,6 +12,7 @@ import moment from "moment";
 import {useContext, useEffect} from "react";
 import {HistoryContext} from "../../../context/historyContext";
 import InstanceRepository from "../repository/InstanceRepository";
+import {getSourceApplicationDisplayName} from "../../integration/defaults/DefaultValues";
 
 const InstanceTable: React.FunctionComponent<any> = (props) => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.instanceOverview'})
@@ -20,28 +21,28 @@ const InstanceTable: React.FunctionComponent<any> = (props) => {
 
     const columns: GridColumns = [
         { field: 'id', hide: true, type: 'string', headerName: 'id', flex: 0.5 },
-        { field: 'sourceApplicationInstanceId', type: 'string', headerName: 'Kilde instans ID', flex: 1,
-            valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplicationInstanceId
+        { field: 'sourceApplicationId', type: 'string', headerName: 'Kildeapplikasjon', flex: 1,
+            valueGetter: (params) => getSourceApplicationDisplayName(params.row.instanceFlowHeaders.sourceApplicationId)
         },
-        { field: 'timestamp', type: 'dateTime', headerName: 'Sist hendelse', flex: 2,
-            valueGetter: (params) => moment(params.row.timestamp).format('YYYY/MM/DD HH:mm:ss.sss'),
-        },
-        { field: 'name', type: 'string', headerName: 'Status', flex: 2,
-            renderCell: params => ( <CustomCellRender row={params.row} />)
-        },
-        { field: 'sourceApplication', type: 'string', headerName: 'Kildeapplikasjon', flex: 2,
-            valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplication
-        },
-        { field: 'sourceApplicationIntegrationId', type: 'string', headerName: 'Skjema', flex: 2,
+        { field: 'sourceApplicationIntegrationId', type: 'string', headerName: 'Integrasjon', flex: 1,
             valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplicationIntegrationId
         },
-        { field: 'archiveCaseId', type: 'string', headerName: 'Arkivsak ID', flex: 1,
-            valueGetter: (params) => params.row.instanceFlowHeaders.archiveCaseId
+        { field: 'sourceApplicationInstanceId', type: 'string', headerName: 'Kilde instans ID', flex: 1,
+            valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplicationInstanceId
         },
         { field: 'configurationId', type: 'string', headerName: 'Konfigurasjon ID', flex: 1,
             valueGetter: (params) => params.row.instanceFlowHeaders.configurationId
         },
-        { field: 'details', headerName: 'Send inn på nytt', flex: 1, sortable: false, filterable: false,
+        { field: 'archiveCaseId', type: 'string', headerName: 'Arkivsak ID', flex: 1,
+            valueGetter: (params) => params.row.instanceFlowHeaders.archiveCaseId
+        },
+        { field: 'timestamp', type: 'dateTime', headerName: 'Sist hendelse', flex: 2,
+            valueGetter: (params) => moment(params.row.timestamp).format('YYYY/MM/DD HH:mm:ss.sss'),
+        },
+        { field: 'name', type: 'string', headerName: 'Status', flex: 3,
+            renderCell: params => ( <CustomCellRender row={params.row} />)
+        },
+        { field: 'details', headerName: 'Handlinger', flex: 1, sortable: false, filterable: false,
             renderCell: (params) => ( <CustomButtonToggle row={params.row} />)
         }
     ];
@@ -82,7 +83,7 @@ const InstanceTable: React.FunctionComponent<any> = (props) => {
                 {hasErrors &&
                     <Button size="small" variant="outlined" onClick={(e) => {
                         resend(e, props.row.instanceFlowHeaders.instanceId);
-                    }}>Send</Button>
+                    }}>Prøv igjen</Button>
                 }
             </>
         );

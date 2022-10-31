@@ -14,6 +14,7 @@ import {IEvent} from "../../log/types/Event";
 import ErrorIcon from "@mui/icons-material/Error";
 import InfoIcon from "@mui/icons-material/Info";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import {getSourceApplicationDisplayName} from "../../integration/defaults/DefaultValues";
 
 const InstancePanel: React.FunctionComponent<any> = (props) => {
     const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.instanceOverview'});
@@ -26,29 +27,30 @@ const InstancePanel: React.FunctionComponent<any> = (props) => {
 
     const columns: GridColumns = [
         { field: 'id', hide: true, type: 'string', headerName: 'id', flex: 0.5 },
+        { field: 'sourceApplication', type: 'string', headerName: 'Kildeapplikasjon', flex: 1,
+            valueGetter: (params) => getSourceApplicationDisplayName(params.row.instanceFlowHeaders.sourceApplicationId)
+        },
+        { field: 'sourceApplicationIntegrationId', type: 'string', headerName: 'Integrasjon', flex: 1,
+            valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplicationIntegrationId
+        },
         { field: 'sourceApplicationInstanceId', type: 'string', headerName: 'Kilde instans ID', flex: 1,
             valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplicationInstanceId
         },
-        { field: 'timestamp', type: 'string', headerName: 'Sist hendelse', flex: 1,
-            valueGetter: (params) => moment(params.row.timestamp).format('YYYY/MM/DD HH:mm:ss.sss')
-        },
-        { field: 'name', type: 'string', headerName: 'Status', flex: 2,
-            renderCell: params => ( <CustomCellRender row={params.row} />)
-        },
-        { field: 'details', headerName: 'Detaljer', flex: 0.5, sortable: false, filterable: false,
-            renderCell: (params) => ( <CustomDialogToggle row={params.row} />)},
-        { field: 'sourceApplication', type: 'string', headerName: 'Kildeapplikasjon', flex: 1,
-            valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplication
-        },
-        { field: 'sourceApplicationIntegrationId', type: 'string', headerName: 'Skjema', flex: 1,
-            valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplicationIntegrationId
+        { field: 'configurationId', type: 'string', headerName: 'Konfigurasjon ID', flex: 1,
+            valueGetter: (params) => params.row.instanceFlowHeaders.configurationId
         },
         { field: 'archiveCaseId', type: 'string', headerName: 'Arkivsak ID', flex: 1,
             valueGetter: (params) => params.row.instanceFlowHeaders.archiveCaseId
         },
-        { field: 'configurationId', type: 'string', headerName: 'Konfigurasjon ID', flex: 1,
-            valueGetter: (params) => params.row.instanceFlowHeaders.configurationId
-        }
+        { field: 'timestamp', type: 'string', headerName: 'Tidspunkt', flex: 1,
+            valueGetter: (params) => moment(params.row.timestamp).format('YYYY/MM/DD HH:mm:ss.sss')
+        },
+        { field: 'name', type: 'string', headerName: 'Status', flex: 3,
+            renderCell: params => ( <CustomCellRender row={params.row} />)
+        },
+        { field: 'details', headerName: 'Detaljer', flex: 0.5, sortable: false, filterable: false,
+            renderCell: (params) => ( <CustomDialogToggle row={params.row} />)},
+
     ];
 
     function CustomCellRender(props: GridCellParams["row"]) {
