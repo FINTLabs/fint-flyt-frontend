@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 import {variantOptions} from "../../defaults/DefaultValues";
 
 const DocumentForm: React.FunctionComponent<any> = (props) => {
-    const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationForm.accordions.documentForm'});
+    const { t } = useTranslation('translations', { keyPrefix: 'pages.configurationForm.accordions.documentForm'});
     const {documentStatuses, documentTypes} = useContext(ResourcesContext);
     let errors: FieldErrors = props.errors;
     let required: boolean = props.validation;

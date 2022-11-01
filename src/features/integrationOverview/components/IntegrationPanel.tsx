@@ -350,7 +350,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                         {props.completedConfigurations && props.completedConfigurations.map((config: any) => {
                                 return <MenuItem onClick={handleNewConfigSubClose}>
                                     <Button id="version-button" onClick={(e) => {handleNewOrEditConfigClick(config.id, config.version).then(r => history.push("/integration/configuration/edit"))}}>
-                                        {config.version}
+                                        {t('button.version')} {config.version}
                                     </Button>
                                 </MenuItem>
                             }

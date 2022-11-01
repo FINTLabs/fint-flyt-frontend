@@ -28,12 +28,16 @@
                 "support": "Kontakt support"
             }
         },
-        "integrationForm": {
+        "configurationForm": {
             "header": "Konfigurasjon",
             "successHeader": "Konfigurasjon - ferdigstilt",
             "accordions": {
                 "caseInformation": {
                     "header": "Integrasjon",
+                    "integrationId": "IntegrasjonId",
+                    "sourceApplicationId": "Kildeapplikasjon",
+                    "sourceApplicationIntegrationId": "Integrasjon",
+                    "destination": "Destinasjon",
                     "button": {
                         "search": "Søk",
                         "save": "Lagre"
@@ -74,8 +78,11 @@
                     }
                 }
             },
+            "comment": "Kommentar",
             "checkLabel": "Ferdigstilt",
+            "activeLabel": "Aktiv",
             "button": {
+                "complete": "Fullfør",
                 "save": "Lagre",
                 "cancel": "Avbryt",
                 "integrationOverview": "Se integrasjoner",
@@ -99,6 +106,7 @@
                 "show": "Vis",
                 "edit": "Rediger",
                 "back": "Tilbake",
+                "version": "Versjon ",
                 "changeVersion": "Bruk denne konfigurasjonen",
                 "newConfiguration": "NY KONFIGURASJON",
                 "blankConfiguration": "Blank konfigurasjon",
@@ -186,7 +194,8 @@
                         "timestampLatest": "Sist hendelse",
                         "name": "Status",
                         "actions": "Handlinger",
-                        "details": "Detaljer"
+                        "details": "Detaljer",
+                        "errorMessage": "Feilmelding(er)"
                 }
             },
             "labels": {
@@ -420,7 +429,9 @@
     },
     "components": {
         "SourceApplicationForm": {
-            "header": "Data fra skjema"
+            "header": "Data fra skjema",
+            "version": "Versjon",
+            "openLink": "Åpne i skjemaadministrator"
         },
         "formSettings": {
             "header": "Velg kildeapplikasjon, skjema og destinasjon",

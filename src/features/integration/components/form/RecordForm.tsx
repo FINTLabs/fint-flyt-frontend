@@ -9,7 +9,7 @@ import HelpPopover from "../popover/HelpPopover";
 import { useTranslation } from 'react-i18next';
 
 const RecordForm: React.FunctionComponent<any> = (props) => {
-    const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationForm.accordions.recordForm'});
+    const { t } = useTranslation('translations', { keyPrefix: 'pages.configurationForm.accordions.recordForm'});
     const {administrativeUnits, accessCodes, paragraphs, recordStatuses, recordTypes, archiveResources } = useContext(ResourcesContext);
     let errors: FieldErrors = props.errors;
     let required: boolean = props.validation;

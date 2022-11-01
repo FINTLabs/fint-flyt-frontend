@@ -103,7 +103,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
-    const {t} = useTranslation('translations', {keyPrefix: 'pages.integrationForm'});
+    const {t} = useTranslation('translations', {keyPrefix: 'pages.configurationForm'});
     const classes = useStyles();
     const editConfig: boolean = window.location.pathname === '/integration/configuration/edit'
     const [submitSuccess, setSubmitSuccess] = useState(false)
@@ -340,7 +340,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                             <div>
                                 <Box sx={{display: 'flex'}}>
                                     <Box width={'80%'}>
-                                        <Typography>Kommentar:</Typography>
+                                        <Typography>{t('comment')}</Typography>
                                         <InputField disabled={completed} input={INPUT_TYPE.TEXT_AREA} control={control} label="labels.comment" formValue="comment" error={errors.comment} helpText="comment"/>
                                     </Box>
                                 </Box>
@@ -362,12 +362,12 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                                                 checked={activeChecked}
                                                 onChange={handleActiveCheckChange}
                                                 inputProps={{ 'aria-label': 'active-checkbox' }}/>}
-                                        label="Aktiv" />}
+                                        label={t('activeLabel') as string} />}
                                 </FormGroup>
                             </div>
                             <Box className={classes.buttonContainer}>
 
-                                <Button disabled={completed} id="integration-form-submit-btn" sx={{ ml: 2, mr: 2 }} onClick={checked ? onSubmit : onSave} variant="contained">{checked ? 'Fullfør' : t('button.save')}</Button>
+                                <Button disabled={completed} id="integration-form-submit-btn" sx={{ ml: 2, mr: 2 }} onClick={checked ? onSubmit : onSave} variant="contained">{checked ? t('button.complete') : t('button.save')}</Button>
                                 <Button id="integration-form-cancel-btn" onClick={handleCancel} variant="contained">{t('button.cancel')}</Button>
                             </Box>
                         </form>

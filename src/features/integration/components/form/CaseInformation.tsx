@@ -3,7 +3,11 @@ import React, {useContext, useEffect} from 'react';
 import InputField from "./InputField";
 import {INPUT_TYPE} from "../../types/InputType.enum";
 import {IInputField} from "../../types/InputField";
-import {creationStrategies, getSourceApplicationDisplayName} from "../../defaults/DefaultValues";
+import {
+    creationStrategies,
+    getDestinationDisplayName,
+    getSourceApplicationDisplayName
+} from "../../defaults/DefaultValues";
 import {CreationStrategy} from "../../types/CreationStrategy";
 import {FieldErrors} from "react-hook-form";
 import HelpPopover from "../popover/HelpPopover";
@@ -12,7 +16,7 @@ import ResourceRepository from "../../../../shared/repositories/ResourceReposito
 import {IntegrationContext} from "../../../../context/integrationContext";
 
 const CaseInformation: React.FunctionComponent<any> = (props) => {
-    const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationForm.accordions.caseInformation'});
+    const { t } = useTranslation('translations', { keyPrefix: 'pages.configurationForm.accordions.caseInformation'});
     const [_case, setCase] = React.useState('');
     const {setCaseNumber} = useContext(IntegrationContext)
     let caseInput = props.watch("caseData.caseNumber");
@@ -66,10 +70,10 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
     ]
     return (
         <div>
-            <Typography><strong>IntegrasjonId: </strong>{props.integration?.id}</Typography>
-            <Typography><strong>Kildeapplikasjon: </strong>{getSourceApplicationDisplayName(props.integration?.sourceApplicationId)}</Typography>
-            <Typography><strong>Integrasjon: </strong>{props.integration?.sourceApplicationIntegrationId}</Typography>
-            <Typography><strong>Destinasjon: </strong>{props.integration?.destination}</Typography>
+            <Typography><strong>{t('integrationId')}: </strong>{props.integration?.id}</Typography>
+            <Typography><strong>{t('sourceApplicationId')}: </strong>{getSourceApplicationDisplayName(props.integration?.sourceApplicationId)}</Typography>
+            <Typography><strong>{t('sourceApplicationIntegrationId')}: </strong>{props.integration?.sourceApplicationIntegrationId}</Typography>
+            <Typography><strong>{t('destination')}: </strong>{getDestinationDisplayName(props.integration?.destination)}</Typography>
             <FormGroup id="case-information" className={props.style.formControl} sx={{mt: 4}}>
                 {caseInformationFields.map((field, index) => {
                         return (

@@ -60,22 +60,22 @@ const SourceApplicationForm: React.FunctionComponent<any> = (props) => {
                 <Typography variant={"h6"}>{t('header')}: {selectedMetadata.integrationDisplayName}</Typography>
                 <HelpPopover popoverContent="sourceApplicationFormPopoverContent"/>
                 <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-                    <InputLabel id="demo-select-small">Versjon</InputLabel>
+                    <InputLabel id="demo-select-small">{t('version')} </InputLabel>
                     <Select
                         labelId="version-select"
                         id="version-select"
                         value={version}
-                        label="Versjon"
+                        label={t('version') as string}
                         onChange={handleChange}
                     >
                         {availableVersions.map(md => {
-                            return <MenuItem value={md.version}>Versjon {md.version}</MenuItem>
+                            return <MenuItem value={md.version}>{t('version')} {md.version}</MenuItem>
                         })}
                     </Select>
                 </FormControl>
             </Box>
             {instanceElementMetadata && <TagTree items={instanceElementMetadata}/>}
-            <Link style={{fontFamily: 'sans-serif'}} to={{pathname: selectedMetadata.sourceApplicationIntegrationUri}} target="_blank">Åpne i skjemaadministrator</Link>
+            <Link style={{fontFamily: 'sans-serif'}} to={{pathname: selectedMetadata.sourceApplicationIntegrationUri}} target="_blank">{t('openLink')}</Link>
 
         </Box>
     );

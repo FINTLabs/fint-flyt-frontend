@@ -26,7 +26,7 @@
                 "support": "Contact support"
             }
         },
-        "integrationForm": {
+        "configurationForm": {
             "header": "Integration to archive",
             "successHeader": "Integration to archive - finished",
             "accordions": {
@@ -72,6 +72,8 @@
                 }
             },
             "checkLabel": "Completed",
+            "activeLabel": "Active",
+            "comment": "Comment",
             "button": {
                 "save": "Save",
                 "cancel": "Cancel",

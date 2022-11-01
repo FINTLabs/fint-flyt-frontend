@@ -10,7 +10,7 @@ import {ACCORDION_FORM} from "../types/Accordion";
 import { useTranslation } from 'react-i18next';
 
 const AccordionForm: React.FunctionComponent<any> = (props) => {
-    const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationForm.accordions'});
+    const { t } = useTranslation('translations', { keyPrefix: 'pages.configurationForm.accordions'});
     return props.hidden ? (<></>) : (
         <Accordion id={props.id} sx={{border: 'solid 1px', boxShadow: 'none', borderRadius: '4px' }} className={props.style.accordion} defaultExpanded={props.defaultExpanded}>
             <AccordionSummary className={props.style.accordionSummary} expandIcon={<ExpandMoreIcon />}>

@@ -12,7 +12,7 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import {CreationStrategy} from "../../types/CreationStrategy";
 
 const CaseForm: React.FunctionComponent<any> = (props) => {
-    const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationForm.accordions.caseForm'});
+    const { t } = useTranslation('translations', { keyPrefix: 'pages.configurationForm.accordions.caseForm'});
     const disabled: boolean = props.disabled
     const hasPrimary = props.watch("caseData.primaryClassification") !== null;
     const hasSecondary = props.watch("caseData.secondaryClassification") !== null;

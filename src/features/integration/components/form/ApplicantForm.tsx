@@ -11,7 +11,7 @@ import HelpPopover from "../popover/HelpPopover";
 import { useTranslation } from 'react-i18next';
 
 const ApplicantForm: React.FunctionComponent<any> = (props) => {
-    const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationForm.accordions.applicationForm'});
+    const { t } = useTranslation('translations', { keyPrefix: 'pages.configurationForm.accordions.applicationForm'});
     const {accessCodes, paragraphs} = useContext(ResourcesContext);
     let isOrganisation = props.watch("applicantData.type") === ApplicantType.ORGANISATION
     let errors: FieldErrors = props.errors;
