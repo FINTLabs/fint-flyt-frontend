@@ -17,8 +17,10 @@
     },
     "pages": {
         "dashboard": {
-            "form": "skjema",
+            "form": "integrasjoner",
+            "oneForm": "integrasjon",
             "empty": "Ingen",
+            "oneError": "feilmelding",
             "errors": "feilmeldinger",
             "links": {
                 "integrationOverview": "Se integrasjoner",
