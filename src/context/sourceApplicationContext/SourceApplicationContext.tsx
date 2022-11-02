@@ -24,11 +24,10 @@ const SourceApplicationProvider: FC = ({children}) => {
                 if (data) {
                     let selects: ISelect[] = [];
                     data.forEach((value: any) => {
-                        selects.push({value: value.sourceApplicationIntegrationId, label: value.integrationDisplayName})
+                        selects.push({value: value.sourceApplicationIntegrationId, label: '['+value.sourceApplicationIntegrationId+'] '+ value.integrationDisplayName})
                     })
                     getAllForms(selects)
                 }
-
             })
             .catch((err) => {
                 console.error(err);
