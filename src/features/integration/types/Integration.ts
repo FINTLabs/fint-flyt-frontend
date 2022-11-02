@@ -7,6 +7,7 @@ export interface IIntegration {
     activeConfigurationId?: string;
     dispatched?: number;
     errors?: number;
+    displayName?: string;
 }
 
 export const IntegrationState = {

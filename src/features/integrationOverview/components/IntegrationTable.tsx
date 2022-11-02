@@ -25,6 +25,7 @@ const IntegrationTable: React.FunctionComponent<any> = (props) => {
             valueGetter: (params) => (getSourceApplicationDisplayName(params.row.sourceApplicationId))
         },
         { field: 'sourceApplicationIntegrationId', type: 'string', headerName: t('table.columns.sourceApplicationIntegrationId'), flex: 1 },
+        { field: 'displayName', type: 'string', headerName: t('table.columns.sourceApplicationIntegrationIdDisplayName'), flex: 1 },
         { field: 'destination', type: 'string', headerName:  t('table.columns.destination'), flex: 1,
             valueGetter: (params) => getDestinationDisplayName(params.row.destination)
         },

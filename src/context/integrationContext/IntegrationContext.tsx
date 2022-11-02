@@ -7,6 +7,7 @@ import {IIntegrationStatistics} from "../../features/log/types/IntegrationStatis
 import {IIntegrationMetadata} from "../../features/integration/types/IntegrationMetadata";
 import ConfigurationRepository from "../../shared/repositories/ConfigurationRepository";
 import IntegrationRepository from "../../shared/repositories/IntegrationRepository";
+import SourceApplicationRepository from "../../shared/repositories/SourceApplicationRepository";
 
 export const IntegrationContext = createContext<IntegrationContextState>(
     contextDefaultValues
@@ -51,26 +52,43 @@ const IntegrationProvider: FC = ({ children }) => {
                 if (data) {
                     setStatistics(data)
                     let stats = data;
-                    IntegrationRepository.getIntegrations(0, 1000, "state", "ASC")
+                    SourceApplicationRepository.getMetadata("1", true)
                         .then((response) => {
-                            if (response.data.content) {
-                                let mergedList: IIntegration[] = response.data.content;
-                                stats.forEach((value: IIntegrationStatistics) => {
-                                    mergedList.map((integration: IIntegration) => {
-                                        if (integration.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {
-                                            integration.errors = value.currentErrors;
-                                            integration.dispatched = value.dispatchedInstances;
+                            if(response.data) {
+                                let metadata: IIntegrationMetadata[] = response.data;
+                                IntegrationRepository.getIntegrations(0, 1000, "state", "ASC")
+                                    .then((response) => {
+                                        if (response.data.content) {
+                                            let mergedList: IIntegration[] = response.data.content;
+                                            stats.forEach((value: IIntegrationStatistics) => {
+                                                mergedList.map((integration: IIntegration) => {
+                                                    if (integration.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {
+                                                        integration.errors = value.currentErrors;
+                                                        integration.dispatched = value.dispatchedInstances;
+                                                    }
+                                                })
+                                            })
+                                            metadata.forEach((value: IIntegrationMetadata) => {
+                                                mergedList.map((integration: IIntegration) => {
+                                                    if (integration.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {
+                                                        integration.displayName = value.integrationDisplayName;
+                                                    }
+                                                })
+                                            })
+                                            setNewIntegrations(mergedList);
                                         }
                                     })
-                                })
-                                setNewIntegrations(mergedList);
+                                    .catch((e) => {
+                                        console.error('Error: ', e)
+                                        setNewIntegrations([]);
+                                        setStatistics([])
+                                    })
                             }
-                        })
-                        .catch((e) => {
-                            console.error('Error: ', e)
-                            setNewIntegrations([]);
-                            setStatistics([])
-                        })
+                        }).catch((e) => {
+                        console.error('Error: ', e)
+                        setNewIntegrations([]);
+                        setStatistics([])
+                    })
                 }
             }).catch(e => {
                 setNewIntegrations([]);

@@ -1,5 +1,5 @@
 import {Box, Button, Dialog, DialogActions, DialogContent, IconButton, Typography} from "@mui/material";
-import {DataGrid, GridCellParams, GridColumns, GridFilterModel, GridSortModel, GridToolbar} from "@mui/x-data-grid";
+import {DataGrid, GridCellParams, GridColumns, GridToolbar} from "@mui/x-data-grid";
 import * as React from "react";
 import {useHistory} from "react-router-dom";
 import {gridLocaleNoNB} from "../../util/locale/gridLocaleNoNB";
@@ -45,7 +45,7 @@ const InstanceTable: React.FunctionComponent<any> = (props) => {
         { field: 'archiveCaseId', type: 'string', headerName: t('table.columns.archiveCaseId'), flex: 1,
             valueGetter: (params) => params.row.instanceFlowHeaders.archiveCaseId
         },
-        { field: 'timestamp', type: 'dateTime', headerName: t('table.columns.timestamp'), flex: 2,
+        { field: 'timestamp', type: 'dateTime', headerName: t('table.columns.timestamp'), flex: 1,
             valueGetter: (params) => moment(params.row.timestamp).format('YYYY/MM/DD HH:mm:ss.sss'),
         },
         { field: 'name', type: 'string', headerName: t('table.columns.name'), flex: 3,
@@ -112,6 +112,7 @@ const InstanceTable: React.FunctionComponent<any> = (props) => {
             <Typography>{t('header')} </Typography>
             <AlertDialog row={selectedRow}/>
             <DataGrid
+                loading={!latestInstances}
                 columns={columns}
                 density='compact'
                 localeText={gridLocaleNoNB}

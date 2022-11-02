@@ -126,7 +126,8 @@
                 "columns": {
                     "configurationId": "KonfigurasjonsId",
                     "destination": "Destinasjon/base",
-                    "sourceApplicationIntegrationId": "Integrasjon",
+                    "sourceApplicationIntegrationId": "Kildeapplikasjons integrasjons-ID",
+                    "sourceApplicationIntegrationIdDisplayName": "Integrasjonsnavn",
                     "sourceApplicationId": "Kildeapplikasjon",
                     "name": "Navn",
                     "state": "Tilstand",
@@ -187,9 +188,10 @@
             "table": {
                 "columns": {
                         "destination": "Destinasjon/base",
-                        "sourceApplicationIntegrationId": "Integrasjon",
+                        "sourceApplicationIntegrationId": "Kildeapplikasjons integrasjons-ID",
+                        "sourceApplicationIntegrationIdDisplayName": "Integrasjonsnavn",
                         "sourceApplicationId": "Kildeapplikasjon",
-                        "sourceApplicationInstanceId": "Kilde instans ID",
+                        "sourceApplicationInstanceId": "Kildeapplikasjons instans-ID",
                         "configurationId": "Konfigurasjon ID",
                         "archiveCaseId": "Arkivsak ID",
                         "timestamp": "Tidspunkt",

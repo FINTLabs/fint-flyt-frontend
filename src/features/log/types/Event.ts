@@ -5,6 +5,7 @@ export interface IEvent {
     timeStamp: string | Date;
     type: string;
     errors: IError[];
+    displayName?: string;
     instanceFlowHeaders: IInstanceFlowHeadersEmbeddable;
 }
 
