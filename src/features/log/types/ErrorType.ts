@@ -1,8 +1,5 @@
 export const ErrorType = {
-    INSTANCE_FIELD : '#instanceField#',
-    MAPPING_FIELD : '#mappingField#',
-    CONFIGURATION_FIELD : '#configurationField#',
-    STATUS : '#status#',
+    INSTANCE_FIELD_KEY : '#instanceFieldKey#',
     ERROR_MESSAGE : '#errorMessage#',
     FIELD_PATH : '#fieldPath#',
 }

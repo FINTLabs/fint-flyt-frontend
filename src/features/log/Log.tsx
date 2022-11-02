@@ -120,10 +120,7 @@ function Log() {
                                                 //TODO: 01/09-22 fix translation file with corresponding error codes
                                                 valueGetter: (params) => {
                                                     return (stringReplace(t(params.row.errorCode),  [
-                                                        {type: ErrorType.MAPPING_FIELD, value: params.row.args.mappingField},
-                                                        {type: ErrorType.CONFIGURATION_FIELD, value: params.row.args.configurationField},
-                                                        {type: ErrorType.INSTANCE_FIELD, value: params.row.args.instanceField},
-                                                        {type: ErrorType.STATUS, value: params.row.args.status},
+                                                        {type: ErrorType.INSTANCE_FIELD_KEY, value: params.row.args.instanceField},
                                                         {type: ErrorType.FIELD_PATH, value: params.row.args.fieldPath},
                                                         {type: ErrorType.ERROR_MESSAGE, value: params.row.args.errorMessage}
                                                     ]))

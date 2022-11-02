@@ -1,5 +1,5 @@
-import {Box, Button, Typography} from "@mui/material";
-import {DataGrid, GridCellParams, GridColumns, GridToolbar} from "@mui/x-data-grid";
+import {Box, Button, Dialog, DialogActions, DialogContent, IconButton, Typography} from "@mui/material";
+import {DataGrid, GridCellParams, GridColumns, GridFilterModel, GridSortModel, GridToolbar} from "@mui/x-data-grid";
 import * as React from "react";
 import {useHistory} from "react-router-dom";
 import {gridLocaleNoNB} from "../../util/locale/gridLocaleNoNB";
@@ -9,15 +9,24 @@ import InfoIcon from '@mui/icons-material/Info';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 import moment from "moment";
-import {useContext, useEffect} from "react";
+import {useContext, useEffect, useState} from "react";
 import {HistoryContext} from "../../../context/historyContext";
 import InstanceRepository from "../repository/InstanceRepository";
 import {getSourceApplicationDisplayName} from "../../integration/defaults/DefaultValues";
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+import Stack from "@mui/material/Stack";
+import {stringReplace} from "../../util/StringUtil";
+import {ErrorType} from "../../log/types/ErrorType";
+import {IEvent} from "../../log/types/Event";
 
 const InstanceTable: React.FunctionComponent<any> = (props) => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.instanceOverview'})
     let history = useHistory();
     const {latestInstances, getLatestInstances, getSelectedInstances} = useContext(HistoryContext)
+    const [selectedRow, setSelectedRow] = useState<IEvent>();
+    const [open, setOpen] = React.useState(false);
+    const handleClickOpen = () => {setOpen(true);};
+    const handleClose = () => {setOpen(false);};
 
     const columns: GridColumns = [
         { field: 'id', hide: true, type: 'string', headerName: 'id', flex: 0.5 },
@@ -41,6 +50,9 @@ const InstanceTable: React.FunctionComponent<any> = (props) => {
         },
         { field: 'name', type: 'string', headerName: t('table.columns.name'), flex: 3,
             renderCell: params => ( <CustomCellRender row={params.row} />)
+        },
+        { field: 'details', headerName: t('table.columns.details'), flex: 1, sortable: false, filterable: false,
+            renderCell: (params) => ( <CustomErrorDialogToggle row={params.row} />)
         },
         { field: 'actions', headerName: t('table.columns.actions'), flex: 1, sortable: false, filterable: false,
             renderCell: (params) => ( <CustomButtonToggle row={params.row} />)
@@ -98,6 +110,7 @@ const InstanceTable: React.FunctionComponent<any> = (props) => {
     return (
         <Box sx={{ width: 1, height: 900 }}>
             <Typography>{t('header')} </Typography>
+            <AlertDialog row={selectedRow}/>
             <DataGrid
                 columns={columns}
                 density='compact'
@@ -134,6 +147,67 @@ const InstanceTable: React.FunctionComponent<any> = (props) => {
             />
         </Box>
     );
+
+    function CustomErrorDialogToggle(props: GridCellParams["row"]) {
+        const hasErrors: boolean = props.row.errors.length > 0;
+        return (
+            <>
+                {hasErrors &&
+                    <IconButton
+                        id={props.row.id}
+                        size="small"
+                        onClick={() => {
+                            setSelectedRow(props.row);
+                            handleClickOpen()}}
+                        tabIndex={-1}>
+                        <OpenInNewIcon id={props.row.id + `-icon`} fontSize="inherit"/>
+                    </IconButton>
+                }
+            </>
+        );
+    }
+
+    function AlertDialog(props: any) {
+        return (
+            <div>
+                <Dialog
+                    open={open}
+                    fullWidth={true}
+                    maxWidth={"lg"}
+                    onClose={handleClose}
+                >
+                    <DialogContent>
+                        {selectedRow &&
+                            <Stack id={props.row.type+ `-panel`} sx={{ py: 2, boxSizing: 'border-box', height: '350px', minWidth: '900px' }} direction="column">
+                                <Stack direction="column" sx={{ height: 1 }}>
+                                    <DataGrid
+                                        density="compact"
+                                        columns={[
+                                            { field: 'errorMessage', headerName: t('table.columns.errorMessage'), type: 'string', flex: 2,
+                                                //TODO: 01/09-22 fix translation file with corresponding error codes
+                                                valueGetter: (params) => {
+                                                    return (stringReplace(t(params.row.errorCode),  [
+                                                        {type: ErrorType.INSTANCE_FIELD_KEY, value: params.row.args.instanceFieldKey},
+                                                        {type: ErrorType.FIELD_PATH, value: params.row.args.fieldPath},
+                                                        {type: ErrorType.ERROR_MESSAGE, value: params.row.args.errorMessage},
+                                                    ]))
+                                                }
+                                            }
+                                        ]}
+                                        rows={props.row.errors}
+                                        sx={{ flex: 1 }}
+                                        hideFooter
+                                    />
+                                </Stack>
+                            </Stack>}
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleClose} autoFocus>{t('button.close')}</Button>
+                    </DialogActions>
+                </Dialog>
+            </div>
+        )
+    }
 }
 
 export default InstanceTable;
