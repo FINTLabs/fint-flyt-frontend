@@ -33,6 +33,7 @@ const InstancePanel: React.FunctionComponent<any> = (props) => {
         { field: 'sourceApplicationIntegrationId', type: 'string', headerName: t('table.columns.sourceApplicationIntegrationId'), flex: 1,
             valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplicationIntegrationId
         },
+        { field: 'displayName', type: 'string', headerName: t('table.columns.sourceApplicationIntegrationIdDisplayName'), flex: 1 },
         { field: 'sourceApplicationInstanceId', type: 'string', headerName: t('table.columns.sourceApplicationInstanceId'), flex: 1,
             valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplicationInstanceId
         },
