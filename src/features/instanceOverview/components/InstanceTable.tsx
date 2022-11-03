@@ -184,8 +184,7 @@ const InstanceTable: React.FunctionComponent<any> = (props) => {
                                     <DataGrid
                                         density="compact"
                                         columns={[
-                                            { field: 'errorMessage', headerName: t('table.columns.errorMessage'), type: 'string', flex: 2,
-                                                //TODO: 01/09-22 fix translation file with corresponding error codes
+                                            { field: 'errorMessage', headerName: t('table.columns.errorMessage'), type: 'string', width: 2500,
                                                 valueGetter: (params) => {
                                                     return (stringReplace(t(params.row.errorCode),  [
                                                         {type: ErrorType.INSTANCE_FIELD_KEY, value: params.row.args.instanceFieldKey},
@@ -196,7 +195,6 @@ const InstanceTable: React.FunctionComponent<any> = (props) => {
                                             }
                                         ]}
                                         rows={props.row.errors}
-                                        sx={{ flex: 1 }}
                                         hideFooter
                                     />
                                 </Stack>
