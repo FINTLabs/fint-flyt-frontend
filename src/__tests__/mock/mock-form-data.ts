@@ -74,6 +74,67 @@ export const MOCK_CONFIG_FORMDATA: IFormConfiguration = {
     }
 }
 
+export const MOCK_CONFIG_FORMDATA_FOR_PATCH: IFormConfiguration = {
+    completed: false,
+    metadataId: 1,
+    applicantData: {
+        accessCode: "code2",
+        address: "highstreet 22",
+        city: "Moria",
+        contactPerson: "donna",
+        email: "hello@world.no",
+        name: "Anakin Skywalker",
+        nationalIdentityNumber: "123456789",
+        organisationNumber: "",
+        paragraph: "p3",
+        phoneNumber: "12345678",
+        postalCode: "1234",
+        protected: true,
+        type: ApplicantType.PERSON
+    },
+    caseData: {
+        caseNumber: null,
+        accessCode: "code42",
+        administrativeUnit: "unit4",
+        archiveUnit: "unit3",
+        caseCreationStrategy: CreationStrategy.NEW,
+        caseType: "casetype",
+        caseWorker: "rand",
+        paragraph: "number6",
+        primaryClass: "1class",
+        primaryClassification: "prim",
+        primaryTitle: "primTitle",
+        publicTitle: "public title",
+        recordUnit: "unit0",
+        secondaryClass: "2class",
+        secondaryClassification: "rose",
+        secondaryTitle: "secTitle",
+        status: "",
+        tertiaryClass: "3class",
+        tertiaryClassification: "everdeen",
+        tertiaryTitle: "tertTitle",
+        title: "Title of case"
+    },
+    comment: "form to test mapping",
+    documentData: {
+        documentStatus: "D9",
+        documentType: "cat8",
+        title: "document title",
+        variant: "var"
+    },
+    recordData: {
+        accessCode: "code89",
+        administrativeUnit: "unit33",
+        caseWorker: "boba",
+        paragraph: "p34",
+        publicTitle: "public record title",
+        recordStatus: "N",
+        recordType: "A",
+        title: "record title"
+    }
+}
+
+
 export const MOCK_NEW_FORMDATA: IFormConfiguration = {
     "applicantData": {
         "accessCode": null,

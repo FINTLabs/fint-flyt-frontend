@@ -4,7 +4,11 @@ import {
     configurationFieldToBoolean,
     configurationFieldToString,
 } from "../../features/util/MappingUtil";
-import {MOCK_APPLICANT_FIELDS, MOCK_CASE_FIELDS} from "../mock/mock-case-configuration";
+import {
+    MOCK_APPLICANT_FIELDS,
+    MOCK_APPLICANT_FIELDS_NOT_PROTECTED,
+    MOCK_CASE_FIELDS
+} from "../mock/mock-case-configuration";
 import {createValueBuilder, toValueString} from "../../features/util/ValueBuilderUtil";
 
 const valueBuilderWithTags: ValueBuilder = {
@@ -79,4 +83,12 @@ test('It should convert field with tags to string', () => {
 
 test('It should convert applicant field to boolean', () => {
     expect(configurationFieldToBoolean(MOCK_APPLICANT_FIELDS, "protected")).toBe(true);
+});
+
+test('It should convert applicant field to boolean', () => {
+    expect(configurationFieldToBoolean(MOCK_APPLICANT_FIELDS_NOT_PROTECTED, "protected")).toBe(false);
+});
+
+test('It should return false on undefined configuration', () => {
+    expect(configurationFieldToBoolean([], "protected")).toBe(false);
 });
