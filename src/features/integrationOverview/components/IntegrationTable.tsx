@@ -25,15 +25,15 @@ const IntegrationTable: React.FunctionComponent<any> = (props) => {
             valueGetter: (params) => (getSourceApplicationDisplayName(params.row.sourceApplicationId))
         },
         { field: 'sourceApplicationIntegrationId', type: 'string', headerName: t('table.columns.sourceApplicationIntegrationId'), flex: 1 },
-        { field: 'displayName', type: 'string', headerName: t('table.columns.sourceApplicationIntegrationIdDisplayName'), flex: 1 },
+        { field: 'displayName', type: 'string', headerName: t('table.columns.sourceApplicationIntegrationIdDisplayName'), flex: 1, sortable: false },
         { field: 'destination', type: 'string', headerName:  t('table.columns.destination'), flex: 1,
             valueGetter: (params) => getDestinationDisplayName(params.row.destination)
         },
         { field: 'state', type: 'string', headerName:  t('table.columns.state'), flex: 1 ,
             valueGetter: (params) => getStateDisplayName(params.row.state)
         },
-        { field: 'dispatched', type: 'number', headerName: t('table.columns.dispatched'), flex: 1 },
-        { field: 'errors', type: 'number', headerName: t('table.columns.errors'), flex: 1 }
+        { field: 'dispatched', type: 'number', headerName: t('table.columns.dispatched'), flex: 1, sortable: false },
+        { field: 'errors', type: 'number', headerName: t('table.columns.errors'), flex: 1, sortable: false }
     ];
 
     const setHistory = () => {
