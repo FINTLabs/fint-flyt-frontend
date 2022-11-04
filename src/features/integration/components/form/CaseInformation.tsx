@@ -18,7 +18,7 @@ import {IntegrationContext} from "../../../../context/integrationContext";
 const CaseInformation: React.FunctionComponent<any> = (props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.configurationForm.accordions.caseInformation'});
     const [_case, setCase] = React.useState('');
-    const {setCaseNumber} = useContext(IntegrationContext)
+    const {setCaseNumber, selectedMetadata} = useContext(IntegrationContext)
     let caseInput = props.watch("caseData.caseNumber");
     let caseInputPattern = /^((19|20)*\d{2})\/([0-9]{1,6})/g;
 
@@ -72,7 +72,7 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
         <div>
             <Typography><strong>{t('integrationId')}: </strong>{props.integration?.id}</Typography>
             <Typography><strong>{t('sourceApplicationId')}: </strong>{getSourceApplicationDisplayName(props.integration?.sourceApplicationId)}</Typography>
-            <Typography><strong>{t('sourceApplicationIntegrationId')}: </strong>{props.integration?.sourceApplicationIntegrationId}</Typography>
+            <Typography><strong>{t('sourceApplicationIntegrationId')}: </strong>{props.integration?.sourceApplicationIntegrationId} - {selectedMetadata.integrationDisplayName}</Typography>
             <Typography><strong>{t('destination')}: </strong>{getDestinationDisplayName(props.integration?.destination)}</Typography>
             <FormGroup id="case-information" className={props.style.formControl} sx={{mt: 4}}>
                 {caseInformationFields.map((field, index) => {
