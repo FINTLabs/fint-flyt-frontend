@@ -99,7 +99,7 @@
         "integrationOverview": {
             "header": "Integrasjonsoversikt",
             "details": "Konfigurasjonsdetaljer",
-            "version": "Versjon",
+            "version": "Versjon ",
             "case": "Sakspost",
             "record": "Journalpost",
             "document": "Dokument- og objektbeskrivelse",

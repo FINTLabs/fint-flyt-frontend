@@ -43,7 +43,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
     const {allMetadata, getAllMetadata, getInstanceElementMetadata} = useContext(SourceApplicationContext)
     const {setPrimaryClass, setSecondaryClass, setTertiaryClass, getAllResources} = useContext(ResourcesContext)
     const [version, setVersion] = useState('null');
-    const [activeVersion, setActiveVersion] = useState(existingIntegration?.activeConfigurationId ? 'konfigurasjon ' + existingIntegration?.activeConfigurationId : 'Ingen');
+    const [activeVersion, setActiveVersion] = useState<any>('');
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [anchorSubEl, setAnchorSubEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
@@ -63,6 +63,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
 
     const handleActivateButton = () => {
         setVersion(configToActivate)
+        getVersionForActiveConfig(configToActivate)
         activateConfiguration(configToActivate)
         setOpenDialog(false)
     }
@@ -73,6 +74,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
 
     useEffect(()=> {
         getAllMetadata(true)
+        getVersionForActiveConfig(existingIntegration?.activeConfigurationId ? existingIntegration.activeConfigurationId : undefined)
     }, [])
 
     const columns: GridColDef[] = [
@@ -92,6 +94,23 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
         }
     ];
 
+    function getVersionForActiveConfig(id: any): void {
+        if (id == undefined) {
+            setActiveVersion('ingen aktiv konfigurasjon')
+            return;
+        }
+        ConfigurationRepository.getConfiguration(id.toString(), true)
+            .then((response) => {
+                let data: newIConfiguration = response.data;
+                if (data) {
+                    setActiveVersion(t('version') + data.version)
+                }
+            })
+            .catch((e) => {
+                console.error('Error: ', e)
+                setActiveVersion('ingen aktiv konfigurasjon')
+            })
+    }
 
     async function handleNewOrEditConfigClick(id: any, version?: any) {
         getAllResources();
@@ -163,9 +182,9 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
         IntegrationRepository.updateIntegration(existingIntegration?.id, patch).then(
             (response) => {
                 console.log(response)
-                setActiveVersion(response.data.activeConfigurationId)
             }
         ).catch(e => console.error(e))
+        setActiveVersion('ingen aktiv konfigurasjon')
         console.log('set active config, integrationId', existingIntegration?.id, 'configurationId', configurationId)
     }
 

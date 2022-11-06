@@ -5,6 +5,7 @@ export interface IIntegration {
     destination?: string;
     state?: string;
     activeConfigurationId?: string;
+    activeConfigurationVersion?: string;
     dispatched?: number;
     errors?: number;
     displayName?: string;
