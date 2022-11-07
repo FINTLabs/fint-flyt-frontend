@@ -81,11 +81,11 @@ const InstanceTable: React.FunctionComponent<any> = (props) => {
     }
 
     useEffect(()=> {
-        getLatestInstances(0, 1000, "timestamp", "DESC");
+        getLatestInstances(0, 10000, "timestamp", "DESC");
     }, []);
 
     const getEventsWithInstanceId = (sourceApplicationID: string, instanceId: string) => {
-        getSelectedInstances(0, 1000, "timestamp", "DESC", sourceApplicationID, instanceId)
+        getSelectedInstances(0, 10000, "timestamp", "DESC", sourceApplicationID, instanceId)
         setHistory();
     }
 

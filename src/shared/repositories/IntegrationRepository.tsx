@@ -5,7 +5,7 @@ const getAllIntegrations = () => {
     return axios.get<any>("/api/intern/integrasjoner");
 }
 
-const getIntegrations = (page: number, size: number, sortProperty: string, sortDirection: string) => {
+const getIntegrations = (page: number, size: any, sortProperty: string, sortDirection: string) => {
     return axios.get<any>("/api/intern/integrasjoner", {
         params: {
             side: page,
