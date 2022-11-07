@@ -81,6 +81,9 @@ const IntegrationTable: React.FunctionComponent<any> = (props) => {
                                     ],
                                 },
                             },
+                            sorting: {
+                                sortModel: [{ field: 'state', sort: 'asc' }],
+                            },
                         }}
                     />
                 </Box>
