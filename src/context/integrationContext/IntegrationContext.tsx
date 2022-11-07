@@ -56,10 +56,10 @@ const IntegrationProvider: FC = ({ children }) => {
                         .then((response) => {
                             if(response.data) {
                                 let metadata: IIntegrationMetadata[] = response.data;
-                                IntegrationRepository.getIntegrations(0, 1000, "state", "ASC")
+                                IntegrationRepository.getIntegrations(0, null, "state", "ASC")
                                     .then((response) => {
-                                        if (response.data.content) {
-                                            let mergedList: IIntegration[] = response.data.content;
+                                        if (response.data) {
+                                            let mergedList: IIntegration[] = response.data;
                                             stats.forEach((value: IIntegrationStatistics) => {
                                                 mergedList.map((integration: IIntegration) => {
                                                     if (integration.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {
