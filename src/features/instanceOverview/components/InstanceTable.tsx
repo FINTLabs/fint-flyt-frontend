@@ -29,33 +29,33 @@ const InstanceTable: React.FunctionComponent<any> = (props) => {
     const handleClose = () => {setOpen(false);};
 
     const columns: GridColumns = [
-        { field: 'id', hide: true, type: 'string', headerName: 'id', flex: 0.5 },
-        { field: 'sourceApplicationId', type: 'string', headerName: t('table.columns.sourceApplicationId'), flex: 1,
+        { field: 'id', hide: true, type: 'string', headerName: 'id', minWidth: 150, flex: 0.5 },
+        { field: 'sourceApplicationId', type: 'string', headerName: t('table.columns.sourceApplicationId'), minWidth: 150, flex: 1,
             valueGetter: (params) => getSourceApplicationDisplayName(params.row.instanceFlowHeaders.sourceApplicationId)
         },
-        { field: 'sourceApplicationIntegrationId', type: 'string', headerName: t('table.columns.sourceApplicationIntegrationId'), flex: 1,
+        { field: 'sourceApplicationIntegrationId', type: 'string', headerName: t('table.columns.sourceApplicationIntegrationId'), minWidth: 250, flex: 1,
             valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplicationIntegrationId
         },
-        { field: 'displayName', type: 'string', headerName: t('table.columns.sourceApplicationIntegrationIdDisplayName'), flex: 1, sortable: false },
-        { field: 'sourceApplicationInstanceId', type: 'string', headerName: t('table.columns.sourceApplicationInstanceId'), flex: 1,
+        { field: 'displayName', type: 'string', headerName: t('table.columns.sourceApplicationIntegrationIdDisplayName'), minWidth: 150, flex: 1, sortable: false },
+        { field: 'sourceApplicationInstanceId', type: 'string', headerName: t('table.columns.sourceApplicationInstanceId'), minWidth: 200, flex: 1,
             valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplicationInstanceId
         },
-        { field: 'configurationId', type: 'string', headerName: t('table.columns.configurationId'), flex: 1,
+        { field: 'configurationId', type: 'string', headerName: t('table.columns.configurationId'), minWidth: 150, flex: 1,
             valueGetter: (params) => params.row.instanceFlowHeaders.configurationId
         },
-        { field: 'archiveCaseId', type: 'string', headerName: t('table.columns.archiveCaseId'), flex: 1,
+        { field: 'archiveCaseId', type: 'string', headerName: t('table.columns.archiveCaseId'), minWidth: 150, flex: 1,
             valueGetter: (params) => params.row.instanceFlowHeaders.archiveCaseId
         },
-        { field: 'timestamp', type: 'dateTime', headerName: t('table.columns.timestamp'), flex: 1,
+        { field: 'timestamp', type: 'dateTime', headerName: t('table.columns.timestamp'), minWidth: 200, flex: 1,
             valueGetter: (params) => moment(params.row.timestamp).format('YYYY/MM/DD HH:mm:ss.sss'),
         },
-        { field: 'name', type: 'string', headerName: t('table.columns.name'), flex: 3,
+        { field: 'name', type: 'string', headerName: t('table.columns.name'), minWidth: 400, flex: 3,
             renderCell: params => ( <CustomCellRender row={params.row} />)
         },
-        { field: 'details', headerName: t('table.columns.details'), flex: 1, sortable: false, filterable: false,
+        { field: 'details', headerName: t('table.columns.details'), minWidth: 150, flex: 1, sortable: false, filterable: false,
             renderCell: (params) => ( <CustomErrorDialogToggle row={params.row} />)
         },
-        { field: 'actions', headerName: t('table.columns.actions'), flex: 1, sortable: false, filterable: false,
+        { field: 'actions', headerName: t('table.columns.actions'), minWidth: 150, flex: 1, sortable: false, filterable: false,
             renderCell: (params) => ( <CustomButtonToggle row={params.row} />)
         }
     ];

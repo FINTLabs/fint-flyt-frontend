@@ -21,19 +21,19 @@ const IntegrationTable: React.FunctionComponent<any> = (props) => {
     const { setSourceApplication, getAllMetadata } = useContext(SourceApplicationContext)
 
     const columns: GridColDef[] = [
-        { field: 'sourceApplicationId', type: 'string', headerName: t('table.columns.sourceApplicationId'), flex: 1,
+        { field: 'sourceApplicationId', type: 'string', headerName: t('table.columns.sourceApplicationId'), minWidth: 150, flex: 1,
             valueGetter: (params) => (getSourceApplicationDisplayName(params.row.sourceApplicationId))
         },
-        { field: 'sourceApplicationIntegrationId', type: 'string', headerName: t('table.columns.sourceApplicationIntegrationId'), flex: 1 },
-        { field: 'displayName', type: 'string', headerName: t('table.columns.sourceApplicationIntegrationIdDisplayName'), flex: 1, sortable: false },
-        { field: 'destination', type: 'string', headerName:  t('table.columns.destination'), flex: 1,
+        { field: 'sourceApplicationIntegrationId', type: 'string', headerName: t('table.columns.sourceApplicationIntegrationId'), minWidth: 250, flex: 1},
+        { field: 'displayName', type: 'string', headerName: t('table.columns.sourceApplicationIntegrationIdDisplayName'), minWidth: 150, flex: 1, sortable: false },
+        { field: 'destination', type: 'string', headerName:  t('table.columns.destination' ), minWidth: 150, flex: 1,
             valueGetter: (params) => getDestinationDisplayName(params.row.destination)
         },
-        { field: 'state', type: 'string', headerName:  t('table.columns.state'), flex: 1 ,
+        { field: 'state', type: 'string', headerName:  t('table.columns.state'), minWidth: 150, flex: 1,
             valueGetter: (params) => getStateDisplayName(params.row.state)
         },
-        { field: 'dispatched', type: 'number', headerName: t('table.columns.dispatched'), flex: 1, sortable: false },
-        { field: 'errors', type: 'number', headerName: t('table.columns.errors'), flex: 1, sortable: false }
+        { field: 'dispatched', type: 'number', headerName: t('table.columns.dispatched'), minWidth: 150, flex: 1, sortable: false },
+        { field: 'errors', type: 'number', headerName: t('table.columns.errors'), minWidth: 150, flex: 1, sortable: false }
     ];
 
     const setHistory = () => {

@@ -78,18 +78,18 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
     }, [])
 
     const columns: GridColDef[] = [
-        { field: 'id', type: 'string', headerName: t('table.columns.configurationId'), flex: 0.5},
-        { field: 'version', type: 'number', headerName: t('table.columns.version'), flex: 0.5},
-        { field: 'comment', type: 'string', headerName: t('table.columns.comment'), flex: 1},
-        { field: 'details', headerName: t('table.columns.show'), flex: 0.5, sortable: false, filterable: false,
+        { field: 'id', type: 'string', headerName: t('table.columns.configurationId'), minWidth: 100, flex: 0.5},
+        { field: 'version', type: 'number', headerName: t('table.columns.version'), minWidth: 100, flex: 0.5},
+        { field: 'comment', type: 'string', headerName: t('table.columns.comment'), minWidth: 250, flex: 1},
+        { field: 'details', headerName: t('table.columns.show'), minWidth: 150, flex: 0.5, sortable: false, filterable: false,
             renderCell: (params) => ( <EditButtonToggle row={params.row} />)
         }
     ];
 
     const draftColumns: GridColDef[] = [
-        { field: 'id', type: 'string', headerName: t('table.columns.configurationId'), flex: 0.5},
-        { field: 'comment', type: 'string', headerName: t('table.columns.comment'), flex: 1},
-        { field: 'details', headerName: t('table.columns.edit'), flex: 0.5, sortable: false, filterable: false,
+        { field: 'id', type: 'string', headerName: t('table.columns.configurationId'), minWidth: 150, flex: 0.5},
+        { field: 'comment', type: 'string', headerName: t('table.columns.comment'), minWidth: 250, flex: 1},
+        { field: 'details', headerName: t('table.columns.edit'), minWidth: 150, flex: 0.5, sortable: false, filterable: false,
             renderCell: (params) => ( <EditButtonToggle row={params.row} />)
         }
     ];
