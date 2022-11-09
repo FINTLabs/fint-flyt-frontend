@@ -75,7 +75,7 @@ const SourceApplicationForm: React.FunctionComponent<any> = (props) => {
                 </FormControl>
             </Box>
             {instanceElementMetadata && <TagTree items={instanceElementMetadata}/>}
-            <Link style={{fontFamily: 'sans-serif'}} to={{pathname: selectedMetadata.sourceApplicationIntegrationUri}} target="_blank">{t('openLink')}</Link>
+            {/*<Link style={{fontFamily: 'sans-serif'}} to={{pathname: selectedMetadata.sourceApplicationIntegrationUri}} target="_blank">{t('openLink')}</Link>*/}
 
         </Box>
     );
