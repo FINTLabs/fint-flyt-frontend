@@ -61,7 +61,9 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
     let isCollection = props.watch("caseData.caseCreationStrategy") === CreationStrategy.COLLECTION
 
     let listOfClassificationsWithDynamicField: string [] = [
-        'https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/FNR', 'https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/ORGNR'
+        'https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/FNR',
+        'https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/STUDENT',
+        'https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/ORGNR'
     ]
 
   const caseFormFields: IInputField[] = [
