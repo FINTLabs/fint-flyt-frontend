@@ -52,6 +52,11 @@ const ResourcesProvider: FC = ({ children }) => {
             .then(response => {
                 let data = response.data;
                 if (data) {
+                    data.sort((a: any, b: any) => {
+                        if (a.displayName < b.displayName) {
+                            return -1;
+                        }
+                    });
                     data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
                     resourceSetter(list)
                 }
