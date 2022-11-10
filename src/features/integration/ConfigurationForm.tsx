@@ -130,7 +130,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     const { errors } = formState;
     const MOCK_ACCORDIONS = MOCK_ACCS;
     const accordionList: IAccordion[] = MOCK_ACCORDIONS.map(accordion => {
-        return ({id: accordion.id, header: accordion.header, defaultExpanded: toExpandedProp(accordion.defaultExpanded, activeConfiguration), hidden: accordion.hidden ? toHiddenProp(accordion.hidden, watch, activeConfiguration) : undefined})
+        return ({id: accordion.id, header: accordion.header, defaultExpanded: toExpandedProp(accordion.defaultExpanded, activeConfiguration), hidden: accordion.hidden ? toHiddenProp(accordion.hidden, watch, activeConfiguration) : undefined, inputFields: accordion.inputFields})
     });
 
     const handleCheckChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -334,6 +334,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                                 return (
                                     <AccordionForm
                                         id={accordion.id}
+                                        inputFields={accordion.inputFields}
                                         activeFormData={activeFormData}
                                         activeConfiguration={activeConfiguration}
                                         key={index}

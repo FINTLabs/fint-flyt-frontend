@@ -65,7 +65,6 @@ const InputField: React.FunctionComponent<any> = (props) => {
         )
     }
     else if (props.input === INPUT_TYPE.RADIO) {
-        console.log(props.label)
         return (
             <FormControl component="fieldset" sx={{ mb: 3 }}>
                 <FormLabel role="label">{props.label}</FormLabel>
@@ -109,7 +108,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                             <TextField
                                 {...params}
                                 size="small"
-                                label={props.required ? t((props.label)) +'*' : t(props.label)}
+                                label={props.required ? (props.label) +'*' : props.label}
                                 error={!!props.error}
                                 helperText={props.error ? t('requiredField') : ''}
                             />
@@ -118,7 +117,9 @@ const InputField: React.FunctionComponent<any> = (props) => {
                             props.setter && props.setter(data)
                             onChange(data?.value)
                         }
-                        }/>
+                        }
+                    />
+
                 )}
                 rules={{ required: { value: props.required, message: errorMessage } }}
             />
@@ -162,7 +163,6 @@ const InputField: React.FunctionComponent<any> = (props) => {
         )
     }
     else {
-        console.log(props.label)
         return (
             <Controller
                 control={props.control}

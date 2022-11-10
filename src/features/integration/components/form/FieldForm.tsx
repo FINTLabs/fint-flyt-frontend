@@ -1,18 +1,14 @@
 import {Box, Button, FormGroup, Typography} from '@mui/material';
 import React, {useContext, useEffect} from 'react';
 import InputField from "./InputField";
-import {INPUT_TYPE, toInputType} from "../../types/InputType.enum";
-import {IInputField} from "../../types/InputField";
-import {
-    creationStrategies,
-} from "../../defaults/DefaultValues";
+import {toInputType} from "../../types/InputType.enum";
+import {IField, IFieldValue, IInputField} from "../../types/InputField";
 import {CreationStrategy} from "../../types/CreationStrategy";
 import {FieldErrors} from "react-hook-form";
 import HelpPopover from "../popover/HelpPopover";
 import { useTranslation } from 'react-i18next';
 import ResourceRepository from "../../../../shared/repositories/ResourceRepository";
 import {IntegrationContext} from "../../../../context/integrationContext";
-import {MOCK_CASE_INPUTFIELDS} from "../../../../__tests__/mock/mock_inputfields";
 import {ResourcesContext} from "../../../../context/resourcesContext";
 import {toDisabledProp, toHiddenProp, toRequiredProp} from "./FormUtil";
 
@@ -21,14 +17,32 @@ const FieldForm: React.FunctionComponent<any> = (props) => {
     const [_case, setCase] = React.useState('');
     const {setCaseNumber} = useContext(IntegrationContext)
     const {getResourcesByName} = useContext(ResourcesContext);
-
     let watch = props.watch;
     let activeConfiguration = props.activeConfiguration;
     let errors: FieldErrors = props.errors
+    let id = props.id;
+    console.log(id)
 
     let caseInput = props.watch("caseData.caseNumber");
     let caseInputPattern = /^((19|20)*\d{2})\/([0-9]{1,6})/g;
-    const MOCK_INPUTFIELDS = MOCK_CASE_INPUTFIELDS;
+    const MOCK_INPUTFIELDS: IField[] = props.inputFields;
+
+    //TODO: support deeper nested
+    function toErrorProp(error: string) {
+        let errorField = error.split('.');
+        return (errors?.[errorField[0]]?.[errorField[1]])
+    }
+
+    function toValueByFormData(input: IFieldValue, activeFormData: any, watcher: Function) {
+        if(input.source === "FORM") {
+            let valueField = input.value.split('.');
+            return (activeFormData?.[valueField[0]]?.[valueField[1]])
+        }
+        else {
+            return watcher(input.value)
+        }
+
+    }
 
     const fieldList: IInputField[] = MOCK_INPUTFIELDS.map(inputField => {
         return (
@@ -36,11 +50,11 @@ const FieldForm: React.FunctionComponent<any> = (props) => {
                 input: toInputType(inputField.input),
                 label: inputField.label,
                 formValue: inputField.formValue,
-                value: watch(inputField.value),
+                value: inputField.value ? toValueByFormData(inputField.value, props.activeFormData, watch) : undefined,
                 options: inputField.options ? getResourcesByName(inputField.options) : [],
                 helpText: inputField.helpText,
                 hidden: inputField.hidden ? toHiddenProp(inputField.hidden, watch, activeConfiguration) : undefined,
-                //error: inputField.error ? toErrorProp(inputField.error) : undefined,
+                error: inputField.error ? toErrorProp(inputField.error) : undefined,
                 required: inputField.required ? toRequiredProp(inputField.required, watch, activeConfiguration, props.validation) : false,
                 searchOption: inputField.searchOption ? inputField.searchOption : false,
                 disabled: inputField.disabled ? toDisabledProp(inputField.disabled, activeConfiguration) : undefined
@@ -48,7 +62,6 @@ const FieldForm: React.FunctionComponent<any> = (props) => {
         )
     });
 
-    console.log(fieldList)
     useEffect(() => {
         if(caseInput) {
             setCaseNumber(caseInput)
@@ -89,11 +102,6 @@ const FieldForm: React.FunctionComponent<any> = (props) => {
     }
 
     let isCollection = props.watch("caseData.caseCreationStrategy") === CreationStrategy.COLLECTION
-    const caseInformationFields: IInputField[] = [
-        {input: INPUT_TYPE.RADIO, label: "labels.caseCreationInfo", value: props.watch("caseData.caseCreationStrategy"), formValue: "caseData.caseCreationStrategy", radioOptions: creationStrategies, helpText: "caseData.caseCreationStrategy"},
-        {input: INPUT_TYPE.TEXT_FIELD, label: "labels.caseNumber", formValue: "caseData.caseNumber", hidden:!isCollection, required:isCollection && props.validation, error:errors.caseData?.caseNumber, searchOption: true, helpText: "caseData.caseNumber", disabled: props.disabled},
-    ]
-
 
     return (
         <div>
@@ -128,7 +136,7 @@ const FieldForm: React.FunctionComponent<any> = (props) => {
                         );
                     }
                 )}
-                {isCollection && _case ? <Typography id="case-information-case-search-result" sx={{mb:2}}>{_case}</Typography> : ''}
+                {id === 'case-information' && isCollection && _case ? <Typography id="case-information-case-search-result" sx={{mb:2}}>{_case}</Typography> : ''}
             </FormGroup>
         </div>
     );

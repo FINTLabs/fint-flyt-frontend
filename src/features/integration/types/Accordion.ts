@@ -1,8 +1,11 @@
+import {IField, IFieldGroup} from "./InputField";
+
 export interface IAccordion {
     id: string;
     header: string;
     defaultExpanded: boolean;
     hidden?: boolean;
+    inputFields?: IField[];
 }
 
 export enum ACCORDION_FORM {
@@ -20,6 +23,13 @@ export interface IDependency {
     value: string;
 }
 
+export interface IAccordionGroup {
+    id: string;
+    header: string;
+    defaultExpanded: IDependency;
+    hidden?: IDependency;
+    inputFields?: IFieldGroup[];
+}
 
 
 export const toAccordionForm = (name: string): ACCORDION_FORM => {

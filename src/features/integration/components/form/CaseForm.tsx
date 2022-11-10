@@ -44,6 +44,7 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
         }
     }
 
+
     useEffect(()=> {
         getPrimaryClass();
     }, [primaryClassification, setPrimaryClassification])

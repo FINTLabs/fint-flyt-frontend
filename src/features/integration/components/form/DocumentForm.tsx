@@ -14,10 +14,17 @@ const DocumentForm: React.FunctionComponent<any> = (props) => {
     const {documentStatuses, documentTypes} = useContext(ResourcesContext);
     let errors: FieldErrors = props.errors;
     let required: boolean = props.validation;
+    console.log(props.activeFormData?.['documentData']?.['title'])
 
     //TODO: replace placeholder with kodeverk after 3.11
     const documentFormFields: IInputField[] = [
-        {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.title", formValue: "documentData.title", required: false, error:errors.documentData?.title, value: props.activeFormData?.documentData?.title, helpText: "documentData.title"},
+        {input: INPUT_TYPE.DROPZONE_TEXT_FIELD,
+            label: "labels.title",
+            formValue: "documentData.title",
+            required: false,
+            error:errors.documentData?.title,
+            value: props.activeFormData?.documentData?.title,
+            helpText: "documentData.title"},
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.documentStatus", value: props.watch("documentData.documentStatus"), formValue: "documentData.documentStatus", dropDownItems: documentStatuses, required: required, error:errors.documentData?.documentStatus, helpText: "documentData.documentStatus"},
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.documentType", value: props.watch("documentData.documentType"), formValue: "documentData.documentType", dropDownItems: documentTypes, required: required, error:errors.documentData?.documentType, helpText: "documentData.documentType"},
 //    {input: INPUT_TYPE.DROPDOWN, label: "labels.documentCategory", value: props.watch("documentData.documentCategory"), formValue: "documentData.documentCategory", dropDownItems: documentTypes, required: false, error:errors.documentData?.documentCategory, helpText: "documentData.documentCategory", disabled: true},

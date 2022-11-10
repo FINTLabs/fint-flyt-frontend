@@ -69,6 +69,5 @@ export function toRequiredProp(deps: IDependency[], watcher: Function, activeCon
     deps.map(dep => {
         list.push(toRequiredProps(dep, watcher, activeConfig, completeCheck))
     })
-    console.log(list)
     return list.every(Boolean);
 }

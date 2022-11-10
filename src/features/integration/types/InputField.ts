@@ -1,5 +1,6 @@
 import {INPUT_TYPE} from "./InputType.enum";
 import {IResourceItem} from "../../../context/resourcesContext/types";
+import {IDependency} from "./Accordion";
 
 export interface IInputField {
     input: INPUT_TYPE;
@@ -19,6 +20,28 @@ export interface IInputField {
     searchOption?: boolean;
 }
 
+
+export interface IFieldGroup {
+    header: string;
+    fields: IField[];
+}
+
+export interface IField {
+    input: string;
+    label: string;
+    formValue: string;
+    value?: IFieldValue;
+    options?: string;
+    hidden?: IDependency;
+    disabled?: IDependency;
+    required?: IDependency[];
+    error?: string;
+    helpText?: string;
+    lockIcon?: boolean;
+    setter?: (item: IResourceItem) => void;
+    searchOption?: boolean;
+}
+
 export interface ISelect {
     label: string,
     value: string,
@@ -30,4 +53,9 @@ export interface IErrorDependency {
     type: string;
     key: string;
     value: string
+}
+
+export interface IFieldValue {
+    source: string;
+    value: string;
 }
