@@ -40,7 +40,7 @@ const HelpPopover: React.FunctionComponent<any> = (props) => {
                     horizontal: 'left',
                 }}
             >
-                <Typography sx={{ p: 3 }}>{t(props.popoverContent)}</Typography>
+                <Typography sx={{ p: 3 }}>{props.popoverContent}</Typography>
             </Popover>
         </div>
     );

@@ -1,6 +1,7 @@
 import React, { createContext, useState, FC } from "react";
 import ResourceRepository from "../../shared/repositories/ResourceRepository";
 import {contextDefaultValues, IResourceItem, ResourceContextState} from "./types";
+import {creationStrategies, dropdownPlaceholder} from "../../features/integration/defaults/DefaultValues";
 
 export const ResourcesContext = createContext<ResourceContextState>(
     contextDefaultValues
@@ -140,6 +141,24 @@ const ResourcesProvider: FC = ({ children }) => {
         setTertiaryClass(contextDefaultValues.tertiaryClass)
     }
 
+    function getResourcesByName(name: string): IResourceItem[] {
+        if(name === 'administrativeUnits') return administrativeUnits;
+        if(name === 'accessCodes') return accessCodes;
+        if(name === 'caseTypes') return caseTypes;
+        if(name === 'paragraphs') return paragraphs;
+        if(name === 'statuses') return statuses;
+        if(name === 'archiveSections') return archiveSections;
+        if(name === 'archiveResources') return archiveResources;
+        if(name === 'classificationSystems') return classificationSystems;
+        if(name === 'documentTypes') return documentTypes;
+        if(name === 'recordStatuses') return recordStatuses;
+        if(name === 'recordTypes') return recordTypes;
+        if(name === 'documentStatuses') return documentStatuses;
+        if(name === 'variants') return variants;
+        if(name === 'creationStrategies') return creationStrategies;
+        else return dropdownPlaceholder;
+    }
+
     return (
         <ResourcesContext.Provider
             value={{
@@ -172,7 +191,8 @@ const ResourcesProvider: FC = ({ children }) => {
                 resetAllResources,
                 setPrimaryClassification,
                 setSecondaryClassification,
-                setTertiaryClassification
+                setTertiaryClassification,
+                getResourcesByName
             }}
         >
             {children}

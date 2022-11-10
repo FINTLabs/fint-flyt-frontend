@@ -32,14 +32,14 @@
         },
         "configurationForm": {
             "header": "Konfigurasjon",
+            "integrationId": "IntegrasjonId",
+            "sourceApplicationId": "Kildeapplikasjon",
+            "sourceApplicationIntegrationId": "Integrasjon",
+            "destination": "Destinasjon",
             "successHeader": "Konfigurasjon - ferdigstilt",
             "accordions": {
                 "caseInformation": {
-                    "header": "Integrasjon",
-                    "integrationId": "IntegrasjonId",
-                    "sourceApplicationId": "Kildeapplikasjon",
-                    "sourceApplicationIntegrationId": "Integrasjon",
-                    "destination": "Destinasjon",
+                    "header": "Logikk",
                     "button": {
                         "search": "Søk",
                         "save": "Lagre"

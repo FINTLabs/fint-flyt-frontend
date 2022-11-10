@@ -26,6 +26,7 @@ export type ResourceContextState = {
     variants: IResourceItem[];
 
     getAllResources: () => void;
+    getResourcesByName: (name: string) => IResourceItem[];
     resetAllResources: () => void;
 
     setPrimaryClassification: (primary: IResourceItem) => void;
@@ -69,5 +70,6 @@ export const contextDefaultValues: ResourceContextState = {
     getTertiaryClass: () => {},
     setPrimaryClass: (primary: IResourceItem[]) => {},
     setSecondaryClass: (primary: IResourceItem[]) => {},
-    setTertiaryClass: (primary: IResourceItem[]) => {}
+    setTertiaryClass: (primary: IResourceItem[]) => {},
+    getResourcesByName: (name: string) => []
 };

@@ -85,9 +85,9 @@ export const variantOptions: ISelect[] = [
 ]
 
 export const creationStrategies: ISelect[] = [
-    {label: 'selects.creationStrategies.new', value: 'NEW',  description: "selects.creationStrategies.newDesc"},
-    {label: 'selects.creationStrategies.existing', value: 'EXISTING',  description: "selects.creationStrategies.existingDesc", disabled: true},
-    {label: 'selects.creationStrategies.collection', value: 'COLLECTION', description: "selects.creationStrategies.collectionDesc"}
+    {label: 'Som ny sak', value: 'NEW',  description: "Innsendt skjema oppretter en ny sak i Elements"},
+    {label: 'På eksisterende sak (kommer)', value: 'EXISTING',  description: 'Innsendt skjema gjenfinner eksisterende sak i Elements basert på informasjon i skjemaet. Dersom det ikke fins en eksisterende sak opprettes en ny sak', disabled: true},
+    {label: 'På samlesak', value: 'COLLECTION', description: 'Innsendt skjema skal leveres til en forhåndsdefinert samlesak. Her må du opplyse om saksnummer'}
 ];
 
 export const applicantOptions: ISelect[] = [

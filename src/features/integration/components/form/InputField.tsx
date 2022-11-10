@@ -28,7 +28,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
         stringify: (option: ISelect) => option.label,
         limit: 250
     });
-    let errorMessage: string = t('errorMessage') + t(props.label);
+    let errorMessage: string = t('errorMessage') + props.label;
     if (props.input === INPUT_TYPE.DROPDOWN) {
         return (
             <Controller
@@ -65,9 +65,10 @@ const InputField: React.FunctionComponent<any> = (props) => {
         )
     }
     else if (props.input === INPUT_TYPE.RADIO) {
+        console.log(props.label)
         return (
             <FormControl component="fieldset" sx={{ mb: 3 }}>
-                <FormLabel role="label">{t(props.label)}</FormLabel>
+                <FormLabel role="label">{props.label}</FormLabel>
                 <RadioGroup id={props.formValue}
                             row={true}
                             onChange={(e) =>
@@ -81,9 +82,9 @@ const InputField: React.FunctionComponent<any> = (props) => {
                                 disabled={props.disabled || option.disabled}
                                 value={option.value}
                                 control={<Radio />}
-                                label={t(option.label) as string}
+                                label={option.label}
                             />
-                            <Typography sx={{ fontSize: 14 }}>{option.description ? t(option.description) : ''}</Typography>
+                            <Typography sx={{ fontSize: 14 }}>{option.description ? option.description : ''}</Typography>
                         </div>
                     ))}
                 </RadioGroup>
@@ -160,6 +161,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
         )
     }
     else {
+        console.log(props.label)
         return (
             <Controller
                 control={props.control}
@@ -169,7 +171,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                     <TextField
                         disabled={props.disabled}
                         id={props.formValue}
-                        label={props.required ? (t(props.label)) +'*' : t(props.label)}
+                        label={props.required ? props.label +'*' : props.label}
                         size="small"
                         variant="outlined"
                         sx={{ mb: 3, width: 'inherit'}}

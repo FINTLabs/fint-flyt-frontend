@@ -15,9 +15,13 @@ import {
 } from "@mui/material";
 import {createStyles, makeStyles} from "@mui/styles";
 import {IFormConfiguration} from "./types/Form/FormData";
-import {defaultConfigurationValues} from "./defaults/DefaultValues";
+import {
+    defaultConfigurationValues,
+    getDestinationDisplayName,
+    getSourceApplicationDisplayName
+} from "./defaults/DefaultValues";
 import AccordionForm from "./components/AccordionForm";
-import {ACCORDION_FORM, IAccordion} from "./types/Accordion";
+import {IAccordion} from "./types/Accordion";
 import SourceApplicationForm from "./components/SourceApplicationForm";
 import {HTML5Backend} from "react-dnd-html5-backend";
 import {DndProvider} from "react-dnd";
@@ -35,6 +39,8 @@ import {IConfigurationPatch, newIConfiguration} from "./types/Configuration";
 import ConfigurationRepository from "../../shared/repositories/ConfigurationRepository";
 import IntegrationRepository from "../../shared/repositories/IntegrationRepository";
 import {IIntegrationPatch, IntegrationState} from "./types/Integration";
+import {MOCK_ACCS} from "../../__tests__/mock/mock_accordions";
+import {toExpandedProp, toHiddenProp} from "./components/form/FormUtil";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -105,9 +111,10 @@ const useStyles = makeStyles((theme: Theme) =>
 const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.configurationForm'});
     const classes = useStyles();
+    const {caseNumber, newIntegration, existingIntegration, setExistingIntegration, setNewIntegration, selectedMetadata, configuration, setConfiguration, resetSourceAndDestination, getNewIntegrations} = useContext(IntegrationContext);
+    const { getAllResources, resetAllResources } = useContext(ResourcesContext);
     const editConfig: boolean = window.location.pathname === '/integration/configuration/edit'
     const [submitSuccess, setSubmitSuccess] = useState(false)
-    const {caseNumber, newIntegration, existingIntegration, setExistingIntegration, setNewIntegration, selectedMetadata, configuration, setConfiguration, resetSourceAndDestination, getNewIntegrations} = useContext(IntegrationContext);
     const [saved, setSaved] = React.useState(false);
     const [saveError, setSaveError] = React.useState(false);
     const [checked, setChecked] = React.useState(configuration && editConfig ? configuration.completed : false);
@@ -119,6 +126,12 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     const [completed, setCompleted] = React.useState(!!activeConfiguration?.completed);
     let activeFormData = activeConfiguration && editConfig && configuration? newToFormData(configuration) : defaultConfigurationValues;
     const [protectedCheck, setProtectedChecked] = React.useState(activeFormData.applicantData.protected);
+    const {handleSubmit, watch, setValue, control, reset, formState} = useForm<any>({defaultValues: activeFormData, reValidateMode: 'onChange'});
+    const { errors } = formState;
+    const MOCK_ACCORDIONS = MOCK_ACCS;
+    const accordionList: IAccordion[] = MOCK_ACCORDIONS.map(accordion => {
+        return ({id: accordion.id, header: accordion.header, defaultExpanded: toExpandedProp(accordion.defaultExpanded, activeConfiguration), hidden: accordion.hidden ? toHiddenProp(accordion.hidden, watch, activeConfiguration) : undefined})
+    });
 
     const handleCheckChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setChecked(event.target.checked);
@@ -127,14 +140,6 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     const handleActiveCheckChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setActiveChecked(event.target.checked);
     };
-
-    const {handleSubmit, watch, setValue, control, reset, formState} = useForm<IFormConfiguration>({
-        defaultValues: activeFormData,
-        reValidateMode: 'onChange'
-    });
-    const { errors } = formState;
-
-    const { getAllResources, resetAllResources } = useContext(ResourcesContext);
 
     useEffect(() => {
         getAllResources();
@@ -146,6 +151,11 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
         };
     }, [])
 
+
+    console.log(activeIntegration?.id, activeConfigId, selectedMetadata.id)
+
+/*
+
     const accordionList: IAccordion[] = [
         {id: 'case-information', summary: "caseInformation.header", accordionForm: ACCORDION_FORM.CASE_INFORMATION, defaultExpanded: true},
         {id: 'case-form', summary: "caseForm.header", accordionForm: ACCORDION_FORM.CASE_FORM, defaultExpanded: completed, hidden: watch("caseData.caseCreationStrategy") === CreationStrategy.COLLECTION},
@@ -153,6 +163,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
         {id: 'document-object-form', summary: "documentForm.header", accordionForm: ACCORDION_FORM.DOCUMENT_FORM, defaultExpanded: completed},
         {id: 'applicant-form', summary: "applicationForm.header", accordionForm: ACCORDION_FORM.APPLICANT_FORM, defaultExpanded: completed}
     ]
+*/
 
     const updateIntegration = (integrationId: string, configuration: any) => {
         let patch: IIntegrationPatch = {
@@ -239,7 +250,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
         setConfiguration({elements: []});
     }
 
-    const handleClose = (event: React.SyntheticEvent | Event, reason?: string) => {
+    const handleSnackbarClose = (event: React.SyntheticEvent | Event, reason?: string) => {
         if (reason === 'clickaway') {
             return;
         }
@@ -247,10 +258,10 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
         setSaveError(false);
     };
 
-    const action = (
+    const snackbarAction = (
         <React.Fragment>
-            <Button color="secondary" size="small" onClick={handleClose}>{t('button.close')}</Button>
-            <IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
+            <Button color="secondary" size="small" onClick={handleSnackbarClose}>{t('button.close')}</Button>
+            <IconButton size="small" aria-label="close" color="inherit" onClick={handleSnackbarClose}>
                 <CloseIcon fontSize="small" />
             </IconButton>
         </React.Fragment>
@@ -282,6 +293,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     });
 
     const onSave = handleSubmit((data: IFormConfiguration) => {
+        console.log(data, activeIntegration, activeConfigId)
         if (data.caseData.caseCreationStrategy === CreationStrategy.COLLECTION && caseNumber === undefined) {
             setSaveError(true)
             return;
@@ -310,17 +322,23 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
             {!submitSuccess && (existingIntegration || newIntegration) &&
                 <Box display="flex" position="relative" width={1} height={1}>
                     <Box>
+                        <Box sx={{mb: 2}}>
                         <Typography id="integration-form-header" aria-label="integration-form-header" variant={"h5"} sx={{ mb: 2 }}>{t('header')}</Typography>
+                        <Typography><strong>{t('integrationId')}: </strong>{activeIntegration?.id}</Typography>
+                        <Typography><strong>{t('sourceApplicationId')}: </strong>{getSourceApplicationDisplayName(activeIntegration?.sourceApplicationId)}</Typography>
+                        <Typography><strong>{t('sourceApplicationIntegrationId')}: </strong>{activeIntegration?.sourceApplicationIntegrationId} - {selectedMetadata.integrationDisplayName}</Typography>
+                        <Typography><strong>{t('destination')}: </strong>{getDestinationDisplayName(activeIntegration?.destination)}</Typography>
+                        </Box>
                         <form id="integration-form"  className={classes.form} onSubmit={onSubmit}>
                             {accordionList.map((accordion, index) => {
                                 return (
                                     <AccordionForm
                                         id={accordion.id}
                                         activeFormData={activeFormData}
+                                        activeConfiguration={activeConfiguration}
                                         key={index}
                                         style={classes}
-                                        summary={accordion.summary}
-                                        accordionForm={accordion.accordionForm}
+                                        header={accordion.header}
                                         defaultExpanded={accordion.defaultExpanded}
                                         hidden={accordion.hidden}
                                         integration={activeIntegration}
@@ -379,17 +397,17 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                         id="integration-form-snackbar-saved"
                         open={saved}
                         autoHideDuration={4000}
-                        onClose={handleClose}
+                        onClose={handleSnackbarClose}
                         message={t('messages.success')}
-                        action={action}
+                        action={snackbarAction}
                     />
                     <Snackbar
                         id="integration-form-snackbar-error"
                         open={saveError}
                         autoHideDuration={4000}
-                        onClose={handleClose}
+                        onClose={handleSnackbarClose}
                         message={t('messages.error')}
-                        action={action}
+                        action={snackbarAction}
                     />
                 </Box>
             }

@@ -8,6 +8,7 @@ export interface IInputField {
     value?: Function | string;
     dropDownItems?: ISelect[];
     radioOptions?: ISelect[];
+    options?: ISelect[];
     hidden?: boolean;
     disabled?: boolean;
     required?: boolean;
@@ -23,4 +24,10 @@ export interface ISelect {
     value: string,
     description?: string,
     disabled?: boolean
+}
+
+export interface IErrorDependency {
+    type: string;
+    key: string;
+    value: string
 }
