@@ -114,7 +114,8 @@ const InputField: React.FunctionComponent<any> = (props) => {
                                 helperText={props.error ? t('requiredField') : ''}
                             />
                         )}
-                        onChange={(_, data) => {
+                        onChange={(e, data) => {
+                            props.setter && props.setter(data)
                             onChange(data?.value)
                         }
                         }/>
