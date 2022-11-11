@@ -1,4 +1,4 @@
-import {Box, Button, Divider, FormGroup, Typography} from '@mui/material';
+import {Box, Button, Checkbox, Divider, FormControlLabel, FormGroup, Typography} from '@mui/material';
 import React, {useContext, useEffect} from 'react';
 import InputField from "./InputField";
 import {toInputType} from "../../types/InputType.enum";
@@ -10,9 +10,9 @@ import { useTranslation } from 'react-i18next';
 import ResourceRepository from "../../../../shared/repositories/ResourceRepository";
 import {IntegrationContext} from "../../../../context/integrationContext";
 import {ResourcesContext} from "../../../../context/resourcesContext";
-import {toDisabledProp, toHiddenProp, toRequiredProp} from "./FormUtil";
+import {toDisabledProp, toErrorProp, toHiddenProp, toRequiredProp, toValueByFormData} from "./FormUtil";
 
-const FieldForm: React.FunctionComponent<any> = (props) => {
+const FieldFactory: React.FunctionComponent<any> = (props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.configurationForm.accordions.caseInformation'});
     const [_case, setCase] = React.useState('');
     const {setCaseNumber} = useContext(IntegrationContext)
@@ -26,44 +26,6 @@ const FieldForm: React.FunctionComponent<any> = (props) => {
     let caseInputPattern = /^((19|20)*\d{2})\/([0-9]{1,6})/g;
     const inputFieldGroups: IFieldGroup[] = props.inputFieldGroups;
 
-    //TODO: support deeper nested
-    function toErrorProp(error: string) {
-        let errorField = error.split('.');
-        return (errors?.[errorField[0]]?.[errorField[1]])
-    }
-
-    function toValueByFormData(input: IFieldValue, activeFormData: any, watcher: Function) {
-        if(input.source === "FORM") {
-            let valueField = input.value.split('.');
-            return (activeFormData?.[valueField[0]]?.[valueField[1]])
-        }
-        else {
-            return watcher(input.value)
-        }
-
-    }
-
-    /*
-        const fieldList: IInputField[] = inputFields.map(inputField => {
-            return (
-                {
-                    input: toInputType(inputField.input),
-                    label: inputField.label,
-                    formValue: inputField.formValue,
-                    value: inputField.value ? toValueByFormData(inputField.value, props.activeFormData, watch) : undefined,
-                    options: inputField.options ? getResourcesByName(inputField.options) : [],
-                    helpText: inputField.helpText,
-                    hidden: inputField.hidden ? toHiddenProp(inputField.hidden, watch, activeConfiguration) : undefined,
-                    error: inputField.error ? toErrorProp(inputField.error) : undefined,
-                    required: inputField.required ? toRequiredProp(inputField.required, watch, activeConfiguration, props.validation) : false,
-                    searchOption: inputField.searchOption ? inputField.searchOption : false,
-                    disabled: inputField.disabled ? toDisabledProp(inputField.disabled, activeConfiguration) : undefined
-                }
-            )
-        });
-    */
-
-
     const testList: IInputFieldGroup[] = inputFieldGroups.map(group => {
         return ({
             header: group.header,
@@ -76,7 +38,7 @@ const FieldForm: React.FunctionComponent<any> = (props) => {
                     options: field.options ? getResourcesByName(field.options) : [],
                     helpText: field.helpText,
                     hidden: field.hidden ? toHiddenProp(field.hidden, watch, activeConfiguration) : undefined,
-                    error: field.error ? toErrorProp(field.error) : undefined,
+                    error: field.error ? toErrorProp(field.error, errors) : undefined,
                     required: field.required ? toRequiredProp(field.required, watch, activeConfiguration, props.validation) : false,
                     searchOption: field.searchOption ? field.searchOption : false,
                     disabled: field.disabled ? toDisabledProp(field.disabled, activeConfiguration) : undefined
@@ -170,11 +132,24 @@ const FieldForm: React.FunctionComponent<any> = (props) => {
                             )}
                         </Box>)
                 })}
-
                 {id === 'case-information' && isCollection && _case ? <Typography id="case-information-case-search-result" sx={{mb:2}}>{_case}</Typography> : ''}
             </FormGroup>
+            {id==='applicant-form' &&
+                <FormGroup sx={{ ml: 2, mb: 2, flexDirection: 'row'}} >
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                disabled={props.disabled}
+                                id="form-complete"
+                                checked={props.protectedCheck}
+                                onChange={event => props.setProtectedChecked(event.target.checked)}
+                                inputProps={{ 'aria-label': 'completed-checkbox' }}/>}
+                        label="Skjermet"
+                    />
+                    <HelpPopover popoverContent={"Skjerming av avsender, krever tilgangskode og skjermingshjemmel"}/>
+                </FormGroup>}
         </div>
     );
 }
 
-export default FieldForm;
+export default FieldFactory;

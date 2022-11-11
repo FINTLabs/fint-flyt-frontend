@@ -1,5 +1,7 @@
 import {IDependency} from "../../types/Accordion";
 import {newIConfiguration} from "../../types/Configuration";
+import {IFieldValue} from "../../types/InputField";
+import {FieldErrors} from "react-hook-form";
 
 export function toHiddenProp(dep: IDependency, watcher: Function, activeConfig?: newIConfiguration | undefined): boolean {
     if(dep.type === "FIELD") {
@@ -70,4 +72,20 @@ export function toRequiredProp(deps: IDependency[], watcher: Function, activeCon
         list.push(toRequiredProps(dep, watcher, activeConfig, completeCheck))
     })
     return list.every(Boolean);
+}
+
+export function toValueByFormData(input: IFieldValue, activeFormData: any, watcher: Function) {
+    if(input.source === "FORM") {
+        let valueField = input.value.split('.');
+        return (activeFormData?.[valueField[0]]?.[valueField[1]])
+    }
+    else {
+        return watcher(input.value)
+    }
+}
+
+//TODO: support deeper nested
+export function toErrorProp(error: string, fieldErrors: FieldErrors) {
+    let errorField = error.split('.');
+    return (fieldErrors?.[errorField[0]]?.[errorField[1]])
 }

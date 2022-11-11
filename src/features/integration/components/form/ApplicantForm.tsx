@@ -68,7 +68,7 @@ const ApplicantForm: React.FunctionComponent<any> = (props) => {
                             checked={props.protectedCheck}
                             onChange={event => props.setProtectedChecked(event.target.checked)}
                             inputProps={{ 'aria-label': 'completed-checkbox' }}/>}
-                    label={t('protectedLabel') as string}
+                    label="Skjermet"
                 />
                 <HelpPopover popoverContent={"applicantData.protected"}/>
             </FormGroup>

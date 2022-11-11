@@ -4,7 +4,8 @@ export enum INPUT_TYPE {
     AUTOCOMPLETE,
     RADIO,
     DROPZONE_TEXT_FIELD,
-    TEXT_AREA
+    TEXT_AREA,
+    CHECKBOX
 }
 
 export function toInputType(input: string): INPUT_TYPE {
@@ -14,5 +15,6 @@ export function toInputType(input: string): INPUT_TYPE {
     if(input === "RADIO") return INPUT_TYPE.RADIO
     if(input === "DROPZONE_TEXT_FIELD") return INPUT_TYPE.DROPZONE_TEXT_FIELD
     if(input === "TEXT_AREA") return INPUT_TYPE.TEXT_AREA
+    if(input === "CHECKBOX") return INPUT_TYPE.CHECKBOX
     else return INPUT_TYPE.TEXT_FIELD
 }

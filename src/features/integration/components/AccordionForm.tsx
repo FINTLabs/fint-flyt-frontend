@@ -1,7 +1,7 @@
 import React from 'react';
 import {Accordion, AccordionDetails, AccordionSummary, Typography} from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import FieldForm from "./form/FieldForm";
+import FieldFactory from "./form/FieldFactory";
 
 const AccordionForm: React.FunctionComponent<any> = (props) => {
     return props.hidden ? (<></>) : (
@@ -10,7 +10,7 @@ const AccordionForm: React.FunctionComponent<any> = (props) => {
                 <Typography id={props.id + `-header`} variant={"h6"}>{props.header}</Typography>
             </AccordionSummary>
             <AccordionDetails id={props.id + `-details`}>
-                <FieldForm {...props}/>
+                <FieldFactory {...props}/>
             </AccordionDetails>
         </Accordion>
     );
