@@ -16,7 +16,7 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
     const [{ canDrop, isOver }, drop] = useDrop(() => ({
         accept: DraggableTypes.TAG,
         drop: (tag:ITag) => {
-            setInputValue(prevState => prevState + tag.value + ' ');
+            setInputValue(prevState => prevState + tag.value);
         },
         collect: (monitor) => ({
             isOver: monitor.isOver(),
