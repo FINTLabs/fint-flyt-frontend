@@ -6,6 +6,7 @@ export interface IAccordion {
     defaultExpanded: boolean;
     hidden?: boolean;
     inputFields?: IField[];
+    inputFieldGroups?: IFieldGroup[];
 }
 
 export enum ACCORDION_FORM {

@@ -62,5 +62,4 @@ export const MOCK_DOCUMENTFIELDGROUP: IFieldGroup[] = [
             }
         ]
     }
-
 ]

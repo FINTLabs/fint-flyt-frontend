@@ -335,6 +335,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                                     <AccordionForm
                                         id={accordion.id}
                                         inputFields={accordion.inputFields}
+                                        inputFieldGroups={accordion.inputFieldGroups}
                                         activeFormData={activeFormData}
                                         activeConfiguration={activeConfiguration}
                                         key={index}

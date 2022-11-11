@@ -1,6 +1,6 @@
 import {IFieldGroup} from "../../features/integration/types/InputField";
 
-export const MOCK_CASEFIELDS: IFieldGroup[] = [
+export const MOCK_CASEFIELDGROUP: IFieldGroup[] = [
     {
         "header": "saksposter",
         "fields": [
@@ -137,6 +137,11 @@ export const MOCK_CASEFIELDS: IFieldGroup[] = [
                 "error": "caseData.paragraph",
                 "searchOption": false,
                 "helpText": "",
-            }]
+            }
+        ]
+    },
+    {
+        "header": "Klassering",
+        "fields": []
     }
 ]

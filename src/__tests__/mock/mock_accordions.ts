@@ -1,6 +1,9 @@
 import {MOCK_RECORDFIELDS} from "./mock_recordfields";
 import {MOCK_CASEFIELDS} from "./mock_casefields";
 import {MOCK_DOCUMENTFIELDS} from "./mock_documentfields";
+import {MOCK_CASEFIELDGROUP} from "./mock_casefieldsgroup";
+import {MOCK_RECORDFIELDSGROUP} from "./mock_recordfieldsgroup";
+import {MOCK_DOCUMENTFIELDGROUP} from "./mock_documentfieldsgroup";
 
 export const MOCK_ACCS = [
   {
@@ -31,32 +34,39 @@ export const MOCK_ACCS = [
         "helpText": "Eksempel 2021/12345",
         "disabled": {"key": "completed", "value": "true"}
       }
-    ]
+    ],
+    "inputFieldGroups": [],
   },
   {
     "id": "case-form",
     "header":"Sak",
     "defaultExpanded": {"key": "completed", "value": "true"},
     "hidden": {"type": "FIELD", "key": "caseData.caseCreationStrategy", "value": "COLLECTION"},
-    "inputFields": MOCK_CASEFIELDS
+    "inputFields": MOCK_CASEFIELDS,
+    "inputFieldGroups": MOCK_CASEFIELDGROUP
   },
   {
     "id": "record-form",
     "header":"Journalpost",
     "defaultExpanded": {"key": "completed", "value": "true"},
-    "inputFields": MOCK_RECORDFIELDS
+    "inputFields": MOCK_RECORDFIELDS,
+    "inputFieldGroups": MOCK_RECORDFIELDSGROUP
+
   },
   {
     "id": "document-object-form",
     "header":"Dokument- og objektbeskrivelse",
     "defaultExpanded": {"key": "completed", "value": "true"},
-    "inputFields": MOCK_DOCUMENTFIELDS
+    "inputFields": MOCK_DOCUMENTFIELDS,
+    "inputFieldGroups": MOCK_DOCUMENTFIELDGROUP
+
   },
   {
     "id": "applicant-form",
     "header":"Avsender",
     "defaultExpanded": {"key": "completed", "value": "true"},
-    "inputFields": []
+    "inputFields": [],
+    "inputFieldGroups": []
   },
 
 ]
