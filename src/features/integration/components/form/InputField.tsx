@@ -42,7 +42,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                         size="small"
                         sx={{ mb: 3, width: 'inherit' }}
                         value={props.value}
-                        label={props.required ? (t(props.label)) +'*' : t(props.label)}
+                        label={props.required ? (props.label) +'*' : props.label}
                         SelectProps={{
                             MenuProps: {
                                 className: classes.dropdownPopover

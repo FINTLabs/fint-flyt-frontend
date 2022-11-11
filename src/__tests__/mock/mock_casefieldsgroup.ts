@@ -2,7 +2,7 @@ import {IFieldGroup} from "../../features/integration/types/InputField";
 
 export const MOCK_CASEFIELDGROUP: IFieldGroup[] = [
     {
-        "header": "saksposter",
+        "header": "Saksposter",
         "fields": [
             {
                 "input": "DROPZONE_TEXT_FIELD",

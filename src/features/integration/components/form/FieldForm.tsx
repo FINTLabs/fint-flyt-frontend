@@ -1,8 +1,8 @@
-import {Box, Button, FormGroup, Typography} from '@mui/material';
+import {Box, Button, Divider, FormGroup, Typography} from '@mui/material';
 import React, {useContext, useEffect} from 'react';
 import InputField from "./InputField";
 import {toInputType} from "../../types/InputType.enum";
-import {IField, IFieldValue, IInputField, IInputFieldGroup} from "../../types/InputField";
+import {IFieldGroup, IFieldValue, IInputFieldGroup} from "../../types/InputField";
 import {CreationStrategy} from "../../types/CreationStrategy";
 import {FieldErrors} from "react-hook-form";
 import HelpPopover from "../popover/HelpPopover";
@@ -11,7 +11,6 @@ import ResourceRepository from "../../../../shared/repositories/ResourceReposito
 import {IntegrationContext} from "../../../../context/integrationContext";
 import {ResourcesContext} from "../../../../context/resourcesContext";
 import {toDisabledProp, toHiddenProp, toRequiredProp} from "./FormUtil";
-import {MOCK_DOCUMENTFIELDGROUP} from "../../../../__tests__/mock/mock_documentfieldsgroup";
 
 const FieldForm: React.FunctionComponent<any> = (props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.configurationForm.accordions.caseInformation'});
@@ -25,7 +24,7 @@ const FieldForm: React.FunctionComponent<any> = (props) => {
 
     let caseInput = props.watch("caseData.caseNumber");
     let caseInputPattern = /^((19|20)*\d{2})\/([0-9]{1,6})/g;
-    const MOCK_INPUTFIELDS: IField[] = props.inputFields;
+    const inputFieldGroups: IFieldGroup[] = props.inputFieldGroups;
 
     //TODO: support deeper nested
     function toErrorProp(error: string) {
@@ -44,23 +43,51 @@ const FieldForm: React.FunctionComponent<any> = (props) => {
 
     }
 
-    const fieldList: IInputField[] = MOCK_INPUTFIELDS.map(inputField => {
-        return (
-            {
-                input: toInputType(inputField.input),
-                label: inputField.label,
-                formValue: inputField.formValue,
-                value: inputField.value ? toValueByFormData(inputField.value, props.activeFormData, watch) : undefined,
-                options: inputField.options ? getResourcesByName(inputField.options) : [],
-                helpText: inputField.helpText,
-                hidden: inputField.hidden ? toHiddenProp(inputField.hidden, watch, activeConfiguration) : undefined,
-                error: inputField.error ? toErrorProp(inputField.error) : undefined,
-                required: inputField.required ? toRequiredProp(inputField.required, watch, activeConfiguration, props.validation) : false,
-                searchOption: inputField.searchOption ? inputField.searchOption : false,
-                disabled: inputField.disabled ? toDisabledProp(inputField.disabled, activeConfiguration) : undefined
-            }
-        )
-    });
+    /*
+        const fieldList: IInputField[] = inputFields.map(inputField => {
+            return (
+                {
+                    input: toInputType(inputField.input),
+                    label: inputField.label,
+                    formValue: inputField.formValue,
+                    value: inputField.value ? toValueByFormData(inputField.value, props.activeFormData, watch) : undefined,
+                    options: inputField.options ? getResourcesByName(inputField.options) : [],
+                    helpText: inputField.helpText,
+                    hidden: inputField.hidden ? toHiddenProp(inputField.hidden, watch, activeConfiguration) : undefined,
+                    error: inputField.error ? toErrorProp(inputField.error) : undefined,
+                    required: inputField.required ? toRequiredProp(inputField.required, watch, activeConfiguration, props.validation) : false,
+                    searchOption: inputField.searchOption ? inputField.searchOption : false,
+                    disabled: inputField.disabled ? toDisabledProp(inputField.disabled, activeConfiguration) : undefined
+                }
+            )
+        });
+    */
+
+
+    const testList: IInputFieldGroup[] = inputFieldGroups.map(group => {
+        return ({
+            header: group.header,
+            fields: group.fields.map(field => {
+                return ({
+                    input: toInputType(field.input),
+                    label: field.label,
+                    formValue: field.formValue,
+                    value: field.value ? toValueByFormData(field.value, props.activeFormData, watch) : undefined,
+                    options: field.options ? getResourcesByName(field.options) : [],
+                    helpText: field.helpText,
+                    hidden: field.hidden ? toHiddenProp(field.hidden, watch, activeConfiguration) : undefined,
+                    error: field.error ? toErrorProp(field.error) : undefined,
+                    required: field.required ? toRequiredProp(field.required, watch, activeConfiguration, props.validation) : false,
+                    searchOption: field.searchOption ? field.searchOption : false,
+                    disabled: field.disabled ? toDisabledProp(field.disabled, activeConfiguration) : undefined
+
+                })
+            })
+        })
+    })
+
+    console.log(testList)
+
 
     useEffect(() => {
         if(caseInput) {
@@ -106,36 +133,44 @@ const FieldForm: React.FunctionComponent<any> = (props) => {
     return (
         <div>
             <FormGroup id="case-information" className={props.style.formControl} sx={{mt: 4}}>
-                {fieldList.map((field, index) => {
-                        return (
-                            field.hidden ?
-                                <div key={index}/> :
-                                <Box sx={{display: 'flex'}} key={index}>
-                                    <Box width={'100%'}>
-                                        <InputField key={index}
-                                                    id={field.formValue}
-                                                    required={field.required}
-                                                    error={field.error}
-                                                    input={field.input}
-                                                    label={field.label}
-                                                    value={field.value}
-                                                    formValue={field.formValue}
-                                                    dropdownItems={field.options}
-                                                    radioOptions={field.options}
-                                                    disabled={field.disabled}
-                                                    {...props}
-                                        />
-                                    </Box>
-                                    <Box>
-                                        <HelpPopover popoverContent={field.helpText}/>
-                                    </Box>
-                                    {isCollection && field.searchOption && <Box>
-                                        <Button disabled={props.disabled} id="case-information-search-btn" onClick={handleCaseSearch} variant="outlined" sx={{ml: 2}}>{t('button.search')}</Button>
-                                    </Box>}
-                                </Box>
-                        );
-                    }
-                )}
+                {testList.map((item, index) => {
+                    return(
+                        <Box key={index}>
+                            <Typography>{item.header}</Typography>
+                            <Divider sx={{mb: 3}}/>
+                            {item.fields.map((field, index) => {
+                                    return (
+                                        field.hidden ?
+                                            <div key={index}/> :
+                                            <Box sx={{display: 'flex'}} key={index}>
+                                                <Box width={'100%'}>
+                                                    <InputField key={index}
+                                                                id={field.formValue}
+                                                                required={field.required}
+                                                                error={field.error}
+                                                                input={field.input}
+                                                                label={field.label}
+                                                                value={field.value}
+                                                                formValue={field.formValue}
+                                                                dropdownItems={field.options}
+                                                                radioOptions={field.options}
+                                                                disabled={field.disabled}
+                                                                {...props}
+                                                    />
+                                                </Box>
+                                                <Box>
+                                                    <HelpPopover popoverContent={field.helpText}/>
+                                                </Box>
+                                                {isCollection && field.searchOption && <Box>
+                                                    <Button disabled={props.disabled} id="case-information-search-btn" onClick={handleCaseSearch} variant="outlined" sx={{ml: 2}}>{t('button.search')}</Button>
+                                                </Box>}
+                                            </Box>
+                                    );
+                                }
+                            )}
+                        </Box>)
+                })}
+
                 {id === 'case-information' && isCollection && _case ? <Typography id="case-information-case-search-result" sx={{mb:2}}>{_case}</Typography> : ''}
             </FormGroup>
         </div>

@@ -2,7 +2,6 @@ import React from 'react';
 import {Accordion, AccordionDetails, AccordionSummary, Typography} from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import FieldForm from "./form/FieldForm";
-import DocumentForm from "./form/DocumentForm";
 
 const AccordionForm: React.FunctionComponent<any> = (props) => {
     return props.hidden ? (<></>) : (
@@ -12,7 +11,6 @@ const AccordionForm: React.FunctionComponent<any> = (props) => {
             </AccordionSummary>
             <AccordionDetails id={props.id + `-details`}>
                 <FieldForm {...props}/>
-                {props.id === 'document-object-form' && <DocumentForm {...props} />}
             </AccordionDetails>
         </Accordion>
     );

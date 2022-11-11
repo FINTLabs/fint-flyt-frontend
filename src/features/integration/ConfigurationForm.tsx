@@ -128,9 +128,8 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     const [protectedCheck, setProtectedChecked] = React.useState(activeFormData.applicantData.protected);
     const {handleSubmit, watch, setValue, control, reset, formState} = useForm<any>({defaultValues: activeFormData, reValidateMode: 'onChange'});
     const { errors } = formState;
-    const MOCK_ACCORDIONS = MOCK_ACCS;
-    const accordionList: IAccordion[] = MOCK_ACCORDIONS.map(accordion => {
-        return ({id: accordion.id, header: accordion.header, defaultExpanded: toExpandedProp(accordion.defaultExpanded, activeConfiguration), hidden: accordion.hidden ? toHiddenProp(accordion.hidden, watch, activeConfiguration) : undefined, inputFields: accordion.inputFields})
+    const accordionList: IAccordion[] = MOCK_ACCS.map(accordion => {
+        return ({id: accordion.id, header: accordion.header, defaultExpanded: toExpandedProp(accordion.defaultExpanded, activeConfiguration), hidden: accordion.hidden ? toHiddenProp(accordion.hidden, watch, activeConfiguration) : undefined, inputFields: accordion.inputFields, inputFieldGroups: accordion.inputFieldGroups})
     });
 
     const handleCheckChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -151,19 +150,6 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
         };
     }, [])
 
-
-    console.log(activeIntegration?.id, activeConfigId, selectedMetadata.id)
-
-/*
-
-    const accordionList: IAccordion[] = [
-        {id: 'case-information', summary: "caseInformation.header", accordionForm: ACCORDION_FORM.CASE_INFORMATION, defaultExpanded: true},
-        {id: 'case-form', summary: "caseForm.header", accordionForm: ACCORDION_FORM.CASE_FORM, defaultExpanded: completed, hidden: watch("caseData.caseCreationStrategy") === CreationStrategy.COLLECTION},
-        {id: 'record-form', summary: "recordForm.header", accordionForm: ACCORDION_FORM.RECORD_FORM, defaultExpanded: completed},
-        {id: 'document-object-form', summary: "documentForm.header", accordionForm: ACCORDION_FORM.DOCUMENT_FORM, defaultExpanded: completed},
-        {id: 'applicant-form', summary: "applicationForm.header", accordionForm: ACCORDION_FORM.APPLICANT_FORM, defaultExpanded: completed}
-    ]
-*/
 
     const updateIntegration = (integrationId: string, configuration: any) => {
         let patch: IIntegrationPatch = {
@@ -293,7 +279,6 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     });
 
     const onSave = handleSubmit((data: IFormConfiguration) => {
-        console.log(data, activeIntegration, activeConfigId)
         if (data.caseData.caseCreationStrategy === CreationStrategy.COLLECTION && caseNumber === undefined) {
             setSaveError(true)
             return;

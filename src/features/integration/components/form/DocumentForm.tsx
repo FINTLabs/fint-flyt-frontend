@@ -1,27 +1,21 @@
 import {Box, Divider, FormGroup, Typography} from '@mui/material';
 import React, {useContext} from 'react';
-import {IField, IFieldValue, IInputField, IInputFieldGroup} from "../../types/InputField";
-import {INPUT_TYPE, toInputType} from "../../types/InputType.enum";
+import {IFieldGroup, IFieldValue, IInputFieldGroup} from "../../types/InputField";
+import {toInputType} from "../../types/InputType.enum";
 import InputField from "./InputField";
 import {FieldErrors} from "react-hook-form";
 import {ResourcesContext} from "../../../../context/resourcesContext";
 import HelpPopover from "../popover/HelpPopover";
 import { useTranslation } from 'react-i18next';
-import {variantOptions} from "../../defaults/DefaultValues";
-import {MOCK_DOCUMENTFIELDGROUP} from "../../../../__tests__/mock/mock_documentfieldsgroup";
 import {toDisabledProp, toHiddenProp, toRequiredProp} from "./FormUtil";
 
 const DocumentForm: React.FunctionComponent<any> = (props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.configurationForm.accordions.documentForm'});
-    const {documentStatuses, documentTypes} = useContext(ResourcesContext);
     const {getResourcesByName} = useContext(ResourcesContext);
     let errors: FieldErrors = props.errors;
-    let required: boolean = props.validation;
-    console.log(props.activeFormData?.['documentData']?.['title'])
     let watch = props.watch;
     let activeConfiguration = props.activeConfiguration;
-
-
+    const inputFieldGroups: IFieldGroup[] = props.inputFieldGroups;
 
     //TODO: support deeper nested
     function toErrorProp(error: string) {
@@ -39,7 +33,8 @@ const DocumentForm: React.FunctionComponent<any> = (props) => {
 
     }
 
-    const testList: IInputFieldGroup[] = MOCK_DOCUMENTFIELDGROUP.map(group => {
+
+    const testList: IInputFieldGroup[] = inputFieldGroups.map(group => {
         return ({
             header: group.header,
             fields: group.fields.map(field => {
@@ -61,18 +56,6 @@ const DocumentForm: React.FunctionComponent<any> = (props) => {
         })
     })
 
-    console.log(testList)
-
-
-    //TODO: replace placeholder with kodeverk after 3.11
-    const documentFormFields: IInputField[] = [
-        {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.title", formValue: "documentData.title", required: false, error:errors.documentData?.title, value: props.activeFormData?.documentData?.title, helpText: "documentData.title"},
-        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.documentStatus", value: props.watch("documentData.documentStatus"), formValue: "documentData.documentStatus", dropDownItems: documentStatuses, required: required, error:errors.documentData?.documentStatus, helpText: "documentData.documentStatus"},
-        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.documentType", value: props.watch("documentData.documentType"), formValue: "documentData.documentType", dropDownItems: documentTypes, required: required, error:errors.documentData?.documentType, helpText: "documentData.documentType"},
-    ]
-    const objectFormFields: IInputField[] = [
-        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.variant", value: props.watch("documentData.variant"), formValue: "documentData.variant", dropDownItems: variantOptions, required: required, error:errors.documentData?.variant, helpText: "documentData.variant"}
-    ]
     return (
         <div>
             <FormGroup className={props.style.formControl}>

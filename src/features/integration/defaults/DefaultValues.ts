@@ -91,8 +91,8 @@ export const creationStrategies: ISelect[] = [
 ];
 
 export const applicantOptions: ISelect[] = [
-    {label: 'selects.applicantOptions.individual',value: 'PERSON'},
-    {label: 'selects.applicantOptions.organisation', value: 'ORGANISATION'}
+    {label: 'Privatperson',value: 'PERSON'},
+    {label: 'Organisasjon', value: 'ORGANISATION'}
 ];
 
 export const sourceApplications: ISelect[] = [

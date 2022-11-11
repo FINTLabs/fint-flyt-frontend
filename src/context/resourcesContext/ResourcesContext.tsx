@@ -1,7 +1,11 @@
 import React, { createContext, useState, FC } from "react";
 import ResourceRepository from "../../shared/repositories/ResourceRepository";
 import {contextDefaultValues, IResourceItem, ResourceContextState} from "./types";
-import {creationStrategies, dropdownPlaceholder} from "../../features/integration/defaults/DefaultValues";
+import {
+    applicantOptions,
+    creationStrategies,
+    dropdownPlaceholder
+} from "../../features/integration/defaults/DefaultValues";
 
 export const ResourcesContext = createContext<ResourceContextState>(
     contextDefaultValues
@@ -156,6 +160,7 @@ const ResourcesProvider: FC = ({ children }) => {
         if(name === 'documentStatuses') return documentStatuses;
         if(name === 'variants') return variants;
         if(name === 'creationStrategies') return creationStrategies;
+        if(name === 'applicantOptions') return applicantOptions;
         else return dropdownPlaceholder;
     }
 

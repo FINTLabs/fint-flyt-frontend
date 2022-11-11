@@ -2,7 +2,7 @@ import {IFieldGroup} from "../../features/integration/types/InputField";
 
 export const MOCK_RECORDFIELDSGROUP: IFieldGroup[] = [
     {
-        "header": "",
+        "header": "Journalpostfelter",
         "fields": [
             {
                 "input": "DROPZONE_TEXT_FIELD",
