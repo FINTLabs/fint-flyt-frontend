@@ -2,7 +2,7 @@ import {Box, Button, FormGroup, Typography} from '@mui/material';
 import React, {useContext, useEffect} from 'react';
 import InputField from "./InputField";
 import {toInputType} from "../../types/InputType.enum";
-import {IField, IFieldValue, IInputField} from "../../types/InputField";
+import {IField, IFieldValue, IInputField, IInputFieldGroup} from "../../types/InputField";
 import {CreationStrategy} from "../../types/CreationStrategy";
 import {FieldErrors} from "react-hook-form";
 import HelpPopover from "../popover/HelpPopover";
@@ -11,6 +11,7 @@ import ResourceRepository from "../../../../shared/repositories/ResourceReposito
 import {IntegrationContext} from "../../../../context/integrationContext";
 import {ResourcesContext} from "../../../../context/resourcesContext";
 import {toDisabledProp, toHiddenProp, toRequiredProp} from "./FormUtil";
+import {MOCK_DOCUMENTFIELDGROUP} from "../../../../__tests__/mock/mock_documentfieldsgroup";
 
 const FieldForm: React.FunctionComponent<any> = (props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.configurationForm.accordions.caseInformation'});
@@ -21,7 +22,6 @@ const FieldForm: React.FunctionComponent<any> = (props) => {
     let activeConfiguration = props.activeConfiguration;
     let errors: FieldErrors = props.errors
     let id = props.id;
-    console.log(id)
 
     let caseInput = props.watch("caseData.caseNumber");
     let caseInputPattern = /^((19|20)*\d{2})\/([0-9]{1,6})/g;

@@ -1,35 +1,74 @@
 import {Box, Divider, FormGroup, Typography} from '@mui/material';
 import React, {useContext} from 'react';
-import {IInputField} from "../../types/InputField";
-import {INPUT_TYPE} from "../../types/InputType.enum";
+import {IField, IFieldValue, IInputField, IInputFieldGroup} from "../../types/InputField";
+import {INPUT_TYPE, toInputType} from "../../types/InputType.enum";
 import InputField from "./InputField";
 import {FieldErrors} from "react-hook-form";
 import {ResourcesContext} from "../../../../context/resourcesContext";
 import HelpPopover from "../popover/HelpPopover";
 import { useTranslation } from 'react-i18next';
 import {variantOptions} from "../../defaults/DefaultValues";
+import {MOCK_DOCUMENTFIELDGROUP} from "../../../../__tests__/mock/mock_documentfieldsgroup";
+import {toDisabledProp, toHiddenProp, toRequiredProp} from "./FormUtil";
 
 const DocumentForm: React.FunctionComponent<any> = (props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.configurationForm.accordions.documentForm'});
     const {documentStatuses, documentTypes} = useContext(ResourcesContext);
+    const {getResourcesByName} = useContext(ResourcesContext);
     let errors: FieldErrors = props.errors;
     let required: boolean = props.validation;
     console.log(props.activeFormData?.['documentData']?.['title'])
+    let watch = props.watch;
+    let activeConfiguration = props.activeConfiguration;
+
+
+
+    //TODO: support deeper nested
+    function toErrorProp(error: string) {
+        let errorField = error.split('.');
+        return (errors?.[errorField[0]]?.[errorField[1]])
+    }
+    function toValueByFormData(input: IFieldValue, activeFormData: any, watcher: Function) {
+        if(input.source === "FORM") {
+            let valueField = input.value.split('.');
+            return (activeFormData?.[valueField[0]]?.[valueField[1]])
+        }
+        else {
+            return watcher(input.value)
+        }
+
+    }
+
+    const testList: IInputFieldGroup[] = MOCK_DOCUMENTFIELDGROUP.map(group => {
+        return ({
+            header: group.header,
+            fields: group.fields.map(field => {
+                return ({
+                    input: toInputType(field.input),
+                    label: field.label,
+                    formValue: field.formValue,
+                    value: field.value ? toValueByFormData(field.value, props.activeFormData, watch) : undefined,
+                    options: field.options ? getResourcesByName(field.options) : [],
+                    helpText: field.helpText,
+                    hidden: field.hidden ? toHiddenProp(field.hidden, watch, activeConfiguration) : undefined,
+                    error: field.error ? toErrorProp(field.error) : undefined,
+                    required: field.required ? toRequiredProp(field.required, watch, activeConfiguration, props.validation) : false,
+                    searchOption: field.searchOption ? field.searchOption : false,
+                    disabled: field.disabled ? toDisabledProp(field.disabled, activeConfiguration) : undefined
+
+                })
+            })
+        })
+    })
+
+    console.log(testList)
+
 
     //TODO: replace placeholder with kodeverk after 3.11
     const documentFormFields: IInputField[] = [
-        {input: INPUT_TYPE.DROPZONE_TEXT_FIELD,
-            label: "labels.title",
-            formValue: "documentData.title",
-            required: false,
-            error:errors.documentData?.title,
-            value: props.activeFormData?.documentData?.title,
-            helpText: "documentData.title"},
+        {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.title", formValue: "documentData.title", required: false, error:errors.documentData?.title, value: props.activeFormData?.documentData?.title, helpText: "documentData.title"},
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.documentStatus", value: props.watch("documentData.documentStatus"), formValue: "documentData.documentStatus", dropDownItems: documentStatuses, required: required, error:errors.documentData?.documentStatus, helpText: "documentData.documentStatus"},
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.documentType", value: props.watch("documentData.documentType"), formValue: "documentData.documentType", dropDownItems: documentTypes, required: required, error:errors.documentData?.documentType, helpText: "documentData.documentType"},
-//    {input: INPUT_TYPE.DROPDOWN, label: "labels.documentCategory", value: props.watch("documentData.documentCategory"), formValue: "documentData.documentCategory", dropDownItems: documentTypes, required: false, error:errors.documentData?.documentCategory, helpText: "documentData.documentCategory", disabled: true},
-    //    {input: INPUT_TYPE.DROPDOWN, label: "labels.accessCode", value: props.watch("documentData.accessCode"), formValue: "documentData.accessCode", dropDownItems: accessCodes, required: false, error:errors.documentData?.accessCode, helpText: "documentData.accessCode"},
-    //    {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.paragraph", value: props.watch("documentData.paragraph"), formValue: "documentData.paragraph", dropDownItems: paragraphs, required: false, error:errors.documentData?.paragraph, helpText: "documentData.paragraph"}
     ]
     const objectFormFields: IInputField[] = [
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.variant", value: props.watch("documentData.variant"), formValue: "documentData.variant", dropDownItems: variantOptions, required: required, error:errors.documentData?.variant, helpText: "documentData.variant"}
@@ -37,53 +76,35 @@ const DocumentForm: React.FunctionComponent<any> = (props) => {
     return (
         <div>
             <FormGroup className={props.style.formControl}>
-                <Typography>{t('documentDescription')}</Typography>
-                <Divider sx={{mb: 3}}/>
-                {documentFormFields.map((field, index) => {
-                    return (
-                        <Box sx={{display: 'flex'}} key={index}>
-                            <Box width={'100%'}>
-                                <InputField required={field.required}
-                                            error={field.error}
-                                            input={field.input}
-                                            label={field.label}
-                                            value={field.value}
-                                            formValue={field.formValue}
-                                            dropdownItems={field.dropDownItems}
-                                            setter={field.setter}
-                                            disabled={field.disabled}
-                                            {...props}
-                                />
-                            </Box>
-                            <Box>
-                                <HelpPopover popoverContent={field.helpText}/>
-                            </Box>
-                        </Box>
-                    )}
-                )}
-                <Typography>{t('objectDescription')}</Typography>
-                <Divider sx={{mb: 3}}/>
-                {objectFormFields.map((field, index) => {
-                    return (
-                        <Box sx={{display: 'flex'}} key={index}>
-                            <Box width={'100%'}>
-                                <InputField required={field.required}
-                                            error={field.error}
-                                            input={field.input}
-                                            label={field.label}
-                                            value={field.value}
-                                            formValue={field.formValue}
-                                            dropdownItems={field.dropDownItems}
-                                            setter={field.setter}
-                                            {...props}
-                                />
-                            </Box>
-                            <Box>
-                                <HelpPopover popoverContent={field.helpText}/>
-                            </Box>
-                        </Box>
-                    )}
-                )}
+                {testList.map((item, index) => {
+                    return(<>
+                            <Typography>{item.header}</Typography>
+                            <Divider sx={{mb: 3}}/>
+                            {item.fields.map((field, index) => {
+                                return (
+                                    <Box sx={{display: 'flex'}} key={index}>
+                                        <Box width={'100%'}>
+                                            <InputField required={field.required}
+                                                        error={field.error}
+                                                        input={field.input}
+                                                        label={field.label}
+                                                        value={field.value}
+                                                        formValue={field.formValue}
+                                                        dropdownItems={field.options}
+                                                        setter={field.setter}
+                                                        disabled={field.disabled}
+                                                        {...props}
+                                            />
+                                        </Box>
+                                        <Box>
+                                            <HelpPopover popoverContent={field.helpText}/>
+                                        </Box>
+                                    </Box>
+                                )
+                            })}
+                        </>
+                )
+                })}
             </FormGroup>
         </div>
     );

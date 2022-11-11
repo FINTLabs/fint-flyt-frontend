@@ -20,6 +20,10 @@ export interface IInputField {
     searchOption?: boolean;
 }
 
+export interface IInputFieldGroup {
+    header: string;
+    fields: IInputField[]
+}
 
 export interface IFieldGroup {
     header: string;

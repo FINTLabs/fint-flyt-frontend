@@ -1,5 +1,6 @@
 import {MOCK_RECORDFIELDS} from "./mock_recordfields";
 import {MOCK_CASEFIELDS} from "./mock_casefields";
+import {MOCK_DOCUMENTFIELDS} from "./mock_documentfields";
 
 export const MOCK_ACCS = [
   {
@@ -49,46 +50,7 @@ export const MOCK_ACCS = [
     "id": "document-object-form",
     "header":"Dokument- og objektbeskrivelse",
     "defaultExpanded": {"key": "completed", "value": "true"},
-    "inputFields": [
-      {
-        "input": "DROPZONE_TEXT_FIELD",
-        "label": "Tittel",
-        "value": {"source": "FORM", "value":"documentData.title"},
-        "formValue": "documentData.title",
-        "required": [
-          {"type": "null", "value": "false"}
-        ],
-        "error": "documentData.title",
-        "searchOption": false,
-        "helpText": "dokumenttittel hei hei",
-      },
-      {
-        "input": "AUTOCOMPLETE",
-        "label": "Dokumentstatus",
-        "value": {"source": "WATCH", "value":"documentData.documentStatus"},
-        "formValue": "documentData.documentStatus",
-        "options": "documentStatuses",
-        "required": [
-          {"type": "VALIDATION", "value": "true"}
-        ],
-        "error": "documentData.documentStatus",
-        "searchOption": false,
-        "helpText": "Dokumentstatus hei hei",
-      },
-      {
-        "input": "AUTOCOMPLETE",
-        "label": "Dokumenttype",
-        "value": {"source": "WATCH", "value":"documentData.documentType"},
-        "formValue": "documentData.documentType",
-        "options": "documentTypes",
-        "required": [
-          {"type": "VALIDATION", "value": "true"}
-        ],
-        "error": "documentData.documentType",
-        "searchOption": false,
-        "helpText": "dokumenttype hei hei",
-      }
-    ]
+    "inputFields": MOCK_DOCUMENTFIELDS
   },
   {
     "id": "applicant-form",
