@@ -79,7 +79,7 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.administrativeUnit", value: props.watch("caseData.administrativeUnit"), formValue: "caseData.administrativeUnit", dropDownItems: administrativeUnits, required: required && !isCollection, error:errors.caseData?.administrativeUnit, helpText: "caseData.administrativeUnit"},
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.responsibleCaseWorker", value: props.watch("caseData.caseWorker"), formValue: "caseData.caseWorker", dropDownItems: archiveResources, required: false, error:errors.caseData?.caseWorker, helpText: "caseData.caseWorker"},
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.archiveUnit", value: props.watch("caseData.archiveUnit"), formValue: "caseData.archiveUnit", dropDownItems: archiveSections, required: required && !isCollection, error:errors.caseData?.archiveUnit, helpText: "caseData.archiveUnit"},
-       /* {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.recordUnit", value: props.watch("caseData.recordUnit"), formValue: "caseData.recordUnit", dropDownItems: administrativeUnits, required: false, error:errors.caseData?.recordUnit, helpText: "caseData.recordUnit", disabled: true},*/
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.recordUnit", value: props.watch("caseData.recordUnit"), formValue: "caseData.recordUnit", dropDownItems: administrativeUnits, required: false, error:errors.caseData?.recordUnit, helpText: "caseData.recordUnit", disabled: true},
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.status", value: props.watch("caseData.status"), formValue: "caseData.status", dropDownItems: statuses, required: required && !isCollection, error:errors.caseData?.status, helpText: "caseData.status"},
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.accessCode", value: props.watch("caseData.accessCode"), formValue: "caseData.accessCode", dropDownItems: accessCodes, required: false, error:errors.caseData?.accessCode, helpText: "caseData.accessCode"},
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.paragraph", value: props.watch("caseData.paragraph"), formValue: "caseData.paragraph", dropDownItems: paragraphs, required: false, error:errors.caseData?.paragraph, helpText: "caseData.paragraph"},
@@ -114,7 +114,7 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
                                                 formValue={field.formValue}
                                                 dropdownItems={field.dropDownItems}
                                                 setter={field.setter}
-                                                disabled={field.disabled}
+                                                disabledField={field.disabled}
                                                 {...props}
                                     />
                                 </Box>
