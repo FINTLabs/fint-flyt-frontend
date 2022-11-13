@@ -88,13 +88,19 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.primaryClassification", value: props.watch("caseData.primaryClassification"), formValue: "caseData.primaryClassification", dropDownItems: classificationSystems, required: required, error:errors.caseData?.primaryClassification, setter: setPrimaryClassification, helpText: "caseData.classification"},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.primaryClass", value: props.activeFormData?.caseData.primaryClass, formValue: "caseData.primaryClass", hidden: !listOfClassificationsWithDynamicField.includes(props.watch("caseData.primaryClassification")), required: required && hasPrimary, error:errors.caseData?.primaryClass, helpText: "caseData.class"},
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.primaryClass", value: props.watch("caseData.primaryClass"), formValue: "caseData.primaryClass", hidden: listOfClassificationsWithDynamicField.includes(props.watch("caseData.primaryClassification")), dropDownItems: primaryClass, required: required && hasPrimary, error:errors.caseData?.primaryClass, helpText: "caseData.class"},
-        {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.primaryTitle", formValue: "caseData.primaryTitle", required: false, error:errors.caseData?.primaryTitle, value: props.activeFormData?.caseData?.primaryTitle, helpText: "caseData.classTitle"},
+        {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.primaryTitle", formValue: "caseData.primaryTitle", required: required && hasPrimary, error:errors.caseData?.primaryTitle, value: props.activeFormData?.caseData?.primaryTitle, helpText: "caseData.classTitle"}
+    ]
+    const secondaryClassificationFormFields: IInputField[] = [
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.secondaryClassification", value: props.watch("caseData.secondaryClassification"), formValue: "caseData.secondaryClassification", dropDownItems: classificationSystems, required: false, error:errors.caseData?.secondaryClassification, setter: setSecondaryClassification, helpText: "caseData.classification", hidden: !showSecondary},
-        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.secondaryClass", value: props.watch("caseData.secondaryClass"), formValue: "caseData.secondaryClass", dropDownItems: secondaryClass, required: required && hasSecondary, error:errors.caseData?.secondaryClass, helpText: "caseData.class", hidden: !showSecondary},
-        {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.secondaryTitle", formValue: "caseData.secondaryTitle", required: false, error:errors.caseData?.secondaryTitle, value: props.activeFormData?.caseData?.secondaryTitle, helpText: "caseData.classTitle", hidden: !showSecondary},
+        {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.secondaryClass", value: props.activeFormData?.caseData.secondaryClass, formValue: "caseData.secondaryClass", hidden: !listOfClassificationsWithDynamicField.includes(props.watch("caseData.secondaryClassification")), required: required && hasSecondary, error:errors.caseData?.secondaryClass, helpText: "caseData.class"},
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.secondaryClass", value: props.watch("caseData.secondaryClass"), formValue: "caseData.secondaryClass", hidden: listOfClassificationsWithDynamicField.includes(props.watch("caseData.secondaryClassification")), dropDownItems: secondaryClass, required: required && hasSecondary, error:errors.caseData?.secondaryClass, helpText: "caseData.class"},
+        {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.secondaryTitle", formValue: "caseData.secondaryTitle", required: required && hasSecondary, error:errors.caseData?.secondaryTitle, value: props.activeFormData?.caseData?.secondaryTitle, helpText: "caseData.classTitle", hidden: !showSecondary}
+    ]
+    const tertiaryClassificationFormFields: IInputField[] = [
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.tertiaryClassification", value: props.watch("caseData.tertiaryClassification"), formValue: "caseData.tertiaryClassification", dropDownItems: classificationSystems, required: false, error:errors.caseData?.tertiaryClassification, setter: setTertiaryClassification, helpText: "caseData.classification", hidden: !showTertiary},
-        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.tertiaryClass", value: props.watch("caseData.tertiaryClass"), formValue: "caseData.tertiaryClass", dropDownItems: tertiaryClass, required: required && hasTertiary, error:errors.caseData?.tertiaryClass, helpText: "caseData.class", hidden: !showTertiary},
-        {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.tertiaryTitle", formValue: "caseData.tertiaryTitle", required: false, error:errors.caseData?.tertiaryTitle, value: props.activeFormData?.caseData?.tertiaryTitle, helpText: "caseData.classTitle", hidden: !showTertiary},
+        {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.tertiaryClass", value: props.activeFormData?.caseData.tertiaryClass, formValue: "caseData.tertiaryClass", hidden: !listOfClassificationsWithDynamicField.includes(props.watch("caseData.tertiaryClassification")), required: required && hasTertiary, error:errors.caseData?.tertiaryClass, helpText: "caseData.class"},
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.tertiaryClass", value: props.watch("caseData.tertiaryClass"), formValue: "caseData.tertiaryClass", hidden: listOfClassificationsWithDynamicField.includes(props.watch("caseData.tertiaryClassification")), dropDownItems: tertiaryClass, required: required && hasTertiary, error:errors.caseData?.tertiaryClass, helpText: "caseData.class"},
+        {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.tertiaryTitle", formValue: "caseData.tertiaryTitle", required: required && hasTertiary, error:errors.caseData?.tertiaryTitle, value: props.activeFormData?.caseData?.tertiaryTitle, helpText: "caseData.classTitle", hidden: !showTertiary},
     ]
 
     return (
@@ -127,6 +133,54 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
                 <Typography>{t('classification')}</Typography>
                 <Divider sx={{mb: 3}}/>
                 {classificationFormFields.map((field, index) => {
+                    return (
+                        field.hidden ?
+                            <div key={index}/> :
+                            <Box sx={{display: 'flex'}} key={index}>
+                                <Box width={'100%'}>
+                                    <InputField required={field.required}
+                                                error={field.error}
+                                                input={field.input}
+                                                label={field.label}
+                                                value={field.value}
+                                                formValue={field.formValue}
+                                                dropdownItems={field.dropDownItems}
+                                                setter={field.setter}
+                                                disabled={field.disabled}
+                                                {...props}
+                                    />
+                                </Box>
+                                <Box>
+                                    <HelpPopover popoverContent={field.helpText}/>
+                                </Box>
+                            </Box>
+                    )}
+                )}
+                {showSecondary && secondaryClassificationFormFields.map((field, index) => {
+                    return (
+                        field.hidden ?
+                            <div key={index}/> :
+                            <Box sx={{display: 'flex'}} key={index}>
+                                <Box width={'100%'}>
+                                    <InputField required={field.required}
+                                                error={field.error}
+                                                input={field.input}
+                                                label={field.label}
+                                                value={field.value}
+                                                formValue={field.formValue}
+                                                dropdownItems={field.dropDownItems}
+                                                setter={field.setter}
+                                                disabled={field.disabled}
+                                                {...props}
+                                    />
+                                </Box>
+                                <Box>
+                                    <HelpPopover popoverContent={field.helpText}/>
+                                </Box>
+                            </Box>
+                    )}
+                )}
+                {showTertiary && tertiaryClassificationFormFields.map((field, index) => {
                     return (
                         field.hidden ?
                             <div key={index}/> :
