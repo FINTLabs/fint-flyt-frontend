@@ -18,15 +18,19 @@ export interface IInputField {
     lockIcon?: boolean;
     setter?: (item: IResourceItem) => void;
     searchOption?: boolean;
+    fields?: IInputField[];
+    checked?: boolean;
 }
 
 export interface IInputFieldGroup {
-    header: string;
+    header: string | undefined;
+    hidden?:boolean;
     fields: IInputField[]
 }
 
 export interface IFieldGroup {
-    header: string;
+    header?: string;
+    hidden?: IDependency
     fields: IField[];
 }
 
@@ -44,6 +48,8 @@ export interface IField {
     lockIcon?: boolean;
     setter?: (item: IResourceItem) => void;
     searchOption?: boolean;
+    fields?: IField[];
+    checked?: IFieldValue;
 }
 
 export interface ISelect {

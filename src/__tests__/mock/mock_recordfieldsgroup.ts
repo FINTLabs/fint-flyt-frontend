@@ -2,7 +2,6 @@ import {IFieldGroup} from "../../features/integration/types/InputField";
 
 export const MOCK_RECORDFIELDSGROUP: IFieldGroup[] = [
     {
-        "header": "Journalpostfelter",
         "fields": [
             {
                 "input": "DROPZONE_TEXT_FIELD",
@@ -22,7 +21,7 @@ export const MOCK_RECORDFIELDSGROUP: IFieldGroup[] = [
                 "value": {"source": "FORM", "value":"recordData.publicTitle"},
                 "formValue": "recordData.publicTitle",
                 "required": [
-                    {"type": "null", "value": "false"}
+                    {"type": "VALIDATION", "value": "false"}
                 ],
                 "error": "recordData.publicTitle",
                 "searchOption": false,
@@ -35,7 +34,7 @@ export const MOCK_RECORDFIELDSGROUP: IFieldGroup[] = [
                 "formValue": "recordData.recordType",
                 "options": "recordTypes",
                 "required": [
-                    {"type": "null", "value": "false"}
+                    {"type": "VALIDATION", "value": "false"}
                 ],
                 "error": "recordData.recordType",
                 "searchOption": false,
@@ -61,7 +60,7 @@ export const MOCK_RECORDFIELDSGROUP: IFieldGroup[] = [
                 "formValue": "recordData.caseWorker",
                 "options": "archiveResources",
                 "required": [
-                    {"type": "null", "value": "false"}
+                    {"type": "VALIDATION", "value": "false"}
                 ],
                 "error": "recordData.caseWorker",
                 "searchOption": false,
@@ -87,7 +86,7 @@ export const MOCK_RECORDFIELDSGROUP: IFieldGroup[] = [
                 "formValue": "recordData.accessCode",
                 "options": "accessCodes",
                 "required": [
-                    {"type": "null", "value": "false"}
+                    {"type": "VALIDATION", "value": "false"}
                 ],
                 "error": "recordData.accessCode",
                 "searchOption": false,
@@ -100,7 +99,7 @@ export const MOCK_RECORDFIELDSGROUP: IFieldGroup[] = [
                 "formValue": "recordData.paragraph",
                 "options": "paragraphs",
                 "required": [
-                    {"type": "null", "value": "false"}
+                    {"type": "VALIDATION", "value": "false"}
                 ],
                 "error": "recordData.paragraph",
                 "searchOption": false,

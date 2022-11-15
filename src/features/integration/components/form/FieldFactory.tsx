@@ -1,8 +1,8 @@
-import {Box, Button, Checkbox, Divider, FormControlLabel, FormGroup, Typography} from '@mui/material';
+import {Box, Button, Divider, FormGroup, Typography} from '@mui/material';
 import React, {useContext, useEffect} from 'react';
 import InputField from "./InputField";
 import {toInputType} from "../../types/InputType.enum";
-import {IFieldGroup, IFieldValue, IInputFieldGroup} from "../../types/InputField";
+import {IFieldGroup, IInputFieldGroup} from "../../types/InputField";
 import {CreationStrategy} from "../../types/CreationStrategy";
 import {FieldErrors} from "react-hook-form";
 import HelpPopover from "../popover/HelpPopover";
@@ -28,7 +28,8 @@ const FieldFactory: React.FunctionComponent<any> = (props) => {
 
     const testList: IInputFieldGroup[] = inputFieldGroups.map(group => {
         return ({
-            header: group.header,
+            header: group.header ? group.header : undefined,
+            hidden: group.hidden ? toHiddenProp(group.hidden, watch, activeConfiguration) : undefined,
             fields: group.fields.map(field => {
                 return ({
                     input: toInputType(field.input),
@@ -41,15 +42,12 @@ const FieldFactory: React.FunctionComponent<any> = (props) => {
                     error: field.error ? toErrorProp(field.error, errors) : undefined,
                     required: field.required ? toRequiredProp(field.required, watch, activeConfiguration, props.validation) : false,
                     searchOption: field.searchOption ? field.searchOption : false,
-                    disabled: field.disabled ? toDisabledProp(field.disabled, activeConfiguration) : undefined
-
+                    disabled: field.disabled ? toDisabledProp(field.disabled, activeConfiguration) : undefined,
+                    checked: field.checked ? toValueByFormData(field.checked, props.activeFormData, watch) : false
                 })
             })
         })
     })
-
-    console.log(testList)
-
 
     useEffect(() => {
         if(caseInput) {
@@ -94,12 +92,12 @@ const FieldFactory: React.FunctionComponent<any> = (props) => {
 
     return (
         <div>
-            <FormGroup id="case-information" className={props.style.formControl} sx={{mt: 4}}>
+            <FormGroup id="case-information" className={props.style.formControl}>
                 {testList.map((item, index) => {
-                    return(
+                    return item.hidden ? <></> : (
                         <Box key={index}>
-                            <Typography>{item.header}</Typography>
-                            <Divider sx={{mb: 3}}/>
+                            {item.header && <Typography>{item.header}</Typography>}
+                            {item.header && <Divider sx={{mb: 3}}/>}
                             {item.fields.map((field, index) => {
                                     return (
                                         field.hidden ?
@@ -113,10 +111,13 @@ const FieldFactory: React.FunctionComponent<any> = (props) => {
                                                                 input={field.input}
                                                                 label={field.label}
                                                                 value={field.value}
+                                                                sets={props.protectedCheck}
                                                                 formValue={field.formValue}
                                                                 dropdownItems={field.options}
                                                                 radioOptions={field.options}
                                                                 disabled={field.disabled}
+                                                                setter={props.setProtectedChecked}
+                                                                setValue={props.setValue}
                                                                 {...props}
                                                     />
                                                 </Box>
@@ -130,24 +131,13 @@ const FieldFactory: React.FunctionComponent<any> = (props) => {
                                     );
                                 }
                             )}
-                        </Box>)
+                            <>
+                                {id === 'case-information' && isCollection && _case ? <Typography id="case-information-case-search-result" sx={{mb:2}}>{_case}</Typography> : ''}
+                            </>
+                        </Box>
+                    )
                 })}
-                {id === 'case-information' && isCollection && _case ? <Typography id="case-information-case-search-result" sx={{mb:2}}>{_case}</Typography> : ''}
             </FormGroup>
-            {id==='applicant-form' &&
-                <FormGroup sx={{ ml: 2, mb: 2, flexDirection: 'row'}} >
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                disabled={props.disabled}
-                                id="form-complete"
-                                checked={props.protectedCheck}
-                                onChange={event => props.setProtectedChecked(event.target.checked)}
-                                inputProps={{ 'aria-label': 'completed-checkbox' }}/>}
-                        label="Skjermet"
-                    />
-                    <HelpPopover popoverContent={"Skjerming av avsender, krever tilgangskode og skjermingshjemmel"}/>
-                </FormGroup>}
         </div>
     );
 }

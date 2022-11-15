@@ -2,7 +2,6 @@ import {IFieldGroup} from "../../features/integration/types/InputField";
 
 export const MOCK_CASEFIELDGROUP: IFieldGroup[] = [
     {
-        "header": "Saksposter",
         "fields": [
             {
                 "input": "DROPZONE_TEXT_FIELD",
@@ -142,6 +141,20 @@ export const MOCK_CASEFIELDGROUP: IFieldGroup[] = [
     },
     {
         "header": "Klassering",
-        "fields": []
+        "fields": [
+            {
+                "input": "AUTOCOMPLETE",
+                "label": "Primærordningsprinsipp",
+                "value": {"source": "WATCH", "value": "caseData.primaryClassification"},
+                "formValue": "caseData.primaryClassification",
+                "options": "classificationSystems",
+                "required": [
+                    {"type": "VALIDATION", "value": "true"},
+                ],
+                "error": "caseData.primaryClassification",
+                "searchOption": false,
+                "helpText": ""
+            }
+        ]
     }
 ]

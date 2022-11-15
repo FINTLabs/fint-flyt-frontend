@@ -39,7 +39,7 @@ import {IConfigurationPatch, newIConfiguration} from "./types/Configuration";
 import ConfigurationRepository from "../../shared/repositories/ConfigurationRepository";
 import IntegrationRepository from "../../shared/repositories/IntegrationRepository";
 import {IIntegrationPatch, IntegrationState} from "./types/Integration";
-import {MOCK_ACCS} from "../../__tests__/mock/mock_accordions";
+import {MOCK_ACCS, MOCK_ACCS1} from "../../__tests__/mock/mock_accordions";
 import {toExpandedProp, toHiddenProp} from "./components/form/FormUtil";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -129,7 +129,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     const {handleSubmit, watch, setValue, control, reset, formState} = useForm<any>({defaultValues: activeFormData, reValidateMode: 'onChange'});
     const { errors } = formState;
     const accordionList: IAccordion[] = MOCK_ACCS.map(accordion => {
-        return ({id: accordion.id, header: accordion.header, defaultExpanded: toExpandedProp(accordion.defaultExpanded, activeConfiguration), hidden: accordion.hidden ? toHiddenProp(accordion.hidden, watch, activeConfiguration) : undefined, inputFields: accordion.inputFields, inputFieldGroups: accordion.inputFieldGroups})
+        return ({id: accordion.id, header: accordion.header, defaultExpanded: toExpandedProp(accordion.defaultExpanded, activeConfiguration), hidden: accordion.hidden ? toHiddenProp(accordion.hidden, watch, activeConfiguration) : undefined, inputFieldGroups: accordion.inputFieldGroups})
     });
 
     const handleCheckChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -244,6 +244,9 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
         setSaveError(false);
     };
 
+    console.log(watch('applicantData.protected'))
+    console.log(protectedCheck)
+
     const snackbarAction = (
         <React.Fragment>
             <Button color="secondary" size="small" onClick={handleSnackbarClose}>{t('button.close')}</Button>
@@ -262,7 +265,6 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
             data.caseData.caseNumber = caseNumber
         }
         data.completed = true;
-        data.applicantData.protected = protectedCheck;
         const configuration: newIConfiguration = toNewConfiguration(data, activeIntegration?.id, activeConfigId, selectedMetadata.id);
         if (configuration && activeConfigId !== undefined) {
             const iConfiguration: newIConfiguration = toConfigurationPatch(data, selectedMetadata.id);
@@ -287,7 +289,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
             data.caseData.caseNumber = caseNumber
         }
         data.completed = false;
-        data.applicantData.protected = protectedCheck;
+        console.log(data)
         const configuration: newIConfiguration = toNewConfiguration(data, activeIntegration?.id, activeConfigId, selectedMetadata.id);
         if (configuration && activeConfigId !== undefined) {
             const iConfiguration: newIConfiguration = toConfigurationPatch(data, selectedMetadata.id);
@@ -319,7 +321,6 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                                 return (
                                     <AccordionForm
                                         id={accordion.id}
-                                        inputFields={accordion.inputFields}
                                         inputFieldGroups={accordion.inputFieldGroups}
                                         activeFormData={activeFormData}
                                         activeConfiguration={activeConfiguration}

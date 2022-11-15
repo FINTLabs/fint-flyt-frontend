@@ -2,7 +2,6 @@ import {IFieldGroup} from "../../features/integration/types/InputField";
 
 export const MOCK_APPLICANTFIELDGROUP: IFieldGroup[] = [
     {
-        "header": "Avsender",
         "fields": [
             {
                 "input": "RADIO",
@@ -125,15 +124,34 @@ export const MOCK_APPLICANTFIELDGROUP: IFieldGroup[] = [
                 "helpText": "",
             },
             {
+                "input": "CHECKBOX",
+                "label": "Skjermet",
+                "checked": {"source": "WATCH", "value":"applicantData.protected"},
+                "formValue": "applicantData.protected",
+                "required": [
+                    {"type": "VALIDATION", "value": "false"}
+                ],
+                "error": "applicantData.protected",
+                "searchOption": false,
+                "helpText": "",
+            }
+        ]
+    }
+    ,
+    {
+        "header": "Skjerming",
+        "hidden": {"type": "BOOLEAN_FIELD", "key": "applicantData.protected", "value": "false"},
+        "fields": [
+            {
                 "input": "AUTOCOMPLETE",
                 "label": "Tilgangskode",
-                "value": {"source": "WATCH", "value":"caseData.accessCode"},
-                "formValue": "caseData.accessCode",
+                "value": {"source": "WATCH", "value":"applicantData.accessCode"},
+                "formValue": "applicantData.accessCode",
                 "options": "accessCodes",
                 "required": [
-                    {"type": "null", "value": "false"}
+                    {"type": "BOOLEAN_FIELD", "key": "applicantData.protected", "value": "true"}
                 ],
-                "error": "caseData.accessCode",
+                "error": "applicantData.accessCode",
                 "searchOption": false,
                 "helpText": "",
             },
@@ -144,7 +162,7 @@ export const MOCK_APPLICANTFIELDGROUP: IFieldGroup[] = [
                 "formValue": "applicantData.paragraph",
                 "options": "paragraphs",
                 "required": [
-                    {"type": "null", "value": "false"}
+                    {"type": "BOOLEAN_FIELD", "key": "applicantData.protected", "value": "true"}
                 ],
                 "error": "applicantData.paragraph",
                 "searchOption": false,

@@ -1,5 +1,5 @@
 import {
-    Autocomplete, createFilterOptions,
+    Autocomplete, Checkbox, createFilterOptions,
     FormControl, FormControlLabel,
     FormLabel,
     MenuItem, Radio,
@@ -26,7 +26,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
     const filterOptions = createFilterOptions({
         matchFrom: 'any',
         stringify: (option: ISelect) => option.label,
-        limit: 250
+        limit: 500
     });
     let errorMessage: string = t('errorMessage') + props.label;
     if (props.input === INPUT_TYPE.DROPDOWN) {
@@ -161,6 +161,22 @@ const InputField: React.FunctionComponent<any> = (props) => {
                 rules={{ required: { value: props.required, message: errorMessage }} }
             />
         )
+    }
+    else if (props.input === INPUT_TYPE.CHECKBOX) {
+        return (
+            <FormControlLabel
+                control={
+                    <Checkbox
+                        disabled={props.disabled}
+                        id={props.formValue}
+                        checked={props.sets}
+                        onChange={(event) => {
+                            props.setter(event.target.checked)
+                            props.setValue('applicantData.protected', event.target.checked)
+                        }}
+                        inputProps={{ 'aria-label': 'completed-checkbox' }}/>}
+                label={props.label}
+            />        )
     }
     else {
         return (

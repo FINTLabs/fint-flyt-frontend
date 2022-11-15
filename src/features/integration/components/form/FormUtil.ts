@@ -10,6 +10,9 @@ export function toHiddenProp(dep: IDependency, watcher: Function, activeConfig?:
     if(dep.type === 'NOT_FIELD') {
         return watcher(dep.key) !== dep.value
     }
+    if(dep.type === 'BOOLEAN_FIELD') {
+        return watcher(dep.key) === JSON.parse(dep.value)
+    }
     else if(dep.type === "STATE") {
         return !!activeConfig?.completed
     }
@@ -46,8 +49,11 @@ export function toRequiredProps(dep: IDependency, watcher: Function, activeConfi
     if(dep.type === "FIELD") {
         return watcher(dep.key) === dep.value;
     }
-    if(dep.type === "VALIDATION") {
+    if(dep.type === "VALIDATION" && dep.value === "true") {
         return completeCheck;
+    }
+    if(dep.type === 'BOOLEAN_FIELD') {
+        return watcher(dep.key) === JSON.parse(dep.value)
     }
     else if(dep.type === 'NOT_FIELD') {
         return watcher(dep.key) !== dep.value
