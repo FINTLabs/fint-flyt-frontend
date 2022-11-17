@@ -38,7 +38,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                     <TextField
                         id={props.formValue}
                         select
-                        disabled={props.disabled}
+                        disabled={props.disabled || props.disabledField}
                         size="small"
                         sx={{ mb: 3, width: 'inherit' }}
                         value={props.value}
@@ -98,7 +98,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                 render={({ field: { onChange } }) => (
                     <Autocomplete
                         id={props.formValue}
-                        disabled={props.disabled}
+                        disabled={props.disabled || props.disabledField}
                         sx={{ mb: 3 }}
                         filterOptions={filterOptions}
                         options={dropdowns}
@@ -136,7 +136,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                 setValue={props.setValue}
                 formValue={props.formValue}
                 required={props.required}
-                disabled={props.disabled}
+                disabled={props.disabled || props.disabledField}
             />
         )
     }
@@ -148,7 +148,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                 defaultValue=""
                 render={({ field: { onChange, onBlur, value } }) => (
                     <TextareaAutosize
-                        disabled={props.disabled}
+                        disabled={props.disabled || props.disabledField}
                         id={props.formValue}
                         placeholder={props.required ? (t(props.label)) +'*' : t(props.label)}
                         onChange={onChange}
@@ -186,7 +186,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                 defaultValue=""
                 render={({ field: { onChange, onBlur, value } }) => (
                     <TextField
-                        disabled={props.disabled}
+                        disabled={props.disabled || props.disabledField}
                         id={props.formValue}
                         label={props.required ? props.label +'*' : props.label}
                         size="small"
