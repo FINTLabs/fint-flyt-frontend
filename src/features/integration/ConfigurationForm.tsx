@@ -25,7 +25,6 @@ import {CreationStrategy} from "./types/CreationStrategy";
 import {newToFormData} from "../util/mapping/ToFormData";
 import {ResourcesContext} from "../../context/resourcesContext";
 import {IntegrationContext} from "../../context/integrationContext";
-import {IntegrationForm} from "./components/IntegrationForm";
 import CloseIcon from '@mui/icons-material/Close';
 import {useTranslation} from "react-i18next";
 import InputField from "./components/form/InputField";
@@ -306,7 +305,6 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
 
     return (
         <DndProvider backend={HTML5Backend}>
-            {!existingIntegration && !newIntegration && <IntegrationForm/>}
             {!submitSuccess && (existingIntegration || newIntegration) &&
                 <Box display="flex" position="relative" width={1} height={1}>
                     <Box>
