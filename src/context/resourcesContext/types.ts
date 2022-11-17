@@ -6,6 +6,7 @@ export interface IResourceItem {
 export type ResourceContextState = {
     administrativeUnits: IResourceItem[];
     accessCodes: IResourceItem[];
+    caseTypes: IResourceItem[];
     paragraphs: IResourceItem[];
     statuses: IResourceItem[];
     archiveSections: IResourceItem[];
@@ -33,11 +34,15 @@ export type ResourceContextState = {
     getPrimaryClass: () => void;
     getSecondaryClass: () => void;
     getTertiaryClass: () => void;
+    setPrimaryClass: (primary: IResourceItem[]) => void;
+    setSecondaryClass: (primary: IResourceItem[]) => void;
+    setTertiaryClass: (primary: IResourceItem[]) => void;
 };
 
 export const contextDefaultValues: ResourceContextState = {
     administrativeUnits: [],
     accessCodes: [],
+    caseTypes: [],
     paragraphs: [],
     statuses: [],
     archiveSections: [],
@@ -62,4 +67,7 @@ export const contextDefaultValues: ResourceContextState = {
     getPrimaryClass: () => {},
     getSecondaryClass: () => {},
     getTertiaryClass: () => {},
+    setPrimaryClass: (primary: IResourceItem[]) => {},
+    setSecondaryClass: (primary: IResourceItem[]) => {},
+    setTertiaryClass: (primary: IResourceItem[]) => {}
 };

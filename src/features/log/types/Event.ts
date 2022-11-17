@@ -5,6 +5,7 @@ export interface IEvent {
     timeStamp: string | Date;
     type: string;
     errors: IError[];
+    displayName?: string;
     instanceFlowHeaders: IInstanceFlowHeadersEmbeddable;
 }
 
@@ -28,10 +29,7 @@ export interface IError {
 }
 
 export interface errorArgs {
-    mappingField?: string;
-    instanceField?: string;
-    configurationField?: string;
-    status?: string;
+    instanceFieldKey?: string;
     fieldPath?: string;
     errorMessage?: string;
 }

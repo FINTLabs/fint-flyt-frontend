@@ -2,11 +2,11 @@ import {IEvent} from "../../features/log/types/Event";
 
 export type HistoryContextState = {
     events: IEvent[] | undefined,
-    getEvents: () => void;
+    getEvents: (page: number, size: number, sortProperty: string, sortDirection: string) => void;
     latestInstances: IEvent[] | undefined,
-    getLatestInstances: () => void;
+    getLatestInstances: (page: number, size: number, sortProperty: string, sortDirection: string) => void;
     selectedInstances: IEvent[] | undefined,
-    getSelectedInstances: (sourceApplicationId: string, instanceId: string) => void;
+    getSelectedInstances: (page: number, size: number, sortProperty: string, sortDirection: string, sourceApplicationId: string, instanceId: string) => void;
 }
 
 export const contextDefaultValues: HistoryContextState = {
@@ -15,5 +15,5 @@ export const contextDefaultValues: HistoryContextState = {
     getEvents: () => {},
     getLatestInstances: () => {},
     selectedInstances: undefined,
-    getSelectedInstances: (sourceApplicationId: string, instanceId: string) => {}
+    getSelectedInstances: (page: number, size: number, sortProperty: string, sortDirection: string, sourceApplicationId: string, instanceId: string) => {}
 };

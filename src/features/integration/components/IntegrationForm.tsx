@@ -46,7 +46,7 @@ export const IntegrationForm: React.FunctionComponent<any> = (props) => {
 
 
     useEffect(() => {
-        getAllMetadata();
+        getAllMetadata(true);
         getAvailableForms();
     }, [sourceApplication, setSourceApplication])
 
@@ -99,7 +99,7 @@ export const IntegrationForm: React.FunctionComponent<any> = (props) => {
                         <Autocomplete
                             sx={{ minWidth:'520px', mb: 3}}
                             id='sourceApplicationIntegrationId'
-                            options={sourceApplication && availableForms.forms ? availableForms.forms : [{label: 'Velg skjemaleverandør først', value: 'null'}]}
+                            options={sourceApplication && availableForms.forms ? availableForms.forms : [{label: 'Velg kildeapplikasjon først', value: 'null'}]}
                             renderInput={params => (
                                 <TextField {...params}
                                            size="small"

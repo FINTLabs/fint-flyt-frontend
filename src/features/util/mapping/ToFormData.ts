@@ -11,6 +11,7 @@ export function newToFormData(data: newIConfiguration): IFormConfiguration {
         comment: data.comment,
         completed: data.completed,
         caseData: {
+            caseNumber: configurationFieldToString(caseFields, 'saksnummer'),
             title: configurationFieldToString(caseFields, 'tittel'),
             publicTitle: configurationFieldToString(caseFields, 'offentligTittel'),
             recordUnit: configurationFieldToString(caseFields, 'journalenhet'),
@@ -34,8 +35,7 @@ export function newToFormData(data: newIConfiguration): IFormConfiguration {
         },
         recordData: {
             title: configurationFieldToString(recordFields, 'tittel'),
-            publicTitle: configurationFieldToString(recordFields, 'offentigTittel'),
-            documentType: configurationFieldToString(recordFields, 'DokumentBeskrivelse.dokumentType'),
+            publicTitle: configurationFieldToString(recordFields, 'offentligTittel'),
             administrativeUnit: configurationFieldToString(recordFields, 'administrativenhet'),
             recordStatus: configurationFieldToString(recordFields, 'journalstatus'),
             recordType: configurationFieldToString(recordFields, 'journalposttype'),
@@ -46,11 +46,9 @@ export function newToFormData(data: newIConfiguration): IFormConfiguration {
         documentData: {
             title: configurationFieldToString(documentFields, 'tittel'),
             documentStatus: configurationFieldToString(documentFields, 'dokumentStatus'),
+            documentType: configurationFieldToString(documentFields, 'dokumentType'),
             //TODO: whats the correct name for this configField?
-            documentCategory: configurationFieldToString(documentFields, 'DokumentBeskrivelse.dokumentKategori'),
-            accessCode: configurationFieldToString(documentFields, 'tilgangsrestriksjon'),
-            paragraph: configurationFieldToString(documentFields, 'skjermingshjemmel'),
-            variant: configurationFieldToString(documentFields, 'DokumentBeskrivelse.dokumentObjekt.variantFormat'),
+            variant: configurationFieldToString(documentFields, 'dokumentObjekt.variantFormat'),
         },
         applicantData: {
             protected: configurationFieldToBoolean(applicantFields, 'protected'),

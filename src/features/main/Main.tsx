@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import {
     AppBar, Badge,
     Box,
@@ -13,12 +13,9 @@ import FintLogo from "../../images/fint-by-vigo-white.svg";
 import { createStyles, makeStyles } from "@mui/styles";
 import Router from "./Router";
 import MenuItems from "./MenuItems";
-import {Link as RouterLink, useHistory} from "react-router-dom";
+import {Link as RouterLink} from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import createAuthRefreshInterceptor from "axios-auth-refresh";
-import axios, {AxiosError, AxiosResponse} from "axios";
-import { useIdleTimer } from 'react-idle-timer';
-import SourceApplicationRepository from "../../shared/repositories/SourceApplicationRepository";
+import {IntegrationContext} from "../../context/integrationContext";
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme: Theme) =>
@@ -79,46 +76,14 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function Main() {
     const classes = useStyles();
-    const nav = useHistory();
     const { t, i18n } = useTranslation();
     const changeLanguage = (lng: string) => {
         i18n.changeLanguage(lng);
     };
 
-    const redirect = async (f: any) => {
-        nav.push('/oauth2/sign_out')
-        window.location.reload();
-    };
-
-    createAuthRefreshInterceptor(axios, redirect, {
-        statusCodes: [ 401, 403 ]
-    });
-
-    const handleOnIdle = () => {
-       // console.log('user is idle');
-    };
-
-    //TODO:
-    const handleOnActive = (event: any) => {
-        SourceApplicationRepository.getMetadata("1")
-            .then((result: AxiosResponse) => {
-                if (result.status === 200 && !result.data.content && window.location.origin.includes('viken-no-skjema')) {
-                   // console.log('We\'re still authenticated, no content, trigger reload');
-                    window.location.href = 'https://viken-no-skjema.vigoiks.no/oauth2/start?rd=%2F'
-                } else {
-                   // console.log('authenticated, has content')
-                }
-            })
-            .catch((reason: AxiosError) => {
-                console.log('error: ', reason)
-            });
-    };
-    useIdleTimer({
-        timeout: 9000,
-        onIdle: handleOnIdle,
-        onActive: handleOnActive,
-        debounce: 500,
-    });
+    const {statistics} = useContext(IntegrationContext)
+    let totalErrors = 0;
+    statistics?.map((stat: any) => {totalErrors += stat.currentErrors})
 
 
     return (
@@ -134,9 +99,9 @@ function Main() {
                         {i18n.language === 'en' && <Button size="small" variant="contained" onClick={() => changeLanguage("no")}>{t('language.norwegian')}</Button>}
                     </Box>*/}
                     <Badge className={classes.badge}
-                        badgeContent={"5"}
+                        badgeContent={totalErrors}
                         color="secondary"
-                        component={RouterLink} to="/log">
+                        component={RouterLink} to="/integration/instance/list">
                         <NotificationsIcon htmlColor={"white"} />
                     </Badge>
                 </Toolbar>

@@ -18,28 +18,34 @@ const SourceApplicationProvider: FC = ({children}) => {
 
 
     const getAvailableForms = () => {
-        SourceApplicationRepository.getMetadata(sourceApplication !== null ? sourceApplication.toString() : "1")
+        SourceApplicationRepository.getMetadata(sourceApplication !== null ? sourceApplication.toString() : "1", true)
             .then(response => {
                 let data = response.data
-                let selects: ISelect[] = [];
-                data.forEach((value: any) => {
-                    selects.push({value: value.sourceApplicationIntegrationId, label: value.integrationDisplayName})
-                })
-                getAllForms(selects)
+                if (data) {
+                    let selects: ISelect[] = [];
+                    data.forEach((value: any) => {
+                        selects.push({value: value.sourceApplicationIntegrationId, label: '['+value.sourceApplicationIntegrationId+'] '+ value.integrationDisplayName})
+                    })
+                    getAllForms(selects)
+                }
             })
             .catch((err) => {
                 console.error(err);
             })
     }
 
-    const getAllMetadata = () => {
+    const getAllMetadata = (onlyLatest: boolean) => {
         if (sourceApplication) {
-            SourceApplicationRepository.getMetadata(sourceApplication.toString())
+            SourceApplicationRepository.getMetadata(sourceApplication.toString(), onlyLatest)
                 .then(response => {
                     let data: IIntegrationMetadata[] = response.data
-                    setAllMetadata(data)
+                    if (data) {
+                        setAllMetadata(data)
+                    }
                 })
                 .catch((err) => {
+                    setAllMetadata(contextDefaultValues.allMetadata)
+                    setAvailableForms({sourceApplicationDisplayName: '', sourceApplicationId: '1', forms: [{value: 'null', label: 'No options'}]})
                     console.error(err);
                 })
         }
@@ -49,25 +55,32 @@ const SourceApplicationProvider: FC = ({children}) => {
         SourceApplicationRepository.getInstanceElementMetadata(metadataId)
             .then(response => {
                 let data: IInstanceElementMetadata = response.data
-                setInstanceElementMetadata(data)
+                if(data) {
+                    setInstanceElementMetadata(data)
+                }
             })
             .catch((err) => {
+                setInstanceElementMetadata(undefined)
                 console.error(err)
             })
     }
 
     //TODO: get all forms from sourceApplication when available
     const getAllForms = (forms: ISelect[]) => {
-        IntegrationRepository.getIntegrations()
+        IntegrationRepository.getAllIntegrations()
             .then(response => {
-                let ids: string[] = response.data.map((config: any) => config.sourceApplicationIntegrationId)
-                let selectableForms = forms.filter(form => !ids.includes(form.value));
-                if(sourceApplication !== null) {
-                    setAvailableForms({sourceApplicationDisplayName: getSourceApplicationDisplayName(sourceApplication), sourceApplicationId: sourceApplication.toString(), forms: selectableForms})
+                let data = response.data;
+                if (data) {
+                    let ids: string[] = data.map((config: any) => config.sourceApplicationIntegrationId)
+                    let selectableForms = forms.filter(form => !ids.includes(form.value));
+                    if(sourceApplication !== null) {
+                        setAvailableForms({sourceApplicationDisplayName: getSourceApplicationDisplayName(sourceApplication), sourceApplicationId: sourceApplication.toString(), forms: selectableForms})
+                    }
                 }
             })
             .catch((err) => {
                 console.error(err);
+                setAvailableForms({sourceApplicationDisplayName: '', sourceApplicationId: '1', forms: [{value: 'null', label: 'No options'}]})
             })
     }
 

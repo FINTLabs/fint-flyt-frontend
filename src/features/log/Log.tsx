@@ -39,19 +39,18 @@ function Log() {
         { field: 'timestamp', type: 'string', headerName: 'Tidspunkt', flex: 1,
             valueGetter: (params) => moment(params.row.timestamp as string).format('YYYY/MM/DD HH:mm')
         },
-        { field: 'sourceApplicationIntegrationId', type: 'string', headerName: 'Skjema', flex: 1,
+        { field: 'sourceApplicationIntegrationId', type: 'string', headerName: 'Integrasjon', flex: 1,
             valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplicationIntegrationId}
     ];
 
 
     useEffect(()=> {
-        getEvents();
+        getEvents(0, 10000, "timestamp", "DESC");
     }, []);
 
     return (
         <Box sx={{ width: 1, height: 900 }}>
-            {/*TODO: remove header*/}
-            <Typography>{t('header')} (NB! UNDER UTVIKLING, DEMO) </Typography>
+            <Typography>{t('header')}</Typography>
             <AlertDialog row={selectedRow}/>
             <DataGrid
                 columns={columns}
@@ -121,10 +120,7 @@ function Log() {
                                                 //TODO: 01/09-22 fix translation file with corresponding error codes
                                                 valueGetter: (params) => {
                                                     return (stringReplace(t(params.row.errorCode),  [
-                                                        {type: ErrorType.MAPPING_FIELD, value: params.row.args.mappingField},
-                                                        {type: ErrorType.CONFIGURATION_FIELD, value: params.row.args.configurationField},
-                                                        {type: ErrorType.INSTANCE_FIELD, value: params.row.args.instanceField},
-                                                        {type: ErrorType.STATUS, value: params.row.args.status},
+                                                        {type: ErrorType.INSTANCE_FIELD_KEY, value: params.row.args.instanceField},
                                                         {type: ErrorType.FIELD_PATH, value: params.row.args.fieldPath},
                                                         {type: ErrorType.ERROR_MESSAGE, value: params.row.args.errorMessage}
                                                     ]))

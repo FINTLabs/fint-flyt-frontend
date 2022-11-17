@@ -13,60 +13,57 @@ export const defaultConfigurationValues: IFormConfiguration = {
     completed: false,
     caseData: {
         caseCreationStrategy: CreationStrategy.NEW,
-        caseNumber: '',
-        title: '',
-        publicTitle: '',
-        caseType: '',
-        administrativeUnit:'',
-        archiveUnit:'',
-        recordUnit: '',
-        status: '',
-        accessCode: '',
-        paragraph: '',
-        caseWorker: '',
-        primaryClassification: '',
-        secondaryClassification: '',
-        tertiaryClassification: '',
-        primaryClass: '',
-        secondaryClass: '',
-        tertiaryClass: '',
-        primaryTitle: '',
-        secondaryTitle: '',
-        tertiaryTitle: ''
+        caseNumber: undefined,
+        title: null,
+        publicTitle: null,
+        caseType: null,
+        administrativeUnit:null,
+        archiveUnit:null,
+        recordUnit: null,
+        status: null,
+        accessCode: null,
+        paragraph: null,
+        caseWorker: null,
+        primaryClassification: null,
+        secondaryClassification: null,
+        tertiaryClassification: null,
+        primaryClass: null,
+        secondaryClass: null,
+        tertiaryClass: null,
+        primaryTitle: null,
+        secondaryTitle: null,
+        tertiaryTitle: null
     },
     recordData: {
-        title: '',
-        publicTitle: '',
-        documentType: '',
-        administrativeUnit: '',
-        recordStatus: '',
-        recordType: '',
-        caseWorker: '',
-        accessCode: '',
-        paragraph: ''
+        title: null,
+        publicTitle: null,
+        administrativeUnit: null,
+        recordStatus: null,
+        recordType: null,
+        caseWorker: null,
+        accessCode: null,
+        paragraph: null
     },
     documentData: {
-        title: '',
-        documentStatus: '',
-        documentCategory: '',
-        accessCode: '',
-        paragraph: '',
-        variant: ''
+        title: null,
+        documentStatus: null,
+        documentType: null,
+        variant: null
     },
     applicantData: {
         protected: false,
         type: ApplicantType.PERSON,
-        organisationNumber: '',
-        nationalIdentityNumber: '',
-        name: '',
-        address: '',
-        postalCode: '',
-        city: '',
-        contactPerson: '',
-        phoneNumber: '',
-        email: '',
-        accessCode: '',
-        paragraph: ''
+        organisationNumber: null,
+        nationalIdentityNumber: null,
+        name: null,
+        address: null,
+        postalCode: null,
+        city: null,
+        contactPerson: null,
+        phoneNumber: null,
+        email: null,
+        accessCode: null,
+        paragraph: null
     }
 }
 
@@ -83,39 +80,19 @@ export const dropdownPlaceholder: ISelect[] = [
     {label: 'Alternativ 10', value: 'alt10'}
 ]
 
+export const variantOptions: ISelect[] = [
+    {label: 'Produksjonsformat', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/variantformat/systemid/P'}
+]
+
 export const creationStrategies: ISelect[] = [
     {label: 'selects.creationStrategies.new', value: 'NEW',  description: "selects.creationStrategies.newDesc"},
-    {label: 'selects.creationStrategies.existing', value: 'EXISTING',  description: "selects.creationStrategies.existingDesc"},
+    {label: 'selects.creationStrategies.existing', value: 'EXISTING',  description: "selects.creationStrategies.existingDesc", disabled: true},
     {label: 'selects.creationStrategies.collection', value: 'COLLECTION', description: "selects.creationStrategies.collectionDesc"}
 ];
 
 export const applicantOptions: ISelect[] = [
     {label: 'selects.applicantOptions.individual',value: 'PERSON'},
     {label: 'selects.applicantOptions.organisation', value: 'ORGANISATION'}
-];
-
-export const forms: ISelect[] = [
-    { label: "VIK014 - Søknad om reservasjon av skoleplass", value: "VIK014" },
-    { label: "VIK017 - Bestilling av lærekontrakt/opplæringskontrakt", value: "VIK017" },
-    { label: "VIK022 - Endring av kontraktstype eller planlagt måloppnåelse", value: "VIK022" },
-    { label: "VIK027 - Melding om flytting til barnevernsinstitusjon i Viken", value: "VIK027" },
-    { label: "VIK036 - Søknad til kombinasjonsprogram", value: "VIK036" },
-    { label: "VIK050 - Vedtak om spesialundervisning for elever i friskoler", value: "VIK050" },
-    { label: "VIK066 - Praksiskalkulator for praksiskandidater", value: "VIK066" },
-    { label: "VIK069 - Klage på ikke bestått fag-/svenne- eller kompetanseprøve", value: "VIK069" },
-    { label: "VIK083 - Søknad om tilskudd til publikumsutvikling", value: "VIK083" },
-    { label: "VIK088 - Avtale om bruk av PC/nettbrett for prøvenemndsmedlemmer i Viken", value: "VIK088" },
-    { label: "VIK097 - Lærebedriftens sluttrapport for bruk av særskilt tilskudd for lærlinger og lærekandidater", value: "VIK097" },
-    { label: "VIK109 - Legeerklæring til søknad om TT-kort", value: "VIK109" },
-    { label: "VIK129 - Fag- og yrkesopplæringspriser i Viken fylkeskommune", value: "VIK129" },
-    { label: "VIK132 - Samtykke - fotografering/video/lyd", value: "VIK132" },
-    { label: "VIK146 - Akseptskjema for tilskudd", value: "VIK146" },
-    { label: "VIK148 - Oppfølging av leverandører som følge av Schrems II-dommen", value: "VIK148" },
-    { label: "VIK183 - Søknadsskjema - Fagskolen i Viken, studiested Geilo", value: "VIK183" },
-    { label: "VIK190 - Søknad til fagskolen i Viken - Vedlikeholdsteknikk 4.0", value: "VIK190" },
-    { label: "VIK223 - Bærekraftsjekken for Viken", value: "VIK223" },
-    { label: "VIK238 - Søknadsskjema for lån eller leie av fylkeskommunale skolelokaler i Viken", value: "VIK238" },
-    { label: "VIK264 - Søknad - Tilskudd til pilotprosjekt", value: "VIK264" },
 ];
 
 export const sourceApplications: ISelect[] = [
@@ -340,8 +317,8 @@ export const MOCK_SOURCE_FORM: IIntegrationMetadata[] =
 export const fieldHelp = {
     comment: 'Kommentar',
     version: '',
-    sourceApplicationId: 'Skjemaleverandør, f.eks ACOS',
-    sourceApplicationIntegrationId: 'Skjema, f.eks VIK103',
+    sourceApplicationId: 'Kildeapplikasjon, f.eks ACOS',
+    sourceApplicationIntegrationId: 'Integrasjon, f.eks VIK103',
     destination: 'fylkesting, fylkesråd, kollektiv ++',
     caseData: {
         caseCreationStrategy: 'Avleveringslogikk ...',
@@ -620,6 +597,7 @@ export const EXAMPLE_FORM: IFormConfiguration = {
         "paragraph": ''
     },
     "caseData": {
+        "caseNumber": undefined,
         "accessCode": '',
         "administrativeUnit": '',
         "archiveUnit": '',
@@ -645,10 +623,8 @@ export const EXAMPLE_FORM: IFormConfiguration = {
     "completed": true,
     "documentData": {
         "title": '',
-        "documentCategory": '',
         "documentStatus": '',
-        "accessCode": '',
-        "paragraph": '',
+        "documentType": '',
         "variant": '',
     },
     "integrationId": 'TEST999',
@@ -656,7 +632,6 @@ export const EXAMPLE_FORM: IFormConfiguration = {
         "accessCode": '',
         "administrativeUnit": '',
         "caseWorker": '',
-        "documentType": '',
         "paragraph": '',
         "publicTitle": '',
         "recordStatus": '',
@@ -665,8 +640,20 @@ export const EXAMPLE_FORM: IFormConfiguration = {
     }
 }
 
-export function getSourceApplicationDisplayName(id: number): string {
+export function getSourceApplicationDisplayName(id: any): string {
     if (id === 1) return 'ACOS';
     if (id === 2) return 'eGrunnerverv';
     else return "ukjent";
 }
+
+export function getDestinationDisplayName(id: any): string {
+    if (id === 'fylkesrad') return 'Fylkesråd';
+    else return "ukjent";
+}
+
+export function getStateDisplayName(id: any): string {
+    if (id === 'ACTIVE') return 'Aktiv';
+    if (id === 'DEACTIVATED') return 'Deaktivert';
+    else return "ukjent";
+}
+

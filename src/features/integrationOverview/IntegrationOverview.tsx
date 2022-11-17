@@ -22,8 +22,9 @@ const useStyles = makeStyles((theme: Theme) =>
             width: '100%'
         },
         dataPanelBox: {
-            height: "500px",
-            width: '100%'
+            height: '600px',
+            width: '100%',
+            marginRight: '8px'
         }
     })
 );
@@ -32,12 +33,12 @@ const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = (
     const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationOverview'});
     const classes = useStyles();
     const showPanel: boolean = window.location.pathname === '/integration'
-    const {existingIntegration, setNewIntegration, setExistingIntegration, newIntegrations, getNewIntegrations, configurations, getConfigurations} = useContext(IntegrationContext)
+    const {existingIntegration, setNewIntegration, setExistingIntegration, newIntegrations, getNewIntegrations, configurations, completedConfigurations, getCompletedConfigurations, getConfigurations} = useContext(IntegrationContext)
     const {getAllMetadata} = useContext(SourceApplicationContext)
 
     useEffect(()=> {
         getNewIntegrations();
-        getAllMetadata();
+        getAllMetadata(true);
     }, []);
 
     const resetConfiguration = () => {
@@ -57,12 +58,14 @@ const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = (
                     loading={configurations === undefined}
                     initialConfiguration={existingIntegration}
                     configurations={configurations}
+                    completedConfigurations={completedConfigurations}
                 /> :
                 <IntegrationTable
                     classes={classes}
                     loading={newIntegrations === undefined}
                     integrations={newIntegrations}
                     getConfigurations={getConfigurations}
+                    getCompletedConfigurations={getCompletedConfigurations}
                     setExistingIntegration={setExistingIntegration}
                 />
             }

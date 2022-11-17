@@ -1,6 +1,6 @@
 import {IFormConfiguration, IFormIntegration} from "../../features/integration/types/Form/FormData";
-import {ApplicantType} from "../../features/integration/types/ApplicantType";
 import {CreationStrategy} from "../../features/integration/types/CreationStrategy";
+import {ApplicantType} from "../../features/integration/types/ApplicantType";
 
 export const MOCK_INTEGRATION_FORMDATA: IFormIntegration = {
     sourceApplicationIntegrationId: 'TEST234',
@@ -24,15 +24,16 @@ export const MOCK_CONFIG_FORMDATA: IFormConfiguration = {
         contactPerson: "donna",
         email: "hello@world.no",
         name: "Anakin Skywalker",
-        nationalIdentityNumber: "",
+        nationalIdentityNumber: "123456789",
         organisationNumber: "",
         paragraph: "p3",
         phoneNumber: "12345678",
         postalCode: "1234",
         protected: true,
-        type: "PERSON"
+        type: ApplicantType.PERSON
     },
     caseData: {
+        caseNumber: null,
         accessCode: "code42",
         administrativeUnit: "unit4",
         archiveUnit: "unit3",
@@ -56,10 +57,8 @@ export const MOCK_CONFIG_FORMDATA: IFormConfiguration = {
     },
     comment: "form to test mapping",
     documentData: {
-        accessCode: "code2",
         documentStatus: "D9",
-        documentCategory: "cat1",
-        paragraph: "p07",
+        documentType: "cat8",
         title: "document title",
         variant: "var"
     },
@@ -67,7 +66,6 @@ export const MOCK_CONFIG_FORMDATA: IFormConfiguration = {
         accessCode: "code89",
         administrativeUnit: "unit33",
         caseWorker: "boba",
-        documentType: "cat8",
         paragraph: "p34",
         publicTitle: "public record title",
         recordStatus: "N",
@@ -76,63 +74,122 @@ export const MOCK_CONFIG_FORMDATA: IFormConfiguration = {
     }
 }
 
+export const MOCK_CONFIG_FORMDATA_FOR_PATCH: IFormConfiguration = {
+    completed: false,
+    metadataId: 1,
+    applicantData: {
+        accessCode: "code2",
+        address: "highstreet 22",
+        city: "Moria",
+        contactPerson: "donna",
+        email: "hello@world.no",
+        name: "Anakin Skywalker",
+        nationalIdentityNumber: "123456789",
+        organisationNumber: "",
+        paragraph: "p3",
+        phoneNumber: "12345678",
+        postalCode: "1234",
+        protected: true,
+        type: ApplicantType.PERSON
+    },
+    caseData: {
+        caseNumber: null,
+        accessCode: "code42",
+        administrativeUnit: "unit4",
+        archiveUnit: "unit3",
+        caseCreationStrategy: CreationStrategy.NEW,
+        caseType: "casetype",
+        caseWorker: "rand",
+        paragraph: "number6",
+        primaryClass: "1class",
+        primaryClassification: "prim",
+        primaryTitle: "primTitle",
+        publicTitle: "public title",
+        recordUnit: "unit0",
+        secondaryClass: "2class",
+        secondaryClassification: "rose",
+        secondaryTitle: "secTitle",
+        status: "",
+        tertiaryClass: "3class",
+        tertiaryClassification: "everdeen",
+        tertiaryTitle: "tertTitle",
+        title: "Title of case"
+    },
+    comment: "form to test mapping",
+    documentData: {
+        documentStatus: "D9",
+        documentType: "cat8",
+        title: "document title",
+        variant: "var"
+    },
+    recordData: {
+        accessCode: "code89",
+        administrativeUnit: "unit33",
+        caseWorker: "boba",
+        paragraph: "p34",
+        publicTitle: "public record title",
+        recordStatus: "N",
+        recordType: "A",
+        title: "record title"
+    }
+}
+
+
 export const MOCK_NEW_FORMDATA: IFormConfiguration = {
     "applicantData": {
-        "accessCode": "",
-        "address": "",
-        "city": "",
-        "contactPerson": "",
-        "email": "",
-        "name": "",
-        "nationalIdentityNumber": "",
-        "organisationNumber": "",
-        "paragraph": "",
-        "phoneNumber": "",
-        "postalCode": "",
+        "accessCode": null,
+        "address": null,
+        "city": null,
+        "contactPerson": null,
+        "email": null,
+        "name": null,
+        "nationalIdentityNumber": null,
+        "organisationNumber": null,
+        "paragraph": null,
+        "phoneNumber": null,
+        "postalCode": null,
         "protected": true,
-        "type": ApplicantType.PERSON
+        "type": "PERSON"
     },
     "caseData": {
-        "accessCode": "",
-        "administrativeUnit": "",
-        "archiveUnit": "",
-        "caseCreationStrategy": CreationStrategy.NEW,
-        "caseType": "",
-        "caseWorker": "",
-        "paragraph": "",
-        "primaryClass": "",
-        "primaryClassification": "",
-        "primaryTitle": "",
-        "publicTitle": "",
+        "accessCode": null,
+        "administrativeUnit": null,
+        "archiveUnit": null,
+        "caseCreationStrategy": "NEW",
+        "caseNumber": null,
+        "caseType": null,
+        "caseWorker": null,
+        "paragraph": null,
+        "primaryClass": null,
+        "primaryClassification": null,
+        "primaryTitle": null,
+        "publicTitle": null,
         "recordUnit": "https://beta.felleskomponent.no/arkiv/noark/administrativenhet/systemid/191",
-        "secondaryClass": "",
-        "secondaryClassification": "",
-        "secondaryTitle": "",
-        "status": "",
-        "tertiaryClass": "",
-        "tertiaryClassification": "",
-        "tertiaryTitle": "",
+        "secondaryClass": null,
+        "secondaryClassification": null,
+        "secondaryTitle": null,
+        "status": null,
+        "tertiaryClass": null,
+        "tertiaryClassification": null,
+        "tertiaryTitle": null,
         "title": "$if{foo} $if{bar}"
     },
     "comment": "Ferdigstilt ",
     "completed": true,
     "documentData": {
-        "accessCode": "",
-        "documentCategory": "",
-        "documentStatus": "",
-        "paragraph": "",
-        "title": "",
-        "variant": ""
+        "documentStatus": null,
+        "documentType": null,
+        "title": null,
+        "variant": null
     },
     "recordData": {
-        "accessCode": "",
-        "administrativeUnit": "",
-        "caseWorker": "",
-        "documentType": "",
-        "paragraph": "",
-        "publicTitle": "",
-        "recordStatus": "",
-        "recordType": "",
+        "accessCode": null,
+        "administrativeUnit": null,
+        "caseWorker": null,
+        "paragraph": null,
+        "publicTitle": null,
+        "recordStatus": null,
+        "recordType": null,
         "title": "foo $if{bar}"
     }
 }

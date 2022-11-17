@@ -10,13 +10,13 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'inputField'});
     let backgroundColor = 'white';
     let errorMessage: string = t('errorMessage') + t(props.label);
-    let initValue: string = props.value;
+    let initValue: string = props.value == null ? '' : props.value;
     const setPropValue = props.setValue;
     const [inputValue, setInputValue] = useState(initValue);
     const [{ canDrop, isOver }, drop] = useDrop(() => ({
         accept: DraggableTypes.TAG,
         drop: (tag:ITag) => {
-            setInputValue(prevState => prevState + tag.value + ' ');
+            setInputValue(prevState => prevState + tag.value);
         },
         collect: (monitor) => ({
             isOver: monitor.isOver(),

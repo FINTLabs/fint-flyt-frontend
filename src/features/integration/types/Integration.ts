@@ -5,8 +5,10 @@ export interface IIntegration {
     destination?: string;
     state?: string;
     activeConfigurationId?: string;
+    activeConfigurationVersion?: string;
     dispatched?: number;
     errors?: number;
+    displayName?: string;
 }
 
 export const IntegrationState = {
@@ -14,3 +16,8 @@ export const IntegrationState = {
     DEACTIVATED: "DEACTIVATED"
 }
 
+export interface IIntegrationPatch {
+    destination?: string;
+    state?: string;
+    activeConfigurationId?: string;
+}

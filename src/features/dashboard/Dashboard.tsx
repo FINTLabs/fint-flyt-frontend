@@ -34,9 +34,9 @@ const useStyles = makeStyles((theme: Theme) =>
 const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.dashboard'});
     const classes = useStyles();
-    const {setNewIntegration, newIntegrations, getNewIntegrations, statistics, resetIntegrations} = useContext(IntegrationContext)
+    const {setExistingIntegration, statistics, resetIntegrations, newIntegrations, getNewIntegrations, getCompletedConfigurations, getConfigurations} = useContext(IntegrationContext)
     let totalErrors = 0;
-    statistics.map((stat: any) => {totalErrors += stat.currentErrors})
+    statistics?.map((stat: any) => {totalErrors += stat.currentErrors})
 
     useEffect(()=> {
         getNewIntegrations();
@@ -44,12 +44,12 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
     }, [])
 
     const cards: ICard[] = [
-        { value: newIntegrations === undefined ? t('empty') : newIntegrations.length, content: t('form'), links: [
+        { value: newIntegrations === undefined || newIntegrations.length === 0 ? t('empty') : newIntegrations.length, content: newIntegrations !== undefined && newIntegrations.length == 1 ? t('oneForm') : t('form'), links: [
                 {name: t('links.newIntegration'), href: '/integration/configuration/new'}
             ]
         },
-        { value: totalErrors.toString(), content: t('errors'), links: [
-                {name: t('links.log'), href: '/log'}
+        { value: totalErrors === 0 ? t('empty') : totalErrors.toString(), content: totalErrors == 1 ? t('oneError') : t('errors'), links: [
+                {name: t('links.instanceOverview'), href: '/integration/instance/list'}
             ]
         }
     ]
@@ -75,7 +75,9 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
                             classes={classes}
                             loading={newIntegrations === undefined}
                             integrations={newIntegrations}
-                            setIntegration={setNewIntegration}
+                            getConfigurations={getConfigurations}
+                            getCompletedConfigurations={getCompletedConfigurations}
+                            setExistingIntegration={setExistingIntegration}
                         />
                 </CardContent>
             </Card>

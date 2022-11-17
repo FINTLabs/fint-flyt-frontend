@@ -13,7 +13,7 @@ export type SourceApplicationContextState = {
     getAvailableForms: () => void;
     allMetadata: IIntegrationMetadata[];
     instanceElementMetadata: IInstanceElementMetadata | undefined;
-    getAllMetadata: () => void;
+    getAllMetadata: (onlyLatest: boolean) => void;
     getInstanceElementMetadata: (metadataId: string) => void;
     sourceApplication: number | null;
     setSourceApplication: (id: number | null) => void;
@@ -31,7 +31,7 @@ export const contextDefaultValues: SourceApplicationContextState = {
         version: 0
     }],
     instanceElementMetadata: undefined,
-    getAllMetadata: () => {},
+    getAllMetadata: (onlyLatest) => {},
     getInstanceElementMetadata: (metadataId) => {},
     sourceApplication: null,
     setSourceApplication: () => {}

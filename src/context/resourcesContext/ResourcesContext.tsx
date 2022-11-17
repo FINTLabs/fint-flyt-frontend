@@ -15,6 +15,7 @@ const ResourcesProvider: FC = ({ children }) => {
     const [archiveResources, setArchiveResources] = useState<IResourceItem[]>(contextDefaultValues.archiveResources);
     const [accessCodes, setAccessCodes] = useState<IResourceItem[]>(contextDefaultValues.accessCodes);
     const [accessCode, setAccessCode] = useState<IResourceItem[]>(contextDefaultValues.accessCodes);
+    const [caseTypes, setCaseTypes] = useState<IResourceItem[]>(contextDefaultValues.caseTypes);
     const [paragraphs, setParagraph] = useState<IResourceItem[]>(contextDefaultValues.paragraphs);
     const [documentStatuses, setDocumentStatuses] = useState<IResourceItem[]>(contextDefaultValues.documentStatuses);
     const [recordStatuses, setRecordStatuses] = useState<IResourceItem[]>(contextDefaultValues.recordStatuses);
@@ -34,6 +35,7 @@ const ResourcesProvider: FC = ({ children }) => {
         {resource: 'sakstatus', setter: setStatuses},
         {resource: 'arkivdel', setter: setArchiveSections},
         {resource: 'arkivressurs', setter: setArchiveResources},
+        {resource: 'saksmappetype', setter: setCaseTypes},
         {resource: 'klassifikasjonssystem', setter: setClassificationSystems},
         {resource: 'tilgangsrestriksjon', setter: setAccessCodes},
         {resource: 'skjermingshjemmel', setter: setParagraph},
@@ -48,21 +50,32 @@ const ResourcesProvider: FC = ({ children }) => {
         let list: IResourceItem[] = [];
         ResourceRepository.getResource(resource)
             .then(response => {
-                response.data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
-                resourceSetter(list)
+                let data = response.data;
+                if (data) {
+                    data.sort((a: any, b: any) => {
+                        if (a.displayName < b.displayName) {
+                            return -1;
+                        }
+                    });
+                    data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
+                    resourceSetter(list)
+                }
             })
             .catch((err) => {
                 console.error(err);
             })
     }
 
-    const getPrimaryClass = () => {
+    const getPrimaryClass = async () => {
         let list: IResourceItem[] = [];
         if(primaryClassification.value !== '') {
             ResourceRepository.getClasses(primaryClassification.value)
                 .then(response => {
-                    response.data.map((resource: any) => list.push({label: resource.id + ' - ' + resource.displayName, value: resource.id}))
-                    setPrimaryClass(list)
+                    let data = response.data;
+                    if (data) {
+                        data.map((resource: any) => list.push({label: resource.id + ' - ' + resource.displayName, value: resource.id}))
+                        setPrimaryClass(list)
+                    }
                 })
                 .catch((err) => {
                     console.error(err);
@@ -70,13 +83,19 @@ const ResourcesProvider: FC = ({ children }) => {
         }
     }
 
-    const getSecondaryClass = () => {
+    const getSecondaryClass = async () => {
         let list: IResourceItem[] = [];
         if(secondaryClassification.value !== '') {
             ResourceRepository.getClasses(secondaryClassification.value)
                 .then(response => {
-                    response.data.map((resource: any) => list.push({label: resource.id + ' - ' + resource.displayName, value: resource.id}))
-                    setSecondaryClass(list)
+                    let data = response.data;
+                    if (data) {
+                        data.map((resource: any) => list.push({
+                            label: resource.id + ' - ' + resource.displayName,
+                            value: resource.id
+                        }))
+                        setSecondaryClass(list)
+                    }
                 })
                 .catch((err) => {
                     console.error(err);
@@ -85,13 +104,19 @@ const ResourcesProvider: FC = ({ children }) => {
 
     }
 
-    const getTertiaryClass = () => {
+    const getTertiaryClass = async () => {
         let list: IResourceItem[] = [];
         if(tertiaryClassification.value !== '') {
             ResourceRepository.getClasses(tertiaryClassification.value)
                 .then(response => {
-                    response.data.map((resource: any) => list.push({label: resource.id + ' - ' + resource.displayName, value: resource.id}))
-                    setTertiaryClass(list)
+                    let data = response.data;
+                    if (data) {
+                        data.map((resource: any) => list.push({
+                            label: resource.id + ' - ' + resource.displayName,
+                            value: resource.id
+                        }))
+                        setTertiaryClass(list)
+                    }
                 })
                 .catch((err) => {
                     console.error(err);
@@ -120,6 +145,7 @@ const ResourcesProvider: FC = ({ children }) => {
             value={{
                 administrativeUnits,
                 accessCodes,
+                caseTypes,
                 paragraphs,
                 statuses,
                 archiveSections,
@@ -139,6 +165,9 @@ const ResourcesProvider: FC = ({ children }) => {
                 getPrimaryClass,
                 getSecondaryClass,
                 getTertiaryClass,
+                setPrimaryClass,
+                setSecondaryClass,
+                setTertiaryClass,
                 getAllResources,
                 resetAllResources,
                 setPrimaryClassification,

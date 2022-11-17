@@ -9,6 +9,7 @@ export interface IFormIntegration {
     destination?: string;
     active?: boolean;
     activeConfigurationId?: string;
+    displayName?: string;
 }
 
 export interface IFormConfiguration {

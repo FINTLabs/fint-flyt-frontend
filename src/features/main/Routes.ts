@@ -75,7 +75,7 @@ const routes: IRoute[] = [
         component: Log,
         icon: 'event-note-icon',
         exact: true,
-        inNavigationMenu: true
+        inNavigationMenu: false
     },
     {
         path: '/support',

@@ -1,8 +1,6 @@
 export default interface IDocumentData {
-    title?: string;
-    documentCategory?: string;
-    documentStatus?: string;
-    accessCode?: string;
-    paragraph?: string;
-    variant?: string;
+    title: string | null;
+    documentStatus: string | null;
+    documentType: string | null;
+    variant: string | null;
 }

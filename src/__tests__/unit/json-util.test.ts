@@ -1,4 +1,4 @@
-import {addId} from "../../features/util/JsonUtil";
+import {addId, toTagValue} from "../../features/util/JsonUtil";
 
 const array = [
     {
@@ -51,6 +51,8 @@ const expectedNestedArray = [
     }
 ]
 
+const tagString = 'fornavn';
+
 test('It should add id field to json object, where there is a "name" field', () => {
     array.forEach(addId(0, 'name'))
     expect(array).toEqual(expectedArray);
@@ -61,5 +63,10 @@ test('It should add id field to nested json object, where there is a "errorCode"
         item.errors.forEach(addId(0, 'errorCode'))
     );
     expect(nestedArray).toEqual(expectedNestedArray);
+});
+
+test('It should return correct tag from string', () => {
+    const tag = toTagValue(tagString)
+    expect(tag).toEqual('$if{fornavn}');
 });
 

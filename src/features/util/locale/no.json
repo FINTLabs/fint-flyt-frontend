@@ -9,30 +9,37 @@
         "dashboard": "Dashbord",
         "newIntegration": "Ny",
         "editIntegration": "Rediger",
-        "integrationOverview": "Integrasjonsoversikt",
-        "instanceOverview": "Instansoversikt (wip)",
+        "integrationOverview": "Integrasjoner",
+        "instanceOverview": "Instanser",
         "integrationDetails": "Detaljer",
-        "log": "Logg (wip)",
+        "log": "Logg",
         "support": "Support"
     },
     "pages": {
         "dashboard": {
-            "form": "skjema",
+            "form": "integrasjoner",
+            "oneForm": "integrasjon",
             "empty": "Ingen",
+            "oneError": "feilmelding",
             "errors": "feilmeldinger",
             "links": {
                 "integrationOverview": "Se integrasjoner",
                 "newIntegration": "Ny integrasjon",
                 "log": "Se logg",
+                "instanceOverview": "Se instansoversikt",
                 "support": "Kontakt support"
             }
         },
-        "integrationForm": {
+        "configurationForm": {
             "header": "Konfigurasjon",
             "successHeader": "Konfigurasjon - ferdigstilt",
             "accordions": {
                 "caseInformation": {
                     "header": "Integrasjon",
+                    "integrationId": "IntegrasjonId",
+                    "sourceApplicationId": "Kildeapplikasjon",
+                    "sourceApplicationIntegrationId": "Integrasjon",
+                    "destination": "Destinasjon",
                     "button": {
                         "search": "Søk",
                         "save": "Lagre"
@@ -73,8 +80,11 @@
                     }
                 }
             },
+            "comment": "Kommentar",
             "checkLabel": "Ferdigstilt",
+            "activeLabel": "Aktiv",
             "button": {
+                "complete": "Fullfør",
                 "save": "Lagre",
                 "cancel": "Avbryt",
                 "integrationOverview": "Se integrasjoner",
@@ -89,119 +99,115 @@
         "integrationOverview": {
             "header": "Integrasjonsoversikt",
             "details": "Konfigurasjonsdetaljer",
-            "testString": "Mangler felt ‘%s’ i instans, som kreves for å sette felt ‘%s’ i sak",
-            "version": "Versjon",
+            "version": "Versjon ",
             "case": "Sakspost",
             "record": "Journalpost",
             "document": "Dokument- og objektbeskrivelse",
             "applicant": "Avsender",
-            "changedMsg": "Endret til revisjon",
             "button": {
+                "show": "Vis",
                 "edit": "Rediger",
                 "back": "Tilbake",
-                "changeVersion": "Bruk denne konfigurasjonen"
+                "version": "Versjon ",
+                "changeVersion": "Bruk denne konfigurasjonen",
+                "newConfiguration": "NY KONFIGURASJON",
+                "blankConfiguration": "Blank konfigurasjon",
+                "templateConfiguration": "Basert på eksisterende versjon"
+            },
+            "dialog": {
+                "header": "Aktiver konfigurasjon?",
+                "confirmMsg": "Bekreft aktivering av konfigurasjon",
+                "yes": "Ja",
+                "cancel": "Avbryt"
             },
             "table": {
+                "completed": "Ferdigstilt",
+                "drafts": "Utkast",
                 "columns": {
+                    "configurationId": "KonfigurasjonsId",
                     "destination": "Destinasjon/base",
-                    "sourceApplicationIntegrationId": "Skjema",
-                    "sourceApplicationId": "Skjemaleverandør",
+                    "sourceApplicationIntegrationId": "Kildeapplikasjons integrasjons-ID",
+                    "sourceApplicationIntegrationIdDisplayName": "Integrasjonsnavn",
+                    "sourceApplicationId": "Kildeapplikasjon",
                     "name": "Navn",
                     "state": "Tilstand",
                     "comment": "Kommentar",
                     "finished": "Ferdigstilt",
-                    "version": "Version",
-                    "dispatched": "Sendt til arkiv",
-                    "errors": "Feilmeldinger"
+                    "version": "Versjon",
+                    "dispatched": "Antall arkiverte instanser",
+                    "errors": "Antall gjeldende feil",
+                    "show": "Vis",
+                    "edit": "Rediger"
                 }
             },
             "labels": {
                 "comment": "Kommentar: ",
                 "activeConfigurationId": "Aktiv konfigurasjon: ",
                 "destination": "Destinasjon: ",
-                "sourceApplicationId": "Skjemaleverandør: ",
-                "sourceApplicationIntegrationId": "Skjema: ",
+                "sourceApplicationId": "Kildeapplikasjon: ",
+                "sourceApplicationIntegrationId": "Integrasjon: ",
                 "caseCreationStrategy": "Avleveringslogikk: ",
                 "finished": "Ferdigstilt: ",
-                "version": "Versjon: ",
-                "caseNumber": "Saksnummer: ",
-                "caseType": "Sakstype: ",
-                "title": "Tittel: ",
-                "publicTitle": "Offentlig tittel: ",
-                "administrativeUnit": "Administrativ enhet: ",
-                "archiveUnit": "Arkivdel: ",
-                "recordUnit": "Journalenhet: ",
-                "status": "Status: ",
-                "accessCode": "Tilgangskode: ",
-                "paragraph": "Hjemmel: ",
-                "responsibleCaseWorker": "Ansvarlig saksbehandler: ",
-                "primaryClassification": "Primær ordningsprinsipp: ",
-                "secondaryClassification": "Sekundær ordningsprinsipp: ",
-                "tertiaryClassification": "Tertiær ordningsprinsipp: ",
-                "primaryClass": "Primærklasse: ",
-                "secondaryClass": "Sekundærklasse: ",
-                "tertiaryClass": "Tertiærklasse: ",
-                "primaryTitle": "Primærtittel: ",
-                "secondaryTitle": "Sekundærtittel: ",
-                "tertiaryTitle": "Tertiærtittel: ",
-                "type": "Type: ",
-                "documentType": "Dokumenttype: ",
-                "recordStatus": "Journalstatus: ",
-                "recordType": "Journalposttype: ",
-                "caseWorker": "Saksbehandler: ",
-                "documentStatus": "Status: ",
-                "documentCategory": "Kategori: ",
-                "variant": "Variant: ",
-                "organisationNumber": "Organisasjonsnummer: ",
-                "nationalIdentityNumber": "Fødselsnummer: ",
-                "applicantName": "Navn: ",
-                "address": "Adresse: ",
-                "postalCode": "Postnummer: ",
-                "city": "Poststed: ",
-                "contactPerson": "Kontaktperson: ",
-                "phoneNumber": "Telefonnummer: ",
-                "email": "Epost: ",
-                "protected": "Skjerming: "
+                "version": "Versjon: "
             }
         },
         "instanceOverview": {
-            "instance-to-case-mapping": "instans mapping",
-            "incoming-instance": "incoming instans",
-            "new-instance": "ny instans",
-            "case-dispatch-error": "sending av sak feilet",
+            "FINT_FLYT_ACOS_INSTANCE_GATEWAY_GENERAL_SYSTEM_ERROR": "Systemfeil - Ta kontakt med FINT",
+            "FINT_FLYT_ACOS_INSTANCE_GATEWAY_INSTANCE_VALIDATION_ERROR": "Valideringsfeil i mottak av instans: '#fieldPath# #errorMessage#'",
+            "FINT_FLYT_ACOS_INSTANCE_GATEWAY_NO_INTEGRATION_FOUND_ERROR": "Integrasjonen finnes ikke",
+            "FINT_FLYT_ACOS_INSTANCE_GATEWAY_INTEGRATION_DEACTIVATED_ERROR": "Integrasjonen er deaktivert",
+            "FINT_FLYT_INSTANCE_SERVICE_GENERAL_SYSTEM_ERROR":  "Systemfeil. Ta kontakt med FINT",
+            "FINT_FLYT_MAPPING_SERVICE_GENERAL_SYSTEM_ERROR": "Systemfeil - Ta kontakt med FINT",
+            "FINT_FLYT_MAPPING_SERVICE_CONFIGURATION_NOT_FOUND": "Fant ikke aktiv konfigurasjon for integrasjonen",
+            "FINT_FLYT_MAPPING_SERVICE_INSTANCE_FIELD_NOT_FOUND": "Instansen mangler felt med nøkkel='#instanceFieldKey#', som kreves av konfigurasjonen",
+            "FINT_FLYT_DISPATCH_SERVICE_GENERAL_SYSTEM_ERROR": "Systemfeil - Ta kontakt med FINT",
+            "FINT_FLYT_DISPATCH_SERVICE_INSTANCE_DISPATCH_DECLINED_ERROR": "Instansen ble avvist av destinasjon med følgende feilmelding: '#errorMessage#'",
+            "REQUESTED": "Forespurt",
+            "SENT": "Sendt",
+            "FAILED": "Feilet",
+            "ACCEPTED": "Akseptert",
+            "DECLINED": "Avvist",
             "instance-received": "Instans mottatt",
             "instance-registered": "Instans registrert",
             "instance-requested-for-retry": "Instans forespurt for nytt forsøk",
-            "case-created": "Sak opprettet",
-            "case-dispatched": "Sak arkivert",
+            "instance-mapped": "Instans konvertert",
+            "instance-dispatched": "Instans arkivert",
             "instance-receival-error": "Feilet under mottak av instans",
             "instance-registration-error": "Feilet under registrering av instans",
             "instance-retry-request-error": "Feilet under forespørsel for nytt forsøk",
-            "case-creation-error": "Feilet under oppretting av sak",
-            "case-dispatching-error": "Feilet under arkivering av sak",
+            "instance-mapping-error": "Feil under konvertering av instans",
+            "instance-dispatching-error": "Feil under sending",
             "header": "Instansoversikt",
             "button": {
+                "close": "Lukk",
                 "edit": "Rediger",
                 "back": "Tilbake",
+                "retry": "Prøv igjen",
                 "changeVersion": "Bruk denne konfigurasjonen"
             },
             "table": {
                 "columns": {
-                    "destination": "Destinasjon/base",
-                    "sourceApplicationIntegrationId": "Skjema",
-                    "sourceApplicationId": "Skjemaleverandør",
-                    "name": "Navn",
-                    "comment": "Kommentar",
-                    "finished": "Ferdigstilt",
-                    "version": "Versjon"
+                        "destination": "Destinasjon/base",
+                        "sourceApplicationIntegrationId": "Kildeapplikasjons integrasjons-ID",
+                        "sourceApplicationIntegrationIdDisplayName": "Integrasjonsnavn",
+                        "sourceApplicationId": "Kildeapplikasjon",
+                        "sourceApplicationInstanceId": "Kildeapplikasjons instans-ID",
+                        "configurationId": "Konfigurasjon ID",
+                        "archiveCaseId": "Arkivsak ID",
+                        "timestamp": "Tidspunkt",
+                        "timestampLatest": "Sist hendelse",
+                        "name": "Status",
+                        "actions": "Handlinger",
+                        "details": "Detaljer",
+                        "errorMessage": "Feilmelding(er)"
                 }
             },
             "labels": {
                 "name": "Navn: ",
                 "comment": "Kommentar",
                 "destination": "Destinasjon: ",
-                "sourceApplicationId": "Skjemaleverandør: ",
-                "sourceApplicationIntegrationId": "Skjema: ",
+                "sourceApplicationId": "Kildeapplikasjon: ",
+                "sourceApplicationIntegrationId": "Integrasjon: ",
                 "caseCreationStrategy": "Avleveringslogikk: ",
                 "finished": "Ferdigstilt: ",
                 "version": "Versjon: ",
@@ -267,8 +273,8 @@
                     "details": "Detaljer",
                     "type": "Type",
                     "timestamp": "Tidspunkt",
-                    "sourceApplicationIntegrationId": "Skjema",
-                    "sourceApplicationId": "Skjemaleverandør",
+                    "sourceApplicationIntegrationId": "Integrasjon",
+                    "sourceApplicationId": "Kildeapplikasjon",
                     "errorMessage": "Feilmeldinger"
                 }
             },
@@ -286,8 +292,8 @@
         "labels": {
             "comment": "Kommentar",
             "destination": "Destinasjon",
-            "sourceApplicationId": "Skjemaleverandør",
-            "sourceApplicationIntegrationId": "Skjema",
+            "sourceApplicationId": "Kildeapplikasjon",
+            "sourceApplicationIntegrationId": "Integrasjon",
             "caseCreationInfo": "Velg hvordan skjema skal sendes til arkivet",
             "caseCreationNew": "Som ny sak",
             "caseCreationNewInfo": "Innsendt skjema oppretter en ny sak i Elements",
@@ -339,7 +345,7 @@
             "creationStrategies": {
                 "new":"Som ny sak",
                 "newDesc":"Innsendt skjema oppretter en ny sak i Elements",
-                "existing":"På eksisterende sak",
+                "existing":"På eksisterende sak (kommer)",
                 "existingDesc":"Innsendt skjema gjenfinner eksisterende sak i Elements basert på informasjon i skjemaet. Dersom det ikke fins en eksisterende sak opprettes en ny sak",
                 "collection":"På samlesak",
                 "collectionDesc":"Innsendt skjema skal leveres til en forhåndsdefinert samlesak. Her må du opplyse om saksnummer"
@@ -427,14 +433,16 @@
     },
     "components": {
         "SourceApplicationForm": {
-            "header": "Data fra skjema"
+            "header": "Data fra skjema",
+            "version": "Versjon",
+            "openLink": "Åpne i skjemaadministrator"
         },
         "formSettings": {
-            "header": "Velg skjemaleverandør, skjema og destinasjon",
-            "error": "du må velge skjemaleverandør, skjema og destinasjon",
+            "header": "Velg kildeapplikasjon, skjema og destinasjon",
+            "error": "du må velge kildeapplikasjon, skjema og destinasjon",
             "labels": {
-                "sourceApplicationId": "Skjemaleverandør",
-                "sourceApplicationIntegrationId": "Skjema",
+                "sourceApplicationId": "Kildeapplikasjon",
+                "sourceApplicationIntegrationId": "Integrasjon",
                 "destination": "Destinasjon/Base"
             },
             "button": {
@@ -445,50 +453,50 @@
     },
     "fieldHelp": {
         "sourceApplicationFormPopoverContent": "I tekstfeltene til i de ulike postene kan du benytte data fra skjema for å utfylle disse. Naviger til feltet du ønsker å fylle,og dra inn tag fra listen under.",
-        "sourceApplicationId": "Skjemaleverandør, f.eks ACOS",
-        "sourceApplicationIntegrationId": "Skjema",
+        "sourceApplicationId": "Kildeapplikasjon, f.eks ACOS",
+        "sourceApplicationIntegrationId": "Integrajon",
         "destination": "Velg hvilken base skjemaet skal overføres til",
         "comment": "",
         "version": "",
         "selectedForm": "",
         "caseData": {
             "caseCreationStrategy": "Integrasjonslogikk",
-            "caseNumber": "2021/12345",
+            "caseNumber": "Eksempel 2021/12345",
             "title": "Tittel kan være en konkret tekststreng, eller en kombinasjon av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak.  (Se Noark))",
-            "publicTitle": "Se Noark (Del av tittel som skal skjermes)",
-            "status": "-",
-            "caseType": "Eksempel: Kompetanse, personal, rekruttering etc.",
-            "administrativeUnit":"Avdeling eller enhet som skal behandle saken.",
-            "archiveUnit":"Eksempel: kompetanse, sakarkiv, personal",
-            "recordUnit": "Navnet på journalførende enhet.Eksempel: Viken fylkesråd",
-            "accessCode": "Dersom noe skjermes må man også sette tilgangskode.Eksempel: Unntatt offentlighet, personal, varslingssak, ugradert. ",
-            "paragraph": "Dersom det settes tilgangskode må det også settes hjemmel. Det må være en lovmessig hjemmel for skjerming eller begrenset tilgang.Eksempel:'Offl. §13 '",
-            "caseWorker": "Konkret saksbehandler eller ufordelt.",
+            "publicTitle": "Offentlig tittel på arkivenheten, ord som skal skjermes er fjernet fra innholdet i tittelen (erstattet med ******)",
+            "status": "Registreres automatisk gjennom forskjellig saksbehandlings- funksjonalitet, eller overstyres manuelt.",
+            "caseType": "Type saksmappe. Eksempel: Kompetanse, personal, rekruttering etc.",
+            "administrativeUnit":"Navn på avdeling, kontor eller annen administrativ enhet som har ansvaret for saksbehandlingen.",
+            "archiveUnit":"Arkivdel som mappe tilhører. Eksempel: kompetanse, sakarkiv, personal",
+            "recordUnit": "Navn på enhet som har det arkivmessige ansvaret for kvalitetssikring av arkivdanningen, og eventuelt registrering (journalføring) og arkivering av fysiske dokumenter.",
+            "accessCode": "Angivelse av at dokumentene som tilhører arkivenheten ikke er offentligtilgjengelig i henhold til offentlighetsloven eller av en annen grunn. ",
+            "paragraph": "Henvisning til hjemmel (paragraf) i offentlighetsloven, sikkerhetsloven eller beskyttelsesinstruksen.",
+            "caseWorker": "Navn på person som er saksansvarlig.",
             "classification": "Det må kunne settes flere klasseringer på en sak, slik at sjemaet kan lete fram riktig sak. Eksempel: Primærkode=K-koder 'Sekundærkode=organisasjonsnummer eller personnummer'",
             "class": "Vi må kunne fylle ut verdi og betegnelse.Eksempel: K-kode: Verdi 003, Betegnelse: Målbruk.Person: verdi: fødselsnummer, betegnelse = personnavn.",
             "classTitle": "Tittel/Beskrivelse"
         },
         "recordData": {
             "title": "Tittel kan være en konkret tekststreng, eller en kombinasjon av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak. (Se Noark))",
-            "publicTitle": "Se Noark (Del av tittel som skal skjermes)",
-            "documentType": "Eksempel: Avtaler, Innsynsbehandling, Følgebrev, Juridisk ..",
-            "administrativeUnit": "Enheten/avdelingen. Nedtrekksmeny fra Elements",
-            "recordStatus": "R,F,E,J",
-            "recordType": "I, U, N, X",
-            "caseWorker": "En sak kan ha en ansvarlig saksbehandler men det kan være ulike saksbehandlere på ulike journalposter.",
-            "accessCode": "Eksempel: Unntatt offentlighet, personal varslingssak, ugradert. ",
-            "paragraph": "Eksempel: Offl. §13 "
+            "publicTitle": "Offentlig tittel på arkivenheten, ord som skal skjermes er fjernet fra innholdet i tittelen (erstattet med ******)",
+            "administrativeUnit":"Navn på avdeling, kontor eller annen administrativ enhet som har ansvaret for saksbehandlingen.",
+            "recordStatus": "Status til journalposten, dvs. om dokumentet er registrert, under behandling eller endelig arkivert.",
+            "recordType": "Navn på type journalpost.",
+            "caseWorker": "Navn på person som er saksbehandler. En sak kan ha en ansvarlig saksbehandler men det kan være ulike saksbehandlere på ulike journalposter.",
+            "accessCode": "Angivelse av at dokumentene som tilhører arkivenheten ikke er offentligtilgjengelig i henhold til offentlighetsloven eller av en annen grunn. ",
+            "paragraph": "Henvisning til hjemmel (paragraf) i offentlighetsloven, sikkerhetsloven eller beskyttelsesinstruksen."
         },
         "documentData": {
-            "title": "Tittel kan være en konkret tekststreng, eller en kombinasjon av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak.(Se Noark))",
-            "documentStatus": "Eksempel: B, F",
+            "title": "Tittel eller navn på arkivenheten.",
+            "documentStatus": "Status til dokumentet. Eksempel: B, F",
             "documentCategory": "TODO",
+            "documentType": "Eksempel: Avtaler, Innsynsbehandling, Følgebrev, Juridisk ..",
             "accessCode": "Eksempel: Unntatt offentlighet, persona,l varslingssak, ugradert. ",
             "paragraph": "Eksempel: Offl. §13",
-            "variant": "Arkivformat/ produksjonsformat / offentlig variant"
+            "variant": "Angivelse av hvilken variant et dokument forekommer. - Produksjonsformat"
         },
         "applicantData": {
-            "protected": "Skjerming",
+            "protected": "Skjerming av avsender, krever tilgangsrestriksjon og hjemmel",
             "type": "Person eller organisasjon/bedrift",
             "organisationNumber": "Orgnr for avsenderbedrift",
             "nationalIdentityNumber": "Fødselsnummer for avsender",
@@ -496,11 +504,11 @@
             "address": "Postadresse",
             "postalCode": "Postkode",
             "city": "Poststed",
-            "contactPerson": "Navn på søker er ikke alltid lik med kontaktperson",
+            "contactPerson": "Tittel eller navn på arkivenheten.",
             "phoneNumber": "Telefonnummer",
             "email": "epostadresse",
-            "accessCode": "velge om avsender skal være skjermet",
-            "paragraph": "Denne skal fjernes"
+            "accessCode": "Angivelse av at dokumentene som tilhører arkivenheten ikke er offentligtilgjengelig i henhold til offentlighetsloven eller av en annen grunn.",
+            "paragraph": "Henvisning til hjemmel (paragraf) i offentlighetsloven, sikkerhetsloven eller beskyttelsesinstruksen."
         }
     }
 }

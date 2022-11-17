@@ -7,6 +7,7 @@ import {IIntegrationStatistics} from "../../features/log/types/IntegrationStatis
 import {IIntegrationMetadata} from "../../features/integration/types/IntegrationMetadata";
 import ConfigurationRepository from "../../shared/repositories/ConfigurationRepository";
 import IntegrationRepository from "../../shared/repositories/IntegrationRepository";
+import SourceApplicationRepository from "../../shared/repositories/SourceApplicationRepository";
 
 export const IntegrationContext = createContext<IntegrationContextState>(
     contextDefaultValues
@@ -14,21 +15,24 @@ export const IntegrationContext = createContext<IntegrationContextState>(
 
 const IntegrationProvider: FC = ({ children }) => {
     const [existingIntegration, setExistingIntegration] = useState<IIntegration | undefined>(undefined);
+    const [caseNumber, setCaseNumber] = useState<string | undefined>(undefined);
     const [newIntegration, setNewIntegration] = useState<IIntegration | undefined>(undefined);
     const [newIntegrations, setNewIntegrations] = useState<IIntegration[] | undefined>(undefined);
-    const [configuration, setConfiguration] = useState<newIConfiguration>(contextDefaultValues.configuration);
+    const [configuration, setConfiguration] = useState<newIConfiguration | undefined>(contextDefaultValues.configuration);
     const [configurations, setConfigurations] = useState<newIConfiguration[] | undefined>(contextDefaultValues.configurations);
+    const [completedConfigurations, setCompletedConfigurations] = useState<newIConfiguration[] | undefined>(contextDefaultValues.completedConfigurations);
     const [destination, setDestination] = useState<string>('');
     const [selectedMetadata, setSelectedMetadata] = useState<IIntegrationMetadata>(contextDefaultValues.selectedMetadata);
     const [sourceApplicationIntegrationId, setSourceApplicationIntegrationId] = useState<string>('');
     const [sourceApplicationId, setSourceApplicationId] = useState<string>('');
-    const [statistics, setStatistics] = useState<any>(contextDefaultValues.statistics);
+    const [statistics, setStatistics] = useState<any[]>(contextDefaultValues.statistics);
 
     const resetSourceAndDestination = () => {
         setDestination('');
         setSourceApplicationId('');
         setSourceApplicationIntegrationId('');
         setSelectedMetadata(contextDefaultValues.selectedMetadata)
+        setCaseNumber(undefined)
     }
 
     const resetIntegrations = () => {
@@ -36,48 +40,113 @@ const IntegrationProvider: FC = ({ children }) => {
         setExistingIntegration(undefined)
     }
 
+    const resetConfiguration = () => {
+        setConfigurations(undefined)
+        setConfiguration(undefined)
+    }
+
     const getNewIntegrations = () => {
         EventRepository.getStatistics()
             .then((response) => {
-                setStatistics(response.data)
-                let stats = response.data;
-           IntegrationRepository.getIntegrations()
-                    .then((response) => {
-                        if(response.data) {
-                            let mergedList: IIntegration[] = response.data;
-                            stats.forEach((value: IIntegrationStatistics) => {
-                                mergedList.map((integration: IIntegration) => {
-                                    if (integration.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {
-                                        integration.errors = value.currentErrors;
-                                        integration.dispatched = value.dispatchedInstances;
-                                    }
-                                })
-                            })
-                            setNewIntegrations(mergedList);
-                        }
-                    })
-                    .catch((e) => {
+                let data = response.data;
+                if (data) {
+                    setStatistics(data)
+                    let stats = data;
+                    SourceApplicationRepository.getMetadata("1", true)
+                        .then((response) => {
+                            if(response.data) {
+                                let metadata: IIntegrationMetadata[] = response.data;
+                                IntegrationRepository.getIntegrations(0, null, "state", "ASC")
+                                    .then((response) => {
+                                        if (response.data) {
+                                            let mergedList: IIntegration[] = response.data;
+                                            stats.forEach((value: IIntegrationStatistics) => {
+                                                mergedList.map((integration: IIntegration) => {
+                                                    if (integration.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {
+                                                        integration.errors = value.currentErrors;
+                                                        integration.dispatched = value.dispatchedInstances;
+                                                    }
+                                                })
+                                            })
+                                            metadata.forEach((value: IIntegrationMetadata) => {
+                                                mergedList.map((integration: IIntegration) => {
+                                                    if (integration.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {
+                                                        integration.displayName = value.integrationDisplayName;
+                                                    }
+                                                })
+                                            })
+                                            setNewIntegrations(mergedList);
+                                        }
+                                    })
+                                    .catch((e) => {
+                                        console.error('Error: ', e)
+                                        setNewIntegrations([]);
+                                        setStatistics([])
+                                    })
+                            }
+                        }).catch((e) => {
                         console.error('Error: ', e)
                         setNewIntegrations([]);
+                        setStatistics([])
                     })
-            }).catch(e => console.log('error', e))
+                }
+            }).catch(e => {
+                setNewIntegrations([]);
+                setStatistics([])
+                console.log('error', e)
+            }
+        )
     }
 
-    const getConfigurations = (id: any) => {
-        ConfigurationRepository.getConfigurations(id.toString())
+    const getConfigurations = (page: number, size: number, sortProperty: string, sortDirection: string, complete: boolean, id: any, excludeElements?: boolean) => {
+        ConfigurationRepository.getConfigurations(page, size, sortProperty, sortDirection, complete, id.toString(), excludeElements)
             .then((response) => {
-                let configurations: newIConfiguration[] = response.data;
+                let data = response.data.content;
+                if (data) {
+                    let configurations: newIConfiguration[] = data;
                     setConfigurations(configurations);
-                })
+                }
+            })
             .catch((e) => {
                 console.error('Error: ', e)
                 setConfigurations([]);
             })
     }
 
+    const getCompletedConfigurations = (page: number, size: number, sortProperty: string, sortDirection: string, complete: boolean, id: any, excludeElements?: boolean) => {
+        ConfigurationRepository.getConfigurations(page, size, sortProperty, sortDirection, complete, id.toString(), excludeElements)
+            .then((response) => {
+                let data = response.data.content;
+                if (data) {
+                    let configurations: newIConfiguration[] = data;
+                    setCompletedConfigurations(configurations);
+                }
+            })
+            .catch((e) => {
+                console.error('Error: ', e)
+                setCompletedConfigurations([]);
+            })    }
+
+    const getConfiguration = async (id: any, excludeElements?: boolean) => {
+        ConfigurationRepository.getConfiguration(id.toString(), excludeElements)
+            .then((response) => {
+                let data = response.data;
+                if (data) {
+                    let configuration: newIConfiguration = data;
+                    setConfiguration(configuration);
+                }
+            })
+            .catch((e) => {
+                console.error('Error: ', e)
+                setConfiguration(contextDefaultValues.configuration);
+            })
+    }
+
     return (
         <IntegrationContext.Provider
             value={{
+                caseNumber,
+                setCaseNumber,
                 statistics,
                 newIntegration,
                 setNewIntegration,
@@ -88,9 +157,13 @@ const IntegrationProvider: FC = ({ children }) => {
                 getNewIntegrations,
                 configuration,
                 setConfiguration,
+                getConfiguration,
                 configurations,
+                completedConfigurations,
                 getConfigurations,
+                getCompletedConfigurations,
                 setConfigurations,
+                setCompletedConfigurations,
                 destination,
                 setDestination,
                 selectedMetadata,

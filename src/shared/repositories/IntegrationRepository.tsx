@@ -1,26 +1,37 @@
 import axios from "axios";
-import {IIntegration} from "../../features/integration/types/Integration";
-import {IntegrationState} from "../../features/integration/types/IntegrationState.enum";
+import {IIntegration, IIntegrationPatch} from "../../features/integration/types/Integration";
 
-//TODO: test with updated API urls
-const getIntegrations = (integrationId?: string) => {
-    return axios.get<IIntegration[]>("/api/intern/integrasjoner", {params: {integrationId: integrationId}});
+const getAllIntegrations = () => {
+    return axios.get<any>("/api/intern/integrasjoner");
+}
+
+const getIntegrations = (page: number, size: any, sortProperty: string, sortDirection: string) => {
+    return axios.get<any>("/api/intern/integrasjoner", {
+        params: {
+            side: page,
+            antall: size,
+            sorteringFelt: sortProperty,
+            sorteringRetning: sortDirection
+        }
+    });
+}
+
+const getIntegration = (integrationId: string) => {
+    return axios.get<any>(`/api/intern/integrasjoner/${integrationId}`)
 }
 const createIntegration = (data: IIntegration) => {
     return axios.post<any>("/api/intern/integrasjoner", data);
 }
-const setIntegrationState = (integrationId: string, state: IntegrationState) => {
-    return axios.put<any>(`/api/intern/integrasjoner/${integrationId}/tilstand`, {state: state});
-}
-const setActiveConfiguration = (integrationId: string, configurationId: string) => {
-    return axios.put<any>(`/api/intern/integrasjoner/${integrationId}/aktiv-konfigurasjon-id`, {activeConfigurationId: configurationId});
+const updateIntegration = (integrationId: string, data: IIntegrationPatch) => {
+    return axios.patch(`/api/intern/integrasjoner/${integrationId}`, data)
 }
 
 const IntegrationRepository = {
+    getIntegration,
     createIntegration,
     getIntegrations,
-    setIntegrationState,
-    setActiveConfiguration
+    updateIntegration,
+    getAllIntegrations
 };
 
 export default IntegrationRepository;

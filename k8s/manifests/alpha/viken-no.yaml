@@ -11,25 +11,23 @@ spec:
   selector:
     io.kompose.service: fint-flyt-integration-frontend
 ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
 metadata:
-  name: ingress-fint-flyt-integration-frontend
-  annotations:
-    kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  name: fint-flyt-integration-frontend
+  labels:
+    app: fint-flyt-integration-frontend
 spec:
-  rules:
-    - host: "viken-no-skjema.vigoiks.no"
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: fint-flyt-integration-frontend
-                port:
-                  number: 8000
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`viken-no-skjema.vigoiks.no`) && !PathPrefix(`/api`)
+      kind: Rule
+      services:
+        - name: fint-flyt-integration-frontend
+          port: 8000
+      middlewares:
+        - name: fint-flyt-auth-forward
 ---
 apiVersion: apps/v1
 kind: Deployment

@@ -126,3 +126,17 @@ export const MOCK_APPLICANT_FIELDS: IConfigurationElement[] = [
         "key": "applicant"
     }
 ]
+
+export const MOCK_APPLICANT_FIELDS_NOT_PROTECTED: IConfigurationElement[] = [
+    {
+        "fieldConfigurations": [
+            {
+                "key": "protected",
+                "type": "BOOLEAN",
+                "value": "false"
+            }
+        ],
+        "key": "applicant"
+    }
+]
+
