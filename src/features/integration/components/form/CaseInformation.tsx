@@ -24,24 +24,13 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
 
     useEffect(() => {
         if(caseInput) {
-            setCaseNumber(caseInput)
-            let caseId = caseInput.split('/')
-            ResourceRepository.getSak(caseId[0], caseId[1])
-                .then((response) => {
-                    setCase(response.data.value)
-                    setCaseNumber(caseInput)
-                })
-                .catch(e => {
-                        console.error('Error: ', e)
-                        setCaseNumber(undefined)
-                        setCase(t('caseSearch.noMatch'));
-                    }
-                )
+            handleCaseSearch();
         }
     }, [])
 
     const handleCaseSearch = () => {
         if(caseInputPattern.test(caseInput)) {
+            setCaseNumber(caseInput)
             setCase(t('caseSearch.searching'))
             let caseId = caseInput.split('/')
             ResourceRepository.getSak(caseId[0], caseId[1])
