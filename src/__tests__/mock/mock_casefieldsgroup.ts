@@ -1,7 +1,9 @@
 import {IFieldGroup} from "../../features/integration/types/InputField";
+import {classificationsWithDynamicField} from "../../features/integration/defaults/DefaultValues";
 
 export const MOCK_CASEFIELDGROUP: IFieldGroup[] = [
     {
+        "hidden": {"type": "NOT_FIELD", "key": "caseData.caseCreationStrategy", "value": "COLLECTION"},
         "fields": [
             {
                 "input": "DROPZONE_TEXT_FIELD",
@@ -12,8 +14,7 @@ export const MOCK_CASEFIELDGROUP: IFieldGroup[] = [
                     {"type": "VALIDATION", "value": "true"}
                 ],
                 "error": "caseData.title",
-                "searchOption": false,
-                "helpText": "",
+                "helpText":  "Tittel kan være en konkret tekststreng, eller en kombinasjon av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak.  (Se Noark))",
             },
             {
                 "input": "DROPZONE_TEXT_FIELD",
@@ -21,11 +22,10 @@ export const MOCK_CASEFIELDGROUP: IFieldGroup[] = [
                 "value": {"source": "FORM", "value":"caseData.publicTitle"},
                 "formValue": "caseData.publicTitle",
                 "required": [
-                    {"type": "null", "value": "false"}
+                    {"type": "VALIDATION", "value": "false"}
                 ],
                 "error": "caseData.publicTitle",
-                "searchOption": false,
-                "helpText": "",
+                "helpText": "Offentlig tittel på arkivenheten, ord som skal skjermes er fjernet fra innholdet i tittelen (erstattet med ******)"
             },
             {
                 "input": "AUTOCOMPLETE",
@@ -38,8 +38,7 @@ export const MOCK_CASEFIELDGROUP: IFieldGroup[] = [
                     {"type": "NOT_FIELD", "key": "caseData.caseCreationStrategy", "value": "COLLECTION"}
                 ],
                 "error": "caseData.caseType",
-                "searchOption": false,
-                "helpText": "",
+                "helpText": "Type saksmappe. Eksempel: Kompetanse, personal, rekruttering etc."
             },
             {
                 "input": "AUTOCOMPLETE",
@@ -52,8 +51,7 @@ export const MOCK_CASEFIELDGROUP: IFieldGroup[] = [
                     {"type": "NOT_FIELD", "key": "caseData.caseCreationStrategy", "value": "COLLECTION"}
                 ],
                 "error": "caseData.administrativeUnit",
-                "searchOption": false,
-                "helpText": "",
+                "helpText": "Navn på avdeling, kontor eller annen administrativ enhet som har ansvaret for saksbehandlingen.",
             },
             {
                 "input": "AUTOCOMPLETE",
@@ -66,8 +64,7 @@ export const MOCK_CASEFIELDGROUP: IFieldGroup[] = [
                     {"type": "NOT_FIELD", "key": "caseData.caseCreationStrategy", "value": "COLLECTION"}
                 ],
                 "error": "caseData.caseWorker",
-                "searchOption": false,
-                "helpText": "",
+                "helpText": "Navn på person som er saksansvarlig."
             },
             {
                 "input": "AUTOCOMPLETE",
@@ -80,8 +77,7 @@ export const MOCK_CASEFIELDGROUP: IFieldGroup[] = [
                     {"type": "NOT_FIELD", "key": "caseData.caseCreationStrategy", "value": "COLLECTION"}
                 ],
                 "error": "caseData.archiveUnit",
-                "searchOption": false,
-                "helpText": "",
+                "helpText": "Arkivdel som mappe tilhører. Eksempel: kompetanse, sakarkiv, personal",
             },
             {
                 "input": "AUTOCOMPLETE",
@@ -94,8 +90,7 @@ export const MOCK_CASEFIELDGROUP: IFieldGroup[] = [
                     {"type": "NOT_FIELD", "key": "caseData.caseCreationStrategy", "value": "COLLECTION"}
                 ],
                 "error": "caseData.recordUnit",
-                "searchOption": false,
-                "helpText": "",
+                "helpText": "Navn på enhet som har det arkivmessige ansvaret for kvalitetssikring av arkivdanningen, og eventuelt registrering (journalføring) og arkivering av fysiske dokumenter.",
             },
             {
                 "input": "AUTOCOMPLETE",
@@ -108,9 +103,7 @@ export const MOCK_CASEFIELDGROUP: IFieldGroup[] = [
                     {"type": "NOT_FIELD", "key": "caseData.caseCreationStrategy", "value": "COLLECTION"}
                 ],
                 "error": "caseData.status",
-                "searchOption": false,
-                "helpText": "",
-            },
+                "helpText": "Registreres automatisk gjennom forskjellig saksbehandlings- funksjonalitet, eller overstyres manuelt."   },
             {
                 "input": "AUTOCOMPLETE",
                 "label": "Tilgangskode",
@@ -121,8 +114,7 @@ export const MOCK_CASEFIELDGROUP: IFieldGroup[] = [
                     {"type": "null", "value": "false"}
                 ],
                 "error": "caseData.accessCode",
-                "searchOption": false,
-                "helpText": "",
+                "helpText": "Angivelse av at dokumentene som tilhører arkivenheten ikke er offentligtilgjengelig i henhold til offentlighetsloven eller av en annen grunn. "
             },
             {
                 "input": "AUTOCOMPLETE",
@@ -134,8 +126,7 @@ export const MOCK_CASEFIELDGROUP: IFieldGroup[] = [
                     {"type": "null", "value": "false"}
                 ],
                 "error": "caseData.paragraph",
-                "searchOption": false,
-                "helpText": "",
+                "helpText": "Henvisning til hjemmel (paragraf) i offentlighetsloven, sikkerhetsloven eller beskyttelsesinstruksen."
             }
         ]
     },
@@ -152,8 +143,139 @@ export const MOCK_CASEFIELDGROUP: IFieldGroup[] = [
                     {"type": "VALIDATION", "value": "true"},
                 ],
                 "error": "caseData.primaryClassification",
-                "searchOption": false,
-                "helpText": ""
+                "helpText": "Det må kunne settes flere klasseringer på en sak, slik at sjemaet kan lete fram riktig sak. Eksempel: Primærkode=K-koder 'Sekundærkode=organisasjonsnummer eller personnummer'"
+            },
+            {
+                "input": "DROPZONE_TEXT_FIELD",
+                "label": "Primærklasse",
+                "value": {"source": "FORM", "value":"caseData.primaryClass"},
+                "formValue": "caseData.primaryClass",
+                "required": [
+                    {"type": "VALIDATION", "value": "true"}
+                ],
+                "hidden": {"type": "FIELD_NOT_CONTAINS", "key": "caseData.primaryClassification", "value": classificationsWithDynamicField},
+                "error": "caseData.primaryClass",
+                "helpText": "Vi må kunne fylle ut verdi og betegnelse.Eksempel: K-kode: Verdi 003, Betegnelse: Målbruk.Person: verdi: fødselsnummer."
+            },
+            {
+                "input": "AUTOCOMPLETE",
+                "label": "Primærklasse",
+                "value": {"source": "WATCH", "value": "caseData.primaryClass"},
+                "formValue": "caseData.primaryClass",
+                "options": "primaryClass",
+                "required": [
+                    {"type": "VALIDATION", "value": "true"},
+                ],
+                "hidden": {"type": "FIELD_CONTAINS", "key": "caseData.primaryClassification", "value": classificationsWithDynamicField},
+                "error": "caseData.primaryClass",
+                "helpText": "Vi må kunne fylle ut verdi og betegnelse.Eksempel: K-kode: Verdi 003, Betegnelse: Målbruk.Person: verdi: fødselsnummer."
+            },
+            {
+                "input": "DROPZONE_TEXT_FIELD",
+                "label": "Primærtittel",
+                "value": {"source": "FORM", "value":"caseData.primaryTitle"},
+                "formValue": "caseData.primaryTitle",
+                "required": [
+                    {"type": "VALIDATION", "value": "true"}
+                ],
+                "error": "caseData.primaryTitle",
+                "helpText": "Tittel/Beskrivelse",
+            },
+            {
+                "input": "AUTOCOMPLETE",
+                "label": "Sekundærordningsprinsipp",
+                "value": {"source": "WATCH", "value": "caseData.secondaryClassification"},
+                "formValue": "caseData.secondaryClassification",
+                "options": "classificationSystems",
+                "required": [
+                    {"type": "VALIDATION", "value": "true"},
+                ],
+                "error": "caseData.secondaryClassification",
+                "helpText": "Det må kunne settes flere klasseringer på en sak, slik at sjemaet kan lete fram riktig sak. Eksempel: Primærkode=K-koder 'Sekundærkode=organisasjonsnummer eller personnummer'"
+            },
+            {
+                "input": "DROPZONE_TEXT_FIELD",
+                "label": "Sekundærklasse",
+                "value": {"source": "FORM", "value":"caseData.secondaryClass"},
+                "formValue": "caseData.secondary",
+                "required": [
+                    {"type": "VALIDATION", "value": "true"}
+                ],
+                "hidden": {"type": "FIELD_NOT_CONTAINS", "key": "caseData.secondaryClassification", "value": classificationsWithDynamicField},
+                "error": "caseData.secondaryClass",
+                "helpText": "Vi må kunne fylle ut verdi og betegnelse.Eksempel: K-kode: Verdi 003, Betegnelse: Målbruk.Person: verdi: fødselsnummer."
+            },
+            {
+                "input": "AUTOCOMPLETE",
+                "label": "Sekundærklasse",
+                "value": {"source": "WATCH", "value": "caseData.secondaryClass"},
+                "formValue": "caseData.secondaryClass",
+                "options": "secondaryClass",
+                "required": [
+                    {"type": "VALIDATION", "value": "true"},
+                ],
+                "hidden": {"type": "FIELD_CONTAINS", "key": "caseData.secondaryClassification", "value": classificationsWithDynamicField},
+                "error": "caseData.secondaryClass",
+                "helpText": "Vi må kunne fylle ut verdi og betegnelse.Eksempel: K-kode: Verdi 003, Betegnelse: Målbruk.Person: verdi: fødselsnummer."
+            },
+            {
+                "input": "DROPZONE_TEXT_FIELD",
+                "label": "Sekundærtittel",
+                "value": {"source": "FORM", "value":"caseData.secondaryTitle"},
+                "formValue": "caseData.secondaryTitle",
+                "required": [
+                    {"type": "VALIDATION", "value": "true"}
+                ],
+                "error": "caseData.secondaryTitle",
+                "helpText": "Tittel/Beskrivelse",
+            },
+            {
+                "input": "AUTOCOMPLETE",
+                "label": "Tertiærordningsprinsipp",
+                "value": {"source": "WATCH", "value": "caseData.tertiaryClassification"},
+                "formValue": "caseData.tertiaryClassification",
+                "options": "classificationSystems",
+                "required": [
+                    {"type": "VALIDATION", "value": "true"},
+                ],
+                "error": "caseData.tertiaryClassification",
+                "helpText": "Det må kunne settes flere klasseringer på en sak, slik at sjemaet kan lete fram riktig sak. Eksempel: Primærkode=K-koder 'Sekundærkode=organisasjonsnummer eller personnummer'"
+            },
+            {
+                "input": "DROPZONE_TEXT_FIELD",
+                "label": "Tertiærklasse",
+                "value": {"source": "FORM", "value":"caseData.tertiaryClass"},
+                "formValue": "caseData.tertiaryClass",
+                "required": [
+                    {"type": "VALIDATION", "value": "true"}
+                ],
+                "hidden": {"type": "FIELD_NOT_CONTAINS", "key": "caseData.tertiaryClassification", "value": classificationsWithDynamicField},
+                "error": "caseData.tertiaryClass",
+                "helpText": "Vi må kunne fylle ut verdi og betegnelse.Eksempel: K-kode: Verdi 003, Betegnelse: Målbruk.Person: verdi: fødselsnummer."
+            },
+            {
+                "input": "AUTOCOMPLETE",
+                "label": "Tertiærklasse",
+                "value": {"source": "WATCH", "value": "caseData.tertiaryClass"},
+                "formValue": "caseData.tertiaryClass",
+                "options": "tertiaryClass",
+                "required": [
+                    {"type": "VALIDATION", "value": "true"},
+                ],
+                "hidden": {"type": "FIELD_CONTAINS", "key": "caseData.tertiaryClassification", "value": classificationsWithDynamicField},
+                "error": "caseData.tertiaryClass",
+                "helpText": "Vi må kunne fylle ut verdi og betegnelse.Eksempel: K-kode: Verdi 003, Betegnelse: Målbruk.Person: verdi: fødselsnummer."
+            },
+            {
+                "input": "DROPZONE_TEXT_FIELD",
+                "label": "Tertiærtittel",
+                "value": {"source": "FORM", "value":"caseData.tertiaryTitle"},
+                "formValue": "caseData.tertiaryTitle",
+                "required": [
+                    {"type": "VALIDATION", "value": "true"}
+                ],
+                "error": "caseData.tertiaryTitle",
+                "helpText": "Tittel/Beskrivelse",
             }
         ]
     }

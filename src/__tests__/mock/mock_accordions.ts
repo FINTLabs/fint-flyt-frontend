@@ -7,7 +7,7 @@ import {MOCK_LOGICFIELDGROUP} from "./mock_logicfieldsgroup";
 export const MOCK_ACCS = [
   {
     "id": "case-information",
-    "header":"Logikk",
+    "header":"Oppsett",
     "defaultExpanded": {"key": "completed", "value": "true"},
     "inputFieldGroups": MOCK_LOGICFIELDGROUP
   },

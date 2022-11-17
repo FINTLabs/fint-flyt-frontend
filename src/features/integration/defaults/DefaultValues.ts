@@ -67,6 +67,18 @@ export const defaultConfigurationValues: IFormConfiguration = {
     }
 }
 
+export const classificationsWithDynamicField: string[] = [
+    'https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/FNR',
+    'https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/STUDENT',
+    'https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/ORGNR',
+    'https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/FNRP',
+    'https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/FNRK',
+    'https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/FRNRTT',
+    'https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/FNSM',
+    'https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/FNS',
+    'https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/FNST'
+]
+
 export const dropdownPlaceholder: ISelect[] = [
     {label: 'Alternativ 1', value: 'alt1'},
     {label: 'Alternativ 2', value: 'alt2'},

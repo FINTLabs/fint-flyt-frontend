@@ -12,8 +12,7 @@ export const MOCK_RECORDFIELDSGROUP: IFieldGroup[] = [
                     {"type": "VALIDATION", "value": "true"}
                 ],
                 "error": "recordData.title",
-                "searchOption": false,
-                "helpText": "",
+                "helpText": "Tittel kan være en konkret tekststreng, eller en kombinasjon av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak. (Se Noark))"
             },
             {
                 "input": "DROPZONE_TEXT_FIELD",
@@ -24,8 +23,7 @@ export const MOCK_RECORDFIELDSGROUP: IFieldGroup[] = [
                     {"type": "VALIDATION", "value": "false"}
                 ],
                 "error": "recordData.publicTitle",
-                "searchOption": false,
-                "helpText": "",
+                "helpText": "Offentlig tittel, ord som skal skjermes er fjernet fra innholdet i tittelen (erstattet med ******)"
             },
             {
                 "input": "AUTOCOMPLETE",
@@ -37,8 +35,7 @@ export const MOCK_RECORDFIELDSGROUP: IFieldGroup[] = [
                     {"type": "VALIDATION", "value": "false"}
                 ],
                 "error": "recordData.recordType",
-                "searchOption": false,
-                "helpText": "",
+                "helpText": "Navn på type journalpost.",
             },
             {
                 "input": "AUTOCOMPLETE",
@@ -50,8 +47,7 @@ export const MOCK_RECORDFIELDSGROUP: IFieldGroup[] = [
                     {"type": "VALIDATION", "value": "true"}
                 ],
                 "error": "recordData.administrativeUnit",
-                "searchOption": false,
-                "helpText": "",
+                "helpText": "Navn på avdeling, kontor eller annen administrativ enhet som har ansvaret for saksbehandlingen."
             },
             {
                 "input": "AUTOCOMPLETE",
@@ -63,8 +59,7 @@ export const MOCK_RECORDFIELDSGROUP: IFieldGroup[] = [
                     {"type": "VALIDATION", "value": "false"}
                 ],
                 "error": "recordData.caseWorker",
-                "searchOption": false,
-                "helpText": "",
+                "helpText": "Navn på person som er saksbehandler. En sak kan ha en ansvarlig saksbehandler men det kan være ulike saksbehandlere på ulike journalposter.",
             },
             {
                 "input": "AUTOCOMPLETE",
@@ -76,8 +71,7 @@ export const MOCK_RECORDFIELDSGROUP: IFieldGroup[] = [
                     {"type": "VALIDATION", "value": "true"}
                 ],
                 "error": "recordData.recordStatus",
-                "searchOption": false,
-                "helpText": "",
+                "helpText": "Status til journalposten, dvs. om dokumentet er registrert, under behandling eller endelig arkivert.",
             },
             {
                 "input": "AUTOCOMPLETE",
@@ -89,8 +83,7 @@ export const MOCK_RECORDFIELDSGROUP: IFieldGroup[] = [
                     {"type": "VALIDATION", "value": "false"}
                 ],
                 "error": "recordData.accessCode",
-                "searchOption": false,
-                "helpText": "",
+                "helpText": "Angivelse av at dokumentene som tilhører arkivenheten ikke er offentligtilgjengelig i henhold til offentlighetsloven eller av en annen grunn. "
             },
             {
                 "input": "AUTOCOMPLETE",
@@ -102,8 +95,7 @@ export const MOCK_RECORDFIELDSGROUP: IFieldGroup[] = [
                     {"type": "VALIDATION", "value": "false"}
                 ],
                 "error": "recordData.paragraph",
-                "searchOption": false,
-                "helpText": "",
+                "helpText": "Henvisning til hjemmel (paragraf) i offentlighetsloven, sikkerhetsloven eller beskyttelsesinstruksen."
             }
         ]
     }

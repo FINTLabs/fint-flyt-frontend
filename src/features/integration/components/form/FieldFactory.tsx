@@ -37,7 +37,7 @@ const FieldFactory: React.FunctionComponent<any> = (props) => {
                     formValue: field.formValue,
                     value: field.value ? toValueByFormData(field.value, props.activeFormData, watch) : undefined,
                     options: field.options ? getResourcesByName(field.options) : [],
-                    helpText: field.helpText,
+                    helpText: field.helpText ? field.helpText : '',
                     hidden: field.hidden ? toHiddenProp(field.hidden, watch, activeConfiguration) : undefined,
                     error: field.error ? toErrorProp(field.error, errors) : undefined,
                     required: field.required ? toRequiredProp(field.required, watch, activeConfiguration, props.validation) : false,

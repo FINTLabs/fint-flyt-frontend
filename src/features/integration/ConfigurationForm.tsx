@@ -244,9 +244,6 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
         setSaveError(false);
     };
 
-    console.log(watch('applicantData.protected'))
-    console.log(protectedCheck)
-
     const snackbarAction = (
         <React.Fragment>
             <Button color="secondary" size="small" onClick={handleSnackbarClose}>{t('button.close')}</Button>
@@ -372,7 +369,6 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                                 </FormGroup>
                             </div>
                             <Box className={classes.buttonContainer}>
-
                                 <Button disabled={completed} id="integration-form-submit-btn" sx={{ ml: 2, mr: 2 }} onClick={checked ? onSubmit : onSave} variant="contained">{checked ? t('button.complete') : t('button.save')}</Button>
                                 <Button id="integration-form-cancel-btn" onClick={handleCancel} variant="contained">{t('button.cancel')}</Button>
                             </Box>

@@ -13,8 +13,7 @@ export const MOCK_DOCUMENTFIELDGROUP: IFieldGroup[] = [
                     {"type": "null", "value": "false"}
                 ],
                 "error": "documentData.title",
-                "searchOption": false,
-                "helpText": "dokumenttittel hei hei",
+                "helpText": "Tittel kan være en konkret tekststreng, eller en kombinasjon av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak. (Se Noark))"
             },
             {
                 "input": "AUTOCOMPLETE",
@@ -26,8 +25,7 @@ export const MOCK_DOCUMENTFIELDGROUP: IFieldGroup[] = [
                     {"type": "VALIDATION", "value": "true"}
                 ],
                 "error": "documentData.documentStatus",
-                "searchOption": false,
-                "helpText": "Dokumentstatus hei hei",
+                "helpText": "Status til dokumentet. Eksempel: B, F"
             },
             {
                 "input": "AUTOCOMPLETE",
@@ -39,8 +37,7 @@ export const MOCK_DOCUMENTFIELDGROUP: IFieldGroup[] = [
                     {"type": "VALIDATION", "value": "true"}
                 ],
                 "error": "documentData.documentType",
-                "searchOption": false,
-                "helpText": "dokumenttype hei hei",
+                "helpText": "Eksempel: Avtaler, Innsynsbehandling, Følgebrev, Juridisk .."
             }
         ]
     },
@@ -57,8 +54,7 @@ export const MOCK_DOCUMENTFIELDGROUP: IFieldGroup[] = [
                     {"type": "VALIDATION", "value": "true"}
                 ],
                 "error": "documentData.variant",
-                "searchOption": false,
-                "helpText": "variant hei hei",
+                "helpText": "Angivelse av hvilken variant et dokument forekommer. - Produksjonsformat"
             }
         ]
     }

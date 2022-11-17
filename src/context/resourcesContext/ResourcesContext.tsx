@@ -161,6 +161,9 @@ const ResourcesProvider: FC = ({ children }) => {
         if(name === 'variants') return variants;
         if(name === 'creationStrategies') return creationStrategies;
         if(name === 'applicantOptions') return applicantOptions;
+        if(name === 'primaryClass') return primaryClass;
+        if(name === 'secondaryClass') return secondaryClass;
+        if(name === 'tertiaryClass') return tertiaryClass;
         else return dropdownPlaceholder;
     }
 

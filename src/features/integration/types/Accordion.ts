@@ -21,7 +21,7 @@ export enum ACCORDION_FORM {
 export interface IDependency {
     type?: string;
     key?: string;
-    value: string;
+    value: string | string[];
 }
 
 export interface IAccordionGroup {

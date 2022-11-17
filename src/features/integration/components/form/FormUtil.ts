@@ -2,16 +2,25 @@ import {IDependency} from "../../types/Accordion";
 import {newIConfiguration} from "../../types/Configuration";
 import {IFieldValue} from "../../types/InputField";
 import {FieldErrors} from "react-hook-form";
+import {classificationsWithDynamicField} from "../../defaults/DefaultValues";
 
 export function toHiddenProp(dep: IDependency, watcher: Function, activeConfig?: newIConfiguration | undefined): boolean {
+    console.log(watcher(dep.key))
     if(dep.type === "FIELD") {
         return watcher(dep.key) === dep.value;
     }
     if(dep.type === 'NOT_FIELD') {
         return watcher(dep.key) !== dep.value
     }
-    if(dep.type === 'BOOLEAN_FIELD') {
+    if(dep.type === 'BOOLEAN_FIELD' && typeof dep.value === 'string') {
         return watcher(dep.key) === JSON.parse(dep.value)
+    }
+    if(dep.type === 'FIELD_CONTAINS' && typeof dep.value.length) {
+        console.log(dep)
+        return classificationsWithDynamicField.includes(watcher(dep.key))
+    }
+    if(dep.type === 'FIELD_NOT_CONTAINS' && typeof dep.value.length) {
+        return !classificationsWithDynamicField.includes(watcher(dep.key))
     }
     else if(dep.type === "STATE") {
         return !!activeConfig?.completed
@@ -22,7 +31,7 @@ export function toHiddenProp(dep: IDependency, watcher: Function, activeConfig?:
 }
 
 export function toExpandedProp(dep: IDependency, activeConfig: newIConfiguration | undefined): boolean {
-    if (dep.key === 'null') {
+    if (dep.key === 'null' && typeof dep.value === 'string') {
         return JSON.parse(dep.value)
     }
     else if(dep.key === 'completed') {
@@ -34,7 +43,7 @@ export function toExpandedProp(dep: IDependency, activeConfig: newIConfiguration
 }
 
 export function toDisabledProp(dep: IDependency, activeConfig: newIConfiguration | undefined): boolean {
-    if (dep.key === 'null') {
+    if (dep.key === 'null' && typeof dep.value === 'string') {
         return JSON.parse(dep.value)
     }
     else if(dep.key === 'disabled') {
@@ -52,7 +61,7 @@ export function toRequiredProps(dep: IDependency, watcher: Function, activeConfi
     if(dep.type === "VALIDATION" && dep.value === "true") {
         return completeCheck;
     }
-    if(dep.type === 'BOOLEAN_FIELD') {
+    if(dep.type === 'BOOLEAN_FIELD' && typeof dep.value === 'string') {
         return watcher(dep.key) === JSON.parse(dep.value)
     }
     else if(dep.type === 'NOT_FIELD') {
@@ -61,7 +70,7 @@ export function toRequiredProps(dep: IDependency, watcher: Function, activeConfi
     else if(dep.type === "STATE") {
         return !!activeConfig?.completed
     }
-    else if (dep.key === 'null') {
+    else if (dep.key === 'null' && typeof dep.value === 'string') {
         return JSON.parse(dep.value)
     }
     else if(dep.key === 'disabled') {

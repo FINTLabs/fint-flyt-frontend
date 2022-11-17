@@ -9,7 +9,7 @@ export const MOCK_APPLICANTFIELDGROUP: IFieldGroup[] = [
                 "value": {"source": "WATCH", "value":"applicantData.type"},
                 "formValue": "applicantData.type",
                 "options": "applicantOptions",
-                "helpText": "Integrasjonslogikk",
+                "helpText": "Person eller organisasjon/bedrift",
             },
             {
                 "input": "DROPZONE_TEXT_FIELD",
@@ -21,12 +21,11 @@ export const MOCK_APPLICANTFIELDGROUP: IFieldGroup[] = [
                 ],
                 "hidden": {"type": "NOT_FIELD", "key": "applicantData.type", "value": "ORGANISATION"},
                 "error": "applicantData.organisationNumber",
-                "searchOption": false,
-                "helpText": "",
+                "helpText": "Orgnr for avsenderbedrift",
             },
             {
                 "input": "DROPZONE_TEXT_FIELD",
-                "label": "Navn",
+                "label": "Fødselsnummer",
                 "value": {"source": "FORM", "value":"applicantData.nationalIdentityNumber"},
                 "formValue": "applicantData.nationalIdentityNumber",
                 "required": [
@@ -35,8 +34,7 @@ export const MOCK_APPLICANTFIELDGROUP: IFieldGroup[] = [
                 "hidden": {"type": "FIELD", "key": "applicantData.type", "value": "ORGANISATION"},
 
                 "error": "applicantData.nationalIdentityNumber",
-                "searchOption": false,
-                "helpText": "",
+                "helpText": "Fødselsnummer for avsender",
             },
             {
                 "input": "DROPZONE_TEXT_FIELD",
@@ -47,8 +45,7 @@ export const MOCK_APPLICANTFIELDGROUP: IFieldGroup[] = [
                     {"type": "VALIDATION", "value": "true"}
                 ],
                 "error": "applicantData.name",
-                "searchOption": false,
-                "helpText": "",
+                "helpText": "Navn på bedrift/org, eller person",
             },
             {
                 "input": "DROPZONE_TEXT_FIELD",
@@ -59,8 +56,7 @@ export const MOCK_APPLICANTFIELDGROUP: IFieldGroup[] = [
                     {"type": "VALIDATION", "value": "false"}
                 ],
                 "error": "applicantData.address",
-                "searchOption": false,
-                "helpText": "",
+                "helpText": "Postadresse",
             },
             {
                 "input": "DROPZONE_TEXT_FIELD",
@@ -71,8 +67,7 @@ export const MOCK_APPLICANTFIELDGROUP: IFieldGroup[] = [
                     {"type": "VALIDATION", "value": "false"}
                 ],
                 "error": "applicantData.postalCode",
-                "searchOption": false,
-                "helpText": "",
+                "helpText": "Postkode",
             },
             {
                 "input": "DROPZONE_TEXT_FIELD",
@@ -83,8 +78,7 @@ export const MOCK_APPLICANTFIELDGROUP: IFieldGroup[] = [
                     {"type": "VALIDATION", "value": "false"}
                 ],
                 "error": "applicantData.city",
-                "searchOption": false,
-                "helpText": "",
+                "helpText": "Poststed",
             },
             {
                 "input": "DROPZONE_TEXT_FIELD",
@@ -96,8 +90,7 @@ export const MOCK_APPLICANTFIELDGROUP: IFieldGroup[] = [
                 ],
                 "hidden": {"type": "NOT_FIELD", "key": "applicantData.type", "value": "ORGANISATION"},
                 "error": "applicantData.contactPerson",
-                "searchOption": false,
-                "helpText": "",
+                "helpText": "Tittel eller navn på arkivenheten.",
             },
             {
                 "input": "DROPZONE_TEXT_FIELD",
@@ -108,8 +101,7 @@ export const MOCK_APPLICANTFIELDGROUP: IFieldGroup[] = [
                     {"type": "VALIDATION", "value": "false"}
                 ],
                 "error": "applicantData.phoneNumber",
-                "searchOption": false,
-                "helpText": "",
+                "helpText": "Telefonnummer",
             },
             {
                 "input": "DROPZONE_TEXT_FIELD",
@@ -120,8 +112,7 @@ export const MOCK_APPLICANTFIELDGROUP: IFieldGroup[] = [
                     {"type": "VALIDATION", "value": "false"}
                 ],
                 "error": "applicantData.email",
-                "searchOption": false,
-                "helpText": "",
+                "helpText": "Epostadresse",
             },
             {
                 "input": "CHECKBOX",
@@ -132,8 +123,7 @@ export const MOCK_APPLICANTFIELDGROUP: IFieldGroup[] = [
                     {"type": "VALIDATION", "value": "false"}
                 ],
                 "error": "applicantData.protected",
-                "searchOption": false,
-                "helpText": "",
+                "helpText": "Skjerming av avsender krever tilgangskode og skjermingshjemmel"
             }
         ]
     }
@@ -152,8 +142,7 @@ export const MOCK_APPLICANTFIELDGROUP: IFieldGroup[] = [
                     {"type": "BOOLEAN_FIELD", "key": "applicantData.protected", "value": "true"}
                 ],
                 "error": "applicantData.accessCode",
-                "searchOption": false,
-                "helpText": "",
+                "helpText": "Angivelse av at dokumentene som tilhører arkivenheten ikke er offentligtilgjengelig i henhold til offentlighetsloven eller av en annen grunn."
             },
             {
                 "input": "AUTOCOMPLETE",
@@ -165,8 +154,7 @@ export const MOCK_APPLICANTFIELDGROUP: IFieldGroup[] = [
                     {"type": "BOOLEAN_FIELD", "key": "applicantData.protected", "value": "true"}
                 ],
                 "error": "applicantData.paragraph",
-                "searchOption": false,
-                "helpText": "",
+                "helpText": "Henvisning til hjemmel (paragraf) i offentlighetsloven, sikkerhetsloven eller beskyttelsesinstruksen.",
             }
         ]
     }
