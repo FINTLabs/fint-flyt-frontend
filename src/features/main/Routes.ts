@@ -5,6 +5,7 @@ import IntegrationOverview from "../integrationOverview/IntegrationOverview";
 import InstanceOverview from "../instanceOverview/InstanceOverview";
 import Support from "../support/Support";
 import ConfigurationForm from "../integration/ConfigurationForm";
+import {IntegrationForm} from "../integration/components/IntegrationForm";
 
 const routes: IRoute[] = [
     {
@@ -16,12 +17,18 @@ const routes: IRoute[] = [
         inNavigationMenu: true
     },
     {
+        path: '/integration/new',
+        name: 'newIntegration',
+        component: IntegrationForm,
+        exact: true,
+        icon: 'add',
+        inNavigationMenu: true
+    },
+    {
         path: '/integration/configuration/new',
         name: 'newIntegration',
         component: ConfigurationForm,
         exact: true,
-        icon: 'add',
-        inNavigationMenu: true
     },
     {
         path: '/integration/configuration/edit',

@@ -29,7 +29,6 @@ import {CreationStrategy} from "./types/CreationStrategy";
 import {newToFormData} from "../util/mapping/ToFormData";
 import {ResourcesContext} from "../../context/resourcesContext";
 import {IntegrationContext} from "../../context/integrationContext";
-import {IntegrationForm} from "./components/IntegrationForm";
 import CloseIcon from '@mui/icons-material/Close';
 import {useTranslation} from "react-i18next";
 import InputField from "./components/form/InputField";
@@ -111,10 +110,10 @@ const useStyles = makeStyles((theme: Theme) =>
 const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.configurationForm'});
     const classes = useStyles();
-    const {caseNumber, newIntegration, existingIntegration, setExistingIntegration, setNewIntegration, selectedMetadata, configuration, setConfiguration, resetSourceAndDestination, getNewIntegrations} = useContext(IntegrationContext);
     const { getAllResources, resetAllResources } = useContext(ResourcesContext);
     const editConfig: boolean = window.location.pathname === '/integration/configuration/edit'
     const [submitSuccess, setSubmitSuccess] = useState(false)
+    const {caseNumber, newIntegration, existingIntegration, setExistingIntegration, setNewIntegration, selectedMetadata, configuration, setConfiguration, resetIntegrationContext, getNewIntegrations} = useContext(IntegrationContext);
     const [saved, setSaved] = React.useState(false);
     const [saveError, setSaveError] = React.useState(false);
     const [checked, setChecked] = React.useState(configuration && editConfig ? configuration.completed : false);
@@ -146,7 +145,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
             setNewIntegration(undefined);
             setExistingIntegration(undefined);
             resetAllResources();
-            resetSourceAndDestination();
+            resetIntegrationContext();
         };
     }, [])
 
@@ -302,7 +301,6 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
 
     return (
         <DndProvider backend={HTML5Backend}>
-            {!existingIntegration && !newIntegration && <IntegrationForm/>}
             {!submitSuccess && (existingIntegration || newIntegration) &&
                 <Box display="flex" position="relative" width={1} height={1}>
                     <Box>
