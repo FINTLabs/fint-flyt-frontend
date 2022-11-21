@@ -3,7 +3,6 @@ import {classificationsWithDynamicField} from "../../features/integration/defaul
 
 export const MOCK_CASEFIELDGROUP: IFieldGroup[] = [
     {
-        "hidden": {"type": "NOT_FIELD", "key": "caseData.caseCreationStrategy", "value": "COLLECTION"},
         "fields": [
             {
                 "input": "DROPZONE_TEXT_FIELD",
