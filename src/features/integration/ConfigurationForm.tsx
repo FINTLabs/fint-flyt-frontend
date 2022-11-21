@@ -106,7 +106,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     const classes = useStyles();
     const editConfig: boolean = window.location.pathname === '/integration/configuration/edit'
     const [submitSuccess, setSubmitSuccess] = useState(false)
-    const {caseNumber, newIntegration, existingIntegration, setExistingIntegration, setNewIntegration, selectedMetadata, configuration, setConfiguration, resetSourceAndDestination, getNewIntegrations} = useContext(IntegrationContext);
+    const {caseNumber, newIntegration, existingIntegration, setExistingIntegration, setNewIntegration, selectedMetadata, configuration, setConfiguration, resetIntegrationContext, getNewIntegrations} = useContext(IntegrationContext);
     const [saved, setSaved] = React.useState(false);
     const [saveError, setSaveError] = React.useState(false);
     const [checked, setChecked] = React.useState(configuration && editConfig ? configuration.completed : false);
@@ -141,7 +141,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
             setNewIntegration(undefined);
             setExistingIntegration(undefined);
             resetAllResources();
-            resetSourceAndDestination();
+            resetIntegrationContext();
         };
     }, [])
 

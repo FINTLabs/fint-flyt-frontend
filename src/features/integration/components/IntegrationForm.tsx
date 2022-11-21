@@ -26,7 +26,7 @@ export const IntegrationForm: React.FunctionComponent<any> = (props) => {
     const {
         setSelectedMetadata,
         setNewIntegration,
-        resetSourceAndDestination
+        resetIntegrationContext
     } = useContext(IntegrationContext)
     const {getAvailableForms, sourceApplication, setSourceApplication, availableForms, allMetadata, getAllMetadata, getInstanceElementMetadata} = useContext(SourceApplicationContext)
     const [error, setError] = useState<string>('');
@@ -34,7 +34,7 @@ export const IntegrationForm: React.FunctionComponent<any> = (props) => {
     const [sourceApplicationId, setSourceApplicationId] = useState<string>('');
     const [sourceApplicationIntegrationId, setSourceApplicationIntegrationId] = useState<string>('');
 
-    const setHistory = () => {
+    const navToConfiguration = () => {
         history.push({
             pathname: '/integration/configuration/new',
         })
@@ -46,7 +46,7 @@ export const IntegrationForm: React.FunctionComponent<any> = (props) => {
     }
 
     useEffect(() => {
-        resetSourceAndDestination();
+        resetIntegrationContext();
         return () => {
             setSourceApplication(null)
         }
@@ -69,7 +69,7 @@ export const IntegrationForm: React.FunctionComponent<any> = (props) => {
                 .then((response) => {
                     setSourceApplicationIntegrationId(response.data.sourceApplicationIntegrationId)
                     setNewIntegration(response.data)
-                    setHistory();
+                    navToConfiguration();
                 })
                 .catch(e => console.error(e))
             console.log('create new integration', toIntegration(formConfiguration, IntegrationState.DEACTIVATED))

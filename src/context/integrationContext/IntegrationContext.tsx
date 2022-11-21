@@ -27,7 +27,7 @@ const IntegrationProvider: FC = ({ children }) => {
     const [sourceApplicationId, setSourceApplicationId] = useState<string>('');
     const [statistics, setStatistics] = useState<any[]>(contextDefaultValues.statistics);
 
-    const resetSourceAndDestination = () => {
+    const resetIntegrationContext = () => {
         setDestination('');
         setSourceApplicationId('');
         setExistingIntegration(undefined);
@@ -174,7 +174,7 @@ const IntegrationProvider: FC = ({ children }) => {
                 sourceApplicationIntegrationId,
                 setSourceApplicationIntegrationId,
                 setSourceApplicationId,
-                resetSourceAndDestination,
+                resetIntegrationContext,
                 resetIntegrations
             }}
         >
