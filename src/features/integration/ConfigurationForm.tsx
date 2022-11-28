@@ -281,10 +281,6 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     });
 
     const onSave = handleSubmit((data: IFormConfiguration) => {
-        if (data.caseData.caseCreationStrategy === CreationStrategy.COLLECTION && caseNumber === undefined) {
-            setSaveError(true)
-            return;
-        }
         if (data.caseData.caseCreationStrategy === CreationStrategy.COLLECTION && caseNumber) {
             data.caseData.caseNumber = caseNumber
         }

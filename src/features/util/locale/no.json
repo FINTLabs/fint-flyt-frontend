@@ -48,7 +48,7 @@
                         "caseNumber": "Saksnummer",
                         "searching": "Søker...",
                         "info": "Saksnummer må være på formatet 'saksår/saksnummer', f.eks 2021/03",
-                        "noMatch": "Ingen treff"
+                        "noMatch": "Ingen treff, ferdigstilling av konfigurasjon krever gyldig saksnummer"
                     }
                 },
                 "caseForm": {
