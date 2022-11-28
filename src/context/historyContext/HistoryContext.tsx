@@ -64,6 +64,7 @@ const HistoryProvider: FC = ({children}) => {
                 }
             }).catch((e) => {
             console.error('Error: ', e)
+            setLatestInstances([]);
         })
     }
     const getSelectedInstances = (page: number, size: number, sortProperty: string, sortDirection: string, sourceApplicationId: string, instanceId: string) => {
