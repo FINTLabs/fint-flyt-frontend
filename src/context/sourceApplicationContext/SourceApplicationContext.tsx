@@ -14,7 +14,7 @@ const SourceApplicationProvider: FC = ({children}) => {
     const [availableForms, setAvailableForms] = useState<ISourceApplicationItem>(contextDefaultValues.availableForms);
     const [allMetadata, setAllMetadata] = useState<IIntegrationMetadata[]>(contextDefaultValues.allMetadata)
     const [instanceElementMetadata, setInstanceElementMetadata] = useState<IInstanceElementMetadata | undefined>(undefined)
-    const [sourceApplication, setSourceApplication] = useState<number | null>(contextDefaultValues.sourceApplication);
+    const [sourceApplication, setSourceApplication] = useState<number>(contextDefaultValues.sourceApplication);
 
 
     const getAvailableForms = () => {

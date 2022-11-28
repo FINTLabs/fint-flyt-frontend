@@ -33,8 +33,8 @@ const HistoryProvider: FC = ({children}) => {
             })
     }
 
-    const getLatestInstances = (page: number, size: number, sortProperty: string, sortDirection: string) => {
-        SourceApplicationRepository.getMetadata("1", true)
+    const getLatestInstances = (page: number, size: number, sortProperty: string, sortDirection: string, sourceApplicationId: string) => {
+        SourceApplicationRepository.getMetadata(sourceApplicationId, true)
             .then((response) => {
                 if(response.data) {
                     let metadata: IIntegrationMetadata[] = response.data;
@@ -68,7 +68,7 @@ const HistoryProvider: FC = ({children}) => {
         })
     }
     const getSelectedInstances = (page: number, size: number, sortProperty: string, sortDirection: string, sourceApplicationId: string, instanceId: string) => {
-        SourceApplicationRepository.getMetadata("1", true)
+        SourceApplicationRepository.getMetadata(sourceApplicationId, true)
             .then((response) => {
                 if(response.data) {
                     let metadata: IIntegrationMetadata[] = response.data;

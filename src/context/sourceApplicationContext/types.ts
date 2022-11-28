@@ -15,8 +15,8 @@ export type SourceApplicationContextState = {
     instanceElementMetadata: IInstanceElementMetadata | undefined;
     getAllMetadata: (onlyLatest: boolean) => void;
     getInstanceElementMetadata: (metadataId: string) => void;
-    sourceApplication: number | null;
-    setSourceApplication: (id: number | null) => void;
+    sourceApplication: number;
+    setSourceApplication: (id: number) => void;
 };
 
 export const contextDefaultValues: SourceApplicationContextState = {
@@ -33,6 +33,6 @@ export const contextDefaultValues: SourceApplicationContextState = {
     instanceElementMetadata: undefined,
     getAllMetadata: (onlyLatest) => {},
     getInstanceElementMetadata: (metadataId) => {},
-    sourceApplication: null,
+    sourceApplication: 1,
     setSourceApplication: () => {}
 };

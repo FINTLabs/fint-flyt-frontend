@@ -47,14 +47,14 @@ const IntegrationProvider: FC = ({ children }) => {
         setConfiguration(undefined)
     }
 
-    const getNewIntegrations = () => {
+    const getNewIntegrations = (sourceApplicationId: string) => {
         EventRepository.getStatistics()
             .then((response) => {
                 let data = response.data;
                 if (data) {
                     setStatistics(data)
                     let stats = data;
-                    SourceApplicationRepository.getMetadata("1", true)
+                    SourceApplicationRepository.getMetadata(sourceApplicationId, true)
                         .then((response) => {
                             if(response.data) {
                                 let metadata: IIntegrationMetadata[] = response.data;
