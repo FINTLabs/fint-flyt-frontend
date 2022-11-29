@@ -259,7 +259,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
 
     const onSubmit = handleSubmit((data: IFormConfiguration) => {
         if (data.caseData.caseCreationStrategy === CreationStrategy.COLLECTION && caseNumber === undefined) {
-            setSaveMessage('Det har oppstått en feil, det mangler saksnummer, benytt søk for å finne gyldig saksnummer')
+            setSaveMessage(t('messages.errorCaseNumber'))
             setSaveError(true)
             return;
         }

@@ -93,7 +93,8 @@
             },
             "messages": {
                 "success": "Lagret",
-                "error": "Det har oppstått en feil"
+                "error": "Det har oppstått en feil",
+                "errorCaseNumber": "Det har oppstått en feil, det mangler saksnummer, benytt søk for å finne gyldig saksnummer"
             }
         },
         "integrationOverview": {
