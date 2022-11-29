@@ -302,8 +302,6 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
         }
     });
 
-    console.log(saveMessage)
-
     return (
         <DndProvider backend={HTML5Backend}>
             {!submitSuccess && (existingIntegration || newIntegration) &&
