@@ -34,6 +34,7 @@ import {IConfigurationPatch, newIConfiguration} from "./types/Configuration";
 import ConfigurationRepository from "../../shared/repositories/ConfigurationRepository";
 import IntegrationRepository from "../../shared/repositories/IntegrationRepository";
 import {IIntegrationPatch, IntegrationState} from "./types/Integration";
+import {SourceApplicationContext} from "../../context/sourceApplicationContext";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -107,6 +108,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     const editConfig: boolean = window.location.pathname === '/integration/configuration/edit'
     const [submitSuccess, setSubmitSuccess] = useState(false)
     const {caseNumber, newIntegration, existingIntegration, setExistingIntegration, setNewIntegration, selectedMetadata, configuration, setConfiguration, resetIntegrationContext, getNewIntegrations} = useContext(IntegrationContext);
+    const {sourceApplication} = useContext(SourceApplicationContext)
     const [saved, setSaved] = React.useState(false);
     const [saveError, setSaveError] = React.useState(false);
     const [checked, setChecked] = React.useState(configuration && editConfig ? configuration.completed : false);
@@ -175,7 +177,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                 setConfiguration(response.data)
                 setActiveConfigId(response.data.id)
                 setSaved(true);
-                getNewIntegrations();
+                getNewIntegrations(sourceApplication.toString());
             })
             .catch((e: Error) => {
                 setSaveError(true);
@@ -189,7 +191,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
             .then(response => {
                 console.log('updated configuration: ', configurationId, data, response);
                 setSaved(true);
-                getNewIntegrations();
+                getNewIntegrations(sourceApplication.toString());
             })
             .catch((e: Error) => {
                 setSaveError(true);
@@ -207,7 +209,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                 }
                 resetAllResources();
                 setSubmitSuccess(true);
-                getNewIntegrations();
+                getNewIntegrations(sourceApplication.toString());
             })
             .catch((e: Error) => {
                 console.log('error creating new', e);
@@ -224,7 +226,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                 console.log('updated configuration: ', data, response);
                 resetAllResources();
                 setSubmitSuccess(true);
-                getNewIntegrations();
+                getNewIntegrations(sourceApplication.toString());
             })
             .catch((e: Error) => {
                 console.log('error updating configuration', e);

@@ -18,11 +18,13 @@ import Stack from "@mui/material/Stack";
 import {stringReplace} from "../../util/StringUtil";
 import {ErrorType} from "../../log/types/ErrorType";
 import {IEvent} from "../../log/types/Event";
+import {SourceApplicationContext} from "../../../context/sourceApplicationContext";
 
 const InstanceTable: React.FunctionComponent<any> = (props) => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.instanceOverview'})
     let history = useHistory();
     const {latestInstances, getLatestInstances, getSelectedInstances} = useContext(HistoryContext)
+    const {sourceApplication} = useContext(SourceApplicationContext)
     const [selectedRow, setSelectedRow] = useState<IEvent>();
     const [open, setOpen] = React.useState(false);
     const handleClickOpen = () => {setOpen(true);};
@@ -81,7 +83,7 @@ const InstanceTable: React.FunctionComponent<any> = (props) => {
     }
 
     useEffect(()=> {
-        getLatestInstances(0, 10000, "timestamp", "DESC");
+        getLatestInstances(0, 10000, "timestamp", "DESC", sourceApplication.toString());
     }, []);
 
     const getEventsWithInstanceId = (sourceApplicationID: string, instanceId: string) => {
