@@ -111,6 +111,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     const {sourceApplication} = useContext(SourceApplicationContext)
     const [saved, setSaved] = React.useState(false);
     const [saveError, setSaveError] = React.useState(false);
+    const [saveMessage, setSaveMessage] = React.useState<string>(t('messages.error'));
     const [checked, setChecked] = React.useState(configuration && editConfig ? configuration.completed : false);
     const [activeChecked, setActiveChecked] = React.useState(false);
     let history = useHistory();
@@ -246,6 +247,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
         }
         setSaved(false);
         setSaveError(false);
+        setSaveMessage(t('messages.error'))
     };
 
     const action = (
@@ -259,6 +261,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
 
     const onSubmit = handleSubmit((data: IFormConfiguration) => {
         if (data.caseData.caseCreationStrategy === CreationStrategy.COLLECTION && caseNumber === undefined) {
+            setSaveMessage(t('messages.errorCaseNumber'))
             setSaveError(true)
             return;
         }
@@ -283,10 +286,6 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     });
 
     const onSave = handleSubmit((data: IFormConfiguration) => {
-        if (data.caseData.caseCreationStrategy === CreationStrategy.COLLECTION && caseNumber === undefined) {
-            setSaveError(true)
-            return;
-        }
         if (data.caseData.caseCreationStrategy === CreationStrategy.COLLECTION && caseNumber) {
             data.caseData.caseNumber = caseNumber
         }
@@ -386,9 +385,8 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                     <Snackbar
                         id="integration-form-snackbar-error"
                         open={saveError}
-                        autoHideDuration={4000}
                         onClose={handleClose}
-                        message={t('messages.error')}
+                        message={saveMessage}
                         action={action}
                     />
                 </Box>
