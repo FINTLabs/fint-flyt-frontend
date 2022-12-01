@@ -73,7 +73,7 @@ const InstanceTable: React.FunctionComponent<any> = (props) => {
         );
     }
 
-    const  resend = (event: any, instanceId: string) => {
+    const resend = (event: any, instanceId: string) => {
         //TODO: add notifatication on successful or failed resending
         InstanceRepository.resendInstance(instanceId)
             .then(response => {
@@ -92,7 +92,7 @@ const InstanceTable: React.FunctionComponent<any> = (props) => {
     }
 
     function CustomButtonToggle(props: GridCellParams["row"]) {
-        const hasErrors: boolean = props.row.errors.length > 0;
+        const hasErrors: boolean = (props.row.type === 'ERROR') && (props.row.name !== 'instance-receival-error');
         return (
             <>
                 {hasErrors &&
