@@ -44,7 +44,7 @@ const InstancePanel: React.FunctionComponent<any> = (props) => {
             valueGetter: (params) => params.row.instanceFlowHeaders.archiveInstanceId
         },
         { field: 'timestamp', type: 'dateTime', headerName: t('table.columns.timestampLatest'), minWidth: 200, flex: 2,
-            valueGetter: (params) => moment(params.row.timestamp).format('YYYY/MM/DD HH:mm:ss.sss')
+            valueGetter: (params) => moment(params.row.timestamp).format('YYYY/MM/DD HH:mm:ss.SSS')
         },
         { field: 'name', type: 'string', headerName: t('table.columns.name'), minWidth: 400, flex: 3,
             renderCell: params => ( <CustomCellRender row={params.row} />)
