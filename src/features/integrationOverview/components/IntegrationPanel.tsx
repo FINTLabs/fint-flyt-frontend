@@ -95,7 +95,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
     ];
 
     function getVersionForActiveConfig(id: any): void {
-        if (id == undefined) {
+        if (id === undefined) {
             setActiveVersion('ingen aktiv konfigurasjon')
             return;
         }

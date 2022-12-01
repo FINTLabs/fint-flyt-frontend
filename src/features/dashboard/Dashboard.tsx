@@ -46,11 +46,11 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
     }, [])
 
     const cards: ICard[] = [
-        { value: newIntegrations === undefined || newIntegrations.length === 0 ? t('empty') : newIntegrations.length, content: newIntegrations !== undefined && newIntegrations.length == 1 ? t('oneForm') : t('form'), links: [
+        { value: newIntegrations === undefined || newIntegrations.length === 0 ? t('empty') : newIntegrations.length, content: newIntegrations !== undefined && newIntegrations.length === 1 ? t('oneForm') : t('form'), links: [
                 {name: t('links.newIntegration'), href: '/integration/configuration/new'}
             ]
         },
-        { value: totalErrors === 0 ? t('empty') : totalErrors.toString(), content: totalErrors == 1 ? t('oneError') : t('errors'), links: [
+        { value: totalErrors === 0 ? t('empty') : totalErrors.toString(), content: totalErrors === 1 ? t('oneError') : t('errors'), links: [
                 {name: t('links.instanceOverview'), href: '/integration/instance/list'}
             ]
         }

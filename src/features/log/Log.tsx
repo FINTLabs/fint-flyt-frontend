@@ -54,7 +54,7 @@ function Log() {
             <AlertDialog row={selectedRow}/>
             <DataGrid
                 columns={columns}
-                loading={events == undefined}
+                loading={events === undefined}
                 density='compact'
                 localeText={gridLocaleNoNB}
                 rows={events? events : []}
