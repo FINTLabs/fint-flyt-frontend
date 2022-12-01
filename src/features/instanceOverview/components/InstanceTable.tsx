@@ -45,8 +45,8 @@ const InstanceTable: React.FunctionComponent<any> = (props) => {
         { field: 'configurationId', type: 'string', headerName: t('table.columns.configurationId'), minWidth: 150, flex: 1,
             valueGetter: (params) => params.row.instanceFlowHeaders.configurationId
         },
-        { field: 'archiveCaseId', type: 'string', headerName: t('table.columns.archiveCaseId'), minWidth: 150, flex: 1,
-            valueGetter: (params) => params.row.instanceFlowHeaders.archiveCaseId
+        { field: 'archiveInstanceId', type: 'string', headerName: t('table.columns.archiveInstanceId'), minWidth: 150, flex: 1,
+            valueGetter: (params) => params.row.instanceFlowHeaders.archiveInstanceId
         },
         { field: 'timestamp', type: 'dateTime', headerName: t('table.columns.timestamp'), minWidth: 200, flex: 1,
             valueGetter: (params) => moment(params.row.timestamp).format('YYYY/MM/DD HH:mm:ss.sss'),

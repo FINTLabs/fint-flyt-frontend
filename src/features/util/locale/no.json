@@ -194,7 +194,7 @@
                         "sourceApplicationId": "Kildeapplikasjon",
                         "sourceApplicationInstanceId": "Kildeapplikasjons instans-ID",
                         "configurationId": "Konfigurasjon ID",
-                        "archiveCaseId": "Arkivsak ID",
+                        "archiveInstanceId": "Arkivsak ID",
                         "timestamp": "Tidspunkt",
                         "timestampLatest": "Sist hendelse",
                         "name": "Status",
