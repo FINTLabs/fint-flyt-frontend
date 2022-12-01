@@ -92,7 +92,7 @@ const InstanceTable: React.FunctionComponent<any> = (props) => {
     }
 
     function CustomButtonToggle(props: GridCellParams["row"]) {
-        const hasErrors: boolean = (props.row.type === 'ERROR') && (props.row.name !== 'instance-receival-error');
+        const hasErrors: boolean = (props.row.type === 'ERROR') && (props.row.name !== 'instance-receival-error' || props.row.name !== 'instance-registration-error');
         return (
             <>
                 {hasErrors &&
