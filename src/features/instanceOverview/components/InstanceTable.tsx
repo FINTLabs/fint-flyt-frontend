@@ -153,7 +153,7 @@ const InstanceTable: React.FunctionComponent<any> = (props) => {
     );
 
     function CustomErrorDialogToggle(props: GridCellParams["row"]) {
-        const hasErrors: boolean = props.row.errors.length > 0;
+        const hasErrors: boolean = (props.row.type === 'ERROR') && (props.row.name !== 'instance-receival-error' || props.row.name !== 'instance-registration-error');
         return (
             <>
                 {hasErrors &&
