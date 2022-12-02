@@ -38,7 +38,7 @@ const InstanceTable: React.FunctionComponent<any> = (props) => {
         { field: 'sourceApplicationIntegrationId', type: 'string', headerName: t('table.columns.sourceApplicationIntegrationId'), minWidth: 250, flex: 1,
             valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplicationIntegrationId
         },
-        { field: 'displayName', type: 'string', headerName: t('table.columns.sourceApplicationIntegrationIdDisplayName'), minWidth: 150, flex: 1, sortable: false },
+        { field: 'displayName', type: 'string', headerName: t('table.columns.sourceApplicationIntegrationIdDisplayName'), minWidth: 500, flex: 1, sortable: false },
         { field: 'sourceApplicationInstanceId', type: 'string', headerName: t('table.columns.sourceApplicationInstanceId'), minWidth: 200, flex: 1,
             valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplicationInstanceId
         },
@@ -51,7 +51,7 @@ const InstanceTable: React.FunctionComponent<any> = (props) => {
         { field: 'timestamp', type: 'dateTime', headerName: t('table.columns.timestamp'), minWidth: 200, flex: 1,
             valueGetter: (params) => moment(params.row.timestamp).format('YYYY/MM/DD HH:mm:ss.SSS'),
         },
-        { field: 'name', type: 'string', headerName: t('table.columns.name'), minWidth: 400, flex: 3,
+        { field: 'name', type: 'string', headerName: t('table.columns.name'), minWidth: 250, flex: 3,
             renderCell: params => ( <CustomCellRender row={params.row} />)
         },
         { field: 'details', headerName: t('table.columns.details'), minWidth: 150, flex: 1, sortable: false, filterable: false,
