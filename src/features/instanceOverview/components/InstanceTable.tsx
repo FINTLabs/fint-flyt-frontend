@@ -31,6 +31,8 @@ const InstanceTable: React.FunctionComponent<any> = (props) => {
     const handleClickOpen = () => {setOpen(true);};
     const handleClose = () => {setOpen(false);};
 
+    const errorsToRetry: string[] = ['instance-receival-error','instance-registration-error']
+
     const columns: GridColumns = [
         { field: 'id', hide: true, type: 'string', headerName: 'id', minWidth: 150, flex: 0.5 },
         { field: 'sourceApplicationId', type: 'string', headerName: t('table.columns.sourceApplicationId'), minWidth: 150, flex: 1,
@@ -93,7 +95,7 @@ const InstanceTable: React.FunctionComponent<any> = (props) => {
     }
 
     function CustomButtonToggle(props: GridCellParams["row"]) {
-        const hasErrors: boolean = (props.row.type === 'ERROR') && (props.row.name !== 'instance-receival-error' || props.row.name !== 'instance-registration-error');
+        const hasErrors: boolean = (props.row.type === 'ERROR') && !errorsToRetry.includes(props.row.name)
         return (
             <>
                 {hasErrors &&
@@ -161,7 +163,7 @@ const InstanceTable: React.FunctionComponent<any> = (props) => {
     );
 
     function CustomErrorDialogToggle(props: GridCellParams["row"]) {
-        const hasErrors: boolean = (props.row.type === 'ERROR') && (props.row.name !== 'instance-receival-error' || props.row.name !== 'instance-registration-error');
+        const hasErrors: boolean = (props.row.type === 'ERROR')
         return (
             <>
                 {hasErrors &&
