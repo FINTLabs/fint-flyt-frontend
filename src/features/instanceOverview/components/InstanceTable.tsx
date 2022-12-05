@@ -1,4 +1,4 @@
-import {Box, Button, Dialog, DialogActions, DialogContent, IconButton, Typography} from "@mui/material";
+import {Box, Button, Dialog, DialogActions, DialogContent, IconButton} from "@mui/material";
 import {DataGrid, GridCellParams, GridColumns, GridToolbar} from "@mui/x-data-grid";
 import * as React from "react";
 import {useHistory} from "react-router-dom";
@@ -19,6 +19,7 @@ import {stringReplace} from "../../util/StringUtil";
 import {ErrorType} from "../../log/types/ErrorType";
 import {IEvent} from "../../log/types/Event";
 import {SourceApplicationContext} from "../../../context/sourceApplicationContext";
+import RefreshIcon from '@mui/icons-material/Refresh';
 
 const InstanceTable: React.FunctionComponent<any> = (props) => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.instanceOverview'})
@@ -74,7 +75,7 @@ const InstanceTable: React.FunctionComponent<any> = (props) => {
     }
 
     const resend = (event: any, instanceId: string) => {
-        //TODO: add notifatication on successful or failed resending
+        //TODO: add notification on successful or failed resending
         InstanceRepository.resendInstance(instanceId)
             .then(response => {
                 console.log('resend instance', response)
@@ -111,9 +112,16 @@ const InstanceTable: React.FunctionComponent<any> = (props) => {
     }
 
     return (
-        <Box sx={{ width: 1, height: 900 }}>
-            <Typography>{t('header')} </Typography>
+        <Box sx={{ width: 1, height: 900}}>
             <AlertDialog row={selectedRow}/>
+            <Button
+                sx={{mb: 2}}
+                variant='contained'
+                onClick={e => getLatestInstances(0, 10000, "timestamp", "DESC",
+                    sourceApplication.toString())}
+                endIcon={<RefreshIcon />}
+            >{t('button.refresh')}
+            </Button>
             <DataGrid
                 loading={!latestInstances}
                 columns={columns}

@@ -184,6 +184,7 @@
                 "edit": "Rediger",
                 "back": "Tilbake",
                 "retry": "Prøv igjen",
+                "refresh": "Oppdater side",
                 "changeVersion": "Bruk denne konfigurasjonen"
             },
             "table": {
