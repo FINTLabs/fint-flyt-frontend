@@ -176,8 +176,8 @@
             "instance-receival-error": "Feilet under mottak av instans",
             "instance-registration-error": "Feilet under registrering av instans",
             "instance-retry-request-error": "Feilet under forespørsel for nytt forsøk",
-            "instance-mapping-error": "Feil under konvertering av instans",
-            "instance-dispatching-error": "Feil under sending",
+            "instance-mapping-error": "Feilet under konvertering av instans",
+            "instance-dispatching-error": "Feilet under sending til destinasjon",
             "header": "Instansoversikt",
             "button": {
                 "close": "Lukk",
