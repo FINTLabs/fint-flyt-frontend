@@ -40,6 +40,7 @@ import IntegrationRepository from "../../shared/repositories/IntegrationReposito
 import {IIntegrationPatch, IntegrationState} from "./types/Integration";
 import {MOCK_ACCS, MOCK_ACCS1} from "../../__tests__/mock/mock_accordions";
 import {toExpandedProp, toHiddenProp} from "./components/form/FormUtil";
+import {SourceApplicationContext} from "../../context/sourceApplicationContext";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -114,8 +115,10 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     const editConfig: boolean = window.location.pathname === '/integration/configuration/edit'
     const [submitSuccess, setSubmitSuccess] = useState(false)
     const {caseNumber, newIntegration, existingIntegration, setExistingIntegration, setNewIntegration, selectedMetadata, configuration, setConfiguration, resetIntegrationContext, getNewIntegrations} = useContext(IntegrationContext);
+    const {sourceApplication} = useContext(SourceApplicationContext)
     const [saved, setSaved] = React.useState(false);
     const [saveError, setSaveError] = React.useState(false);
+    const [saveMessage, setSaveMessage] = React.useState<string>(t('messages.error'));
     const [checked, setChecked] = React.useState(configuration && editConfig ? configuration.completed : false);
     const [activeChecked, setActiveChecked] = React.useState(false);
     let history = useHistory();
@@ -172,7 +175,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                 setConfiguration(response.data)
                 setActiveConfigId(response.data.id)
                 setSaved(true);
-                getNewIntegrations();
+                getNewIntegrations(sourceApplication.toString());
             })
             .catch((e: Error) => {
                 setSaveError(true);
@@ -186,7 +189,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
             .then(response => {
                 console.log('updated configuration: ', configurationId, data, response);
                 setSaved(true);
-                getNewIntegrations();
+                getNewIntegrations(sourceApplication.toString());
             })
             .catch((e: Error) => {
                 setSaveError(true);
@@ -204,7 +207,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                 }
                 resetAllResources();
                 setSubmitSuccess(true);
-                getNewIntegrations();
+                getNewIntegrations(sourceApplication.toString());
             })
             .catch((e: Error) => {
                 console.log('error creating new', e);
@@ -221,7 +224,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                 console.log('updated configuration: ', data, response);
                 resetAllResources();
                 setSubmitSuccess(true);
-                getNewIntegrations();
+                getNewIntegrations(sourceApplication.toString());
             })
             .catch((e: Error) => {
                 console.log('error updating configuration', e);
@@ -241,6 +244,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
         }
         setSaved(false);
         setSaveError(false);
+        setSaveMessage(t('messages.error'))
     };
 
     const snackbarAction = (
@@ -254,6 +258,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
 
     const onSubmit = handleSubmit((data: IFormConfiguration) => {
         if (data.caseData.caseCreationStrategy === CreationStrategy.COLLECTION && caseNumber === undefined) {
+            setSaveMessage(t('messages.errorCaseNumber'))
             setSaveError(true)
             return;
         }
@@ -277,10 +282,6 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     });
 
     const onSave = handleSubmit((data: IFormConfiguration) => {
-        if (data.caseData.caseCreationStrategy === CreationStrategy.COLLECTION && caseNumber === undefined) {
-            setSaveError(true)
-            return;
-        }
         if (data.caseData.caseCreationStrategy === CreationStrategy.COLLECTION && caseNumber) {
             data.caseData.caseNumber = caseNumber
         }
@@ -386,10 +387,9 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                     <Snackbar
                         id="integration-form-snackbar-error"
                         open={saveError}
-                        autoHideDuration={4000}
                         onClose={handleSnackbarClose}
-                        message={t('messages.error')}
                         action={snackbarAction}
+                        message={saveMessage}
                     />
                 </Box>
             }

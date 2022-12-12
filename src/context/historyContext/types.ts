@@ -4,7 +4,7 @@ export type HistoryContextState = {
     events: IEvent[] | undefined,
     getEvents: (page: number, size: number, sortProperty: string, sortDirection: string) => void;
     latestInstances: IEvent[] | undefined,
-    getLatestInstances: (page: number, size: number, sortProperty: string, sortDirection: string) => void;
+    getLatestInstances: (page: number, size: number, sortProperty: string, sortDirection: string, sourceApplicationId: string) => void;
     selectedInstances: IEvent[] | undefined,
     getSelectedInstances: (page: number, size: number, sortProperty: string, sortDirection: string, sourceApplicationId: string, instanceId: string) => void;
 }

@@ -33,20 +33,20 @@ const InstancePanel: React.FunctionComponent<any> = (props) => {
         { field: 'sourceApplicationIntegrationId', type: 'string', headerName: t('table.columns.sourceApplicationIntegrationId'), minWidth: 250, flex: 1,
             valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplicationIntegrationId
         },
-        { field: 'displayName', type: 'string', headerName: t('table.columns.sourceApplicationIntegrationIdDisplayName'), minWidth: 200, flex: 1 },
+        { field: 'displayName', type: 'string', headerName: t('table.columns.sourceApplicationIntegrationIdDisplayName'), minWidth: 500, flex: 1 },
         { field: 'sourceApplicationInstanceId', type: 'string', headerName: t('table.columns.sourceApplicationInstanceId'), minWidth: 200, flex: 1,
             valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplicationInstanceId
         },
         { field: 'configurationId', type: 'string', headerName: t('table.columns.configurationId'), minWidth: 150, flex: 1,
             valueGetter: (params) => params.row.instanceFlowHeaders.configurationId
         },
-        { field: 'archiveCaseId', type: 'string', headerName: t('table.columns.archiveCaseId'), minWidth: 150, flex: 1,
-            valueGetter: (params) => params.row.instanceFlowHeaders.archiveCaseId
+        { field: 'archiveInstanceId', type: 'string', headerName: t('table.columns.archiveInstanceId'), minWidth: 150, flex: 1,
+            valueGetter: (params) => params.row.instanceFlowHeaders.archiveInstanceId
         },
         { field: 'timestamp', type: 'dateTime', headerName: t('table.columns.timestampLatest'), minWidth: 200, flex: 2,
-            valueGetter: (params) => moment(params.row.timestamp).format('YYYY/MM/DD HH:mm:ss.sss')
+            valueGetter: (params) => moment(params.row.timestamp).format('YYYY/MM/DD HH:mm:ss.SSS')
         },
-        { field: 'name', type: 'string', headerName: t('table.columns.name'), minWidth: 400, flex: 3,
+        { field: 'name', type: 'string', headerName: t('table.columns.name'), minWidth: 250, flex: 3,
             renderCell: params => ( <CustomCellRender row={params.row} />)
         },
         { field: 'details', headerName: t('table.columns.details'), minWidth: 150, flex: 1, sortable: false, filterable: false,

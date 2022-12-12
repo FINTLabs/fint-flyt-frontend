@@ -16,6 +16,7 @@ const HistoryProvider: FC = ({children}) => {
     const [selectedInstances, setSelectedInstances] = useState<IEvent[] | undefined>(contextDefaultValues.selectedInstances)
 
     const getEvents = (page: number, size: number, sortProperty: string, sortDirection: string) => {
+        setEvents([]);
         EventRepository.getEvents(page, size, sortProperty, sortDirection)
             .then((response) => {
                 let data = response.data.content;
@@ -29,12 +30,12 @@ const HistoryProvider: FC = ({children}) => {
             })
             .catch(e => {
                 console.error('Error: ', e)
-                setEvents([]);
             })
     }
 
-    const getLatestInstances = (page: number, size: number, sortProperty: string, sortDirection: string) => {
-        SourceApplicationRepository.getMetadata("1", true)
+    const getLatestInstances = (page: number, size: number, sortProperty: string, sortDirection: string, sourceApplicationId: string) => {
+        setLatestInstances([]);
+        SourceApplicationRepository.getMetadata(sourceApplicationId, true)
             .then((response) => {
                 if(response.data) {
                     let metadata: IIntegrationMetadata[] = response.data;
@@ -59,7 +60,6 @@ const HistoryProvider: FC = ({children}) => {
                         })
                         .catch(e => {
                             console.error('Error: ', e)
-                            setLatestInstances([]);
                         })
                 }
             }).catch((e) => {
@@ -67,7 +67,8 @@ const HistoryProvider: FC = ({children}) => {
         })
     }
     const getSelectedInstances = (page: number, size: number, sortProperty: string, sortDirection: string, sourceApplicationId: string, instanceId: string) => {
-        SourceApplicationRepository.getMetadata("1", true)
+        setSelectedInstances([]);
+        SourceApplicationRepository.getMetadata(sourceApplicationId, true)
             .then((response) => {
                 if(response.data) {
                     let metadata: IIntegrationMetadata[] = response.data;
@@ -92,7 +93,6 @@ const HistoryProvider: FC = ({children}) => {
                         })
                         .catch(e => {
                             console.error('Error: ', e)
-                            setSelectedInstances([]);
                         })
                 }
             }).catch((e) => {

@@ -48,7 +48,7 @@
                         "caseNumber": "Saksnummer",
                         "searching": "Søker...",
                         "info": "Saksnummer må være på formatet 'saksår/saksnummer', f.eks 2021/03",
-                        "noMatch": "Ingen treff"
+                        "noMatch": "Ingen treff, ferdigstilling av konfigurasjon krever gyldig saksnummer"
                     }
                 },
                 "caseForm": {
@@ -93,7 +93,8 @@
             },
             "messages": {
                 "success": "Lagret",
-                "error": "Det har oppstått en feil"
+                "error": "Det har oppstått en feil",
+                "errorCaseNumber": "Det har oppstått en feil, det mangler saksnummer, benytt søk for å finne gyldig saksnummer"
             }
         },
         "integrationOverview": {
@@ -152,10 +153,10 @@
             }
         },
         "instanceOverview": {
-            "FINT_FLYT_ACOS_INSTANCE_GATEWAY_GENERAL_SYSTEM_ERROR": "Systemfeil - Ta kontakt med FINT",
-            "FINT_FLYT_ACOS_INSTANCE_GATEWAY_INSTANCE_VALIDATION_ERROR": "Valideringsfeil i mottak av instans: '#fieldPath# #errorMessage#'",
-            "FINT_FLYT_ACOS_INSTANCE_GATEWAY_NO_INTEGRATION_FOUND_ERROR": "Integrasjonen finnes ikke",
-            "FINT_FLYT_ACOS_INSTANCE_GATEWAY_INTEGRATION_DEACTIVATED_ERROR": "Integrasjonen er deaktivert",
+            "FINT_FLYT_INSTANCE_GATEWAY_INSTANCE_VALIDATION_ERROR": "Valideringsfeil i mottak av instans, '#fieldPath# #errorMessage#'",
+            "FINT_FLYT_INSTANCE_GATEWAY_INTEGRATION_DEACTIVATED_ERROR": "Integrasjonen er deaktivert",
+            "FINT_FLYT_INSTANCE_GATEWAY_NO_INTEGRATION_FOUND_ERROR": "Ingen integrasjon funnet",
+            "FINT_FLYT_INSTANCE_GATEWAY_GENERAL_SYSTEM_ERROR": "Systemfeil. Ta kontakt med FINT",
             "FINT_FLYT_INSTANCE_SERVICE_GENERAL_SYSTEM_ERROR":  "Systemfeil. Ta kontakt med FINT",
             "FINT_FLYT_MAPPING_SERVICE_GENERAL_SYSTEM_ERROR": "Systemfeil - Ta kontakt med FINT",
             "FINT_FLYT_MAPPING_SERVICE_CONFIGURATION_NOT_FOUND": "Fant ikke aktiv konfigurasjon for integrasjonen",
@@ -175,14 +176,15 @@
             "instance-receival-error": "Feilet under mottak av instans",
             "instance-registration-error": "Feilet under registrering av instans",
             "instance-retry-request-error": "Feilet under forespørsel for nytt forsøk",
-            "instance-mapping-error": "Feil under konvertering av instans",
-            "instance-dispatching-error": "Feil under sending",
+            "instance-mapping-error": "Feilet under konvertering av instans",
+            "instance-dispatching-error": "Feilet under sending til destinasjon",
             "header": "Instansoversikt",
             "button": {
                 "close": "Lukk",
                 "edit": "Rediger",
                 "back": "Tilbake",
                 "retry": "Prøv igjen",
+                "refresh": "Oppdater side",
                 "changeVersion": "Bruk denne konfigurasjonen"
             },
             "table": {
@@ -193,7 +195,7 @@
                         "sourceApplicationId": "Kildeapplikasjon",
                         "sourceApplicationInstanceId": "Kildeapplikasjons instans-ID",
                         "configurationId": "Konfigurasjon ID",
-                        "archiveCaseId": "Arkivsak ID",
+                        "archiveInstanceId": "Arkivsak ID",
                         "timestamp": "Tidspunkt",
                         "timestampLatest": "Sist hendelse",
                         "name": "Status",
@@ -248,8 +250,10 @@
             }
         },
         "log": {
-            "FINT_FLYT_ACOS_INSTANCE_GATEWAY_INSTANCE_VALIDATION_ERROR": "Valideringsfeil i mottak av instans, '#fieldPath# #errorMessage#'",
-            "FINT_FLYT_ACOS_INSTANCE_GATEWAY_GENERAL_SYSTEM_ERROR": "Systemfeil. Ta kontakt med FINT",
+            "FINT_FLYT_INSTANCE_GATEWAY_INSTANCE_VALIDATION_ERROR": "Valideringsfeil i mottak av instans, '#fieldPath# #errorMessage#'",
+            "FINT_FLYT_INSTANCE_GATEWAY_INTEGRATION_DEACTIVATED_ERROR": "Integrasjonen er deaktivert",
+            "FINT_FLYT_INSTANCE_GATEWAY_NO_INTEGRATION_FOUND_ERROR": "Ingen integrasjon funnet",
+            "FINT_FLYT_INSTANCE_GATEWAY_GENERAL_SYSTEM_ERROR": "Systemfeil. Ta kontakt med FINT",
             "FINT_FLYT_INSTANCE_SERVICE_GENERAL_SYSTEM_ERROR":  "Systemfeil. Ta kontakt med FINT",
             "FINT_FLYT_CASE_SERVICE_GENERAL_SYSTEM_ERROR": "Det har oppstått en feil",
             "FINT_FLYT_CASE_SERVICE_NO_CONFIGURATION_FOR_INTEGRATION": "Ingen konfigurasjon for valgt integrasjon",

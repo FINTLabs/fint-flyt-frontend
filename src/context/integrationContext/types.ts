@@ -11,7 +11,7 @@ export type IntegrationContextState = {
     setExistingIntegration: (integration: IIntegration | undefined) => void;
     newIntegrations: IIntegration[] | undefined;
     setNewIntegrations: (integrations: IIntegration[]) => void;
-    getNewIntegrations: () => void;
+    getNewIntegrations: (sourceApplicationId: string) => void;
     configuration: newIConfiguration | undefined;
     setConfiguration: (configuration: newIConfiguration | undefined) => void;
     configurations: newIConfiguration[] | undefined;

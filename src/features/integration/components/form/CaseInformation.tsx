@@ -33,13 +33,14 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
             let caseId = caseInput.split('/')
             ResourceRepository.getSak(caseId[0], caseId[1])
                 .then((response) => {
-                    setCase(response.data.value)
+                    setCase(caseInput +': ' + response.data.value)
                     setCaseNumber(caseInput)
                 })
                 .catch(e => {
                         console.error('Error: ', e)
                         setCaseNumber(undefined)
-                        setCase(t('caseSearch.noMatch'));
+                        setCase(caseInput +': ' + t('caseSearch.noMatch'));
+                        props.setValue("caseData.caseNumber", undefined)
                     }
                 )
         } else {

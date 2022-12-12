@@ -9,7 +9,7 @@ const getResource = (resource: string) => {
 }
 
 const getSak = (caseYear: any, caseNumber: any) => {
-    return axios.get<any>(`/api/intern/arkiv/saker/${caseYear}/${caseNumber}/tittel`, {timeout: 5000})
+    return axios.get<any>(`/api/intern/arkiv/saker/${caseYear}/${caseNumber}/tittel`, {timeout: 10000})
 }
 const ResourceRepository = {
     getClasses,

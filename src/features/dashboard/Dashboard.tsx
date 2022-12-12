@@ -7,6 +7,7 @@ import IntegrationTable from "../integrationOverview/components/IntegrationTable
 import DashboardCard from "./DashboardCard";
 import {ICard} from "./types/Card";
 import {useTranslation} from "react-i18next";
+import {SourceApplicationContext} from "../../context/sourceApplicationContext";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -35,20 +36,21 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.dashboard'});
     const classes = useStyles();
     const {setExistingIntegration, statistics, resetIntegrations, newIntegrations, getNewIntegrations, getCompletedConfigurations, getConfigurations} = useContext(IntegrationContext)
+    const {sourceApplication} = useContext(SourceApplicationContext)
     let totalErrors = 0;
     statistics?.map((stat: any) => {totalErrors += stat.currentErrors})
 
     useEffect(()=> {
-        getNewIntegrations();
+        getNewIntegrations(sourceApplication.toString());
         resetIntegrations();
     }, [])
 
     const cards: ICard[] = [
-        { value: newIntegrations === undefined || newIntegrations.length === 0 ? t('empty') : newIntegrations.length, content: newIntegrations !== undefined && newIntegrations.length == 1 ? t('oneForm') : t('form'), links: [
+        { value: newIntegrations === undefined || newIntegrations.length === 0 ? t('empty') : newIntegrations.length, content: newIntegrations !== undefined && newIntegrations.length === 1 ? t('oneForm') : t('form'), links: [
                 {name: t('links.newIntegration'), href: '/integration/configuration/new'}
             ]
         },
-        { value: totalErrors === 0 ? t('empty') : totalErrors.toString(), content: totalErrors == 1 ? t('oneError') : t('errors'), links: [
+        { value: totalErrors === 0 ? t('empty') : totalErrors.toString(), content: totalErrors === 1 ? t('oneError') : t('errors'), links: [
                 {name: t('links.instanceOverview'), href: '/integration/instance/list'}
             ]
         }
