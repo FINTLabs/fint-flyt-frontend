@@ -11,7 +11,7 @@ export type IntegrationContextState = {
     setExistingIntegration: (integration: IIntegration | undefined) => void;
     newIntegrations: IIntegration[] | undefined;
     setNewIntegrations: (integrations: IIntegration[]) => void;
-    getNewIntegrations: () => void;
+    getNewIntegrations: (sourceApplicationId: string) => void;
     configuration: newIConfiguration | undefined;
     setConfiguration: (configuration: newIConfiguration | undefined) => void;
     configurations: newIConfiguration[] | undefined;
@@ -29,7 +29,7 @@ export type IntegrationContextState = {
     setDestination: (destination: string) => void;
     sourceApplicationId: string,
     setSourceApplicationId: (destination: string) => void,
-    resetSourceAndDestination: () => void;
+    resetIntegrationContext: () => void;
     resetIntegrations: () => void;
     statistics: any[]
 };
@@ -68,7 +68,7 @@ export const contextDefaultValues: IntegrationContextState = {
     setSourceApplicationId: () => {},
     sourceApplicationIntegrationId: '',
     setSourceApplicationIntegrationId: () => {},
-    resetSourceAndDestination: () => {},
+    resetIntegrationContext: () => {},
     resetIntegrations: () => {},
     statistics: []
 };

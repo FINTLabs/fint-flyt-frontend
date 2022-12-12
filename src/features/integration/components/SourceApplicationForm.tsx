@@ -68,8 +68,8 @@ const SourceApplicationForm: React.FunctionComponent<any> = (props) => {
                         label={t('version') as string}
                         onChange={handleChange}
                     >
-                        {availableVersions.map(md => {
-                            return <MenuItem value={md.version}>{t('version')} {md.version}</MenuItem>
+                        {availableVersions.map((md, index) => {
+                            return <MenuItem key={index} value={md.version}>{t('version')} {md.version}</MenuItem>
                         })}
                     </Select>
                 </FormControl>

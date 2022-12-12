@@ -27,9 +27,11 @@ const IntegrationProvider: FC = ({ children }) => {
     const [sourceApplicationId, setSourceApplicationId] = useState<string>('');
     const [statistics, setStatistics] = useState<any[]>(contextDefaultValues.statistics);
 
-    const resetSourceAndDestination = () => {
+    const resetIntegrationContext = () => {
         setDestination('');
         setSourceApplicationId('');
+        setExistingIntegration(undefined);
+        setNewIntegration(undefined)
         setSourceApplicationIntegrationId('');
         setSelectedMetadata(contextDefaultValues.selectedMetadata)
         setCaseNumber(undefined)
@@ -45,14 +47,14 @@ const IntegrationProvider: FC = ({ children }) => {
         setConfiguration(undefined)
     }
 
-    const getNewIntegrations = () => {
+    const getNewIntegrations = (sourceApplicationId: string) => {
         EventRepository.getStatistics()
             .then((response) => {
                 let data = response.data;
                 if (data) {
                     setStatistics(data)
                     let stats = data;
-                    SourceApplicationRepository.getMetadata("1", true)
+                    SourceApplicationRepository.getMetadata(sourceApplicationId, true)
                         .then((response) => {
                             if(response.data) {
                                 let metadata: IIntegrationMetadata[] = response.data;
@@ -172,7 +174,7 @@ const IntegrationProvider: FC = ({ children }) => {
                 sourceApplicationIntegrationId,
                 setSourceApplicationIntegrationId,
                 setSourceApplicationId,
-                resetSourceAndDestination,
+                resetIntegrationContext,
                 resetIntegrations
             }}
         >

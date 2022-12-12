@@ -25,13 +25,20 @@ export const IntegrationForm: React.FunctionComponent<any> = (props) => {
     const {t} = useTranslation('translations', {keyPrefix: 'components.formSettings'});
     const {
         setSelectedMetadata,
-        setNewIntegration
+        setNewIntegration,
+        resetIntegrationContext
     } = useContext(IntegrationContext)
     const {getAvailableForms, sourceApplication, setSourceApplication, availableForms, allMetadata, getAllMetadata, getInstanceElementMetadata} = useContext(SourceApplicationContext)
     const [error, setError] = useState<string>('');
     const [destination, setDestination] = useState<string>('');
     const [sourceApplicationId, setSourceApplicationId] = useState<string>('');
     const [sourceApplicationIntegrationId, setSourceApplicationIntegrationId] = useState<string>('');
+
+    const navToConfiguration = () => {
+        history.push({
+            pathname: '/integration/configuration/new',
+        })
+    }
     const cancel = () => {
         history.push({
             pathname: '/',
@@ -39,8 +46,9 @@ export const IntegrationForm: React.FunctionComponent<any> = (props) => {
     }
 
     useEffect(() => {
+        resetIntegrationContext();
         return () => {
-            setSourceApplication(null)
+            setSourceApplication(sourceApplication)
         }
     }, [])
 
@@ -61,6 +69,7 @@ export const IntegrationForm: React.FunctionComponent<any> = (props) => {
                 .then((response) => {
                     setSourceApplicationIntegrationId(response.data.sourceApplicationIntegrationId)
                     setNewIntegration(response.data)
+                    navToConfiguration();
                 })
                 .catch(e => console.error(e))
             console.log('create new integration', toIntegration(formConfiguration, IntegrationState.DEACTIVATED))

@@ -1,4 +1,4 @@
-import {Box, Button, Dialog, DialogActions, DialogContent, IconButton, Typography} from "@mui/material";
+import {Box, Button, Dialog, DialogActions, DialogContent, IconButton} from "@mui/material";
 import {DataGrid, GridCellParams, GridColumns, GridToolbar} from "@mui/x-data-grid";
 import * as React from "react";
 import {useHistory} from "react-router-dom";
@@ -18,15 +18,20 @@ import Stack from "@mui/material/Stack";
 import {stringReplace} from "../../util/StringUtil";
 import {ErrorType} from "../../log/types/ErrorType";
 import {IEvent} from "../../log/types/Event";
+import {SourceApplicationContext} from "../../../context/sourceApplicationContext";
+import RefreshIcon from '@mui/icons-material/Refresh';
 
 const InstanceTable: React.FunctionComponent<any> = (props) => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.instanceOverview'})
     let history = useHistory();
     const {latestInstances, getLatestInstances, getSelectedInstances} = useContext(HistoryContext)
+    const {sourceApplication} = useContext(SourceApplicationContext)
     const [selectedRow, setSelectedRow] = useState<IEvent>();
     const [open, setOpen] = React.useState(false);
     const handleClickOpen = () => {setOpen(true);};
     const handleClose = () => {setOpen(false);};
+
+    const errorsToRetry: string[] = ['instance-receival-error','instance-registration-error']
 
     const columns: GridColumns = [
         { field: 'id', hide: true, type: 'string', headerName: 'id', minWidth: 150, flex: 0.5 },
@@ -36,20 +41,20 @@ const InstanceTable: React.FunctionComponent<any> = (props) => {
         { field: 'sourceApplicationIntegrationId', type: 'string', headerName: t('table.columns.sourceApplicationIntegrationId'), minWidth: 250, flex: 1,
             valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplicationIntegrationId
         },
-        { field: 'displayName', type: 'string', headerName: t('table.columns.sourceApplicationIntegrationIdDisplayName'), minWidth: 150, flex: 1, sortable: false },
+        { field: 'displayName', type: 'string', headerName: t('table.columns.sourceApplicationIntegrationIdDisplayName'), minWidth: 500, flex: 1, sortable: false },
         { field: 'sourceApplicationInstanceId', type: 'string', headerName: t('table.columns.sourceApplicationInstanceId'), minWidth: 200, flex: 1,
             valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplicationInstanceId
         },
         { field: 'configurationId', type: 'string', headerName: t('table.columns.configurationId'), minWidth: 150, flex: 1,
             valueGetter: (params) => params.row.instanceFlowHeaders.configurationId
         },
-        { field: 'archiveCaseId', type: 'string', headerName: t('table.columns.archiveCaseId'), minWidth: 150, flex: 1,
-            valueGetter: (params) => params.row.instanceFlowHeaders.archiveCaseId
+        { field: 'archiveInstanceId', type: 'string', headerName: t('table.columns.archiveInstanceId'), minWidth: 150, flex: 1,
+            valueGetter: (params) => params.row.instanceFlowHeaders.archiveInstanceId
         },
         { field: 'timestamp', type: 'dateTime', headerName: t('table.columns.timestamp'), minWidth: 200, flex: 1,
-            valueGetter: (params) => moment(params.row.timestamp).format('YYYY/MM/DD HH:mm:ss.sss'),
+            valueGetter: (params) => moment(params.row.timestamp).format('YYYY/MM/DD HH:mm:ss.SSS'),
         },
-        { field: 'name', type: 'string', headerName: t('table.columns.name'), minWidth: 400, flex: 3,
+        { field: 'name', type: 'string', headerName: t('table.columns.name'), minWidth: 250, flex: 3,
             renderCell: params => ( <CustomCellRender row={params.row} />)
         },
         { field: 'details', headerName: t('table.columns.details'), minWidth: 150, flex: 1, sortable: false, filterable: false,
@@ -71,8 +76,8 @@ const InstanceTable: React.FunctionComponent<any> = (props) => {
         );
     }
 
-    const  resend = (event: any, instanceId: string) => {
-        //TODO: add notifatication on successful or failed resending
+    const resend = (event: any, instanceId: string) => {
+        //TODO: add notification on successful or failed resending
         InstanceRepository.resendInstance(instanceId)
             .then(response => {
                 console.log('resend instance', response)
@@ -81,7 +86,7 @@ const InstanceTable: React.FunctionComponent<any> = (props) => {
     }
 
     useEffect(()=> {
-        getLatestInstances(0, 10000, "timestamp", "DESC");
+        getLatestInstances(0, 10000, "timestamp", "DESC", sourceApplication.toString());
     }, []);
 
     const getEventsWithInstanceId = (sourceApplicationID: string, instanceId: string) => {
@@ -90,7 +95,7 @@ const InstanceTable: React.FunctionComponent<any> = (props) => {
     }
 
     function CustomButtonToggle(props: GridCellParams["row"]) {
-        const hasErrors: boolean = props.row.errors.length > 0;
+        const hasErrors: boolean = (props.row.type === 'ERROR') && !errorsToRetry.includes(props.row.name)
         return (
             <>
                 {hasErrors &&
@@ -109,9 +114,16 @@ const InstanceTable: React.FunctionComponent<any> = (props) => {
     }
 
     return (
-        <Box sx={{ width: 1, height: 900 }}>
-            <Typography>{t('header')} </Typography>
+        <Box sx={{ width: 1, height: 900}}>
             <AlertDialog row={selectedRow}/>
+            <Button
+                sx={{mb: 2}}
+                variant='contained'
+                onClick={e => getLatestInstances(0, 10000, "timestamp", "DESC",
+                    sourceApplication.toString())}
+                endIcon={<RefreshIcon />}
+            >{t('button.refresh')}
+            </Button>
             <DataGrid
                 loading={!latestInstances}
                 columns={columns}
@@ -151,7 +163,7 @@ const InstanceTable: React.FunctionComponent<any> = (props) => {
     );
 
     function CustomErrorDialogToggle(props: GridCellParams["row"]) {
-        const hasErrors: boolean = props.row.errors.length > 0;
+        const hasErrors: boolean = (props.row.type === 'ERROR')
         return (
             <>
                 {hasErrors &&
