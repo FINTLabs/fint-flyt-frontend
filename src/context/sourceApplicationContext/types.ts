@@ -8,6 +8,8 @@ export interface ISourceApplicationItem {
 }
 
 export type SourceApplicationContextState = {
+    isAdmin: boolean;
+    setIsAdmin: (admin: boolean) => void;
     availableForms: ISourceApplicationItem;
     getAllForms: (forms: ISelect[]) => void;
     getAvailableForms: () => void;
@@ -20,6 +22,8 @@ export type SourceApplicationContextState = {
 };
 
 export const contextDefaultValues: SourceApplicationContextState = {
+    isAdmin: false,
+    setIsAdmin: (admin: boolean) => {},
     availableForms: {sourceApplicationDisplayName: '', sourceApplicationId: '1', forms: [{value: 'null', label: 'Velg skjemaleverandør først'}]},
     getAllForms: () => {},
     getAvailableForms: () => {},

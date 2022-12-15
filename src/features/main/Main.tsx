@@ -1,7 +1,7 @@
 import React, {useContext} from "react";
 import {
     AppBar, Badge,
-    Box,
+    Box, Button,
     Drawer,
     Theme,
     Toolbar,
@@ -16,6 +16,8 @@ import MenuItems from "./MenuItems";
 import {Link as RouterLink} from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {IntegrationContext} from "../../context/integrationContext";
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import {SourceApplicationContext} from "../../context/sourceApplicationContext";
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme: Theme) =>
@@ -81,6 +83,8 @@ function Main() {
         i18n.changeLanguage(lng);
     };
 
+    //TODO 15/12: set admin access based on log in
+    const { isAdmin, setIsAdmin } = useContext(SourceApplicationContext)
     const {statistics} = useContext(IntegrationContext)
     let totalErrors = 0;
     statistics?.map((stat: any) => {totalErrors += stat.currentErrors})
@@ -98,6 +102,12 @@ function Main() {
                         {i18n.language === 'no' && <Button size="small" variant="contained" onClick={() => changeLanguage("en")}>{t('language.english')}</Button>}
                         {i18n.language === 'en' && <Button size="small" variant="contained" onClick={() => changeLanguage("no")}>{t('language.norwegian')}</Button>}
                     </Box>*/}
+                    {isAdmin && <Box sx={{ mr: 2}}>
+                        <Button size="medium" variant="contained" component={RouterLink} to="/admin" endIcon={<AdminPanelSettingsIcon />}
+                        >
+                            {t('adminHeader')}
+                        </Button>
+                    </Box>}
                     <Badge className={classes.badge}
                         badgeContent={totalErrors}
                         color="secondary"
