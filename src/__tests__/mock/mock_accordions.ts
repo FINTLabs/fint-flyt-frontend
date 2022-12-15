@@ -41,6 +41,13 @@ export const MOCK_ACCS = [
 
 export const MOCK_ACCS1 = [
   {
+    "id": "case-form",
+    "header":"Sak",
+    "defaultExpanded": {"key": "completed", "value": "true"},
+    "hidden": {"type": "FIELD", "key": "caseData.caseCreationStrategy", "value": "COLLECTION"},
+    "inputFieldGroups": MOCK_CASEFIELDGROUP
+  },
+  {
     "id": "record-form",
     "header":"Journalpost",
     "defaultExpanded": {"key": "completed", "value": "true"},
