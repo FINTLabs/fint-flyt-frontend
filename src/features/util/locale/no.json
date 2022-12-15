@@ -18,7 +18,11 @@
     },
     "pages": {
         "admin": {
-            "header": "Administrasjon"
+            "header": "Administrasjon",
+            "noAccessMessage": "Du er ikke logget inn med administratorrettigheter",
+            "button": {
+                "back": "Tilbake"
+            }
         },
         "dashboard": {
             "form": "integrasjoner",
