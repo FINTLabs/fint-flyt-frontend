@@ -11,3 +11,5 @@ spec:
       services:
         - name: fint-flyt-integration-frontend
           port: 8080
+      middlewares:
+        - name: fint-flyt-auth-forward
