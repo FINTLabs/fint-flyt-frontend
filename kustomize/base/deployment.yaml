@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fint-flyt-integration-frontend
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    spec:
+      restartPolicy: Always
+      containers:
+        - image: ghcr.io/fintlabs/fint-flyt-integration-frontend:sha-0000000
+          name: fint-flyt-integration-frontend
+          resources:
+            limits:
+              cpu: 500m
+              memory: 128Mi
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: fint-flyt-integration-frontend
