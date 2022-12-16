@@ -3,8 +3,6 @@ kind: Kustomization
 namespace: vlfk-no
 resources:
   - ../../../base
-patchesStrategicMerge:
-  - config-map.yaml
 commonLabels:
   app.kubernetes.io/name: fint-flyt-integration-frontend
   app.kubernetes.io/instance: fint-flyt-integration-frontend_vlfk-no
