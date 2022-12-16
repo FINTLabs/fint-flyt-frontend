@@ -11,6 +11,7 @@ export const SourceApplicationContext = createContext<SourceApplicationContextSt
 );
 
 const SourceApplicationProvider: FC = ({children}) => {
+    const [isAdmin, setIsAdmin] = useState<boolean>(contextDefaultValues.isAdmin)
     const [availableForms, setAvailableForms] = useState<ISourceApplicationItem>(contextDefaultValues.availableForms);
     const [allMetadata, setAllMetadata] = useState<IIntegrationMetadata[]>(contextDefaultValues.allMetadata)
     const [instanceElementMetadata, setInstanceElementMetadata] = useState<IInstanceElementMetadata | undefined>(undefined)
@@ -87,6 +88,8 @@ const SourceApplicationProvider: FC = ({children}) => {
     return (
         <SourceApplicationContext.Provider
             value={{
+                isAdmin,
+                setIsAdmin,
                 availableForms,
                 getAvailableForms,
                 allMetadata,
