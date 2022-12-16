@@ -16,7 +16,7 @@ export const MOCK_CONFIGURATION: newIConfiguration = {
         {
             "fieldConfigurations": [
                 {
-                    "key": "creationStrategy",
+                    "key": "type",
                     "type": "STRING",
                     "value": "NEW"
                 },
@@ -265,7 +265,7 @@ export const MOCK_CONFIGURATION_PATCH: IConfigurationPatch = {
         {
             "fieldConfigurations": [
                 {
-                    "key": "creationStrategy",
+                    "key": "type",
                     "type": "STRING",
                     "value": "NEW"
                 },

@@ -14,6 +14,7 @@ export interface ICollectionFieldConfiguration {
 
 export interface IConfigurationElement {
     id?: string;
+    searchParameters?: string[];
     key: string;
     elements?: IConfigurationElement[];
     fieldConfigurations?: IFieldConfiguration[];
