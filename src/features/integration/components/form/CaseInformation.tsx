@@ -51,7 +51,7 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
         }
     }
 
-    let isCollection = props.watch("caseData.caseCreationStrategy") === CreationStrategy.COLLECTION
+    let isCollection = props.watch("caseData.caseCreationStrategy") === CreationStrategy.BY_ID
     let errors: FieldErrors = props.errors
     const caseInformationFields: IInputField[] = [
         {input: INPUT_TYPE.RADIO, label: "labels.caseCreationInfo", value: props.watch("caseData.caseCreationStrategy"),
