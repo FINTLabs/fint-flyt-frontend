@@ -18,7 +18,7 @@ export function toNewConfiguration(data: IFormConfiguration, integrationId: stri
                         {
                             key: "type",
                             type: FieldConfigurationType.STRING,
-                            value: "ON_EXISTING_BY_ID"
+                            value: "BY_ID"
                         },
                         {
                             key: "id",
@@ -381,7 +381,7 @@ export function toConfigurationPatch(data: IFormConfiguration, metadataId: any):
                         {
                             key: "type",
                             type: FieldConfigurationType.STRING,
-                            value: "ON_EXISTING_BY_ID"
+                            value: "BY_ID"
                         },
                         {
                             key: "id",
