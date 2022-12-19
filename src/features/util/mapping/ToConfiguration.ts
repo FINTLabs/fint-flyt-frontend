@@ -16,23 +16,24 @@ export function toNewConfiguration(data: IFormConfiguration, integrationId: stri
                     key: 'case',
                     fieldConfigurations: [
                         {
-                            key: "creationStrategy",
+                            key: "type",
                             type: FieldConfigurationType.STRING,
-                            value: data.caseData.caseCreationStrategy
+                            value: "ON_EXISTING_BY_ID"
                         },
                         {
-                            key: "saksnummer",
+                            key: "id",
                             type: FieldConfigurationType.STRING,
                             value: data.caseData.caseNumber ? data.caseData.caseNumber : null
                         }
                     ]
                 } : {
                     key: 'case',
+                    searchParameters: data.caseData.caseCreationStrategy === CreationStrategy.NEW ? undefined : [],
                     fieldConfigurations: [
                         {
-                            key: "creationStrategy",
+                            key: "type",
                             type: FieldConfigurationType.STRING,
-                            value: data.caseData.caseCreationStrategy
+                            value: data.caseData.caseCreationStrategy === CreationStrategy.NEW ? "NEW" : "BY_SEARCH_OR_NEW"
                         },
                         {
                             key: "tittel",
@@ -378,23 +379,24 @@ export function toConfigurationPatch(data: IFormConfiguration, metadataId: any):
                     key: 'case',
                     fieldConfigurations: [
                         {
-                            key: "creationStrategy",
+                            key: "type",
                             type: FieldConfigurationType.STRING,
-                            value: data.caseData.caseCreationStrategy
+                            value: "ON_EXISTING_BY_ID"
                         },
                         {
-                            key: "saksnummer",
+                            key: "id",
                             type: FieldConfigurationType.STRING,
                             value: data.caseData.caseNumber ? data.caseData.caseNumber : null
                         }
                     ]
                 } : {
                     key: 'case',
+                    searchParameters: data.caseData.caseCreationStrategy === CreationStrategy.NEW ? undefined : [],
                     fieldConfigurations: [
                         {
-                            key: "creationStrategy",
+                            key: "type",
                             type: FieldConfigurationType.STRING,
-                            value: data.caseData.caseCreationStrategy
+                            value: data.caseData.caseCreationStrategy === CreationStrategy.NEW ? "NEW" : "BY_SEARCH_OR_NEW"
                         },
                         {
                             key: "tittel",
