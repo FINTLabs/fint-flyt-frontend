@@ -29,23 +29,6 @@ jobs:
         id: get_repo
         run: echo ::set-output name=REPO::${GITHUB_REPOSITORY#*/}
 
-      ## PWF cluster ##
-      - name: Set the target PWF cluster.
-        uses: azure/aks-set-context@v1
-        with:
-          creds: '${{ secrets.AKS_PWF_FINT_GITHUB }}'
-          cluster-name: ${{ env.PWF_CLUSTER_NAME }}
-          resource-group: ${{ env.PWF_CLUSTER_RESOURCE_GROUP }}
-
-      - name: Deploy to PWF
-        uses: azure/k8s-deploy@v3.0
-        with:
-          manifests: |
-            k8s/manifests/pwf/flyt-demo.yaml
-          images: |
-            ${{ env.REGISTRY_NAME }}.azurecr.io/${{steps.get_repo.outputs.REPO}}:${{ github.sha }}
-          namespace: flyt-demo
-
       ## Alpha cluster ##
       - name: Set the target Alpha cluster.
         uses: azure/aks-set-context@v1
