@@ -517,7 +517,7 @@ export const MOCK_NEW_CONFIG: newIConfiguration = {
             key: 'case',
             fieldConfigurations: [
                 {
-                    key: 'creationStrategy',
+                    key: 'type',
                     type: FieldConfigurationType.STRING,
                     value:  CreationStrategy.NEW
                 },
