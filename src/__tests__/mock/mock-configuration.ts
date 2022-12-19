@@ -510,8 +510,8 @@ export const MOCK_NEW_CONFIG: newIConfiguration = {
     id: 'id2',
     integrationId: '123',
     version: 3,
-    completed: true,
-    comment: 'Ferdigstilt ',
+    completed: false,
+    comment: 'Ikke ferdigstilt',
     elements: [
         {
             key: 'case',
@@ -530,6 +530,62 @@ export const MOCK_NEW_CONFIG: newIConfiguration = {
                     key: 'journalenhet',
                     type: FieldConfigurationType.STRING,
                     value:  "https://beta.felleskomponent.no/arkiv/noark/administrativenhet/systemid/191"
+                }
+            ]
+        },
+        {
+            key: 'applicant',
+            fieldConfigurations: [
+                {
+                    key: 'protected',
+                    type: FieldConfigurationType.BOOLEAN,
+                    value: 'true'
+                },
+                {
+                    key: 'type',
+                    type: FieldConfigurationType.STRING,
+                    value: ApplicantType.PERSON
+                }
+            ]
+        },
+        {
+            key: 'record',
+            fieldConfigurations: [
+                {
+                    key: 'tittel',
+                    type: FieldConfigurationType.DYNAMIC_STRING,
+                    value: 'foo $if{bar}'
+                },
+                {
+                    key: 'administrativeenhet',
+                    type: FieldConfigurationType.STRING,
+                    value:  "https://beta.felleskomponent.no/arkiv/noark/administrativenhet/systemid/191"
+
+                }
+            ]
+        }
+    ]
+}
+
+export const MOCK_BY_ID_CONFIG: newIConfiguration = {
+    id: 'id2',
+    integrationId: '123',
+    version: 3,
+    completed: false,
+    comment: 'Ikke ferdigstilt',
+    elements: [
+        {
+            key: 'case',
+            fieldConfigurations: [
+                {
+                    key: 'type',
+                    type: FieldConfigurationType.STRING,
+                    value:  CreationStrategy.BY_ID
+                },
+                {
+                    key: 'id',
+                    type: FieldConfigurationType.STRING,
+                    value: '2022/163'
                 }
             ]
         },
