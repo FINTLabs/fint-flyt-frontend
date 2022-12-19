@@ -15,7 +15,7 @@ export function newToFormData(data: newIConfiguration): IFormConfiguration {
             title: configurationFieldToString(caseFields, 'tittel'),
             publicTitle: configurationFieldToString(caseFields, 'offentligTittel'),
             recordUnit: configurationFieldToString(caseFields, 'journalenhet'),
-            caseCreationStrategy: configurationFieldToString(caseFields, 'creationStrategy'),
+            caseCreationStrategy: configurationFieldToString(caseFields, 'type'),
             caseType: configurationFieldToString(caseFields, 'saksmappetype'),
             administrativeUnit: configurationFieldToString(caseFields, 'administrativenhet'),
             archiveUnit: configurationFieldToString(caseFields, 'arkivdel'),
