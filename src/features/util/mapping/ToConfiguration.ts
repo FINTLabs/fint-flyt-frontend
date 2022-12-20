@@ -11,7 +11,7 @@ export function toNewConfiguration(data: IFormConfiguration, integrationId: stri
         integrationMetadataId: metadataId,
         comment: data.comment,
         elements: [
-            data.caseData.caseCreationStrategy === CreationStrategy.COLLECTION ?
+            data.caseData.caseCreationStrategy === CreationStrategy.BY_ID ?
                 {
                     key: 'case',
                     fieldConfigurations: [
@@ -374,7 +374,7 @@ export function toConfigurationPatch(data: IFormConfiguration, metadataId: any):
         integrationMetadataId: metadataId,
         comment: data.comment,
         elements: [
-            data.caseData.caseCreationStrategy === CreationStrategy.COLLECTION ?
+            data.caseData.caseCreationStrategy === CreationStrategy.BY_ID ?
                 {
                     key: 'case',
                     fieldConfigurations: [

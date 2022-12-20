@@ -86,8 +86,8 @@ export const variantOptions: ISelect[] = [
 
 export const creationStrategies: ISelect[] = [
     {label: 'selects.creationStrategies.new', value: 'NEW',  description: "selects.creationStrategies.newDesc"},
-    {label: 'selects.creationStrategies.existing', value: 'EXISTING',  description: "selects.creationStrategies.existingDesc", disabled: true},
-    {label: 'selects.creationStrategies.collection', value: 'COLLECTION', description: "selects.creationStrategies.collectionDesc"}
+    {label: 'selects.creationStrategies.existing', value: 'BY_SEARCH_OR_NEW',  description: "selects.creationStrategies.existingDesc", disabled: true},
+    {label: 'selects.creationStrategies.collection', value: 'BY_ID', description: "selects.creationStrategies.collectionDesc"}
 ];
 
 export const applicantOptions: ISelect[] = [
@@ -438,7 +438,7 @@ export const MOCK_NEWCONFIGURATIONS: newIConfiguration[] = [
             integrationId: '456',
             version: 1,
             completed: false,
-            caseConfiguration: {caseCreationStrategy: CreationStrategy.COLLECTION, caseNumber: '2022/123'}
+            caseConfiguration: {caseCreationStrategy: CreationStrategy.BY_ID, caseNumber: '2022/123'}
         },*/
     {
         id: 'id00',
