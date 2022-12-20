@@ -43,11 +43,15 @@ export function newToFormData(data: newIConfiguration): IFormConfiguration {
             accessCode: configurationFieldToString(recordFields, 'tilgangsrestriksjon'),
             paragraph: configurationFieldToString(recordFields, 'skjermingshjemmel'),
         },
-        documentData: {
+        mainDocumentData: {
             title: configurationFieldToString(documentFields, 'tittel'),
             documentStatus: configurationFieldToString(documentFields, 'dokumentStatus'),
             documentType: configurationFieldToString(documentFields, 'dokumentType'),
-            //TODO: whats the correct name for this configField?
+            variant: configurationFieldToString(documentFields, 'dokumentObjekt.variantFormat'),
+        },
+        attachmentDocumentsData: {
+            documentStatus: configurationFieldToString(documentFields, 'dokumentStatus'),
+            documentType: configurationFieldToString(documentFields, 'dokumentType'),
             variant: configurationFieldToString(documentFields, 'dokumentObjekt.variantFormat'),
         },
         applicantData: {

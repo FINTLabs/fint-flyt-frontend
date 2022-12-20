@@ -1,5 +1,4 @@
-export default interface IDocumentData {
-    title: string | null;
+export default interface IAttachmentDocumentsData {
     documentStatus: string | null;
     documentType: string | null;
     variant: string | null;

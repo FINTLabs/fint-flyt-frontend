@@ -56,10 +56,15 @@ export const MOCK_CONFIG_FORMDATA: IFormConfiguration = {
         title: "Title of case"
     },
     comment: "form to test mapping",
-    documentData: {
+    mainDocumentData: {
         documentStatus: "D9",
         documentType: "cat8",
         title: "document title",
+        variant: "var"
+    },
+    attachmentDocumentsData: {
+        documentStatus: "D9",
+        documentType: "cat8",
         variant: "var"
     },
     recordData: {
@@ -116,10 +121,15 @@ export const MOCK_CONFIG_FORMDATA_FOR_PATCH: IFormConfiguration = {
         title: "Title of case"
     },
     comment: "form to test mapping",
-    documentData: {
+    mainDocumentData: {
         documentStatus: "D9",
         documentType: "cat8",
         title: "document title",
+        variant: "var"
+    },
+    attachmentDocumentsData: {
+        documentStatus: "D9",
+        documentType: "cat8",
         variant: "var"
     },
     recordData: {
@@ -151,6 +161,11 @@ export const MOCK_NEW_FORMDATA: IFormConfiguration = {
         "protected": true,
         "type": "PERSON"
     },
+    "attachmentDocumentsData": {
+        "documentStatus": "D9",
+        "documentType": "cat8",
+        "variant": "var"
+    },
     "caseData": {
         "accessCode": null,
         "administrativeUnit": null,
@@ -174,9 +189,73 @@ export const MOCK_NEW_FORMDATA: IFormConfiguration = {
         "tertiaryTitle": null,
         "title": "$if{foo} $if{bar}"
     },
-    "comment": "Ferdigstilt ",
-    "completed": true,
-    "documentData": {
+    "comment": "Ikke ferdigstilt",
+    "completed": false,
+    "mainDocumentData": {
+        "documentStatus": null,
+        "documentType": null,
+        "title": null,
+        "variant": null
+    },
+    "recordData": {
+        "accessCode": null,
+        "administrativeUnit": null,
+        "caseWorker": null,
+        "paragraph": null,
+        "publicTitle": null,
+        "recordStatus": null,
+        "recordType": null,
+        "title": "foo $if{bar}"
+    }
+}
+
+export const MOCK_BY_ID_FORMDATA: IFormConfiguration = {
+    "applicantData": {
+        "accessCode": null,
+        "address": null,
+        "city": null,
+        "contactPerson": null,
+        "email": null,
+        "name": null,
+        "nationalIdentityNumber": null,
+        "organisationNumber": null,
+        "paragraph": null,
+        "phoneNumber": null,
+        "postalCode": null,
+        "protected": true,
+        "type": "PERSON"
+    },
+    "attachmentDocumentsData": {
+        "documentStatus": "D9",
+        "documentType": "cat8",
+        "variant": "var"
+    },
+    "caseData": {
+        "accessCode": null,
+        "administrativeUnit": null,
+        "archiveUnit": null,
+        "caseCreationStrategy": "BY_ID",
+        "caseNumber": "2022/163",
+        "caseType": null,
+        "caseWorker": null,
+        "paragraph": null,
+        "primaryClass": null,
+        "primaryClassification": null,
+        "primaryTitle": null,
+        "publicTitle": null,
+        "recordUnit": null,
+        "secondaryClass": null,
+        "secondaryClassification": null,
+        "secondaryTitle": null,
+        "status": null,
+        "tertiaryClass": null,
+        "tertiaryClassification": null,
+        "tertiaryTitle": null,
+        "title": null
+    },
+    "comment": "Ikke ferdigstilt",
+    "completed": false,
+    "mainDocumentData": {
         "documentStatus": null,
         "documentType": null,
         "title": null,

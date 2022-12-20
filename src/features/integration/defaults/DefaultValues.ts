@@ -44,8 +44,13 @@ export const defaultConfigurationValues: IFormConfiguration = {
         accessCode: null,
         paragraph: null
     },
-    documentData: {
+    mainDocumentData: {
         title: null,
+        documentStatus: null,
+        documentType: null,
+        variant: null
+    },
+    attachmentDocumentsData: {
         documentStatus: null,
         documentType: null,
         variant: null
@@ -362,7 +367,7 @@ export const fieldHelp = {
         accessCode: 'Eksempel: Unntatt offentlighet, persona,l varslingssak, ugradert. ',
         paragraph: 'Eksempel: Offl. §13 ',
     },
-    documentData: {
+    mainDocumentData: {
         title: 'Tittel kan være en konkret tekststreng, eller en kombinasjon\n' +
             ' av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak.\n' +
             '  (Se Noark))',
@@ -596,6 +601,11 @@ export const EXAMPLE_FORM: IFormConfiguration = {
         "accessCode": '',
         "paragraph": ''
     },
+    "attachmentDocumentsData": {
+        "documentStatus": '',
+        "documentType": '',
+        "variant": '',
+    },
     "caseData": {
         "caseNumber": undefined,
         "accessCode": '',
@@ -621,7 +631,7 @@ export const EXAMPLE_FORM: IFormConfiguration = {
     },
     "comment": "Ferdigstilt ",
     "completed": true,
-    "documentData": {
+    "mainDocumentData": {
         "title": '',
         "documentStatus": '',
         "documentType": '',

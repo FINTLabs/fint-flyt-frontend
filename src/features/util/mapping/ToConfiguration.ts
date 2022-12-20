@@ -196,17 +196,17 @@ export function toNewConfiguration(data: IFormConfiguration, integrationId: stri
                     {
                         key: "tittel",
                         type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: data.documentData?.title === '' ? null : data.documentData?.title
+                        value: data.mainDocumentData?.title === '' ? null : data.mainDocumentData?.title
                     },
                     {
                         key: "dokumentStatus",
                         type: FieldConfigurationType.STRING,
-                        value: data.documentData?.documentStatus
+                        value: data.mainDocumentData?.documentStatus
                     },
                     {
                         key: "dokumentType",
                         type: FieldConfigurationType.STRING,
-                        value: data.documentData?.documentType
+                        value: data.mainDocumentData?.documentType
                     },
                     //TODO: what is the corresponding field here
                     /*                    {
@@ -228,7 +228,27 @@ export function toNewConfiguration(data: IFormConfiguration, integrationId: stri
                     {
                         key: "dokumentObjekt.variantFormat",
                         type: FieldConfigurationType.STRING,
-                        value: data.documentData?.variant
+                        value: data.mainDocumentData?.variant
+                    }
+                ]
+            },
+            {
+                key: 'attachmentDocuments',
+                fieldConfigurations: [
+                    {
+                        key: "dokumentStatus",
+                        type: FieldConfigurationType.STRING,
+                        value: data.attachmentDocumentsData?.documentStatus
+                    },
+                    {
+                        key: "dokumentType",
+                        type: FieldConfigurationType.STRING,
+                        value: data.attachmentDocumentsData?.documentType
+                    },
+                    {
+                        key: "dokumentObjekt.variantFormat",
+                        type: FieldConfigurationType.STRING,
+                        value: data.attachmentDocumentsData?.variant
                     }
                 ]
             },
@@ -557,22 +577,42 @@ export function toConfigurationPatch(data: IFormConfiguration, metadataId: any):
                     {
                         key: "tittel",
                         type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: data.documentData?.title === '' ? null : data.documentData?.title
+                        value: data.mainDocumentData?.title === '' ? null : data.mainDocumentData?.title
                     },
                     {
                         key: "dokumentStatus",
                         type: FieldConfigurationType.STRING,
-                        value: data.documentData?.documentStatus
+                        value: data.mainDocumentData?.documentStatus
                     },
                     {
                         key: "dokumentType",
                         type: FieldConfigurationType.STRING,
-                        value: data.documentData?.documentType
+                        value: data.mainDocumentData?.documentType
                     },
                     {
                         key: "dokumentObjekt.variantFormat",
                         type: FieldConfigurationType.STRING,
-                        value: data.documentData?.variant
+                        value: data.mainDocumentData?.variant
+                    }
+                ]
+            },
+            {
+                key: 'attachmentDocuments',
+                fieldConfigurations: [
+                    {
+                        key: "dokumentStatus",
+                        type: FieldConfigurationType.STRING,
+                        value: data.attachmentDocumentsData?.documentStatus
+                    },
+                    {
+                        key: "dokumentType",
+                        type: FieldConfigurationType.STRING,
+                        value: data.attachmentDocumentsData?.documentType
+                    },
+                    {
+                        key: "dokumentObjekt.variantFormat",
+                        type: FieldConfigurationType.STRING,
+                        value: data.attachmentDocumentsData?.variant
                     }
                 ]
             },

@@ -186,7 +186,27 @@ export const MOCK_CONFIGURATION: newIConfiguration = {
                     "value": "var"
                 }
             ],
-            "key": "document"
+            "key": "mainDocument"
+        },
+        {
+            "fieldConfigurations": [
+                {
+                    "key": "dokumentStatus",
+                    "type": "STRING",
+                    "value": "D9"
+                },
+                {
+                    "key": "dokumentType",
+                    "type": "STRING",
+                    "value": "cat8"
+                },
+                {
+                    "key": "dokumentObjekt.variantFormat",
+                    "type": "STRING",
+                    "value": "var"
+                }
+            ],
+            "key": "attachmentDocuments"
         },
         {
             "fieldConfigurations": [
@@ -435,7 +455,7 @@ export const MOCK_CONFIGURATION_PATCH: IConfigurationPatch = {
                     "value": "var"
                 }
             ],
-            "key": "document"
+            "key": "mainDocument"
         },
         {
             "fieldConfigurations": [

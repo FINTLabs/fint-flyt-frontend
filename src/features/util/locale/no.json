@@ -72,8 +72,16 @@
                         "save": "Lagre"
                     }
                 },
-                "documentForm": {
-                    "header": "Dokument- og objektbeskrivelse",
+                "mainDocumentForm": {
+                    "header": "Hoveddokument",
+                    "documentDescription": "Dokumentbeskrivelse",
+                    "objectDescription": "Objektbeskrivelse",
+                    "button": {
+                        "save": "Lagre"
+                    }
+                },
+                "attachmentDocumentsForm": {
+                    "header": "Vedlegg",
                     "documentDescription": "Dokumentbeskrivelse",
                     "objectDescription": "Objektbeskrivelse",
                     "button": {
@@ -412,6 +420,7 @@
                 "administrativeUnit": "",
                 "recordStatus": "",
                 "recordType": "",
+                "documentCategory": "",
                 "caseWorker": "",
                 "accessCode": "",
                 "paragraph": ""
@@ -494,11 +503,12 @@
             "administrativeUnit":"Navn på avdeling, kontor eller annen administrativ enhet som har ansvaret for saksbehandlingen.",
             "recordStatus": "Status til journalposten, dvs. om dokumentet er registrert, under behandling eller endelig arkivert.",
             "recordType": "Navn på type journalpost.",
+            "documentCategory": "Dokumentkategori",
             "caseWorker": "Navn på person som er saksbehandler. En sak kan ha en ansvarlig saksbehandler men det kan være ulike saksbehandlere på ulike journalposter.",
             "accessCode": "Angivelse av at dokumentene som tilhører arkivenheten ikke er offentligtilgjengelig i henhold til offentlighetsloven eller av en annen grunn. ",
             "paragraph": "Henvisning til hjemmel (paragraf) i offentlighetsloven, sikkerhetsloven eller beskyttelsesinstruksen."
         },
-        "documentData": {
+        "mainDocumentData": {
             "title": "Tittel eller navn på arkivenheten.",
             "documentStatus": "Status til dokumentet. Eksempel: B, F",
             "documentCategory": "TODO",

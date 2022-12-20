@@ -56,7 +56,7 @@
                         "save": "Save"
                     }
                 },
-                "documentForm": {
+                "mainDocumentForm": {
                     "header": "Document and object description",
                     "documentDescription": "Document description",
                     "objectDescription": "Object description",
@@ -139,7 +139,8 @@
                 "tertiaryTitle": "Tertiary title: ",
                 "type": "Type: ",
                 "recordStatus": "Record status: ",
-                "recordType": "",
+                "recordType": "Record Type",
+                "documentCategory": "Document category",
                 "caseWorker": "Case worker: ",
                 "documentStatus": "Status: ",
                 "variant": "Variant: ",
@@ -212,6 +213,7 @@
             "type": "Type",
             "recordStatus": "Record status",
             "recordType": "",
+            "documentCategory": "",
             "caseWorker": "Case worker",
             "documentStatus": "Status",
             "variant": "Variant",
@@ -285,6 +287,7 @@
                 "administrativeUnit": "",
                 "recordStatus": "",
                 "recordType": "",
+                "documentCategory": "",
                 "caseWorker": "",
                 "accessCode": "",
                 "paragraph": ""
@@ -365,11 +368,12 @@
             "administrativeUnit": "Enheten/avdelingen. Nedtrekksmeny fra Elements",
             "recordStatus": "R,F,E,J",
             "recordType": "I, U, N, X",
+            "documentCategory": "Dokuemtkategori",
             "caseWorker": "En sak kan ha en ansvarlig saksbehandler men det kan være ulike saksbehandlere på ulike journalposter.",
             "accessCode": "Eksempel: Unntatt offentlighet, personal varslingssak, ugradert. ",
             "paragraph": "Eksempel: Offl. §13 "
         },
-        "documentData": {
+        "mainDocumentData": {
             "title": "Tittel kan være en konkret tekststreng, eller en kombinasjon av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak.(Se Noark))",
             "documentStatus": "Eksempel: B, F",
             "accessCode": "Eksempel: Unntatt offentlighet, persona,l varslingssak, ugradert. ",
