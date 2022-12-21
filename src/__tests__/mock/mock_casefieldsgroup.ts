@@ -34,7 +34,7 @@ export const MOCK_CASEFIELDGROUP: IFieldGroup[] = [
                 "options": "caseTypes",
                 "required": [
                     {"type": "VALIDATION", "value": "true"},
-                    {"type": "NOT_FIELD", "key": "caseData.caseCreationStrategy", "value": "COLLECTION"}
+                    {"type": "NOT_FIELD", "key": "caseData.caseCreationStrategy", "value": "BY_ID"}
                 ],
                 "error": "caseData.caseType",
                 "helpText": "Type saksmappe. Eksempel: Kompetanse, personal, rekruttering etc."
@@ -47,7 +47,7 @@ export const MOCK_CASEFIELDGROUP: IFieldGroup[] = [
                 "options": "administrativeUnits",
                 "required": [
                     {"type": "VALIDATION", "value": "true"},
-                    {"type": "NOT_FIELD", "key": "caseData.caseCreationStrategy", "value": "COLLECTION"}
+                    {"type": "NOT_FIELD", "key": "caseData.caseCreationStrategy", "value": "BY_ID"}
                 ],
                 "error": "caseData.administrativeUnit",
                 "helpText": "Navn på avdeling, kontor eller annen administrativ enhet som har ansvaret for saksbehandlingen.",
@@ -60,7 +60,7 @@ export const MOCK_CASEFIELDGROUP: IFieldGroup[] = [
                 "options": "archiveResources",
                 "required": [
                     {"type": "VALIDATION", "value": "true"},
-                    {"type": "NOT_FIELD", "key": "caseData.caseCreationStrategy", "value": "COLLECTION"}
+                    {"type": "NOT_FIELD", "key": "caseData.caseCreationStrategy", "value": "BY_ID"}
                 ],
                 "error": "caseData.caseWorker",
                 "helpText": "Navn på person som er saksansvarlig."
@@ -73,7 +73,7 @@ export const MOCK_CASEFIELDGROUP: IFieldGroup[] = [
                 "options": "archiveSections",
                 "required": [
                     {"type": "VALIDATION", "value": "true"},
-                    {"type": "NOT_FIELD", "key": "caseData.caseCreationStrategy", "value": "COLLECTION"}
+                    {"type": "NOT_FIELD", "key": "caseData.caseCreationStrategy", "value": "BY_ID"}
                 ],
                 "error": "caseData.archiveUnit",
                 "helpText": "Arkivdel som mappe tilhører. Eksempel: kompetanse, sakarkiv, personal",
@@ -86,7 +86,7 @@ export const MOCK_CASEFIELDGROUP: IFieldGroup[] = [
                 "options": "administrativeUnits",
                 "required": [
                     {"type": "VALIDATION", "value": "true"},
-                    {"type": "NOT_FIELD", "key": "caseData.caseCreationStrategy", "value": "COLLECTION"}
+                    {"type": "NOT_FIELD", "key": "caseData.caseCreationStrategy", "value": "BY_ID"}
                 ],
                 "error": "caseData.recordUnit",
                 "helpText": "Navn på enhet som har det arkivmessige ansvaret for kvalitetssikring av arkivdanningen, og eventuelt registrering (journalføring) og arkivering av fysiske dokumenter.",
@@ -99,7 +99,7 @@ export const MOCK_CASEFIELDGROUP: IFieldGroup[] = [
                 "options": "statuses",
                 "required": [
                     {"type": "VALIDATION", "value": "true"},
-                    {"type": "NOT_FIELD", "key": "caseData.caseCreationStrategy", "value": "COLLECTION"}
+                    {"type": "NOT_FIELD", "key": "caseData.caseCreationStrategy", "value": "BY_ID"}
                 ],
                 "error": "caseData.status",
                 "helpText": "Registreres automatisk gjennom forskjellig saksbehandlings- funksjonalitet, eller overstyres manuelt."   },

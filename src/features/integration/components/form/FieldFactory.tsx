@@ -88,7 +88,7 @@ const FieldFactory: React.FunctionComponent<any> = (props) => {
         }
     }
 
-    let isCollection = props.watch("caseData.caseCreationStrategy") === CreationStrategy.COLLECTION
+    let isCollection = props.watch("caseData.caseCreationStrategy") === CreationStrategy.BY_ID
 
     return (
         <div>

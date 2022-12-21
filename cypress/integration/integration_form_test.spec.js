@@ -55,7 +55,7 @@ describe('Testing Integration Form', () => {
         })
 
         it('should have case number field on collection strategy', () => {
-            cy.get('#caseData\\.caseCreationStrategy-COLLECTION > .MuiFormControlLabel-root > .MuiTypography-root').click()
+            cy.get('#caseData\\.caseCreationStrategy-BY_ID > .MuiFormControlLabel-root > .MuiTypography-root').click()
             cy.get('#caseData\\.caseNumber').should('be.visible')
             cy.get('#caseData\\.caseNumber').type('2021/06')
             cy.intercept('GET', '**/api/intern/sakstittel/mappeid/**', {fixture: 'tittel.json'}).as('getTittel')
@@ -64,7 +64,7 @@ describe('Testing Integration Form', () => {
         });
 
         it('should hide case form section field on collection strategy', () => {
-            cy.get('#caseData\\.caseCreationStrategy-COLLECTION > .MuiFormControlLabel-root > .MuiTypography-root').click()
+            cy.get('#caseData\\.caseCreationStrategy-BY_ID > .MuiFormControlLabel-root > .MuiTypography-root').click()
             cy.get('#caseData\\.caseNumber').should('be.visible')
         });
     }

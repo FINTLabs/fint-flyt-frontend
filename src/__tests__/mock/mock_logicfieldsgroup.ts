@@ -16,10 +16,10 @@ export const MOCK_LOGICFIELDGROUP: IFieldGroup[] = [
                 "input": "TEXT_FIELD",
                 "label": "Saksnummer",
                 "value": {"source": "WATCH", "value":"caseData.caseNumber"},
-                "hidden": {"type": "NOT_FIELD", "key": "caseData.caseCreationStrategy", "value": "COLLECTION"},
+                "hidden": {"type": "NOT_FIELD", "key": "caseData.caseCreationStrategy", "value": "BY_ID"},
                 "formValue": "caseData.caseNumber",
                 "required": [
-                    {"type": "FIELD", "key": "caseData.caseCreationStrategy", "value": "COLLECTION"},
+                    {"type": "FIELD", "key": "caseData.caseCreationStrategy", "value": "BY_ID"},
                     {"type": "VALIDATION", "value": "true"}
                 ],
                 "error": "caseData.caseNumber",

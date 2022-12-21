@@ -15,7 +15,7 @@ export const MOCK_ACCS = [
     "id": "case-form",
     "header":"Sak",
     "defaultExpanded": {"key": "completed", "value": "true"},
-    "hidden": {"type": "FIELD", "key": "caseData.caseCreationStrategy", "value": "COLLECTION"},
+    "hidden": {"type": "FIELD", "key": "caseData.caseCreationStrategy", "value": "BY_ID"},
     "inputFieldGroups": MOCK_CASEFIELDGROUP
   },
   {
@@ -44,14 +44,14 @@ export const MOCK_ACCS1 = [
     "id": "case-form",
     "header":"Sak",
     "defaultExpanded": {"key": "completed", "value": "true"},
-    "hidden": {"type": "FIELD", "key": "caseData.caseCreationStrategy", "value": "COLLECTION"},
+    "hidden": {"type": "FIELD", "key": "caseData.caseCreationStrategy", "value": "BY_ID"},
     "inputFieldGroups": MOCK_CASEFIELDGROUP
   },
   {
     "id": "record-form",
     "header":"Journalpost",
     "defaultExpanded": {"key": "completed", "value": "true"},
-    "hidden": {"type": "FIELD", "key": "caseData.caseCreationStrategy", "value": "COLLECTION"},
+    "hidden": {"type": "FIELD", "key": "caseData.caseCreationStrategy", "value": "BY_ID"},
     "inputFieldGroups": MOCK_RECORDFIELDSGROUP
   },
 ]
