@@ -1,20 +1,13 @@
 import React, {useContext} from "react";
-import {
-    AppBar, Badge,
-    Box,
-    Drawer,
-    Theme,
-    Toolbar,
-    Typography
-} from "@mui/material";
+import {AppBar, Badge, Box, Drawer, Theme, Toolbar, Typography} from "@mui/material";
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import FintLogo from "../../images/fint-by-vigo-white.svg";
 
-import { createStyles, makeStyles } from "@mui/styles";
+import {createStyles, makeStyles} from "@mui/styles";
 import Router from "./Router";
 import MenuItems from "./MenuItems";
-import {Link as RouterLink} from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import {BrowserRouter, Link as RouterLink} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 import {IntegrationContext} from "../../context/integrationContext";
 
 const drawerWidth = 240;
@@ -26,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
         drawer: {
             width: drawerWidth,
             flexShrink: 0,
-            [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' }
+            [`& .MuiDrawer-paper`]: {width: drawerWidth, boxSizing: 'border-box'}
         },
         toolbar: {
             display: "flex",
@@ -72,48 +65,54 @@ const useStyles = makeStyles((theme: Theme) =>
         }
     }));
 
+const getBasename = (path: string) => path.substring(0, path.lastIndexOf('/'));
 
 
 function Main() {
     const classes = useStyles();
-    const { t, i18n } = useTranslation();
+    const {t, i18n} = useTranslation();
     const changeLanguage = (lng: string) => {
         i18n.changeLanguage(lng);
     };
 
     const {statistics} = useContext(IntegrationContext)
     let totalErrors = 0;
-    statistics?.map((stat: any) => {totalErrors += stat.currentErrors})
+    statistics?.map((stat: any) => {
+        totalErrors += stat.currentErrors
+    })
 
 
     return (
-        <Box display="flex" position="relative" width={1} height={1}>
-            <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
-                <Toolbar className={classes.toolbar} id={"toolbar"}>
-                    <img src={FintLogo} alt="logo" className={classes.logo} />
-                    <Typography variant="h6" color="inherit" noWrap className={classes.flex}>
-                        {t('appbarHeader')}
-                    </Typography>
-                    {/*<Box sx={{ mr: 2 }}>
+        <BrowserRouter basename={getBasename(window.location.pathname)}>
+
+            <Box display="flex" position="relative" width={1} height={1}>
+                <AppBar position="fixed" sx={{zIndex: (theme) => theme.zIndex.drawer + 1}}>
+                    <Toolbar className={classes.toolbar} id={"toolbar"}>
+                        <img src={FintLogo} alt="logo" className={classes.logo}/>
+                        <Typography variant="h6" color="inherit" noWrap className={classes.flex}>
+                            {t('appbarHeader')}
+                        </Typography>
+                        {/*<Box sx={{ mr: 2 }}>
                         {i18n.language === 'no' && <Button size="small" variant="contained" onClick={() => changeLanguage("en")}>{t('language.english')}</Button>}
                         {i18n.language === 'en' && <Button size="small" variant="contained" onClick={() => changeLanguage("no")}>{t('language.norwegian')}</Button>}
                     </Box>*/}
-                    <Badge className={classes.badge}
-                        badgeContent={totalErrors}
-                        color="secondary"
-                        component={RouterLink} to="/integration/instance/list">
-                        <NotificationsIcon htmlColor={"white"} />
-                    </Badge>
-                </Toolbar>
-            </AppBar>
-            <Drawer variant="permanent" className={classes.drawer}>
-                <Toolbar />
-                <MenuItems />
-            </Drawer>
-            <main className={classes.content}>
-                <Router />
-            </main>
-        </Box>
+                        <Badge className={classes.badge}
+                               badgeContent={totalErrors}
+                               color="secondary"
+                               component={RouterLink} to="/integration/instance/list">
+                            <NotificationsIcon htmlColor={"white"}/>
+                        </Badge>
+                    </Toolbar>
+                </AppBar>
+                <Drawer variant="permanent" className={classes.drawer}>
+                    <Toolbar/>
+                    <MenuItems/>
+                </Drawer>
+                <main className={classes.content}>
+                    <Router/>
+                </main>
+            </Box>
+        </BrowserRouter>
     );
 }
 
