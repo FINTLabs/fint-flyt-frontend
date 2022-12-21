@@ -35,7 +35,7 @@ function App() {
                 <HistoryProvider>
                     <SourceApplicationProvider>
                         <IntegrationProvider>
-                            <BrowserRouter basename="/alpha/vlfk-no">
+                            <BrowserRouter>
                                 <Main/>
                             </BrowserRouter>
                         </IntegrationProvider>
