@@ -10,7 +10,7 @@ import Admin from "../admin/Admin";
 
 const routes: IRoute[] = [
     {
-        path: '/',
+        path: '/alpha/vlfk-no',
         name: 'dashboard',
         component: Dashboard,
         exact: true,
