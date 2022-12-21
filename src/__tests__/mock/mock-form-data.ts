@@ -174,8 +174,67 @@ export const MOCK_NEW_FORMDATA: IFormConfiguration = {
         "tertiaryTitle": null,
         "title": "$if{foo} $if{bar}"
     },
-    "comment": "Ferdigstilt ",
-    "completed": true,
+    "comment": "Ikke ferdigstilt",
+    "completed": false,
+    "documentData": {
+        "documentStatus": null,
+        "documentType": null,
+        "title": null,
+        "variant": null
+    },
+    "recordData": {
+        "accessCode": null,
+        "administrativeUnit": null,
+        "caseWorker": null,
+        "paragraph": null,
+        "publicTitle": null,
+        "recordStatus": null,
+        "recordType": null,
+        "title": "foo $if{bar}"
+    }
+}
+
+export const MOCK_BY_ID_FORMDATA: IFormConfiguration = {
+    "applicantData": {
+        "accessCode": null,
+        "address": null,
+        "city": null,
+        "contactPerson": null,
+        "email": null,
+        "name": null,
+        "nationalIdentityNumber": null,
+        "organisationNumber": null,
+        "paragraph": null,
+        "phoneNumber": null,
+        "postalCode": null,
+        "protected": true,
+        "type": "PERSON"
+    },
+    "caseData": {
+        "accessCode": null,
+        "administrativeUnit": null,
+        "archiveUnit": null,
+        "caseCreationStrategy": "BY_ID",
+        "caseNumber": "2022/163",
+        "caseType": null,
+        "caseWorker": null,
+        "paragraph": null,
+        "primaryClass": null,
+        "primaryClassification": null,
+        "primaryTitle": null,
+        "publicTitle": null,
+        "recordUnit": null,
+        "secondaryClass": null,
+        "secondaryClassification": null,
+        "secondaryTitle": null,
+        "status": null,
+        "tertiaryClass": null,
+        "tertiaryClassification": null,
+        "tertiaryTitle": null,
+        "title": null
+    },
+    "comment": "Ikke ferdigstilt",
+    "completed": false,
     "documentData": {
         "documentStatus": null,
         "documentType": null,

@@ -257,12 +257,12 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     );
 
     const onSubmit = handleSubmit((data: IFormConfiguration) => {
-        if (data.caseData.caseCreationStrategy === CreationStrategy.COLLECTION && caseNumber === undefined) {
+        if (data.caseData.caseCreationStrategy === CreationStrategy.BY_ID && caseNumber === undefined) {
             setSaveMessage(t('messages.errorCaseNumber'))
             setSaveError(true)
             return;
         }
-        if (data.caseData.caseCreationStrategy === CreationStrategy.COLLECTION && caseNumber) {
+        if (data.caseData.caseCreationStrategy === CreationStrategy.BY_ID && caseNumber) {
             data.caseData.caseNumber = caseNumber
         }
         data.completed = true;
@@ -282,7 +282,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     });
 
     const onSave = handleSubmit((data: IFormConfiguration) => {
-        if (data.caseData.caseCreationStrategy === CreationStrategy.COLLECTION && caseNumber) {
+        if (data.caseData.caseCreationStrategy === CreationStrategy.BY_ID && caseNumber) {
             data.caseData.caseNumber = caseNumber
         }
         data.completed = false;

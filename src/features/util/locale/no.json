@@ -1,5 +1,6 @@
 {
     "appbarHeader": "Flyt",
+    "adminHeader": "Admin",
     "language": {
         "language": "Språk",
         "norwegian": "Norsk",
@@ -16,6 +17,13 @@
         "support": "Support"
     },
     "pages": {
+        "admin": {
+            "header": "Administrasjon",
+            "noAccessMessage": "Du er ikke logget inn med administratorrettigheter",
+            "button": {
+                "back": "Tilbake"
+            }
+        },
         "dashboard": {
             "form": "integrasjoner",
             "oneForm": "integrasjon",

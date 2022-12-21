@@ -6,6 +6,7 @@ import InstanceOverview from "../instanceOverview/InstanceOverview";
 import Support from "../support/Support";
 import ConfigurationForm from "../integration/ConfigurationForm";
 import {IntegrationForm} from "../integration/components/IntegrationForm";
+import Admin from "../admin/Admin";
 
 const routes: IRoute[] = [
     {
@@ -91,6 +92,13 @@ const routes: IRoute[] = [
         icon: 'contact_support',
         exact: true,
         inNavigationMenu: true
+    },
+    {
+        path: '/admin',
+        name: 'admin',
+        component: Admin,
+        exact: true,
+        inNavigationMenu: false
     }
 ]
 
