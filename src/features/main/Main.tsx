@@ -121,7 +121,7 @@ function Main() {
                 <MenuItems />
             </Drawer>
             <main className={classes.content}>
-                <Router  basename='alpha/vlfk-no'/>
+                <Router/>
             </main>
         </Box>
     );
