@@ -10,7 +10,7 @@ import {
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import FintLogo from "../../images/fint-by-vigo-white.svg";
 
-import { createStyles, makeStyles } from "@mui/styles";
+import {createStyles, makeStyles} from "@mui/styles";
 import Router from "./Router";
 import MenuItems from "./MenuItems";
 import {Link as RouterLink} from "react-router-dom";
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
         drawer: {
             width: drawerWidth,
             flexShrink: 0,
-            [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' }
+            [`& .MuiDrawer-paper`]: {width: drawerWidth, boxSizing: 'border-box'}
         },
         toolbar: {
             display: "flex",
@@ -78,7 +78,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function Main() {
     const classes = useStyles();
-    const { t, i18n } = useTranslation();
+    const {t, i18n} = useTranslation();
     const changeLanguage = (lng: string) => {
         i18n.changeLanguage(lng);
     };

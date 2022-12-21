@@ -2,6 +2,8 @@
   "name": "fint-flyt-integration-frontend",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:8080",
+  "homepage": ".",
   "dependencies": {
     "@babel/core": "^7.18.10",
     "@babel/plugin-syntax-flow": "^7.18.6",
