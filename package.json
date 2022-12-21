@@ -1,6 +1,5 @@
 {
   "name": "fint-flyt-integration-frontend",
-  "homepage": "alpha/vlfk-no/",
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:8080",
