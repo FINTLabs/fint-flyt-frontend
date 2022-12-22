@@ -150,7 +150,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
 
     const accordionList: IAccordion[] = [
         {id: 'case-information', summary: "caseInformation.header", accordionForm: ACCORDION_FORM.CASE_INFORMATION, defaultExpanded: true},
-        {id: 'case-form', summary: "caseForm.header", accordionForm: ACCORDION_FORM.CASE_FORM, defaultExpanded: completed, hidden: watch("caseData.caseCreationStrategy") === CreationStrategy.COLLECTION},
+        {id: 'case-form', summary: "caseForm.header", accordionForm: ACCORDION_FORM.CASE_FORM, defaultExpanded: completed, hidden: watch("caseData.caseCreationStrategy") === CreationStrategy.BY_ID},
         {id: 'record-form', summary: "recordForm.header", accordionForm: ACCORDION_FORM.RECORD_FORM, defaultExpanded: completed},
         {id: 'document-object-form', summary: "mainDocumentForm.header", accordionForm: ACCORDION_FORM.MAIN_DOCUMENT_FORM, defaultExpanded: completed},
         {id: 'attachment-documents-object-form', summary: "attachmentDocumentsForm.header", accordionForm: ACCORDION_FORM.ATTACHMENT_DOCUMENT_FORM, defaultExpanded: completed},
@@ -261,12 +261,12 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     );
 
     const onSubmit = handleSubmit((data: IFormConfiguration) => {
-        if (data.caseData.caseCreationStrategy === CreationStrategy.COLLECTION && caseNumber === undefined) {
+        if (data.caseData.caseCreationStrategy === CreationStrategy.BY_ID && caseNumber === undefined) {
             setSaveMessage(t('messages.errorCaseNumber'))
             setSaveError(true)
             return;
         }
-        if (data.caseData.caseCreationStrategy === CreationStrategy.COLLECTION && caseNumber) {
+        if (data.caseData.caseCreationStrategy === CreationStrategy.BY_ID && caseNumber) {
             data.caseData.caseNumber = caseNumber
         }
         data.completed = true;
@@ -287,7 +287,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     });
 
     const onSave = handleSubmit((data: IFormConfiguration) => {
-        if (data.caseData.caseCreationStrategy === CreationStrategy.COLLECTION && caseNumber) {
+        if (data.caseData.caseCreationStrategy === CreationStrategy.BY_ID && caseNumber) {
             data.caseData.caseNumber = caseNumber
         }
         data.completed = false;

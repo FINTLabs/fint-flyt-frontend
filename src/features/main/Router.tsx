@@ -8,7 +8,7 @@ const Router: React.FunctionComponent = () => {
                 {routes.map((route, index) => {
                     return (
                         <Route
-                            key={index}
+                            key={Math.random()}
                             exact={route.exact}
                             path={route.path}
                             render={(props: RouteComponentProps<any>) => (

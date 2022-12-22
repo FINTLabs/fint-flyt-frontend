@@ -15,7 +15,7 @@ patches:
   - patch: |-
       - op: replace
         path: "/spec/routes/0/match"
-        value: "Host(`flyt.vigoiks.no`) && PathPrefix(`/alpha/vlfk-no`) && !PathPrefix(`/alpha/vlfk-no/api`)"
+        value: "Host(`flyt.vigoiks.no`) && PathPrefix(`/alpha/vlfk-no`)"
     target:
       kind: IngressRoute
       name: fint-flyt-integration-frontend

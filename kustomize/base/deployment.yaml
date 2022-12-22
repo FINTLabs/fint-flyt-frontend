@@ -17,7 +17,7 @@ spec:
               cpu: 500m
               memory: 128Mi
           ports:
-            - containerPort: 8080
+            - containerPort: 8000
           envFrom:
             - configMapRef:
                 name: fint-flyt-integration-frontend

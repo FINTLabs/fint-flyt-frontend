@@ -6,10 +6,10 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`hostname`) && PathPrefix(`path`) && !PathPrefix(`path`)
+    - match: Host(`hostname`) && PathPrefix(`path`)
       kind: Rule
       services:
         - name: fint-flyt-integration-frontend
-          port: 8080
-      middlewares:
-        - name: fint-flyt-auth-forward
+          port: 8000
+  #    middlewares:
+  #      - name: fint-flyt-auth-forward

@@ -1,5 +1,5 @@
 export const CreationStrategy = {
     NEW: 'NEW',
-    EXISTING: 'EXISTING',
-    COLLECTION: 'COLLECTION'
+    BY_ID: 'BY_ID',
+    BY_SEARCH_OR_NEW: 'BY_SEARCH_OR_NEW'
 }
