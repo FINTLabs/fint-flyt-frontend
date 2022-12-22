@@ -59,7 +59,6 @@ export const MOCK_CONFIG_FORMDATA: IFormConfiguration = {
     mainDocumentData: {
         documentStatus: "D9",
         documentType: "cat8",
-        title: "document title",
         variant: "var"
     },
     attachmentDocumentsData: {
@@ -124,7 +123,6 @@ export const MOCK_CONFIG_FORMDATA_FOR_PATCH: IFormConfiguration = {
     mainDocumentData: {
         documentStatus: "D9",
         documentType: "cat8",
-        title: "document title",
         variant: "var"
     },
     attachmentDocumentsData: {
@@ -162,9 +160,9 @@ export const MOCK_NEW_FORMDATA: IFormConfiguration = {
         "type": "PERSON"
     },
     "attachmentDocumentsData": {
-        "documentStatus": "D9",
-        "documentType": "cat8",
-        "variant": "var"
+        "documentStatus": null,
+        "documentType": null,
+        "variant": null
     },
     "caseData": {
         "accessCode": null,
@@ -194,7 +192,6 @@ export const MOCK_NEW_FORMDATA: IFormConfiguration = {
     "mainDocumentData": {
         "documentStatus": null,
         "documentType": null,
-        "title": null,
         "variant": null
     },
     "recordData": {
@@ -256,10 +253,9 @@ export const MOCK_BY_ID_FORMDATA: IFormConfiguration = {
     "comment": "Ikke ferdigstilt",
     "completed": false,
     "mainDocumentData": {
-        "documentStatus": null,
-        "documentType": null,
-        "title": null,
-        "variant": null
+        "documentStatus": "D9",
+        "documentType": "cat8",
+        "variant": "var"
     },
     "recordData": {
         "accessCode": null,

@@ -44,7 +44,6 @@ export function newToFormData(data: newIConfiguration): IFormConfiguration {
             paragraph: configurationFieldToString(recordFields, 'skjermingshjemmel'),
         },
         mainDocumentData: {
-            title: configurationFieldToString(documentFields, 'tittel'),
             documentStatus: configurationFieldToString(documentFields, 'dokumentStatus'),
             documentType: configurationFieldToString(documentFields, 'dokumentType'),
             variant: configurationFieldToString(documentFields, 'dokumentObjekt.variantFormat'),

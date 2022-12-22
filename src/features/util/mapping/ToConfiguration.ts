@@ -191,13 +191,8 @@ export function toNewConfiguration(data: IFormConfiguration, integrationId: stri
                 ]
             },
             {
-                key: 'document',
+                key: 'mainDocument',
                 fieldConfigurations: [
-                    {
-                        key: "tittel",
-                        type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: data.mainDocumentData?.title === '' ? null : data.mainDocumentData?.title
-                    },
                     {
                         key: "dokumentStatus",
                         type: FieldConfigurationType.STRING,
@@ -572,13 +567,8 @@ export function toConfigurationPatch(data: IFormConfiguration, metadataId: any):
                 ]
             },
             {
-                key: 'document',
+                key: 'mainDocument',
                 fieldConfigurations: [
-                    {
-                        key: "tittel",
-                        type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: data.mainDocumentData?.title === '' ? null : data.mainDocumentData?.title
-                    },
                     {
                         key: "dokumentStatus",
                         type: FieldConfigurationType.STRING,

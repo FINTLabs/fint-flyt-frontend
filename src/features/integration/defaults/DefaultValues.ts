@@ -45,7 +45,6 @@ export const defaultConfigurationValues: IFormConfiguration = {
         paragraph: null
     },
     mainDocumentData: {
-        title: null,
         documentStatus: null,
         documentType: null,
         variant: null
@@ -632,7 +631,6 @@ export const EXAMPLE_FORM: IFormConfiguration = {
     "comment": "Ferdigstilt ",
     "completed": true,
     "mainDocumentData": {
-        "title": '',
         "documentStatus": '',
         "documentType": '',
         "variant": '',
