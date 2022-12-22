@@ -362,10 +362,6 @@
                 "collection":"På samlesak",
                 "collectionDesc":"Innsendt skjema skal leveres til en forhåndsdefinert samlesak. Her må du opplyse om saksnummer"
             },
-            "applicantOptions": {
-                "individual":"Privatperson",
-                "organisation":"Organisasjon"
-            },
             "sourceApplicationIntegrations": {
                 "VIK014": "Søknad om reservasjon av skoleplass",
                 "VIK036": "Søknad til kombinasjonsprogram",
