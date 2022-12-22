@@ -223,9 +223,9 @@ export const MOCK_BY_ID_FORMDATA: IFormConfiguration = {
         "type": "PERSON"
     },
     "attachmentDocumentsData": {
-        "documentStatus": "D9",
-        "documentType": "cat8",
-        "variant": "var"
+        "documentStatus": null,
+        "documentType": null,
+        "variant": null
     },
     "caseData": {
         "accessCode": null,
@@ -253,9 +253,9 @@ export const MOCK_BY_ID_FORMDATA: IFormConfiguration = {
     "comment": "Ikke ferdigstilt",
     "completed": false,
     "mainDocumentData": {
-        "documentStatus": "D9",
-        "documentType": "cat8",
-        "variant": "var"
+        "documentStatus": null,
+        "documentType": null,
+        "variant": null
     },
     "recordData": {
         "accessCode": null,

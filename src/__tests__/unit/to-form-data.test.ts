@@ -7,7 +7,7 @@ test('It should map new configuration with tags to form data correctly', () => {
     expect(formData).toEqual(MOCK_NEW_FORMDATA);
 });
 
-test('It should map new configuration with tags to form data correctly', () => {
+test('It should map configuration by id with tags to form data correctly', () => {
     const formData = newToFormData(MOCK_BY_ID_CONFIG);
     expect(formData).toEqual(MOCK_BY_ID_FORMDATA);
 });

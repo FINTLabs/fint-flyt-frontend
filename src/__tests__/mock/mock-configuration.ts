@@ -166,11 +166,6 @@ export const MOCK_CONFIGURATION: newIConfiguration = {
         {
             "fieldConfigurations": [
                 {
-                    "key": "tittel",
-                    "type": "DYNAMIC_STRING",
-                    "value": "document title"
-                },
-                {
                     "key": "dokumentStatus",
                     "type": "STRING",
                     "value": "D9"
@@ -278,6 +273,7 @@ export const MOCK_CONFIGURATION: newIConfiguration = {
     "integrationId": "id0",
     "integrationMetadataId": 321
 }
+
 export const MOCK_CONFIGURATION_PATCH: IConfigurationPatch = {
     "comment": "form to test mapping",
     "completed": false,
@@ -435,11 +431,6 @@ export const MOCK_CONFIGURATION_PATCH: IConfigurationPatch = {
         {
             "fieldConfigurations": [
                 {
-                    "key": "tittel",
-                    "type": "DYNAMIC_STRING",
-                    "value": "document title"
-                },
-                {
                     "key": "dokumentStatus",
                     "type": "STRING",
                     "value": "D9"
@@ -456,6 +447,26 @@ export const MOCK_CONFIGURATION_PATCH: IConfigurationPatch = {
                 }
             ],
             "key": "mainDocument"
+        },
+        {
+            "fieldConfigurations": [
+                {
+                    "key": "dokumentStatus",
+                    "type": "STRING",
+                    "value": "D9"
+                },
+                {
+                    "key": "dokumentType",
+                    "type": "STRING",
+                    "value": "cat8"
+                },
+                {
+                    "key": "dokumentObjekt.variantFormat",
+                    "type": "STRING",
+                    "value": "var"
+                }
+            ],
+            "key": "attachmentDocuments"
         },
         {
             "fieldConfigurations": [
