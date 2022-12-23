@@ -1,0 +1,15 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: fint-flyt-integration-frontend
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`hostname`) && PathPrefix(`path`)
+      kind: Rule
+      services:
+        - name: fint-flyt-integration-frontend
+          port: 8000
+  #    middlewares:
+  #      - name: fint-flyt-auth-forward

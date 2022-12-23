@@ -58,7 +58,7 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
 
     let errors: FieldErrors = props.errors;
     let required: boolean = props.validation;
-    let isCollection = props.watch("caseData.caseCreationStrategy") === CreationStrategy.COLLECTION
+    let isCollection = props.watch("caseData.caseCreationStrategy") === CreationStrategy.BY_ID
 
     let listOfClassificationsWithDynamicField: string[] = [
         'https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/FNR',
