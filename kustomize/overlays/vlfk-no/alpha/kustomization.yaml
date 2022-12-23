@@ -18,4 +18,11 @@ patches:
     target:
       kind: ConfigMap
       name: fint-flyt-integration-frontend
+  - patch: |-
+      - op: replace
+        path: "/spec/routes/0/match"
+        value: "Host(`flyt.vigoiks.no`) && (PathPrefix(`/alpha/vlfk-no/api/application/configuration`) || PathPrefix(`/`))"
+    target:
+      kind: IngressRoute
+      name: fint-flyt-integration-frontend
 
