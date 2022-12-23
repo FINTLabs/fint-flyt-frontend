@@ -8,13 +8,12 @@ import {
     Typography
 } from "@mui/material";
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import FintLogo from "../../images/fint-by-vigo-white.svg";
 
 import {createStyles, makeStyles} from "@mui/styles";
 import Router from "./Router";
 import MenuItems from "./MenuItems";
 import {Link as RouterLink} from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 import {IntegrationContext} from "../../context/integrationContext";
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import {SourceApplicationContext} from "../../context/sourceApplicationContext";
@@ -92,9 +91,9 @@ function Main() {
 
     return (
         <Box display="flex" position="relative" width={1} height={1}>
-            <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+            <AppBar position="fixed" sx={{zIndex: (theme) => theme.zIndex.drawer + 1}}>
                 <Toolbar className={classes.toolbar} id={"toolbar"}>
-                    <img src={FintLogo} alt="logo" className={classes.logo} />
+                    <img src="https://cdn.flais.io/media/fint-by-vigo-white.svg" alt="logo" className={classes.logo}/>
                     <Typography variant="h6" color="inherit" noWrap className={classes.flex}>
                         {t('appbarHeader')}
                     </Typography>
@@ -109,19 +108,19 @@ function Main() {
                         </Button>
                     </Box>}
                     <Badge className={classes.badge}
-                        badgeContent={totalErrors}
-                        color="secondary"
-                        component={RouterLink} to="/integration/instance/list">
-                        <NotificationsIcon htmlColor={"white"} />
+                           badgeContent={totalErrors}
+                           color="secondary"
+                           component={RouterLink} to="/integration/instance/list">
+                        <NotificationsIcon htmlColor={"white"}/>
                     </Badge>
                 </Toolbar>
             </AppBar>
             <Drawer variant="permanent" className={classes.drawer}>
-                <Toolbar />
-                <MenuItems />
+                <Toolbar/>
+                <MenuItems/>
             </Drawer>
             <main className={classes.content}>
-                <Router />
+                <Router/>
             </main>
         </Box>
     );

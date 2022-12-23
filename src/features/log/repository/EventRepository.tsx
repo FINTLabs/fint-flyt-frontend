@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const getEvents = (page: number, size: number, sortProperty: string, sortDirection: string) => {
-    return axios.get<any>(`/api/intern/historikk/hendelser`, {
+    return axios.get<any>(`api/intern/historikk/hendelser`, {
         params: {
             side: page,
             antall: size,
@@ -13,7 +13,7 @@ const getEvents = (page: number, size: number, sortProperty: string, sortDirecti
 };
 
 const getLatestEvents = (page: number, size: number, sortProperty: string, sortDirection: string) => {
-    return axios.get<any>(`/api/intern/historikk/hendelser`, {
+    return axios.get<any>(`api/intern/historikk/hendelser`, {
         params: {
             side: page,
             antall: size,
@@ -25,7 +25,7 @@ const getLatestEvents = (page: number, size: number, sortProperty: string, sortD
 };
 
 const getEventsByInstanceId = (page: number, size: number, sortProperty: string, sortDirection: string, kildeapplikasjonId?: string, kildeapplikasjonInstansId?: string) => {
-    return axios.get<any>(`/api/intern/historikk/hendelser`, {
+    return axios.get<any>(`api/intern/historikk/hendelser`, {
         params: {
             side: page,
             antall: size,
@@ -38,11 +38,11 @@ const getEventsByInstanceId = (page: number, size: number, sortProperty: string,
 };
 
 const getAllStatistics = () => {
-    return axios.get<any>(`/api/intern/historikk/statistikk`);
+    return axios.get<any>(`api/intern/historikk/statistikk`);
 };
 
 const getStatistics = () => {
-    return axios.get<any>(`/api/intern/historikk/statistikk/integrasjoner`);
+    return axios.get<any>(`api/intern/historikk/statistikk/integrasjoner`);
 };
 
 const EventRepository = {
