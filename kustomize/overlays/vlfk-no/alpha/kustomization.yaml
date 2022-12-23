@@ -1,0 +1,21 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../../base
+commonLabels:
+  app.kubernetes.io/name: fint-flyt-integration-frontend
+  app.kubernetes.io/instance: fint-flyt-integration-frontend_vlfk-no
+  app.kubernetes.io/version: latest
+  app.kubernetes.io/component: frontend
+  app.kubernetes.io/part-of: fint-flyt
+  fintlabs.no/team: flyt
+  fintlabs.no/org-id: vlfk.no
+patches:
+  - patch: |-
+      - op: replace
+        path: "/data/BASE_PATH"
+        value: "/alpha/vlfk-no"
+    target:
+      kind: ConfigMap
+      name: fint-flyt-integration-frontend
+
