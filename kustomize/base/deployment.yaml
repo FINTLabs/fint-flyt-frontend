@@ -10,7 +10,7 @@ spec:
     spec:
       restartPolicy: Always
       containers:
-        - image: ghcr.io/fintlabs/fint-flyt-integration-frontend:sha-0000000
+        - image: fintlabsacr.azurecr.io/fint-flyt-integration-frontend:dummy
           name: fint-flyt-integration-frontend
           resources:
             limits:
