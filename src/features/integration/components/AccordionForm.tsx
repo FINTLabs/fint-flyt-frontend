@@ -8,7 +8,6 @@ import ApplicantForm from "./form/ApplicantForm";
 import RecordForm from "./form/RecordForm";
 import {ACCORDION_FORM} from "../types/Accordion";
 import { useTranslation } from 'react-i18next';
-import AttachmentDocumentsForm from "./form/AttachmentDocumentsForm";
 
 const AccordionForm: React.FunctionComponent<any> = (props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.configurationForm.accordions'});
@@ -22,7 +21,6 @@ const AccordionForm: React.FunctionComponent<any> = (props) => {
                 {props.accordionForm === ACCORDION_FORM.CASE_FORM && <CaseForm {...props} />}
                 {props.accordionForm === ACCORDION_FORM.RECORD_FORM && <RecordForm {...props} />}
                 {props.accordionForm === ACCORDION_FORM.MAIN_DOCUMENT_FORM && <MainDocumentForm {...props} />}
-                {props.accordionForm === ACCORDION_FORM.ATTACHMENT_DOCUMENT_FORM && <AttachmentDocumentsForm {...props} />}
                 {props.accordionForm === ACCORDION_FORM.APPLICANT_FORM && <ApplicantForm {...props} />}
          </AccordionDetails>
         </Accordion>

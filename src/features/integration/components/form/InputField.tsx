@@ -124,6 +124,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
         )
     }
     else if (props.input === INPUT_TYPE.DROPZONE_TEXT_FIELD) {
+        console.log(props, props.disabled)
         return (
             <TextFieldWithDropZone
                 id={props.formValue}

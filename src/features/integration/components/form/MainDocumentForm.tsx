@@ -16,19 +16,23 @@ const MainDocumentForm: React.FunctionComponent<any> = (props) => {
     let required: boolean = props.validation;
 
     const documentFormFields: IInputField[] = [
-        {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.title", formValue: "mainDocumentData.title", required: false, error:errors.mainDocumentData?.title, value: props.activeFormData?.mainDocumentData?.title, helpText: "mainDocumentData.title"},
+        {input: INPUT_TYPE.TEXT_FIELD, label: "labels.title", formValue: "recordData.title", required: required, error:errors.recordData?.title, value: props.watch("recordData.title"), helpText: "recordData.title", disabled: true},
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.documentStatus", value: props.watch("mainDocumentData.documentStatus"), formValue: "mainDocumentData.documentStatus", dropDownItems: documentStatuses, required: required, error:errors.mainDocumentData?.documentStatus, helpText: "mainDocumentData.documentStatus"},
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.documentType", value: props.watch("mainDocumentData.documentType"), formValue: "mainDocumentData.documentType", dropDownItems: documentTypes, required: required, error:errors.mainDocumentData?.documentType, helpText: "mainDocumentData.documentType"},
-  ]
-    const objectFormFields: IInputField[] = [
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.variant", value: props.watch("mainDocumentData.variant"), formValue: "mainDocumentData.variant", dropDownItems: variantOptions, required: required, error:errors.mainDocumentData?.variant, helpText: "mainDocumentData.variant"}
+    ]
+    const objectFormFields: IInputField[] = [
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.documentStatus", value: props.watch("attachmentDocumentsData.documentStatus"), formValue: "attachmentDocumentsData.documentStatus", dropDownItems: documentStatuses, required: required, error:errors.attachmentDocumentsData?.documentStatus, helpText: "mainDocumentData.documentStatus"},
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.documentType", value: props.watch("attachmentDocumentsData.documentType"), formValue: "attachmentDocumentsData.documentType", dropDownItems: documentTypes, required: required, error:errors.attachmentDocumentsData?.documentType, helpText: "mainDocumentData.documentType"},
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.variant", value: props.watch("attachmentDocumentsData.variant"), formValue: "attachmentDocumentsData.variant", dropDownItems: variantOptions, required: required, error:errors.attachmentDocumentsData?.variant, helpText: "mainDocumentData.variant"}
     ]
     return (
         <div>
             <FormGroup className={props.style.formControl}>
-                <Typography>{t('documentDescription')}</Typography>
+                <Typography>{t('mainDocumentDescription')}</Typography>
                 <Divider sx={{mb: 3}}/>
                 {documentFormFields.map((field, index) => {
+                    console.log(field)
                     return (
                         <Box sx={{display: 'flex'}} key={index}>
                             <Box width={'100%'}>
@@ -40,7 +44,7 @@ const MainDocumentForm: React.FunctionComponent<any> = (props) => {
                                             formValue={field.formValue}
                                             dropdownItems={field.dropDownItems}
                                             setter={field.setter}
-                                            disabled={field.disabled}
+                                            disabledField={field.disabled}
                                             {...props}
                                 />
                             </Box>
@@ -50,7 +54,7 @@ const MainDocumentForm: React.FunctionComponent<any> = (props) => {
                         </Box>
                     )}
                 )}
-                <Typography>{t('objectDescription')}</Typography>
+                <Typography>{t('attachmentDescription')}</Typography>
                 <Divider sx={{mb: 3}}/>
                 {objectFormFields.map((field, index) => {
                     return (

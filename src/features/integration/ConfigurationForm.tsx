@@ -153,7 +153,6 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
         {id: 'case-form', summary: "caseForm.header", accordionForm: ACCORDION_FORM.CASE_FORM, defaultExpanded: completed, hidden: watch("caseData.caseCreationStrategy") === CreationStrategy.BY_ID},
         {id: 'record-form', summary: "recordForm.header", accordionForm: ACCORDION_FORM.RECORD_FORM, defaultExpanded: completed},
         {id: 'document-object-form', summary: "mainDocumentForm.header", accordionForm: ACCORDION_FORM.MAIN_DOCUMENT_FORM, defaultExpanded: completed},
-        {id: 'attachment-documents-object-form', summary: "attachmentDocumentsForm.header", accordionForm: ACCORDION_FORM.ATTACHMENT_DOCUMENT_FORM, defaultExpanded: completed},
         {id: 'applicant-form', summary: "applicationForm.header", accordionForm: ACCORDION_FORM.APPLICANT_FORM, defaultExpanded: completed}
     ]
 
@@ -309,6 +308,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
         <DndProvider backend={HTML5Backend}>
             {!submitSuccess && (existingIntegration || newIntegration) &&
                 <Box display="flex" position="relative" width={1} height={1}>
+                    <h1>{watch("recordData.title")}</h1>
                     <Box>
                         <Typography id="integration-form-header" aria-label="integration-form-header" variant={"h5"} sx={{ mb: 2 }}>{t('header')}</Typography>
                         <form id="integration-form"  className={classes.form} onSubmit={onSubmit}>
