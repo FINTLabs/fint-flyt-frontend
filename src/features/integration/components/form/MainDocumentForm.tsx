@@ -32,7 +32,6 @@ const MainDocumentForm: React.FunctionComponent<any> = (props) => {
                 <Typography>{t('mainDocumentDescription')}</Typography>
                 <Divider sx={{mb: 3}}/>
                 {documentFormFields.map((field, index) => {
-                    console.log(field)
                     return (
                         <Box sx={{display: 'flex'}} key={index}>
                             <Box width={'100%'}>
