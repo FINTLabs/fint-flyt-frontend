@@ -8,20 +8,6 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`hostname`) && PathPrefix(`basePath`)
-      kind: Rule
-      services:
-        - name: fint-flyt-integration-frontend
-          port: 8000
-      middlewares:
-        - name: fint-flyt-auth-forward
-    - match: Host(`hostname`) && PathPrefix(`/basePath/api/application/configuration`)
-      kind: Rule
-      services:
-        - name: fint-flyt-integration-frontend
-          port: 8000
-      middlewares:
-        - name: fint-flyt-auth-forward
     - match: Host(`hostname`) && !PathPrefix(`/basePath/api`)
       kind: Rule
       services:
@@ -29,3 +15,12 @@ spec:
           port: 8000
       middlewares:
         - name: fint-flyt-auth-forward
+    - match: Host(`hostname`) && PathPrefix(`basePath`)
+      kind: Rule
+      services:
+        - name: fint-flyt-integration-frontend
+          port: 8000
+      middlewares:
+        - name: fint-flyt-auth-forward
+
+
