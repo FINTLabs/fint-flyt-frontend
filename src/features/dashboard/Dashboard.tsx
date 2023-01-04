@@ -75,11 +75,6 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
                 <CardContent>
                         <IntegrationTable
                             classes={classes}
-                            loading={newIntegrations === undefined}
-                            integrations={newIntegrations}
-                            getConfigurations={getConfigurations}
-                            getCompletedConfigurations={getCompletedConfigurations}
-                            setExistingIntegration={setExistingIntegration}
                         />
                 </CardContent>
             </Card>

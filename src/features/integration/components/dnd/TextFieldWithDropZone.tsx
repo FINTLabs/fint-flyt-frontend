@@ -12,6 +12,8 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
     let errorMessage: string = t('errorMessage') + t(props.label);
     let initValue: string = props.value === null ? '' : props.value;
     const setPropValue = props.setValue;
+    const regExp = /^(?:(?:(?!\$if\{).)*|(?:\$if\{(?:(?!\$if\{).)+})*)*$/g;
+
     const [inputValue, setInputValue] = useState(initValue);
     const [{ canDrop, isOver }, drop] = useDrop(() => ({
         accept: DraggableTypes.TAG,
@@ -24,6 +26,8 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
         }),
     }))
 
+//    console.log(regExp.test(inputValue))
+
     if (canDrop && isOver) {
         backgroundColor = 'palegreen';
     } else if (canDrop) {
@@ -33,6 +37,9 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
     useEffect(() => {
         setPropValue(props.formValue, inputValue)
     }, [inputValue, setInputValue, setPropValue, props.formValue]);
+
+    console.log(props.required)
+    console.log(props.error)
 
     return (
         <Controller
@@ -54,13 +61,15 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
                                 setInputValue(e.target.value as string);
                                 onChange(e);
                             }}
-                            error={value === '' && !!props.error}
-                            helperText={(value === '' && props.error) ? 'Obligatorisk felt' : ''}
+                            error={!!props.error}
+                            helperText={props.error ? 'Obligatorisk felt' : ''}
                         />)
             }}
-            rules={{
-                required: { value: props.required, message: errorMessage }
-            }}
+            rules={
+            props.required ? {
+                pattern: {value: regExp, message: errorMessage}
+            } : {}
+        }
         />
     )
 }
