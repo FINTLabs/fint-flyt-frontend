@@ -5,7 +5,7 @@ const getMetadata = (id: string, onlyLastestVersion?: boolean) => {
 };
 
 const getInstanceElementMetadata = (metadataId: string) => {
-    return axios.get<any>(`api/intern/metadata/${metadataId}/instans-element-metadata`)
+    return axios.get<any>(`/api/intern/metadata/${metadataId}/instans-element-metadata`)
 }
 
 const SourceApplicationRepository = {
