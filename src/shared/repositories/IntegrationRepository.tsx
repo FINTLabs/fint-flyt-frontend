@@ -17,13 +17,13 @@ const getIntegrations = (page: number, size: any, sortProperty: string, sortDire
 }
 
 const getIntegration = (integrationId: string) => {
-    return axios.get<any>(`/api/intern/integrasjoner/${integrationId}`)
+    return axios.get<any>(`api/intern/integrasjoner/${integrationId}`)
 }
 const createIntegration = (data: IIntegration) => {
     return axios.post<any>("/api/intern/integrasjoner", data);
 }
 const updateIntegration = (integrationId: string, data: IIntegrationPatch) => {
-    return axios.patch(`/api/intern/integrasjoner/${integrationId}`, data)
+    return axios.patch(`api/intern/integrasjoner/${integrationId}`, data)
 }
 
 const IntegrationRepository = {
