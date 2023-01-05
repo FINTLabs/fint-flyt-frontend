@@ -16,16 +16,16 @@ const getConfigurations = (page: number, size: number, sortProperty: string, sor
     });
 }
 const getConfiguration = (configurationId: string, excludeElements?: boolean) => {
-    return axios.get<any>(`/api/intern/konfigurasjoner/${configurationId}`, { params: { eksluderElementer: excludeElements } });
+    return axios.get<any>(`api/intern/konfigurasjoner/${configurationId}`, { params: { eksluderElementer: excludeElements } });
 }
 const createConfiguration = (integrationId: string, data: newIConfiguration) => {
-    return axios.post<any>(`/api/intern/konfigurasjoner`, data);
+    return axios.post<any>(`api/intern/konfigurasjoner`, data);
 }
 const updateConfiguration = (configurationId: string, data: IConfigurationPatch) => {
-    return axios.patch<any>(`/api/intern/konfigurasjoner/${configurationId}`, data);
+    return axios.patch<any>(`api/intern/konfigurasjoner/${configurationId}`, data);
 }
 const deleteConfiguration = (configurationId: string) => {
-    return axios.delete<any>(`/api/intern/konfigurasjoner/${configurationId}`);
+    return axios.delete<any>(`api/intern/konfigurasjoner/${configurationId}`);
 }
 
 const ConfigurationRepository = {
