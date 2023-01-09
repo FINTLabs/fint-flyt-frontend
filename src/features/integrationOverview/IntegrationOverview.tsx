@@ -39,6 +39,7 @@ const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = (
 
     console.log(existingIntegration)
     console.log(showPanel)
+    console.log(window.location.pathname)
     console.log(existingIntegration?.sourceApplicationIntegrationId && showPanel)
 
     useEffect(()=> {
@@ -56,9 +57,9 @@ const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = (
         <>
             <Breadcrumbs aria-label="breadcrumb">
                 <Typography onClick={resetConfiguration}>{t('header')}</Typography>
-                <Typography>{existingIntegration?.sourceApplicationIntegrationId && showPanel ? t('details') : ''}</Typography>
+                <Typography>{existingIntegration?.sourceApplicationIntegrationId ? t('details') : ''}</Typography>
             </Breadcrumbs>
-            {existingIntegration?.sourceApplicationIntegrationId && showPanel ?
+            {existingIntegration?.sourceApplicationIntegrationId ?
                 <IntegrationPanel
                     classes={classes}
                 /> :
