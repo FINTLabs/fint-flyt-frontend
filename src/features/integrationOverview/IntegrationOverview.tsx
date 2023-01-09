@@ -38,6 +38,8 @@ const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = (
 
 
     console.log(existingIntegration)
+    console.log(showPanel)
+    console.log(existingIntegration?.sourceApplicationIntegrationId && showPanel)
 
     useEffect(()=> {
         getNewIntegrations(sourceApplication.toString());
@@ -48,6 +50,7 @@ const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = (
         setNewIntegration({})
         getNewIntegrations(sourceApplication.toString());
     }
+
 
     return (
         <>
