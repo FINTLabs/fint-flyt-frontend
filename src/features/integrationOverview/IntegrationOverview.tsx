@@ -33,8 +33,11 @@ const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = (
     const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationOverview'});
     const classes = useStyles();
     const showPanel: boolean = window.location.pathname === '/integration'
-    const {existingIntegration, setNewIntegration, setExistingIntegration, newIntegrations, getNewIntegrations, configurations, completedConfigurations, getCompletedConfigurations, getConfigurations} = useContext(IntegrationContext)
+    const {existingIntegration, setNewIntegration, getNewIntegrations} = useContext(IntegrationContext)
     const {sourceApplication, getAllMetadata} = useContext(SourceApplicationContext)
+
+
+    console.log(existingIntegration)
 
     useEffect(()=> {
         getNewIntegrations(sourceApplication.toString());
@@ -55,18 +58,10 @@ const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = (
             {existingIntegration?.sourceApplicationIntegrationId && showPanel ?
                 <IntegrationPanel
                     classes={classes}
-                    loading={configurations === undefined}
-                    initialConfiguration={existingIntegration}
-                    configurations={configurations}
-                    completedConfigurations={completedConfigurations}
                 /> :
                 <IntegrationTable
                     classes={classes}
-                    loading={newIntegrations === undefined}
-                    integrations={newIntegrations}
-                    getConfigurations={getConfigurations}
-                    getCompletedConfigurations={getCompletedConfigurations}
-                    setExistingIntegration={setExistingIntegration}
+
                 />
             }
         </>

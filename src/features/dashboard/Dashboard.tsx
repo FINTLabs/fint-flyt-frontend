@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.dashboard'});
     const classes = useStyles();
-    const {setExistingIntegration, statistics, resetIntegrations, newIntegrations, getNewIntegrations, getCompletedConfigurations, getConfigurations} = useContext(IntegrationContext)
+    const { statistics, resetIntegrations, newIntegrations, getNewIntegrations} = useContext(IntegrationContext)
     const {sourceApplication} = useContext(SourceApplicationContext)
     let totalErrors = 0;
     statistics?.map((stat: any) => {totalErrors += stat.currentErrors})
@@ -75,11 +75,6 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
                 <CardContent>
                         <IntegrationTable
                             classes={classes}
-                            loading={newIntegrations === undefined}
-                            integrations={newIntegrations}
-                            getConfigurations={getConfigurations}
-                            getCompletedConfigurations={getCompletedConfigurations}
-                            setExistingIntegration={setExistingIntegration}
                         />
                 </CardContent>
             </Card>

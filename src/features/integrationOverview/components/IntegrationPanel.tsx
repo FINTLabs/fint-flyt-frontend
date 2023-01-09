@@ -39,7 +39,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
     const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.integrationOverview'});
     const classes = props.classes;
     let history = useHistory();
-    const {existingIntegration, setConfiguration, setSelectedMetadata} = useContext(IntegrationContext)
+    const {existingIntegration, setConfiguration, setSelectedMetadata, configurations, completedConfigurations} = useContext(IntegrationContext)
     const {allMetadata, getAllMetadata, getInstanceElementMetadata} = useContext(SourceApplicationContext)
     const {setPrimaryClass, setSecondaryClass, setTertiaryClass, getAllResources} = useContext(ResourcesContext)
     const [version, setVersion] = useState('null');
@@ -68,7 +68,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
         setOpenDialog(false)
     }
 
-    props.completedConfigurations?.map((configuration: any) => {
+    completedConfigurations?.map((configuration: any) => {
         versionsToActivate.push({value: configuration.id, label: 'versjon ' + configuration.version})
     })
 
@@ -241,11 +241,11 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                 <Box id="completed-integration-list" className={classes.dataPanelBox}>
                     <Typography>{t('table.completed')}:</Typography>
                     <DataGrid
-                        loading={props.loading}
+                        loading={completedConfigurations === undefined}
                         localeText={i18n.language === 'no' ? gridLocaleNoNB : undefined}
                         //getRowId={(row) => row.configurationId}
                         density='compact'
-                        rows={props.completedConfigurations ? props.completedConfigurations : []}
+                        rows={completedConfigurations ? completedConfigurations : []}
                         columns={columns}
                         pageSize={20}
                         rowsPerPageOptions={[20]}
@@ -272,11 +272,11 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                 <Box id="integration-list" className={classes.dataPanelBox}>
                     <Typography>{t('table.drafts')}:</Typography>
                     <DataGrid
-                        loading={props.loading}
+                        loading={configurations === undefined}
                         localeText={i18n.language === 'no' ? gridLocaleNoNB : undefined}
                         //getRowId={(row) => row.configurationId}
                         density='compact'
-                        rows={props.configurations ? props.configurations : []}
+                        rows={configurations ? configurations : []}
                         columns={draftColumns}
                         pageSize={20}
                         rowsPerPageOptions={[20]}
@@ -341,7 +341,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
 
                 <MenuItem>
                     <Button
-                        disabled={!props.completedConfigurations}
+                        disabled={!completedConfigurations}
                         id="demo-positioned-button"
                         aria-controls={openSub ? 'demo-positioned-menu' : undefined}
                         aria-haspopup="true"
@@ -366,7 +366,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                             horizontal: 'left',
                         }}
                     >
-                        {props.completedConfigurations && props.completedConfigurations.map((config: any, index: number) => {
+                        {completedConfigurations && completedConfigurations.map((config: any, index: number) => {
                                 return <MenuItem onClick={handleNewConfigSubClose} key={index}>
                                     <Button id="version-button" onClick={(e) => {handleNewOrEditConfigClick(config.id, config.version).then(r => history.push("/integration/configuration/edit"))}}>
                                         {t('button.version')} {config.version}
