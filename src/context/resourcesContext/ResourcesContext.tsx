@@ -73,7 +73,7 @@ const ResourcesProvider: FC = ({ children }) => {
                 .then(response => {
                     let data = response.data;
                     if (data) {
-                        data.map((resource: any) => list.push({label: resource.id + ' - ' + resource.displayName, value: resource.id}))
+                        data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
                         setPrimaryClass(list)
                     }
                 })
@@ -90,10 +90,7 @@ const ResourcesProvider: FC = ({ children }) => {
                 .then(response => {
                     let data = response.data;
                     if (data) {
-                        data.map((resource: any) => list.push({
-                            label: resource.id + ' - ' + resource.displayName,
-                            value: resource.id
-                        }))
+                        data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
                         setSecondaryClass(list)
                     }
                 })
@@ -111,10 +108,7 @@ const ResourcesProvider: FC = ({ children }) => {
                 .then(response => {
                     let data = response.data;
                     if (data) {
-                        data.map((resource: any) => list.push({
-                            label: resource.id + ' - ' + resource.displayName,
-                            value: resource.id
-                        }))
+                        data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
                         setTertiaryClass(list)
                     }
                 })
