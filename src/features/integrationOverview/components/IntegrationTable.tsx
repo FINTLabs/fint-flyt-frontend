@@ -53,6 +53,7 @@ const IntegrationTable: React.FunctionComponent<any> = (props) => {
                         localeText={i18n.language === 'no' ? gridLocaleNoNB : undefined}
                         getRowId={(row) => row.sourceApplicationIntegrationId}
                         onCellDoubleClick={(params, event) => {
+                            console.log('double click, params: ', params)
                             if (!event.ctrlKey) {
                                 event.defaultMuiPrevented = true;
                                 setExistingIntegration(params.row)

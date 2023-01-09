@@ -73,9 +73,9 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
             </Box>
             <Card className={classes.card} sx={{mt: 4}}>
                 <CardContent>
-                    <IntegrationTable
-                        classes={classes}
-                    />
+                        <IntegrationTable
+                            classes={classes}
+                        />
                 </CardContent>
             </Card>
         </Box>

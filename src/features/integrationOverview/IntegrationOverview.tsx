@@ -45,6 +45,7 @@ const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = (
         getNewIntegrations(sourceApplication.toString());
     }
 
+
     return (
         <>
             <Breadcrumbs aria-label="breadcrumb">
