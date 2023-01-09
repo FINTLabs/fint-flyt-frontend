@@ -32,15 +32,8 @@ const useStyles = makeStyles((theme: Theme) =>
 const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationOverview'});
     const classes = useStyles();
-    const showPanel: boolean = window.location.pathname === '/integration'
     const {existingIntegration, setNewIntegration, getNewIntegrations} = useContext(IntegrationContext)
     const {sourceApplication, getAllMetadata} = useContext(SourceApplicationContext)
-
-
-    console.log(existingIntegration)
-    console.log(showPanel)
-    console.log(window.location.pathname)
-    console.log(existingIntegration?.sourceApplicationIntegrationId && showPanel)
 
     useEffect(()=> {
         getNewIntegrations(sourceApplication.toString());
