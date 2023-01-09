@@ -15,10 +15,12 @@ import ErrorIcon from "@mui/icons-material/Error";
 import InfoIcon from "@mui/icons-material/Info";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import {getSourceApplicationDisplayName} from "../../integration/defaults/DefaultValues";
+import {useHistory} from "react-router-dom";
 
 const InstancePanel: React.FunctionComponent<any> = (props) => {
     const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.instanceOverview'});
     const classes = props.classes;
+    let history = useHistory();
     const {selectedInstances} = useContext(HistoryContext)
     const [selectedRow, setSelectedRow] = useState<IEvent>();
     const [open, setOpen] = React.useState(false);
@@ -70,6 +72,12 @@ const InstancePanel: React.FunctionComponent<any> = (props) => {
             <Box display="flex" position="relative" width={1} height={1}>
                 <Box id="integration-list" className={classes.dataPanelBox}>
                     <AlertDialog row={selectedRow}/>
+                    <Button
+                        sx={{mb: 2}}
+                        variant='contained'
+                        onClick={(e) => history.push("integration/instance/list")}
+                    >{t('button.back')}
+                    </Button>
                     <DataGrid
                         loading={props.loading}
                         localeText={i18n.language === 'no' ? gridLocaleNoNB : undefined}

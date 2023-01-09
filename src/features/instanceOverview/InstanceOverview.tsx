@@ -25,8 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 const InstanceOverview: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const classes = useStyles();
-    const showPanel: boolean = window.location.pathname === '/instance'
-
+    const showPanel: boolean = !(/list/.test(window.location.pathname))
 
     return (
         <>

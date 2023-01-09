@@ -32,8 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationOverview'});
     const classes = useStyles();
-    const showPanel: boolean = window.location.pathname === '/integration'
-    const {existingIntegration, setNewIntegration, setExistingIntegration, newIntegrations, getNewIntegrations, configurations, completedConfigurations, getCompletedConfigurations, getConfigurations} = useContext(IntegrationContext)
+    const {existingIntegration, setNewIntegration, getNewIntegrations} = useContext(IntegrationContext)
     const {sourceApplication, getAllMetadata} = useContext(SourceApplicationContext)
 
     useEffect(()=> {
@@ -46,27 +45,20 @@ const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = (
         getNewIntegrations(sourceApplication.toString());
     }
 
+
     return (
         <>
             <Breadcrumbs aria-label="breadcrumb">
                 <Typography onClick={resetConfiguration}>{t('header')}</Typography>
-                <Typography>{existingIntegration?.sourceApplicationIntegrationId && showPanel ? t('details') : ''}</Typography>
+                <Typography>{existingIntegration?.sourceApplicationIntegrationId ? t('details') : ''}</Typography>
             </Breadcrumbs>
-            {existingIntegration?.sourceApplicationIntegrationId && showPanel ?
+            {existingIntegration?.sourceApplicationIntegrationId ?
                 <IntegrationPanel
                     classes={classes}
-                    loading={configurations === undefined}
-                    initialConfiguration={existingIntegration}
-                    configurations={configurations}
-                    completedConfigurations={completedConfigurations}
                 /> :
                 <IntegrationTable
                     classes={classes}
-                    loading={newIntegrations === undefined}
-                    integrations={newIntegrations}
-                    getConfigurations={getConfigurations}
-                    getCompletedConfigurations={getCompletedConfigurations}
-                    setExistingIntegration={setExistingIntegration}
+
                 />
             }
         </>
