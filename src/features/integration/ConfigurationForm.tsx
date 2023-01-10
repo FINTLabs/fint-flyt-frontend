@@ -105,7 +105,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.configurationForm'});
     const classes = useStyles();
-    const editConfig: boolean = window.location.pathname === '/integration/configuration/edit'
+    const editConfig: boolean = /edit$/.test(window.location.pathname)
     const [submitSuccess, setSubmitSuccess] = useState(false)
     const {caseNumber, newIntegration, existingIntegration, setExistingIntegration, setNewIntegration, selectedMetadata, configuration, setConfiguration, resetIntegrationContext, getNewIntegrations} = useContext(IntegrationContext);
     const {sourceApplication} = useContext(SourceApplicationContext)

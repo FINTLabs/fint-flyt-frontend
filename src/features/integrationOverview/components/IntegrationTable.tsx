@@ -13,12 +13,14 @@ import {
     getSourceApplicationDisplayName,
     getStateDisplayName
 } from "../../integration/defaults/DefaultValues";
+import {IntegrationContext} from "../../../context/integrationContext";
 
 const IntegrationTable: React.FunctionComponent<any> = (props) => {
     const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.integrationOverview'});
     const classes = props.classes;
     let history = useHistory();
-    const { setSourceApplication, getAllMetadata } = useContext(SourceApplicationContext)
+    const {setExistingIntegration, newIntegrations, getCompletedConfigurations, getConfigurations} = useContext(IntegrationContext)
+    const {setSourceApplication, getAllMetadata} = useContext(SourceApplicationContext)
 
     const columns: GridColDef[] = [
         { field: 'sourceApplicationId', type: 'string', headerName: t('table.columns.sourceApplicationId'), minWidth: 150, flex: 1,
@@ -47,23 +49,23 @@ const IntegrationTable: React.FunctionComponent<any> = (props) => {
             <Box display="flex" position="relative" width={1} height={1}>
                 <Box id="integration-list" className={classes.dataGridBox}>
                     <DataGrid
-                        loading={props.loading}
+                        loading={newIntegrations === undefined}
                         localeText={i18n.language === 'no' ? gridLocaleNoNB : undefined}
                         getRowId={(row) => row.sourceApplicationIntegrationId}
                         onCellDoubleClick={(params, event) => {
                             if (!event.ctrlKey) {
                                 event.defaultMuiPrevented = true;
-                                props.setExistingIntegration(params.row)
+                                setExistingIntegration(params.row)
                                 setSourceApplication(params.row.sourceApplicationId)
                                 getAllMetadata(true);
                                 //TODO: remove when we can no longer use old forms, and use selected sourceApplication and sourceApplicationIntegrationId to get the right metadata
-                                props.getConfigurations(0, 10000, "version", "DESC", false, params.row.id, true)
-                                props.getCompletedConfigurations(0, 10000, "id", "ASC", true, params.row.id, true)
+                                getConfigurations(0, 10000, "version", "DESC", false, params.row.id, true)
+                                getCompletedConfigurations(0, 10000, "id", "ASC", true, params.row.id, true)
                                 setHistory();
                             }
                         }}
                         density='compact'
-                        rows={props.integrations? props.integrations : []}
+                        rows={newIntegrations ? newIntegrations : []}
                         columns={columns}
                         pageSize={20}
                         rowsPerPageOptions={[20]}
