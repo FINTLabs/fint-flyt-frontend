@@ -3,7 +3,7 @@ import {IConfigurationPatch, newIConfiguration} from "../../features/integration
 
 //TODO: test with updated API urls
 const getConfigurations = (page: number, size: number, sortProperty: string, sortDirection: string, complete: boolean, integrationId: string,  excludeElements?: boolean) => {
-    return axios.get<any>('api/intern/konfigurasjoner/', {
+    return axios.get<any>('/api/intern/konfigurasjoner/', {
         params: {
             side: page,
             antall: size,
