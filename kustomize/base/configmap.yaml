@@ -3,6 +3,6 @@ kind: ConfigMap
 metadata:
   name: fint-flyt-integration-frontend
 data:
-  PORT: "8000"
+  PORT: 8000
   BASE_PATH: /path
   TZ: Europe/Oslo

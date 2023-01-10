@@ -1,5 +1,9 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+<<<<<<< HEAD
+namespace: vlfk-no
+=======
+>>>>>>> a5ac7a8 (Added kustomize and GA config)
 resources:
   - ../../../base
 commonLabels:
@@ -13,15 +17,17 @@ commonLabels:
 patches:
   - patch: |-
       - op: replace
-        path: "/data/BASE_PATH"
-        value: /alpha/vlfk-no
-    target:
-      kind: ConfigMap
-      name: fint-flyt-integration-frontend
-  - patch: |-
-      - op: replace
+<<<<<<< HEAD
         path: "/spec/routes/0/match"
         value: "Host(`flyt.vigoiks.no`) && PathPrefix(`/alpha/vlfk-no`)"
     target:
       kind: IngressRoute
       name: fint-flyt-integration-frontend
+=======
+        path: "/data/BASE_PATH"
+        value: "/alpha/vlfk-no"
+    target:
+      kind: ConfigMap
+      name: fint-flyt-integration-frontend
+
+>>>>>>> a5ac7a8 (Added kustomize and GA config)
