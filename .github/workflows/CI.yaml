@@ -30,4 +30,8 @@ jobs:
           context: .
           push: false
           #tags: ${{ steps.meta.outputs.tags }}
+<<<<<<< HEAD
           #labels: ${{ steps.meta.outputs.labels }}
+=======
+          #labels: ${{ steps.meta.outputs.labels }}
+>>>>>>> a5ac7a8 (Added kustomize and GA config)

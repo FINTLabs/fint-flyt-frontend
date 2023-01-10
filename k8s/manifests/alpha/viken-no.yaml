@@ -1,20 +1,30 @@
+
+---
+
+---
+<<<<<<< HEAD
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  annotations:
+  labels:
+    io.kompose.service: fint-flyt-integration-frontend
   name: fint-flyt-integration-frontend
 spec:
   replicas: 1
   strategy:
     type: Recreate
+  selector:
+    matchLabels:
+      io.kompose.service: fint-flyt-integration-frontend
   template:
+    metadata:
+      labels:
+        io.kompose.service: fint-flyt-integration-frontend
     spec:
       restartPolicy: Always
       containers:
-<<<<<<< HEAD
-        - image: ghcr.io/fintlabs/fint-flyt-integration-frontend:sha-0000000
-=======
         - image: fintlabsacr.azurecr.io/fint-flyt-integration-frontend:dummy
->>>>>>> a5ac7a8 (Added kustomize and GA config)
           name: fint-flyt-integration-frontend
           resources:
             limits:
@@ -22,6 +32,9 @@ spec:
               memory: 128Mi
           ports:
             - containerPort: 8000
-          envFrom:
-            - configMapRef:
-                name: fint-flyt-integration-frontend
+          env:
+            - name: TZ
+              value: Europe/Oslo
+=======
+
+>>>>>>> a5ac7a8 (Added kustomize and GA config)
