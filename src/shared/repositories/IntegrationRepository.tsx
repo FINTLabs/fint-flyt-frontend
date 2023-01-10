@@ -2,11 +2,11 @@ import axios from "axios";
 import {IIntegration, IIntegrationPatch} from "../../features/integration/types/Integration";
 
 const getAllIntegrations = () => {
-    return axios.get<any>("api/intern/integrasjoner");
+    return axios.get<any>("/api/intern/integrasjoner");
 }
 
 const getIntegrations = (page: number, size: any, sortProperty: string, sortDirection: string) => {
-    return axios.get<any>("api/intern/integrasjoner", {
+    return axios.get<any>("/api/intern/integrasjoner", {
         params: {
             side: page,
             antall: size,
