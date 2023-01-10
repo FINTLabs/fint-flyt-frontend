@@ -32,17 +32,22 @@ const theme = createTheme({
 function App() {
     const [basePath, setBasePath] = useState<string>();
 
-    useEffect(() => {
-        axios.get<any>('api/application/configuration')
+    const fetchBasePath = async () => {
+        await axios.get<any>('api/application/configuration')
             .then(value => {
-                    setBasePath(value.data.basePath);
-                    axios.defaults.baseURL = value.data.basePath;
+                setBasePath(value.data.basePath);
+                axios.defaults.baseURL = value.data.basePath;
             })
             .catch(reason => {
                 console.log(reason);
                 setBasePath('/');
             })
-    }, [basePath]);
+    }
+
+
+    useEffect(() => {
+        fetchBasePath();
+         }, []);
 
     return basePath ?
         (
