@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {createTheme, ThemeProvider} from "@mui/material";
 import Main from "./features/main/Main";
 import {BrowserRouter} from "react-router-dom";
@@ -6,6 +6,7 @@ import ResourcesProvider from "./context/resourcesContext";
 import IntegrationProvider from "./context/integrationContext";
 import SourceApplicationProvider from "./context/sourceApplicationContext";
 import HistoryProvider from "./context/historyContext";
+import axios from "axios";
 
 const theme = createTheme({
     palette: {
@@ -29,21 +30,38 @@ const theme = createTheme({
 });
 
 function App() {
-    return (
-        <ThemeProvider theme={theme}>
-            <ResourcesProvider>
-                <HistoryProvider>
-                    <SourceApplicationProvider>
-                        <IntegrationProvider>
-                            <BrowserRouter>
-                                <Main/>
-                            </BrowserRouter>
-                        </IntegrationProvider>
-                    </SourceApplicationProvider>
-                </HistoryProvider>
-            </ResourcesProvider>
-        </ThemeProvider>
-    );
+    const [basePath, setBasePath] = useState<string>();
+
+    useEffect(() => {
+        axios.get<any>('api/application/configuration')
+            .then(value => {
+                    setBasePath(value.data.basePath);
+                    axios.defaults.baseURL = value.data.basePath;
+            })
+            .catch(reason => {
+                console.log(reason);
+                setBasePath('/');
+            })
+    }, [basePath]);
+
+    return basePath ?
+        (
+            <ThemeProvider theme={theme}>
+                <ResourcesProvider>
+                    <HistoryProvider>
+                        <SourceApplicationProvider>
+                            <IntegrationProvider>
+                                <BrowserRouter basename={basePath}>
+                                    <Main/>
+                                </BrowserRouter>
+                            </IntegrationProvider>
+                        </SourceApplicationProvider>
+                    </HistoryProvider>
+                </ResourcesProvider>
+            </ThemeProvider>
+        )
+        : <h1>Loading</h1>
+
 }
 
 export default App;
