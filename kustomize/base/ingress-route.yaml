@@ -2,28 +2,16 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: fint-flyt-integration-frontend
-<<<<<<< HEAD
-=======
   labels:
     app: fint-flyt-integration-frontend
->>>>>>> a5ac7a8 (Added kustomize and GA config)
 spec:
   entryPoints:
     - web
   routes:
-<<<<<<< HEAD
-    - match: Host(`hostname`) && PathPrefix(`path`)
-=======
-    - match: Host(`viken-no-skjema.vigoiks.no`) || PathPrefix(`/api/application/configuration`)
->>>>>>> a5ac7a8 (Added kustomize and GA config)
+    - match: Host(`hostname`) && (PathPrefix(`path`) || PathPrefix(`path`))
       kind: Rule
       services:
         - name: fint-flyt-integration-frontend
           port: 8000
-<<<<<<< HEAD
-  #    middlewares:
-  #      - name: fint-flyt-auth-forward
-=======
       middlewares:
         - name: fint-flyt-auth-forward
->>>>>>> a5ac7a8 (Added kustomize and GA config)
