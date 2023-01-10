@@ -29,15 +29,15 @@ const InstanceOverview: React.FunctionComponent<RouteComponentProps<any>> = () =
 
     return (
         <>
-        {showPanel ?
-            <InstancePanel
-                classes={classes}
-            /> :
-            <InstanceTable
-                classes={classes}
-            />}
+            {showPanel ?
+                <InstancePanel
+                    classes={classes}
+                /> :
+                <InstanceTable
+                    classes={classes}
+                />}
         </>
     );
 }
 
-    export default withRouter(InstanceOverview);
+export default withRouter(InstanceOverview);
