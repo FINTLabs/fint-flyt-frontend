@@ -20,7 +20,7 @@ const getIntegration = (integrationId: string) => {
     return axios.get<any>(`/api/intern/integrasjoner/${integrationId}`)
 }
 const createIntegration = (data: IIntegration) => {
-    return axios.post<any>("api/intern/integrasjoner", data);
+    return axios.post<any>("/api/intern/integrasjoner", data);
 }
 const updateIntegration = (integrationId: string, data: IIntegrationPatch) => {
     return axios.patch(`/api/intern/integrasjoner/${integrationId}`, data)
