@@ -17,7 +17,7 @@ describe('Testing integration list', () => {
     })
 
     it('should open and show table', () => {
-        cy.visit('/integration/configuration/list')
+        cy.visit('/integration/list')
         cy.get('.MuiDataGrid-root').should('be.visible')
     })
 
