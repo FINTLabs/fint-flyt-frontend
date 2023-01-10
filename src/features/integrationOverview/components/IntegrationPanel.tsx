@@ -39,7 +39,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
     const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.integrationOverview'});
     const classes = props.classes;
     let history = useHistory();
-    const {existingIntegration, setConfiguration, setSelectedMetadata, resetIntegrations, configurations, completedConfigurations} = useContext(IntegrationContext)
+    const {existingIntegration, setConfiguration, setSelectedMetadata, resetIntegrations, configurations, completedConfigurations} = useContext(IntegrationContext);
     const {allMetadata, getAllMetadata, getInstanceElementMetadata} = useContext(SourceApplicationContext)
     const {setPrimaryClass, setSecondaryClass, setTertiaryClass, getAllResources} = useContext(ResourcesContext)
     const [version, setVersion] = useState('null');
@@ -387,7 +387,8 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                 }}
             >
                 {t('button.back')}
-            </Button>        </Box>
+            </Button>
+        </Box>
     );
 }
 
