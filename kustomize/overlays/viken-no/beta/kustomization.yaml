@@ -1,0 +1,21 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: viken-no
+resources:
+  - ../../../base
+commonLabels:
+  app.kubernetes.io/name: fint-flyt-integration-frontend
+  app.kubernetes.io/instance: fint-flyt-integration-frontend_viken-no
+  app.kubernetes.io/version: latest
+  app.kubernetes.io/component: frontend
+  app.kubernetes.io/part-of: fint-flyt
+  fintlabs.no/team: flyt
+  fintlabs.no/org-id: viken.no
+patches:
+  - patch: |-
+      - op: replace
+        path: "/spec/routes/0/match"
+        value: "Host(`flyt.vigoiks.no`) && PathPrefix(`/beta/viken-no`)"
+    target:
+      kind: IngressRoute
+      name: fint-flyt-integration-frontend
