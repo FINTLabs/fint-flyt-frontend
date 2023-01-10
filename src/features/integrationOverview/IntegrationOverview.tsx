@@ -39,8 +39,6 @@ const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = (
 
     if (showList) resetIntegrations();
 
-    console.log(existingIntegration)
-
     useEffect(()=> {
         getNewIntegrations(sourceApplication.toString());
         getAllMetadata(true);
