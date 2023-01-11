@@ -25,20 +25,19 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 const InstanceOverview: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const classes = useStyles();
-    const showPanel: boolean = window.location.pathname === '/instance'
-
+    const showPanel: boolean = !(/list/.test(window.location.pathname))
 
     return (
         <>
-        {showPanel ?
-            <InstancePanel
-                classes={classes}
-            /> :
-            <InstanceTable
-                classes={classes}
-            />}
+            {showPanel ?
+                <InstancePanel
+                    classes={classes}
+                /> :
+                <InstanceTable
+                    classes={classes}
+                />}
         </>
     );
 }
 
-    export default withRouter(InstanceOverview);
+export default withRouter(InstanceOverview);
