@@ -81,6 +81,9 @@ function Main() {
         i18n.changeLanguage(lng);
     };
 
+
+    console.log('test main')
+
     //TODO 15/12: set admin access based on log in
     const { isAdmin, setIsAdmin } = useContext(SourceApplicationContext)
     const {statistics} = useContext(IntegrationContext)
