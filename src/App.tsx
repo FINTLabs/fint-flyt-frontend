@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {createTheme, ThemeProvider} from "@mui/material";
 import Main from "./features/main/Main";
 import {BrowserRouter} from "react-router-dom";
 import ResourcesProvider from "./context/resourcesContext";
 import IntegrationProvider from "./context/integrationContext";
-import SourceApplicationProvider from "./context/sourceApplicationContext";
+import SourceApplicationProvider, {SourceApplicationContext} from "./context/sourceApplicationContext";
 import HistoryProvider from "./context/historyContext";
 import axios from "axios";
 
@@ -30,26 +30,11 @@ const theme = createTheme({
 });
 
 function App() {
-    const [basePath, setBasePath] = useState<string | undefined>(undefined);
-
-    const fetchBasePath = async () => {
-        await axios.get<any>('api/application/configuration')
-            .then(value => {
-                setBasePath(value.data.basePath);
-                axios.defaults.baseURL = value.data.basePath;
-            })
-            .catch(reason => {
-                console.log(reason);
-                setBasePath('/');
-            })
-    }
-
+    const {basePath, setBasePath, fetchBasePath} = useContext(SourceApplicationContext)
 
     useEffect(() => {
         fetchBasePath();
-         }, []);
-
-    console.log(basePath)
+         }, [basePath, setBasePath]);
 
     return basePath ?
         (

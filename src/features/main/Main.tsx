@@ -81,8 +81,8 @@ function Main() {
         i18n.changeLanguage(lng);
     };
 
+    const {basePath} = useContext(SourceApplicationContext)
 
-    console.log('test main')
 
     //TODO 15/12: set admin access based on log in
     const { isAdmin, setIsAdmin } = useContext(SourceApplicationContext)
@@ -92,6 +92,8 @@ function Main() {
         totalErrors += stat.currentErrors
     })
 
+
+    console.log('basepath i main', basePath)
 
     return (
         <Box display="flex" position="relative" width={1} height={1}>
