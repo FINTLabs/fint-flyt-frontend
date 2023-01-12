@@ -131,18 +131,18 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                 let secondaryClass = configurationFieldToString(cases ? cases : [], 'sekundarordningsprinsipp')
                 let tertiaryClass = configurationFieldToString(cases ? cases : [], 'tertiarordningsprinsipp')
                 if(primaryClass !== null ) await ResourceRepository.getClasses(primaryClass).then(async response => {
-                    if (response.data) {response.data.map((resource: any) => list.push({label: resource.id + ' - ' + resource.displayName, value: resource.id}))
+                    if (response.data) {response.data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
                         setPrimaryClass(list)
                     }
                 }).then(async response => {
                     if (secondaryClass !== null) await ResourceRepository.getClasses(secondaryClass).then(response => {
-                        if (response.data) {response.data.map((resource: any) => list.push({label: resource.id + ' - ' + resource.displayName, value: resource.id}))
+                        if (response.data) {response.data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
                             setSecondaryClass(list)
                         }
                     })
                 }).then(async response => {
                     if (tertiaryClass !== null) await ResourceRepository.getClasses(tertiaryClass).then(response => {
-                        if (response.data) {response.data.map((resource: any) => list.push({label: resource.id + ' - ' + resource.displayName, value: resource.id}))
+                        if (response.data) {response.data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
                             setTertiaryClass(list)
                         }
                     })
