@@ -49,6 +49,8 @@ function App() {
         fetchBasePath();
          }, []);
 
+    console.log(basePath)
+
     return basePath ?
         (
             <ThemeProvider theme={theme}>
