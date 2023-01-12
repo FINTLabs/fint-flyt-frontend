@@ -5,14 +5,12 @@ import {ISelect} from "../../features/integration/types/InputField";
 import {IInstanceElementMetadata, IIntegrationMetadata} from "../../features/integration/types/IntegrationMetadata";
 import IntegrationRepository from "../../shared/repositories/IntegrationRepository";
 import {getSourceApplicationDisplayName} from "../../features/integration/defaults/DefaultValues";
-import axios from "axios";
 
 export const SourceApplicationContext = createContext<SourceApplicationContextState>(
     contextDefaultValues
 );
 
 const SourceApplicationProvider: FC = ({children}) => {
-    const [basePath, setBasePath] = useState<string | undefined>(contextDefaultValues.basePath);
     const [isAdmin, setIsAdmin] = useState<boolean>(contextDefaultValues.isAdmin)
     const [availableForms, setAvailableForms] = useState<ISourceApplicationItem>(contextDefaultValues.availableForms);
     const [allMetadata, setAllMetadata] = useState<IIntegrationMetadata[]>(contextDefaultValues.allMetadata)
@@ -34,18 +32,6 @@ const SourceApplicationProvider: FC = ({children}) => {
             })
             .catch((err) => {
                 console.error(err);
-            })
-    }
-
-    const fetchBasePath = async () => {
-        await axios.get<any>('api/application/configuration')
-            .then(value => {
-                setBasePath(value.data.basePath);
-                axios.defaults.baseURL = value.data.basePath;
-            })
-            .catch(reason => {
-                console.log(reason);
-                setBasePath('/');
             })
     }
 
@@ -102,9 +88,6 @@ const SourceApplicationProvider: FC = ({children}) => {
     return (
         <SourceApplicationContext.Provider
             value={{
-                basePath,
-                setBasePath,
-                fetchBasePath,
                 isAdmin,
                 setIsAdmin,
                 availableForms,

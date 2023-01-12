@@ -17,6 +17,7 @@ import {useTranslation} from "react-i18next";
 import {IntegrationContext} from "../../context/integrationContext";
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import {SourceApplicationContext} from "../../context/sourceApplicationContext";
+import axios from "axios";
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme: Theme) =>
@@ -81,8 +82,7 @@ function Main() {
         i18n.changeLanguage(lng);
     };
 
-    const {basePath} = useContext(SourceApplicationContext)
-
+    console.log('axios baseURL', axios.defaults.baseURL)
 
     //TODO 15/12: set admin access based on log in
     const { isAdmin, setIsAdmin } = useContext(SourceApplicationContext)
@@ -92,8 +92,6 @@ function Main() {
         totalErrors += stat.currentErrors
     })
 
-
-    console.log('basepath i main', basePath)
 
     return (
         <Box display="flex" position="relative" width={1} height={1}>

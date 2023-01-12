@@ -8,9 +8,6 @@ export interface ISourceApplicationItem {
 }
 
 export type SourceApplicationContextState = {
-    basePath: string | undefined;
-    setBasePath: (path: string) => void;
-    fetchBasePath: () => void;
     isAdmin: boolean;
     setIsAdmin: (admin: boolean) => void;
     availableForms: ISourceApplicationItem;
@@ -25,9 +22,6 @@ export type SourceApplicationContextState = {
 };
 
 export const contextDefaultValues: SourceApplicationContextState = {
-    basePath: undefined,
-    setBasePath: (path: string) => {},
-    fetchBasePath: () => {},
     isAdmin: false,
     setIsAdmin: (admin: boolean) => {},
     availableForms: {sourceApplicationDisplayName: '', sourceApplicationId: '1', forms: [{value: 'null', label: 'Velg skjemaleverandør først'}]},
