@@ -35,8 +35,8 @@ function App() {
     useEffect(() => {
         axios.get<any>('api/application/configuration')
             .then(value => {
-                    setBasePath(value.data.basePath);
-                    axios.defaults.baseURL = value.data.basePath;
+                axios.defaults.baseURL = value.data.basePath;
+                setBasePath(value.data.basePath);
             })
             .catch(reason => {
                 console.log(reason);

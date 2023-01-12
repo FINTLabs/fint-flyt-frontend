@@ -383,7 +383,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                 variant="contained"
                 onClick={(e) => {
                     resetIntegrations();
-                    history.push("/integration/configuration/list")
+                    history.push("/integration/list")
                 }}
             >
                 {t('button.back')}
