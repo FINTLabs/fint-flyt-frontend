@@ -395,7 +395,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
             {submitSuccess &&
                 <Box style={{ minHeight: 'fit-content' }}>
                     <Typography variant={"h5"} sx={{ mb: 2 }}>{t('successHeader')}</Typography>
-                    <Button size="small" variant="contained" component={RouterLink} to="/integration/configuration/list">{t('button.integrationOverview')}</Button>
+                    <Button size="small" variant="contained" component={RouterLink} to="/integration/list">{t('button.integrationOverview')}</Button>
                     <Button size="small" variant="contained" sx={{ ml: 2 }} component={RouterLink} to="/">{t('button.dashboard')}</Button>
                 </Box>}
         </DndProvider>
