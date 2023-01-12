@@ -17,7 +17,6 @@ import {useTranslation} from "react-i18next";
 import {IntegrationContext} from "../../context/integrationContext";
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import {SourceApplicationContext} from "../../context/sourceApplicationContext";
-import axios from "axios";
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme: Theme) =>
@@ -81,8 +80,6 @@ function Main() {
     const changeLanguage = (lng: string) => {
         i18n.changeLanguage(lng);
     };
-
-    console.log('axios baseURL', axios.defaults.baseURL)
 
     //TODO 15/12: set admin access based on log in
     const { isAdmin, setIsAdmin } = useContext(SourceApplicationContext)
