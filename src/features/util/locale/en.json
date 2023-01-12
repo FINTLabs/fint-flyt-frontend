@@ -56,7 +56,7 @@
                         "save": "Save"
                     }
                 },
-                "mainDocumentForm": {
+                "documentForm": {
                     "header": "Document and object description",
                     "documentDescription": "Document description",
                     "objectDescription": "Object description",

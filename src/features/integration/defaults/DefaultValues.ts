@@ -85,8 +85,17 @@ export const dropdownPlaceholder: ISelect[] = [
 ]
 
 export const variantOptions: ISelect[] = [
-    {label: 'Produksjonsformat', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/variantformat/systemid/P'}
+    {label: '[P] Produksjonsformat', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/variantformat/systemid/P'}
 ]
+
+export const variant: string = 'https://beta.felleskomponent.no/arkiv/kodeverk/variantformat/systemid/P'
+
+export const formatOptions: ISelect[] = [
+    {label: '[P] Produksjonsformat', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/variantformat/systemid/P'}
+]
+
+export const format: string = 'https://beta.felleskomponent.no/arkiv/kodeverk/variantformat/systemid/P'
+
 
 export const creationStrategies: ISelect[] = [
     {label: 'selects.creationStrategies.new', value: 'NEW',  description: "selects.creationStrategies.newDesc"},

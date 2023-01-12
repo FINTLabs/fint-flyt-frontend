@@ -72,7 +72,7 @@
                         "save": "Lagre"
                     }
                 },
-                "mainDocumentForm": {
+                "documentForm": {
                     "header": "Dokument",
                     "mainDocumentDescription": "Hoveddokument",
                     "attachmentDescription": "Vedlegg",
