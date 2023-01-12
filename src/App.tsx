@@ -30,7 +30,7 @@ const theme = createTheme({
 });
 
 function App() {
-    const [basePath, setBasePath] = useState<string>();
+    const [basePath, setBasePath] = useState<string | undefined>(undefined);
 
     const fetchBasePath = async () => {
         await axios.get<any>('api/application/configuration')
