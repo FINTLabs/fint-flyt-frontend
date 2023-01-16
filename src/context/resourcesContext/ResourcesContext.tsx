@@ -21,6 +21,7 @@ const ResourcesProvider: FC = ({ children }) => {
     const [recordStatuses, setRecordStatuses] = useState<IResourceItem[]>(contextDefaultValues.recordStatuses);
     const [recordTypes, setRecordTypes] = useState<IResourceItem[]>(contextDefaultValues.recordTypes);
     const [variants, setVariants] = useState<IResourceItem[]>(contextDefaultValues.variants);
+    const [formats, setFormats] = useState<IResourceItem[]>(contextDefaultValues.formats);
     const [documentTypes, setDocumentTypes] = useState<IResourceItem[]>(contextDefaultValues.documentTypes);
     const [classificationSystems, setClassificationSystems] = useState<IResourceItem[]>(contextDefaultValues.classificationSystems);
     const [primaryClassification, setPrimaryClassification] = useState<IResourceItem>(contextDefaultValues.primaryClassification);
@@ -42,6 +43,7 @@ const ResourcesProvider: FC = ({ children }) => {
         {resource: 'journalstatus', setter: setRecordStatuses},
         {resource: 'journalposttype', setter: setRecordTypes},
         {resource: 'variantformat', setter: setVariants},
+        {resource: 'filformat', setter: setFormats},
         {resource: 'dokumentstatus', setter: setDocumentStatuses},
         {resource: 'dokumenttype', setter: setDocumentTypes},
     ]
@@ -156,6 +158,7 @@ const ResourcesProvider: FC = ({ children }) => {
                 recordTypes,
                 documentStatuses,
                 variants,
+                formats,
                 getPrimaryClass,
                 getSecondaryClass,
                 getTertiaryClass,

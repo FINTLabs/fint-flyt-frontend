@@ -244,6 +244,11 @@ export function toNewConfiguration(data: IFormConfiguration, integrationId: stri
                         key: "dokumentObjekt.variantFormat",
                         type: FieldConfigurationType.STRING,
                         value: data.attachmentDocumentsData?.variant
+                    },
+                    {
+                        key: "dokumentObjekt.filFormat",
+                        type: FieldConfigurationType.STRING,
+                        value: data.attachmentDocumentsData?.format
                     }
                 ]
             },
@@ -603,6 +608,11 @@ export function toConfigurationPatch(data: IFormConfiguration, metadataId: any):
                         key: "dokumentObjekt.variantFormat",
                         type: FieldConfigurationType.STRING,
                         value: data.attachmentDocumentsData?.variant
+                    },
+                    {
+                        key: "dokumentObjekt.filFormat",
+                        type: FieldConfigurationType.STRING,
+                        value: data.attachmentDocumentsData?.format
                     }
                 ]
             },

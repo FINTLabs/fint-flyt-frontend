@@ -52,6 +52,7 @@ export function newToFormData(data: newIConfiguration): IFormConfiguration {
             documentStatus: configurationFieldToString(documentFields, 'dokumentStatus'),
             documentType: configurationFieldToString(documentFields, 'dokumentType'),
             variant: configurationFieldToString(documentFields, 'dokumentObjekt.variantFormat'),
+            format: configurationFieldToString(documentFields, 'dokumentObjekt.filFormat')
         },
         applicantData: {
             protected: configurationFieldToBoolean(applicantFields, 'protected'),

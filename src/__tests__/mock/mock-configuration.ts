@@ -199,6 +199,11 @@ export const MOCK_CONFIGURATION: newIConfiguration = {
                     "key": "dokumentObjekt.variantFormat",
                     "type": "STRING",
                     "value": "var"
+                },
+                {
+                    "key": "dokumentObjekt.filFormat",
+                    "type": "STRING",
+                    "value": "form"
                 }
             ],
             "key": "attachmentDocuments"
@@ -464,6 +469,11 @@ export const MOCK_CONFIGURATION_PATCH: IConfigurationPatch = {
                     "key": "dokumentObjekt.variantFormat",
                     "type": "STRING",
                     "value": "var"
+                },
+                {
+                    "key": "dokumentObjekt.filFormat",
+                    "type": "STRING",
+                    "value": "form"
                 }
             ],
             "key": "attachmentDocuments"

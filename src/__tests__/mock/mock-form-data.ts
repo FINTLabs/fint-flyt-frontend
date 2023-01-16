@@ -59,12 +59,13 @@ export const MOCK_CONFIG_FORMDATA: IFormConfiguration = {
     mainDocumentData: {
         documentStatus: "D9",
         documentType: "cat8",
-        variant: "var"
+        variant: "var",
     },
     attachmentDocumentsData: {
         documentStatus: "D9",
         documentType: "cat8",
-        variant: "var"
+        variant: "var",
+        format: "form"
     },
     recordData: {
         accessCode: "code89",
@@ -128,7 +129,8 @@ export const MOCK_CONFIG_FORMDATA_FOR_PATCH: IFormConfiguration = {
     attachmentDocumentsData: {
         documentStatus: "D9",
         documentType: "cat8",
-        variant: "var"
+        variant: "var",
+        format: "form"
     },
     recordData: {
         accessCode: "code89",
@@ -162,7 +164,8 @@ export const MOCK_NEW_FORMDATA: IFormConfiguration = {
     "attachmentDocumentsData": {
         "documentStatus": null,
         "documentType": null,
-        "variant": null
+        "variant": null,
+        "format": null
     },
     "caseData": {
         "accessCode": null,
@@ -225,7 +228,8 @@ export const MOCK_BY_ID_FORMDATA: IFormConfiguration = {
     "attachmentDocumentsData": {
         "documentStatus": null,
         "documentType": null,
-        "variant": null
+        "variant": null,
+        "format": null
     },
     "caseData": {
         "accessCode": null,
