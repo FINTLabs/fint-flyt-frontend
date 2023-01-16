@@ -19,9 +19,8 @@ const IntegrationTable: React.FunctionComponent<any> = (props) => {
     const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.integrationOverview'});
     const classes = props.classes;
     let history = useHistory();
-    const { setSourceApplication, getAllMetadata } = useContext(SourceApplicationContext)
-    const { setExistingIntegration, newIntegrations, getCompletedConfigurations, getConfigurations} = useContext(IntegrationContext)
-
+    const {setExistingIntegration, newIntegrations, getCompletedConfigurations, getConfigurations} = useContext(IntegrationContext)
+    const {setSourceApplication, getAllMetadata} = useContext(SourceApplicationContext)
 
     const columns: GridColDef[] = [
         { field: 'sourceApplicationId', type: 'string', headerName: t('table.columns.sourceApplicationId'), minWidth: 150, flex: 1,
@@ -41,7 +40,7 @@ const IntegrationTable: React.FunctionComponent<any> = (props) => {
 
     const setHistory = () => {
         history.push({
-            pathname: '/integration',
+            pathname: '/integration/panel',
         })
     }
 
@@ -66,7 +65,7 @@ const IntegrationTable: React.FunctionComponent<any> = (props) => {
                             }
                         }}
                         density='compact'
-                        rows={newIntegrations? newIntegrations : []}
+                        rows={newIntegrations ? newIntegrations : []}
                         columns={columns}
                         pageSize={20}
                         rowsPerPageOptions={[20]}

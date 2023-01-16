@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.dashboard'});
     const classes = useStyles();
-    const {setExistingIntegration, statistics, resetIntegrations, newIntegrations, getNewIntegrations, getCompletedConfigurations, getConfigurations} = useContext(IntegrationContext)
+    const { statistics, resetIntegrations, newIntegrations, getNewIntegrations} = useContext(IntegrationContext)
     const {sourceApplication} = useContext(SourceApplicationContext)
     let totalErrors = 0;
     statistics?.map((stat: any) => {totalErrors += stat.currentErrors})
@@ -47,7 +47,7 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
 
     const cards: ICard[] = [
         { value: newIntegrations === undefined || newIntegrations.length === 0 ? t('empty') : newIntegrations.length, content: newIntegrations !== undefined && newIntegrations.length === 1 ? t('oneForm') : t('form'), links: [
-                {name: t('links.newIntegration'), href: '/integration/configuration/new'}
+                {name: t('links.newIntegration'), href: '/integration/new'}
             ]
         },
         { value: totalErrors === 0 ? t('empty') : totalErrors.toString(), content: totalErrors === 1 ? t('oneError') : t('errors'), links: [
@@ -73,9 +73,9 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
             </Box>
             <Card className={classes.card} sx={{mt: 4}}>
                 <CardContent>
-                        <IntegrationTable
-                            classes={classes}
-                        />
+                    <IntegrationTable
+                        classes={classes}
+                    />
                 </CardContent>
             </Card>
         </Box>

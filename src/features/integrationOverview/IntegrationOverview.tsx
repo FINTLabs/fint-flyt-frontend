@@ -32,9 +32,12 @@ const useStyles = makeStyles((theme: Theme) =>
 const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationOverview'});
     const classes = useStyles();
-    const showPanel: boolean = window.location.pathname === '/integration'
-    const {existingIntegration, setNewIntegration, getNewIntegrations} = useContext(IntegrationContext)
+    const {existingIntegration, setNewIntegration, getNewIntegrations, resetIntegrations} = useContext(IntegrationContext)
     const {sourceApplication, getAllMetadata} = useContext(SourceApplicationContext)
+    const showPanel: boolean = /panel$/.test(window.location.pathname)
+    const showList: boolean = /list$/.test(window.location.pathname)
+
+    if (showList) resetIntegrations();
 
     useEffect(()=> {
         getNewIntegrations(sourceApplication.toString());
@@ -50,7 +53,7 @@ const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = (
         <>
             <Breadcrumbs aria-label="breadcrumb">
                 <Typography onClick={resetConfiguration}>{t('header')}</Typography>
-                <Typography>{existingIntegration?.sourceApplicationIntegrationId && showPanel ? t('details') : ''}</Typography>
+                <Typography>{existingIntegration?.sourceApplicationIntegrationId ? t('details') : ''}</Typography>
             </Breadcrumbs>
             {existingIntegration?.sourceApplicationIntegrationId && showPanel ?
                 <IntegrationPanel
@@ -58,6 +61,7 @@ const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = (
                 /> :
                 <IntegrationTable
                     classes={classes}
+
                 />
             }
         </>

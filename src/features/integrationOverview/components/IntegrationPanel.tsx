@@ -39,8 +39,8 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
     const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.integrationOverview'});
     const classes = props.classes;
     let history = useHistory();
+    const {existingIntegration, setConfiguration, setSelectedMetadata, resetIntegrations, configurations, completedConfigurations} = useContext(IntegrationContext);
     const {allMetadata, getAllMetadata, getInstanceElementMetadata} = useContext(SourceApplicationContext)
-    const {existingIntegration, setConfiguration, setSelectedMetadata, setNewIntegration, setExistingIntegration, newIntegrations, getNewIntegrations, configurations, completedConfigurations, getCompletedConfigurations, getConfigurations} = useContext(IntegrationContext)
     const {setPrimaryClass, setSecondaryClass, setTertiaryClass, getAllResources} = useContext(ResourcesContext)
     const [version, setVersion] = useState('null');
     const [activeVersion, setActiveVersion] = useState<any>('');
@@ -131,18 +131,18 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                 let secondaryClass = configurationFieldToString(cases ? cases : [], 'sekundarordningsprinsipp')
                 let tertiaryClass = configurationFieldToString(cases ? cases : [], 'tertiarordningsprinsipp')
                 if(primaryClass !== null ) await ResourceRepository.getClasses(primaryClass).then(async response => {
-                    if (response.data) {response.data.map((resource: any) => list.push({label: resource.id + ' - ' + resource.displayName, value: resource.id}))
+                    if (response.data) {response.data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
                         setPrimaryClass(list)
                     }
                 }).then(async response => {
                     if (secondaryClass !== null) await ResourceRepository.getClasses(secondaryClass).then(response => {
-                        if (response.data) {response.data.map((resource: any) => list.push({label: resource.id + ' - ' + resource.displayName, value: resource.id}))
+                        if (response.data) {response.data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
                             setSecondaryClass(list)
                         }
                     })
                 }).then(async response => {
                     if (tertiaryClass !== null) await ResourceRepository.getClasses(tertiaryClass).then(response => {
-                        if (response.data) {response.data.map((resource: any) => list.push({label: resource.id + ' - ' + resource.displayName, value: resource.id}))
+                        if (response.data) {response.data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
                             setTertiaryClass(list)
                         }
                     })
@@ -241,7 +241,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                 <Box id="completed-integration-list" className={classes.dataPanelBox}>
                     <Typography>{t('table.completed')}:</Typography>
                     <DataGrid
-                        loading={configurations === undefined}
+                        loading={completedConfigurations === undefined}
                         localeText={i18n.language === 'no' ? gridLocaleNoNB : undefined}
                         //getRowId={(row) => row.configurationId}
                         density='compact'
@@ -377,6 +377,17 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                     </Menu>
                 </MenuItem>
             </Menu>
+            <Button
+                sx={{mt: 5, ml: 5}}
+                id="demo-positioned-button"
+                variant="contained"
+                onClick={(e) => {
+                    resetIntegrations();
+                    history.push("/integration/list")
+                }}
+            >
+                {t('button.back')}
+            </Button>
         </Box>
     );
 }
