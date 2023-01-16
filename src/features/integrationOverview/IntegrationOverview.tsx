@@ -37,9 +37,9 @@ const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = (
     const showPanel: boolean = /panel$/.test(window.location.pathname)
     const showList: boolean = /list$/.test(window.location.pathname)
 
-    if (showList) resetIntegrations();
 
     useEffect(()=> {
+        if (showList) resetIntegrations();
         getNewIntegrations(sourceApplication.toString());
         getAllMetadata(true);
     }, []);
