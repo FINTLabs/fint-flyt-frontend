@@ -12,7 +12,7 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
     let errorMessage: string = t('errorMessage') + t(props.label);
     let initValue: string = props.value === null ? '' : props.value;
     const setPropValue = props.setValue;
-    const regExp = /^(?:(?:(?!\$if\{).)*|(?:\$if\{(?:(?!\$if\{).)+})*)*$/g;
+    const regExp = /^(?:(?:(?!\$if\{).)+|(?:\$if\{(?:(?!\$if\{).)+})+)+$/g;
 
     const [inputValue, setInputValue] = useState(initValue);
     const [{ canDrop, isOver }, drop] = useDrop(() => ({
@@ -26,7 +26,7 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
         }),
     }))
 
-//    console.log(regExp.test(inputValue))
+   console.log(regExp.test(inputValue))
 
     if (canDrop && isOver) {
         backgroundColor = 'palegreen';
@@ -38,8 +38,8 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
         setPropValue(props.formValue, inputValue)
     }, [inputValue, setInputValue, setPropValue, props.formValue]);
 
-    console.log(props.required)
-    console.log(props.error)
+    console.log(props.label, 'label, required', props.required)
+    console.log(props.label, 'label, errror ', props.error)
 
     return (
         <Controller
@@ -62,7 +62,7 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
                                 onChange(e);
                             }}
                             error={!!props.error}
-                            helperText={props.error ? 'Obligatorisk felt' : ''}
+                            helperText={(props.error && props.required) ? 'Obligatorisk felt' : (props.required && inputValue === '' ? 'Data fra skjema må være på formatet $if{metadata}' : '')}
                         />)
             }}
             rules={
