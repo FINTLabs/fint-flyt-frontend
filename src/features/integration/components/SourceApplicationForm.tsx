@@ -6,8 +6,8 @@ import {useTranslation} from "react-i18next";
 import {toTagValue} from "../../util/JsonUtil";
 import {useContext, useEffect} from "react";
 import {IntegrationContext} from "../../../context/integrationContext";
-import {Link} from 'react-router-dom'
 import {SourceApplicationContext} from "../../../context/sourceApplicationContext";
+import {MOCK_INSTANCE_ELEMENT_METADATA} from "../defaults/DefaultValues";
 
 const SourceApplicationForm: React.FunctionComponent<any> = (props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'components.SourceApplicationForm'});
@@ -47,7 +47,7 @@ const SourceApplicationForm: React.FunctionComponent<any> = (props) => {
                         <Typography>{item.displayName}</Typography>
                     </div> :
                     <div style={{ paddingLeft: depth * 15 }}>
-                        <Tag name={item.displayName + ' {' + (item.key) + '}'} value={toTagValue(item.key)}/>
+                        <Tag type={item.type} name={item.displayName + ' {' + (item.key) + '}'} value={toTagValue(item.key)}/>
                     </div>}
                 <TagTree items={item.children} depth={depth + 1}/>
             </React.Fragment>
@@ -74,7 +74,7 @@ const SourceApplicationForm: React.FunctionComponent<any> = (props) => {
                     </Select>
                 </FormControl>
             </Box>
-            {instanceElementMetadata && <TagTree items={instanceElementMetadata}/>}
+            {instanceElementMetadata && <TagTree items={MOCK_INSTANCE_ELEMENT_METADATA}/>}
             {/*<Link style={{fontFamily: 'sans-serif'}} to={{pathname: selectedMetadata.sourceApplicationIntegrationUri}} target="_blank">{t('openLink')}</Link>*/}
 
         </Box>

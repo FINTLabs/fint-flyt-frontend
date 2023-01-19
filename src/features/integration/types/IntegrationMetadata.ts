@@ -24,5 +24,7 @@ export enum Type {
     PHONE,
     BOOLEAN,
     INTEGER,
-    DOUBLE
+    DOUBLE,
+    FILE,
+    UNKNOWN
 }
