@@ -6,7 +6,6 @@ import {
     IConfigurationPatch,
     newIConfiguration
 } from "../../features/integration/types/Configuration";
-import {ApplicantType} from "../../features/integration/types/ApplicantType";
 import {CreationStrategy} from "../../features/integration/types/CreationStrategy";
 
 export const MOCK_CONFIGURATION: newIConfiguration = {
@@ -191,11 +190,6 @@ export const MOCK_CONFIGURATION: newIConfiguration = {
         {
             "fieldConfigurations": [
                 {
-                    "key": "type",
-                    "type": "STRING",
-                    "value": "PERSON"
-                },
-                {
                     "key": "protected",
                     "type": "BOOLEAN",
                     "value": "true"
@@ -204,6 +198,11 @@ export const MOCK_CONFIGURATION: newIConfiguration = {
                     "key": "fødselsnummer",
                     "type": "DYNAMIC_STRING",
                     "value": "123456789"
+                },
+                {
+                    "key": "organisasjonsnummer",
+                    "type": "DYNAMIC_STRING",
+                    "value": null
                 },
                 {
                     "key": "KorrespondansepartNavn",
@@ -440,11 +439,6 @@ export const MOCK_CONFIGURATION_PATCH: IConfigurationPatch = {
         {
             "fieldConfigurations": [
                 {
-                    "key": "type",
-                    "type": "STRING",
-                    "value": "PERSON"
-                },
-                {
                     "key": "protected",
                     "type": "BOOLEAN",
                     "value": "true"
@@ -453,6 +447,11 @@ export const MOCK_CONFIGURATION_PATCH: IConfigurationPatch = {
                     "key": "fødselsnummer",
                     "type": "DYNAMIC_STRING",
                     "value": "123456789"
+                },
+                {
+                    "key": "organisasjonsnummer",
+                    "type": "DYNAMIC_STRING",
+                    "value": null
                 },
                 {
                     "key": "KorrespondansepartNavn",
@@ -540,11 +539,6 @@ export const MOCK_NEW_CONFIG: newIConfiguration = {
                     key: 'protected',
                     type: FieldConfigurationType.BOOLEAN,
                     value: 'true'
-                },
-                {
-                    key: 'type',
-                    type: FieldConfigurationType.STRING,
-                    value: ApplicantType.PERSON
                 }
             ]
         },
@@ -596,11 +590,6 @@ export const MOCK_BY_ID_CONFIG: newIConfiguration = {
                     key: 'protected',
                     type: FieldConfigurationType.BOOLEAN,
                     value: 'true'
-                },
-                {
-                    key: 'type',
-                    type: FieldConfigurationType.STRING,
-                    value: ApplicantType.PERSON
                 }
             ]
         },
