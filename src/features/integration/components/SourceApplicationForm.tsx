@@ -74,6 +74,7 @@ const SourceApplicationForm: React.FunctionComponent<any> = (props) => {
                     </Select>
                 </FormControl>
             </Box>
+            //TODO: REMOVE HARD CODED LIST OF INSTANCE METADATA
             {instanceElementMetadata && <TagTree items={MOCK_INSTANCE_ELEMENT_METADATA}/>}
             {/*<Link style={{fontFamily: 'sans-serif'}} to={{pathname: selectedMetadata.sourceApplicationIntegrationUri}} target="_blank">{t('openLink')}</Link>*/}
 
