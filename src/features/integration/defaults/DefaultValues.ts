@@ -3,7 +3,6 @@
 import {ISelect} from "../types/InputField";
 import {CreationStrategy} from "../types/CreationStrategy";
 import {IFormConfiguration} from "../types/Form/FormData";
-import {ApplicantType} from "../types/ApplicantType";
 import {IIntegrationMetadata, Type} from "../types/IntegrationMetadata";
 import {IIntegration} from "../types/Integration";
 import {FieldConfigurationType, newIConfiguration} from "../types/Configuration";
@@ -52,7 +51,6 @@ export const defaultConfigurationValues: IFormConfiguration = {
     },
     applicantData: {
         protected: false,
-        type: ApplicantType.PERSON,
         organisationNumber: null,
         nationalIdentityNumber: null,
         name: null,
@@ -88,11 +86,6 @@ export const creationStrategies: ISelect[] = [
     {label: 'selects.creationStrategies.new', value: 'NEW',  description: "selects.creationStrategies.newDesc"},
     {label: 'selects.creationStrategies.existing', value: 'BY_SEARCH_OR_NEW',  description: "selects.creationStrategies.existingDesc", disabled: true},
     {label: 'selects.creationStrategies.collection', value: 'BY_ID', description: "selects.creationStrategies.collectionDesc"}
-];
-
-export const applicantOptions: ISelect[] = [
-    {label: 'selects.applicantOptions.individual',value: 'PERSON'},
-    {label: 'selects.applicantOptions.organisation', value: 'ORGANISATION'}
 ];
 
 export const sourceApplications: ISelect[] = [
@@ -582,7 +575,6 @@ export const MOCK_NEWCONFIGURATIONS: newIConfiguration[] = [
 
 export const EXAMPLE_FORM: IFormConfiguration = {
     "applicantData": {
-        "type": ApplicantType.PERSON,
         "protected": false,
         "organisationNumber": '',
         "nationalIdentityNumber": '',
