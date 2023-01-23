@@ -38,12 +38,12 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const { statistics, resetIntegrations, newIntegrations, getNewIntegrations} = useContext(IntegrationContext)
     const {sourceApplication} = useContext(SourceApplicationContext)
     let totalErrors = 0;
-    statistics?.map((stat: any) => {totalErrors += stat.currentErrors})
+    statistics?.map((stat: any) => { return totalErrors += stat.currentErrors})
 
     useEffect(()=> {
         getNewIntegrations(sourceApplication.toString());
         resetIntegrations();
-    }, [])
+    })
 
     const cards: ICard[] = [
         { value: newIntegrations === undefined || newIntegrations.length === 0 ? t('empty') : newIntegrations.length, content: newIntegrations !== undefined && newIntegrations.length === 1 ? t('oneForm') : t('form'), links: [

@@ -77,16 +77,18 @@ const useStyles = makeStyles((theme: Theme) =>
 function Main() {
     const classes = useStyles();
     const {t, i18n} = useTranslation();
+    // eslint-disable-next-line
     const changeLanguage = (lng: string) => {
         i18n.changeLanguage(lng);
     };
 
     //TODO 15/12: set admin access based on log in
+    // eslint-disable-next-line
     const { isAdmin, setIsAdmin } = useContext(SourceApplicationContext)
     const {statistics} = useContext(IntegrationContext)
     let totalErrors = 0;
     statistics?.map((stat: any) => {
-        totalErrors += stat.currentErrors
+        return totalErrors += stat.currentErrors
     })
 
 

@@ -46,14 +46,17 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
 
     useEffect(()=> {
         getPrimaryClass();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [primaryClassification, setPrimaryClassification])
 
     useEffect(()=> {
         getSecondaryClass();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [secondaryClassification, setSecondaryClassification])
 
     useEffect(()=> {
         getTertiaryClass();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [tertiaryClassification, setTertiaryClassification])
 
     let errors: FieldErrors = props.errors;

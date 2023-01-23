@@ -50,12 +50,14 @@ export const IntegrationForm: React.FunctionComponent<any> = (props) => {
         return () => {
             setSourceApplication(sourceApplication)
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
 
     useEffect(() => {
         getAllMetadata(true);
         getAvailableForms();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [sourceApplication, setSourceApplication])
 
     const confirm = () => {

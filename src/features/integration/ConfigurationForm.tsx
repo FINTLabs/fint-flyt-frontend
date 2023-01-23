@@ -118,7 +118,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     let activeIntegration = (editConfig || (!editConfig && existingIntegration)) ? existingIntegration : newIntegration;
     let activeConfiguration = configuration && editConfig ? configuration : undefined;
     const [activeConfigId, setActiveConfigId] = React.useState(activeConfiguration?.id);
-    const [completed, setCompleted] = React.useState(!!activeConfiguration?.completed);
+    const [completed] = React.useState(!!activeConfiguration?.completed);
     let activeFormData = activeConfiguration && editConfig && configuration? newToFormData(configuration) : defaultConfigurationValues;
     const [protectedCheck, setProtectedChecked] = React.useState(activeFormData.applicantData.protected);
 
@@ -146,6 +146,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
             resetAllResources();
             resetIntegrationContext();
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const accordionList: IAccordion[] = [

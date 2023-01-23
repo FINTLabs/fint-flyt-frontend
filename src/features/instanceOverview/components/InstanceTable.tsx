@@ -87,6 +87,7 @@ const InstanceTable: React.FunctionComponent<any> = (props) => {
 
     useEffect(()=> {
         getLatestInstances(0, 10000, "timestamp", "DESC", sourceApplication.toString());
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const getEventsWithInstanceId = (sourceApplicationID: string, instanceId: string) => {

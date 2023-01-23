@@ -85,7 +85,7 @@ test('It should convert applicant field to boolean', () => {
     expect(configurationFieldToBoolean(MOCK_APPLICANT_FIELDS, "protected")).toBe(true);
 });
 
-test('It should convert applicant field to boolean', () => {
+test('It should convert not protected applicant field to boolean', () => {
     expect(configurationFieldToBoolean(MOCK_APPLICANT_FIELDS_NOT_PROTECTED, "protected")).toBe(false);
 });
 

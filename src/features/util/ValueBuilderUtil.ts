@@ -28,7 +28,7 @@ export function toValueString(inputValue: ValueBuilder): string {
         let helperString;
         inputValue.properties?.map((property => {
             helperString = valueString?.replace("%s", '{' + property.key + '}')
-            valueString = helperString;
+            return valueString = helperString;
         }))
     }
     return valueString;

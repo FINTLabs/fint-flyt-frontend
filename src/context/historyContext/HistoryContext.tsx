@@ -51,8 +51,9 @@ const HistoryProvider: FC = ({children}) => {
                                 metadata.forEach((value: IIntegrationMetadata) => {
                                     events.map((event: IEvent) => {
                                         if(event.instanceFlowHeaders.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {
-                                            event.displayName = value.integrationDisplayName
+                                            return event.displayName = value.integrationDisplayName
                                         }
+                                        return events;
                                     })
                                 })
                                 setLatestInstances(events);
@@ -84,8 +85,9 @@ const HistoryProvider: FC = ({children}) => {
                                 metadata.forEach((value: IIntegrationMetadata) => {
                                     events.map((event: IEvent) => {
                                         if(event.instanceFlowHeaders.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {
-                                            event.displayName = value.integrationDisplayName
+                                            return event.displayName = value.integrationDisplayName
                                         }
+                                        return events;
                                     })
                                 })
                                 setSelectedInstances(events);
