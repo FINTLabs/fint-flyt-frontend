@@ -43,6 +43,7 @@ export function newToFormData(data: newIConfiguration): IFormConfiguration {
             accessCode: configurationFieldToString(recordFields, 'tilgangsrestriksjon'),
             paragraph: configurationFieldToString(recordFields, 'skjermingshjemmel'),
         },
+        //TODO: map the different document parts
         mainDocumentData: {
             documentStatus: configurationFieldToString(documentFields, 'dokumentStatus'),
             documentType: configurationFieldToString(documentFields, 'dokumentType'),

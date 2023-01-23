@@ -190,6 +190,7 @@ export function toNewConfiguration(data: IFormConfiguration, integrationId: stri
                 ]
             },
             {
+                //TODO: map the different sections
                 key: 'mainDocument',
                 fieldConfigurations: [
                     {
@@ -202,23 +203,6 @@ export function toNewConfiguration(data: IFormConfiguration, integrationId: stri
                         type: FieldConfigurationType.STRING,
                         value: data.mainDocumentData?.documentType
                     },
-                    //TODO: what is the corresponding field here
-                    /*                    {
-                                            key: "DokumentBeskrivelse.dokumentKategori",
-                                            type: FieldConfigurationType.STRING,
-                                            value: data.documentData?.documentCategory
-                                        },
-                                        {
-                                            key: "tilgangsrestriksjon",
-                                            type: FieldConfigurationType.STRING,
-                                            value: data.documentData?.accessCode
-                                        },
-                                        {
-                                            key: "skjermingshjemmel",
-                                            type: FieldConfigurationType.STRING,
-                                            value: data.documentData?.paragraph
-
-                                        },*/
                     {
                         key: "dokumentObjekt.variantFormat",
                         type: FieldConfigurationType.STRING,
@@ -227,6 +211,7 @@ export function toNewConfiguration(data: IFormConfiguration, integrationId: stri
                 ]
             },
             {
+                //TODO: map the different sections
                 key: 'attachmentDocuments',
                 fieldConfigurations: [
                     {
@@ -555,6 +540,7 @@ export function toConfigurationPatch(data: IFormConfiguration, metadataId: any):
                 ]
             },
             {
+                //TODO: map the different sections
                 key: 'mainDocument',
                 fieldConfigurations: [
                     {
@@ -575,6 +561,7 @@ export function toConfigurationPatch(data: IFormConfiguration, metadataId: any):
                 ]
             },
             {
+                //TODO: map the different sections
                 key: 'attachmentDocuments',
                 fieldConfigurations: [
                     {
