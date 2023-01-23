@@ -7,7 +7,7 @@ import {FieldErrors} from "react-hook-form";
 import {ResourcesContext} from "../../../../context/resourcesContext";
 import HelpPopover from "../popover/HelpPopover";
 import { useTranslation } from 'react-i18next';
-import {formatOptions, variant, format, variantOptions} from "../../defaults/DefaultValues";
+import {variant, variantOptions} from "../../defaults/DefaultValues";
 
 const DocumentForm: React.FunctionComponent<any> = (props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.configurationForm.accordions.documentForm'});
@@ -24,8 +24,7 @@ const DocumentForm: React.FunctionComponent<any> = (props) => {
     const objectFormFields: IInputField[] = [
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.documentStatus", value: props.watch("attachmentDocumentsData.documentStatus"), formValue: "attachmentDocumentsData.documentStatus", dropDownItems: documentStatuses, required: required, error:errors.attachmentDocumentsData?.documentStatus, helpText: "mainDocumentData.documentStatus"},
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.documentType", value: props.watch("attachmentDocumentsData.documentType"), formValue: "attachmentDocumentsData.documentType", dropDownItems: documentTypes, required: required, error:errors.attachmentDocumentsData?.documentType, helpText: "mainDocumentData.documentType"},
-        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.variant", value: variant, formValue: "attachmentDocumentsData.variant", dropDownItems: variantOptions, required: required, error:errors.attachmentDocumentsData?.variant, helpText: "mainDocumentData.variant", disabled: true},
-        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.format", value: format, formValue: "attachmentDocumentsData.format", dropDownItems: formatOptions, required: required, error:errors.attachmentDocumentsData?.format, helpText: "mainDocumentData.format", disabled: true}
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.variant", value: variant, formValue: "attachmentDocumentsData.variant", dropDownItems: variantOptions, required: required, error:errors.attachmentDocumentsData?.variant, helpText: "mainDocumentData.variant", disabled: true}
     ]
     return (
         <div>

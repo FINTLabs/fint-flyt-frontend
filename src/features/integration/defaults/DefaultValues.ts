@@ -51,8 +51,7 @@ export const defaultConfigurationValues: IFormConfiguration = {
     attachmentDocumentsData: {
         documentStatus: null,
         documentType: null,
-        variant: null,
-        format: null
+        variant: null
     },
     applicantData: {
         protected: false,
@@ -88,13 +87,6 @@ export const variantOptions: ISelect[] = [
 ]
 
 export const variant: string = 'https://beta.felleskomponent.no/arkiv/kodeverk/variantformat/systemid/P'
-
-export const formatOptions: ISelect[] = [
-    {label: '[F] Filformat PLACEHOLDER', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/filformat/systemid/F'}
-]
-
-export const format: string = 'https://beta.felleskomponent.no/arkiv/kodeverk/filformat/systemid/F'
-
 
 export const creationStrategies: ISelect[] = [
     {label: 'selects.creationStrategies.new', value: 'NEW',  description: "selects.creationStrategies.newDesc"},
@@ -605,8 +597,7 @@ export const EXAMPLE_FORM: IFormConfiguration = {
     "attachmentDocumentsData": {
         "documentStatus": '',
         "documentType": '',
-        "variant": '',
-        "format": '',
+        "variant": ''
     },
     "caseData": {
         "caseNumber": undefined,

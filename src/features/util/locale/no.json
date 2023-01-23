@@ -246,7 +246,6 @@
                 "caseWorker": "Saksbehandler: ",
                 "documentStatus": "Status: ",
                 "variant": "Variant: ",
-                "format": "Format: ",
                 "organisationNumber": "Organisasjonsnummer: ",
                 "nationalIdentityNumber": "Fødselsnummer: ",
                 "applicantName": "Navn: ",
@@ -342,7 +341,6 @@
             "documentStatus": "Status",
             "documentCategory": "Dokumentkategori",
             "variant": "Variant",
-            "format": "Format: ",
             "applicantType": "Velg avsendertype",
             "organisationNumber": "Organisasjonsnummer",
             "nationalIdentityNumber": "Fødselsnummer",
@@ -420,8 +418,7 @@
                 "documentStatus": "",
                 "accessCode": "",
                 "paragraph": "",
-                "variant": "",
-                "format": ""
+                "variant": ""
             },
             "applicantConfiguration": {
                 "type": "",
@@ -506,8 +503,7 @@
             "documentType": "Eksempel: Avtaler, Innsynsbehandling, Følgebrev, Juridisk ..",
             "accessCode": "Eksempel: Unntatt offentlighet, persona,l varslingssak, ugradert. ",
             "paragraph": "Eksempel: Offl. §13",
-            "variant": "Angivelse av hvilken variant et dokument forekommer. - Produksjonsformat",
-            "format": "Angivelse av filformat"
+            "variant": "Angivelse av hvilken variant et dokument forekommer. - Produksjonsformat"
         },
         "applicantData": {
             "protected": "Skjerming av avsender, krever tilgangsrestriksjon og hjemmel",
