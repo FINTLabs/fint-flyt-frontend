@@ -120,7 +120,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     const [activeConfigId, setActiveConfigId] = React.useState(activeConfiguration?.id);
     const [completed, setCompleted] = React.useState(!!activeConfiguration?.completed);
     let activeFormData = activeConfiguration && editConfig && configuration? newToFormData(configuration) : defaultConfigurationValues;
-    const [protectedCheck, setProtectedChecked] = React.useState(activeFormData.applicantData.protected);
+    const [protectedCheck, setProtectedChecked] = React.useState(activeFormData.recordData?.correspondent?.protected);
 
     const handleCheckChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setChecked(event.target.checked);
@@ -269,7 +269,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
             data.caseData.caseNumber = caseNumber
         }
         data.completed = true;
-        data.applicantData.protected = protectedCheck;
+        data.recordData.correspondent.protected = protectedCheck;
         const configuration: newIConfiguration = toNewConfiguration(data, activeIntegration?.id, activeConfigId, selectedMetadata.id);
         if (configuration && activeConfigId !== undefined) {
             const iConfiguration: newIConfiguration = toConfigurationPatch(data, selectedMetadata.id);
@@ -290,7 +290,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
             data.caseData.caseNumber = caseNumber
         }
         data.completed = false;
-        data.applicantData.protected = protectedCheck;
+        data.recordData.correspondent.protected = protectedCheck;
         const configuration: newIConfiguration = toNewConfiguration(data, activeIntegration?.id, activeConfigId, selectedMetadata.id);
         if (configuration && activeConfigId !== undefined) {
             const iConfiguration: newIConfiguration = toConfigurationPatch(data, selectedMetadata.id);

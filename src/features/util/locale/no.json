@@ -197,19 +197,19 @@
             },
             "table": {
                 "columns": {
-                        "destination": "Destinasjon/base",
-                        "sourceApplicationIntegrationId": "Kildeapplikasjons integrasjons-ID",
-                        "sourceApplicationIntegrationIdDisplayName": "Integrasjonsnavn",
-                        "sourceApplicationId": "Kildeapplikasjon",
-                        "sourceApplicationInstanceId": "Kildeapplikasjons instans-ID",
-                        "configurationId": "Konfigurasjon ID",
-                        "archiveInstanceId": "Arkivsak ID",
-                        "timestamp": "Tidspunkt",
-                        "timestampLatest": "Sist hendelse",
-                        "name": "Status",
-                        "actions": "Handlinger",
-                        "details": "Detaljer",
-                        "errorMessage": "Feilmelding(er)"
+                    "destination": "Destinasjon/base",
+                    "sourceApplicationIntegrationId": "Kildeapplikasjons integrasjons-ID",
+                    "sourceApplicationIntegrationIdDisplayName": "Integrasjonsnavn",
+                    "sourceApplicationId": "Kildeapplikasjon",
+                    "sourceApplicationInstanceId": "Kildeapplikasjons instans-ID",
+                    "configurationId": "Konfigurasjon ID",
+                    "archiveInstanceId": "Arkivsak ID",
+                    "timestamp": "Tidspunkt",
+                    "timestampLatest": "Sist hendelse",
+                    "name": "Status",
+                    "actions": "Handlinger",
+                    "details": "Detaljer",
+                    "errorMessage": "Feilmelding(er)"
                 }
             },
             "labels": {
@@ -494,18 +494,11 @@
             "documentCategory": "Dokumentkategori",
             "caseWorker": "Navn på person som er saksbehandler. En sak kan ha en ansvarlig saksbehandler men det kan være ulike saksbehandlere på ulike journalposter.",
             "accessCode": "Angivelse av at dokumentene som tilhører arkivenheten ikke er offentligtilgjengelig i henhold til offentlighetsloven eller av en annen grunn. ",
-            "paragraph": "Henvisning til hjemmel (paragraf) i offentlighetsloven, sikkerhetsloven eller beskyttelsesinstruksen."
-        },
-        "mainDocumentData": {
-            "title": "Tittel eller navn på arkivenheten.",
+            "paragraph": "Henvisning til hjemmel (paragraf) i offentlighetsloven, sikkerhetsloven eller beskyttelsesinstruksen.",
+            "documentTitle": "Tittel eller navn på arkivenheten.",
             "documentStatus": "Status til dokumentet. Eksempel: B, F",
-            "documentCategory": "TODO",
             "documentType": "Eksempel: Avtaler, Innsynsbehandling, Følgebrev, Juridisk ..",
-            "accessCode": "Eksempel: Unntatt offentlighet, persona,l varslingssak, ugradert. ",
-            "paragraph": "Eksempel: Offl. §13",
-            "variant": "Angivelse av hvilken variant et dokument forekommer. - Produksjonsformat"
-        },
-        "applicantData": {
+            "variant": "Angivelse av hvilken variant et dokument forekommer. - Produksjonsformat",
             "protected": "Skjerming av avsender, krever tilgangsrestriksjon og hjemmel",
             "type": "Person eller organisasjon/bedrift",
             "organisationNumber": "Orgnr for avsenderbedrift",
@@ -516,9 +509,8 @@
             "city": "Poststed",
             "contactPerson": "Tittel eller navn på arkivenheten.",
             "phoneNumber": "Telefonnummer",
-            "email": "epostadresse",
-            "accessCode": "Angivelse av at dokumentene som tilhører arkivenheten ikke er offentligtilgjengelig i henhold til offentlighetsloven eller av en annen grunn.",
-            "paragraph": "Henvisning til hjemmel (paragraf) i offentlighetsloven, sikkerhetsloven eller beskyttelsesinstruksen."
+            "email": "epostadresse"
         }
     }
 }
+

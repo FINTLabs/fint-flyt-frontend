@@ -16,20 +16,6 @@ export const MOCK_INTEGRATION_FORMDATA2: IFormIntegration = {
 export const MOCK_CONFIG_FORMDATA: IFormConfiguration = {
     completed: false,
     metadataId: 1,
-    applicantData: {
-        accessCode: "code2",
-        address: "highstreet 22",
-        city: "Moria",
-        contactPerson: "donna",
-        email: "hello@world.no",
-        name: "Anakin Skywalker",
-        nationalIdentityNumber: "123456789",
-        organisationNumber: "",
-        paragraph: "p3",
-        phoneNumber: "12345678",
-        postalCode: "1234",
-        protected: true,
-    },
     caseData: {
         caseNumber: null,
         accessCode: "code42",
@@ -54,16 +40,6 @@ export const MOCK_CONFIG_FORMDATA: IFormConfiguration = {
         title: "Title of case"
     },
     comment: "form to test mapping",
-    mainDocumentData: {
-        documentStatus: "D9",
-        documentType: "cat8",
-        variant: "var",
-    },
-    attachmentDocumentsData: {
-        documentStatus: "D9",
-        documentType: "cat8",
-        variant: "var"
-    },
     recordData: {
         accessCode: "code89",
         administrativeUnit: "unit33",
@@ -72,27 +48,39 @@ export const MOCK_CONFIG_FORMDATA: IFormConfiguration = {
         publicTitle: "public record title",
         recordStatus: "N",
         recordType: "A",
-        title: "record title"
+        title: "record title",
+        mainDocument: {
+            title: "record title",
+            documentStatus: "D9",
+            documentType: "cat8",
+            variant: "var",
+        },
+        attachmentDocuments: {
+            documentStatus: "D9",
+            documentType: "cat8",
+            variant: "var"
+        },
+        correspondent: {
+            accessCode: "code2",
+            address: "highstreet 22",
+            city: "Moria",
+            contactPerson: "donna",
+            email: "hello@world.no",
+            name: "Anakin Skywalker",
+            nationalIdentityNumber: "123456789",
+            organisationNumber: "",
+            paragraph: "p3",
+            phoneNumber: "12345678",
+            postalCode: "1234",
+            protected: true,
+        }
+
     }
 }
 
 export const MOCK_CONFIG_FORMDATA_FOR_PATCH: IFormConfiguration = {
     completed: false,
     metadataId: 1,
-    applicantData: {
-        accessCode: "code2",
-        address: "highstreet 22",
-        city: "Moria",
-        contactPerson: "donna",
-        email: "hello@world.no",
-        name: "Anakin Skywalker",
-        nationalIdentityNumber: "123456789",
-        organisationNumber: "",
-        paragraph: "p3",
-        phoneNumber: "12345678",
-        postalCode: "1234",
-        protected: true,
-    },
     caseData: {
         caseNumber: null,
         accessCode: "code42",
@@ -117,16 +105,6 @@ export const MOCK_CONFIG_FORMDATA_FOR_PATCH: IFormConfiguration = {
         title: "Title of case"
     },
     comment: "form to test mapping",
-    mainDocumentData: {
-        documentStatus: "D9",
-        documentType: "cat8",
-        variant: "var"
-    },
-    attachmentDocumentsData: {
-        documentStatus: "D9",
-        documentType: "cat8",
-        variant: "var"
-    },
     recordData: {
         accessCode: "code89",
         administrativeUnit: "unit33",
@@ -135,31 +113,37 @@ export const MOCK_CONFIG_FORMDATA_FOR_PATCH: IFormConfiguration = {
         publicTitle: "public record title",
         recordStatus: "N",
         recordType: "A",
-        title: "record title"
+        title: "record title",
+        mainDocument: {
+            title: "record title",
+            documentStatus: "D9",
+            documentType: "cat8",
+            variant: "var"
+        },
+        attachmentDocuments: {
+            documentStatus: "D9",
+            documentType: "cat8",
+            variant: "var"
+        },
+        correspondent: {
+            accessCode: "code2",
+            address: "highstreet 22",
+            city: "Moria",
+            contactPerson: "donna",
+            email: "hello@world.no",
+            name: "Anakin Skywalker",
+            nationalIdentityNumber: "123456789",
+            organisationNumber: "",
+            paragraph: "p3",
+            phoneNumber: "12345678",
+            postalCode: "1234",
+            protected: true,
+        }
     }
 }
 
 
 export const MOCK_NEW_FORMDATA: IFormConfiguration = {
-    "applicantData": {
-        "accessCode": null,
-        "address": null,
-        "city": null,
-        "contactPerson": null,
-        "email": null,
-        "name": null,
-        "nationalIdentityNumber": null,
-        "organisationNumber": null,
-        "paragraph": null,
-        "phoneNumber": null,
-        "postalCode": null,
-        "protected": true,
-    },
-    "attachmentDocumentsData": {
-        "documentStatus": null,
-        "documentType": null,
-        "variant": null
-    },
     "caseData": {
         "accessCode": null,
         "administrativeUnit": null,
@@ -185,11 +169,6 @@ export const MOCK_NEW_FORMDATA: IFormConfiguration = {
     },
     "comment": "Ikke ferdigstilt",
     "completed": false,
-    "mainDocumentData": {
-        "documentStatus": null,
-        "documentType": null,
-        "variant": null
-    },
     "recordData": {
         "accessCode": null,
         "administrativeUnit": null,
@@ -198,30 +177,36 @@ export const MOCK_NEW_FORMDATA: IFormConfiguration = {
         "publicTitle": null,
         "recordStatus": null,
         "recordType": null,
-        "title": "foo $if{bar}"
+        "title": "foo $if{bar}",
+        "mainDocument": {
+            "title": "foo $if{bar}",
+            "documentStatus": null,
+            "documentType": null,
+            "variant": null
+        },
+        "attachmentDocuments": {
+            "documentStatus": null,
+            "documentType": null,
+            "variant": null
+        },
+        "correspondent": {
+            "accessCode": null,
+            "address": null,
+            "city": null,
+            "contactPerson": null,
+            "email": null,
+            "name": null,
+            "nationalIdentityNumber": null,
+            "organisationNumber": null,
+            "paragraph": null,
+            "phoneNumber": null,
+            "postalCode": null,
+            "protected": true,
+        },
     }
 }
 
 export const MOCK_BY_ID_FORMDATA: IFormConfiguration = {
-    "applicantData": {
-        "accessCode": null,
-        "address": null,
-        "city": null,
-        "contactPerson": null,
-        "email": null,
-        "name": null,
-        "nationalIdentityNumber": null,
-        "organisationNumber": null,
-        "paragraph": null,
-        "phoneNumber": null,
-        "postalCode": null,
-        "protected": true,
-    },
-    "attachmentDocumentsData": {
-        "documentStatus": null,
-        "documentType": null,
-        "variant": null
-    },
     "caseData": {
         "accessCode": null,
         "administrativeUnit": null,
@@ -247,11 +232,6 @@ export const MOCK_BY_ID_FORMDATA: IFormConfiguration = {
     },
     "comment": "Ikke ferdigstilt",
     "completed": false,
-    "mainDocumentData": {
-        "documentStatus": null,
-        "documentType": null,
-        "variant": null
-    },
     "recordData": {
         "accessCode": null,
         "administrativeUnit": null,
@@ -260,6 +240,31 @@ export const MOCK_BY_ID_FORMDATA: IFormConfiguration = {
         "publicTitle": null,
         "recordStatus": null,
         "recordType": null,
-        "title": "foo $if{bar}"
+        "title": "foo $if{bar}",
+        "mainDocument": {
+            "title": "foo $if{bar}",
+            "documentStatus": null,
+            "documentType": null,
+            "variant": null
+        },
+        "attachmentDocuments": {
+            "documentStatus": null,
+            "documentType": null,
+            "variant": null
+        },
+        "correspondent": {
+            "accessCode": null,
+            "address": null,
+            "city": null,
+            "contactPerson": null,
+            "email": null,
+            "name": null,
+            "nationalIdentityNumber": null,
+            "organisationNumber": null,
+            "paragraph": null,
+            "phoneNumber": null,
+            "postalCode": null,
+            "protected": true,
+        }
     }
 }

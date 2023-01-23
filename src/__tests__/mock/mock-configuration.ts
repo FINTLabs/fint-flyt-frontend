@@ -118,6 +118,118 @@ export const MOCK_CONFIGURATION: newIConfiguration = {
             "key": "case"
         },
         {
+            "elements": [
+                {
+                    "fieldConfigurations": [
+                        {
+                            "key": "tittel",
+                            "type": "STRING",
+                            "value": "record title"
+                        },
+                        {
+                            "key": "dokumentStatus",
+                            "type": "STRING",
+                            "value": "D9"
+                        },
+                        {
+                            "key": "dokumentType",
+                            "type": "STRING",
+                            "value": "cat8"
+                        },
+                        {
+                            "key": "dokumentObjekt.variantFormat",
+                            "type": "STRING",
+                            "value": "var"
+                        }
+                    ],
+                    "key": "mainDocument"
+                },
+                {
+                    "fieldConfigurations": [
+                        {
+                            "key": "dokumentStatus",
+                            "type": "STRING",
+                            "value": "D9"
+                        },
+                        {
+                            "key": "dokumentType",
+                            "type": "STRING",
+                            "value": "cat8"
+                        },
+                        {
+                            "key": "dokumentObjekt.variantFormat",
+                            "type": "STRING",
+                            "value": "var"
+                        }
+                    ],
+                    "key": "attachmentDocuments"
+                },
+                {
+                    "fieldConfigurations": [
+                        {
+                            "key": "protected",
+                            "type": "BOOLEAN",
+                            "value": "true"
+                        },
+                        {
+                            "key": "fødselsnummer",
+                            "type": "DYNAMIC_STRING",
+                            "value": "123456789"
+                        },
+                        {
+                            "key": "organisasjonsnummer",
+                            "type": "DYNAMIC_STRING",
+                            "value": null
+                        },
+                        {
+                            "key": "KorrespondansepartNavn",
+                            "type": "DYNAMIC_STRING",
+                            "value": "Anakin Skywalker"
+                        },
+                        {
+                            "key": "Adresse.adresselinje",
+                            "type": "DYNAMIC_STRING",
+                            "value": "highstreet 22"
+                        },
+                        {
+                            "key": "Adresse.postnummer",
+                            "type": "DYNAMIC_STRING",
+                            "value": "1234"
+                        },
+                        {
+                            "key": "Adresse.poststed",
+                            "type": "DYNAMIC_STRING",
+                            "value": "Moria"
+                        },
+                        {
+                            "key": "kontaktperson",
+                            "type": "DYNAMIC_STRING",
+                            "value": "donna"
+                        },
+                        {
+                            "key": "Kontaktinformasjon.mobiltelefonnummer",
+                            "type": "DYNAMIC_STRING",
+                            "value": "12345678"
+                        },
+                        {
+                            "key": "Kontaktinformasjon.epostadresse",
+                            "type": "DYNAMIC_STRING",
+                            "value": "hello@world.no"
+                        },
+                        {
+                            "key": "tilgangsrestriksjon",
+                            "type": "STRING",
+                            "value": "code2"
+                        },
+                        {
+                            "key": "skjermingshjemmel",
+                            "type": "STRING",
+                            "value": "p3"
+                        }
+                    ],
+                    "key": "correspondent"
+                }
+            ],
             "fieldConfigurations": [
                 {
                     "key": "tittel",
@@ -161,111 +273,6 @@ export const MOCK_CONFIGURATION: newIConfiguration = {
                 }
             ],
             "key": "record"
-        },
-        {
-            "fieldConfigurations": [
-                {
-                    "key": "dokumentStatus",
-                    "type": "STRING",
-                    "value": "D9"
-                },
-                {
-                    "key": "dokumentType",
-                    "type": "STRING",
-                    "value": "cat8"
-                },
-                {
-                    "key": "dokumentObjekt.variantFormat",
-                    "type": "STRING",
-                    "value": "var"
-                }
-            ],
-            "key": "mainDocument"
-        },
-        {
-            "fieldConfigurations": [
-                {
-                    "key": "dokumentStatus",
-                    "type": "STRING",
-                    "value": "D9"
-                },
-                {
-                    "key": "dokumentType",
-                    "type": "STRING",
-                    "value": "cat8"
-                },
-                {
-                    "key": "dokumentObjekt.variantFormat",
-                    "type": "STRING",
-                    "value": "var"
-                }
-            ],
-            "key": "attachmentDocuments"
-        },
-        {
-            "fieldConfigurations": [
-                {
-                    "key": "protected",
-                    "type": "BOOLEAN",
-                    "value": "true"
-                },
-                {
-                    "key": "fødselsnummer",
-                    "type": "DYNAMIC_STRING",
-                    "value": "123456789"
-                },
-                {
-                    "key": "organisasjonsnummer",
-                    "type": "DYNAMIC_STRING",
-                    "value": null
-                },
-                {
-                    "key": "KorrespondansepartNavn",
-                    "type": "DYNAMIC_STRING",
-                    "value": "Anakin Skywalker"
-                },
-                {
-                    "key": "Adresse.adresselinje",
-                    "type": "DYNAMIC_STRING",
-                    "value": "highstreet 22"
-                },
-                {
-                    "key": "Adresse.postnummer",
-                    "type": "DYNAMIC_STRING",
-                    "value": "1234"
-                },
-                {
-                    "key": "Adresse.poststed",
-                    "type": "DYNAMIC_STRING",
-                    "value": "Moria"
-                },
-                {
-                    "key": "kontaktperson",
-                    "type": "DYNAMIC_STRING",
-                    "value": "donna"
-                },
-                {
-                    "key": "Kontaktinformasjon.mobiltelefonnummer",
-                    "type": "DYNAMIC_STRING",
-                    "value": "12345678"
-                },
-                {
-                    "key": "Kontaktinformasjon.epostadresse",
-                    "type": "DYNAMIC_STRING",
-                    "value": "hello@world.no"
-                },
-                {
-                    "key": "tilgangsrestriksjon",
-                    "type": "STRING",
-                    "value": "code2"
-                },
-                {
-                    "key": "skjermingshjemmel",
-                    "type": "STRING",
-                    "value": "p3"
-                }
-            ],
-            "key": "applicant"
         }
     ],
     "id": "123",
@@ -383,6 +390,118 @@ export const MOCK_CONFIGURATION_PATCH: IConfigurationPatch = {
             "key": "case"
         },
         {
+            "elements": [
+                {
+                    "fieldConfigurations": [
+                        {
+                            "key": "tittel",
+                            "type": "STRING",
+                            "value": "D9"
+                        },
+                        {
+                            "key": "dokumentStatus",
+                            "type": "STRING",
+                            "value": "D9"
+                        },
+                        {
+                            "key": "dokumentType",
+                            "type": "STRING",
+                            "value": "cat8"
+                        },
+                        {
+                            "key": "dokumentObjekt.variantFormat",
+                            "type": "STRING",
+                            "value": "var"
+                        }
+                    ],
+                    "key": "mainDocument"
+                },
+                {
+                    "fieldConfigurations": [
+                        {
+                            "key": "dokumentStatus",
+                            "type": "STRING",
+                            "value": "D9"
+                        },
+                        {
+                            "key": "dokumentType",
+                            "type": "STRING",
+                            "value": "cat8"
+                        },
+                        {
+                            "key": "dokumentObjekt.variantFormat",
+                            "type": "STRING",
+                            "value": "var"
+                        }
+                    ],
+                    "key": "attachmentDocuments"
+                },
+                {
+                    "fieldConfigurations": [
+                        {
+                            "key": "protected",
+                            "type": "BOOLEAN",
+                            "value": "true"
+                        },
+                        {
+                            "key": "fødselsnummer",
+                            "type": "DYNAMIC_STRING",
+                            "value": "123456789"
+                        },
+                        {
+                            "key": "organisasjonsnummer",
+                            "type": "DYNAMIC_STRING",
+                            "value": null
+                        },
+                        {
+                            "key": "KorrespondansepartNavn",
+                            "type": "DYNAMIC_STRING",
+                            "value": "Anakin Skywalker"
+                        },
+                        {
+                            "key": "Adresse.adresselinje",
+                            "type": "DYNAMIC_STRING",
+                            "value": "highstreet 22"
+                        },
+                        {
+                            "key": "Adresse.postnummer",
+                            "type": "DYNAMIC_STRING",
+                            "value": "1234"
+                        },
+                        {
+                            "key": "Adresse.poststed",
+                            "type": "DYNAMIC_STRING",
+                            "value": "Moria"
+                        },
+                        {
+                            "key": "kontaktperson",
+                            "type": "DYNAMIC_STRING",
+                            "value": "donna"
+                        },
+                        {
+                            "key": "Kontaktinformasjon.mobiltelefonnummer",
+                            "type": "DYNAMIC_STRING",
+                            "value": "12345678"
+                        },
+                        {
+                            "key": "Kontaktinformasjon.epostadresse",
+                            "type": "DYNAMIC_STRING",
+                            "value": "hello@world.no"
+                        },
+                        {
+                            "key": "tilgangsrestriksjon",
+                            "type": "STRING",
+                            "value": "code2"
+                        },
+                        {
+                            "key": "skjermingshjemmel",
+                            "type": "STRING",
+                            "value": "p3"
+                        }
+                    ],
+                    "key": "correspondent"
+                }
+            ],
             "fieldConfigurations": [
                 {
                     "key": "tittel",
@@ -426,111 +545,6 @@ export const MOCK_CONFIGURATION_PATCH: IConfigurationPatch = {
                 }
             ],
             "key": "record"
-        },
-        {
-            "fieldConfigurations": [
-                {
-                    "key": "dokumentStatus",
-                    "type": "STRING",
-                    "value": "D9"
-                },
-                {
-                    "key": "dokumentType",
-                    "type": "STRING",
-                    "value": "cat8"
-                },
-                {
-                    "key": "dokumentObjekt.variantFormat",
-                    "type": "STRING",
-                    "value": "var"
-                }
-            ],
-            "key": "mainDocument"
-        },
-        {
-            "fieldConfigurations": [
-                {
-                    "key": "dokumentStatus",
-                    "type": "STRING",
-                    "value": "D9"
-                },
-                {
-                    "key": "dokumentType",
-                    "type": "STRING",
-                    "value": "cat8"
-                },
-                {
-                    "key": "dokumentObjekt.variantFormat",
-                    "type": "STRING",
-                    "value": "var"
-                }
-            ],
-            "key": "attachmentDocuments"
-        },
-        {
-            "fieldConfigurations": [
-                {
-                    "key": "protected",
-                    "type": "BOOLEAN",
-                    "value": "true"
-                },
-                {
-                    "key": "fødselsnummer",
-                    "type": "DYNAMIC_STRING",
-                    "value": "123456789"
-                },
-                {
-                    "key": "organisasjonsnummer",
-                    "type": "DYNAMIC_STRING",
-                    "value": null
-                },
-                {
-                    "key": "KorrespondansepartNavn",
-                    "type": "DYNAMIC_STRING",
-                    "value": "Anakin Skywalker"
-                },
-                {
-                    "key": "Adresse.adresselinje",
-                    "type": "DYNAMIC_STRING",
-                    "value": "highstreet 22"
-                },
-                {
-                    "key": "Adresse.postnummer",
-                    "type": "DYNAMIC_STRING",
-                    "value": "1234"
-                },
-                {
-                    "key": "Adresse.poststed",
-                    "type": "DYNAMIC_STRING",
-                    "value": "Moria"
-                },
-                {
-                    "key": "kontaktperson",
-                    "type": "DYNAMIC_STRING",
-                    "value": "donna"
-                },
-                {
-                    "key": "Kontaktinformasjon.mobiltelefonnummer",
-                    "type": "DYNAMIC_STRING",
-                    "value": "12345678"
-                },
-                {
-                    "key": "Kontaktinformasjon.epostadresse",
-                    "type": "DYNAMIC_STRING",
-                    "value": "hello@world.no"
-                },
-                {
-                    "key": "tilgangsrestriksjon",
-                    "type": "STRING",
-                    "value": "code2"
-                },
-                {
-                    "key": "skjermingshjemmel",
-                    "type": "STRING",
-                    "value": "p3"
-                }
-            ],
-            "key": "applicant"
         }
     ],
     "integrationMetadataId": 321
@@ -564,16 +578,18 @@ export const MOCK_NEW_CONFIG: newIConfiguration = {
             ]
         },
         {
-            key: 'applicant',
-            fieldConfigurations: [
+            elements: [
                 {
-                    key: 'protected',
-                    type: FieldConfigurationType.BOOLEAN,
-                    value: 'true'
-                }
-            ]
-        },
-        {
+                    key: 'correspondent',
+                    fieldConfigurations: [
+                        {
+                            key: 'protected',
+                            type: FieldConfigurationType.BOOLEAN,
+                            value: 'true'
+                        }
+                    ]
+                },
+            ],
             key: 'record',
             fieldConfigurations: [
                 {
@@ -615,16 +631,18 @@ export const MOCK_BY_ID_CONFIG: newIConfiguration = {
             ]
         },
         {
-            key: 'applicant',
-            fieldConfigurations: [
+            elements: [
                 {
-                    key: 'protected',
-                    type: FieldConfigurationType.BOOLEAN,
-                    value: 'true'
-                }
-            ]
-        },
-        {
+                    key: 'correspondent',
+                    fieldConfigurations: [
+                        {
+                            key: 'protected',
+                            type: FieldConfigurationType.BOOLEAN,
+                            value: 'true'
+                        }
+                    ]
+                },
+            ],
             key: 'record',
             fieldConfigurations: [
                 {

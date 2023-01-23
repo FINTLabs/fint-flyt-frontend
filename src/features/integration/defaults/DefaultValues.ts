@@ -41,31 +41,32 @@ export const defaultConfigurationValues: IFormConfiguration = {
         recordType: null,
         caseWorker: null,
         accessCode: null,
-        paragraph: null
-    },
-    mainDocumentData: {
-        documentStatus: null,
-        documentType: null,
-        variant: null
-    },
-    attachmentDocumentsData: {
-        documentStatus: null,
-        documentType: null,
-        variant: null
-    },
-    applicantData: {
-        protected: false,
-        organisationNumber: null,
-        nationalIdentityNumber: null,
-        name: null,
-        address: null,
-        postalCode: null,
-        city: null,
-        contactPerson: null,
-        phoneNumber: null,
-        email: null,
-        accessCode: null,
-        paragraph: null
+        paragraph: null,
+        mainDocument: {
+            title: null,
+            documentStatus: null,
+            documentType: null,
+            variant: null
+        },
+        attachmentDocuments: {
+            documentStatus: null,
+            documentType: null,
+            variant: null
+        },
+        correspondent: {
+            protected: false,
+            organisationNumber: null,
+            nationalIdentityNumber: null,
+            name: null,
+            address: null,
+            postalCode: null,
+            city: null,
+            contactPerson: null,
+            phoneNumber: null,
+            email: null,
+            accessCode: null,
+            paragraph: null
+        }
     }
 }
 
@@ -360,29 +361,35 @@ export const fieldHelp = {
         caseWorker: 'En sak kan ha en ansvarlig saksbehandler men det kan være ulike saksbehandlere på ulike journalposter.',
         accessCode: 'Eksempel: Unntatt offentlighet, persona,l varslingssak, ugradert. ',
         paragraph: 'Eksempel: Offl. §13 ',
-    },
-    mainDocumentData: {
-        title: 'Tittel kan være en konkret tekststreng, eller en kombinasjon\n' +
-            ' av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak.\n' +
-            '  (Se Noark))',
-        documentStatus: 'Eksempel: B, F',
-        accessCode: 'Eksempel: Unntatt offentlighet, persona,l varslingssak, ugradert. ',
-        paragraph: 'Eksempel: Offl. §13',
-        variant: 'Arkivformat/ produksjonsformat / offentlig variant'
-    },
-    applicantData: {
-        type: 'Person eller organisasjon/bedrift',
-        organisationNumber: 'Orgnr for avsenderbedrift',
-        nationalIdentityNumber: 'Fødselsnummer for avsender',
-        name: 'Navn på bedrift/org, eller person',
-        address: 'Postadresse',
-        postalCode: 'Postkode',
-        city: 'Poststed',
-        contactPerson: 'Navn på søker er ikke alltid lik med kontaktperson',
-        phoneNumber: 'Telefonnummer',
-        email: 'epostadresse',
-        accessCode: 'velge om avsender skal være skjermet',
-        paragraph: 'Denne skal fjernes',
+        mainDocument: {
+            title: 'Tittel kan være en konkret tekststreng, eller en kombinasjon\n' +
+                ' av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak.\n' +
+                '  (Se Noark))',
+            documentStatus: 'Eksempel: B, F',
+            accessCode: 'Eksempel: Unntatt offentlighet, persona,l varslingssak, ugradert. ',
+            paragraph: 'Eksempel: Offl. §13',
+            variant: 'Arkivformat/ produksjonsformat / offentlig variant'
+        },
+        attachmentDocuments: {
+            documentStatus: 'Eksempel: B, F',
+            accessCode: 'Eksempel: Unntatt offentlighet, persona,l varslingssak, ugradert. ',
+            paragraph: 'Eksempel: Offl. §13',
+            variant: 'Arkivformat/ produksjonsformat / offentlig variant'
+        },
+        correspondent: {
+            type: 'Person eller organisasjon/bedrift',
+            organisationNumber: 'Orgnr for avsenderbedrift',
+            nationalIdentityNumber: 'Fødselsnummer for avsender',
+            name: 'Navn på bedrift/org, eller person',
+            address: 'Postadresse',
+            postalCode: 'Postkode',
+            city: 'Poststed',
+            contactPerson: 'Navn på søker er ikke alltid lik med kontaktperson',
+            phoneNumber: 'Telefonnummer',
+            email: 'epostadresse',
+            accessCode: 'velge om avsender skal være skjermet',
+            paragraph: 'Denne skal fjernes',
+        }
     }
 }
 
@@ -580,25 +587,6 @@ export const MOCK_NEWCONFIGURATIONS: newIConfiguration[] = [
 ]
 
 export const EXAMPLE_FORM: IFormConfiguration = {
-    "applicantData": {
-        "protected": false,
-        "organisationNumber": '',
-        "nationalIdentityNumber": '',
-        "name": '',
-        "address": '',
-        "postalCode": '',
-        "city": '',
-        "contactPerson": '',
-        "phoneNumber": '',
-        "email": '',
-        "accessCode": '',
-        "paragraph": ''
-    },
-    "attachmentDocumentsData": {
-        "documentStatus": '',
-        "documentType": '',
-        "variant": ''
-    },
     "caseData": {
         "caseNumber": undefined,
         "accessCode": '',
@@ -624,11 +612,6 @@ export const EXAMPLE_FORM: IFormConfiguration = {
     },
     "comment": "Ferdigstilt ",
     "completed": true,
-    "mainDocumentData": {
-        "documentStatus": '',
-        "documentType": '',
-        "variant": '',
-    },
     "integrationId": 'TEST999',
     "recordData": {
         "accessCode": '',
@@ -638,7 +621,32 @@ export const EXAMPLE_FORM: IFormConfiguration = {
         "publicTitle": '',
         "recordStatus": '',
         "recordType": '',
-        "title": "{foo} bar"
+        "title": "{foo} bar",
+        "attachmentDocuments": {
+            "documentStatus": '',
+            "documentType": '',
+            "variant": ''
+        },
+        "mainDocument": {
+            "title": '',
+            "documentStatus": '',
+            "documentType": '',
+            "variant": '',
+        },
+        "correspondent": {
+            "protected": false,
+            "organisationNumber": '',
+            "nationalIdentityNumber": '',
+            "name": '',
+            "address": '',
+            "postalCode": '',
+            "city": '',
+            "contactPerson": '',
+            "phoneNumber": '',
+            "email": '',
+            "accessCode": '',
+            "paragraph": ''
+        }
     }
 }
 

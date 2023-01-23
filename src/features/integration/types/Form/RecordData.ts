@@ -1,3 +1,7 @@
+import IApplicantData from "./ApplicantData";
+import IMainDocumentData from "./MainDocumentData";
+import IAttachmentDocumentsData from "./AttachmentDocumentsData";
+
 export default interface IRecordData {
     title: string | null;
     publicTitle: string | null;
@@ -7,4 +11,7 @@ export default interface IRecordData {
     caseWorker: string | null;
     accessCode: string | null;
     paragraph: string | null;
+    correspondent: IApplicantData;
+    mainDocument: IMainDocumentData;
+    attachmentDocuments: IAttachmentDocumentsData;
 }

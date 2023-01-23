@@ -123,7 +123,7 @@ export const MOCK_APPLICANT_FIELDS: IConfigurationElement[] = [
                 "value": "true"
             }
         ],
-        "key": "applicant"
+        "key": "correspondent"
     }
 ]
 
@@ -136,7 +136,7 @@ export const MOCK_APPLICANT_FIELDS_NOT_PROTECTED: IConfigurationElement[] = [
                 "value": "false"
             }
         ],
-        "key": "applicant"
+        "key": "correspondent"
     }
 ]
 

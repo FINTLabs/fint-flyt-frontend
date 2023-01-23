@@ -1,8 +1,5 @@
-import IApplicantData from "./ApplicantData";
-import IMainDocumentData from "./MainDocumentData";
 import IRecordData from "./RecordData";
 import ICaseData from "./CaseData";
-import IAttachmentDocumentsData from "./AttachmentDocumentsData";
 
 export interface IFormIntegration {
     sourceApplicationId?: string;
@@ -23,7 +20,4 @@ export interface IFormConfiguration {
 
     caseData:ICaseData;
     recordData: IRecordData;
-    mainDocumentData: IMainDocumentData;
-    attachmentDocumentsData: IAttachmentDocumentsData;
-    applicantData: IApplicantData;
 }

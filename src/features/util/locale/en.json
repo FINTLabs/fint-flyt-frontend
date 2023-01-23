@@ -369,28 +369,35 @@
             "documentCategory": "Dokuemtkategori",
             "caseWorker": "En sak kan ha en ansvarlig saksbehandler men det kan være ulike saksbehandlere på ulike journalposter.",
             "accessCode": "Eksempel: Unntatt offentlighet, personal varslingssak, ugradert. ",
-            "paragraph": "Eksempel: Offl. §13 "
-        },
-        "mainDocumentData": {
-            "title": "Tittel kan være en konkret tekststreng, eller en kombinasjon av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak.(Se Noark))",
-            "documentStatus": "Eksempel: B, F",
-            "accessCode": "Eksempel: Unntatt offentlighet, persona,l varslingssak, ugradert. ",
-            "paragraph": "Eksempel: Offl. §13",
-            "variant": "Arkivformat/ produksjonsformat / offentlig variant"
-        },
-        "applicantData": {
-            "type": "Person eller organisasjon/bedrift",
-            "organisationNumber": "Orgnr for avsenderbedrift",
-            "nationalIdentityNumber": "Fødselsnummer for avsender",
-            "name": "Navn på bedrift/org, eller person",
-            "address": "Postadresse",
-            "postalCode": "Postkode",
-            "city": "Poststed",
-            "contactPerson": "Navn på søker er ikke alltid lik med kontaktperson",
-            "phoneNumber": "Telefonnummer",
-            "email": "epostadresse",
-            "accessCode": "velge om avsender skal være skjermet",
-            "paragraph": "Denne skal fjernes"
+            "paragraph": "Eksempel: Offl. §13 ",
+            "mainDocument": {
+                "title": "Tittel kan være en konkret tekststreng, eller en kombinasjon av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak.(Se Noark))",
+                "documentStatus": "Eksempel: B, F",
+                "accessCode": "Eksempel: Unntatt offentlighet, persona,l varslingssak, ugradert. ",
+                "paragraph": "Eksempel: Offl. §13",
+                "variant": "Arkivformat/ produksjonsformat / offentlig variant"
+            },
+            "attachmentDocuments": {
+                "title": "Tittel kan være en konkret tekststreng, eller en kombinasjon av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak.(Se Noark))",
+                "documentStatus": "Eksempel: B, F",
+                "accessCode": "Eksempel: Unntatt offentlighet, persona,l varslingssak, ugradert. ",
+                "paragraph": "Eksempel: Offl. §13",
+                "variant": "Arkivformat/ produksjonsformat / offentlig variant"
+            },
+            "correspondent": {
+                "type": "Person eller organisasjon/bedrift",
+                "organisationNumber": "Orgnr for avsenderbedrift",
+                "nationalIdentityNumber": "Fødselsnummer for avsender",
+                "name": "Navn på bedrift/org, eller person",
+                "address": "Postadresse",
+                "postalCode": "Postkode",
+                "city": "Poststed",
+                "contactPerson": "Navn på søker er ikke alltid lik med kontaktperson",
+                "phoneNumber": "Telefonnummer",
+                "email": "epostadresse",
+                "accessCode": "velge om avsender skal være skjermet",
+                "paragraph": "Denne skal fjernes"
+            }
         }
     }
 }

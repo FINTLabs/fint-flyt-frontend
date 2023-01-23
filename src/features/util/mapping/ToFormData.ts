@@ -5,9 +5,10 @@ import {IConfigurationElement, newIConfiguration} from "../../integration/types/
 export function newToFormData(data: newIConfiguration): IFormConfiguration {
     const caseFields: IConfigurationElement[] = data.elements?.filter(confField => confField.key === 'case');
     const recordFields: IConfigurationElement[] = data.elements?.filter(confField => confField.key === 'record');
-    const mainDocumentFields: IConfigurationElement[] = data.elements?.filter(confField => confField.key === 'mainDocument');
-    const attachmentDocumentFields: IConfigurationElement[] = data.elements?.filter(confField => confField.key === 'attachmentDocuments');
-    const applicantFields: IConfigurationElement[] = data.elements?.filter(confField => confField.key === 'applicant');
+    const mainDocumentFields: IConfigurationElement[] = recordFields[0].elements ? recordFields[0].elements.filter(confField => confField.key === 'mainDocument') : [];
+    const attachmentDocumentFields: IConfigurationElement[] =recordFields[0].elements ? recordFields[0].elements.filter(confField => confField.key === 'attachmentDocuments') : [];
+    const correspondentFields: IConfigurationElement[] = recordFields[0].elements ? recordFields[0].elements.filter(confField => confField.key === 'correspondent') : [];
+
     return {
         comment: data.comment,
         completed: data.completed,
@@ -43,31 +44,31 @@ export function newToFormData(data: newIConfiguration): IFormConfiguration {
             caseWorker: configurationFieldToString(recordFields, 'saksbehandler'),
             accessCode: configurationFieldToString(recordFields, 'tilgangsrestriksjon'),
             paragraph: configurationFieldToString(recordFields, 'skjermingshjemmel'),
-        },
-        //TODO: map the different document parts
-        mainDocumentData: {
-            documentStatus: configurationFieldToString(mainDocumentFields, 'dokumentStatus'),
-            documentType: configurationFieldToString(mainDocumentFields, 'dokumentType'),
-            variant: configurationFieldToString(mainDocumentFields, 'dokumentObjekt.variantFormat'),
-        },
-        attachmentDocumentsData: {
-            documentStatus: configurationFieldToString(attachmentDocumentFields, 'dokumentStatus'),
-            documentType: configurationFieldToString(attachmentDocumentFields, 'dokumentType'),
-            variant: configurationFieldToString(attachmentDocumentFields, 'dokumentObjekt.variantFormat'),
-        },
-        applicantData: {
-            protected: configurationFieldToBoolean(applicantFields, 'protected'),
-            organisationNumber: configurationFieldToString(applicantFields, 'organisasjonsnummer'),
-            nationalIdentityNumber: configurationFieldToString(applicantFields, 'fødselsnummer'),
-            name: configurationFieldToString(applicantFields, 'KorrespondansepartNavn'),
-            address: configurationFieldToString(applicantFields, 'Adresse.adresselinje'),
-            postalCode: configurationFieldToString(applicantFields, 'Adresse.postnummer'),
-            city: configurationFieldToString(applicantFields, 'Adresse.poststed'),
-            contactPerson: configurationFieldToString(applicantFields, 'kontaktperson'),
-            phoneNumber: configurationFieldToString(applicantFields, 'Kontaktinformasjon.mobiltelefonnummer'),
-            email: configurationFieldToString(applicantFields, 'Kontaktinformasjon.epostadresse'),
-            accessCode: configurationFieldToString(applicantFields, 'tilgangsrestriksjon'),
-            paragraph: configurationFieldToString(applicantFields, 'skjermingshjemmel'),
-        },
+            mainDocument: {
+                title: configurationFieldToString(recordFields, 'tittel'),
+                documentStatus: configurationFieldToString(mainDocumentFields, 'dokumentStatus'),
+                documentType: configurationFieldToString(mainDocumentFields, 'dokumentType'),
+                variant: configurationFieldToString(mainDocumentFields, 'dokumentObjekt.variantFormat'),
+            },
+            attachmentDocuments: {
+                documentStatus: configurationFieldToString(attachmentDocumentFields, 'dokumentStatus'),
+                documentType: configurationFieldToString(attachmentDocumentFields, 'dokumentType'),
+                variant: configurationFieldToString(attachmentDocumentFields, 'dokumentObjekt.variantFormat'),
+            },
+            correspondent: {
+                protected: configurationFieldToBoolean(correspondentFields, 'protected'),
+                organisationNumber: configurationFieldToString(correspondentFields, 'organisasjonsnummer'),
+                nationalIdentityNumber: configurationFieldToString(correspondentFields, 'fødselsnummer'),
+                name: configurationFieldToString(correspondentFields, 'KorrespondansepartNavn'),
+                address: configurationFieldToString(correspondentFields, 'Adresse.adresselinje'),
+                postalCode: configurationFieldToString(correspondentFields, 'Adresse.postnummer'),
+                city: configurationFieldToString(correspondentFields, 'Adresse.poststed'),
+                contactPerson: configurationFieldToString(correspondentFields, 'kontaktperson'),
+                phoneNumber: configurationFieldToString(correspondentFields, 'Kontaktinformasjon.mobiltelefonnummer'),
+                email: configurationFieldToString(correspondentFields, 'Kontaktinformasjon.epostadresse'),
+                accessCode: configurationFieldToString(correspondentFields, 'tilgangsrestriksjon'),
+                paragraph: configurationFieldToString(correspondentFields, 'skjermingshjemmel'),
+            }
+        }
     }
 }
