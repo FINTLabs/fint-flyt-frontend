@@ -19,12 +19,12 @@ const DocumentForm: React.FunctionComponent<any> = (props) => {
         {input: INPUT_TYPE.TEXT_FIELD, label: "labels.title", formValue: "recordData.title", required: required, error:errors.recordData?.title, value: props.watch("recordData.title"), helpText: "recordData.title", disabled: true},
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.documentStatus", value: props.watch("mainDocumentData.documentStatus"), formValue: "mainDocumentData.documentStatus", dropDownItems: documentStatuses, required: required, error:errors.mainDocumentData?.documentStatus, helpText: "mainDocumentData.documentStatus"},
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.documentType", value: props.watch("mainDocumentData.documentType"), formValue: "mainDocumentData.documentType", dropDownItems: documentTypes, required: required, error:errors.mainDocumentData?.documentType, helpText: "mainDocumentData.documentType"},
-        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.variant", value: variant, formValue: "mainDocumentData.variant", dropDownItems: variantOptions, required: required, error:errors.mainDocumentData?.variant, helpText: "mainDocumentData.variant", disabled: true}
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.variant", value: variant, formValue: "mainDocumentData.variant", dropDownItems: variantOptions, required: false, error:errors.mainDocumentData?.variant, helpText: "mainDocumentData.variant", disabled: true}
     ]
     const objectFormFields: IInputField[] = [
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.documentStatus", value: props.watch("attachmentDocumentsData.documentStatus"), formValue: "attachmentDocumentsData.documentStatus", dropDownItems: documentStatuses, required: required, error:errors.attachmentDocumentsData?.documentStatus, helpText: "mainDocumentData.documentStatus"},
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.documentType", value: props.watch("attachmentDocumentsData.documentType"), formValue: "attachmentDocumentsData.documentType", dropDownItems: documentTypes, required: required, error:errors.attachmentDocumentsData?.documentType, helpText: "mainDocumentData.documentType"},
-        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.variant", value: variant, formValue: "attachmentDocumentsData.variant", dropDownItems: variantOptions, required: required, error:errors.attachmentDocumentsData?.variant, helpText: "mainDocumentData.variant", disabled: true}
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.variant", value: variant, formValue: "attachmentDocumentsData.variant", dropDownItems: variantOptions, required: false, error:errors.attachmentDocumentsData?.variant, helpText: "mainDocumentData.variant", disabled: true}
     ]
     return (
         <div>

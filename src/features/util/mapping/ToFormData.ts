@@ -5,7 +5,8 @@ import {IConfigurationElement, newIConfiguration} from "../../integration/types/
 export function newToFormData(data: newIConfiguration): IFormConfiguration {
     const caseFields: IConfigurationElement[] = data.elements?.filter(confField => confField.key === 'case');
     const recordFields: IConfigurationElement[] = data.elements?.filter(confField => confField.key === 'record');
-    const documentFields: IConfigurationElement[] = data.elements?.filter(confField => confField.key === 'document');
+    const mainDocumentFields: IConfigurationElement[] = data.elements?.filter(confField => confField.key === 'mainDocument');
+    const attachmentDocumentFields: IConfigurationElement[] = data.elements?.filter(confField => confField.key === 'attachmentDocuments');
     const applicantFields: IConfigurationElement[] = data.elements?.filter(confField => confField.key === 'applicant');
     return {
         comment: data.comment,
@@ -45,14 +46,14 @@ export function newToFormData(data: newIConfiguration): IFormConfiguration {
         },
         //TODO: map the different document parts
         mainDocumentData: {
-            documentStatus: configurationFieldToString(documentFields, 'dokumentStatus'),
-            documentType: configurationFieldToString(documentFields, 'dokumentType'),
-            variant: configurationFieldToString(documentFields, 'dokumentObjekt.variantFormat'),
+            documentStatus: configurationFieldToString(mainDocumentFields, 'dokumentStatus'),
+            documentType: configurationFieldToString(mainDocumentFields, 'dokumentType'),
+            variant: configurationFieldToString(mainDocumentFields, 'dokumentObjekt.variantFormat'),
         },
         attachmentDocumentsData: {
-            documentStatus: configurationFieldToString(documentFields, 'dokumentStatus'),
-            documentType: configurationFieldToString(documentFields, 'dokumentType'),
-            variant: configurationFieldToString(documentFields, 'dokumentObjekt.variantFormat'),
+            documentStatus: configurationFieldToString(attachmentDocumentFields, 'dokumentStatus'),
+            documentType: configurationFieldToString(attachmentDocumentFields, 'dokumentType'),
+            variant: configurationFieldToString(attachmentDocumentFields, 'dokumentObjekt.variantFormat'),
         },
         applicantData: {
             protected: configurationFieldToBoolean(applicantFields, 'protected'),
