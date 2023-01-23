@@ -99,7 +99,6 @@ describe('Testing filling Document and Object Form', () => {
 describe('Testing filling Applicant Form', () => {
     it('should fill applicant form', () => {
         cy.get('#applicant-form > .MuiAccordionSummary-root').click()
-        cy.get('#applicantData\\.type-ORGANISATION > .MuiFormControlLabel-root > .MuiTypography-root').click()
         cy.get('.MuiOutlinedInput-root > #applicantData\\.organisationNumber').type('12345612345')
         cy.get('.MuiOutlinedInput-root > #applicantData\\.name').type('test name')
         cy.get('.MuiOutlinedInput-root > #applicantData\\.address').type('adresse')

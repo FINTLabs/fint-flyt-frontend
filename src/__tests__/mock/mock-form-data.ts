@@ -1,6 +1,5 @@
 import {IFormConfiguration, IFormIntegration} from "../../features/integration/types/Form/FormData";
 import {CreationStrategy} from "../../features/integration/types/CreationStrategy";
-import {ApplicantType} from "../../features/integration/types/ApplicantType";
 
 export const MOCK_INTEGRATION_FORMDATA: IFormIntegration = {
     sourceApplicationIntegrationId: 'TEST234',
@@ -30,7 +29,6 @@ export const MOCK_CONFIG_FORMDATA: IFormConfiguration = {
         phoneNumber: "12345678",
         postalCode: "1234",
         protected: true,
-        type: ApplicantType.PERSON
     },
     caseData: {
         caseNumber: null,
@@ -95,7 +93,6 @@ export const MOCK_CONFIG_FORMDATA_FOR_PATCH: IFormConfiguration = {
         phoneNumber: "12345678",
         postalCode: "1234",
         protected: true,
-        type: ApplicantType.PERSON
     },
     caseData: {
         caseNumber: null,
@@ -159,7 +156,6 @@ export const MOCK_NEW_FORMDATA: IFormConfiguration = {
         "phoneNumber": null,
         "postalCode": null,
         "protected": true,
-        "type": "PERSON"
     },
     "attachmentDocumentsData": {
         "documentStatus": null,
@@ -223,7 +219,6 @@ export const MOCK_BY_ID_FORMDATA: IFormConfiguration = {
         "phoneNumber": null,
         "postalCode": null,
         "protected": true,
-        "type": "PERSON"
     },
     "attachmentDocumentsData": {
         "documentStatus": null,

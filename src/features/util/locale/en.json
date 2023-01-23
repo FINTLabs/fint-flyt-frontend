@@ -239,10 +239,6 @@
                 "collection":"On a case collection",
                 "collectionDesc":"Form submitted will be added to predefined case collection. This option requires a valid case number"
             },
-            "applicantOptions": {
-                "individual":"Individual",
-                "organisation":"Organisation"
-            },
             "sourceApplicationIntegrations": {
                 "VIK014": "Søknad om reservasjon av skoleplass",
                 "VIK036": "Søknad til kombinasjonsprogram",

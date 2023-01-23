@@ -1,7 +1,6 @@
 import {FieldConfigurationType, IConfigurationPatch, newIConfiguration} from "../../integration/types/Configuration";
 import { IFormConfiguration } from "../../integration/types/Form/FormData";
 import {CreationStrategy} from "../../integration/types/CreationStrategy";
-import {ApplicantType} from "../../integration/types/ApplicantType";
 
 export function toNewConfiguration(data: IFormConfiguration, integrationId: string, configurationId: any, metadataId: number): newIConfiguration {
     return {
@@ -257,25 +256,20 @@ export function toNewConfiguration(data: IFormConfiguration, integrationId: stri
                     key: 'applicant',
                     fieldConfigurations: [
                         {
-                            key: "type",
-                            type: FieldConfigurationType.STRING,
-                            value: data.applicantData?.type
-                        },
-                        {
                             key: "protected",
                             type: FieldConfigurationType.BOOLEAN,
                             value: data.applicantData.protected.toString()
                         },
-                        data.applicantData.type === ApplicantType.PERSON ? {
-                                key: "fødselsnummer",
-                                type: FieldConfigurationType.DYNAMIC_STRING,
-                                value: data.applicantData?.nationalIdentityNumber === '' ? null : data.applicantData?.nationalIdentityNumber
-                            } :
-                            {
-                                key: "organisasjonsnummer",
-                                type: FieldConfigurationType.DYNAMIC_STRING,
-                                value: data.applicantData?.organisationNumber === '' ? null : data.applicantData?.organisationNumber
-                            },
+                        {
+                            key: "fødselsnummer",
+                            type: FieldConfigurationType.DYNAMIC_STRING,
+                            value: data.applicantData?.nationalIdentityNumber === '' ? null : data.applicantData?.nationalIdentityNumber
+                        },
+                        {
+                            key: "organisasjonsnummer",
+                            type: FieldConfigurationType.DYNAMIC_STRING,
+                            value: data.applicantData?.organisationNumber === '' ? null : data.applicantData?.organisationNumber
+                        },
                         {
                             key: "KorrespondansepartNavn",
                             type: FieldConfigurationType.DYNAMIC_STRING,
@@ -328,25 +322,19 @@ export function toNewConfiguration(data: IFormConfiguration, integrationId: stri
                     key: 'applicant',
                     fieldConfigurations: [
                         {
-                            key: "type",
-                            type: FieldConfigurationType.STRING,
-                            value: data.applicantData?.type
-                        },
-                        {
                             key: "protected",
                             type: FieldConfigurationType.BOOLEAN,
                             value: null
+                        },{
+                            key: "fødselsnummer",
+                            type: FieldConfigurationType.DYNAMIC_STRING,
+                            value: data.applicantData?.nationalIdentityNumber === '' ? null : data.applicantData?.nationalIdentityNumber
                         },
-                        data.applicantData.type === ApplicantType.PERSON ? {
-                                key: "fødselsnummer",
-                                type: FieldConfigurationType.DYNAMIC_STRING,
-                                value: data.applicantData?.nationalIdentityNumber === '' ? null : data.applicantData?.nationalIdentityNumber
-                            } :
-                            {
-                                key: "organisasjonsnummer",
-                                type: FieldConfigurationType.DYNAMIC_STRING,
-                                value: data.applicantData?.organisationNumber === '' ? null : data.applicantData?.organisationNumber
-                            },
+                        {
+                            key: "organisasjonsnummer",
+                            type: FieldConfigurationType.DYNAMIC_STRING,
+                            value: data.applicantData?.organisationNumber === '' ? null : data.applicantData?.organisationNumber
+                        },
                         {
                             key: "KorrespondansepartNavn",
                             type: FieldConfigurationType.DYNAMIC_STRING,
@@ -621,25 +609,20 @@ export function toConfigurationPatch(data: IFormConfiguration, metadataId: any):
                     key: 'applicant',
                     fieldConfigurations: [
                         {
-                            key: "type",
-                            type: FieldConfigurationType.STRING,
-                            value: data.applicantData?.type
-                        },
-                        {
                             key: "protected",
                             type: FieldConfigurationType.BOOLEAN,
                             value: data.applicantData.protected.toString()
                         },
-                        data.applicantData.type === ApplicantType.PERSON ? {
-                                key: "fødselsnummer",
-                                type: FieldConfigurationType.DYNAMIC_STRING,
-                                value: data.applicantData?.nationalIdentityNumber === '' ? null : data.applicantData?.nationalIdentityNumber
-                            } :
-                            {
-                                key: "organisasjonsnummer",
-                                type: FieldConfigurationType.DYNAMIC_STRING,
-                                value: data.applicantData?.organisationNumber === '' ? null : data.applicantData?.organisationNumber
-                            },
+                        {
+                            key: "fødselsnummer",
+                            type: FieldConfigurationType.DYNAMIC_STRING,
+                            value: data.applicantData?.nationalIdentityNumber === '' ? null : data.applicantData?.nationalIdentityNumber
+                        },
+                        {
+                            key: "organisasjonsnummer",
+                            type: FieldConfigurationType.DYNAMIC_STRING,
+                            value: data.applicantData?.organisationNumber === '' ? null : data.applicantData?.organisationNumber
+                        },
                         {
                             key: "KorrespondansepartNavn",
                             type: FieldConfigurationType.DYNAMIC_STRING,
@@ -688,66 +671,61 @@ export function toConfigurationPatch(data: IFormConfiguration, metadataId: any):
                     ]
                 }
                 :
-            {
-                key: 'applicant',
-                fieldConfigurations: [
-                    {
-                        key: "type",
-                        type: FieldConfigurationType.STRING,
-                        value: data.applicantData?.type
-                    },
-                    {
-                        key: "protected",
-                        type: FieldConfigurationType.BOOLEAN,
-                        value: null
-                    },
-                    data.applicantData.type === ApplicantType.PERSON ? {
+                {
+                    key: 'applicant',
+                    fieldConfigurations: [
+                        {
+                            key: "protected",
+                            type: FieldConfigurationType.BOOLEAN,
+                            value: null
+                        },
+                        {
                             key: "fødselsnummer",
                             type: FieldConfigurationType.DYNAMIC_STRING,
                             value: data.applicantData?.nationalIdentityNumber === '' ? null : data.applicantData?.nationalIdentityNumber
-                        } :
+                        },
                         {
                             key: "organisasjonsnummer",
                             type: FieldConfigurationType.DYNAMIC_STRING,
                             value: data.applicantData?.organisationNumber === '' ? null : data.applicantData?.organisationNumber
                         },
-                    {
-                        key: "KorrespondansepartNavn",
-                        type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: data.applicantData?.name === '' ? null : data.applicantData?.name
-                    },
-                    {
-                        key: "Adresse.adresselinje",
-                        type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: data.applicantData?.address === '' ? null : data.applicantData?.address
-                    },
-                    {
-                        key: "Adresse.postnummer",
-                        type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: data.applicantData?.postalCode === '' ? null : data.applicantData?.postalCode
-                    },
-                    {
-                        key: "Adresse.poststed",
-                        type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: data.applicantData?.city === '' ? null : data.applicantData?.city
-                    },
-                    {
-                        key: "kontaktperson",
-                        type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: data.applicantData?.contactPerson === '' ? null : data.applicantData?.contactPerson
-                    },
-                    {
-                        key: "Kontaktinformasjon.mobiltelefonnummer",
-                        type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: data.applicantData?.phoneNumber === '' ? null : data.applicantData?.phoneNumber
-                    },
-                    {
-                        key: "Kontaktinformasjon.epostadresse",
-                        type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: data.applicantData?.email === '' ? null : data.applicantData?.email
-                    },
-                ]
-            }
+                        {
+                            key: "KorrespondansepartNavn",
+                            type: FieldConfigurationType.DYNAMIC_STRING,
+                            value: data.applicantData?.name === '' ? null : data.applicantData?.name
+                        },
+                        {
+                            key: "Adresse.adresselinje",
+                            type: FieldConfigurationType.DYNAMIC_STRING,
+                            value: data.applicantData?.address === '' ? null : data.applicantData?.address
+                        },
+                        {
+                            key: "Adresse.postnummer",
+                            type: FieldConfigurationType.DYNAMIC_STRING,
+                            value: data.applicantData?.postalCode === '' ? null : data.applicantData?.postalCode
+                        },
+                        {
+                            key: "Adresse.poststed",
+                            type: FieldConfigurationType.DYNAMIC_STRING,
+                            value: data.applicantData?.city === '' ? null : data.applicantData?.city
+                        },
+                        {
+                            key: "kontaktperson",
+                            type: FieldConfigurationType.DYNAMIC_STRING,
+                            value: data.applicantData?.contactPerson === '' ? null : data.applicantData?.contactPerson
+                        },
+                        {
+                            key: "Kontaktinformasjon.mobiltelefonnummer",
+                            type: FieldConfigurationType.DYNAMIC_STRING,
+                            value: data.applicantData?.phoneNumber === '' ? null : data.applicantData?.phoneNumber
+                        },
+                        {
+                            key: "Kontaktinformasjon.epostadresse",
+                            type: FieldConfigurationType.DYNAMIC_STRING,
+                            value: data.applicantData?.email === '' ? null : data.applicantData?.email
+                        },
+                    ]
+                }
         ]
     }
 }

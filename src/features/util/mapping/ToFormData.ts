@@ -56,7 +56,6 @@ export function newToFormData(data: newIConfiguration): IFormConfiguration {
         },
         applicantData: {
             protected: configurationFieldToBoolean(applicantFields, 'protected'),
-            type: configurationFieldToString(applicantFields, 'type'),
             organisationNumber: configurationFieldToString(applicantFields, 'organisasjonsnummer'),
             nationalIdentityNumber: configurationFieldToString(applicantFields, 'fødselsnummer'),
             name: configurationFieldToString(applicantFields, 'KorrespondansepartNavn'),
