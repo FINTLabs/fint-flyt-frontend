@@ -74,7 +74,7 @@
           "properties":[]}
       },{
         "valueBuildStrategy":"FIXED_ARCHIVE_CODE_VALUE",
-        "field":"DokumentBeskrivelse.dokumentObjekt.variantFormat",
+        "field":"DokumentBeskrivelse.dokumentObjekt.variantformat",
         "valueBuilder":{
           "value":"",
           "properties":[]}}

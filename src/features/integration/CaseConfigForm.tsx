@@ -29,7 +29,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import {useTranslation} from "react-i18next";
 import InputField from "./components/form/InputField";
 import {INPUT_TYPE} from "./types/InputType.enum";
-import {toConfigurationPatch, toNewConfiguration} from "../util/mapping/ToConfiguration";
+import {toConfigurationPatch, toConfiguration} from "../util/mapping/ToConfiguration";
 import {IConfigurationPatch, newIConfiguration} from "./types/Configuration";
 import ConfigurationRepository from "../../shared/repositories/ConfigurationRepository";
 import IntegrationRepository from "../../shared/repositories/IntegrationRepository";
@@ -102,7 +102,7 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 );
 
-const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
+const CaseConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.configurationForm'});
     const classes = useStyles();
     const editConfig: boolean = /edit$/.test(window.location.pathname)
@@ -270,7 +270,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
         }
         data.completed = true;
         data.recordData.correspondent.protected = protectedCheck;
-        const configuration: newIConfiguration = toNewConfiguration(data, activeIntegration?.id, activeConfigId, selectedMetadata.id);
+        const configuration: newIConfiguration = toConfiguration(data, activeIntegration?.id, activeConfigId, selectedMetadata.id);
         if (configuration && activeConfigId !== undefined) {
             const iConfiguration: newIConfiguration = toConfigurationPatch(data, selectedMetadata.id);
             activateConfiguration(activeIntegration?.id, activeConfigId, iConfiguration)
@@ -291,7 +291,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
         }
         data.completed = false;
         data.recordData.correspondent.protected = protectedCheck;
-        const configuration: newIConfiguration = toNewConfiguration(data, activeIntegration?.id, activeConfigId, selectedMetadata.id);
+        const configuration: newIConfiguration = toConfiguration(data, activeIntegration?.id, activeConfigId, selectedMetadata.id);
         if (configuration && activeConfigId !== undefined) {
             const iConfiguration: newIConfiguration = toConfigurationPatch(data, selectedMetadata.id);
             saveConfiguration(activeIntegration?.id, activeConfigId, iConfiguration)
@@ -401,4 +401,4 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     );
 }
 
-export default withRouter(ConfigurationForm);
+export default withRouter(CaseConfigForm);

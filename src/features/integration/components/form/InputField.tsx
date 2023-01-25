@@ -177,7 +177,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                         sx={{ mb: 3, width: 'inherit'}}
                         onChange={onChange}
                         onBlur={onBlur}
-                        value={value}
+                        value={props.disabledField ? props.value : value}
                         error={!!props.error}
                         helperText={props.error ? t('requiredField') : ''}
                     />

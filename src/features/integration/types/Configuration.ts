@@ -5,11 +5,25 @@ export interface IFieldConfiguration {
     value: string | null;
 }
 
-export interface ICollectionFieldConfiguration {
+export interface IFromCollectionFieldConfiguration {
+    id?: string;
+    collectionReference: string;
+    fieldConfigurations?: IFieldConfiguration[];
+    collectionElements?: ICollectionElement[];
+}
+
+export interface IFixedFieldConfiguration {
+    id?: string;
+    elements?: IConfigurationElement[];
+    fieldConfigurations?: IFieldConfiguration[];
+    collectionElements?: ICollectionElement[];
+}
+
+export interface ICollectionElement {
     id?: string;
     key: string;
-    type: string;
-    values: string[] | null;
+    fixed?: IFixedFieldConfiguration[];
+    fromCollection?: IFromCollectionFieldConfiguration[];
 }
 
 export interface IConfigurationElement {
@@ -17,8 +31,9 @@ export interface IConfigurationElement {
     searchParameters?: string[];
     key: string;
     elements?: IConfigurationElement[];
+    collectionElements?: ICollectionElement[];
     fieldConfigurations?: IFieldConfiguration[];
-    collectionFieldConfigurations?: ICollectionFieldConfiguration[]
+    collectionFieldConfigurations?: IFromCollectionFieldConfiguration[]
 }
 
 export interface newIConfiguration {

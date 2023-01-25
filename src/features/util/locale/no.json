@@ -246,6 +246,8 @@
                 "caseWorker": "Saksbehandler: ",
                 "documentStatus": "Status: ",
                 "variant": "Variant: ",
+                "format": "Format: ",
+                "file": "File: ",
                 "organisationNumber": "Organisasjonsnummer: ",
                 "nationalIdentityNumber": "Fødselsnummer: ",
                 "applicantName": "Navn: ",
@@ -341,6 +343,8 @@
             "documentStatus": "Status",
             "documentCategory": "Dokumentkategori",
             "variant": "Variant",
+            "format": "Format",
+            "file": "File",
             "applicantType": "Velg avsendertype",
             "organisationNumber": "Organisasjonsnummer",
             "nationalIdentityNumber": "Fødselsnummer",
@@ -418,7 +422,9 @@
                 "documentStatus": "",
                 "accessCode": "",
                 "paragraph": "",
-                "variant": ""
+                "format": "",
+                "variant": "",
+                "file": ""
             },
             "applicantConfiguration": {
                 "type": "",
@@ -499,6 +505,8 @@
             "documentStatus": "Status til dokumentet. Eksempel: B, F",
             "documentType": "Eksempel: Avtaler, Innsynsbehandling, Følgebrev, Juridisk ..",
             "variant": "Angivelse av hvilken variant et dokument forekommer. - Produksjonsformat",
+            "format": "Filformatet f.eks PDF",
+            "file": "Fil",
             "protected": "Skjerming av avsender, krever tilgangsrestriksjon og hjemmel",
             "type": "Person eller organisasjon/bedrift",
             "organisationNumber": "Orgnr for avsenderbedrift",

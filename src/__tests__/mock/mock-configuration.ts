@@ -52,7 +52,7 @@ export const MOCK_CONFIGURATION: newIConfiguration = {
                 {
                     "key": "status",
                     "type": "STRING",
-                    "value": ""
+                    "value": null
                 },
                 {
                     "key": "tilgangsrestriksjon",
@@ -115,7 +115,8 @@ export const MOCK_CONFIGURATION: newIConfiguration = {
                     "value": "tertTitle"
                 }
             ],
-            "key": "case"
+            "key": "case",
+            "searchParameters": undefined
         },
         {
             "elements": [
@@ -137,15 +138,30 @@ export const MOCK_CONFIGURATION: newIConfiguration = {
                             "value": "cat8"
                         },
                         {
-                            "key": "dokumentObjekt.variantFormat",
+                            "key": "dokumentObjekt.filformat",
                             "type": "STRING",
-                            "value": "var"
+                            "value": "www.kodeverk.no/A"
+                        },
+                        {
+                            "key": "dokumentObjekt.variantformat",
+                            "type": "STRING",
+                            "value": "www.kodeverk.no/PDF"
+                        },
+                        {
+                            "key": "dokumentObjekt.fil",
+                            "type": "STRING",
+                            "value": "$ifg{formPdf}"
                         }
                     ],
                     "key": "mainDocument"
                 },
                 {
                     "fieldConfigurations": [
+                        {
+                            "key": "tittel",
+                            "type": "STRING",
+                            "value": "$ifg{name}"
+                        },
                         {
                             "key": "dokumentStatus",
                             "type": "STRING",
@@ -157,9 +173,19 @@ export const MOCK_CONFIGURATION: newIConfiguration = {
                             "value": "cat8"
                         },
                         {
-                            "key": "dokumentObjekt.variantFormat",
+                            "key": "dokumentObjekt.filformat",
                             "type": "STRING",
-                            "value": "var"
+                            "value": "www.kodeverk.no/P"
+                        },
+                        {
+                            "key": "dokumentObjekt.variantformat",
+                            "type": "STRING",
+                            "value": "$igf{type}"
+                        },
+                        {
+                            "key": "dokumentObjekt.fil",
+                            "type": "STRING",
+                            "value": "$igf{file}"
                         }
                     ],
                     "key": "attachmentDocuments"
@@ -324,7 +350,7 @@ export const MOCK_CONFIGURATION_PATCH: IConfigurationPatch = {
                 {
                     "key": "status",
                     "type": "STRING",
-                    "value": ""
+                    "value": null
                 },
                 {
                     "key": "tilgangsrestriksjon",
@@ -409,15 +435,30 @@ export const MOCK_CONFIGURATION_PATCH: IConfigurationPatch = {
                             "value": "cat8"
                         },
                         {
-                            "key": "dokumentObjekt.variantFormat",
+                            "key": "dokumentObjekt.filformat",
                             "type": "STRING",
-                            "value": "var"
+                            "value": "www.kodeverk.no/A"
+                        },
+                        {
+                            "key": "dokumentObjekt.variantformat",
+                            "type": "STRING",
+                            "value": "www.kodeverk.no/PDF"
+                        },
+                        {
+                            "key": "dokumentObjekt.fil",
+                            "type": "STRING",
+                            "value": "$ifg{formPdf}"
                         }
                     ],
                     "key": "mainDocument"
                 },
                 {
                     "fieldConfigurations": [
+                        {
+                            "key": "tittel",
+                            "type": "STRING",
+                            "value": "$ifg{name}"
+                        },
                         {
                             "key": "dokumentStatus",
                             "type": "STRING",
@@ -429,9 +470,19 @@ export const MOCK_CONFIGURATION_PATCH: IConfigurationPatch = {
                             "value": "cat8"
                         },
                         {
-                            "key": "dokumentObjekt.variantFormat",
+                            "key": "dokumentObjekt.filformat",
                             "type": "STRING",
-                            "value": "var"
+                            "value": "www.kodeverk.no/P"
+                        },
+                        {
+                            "key": "dokumentObjekt.variantformat",
+                            "type": "STRING",
+                            "value": "$igf{type}"
+                        },
+                        {
+                            "key": "dokumentObjekt.fil",
+                            "type": "STRING",
+                            "value": "$igf{file}"
                         }
                     ],
                     "key": "attachmentDocuments"

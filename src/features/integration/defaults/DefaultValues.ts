@@ -46,12 +46,17 @@ export const defaultConfigurationValues: IFormConfiguration = {
             title: null,
             documentStatus: null,
             documentType: null,
-            variant: null
+            format: null,
+            variant: null,
+            file: null
         },
         attachmentDocuments: {
+            title: null,
             documentStatus: null,
             documentType: null,
-            variant: null
+            format: null,
+            variant: null,
+            file: null
         },
         correspondent: {
             protected: false,
@@ -63,6 +68,7 @@ export const defaultConfigurationValues: IFormConfiguration = {
             city: null,
             contactPerson: null,
             phoneNumber: null,
+            mobilePhoneNumber: null,
             email: null,
             accessCode: null,
             paragraph: null
@@ -88,6 +94,14 @@ export const variantOptions: ISelect[] = [
 ]
 
 export const variant: string = 'https://beta.felleskomponent.no/arkiv/kodeverk/variantformat/systemid/P'
+
+export const formatOptions: ISelect[] = [
+    {label: '[F] Filformat PLACEHOLDER', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/filformat/systemid/F'}
+]
+
+export const format: string = 'https://beta.felleskomponent.no/arkiv/kodeverk/filformat/systemid/F'
+
+
 
 export const creationStrategies: ISelect[] = [
     {label: 'selects.creationStrategies.new', value: 'NEW',  description: "selects.creationStrategies.newDesc"},
@@ -368,13 +382,20 @@ export const fieldHelp = {
             documentStatus: 'Eksempel: B, F',
             accessCode: 'Eksempel: Unntatt offentlighet, persona,l varslingssak, ugradert. ',
             paragraph: 'Eksempel: Offl. §13',
-            variant: 'Arkivformat/ produksjonsformat / offentlig variant'
+            format: 'Filformat, f.eks PDF',
+            variant: 'Arkivformat/ produksjonsformat / offentlig variant',
+            file: 'Fil'
         },
         attachmentDocuments: {
+            title: 'Tittel kan være en konkret tekststreng, eller en kombinasjon\n' +
+                ' av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak.\n' +
+                '  (Se Noark))',
             documentStatus: 'Eksempel: B, F',
             accessCode: 'Eksempel: Unntatt offentlighet, persona,l varslingssak, ugradert. ',
             paragraph: 'Eksempel: Offl. §13',
-            variant: 'Arkivformat/ produksjonsformat / offentlig variant'
+            format: 'Filformat, f.eks PDF',
+            variant: 'Arkivformat/ produksjonsformat / offentlig variant',
+            file: 'Fil'
         },
         correspondent: {
             type: 'Person eller organisasjon/bedrift',
@@ -623,15 +644,20 @@ export const EXAMPLE_FORM: IFormConfiguration = {
         "recordType": '',
         "title": "{foo} bar",
         "attachmentDocuments": {
+            "title": '',
             "documentStatus": '',
             "documentType": '',
-            "variant": ''
+            "format": '',
+            "variant": '',
+            "file": ''
         },
         "mainDocument": {
             "title": '',
             "documentStatus": '',
             "documentType": '',
+            "format": '',
             "variant": '',
+            "file": '',
         },
         "correspondent": {
             "protected": false,
@@ -643,6 +669,7 @@ export const EXAMPLE_FORM: IFormConfiguration = {
             "city": '',
             "contactPerson": '',
             "phoneNumber": '',
+            "mobilePhoneNumber": '',
             "email": '',
             "accessCode": '',
             "paragraph": ''

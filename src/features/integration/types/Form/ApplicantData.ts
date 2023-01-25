@@ -8,6 +8,7 @@ export default interface IApplicantData {
     city: string | null;
     contactPerson: string | null;
     phoneNumber: string | null;
+    mobilePhoneNumber: string | null;
     email: string | null;
     accessCode: string | null;
     paragraph: string | null;

@@ -145,6 +145,7 @@
                 "documentStatus": "Status: ",
                 "variant": "Variant: ",
                 "format": "Format: ",
+                "file": "Fil: ",
                 "organisationNumber": "Organisation number: ",
                 "nationalIdentityNumber": "National identity number: ",
                 "applicantName": "Name: ",
@@ -219,6 +220,7 @@
             "documentStatus": "Status",
             "variant": "Variant",
             "format": "Format: ",
+            "file": "Fil: ",
             "applicantType": "Select applicant type",
             "organisationNumber": "Organisation number",
             "nationalIdentityNumber": "National identity number",
@@ -295,7 +297,9 @@
                 "documentStatus": "",
                 "accessCode": "",
                 "paragraph": "",
-                "variant": ""
+                "format": "",
+                "variant": "",
+                "file": ""
             },
             "applicantConfiguration": {
                 "type": "",
@@ -375,14 +379,18 @@
                 "documentStatus": "Eksempel: B, F",
                 "accessCode": "Eksempel: Unntatt offentlighet, persona,l varslingssak, ugradert. ",
                 "paragraph": "Eksempel: Offl. §13",
-                "variant": "Arkivformat/ produksjonsformat / offentlig variant"
+                "format": "Filformat",
+                "variant": "Arkivformat/ produksjonsformat / offentlig variant",
+                "file": "Fil"
             },
             "attachmentDocuments": {
                 "title": "Tittel kan være en konkret tekststreng, eller en kombinasjon av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak.(Se Noark))",
                 "documentStatus": "Eksempel: B, F",
                 "accessCode": "Eksempel: Unntatt offentlighet, persona,l varslingssak, ugradert. ",
                 "paragraph": "Eksempel: Offl. §13",
-                "variant": "Arkivformat/ produksjonsformat / offentlig variant"
+                "format": "Filformat",
+                "variant": "Arkivformat/ produksjonsformat / offentlig variant",
+                "file": "Fil"
             },
             "correspondent": {
                 "type": "Person eller organisasjon/bedrift",

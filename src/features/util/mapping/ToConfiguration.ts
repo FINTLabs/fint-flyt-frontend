@@ -2,8 +2,7 @@ import {FieldConfigurationType, IConfigurationPatch, newIConfiguration} from "..
 import { IFormConfiguration } from "../../integration/types/Form/FormData";
 import {CreationStrategy} from "../../integration/types/CreationStrategy";
 
-export function toNewConfiguration(data: IFormConfiguration, integrationId: string, configurationId: any, metadataId: number): newIConfiguration {
-    console.log(data)
+export function toConfiguration(data: IFormConfiguration, integrationId: string, configurationId: any, metadataId: number): newIConfiguration {
     return {
         integrationId: integrationId,
         id: configurationId,
@@ -161,15 +160,31 @@ export function toNewConfiguration(data: IFormConfiguration, integrationId: stri
                                 value: data.recordData.mainDocument?.documentType
                             },
                             {
-                                key: "dokumentObjekt.variantFormat",
+                                key: "dokumentObjekt.filformat",
+                                type: FieldConfigurationType.STRING,
+                                value: data.recordData.mainDocument?.format
+                            },
+                            {
+                                key: "dokumentObjekt.variantformat",
                                 type: FieldConfigurationType.STRING,
                                 value: data.recordData.mainDocument?.variant
+                            }
+                            ,
+                            {
+                                key: "dokumentObjekt.fil",
+                                type: FieldConfigurationType.STRING,
+                                value: data.recordData.mainDocument?.file
                             }
                         ]
                     },
                     {
                         key: 'attachmentDocuments',
                         fieldConfigurations: [
+                            {
+                                key: "tittel",
+                                type: FieldConfigurationType.STRING,
+                                value: data.recordData.attachmentDocuments?.title
+                            },
                             {
                                 key: "dokumentStatus",
                                 type: FieldConfigurationType.STRING,
@@ -181,9 +196,20 @@ export function toNewConfiguration(data: IFormConfiguration, integrationId: stri
                                 value: data.recordData.attachmentDocuments?.documentType
                             },
                             {
-                                key: "dokumentObjekt.variantFormat",
+                                key: "dokumentObjekt.filformat",
+                                type: FieldConfigurationType.STRING,
+                                value: data.recordData.attachmentDocuments?.format
+                            },
+                            {
+                                key: "dokumentObjekt.variantformat",
                                 type: FieldConfigurationType.STRING,
                                 value: data.recordData.attachmentDocuments?.variant
+                            }
+                            ,
+                            {
+                                key: "dokumentObjekt.fil",
+                                type: FieldConfigurationType.STRING,
+                                value: data.recordData.attachmentDocuments?.file
                             }
                         ]
                     },
@@ -518,15 +544,31 @@ export function toConfigurationPatch(data: IFormConfiguration, metadataId: any):
                                 value: data.recordData.mainDocument?.documentType
                             },
                             {
-                                key: "dokumentObjekt.variantFormat",
+                                key: "dokumentObjekt.filformat",
+                                type: FieldConfigurationType.STRING,
+                                value: data.recordData.mainDocument?.format
+                            },
+                            {
+                                key: "dokumentObjekt.variantformat",
                                 type: FieldConfigurationType.STRING,
                                 value: data.recordData.mainDocument?.variant
+                            }
+                            ,
+                            {
+                                key: "dokumentObjekt.fil",
+                                type: FieldConfigurationType.STRING,
+                                value: data.recordData.mainDocument?.file
                             }
                         ]
                     },
                     {
                         key: 'attachmentDocuments',
                         fieldConfigurations: [
+                            {
+                                key: "tittel",
+                                type: FieldConfigurationType.STRING,
+                                value: data.recordData.attachmentDocuments?.title
+                            },
                             {
                                 key: "dokumentStatus",
                                 type: FieldConfigurationType.STRING,
@@ -538,9 +580,20 @@ export function toConfigurationPatch(data: IFormConfiguration, metadataId: any):
                                 value: data.recordData.attachmentDocuments?.documentType
                             },
                             {
-                                key: "dokumentObjekt.variantFormat",
+                                key: "dokumentObjekt.filformat",
+                                type: FieldConfigurationType.STRING,
+                                value: data.recordData.attachmentDocuments?.format
+                            },
+                            {
+                                key: "dokumentObjekt.variantformat",
                                 type: FieldConfigurationType.STRING,
                                 value: data.recordData.attachmentDocuments?.variant
+                            }
+                            ,
+                            {
+                                key: "dokumentObjekt.fil",
+                                type: FieldConfigurationType.STRING,
+                                value: data.recordData.attachmentDocuments?.file
                             }
                         ]
                     },

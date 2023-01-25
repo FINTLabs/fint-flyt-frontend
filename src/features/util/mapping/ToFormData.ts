@@ -48,12 +48,17 @@ export function newToFormData(data: newIConfiguration): IFormConfiguration {
                 title: configurationFieldToString(recordFields, 'tittel'),
                 documentStatus: configurationFieldToString(mainDocumentFields, 'dokumentStatus'),
                 documentType: configurationFieldToString(mainDocumentFields, 'dokumentType'),
-                variant: configurationFieldToString(mainDocumentFields, 'dokumentObjekt.variantFormat'),
+                format: configurationFieldToString(mainDocumentFields, 'dokumentObjekt.filformat'),
+                variant: configurationFieldToString(mainDocumentFields, 'dokumentObjekt.variantformat'),
+                file: configurationFieldToString(mainDocumentFields, 'dokumentObjekt.fil')
             },
             attachmentDocuments: {
+                title: configurationFieldToString(attachmentDocumentFields, 'tittel'),
                 documentStatus: configurationFieldToString(attachmentDocumentFields, 'dokumentStatus'),
                 documentType: configurationFieldToString(attachmentDocumentFields, 'dokumentType'),
-                variant: configurationFieldToString(attachmentDocumentFields, 'dokumentObjekt.variantFormat'),
+                format: configurationFieldToString(attachmentDocumentFields, 'dokumentObjekt.filformat'),
+                variant: configurationFieldToString(attachmentDocumentFields, 'dokumentObjekt.variantformat'),
+                file: configurationFieldToString(attachmentDocumentFields, 'dokumentObjekt.fil')
             },
             correspondent: {
                 protected: configurationFieldToBoolean(correspondentFields, 'protected'),
@@ -65,6 +70,7 @@ export function newToFormData(data: newIConfiguration): IFormConfiguration {
                 city: configurationFieldToString(correspondentFields, 'Adresse.poststed'),
                 contactPerson: configurationFieldToString(correspondentFields, 'kontaktperson'),
                 phoneNumber: configurationFieldToString(correspondentFields, 'Kontaktinformasjon.mobiltelefonnummer'),
+                mobilePhoneNumber: configurationFieldToString(correspondentFields, 'Kontaktinformasjon.mobiltelefonnummer'),
                 email: configurationFieldToString(correspondentFields, 'Kontaktinformasjon.epostadresse'),
                 accessCode: configurationFieldToString(correspondentFields, 'tilgangsrestriksjon'),
                 paragraph: configurationFieldToString(correspondentFields, 'skjermingshjemmel'),

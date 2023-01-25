@@ -15,7 +15,6 @@ export const MOCK_INTEGRATION_FORMDATA2: IFormIntegration = {
 
 export const MOCK_CONFIG_FORMDATA: IFormConfiguration = {
     completed: false,
-    metadataId: 1,
     caseData: {
         caseNumber: null,
         accessCode: "code42",
@@ -33,7 +32,7 @@ export const MOCK_CONFIG_FORMDATA: IFormConfiguration = {
         secondaryClass: "2class",
         secondaryClassification: "rose",
         secondaryTitle: "secTitle",
-        status: "",
+        status: null,
         tertiaryClass: "3class",
         tertiaryClassification: "everdeen",
         tertiaryTitle: "tertTitle",
@@ -53,12 +52,17 @@ export const MOCK_CONFIG_FORMDATA: IFormConfiguration = {
             title: "record title",
             documentStatus: "D9",
             documentType: "cat8",
-            variant: "var",
+            format: "www.kodeverk.no/A",
+            variant: "www.kodeverk.no/PDF",
+            file: "$ifg{formPdf}",
         },
         attachmentDocuments: {
+            title: "$ifg{name}",
             documentStatus: "D9",
             documentType: "cat8",
-            variant: "var"
+            format: "www.kodeverk.no/P",
+            variant: "$igf{type}",
+            file: "$igf{file}"
         },
         correspondent: {
             accessCode: "code2",
@@ -68,9 +72,10 @@ export const MOCK_CONFIG_FORMDATA: IFormConfiguration = {
             email: "hello@world.no",
             name: "Anakin Skywalker",
             nationalIdentityNumber: "123456789",
-            organisationNumber: "",
+            organisationNumber: null,
             paragraph: "p3",
             phoneNumber: "12345678",
+            mobilePhoneNumber: "12345678",
             postalCode: "1234",
             protected: true,
         }
@@ -118,12 +123,17 @@ export const MOCK_CONFIG_FORMDATA_FOR_PATCH: IFormConfiguration = {
             title: "record title",
             documentStatus: "D9",
             documentType: "cat8",
-            variant: "var"
+            format: "form",
+            variant: "var",
+            file: "fil",
         },
         attachmentDocuments: {
+            title: "record title",
             documentStatus: "D9",
             documentType: "cat8",
-            variant: "var"
+            format: "form",
+            variant: "var",
+            file: "fil",
         },
         correspondent: {
             accessCode: "code2",
@@ -136,6 +146,7 @@ export const MOCK_CONFIG_FORMDATA_FOR_PATCH: IFormConfiguration = {
             organisationNumber: "",
             paragraph: "p3",
             phoneNumber: "12345678",
+            mobilePhoneNumber: "12345678",
             postalCode: "1234",
             protected: true,
         }
@@ -182,12 +193,17 @@ export const MOCK_NEW_FORMDATA: IFormConfiguration = {
             "title": "foo $if{bar}",
             "documentStatus": null,
             "documentType": null,
-            "variant": null
+            "format": null,
+            "variant": null,
+            "file": null
         },
         "attachmentDocuments": {
+            "title": null,
             "documentStatus": null,
             "documentType": null,
-            "variant": null
+            "format": null,
+            "variant": null,
+            "file": null
         },
         "correspondent": {
             "accessCode": null,
@@ -200,6 +216,7 @@ export const MOCK_NEW_FORMDATA: IFormConfiguration = {
             "organisationNumber": null,
             "paragraph": null,
             "phoneNumber": null,
+            "mobilePhoneNumber": null,
             "postalCode": null,
             "protected": true,
         },
@@ -245,12 +262,17 @@ export const MOCK_BY_ID_FORMDATA: IFormConfiguration = {
             "title": "foo $if{bar}",
             "documentStatus": null,
             "documentType": null,
-            "variant": null
+            "format": null,
+            "variant": null,
+            "file": null
         },
         "attachmentDocuments": {
+            "title": null,
             "documentStatus": null,
             "documentType": null,
-            "variant": null
+            "format": null,
+            "variant": null,
+            "file": null
         },
         "correspondent": {
             "accessCode": null,
@@ -263,6 +285,7 @@ export const MOCK_BY_ID_FORMDATA: IFormConfiguration = {
             "organisationNumber": null,
             "paragraph": null,
             "phoneNumber": null,
+            "mobilePhoneNumber": null,
             "postalCode": null,
             "protected": true,
         }

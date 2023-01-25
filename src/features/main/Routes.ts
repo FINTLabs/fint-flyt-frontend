@@ -4,9 +4,9 @@ import Log from "../log/Log";
 import IntegrationOverview from "../integrationOverview/IntegrationOverview";
 import InstanceOverview from "../instanceOverview/InstanceOverview";
 import Support from "../support/Support";
-import ConfigurationForm from "../integration/ConfigurationForm";
 import {IntegrationForm} from "../integration/components/IntegrationForm";
 import Admin from "../admin/Admin";
+import ConfigurationFormWrapper from "../integration/ConfigurationFormWrapper";
 
 const routes: IRoute[] = [
     {
@@ -28,19 +28,19 @@ const routes: IRoute[] = [
     {
         path: '/integration/configuration/new',
         name: 'newIntegration',
-        component: ConfigurationForm,
+        component: ConfigurationFormWrapper,
         exact: true,
     },
     {
         path: '/integration/configuration/edit',
         name: 'editIntegration',
-        component: ConfigurationForm,
+        component: ConfigurationFormWrapper,
         exact: true
     },
     {
         path: '/integration/configuration/new-configuration',
         name: 'newConfiguration',
-        component: ConfigurationForm,
+        component: ConfigurationFormWrapper,
         exact: true
     },
     {
