@@ -150,7 +150,7 @@ export function toConfiguration(data: IFormConfiguration, integrationId: string,
                                 value: data.recordData.title
                             },
                             {
-                                key: "dokumentStatus",
+                                key: "dokumentstatus",
                                 type: FieldConfigurationType.STRING,
                                 value: data.recordData.mainDocument?.documentStatus
                             },
@@ -160,7 +160,12 @@ export function toConfiguration(data: IFormConfiguration, integrationId: string,
                                 value: data.recordData.mainDocument?.documentType
                             },
                             {
-                                key: "dokumentObjekt.filformat",
+                                key: "tilknyttetRegistreringSom",
+                                type: FieldConfigurationType.STRING,
+                                value: data.recordData.mainDocument?.role
+                            },
+                            {
+                                key: "dokumentObjekt.format",
                                 type: FieldConfigurationType.STRING,
                                 value: data.recordData.mainDocument?.format
                             },
@@ -186,7 +191,7 @@ export function toConfiguration(data: IFormConfiguration, integrationId: string,
                                 value: data.recordData.attachmentDocuments?.title
                             },
                             {
-                                key: "dokumentStatus",
+                                key: "dokumentstatus",
                                 type: FieldConfigurationType.STRING,
                                 value: data.recordData.attachmentDocuments?.documentStatus
                             },
@@ -196,7 +201,12 @@ export function toConfiguration(data: IFormConfiguration, integrationId: string,
                                 value: data.recordData.attachmentDocuments?.documentType
                             },
                             {
-                                key: "dokumentObjekt.filformat",
+                                key: "tilknyttetRegistreringSom",
+                                type: FieldConfigurationType.STRING,
+                                value: data.recordData.attachmentDocuments?.role
+                            },
+                            {
+                                key: "dokumentObjekt.format",
                                 type: FieldConfigurationType.STRING,
                                 value: data.recordData.attachmentDocuments?.format
                             },
@@ -534,7 +544,7 @@ export function toConfigurationPatch(data: IFormConfiguration, metadataId: any):
                                 value: data.recordData.mainDocument?.documentStatus
                             },
                             {
-                                key: "dokumentStatus",
+                                key: "dokumentstatus",
                                 type: FieldConfigurationType.STRING,
                                 value: data.recordData.mainDocument?.documentStatus
                             },
@@ -544,7 +554,12 @@ export function toConfigurationPatch(data: IFormConfiguration, metadataId: any):
                                 value: data.recordData.mainDocument?.documentType
                             },
                             {
-                                key: "dokumentObjekt.filformat",
+                                key: "tilknyttetRegistreringSom",
+                                type: FieldConfigurationType.STRING,
+                                value: data.recordData.mainDocument?.role
+                            },
+                            {
+                                key: "dokumentObjekt.format",
                                 type: FieldConfigurationType.STRING,
                                 value: data.recordData.mainDocument?.format
                             },
@@ -570,7 +585,7 @@ export function toConfigurationPatch(data: IFormConfiguration, metadataId: any):
                                 value: data.recordData.attachmentDocuments?.title
                             },
                             {
-                                key: "dokumentStatus",
+                                key: "dokumentstatus",
                                 type: FieldConfigurationType.STRING,
                                 value: data.recordData.attachmentDocuments?.documentStatus
                             },
@@ -580,7 +595,12 @@ export function toConfigurationPatch(data: IFormConfiguration, metadataId: any):
                                 value: data.recordData.attachmentDocuments?.documentType
                             },
                             {
-                                key: "dokumentObjekt.filformat",
+                                key: "tilknyttetRegistreringSom",
+                                type: FieldConfigurationType.STRING,
+                                value: data.recordData.attachmentDocuments?.role
+                            },
+                            {
+                                key: "dokumentObjekt.format",
                                 type: FieldConfigurationType.STRING,
                                 value: data.recordData.attachmentDocuments?.format
                             },

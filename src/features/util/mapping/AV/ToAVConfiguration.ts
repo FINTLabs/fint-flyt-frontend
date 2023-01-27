@@ -201,7 +201,7 @@ export function toAVConfiguration(data: IFormConfiguration, integrationId: strin
                                         value: data.recordData.title
                                     },
                                     {
-                                        key: "dokumentStatus",
+                                        key: "dokumentstatus",
                                         type: FieldConfigurationType.STRING,
                                         value: data.recordData.mainDocument?.documentStatus
                                     },
@@ -213,7 +213,7 @@ export function toAVConfiguration(data: IFormConfiguration, integrationId: strin
                                     {
                                         key: 'tilknyttetRegistreringSom',
                                         type: FieldConfigurationType.URL,
-                                        value: 'kodeverk.no/tilknyttetsom/H'
+                                        value: 'www.kodeverk.no/H'
                                     }
                                 ],
                                 collectionElements: [
@@ -223,7 +223,7 @@ export function toAVConfiguration(data: IFormConfiguration, integrationId: strin
                                             {
                                                 fieldConfigurations: [
                                                     {
-                                                        key: 'filformat',
+                                                        key: 'format',
                                                         type: FieldConfigurationType.URL,
                                                         value: 'www.kodeverk.no/PDF'
                                                     },
@@ -254,7 +254,7 @@ export function toAVConfiguration(data: IFormConfiguration, integrationId: strin
                                         value: '$ifg{name}'
                                     },
                                     {
-                                        key: "dokumentStatus",
+                                        key: "dokumentstatus",
                                         type: FieldConfigurationType.STRING,
                                         value: data.recordData.attachmentDocuments?.documentStatus
                                     },
@@ -266,7 +266,7 @@ export function toAVConfiguration(data: IFormConfiguration, integrationId: strin
                                     {
                                         key: 'tilknyttetRegistreringSom',
                                         type: FieldConfigurationType.URL,
-                                        value: 'kodeverk.no/tilknyttetsom/V'
+                                        value: 'www.kodeverk.no/V'
                                     }
                                 ],
                                 collectionElements: [
@@ -276,7 +276,7 @@ export function toAVConfiguration(data: IFormConfiguration, integrationId: strin
                                             {
                                                 fieldConfigurations: [
                                                     {
-                                                        key: 'filformat',
+                                                        key: 'format',
                                                         type: FieldConfigurationType.DYNAMIC_STRING,
                                                         value: '$igf{type}'
                                                     },
@@ -690,7 +690,7 @@ export function toAVConfigurationPatch(data: IFormConfiguration, metadataId: any
                                         value: data.recordData.title
                                     },
                                     {
-                                        key: "dokumentStatus",
+                                        key: "dokumentstatus",
                                         type: FieldConfigurationType.STRING,
                                         value: data.recordData.mainDocument?.documentStatus
                                     },
@@ -702,7 +702,7 @@ export function toAVConfigurationPatch(data: IFormConfiguration, metadataId: any
                                     {
                                         key: 'tilknyttetRegistreringSom',
                                         type: FieldConfigurationType.URL,
-                                        value: 'kodeverk.no/tilknyttetsom/H'
+                                        value: 'www.kodeverk.no/H'
                                     }
                                 ],
                                 collectionElements: [
@@ -712,7 +712,7 @@ export function toAVConfigurationPatch(data: IFormConfiguration, metadataId: any
                                             {
                                                 fieldConfigurations: [
                                                     {
-                                                        key: 'filformat',
+                                                        key: 'format',
                                                         type: FieldConfigurationType.URL,
                                                         value: 'www.kodeverk.no/PDF'
                                                     },
@@ -743,7 +743,7 @@ export function toAVConfigurationPatch(data: IFormConfiguration, metadataId: any
                                         value: '$ifg{name}'
                                     },
                                     {
-                                        key: "dokumentStatus",
+                                        key: "dokumentstatus",
                                         type: FieldConfigurationType.STRING,
                                         value: data.recordData.attachmentDocuments?.documentStatus
                                     },
@@ -755,7 +755,7 @@ export function toAVConfigurationPatch(data: IFormConfiguration, metadataId: any
                                     {
                                         key: 'tilknyttetRegistreringSom',
                                         type: FieldConfigurationType.URL,
-                                        value: 'kodeverk.no/tilknyttetsom/V'
+                                        value: 'www.kodeverk.no/V'
                                     }
                                 ],
                                 collectionElements: [
@@ -765,7 +765,7 @@ export function toAVConfigurationPatch(data: IFormConfiguration, metadataId: any
                                             {
                                                 fieldConfigurations: [
                                                     {
-                                                        key: 'filformat',
+                                                        key: 'format',
                                                         type: FieldConfigurationType.DYNAMIC_STRING,
                                                         value: '$igf{type}'
                                                     },

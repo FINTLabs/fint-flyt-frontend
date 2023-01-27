@@ -128,7 +128,7 @@ export const MOCK_CONFIGURATION: newIConfiguration = {
                             "value": "record title"
                         },
                         {
-                            "key": "dokumentStatus",
+                            "key": "dokumentstatus",
                             "type": "STRING",
                             "value": "D9"
                         },
@@ -138,7 +138,12 @@ export const MOCK_CONFIGURATION: newIConfiguration = {
                             "value": "cat8"
                         },
                         {
-                            "key": "dokumentObjekt.filformat",
+                            "key": "tilknyttetRegistreringSom",
+                            "type": "STRING",
+                            "value": "www.kodeverk.no/H"
+                        },
+                        {
+                            "key": "dokumentObjekt.format",
                             "type": "STRING",
                             "value": "www.kodeverk.no/A"
                         },
@@ -163,7 +168,7 @@ export const MOCK_CONFIGURATION: newIConfiguration = {
                             "value": "$ifg{name}"
                         },
                         {
-                            "key": "dokumentStatus",
+                            "key": "dokumentstatus",
                             "type": "STRING",
                             "value": "D9"
                         },
@@ -173,7 +178,12 @@ export const MOCK_CONFIGURATION: newIConfiguration = {
                             "value": "cat8"
                         },
                         {
-                            "key": "dokumentObjekt.filformat",
+                            "key": "tilknyttetRegistreringSom",
+                            "type": "STRING",
+                            "value": "www.kodeverk.no/V"
+                        },
+                        {
+                            "key": "dokumentObjekt.format",
                             "type": "STRING",
                             "value": "www.kodeverk.no/P"
                         },
@@ -425,7 +435,7 @@ export const MOCK_CONFIGURATION_PATCH: IConfigurationPatch = {
                             "value": "D9"
                         },
                         {
-                            "key": "dokumentStatus",
+                            "key": "dokumentstatus",
                             "type": "STRING",
                             "value": "D9"
                         },
@@ -435,7 +445,12 @@ export const MOCK_CONFIGURATION_PATCH: IConfigurationPatch = {
                             "value": "cat8"
                         },
                         {
-                            "key": "dokumentObjekt.filformat",
+                            "key": "tilknyttetRegistreringSom",
+                            "type": "STRING",
+                            "value": "www.kodeverk.no/H"
+                        },
+                        {
+                            "key": "dokumentObjekt.format",
                             "type": "STRING",
                             "value": "www.kodeverk.no/A"
                         },
@@ -460,7 +475,7 @@ export const MOCK_CONFIGURATION_PATCH: IConfigurationPatch = {
                             "value": "$ifg{name}"
                         },
                         {
-                            "key": "dokumentStatus",
+                            "key": "dokumentstatus",
                             "type": "STRING",
                             "value": "D9"
                         },
@@ -470,7 +485,12 @@ export const MOCK_CONFIGURATION_PATCH: IConfigurationPatch = {
                             "value": "cat8"
                         },
                         {
-                            "key": "dokumentObjekt.filformat",
+                            "key": "tilknyttetRegistreringSom",
+                            "type": "STRING",
+                            "value": "www.kodeverk.no/V"
+                        },
+                        {
+                            "key": "dokumentObjekt.format",
                             "type": "STRING",
                             "value": "www.kodeverk.no/P"
                         },

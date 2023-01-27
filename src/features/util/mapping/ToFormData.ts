@@ -46,17 +46,19 @@ export function newToFormData(data: newIConfiguration): IFormConfiguration {
             paragraph: configurationFieldToString(recordFields, 'skjermingshjemmel'),
             mainDocument: {
                 title: configurationFieldToString(recordFields, 'tittel'),
-                documentStatus: configurationFieldToString(mainDocumentFields, 'dokumentStatus'),
+                documentStatus: configurationFieldToString(mainDocumentFields, 'dokumentstatus'),
                 documentType: configurationFieldToString(mainDocumentFields, 'dokumentType'),
-                format: configurationFieldToString(mainDocumentFields, 'dokumentObjekt.filformat'),
+                role: configurationFieldToString(mainDocumentFields, 'tilknyttetRegistreringSom'),
+                format: configurationFieldToString(mainDocumentFields, 'dokumentObjekt.format'),
                 variant: configurationFieldToString(mainDocumentFields, 'dokumentObjekt.variantformat'),
-                file: configurationFieldToString(mainDocumentFields, 'dokumentObjekt.fil')
+                file: configurationFieldToString(mainDocumentFields, 'dokumentObjekt.fil'),
             },
             attachmentDocuments: {
                 title: configurationFieldToString(attachmentDocumentFields, 'tittel'),
-                documentStatus: configurationFieldToString(attachmentDocumentFields, 'dokumentStatus'),
+                documentStatus: configurationFieldToString(attachmentDocumentFields, 'dokumentstatus'),
                 documentType: configurationFieldToString(attachmentDocumentFields, 'dokumentType'),
-                format: configurationFieldToString(attachmentDocumentFields, 'dokumentObjekt.filformat'),
+                role: configurationFieldToString(attachmentDocumentFields, 'tilknyttetRegistreringSom'),
+                format: configurationFieldToString(attachmentDocumentFields, 'dokumentObjekt.format'),
                 variant: configurationFieldToString(attachmentDocumentFields, 'dokumentObjekt.variantformat'),
                 file: configurationFieldToString(attachmentDocumentFields, 'dokumentObjekt.fil')
             },

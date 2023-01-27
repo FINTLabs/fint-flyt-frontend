@@ -46,6 +46,7 @@ export const defaultConfigurationValues: IFormConfiguration = {
             title: null,
             documentStatus: null,
             documentType: null,
+            role: null,
             format: null,
             variant: null,
             file: null
@@ -54,6 +55,7 @@ export const defaultConfigurationValues: IFormConfiguration = {
             title: null,
             documentStatus: null,
             documentType: null,
+            role: null,
             format: null,
             variant: null,
             file: null
@@ -93,13 +95,19 @@ export const variantOptions: ISelect[] = [
     {label: '[P] Produksjonsformat', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/variantformat/systemid/P'}
 ]
 
-export const variant: string = 'https://beta.felleskomponent.no/arkiv/kodeverk/variantformat/systemid/P'
-
 export const formatOptions: ISelect[] = [
-    {label: '[F] Filformat PLACEHOLDER', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/filformat/systemid/F'}
+    {label: '[F] Filformat PLACEHOLDER', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/format/systemid/F'}
 ]
 
-export const format: string = 'https://beta.felleskomponent.no/arkiv/kodeverk/filformat/systemid/F'
+export const roleOptions: ISelect[] = [
+    {label: '[H] Hoveddokument PLACEHOLDER', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/tilknyttetRegistreringSom/systemid/H'},
+    {label: '[V] Vedlegg PLACEHOLDER', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/tilknyttetRegistreringSom/systemid/V'}
+]
+
+export const variant: string = 'https://beta.felleskomponent.no/arkiv/kodeverk/variantformat/systemid/P'
+export const format: string = 'https://beta.felleskomponent.no/arkiv/kodeverk/format/systemid/F'
+export const mainRole: string = 'https://beta.felleskomponent.no/arkiv/kodeverk/tilknyttetRegistreringSom/systemid/H'
+export const attachmentRole: string = 'https://beta.felleskomponent.no/arkiv/kodeverk/tilknyttetRegistreringSom/systemid/V'
 
 
 
@@ -647,6 +655,7 @@ export const EXAMPLE_FORM: IFormConfiguration = {
             "title": '',
             "documentStatus": '',
             "documentType": '',
+            "role": '',
             "format": '',
             "variant": '',
             "file": ''
@@ -655,6 +664,7 @@ export const EXAMPLE_FORM: IFormConfiguration = {
             "title": '',
             "documentStatus": '',
             "documentType": '',
+            "role": '',
             "format": '',
             "variant": '',
             "file": '',

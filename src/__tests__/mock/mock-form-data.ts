@@ -52,6 +52,7 @@ export const MOCK_CONFIG_FORMDATA: IFormConfiguration = {
             title: "record title",
             documentStatus: "D9",
             documentType: "cat8",
+            role: "www.kodeverk.no/H",
             format: "www.kodeverk.no/A",
             variant: "www.kodeverk.no/PDF",
             file: "$ifg{formPdf}",
@@ -60,6 +61,7 @@ export const MOCK_CONFIG_FORMDATA: IFormConfiguration = {
             title: "$ifg{name}",
             documentStatus: "D9",
             documentType: "cat8",
+            role: "www.kodeverk.no/V",
             format: "www.kodeverk.no/P",
             variant: "$igf{type}",
             file: "$igf{file}"
@@ -123,6 +125,7 @@ export const MOCK_CONFIG_FORMDATA_FOR_PATCH: IFormConfiguration = {
             title: "record title",
             documentStatus: "D9",
             documentType: "cat8",
+            role: "www.kodeverk.no/H",
             format: "form",
             variant: "var",
             file: "fil",
@@ -131,6 +134,7 @@ export const MOCK_CONFIG_FORMDATA_FOR_PATCH: IFormConfiguration = {
             title: "record title",
             documentStatus: "D9",
             documentType: "cat8",
+            role: "www.kodeverk.no/V",
             format: "form",
             variant: "var",
             file: "fil",
@@ -193,6 +197,7 @@ export const MOCK_NEW_FORMDATA: IFormConfiguration = {
             "title": "foo $if{bar}",
             "documentStatus": null,
             "documentType": null,
+            "role": null,
             "format": null,
             "variant": null,
             "file": null
@@ -201,6 +206,7 @@ export const MOCK_NEW_FORMDATA: IFormConfiguration = {
             "title": null,
             "documentStatus": null,
             "documentType": null,
+            "role": null,
             "format": null,
             "variant": null,
             "file": null
@@ -262,6 +268,7 @@ export const MOCK_BY_ID_FORMDATA: IFormConfiguration = {
             "title": "foo $if{bar}",
             "documentStatus": null,
             "documentType": null,
+            "role": null,
             "format": null,
             "variant": null,
             "file": null
@@ -270,6 +277,7 @@ export const MOCK_BY_ID_FORMDATA: IFormConfiguration = {
             "title": null,
             "documentStatus": null,
             "documentType": null,
+            "role": null,
             "format": null,
             "variant": null,
             "file": null

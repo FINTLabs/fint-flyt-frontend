@@ -44,14 +44,14 @@ export const MOCK_AV_CONFIGURATION_TEST: newIConfiguration = {
                                     value: 'test'
                                 },
                                 {
-                                    key: 'sokumentType',
+                                    key: 'dokumentType',
                                     type: FieldConfigurationType.STRING,
                                     value: 'test'
                                 },
                                 {
                                     key: 'tilknyttetRegistreringSom',
                                     type: FieldConfigurationType.URL,
-                                    value: 'kodeverk.no/tilknyttetsom/H'
+                                    value: 'www.kodeverk.no/H'
                                 }
                             ],
                             collectionElements: [
@@ -61,7 +61,7 @@ export const MOCK_AV_CONFIGURATION_TEST: newIConfiguration = {
                                         {
                                             fieldConfigurations: [
                                                 {
-                                                    key: 'filformat',
+                                                    key: 'format',
                                                     type: FieldConfigurationType.URL,
                                                     value: 'www.kodeverk.no/PDF'
                                                 },
@@ -97,14 +97,14 @@ export const MOCK_AV_CONFIGURATION_TEST: newIConfiguration = {
                                     value: 'test'
                                 },
                                 {
-                                    key: 'sokumentType',
+                                    key: 'dokumentType',
                                     type: FieldConfigurationType.STRING,
                                     value: 'test'
                                 },
                                 {
                                     key: 'tilknyttetRegistreringSom',
                                     type: FieldConfigurationType.URL,
-                                    value: 'kodeverk.no/tilknyttetsom/V'
+                                    value: 'www.kodeverk.no/V'
                                 }
                             ],
                             collectionElements: [
@@ -114,7 +114,7 @@ export const MOCK_AV_CONFIGURATION_TEST: newIConfiguration = {
                                         {
                                             fieldConfigurations: [
                                                 {
-                                                    key: 'filformat',
+                                                    key: 'format',
                                                     type: FieldConfigurationType.DYNAMIC_STRING,
                                                     value: '$igf{type}'
                                                 },
@@ -404,7 +404,7 @@ export const MOCK_AV_CONFIGURATION: newIConfiguration = {
                                     value: 'record title'
                                 },
                                 {
-                                    key: "dokumentStatus",
+                                    key: "dokumentstatus",
                                     type: FieldConfigurationType.STRING,
                                     value: 'D9'
                                 },
@@ -416,7 +416,7 @@ export const MOCK_AV_CONFIGURATION: newIConfiguration = {
                                 {
                                     key: 'tilknyttetRegistreringSom',
                                     type: FieldConfigurationType.URL,
-                                    value: 'kodeverk.no/tilknyttetsom/H'
+                                    value: 'www.kodeverk.no/H'
                                 }
                             ],
                             collectionElements: [
@@ -426,7 +426,7 @@ export const MOCK_AV_CONFIGURATION: newIConfiguration = {
                                         {
                                             fieldConfigurations: [
                                                 {
-                                                    key: 'filformat',
+                                                    key: 'format',
                                                     type: FieldConfigurationType.URL,
                                                     value: 'www.kodeverk.no/PDF'
                                                 },
@@ -457,7 +457,7 @@ export const MOCK_AV_CONFIGURATION: newIConfiguration = {
                                     value: '$ifg{name}'
                                 },
                                 {
-                                    key: "dokumentStatus",
+                                    key: "dokumentstatus",
                                     type: FieldConfigurationType.STRING,
                                     value: 'D9'
                                 },
@@ -469,7 +469,7 @@ export const MOCK_AV_CONFIGURATION: newIConfiguration = {
                                 {
                                     key: 'tilknyttetRegistreringSom',
                                     type: FieldConfigurationType.URL,
-                                    value: 'kodeverk.no/tilknyttetsom/V'
+                                    value: 'www.kodeverk.no/V'
                                 }
                             ],
                             collectionElements: [
@@ -479,7 +479,7 @@ export const MOCK_AV_CONFIGURATION: newIConfiguration = {
                                         {
                                             fieldConfigurations: [
                                                 {
-                                                    key: 'filformat',
+                                                    key: 'format',
                                                     type: FieldConfigurationType.DYNAMIC_STRING,
                                                     value: '$igf{type}'
                                                 },
