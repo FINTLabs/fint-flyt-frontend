@@ -31,22 +31,22 @@ const DocumentForm: React.FunctionComponent<any> = (props) => {
     ]
 
     const mainObjectFields: IInputField[] = [
-        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.format", value: format, formValue: "recordData.mainDocument.format", dropDownItems: formatOptions, required: false, error:errors.recordData?.mainDocument?.variant, helpText: "recordData.variant", disabled: true},
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.variant", value: variant, formValue: "recordData.mainDocument.variant", dropDownItems: variantOptions, required: false, error:errors.recordData?.mainDocument?.format, helpText: "recordData.format", disabled: true},
-        {input: INPUT_TYPE.TEXT_FIELD, label: "labels.file", formValue: "recordData.mainDocument.file", required: false, error:errors.recordData?.mainDocument?.file, value: '$if{formPdf}', helpText: "recordData.file", disabled: true},
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.format", value: format, formValue: "recordData.mainDocument.format", dropDownItems: formatOptions, required: false, error:errors.recordData?.mainDocument?.variant, helpText: "recordData.variant", disabled: true},
+        {input: INPUT_TYPE.TEXT_FIELD, label: "labels.file", formValue: "recordData.mainDocument.file", required: false, error:errors.recordData?.mainDocument?.file, value: '$if{formPdf}', helpText: "recordData.file", disabled: true}
     ]
 
     const attachmentDocumentFields: IInputField[] = [
         {input: INPUT_TYPE.TEXT_FIELD, label: "labels.title", formValue: "recordData.attachmentDocuments.title", required: false, error:errors.recordData?.attachmentDocuments?.title, value: '$igf{name}', helpText: "recordData.title", disabled: true},
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.documentStatus", value: props.watch("recordData.attachmentDocuments.documentStatus"), formValue: "recordData.attachmentDocuments.documentStatus", dropDownItems: documentStatuses, required: required, error:errors.recordData?.attachmentDocuments?.documentStatus, helpText: "recordData.documentStatus"},
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.documentType", value: props.watch("recordData.attachmentDocuments.documentType"), formValue: "recordData.attachmentDocuments.documentType", dropDownItems: documentTypes, required: required, error:errors.recordData?.attachmentDocuments?.documentType, helpText: "recordData.documentType"},
-        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.role", value: attachmentRole, formValue: "recordData.attachmentDocuments.role", dropDownItems: roleOptions, required: false, error:errors.recordData?.attachmentDocuments?.role, helpText: "recordData.role", disabled: true},
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.role", value: attachmentRole, formValue: "recordData.attachmentDocuments.role", dropDownItems: roleOptions, required: false, error:errors.recordData?.attachmentDocuments?.role, helpText: "recordData.role", disabled: true}
     ]
 
     const attachmentObjectFields: IInputField[] = [
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.variant", value: variant, formValue: "recordData.attachmentDocuments.variant", dropDownItems: variantOptions, required: false, error:errors.recordData?.attachmentDocuments?.variant, helpText: "recordData.variant", disabled: true},
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.format", value: format, formValue: "recordData.attachmentDocuments.format", dropDownItems: formatOptions, required: false, error:errors.recordData?.attachmentDocuments?.variant, helpText: "recordData.variant", disabled: true},
-        {input: INPUT_TYPE.TEXT_FIELD, label: "labels.file", formValue: "recordData.attachmentDocuments.file", required: false, error:errors.recordData?.attachmentDocuments?.file, value: '$igf{file}', helpText: "recordData.file", disabled: true},
+        {input: INPUT_TYPE.TEXT_FIELD, label: "labels.file", formValue: "recordData.attachmentDocuments.file", required: false, error:errors.recordData?.attachmentDocuments?.file, value: '$igf{file}', helpText: "recordData.file", disabled: true}
     ]
 
     return (
