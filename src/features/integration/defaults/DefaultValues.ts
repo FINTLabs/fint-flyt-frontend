@@ -96,18 +96,18 @@ export const variantOptions: ISelect[] = [
 ]
 
 export const formatOptions: ISelect[] = [
-    {label: '[F] Filformat PLACEHOLDER', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/format/systemid/F'}
+    {label: '[PDF] Portable document format', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/format/systemid/PDF'}
 ]
 
 export const roleOptions: ISelect[] = [
-    {label: '[H] Hoveddokument PLACEHOLDER', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/tilknyttetRegistreringSom/systemid/H'},
-    {label: '[V] Vedlegg PLACEHOLDER', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/tilknyttetRegistreringSom/systemid/V'}
+    {label: '[H] Hoveddokument', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/tilknyttetregistreringsom/systemid/H'},
+    {label: '[V] Vedlegg', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/tilknyttetregistreringsom/systemid/V'}
 ]
 
 export const variant: string = 'https://beta.felleskomponent.no/arkiv/kodeverk/variantformat/systemid/P'
-export const format: string = 'https://beta.felleskomponent.no/arkiv/kodeverk/format/systemid/F'
+export const format: string = 'https://beta.felleskomponent.no/arkiv/kodeverk/format/systemid/PDF'
 export const mainRole: string = 'https://beta.felleskomponent.no/arkiv/kodeverk/tilknyttetRegistreringSom/systemid/H'
-export const attachmentRole: string = 'https://beta.felleskomponent.no/arkiv/kodeverk/tilknyttetRegistreringSom/systemid/V'
+export const attachmentRole: string = 'https://beta.felleskomponent.no/arkiv/kodeverk/tilknyttetregistreringsom/systemid/V'
 
 
 
