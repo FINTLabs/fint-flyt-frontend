@@ -64,9 +64,10 @@ export function newToFormData(data: newIConfiguration): IFormConfiguration {
             },
             correspondent: {
                 protected: configurationFieldToBoolean(correspondentFields, 'protected'),
+                type: configurationFieldToString(correspondentFields, 'korrespondanseparttype'),
                 organisationNumber: configurationFieldToString(correspondentFields, 'organisasjonsnummer'),
                 nationalIdentityNumber: configurationFieldToString(correspondentFields, 'fødselsnummer'),
-                name: configurationFieldToString(correspondentFields, 'KorrespondansepartNavn'),
+                name: configurationFieldToString(correspondentFields, 'korrespondansepartNavn'),
                 address: configurationFieldToString(correspondentFields, 'Adresse.adresselinje'),
                 postalCode: configurationFieldToString(correspondentFields, 'Adresse.postnummer'),
                 city: configurationFieldToString(correspondentFields, 'Adresse.poststed'),

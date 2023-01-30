@@ -198,7 +198,7 @@ export function toAVConfiguration(data: IFormConfiguration, integrationId: strin
                                     {
                                         key: "tittel",
                                         type: FieldConfigurationType.STRING,
-                                        value: data.recordData.title
+                                        value: data.recordData?.title === '' ? null : data.recordData?.title
                                     },
                                     {
                                         key: "dokumentstatus",
@@ -213,7 +213,7 @@ export function toAVConfiguration(data: IFormConfiguration, integrationId: strin
                                     {
                                         key: 'tilknyttetRegistreringSom',
                                         type: FieldConfigurationType.URL,
-                                        value: 'www.kodeverk.no/H'
+                                        value: data.recordData.mainDocument?.role
                                     }
                                 ],
                                 collectionElements: [
@@ -225,17 +225,17 @@ export function toAVConfiguration(data: IFormConfiguration, integrationId: strin
                                                     {
                                                         key: 'format',
                                                         type: FieldConfigurationType.URL,
-                                                        value: 'www.kodeverk.no/PDF'
+                                                        value: data.recordData.mainDocument?.format
                                                     },
                                                     {
                                                         key: 'variantformat',
                                                         type: FieldConfigurationType.URL,
-                                                        value: 'www.kodeverk.no/A'
+                                                        value: data.recordData.mainDocument?.variant
                                                     },
                                                     {
                                                         key: 'fil',
                                                         type: FieldConfigurationType.DYNAMIC_STRING,
-                                                        value: '$ifg{formPdf}'
+                                                        value: data.recordData.mainDocument?.file
                                                     }
                                                 ]
                                             }
@@ -251,7 +251,7 @@ export function toAVConfiguration(data: IFormConfiguration, integrationId: strin
                                     {
                                         key: 'tittel',
                                         type: FieldConfigurationType.DYNAMIC_STRING,
-                                        value: '$ifg{name}'
+                                        value: data.recordData.attachmentDocuments?.title
                                     },
                                     {
                                         key: "dokumentstatus",
@@ -266,7 +266,7 @@ export function toAVConfiguration(data: IFormConfiguration, integrationId: strin
                                     {
                                         key: 'tilknyttetRegistreringSom',
                                         type: FieldConfigurationType.URL,
-                                        value: 'www.kodeverk.no/V'
+                                        value: data.recordData.attachmentDocuments?.role
                                     }
                                 ],
                                 collectionElements: [
@@ -278,17 +278,17 @@ export function toAVConfiguration(data: IFormConfiguration, integrationId: strin
                                                     {
                                                         key: 'format',
                                                         type: FieldConfigurationType.DYNAMIC_STRING,
-                                                        value: '$igf{type}'
+                                                        value: data.recordData.attachmentDocuments?.format
                                                     },
                                                     {
                                                         key: 'variantformat',
                                                         type: FieldConfigurationType.URL,
-                                                        value: 'www.kodeverk.no/P'
+                                                        value: data.recordData.attachmentDocuments?.variant
                                                     },
                                                     {
                                                         key: 'fil',
                                                         type: FieldConfigurationType.DYNAMIC_STRING,
-                                                        value: '$igf{file}'
+                                                        value: data.recordData.attachmentDocuments?.file
                                                     }
                                                 ]
                                             }
@@ -310,6 +310,11 @@ export function toAVConfiguration(data: IFormConfiguration, integrationId: strin
                                             value: data.recordData.correspondent?.protected.toString()
                                         },
                                         {
+                                            key: "korrespondanseparttype",
+                                            type: FieldConfigurationType.STRING,
+                                            value: data.recordData.correspondent?.type
+                                        },
+                                        {
                                             key: "fødselsnummer",
                                             type: FieldConfigurationType.DYNAMIC_STRING,
                                             value: data.recordData.correspondent?.nationalIdentityNumber === '' ? null : data.recordData.correspondent?.nationalIdentityNumber
@@ -320,7 +325,7 @@ export function toAVConfiguration(data: IFormConfiguration, integrationId: strin
                                             value: data.recordData.correspondent?.organisationNumber === '' ? null : data.recordData.correspondent?.organisationNumber
                                         },
                                         {
-                                            key: "KorrespondansepartNavn",
+                                            key: "korrespondansepartNavn",
                                             type: FieldConfigurationType.DYNAMIC_STRING,
                                             value: data.recordData.correspondent?.name === '' ? null : data.recordData.correspondent?.name
                                         },
@@ -408,6 +413,11 @@ export function toAVConfiguration(data: IFormConfiguration, integrationId: strin
                                             value: 'false'
                                         },
                                         {
+                                            key: "korrespondanseparttype",
+                                            type: FieldConfigurationType.STRING,
+                                            value: data.recordData.correspondent?.type
+                                        },
+                                        {
                                             key: "fødselsnummer",
                                             type: FieldConfigurationType.DYNAMIC_STRING,
                                             value: data.recordData.correspondent?.nationalIdentityNumber === '' ? null : data.recordData.correspondent?.nationalIdentityNumber
@@ -418,7 +428,7 @@ export function toAVConfiguration(data: IFormConfiguration, integrationId: strin
                                             value: data.recordData.correspondent?.organisationNumber === '' ? null : data.recordData.correspondent?.organisationNumber
                                         },
                                         {
-                                            key: "KorrespondansepartNavn",
+                                            key: "korrespondansepartNavn",
                                             type: FieldConfigurationType.DYNAMIC_STRING,
                                             value: data.recordData.correspondent?.name === '' ? null : data.recordData.correspondent?.name
                                         },
@@ -687,7 +697,7 @@ export function toAVConfigurationPatch(data: IFormConfiguration, metadataId: any
                                     {
                                         key: "tittel",
                                         type: FieldConfigurationType.STRING,
-                                        value: data.recordData.title
+                                        value: data.recordData?.title === '' ? null : data.recordData?.title
                                     },
                                     {
                                         key: "dokumentstatus",
@@ -702,7 +712,7 @@ export function toAVConfigurationPatch(data: IFormConfiguration, metadataId: any
                                     {
                                         key: 'tilknyttetRegistreringSom',
                                         type: FieldConfigurationType.URL,
-                                        value: 'www.kodeverk.no/H'
+                                        value: data.recordData.mainDocument?.role
                                     }
                                 ],
                                 collectionElements: [
@@ -714,17 +724,17 @@ export function toAVConfigurationPatch(data: IFormConfiguration, metadataId: any
                                                     {
                                                         key: 'format',
                                                         type: FieldConfigurationType.URL,
-                                                        value: 'www.kodeverk.no/PDF'
+                                                        value: data.recordData.mainDocument?.format
                                                     },
                                                     {
                                                         key: 'variantformat',
                                                         type: FieldConfigurationType.URL,
-                                                        value: 'www.kodeverk.no/A'
+                                                        value: data.recordData.mainDocument?.variant
                                                     },
                                                     {
                                                         key: 'fil',
                                                         type: FieldConfigurationType.DYNAMIC_STRING,
-                                                        value: '$ifg{formPdf}'
+                                                        value: data.recordData.mainDocument?.file
                                                     }
                                                 ]
                                             }
@@ -755,7 +765,7 @@ export function toAVConfigurationPatch(data: IFormConfiguration, metadataId: any
                                     {
                                         key: 'tilknyttetRegistreringSom',
                                         type: FieldConfigurationType.URL,
-                                        value: 'www.kodeverk.no/V'
+                                        value: data.recordData.attachmentDocuments?.role
                                     }
                                 ],
                                 collectionElements: [
@@ -767,17 +777,17 @@ export function toAVConfigurationPatch(data: IFormConfiguration, metadataId: any
                                                     {
                                                         key: 'format',
                                                         type: FieldConfigurationType.DYNAMIC_STRING,
-                                                        value: '$igf{type}'
+                                                        value: data.recordData.attachmentDocuments?.format
                                                     },
                                                     {
                                                         key: 'variantformat',
                                                         type: FieldConfigurationType.URL,
-                                                        value: 'www.kodeverk.no/P'
+                                                        value: data.recordData.attachmentDocuments?.variant
                                                     },
                                                     {
                                                         key: 'fil',
                                                         type: FieldConfigurationType.DYNAMIC_STRING,
-                                                        value: '$igf{file}'
+                                                        value: data.recordData.attachmentDocuments?.file
                                                     }
                                                 ]
                                             }
@@ -799,6 +809,11 @@ export function toAVConfigurationPatch(data: IFormConfiguration, metadataId: any
                                             value: data.recordData.correspondent?.protected.toString()
                                         },
                                         {
+                                            key: "korrespondanseparttype",
+                                            type: FieldConfigurationType.STRING,
+                                            value: data.recordData.correspondent?.type
+                                        },
+                                        {
                                             key: "fødselsnummer",
                                             type: FieldConfigurationType.DYNAMIC_STRING,
                                             value: data.recordData.correspondent?.nationalIdentityNumber === '' ? null : data.recordData.correspondent?.nationalIdentityNumber
@@ -809,7 +824,7 @@ export function toAVConfigurationPatch(data: IFormConfiguration, metadataId: any
                                             value: data.recordData.correspondent?.organisationNumber === '' ? null : data.recordData.correspondent?.organisationNumber
                                         },
                                         {
-                                            key: "KorrespondansepartNavn",
+                                            key: "korrespondansepartNavn",
                                             type: FieldConfigurationType.DYNAMIC_STRING,
                                             value: data.recordData.correspondent?.name === '' ? null : data.recordData.correspondent?.name
                                         },
@@ -897,6 +912,11 @@ export function toAVConfigurationPatch(data: IFormConfiguration, metadataId: any
                                             value: 'false'
                                         },
                                         {
+                                            key: "korrespondanseparttype",
+                                            type: FieldConfigurationType.STRING,
+                                            value: data.recordData.correspondent?.type
+                                        },
+                                        {
                                             key: "fødselsnummer",
                                             type: FieldConfigurationType.DYNAMIC_STRING,
                                             value: data.recordData.correspondent?.nationalIdentityNumber === '' ? null : data.recordData.correspondent?.nationalIdentityNumber
@@ -907,7 +927,7 @@ export function toAVConfigurationPatch(data: IFormConfiguration, metadataId: any
                                             value: data.recordData.correspondent?.organisationNumber === '' ? null : data.recordData.correspondent?.organisationNumber
                                         },
                                         {
-                                            key: "KorrespondansepartNavn",
+                                            key: "korrespondansepartNavn",
                                             type: FieldConfigurationType.DYNAMIC_STRING,
                                             value: data.recordData.correspondent?.name === '' ? null : data.recordData.correspondent?.name
                                         },

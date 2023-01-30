@@ -81,11 +81,11 @@ test('It should convert field with tags to string', () => {
     expect(configurationFieldToString(MOCK_CASE_FIELDS, "offentligTittel")).toEqual("public title $if{test}");
 });
 
-test('It should convert applicant field to boolean', () => {
+test('It should convert correspondent field to boolean', () => {
     expect(configurationFieldToBoolean(MOCK_APPLICANT_FIELDS, "protected")).toBe(true);
 });
 
-test('It should convert applicant field to boolean', () => {
+test('It should convert correspondent field to boolean', () => {
     expect(configurationFieldToBoolean(MOCK_APPLICANT_FIELDS_NOT_PROTECTED, "protected")).toBe(false);
 });
 

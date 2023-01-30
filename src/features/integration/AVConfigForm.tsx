@@ -153,7 +153,7 @@ const AVConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
         {id: 'case-form', summary: "caseForm.header", accordionForm: ACCORDION_FORM.CASE_FORM, defaultExpanded: completed, hidden: watch("caseData.caseCreationStrategy") === CreationStrategy.BY_ID},
         {id: 'record-form', summary: "recordForm.header", accordionForm: ACCORDION_FORM.RECORD_FORM, defaultExpanded: completed},
         {id: 'document-object-form', summary: "documentForm.header", accordionForm: ACCORDION_FORM.MAIN_DOCUMENT_FORM, defaultExpanded: completed},
-        {id: 'applicant-form', summary: "applicationForm.header", accordionForm: ACCORDION_FORM.APPLICANT_FORM, defaultExpanded: completed}
+        {id: 'correspondent-form', summary: "correspondentForm.header", accordionForm: ACCORDION_FORM.APPLICANT_FORM, defaultExpanded: completed}
     ]
 
     const updateIntegration = (integrationId: string, configuration: any) => {

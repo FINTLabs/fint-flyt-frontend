@@ -1,5 +1,6 @@
-export default interface IApplicantData {
+export default interface ICorrespondentData {
     protected?: boolean;
+    type: string | null;
     organisationNumber: string | null;
     nationalIdentityNumber: string | null;
     name: string | null;

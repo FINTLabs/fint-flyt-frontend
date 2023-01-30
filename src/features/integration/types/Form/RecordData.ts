@@ -1,4 +1,4 @@
-import IApplicantData from "./ApplicantData";
+import ICorrespondentData from "./CorrespondentData";
 import IMainDocumentData from "./MainDocumentData";
 import IAttachmentDocumentsData from "./AttachmentDocumentsData";
 
@@ -11,7 +11,7 @@ export default interface IRecordData {
     caseWorker: string | null;
     accessCode: string | null;
     paragraph: string | null;
-    correspondent: IApplicantData;
+    correspondent: ICorrespondentData;
     mainDocument: IMainDocumentData;
     attachmentDocuments: IAttachmentDocumentsData;
 }

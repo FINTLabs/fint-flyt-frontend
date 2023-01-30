@@ -7,17 +7,19 @@ import {FieldErrors} from "react-hook-form";
 import {ResourcesContext} from "../../../../context/resourcesContext";
 import HelpPopover from "../popover/HelpPopover";
 import { useTranslation } from 'react-i18next';
+import {correspondentType, correspondentTypeOptions} from "../../defaults/DefaultValues";
 
-const ApplicantForm: React.FunctionComponent<any> = (props) => {
-    const { t } = useTranslation('translations', { keyPrefix: 'pages.configurationForm.accordions.applicationForm'});
+const CorrespondentForm: React.FunctionComponent<any> = (props) => {
+    const { t } = useTranslation('translations', { keyPrefix: 'pages.configurationForm.accordions.correspondentForm'});
     const {accessCodes, paragraphs} = useContext(ResourcesContext);
     let errors: FieldErrors = props.errors;
     let required: boolean = props.validation;
 
-    const applicantFormFields: IInputField[] = [
+    const correspondentFormFields: IInputField[] = [
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.correspondentType", value: correspondentType, formValue: "recordData.correspondent.type", dropDownItems: correspondentTypeOptions, required: false, error:errors.recordData?.correspondent?.type, helpText: "recordData.correspondentType", disabled: true},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.organisationNumber", formValue: "recordData.correspondent.organisationNumber", required:false, error:errors.recordData?.correspondent?.organisationNumber, value: props.activeFormData?.recordData.correspondent?.organisationNumber, helpText: "recordData.organisationNumber"},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.nationalIdentityNumber", formValue: "recordData.correspondent.nationalIdentityNumber", required: false, error:errors.recordData?.correspondent?.nationalIdentityNumber, value: props.activeFormData?.recordData.correspondent?.nationalIdentityNumber, helpText: "recordData.nationalIdentityNumber"},
-        {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.applicantName", formValue: "recordData.correspondent.name", required:required, error:errors.recordData?.correspondent?.name, value: props.activeFormData?.recordData.correspondent?.name, helpText: "recordData.name"},
+        {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.correspondentName", formValue: "recordData.correspondent.name", required:required, error:errors.recordData?.correspondent?.name, value: props.activeFormData?.recordData.correspondent?.name, helpText: "recordData.name"},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.address", formValue: "recordData.correspondent.address", required:false, error:errors.recordData?.correspondent?.address, value: props.activeFormData?.recordData.correspondent?.address, helpText: "recordData.address"},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.postalCode", formValue: "recordData.correspondent.postalCode", required:false, error:errors.recordData?.correspondent?.postalCode, value: props.activeFormData?.recordData.correspondent?.postalCode, helpText: "recordData.postalCode"},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.city", formValue: "recordData.correspondent.city", required:false, error:errors.recordData?.correspondent?.city, value: props.activeFormData?.recordData.correspondent?.city, helpText: "recordData.city"},
@@ -30,8 +32,8 @@ const ApplicantForm: React.FunctionComponent<any> = (props) => {
 
     return (
         <div>
-            <FormGroup id="applicant-form" className={props.style.formControl}>
-                {applicantFormFields.map((field, index) => {
+            <FormGroup id="correspondent-form" className={props.style.formControl}>
+                {correspondentFormFields.map((field, index) => {
                     return (
                         field.hidden ?
                             <div key={index}/> :
@@ -46,6 +48,7 @@ const ApplicantForm: React.FunctionComponent<any> = (props) => {
                                                 radioOptions={field.radioOptions}
                                                 dropdownItems={field.dropDownItems}
                                                 setter={field.setter}
+                                                disabledField={field.disabled}
                                                 {...props}
                                     />
                                 </Box>
@@ -73,4 +76,4 @@ const ApplicantForm: React.FunctionComponent<any> = (props) => {
     );
 }
 
-export default ApplicantForm;
+export default CorrespondentForm;

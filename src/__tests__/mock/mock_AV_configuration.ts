@@ -157,7 +157,7 @@ export const MOCK_AV_CONFIGURATION_TEST: newIConfiguration = {
                                     value: '$if{kontaktperson}'
                                 },
                                 {
-                                    key: 'KorrespondansepartNavn',
+                                    key: 'korrespondansepartNavn',
                                     type: FieldConfigurationType.DYNAMIC_STRING,
                                     value: '$if{fornavn} $if{etternavn}'
                                 },
@@ -233,374 +233,372 @@ export const MOCK_AV_CONFIGURATION_TEST: newIConfiguration = {
 }
 
 export const MOCK_AV_CONFIGURATION: newIConfiguration = {
-    comment: 'form to test mapping',
-    completed: false,
-    elements: [
+    "comment": "form to test mapping",
+    "completed": false,
+    "elements": [
         {
-            key: 'sak',
-            searchParameters: undefined,
-            fieldConfigurations: [
+            "fieldConfigurations": [
                 {
-                    key: 'type',
-                    type: FieldConfigurationType.STRING,
-                    value: CreationStrategy.NEW
+                    "key": "type",
+                    "type": "STRING",
+                    "value": "NEW"
                 },
                 {
-                    key: "tittel",
-                    type: FieldConfigurationType.DYNAMIC_STRING,
-                    value: 'Title of case'
+                    "key": "tittel",
+                    "type": "DYNAMIC_STRING",
+                    "value": "Title of case"
                 },
                 {
-                    key: "offentligTittel",
-                    type: FieldConfigurationType.DYNAMIC_STRING,
-                    value: 'public title'
+                    "key": "offentligTittel",
+                    "type": "DYNAMIC_STRING",
+                    "value": "public title"
                 },
                 {
-                    key: "saksmappetype",
-                    type: FieldConfigurationType.STRING,
-                    value: 'casetype'
+                    "key": "saksmappetype",
+                    "type": "STRING",
+                    "value": "casetype"
                 },
                 {
-                    key: 'administrativenhet',
-                    type: FieldConfigurationType.STRING,
-                    value: 'unit4'
+                    "key": "administrativenhet",
+                    "type": "STRING",
+                    "value": "unit4"
                 },
                 {
-                    key: "arkivdel",
-                    type: FieldConfigurationType.STRING,
-                    value: 'unit3'
-
+                    "key": "arkivdel",
+                    "type": "STRING",
+                    "value": "unit3"
                 },
                 {
-                    key: "journalenhet",
-                    type: FieldConfigurationType.STRING,
-                    value: 'unit0'
-
+                    "key": "journalenhet",
+                    "type": "STRING",
+                    "value": "unit0"
                 },
                 {
-                    key: "status",
-                    type: FieldConfigurationType.STRING,
-                    value: null
-
+                    "key": "status",
+                    "type": "STRING",
+                    "value": null
                 },
                 {
-                    key: "tilgangsrestriksjon",
-                    type: FieldConfigurationType.STRING,
-                    value: 'code42'
-
+                    "key": "tilgangsrestriksjon",
+                    "type": "STRING",
+                    "value": "code42"
                 },
                 {
-                    key: "skjermingshjemmel",
-                    type: FieldConfigurationType.STRING,
-                    value: 'number6'
-
+                    "key": "skjermingshjemmel",
+                    "type": "STRING",
+                    "value": "number6"
                 },
                 {
-                    key: "saksansvarlig",
-                    type: FieldConfigurationType.STRING,
-                    value: 'rand'
-
+                    "key": "saksansvarlig",
+                    "type": "STRING",
+                    "value": "rand"
                 },
                 {
-                    key: "primarordningsprinsipp",
-                    type: FieldConfigurationType.STRING,
-                    value: 'prim'
+                    "key": "primarordningsprinsipp",
+                    "type": "STRING",
+                    "value": "prim"
                 },
                 {
-                    key: "sekundarordningsprinsipp",
-                    type: FieldConfigurationType.STRING,
-                    value: 'rose'
+                    "key": "sekundarordningsprinsipp",
+                    "type": "STRING",
+                    "value": "rose"
                 },
                 {
-                    key: "tertiarordningsprinsipp",
-                    type: FieldConfigurationType.STRING,
-                    value: 'everdeen'
+                    "key": "tertiarordningsprinsipp",
+                    "type": "STRING",
+                    "value": "everdeen"
                 },
                 {
-                    key: "primarklasse",
-                    type: FieldConfigurationType.DYNAMIC_STRING,
-                    value: '1class'
+                    "key": "primarklasse",
+                    "type": "DYNAMIC_STRING",
+                    "value": "1class"
                 },
                 {
-                    key: "sekundarklasse",
-                    type: FieldConfigurationType.DYNAMIC_STRING,
-                    value: '2class'
+                    "key": "sekundarklasse",
+                    "type": "DYNAMIC_STRING",
+                    "value": "2class"
                 },
                 {
-                    key: "tertiarklasse",
-                    type: FieldConfigurationType.DYNAMIC_STRING,
-                    value: '3class'
+                    "key": "tertiarklasse",
+                    "type": "DYNAMIC_STRING",
+                    "value": "3class"
                 },
                 {
-                    key: "primartittel",
-                    type: FieldConfigurationType.DYNAMIC_STRING,
-                    value: 'primTitle'
+                    "key": "primartittel",
+                    "type": "DYNAMIC_STRING",
+                    "value": "primTitle"
                 },
                 {
-                    key: "sekundartittel",
-                    type: FieldConfigurationType.DYNAMIC_STRING,
-                    value: 'secTitle'
+                    "key": "sekundartittel",
+                    "type": "DYNAMIC_STRING",
+                    "value": "secTitle"
                 },
                 {
-                    key: "tertiartittel",
-                    type: FieldConfigurationType.DYNAMIC_STRING,
-                    value: 'tertTitle'
+                    "key": "tertiartittel",
+                    "type": "DYNAMIC_STRING",
+                    "value": "tertTitle"
                 }
             ],
+            "key": "sak"
         },
         {
-            key: 'journalpost',
-            fieldConfigurations: [
+            "collectionElements": [
                 {
-                    key: "tittel",
-                    type: FieldConfigurationType.DYNAMIC_STRING,
-                    value: 'record title'
-                },
-                {
-                    key: "offentligTittel",
-                    type: FieldConfigurationType.DYNAMIC_STRING,
-                    value: 'public record title'
-                },
-                {
-                    key: "administrativenhet",
-                    type: FieldConfigurationType.STRING,
-                    value: 'unit33'
-                },
-                {
-                    key: "journalstatus",
-                    type: FieldConfigurationType.STRING,
-                    value: 'N'
-                },
-                {
-                    key: "journalposttype",
-                    type: FieldConfigurationType.STRING,
-                    value: 'A'
-                },
-                {
-                    key: "saksbehandler",
-                    type: FieldConfigurationType.STRING,
-                    value: 'boba'
-                },
-                {
-                    key: "tilgangsrestriksjon",
-                    type: FieldConfigurationType.STRING,
-                    value: 'code89'
-                },
-                {
-                    key: "skjermingshjemmel",
-                    type: FieldConfigurationType.STRING,
-                    value: 'p34'
-                }
-            ],
-            collectionElements: [
-                {
-                    key: 'dokumentbeskrivelse',
-                    fixed: [
+                    "fixed": [
                         {
-                            fieldConfigurations: [
+                            "collectionElements": [
                                 {
-                                    key: "tittel",
-                                    type: FieldConfigurationType.STRING,
-                                    value: 'record title'
-                                },
-                                {
-                                    key: "dokumentstatus",
-                                    type: FieldConfigurationType.STRING,
-                                    value: 'D9'
-                                },
-                                {
-                                    key: "dokumentType",
-                                    type: FieldConfigurationType.STRING,
-                                    value: 'cat8'
-                                },
-                                {
-                                    key: 'tilknyttetRegistreringSom',
-                                    type: FieldConfigurationType.URL,
-                                    value: 'www.kodeverk.no/H'
-                                }
-                            ],
-                            collectionElements: [
-                                {
-                                    key: 'dokumentObjekt',
-                                    fixed: [
+                                    "fixed": [
                                         {
-                                            fieldConfigurations: [
+                                            "fieldConfigurations": [
                                                 {
-                                                    key: 'format',
-                                                    type: FieldConfigurationType.URL,
-                                                    value: 'www.kodeverk.no/PDF'
+                                                    "key": "format",
+                                                    "type": "URL",
+                                                    "value": "www.kodeverk.no/A"
                                                 },
                                                 {
-                                                    key: 'variantformat',
-                                                    type: FieldConfigurationType.URL,
-                                                    value: 'www.kodeverk.no/A'
+                                                    "key": "variantformat",
+                                                    "type": "URL",
+                                                    "value": "www.kodeverk.no/PDF"
                                                 },
                                                 {
-                                                    key: 'fil',
-                                                    type: FieldConfigurationType.DYNAMIC_STRING,
-                                                    value: '$ifg{formPdf}'
+                                                    "key": "fil",
+                                                    "type": "DYNAMIC_STRING",
+                                                    "value": "$ifg{formPdf}"
                                                 }
                                             ]
                                         }
-                                    ]
+                                    ],
+                                    "key": "dokumentObjekt"
+                                }
+                            ],
+                            "fieldConfigurations": [
+                                {
+                                    "key": "tittel",
+                                    "type": "STRING",
+                                    "value": "record title"
+                                },
+                                {
+                                    "key": "dokumentstatus",
+                                    "type": "STRING",
+                                    "value": "D9"
+                                },
+                                {
+                                    "key": "dokumentType",
+                                    "type": "STRING",
+                                    "value": "cat8"
+                                },
+                                {
+                                    "key": "tilknyttetRegistreringSom",
+                                    "type": "URL",
+                                    "value": "www.kodeverk.no/H"
                                 }
                             ]
                         }
                     ],
-                    fromCollection: [
+                    "fromCollection": [
                         {
-                            collectionReference: 'vedlegg',
-                            fieldConfigurations: [
+                            "collectionElements": [
                                 {
-                                    key: 'tittel',
-                                    type: FieldConfigurationType.DYNAMIC_STRING,
-                                    value: '$ifg{name}'
-                                },
-                                {
-                                    key: "dokumentstatus",
-                                    type: FieldConfigurationType.STRING,
-                                    value: 'D9'
-                                },
-                                {
-                                    key: "dokumentType",
-                                    type: FieldConfigurationType.STRING,
-                                    value: 'cat8'
-                                },
-                                {
-                                    key: 'tilknyttetRegistreringSom',
-                                    type: FieldConfigurationType.URL,
-                                    value: 'www.kodeverk.no/V'
-                                }
-                            ],
-                            collectionElements: [
-                                {
-                                    key: 'dokumentObjekt',
-                                    fixed: [
+                                    "fixed": [
                                         {
-                                            fieldConfigurations: [
+                                            "fieldConfigurations": [
                                                 {
-                                                    key: 'format',
-                                                    type: FieldConfigurationType.DYNAMIC_STRING,
-                                                    value: '$igf{type}'
+                                                    "key": "format",
+                                                    "type": "DYNAMIC_STRING",
+                                                    "value": "www.kodeverk.no/PDF"
                                                 },
                                                 {
-                                                    key: 'variantformat',
-                                                    type: FieldConfigurationType.URL,
-                                                    value: 'www.kodeverk.no/P'
+                                                    "key": "variantformat",
+                                                    "type": "URL",
+                                                    "value": "www.kodeverk.no/PDF"
                                                 },
                                                 {
-                                                    key: 'fil',
-                                                    type: FieldConfigurationType.DYNAMIC_STRING,
-                                                    value: '$igf{file}'
+                                                    "key": "fil",
+                                                    "type": "DYNAMIC_STRING",
+                                                    "value": "$igf{file}"
                                                 }
                                             ]
                                         }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    key: 'korrespondansepart',
-                    fixed: [
-                        {
-                            fieldConfigurations: [
-                                {
-                                    key: 'protected',
-                                    type: FieldConfigurationType.BOOLEAN,
-                                    value: 'true'
-                                },
-                                {
-                                    key: 'fødselsnummer',
-                                    type: FieldConfigurationType.DYNAMIC_STRING,
-                                    value: '123456789'
-                                },
-                                {
-                                    key: 'organisasjonsnummer',
-                                    type: FieldConfigurationType.DYNAMIC_STRING,
-                                    value: null
-                                },
-                                {
-                                    key: 'KorrespondansepartNavn',
-                                    type: FieldConfigurationType.DYNAMIC_STRING,
-                                    value: 'Anakin Skywalker'
-                                },
-                                {
-                                    key: 'kontaktperson',
-                                    type: FieldConfigurationType.DYNAMIC_STRING,
-                                    value: 'donna'
-                                },
-                                {
-                                    key: 'korrespondansepartType',
-                                    type: FieldConfigurationType.URL,
-                                    value: 'kodeverk.no/korrespondansepartType/systemId/A'
+                                    ],
+                                    "key": "dokumentObjekt"
                                 }
                             ],
-                            elements: [
+                            "collectionReference": "vedlegg",
+                            "fieldConfigurations": [
                                 {
-                                    key: 'adresse',
-                                    fieldConfigurations: [
-                                        {
-                                            key: 'adresselinje',
-                                            type: FieldConfigurationType.DYNAMIC_STRING,
-                                            value: 'highstreet 22'
-                                        },
-                                        {
-                                            key: 'postnummer',
-                                            type: FieldConfigurationType.DYNAMIC_STRING,
-                                            value: '1234'
-                                        },
-                                        {
-                                            key: 'poststed',
-                                            type: FieldConfigurationType.DYNAMIC_STRING,
-                                            value: 'Moria'
-                                        }
-                                    ]
+                                    "key": "tittel",
+                                    "type": "DYNAMIC_STRING",
+                                    "value": "$ifg{name}"
                                 },
                                 {
-                                    key: 'kontaktinformasjon',
-                                    fieldConfigurations: [
-                                        {
-                                            key: 'telefonnummer',
-                                            type: FieldConfigurationType.DYNAMIC_STRING,
-                                            value: '12345678'
-                                        },
-                                        {
-                                            key: 'mobiltelefonnummer',
-                                            type: FieldConfigurationType.DYNAMIC_STRING,
-                                            value: '12345678'
-                                        },
-                                        {
-                                            key: 'epostadresse',
-                                            type: FieldConfigurationType.DYNAMIC_STRING,
-                                            value: 'hello@world.no'
-                                        },
-                                    ]
+                                    "key": "dokumentstatus",
+                                    "type": "STRING",
+                                    "value": "D9"
                                 },
                                 {
-                                    key: 'skjerming',
-                                    fieldConfigurations: [
-                                        {
-                                            key: 'tilgangsrestriksjon',
-                                            type: FieldConfigurationType.STRING,
-                                            value: 'code2'
-                                        },
-                                        {
-                                            key: 'skjermingshjemmel',
-                                            type: FieldConfigurationType.STRING,
-                                            value: 'p3'
-                                        }
-                                    ]
+                                    "key": "dokumentType",
+                                    "type": "STRING",
+                                    "value": "cat8"
+                                },
+                                {
+                                    "key": "tilknyttetRegistreringSom",
+                                    "type": "URL",
+                                    "value": "www.kodeverk.no/V"
                                 }
                             ]
                         }
-                    ]
+                    ],
+                    "key": "dokumentbeskrivelse"
+                },
+                {
+                    "fixed": [
+                        {
+                            "elements": [
+                                {
+                                    "fieldConfigurations": [
+                                        {
+                                            "key": "adresselinje",
+                                            "type": "DYNAMIC_STRING",
+                                            "value": "highstreet 22"
+                                        },
+                                        {
+                                            "key": "postnummer",
+                                            "type": "DYNAMIC_STRING",
+                                            "value": "1234"
+                                        },
+                                        {
+                                            "key": "poststed",
+                                            "type": "DYNAMIC_STRING",
+                                            "value": "Moria"
+                                        }
+                                    ],
+                                    "key": "adresse"
+                                },
+                                {
+                                    "fieldConfigurations": [
+                                        {
+                                            "key": "telefonnummer",
+                                            "type": "DYNAMIC_STRING",
+                                            "value": "12345678"
+                                        },
+                                        {
+                                            "key": "mobiltelefonnummer",
+                                            "type": "DYNAMIC_STRING",
+                                            "value": "12345678"
+                                        },
+                                        {
+                                            "key": "epostadresse",
+                                            "type": "DYNAMIC_STRING",
+                                            "value": "hello@world.no"
+                                        }
+                                    ],
+                                    "key": "kontaktinformasjon"
+                                },
+                                {
+                                    "fieldConfigurations": [
+                                        {
+                                            "key": "tilgangsrestriksjon",
+                                            "type": "STRING",
+                                            "value": "code2"
+                                        },
+                                        {
+                                            "key": "skjermingshjemmel",
+                                            "type": "STRING",
+                                            "value": "p3"
+                                        }
+                                    ],
+                                    "key": "skjerming"
+                                }
+                            ],
+                            "fieldConfigurations": [
+                                {
+                                    "key": "protected",
+                                    "type": "BOOLEAN",
+                                    "value": "true"
+                                },
+                                {
+                                    "key": "korrespondanseparttype",
+                                    "type": "STRING",
+                                    "value": "avsender"
+                                },
+                                {
+                                    "key": "fødselsnummer",
+                                    "type": "DYNAMIC_STRING",
+                                    "value": "123456789"
+                                },
+                                {
+                                    "key": "organisasjonsnummer",
+                                    "type": "DYNAMIC_STRING",
+                                    "value": null
+                                },
+                                {
+                                    "key": "korrespondansepartNavn",
+                                    "type": "DYNAMIC_STRING",
+                                    "value": "Anakin Skywalker"
+                                },
+                                {
+                                    "key": "kontaktperson",
+                                    "type": "DYNAMIC_STRING",
+                                    "value": "donna"
+                                },
+                                {
+                                    "key": "korrespondansepartType",
+                                    "type": "URL",
+                                    "value": "kodeverk.no/korrespondansepartType/systemId/A"
+                                }
+                            ]
+                        }
+                    ],
+                    "key": "korrespondansepart"
                 }
-            ]
+            ],
+            "fieldConfigurations": [
+                {
+                    "key": "tittel",
+                    "type": "DYNAMIC_STRING",
+                    "value": "record title"
+                },
+                {
+                    "key": "offentligTittel",
+                    "type": "DYNAMIC_STRING",
+                    "value": "public record title"
+                },
+                {
+                    "key": "administrativenhet",
+                    "type": "STRING",
+                    "value": "unit33"
+                },
+                {
+                    "key": "journalstatus",
+                    "type": "STRING",
+                    "value": "N"
+                },
+                {
+                    "key": "journalposttype",
+                    "type": "STRING",
+                    "value": "A"
+                },
+                {
+                    "key": "saksbehandler",
+                    "type": "STRING",
+                    "value": "boba"
+                },
+                {
+                    "key": "tilgangsrestriksjon",
+                    "type": "STRING",
+                    "value": "code89"
+                },
+                {
+                    "key": "skjermingshjemmel",
+                    "type": "STRING",
+                    "value": "p34"
+                }
+            ],
+            "key": "journalpost"
         }
     ],
-    id: '234',
-    integrationId: 'id1',
-    integrationMetadataId: 321
+    "id": "234",
+    "integrationId": "id1",
+    "integrationMetadataId": 321
 }

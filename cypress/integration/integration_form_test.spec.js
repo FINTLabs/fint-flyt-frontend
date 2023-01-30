@@ -35,7 +35,7 @@ describe('Testing Integration Form', () => {
             cy.get('#case-form > .MuiAccordionSummary-root').should('contain', 'Sak')
             cy.get('#record-form > .MuiAccordionSummary-root').should('contain', 'Journalpost')
             cy.get('#document-object-form > .MuiAccordionSummary-root').should('contain', 'Dokument- og objektbeskrivelse')
-            cy.get('#applicant-form > .MuiAccordionSummary-root').should('contain', 'Avsender')
+            cy.get('#applicant-form > .MuiAccordionSummary-root').should('contain', 'Korrespondansepart')
         });
 
         it('should open and close accordions by click', () => {

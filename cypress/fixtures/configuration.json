@@ -165,7 +165,7 @@
       "nationalIdentityNumber":"",
       "fields":[{
         "valueBuildStrategy":"COMBINE_STRING_VALUE",
-        "field":"KorrespondansepartNavn",
+        "field":"korrespondansepartNavn",
         "valueBuilder":{
           "value":"",
           "properties":[]}

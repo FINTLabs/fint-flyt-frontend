@@ -62,8 +62,8 @@ export const MOCK_CONFIG_FORMDATA: IFormConfiguration = {
             documentStatus: "D9",
             documentType: "cat8",
             role: "www.kodeverk.no/V",
-            format: "www.kodeverk.no/P",
-            variant: "$igf{type}",
+            format: "www.kodeverk.no/PDF",
+            variant: "www.kodeverk.no/PDF",
             file: "$igf{file}"
         },
         correspondent: {
@@ -80,6 +80,7 @@ export const MOCK_CONFIG_FORMDATA: IFormConfiguration = {
             mobilePhoneNumber: "12345678",
             postalCode: "1234",
             protected: true,
+            type: 'avsender'
         }
 
     }
@@ -153,6 +154,7 @@ export const MOCK_CONFIG_FORMDATA_FOR_PATCH: IFormConfiguration = {
             mobilePhoneNumber: "12345678",
             postalCode: "1234",
             protected: true,
+            type: 'avsender'
         }
     }
 }
@@ -225,6 +227,7 @@ export const MOCK_NEW_FORMDATA: IFormConfiguration = {
             "mobilePhoneNumber": null,
             "postalCode": null,
             "protected": true,
+            "type": null
         },
     }
 }
@@ -296,6 +299,7 @@ export const MOCK_BY_ID_FORMDATA: IFormConfiguration = {
             "mobilePhoneNumber": null,
             "postalCode": null,
             "protected": true,
+            "type": null
         }
     }
 }

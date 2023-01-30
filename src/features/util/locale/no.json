@@ -80,8 +80,8 @@
                         "save": "Lagre"
                     }
                 },
-                "applicationForm": {
-                    "header": "Avsender",
+                "correspondentForm": {
+                    "header": "Korrespondansepart",
                     "protectedLabel": "Skjermet",
                     "button": {
                         "save": "Lagre"
@@ -112,7 +112,7 @@
             "case": "Sakspost",
             "record": "Journalpost",
             "document": "Dokument- og objektbeskrivelse",
-            "applicant": "Avsender",
+            "applicant": "Korrespondansepart",
             "button": {
                 "show": "Vis",
                 "edit": "Rediger",
@@ -251,7 +251,7 @@
                 "file": "File: ",
                 "organisationNumber": "Organisasjonsnummer: ",
                 "nationalIdentityNumber": "Fødselsnummer: ",
-                "applicantName": "Navn: ",
+                "correspondentName": "Navn: ",
                 "address": "Adresse: ",
                 "postalCode": "Postnummer: ",
                 "city": "Poststed: ",
@@ -350,14 +350,15 @@
             "applicantType": "Velg avsendertype",
             "organisationNumber": "Organisasjonsnummer",
             "nationalIdentityNumber": "Fødselsnummer",
-            "applicantName": "Navn",
+            "correspondentName": "Navn",
             "address": "Adresse",
             "postalCode": "Postnummer",
             "city": "Poststed",
             "contactPerson": "Kontaktperson",
             "phoneNumber": "Telefonnummer",
             "email": "Epost",
-            "protected": "Skjerming"
+            "protected": "Skjerming",
+            "correspondentType": "Korrespondanseparttype"
         },
         "selects": {
             "creationStrategies": {
@@ -513,6 +514,7 @@
             "file": "Fil",
             "protected": "Skjerming av avsender, krever tilgangsrestriksjon og hjemmel",
             "type": "Person eller organisasjon/bedrift",
+            "correspondentType": "Type korresepondansepart",
             "organisationNumber": "Orgnr for avsenderbedrift",
             "nationalIdentityNumber": "Fødselsnummer for avsender",
             "name": "Navn på bedrift/org, eller person",

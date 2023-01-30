@@ -115,8 +115,7 @@ export const MOCK_CONFIGURATION: newIConfiguration = {
                     "value": "tertTitle"
                 }
             ],
-            "key": "case",
-            "searchParameters": undefined
+            "key": "case"
         },
         {
             "elements": [
@@ -185,12 +184,12 @@ export const MOCK_CONFIGURATION: newIConfiguration = {
                         {
                             "key": "dokumentObjekt.format",
                             "type": "STRING",
-                            "value": "www.kodeverk.no/P"
+                            "value": "www.kodeverk.no/PDF"
                         },
                         {
                             "key": "dokumentObjekt.variantformat",
                             "type": "STRING",
-                            "value": "$igf{type}"
+                            "value": "www.kodeverk.no/PDF"
                         },
                         {
                             "key": "dokumentObjekt.fil",
@@ -208,6 +207,11 @@ export const MOCK_CONFIGURATION: newIConfiguration = {
                             "value": "true"
                         },
                         {
+                            "key": "korrespondanseparttype",
+                            "type": "STRING",
+                            "value": "avsender"
+                        },
+                        {
                             "key": "fødselsnummer",
                             "type": "DYNAMIC_STRING",
                             "value": "123456789"
@@ -218,7 +222,7 @@ export const MOCK_CONFIGURATION: newIConfiguration = {
                             "value": null
                         },
                         {
-                            "key": "KorrespondansepartNavn",
+                            "key": "korrespondansepartNavn",
                             "type": "DYNAMIC_STRING",
                             "value": "Anakin Skywalker"
                         },
@@ -492,12 +496,12 @@ export const MOCK_CONFIGURATION_PATCH: IConfigurationPatch = {
                         {
                             "key": "dokumentObjekt.format",
                             "type": "STRING",
-                            "value": "www.kodeverk.no/P"
+                            "value": "www.kodeverk.no/PDF"
                         },
                         {
                             "key": "dokumentObjekt.variantformat",
                             "type": "STRING",
-                            "value": "$igf{type}"
+                            "value": "www.kodeverk.no/PDF"
                         },
                         {
                             "key": "dokumentObjekt.fil",
@@ -515,6 +519,11 @@ export const MOCK_CONFIGURATION_PATCH: IConfigurationPatch = {
                             "value": "true"
                         },
                         {
+                            "key": "korrespondanseparttype",
+                            "type": "STRING",
+                            "value": "avsender"
+                        },
+                        {
                             "key": "fødselsnummer",
                             "type": "DYNAMIC_STRING",
                             "value": "123456789"
@@ -525,7 +534,7 @@ export const MOCK_CONFIGURATION_PATCH: IConfigurationPatch = {
                             "value": null
                         },
                         {
-                            "key": "KorrespondansepartNavn",
+                            "key": "korrespondansepartNavn",
                             "type": "DYNAMIC_STRING",
                             "value": "Anakin Skywalker"
                         },

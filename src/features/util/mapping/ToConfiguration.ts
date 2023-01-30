@@ -233,6 +233,11 @@ export function toConfiguration(data: IFormConfiguration, integrationId: string,
                                     value: data.recordData.correspondent?.protected.toString()
                                 },
                                 {
+                                    key: "korrespondanseparttype",
+                                    type: FieldConfigurationType.STRING,
+                                    value: data.recordData.correspondent?.type
+                                },
+                                {
                                     key: "fødselsnummer",
                                     type: FieldConfigurationType.DYNAMIC_STRING,
                                     value: data.recordData.correspondent?.nationalIdentityNumber === '' ? null : data.recordData.correspondent?.nationalIdentityNumber
@@ -243,7 +248,7 @@ export function toConfiguration(data: IFormConfiguration, integrationId: string,
                                     value: data.recordData.correspondent?.organisationNumber === '' ? null : data.recordData.correspondent?.organisationNumber
                                 },
                                 {
-                                    key: "KorrespondansepartNavn",
+                                    key: "korrespondansepartNavn",
                                     type: FieldConfigurationType.DYNAMIC_STRING,
                                     value: data.recordData.correspondent?.name === '' ? null : data.recordData.correspondent?.name
                                 },
@@ -308,7 +313,7 @@ export function toConfiguration(data: IFormConfiguration, integrationId: string,
                                     value: data.recordData.correspondent?.organisationNumber === '' ? null : data.recordData.correspondent?.organisationNumber
                                 },
                                 {
-                                    key: "KorrespondansepartNavn",
+                                    key: "korrespondansepartNavn",
                                     type: FieldConfigurationType.DYNAMIC_STRING,
                                     value: data.recordData.correspondent?.name === '' ? null : data.recordData.correspondent?.name
                                 },
@@ -627,6 +632,11 @@ export function toConfigurationPatch(data: IFormConfiguration, metadataId: any):
                                     value: data.recordData.correspondent?.protected.toString()
                                 },
                                 {
+                                    key: "korrespondanseparttype",
+                                    type: FieldConfigurationType.STRING,
+                                    value: data.recordData.correspondent?.type
+                                },
+                                {
                                     key: "fødselsnummer",
                                     type: FieldConfigurationType.DYNAMIC_STRING,
                                     value: data.recordData.correspondent?.nationalIdentityNumber === '' ? null : data.recordData.correspondent?.nationalIdentityNumber
@@ -637,7 +647,7 @@ export function toConfigurationPatch(data: IFormConfiguration, metadataId: any):
                                     value: data.recordData.correspondent?.organisationNumber === '' ? null : data.recordData.correspondent?.organisationNumber
                                 },
                                 {
-                                    key: "KorrespondansepartNavn",
+                                    key: "korrespondansepartNavn",
                                     type: FieldConfigurationType.DYNAMIC_STRING,
                                     value: data.recordData.correspondent?.name === '' ? null : data.recordData.correspondent?.name
                                 },
@@ -702,7 +712,7 @@ export function toConfigurationPatch(data: IFormConfiguration, metadataId: any):
                                     value: data.recordData.correspondent?.organisationNumber === '' ? null : data.recordData.correspondent?.organisationNumber
                                 },
                                 {
-                                    key: "KorrespondansepartNavn",
+                                    key: "korrespondansepartNavn",
                                     type: FieldConfigurationType.DYNAMIC_STRING,
                                     value: data.recordData.correspondent?.name === '' ? null : data.recordData.correspondent?.name
                                 },

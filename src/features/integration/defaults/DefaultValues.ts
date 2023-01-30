@@ -62,6 +62,7 @@ export const defaultConfigurationValues: IFormConfiguration = {
         },
         correspondent: {
             protected: false,
+            type: null,
             organisationNumber: null,
             nationalIdentityNumber: null,
             name: null,
@@ -98,6 +99,9 @@ export const variantOptions: ISelect[] = [
 export const formatOptions: ISelect[] = [
     {label: '[PDF] Portable document format', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/format/systemid/PDF'}
 ]
+export const correspondentTypeOptions: ISelect[] = [
+    {label: 'EA Avsender', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/korrespondanseparttype/systemid/EA'}
+]
 
 export const roleOptions: ISelect[] = [
     {label: '[H] Hoveddokument', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/tilknyttetregistreringsom/systemid/H'},
@@ -106,6 +110,7 @@ export const roleOptions: ISelect[] = [
 
 export const variant: string = 'https://beta.felleskomponent.no/arkiv/kodeverk/variantformat/systemid/P'
 export const format: string = 'https://beta.felleskomponent.no/arkiv/kodeverk/format/systemid/PDF'
+export const correspondentType: string = 'https://beta.felleskomponent.no/arkiv/kodeverk/korrespondanseparttype/systemid/EA'
 export const mainRole: string = 'https://beta.felleskomponent.no/arkiv/kodeverk/tilknyttetRegistreringSom/systemid/H'
 export const attachmentRole: string = 'https://beta.felleskomponent.no/arkiv/kodeverk/tilknyttetregistreringsom/systemid/V'
 
@@ -671,6 +676,7 @@ export const EXAMPLE_FORM: IFormConfiguration = {
         },
         "correspondent": {
             "protected": false,
+            "type": '',
             "organisationNumber": '',
             "nationalIdentityNumber": '',
             "name": '',

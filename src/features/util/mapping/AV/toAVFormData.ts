@@ -80,8 +80,8 @@ export function toAVFormData(data: newIConfiguration): IFormConfiguration {
                 documentStatus: configurationFieldToString(mainDocumentDescFixed, 'dokumentstatus'),
                 documentType: configurationFieldToString(mainDocumentDescFixed, 'dokumentType'),
                 role: configurationFieldToString(mainDocumentDescFixed, 'tilknyttetRegistreringSom'),
-                format: configurationFieldToString(fixedMainDocuDesc, 'variantformat'),
-                variant: configurationFieldToString(fixedMainDocuDesc, 'format'),
+                format: configurationFieldToString(fixedMainDocuDesc, 'format'),
+                variant: configurationFieldToString(fixedMainDocuDesc, 'variantformat'),
                 file: configurationFieldToString(fixedMainDocuDesc, 'fil'),
             },
             attachmentDocuments: {
@@ -95,10 +95,11 @@ export function toAVFormData(data: newIConfiguration): IFormConfiguration {
             },
             correspondent: {
                 protected: configurationFieldToBoolean(fixedCorresponentFields, 'protected'),
+                type: configurationFieldToString(fixedCorresponentFields, 'korrespondanseparttype'),
                 organisationNumber: configurationFieldToString(fixedCorresponentFields, 'organisasjonsnummer'),
                 nationalIdentityNumber: configurationFieldToString(fixedCorresponentFields, 'fødselsnummer'),
                 contactPerson: configurationFieldToString(fixedCorresponentFields, 'kontaktperson'),
-                name: configurationFieldToString(fixedCorresponentFields, 'KorrespondansepartNavn'),
+                name: configurationFieldToString(fixedCorresponentFields, 'korrespondansepartNavn'),
                 address: configurationFieldToString(addressFields, 'adresselinje'),
                 postalCode: configurationFieldToString(addressFields, 'postnummer'),
                 city: configurationFieldToString(addressFields, 'poststed'),

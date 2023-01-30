@@ -334,7 +334,7 @@ export const MOCK_SKJEMA_METADATA_TEMP: IIntegrationMetadata[] =
                 {
                     "key": "person_1",
                     "type": Type.STRING,
-                    "displayName": "Avsender",
+                    "displayName": "Korrespondansepart",
                     "children": [
                         {
                             "key": "fornavn_1",

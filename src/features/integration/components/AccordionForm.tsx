@@ -4,7 +4,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import CaseForm from "./form/CaseForm";
 import DocumentForm from "./form/DocumentForm";
 import CaseInformation from "./form/CaseInformation";
-import ApplicantForm from "./form/ApplicantForm";
+import CorrespondentForm from "./form/CorrespondentForm";
 import RecordForm from "./form/RecordForm";
 import {ACCORDION_FORM} from "../types/Accordion";
 import { useTranslation } from 'react-i18next';
@@ -21,7 +21,7 @@ const AccordionForm: React.FunctionComponent<any> = (props) => {
                 {props.accordionForm === ACCORDION_FORM.CASE_FORM && <CaseForm {...props} />}
                 {props.accordionForm === ACCORDION_FORM.RECORD_FORM && <RecordForm {...props} />}
                 {props.accordionForm === ACCORDION_FORM.MAIN_DOCUMENT_FORM && <DocumentForm {...props} />}
-                {props.accordionForm === ACCORDION_FORM.APPLICANT_FORM && <ApplicantForm {...props} />}
+                {props.accordionForm === ACCORDION_FORM.APPLICANT_FORM && <CorrespondentForm {...props} />}
          </AccordionDetails>
         </Accordion>
     );

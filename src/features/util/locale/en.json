@@ -64,7 +64,7 @@
                         "save": "Save"
                     }
                 },
-                "applicationForm": {
+                "correspondentForm": {
                     "header": "Applicant",
                     "button": {
                         "save": "Save"
@@ -148,7 +148,7 @@
                 "file": "Fil: ",
                 "organisationNumber": "Organisation number: ",
                 "nationalIdentityNumber": "National identity number: ",
-                "applicantName": "Name: ",
+                "correspondentName": "Name: ",
                 "address": "Address: ",
                 "postalCode": "Postal code: ",
                 "city": "City: ",
@@ -224,7 +224,7 @@
             "applicantType": "Select applicant type",
             "organisationNumber": "Organisation number",
             "nationalIdentityNumber": "National identity number",
-            "applicantName": "Name",
+            "correspondentName": "Name",
             "address": "Address",
             "postalCode": "Postal code",
             "city": "City",
