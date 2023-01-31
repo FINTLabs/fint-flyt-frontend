@@ -1,6 +1,6 @@
 export default interface ICaseData {
     caseCreationStrategy: string | null;
-    caseNumber: string | null | undefined;
+    id: string | null | undefined;
     title: string | null;
     publicTitle: string | null;
     caseType: string | null;

@@ -1,10 +1,10 @@
 import {IIntegration} from "../../features/integration/types/Integration";
-import {newIConfiguration} from "../../features/integration/types/Configuration";
+import {IConfiguration} from "../../features/integration/types/Configuration";
 import {IIntegrationMetadata} from "../../features/integration/types/IntegrationMetadata";
 
 export type IntegrationContextState = {
-    caseNumber: string | undefined;
-    setCaseNumber: (number: string | undefined) => void;
+    id: string | undefined;
+    setId: (number: string | undefined) => void;
     newIntegration: IIntegration | undefined;
     existingIntegration: IIntegration | undefined;
     setNewIntegration: (integration: IIntegration | undefined) => void;
@@ -12,12 +12,12 @@ export type IntegrationContextState = {
     newIntegrations: IIntegration[] | undefined;
     setNewIntegrations: (integrations: IIntegration[]) => void;
     getNewIntegrations: (sourceApplicationId: string) => void;
-    configuration: newIConfiguration | undefined;
-    setConfiguration: (configuration: newIConfiguration | undefined) => void;
-    configurations: newIConfiguration[] | undefined;
-    completedConfigurations: newIConfiguration[] | undefined;
-    setConfigurations: (configurations: newIConfiguration[]) => void;
-    setCompletedConfigurations: (configurations: newIConfiguration[]) => void;
+    configuration: IConfiguration | undefined;
+    setConfiguration: (configuration: IConfiguration | undefined) => void;
+    configurations: IConfiguration[] | undefined;
+    completedConfigurations: IConfiguration[] | undefined;
+    setConfigurations: (configurations: IConfiguration[]) => void;
+    setCompletedConfigurations: (configurations: IConfiguration[]) => void;
     getConfiguration: (integration: string, excludeElements: boolean) => void;
     getConfigurations: (page: number, size: number, sortProperty: string, sortDirection: string, complete: boolean, integration: string, excludeElements: boolean) => void;
     getCompletedConfigurations: (page: number, size: number, sortProperty: string, sortDirection: string, complete: boolean, integration: string, excludeElements: boolean) => void;
@@ -35,8 +35,8 @@ export type IntegrationContextState = {
 };
 
 export const contextDefaultValues: IntegrationContextState = {
-    caseNumber: undefined,
-    setCaseNumber: (number: string | undefined) => {},
+    id: undefined,
+    setId: (number: string | undefined) => {},
     newIntegration: {},
     existingIntegration: {},
     setNewIntegration: () => {},

@@ -1,115 +1,93 @@
-import {
-    ICollectionElement,
-    IConfigurationElement,
-    IFixedFieldConfiguration, IFromCollectionFieldConfiguration,
-    newIConfiguration
-} from "../../../integration/types/Configuration";
-import {configurationFieldToBoolean, configurationFieldToString} from "../../MappingUtil";
 import {IFormConfiguration} from "../../../integration/types/Form/FormData";
+import {IAVConfiguration, IElementCollectionMapping, IElementMapping} from "../../../integration/types/AVConfiguration";
 
-export function toAVFormData(data: newIConfiguration): IFormConfiguration {
-    // saksfelter
-    const caseFields: IConfigurationElement[] = data.elements?.filter(confField => confField.key === 'sak');
-    // journalpostfelter
-    const recordFields: IConfigurationElement[] = data.elements?.filter(confField => confField.key === 'journalpost');
+export function toAVFormData(data: IAVConfiguration): IFormConfiguration {
+    const caseFields: IElementMapping = data.mapping?.elementMappingPerKey['sak'] ? data.mapping?.elementMappingPerKey['sak'] : {elementMappingPerKey: {}, elementCollectionMappingPerKey: {}, valueMappingPerKey: {}};
+    const recordFields: IElementMapping = data.mapping?.elementMappingPerKey['journalpost'] ? data.mapping?.elementMappingPerKey['journalpost'] : {elementMappingPerKey: {}, elementCollectionMappingPerKey: {}, valueMappingPerKey: {}};
 
-    // dokumentbeskrivelse samling
-    const documentDescriptionCollection: ICollectionElement[] = recordFields[0].collectionElements ? recordFields[0].collectionElements.filter(confField => confField.key === 'dokumentbeskrivelse') : [];
+    const documentDescription: IElementCollectionMapping = recordFields.elementCollectionMappingPerKey['dokumentbeskrivelse'] ? recordFields.elementCollectionMappingPerKey['dokumentbeskrivelse'] : {elementMappings: [], elementsFromCollectionMappings: []};
+    const mainDocumentFields: IElementMapping = documentDescription.elementMappings[0] ? documentDescription.elementMappings[0] : {elementMappingPerKey: {}, elementCollectionMappingPerKey: {}, valueMappingPerKey: {}}
+    const mainDocumentObjectFields: IElementMapping = mainDocumentFields.elementCollectionMappingPerKey['dokumentobjekt'].elementMappings[0] ? mainDocumentFields.elementCollectionMappingPerKey['dokumentobjekt'].elementMappings[0] : {elementMappingPerKey: {}, elementCollectionMappingPerKey: {}, valueMappingPerKey: {}}
+    const attachmentDocumentFields: IElementMapping = documentDescription.elementsFromCollectionMappings[0].elementsMapping ? documentDescription.elementsFromCollectionMappings[0].elementsMapping : {elementMappingPerKey: {}, elementCollectionMappingPerKey: {}, valueMappingPerKey: {}}
+    const attachmentDocumentObjectFields: IElementMapping = attachmentDocumentFields.elementCollectionMappingPerKey['dokumentobjekt'].elementMappings[0] ? attachmentDocumentFields.elementCollectionMappingPerKey['dokumentobjekt'].elementMappings[0] : {elementMappingPerKey: {}, elementCollectionMappingPerKey: {}, valueMappingPerKey: {}}
 
-    // hoveddokument objektbeskrivelse
-    const mainDocumentDescFixed: IFixedFieldConfiguration[] = documentDescriptionCollection[0].fixed ? documentDescriptionCollection[0].fixed : []
+    const correspondent: IElementCollectionMapping = recordFields.elementCollectionMappingPerKey['korrespondansepart'] ? recordFields.elementCollectionMappingPerKey['korrespondansepart'] : {elementMappings: [], elementsFromCollectionMappings: []};
+    const correspondentFields: IElementMapping = correspondent.elementMappings[0] ? correspondent.elementMappings[0] : {elementMappingPerKey: {}, elementCollectionMappingPerKey: {}, valueMappingPerKey: {}}
 
-    const mainDocumentObject: ICollectionElement[] = mainDocumentDescFixed[0].collectionElements ? mainDocumentDescFixed[0].collectionElements.filter(confField => confField.key === 'dokumentObjekt') : [];
-    // hoveddokument objektbeskrivelse
-    const fixedMainDocuDesc: IFixedFieldConfiguration[] = mainDocumentObject[0].fixed ? mainDocumentObject[0].fixed : [];
+    const addressFields: IElementMapping = correspondentFields.elementMappingPerKey['adresse'] ? correspondentFields.elementMappingPerKey['adresse'] : {elementMappingPerKey: {}, elementCollectionMappingPerKey: {}, valueMappingPerKey: {}}
+    const contactFields: IElementMapping = correspondentFields.elementMappingPerKey['kontaktinformasjon'] ? correspondentFields.elementMappingPerKey['kontaktinformasjon'] : {elementMappingPerKey: {}, elementCollectionMappingPerKey: {}, valueMappingPerKey: {}}
+    const protectionFields: IElementMapping = correspondentFields.elementMappingPerKey['skjerming'] ? correspondentFields.elementMappingPerKey['skjerming'] : {elementMappingPerKey: {}, elementCollectionMappingPerKey: {}, valueMappingPerKey: {}}
 
-    const fromCollectionDocumentDesc: IFromCollectionFieldConfiguration[] = documentDescriptionCollection[0].fromCollection ? documentDescriptionCollection[0].fromCollection.filter(collEl => collEl.collectionReference === 'vedlegg') : []
-
-    const attachmentDocumentDesc = fromCollectionDocumentDesc[0].collectionElements ? fromCollectionDocumentDesc[0].collectionElements.filter(collEl => collEl.key === 'dokumentObjekt') : []
-
-    // vedlegg objektbeskrivelse
-    const fixedAttachmentDocuDesc: IFixedFieldConfiguration[] = attachmentDocumentDesc[0].fixed ? attachmentDocumentDesc[0].fixed : [];
-
-    // korrespondansepartfelter
-    const correspondentFields: ICollectionElement[] = recordFields[0].collectionElements ? recordFields[0].collectionElements.filter(confField => confField.key === 'korrespondansepart') : [];
-    const fixedCorresponentFields: IFixedFieldConfiguration[] = correspondentFields[0].fixed ? correspondentFields[0].fixed : []
-    // korrespondansepartfelter adresse
-    const addressFields = fixedCorresponentFields[0].elements ? fixedCorresponentFields[0].elements.filter(confField => confField.key === 'adresse') : [];
-    // korrespondansepartfelter kontaktinfo
-    const contactFields = fixedCorresponentFields[0].elements ? fixedCorresponentFields[0].elements.filter(confField => confField.key === 'kontaktinformasjon') : [];
-    // korrespondansepartfelter skjerming
-    const protectionFields = fixedCorresponentFields[0].elements ? fixedCorresponentFields[0].elements.filter(confField => confField.key === 'skjerming') : [];
 
     return {
         comment: data.comment,
         completed: data.completed,
         caseData: {
-            caseNumber: configurationFieldToString(caseFields, 'id'),
-            title: configurationFieldToString(caseFields, 'tittel'),
-            publicTitle: configurationFieldToString(caseFields, 'offentligTittel'),
-            recordUnit: configurationFieldToString(caseFields, 'journalenhet'),
-            caseCreationStrategy: configurationFieldToString(caseFields, 'type'),
-            caseType: configurationFieldToString(caseFields, 'saksmappetype'),
-            administrativeUnit: configurationFieldToString(caseFields, 'administrativenhet'),
-            archiveUnit: configurationFieldToString(caseFields, 'arkivdel'),
-            status: configurationFieldToString(caseFields, 'status'),
-            accessCode: configurationFieldToString(caseFields, 'tilgangsrestriksjon'),
-            paragraph: configurationFieldToString(caseFields, 'skjermingshjemmel'),
-            caseWorker: configurationFieldToString(caseFields, 'saksansvarlig'),
-            primaryClassification: configurationFieldToString(caseFields, 'primarordningsprinsipp'),
-            secondaryClassification: configurationFieldToString(caseFields, 'sekundarordningsprinsipp'),
-            tertiaryClassification: configurationFieldToString(caseFields, 'tertiarordningsprinsipp'),
-            primaryClass: configurationFieldToString(caseFields, 'primarklasse'),
-            secondaryClass: configurationFieldToString(caseFields, 'sekundarklasse'),
-            tertiaryClass: configurationFieldToString(caseFields, 'tertiarklasse'),
-            primaryTitle: configurationFieldToString(caseFields, 'primartittel'),
-            secondaryTitle: configurationFieldToString(caseFields, 'sekundartittel'),
-            tertiaryTitle: configurationFieldToString(caseFields, 'tertiartittel')
+            caseCreationStrategy: caseFields.valueMappingPerKey['type']?.mappingString ? caseFields.valueMappingPerKey['type']?.mappingString : null,
+            id: caseFields.valueMappingPerKey['id']?.mappingString ? caseFields.valueMappingPerKey['id']?.mappingString : null,
+            title: caseFields.valueMappingPerKey['tittel']?.mappingString ? caseFields.valueMappingPerKey['tittel']?.mappingString : null,
+            publicTitle: caseFields.valueMappingPerKey['offentligTittel']?.mappingString ? caseFields.valueMappingPerKey['offentligTittel']?.mappingString : null,
+            caseType: caseFields.valueMappingPerKey['saksmappetype']?.mappingString ? caseFields.valueMappingPerKey['saksmappetype']?.mappingString : null,
+            administrativeUnit: caseFields.valueMappingPerKey['administrativenhet']?.mappingString ? caseFields.valueMappingPerKey['administrativenhet']?.mappingString : null,
+            archiveUnit: caseFields.valueMappingPerKey['arkivdel']?.mappingString ? caseFields.valueMappingPerKey['arkivdel']?.mappingString : null,
+            recordUnit: caseFields.valueMappingPerKey['journalenhet']?.mappingString ? caseFields.valueMappingPerKey['journalenhet']?.mappingString : null,
+            status: caseFields.valueMappingPerKey['status']?.mappingString ? caseFields.valueMappingPerKey['status']?.mappingString : null,
+            accessCode: caseFields.valueMappingPerKey['tilgangsrestriksjon']?.mappingString ? caseFields.valueMappingPerKey['tilgangsrestriksjon']?.mappingString : null,
+            paragraph: caseFields.valueMappingPerKey['skjermingshjemmel']?.mappingString ? caseFields.valueMappingPerKey['skjermingshjemmel']?.mappingString : null,
+            caseWorker: caseFields.valueMappingPerKey['saksansvarlig']?.mappingString ? caseFields.valueMappingPerKey['saksansvarlig']?.mappingString : null,
+            primaryClassification: caseFields.valueMappingPerKey['primarordningsprinsipp']?.mappingString ? caseFields.valueMappingPerKey['primarordningsprinsipp']?.mappingString : null,
+            secondaryClassification: caseFields.valueMappingPerKey['sekundarordningsprinsipp']?.mappingString ? caseFields.valueMappingPerKey['sekundarordningsprinsipp']?.mappingString : null,
+            tertiaryClassification: caseFields.valueMappingPerKey['tertiarordningsprinsipp']?.mappingString ? caseFields.valueMappingPerKey['tertiarordningsprinsipp']?.mappingString : null,
+            primaryClass: caseFields.valueMappingPerKey['primarklasse']?.mappingString ? caseFields.valueMappingPerKey['primarklasse']?.mappingString : null,
+            secondaryClass: caseFields.valueMappingPerKey['sekundarklasse']?.mappingString ? caseFields.valueMappingPerKey['sekundarklasse']?.mappingString : null,
+            tertiaryClass: caseFields.valueMappingPerKey['tertiarklasse']?.mappingString ? caseFields.valueMappingPerKey['tertiarklasse']?.mappingString : null,
+            primaryTitle: caseFields.valueMappingPerKey['primartittel']?.mappingString ? caseFields.valueMappingPerKey['primartittel']?.mappingString : null,
+            secondaryTitle: caseFields.valueMappingPerKey['sekundartittel']?.mappingString ? caseFields.valueMappingPerKey['sekundartittel']?.mappingString : null,
+            tertiaryTitle: caseFields.valueMappingPerKey['tertiartittel']?.mappingString ? caseFields.valueMappingPerKey['tertiartittel']?.mappingString : null
         },
         recordData: {
-            title: configurationFieldToString(recordFields, 'tittel'),
-            publicTitle: configurationFieldToString(recordFields, 'offentligTittel'),
-            administrativeUnit: configurationFieldToString(recordFields, 'administrativenhet'),
-            recordStatus: configurationFieldToString(recordFields, 'journalstatus'),
-            recordType: configurationFieldToString(recordFields, 'journalposttype'),
-            caseWorker: configurationFieldToString(recordFields, 'saksbehandler'),
-            accessCode: configurationFieldToString(recordFields, 'tilgangsrestriksjon'),
-            paragraph: configurationFieldToString(recordFields, 'skjermingshjemmel'),
+            title: recordFields.valueMappingPerKey['tittel']?.mappingString ? recordFields.valueMappingPerKey['tittel']?.mappingString : null,
+            publicTitle: recordFields.valueMappingPerKey['offentligTittel']?.mappingString ? recordFields.valueMappingPerKey['offentligTittel']?.mappingString : null,
+            administrativeUnit: recordFields.valueMappingPerKey['administrativenhet']?.mappingString ? recordFields.valueMappingPerKey['administrativenhet']?.mappingString : null,
+            recordStatus: recordFields.valueMappingPerKey['journalstatus']?.mappingString ? recordFields.valueMappingPerKey['journalstatus']?.mappingString : null,
+            recordType: recordFields.valueMappingPerKey['journalposttype']?.mappingString ? recordFields.valueMappingPerKey['journalposttype']?.mappingString : null,
+            caseWorker: recordFields.valueMappingPerKey['saksbehandler']?.mappingString ? recordFields.valueMappingPerKey['saksbehandler']?.mappingString : null,
+            accessCode: recordFields.valueMappingPerKey['tilgangsrestriksjon']?.mappingString ? recordFields.valueMappingPerKey['tilgangsrestriksjon']?.mappingString : null,
+            paragraph: recordFields.valueMappingPerKey['skjermingshjemmel']?.mappingString ? recordFields.valueMappingPerKey['skjermingshjemmel']?.mappingString : null,
             mainDocument: {
-                title: configurationFieldToString(mainDocumentDescFixed, 'tittel'),
-                documentStatus: configurationFieldToString(mainDocumentDescFixed, 'dokumentstatus'),
-                documentType: configurationFieldToString(mainDocumentDescFixed, 'dokumentType'),
-                role: configurationFieldToString(mainDocumentDescFixed, 'tilknyttetRegistreringSom'),
-                format: configurationFieldToString(fixedMainDocuDesc, 'format'),
-                variant: configurationFieldToString(fixedMainDocuDesc, 'variantformat'),
-                file: configurationFieldToString(fixedMainDocuDesc, 'fil'),
+                title: mainDocumentFields.valueMappingPerKey['tittel']?.mappingString ? mainDocumentFields.valueMappingPerKey['tittel']?.mappingString : null,
+                documentStatus: mainDocumentFields.valueMappingPerKey['dokumentstatus']?.mappingString ? mainDocumentFields.valueMappingPerKey['dokumentstatus']?.mappingString : null,
+                documentType: mainDocumentFields.valueMappingPerKey['dokumentType']?.mappingString ? mainDocumentFields.valueMappingPerKey['dokumentType']?.mappingString : null,
+                role: mainDocumentFields.valueMappingPerKey['tilknyttetRegistreringSom']?.mappingString ? mainDocumentFields.valueMappingPerKey['tilknyttetRegistreringSom']?.mappingString : null,
+                format: mainDocumentObjectFields.valueMappingPerKey['format']?.mappingString ? mainDocumentObjectFields.valueMappingPerKey['format']?.mappingString : null,
+                variant: mainDocumentObjectFields.valueMappingPerKey['variantformat']?.mappingString ? mainDocumentObjectFields.valueMappingPerKey['variantformat']?.mappingString : null,
+                file: mainDocumentObjectFields.valueMappingPerKey['fil']?.mappingString ? mainDocumentObjectFields.valueMappingPerKey['fil']?.mappingString : null
             },
             attachmentDocuments: {
-                title: configurationFieldToString(fromCollectionDocumentDesc, 'tittel'),
-                documentStatus: configurationFieldToString(fromCollectionDocumentDesc, 'dokumentstatus'),
-                documentType: configurationFieldToString(fromCollectionDocumentDesc, 'dokumentType'),
-                role: configurationFieldToString(fromCollectionDocumentDesc, 'tilknyttetRegistreringSom'),
-                format: configurationFieldToString(fixedAttachmentDocuDesc, 'variantformat'),
-                variant: configurationFieldToString(fixedAttachmentDocuDesc, 'format'),
-                file: configurationFieldToString(fixedAttachmentDocuDesc, 'fil'),
+                title: attachmentDocumentFields.valueMappingPerKey['tittel']?.mappingString ? attachmentDocumentFields.valueMappingPerKey['tittel']?.mappingString : null,
+                documentStatus: attachmentDocumentFields.valueMappingPerKey['dokumentstatus']?.mappingString ? attachmentDocumentFields.valueMappingPerKey['dokumentstatus']?.mappingString : null,
+                documentType: attachmentDocumentFields.valueMappingPerKey['dokumentType']?.mappingString ? attachmentDocumentFields.valueMappingPerKey['dokumentType']?.mappingString : null,
+                role: attachmentDocumentFields.valueMappingPerKey['tilknyttetRegistreringSom']?.mappingString ? attachmentDocumentFields.valueMappingPerKey['tilknyttetRegistreringSom']?.mappingString : null,
+                format: attachmentDocumentObjectFields.valueMappingPerKey['format']?.mappingString ? attachmentDocumentObjectFields.valueMappingPerKey['format']?.mappingString : null,
+                variant: attachmentDocumentObjectFields.valueMappingPerKey['variantformat']?.mappingString ? attachmentDocumentObjectFields.valueMappingPerKey['variantformat']?.mappingString : null,
+                file: attachmentDocumentObjectFields.valueMappingPerKey['fil']?.mappingString ? attachmentDocumentObjectFields.valueMappingPerKey['fil']?.mappingString : null
             },
             correspondent: {
-                protected: configurationFieldToBoolean(fixedCorresponentFields, 'protected'),
-                type: configurationFieldToString(fixedCorresponentFields, 'korrespondanseparttype'),
-                organisationNumber: configurationFieldToString(fixedCorresponentFields, 'organisasjonsnummer'),
-                nationalIdentityNumber: configurationFieldToString(fixedCorresponentFields, 'fødselsnummer'),
-                contactPerson: configurationFieldToString(fixedCorresponentFields, 'kontaktperson'),
-                name: configurationFieldToString(fixedCorresponentFields, 'korrespondansepartNavn'),
-                address: configurationFieldToString(addressFields, 'adresselinje'),
-                postalCode: configurationFieldToString(addressFields, 'postnummer'),
-                city: configurationFieldToString(addressFields, 'poststed'),
-                phoneNumber: configurationFieldToString(contactFields, 'telefonnummer'),
-                mobilePhoneNumber: configurationFieldToString(contactFields, 'mobiltelefonnummer'),
-                email: configurationFieldToString(contactFields, 'epostadresse'),
-                accessCode: configurationFieldToString(protectionFields, 'tilgangsrestriksjon'),
-                paragraph: configurationFieldToString(protectionFields, 'skjermingshjemmel'),
+                protected: correspondentFields.valueMappingPerKey['protected']?.mappingString ? JSON.parse(correspondentFields.valueMappingPerKey['protected']?.mappingString) : false,
+                type: correspondentFields.valueMappingPerKey['korrespondanseparttype']?.mappingString ? correspondentFields.valueMappingPerKey['korrespondanseparttype']?.mappingString : null,
+                organisationNumber: correspondentFields.valueMappingPerKey['organisasjonsnummer']?.mappingString ? correspondentFields.valueMappingPerKey['organisasjonsnummer']?.mappingString : null,
+                nationalIdentityNumber: correspondentFields.valueMappingPerKey['fødselsnummer']?.mappingString ? correspondentFields.valueMappingPerKey['fødselsnummer']?.mappingString : null,
+                name: correspondentFields.valueMappingPerKey['korrespondansepartNavn']?.mappingString ? correspondentFields.valueMappingPerKey['korrespondansepartNavn']?.mappingString : null,
+                contactPerson: correspondentFields.valueMappingPerKey['kontaktperson']?.mappingString ? correspondentFields.valueMappingPerKey['kontaktperson']?.mappingString : null,
+                address: addressFields.valueMappingPerKey['adresselinje']?.mappingString ? addressFields.valueMappingPerKey['adresselinje']?.mappingString : null,
+                postalCode:addressFields.valueMappingPerKey['postnummer']?.mappingString ? addressFields.valueMappingPerKey['postnummer']?.mappingString : null,
+                city: addressFields.valueMappingPerKey['poststed']?.mappingString ? addressFields.valueMappingPerKey['poststed']?.mappingString : null,
+                phoneNumber: contactFields.valueMappingPerKey['telefonnummer']?.mappingString ? contactFields.valueMappingPerKey['telefonnummer']?.mappingString : null,
+                mobilePhoneNumber: contactFields.valueMappingPerKey['mobiltelefonnummer']?.mappingString ? contactFields.valueMappingPerKey['mobiltelefonnummer']?.mappingString : null,
+                email: contactFields.valueMappingPerKey['epostadresse']?.mappingString ? contactFields.valueMappingPerKey['epostadresse']?.mappingString : null,
+                accessCode: protectionFields.valueMappingPerKey['tilgangsrestriksjon']?.mappingString ? protectionFields.valueMappingPerKey['tilgangsrestriksjon']?.mappingString : null,
+                paragraph: protectionFields.valueMappingPerKey['skjermingshjemmel']?.mappingString ? protectionFields.valueMappingPerKey['skjermingshjemmel']?.mappingString : null,
             }
         }
     }
-
 }

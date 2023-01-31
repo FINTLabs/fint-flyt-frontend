@@ -30,10 +30,10 @@ import {
 import ConfigurationRepository from "../../../shared/repositories/ConfigurationRepository";
 import {IIntegrationPatch} from "../../integration/types/Integration";
 import {ResourcesContext} from "../../../context/resourcesContext";
-import {configurationFieldToString} from "../../util/MappingUtil";
 import ResourceRepository from "../../../shared/repositories/ResourceRepository";
 import {IResourceItem} from "../../../context/resourcesContext/types";
-import {newIConfiguration} from "../../integration/types/Configuration";
+import {IConfiguration, IConfigurationPatch} from "../../integration/types/Configuration";
+import {IElementMapping} from "../../integration/types/AVConfiguration";
 
 const IntegrationPanel: React.FunctionComponent<any> = (props) => {
     const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.integrationOverview'});
@@ -101,7 +101,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
         }
         ConfigurationRepository.getConfiguration(id.toString(), true)
             .then((response) => {
-                let data: newIConfiguration = response.data;
+                let data: IConfiguration = response.data;
                 if (data) {
                     setActiveVersion(t('version') + data.version)
                 }
@@ -120,16 +120,18 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
         getInstanceElementMetadata(selectedForm[0].id)
         await ConfigurationRepository.getConfiguration(id.toString(), false)
             .then(async (response) => {
-                let data: newIConfiguration = response.data
+                let data: IConfiguration = response.data
                 if (version) {
                     data.id = undefined;
                     data.completed = false;
                 }
                 setConfiguration(data);
-                let cases = data?.elements.filter((confField: any) => confField.key === 'case')
-                let primaryClass = configurationFieldToString(cases ? cases : [], 'primarordningsprinsipp')
-                let secondaryClass = configurationFieldToString(cases ? cases : [], 'sekundarordningsprinsipp')
-                let tertiaryClass = configurationFieldToString(cases ? cases : [], 'tertiarordningsprinsipp')
+                //TODO: FIX HENTING AV KLASSERING
+                const cases: IElementMapping = data.mapping?.elementMappingPerKey['sak'] ? data.mapping?.elementMappingPerKey['sak'] : {elementMappingPerKey: {}, elementCollectionMappingPerKey: {}, valueMappingPerKey: {}};
+
+                let primaryClass = cases.valueMappingPerKey['primarordningsprinsipp']?.mappingString ? cases.valueMappingPerKey['primarordningsprinsipp']?.mappingString : null
+                let secondaryClass = cases.valueMappingPerKey['sekundarordningsprinsipp']?.mappingString ? cases.valueMappingPerKey['sekundarordningsprinsipp']?.mappingString : null
+                let tertiaryClass = cases.valueMappingPerKey['tertiarordningsprinsipp']?.mappingString ? cases.valueMappingPerKey['tertiarordningsprinsipp']?.mappingString : null
                 if(primaryClass !== null ) await ResourceRepository.getClasses(primaryClass).then(async response => {
                     if (response.data) {response.data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
                         setPrimaryClass(list)

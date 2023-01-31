@@ -1,804 +1,329 @@
-import {FieldConfigurationType, IConfigurationPatch, newIConfiguration} from "../../integration/types/Configuration";
-import { IFormConfiguration } from "../../integration/types/Form/FormData";
+import {FieldType, IAVConfiguration, IAVConfigurationPatch} from "../../integration/types/AVConfiguration"
+import {IFormConfiguration} from "../../integration/types/Form/FormData";
 import {CreationStrategy} from "../../integration/types/CreationStrategy";
 
-export function toConfiguration(data: IFormConfiguration, integrationId: string, configurationId: any, metadataId: number): newIConfiguration {
+export function toConfiguration(data: IFormConfiguration, integrationId: string, configurationId: any, metadataId: number): IAVConfiguration {
     return {
         integrationId: integrationId,
         id: configurationId,
         completed: data.completed,
         integrationMetadataId: metadataId,
         comment: data.comment,
-        elements: [
-            data.caseData.caseCreationStrategy === CreationStrategy.BY_ID ?
-                {
-                    key: 'case',
-                    fieldConfigurations: [
-                        {
-                            key: "type",
-                            type: FieldConfigurationType.STRING,
-                            value: "BY_ID"
-                        },
-                        {
-                            key: "id",
-                            type: FieldConfigurationType.STRING,
-                            value: data.caseData.caseNumber ? data.caseData.caseNumber : null
-                        }
-                    ]
-                } : {
-                    key: 'case',
-                    searchParameters: data.caseData.caseCreationStrategy === CreationStrategy.NEW ? undefined : [],
-                    fieldConfigurations: [
-                        {
-                            key: "type",
-                            type: FieldConfigurationType.STRING,
-                            value: data.caseData.caseCreationStrategy === CreationStrategy.NEW ? "NEW" : "BY_SEARCH_OR_NEW"
-                        },
-                        {
-                            key: "tittel",
-                            type: FieldConfigurationType.DYNAMIC_STRING,
-                            value: data.caseData.title === '' ? null : data.caseData?.title
-                        },
-                        {
-                            key: "offentligTittel",
-                            type: FieldConfigurationType.DYNAMIC_STRING,
-                            value: data.caseData?.publicTitle === '' ? null : data.caseData?.publicTitle
-                        },
-                        {
-                            key: "saksmappetype",
-                            type: FieldConfigurationType.STRING,
-                            value: data.caseData?.caseType
-                        },
-                        {
-                            key: 'administrativenhet',
-                            type: FieldConfigurationType.STRING,
-                            value: data.caseData?.administrativeUnit
-
-                        },
-                        {
-                            key: "arkivdel",
-                            type: FieldConfigurationType.STRING,
-                            value: data.caseData?.archiveUnit
-
-                        },
-                        {
-                            key: "journalenhet",
-                            type: FieldConfigurationType.STRING,
-                            value: data.caseData?.recordUnit
-
-                        },
-                        {
-                            key: "status",
-                            type: FieldConfigurationType.STRING,
-                            value: data.caseData?.status
-
-                        },
-                        {
-                            key: "tilgangsrestriksjon",
-                            type: FieldConfigurationType.STRING,
-                            value: data.caseData?.accessCode
-
-                        },
-                        {
-                            key: "skjermingshjemmel",
-                            type: FieldConfigurationType.STRING,
-                            value: data.caseData?.paragraph
-
-                        },
-                        {
-                            key: "saksansvarlig",
-                            type: FieldConfigurationType.STRING,
-                            value: data.caseData?.caseWorker
-
-                        },
-                        {
-                            key: "primarordningsprinsipp",
-                            type: FieldConfigurationType.STRING,
-                            value: data.caseData?.primaryClassification
-                        },
-                        {
-                            key: "sekundarordningsprinsipp",
-                            type: FieldConfigurationType.STRING,
-                            value: data.caseData?.secondaryClassification
-                        },
-                        {
-                            key: "tertiarordningsprinsipp",
-                            type: FieldConfigurationType.STRING,
-                            value: data.caseData?.tertiaryClassification
-                        },
-                        {
-                            key: "primarklasse",
-                            type: FieldConfigurationType.DYNAMIC_STRING,
-                            value: data.caseData?.primaryClass === '' ? null : data.caseData?.primaryClass
-                        },
-                        {
-                            key: "sekundarklasse",
-                            type: FieldConfigurationType.DYNAMIC_STRING,
-                            value: data.caseData?.secondaryClass === '' ? null : data.caseData?.secondaryClass
-                        },
-                        {
-                            key: "tertiarklasse",
-                            type: FieldConfigurationType.DYNAMIC_STRING,
-                            value: data.caseData?.tertiaryClass === '' ? null : data.caseData?.tertiaryClass
-                        },
-                        {
-                            key: "primartittel",
-                            type: FieldConfigurationType.DYNAMIC_STRING,
-                            value: data.caseData?.primaryTitle === '' ? null : data.caseData?.primaryTitle
-                        },
-                        {
-                            key: "sekundartittel",
-                            type: FieldConfigurationType.DYNAMIC_STRING,
-                            value: data.caseData?.secondaryTitle === '' ? null : data.caseData?.secondaryTitle
-                        },
-                        {
-                            key: "tertiartittel",
-                            type: FieldConfigurationType.DYNAMIC_STRING,
-                            value: data.caseData?.tertiaryTitle === '' ? null : data.caseData?.tertiaryTitle
-                        }
-                    ]
+        mapping: {
+            valueMappingPerKey: {},
+            elementMappingPerKey: {
+                "sak": {
+                    valueMappingPerKey: {
+                        "type": {type: FieldType.STRING, mappingString: data.caseData.caseCreationStrategy === CreationStrategy.NEW ? "NEW" : "BY_SEARCH_OR_NEW"},
+                        "tittel": {type: FieldType.DYNAMIC_STRING, mappingString: data.caseData.title},
+                        "offentligTittel": {type: FieldType.DYNAMIC_STRING, mappingString: data.caseData.publicTitle},
+                        "saksmappetype": {type: FieldType.STRING, mappingString: data.caseData.caseType},
+                        "administrativenhet": {type: FieldType.STRING, mappingString: data.caseData.administrativeUnit},
+                        "arkivdel": {type: FieldType.STRING, mappingString: data.caseData.archiveUnit},
+                        "journalenhet": {type: FieldType.STRING, mappingString: data.caseData.recordUnit},
+                        "status": {type: FieldType.STRING, mappingString: data.caseData.status},
+                        "tilgangsrestriksjon": {type: FieldType.STRING, mappingString: data.caseData.accessCode},
+                        "skjermingshjemmel": {type: FieldType.STRING, mappingString: data.caseData.paragraph},
+                        "saksansvarlig": {type: FieldType.STRING, mappingString: data.caseData.caseWorker},
+                        "primarordningsprinsipp": {type: FieldType.STRING, mappingString: data.caseData.primaryClassification},
+                        "sekundarordningsprinsipp": {type: FieldType.STRING, mappingString: data.caseData.secondaryClassification},
+                        "tertiarordningsprinsipp": {type: FieldType.STRING, mappingString: data.caseData.tertiaryClassification},
+                        "primarklasse": {type: FieldType.DYNAMIC_STRING, mappingString: data.caseData.primaryClass},
+                        "sekundarklasse": {type: FieldType.DYNAMIC_STRING, mappingString: data.caseData.secondaryClass},
+                        "tertiarklasse": {type: FieldType.DYNAMIC_STRING, mappingString: data.caseData.tertiaryClass},
+                        "primartittel": {type: FieldType.DYNAMIC_STRING, mappingString: data.caseData.primaryTitle},
+                        "sekundartittel": {type: FieldType.DYNAMIC_STRING, mappingString: data.caseData.secondaryTitle},
+                        "tertiartittel": {type: FieldType.DYNAMIC_STRING, mappingString: data.caseData.tertiaryTitle}
+                    },
+                    elementMappingPerKey: {},
+                    elementCollectionMappingPerKey: {}
                 },
-            {
-                key: 'record',
-                elements: [
-                    {
-                        key: 'mainDocument',
-                        fieldConfigurations: [
-                            {
-                                key: "tittel",
-                                type: FieldConfigurationType.STRING,
-                                value: data.recordData.title
-                            },
-                            {
-                                key: "dokumentstatus",
-                                type: FieldConfigurationType.STRING,
-                                value: data.recordData.mainDocument?.documentStatus
-                            },
-                            {
-                                key: "dokumentType",
-                                type: FieldConfigurationType.STRING,
-                                value: data.recordData.mainDocument?.documentType
-                            },
-                            {
-                                key: "tilknyttetRegistreringSom",
-                                type: FieldConfigurationType.STRING,
-                                value: data.recordData.mainDocument?.role
-                            },
-                            {
-                                key: "dokumentObjekt.format",
-                                type: FieldConfigurationType.STRING,
-                                value: data.recordData.mainDocument?.format
-                            },
-                            {
-                                key: "dokumentObjekt.variantformat",
-                                type: FieldConfigurationType.STRING,
-                                value: data.recordData.mainDocument?.variant
-                            }
-                            ,
-                            {
-                                key: "dokumentObjekt.fil",
-                                type: FieldConfigurationType.STRING,
-                                value: data.recordData.mainDocument?.file
-                            }
-                        ]
+                "journalpost": {
+                    valueMappingPerKey: {
+                        "tittel": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.title},
+                        "offentligTittel": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.publicTitle},
+                        "administrativenhet": {type: FieldType.STRING, mappingString: data.recordData.administrativeUnit},
+                        "journalstatus": {type: FieldType.STRING, mappingString: data.recordData.recordStatus},
+                        "journalposttype": {type: FieldType.STRING, mappingString: data.recordData.recordType},
+                        "saksbehandler": {type: FieldType.STRING, mappingString: data.recordData.caseWorker},
+                        "tilgangsrestriksjon": {type: FieldType.STRING, mappingString: data.recordData.accessCode},
+                        "skjermingshjemmel": {type: FieldType.STRING, mappingString: data.recordData.paragraph}
                     },
-                    {
-                        key: 'attachmentDocuments',
-                        fieldConfigurations: [
-                            {
-                                key: "tittel",
-                                type: FieldConfigurationType.STRING,
-                                value: data.recordData.attachmentDocuments?.title
-                            },
-                            {
-                                key: "dokumentstatus",
-                                type: FieldConfigurationType.STRING,
-                                value: data.recordData.attachmentDocuments?.documentStatus
-                            },
-                            {
-                                key: "dokumentType",
-                                type: FieldConfigurationType.STRING,
-                                value: data.recordData.attachmentDocuments?.documentType
-                            },
-                            {
-                                key: "tilknyttetRegistreringSom",
-                                type: FieldConfigurationType.STRING,
-                                value: data.recordData.attachmentDocuments?.role
-                            },
-                            {
-                                key: "dokumentObjekt.format",
-                                type: FieldConfigurationType.STRING,
-                                value: data.recordData.attachmentDocuments?.format
-                            },
-                            {
-                                key: "dokumentObjekt.variantformat",
-                                type: FieldConfigurationType.STRING,
-                                value: data.recordData.attachmentDocuments?.variant
-                            }
-                            ,
-                            {
-                                key: "dokumentObjekt.fil",
-                                type: FieldConfigurationType.STRING,
-                                value: data.recordData.attachmentDocuments?.file
-                            }
-                        ]
-                    },
-                    data.recordData.correspondent?.protected ?
-                        {
-                            key: 'correspondent',
-                            fieldConfigurations: [
+                    elementMappingPerKey: {},
+                    elementCollectionMappingPerKey: {
+                        "dokumentbeskrivelse": {
+                            elementMappings: [
                                 {
-                                    key: "protected",
-                                    type: FieldConfigurationType.BOOLEAN,
-                                    value: data.recordData.correspondent?.protected.toString()
-                                },
+                                    valueMappingPerKey: {
+                                        "tittel": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.mainDocument.title},
+                                        "dokumentstatus": {type: FieldType.STRING, mappingString: data.recordData.mainDocument.documentStatus},
+                                        "dokumentType": {type: FieldType.STRING, mappingString: data.recordData.mainDocument.documentType},
+                                        "tilknyttetRegistreringSom": {type: FieldType.URL, mappingString: data.recordData.mainDocument.role}
+                                    },
+                                    elementMappingPerKey: {},
+                                    elementCollectionMappingPerKey: {
+                                        "dokumentobjekt": {
+                                            elementMappings: [
+                                                {
+                                                    valueMappingPerKey: {
+                                                        "format": {type: FieldType.STRING, mappingString: data.recordData.mainDocument.format},
+                                                        "variantformat": {type: FieldType.STRING, mappingString: data.recordData.mainDocument.variant},
+                                                        "fil": {type: FieldType.FILE, mappingString: data.recordData.mainDocument.file}
+                                                    },
+                                                    elementMappingPerKey: {},
+                                                    elementCollectionMappingPerKey: {}
+                                                }
+                                            ],
+                                            elementsFromCollectionMappings: [
+                                            ]
+                                        }
+                                    }
+                                }
+                            ],
+                            elementsFromCollectionMappings: [
                                 {
-                                    key: "korrespondanseparttype",
-                                    type: FieldConfigurationType.STRING,
-                                    value: data.recordData.correspondent?.type
-                                },
-                                {
-                                    key: "fødselsnummer",
-                                    type: FieldConfigurationType.DYNAMIC_STRING,
-                                    value: data.recordData.correspondent?.nationalIdentityNumber === '' ? null : data.recordData.correspondent?.nationalIdentityNumber
-                                },
-                                {
-                                    key: "organisasjonsnummer",
-                                    type: FieldConfigurationType.DYNAMIC_STRING,
-                                    value: data.recordData.correspondent?.organisationNumber === '' ? null : data.recordData.correspondent?.organisationNumber
-                                },
-                                {
-                                    key: "korrespondansepartNavn",
-                                    type: FieldConfigurationType.DYNAMIC_STRING,
-                                    value: data.recordData.correspondent?.name === '' ? null : data.recordData.correspondent?.name
-                                },
-                                {
-                                    key: "Adresse.adresselinje",
-                                    type: FieldConfigurationType.DYNAMIC_STRING,
-                                    value: data.recordData.correspondent?.address === '' ? null : data.recordData.correspondent?.address
-                                },
-                                {
-                                    key: "Adresse.postnummer",
-                                    type: FieldConfigurationType.DYNAMIC_STRING,
-                                    value: data.recordData.correspondent?.postalCode === '' ? null : data.recordData.correspondent?.postalCode
-                                },
-                                {
-                                    key: "Adresse.poststed",
-                                    type: FieldConfigurationType.DYNAMIC_STRING,
-                                    value: data.recordData.correspondent?.city === '' ? null : data.recordData.correspondent?.city
-                                },
-                                {
-                                    key: "kontaktperson",
-                                    type: FieldConfigurationType.DYNAMIC_STRING,
-                                    value: data.recordData.correspondent?.contactPerson === '' ? null : data.recordData.correspondent?.contactPerson
-                                },
-                                {
-                                    key: "Kontaktinformasjon.mobiltelefonnummer",
-                                    type: FieldConfigurationType.DYNAMIC_STRING,
-                                    value: data.recordData.correspondent?.phoneNumber === '' ? null : data.recordData.correspondent?.phoneNumber
-                                },
-                                {
-                                    key: "Kontaktinformasjon.epostadresse",
-                                    type: FieldConfigurationType.DYNAMIC_STRING,
-                                    value: data.recordData.correspondent?.email === '' ? null : data.recordData.correspondent?.email
-                                },
-                                {
-                                    key: "tilgangsrestriksjon",
-                                    type: FieldConfigurationType.STRING,
-                                    value: data.recordData.correspondent?.accessCode
-                                },
-                                {
-                                    key: "skjermingshjemmel",
-                                    type: FieldConfigurationType.STRING,
-                                    value: data.recordData.correspondent?.paragraph
+                                    instanceCollectionReferencesOrdered: ["$if(vedlegg)"],
+                                    elementsMapping: {
+                                        valueMappingPerKey: {
+                                            "tittel": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.attachmentDocuments.title},
+                                            "dokumentstatus": {type: FieldType.STRING, mappingString: data.recordData.attachmentDocuments.documentStatus},
+                                            "dokumentType": {type: FieldType.STRING, mappingString: data.recordData.attachmentDocuments.documentType},
+                                            "tilknyttetRegistreringSom": {type: FieldType.STRING, mappingString: data.recordData.attachmentDocuments.role}
+                                        },
+                                        elementMappingPerKey: {},
+                                        elementCollectionMappingPerKey: {
+                                            "dokumentobjekt": {
+                                                elementMappings: [
+                                                    {
+                                                        valueMappingPerKey: {
+                                                            "format": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.attachmentDocuments.format},
+                                                            "variantformat": {type: FieldType.STRING, mappingString: data.recordData.attachmentDocuments.variant},
+                                                            "fil": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.attachmentDocuments.file}
+                                                        },
+                                                        elementMappingPerKey: {},
+                                                        elementCollectionMappingPerKey: {}
+                                                    }
+                                                ],
+                                                elementsFromCollectionMappings: []
+                                            }
+                                        }
+                                    }
                                 }
                             ]
+
+                        },
+                        "korrespondansepart": {
+                            elementMappings: [{
+                                valueMappingPerKey: {
+                                    "protected": {type: FieldType.BOOLEAN, mappingString: data.recordData.correspondent?.protected ? data.recordData.correspondent.protected.toString() : null},
+                                    "fødselsnummer": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.nationalIdentityNumber},
+                                    "organisasjonsnummer": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.organisationNumber},
+                                    "kontaktperson": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.contactPerson},
+                                    "korrespondansepartNavn": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.name},
+                                    "korrespondanseparttype": {type: FieldType.STRING, mappingString: data.recordData.correspondent.type}
+                                },
+                                elementMappingPerKey: {
+                                    "adresse": {
+                                        valueMappingPerKey: {
+                                            "adresselinje": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.address},
+                                            "postnummer": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.postalCode},
+                                            "poststed": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.city}
+                                        },
+                                        elementMappingPerKey: {},
+                                        elementCollectionMappingPerKey: {}
+                                    },
+                                    "kontaktinformasjon": {
+                                        valueMappingPerKey: {
+                                            "epostadresse": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.email},
+                                            "mobiltelefonnummer": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.mobilePhoneNumber},
+                                            "telefonnummer": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.phoneNumber}
+                                        },
+                                        elementMappingPerKey: {},
+                                        elementCollectionMappingPerKey: {}
+                                    },
+                                    "skjerming": data.recordData.correspondent?.protected ?
+                                        {
+                                            valueMappingPerKey: {
+                                                "tilgangsrestriksjon": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.accessCode},
+                                                "skjermingshjemmel": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.paragraph}
+                                            },
+                                            elementMappingPerKey: {},
+                                            elementCollectionMappingPerKey: {}
+                                        } : {
+                                            valueMappingPerKey: {},
+                                            elementMappingPerKey: {},
+                                            elementCollectionMappingPerKey: {}}
+                                },
+                                elementCollectionMappingPerKey: {}
+                            }],
+                            elementsFromCollectionMappings: []
                         }
-                        :
-                        {
-                            key: 'correspondent',
-                            fieldConfigurations: [
-                                {
-                                    key: "protected",
-                                    type: FieldConfigurationType.BOOLEAN,
-                                    value: null
-                                },{
-                                    key: "fødselsnummer",
-                                    type: FieldConfigurationType.DYNAMIC_STRING,
-                                    value: data.recordData.correspondent?.nationalIdentityNumber === '' ? null : data.recordData.correspondent?.nationalIdentityNumber
-                                },
-                                {
-                                    key: "organisasjonsnummer",
-                                    type: FieldConfigurationType.DYNAMIC_STRING,
-                                    value: data.recordData.correspondent?.organisationNumber === '' ? null : data.recordData.correspondent?.organisationNumber
-                                },
-                                {
-                                    key: "korrespondansepartNavn",
-                                    type: FieldConfigurationType.DYNAMIC_STRING,
-                                    value: data.recordData.correspondent?.name === '' ? null : data.recordData.correspondent?.name
-                                },
-                                {
-                                    key: "Adresse.adresselinje",
-                                    type: FieldConfigurationType.DYNAMIC_STRING,
-                                    value: data.recordData.correspondent?.address === '' ? null : data.recordData.correspondent?.address
-                                },
-                                {
-                                    key: "Adresse.postnummer",
-                                    type: FieldConfigurationType.DYNAMIC_STRING,
-                                    value: data.recordData.correspondent?.postalCode === '' ? null : data.recordData.correspondent?.postalCode
-                                },
-                                {
-                                    key: "Adresse.poststed",
-                                    type: FieldConfigurationType.DYNAMIC_STRING,
-                                    value: data.recordData.correspondent?.city === '' ? null : data.recordData.correspondent?.city
-                                },
-                                {
-                                    key: "kontaktperson",
-                                    type: FieldConfigurationType.DYNAMIC_STRING,
-                                    value: data.recordData.correspondent?.contactPerson === '' ? null : data.recordData.correspondent?.contactPerson
-                                },
-                                {
-                                    key: "Kontaktinformasjon.mobiltelefonnummer",
-                                    type: FieldConfigurationType.DYNAMIC_STRING,
-                                    value: data.recordData.correspondent?.phoneNumber === '' ? null : data.recordData.correspondent?.phoneNumber
-                                },
-                                {
-                                    key: "Kontaktinformasjon.epostadresse",
-                                    type: FieldConfigurationType.DYNAMIC_STRING,
-                                    value: data.recordData.correspondent?.email === '' ? null : data.recordData.correspondent?.email
-                                },
-                            ]
-                        }
-                ],
-                fieldConfigurations: [
-                    {
-                        key: "tittel",
-                        type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: data.recordData?.title === '' ? null : data.recordData?.title
-
-
-                    },
-                    {
-                        key: "offentligTittel",
-                        type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: data.recordData?.publicTitle === '' ? null : data.recordData?.publicTitle
-
-                    },
-                    {
-                        key: "administrativenhet",
-                        type: FieldConfigurationType.STRING,
-                        value: data.recordData?.administrativeUnit
-
-                    },
-                    {
-                        key: "journalstatus",
-                        type: FieldConfigurationType.STRING,
-                        value: data.recordData?.recordStatus
-                    },
-                    {
-                        key: "journalposttype",
-                        type: FieldConfigurationType.STRING,
-                        value: data.recordData?.recordType
-                    },
-                    {
-                        key: "saksbehandler",
-                        type: FieldConfigurationType.STRING,
-                        value: data.recordData?.caseWorker
-
-                    },
-                    {
-                        key: "tilgangsrestriksjon",
-                        type: FieldConfigurationType.STRING,
-                        value: data.recordData?.accessCode
-
-                    },
-                    {
-                        key: "skjermingshjemmel",
-                        type: FieldConfigurationType.STRING,
-                        value: data.recordData?.paragraph
                     }
-                ]
-            }
-        ]
+                }
+            },
+            elementCollectionMappingPerKey: {}
+        }
     }
 }
 
-export function toConfigurationPatch(data: IFormConfiguration, metadataId: any): IConfigurationPatch {
+export function toConfigurationPatch(data: IFormConfiguration, metadataId: any): IAVConfigurationPatch {
     return {
         completed: data.completed,
         integrationMetadataId: metadataId,
         comment: data.comment,
-        elements: [
-            data.caseData.caseCreationStrategy === CreationStrategy.BY_ID ?
-                {
-                    key: 'case',
-                    fieldConfigurations: [
-                        {
-                            key: "type",
-                            type: FieldConfigurationType.STRING,
-                            value: "BY_ID"
-                        },
-                        {
-                            key: "id",
-                            type: FieldConfigurationType.STRING,
-                            value: data.caseData.caseNumber ? data.caseData.caseNumber : null
-                        }
-                    ]
-                } : {
-                    key: 'case',
-                    searchParameters: data.caseData.caseCreationStrategy === CreationStrategy.NEW ? undefined : [],
-                    fieldConfigurations: [
-                        {
-                            key: "type",
-                            type: FieldConfigurationType.STRING,
-                            value: data.caseData.caseCreationStrategy === CreationStrategy.NEW ? "NEW" : "BY_SEARCH_OR_NEW"
-                        },
-                        {
-                            key: "tittel",
-                            type: FieldConfigurationType.DYNAMIC_STRING,
-                            value: data.caseData.title === '' ? null : data.caseData?.title
-                        },
-                        {
-                            key: "offentligTittel",
-                            type: FieldConfigurationType.DYNAMIC_STRING,
-                            value: data.caseData?.publicTitle === '' ? null : data.caseData?.publicTitle
-                        },
-                        {
-                            key: "saksmappetype",
-                            type: FieldConfigurationType.STRING,
-                            value: data.caseData?.caseType
-                        },
-                        {
-                            key: 'administrativenhet',
-                            type: FieldConfigurationType.STRING,
-                            value: data.caseData?.administrativeUnit
-
-                        },
-                        {
-                            key: "arkivdel",
-                            type: FieldConfigurationType.STRING,
-                            value: data.caseData?.archiveUnit
-
-                        },
-                        {
-                            key: "journalenhet",
-                            type: FieldConfigurationType.STRING,
-                            value: data.caseData?.recordUnit
-
-                        },
-                        {
-                            key: "status",
-                            type: FieldConfigurationType.STRING,
-                            value: data.caseData?.status
-
-                        },
-                        {
-                            key: "tilgangsrestriksjon",
-                            type: FieldConfigurationType.STRING,
-                            value: data.caseData?.accessCode
-
-                        },
-                        {
-                            key: "skjermingshjemmel",
-                            type: FieldConfigurationType.STRING,
-                            value: data.caseData?.paragraph
-
-                        },
-                        {
-                            key: "saksansvarlig",
-                            type: FieldConfigurationType.STRING,
-                            value: data.caseData?.caseWorker
-
-                        },
-                        {
-                            key: "primarordningsprinsipp",
-                            type: FieldConfigurationType.STRING,
-                            value: data.caseData?.primaryClassification
-                        },
-                        {
-                            key: "sekundarordningsprinsipp",
-                            type: FieldConfigurationType.STRING,
-                            value: data.caseData?.secondaryClassification
-                        },
-                        {
-                            key: "tertiarordningsprinsipp",
-                            type: FieldConfigurationType.STRING,
-                            value: data.caseData?.tertiaryClassification
-                        },
-                        {
-                            key: "primarklasse",
-                            type: FieldConfigurationType.DYNAMIC_STRING,
-                            value: data.caseData?.primaryClass === '' ? null : data.caseData?.primaryClass
-                        },
-                        {
-                            key: "sekundarklasse",
-                            type: FieldConfigurationType.DYNAMIC_STRING,
-                            value: data.caseData?.secondaryClass === '' ? null : data.caseData?.secondaryClass
-                        },
-                        {
-                            key: "tertiarklasse",
-                            type: FieldConfigurationType.DYNAMIC_STRING,
-                            value: data.caseData?.tertiaryClass === '' ? null : data.caseData?.tertiaryClass
-                        },
-                        {
-                            key: "primartittel",
-                            type: FieldConfigurationType.DYNAMIC_STRING,
-                            value: data.caseData?.primaryTitle === '' ? null : data.caseData?.primaryTitle
-                        },
-                        {
-                            key: "sekundartittel",
-                            type: FieldConfigurationType.DYNAMIC_STRING,
-                            value: data.caseData?.secondaryTitle === '' ? null : data.caseData?.secondaryTitle
-                        },
-                        {
-                            key: "tertiartittel",
-                            type: FieldConfigurationType.DYNAMIC_STRING,
-                            value: data.caseData?.tertiaryTitle === '' ? null : data.caseData?.tertiaryTitle
-                        }
-                    ]
+        mapping: {
+            valueMappingPerKey: {},
+            elementMappingPerKey: {
+                "sak": {
+                    valueMappingPerKey: {
+                        "id": {type: FieldType.STRING, mappingString: data.caseData.id ? data.caseData.id : null},
+                        "tittel": {type: FieldType.DYNAMIC_STRING, mappingString: data.caseData.title},
+                        "offentligTittel": {type: FieldType.DYNAMIC_STRING, mappingString: data.caseData.publicTitle},
+                        "saksmappetype": {type: FieldType.STRING, mappingString: data.caseData.caseType},
+                        "administrativenhet": {type: FieldType.STRING, mappingString: data.caseData.administrativeUnit},
+                        "arkivdel": {type: FieldType.STRING, mappingString: data.caseData.archiveUnit},
+                        "journalenhet": {type: FieldType.STRING, mappingString: data.caseData.recordUnit},
+                        "status": {type: FieldType.STRING, mappingString: data.caseData.status},
+                        "tilgangsrestriksjon": {type: FieldType.STRING, mappingString: data.caseData.accessCode},
+                        "skjermingshjemmel": {type: FieldType.STRING, mappingString: data.caseData.paragraph},
+                        "saksansvarlig": {type: FieldType.STRING, mappingString: data.caseData.caseWorker},
+                        "primarordningsprinsipp": {type: FieldType.STRING, mappingString: data.caseData.primaryClassification},
+                        "sekundarordningsprinsipp": {type: FieldType.STRING, mappingString: data.caseData.secondaryClassification},
+                        "tertiarordningsprinsipp": {type: FieldType.STRING, mappingString: data.caseData.tertiaryClassification},
+                        "primarklasse": {type: FieldType.DYNAMIC_STRING, mappingString: data.caseData.primaryClass},
+                        "sekundarklasse": {type: FieldType.DYNAMIC_STRING, mappingString: data.caseData.secondaryClass},
+                        "tertiarklasse": {type: FieldType.DYNAMIC_STRING, mappingString: data.caseData.tertiaryClass},
+                        "primartittel": {type: FieldType.DYNAMIC_STRING, mappingString: data.caseData.primaryTitle},
+                        "sekundartittel": {type: FieldType.DYNAMIC_STRING, mappingString: data.caseData.secondaryTitle},
+                        "tertiartittel": {type: FieldType.DYNAMIC_STRING, mappingString: data.caseData.tertiaryTitle}
+                    },
+                    elementMappingPerKey: {},
+                    elementCollectionMappingPerKey: {}
                 },
-            {
-                key: 'record',
-                elements: [
-                    {
-                        key: 'mainDocument',
-                        fieldConfigurations: [
-                            {
-                                key: "tittel",
-                                type: FieldConfigurationType.STRING,
-                                value: data.recordData.mainDocument?.documentStatus
-                            },
-                            {
-                                key: "dokumentstatus",
-                                type: FieldConfigurationType.STRING,
-                                value: data.recordData.mainDocument?.documentStatus
-                            },
-                            {
-                                key: "dokumentType",
-                                type: FieldConfigurationType.STRING,
-                                value: data.recordData.mainDocument?.documentType
-                            },
-                            {
-                                key: "tilknyttetRegistreringSom",
-                                type: FieldConfigurationType.STRING,
-                                value: data.recordData.mainDocument?.role
-                            },
-                            {
-                                key: "dokumentObjekt.format",
-                                type: FieldConfigurationType.STRING,
-                                value: data.recordData.mainDocument?.format
-                            },
-                            {
-                                key: "dokumentObjekt.variantformat",
-                                type: FieldConfigurationType.STRING,
-                                value: data.recordData.mainDocument?.variant
-                            }
-                            ,
-                            {
-                                key: "dokumentObjekt.fil",
-                                type: FieldConfigurationType.STRING,
-                                value: data.recordData.mainDocument?.file
-                            }
-                        ]
+                "journalpost": {
+                    valueMappingPerKey: {
+                        "tittel": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.title},
+                        "offentligTittel": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.publicTitle},
+                        "administrativenhet": {type: FieldType.STRING, mappingString: data.recordData.administrativeUnit},
+                        "journalstatus": {type: FieldType.STRING, mappingString: data.recordData.recordStatus},
+                        "journalposttype": {type: FieldType.STRING, mappingString: data.recordData.recordType},
+                        "saksbehandler": {type: FieldType.STRING, mappingString: data.recordData.caseWorker},
+                        "tilgangsrestriksjon": {type: FieldType.STRING, mappingString: data.recordData.accessCode},
+                        "skjermingshjemmel": {type: FieldType.STRING, mappingString: data.recordData.paragraph}
                     },
-                    {
-                        key: 'attachmentDocuments',
-                        fieldConfigurations: [
-                            {
-                                key: "tittel",
-                                type: FieldConfigurationType.STRING,
-                                value: data.recordData.attachmentDocuments?.title
-                            },
-                            {
-                                key: "dokumentstatus",
-                                type: FieldConfigurationType.STRING,
-                                value: data.recordData.attachmentDocuments?.documentStatus
-                            },
-                            {
-                                key: "dokumentType",
-                                type: FieldConfigurationType.STRING,
-                                value: data.recordData.attachmentDocuments?.documentType
-                            },
-                            {
-                                key: "tilknyttetRegistreringSom",
-                                type: FieldConfigurationType.STRING,
-                                value: data.recordData.attachmentDocuments?.role
-                            },
-                            {
-                                key: "dokumentObjekt.format",
-                                type: FieldConfigurationType.STRING,
-                                value: data.recordData.attachmentDocuments?.format
-                            },
-                            {
-                                key: "dokumentObjekt.variantformat",
-                                type: FieldConfigurationType.STRING,
-                                value: data.recordData.attachmentDocuments?.variant
-                            }
-                            ,
-                            {
-                                key: "dokumentObjekt.fil",
-                                type: FieldConfigurationType.STRING,
-                                value: data.recordData.attachmentDocuments?.file
-                            }
-                        ]
-                    },
-                    data.recordData.correspondent?.protected ?
-                        {
-                            key: 'correspondent',
-                            fieldConfigurations: [
+                    elementMappingPerKey: {},
+                    elementCollectionMappingPerKey: {
+                        "dokumentbeskrivelse": {
+                            elementMappings: [
                                 {
-                                    key: "protected",
-                                    type: FieldConfigurationType.BOOLEAN,
-                                    value: data.recordData.correspondent?.protected.toString()
-                                },
+                                    valueMappingPerKey: {
+                                        "tittel": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.mainDocument.title},
+                                        "dokumentstatus": {type: FieldType.STRING, mappingString: data.recordData.mainDocument.documentStatus},
+                                        "dokumentType": {type: FieldType.STRING, mappingString: data.recordData.mainDocument.documentType},
+                                        "tilknyttetRegistreringSom": {type: FieldType.URL, mappingString: data.recordData.mainDocument.role}
+                                    },
+                                    elementMappingPerKey: {},
+                                    elementCollectionMappingPerKey: {
+                                        "dokumentobjekt": {
+                                            elementMappings: [
+                                                {
+                                                    valueMappingPerKey: {
+                                                        "format": {type: FieldType.STRING, mappingString: data.recordData.mainDocument.format},
+                                                        "variantformat": {type: FieldType.STRING, mappingString: data.recordData.mainDocument.variant},
+                                                        "fil": {type: FieldType.FILE, mappingString: data.recordData.mainDocument.file}
+                                                    },
+                                                    elementMappingPerKey: {},
+                                                    elementCollectionMappingPerKey: {}
+                                                }
+                                            ],
+                                            elementsFromCollectionMappings: [
+                                            ]
+                                        }
+                                    }
+                                }
+                            ],
+                            elementsFromCollectionMappings: [
                                 {
-                                    key: "korrespondanseparttype",
-                                    type: FieldConfigurationType.STRING,
-                                    value: data.recordData.correspondent?.type
-                                },
-                                {
-                                    key: "fødselsnummer",
-                                    type: FieldConfigurationType.DYNAMIC_STRING,
-                                    value: data.recordData.correspondent?.nationalIdentityNumber === '' ? null : data.recordData.correspondent?.nationalIdentityNumber
-                                },
-                                {
-                                    key: "organisasjonsnummer",
-                                    type: FieldConfigurationType.DYNAMIC_STRING,
-                                    value: data.recordData.correspondent?.organisationNumber === '' ? null : data.recordData.correspondent?.organisationNumber
-                                },
-                                {
-                                    key: "korrespondansepartNavn",
-                                    type: FieldConfigurationType.DYNAMIC_STRING,
-                                    value: data.recordData.correspondent?.name === '' ? null : data.recordData.correspondent?.name
-                                },
-                                {
-                                    key: "Adresse.adresselinje",
-                                    type: FieldConfigurationType.DYNAMIC_STRING,
-                                    value: data.recordData.correspondent?.address === '' ? null : data.recordData.correspondent?.address
-                                },
-                                {
-                                    key: "Adresse.postnummer",
-                                    type: FieldConfigurationType.DYNAMIC_STRING,
-                                    value: data.recordData.correspondent?.postalCode === '' ? null : data.recordData.correspondent?.postalCode
-                                },
-                                {
-                                    key: "Adresse.poststed",
-                                    type: FieldConfigurationType.DYNAMIC_STRING,
-                                    value: data.recordData.correspondent?.city === '' ? null : data.recordData.correspondent?.city
-                                },
-                                {
-                                    key: "kontaktperson",
-                                    type: FieldConfigurationType.DYNAMIC_STRING,
-                                    value: data.recordData.correspondent?.contactPerson === '' ? null : data.recordData.correspondent?.contactPerson
-                                },
-                                {
-                                    key: "Kontaktinformasjon.mobiltelefonnummer",
-                                    type: FieldConfigurationType.DYNAMIC_STRING,
-                                    value: data.recordData.correspondent?.phoneNumber === '' ? null : data.recordData.correspondent?.phoneNumber
-                                },
-                                {
-                                    key: "Kontaktinformasjon.epostadresse",
-                                    type: FieldConfigurationType.DYNAMIC_STRING,
-                                    value: data.recordData.correspondent?.email === '' ? null : data.recordData.correspondent?.email
-                                },
-                                {
-                                    key: "tilgangsrestriksjon",
-                                    type: FieldConfigurationType.STRING,
-                                    value: data.recordData.correspondent?.accessCode
-                                },
-                                {
-                                    key: "skjermingshjemmel",
-                                    type: FieldConfigurationType.STRING,
-                                    value: data.recordData.correspondent?.paragraph
+                                    instanceCollectionReferencesOrdered: ["$if(vedlegg)"],
+                                    elementsMapping: {
+                                        valueMappingPerKey: {
+                                            "tittel": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.attachmentDocuments.title},
+                                            "dokumentstatus": {type: FieldType.STRING, mappingString: data.recordData.attachmentDocuments.documentStatus},
+                                            "dokumentType": {type: FieldType.STRING, mappingString: data.recordData.attachmentDocuments.documentType},
+                                            "tilknyttetRegistreringSom": {type: FieldType.STRING, mappingString: data.recordData.attachmentDocuments.role}
+                                        },
+                                        elementMappingPerKey: {},
+                                        elementCollectionMappingPerKey: {
+                                            "dokumentobjekt": {
+                                                elementMappings: [
+                                                    {
+                                                        valueMappingPerKey: {
+                                                            "format": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.attachmentDocuments.format},
+                                                            "variantformat": {type: FieldType.STRING, mappingString: data.recordData.attachmentDocuments.variant},
+                                                            "fil": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.attachmentDocuments.file}
+                                                        },
+                                                        elementMappingPerKey: {},
+                                                        elementCollectionMappingPerKey: {}
+                                                    }
+                                                ],
+                                                elementsFromCollectionMappings: []
+                                            }
+                                        }
+                                    }
                                 }
                             ]
+
+                        },
+                        "korrespondansepart": {
+                            elementMappings: [{
+                                valueMappingPerKey: {
+                                    "protected": {type: FieldType.BOOLEAN, mappingString: data.recordData.correspondent?.protected ? data.recordData.correspondent.protected.toString() : null},
+                                    "fødselsnummer": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.nationalIdentityNumber},
+                                    "organisasjonsnummer": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.organisationNumber},
+                                    "kontaktperson": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.contactPerson},
+                                    "korrespondansepartNavn": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.name},
+                                    "korrespondanseparttype": {type: FieldType.STRING, mappingString: data.recordData.correspondent.type}
+                                },
+                                elementMappingPerKey: {
+                                    "adresse": {
+                                        valueMappingPerKey: {
+                                            "adresselinje": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.address},
+                                            "postnummer": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.postalCode},
+                                            "poststed": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.city}
+                                        },
+                                        elementMappingPerKey: {},
+                                        elementCollectionMappingPerKey: {}
+                                    },
+                                    "kontaktinformasjon": {
+                                        valueMappingPerKey: {
+                                            "epostadresse": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.email},
+                                            "mobiltelefonnummer": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.mobilePhoneNumber},
+                                            "telefonnummer": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.phoneNumber}
+                                        },
+                                        elementMappingPerKey: {},
+                                        elementCollectionMappingPerKey: {}
+                                    },
+                                    "skjerming": data.recordData.correspondent?.protected ?
+                                        {
+                                            valueMappingPerKey: {
+                                                "tilgangsrestriksjon": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.accessCode},
+                                                "skjermingshjemmel": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.paragraph}
+                                            },
+                                            elementMappingPerKey: {},
+                                            elementCollectionMappingPerKey: {}
+                                        } : {
+                                            valueMappingPerKey: {},
+                                            elementMappingPerKey: {},
+                                            elementCollectionMappingPerKey: {}}
+                                },
+                                elementCollectionMappingPerKey: {}
+                            }],
+                            elementsFromCollectionMappings: []
                         }
-                        :
-                        {
-                            key: 'correspondent',
-                            fieldConfigurations: [
-                                {
-                                    key: "protected",
-                                    type: FieldConfigurationType.BOOLEAN,
-                                    value: null
-                                },{
-                                    key: "fødselsnummer",
-                                    type: FieldConfigurationType.DYNAMIC_STRING,
-                                    value: data.recordData.correspondent?.nationalIdentityNumber === '' ? null : data.recordData.correspondent?.nationalIdentityNumber
-                                },
-                                {
-                                    key: "organisasjonsnummer",
-                                    type: FieldConfigurationType.DYNAMIC_STRING,
-                                    value: data.recordData.correspondent?.organisationNumber === '' ? null : data.recordData.correspondent?.organisationNumber
-                                },
-                                {
-                                    key: "korrespondansepartNavn",
-                                    type: FieldConfigurationType.DYNAMIC_STRING,
-                                    value: data.recordData.correspondent?.name === '' ? null : data.recordData.correspondent?.name
-                                },
-                                {
-                                    key: "Adresse.adresselinje",
-                                    type: FieldConfigurationType.DYNAMIC_STRING,
-                                    value: data.recordData.correspondent?.address === '' ? null : data.recordData.correspondent?.address
-                                },
-                                {
-                                    key: "Adresse.postnummer",
-                                    type: FieldConfigurationType.DYNAMIC_STRING,
-                                    value: data.recordData.correspondent?.postalCode === '' ? null : data.recordData.correspondent?.postalCode
-                                },
-                                {
-                                    key: "Adresse.poststed",
-                                    type: FieldConfigurationType.DYNAMIC_STRING,
-                                    value: data.recordData.correspondent?.city === '' ? null : data.recordData.correspondent?.city
-                                },
-                                {
-                                    key: "kontaktperson",
-                                    type: FieldConfigurationType.DYNAMIC_STRING,
-                                    value: data.recordData.correspondent?.contactPerson === '' ? null : data.recordData.correspondent?.contactPerson
-                                },
-                                {
-                                    key: "Kontaktinformasjon.mobiltelefonnummer",
-                                    type: FieldConfigurationType.DYNAMIC_STRING,
-                                    value: data.recordData.correspondent?.phoneNumber === '' ? null : data.recordData.correspondent?.phoneNumber
-                                },
-                                {
-                                    key: "Kontaktinformasjon.epostadresse",
-                                    type: FieldConfigurationType.DYNAMIC_STRING,
-                                    value: data.recordData.correspondent?.email === '' ? null : data.recordData.correspondent?.email
-                                },
-                            ]
-                        }
-                ],
-                fieldConfigurations: [
-                    {
-                        key: "tittel",
-                        type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: data.recordData?.title === '' ? null : data.recordData?.title
-
-
-                    },
-                    {
-                        key: "offentligTittel",
-                        type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: data.recordData?.publicTitle === '' ? null : data.recordData?.publicTitle
-
-                    },
-                    {
-                        key: "administrativenhet",
-                        type: FieldConfigurationType.STRING,
-                        value: data.recordData?.administrativeUnit
-
-                    },
-                    {
-                        key: "journalstatus",
-                        type: FieldConfigurationType.STRING,
-                        value: data.recordData?.recordStatus
-                    },
-                    {
-                        key: "journalposttype",
-                        type: FieldConfigurationType.STRING,
-                        value: data.recordData?.recordType
-                    },
-                    {
-                        key: "saksbehandler",
-                        type: FieldConfigurationType.STRING,
-                        value: data.recordData?.caseWorker
-
-                    },
-                    {
-                        key: "tilgangsrestriksjon",
-                        type: FieldConfigurationType.STRING,
-                        value: data.recordData?.accessCode
-
-                    },
-                    {
-                        key: "skjermingshjemmel",
-                        type: FieldConfigurationType.STRING,
-                        value: data.recordData?.paragraph
                     }
-                ]
-            }
-        ]
+                }
+            },
+            elementCollectionMappingPerKey: {}
+        }
     }
 }
-

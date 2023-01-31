@@ -37,7 +37,7 @@
                         "save": "Save"
                     },
                     "caseSearch": {
-                        "caseNumber": "Case number",
+                        "id": "Case number",
                         "searching": "Searching...",
                         "info": "Case number must be correct format 'case year/case number', i.e. 2021/03",
                         "noMatch": "No match"
@@ -118,7 +118,7 @@
                 "caseCreationStrategy": "Creation strategy: ",
                 "finished": "finished: ",
                 "version": "Version: ",
-                "caseNumber": "Case number: ",
+                "id": "Case number: ",
                 "title": "Title: ",
                 "publicTitle": "Public title: ",
                 "administrativeUnit": "Administrative unit: ",
@@ -193,7 +193,7 @@
             "caseCreationExistingInfo": "On existing case based on information in form, if no match a new case is created",
             "caseCreationCollection": "On case collection",
             "caseCreationCollectionInfo": "Form is part of predefined case collection, here you must provide a case number",
-            "caseNumber": "Case number",
+            "id": "Case number",
             "title": "Title",
             "publicTitle": "Public title",
             "administrativeUnit": "Administrative unit",
@@ -261,7 +261,7 @@
             "finished": "Finished",
             "caseConfiguration": {
                 "caseCreationStrategy": "",
-                "caseNumber": "",
+                "id": "",
                 "title": "",
                 "publicTitle": "",
                 "administrativeUnit": "",
@@ -348,7 +348,7 @@
         "selectedForm": ",",
         "caseData": {
             "caseCreationStrategy": "Integration logic",
-            "caseNumber": "2021/12345",
+            "id": "2021/12345",
             "title": "Tittel kan være en konkret tekststreng, eller en kombinasjon av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak.  (Se Noark))",
             "publicTitle": "See Noark (part of title to be hidden)",
             "status": "-",

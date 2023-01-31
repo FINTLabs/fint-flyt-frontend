@@ -5,14 +5,14 @@ import {CreationStrategy} from "../types/CreationStrategy";
 import {IFormConfiguration} from "../types/Form/FormData";
 import {IIntegrationMetadata, Type} from "../types/IntegrationMetadata";
 import {IIntegration} from "../types/Integration";
-import {FieldConfigurationType, newIConfiguration} from "../types/Configuration";
+import {IConfiguration} from "../types/Configuration";
 
 export const defaultConfigurationValues: IFormConfiguration = {
     comment: '',
     completed: false,
     caseData: {
         caseCreationStrategy: CreationStrategy.NEW,
-        caseNumber: undefined,
+        id: undefined,
         title: null,
         publicTitle: null,
         caseType: null,
@@ -349,7 +349,7 @@ export const fieldHelp = {
     destination: 'fylkesting, fylkesråd, kollektiv ++',
     caseData: {
         caseCreationStrategy: 'Avleveringslogikk ...',
-        caseNumber: ' må være på formatet saksår/sekvensnr, f.eks 2021/12345',
+        id: ' må være på formatet saksår/sekvensnr, f.eks 2021/12345',
         title: 'Tittel kan være en konkret tekststreng, eller en kombinasjon\n' +
             ' av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak.\n' +
             '  (Se Noark))',
@@ -467,7 +467,7 @@ export const MOCK_INTEGRATIONS: IIntegration[] = [
     },
 ]
 
-export const MOCK_NEWCONFIGURATIONS: newIConfiguration[] = [
+export const MOCK_NEWCONFIGURATIONS: IConfiguration[] = [
     /*    {
             integrationId: '678',
             version: 1,
@@ -478,7 +478,7 @@ export const MOCK_NEWCONFIGURATIONS: newIConfiguration[] = [
             integrationId: '456',
             version: 1,
             completed: false,
-            caseConfiguration: {caseCreationStrategy: CreationStrategy.BY_ID, caseNumber: '2022/123'}
+            caseConfiguration: {caseCreationStrategy: CreationStrategy.BY_ID, id: '2022/123'}
         },*/
     {
         id: 'id00',
@@ -486,7 +486,11 @@ export const MOCK_NEWCONFIGURATIONS: newIConfiguration[] = [
         version: null,
         comment: 'Opprette konfigurasjon',
         completed: false,
-        elements: []
+        mapping: {
+            valueMappingPerKey: {},
+            elementMappingPerKey: {},
+            elementCollectionMappingPerKey: {},
+        }
     },
     {
         id: 'id0',
@@ -494,7 +498,11 @@ export const MOCK_NEWCONFIGURATIONS: newIConfiguration[] = [
         version: null,
         comment: 'Første versjon - avventer endringer',
         completed: false,
-        elements: []
+        mapping: {
+            valueMappingPerKey: {},
+            elementMappingPerKey: {},
+            elementCollectionMappingPerKey: {},
+        }
     },
     {
         id: 'id1',
@@ -502,23 +510,11 @@ export const MOCK_NEWCONFIGURATIONS: newIConfiguration[] = [
         version: null,
         completed: false,
         comment: 'Opprettet ny pga x, y, z',
-        elements: [
-            {
-                key: 'case',
-                fieldConfigurations: [
-                    {
-                        key: 'creationStrategy',
-                        type: FieldConfigurationType.STRING,
-                        value: CreationStrategy.NEW,
-                    },
-                    {
-                        key: 'tittel',
-                        type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: "$if{foo} $if{bar} $if{bubu}",
-                    },
-                ]
-            }
-        ]
+        mapping: {
+            valueMappingPerKey: {},
+            elementMappingPerKey: {},
+            elementCollectionMappingPerKey: {},
+        }
     },
     {
         id: 'id2',
@@ -526,48 +522,11 @@ export const MOCK_NEWCONFIGURATIONS: newIConfiguration[] = [
         version: 1,
         completed: true,
         comment: 'Ferdigstilt ',
-        elements: [
-            {
-                key: 'case',
-                fieldConfigurations: [
-                    {
-                        key: 'tittel',
-                        type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: "$if{foo} $if{bar} $if{bubu}",
-                    },
-                    {
-                        key: 'offentligTittel',
-                        type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: "$if{foo} test",
-                    },
-                    {
-                        key: "administrativenhet",
-                        type: FieldConfigurationType.STRING,
-                        value: "https://beta.felleskomponent.no/arkiv/noark/administrativenhet/systemid/193",
-                    },
-                    {
-                        key: "journalenhet",
-                        type: FieldConfigurationType.STRING,
-                        value: "https://beta.felleskomponent.no/arkiv/noark/administrativenhet/systemid/241",
-                    },
-                    {
-                        key: "status",
-                        type: FieldConfigurationType.STRING,
-                        value: "https://beta.felleskomponent.no/arkiv/kodeverk/saksstatus/systemid/F",
-                    },
-                    {
-                        key: "primarordningsprinsipp",
-                        type: FieldConfigurationType.STRING,
-                        value: "https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/EMNE",
-                    },
-                    {
-                        key: "arkivdel",
-                        type: FieldConfigurationType.STRING,
-                        value: "https://beta.felleskomponent.no/arkiv/noark/arkivdel/systemid/OESMU"
-                    },
-                ]
-            }
-        ]
+        mapping: {
+            valueMappingPerKey: {},
+            elementMappingPerKey: {},
+            elementCollectionMappingPerKey: {},
+        }
     },
     {
         id: 'id3',
@@ -575,54 +534,17 @@ export const MOCK_NEWCONFIGURATIONS: newIConfiguration[] = [
         version: 2,
         completed: true,
         comment: 'Ferdigstilt versjon 2',
-        elements: [
-            {
-                key: 'case',
-                fieldConfigurations: [
-                    {
-                        key: 'tittel',
-                        type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: "$if{foo} $if{bar} $if{bubu}",
-                    },
-                    {
-                        key: 'offentligTittel',
-                        type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: "$if{foo} test",
-                    },
-                    {
-                        key: "administrativenhet",
-                        type: FieldConfigurationType.STRING,
-                        value: "https://beta.felleskomponent.no/arkiv/noark/administrativenhet/systemid/193",
-                    },
-                    {
-                        key: "journalenhet",
-                        type: FieldConfigurationType.STRING,
-                        value: "https://beta.felleskomponent.no/arkiv/noark/administrativenhet/systemid/241",
-                    },
-                    {
-                        key: "status",
-                        type: FieldConfigurationType.STRING,
-                        value: "https://beta.felleskomponent.no/arkiv/kodeverk/saksstatus/systemid/F",
-                    },
-                    {
-                        key: "primarordningsprinsipp",
-                        type: FieldConfigurationType.STRING,
-                        value: "https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/EMNE",
-                    },
-                    {
-                        key: "arkivdel",
-                        type: FieldConfigurationType.STRING,
-                        value: "https://beta.felleskomponent.no/arkiv/noark/arkivdel/systemid/OESMU"
-                    },
-                ]
-            }
-        ]
+        mapping: {
+            valueMappingPerKey: {},
+            elementMappingPerKey: {},
+            elementCollectionMappingPerKey: {},
+        }
     }
 ]
 
 export const EXAMPLE_FORM: IFormConfiguration = {
     "caseData": {
-        "caseNumber": undefined,
+        "id": undefined,
         "accessCode": '',
         "administrativeUnit": '',
         "archiveUnit": '',

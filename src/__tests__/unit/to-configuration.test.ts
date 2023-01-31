@@ -1,8 +1,7 @@
 import {toConfigurationPatch, toConfiguration} from "../../features/util/mapping/ToConfiguration";
 import {MOCK_CONFIG_FORMDATA} from "../mock/mock-form-data";
-import {MOCK_CONFIGURATION, MOCK_CONFIGURATION_PATCH} from "../mock/mock-configuration";
+import {MOCK_AV_CONFIGURATION_NEW, MOCK_CONFIGURATION, MOCK_CONFIGURATION_PATCH} from "../mock/mock-configuration";
 import {toAVConfiguration} from "../../features/util/mapping/AV/ToAVConfiguration";
-import {MOCK_AV_CONFIGURATION} from "../mock/mock_AV_configuration";
 
 test('It should map form data to configuration correctly', () => {
     const config = toConfiguration(MOCK_CONFIG_FORMDATA, 'id0', '123', 321);
@@ -16,5 +15,5 @@ test('It should map form data to configuration patch  correctly', () => {
 
 test('It should map form data to AV configuration correctly', () => {
     const config = toAVConfiguration(MOCK_CONFIG_FORMDATA, 'id1', '234', 321);
-    expect(config).toEqual(MOCK_AV_CONFIGURATION)
+    expect(config).toEqual(MOCK_AV_CONFIGURATION_NEW)
 })

@@ -1,4 +1,4 @@
-export interface IConfiguration {
+export interface IAVConfiguration {
     id?: string;
     integrationId?: string;
     integrationMetadataId?: number;
@@ -8,7 +8,7 @@ export interface IConfiguration {
     mapping?: IElementMapping
 }
 
-export interface IConfigurationPatch {
+export interface IAVConfigurationPatch {
     comment?: string;
     integrationMetadataId?: number;
     completed?: boolean;

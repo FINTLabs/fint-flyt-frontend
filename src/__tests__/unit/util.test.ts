@@ -1,14 +1,5 @@
 // @ts-ignore
 import {ValueBuilder} from "../../features/integration/types/ValueBuilder";
-import {
-    configurationFieldToBoolean,
-    configurationFieldToString,
-} from "../../features/util/MappingUtil";
-import {
-    MOCK_APPLICANT_FIELDS,
-    MOCK_APPLICANT_FIELDS_NOT_PROTECTED,
-    MOCK_CASE_FIELDS
-} from "../mock/mock-case-configuration";
 import {createValueBuilder, toValueString} from "../../features/util/ValueBuilderUtil";
 
 const valueBuilderWithTags: ValueBuilder = {
@@ -73,22 +64,3 @@ test('It should handle no properties', () => {
     expect(toValueString(valueBuilderNoProperties)).toEqual("Lorem ipsum, foo, bar");
 });
 
-test('It should convert field to string', () => {
-    expect(configurationFieldToString(MOCK_CASE_FIELDS, "administrativenhet")).toEqual("unit4");
-});
-
-test('It should convert field with tags to string', () => {
-    expect(configurationFieldToString(MOCK_CASE_FIELDS, "offentligTittel")).toEqual("public title $if{test}");
-});
-
-test('It should convert correspondent field to boolean', () => {
-    expect(configurationFieldToBoolean(MOCK_APPLICANT_FIELDS, "protected")).toBe(true);
-});
-
-test('It should convert correspondent field to boolean', () => {
-    expect(configurationFieldToBoolean(MOCK_APPLICANT_FIELDS_NOT_PROTECTED, "protected")).toBe(false);
-});
-
-test('It should return false on undefined configuration', () => {
-    expect(configurationFieldToBoolean([], "protected")).toBe(false);
-});
