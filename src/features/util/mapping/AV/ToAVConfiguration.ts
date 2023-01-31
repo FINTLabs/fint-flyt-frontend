@@ -58,10 +58,10 @@ export function toAVConfiguration(data: IFormConfiguration, integrationId: strin
                             elementMappings: [
                                 {
                                     valueMappingPerKey: {
-                                        "tittel": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.mainDocument.title},
+                                        "tittel": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.title},
                                         "dokumentstatus": {type: FieldType.STRING, mappingString: data.recordData.mainDocument.documentStatus},
                                         "dokumentType": {type: FieldType.STRING, mappingString: data.recordData.mainDocument.documentType},
-                                        "tilknyttetRegistreringSom": {type: FieldType.URL, mappingString: data.recordData.mainDocument.role}
+                                        "tilknyttetRegistreringSom": {type: FieldType.STRING, mappingString: data.recordData.mainDocument.role}
                                     },
                                     elementMappingPerKey: {},
                                     elementCollectionMappingPerKey: {

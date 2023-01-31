@@ -694,7 +694,7 @@ export const MOCK_AV_CONFIGURATION_NEW: IAVConfiguration = {
                                     "tittel": {type: FieldType.DYNAMIC_STRING, mappingString: "record title"},
                                     "dokumentstatus": {type: FieldType.STRING, mappingString: "D9"},
                                     "dokumentType": {type: FieldType.STRING, mappingString: "cat8"},
-                                    "tilknyttetRegistreringSom": {type: FieldType.URL, mappingString: "www.kodeverk.no/H"}
+                                    "tilknyttetRegistreringSom": {type: FieldType.STRING, mappingString: "www.kodeverk.no/H"}
                                 },
                                 elementMappingPerKey: {},
                                 elementCollectionMappingPerKey: {

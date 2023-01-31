@@ -118,7 +118,7 @@ export const defaultConfigurationValuesAV: IFormConfiguration = {
             title: null,
             documentStatus: null,
             documentType: null,
-            role: 'https://beta.felleskomponent.no/arkiv/kodeverk/tilknyttetRegistreringSom/systemid/H',
+            role: 'https://beta.felleskomponent.no/arkiv/kodeverk/tilknyttetregistreringsom/systemid/H',
             format: 'https://beta.felleskomponent.no/arkiv/kodeverk/format/systemid/PDF',
             variant: 'https://beta.felleskomponent.no/arkiv/kodeverk/variantformat/systemid/P',
             file: '$if{formPdf}'
@@ -183,7 +183,7 @@ export const roleOptions: ISelect[] = [
 export const variant: string = 'https://beta.felleskomponent.no/arkiv/kodeverk/variantformat/systemid/P'
 export const format: string = 'https://beta.felleskomponent.no/arkiv/kodeverk/format/systemid/PDF'
 export const correspondentType: string = 'https://beta.felleskomponent.no/arkiv/kodeverk/korrespondanseparttype/systemid/EA'
-export const mainRole: string = 'https://beta.felleskomponent.no/arkiv/kodeverk/tilknyttetRegistreringSom/systemid/H'
+export const mainRole: string = 'https://beta.felleskomponent.no/arkiv/kodeverk/tilknyttetregistreringsom/systemid/H'
 export const attachmentRole: string = 'https://beta.felleskomponent.no/arkiv/kodeverk/tilknyttetregistreringsom/systemid/V'
 
 

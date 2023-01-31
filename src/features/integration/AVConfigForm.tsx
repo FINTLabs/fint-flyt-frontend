@@ -289,7 +289,6 @@ const AVConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
     });
 
     const onSave = handleSubmit((data: IFormConfiguration) => {
-        console.log(data)
         if (data.caseData.caseCreationStrategy === CreationStrategy.BY_ID && id) {
             data.caseData.id = id
         }

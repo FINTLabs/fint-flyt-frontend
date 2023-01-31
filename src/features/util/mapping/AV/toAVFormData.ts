@@ -55,7 +55,7 @@ export function toAVFormData(data: IAVConfiguration): IFormConfiguration {
             accessCode: recordFields.valueMappingPerKey['tilgangsrestriksjon']?.mappingString ? recordFields.valueMappingPerKey['tilgangsrestriksjon']?.mappingString : null,
             paragraph: recordFields.valueMappingPerKey['skjermingshjemmel']?.mappingString ? recordFields.valueMappingPerKey['skjermingshjemmel']?.mappingString : null,
             mainDocument: {
-                title: mainDocumentFields.valueMappingPerKey['tittel']?.mappingString ? mainDocumentFields.valueMappingPerKey['tittel']?.mappingString : null,
+                title: recordFields.valueMappingPerKey['tittel']?.mappingString ? recordFields.valueMappingPerKey['tittel']?.mappingString : null,
                 documentStatus: mainDocumentFields.valueMappingPerKey['dokumentstatus']?.mappingString ? mainDocumentFields.valueMappingPerKey['dokumentstatus']?.mappingString : null,
                 documentType: mainDocumentFields.valueMappingPerKey['dokumentType']?.mappingString ? mainDocumentFields.valueMappingPerKey['dokumentType']?.mappingString : null,
                 role: mainDocumentFields.valueMappingPerKey['tilknyttetRegistreringSom']?.mappingString ? mainDocumentFields.valueMappingPerKey['tilknyttetRegistreringSom']?.mappingString : null,

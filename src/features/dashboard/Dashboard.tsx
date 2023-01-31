@@ -8,8 +8,6 @@ import DashboardCard from "./DashboardCard";
 import {ICard} from "./types/Card";
 import {useTranslation} from "react-i18next";
 import {SourceApplicationContext} from "../../context/sourceApplicationContext";
-import {toAVFormData} from "../util/mapping/AV/toAVFormData";
-import {MOCK_AV_CONFIGURATION_NEW} from "../../__tests__/mock/mock-configuration";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -43,7 +41,6 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
     statistics?.map((stat: any) => {totalErrors += stat.currentErrors})
 
     useEffect(()=> {
-        console.log(toAVFormData(MOCK_AV_CONFIGURATION_NEW))
         getNewIntegrations(sourceApplication.toString());
         resetIntegrations();
     }, [])
