@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import {createStyles, makeStyles} from "@mui/styles";
 import {IFormConfiguration} from "./types/Form/FormData";
-import {defaultConfigurationValues} from "./defaults/DefaultValues";
+import {defaultConfigurationValuesAV} from "./defaults/DefaultValues";
 import AccordionForm from "./components/AccordionForm";
 import {ACCORDION_FORM, IAccordion} from "./types/Accordion";
 import SourceApplicationForm from "./components/SourceApplicationForm";
@@ -122,7 +122,7 @@ const AVConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
     let activeConfiguration = configuration && editConfig ? configuration : undefined;
     const [activeConfigId, setActiveConfigId] = React.useState(activeConfiguration?.id);
     const [completed, setCompleted] = React.useState(!!activeConfiguration?.completed);
-    let activeFormData = activeConfiguration && editConfig && configuration? toFormData(configuration) : defaultConfigurationValues;
+    let activeFormData = activeConfiguration && editConfig && configuration? toFormData(configuration) : defaultConfigurationValuesAV;
     const [protectedCheck, setProtectedChecked] = React.useState(activeFormData?.recordData?.correspondent?.protected);
 
     const handleCheckChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -134,7 +134,7 @@ const AVConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
     };
 
     const {handleSubmit, watch, setValue, control, reset, formState} = useForm<IFormConfiguration>({
-        defaultValues: activeFormData ? activeFormData : defaultConfigurationValues,
+        defaultValues: activeFormData ? activeFormData : defaultConfigurationValuesAV,
         reValidateMode: 'onChange'
     });
     const { errors } = formState;
@@ -277,11 +277,11 @@ const AVConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
         if (configuration && activeConfigId !== undefined) {
             const iConfiguration: IAVConfiguration = toAVConfigurationPatch(data, selectedMetadata.id);
             activateConfiguration(activeIntegration?.id, activeConfigId, iConfiguration)
-            reset({ ...defaultConfigurationValues })
+            reset({ ...defaultConfigurationValuesAV })
         }
         else if (configuration && activeIntegration?.id) {
             activateNewConfiguration(activeIntegration?.id, configuration);
-            reset({ ...defaultConfigurationValues })
+            reset({ ...defaultConfigurationValuesAV })
         } else {
             //TODO: Handle error
             return;
@@ -289,6 +289,7 @@ const AVConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
     });
 
     const onSave = handleSubmit((data: IFormConfiguration) => {
+        console.log(data)
         if (data.caseData.caseCreationStrategy === CreationStrategy.BY_ID && id) {
             data.caseData.id = id
         }

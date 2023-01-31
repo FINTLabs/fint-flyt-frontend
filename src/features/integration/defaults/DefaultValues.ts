@@ -79,6 +79,78 @@ export const defaultConfigurationValues: IFormConfiguration = {
     }
 }
 
+export const defaultConfigurationValuesAV: IFormConfiguration = {
+    comment: '',
+    completed: false,
+    caseData: {
+        caseCreationStrategy: CreationStrategy.NEW,
+        id: undefined,
+        title: null,
+        publicTitle: null,
+        caseType: null,
+        administrativeUnit:null,
+        archiveUnit:null,
+        recordUnit: null,
+        status: null,
+        accessCode: null,
+        paragraph: null,
+        caseWorker: null,
+        primaryClassification: null,
+        secondaryClassification: null,
+        tertiaryClassification: null,
+        primaryClass: null,
+        secondaryClass: null,
+        tertiaryClass: null,
+        primaryTitle: null,
+        secondaryTitle: null,
+        tertiaryTitle: null
+    },
+    recordData: {
+        title: null,
+        publicTitle: null,
+        administrativeUnit: null,
+        recordStatus: null,
+        recordType: null,
+        caseWorker: null,
+        accessCode: null,
+        paragraph: null,
+        mainDocument: {
+            title: null,
+            documentStatus: null,
+            documentType: null,
+            role: 'https://beta.felleskomponent.no/arkiv/kodeverk/tilknyttetRegistreringSom/systemid/H',
+            format: 'https://beta.felleskomponent.no/arkiv/kodeverk/format/systemid/PDF',
+            variant: 'https://beta.felleskomponent.no/arkiv/kodeverk/variantformat/systemid/P',
+            file: '$if{formPdf}'
+        },
+        attachmentDocuments: {
+            title: '$igf{name}',
+            documentStatus: null,
+            documentType: null,
+            role: 'https://beta.felleskomponent.no/arkiv/kodeverk/tilknyttetregistreringsom/systemid/V',
+            format: 'https://beta.felleskomponent.no/arkiv/kodeverk/format/systemid/PDF',
+            variant: 'https://beta.felleskomponent.no/arkiv/kodeverk/variantformat/systemid/P',
+            file: '$igf{file}'
+        },
+        correspondent: {
+            protected: false,
+            type: 'https://beta.felleskomponent.no/arkiv/kodeverk/korrespondanseparttype/systemid/EA',
+            organisationNumber: null,
+            nationalIdentityNumber: null,
+            name: null,
+            address: null,
+            postalCode: null,
+            city: null,
+            contactPerson: null,
+            phoneNumber: null,
+            mobilePhoneNumber: null,
+            email: null,
+            accessCode: null,
+            paragraph: null
+        }
+    }
+}
+
 export const dropdownPlaceholder: ISelect[] = [
     {label: 'Alternativ 1', value: 'alt1'},
     {label: 'Alternativ 2', value: 'alt2'},
