@@ -84,7 +84,7 @@ export const MOCK_CONFIGURATION: IConfiguration = {
                         elementsFromCollectionMappings: [
                             {
                                 instanceCollectionReferencesOrdered: ["$if(vedlegg)"],
-                                elementsMapping: {
+                                elementMapping: {
                                     valueMappingPerKey: {
                                         "tittel": {type: FieldType.DYNAMIC_STRING, mappingString: "$ifg{name}"},
                                         "dokumentstatus": {type: FieldType.STRING, mappingString: "D9"},
@@ -242,7 +242,7 @@ export const MOCK_CONFIGURATION_PATCH: IConfigurationPatch = {
                         elementsFromCollectionMappings: [
                             {
                                 instanceCollectionReferencesOrdered: ["$if(vedlegg)"],
-                                elementsMapping: {
+                                elementMapping: {
                                     valueMappingPerKey: {
                                         "tittel": {type: FieldType.DYNAMIC_STRING, mappingString: "$ifg{name}"},
                                         "dokumentstatus": {type: FieldType.STRING, mappingString: "D9"},
@@ -401,7 +401,7 @@ export const MOCK_NEW_CONFIG: IConfiguration = {
                         elementsFromCollectionMappings: [
                             {
                                 instanceCollectionReferencesOrdered: ["$if(vedlegg)"],
-                                elementsMapping: {
+                                elementMapping: {
                                     valueMappingPerKey: {
                                         "tittel": {type: FieldType.DYNAMIC_STRING, mappingString: "$ifg{name}"},
                                         "dokumentstatus": {type: FieldType.STRING, mappingString: "D9"},
@@ -560,7 +560,7 @@ export const MOCK_BY_ID_CONFIG: IConfiguration = {
                         elementsFromCollectionMappings: [
                             {
                                 instanceCollectionReferencesOrdered: ["$if(vedlegg)"],
-                                elementsMapping: {
+                                elementMapping: {
                                     valueMappingPerKey: {
                                         "tittel": {type: FieldType.DYNAMIC_STRING, mappingString: null},
                                         "dokumentstatus": {type: FieldType.STRING, mappingString: null},
@@ -719,7 +719,7 @@ export const MOCK_AV_CONFIGURATION_NEW: IAVConfiguration = {
                         elementsFromCollectionMappings: [
                             {
                                 instanceCollectionReferencesOrdered: ["$if(vedlegg)"],
-                                elementsMapping: {
+                                elementMapping: {
                                     valueMappingPerKey: {
                                         "tittel": {type: FieldType.DYNAMIC_STRING, mappingString: "$ifg{name}"},
                                         "dokumentstatus": {type: FieldType.STRING, mappingString: "D9"},

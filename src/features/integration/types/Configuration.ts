@@ -33,7 +33,7 @@ export interface IElementCollectionMapping {
 
 export interface IElementsFromCollectionMapping {
     instanceCollectionReferencesOrdered: string[];
-    elementsMapping: IElementMapping
+    elementMapping: IElementMapping
 }
 
 export const FieldType = {

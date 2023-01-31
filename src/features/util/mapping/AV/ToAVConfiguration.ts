@@ -86,7 +86,7 @@ export function toAVConfiguration(data: IFormConfiguration, integrationId: strin
                             elementsFromCollectionMappings: [
                                 {
                                     instanceCollectionReferencesOrdered: ["$if(vedlegg)"],
-                                    elementsMapping: {
+                                    elementMapping: {
                                         valueMappingPerKey: {
                                             "tittel": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.attachmentDocuments.title},
                                             "dokumentstatus": {type: FieldType.STRING, mappingString: data.recordData.attachmentDocuments.documentStatus},
@@ -251,7 +251,7 @@ export function toAVConfigurationPatch(data: IFormConfiguration, metadataId: any
                             elementsFromCollectionMappings: [
                                 {
                                     instanceCollectionReferencesOrdered: ["$if(vedlegg)"],
-                                    elementsMapping: {
+                                    elementMapping: {
                                         valueMappingPerKey: {
                                             "tittel": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.attachmentDocuments.title},
                                             "dokumentstatus": {type: FieldType.STRING, mappingString: data.recordData.attachmentDocuments.documentStatus},
