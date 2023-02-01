@@ -126,7 +126,6 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                     data.completed = false;
                 }
                 setConfiguration(data);
-                //TODO: FIX HENTING AV KLASSERING
                 const cases: IElementMapping = data.mapping?.elementMappingPerKey['sak'] ? data.mapping?.elementMappingPerKey['sak'] : {elementMappingPerKey: {}, elementCollectionMappingPerKey: {}, valueMappingPerKey: {}};
 
                 let primaryClass = cases.valueMappingPerKey['primarordningsprinsipp']?.mappingString ? cases.valueMappingPerKey['primarordningsprinsipp']?.mappingString : null

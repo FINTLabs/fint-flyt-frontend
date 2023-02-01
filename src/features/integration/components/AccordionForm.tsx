@@ -20,8 +20,8 @@ const AccordionForm: React.FunctionComponent<any> = (props) => {
                 {props.accordionForm === ACCORDION_FORM.CASE_INFORMATION && <CaseInformation {...props}/>}
                 {props.accordionForm === ACCORDION_FORM.CASE_FORM && <CaseForm {...props} />}
                 {props.accordionForm === ACCORDION_FORM.RECORD_FORM && <RecordForm {...props} />}
-                {props.accordionForm === ACCORDION_FORM.MAIN_DOCUMENT_FORM && <DocumentForm {...props} />}
-                {props.accordionForm === ACCORDION_FORM.APPLICANT_FORM && <CorrespondentForm {...props} />}
+                {props.accordionForm === ACCORDION_FORM.DOCUMENT_FORM && <DocumentForm {...props} />}
+                {props.accordionForm === ACCORDION_FORM.CORRESPONDENT_FORM && <CorrespondentForm {...props} />}
          </AccordionDetails>
         </Accordion>
     );
