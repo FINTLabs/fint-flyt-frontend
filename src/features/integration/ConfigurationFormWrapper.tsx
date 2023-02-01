@@ -7,7 +7,6 @@ import CaseConfigForm from "./CaseConfigForm";
 const ConfigurationFormWrapper: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const {sourceApplication} = useContext(SourceApplicationContext)
 
-    console.log(sourceApplication)
     return (
         sourceApplication === 1 ?
             <AVConfigForm/> :
