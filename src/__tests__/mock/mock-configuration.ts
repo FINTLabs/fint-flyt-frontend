@@ -319,6 +319,19 @@ export const MOCK_CONFIGURATION_PATCH: IConfigurationPatch = {
     "integrationMetadataId": 321
 }
 
+export const MOCK_EMPTY_CONFIGURATION: IConfiguration = {
+    "comment": "form to test empty mapping",
+    "completed": false,
+    "mapping": {
+        valueMappingPerKey: {},
+        elementMappingPerKey: {},
+        elementCollectionMappingPerKey: {}
+    },
+    "id": "123",
+    "integrationId": "id0",
+    "integrationMetadataId": 321
+}
+
 export const MOCK_NEW_CONFIG: IConfiguration = {
     id: 'id2',
     integrationId: '123',
