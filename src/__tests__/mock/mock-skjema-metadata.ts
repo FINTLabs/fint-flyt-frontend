@@ -1,4 +1,4 @@
-import {IIntegrationMetadata, Type} from "../../features/integration/types/IntegrationMetadata";
+import {IIntegrationMetadata, Type} from "../../features/configuration/types/IntegrationMetadata";
 
 export const MOCK_SKJEMA_METADATA: IIntegrationMetadata = {
     sourceApplicationIntegrationId: "Test0488",

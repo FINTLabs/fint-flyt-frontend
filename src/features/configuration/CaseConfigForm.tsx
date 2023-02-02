@@ -33,7 +33,7 @@ import {toConfigurationPatch, toConfiguration} from "../util/mapping/ToConfigura
 import {IConfigurationPatch, IConfiguration} from "./types/Configuration";
 import ConfigurationRepository from "../../shared/repositories/ConfigurationRepository";
 import IntegrationRepository from "../../shared/repositories/IntegrationRepository";
-import {IIntegrationPatch, IntegrationState} from "./types/Integration";
+import {IIntegrationPatch, IntegrationState} from "../integration/types/Integration";
 import {SourceApplicationContext} from "../../context/sourceApplicationContext";
 
 const useStyles = makeStyles((theme: Theme) =>

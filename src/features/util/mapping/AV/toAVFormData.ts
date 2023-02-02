@@ -1,5 +1,5 @@
-import {IFormConfiguration} from "../../../integration/types/Form/FormData";
-import {IAVConfiguration, IElementCollectionMapping, IElementMapping} from "../../../integration/types/AVConfiguration";
+import {IFormConfiguration} from "../../../configuration/types/Form/FormData";
+import {IAVConfiguration, IElementCollectionMapping, IElementMapping} from "../../../configuration/types/AVConfiguration";
 
 export function toAVFormData(data: IAVConfiguration): IFormConfiguration {
     const caseFields: IElementMapping = data.mapping?.elementMappingPerKey['sak'] ? data.mapping?.elementMappingPerKey['sak'] : {elementMappingPerKey: {}, elementCollectionMappingPerKey: {}, valueMappingPerKey: {}};

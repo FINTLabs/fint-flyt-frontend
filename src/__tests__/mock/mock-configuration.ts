@@ -4,8 +4,8 @@
 import {
     IConfigurationPatch,
     IConfiguration
-} from "../../features/integration/types/Configuration";
-import {FieldType, IAVConfiguration} from "../../features/integration/types/AVConfiguration";
+} from "../../features/configuration/types/Configuration";
+import {FieldType, IAVConfiguration} from "../../features/configuration/types/AVConfiguration";
 
 export const MOCK_CONFIGURATION: IConfiguration = {
     "comment": "form to test mapping",

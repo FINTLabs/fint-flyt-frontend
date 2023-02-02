@@ -34,7 +34,7 @@ import {
 } from "../util/mapping/AV/ToAVConfiguration";
 import ConfigurationRepository from "../../shared/repositories/ConfigurationRepository";
 import IntegrationRepository from "../../shared/repositories/IntegrationRepository";
-import {IIntegrationPatch, IntegrationState} from "./types/Integration";
+import {IIntegrationPatch, IntegrationState} from "../integration/types/Integration";
 import {SourceApplicationContext} from "../../context/sourceApplicationContext";
 import {IAVConfiguration, IAVConfigurationPatch} from "./types/AVConfiguration";
 import {toAVFormData} from "../util/mapping/AV/toAVFormData";

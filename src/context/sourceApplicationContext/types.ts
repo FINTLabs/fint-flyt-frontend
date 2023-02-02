@@ -1,5 +1,5 @@
-import {ISelect} from "../../features/integration/types/InputField";
-import {IInstanceElementMetadata, IIntegrationMetadata} from "../../features/integration/types/IntegrationMetadata";
+import {ISelect} from "../../features/configuration/types/InputField";
+import {IInstanceElementMetadata, IIntegrationMetadata} from "../../features/configuration/types/IntegrationMetadata";
 
 export interface ISourceApplicationItem {
     sourceApplicationDisplayName: string;

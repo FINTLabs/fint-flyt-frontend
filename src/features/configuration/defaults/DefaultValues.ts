@@ -4,7 +4,7 @@ import {ISelect} from "../types/InputField";
 import {CreationStrategy} from "../types/CreationStrategy";
 import {IFormConfiguration} from "../types/Form/FormData";
 import {IIntegrationMetadata, Type} from "../types/IntegrationMetadata";
-import {IIntegration} from "../types/Integration";
+import {IIntegration} from "../../integration/types/Integration";
 import {IConfiguration} from "../types/Configuration";
 
 export const defaultConfigurationValues: IFormConfiguration = {

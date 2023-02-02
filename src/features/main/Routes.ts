@@ -4,9 +4,9 @@ import Log from "../log/Log";
 import IntegrationOverview from "../integrationOverview/IntegrationOverview";
 import InstanceOverview from "../instanceOverview/InstanceOverview";
 import Support from "../support/Support";
-import {IntegrationForm} from "../integration/components/IntegrationForm";
+import {IntegrationForm} from "../integration/IntegrationForm";
 import Admin from "../admin/Admin";
-import ConfigurationFormWrapper from "../integration/ConfigurationFormWrapper";
+import ConfigurationFormWrapper from "../configuration/ConfigurationFormWrapper";
 
 const routes: IRoute[] = [
     {

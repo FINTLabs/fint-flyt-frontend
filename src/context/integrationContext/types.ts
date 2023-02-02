@@ -1,6 +1,6 @@
 import {IIntegration} from "../../features/integration/types/Integration";
-import {IConfiguration} from "../../features/integration/types/Configuration";
-import {IIntegrationMetadata} from "../../features/integration/types/IntegrationMetadata";
+import {IConfiguration} from "../../features/configuration/types/Configuration";
+import {IIntegrationMetadata} from "../../features/configuration/types/IntegrationMetadata";
 
 export type IntegrationContextState = {
     id: string | undefined;

@@ -1,10 +1,10 @@
 import React, { createContext, useState, FC } from "react";
 import {contextDefaultValues, IntegrationContextState} from "./types";
 import {IIntegration} from "../../features/integration/types/Integration";
-import {IConfiguration} from "../../features/integration/types/Configuration";
+import {IConfiguration} from "../../features/configuration/types/Configuration";
 import EventRepository from "../../features/log/repository/EventRepository";
 import {IIntegrationStatistics} from "../../features/log/types/IntegrationStatistics";
-import {IIntegrationMetadata} from "../../features/integration/types/IntegrationMetadata";
+import {IIntegrationMetadata} from "../../features/configuration/types/IntegrationMetadata";
 import ConfigurationRepository from "../../shared/repositories/ConfigurationRepository";
 import IntegrationRepository from "../../shared/repositories/IntegrationRepository";
 import SourceApplicationRepository from "../../shared/repositories/SourceApplicationRepository";

@@ -4,7 +4,7 @@ import {createContext, FC, useState} from "react";
 import EventRepository from "../../features/log/repository/EventRepository";
 import {addId} from "../../features/util/JsonUtil";
 import SourceApplicationRepository from "../../shared/repositories/SourceApplicationRepository";
-import {IIntegrationMetadata} from "../../features/integration/types/IntegrationMetadata";
+import {IIntegrationMetadata} from "../../features/configuration/types/IntegrationMetadata";
 
 export const HistoryContext = createContext<HistoryContextState>(
     contextDefaultValues

@@ -1,5 +1,5 @@
-import {IFormConfiguration, IFormIntegration} from "../../features/integration/types/Form/FormData";
-import {CreationStrategy} from "../../features/integration/types/CreationStrategy";
+import {IFormConfiguration, IFormIntegration} from "../../features/configuration/types/Form/FormData";
+import {CreationStrategy} from "../../features/configuration/types/CreationStrategy";
 
 export const MOCK_INTEGRATION_FORMDATA: IFormIntegration = {
     sourceApplicationIntegrationId: 'TEST234',

@@ -1,5 +1,5 @@
 import axios from "axios";
-import {IAVConfiguration, IAVConfigurationPatch} from "../../features/integration/types/AVConfiguration";
+import {IAVConfiguration, IAVConfigurationPatch} from "../../features/configuration/types/AVConfiguration";
 
 //TODO: test with updated API urls
 const getConfigurations = (page: number, size: number, sortProperty: string, sortDirection: string, complete: boolean, integrationId: string,  excludeElements?: boolean) => {

@@ -1,6 +1,6 @@
-import { IFormConfiguration } from "../../../integration/types/Form/FormData"
-import {CreationStrategy} from "../../../integration/types/CreationStrategy";
-import {FieldType, IAVConfiguration} from "../../../integration/types/AVConfiguration";
+import { IFormConfiguration } from "../../../configuration/types/Form/FormData"
+import {CreationStrategy} from "../../../configuration/types/CreationStrategy";
+import {FieldType, IAVConfiguration} from "../../../configuration/types/AVConfiguration";
 
 export function toAVConfiguration(data: IFormConfiguration, integrationId: string, configurationId: any, metadataId: number): IAVConfiguration {
     return {
@@ -143,11 +143,15 @@ export function toAVConfiguration(data: IFormConfiguration, integrationId: strin
                                         elementMappingPerKey: {},
                                         elementCollectionMappingPerKey: {}
                                     },
-                                    "skjerming": {
+                                    "skjerming": data.recordData.correspondent.protected ? {
                                         valueMappingPerKey: {
                                             "tilgangsrestriksjon": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.accessCode},
                                             "skjermingshjemmel": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.paragraph}
                                         },
+                                        elementMappingPerKey: {},
+                                        elementCollectionMappingPerKey: {}
+                                    } : {
+                                        valueMappingPerKey: {},
                                         elementMappingPerKey: {},
                                         elementCollectionMappingPerKey: {}
                                     }
@@ -303,11 +307,15 @@ export function toAVConfigurationPatch(data: IFormConfiguration, metadataId: any
                                         elementMappingPerKey: {},
                                         elementCollectionMappingPerKey: {}
                                     },
-                                    "skjerming": {
+                                    "skjerming": data.recordData.correspondent.protected ? {
                                         valueMappingPerKey: {
                                             "tilgangsrestriksjon": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.accessCode},
                                             "skjermingshjemmel": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.paragraph}
                                         },
+                                        elementMappingPerKey: {},
+                                        elementCollectionMappingPerKey: {}
+                                    } : {
+                                        valueMappingPerKey: {},
                                         elementMappingPerKey: {},
                                         elementCollectionMappingPerKey: {}
                                     }

@@ -18,7 +18,7 @@ import {gridLocaleNoNB} from "../../util/locale/gridLocaleNoNB";
 import {useTranslation} from "react-i18next";
 import {IntegrationContext} from "../../../context/integrationContext";
 import {Link as RouterLink, useHistory} from 'react-router-dom';
-import {ISelect} from "../../integration/types/InputField";
+import {ISelect} from "../../configuration/types/InputField";
 import IntegrationRepository from "../../../shared/repositories/IntegrationRepository";
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import {SourceApplicationContext} from "../../../context/sourceApplicationContext";
@@ -26,14 +26,14 @@ import {
     getDestinationDisplayName,
     getSourceApplicationDisplayName,
     SOURCE_FORM_NO_VALUES
-} from "../../integration/defaults/DefaultValues";
+} from "../../configuration/defaults/DefaultValues";
 import ConfigurationRepository from "../../../shared/repositories/ConfigurationRepository";
 import {IIntegrationPatch} from "../../integration/types/Integration";
 import {ResourcesContext} from "../../../context/resourcesContext";
 import ResourceRepository from "../../../shared/repositories/ResourceRepository";
 import {IResourceItem} from "../../../context/resourcesContext/types";
-import {IConfiguration, IConfigurationPatch} from "../../integration/types/Configuration";
-import {IElementMapping} from "../../integration/types/AVConfiguration";
+import {IConfiguration} from "../../configuration/types/Configuration";
+import {IElementMapping} from "../../configuration/types/AVConfiguration";
 
 const IntegrationPanel: React.FunctionComponent<any> = (props) => {
     const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.integrationOverview'});
