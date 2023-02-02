@@ -25,7 +25,7 @@ export function toFormData(data: IConfiguration): IFormConfiguration {
         completed: data.completed,
         caseData: {
             caseCreationStrategy: null,
-            id: undefined,
+            id: caseFields.valueMappingPerKey['id']?.mappingString ? caseFields.valueMappingPerKey['id']?.mappingString : null,
             title: caseFields.valueMappingPerKey['tittel']?.mappingString ? caseFields.valueMappingPerKey['tittel']?.mappingString : null,
             publicTitle: caseFields.valueMappingPerKey['offentligTittel']?.mappingString ? caseFields.valueMappingPerKey['offentligTittel']?.mappingString : null,
             caseType: caseFields.valueMappingPerKey['saksmappetype']?.mappingString ? caseFields.valueMappingPerKey['saksmappetype']?.mappingString : null,

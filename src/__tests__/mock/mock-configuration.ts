@@ -16,6 +16,7 @@ export const MOCK_CONFIGURATION: IConfiguration = {
             "sak": {
                 valueMappingPerKey: {
                     "type": {type: FieldType.STRING, mappingString: "NEW"},
+                    "id": {type: FieldType.STRING, mappingString: null},
                     "tittel": {type: FieldType.DYNAMIC_STRING, mappingString: "Title of case"},
                     "offentligTittel": {type: FieldType.DYNAMIC_STRING, mappingString: "public title"},
                     "saksmappetype": {type: FieldType.STRING, mappingString: "casetype"},
@@ -332,6 +333,321 @@ export const MOCK_EMPTY_CONFIGURATION: IConfiguration = {
     "integrationMetadataId": 321
 }
 
+export const MOCK_MAPPED_EMPTY_CONFIGURATION: IConfiguration = {
+    "comment": "form to test empty mapping",
+    "completed": false,
+    "id": "234",
+    "integrationId": "id1",
+    "integrationMetadataId": 321,
+    "mapping": {
+        "elementCollectionMappingPerKey": {},
+        "elementMappingPerKey": {
+            "journalpost": {
+                "elementCollectionMappingPerKey": {
+                    "dokumentbeskrivelse": {
+                        "elementMappings": [
+                            {
+                                "elementCollectionMappingPerKey": {
+                                    "dokumentobjekt": {
+                                        "elementMappings": [
+                                            {
+                                                "elementCollectionMappingPerKey": {},
+                                                "elementMappingPerKey": {},
+                                                "valueMappingPerKey": {
+                                                    "fil": {
+                                                        "mappingString": null,
+                                                        "type": "FILE"
+                                                    },
+                                                    "format": {
+                                                        "mappingString": null,
+                                                        "type": "STRING"
+                                                    },
+                                                    "variantformat": {
+                                                        "mappingString": null,
+                                                        "type": "STRING"
+                                                    }
+                                                }
+                                            }
+                                        ],
+                                        "elementsFromCollectionMappings": []
+                                    }
+                                },
+                                "elementMappingPerKey": {},
+                                "valueMappingPerKey": {
+                                    "dokumentType": {
+                                        "mappingString": null,
+                                        "type": "STRING"
+                                    },
+                                    "dokumentstatus": {
+                                        "mappingString": null,
+                                        "type": "STRING"
+                                    },
+                                    "tilknyttetRegistreringSom": {
+                                        "mappingString": null,
+                                        "type": "STRING"
+                                    },
+                                    "tittel": {
+                                        "mappingString": null,
+                                        "type": "DYNAMIC_STRING"
+                                    }
+                                }
+                            }
+                        ],
+                        "elementsFromCollectionMappings": [
+                            {
+                                "elementMapping": {
+                                    "elementCollectionMappingPerKey": {
+                                        "dokumentobjekt": {
+                                            "elementMappings": [
+                                                {
+                                                    "elementCollectionMappingPerKey": {},
+                                                    "elementMappingPerKey": {},
+                                                    "valueMappingPerKey": {
+                                                        "fil": {
+                                                            "mappingString": null,
+                                                            "type": "DYNAMIC_STRING"
+                                                        },
+                                                        "format": {
+                                                            "mappingString": null,
+                                                            "type": "DYNAMIC_STRING"
+                                                        },
+                                                        "variantformat": {
+                                                            "mappingString": null,
+                                                            "type": "STRING"
+                                                        }
+                                                    }
+                                                }
+                                            ],
+                                            "elementsFromCollectionMappings": []
+                                        }
+                                    },
+                                    "elementMappingPerKey": {},
+                                    "valueMappingPerKey": {
+                                        "dokumentType": {
+                                            "mappingString": null,
+                                            "type": "STRING"
+                                        },
+                                        "dokumentstatus": {
+                                            "mappingString": null,
+                                            "type": "STRING"
+                                        },
+                                        "tilknyttetRegistreringSom": {
+                                            "mappingString": null,
+                                            "type": "STRING"
+                                        },
+                                        "tittel": {
+                                            "mappingString": null,
+                                            "type": "DYNAMIC_STRING"
+                                        }
+                                    }
+                                },
+                                "instanceCollectionReferencesOrdered": [
+                                    "$if(vedlegg)"
+                                ]
+                            }
+                        ]
+                    },
+                    "korrespondansepart": {
+                        "elementMappings": [
+                            {
+                                "elementCollectionMappingPerKey": {},
+                                "elementMappingPerKey": {
+                                    "adresse": {
+                                        "elementCollectionMappingPerKey": {},
+                                        "elementMappingPerKey": {},
+                                        "valueMappingPerKey": {
+                                            "adresselinje": {
+                                                "mappingString": null,
+                                                "type": "DYNAMIC_STRING"
+                                            },
+                                            "postnummer": {
+                                                "mappingString": null,
+                                                "type": "DYNAMIC_STRING"
+                                            },
+                                            "poststed": {
+                                                "mappingString": null,
+                                                "type": "DYNAMIC_STRING"
+                                            }
+                                        }
+                                    },
+                                    "kontaktinformasjon": {
+                                        "elementCollectionMappingPerKey": {},
+                                        "elementMappingPerKey": {},
+                                        "valueMappingPerKey": {
+                                            "epostadresse": {
+                                                "mappingString": null,
+                                                "type": "DYNAMIC_STRING"
+                                            },
+                                            "mobiltelefonnummer": {
+                                                "mappingString": null,
+                                                "type": "DYNAMIC_STRING"
+                                            },
+                                            "telefonnummer": {
+                                                "mappingString": null,
+                                                "type": "DYNAMIC_STRING"
+                                            }
+                                        }
+                                    },
+                                    "skjerming": {
+                                        "elementCollectionMappingPerKey": {},
+                                        "elementMappingPerKey": {},
+                                        "valueMappingPerKey": {}
+                                    }
+                                },
+                                "valueMappingPerKey": {
+                                    "fødselsnummer": {
+                                        "mappingString": null,
+                                        "type": "DYNAMIC_STRING"
+                                    },
+                                    "kontaktperson": {
+                                        "mappingString": null,
+                                        "type": "DYNAMIC_STRING"
+                                    },
+                                    "korrespondansepartNavn": {
+                                        "mappingString": null,
+                                        "type": "DYNAMIC_STRING"
+                                    },
+                                    "korrespondanseparttype": {
+                                        "mappingString": null,
+                                        "type": "STRING"
+                                    },
+                                    "organisasjonsnummer": {
+                                        "mappingString": null,
+                                        "type": "DYNAMIC_STRING"
+                                    }
+                                }
+                            }
+                        ],
+                        "elementsFromCollectionMappings": []
+                    }
+                },
+                "elementMappingPerKey": {},
+                "valueMappingPerKey": {
+                    "administrativenhet": {
+                        "mappingString": null,
+                        "type": "STRING"
+                    },
+                    "journalposttype": {
+                        "mappingString": null,
+                        "type": "STRING"
+                    },
+                    "journalstatus": {
+                        "mappingString": null,
+                        "type": "STRING"
+                    },
+                    "offentligTittel": {
+                        "mappingString": null,
+                        "type": "DYNAMIC_STRING"
+                    },
+                    "saksbehandler": {
+                        "mappingString": null,
+                        "type": "STRING"
+                    },
+                    "skjermingshjemmel": {
+                        "mappingString": null,
+                        "type": "STRING"
+                    },
+                    "tilgangsrestriksjon": {
+                        "mappingString": null,
+                        "type": "STRING"
+                    },
+                    "tittel": {
+                        "mappingString": null,
+                        "type": "DYNAMIC_STRING"
+                    }
+                }
+            },
+            "sak": {
+                "elementCollectionMappingPerKey": {},
+                "elementMappingPerKey": {},
+                "valueMappingPerKey": {
+                    "administrativenhet": {
+                        "mappingString": null,
+                        "type": "STRING"
+                    },
+                    "arkivdel": {
+                        "mappingString": null,
+                        "type": "STRING"
+                    },
+                    "journalenhet": {
+                        "mappingString": null,
+                        "type": "STRING"
+                    },
+                    "offentligTittel": {
+                        "mappingString": null,
+                        "type": "DYNAMIC_STRING"
+                    },
+                    "primarklasse": {
+                        "mappingString": null,
+                        "type": "DYNAMIC_STRING"
+                    },
+                    "primarordningsprinsipp": {
+                        "mappingString": null,
+                        "type": "STRING"
+                    },
+                    "primartittel": {
+                        "mappingString": null,
+                        "type": "DYNAMIC_STRING"
+                    },
+                    "saksansvarlig": {
+                        "mappingString": null,
+                        "type": "STRING"
+                    },
+                    "saksmappetype": {
+                        "mappingString": null,
+                        "type": "STRING"
+                    },
+                    "sekundarklasse": {
+                        "mappingString": null,
+                        "type": "DYNAMIC_STRING"
+                    },
+                    "sekundarordningsprinsipp": {
+                        "mappingString": null,
+                        "type": "STRING"
+                    },
+                    "sekundartittel": {
+                        "mappingString": null,
+                        "type": "DYNAMIC_STRING"
+                    },
+                    "skjermingshjemmel": {
+                        "mappingString": null,
+                        "type": "STRING"
+                    },
+                    "status": {
+                        "mappingString": null,
+                        "type": "STRING"
+                    },
+                    "tertiarklasse": {
+                        "mappingString": null,
+                        "type": "DYNAMIC_STRING"
+                    },
+                    "tertiarordningsprinsipp": {
+                        "mappingString": null,
+                        "type": "STRING"
+                    },
+                    "tertiartittel": {
+                        "mappingString": null,
+                        "type": "DYNAMIC_STRING"
+                    },
+                    "tilgangsrestriksjon": {
+                        "mappingString": null,
+                        "type": "STRING"
+                    },
+                    "tittel": {
+                        "mappingString": null,
+                        "type": "DYNAMIC_STRING"
+                    },
+                    "type": {
+                        "mappingString": "NEW",
+                        "type": "STRING"
+                    }
+                }
+            }
+        },
+        "valueMappingPerKey": {}
+    }
+}
+
 export const MOCK_NEW_CONFIG: IConfiguration = {
     id: 'id2',
     integrationId: '123',
@@ -344,6 +660,7 @@ export const MOCK_NEW_CONFIG: IConfiguration = {
             "sak": {
                 valueMappingPerKey: {
                     "type": {type: FieldType.STRING, mappingString: "NEW"},
+                    "id": {type: FieldType.STRING, mappingString: "2022/123"},
                     "tittel": {type: FieldType.DYNAMIC_STRING, mappingString: "Title of case"},
                     "offentligTittel": {type: FieldType.DYNAMIC_STRING, mappingString: "public title"},
                     "saksmappetype": {type: FieldType.STRING, mappingString: "casetype"},

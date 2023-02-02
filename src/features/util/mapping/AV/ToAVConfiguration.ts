@@ -13,11 +13,11 @@ export function toAVConfiguration(data: IFormConfiguration, integrationId: strin
             valueMappingPerKey: {},
             elementMappingPerKey: {
                 "sak": {
-                    valueMappingPerKey: data.caseData.caseCreationStrategy === CreationStrategy.BY_SEARCH_OR_NEW ? {
+                    valueMappingPerKey: data.caseData.caseCreationStrategy === CreationStrategy.BY_ID ? {
                         "type": {type: FieldType.STRING, mappingString: "BY_ID"},
-                        "id": {type: FieldType.DYNAMIC_STRING, mappingString: data.caseData.title},
+                        "id": {type: FieldType.STRING, mappingString: data.caseData.id ? data.caseData.id : null},
                     } : {
-                        "type": {type: FieldType.STRING, mappingString: data.caseData.caseCreationStrategy === CreationStrategy.NEW ? "NEW" : "BY_SEARCH_OR_NEW"},
+                        "type": {type: FieldType.STRING, mappingString: data.caseData.caseCreationStrategy === CreationStrategy.BY_SEARCH_OR_NEW ? "BY_SEARCH_OR_NEW" : "NEW"},
                         "tittel": {type: FieldType.DYNAMIC_STRING, mappingString: data.caseData.title},
                         "offentligTittel": {type: FieldType.DYNAMIC_STRING, mappingString: data.caseData.publicTitle},
                         "saksmappetype": {type: FieldType.STRING, mappingString: data.caseData.caseType},

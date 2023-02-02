@@ -14,7 +14,8 @@ export function toConfiguration(data: IFormConfiguration, integrationId: string,
             elementMappingPerKey: {
                 "sak": {
                     valueMappingPerKey: {
-                        "type": {type: FieldType.STRING, mappingString: data.caseData.caseCreationStrategy === CreationStrategy.NEW ? "NEW" : "BY_SEARCH_OR_NEW"},
+                        "type": {type: FieldType.STRING, mappingString: data.caseData.caseCreationStrategy === CreationStrategy.NEW ? "NEW" : "BY_ID"},
+                        "id": {type: FieldType.STRING, mappingString: data.caseData.id ? data.caseData.id : null},
                         "tittel": {type: FieldType.DYNAMIC_STRING, mappingString: data.caseData.title},
                         "offentligTittel": {type: FieldType.DYNAMIC_STRING, mappingString: data.caseData.publicTitle},
                         "saksmappetype": {type: FieldType.STRING, mappingString: data.caseData.caseType},
