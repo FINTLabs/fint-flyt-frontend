@@ -86,6 +86,79 @@ export const MOCK_CONFIG_FORMDATA: IFormConfiguration = {
     }
 }
 
+export const MOCK_CONFIG_FORMDATA_PROTECTED_FALSE: IFormConfiguration = {
+    completed: false,
+    caseData: {
+        id: null,
+        accessCode: "code42",
+        administrativeUnit: "unit4",
+        archiveUnit: "unit3",
+        caseCreationStrategy: CreationStrategy.NEW,
+        caseType: "casetype",
+        caseWorker: "rand",
+        paragraph: "number6",
+        primaryClass: "1class",
+        primaryClassification: "prim",
+        primaryTitle: "primTitle",
+        publicTitle: "public title",
+        recordUnit: "unit0",
+        secondaryClass: "2class",
+        secondaryClassification: "rose",
+        secondaryTitle: "secTitle",
+        status: null,
+        tertiaryClass: "3class",
+        tertiaryClassification: "everdeen",
+        tertiaryTitle: "tertTitle",
+        title: "Title of case"
+    },
+    comment: "form to test mapping",
+    recordData: {
+        accessCode: "code89",
+        administrativeUnit: "unit33",
+        caseWorker: "boba",
+        paragraph: "p34",
+        publicTitle: "public record title",
+        recordStatus: "N",
+        recordType: "A",
+        title: "record title",
+        mainDocument: {
+            title: "record title",
+            documentStatus: "D9",
+            documentType: "cat8",
+            role: "www.kodeverk.no/H",
+            format: "www.kodeverk.no/A",
+            variant: "www.kodeverk.no/PDF",
+            file: "$ifg{formPdf}",
+        },
+        attachmentDocuments: {
+            title: "$ifg{name}",
+            documentStatus: "D9",
+            documentType: "cat8",
+            role: "www.kodeverk.no/V",
+            format: "www.kodeverk.no/PDF",
+            variant: "www.kodeverk.no/PDF",
+            file: "$igf{file}"
+        },
+        correspondent: {
+            accessCode: null,
+            address: "highstreet 22",
+            city: "Moria",
+            contactPerson: "donna",
+            email: "hello@world.no",
+            name: "Anakin Skywalker",
+            nationalIdentityNumber: "123456789",
+            organisationNumber: null,
+            paragraph: null,
+            phoneNumber: "12345678",
+            mobilePhoneNumber: "12345678",
+            postalCode: "1234",
+            protected: false,
+            type: 'avsender'
+        }
+
+    }
+}
+
 export const MOCK_CONFIG_FORMDATA_FOR_PATCH: IFormConfiguration = {
     completed: false,
     metadataId: 1,
@@ -226,7 +299,7 @@ export const MOCK_NEW_FORMDATA: IFormConfiguration = {
             "paragraph": "p3",
             "phoneNumber": "12345678",
             "postalCode": "1234",
-            "protected": false,
+            "protected": true,
             "type": "avsender"
         },
     }

@@ -73,7 +73,7 @@ export function toAVFormData(data: IAVConfiguration): IFormConfiguration {
                 file: attachmentDocumentObjectFields.valueMappingPerKey['fil']?.mappingString ? attachmentDocumentObjectFields.valueMappingPerKey['fil']?.mappingString : null
             },
             correspondent: {
-                protected: correspondentFields.valueMappingPerKey['protected']?.mappingString ? JSON.parse(correspondentFields.valueMappingPerKey['protected']?.mappingString) : false,
+                protected: (protectionFields.valueMappingPerKey['tilgangsrestriksjon'] || protectionFields.valueMappingPerKey['skjermingshjemmel']) !== undefined,
                 type: correspondentFields.valueMappingPerKey['korrespondanseparttype']?.mappingString ? correspondentFields.valueMappingPerKey['korrespondanseparttype']?.mappingString : null,
                 organisationNumber: correspondentFields.valueMappingPerKey['organisasjonsnummer']?.mappingString ? correspondentFields.valueMappingPerKey['organisasjonsnummer']?.mappingString : null,
                 nationalIdentityNumber: correspondentFields.valueMappingPerKey['fødselsnummer']?.mappingString ? correspondentFields.valueMappingPerKey['fødselsnummer']?.mappingString : null,

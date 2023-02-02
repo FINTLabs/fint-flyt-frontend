@@ -115,7 +115,6 @@ export function toConfiguration(data: IFormConfiguration, integrationId: string,
                         "korrespondansepart": {
                             elementMappings: [{
                                 valueMappingPerKey: {
-                                    "protected": {type: FieldType.BOOLEAN, mappingString: data.recordData.correspondent?.protected ? data.recordData.correspondent.protected.toString() : null},
                                     "fødselsnummer": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.nationalIdentityNumber},
                                     "organisasjonsnummer": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.organisationNumber},
                                     "kontaktperson": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.contactPerson},
@@ -141,18 +140,14 @@ export function toConfiguration(data: IFormConfiguration, integrationId: string,
                                         elementMappingPerKey: {},
                                         elementCollectionMappingPerKey: {}
                                     },
-                                    "skjerming": data.recordData.correspondent?.protected ?
-                                        {
+                                    "skjerming": {
                                             valueMappingPerKey: {
                                                 "tilgangsrestriksjon": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.accessCode},
                                                 "skjermingshjemmel": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.paragraph}
                                             },
                                             elementMappingPerKey: {},
                                             elementCollectionMappingPerKey: {}
-                                        } : {
-                                            valueMappingPerKey: {},
-                                            elementMappingPerKey: {},
-                                            elementCollectionMappingPerKey: {}}
+                                        }
                                 },
                                 elementCollectionMappingPerKey: {}
                             }],
@@ -277,7 +272,6 @@ export function toConfigurationPatch(data: IFormConfiguration, metadataId: any):
                         "korrespondansepart": {
                             elementMappings: [{
                                 valueMappingPerKey: {
-                                    "protected": {type: FieldType.BOOLEAN, mappingString: data.recordData.correspondent?.protected ? data.recordData.correspondent.protected.toString() : null},
                                     "fødselsnummer": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.nationalIdentityNumber},
                                     "organisasjonsnummer": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.organisationNumber},
                                     "kontaktperson": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.contactPerson},
@@ -303,18 +297,14 @@ export function toConfigurationPatch(data: IFormConfiguration, metadataId: any):
                                         elementMappingPerKey: {},
                                         elementCollectionMappingPerKey: {}
                                     },
-                                    "skjerming": data.recordData.correspondent?.protected ?
-                                        {
-                                            valueMappingPerKey: {
-                                                "tilgangsrestriksjon": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.accessCode},
-                                                "skjermingshjemmel": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.paragraph}
-                                            },
-                                            elementMappingPerKey: {},
-                                            elementCollectionMappingPerKey: {}
-                                        } : {
-                                            valueMappingPerKey: {},
-                                            elementMappingPerKey: {},
-                                            elementCollectionMappingPerKey: {}}
+                                    "skjerming": {
+                                        valueMappingPerKey: {
+                                            "tilgangsrestriksjon": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.accessCode},
+                                            "skjermingshjemmel": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.paragraph}
+                                        },
+                                        elementMappingPerKey: {},
+                                        elementCollectionMappingPerKey: {}
+                                    }
                                 },
                                 elementCollectionMappingPerKey: {}
                             }],

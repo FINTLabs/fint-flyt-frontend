@@ -22,7 +22,6 @@ import SourceApplicationForm from "./components/SourceApplicationForm";
 import {HTML5Backend} from "react-dnd-html5-backend";
 import {DndProvider} from "react-dnd";
 import {CreationStrategy} from "./types/CreationStrategy";
-import {toFormData} from "../util/mapping/ToFormData";
 import {ResourcesContext} from "../../context/resourcesContext";
 import {IntegrationContext} from "../../context/integrationContext";
 import CloseIcon from '@mui/icons-material/Close';
@@ -38,6 +37,7 @@ import IntegrationRepository from "../../shared/repositories/IntegrationReposito
 import {IIntegrationPatch, IntegrationState} from "./types/Integration";
 import {SourceApplicationContext} from "../../context/sourceApplicationContext";
 import {IAVConfiguration, IAVConfigurationPatch} from "./types/AVConfiguration";
+import {toAVFormData} from "../util/mapping/AV/toAVFormData";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -122,7 +122,7 @@ const AVConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
     let activeConfiguration = configuration && editConfig ? configuration : undefined;
     const [activeConfigId, setActiveConfigId] = React.useState(activeConfiguration?.id);
     const [completed, setCompleted] = React.useState(!!activeConfiguration?.completed);
-    let activeFormData = activeConfiguration && editConfig && configuration? toFormData(configuration) : defaultConfigurationValuesAV;
+    let activeFormData = activeConfiguration && editConfig && configuration? toAVFormData(configuration) : defaultConfigurationValuesAV;
     const [protectedCheck, setProtectedChecked] = React.useState(activeFormData?.recordData?.correspondent?.protected);
 
     const handleCheckChange = (event: React.ChangeEvent<HTMLInputElement>) => {
