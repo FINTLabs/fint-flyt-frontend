@@ -1,3 +1,6 @@
+import IShieldingData from "./ShieldingData";
+import {IClassData} from "./ClassData";
+
 export default interface ICaseData {
     caseCreationStrategy: string | null;
     id: string | null | undefined;
@@ -8,16 +11,7 @@ export default interface ICaseData {
     archiveUnit: string | null;
     recordUnit: string | null;
     status: string | null;
-    accessCode: string | null;
-    paragraph: string | null;
+    shielding?: IShieldingData;
     caseWorker: string | null;
-    primaryClassification: string | null;
-    secondaryClassification: string | null;
-    tertiaryClassification: string | null;
-    primaryClass: string | null;
-    secondaryClass: string | null;
-    tertiaryClass: string | null;
-    primaryTitle: string | null;
-    secondaryTitle: string | null;
-    tertiaryTitle: string | null;
+    classes: IClassData[];
 }

@@ -20,18 +20,34 @@ export const defaultConfigurationValues: IFormConfiguration = {
         archiveUnit:null,
         recordUnit: null,
         status: null,
-        accessCode: null,
-        paragraph: null,
         caseWorker: null,
-        primaryClassification: null,
-        secondaryClassification: null,
-        tertiaryClassification: null,
-        primaryClass: null,
-        secondaryClass: null,
-        tertiaryClass: null,
-        primaryTitle: null,
-        secondaryTitle: null,
-        tertiaryTitle: null
+        shielding: {
+            accessCode: null,
+            paragraph: null
+        },
+        classes: [
+            {
+                classification: null,
+                order: 0,
+                class: null,
+                title: null,
+                shielding: { accessCode: null, paragraph: null }
+            },
+            {
+                classification: null,
+                order: 1,
+                class: null,
+                title: null,
+                shielding: { accessCode: null, paragraph: null }
+            },
+            {
+                classification: null,
+                order: 2,
+                class: null,
+                title: null,
+                shielding: { accessCode: null, paragraph: null }
+            },
+        ],
     },
     recordData: {
         title: null,
@@ -40,14 +56,16 @@ export const defaultConfigurationValues: IFormConfiguration = {
         recordStatus: null,
         recordType: null,
         caseWorker: null,
-        accessCode: null,
-        paragraph: null,
+        shielding: {
+            accessCode: null,
+            paragraph: null
+        },
         mainDocument: {
             title: null,
             documentStatus: null,
             documentType: null,
             role: null,
-            format: null,
+            fileFormat: null,
             variant: null,
             file: null
         },
@@ -56,12 +74,15 @@ export const defaultConfigurationValues: IFormConfiguration = {
             documentStatus: null,
             documentType: null,
             role: null,
-            format: null,
+            fileFormat: null,
             variant: null,
             file: null
         },
         correspondent: {
-            protected: false,
+            shielding: {
+                accessCode: null,
+                paragraph: null
+            },
             type: null,
             organisationNumber: null,
             nationalIdentityNumber: null,
@@ -72,9 +93,7 @@ export const defaultConfigurationValues: IFormConfiguration = {
             contactPerson: null,
             phoneNumber: null,
             mobilePhoneNumber: null,
-            email: null,
-            accessCode: null,
-            paragraph: null
+            email: null
         }
     }
 }
@@ -92,18 +111,34 @@ export const defaultConfigurationValuesAV: IFormConfiguration = {
         archiveUnit:null,
         recordUnit: null,
         status: null,
-        accessCode: null,
-        paragraph: null,
         caseWorker: null,
-        primaryClassification: null,
-        secondaryClassification: null,
-        tertiaryClassification: null,
-        primaryClass: null,
-        secondaryClass: null,
-        tertiaryClass: null,
-        primaryTitle: null,
-        secondaryTitle: null,
-        tertiaryTitle: null
+        shielding: {
+            accessCode: null,
+            paragraph: null
+        },
+        classes: [
+            {
+                classification: null,
+                order: 0,
+                class: null,
+                title: null,
+                shielding: { accessCode: null, paragraph: null }
+            },
+            {
+                classification: null,
+                order: 1,
+                class: null,
+                title: null,
+                shielding: { accessCode: null, paragraph: null }
+            },
+            {
+                classification: null,
+                order: 2,
+                class: null,
+                title: null,
+                shielding: { accessCode: null, paragraph: null }
+            },
+        ],
     },
     recordData: {
         title: null,
@@ -112,14 +147,16 @@ export const defaultConfigurationValuesAV: IFormConfiguration = {
         recordStatus: null,
         recordType: null,
         caseWorker: null,
-        accessCode: null,
-        paragraph: null,
+        shielding: {
+            accessCode: null,
+            paragraph: null
+        },
         mainDocument: {
             title: null,
             documentStatus: null,
             documentType: null,
             role: 'https://beta.felleskomponent.no/arkiv/kodeverk/tilknyttetregistreringsom/systemid/H',
-            format: 'https://beta.felleskomponent.no/arkiv/kodeverk/format/systemid/PDF',
+            fileFormat: 'https://beta.felleskomponent.no/arkiv/kodeverk/format/systemid/PDF',
             variant: 'https://beta.felleskomponent.no/arkiv/kodeverk/variantformat/systemid/P',
             file: '$if{formPdf}'
         },
@@ -128,12 +165,15 @@ export const defaultConfigurationValuesAV: IFormConfiguration = {
             documentStatus: null,
             documentType: null,
             role: 'https://beta.felleskomponent.no/arkiv/kodeverk/tilknyttetregistreringsom/systemid/V',
-            format: 'https://beta.felleskomponent.no/arkiv/kodeverk/format/systemid/PDF',
+            fileFormat: 'https://beta.felleskomponent.no/arkiv/kodeverk/format/systemid/PDF',
             variant: 'https://beta.felleskomponent.no/arkiv/kodeverk/variantformat/systemid/P',
             file: '$igf{file}'
         },
         correspondent: {
-            protected: false,
+            shielding: {
+                accessCode: null,
+                paragraph: null
+            },
             type: 'https://beta.felleskomponent.no/arkiv/kodeverk/korrespondanseparttype/systemid/EA',
             organisationNumber: null,
             nationalIdentityNumber: null,
@@ -144,9 +184,7 @@ export const defaultConfigurationValuesAV: IFormConfiguration = {
             contactPerson: null,
             phoneNumber: null,
             mobilePhoneNumber: null,
-            email: null,
-            accessCode: null,
-            paragraph: null
+            email: null
         }
     }
 }
@@ -613,17 +651,15 @@ export const MOCK_NEWCONFIGURATIONS: IConfiguration[] = [
         }
     }
 ]
-
+/*
 export const EXAMPLE_FORM: IFormConfiguration = {
     "caseData": {
         "id": undefined,
-        "accessCode": '',
         "administrativeUnit": '',
         "archiveUnit": '',
         "caseCreationStrategy": CreationStrategy.NEW,
         "caseType": '',
         "caseWorker": '',
-        "paragraph": '',
         "primaryClass": '',
         "primaryClassification": '',
         "primaryTitle": '',
@@ -636,7 +672,11 @@ export const EXAMPLE_FORM: IFormConfiguration = {
         "tertiaryClass": '',
         "tertiaryClassification": '',
         "tertiaryTitle": '',
-        "title": "{foo} {bar} {bubu}"
+        "title": "{foo} {bar} {bubu}",
+        "shielding": {
+            "accessCode": '',
+            "paragraph": ''
+        },
     },
     "comment": "Ferdigstilt ",
     "completed": true,
@@ -650,12 +690,16 @@ export const EXAMPLE_FORM: IFormConfiguration = {
         "recordStatus": '',
         "recordType": '',
         "title": "{foo} bar",
+        "shielding": {
+            "accessCode": '',
+            "paragraph": ''
+        },
         "attachmentDocuments": {
             "title": '',
             "documentStatus": '',
             "documentType": '',
             "role": '',
-            "format": '',
+            "fileFormat": '',
             "variant": '',
             "file": ''
         },
@@ -664,12 +708,15 @@ export const EXAMPLE_FORM: IFormConfiguration = {
             "documentStatus": '',
             "documentType": '',
             "role": '',
-            "format": '',
+            "fileFormat": '',
             "variant": '',
             "file": '',
         },
         "correspondent": {
-            "protected": false,
+            "shielding": {
+                "accessCode": '',
+                "paragraph": ''
+            },
             "type": '',
             "organisationNumber": '',
             "nationalIdentityNumber": '',
@@ -686,7 +733,7 @@ export const EXAMPLE_FORM: IFormConfiguration = {
         }
     }
 }
-
+*/
 export function getSourceApplicationDisplayName(id: any): string {
     if (id === 1) return 'ACOS';
     if (id === 2) return 'eGrunnerverv';

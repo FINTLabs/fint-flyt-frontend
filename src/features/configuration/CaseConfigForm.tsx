@@ -120,7 +120,7 @@ const CaseConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => 
     const [activeConfigId, setActiveConfigId] = React.useState(activeConfiguration?.id);
     const [completed, setCompleted] = React.useState(!!activeConfiguration?.completed);
     let activeFormData = activeConfiguration && editConfig && configuration? toFormData(configuration) : defaultConfigurationValues;
-    const [protectedCheck, setProtectedChecked] = React.useState(activeFormData?.recordData?.correspondent?.protected);
+    const [shieldingCheck, setShieldingCheck] = React.useState(!!activeFormData?.recordData?.correspondent?.shielding?.accessCode === null);
 
     const handleCheckChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setChecked(event.target.checked);
@@ -269,7 +269,7 @@ const CaseConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => 
             data.caseData.id = id
         }
         data.completed = true;
-        data.recordData.correspondent.protected = protectedCheck;
+        if (!shieldingCheck) data.recordData.correspondent.shielding = {accessCode: null, paragraph: null};
         const configuration: IConfiguration = toConfiguration(data, activeIntegration?.id, activeConfigId, selectedMetadata.id);
         if (configuration && activeConfigId !== undefined) {
             const iConfiguration: IConfiguration = toConfigurationPatch(data, selectedMetadata.id);
@@ -290,7 +290,7 @@ const CaseConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => 
             data.caseData.id = id
         }
         data.completed = false;
-        data.recordData.correspondent.protected = protectedCheck;
+        if (!shieldingCheck) data.recordData.correspondent.shielding = {accessCode: null, paragraph: null};
         const configuration: IConfiguration = toConfiguration(data, activeIntegration?.id, activeConfigId, selectedMetadata.id);
         if (configuration && activeConfigId !== undefined) {
             const iConfiguration: IConfiguration = toConfigurationPatch(data, selectedMetadata.id);
@@ -331,8 +331,8 @@ const CaseConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => 
                                         disabled={completed}
                                         editConfig={editConfig}
                                         onSave={onSave}
-                                        protectedCheck={protectedCheck}
-                                        setProtectedChecked={setProtectedChecked}
+                                        shieldingCheck={shieldingCheck}
+                                        setShieldingCheck={setShieldingCheck}
                                     />
                                 )
                             })}

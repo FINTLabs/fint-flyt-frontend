@@ -1,5 +1,7 @@
+import IShieldingData from "./ShieldingData";
+
 export default interface ICorrespondentData {
-    protected?: boolean;
+    shielding?: IShieldingData;
     type: string | null;
     organisationNumber: string | null;
     nationalIdentityNumber: string | null;
@@ -11,6 +13,4 @@ export default interface ICorrespondentData {
     phoneNumber: string | null;
     mobilePhoneNumber: string | null;
     email: string | null;
-    accessCode: string | null;
-    paragraph: string | null;
 }

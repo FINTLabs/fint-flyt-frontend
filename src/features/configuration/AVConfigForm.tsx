@@ -123,7 +123,7 @@ const AVConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const [activeConfigId, setActiveConfigId] = React.useState(activeConfiguration?.id);
     const [completed, setCompleted] = React.useState(!!activeConfiguration?.completed);
     let activeFormData = activeConfiguration && editConfig && configuration? toAVFormData(configuration) : defaultConfigurationValuesAV;
-    const [protectedCheck, setProtectedChecked] = React.useState(activeFormData?.recordData?.correspondent?.protected);
+    const [shieldingCheck, setShieldingCheck] = React.useState(!!activeFormData?.recordData?.correspondent?.shielding?.accessCode === null);
 
     const handleCheckChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setChecked(event.target.checked);
@@ -272,7 +272,7 @@ const AVConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
             data.caseData.id = id
         }
         data.completed = true;
-        data.recordData.correspondent.protected = protectedCheck;
+        if (!shieldingCheck) data.recordData.correspondent.shielding = {accessCode: null, paragraph: null};
         const configuration: IAVConfiguration = toAVConfiguration(data, activeIntegration?.id, activeConfigId, selectedMetadata.id);
         if (configuration && activeConfigId !== undefined) {
             const iConfiguration: IAVConfiguration = toAVConfigurationPatch(data, selectedMetadata.id);
@@ -289,11 +289,12 @@ const AVConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
     });
 
     const onSave = handleSubmit((data: IFormConfiguration) => {
+        console.log(data)
         if (data.caseData.caseCreationStrategy === CreationStrategy.BY_ID && id) {
             data.caseData.id = id
         }
         data.completed = false;
-        data.recordData.correspondent.protected = protectedCheck;
+        if (!shieldingCheck) data.recordData.correspondent.shielding = {accessCode: null, paragraph: null};
         const configuration: IAVConfiguration = toAVConfiguration(data, activeIntegration?.id, activeConfigId, selectedMetadata.id);
         if (configuration && activeConfigId !== undefined) {
             const iConfiguration: IAVConfiguration = toAVConfigurationPatch(data, selectedMetadata.id);
@@ -334,8 +335,8 @@ const AVConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
                                         disabled={completed}
                                         editConfig={editConfig}
                                         onSave={onSave}
-                                        protectedCheck={protectedCheck}
-                                        setProtectedChecked={setProtectedChecked}
+                                        shieldingCheck={shieldingCheck}
+                                        setShieldingCheck={setShieldingCheck}
                                     />
                                 )
                             })}

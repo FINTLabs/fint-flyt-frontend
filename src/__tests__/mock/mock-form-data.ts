@@ -17,43 +17,61 @@ export const MOCK_CONFIG_FORMDATA: IFormConfiguration = {
     completed: false,
     caseData: {
         id: null,
-        accessCode: "code42",
         administrativeUnit: "unit4",
         archiveUnit: "unit3",
         caseCreationStrategy: CreationStrategy.NEW,
         caseType: "casetype",
         caseWorker: "rand",
-        paragraph: "number6",
-        primaryClass: "1class",
-        primaryClassification: "prim",
-        primaryTitle: "primTitle",
         publicTitle: "public title",
         recordUnit: "unit0",
-        secondaryClass: "2class",
-        secondaryClassification: "rose",
-        secondaryTitle: "secTitle",
         status: null,
-        tertiaryClass: "3class",
-        tertiaryClassification: "everdeen",
-        tertiaryTitle: "tertTitle",
-        title: "Title of case"
+        title: "Title of case",
+        shielding: {
+            accessCode: "code42",
+            paragraph: "number6",
+        },
+        classes: [
+            {
+                order: 0,
+                classification: "prim",
+                class: "1class",
+                title: "primTitle",
+                shielding: { accessCode: null, paragraph: null }
+            },
+            {
+                order: 1,
+                classification: "rose",
+                class: "2class",
+                title: "secTitle",
+                shielding: { accessCode: null, paragraph: null }
+            },
+            {
+                order: 2,
+                classification: "everdeen",
+                class: "3class",
+                title: "tertTitle",
+                shielding: { accessCode: null, paragraph: null }
+            }
+        ]
     },
     comment: "form to test mapping",
     recordData: {
-        accessCode: "code89",
         administrativeUnit: "unit33",
         caseWorker: "boba",
-        paragraph: "p34",
         publicTitle: "public record title",
         recordStatus: "N",
         recordType: "A",
+        shielding: {
+            accessCode: "code89",
+            paragraph: "p34",
+        },
         title: "record title",
         mainDocument: {
             title: "record title",
             documentStatus: "D9",
             documentType: "cat8",
             role: "www.kodeverk.no/H",
-            format: "www.kodeverk.no/A",
+            fileFormat: "www.kodeverk.no/A",
             variant: "www.kodeverk.no/PDF",
             file: "$ifg{formPdf}",
         },
@@ -62,12 +80,11 @@ export const MOCK_CONFIG_FORMDATA: IFormConfiguration = {
             documentStatus: "D9",
             documentType: "cat8",
             role: "www.kodeverk.no/V",
-            format: "www.kodeverk.no/PDF",
+            fileFormat: "www.kodeverk.no/PDF",
             variant: "www.kodeverk.no/PDF",
             file: "$igf{file}"
         },
         correspondent: {
-            accessCode: "code2",
             address: "highstreet 22",
             city: "Moria",
             contactPerson: "donna",
@@ -75,48 +92,70 @@ export const MOCK_CONFIG_FORMDATA: IFormConfiguration = {
             name: "Anakin Skywalker",
             nationalIdentityNumber: "123456789",
             organisationNumber: null,
-            paragraph: "p3",
             phoneNumber: "12345678",
             mobilePhoneNumber: "12345678",
             postalCode: "1234",
-            protected: true,
+            shielding: {
+                accessCode: "code2",
+                paragraph: "p3",
+            },
             type: 'avsender'
         }
 
     }
 }
 
-export const MOCK_CONFIG_FORMDATA_PROTECTED_FALSE: IFormConfiguration = {
+export const MOCK_CONFIG_FORMDATA_SHIELDED_FALSE: IFormConfiguration = {
     completed: false,
     caseData: {
         id: null,
-        accessCode: "code42",
         administrativeUnit: "unit4",
         archiveUnit: "unit3",
         caseCreationStrategy: CreationStrategy.NEW,
         caseType: "casetype",
         caseWorker: "rand",
-        paragraph: "number6",
-        primaryClass: "1class",
-        primaryClassification: "prim",
-        primaryTitle: "primTitle",
         publicTitle: "public title",
         recordUnit: "unit0",
-        secondaryClass: "2class",
-        secondaryClassification: "rose",
-        secondaryTitle: "secTitle",
         status: null,
-        tertiaryClass: "3class",
-        tertiaryClassification: "everdeen",
-        tertiaryTitle: "tertTitle",
-        title: "Title of case"
+        title: "Title of case",
+        shielding: {
+            accessCode: "code42",
+            paragraph: "number6",
+        },
+        classes: [
+            {
+                order: 0,
+                classification: "prim",
+                class: "1class",
+                title: "primTitle",
+                shielding: { accessCode: null, paragraph: null }
+            },
+            {
+                order: 1,
+                classification: "rose",
+                class: "2class",
+                title: "secTitle",
+                shielding: { accessCode: null, paragraph: null }
+
+            },
+            {
+                order: 2,
+                classification: "everdeen",
+                class: "3class",
+                title: "tertTitle",
+                shielding: { accessCode: null, paragraph: null }
+
+            }
+        ]
     },
     comment: "form to test mapping",
     recordData: {
-        accessCode: "code89",
+        shielding: {
+            accessCode: "code89",
+            paragraph: "p34",
+        },
         administrativeUnit: "unit33",
         caseWorker: "boba",
-        paragraph: "p34",
         publicTitle: "public record title",
         recordStatus: "N",
         recordType: "A",
@@ -126,7 +165,7 @@ export const MOCK_CONFIG_FORMDATA_PROTECTED_FALSE: IFormConfiguration = {
             documentStatus: "D9",
             documentType: "cat8",
             role: "www.kodeverk.no/H",
-            format: "www.kodeverk.no/A",
+            fileFormat: "www.kodeverk.no/A",
             variant: "www.kodeverk.no/PDF",
             file: "$ifg{formPdf}",
         },
@@ -135,12 +174,11 @@ export const MOCK_CONFIG_FORMDATA_PROTECTED_FALSE: IFormConfiguration = {
             documentStatus: "D9",
             documentType: "cat8",
             role: "www.kodeverk.no/V",
-            format: "www.kodeverk.no/PDF",
+            fileFormat: "www.kodeverk.no/PDF",
             variant: "www.kodeverk.no/PDF",
             file: "$igf{file}"
         },
         correspondent: {
-            accessCode: null,
             address: "highstreet 22",
             city: "Moria",
             contactPerson: "donna",
@@ -148,11 +186,13 @@ export const MOCK_CONFIG_FORMDATA_PROTECTED_FALSE: IFormConfiguration = {
             name: "Anakin Skywalker",
             nationalIdentityNumber: "123456789",
             organisationNumber: null,
-            paragraph: null,
             phoneNumber: "12345678",
             mobilePhoneNumber: "12345678",
             postalCode: "1234",
-            protected: false,
+            shielding: {
+                accessCode: null,
+                paragraph: null
+            },
             type: 'avsender'
         }
 
@@ -164,33 +204,51 @@ export const MOCK_CONFIG_FORMDATA_FOR_PATCH: IFormConfiguration = {
     metadataId: 1,
     caseData: {
         id: null,
-        accessCode: "code42",
         administrativeUnit: "unit4",
         archiveUnit: "unit3",
         caseCreationStrategy: CreationStrategy.NEW,
         caseType: "casetype",
         caseWorker: "rand",
-        paragraph: "number6",
-        primaryClass: "1class",
-        primaryClassification: "prim",
-        primaryTitle: "primTitle",
         publicTitle: "public title",
         recordUnit: "unit0",
-        secondaryClass: "2class",
-        secondaryClassification: "rose",
-        secondaryTitle: "secTitle",
         status: "",
-        tertiaryClass: "3class",
-        tertiaryClassification: "everdeen",
-        tertiaryTitle: "tertTitle",
-        title: "Title of case"
+        title: "Title of case",
+        shielding: {
+            accessCode: "code42",
+            paragraph: "number6",
+        },
+        classes: [
+            {
+                order: 0,
+                classification: "prim",
+                class: "1class",
+                title: "primTitle",
+                shielding: { accessCode: null, paragraph: null }
+            },
+            {
+                order: 1,
+                classification: "rose",
+                class: "2class",
+                title: "secTitle",
+                shielding: { accessCode: null, paragraph: null }
+            },
+            {
+                order: 2,
+                classification: "everdeen",
+                class: "3class",
+                title: "tertTitle",
+                shielding: { accessCode: null, paragraph: null }
+            }
+        ]
     },
     comment: "form to test mapping",
     recordData: {
-        accessCode: "code89",
+        shielding: {
+            accessCode: "code89",
+            paragraph: "p34",
+        },
         administrativeUnit: "unit33",
         caseWorker: "boba",
-        paragraph: "p34",
         publicTitle: "public record title",
         recordStatus: "N",
         recordType: "A",
@@ -200,7 +258,7 @@ export const MOCK_CONFIG_FORMDATA_FOR_PATCH: IFormConfiguration = {
             documentStatus: "D9",
             documentType: "cat8",
             role: "www.kodeverk.no/H",
-            format: "form",
+            fileFormat: "form",
             variant: "var",
             file: "fil",
         },
@@ -209,12 +267,11 @@ export const MOCK_CONFIG_FORMDATA_FOR_PATCH: IFormConfiguration = {
             documentStatus: "D9",
             documentType: "cat8",
             role: "www.kodeverk.no/V",
-            format: "form",
+            fileFormat: "form",
             variant: "var",
             file: "fil",
         },
         correspondent: {
-            accessCode: "code2",
             address: "highstreet 22",
             city: "Moria",
             contactPerson: "donna",
@@ -222,11 +279,13 @@ export const MOCK_CONFIG_FORMDATA_FOR_PATCH: IFormConfiguration = {
             name: "Anakin Skywalker",
             nationalIdentityNumber: "123456789",
             organisationNumber: "",
-            paragraph: "p3",
             phoneNumber: "12345678",
             mobilePhoneNumber: "12345678",
             postalCode: "1234",
-            protected: true,
+            shielding: {
+                accessCode: "code2",
+                paragraph: "p3",
+            },
             type: 'avsender'
         }
     }
@@ -235,44 +294,62 @@ export const MOCK_CONFIG_FORMDATA_FOR_PATCH: IFormConfiguration = {
 
 export const MOCK_NEW_FORMDATA: IFormConfiguration = {
     "caseData": {
-        "accessCode": "code42",
+        "shielding": {
+            "accessCode": "code42",
+            "paragraph": "number6",
+        },
         "administrativeUnit": "unit4",
         "archiveUnit": "unit3",
         "caseCreationStrategy": null,
         "id": "2022/123",
         "caseType": "casetype",
         "caseWorker": "rand",
-        "paragraph": "number6",
-        "primaryClass": "1class",
-        "primaryClassification": "prim",
-        "primaryTitle": "primTitle",
         "publicTitle": "public title",
         "recordUnit": "unit0",
-        "secondaryClass": "2class",
-        "secondaryClassification": "rose",
-        "secondaryTitle": "secTitle",
         "status": null,
-        "tertiaryClass": "3class",
-        "tertiaryClassification": "everdeen",
-        "tertiaryTitle": "tertTitle",
-        "title": "Title of case"
+        "title": "Title of case",
+        "classes": [
+            {
+                "order": 0,
+                "classification": "prim",
+                "class": "1class",
+                "title": "primTitle",
+                "shielding": { "accessCode": null, "paragraph": null }
+            },
+            {
+                "order": 1,
+                "classification": "rose",
+                "class": "2class",
+                "title": "secTitle",
+                "shielding": { "accessCode": null, "paragraph": null }
+            },
+            {
+                "order": 2,
+                "classification": "everdeen",
+                "class": "3class",
+                "title": "tertTitle",
+                "shielding": { "accessCode": null, "paragraph": null }
+            }
+        ]
     },
     "comment": "Ikke ferdigstilt",
     "completed": false,
     "recordData": {
-        "accessCode": "code89",
         "administrativeUnit": "unit33",
         "caseWorker": "boba",
-        "paragraph": "p34",
         "publicTitle": "public record title",
         "recordStatus": "N",
         "recordType": "A",
         "title": "record title",
+        "shielding": {
+            "accessCode": "code89",
+            "paragraph": "p34",
+        },
         "mainDocument": {
             "documentStatus": "D9",
             "documentType": "cat8",
             "file": "$ifg{formPdf}",
-            "format": "www.kodeverk.no/A",
+            "fileFormat": "www.kodeverk.no/A",
             "role": "www.kodeverk.no/H",
             "title": "record title",
             "variant": "www.kodeverk.no/PDF"
@@ -281,13 +358,16 @@ export const MOCK_NEW_FORMDATA: IFormConfiguration = {
             "documentStatus": "D9",
             "documentType": "cat8",
             "file": "$igf{file}",
-            "format": "www.kodeverk.no/PDF",
+            "fileFormat": "www.kodeverk.no/PDF",
             "role": "www.kodeverk.no/V",
             "title": "$ifg{name}",
             "variant": "www.kodeverk.no/PDF"
         },
         "correspondent": {
-            "accessCode": "code2",
+            "shielding": {
+                "accessCode": "code2",
+                "paragraph": "p3",
+            },
             "address": "highstreet 22",
             "city": "Moria",
             "contactPerson": "donna",
@@ -296,10 +376,8 @@ export const MOCK_NEW_FORMDATA: IFormConfiguration = {
             "name": "Anakin Skywalker",
             "nationalIdentityNumber": "123456789",
             "organisationNumber": null,
-            "paragraph": "p3",
             "phoneNumber": "12345678",
             "postalCode": "1234",
-            "protected": true,
             "type": "avsender"
         },
     }
@@ -307,44 +385,62 @@ export const MOCK_NEW_FORMDATA: IFormConfiguration = {
 
 export const MOCK_NEW_FORMDATA_FROM_EMPTY_CONFIG: IFormConfiguration = {
     "caseData": {
-        "accessCode": null,
         "administrativeUnit": null,
         "archiveUnit": null,
         "caseCreationStrategy": null,
         "id": null,
         "caseType": null,
         "caseWorker": null,
-        "paragraph": null,
-        "primaryClass": null,
-        "primaryClassification": null,
-        "primaryTitle": null,
         "publicTitle": null,
         "recordUnit": null,
-        "secondaryClass": null,
-        "secondaryClassification": null,
-        "secondaryTitle": null,
         "status": null,
-        "tertiaryClass": null,
-        "tertiaryClassification": null,
-        "tertiaryTitle": null,
         "title": null,
+        "shielding": {
+            "accessCode": null,
+            "paragraph": null,
+        },
+        "classes": [
+            {
+                "order": 0,
+                "classification": null,
+                "class": null,
+                "title": null,
+                "shielding": { "accessCode": null, "paragraph": null }
+            },
+            {
+                "order": 1,
+                "classification": null,
+                "class": null,
+                "title": null,
+                "shielding": { "accessCode": null, "paragraph": null }
+            },
+            {
+                "order": 2,
+                "classification": null,
+                "class": null,
+                "title": null,
+                "shielding": { "accessCode": null, "paragraph": null }
+            }
+        ]
     },
     "comment": "form to test empty mapping",
     "completed": false,
     "recordData": {
-        "accessCode": null,
         "administrativeUnit": null,
         "caseWorker": null,
-        "paragraph": null,
         "publicTitle": null,
         "recordStatus": null,
         "recordType": null,
         "title": null,
+        "shielding": {
+            "accessCode": null,
+            "paragraph": null,
+        },
         "mainDocument": {
             "documentStatus": null,
             "documentType": null,
             "file": null,
-            "format": null,
+            "fileFormat": null,
             "role": null,
             "title": null,
             "variant": null,
@@ -353,13 +449,12 @@ export const MOCK_NEW_FORMDATA_FROM_EMPTY_CONFIG: IFormConfiguration = {
             "documentStatus": null,
             "documentType": null,
             "file": null,
-            "format": null,
+            "fileFormat": null,
             "role": null,
             "title": null,
             "variant": null,
         },
         "correspondent": {
-            "accessCode": null,
             "address": null,
             "city": null,
             "contactPerson": null,
@@ -368,10 +463,12 @@ export const MOCK_NEW_FORMDATA_FROM_EMPTY_CONFIG: IFormConfiguration = {
             "name": null,
             "nationalIdentityNumber": null,
             "organisationNumber": null,
-            "paragraph": null,
             "phoneNumber": null,
             "postalCode": null,
-            "protected": false,
+            "shielding": {
+                "accessCode": null,
+                "paragraph": null,
+            },
             "type": null
         },
     }
@@ -379,45 +476,63 @@ export const MOCK_NEW_FORMDATA_FROM_EMPTY_CONFIG: IFormConfiguration = {
 
 export const MOCK_BY_ID_FORMDATA: IFormConfiguration = {
     "caseData": {
-        "accessCode": null,
         "administrativeUnit": null,
         "archiveUnit": null,
         "caseCreationStrategy": "BY_ID",
         "id": "2022/163",
         "caseType": null,
         "caseWorker": null,
-        "paragraph": null,
-        "primaryClass": null,
-        "primaryClassification": null,
-        "primaryTitle": null,
         "publicTitle": null,
         "recordUnit": null,
-        "secondaryClass": null,
-        "secondaryClassification": null,
-        "secondaryTitle": null,
         "status": null,
-        "tertiaryClass": null,
-        "tertiaryClassification": null,
-        "tertiaryTitle": null,
-        "title": null
+        "title": null,
+        "shielding": {
+            "accessCode": null,
+            "paragraph": null,
+        },
+        "classes": [
+            {
+                "order": 0,
+                "classification": null,
+                "class": null,
+                "title": null,
+                "shielding": { "accessCode": null, "paragraph": null }
+            },
+            {
+                "order": 1,
+                "classification": null,
+                "class": null,
+                "title": null,
+                "shielding": { "accessCode": null, "paragraph": null }
+            },
+            {
+                "order": 2,
+                "classification": null,
+                "class": null,
+                "title": null,
+                "shielding": { "accessCode": null, "paragraph": null }
+            }
+        ]
     },
     "comment": "Ikke ferdigstilt",
     "completed": false,
     "recordData": {
-        "accessCode": null,
         "administrativeUnit": null,
         "caseWorker": null,
-        "paragraph": null,
         "publicTitle": null,
         "recordStatus": null,
         "recordType": null,
         "title": "foo $if{bar}",
+        "shielding": {
+            "accessCode": null,
+            "paragraph": null,
+        },
         "mainDocument": {
             "title": "foo $if{bar}",
             "documentStatus": null,
             "documentType": null,
             "role": null,
-            "format": null,
+            "fileFormat": null,
             "variant": null,
             "file": null
         },
@@ -426,12 +541,11 @@ export const MOCK_BY_ID_FORMDATA: IFormConfiguration = {
             "documentStatus": null,
             "documentType": null,
             "role": null,
-            "format": null,
+            "fileFormat": null,
             "variant": null,
             "file": null
         },
         "correspondent": {
-            "accessCode": null,
             "address": null,
             "city": null,
             "contactPerson": null,
@@ -439,11 +553,13 @@ export const MOCK_BY_ID_FORMDATA: IFormConfiguration = {
             "name": null,
             "nationalIdentityNumber": null,
             "organisationNumber": null,
-            "paragraph": null,
             "phoneNumber": null,
             "mobilePhoneNumber": null,
             "postalCode": null,
-            "protected": true,
+            "shielding": {
+                "accessCode": null,
+                "paragraph": null,
+            },
             "type": null
         }
     }

@@ -26,8 +26,8 @@ const CorrespondentForm: React.FunctionComponent<any> = (props) => {
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.contactPerson", formValue: "recordData.correspondent.contactPerson", required:false, error:errors.recordData?.correspondent?.contactPerson, value: props.activeFormData?.recordData.correspondent?.contactPerson, helpText: "recordData.contactPerson"},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.phoneNumber", formValue: "recordData.correspondent.phoneNumber", required:false, error:errors.recordData?.correspondent?.phoneNumber, value: props.activeFormData?.recordData.correspondent?.phoneNumber, helpText: "recordData.phoneNumber"},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.email", formValue: "recordData.correspondent.email", required:false, error:errors.recordData?.correspondent?.email, value: props.activeFormData?.recordData.correspondent?.email, helpText: "recordData.email"},
-        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.accessCode", value: props.watch("recordData.correspondent.accessCode"), formValue: "recordData.correspondent.accessCode", dropDownItems: accessCodes, required:required && props.protectedCheck, error:errors.recordData?.correspondent?.accessCode, helpText: "recordData.accessCode", hidden: !props.protectedCheck},
-        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.paragraph", value: props.watch("recordData.correspondent.paragraph"), formValue: "recordData.correspondent.paragraph", dropDownItems: paragraphs, required:required && props.protectedCheck, error:errors.recordData?.correspondent?.paragraph, helpText: "recordData.paragraph", hidden: !props.protectedCheck}
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.accessCode", value: props.watch("recordData.correspondent.shielding.accessCode"), formValue: "recordData.correspondent.shielding.accessCode", dropDownItems: accessCodes, required:required && props.shieldingCheck, error:errors.recordData?.correspondent?.shielding.accessCode, helpText: "recordData.accessCode", hidden: !props.shieldingCheck},
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.paragraph", value: props.watch("recordData.correspondent.shielding.paragraph"), formValue: "recordData.correspondent.shielding.paragraph", dropDownItems: paragraphs, required:required && props.shieldingCheck, error:errors.recordData?.correspondent?.shielding.paragraph, helpText: "recordData.paragraph", hidden: !props.shieldingCheck}
     ]
 
     return (
@@ -65,12 +65,12 @@ const CorrespondentForm: React.FunctionComponent<any> = (props) => {
                         <Checkbox
                             disabled={props.disabled}
                             id="form-complete"
-                            checked={props.protectedCheck}
-                            onChange={event => props.setProtectedChecked(event.target.checked)}
+                            checked={props.shieldingCheck}
+                            onChange={event => props.setShieldingCheck(event.target.checked)}
                             inputProps={{ 'aria-label': 'completed-checkbox' }}/>}
-                    label={t('protectedLabel') as string}
+                    label={t('shieldingLabel') as string}
                 />
-                <HelpPopover popoverContent={"recordData.protected"}/>
+                <HelpPopover popoverContent={"recordData.shielding"}/>
             </FormGroup>
         </div>
     );

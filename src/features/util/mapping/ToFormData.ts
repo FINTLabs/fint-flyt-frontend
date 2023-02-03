@@ -5,6 +5,9 @@ import {IElementCollectionMapping, IElementMapping} from "../../configuration/ty
 export function toFormData(data: IConfiguration): IFormConfiguration {
     const caseFields: IElementMapping = data.mapping?.elementMappingPerKey['sak'] ? data.mapping?.elementMappingPerKey['sak'] : {elementMappingPerKey: {}, elementCollectionMappingPerKey: {}, valueMappingPerKey: {}};
     const recordFields: IElementMapping = data.mapping?.elementMappingPerKey['journalpost'] ? data.mapping?.elementMappingPerKey['journalpost'] : {elementMappingPerKey: {}, elementCollectionMappingPerKey: {}, valueMappingPerKey: {}};
+    const caseShieldingFields: IElementMapping = caseFields.elementMappingPerKey['skjerming'] ? caseFields.elementMappingPerKey['skjerming'] :  {elementMappingPerKey: {}, elementCollectionMappingPerKey: {}, valueMappingPerKey: {}}
+    const caseClassesFields: IElementMapping[] = caseFields.elementCollectionMappingPerKey['klasse']?.elementMappings ? caseFields.elementCollectionMappingPerKey['klasse']?.elementMappings  :  []
+    const recordShieldingFields: IElementMapping = recordFields.elementMappingPerKey['skjerming'] ? recordFields.elementMappingPerKey['skjerming'] :  {elementMappingPerKey: {}, elementCollectionMappingPerKey: {}, valueMappingPerKey: {}}
 
     const documentDescription: IElementCollectionMapping = recordFields.elementCollectionMappingPerKey['dokumentbeskrivelse'] ? recordFields.elementCollectionMappingPerKey['dokumentbeskrivelse'] : {elementMappings: [], elementsFromCollectionMappings: []};
     const mainDocumentFields: IElementMapping = documentDescription.elementMappings[0] ? documentDescription.elementMappings[0] : {elementMappingPerKey: {}, elementCollectionMappingPerKey: {}, valueMappingPerKey: {}}
@@ -17,7 +20,7 @@ export function toFormData(data: IConfiguration): IFormConfiguration {
 
     const addressFields: IElementMapping = correspondentFields.elementMappingPerKey['adresse'] ? correspondentFields.elementMappingPerKey['adresse'] : {elementMappingPerKey: {}, elementCollectionMappingPerKey: {}, valueMappingPerKey: {}}
     const contactFields: IElementMapping = correspondentFields.elementMappingPerKey['kontaktinformasjon'] ? correspondentFields.elementMappingPerKey['kontaktinformasjon'] : {elementMappingPerKey: {}, elementCollectionMappingPerKey: {}, valueMappingPerKey: {}}
-    const protectionFields: IElementMapping = correspondentFields.elementMappingPerKey['skjerming'] ? correspondentFields.elementMappingPerKey['skjerming'] : {elementMappingPerKey: {}, elementCollectionMappingPerKey: {}, valueMappingPerKey: {}}
+    const correspondentShieldingFields: IElementMapping = correspondentFields.elementMappingPerKey['skjerming'] ? correspondentFields.elementMappingPerKey['skjerming'] : {elementMappingPerKey: {}, elementCollectionMappingPerKey: {}, valueMappingPerKey: {}}
 
 
     return {
@@ -33,18 +36,35 @@ export function toFormData(data: IConfiguration): IFormConfiguration {
             archiveUnit: caseFields.valueMappingPerKey['arkivdel']?.mappingString ? caseFields.valueMappingPerKey['arkivdel']?.mappingString : null,
             recordUnit: caseFields.valueMappingPerKey['journalenhet']?.mappingString ? caseFields.valueMappingPerKey['journalenhet']?.mappingString : null,
             status: caseFields.valueMappingPerKey['status']?.mappingString ? caseFields.valueMappingPerKey['status']?.mappingString : null,
-            accessCode: caseFields.valueMappingPerKey['tilgangsrestriksjon']?.mappingString ? caseFields.valueMappingPerKey['tilgangsrestriksjon']?.mappingString : null,
-            paragraph: caseFields.valueMappingPerKey['skjermingshjemmel']?.mappingString ? caseFields.valueMappingPerKey['skjermingshjemmel']?.mappingString : null,
             caseWorker: caseFields.valueMappingPerKey['saksansvarlig']?.mappingString ? caseFields.valueMappingPerKey['saksansvarlig']?.mappingString : null,
-            primaryClassification: caseFields.valueMappingPerKey['primarordningsprinsipp']?.mappingString ? caseFields.valueMappingPerKey['primarordningsprinsipp']?.mappingString : null,
-            secondaryClassification: caseFields.valueMappingPerKey['sekundarordningsprinsipp']?.mappingString ? caseFields.valueMappingPerKey['sekundarordningsprinsipp']?.mappingString : null,
-            tertiaryClassification: caseFields.valueMappingPerKey['tertiarordningsprinsipp']?.mappingString ? caseFields.valueMappingPerKey['tertiarordningsprinsipp']?.mappingString : null,
-            primaryClass: caseFields.valueMappingPerKey['primarklasse']?.mappingString ? caseFields.valueMappingPerKey['primarklasse']?.mappingString : null,
-            secondaryClass: caseFields.valueMappingPerKey['sekundarklasse']?.mappingString ? caseFields.valueMappingPerKey['sekundarklasse']?.mappingString : null,
-            tertiaryClass: caseFields.valueMappingPerKey['tertiarklasse']?.mappingString ? caseFields.valueMappingPerKey['tertiarklasse']?.mappingString : null,
-            primaryTitle: caseFields.valueMappingPerKey['primartittel']?.mappingString ? caseFields.valueMappingPerKey['primartittel']?.mappingString : null,
-            secondaryTitle: caseFields.valueMappingPerKey['sekundartittel']?.mappingString ? caseFields.valueMappingPerKey['sekundartittel']?.mappingString : null,
-            tertiaryTitle: caseFields.valueMappingPerKey['tertiartittel']?.mappingString ? caseFields.valueMappingPerKey['tertiartittel']?.mappingString : null
+            shielding: {
+                accessCode: caseShieldingFields.valueMappingPerKey['tilgangsrestriksjon']?.mappingString ? caseShieldingFields.valueMappingPerKey['tilgangsrestriksjon']?.mappingString : null,
+                paragraph: caseShieldingFields.valueMappingPerKey['skjermingshjemmel']?.mappingString ? caseShieldingFields.valueMappingPerKey['skjermingshjemmel']?.mappingString : null,
+            },
+            classes: [
+                {
+                    order: 0,
+                    classification: caseClassesFields[0]?.valueMappingPerKey['klassifikasjonssystem']?.mappingString ? caseClassesFields[0].valueMappingPerKey['klassifikasjonssystem']?.mappingString : null,
+                    class: caseClassesFields[0]?.valueMappingPerKey['klasseId']?.mappingString ? caseClassesFields[0].valueMappingPerKey['klasseId']?.mappingString : null,
+                    title: caseClassesFields[0]?.valueMappingPerKey['tittel']?.mappingString ? caseClassesFields[0].valueMappingPerKey['tittel']?.mappingString : null,
+                    shielding: {accessCode: null, paragraph: null}
+                },
+                {
+                    order: 1,
+                    classification: caseClassesFields[1]?.valueMappingPerKey['klassifikasjonssystem']?.mappingString ? caseClassesFields[1].valueMappingPerKey['klassifikasjonssystem']?.mappingString : null,
+                    class: caseClassesFields[1]?.valueMappingPerKey['klasseId']?.mappingString ? caseClassesFields[1].valueMappingPerKey['klasseId']?.mappingString : null,
+                    title: caseClassesFields[1]?.valueMappingPerKey['tittel']?.mappingString ? caseClassesFields[1].valueMappingPerKey['tittel']?.mappingString : null,
+                    shielding: {accessCode: null, paragraph: null}
+
+                },
+                {
+                    order: 2,
+                    classification: caseClassesFields[2]?.valueMappingPerKey['klassifikasjonssystem']?.mappingString ? caseClassesFields[2].valueMappingPerKey['klassifikasjonssystem']?.mappingString : null,
+                    class: caseClassesFields[2]?.valueMappingPerKey['klasseId']?.mappingString ? caseClassesFields[2].valueMappingPerKey['klasseId']?.mappingString : null,
+                    title: caseClassesFields[2]?.valueMappingPerKey['tittel']?.mappingString ? caseClassesFields[2].valueMappingPerKey['tittel']?.mappingString : null,
+                    shielding: {accessCode: null, paragraph: null}
+                }
+            ]
         },
         recordData: {
             title: recordFields.valueMappingPerKey['tittel']?.mappingString ? recordFields.valueMappingPerKey['tittel']?.mappingString : null,
@@ -53,14 +73,16 @@ export function toFormData(data: IConfiguration): IFormConfiguration {
             recordStatus: recordFields.valueMappingPerKey['journalstatus']?.mappingString ? recordFields.valueMappingPerKey['journalstatus']?.mappingString : null,
             recordType: recordFields.valueMappingPerKey['journalposttype']?.mappingString ? recordFields.valueMappingPerKey['journalposttype']?.mappingString : null,
             caseWorker: recordFields.valueMappingPerKey['saksbehandler']?.mappingString ? recordFields.valueMappingPerKey['saksbehandler']?.mappingString : null,
-            accessCode: recordFields.valueMappingPerKey['tilgangsrestriksjon']?.mappingString ? recordFields.valueMappingPerKey['tilgangsrestriksjon']?.mappingString : null,
-            paragraph: recordFields.valueMappingPerKey['skjermingshjemmel']?.mappingString ? recordFields.valueMappingPerKey['skjermingshjemmel']?.mappingString : null,
+           shielding: {
+               accessCode: recordShieldingFields.valueMappingPerKey['tilgangsrestriksjon']?.mappingString ? recordShieldingFields.valueMappingPerKey['tilgangsrestriksjon']?.mappingString : null,
+               paragraph: recordShieldingFields.valueMappingPerKey['skjermingshjemmel']?.mappingString ? recordShieldingFields.valueMappingPerKey['skjermingshjemmel']?.mappingString : null,
+           },
             mainDocument: {
                 title: mainDocumentFields.valueMappingPerKey['tittel']?.mappingString ? mainDocumentFields.valueMappingPerKey['tittel']?.mappingString : null,
                 documentStatus: mainDocumentFields.valueMappingPerKey['dokumentstatus']?.mappingString ? mainDocumentFields.valueMappingPerKey['dokumentstatus']?.mappingString : null,
                 documentType: mainDocumentFields.valueMappingPerKey['dokumentType']?.mappingString ? mainDocumentFields.valueMappingPerKey['dokumentType']?.mappingString : null,
                 role: mainDocumentFields.valueMappingPerKey['tilknyttetRegistreringSom']?.mappingString ? mainDocumentFields.valueMappingPerKey['tilknyttetRegistreringSom']?.mappingString : null,
-                format: mainDocumentObjectFields.valueMappingPerKey['format']?.mappingString ? mainDocumentObjectFields.valueMappingPerKey['format']?.mappingString : null,
+                fileFormat: mainDocumentObjectFields.valueMappingPerKey['filformat']?.mappingString ? mainDocumentObjectFields.valueMappingPerKey['filformat']?.mappingString : null,
                 variant: mainDocumentObjectFields.valueMappingPerKey['variantformat']?.mappingString ? mainDocumentObjectFields.valueMappingPerKey['variantformat']?.mappingString : null,
                 file: mainDocumentObjectFields.valueMappingPerKey['fil']?.mappingString ? mainDocumentObjectFields.valueMappingPerKey['fil']?.mappingString : null
             },
@@ -69,12 +91,15 @@ export function toFormData(data: IConfiguration): IFormConfiguration {
                 documentStatus: attachmentDocumentFields.valueMappingPerKey['dokumentstatus']?.mappingString ? attachmentDocumentFields.valueMappingPerKey['dokumentstatus']?.mappingString : null,
                 documentType: attachmentDocumentFields.valueMappingPerKey['dokumentType']?.mappingString ? attachmentDocumentFields.valueMappingPerKey['dokumentType']?.mappingString : null,
                 role: attachmentDocumentFields.valueMappingPerKey['tilknyttetRegistreringSom']?.mappingString ? attachmentDocumentFields.valueMappingPerKey['tilknyttetRegistreringSom']?.mappingString : null,
-                format: attachmentDocumentObjectFields.valueMappingPerKey['format']?.mappingString ? attachmentDocumentObjectFields.valueMappingPerKey['format']?.mappingString : null,
+                fileFormat: attachmentDocumentObjectFields.valueMappingPerKey['filformat']?.mappingString ? attachmentDocumentObjectFields.valueMappingPerKey['filformat']?.mappingString : null,
                 variant: attachmentDocumentObjectFields.valueMappingPerKey['variantformat']?.mappingString ? attachmentDocumentObjectFields.valueMappingPerKey['variantformat']?.mappingString : null,
                 file: attachmentDocumentObjectFields.valueMappingPerKey['fil']?.mappingString ? attachmentDocumentObjectFields.valueMappingPerKey['fil']?.mappingString : null
             },
             correspondent: {
-                protected: (protectionFields.valueMappingPerKey['tilgangsrestriksjon'] || protectionFields.valueMappingPerKey['skjermingshjemmel']) !== undefined,
+                shielding: {
+                    accessCode: correspondentShieldingFields.valueMappingPerKey['tilgangsrestriksjon']?.mappingString ? correspondentShieldingFields.valueMappingPerKey['tilgangsrestriksjon']?.mappingString : null,
+                    paragraph: correspondentShieldingFields.valueMappingPerKey['skjermingshjemmel']?.mappingString ? correspondentShieldingFields.valueMappingPerKey['skjermingshjemmel']?.mappingString : null,
+                },
                 type: correspondentFields.valueMappingPerKey['korrespondanseparttype']?.mappingString ? correspondentFields.valueMappingPerKey['korrespondanseparttype']?.mappingString : null,
                 organisationNumber: correspondentFields.valueMappingPerKey['organisasjonsnummer']?.mappingString ? correspondentFields.valueMappingPerKey['organisasjonsnummer']?.mappingString : null,
                 nationalIdentityNumber: correspondentFields.valueMappingPerKey['fødselsnummer']?.mappingString ? correspondentFields.valueMappingPerKey['fødselsnummer']?.mappingString : null,
@@ -86,8 +111,6 @@ export function toFormData(data: IConfiguration): IFormConfiguration {
                 phoneNumber: contactFields.valueMappingPerKey['telefonnummer']?.mappingString ? contactFields.valueMappingPerKey['telefonnummer']?.mappingString : null,
                 mobilePhoneNumber: contactFields.valueMappingPerKey['mobiltelefonnummer']?.mappingString ? contactFields.valueMappingPerKey['mobiltelefonnummer']?.mappingString : null,
                 email: contactFields.valueMappingPerKey['epostadresse']?.mappingString ? contactFields.valueMappingPerKey['epostadresse']?.mappingString : null,
-                accessCode: protectionFields.valueMappingPerKey['tilgangsrestriksjon']?.mappingString ? protectionFields.valueMappingPerKey['tilgangsrestriksjon']?.mappingString : null,
-                paragraph: protectionFields.valueMappingPerKey['skjermingshjemmel']?.mappingString ? protectionFields.valueMappingPerKey['skjermingshjemmel']?.mappingString : null,
             }
         }
     }

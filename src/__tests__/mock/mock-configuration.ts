@@ -10,314 +10,751 @@ import {FieldType, IAVConfiguration} from "../../features/configuration/types/AV
 export const MOCK_CONFIGURATION: IConfiguration = {
     "comment": "form to test mapping",
     "completed": false,
+    "id": "123",
+    "integrationId": "id0",
+    "integrationMetadataId": 321,
     "mapping": {
-        valueMappingPerKey: {},
-        elementMappingPerKey: {
-            "sak": {
-                valueMappingPerKey: {
-                    "type": {type: FieldType.STRING, mappingString: "NEW"},
-                    "id": {type: FieldType.STRING, mappingString: null},
-                    "tittel": {type: FieldType.DYNAMIC_STRING, mappingString: "Title of case"},
-                    "offentligTittel": {type: FieldType.DYNAMIC_STRING, mappingString: "public title"},
-                    "saksmappetype": {type: FieldType.STRING, mappingString: "casetype"},
-                    "administrativenhet": {type: FieldType.STRING, mappingString: "unit4"},
-                    "arkivdel": {type: FieldType.STRING, mappingString: "unit3"},
-                    "journalenhet": {type: FieldType.STRING, mappingString: "unit0"},
-                    "status": {type: FieldType.STRING, mappingString: null},
-                    "tilgangsrestriksjon": {type: FieldType.STRING, mappingString: "code42"},
-                    "skjermingshjemmel": {type: FieldType.STRING, mappingString: "number6"},
-                    "saksansvarlig": {type: FieldType.STRING, mappingString: "rand"},
-                    "primarordningsprinsipp": {type: FieldType.STRING, mappingString: "prim"},
-                    "sekundarordningsprinsipp": {type: FieldType.STRING, mappingString: "rose"},
-                    "tertiarordningsprinsipp": {type: FieldType.STRING, mappingString: "everdeen"},
-                    "primarklasse": {type: FieldType.DYNAMIC_STRING, mappingString: "1class"},
-                    "sekundarklasse": {type: FieldType.DYNAMIC_STRING, mappingString: "2class"},
-                    "tertiarklasse": {type: FieldType.DYNAMIC_STRING, mappingString: "3class"},
-                    "primartittel": {type: FieldType.DYNAMIC_STRING, mappingString: "primTitle"},
-                    "sekundartittel": {type: FieldType.DYNAMIC_STRING, mappingString: "secTitle"},
-                    "tertiartittel": {type: FieldType.DYNAMIC_STRING, mappingString: "tertTitle"}
-                },
-                elementMappingPerKey: {},
-                elementCollectionMappingPerKey: {}
-            },
+        "elementCollectionMappingPerKey": {},
+        "elementMappingPerKey": {
             "journalpost": {
-                valueMappingPerKey: {
-                    "tittel": {type: FieldType.DYNAMIC_STRING, mappingString: "record title"},
-                    "offentligTittel": {type: FieldType.DYNAMIC_STRING, mappingString: "public record title"},
-                    "administrativenhet": {type: FieldType.STRING, mappingString: "unit33"},
-                    "journalstatus": {type: FieldType.STRING, mappingString: "N"},
-                    "journalposttype": {type: FieldType.STRING, mappingString: "A"},
-                    "saksbehandler": {type: FieldType.STRING, mappingString: "boba"},
-                    "tilgangsrestriksjon": {type: FieldType.STRING, mappingString: "code89"},
-                    "skjermingshjemmel": {type: FieldType.STRING, mappingString: "p34"}
-                },
-                elementMappingPerKey: {},
-                elementCollectionMappingPerKey: {
+                "elementCollectionMappingPerKey": {
                     "dokumentbeskrivelse": {
-                        elementMappings: [
+                        "elementMappings": [
                             {
-                                valueMappingPerKey: {
-                                    "tittel": {type: FieldType.DYNAMIC_STRING, mappingString: "record title"},
-                                    "dokumentstatus": {type: FieldType.STRING, mappingString: "D9"},
-                                    "dokumentType": {type: FieldType.STRING, mappingString: "cat8"},
-                                    "tilknyttetRegistreringSom": {type: FieldType.URL, mappingString: "www.kodeverk.no/H"}
-                                },
-                                elementMappingPerKey: {},
-                                elementCollectionMappingPerKey: {
+                                "elementCollectionMappingPerKey": {
                                     "dokumentobjekt": {
-                                        elementMappings: [
+                                        "elementMappings": [
                                             {
-                                                valueMappingPerKey: {
-                                                    "format": {type: FieldType.STRING, mappingString: "www.kodeverk.no/A"},
-                                                    "variantformat": {type: FieldType.STRING, mappingString: "www.kodeverk.no/PDF"},
-                                                    "fil": {type: FieldType.FILE, mappingString: "$ifg{formPdf}"}
-                                                },
-                                                elementMappingPerKey: {},
-                                                elementCollectionMappingPerKey: {}
+                                                "elementCollectionMappingPerKey": {},
+                                                "elementMappingPerKey": {},
+                                                "valueMappingPerKey": {
+                                                    "fil": {
+                                                        "mappingString": "$ifg{formPdf}",
+                                                        "type": "FILE"
+                                                    },
+                                                    "filformat": {
+                                                        "mappingString": "www.kodeverk.no/A",
+                                                        "type": "STRING"
+                                                    },
+                                                    "variantformat": {
+                                                        "mappingString": "www.kodeverk.no/PDF",
+                                                        "type": "STRING"
+                                                    }
+                                                }
                                             }
                                         ],
-                                        elementsFromCollectionMappings: [
-                                        ]
+                                        "elementsFromCollectionMappings": []
+                                    }
+                                },
+                                "elementMappingPerKey": {},
+                                "valueMappingPerKey": {
+                                    "dokumentType": {
+                                        "mappingString": "cat8",
+                                        "type": "STRING"
+                                    },
+                                    "dokumentstatus": {
+                                        "mappingString": "D9",
+                                        "type": "STRING"
+                                    },
+                                    "tilknyttetRegistreringSom": {
+                                        "mappingString": "www.kodeverk.no/H",
+                                        "type": "URL"
+                                    },
+                                    "tittel": {
+                                        "mappingString": "record title",
+                                        "type": "DYNAMIC_STRING"
                                     }
                                 }
                             }
                         ],
-                        elementsFromCollectionMappings: [
+                        "elementsFromCollectionMappings": [
                             {
-                                instanceCollectionReferencesOrdered: ["$if(vedlegg)"],
-                                elementMapping: {
-                                    valueMappingPerKey: {
-                                        "tittel": {type: FieldType.DYNAMIC_STRING, mappingString: "$ifg{name}"},
-                                        "dokumentstatus": {type: FieldType.STRING, mappingString: "D9"},
-                                        "dokumentType": {type: FieldType.STRING, mappingString: "cat8"},
-                                        "tilknyttetRegistreringSom": {type: FieldType.STRING, mappingString: "www.kodeverk.no/V"}
-                                    },
-                                    elementMappingPerKey: {},
-                                    elementCollectionMappingPerKey: {
+                                "elementMapping": {
+                                    "elementCollectionMappingPerKey": {
                                         "dokumentobjekt": {
-                                            elementMappings: [
+                                            "elementMappings": [
                                                 {
-                                                    valueMappingPerKey: {
-                                                        "format": {type: FieldType.DYNAMIC_STRING, mappingString: "www.kodeverk.no/PDF"},
-                                                        "variantformat": {type: FieldType.STRING, mappingString: "www.kodeverk.no/PDF"},
-                                                        "fil": {type: FieldType.DYNAMIC_STRING, mappingString: "$igf{file}"}
-                                                    },
-                                                    elementMappingPerKey: {},
-                                                    elementCollectionMappingPerKey: {}
+                                                    "elementCollectionMappingPerKey": {},
+                                                    "elementMappingPerKey": {},
+                                                    "valueMappingPerKey": {
+                                                        "fil": {
+                                                            "mappingString": "$igf{file}",
+                                                            "type": "DYNAMIC_STRING"
+                                                        },
+                                                        "filformat": {
+                                                            "mappingString": "www.kodeverk.no/PDF",
+                                                            "type": "DYNAMIC_STRING"
+                                                        },
+                                                        "variantformat": {
+                                                            "mappingString": "www.kodeverk.no/PDF",
+                                                            "type": "STRING"
+                                                        }
+                                                    }
                                                 }
                                             ],
-                                            elementsFromCollectionMappings: []
+                                            "elementsFromCollectionMappings": []
                                         }
+                                    },
+                                    "elementMappingPerKey": {},
+                                    "valueMappingPerKey": {
+                                        "dokumentType": {
+                                            "mappingString": "cat8",
+                                            "type": "STRING"
+                                        },
+                                        "dokumentstatus": {
+                                            "mappingString": "D9",
+                                            "type": "STRING"
+                                        },
+                                        "tilknyttetRegistreringSom": {
+                                            "mappingString": "www.kodeverk.no/V",
+                                            "type": "STRING"
+                                        },
+                                        "tittel": {
+                                            "mappingString": "$ifg{name}",
+                                            "type": "DYNAMIC_STRING"
+                                        }
+                                    }
+                                },
+                                "instanceCollectionReferencesOrdered": [
+                                    "$if(vedlegg)"
+                                ]
+                            }
+                        ]
+                    },
+                    "korrespondansepart": {
+                        "elementMappings": [
+                            {
+                                "elementCollectionMappingPerKey": {},
+                                "elementMappingPerKey": {
+                                    "adresse": {
+                                        "elementCollectionMappingPerKey": {},
+                                        "elementMappingPerKey": {},
+                                        "valueMappingPerKey": {
+                                            "adresselinje": {
+                                                "mappingString": "highstreet 22",
+                                                "type": "DYNAMIC_STRING"
+                                            },
+                                            "postnummer": {
+                                                "mappingString": "1234",
+                                                "type": "DYNAMIC_STRING"
+                                            },
+                                            "poststed": {
+                                                "mappingString": "Moria",
+                                                "type": "DYNAMIC_STRING"
+                                            }
+                                        }
+                                    },
+                                    "kontaktinformasjon": {
+                                        "elementCollectionMappingPerKey": {},
+                                        "elementMappingPerKey": {},
+                                        "valueMappingPerKey": {
+                                            "epostadresse": {
+                                                "mappingString": "hello@world.no",
+                                                "type": "DYNAMIC_STRING"
+                                            },
+                                            "mobiltelefonnummer": {
+                                                "mappingString": "12345678",
+                                                "type": "DYNAMIC_STRING"
+                                            },
+                                            "telefonnummer": {
+                                                "mappingString": "12345678",
+                                                "type": "DYNAMIC_STRING"
+                                            }
+                                        }
+                                    },
+                                    "skjerming": {
+                                        "elementCollectionMappingPerKey": {},
+                                        "elementMappingPerKey": {},
+                                        "valueMappingPerKey": {
+                                            "skjermingshjemmel": {
+                                                "mappingString": "p3",
+                                                "type": "STRING"
+                                            },
+                                            "tilgangsrestriksjon": {
+                                                "mappingString": "code2",
+                                                "type": "STRING"
+                                            }
+                                        }
+                                    }
+                                },
+                                "valueMappingPerKey": {
+                                    "fødselsnummer": {
+                                        "mappingString": "123456789",
+                                        "type": "DYNAMIC_STRING"
+                                    },
+                                    "kontaktperson": {
+                                        "mappingString": "donna",
+                                        "type": "DYNAMIC_STRING"
+                                    },
+                                    "korrespondansepartNavn": {
+                                        "mappingString": "Anakin Skywalker",
+                                        "type": "DYNAMIC_STRING"
+                                    },
+                                    "korrespondanseparttype": {
+                                        "mappingString": "avsender",
+                                        "type": "STRING"
+                                    },
+                                    "organisasjonsnummer": {
+                                        "mappingString": null,
+                                        "type": "DYNAMIC_STRING"
                                     }
                                 }
                             }
-                        ]
-
-                    },
-                    "korrespondansepart": {
-                        elementMappings: [{
-                            valueMappingPerKey: {
-                                "fødselsnummer": {type: FieldType.DYNAMIC_STRING, mappingString: "123456789"},
-                                "organisasjonsnummer": {type: FieldType.DYNAMIC_STRING, mappingString: null},
-                                "kontaktperson": {type: FieldType.DYNAMIC_STRING, mappingString: "donna"},
-                                "korrespondansepartNavn": {type: FieldType.DYNAMIC_STRING, mappingString: "Anakin Skywalker"},
-                                "korrespondanseparttype": {type: FieldType.STRING, mappingString: "avsender"}
+                        ],
+                        "elementsFromCollectionMappings": []
+                    }
+                },
+                "elementMappingPerKey": {
+                    "skjerming": {
+                        "elementCollectionMappingPerKey": {},
+                        "elementMappingPerKey": {},
+                        "valueMappingPerKey": {
+                            "skjermingshjemmel": {
+                                "mappingString": "p34",
+                                "type": "STRING"
                             },
-                            elementMappingPerKey: {
-                                "adresse": {
-                                    valueMappingPerKey: {
-                                        "adresselinje": {type: FieldType.DYNAMIC_STRING, mappingString: "highstreet 22"},
-                                        "postnummer": {type: FieldType.DYNAMIC_STRING, mappingString: "1234"},
-                                        "poststed": {type: FieldType.DYNAMIC_STRING, mappingString: "Moria"}
+                            "tilgangsrestriksjon": {
+                                "mappingString": "code89",
+                                "type": "STRING"
+                            }
+                        }
+                    }
+                },
+                "valueMappingPerKey": {
+                    "administrativenhet": {
+                        "mappingString": "unit33",
+                        "type": "STRING"
+                    },
+                    "journalposttype": {
+                        "mappingString": "A",
+                        "type": "STRING"
+                    },
+                    "journalstatus": {
+                        "mappingString": "N",
+                        "type": "STRING"
+                    },
+                    "offentligTittel": {
+                        "mappingString": "public record title",
+                        "type": "DYNAMIC_STRING"
+                    },
+                    "saksbehandler": {
+                        "mappingString": "boba",
+                        "type": "STRING"
+                    },
+                    "tittel": {
+                        "mappingString": "record title",
+                        "type": "DYNAMIC_STRING"
+                    }
+                }
+            },
+            "sak": {
+                "elementCollectionMappingPerKey": {
+                    "klasse": {
+                        "elementMappings": [
+                            {
+                                "elementCollectionMappingPerKey": {},
+                                "elementMappingPerKey": {},
+                                "valueMappingPerKey": {
+                                    "klasseId": {
+                                        "mappingString": "1class",
+                                        "type": "DYNAMIC_STRING"
                                     },
-                                    elementMappingPerKey: {},
-                                    elementCollectionMappingPerKey: {}
-                                },
-                                "kontaktinformasjon": {
-                                    valueMappingPerKey: {
-                                        "epostadresse": {type: FieldType.DYNAMIC_STRING, mappingString: "hello@world.no"},
-                                        "mobiltelefonnummer": {type: FieldType.DYNAMIC_STRING, mappingString: "12345678"},
-                                        "telefonnummer": {type: FieldType.DYNAMIC_STRING, mappingString: "12345678"}
+                                    "klassifikasjonssystem": {
+                                        "mappingString": "prim",
+                                        "type": "STRING"
                                     },
-                                    elementMappingPerKey: {},
-                                    elementCollectionMappingPerKey: {}
-                                },
-                                "skjerming": {
-                                    valueMappingPerKey: {
-                                        "tilgangsrestriksjon": {type: FieldType.DYNAMIC_STRING, mappingString: "code2"},
-                                        "skjermingshjemmel": {type: FieldType.DYNAMIC_STRING, mappingString: "p3"}
+                                    "rekkefølge": {
+                                        "mappingString": "0",
+                                        "type": "DYNAMIC_STRING"
                                     },
-                                    elementMappingPerKey: {},
-                                    elementCollectionMappingPerKey: {}
+                                    "tittel": {
+                                        "mappingString": "primTitle",
+                                        "type": "DYNAMIC_STRING"
+                                    }
                                 }
                             },
-                            elementCollectionMappingPerKey: {}
-                        }],
-                        elementsFromCollectionMappings: []
+                            {
+                                "elementCollectionMappingPerKey": {},
+                                "elementMappingPerKey": {},
+                                "valueMappingPerKey": {
+                                    "klasseId": {
+                                        "mappingString": "2class",
+                                        "type": "DYNAMIC_STRING"
+                                    },
+                                    "klassifikasjonssystem": {
+                                        "mappingString": "rose",
+                                        "type": "STRING"
+                                    },
+                                    "rekkefølge": {
+                                        "mappingString": "1",
+                                        "type": "DYNAMIC_STRING"
+                                    },
+                                    "tittel": {
+                                        "mappingString": "secTitle",
+                                        "type": "DYNAMIC_STRING"
+                                    }
+                                }
+                            },
+                            {
+                                "elementCollectionMappingPerKey": {},
+                                "elementMappingPerKey": {},
+                                "valueMappingPerKey": {
+                                    "klasseId": {
+                                        "mappingString": "3class",
+                                        "type": "DYNAMIC_STRING"
+                                    },
+                                    "klassifikasjonssystem": {
+                                        "mappingString": "everdeen",
+                                        "type": "STRING"
+                                    },
+                                    "rekkefølge": {
+                                        "mappingString": "2",
+                                        "type": "DYNAMIC_STRING"
+                                    },
+                                    "tittel": {
+                                        "mappingString": "tertTitle",
+                                        "type": "DYNAMIC_STRING"
+                                    }
+                                }
+                            }
+                        ],
+                        "elementsFromCollectionMappings": []
+                    }
+                },
+                "elementMappingPerKey": {
+                    "skjerming": {
+                        "elementCollectionMappingPerKey": {},
+                        "elementMappingPerKey": {},
+                        "valueMappingPerKey": {
+                            "skjermingshjemmel": {
+                                "mappingString": "number6",
+                                "type": "STRING"
+                            },
+                            "tilgangsrestriksjon": {
+                                "mappingString": "code42",
+                                "type": "STRING"
+                            }
+                        }
+                    }
+                },
+                "valueMappingPerKey": {
+                    "administrativenhet": {
+                        "mappingString": "unit4",
+                        "type": "STRING"
+                    },
+                    "arkivdel": {
+                        "mappingString": "unit3",
+                        "type": "STRING"
+                    },
+                    "id": {
+                        "mappingString": null,
+                        "type": "STRING"
+                    },
+                    "journalenhet": {
+                        "mappingString": "unit0",
+                        "type": "STRING"
+                    },
+                    "offentligTittel": {
+                        "mappingString": "public title",
+                        "type": "DYNAMIC_STRING"
+                    },
+                    "saksansvarlig": {
+                        "mappingString": "rand",
+                        "type": "STRING"
+                    },
+                    "saksmappetype": {
+                        "mappingString": "casetype",
+                        "type": "STRING"
+                    },
+                    "status": {
+                        "mappingString": null,
+                        "type": "STRING"
+                    },
+                    "tittel": {
+                        "mappingString": "Title of case",
+                        "type": "DYNAMIC_STRING"
+                    },
+                    "type": {
+                        "mappingString": "NEW",
+                        "type": "STRING"
                     }
                 }
             }
         },
-        elementCollectionMappingPerKey: {}
-    },
-    "id": "123",
-    "integrationId": "id0",
-    "integrationMetadataId": 321
+        "valueMappingPerKey": {}
+    }
 }
 
 export const MOCK_CONFIGURATION_PATCH: IConfigurationPatch = {
     "comment": "form to test mapping",
     "completed": false,
+    "integrationMetadataId": 321,
     "mapping": {
-        valueMappingPerKey: {},
-        elementMappingPerKey: {
-            "sak": {
-                valueMappingPerKey: {
-                    "tittel": {type: FieldType.DYNAMIC_STRING, mappingString: "Title of case"},
-                    "offentligTittel": {type: FieldType.DYNAMIC_STRING, mappingString: "public title"},
-                    "saksmappetype": {type: FieldType.STRING, mappingString: "casetype"},
-                    "administrativenhet": {type: FieldType.STRING, mappingString: "unit4"},
-                    "arkivdel": {type: FieldType.STRING, mappingString: "unit3"},
-                    "id": {type: FieldType.STRING, mappingString: null},
-                    "journalenhet": {type: FieldType.STRING, mappingString: "unit0"},
-                    "status": {type: FieldType.STRING, mappingString: null},
-                    "tilgangsrestriksjon": {type: FieldType.STRING, mappingString: "code42"},
-                    "skjermingshjemmel": {type: FieldType.STRING, mappingString: "number6"},
-                    "saksansvarlig": {type: FieldType.STRING, mappingString: "rand"},
-                    "primarordningsprinsipp": {type: FieldType.STRING, mappingString: "prim"},
-                    "sekundarordningsprinsipp": {type: FieldType.STRING, mappingString: "rose"},
-                    "tertiarordningsprinsipp": {type: FieldType.STRING, mappingString: "everdeen"},
-                    "primarklasse": {type: FieldType.DYNAMIC_STRING, mappingString: "1class"},
-                    "sekundarklasse": {type: FieldType.DYNAMIC_STRING, mappingString: "2class"},
-                    "tertiarklasse": {type: FieldType.DYNAMIC_STRING, mappingString: "3class"},
-                    "primartittel": {type: FieldType.DYNAMIC_STRING, mappingString: "primTitle"},
-                    "sekundartittel": {type: FieldType.DYNAMIC_STRING, mappingString: "secTitle"},
-                    "tertiartittel": {type: FieldType.DYNAMIC_STRING, mappingString: "tertTitle"}
-                },
-                elementMappingPerKey: {},
-                elementCollectionMappingPerKey: {}
-            },
+        "elementCollectionMappingPerKey": {},
+        "elementMappingPerKey": {
             "journalpost": {
-                valueMappingPerKey: {
-                    "tittel": {type: FieldType.DYNAMIC_STRING, mappingString: "record title"},
-                    "offentligTittel": {type: FieldType.DYNAMIC_STRING, mappingString: "public record title"},
-                    "administrativenhet": {type: FieldType.STRING, mappingString: "unit33"},
-                    "journalstatus": {type: FieldType.STRING, mappingString: "N"},
-                    "journalposttype": {type: FieldType.STRING, mappingString: "A"},
-                    "saksbehandler": {type: FieldType.STRING, mappingString: "boba"},
-                    "tilgangsrestriksjon": {type: FieldType.STRING, mappingString: "code89"},
-                    "skjermingshjemmel": {type: FieldType.STRING, mappingString: "p34"}
-                },
-                elementMappingPerKey: {},
-                elementCollectionMappingPerKey: {
+                "elementCollectionMappingPerKey": {
                     "dokumentbeskrivelse": {
-                        elementMappings: [
+                        "elementMappings": [
                             {
-                                valueMappingPerKey: {
-                                    "tittel": {type: FieldType.DYNAMIC_STRING, mappingString: "record title"},
-                                    "dokumentstatus": {type: FieldType.STRING, mappingString: "D9"},
-                                    "dokumentType": {type: FieldType.STRING, mappingString: "cat8"},
-                                    "tilknyttetRegistreringSom": {type: FieldType.URL, mappingString: "www.kodeverk.no/H"}
-                                },
-                                elementMappingPerKey: {},
-                                elementCollectionMappingPerKey: {
+                                "elementCollectionMappingPerKey": {
                                     "dokumentobjekt": {
-                                        elementMappings: [
+                                        "elementMappings": [
                                             {
-                                                valueMappingPerKey: {
-                                                    "format": {type: FieldType.STRING, mappingString: "www.kodeverk.no/A"},
-                                                    "variantformat": {type: FieldType.STRING, mappingString: "www.kodeverk.no/PDF"},
-                                                    "fil": {type: FieldType.FILE, mappingString: "$ifg{formPdf}"}
-                                                },
-                                                elementMappingPerKey: {},
-                                                elementCollectionMappingPerKey: {}
+                                                "elementCollectionMappingPerKey": {},
+                                                "elementMappingPerKey": {},
+                                                "valueMappingPerKey": {
+                                                    "fil": {
+                                                        "mappingString": "$ifg{formPdf}",
+                                                        "type": "FILE"
+                                                    },
+                                                    "filformat": {
+                                                        "mappingString": "www.kodeverk.no/A",
+                                                        "type": "STRING"
+                                                    },
+                                                    "variantformat": {
+                                                        "mappingString": "www.kodeverk.no/PDF",
+                                                        "type": "STRING"
+                                                    }
+                                                }
                                             }
                                         ],
-                                        elementsFromCollectionMappings: [
-                                        ]
+                                        "elementsFromCollectionMappings": []
+                                    }
+                                },
+                                "elementMappingPerKey": {},
+                                "valueMappingPerKey": {
+                                    "dokumentType": {
+                                        "mappingString": "cat8",
+                                        "type": "STRING"
+                                    },
+                                    "dokumentstatus": {
+                                        "mappingString": "D9",
+                                        "type": "STRING"
+                                    },
+                                    "tilknyttetRegistreringSom": {
+                                        "mappingString": "www.kodeverk.no/H",
+                                        "type": "URL"
+                                    },
+                                    "tittel": {
+                                        "mappingString": "record title",
+                                        "type": "DYNAMIC_STRING"
                                     }
                                 }
                             }
                         ],
-                        elementsFromCollectionMappings: [
+                        "elementsFromCollectionMappings": [
                             {
-                                instanceCollectionReferencesOrdered: ["$if(vedlegg)"],
-                                elementMapping: {
-                                    valueMappingPerKey: {
-                                        "tittel": {type: FieldType.DYNAMIC_STRING, mappingString: "$ifg{name}"},
-                                        "dokumentstatus": {type: FieldType.STRING, mappingString: "D9"},
-                                        "dokumentType": {type: FieldType.STRING, mappingString: "cat8"},
-                                        "tilknyttetRegistreringSom": {type: FieldType.STRING, mappingString: "www.kodeverk.no/V"}
-                                    },
-                                    elementMappingPerKey: {},
-                                    elementCollectionMappingPerKey: {
+                                "elementMapping": {
+                                    "elementCollectionMappingPerKey": {
                                         "dokumentobjekt": {
-                                            elementMappings: [
+                                            "elementMappings": [
                                                 {
-                                                    valueMappingPerKey: {
-                                                        "format": {type: FieldType.DYNAMIC_STRING, mappingString: "www.kodeverk.no/PDF"},
-                                                        "variantformat": {type: FieldType.STRING, mappingString: "www.kodeverk.no/PDF"},
-                                                        "fil": {type: FieldType.DYNAMIC_STRING, mappingString: "$igf{file}"}
-                                                    },
-                                                    elementMappingPerKey: {},
-                                                    elementCollectionMappingPerKey: {}
+                                                    "elementCollectionMappingPerKey": {},
+                                                    "elementMappingPerKey": {},
+                                                    "valueMappingPerKey": {
+                                                        "fil": {
+                                                            "mappingString": "$igf{file}",
+                                                            "type": "DYNAMIC_STRING"
+                                                        },
+                                                        "filformat": {
+                                                            "mappingString": "www.kodeverk.no/PDF",
+                                                            "type": "DYNAMIC_STRING"
+                                                        },
+                                                        "variantformat": {
+                                                            "mappingString": "www.kodeverk.no/PDF",
+                                                            "type": "STRING"
+                                                        }
+                                                    }
                                                 }
                                             ],
-                                            elementsFromCollectionMappings: []
+                                            "elementsFromCollectionMappings": []
                                         }
+                                    },
+                                    "elementMappingPerKey": {},
+                                    "valueMappingPerKey": {
+                                        "dokumentType": {
+                                            "mappingString": "cat8",
+                                            "type": "STRING"
+                                        },
+                                        "dokumentstatus": {
+                                            "mappingString": "D9",
+                                            "type": "STRING"
+                                        },
+                                        "tilknyttetRegistreringSom": {
+                                            "mappingString": "www.kodeverk.no/V",
+                                            "type": "STRING"
+                                        },
+                                        "tittel": {
+                                            "mappingString": "$ifg{name}",
+                                            "type": "DYNAMIC_STRING"
+                                        }
+                                    }
+                                },
+                                "instanceCollectionReferencesOrdered": [
+                                    "$if(vedlegg)"
+                                ]
+                            }
+                        ]
+                    },
+                    "korrespondansepart": {
+                        "elementMappings": [
+                            {
+                                "elementCollectionMappingPerKey": {},
+                                "elementMappingPerKey": {
+                                    "adresse": {
+                                        "elementCollectionMappingPerKey": {},
+                                        "elementMappingPerKey": {},
+                                        "valueMappingPerKey": {
+                                            "adresselinje": {
+                                                "mappingString": "highstreet 22",
+                                                "type": "DYNAMIC_STRING"
+                                            },
+                                            "postnummer": {
+                                                "mappingString": "1234",
+                                                "type": "DYNAMIC_STRING"
+                                            },
+                                            "poststed": {
+                                                "mappingString": "Moria",
+                                                "type": "DYNAMIC_STRING"
+                                            }
+                                        }
+                                    },
+                                    "kontaktinformasjon": {
+                                        "elementCollectionMappingPerKey": {},
+                                        "elementMappingPerKey": {},
+                                        "valueMappingPerKey": {
+                                            "epostadresse": {
+                                                "mappingString": "hello@world.no",
+                                                "type": "DYNAMIC_STRING"
+                                            },
+                                            "mobiltelefonnummer": {
+                                                "mappingString": "12345678",
+                                                "type": "DYNAMIC_STRING"
+                                            },
+                                            "telefonnummer": {
+                                                "mappingString": "12345678",
+                                                "type": "DYNAMIC_STRING"
+                                            }
+                                        }
+                                    },
+                                    "skjerming": {
+                                        "elementCollectionMappingPerKey": {},
+                                        "elementMappingPerKey": {},
+                                        "valueMappingPerKey": {
+                                            "skjermingshjemmel": {
+                                                "mappingString": "p3",
+                                                "type": "STRING"
+                                            },
+                                            "tilgangsrestriksjon": {
+                                                "mappingString": "code2",
+                                                "type": "STRING"
+                                            }
+                                        }
+                                    }
+                                },
+                                "valueMappingPerKey": {
+                                    "fødselsnummer": {
+                                        "mappingString": "123456789",
+                                        "type": "DYNAMIC_STRING"
+                                    },
+                                    "kontaktperson": {
+                                        "mappingString": "donna",
+                                        "type": "DYNAMIC_STRING"
+                                    },
+                                    "korrespondansepartNavn": {
+                                        "mappingString": "Anakin Skywalker",
+                                        "type": "DYNAMIC_STRING"
+                                    },
+                                    "korrespondanseparttype": {
+                                        "mappingString": "avsender",
+                                        "type": "STRING"
+                                    },
+                                    "organisasjonsnummer": {
+                                        "mappingString": null,
+                                        "type": "DYNAMIC_STRING"
                                     }
                                 }
                             }
-                        ]
-
-                    },
-                    "korrespondansepart": {
-                        elementMappings: [{
-                            valueMappingPerKey: {
-                                "fødselsnummer": {type: FieldType.DYNAMIC_STRING, mappingString: "123456789"},
-                                "organisasjonsnummer": {type: FieldType.DYNAMIC_STRING, mappingString: null},
-                                "kontaktperson": {type: FieldType.DYNAMIC_STRING, mappingString: "donna"},
-                                "korrespondansepartNavn": {type: FieldType.DYNAMIC_STRING, mappingString: "Anakin Skywalker"},
-                                "korrespondanseparttype": {type: FieldType.STRING, mappingString: "avsender"}
+                        ],
+                        "elementsFromCollectionMappings": []
+                    }
+                },
+                "elementMappingPerKey": {
+                    "skjerming": {
+                        "elementCollectionMappingPerKey": {},
+                        "elementMappingPerKey": {},
+                        "valueMappingPerKey": {
+                            "skjermingshjemmel": {
+                                "mappingString": "p34",
+                                "type": "STRING"
                             },
-                            elementMappingPerKey: {
-                                "adresse": {
-                                    valueMappingPerKey: {
-                                        "adresselinje": {type: FieldType.DYNAMIC_STRING, mappingString: "highstreet 22"},
-                                        "postnummer": {type: FieldType.DYNAMIC_STRING, mappingString: "1234"},
-                                        "poststed": {type: FieldType.DYNAMIC_STRING, mappingString: "Moria"}
+                            "tilgangsrestriksjon": {
+                                "mappingString": "code89",
+                                "type": "STRING"
+                            }
+                        }
+                    }
+                },
+                "valueMappingPerKey": {
+                    "administrativenhet": {
+                        "mappingString": "unit33",
+                        "type": "STRING"
+                    },
+                    "journalposttype": {
+                        "mappingString": "A",
+                        "type": "STRING"
+                    },
+                    "journalstatus": {
+                        "mappingString": "N",
+                        "type": "STRING"
+                    },
+                    "offentligTittel": {
+                        "mappingString": "public record title",
+                        "type": "DYNAMIC_STRING"
+                    },
+                    "saksbehandler": {
+                        "mappingString": "boba",
+                        "type": "STRING"
+                    },
+                    "tittel": {
+                        "mappingString": "record title",
+                        "type": "DYNAMIC_STRING"
+                    }
+                }
+            },
+            "sak": {
+                "elementCollectionMappingPerKey": {
+                    "klasse": {
+                        "elementMappings": [
+                            {
+                                "elementCollectionMappingPerKey": {},
+                                "elementMappingPerKey": {},
+                                "valueMappingPerKey": {
+                                    "klasseId": {
+                                        "mappingString": "1class",
+                                        "type": "DYNAMIC_STRING"
                                     },
-                                    elementMappingPerKey: {},
-                                    elementCollectionMappingPerKey: {}
-                                },
-                                "kontaktinformasjon": {
-                                    valueMappingPerKey: {
-                                        "epostadresse": {type: FieldType.DYNAMIC_STRING, mappingString: "hello@world.no"},
-                                        "mobiltelefonnummer": {type: FieldType.DYNAMIC_STRING, mappingString: "12345678"},
-                                        "telefonnummer": {type: FieldType.DYNAMIC_STRING, mappingString: "12345678"}
+                                    "klassifikasjonssystem": {
+                                        "mappingString": "prim",
+                                        "type": "STRING"
                                     },
-                                    elementMappingPerKey: {},
-                                    elementCollectionMappingPerKey: {}
-                                },
-                                "skjerming": {
-                                    valueMappingPerKey: {
-                                        "tilgangsrestriksjon": {type: FieldType.DYNAMIC_STRING, mappingString: "code2"},
-                                        "skjermingshjemmel": {type: FieldType.DYNAMIC_STRING, mappingString: "p3"}
+                                    "rekkefølge": {
+                                        "mappingString": "0",
+                                        "type": "DYNAMIC_STRING"
                                     },
-                                    elementMappingPerKey: {},
-                                    elementCollectionMappingPerKey: {}
+                                    "tittel": {
+                                        "mappingString": "primTitle",
+                                        "type": "DYNAMIC_STRING"
+                                    }
                                 }
                             },
-                            elementCollectionMappingPerKey: {}
-                        }],
-                        elementsFromCollectionMappings: []
+                            {
+                                "elementCollectionMappingPerKey": {},
+                                "elementMappingPerKey": {},
+                                "valueMappingPerKey": {
+                                    "klasseId": {
+                                        "mappingString": "2class",
+                                        "type": "DYNAMIC_STRING"
+                                    },
+                                    "klassifikasjonssystem": {
+                                        "mappingString": "rose",
+                                        "type": "STRING"
+                                    },
+                                    "rekkefølge": {
+                                        "mappingString": "1",
+                                        "type": "DYNAMIC_STRING"
+                                    },
+                                    "tittel": {
+                                        "mappingString": "secTitle",
+                                        "type": "DYNAMIC_STRING"
+                                    }
+                                }
+                            },
+                            {
+                                "elementCollectionMappingPerKey": {},
+                                "elementMappingPerKey": {},
+                                "valueMappingPerKey": {
+                                    "klasseId": {
+                                        "mappingString": "3class",
+                                        "type": "DYNAMIC_STRING"
+                                    },
+                                    "klassifikasjonssystem": {
+                                        "mappingString": "everdeen",
+                                        "type": "STRING"
+                                    },
+                                    "rekkefølge": {
+                                        "mappingString": "2",
+                                        "type": "DYNAMIC_STRING"
+                                    },
+                                    "tittel": {
+                                        "mappingString": "tertTitle",
+                                        "type": "DYNAMIC_STRING"
+                                    }
+                                }
+                            }
+                        ],
+                        "elementsFromCollectionMappings": []
+                    }
+                },
+                "elementMappingPerKey": {
+                    "skjerming": {
+                        "elementCollectionMappingPerKey": {},
+                        "elementMappingPerKey": {},
+                        "valueMappingPerKey": {
+                            "skjermingshjemmel": {
+                                "mappingString": "number6",
+                                "type": "STRING"
+                            },
+                            "tilgangsrestriksjon": {
+                                "mappingString": "code42",
+                                "type": "STRING"
+                            }
+                        }
+                    }
+                },
+                "valueMappingPerKey": {
+                    "administrativenhet": {
+                        "mappingString": "unit4",
+                        "type": "STRING"
+                    },
+                    "arkivdel": {
+                        "mappingString": "unit3",
+                        "type": "STRING"
+                    },
+                    "id": {
+                        "mappingString": null,
+                        "type": "STRING"
+                    },
+                    "journalenhet": {
+                        "mappingString": "unit0",
+                        "type": "STRING"
+                    },
+                    "offentligTittel": {
+                        "mappingString": "public title",
+                        "type": "DYNAMIC_STRING"
+                    },
+                    "saksansvarlig": {
+                        "mappingString": "rand",
+                        "type": "STRING"
+                    },
+                    "saksmappetype": {
+                        "mappingString": "casetype",
+                        "type": "STRING"
+                    },
+                    "status": {
+                        "mappingString": null,
+                        "type": "STRING"
+                    },
+                    "tittel": {
+                        "mappingString": "Title of case",
+                        "type": "DYNAMIC_STRING"
                     }
                 }
             }
         },
-        elementCollectionMappingPerKey: {}
-    },
-    "integrationMetadataId": 321
+        "valueMappingPerKey": {}
+    }
 }
 
 export const MOCK_EMPTY_CONFIGURATION: IConfiguration = {
@@ -358,7 +795,7 @@ export const MOCK_MAPPED_EMPTY_CONFIGURATION: IConfiguration = {
                                                         "mappingString": null,
                                                         "type": "FILE"
                                                     },
-                                                    "format": {
+                                                    "filformat": {
                                                         "mappingString": null,
                                                         "type": "STRING"
                                                     },
@@ -407,7 +844,7 @@ export const MOCK_MAPPED_EMPTY_CONFIGURATION: IConfiguration = {
                                                             "mappingString": null,
                                                             "type": "DYNAMIC_STRING"
                                                         },
-                                                        "format": {
+                                                        "filformat": {
                                                             "mappingString": null,
                                                             "type": "DYNAMIC_STRING"
                                                         },
@@ -491,7 +928,16 @@ export const MOCK_MAPPED_EMPTY_CONFIGURATION: IConfiguration = {
                                     "skjerming": {
                                         "elementCollectionMappingPerKey": {},
                                         "elementMappingPerKey": {},
-                                        "valueMappingPerKey": {}
+                                        "valueMappingPerKey": {
+                                            "skjermingshjemmel": {
+                                                "mappingString": null,
+                                                "type": "STRING"
+                                            },
+                                            "tilgangsrestriksjon": {
+                                                "mappingString": null,
+                                                "type": "STRING"
+                                            }
+                                        }
                                     }
                                 },
                                 "valueMappingPerKey": {
@@ -521,7 +967,22 @@ export const MOCK_MAPPED_EMPTY_CONFIGURATION: IConfiguration = {
                         "elementsFromCollectionMappings": []
                     }
                 },
-                "elementMappingPerKey": {},
+                "elementMappingPerKey": {
+                    "skjerming": {
+                        "elementCollectionMappingPerKey": {},
+                        "elementMappingPerKey": {},
+                        "valueMappingPerKey": {
+                            "skjermingshjemmel": {
+                                "mappingString": null,
+                                "type": "STRING"
+                            },
+                            "tilgangsrestriksjon": {
+                                "mappingString": null,
+                                "type": "STRING"
+                            }
+                        }
+                    }
+                },
                 "valueMappingPerKey": {
                     "administrativenhet": {
                         "mappingString": null,
@@ -543,14 +1004,6 @@ export const MOCK_MAPPED_EMPTY_CONFIGURATION: IConfiguration = {
                         "mappingString": null,
                         "type": "STRING"
                     },
-                    "skjermingshjemmel": {
-                        "mappingString": null,
-                        "type": "STRING"
-                    },
-                    "tilgangsrestriksjon": {
-                        "mappingString": null,
-                        "type": "STRING"
-                    },
                     "tittel": {
                         "mappingString": null,
                         "type": "DYNAMIC_STRING"
@@ -558,8 +1011,95 @@ export const MOCK_MAPPED_EMPTY_CONFIGURATION: IConfiguration = {
                 }
             },
             "sak": {
-                "elementCollectionMappingPerKey": {},
-                "elementMappingPerKey": {},
+                "elementCollectionMappingPerKey": {
+                    "klasse": {
+                        "elementMappings": [
+                            {
+                                "elementCollectionMappingPerKey": {},
+                                "elementMappingPerKey": {},
+                                "valueMappingPerKey": {
+                                    "klasseId": {
+                                        "mappingString": null,
+                                        "type": "DYNAMIC_STRING"
+                                    },
+                                    "klassifikasjonssystem": {
+                                        "mappingString": null,
+                                        "type": "STRING"
+                                    },
+                                    "rekkefølge": {
+                                        "mappingString": "0",
+                                        "type": "DYNAMIC_STRING"
+                                    },
+                                    "tittel": {
+                                        "mappingString": null,
+                                        "type": "DYNAMIC_STRING"
+                                    }
+                                }
+                            },
+                            {
+                                "elementCollectionMappingPerKey": {},
+                                "elementMappingPerKey": {},
+                                "valueMappingPerKey": {
+                                    "klasseId": {
+                                        "mappingString": null,
+                                        "type": "DYNAMIC_STRING"
+                                    },
+                                    "klassifikasjonssystem": {
+                                        "mappingString": null,
+                                        "type": "STRING"
+                                    },
+                                    "rekkefølge": {
+                                        "mappingString": "1",
+                                        "type": "DYNAMIC_STRING"
+                                    },
+                                    "tittel": {
+                                        "mappingString": null,
+                                        "type": "DYNAMIC_STRING"
+                                    }
+                                }
+                            },
+                            {
+                                "elementCollectionMappingPerKey": {},
+                                "elementMappingPerKey": {},
+                                "valueMappingPerKey": {
+                                    "klasseId": {
+                                        "mappingString": null,
+                                        "type": "DYNAMIC_STRING"
+                                    },
+                                    "klassifikasjonssystem": {
+                                        "mappingString": null,
+                                        "type": "STRING"
+                                    },
+                                    "rekkefølge": {
+                                        "mappingString": "2",
+                                        "type": "DYNAMIC_STRING"
+                                    },
+                                    "tittel": {
+                                        "mappingString": null,
+                                        "type": "DYNAMIC_STRING"
+                                    }
+                                }
+                            }
+                        ],
+                        "elementsFromCollectionMappings": []
+                    }
+                },
+                "elementMappingPerKey": {
+                    "skjerming": {
+                        "elementCollectionMappingPerKey": {},
+                        "elementMappingPerKey": {},
+                        "valueMappingPerKey": {
+                            "skjermingshjemmel": {
+                                "mappingString": null,
+                                "type": "STRING"
+                            },
+                            "tilgangsrestriksjon": {
+                                "mappingString": null,
+                                "type": "STRING"
+                            }
+                        }
+                    }
+                },
                 "valueMappingPerKey": {
                     "administrativenhet": {
                         "mappingString": null,
@@ -577,18 +1117,6 @@ export const MOCK_MAPPED_EMPTY_CONFIGURATION: IConfiguration = {
                         "mappingString": null,
                         "type": "DYNAMIC_STRING"
                     },
-                    "primarklasse": {
-                        "mappingString": null,
-                        "type": "DYNAMIC_STRING"
-                    },
-                    "primarordningsprinsipp": {
-                        "mappingString": null,
-                        "type": "STRING"
-                    },
-                    "primartittel": {
-                        "mappingString": null,
-                        "type": "DYNAMIC_STRING"
-                    },
                     "saksansvarlig": {
                         "mappingString": null,
                         "type": "STRING"
@@ -597,39 +1125,7 @@ export const MOCK_MAPPED_EMPTY_CONFIGURATION: IConfiguration = {
                         "mappingString": null,
                         "type": "STRING"
                     },
-                    "sekundarklasse": {
-                        "mappingString": null,
-                        "type": "DYNAMIC_STRING"
-                    },
-                    "sekundarordningsprinsipp": {
-                        "mappingString": null,
-                        "type": "STRING"
-                    },
-                    "sekundartittel": {
-                        "mappingString": null,
-                        "type": "DYNAMIC_STRING"
-                    },
-                    "skjermingshjemmel": {
-                        "mappingString": null,
-                        "type": "STRING"
-                    },
                     "status": {
-                        "mappingString": null,
-                        "type": "STRING"
-                    },
-                    "tertiarklasse": {
-                        "mappingString": null,
-                        "type": "DYNAMIC_STRING"
-                    },
-                    "tertiarordningsprinsipp": {
-                        "mappingString": null,
-                        "type": "STRING"
-                    },
-                    "tertiartittel": {
-                        "mappingString": null,
-                        "type": "DYNAMIC_STRING"
-                    },
-                    "tilgangsrestriksjon": {
                         "mappingString": null,
                         "type": "STRING"
                     },
@@ -668,21 +1164,91 @@ export const MOCK_NEW_CONFIG: IConfiguration = {
                     "arkivdel": {type: FieldType.STRING, mappingString: "unit3"},
                     "journalenhet": {type: FieldType.STRING, mappingString: "unit0"},
                     "status": {type: FieldType.STRING, mappingString: null},
-                    "tilgangsrestriksjon": {type: FieldType.STRING, mappingString: "code42"},
-                    "skjermingshjemmel": {type: FieldType.STRING, mappingString: "number6"},
                     "saksansvarlig": {type: FieldType.STRING, mappingString: "rand"},
-                    "primarordningsprinsipp": {type: FieldType.STRING, mappingString: "prim"},
-                    "sekundarordningsprinsipp": {type: FieldType.STRING, mappingString: "rose"},
-                    "tertiarordningsprinsipp": {type: FieldType.STRING, mappingString: "everdeen"},
-                    "primarklasse": {type: FieldType.DYNAMIC_STRING, mappingString: "1class"},
-                    "sekundarklasse": {type: FieldType.DYNAMIC_STRING, mappingString: "2class"},
-                    "tertiarklasse": {type: FieldType.DYNAMIC_STRING, mappingString: "3class"},
-                    "primartittel": {type: FieldType.DYNAMIC_STRING, mappingString: "primTitle"},
-                    "sekundartittel": {type: FieldType.DYNAMIC_STRING, mappingString: "secTitle"},
-                    "tertiartittel": {type: FieldType.DYNAMIC_STRING, mappingString: "tertTitle"}
                 },
-                elementMappingPerKey: {},
-                elementCollectionMappingPerKey: {}
+                elementMappingPerKey: {
+                    "skjerming": {
+                        elementCollectionMappingPerKey: {},
+                        elementMappingPerKey: {},
+                        valueMappingPerKey: {
+                            "tilgangsrestriksjon": {type: FieldType.STRING, mappingString: "code42"},
+                            "skjermingshjemmel": {type: FieldType.STRING, mappingString: "number6"},
+                        }
+                    }
+                },
+                elementCollectionMappingPerKey: {
+                    "klasse": {
+                        "elementMappings": [
+                            {
+                                "elementCollectionMappingPerKey": {},
+                                "elementMappingPerKey": {},
+                                "valueMappingPerKey": {
+                                    "klasseId": {
+                                        "mappingString": "1class",
+                                        "type": "DYNAMIC_STRING"
+                                    },
+                                    "klassifikasjonssystem": {
+                                        "mappingString": "prim",
+                                        "type": "STRING"
+                                    },
+                                    "rekkefølge": {
+                                        "mappingString": "0",
+                                        "type": "DYNAMIC_STRING"
+                                    },
+                                    "tittel": {
+                                        "mappingString": "primTitle",
+                                        "type": "DYNAMIC_STRING"
+                                    }
+                                }
+                            },
+                            {
+                                "elementCollectionMappingPerKey": {},
+                                "elementMappingPerKey": {},
+                                "valueMappingPerKey": {
+                                    "klasseId": {
+                                        "mappingString": "2class",
+                                        "type": "DYNAMIC_STRING"
+                                    },
+                                    "klassifikasjonssystem": {
+                                        "mappingString": "rose",
+                                        "type": "STRING"
+                                    },
+                                    "rekkefølge": {
+                                        "mappingString": "1",
+                                        "type": "DYNAMIC_STRING"
+                                    },
+                                    "tittel": {
+                                        "mappingString": "secTitle",
+                                        "type": "DYNAMIC_STRING"
+                                    }
+                                }
+                            },
+                            {
+                                "elementCollectionMappingPerKey": {},
+                                "elementMappingPerKey": {},
+                                "valueMappingPerKey": {
+                                    "klasseId": {
+                                        "mappingString": "3class",
+                                        "type": "DYNAMIC_STRING"
+                                    },
+                                    "klassifikasjonssystem": {
+                                        "mappingString": "everdeen",
+                                        "type": "STRING"
+                                    },
+                                    "rekkefølge": {
+                                        "mappingString": "2",
+                                        "type": "DYNAMIC_STRING"
+                                    },
+                                    "tittel": {
+                                        "mappingString": "tertTitle",
+                                        "type": "DYNAMIC_STRING"
+                                    }
+                                }
+                            }
+                        ],
+                        "elementsFromCollectionMappings": []
+                    }
+                },
             },
             "journalpost": {
                 valueMappingPerKey: {
@@ -691,11 +1257,18 @@ export const MOCK_NEW_CONFIG: IConfiguration = {
                     "administrativenhet": {type: FieldType.STRING, mappingString: "unit33"},
                     "journalstatus": {type: FieldType.STRING, mappingString: "N"},
                     "journalposttype": {type: FieldType.STRING, mappingString: "A"},
-                    "saksbehandler": {type: FieldType.STRING, mappingString: "boba"},
-                    "tilgangsrestriksjon": {type: FieldType.STRING, mappingString: "code89"},
-                    "skjermingshjemmel": {type: FieldType.STRING, mappingString: "p34"}
+                    "saksbehandler": {type: FieldType.STRING, mappingString: "boba"}
                 },
-                elementMappingPerKey: {},
+                elementMappingPerKey: {
+                    "skjerming": {
+                        elementMappingPerKey: {},
+                        elementCollectionMappingPerKey: {},
+                        valueMappingPerKey: {
+                            "tilgangsrestriksjon": {type: FieldType.STRING, mappingString: "code89"},
+                            "skjermingshjemmel": {type: FieldType.STRING, mappingString: "p34"}
+                        }
+                    }
+                },
                 elementCollectionMappingPerKey: {
                     "dokumentbeskrivelse": {
                         elementMappings: [
@@ -712,7 +1285,7 @@ export const MOCK_NEW_CONFIG: IConfiguration = {
                                         elementMappings: [
                                             {
                                                 valueMappingPerKey: {
-                                                    "format": {type: FieldType.STRING, mappingString: "www.kodeverk.no/A"},
+                                                    "filformat": {type: FieldType.STRING, mappingString: "www.kodeverk.no/A"},
                                                     "variantformat": {type: FieldType.STRING, mappingString: "www.kodeverk.no/PDF"},
                                                     "fil": {type: FieldType.FILE, mappingString: "$ifg{formPdf}"}
                                                 },
@@ -742,7 +1315,7 @@ export const MOCK_NEW_CONFIG: IConfiguration = {
                                             elementMappings: [
                                                 {
                                                     valueMappingPerKey: {
-                                                        "format": {type: FieldType.DYNAMIC_STRING, mappingString: "www.kodeverk.no/PDF"},
+                                                        "filformat": {type: FieldType.DYNAMIC_STRING, mappingString: "www.kodeverk.no/PDF"},
                                                         "variantformat": {type: FieldType.STRING, mappingString: "www.kodeverk.no/PDF"},
                                                         "fil": {type: FieldType.DYNAMIC_STRING, mappingString: "$igf{file}"}
                                                     },
@@ -788,8 +1361,8 @@ export const MOCK_NEW_CONFIG: IConfiguration = {
                                 },
                                 "skjerming": {
                                     valueMappingPerKey: {
-                                        "tilgangsrestriksjon": {type: FieldType.DYNAMIC_STRING, mappingString: "code2"},
-                                        "skjermingshjemmel": {type: FieldType.DYNAMIC_STRING, mappingString: "p3"}
+                                        "tilgangsrestriksjon": {type: FieldType.STRING, mappingString: "code2"},
+                                        "skjermingshjemmel": {type: FieldType.STRING, mappingString: "p3"}
                                     },
                                     elementMappingPerKey: {},
                                     elementCollectionMappingPerKey: {}
@@ -826,22 +1399,91 @@ export const MOCK_BY_ID_CONFIG: IConfiguration = {
                     "arkivdel": {type: FieldType.STRING, mappingString: null},
                     "journalenhet": {type: FieldType.STRING, mappingString: null},
                     "status": {type: FieldType.STRING, mappingString: null},
-                    "tilgangsrestriksjon": {type: FieldType.STRING, mappingString: null},
-                    "skjermingshjemmel": {type: FieldType.STRING, mappingString: null},
-                    "saksansvarlig": {type: FieldType.STRING, mappingString: null},
-                    "primarordningsprinsipp": {type: FieldType.STRING, mappingString: null},
-                    "sekundarordningsprinsipp": {type: FieldType.STRING, mappingString: null},
-                    "tertiarordningsprinsipp": {type: FieldType.STRING, mappingString: null},
-                    "primarklasse": {type: FieldType.DYNAMIC_STRING, mappingString: null},
-                    "sekundarklasse": {type: FieldType.DYNAMIC_STRING, mappingString: null},
-                    "tertiarklasse": {type: FieldType.DYNAMIC_STRING, mappingString: null},
-                    "primartittel": {type: FieldType.DYNAMIC_STRING, mappingString: null},
-                    "sekundartittel": {type: FieldType.DYNAMIC_STRING, mappingString: null},
-                    "tertiartittel": {type: FieldType.DYNAMIC_STRING, mappingString: null}
+                    "saksansvarlig": {type: FieldType.STRING, mappingString: null}
                 },
-                elementMappingPerKey: {},
-                elementCollectionMappingPerKey: {}
-            },
+                elementMappingPerKey: {
+                    "skjerming": {
+                        "elementCollectionMappingPerKey": {},
+                        "elementMappingPerKey": {},
+                        "valueMappingPerKey": {
+                            "tilgangsrestriksjon": {type: FieldType.STRING, mappingString: null},
+                            "skjermingshjemmel": {type: FieldType.STRING, mappingString: null}
+                        }
+                    }
+                },
+                elementCollectionMappingPerKey: {
+                    "klasse": {
+                        "elementMappings": [
+                            {
+                                "elementCollectionMappingPerKey": {},
+                                "elementMappingPerKey": {},
+                                "valueMappingPerKey": {
+                                    "klasseId": {
+                                        "mappingString": null,
+                                        "type": "DYNAMIC_STRING"
+                                    },
+                                    "klassifikasjonssystem": {
+                                        "mappingString": null,
+                                        "type": "STRING"
+                                    },
+                                    "rekkefølge": {
+                                        "mappingString": "0",
+                                        "type": "DYNAMIC_STRING"
+                                    },
+                                    "tittel": {
+                                        "mappingString": null,
+                                        "type": "DYNAMIC_STRING"
+                                    }
+                                }
+                            },
+                            {
+                                "elementCollectionMappingPerKey": {},
+                                "elementMappingPerKey": {},
+                                "valueMappingPerKey": {
+                                    "klasseId": {
+                                        "mappingString": null,
+                                        "type": "DYNAMIC_STRING"
+                                    },
+                                    "klassifikasjonssystem": {
+                                        "mappingString": null,
+                                        "type": "STRING"
+                                    },
+                                    "rekkefølge": {
+                                        "mappingString": "1",
+                                        "type": "DYNAMIC_STRING"
+                                    },
+                                    "tittel": {
+                                        "mappingString": null,
+                                        "type": "DYNAMIC_STRING"
+                                    }
+                                }
+                            },
+                            {
+                                "elementCollectionMappingPerKey": {},
+                                "elementMappingPerKey": {},
+                                "valueMappingPerKey": {
+                                    "klasseId": {
+                                        "mappingString": null,
+                                        "type": "DYNAMIC_STRING"
+                                    },
+                                    "klassifikasjonssystem": {
+                                        "mappingString": null,
+                                        "type": "STRING"
+                                    },
+                                    "rekkefølge": {
+                                        "mappingString": "2",
+                                        "type": "DYNAMIC_STRING"
+                                    },
+                                    "tittel": {
+                                        "mappingString": null,
+                                        "type": "DYNAMIC_STRING"
+                                    }
+                                }
+                            }
+                        ],
+                        "elementsFromCollectionMappings": []
+                    }
+                },            },
             "journalpost": {
                 valueMappingPerKey: {
                     "tittel": {type: FieldType.DYNAMIC_STRING, mappingString: "foo $if{bar}"},
@@ -870,7 +1512,7 @@ export const MOCK_BY_ID_CONFIG: IConfiguration = {
                                         elementMappings: [
                                             {
                                                 valueMappingPerKey: {
-                                                    "format": {type: FieldType.STRING, mappingString: null},
+                                                    "filformat": {type: FieldType.STRING, mappingString: null},
                                                     "variantformat": {type: FieldType.STRING, mappingString: null},
                                                     "fil": {type: FieldType.FILE, mappingString: null}
                                                 },
@@ -900,7 +1542,7 @@ export const MOCK_BY_ID_CONFIG: IConfiguration = {
                                             elementMappings: [
                                                 {
                                                     valueMappingPerKey: {
-                                                        "format": {type: FieldType.DYNAMIC_STRING, mappingString: null},
+                                                        "filformat": {type: FieldType.DYNAMIC_STRING, mappingString: null},
                                                         "variantformat": {type: FieldType.STRING, mappingString: null},
                                                         "fil": {type: FieldType.DYNAMIC_STRING, mappingString: null}
                                                     },
@@ -946,8 +1588,8 @@ export const MOCK_BY_ID_CONFIG: IConfiguration = {
                                 },
                                 "skjerming": {
                                     valueMappingPerKey: {
-                                        "tilgangsrestriksjon": {type: FieldType.DYNAMIC_STRING, mappingString: null},
-                                        "skjermingshjemmel": {type: FieldType.DYNAMIC_STRING, mappingString: null}
+                                        "tilgangsrestriksjon": {type: FieldType.STRING, mappingString: null},
+                                        "skjermingshjemmel": {type: FieldType.STRING, mappingString: null}
                                     },
                                     elementMappingPerKey: {},
                                     elementCollectionMappingPerKey: {}
@@ -984,21 +1626,91 @@ export const MOCK_AV_CONFIGURATION_NEW: IAVConfiguration = {
                     "arkivdel": {type: FieldType.STRING, mappingString: "unit3"},
                     "journalenhet": {type: FieldType.STRING, mappingString: "unit0"},
                     "status": {type: FieldType.STRING, mappingString: null},
-                    "tilgangsrestriksjon": {type: FieldType.STRING, mappingString: "code42"},
-                    "skjermingshjemmel": {type: FieldType.STRING, mappingString: "number6"},
                     "saksansvarlig": {type: FieldType.STRING, mappingString: "rand"},
-                    "primarordningsprinsipp": {type: FieldType.STRING, mappingString: "prim"},
-                    "sekundarordningsprinsipp": {type: FieldType.STRING, mappingString: "rose"},
-                    "tertiarordningsprinsipp": {type: FieldType.STRING, mappingString: "everdeen"},
-                    "primarklasse": {type: FieldType.DYNAMIC_STRING, mappingString: "1class"},
-                    "sekundarklasse": {type: FieldType.DYNAMIC_STRING, mappingString: "2class"},
-                    "tertiarklasse": {type: FieldType.DYNAMIC_STRING, mappingString: "3class"},
-                    "primartittel": {type: FieldType.DYNAMIC_STRING, mappingString: "primTitle"},
-                    "sekundartittel": {type: FieldType.DYNAMIC_STRING, mappingString: "secTitle"},
-                    "tertiartittel": {type: FieldType.DYNAMIC_STRING, mappingString: "tertTitle"}
                 },
-                elementMappingPerKey: {},
-                elementCollectionMappingPerKey: {}
+                elementMappingPerKey: {
+                    "skjerming": {
+                        "elementCollectionMappingPerKey": {},
+                        "elementMappingPerKey": {},
+                        "valueMappingPerKey": {
+                            "tilgangsrestriksjon": {type: FieldType.STRING, mappingString: "code42"},
+                            "skjermingshjemmel": {type: FieldType.STRING, mappingString: "number6"}
+                        }
+                    }
+                },
+                elementCollectionMappingPerKey: {
+                    "klasse": {
+                        "elementMappings": [
+                            {
+                                "elementCollectionMappingPerKey": {},
+                                "elementMappingPerKey": {},
+                                "valueMappingPerKey": {
+                                    "klasseId": {
+                                        "mappingString": "1class",
+                                        "type": "DYNAMIC_STRING"
+                                    },
+                                    "klassifikasjonssystem": {
+                                        "mappingString": "prim",
+                                        "type": "STRING"
+                                    },
+                                    "rekkefølge": {
+                                        "mappingString": "0",
+                                        "type": "DYNAMIC_STRING"
+                                    },
+                                    "tittel": {
+                                        "mappingString": "primTitle",
+                                        "type": "DYNAMIC_STRING"
+                                    }
+                                }
+                            },
+                            {
+                                "elementCollectionMappingPerKey": {},
+                                "elementMappingPerKey": {},
+                                "valueMappingPerKey": {
+                                    "klasseId": {
+                                        "mappingString": "2class",
+                                        "type": "DYNAMIC_STRING"
+                                    },
+                                    "klassifikasjonssystem": {
+                                        "mappingString": "rose",
+                                        "type": "STRING"
+                                    },
+                                    "rekkefølge": {
+                                        "mappingString": "1",
+                                        "type": "DYNAMIC_STRING"
+                                    },
+                                    "tittel": {
+                                        "mappingString": "secTitle",
+                                        "type": "DYNAMIC_STRING"
+                                    }
+                                }
+                            },
+                            {
+                                "elementCollectionMappingPerKey": {},
+                                "elementMappingPerKey": {},
+                                "valueMappingPerKey": {
+                                    "klasseId": {
+                                        "mappingString": "3class",
+                                        "type": "DYNAMIC_STRING"
+                                    },
+                                    "klassifikasjonssystem": {
+                                        "mappingString": "everdeen",
+                                        "type": "STRING"
+                                    },
+                                    "rekkefølge": {
+                                        "mappingString": "2",
+                                        "type": "DYNAMIC_STRING"
+                                    },
+                                    "tittel": {
+                                        "mappingString": "tertTitle",
+                                        "type": "DYNAMIC_STRING"
+                                    }
+                                }
+                            }
+                        ],
+                        "elementsFromCollectionMappings": []
+                    }
+                },
             },
             "journalpost": {
                 valueMappingPerKey: {
@@ -1007,11 +1719,18 @@ export const MOCK_AV_CONFIGURATION_NEW: IAVConfiguration = {
                     "administrativenhet": {type: FieldType.STRING, mappingString: "unit33"},
                     "journalstatus": {type: FieldType.STRING, mappingString: "N"},
                     "journalposttype": {type: FieldType.STRING, mappingString: "A"},
-                    "saksbehandler": {type: FieldType.STRING, mappingString: "boba"},
-                    "tilgangsrestriksjon": {type: FieldType.STRING, mappingString: "code89"},
-                    "skjermingshjemmel": {type: FieldType.STRING, mappingString: "p34"}
+                    "saksbehandler": {type: FieldType.STRING, mappingString: "boba"}
                 },
-                elementMappingPerKey: {},
+                elementMappingPerKey: {
+                    "skjerming": {
+                        elementCollectionMappingPerKey: {},
+                        elementMappingPerKey: {},
+                        valueMappingPerKey: {
+                            "tilgangsrestriksjon": {type: FieldType.STRING, mappingString: "code89"},
+                            "skjermingshjemmel": {type: FieldType.STRING, mappingString: "p34"},
+                        }
+                    }
+                },
                 elementCollectionMappingPerKey: {
                     "dokumentbeskrivelse": {
                         elementMappings: [
@@ -1028,7 +1747,7 @@ export const MOCK_AV_CONFIGURATION_NEW: IAVConfiguration = {
                                         elementMappings: [
                                             {
                                                 valueMappingPerKey: {
-                                                    "format": {type: FieldType.STRING, mappingString: "www.kodeverk.no/A"},
+                                                    "filformat": {type: FieldType.STRING, mappingString: "www.kodeverk.no/A"},
                                                     "variantformat": {type: FieldType.STRING, mappingString: "www.kodeverk.no/PDF"},
                                                     "fil": {type: FieldType.FILE, mappingString: "$ifg{formPdf}"}
                                                 },
@@ -1058,7 +1777,7 @@ export const MOCK_AV_CONFIGURATION_NEW: IAVConfiguration = {
                                             elementMappings: [
                                                 {
                                                     valueMappingPerKey: {
-                                                        "format": {type: FieldType.DYNAMIC_STRING, mappingString: "www.kodeverk.no/PDF"},
+                                                        "filformat": {type: FieldType.DYNAMIC_STRING, mappingString: "www.kodeverk.no/PDF"},
                                                         "variantformat": {type: FieldType.STRING, mappingString: "www.kodeverk.no/PDF"},
                                                         "fil": {type: FieldType.DYNAMIC_STRING, mappingString: "$igf{file}"}
                                                     },
@@ -1104,8 +1823,8 @@ export const MOCK_AV_CONFIGURATION_NEW: IAVConfiguration = {
                                 },
                                 "skjerming": {
                                     valueMappingPerKey: {
-                                        "tilgangsrestriksjon": {type: FieldType.DYNAMIC_STRING, mappingString: "code2"},
-                                        "skjermingshjemmel": {type: FieldType.DYNAMIC_STRING, mappingString: "p3"}
+                                        "tilgangsrestriksjon": {type: FieldType.STRING, mappingString: "code2"},
+                                        "skjermingshjemmel": {type: FieldType.STRING, mappingString: "p3"}
                                     },
                                     elementMappingPerKey: {},
                                     elementCollectionMappingPerKey: {}
@@ -1122,7 +1841,7 @@ export const MOCK_AV_CONFIGURATION_NEW: IAVConfiguration = {
     }
 }
 
-export const MOCK_AV_CONFIGURATION_NEW_NOT_PROTECTED: IAVConfiguration = {
+export const MOCK_AV_CONFIGURATION_NEW_NOT_SHIELDED: IAVConfiguration = {
     comment: "form to test mapping",
     completed: false,
     id: "234",
@@ -1141,21 +1860,91 @@ export const MOCK_AV_CONFIGURATION_NEW_NOT_PROTECTED: IAVConfiguration = {
                     "arkivdel": {type: FieldType.STRING, mappingString: "unit3"},
                     "journalenhet": {type: FieldType.STRING, mappingString: "unit0"},
                     "status": {type: FieldType.STRING, mappingString: null},
-                    "tilgangsrestriksjon": {type: FieldType.STRING, mappingString: "code42"},
-                    "skjermingshjemmel": {type: FieldType.STRING, mappingString: "number6"},
                     "saksansvarlig": {type: FieldType.STRING, mappingString: "rand"},
-                    "primarordningsprinsipp": {type: FieldType.STRING, mappingString: "prim"},
-                    "sekundarordningsprinsipp": {type: FieldType.STRING, mappingString: "rose"},
-                    "tertiarordningsprinsipp": {type: FieldType.STRING, mappingString: "everdeen"},
-                    "primarklasse": {type: FieldType.DYNAMIC_STRING, mappingString: "1class"},
-                    "sekundarklasse": {type: FieldType.DYNAMIC_STRING, mappingString: "2class"},
-                    "tertiarklasse": {type: FieldType.DYNAMIC_STRING, mappingString: "3class"},
-                    "primartittel": {type: FieldType.DYNAMIC_STRING, mappingString: "primTitle"},
-                    "sekundartittel": {type: FieldType.DYNAMIC_STRING, mappingString: "secTitle"},
-                    "tertiartittel": {type: FieldType.DYNAMIC_STRING, mappingString: "tertTitle"}
                 },
-                elementMappingPerKey: {},
-                elementCollectionMappingPerKey: {}
+                elementMappingPerKey: {
+                    "skjerming": {
+                        elementCollectionMappingPerKey: {},
+                        elementMappingPerKey: {},
+                        valueMappingPerKey: {
+                            "tilgangsrestriksjon": {type: FieldType.STRING, mappingString: "code42"},
+                            "skjermingshjemmel": {type: FieldType.STRING, mappingString: "number6"},
+                        }
+                    }
+                },
+                elementCollectionMappingPerKey: {
+                    "klasse": {
+                        "elementMappings": [
+                            {
+                                "elementCollectionMappingPerKey": {},
+                                "elementMappingPerKey": {},
+                                "valueMappingPerKey": {
+                                    "klasseId": {
+                                        "mappingString": "1class",
+                                        "type": "DYNAMIC_STRING"
+                                    },
+                                    "klassifikasjonssystem": {
+                                        "mappingString": "prim",
+                                        "type": "STRING"
+                                    },
+                                    "rekkefølge": {
+                                        "mappingString": "0",
+                                        "type": "DYNAMIC_STRING"
+                                    },
+                                    "tittel": {
+                                        "mappingString": "primTitle",
+                                        "type": "DYNAMIC_STRING"
+                                    }
+                                }
+                            },
+                            {
+                                "elementCollectionMappingPerKey": {},
+                                "elementMappingPerKey": {},
+                                "valueMappingPerKey": {
+                                    "klasseId": {
+                                        "mappingString": "2class",
+                                        "type": "DYNAMIC_STRING"
+                                    },
+                                    "klassifikasjonssystem": {
+                                        "mappingString": "rose",
+                                        "type": "STRING"
+                                    },
+                                    "rekkefølge": {
+                                        "mappingString": "1",
+                                        "type": "DYNAMIC_STRING"
+                                    },
+                                    "tittel": {
+                                        "mappingString": "secTitle",
+                                        "type": "DYNAMIC_STRING"
+                                    }
+                                }
+                            },
+                            {
+                                "elementCollectionMappingPerKey": {},
+                                "elementMappingPerKey": {},
+                                "valueMappingPerKey": {
+                                    "klasseId": {
+                                        "mappingString": "3class",
+                                        "type": "DYNAMIC_STRING"
+                                    },
+                                    "klassifikasjonssystem": {
+                                        "mappingString": "everdeen",
+                                        "type": "STRING"
+                                    },
+                                    "rekkefølge": {
+                                        "mappingString": "2",
+                                        "type": "DYNAMIC_STRING"
+                                    },
+                                    "tittel": {
+                                        "mappingString": "tertTitle",
+                                        "type": "DYNAMIC_STRING"
+                                    }
+                                }
+                            }
+                        ],
+                        "elementsFromCollectionMappings": []
+                    }
+                }
             },
             "journalpost": {
                 valueMappingPerKey: {
@@ -1165,10 +1954,18 @@ export const MOCK_AV_CONFIGURATION_NEW_NOT_PROTECTED: IAVConfiguration = {
                     "journalstatus": {type: FieldType.STRING, mappingString: "N"},
                     "journalposttype": {type: FieldType.STRING, mappingString: "A"},
                     "saksbehandler": {type: FieldType.STRING, mappingString: "boba"},
-                    "tilgangsrestriksjon": {type: FieldType.STRING, mappingString: "code89"},
-                    "skjermingshjemmel": {type: FieldType.STRING, mappingString: "p34"}
                 },
-                elementMappingPerKey: {},
+                elementMappingPerKey: {
+                    "skjerming": {
+                        elementMappingPerKey: {},
+                        elementCollectionMappingPerKey: {},
+                        valueMappingPerKey: {
+                            "tilgangsrestriksjon": {type: FieldType.STRING, mappingString: "code89"},
+                            "skjermingshjemmel": {type: FieldType.STRING, mappingString: "p34"}
+
+                        }
+                    }
+                },
                 elementCollectionMappingPerKey: {
                     "dokumentbeskrivelse": {
                         elementMappings: [
@@ -1185,7 +1982,7 @@ export const MOCK_AV_CONFIGURATION_NEW_NOT_PROTECTED: IAVConfiguration = {
                                         elementMappings: [
                                             {
                                                 valueMappingPerKey: {
-                                                    "format": {type: FieldType.STRING, mappingString: "www.kodeverk.no/A"},
+                                                    "filformat": {type: FieldType.STRING, mappingString: "www.kodeverk.no/A"},
                                                     "variantformat": {type: FieldType.STRING, mappingString: "www.kodeverk.no/PDF"},
                                                     "fil": {type: FieldType.FILE, mappingString: "$ifg{formPdf}"}
                                                 },
@@ -1215,7 +2012,7 @@ export const MOCK_AV_CONFIGURATION_NEW_NOT_PROTECTED: IAVConfiguration = {
                                             elementMappings: [
                                                 {
                                                     valueMappingPerKey: {
-                                                        "format": {type: FieldType.DYNAMIC_STRING, mappingString: "www.kodeverk.no/PDF"},
+                                                        "filformat": {type: FieldType.DYNAMIC_STRING, mappingString: "www.kodeverk.no/PDF"},
                                                         "variantformat": {type: FieldType.STRING, mappingString: "www.kodeverk.no/PDF"},
                                                         "fil": {type: FieldType.DYNAMIC_STRING, mappingString: "$igf{file}"}
                                                     },

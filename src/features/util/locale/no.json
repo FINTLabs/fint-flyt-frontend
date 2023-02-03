@@ -82,7 +82,7 @@
                 },
                 "correspondentForm": {
                     "header": "Korrespondansepart",
-                    "protectedLabel": "Skjermet",
+                    "shieldingLabel": "Skjermet",
                     "button": {
                         "save": "Lagre"
                     }
@@ -247,7 +247,7 @@
                 "caseWorker": "Saksbehandler: ",
                 "documentStatus": "Status: ",
                 "variant": "Variant: ",
-                "format": "Format: ",
+                "fileFormat": "Format: ",
                 "file": "File: ",
                 "organisationNumber": "Organisasjonsnummer: ",
                 "nationalIdentityNumber": "Fødselsnummer: ",
@@ -345,7 +345,7 @@
             "documentStatus": "Status",
             "documentCategory": "Dokumentkategori",
             "variant": "Variant",
-            "format": "Format",
+            "fileFormat": "Format",
             "file": "File",
             "applicantType": "Velg avsendertype",
             "organisationNumber": "Organisasjonsnummer",
@@ -357,7 +357,7 @@
             "contactPerson": "Kontaktperson",
             "phoneNumber": "Telefonnummer",
             "email": "Epost",
-            "protected": "Skjerming",
+            "shielding": "Skjerming",
             "correspondentType": "Korrespondanseparttype"
         },
         "selects": {
@@ -426,7 +426,7 @@
                 "documentStatus": "",
                 "accessCode": "",
                 "paragraph": "",
-                "format": "",
+                "fileFormat": "",
                 "variant": "",
                 "file": ""
             },
@@ -510,9 +510,9 @@
             "documentType": "Eksempel: Avtaler, Innsynsbehandling, Følgebrev, Juridisk ..",
             "role": "Angivelse av hvilken 'rolle' dokumentet har i forhold til registreringen.",
             "variant": "Angivelse av hvilken variant et dokument forekommer. - Produksjonsformat",
-            "format": "Filformatet f.eks PDF",
+            "fileFormat": "Filformatet f.eks PDF",
             "file": "Fil",
-            "protected": "Skjerming av avsender, krever tilgangsrestriksjon og hjemmel",
+            "shielding": "Skjerming av avsender, krever tilgangsrestriksjon og hjemmel",
             "type": "Person eller organisasjon/bedrift",
             "correspondentType": "Type korresepondansepart",
             "organisationNumber": "Orgnr for avsenderbedrift",

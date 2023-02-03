@@ -127,11 +127,14 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                 }
                 setConfiguration(data);
                 const cases: IElementMapping = data.mapping?.elementMappingPerKey['sak'] ? data.mapping?.elementMappingPerKey['sak'] : {elementMappingPerKey: {}, elementCollectionMappingPerKey: {}, valueMappingPerKey: {}};
+                const caseClassesFields: IElementMapping[] = cases.elementCollectionMappingPerKey['klasse']?.elementMappings ? cases.elementCollectionMappingPerKey['klasse']?.elementMappings  :  []
+                let primaryClass = caseClassesFields[0]?.valueMappingPerKey['klassifikasjonssystem']?.mappingString ? caseClassesFields[0].valueMappingPerKey['klassifikasjonssystem']?.mappingString : null
+                let secondaryClass = caseClassesFields[1]?.valueMappingPerKey['klassifikasjonssystem']?.mappingString ? caseClassesFields[1].valueMappingPerKey['klassifikasjonssystem']?.mappingString : null
+                let tertiaryClass = caseClassesFields[2]?.valueMappingPerKey['klassifikasjonssystem']?.mappingString ? caseClassesFields[2].valueMappingPerKey['klassifikasjonssystem']?.mappingString : null
 
-                let primaryClass = cases.valueMappingPerKey['primarordningsprinsipp']?.mappingString ? cases.valueMappingPerKey['primarordningsprinsipp']?.mappingString : null
-                let secondaryClass = cases.valueMappingPerKey['sekundarordningsprinsipp']?.mappingString ? cases.valueMappingPerKey['sekundarordningsprinsipp']?.mappingString : null
-                let tertiaryClass = cases.valueMappingPerKey['tertiarordningsprinsipp']?.mappingString ? cases.valueMappingPerKey['tertiarordningsprinsipp']?.mappingString : null
-                if(primaryClass !== null ) await ResourceRepository.getClasses(primaryClass).then(async response => {
+                console.log(primaryClass, secondaryClass)
+
+               if(primaryClass !== null ) await ResourceRepository.getClasses(primaryClass).then(async response => {
                     if (response.data) {response.data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
                         setPrimaryClass(list)
                     }
