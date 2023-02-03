@@ -164,16 +164,16 @@ export const defaultConfigurationValuesAV: IFormConfiguration = {
             role: 'https://beta.felleskomponent.no/arkiv/kodeverk/tilknyttetregistreringsom/systemid/H',
             fileFormat: 'https://beta.felleskomponent.no/arkiv/kodeverk/format/systemid/PDF',
             variant: 'https://beta.felleskomponent.no/arkiv/kodeverk/variantformat/systemid/P',
-            file: '$if{formPdf}'
+            file: '$if{skjemaPdf}'
         },
         attachmentDocuments: {
-            title: '$igf{name}',
+            title: '$icf{0}{navn}',
             documentStatus: null,
             documentType: null,
             role: 'https://beta.felleskomponent.no/arkiv/kodeverk/tilknyttetregistreringsom/systemid/V',
-            fileFormat: 'https://beta.felleskomponent.no/arkiv/kodeverk/format/systemid/PDF',
+            fileFormat: 'https://beta.felleskomponent.no/arkiv/kodeverk/format/systemid/PROD',
             variant: 'https://beta.felleskomponent.no/arkiv/kodeverk/variantformat/systemid/P',
-            file: '$igf{file}'
+            file: '$icf{0}{fil}'
         },
         correspondent: {
             shielding: {
@@ -213,7 +213,8 @@ export const variantOptions: ISelect[] = [
 ]
 
 export const formatOptions: ISelect[] = [
-    {label: '[PDF] Portable document format', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/format/systemid/PDF'}
+    {label: '[PDF] Portable document format', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/format/systemid/PDF'},
+    {label: '[PROD] Produksjonsformat', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/format/systemid/PROD'}
 ]
 export const correspondentTypeOptions: ISelect[] = [
     {label: 'EA Avsender', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/korrespondanseparttype/systemid/EA'}

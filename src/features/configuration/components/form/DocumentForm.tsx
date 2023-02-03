@@ -29,11 +29,11 @@ const DocumentForm: React.FunctionComponent<any> = (props) => {
     const mainObjectFields: IInputField[] = [
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.variant", value: props.watch("recordData.mainDocument.variant"), formValue: "recordData.mainDocument.variant", dropDownItems: variantOptions, required: false, error:errors.recordData?.mainDocument?.fileFormat, helpText: "recordData.fileFormat", disabled: true},
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.fileFormat", value: props.watch("recordData.mainDocument.format"), formValue: "recordData.mainDocument.format", dropDownItems: formatOptions, required: false, error:errors.recordData?.mainDocument?.variant, helpText: "recordData.variant", disabled: true},
-        {input: INPUT_TYPE.TEXT_FIELD, label: "labels.file", formValue: "recordData.mainDocument.file", required: false, error:errors.recordData?.mainDocument?.file, value: '$if{formPdf}', helpText: "recordData.file", disabled: true}
+        {input: INPUT_TYPE.TEXT_FIELD, label: "labels.file", formValue: "recordData.mainDocument.file", required: false, error:errors.recordData?.mainDocument?.file, value: '$if{skjemaPdf}', helpText: "recordData.file", disabled: true}
     ]
 
     const attachmentDocumentFields: IInputField[] = [
-        {input: INPUT_TYPE.TEXT_FIELD, label: "labels.title", formValue: "recordData.attachmentDocuments.title", required: false, error:errors.recordData?.attachmentDocuments?.title, value: '$igf{name}', helpText: "recordData.title", disabled: true},
+        {input: INPUT_TYPE.TEXT_FIELD, label: "labels.title", formValue: "recordData.attachmentDocuments.title", required: false, error:errors.recordData?.attachmentDocuments?.title, value: '$icf{0}{navn}', helpText: "recordData.title", disabled: true},
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.documentStatus", value: props.watch("recordData.attachmentDocuments.documentStatus"), formValue: "recordData.attachmentDocuments.documentStatus", dropDownItems: documentStatuses, required: required, error:errors.recordData?.attachmentDocuments?.documentStatus, helpText: "recordData.documentStatus"},
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.documentType", value: props.watch("recordData.attachmentDocuments.documentType"), formValue: "recordData.attachmentDocuments.documentType", dropDownItems: documentTypes, required: required, error:errors.recordData?.attachmentDocuments?.documentType, helpText: "recordData.documentType"},
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.role", value: props.watch("recordData.attachmentDocuments.role"), formValue: "recordData.attachmentDocuments.role", dropDownItems: roleOptions, required: false, error:errors.recordData?.attachmentDocuments?.role, helpText: "recordData.role", disabled: true}
@@ -42,7 +42,7 @@ const DocumentForm: React.FunctionComponent<any> = (props) => {
     const attachmentObjectFields: IInputField[] = [
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.variant", value: props.watch("recordData.attachmentDocuments.variant"), formValue: "recordData.attachmentDocuments.variant", dropDownItems: variantOptions, required: false, error:errors.recordData?.attachmentDocuments?.variant, helpText: "recordData.variant", disabled: true},
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.fileFormat", value: props.watch("recordData.attachmentDocuments.format"), formValue: "recordData.attachmentDocuments.format", dropDownItems: formatOptions, required: false, error:errors.recordData?.attachmentDocuments?.variant, helpText: "recordData.variant", disabled: true},
-        {input: INPUT_TYPE.TEXT_FIELD, label: "labels.file", formValue: "recordData.attachmentDocuments.file", required: false, error:errors.recordData?.attachmentDocuments?.file, value: '$igf{file}', helpText: "recordData.file", disabled: true}
+        {input: INPUT_TYPE.TEXT_FIELD, label: "labels.file", formValue: "recordData.attachmentDocuments.file", required: false, error:errors.recordData?.attachmentDocuments?.file, value: '$icf{0}{fil}', helpText: "recordData.file", disabled: true}
     ]
 
     return (

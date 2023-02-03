@@ -29,7 +29,7 @@ export const MOCK_CONFIGURATION: IConfiguration = {
                                                 "elementMappingPerKey": {},
                                                 "valueMappingPerKey": {
                                                     "fil": {
-                                                        "mappingString": "$ifg{formPdf}",
+                                                        "mappingString": "$if{skjemaPdf}",
                                                         "type": "FILE"
                                                     },
                                                     "filformat": {
@@ -78,7 +78,7 @@ export const MOCK_CONFIGURATION: IConfiguration = {
                                                     "elementMappingPerKey": {},
                                                     "valueMappingPerKey": {
                                                         "fil": {
-                                                            "mappingString": "$igf{file}",
+                                                            "mappingString": "$icf{0}{fil}",
                                                             "type": "DYNAMIC_STRING"
                                                         },
                                                         "filformat": {
@@ -412,7 +412,7 @@ export const MOCK_CONFIGURATION_PATCH: IConfigurationPatch = {
                                                 "elementMappingPerKey": {},
                                                 "valueMappingPerKey": {
                                                     "fil": {
-                                                        "mappingString": "$ifg{formPdf}",
+                                                        "mappingString": "$if{skjemaPdf}",
                                                         "type": "FILE"
                                                     },
                                                     "filformat": {
@@ -461,7 +461,7 @@ export const MOCK_CONFIGURATION_PATCH: IConfigurationPatch = {
                                                     "elementMappingPerKey": {},
                                                     "valueMappingPerKey": {
                                                         "fil": {
-                                                            "mappingString": "$igf{file}",
+                                                            "mappingString": "$icf{0}{fil}",
                                                             "type": "DYNAMIC_STRING"
                                                         },
                                                         "filformat": {
@@ -1323,7 +1323,7 @@ export const MOCK_NEW_CONFIG: IConfiguration = {
                                                 valueMappingPerKey: {
                                                     "filformat": {type: FieldType.STRING, mappingString: "www.kodeverk.no/A"},
                                                     "variantformat": {type: FieldType.STRING, mappingString: "www.kodeverk.no/PDF"},
-                                                    "fil": {type: FieldType.FILE, mappingString: "$ifg{formPdf}"}
+                                                    "fil": {type: FieldType.FILE, mappingString: "$if{skjemaPdf}"}
                                                 },
                                                 elementMappingPerKey: {},
                                                 elementCollectionMappingPerKey: {}
@@ -1353,7 +1353,7 @@ export const MOCK_NEW_CONFIG: IConfiguration = {
                                                     valueMappingPerKey: {
                                                         "filformat": {type: FieldType.DYNAMIC_STRING, mappingString: "www.kodeverk.no/PDF"},
                                                         "variantformat": {type: FieldType.STRING, mappingString: "www.kodeverk.no/PDF"},
-                                                        "fil": {type: FieldType.DYNAMIC_STRING, mappingString: "$igf{file}"}
+                                                        "fil": {type: FieldType.DYNAMIC_STRING, mappingString: "$icf{0}{fil}"}
                                                     },
                                                     elementMappingPerKey: {},
                                                     elementCollectionMappingPerKey: {}
@@ -1665,7 +1665,7 @@ export const MOCK_AV_CONFIGURATION_NEW: IAVConfiguration = {
                                                 "elementMappingPerKey": {},
                                                 "valueMappingPerKey": {
                                                     "fil": {
-                                                        "mappingString": "$ifg{formPdf}",
+                                                        "mappingString": "$if{skjemaPdf}",
                                                         "type": "FILE"
                                                     },
                                                     "filformat": {
@@ -1714,7 +1714,7 @@ export const MOCK_AV_CONFIGURATION_NEW: IAVConfiguration = {
                                                     "elementMappingPerKey": {},
                                                     "valueMappingPerKey": {
                                                         "fil": {
-                                                            "mappingString": "$igf{file}",
+                                                            "mappingString": "$icf{0}{fil}",
                                                             "type": "DYNAMIC_STRING"
                                                         },
                                                         "filformat": {
@@ -2178,7 +2178,7 @@ export const MOCK_AV_CONFIGURATION_NEW_NOT_SHIELDED: IAVConfiguration = {
                                                 valueMappingPerKey: {
                                                     "filformat": {type: FieldType.STRING, mappingString: "www.kodeverk.no/A"},
                                                     "variantformat": {type: FieldType.STRING, mappingString: "www.kodeverk.no/PDF"},
-                                                    "fil": {type: FieldType.FILE, mappingString: "$ifg{formPdf}"}
+                                                    "fil": {type: FieldType.FILE, mappingString: "$if{skjemaPdf}"}
                                                 },
                                                 elementMappingPerKey: {},
                                                 elementCollectionMappingPerKey: {}
@@ -2208,7 +2208,7 @@ export const MOCK_AV_CONFIGURATION_NEW_NOT_SHIELDED: IAVConfiguration = {
                                                     valueMappingPerKey: {
                                                         "filformat": {type: FieldType.DYNAMIC_STRING, mappingString: "www.kodeverk.no/PDF"},
                                                         "variantformat": {type: FieldType.STRING, mappingString: "www.kodeverk.no/PDF"},
-                                                        "fil": {type: FieldType.DYNAMIC_STRING, mappingString: "$igf{file}"}
+                                                        "fil": {type: FieldType.DYNAMIC_STRING, mappingString: "$icf{0}{fil}"}
                                                     },
                                                     elementMappingPerKey: {},
                                                     elementCollectionMappingPerKey: {}

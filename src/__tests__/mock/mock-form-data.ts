@@ -75,7 +75,7 @@ export const MOCK_CONFIG_FORMDATA: IFormConfiguration = {
             role: "www.kodeverk.no/H",
             fileFormat: "www.kodeverk.no/A",
             variant: "www.kodeverk.no/PDF",
-            file: "$ifg{formPdf}",
+            file: "$if{skjemaPdf}",
         },
         attachmentDocuments: {
             title: "$ifg{name}",
@@ -84,7 +84,7 @@ export const MOCK_CONFIG_FORMDATA: IFormConfiguration = {
             role: "www.kodeverk.no/V",
             fileFormat: "www.kodeverk.no/PDF",
             variant: "www.kodeverk.no/PDF",
-            file: "$igf{file}"
+            file: "$icf{0}{fil}"
         },
         correspondent: {
             address: "highstreet 22",
@@ -172,7 +172,7 @@ export const MOCK_CONFIG_FORMDATA_SHIELDED_FALSE: IFormConfiguration = {
             role: "www.kodeverk.no/H",
             fileFormat: "www.kodeverk.no/A",
             variant: "www.kodeverk.no/PDF",
-            file: "$ifg{formPdf}",
+            file: "$if{skjemaPdf}",
         },
         attachmentDocuments: {
             title: "$ifg{name}",
@@ -181,7 +181,7 @@ export const MOCK_CONFIG_FORMDATA_SHIELDED_FALSE: IFormConfiguration = {
             role: "www.kodeverk.no/V",
             fileFormat: "www.kodeverk.no/PDF",
             variant: "www.kodeverk.no/PDF",
-            file: "$igf{file}"
+            file: "$icf{0}{fil}"
         },
         correspondent: {
             address: "highstreet 22",
@@ -359,7 +359,7 @@ export const MOCK_NEW_FORMDATA: IFormConfiguration = {
         "mainDocument": {
             "documentStatus": "D9",
             "documentType": "cat8",
-            "file": "$ifg{formPdf}",
+            "file": "$if{skjemaPdf}",
             "fileFormat": "www.kodeverk.no/A",
             "role": "www.kodeverk.no/H",
             "title": "record title",
@@ -368,7 +368,7 @@ export const MOCK_NEW_FORMDATA: IFormConfiguration = {
         "attachmentDocuments": {
             "documentStatus": "D9",
             "documentType": "cat8",
-            "file": "$igf{file}",
+            "file": "$icf{0}{fil}",
             "fileFormat": "www.kodeverk.no/PDF",
             "role": "www.kodeverk.no/V",
             "title": "$ifg{name}",
