@@ -17,42 +17,44 @@ export const MOCK_CONFIG_FORMDATA: IFormConfiguration = {
     completed: false,
     caseData: {
         id: null,
-        administrativeUnit: "unit4",
-        archiveUnit: "unit3",
         caseCreationStrategy: CreationStrategy.NEW,
-        caseType: "casetype",
-        caseWorker: "rand",
-        publicTitle: "public title",
-        recordUnit: "unit0",
-        status: null,
-        title: "Title of case",
-        shielding: {
-            accessCode: "code42",
-            paragraph: "number6",
-        },
-        classes: [
-            {
-                order: 0,
-                classification: "prim",
-                class: "1class",
-                title: "primTitle",
-                shielding: { accessCode: null, paragraph: null }
+        newCase: {
+            administrativeUnit: "unit4",
+            archiveUnit: "unit3",
+            caseType: "casetype",
+            caseWorker: "rand",
+            publicTitle: "public title",
+            recordUnit: "unit0",
+            status: null,
+            title: "Title of case",
+            shielding: {
+                accessCode: "code42",
+                paragraph: "number6",
             },
-            {
-                order: 1,
-                classification: "rose",
-                class: "2class",
-                title: "secTitle",
-                shielding: { accessCode: null, paragraph: null }
-            },
-            {
-                order: 2,
-                classification: "everdeen",
-                class: "3class",
-                title: "tertTitle",
-                shielding: { accessCode: null, paragraph: null }
-            }
-        ]
+            classes: [
+                {
+                    order: 0,
+                    classification: "prim",
+                    class: "1class",
+                    title: "primTitle",
+                    shielding: { accessCode: null, paragraph: null }
+                },
+                {
+                    order: 1,
+                    classification: "rose",
+                    class: "2class",
+                    title: "secTitle",
+                    shielding: { accessCode: null, paragraph: null }
+                },
+                {
+                    order: 2,
+                    classification: "everdeen",
+                    class: "3class",
+                    title: "tertTitle",
+                    shielding: { accessCode: null, paragraph: null }
+                }
+            ]
+        }
     },
     comment: "form to test mapping",
     recordData: {
@@ -109,44 +111,47 @@ export const MOCK_CONFIG_FORMDATA_SHIELDED_FALSE: IFormConfiguration = {
     completed: false,
     caseData: {
         id: null,
-        administrativeUnit: "unit4",
-        archiveUnit: "unit3",
         caseCreationStrategy: CreationStrategy.NEW,
-        caseType: "casetype",
-        caseWorker: "rand",
-        publicTitle: "public title",
-        recordUnit: "unit0",
-        status: null,
-        title: "Title of case",
-        shielding: {
-            accessCode: "code42",
-            paragraph: "number6",
-        },
-        classes: [
-            {
-                order: 0,
-                classification: "prim",
-                class: "1class",
-                title: "primTitle",
-                shielding: { accessCode: null, paragraph: null }
+        newCase: {
+            administrativeUnit: "unit4",
+            archiveUnit: "unit3",
+            caseType: "casetype",
+            caseWorker: "rand",
+            publicTitle: "public title",
+            recordUnit: "unit0",
+            status: null,
+            title: "Title of case",
+            shielding: {
+                accessCode: "code42",
+                paragraph: "number6",
             },
-            {
-                order: 1,
-                classification: "rose",
-                class: "2class",
-                title: "secTitle",
-                shielding: { accessCode: null, paragraph: null }
+            classes: [
+                {
+                    order: 0,
+                    classification: "prim",
+                    class: "1class",
+                    title: "primTitle",
+                    shielding: { accessCode: null, paragraph: null }
+                },
+                {
+                    order: 1,
+                    classification: "rose",
+                    class: "2class",
+                    title: "secTitle",
+                    shielding: { accessCode: null, paragraph: null }
 
-            },
-            {
-                order: 2,
-                classification: "everdeen",
-                class: "3class",
-                title: "tertTitle",
-                shielding: { accessCode: null, paragraph: null }
+                },
+                {
+                    order: 2,
+                    classification: "everdeen",
+                    class: "3class",
+                    title: "tertTitle",
+                    shielding: { accessCode: null, paragraph: null }
 
-            }
-        ]
+                }
+            ]
+        }
+
     },
     comment: "form to test mapping",
     recordData: {
@@ -204,42 +209,44 @@ export const MOCK_CONFIG_FORMDATA_FOR_PATCH: IFormConfiguration = {
     metadataId: 1,
     caseData: {
         id: null,
-        administrativeUnit: "unit4",
-        archiveUnit: "unit3",
         caseCreationStrategy: CreationStrategy.NEW,
-        caseType: "casetype",
-        caseWorker: "rand",
-        publicTitle: "public title",
-        recordUnit: "unit0",
-        status: "",
-        title: "Title of case",
-        shielding: {
-            accessCode: "code42",
-            paragraph: "number6",
-        },
-        classes: [
-            {
-                order: 0,
-                classification: "prim",
-                class: "1class",
-                title: "primTitle",
-                shielding: { accessCode: null, paragraph: null }
+        newCase: {
+            administrativeUnit: "unit4",
+            archiveUnit: "unit3",
+            caseType: "casetype",
+            caseWorker: "rand",
+            publicTitle: "public title",
+            recordUnit: "unit0",
+            status: "",
+            title: "Title of case",
+            shielding: {
+                accessCode: "code42",
+                paragraph: "number6",
             },
-            {
-                order: 1,
-                classification: "rose",
-                class: "2class",
-                title: "secTitle",
-                shielding: { accessCode: null, paragraph: null }
-            },
-            {
-                order: 2,
-                classification: "everdeen",
-                class: "3class",
-                title: "tertTitle",
-                shielding: { accessCode: null, paragraph: null }
-            }
-        ]
+            classes: [
+                {
+                    order: 0,
+                    classification: "prim",
+                    class: "1class",
+                    title: "primTitle",
+                    shielding: { accessCode: null, paragraph: null }
+                },
+                {
+                    order: 1,
+                    classification: "rose",
+                    class: "2class",
+                    title: "secTitle",
+                    shielding: { accessCode: null, paragraph: null }
+                },
+                {
+                    order: 2,
+                    classification: "everdeen",
+                    class: "3class",
+                    title: "tertTitle",
+                    shielding: { accessCode: null, paragraph: null }
+                }
+            ]
+        }
     },
     comment: "form to test mapping",
     recordData: {
@@ -294,43 +301,47 @@ export const MOCK_CONFIG_FORMDATA_FOR_PATCH: IFormConfiguration = {
 
 export const MOCK_NEW_FORMDATA: IFormConfiguration = {
     "caseData": {
-        "shielding": {
-            "accessCode": "code42",
-            "paragraph": "number6",
-        },
-        "administrativeUnit": "unit4",
-        "archiveUnit": "unit3",
+
         "caseCreationStrategy": null,
         "id": "2022/123",
-        "caseType": "casetype",
-        "caseWorker": "rand",
-        "publicTitle": "public title",
-        "recordUnit": "unit0",
-        "status": null,
-        "title": "Title of case",
-        "classes": [
-            {
-                "order": 0,
-                "classification": "prim",
-                "class": "1class",
-                "title": "primTitle",
-                "shielding": { "accessCode": null, "paragraph": null }
+        "newCase": {
+            "shielding": {
+                "accessCode": "code42",
+                "paragraph": "number6",
             },
-            {
-                "order": 1,
-                "classification": "rose",
-                "class": "2class",
-                "title": "secTitle",
-                "shielding": { "accessCode": null, "paragraph": null }
-            },
-            {
-                "order": 2,
-                "classification": "everdeen",
-                "class": "3class",
-                "title": "tertTitle",
-                "shielding": { "accessCode": null, "paragraph": null }
-            }
-        ]
+            "administrativeUnit": "unit4",
+            "archiveUnit": "unit3",
+            "caseType": "casetype",
+            "caseWorker": "rand",
+            "publicTitle": "public title",
+            "recordUnit": "unit0",
+            "status": null,
+            "title": "Title of case",
+            "classes": [
+                {
+                    "order": 0,
+                    "classification": "prim",
+                    "class": "1class",
+                    "title": "primTitle",
+                    "shielding": { "accessCode": null, "paragraph": null }
+                },
+                {
+                    "order": 1,
+                    "classification": "rose",
+                    "class": "2class",
+                    "title": "secTitle",
+                    "shielding": { "accessCode": null, "paragraph": null }
+                },
+                {
+                    "order": 2,
+                    "classification": "everdeen",
+                    "class": "3class",
+                    "title": "tertTitle",
+                    "shielding": { "accessCode": null, "paragraph": null }
+                }
+            ]
+        }
+
     },
     "comment": "Ikke ferdigstilt",
     "completed": false,
@@ -385,43 +396,45 @@ export const MOCK_NEW_FORMDATA: IFormConfiguration = {
 
 export const MOCK_NEW_FORMDATA_FROM_EMPTY_CONFIG: IFormConfiguration = {
     "caseData": {
-        "administrativeUnit": null,
-        "archiveUnit": null,
         "caseCreationStrategy": null,
         "id": null,
-        "caseType": null,
-        "caseWorker": null,
-        "publicTitle": null,
-        "recordUnit": null,
-        "status": null,
-        "title": null,
-        "shielding": {
-            "accessCode": null,
-            "paragraph": null,
-        },
-        "classes": [
-            {
-                "order": 0,
-                "classification": null,
-                "class": null,
-                "title": null,
-                "shielding": { "accessCode": null, "paragraph": null }
+        "newCase": {
+            "administrativeUnit": null,
+            "archiveUnit": null,
+            "caseType": null,
+            "caseWorker": null,
+            "publicTitle": null,
+            "recordUnit": null,
+            "status": null,
+            "title": null,
+            "shielding": {
+                "accessCode": null,
+                "paragraph": null,
             },
-            {
-                "order": 1,
-                "classification": null,
-                "class": null,
-                "title": null,
-                "shielding": { "accessCode": null, "paragraph": null }
-            },
-            {
-                "order": 2,
-                "classification": null,
-                "class": null,
-                "title": null,
-                "shielding": { "accessCode": null, "paragraph": null }
-            }
-        ]
+            "classes": [
+                {
+                    "order": 0,
+                    "classification": null,
+                    "class": null,
+                    "title": null,
+                    "shielding": { "accessCode": null, "paragraph": null }
+                },
+                {
+                    "order": 1,
+                    "classification": null,
+                    "class": null,
+                    "title": null,
+                    "shielding": { "accessCode": null, "paragraph": null }
+                },
+                {
+                    "order": 2,
+                    "classification": null,
+                    "class": null,
+                    "title": null,
+                    "shielding": { "accessCode": null, "paragraph": null }
+                }
+            ]
+        }
     },
     "comment": "form to test empty mapping",
     "completed": false,
@@ -476,43 +489,46 @@ export const MOCK_NEW_FORMDATA_FROM_EMPTY_CONFIG: IFormConfiguration = {
 
 export const MOCK_BY_ID_FORMDATA: IFormConfiguration = {
     "caseData": {
-        "administrativeUnit": null,
-        "archiveUnit": null,
         "caseCreationStrategy": "BY_ID",
         "id": "2022/163",
-        "caseType": null,
-        "caseWorker": null,
-        "publicTitle": null,
-        "recordUnit": null,
-        "status": null,
-        "title": null,
-        "shielding": {
-            "accessCode": null,
-            "paragraph": null,
-        },
-        "classes": [
-            {
-                "order": 0,
-                "classification": null,
-                "class": null,
-                "title": null,
-                "shielding": { "accessCode": null, "paragraph": null }
+        "newCase": {
+            "administrativeUnit": null,
+            "archiveUnit": null,
+            "caseType": null,
+            "caseWorker": null,
+            "publicTitle": null,
+            "recordUnit": null,
+            "status": null,
+            "title": null,
+            "shielding": {
+                "accessCode": null,
+                "paragraph": null,
             },
-            {
-                "order": 1,
-                "classification": null,
-                "class": null,
-                "title": null,
-                "shielding": { "accessCode": null, "paragraph": null }
-            },
-            {
-                "order": 2,
-                "classification": null,
-                "class": null,
-                "title": null,
-                "shielding": { "accessCode": null, "paragraph": null }
-            }
-        ]
+            "classes": [
+                {
+                    "order": 0,
+                    "classification": null,
+                    "class": null,
+                    "title": null,
+                    "shielding": { "accessCode": null, "paragraph": null }
+                },
+                {
+                    "order": 1,
+                    "classification": null,
+                    "class": null,
+                    "title": null,
+                    "shielding": { "accessCode": null, "paragraph": null }
+                },
+                {
+                    "order": 2,
+                    "classification": null,
+                    "class": null,
+                    "title": null,
+                    "shielding": { "accessCode": null, "paragraph": null }
+                }
+            ]
+        }
+
     },
     "comment": "Ikke ferdigstilt",
     "completed": false,

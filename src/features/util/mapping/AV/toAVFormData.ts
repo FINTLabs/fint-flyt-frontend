@@ -4,9 +4,10 @@ import {IAVConfiguration, IElementCollectionMapping, IElementMapping} from "../.
 export function toAVFormData(data: IAVConfiguration): IFormConfiguration {
     const caseFields: IElementMapping = data.mapping?.elementMappingPerKey['sak'] ? data.mapping?.elementMappingPerKey['sak'] : {elementMappingPerKey: {}, elementCollectionMappingPerKey: {}, valueMappingPerKey: {}};
     const recordFields: IElementMapping = data.mapping?.elementMappingPerKey['journalpost'] ? data.mapping?.elementMappingPerKey['journalpost'] : {elementMappingPerKey: {}, elementCollectionMappingPerKey: {}, valueMappingPerKey: {}};
-    const caseShieldingFields: IElementMapping = caseFields.elementMappingPerKey['skjerming'] ? caseFields.elementMappingPerKey['skjerming'] :  {elementMappingPerKey: {}, elementCollectionMappingPerKey: {}, valueMappingPerKey: {}}
-    const caseClassesFields: IElementMapping[] = caseFields.elementCollectionMappingPerKey['klasse']?.elementMappings ? caseFields.elementCollectionMappingPerKey['klasse']?.elementMappings  :  []
-    const recordShieldingFields: IElementMapping = recordFields.elementMappingPerKey['skjerming'] ? recordFields.elementMappingPerKey['skjerming'] :  {elementMappingPerKey: {}, elementCollectionMappingPerKey: {}, valueMappingPerKey: {}}
+    const caseNewCaseFields: IElementMapping = caseFields.elementMappingPerKey['ny'] ? caseFields.elementMappingPerKey['ny'] :  {elementMappingPerKey: {}, elementCollectionMappingPerKey: {}, valueMappingPerKey: {}}
+    const caseClassesFields: IElementMapping[] = caseNewCaseFields.elementCollectionMappingPerKey['klasse']?.elementMappings ? caseNewCaseFields.elementCollectionMappingPerKey['klasse']?.elementMappings  :  []
+    const caseShieldingFields: IElementMapping = caseNewCaseFields.elementMappingPerKey['skjerming'] ? caseNewCaseFields.elementMappingPerKey['skjerming'] :  {elementMappingPerKey: {}, elementCollectionMappingPerKey: {}, valueMappingPerKey: {}}
+    const recordShieldingFields: IElementMapping = recordFields.elementMappingPerKey['skjerming'] ? recordFields.elementMappingPerKey['skjerming'] :  {elementMappingPerKey: {}, elementCollectionMappingPerKey: {}, valueMappingPerKey: {}};
 
     const documentDescription: IElementCollectionMapping = recordFields.elementCollectionMappingPerKey['dokumentbeskrivelse'] ? recordFields.elementCollectionMappingPerKey['dokumentbeskrivelse'] : {elementMappings: [], elementsFromCollectionMappings: []};
     const mainDocumentFields: IElementMapping = documentDescription.elementMappings[0] ? documentDescription.elementMappings[0] : {elementMappingPerKey: {}, elementCollectionMappingPerKey: {}, valueMappingPerKey: {}}
@@ -27,42 +28,45 @@ export function toAVFormData(data: IAVConfiguration): IFormConfiguration {
         caseData: {
             caseCreationStrategy: caseFields.valueMappingPerKey['type']?.mappingString ? caseFields.valueMappingPerKey['type']?.mappingString : null,
             id: caseFields.valueMappingPerKey['id']?.mappingString ? caseFields.valueMappingPerKey['id']?.mappingString : null,
-            title: caseFields.valueMappingPerKey['tittel']?.mappingString ? caseFields.valueMappingPerKey['tittel']?.mappingString : null,
-            publicTitle: caseFields.valueMappingPerKey['offentligTittel']?.mappingString ? caseFields.valueMappingPerKey['offentligTittel']?.mappingString : null,
-            caseType: caseFields.valueMappingPerKey['saksmappetype']?.mappingString ? caseFields.valueMappingPerKey['saksmappetype']?.mappingString : null,
-            administrativeUnit: caseFields.valueMappingPerKey['administrativenhet']?.mappingString ? caseFields.valueMappingPerKey['administrativenhet']?.mappingString : null,
-            archiveUnit: caseFields.valueMappingPerKey['arkivdel']?.mappingString ? caseFields.valueMappingPerKey['arkivdel']?.mappingString : null,
-            recordUnit: caseFields.valueMappingPerKey['journalenhet']?.mappingString ? caseFields.valueMappingPerKey['journalenhet']?.mappingString : null,
-            status: caseFields.valueMappingPerKey['status']?.mappingString ? caseFields.valueMappingPerKey['status']?.mappingString : null,
-            caseWorker: caseFields.valueMappingPerKey['saksansvarlig']?.mappingString ? caseFields.valueMappingPerKey['saksansvarlig']?.mappingString : null,
-            shielding: {
-                accessCode: caseShieldingFields.valueMappingPerKey['tilgangsrestriksjon']?.mappingString ? caseShieldingFields.valueMappingPerKey['tilgangsrestriksjon']?.mappingString : null,
-                paragraph: caseShieldingFields.valueMappingPerKey['skjermingshjemmel']?.mappingString ? caseShieldingFields.valueMappingPerKey['skjermingshjemmel']?.mappingString : null,
-            },
-            classes: [
-                {
-                    order: 0,
-                    classification: caseClassesFields[0]?.valueMappingPerKey['klassifikasjonssystem']?.mappingString ? caseClassesFields[0].valueMappingPerKey['klassifikasjonssystem']?.mappingString : null,
-                    class: caseClassesFields[0]?.valueMappingPerKey['klasseId']?.mappingString ? caseClassesFields[0].valueMappingPerKey['klasseId']?.mappingString : null,
-                    title: caseClassesFields[0]?.valueMappingPerKey['tittel']?.mappingString ? caseClassesFields[0].valueMappingPerKey['tittel']?.mappingString : null,
-                    shielding: {accessCode: null, paragraph: null}
+            newCase: {
+                title: caseNewCaseFields.valueMappingPerKey['tittel']?.mappingString ? caseNewCaseFields.valueMappingPerKey['tittel']?.mappingString : null,
+                publicTitle: caseNewCaseFields.valueMappingPerKey['offentligTittel']?.mappingString ? caseNewCaseFields.valueMappingPerKey['offentligTittel']?.mappingString : null,
+                caseType: caseNewCaseFields.valueMappingPerKey['saksmappetype']?.mappingString ? caseNewCaseFields.valueMappingPerKey['saksmappetype']?.mappingString : null,
+                administrativeUnit: caseNewCaseFields.valueMappingPerKey['administrativenhet']?.mappingString ? caseNewCaseFields.valueMappingPerKey['administrativenhet']?.mappingString : null,
+                archiveUnit: caseNewCaseFields.valueMappingPerKey['arkivdel']?.mappingString ? caseNewCaseFields.valueMappingPerKey['arkivdel']?.mappingString : null,
+                recordUnit: caseNewCaseFields.valueMappingPerKey['journalenhet']?.mappingString ? caseNewCaseFields.valueMappingPerKey['journalenhet']?.mappingString : null,
+                status: caseNewCaseFields.valueMappingPerKey['saksstatus']?.mappingString ? caseNewCaseFields.valueMappingPerKey['saksstatus']?.mappingString : null,
+                caseWorker: caseNewCaseFields.valueMappingPerKey['saksansvarlig']?.mappingString ? caseNewCaseFields.valueMappingPerKey['saksansvarlig']?.mappingString : null,
+                shielding: {
+                    accessCode: caseShieldingFields.valueMappingPerKey['tilgangsrestriksjon']?.mappingString ? caseShieldingFields.valueMappingPerKey['tilgangsrestriksjon']?.mappingString : null,
+                    paragraph: caseShieldingFields.valueMappingPerKey['skjermingshjemmel']?.mappingString ? caseShieldingFields.valueMappingPerKey['skjermingshjemmel']?.mappingString : null,
                 },
-                {
-                    order: 1,
-                    classification: caseClassesFields[1]?.valueMappingPerKey['klassifikasjonssystem']?.mappingString ? caseClassesFields[1].valueMappingPerKey['klassifikasjonssystem']?.mappingString : null,
-                    class: caseClassesFields[1]?.valueMappingPerKey['klasseId']?.mappingString ? caseClassesFields[1].valueMappingPerKey['klasseId']?.mappingString : null,
-                    title: caseClassesFields[1]?.valueMappingPerKey['tittel']?.mappingString ? caseClassesFields[1].valueMappingPerKey['tittel']?.mappingString : null,
-                    shielding: {accessCode: null, paragraph: null}
+                classes: [
+                    {
+                        order: 0,
+                        classification: caseClassesFields[0]?.valueMappingPerKey['klassifikasjonssystem']?.mappingString ? caseClassesFields[0].valueMappingPerKey['klassifikasjonssystem']?.mappingString : null,
+                        class: caseClassesFields[0]?.valueMappingPerKey['klasseId']?.mappingString ? caseClassesFields[0].valueMappingPerKey['klasseId']?.mappingString : null,
+                        title: caseClassesFields[0]?.valueMappingPerKey['tittel']?.mappingString ? caseClassesFields[0].valueMappingPerKey['tittel']?.mappingString : null,
+                        shielding: {accessCode: null, paragraph: null}
+                    },
+                    {
+                        order: 1,
+                        classification: caseClassesFields[1]?.valueMappingPerKey['klassifikasjonssystem']?.mappingString ? caseClassesFields[1].valueMappingPerKey['klassifikasjonssystem']?.mappingString : null,
+                        class: caseClassesFields[1]?.valueMappingPerKey['klasseId']?.mappingString ? caseClassesFields[1].valueMappingPerKey['klasseId']?.mappingString : null,
+                        title: caseClassesFields[1]?.valueMappingPerKey['tittel']?.mappingString ? caseClassesFields[1].valueMappingPerKey['tittel']?.mappingString : null,
+                        shielding: {accessCode: null, paragraph: null}
 
-                },
-                {
-                    order: 2,
-                    classification: caseClassesFields[2]?.valueMappingPerKey['klassifikasjonssystem']?.mappingString ? caseClassesFields[2].valueMappingPerKey['klassifikasjonssystem']?.mappingString : null,
-                    class: caseClassesFields[2]?.valueMappingPerKey['klasseId']?.mappingString ? caseClassesFields[2].valueMappingPerKey['klasseId']?.mappingString : null,
-                    title: caseClassesFields[2]?.valueMappingPerKey['tittel']?.mappingString ? caseClassesFields[2].valueMappingPerKey['tittel']?.mappingString : null,
-                    shielding: {accessCode: null, paragraph: null}
-                }
-            ] },
+                    },
+                    {
+                        order: 2,
+                        classification: caseClassesFields[2]?.valueMappingPerKey['klassifikasjonssystem']?.mappingString ? caseClassesFields[2].valueMappingPerKey['klassifikasjonssystem']?.mappingString : null,
+                        class: caseClassesFields[2]?.valueMappingPerKey['klasseId']?.mappingString ? caseClassesFields[2].valueMappingPerKey['klasseId']?.mappingString : null,
+                        title: caseClassesFields[2]?.valueMappingPerKey['tittel']?.mappingString ? caseClassesFields[2].valueMappingPerKey['tittel']?.mappingString : null,
+                        shielding: {accessCode: null, paragraph: null}
+                    }
+                ]
+            }
+        },
         recordData: {
             title: recordFields.valueMappingPerKey['tittel']?.mappingString ? recordFields.valueMappingPerKey['tittel']?.mappingString : null,
             publicTitle: recordFields.valueMappingPerKey['offentligTittel']?.mappingString ? recordFields.valueMappingPerKey['offentligTittel']?.mappingString : null,

@@ -123,7 +123,7 @@ const AVConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const [activeConfigId, setActiveConfigId] = React.useState(activeConfiguration?.id);
     const [completed, setCompleted] = React.useState(!!activeConfiguration?.completed);
     let activeFormData = activeConfiguration && editConfig && configuration? toAVFormData(configuration) : defaultConfigurationValuesAV;
-    const [shieldingCheck, setShieldingCheck] = React.useState(!!activeFormData?.recordData?.correspondent?.shielding?.accessCode === null);
+    const [shieldingCheck, setShieldingCheck] = React.useState(activeFormData?.recordData?.correspondent?.shielding?.accessCode !== null);
 
     const handleCheckChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setChecked(event.target.checked);
@@ -289,7 +289,6 @@ const AVConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
     });
 
     const onSave = handleSubmit((data: IFormConfiguration) => {
-        console.log(data)
         if (data.caseData.caseCreationStrategy === CreationStrategy.BY_ID && id) {
             data.caseData.id = id
         }

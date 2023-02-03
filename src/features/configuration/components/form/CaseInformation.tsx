@@ -42,7 +42,7 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
                         console.error('Error: ', e)
                     setId(undefined)
                         setCase(caseInput +': ' + t('caseSearch.noMatch'));
-                        props.setValue("caseData.id", undefined)
+                        props.setValue("caseData.newCase.id", undefined)
                     }
                 )
         } else {
@@ -51,12 +51,11 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
         }
     }
 
-    let isCollection = props.watch("caseData.caseCreationStrategy") === CreationStrategy.BY_ID
+    let isCollection = props.watch("caseData.newCase.caseCreationStrategy") === CreationStrategy.BY_ID
     let errors: FieldErrors = props.errors
     const caseInformationFields: IInputField[] = [
-        {input: INPUT_TYPE.RADIO, label: "labels.caseCreationInfo", value: props.watch("caseData.caseCreationStrategy"),
-            formValue: "caseData.caseCreationStrategy", radioOptions: creationStrategies, helpText: "caseData.caseCreationStrategy"},
-        {input: INPUT_TYPE.TEXT_FIELD, label: "labels.id", formValue: "caseData.id", hidden:!isCollection, required:isCollection && props.validation, error:errors.caseData?.id, searchOption: true, helpText: "caseData.id", disabled: props.disabled},
+        {input: INPUT_TYPE.RADIO, label: "labels.caseCreationInfo", value: props.watch("caseData.newCase.caseCreationStrategy"), formValue: "caseData.newCase.caseCreationStrategy", radioOptions: creationStrategies, helpText: "caseData.caseCreationStrategy"},
+        {input: INPUT_TYPE.TEXT_FIELD, label: "labels.id", formValue: "caseData.newCase.id", hidden:!isCollection, required:isCollection && props.validation, error:errors.caseData?.newCase.id, searchOption: true, helpText: "caseData.id", disabled: props.disabled},
     ]
     return (
         <div>

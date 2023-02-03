@@ -13,41 +13,44 @@ export const defaultConfigurationValues: IFormConfiguration = {
     caseData: {
         caseCreationStrategy: CreationStrategy.NEW,
         id: undefined,
-        title: null,
-        publicTitle: null,
-        caseType: null,
-        administrativeUnit:null,
-        archiveUnit:null,
-        recordUnit: null,
-        status: null,
-        caseWorker: null,
-        shielding: {
-            accessCode: null,
-            paragraph: null
-        },
-        classes: [
-            {
-                classification: null,
-                order: 0,
-                class: null,
-                title: null,
-                shielding: { accessCode: null, paragraph: null }
+        newCase: {
+            title: null,
+            publicTitle: null,
+            caseType: null,
+            administrativeUnit:null,
+            archiveUnit:null,
+            recordUnit: null,
+            status: null,
+            caseWorker: null,
+            shielding: {
+                accessCode: null,
+                paragraph: null
             },
-            {
-                classification: null,
-                order: 1,
-                class: null,
-                title: null,
-                shielding: { accessCode: null, paragraph: null }
-            },
-            {
-                classification: null,
-                order: 2,
-                class: null,
-                title: null,
-                shielding: { accessCode: null, paragraph: null }
-            },
-        ],
+            classes: [
+                {
+                    classification: null,
+                    order: 0,
+                    class: null,
+                    title: null,
+                    shielding: { accessCode: null, paragraph: null }
+                },
+                {
+                    classification: null,
+                    order: 1,
+                    class: null,
+                    title: null,
+                    shielding: { accessCode: null, paragraph: null }
+                },
+                {
+                    classification: null,
+                    order: 2,
+                    class: null,
+                    title: null,
+                    shielding: { accessCode: null, paragraph: null }
+                },
+            ]
+        }
+
     },
     recordData: {
         title: null,
@@ -104,41 +107,44 @@ export const defaultConfigurationValuesAV: IFormConfiguration = {
     caseData: {
         caseCreationStrategy: CreationStrategy.NEW,
         id: undefined,
-        title: null,
-        publicTitle: null,
-        caseType: null,
-        administrativeUnit:null,
-        archiveUnit:null,
-        recordUnit: null,
-        status: null,
-        caseWorker: null,
-        shielding: {
-            accessCode: null,
-            paragraph: null
-        },
-        classes: [
-            {
-                classification: null,
-                order: 0,
-                class: null,
-                title: null,
-                shielding: { accessCode: null, paragraph: null }
+        newCase: {
+            title: null,
+            publicTitle: null,
+            caseType: null,
+            administrativeUnit:null,
+            archiveUnit:null,
+            recordUnit: null,
+            status: null,
+            caseWorker: null,
+            shielding: {
+                accessCode: null,
+                paragraph: null
             },
-            {
-                classification: null,
-                order: 1,
-                class: null,
-                title: null,
-                shielding: { accessCode: null, paragraph: null }
-            },
-            {
-                classification: null,
-                order: 2,
-                class: null,
-                title: null,
-                shielding: { accessCode: null, paragraph: null }
-            },
-        ],
+            classes: [
+                {
+                    classification: null,
+                    order: 0,
+                    class: null,
+                    title: null,
+                    shielding: { accessCode: null, paragraph: null }
+                },
+                {
+                    classification: null,
+                    order: 1,
+                    class: null,
+                    title: null,
+                    shielding: { accessCode: null, paragraph: null }
+                },
+                {
+                    classification: null,
+                    order: 2,
+                    class: null,
+                    title: null,
+                    shielding: { accessCode: null, paragraph: null }
+                },
+            ]
+        }
+
     },
     recordData: {
         title: null,
