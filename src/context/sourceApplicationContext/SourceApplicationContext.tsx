@@ -1,10 +1,10 @@
 import React, {createContext, FC, useState} from "react";
 import {contextDefaultValues, ISourceApplicationItem, SourceApplicationContextState} from "./types";
 import SourceApplicationRepository from "../../shared/repositories/SourceApplicationRepository";
-import {ISelect} from "../../features/integration/types/InputField";
-import {IInstanceElementMetadata, IIntegrationMetadata} from "../../features/integration/types/IntegrationMetadata";
+import {ISelect} from "../../features/configuration/types/InputField";
+import {IInstanceElementMetadata, IIntegrationMetadata} from "../../features/configuration/types/IntegrationMetadata";
 import IntegrationRepository from "../../shared/repositories/IntegrationRepository";
-import {getSourceApplicationDisplayName} from "../../features/integration/defaults/DefaultValues";
+import {getSourceApplicationDisplayName} from "../../features/configuration/defaults/DefaultValues";
 
 export const SourceApplicationContext = createContext<SourceApplicationContextState>(
     contextDefaultValues

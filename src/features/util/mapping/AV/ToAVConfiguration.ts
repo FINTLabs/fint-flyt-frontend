@@ -1,7 +1,7 @@
-import {FieldType, IAVConfiguration, IAVConfigurationPatch} from "../../configuration/types/AVConfiguration"
-import {IFormConfiguration} from "../../configuration/types/Form/FormData";
+import { IFormConfiguration } from "../../../configuration/types/Form/FormData"
+import {FieldType, IAVConfiguration} from "../../../configuration/types/AVConfiguration";
 
-export function toConfiguration(data: IFormConfiguration, integrationId: string, configurationId: any, metadataId: number): IAVConfiguration {
+export function toAVConfiguration(data: IFormConfiguration, integrationId: string, configurationId: any, metadataId: number): IAVConfiguration {
     return {
         integrationId: integrationId,
         id: configurationId,
@@ -113,7 +113,7 @@ export function toConfiguration(data: IFormConfiguration, integrationId: string,
                                     ]
                                 }
                             }
-                        }
+                    }
 
                     },
                     elementCollectionMappingPerKey: {}
@@ -255,7 +255,7 @@ export function toConfiguration(data: IFormConfiguration, integrationId: string,
     }
 }
 
-export function toConfigurationPatch(data: IFormConfiguration, metadataId: any): IAVConfigurationPatch {
+export function toAVConfigurationPatch(data: IFormConfiguration, metadataId: any): IAVConfiguration {
     return {
         completed: data.completed,
         integrationMetadataId: metadataId,

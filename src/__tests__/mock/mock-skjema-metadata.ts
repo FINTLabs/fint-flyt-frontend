@@ -1,4 +1,4 @@
-import {IIntegrationMetadata, Type} from "../../features/integration/types/IntegrationMetadata";
+import {IIntegrationMetadata, Type} from "../../features/configuration/types/IntegrationMetadata";
 
 export const MOCK_SKJEMA_METADATA: IIntegrationMetadata = {
     sourceApplicationIntegrationId: "Test0488",
@@ -334,7 +334,7 @@ export const MOCK_SKJEMA_METADATA_TEMP: IIntegrationMetadata[] =
                 {
                     "key": "person_1",
                     "type": Type.STRING,
-                    "displayName": "Avsender",
+                    "displayName": "Korrespondansepart",
                     "children": [
                         {
                             "key": "fornavn_1",

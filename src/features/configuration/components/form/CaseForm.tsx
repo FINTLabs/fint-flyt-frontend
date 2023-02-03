@@ -14,9 +14,9 @@ import {CreationStrategy} from "../../types/CreationStrategy";
 const CaseForm: React.FunctionComponent<any> = (props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.configurationForm.accordions.caseForm'});
     const disabled: boolean = props.disabled
-    const hasPrimary = props.watch("caseData.primaryClassification") !== null;
-    const hasSecondary = props.watch("caseData.secondaryClassification") !== null;
-    const hasTertiary = props.watch("caseData.tertiaryClassification") !== null;
+    const hasPrimary = props.watch("caseData.newCase.classes[0].classification") !== null;
+    const hasSecondary = props.watch("caseData.newCase.classes[1].classification") !== null;
+    const hasTertiary = props.watch("caseData.newCase.classes[2].classification") !== null;
     const [showSecondary, setShowSecondary] = React.useState(hasSecondary);
     const [showTertiary, setShowTertiary] = React.useState(hasTertiary);
     const {administrativeUnits, accessCodes, caseTypes, paragraphs, statuses, archiveSections, archiveResources,
@@ -30,17 +30,17 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
             setShowTertiary(prevState => !prevState);
             setTertiaryClassification({label: '', value: ''})
             setTertiaryClass([{label: 'velg tertiær ordningsprinsipp først', value: ''}])
-            props.setValue("caseData.tertiaryClassification", null)
-            props.setValue("caseData.tertiaryClass", null)
-            props.setValue("caseData.tertiaryTitle", null)
+            props.setValue("caseData.newCase.classes[2].classification", null)
+            props.setValue("caseData.newCase.classes[2].class", null)
+            props.setValue("caseData.newCase.classes[2].title", null)
         }
         else if(showSecondary) {
             setShowSecondary(prevState => !prevState);
             setSecondaryClassification({label: '', value: ''})
             setSecondaryClass([{label: 'velg sekundær ordningsprinsipp først', value: ''}])
-            props.setValue("caseData.secondaryClassification", null)
-            props.setValue("caseData.secondaryClass", null)
-            props.setValue("caseData.secondaryTitle", null)
+            props.setValue("caseData.newCase.classes[1].classification", null)
+            props.setValue("caseData.newCase.classes[1].class", null)
+            props.setValue("caseData.newCase.classes[1].title", null)
         }
     }
 
@@ -73,34 +73,34 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
     ]
 
   const caseFormFields: IInputField[] = [
-        {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.title", formValue: "caseData.title", required: required && !isCollection, error:errors.caseData?.title, value: props.activeFormData?.caseData?.title, helpText: "caseData.title"},
-        {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.publicTitle", formValue: "caseData.publicTitle", required: false, error:errors.caseData?.publicTitle, value: props.activeFormData?.caseData?.publicTitle, helpText: "caseData.publicTitle"},
-        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.caseType", value: props.watch("caseData.caseType"), formValue: "caseData.caseType", dropDownItems: caseTypes, required: false, error:errors.caseData?.caseType, helpText: "caseData.caseType"},
-        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.administrativeUnit", value: props.watch("caseData.administrativeUnit"), formValue: "caseData.administrativeUnit", dropDownItems: administrativeUnits, required: required && !isCollection, error:errors.caseData?.administrativeUnit, helpText: "caseData.administrativeUnit"},
-        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.responsibleCaseWorker", value: props.watch("caseData.caseWorker"), formValue: "caseData.caseWorker", dropDownItems: archiveResources, required: false, error:errors.caseData?.caseWorker, helpText: "caseData.caseWorker"},
-        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.archiveUnit", value: props.watch("caseData.archiveUnit"), formValue: "caseData.archiveUnit", dropDownItems: archiveSections, required: required && !isCollection, error:errors.caseData?.archiveUnit, helpText: "caseData.archiveUnit"},
-        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.recordUnit", value: props.watch("caseData.recordUnit"), formValue: "caseData.recordUnit", dropDownItems: administrativeUnits, required: false, error:errors.caseData?.recordUnit, helpText: "caseData.recordUnit", disabled: true},
-        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.status", value: props.watch("caseData.status"), formValue: "caseData.status", dropDownItems: statuses, required: required && !isCollection, error:errors.caseData?.status, helpText: "caseData.status"},
-        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.accessCode", value: props.watch("caseData.accessCode"), formValue: "caseData.accessCode", dropDownItems: accessCodes, required: false, error:errors.caseData?.accessCode, helpText: "caseData.accessCode"},
-        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.paragraph", value: props.watch("caseData.paragraph"), formValue: "caseData.paragraph", dropDownItems: paragraphs, required: false, error:errors.caseData?.paragraph, helpText: "caseData.paragraph"},
+        {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.title", formValue: "caseData.newCase.title", required: required && !isCollection, error:errors.caseData?.newCase.title, value: props.activeFormData?.caseData?.newCase.title, helpText: "caseData.title"},
+        {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.publicTitle", formValue: "caseData.newCase.publicTitle", required: false, error:errors.caseData?.newCase.publicTitle, value: props.activeFormData?.caseData?.newCase.publicTitle, helpText: "caseData.publicTitle"},
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.caseType", value: props.watch("caseData.newCase.caseType"), formValue: "caseData.caseType", dropDownItems: caseTypes, required: false, error:errors.caseData?.newCase.caseType, helpText: "caseData.caseType"},
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.administrativeUnit", value: props.watch("caseData.newCase.administrativeUnit"), formValue: "caseData.newCase.administrativeUnit", dropDownItems: administrativeUnits, required: required && !isCollection, error:errors.caseData?.newCase.administrativeUnit, helpText: "caseData.administrativeUnit"},
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.responsibleCaseWorker", value: props.watch("caseData.newCase.caseWorker"), formValue: "caseData.newCase.caseWorker", dropDownItems: archiveResources, required: false, error:errors.caseData?.newCase.caseWorker, helpText: "caseData.caseWorker"},
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.archiveUnit", value: props.watch("caseData.newCase.archiveUnit"), formValue: "caseData.newCase.archiveUnit", dropDownItems: archiveSections, required: required && !isCollection, error:errors.caseData?.newCase.archiveUnit, helpText: "caseData.archiveUnit"},
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.recordUnit", value: props.watch("caseData.newCase.recordUnit"), formValue: "caseData.newCase.recordUnit", dropDownItems: administrativeUnits, required: false, error:errors.caseData?.newCase.recordUnit, helpText: "caseData.recordUnit", disabled: true},
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.status", value: props.watch("caseData.newCase.status"), formValue: "caseData.newCase.status", dropDownItems: statuses, required: required && !isCollection, error:errors.caseData?.newCase.status, helpText: "caseData.status"},
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.accessCode", value: props.watch("caseData.newCase.shielding.accessCode"), formValue: "caseData.newCase.shielding.accessCode", dropDownItems: accessCodes, required: false, error:errors.caseData?.newCase.shielding.accessCode, helpText: "caseData.accessCode"},
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.paragraph", value: props.watch("caseData.newCase.shielding.paragraph"), formValue: "caseData.newCase.shielding.paragraph", dropDownItems: paragraphs, required: false, error:errors.caseData?.newCase.shielding.paragraph, helpText: "caseData.paragraph"},
     ]
     const classificationFormFields: IInputField[] = [
-        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.primaryClassification", value: props.watch("caseData.primaryClassification"), formValue: "caseData.primaryClassification", dropDownItems: classificationSystems, required: required, error:errors.caseData?.primaryClassification, setter: setPrimaryClassification, helpText: "caseData.classification"},
-        {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.primaryClass", value: props.activeFormData?.caseData.primaryClass, formValue: "caseData.primaryClass", hidden: !listOfClassificationsWithDynamicField.includes(props.watch("caseData.primaryClassification")), required: required && hasPrimary, error:errors.caseData?.primaryClass, helpText: "caseData.class"},
-        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.primaryClass", value: props.watch("caseData.primaryClass"), formValue: "caseData.primaryClass", hidden: listOfClassificationsWithDynamicField.includes(props.watch("caseData.primaryClassification")), dropDownItems: primaryClass, required: required && hasPrimary, error:errors.caseData?.primaryClass, helpText: "caseData.class"},
-        {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.primaryTitle", formValue: "caseData.primaryTitle", required: required && hasPrimary, error:errors.caseData?.primaryTitle, value: props.activeFormData?.caseData?.primaryTitle, helpText: "caseData.classTitle"}
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.primaryClassification", value: props.watch("caseData.newCase.classes[0].classification"), formValue: "caseData.newCase.classes[0].classification", dropDownItems: classificationSystems, required: required, error:errors.caseData?.newCase?.classes[0].classification, setter: setPrimaryClassification, helpText: "caseData.classification"},
+        {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.primaryClass", value: props.activeFormData?.caseData.newCase.classes[0].class, formValue: "caseData.newCase.classes[0].class", hidden: !listOfClassificationsWithDynamicField.includes(props.watch("caseData.classes[0].classification")), required: required && hasPrimary, error:errors.caseData?.newCase?.classes[0].class, helpText: "caseData.class"},
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.primaryClass", value: props.watch("caseData.newCase.classes[0].class"), formValue: "caseData.newCase.classes[0].class", hidden: listOfClassificationsWithDynamicField.includes(props.watch("caseData.classes[0].classification")), dropDownItems: primaryClass, required: required && hasPrimary, error:errors.caseData?.newCase?.classes[0].class, helpText: "caseData.class"},
+        {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.primaryTitle", formValue: "caseData.newCase.classes[0].title", required: required && hasPrimary, error:errors.caseData?.newCase?.classes[0].title, value: props.activeFormData?.caseData?.newCase?.classes[0].title, helpText: "caseData.classTitle"}
     ]
     const secondaryClassificationFormFields: IInputField[] = [
-        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.secondaryClassification", value: props.watch("caseData.secondaryClassification"), formValue: "caseData.secondaryClassification", dropDownItems: classificationSystems, required: false, error:errors.caseData?.secondaryClassification, setter: setSecondaryClassification, helpText: "caseData.classification", hidden: !showSecondary},
-        {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.secondaryClass", value: props.activeFormData?.caseData.secondaryClass, formValue: "caseData.secondaryClass", hidden: !listOfClassificationsWithDynamicField.includes(props.watch("caseData.secondaryClassification")), required: required && hasSecondary, error:errors.caseData?.secondaryClass, helpText: "caseData.class"},
-        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.secondaryClass", value: props.watch("caseData.secondaryClass"), formValue: "caseData.secondaryClass", hidden: listOfClassificationsWithDynamicField.includes(props.watch("caseData.secondaryClassification")), dropDownItems: secondaryClass, required: required && hasSecondary, error:errors.caseData?.secondaryClass, helpText: "caseData.class"},
-        {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.secondaryTitle", formValue: "caseData.secondaryTitle", required: required && hasSecondary, error:errors.caseData?.secondaryTitle, value: props.activeFormData?.caseData?.secondaryTitle, helpText: "caseData.classTitle", hidden: !showSecondary}
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.secondaryClassification", value: props.watch("caseData.newCase.classes[1].classification"), formValue: "caseData.newCase.classes[1].classification", dropDownItems: classificationSystems, required: false, error:errors.caseData?.newCase.classes[1].classification, setter: setSecondaryClassification, helpText: "caseData.classification", hidden: !showSecondary},
+        {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.secondaryClass", value: props.activeFormData?.caseData.newCase.classes[1].class, formValue: "caseData.newCase.classes[1].class", hidden: !listOfClassificationsWithDynamicField.includes(props.watch("caseData.newCase.classes[1].classification")), required: required && hasSecondary, error:errors.caseData?.newCase.classes[1].class, helpText: "caseData.class"},
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.secondaryClass", value: props.watch("caseData.newCase.classes[1].class"), formValue: "caseData.newCase.classes[1].class", hidden: listOfClassificationsWithDynamicField.includes(props.watch("caseData.newCase.classes[1].classification")), dropDownItems: secondaryClass, required: required && hasSecondary, error:errors.caseData?.newCase.classes[1].class, helpText: "caseData.class"},
+        {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.secondaryTitle", formValue: "caseData.newCase.classes[1].title", required: required && hasSecondary, error:errors.caseData?.newCase.classes[1].title, value: props.activeFormData?.caseData?.newCase.classes[1].title, helpText: "caseData.classTitle", hidden: !showSecondary}
     ]
     const tertiaryClassificationFormFields: IInputField[] = [
-        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.tertiaryClassification", value: props.watch("caseData.tertiaryClassification"), formValue: "caseData.tertiaryClassification", dropDownItems: classificationSystems, required: false, error:errors.caseData?.tertiaryClassification, setter: setTertiaryClassification, helpText: "caseData.classification", hidden: !showTertiary},
-        {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.tertiaryClass", value: props.activeFormData?.caseData.tertiaryClass, formValue: "caseData.tertiaryClass", hidden: !listOfClassificationsWithDynamicField.includes(props.watch("caseData.tertiaryClassification")), required: required && hasTertiary, error:errors.caseData?.tertiaryClass, helpText: "caseData.class"},
-        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.tertiaryClass", value: props.watch("caseData.tertiaryClass"), formValue: "caseData.tertiaryClass", hidden: listOfClassificationsWithDynamicField.includes(props.watch("caseData.tertiaryClassification")), dropDownItems: tertiaryClass, required: required && hasTertiary, error:errors.caseData?.tertiaryClass, helpText: "caseData.class"},
-        {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.tertiaryTitle", formValue: "caseData.tertiaryTitle", required: required && hasTertiary, error:errors.caseData?.tertiaryTitle, value: props.activeFormData?.caseData?.tertiaryTitle, helpText: "caseData.classTitle", hidden: !showTertiary},
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.tertiaryClassification", value: props.watch("caseData.newCase.classes[2].classification"), formValue: "caseData.newCase.classes[2].classification", dropDownItems: classificationSystems, required: false, error:errors.caseData?.newCase.classes[2].classification, setter: setTertiaryClassification, helpText: "caseData.classification", hidden: !showTertiary},
+        {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.tertiaryClass", value: props.activeFormData?.caseData.newCase.classes[2].class, formValue: "caseData.newCase.classes[2].class", hidden: !listOfClassificationsWithDynamicField.includes(props.watch("caseData.newCase.classes[2].classification")), required: required && hasSecondary, error:errors.caseData?.newCase.classes[2].class, helpText: "caseData.class"},
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.tertiaryClass", value: props.watch("caseData.newCase.classes[2].class"), formValue: "caseData.newCase.classes[2].class", hidden: listOfClassificationsWithDynamicField.includes(props.watch("caseData.newCase.classes[2].classification")), dropDownItems: tertiaryClass, required: required && hasTertiary, error:errors.caseData?.newCase.classes[2].class, helpText: "caseData.class"},
+        {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.tertiaryTitle", formValue: "caseData.newCase.classes[2].title", required: required && hasTertiary, error:errors.caseData?.newCase.classes[2].title, value: props.activeFormData?.caseData?.newCase.classes[2].title, helpText: "caseData.classTitle", hidden: !showTertiary}
     ]
 
     return (

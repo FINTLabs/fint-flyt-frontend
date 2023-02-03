@@ -15,26 +15,29 @@ import {
 } from "@mui/material";
 import {createStyles, makeStyles} from "@mui/styles";
 import {IFormConfiguration} from "./types/Form/FormData";
-import {defaultConfigurationValues} from "./defaults/DefaultValues";
+import {defaultConfigurationValuesAV} from "./defaults/DefaultValues";
 import AccordionForm from "./components/AccordionForm";
 import {ACCORDION_FORM, IAccordion} from "./types/Accordion";
 import SourceApplicationForm from "./components/SourceApplicationForm";
 import {HTML5Backend} from "react-dnd-html5-backend";
 import {DndProvider} from "react-dnd";
 import {CreationStrategy} from "./types/CreationStrategy";
-import {newToFormData} from "../util/mapping/ToFormData";
 import {ResourcesContext} from "../../context/resourcesContext";
 import {IntegrationContext} from "../../context/integrationContext";
 import CloseIcon from '@mui/icons-material/Close';
 import {useTranslation} from "react-i18next";
 import InputField from "./components/form/InputField";
 import {INPUT_TYPE} from "./types/InputType.enum";
-import {toConfigurationPatch, toNewConfiguration} from "../util/mapping/ToConfiguration";
-import {IConfigurationPatch, newIConfiguration} from "./types/Configuration";
+import {
+    toAVConfiguration,
+    toAVConfigurationPatch,
+} from "../util/mapping/AV/ToAVConfiguration";
 import ConfigurationRepository from "../../shared/repositories/ConfigurationRepository";
 import IntegrationRepository from "../../shared/repositories/IntegrationRepository";
-import {IIntegrationPatch, IntegrationState} from "./types/Integration";
+import {IIntegrationPatch, IntegrationState} from "../integration/types/Integration";
 import {SourceApplicationContext} from "../../context/sourceApplicationContext";
+import {IAVConfiguration, IAVConfigurationPatch} from "./types/AVConfiguration";
+import {toAVFormData} from "../util/mapping/AV/toAVFormData";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -102,12 +105,12 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 );
 
-const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
+const AVConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.configurationForm'});
     const classes = useStyles();
     const editConfig: boolean = /edit$/.test(window.location.pathname)
     const [submitSuccess, setSubmitSuccess] = useState(false)
-    const {caseNumber, newIntegration, existingIntegration, setExistingIntegration, setNewIntegration, selectedMetadata, configuration, setConfiguration, resetIntegrationContext, getNewIntegrations} = useContext(IntegrationContext);
+    const {id, newIntegration, existingIntegration, setExistingIntegration, setNewIntegration, selectedMetadata, configuration, setConfiguration, resetIntegrationContext, getNewIntegrations} = useContext(IntegrationContext);
     const {sourceApplication} = useContext(SourceApplicationContext)
     const [saved, setSaved] = React.useState(false);
     const [saveError, setSaveError] = React.useState(false);
@@ -119,8 +122,8 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     let activeConfiguration = configuration && editConfig ? configuration : undefined;
     const [activeConfigId, setActiveConfigId] = React.useState(activeConfiguration?.id);
     const [completed, setCompleted] = React.useState(!!activeConfiguration?.completed);
-    let activeFormData = activeConfiguration && editConfig && configuration? newToFormData(configuration) : defaultConfigurationValues;
-    const [protectedCheck, setProtectedChecked] = React.useState(activeFormData.applicantData.protected);
+    let activeFormData = activeConfiguration && editConfig && configuration? toAVFormData(configuration) : defaultConfigurationValuesAV;
+    const [shieldingCheck, setShieldingCheck] = React.useState(activeFormData?.recordData?.correspondent?.shielding?.accessCode !== null);
 
     const handleCheckChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setChecked(event.target.checked);
@@ -131,7 +134,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     };
 
     const {handleSubmit, watch, setValue, control, reset, formState} = useForm<IFormConfiguration>({
-        defaultValues: activeFormData,
+        defaultValues: activeFormData ? activeFormData : defaultConfigurationValuesAV,
         reValidateMode: 'onChange'
     });
     const { errors } = formState;
@@ -153,7 +156,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
         {id: 'case-form', summary: "caseForm.header", accordionForm: ACCORDION_FORM.CASE_FORM, defaultExpanded: completed, hidden: watch("caseData.caseCreationStrategy") === CreationStrategy.BY_ID},
         {id: 'record-form', summary: "recordForm.header", accordionForm: ACCORDION_FORM.RECORD_FORM, defaultExpanded: completed},
         {id: 'document-object-form', summary: "documentForm.header", accordionForm: ACCORDION_FORM.DOCUMENT_FORM, defaultExpanded: completed},
-        {id: 'applicant-form', summary: "applicationForm.header", accordionForm: ACCORDION_FORM.APPLICANT_FORM, defaultExpanded: completed}
+        {id: 'correspondent-form', summary: "correspondentForm.header", accordionForm: ACCORDION_FORM.CORRESPONDENT_FORM, defaultExpanded: completed}
     ]
 
     const updateIntegration = (integrationId: string, configuration: any) => {
@@ -170,7 +173,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
         })
     }
 
-    const saveNewConfiguration = (integrationId: string, data: newIConfiguration) => {
+    const saveNewConfiguration = (integrationId: string, data: IAVConfiguration) => {
         console.log('save new config', integrationId, data)
         ConfigurationRepository.createConfiguration(integrationId, data)
             .then(response => {
@@ -186,7 +189,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
             });
     }
 
-    const saveConfiguration = (integrationId: string, configurationId: string, data: IConfigurationPatch) => {
+    const saveConfiguration = (integrationId: string, configurationId: string, data: IAVConfigurationPatch) => {
         console.log('save config', integrationId, configurationId, data)
         ConfigurationRepository.updateConfiguration(configurationId, data)
             .then(response => {
@@ -200,7 +203,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
             });
     }
 
-    const activateNewConfiguration = (integrationId: string, data: newIConfiguration) => {
+    const activateNewConfiguration = (integrationId: string, data: IAVConfiguration) => {
         console.log('publish new config', integrationId, data)
         ConfigurationRepository.createConfiguration(integrationId, data)
             .then(response => {
@@ -217,7 +220,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
             });
     }
 
-    const activateConfiguration = (integrationId: string, configurationId: string, data: IConfigurationPatch) => {
+    const activateConfiguration = (integrationId: string, configurationId: string, data: IAVConfigurationPatch) => {
         console.log('publish config', configurationId, data)
         ConfigurationRepository.updateConfiguration(configurationId, data)
             .then(response => {
@@ -238,7 +241,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
         history.push({
             pathname: '/',
         })
-        setConfiguration({elements: []});
+        setConfiguration({});
     }
 
     const handleClose = (event: React.SyntheticEvent | Event, reason?: string) => {
@@ -260,25 +263,25 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     );
 
     const onSubmit = handleSubmit((data: IFormConfiguration) => {
-        if (data.caseData.caseCreationStrategy === CreationStrategy.BY_ID && caseNumber === undefined) {
-            setSaveMessage(t('messages.errorCaseNumber'))
+        if (data.caseData.caseCreationStrategy === CreationStrategy.BY_ID && id === undefined) {
+            setSaveMessage(t('messages.errorId'))
             setSaveError(true)
             return;
         }
-        if (data.caseData.caseCreationStrategy === CreationStrategy.BY_ID && caseNumber) {
-            data.caseData.caseNumber = caseNumber
+        if (data.caseData.caseCreationStrategy === CreationStrategy.BY_ID && id) {
+            data.caseData.id = id
         }
         data.completed = true;
-        data.applicantData.protected = protectedCheck;
-        const configuration: newIConfiguration = toNewConfiguration(data, activeIntegration?.id, activeConfigId, selectedMetadata.id);
+        if (!shieldingCheck) data.recordData.correspondent.shielding = {accessCode: null, paragraph: null};
+        const configuration: IAVConfiguration = toAVConfiguration(data, activeIntegration?.id, activeConfigId, selectedMetadata.id);
         if (configuration && activeConfigId !== undefined) {
-            const iConfiguration: newIConfiguration = toConfigurationPatch(data, selectedMetadata.id);
+            const iConfiguration: IAVConfiguration = toAVConfigurationPatch(data, selectedMetadata.id);
             activateConfiguration(activeIntegration?.id, activeConfigId, iConfiguration)
-            reset({ ...defaultConfigurationValues })
+            reset({ ...defaultConfigurationValuesAV })
         }
         else if (configuration && activeIntegration?.id) {
             activateNewConfiguration(activeIntegration?.id, configuration);
-            reset({ ...defaultConfigurationValues })
+            reset({ ...defaultConfigurationValuesAV })
         } else {
             //TODO: Handle error
             return;
@@ -286,14 +289,14 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     });
 
     const onSave = handleSubmit((data: IFormConfiguration) => {
-        if (data.caseData.caseCreationStrategy === CreationStrategy.BY_ID && caseNumber) {
-            data.caseData.caseNumber = caseNumber
+        if (data.caseData.caseCreationStrategy === CreationStrategy.BY_ID && id) {
+            data.caseData.id = id
         }
         data.completed = false;
-        data.applicantData.protected = protectedCheck;
-        const configuration: newIConfiguration = toNewConfiguration(data, activeIntegration?.id, activeConfigId, selectedMetadata.id);
+        if (!shieldingCheck) data.recordData.correspondent.shielding = {accessCode: null, paragraph: null};
+        const configuration: IAVConfiguration = toAVConfiguration(data, activeIntegration?.id, activeConfigId, selectedMetadata.id);
         if (configuration && activeConfigId !== undefined) {
-            const iConfiguration: newIConfiguration = toConfigurationPatch(data, selectedMetadata.id);
+            const iConfiguration: IAVConfiguration = toAVConfigurationPatch(data, selectedMetadata.id);
             saveConfiguration(activeIntegration?.id, activeConfigId, iConfiguration)
         }
         else if (activeIntegration?.id && configuration) {
@@ -331,8 +334,8 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                                         disabled={completed}
                                         editConfig={editConfig}
                                         onSave={onSave}
-                                        protectedCheck={protectedCheck}
-                                        setProtectedChecked={setProtectedChecked}
+                                        shieldingCheck={shieldingCheck}
+                                        setShieldingCheck={setShieldingCheck}
                                     />
                                 )
                             })}
@@ -401,4 +404,4 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     );
 }
 
-export default withRouter(ConfigurationForm);
+export default withRouter(AVConfigForm);

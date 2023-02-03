@@ -1,16 +1,16 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {destinations, sourceApplications} from "../defaults/DefaultValues";
+import {destinations, sourceApplications} from "../configuration/defaults/DefaultValues";
 import {Autocomplete, Box, Button, FormGroup, MenuItem, TextField, Theme, Typography} from "@mui/material";
 import {useHistory} from "react-router-dom";
-import {IntegrationContext} from "../../../context/integrationContext";
-import HelpPopover from "./popover/HelpPopover";
+import {IntegrationContext} from "../../context/integrationContext";
+import HelpPopover from "../configuration/components/popover/HelpPopover";
 import {useTranslation} from "react-i18next";
-import {SourceApplicationContext} from "../../../context/sourceApplicationContext";
+import {SourceApplicationContext} from "../../context/sourceApplicationContext";
 import {createStyles, makeStyles} from "@mui/styles";
-import {toIntegration} from "../../util/mapping/ToIntegration";
-import {IFormIntegration} from "../types/Form/FormData";
-import IntegrationRepository from '../../../shared/repositories/IntegrationRepository';
-import {IntegrationState} from "../types/Integration";
+import {toIntegration} from "../util/mapping/ToIntegration";
+import {IFormIntegration} from "../configuration/types/Form/FormData";
+import IntegrationRepository from '../../shared/repositories/IntegrationRepository';
+import {IntegrationState} from "./types/Integration";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

@@ -1,8 +1,7 @@
-import {IFormConfiguration} from "../../configuration/types/Form/FormData";
-import {IConfiguration} from "../../configuration/types/Configuration";
-import {IElementCollectionMapping, IElementMapping} from "../../configuration/types/AVConfiguration";
+import {IFormConfiguration} from "../../../configuration/types/Form/FormData";
+import {IAVConfiguration, IElementCollectionMapping, IElementMapping} from "../../../configuration/types/AVConfiguration";
 
-export function toFormData(data: IConfiguration): IFormConfiguration {
+export function toAVFormData(data: IAVConfiguration): IFormConfiguration {
     const caseFields: IElementMapping = data.mapping?.elementMappingPerKey['sak'] ? data.mapping?.elementMappingPerKey['sak'] : {elementMappingPerKey: {}, elementCollectionMappingPerKey: {}, valueMappingPerKey: {}};
     const recordFields: IElementMapping = data.mapping?.elementMappingPerKey['journalpost'] ? data.mapping?.elementMappingPerKey['journalpost'] : {elementMappingPerKey: {}, elementCollectionMappingPerKey: {}, valueMappingPerKey: {}};
     const caseNewCaseFields: IElementMapping = caseFields.elementMappingPerKey['ny'] ? caseFields.elementMappingPerKey['ny'] :  {elementMappingPerKey: {}, elementCollectionMappingPerKey: {}, valueMappingPerKey: {}}
@@ -23,12 +22,11 @@ export function toFormData(data: IConfiguration): IFormConfiguration {
     const contactFields: IElementMapping = correspondentFields.elementMappingPerKey['kontaktinformasjon'] ? correspondentFields.elementMappingPerKey['kontaktinformasjon'] : {elementMappingPerKey: {}, elementCollectionMappingPerKey: {}, valueMappingPerKey: {}}
     const correspondentShieldingFields: IElementMapping = correspondentFields.elementMappingPerKey['skjerming'] ? correspondentFields.elementMappingPerKey['skjerming'] : {elementMappingPerKey: {}, elementCollectionMappingPerKey: {}, valueMappingPerKey: {}}
 
-
     return {
         comment: data.comment,
         completed: data.completed,
         caseData: {
-            caseCreationStrategy: null,
+            caseCreationStrategy: caseFields.valueMappingPerKey['type']?.mappingString ? caseFields.valueMappingPerKey['type']?.mappingString : null,
             id: caseFields.valueMappingPerKey['id']?.mappingString ? caseFields.valueMappingPerKey['id']?.mappingString : null,
             newCase: {
                 title: caseNewCaseFields.valueMappingPerKey['tittel']?.mappingString ? caseNewCaseFields.valueMappingPerKey['tittel']?.mappingString : null,
@@ -76,12 +74,12 @@ export function toFormData(data: IConfiguration): IFormConfiguration {
             recordStatus: recordFields.valueMappingPerKey['journalstatus']?.mappingString ? recordFields.valueMappingPerKey['journalstatus']?.mappingString : null,
             recordType: recordFields.valueMappingPerKey['journalposttype']?.mappingString ? recordFields.valueMappingPerKey['journalposttype']?.mappingString : null,
             caseWorker: recordFields.valueMappingPerKey['saksbehandler']?.mappingString ? recordFields.valueMappingPerKey['saksbehandler']?.mappingString : null,
-           shielding: {
-               accessCode: recordShieldingFields.valueMappingPerKey['tilgangsrestriksjon']?.mappingString ? recordShieldingFields.valueMappingPerKey['tilgangsrestriksjon']?.mappingString : null,
-               paragraph: recordShieldingFields.valueMappingPerKey['skjermingshjemmel']?.mappingString ? recordShieldingFields.valueMappingPerKey['skjermingshjemmel']?.mappingString : null,
-           },
+            shielding: {
+                accessCode: recordShieldingFields.valueMappingPerKey['tilgangsrestriksjon']?.mappingString ? recordShieldingFields.valueMappingPerKey['tilgangsrestriksjon']?.mappingString : null,
+                paragraph: recordShieldingFields.valueMappingPerKey['skjermingshjemmel']?.mappingString ? recordShieldingFields.valueMappingPerKey['skjermingshjemmel']?.mappingString : null,
+            },
             mainDocument: {
-                title: mainDocumentFields.valueMappingPerKey['tittel']?.mappingString ? mainDocumentFields.valueMappingPerKey['tittel']?.mappingString : null,
+                title: recordFields.valueMappingPerKey['tittel']?.mappingString ? recordFields.valueMappingPerKey['tittel']?.mappingString : null,
                 documentStatus: mainDocumentFields.valueMappingPerKey['dokumentstatus']?.mappingString ? mainDocumentFields.valueMappingPerKey['dokumentstatus']?.mappingString : null,
                 documentType: mainDocumentFields.valueMappingPerKey['dokumentType']?.mappingString ? mainDocumentFields.valueMappingPerKey['dokumentType']?.mappingString : null,
                 role: mainDocumentFields.valueMappingPerKey['tilknyttetRegistreringSom']?.mappingString ? mainDocumentFields.valueMappingPerKey['tilknyttetRegistreringSom']?.mappingString : null,
@@ -113,7 +111,7 @@ export function toFormData(data: IConfiguration): IFormConfiguration {
                 city: addressFields.valueMappingPerKey['poststed']?.mappingString ? addressFields.valueMappingPerKey['poststed']?.mappingString : null,
                 phoneNumber: contactFields.valueMappingPerKey['telefonnummer']?.mappingString ? contactFields.valueMappingPerKey['telefonnummer']?.mappingString : null,
                 mobilePhoneNumber: contactFields.valueMappingPerKey['mobiltelefonnummer']?.mappingString ? contactFields.valueMappingPerKey['mobiltelefonnummer']?.mappingString : null,
-                email: contactFields.valueMappingPerKey['epostadresse']?.mappingString ? contactFields.valueMappingPerKey['epostadresse']?.mappingString : null,
+                email: contactFields.valueMappingPerKey['epostadresse']?.mappingString ? contactFields.valueMappingPerKey['epostadresse']?.mappingString : null
             }
         }
     }

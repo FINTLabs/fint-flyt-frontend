@@ -24,6 +24,7 @@ export type ResourceContextState = {
 
     documentStatuses: IResourceItem[];
     variants: IResourceItem[];
+    formats: IResourceItem[];
 
     getAllResources: () => void;
     resetAllResources: () => void;
@@ -59,6 +60,7 @@ export const contextDefaultValues: ResourceContextState = {
     recordTypes: [],
     documentStatuses: [],
     variants: [],
+    formats: [],
     getAllResources: () => {},
     resetAllResources: () => {},
     setPrimaryClassification: (primary: IResourceItem) => {},

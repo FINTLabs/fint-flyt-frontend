@@ -18,8 +18,8 @@ import {IntegrationContext} from "../../../../context/integrationContext";
 const CaseInformation: React.FunctionComponent<any> = (props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.configurationForm.accordions.caseInformation'});
     const [_case, setCase] = React.useState('');
-    const {setCaseNumber, selectedMetadata} = useContext(IntegrationContext)
-    let caseInput = props.watch("caseData.caseNumber");
+    const {setId, selectedMetadata} = useContext(IntegrationContext)
+    let caseInput = props.watch("caseData.id");
     let caseInputPattern = /^((19|20)*\d{2})\/([0-9]{1,6})/g;
 
     useEffect(() => {
@@ -30,33 +30,32 @@ const CaseInformation: React.FunctionComponent<any> = (props) => {
 
     const handleCaseSearch = () => {
         if(caseInputPattern.test(caseInput)) {
-            setCaseNumber(caseInput)
+            setId(caseInput)
             setCase(t('caseSearch.searching'))
             let caseId = caseInput.split('/')
             ResourceRepository.getSak(caseId[0], caseId[1])
                 .then((response) => {
                     setCase(caseInput +': ' + response.data.value)
-                    setCaseNumber(caseInput)
+                    setId(caseInput)
                 })
                 .catch(e => {
                         console.error('Error: ', e)
-                        setCaseNumber(undefined)
+                    setId(undefined)
                         setCase(caseInput +': ' + t('caseSearch.noMatch'));
-                        props.setValue("caseData.caseNumber", undefined)
+                        props.setValue("caseData.newCase.id", undefined)
                     }
                 )
         } else {
             setCase(t('caseSearch.info'))
-            setCaseNumber(undefined)
+            setId(undefined)
         }
     }
 
     let isCollection = props.watch("caseData.caseCreationStrategy") === CreationStrategy.BY_ID
     let errors: FieldErrors = props.errors
     const caseInformationFields: IInputField[] = [
-        {input: INPUT_TYPE.RADIO, label: "labels.caseCreationInfo", value: props.watch("caseData.caseCreationStrategy"),
-            formValue: "caseData.caseCreationStrategy", radioOptions: creationStrategies, helpText: "caseData.caseCreationStrategy"},
-        {input: INPUT_TYPE.TEXT_FIELD, label: "labels.caseNumber", formValue: "caseData.caseNumber", hidden:!isCollection, required:isCollection && props.validation, error:errors.caseData?.caseNumber, searchOption: true, helpText: "caseData.caseNumber", disabled: props.disabled},
+        {input: INPUT_TYPE.RADIO, label: "labels.caseCreationInfo", value: props.watch("caseData.caseCreationStrategy"), formValue: "caseData.caseCreationStrategy", radioOptions: creationStrategies, helpText: "caseData.caseCreationStrategy"},
+        {input: INPUT_TYPE.TEXT_FIELD, label: "labels.id", formValue: "caseData.id", hidden:!isCollection, required:isCollection && props.validation, error:errors.caseData?.id, searchOption: true, helpText: "caseData.id", disabled: props.disabled},
     ]
     return (
         <div>

@@ -4,34 +4,53 @@ import {ISelect} from "../types/InputField";
 import {CreationStrategy} from "../types/CreationStrategy";
 import {IFormConfiguration} from "../types/Form/FormData";
 import {IIntegrationMetadata, Type} from "../types/IntegrationMetadata";
-import {IIntegration} from "../types/Integration";
-import {FieldConfigurationType, newIConfiguration} from "../types/Configuration";
+import {IIntegration} from "../../integration/types/Integration";
+import {IConfiguration} from "../types/Configuration";
 
 export const defaultConfigurationValues: IFormConfiguration = {
     comment: '',
     completed: false,
     caseData: {
         caseCreationStrategy: CreationStrategy.NEW,
-        caseNumber: undefined,
-        title: null,
-        publicTitle: null,
-        caseType: null,
-        administrativeUnit:null,
-        archiveUnit:null,
-        recordUnit: null,
-        status: null,
-        accessCode: null,
-        paragraph: null,
-        caseWorker: null,
-        primaryClassification: null,
-        secondaryClassification: null,
-        tertiaryClassification: null,
-        primaryClass: null,
-        secondaryClass: null,
-        tertiaryClass: null,
-        primaryTitle: null,
-        secondaryTitle: null,
-        tertiaryTitle: null
+        id: undefined,
+        newCase: {
+            title: null,
+            publicTitle: null,
+            caseType: null,
+            administrativeUnit:null,
+            archiveUnit:null,
+            recordUnit: null,
+            status: null,
+            caseWorker: null,
+            shielding: {
+                accessCode: null,
+                paragraph: null
+            },
+            classes: [
+                {
+                    classification: null,
+                    order: 0,
+                    class: null,
+                    title: null,
+                    shielding: { accessCode: null, paragraph: null }
+                },
+                {
+                    classification: null,
+                    order: 1,
+                    class: null,
+                    title: null,
+                    shielding: { accessCode: null, paragraph: null }
+                },
+                {
+                    classification: null,
+                    order: 2,
+                    class: null,
+                    title: null,
+                    shielding: { accessCode: null, paragraph: null }
+                },
+            ]
+        }
+
     },
     recordData: {
         title: null,
@@ -40,28 +59,139 @@ export const defaultConfigurationValues: IFormConfiguration = {
         recordStatus: null,
         recordType: null,
         caseWorker: null,
-        accessCode: null,
-        paragraph: null
+        shielding: {
+            accessCode: null,
+            paragraph: null
+        },
+        mainDocument: {
+            title: null,
+            documentStatus: null,
+            documentType: null,
+            role: null,
+            fileFormat: null,
+            variant: null,
+            file: null
+        },
+        attachmentDocuments: {
+            title: null,
+            documentStatus: null,
+            documentType: null,
+            role: null,
+            fileFormat: null,
+            variant: null,
+            file: null
+        },
+        correspondent: {
+            shielding: {
+                accessCode: null,
+                paragraph: null
+            },
+            type: null,
+            organisationNumber: null,
+            nationalIdentityNumber: null,
+            name: null,
+            address: null,
+            postalCode: null,
+            city: null,
+            contactPerson: null,
+            phoneNumber: null,
+            mobilePhoneNumber: null,
+            email: null
+        }
+    }
+}
+
+export const defaultConfigurationValuesAV: IFormConfiguration = {
+    comment: '',
+    completed: false,
+    caseData: {
+        caseCreationStrategy: CreationStrategy.NEW,
+        id: undefined,
+        newCase: {
+            title: null,
+            publicTitle: null,
+            caseType: null,
+            administrativeUnit:null,
+            archiveUnit:null,
+            recordUnit: null,
+            status: null,
+            caseWorker: null,
+            shielding: {
+                accessCode: null,
+                paragraph: null
+            },
+            classes: [
+                {
+                    classification: null,
+                    order: 0,
+                    class: null,
+                    title: null,
+                    shielding: { accessCode: null, paragraph: null }
+                },
+                {
+                    classification: null,
+                    order: 1,
+                    class: null,
+                    title: null,
+                    shielding: { accessCode: null, paragraph: null }
+                },
+                {
+                    classification: null,
+                    order: 2,
+                    class: null,
+                    title: null,
+                    shielding: { accessCode: null, paragraph: null }
+                },
+            ]
+        }
+
     },
-    documentData: {
+    recordData: {
         title: null,
-        documentStatus: null,
-        documentType: null,
-        variant: null
-    },
-    applicantData: {
-        protected: false,
-        organisationNumber: null,
-        nationalIdentityNumber: null,
-        name: null,
-        address: null,
-        postalCode: null,
-        city: null,
-        contactPerson: null,
-        phoneNumber: null,
-        email: null,
-        accessCode: null,
-        paragraph: null
+        publicTitle: null,
+        administrativeUnit: null,
+        recordStatus: null,
+        recordType: null,
+        caseWorker: null,
+        shielding: {
+            accessCode: null,
+            paragraph: null
+        },
+        mainDocument: {
+            title: null,
+            documentStatus: null,
+            documentType: null,
+            role: 'https://beta.felleskomponent.no/arkiv/kodeverk/tilknyttetregistreringsom/systemid/H',
+            fileFormat: 'https://beta.felleskomponent.no/arkiv/kodeverk/format/systemid/PDF',
+            variant: 'https://beta.felleskomponent.no/arkiv/kodeverk/variantformat/systemid/P',
+            file: '$if{skjemaPdf}'
+        },
+        attachmentDocuments: {
+            title: '$icf{0}{navn}',
+            documentStatus: null,
+            documentType: null,
+            role: 'https://beta.felleskomponent.no/arkiv/kodeverk/tilknyttetregistreringsom/systemid/V',
+            fileFormat: 'https://beta.felleskomponent.no/arkiv/kodeverk/format/systemid/PROD',
+            variant: 'https://beta.felleskomponent.no/arkiv/kodeverk/variantformat/systemid/P',
+            file: '$icf{0}{fil}'
+        },
+        correspondent: {
+            shielding: {
+                accessCode: null,
+                paragraph: null
+            },
+            type: 'https://beta.felleskomponent.no/arkiv/kodeverk/korrespondanseparttype/systemid/EA',
+            organisationNumber: null,
+            nationalIdentityNumber: null,
+            name: null,
+            address: null,
+            postalCode: null,
+            city: null,
+            contactPerson: null,
+            phoneNumber: null,
+            mobilePhoneNumber: null,
+            email: null
+        }
     }
 }
 
@@ -79,8 +209,29 @@ export const dropdownPlaceholder: ISelect[] = [
 ]
 
 export const variantOptions: ISelect[] = [
-    {label: 'Produksjonsformat', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/variantformat/systemid/P'}
+    {label: '[P] Produksjonsformat', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/variantformat/systemid/P'}
 ]
+
+export const formatOptions: ISelect[] = [
+    {label: '[PDF] Portable document format', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/format/systemid/PDF'},
+    {label: '[PROD] Produksjonsformat', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/format/systemid/PROD'}
+]
+export const correspondentTypeOptions: ISelect[] = [
+    {label: 'EA Avsender', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/korrespondanseparttype/systemid/EA'}
+]
+
+export const roleOptions: ISelect[] = [
+    {label: '[H] Hoveddokument', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/tilknyttetregistreringsom/systemid/H'},
+    {label: '[V] Vedlegg', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/tilknyttetregistreringsom/systemid/V'}
+]
+
+export const variant: string = 'https://beta.felleskomponent.no/arkiv/kodeverk/variantformat/systemid/P'
+export const format: string = 'https://beta.felleskomponent.no/arkiv/kodeverk/format/systemid/PDF'
+export const correspondentType: string = 'https://beta.felleskomponent.no/arkiv/kodeverk/korrespondanseparttype/systemid/EA'
+export const mainRole: string = 'https://beta.felleskomponent.no/arkiv/kodeverk/tilknyttetregistreringsom/systemid/H'
+export const attachmentRole: string = 'https://beta.felleskomponent.no/arkiv/kodeverk/tilknyttetregistreringsom/systemid/V'
+
+
 
 export const creationStrategies: ISelect[] = [
     {label: 'selects.creationStrategies.new', value: 'NEW',  description: "selects.creationStrategies.newDesc"},
@@ -315,7 +466,7 @@ export const fieldHelp = {
     destination: 'fylkesting, fylkesråd, kollektiv ++',
     caseData: {
         caseCreationStrategy: 'Avleveringslogikk ...',
-        caseNumber: ' må være på formatet saksår/sekvensnr, f.eks 2021/12345',
+        id: ' må være på formatet saksår/sekvensnr, f.eks 2021/12345',
         title: 'Tittel kan være en konkret tekststreng, eller en kombinasjon\n' +
             ' av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak.\n' +
             '  (Se Noark))',
@@ -354,29 +505,42 @@ export const fieldHelp = {
         caseWorker: 'En sak kan ha en ansvarlig saksbehandler men det kan være ulike saksbehandlere på ulike journalposter.',
         accessCode: 'Eksempel: Unntatt offentlighet, persona,l varslingssak, ugradert. ',
         paragraph: 'Eksempel: Offl. §13 ',
-    },
-    documentData: {
-        title: 'Tittel kan være en konkret tekststreng, eller en kombinasjon\n' +
-            ' av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak.\n' +
-            '  (Se Noark))',
-        documentStatus: 'Eksempel: B, F',
-        accessCode: 'Eksempel: Unntatt offentlighet, persona,l varslingssak, ugradert. ',
-        paragraph: 'Eksempel: Offl. §13',
-        variant: 'Arkivformat/ produksjonsformat / offentlig variant'
-    },
-    applicantData: {
-        type: 'Person eller organisasjon/bedrift',
-        organisationNumber: 'Orgnr for avsenderbedrift',
-        nationalIdentityNumber: 'Fødselsnummer for avsender',
-        name: 'Navn på bedrift/org, eller person',
-        address: 'Postadresse',
-        postalCode: 'Postkode',
-        city: 'Poststed',
-        contactPerson: 'Navn på søker er ikke alltid lik med kontaktperson',
-        phoneNumber: 'Telefonnummer',
-        email: 'epostadresse',
-        accessCode: 'velge om avsender skal være skjermet',
-        paragraph: 'Denne skal fjernes',
+        mainDocument: {
+            title: 'Tittel kan være en konkret tekststreng, eller en kombinasjon\n' +
+                ' av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak.\n' +
+                '  (Se Noark))',
+            documentStatus: 'Eksempel: B, F',
+            accessCode: 'Eksempel: Unntatt offentlighet, persona,l varslingssak, ugradert. ',
+            paragraph: 'Eksempel: Offl. §13',
+            format: 'Filformat, f.eks PDF',
+            variant: 'Arkivformat/ produksjonsformat / offentlig variant',
+            file: 'Fil'
+        },
+        attachmentDocuments: {
+            title: 'Tittel kan være en konkret tekststreng, eller en kombinasjon\n' +
+                ' av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak.\n' +
+                '  (Se Noark))',
+            documentStatus: 'Eksempel: B, F',
+            accessCode: 'Eksempel: Unntatt offentlighet, persona,l varslingssak, ugradert. ',
+            paragraph: 'Eksempel: Offl. §13',
+            format: 'Filformat, f.eks PDF',
+            variant: 'Arkivformat/ produksjonsformat / offentlig variant',
+            file: 'Fil'
+        },
+        correspondent: {
+            type: 'Person eller organisasjon/bedrift',
+            organisationNumber: 'Orgnr for avsenderbedrift',
+            nationalIdentityNumber: 'Fødselsnummer for avsender',
+            name: 'Navn på bedrift/org, eller person',
+            address: 'Postadresse',
+            postalCode: 'Postkode',
+            city: 'Poststed',
+            contactPerson: 'Navn på søker er ikke alltid lik med kontaktperson',
+            phoneNumber: 'Telefonnummer',
+            email: 'epostadresse',
+            accessCode: 'velge om avsender skal være skjermet',
+            paragraph: 'Denne skal fjernes',
+        }
     }
 }
 
@@ -420,7 +584,7 @@ export const MOCK_INTEGRATIONS: IIntegration[] = [
     },
 ]
 
-export const MOCK_NEWCONFIGURATIONS: newIConfiguration[] = [
+export const MOCK_NEWCONFIGURATIONS: IConfiguration[] = [
     /*    {
             integrationId: '678',
             version: 1,
@@ -431,7 +595,7 @@ export const MOCK_NEWCONFIGURATIONS: newIConfiguration[] = [
             integrationId: '456',
             version: 1,
             completed: false,
-            caseConfiguration: {caseCreationStrategy: CreationStrategy.BY_ID, caseNumber: '2022/123'}
+            caseConfiguration: {caseCreationStrategy: CreationStrategy.BY_ID, id: '2022/123'}
         },*/
     {
         id: 'id00',
@@ -439,7 +603,11 @@ export const MOCK_NEWCONFIGURATIONS: newIConfiguration[] = [
         version: null,
         comment: 'Opprette konfigurasjon',
         completed: false,
-        elements: []
+        mapping: {
+            valueMappingPerKey: {},
+            elementMappingPerKey: {},
+            elementCollectionMappingPerKey: {},
+        }
     },
     {
         id: 'id0',
@@ -447,7 +615,11 @@ export const MOCK_NEWCONFIGURATIONS: newIConfiguration[] = [
         version: null,
         comment: 'Første versjon - avventer endringer',
         completed: false,
-        elements: []
+        mapping: {
+            valueMappingPerKey: {},
+            elementMappingPerKey: {},
+            elementCollectionMappingPerKey: {},
+        }
     },
     {
         id: 'id1',
@@ -455,23 +627,11 @@ export const MOCK_NEWCONFIGURATIONS: newIConfiguration[] = [
         version: null,
         completed: false,
         comment: 'Opprettet ny pga x, y, z',
-        elements: [
-            {
-                key: 'case',
-                fieldConfigurations: [
-                    {
-                        key: 'creationStrategy',
-                        type: FieldConfigurationType.STRING,
-                        value: CreationStrategy.NEW,
-                    },
-                    {
-                        key: 'tittel',
-                        type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: "$if{foo} $if{bar} $if{bubu}",
-                    },
-                ]
-            }
-        ]
+        mapping: {
+            valueMappingPerKey: {},
+            elementMappingPerKey: {},
+            elementCollectionMappingPerKey: {},
+        }
     },
     {
         id: 'id2',
@@ -479,48 +639,11 @@ export const MOCK_NEWCONFIGURATIONS: newIConfiguration[] = [
         version: 1,
         completed: true,
         comment: 'Ferdigstilt ',
-        elements: [
-            {
-                key: 'case',
-                fieldConfigurations: [
-                    {
-                        key: 'tittel',
-                        type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: "$if{foo} $if{bar} $if{bubu}",
-                    },
-                    {
-                        key: 'offentligTittel',
-                        type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: "$if{foo} test",
-                    },
-                    {
-                        key: "administrativenhet",
-                        type: FieldConfigurationType.STRING,
-                        value: "https://beta.felleskomponent.no/arkiv/noark/administrativenhet/systemid/193",
-                    },
-                    {
-                        key: "journalenhet",
-                        type: FieldConfigurationType.STRING,
-                        value: "https://beta.felleskomponent.no/arkiv/noark/administrativenhet/systemid/241",
-                    },
-                    {
-                        key: "status",
-                        type: FieldConfigurationType.STRING,
-                        value: "https://beta.felleskomponent.no/arkiv/kodeverk/saksstatus/systemid/F",
-                    },
-                    {
-                        key: "primarordningsprinsipp",
-                        type: FieldConfigurationType.STRING,
-                        value: "https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/EMNE",
-                    },
-                    {
-                        key: "arkivdel",
-                        type: FieldConfigurationType.STRING,
-                        value: "https://beta.felleskomponent.no/arkiv/noark/arkivdel/systemid/OESMU"
-                    },
-                ]
-            }
-        ]
+        mapping: {
+            valueMappingPerKey: {},
+            elementMappingPerKey: {},
+            elementCollectionMappingPerKey: {},
+        }
     },
     {
         id: 'id3',
@@ -528,75 +651,22 @@ export const MOCK_NEWCONFIGURATIONS: newIConfiguration[] = [
         version: 2,
         completed: true,
         comment: 'Ferdigstilt versjon 2',
-        elements: [
-            {
-                key: 'case',
-                fieldConfigurations: [
-                    {
-                        key: 'tittel',
-                        type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: "$if{foo} $if{bar} $if{bubu}",
-                    },
-                    {
-                        key: 'offentligTittel',
-                        type: FieldConfigurationType.DYNAMIC_STRING,
-                        value: "$if{foo} test",
-                    },
-                    {
-                        key: "administrativenhet",
-                        type: FieldConfigurationType.STRING,
-                        value: "https://beta.felleskomponent.no/arkiv/noark/administrativenhet/systemid/193",
-                    },
-                    {
-                        key: "journalenhet",
-                        type: FieldConfigurationType.STRING,
-                        value: "https://beta.felleskomponent.no/arkiv/noark/administrativenhet/systemid/241",
-                    },
-                    {
-                        key: "status",
-                        type: FieldConfigurationType.STRING,
-                        value: "https://beta.felleskomponent.no/arkiv/kodeverk/saksstatus/systemid/F",
-                    },
-                    {
-                        key: "primarordningsprinsipp",
-                        type: FieldConfigurationType.STRING,
-                        value: "https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/EMNE",
-                    },
-                    {
-                        key: "arkivdel",
-                        type: FieldConfigurationType.STRING,
-                        value: "https://beta.felleskomponent.no/arkiv/noark/arkivdel/systemid/OESMU"
-                    },
-                ]
-            }
-        ]
+        mapping: {
+            valueMappingPerKey: {},
+            elementMappingPerKey: {},
+            elementCollectionMappingPerKey: {},
+        }
     }
 ]
-
+/*
 export const EXAMPLE_FORM: IFormConfiguration = {
-    "applicantData": {
-        "protected": false,
-        "organisationNumber": '',
-        "nationalIdentityNumber": '',
-        "name": '',
-        "address": '',
-        "postalCode": '',
-        "city": '',
-        "contactPerson": '',
-        "phoneNumber": '',
-        "email": '',
-        "accessCode": '',
-        "paragraph": ''
-    },
     "caseData": {
-        "caseNumber": undefined,
-        "accessCode": '',
+        "id": undefined,
         "administrativeUnit": '',
         "archiveUnit": '',
         "caseCreationStrategy": CreationStrategy.NEW,
         "caseType": '',
         "caseWorker": '',
-        "paragraph": '',
         "primaryClass": '',
         "primaryClassification": '',
         "primaryTitle": '',
@@ -609,16 +679,14 @@ export const EXAMPLE_FORM: IFormConfiguration = {
         "tertiaryClass": '',
         "tertiaryClassification": '',
         "tertiaryTitle": '',
-        "title": "{foo} {bar} {bubu}"
+        "title": "{foo} {bar} {bubu}",
+        "shielding": {
+            "accessCode": '',
+            "paragraph": ''
+        },
     },
     "comment": "Ferdigstilt ",
     "completed": true,
-    "documentData": {
-        "title": '',
-        "documentStatus": '',
-        "documentType": '',
-        "variant": '',
-    },
     "integrationId": 'TEST999',
     "recordData": {
         "accessCode": '',
@@ -628,10 +696,51 @@ export const EXAMPLE_FORM: IFormConfiguration = {
         "publicTitle": '',
         "recordStatus": '',
         "recordType": '',
-        "title": "{foo} bar"
+        "title": "{foo} bar",
+        "shielding": {
+            "accessCode": '',
+            "paragraph": ''
+        },
+        "attachmentDocuments": {
+            "title": '',
+            "documentStatus": '',
+            "documentType": '',
+            "role": '',
+            "fileFormat": '',
+            "variant": '',
+            "file": ''
+        },
+        "mainDocument": {
+            "title": '',
+            "documentStatus": '',
+            "documentType": '',
+            "role": '',
+            "fileFormat": '',
+            "variant": '',
+            "file": '',
+        },
+        "correspondent": {
+            "shielding": {
+                "accessCode": '',
+                "paragraph": ''
+            },
+            "type": '',
+            "organisationNumber": '',
+            "nationalIdentityNumber": '',
+            "name": '',
+            "address": '',
+            "postalCode": '',
+            "city": '',
+            "contactPerson": '',
+            "phoneNumber": '',
+            "mobilePhoneNumber": '',
+            "email": '',
+            "accessCode": '',
+            "paragraph": ''
+        }
     }
 }
-
+*/
 export function getSourceApplicationDisplayName(id: any): string {
     if (id === 1) return 'ACOS';
     if (id === 2) return 'eGrunnerverv';

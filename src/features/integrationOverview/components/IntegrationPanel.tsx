@@ -18,7 +18,7 @@ import {gridLocaleNoNB} from "../../util/locale/gridLocaleNoNB";
 import {useTranslation} from "react-i18next";
 import {IntegrationContext} from "../../../context/integrationContext";
 import {Link as RouterLink, useHistory} from 'react-router-dom';
-import {ISelect} from "../../integration/types/InputField";
+import {ISelect} from "../../configuration/types/InputField";
 import IntegrationRepository from "../../../shared/repositories/IntegrationRepository";
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import {SourceApplicationContext} from "../../../context/sourceApplicationContext";
@@ -26,14 +26,14 @@ import {
     getDestinationDisplayName,
     getSourceApplicationDisplayName,
     SOURCE_FORM_NO_VALUES
-} from "../../integration/defaults/DefaultValues";
+} from "../../configuration/defaults/DefaultValues";
 import ConfigurationRepository from "../../../shared/repositories/ConfigurationRepository";
 import {IIntegrationPatch} from "../../integration/types/Integration";
 import {ResourcesContext} from "../../../context/resourcesContext";
-import {configurationFieldToString} from "../../util/MappingUtil";
 import ResourceRepository from "../../../shared/repositories/ResourceRepository";
 import {IResourceItem} from "../../../context/resourcesContext/types";
-import {newIConfiguration} from "../../integration/types/Configuration";
+import {IConfiguration} from "../../configuration/types/Configuration";
+import {IElementMapping} from "../../configuration/types/AVConfiguration";
 
 const IntegrationPanel: React.FunctionComponent<any> = (props) => {
     const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.integrationOverview'});
@@ -101,7 +101,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
         }
         ConfigurationRepository.getConfiguration(id.toString(), true)
             .then((response) => {
-                let data: newIConfiguration = response.data;
+                let data: IConfiguration = response.data;
                 if (data) {
                     setActiveVersion(t('version') + data.version)
                 }
@@ -120,17 +120,20 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
         getInstanceElementMetadata(selectedForm[0].id)
         await ConfigurationRepository.getConfiguration(id.toString(), false)
             .then(async (response) => {
-                let data: newIConfiguration = response.data
+                let data: IConfiguration = response.data
                 if (version) {
                     data.id = undefined;
                     data.completed = false;
                 }
                 setConfiguration(data);
-                let cases = data?.elements.filter((confField: any) => confField.key === 'case')
-                let primaryClass = configurationFieldToString(cases ? cases : [], 'primarordningsprinsipp')
-                let secondaryClass = configurationFieldToString(cases ? cases : [], 'sekundarordningsprinsipp')
-                let tertiaryClass = configurationFieldToString(cases ? cases : [], 'tertiarordningsprinsipp')
-                if(primaryClass !== null ) await ResourceRepository.getClasses(primaryClass).then(async response => {
+                const caseFields: IElementMapping = data.mapping?.elementMappingPerKey['sak'] ? data.mapping?.elementMappingPerKey['sak'] : {elementMappingPerKey: {}, elementCollectionMappingPerKey: {}, valueMappingPerKey: {}};
+                const caseNewCaseFields: IElementMapping = caseFields.elementMappingPerKey['ny'] ? caseFields.elementMappingPerKey['ny'] :  {elementMappingPerKey: {}, elementCollectionMappingPerKey: {}, valueMappingPerKey: {}}
+                const caseClassesFields: IElementMapping[] = caseNewCaseFields.elementCollectionMappingPerKey['klasse']?.elementMappings ? caseNewCaseFields.elementCollectionMappingPerKey['klasse']?.elementMappings  :  []
+                let primaryClass = caseClassesFields[0]?.valueMappingPerKey['klassifikasjonssystem']?.mappingString ? caseClassesFields[0].valueMappingPerKey['klassifikasjonssystem']?.mappingString : null
+                let secondaryClass = caseClassesFields[1]?.valueMappingPerKey['klassifikasjonssystem']?.mappingString ? caseClassesFields[1].valueMappingPerKey['klassifikasjonssystem']?.mappingString : null
+                let tertiaryClass = caseClassesFields[2]?.valueMappingPerKey['klassifikasjonssystem']?.mappingString ? caseClassesFields[2].valueMappingPerKey['klassifikasjonssystem']?.mappingString : null
+
+               if(primaryClass !== null ) await ResourceRepository.getClasses(primaryClass).then(async response => {
                     if (response.data) {response.data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
                         setPrimaryClass(list)
                     }
