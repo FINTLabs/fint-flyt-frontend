@@ -12,7 +12,7 @@ import {
     getDestinationDisplayName,
     getSourceApplicationDisplayName,
     getStateDisplayName
-} from "../../integration/defaults/DefaultValues";
+} from "../../configuration/defaults/DefaultValues";
 import {IntegrationContext} from "../../../context/integrationContext";
 
 const IntegrationTable: React.FunctionComponent<any> = (props) => {

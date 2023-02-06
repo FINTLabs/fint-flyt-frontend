@@ -8,6 +8,8 @@ import DashboardCard from "./DashboardCard";
 import {ICard} from "./types/Card";
 import {useTranslation} from "react-i18next";
 import {SourceApplicationContext} from "../../context/sourceApplicationContext";
+import {toFormData} from "../util/mapping/ToFormData";
+import {MOCK_NEW_CONFIG} from "../../__tests__/mock/mock-configuration";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -41,6 +43,7 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
     statistics?.map((stat: any) => { return totalErrors += stat.currentErrors})
 
     useEffect(()=> {
+        toFormData(MOCK_NEW_CONFIG)
         getNewIntegrations(sourceApplication.toString());
         resetIntegrations();
     })

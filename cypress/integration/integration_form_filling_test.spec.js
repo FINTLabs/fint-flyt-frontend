@@ -85,13 +85,13 @@ describe('Testing filling Record Form', () => {
 describe('Testing filling Document and Object Form', () => {
     it('should fill document and object form fields', () => {
         cy.get('#document-object-form > .MuiAccordionSummary-root').click()
-        cy.get('#documentData\\.title').type("test title")
-        cy.get('#documentData\\.documentStatus').click()
+        cy.get('#mainDocumentData\\.title').type("test title")
+        cy.get('#mainDocumentData\\.documentStatus').click()
         cy.get('[data-value="https://beta.felleskomponent.no/arkiv/kodeverk/dokumentstatus/systemid/F"]').click()
-        cy.get('#documentData\\.accessCode').click()
+        cy.get('#mainDocumentData\\.accessCode').click()
         cy.get('[data-value="https://beta.felleskomponent.no/arkiv/kodeverk/tilgangsrestriksjon/systemid/PS"]').click()
-        cy.get('#documentData\\.paragraph').type('22').type('{downarrow}').type('{enter}');
-        cy.get('#documentData\\.variant').click()
+        cy.get('#mainDocumentData\\.paragraph').type('22').type('{downarrow}').type('{enter}');
+        cy.get('#mainDocumentData\\.variant').click()
         cy.get('[data-value="https://beta.felleskomponent.no/arkiv/kodeverk/variantformat/systemid/A"]').click()
     })
 })
@@ -99,7 +99,6 @@ describe('Testing filling Document and Object Form', () => {
 describe('Testing filling Applicant Form', () => {
     it('should fill applicant form', () => {
         cy.get('#applicant-form > .MuiAccordionSummary-root').click()
-        cy.get('#applicantData\\.type-ORGANISATION > .MuiFormControlLabel-root > .MuiTypography-root').click()
         cy.get('.MuiOutlinedInput-root > #applicantData\\.organisationNumber').type('12345612345')
         cy.get('.MuiOutlinedInput-root > #applicantData\\.name').type('test name')
         cy.get('.MuiOutlinedInput-root > #applicantData\\.address').type('adresse')
