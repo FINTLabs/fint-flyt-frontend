@@ -11,10 +11,10 @@ import {SourceApplicationContext} from "../../../context/sourceApplicationContex
 
 const SourceApplicationForm: React.FunctionComponent<any> = (props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'components.SourceApplicationForm'});
-    const { selectedMetadata } = useContext(IntegrationContext)
+    const { selectedMetadata, setSelectedMetadata } = useContext(IntegrationContext)
     const { allMetadata, instanceElementMetadata, getInstanceElementMetadata, getAllMetadata } = useContext(SourceApplicationContext)
-    const { setSelectedMetadata } = useContext(IntegrationContext)
-    const [version, setVersion] = React.useState('');
+    let initialVersion = selectedMetadata.version;
+    const [version, setVersion] = React.useState(initialVersion ? String(initialVersion) : '');
 
     const handleChange = (event: SelectChangeEvent) => {
         setVersion(event.target.value);
