@@ -42,6 +42,7 @@ const IntegrationProvider: FC = ({ children }) => {
         setExistingIntegration(undefined)
     }
 
+    // eslint-disable-next-line
     const resetConfiguration = () => {
         setConfigurations(undefined)
         setConfiguration(undefined)
@@ -66,18 +67,22 @@ const IntegrationProvider: FC = ({ children }) => {
                                                 mergedList.map((integration: IIntegration) => {
                                                     if (integration.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {
                                                         integration.errors = value.currentErrors;
-                                                        integration.dispatched = value.dispatchedInstances;
+                                                        return integration.dispatched = value.dispatchedInstances;
                                                     }
+                                                    return mergedList;
                                                 })
+                                                return stats;
                                             })
                                             metadata.forEach((value: IIntegrationMetadata) => {
                                                 mergedList.map((integration: IIntegration) => {
                                                     if (integration.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {
-                                                        integration.displayName = value.integrationDisplayName;
+                                                        return integration.displayName = value.integrationDisplayName;
                                                     }
+                                                    return mergedList;
                                                 })
+                                                return metadata;
                                             })
-                                            setNewIntegrations(mergedList);
+                                            return setNewIntegrations(mergedList);
                                         }
                                     })
                                     .catch((e) => {

@@ -69,12 +69,13 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
     }
 
     completedConfigurations?.map((configuration: any) => {
-        versionsToActivate.push({value: configuration.id, label: 'versjon ' + configuration.version})
+        return versionsToActivate.push({value: configuration.id, label: 'versjon ' + configuration.version})
     })
 
     useEffect(()=> {
         getAllMetadata(true)
         getVersionForActiveConfig(existingIntegration?.activeConfigurationId ? existingIntegration.activeConfigurationId : undefined)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const columns: GridColDef[] = [

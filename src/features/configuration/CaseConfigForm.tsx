@@ -146,6 +146,7 @@ const CaseConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => 
             resetAllResources();
             resetIntegrationContext();
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const accordionList: IAccordion[] = [

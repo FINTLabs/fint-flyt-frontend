@@ -42,6 +42,7 @@ const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = (
         if (showList) resetIntegrations();
         getNewIntegrations(sourceApplication.toString());
         getAllMetadata(true);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const resetConfiguration = () => {

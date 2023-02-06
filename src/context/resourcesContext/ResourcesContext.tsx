@@ -8,12 +8,15 @@ export const ResourcesContext = createContext<ResourceContextState>(
 
 const ResourcesProvider: FC = ({ children }) => {
     const [administrativeUnits, setAdministrativeUnits] = useState<IResourceItem[]>(contextDefaultValues.administrativeUnits);
+    // eslint-disable-next-line
     const [administrativeUnit, setAdministrativeUnit] = useState<IResourceItem[]>([]);
     const [statuses, setStatuses] = useState<IResourceItem[]>(contextDefaultValues.statuses);
     const [archiveSections, setArchiveSections] = useState<IResourceItem[]>(contextDefaultValues.archiveSections);
+    // eslint-disable-next-line
     const [archiveSection, setArchiveSection] = useState<IResourceItem[]>(contextDefaultValues.archiveSections);
     const [archiveResources, setArchiveResources] = useState<IResourceItem[]>(contextDefaultValues.archiveResources);
     const [accessCodes, setAccessCodes] = useState<IResourceItem[]>(contextDefaultValues.accessCodes);
+    // eslint-disable-next-line
     const [accessCode, setAccessCode] = useState<IResourceItem[]>(contextDefaultValues.accessCodes);
     const [caseTypes, setCaseTypes] = useState<IResourceItem[]>(contextDefaultValues.caseTypes);
     const [paragraphs, setParagraph] = useState<IResourceItem[]>(contextDefaultValues.paragraphs);
@@ -57,9 +60,11 @@ const ResourcesProvider: FC = ({ children }) => {
                         if (a.displayName < b.displayName) {
                             return -1;
                         }
+                        return data;
                     });
                     data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
-                    resourceSetter(list)
+                    return resourceSetter(list);
+
                 }
             })
             .catch((err) => {
@@ -122,7 +127,7 @@ const ResourcesProvider: FC = ({ children }) => {
 
     const getAllResources = () => {
         resourceList.map((r) => {
-            getResource(r.resource, r.setter)
+            return getResource(r.resource, r.setter)
         })
     }
 

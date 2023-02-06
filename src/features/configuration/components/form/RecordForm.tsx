@@ -6,10 +6,10 @@ import InputField from "./InputField";
 import {FieldErrors} from "react-hook-form";
 import {ResourcesContext} from "../../../../context/resourcesContext";
 import HelpPopover from "../popover/HelpPopover";
+// eslint-disable-next-line
 import { useTranslation } from 'react-i18next';
 
 const RecordForm: React.FunctionComponent<any> = (props) => {
-    const { t } = useTranslation('translations', { keyPrefix: 'pages.configurationForm.accordions.recordForm'});
     const {administrativeUnits, accessCodes, paragraphs, recordStatuses, recordTypes, archiveResources } = useContext(ResourcesContext);
     let errors: FieldErrors = props.errors;
     let required: boolean = props.validation;
