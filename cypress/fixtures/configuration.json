@@ -57,7 +57,7 @@
           "properties":[]}
       },{
         "valueBuildStrategy":"FIXED_ARCHIVE_CODE_VALUE",
-        "field":"dokumentStatus","valueBuilder":{
+        "field":"dokumentstatus","valueBuilder":{
           "value":"",
           "properties":[]}
       },{
@@ -74,7 +74,7 @@
           "properties":[]}
       },{
         "valueBuildStrategy":"FIXED_ARCHIVE_CODE_VALUE",
-        "field":"DokumentBeskrivelse.dokumentObjekt.variantFormat",
+        "field":"DokumentBeskrivelse.dokumentobjekt.variantformat",
         "valueBuilder":{
           "value":"",
           "properties":[]}}
@@ -82,7 +82,7 @@
     },
     "caseConfiguration":{
       "caseCreationStrategy":"NEW",
-      "caseNumber":null,
+      "id":null,
       "fields":[{
         "valueBuildStrategy":"COMBINE_STRING_VALUE",
         "field":"tittel",
@@ -165,7 +165,7 @@
       "nationalIdentityNumber":"",
       "fields":[{
         "valueBuildStrategy":"COMBINE_STRING_VALUE",
-        "field":"KorrespondansepartNavn",
+        "field":"korrespondansepartNavn",
         "valueBuilder":{
           "value":"",
           "properties":[]}

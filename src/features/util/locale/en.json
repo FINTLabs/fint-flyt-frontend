@@ -37,7 +37,7 @@
                         "save": "Save"
                     },
                     "caseSearch": {
-                        "caseNumber": "Case number",
+                        "id": "Case number",
                         "searching": "Searching...",
                         "info": "Case number must be correct format 'case year/case number', i.e. 2021/03",
                         "noMatch": "No match"
@@ -64,7 +64,7 @@
                         "save": "Save"
                     }
                 },
-                "applicationForm": {
+                "correspondentForm": {
                     "header": "Applicant",
                     "button": {
                         "save": "Save"
@@ -118,7 +118,7 @@
                 "caseCreationStrategy": "Creation strategy: ",
                 "finished": "finished: ",
                 "version": "Version: ",
-                "caseNumber": "Case number: ",
+                "id": "Case number: ",
                 "title": "Title: ",
                 "publicTitle": "Public title: ",
                 "administrativeUnit": "Administrative unit: ",
@@ -139,13 +139,16 @@
                 "tertiaryTitle": "Tertiary title: ",
                 "type": "Type: ",
                 "recordStatus": "Record status: ",
-                "recordType": "",
+                "recordType": "Record Type",
+                "documentCategory": "Document category",
                 "caseWorker": "Case worker: ",
                 "documentStatus": "Status: ",
                 "variant": "Variant: ",
+                "format": "Format: ",
+                "file": "Fil: ",
                 "organisationNumber": "Organisation number: ",
                 "nationalIdentityNumber": "National identity number: ",
-                "applicantName": "Name: ",
+                "correspondentName": "Name: ",
                 "address": "Address: ",
                 "postalCode": "Postal code: ",
                 "city": "City: ",
@@ -190,7 +193,7 @@
             "caseCreationExistingInfo": "On existing case based on information in form, if no match a new case is created",
             "caseCreationCollection": "On case collection",
             "caseCreationCollectionInfo": "Form is part of predefined case collection, here you must provide a case number",
-            "caseNumber": "Case number",
+            "id": "Case number",
             "title": "Title",
             "publicTitle": "Public title",
             "administrativeUnit": "Administrative unit",
@@ -212,13 +215,16 @@
             "type": "Type",
             "recordStatus": "Record status",
             "recordType": "",
+            "documentCategory": "",
             "caseWorker": "Case worker",
             "documentStatus": "Status",
             "variant": "Variant",
+            "fileFormat": "Format: ",
+            "file": "Fil: ",
             "applicantType": "Select applicant type",
             "organisationNumber": "Organisation number",
             "nationalIdentityNumber": "National identity number",
-            "applicantName": "Name",
+            "correspondentName": "Name",
             "address": "Address",
             "postalCode": "Postal code",
             "city": "City",
@@ -234,10 +240,6 @@
                 "existingDesc":"Form submitted finds existing form in Elements based on data in the form. If no matching case - a new case is created",
                 "collection":"On a case collection",
                 "collectionDesc":"Form submitted will be added to predefined case collection. This option requires a valid case number"
-            },
-            "applicantOptions": {
-                "individual":"Individual",
-                "organisation":"Organisation"
             },
             "sourceApplicationIntegrations": {
                 "VIK014": "Søknad om reservasjon av skoleplass",
@@ -259,7 +261,7 @@
             "finished": "Finished",
             "caseConfiguration": {
                 "caseCreationStrategy": "",
-                "caseNumber": "",
+                "id": "",
                 "title": "",
                 "publicTitle": "",
                 "administrativeUnit": "",
@@ -285,6 +287,7 @@
                 "administrativeUnit": "",
                 "recordStatus": "",
                 "recordType": "",
+                "documentCategory": "",
                 "caseWorker": "",
                 "accessCode": "",
                 "paragraph": ""
@@ -294,7 +297,9 @@
                 "documentStatus": "",
                 "accessCode": "",
                 "paragraph": "",
-                "variant": ""
+                "fileFormat": "",
+                "variant": "",
+                "file": ""
             },
             "applicantConfiguration": {
                 "type": "",
@@ -343,7 +348,7 @@
         "selectedForm": ",",
         "caseData": {
             "caseCreationStrategy": "Integration logic",
-            "caseNumber": "2021/12345",
+            "id": "2021/12345",
             "title": "Tittel kan være en konkret tekststreng, eller en kombinasjon av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak.  (Se Noark))",
             "publicTitle": "See Noark (part of title to be hidden)",
             "status": "-",
@@ -365,30 +370,42 @@
             "administrativeUnit": "Enheten/avdelingen. Nedtrekksmeny fra Elements",
             "recordStatus": "R,F,E,J",
             "recordType": "I, U, N, X",
+            "documentCategory": "Dokuemtkategori",
             "caseWorker": "En sak kan ha en ansvarlig saksbehandler men det kan være ulike saksbehandlere på ulike journalposter.",
             "accessCode": "Eksempel: Unntatt offentlighet, personal varslingssak, ugradert. ",
-            "paragraph": "Eksempel: Offl. §13 "
-        },
-        "documentData": {
-            "title": "Tittel kan være en konkret tekststreng, eller en kombinasjon av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak.(Se Noark))",
-            "documentStatus": "Eksempel: B, F",
-            "accessCode": "Eksempel: Unntatt offentlighet, persona,l varslingssak, ugradert. ",
-            "paragraph": "Eksempel: Offl. §13",
-            "variant": "Arkivformat/ produksjonsformat / offentlig variant"
-        },
-        "applicantData": {
-            "type": "Person eller organisasjon/bedrift",
-            "organisationNumber": "Orgnr for avsenderbedrift",
-            "nationalIdentityNumber": "Fødselsnummer for avsender",
-            "name": "Navn på bedrift/org, eller person",
-            "address": "Postadresse",
-            "postalCode": "Postkode",
-            "city": "Poststed",
-            "contactPerson": "Navn på søker er ikke alltid lik med kontaktperson",
-            "phoneNumber": "Telefonnummer",
-            "email": "epostadresse",
-            "accessCode": "velge om avsender skal være skjermet",
-            "paragraph": "Denne skal fjernes"
+            "paragraph": "Eksempel: Offl. §13 ",
+            "mainDocument": {
+                "title": "Tittel kan være en konkret tekststreng, eller en kombinasjon av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak.(Se Noark))",
+                "documentStatus": "Eksempel: B, F",
+                "accessCode": "Eksempel: Unntatt offentlighet, persona,l varslingssak, ugradert. ",
+                "paragraph": "Eksempel: Offl. §13",
+                "fileFormat": "Filformat",
+                "variant": "Arkivformat/ produksjonsformat / offentlig variant",
+                "file": "Fil"
+            },
+            "attachmentDocuments": {
+                "title": "Tittel kan være en konkret tekststreng, eller en kombinasjon av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak.(Se Noark))",
+                "documentStatus": "Eksempel: B, F",
+                "accessCode": "Eksempel: Unntatt offentlighet, persona,l varslingssak, ugradert. ",
+                "paragraph": "Eksempel: Offl. §13",
+                "fileFormat": "Filformat",
+                "variant": "Arkivformat/ produksjonsformat / offentlig variant",
+                "file": "Fil"
+            },
+            "correspondent": {
+                "type": "Person eller organisasjon/bedrift",
+                "organisationNumber": "Orgnr for avsenderbedrift",
+                "nationalIdentityNumber": "Fødselsnummer for avsender",
+                "name": "Navn på bedrift/org, eller person",
+                "address": "Postadresse",
+                "postalCode": "Postkode",
+                "city": "Poststed",
+                "contactPerson": "Navn på søker er ikke alltid lik med kontaktperson",
+                "phoneNumber": "Telefonnummer",
+                "email": "epostadresse",
+                "accessCode": "velge om avsender skal være skjermet",
+                "paragraph": "Denne skal fjernes"
+            }
         }
     }
 }

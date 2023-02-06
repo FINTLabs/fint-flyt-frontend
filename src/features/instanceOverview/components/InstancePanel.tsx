@@ -14,7 +14,7 @@ import {IEvent} from "../../log/types/Event";
 import ErrorIcon from "@mui/icons-material/Error";
 import InfoIcon from "@mui/icons-material/Info";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import {getSourceApplicationDisplayName} from "../../integration/defaults/DefaultValues";
+import {getSourceApplicationDisplayName} from "../../configuration/defaults/DefaultValues";
 import {useHistory} from "react-router-dom";
 
 const InstancePanel: React.FunctionComponent<any> = (props) => {

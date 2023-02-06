@@ -12,7 +12,7 @@ import moment from "moment";
 import {useContext, useEffect, useState} from "react";
 import {HistoryContext} from "../../../context/historyContext";
 import InstanceRepository from "../repository/InstanceRepository";
-import {getSourceApplicationDisplayName} from "../../integration/defaults/DefaultValues";
+import {getSourceApplicationDisplayName} from "../../configuration/defaults/DefaultValues";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import Stack from "@mui/material/Stack";
 import {stringReplace} from "../../util/StringUtil";
@@ -87,6 +87,7 @@ const InstanceTable: React.FunctionComponent<any> = (props) => {
 
     useEffect(()=> {
         getLatestInstances(0, 10000, "timestamp", "DESC", sourceApplication.toString());
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const getEventsWithInstanceId = (sourceApplicationID: string, instanceId: string) => {

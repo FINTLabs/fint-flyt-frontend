@@ -12,9 +12,11 @@ export function stringReplace(baseString: string, errorArgs: IErrorArg[]) {
         errorArgs.map(arg => {
             if (arg.type === errorType && arg.value !== undefined) {
                 helpString = errorString.replace(errorType, arg.value)
-                errorString = helpString
+                return errorString = helpString
             }
+            return errorArgs;
         })
+        return errorTypes;
     })
     return errorString;
 }
