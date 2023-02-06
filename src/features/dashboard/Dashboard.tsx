@@ -46,7 +46,8 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
         toFormData(MOCK_NEW_CONFIG)
         getNewIntegrations(sourceApplication.toString());
         resetIntegrations();
-    })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     const cards: ICard[] = [
         { value: newIntegrations === undefined || newIntegrations.length === 0 ? t('empty') : newIntegrations.length, content: newIntegrations !== undefined && newIntegrations.length === 1 ? t('oneForm') : t('form'), links: [
