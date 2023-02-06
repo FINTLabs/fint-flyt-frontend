@@ -219,7 +219,7 @@
             "caseWorker": "Case worker",
             "documentStatus": "Status",
             "variant": "Variant",
-            "format": "Format: ",
+            "fileFormat": "Format: ",
             "file": "Fil: ",
             "applicantType": "Select applicant type",
             "organisationNumber": "Organisation number",
@@ -297,7 +297,7 @@
                 "documentStatus": "",
                 "accessCode": "",
                 "paragraph": "",
-                "format": "",
+                "fileFormat": "",
                 "variant": "",
                 "file": ""
             },
@@ -379,7 +379,7 @@
                 "documentStatus": "Eksempel: B, F",
                 "accessCode": "Eksempel: Unntatt offentlighet, persona,l varslingssak, ugradert. ",
                 "paragraph": "Eksempel: Offl. §13",
-                "format": "Filformat",
+                "fileFormat": "Filformat",
                 "variant": "Arkivformat/ produksjonsformat / offentlig variant",
                 "file": "Fil"
             },
@@ -388,7 +388,7 @@
                 "documentStatus": "Eksempel: B, F",
                 "accessCode": "Eksempel: Unntatt offentlighet, persona,l varslingssak, ugradert. ",
                 "paragraph": "Eksempel: Offl. §13",
-                "format": "Filformat",
+                "fileFormat": "Filformat",
                 "variant": "Arkivformat/ produksjonsformat / offentlig variant",
                 "file": "Fil"
             },

@@ -154,6 +154,7 @@ const CaseConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => 
         {id: 'case-form', summary: "caseForm.header", accordionForm: ACCORDION_FORM.CASE_FORM, defaultExpanded: completed, hidden: watch("caseData.caseCreationStrategy") === CreationStrategy.BY_ID},
         {id: 'record-form', summary: "recordForm.header", accordionForm: ACCORDION_FORM.RECORD_FORM, defaultExpanded: completed},
         {id: 'document-object-form', summary: "documentForm.header", accordionForm: ACCORDION_FORM.DOCUMENT_FORM, defaultExpanded: completed},
+        {id: 'attachment-document-object-form', summary: "attachmentForm.header", accordionForm: ACCORDION_FORM.ATTACHMENT_FORM, defaultExpanded: completed},
         {id: 'correspondent-form', summary: "correspondentForm.header", accordionForm: ACCORDION_FORM.CORRESPONDENT_FORM, defaultExpanded: completed}
     ]
 

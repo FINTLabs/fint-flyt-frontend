@@ -73,9 +73,17 @@
                     }
                 },
                 "documentForm": {
-                    "header": "Dokument",
+                    "header": "Hoveddokument",
                     "mainDocumentDescription": "Hoveddokument",
                     "attachmentDescription": "Vedlegg",
+                    "button": {
+                        "save": "Lagre"
+                    }
+                },
+                "attachmentForm": {
+                    "header": "Vedlegg",
+                    "description": "Dokumentbeskrivelse",
+                    "object": "Dokumentobjekt",
                     "button": {
                         "save": "Lagre"
                     }

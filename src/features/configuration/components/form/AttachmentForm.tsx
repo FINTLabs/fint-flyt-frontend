@@ -13,23 +13,23 @@ import {
     variantOptions
 } from "../../defaults/DefaultValues";
 
-const DocumentForm: React.FunctionComponent<any> = (props) => {
-    const { t } = useTranslation('translations', { keyPrefix: 'pages.configurationForm.accordions.documentForm'});
+const AttachmentForm: React.FunctionComponent<any> = (props) => {
+    const { t } = useTranslation('translations', { keyPrefix: 'pages.configurationForm.accordions.attachmentForm'});
     const {documentStatuses, documentTypes} = useContext(ResourcesContext);
     let errors: FieldErrors = props.errors;
     let required: boolean = props.validation;
 
-    const mainDocumentFields: IInputField[] = [
-        {input: INPUT_TYPE.TEXT_FIELD, label: "labels.title", formValue: "recordData.title", required: required, error:errors.recordData?.title, value: props.watch("recordData.title"), helpText: "recordData.title", disabled: true},
-        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.documentStatus", value: props.watch("recordData.mainDocument.documentStatus"), formValue: "recordData.mainDocument.documentStatus", dropDownItems: documentStatuses, required: required, error:errors.recordData?.mainDocument?.documentStatus, helpText: "recordData.documentStatus"},
-        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.documentType", value: props.watch("recordData.mainDocument.documentType"), formValue: "recordData.mainDocument.documentType", dropDownItems: documentTypes, required: required, error:errors.recordData?.mainDocument?.documentType, helpText: "recordData.documentType"},
-        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.role", value: props.watch("recordData.mainDocument.role"), formValue: "recordData.mainDocument.role", dropDownItems: roleOptions, required: false, error:errors.recordData?.mainDocument?.role, helpText: "recordData.role", disabled: true},
+    const attachmentDocumentFields: IInputField[] = [
+        {input: INPUT_TYPE.TEXT_FIELD, label: "labels.title", formValue: "recordData.attachmentDocuments.title", required: false, error:errors.recordData?.attachmentDocuments?.title, value: '$icf{0}{navn}', helpText: "recordData.title", disabled: true},
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.documentStatus", value: props.watch("recordData.attachmentDocuments.documentStatus"), formValue: "recordData.attachmentDocuments.documentStatus", dropDownItems: documentStatuses, required: required, error:errors.recordData?.attachmentDocuments?.documentStatus, helpText: "recordData.documentStatus"},
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.documentType", value: props.watch("recordData.attachmentDocuments.documentType"), formValue: "recordData.attachmentDocuments.documentType", dropDownItems: documentTypes, required: required, error:errors.recordData?.attachmentDocuments?.documentType, helpText: "recordData.documentType"},
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.role", value: props.watch("recordData.attachmentDocuments.role"), formValue: "recordData.attachmentDocuments.role", dropDownItems: roleOptions, required: false, error:errors.recordData?.attachmentDocuments?.role, helpText: "recordData.role", disabled: true}
     ]
 
-    const mainObjectFields: IInputField[] = [
-        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.variant", value: props.watch("recordData.mainDocument.variant"), formValue: "recordData.mainDocument.variant", dropDownItems: variantOptions, required: false, error:errors.recordData?.mainDocument?.fileFormat, helpText: "recordData.fileFormat", disabled: true},
-        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.fileFormat", value: props.watch("recordData.mainDocument.fileFormat"), formValue: "recordData.mainDocument.fileFormat", dropDownItems: formatOptions, required: false, error:errors.recordData?.mainDocument?.fileFormat, helpText: "recordData.fileFormat", disabled: true},
-        {input: INPUT_TYPE.TEXT_FIELD, label: "labels.file", formValue: "recordData.mainDocument.file", required: false, error:errors.recordData?.mainDocument?.file, value: '$if{skjemaPdf}', helpText: "recordData.file", disabled: true}
+    const attachmentObjectFields: IInputField[] = [
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.variant", value: props.watch("recordData.attachmentDocuments.variant"), formValue: "recordData.attachmentDocuments.variant", dropDownItems: variantOptions, required: false, error:errors.recordData?.attachmentDocuments?.variant, helpText: "recordData.variant", disabled: true},
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.fileFormat", value: props.watch("recordData.attachmentDocuments.fileFormat"), formValue: "recordData.attachmentDocuments.fileFormat", dropDownItems: formatOptions, required: false, error:errors.recordData?.attachmentDocuments?.fileFormat, helpText: "recordData.fileFormat", disabled: true},
+        {input: INPUT_TYPE.TEXT_FIELD, label: "labels.file", formValue: "recordData.attachmentDocuments.file", required: false, error:errors.recordData?.attachmentDocuments?.file, value: '$icf{0}{fil}', helpText: "recordData.file", disabled: true}
     ]
 
     return (
@@ -37,7 +37,7 @@ const DocumentForm: React.FunctionComponent<any> = (props) => {
             <FormGroup className={props.style.formControl}>
                 <Typography sx={{fontSize: 14}}>Dokumentbeskrivelse</Typography>
                 <Divider sx={{mb: 3}}/>
-                {mainDocumentFields.map((field, index) => {
+                {attachmentDocumentFields.map((field, index) => {
                     return (
                         <Box sx={{display: 'flex'}} key={index}>
                             <Box width={'100%'}>
@@ -61,7 +61,7 @@ const DocumentForm: React.FunctionComponent<any> = (props) => {
                 )}
                 <Typography sx={{fontSize: 14}}>Dokumentobjekt</Typography>
                 <Divider sx={{mb: 3}}/>
-                {mainObjectFields.map((field, index) => {
+                {attachmentObjectFields.map((field, index) => {
                     return (
                         <Box sx={{display: 'flex'}} key={index}>
                             <Box width={'100%'}>
@@ -88,4 +88,4 @@ const DocumentForm: React.FunctionComponent<any> = (props) => {
     );
 }
 
-export default DocumentForm;
+export default AttachmentForm;
