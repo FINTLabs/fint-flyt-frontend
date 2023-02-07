@@ -38,8 +38,12 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
         setPropValue(props.formValue, inputValue)
     }, [inputValue, setInputValue, setPropValue, props.formValue]);
 
-    console.log(props.label, 'label, required', props.required)
-    console.log(props.label, 'label, errror ', props.error)
+    //TODO remove log
+    if (props.label === 'labels.title') {
+        console.log(props.label, 'label, required', props.required)
+        console.log(props.label, 'label, errror ', props.error)
+        console.log(regExp.test(inputValue))
+    }
 
     return (
         <Controller
