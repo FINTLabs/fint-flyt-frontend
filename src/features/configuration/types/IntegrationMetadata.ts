@@ -12,6 +12,7 @@ export interface IInstanceElementMetadata {
     key: string | null;
     type: Type;
     displayName: string;
+    disabled?: boolean;
     children: IInstanceElementMetadata[];
 }
 
