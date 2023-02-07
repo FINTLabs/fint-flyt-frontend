@@ -5,7 +5,7 @@ import {Chip} from "@mui/material";
 import {ITag} from "../../types/Tag";
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 
-export const Tag: FC<ITag> = function Tag({ name, value }) {
+export const Tag: FC<ITag> = function Tag({ name, value, disabled }) {
     const [{ isDragging }, drag] = useDrag(() => ({
         type: DraggableTypes.TAG,
         item: {name, value},
@@ -19,11 +19,14 @@ export const Tag: FC<ITag> = function Tag({ name, value }) {
         <Chip
             sx={{borderRadius: '4px'}}
             icon={<DragIndicatorIcon/>}
-            ref={drag}
+            ref={disabled ? null : drag}
             variant="outlined"
             role="Tag"
             label={name}
-            style={{ cursor: 'move', backgroundColor: 'white', margin:8, opacity }}
+            style={ disabled ?
+                { backgroundColor: 'whitesmoke', margin:8, opacity: 0.4 } :
+                { cursor: 'move', backgroundColor: 'white', margin:8, opacity }
+            }
         />
     )
 }

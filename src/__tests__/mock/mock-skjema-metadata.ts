@@ -79,7 +79,8 @@ export const MOCK_SKJEMA_METADATA: IIntegrationMetadata = {
                     "key": "fornavn_3",
                     "type": Type.STRING,
                     "displayName": "Fornavn",
-                    "children": []
+                    "children": [],
+                    "disabled": true
                 },
                 {
                     "key": "etternavn_3",

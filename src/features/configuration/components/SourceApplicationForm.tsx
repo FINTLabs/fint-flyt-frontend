@@ -49,7 +49,7 @@ const SourceApplicationForm: React.FunctionComponent<any> = (props) => {
                         <Typography>{item.displayName}</Typography>
                     </div> :
                     <div style={{ paddingLeft: depth * 15 }}>
-                        <Tag name={item.displayName + ' {' + (item.key) + '}'} value={toTagValue(item.key)}/>
+                        <Tag disabled={item.disabled} name={item.displayName + ' {' + (item.key) + '}'} value={toTagValue(item.key)}/>
                     </div>}
                 <TagTree items={item.children} depth={depth + 1}/>
             </React.Fragment>
