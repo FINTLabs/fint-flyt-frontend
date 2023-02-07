@@ -20,8 +20,8 @@ const RecordForm: React.FunctionComponent<any> = (props) => {
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.administrativeUnit", value: props.watch("recordData.administrativeUnit"), formValue: "recordData.administrativeUnit", dropDownItems: administrativeUnits, required: required, error:errors.recordData?.administrativeUnit, helpText: "recordData.administrativeUnit"},
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.caseWorker", value: props.watch("recordData.caseWorker"), formValue: "recordData.caseWorker", dropDownItems: archiveResources, required: false, error:errors.recordData?.caseWorker, helpText: "recordData.caseWorker"},
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.recordStatus", value: props.watch("recordData.recordStatus"), formValue: "recordData.recordStatus", dropDownItems: recordStatuses, required: required, error:errors.recordData?.recordStatus, helpText: "recordData.recordStatus"},
-        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.accessCode", value: props.watch("recordData.shielding.accessCode"), formValue: "recordData.shielding.accessCode", dropDownItems: accessCodes, required: false, error:errors.recordData?.shielding.accessCode, helpText: "recordData.accessCode"},
-        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.paragraph", value: props.watch("recordData.shielding.paragraph"), formValue: "recordData.shielding.paragraph", dropDownItems: paragraphs, required: false, error:errors.recordData?.shielding.paragraph, helpText: "recordData.paragraph"}
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.accessCode", value: props.watch("recordData.shielding.accessCode"), formValue: "recordData.shielding.accessCode", dropDownItems: accessCodes, required: false, error:errors.recordData?.shielding?.accessCode, helpText: "recordData.accessCode"},
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.paragraph", value: props.watch("recordData.shielding.paragraph"), formValue: "recordData.shielding.paragraph", dropDownItems: paragraphs, required: false, error:errors.recordData?.shielding?.paragraph, helpText: "recordData.paragraph"}
     ]
     return (
         <div>
