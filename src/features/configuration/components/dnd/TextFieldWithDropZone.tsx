@@ -26,8 +26,6 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
         }),
     }))
 
-   console.log(regExp.test(inputValue))
-
     if (canDrop && isOver) {
         backgroundColor = 'palegreen';
     } else if (canDrop) {
@@ -37,13 +35,6 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
     useEffect(() => {
         setPropValue(props.formValue, inputValue)
     }, [inputValue, setInputValue, setPropValue, props.formValue]);
-
-    //TODO remove log
-    if (props.label === 'labels.title') {
-        console.log(props.label, 'label, required', props.required)
-        console.log(props.label, 'label, errror ', props.error)
-        console.log(regExp.test(inputValue))
-    }
 
     return (
         <Controller
@@ -66,7 +57,7 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
                                 onChange(e);
                             }}
                             error={!!props.error}
-                            helperText={(props.error && props.required) ? 'Obligatorisk felt' : (props.required && inputValue === '' ? 'Data fra skjema må være på formatet $if{metadata}' : '')}
+                            helperText={(props.error && props.required) ? 'Obligatorisk felt' : ((props.required && inputValue !== '') && !regExp.test(inputValue) ? 'Data fra skjema må være på formatet $if{metadata}' : '')}
                         />)
             }}
             rules={
