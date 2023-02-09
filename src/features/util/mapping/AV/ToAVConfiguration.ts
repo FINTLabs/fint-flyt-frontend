@@ -17,36 +17,11 @@ import {
     recordDataToRecord,
     shieldingDataToRecord
 } from "../helpers/toValueMappingRecord";
-
-export function shouldIncludeElementMapping(data: IElementMapping): boolean {
-    return Object.entries(data.valueMappingPerKey).length > 0
-        || Object.entries(data.elementMappingPerKey).length > 0
-        || Object.entries(data.elementCollectionMappingPerKey).length > 0;
-}
-
-export function shouldIncludeElementCollectionMapping(data: IElementCollectionMapping): boolean {
-    return data.elementMappings.length > 0 || data.elementsFromCollectionMappings.length > 0;
-}
-
-export function shouldIncludeElementsFromCollectionMapping(data: IElementsFromCollectionMapping): boolean {
-    return shouldIncludeElementMapping(data.elementMapping);
-}
-
-export function filterEntries<T>(data: Record<string, T>, predicate: (t: T) => boolean): Record<string, T> {
-    let result: Record<string, T> = {} as Record<string, T>;
-    Object.entries(data)
-        .filter(([key, value]) => predicate(value))
-        .forEach(([key, value]) => result[key] = value);
-    return result;
-}
-
-export function filterElementMappingEntries(data: Record<string, IElementMapping>): Record<string, IElementMapping> {
-    return filterEntries(data, shouldIncludeElementMapping);
-}
-
-export function filterElementCollectionMappingEntries(data: Record<string, IElementCollectionMapping>): Record<string, IElementCollectionMapping> {
-    return filterEntries(data, shouldIncludeElementCollectionMapping);
-}
+import {
+    filterElementCollectionMappingEntries,
+    filterElementMappingEntries,
+    shouldIncludeElementMapping, shouldIncludeElementsFromCollectionMapping
+} from "../helpers/filters";
 
 export function toAVConfiguration(data: IFormConfiguration, integrationId: string, configurationId: any, metadataId: number): IAVConfiguration {
     return {
@@ -189,22 +164,22 @@ export function toAVConfigurationPatch(data: IFormConfiguration, metadataId: any
         completed: data.completed,
         integrationMetadataId: metadataId,
         comment: data.comment,
-        mapping: {
+        mapping:  {
             valueMappingPerKey: {},
-            elementMappingPerKey: {
+            elementMappingPerKey: filterElementMappingEntries({
                 "sak": {
                     valueMappingPerKey: caseDataToRecord(data.caseData),
-                    elementMappingPerKey: {
+                    elementMappingPerKey: filterElementMappingEntries({
                         "ny": {
                             valueMappingPerKey: newCaseDataToRecord(data.caseData.newCase),
-                            elementMappingPerKey: {
+                            elementMappingPerKey: filterElementMappingEntries({
                                 "skjerming": {
                                     valueMappingPerKey: shieldingDataToRecord(data.caseData.newCase.shielding),
                                     elementMappingPerKey: {},
                                     elementCollectionMappingPerKey: {}
                                 }
-                            },
-                            elementCollectionMappingPerKey: {
+                            }),
+                            elementCollectionMappingPerKey: filterElementCollectionMappingEntries({
                                 "klasse": {
                                     elementsFromCollectionMappings: [],
                                     elementMappings: [
@@ -221,28 +196,23 @@ export function toAVConfigurationPatch(data: IFormConfiguration, metadataId: any
                                             elementMappingPerKey: {},
                                             elementCollectionMappingPerKey: {}
                                         }
-                                    ]
+                                    ].filter(shouldIncludeElementMapping)
                                 }
-                            }
+                            })
                         }
-
-                    },
+                    }),
                     elementCollectionMappingPerKey: {}
                 },
                 "journalpost": {
                     valueMappingPerKey: recordDataToRecord(data.recordData),
-                    elementMappingPerKey: {
-                        "skjerming": data.recordData.shielding ? {
+                    elementMappingPerKey: filterElementMappingEntries({
+                        "skjerming": {
                             valueMappingPerKey: shieldingDataToRecord(data.recordData.shielding),
                             elementMappingPerKey: {},
                             elementCollectionMappingPerKey: {}
-                        } : {
-                            valueMappingPerKey: {},
-                            elementMappingPerKey: {},
-                            elementCollectionMappingPerKey: {}
                         }
-                    },
-                    elementCollectionMappingPerKey: {
+                    }),
+                    elementCollectionMappingPerKey: filterElementCollectionMappingEntries({
                         "dokumentbeskrivelse": {
                             elementMappings: [
                                 {
@@ -261,34 +231,34 @@ export function toAVConfigurationPatch(data: IFormConfiguration, metadataId: any
                                         }
                                     }
                                 }
-                            ],
+                            ].filter(shouldIncludeElementMapping),
                             elementsFromCollectionMappings: [
                                 {
                                     instanceCollectionReferencesOrdered: ["$if(vedlegg)"],
                                     elementMapping: {
                                         valueMappingPerKey: documentDescriptionDataToRecord(data.recordData.attachmentDocuments),
                                         elementMappingPerKey: {},
-                                        elementCollectionMappingPerKey: {
+                                        elementCollectionMappingPerKey: filterElementCollectionMappingEntries({
                                             "dokumentobjekt": {
                                                 elementMappings: [
                                                     {
-                                                        valueMappingPerKey: documentObjectDataToRecord(data.recordData.mainDocument),
+                                                        valueMappingPerKey: documentObjectDataToRecord(data.recordData.attachmentDocuments),
                                                         elementMappingPerKey: {},
                                                         elementCollectionMappingPerKey: {}
                                                     }
-                                                ],
+                                                ].filter(shouldIncludeElementMapping),
                                                 elementsFromCollectionMappings: []
                                             }
-                                        }
+                                        })
                                     }
                                 }
-                            ]
+                            ].filter(shouldIncludeElementsFromCollectionMapping)
 
                         },
                         "korrespondansepart": {
                             elementMappings: [{
                                 valueMappingPerKey: correspondentDataToRecord(data.recordData.correspondent),
-                                elementMappingPerKey: {
+                                elementMappingPerKey: filterElementMappingEntries({
                                     "adresse": {
                                         valueMappingPerKey: addressDataToRecord(data.recordData.correspondent),
                                         elementMappingPerKey: {},
@@ -308,14 +278,14 @@ export function toAVConfigurationPatch(data: IFormConfiguration, metadataId: any
                                         elementMappingPerKey: {},
                                         elementCollectionMappingPerKey: {}
                                     }
-                                },
+                                }),
                                 elementCollectionMappingPerKey: {}
-                            }],
+                            }].filter(shouldIncludeElementMapping),
                             elementsFromCollectionMappings: []
                         }
-                    }
+                    })
                 }
-            },
+            }),
             elementCollectionMappingPerKey: {}
         }
     }

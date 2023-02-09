@@ -8,8 +8,6 @@ import DashboardCard from "./DashboardCard";
 import {ICard} from "./types/Card";
 import {useTranslation} from "react-i18next";
 import {SourceApplicationContext} from "../../context/sourceApplicationContext";
-import {toConfiguration} from "../util/mapping/ToConfiguration";
-import {MOCK_CONFIG_FORMDATA_TEST} from "../../__tests__/mock/mock-form-data";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -43,7 +41,6 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
     statistics?.map((stat: any) => { return totalErrors += stat.currentErrors})
 
     useEffect(()=> {
-        toConfiguration(MOCK_CONFIG_FORMDATA_TEST, "1", "1", 2)
         getNewIntegrations(sourceApplication.toString());
         resetIntegrations();
         // eslint-disable-next-line react-hooks/exhaustive-deps

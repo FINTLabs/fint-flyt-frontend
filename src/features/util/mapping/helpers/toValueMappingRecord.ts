@@ -18,12 +18,6 @@ function cleanedRecord(inputArray: ({ mappingString: string | null; type: string
     return record;
 }
 
-export function removeEmpty(record: Record<string, IElementMapping>): Record<string, IElementMapping> {
-    let newRecord: Record<string, IElementMapping> = {} as Record<string, IElementMapping>;
-    console.log(record)
-    return newRecord;
-}
-
 export function caseDataToRecord(data: ICaseData): Record<string, IValueMapping> {
  let caseFieldsArray = [
         {key: "type", type: FieldType.STRING, mappingString: data.caseCreationStrategy},
@@ -33,11 +27,14 @@ export function caseDataToRecord(data: ICaseData): Record<string, IValueMapping>
 }
 
 export function classDataToRecord(data: IClassData, order: string): Record<string, IValueMapping> {
-  let caseFieldsArray = [
-        {key: "klassifikasjonssystem", type: FieldType.DYNAMIC_STRING, mappingString: data.classification},
+    if (data === undefined) {
+        return cleanedRecord([])
+    }
+    let caseFieldsArray = [
+        {key: "klassifikasjonssystem", type: FieldType.STRING, mappingString: data.classification},
         {key: "klasseId", type: FieldType.DYNAMIC_STRING, mappingString: data.class},
-        {key: "tittel", type: FieldType.DYNAMIC_STRING, mappingString: data.classification !== null ? data.title : null},
-        {key: "rekkefølge", type: FieldType.DYNAMIC_STRING, mappingString: data.classification !== null ? order : null},
+        {key: "tittel", type: FieldType.DYNAMIC_STRING, mappingString: data.title !== '' ? data.title : null},
+        {key: "rekkefølge", type: FieldType.STRING, mappingString: data.classification ? order : null},
     ]
     return cleanedRecord(caseFieldsArray);
 }
@@ -63,7 +60,7 @@ export function recordDataToRecord(data: IRecordData): Record<string, IValueMapp
         {key: "journalposttype", type: FieldType.STRING, mappingString: data.recordType},
         {key: "journalstatus", type: FieldType.STRING, mappingString: data.recordStatus},
         {key: "administrativenhet", type: FieldType.STRING, mappingString: data.administrativeUnit},
-        {key: "saksansvarlig", type: FieldType.STRING, mappingString: data.caseWorker}
+        {key: "saksbehandler", type: FieldType.STRING, mappingString: data.caseWorker}
     ]
     return cleanedRecord(caseFieldsArray);
 }

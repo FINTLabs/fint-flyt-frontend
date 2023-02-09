@@ -132,20 +132,6 @@ export const MOCK_CONFIG_FORMDATA_TEST: IFormConfiguration = {
                     class: "1class",
                     title: "primTitle",
                     shielding: { accessCode: null, paragraph: null }
-                },
-                {
-                    order: 1,
-                    classification: "rose",
-                    class: "2class",
-                    title: "secTitle",
-                    shielding: { accessCode: null, paragraph: null }
-                },
-                {
-                    order: 2,
-                    classification: "everdeen",
-                    class: "3class",
-                    title: "tertTitle",
-                    shielding: { accessCode: null, paragraph: null }
                 }
             ]
         }
