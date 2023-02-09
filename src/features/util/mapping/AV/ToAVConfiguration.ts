@@ -1,5 +1,17 @@
 import { IFormConfiguration } from "../../../configuration/types/Form/FormData"
 import {FieldType, IAVConfiguration} from "../../../configuration/types/AVConfiguration";
+import {
+    addressDataToRecord,
+    caseDataToRecord,
+    classDataToRecord,
+    contactInfoDataToRecord,
+    correspondentDataToRecord,
+    documentDescriptionDataToRecord,
+    documentObjectDataToRecord,
+    newCaseDataToRecord,
+    recordDataToRecord,
+    shieldingDataToRecord
+} from "../helpers/toValueMappingRecord";
 
 export function toAVConfiguration(data: IFormConfiguration, integrationId: string, configurationId: any, metadataId: number): IAVConfiguration {
     return {
@@ -12,32 +24,13 @@ export function toAVConfiguration(data: IFormConfiguration, integrationId: strin
             valueMappingPerKey: {},
             elementMappingPerKey: {
                 "sak": {
-                    valueMappingPerKey: {
-                        "type": {type: FieldType.STRING, mappingString: data.caseData.caseCreationStrategy},
-                        "id": {type: FieldType.STRING, mappingString: data.caseData.id ? data.caseData.id : null}
-                    },
+                    valueMappingPerKey: caseDataToRecord(data.caseData),
                     elementMappingPerKey: {
                         "ny": {
-                            valueMappingPerKey: {
-                                "tittel": {type: FieldType.DYNAMIC_STRING, mappingString: data.caseData.newCase.title},
-                                "offentligTittel": {type: FieldType.DYNAMIC_STRING, mappingString: data.caseData.newCase.publicTitle},
-                                "saksmappetype": {type: FieldType.STRING, mappingString: data.caseData.newCase.caseType},
-                                "administrativenhet": {type: FieldType.STRING, mappingString: data.caseData.newCase.administrativeUnit},
-                                "arkivdel": {type: FieldType.STRING, mappingString: data.caseData.newCase.archiveUnit},
-                                "journalenhet": {type: FieldType.STRING, mappingString: data.caseData.newCase.recordUnit},
-                                "saksstatus": {type: FieldType.STRING, mappingString: data.caseData.newCase.status},
-                                "saksansvarlig": {type: FieldType.STRING, mappingString: data.caseData.newCase.caseWorker}
-                            },
+                            valueMappingPerKey: newCaseDataToRecord(data.caseData.newCase),
                             elementMappingPerKey: {
-                                "skjerming": data.caseData.newCase?.shielding ? {
-                                    valueMappingPerKey: {
-                                        "tilgangsrestriksjon": {type: FieldType.STRING, mappingString: data.caseData.newCase.shielding?.accessCode},
-                                        "skjermingshjemmel": {type: FieldType.STRING, mappingString: data.caseData.newCase.shielding?.paragraph}
-                                    },
-                                    elementMappingPerKey: {},
-                                    elementCollectionMappingPerKey: {}
-                                } : {
-                                    valueMappingPerKey: {},
+                                "skjerming": {
+                                    valueMappingPerKey: shieldingDataToRecord(data.caseData.newCase.shielding),
                                     elementMappingPerKey: {},
                                     elementCollectionMappingPerKey: {}
                                 }
@@ -47,92 +40,31 @@ export function toAVConfiguration(data: IFormConfiguration, integrationId: strin
                                     elementsFromCollectionMappings: [],
                                     elementMappings: [
                                         {
-                                            valueMappingPerKey: {
-                                                "klassifikasjonssystem": {
-                                                    type: FieldType.STRING,
-                                                    mappingString: data.caseData?.newCase?.classes[0].classification
-                                                },
-                                                "klasseId": {
-                                                    type: FieldType.DYNAMIC_STRING,
-                                                    mappingString: data.caseData.newCase?.classes[0].class
-                                                },
-                                                "tittel": {
-                                                    type: FieldType.DYNAMIC_STRING,
-                                                    mappingString: data.caseData.newCase?.classes[0].title
-                                                },
-                                                "rekkefølge": {
-                                                    type: FieldType.DYNAMIC_STRING,
-                                                    mappingString: "0"
-                                                }
-                                            },
+                                            valueMappingPerKey: classDataToRecord(data.caseData.newCase.classes[0], "0"),
                                             elementMappingPerKey: {},
                                             elementCollectionMappingPerKey: {}
                                         },{
-                                            valueMappingPerKey: {
-                                                "klassifikasjonssystem": {
-                                                    type: FieldType.STRING,
-                                                    mappingString: data.caseData.newCase?.classes[1].classification
-                                                },
-                                                "klasseId": {
-                                                    type: FieldType.DYNAMIC_STRING,
-                                                    mappingString: data.caseData.newCase?.classes[1].class
-                                                },
-                                                "tittel": {
-                                                    type: FieldType.DYNAMIC_STRING,
-                                                    mappingString: data.caseData.newCase?.classes[1].title
-                                                },
-                                                "rekkefølge": {
-                                                    type: FieldType.DYNAMIC_STRING,
-                                                    mappingString: "1"
-                                                }
-                                            },
+                                            valueMappingPerKey: classDataToRecord(data.caseData.newCase.classes[1], "1"),
                                             elementMappingPerKey: {},
                                             elementCollectionMappingPerKey: {}
                                         },{
-                                            valueMappingPerKey: {
-                                                "klassifikasjonssystem": {
-                                                    type: FieldType.STRING,
-                                                    mappingString: data.caseData.newCase?.classes[2].classification
-                                                },
-                                                "klasseId": {
-                                                    type: FieldType.DYNAMIC_STRING,
-                                                    mappingString: data.caseData.newCase?.classes[2].class
-                                                },
-                                                "tittel": {
-                                                    type: FieldType.DYNAMIC_STRING,
-                                                    mappingString: data.caseData.newCase?.classes[2].title
-                                                },
-                                                "rekkefølge": {
-                                                    type: FieldType.DYNAMIC_STRING,
-                                                    mappingString: "2"
-                                                }
-                                            },
+                                            valueMappingPerKey: classDataToRecord(data.caseData.newCase.classes[2], "2"),
                                             elementMappingPerKey: {},
                                             elementCollectionMappingPerKey: {}
                                         }
                                     ]
                                 }
                             }
-                    }
+                        }
 
                     },
                     elementCollectionMappingPerKey: {}
                 },
                 "journalpost": {
-                    valueMappingPerKey: {
-                        "tittel": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.title},
-                        "offentligTittel": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.publicTitle},
-                        "administrativenhet": {type: FieldType.STRING, mappingString: data.recordData.administrativeUnit},
-                        "journalstatus": {type: FieldType.STRING, mappingString: data.recordData.recordStatus},
-                        "journalposttype": {type: FieldType.STRING, mappingString: data.recordData.recordType},
-                        "saksbehandler": {type: FieldType.STRING, mappingString: data.recordData.caseWorker},
-                    },
+                    valueMappingPerKey: recordDataToRecord(data.recordData),
                     elementMappingPerKey: {
                         "skjerming": data.recordData.shielding ? {
-                            valueMappingPerKey: {
-                                "tilgangsrestriksjon": {type: FieldType.STRING, mappingString: data.recordData.shielding.accessCode},
-                                "skjermingshjemmel": {type: FieldType.STRING, mappingString: data.recordData.shielding.paragraph}
-                            },
+                            valueMappingPerKey: shieldingDataToRecord(data.recordData.shielding),
                             elementMappingPerKey: {},
                             elementCollectionMappingPerKey: {}
                         } : {
@@ -140,26 +72,18 @@ export function toAVConfiguration(data: IFormConfiguration, integrationId: strin
                             elementMappingPerKey: {},
                             elementCollectionMappingPerKey: {}
                         }
-                    },                    elementCollectionMappingPerKey: {
+                    },
+                    elementCollectionMappingPerKey: {
                         "dokumentbeskrivelse": {
                             elementMappings: [
                                 {
-                                    valueMappingPerKey: {
-                                        "tittel": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.title},
-                                        "dokumentstatus": {type: FieldType.STRING, mappingString: data.recordData.mainDocument.documentStatus},
-                                        "dokumentType": {type: FieldType.STRING, mappingString: data.recordData.mainDocument.documentType},
-                                        "tilknyttetRegistreringSom": {type: FieldType.STRING, mappingString: data.recordData.mainDocument.role}
-                                    },
+                                    valueMappingPerKey: documentDescriptionDataToRecord(data.recordData.mainDocument),
                                     elementMappingPerKey: {},
                                     elementCollectionMappingPerKey: {
                                         "dokumentobjekt": {
                                             elementMappings: [
                                                 {
-                                                    valueMappingPerKey: {
-                                                        "filformat": {type: FieldType.STRING, mappingString: data.recordData.mainDocument.fileFormat},
-                                                        "variantformat": {type: FieldType.STRING, mappingString: data.recordData.mainDocument.variant},
-                                                        "fil": {type: FieldType.FILE, mappingString: data.recordData.mainDocument.file}
-                                                    },
+                                                    valueMappingPerKey: documentObjectDataToRecord(data.recordData.mainDocument),
                                                     elementMappingPerKey: {},
                                                     elementCollectionMappingPerKey: {}
                                                 }
@@ -174,22 +98,13 @@ export function toAVConfiguration(data: IFormConfiguration, integrationId: strin
                                 {
                                     instanceCollectionReferencesOrdered: ["$if(vedlegg)"],
                                     elementMapping: {
-                                        valueMappingPerKey: {
-                                            "tittel": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.attachmentDocuments.title},
-                                            "dokumentstatus": {type: FieldType.STRING, mappingString: data.recordData.attachmentDocuments.documentStatus},
-                                            "dokumentType": {type: FieldType.STRING, mappingString: data.recordData.attachmentDocuments.documentType},
-                                            "tilknyttetRegistreringSom": {type: FieldType.STRING, mappingString: data.recordData.attachmentDocuments.role}
-                                        },
+                                        valueMappingPerKey: documentDescriptionDataToRecord(data.recordData.attachmentDocuments),
                                         elementMappingPerKey: {},
                                         elementCollectionMappingPerKey: {
                                             "dokumentobjekt": {
                                                 elementMappings: [
                                                     {
-                                                        valueMappingPerKey: {
-                                                            "filformat": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.attachmentDocuments.fileFormat},
-                                                            "variantformat": {type: FieldType.STRING, mappingString: data.recordData.attachmentDocuments.variant},
-                                                            "fil": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.attachmentDocuments.file}
-                                                        },
+                                                        valueMappingPerKey: documentObjectDataToRecord(data.recordData.mainDocument),
                                                         elementMappingPerKey: {},
                                                         elementCollectionMappingPerKey: {}
                                                     }
@@ -204,37 +119,20 @@ export function toAVConfiguration(data: IFormConfiguration, integrationId: strin
                         },
                         "korrespondansepart": {
                             elementMappings: [{
-                                valueMappingPerKey: {
-                                    "fødselsnummer": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.nationalIdentityNumber},
-                                    "organisasjonsnummer": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.organisationNumber},
-                                    "kontaktperson": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.contactPerson},
-                                    "korrespondansepartNavn": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.name},
-                                    "korrespondanseparttype": {type: FieldType.STRING, mappingString: data.recordData.correspondent.type}
-                                },
+                                valueMappingPerKey: correspondentDataToRecord(data.recordData.correspondent),
                                 elementMappingPerKey: {
                                     "adresse": {
-                                        valueMappingPerKey: {
-                                            "adresselinje": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.address},
-                                            "postnummer": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.postalCode},
-                                            "poststed": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.city}
-                                        },
+                                        valueMappingPerKey: addressDataToRecord(data.recordData.correspondent),
                                         elementMappingPerKey: {},
                                         elementCollectionMappingPerKey: {}
                                     },
                                     "kontaktinformasjon": {
-                                        valueMappingPerKey: {
-                                            "epostadresse": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.email},
-                                            "mobiltelefonnummer": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.mobilePhoneNumber},
-                                            "telefonnummer": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.phoneNumber}
-                                        },
+                                        valueMappingPerKey: contactInfoDataToRecord(data.recordData.correspondent),
                                         elementMappingPerKey: {},
                                         elementCollectionMappingPerKey: {}
                                     },
                                     "skjerming": data.recordData.correspondent.shielding ? {
-                                        valueMappingPerKey: {
-                                            "tilgangsrestriksjon": {type: FieldType.STRING, mappingString: data.recordData.correspondent.shielding.accessCode},
-                                            "skjermingshjemmel": {type: FieldType.STRING, mappingString: data.recordData.correspondent.shielding.paragraph}
-                                        },
+                                        valueMappingPerKey: shieldingDataToRecord(data.recordData.correspondent.shielding),
                                         elementMappingPerKey: {},
                                         elementCollectionMappingPerKey: {}
                                     } : {
@@ -252,6 +150,7 @@ export function toAVConfiguration(data: IFormConfiguration, integrationId: strin
             },
             elementCollectionMappingPerKey: {}
         }
+
     }
 }
 
@@ -264,32 +163,13 @@ export function toAVConfigurationPatch(data: IFormConfiguration, metadataId: any
             valueMappingPerKey: {},
             elementMappingPerKey: {
                 "sak": {
-                    valueMappingPerKey: {
-                        "type": {type: FieldType.STRING, mappingString: data.caseData.caseCreationStrategy},
-                        "id": {type: FieldType.STRING, mappingString: data.caseData.id ? data.caseData.id : null}
-                    },
+                    valueMappingPerKey: caseDataToRecord(data.caseData),
                     elementMappingPerKey: {
                         "ny": {
-                            valueMappingPerKey: {
-                                "tittel": {type: FieldType.DYNAMIC_STRING, mappingString: data.caseData.newCase.title},
-                                "offentligTittel": {type: FieldType.DYNAMIC_STRING, mappingString: data.caseData.newCase.publicTitle},
-                                "saksmappetype": {type: FieldType.STRING, mappingString: data.caseData.newCase.caseType},
-                                "administrativenhet": {type: FieldType.STRING, mappingString: data.caseData.newCase.administrativeUnit},
-                                "arkivdel": {type: FieldType.STRING, mappingString: data.caseData.newCase.archiveUnit},
-                                "journalenhet": {type: FieldType.STRING, mappingString: data.caseData.newCase.recordUnit},
-                                "saksstatus": {type: FieldType.STRING, mappingString: data.caseData.newCase.status},
-                                "saksansvarlig": {type: FieldType.STRING, mappingString: data.caseData.newCase.caseWorker}
-                            },
+                            valueMappingPerKey: newCaseDataToRecord(data.caseData.newCase),
                             elementMappingPerKey: {
-                                "skjerming": data.caseData.newCase?.shielding ? {
-                                    valueMappingPerKey: {
-                                        "tilgangsrestriksjon": {type: FieldType.STRING, mappingString: data.caseData.newCase.shielding?.accessCode},
-                                        "skjermingshjemmel": {type: FieldType.STRING, mappingString: data.caseData.newCase.shielding?.paragraph}
-                                    },
-                                    elementMappingPerKey: {},
-                                    elementCollectionMappingPerKey: {}
-                                } : {
-                                    valueMappingPerKey: {},
+                                "skjerming": {
+                                    valueMappingPerKey: shieldingDataToRecord(data.caseData.newCase.shielding),
                                     elementMappingPerKey: {},
                                     elementCollectionMappingPerKey: {}
                                 }
@@ -299,66 +179,15 @@ export function toAVConfigurationPatch(data: IFormConfiguration, metadataId: any
                                     elementsFromCollectionMappings: [],
                                     elementMappings: [
                                         {
-                                            valueMappingPerKey: {
-                                                "klassifikasjonssystem": {
-                                                    type: FieldType.STRING,
-                                                    mappingString: data.caseData?.newCase?.classes[0].classification
-                                                },
-                                                "klasseId": {
-                                                    type: FieldType.DYNAMIC_STRING,
-                                                    mappingString: data.caseData.newCase?.classes[0].class
-                                                },
-                                                "tittel": {
-                                                    type: FieldType.DYNAMIC_STRING,
-                                                    mappingString: data.caseData.newCase?.classes[0].title
-                                                },
-                                                "rekkefølge": {
-                                                    type: FieldType.DYNAMIC_STRING,
-                                                    mappingString: "0"
-                                                }
-                                            },
+                                            valueMappingPerKey: classDataToRecord(data.caseData.newCase.classes[0], "0"),
                                             elementMappingPerKey: {},
                                             elementCollectionMappingPerKey: {}
                                         },{
-                                            valueMappingPerKey: {
-                                                "klassifikasjonssystem": {
-                                                    type: FieldType.STRING,
-                                                    mappingString: data.caseData.newCase?.classes[1].classification
-                                                },
-                                                "klasseId": {
-                                                    type: FieldType.DYNAMIC_STRING,
-                                                    mappingString: data.caseData.newCase?.classes[1].class
-                                                },
-                                                "tittel": {
-                                                    type: FieldType.DYNAMIC_STRING,
-                                                    mappingString: data.caseData.newCase?.classes[1].title
-                                                },
-                                                "rekkefølge": {
-                                                    type: FieldType.DYNAMIC_STRING,
-                                                    mappingString: "1"
-                                                }
-                                            },
+                                            valueMappingPerKey: classDataToRecord(data.caseData.newCase.classes[1], "1"),
                                             elementMappingPerKey: {},
                                             elementCollectionMappingPerKey: {}
                                         },{
-                                            valueMappingPerKey: {
-                                                "klassifikasjonssystem": {
-                                                    type: FieldType.STRING,
-                                                    mappingString: data.caseData.newCase?.classes[2].classification
-                                                },
-                                                "klasseId": {
-                                                    type: FieldType.DYNAMIC_STRING,
-                                                    mappingString: data.caseData.newCase?.classes[2].class
-                                                },
-                                                "tittel": {
-                                                    type: FieldType.DYNAMIC_STRING,
-                                                    mappingString: data.caseData.newCase?.classes[2].title
-                                                },
-                                                "rekkefølge": {
-                                                    type: FieldType.DYNAMIC_STRING,
-                                                    mappingString: "2"
-                                                }
-                                            },
+                                            valueMappingPerKey: classDataToRecord(data.caseData.newCase.classes[2], "2"),
                                             elementMappingPerKey: {},
                                             elementCollectionMappingPerKey: {}
                                         }
@@ -371,20 +200,10 @@ export function toAVConfigurationPatch(data: IFormConfiguration, metadataId: any
                     elementCollectionMappingPerKey: {}
                 },
                 "journalpost": {
-                    valueMappingPerKey: {
-                        "tittel": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.title},
-                        "offentligTittel": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.publicTitle},
-                        "administrativenhet": {type: FieldType.STRING, mappingString: data.recordData.administrativeUnit},
-                        "journalstatus": {type: FieldType.STRING, mappingString: data.recordData.recordStatus},
-                        "journalposttype": {type: FieldType.STRING, mappingString: data.recordData.recordType},
-                        "saksbehandler": {type: FieldType.STRING, mappingString: data.recordData.caseWorker},
-                    },
+                    valueMappingPerKey: recordDataToRecord(data.recordData),
                     elementMappingPerKey: {
                         "skjerming": data.recordData.shielding ? {
-                            valueMappingPerKey: {
-                                "tilgangsrestriksjon": {type: FieldType.STRING, mappingString: data.recordData.shielding.accessCode},
-                                "skjermingshjemmel": {type: FieldType.STRING, mappingString: data.recordData.shielding.paragraph}
-                            },
+                            valueMappingPerKey: shieldingDataToRecord(data.recordData.shielding),
                             elementMappingPerKey: {},
                             elementCollectionMappingPerKey: {}
                         } : {
@@ -392,26 +211,18 @@ export function toAVConfigurationPatch(data: IFormConfiguration, metadataId: any
                             elementMappingPerKey: {},
                             elementCollectionMappingPerKey: {}
                         }
-                    },                    elementCollectionMappingPerKey: {
+                    },
+                    elementCollectionMappingPerKey: {
                         "dokumentbeskrivelse": {
                             elementMappings: [
                                 {
-                                    valueMappingPerKey: {
-                                        "tittel": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.title},
-                                        "dokumentstatus": {type: FieldType.STRING, mappingString: data.recordData.mainDocument.documentStatus},
-                                        "dokumentType": {type: FieldType.STRING, mappingString: data.recordData.mainDocument.documentType},
-                                        "tilknyttetRegistreringSom": {type: FieldType.STRING, mappingString: data.recordData.mainDocument.role}
-                                    },
+                                    valueMappingPerKey: documentDescriptionDataToRecord(data.recordData.mainDocument),
                                     elementMappingPerKey: {},
                                     elementCollectionMappingPerKey: {
                                         "dokumentobjekt": {
                                             elementMappings: [
                                                 {
-                                                    valueMappingPerKey: {
-                                                        "filformat": {type: FieldType.STRING, mappingString: data.recordData.mainDocument.fileFormat},
-                                                        "variantformat": {type: FieldType.STRING, mappingString: data.recordData.mainDocument.variant},
-                                                        "fil": {type: FieldType.FILE, mappingString: data.recordData.mainDocument.file}
-                                                    },
+                                                    valueMappingPerKey: documentObjectDataToRecord(data.recordData.mainDocument),
                                                     elementMappingPerKey: {},
                                                     elementCollectionMappingPerKey: {}
                                                 }
@@ -426,22 +237,13 @@ export function toAVConfigurationPatch(data: IFormConfiguration, metadataId: any
                                 {
                                     instanceCollectionReferencesOrdered: ["$if(vedlegg)"],
                                     elementMapping: {
-                                        valueMappingPerKey: {
-                                            "tittel": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.attachmentDocuments.title},
-                                            "dokumentstatus": {type: FieldType.STRING, mappingString: data.recordData.attachmentDocuments.documentStatus},
-                                            "dokumentType": {type: FieldType.STRING, mappingString: data.recordData.attachmentDocuments.documentType},
-                                            "tilknyttetRegistreringSom": {type: FieldType.STRING, mappingString: data.recordData.attachmentDocuments.role}
-                                        },
+                                        valueMappingPerKey: documentDescriptionDataToRecord(data.recordData.attachmentDocuments),
                                         elementMappingPerKey: {},
                                         elementCollectionMappingPerKey: {
                                             "dokumentobjekt": {
                                                 elementMappings: [
                                                     {
-                                                        valueMappingPerKey: {
-                                                            "filformat": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.attachmentDocuments.fileFormat},
-                                                            "variantformat": {type: FieldType.STRING, mappingString: data.recordData.attachmentDocuments.variant},
-                                                            "fil": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.attachmentDocuments.file}
-                                                        },
+                                                        valueMappingPerKey: documentObjectDataToRecord(data.recordData.mainDocument),
                                                         elementMappingPerKey: {},
                                                         elementCollectionMappingPerKey: {}
                                                     }
@@ -456,37 +258,20 @@ export function toAVConfigurationPatch(data: IFormConfiguration, metadataId: any
                         },
                         "korrespondansepart": {
                             elementMappings: [{
-                                valueMappingPerKey: {
-                                    "fødselsnummer": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.nationalIdentityNumber},
-                                    "organisasjonsnummer": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.organisationNumber},
-                                    "kontaktperson": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.contactPerson},
-                                    "korrespondansepartNavn": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.name},
-                                    "korrespondanseparttype": {type: FieldType.STRING, mappingString: data.recordData.correspondent.type}
-                                },
+                                valueMappingPerKey: correspondentDataToRecord(data.recordData.correspondent),
                                 elementMappingPerKey: {
                                     "adresse": {
-                                        valueMappingPerKey: {
-                                            "adresselinje": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.address},
-                                            "postnummer": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.postalCode},
-                                            "poststed": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.city}
-                                        },
+                                        valueMappingPerKey: addressDataToRecord(data.recordData.correspondent),
                                         elementMappingPerKey: {},
                                         elementCollectionMappingPerKey: {}
                                     },
                                     "kontaktinformasjon": {
-                                        valueMappingPerKey: {
-                                            "epostadresse": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.email},
-                                            "mobiltelefonnummer": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.mobilePhoneNumber},
-                                            "telefonnummer": {type: FieldType.DYNAMIC_STRING, mappingString: data.recordData.correspondent.phoneNumber}
-                                        },
+                                        valueMappingPerKey: contactInfoDataToRecord(data.recordData.correspondent),
                                         elementMappingPerKey: {},
                                         elementCollectionMappingPerKey: {}
                                     },
                                     "skjerming": data.recordData.correspondent.shielding ? {
-                                        valueMappingPerKey: {
-                                            "tilgangsrestriksjon": {type: FieldType.STRING, mappingString: data.recordData.correspondent.shielding.accessCode},
-                                            "skjermingshjemmel": {type: FieldType.STRING, mappingString: data.recordData.correspondent.shielding.paragraph}
-                                        },
+                                        valueMappingPerKey: shieldingDataToRecord(data.recordData.correspondent.shielding),
                                         elementMappingPerKey: {},
                                         elementCollectionMappingPerKey: {}
                                     } : {

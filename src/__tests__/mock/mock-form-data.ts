@@ -107,6 +107,100 @@ export const MOCK_CONFIG_FORMDATA: IFormConfiguration = {
     }
 }
 
+export const MOCK_CONFIG_FORMDATA_TEST: IFormConfiguration = {
+    completed: false,
+    caseData: {
+        id: null,
+        caseCreationStrategy: CreationStrategy.NEW,
+        newCase: {
+            administrativeUnit: "unit4",
+            archiveUnit: null,
+            caseType: null,
+            caseWorker: "rand",
+            publicTitle: "public title",
+            recordUnit: "unit0",
+            status: null,
+            title: null,
+            shielding: {
+                accessCode: "code42",
+                paragraph: "number6",
+            },
+            classes: [
+                {
+                    order: 0,
+                    classification: "prim",
+                    class: "1class",
+                    title: "primTitle",
+                    shielding: { accessCode: null, paragraph: null }
+                },
+                {
+                    order: 1,
+                    classification: "rose",
+                    class: "2class",
+                    title: "secTitle",
+                    shielding: { accessCode: null, paragraph: null }
+                },
+                {
+                    order: 2,
+                    classification: "everdeen",
+                    class: "3class",
+                    title: "tertTitle",
+                    shielding: { accessCode: null, paragraph: null }
+                }
+            ]
+        }
+    },
+    comment: "form to test mapping",
+    recordData: {
+        administrativeUnit: "unit33",
+        caseWorker: null,
+        publicTitle: "public record title",
+        recordStatus: "N",
+        recordType: null,
+        shielding: {
+            accessCode: "code89",
+            paragraph: "p34",
+        },
+        title: "record title",
+        mainDocument: {
+            title: "record title",
+            documentStatus: "D9",
+            documentType: "cat8",
+            role: "www.kodeverk.no/H",
+            fileFormat: "www.kodeverk.no/A",
+            variant: "www.kodeverk.no/PDF",
+            file: "$if{skjemaPdf}",
+        },
+        attachmentDocuments: {
+            title: "$ifg{name}",
+            documentStatus: "D9",
+            documentType: "cat8",
+            role: "www.kodeverk.no/V",
+            fileFormat: "www.kodeverk.no/PDF",
+            variant: "www.kodeverk.no/PDF",
+            file: "$icf{0}{fil}"
+        },
+        correspondent: {
+            address: "highstreet 22",
+            city: "Moria",
+            contactPerson: "donna",
+            email: "hello@world.no",
+            name: "Anakin Skywalker",
+            nationalIdentityNumber: "123456789",
+            organisationNumber: null,
+            phoneNumber: "12345678",
+            mobilePhoneNumber: "12345678",
+            postalCode: "1234",
+            shielding: {
+                accessCode: "code2",
+                paragraph: "p3",
+            },
+            type: 'avsender'
+        }
+
+    }
+}
+
 export const MOCK_CONFIG_FORMDATA_SHIELDED_FALSE: IFormConfiguration = {
     completed: false,
     caseData: {
