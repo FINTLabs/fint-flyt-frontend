@@ -26,7 +26,7 @@ export function removeEmpty(record: Record<string, IElementMapping>): Record<str
 
 export function caseDataToRecord(data: ICaseData): Record<string, IValueMapping> {
  let caseFieldsArray = [
-        {key: "type", type: FieldType.DYNAMIC_STRING, mappingString: data.caseCreationStrategy},
+        {key: "type", type: FieldType.STRING, mappingString: data.caseCreationStrategy},
         {key: "id", type: FieldType.DYNAMIC_STRING, mappingString: data.id ? data.id : null},
     ]
     return cleanedRecord(caseFieldsArray);
@@ -82,7 +82,7 @@ export function documentObjectDataToRecord(data: IMainDocumentData): Record<stri
     let caseFieldsArray = [
         {key: "filformat", type: FieldType.STRING, mappingString: data.fileFormat},
         {key: "variantformat", type: FieldType.STRING, mappingString: data.variant},
-        {key: "fil", type: FieldType.DYNAMIC_STRING, mappingString: data.file !== '' ? data.file : null}
+        {key: "fil", type: FieldType.FILE, mappingString: data.file !== '' ? data.file : null}
     ]
     return cleanedRecord(caseFieldsArray);
 }

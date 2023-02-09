@@ -78,7 +78,7 @@ export const MOCK_CONFIG_FORMDATA: IFormConfiguration = {
             file: "$if{skjemaPdf}",
         },
         attachmentDocuments: {
-            title: "$ifg{name}",
+            title: "record title",
             documentStatus: "D9",
             documentType: "cat8",
             role: "www.kodeverk.no/V",

@@ -1746,7 +1746,7 @@ export const MOCK_AV_CONFIGURATION_NEW: IAVConfiguration = {
                                             "type": "STRING"
                                         },
                                         "tittel": {
-                                            "mappingString": "$ifg{name}",
+                                            "mappingString": "record title",
                                             "type": "DYNAMIC_STRING"
                                         }
                                     }
