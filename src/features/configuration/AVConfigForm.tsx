@@ -36,7 +36,7 @@ import ConfigurationRepository from "../../shared/repositories/ConfigurationRepo
 import IntegrationRepository from "../../shared/repositories/IntegrationRepository";
 import {IIntegrationPatch, IntegrationState} from "../integration/types/Integration";
 import {SourceApplicationContext} from "../../context/sourceApplicationContext";
-import {IAVConfiguration, IAVConfigurationPatch} from "./types/AVConfiguration";
+import {IConfiguration, IConfigurationPatch} from "./types/Configuration";
 import {toAVFormData} from "../util/mapping/AV/toAVFormData";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -174,7 +174,7 @@ const AVConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
         })
     }
 
-    const saveNewConfiguration = (integrationId: string, data: IAVConfiguration) => {
+    const saveNewConfiguration = (integrationId: string, data: IConfiguration) => {
         console.log('save new config', integrationId, data)
         ConfigurationRepository.createConfiguration(integrationId, data)
             .then(response => {
@@ -190,7 +190,7 @@ const AVConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
             });
     }
 
-    const saveConfiguration = (integrationId: string, configurationId: string, data: IAVConfigurationPatch) => {
+    const saveConfiguration = (integrationId: string, configurationId: string, data: IConfigurationPatch) => {
         console.log('save config', integrationId, configurationId, data)
         ConfigurationRepository.updateConfiguration(configurationId, data)
             .then(response => {
@@ -204,7 +204,7 @@ const AVConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
             });
     }
 
-    const activateNewConfiguration = (integrationId: string, data: IAVConfiguration) => {
+    const activateNewConfiguration = (integrationId: string, data: IConfiguration) => {
         console.log('publish new config', integrationId, data)
         ConfigurationRepository.createConfiguration(integrationId, data)
             .then(response => {
@@ -221,7 +221,7 @@ const AVConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
             });
     }
 
-    const activateConfiguration = (integrationId: string, configurationId: string, data: IAVConfigurationPatch) => {
+    const activateConfiguration = (integrationId: string, configurationId: string, data: IConfigurationPatch) => {
         console.log('publish config', configurationId, data)
         ConfigurationRepository.updateConfiguration(configurationId, data)
             .then(response => {
@@ -274,9 +274,9 @@ const AVConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
         }
         data.completed = true;
         if (!shieldingCheck) data.recordData.correspondent.shielding = {accessCode: null, paragraph: null};
-        const configuration: IAVConfiguration = toAVConfiguration(data, activeIntegration?.id, activeConfigId, selectedMetadata.id);
+        const configuration: IConfiguration = toAVConfiguration(data, activeIntegration?.id, activeConfigId, selectedMetadata.id);
         if (configuration && activeConfigId !== undefined) {
-            const iConfiguration: IAVConfiguration = toAVConfigurationPatch(data, selectedMetadata.id);
+            const iConfiguration: IConfiguration = toAVConfigurationPatch(data, selectedMetadata.id);
             activateConfiguration(activeIntegration?.id, activeConfigId, iConfiguration)
             reset({ ...defaultConfigurationValuesAV })
         }
@@ -295,9 +295,9 @@ const AVConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
         }
         data.completed = false;
         if (!shieldingCheck) data.recordData.correspondent.shielding = {accessCode: null, paragraph: null};
-        const configuration: IAVConfiguration = toAVConfiguration(data, activeIntegration?.id, activeConfigId, selectedMetadata.id);
+        const configuration: IConfiguration = toAVConfiguration(data, activeIntegration?.id, activeConfigId, selectedMetadata.id);
         if (configuration && activeConfigId !== undefined) {
-            const iConfiguration: IAVConfiguration = toAVConfigurationPatch(data, selectedMetadata.id);
+            const iConfiguration: IConfiguration = toAVConfigurationPatch(data, selectedMetadata.id);
             saveConfiguration(activeIntegration?.id, activeConfigId, iConfiguration)
         }
         else if (activeIntegration?.id && configuration) {

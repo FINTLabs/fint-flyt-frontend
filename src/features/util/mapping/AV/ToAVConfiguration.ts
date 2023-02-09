@@ -1,10 +1,7 @@
 import {IFormConfiguration} from "../../../configuration/types/Form/FormData"
 import {
-    IAVConfiguration,
-    IElementCollectionMapping,
-    IElementMapping,
-    IElementsFromCollectionMapping
-} from "../../../configuration/types/AVConfiguration";
+    IConfiguration
+} from "../../../configuration/types/Configuration";
 import {
     addressDataToRecord,
     caseDataToRecord,
@@ -23,7 +20,7 @@ import {
     shouldIncludeElementMapping, shouldIncludeElementsFromCollectionMapping
 } from "../helpers/filters";
 
-export function toAVConfiguration(data: IFormConfiguration, integrationId: string, configurationId: any, metadataId: number): IAVConfiguration {
+export function toAVConfiguration(data: IFormConfiguration, integrationId: string, configurationId: any, metadataId: number): IConfiguration {
     return {
         integrationId: integrationId,
         id: configurationId,
@@ -159,7 +156,7 @@ export function toAVConfiguration(data: IFormConfiguration, integrationId: strin
     }
 }
 
-export function toAVConfigurationPatch(data: IFormConfiguration, metadataId: any): IAVConfiguration {
+export function toAVConfigurationPatch(data: IFormConfiguration, metadataId: any): IConfiguration {
     return {
         completed: data.completed,
         integrationMetadataId: metadataId,

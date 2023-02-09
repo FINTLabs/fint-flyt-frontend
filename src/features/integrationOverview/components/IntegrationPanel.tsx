@@ -32,8 +32,7 @@ import {IIntegrationPatch} from "../../integration/types/Integration";
 import {ResourcesContext} from "../../../context/resourcesContext";
 import ResourceRepository from "../../../shared/repositories/ResourceRepository";
 import {IResourceItem} from "../../../context/resourcesContext/types";
-import {IConfiguration} from "../../configuration/types/Configuration";
-import {IAVConfiguration, IElementMapping} from "../../configuration/types/AVConfiguration";
+import {IConfiguration, IElementMapping} from "../../configuration/types/Configuration";
 
 const IntegrationPanel: React.FunctionComponent<any> = (props) => {
     const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.integrationOverview'});

@@ -5,7 +5,7 @@ import {
     IConfigurationPatch,
     IConfiguration
 } from "../../features/configuration/types/Configuration";
-import {FieldType, IAVConfiguration} from "../../features/configuration/types/AVConfiguration";
+import {FieldType} from "../../features/configuration/types/AVConfiguration";
 
 export const MOCK_CONFIGURATION: IConfiguration = {
     "comment": "form to test mapping",
@@ -1275,7 +1275,7 @@ export const MOCK_BY_ID_CONFIG: IConfiguration = {
 
 }
 
-export const MOCK_AV_CONFIGURATION_NEW: IAVConfiguration = {
+export const MOCK_AV_CONFIGURATION_NEW: IConfiguration = {
     "comment": "form to test mapping",
     "completed": false,
     "id": "234",
@@ -1648,7 +1648,7 @@ export const MOCK_AV_CONFIGURATION_NEW: IAVConfiguration = {
     }
 }
 
-export const MOCK_AV_CONFIGURATION_NEW_NOT_SHIELDED: IAVConfiguration = {
+export const MOCK_AV_CONFIGURATION_NEW_NOT_SHIELDED: IConfiguration = {
     comment: "form to test mapping",
     completed: false,
     id: "234",
