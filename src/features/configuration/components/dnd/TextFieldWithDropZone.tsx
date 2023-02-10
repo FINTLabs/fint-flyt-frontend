@@ -58,6 +58,8 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
                             }}
                             error={!!props.error}
                             helperText={(props.error && props.required) ? 'Obligatorisk felt' : ((props.required && inputValue !== '') && !regExp.test(inputValue) ? 'Data fra skjema må være på formatet $if{metadata}' : '')}
+                            error={value === '' && !!props.error && props.required}
+                            helperText={(value === '' && props.error && props.required) ? 'Obligatorisk felt' : ''}
                         />)
             }}
             rules={

@@ -52,8 +52,8 @@ const InputField: React.FunctionComponent<any> = (props) => {
                             props.setter && props.setter(e.target)
                             onChange(e.target.value);
                         }}
-                        error={!!props.error}
-                        helperText={props.error ? t('requiredField') : ''}
+                        error={!!props.error && props.required}
+                        helperText={(props.error && props.required) ? t('requiredField') : ''}
                     >
                         {props.dropdownItems.map((item: any, index: number) => (
                             <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
@@ -109,8 +109,8 @@ const InputField: React.FunctionComponent<any> = (props) => {
                                 {...params}
                                 size="small"
                                 label={props.required ? t((props.label)) +'*' : t(props.label)}
-                                error={!!props.error}
-                                helperText={props.error ? t('requiredField') : ''}
+                                error={!!props.error && props.required}
+                                helperText={(props.error && props.required) ? t('requiredField') : ''}
                             />
                         )}
                         onChange={(e, data) => {
@@ -178,8 +178,8 @@ const InputField: React.FunctionComponent<any> = (props) => {
                         onChange={onChange}
                         onBlur={onBlur}
                         value={props.disabledField ? props.value : value}
-                        error={!!props.error}
-                        helperText={props.error ? t('requiredField') : ''}
+                        error={!!props.error && props.required}
+                        helperText={(props.error && props.required) ? t('requiredField') : ''}
                     />
                 )}
                 rules={{ required: { value: props.required, message: errorMessage }} }
