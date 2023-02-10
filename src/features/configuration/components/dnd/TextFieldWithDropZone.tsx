@@ -36,6 +36,11 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
         setPropValue(props.formValue, inputValue)
     }, [inputValue, setInputValue, setPropValue, props.formValue]);
 
+    const validation = props.validation;
+    const error = props.error;
+    const validRegEx: boolean = regExp.test(inputValue)
+
+
     return (
         <Controller
             control={props.control}
@@ -56,14 +61,12 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
                                 setInputValue(e.target.value as string);
                                 onChange(e);
                             }}
-                            error={!!props.error}
-                            helperText={(props.error && props.required) ? 'Obligatorisk felt' : ((props.required && inputValue !== '') && !regExp.test(inputValue) ? 'Data fra skjema må være på formatet $if{metadata}' : '')}
-                            error={value === '' && !!props.error && props.required}
-                            helperText={(value === '' && props.error && props.required) ? 'Obligatorisk felt' : ''}
+                            error={(!!props.error && props.required) || (inputValue === '' && props.required)}
+                            helperText={(value === '' && error && props.required && validation) ? 'Obligatorisk felt' : ((validation && inputValue !== '' && !validRegEx) ? 'Data fra skjema må være på formatet $if{metadata}' : '')}
                         />)
             }}
             rules={
-            props.required ? {
+                validation ? {
                 pattern: {value: regExp, message: errorMessage}
             } : {}
         }

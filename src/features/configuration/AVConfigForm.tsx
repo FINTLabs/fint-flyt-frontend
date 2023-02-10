@@ -369,7 +369,6 @@ const AVConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
                                 </FormGroup>
                             </div>
                             <Box className={classes.buttonContainer}>
-
                                 <Button disabled={completed} id="integration-form-submit-btn" sx={{ ml: 2, mr: 2 }} onClick={checked ? onSubmit : onSave} variant="contained">{checked ? t('button.complete') : t('button.save')}</Button>
                                 <Button id="integration-form-cancel-btn" onClick={handleCancel} variant="contained">{t('button.cancel')}</Button>
                             </Box>
