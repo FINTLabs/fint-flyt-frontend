@@ -41,6 +41,8 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
     const validRegEx: boolean = regExp.test(inputValue)
 
 
+    console.log(regExp.test(''))
+
     return (
         <Controller
             control={props.control}
@@ -48,28 +50,29 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
             render={({ field: { onChange, value } }) => {
                 value=inputValue;
                 return (
-                        <TextField
-                            disabled={props.disabled}
-                            id={props.id}
-                            ref={drop}
-                            size="small"
-                            style={{backgroundColor}}
-                            sx={{ mb: 3, width: 'inherit' }}
-                            label={props.required ? (t(props.label)+'*') : t(props.label)}
-                            value={value}
-                            onChange={(e) => {
-                                setInputValue(e.target.value as string);
-                                onChange(e);
-                            }}
-                            error={(!!props.error && props.required) || (inputValue === '' && props.required)}
-                            helperText={(value === '' && error && props.required && validation) ? 'Obligatorisk felt' : ((validation && inputValue !== '' && !validRegEx) ? 'Data fra skjema må være på formatet $if{metadata}' : '')}
-                        />)
+                    <TextField
+                        disabled={props.disabled}
+                        id={props.id}
+                        ref={drop}
+                        size="small"
+                        style={{backgroundColor}}
+                        sx={{ mb: 3, width: 'inherit' }}
+                        label={props.required ? (t(props.label)+'*') : t(props.label)}
+                        value={value}
+                        onChange={(e) => {
+                            setInputValue(e.target.value as string);
+                            onChange(e);
+                        }}
+                        error={(!!props.error && props.required) || (inputValue === '' && props.required)}
+                        helperText={(value === '' && error && props.required && validation) ? 'Obligatorisk felt' : ((validation && inputValue !== '' && !validRegEx) ? 'Data fra skjema må være på formatet $if{metadata}' : '')}
+                    />)
             }}
             rules={
                 validation ? {
-                pattern: {value: regExp, message: errorMessage}
-            } : {}
-        }
+                    pattern: {value: regExp, message: errorMessage},
+                    required: {value: props.required, message: errorMessage}
+                } : {}
+            }
         />
     )
 }
