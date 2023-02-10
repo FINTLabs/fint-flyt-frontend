@@ -1,18 +1,45 @@
-import React, {useEffect, useState} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import { useDrop } from 'react-dnd'
 import { DraggableTypes } from './DraggableTypes'
 import {Controller} from 'react-hook-form';
 import {TextField} from "@mui/material";
 import {ITag} from "../../types/Tag";
 import { useTranslation } from 'react-i18next';
+import {SourceApplicationContext} from "../../../../context/sourceApplicationContext";
+
+
+function extractMetadata(sentence: string, first: string, last: string): string[] {
+    let tags: string[] = [];
+    const splitString = sentence.split(first);
+    splitString.forEach((subStr: string) => {
+        if (subStr.indexOf(last) > -1) {
+            const toSave = (subStr.split(last))[0];
+            tags = tags.concat(toSave);
+        }
+    });
+
+    return tags;
+}
 
 export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'inputField'});
     let backgroundColor = 'white';
     let errorMessage: string = t('errorMessage') + t(props.label);
     let initValue: string = props.value === null ? '' : props.value;
+    const {instanceElementMetadata} = useContext(SourceApplicationContext)
     const setPropValue = props.setValue;
     const regExp = /^(?:(?:(?!\$if\{).)+|(?:\$if\{(?:(?!\$if\{).)+})+)+$/g;
+
+   // console.log(instanceElementMetadata)
+
+    function validAndExisting(value: string): boolean {
+            if(value && value !== '') {
+                const instanceFields = extractMetadata(value, '$if{', '}')
+                console.log(instanceFields)
+            }
+        return false
+    }
+
 
     const [inputValue, setInputValue] = useState(initValue);
     const [{ canDrop, isOver }, drop] = useDrop(() => ({
@@ -25,6 +52,9 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
             canDrop: monitor.canDrop(),
         }),
     }))
+
+    validAndExisting(inputValue)
+
 
     if (canDrop && isOver) {
         backgroundColor = 'palegreen';
@@ -39,6 +69,7 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
     const validation = props.validation;
     const error = props.error;
     const validRegEx: boolean = regExp.test(inputValue)
+
 
 
     return (
