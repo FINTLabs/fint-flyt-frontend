@@ -9,7 +9,7 @@ export default interface INewCaseData {
     archiveUnit: string | null;
     recordUnit: string | null;
     status: string | null;
-    shielding?: IShieldingData;
+    shielding: IShieldingData;
     caseWorker: string | null;
     classes: IClassData[];
 }

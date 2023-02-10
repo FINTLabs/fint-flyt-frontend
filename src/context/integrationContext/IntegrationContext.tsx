@@ -137,10 +137,9 @@ const IntegrationProvider: FC = ({ children }) => {
     const getConfiguration = async (id: any, excludeElements?: boolean) => {
         ConfigurationRepository.getConfiguration(id.toString(), excludeElements)
             .then((response) => {
-                let data = response.data;
+                let data: IConfiguration = response.data;
                 if (data) {
-                    let configuration: IConfiguration = data;
-                    setConfiguration(configuration);
+                    setConfiguration(data);
                 }
             })
             .catch((e) => {
