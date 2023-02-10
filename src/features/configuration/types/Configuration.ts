@@ -16,7 +16,7 @@ export interface IConfigurationPatch {
 }
 
 export interface IElementMapping {
-    valueMappingPerKey: Record<string, IValueMapping>;
+    valueMappingPerKey: Record<string, IValueMapping>
     elementMappingPerKey: Record<string, IElementMapping>
     elementCollectionMappingPerKey: Record<string, IElementCollectionMapping>
 }

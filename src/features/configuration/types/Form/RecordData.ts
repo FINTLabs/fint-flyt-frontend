@@ -1,7 +1,6 @@
 import ICorrespondentData from "./CorrespondentData";
-import IMainDocumentData from "./MainDocumentData";
-import IAttachmentDocumentsData from "./AttachmentDocumentsData";
 import IShieldingData from "./ShieldingData";
+import IDocumentData from "./DocumentData";
 
 export default interface IRecordData {
     title: string | null;
@@ -12,6 +11,6 @@ export default interface IRecordData {
     caseWorker: string | null;
     shielding: IShieldingData;
     correspondent: ICorrespondentData;
-    mainDocument: IMainDocumentData;
-    attachmentDocuments: IAttachmentDocumentsData;
+    mainDocument: IDocumentData;
+    attachmentDocuments: IDocumentData;
 }

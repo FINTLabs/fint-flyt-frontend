@@ -1,7 +1,7 @@
 import IShieldingData from "./ShieldingData";
 
 export default interface ICorrespondentData {
-    shielding?: IShieldingData;
+    shielding: IShieldingData;
     type: string | null;
     organisationNumber: string | null;
     nationalIdentityNumber: string | null;
