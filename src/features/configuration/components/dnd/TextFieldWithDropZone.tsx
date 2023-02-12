@@ -40,9 +40,6 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
     const error = props.error;
     const validRegEx: boolean = regExp.test(inputValue)
 
-
-    console.log(regExp.test(''))
-
     return (
         <Controller
             control={props.control}
@@ -63,7 +60,7 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
                             setInputValue(e.target.value as string);
                             onChange(e);
                         }}
-                        error={(!!props.error && props.required) || (inputValue === '' && props.required)}
+                        error={(!!props.error && props.required) || (inputValue === '' && props.required && !!props.error)}
                         helperText={(value === '' && error && props.required && validation) ? 'Obligatorisk felt' : ((validation && inputValue !== '' && !validRegEx) ? 'Data fra skjema må være på formatet $if{metadata}' : '')}
                     />)
             }}
