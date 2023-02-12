@@ -1,6 +1,6 @@
 import ICaseData from "../../../configuration/types/Form/CaseData";
-import {IElementMapping, IValueMapping} from "../../../configuration/types/Configuration";
-import {FieldType} from "../../../configuration/types/AVConfiguration";
+import {IValueMapping} from "../../../configuration/types/Configuration";
+import {FieldType} from "../../../configuration/types/Configuration";
 import IRecordData from "../../../configuration/types/Form/RecordData";
 import INewCaseData from "../../../configuration/types/Form/NewCaseData";
 import IShieldingData from "../../../configuration/types/Form/ShieldingData";

@@ -1,7 +1,5 @@
 import {IFormConfiguration} from "../../../configuration/types/Form/FormData"
-import {
-    IConfiguration
-} from "../../../configuration/types/Configuration";
+import {IConfiguration} from "../../../configuration/types/Configuration";
 import {
     addressDataToRecord,
     caseDataToRecord,
@@ -17,7 +15,8 @@ import {
 import {
     filterElementCollectionMappingEntries,
     filterElementMappingEntries,
-    shouldIncludeElementMapping, shouldIncludeElementsFromCollectionMapping
+    shouldIncludeElementMapping,
+    shouldIncludeElementsFromCollectionMapping
 } from "../helpers/filters";
 
 export function toAVConfiguration(data: IFormConfiguration, integrationId: string, configurationId: any, metadataId: number): IConfiguration {
@@ -98,7 +97,7 @@ export function toAVConfiguration(data: IFormConfiguration, integrationId: strin
                                 ].filter(shouldIncludeElementMapping),
                                 elementsFromCollectionMappings: [
                                     {
-                                        instanceCollectionReferencesOrdered: ["$if(vedlegg)"],
+                                        instanceCollectionReferencesOrdered: ["$if{vedlegg}"],
                                         elementMapping: {
                                             valueMappingPerKey: documentDescriptionDataToRecord(data.recordData.attachmentDocuments),
                                             elementMappingPerKey: {},
@@ -161,7 +160,7 @@ export function toAVConfigurationPatch(data: IFormConfiguration, metadataId: any
         completed: data.completed,
         integrationMetadataId: metadataId,
         comment: data.comment,
-        mapping:  {
+        mapping: {
             valueMappingPerKey: {},
             elementMappingPerKey: filterElementMappingEntries({
                 "sak": {
@@ -231,7 +230,7 @@ export function toAVConfigurationPatch(data: IFormConfiguration, metadataId: any
                             ].filter(shouldIncludeElementMapping),
                             elementsFromCollectionMappings: [
                                 {
-                                    instanceCollectionReferencesOrdered: ["$if(vedlegg)"],
+                                    instanceCollectionReferencesOrdered: ["$if{vedlegg}"],
                                     elementMapping: {
                                         valueMappingPerKey: documentDescriptionDataToRecord(data.recordData.attachmentDocuments),
                                         elementMappingPerKey: {},

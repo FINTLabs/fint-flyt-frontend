@@ -1,8 +1,16 @@
 import {IFormConfiguration} from "../../configuration/types/Form/FormData";
 import {IConfiguration, IConfigurationPatch} from "../../configuration/types/Configuration";
 import {
-    addressDataToRecord, caseDataToRecord, classDataToRecord, contactInfoDataToRecord, correspondentDataToRecord,
-    documentDescriptionDataToRecord, documentObjectDataToRecord, newCaseDataToRecord, recordDataToRecord, shieldingDataToRecord
+    addressDataToRecord,
+    caseDataToRecord,
+    classDataToRecord,
+    contactInfoDataToRecord,
+    correspondentDataToRecord,
+    documentDescriptionDataToRecord,
+    documentObjectDataToRecord,
+    newCaseDataToRecord,
+    recordDataToRecord,
+    shieldingDataToRecord
 } from "./helpers/toValueMappingRecord";
 import {
     filterElementCollectionMappingEntries,
@@ -13,13 +21,13 @@ import {
 
 
 export function toConfiguration(data: IFormConfiguration, integrationId: string, configurationId: any, metadataId: number): IConfiguration {
-    const configuration: IConfiguration = {
+    return {
         integrationId: integrationId,
         id: configurationId,
         completed: data.completed,
         integrationMetadataId: metadataId,
         comment: data.comment,
-        mapping:  {
+        mapping: {
             valueMappingPerKey: {},
             elementMappingPerKey: filterElementMappingEntries({
                 "sak": {
@@ -89,7 +97,7 @@ export function toConfiguration(data: IFormConfiguration, integrationId: string,
                             ].filter(shouldIncludeElementMapping),
                             elementsFromCollectionMappings: [
                                 {
-                                    instanceCollectionReferencesOrdered: ["$if(vedlegg)"],
+                                    instanceCollectionReferencesOrdered: ["$if{vedlegg}"],
                                     elementMapping: {
                                         valueMappingPerKey: documentDescriptionDataToRecord(data.recordData.attachmentDocuments),
                                         elementMappingPerKey: {},
@@ -143,15 +151,14 @@ export function toConfiguration(data: IFormConfiguration, integrationId: string,
             }),
             elementCollectionMappingPerKey: {}
         }
-    }
-    return configuration;
+    };
 }
 export function toConfigurationPatch(data: IFormConfiguration, metadataId: any): IConfigurationPatch {
-    const configurationPatch: IConfiguration = {
+    return {
         completed: data.completed,
         integrationMetadataId: metadataId,
         comment: data.comment,
-        mapping:  {
+        mapping: {
             valueMappingPerKey: {},
             elementMappingPerKey: filterElementMappingEntries({
                 "sak": {
@@ -221,7 +228,7 @@ export function toConfigurationPatch(data: IFormConfiguration, metadataId: any):
                             ].filter(shouldIncludeElementMapping),
                             elementsFromCollectionMappings: [
                                 {
-                                    instanceCollectionReferencesOrdered: ["$if(vedlegg)"],
+                                    instanceCollectionReferencesOrdered: ["$if{vedlegg}"],
                                     elementMapping: {
                                         valueMappingPerKey: documentDescriptionDataToRecord(data.recordData.attachmentDocuments),
                                         elementMappingPerKey: {},
@@ -276,6 +283,5 @@ export function toConfigurationPatch(data: IFormConfiguration, metadataId: any):
             elementCollectionMappingPerKey: {}
         }
     }
-    return configurationPatch
 }
 

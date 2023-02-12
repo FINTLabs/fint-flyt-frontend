@@ -5,7 +5,7 @@ import {
     IConfigurationPatch,
     IConfiguration
 } from "../../features/configuration/types/Configuration";
-import {FieldType} from "../../features/configuration/types/AVConfiguration";
+import {FieldType} from "../../features/configuration/types/Configuration";
 
 export const MOCK_CONFIGURATION: IConfiguration = {
     "comment": "form to test mapping",
@@ -116,7 +116,7 @@ export const MOCK_CONFIGURATION: IConfiguration = {
                                     }
                                 },
                                 "instanceCollectionReferencesOrdered": [
-                                    "$if(vedlegg)"
+                                    "$if{vedlegg}"
                                 ]
                             }
                         ]
@@ -487,7 +487,7 @@ export const MOCK_CONFIGURATION_PATCH: IConfigurationPatch = {
                                     }
                                 },
                                 "instanceCollectionReferencesOrdered": [
-                                    "$if(vedlegg)"
+                                    "$if{vedlegg}"
                                 ]
                             }
                         ]
@@ -969,7 +969,7 @@ export const MOCK_NEW_CONFIG: IConfiguration = {
                         ],
                         elementsFromCollectionMappings: [
                             {
-                                instanceCollectionReferencesOrdered: ["$if(vedlegg)"],
+                                instanceCollectionReferencesOrdered: ["$if{vedlegg}"],
                                 elementMapping: {
                                     valueMappingPerKey: {
                                         "tittel": {type: FieldType.DYNAMIC_STRING, mappingString: "$ifg{name}"},
@@ -1196,7 +1196,7 @@ export const MOCK_BY_ID_CONFIG: IConfiguration = {
                         ],
                         elementsFromCollectionMappings: [
                             {
-                                instanceCollectionReferencesOrdered: ["$if(vedlegg)"],
+                                instanceCollectionReferencesOrdered: ["$if{vedlegg}"],
                                 elementMapping: {
                                     valueMappingPerKey: {
                                         "tittel": {type: FieldType.DYNAMIC_STRING, mappingString: null},
@@ -1384,7 +1384,7 @@ export const MOCK_AV_CONFIGURATION_NEW: IConfiguration = {
                                     }
                                 },
                                 "instanceCollectionReferencesOrdered": [
-                                    "$if(vedlegg)"
+                                    "$if{vedlegg}"
                                 ]
                             }
                         ]
@@ -1812,7 +1812,7 @@ export const MOCK_AV_CONFIGURATION_NEW_NOT_SHIELDED: IConfiguration = {
                         ],
                         elementsFromCollectionMappings: [
                             {
-                                instanceCollectionReferencesOrdered: ["$if(vedlegg)"],
+                                instanceCollectionReferencesOrdered: ["$if{vedlegg}"],
                                 elementMapping: {
                                     valueMappingPerKey: {
                                         "tittel": {type: FieldType.DYNAMIC_STRING, mappingString: "$ifg{name}"},
