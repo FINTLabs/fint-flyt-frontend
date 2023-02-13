@@ -17,8 +17,8 @@ export interface IAVConfigurationPatch {
 
 export interface IElementMapping {
     valueMappingPerKey: Record<string, IValueMapping>;
-    elementMappingPerKey: Record<string, IElementMapping>
-    elementCollectionMappingPerKey: Record<string, IElementCollectionMapping>
+    elementMappingPerKey: Record<string, IElementMapping>;
+    elementCollectionMappingPerKey: Record<string, IElementCollectionMapping>;
 }
 
 export interface IValueMapping {
