@@ -24,3 +24,4 @@ export function flatten(data: any): any {
 
     return flattenJson(parsedData);
 }
+

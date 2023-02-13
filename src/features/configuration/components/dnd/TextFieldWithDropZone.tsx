@@ -6,44 +6,34 @@ import {TextField} from "@mui/material";
 import {ITag} from "../../types/Tag";
 import { useTranslation } from 'react-i18next';
 import {SourceApplicationContext} from "../../../../context/sourceApplicationContext";
+import {extractTags} from "../../../util/StringUtil";
 import {flatten} from "../../../util/JsonUtil";
-
-
-function extractMetadata(sentence: string, first: string, last: string): string[] {
-    let tags: string[] = [];
-    const splitString = sentence.split(first);
-    splitString.forEach((subStr: string) => {
-        if (subStr.indexOf(last) > -1) {
-            const toSave = (subStr.split(last))[0];
-            tags = tags.concat(toSave);
-        }
-    });
-
-    return tags;
-}
 
 export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'inputField'});
     let backgroundColor = 'white';
     let errorMessage: string = t('errorMessage') + t(props.label);
     let initValue: string = props.value === null ? '' : props.value;
-    const {instanceElementMetadata} = useContext(SourceApplicationContext)
     const setPropValue = props.setValue;
     const regExp = /^(?:(?:(?!\$if\{).)+|(?:\$if\{(?:(?!\$if\{).)+})+)+$/g;
-
-    // console.log(instanceElementMetadata)
+    const {instanceElementMetadata} = useContext(SourceApplicationContext)
 
     function validAndExisting(value: string): boolean {
-        if(!regExp.test(value)) return false
+        console.log(!regExp.test(value))
+        if(!regExp.test(value)) {
+            console.log('stoppa i regexCheck', value, !regExp.test(value))
+            return false
+        }
         if(value && value !== '' && instanceElementMetadata) {
-            const instanceFields = extractMetadata(value, '$if{', '}')
+            const instanceFields = extractTags(value, '$if{', '}')
             const flatMetadata = flatten(instanceElementMetadata)
-            const keys = flatMetadata.filter((item: any) => item.key)
+            const keys = flatMetadata.map((item: any) => item.key).filter((item: any) => {return item !== null})
+            console.log('array check', instanceFields.every(v => keys.includes(v)))
             return instanceFields.every(v => keys.includes(v))
         }
+        console.log('stoppa, kom ikke gjennom value && value !== \'\' && instanceElementMetadata')
         return false
     }
-
 
     const [inputValue, setInputValue] = useState(initValue);
     const [{ canDrop, isOver }, drop] = useDrop(() => ({
@@ -56,9 +46,6 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
             canDrop: monitor.canDrop(),
         }),
     }))
-
-    validAndExisting(inputValue)
-
 
     if (canDrop && isOver) {
         backgroundColor = 'palegreen';
@@ -73,8 +60,9 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
     const validation = props.validation;
     const error = props.error;
     const validRegEx: boolean = regExp.test(inputValue)
-    const validExisting: boolean = validAndExisting(inputValue)
+    const validAndRegEx = validAndExisting(inputValue)
 
+    console.log(validRegEx, validAndRegEx)
 
     return (
         <Controller
@@ -97,7 +85,7 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
                             onChange(e);
                         }}
                         error={(!!props.error && props.required) || (inputValue === '' && props.required && !!props.error)}
-                        helperText={(value === '' && error && props.required && validation) ? 'Obligatorisk felt' : ((validation && inputValue !== '' && !validExisting) ? 'Data fra skjema må være på formatet $if{metadata}' : '')}
+                        helperText={(value === '' && error && props.required && validation) ? 'Obligatorisk felt' : ((validation && inputValue !== '' && !validAndRegEx) ? 'Data fra skjema må være på formatet $if{metadata} og eksistere i data fra skjema' : '')}
                     />)
             }}
             rules={
