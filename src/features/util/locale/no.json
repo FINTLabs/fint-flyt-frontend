@@ -325,7 +325,7 @@
             "caseCreationCollection": "På samlesak",
             "caseCreationCollectionInfo": "Innsendt skjema skal leveres til en forhåndsdefinert samlesak. Her må du opplyse om saksnummer",
             "id": "Saksnummer",
-            "caseType": "Sakstype",
+            "caseType": "Saksmappetype",
             "title": "Tittel",
             "publicTitle": "Offentlig tittel",
             "administrativeUnit": "Administrativ enhet",
