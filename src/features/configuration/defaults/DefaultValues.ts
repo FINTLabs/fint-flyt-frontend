@@ -163,7 +163,7 @@ export const defaultConfigurationValuesAV: IFormConfiguration = {
             documentType: null,
             role: 'https://beta.felleskomponent.no/arkiv/kodeverk/tilknyttetregistreringsom/systemid/H',
             fileFormat: 'https://beta.felleskomponent.no/arkiv/kodeverk/format/systemid/PDF',
-            variant: 'https://beta.felleskomponent.no/arkiv/kodeverk/variantformat/systemid/P',
+            variant: 'https://beta.felleskomponent.no/arkiv/kodeverk/variantformat/systemid/A',
             file: '$if{skjemaPdf}'
         },
         attachmentDocuments: {
@@ -209,7 +209,8 @@ export const dropdownPlaceholder: ISelect[] = [
 ]
 
 export const variantOptions: ISelect[] = [
-    {label: '[P] Produksjonsformat', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/variantformat/systemid/P'}
+    {label: '[P] Produksjonsformat', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/variantformat/systemid/P'},
+    {label: '[A] Arkivformat', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/variantformat/systemid/A'}
 ]
 
 export const formatOptions: ISelect[] = [
