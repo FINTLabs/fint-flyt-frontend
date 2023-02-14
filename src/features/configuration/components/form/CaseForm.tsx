@@ -1,4 +1,4 @@
-import {Box, Divider, FormGroup, Typography} from '@mui/material';
+import {Box, Button, Divider, FormGroup, Typography} from '@mui/material';
 import React, {useContext, useEffect} from 'react';
 import {IInputField} from "../../types/InputField";
 import {INPUT_TYPE} from "../../types/InputType.enum";
@@ -10,6 +10,9 @@ import { useTranslation } from 'react-i18next';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import {CreationStrategy} from "../../types/CreationStrategy";
+import {creationStrategies} from "../../defaults/DefaultValues";
+import {IntegrationContext} from "../../../../context/integrationContext";
+import ResourceRepository from "../../../../shared/repositories/ResourceRepository";
 
 const CaseForm: React.FunctionComponent<any> = (props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.configurationForm.accordions.caseForm'});
@@ -63,6 +66,41 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
     let required: boolean = props.validation;
     let isCollection = props.watch("caseData.caseCreationStrategy") === CreationStrategy.BY_ID
 
+    const [_case, setCase] = React.useState('');
+    const {setId} = useContext(IntegrationContext)
+    let caseInput = props.watch("caseData.id");
+    let caseInputPattern = /^((19|20)*\d{2})\/([0-9]{1,6})/g;
+
+    useEffect(() => {
+        if(caseInput) {
+            handleCaseSearch();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    const handleCaseSearch = () => {
+        if(caseInputPattern.test(caseInput)) {
+            setId(caseInput)
+            setCase(t('caseSearch.searching'))
+            let caseId = caseInput.split('/')
+            ResourceRepository.getSak(caseId[0], caseId[1])
+                .then((response) => {
+                    setCase(caseInput +': ' + response.data.value)
+                    setId(caseInput)
+                })
+                .catch(e => {
+                        console.error('Error: ', e)
+                        setId(undefined)
+                        setCase(caseInput +': ' + t('caseSearch.noMatch'));
+                        props.setValue("caseData.newCase.id", undefined)
+                    }
+                )
+        } else {
+            setCase(t('caseSearch.info'))
+            setId(undefined)
+        }
+    }
+
     let listOfClassificationsWithDynamicField: string[] = [
         'https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/FNR',
         'https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/STUDENT',
@@ -75,7 +113,11 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
         'https://beta.felleskomponent.no/arkiv/noark/klassifikasjonssystem/systemid/FNST'
     ]
 
-  const caseFormFields: IInputField[] = [
+    const caseInformationFields: IInputField[] = [
+        {input: INPUT_TYPE.DROPDOWN, label: "labels.caseCreationInfo", value: props.watch("caseData.caseCreationStrategy"), formValue: "caseData.caseCreationStrategy", dropDownItems: creationStrategies, helpText: "caseData.caseCreationStrategy"},
+        {input: INPUT_TYPE.TEXT_FIELD, label: "labels.id", formValue: "caseData.id", hidden:!isCollection, required:isCollection && props.validation, error:errors.caseData?.id, searchOption: true, helpText: "caseData.id", disabled: props.disabled},
+    ]
+    const caseFormFields: IInputField[] = [
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.title", formValue: "caseData.newCase.title", required: required && !isCollection, error:errors.caseData?.newCase.title, value: props.activeFormData?.caseData?.newCase.title, helpText: "caseData.title"},
         {input: INPUT_TYPE.DROPZONE_TEXT_FIELD, label: "labels.publicTitle", formValue: "caseData.newCase.publicTitle", required: false, error:errors.caseData?.newCase.publicTitle, value: props.activeFormData?.caseData?.newCase.publicTitle, helpText: "caseData.publicTitle"},
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.caseType", value: props.watch("caseData.newCase.caseType"), formValue: "caseData.newCase.caseType", dropDownItems: caseTypes, required: false, error:errors.caseData?.newCase.caseType, helpText: "caseData.caseType"},
@@ -107,12 +149,13 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
     ]
 
     return (
-        <div>
-            <FormGroup className={props.style.formControl}>
-                {caseFormFields.map((field, index) => {
-                    return (
-                        field.hidden ?
-                            <div key={index}/> :
+        <>
+            <div>
+                <FormGroup className={props.style.formControl}>
+                    {caseInformationFields.map((field, index) => {
+                        return (
+                            field.hidden ?
+                                <div key={index}/> :
                             <Box sx={{display: 'flex'}} key={index}>
                                 <Box width={'100%'}>
                                     <InputField required={field.required}
@@ -130,91 +173,124 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
                                 <Box>
                                     <HelpPopover popoverContent={field.helpText}/>
                                 </Box>
+                                {isCollection && field.searchOption && <Box>
+                                    <Button disabled={props.disabled} id="case-number-search-btn" onClick={handleCaseSearch} variant="outlined" sx={{ml: 2}}>{t('button.search')}</Button>
+                                </Box>}
                             </Box>
+                        )
+                    })}
+                    {isCollection && _case ? <Typography id="case-information-case-search-result" sx={{mb:2}}>{_case}</Typography> : ''}
+                </FormGroup>
+            </div>
+            {isCollection ? <></> : <div>
+                <FormGroup>
+                    {!isCollection && caseFormFields.map((field, index) => {
+                        return (
+                            field.hidden ?
+                                <div key={index}/> :
+                                <Box sx={{display: 'flex'}} key={index}>
+                                    <Box width={'100%'}>
+                                        <InputField required={field.required}
+                                                    error={field.error}
+                                                    input={field.input}
+                                                    label={field.label}
+                                                    value={field.value}
+                                                    formValue={field.formValue}
+                                                    dropdownItems={field.dropDownItems}
+                                                    setter={field.setter}
+                                                    disabledField={field.disabled}
+                                                    {...props}
+                                        />
+                                    </Box>
+                                    <Box>
+                                        <HelpPopover popoverContent={field.helpText}/>
+                                    </Box>
+                                </Box>
+                        )}
                     )}
-                )}
-                <Typography>{t('classification')}</Typography>
-                <Divider sx={{mb: 3}}/>
-                {classificationFormFields.map((field, index) => {
-                    return (
-                        field.hidden ?
-                            <div key={index}/> :
-                            <Box sx={{display: 'flex'}} key={index}>
-                                <Box width={'100%'}>
-                                    <InputField required={field.required}
-                                                error={field.error}
-                                                input={field.input}
-                                                label={field.label}
-                                                value={field.value}
-                                                formValue={field.formValue}
-                                                dropdownItems={field.dropDownItems}
-                                                setter={field.setter}
-                                                disabled={field.disabled}
-                                                {...props}
-                                    />
+                    <Typography>{t('classification')}</Typography>
+                    <Divider sx={{mb: 3}}/>
+                    {classificationFormFields.map((field, index) => {
+                        return (
+                            field.hidden ?
+                                <div key={index}/> :
+                                <Box sx={{display: 'flex'}} key={index}>
+                                    <Box width={'100%'}>
+                                        <InputField required={field.required}
+                                                    error={field.error}
+                                                    input={field.input}
+                                                    label={field.label}
+                                                    value={field.value}
+                                                    formValue={field.formValue}
+                                                    dropdownItems={field.dropDownItems}
+                                                    setter={field.setter}
+                                                    disabled={field.disabled}
+                                                    {...props}
+                                        />
+                                    </Box>
+                                    <Box>
+                                        <HelpPopover popoverContent={field.helpText}/>
+                                    </Box>
                                 </Box>
-                                <Box>
-                                    <HelpPopover popoverContent={field.helpText}/>
-                                </Box>
-                            </Box>
+                        )}
                     )}
-                )}
-                {showSecondary && secondaryClassificationFormFields.map((field, index) => {
-                    return (
-                        field.hidden ?
-                            <div key={index}/> :
-                            <Box sx={{display: 'flex'}} key={index}>
-                                <Box width={'100%'}>
-                                    <InputField required={field.required}
-                                                error={field.error}
-                                                input={field.input}
-                                                label={field.label}
-                                                value={field.value}
-                                                formValue={field.formValue}
-                                                dropdownItems={field.dropDownItems}
-                                                setter={field.setter}
-                                                disabled={field.disabled}
-                                                {...props}
-                                    />
+                    {showSecondary && secondaryClassificationFormFields.map((field, index) => {
+                        return (
+                            field.hidden ?
+                                <div key={index}/> :
+                                <Box sx={{display: 'flex'}} key={index}>
+                                    <Box width={'100%'}>
+                                        <InputField required={field.required}
+                                                    error={field.error}
+                                                    input={field.input}
+                                                    label={field.label}
+                                                    value={field.value}
+                                                    formValue={field.formValue}
+                                                    dropdownItems={field.dropDownItems}
+                                                    setter={field.setter}
+                                                    disabled={field.disabled}
+                                                    {...props}
+                                        />
+                                    </Box>
+                                    <Box>
+                                        <HelpPopover popoverContent={field.helpText}/>
+                                    </Box>
                                 </Box>
-                                <Box>
-                                    <HelpPopover popoverContent={field.helpText}/>
-                                </Box>
-                            </Box>
+                        )}
                     )}
-                )}
-                {showTertiary && tertiaryClassificationFormFields.map((field, index) => {
-                    return (
-                        field.hidden ?
-                            <div key={index}/> :
-                            <Box sx={{display: 'flex'}} key={index}>
-                                <Box width={'100%'}>
-                                    <InputField required={field.required}
-                                                error={field.error}
-                                                input={field.input}
-                                                label={field.label}
-                                                value={field.value}
-                                                formValue={field.formValue}
-                                                dropdownItems={field.dropDownItems}
-                                                setter={field.setter}
-                                                disabled={field.disabled}
-                                                {...props}
-                                    />
+                    {showTertiary && tertiaryClassificationFormFields.map((field, index) => {
+                        return (
+                            field.hidden ?
+                                <div key={index}/> :
+                                <Box sx={{display: 'flex'}} key={index}>
+                                    <Box width={'100%'}>
+                                        <InputField required={field.required}
+                                                    error={field.error}
+                                                    input={field.input}
+                                                    label={field.label}
+                                                    value={field.value}
+                                                    formValue={field.formValue}
+                                                    dropdownItems={field.dropDownItems}
+                                                    setter={field.setter}
+                                                    disabled={field.disabled}
+                                                    {...props}
+                                        />
+                                    </Box>
+                                    <Box>
+                                        <HelpPopover popoverContent={field.helpText}/>
+                                    </Box>
                                 </Box>
-                                <Box>
-                                    <HelpPopover popoverContent={field.helpText}/>
-                                </Box>
-                            </Box>
+                        )}
                     )}
-                )}
-                {!disabled && <Box sx={{display: 'flex'}}>
-                {!showSecondary && <AddIcon sx={{cursor: 'pointer', mb: 2}} onClick={handleToggleSecondary}/>}
-                {showSecondary && !showTertiary && <AddIcon sx={{cursor: 'pointer', mb: 2}} onClick={handleToggleTertiary}/>}
-                {(showSecondary || showTertiary) && <RemoveIcon sx={{cursor: 'pointer', mb: 2, ml: 2}} onClick={handleToggleRemove}/>}
-                </Box>}
-            </FormGroup>
-        </div>
+                    {!disabled && <Box sx={{display: 'flex'}}>
+                        {!showSecondary && <AddIcon sx={{cursor: 'pointer', mb: 2}} onClick={handleToggleSecondary}/>}
+                        {showSecondary && !showTertiary && <AddIcon sx={{cursor: 'pointer', mb: 2}} onClick={handleToggleTertiary}/>}
+                        {(showSecondary || showTertiary) && <RemoveIcon sx={{cursor: 'pointer', mb: 2, ml: 2}} onClick={handleToggleRemove}/>}
+                    </Box>}
+                </FormGroup>
+            </div>}
 
+        </>
     );
 }
 
