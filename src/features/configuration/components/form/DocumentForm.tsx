@@ -7,15 +7,11 @@ import {FieldErrors} from "react-hook-form";
 import {ResourcesContext} from "../../../../context/resourcesContext";
 import HelpPopover from "../popover/HelpPopover";
 import { useTranslation } from 'react-i18next';
-import {
-    formatOptions,
-    roleOptions,
-    variantOptions
-} from "../../defaults/DefaultValues";
+import {roleOptions} from "../../defaults/DefaultValues";
 
 const DocumentForm: React.FunctionComponent<any> = (props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.configurationForm.accordions.documentForm'});
-    const {documentStatuses, documentTypes} = useContext(ResourcesContext);
+    const {documentStatuses, documentTypes, variants, formats} = useContext(ResourcesContext);
     let errors: FieldErrors = props.errors;
     let required: boolean = props.validation;
 
@@ -27,8 +23,8 @@ const DocumentForm: React.FunctionComponent<any> = (props) => {
     ]
 
     const mainObjectFields: IInputField[] = [
-        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.variant", value: props.watch("recordData.mainDocument.variant"), formValue: "recordData.mainDocument.variant", dropDownItems: variantOptions, required: false, error:errors.recordData?.mainDocument?.fileFormat, helpText: "recordData.fileFormat", disabled: true},
-        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.fileFormat", value: props.watch("recordData.mainDocument.fileFormat"), formValue: "recordData.mainDocument.fileFormat", dropDownItems: formatOptions, required: false, error:errors.recordData?.mainDocument?.fileFormat, helpText: "recordData.fileFormat", disabled: true},
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.variant", value: props.watch("recordData.mainDocument.variant"), formValue: "recordData.mainDocument.variant", dropDownItems: variants, required: false, error:errors.recordData?.mainDocument?.fileFormat, helpText: "recordData.fileFormat", disabled: true},
+        {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.fileFormat", value: props.watch("recordData.mainDocument.fileFormat"), formValue: "recordData.mainDocument.fileFormat", dropDownItems: formats, required: false, error:errors.recordData?.mainDocument?.fileFormat, helpText: "recordData.fileFormat", disabled: true},
         {input: INPUT_TYPE.TEXT_FIELD, label: "labels.file", formValue: "recordData.mainDocument.file", required: false, error:errors.recordData?.mainDocument?.file, value: '$if{skjemaPdf}', helpText: "recordData.file", disabled: true}
     ]
 

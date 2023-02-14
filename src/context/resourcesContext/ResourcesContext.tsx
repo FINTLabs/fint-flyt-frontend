@@ -46,6 +46,7 @@ const ResourcesProvider: FC = ({ children }) => {
         {resource: 'journalstatus', setter: setRecordStatuses},
         {resource: 'journalposttype', setter: setRecordTypes},
         {resource: 'variantformat', setter: setVariants},
+        {resource: 'format', setter: setFormats},
         {resource: 'dokumentstatus', setter: setDocumentStatuses},
         {resource: 'dokumenttype', setter: setDocumentTypes},
     ]
