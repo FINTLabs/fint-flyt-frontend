@@ -92,13 +92,20 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
                         console.error('Error: ', e)
                         setId(undefined)
                         setCase(caseInput +': ' + t('caseSearch.noMatch'));
-                        props.setValue("caseData.newCase.id", undefined)
+                        props.setValue("caseData.id", undefined)
                     }
                 )
         } else {
             setCase(t('caseSearch.info'))
             setId(undefined)
         }
+    }
+
+    const handleCaseClear = () => {
+            setCase('')
+            setId(undefined)
+        props.setValue("caseData.id", undefined)
+
     }
 
     let listOfClassificationsWithDynamicField: string[] = [
@@ -156,34 +163,37 @@ const CaseForm: React.FunctionComponent<any> = (props) => {
                         return (
                             field.hidden ?
                                 <div key={index}/> :
-                            <Box sx={{display: 'flex'}} key={index}>
-                                <Box width={'100%'}>
-                                    <InputField required={field.required}
-                                                error={field.error}
-                                                input={field.input}
-                                                label={field.label}
-                                                value={field.value}
-                                                formValue={field.formValue}
-                                                dropdownItems={field.dropDownItems}
-                                                setter={field.setter}
-                                                disabledField={field.disabled}
-                                                {...props}
-                                    />
-                                </Box>
-                                <Box>
-                                    <HelpPopover popoverContent={field.helpText}/>
-                                </Box>
-                                {isCollection && field.searchOption && <Box>
-                                    <Button disabled={props.disabled} id="case-number-search-btn" onClick={handleCaseSearch} variant="outlined" sx={{ml: 2}}>{t('button.search')}</Button>
-                                </Box>}
-                            </Box>
+                                <>
+                                    <Box sx={{display: 'flex'}} key={index}>
+                                        <Box width={'100%'}>
+                                            <InputField required={field.required}
+                                                        error={field.error}
+                                                        input={field.input}
+                                                        label={field.label}
+                                                        value={field.value}
+                                                        formValue={field.formValue}
+                                                        dropdownItems={field.dropDownItems}
+                                                        setter={field.setter}
+                                                        disabledField={field.disabled}
+                                                        {...props}
+                                            />
+                                        </Box>
+                                        <Box>
+                                            <HelpPopover popoverContent={field.helpText}/>
+                                        </Box>
+                                    </Box>
+                                    {isCollection && field.searchOption && <Box>
+                                        <Button disabled={props.disabled} id="case-number-search-btn" onClick={handleCaseSearch} variant="outlined" sx={{mb: 2}}>{t('button.search')}</Button>
+                                        <Button disabled={props.disabled} id="case-number-clear-btn" onClick={handleCaseClear} variant="outlined" sx={{ml: 2, mb: 2}}>{'Tilbakestill'}</Button>
+                                    </Box>}
+                                </>
                         )
                     })}
                     {isCollection && _case ? <Typography id="case-information-case-search-result" sx={{mb:2}}>{_case}</Typography> : ''}
                 </FormGroup>
             </div>
             {isCollection ? <></> : <div>
-                <FormGroup>
+                <FormGroup className={props.style.formControl}>
                     {!isCollection && caseFormFields.map((field, index) => {
                         return (
                             field.hidden ?
