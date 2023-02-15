@@ -232,8 +232,6 @@ export const correspondentType: string = 'https://beta.felleskomponent.no/arkiv/
 export const mainRole: string = 'https://beta.felleskomponent.no/arkiv/kodeverk/tilknyttetregistreringsom/systemid/H'
 export const attachmentRole: string = 'https://beta.felleskomponent.no/arkiv/kodeverk/tilknyttetregistreringsom/systemid/V'
 
-
-
 export const creationStrategies: ISelect[] = [
     {label: 'Ny sak', value: 'NEW',  description: "selects.creationStrategies.newDesc"},
     {label: 'Basert på søkekriterier eller ny sak', value: 'BY_SEARCH_OR_NEW',  description: "selects.creationStrategies.existingDesc", disabled: true},
