@@ -234,8 +234,8 @@ export const attachmentRole: string = 'https://beta.felleskomponent.no/arkiv/kod
 
 export const creationStrategies: ISelect[] = [
     {label: 'Ny sak', value: 'NEW',  description: "selects.creationStrategies.newDesc"},
-    {label: 'Basert på søkekriterier eller ny sak', value: 'BY_SEARCH_OR_NEW',  description: "selects.creationStrategies.existingDesc", disabled: true},
-    {label: 'Eksisterende sak (samlesak)', value: 'BY_ID', description: "selects.creationStrategies.collectionDesc"}
+    {label: 'På sak basert på søkekriterier eller ny sak (kommer)', value: 'BY_SEARCH_OR_NEW',  description: "selects.creationStrategies.existingDesc", disabled: true},
+    {label: 'Eksisterende sak (samlesak) basert på saksnummer', value: 'BY_ID', description: "selects.creationStrategies.collectionDesc"}
 ];
 
 export const sourceApplications: ISelect[] = [
