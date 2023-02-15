@@ -13,6 +13,7 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
     let initValue: string = props.value === null ? '' : props.value;
     const setPropValue = props.setValue;
     const regExp = /^(?:(?:(?!\$if\{).)+|(?:\$if\{(?:(?!\$if\{).)+})+)+$/g;
+    const allowAnythingRegExp: RegExp =/(.*?)/g;
 
     const [inputValue, setInputValue] = useState(initValue);
     const [{ canDrop, isOver }, drop] = useDrop(() => ({
@@ -60,15 +61,15 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
                             setInputValue(e.target.value as string);
                             onChange(e);
                         }}
-                        error={(!!props.error && props.required) || (inputValue === '' && props.required && !!props.error)}
+                        error={(!!props.error && props.required) || (inputValue === '' &&  props.required && !!props.error || validation && inputValue !== '' && !validRegEx)}
                         helperText={(value === '' && error && props.required && validation) ? 'Obligatorisk felt' : ((validation && inputValue !== '' && !validRegEx) ? 'Data fra skjema må være på formatet $if{metadata}' : '')}
                     />)
             }}
             rules={
-                validation ? {
-                    pattern: {value: regExp, message: errorMessage},
-                    required: {value: props.required, message: errorMessage}
-                } : {}
+                 {
+                    pattern: {value: validation ? regExp : allowAnythingRegExp, message: errorMessage},
+                    required: {value: validation ? props.required : false, message: errorMessage}
+                }
             }
         />
     )

@@ -133,7 +133,7 @@ const AVConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
         setActiveChecked(event.target.checked);
     };
 
-    const {handleSubmit, watch, setValue, control, reset, formState} = useForm<IFormConfiguration>({
+    const {handleSubmit, watch, setValue, control, reset, formState, clearErrors} = useForm<IFormConfiguration>({
         defaultValues: activeFormData ? activeFormData : defaultConfigurationValuesAV,
         reValidateMode: 'onChange'
     });
@@ -150,6 +150,13 @@ const AVConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
             resetIntegrationContext();
         };
     }, [])
+
+    useEffect(() => {
+        // Trigger callback when there's errors
+        if (Object.keys(errors).length !== 0) {
+            console.log(errors)
+        }
+    }, [JSON.stringify(errors), formState.submitCount])
 
     const accordionList: IAccordion[] = [
         {id: 'case-information', summary: "caseInformation.header", accordionForm: ACCORDION_FORM.CASE_INFORMATION, defaultExpanded: true},
@@ -337,6 +344,7 @@ const AVConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
                                         onSave={onSave}
                                         shieldingCheck={shieldingCheck}
                                         setShieldingCheck={setShieldingCheck}
+                                        clearErrors={clearErrors}
                                     />
                                 )
                             })}

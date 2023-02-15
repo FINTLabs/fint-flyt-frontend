@@ -136,6 +136,8 @@ const InputField: React.FunctionComponent<any> = (props) => {
                 required={props.required}
                 disabled={props.disabled || props.disabledField}
                 validation={props.validation}
+                errors={props.errors}
+                {...props}
             />
         )
     }
