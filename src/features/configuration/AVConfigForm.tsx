@@ -151,13 +151,6 @@ const AVConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
         };
     }, [])
 
-    useEffect(() => {
-        // Trigger callback when there's errors
-        if (Object.keys(errors).length !== 0) {
-            console.log(errors)
-        }
-    }, [JSON.stringify(errors), formState.submitCount])
-
     const accordionList: IAccordion[] = [
         {id: 'case-information', summary: "caseInformation.header", accordionForm: ACCORDION_FORM.CASE_INFORMATION, defaultExpanded: true},
         {id: 'case-form', summary: "caseForm.header", accordionForm: ACCORDION_FORM.CASE_FORM, defaultExpanded: completed},
