@@ -133,7 +133,7 @@ const AVConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
         setActiveChecked(event.target.checked);
     };
 
-    const {handleSubmit, watch, setValue, control, reset, formState} = useForm<IFormConfiguration>({
+    const {handleSubmit, watch, setValue, control, reset, formState, clearErrors} = useForm<IFormConfiguration>({
         defaultValues: activeFormData ? activeFormData : defaultConfigurationValuesAV,
         reValidateMode: 'onChange'
     });
@@ -153,7 +153,7 @@ const AVConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
 
     const accordionList: IAccordion[] = [
         {id: 'case-information', summary: "caseInformation.header", accordionForm: ACCORDION_FORM.CASE_INFORMATION, defaultExpanded: true},
-        {id: 'case-form', summary: "caseForm.header", accordionForm: ACCORDION_FORM.CASE_FORM, defaultExpanded: completed, hidden: watch("caseData.caseCreationStrategy") === CreationStrategy.BY_ID},
+        {id: 'case-form', summary: "caseForm.header", accordionForm: ACCORDION_FORM.CASE_FORM, defaultExpanded: completed},
         {id: 'record-form', summary: "recordForm.header", accordionForm: ACCORDION_FORM.RECORD_FORM, defaultExpanded: completed},
         {id: 'document-object-form', summary: "documentForm.header", accordionForm: ACCORDION_FORM.DOCUMENT_FORM, defaultExpanded: completed},
         {id: 'attachment-document-object-form', summary: "attachmentForm.header", accordionForm: ACCORDION_FORM.ATTACHMENT_FORM, defaultExpanded: completed},
@@ -337,6 +337,7 @@ const AVConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
                                         onSave={onSave}
                                         shieldingCheck={shieldingCheck}
                                         setShieldingCheck={setShieldingCheck}
+                                        clearErrors={clearErrors}
                                     />
                                 )
                             })}

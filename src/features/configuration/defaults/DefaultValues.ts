@@ -163,7 +163,7 @@ export const defaultConfigurationValuesAV: IFormConfiguration = {
             documentType: null,
             role: 'https://beta.felleskomponent.no/arkiv/kodeverk/tilknyttetregistreringsom/systemid/H',
             fileFormat: 'https://beta.felleskomponent.no/arkiv/kodeverk/format/systemid/PDF',
-            variant: 'https://beta.felleskomponent.no/arkiv/kodeverk/variantformat/systemid/P',
+            variant: 'https://beta.felleskomponent.no/arkiv/kodeverk/variantformat/systemid/A',
             file: '$if{skjemaPdf}'
         },
         attachmentDocuments: {
@@ -209,7 +209,8 @@ export const dropdownPlaceholder: ISelect[] = [
 ]
 
 export const variantOptions: ISelect[] = [
-    {label: '[P] Produksjonsformat', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/variantformat/systemid/P'}
+    {label: '[P] Produksjonsformat', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/variantformat/systemid/P'},
+    {label: '[A] Arkivformat', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/variantformat/systemid/A'}
 ]
 
 export const formatOptions: ISelect[] = [
@@ -231,12 +232,10 @@ export const correspondentType: string = 'https://beta.felleskomponent.no/arkiv/
 export const mainRole: string = 'https://beta.felleskomponent.no/arkiv/kodeverk/tilknyttetregistreringsom/systemid/H'
 export const attachmentRole: string = 'https://beta.felleskomponent.no/arkiv/kodeverk/tilknyttetregistreringsom/systemid/V'
 
-
-
 export const creationStrategies: ISelect[] = [
-    {label: 'selects.creationStrategies.new', value: 'NEW',  description: "selects.creationStrategies.newDesc"},
-    {label: 'selects.creationStrategies.existing', value: 'BY_SEARCH_OR_NEW',  description: "selects.creationStrategies.existingDesc", disabled: true},
-    {label: 'selects.creationStrategies.collection', value: 'BY_ID', description: "selects.creationStrategies.collectionDesc"}
+    {label: 'Ny sak', value: 'NEW',  description: "selects.creationStrategies.newDesc"},
+    {label: 'På ekisterende sak basert på søkekriterier, ellers ny sak (kommer)', value: 'BY_SEARCH_OR_NEW',  description: "selects.creationStrategies.existingDesc", disabled: true},
+    {label: 'På eksisterende sak (samlesak) basert på saksnummer', value: 'BY_ID', description: "selects.creationStrategies.collectionDesc"}
 ];
 
 export const sourceApplications: ISelect[] = [

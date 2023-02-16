@@ -56,7 +56,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                         helperText={(props.error && props.required) ? t('requiredField') : ''}
                     >
                         {props.dropdownItems.map((item: any, index: number) => (
-                            <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
+                            <MenuItem key={index} value={item.value} disabled={item.disabled}>{item.label}</MenuItem>
                         ))}
                     </TextField>
                 )}
@@ -136,6 +136,8 @@ const InputField: React.FunctionComponent<any> = (props) => {
                 required={props.required}
                 disabled={props.disabled || props.disabledField}
                 validation={props.validation}
+                errors={props.errors}
+                {...props}
             />
         )
     }

@@ -16,6 +16,7 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
     let initValue: string = props.value === null ? '' : props.value;
     const setPropValue = props.setValue;
     const regExp = /^(?:(?:(?!\$if\{).)+|(?:\$if\{(?:(?!\$if\{).)+})+)+$/g;
+    const allowAnythingRegExp: RegExp =/(.*?)/g;
     const {instanceElementMetadata} = useContext(SourceApplicationContext)
 
     function validAndExisting(value: string): boolean {
@@ -63,7 +64,6 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
     const validAndRegEx = validAndExisting(inputValue)
 
     console.log(validRegEx, validAndRegEx)
-
     return (
         <Controller
             control={props.control}
@@ -84,15 +84,15 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
                             setInputValue(e.target.value as string);
                             onChange(e);
                         }}
-                        error={(!!props.error && props.required) || (inputValue === '' && props.required && !!props.error)}
-                        helperText={(value === '' && error && props.required && validation) ? 'Obligatorisk felt' : ((validation && inputValue !== '' && !validAndRegEx) ? 'Data fra skjema må være på formatet $if{metadata} og eksistere i data fra skjema' : '')}
+                        error={(!!props.error && props.required) || (inputValue === '' &&  props.required && !!props.error || validation && inputValue !== '' && !validRegEx)}
+                        helperText={(value === '' && error && props.required && validation) ? 'Obligatorisk felt' : ((validation && inputValue !== '' && !validRegEx) ? 'Data fra skjema må være på formatet $if{metadata} og eksistere i data fra skjema' : '')}
                     />)
             }}
             rules={
-                validation ? {
-                    pattern: {value: regExp, message: errorMessage},
-                    required: {value: props.required, message: errorMessage}
-                } : {}
+                 {
+                    pattern: {value: validation ? regExp : allowAnythingRegExp, message: errorMessage},
+                    required: {value: validation ? props.required : false, message: errorMessage}
+                }
             }
         />
     )
