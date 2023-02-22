@@ -3,13 +3,9 @@
 import {ISelect} from "../types/InputField";
 import {CreationStrategy} from "../types/CreationStrategy";
 import {IFormConfiguration} from "../types/Form/FormData";
-import {IIntegrationMetadata, Type} from "../types/IntegrationMetadata";
-import {IIntegration} from "../../integration/types/Integration";
 import {IConfiguration} from "../types/Configuration";
-import {ApplicantType} from "../types/ApplicantType";
 import {IInstanceElementMetadata, IIntegrationMetadata, Type} from "../types/IntegrationMetadata";
-import {IIntegration} from "../types/Integration";
-import {FieldConfigurationType, newIConfiguration} from "../types/Configuration";
+import {IIntegration} from "../../integration/types/Integration";
 
 export const defaultConfigurationValues: IFormConfiguration = {
     comment: '',

@@ -9,7 +9,6 @@ import {IntegrationContext} from "../../../context/integrationContext";
 // eslint-disable-next-line
 import {Link} from 'react-router-dom'
 import {SourceApplicationContext} from "../../../context/sourceApplicationContext";
-import {MOCK_INSTANCE_ELEMENT_METADATA} from "../defaults/DefaultValues";
 
 const SourceApplicationForm: React.FunctionComponent<any> = (props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'components.SourceApplicationForm'});
@@ -43,6 +42,7 @@ const SourceApplicationForm: React.FunctionComponent<any> = (props) => {
             return null
         }
 
+        console.log(items)
         return items.map((item: any) => (
             <React.Fragment key={item.displayName}>
                 {item.children.length > 0 ?
@@ -77,8 +77,7 @@ const SourceApplicationForm: React.FunctionComponent<any> = (props) => {
                     </Select>
                 </FormControl>
             </Box>
-            //TODO: REMOVE HARD CODED LIST OF INSTANCE METADATA
-            {instanceElementMetadata && <TagTree items={MOCK_INSTANCE_ELEMENT_METADATA}/>}
+            {instanceElementMetadata && <TagTree items={instanceElementMetadata}/>}
             {/*<Link style={{fontFamily: 'sans-serif'}} to={{pathname: selectedMetadata.sourceApplicationIntegrationUri}} target="_blank">{t('openLink')}</Link>*/}
 
         </Box>
