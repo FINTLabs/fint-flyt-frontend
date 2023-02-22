@@ -3,9 +3,9 @@
 import {ISelect} from "../types/InputField";
 import {CreationStrategy} from "../types/CreationStrategy";
 import {IFormConfiguration} from "../types/Form/FormData";
-import {IIntegrationMetadata, Type} from "../types/IntegrationMetadata";
-import {IIntegration} from "../../integration/types/Integration";
 import {IConfiguration} from "../types/Configuration";
+import {IInstanceElementMetadata, IIntegrationMetadata, Type} from "../types/IntegrationMetadata";
+import {IIntegration} from "../../integration/types/Integration";
 
 export const defaultConfigurationValues: IFormConfiguration = {
     comment: '',
@@ -258,6 +258,195 @@ export const SOURCE_FORM_NO_VALUES: IIntegrationMetadata[] = [
         version: 0
     }
 ]
+
+export const MOCK_INSTANCE_ELEMENT_METADATA: IInstanceElementMetadata[] =
+    [
+        {
+            "key":null,
+            "type": Type.STRING,
+            "displayName":"Første kolonne",
+            "children":[
+                {
+                    "key":null,
+                    "type": Type.STRING,
+                    "displayName":"Arkivsystem",
+                    "children":[
+                        {
+                            "key":"Nedtrekk",
+                            "type": Type.FILE,
+                            "displayName":"Nedtrekk",
+                            "children":[]
+                        },
+                        {
+                            "key":"Radioknapp",
+                            "type": Type.STRING,
+                            "displayName":"Radioknapp",
+                            "children":[]
+                        },
+                        {
+                            "key":"Sjekkbokser",
+                            "type": Type.STRING,
+                            "displayName":"Sjekkbokser",
+                            "children":[]
+                        }
+                    ]
+                },
+                {
+                    "key":null,
+                    "type": Type.STRING,
+                    "displayName":"Stedsnavn",
+                    "children":[
+                        {
+                            "key":"Nedtrekk2",
+                            "type": Type.STRING,
+                            "displayName":"Nedtrekk",
+                            "children":[]
+                        },
+                        {
+                            "key":"Radioknappliste",
+                            "type": Type.STRING,
+                            "displayName":"Radioknappliste",
+                            "children":[]
+                        },
+                        {
+                            "key":"Sjekkbokser2",
+                            "type": Type.STRING,
+                            "displayName":"Sjekkbokser",
+                            "children":[]
+                        }
+                    ]
+                },
+                {
+                    "key":null,
+                    "type": Type.STRING,
+                    "displayName":"Med grab - sted",
+                    "children":[
+                        {
+                            "key":"Nedtrekk5",
+                            "type": Type.STRING,
+                            "displayName":"Nedtrekk",
+                            "children":[]
+                        }
+                    ]
+                },
+                {
+                    "key":null,
+                    "type": Type.STRING,
+                    "displayName":"Gruppe",
+                    "children":[
+                        {
+                            "key":"Nedtrekk6",
+                            "type": Type.STRING,
+                            "displayName":"Nedtrekk",
+                            "children":[]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "key":null,
+            "type": Type.STRING,
+            "displayName":"Ny første kolonne",
+            "children":[
+                {
+                    "key":null,
+                    "type": Type.STRING,
+                    "displayName":"Gruppe",
+                    "children":[
+                        {
+                            "key":"Nedtrekk3",
+                            "type": Type.STRING,
+                            "displayName":"Nedtrekk",
+                            "children":[]
+                        },
+                        {
+                            "key":"Radioknappliste2",
+                            "type": Type.STRING,
+                            "displayName":"Radioknappliste",
+                            "children":[]
+                        },
+                        {
+                            "key":"Sjekkbokser3",
+                            "type": Type.STRING,
+                            "displayName":"Sjekkbokser",
+                            "children":[]
+                        }
+                    ]
+                },
+                {
+                    "key":null,
+                    "type": Type.STRING,
+                    "displayName":"Med Grab",
+                    "children":[
+                        {
+                            "key":"Nedtrekk4",
+                            "type": Type.STRING,
+                            "displayName":"Nedtrekk",
+                            "children":[]
+                        },
+                        {
+                            "key":"Radioknappliste3",
+                            "type": Type.STRING,
+                            "displayName":"Radioknappliste",
+                            "children":[]
+                        },
+                        {
+                            "key":"Sjekkboks2",
+                            "type": Type.STRING,
+                            "displayName":"Sjekkboks",
+                            "children":[]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "key":null,
+            "type": Type.STRING,
+            "displayName":"Andre kolonne",
+            "children":[
+                {
+                    "key":null,
+                    "type": Type.STRING,
+                    "displayName":"Gruppe",
+                    "children":[
+                        {
+                            "key":"Nedtrekk7",
+                            "type": Type.STRING,
+                            "displayName":"Nedtrekk",
+                            "children":[]
+                        },
+                        {
+                            "key":"Radioknappliste4",
+                            "type": Type.STRING,
+                            "displayName":"Radioknappliste",
+                            "children":[]
+                        },
+                        {
+                            "key":"Sjekkbokser4",
+                            "type": Type.STRING,
+                            "displayName":"Sjekkbokser",
+                            "children":[]
+                        }
+                    ]
+                },
+                {
+                    "key":null,
+                    "type": Type.STRING,
+                    "displayName":"Gruppe",
+                    "children":[
+                        {
+                            "key":"Nedtrekk8",
+                            "type": Type.STRING,
+                            "displayName":"Nedtrekk",
+                            "children":[]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
 
 export const MOCK_SOURCE_FORM: IIntegrationMetadata[] =
     [
