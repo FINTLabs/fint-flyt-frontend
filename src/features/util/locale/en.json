@@ -322,7 +322,7 @@
         "code0": "General error"
     },
     "components": {
-        "SourceApplicationForm": {
+        "metadataPanel": {
             "header": "Data from form"
         },
         "formSettings": {
@@ -339,7 +339,7 @@
         }
     },
     "fieldHelp": {
-        "sourceApplicationFormPopoverContent": "In the forms text fields you can use data from the selected form to fill these. Drag and drop to the field.",
+        "metadataPanelPopoverContent": "In the forms text fields you can use data from the selected form to fill these. Drag and drop to the field.",
         "sourceApplicationId": "Source appliation, i.e. ACOS",
         "sourceApplicationIntegrationId": "Form",
         "destination": "Choose base to transfer form to",

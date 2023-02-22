@@ -1,4 +1,4 @@
-import {Box, FormGroup} from '@mui/material';
+import {Box, FormGroup, IconButton, Typography} from '@mui/material';
 import React, {useContext} from 'react';
 import {IInputField} from "../../types/InputField";
 import {INPUT_TYPE} from "../../types/InputType.enum";
@@ -8,6 +8,7 @@ import {ResourcesContext} from "../../../../context/resourcesContext";
 import HelpPopover from "../popover/HelpPopover";
 // eslint-disable-next-line
 import { useTranslation } from 'react-i18next';
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 const RecordForm: React.FunctionComponent<any> = (props) => {
     const {administrativeUnits, accessCodes, paragraphs, recordStatuses, recordTypes, archiveResources } = useContext(ResourcesContext);
@@ -23,6 +24,11 @@ const RecordForm: React.FunctionComponent<any> = (props) => {
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.accessCode", value: props.watch("recordData.shielding.accessCode"), formValue: "recordData.shielding.accessCode", dropDownItems: accessCodes, required: false, error:errors.recordData?.shielding?.accessCode, helpText: "recordData.accessCode"},
         {input: INPUT_TYPE.AUTOCOMPLETE, label: "labels.paragraph", value: props.watch("recordData.shielding.paragraph"), formValue: "recordData.shielding.paragraph", dropDownItems: paragraphs, required: false, error:errors.recordData?.shielding?.paragraph, helpText: "recordData.paragraph"}
     ]
+
+    function onExpandClick(e: React.MouseEvent<HTMLAnchorElement> | React.MouseEvent<HTMLButtonElement>) {
+
+    }
+
     return (
         <div>
             <FormGroup className={props.style.formControl}>
@@ -47,6 +53,20 @@ const RecordForm: React.FunctionComponent<any> = (props) => {
                         </Box>
                     )}
                 )}
+                <div style={{display: 'flex', padding: '2px', border: '1px solid gray', borderRadius: 4, backgroundColor: 'white', height: 30,
+                    width: 'calc(100% - 46px)'}}>
+                    <Typography sx={{paddingLeft: 1, paddingTop: 0.5, flex: 1}}>Korrespondanseparter</Typography>
+                    <IconButton aria-label="Example" onClick={(e => {onExpandClick(e)})}>
+                        <ArrowForwardIosIcon/>
+                    </IconButton>
+                </div>
+                <div style={{display: 'flex', padding: '2px', marginTop: 20, border: '1px solid gray', borderRadius: 4, backgroundColor: 'white', height: 30,
+                    width: 'calc(100% - 46px)'}}>
+                    <Typography sx={{paddingLeft: 1, paddingTop: 0.5, flex: 1}}>Dokumentbeskrivelser</Typography>
+                    <IconButton aria-label="Example" onClick={(e => {onExpandClick(e)})}>
+                        <ArrowForwardIosIcon/>
+                    </IconButton>
+                </div>
             </FormGroup>
         </div>
     );

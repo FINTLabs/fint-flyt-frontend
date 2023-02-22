@@ -24,6 +24,7 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 const InstanceTable: React.FunctionComponent<any> = (props) => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.instanceOverview'})
     let history = useHistory();
+    const classes = props.classes;
     const {latestInstances, getLatestInstances, getSelectedInstances} = useContext(HistoryContext)
     const {sourceApplication} = useContext(SourceApplicationContext)
     const [selectedRow, setSelectedRow] = useState<IEvent>();
@@ -31,7 +32,7 @@ const InstanceTable: React.FunctionComponent<any> = (props) => {
     const handleClickOpen = () => {setOpen(true);};
     const handleClose = () => {setOpen(false);};
 
-    const errorsToRetry: string[] = ['instance-receival-error','instance-registration-error']
+    const errorsNotForRetry: string[] = ['instance-receival-error','instance-registration-error']
 
     const columns: GridColumns = [
         { field: 'id', hide: true, type: 'string', headerName: 'id', minWidth: 150, flex: 0.5 },
@@ -96,7 +97,7 @@ const InstanceTable: React.FunctionComponent<any> = (props) => {
     }
 
     function CustomButtonToggle(props: GridCellParams["row"]) {
-        const hasErrors: boolean = (props.row.type === 'ERROR') && !errorsToRetry.includes(props.row.name)
+        const hasErrors: boolean = (props.row.type === 'ERROR') && !errorsNotForRetry.includes(props.row.name)
         return (
             <>
                 {hasErrors &&
@@ -125,41 +126,44 @@ const InstanceTable: React.FunctionComponent<any> = (props) => {
                 endIcon={<RefreshIcon />}
             >{t('button.refresh')}
             </Button>
-            <DataGrid
-                loading={!latestInstances}
-                columns={columns}
-                density='compact'
-                localeText={gridLocaleNoNB}
-                rows={latestInstances ? latestInstances : []}
-                components={{
-                    Toolbar: GridToolbar,
-                }}
-                onCellDoubleClick={(params, event) => {
-                    if (!event.ctrlKey) {
-                        event.defaultMuiPrevented = true;
-                        getEventsWithInstanceId(params.row.instanceFlowHeaders.sourceApplicationId, params.row.instanceFlowHeaders.sourceApplicationInstanceId)
-                    }
-                }}
-                rowThreshold={0}
-                initialState={{
-                    pagination: {
-                        pageSize: 20,
-                    },
-                    sorting: {
-                        sortModel: [{ field: 'timestamp', sort: 'desc' }],
-                    },
-                    filter: {
-                        filterModel: {
-                            items: [
-                                {
-                                    columnField: 'sourceApplicationInstanceId',
-                                    operatorValue: 'contains'
-                                },
-                            ],
+            <Box id="instance-list" className={classes.dataGridBox}>
+                <DataGrid
+                    loading={!latestInstances}
+                    columns={columns}
+                    density='compact'
+                    localeText={gridLocaleNoNB}
+                    rows={latestInstances ? latestInstances : []}
+                    components={{
+                        Toolbar: GridToolbar,
+                    }}
+                    onCellDoubleClick={(params, event) => {
+                        if (!event.ctrlKey) {
+                            event.defaultMuiPrevented = true;
+                            getEventsWithInstanceId(params.row.instanceFlowHeaders.sourceApplicationId, params.row.instanceFlowHeaders.sourceApplicationInstanceId)
+                        }
+                    }}
+                    rowThreshold={0}
+                    initialState={{
+                        pagination: {
+                            pageSize: 20,
                         },
-                    },
-                }}
-            />
+                        sorting: {
+                            sortModel: [{ field: 'timestamp', sort: 'desc' }],
+                        },
+                        filter: {
+                            filterModel: {
+                                items: [
+                                    {
+                                        columnField: 'sourceApplicationInstanceId',
+                                        operatorValue: 'contains'
+                                    },
+                                ],
+                            },
+                        },
+                    }}
+                />
+            </Box>
+
         </Box>
     );
 

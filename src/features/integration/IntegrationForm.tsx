@@ -33,6 +33,7 @@ export const IntegrationForm: React.FunctionComponent<any> = (props) => {
     const [destination, setDestination] = useState<string>('');
     const [sourceApplicationId, setSourceApplicationId] = useState<string>('');
     const [sourceApplicationIntegrationId, setSourceApplicationIntegrationId] = useState<string>('');
+    let backgroundColor = 'white';
 
     const navToConfiguration = () => {
         history.push({
@@ -91,6 +92,7 @@ export const IntegrationForm: React.FunctionComponent<any> = (props) => {
                             id='sourceApplicationId'
                             select
                             size="small"
+                            style={{backgroundColor}}
                             sx={{ mb: 3, width: 'inherit' }}
                             value={sourceApplicationId}
                             label={t('labels.sourceApplicationId')+'*'}
@@ -114,6 +116,7 @@ export const IntegrationForm: React.FunctionComponent<any> = (props) => {
                             renderInput={params => (
                                 <TextField {...params}
                                            size="small"
+                                           style={{backgroundColor}}
                                            label={t('labels.sourceApplicationIntegrationId') + '*'}
                                            variant="outlined" />
                             )}
@@ -132,6 +135,7 @@ export const IntegrationForm: React.FunctionComponent<any> = (props) => {
                             select
                             size="small"
                             sx={{ mb: 1, width: 'inherit' }}
+                            style={{backgroundColor}}
                             value={destination}
                             label={t('labels.destination')+'*'}
                             onChange={event => setDestination(event.target.value)}

@@ -19,11 +19,13 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         dataGridBox: {
             height: "900px",
+            backgroundColor: 'white',
             width: '100%'
         },
         dataPanelBox: {
             height: '600px',
             width: '100%',
+            backgroundColor: 'white',
             marginRight: '8px'
         }
     })

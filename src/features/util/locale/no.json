@@ -40,24 +40,15 @@
         },
         "configurationForm": {
             "header": "Konfigurasjon",
-            "successHeader": "Konfigurasjon - ferdigstilt",
+            "subHeader": "Utgående data",
+            "successHeader": "Innsending vellykket",
+            "integrationId": "IntegrasjonId",
+            "sourceApplicationId": "Kildeapplikasjon",
+            "sourceApplicationIntegrationId": "Integrasjon",
+            "destination": "Destinasjon",
             "accordions": {
-                "caseInformation": {
-                    "header": "Integrasjon",
-                    "integrationId": "IntegrasjonId",
-                    "sourceApplicationId": "Kildeapplikasjon",
-                    "sourceApplicationIntegrationId": "Integrasjon",
-                    "destination": "Destinasjon",
-                    "button": {
-                        "search": "Søk",
-                        "save": "Lagre"
-                    },
-                    "caseSearch": {
-                        "id": "Saksnummer",
-                        "searching": "Søker...",
-                        "info": "Saksnummer må være på formatet 'saksår/saksnummer', f.eks 2021/03",
-                        "noMatch": "Ingen treff, ferdigstilling av konfigurasjon krever gyldig saksnummer"
-                    }
+                "classes": {
+                    "header": "Klassering"
                 },
                 "caseForm": {
                     "header": "Sak",
@@ -466,8 +457,8 @@
         "code0": "Generell feil"
     },
     "components": {
-        "SourceApplicationForm": {
-            "header": "Data fra skjema",
+        "MetadataPanel": {
+            "header": "Metadata",
             "version": "Versjon",
             "openLink": "Åpne i skjemaadministrator"
         },
@@ -486,7 +477,7 @@
         }
     },
     "fieldHelp": {
-        "sourceApplicationFormPopoverContent": "I tekstfeltene til i de ulike postene kan du benytte data fra skjema for å utfylle disse. Naviger til feltet du ønsker å fylle,og dra inn tag fra listen under.",
+        "metadataPanelPopoverContent": "I tekstfeltene til i de ulike postene kan du benytte data fra skjema for å utfylle disse. Naviger til feltet du ønsker å fylle,og dra inn tag fra listen under.",
         "sourceApplicationId": "Kildeapplikasjon, f.eks ACOS",
         "sourceApplicationIntegrationId": "Integrajon",
         "destination": "Velg hvilken base skjemaet skal overføres til",

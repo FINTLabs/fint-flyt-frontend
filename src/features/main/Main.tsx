@@ -33,18 +33,17 @@ const useStyles = makeStyles((theme: Theme) =>
             display: "flex",
             alignItems: "center",
             justifyContent: "flex-end",
-            padding: "0 8px",
             ...theme.mixins.toolbar
         },
         content: {
             width: "100%",
             flexGrow: 1,
             backgroundColor: theme.palette.background.default,
-            padding: 24,
-            marginTop: theme.spacing(7),
+            padding: theme.spacing(4),
             [theme.breakpoints.up("sm")]: {
-                height: "calc(100% - 64px)",
-                marginTop: theme.spacing(8)
+                marginTop: theme.spacing(8),
+                minHeight: '100vh',
+                height: 'fit-content'
             }
         },
         logo: {

@@ -10,8 +10,8 @@ import {IntegrationContext} from "../../../context/integrationContext";
 import {Link} from 'react-router-dom'
 import {SourceApplicationContext} from "../../../context/sourceApplicationContext";
 
-const SourceApplicationForm: React.FunctionComponent<any> = (props) => {
-    const { t } = useTranslation('translations', { keyPrefix: 'components.SourceApplicationForm'});
+const MetadataPanel: React.FunctionComponent<any> = (props) => {
+    const { t } = useTranslation('translations', { keyPrefix: 'components.MetadataPanel'});
     const { selectedMetadata, setSelectedMetadata } = useContext(IntegrationContext)
     const { allMetadata, instanceElementMetadata, getInstanceElementMetadata, getAllMetadata } = useContext(SourceApplicationContext)
     let initialVersion = selectedMetadata.version;
@@ -41,7 +41,6 @@ const SourceApplicationForm: React.FunctionComponent<any> = (props) => {
         if (!items || !items.length) {
             return null
         }
-
         return items.map((item: any) => (
             <React.Fragment key={item.displayName}>
                 {item.children.length > 0 ?
@@ -57,30 +56,31 @@ const SourceApplicationForm: React.FunctionComponent<any> = (props) => {
     }
 
     return (
-        <Box className={props.style.sourceApplicationForm}>
+        <Box>
             <Box className={props.style.row}>
-                <Typography variant={"h6"}>{t('header')}: {selectedMetadata.integrationDisplayName}</Typography>
-                <HelpPopover popoverContent="sourceApplicationFormPopoverContent"/>
-                <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-                    <InputLabel id="demo-select-small">{t('version')} </InputLabel>
-                    <Select
-                        labelId="version-select"
-                        id="version-select"
-                        value={version}
-                        label={t('version') as string}
-                        onChange={handleChange}
-                    >
-                        {availableVersions.map((md, index) => {
-                            return <MenuItem key={index} value={md.version}>{t('version')} {md.version}</MenuItem>
-                        })}
-                    </Select>
-                </FormControl>
+            <Typography variant={"h6"}>{t('header')}</Typography>
+            <HelpPopover popoverContent="metadataPanelPopoverContent"/>
+            <FormControl sx={{ m: 1, minWidth: 120, backgroundColor: 'white' }} size="small">
+                <InputLabel id="version-select-label">{t('version')} </InputLabel>
+                <Select
+                    labelId="version-select"
+                    id="version-select"
+                    value={version}
+                    label={t('version') as string}
+                    onChange={handleChange}
+                >
+                    {availableVersions.map((md, index) => {
+                        return <MenuItem key={index} value={md.version}>{t('version')} {md.version}</MenuItem>
+                    })}
+                </Select>
+            </FormControl>
             </Box>
-            {instanceElementMetadata && <TagTree items={instanceElementMetadata}/>}
-            {/*<Link style={{fontFamily: 'sans-serif'}} to={{pathname: selectedMetadata.sourceApplicationIntegrationUri}} target="_blank">{t('openLink')}</Link>*/}
-
+            <Box className={props.style.metadataPanel}>
+                {instanceElementMetadata && <TagTree items={instanceElementMetadata}/>}
+                {/*<Link style={{fontFamily: 'sans-serif'}} to={{pathname: selectedMetadata.sourceApplicationIntegrationUri}} target="_blank">{t('openLink')}</Link>*/}
+            </Box>
         </Box>
     );
 }
 
-export default SourceApplicationForm;
+export default MetadataPanel;

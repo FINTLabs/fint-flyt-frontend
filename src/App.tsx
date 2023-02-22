@@ -20,6 +20,9 @@ const theme = createTheme({
             main: '#1F4F59',
             dark: '#15373e',
         },
+        background: {
+            default: '#EBF4F5',
+        }
     },
     spacing: 8,
     typography: {

@@ -29,6 +29,8 @@ const InputField: React.FunctionComponent<any> = (props) => {
         limit: 250
     });
     let errorMessage: string = t('errorMessage') + t(props.label);
+    let backgroundColor = 'white';
+
     if (props.input === INPUT_TYPE.DROPDOWN) {
         return (
             <Controller
@@ -40,6 +42,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                         InputLabelProps={{ shrink: true }}
                         select
                         size="small"
+                        style={{backgroundColor}}
                         sx={{ mb: 3, width: 'inherit' }}
                         value={props.value}
                         label={props.required ? (t(props.label)) +'*' : t(props.label)}
@@ -108,6 +111,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                             <TextField
                                 {...params}
                                 size="small"
+                                style={{backgroundColor}}
                                 label={props.required ? t((props.label)) +'*' : t(props.label)}
                                 error={!!props.error && props.required}
                                 helperText={(props.error && props.required) ? t('requiredField') : ''}
@@ -156,7 +160,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                         onBlur={onBlur}
                         value={value}
                         minRows={3}
-                        style={{fontFamily: 'sans-serif', fontSize: '16px', width: '600px'}}
+                        style={{fontFamily: 'sans-serif', fontSize: '16px', width: '600px', backgroundColor}}
                     />
                 )}
                 rules={{ required: { value: props.required, message: errorMessage }} }
@@ -180,6 +184,7 @@ const InputField: React.FunctionComponent<any> = (props) => {
                         sx={{ mb: 3, width: 'inherit'}}
                         onChange={onChange}
                         onBlur={onBlur}
+                        style={{backgroundColor}}
                         value={props.disabledField ? props.value : value}
                         error={!!props.error && props.required}
                         helperText={(props.error && props.required) ? t('requiredField') : ''}
