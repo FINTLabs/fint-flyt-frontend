@@ -188,7 +188,6 @@ const AVConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
         {id: 'case-form', summary: "caseForm.header", accordionForm: ACCORDION_FORM.CASE, defaultExpanded: true},
         {id: 'record-form', summary: "recordForm.header", accordionForm: ACCORDION_FORM.RECORD, defaultExpanded: true}]
 
-
     const classAcc: IAccordion = {id: 'formpanel', summary: "classes.header", accordionForm: ACCORDION_FORM.CLASS, defaultExpanded: true}
     const partPanel: IAccordion = {id: 'part-panel', summary: "part.header", accordionForm: ACCORDION_FORM.PART, defaultExpanded: true}
     const correspondentPanel: IAccordion = {id: 'correspondent-panel', summary: "correspondentForm.header", accordionForm: ACCORDION_FORM.CORRESPONDENT, defaultExpanded: true}
@@ -209,68 +208,65 @@ const AVConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
         })
     }
 
-    const saveNewConfiguration = (integrationId: string, data: IConfiguration) => {
-        console.log('save new config', integrationId, data)
-        ConfigurationRepository.createConfiguration(integrationId, data)
-            .then(response => {
-                console.log('created new configuration on integration ', integrationId, data, response);
-                setConfiguration(response.data)
-                setActiveConfigId(response.data.id)
-                setSaved(true);
-                getNewIntegrations(sourceApplication.toString());
-            })
-            .catch((e: Error) => {
-                setSaveError(true);
-                console.log('error creating new', e);
-            });
-    }
 
-    const saveConfiguration = (integrationId: string, configurationId: string, data: IConfigurationPatch) => {
+    const saveConfiguration = (integrationId: string, data: IConfigurationPatch | IConfiguration, configurationId?: string) => {
         console.log('save config', integrationId, configurationId, data)
-        ConfigurationRepository.updateConfiguration(configurationId, data)
-            .then(response => {
-                console.log('updated configuration: ', configurationId, data, response);
-                setSaved(true);
-                getNewIntegrations(sourceApplication.toString());
-            })
-            .catch((e: Error) => {
-                setSaveError(true);
-                console.log('error updating configuration', e);
-            });
+        configurationId ?
+            ConfigurationRepository.updateConfiguration(configurationId, data)
+                .then(response => {
+                    console.log('updated configuration: ', configurationId, data, response);
+                    setSaved(true);
+                    getNewIntegrations(sourceApplication.toString());
+                })
+                .catch((e: Error) => {
+                    setSaveError(true);
+                    console.log('error updating configuration', e);
+                }) :
+            ConfigurationRepository.createConfiguration(integrationId, data)
+                .then(response => {
+                    console.log('created new configuration on integration ', integrationId, data, response);
+                    setConfiguration(response.data)
+                    setActiveConfigId(response.data.id)
+                    setSaved(true);
+                    getNewIntegrations(sourceApplication.toString());
+                })
+                .catch((e: Error) => {
+                    setSaveError(true);
+                    console.log('error creating new', e);
+                });
+
     }
 
-    const activateNewConfiguration = (integrationId: string, data: IConfiguration) => {
-        console.log('publish new config', integrationId, data)
-        ConfigurationRepository.createConfiguration(integrationId, data)
-            .then(response => {
-                console.log('created new configuration', data, response);
-                if(activeChecked) {
-                    updateIntegration(response.data.integrationId, response.data)
-                }
-                resetAllResources();
-                setSubmitSuccess(true);
-                getNewIntegrations(sourceApplication.toString());
-            })
-            .catch((e: Error) => {
-                console.log('error creating new', e);
-            });
-    }
 
-    const activateConfiguration = (integrationId: string, configurationId: string, data: IConfigurationPatch) => {
+    const activateConfiguration = (integrationId: string, data: IConfigurationPatch | IConfiguration, configurationId?: string) => {
         console.log('publish config', configurationId, data)
-        ConfigurationRepository.updateConfiguration(configurationId, data)
-            .then(response => {
-                if(activeChecked) {
-                    updateIntegration(response.data.integrationId, response.data)
-                }
-                console.log('updated configuration: ', data, response);
-                resetAllResources();
-                setSubmitSuccess(true);
-                getNewIntegrations(sourceApplication.toString());
-            })
-            .catch((e: Error) => {
-                console.log('error updating configuration', e);
-            });
+        configurationId ?
+            ConfigurationRepository.updateConfiguration(configurationId, data)
+                .then(response => {
+                    if(activeChecked) {
+                        updateIntegration(response.data.integrationId, response.data)
+                    }
+                    console.log('updated configuration: ', data, response);
+                    resetAllResources();
+                    setSubmitSuccess(true);
+                    getNewIntegrations(sourceApplication.toString());
+                })
+                .catch((e: Error) => {
+                    console.log('error updating configuration', e);
+                }) :
+            ConfigurationRepository.createConfiguration(integrationId, data)
+                .then(response => {
+                    console.log('created new configuration', data, response);
+                    if(activeChecked) {
+                        updateIntegration(response.data.integrationId, response.data)
+                    }
+                    resetAllResources();
+                    setSubmitSuccess(true);
+                    getNewIntegrations(sourceApplication.toString());
+                })
+                .catch((e: Error) => {
+                    console.log('error creating new', e);
+                });
     }
 
     const handleCancel = () => {
@@ -312,11 +308,11 @@ const AVConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
         const configuration: IConfiguration = toAVConfiguration(data, activeIntegration?.id, activeConfigId, selectedMetadata.id);
         if (configuration && activeConfigId !== undefined) {
             const iConfiguration: IConfiguration = toAVConfigurationPatch(data, selectedMetadata.id);
-            activateConfiguration(activeIntegration?.id, activeConfigId, iConfiguration)
+            activateConfiguration(activeIntegration?.id, iConfiguration, activeConfigId)
             reset({ ...defaultConfigurationValuesAV })
         }
         else if (configuration && activeIntegration?.id) {
-            activateNewConfiguration(activeIntegration?.id, configuration);
+            activateConfiguration(activeIntegration?.id, configuration, undefined);
             reset({ ...defaultConfigurationValuesAV })
         } else {
             //TODO: Handle error
@@ -333,10 +329,10 @@ const AVConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
         const configuration: IConfiguration = toAVConfiguration(data, activeIntegration?.id, activeConfigId, selectedMetadata.id);
         if (configuration && activeConfigId !== undefined) {
             const iConfiguration: IConfiguration = toAVConfigurationPatch(data, selectedMetadata.id);
-            saveConfiguration(activeIntegration?.id, activeConfigId, iConfiguration)
+            saveConfiguration(activeIntegration?.id, iConfiguration, activeConfigId)
         }
         else if (activeIntegration?.id && configuration) {
-            saveNewConfiguration(activeIntegration.id, configuration);
+            saveConfiguration(activeIntegration.id, configuration, undefined);
         } else {
             //TODO: Handle error
             return;
@@ -354,122 +350,122 @@ const AVConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
             <Box width={'60%'} sx={{mt: 2}}>
                 <InputField disabled={completed} input={INPUT_TYPE.TEXT_AREA} control={control} label="labels.comment" formValue="comment" error={errors.comment} helpText="comment"/>
             </Box>
-        <DndProvider backend={HTML5Backend}>
-            {!submitSuccess && (existingIntegration || newIntegration) &&
-                <Box display="flex" position="relative" width={1} height={1} style={{backgroundColor: '#EBF4F5'}}>
-                    <Box className={classes.metadataPanelContainer}>
-                        <MetadataPanel style={classes} />
-                    </Box>
-                    <Box className={classes.panelContainer}>
-                        <Box>
-                            <Typography id="integration-form-header" aria-label="integration-form-header" variant={"h6"} sx={{ mb: 2 }}>{t('subHeader')}</Typography>
-                            <form id="integration-form"  className={classes.form} onSubmit={onSubmit}>
-                                {accordionList.map((accordion, index) => {
-                                    return (
-                                        <AccordionForm
-                                            id={accordion.id}
-                                            activeFormData={activeFormData}
-                                            key={index}
-                                            style={classes}
-                                            summary={accordion.summary}
-                                            accordionForm={accordion.accordionForm}
-                                            defaultExpanded={accordion.defaultExpanded}
-                                            hidden={accordion.hidden}
-                                            integration={activeIntegration}
-                                            watch={watch}
-                                            control={control}
-                                            setValue={setValue}
-                                            errors={errors}
-                                            validation={checked}
-                                            disabled={completed}
-                                            editConfig={editConfig}
-                                            onSave={onSave}
-                                            shieldingCheck={shieldingCheck}
-                                            setShieldingCheck={setShieldingCheck}
-                                            clearErrors={clearErrors}
-                                            isToggled={isToggled}
-                                            toggle={toggle}
-                                        />
-                                    )
-                                })}
-                                <div>
-                                    <FormGroup sx={{ ml: 2, mb: 2 }} >
-                                        <FormControlLabel
-                                            control={
-                                                <Checkbox
-                                                    disabled={completed}
-                                                    id="form-complete"
-                                                    checked={checked}
-                                                    onChange={handleCheckChange}
-                                                    inputProps={{ 'aria-label': 'completed-checkbox' }}/>}
-                                            label={t('checkLabel') as string} />
-                                        {checked && <FormControlLabel
-                                            control={
-                                                <Checkbox
-                                                    disabled={completed}
-                                                    id="form-complete"
-                                                    checked={activeChecked}
-                                                    onChange={handleActiveCheckChange}
-                                                    inputProps={{ 'aria-label': 'active-checkbox' }}/>}
-                                            label={t('activeLabel') as string} />}
-                                    </FormGroup>
-                                </div>
-                                <Box className={classes.buttonContainer}>
-                                    <Button disabled={completed} id="integration-form-submit-btn" sx={{ ml: 2, mr: 2 }} onClick={checked ? onSubmit : onSave} variant="contained">{checked ? t('button.complete') : t('button.save')}</Button>
-                                    <Button id="integration-form-cancel-btn" onClick={handleCancel} variant="contained">{t('button.cancel')}</Button>
-                                </Box>
-                            </form>
+            <DndProvider backend={HTML5Backend}>
+                {!submitSuccess && (existingIntegration || newIntegration) &&
+                    <Box display="flex" position="relative" width={1} height={1} style={{backgroundColor: '#EBF4F5'}}>
+                        <Box className={classes.metadataPanelContainer}>
+                            <MetadataPanel style={classes} />
                         </Box>
-                        {isToggled && <Box sx={{padding: 6}}>
-                            <AccordionForm
-                                id={classAcc.id}
-                                activeFormData={activeFormData}
-                                style={classes}
-                                summary={classAcc.summary}
-                                accordionForm={classAcc.accordionForm}
-                                defaultExpanded={classAcc.defaultExpanded}
-                                hidden={classAcc.hidden}
-                                integration={activeIntegration}
-                                watch={watch}
-                                control={control}
-                                setValue={setValue}
-                                errors={errors}
-                                validation={checked}
-                                disabled={completed}
-                                editConfig={editConfig}
-                                onSave={onSave}
-                                shieldingCheck={shieldingCheck}
-                                setShieldingCheck={setShieldingCheck}
-                                clearErrors={clearErrors}
-                                isToggled={isToggled}
-                                toggle={toggle}
-                            />
-                        </Box>}
+                        <Box className={classes.panelContainer}>
+                            <Box>
+                                <Typography id="integration-form-header" aria-label="integration-form-header" variant={"h6"} sx={{ mb: 2 }}>{t('subHeader')}</Typography>
+                                <form id="integration-form"  className={classes.form} onSubmit={onSubmit}>
+                                    {accordionList.map((accordion, index) => {
+                                        return (
+                                            <AccordionForm
+                                                id={accordion.id}
+                                                activeFormData={activeFormData}
+                                                key={index}
+                                                style={classes}
+                                                summary={accordion.summary}
+                                                accordionForm={accordion.accordionForm}
+                                                defaultExpanded={accordion.defaultExpanded}
+                                                hidden={accordion.hidden}
+                                                integration={activeIntegration}
+                                                watch={watch}
+                                                control={control}
+                                                setValue={setValue}
+                                                errors={errors}
+                                                validation={checked}
+                                                disabled={completed}
+                                                editConfig={editConfig}
+                                                onSave={onSave}
+                                                shieldingCheck={shieldingCheck}
+                                                setShieldingCheck={setShieldingCheck}
+                                                clearErrors={clearErrors}
+                                                isToggled={isToggled}
+                                                toggle={toggle}
+                                            />
+                                        )
+                                    })}
+                                    <div>
+                                        <FormGroup sx={{ ml: 2, mb: 2 }} >
+                                            <FormControlLabel
+                                                control={
+                                                    <Checkbox
+                                                        disabled={completed}
+                                                        id="form-complete"
+                                                        checked={checked}
+                                                        onChange={handleCheckChange}
+                                                        inputProps={{ 'aria-label': 'completed-checkbox' }}/>}
+                                                label={t('checkLabel') as string} />
+                                            {checked && <FormControlLabel
+                                                control={
+                                                    <Checkbox
+                                                        disabled={completed}
+                                                        id="form-complete"
+                                                        checked={activeChecked}
+                                                        onChange={handleActiveCheckChange}
+                                                        inputProps={{ 'aria-label': 'active-checkbox' }}/>}
+                                                label={t('activeLabel') as string} />}
+                                        </FormGroup>
+                                    </div>
+                                    <Box className={classes.buttonContainer}>
+                                        <Button disabled={completed} id="integration-form-submit-btn" sx={{ ml: 2, mr: 2 }} onClick={checked ? onSubmit : onSave} variant="contained">{checked ? t('button.complete') : t('button.save')}</Button>
+                                        <Button id="integration-form-cancel-btn" onClick={handleCancel} variant="contained">{t('button.cancel')}</Button>
+                                    </Box>
+                                </form>
+                            </Box>
+                            {isToggled && <Box sx={{padding: 6}}>
+                                <AccordionForm
+                                    id={classAcc.id}
+                                    activeFormData={activeFormData}
+                                    style={classes}
+                                    summary={classAcc.summary}
+                                    accordionForm={classAcc.accordionForm}
+                                    defaultExpanded={classAcc.defaultExpanded}
+                                    hidden={classAcc.hidden}
+                                    integration={activeIntegration}
+                                    watch={watch}
+                                    control={control}
+                                    setValue={setValue}
+                                    errors={errors}
+                                    validation={checked}
+                                    disabled={completed}
+                                    editConfig={editConfig}
+                                    onSave={onSave}
+                                    shieldingCheck={shieldingCheck}
+                                    setShieldingCheck={setShieldingCheck}
+                                    clearErrors={clearErrors}
+                                    isToggled={isToggled}
+                                    toggle={toggle}
+                                />
+                            </Box>}
+                        </Box>
+                        <Snackbar
+                            id="integration-form-snackbar-saved"
+                            open={saved}
+                            autoHideDuration={4000}
+                            onClose={handleClose}
+                            message={t('messages.success')}
+                            action={action}
+                        />
+                        <Snackbar
+                            id="integration-form-snackbar-error"
+                            open={saveError}
+                            onClose={handleClose}
+                            message={saveMessage}
+                            action={action}
+                        />
                     </Box>
-                    <Snackbar
-                        id="integration-form-snackbar-saved"
-                        open={saved}
-                        autoHideDuration={4000}
-                        onClose={handleClose}
-                        message={t('messages.success')}
-                        action={action}
-                    />
-                    <Snackbar
-                        id="integration-form-snackbar-error"
-                        open={saveError}
-                        onClose={handleClose}
-                        message={saveMessage}
-                        action={action}
-                    />
-                </Box>
-            }
-            {submitSuccess &&
-                <Box style={{ minHeight: 'fit-content' }}>
-                    <Typography variant={"h5"} sx={{ mb: 2, mt: 2 }}>{t('successHeader')}</Typography>
-                    <Button size="small" variant="contained" component={RouterLink} to="/integration/list">{t('button.integrationOverview')}</Button>
-                    <Button size="small" variant="contained" sx={{ ml: 2 }} component={RouterLink} to="/">{t('button.dashboard')}</Button>
-                </Box>}
-        </DndProvider>
+                }
+                {submitSuccess &&
+                    <Box style={{ minHeight: 'fit-content' }}>
+                        <Typography variant={"h5"} sx={{ mb: 2, mt: 2 }}>{t('successHeader')}</Typography>
+                        <Button size="small" variant="contained" component={RouterLink} to="/integration/list">{t('button.integrationOverview')}</Button>
+                        <Button size="small" variant="contained" sx={{ ml: 2 }} component={RouterLink} to="/">{t('button.dashboard')}</Button>
+                    </Box>}
+            </DndProvider>
         </Box>
     );
 }
