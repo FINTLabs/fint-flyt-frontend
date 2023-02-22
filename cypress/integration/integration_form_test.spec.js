@@ -35,7 +35,7 @@ describe('Testing Integration Form', () => {
             cy.get('#case-form > .MuiAccordionSummary-root').should('contain', 'Sak')
             cy.get('#record-form > .MuiAccordionSummary-root').should('contain', 'Journalpost')
             cy.get('#document-object-form > .MuiAccordionSummary-root').should('contain', 'Dokument- og objektbeskrivelse')
-            cy.get('#applicant-form > .MuiAccordionSummary-root').should('contain', 'Avsender')
+            cy.get('#applicant-form > .MuiAccordionSummary-root').should('contain', 'Korrespondansepart')
         });
 
         it('should open and close accordions by click', () => {
@@ -56,8 +56,8 @@ describe('Testing Integration Form', () => {
 
         it('should have case number field on collection strategy', () => {
             cy.get('#caseData\\.caseCreationStrategy-COLLECTION > .MuiFormControlLabel-root > .MuiTypography-root').click()
-            cy.get('#caseData\\.caseNumber').should('be.visible')
-            cy.get('#caseData\\.caseNumber').type('2021/06')
+            cy.get('#caseData\\.id').should('be.visible')
+            cy.get('#caseData\\.id').type('2021/06')
             cy.intercept('GET', '**/api/intern/sakstittel/mappeid/**', {fixture: 'tittel.json'}).as('getTittel')
             cy.get('#case-information-search-btn').click()
             cy.get('#case-information-case-search-result').should('be.visible')
@@ -65,7 +65,7 @@ describe('Testing Integration Form', () => {
 
         it('should hide case form section field on collection strategy', () => {
             cy.get('#caseData\\.caseCreationStrategy-COLLECTION > .MuiFormControlLabel-root > .MuiTypography-root').click()
-            cy.get('#caseData\\.caseNumber').should('be.visible')
+            cy.get('#caseData\\.id').should('be.visible')
         });
     }
 )

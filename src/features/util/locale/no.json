@@ -53,7 +53,7 @@
                         "save": "Lagre"
                     },
                     "caseSearch": {
-                        "caseNumber": "Saksnummer",
+                        "id": "Saksnummer",
                         "searching": "Søker...",
                         "info": "Saksnummer må være på formatet 'saksår/saksnummer', f.eks 2021/03",
                         "noMatch": "Ingen treff, ferdigstilling av konfigurasjon krever gyldig saksnummer"
@@ -63,7 +63,14 @@
                     "header": "Sak",
                     "classification": "Klassering",
                     "button": {
+                        "search": "Søk",
                         "save": "Lagre"
+                    },
+                    "caseSearch": {
+                        "id": "Saksnummer",
+                        "searching": "Søker...",
+                        "info": "Saksnummer må være på formatet 'saksår/saksnummer', f.eks 2021/03",
+                        "noMatch": "Ingen treff, ferdigstilling av konfigurasjon krever gyldig saksnummer"
                     }
                 },
                 "recordForm": {
@@ -73,16 +80,24 @@
                     }
                 },
                 "documentForm": {
-                    "header": "Dokument- og objektbeskrivelse",
-                    "documentDescription": "Dokumentbeskrivelse",
-                    "objectDescription": "Objektbeskrivelse",
+                    "header": "Hoveddokument",
+                    "mainDocumentDescription": "Hoveddokument",
+                    "attachmentDescription": "Vedlegg",
                     "button": {
                         "save": "Lagre"
                     }
                 },
-                "applicationForm": {
-                    "header": "Avsender",
-                    "protectedLabel": "Skjermet",
+                "attachmentForm": {
+                    "header": "Vedlegg",
+                    "description": "Dokumentbeskrivelse",
+                    "object": "Dokumentobjekt",
+                    "button": {
+                        "save": "Lagre"
+                    }
+                },
+                "correspondentForm": {
+                    "header": "Korrespondansepart",
+                    "shieldingLabel": "Skjermet",
                     "button": {
                         "save": "Lagre"
                     }
@@ -102,7 +117,7 @@
             "messages": {
                 "success": "Lagret",
                 "error": "Det har oppstått en feil",
-                "errorCaseNumber": "Det har oppstått en feil, det mangler saksnummer, benytt søk for å finne gyldig saksnummer"
+                "errorId": "Det har oppstått en feil, det mangler saksnummer, benytt søk for å finne gyldig saksnummer"
             }
         },
         "integrationOverview": {
@@ -112,7 +127,7 @@
             "case": "Sakspost",
             "record": "Journalpost",
             "document": "Dokument- og objektbeskrivelse",
-            "applicant": "Avsender",
+            "applicant": "Korrespondansepart",
             "button": {
                 "show": "Vis",
                 "edit": "Rediger",
@@ -197,19 +212,19 @@
             },
             "table": {
                 "columns": {
-                        "destination": "Destinasjon/base",
-                        "sourceApplicationIntegrationId": "Kildeapplikasjons integrasjons-ID",
-                        "sourceApplicationIntegrationIdDisplayName": "Integrasjonsnavn",
-                        "sourceApplicationId": "Kildeapplikasjon",
-                        "sourceApplicationInstanceId": "Kildeapplikasjons instans-ID",
-                        "configurationId": "Konfigurasjon ID",
-                        "archiveInstanceId": "Arkivsak ID",
-                        "timestamp": "Tidspunkt",
-                        "timestampLatest": "Sist hendelse",
-                        "name": "Status",
-                        "actions": "Handlinger",
-                        "details": "Detaljer",
-                        "errorMessage": "Feilmelding(er)"
+                    "destination": "Destinasjon/base",
+                    "sourceApplicationIntegrationId": "Kildeapplikasjons integrasjons-ID",
+                    "sourceApplicationIntegrationIdDisplayName": "Integrasjonsnavn",
+                    "sourceApplicationId": "Kildeapplikasjon",
+                    "sourceApplicationInstanceId": "Kildeapplikasjons instans-ID",
+                    "configurationId": "Konfigurasjon ID",
+                    "archiveInstanceId": "Arkivsak ID",
+                    "timestamp": "Tidspunkt",
+                    "timestampLatest": "Sist hendelse",
+                    "name": "Status",
+                    "actions": "Handlinger",
+                    "details": "Detaljer",
+                    "errorMessage": "Feilmelding(er)"
                 }
             },
             "labels": {
@@ -221,13 +236,13 @@
                 "caseCreationStrategy": "Avleveringslogikk: ",
                 "finished": "Ferdigstilt: ",
                 "version": "Versjon: ",
-                "caseNumber": "Saksnummer: ",
+                "id": "Saksnummer: ",
                 "title": "Tittel: ",
                 "publicTitle": "Offentlig tittel: ",
                 "administrativeUnit": "Administrativ enhet: ",
                 "archiveUnit": "Arkivdel: ",
                 "recordUnit": "Journalenhet: ",
-                "status": "Status: ",
+                "status": "Saksstatus: ",
                 "accessCode": "Tilgangskode: ",
                 "paragraph": "Hjemmel: ",
                 "responsibleCaseWorker": "Ansvarlig saksbehandler: ",
@@ -242,13 +257,16 @@
                 "tertiaryTitle": "Tertiærtittel: ",
                 "type": "Type: ",
                 "documentType": "Dokumenttype: ",
+                "role": "Tilknyttet registrering som: ",
                 "recordStatus": "Journalstatus: ",
                 "caseWorker": "Saksbehandler: ",
-                "documentStatus": "Status: ",
+                "documentStatus": "Dokumentstatus: ",
                 "variant": "Variant: ",
+                "fileFormat": "Format: ",
+                "file": "File: ",
                 "organisationNumber": "Organisasjonsnummer: ",
                 "nationalIdentityNumber": "Fødselsnummer: ",
-                "applicantName": "Navn: ",
+                "correspondentName": "Navn: ",
                 "address": "Adresse: ",
                 "postalCode": "Postnummer: ",
                 "city": "Poststed: ",
@@ -313,14 +331,14 @@
             "caseCreationExistingInfo": "Innsendt skjema gjenfinner eksisterende sak i Elements basert på informasjon i skjemaet. Dersom det ikke fins en eksisterende sak opprettes en ny sak",
             "caseCreationCollection": "På samlesak",
             "caseCreationCollectionInfo": "Innsendt skjema skal leveres til en forhåndsdefinert samlesak. Her må du opplyse om saksnummer",
-            "caseNumber": "Saksnummer",
-            "caseType": "Sakstype",
+            "id": "Saksnummer",
+            "caseType": "Saksmappetype",
             "title": "Tittel",
             "publicTitle": "Offentlig tittel",
             "administrativeUnit": "Administrativ enhet",
             "archiveUnit": "Arkivdel",
             "recordUnit": "Journalenhet",
-            "status": "Status",
+            "status": "Saksstatus",
             "accessCode": "Tilgangskode",
             "paragraph": "Hjemmel",
             "responsibleCaseWorker": "Ansvarlig saksbehandler",
@@ -335,23 +353,27 @@
             "tertiaryTitle": "Tertiærtittel",
             "type": "Type",
             "documentType": "Dokumenttype",
+            "role": "Tilknyttet registrering som",
             "recordStatus": "Journalstatus",
             "recordType": "Journalposttype",
             "caseWorker": "Saksbehandler",
-            "documentStatus": "Status",
+            "documentStatus": "Dokumentstatus",
             "documentCategory": "Dokumentkategori",
-            "variant": "Variant",
+            "variant": "Variantformat",
+            "fileFormat": "Filformat",
+            "file": "File",
             "applicantType": "Velg avsendertype",
             "organisationNumber": "Organisasjonsnummer",
             "nationalIdentityNumber": "Fødselsnummer",
-            "applicantName": "Navn",
+            "correspondentName": "Navn",
             "address": "Adresse",
             "postalCode": "Postnummer",
             "city": "Poststed",
             "contactPerson": "Kontaktperson",
             "phoneNumber": "Telefonnummer",
             "email": "Epost",
-            "protected": "Skjerming"
+            "shielding": "Skjerming",
+            "correspondentType": "Korrespondanseparttype"
         },
         "selects": {
             "creationStrategies": {
@@ -361,10 +383,6 @@
                 "existingDesc":"Innsendt skjema gjenfinner eksisterende sak i Elements basert på informasjon i skjemaet. Dersom det ikke fins en eksisterende sak opprettes en ny sak",
                 "collection":"På samlesak",
                 "collectionDesc":"Innsendt skjema skal leveres til en forhåndsdefinert samlesak. Her må du opplyse om saksnummer"
-            },
-            "applicantOptions": {
-                "individual":"Privatperson",
-                "organisation":"Organisasjon"
             },
             "sourceApplicationIntegrations": {
                 "VIK014": "Søknad om reservasjon av skoleplass",
@@ -386,7 +404,7 @@
             "finished": "finished",
             "caseConfiguration": {
                 "caseCreationStrategy": "",
-                "caseNumber": "",
+                "id": "",
                 "title": "",
                 "publicTitle": "",
                 "administrativeUnit": "",
@@ -409,9 +427,11 @@
                 "title": "",
                 "publicTitle": "",
                 "documentType": "",
+                "role": "",
                 "administrativeUnit": "",
                 "recordStatus": "",
                 "recordType": "",
+                "documentCategory": "",
                 "caseWorker": "",
                 "accessCode": "",
                 "paragraph": ""
@@ -421,7 +441,9 @@
                 "documentStatus": "",
                 "accessCode": "",
                 "paragraph": "",
-                "variant": ""
+                "fileFormat": "",
+                "variant": "",
+                "file": ""
             },
             "applicantConfiguration": {
                 "type": "",
@@ -473,7 +495,7 @@
         "selectedForm": "",
         "caseData": {
             "caseCreationStrategy": "Integrasjonslogikk",
-            "caseNumber": "Eksempel 2021/12345",
+            "id": "Eksempel 2021/12345",
             "title": "Tittel kan være en konkret tekststreng, eller en kombinasjon av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak.  (Se Noark))",
             "publicTitle": "Offentlig tittel på arkivenheten, ord som skal skjermes er fjernet fra innholdet i tittelen (erstattet med ******)",
             "status": "Registreres automatisk gjennom forskjellig saksbehandlings- funksjonalitet, eller overstyres manuelt.",
@@ -494,22 +516,20 @@
             "administrativeUnit":"Navn på avdeling, kontor eller annen administrativ enhet som har ansvaret for saksbehandlingen.",
             "recordStatus": "Status til journalposten, dvs. om dokumentet er registrert, under behandling eller endelig arkivert.",
             "recordType": "Navn på type journalpost.",
+            "documentCategory": "Dokumentkategori",
             "caseWorker": "Navn på person som er saksbehandler. En sak kan ha en ansvarlig saksbehandler men det kan være ulike saksbehandlere på ulike journalposter.",
             "accessCode": "Angivelse av at dokumentene som tilhører arkivenheten ikke er offentligtilgjengelig i henhold til offentlighetsloven eller av en annen grunn. ",
-            "paragraph": "Henvisning til hjemmel (paragraf) i offentlighetsloven, sikkerhetsloven eller beskyttelsesinstruksen."
-        },
-        "documentData": {
-            "title": "Tittel eller navn på arkivenheten.",
+            "paragraph": "Henvisning til hjemmel (paragraf) i offentlighetsloven, sikkerhetsloven eller beskyttelsesinstruksen.",
+            "documentTitle": "Tittel eller navn på arkivenheten.",
             "documentStatus": "Status til dokumentet. Eksempel: B, F",
-            "documentCategory": "TODO",
             "documentType": "Eksempel: Avtaler, Innsynsbehandling, Følgebrev, Juridisk ..",
-            "accessCode": "Eksempel: Unntatt offentlighet, persona,l varslingssak, ugradert. ",
-            "paragraph": "Eksempel: Offl. §13",
-            "variant": "Angivelse av hvilken variant et dokument forekommer. - Produksjonsformat"
-        },
-        "applicantData": {
-            "protected": "Skjerming av avsender, krever tilgangsrestriksjon og hjemmel",
+            "role": "Angivelse av hvilken 'rolle' dokumentet har i forhold til registreringen.",
+            "variant": "Angivelse av hvilken variant et dokument forekommer. - Produksjonsformat",
+            "fileFormat": "Filformatet f.eks PDF",
+            "file": "Fil",
+            "shielding": "Skjerming av avsender, krever tilgangsrestriksjon og hjemmel",
             "type": "Person eller organisasjon/bedrift",
+            "correspondentType": "Type korresepondansepart",
             "organisationNumber": "Orgnr for avsenderbedrift",
             "nationalIdentityNumber": "Fødselsnummer for avsender",
             "name": "Navn på bedrift/org, eller person",
@@ -518,9 +538,8 @@
             "city": "Poststed",
             "contactPerson": "Tittel eller navn på arkivenheten.",
             "phoneNumber": "Telefonnummer",
-            "email": "epostadresse",
-            "accessCode": "Angivelse av at dokumentene som tilhører arkivenheten ikke er offentligtilgjengelig i henhold til offentlighetsloven eller av en annen grunn.",
-            "paragraph": "Henvisning til hjemmel (paragraf) i offentlighetsloven, sikkerhetsloven eller beskyttelsesinstruksen."
+            "email": "epostadresse"
         }
     }
 }
+

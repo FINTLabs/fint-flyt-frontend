@@ -1,10 +1,10 @@
 import React, { createContext, useState, FC } from "react";
 import {contextDefaultValues, IntegrationContextState} from "./types";
 import {IIntegration} from "../../features/integration/types/Integration";
-import {newIConfiguration} from "../../features/integration/types/Configuration";
+import {IConfiguration} from "../../features/configuration/types/Configuration";
 import EventRepository from "../../features/log/repository/EventRepository";
 import {IIntegrationStatistics} from "../../features/log/types/IntegrationStatistics";
-import {IIntegrationMetadata} from "../../features/integration/types/IntegrationMetadata";
+import {IIntegrationMetadata} from "../../features/configuration/types/IntegrationMetadata";
 import ConfigurationRepository from "../../shared/repositories/ConfigurationRepository";
 import IntegrationRepository from "../../shared/repositories/IntegrationRepository";
 import SourceApplicationRepository from "../../shared/repositories/SourceApplicationRepository";
@@ -15,12 +15,12 @@ export const IntegrationContext = createContext<IntegrationContextState>(
 
 const IntegrationProvider: FC = ({ children }) => {
     const [existingIntegration, setExistingIntegration] = useState<IIntegration | undefined>(undefined);
-    const [caseNumber, setCaseNumber] = useState<string | undefined>(undefined);
+    const [id, setId] = useState<string | undefined>(undefined);
     const [newIntegration, setNewIntegration] = useState<IIntegration | undefined>(undefined);
     const [newIntegrations, setNewIntegrations] = useState<IIntegration[] | undefined>(undefined);
-    const [configuration, setConfiguration] = useState<newIConfiguration | undefined>(contextDefaultValues.configuration);
-    const [configurations, setConfigurations] = useState<newIConfiguration[] | undefined>(contextDefaultValues.configurations);
-    const [completedConfigurations, setCompletedConfigurations] = useState<newIConfiguration[] | undefined>(contextDefaultValues.completedConfigurations);
+    const [configuration, setConfiguration] = useState<IConfiguration | undefined>(contextDefaultValues.configuration);
+    const [configurations, setConfigurations] = useState<IConfiguration[] | undefined>(contextDefaultValues.configurations);
+    const [completedConfigurations, setCompletedConfigurations] = useState<IConfiguration[] | undefined>(contextDefaultValues.completedConfigurations);
     const [destination, setDestination] = useState<string>('');
     const [selectedMetadata, setSelectedMetadata] = useState<IIntegrationMetadata>(contextDefaultValues.selectedMetadata);
     const [sourceApplicationIntegrationId, setSourceApplicationIntegrationId] = useState<string>('');
@@ -34,7 +34,7 @@ const IntegrationProvider: FC = ({ children }) => {
         setNewIntegration(undefined)
         setSourceApplicationIntegrationId('');
         setSelectedMetadata(contextDefaultValues.selectedMetadata)
-        setCaseNumber(undefined)
+        setId(undefined)
     }
 
     const resetIntegrations = () => {
@@ -42,6 +42,7 @@ const IntegrationProvider: FC = ({ children }) => {
         setExistingIntegration(undefined)
     }
 
+    // eslint-disable-next-line
     const resetConfiguration = () => {
         setConfigurations(undefined)
         setConfiguration(undefined)
@@ -66,18 +67,22 @@ const IntegrationProvider: FC = ({ children }) => {
                                                 mergedList.map((integration: IIntegration) => {
                                                     if (integration.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {
                                                         integration.errors = value.currentErrors;
-                                                        integration.dispatched = value.dispatchedInstances;
+                                                        return integration.dispatched = value.dispatchedInstances;
                                                     }
+                                                    return mergedList;
                                                 })
+                                                return stats;
                                             })
                                             metadata.forEach((value: IIntegrationMetadata) => {
                                                 mergedList.map((integration: IIntegration) => {
                                                     if (integration.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {
-                                                        integration.displayName = value.integrationDisplayName;
+                                                        return integration.displayName = value.integrationDisplayName;
                                                     }
+                                                    return mergedList;
                                                 })
+                                                return metadata;
                                             })
-                                            setNewIntegrations(mergedList);
+                                            return setNewIntegrations(mergedList);
                                         }
                                     })
                                     .catch((e) => {
@@ -105,7 +110,7 @@ const IntegrationProvider: FC = ({ children }) => {
             .then((response) => {
                 let data = response.data.content;
                 if (data) {
-                    let configurations: newIConfiguration[] = data;
+                    let configurations: IConfiguration[] = data;
                     setConfigurations(configurations);
                 }
             })
@@ -120,7 +125,7 @@ const IntegrationProvider: FC = ({ children }) => {
             .then((response) => {
                 let data = response.data.content;
                 if (data) {
-                    let configurations: newIConfiguration[] = data;
+                    let configurations: IConfiguration[] = data;
                     setCompletedConfigurations(configurations);
                 }
             })
@@ -132,10 +137,9 @@ const IntegrationProvider: FC = ({ children }) => {
     const getConfiguration = async (id: any, excludeElements?: boolean) => {
         ConfigurationRepository.getConfiguration(id.toString(), excludeElements)
             .then((response) => {
-                let data = response.data;
+                let data: IConfiguration = response.data;
                 if (data) {
-                    let configuration: newIConfiguration = data;
-                    setConfiguration(configuration);
+                    setConfiguration(data);
                 }
             })
             .catch((e) => {
@@ -147,8 +151,8 @@ const IntegrationProvider: FC = ({ children }) => {
     return (
         <IntegrationContext.Provider
             value={{
-                caseNumber,
-                setCaseNumber,
+                id,
+                setId,
                 statistics,
                 newIntegration,
                 setNewIntegration,

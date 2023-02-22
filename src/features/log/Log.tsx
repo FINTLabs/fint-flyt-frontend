@@ -46,6 +46,7 @@ function Log() {
 
     useEffect(()=> {
         getEvents(0, 10000, "timestamp", "DESC");
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (

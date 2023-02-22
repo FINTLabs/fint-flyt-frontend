@@ -8,8 +8,8 @@ const getResource = (resource: string) => {
     return axios.get<any>(`/api/intern/arkiv/kodeverk/${resource}`);
 }
 
-const getSak = (caseYear: any, caseNumber: any) => {
-    return axios.get<any>(`/api/intern/arkiv/saker/${caseYear}/${caseNumber}/tittel`, {timeout: 10000})
+const getSak = (caseYear: any, id: any) => {
+    return axios.get<any>(`/api/intern/arkiv/saker/${caseYear}/${id}/tittel`, {timeout: 10000})
 }
 const ResourceRepository = {
     getClasses,

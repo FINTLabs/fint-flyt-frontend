@@ -8,12 +8,15 @@ export const ResourcesContext = createContext<ResourceContextState>(
 
 const ResourcesProvider: FC = ({ children }) => {
     const [administrativeUnits, setAdministrativeUnits] = useState<IResourceItem[]>(contextDefaultValues.administrativeUnits);
+    // eslint-disable-next-line
     const [administrativeUnit, setAdministrativeUnit] = useState<IResourceItem[]>([]);
     const [statuses, setStatuses] = useState<IResourceItem[]>(contextDefaultValues.statuses);
     const [archiveSections, setArchiveSections] = useState<IResourceItem[]>(contextDefaultValues.archiveSections);
+    // eslint-disable-next-line
     const [archiveSection, setArchiveSection] = useState<IResourceItem[]>(contextDefaultValues.archiveSections);
     const [archiveResources, setArchiveResources] = useState<IResourceItem[]>(contextDefaultValues.archiveResources);
     const [accessCodes, setAccessCodes] = useState<IResourceItem[]>(contextDefaultValues.accessCodes);
+    // eslint-disable-next-line
     const [accessCode, setAccessCode] = useState<IResourceItem[]>(contextDefaultValues.accessCodes);
     const [caseTypes, setCaseTypes] = useState<IResourceItem[]>(contextDefaultValues.caseTypes);
     const [paragraphs, setParagraph] = useState<IResourceItem[]>(contextDefaultValues.paragraphs);
@@ -21,6 +24,7 @@ const ResourcesProvider: FC = ({ children }) => {
     const [recordStatuses, setRecordStatuses] = useState<IResourceItem[]>(contextDefaultValues.recordStatuses);
     const [recordTypes, setRecordTypes] = useState<IResourceItem[]>(contextDefaultValues.recordTypes);
     const [variants, setVariants] = useState<IResourceItem[]>(contextDefaultValues.variants);
+    const [formats, setFormats] = useState<IResourceItem[]>(contextDefaultValues.formats);
     const [documentTypes, setDocumentTypes] = useState<IResourceItem[]>(contextDefaultValues.documentTypes);
     const [classificationSystems, setClassificationSystems] = useState<IResourceItem[]>(contextDefaultValues.classificationSystems);
     const [primaryClassification, setPrimaryClassification] = useState<IResourceItem>(contextDefaultValues.primaryClassification);
@@ -42,6 +46,7 @@ const ResourcesProvider: FC = ({ children }) => {
         {resource: 'journalstatus', setter: setRecordStatuses},
         {resource: 'journalposttype', setter: setRecordTypes},
         {resource: 'variantformat', setter: setVariants},
+        {resource: 'format', setter: setFormats},
         {resource: 'dokumentstatus', setter: setDocumentStatuses},
         {resource: 'dokumenttype', setter: setDocumentTypes},
     ]
@@ -56,9 +61,11 @@ const ResourcesProvider: FC = ({ children }) => {
                         if (a.displayName < b.displayName) {
                             return -1;
                         }
+                        return data;
                     });
                     data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
-                    resourceSetter(list)
+                    return resourceSetter(list);
+
                 }
             })
             .catch((err) => {
@@ -121,7 +128,7 @@ const ResourcesProvider: FC = ({ children }) => {
 
     const getAllResources = () => {
         resourceList.map((r) => {
-            getResource(r.resource, r.setter)
+            return getResource(r.resource, r.setter)
         })
     }
 
@@ -156,6 +163,7 @@ const ResourcesProvider: FC = ({ children }) => {
                 recordTypes,
                 documentStatuses,
                 variants,
+                formats,
                 getPrimaryClass,
                 getSecondaryClass,
                 getTertiaryClass,

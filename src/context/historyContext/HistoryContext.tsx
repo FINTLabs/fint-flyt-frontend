@@ -4,7 +4,7 @@ import {createContext, FC, useState} from "react";
 import EventRepository from "../../features/log/repository/EventRepository";
 import {addId} from "../../features/util/JsonUtil";
 import SourceApplicationRepository from "../../shared/repositories/SourceApplicationRepository";
-import {IIntegrationMetadata} from "../../features/integration/types/IntegrationMetadata";
+import {IIntegrationMetadata} from "../../features/configuration/types/IntegrationMetadata";
 
 export const HistoryContext = createContext<HistoryContextState>(
     contextDefaultValues
@@ -51,8 +51,9 @@ const HistoryProvider: FC = ({children}) => {
                                 metadata.forEach((value: IIntegrationMetadata) => {
                                     events.map((event: IEvent) => {
                                         if(event.instanceFlowHeaders.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {
-                                            event.displayName = value.integrationDisplayName
+                                            return event.displayName = value.integrationDisplayName
                                         }
+                                        return events;
                                     })
                                 })
                                 setLatestInstances(events);
@@ -84,8 +85,9 @@ const HistoryProvider: FC = ({children}) => {
                                 metadata.forEach((value: IIntegrationMetadata) => {
                                     events.map((event: IEvent) => {
                                         if(event.instanceFlowHeaders.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {
-                                            event.displayName = value.integrationDisplayName
+                                            return event.displayName = value.integrationDisplayName
                                         }
+                                        return events;
                                     })
                                 })
                                 setSelectedInstances(events);
