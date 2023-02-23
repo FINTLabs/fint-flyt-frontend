@@ -208,8 +208,23 @@ const AVConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
         })
     }
 
+    const saveNewConfiguration = (integrationId: string, data: IConfiguration) => {
+        console.log('save new config', integrationId, data)
+        ConfigurationRepository.createConfiguration(integrationId, data)
+            .then(response => {
+                console.log('created new configuration on integration ', integrationId, data, response);
+                setConfiguration(response.data)
+                setActiveConfigId(response.data.id)
+                setSaved(true);
+                getNewIntegrations(sourceApplication.toString());
+            })
+            .catch((e: Error) => {
+                setSaveError(true);
+                console.log('error creating new', e);
+            });
+    }
 
-    const saveConfiguration = (integrationId: string, data: IConfigurationPatch | IConfiguration, configurationId?: string) => {
+    const saveConfiguration = (integrationId: string, configurationId: string, data: IConfigurationPatch) => {
         console.log('save config', integrationId, configurationId, data)
         configurationId ?
             ConfigurationRepository.updateConfiguration(configurationId, data)

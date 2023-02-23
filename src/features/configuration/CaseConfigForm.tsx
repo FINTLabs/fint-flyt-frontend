@@ -20,6 +20,7 @@ import {
     getDestinationDisplayName,
     getSourceApplicationDisplayName
 } from "./defaults/DefaultValues";
+import {defaultConfigurationValues, defaultConfigurationValuesAV} from "./defaults/DefaultValues";
 import AccordionForm from "./components/AccordionForm";
 import {ACCORDION_FORM, IAccordion} from "./types/Accordion";
 import MetadataPanel from "./components/MetadataPanel";
@@ -36,12 +37,17 @@ import {
     toAVConfiguration,
     toAVConfigurationPatch,
 } from "../util/mapping/AV/ToAVConfiguration";
+import {IConfigurationPatch, IConfiguration} from "./types/Configuration";
 import ConfigurationRepository from "../../shared/repositories/ConfigurationRepository";
 import IntegrationRepository from "../../shared/repositories/IntegrationRepository";
 import {IIntegrationPatch, IntegrationState} from "../integration/types/Integration";
 import {SourceApplicationContext} from "../../context/sourceApplicationContext";
 import {IConfiguration, IConfigurationPatch} from "./types/Configuration";
 import {toAVFormData} from "../util/mapping/AV/toAVFormData";
+import {
+    toAVConfiguration,
+    toAVConfigurationPatch
+} from "../util/mapping/AV/ToAVConfiguration";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -271,7 +277,6 @@ const CaseConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => 
                     console.log('error creating new', e);
                 });
     }
-
     const handleCancel = () => {
         history.push({
             pathname: '/',

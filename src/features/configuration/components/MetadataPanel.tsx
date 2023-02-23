@@ -41,6 +41,7 @@ const MetadataPanel: React.FunctionComponent<any> = (props) => {
         if (!items || !items.length) {
             return null
         }
+
         return items.map((item: any) => (
             <React.Fragment key={item.displayName}>
                 {item.children.length > 0 ?
@@ -48,7 +49,7 @@ const MetadataPanel: React.FunctionComponent<any> = (props) => {
                         <Typography>{item.displayName}</Typography>
                     </div> :
                     <div style={{ paddingLeft: depth * 15 }}>
-                        <Tag disabled={item.disabled} name={item.displayName + ' {' + (item.key) + '}'} value={toTagValue(item.key)}/>
+                        <Tag disabled={item.disabled} type={item.type} name={item.displayName + ' {' + (item.key) + '}'} value={toTagValue(item.key)}/>
                     </div>}
                 <TagTree items={item.children} depth={depth + 1}/>
             </React.Fragment>
