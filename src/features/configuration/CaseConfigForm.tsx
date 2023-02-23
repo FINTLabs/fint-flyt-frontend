@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme: Theme) =>
 ));
 
 
-const CaseConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
+export const CaseConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.configurationForm'});
     const classes = useStyles();
 

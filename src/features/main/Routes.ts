@@ -7,6 +7,7 @@ import Support from "../support/Support";
 import {IntegrationForm} from "../integration/IntegrationForm";
 import Admin from "../admin/Admin";
 import ConfigurationFormWrapper from "../configuration/ConfigurationFormWrapper";
+import {CaseConfigForm} from "../configuration/CaseConfigForm";
 
 const routes: IRoute[] = [
     {
@@ -21,6 +22,14 @@ const routes: IRoute[] = [
         path: '/integration/new',
         name: 'newIntegration',
         component: IntegrationForm,
+        exact: true,
+        icon: 'add',
+        inNavigationMenu: true
+    },
+    {
+        path: '/configuration/new',
+        name: 'newConfiguration',
+        component: CaseConfigForm,
         exact: true,
         icon: 'add',
         inNavigationMenu: true

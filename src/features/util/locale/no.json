@@ -9,6 +9,7 @@
     "menuItems": {
         "dashboard": "Dashbord",
         "newIntegration": "Ny",
+        "newConfiguration": "Ny konfigurasjon",
         "editIntegration": "Rediger",
         "integrationOverview": "Integrasjoner",
         "instanceOverview": "Instanser",
