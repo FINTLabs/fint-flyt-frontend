@@ -3,7 +3,7 @@ import { useDrop } from 'react-dnd'
 import { DraggableTypes } from './DraggableTypes'
 import {Controller} from 'react-hook-form';
 import {TextField} from "@mui/material";
-import {ITag} from "../../types/Tag";
+import {ITag} from "../../types/Metadata/Tag";
 import { useTranslation } from 'react-i18next';
 
 export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {

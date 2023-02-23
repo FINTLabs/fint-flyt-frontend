@@ -1,4 +1,4 @@
-export interface IIntegrationMetadata {
+export interface IMetadata {
     id?: any;
     sourceApplicationId: string;
     sourceApplicationIntegrationId: string;

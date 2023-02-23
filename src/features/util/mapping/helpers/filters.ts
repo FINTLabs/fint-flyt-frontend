@@ -2,7 +2,7 @@ import {
     IElementCollectionMapping,
     IElementMapping,
     IElementsFromCollectionMapping
-} from "../../../configuration/types/AVConfiguration";
+} from "../../../configuration/types/Configuration";
 
 export function shouldIncludeElementMapping(data: IElementMapping): boolean {
     return Object.entries(data.valueMappingPerKey).length > 0

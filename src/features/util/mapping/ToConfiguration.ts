@@ -1,4 +1,4 @@
-import {IFormConfiguration} from "../../configuration/types/Form/FormData";
+import {IFormConfiguration} from "../../configuration/types/OldForm/FormData";
 import {IConfiguration, IConfigurationPatch} from "../../configuration/types/Configuration";
 import {
     addressDataToRecord,

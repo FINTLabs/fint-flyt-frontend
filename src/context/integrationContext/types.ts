@@ -1,6 +1,6 @@
 import {IIntegration} from "../../features/integration/types/Integration";
 import {IConfiguration} from "../../features/configuration/types/Configuration";
-import {IIntegrationMetadata} from "../../features/configuration/types/IntegrationMetadata";
+import {IMetadata} from "../../features/configuration/types/Metadata/Metadata";
 
 export type IntegrationContextState = {
     id: string | undefined;
@@ -22,8 +22,8 @@ export type IntegrationContextState = {
     getConfigurations: (page: number, size: number, sortProperty: string, sortDirection: string, complete: boolean, integration: string, excludeElements: boolean) => void;
     getCompletedConfigurations: (page: number, size: number, sortProperty: string, sortDirection: string, complete: boolean, integration: string, excludeElements: boolean) => void;
     destination: string,
-    selectedMetadata: IIntegrationMetadata;
-    setSelectedMetadata: (form: IIntegrationMetadata) => void,
+    selectedMetadata: IMetadata;
+    setSelectedMetadata: (form: IMetadata) => void,
     sourceApplicationIntegrationId: string,
     setSourceApplicationIntegrationId: (id: string) => void,
     setDestination: (destination: string) => void;

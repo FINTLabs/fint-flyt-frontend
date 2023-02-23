@@ -2,13 +2,16 @@ import {FC} from 'react'
 import {useDrag} from 'react-dnd'
 import {DraggableTypes} from './DraggableTypes'
 import {Chip} from "@mui/material";
-import {ITag} from "../../types/Tag";
+import {ITag} from "../../types/Metadata/Tag";
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import TextFieldsIcon from '@mui/icons-material/TextFields';
 import NumbersIcon from '@mui/icons-material/Numbers';
 import ListIcon from '@mui/icons-material/List';
-import {Type} from "../../types/IntegrationMetadata";
-
+import {Type} from "../../types/Metadata/Metadata";
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import DialpadIcon from '@mui/icons-material/Dialpad';
+import ToggleOnIcon from '@mui/icons-material/ToggleOn';
+import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 export const Tag: FC<ITag> = function Tag({ name, value, type, disabled }) {
     const [{ isDragging }, drag] = useDrag(() => ({
         type: DraggableTypes.TAG,
@@ -19,7 +22,6 @@ export const Tag: FC<ITag> = function Tag({ name, value, type, disabled }) {
     }))
 
     function typeToIcon(type: string) {
-        console.log(type)
         if (type === Type.STRING) {
             return <TextFieldsIcon/>
         }
@@ -28,6 +30,18 @@ export const Tag: FC<ITag> = function Tag({ name, value, type, disabled }) {
         }
         if (type === Type.INTEGER) {
             return <NumbersIcon/>
+        }
+        if (type === Type.DATE) {
+            return <CalendarMonthIcon/>
+        }
+        if (type === Type.PHONE) {
+            return <DialpadIcon/>
+        }
+        if (type === Type.BOOLEAN) {
+            return <ToggleOnIcon/>
+        }
+        if (type === Type.EMAIL) {
+            return <AlternateEmailIcon/>
         }
         if (type === undefined) {
             return <DragIndicatorIcon/>

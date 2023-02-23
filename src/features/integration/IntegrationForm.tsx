@@ -8,7 +8,7 @@ import {useTranslation} from "react-i18next";
 import {SourceApplicationContext} from "../../context/sourceApplicationContext";
 import {createStyles, makeStyles} from "@mui/styles";
 import {toIntegration} from "../util/mapping/ToIntegration";
-import {IFormIntegration} from "../configuration/types/Form/FormData";
+import {IFormIntegration} from "../configuration/types/OldForm/FormData";
 import IntegrationRepository from '../../shared/repositories/IntegrationRepository';
 import {IntegrationState} from "./types/Integration";
 

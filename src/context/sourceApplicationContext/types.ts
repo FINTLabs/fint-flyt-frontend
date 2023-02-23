@@ -1,5 +1,5 @@
-import {ISelect} from "../../features/configuration/types/InputField";
-import {IInstanceElementMetadata, IIntegrationMetadata} from "../../features/configuration/types/IntegrationMetadata";
+import {ISelect} from "../../features/configuration/types/Select";
+import {IInstanceElementMetadata, IMetadata} from "../../features/configuration/types/Metadata/Metadata";
 
 export interface ISourceApplicationItem {
     sourceApplicationDisplayName: string;
@@ -13,7 +13,7 @@ export type SourceApplicationContextState = {
     availableForms: ISourceApplicationItem;
     getAllForms: (forms: ISelect[]) => void;
     getAvailableForms: () => void;
-    allMetadata: IIntegrationMetadata[];
+    allMetadata: IMetadata[];
     instanceElementMetadata: IInstanceElementMetadata | undefined;
     getAllMetadata: (onlyLatest: boolean) => void;
     getInstanceElementMetadata: (metadataId: string) => void;

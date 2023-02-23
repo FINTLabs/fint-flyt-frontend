@@ -4,7 +4,7 @@ import {IIntegration} from "../../features/integration/types/Integration";
 import {IConfiguration} from "../../features/configuration/types/Configuration";
 import EventRepository from "../../features/log/repository/EventRepository";
 import {IIntegrationStatistics} from "../../features/log/types/IntegrationStatistics";
-import {IIntegrationMetadata} from "../../features/configuration/types/IntegrationMetadata";
+import {IMetadata} from "../../features/configuration/types/Metadata/Metadata";
 import ConfigurationRepository from "../../shared/repositories/ConfigurationRepository";
 import IntegrationRepository from "../../shared/repositories/IntegrationRepository";
 import SourceApplicationRepository from "../../shared/repositories/SourceApplicationRepository";
@@ -22,7 +22,7 @@ const IntegrationProvider: FC = ({ children }) => {
     const [configurations, setConfigurations] = useState<IConfiguration[] | undefined>(contextDefaultValues.configurations);
     const [completedConfigurations, setCompletedConfigurations] = useState<IConfiguration[] | undefined>(contextDefaultValues.completedConfigurations);
     const [destination, setDestination] = useState<string>('');
-    const [selectedMetadata, setSelectedMetadata] = useState<IIntegrationMetadata>(contextDefaultValues.selectedMetadata);
+    const [selectedMetadata, setSelectedMetadata] = useState<IMetadata>(contextDefaultValues.selectedMetadata);
     const [sourceApplicationIntegrationId, setSourceApplicationIntegrationId] = useState<string>('');
     const [sourceApplicationId, setSourceApplicationId] = useState<string>('');
     const [statistics, setStatistics] = useState<any[]>(contextDefaultValues.statistics);
@@ -58,7 +58,7 @@ const IntegrationProvider: FC = ({ children }) => {
                     SourceApplicationRepository.getMetadata(sourceApplicationId, true)
                         .then((response) => {
                             if(response.data) {
-                                let metadata: IIntegrationMetadata[] = response.data;
+                                let metadata: IMetadata[] = response.data;
                                 IntegrationRepository.getIntegrations(0, null, "state", "ASC")
                                     .then((response) => {
                                         if (response.data) {
@@ -73,7 +73,7 @@ const IntegrationProvider: FC = ({ children }) => {
                                                 })
                                                 return stats;
                                             })
-                                            metadata.forEach((value: IIntegrationMetadata) => {
+                                            metadata.forEach((value: IMetadata) => {
                                                 mergedList.map((integration: IIntegration) => {
                                                     if (integration.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {
                                                         return integration.displayName = value.integrationDisplayName;

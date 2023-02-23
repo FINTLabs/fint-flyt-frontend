@@ -1,8 +1,8 @@
 import React, {createContext, FC, useState} from "react";
 import {contextDefaultValues, ISourceApplicationItem, SourceApplicationContextState} from "./types";
 import SourceApplicationRepository from "../../shared/repositories/SourceApplicationRepository";
-import {ISelect} from "../../features/configuration/types/InputField";
-import {IInstanceElementMetadata, IIntegrationMetadata} from "../../features/configuration/types/IntegrationMetadata";
+import {ISelect} from "../../features/configuration/types/Select";
+import {IInstanceElementMetadata, IMetadata} from "../../features/configuration/types/Metadata/Metadata";
 import IntegrationRepository from "../../shared/repositories/IntegrationRepository";
 import {getSourceApplicationDisplayName} from "../../features/configuration/defaults/DefaultValues";
 
@@ -13,7 +13,7 @@ export const SourceApplicationContext = createContext<SourceApplicationContextSt
 const SourceApplicationProvider: FC = ({children}) => {
     const [isAdmin, setIsAdmin] = useState<boolean>(contextDefaultValues.isAdmin)
     const [availableForms, setAvailableForms] = useState<ISourceApplicationItem>(contextDefaultValues.availableForms);
-    const [allMetadata, setAllMetadata] = useState<IIntegrationMetadata[]>(contextDefaultValues.allMetadata)
+    const [allMetadata, setAllMetadata] = useState<IMetadata[]>(contextDefaultValues.allMetadata)
     const [instanceElementMetadata, setInstanceElementMetadata] = useState<IInstanceElementMetadata | undefined>(undefined)
     const [sourceApplication, setSourceApplication] = useState<number>(contextDefaultValues.sourceApplication);
 
@@ -39,7 +39,7 @@ const SourceApplicationProvider: FC = ({children}) => {
         if (sourceApplication) {
             SourceApplicationRepository.getMetadata(sourceApplication.toString(), onlyLatest)
                 .then(response => {
-                    let data: IIntegrationMetadata[] = response.data
+                    let data: IMetadata[] = response.data
                     if (data) {
                         setAllMetadata(data)
                     }

@@ -1,12 +1,12 @@
-import ICaseData from "../../../configuration/types/Form/CaseData";
+import ICaseData from "../../../configuration/types/OldForm/CaseData";
 import {IValueMapping} from "../../../configuration/types/Configuration";
 import {FieldType} from "../../../configuration/types/Configuration";
-import IRecordData from "../../../configuration/types/Form/RecordData";
-import INewCaseData from "../../../configuration/types/Form/NewCaseData";
-import IShieldingData from "../../../configuration/types/Form/ShieldingData";
-import {IClassData} from "../../../configuration/types/Form/ClassData";
-import IMainDocumentData from "../../../configuration/types/Form/DocumentData";
-import ICorrespondentData from "../../../configuration/types/Form/CorrespondentData";
+import IRecordData from "../../../configuration/types/OldForm/RecordData";
+import INewCaseData from "../../../configuration/types/OldForm/NewCaseData";
+import IShieldingData from "../../../configuration/types/OldForm/ShieldingData";
+import {IClassData} from "../../../configuration/types/OldForm/ClassData";
+import IMainDocumentData from "../../../configuration/types/OldForm/DocumentData";
+import ICorrespondentData from "../../../configuration/types/OldForm/CorrespondentData";
 
 function cleanedRecord(inputArray: ({ mappingString: string | null; type: string; key: string })[]): Record<string, IValueMapping> {
     let record: Record<string, IValueMapping> = {} as Record<string, IValueMapping>;
