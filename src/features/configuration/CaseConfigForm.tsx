@@ -16,11 +16,10 @@ import {
 import {createStyles, makeStyles} from "@mui/styles";
 import {IFormConfiguration} from "./types/Form/FormData";
 import {
-    defaultConfigurationValuesAV,
+    defaultConfigurationValues,
     getDestinationDisplayName,
     getSourceApplicationDisplayName
 } from "./defaults/DefaultValues";
-import {defaultConfigurationValues, defaultConfigurationValuesAV} from "./defaults/DefaultValues";
 import AccordionForm from "./components/AccordionForm";
 import {ACCORDION_FORM, IAccordion} from "./types/Accordion";
 import MetadataPanel from "./components/MetadataPanel";
@@ -33,21 +32,13 @@ import CloseIcon from '@mui/icons-material/Close';
 import {useTranslation} from "react-i18next";
 import InputField from "./components/form/InputField";
 import {INPUT_TYPE} from "./types/InputType.enum";
-import {
-    toAVConfiguration,
-    toAVConfigurationPatch,
-} from "../util/mapping/AV/ToAVConfiguration";
 import {IConfigurationPatch, IConfiguration} from "./types/Configuration";
 import ConfigurationRepository from "../../shared/repositories/ConfigurationRepository";
 import IntegrationRepository from "../../shared/repositories/IntegrationRepository";
 import {IIntegrationPatch, IntegrationState} from "../integration/types/Integration";
 import {SourceApplicationContext} from "../../context/sourceApplicationContext";
-import {IConfiguration, IConfigurationPatch} from "./types/Configuration";
-import {toAVFormData} from "../util/mapping/AV/toAVFormData";
-import {
-    toAVConfiguration,
-    toAVConfigurationPatch
-} from "../util/mapping/AV/ToAVConfiguration";
+import {toConfiguration, toConfigurationPatch} from "../util/mapping/ToConfiguration";
+import {toFormData} from "../util/mapping/ToFormData";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -160,7 +151,7 @@ const CaseConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => 
     let activeConfiguration = configuration && editConfig ? configuration : undefined;
     const [activeConfigId, setActiveConfigId] = React.useState(activeConfiguration?.id);
     const [completed, setCompleted] = React.useState(!!activeConfiguration?.completed);
-    let activeFormData = activeConfiguration && editConfig && configuration? toAVFormData(configuration) : defaultConfigurationValuesAV;
+    let activeFormData = activeConfiguration && editConfig && configuration? toFormData(configuration) : defaultConfigurationValues;
     const [shieldingCheck, setShieldingCheck] = React.useState(activeFormData?.recordData?.correspondent?.shielding?.accessCode !== null);
     const [isToggled, setIsToggled] = React.useState<boolean>(false);
     const toggle = React.useCallback(() => setIsToggled(prevState => !prevState), []);
@@ -174,7 +165,7 @@ const CaseConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => 
     };
 
     const {handleSubmit, watch, setValue, control, reset, formState, clearErrors} = useForm<IFormConfiguration>({
-        defaultValues: activeFormData ? activeFormData : defaultConfigurationValuesAV,
+        defaultValues: activeFormData ? activeFormData : defaultConfigurationValues,
         reValidateMode: 'onChange'
     });
     const { errors } = formState;
@@ -313,15 +304,15 @@ const CaseConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => 
         }
         data.completed = true;
         if (!shieldingCheck) data.recordData.correspondent.shielding = {accessCode: null, paragraph: null};
-        const configuration: IConfiguration = toAVConfiguration(data, activeIntegration?.id, activeConfigId, selectedMetadata.id);
+        const configuration: IConfiguration = toConfiguration(data, activeIntegration?.id, activeConfigId, selectedMetadata.id);
         if (configuration && activeConfigId !== undefined) {
-            const iConfiguration: IConfiguration = toAVConfigurationPatch(data, selectedMetadata.id);
+            const iConfiguration: IConfiguration = toConfigurationPatch(data, selectedMetadata.id);
             activateConfiguration(activeIntegration?.id, iConfiguration, activeConfigId)
-            reset({ ...defaultConfigurationValuesAV })
+            reset({ ...defaultConfigurationValues })
         }
         else if (configuration && activeIntegration?.id) {
             activateConfiguration(activeIntegration?.id, configuration, undefined);
-            reset({ ...defaultConfigurationValuesAV })
+            reset({ ...defaultConfigurationValues })
         } else {
             //TODO: Handle error
             return;
@@ -334,9 +325,9 @@ const CaseConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => 
         }
         data.completed = false;
         if (!shieldingCheck) data.recordData.correspondent.shielding = {accessCode: null, paragraph: null};
-        const configuration: IConfiguration = toAVConfiguration(data, activeIntegration?.id, activeConfigId, selectedMetadata.id);
+        const configuration: IConfiguration = toConfiguration(data, activeIntegration?.id, activeConfigId, selectedMetadata.id);
         if (configuration && activeConfigId !== undefined) {
-            const iConfiguration: IConfiguration = toAVConfigurationPatch(data, selectedMetadata.id);
+            const iConfiguration: IConfiguration = toConfigurationPatch(data, selectedMetadata.id);
             saveConfiguration(activeIntegration?.id, iConfiguration, activeConfigId)
         }
         else if (activeIntegration?.id && configuration) {

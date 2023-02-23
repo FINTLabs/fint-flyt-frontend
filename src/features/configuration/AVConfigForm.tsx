@@ -224,7 +224,7 @@ const AVConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
             });
     }
 
-    const saveConfiguration = (integrationId: string, configurationId: string, data: IConfigurationPatch) => {
+    const saveConfiguration = (integrationId: string, data: IConfigurationPatch | IConfiguration,  configurationId?: string,) => {
         console.log('save config', integrationId, configurationId, data)
         configurationId ?
             ConfigurationRepository.updateConfiguration(configurationId, data)
