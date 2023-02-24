@@ -10,6 +10,7 @@ import MetadataPanel from "./components/MetadataPanel";
 import {HTML5Backend} from "react-dnd-html5-backend";
 import {DndProvider} from "react-dnd";
 import {useTranslation} from "react-i18next";
+import FormPanel from "./components/FormPanel";
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -60,7 +61,7 @@ export const CaseConfigForm: React.FunctionComponent<RouteComponentProps<any>> =
                             <MetadataPanel style={classes} />
                         </Box>
                         <Box className={classes.panelContainer}>
-                            Hello
+                            <FormPanel/>
                         </Box>
                     </Box>
             </DndProvider>

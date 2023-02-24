@@ -341,7 +341,6 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                         {t('button.blankConfiguration')}
                     </Button>
                 </MenuItem>
-
                 <MenuItem>
                     <Button
                         disabled={!completedConfigurations}
