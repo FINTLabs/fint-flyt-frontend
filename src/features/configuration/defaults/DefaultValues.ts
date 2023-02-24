@@ -793,8 +793,9 @@ export const MOCK_NEWCONFIGURATIONS: IConfiguration[] = [
         completed: false,
         mapping: {
             valueMappingPerKey: {},
-            elementMappingPerKey: {},
-            elementCollectionMappingPerKey: {},
+            valueCollectionMappingPerKey: {},
+            objectMappingPerKey: {},
+            objectCollectionMappingPerKey: {},
         }
     },
     {
@@ -805,8 +806,9 @@ export const MOCK_NEWCONFIGURATIONS: IConfiguration[] = [
         completed: false,
         mapping: {
             valueMappingPerKey: {},
-            elementMappingPerKey: {},
-            elementCollectionMappingPerKey: {},
+            valueCollectionMappingPerKey: {},
+            objectMappingPerKey: {},
+            objectCollectionMappingPerKey: {},
         }
     },
     {
@@ -817,8 +819,9 @@ export const MOCK_NEWCONFIGURATIONS: IConfiguration[] = [
         comment: 'Opprettet ny pga x, y, z',
         mapping: {
             valueMappingPerKey: {},
-            elementMappingPerKey: {},
-            elementCollectionMappingPerKey: {},
+            valueCollectionMappingPerKey: {},
+            objectMappingPerKey: {},
+            objectCollectionMappingPerKey: {},
         }
     },
     {
@@ -829,8 +832,9 @@ export const MOCK_NEWCONFIGURATIONS: IConfiguration[] = [
         comment: 'Ferdigstilt ',
         mapping: {
             valueMappingPerKey: {},
-            elementMappingPerKey: {},
-            elementCollectionMappingPerKey: {},
+            valueCollectionMappingPerKey: {},
+            objectMappingPerKey: {},
+            objectCollectionMappingPerKey: {},
         }
     },
     {
@@ -841,8 +845,9 @@ export const MOCK_NEWCONFIGURATIONS: IConfiguration[] = [
         comment: 'Ferdigstilt versjon 2',
         mapping: {
             valueMappingPerKey: {},
-            elementMappingPerKey: {},
-            elementCollectionMappingPerKey: {},
+            valueCollectionMappingPerKey: {},
+            objectMappingPerKey: {},
+            objectCollectionMappingPerKey: {},
         }
     }
 ]

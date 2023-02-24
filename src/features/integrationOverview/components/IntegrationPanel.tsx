@@ -32,7 +32,7 @@ import {IIntegrationPatch} from "../../integration/types/Integration";
 import {ResourcesContext} from "../../../context/resourcesContext";
 import ResourceRepository from "../../../shared/repositories/ResourceRepository";
 import {IResourceItem} from "../../../context/resourcesContext/types";
-import {IConfiguration, IElementMapping} from "../../configuration/types/Configuration";
+import {IConfiguration, IObjectMapping} from "../../configuration/types/Configuration";
 
 const IntegrationPanel: React.FunctionComponent<any> = (props) => {
     const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.integrationOverview'});
@@ -126,9 +126,9 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                     data.completed = false;
                 }
                 setConfiguration(data);
-                const caseFields: IElementMapping = data.mapping?.elementMappingPerKey['sak'] ? data.mapping?.elementMappingPerKey['sak'] : {elementMappingPerKey: {}, elementCollectionMappingPerKey: {}, valueMappingPerKey: {}};
-                const caseNewCaseFields: IElementMapping = caseFields.elementMappingPerKey['ny'] ? caseFields.elementMappingPerKey['ny'] :  {elementMappingPerKey: {}, elementCollectionMappingPerKey: {}, valueMappingPerKey: {}}
-                const caseClassesFields: IElementMapping[] = caseNewCaseFields.elementCollectionMappingPerKey['klasse']?.elementMappings ? caseNewCaseFields.elementCollectionMappingPerKey['klasse']?.elementMappings  :  []
+                const caseFields: IObjectMapping = data.mapping?.objectMappingPerKey['sak'] ? data.mapping?.objectMappingPerKey['sak'] : {objectMappingPerKey: {}, objectCollectionMappingPerKey: {}, valueMappingPerKey: {}};
+                const caseNewCaseFields: IObjectMapping = caseFields.objectMappingPerKey['ny'] ? caseFields.objectMappingPerKey['ny'] :  {objectMappingPerKey: {}, objectCollectionMappingPerKey: {}, valueMappingPerKey: {}, valueCollectionMappingPerKey: {}}
+                const caseClassesFields: IObjectMapping[] = caseNewCaseFields.objectCollectionMappingPerKey['klasse']?.objectMappings ? caseNewCaseFields.objectCollectionMappingPerKey['klasse']?.objectMappings  :  []
                 let primaryClass = caseClassesFields[0]?.valueMappingPerKey['klassifikasjonssystem']?.mappingString ? caseClassesFields[0].valueMappingPerKey['klassifikasjonssystem']?.mappingString : null
                 let secondaryClass = caseClassesFields[1]?.valueMappingPerKey['klassifikasjonssystem']?.mappingString ? caseClassesFields[1].valueMappingPerKey['klassifikasjonssystem']?.mappingString : null
                 let tertiaryClass = caseClassesFields[2]?.valueMappingPerKey['klassifikasjonssystem']?.mappingString ? caseClassesFields[2].valueMappingPerKey['klassifikasjonssystem']?.mappingString : null

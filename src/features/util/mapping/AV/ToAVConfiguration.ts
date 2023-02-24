@@ -13,10 +13,10 @@ import {
     shieldingDataToRecord
 } from "../helpers/toValueMappingRecord";
 import {
-    filterElementCollectionMappingEntries,
-    filterElementMappingEntries,
-    shouldIncludeElementMapping,
-    shouldIncludeElementsFromCollectionMapping
+    filterObjectCollectionMappingEntries,
+    filterObjectMappingEntries,
+    shouldIncludeObjectMapping,
+    shouldIncludeObjectsFromCollectionMapping
 } from "../helpers/filters";
 
 export function toAVConfiguration(data: IFormConfiguration, integrationId: string, configurationId: any, metadataId: number): IConfiguration {
@@ -29,127 +29,145 @@ export function toAVConfiguration(data: IFormConfiguration, integrationId: strin
         mapping:
             {
                 valueMappingPerKey: {},
-                elementMappingPerKey: filterElementMappingEntries({
+                valueCollectionMappingPerKey: {},
+                objectMappingPerKey: filterObjectMappingEntries({
                     "sak": {
                         valueMappingPerKey: caseDataToRecord(data.caseData),
-                        elementMappingPerKey: filterElementMappingEntries({
+                        valueCollectionMappingPerKey: {},
+                        objectMappingPerKey: filterObjectMappingEntries({
                             "ny": {
                                 valueMappingPerKey: newCaseDataToRecord(data.caseData.newCase),
-                                elementMappingPerKey: filterElementMappingEntries({
+                                valueCollectionMappingPerKey: {},
+                                objectMappingPerKey: filterObjectMappingEntries({
                                     "skjerming": {
                                         valueMappingPerKey: shieldingDataToRecord(data.caseData.newCase.shielding),
-                                        elementMappingPerKey: {},
-                                        elementCollectionMappingPerKey: {}
+                                        valueCollectionMappingPerKey: {},
+                                        objectMappingPerKey: {},
+                                        objectCollectionMappingPerKey: {}
                                     }
                                 }),
-                                elementCollectionMappingPerKey: filterElementCollectionMappingEntries({
+                                objectCollectionMappingPerKey: filterObjectCollectionMappingEntries({
                                     "klasse": {
-                                        elementsFromCollectionMappings: [],
-                                        elementMappings: [
+                                        objectsFromCollectionMappings: [],
+                                        objectMappings: [
                                             {
                                                 valueMappingPerKey: classDataToRecord(data.caseData.newCase.classes[0], "0"),
-                                                elementMappingPerKey: {},
-                                                elementCollectionMappingPerKey: {}
+                                                valueCollectionMappingPerKey: {},
+                                                objectMappingPerKey: {},
+                                                objectCollectionMappingPerKey: {}
                                             }, {
                                                 valueMappingPerKey: classDataToRecord(data.caseData.newCase.classes[1], "1"),
-                                                elementMappingPerKey: {},
-                                                elementCollectionMappingPerKey: {}
+                                                valueCollectionMappingPerKey: {},
+                                                objectMappingPerKey: {},
+                                                objectCollectionMappingPerKey: {}
                                             }, {
                                                 valueMappingPerKey: classDataToRecord(data.caseData.newCase.classes[2], "2"),
-                                                elementMappingPerKey: {},
-                                                elementCollectionMappingPerKey: {}
+                                                valueCollectionMappingPerKey: {},
+                                                objectMappingPerKey: {},
+                                                objectCollectionMappingPerKey: {}
                                             }
-                                        ].filter(shouldIncludeElementMapping)
+                                        ].filter(shouldIncludeObjectMapping)
                                     }
                                 })
                             }
                         }),
-                        elementCollectionMappingPerKey: {}
+                        objectCollectionMappingPerKey: {}
                     },
                     "journalpost": {
                         valueMappingPerKey: recordDataToRecord(data.recordData),
-                        elementMappingPerKey: filterElementMappingEntries({
+                        valueCollectionMappingPerKey: {},
+                        objectMappingPerKey: filterObjectMappingEntries({
                             "skjerming": {
                                 valueMappingPerKey: shieldingDataToRecord(data.recordData.shielding),
-                                elementMappingPerKey: {},
-                                elementCollectionMappingPerKey: {}
+                                valueCollectionMappingPerKey: {},
+                                objectMappingPerKey: {},
+                                objectCollectionMappingPerKey: {}
                             }
                         }),
-                        elementCollectionMappingPerKey: filterElementCollectionMappingEntries({
+                        objectCollectionMappingPerKey: filterObjectCollectionMappingEntries({
                             "dokumentbeskrivelse": {
-                                elementMappings: [
+                                objectMappings: [
                                     {
                                         valueMappingPerKey: documentDescriptionDataToRecord(data.recordData.mainDocument),
-                                        elementMappingPerKey: {},
-                                        elementCollectionMappingPerKey: {
+                                        valueCollectionMappingPerKey: {},
+                                        objectMappingPerKey: {},
+                                        objectCollectionMappingPerKey: {
                                             "dokumentobjekt": {
-                                                elementMappings: [
+                                                objectMappings: [
                                                     {
                                                         valueMappingPerKey: documentObjectDataToRecord(data.recordData.mainDocument),
-                                                        elementMappingPerKey: {},
-                                                        elementCollectionMappingPerKey: {}
+                                                        valueCollectionMappingPerKey: {},
+                                                        objectMappingPerKey: {},
+                                                        objectCollectionMappingPerKey: {}
                                                     }
                                                 ],
-                                                elementsFromCollectionMappings: []
+                                                objectsFromCollectionMappings: []
                                             }
                                         }
                                     }
-                                ].filter(shouldIncludeElementMapping),
-                                elementsFromCollectionMappings: [
+                                ].filter(shouldIncludeObjectMapping),
+                                objectsFromCollectionMappings: [
                                     {
                                         instanceCollectionReferencesOrdered: ["$if{vedlegg}"],
-                                        elementMapping: {
+                                        objectMapping: {
                                             valueMappingPerKey: documentDescriptionDataToRecord(data.recordData.attachmentDocuments),
-                                            elementMappingPerKey: {},
-                                            elementCollectionMappingPerKey: filterElementCollectionMappingEntries({
+                                            valueCollectionMappingPerKey: {},
+                                            objectMappingPerKey: {},
+                                            objectCollectionMappingPerKey: filterObjectCollectionMappingEntries({
                                                 "dokumentobjekt": {
-                                                    elementMappings: [
+                                                    objectMappings: [
                                                         {
                                                             valueMappingPerKey: documentObjectDataToRecord(data.recordData.attachmentDocuments),
-                                                            elementMappingPerKey: {},
-                                                            elementCollectionMappingPerKey: {}
+                                                            valueCollectionMappingPerKey: {},
+                                                            objectMappingPerKey: {},
+                                                            objectCollectionMappingPerKey: {}
                                                         }
-                                                    ].filter(shouldIncludeElementMapping),
-                                                    elementsFromCollectionMappings: []
+                                                    ].filter(shouldIncludeObjectMapping),
+                                                    objectsFromCollectionMappings: []
                                                 }
                                             })
                                         }
                                     }
-                                ].filter(shouldIncludeElementsFromCollectionMapping)
+                                ].filter(shouldIncludeObjectsFromCollectionMapping)
 
                             },
                             "korrespondansepart": {
-                                elementMappings: [{
+                                objectMappings: [{
                                     valueMappingPerKey: correspondentDataToRecord(data.recordData.correspondent),
-                                    elementMappingPerKey: filterElementMappingEntries({
+                                    valueCollectionMappingPerKey: {},
+                                    objectMappingPerKey: filterObjectMappingEntries({
                                         "adresse": {
                                             valueMappingPerKey: addressDataToRecord(data.recordData.correspondent),
-                                            elementMappingPerKey: {},
-                                            elementCollectionMappingPerKey: {}
+                                            valueCollectionMappingPerKey: {},
+                                            objectMappingPerKey: {},
+                                            objectCollectionMappingPerKey: {}
                                         },
                                         "kontaktinformasjon": {
                                             valueMappingPerKey: contactInfoDataToRecord(data.recordData.correspondent),
-                                            elementMappingPerKey: {},
-                                            elementCollectionMappingPerKey: {}
+                                            valueCollectionMappingPerKey: {},
+                                            objectMappingPerKey: {},
+                                            objectCollectionMappingPerKey: {}
                                         },
                                         "skjerming": data.recordData.correspondent.shielding ? {
                                             valueMappingPerKey: shieldingDataToRecord(data.recordData.correspondent.shielding),
-                                            elementMappingPerKey: {},
-                                            elementCollectionMappingPerKey: {}
+                                            valueCollectionMappingPerKey: {},
+                                            objectMappingPerKey: {},
+                                            objectCollectionMappingPerKey: {}
                                         } : {
                                             valueMappingPerKey: {},
-                                            elementMappingPerKey: {},
-                                            elementCollectionMappingPerKey: {}
+                                            valueCollectionMappingPerKey: {},
+                                            objectMappingPerKey: {},
+                                            objectCollectionMappingPerKey: {}
                                         }
                                     }),
-                                    elementCollectionMappingPerKey: {}
-                                }].filter(shouldIncludeElementMapping),
-                                elementsFromCollectionMappings: []
+                                    objectCollectionMappingPerKey: {}
+                                }].filter(shouldIncludeObjectMapping),
+                                objectsFromCollectionMappings: []
                             }
                         })
                     }
                 }),
-                elementCollectionMappingPerKey: {}
+                objectCollectionMappingPerKey: {}
             }
 
     }
@@ -162,127 +180,145 @@ export function toAVConfigurationPatch(data: IFormConfiguration, metadataId: any
         comment: data.comment,
         mapping: {
             valueMappingPerKey: {},
-            elementMappingPerKey: filterElementMappingEntries({
+            valueCollectionMappingPerKey: {},
+            objectMappingPerKey: filterObjectMappingEntries({
                 "sak": {
                     valueMappingPerKey: caseDataToRecord(data.caseData),
-                    elementMappingPerKey: filterElementMappingEntries({
+                    valueCollectionMappingPerKey: {},
+                    objectMappingPerKey: filterObjectMappingEntries({
                         "ny": {
                             valueMappingPerKey: newCaseDataToRecord(data.caseData.newCase),
-                            elementMappingPerKey: filterElementMappingEntries({
+                            valueCollectionMappingPerKey: {},
+                            objectMappingPerKey: filterObjectMappingEntries({
                                 "skjerming": {
                                     valueMappingPerKey: shieldingDataToRecord(data.caseData.newCase.shielding),
-                                    elementMappingPerKey: {},
-                                    elementCollectionMappingPerKey: {}
+                                    valueCollectionMappingPerKey: {},
+                                    objectMappingPerKey: {},
+                                    objectCollectionMappingPerKey: {}
                                 }
                             }),
-                            elementCollectionMappingPerKey: filterElementCollectionMappingEntries({
+                            objectCollectionMappingPerKey: filterObjectCollectionMappingEntries({
                                 "klasse": {
-                                    elementsFromCollectionMappings: [],
-                                    elementMappings: [
+                                    objectsFromCollectionMappings: [],
+                                    objectMappings: [
                                         {
                                             valueMappingPerKey: classDataToRecord(data.caseData.newCase.classes[0], "0"),
-                                            elementMappingPerKey: {},
-                                            elementCollectionMappingPerKey: {}
+                                            valueCollectionMappingPerKey: {},
+                                            objectMappingPerKey: {},
+                                            objectCollectionMappingPerKey: {}
                                         }, {
                                             valueMappingPerKey: classDataToRecord(data.caseData.newCase.classes[1], "1"),
-                                            elementMappingPerKey: {},
-                                            elementCollectionMappingPerKey: {}
+                                            valueCollectionMappingPerKey: {},
+                                            objectMappingPerKey: {},
+                                            objectCollectionMappingPerKey: {}
                                         }, {
                                             valueMappingPerKey: classDataToRecord(data.caseData.newCase.classes[2], "2"),
-                                            elementMappingPerKey: {},
-                                            elementCollectionMappingPerKey: {}
+                                            valueCollectionMappingPerKey: {},
+                                            objectMappingPerKey: {},
+                                            objectCollectionMappingPerKey: {}
                                         }
-                                    ].filter(shouldIncludeElementMapping)
+                                    ].filter(shouldIncludeObjectMapping)
                                 }
                             })
                         }
                     }),
-                    elementCollectionMappingPerKey: {}
+                    objectCollectionMappingPerKey: {}
                 },
                 "journalpost": {
                     valueMappingPerKey: recordDataToRecord(data.recordData),
-                    elementMappingPerKey: filterElementMappingEntries({
+                    valueCollectionMappingPerKey: {},
+                    objectMappingPerKey: filterObjectMappingEntries({
                         "skjerming": {
                             valueMappingPerKey: shieldingDataToRecord(data.recordData.shielding),
-                            elementMappingPerKey: {},
-                            elementCollectionMappingPerKey: {}
+                            valueCollectionMappingPerKey: {},
+                            objectMappingPerKey: {},
+                            objectCollectionMappingPerKey: {}
                         }
                     }),
-                    elementCollectionMappingPerKey: filterElementCollectionMappingEntries({
+                    objectCollectionMappingPerKey: filterObjectCollectionMappingEntries({
                         "dokumentbeskrivelse": {
-                            elementMappings: [
+                            objectMappings: [
                                 {
                                     valueMappingPerKey: documentDescriptionDataToRecord(data.recordData.mainDocument),
-                                    elementMappingPerKey: {},
-                                    elementCollectionMappingPerKey: {
+                                    valueCollectionMappingPerKey: {},
+                                    objectMappingPerKey: {},
+                                    objectCollectionMappingPerKey: {
                                         "dokumentobjekt": {
-                                            elementMappings: [
+                                            objectMappings: [
                                                 {
                                                     valueMappingPerKey: documentObjectDataToRecord(data.recordData.mainDocument),
-                                                    elementMappingPerKey: {},
-                                                    elementCollectionMappingPerKey: {}
+                                                    valueCollectionMappingPerKey: {},
+                                                    objectMappingPerKey: {},
+                                                    objectCollectionMappingPerKey: {}
                                                 }
                                             ],
-                                            elementsFromCollectionMappings: []
+                                            objectsFromCollectionMappings: []
                                         }
                                     }
                                 }
-                            ].filter(shouldIncludeElementMapping),
-                            elementsFromCollectionMappings: [
+                            ].filter(shouldIncludeObjectMapping),
+                            objectsFromCollectionMappings: [
                                 {
                                     instanceCollectionReferencesOrdered: ["$if{vedlegg}"],
-                                    elementMapping: {
+                                    objectMapping: {
                                         valueMappingPerKey: documentDescriptionDataToRecord(data.recordData.attachmentDocuments),
-                                        elementMappingPerKey: {},
-                                        elementCollectionMappingPerKey: filterElementCollectionMappingEntries({
+                                        valueCollectionMappingPerKey: {},
+                                        objectMappingPerKey: {},
+                                        objectCollectionMappingPerKey: filterObjectCollectionMappingEntries({
                                             "dokumentobjekt": {
-                                                elementMappings: [
+                                                objectMappings: [
                                                     {
                                                         valueMappingPerKey: documentObjectDataToRecord(data.recordData.attachmentDocuments),
-                                                        elementMappingPerKey: {},
-                                                        elementCollectionMappingPerKey: {}
+                                                        valueCollectionMappingPerKey: {},
+                                                        objectMappingPerKey: {},
+                                                        objectCollectionMappingPerKey: {}
                                                     }
-                                                ].filter(shouldIncludeElementMapping),
-                                                elementsFromCollectionMappings: []
+                                                ].filter(shouldIncludeObjectMapping),
+                                                objectsFromCollectionMappings: []
                                             }
                                         })
                                     }
                                 }
-                            ].filter(shouldIncludeElementsFromCollectionMapping)
+                            ].filter(shouldIncludeObjectsFromCollectionMapping)
 
                         },
                         "korrespondansepart": {
-                            elementMappings: [{
+                            objectMappings: [{
                                 valueMappingPerKey: correspondentDataToRecord(data.recordData.correspondent),
-                                elementMappingPerKey: filterElementMappingEntries({
+                                valueCollectionMappingPerKey: {},
+                                objectMappingPerKey: filterObjectMappingEntries({
                                     "adresse": {
                                         valueMappingPerKey: addressDataToRecord(data.recordData.correspondent),
-                                        elementMappingPerKey: {},
-                                        elementCollectionMappingPerKey: {}
+                                        valueCollectionMappingPerKey: {},
+                                        objectMappingPerKey: {},
+                                        objectCollectionMappingPerKey: {}
                                     },
                                     "kontaktinformasjon": {
                                         valueMappingPerKey: contactInfoDataToRecord(data.recordData.correspondent),
-                                        elementMappingPerKey: {},
-                                        elementCollectionMappingPerKey: {}
+                                        valueCollectionMappingPerKey: {},
+                                        objectMappingPerKey: {},
+                                        objectCollectionMappingPerKey: {}
                                     },
                                     "skjerming": data.recordData.correspondent.shielding ? {
                                         valueMappingPerKey: shieldingDataToRecord(data.recordData.correspondent.shielding),
-                                        elementMappingPerKey: {},
-                                        elementCollectionMappingPerKey: {}
+                                        valueCollectionMappingPerKey: {},
+                                        objectMappingPerKey: {},
+                                        objectCollectionMappingPerKey: {}
                                     } : {
                                         valueMappingPerKey: {},
-                                        elementMappingPerKey: {},
-                                        elementCollectionMappingPerKey: {}
+                                        valueCollectionMappingPerKey: {},
+                                        objectMappingPerKey: {},
+                                        objectCollectionMappingPerKey: {}
                                     }
                                 }),
-                                elementCollectionMappingPerKey: {}
-                            }].filter(shouldIncludeElementMapping),
-                            elementsFromCollectionMappings: []
+                                objectCollectionMappingPerKey: {}
+                            }].filter(shouldIncludeObjectMapping),
+                            objectsFromCollectionMappings: []
                         }
                     })
                 }
             }),
-            elementCollectionMappingPerKey: {}
+            objectCollectionMappingPerKey: {}
         }
     }
 }

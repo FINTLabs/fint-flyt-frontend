@@ -5,20 +5,21 @@ export interface IConfiguration {
     version?: number | null;
     completed?: boolean;
     comment?: string;
-    mapping?: IElementMapping
+    mapping?: IObjectMapping
 }
 
 export interface IConfigurationPatch {
     comment?: string;
     integrationMetadataId?: number;
     completed?: boolean;
-    mapping?: IElementMapping
+    mapping?: IObjectMapping
 }
 
-export interface IElementMapping {
-    valueMappingPerKey: Record<string, IValueMapping>
-    elementMappingPerKey: Record<string, IElementMapping>
-    elementCollectionMappingPerKey: Record<string, IElementCollectionMapping>
+export interface IObjectMapping {
+    valueMappingPerKey: Record<string, IValueMapping> // GOOD
+    valueCollectionMappingPerKey: Record<string, IValueMapping>
+    objectMappingPerKey: Record<string, IObjectMapping>
+    objectCollectionMappingPerKey: Record<string, IObjectCollectionMapping>
 }
 
 export interface IValueMapping {
@@ -26,14 +27,14 @@ export interface IValueMapping {
     mappingString: string | null
 }
 
-export interface IElementCollectionMapping {
-    elementMappings: IElementMapping[];
-    elementsFromCollectionMappings: IElementsFromCollectionMapping[];
+export interface IObjectCollectionMapping {
+    objectMappings: IObjectMapping[];
+    objectsFromCollectionMappings: IObjectsFromCollectionMapping[];
 }
 
-export interface IElementsFromCollectionMapping {
+export interface IObjectsFromCollectionMapping {
     instanceCollectionReferencesOrdered: string[];
-    elementMapping: IElementMapping
+    objectMapping: IObjectMapping
 }
 
 export const FieldType = {

@@ -66,7 +66,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         sourceApplicationFormContainer: {
             marginTop: theme.spacing(6),
-            marginLeft: theme.spacing(8),
+            marginRight: theme.spacing(8),
             padding: theme.spacing(2),
             border: 'solid 1px',
             borderColor: 'black',
@@ -77,10 +77,11 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         sourceApplicationForm: {
             opacity: 0.99,
-            width: theme.spacing(60),
+            width: theme.spacing(40),
             height: 'fit-content',
             overflow: 'auto',
-            maxHeight: theme.spacing(100)
+            maxHeight: theme.spacing(100),
+            maxWidth: theme.spacing(60)
         },
         accordion: {
             marginBottom: theme.spacing(2),
@@ -307,6 +308,9 @@ const AVConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
         <DndProvider backend={HTML5Backend}>
             {!submitSuccess && (existingIntegration || newIntegration) &&
                 <Box display="flex" position="relative" width={1} height={1}>
+                    <Box className={classes.sourceApplicationFormContainer}>
+                        <SourceApplicationForm style={classes} />
+                    </Box>
                     <Box>
                         <Typography id="integration-form-header" aria-label="integration-form-header" variant={"h5"} sx={{ mb: 2 }}>{t('header')}</Typography>
                         <form id="integration-form"  className={classes.form} onSubmit={onSubmit}>
@@ -369,9 +373,6 @@ const AVConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
                                 <Button id="integration-form-cancel-btn" onClick={handleCancel} variant="contained">{t('button.cancel')}</Button>
                             </Box>
                         </form>
-                    </Box>
-                    <Box className={classes.sourceApplicationFormContainer}>
-                        <SourceApplicationForm style={classes} />
                     </Box>
                     <Snackbar
                         id="integration-form-snackbar-saved"

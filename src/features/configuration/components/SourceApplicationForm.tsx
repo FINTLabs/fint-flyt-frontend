@@ -9,6 +9,7 @@ import {IntegrationContext} from "../../../context/integrationContext";
 // eslint-disable-next-line
 import {Link} from 'react-router-dom'
 import {SourceApplicationContext} from "../../../context/sourceApplicationContext";
+import {MOCK_INSTANCE_METADATA} from "../types/IntegrationMetadata";
 
 const SourceApplicationForm: React.FunctionComponent<any> = (props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'components.SourceApplicationForm'});
@@ -38,11 +39,26 @@ const SourceApplicationForm: React.FunctionComponent<any> = (props) => {
     })
 
     function TagTree({items, depth = 0}: any ) {
-        if (!items || !items.length) {
+        console.log(items)
+        if (!items.categories || !items.instanceValueMetadata || !items.instanceObjectCollectionMetadata) {
             return null
         }
 
-        console.log(items)
+
+        console.log(items.instanceValueMetadata)
+
+        return (<>
+            {items.categories.map((category: any) => (
+            <div>
+                {category.content ?
+                    <div>{category.displayName}</div> : <TagTree items={category.content}/>
+                }
+            </div>
+            ))}
+        </>)
+
+
+
         return items.map((item: any) => (
             <React.Fragment key={item.displayName}>
                 {item.children.length > 0 ?
@@ -60,10 +76,10 @@ const SourceApplicationForm: React.FunctionComponent<any> = (props) => {
     return (
         <Box className={props.style.sourceApplicationForm}>
             <Box className={props.style.row}>
-                <Typography variant={"h6"}>{t('header')}: {selectedMetadata.integrationDisplayName}</Typography>
+                <Typography variant={"h6"}>{t('header')}</Typography>
                 <HelpPopover popoverContent="sourceApplicationFormPopoverContent"/>
                 <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-                    <InputLabel id="demo-select-small">{t('version')} </InputLabel>
+                    <InputLabel id="metadata-version-select">{t('version')} </InputLabel>
                     <Select
                         labelId="version-select"
                         id="version-select"
