@@ -23,20 +23,20 @@ export interface IIntegrationMetadata {
     instanceMetadata?: IInstanceMetadataContent;
 }
 
-interface IInstanceValueMetadata {
+export interface IInstanceValueMetadata {
     displayName: string;
     type: string;
     key: string;
     disabled?: boolean;
 }
 
-interface IInstanceObjectCollectionMetadata {
+export interface IInstanceObjectCollectionMetadata {
     displayName: string;
     objectMetadata: IInstanceMetadataContent;
     key: string;
 }
 
-interface IInstanceMetadataCategory {
+export interface IInstanceMetadataCategory {
     displayName: string;
     content: IInstanceMetadataContent
 }
@@ -56,8 +56,40 @@ export const MOCK_INSTANCE_METADATA: IIntegrationMetadata = {
     version: 1,
     instanceElementMetadata: [],
     instanceMetadata: {
-        instanceValueMetadata: [],
-        instanceObjectCollectionMetadata: [],
+        instanceValueMetadata: [
+            {
+                displayName: "ivm1",
+                type: Type.STRING,
+                key: "IVM1"
+            },
+            {
+                displayName: "ivm2",
+                type: Type.EMAIL,
+                key: "IVM2"
+            }
+        ],
+        instanceObjectCollectionMetadata: [
+            {
+                displayName: 'vedlegg',
+                key: 'vedlegg1',
+                objectMetadata: {
+                    instanceValueMetadata: [
+                        {
+                            displayName: "vedlegg1",
+                            type: Type.STRING,
+                            key: "v1"
+                        },
+                        {
+                            displayName: "vedlegg2",
+                            type: Type.EMAIL,
+                            key: "v2"
+                        }
+                    ],
+                    instanceObjectCollectionMetadata: [],
+                    categories: []
+                }
+            }
+        ],
         categories: [
             {
                 displayName: 'test1',
@@ -73,6 +105,65 @@ export const MOCK_INSTANCE_METADATA: IIntegrationMetadata = {
                             displayName: "epost",
                             type: Type.EMAIL,
                             key: "epost"
+                        }
+                    ],
+                    categories: [
+                        {
+                            displayName: 'test1 sub-cat',
+                            content: {
+                                instanceObjectCollectionMetadata: [],
+                                instanceValueMetadata: [
+                                    {
+                                        displayName: "navn2",
+                                        type: Type.STRING,
+                                        key: "navn2"
+                                    },
+                                    {
+                                        displayName: "epost2",
+                                        type: Type.EMAIL,
+                                        key: "epost2"
+                                    }
+                                ],
+                                categories: [
+                                    {
+                                        displayName: 'sub-sub-test2',
+                                        content: {
+                                            instanceObjectCollectionMetadata: [],
+                                            instanceValueMetadata: [
+                                                {
+                                                    displayName: "navn2.test",
+                                                    type: Type.STRING,
+                                                    key: "navn2.test"
+                                                },
+                                                {
+                                                    displayName: "epost2.test",
+                                                    type: Type.STRING,
+                                                    key: "epost2.test"
+                                                }
+                                            ],
+                                            categories: []
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                displayName: 'test2',
+                content: {
+                    instanceObjectCollectionMetadata: [],
+                    instanceValueMetadata: [
+                        {
+                            displayName: "test2.navn",
+                            type: Type.STRING,
+                            key: "t2.navn"
+                        },
+                        {
+                            displayName: "test2.epost",
+                            type: Type.EMAIL,
+                            key: "t2.epost"
                         }
                     ],
                     categories: []

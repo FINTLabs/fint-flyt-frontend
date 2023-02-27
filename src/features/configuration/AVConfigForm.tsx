@@ -77,11 +77,16 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         sourceApplicationForm: {
             opacity: 0.99,
+            border: 'solid 1px',
+            borderColor: 'black',
+            padding: theme.spacing(2),
+            borderRadius: '4px',
             width: theme.spacing(40),
             height: 'fit-content',
             overflow: 'auto',
             maxHeight: theme.spacing(100),
-            maxWidth: theme.spacing(60)
+            maxWidth: theme.spacing(60),
+            marginBottom: theme.spacing(2)
         },
         accordion: {
             marginBottom: theme.spacing(2),
