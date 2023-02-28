@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useForm, useFieldArray } from "react-hook-form";
-import {Typography} from "@mui/material";
+import {Box, Button, Typography} from "@mui/material";
+import {futimes} from "fs";
 
 export interface IFormPanel {
     header: string,
@@ -30,33 +31,11 @@ export interface FieldGroup {
 }
 
 const FormPanel: React.FunctionComponent<any> = (props) => {
-    const [groupIndexes, setGroupIndexes] = React.useState([]);
-    const [counter, setCounter] = React.useState(0);
     const { register, handleSubmit } = useForm();
 
     const onSubmit = (data: any) => {
         console.log(data);
     };
-
-    const addGroup = () => {
-        // @ts-ignore
-        setGroupIndexes(prevIndexes => [...prevIndexes, counter]);
-        setCounter(prevCounter => prevCounter + 1);
-    };
-
-    const removeGroup = (index: any) => () => {
-        setGroupIndexes(prevIndexes => [...prevIndexes.filter(item => item !== index)]);
-        setCounter(prevCounter => prevCounter - 1);
-    };
-
-    const clearGroups = () => {
-        setGroupIndexes([]);
-    };
-
-
-    const addExpandable = () => {
-
-    }
 
     const test: IFormPanel = {
         header: 'Sak',
@@ -112,8 +91,29 @@ const FormPanel: React.FunctionComponent<any> = (props) => {
         ]
     }
 
+    const fieldGroupsRecord: FieldGroup[] = [
+        {
+            key: 'journalpost',
+            expandable: true,
+            fields: [
+                {label: 'Tittel', name: 'tittel', type: 'text'},
+                {label: 'Offentlig tittel', name: 'offentligTittel', type: 'text'}
+            ],
+            groups: [
+                {
+                    key: 'korrespondansepart',
+                    expandable: true,
+                    fields: [
+                        {label: 'korrespondansepartNavn', name: 'korrespondansepartnavn', type: 'text'},
+                        {label: 'kontaktperson', name: 'Kontaktperson', type: 'text'},
+                        {label: 'fødselsnummer', name: 'Fødselsnummer', type: 'text'}
+                    ]
+                }
+            ]
+        }
+    ]
 
-    const fieldGroups: FieldGroup[] = [
+    const fieldGroupsCase: FieldGroup[] = [
         {
             key: 'sak',
             expandable: false,
@@ -149,27 +149,7 @@ const FormPanel: React.FunctionComponent<any> = (props) => {
                         {key: 'Under behandlng', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/saksstatus/systemid/P'},
                     ]}
             ],
-            groups: [
-                {
-                    key: 'journalpost',
-                    expandable: true,
-                    fields: [
-                        {label: 'Tittel', name: 'tittel', type: 'text'},
-                        {label: 'Offentlig tittel', name: 'offentligTittel', type: 'text'}
-                    ],
-                    groups: [
-                        {
-                            key: 'korrespondansepart',
-                            expandable: true,
-                            fields: [
-                                {label: 'korrespondansepartNavn', name: 'korrespondansepartnavn', type: 'text'},
-                                {label: 'kontaktperson', name: 'Kontaktperson', type: 'text'},
-                                {label: 'fødselsnummer', name: 'Fødselsnummer', type: 'text'}
-                            ]
-                        }
-                    ]
-                },
-            ]
+            groups: []
         },
         {
             key: 'skjerming',
@@ -181,7 +161,7 @@ const FormPanel: React.FunctionComponent<any> = (props) => {
         }
     ]
 
-    const classes: FieldGroup = {
+    const classGroup: FieldGroup = {
         key: "klasse",
         expandable: false,
         fields: [
@@ -189,17 +169,80 @@ const FormPanel: React.FunctionComponent<any> = (props) => {
                     {key: 'Emnekode', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/klassifikasjonssystem/systemid/E'},
                     {key: 'Tilleggskode', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/klassifikasjonssystem/systemid/T'},
                 ]},
-            {label: 'KlasseId', name: 'klasseId', type: 'select', selectables: [
-                    {key: 'Emnekode 1', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/klassifikasjonssystem/systemid/E'},
-                    {key: 'Emnekode 2', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/klassifikasjonssystem/systemid/T'},
-                ]},
+            /*            {label: 'KlasseId', name: 'klasseId', type: 'select', selectables: [
+                                {key: 'Emnekode 1', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/klassifikasjonssystem/systemid/E'},
+                                {key: 'Emnekode 2', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/klassifikasjonssystem/systemid/T'},
+                            ]},*/
             {label: 'KlasseId', name: 'klasseId', type: 'text'},
             {label: 'Tittel', name: 'tittel', type: 'text'},
             {label: 'Rekkefølge', name: 'rekkefølge', type: 'text'}
         ]
     }
 
-    function Panel(fieldGroup: FieldGroup) {
+    const partGroup: FieldGroup = {
+        key: "part",
+        expandable: false,
+        fields: [
+            {label: 'Partrolle', name: 'partRolle', type: 'select', selectables: [
+                    {key: 'Korrespondanse', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/partRolle/systemid/K'},
+                ]},
+            {label: 'Partnavn', name: 'partnavn', type: 'text'},
+            {label: 'Kontaktperson', name: 'kontaktperson', type: 'text'}
+        ]
+    }
+
+    function Panel(props: {fieldGroups: FieldGroup[] }) {
+        return (
+            <div>
+                {props.fieldGroups.map((fieldGroup: FieldGroup) => {
+                    return(
+                        <FieldSetMaker fieldGroup={fieldGroup}/>
+                    )
+                })}
+            </div>
+        )
+    }
+
+    function GroupPanel(props: {fieldGroup: FieldGroup}) {
+        const [groupIndexes, setGroupIndexes] = React.useState([]);
+        const [counter, setCounter] = React.useState(0);
+
+        const addGroup = () => {
+            // @ts-ignore
+            setGroupIndexes(prevIndexes => [...prevIndexes, counter]);
+            setCounter(prevCounter => prevCounter + 1);
+        };
+
+        const removeGroup = (index: any) => () => {
+            setGroupIndexes(prevIndexes => [...prevIndexes.filter(item => item !== index)]);
+            setCounter(prevCounter => prevCounter - 1);
+        };
+
+        const clearGroups = () => {
+            setGroupIndexes([]);
+            setCounter(0)
+        };
+
+        return (
+            <div style={{border: 'solid 1px', padding: '10px', marginTop: '10px'}}>
+                <Typography>{props.fieldGroup.key}</Typography>
+                {groupIndexes.map(index => {
+                    return (
+                        <FieldGroupMaker key={index} fieldGroup={props.fieldGroup} index={index} removeGroup={removeGroup}/>
+                    )
+                })}
+                <button type="button" onClick={addGroup}>
+                    Legg til {props.fieldGroup.key}
+                </button>
+                <button type="button" onClick={clearGroups}>
+                    Fjern alle
+                </button>
+            </div>
+        )
+    }
+
+    function FieldSetMaker(props: {fieldGroup: FieldGroup}) {
+        const fieldGroup = props.fieldGroup
         return (
             <>
                 <Typography>{fieldGroup.key}</Typography>
@@ -219,7 +262,7 @@ const FormPanel: React.FunctionComponent<any> = (props) => {
                                         name={`${fieldGroup.key}.${field.name}`}>
                                         {field.selectables && field.selectables.map(selectable => {
                                             return(
-                                                <option value={selectable.value}>{selectable.key}</option>
+                                                <option key={selectable.key} value={selectable.value}>{selectable.key}</option>
                                             )
                                         })}
                                     </select>
@@ -232,58 +275,59 @@ const FormPanel: React.FunctionComponent<any> = (props) => {
         )
     }
 
+    function FieldGroupMaker(props: {fieldGroup: FieldGroup, index: number, removeGroup: Function}) {
+        const fieldSetName = `${props.fieldGroup.key}[${props.index}]`;
+        return (
+            <>
+                <Typography>{fieldSetName}</Typography>
+                <fieldset name={fieldSetName} key={fieldSetName} style={{display: "grid"}}>
+                    {props.fieldGroup.fields.map(field => {
+                        return(
+                            <label key={`${field.label} ${props.index}`}>
+                                {field.label} {props.index}:
+                                {field.type === 'text' ?
+                                    <input
+                                        type={field.type}
+                                        {...register(`${fieldSetName}.${field.name}`)}
+                                        name={`${fieldSetName}.${field.name}`}
+                                    />
+                                    :
+                                    <select
+                                        {...register(`${fieldSetName}.${field.name}`)}
+                                        name={`${fieldSetName}.${field.name}`}>
+                                        {field.selectables && field.selectables.map(selectable => {
+                                            return(
+                                                <option key={selectable.key} value={selectable.value}>{selectable.key}</option>
+                                            )
+                                        })}
+                                    </select>
+                                }
+                            </label>
+                        )
+                    })}
+                    <button type="button" onClick={props.removeGroup(props.index)} style={{width: "max-content"}}>
+                        Fjern
+                    </button>
+                </fieldset>
+            </>
+        );
+    }
+
+
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            {fieldGroups.map((fieldGroup: FieldGroup) => {
-                return(
-                    <>{Panel(fieldGroup)}</>
-                )
-            })}
-            {groupIndexes.map(index => {
-                const fieldSetName = `${classes.key}[${index}]`;
-                return (
-                    <>
-                        <Typography>{fieldSetName}</Typography>
-                        <fieldset name={fieldSetName} key={fieldSetName} style={{display: "grid"}}>
-                            {classes.fields.map(field => {
-                                return(
-                                    <label>
-                                        {field.label} {index}:
-                                        {field.type === 'text' ?
-                                            <input
-                                                type={field.type}
-                                                {...register(`${fieldSetName}.${field.name}`)}
-                                                name={`${fieldSetName}.${field.name}`}
-                                            />
-                                            :
-                                            <select
-                                                {...register(`${fieldSetName}.${field.name}`)}
-                                                name={`${fieldSetName}.${field.name}`}>
-                                                {field.selectables && field.selectables.map(selectable => {
-                                                    return(
-                                                        <option value={selectable.value}>{selectable.key}</option>
-                                                    )
-                                                })}
-                                            </select>
-                                        }
-                                    </label>
-                                )
-                            })}
-                            <button type="button" onClick={removeGroup(index)} style={{width: "max-content"}}>
-                                Fjern
-                            </button>
-                        </fieldset>
-                    </>
-                );
-            })}
-            <button type="button" onClick={addGroup}>
-                Legg til gruppe
-            </button>
-            <button type="button" onClick={clearGroups}>
-                Fjern grupper
-            </button>
+            <div style={{padding: '10px', border: 'solid 1px', marginBottom: '10px'}}>
+                <Panel fieldGroups={fieldGroupsCase}/>
+                <GroupPanel fieldGroup={partGroup}/>
+                <GroupPanel fieldGroup={classGroup}/>
+                <button type="button">Journalpost</button>
+            </div>
+            <div>
+                <Panel fieldGroups={fieldGroupsRecord}/>
+            </div>
             <input type="submit" />
         </form>
     );
 }
+
 export default FormPanel;

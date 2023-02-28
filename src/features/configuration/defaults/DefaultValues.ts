@@ -93,7 +93,7 @@ export const MOCK_INSTANCE_ELEMENT_METADATA: IInstanceElementMetadata[] =
                                 {
                                     "key": "skjema.Etternavn",
                                     "type": Type.STRING,
-                                    "displayName": "Fornavn",
+                                    "displayName": "Etternavn",
                                     "children": []
                                 },
                                 {

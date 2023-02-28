@@ -96,7 +96,6 @@ const MetadataPanel: React.FunctionComponent<any> = (props) => {
     })
 
     function TagTree({items, depth = 0}: any ) {
-        console.log(items)
         if (!items || !items.length) {
             return null
         }
