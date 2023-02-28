@@ -174,70 +174,65 @@ const AVConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
         })
     }
 
-    const saveNewConfiguration = (integrationId: string, data: IConfiguration) => {
-        console.log('save new config', integrationId, data)
-        ConfigurationRepository.createConfiguration(integrationId, data)
-            .then(response => {
-                console.log('created new configuration on integration ', integrationId, data, response);
-                setConfiguration(response.data)
-                setActiveConfigId(response.data.id)
-                setSaved(true);
-                getNewIntegrations(sourceApplication.toString());
-            })
-            .catch((e: Error) => {
-                setSaveError(true);
-                console.log('error creating new', e);
-            });
-    }
-
-    const saveConfiguration = (integrationId: string, configurationId: string, data: IConfigurationPatch) => {
+    const saveConfiguration = (integrationId: string, data: IConfigurationPatch | IConfiguration, configurationId?: string) => {
         console.log('save config', integrationId, configurationId, data)
-        ConfigurationRepository.updateConfiguration(configurationId, data)
-            .then(response => {
-                console.log('updated configuration: ', configurationId, data, response);
-                setSaved(true);
-                getNewIntegrations(sourceApplication.toString());
-            })
-            .catch((e: Error) => {
-                setSaveError(true);
-                console.log('error updating configuration', e);
-            });
+        configurationId ?
+            ConfigurationRepository.updateConfiguration(configurationId, data)
+                .then(response => {
+                    console.log('updated configuration: ', configurationId, data, response);
+                    setSaved(true);
+                    getNewIntegrations(sourceApplication.toString());
+                })
+                .catch((e: Error) => {
+                    setSaveError(true);
+                    console.log('error updating configuration', e);
+                }) :
+            ConfigurationRepository.createConfiguration(integrationId, data)
+                .then(response => {
+                    console.log('created new configuration on integration ', integrationId, data, response);
+                    setConfiguration(response.data)
+                    setActiveConfigId(response.data.id)
+                    setSaved(true);
+                    getNewIntegrations(sourceApplication.toString());
+                })
+                .catch((e: Error) => {
+                    setSaveError(true);
+                    console.log('error creating new', e);
+                });
+
     }
 
-    const activateNewConfiguration = (integrationId: string, data: IConfiguration) => {
-        console.log('publish new config', integrationId, data)
-        ConfigurationRepository.createConfiguration(integrationId, data)
-            .then(response => {
-                console.log('created new configuration', data, response);
-                if(activeChecked) {
-                    updateIntegration(response.data.integrationId, response.data)
-                }
-                resetAllResources();
-                setSubmitSuccess(true);
-                getNewIntegrations(sourceApplication.toString());
-            })
-            .catch((e: Error) => {
-                console.log('error creating new', e);
-            });
-    }
 
-    const activateConfiguration = (integrationId: string, configurationId: string, data: IConfigurationPatch) => {
+    const activateConfiguration = (integrationId: string, data: IConfigurationPatch | IConfiguration, configurationId?: string) => {
         console.log('publish config', configurationId, data)
-        ConfigurationRepository.updateConfiguration(configurationId, data)
-            .then(response => {
-                if(activeChecked) {
-                    updateIntegration(response.data.integrationId, response.data)
-                }
-                console.log('updated configuration: ', data, response);
-                resetAllResources();
-                setSubmitSuccess(true);
-                getNewIntegrations(sourceApplication.toString());
-            })
-            .catch((e: Error) => {
-                console.log('error updating configuration', e);
-            });
+        configurationId ?
+            ConfigurationRepository.updateConfiguration(configurationId, data)
+                .then(response => {
+                    if(activeChecked) {
+                        updateIntegration(response.data.integrationId, response.data)
+                    }
+                    console.log('updated configuration: ', data, response);
+                    resetAllResources();
+                    setSubmitSuccess(true);
+                    getNewIntegrations(sourceApplication.toString());
+                })
+                .catch((e: Error) => {
+                    console.log('error updating configuration', e);
+                }) :
+            ConfigurationRepository.createConfiguration(integrationId, data)
+                .then(response => {
+                    console.log('created new configuration', data, response);
+                    if(activeChecked) {
+                        updateIntegration(response.data.integrationId, response.data)
+                    }
+                    resetAllResources();
+                    setSubmitSuccess(true);
+                    getNewIntegrations(sourceApplication.toString());
+                })
+                .catch((e: Error) => {
+                    console.log('error creating new', e);
+                });
     }
-
     const handleCancel = () => {
         history.push({
             pathname: '/',
@@ -277,11 +272,11 @@ const AVConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
         const configuration: IConfiguration = toAVConfiguration(data, activeIntegration?.id, activeConfigId, selectedMetadata.id);
         if (configuration && activeConfigId !== undefined) {
             const iConfiguration: IConfiguration = toAVConfigurationPatch(data, selectedMetadata.id);
-            activateConfiguration(activeIntegration?.id, activeConfigId, iConfiguration)
+            activateConfiguration(activeIntegration?.id, iConfiguration, activeConfigId)
             reset({ ...defaultConfigurationValuesAV })
         }
         else if (configuration && activeIntegration?.id) {
-            activateNewConfiguration(activeIntegration?.id, configuration);
+            activateConfiguration(activeIntegration?.id, configuration, undefined);
             reset({ ...defaultConfigurationValuesAV })
         } else {
             //TODO: Handle error
@@ -298,10 +293,10 @@ const AVConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
         const configuration: IConfiguration = toAVConfiguration(data, activeIntegration?.id, activeConfigId, selectedMetadata.id);
         if (configuration && activeConfigId !== undefined) {
             const iConfiguration: IConfiguration = toAVConfigurationPatch(data, selectedMetadata.id);
-            saveConfiguration(activeIntegration?.id, activeConfigId, iConfiguration)
+            saveConfiguration(activeIntegration?.id, iConfiguration, activeConfigId)
         }
         else if (activeIntegration?.id && configuration) {
-            saveNewConfiguration(activeIntegration.id, configuration);
+            saveConfiguration(activeIntegration.id, configuration, undefined);
         } else {
             //TODO: Handle error
             return;

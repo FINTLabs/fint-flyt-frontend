@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import {createStyles, makeStyles} from "@mui/styles";
 import {IFormConfiguration} from "./types/Form/FormData";
-import {defaultConfigurationValues} from "./defaults/DefaultValues";
+import {defaultConfigurationValues, defaultConfigurationValuesAV} from "./defaults/DefaultValues";
 import AccordionForm from "./components/AccordionForm";
 import {ACCORDION_FORM, IAccordion} from "./types/Accordion";
 import SourceApplicationForm from "./components/SourceApplicationForm";
@@ -29,12 +29,15 @@ import CloseIcon from '@mui/icons-material/Close';
 import {useTranslation} from "react-i18next";
 import InputField from "./components/form/InputField";
 import {INPUT_TYPE} from "./types/InputType.enum";
-import {toConfigurationPatch, toConfiguration} from "../util/mapping/ToConfiguration";
 import {IConfigurationPatch, IConfiguration} from "./types/Configuration";
 import ConfigurationRepository from "../../shared/repositories/ConfigurationRepository";
 import IntegrationRepository from "../../shared/repositories/IntegrationRepository";
 import {IIntegrationPatch, IntegrationState} from "../integration/types/Integration";
 import {SourceApplicationContext} from "../../context/sourceApplicationContext";
+import {
+    toAVConfiguration,
+    toAVConfigurationPatch
+} from "../util/mapping/AV/ToAVConfiguration";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -130,7 +133,7 @@ const CaseConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => 
         setActiveChecked(event.target.checked);
     };
 
-    const {handleSubmit, watch, setValue, control, reset, formState} = useForm<IFormConfiguration>({
+    const {handleSubmit, watch, setValue, control, reset, formState, clearErrors} = useForm<IFormConfiguration>({
         defaultValues: activeFormData ? activeFormData : defaultConfigurationValues,
         reValidateMode: 'onChange'
     });
@@ -172,70 +175,65 @@ const CaseConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => 
         })
     }
 
-    const saveNewConfiguration = (integrationId: string, data: IConfiguration) => {
-        console.log('save new config', integrationId, data)
-        ConfigurationRepository.createConfiguration(integrationId, data)
-            .then(response => {
-                console.log('created new configuration on integration ', integrationId, data, response);
-                setConfiguration(response.data)
-                setActiveConfigId(response.data.id)
-                setSaved(true);
-                getNewIntegrations(sourceApplication.toString());
-            })
-            .catch((e: Error) => {
-                setSaveError(true);
-                console.log('error creating new', e);
-            });
-    }
-
-    const saveConfiguration = (integrationId: string, configurationId: string, data: IConfigurationPatch) => {
+    const saveConfiguration = (integrationId: string, data: IConfigurationPatch | IConfiguration, configurationId?: string) => {
         console.log('save config', integrationId, configurationId, data)
-        ConfigurationRepository.updateConfiguration(configurationId, data)
-            .then(response => {
-                console.log('updated configuration: ', configurationId, data, response);
-                setSaved(true);
-                getNewIntegrations(sourceApplication.toString());
-            })
-            .catch((e: Error) => {
-                setSaveError(true);
-                console.log('error updating configuration', e);
-            });
+        configurationId ?
+            ConfigurationRepository.updateConfiguration(configurationId, data)
+                .then(response => {
+                    console.log('updated configuration: ', configurationId, data, response);
+                    setSaved(true);
+                    getNewIntegrations(sourceApplication.toString());
+                })
+                .catch((e: Error) => {
+                    setSaveError(true);
+                    console.log('error updating configuration', e);
+                }) :
+            ConfigurationRepository.createConfiguration(integrationId, data)
+                .then(response => {
+                    console.log('created new configuration on integration ', integrationId, data, response);
+                    setConfiguration(response.data)
+                    setActiveConfigId(response.data.id)
+                    setSaved(true);
+                    getNewIntegrations(sourceApplication.toString());
+                })
+                .catch((e: Error) => {
+                    setSaveError(true);
+                    console.log('error creating new', e);
+                });
+
     }
 
-    const activateNewConfiguration = (integrationId: string, data: IConfiguration) => {
-        console.log('publish new config', integrationId, data)
-        ConfigurationRepository.createConfiguration(integrationId, data)
-            .then(response => {
-                console.log('created new configuration', data, response);
-                if(activeChecked) {
-                    updateIntegration(response.data.integrationId, response.data)
-                }
-                resetAllResources();
-                setSubmitSuccess(true);
-                getNewIntegrations(sourceApplication.toString());
-            })
-            .catch((e: Error) => {
-                console.log('error creating new', e);
-            });
-    }
 
-    const activateConfiguration = (integrationId: string, configurationId: string, data: IConfigurationPatch) => {
+    const activateConfiguration = (integrationId: string, data: IConfigurationPatch | IConfiguration, configurationId?: string) => {
         console.log('publish config', configurationId, data)
-        ConfigurationRepository.updateConfiguration(configurationId, data)
-            .then(response => {
-                if(activeChecked) {
-                    updateIntegration(response.data.integrationId, response.data)
-                }
-                console.log('updated configuration: ', data, response);
-                resetAllResources();
-                setSubmitSuccess(true);
-                getNewIntegrations(sourceApplication.toString());
-            })
-            .catch((e: Error) => {
-                console.log('error updating configuration', e);
-            });
+        configurationId ?
+            ConfigurationRepository.updateConfiguration(configurationId, data)
+                .then(response => {
+                    if(activeChecked) {
+                        updateIntegration(response.data.integrationId, response.data)
+                    }
+                    console.log('updated configuration: ', data, response);
+                    resetAllResources();
+                    setSubmitSuccess(true);
+                    getNewIntegrations(sourceApplication.toString());
+                })
+                .catch((e: Error) => {
+                    console.log('error updating configuration', e);
+                }) :
+            ConfigurationRepository.createConfiguration(integrationId, data)
+                .then(response => {
+                    console.log('created new configuration', data, response);
+                    if(activeChecked) {
+                        updateIntegration(response.data.integrationId, response.data)
+                    }
+                    resetAllResources();
+                    setSubmitSuccess(true);
+                    getNewIntegrations(sourceApplication.toString());
+                })
+                .catch((e: Error) => {
+                    console.log('error creating new', e);
+                });
     }
-
     const handleCancel = () => {
         history.push({
             pathname: '/',
@@ -272,15 +270,15 @@ const CaseConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => 
         }
         data.completed = true;
         if (!shieldingCheck) data.recordData.correspondent.shielding = {accessCode: null, paragraph: null};
-        const configuration: IConfiguration = toConfiguration(data, activeIntegration?.id, activeConfigId, selectedMetadata.id);
+        const configuration: IConfiguration = toAVConfiguration(data, activeIntegration?.id, activeConfigId, selectedMetadata.id);
         if (configuration && activeConfigId !== undefined) {
-            const iConfiguration: IConfiguration = toConfigurationPatch(data, selectedMetadata.id);
-            activateConfiguration(activeIntegration?.id, activeConfigId, iConfiguration)
-            reset({ ...defaultConfigurationValues })
+            const iConfiguration: IConfiguration = toAVConfigurationPatch(data, selectedMetadata.id);
+            activateConfiguration(activeIntegration?.id, iConfiguration, activeConfigId)
+            reset({ ...defaultConfigurationValuesAV })
         }
         else if (configuration && activeIntegration?.id) {
-            activateNewConfiguration(activeIntegration?.id, configuration);
-            reset({ ...defaultConfigurationValues })
+            activateConfiguration(activeIntegration?.id, configuration, undefined);
+            reset({ ...defaultConfigurationValuesAV })
         } else {
             //TODO: Handle error
             return;
@@ -293,13 +291,13 @@ const CaseConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => 
         }
         data.completed = false;
         if (!shieldingCheck) data.recordData.correspondent.shielding = {accessCode: null, paragraph: null};
-        const configuration: IConfiguration = toConfiguration(data, activeIntegration?.id, activeConfigId, selectedMetadata.id);
+        const configuration: IConfiguration = toAVConfiguration(data, activeIntegration?.id, activeConfigId, selectedMetadata.id);
         if (configuration && activeConfigId !== undefined) {
-            const iConfiguration: IConfiguration = toConfigurationPatch(data, selectedMetadata.id);
-            saveConfiguration(activeIntegration?.id, activeConfigId, iConfiguration)
+            const iConfiguration: IConfiguration = toAVConfigurationPatch(data, selectedMetadata.id);
+            saveConfiguration(activeIntegration?.id, iConfiguration, activeConfigId)
         }
         else if (activeIntegration?.id && configuration) {
-            saveNewConfiguration(activeIntegration.id, configuration);
+            saveConfiguration(activeIntegration.id, configuration, undefined);
         } else {
             //TODO: Handle error
             return;
@@ -335,6 +333,7 @@ const CaseConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => 
                                         onSave={onSave}
                                         shieldingCheck={shieldingCheck}
                                         setShieldingCheck={setShieldingCheck}
+                                        clearErrors={clearErrors}
                                     />
                                 )
                             })}
@@ -367,7 +366,6 @@ const CaseConfigForm: React.FunctionComponent<RouteComponentProps<any>> = () => 
                                 </FormGroup>
                             </div>
                             <Box className={classes.buttonContainer}>
-
                                 <Button disabled={completed} id="integration-form-submit-btn" sx={{ ml: 2, mr: 2 }} onClick={checked ? onSubmit : onSave} variant="contained">{checked ? t('button.complete') : t('button.save')}</Button>
                                 <Button id="integration-form-cancel-btn" onClick={handleCancel} variant="contained">{t('button.cancel')}</Button>
                             </Box>
