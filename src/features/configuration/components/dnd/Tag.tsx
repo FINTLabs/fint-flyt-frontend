@@ -19,7 +19,6 @@ export const Tag: FC<ITag> = function Tag({ name, value, type, disabled }) {
     }))
 
     function typeToIcon(type: string) {
-        console.log(type)
         if (type === Type.STRING) {
             return <TextFieldsIcon/>
         }

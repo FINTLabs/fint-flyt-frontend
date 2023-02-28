@@ -42,7 +42,6 @@ const SourceApplicationForm: React.FunctionComponent<any> = (props) => {
             return null
         }
 
-        console.log(items)
         return items.map((item: any) => (
             <React.Fragment key={item.displayName}>
                 {item.children.length > 0 ?

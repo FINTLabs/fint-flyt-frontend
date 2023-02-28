@@ -20,7 +20,6 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
     const {instanceElementMetadata} = useContext(SourceApplicationContext)
 
     function validAndExisting(value: string): boolean {
-        const reg = regExp.test(value)
         if(!regExp.test(value)) {
             return false
         }
