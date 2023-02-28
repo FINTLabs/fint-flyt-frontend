@@ -20,19 +20,16 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
     const {instanceElementMetadata} = useContext(SourceApplicationContext)
 
     function validAndExisting(value: string): boolean {
-        console.log(!regExp.test(value))
+        const reg = regExp.test(value)
         if(!regExp.test(value)) {
-            console.log('stoppa i regexCheck', value, !regExp.test(value))
             return false
         }
         if(value && value !== '' && instanceElementMetadata) {
             const instanceFields = extractTags(value, '$if{', '}')
             const flatMetadata = flatten(instanceElementMetadata)
             const keys = flatMetadata.map((item: any) => item.key).filter((item: any) => {return item !== null})
-            console.log('array check', instanceFields.every(v => keys.includes(v)))
             return instanceFields.every(v => keys.includes(v))
         }
-        console.log('stoppa, kom ikke gjennom value && value !== \'\' && instanceElementMetadata')
         return false
     }
 
@@ -60,10 +57,10 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
 
     const validation = props.validation;
     const error = props.error;
-    const validRegEx: boolean = regExp.test(inputValue)
+    //const validRegEx: boolean = regExp.test(inputValue)
     const validAndRegEx = validAndExisting(inputValue)
 
-    console.log(validRegEx, validAndRegEx)
+
     return (
         <Controller
             control={props.control}
@@ -84,8 +81,8 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
                             setInputValue(e.target.value as string);
                             onChange(e);
                         }}
-                        error={(!!props.error && props.required) || (inputValue === '' &&  props.required && !!props.error || validation && inputValue !== '' && !validRegEx)}
-                        helperText={(value === '' && error && props.required && validation) ? 'Obligatorisk felt' : ((validation && inputValue !== '' && !validRegEx) ? 'Data fra skjema må være på formatet $if{metadata} og eksistere i data fra skjema' : '')}
+                        error={(!!props.error && props.required) || (inputValue === '' &&  props.required && !!props.error || validation && inputValue !== '' && !validAndRegEx)}
+                        helperText={(value === '' && error && props.required && validation) ? 'Obligatorisk felt' : ((validation && inputValue !== '' && !validAndRegEx) ? 'Data fra skjema må være på formatet $if{metadata} og eksistere i data fra skjema' : '')}
                     />)
             }}
             rules={
