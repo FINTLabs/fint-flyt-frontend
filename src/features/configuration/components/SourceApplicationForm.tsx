@@ -113,7 +113,7 @@ const SourceApplicationForm: React.FunctionComponent<any> = (props) => {
             </Box>
             <Box className={props.style.sourceApplicationForm}>
                 <Box className={props.style.row}>
-                    <TagTreeCollectionValues items={instanceElementMetadata}/>
+                    {instanceElementMetadata && <TagTreeCollectionValues items={instanceElementMetadata}/>}
                 </Box>
             </Box>
         </>
