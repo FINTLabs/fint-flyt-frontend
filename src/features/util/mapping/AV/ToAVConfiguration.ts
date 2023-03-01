@@ -48,8 +48,8 @@ export function toAVConfiguration(data: IFormConfiguration, integrationId: strin
                                 }),
                                 objectCollectionMappingPerKey: filterObjectCollectionMappingEntries({
                                     "klasse": {
-                                        objectsFromCollectionMappings: [],
-                                        objectMappings: [
+                                        fromCollectionMappings: [],
+                                        elementMappings: [
                                             {
                                                 valueMappingPerKey: classDataToRecord(data.caseData.newCase.classes[0], "0"),
                                                 valueCollectionMappingPerKey: {},
@@ -86,14 +86,14 @@ export function toAVConfiguration(data: IFormConfiguration, integrationId: strin
                         }),
                         objectCollectionMappingPerKey: filterObjectCollectionMappingEntries({
                             "dokumentbeskrivelse": {
-                                objectMappings: [
+                                elementMappings: [
                                     {
                                         valueMappingPerKey: documentDescriptionDataToRecord(data.recordData.mainDocument),
                                         valueCollectionMappingPerKey: {},
                                         objectMappingPerKey: {},
                                         objectCollectionMappingPerKey: {
                                             "dokumentobjekt": {
-                                                objectMappings: [
+                                                elementMappings: [
                                                     {
                                                         valueMappingPerKey: documentObjectDataToRecord(data.recordData.mainDocument),
                                                         valueCollectionMappingPerKey: {},
@@ -101,21 +101,21 @@ export function toAVConfiguration(data: IFormConfiguration, integrationId: strin
                                                         objectCollectionMappingPerKey: {}
                                                     }
                                                 ],
-                                                objectsFromCollectionMappings: []
+                                                fromCollectionMappings: []
                                             }
                                         }
                                     }
                                 ].filter(shouldIncludeObjectMapping),
-                                objectsFromCollectionMappings: [
+                                fromCollectionMappings: [
                                     {
                                         instanceCollectionReferencesOrdered: ["$if{vedlegg}"],
-                                        objectMapping: {
+                                        elementMapping: {
                                             valueMappingPerKey: documentDescriptionDataToRecord(data.recordData.attachmentDocuments),
                                             valueCollectionMappingPerKey: {},
                                             objectMappingPerKey: {},
                                             objectCollectionMappingPerKey: filterObjectCollectionMappingEntries({
                                                 "dokumentobjekt": {
-                                                    objectMappings: [
+                                                    elementMappings: [
                                                         {
                                                             valueMappingPerKey: documentObjectDataToRecord(data.recordData.attachmentDocuments),
                                                             valueCollectionMappingPerKey: {},
@@ -123,7 +123,7 @@ export function toAVConfiguration(data: IFormConfiguration, integrationId: strin
                                                             objectCollectionMappingPerKey: {}
                                                         }
                                                     ].filter(shouldIncludeObjectMapping),
-                                                    objectsFromCollectionMappings: []
+                                                    fromCollectionMappings: []
                                                 }
                                             })
                                         }
@@ -132,7 +132,7 @@ export function toAVConfiguration(data: IFormConfiguration, integrationId: strin
 
                             },
                             "korrespondansepart": {
-                                objectMappings: [{
+                                elementMappings: [{
                                     valueMappingPerKey: correspondentDataToRecord(data.recordData.correspondent),
                                     valueCollectionMappingPerKey: {},
                                     objectMappingPerKey: filterObjectMappingEntries({
@@ -162,7 +162,7 @@ export function toAVConfiguration(data: IFormConfiguration, integrationId: strin
                                     }),
                                     objectCollectionMappingPerKey: {}
                                 }].filter(shouldIncludeObjectMapping),
-                                objectsFromCollectionMappings: []
+                                fromCollectionMappings: []
                             }
                         })
                     }
@@ -199,8 +199,8 @@ export function toAVConfigurationPatch(data: IFormConfiguration, metadataId: any
                             }),
                             objectCollectionMappingPerKey: filterObjectCollectionMappingEntries({
                                 "klasse": {
-                                    objectsFromCollectionMappings: [],
-                                    objectMappings: [
+                                    fromCollectionMappings: [],
+                                    elementMappings: [
                                         {
                                             valueMappingPerKey: classDataToRecord(data.caseData.newCase.classes[0], "0"),
                                             valueCollectionMappingPerKey: {},
@@ -237,14 +237,14 @@ export function toAVConfigurationPatch(data: IFormConfiguration, metadataId: any
                     }),
                     objectCollectionMappingPerKey: filterObjectCollectionMappingEntries({
                         "dokumentbeskrivelse": {
-                            objectMappings: [
+                            elementMappings: [
                                 {
                                     valueMappingPerKey: documentDescriptionDataToRecord(data.recordData.mainDocument),
                                     valueCollectionMappingPerKey: {},
                                     objectMappingPerKey: {},
                                     objectCollectionMappingPerKey: {
                                         "dokumentobjekt": {
-                                            objectMappings: [
+                                            elementMappings: [
                                                 {
                                                     valueMappingPerKey: documentObjectDataToRecord(data.recordData.mainDocument),
                                                     valueCollectionMappingPerKey: {},
@@ -252,21 +252,21 @@ export function toAVConfigurationPatch(data: IFormConfiguration, metadataId: any
                                                     objectCollectionMappingPerKey: {}
                                                 }
                                             ],
-                                            objectsFromCollectionMappings: []
+                                            fromCollectionMappings: []
                                         }
                                     }
                                 }
                             ].filter(shouldIncludeObjectMapping),
-                            objectsFromCollectionMappings: [
+                            fromCollectionMappings: [
                                 {
                                     instanceCollectionReferencesOrdered: ["$if{vedlegg}"],
-                                    objectMapping: {
+                                    elementMapping: {
                                         valueMappingPerKey: documentDescriptionDataToRecord(data.recordData.attachmentDocuments),
                                         valueCollectionMappingPerKey: {},
                                         objectMappingPerKey: {},
                                         objectCollectionMappingPerKey: filterObjectCollectionMappingEntries({
                                             "dokumentobjekt": {
-                                                objectMappings: [
+                                                elementMappings: [
                                                     {
                                                         valueMappingPerKey: documentObjectDataToRecord(data.recordData.attachmentDocuments),
                                                         valueCollectionMappingPerKey: {},
@@ -274,7 +274,7 @@ export function toAVConfigurationPatch(data: IFormConfiguration, metadataId: any
                                                         objectCollectionMappingPerKey: {}
                                                     }
                                                 ].filter(shouldIncludeObjectMapping),
-                                                objectsFromCollectionMappings: []
+                                                fromCollectionMappings: []
                                             }
                                         })
                                     }
@@ -283,7 +283,7 @@ export function toAVConfigurationPatch(data: IFormConfiguration, metadataId: any
 
                         },
                         "korrespondansepart": {
-                            objectMappings: [{
+                            elementMappings: [{
                                 valueMappingPerKey: correspondentDataToRecord(data.recordData.correspondent),
                                 valueCollectionMappingPerKey: {},
                                 objectMappingPerKey: filterObjectMappingEntries({
@@ -313,7 +313,7 @@ export function toAVConfigurationPatch(data: IFormConfiguration, metadataId: any
                                 }),
                                 objectCollectionMappingPerKey: {}
                             }].filter(shouldIncludeObjectMapping),
-                            objectsFromCollectionMappings: []
+                            fromCollectionMappings: []
                         }
                     })
                 }

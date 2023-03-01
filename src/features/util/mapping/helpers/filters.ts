@@ -1,8 +1,8 @@
 import {
-    IObjectCollectionMapping,
+    ICollectionMapping,
     IObjectMapping,
-    IObjectsFromCollectionMapping
 } from "../../../configuration/types/AVConfiguration";
+import {IFromCollectionMapping} from "../../../configuration/types/Configuration";
 
 export function shouldIncludeObjectMapping(data: IObjectMapping): boolean {
     return Object.entries(data.valueMappingPerKey).length > 0
@@ -11,12 +11,12 @@ export function shouldIncludeObjectMapping(data: IObjectMapping): boolean {
         || Object.entries(data.objectCollectionMappingPerKey).length > 0;
 }
 
-export function shouldIncludeObjectCollectionMapping(data: IObjectCollectionMapping): boolean {
-    return data.objectMappings.length > 0 || data.objectsFromCollectionMappings.length > 0;
+export function shouldIncludeObjectCollectionMapping(data: ICollectionMapping<IObjectMapping>): boolean {
+    return data.elementMappings.length > 0 || data.fromCollectionMappings.length > 0;
 }
 
-export function shouldIncludeObjectsFromCollectionMapping(data: IObjectsFromCollectionMapping): boolean {
-    return shouldIncludeObjectMapping(data.objectMapping);
+export function shouldIncludeObjectsFromCollectionMapping(data: IFromCollectionMapping<IObjectMapping>): boolean {
+    return shouldIncludeObjectMapping(data.elementMapping);
 }
 
 export function filterEntries<T>(data: Record<string, T>, predicate: (t: T) => boolean): Record<string, T> {
@@ -31,6 +31,6 @@ export function filterObjectMappingEntries(data: Record<string, IObjectMapping>)
     return filterEntries(data, shouldIncludeObjectMapping);
 }
 
-export function filterObjectCollectionMappingEntries(data: Record<string, IObjectCollectionMapping>): Record<string, IObjectCollectionMapping> {
+export function filterObjectCollectionMappingEntries(data: Record<string, ICollectionMapping<IObjectMapping>>): Record<string, ICollectionMapping<IObjectMapping>> {
     return filterEntries(data, shouldIncludeObjectCollectionMapping);
 }

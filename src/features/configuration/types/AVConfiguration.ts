@@ -16,10 +16,10 @@ export interface IAVConfigurationPatch {
 }
 
 export interface IObjectMapping {
-    valueMappingPerKey: Record<string, IValueMapping>;
-    valueCollectionMappingPerKey: Record<string, IValueMapping>
-    objectMappingPerKey: Record<string, IObjectMapping>;
-    objectCollectionMappingPerKey: Record<string, IObjectCollectionMapping>;
+    valueMappingPerKey: Record<string, IValueMapping>
+    objectMappingPerKey: Record<string, IObjectMapping>
+    valueCollectionMappingPerKey: Record<string, ICollectionMapping<IValueMapping>>
+    objectCollectionMappingPerKey: Record<string, ICollectionMapping<IObjectMapping>>
 }
 
 export interface IValueMapping {
@@ -27,15 +27,25 @@ export interface IValueMapping {
     mappingString: string | null
 }
 
-export interface IObjectCollectionMapping {
-    objectMappings: IObjectMapping[];
-    objectsFromCollectionMappings: IObjectsFromCollectionMapping[];
+export interface ICollectionMapping<T extends IObjectMapping | IValueMapping> {
+    elementMappings: T[];
+    fromCollectionMappings: IFromCollectionMapping<T>[]
+}
+
+export interface IFromCollectionMapping<T extends IObjectMapping | IValueMapping> {
+    instanceCollectionReferencesOrdered: string[];
+    elementMapping: T;
+}
+
+/*export interface IObjectCollectionMapping {
+    elementMappings: IObjectMapping[];
+    fromCollectionMappings: IObjectsFromCollectionMapping[];
 }
 
 export interface IObjectsFromCollectionMapping {
     instanceCollectionReferencesOrdered: string[];
     objectMapping: IObjectMapping
-}
+}*/
 
 export const FieldType = {
     STRING: 'STRING',
@@ -44,4 +54,3 @@ export const FieldType = {
     BOOLEAN: 'BOOLEAN',
     FILE: 'FILE'
 }
-

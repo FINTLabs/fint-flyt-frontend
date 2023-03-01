@@ -128,7 +128,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                 setConfiguration(data);
                 const caseFields: IObjectMapping = data.mapping?.objectMappingPerKey['sak'] ? data.mapping?.objectMappingPerKey['sak'] : {objectMappingPerKey: {}, objectCollectionMappingPerKey: {}, valueMappingPerKey: {}};
                 const caseNewCaseFields: IObjectMapping = caseFields.objectMappingPerKey['ny'] ? caseFields.objectMappingPerKey['ny'] :  {objectMappingPerKey: {}, objectCollectionMappingPerKey: {}, valueMappingPerKey: {}, valueCollectionMappingPerKey: {}}
-                const caseClassesFields: IObjectMapping[] = caseNewCaseFields.objectCollectionMappingPerKey['klasse']?.objectMappings ? caseNewCaseFields.objectCollectionMappingPerKey['klasse']?.objectMappings  :  []
+                const caseClassesFields: IObjectMapping[] = caseNewCaseFields.objectCollectionMappingPerKey['klasse']?.elementMappings ? caseNewCaseFields.objectCollectionMappingPerKey['klasse']?.elementMappings  :  []
                 let primaryClass = caseClassesFields[0]?.valueMappingPerKey['klassifikasjonssystem']?.mappingString ? caseClassesFields[0].valueMappingPerKey['klassifikasjonssystem']?.mappingString : null
                 let secondaryClass = caseClassesFields[1]?.valueMappingPerKey['klassifikasjonssystem']?.mappingString ? caseClassesFields[1].valueMappingPerKey['klassifikasjonssystem']?.mappingString : null
                 let tertiaryClass = caseClassesFields[2]?.valueMappingPerKey['klassifikasjonssystem']?.mappingString ? caseClassesFields[2].valueMappingPerKey['klassifikasjonssystem']?.mappingString : null

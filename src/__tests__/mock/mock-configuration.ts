@@ -19,11 +19,11 @@ export const MOCK_CONFIGURATION: IConfiguration = {
             "journalpost": {
                 "objectCollectionMappingPerKey": {
                     "dokumentbeskrivelse": {
-                        "objectMappings": [
+                        "elementMappings": [
                             {
                                 "objectCollectionMappingPerKey": {
                                     "dokumentobjekt": {
-                                        "objectMappings": [
+                                        "elementMappings": [
                                             {
                                                 "objectCollectionMappingPerKey": {},
                                                 "objectMappingPerKey": {},
@@ -44,7 +44,7 @@ export const MOCK_CONFIGURATION: IConfiguration = {
                                                 }
                                             }
                                         ],
-                                        "objectsFromCollectionMappings": []
+                                        "fromCollectionMappings": []
                                     }
                                 },
                                 "objectMappingPerKey": {},
@@ -69,15 +69,15 @@ export const MOCK_CONFIGURATION: IConfiguration = {
                                 }
                             }
                         ],
-                        "objectsFromCollectionMappings": [
+                        "fromCollectionMappings": [
                             {
                                 "instanceCollectionReferencesOrdered": [
                                     "$if{vedlegg}"
                                 ],
-                                "objectMapping": {
+                                "elementMapping": {
                                     "objectCollectionMappingPerKey": {
                                         "dokumentobjekt": {
-                                            "objectMappings": [
+                                            "elementMappings": [
                                                 {
                                                     "objectCollectionMappingPerKey": {},
                                                     "objectMappingPerKey": {},
@@ -98,7 +98,7 @@ export const MOCK_CONFIGURATION: IConfiguration = {
                                                     }
                                                 }
                                             ],
-                                            "objectsFromCollectionMappings": []
+                                            "fromCollectionMappings": []
                                         }
                                     },
                                     "objectMappingPerKey": {},
@@ -126,7 +126,7 @@ export const MOCK_CONFIGURATION: IConfiguration = {
                         ]
                     },
                     "korrespondansepart": {
-                        "objectMappings": [
+                        "elementMappings": [
                             {
                                 "objectCollectionMappingPerKey": {},
                                 "objectMappingPerKey": {
@@ -205,7 +205,7 @@ export const MOCK_CONFIGURATION: IConfiguration = {
                                 }
                             }
                         ],
-                        "objectsFromCollectionMappings": []
+                        "fromCollectionMappings": []
                     }
                 },
                 "objectMappingPerKey": {
@@ -259,7 +259,7 @@ export const MOCK_CONFIGURATION: IConfiguration = {
                     "ny": {
                         "objectCollectionMappingPerKey": {
                             "klasse": {
-                                "objectMappings": [
+                                "elementMappings": [
                                     {
                                         "objectCollectionMappingPerKey": {},
                                         "objectMappingPerKey": {},
@@ -330,7 +330,7 @@ export const MOCK_CONFIGURATION: IConfiguration = {
                                         }
                                     }
                                 ],
-                                "objectsFromCollectionMappings": []
+                                "fromCollectionMappings": []
                             }
                         },
                         "objectMappingPerKey": {
@@ -407,11 +407,11 @@ export const MOCK_CONFIGURATION_PATCH: IConfigurationPatch = {
             "journalpost": {
                 "objectCollectionMappingPerKey": {
                     "dokumentbeskrivelse": {
-                        "objectMappings": [
+                        "elementMappings": [
                             {
                                 "objectCollectionMappingPerKey": {
                                     "dokumentobjekt": {
-                                        "objectMappings": [
+                                        "elementMappings": [
                                             {
                                                 "objectCollectionMappingPerKey": {},
                                                 "objectMappingPerKey": {},
@@ -432,7 +432,7 @@ export const MOCK_CONFIGURATION_PATCH: IConfigurationPatch = {
                                                 }
                                             }
                                         ],
-                                        "objectsFromCollectionMappings": []
+                                        "fromCollectionMappings": []
                                     }
                                 },
                                 "objectMappingPerKey": {},
@@ -457,15 +457,15 @@ export const MOCK_CONFIGURATION_PATCH: IConfigurationPatch = {
                                 }
                             }
                         ],
-                        "objectsFromCollectionMappings": [
+                        "fromCollectionMappings": [
                             {
                                 "instanceCollectionReferencesOrdered": [
                                     "$if{vedlegg}"
                                 ],
-                                "objectMapping": {
+                                "elementMapping": {
                                     "objectCollectionMappingPerKey": {
                                         "dokumentobjekt": {
-                                            "objectMappings": [
+                                            "elementMappings": [
                                                 {
                                                     "objectCollectionMappingPerKey": {},
                                                     "objectMappingPerKey": {},
@@ -486,7 +486,7 @@ export const MOCK_CONFIGURATION_PATCH: IConfigurationPatch = {
                                                     }
                                                 }
                                             ],
-                                            "objectsFromCollectionMappings": []
+                                            "fromCollectionMappings": []
                                         }
                                     },
                                     "objectMappingPerKey": {},
@@ -514,7 +514,7 @@ export const MOCK_CONFIGURATION_PATCH: IConfigurationPatch = {
                         ]
                     },
                     "korrespondansepart": {
-                        "objectMappings": [
+                        "elementMappings": [
                             {
                                 "objectCollectionMappingPerKey": {},
                                 "objectMappingPerKey": {
@@ -593,7 +593,7 @@ export const MOCK_CONFIGURATION_PATCH: IConfigurationPatch = {
                                 }
                             }
                         ],
-                        "objectsFromCollectionMappings": []
+                        "fromCollectionMappings": []
                     }
                 },
                 "objectMappingPerKey": {
@@ -647,7 +647,7 @@ export const MOCK_CONFIGURATION_PATCH: IConfigurationPatch = {
                     "ny": {
                         "objectCollectionMappingPerKey": {
                             "klasse": {
-                                "objectMappings": [
+                                "elementMappings": [
                                     {
                                         "objectCollectionMappingPerKey": {},
                                         "objectMappingPerKey": {},
@@ -718,7 +718,7 @@ export const MOCK_CONFIGURATION_PATCH: IConfigurationPatch = {
                                         }
                                     }
                                 ],
-                                "objectsFromCollectionMappings": []
+                                "fromCollectionMappings": []
                             }
                         },
                         "objectMappingPerKey": {
@@ -811,11 +811,11 @@ export const MOCK_MAPPED_EMPTY_CONFIGURATION: IConfiguration = {
             "journalpost": {
                 "objectCollectionMappingPerKey": {
                     "dokumentbeskrivelse": {
-                        "objectMappings": [
+                        "elementMappings": [
                             {
                                 "objectCollectionMappingPerKey": {
                                     "dokumentobjekt": {
-                                        "objectMappings": [
+                                        "elementMappings": [
                                             {
                                                 "objectCollectionMappingPerKey": {},
                                                 "objectMappingPerKey": {},
@@ -823,7 +823,7 @@ export const MOCK_MAPPED_EMPTY_CONFIGURATION: IConfiguration = {
                                                 "valueMappingPerKey": {}
                                             }
                                         ],
-                                        "objectsFromCollectionMappings": []
+                                        "fromCollectionMappings": []
                                     }
                                 },
                                 "objectMappingPerKey": {},
@@ -831,7 +831,7 @@ export const MOCK_MAPPED_EMPTY_CONFIGURATION: IConfiguration = {
                                 "valueMappingPerKey": {}
                             }
                         ],
-                        "objectsFromCollectionMappings": []
+                        "fromCollectionMappings": []
                     }
                 },
                 "objectMappingPerKey": {},
@@ -886,7 +886,7 @@ export const MOCK_NEW_CONFIG: IConfiguration = {
                         },
                         objectCollectionMappingPerKey: {
                             "klasse": {
-                                "objectMappings": [
+                                "elementMappings": [
                                     {
                                         "objectCollectionMappingPerKey": {},
                                         "objectMappingPerKey": {},
@@ -957,7 +957,7 @@ export const MOCK_NEW_CONFIG: IConfiguration = {
                                         valueCollectionMappingPerKey: {}
                                     }
                                 ],
-                                "objectsFromCollectionMappings": []
+                                "fromCollectionMappings": []
                             }
                         }
                     }
@@ -987,7 +987,7 @@ export const MOCK_NEW_CONFIG: IConfiguration = {
                 },
                 objectCollectionMappingPerKey: {
                     "dokumentbeskrivelse": {
-                        objectMappings: [
+                        elementMappings: [
                             {
                                 valueMappingPerKey: {
                                     "tittel": {type: FieldType.DYNAMIC_STRING, mappingString: "record title"},
@@ -999,7 +999,7 @@ export const MOCK_NEW_CONFIG: IConfiguration = {
                                 objectMappingPerKey: {},
                                 objectCollectionMappingPerKey: {
                                     "dokumentobjekt": {
-                                        objectMappings: [
+                                        elementMappings: [
                                             {
                                                 valueMappingPerKey: {
                                                     "filformat": {type: FieldType.STRING, mappingString: "www.kodeverk.no/A"},
@@ -1011,16 +1011,16 @@ export const MOCK_NEW_CONFIG: IConfiguration = {
                                                 objectCollectionMappingPerKey: {}
                                             }
                                         ],
-                                        objectsFromCollectionMappings: [
+                                        fromCollectionMappings: [
                                         ]
                                     }
                                 }
                             }
                         ],
-                        objectsFromCollectionMappings: [
+                        fromCollectionMappings: [
                             {
                                 instanceCollectionReferencesOrdered: ["$if{vedlegg}"],
-                                objectMapping: {
+                                elementMapping: {
                                     valueMappingPerKey: {
                                         "tittel": {type: FieldType.DYNAMIC_STRING, mappingString: "$ifg{name}"},
                                         "dokumentstatus": {type: FieldType.STRING, mappingString: "D9"},
@@ -1031,7 +1031,7 @@ export const MOCK_NEW_CONFIG: IConfiguration = {
                                     objectMappingPerKey: {},
                                     objectCollectionMappingPerKey: {
                                         "dokumentobjekt": {
-                                            objectMappings: [
+                                            elementMappings: [
                                                 {
                                                     valueMappingPerKey: {
                                                         "filformat": {type: FieldType.DYNAMIC_STRING, mappingString: "www.kodeverk.no/PDF"},
@@ -1043,7 +1043,7 @@ export const MOCK_NEW_CONFIG: IConfiguration = {
                                                     objectCollectionMappingPerKey: {}
                                                 }
                                             ],
-                                            objectsFromCollectionMappings: []
+                                            fromCollectionMappings: []
                                         }
                                     }
                                 }
@@ -1052,7 +1052,7 @@ export const MOCK_NEW_CONFIG: IConfiguration = {
 
                     },
                     "korrespondansepart": {
-                        objectMappings: [{
+                        elementMappings: [{
                             valueMappingPerKey: {
                                 "fødselsnummer": {type: FieldType.DYNAMIC_STRING, mappingString: "123456789"},
                                 "organisasjonsnummer": {type: FieldType.DYNAMIC_STRING, mappingString: null},
@@ -1094,7 +1094,7 @@ export const MOCK_NEW_CONFIG: IConfiguration = {
                             },
                             objectCollectionMappingPerKey: {}
                         }],
-                        objectsFromCollectionMappings: []
+                        fromCollectionMappings: []
                     }
                 }
             }
@@ -1140,7 +1140,7 @@ export const MOCK_BY_ID_CONFIG: IConfiguration = {
                 },
                 objectCollectionMappingPerKey: {
                     "klasse": {
-                        "objectMappings": [
+                        "elementMappings": [
                             {
                                 "objectCollectionMappingPerKey": {},
                                 "objectMappingPerKey": {},
@@ -1211,7 +1211,7 @@ export const MOCK_BY_ID_CONFIG: IConfiguration = {
                                 valueCollectionMappingPerKey: {}
                             }
                         ],
-                        "objectsFromCollectionMappings": []
+                        "fromCollectionMappings": []
                     }
                 },            },
             "journalpost": {
@@ -1229,7 +1229,7 @@ export const MOCK_BY_ID_CONFIG: IConfiguration = {
                 objectMappingPerKey: {},
                 objectCollectionMappingPerKey: {
                     "dokumentbeskrivelse": {
-                        objectMappings: [
+                        elementMappings: [
                             {
                                 valueMappingPerKey: {
                                     "tittel": {type: FieldType.DYNAMIC_STRING, mappingString: "foo $if{bar}"},
@@ -1241,7 +1241,7 @@ export const MOCK_BY_ID_CONFIG: IConfiguration = {
                                 objectMappingPerKey: {},
                                 objectCollectionMappingPerKey: {
                                     "dokumentobjekt": {
-                                        objectMappings: [
+                                        elementMappings: [
                                             {
                                                 valueMappingPerKey: {
                                                     "filformat": {type: FieldType.STRING, mappingString: null},
@@ -1253,16 +1253,16 @@ export const MOCK_BY_ID_CONFIG: IConfiguration = {
                                                 objectCollectionMappingPerKey: {}
                                             }
                                         ],
-                                        objectsFromCollectionMappings: [
+                                        fromCollectionMappings: [
                                         ]
                                     }
                                 }
                             }
                         ],
-                        objectsFromCollectionMappings: [
+                        fromCollectionMappings: [
                             {
                                 instanceCollectionReferencesOrdered: ["$if{vedlegg}"],
-                                objectMapping: {
+                                elementMapping: {
                                     valueMappingPerKey: {
                                         "tittel": {type: FieldType.DYNAMIC_STRING, mappingString: null},
                                         "dokumentstatus": {type: FieldType.STRING, mappingString: null},
@@ -1273,7 +1273,7 @@ export const MOCK_BY_ID_CONFIG: IConfiguration = {
                                     objectMappingPerKey: {},
                                     objectCollectionMappingPerKey: {
                                         "dokumentobjekt": {
-                                            objectMappings: [
+                                            elementMappings: [
                                                 {
                                                     valueMappingPerKey: {
                                                         "filformat": {type: FieldType.DYNAMIC_STRING, mappingString: null},
@@ -1285,7 +1285,7 @@ export const MOCK_BY_ID_CONFIG: IConfiguration = {
                                                     objectCollectionMappingPerKey: {}
                                                 }
                                             ],
-                                            objectsFromCollectionMappings: []
+                                            fromCollectionMappings: []
                                         }
                                     }
                                 }
@@ -1294,7 +1294,7 @@ export const MOCK_BY_ID_CONFIG: IConfiguration = {
 
                     },
                     "korrespondansepart": {
-                        objectMappings: [{
+                        elementMappings: [{
                             valueMappingPerKey: {
                                 "fødselsnummer": {type: FieldType.DYNAMIC_STRING, mappingString: null},
                                 "organisasjonsnummer": {type: FieldType.DYNAMIC_STRING, mappingString: null},
@@ -1336,7 +1336,7 @@ export const MOCK_BY_ID_CONFIG: IConfiguration = {
                             },
                             objectCollectionMappingPerKey: {}
                         }],
-                        objectsFromCollectionMappings: []
+                        fromCollectionMappings: []
                     }
                 }
             }
@@ -1358,11 +1358,11 @@ export const MOCK_AV_CONFIGURATION_NEW: IConfiguration = {
             "journalpost": {
                 "objectCollectionMappingPerKey": {
                     "dokumentbeskrivelse": {
-                        "objectMappings": [
+                        "elementMappings": [
                             {
                                 "objectCollectionMappingPerKey": {
                                     "dokumentobjekt": {
-                                        "objectMappings": [
+                                        "elementMappings": [
                                             {
                                                 "objectCollectionMappingPerKey": {},
                                                 "objectMappingPerKey": {},
@@ -1383,7 +1383,7 @@ export const MOCK_AV_CONFIGURATION_NEW: IConfiguration = {
                                                 }
                                             }
                                         ],
-                                        "objectsFromCollectionMappings": []
+                                        "fromCollectionMappings": []
                                     }
                                 },
                                 "objectMappingPerKey": {},
@@ -1408,15 +1408,15 @@ export const MOCK_AV_CONFIGURATION_NEW: IConfiguration = {
                                 }
                             }
                         ],
-                        "objectsFromCollectionMappings": [
+                        "fromCollectionMappings": [
                             {
                                 "instanceCollectionReferencesOrdered": [
                                     "$if{vedlegg}"
                                 ],
-                                "objectMapping": {
+                                "elementMapping": {
                                     "objectCollectionMappingPerKey": {
                                         "dokumentobjekt": {
-                                            "objectMappings": [
+                                            "elementMappings": [
                                                 {
                                                     "objectCollectionMappingPerKey": {},
                                                     "objectMappingPerKey": {},
@@ -1437,7 +1437,7 @@ export const MOCK_AV_CONFIGURATION_NEW: IConfiguration = {
                                                     }
                                                 }
                                             ],
-                                            "objectsFromCollectionMappings": []
+                                            "fromCollectionMappings": []
                                         }
                                     },
                                     "objectMappingPerKey": {},
@@ -1465,7 +1465,7 @@ export const MOCK_AV_CONFIGURATION_NEW: IConfiguration = {
                         ]
                     },
                     "korrespondansepart": {
-                        "objectMappings": [
+                        "elementMappings": [
                             {
                                 "objectCollectionMappingPerKey": {},
                                 "objectMappingPerKey": {
@@ -1544,7 +1544,7 @@ export const MOCK_AV_CONFIGURATION_NEW: IConfiguration = {
                                 }
                             }
                         ],
-                        "objectsFromCollectionMappings": []
+                        "fromCollectionMappings": []
                     }
                 },
                 "objectMappingPerKey": {
@@ -1598,7 +1598,7 @@ export const MOCK_AV_CONFIGURATION_NEW: IConfiguration = {
                     "ny": {
                         "objectCollectionMappingPerKey": {
                             "klasse": {
-                                "objectMappings": [
+                                "elementMappings": [
                                     {
                                         "objectCollectionMappingPerKey": {},
                                         "objectMappingPerKey": {},
@@ -1669,7 +1669,7 @@ export const MOCK_AV_CONFIGURATION_NEW: IConfiguration = {
                                         }
                                     }
                                 ],
-                                "objectsFromCollectionMappings": []
+                                "fromCollectionMappings": []
                             }
                         },
                         "objectMappingPerKey": {
@@ -1777,7 +1777,7 @@ export const MOCK_AV_CONFIGURATION_NEW_NOT_SHIELDED: IConfiguration = {
                         },
                         objectCollectionMappingPerKey: {
                             "klasse": {
-                                "objectMappings": [
+                                "elementMappings": [
                                     {
                                         "objectCollectionMappingPerKey": {},
                                         "objectMappingPerKey": {},
@@ -1848,7 +1848,7 @@ export const MOCK_AV_CONFIGURATION_NEW_NOT_SHIELDED: IConfiguration = {
                                         valueCollectionMappingPerKey: {}
                                     }
                                 ],
-                                "objectsFromCollectionMappings": []
+                                "fromCollectionMappings": []
                             }
                         }
                     }
@@ -1878,7 +1878,7 @@ export const MOCK_AV_CONFIGURATION_NEW_NOT_SHIELDED: IConfiguration = {
                 },
                 objectCollectionMappingPerKey: {
                     "dokumentbeskrivelse": {
-                        objectMappings: [
+                        elementMappings: [
                             {
                                 valueMappingPerKey: {
                                     "tittel": {type: FieldType.DYNAMIC_STRING, mappingString: "record title"},
@@ -1890,7 +1890,7 @@ export const MOCK_AV_CONFIGURATION_NEW_NOT_SHIELDED: IConfiguration = {
                                 objectMappingPerKey: {},
                                 objectCollectionMappingPerKey: {
                                     "dokumentobjekt": {
-                                        objectMappings: [
+                                        elementMappings: [
                                             {
                                                 valueMappingPerKey: {
                                                     "filformat": {type: FieldType.STRING, mappingString: "www.kodeverk.no/A"},
@@ -1902,16 +1902,16 @@ export const MOCK_AV_CONFIGURATION_NEW_NOT_SHIELDED: IConfiguration = {
                                                 objectCollectionMappingPerKey: {}
                                             }
                                         ],
-                                        objectsFromCollectionMappings: [
+                                        fromCollectionMappings: [
                                         ]
                                     }
                                 }
                             }
                         ],
-                        objectsFromCollectionMappings: [
+                        fromCollectionMappings: [
                             {
                                 instanceCollectionReferencesOrdered: ["$if{vedlegg}"],
-                                objectMapping: {
+                                elementMapping: {
                                     valueMappingPerKey: {
                                         "tittel": {type: FieldType.DYNAMIC_STRING, mappingString: "$ifg{name}"},
                                         "dokumentstatus": {type: FieldType.STRING, mappingString: "D9"},
@@ -1922,7 +1922,7 @@ export const MOCK_AV_CONFIGURATION_NEW_NOT_SHIELDED: IConfiguration = {
                                     objectMappingPerKey: {},
                                     objectCollectionMappingPerKey: {
                                         "dokumentobjekt": {
-                                            objectMappings: [
+                                            elementMappings: [
                                                 {
                                                     valueMappingPerKey: {
                                                         "filformat": {type: FieldType.DYNAMIC_STRING, mappingString: "www.kodeverk.no/PDF"},
@@ -1934,7 +1934,7 @@ export const MOCK_AV_CONFIGURATION_NEW_NOT_SHIELDED: IConfiguration = {
                                                     objectCollectionMappingPerKey: {}
                                                 }
                                             ],
-                                            objectsFromCollectionMappings: []
+                                            fromCollectionMappings: []
                                         }
                                     }
                                 }
@@ -1943,7 +1943,7 @@ export const MOCK_AV_CONFIGURATION_NEW_NOT_SHIELDED: IConfiguration = {
 
                     },
                     "korrespondansepart": {
-                        objectMappings: [{
+                        elementMappings: [{
                             valueMappingPerKey: {
                                 "fødselsnummer": {type: FieldType.DYNAMIC_STRING, mappingString: "123456789"},
                                 "organisasjonsnummer": {type: FieldType.DYNAMIC_STRING, mappingString: null},
@@ -1982,7 +1982,7 @@ export const MOCK_AV_CONFIGURATION_NEW_NOT_SHIELDED: IConfiguration = {
                             },
                             objectCollectionMappingPerKey: {}
                         }],
-                        objectsFromCollectionMappings: []
+                        fromCollectionMappings: []
                     }
                 }
             }

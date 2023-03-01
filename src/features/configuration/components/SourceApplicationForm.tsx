@@ -43,7 +43,6 @@ const SourceApplicationForm: React.FunctionComponent<any> = (props) => {
     })
 
     function TagTreeValues({items, depth = 0}: any ) {
-        console.log(depth)
         return (<>
                 {items.instanceValueMetadata.map((ivm: IInstanceValueMetadata) => (
                     <div style={{ paddingLeft: depth * 10 }}>
