@@ -37,16 +37,6 @@ export interface IFromCollectionMapping<T extends IObjectMapping | IValueMapping
     elementMapping: T;
 }
 
-/*export interface IObjectCollectionMapping {
-    elementMappings: IObjectMapping[];
-    fromCollectionMappings: IObjectsFromCollectionMapping[];
-}
-
-export interface IObjectsFromCollectionMapping {
-    instanceCollectionReferencesOrdered: string[];
-    objectMapping: IObjectMapping
-}*/
-
 export const FieldType = {
     STRING: 'STRING',
     DYNAMIC_STRING: 'DYNAMIC_STRING',

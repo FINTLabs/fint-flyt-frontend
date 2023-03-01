@@ -27,7 +27,6 @@ export interface IInstanceValueMetadata {
     displayName: string;
     type: string;
     key: string;
-    disabled?: boolean;
 }
 
 export interface IInstanceObjectCollectionMetadata {

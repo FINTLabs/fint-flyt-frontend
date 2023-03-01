@@ -1,7 +1,7 @@
 import {
     ICollectionMapping,
     IObjectMapping,
-} from "../../../configuration/types/AVConfiguration";
+} from "../../../configuration/types/Configuration";
 import {IFromCollectionMapping} from "../../../configuration/types/Configuration";
 
 export function shouldIncludeObjectMapping(data: IObjectMapping): boolean {
