@@ -1,21 +1,22 @@
 import {
-    IElementCollectionMapping,
-    IElementMapping,
-    IElementsFromCollectionMapping
-} from "../../../configuration/types/AVConfiguration";
+    ICollectionMapping,
+    IObjectMapping,
+} from "../../../configuration/types/Configuration";
+import {IFromCollectionMapping} from "../../../configuration/types/Configuration";
 
-export function shouldIncludeElementMapping(data: IElementMapping): boolean {
+export function shouldIncludeObjectMapping(data: IObjectMapping): boolean {
     return Object.entries(data.valueMappingPerKey).length > 0
-        || Object.entries(data.elementMappingPerKey).length > 0
-        || Object.entries(data.elementCollectionMappingPerKey).length > 0;
+        || Object.entries(data.valueCollectionMappingPerKey).length > 0
+        || Object.entries(data.objectMappingPerKey).length > 0
+        || Object.entries(data.objectCollectionMappingPerKey).length > 0;
 }
 
-export function shouldIncludeElementCollectionMapping(data: IElementCollectionMapping): boolean {
-    return data.elementMappings.length > 0 || data.elementsFromCollectionMappings.length > 0;
+export function shouldIncludeObjectCollectionMapping(data: ICollectionMapping<IObjectMapping>): boolean {
+    return data.elementMappings.length > 0 || data.fromCollectionMappings.length > 0;
 }
 
-export function shouldIncludeElementsFromCollectionMapping(data: IElementsFromCollectionMapping): boolean {
-    return shouldIncludeElementMapping(data.elementMapping);
+export function shouldIncludeObjectsFromCollectionMapping(data: IFromCollectionMapping<IObjectMapping>): boolean {
+    return shouldIncludeObjectMapping(data.elementMapping);
 }
 
 export function filterEntries<T>(data: Record<string, T>, predicate: (t: T) => boolean): Record<string, T> {
@@ -26,10 +27,10 @@ export function filterEntries<T>(data: Record<string, T>, predicate: (t: T) => b
     return result;
 }
 
-export function filterElementMappingEntries(data: Record<string, IElementMapping>): Record<string, IElementMapping> {
-    return filterEntries(data, shouldIncludeElementMapping);
+export function filterObjectMappingEntries(data: Record<string, IObjectMapping>): Record<string, IObjectMapping> {
+    return filterEntries(data, shouldIncludeObjectMapping);
 }
 
-export function filterElementCollectionMappingEntries(data: Record<string, IElementCollectionMapping>): Record<string, IElementCollectionMapping> {
-    return filterEntries(data, shouldIncludeElementCollectionMapping);
+export function filterObjectCollectionMappingEntries(data: Record<string, ICollectionMapping<IObjectMapping>>): Record<string, ICollectionMapping<IObjectMapping>> {
+    return filterEntries(data, shouldIncludeObjectCollectionMapping);
 }

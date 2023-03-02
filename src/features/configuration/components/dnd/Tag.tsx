@@ -2,14 +2,17 @@ import {FC} from 'react'
 import {useDrag} from 'react-dnd'
 import {DraggableTypes} from './DraggableTypes'
 import {Chip} from "@mui/material";
-import {ITag} from "../../types/Tag";
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import TextFieldsIcon from '@mui/icons-material/TextFields';
 import NumbersIcon from '@mui/icons-material/Numbers';
 import ListIcon from '@mui/icons-material/List';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import DialpadIcon from '@mui/icons-material/Dialpad';
+import ToggleOnIcon from '@mui/icons-material/ToggleOn';
+import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
+import {ITag} from "../../types/Tag";
 import {Type} from "../../types/IntegrationMetadata";
-
-export const Tag: FC<ITag> = function Tag({ name, value, type, disabled }) {
+export const Tag: FC<ITag> = function Tag({ name, value, type }) {
     const [{ isDragging }, drag] = useDrag(() => ({
         type: DraggableTypes.TAG,
         item: {name, value},
@@ -28,6 +31,18 @@ export const Tag: FC<ITag> = function Tag({ name, value, type, disabled }) {
         if (type === Type.INTEGER) {
             return <NumbersIcon/>
         }
+        if (type === Type.DATE) {
+            return <CalendarMonthIcon/>
+        }
+        if (type === Type.PHONE) {
+            return <DialpadIcon/>
+        }
+        if (type === Type.BOOLEAN) {
+            return <ToggleOnIcon/>
+        }
+        if (type === Type.EMAIL) {
+            return <AlternateEmailIcon/>
+        }
         if (type === undefined) {
             return <DragIndicatorIcon/>
         }
@@ -37,12 +52,11 @@ export const Tag: FC<ITag> = function Tag({ name, value, type, disabled }) {
         <Chip
             sx={{borderRadius: '4px'}}
             icon={typeToIcon(type)}
-            ref={disabled ? null : drag}
+            ref={drag}
             variant="outlined"
             role="Tag"
             label={name}
-            style={ disabled ?
-                { backgroundColor: 'whitesmoke', margin:8, opacity: 0.4 } :
+            style={
                 { cursor: 'move', backgroundColor: 'white', margin:8, opacity }
             }
         />

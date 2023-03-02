@@ -11,12 +11,12 @@ const getConfigurations = (page: number, size: number, sortProperty: string, sor
             sorteringRetning: sortDirection,
             ferdigstilt: complete,
             integrasjonId: integrationId,
-            eksluderElementer: excludeElements
+            ekskluderMapping: excludeElements
         }
     });
 }
 const getConfiguration = (configurationId: string, excludeElements?: boolean) => {
-    return axios.get<any>(`/api/intern/konfigurasjoner/${configurationId}`, { params: { eksluderElementer: excludeElements } });
+    return axios.get<any>(`/api/intern/konfigurasjoner/${configurationId}`, { params: { ekskluderMapping: excludeElements } });
 }
 const createConfiguration = (integrationId: string, data: IConfiguration) => {
     return axios.post<any>(`/api/intern/konfigurasjoner`, data);

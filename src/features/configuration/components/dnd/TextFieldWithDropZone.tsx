@@ -26,8 +26,7 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
         if(value && value !== '' && instanceElementMetadata) {
             const instanceFields = extractTags(value, '$if{', '}')
             const flatMetadata = flatten(instanceElementMetadata)
-            const keys = flatMetadata.map((item: any) => item.key).filter((item: any) => {return item !== null})
-            return instanceFields.every(v => keys.includes(v))
+            return instanceFields.every(v => flatMetadata.includes(v))
         }
         return false
     }
