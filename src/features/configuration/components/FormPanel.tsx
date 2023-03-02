@@ -1,7 +1,6 @@
 import * as React from "react";
 import { useForm, useFieldArray } from "react-hook-form";
-import {Box, Button, Typography} from "@mui/material";
-import {futimes} from "fs";
+import { Typography} from "@mui/material";
 
 export interface IFormPanel {
     header: string,
@@ -190,6 +189,28 @@ const FormPanel: React.FunctionComponent<any> = (props) => {
             {label: 'Kontaktperson', name: 'kontaktperson', type: 'text'}
         ]
     }
+
+
+    /*
+    * Panel
+    *   header
+    *   generer felter - valueTemplates og selectableValueTemplates
+    *   generer link/felt som åpner nytt panel - objectTemplates og objectCollectionTemplates
+    * subpanel med inputfelt(er) - objectTemplates
+    *   header - fra elementkonfig
+    *   generer felter - valueTemplates og selectableValueTemplates
+    *   generer subheader og felter fra objectTemplates
+    *   generer subpaneler med objectTemplates og objectCollectionTemplates
+    *   generer link/felt som åpner subpanel - objectTemplates og objectCollectionTemplates
+    * subpanel av inputfelt gruppe(r) -
+    *   header - elementConfig displayname
+    *   generer gruppe av felter - objectCollectionTemplates
+    *
+    *   knapper for å legge til nye grupper
+    *   generer link/felt som åpner subpanel  objectCollectionTemplates
+    *
+    * */
+
 
     function Panel(props: {fieldGroups: FieldGroup[] }) {
         return (
