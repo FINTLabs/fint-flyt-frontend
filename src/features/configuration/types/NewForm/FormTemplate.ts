@@ -1,3 +1,5 @@
+import {ISelectable} from "../../components/FormPanel";
+
 export interface FormTemplate {
     valueTemplates?: IValueTemplate[];
     selectableValueTemplates?: ISelectableValueTemplate[];
@@ -8,8 +10,6 @@ export interface FormTemplate {
 export interface FormCollectionTemplate {
     objectTemplate: IObjectTemplate;
 }
-
-
 
 export interface IObjectTemplate {
     order: number,
@@ -40,18 +40,34 @@ export interface  IElementConfig {
     key: string;
     displayName: string;
     description: string;
+    showDependency?: IDependency;
+    enableDependency?: IDependency;
 }
 
 export interface ITemplate {
-    type: string
+    type: string;
+    search?: IUrlBuilder;
 }
 
 export interface ISelectableTemplate {
     type: string,
-    selectablesSources?: IUrlTemplate[];
+    selectables?: ISelectable[];
+    selectablesSources?: IUrlBuilder[];
 }
 
-export interface IUrlTemplate {
-    urlTemplate: string
-    valueKeyPerRequestParamKey?: {[key: string]: string}
+export interface IUrlBuilder {
+    urlTemplate: string;
+    valueKeyPerPathParamKey?: Record<string, string>
+    valueKeyPerRequestParamKey?: Record<string, string>
+}
+
+export interface IDependency {
+    hasAnyCombination: IValuePredicate[][];
+}
+
+export interface IValuePredicate {
+    key: string;
+    defined: boolean;
+    value?: string;
+    notValue?: string;
 }

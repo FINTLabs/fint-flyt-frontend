@@ -11,7 +11,7 @@ export interface IFormPanel {
 }
 
 export interface ISelectable {
-    key: string;
+    displayName: string;
     value: string
 }
 
@@ -118,34 +118,34 @@ const FormPanel: React.FunctionComponent<any> = (props) => {
             expandable: false,
             fields: [
                 {label: 'Sakslogikk', name: 'sakslogikk', type: 'select', selectables: [
-                        {key: 'Ny sak', value: 'NEW'},
-                        {key: 'Eksisterende sak basert på søk eller ny sak', value: 'BY_SEARCH_OR_NEW'},
-                        {key: 'Eksisterende sak basert på saksnummer', value: 'BY_ID'}
+                        {displayName: 'Ny sak', value: 'NEW'},
+                        {displayName: 'Eksisterende sak basert på søk eller ny sak', value: 'BY_SEARCH_OR_NEW'},
+                        {displayName: 'Eksisterende sak basert på saksnummer', value: 'BY_ID'}
                     ]},
                 {label: 'Tittel', name: 'tittel', type: 'text'},
                 {label: 'Offentlig tittel', name: 'offentligTittel', type: 'text'},
                 {label: 'Saksmappetype', name: 'saksmappetype', type: 'select', selectables: [
-                        {key: 'N/A - Møte- og utvalg', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/saksmappetype/systemid/MM'},
-                        {key: 'Kompetanse', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/saksmappetype/systemid/KO'},
-                        {key: 'Personal', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/saksmappetype/systemid/P'},
+                        {displayName: 'N/A - Møte- og utvalg', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/saksmappetype/systemid/MM'},
+                        {displayName: 'Kompetanse', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/saksmappetype/systemid/KO'},
+                        {displayName: 'Personal', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/saksmappetype/systemid/P'},
                     ]},
                 {label: 'Ansvarlig saksbehandler', name: 'ansvarligsaksbehandler', type: 'select', selectables: [
-                        {key: 'Mona Monsen', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/ansvarligsaksbehandler/systemid/MM'},
-                        {key: 'Kjell Olsen', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/ansvarligsaksbehandler/systemid/KO'},
-                        {key: 'Ingen', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/ansvarligsaksbehandler/systemid/I'},
+                        {displayName: 'Mona Monsen', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/ansvarligsaksbehandler/systemid/MM'},
+                        {displayName: 'Kjell Olsen', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/ansvarligsaksbehandler/systemid/KO'},
+                        {displayName: 'Ingen', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/ansvarligsaksbehandler/systemid/I'},
                     ]},
                 {label: 'Arkivdel', name: 'arkivdel', type: 'select', selectables: [
-                        {key: 'Test arkivdel', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/arkivdel/systemid/MM'}
+                        {displayName: 'Test arkivdel', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/arkivdel/systemid/MM'}
                     ]},
                 {label: 'Journalenhet', name: 'journalenhet', type: 'select', selectables: [
-                        {key: 'Enhet 1', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/arkivdel/systemid/MM'},
-                        {key: 'Kompetanse', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/arkivdel/systemid/KO'},
-                        {key: 'Personal', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/arkivdel/systemid/P'},
+                        {displayName: 'Enhet 1', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/arkivdel/systemid/MM'},
+                        {displayName: 'Kompetanse', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/arkivdel/systemid/KO'},
+                        {displayName: 'Personal', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/arkivdel/systemid/P'},
                     ]},
                 {label: 'Saksstatus', name: 'saksstatus', type: 'select', selectables: [
-                        {key: 'Avsluttet', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/saksstatus/systemid/MM'},
-                        {key: 'Ferdigstilt', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/saksstatus/systemid/KO'},
-                        {key: 'Under behandlng', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/saksstatus/systemid/P'},
+                        {displayName: 'Avsluttet', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/saksstatus/systemid/MM'},
+                        {displayName: 'Ferdigstilt', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/saksstatus/systemid/KO'},
+                        {displayName: 'Under behandlng', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/saksstatus/systemid/P'},
                     ]}
             ],
             groups: []
@@ -165,8 +165,8 @@ const FormPanel: React.FunctionComponent<any> = (props) => {
         expandable: false,
         fields: [
             {label: 'Klassifikasjonssystem', name: 'klassifikasjonssystem', type: 'select', selectables: [
-                    {key: 'Emnekode', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/klassifikasjonssystem/systemid/E'},
-                    {key: 'Tilleggskode', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/klassifikasjonssystem/systemid/T'},
+                    {displayName: 'Emnekode', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/klassifikasjonssystem/systemid/E'},
+                    {displayName: 'Tilleggskode', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/klassifikasjonssystem/systemid/T'},
                 ]},
             /*            {label: 'KlasseId', name: 'klasseId', type: 'select', selectables: [
                                 {key: 'Emnekode 1', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/klassifikasjonssystem/systemid/E'},
@@ -183,7 +183,7 @@ const FormPanel: React.FunctionComponent<any> = (props) => {
         expandable: false,
         fields: [
             {label: 'Partrolle', name: 'partRolle', type: 'select', selectables: [
-                    {key: 'Korrespondanse', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/partRolle/systemid/K'},
+                    {displayName: 'Korrespondanse', value: 'https://beta.felleskomponent.no/arkiv/kodeverk/partRolle/systemid/K'},
                 ]},
             {label: 'Partnavn', name: 'partnavn', type: 'text'},
             {label: 'Kontaktperson', name: 'kontaktperson', type: 'text'}
@@ -283,7 +283,7 @@ const FormPanel: React.FunctionComponent<any> = (props) => {
                                         name={`${fieldGroup.key}.${field.name}`}>
                                         {field.selectables && field.selectables.map(selectable => {
                                             return(
-                                                <option key={selectable.key} value={selectable.value}>{selectable.key}</option>
+                                                <option key={selectable.displayName} value={selectable.value}>{selectable.displayName}</option>
                                             )
                                         })}
                                     </select>
@@ -318,7 +318,7 @@ const FormPanel: React.FunctionComponent<any> = (props) => {
                                         name={`${fieldSetName}.${field.name}`}>
                                         {field.selectables && field.selectables.map(selectable => {
                                             return(
-                                                <option key={selectable.key} value={selectable.value}>{selectable.key}</option>
+                                                <option key={selectable.displayName} value={selectable.value}>{selectable.displayName}</option>
                                             )
                                         })}
                                     </select>
