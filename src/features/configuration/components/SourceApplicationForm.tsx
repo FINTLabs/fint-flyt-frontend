@@ -45,7 +45,7 @@ const SourceApplicationForm: React.FunctionComponent<any> = (props) => {
     function TagTreeValues({items, depth = 0}: any ) {
         return (<>
                 {items.instanceValueMetadata.map((ivm: IInstanceValueMetadata) => (
-                    <div style={{ paddingLeft: depth * 10 }}>
+                    <div style={{ paddingLeft: depth * 10 }} key={'tagtreeValues-' + ivm.key}>
                         <Tag disabled={false} type={ivm.type} name={ivm.displayName + ' {' + (ivm.key) + '}'} value={toTagValue(ivm.key)}/>
                     </div>
                 ))}</>
@@ -55,7 +55,7 @@ const SourceApplicationForm: React.FunctionComponent<any> = (props) => {
     function TagTreeCollectionValues({items, depth = 0}: any ) {
         return (<>
                 {items.instanceObjectCollectionMetadata.map((ivm: IInstanceObjectCollectionMetadata) => (
-                    <div style={{ paddingLeft: depth * 15 }}>
+                    <div style={{ paddingLeft: depth * 15 }} key={'tagTreeCollectionValues-' + ivm.key}>
                         <Typography>{ivm.displayName}</Typography>
                         <TagTreeValues items={ivm.objectMetadata}/>
                     </div>
@@ -70,12 +70,12 @@ const SourceApplicationForm: React.FunctionComponent<any> = (props) => {
         }
 
         return (
-            <React.Fragment>
+            <React.Fragment key={depth}>
                 {items.instanceValueMetadata &&
                     <TagTreeValues items={items} depth={depth+1}/>
                 }
                 {items.categories.map((category: IInstanceMetadataCategory) => (
-                    <div style={{ paddingLeft: depth * 10 }}>
+                    <div style={{ paddingLeft: depth * 10 }} key={'tagTree-' + category.displayName}>
                         {category.content.instanceValueMetadata && <div><Typography>{category.displayName}</Typography>
                         </div>}
                         <TagTree items={category.content} depth={depth+1}/>
