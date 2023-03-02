@@ -61,8 +61,7 @@ const SourceApplicationProvider: FC = ({children}) => {
             .then(response => {
                 let data: IInstanceMetadataContent = response.data
                 if(data) {
-                    //TODO: remove hardcoding
-                    setInstanceElementMetadata(MOCK_INSTANCE_METADATA.instanceMetadata)
+                    setInstanceElementMetadata(data)
                 }
             })
             .catch((err) => {
