@@ -1,18 +1,21 @@
 import * as React from "react";
 import {ISelectableValueTemplate, IValueTemplate} from "../types/NewForm/FormTemplate";
 import {useForm} from "react-hook-form";
-import {FormEventHandler, useEffect, useState} from "react";
+import {ChangeEvent, FormEventHandler, useEffect, useState} from "react";
 import {ISelectable} from "./FormPanel";
-import {containsOnlyStaticUrls, getAbsoluteKey, updateSelectables} from "../util/FormUtils";
+import {containsOnlyStaticUrls, createSource, getAbsoluteKey, updateSelectables} from "../util/FormUtils";
 import {testSelectTemplates, testStringTemplates} from "../defaults/FormTemplates";
+import {IElementMapping} from "../types/Configuration";
+import {Observable, Store} from "redux";
+import {Subject} from "rxjs";
 
 const Panel: React.FunctionComponent<any> = (props) => {
 
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, getValues } = useForm();
     const onSubmit = (data: any) => {
         console.log(data);
     };
-    const onChangeRegistry: Record<string, FormEventHandler<HTMLElement>> = {};
+    const onChangeRegistry: Record<string, Subject<void>> = {};
 
     function CreateStringValueComponent(parentRef: string, valueTemplate: IValueTemplate) {
         let fullKey = getAbsoluteKey(parentRef, valueTemplate.elementConfig)
@@ -21,7 +24,7 @@ const Panel: React.FunctionComponent<any> = (props) => {
                 {valueTemplate.elementConfig.displayName}:
                 <input type="text"
                        {...register(fullKey)}
-                       onChange={onChangeRegistry[fullKey]}
+                       onBlur={(e) => onChangeRegistry[fullKey].next()}
                 />
             </label>
         )
@@ -36,10 +39,30 @@ const Panel: React.FunctionComponent<any> = (props) => {
         )
 
         useEffect(() => {
-            if (valueTemplate.template.selectablesSources
-                && containsOnlyStaticUrls(valueTemplate.template.selectablesSources)) {
-                updateSelectables(valueTemplate.template.selectablesSources.map(selectables => selectables.urlTemplate))
-                    .then((result: any) => { setSelectables(result) })
+            if (valueTemplate.template.selectablesSources) {
+                if (containsOnlyStaticUrls(valueTemplate.template.selectablesSources)) {
+                    updateSelectables(valueTemplate.template.selectablesSources
+                        .map(selectable => ({url: selectable.urlTemplate})))
+                        .then((result: any) => {
+                            setSelectables(result)
+                        })
+                } else {
+                    valueTemplate.template.selectablesSources.forEach(urlBuilder => {
+                        if (urlBuilder.valueKeyPerRequestParamKey) {
+                            Object.keys(urlBuilder.valueKeyPerRequestParamKey).forEach(key => {
+                                onChangeRegistry[key].subscribe(() => {
+                                    if (valueTemplate.template.selectablesSources) {
+                                        updateSelectables(valueTemplate.template.selectablesSources
+                                            .map(urlBuilder => createSource(urlBuilder, getValues, parentRef))
+                                        ).then((result: any) => {
+                                            setSelectables(result)
+                                        })
+                                    }
+                                })
+                            })
+                        }
+                    })
+                }
             }
         }, [])
 
@@ -47,7 +70,7 @@ const Panel: React.FunctionComponent<any> = (props) => {
             <label>
                 {valueTemplate.elementConfig.displayName}:
                 <select {...register(fullKey)}
-                        onChange={onChangeRegistry[fullKey]}
+                        onChange={(e) => onChangeRegistry[fullKey].next()}
                         autoComplete={valueTemplate.template.type === 'SEARCH_SELECT' ? 'on' : 'off'}
                 >
                     {selectables.map(option => {
@@ -71,11 +94,12 @@ const Panel: React.FunctionComponent<any> = (props) => {
                 {valueTemplate.elementConfig.displayName}:
                 <input type="text"
                        {...register(fullKey)}
-                       onChange={onChangeRegistry[fullKey]}
+                       onBlur={(e) => onChangeRegistry[fullKey].next()}
                 />
             </label>
         )
     }
+
 
     return (
         <>
@@ -83,6 +107,9 @@ const Panel: React.FunctionComponent<any> = (props) => {
                 <fieldset style={{display: "grid"}}>
                     {testStringTemplates.map(testTemplate => {
                         return CreateStringValueComponent('sak', testTemplate)
+                    })}
+                    {testStringTemplates.map(testTemplate => {
+                        return CreateStringValueComponent('sak.journalpost', testTemplate)
                     })}
                     {testSelectTemplates.map(testSelectTemplate => {
                         return CreateSelectValueComponent('sak', testSelectTemplate)

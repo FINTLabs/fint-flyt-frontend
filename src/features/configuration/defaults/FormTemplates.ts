@@ -124,7 +124,7 @@ export const template: FormTemplate = {
                             "search": {
                                 "urlTemplate": "api/intern/arkiv/saker/{caseId}/tittel",
                                 "valueKeyPerPathParamKey": {
-                                    "id": "caseId"
+                                    "caseId": "id"
                                 }
                             }
                         }

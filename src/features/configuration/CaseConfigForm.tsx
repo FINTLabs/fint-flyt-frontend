@@ -11,6 +11,7 @@ import {HTML5Backend} from "react-dnd-html5-backend";
 import {DndProvider} from "react-dnd";
 import {useTranslation} from "react-i18next";
 import Panel from "./components/Panel";
+import FormPanel from "./components/FormPanel";
 
 
 const useStyles = makeStyles((theme: Theme) =>

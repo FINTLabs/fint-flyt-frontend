@@ -1,4 +1,5 @@
-import axios from "axios";
+import axios, {AxiosRequestConfig} from "axios";
+import {ISelectable} from "../../features/configuration/components/FormPanel";
 
 const getClasses = (link: string) => {
     return axios.get<any>(`/api/intern/arkiv/kodeverk/klasse/`, {params: {klassifikasjonssystemLink: link}});
@@ -8,9 +9,8 @@ const getResource = (resource: string) => {
     return axios.get<any>(`/api/intern/arkiv/kodeverk/${resource}`);
 }
 
-const getCodeworkResource = (url: string) => {
-    console.log('getCodeworkResource')
-    return axios.get<any>(url);
+const getSelectables = (url: string, config?: AxiosRequestConfig) => {
+    return axios.get<ISelectable[]>(url, config);
 }
 
 const getSak = (caseYear: any, id: any) => {
@@ -19,7 +19,7 @@ const getSak = (caseYear: any, id: any) => {
 const ResourceRepository = {
     getClasses,
     getResource,
-    getCodeworkResource,
+    getSelectables,
     getSak
 };
 

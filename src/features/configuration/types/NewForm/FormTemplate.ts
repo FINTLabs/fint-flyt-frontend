@@ -58,7 +58,7 @@ export interface ISelectableTemplate {
 export interface IUrlBuilder {
     urlTemplate: string;
     valueKeyPerPathParamKey?: Record<string, string>
-    valueKeyPerRequestParamKey?: Record<string, string>
+    valueKeyPerRequestParamKey?: Record<string, string>;
 }
 
 export interface IDependency {
