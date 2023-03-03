@@ -1,6 +1,6 @@
 import {IElementConfig, IUrlBuilder} from "../types/NewForm/FormTemplate";
 import ResourceRepository from "../../../shared/repositories/ResourceRepository";
-import {IResourceItem} from "../../../context/resourcesContext/types";
+import {ISelectable} from "../components/FormPanel";
 
 export function containsOnlyStaticUrls(selectableSources: IUrlBuilder[]): boolean {
     return selectableSources.every(isStaticUrl)
@@ -15,13 +15,12 @@ export function getAbsoluteKey(parentRef: string, elementConfig: IElementConfig)
     return (parentRef ? parentRef + '.' : '') + elementConfig.key
 }
 
-export function updateSelectables(sources: string[], setter: Function) {
-    console.log(sources)
-    return Promise.all(
+export function updateSelectables(sources: string[]) {
+   return Promise.all(
         sources.map(source =>
-            ResourceRepository.getResource(source)
+            ResourceRepository.getCodeworkResource('/' + source)
                 .then(response => {
-                    let list: IResourceItem[] = [];
+                    let list: ISelectable[] = [];
                     let data = response.data;
                     if (data) {
                         data.sort((a: any, b: any) => {
@@ -30,14 +29,13 @@ export function updateSelectables(sources: string[], setter: Function) {
                             }
                             return data;
                         });
-                        data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
+                        data.map((resource: any) => list.push({displayName: resource.displayName, value: resource.id}))
                         return list;
                     }
                 })
-        )).then(result => setter(result.flat())
+        )).then(result => { return result !== undefined ? result.flat() : [] }
     ).catch((err) => {
-        console.error(err);
+       console.error(err);
+        return [];
     })
-
-    // get kodeverk based on source
 }

@@ -1,5 +1,95 @@
-import {FormTemplate} from "../types/NewForm/FormTemplate";
+import {FormTemplate, ISelectableValueTemplate, IValueTemplate} from "../types/NewForm/FormTemplate";
 
+export const testStringTemplates: IValueTemplate[] = [
+    {
+        "order": 0,
+        "elementConfig": {
+            "key": "tittel",
+            "displayName": "Tittel",
+            "description": ""
+        },
+        "template": {
+            "type": "DYNAMIC_STRING"
+        }
+    },
+    {
+        "order": 1,
+        "elementConfig": {
+            "key": "offentligTittel",
+            "displayName": "Offentlig tittel",
+            "description": ""
+        },
+        "template": {
+            "type": "DYNAMIC_STRING"
+        }
+    }
+]
+export const testSelectTemplates: ISelectableValueTemplate[] = [
+    {
+        "order": 4,
+        "elementConfig": {
+            "key": "administrativenhet",
+            "displayName": "Administrativ enhet",
+            "description": ""
+        },
+        "template": {
+            "type": "SEARCH_SELECT",
+            "selectablesSources": [
+                {
+                    "urlTemplate": "api/intern/arkiv/kodeverk/administrativenhet"
+                }
+            ]
+        }
+    },
+    {
+        "order": 5,
+        "elementConfig": {
+            "key": "saksansvarlig",
+            "displayName": "Saksansvarlig",
+            "description": ""
+        },
+        "template": {
+            "type": "SEARCH_SELECT",
+            "selectablesSources": [
+                {
+                    "urlTemplate": "api/intern/arkiv/kodeverk/arkivressurs"
+                }
+            ]
+        }
+    },
+    {
+        "order": 6,
+        "elementConfig": {
+            "key": "arkivdel",
+            "displayName": "Arkivdel",
+            "description": ""
+        },
+        "template": {
+            "type": "SEARCH_SELECT",
+            "selectablesSources": [
+                {
+                    "urlTemplate": "api/intern/arkiv/kodeverk/arkivdel"
+                }
+            ]
+        }
+    },
+    {
+        "order": 7,
+        "elementConfig": {
+            "key": "saksstatus",
+            "displayName": "Saksstatus",
+            "description": ""
+        },
+        "template": {
+            "type": "SEARCH_SELECT",
+            "selectablesSources": [
+                {
+                    "urlTemplate": "api/intern/arkiv/kodeverk/sakstatus"
+                }
+            ]
+        }
+    }
+]
 export const template: FormTemplate = {
     "objectTemplates": [
         {

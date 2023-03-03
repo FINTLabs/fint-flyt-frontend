@@ -10,7 +10,6 @@ import MetadataPanel from "./components/MetadataPanel";
 import {HTML5Backend} from "react-dnd-html5-backend";
 import {DndProvider} from "react-dnd";
 import {useTranslation} from "react-i18next";
-import FormPanel from "./components/FormPanel";
 import Panel from "./components/Panel";
 
 

@@ -1,14 +1,17 @@
 import * as React from "react";
 import {ISelectableValueTemplate, IValueTemplate} from "../types/NewForm/FormTemplate";
 import {useForm} from "react-hook-form";
-import {FormEventHandler, useState} from "react";
+import {FormEventHandler, useEffect, useState} from "react";
 import {ISelectable} from "./FormPanel";
 import {containsOnlyStaticUrls, getAbsoluteKey, updateSelectables} from "../util/FormUtils";
+import {testSelectTemplates, testStringTemplates} from "../defaults/FormTemplates";
 
 const Panel: React.FunctionComponent<any> = (props) => {
 
     const { register, handleSubmit } = useForm();
-
+    const onSubmit = (data: any) => {
+        console.log(data);
+    };
     const onChangeRegistry: Record<string, FormEventHandler<HTMLElement>> = {};
 
     function CreateStringValueComponent(parentRef: string, valueTemplate: IValueTemplate) {
@@ -31,16 +34,18 @@ const Panel: React.FunctionComponent<any> = (props) => {
                 ? []
                 : valueTemplate.template.selectables ? valueTemplate.template.selectables : []
         )
-        if (valueTemplate.template.selectablesSources
-            && containsOnlyStaticUrls(valueTemplate.template.selectablesSources)) {
-            updateSelectables(
-                valueTemplate.template.selectablesSources.map(selectables => selectables.urlTemplate),
-                setSelectables
-            )
-        }
+
+        useEffect(() => {
+            if (valueTemplate.template.selectablesSources
+                && containsOnlyStaticUrls(valueTemplate.template.selectablesSources)) {
+                updateSelectables(valueTemplate.template.selectablesSources.map(selectables => selectables.urlTemplate))
+                    .then((result: any) => { setSelectables(result) })
+            }
+        }, [])
 
         return (
             <label>
+                {valueTemplate.elementConfig.displayName}:
                 <select {...register(fullKey)}
                         onChange={onChangeRegistry[fullKey]}
                         autoComplete={valueTemplate.template.type === 'SEARCH_SELECT' ? 'on' : 'off'}
@@ -73,7 +78,19 @@ const Panel: React.FunctionComponent<any> = (props) => {
     }
 
     return (
-        <></>
+        <>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <fieldset style={{display: "grid"}}>
+                    {testStringTemplates.map(testTemplate => {
+                        return CreateStringValueComponent('sak', testTemplate)
+                    })}
+                    {testSelectTemplates.map(testSelectTemplate => {
+                        return CreateSelectValueComponent('sak', testSelectTemplate)
+                    })}
+                </fieldset>
+                <input type="submit" />
+            </form>
+        </>
     );
 }
 export default Panel;
