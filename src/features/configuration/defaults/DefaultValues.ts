@@ -171,7 +171,7 @@ export const defaultConfigurationValuesAV: IFormConfiguration = {
             documentStatus: null,
             documentType: null,
             role: 'https://beta.felleskomponent.no/arkiv/kodeverk/tilknyttetregistreringsom/systemid/V',
-            fileFormat: 'https://beta.felleskomponent.no/arkiv/kodeverk/format/systemid/PROD',
+            fileFormat: 'https://beta.felleskomponent.no/arkiv/kodeverk/format/systemid/PDF',
             variant: 'https://beta.felleskomponent.no/arkiv/kodeverk/variantformat/systemid/P',
             file: '$icf{0}{fil}'
         },
