@@ -1,11 +1,9 @@
 import * as React from "react";
-import {IElementConfig, ISelectableValueTemplate, IUrlBuilder, IValueTemplate} from "../types/NewForm/FormTemplate";
-import {registerSource} from "react-dnd/lib/internals";
+import {ISelectableValueTemplate, IValueTemplate} from "../types/NewForm/FormTemplate";
 import {useForm} from "react-hook-form";
 import {FormEventHandler, useState} from "react";
-import {contextDefaultValues, IResourceItem} from "../../../context/resourcesContext/types";
-import ResourceRepository from "../../../shared/repositories/ResourceRepository";
 import {ISelectable} from "./FormPanel";
+import {containsOnlyStaticUrls, getAbsoluteKey, updateSelectables} from "../util/FormUtils";
 
 const Panel: React.FunctionComponent<any> = (props) => {
 
@@ -13,50 +11,11 @@ const Panel: React.FunctionComponent<any> = (props) => {
 
     const onChangeRegistry: Record<string, FormEventHandler<HTMLElement>> = {};
 
-    function containsOnlyStaticUrls(selectableSources: IUrlBuilder[]): boolean {
-        return selectableSources.every(isStaticUrl)
-    }
-
-    function isStaticUrl(builder: IUrlBuilder): boolean {
-        return (builder.valueKeyPerPathParamKey ? Object.keys(builder.valueKeyPerPathParamKey).length === 0 : true)
-            && (builder.valueKeyPerRequestParamKey ? Object.keys(builder.valueKeyPerRequestParamKey).length === 0 : true)
-    }
-
-    function updateSelectables(sources: string[], setter: Function) {
-        return Promise.all(
-            sources.map(source =>
-                ResourceRepository.getResource(source)
-                    .then(response => {
-                        let list: IResourceItem[] = [];
-                        let data = response.data;
-                        if (data) {
-                            data.sort((a: any, b: any) => {
-                                if (a.displayName < b.displayName) {
-                                    return -1;
-                                }
-                                return data;
-                            });
-                            data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
-                            return list;
-                        }
-                    })
-            )).then(result => setter(result.flat())
-        ).catch((err) => {
-            console.error(err);
-        })
-
-        // get kodeverk based on source
-    }
-
-    function getAbsoluteKey(parentRef: string, elementConfig: IElementConfig) {
-        return (parentRef ? parentRef + '.' : '') + elementConfig.key
-    }
-
-    function createStringValueComponent(parentRef: string, valueTemplate: IValueTemplate) {
+    function CreateStringValueComponent(parentRef: string, valueTemplate: IValueTemplate) {
         let fullKey = getAbsoluteKey(parentRef, valueTemplate.elementConfig)
         return (
             <label>
-                {valueTemplate.elementConfig.displayName}
+                {valueTemplate.elementConfig.displayName}:
                 <input type="text"
                        {...register(fullKey)}
                        onChange={onChangeRegistry[fullKey]}
@@ -65,8 +24,7 @@ const Panel: React.FunctionComponent<any> = (props) => {
         )
     }
 
-    function createSelectValueComponent(parentRef: string, valueTemplate: ISelectableValueTemplate) {
-
+    function CreateSelectValueComponent(parentRef: string, valueTemplate: ISelectableValueTemplate) {
         let fullKey = getAbsoluteKey(parentRef, valueTemplate.elementConfig)
         const [selectables, setSelectables] = useState<ISelectable[]>(
             valueTemplate.template.selectablesSources
@@ -80,8 +38,6 @@ const Panel: React.FunctionComponent<any> = (props) => {
                 setSelectables
             )
         }
-
-
 
         return (
             <label>
@@ -103,8 +59,18 @@ const Panel: React.FunctionComponent<any> = (props) => {
 
     function createDynamicStringValueComponent(parentRef: string, valueTemplate: IValueTemplate) {
         // return input field supporting onChange on drop appending dropped value
+        console.log(parentRef, valueTemplate)
+        let fullKey = getAbsoluteKey(parentRef, valueTemplate.elementConfig)
+        return (
+            <label>
+                {valueTemplate.elementConfig.displayName}:
+                <input type="text"
+                       {...register(fullKey)}
+                       onChange={onChangeRegistry[fullKey]}
+                />
+            </label>
+        )
     }
-
 
     return (
         <></>
