@@ -1,4 +1,4 @@
-import axios, {AxiosRequestConfig} from "axios";
+import axios, {AxiosRequestConfig, AxiosResponse} from "axios";
 import {ISelectable} from "../../features/configuration/components/FormPanel";
 
 const getClasses = (link: string) => {
@@ -9,7 +9,7 @@ const getResource = (resource: string) => {
     return axios.get<any>(`/api/intern/arkiv/kodeverk/${resource}`);
 }
 
-const getSelectables = (url: string, config?: AxiosRequestConfig) => {
+const getSelectables = (url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<ISelectable[]>> => {
     return axios.get<ISelectable[]>(url, config);
 }
 

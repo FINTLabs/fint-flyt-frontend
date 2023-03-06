@@ -1,11 +1,11 @@
 import * as React from "react";
 import {ISelectableValueTemplate, IValueTemplate} from "../types/NewForm/FormTemplate";
 import {useForm} from "react-hook-form";
-import {getAbsoluteKey} from "../util/FormUtils";
 import {testSelectTemplates, testStringTemplates} from "../defaults/FormTemplates";
 
-import {Subject} from "rxjs";
+import {Observable, Subject} from "rxjs";
 import {createSelectables} from "../util/SelectablesUtils";
+import {getAbsoluteKey} from "../util/KeyUtils";
 
 const Panel: React.FunctionComponent<any> = (props) => {
 
@@ -13,32 +13,33 @@ const Panel: React.FunctionComponent<any> = (props) => {
     const onSubmit = (data: any) => {
         console.log(data);
     };
-    const elementUpdatedSubjectPerAbsoluteKey: Record<string, Subject<void>> = {};
+    const valueUpdateObservablePerAbsoluteKey: Record<string, Observable<void>> = {};
 
-    function CreateStringValueComponent(parentRef: string, valueTemplate: IValueTemplate) {
-        let absoluteKey = getAbsoluteKey(parentRef, valueTemplate.elementConfig)
+    function createStringValueComponent(parentAbsoluteKey: string, valueTemplate: IValueTemplate) {
+        let absoluteKey = getAbsoluteKey(parentAbsoluteKey, valueTemplate.elementConfig)
+        let onUpdateSubject = createOnUpdateSubject(absoluteKey)
         return (
             <label key={absoluteKey}>
                 {valueTemplate.elementConfig.displayName}:
                 <input type="text"
                        {...register(absoluteKey)}
-                       onBlur={(e) => elementUpdatedSubjectPerAbsoluteKey[absoluteKey].next()}
+                       onBlur={() => onUpdateSubject.next()}
                 />
             </label>
         )
     }
 
-    function CreateSelectValueComponent(parentRef: string, valueTemplate: ISelectableValueTemplate) {
-        let fullKey = getAbsoluteKey(parentRef, valueTemplate.elementConfig)
+    function createSelectValueComponent(parentAbsoluteKey: string, valueTemplate: ISelectableValueTemplate) {
+        let absoluteKey = getAbsoluteKey(parentAbsoluteKey, valueTemplate.elementConfig)
+        let onUpdateSubject = createOnUpdateSubject(absoluteKey)
         let selectables = createSelectables(
-            parentRef, valueTemplate, getValues, elementUpdatedSubjectPerAbsoluteKey
+            parentAbsoluteKey, valueTemplate, getValues, valueUpdateObservablePerAbsoluteKey
         )
-
         return (
-            <label key={fullKey}>
+            <label key={absoluteKey}>
                 {valueTemplate.elementConfig.displayName}:
-                <select {...register(fullKey)}
-                        onChange={(e) => elementUpdatedSubjectPerAbsoluteKey[fullKey].next()}
+                <select {...register(absoluteKey)}
+                        onChange={() => onUpdateSubject.next()}
                         autoComplete={valueTemplate.template.type === 'SEARCH_SELECT' ? 'on' : 'off'}
                 >
                     {selectables.map(option => {
@@ -53,34 +54,43 @@ const Panel: React.FunctionComponent<any> = (props) => {
         )
     }
 
-    function createDynamicStringValueComponent(parentRef: string, valueTemplate: IValueTemplate) {
+    function createDynamicStringValueComponent(parentAbsoluteKey: string, valueTemplate: IValueTemplate) {
         // return input field supporting onChange on drop appending dropped value
-        console.log(parentRef, valueTemplate)
-        let fullKey = getAbsoluteKey(parentRef, valueTemplate.elementConfig)
+        console.log(parentAbsoluteKey, valueTemplate)
+        let absoluteKey = getAbsoluteKey(parentAbsoluteKey, valueTemplate.elementConfig)
+        let onUpdateSubject = createOnUpdateSubject(absoluteKey)
         return (
             <label>
                 {valueTemplate.elementConfig.displayName}:
                 <input type="text"
-                       {...register(fullKey)}
-                       onBlur={(e) => elementUpdatedSubjectPerAbsoluteKey[fullKey].next()}
+                       {...register(absoluteKey)}
+                       onBlur={() => onUpdateSubject.next()}
                 />
             </label>
         )
     }
 
+    function createOnUpdateSubject(absoluteKey: string): Subject<void> {
+        let onUpdateSubject = new Subject<void>();
+        if (valueUpdateObservablePerAbsoluteKey[absoluteKey]) {
+            throw new Error("Value update observable already exists for key=" + absoluteKey)
+        }
+        valueUpdateObservablePerAbsoluteKey[absoluteKey] = onUpdateSubject;
+        return onUpdateSubject;
+    }
 
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <fieldset style={{display: "grid"}}>
                     {testStringTemplates.map(testTemplate => {
-                        return CreateStringValueComponent('sak', testTemplate)
+                        return createStringValueComponent('sak', testTemplate)
                     })}
                     {testStringTemplates.map(testTemplate => {
-                        return CreateStringValueComponent('sak.journalpost', testTemplate)
+                        return createStringValueComponent('sak.journalpost', testTemplate)
                     })}
                     {testSelectTemplates.map(testSelectTemplate => {
-                        return CreateSelectValueComponent('sak', testSelectTemplate)
+                        return createSelectValueComponent('sak', testSelectTemplate)
                     })}
                 </fieldset>
                 <input type="submit"/>

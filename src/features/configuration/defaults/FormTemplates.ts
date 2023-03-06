@@ -123,7 +123,7 @@ export const template: FormTemplate = {
                             "type": "STRING",
                             "search": {
                                 "urlTemplate": "api/intern/arkiv/saker/{caseId}/tittel",
-                                "valueKeyPerPathParamKey": {
+                                "valueRefPerPathParamKey": {
                                     "caseId": "id"
                                 }
                             }
@@ -415,7 +415,7 @@ export const template: FormTemplate = {
                                                         "selectablesSources": [
                                                             {
                                                                 "urlTemplate": "api/intern/arkiv/kodeverk/klasse",
-                                                                "valueKeyPerRequestParamKey": {
+                                                                "valueRefPerRequestParamKey": {
                                                                     "klassifikasjonssystemLink": "klassifikasjonssystem"
                                                                 }
                                                             }
