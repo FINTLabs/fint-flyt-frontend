@@ -1,12 +1,11 @@
 import * as React from "react";
 import {ISelectableValueTemplate, IValueTemplate} from "../types/NewForm/FormTemplate";
 import {useForm} from "react-hook-form";
-import {ChangeEvent, FormEventHandler, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {ISelectable} from "./FormPanel";
 import {containsOnlyStaticUrls, createSource, getAbsoluteKey, updateSelectables} from "../util/FormUtils";
 import {testSelectTemplates, testStringTemplates} from "../defaults/FormTemplates";
-import {IElementMapping} from "../types/Configuration";
-import {Observable, Store} from "redux";
+
 import {Subject} from "rxjs";
 
 const Panel: React.FunctionComponent<any> = (props) => {
@@ -20,7 +19,7 @@ const Panel: React.FunctionComponent<any> = (props) => {
     function CreateStringValueComponent(parentRef: string, valueTemplate: IValueTemplate) {
         let fullKey = getAbsoluteKey(parentRef, valueTemplate.elementConfig)
         return (
-            <label>
+            <label key={fullKey}>
                 {valueTemplate.elementConfig.displayName}:
                 <input type="text"
                        {...register(fullKey)}
@@ -67,7 +66,7 @@ const Panel: React.FunctionComponent<any> = (props) => {
         }, [])
 
         return (
-            <label>
+            <label key={fullKey}>
                 {valueTemplate.elementConfig.displayName}:
                 <select {...register(fullKey)}
                         onChange={(e) => onChangeRegistry[fullKey].next()}

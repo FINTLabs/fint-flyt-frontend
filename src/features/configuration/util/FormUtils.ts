@@ -54,7 +54,7 @@ export function createSource(urlBuilder: IUrlBuilder, getValues: Function, paren
 export function updateSelectables(sources: {url: string, config?: AxiosRequestConfig}[]) {
     return Promise.all(
         sources.map(source =>
-            ResourceRepository.getSelectables(source.url, source.config)
+            ResourceRepository.getSelectables('/' + source.url, source.config)
                 .then(response => {
                     let list: ISelectable[] = [];
                     let data = response.data;
