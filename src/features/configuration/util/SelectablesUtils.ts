@@ -6,14 +6,14 @@ import {Dispatch, SetStateAction, useEffect, useState} from "react";
 import {UseFormGetValues} from "react-hook-form/dist/types/form";
 import {FieldValues} from "react-hook-form";
 import {Observable, Subscription} from "rxjs";
-import {containsOnlyStaticUrls, createSource} from "./UrlUtils";
+import {containsOnlyStaticUrls, createSource, Source} from "./UrlUtils";
 import {getAbsoluteKeyFromValueRef} from "./KeyUtils";
 
 
 export function createSelectables(
     parentAbsoluteKey: string,
     valueTemplate: ISelectableValueTemplate,
-    getValues: UseFormGetValues<FieldValues>,
+    getValue: UseFormGetValues<FieldValues>,
     elementUpdatedObservablePerAbsoluteKey: Record<string, Observable<void>>
 ): ISelectable[] {
 
@@ -39,12 +39,10 @@ export function createSelectables(
                 let subscriptions: Subscription[] = absoluteKeys
                     .map(absoluteKey => elementUpdatedObservablePerAbsoluteKey[absoluteKey].subscribe(
                         () => {
-                            let valuePerAbsoluteKey: Record<string, any> = getValues(absoluteKeys)
-
                             let valuePerValueRef: Record<string, any> = {}
                             absoluteKeys.forEach(absoluteKey => {
                                 let valueRef: string = valueRefPerAbsoluteKey[absoluteKey]
-                                valuePerValueRef[valueRef] = valuePerAbsoluteKey[absoluteKey]
+                                valuePerValueRef[valueRef] = getValue(absoluteKey)
                             })
 
                             updateSelectables(sourceUrlBuilders, valuePerValueRef, setSelectables)
@@ -59,8 +57,8 @@ export function createSelectables(
 
 function createValueRefPerAbsoluteKey(sourceUrlBuilders: IUrlBuilder[], parentAbsoluteKey?: string): Record<string, string> {
     return sourceUrlBuilders.map(urlBuilder => [
-            ...Object.keys(urlBuilder.valueRefPerRequestParamKey ? urlBuilder.valueRefPerRequestParamKey : []),
-            ...Object.keys(urlBuilder.valueRefPerPathParamKey ? urlBuilder.valueRefPerPathParamKey : [])
+            ...urlBuilder.valueRefPerRequestParamKey ? Object.keys(urlBuilder.valueRefPerRequestParamKey) : [],
+            ...urlBuilder.valueRefPerPathParamKey ? Object.keys(urlBuilder.valueRefPerPathParamKey) : []
         ]
     ).reduce<Record<string, string>>(
         (valueRefPerAbsoluteKey: Record<string, string>, currentValue) => {
@@ -75,18 +73,19 @@ function createValueRefPerAbsoluteKey(sourceUrlBuilders: IUrlBuilder[], parentAb
 
 function updateSelectables(
     sourceUrlBuilders: IUrlBuilder[],
-    valuesPerValueRef: Record<string, string>,
+    valuePerValueRef: Record<string, string>,
     setSelectables: Dispatch<SetStateAction<any>>
-) {
-    let sources: { url: string, config?: AxiosRequestConfig }[] = sourceUrlBuilders
-        .map(urlBuilder => createSource(urlBuilder, valuesPerValueRef));
+): void {
+    let sources: Source[] = sourceUrlBuilders
+        .map(urlBuilder => createSource(urlBuilder, valuePerValueRef))
+        .filter((source): source is Source => !!source)
 
     getSelectables(sources).then((result: ISelectable[]) => {
         setSelectables(result)
     })
 }
 
-function getSelectables(sources: { url: string, config?: AxiosRequestConfig }[]): Promise<ISelectable[]> {
+function getSelectables(sources: Source[]): Promise<ISelectable[]> {
     return Promise.all(
         sources.map(source =>
             ResourceRepository.getSelectables('/' + source.url, source.config)

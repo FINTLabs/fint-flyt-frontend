@@ -10,19 +10,38 @@ function isStaticUrl(builder: IUrlBuilder): boolean {
         && (builder.valueRefPerRequestParamKey ? Object.keys(builder.valueRefPerRequestParamKey).length === 0 : true)
 }
 
-export function createSource(urlBuilder: IUrlBuilder, valuesPerValueRef: Record<string, any>): { url: string, config?: AxiosRequestConfig } {
+export type Source = { url: string, config?: AxiosRequestConfig }
+
+const pathParamKeyRegExp: RegExp = new RegExp(/{[^{}]+}/g);
+
+export function createSource(urlBuilder: IUrlBuilder, valuePerValueRef: Record<string, any>): Source | undefined {
     let params: Record<string, string> = {};
     let url: string = urlBuilder.urlTemplate;
+
+    let dependsOnUndefinedValue: boolean = [
+        ...urlBuilder.valueRefPerRequestParamKey ? Object.keys(urlBuilder.valueRefPerRequestParamKey) : [],
+        ...urlBuilder.valueRefPerPathParamKey ? Object.keys(urlBuilder.valueRefPerPathParamKey) : []
+    ]
+        .map(valueRef => valuePerValueRef[valueRef])
+        .find(value => value === undefined || value === "") !== undefined
+    if (dependsOnUndefinedValue) {
+        return undefined;
+    }
+
     if (urlBuilder.valueRefPerRequestParamKey) {
         Object.entries(urlBuilder.valueRefPerRequestParamKey)
-            .forEach(([requestParamKey, valueRef]) =>
-                params[requestParamKey] = valuesPerValueRef[valueRef]);
+            .forEach(([requestParamKey, valueRef]) => {
+                params[requestParamKey] = valuePerValueRef[valueRef];
+            })
     }
     if (urlBuilder.valueRefPerPathParamKey) {
-        Object.entries(urlBuilder.valueRefPerPathParamKey)
-            .forEach(([pathParamKey, valueRef]) => {
-                url = url.replace('{' + pathParamKey + '}', valuesPerValueRef[valueRef])
+        url.replaceAll(
+            pathParamKeyRegExp,
+            ((substring: string) => {
+                let pathParamKey: string = substring.slice(1, substring.length - 1)
+                return valuePerValueRef[pathParamKey]
             })
+        )
     }
     return {url: url, config: {params: params}};
 }
