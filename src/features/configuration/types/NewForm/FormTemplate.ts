@@ -16,16 +16,19 @@ export interface IObjectTemplate {
     elementConfig: IElementConfig;
     template: FormTemplate;
 }
+
 export interface IValueTemplate {
     order: number;
     elementConfig: IElementConfig;
     template: ITemplate;
 }
+
 export interface ISelectableValueTemplate {
     order: number;
     elementConfig: IElementConfig;
     template: ISelectableTemplate;
 }
+
 export interface IObjectCollectionTemplate {
     order: number;
     elementConfig: IElementConfig;
@@ -36,7 +39,7 @@ export interface IFormCollectionTemplate {
     objectTemplate: FormTemplate;
 }
 
-export interface  IElementConfig {
+export interface IElementConfig {
     key: string;
     displayName: string;
     description: string;

@@ -3,7 +3,7 @@ import {ISelectableValueTemplate, IValueTemplate} from "../types/NewForm/FormTem
 import {useForm} from "react-hook-form";
 import {testSelectTemplates, testStringTemplates} from "../defaults/FormTemplates";
 
-import {Observable, Subject} from "rxjs";
+import {Subject} from "rxjs";
 import {createSelectables} from "../util/SelectablesUtils";
 import {getAbsoluteKey} from "../util/KeyUtils";
 
@@ -13,11 +13,11 @@ const Panel: React.FunctionComponent<any> = (props) => {
     const onSubmit = (data: any) => {
         console.log(data);
     };
-    const valueUpdateObservablePerAbsoluteKey: Record<string, Observable<void>> = {};
+    const valueUpdateSubjectPerAbsoluteKey: Record<string, Subject<void>> = {};
 
-    function createStringValueComponent(parentAbsoluteKey: string, valueTemplate: IValueTemplate) {
-        let absoluteKey = getAbsoluteKey(parentAbsoluteKey, valueTemplate.elementConfig)
-        let onUpdateSubject = createOnUpdateSubject(absoluteKey)
+    function createStringValueComponent(valueTemplate: IValueTemplate, parentAbsoluteKey?: string) {
+        let absoluteKey = getAbsoluteKey(valueTemplate.elementConfig, parentAbsoluteKey)
+        let onUpdateSubject: Subject<void> = getOrCreateOnUpdateSubject(absoluteKey)
         return (
             <label key={absoluteKey}>
                 {valueTemplate.elementConfig.displayName}:
@@ -29,11 +29,11 @@ const Panel: React.FunctionComponent<any> = (props) => {
         )
     }
 
-    function createSelectValueComponent(parentAbsoluteKey: string, valueTemplate: ISelectableValueTemplate) {
-        let absoluteKey = getAbsoluteKey(parentAbsoluteKey, valueTemplate.elementConfig)
-        let onUpdateSubject = createOnUpdateSubject(absoluteKey)
+    function createSelectValueComponent(valueTemplate: ISelectableValueTemplate, parentAbsoluteKey?: string) {
+        let absoluteKey = getAbsoluteKey(valueTemplate.elementConfig, parentAbsoluteKey)
+        let onUpdateSubject: Subject<void> = getOrCreateOnUpdateSubject(absoluteKey)
         let selectables = createSelectables(
-            parentAbsoluteKey, valueTemplate, getValues, valueUpdateObservablePerAbsoluteKey
+            valueTemplate, getValues, valueUpdateSubjectPerAbsoluteKey, parentAbsoluteKey
         )
         return (
             <label key={absoluteKey}>
@@ -54,11 +54,11 @@ const Panel: React.FunctionComponent<any> = (props) => {
         )
     }
 
-    function createDynamicStringValueComponent(parentAbsoluteKey: string, valueTemplate: IValueTemplate) {
+    function createDynamicStringValueComponent(valueTemplate: IValueTemplate, parentAbsoluteKey?: string) {
         // return input field supporting onChange on drop appending dropped value
         console.log(parentAbsoluteKey, valueTemplate)
-        let absoluteKey = getAbsoluteKey(parentAbsoluteKey, valueTemplate.elementConfig)
-        let onUpdateSubject = createOnUpdateSubject(absoluteKey)
+        let absoluteKey = getAbsoluteKey(valueTemplate.elementConfig, parentAbsoluteKey)
+        let onUpdateSubject: Subject<void> = getOrCreateOnUpdateSubject(absoluteKey)
         return (
             <label>
                 {valueTemplate.elementConfig.displayName}:
@@ -70,13 +70,11 @@ const Panel: React.FunctionComponent<any> = (props) => {
         )
     }
 
-    function createOnUpdateSubject(absoluteKey: string): Subject<void> {
-        let onUpdateSubject = new Subject<void>();
-        if (valueUpdateObservablePerAbsoluteKey[absoluteKey]) {
-            throw new Error("Value update observable already exists for key=" + absoluteKey)
+    function getOrCreateOnUpdateSubject(absoluteKey: string): Subject<void> {
+        if (!valueUpdateSubjectPerAbsoluteKey[absoluteKey]) {
+            valueUpdateSubjectPerAbsoluteKey[absoluteKey] = new Subject<void>();
         }
-        valueUpdateObservablePerAbsoluteKey[absoluteKey] = onUpdateSubject;
-        return onUpdateSubject;
+        return valueUpdateSubjectPerAbsoluteKey[absoluteKey]
     }
 
     return (
@@ -84,13 +82,13 @@ const Panel: React.FunctionComponent<any> = (props) => {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <fieldset style={{display: "grid"}}>
                     {testStringTemplates.map(testTemplate => {
-                        return createStringValueComponent('sak', testTemplate)
+                        return createStringValueComponent(testTemplate, 'sak')
                     })}
                     {testStringTemplates.map(testTemplate => {
-                        return createStringValueComponent('sak.journalpost', testTemplate)
+                        return createStringValueComponent(testTemplate, 'sak.journalpost')
                     })}
                     {testSelectTemplates.map(testSelectTemplate => {
-                        return createSelectValueComponent('sak', testSelectTemplate)
+                        return createSelectValueComponent(testSelectTemplate, 'sak')
                     })}
                 </fieldset>
                 <input type="submit"/>

@@ -1,6 +1,6 @@
 import {IElementConfig} from "../types/NewForm/FormTemplate";
 
-export function getAbsoluteKey(parentAbsoluteKey: string, elementConfig: IElementConfig) {
+export function getAbsoluteKey(elementConfig: IElementConfig, parentAbsoluteKey?: string) {
     return (parentAbsoluteKey ? parentAbsoluteKey + '.' : '') + elementConfig.key
 }
 

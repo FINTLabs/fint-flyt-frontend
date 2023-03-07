@@ -1,5 +1,5 @@
 import {ISelectableValueTemplate, IUrlBuilder} from "../types/NewForm/FormTemplate";
-import {AxiosRequestConfig, AxiosResponse} from "axios";
+import {AxiosResponse} from "axios";
 import ResourceRepository from "../../../shared/repositories/ResourceRepository";
 import {ISelectable} from "../components/FormPanel";
 import {Dispatch, SetStateAction, useEffect, useState} from "react";
@@ -11,10 +11,10 @@ import {getAbsoluteKeyFromValueRef} from "./KeyUtils";
 
 
 export function createSelectables(
-    parentAbsoluteKey: string,
     valueTemplate: ISelectableValueTemplate,
     getValue: UseFormGetValues<FieldValues>,
-    elementUpdatedObservablePerAbsoluteKey: Record<string, Observable<void>>
+    elementUpdatedObservablePerAbsoluteKey: Record<string, Observable<void>>,
+    parentAbsoluteKey?: string
 ): ISelectable[] {
 
     const [selectables, setSelectables] = useState<ISelectable[]>(
