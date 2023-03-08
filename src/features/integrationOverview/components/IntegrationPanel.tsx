@@ -2,7 +2,12 @@ import {
     Box,
     Button,
     Card,
-    CardContent, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
+    CardContent,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
     FormControl,
     InputLabel,
     Menu,
@@ -18,7 +23,6 @@ import {gridLocaleNoNB} from "../../util/locale/gridLocaleNoNB";
 import {useTranslation} from "react-i18next";
 import {IntegrationContext} from "../../../context/integrationContext";
 import {Link as RouterLink, useHistory} from 'react-router-dom';
-import {ISelect} from "../../configuration/types/Select";
 import IntegrationRepository from "../../../shared/repositories/IntegrationRepository";
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import {SourceApplicationContext} from "../../../context/sourceApplicationContext";
@@ -33,12 +37,20 @@ import {ResourcesContext} from "../../../context/resourcesContext";
 import ResourceRepository from "../../../shared/repositories/ResourceRepository";
 import {IResourceItem} from "../../../context/resourcesContext/types";
 import {IConfiguration, IObjectMapping} from "../../configuration/types/Configuration";
+import {ISelect} from "../../configuration/types/Select";
 
 const IntegrationPanel: React.FunctionComponent<any> = (props) => {
-    const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.integrationOverview'});
+    const {t, i18n} = useTranslation('translations', {keyPrefix: 'pages.integrationOverview'});
     const classes = props.classes;
     let history = useHistory();
-    const {existingIntegration, setConfiguration, selectedMetadata, setSelectedMetadata, resetIntegrations, configurations, completedConfigurations} = useContext(IntegrationContext);
+    const {
+        existingIntegration,
+        setConfiguration,
+        setSelectedMetadata,
+        resetIntegrations,
+        configurations,
+        completedConfigurations
+    } = useContext(IntegrationContext);
     const {allMetadata, getAllMetadata, getInstanceElementMetadata} = useContext(SourceApplicationContext)
     const {setPrimaryClass, setSecondaryClass, setTertiaryClass, getAllResources} = useContext(ResourcesContext)
     const [version, setVersion] = useState('null');
@@ -47,10 +59,18 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
     const [anchorSubEl, setAnchorSubEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const openSub = Boolean(anchorSubEl);
-    const handleNewConfigClick = (event: React.MouseEvent<HTMLElement>) => {setAnchorEl(event.currentTarget);};
-    const handleNewConfigClose = () => {setAnchorEl(null);};
-    const handleNewConfigSubClick = (event: React.MouseEvent<HTMLElement>) => {setAnchorSubEl(event.currentTarget);};
-    const handleNewConfigSubClose = () => {setAnchorSubEl(null);};
+    const handleNewConfigClick = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleNewConfigClose = () => {
+        setAnchorEl(null);
+    };
+    const handleNewConfigSubClick = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorSubEl(event.currentTarget);
+    };
+    const handleNewConfigSubClose = () => {
+        setAnchorSubEl(null);
+    };
 
     const versionsToActivate: ISelect[] = [{value: 'null', label: 'velg aktiv versjon'}];
     const [openDialog, setOpenDialog] = React.useState(false);
@@ -71,26 +91,38 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
         return versionsToActivate.push({value: configuration.id, label: 'versjon ' + configuration.version})
     })
 
-    useEffect(()=> {
+    useEffect(() => {
         getAllMetadata(true)
         getVersionForActiveConfig(existingIntegration?.activeConfigurationId ? existingIntegration.activeConfigurationId : undefined)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const columns: GridColDef[] = [
-        { field: 'id', type: 'string', headerName: t('table.columns.configurationId'), minWidth: 100, flex: 0.5},
-        { field: 'version', type: 'number', headerName: t('table.columns.version'), minWidth: 100, flex: 0.5},
-        { field: 'comment', type: 'string', headerName: t('table.columns.comment'), minWidth: 250, flex: 1},
-        { field: 'details', headerName: t('table.columns.show'), minWidth: 150, flex: 0.5, sortable: false, filterable: false,
-            renderCell: (params) => ( <EditButtonToggle row={params.row} />)
+        {field: 'id', type: 'string', headerName: t('table.columns.configurationId'), minWidth: 100, flex: 0.5},
+        {field: 'version', type: 'number', headerName: t('table.columns.version'), minWidth: 100, flex: 0.5},
+        {field: 'comment', type: 'string', headerName: t('table.columns.comment'), minWidth: 250, flex: 1},
+        {
+            field: 'details',
+            headerName: t('table.columns.show'),
+            minWidth: 150,
+            flex: 0.5,
+            sortable: false,
+            filterable: false,
+            renderCell: (params) => (<EditButtonToggle row={params.row}/>)
         }
     ];
 
     const draftColumns: GridColDef[] = [
-        { field: 'id', type: 'string', headerName: t('table.columns.configurationId'), minWidth: 150, flex: 0.5},
-        { field: 'comment', type: 'string', headerName: t('table.columns.comment'), minWidth: 250, flex: 1},
-        { field: 'details', headerName: t('table.columns.edit'), minWidth: 150, flex: 0.5, sortable: false, filterable: false,
-            renderCell: (params) => ( <EditButtonToggle row={params.row} />)
+        {field: 'id', type: 'string', headerName: t('table.columns.configurationId'), minWidth: 150, flex: 0.5},
+        {field: 'comment', type: 'string', headerName: t('table.columns.comment'), minWidth: 250, flex: 1},
+        {
+            field: 'details',
+            headerName: t('table.columns.edit'),
+            minWidth: 150,
+            flex: 0.5,
+            sortable: false,
+            filterable: false,
+            renderCell: (params) => (<EditButtonToggle row={params.row}/>)
         }
     ];
 
@@ -116,7 +148,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
         getAllResources();
         let list: IResourceItem[] = [];
         let selectedForm = allMetadata.filter(md => md.sourceApplicationIntegrationId === existingIntegration?.sourceApplicationIntegrationId)
-        setSelectedMetadata(selectedForm.length > 0 ? selectedForm[0] : SOURCE_FORM_NO_VALUES)
+        setSelectedMetadata(selectedForm.length > 0 ? selectedForm[0] : SOURCE_FORM_NO_VALUES[0])
         getInstanceElementMetadata(selectedForm[0].id)
         await ConfigurationRepository.getConfiguration(id.toString(), false)
             .then(async (response) => {
@@ -126,26 +158,47 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                     data.completed = false;
                 }
                 setConfiguration(data);
-                const caseFields: IObjectMapping = data.mapping?.objectMappingPerKey['sak'] ? data.mapping?.objectMappingPerKey['sak'] : {objectMappingPerKey: {}, objectCollectionMappingPerKey: {}, valueMappingPerKey: {}};
-                const caseNewCaseFields: IObjectMapping = caseFields.objectMappingPerKey['ny'] ? caseFields.objectMappingPerKey['ny'] :  {objectMappingPerKey: {}, objectCollectionMappingPerKey: {}, valueMappingPerKey: {}, valueCollectionMappingPerKey: {}}
-                const caseClassesFields: IObjectMapping[] = caseNewCaseFields.objectCollectionMappingPerKey['klasse']?.elementMappings ? caseNewCaseFields.objectCollectionMappingPerKey['klasse']?.elementMappings  :  []
+                const caseFields: IObjectMapping = data.mapping?.objectMappingPerKey['sak'] ? data.mapping?.objectMappingPerKey['sak'] : {
+                    objectMappingPerKey: {},
+                    objectCollectionMappingPerKey: {},
+                    valueMappingPerKey: {}
+                };
+                const caseNewCaseFields: IObjectMapping = caseFields.objectMappingPerKey['ny'] ? caseFields.objectMappingPerKey['ny'] : {
+                    objectMappingPerKey: {},
+                    objectCollectionMappingPerKey: {},
+                    valueMappingPerKey: {},
+                    valueCollectionMappingPerKey: {}
+                }
+                const caseClassesFields: IObjectMapping[] = caseNewCaseFields.objectCollectionMappingPerKey['klasse']?.elementMappings ? caseNewCaseFields.objectCollectionMappingPerKey['klasse']?.elementMappings : []
                 let primaryClass = caseClassesFields[0]?.valueMappingPerKey['klassifikasjonssystem']?.mappingString ? caseClassesFields[0].valueMappingPerKey['klassifikasjonssystem']?.mappingString : null
                 let secondaryClass = caseClassesFields[1]?.valueMappingPerKey['klassifikasjonssystem']?.mappingString ? caseClassesFields[1].valueMappingPerKey['klassifikasjonssystem']?.mappingString : null
                 let tertiaryClass = caseClassesFields[2]?.valueMappingPerKey['klassifikasjonssystem']?.mappingString ? caseClassesFields[2].valueMappingPerKey['klassifikasjonssystem']?.mappingString : null
 
-               if(primaryClass !== null ) await ResourceRepository.getClasses(primaryClass).then(async response => {
-                    if (response.data) {response.data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
+                if (primaryClass !== null) await ResourceRepository.getClasses(primaryClass).then(async response => {
+                    if (response.data) {
+                        response.data.map((resource: any) => list.push({
+                            label: resource.displayName,
+                            value: resource.id
+                        }))
                         setPrimaryClass(list)
                     }
                 }).then(async response => {
                     if (secondaryClass !== null) await ResourceRepository.getClasses(secondaryClass).then(response => {
-                        if (response.data) {response.data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
+                        if (response.data) {
+                            response.data.map((resource: any) => list.push({
+                                label: resource.displayName,
+                                value: resource.id
+                            }))
                             setSecondaryClass(list)
                         }
                     })
                 }).then(async response => {
                     if (tertiaryClass !== null) await ResourceRepository.getClasses(tertiaryClass).then(response => {
-                        if (response.data) {response.data.map((resource: any) => list.push({label: resource.displayName, value: resource.id}))
+                        if (response.data) {
+                            response.data.map((resource: any) => list.push({
+                                label: resource.displayName,
+                                value: resource.id
+                            }))
                             setTertiaryClass(list)
                         }
                     })
@@ -169,8 +222,10 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                 <Button
                     size="small"
                     variant="contained"
-                    onClick={(e) => {handleNewOrEditConfigClick(props.row.id).then(r => history.push("/integration/configuration/edit")
-                    )}}
+                    onClick={(e) => {
+                        handleNewOrEditConfigClick(props.row.id).then(r => history.push("/integration/configuration/edit")
+                        )
+                    }}
                 >{completed ? t('button.show') : t('button.edit')}
                 </Button>
             </>
@@ -219,11 +274,21 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
             </Dialog>
             <Card sx={{mb: 2}}>
                 <CardContent>
-                    <Typography id="details-sourceApplicationIntegrationId"><strong>id:</strong>{existingIntegration?.id}</Typography>
-                    <Typography id="details-sourceApplicationIntegrationId"><strong>{t('labels.sourceApplicationIntegrationId')}</strong>{existingIntegration?.sourceApplicationIntegrationId} - {existingIntegration?.displayName}</Typography>
-                    <Typography id="details-sourceApplicationId"><strong>{t('labels.sourceApplicationId')} </strong>{getSourceApplicationDisplayName(existingIntegration?.sourceApplicationId)}</Typography>
-                    <Typography id="details-destination"><strong>{t('labels.destination')} </strong>{getDestinationDisplayName(existingIntegration?.destination)}</Typography>
-                    <Typography id="details-activeConfiguration"><strong>{t('labels.activeConfigurationId')} </strong>{activeVersion}</Typography>
+                    <Typography
+                        id="details-sourceApplicationIntegrationId"><strong>id:</strong>{existingIntegration?.id}
+                    </Typography>
+                    <Typography
+                        id="details-sourceApplicationIntegrationId"><strong>{t('labels.sourceApplicationIntegrationId')}</strong>{existingIntegration?.sourceApplicationIntegrationId} - {existingIntegration?.displayName}
+                    </Typography>
+                    <Typography
+                        id="details-sourceApplicationId"><strong>{t('labels.sourceApplicationId')} </strong>{getSourceApplicationDisplayName(existingIntegration?.sourceApplicationId)}
+                    </Typography>
+                    <Typography
+                        id="details-destination"><strong>{t('labels.destination')} </strong>{getDestinationDisplayName(existingIntegration?.destination)}
+                    </Typography>
+                    <Typography
+                        id="details-activeConfiguration"><strong>{t('labels.activeConfigurationId')} </strong>{activeVersion}
+                    </Typography>
                 </CardContent>
                 <FormControl size='small' sx={{float: 'left', width: 300, m: 2}}>
                     <InputLabel id="version-select-input-label">{t('version')}</InputLabel>
@@ -257,7 +322,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                         }}
                         initialState={{
                             sorting: {
-                                sortModel: [{ field: 'version', sort: 'desc' }],
+                                sortModel: [{field: 'version', sort: 'desc'}],
                             },
                             filter: {
                                 filterModel: {
@@ -288,7 +353,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                         }}
                         initialState={{
                             sorting: {
-                                sortModel: [{ field: 'version', sort: 'desc' }],
+                                sortModel: [{field: 'version', sort: 'desc'}],
                             },
                             filter: {
                                 filterModel: {
@@ -312,7 +377,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
                 onClick={handleNewConfigClick}
-                endIcon={<ArrowRightIcon />}
+                endIcon={<ArrowRightIcon/>}
             >
                 {t('button.newConfiguration')}
             </Button>
@@ -331,16 +396,18 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                     horizontal: 'left',
                 }}
             >
-                <MenuItem component={RouterLink} to='/integration/configuration/new-configuration' onClick={handleNewConfigClose}>
+                <MenuItem component={RouterLink} to='/integration/configuration/new-configuration'
+                          onClick={handleNewConfigClose}>
                     <Button id="demo-positioned-button" onClick={(e) => {
                         let selectedForm = allMetadata.filter(md => md.sourceApplicationIntegrationId === existingIntegration?.sourceApplicationIntegrationId)
-                        setSelectedMetadata(selectedForm.length > 0 ? selectedForm[0] : SOURCE_FORM_NO_VALUES)
+                        setSelectedMetadata(selectedForm.length > 0 ? selectedForm[0] : SOURCE_FORM_NO_VALUES[0])
                         getInstanceElementMetadata(selectedForm[0].id)
                     }}
                     >
                         {t('button.blankConfiguration')}
                     </Button>
                 </MenuItem>
+
                 <MenuItem>
                     <Button
                         disabled={!completedConfigurations}
@@ -349,7 +416,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                         aria-haspopup="true"
                         aria-expanded={openSub ? 'true' : undefined}
                         onClick={handleNewConfigSubClick}
-                        endIcon={<ArrowRightIcon />}
+                        endIcon={<ArrowRightIcon/>}
                     >
                         {t('button.templateConfiguration')}
                     </Button>
@@ -370,7 +437,9 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                     >
                         {completedConfigurations && completedConfigurations.map((config: any, index: number) => {
                                 return <MenuItem onClick={handleNewConfigSubClose} key={index}>
-                                    <Button id="version-button" onClick={(e) => {handleNewOrEditConfigClick(config.id, config.version).then(r => history.push("/integration/configuration/edit"))}}>
+                                    <Button id="version-button" onClick={(e) => {
+                                        handleNewOrEditConfigClick(config.id, config.version).then(r => history.push("/integration/configuration/edit"))
+                                    }}>
                                         {t('button.version')} {config.version}
                                     </Button>
                                 </MenuItem>

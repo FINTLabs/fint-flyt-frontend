@@ -1,14 +1,13 @@
 import React, {createContext, FC, useState} from "react";
 import {contextDefaultValues, ISourceApplicationItem, SourceApplicationContextState} from "./types";
 import SourceApplicationRepository from "../../shared/repositories/SourceApplicationRepository";
-import {ISelect} from "../../features/configuration/types/InputField";
-import {
-    IInstanceElementMetadata,
-    IInstanceMetadataContent,
-    IIntegrationMetadata, MOCK_INSTANCE_METADATA
-} from "../../features/configuration/types/IntegrationMetadata";
 import IntegrationRepository from "../../shared/repositories/IntegrationRepository";
 import {getSourceApplicationDisplayName} from "../../features/configuration/defaults/DefaultValues";
+import {
+    IInstanceMetadataContent,
+    IIntegrationMetadata
+} from "../../features/configuration/types/Metadata/IntegrationMetadata";
+import {ISelect} from "../../features/configuration/types/Select";
 
 export const SourceApplicationContext = createContext<SourceApplicationContextState>(
     contextDefaultValues
@@ -29,7 +28,10 @@ const SourceApplicationProvider: FC = ({children}) => {
                 if (data) {
                     let selects: ISelect[] = [];
                     data.forEach((value: any) => {
-                        selects.push({value: value.sourceApplicationIntegrationId, label: '['+value.sourceApplicationIntegrationId+'] '+ value.integrationDisplayName})
+                        selects.push({
+                            value: value.sourceApplicationIntegrationId,
+                            label: '[' + value.sourceApplicationIntegrationId + '] ' + value.integrationDisplayName
+                        })
                     })
                     getAllForms(selects)
                 }
@@ -50,7 +52,11 @@ const SourceApplicationProvider: FC = ({children}) => {
                 })
                 .catch((err) => {
                     setAllMetadata(contextDefaultValues.allMetadata)
-                    setAvailableForms({sourceApplicationDisplayName: '', sourceApplicationId: '1', forms: [{value: 'null', label: 'No options'}]})
+                    setAvailableForms({
+                        sourceApplicationDisplayName: '',
+                        sourceApplicationId: '1',
+                        forms: [{value: 'null', label: 'No options'}]
+                    })
                     console.error(err);
                 })
         }
@@ -60,7 +66,7 @@ const SourceApplicationProvider: FC = ({children}) => {
         SourceApplicationRepository.getInstanceElementMetadata(metadataId)
             .then(response => {
                 let data: IInstanceMetadataContent = response.data
-                if(data) {
+                if (data) {
                     setInstanceElementMetadata(data)
                 }
             })
@@ -78,14 +84,22 @@ const SourceApplicationProvider: FC = ({children}) => {
                 if (data) {
                     let ids: string[] = data.map((config: any) => config.sourceApplicationIntegrationId)
                     let selectableForms = forms.filter(form => !ids.includes(form.value));
-                    if(sourceApplication !== null) {
-                        setAvailableForms({sourceApplicationDisplayName: getSourceApplicationDisplayName(sourceApplication), sourceApplicationId: sourceApplication.toString(), forms: selectableForms})
+                    if (sourceApplication !== null) {
+                        setAvailableForms({
+                            sourceApplicationDisplayName: getSourceApplicationDisplayName(sourceApplication),
+                            sourceApplicationId: sourceApplication.toString(),
+                            forms: selectableForms
+                        })
                     }
                 }
             })
             .catch((err) => {
                 console.error(err);
-                setAvailableForms({sourceApplicationDisplayName: '', sourceApplicationId: '1', forms: [{value: 'null', label: 'No options'}]})
+                setAvailableForms({
+                    sourceApplicationDisplayName: '',
+                    sourceApplicationId: '1',
+                    forms: [{value: 'null', label: 'No options'}]
+                })
             })
     }
 

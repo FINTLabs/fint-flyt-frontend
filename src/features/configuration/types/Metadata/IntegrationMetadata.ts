@@ -48,10 +48,10 @@ export interface IInstanceMetadataContent {
 
 export const MOCK_INSTANCE_METADATA: IIntegrationMetadata = {
     id: 1234,
-    sourceApplicationId:"1",
-    sourceApplicationIntegrationId:"PROD0195",
-    sourceApplicationIntegrationUri:"",
-    integrationDisplayName:"Test",
+    sourceApplicationId: "1",
+    sourceApplicationIntegrationId: "PROD0195",
+    sourceApplicationIntegrationUri: "",
+    integrationDisplayName: "Test",
     version: 1,
     instanceElementMetadata: [],
     instanceMetadata: {

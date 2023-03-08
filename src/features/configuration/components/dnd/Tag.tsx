@@ -10,10 +10,11 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import DialpadIcon from '@mui/icons-material/Dialpad';
 import ToggleOnIcon from '@mui/icons-material/ToggleOn';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
-import {ITag} from "../../types/Tag";
-import {Type} from "../../types/IntegrationMetadata";
-export const Tag: FC<ITag> = function Tag({ name, value, type }) {
-    const [{ isDragging }, drag] = useDrag(() => ({
+import {ITag} from "../../types/Metadata/Tag";
+import {Type} from "../../types/Metadata/IntegrationMetadata";
+
+export const Tag: FC<ITag> = function Tag({name, value, type}) {
+    const [{isDragging}, drag] = useDrag(() => ({
         type: DraggableTypes.TAG,
         item: {name, value},
         collect: (monitor) => ({
@@ -47,6 +48,7 @@ export const Tag: FC<ITag> = function Tag({ name, value, type }) {
             return <DragIndicatorIcon/>
         }
     }
+
     const opacity = isDragging ? 0.4 : 1
     return (
         <Chip
@@ -57,7 +59,7 @@ export const Tag: FC<ITag> = function Tag({ name, value, type }) {
             role="Tag"
             label={name}
             style={
-                { cursor: 'move', backgroundColor: 'white', margin:8, opacity }
+                {cursor: 'move', backgroundColor: 'white', margin: 8, opacity}
             }
         />
     )

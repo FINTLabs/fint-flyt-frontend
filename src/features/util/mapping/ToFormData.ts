@@ -1,26 +1,97 @@
-import {IFormConfiguration} from "../../configuration/types/Form/FormData";
 import {ICollectionMapping, IConfiguration, IObjectMapping} from "../../configuration/types/Configuration";
+import {IFormConfiguration} from "../../configuration/types/OldForm/FormData";
 
 export function toFormData(data: IConfiguration): IFormConfiguration {
-    const caseFields: IObjectMapping = data.mapping?.objectMappingPerKey['sak'] ? data.mapping?.objectMappingPerKey['sak'] : {objectMappingPerKey: {}, objectCollectionMappingPerKey: {}, valueMappingPerKey: {}, valueCollectionMappingPerKey: {}}
-    const recordFields: IObjectMapping = data.mapping?.objectMappingPerKey['journalpost'] ? data.mapping?.objectMappingPerKey['journalpost'] : {objectMappingPerKey: {}, objectCollectionMappingPerKey: {}, valueMappingPerKey: {}, valueCollectionMappingPerKey: {}}
-    const caseNewCaseFields: IObjectMapping = caseFields.objectMappingPerKey['ny'] ? caseFields.objectMappingPerKey['ny'] :  {objectMappingPerKey: {}, objectCollectionMappingPerKey: {}, valueMappingPerKey: {}, valueCollectionMappingPerKey: {}}
-    const caseClassesFields: IObjectMapping[] = caseNewCaseFields.objectCollectionMappingPerKey['klasse']?.elementMappings ? caseNewCaseFields.objectCollectionMappingPerKey['klasse']?.elementMappings  :  []
-    const caseShieldingFields: IObjectMapping = caseNewCaseFields.objectMappingPerKey['skjerming'] ? caseNewCaseFields.objectMappingPerKey['skjerming'] :  {objectMappingPerKey: {}, objectCollectionMappingPerKey: {}, valueMappingPerKey: {}, valueCollectionMappingPerKey: {}}
-    const recordShieldingFields: IObjectMapping = recordFields.objectMappingPerKey['skjerming'] ? recordFields.objectMappingPerKey['skjerming'] :  {objectMappingPerKey: {}, objectCollectionMappingPerKey: {}, valueMappingPerKey: {}, valueCollectionMappingPerKey: {}}
+    const caseFields: IObjectMapping = data.mapping?.objectMappingPerKey['sak'] ? data.mapping?.objectMappingPerKey['sak'] : {
+        objectMappingPerKey: {},
+        objectCollectionMappingPerKey: {},
+        valueMappingPerKey: {},
+        valueCollectionMappingPerKey: {}
+    }
+    const recordFields: IObjectMapping = data.mapping?.objectMappingPerKey['journalpost'] ? data.mapping?.objectMappingPerKey['journalpost'] : {
+        objectMappingPerKey: {},
+        objectCollectionMappingPerKey: {},
+        valueMappingPerKey: {},
+        valueCollectionMappingPerKey: {}
+    }
+    const caseNewCaseFields: IObjectMapping = caseFields.objectMappingPerKey['ny'] ? caseFields.objectMappingPerKey['ny'] : {
+        objectMappingPerKey: {},
+        objectCollectionMappingPerKey: {},
+        valueMappingPerKey: {},
+        valueCollectionMappingPerKey: {}
+    }
+    const caseClassesFields: IObjectMapping[] = caseNewCaseFields.objectCollectionMappingPerKey['klasse']?.elementMappings ? caseNewCaseFields.objectCollectionMappingPerKey['klasse']?.elementMappings : []
+    const caseShieldingFields: IObjectMapping = caseNewCaseFields.objectMappingPerKey['skjerming'] ? caseNewCaseFields.objectMappingPerKey['skjerming'] : {
+        objectMappingPerKey: {},
+        objectCollectionMappingPerKey: {},
+        valueMappingPerKey: {},
+        valueCollectionMappingPerKey: {}
+    }
+    const recordShieldingFields: IObjectMapping = recordFields.objectMappingPerKey['skjerming'] ? recordFields.objectMappingPerKey['skjerming'] : {
+        objectMappingPerKey: {},
+        objectCollectionMappingPerKey: {},
+        valueMappingPerKey: {},
+        valueCollectionMappingPerKey: {}
+    }
 
-    const documentDescription: ICollectionMapping<IObjectMapping> = recordFields.objectCollectionMappingPerKey['dokumentbeskrivelse'] ? recordFields.objectCollectionMappingPerKey['dokumentbeskrivelse'] : {elementMappings: [], fromCollectionMappings: []};
-    const mainDocumentFields: IObjectMapping = documentDescription.elementMappings[0] ? documentDescription.elementMappings[0] : {objectMappingPerKey: {}, objectCollectionMappingPerKey: {}, valueMappingPerKey: {}, valueCollectionMappingPerKey: {}}
-    const mainDocumentObjectFields: IObjectMapping = mainDocumentFields.objectCollectionMappingPerKey['dokumentobjekt']?.elementMappings[0] ? mainDocumentFields.objectCollectionMappingPerKey['dokumentobjekt'].elementMappings[0] : {objectMappingPerKey: {}, objectCollectionMappingPerKey: {}, valueMappingPerKey: {}, valueCollectionMappingPerKey: {}}
-    const attachmentDocumentFields: IObjectMapping = documentDescription.fromCollectionMappings[0]?.elementMapping ? documentDescription.fromCollectionMappings[0].elementMapping : {objectMappingPerKey: {}, objectCollectionMappingPerKey: {}, valueMappingPerKey: {}, valueCollectionMappingPerKey: {}}
-    const attachmentDocumentObjectFields: IObjectMapping = attachmentDocumentFields.objectCollectionMappingPerKey['dokumentobjekt']?.elementMappings[0] ? attachmentDocumentFields.objectCollectionMappingPerKey['dokumentobjekt'].elementMappings[0] : {objectMappingPerKey: {}, objectCollectionMappingPerKey: {}, valueMappingPerKey: {}, valueCollectionMappingPerKey: {}}
+    const documentDescription: ICollectionMapping<IObjectMapping> = recordFields.objectCollectionMappingPerKey['dokumentbeskrivelse'] ? recordFields.objectCollectionMappingPerKey['dokumentbeskrivelse'] : {
+        elementMappings: [],
+        fromCollectionMappings: []
+    };
+    const mainDocumentFields: IObjectMapping = documentDescription.elementMappings[0] ? documentDescription.elementMappings[0] : {
+        objectMappingPerKey: {},
+        objectCollectionMappingPerKey: {},
+        valueMappingPerKey: {},
+        valueCollectionMappingPerKey: {}
+    }
+    const mainDocumentObjectFields: IObjectMapping = mainDocumentFields.objectCollectionMappingPerKey['dokumentobjekt']?.elementMappings[0] ? mainDocumentFields.objectCollectionMappingPerKey['dokumentobjekt'].elementMappings[0] : {
+        objectMappingPerKey: {},
+        objectCollectionMappingPerKey: {},
+        valueMappingPerKey: {},
+        valueCollectionMappingPerKey: {}
+    }
+    const attachmentDocumentFields: IObjectMapping = documentDescription.fromCollectionMappings[0]?.elementMapping ? documentDescription.fromCollectionMappings[0].elementMapping : {
+        objectMappingPerKey: {},
+        objectCollectionMappingPerKey: {},
+        valueMappingPerKey: {},
+        valueCollectionMappingPerKey: {}
+    }
+    const attachmentDocumentObjectFields: IObjectMapping = attachmentDocumentFields.objectCollectionMappingPerKey['dokumentobjekt']?.elementMappings[0] ? attachmentDocumentFields.objectCollectionMappingPerKey['dokumentobjekt'].elementMappings[0] : {
+        objectMappingPerKey: {},
+        objectCollectionMappingPerKey: {},
+        valueMappingPerKey: {},
+        valueCollectionMappingPerKey: {}
+    }
 
-    const correspondent: ICollectionMapping<IObjectMapping> = recordFields.objectCollectionMappingPerKey['korrespondansepart'] ? recordFields.objectCollectionMappingPerKey['korrespondansepart'] : {elementMappings: [], fromCollectionMappings: []};
-    const correspondentFields: IObjectMapping = correspondent.elementMappings[0] ? correspondent.elementMappings[0] : {objectMappingPerKey: {}, objectCollectionMappingPerKey: {}, valueMappingPerKey: {}, valueCollectionMappingPerKey: {}}
+    const correspondent: ICollectionMapping<IObjectMapping> = recordFields.objectCollectionMappingPerKey['korrespondansepart'] ? recordFields.objectCollectionMappingPerKey['korrespondansepart'] : {
+        elementMappings: [],
+        fromCollectionMappings: []
+    };
+    const correspondentFields: IObjectMapping = correspondent.elementMappings[0] ? correspondent.elementMappings[0] : {
+        objectMappingPerKey: {},
+        objectCollectionMappingPerKey: {},
+        valueMappingPerKey: {},
+        valueCollectionMappingPerKey: {}
+    }
 
-    const addressFields: IObjectMapping = correspondentFields.objectMappingPerKey['adresse'] ? correspondentFields.objectMappingPerKey['adresse'] : {objectMappingPerKey: {}, objectCollectionMappingPerKey: {}, valueMappingPerKey: {}, valueCollectionMappingPerKey: {}}
-    const contactFields: IObjectMapping = correspondentFields.objectMappingPerKey['kontaktinformasjon'] ? correspondentFields.objectMappingPerKey['kontaktinformasjon'] : {objectMappingPerKey: {}, objectCollectionMappingPerKey: {}, valueMappingPerKey: {}, valueCollectionMappingPerKey: {}}
-    const correspondentShieldingFields: IObjectMapping = correspondentFields.objectMappingPerKey['skjerming'] ? correspondentFields.objectMappingPerKey['skjerming'] : {objectMappingPerKey: {}, objectCollectionMappingPerKey: {}, valueMappingPerKey: {}, valueCollectionMappingPerKey: {}}
+    const addressFields: IObjectMapping = correspondentFields.objectMappingPerKey['adresse'] ? correspondentFields.objectMappingPerKey['adresse'] : {
+        objectMappingPerKey: {},
+        objectCollectionMappingPerKey: {},
+        valueMappingPerKey: {},
+        valueCollectionMappingPerKey: {}
+    }
+    const contactFields: IObjectMapping = correspondentFields.objectMappingPerKey['kontaktinformasjon'] ? correspondentFields.objectMappingPerKey['kontaktinformasjon'] : {
+        objectMappingPerKey: {},
+        objectCollectionMappingPerKey: {},
+        valueMappingPerKey: {},
+        valueCollectionMappingPerKey: {}
+    }
+    const correspondentShieldingFields: IObjectMapping = correspondentFields.objectMappingPerKey['skjerming'] ? correspondentFields.objectMappingPerKey['skjerming'] : {
+        objectMappingPerKey: {},
+        objectCollectionMappingPerKey: {},
+        valueMappingPerKey: {},
+        valueCollectionMappingPerKey: {}
+    }
 
 
     return {
@@ -75,10 +146,10 @@ export function toFormData(data: IConfiguration): IFormConfiguration {
             recordStatus: recordFields.valueMappingPerKey['journalstatus']?.mappingString ? recordFields.valueMappingPerKey['journalstatus']?.mappingString : null,
             recordType: recordFields.valueMappingPerKey['journalposttype']?.mappingString ? recordFields.valueMappingPerKey['journalposttype']?.mappingString : null,
             caseWorker: recordFields.valueMappingPerKey['saksbehandler']?.mappingString ? recordFields.valueMappingPerKey['saksbehandler']?.mappingString : null,
-           shielding: {
-               accessCode: recordShieldingFields.valueMappingPerKey['tilgangsrestriksjon']?.mappingString ? recordShieldingFields.valueMappingPerKey['tilgangsrestriksjon']?.mappingString : null,
-               paragraph: recordShieldingFields.valueMappingPerKey['skjermingshjemmel']?.mappingString ? recordShieldingFields.valueMappingPerKey['skjermingshjemmel']?.mappingString : null,
-           },
+            shielding: {
+                accessCode: recordShieldingFields.valueMappingPerKey['tilgangsrestriksjon']?.mappingString ? recordShieldingFields.valueMappingPerKey['tilgangsrestriksjon']?.mappingString : null,
+                paragraph: recordShieldingFields.valueMappingPerKey['skjermingshjemmel']?.mappingString ? recordShieldingFields.valueMappingPerKey['skjermingshjemmel']?.mappingString : null,
+            },
             mainDocument: {
                 title: mainDocumentFields.valueMappingPerKey['tittel']?.mappingString ? mainDocumentFields.valueMappingPerKey['tittel']?.mappingString : null,
                 documentStatus: mainDocumentFields.valueMappingPerKey['dokumentstatus']?.mappingString ? mainDocumentFields.valueMappingPerKey['dokumentstatus']?.mappingString : null,
@@ -108,7 +179,7 @@ export function toFormData(data: IConfiguration): IFormConfiguration {
                 name: correspondentFields.valueMappingPerKey['korrespondansepartNavn']?.mappingString ? correspondentFields.valueMappingPerKey['korrespondansepartNavn']?.mappingString : null,
                 contactPerson: correspondentFields.valueMappingPerKey['kontaktperson']?.mappingString ? correspondentFields.valueMappingPerKey['kontaktperson']?.mappingString : null,
                 address: addressFields.valueMappingPerKey['adresselinje']?.mappingString ? addressFields.valueMappingPerKey['adresselinje']?.mappingString : null,
-                postalCode:addressFields.valueMappingPerKey['postnummer']?.mappingString ? addressFields.valueMappingPerKey['postnummer']?.mappingString : null,
+                postalCode: addressFields.valueMappingPerKey['postnummer']?.mappingString ? addressFields.valueMappingPerKey['postnummer']?.mappingString : null,
                 city: addressFields.valueMappingPerKey['poststed']?.mappingString ? addressFields.valueMappingPerKey['poststed']?.mappingString : null,
                 phoneNumber: contactFields.valueMappingPerKey['telefonnummer']?.mappingString ? contactFields.valueMappingPerKey['telefonnummer']?.mappingString : null,
                 mobilePhoneNumber: contactFields.valueMappingPerKey['mobiltelefonnummer']?.mappingString ? contactFields.valueMappingPerKey['mobiltelefonnummer']?.mappingString : null,

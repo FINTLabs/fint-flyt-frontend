@@ -1,6 +1,6 @@
 import {IIntegration} from "../../features/integration/types/Integration";
 import {IConfiguration} from "../../features/configuration/types/Configuration";
-import {IMetadata} from "../../features/configuration/types/Metadata/Metadata";
+import {IIntegrationMetadata} from "../../features/configuration/types/Metadata/IntegrationMetadata";
 
 export type IntegrationContextState = {
     id: string | undefined;
@@ -22,8 +22,8 @@ export type IntegrationContextState = {
     getConfigurations: (page: number, size: number, sortProperty: string, sortDirection: string, complete: boolean, integration: string, excludeElements: boolean) => void;
     getCompletedConfigurations: (page: number, size: number, sortProperty: string, sortDirection: string, complete: boolean, integration: string, excludeElements: boolean) => void;
     destination: string,
-    selectedMetadata: IMetadata;
-    setSelectedMetadata: (form: IMetadata) => void,
+    selectedMetadata: IIntegrationMetadata;
+    setSelectedMetadata: (form: IIntegrationMetadata) => void,
     sourceApplicationIntegrationId: string,
     setSourceApplicationIntegrationId: (id: string) => void,
     setDestination: (destination: string) => void;
@@ -36,23 +36,34 @@ export type IntegrationContextState = {
 
 export const contextDefaultValues: IntegrationContextState = {
     id: undefined,
-    setId: (number: string | undefined) => {},
+    setId: (number: string | undefined) => {
+    },
     newIntegration: {},
     existingIntegration: {},
-    setNewIntegration: () => {},
-    setExistingIntegration: () => {},
+    setNewIntegration: () => {
+    },
+    setExistingIntegration: () => {
+    },
     newIntegrations: [],
-    setNewIntegrations: () => {},
-    getNewIntegrations: () => {},
+    setNewIntegrations: () => {
+    },
+    getNewIntegrations: () => {
+    },
     configuration: undefined,
-    setConfiguration: () => {},
+    setConfiguration: () => {
+    },
     configurations: undefined,
     completedConfigurations: undefined,
-    getConfiguration: () => {},
-    getConfigurations: () => {},
-    getCompletedConfigurations: () => {},
-    setConfigurations: () => {},
-    setCompletedConfigurations: () => {},
+    getConfiguration: () => {
+    },
+    getConfigurations: () => {
+    },
+    getCompletedConfigurations: () => {
+    },
+    setConfigurations: () => {
+    },
+    setCompletedConfigurations: () => {
+    },
     destination: '',
     selectedMetadata: {
         instanceElementMetadata: [],
@@ -62,13 +73,19 @@ export const contextDefaultValues: IntegrationContextState = {
         integrationDisplayName: '',
         version: 0
     },
-    setSelectedMetadata: () => {},
-    setDestination: () => {},
+    setSelectedMetadata: () => {
+    },
+    setDestination: () => {
+    },
     sourceApplicationId: '',
-    setSourceApplicationId: () => {},
+    setSourceApplicationId: () => {
+    },
     sourceApplicationIntegrationId: '',
-    setSourceApplicationIntegrationId: () => {},
-    resetIntegrationContext: () => {},
-    resetIntegrations: () => {},
+    setSourceApplicationIntegrationId: () => {
+    },
+    resetIntegrationContext: () => {
+    },
+    resetIntegrations: () => {
+    },
     statistics: []
 };

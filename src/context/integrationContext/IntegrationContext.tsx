@@ -1,10 +1,10 @@
-import React, { createContext, useState, FC } from "react";
+import React, {createContext, FC, useState} from "react";
 import {contextDefaultValues, IntegrationContextState} from "./types";
 import {IIntegration} from "../../features/integration/types/Integration";
 import {IConfiguration} from "../../features/configuration/types/Configuration";
 import EventRepository from "../../features/log/repository/EventRepository";
 import {IIntegrationStatistics} from "../../features/log/types/IntegrationStatistics";
-import {IMetadata} from "../../features/configuration/types/Metadata/Metadata";
+import {IIntegrationMetadata} from "../../features/configuration/types/Metadata/IntegrationMetadata";
 import ConfigurationRepository from "../../shared/repositories/ConfigurationRepository";
 import IntegrationRepository from "../../shared/repositories/IntegrationRepository";
 import SourceApplicationRepository from "../../shared/repositories/SourceApplicationRepository";
@@ -13,7 +13,7 @@ export const IntegrationContext = createContext<IntegrationContextState>(
     contextDefaultValues
 );
 
-const IntegrationProvider: FC = ({ children }) => {
+const IntegrationProvider: FC = ({children}) => {
     const [existingIntegration, setExistingIntegration] = useState<IIntegration | undefined>(undefined);
     const [id, setId] = useState<string | undefined>(undefined);
     const [newIntegration, setNewIntegration] = useState<IIntegration | undefined>(undefined);
@@ -22,7 +22,7 @@ const IntegrationProvider: FC = ({ children }) => {
     const [configurations, setConfigurations] = useState<IConfiguration[] | undefined>(contextDefaultValues.configurations);
     const [completedConfigurations, setCompletedConfigurations] = useState<IConfiguration[] | undefined>(contextDefaultValues.completedConfigurations);
     const [destination, setDestination] = useState<string>('');
-    const [selectedMetadata, setSelectedMetadata] = useState<IMetadata>(contextDefaultValues.selectedMetadata);
+    const [selectedMetadata, setSelectedMetadata] = useState<IIntegrationMetadata>(contextDefaultValues.selectedMetadata);
     const [sourceApplicationIntegrationId, setSourceApplicationIntegrationId] = useState<string>('');
     const [sourceApplicationId, setSourceApplicationId] = useState<string>('');
     const [statistics, setStatistics] = useState<any[]>(contextDefaultValues.statistics);
@@ -57,8 +57,8 @@ const IntegrationProvider: FC = ({ children }) => {
                     let stats = data;
                     SourceApplicationRepository.getMetadata(sourceApplicationId, true)
                         .then((response) => {
-                            if(response.data) {
-                                let metadata: IMetadata[] = response.data;
+                            if (response.data) {
+                                let metadata: IIntegrationMetadata[] = response.data;
                                 IntegrationRepository.getIntegrations(0, null, "state", "ASC")
                                     .then((response) => {
                                         if (response.data) {
@@ -73,7 +73,7 @@ const IntegrationProvider: FC = ({ children }) => {
                                                 })
                                                 return stats;
                                             })
-                                            metadata.forEach((value: IMetadata) => {
+                                            metadata.forEach((value: IIntegrationMetadata) => {
                                                 mergedList.map((integration: IIntegration) => {
                                                     if (integration.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {
                                                         return integration.displayName = value.integrationDisplayName;
@@ -132,7 +132,8 @@ const IntegrationProvider: FC = ({ children }) => {
             .catch((e) => {
                 console.error('Error: ', e)
                 setCompletedConfigurations([]);
-            })    }
+            })
+    }
 
     const getConfiguration = async (id: any, excludeElements?: boolean) => {
         ConfigurationRepository.getConfiguration(id.toString(), excludeElements)

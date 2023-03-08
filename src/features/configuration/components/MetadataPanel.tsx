@@ -1,21 +1,19 @@
 import {Box, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Theme, Typography} from "@mui/material";
 import {Tag} from "./dnd/Tag";
 import * as React from "react";
+import {useContext, useEffect} from "react";
 import HelpPopover from "./popover/HelpPopover";
 import {useTranslation} from "react-i18next";
 import {toTagValue} from "../../util/JsonUtil";
-import {useContext, useEffect} from "react";
 import {IntegrationContext} from "../../../context/integrationContext";
 // eslint-disable-next-line
-import {Link} from 'react-router-dom'
 import {SourceApplicationContext} from "../../../context/sourceApplicationContext";
+import {createStyles, makeStyles} from "@mui/styles";
 import {
     IInstanceMetadataCategory,
     IInstanceObjectCollectionMetadata,
     IInstanceValueMetadata
-} from "../types/IntegrationMetadata";
-import {MOCK_INSTANCE_ELEMENT_METADATA} from "../defaults/DefaultValues";
-import {createStyles, makeStyles} from "@mui/styles";
+} from "../types/Metadata/IntegrationMetadata";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -74,9 +72,14 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const MetadataPanel: React.FunctionComponent<any> = (props) => {
     const classes = useStyles();
-    const { t } = useTranslation('translations', { keyPrefix: 'components.MetadataPanel'});
-    const { selectedMetadata, setSelectedMetadata } = useContext(IntegrationContext)
-    const { allMetadata, instanceElementMetadata, getInstanceElementMetadata, getAllMetadata } = useContext(SourceApplicationContext)
+    const {t} = useTranslation('translations', {keyPrefix: 'components.MetadataPanel'});
+    const {selectedMetadata, setSelectedMetadata} = useContext(IntegrationContext)
+    const {
+        allMetadata,
+        instanceElementMetadata,
+        getInstanceElementMetadata,
+        getAllMetadata
+    } = useContext(SourceApplicationContext)
     let initialVersion = selectedMetadata.version;
     const [version, setVersion] = React.useState(initialVersion ? String(initialVersion) : '');
 
@@ -100,20 +103,21 @@ const MetadataPanel: React.FunctionComponent<any> = (props) => {
             md.sourceApplicationIntegrationId === selectedMetadata.sourceApplicationIntegrationId
     })
 
-    function TagTreeValues({items, depth = 0}: any ) {
+    function TagTreeValues({items, depth = 0}: any) {
         return (<>
                 {items.instanceValueMetadata.map((ivm: IInstanceValueMetadata) => (
-                    <div style={{ paddingLeft: depth * 10 }} key={'tagtreeValues-' + ivm.key}>
-                        <Tag disabled={false} type={ivm.type} name={ivm.displayName + ' {' + (ivm.key) + '}'} value={toTagValue(ivm.key)}/>
+                    <div style={{paddingLeft: depth * 10}} key={'tagtreeValues-' + ivm.key}>
+                        <Tag disabled={false} type={ivm.type} name={ivm.displayName + ' {' + (ivm.key) + '}'}
+                             value={toTagValue(ivm.key)}/>
                     </div>
                 ))}</>
         )
     }
 
-    function TagTreeCollectionValues({items, depth = 0}: any ) {
+    function TagTreeCollectionValues({items, depth = 0}: any) {
         return (<>
                 {items.instanceObjectCollectionMetadata.map((ivm: IInstanceObjectCollectionMetadata) => (
-                    <div style={{ paddingLeft: depth * 15 }} key={'tagTreeCollectionValues-' + ivm.key}>
+                    <div style={{paddingLeft: depth * 15}} key={'tagTreeCollectionValues-' + ivm.key}>
                         <Typography>{ivm.displayName}</Typography>
                         <TagTreeValues items={ivm.objectMetadata}/>
                     </div>
@@ -122,7 +126,7 @@ const MetadataPanel: React.FunctionComponent<any> = (props) => {
     }
 
 
-    function TagTree({items, depth = 0}: any ) {
+    function TagTree({items, depth = 0}: any) {
         if (!items.categories || !items.instanceValueMetadata || !items.instanceObjectCollectionMetadata) {
             return null
         }
@@ -130,13 +134,13 @@ const MetadataPanel: React.FunctionComponent<any> = (props) => {
         return (
             <React.Fragment key={depth}>
                 {items.instanceValueMetadata &&
-                    <TagTreeValues items={items} depth={depth+1}/>
+                    <TagTreeValues items={items} depth={depth + 1}/>
                 }
                 {items.categories.map((category: IInstanceMetadataCategory) => (
-                    <div style={{ paddingLeft: depth * 10 }} key={'tagTree-' + category.displayName}>
+                    <div style={{paddingLeft: depth * 10}} key={'tagTree-' + category.displayName}>
                         {category.content.instanceValueMetadata && <div><Typography>{category.displayName}</Typography>
                         </div>}
-                        <TagTree items={category.content} depth={depth+1}/>
+                        <TagTree items={category.content} depth={depth + 1}/>
                     </div>
                 ))}
             </React.Fragment>
@@ -149,7 +153,7 @@ const MetadataPanel: React.FunctionComponent<any> = (props) => {
                 <Box className={props.style.row}>
                     <Typography variant={"h6"}>{t('header')}</Typography>
                     <HelpPopover popoverContent="sourceApplicationFormPopoverContent"/>
-                    <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+                    <FormControl sx={{m: 1, minWidth: 120}} size="small">
                         <InputLabel id="metadata-version-select">{t('version')} </InputLabel>
                         <Select
                             labelId="version-select"

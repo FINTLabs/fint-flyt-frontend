@@ -1,9 +1,8 @@
-import {ISelect} from "../../features/configuration/types/InputField";
+import {ISelect} from "../../features/configuration/types/Select";
 import {
-    IInstanceElementMetadata,
     IInstanceMetadataContent,
     IIntegrationMetadata
-} from "../../features/configuration/types/IntegrationMetadata";
+} from "../../features/configuration/types/Metadata/IntegrationMetadata";
 
 export interface ISourceApplicationItem {
     sourceApplicationDisplayName: string;
@@ -27,11 +26,19 @@ export type SourceApplicationContextState = {
 
 export const contextDefaultValues: SourceApplicationContextState = {
     isAdmin: false,
-    setIsAdmin: (admin: boolean) => {},
-    availableForms: {sourceApplicationDisplayName: '', sourceApplicationId: '1', forms: [{value: 'null', label: 'Velg skjemaleverandør først'}]},
-    getAllForms: () => {},
-    getAvailableForms: () => {},
-    allMetadata: [{instanceElementMetadata: [],
+    setIsAdmin: (admin: boolean) => {
+    },
+    availableForms: {
+        sourceApplicationDisplayName: '',
+        sourceApplicationId: '1',
+        forms: [{value: 'null', label: 'Velg skjemaleverandør først'}]
+    },
+    getAllForms: () => {
+    },
+    getAvailableForms: () => {
+    },
+    allMetadata: [{
+        instanceElementMetadata: [],
         sourceApplicationIntegrationUri: '',
         sourceApplicationIntegrationId: '',
         sourceApplicationId: '',
@@ -39,8 +46,11 @@ export const contextDefaultValues: SourceApplicationContextState = {
         version: 0
     }],
     instanceElementMetadata: undefined,
-    getAllMetadata: (onlyLatest) => {},
-    getInstanceElementMetadata: (metadataId) => {},
+    getAllMetadata: (onlyLatest) => {
+    },
+    getInstanceElementMetadata: (metadataId) => {
+    },
     sourceApplication: 1,
-    setSourceApplication: () => {}
+    setSourceApplication: () => {
+    }
 };
