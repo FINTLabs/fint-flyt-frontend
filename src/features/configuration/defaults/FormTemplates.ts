@@ -56,6 +56,12 @@ export const testSelectTemplates: ISelectableValueTemplate[] = [
                     "valueRefPerRequestParamKey": {
                         "klassifikasjonssystemLink": "klassifikasjonssystem"
                     }
+                },
+                {
+                    "urlTemplate": "api/intern/arkiv/{a}/saksmappetype",
+                    "valueRefPerPathParamKey": {
+                        "a": "tittel"
+                    }
                 }
             ]
         }

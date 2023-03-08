@@ -1,13 +1,14 @@
 import {IUrlBuilder} from "../types/NewForm/FormTemplate";
 import {AxiosRequestConfig} from "axios";
+import {recordOrEmpty} from "./ObjectUtils";
 
 export function containsOnlyStaticUrls(selectableSources: IUrlBuilder[]): boolean {
     return selectableSources.every(isStaticUrl)
 }
 
 function isStaticUrl(builder: IUrlBuilder): boolean {
-    return (builder.valueRefPerPathParamKey ? Object.keys(builder.valueRefPerPathParamKey).length === 0 : true)
-        && (builder.valueRefPerRequestParamKey ? Object.keys(builder.valueRefPerRequestParamKey).length === 0 : true)
+    return (Object.keys(recordOrEmpty(builder.valueRefPerPathParamKey)).length === 0)
+        && (Object.keys(recordOrEmpty(builder.valueRefPerRequestParamKey)).length === 0)
 }
 
 export type Source = { url: string, config?: AxiosRequestConfig }
@@ -17,29 +18,29 @@ const pathParamKeyRegExp: RegExp = new RegExp(/{[^{}]+}/g);
 export function createSource(urlBuilder: IUrlBuilder, valuePerValueRef: Record<string, any>): Source | undefined {
     let params: Record<string, string> = {};
     let url: string = urlBuilder.urlTemplate;
-
+    let valueRefPerRequestParamKey = recordOrEmpty(urlBuilder.valueRefPerRequestParamKey);
+    let valueRefPerPathParamKey = recordOrEmpty(urlBuilder.valueRefPerPathParamKey);
     let dependsOnUndefinedValue: boolean = [
-        ...urlBuilder.valueRefPerRequestParamKey ? Object.keys(urlBuilder.valueRefPerRequestParamKey) : [],
-        ...urlBuilder.valueRefPerPathParamKey ? Object.keys(urlBuilder.valueRefPerPathParamKey) : []
+        ...Object.values(valueRefPerRequestParamKey),
+        ...Object.values(valueRefPerPathParamKey)
     ]
         .map(valueRef => valuePerValueRef[valueRef])
-        .find(value => value === undefined || value === "") !== undefined
+        .some(value => value === undefined || value === "")
     if (dependsOnUndefinedValue) {
         return undefined;
     }
 
-    if (urlBuilder.valueRefPerRequestParamKey) {
-        Object.entries(urlBuilder.valueRefPerRequestParamKey)
-            .forEach(([requestParamKey, valueRef]) => {
-                params[requestParamKey] = valuePerValueRef[valueRef];
-            })
-    }
-    if (urlBuilder.valueRefPerPathParamKey) {
-        url.replaceAll(
+    Object.entries(valueRefPerRequestParamKey)
+        .forEach(([requestParamKey, valueRef]) => {
+            params[requestParamKey] = valuePerValueRef[valueRef];
+        })
+
+    if (Object.keys(valueRefPerPathParamKey).length > 0) {
+        url = url.replaceAll(
             pathParamKeyRegExp,
             ((substring: string) => {
                 let pathParamKey: string = substring.slice(1, substring.length - 1)
-                return valuePerValueRef[pathParamKey]
+                return valuePerValueRef[valueRefPerPathParamKey[pathParamKey]]
             })
         )
     }
