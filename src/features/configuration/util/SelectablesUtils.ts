@@ -3,62 +3,43 @@ import {AxiosResponse} from "axios";
 import ResourceRepository from "../../../shared/repositories/ResourceRepository";
 import {ISelectable} from "../components/FormPanel";
 import {Dispatch, SetStateAction, useEffect, useState} from "react";
-import {UseFormGetValues} from "react-hook-form/dist/types/form";
-import {FieldValues} from "react-hook-form";
-import {Observable, Subscription} from "rxjs";
-import {containsOnlyStaticUrls, createSource, Source} from "./UrlUtils";
+import {Control} from "react-hook-form/dist/types/form";
+import {useWatch} from "react-hook-form";
+import {createSource, Source} from "./UrlUtils";
 import {getAbsoluteKeyFromValueRef} from "./KeyUtils";
 
-
-export function createSelectables(
+export function CreateSelectables(
     valueTemplate: ISelectableValueTemplate,
-    getValue: UseFormGetValues<FieldValues>,
-    elementUpdatedObservablePerAbsoluteKey: Record<string, Observable<void>>,
+    control: Control,
     parentAbsoluteKey?: string
 ): ISelectable[] {
 
-    const [selectables, setSelectables] = useState<ISelectable[]>(
-        valueTemplate.template.selectablesSources
-            ? []
-            : valueTemplate.template.selectables ? valueTemplate.template.selectables : []
+    const [selectables, setSelectables] = useState<ISelectable[]>([])
+
+    let sourceUrlBuilders = valueTemplate.template.selectablesSources ? valueTemplate.template.selectablesSources : [];
+
+    let valueRefPerAbsoluteKey: Record<string, string> = createValueRefPerAbsoluteKey(
+        sourceUrlBuilders,
+        parentAbsoluteKey
     )
+    let absoluteKeys: string[] = Object.keys(valueRefPerAbsoluteKey)
+    let useWatchValues: any[] = useWatch({control, name: absoluteKeys})
 
     useEffect(() => {
-        if (valueTemplate.template.selectablesSources) {
-            let sourceUrlBuilders = valueTemplate.template.selectablesSources
-
-            if (containsOnlyStaticUrls(sourceUrlBuilders)) {
-                updateSelectables(sourceUrlBuilders, {}, setSelectables)
-            } else {
-                let valueRefPerAbsoluteKey: Record<string, string> = createValueRefPerAbsoluteKey(
-                    sourceUrlBuilders,
-                    parentAbsoluteKey
-                )
-                let absoluteKeys: string[] = Object.keys(valueRefPerAbsoluteKey)
-
-                let subscriptions: Subscription[] = absoluteKeys
-                    .map(absoluteKey => elementUpdatedObservablePerAbsoluteKey[absoluteKey].subscribe(
-                        () => {
-                            let valuePerValueRef: Record<string, any> = {}
-                            absoluteKeys.forEach(absoluteKey => {
-                                let valueRef: string = valueRefPerAbsoluteKey[absoluteKey]
-                                valuePerValueRef[valueRef] = getValue(absoluteKey)
-                            })
-
-                            updateSelectables(sourceUrlBuilders, valuePerValueRef, setSelectables)
-                        }
-                    ))
-                return () => subscriptions.forEach(subscription => subscription.unsubscribe())
-            }
-        }
-    }, [])
+        let valuePerValueRef: Record<string, any> = {};
+        Array.from(Array(absoluteKeys.length).keys())
+            .forEach(i =>
+                valuePerValueRef[valueRefPerAbsoluteKey[absoluteKeys[i]]] = useWatchValues[i]
+            )
+        updateSelectables(sourceUrlBuilders, valuePerValueRef, setSelectables)
+    }, [useWatchValues])
     return selectables
 }
 
 function createValueRefPerAbsoluteKey(sourceUrlBuilders: IUrlBuilder[], parentAbsoluteKey?: string): Record<string, string> {
     return sourceUrlBuilders.map(urlBuilder => [
-            ...urlBuilder.valueRefPerRequestParamKey ? Object.keys(urlBuilder.valueRefPerRequestParamKey) : [],
-            ...urlBuilder.valueRefPerPathParamKey ? Object.keys(urlBuilder.valueRefPerPathParamKey) : []
+            ...urlBuilder.valueRefPerRequestParamKey ? Object.values(urlBuilder.valueRefPerRequestParamKey) : [],
+            ...urlBuilder.valueRefPerPathParamKey ? Object.values(urlBuilder.valueRefPerPathParamKey) : []
         ]
     ).reduce<Record<string, string>>(
         (valueRefPerAbsoluteKey: Record<string, string>, currentValue) => {

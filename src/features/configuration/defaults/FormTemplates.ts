@@ -26,65 +26,36 @@ export const testStringTemplates: IValueTemplate[] = [
 ]
 export const testSelectTemplates: ISelectableValueTemplate[] = [
     {
-        "order": 4,
+        "order": 1,
         "elementConfig": {
-            "key": "administrativenhet",
-            "displayName": "Administrativ enhet",
+            "key": "klassifikasjonssystem",
+            "displayName": "Klassifikasjonssystem",
             "description": ""
         },
         "template": {
             "type": "SEARCH_SELECT",
             "selectablesSources": [
                 {
-                    "urlTemplate": "api/intern/arkiv/kodeverk/administrativenhet"
+                    "urlTemplate": "api/intern/arkiv/kodeverk/klassifikasjonssystem"
                 }
             ]
         }
     },
     {
-        "order": 5,
+        "order": 2,
         "elementConfig": {
-            "key": "saksansvarlig",
-            "displayName": "Saksansvarlig",
+            "key": "klasseId",
+            "displayName": "KlasseID",
             "description": ""
         },
         "template": {
-            "type": "SEARCH_SELECT",
+            "type": "DYNAMIC_STRING_OR_SEARCH_SELECT",
             "selectablesSources": [
                 {
-                    "urlTemplate": "api/intern/arkiv/kodeverk/arkivressurs"
-                }
-            ]
-        }
-    },
-    {
-        "order": 6,
-        "elementConfig": {
-            "key": "arkivdel",
-            "displayName": "Arkivdel",
-            "description": ""
-        },
-        "template": {
-            "type": "SEARCH_SELECT",
-            "selectablesSources": [
-                {
-                    "urlTemplate": "api/intern/arkiv/kodeverk/arkivdel"
-                }
-            ]
-        }
-    },
-    {
-        "order": 7,
-        "elementConfig": {
-            "key": "saksstatus",
-            "displayName": "Saksstatus",
-            "description": ""
-        },
-        "template": {
-            "type": "SEARCH_SELECT",
-            "selectablesSources": [
-                {
-                    "urlTemplate": "api/intern/arkiv/kodeverk/sakstatus"
+                    "urlTemplate": "api/intern/arkiv/kodeverk/klasse",
+                    "valueRefPerRequestParamKey": {
+                        "klassifikasjonssystemLink": "klassifikasjonssystem"
+                    }
                 }
             ]
         }

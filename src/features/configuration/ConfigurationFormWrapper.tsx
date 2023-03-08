@@ -1,13 +1,13 @@
 import React, {useContext} from 'react';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
+import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {SourceApplicationContext} from "../../context/sourceApplicationContext";
-import CaseConfigForm from "./CaseConfigForm";
+import Panel from "./components/Panel";
 
 const ConfigurationFormWrapper: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const {sourceApplication} = useContext(SourceApplicationContext)
 
     return (
-            <CaseConfigForm/>
+        <Panel/>
     );
 }
 
