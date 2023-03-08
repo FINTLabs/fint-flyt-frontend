@@ -1,10 +1,13 @@
-import React, {useEffect, useState} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import { useDrop } from 'react-dnd'
 import { DraggableTypes } from './DraggableTypes'
 import {Controller} from 'react-hook-form';
 import {TextField} from "@mui/material";
 import {ITag} from "../../types/Metadata/Tag";
 import { useTranslation } from 'react-i18next';
+import {SourceApplicationContext} from "../../../../context/sourceApplicationContext";
+import {extractTags} from "../../../util/StringUtil";
+import {flatten} from "../../../util/JsonUtil";
 
 export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'inputField'});
@@ -14,6 +17,19 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
     const setPropValue = props.setValue;
     const regExp = /^(?:(?:(?!\$if\{).)+|(?:\$if\{(?:(?!\$if\{).)+})+)+$/g;
     const allowAnythingRegExp: RegExp =/(.*?)/g;
+    const {instanceElementMetadata} = useContext(SourceApplicationContext)
+
+    function validAndExisting(value: string): boolean {
+        if(!regExp.test(value)) {
+            return false
+        }
+        if(value && value !== '' && instanceElementMetadata) {
+            const instanceFields = extractTags(value, '$if{', '}')
+            const flatMetadata = flatten(instanceElementMetadata)
+            return instanceFields.every(v => flatMetadata.includes(v))
+        }
+        return false
+    }
 
     const [inputValue, setInputValue] = useState(initValue);
     const [{ canDrop, isOver }, drop] = useDrop(() => ({
@@ -39,7 +55,9 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
 
     const validation = props.validation;
     const error = props.error;
-    const validRegEx: boolean = regExp.test(inputValue)
+    //const validRegEx: boolean = regExp.test(inputValue)
+    const validAndRegEx = validAndExisting(inputValue)
+
 
     return (
         <Controller
@@ -61,8 +79,8 @@ export const TextFieldWithDropZone: React.FunctionComponent<any> = (props) => {
                             setInputValue(e.target.value as string);
                             onChange(e);
                         }}
-                        error={(!!props.error && props.required) || (inputValue === '' &&  props.required && !!props.error || validation && inputValue !== '' && !validRegEx)}
-                        helperText={(value === '' && error && props.required && validation) ? 'Obligatorisk felt' : ((validation && inputValue !== '' && !validRegEx) ? 'Data fra skjema må være på formatet $if{metadata}' : '')}
+                        error={(!!props.error && props.required) || (inputValue === '' &&  props.required && !!props.error || validation && inputValue !== '' && !validAndRegEx)}
+                        helperText={(value === '' && error && props.required && validation) ? 'Obligatorisk felt' : ((validation && inputValue !== '' && !validAndRegEx) ? 'Data fra skjema må være på formatet $if{metadata} og eksistere i data fra skjema' : '')}
                     />)
             }}
             rules={
