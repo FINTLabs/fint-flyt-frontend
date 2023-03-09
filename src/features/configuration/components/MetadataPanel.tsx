@@ -12,7 +12,8 @@ import {createStyles, makeStyles} from "@mui/styles";
 import {
     IInstanceMetadataCategory,
     IInstanceObjectCollectionMetadata,
-    IInstanceValueMetadata
+    IInstanceValueMetadata,
+    MOCK_INSTANCE_METADATA
 } from "../types/Metadata/IntegrationMetadata";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -149,32 +150,35 @@ const MetadataPanel: React.FunctionComponent<any> = (props) => {
 
     return (
         <>
-            <Box className={props.style.sourceApplicationForm}>
-                <Box className={props.style.row}>
-                    <Typography variant={"h6"}>{t('header')}</Typography>
-                    <HelpPopover popoverContent="sourceApplicationFormPopoverContent"/>
-                    <FormControl sx={{m: 1, minWidth: 120}} size="small">
-                        <InputLabel id="metadata-version-select">{t('version')} </InputLabel>
-                        <Select
-                            labelId="version-select"
-                            id="version-select"
-                            value={version}
-                            label={t('version') as string}
-                            onChange={handleChange}
-                        >
-                            {availableVersions.map((md, index) => {
-                                return <MenuItem key={index} value={md.version}>{t('version')} {md.version}</MenuItem>
-                            })}
-                        </Select>
-                    </FormControl>
-                </Box>
-                {instanceElementMetadata && <TagTree items={instanceElementMetadata}/>}
-                {/*<Link style={{fontFamily: 'sans-serif'}} to={{pathname: selectedMetadata.sourceApplicationIntegrationUri}} target="_blank">{t('openLink')}</Link>*/}
+            <Box className={props.style.sourceApplicationFormContainer} sx={{position: 'sticky'}}>
+                <Box className={props.style.sourceApplicationForm}>
+                    <Box className={props.style.row}>
+                        <Typography variant={"h6"}>{t('header')}</Typography>
+                        <HelpPopover popoverContent="metadataPanelPopoverContent"/>
+                        <FormControl sx={{m: 1, minWidth: 120}} size="small">
+                            <InputLabel id="metadata-version-select">{t('version')} </InputLabel>
+                            <Select
+                                labelId="version-select"
+                                id="version-select"
+                                value={version}
+                                label={t('version') as string}
+                                onChange={handleChange}
+                            >
+                                {availableVersions.map((md, index) => {
+                                    return <MenuItem key={index}
+                                                     value={md.version}>{t('version')} {md.version}</MenuItem>
+                                })}
+                            </Select>
+                        </FormControl>
+                    </Box>
+                    <TagTree items={MOCK_INSTANCE_METADATA.instanceMetadata}/>
+                    {/*<Link style={{fontFamily: 'sans-serif'}} to={{pathname: selectedMetadata.sourceApplicationIntegrationUri}} target="_blank">{t('openLink')}</Link>*/}
 
-            </Box>
-            <Box className={props.style.sourceApplicationForm}>
-                <Box className={props.style.row}>
-                    {instanceElementMetadata && <TagTreeCollectionValues items={instanceElementMetadata}/>}
+                </Box>
+                <Box className={props.style.sourceApplicationForm}>
+                    <Box className={props.style.row}>
+                        {instanceElementMetadata && <TagTreeCollectionValues items={instanceElementMetadata}/>}
+                    </Box>
                 </Box>
             </Box>
         </>

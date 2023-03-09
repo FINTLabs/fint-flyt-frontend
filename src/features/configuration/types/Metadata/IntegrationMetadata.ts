@@ -1,5 +1,6 @@
 export const Type = {
     STRING: "STRING",
+    DYNAMIC_STRING: "DYNAMIC_STRING",
     DATE: "DATE",
     DATETIME: "DATETIME",
     URL: "URL",
@@ -57,14 +58,14 @@ export const MOCK_INSTANCE_METADATA: IIntegrationMetadata = {
     instanceMetadata: {
         instanceValueMetadata: [
             {
-                displayName: "ivm1",
+                displayName: "Fornavn 1",
                 type: Type.STRING,
-                key: "IVM1"
+                key: "navn1"
             },
             {
-                displayName: "ivm2",
+                displayName: "Fornavn 2",
                 type: Type.EMAIL,
-                key: "IVM2"
+                key: "navn2"
             }
         ],
         instanceObjectCollectionMetadata: [
@@ -135,9 +136,9 @@ export const MOCK_INSTANCE_METADATA: IIntegrationMetadata = {
                                                     key: "navn2.test"
                                                 },
                                                 {
-                                                    displayName: "epost2.test",
-                                                    type: Type.STRING,
-                                                    key: "epost2.test"
+                                                    displayName: "Fil",
+                                                    type: Type.FILE,
+                                                    key: "test2.fil"
                                                 }
                                             ],
                                             categories: []

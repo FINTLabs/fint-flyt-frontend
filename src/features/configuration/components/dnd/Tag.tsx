@@ -1,6 +1,5 @@
 import {FC} from 'react'
 import {useDrag} from 'react-dnd'
-import {DraggableTypes} from './DraggableTypes'
 import {Chip} from "@mui/material";
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import TextFieldsIcon from '@mui/icons-material/TextFields';
@@ -15,8 +14,8 @@ import {Type} from "../../types/Metadata/IntegrationMetadata";
 
 export const Tag: FC<ITag> = function Tag({name, value, type}) {
     const [{isDragging}, drag] = useDrag(() => ({
-        type: DraggableTypes.TAG,
-        item: {name, value},
+        type: type === 'STRING' ? 'DYNAMIC_STRING' : type,
+        item: {name, value, type},
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
         }),
@@ -24,6 +23,9 @@ export const Tag: FC<ITag> = function Tag({name, value, type}) {
 
     function typeToIcon(type: string) {
         if (type === Type.STRING) {
+            return <TextFieldsIcon/>
+        }
+        if (type === Type.DYNAMIC_STRING) {
             return <TextFieldsIcon/>
         }
         if (type === Type.FILE) {

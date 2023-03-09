@@ -22,8 +22,67 @@ export const testStringTemplates: IValueTemplate[] = [
         "template": {
             "type": "DYNAMIC_STRING"
         }
+    },
+    {
+        "order": 2,
+        "elementConfig": {
+            "key": "fil",
+            "displayName": "Fil",
+            "description": ""
+        },
+        "template": {
+            "type": "FILE"
+        }
     }
 ]
+
+export const correspondentTest: IValueTemplate[] = [
+    {
+        "order": 1,
+        "elementConfig": {
+            "key": "organisasjonsnummer",
+            "displayName": "Organisasjonsnummer",
+            "description": ""
+        },
+        "template": {
+            "type": "DYNAMIC_STRING"
+        }
+    },
+    {
+        "order": 2,
+        "elementConfig": {
+            "key": "fodselsnummer",
+            "displayName": "Fødselsnummer",
+            "description": ""
+        },
+        "template": {
+            "type": "DYNAMIC_STRING"
+        }
+    },
+    {
+        "order": 3,
+        "elementConfig": {
+            "key": "navn",
+            "displayName": "Navn",
+            "description": ""
+        },
+        "template": {
+            "type": "DYNAMIC_STRING"
+        }
+    },
+    {
+        "order": 3,
+        "elementConfig": {
+            "key": "epost",
+            "displayName": "E-post",
+            "description": ""
+        },
+        "template": {
+            "type": "EMAIL"
+        }
+    }
+]
+
 export const testSelectTemplates: ISelectableValueTemplate[] = [
     {
         "order": 1,
@@ -58,9 +117,9 @@ export const testSelectTemplates: ISelectableValueTemplate[] = [
                     }
                 },
                 {
-                    "urlTemplate": "api/intern/arkiv/{a}/saksmappetype",
+                    "urlTemplate": "api/intern/arkiv/{link}/saksmappetype",
                     "valueRefPerPathParamKey": {
-                        "a": "tittel"
+                        "link": "tittel"
                     }
                 }
             ]
