@@ -1,4 +1,4 @@
-import {ISelectableValueTemplate, IUrlBuilder} from "../types/NewForm/FormTemplate";
+import {IElementTemplate, ISelectableValueTemplate, IUrlBuilder} from "../types/NewForm/FormTemplate";
 import {AxiosResponse} from "axios";
 import ResourceRepository from "../../../shared/repositories/ResourceRepository";
 import {ISelectable} from "../components/FormPanel";
@@ -9,21 +9,20 @@ import {createSource, Source} from "./UrlUtils";
 import {getAbsoluteKeyFromValueRef} from "./KeyUtils";
 
 export function CreateSelectables(
-    valueTemplate: ISelectableValueTemplate,
+    valueTemplate: IElementTemplate<ISelectableValueTemplate>,
     control: Control,
     parentAbsoluteKey?: string
 ): ISelectable[] {
 
     const [selectables, setSelectables] = useState<ISelectable[]>([])
 
-    let sourceUrlBuilders = valueTemplate.template.selectablesSources ? valueTemplate.template.selectablesSources : [];
-
-    let valueRefPerAbsoluteKey: Record<string, string> = createValueRefPerAbsoluteKey(
+    const sourceUrlBuilders = valueTemplate.template.selectablesSources ? valueTemplate.template.selectablesSources : [];
+    const valueRefPerAbsoluteKey: Record<string, string> = createValueRefPerAbsoluteKey(
         sourceUrlBuilders,
         parentAbsoluteKey
     )
-    let absoluteKeys: string[] = Object.keys(valueRefPerAbsoluteKey)
-    let useWatchValues: any[] = useWatch({control, name: absoluteKeys})
+    const absoluteKeys: string[] = Object.keys(valueRefPerAbsoluteKey)
+    const useWatchValues: any[] = useWatch({control, name: absoluteKeys})
 
     useEffect(() => {
         let valuePerValueRef: Record<string, any> = {};

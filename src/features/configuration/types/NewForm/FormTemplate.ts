@@ -1,42 +1,9 @@
 import {ISelectable} from "../../components/FormPanel";
 
-export interface FormTemplate {
-    valueTemplates?: IValueTemplate[];
-    selectableValueTemplates?: ISelectableValueTemplate[];
-    objectTemplates?: IObjectTemplate[];
-    objectCollectionTemplates?: IObjectCollectionTemplate[];
-}
-
-export interface FormCollectionTemplate {
-    objectTemplate: IObjectTemplate;
-}
-
-export interface IObjectTemplate {
+export interface IElementTemplate<T extends IValueTemplate | ISelectableValueTemplate | IObjectTemplate | ICollectionTemplate<IValueTemplate | IObjectTemplate>> {
     order: number,
     elementConfig: IElementConfig;
-    template: FormTemplate;
-}
-
-export interface IValueTemplate {
-    order: number;
-    elementConfig: IElementConfig;
-    template: ITemplate;
-}
-
-export interface ISelectableValueTemplate {
-    order: number;
-    elementConfig: IElementConfig;
-    template: ISelectableTemplate;
-}
-
-export interface IObjectCollectionTemplate {
-    order: number;
-    elementConfig: IElementConfig;
-    template: IFormCollectionTemplate;
-}
-
-export interface IFormCollectionTemplate {
-    objectTemplate: FormTemplate;
+    template: T;
 }
 
 export interface IElementConfig {
@@ -47,15 +14,39 @@ export interface IElementConfig {
     enableDependency?: IDependency;
 }
 
-export interface ITemplate {
-    type: string;
+export enum ValueType {
+    STRING = "STRING",
+    DYNAMIC_STRING = "DYNAMIC_STRING",
+    FILE = "FILE"
+}
+
+export interface IValueTemplate {
+    type: ValueType;
     search?: IUrlBuilder;
 }
 
-export interface ISelectableTemplate {
-    type: string,
+export enum SelectableValueType {
+    DROPDOWN = "DROPDOWN",
+    SEARCH_SELECT = "SEARCH_SELECT",
+    DYNAMIC_STRING_OR_SEARCH_SELECT = "DYNAMIC_STRING_OR_SEARCH_SELECT"
+}
+
+export interface ISelectableValueTemplate {
+    type: SelectableValueType,
     selectables?: ISelectable[];
     selectablesSources?: IUrlBuilder[];
+}
+
+export interface IObjectTemplate {
+    valueTemplates?: IElementTemplate<IValueTemplate>[];
+    selectableValueTemplates?: IElementTemplate<ISelectableValueTemplate>[];
+    objectTemplates?: IElementTemplate<IObjectTemplate>[];
+    valueCollectionTemplates?: IElementTemplate<ICollectionTemplate<IValueTemplate>>[];
+    objectCollectionTemplates?: IElementTemplate<ICollectionTemplate<IObjectTemplate>>[];
+}
+
+export interface ICollectionTemplate<T> {
+    elementTemplate: T
 }
 
 export interface IUrlBuilder {
