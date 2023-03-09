@@ -32,6 +32,7 @@ export const testStringTemplates: IElementTemplate<IValueTemplate>[] = [
         }
     }
 ]
+
 export const testSelectTemplates: IElementTemplate<ISelectableValueTemplate>[] = [
     {
         "order": 2,
@@ -44,7 +45,7 @@ export const testSelectTemplates: IElementTemplate<ISelectableValueTemplate>[] =
             "type": SelectableValueType.SEARCH_SELECT,
             "selectablesSources": [
                 {
-                    "urlTemplate": "api/intern/arkiv/kodeverk/klassifikasjonssystem"
+                    "urlTemplate": "api/intern/arkiv/kodeverk/klassifikasjonssystem.mappingString"
                 }
             ]
         }
@@ -62,13 +63,13 @@ export const testSelectTemplates: IElementTemplate<ISelectableValueTemplate>[] =
                 {
                     "urlTemplate": "api/intern/arkiv/kodeverk/klasse",
                     "valueRefPerRequestParamKey": {
-                        "klassifikasjonssystemLink": "klassifikasjonssystem"
+                        "klassifikasjonssystemLink": "klassifikasjonssystem.mappingString"
                     }
                 },
                 {
                     "urlTemplate": "api/intern/arkiv/{a}/saksmappetype",
                     "valueRefPerPathParamKey": {
-                        "a": "tittel"
+                        "a": "tittel.mappingString"
                     }
                 }
             ]
