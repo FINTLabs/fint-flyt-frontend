@@ -1,4 +1,4 @@
-import {ISelectableValueTemplate, IUrlBuilder} from "../types/NewForm/FormTemplate";
+import {IElementTemplate, ISelectableValueTemplate, IUrlBuilder} from "../types/NewForm/FormTemplate";
 import {AxiosResponse} from "axios";
 import ResourceRepository from "../../../shared/repositories/ResourceRepository";
 import {ISelectable} from "../components/FormPanel";
@@ -9,7 +9,7 @@ import {createSource, Source} from "./UrlUtils";
 import {getAbsoluteKeyFromValueRef} from "./KeyUtils";
 
 export function CreateSelectables(
-    valueTemplate: ISelectableValueTemplate,
+    valueTemplate: IElementTemplate<ISelectableValueTemplate>,
     control: Control,
     parentAbsoluteKey?: string
 ): ISelectable[] {

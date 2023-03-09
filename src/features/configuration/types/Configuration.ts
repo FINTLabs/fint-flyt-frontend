@@ -1,47 +1,46 @@
 export interface IConfiguration {
-    id?: string;
-    integrationId?: string;
+    id?: number;
+    integrationId?: number;
     integrationMetadataId?: number;
     version?: number | null;
     completed?: boolean;
     comment?: string;
-    mapping?: IObjectMapping
+    mapping?: IObjectMapping;
 }
 
 export interface IConfigurationPatch {
     comment?: string;
     integrationMetadataId?: number;
     completed?: boolean;
-    mapping?: IObjectMapping
+    mapping?: IObjectMapping;
 }
 
-export interface IObjectMapping {
-    valueMappingPerKey: Record<string, IValueMapping>
-    objectMappingPerKey: Record<string, IObjectMapping>
-    valueCollectionMappingPerKey: Record<string, ICollectionMapping<IValueMapping>>
-    objectCollectionMappingPerKey: Record<string, ICollectionMapping<IObjectMapping>>
+export enum ValueType {
+    STRING = 'STRING',
+    URL = 'URL',
+    BOOLEAN = 'BOOLEAN',
+    DYNAMIC_STRING = 'DYNAMIC_STRING',
+    FILE = 'FILE'
 }
 
 export interface IValueMapping {
-    type: string;
-    mappingString: string | null
+    type: ValueType;
+    mappingString: string | null;
 }
 
-export interface ICollectionMapping<T extends IObjectMapping | IValueMapping> {
+export interface IObjectMapping {
+    valueMappingPerKey: Record<string, IValueMapping>;
+    valueCollectionMappingPerKey: Record<string, ICollectionMapping<IValueMapping>>;
+    objectMappingPerKey: Record<string, IObjectMapping>;
+    objectCollectionMappingPerKey: Record<string, ICollectionMapping<IObjectMapping>>;
+}
+
+export interface ICollectionMapping<T extends IValueMapping | IObjectMapping> {
     elementMappings: T[];
-    fromCollectionMappings: IFromCollectionMapping<T>[]
+    fromCollectionMappings: IFromCollectionMapping<T>[];
 }
 
-export interface IFromCollectionMapping<T extends IObjectMapping | IValueMapping> {
+export interface IFromCollectionMapping<T extends IValueMapping | IObjectMapping> {
     instanceCollectionReferencesOrdered: string[];
     elementMapping: T;
 }
-
-export const FieldType = {
-    STRING: 'STRING',
-    DYNAMIC_STRING: 'DYNAMIC_STRING',
-    URL: 'URL',
-    BOOLEAN: 'BOOLEAN',
-    FILE: 'FILE'
-}
-

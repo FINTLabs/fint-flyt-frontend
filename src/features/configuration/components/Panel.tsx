@@ -1,5 +1,5 @@
 import * as React from "react";
-import {ISelectableValueTemplate, IValueTemplate} from "../types/NewForm/FormTemplate";
+import {IElementTemplate, ISelectableValueTemplate, IValueTemplate} from "../types/NewForm/FormTemplate";
 import {useForm} from "react-hook-form";
 import {testSelectTemplates, testStringTemplates} from "../defaults/FormTemplates";
 
@@ -12,7 +12,7 @@ const Panel: React.FunctionComponent<any> = () => {
         console.log(data);
     };
 
-    function createStringValueComponent(valueTemplate: IValueTemplate, parentAbsoluteKey?: string) {
+    function createStringValueComponent(valueTemplate: IElementTemplate<IValueTemplate>, parentAbsoluteKey?: string) {
         let absoluteKey = getAbsoluteKey(valueTemplate.elementConfig, parentAbsoluteKey)
         return (
             <label key={absoluteKey}>
@@ -24,7 +24,7 @@ const Panel: React.FunctionComponent<any> = () => {
         )
     }
 
-    function CreateSelectValueComponent(valueTemplate: ISelectableValueTemplate, parentAbsoluteKey?: string) {
+    function CreateSelectValueComponent(valueTemplate: IElementTemplate<ISelectableValueTemplate>, parentAbsoluteKey?: string) {
         let absoluteKey = getAbsoluteKey(valueTemplate.elementConfig, parentAbsoluteKey)
         let selectables = CreateSelectables(
             valueTemplate, control, parentAbsoluteKey
@@ -47,7 +47,7 @@ const Panel: React.FunctionComponent<any> = () => {
         )
     }
 
-    function createDynamicStringValueComponent(valueTemplate: IValueTemplate, parentAbsoluteKey?: string) {
+    function createDynamicStringValueComponent(valueTemplate: IElementTemplate<IValueTemplate>, parentAbsoluteKey?: string) {
         // return input field supporting onChange on drop appending dropped value
         let absoluteKey = getAbsoluteKey(valueTemplate.elementConfig, parentAbsoluteKey)
         return (
