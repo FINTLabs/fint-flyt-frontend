@@ -45,7 +45,6 @@ export interface IObjectTemplate {
     objectCollectionTemplates?: IElementTemplate<ICollectionTemplate<IObjectTemplate>>[];
 }
 
-// TODO Rename and add valueCollectionTemplate in template model
 export interface ICollectionTemplate<T> {
     elementTemplate: T
 }

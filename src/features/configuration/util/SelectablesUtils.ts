@@ -16,14 +16,13 @@ export function CreateSelectables(
 
     const [selectables, setSelectables] = useState<ISelectable[]>([])
 
-    let sourceUrlBuilders = valueTemplate.template.selectablesSources ? valueTemplate.template.selectablesSources : [];
-
-    let valueRefPerAbsoluteKey: Record<string, string> = createValueRefPerAbsoluteKey(
+    const sourceUrlBuilders = valueTemplate.template.selectablesSources ? valueTemplate.template.selectablesSources : [];
+    const valueRefPerAbsoluteKey: Record<string, string> = createValueRefPerAbsoluteKey(
         sourceUrlBuilders,
         parentAbsoluteKey
     )
-    let absoluteKeys: string[] = Object.keys(valueRefPerAbsoluteKey)
-    let useWatchValues: any[] = useWatch({control, name: absoluteKeys})
+    const absoluteKeys: string[] = Object.keys(valueRefPerAbsoluteKey)
+    const useWatchValues: any[] = useWatch({control, name: absoluteKeys})
 
     useEffect(() => {
         let valuePerValueRef: Record<string, any> = {};

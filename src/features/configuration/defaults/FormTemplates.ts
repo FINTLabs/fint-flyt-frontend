@@ -1,10 +1,12 @@
 import {
     IElementTemplate,
+    IObjectTemplate,
     ISelectableValueTemplate,
     IValueTemplate,
     SelectableValueType,
     ValueType
 } from "../types/NewForm/FormTemplate";
+
 
 export const testStringTemplates: IElementTemplate<IValueTemplate>[] = [
     {
@@ -32,7 +34,7 @@ export const testStringTemplates: IElementTemplate<IValueTemplate>[] = [
 ]
 export const testSelectTemplates: IElementTemplate<ISelectableValueTemplate>[] = [
     {
-        "order": 1,
+        "order": 2,
         "elementConfig": {
             "key": "klassifikasjonssystem",
             "displayName": "Klassifikasjonssystem",
@@ -48,7 +50,7 @@ export const testSelectTemplates: IElementTemplate<ISelectableValueTemplate>[] =
         }
     },
     {
-        "order": 2,
+        "order": 3,
         "elementConfig": {
             "key": "klasseId",
             "displayName": "KlasseID",
@@ -73,3 +75,29 @@ export const testSelectTemplates: IElementTemplate<ISelectableValueTemplate>[] =
         }
     }
 ]
+
+export const testObjectTemplateJournalpost: IElementTemplate<IObjectTemplate> = {
+    "order": 4,
+    "elementConfig": {
+        "key": "journalpost",
+        "displayName": "Sak",
+        "description": ""
+    },
+    "template": {
+        "valueTemplates": testStringTemplates
+    }
+}
+
+export const testObjectTemplateSak: IElementTemplate<IObjectTemplate> = {
+    "order": 0,
+    "elementConfig": {
+        "key": "sak",
+        "displayName": "Sak",
+        "description": ""
+    },
+    "template": {
+        "valueTemplates": testStringTemplates,
+        "selectableValueTemplates": testSelectTemplates,
+        "objectTemplates": [testObjectTemplateJournalpost]
+    }
+}
