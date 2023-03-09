@@ -81,7 +81,7 @@ export const testObjectTemplateJournalpost: IElementTemplate<IObjectTemplate> = 
     "order": 4,
     "elementConfig": {
         "key": "journalpost",
-        "displayName": "Sak",
+        "displayName": "Journalpost",
         "description": ""
     },
     "template": {
