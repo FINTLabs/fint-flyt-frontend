@@ -2,13 +2,11 @@ import {useFormContext} from "react-hook-form"
 import {getAbsoluteKey} from "../util/KeyUtils";
 import {CreateSelectables} from "../util/SelectablesUtils";
 import * as React from "react";
-import {IElementTemplate, ISelectableValueTemplate} from "../types/NewForm/FormTemplate";
 import {ValueType} from "../types/Configuration";
+import {TemplateComponentProps} from "../types/ValueComponentProps";
+import {ISelectableValueTemplate} from "../types/NewForm/FormTemplate";
 
-const SelectValueComponent: React.FunctionComponent<any> = (props: {
-    parentAbsoluteKey: string,
-    template: IElementTemplate<ISelectableValueTemplate>
-}) => {
+const SelectValueComponent: React.FunctionComponent<any> = (props: TemplateComponentProps<ISelectableValueTemplate>) => {
     const {register, setValue, control} = useFormContext();
     const absoluteKey = getAbsoluteKey(props.template.elementConfig, props.parentAbsoluteKey)
     const selectables = CreateSelectables(
@@ -17,9 +15,10 @@ const SelectValueComponent: React.FunctionComponent<any> = (props: {
     setValue(absoluteKey + ".type", ValueType.STRING)
     return (
         <>
-            <label key={props.template.elementConfig.displayName}>
+            <label key={props.template.elementConfig.displayName} className={props.classes.label}>
                 {props.template.elementConfig.displayName}:
-                <select {...register(absoluteKey + ".mappingString")}
+                <select className={props.classes.select}
+                        {...register(absoluteKey + ".mappingString")}
                         autoComplete={props.template.template.type === 'SEARCH_SELECT' ? 'on' : 'off'}
                 >
                     {selectables.map(option => {

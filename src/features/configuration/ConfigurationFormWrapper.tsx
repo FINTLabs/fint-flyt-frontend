@@ -24,15 +24,6 @@ const useStyles = makeStyles((theme: Theme) =>
             flex: '50%',
             paddingLeft: theme.spacing(2)
         },
-        buttonContainer: {
-            background: 'white',
-            padding: theme.spacing(2),
-            height: 'fit-content',
-            position: 'sticky',
-            bottom: theme.spacing(0),
-            zIndex: 1,
-            width: '100%'
-        },
         sourceApplicationFormContainer: {
             padding: theme.spacing(2),
             border: 'solid 1px',
@@ -50,25 +41,28 @@ const useStyles = makeStyles((theme: Theme) =>
             overflow: 'auto',
             maxHeight: theme.spacing(100)
         },
-        accordion: {
-            marginBottom: theme.spacing(2),
-            width: theme.spacing(100)
-        },
-        accordionSummary: {
-            backgroundColor: theme.palette.primary.light,
-        },
-        formControl: {
-            width: theme.spacing(70)
-        },
-        button: {
-            marginRight: theme.spacing(1)
-        },
         submitButton: {
             backgroundColor: theme.palette.primary.dark,
             border: 'none',
             color: 'white',
             padding: theme.spacing(2),
             cursor: 'pointer'
+        },
+        label: {
+            fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
+            fontSize: '16px'
+        },
+        select: {
+            width: '350px',
+            height: '30px',
+            borderRadius: '3px',
+            margin: '5px'
+        },
+        input: {
+            width: '350px',
+            borderRadius: '3px',
+            margin: '5px',
+            height: '24px'
         }
     })
 );

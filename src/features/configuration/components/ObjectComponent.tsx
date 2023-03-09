@@ -1,14 +1,12 @@
 import * as React from "react";
-import {IElementTemplate, IObjectTemplate, ValueType} from "../types/NewForm/FormTemplate";
+import {IObjectTemplate, ValueType} from "../types/NewForm/FormTemplate";
 import {getAbsoluteKey} from "../util/KeyUtils";
 import StringValueComponent from "./StringValueComponent";
 import SelectValueComponent from "./SelectValueComponent";
 import DynamicStringValueComponent from "./DynamicStringValueComponent";
+import {TemplateComponentProps} from "../types/ValueComponentProps";
 
-const ObjectComponent: React.FunctionComponent<any> = (props: {
-    parentAbsoluteKey?: string,
-    template: IElementTemplate<IObjectTemplate>
-}) => {
+const ObjectComponent: React.FunctionComponent<any> = (props: TemplateComponentProps<IObjectTemplate>) => {
     const absoluteKey = getAbsoluteKey(props.template.elementConfig, props.parentAbsoluteKey)
     return (
         <>
@@ -19,11 +17,13 @@ const ObjectComponent: React.FunctionComponent<any> = (props: {
                         switch (valueTemplate.template.type) {
                             case ValueType.STRING:
                                 return <StringValueComponent
+                                    classes={props.classes}
                                     parentAbsoluteKey={absoluteKey + ".valueMappingPerKey"}
                                     template={valueTemplate}
                                 />
                             case ValueType.DYNAMIC_STRING:
                                 return <DynamicStringValueComponent
+                                    classes={props.classes}
                                     parentAbsoluteKey={absoluteKey + ".valueMappingPerKey"}
                                     template={valueTemplate}
                                 />
@@ -34,6 +34,7 @@ const ObjectComponent: React.FunctionComponent<any> = (props: {
 
                 {props.template.template.selectableValueTemplates?.map(valueTemplate =>
                     <SelectValueComponent
+                        classes={props.classes}
                         parentAbsoluteKey={absoluteKey + ".valueMappingPerKey"}
                         template={valueTemplate}
                     />
@@ -41,6 +42,7 @@ const ObjectComponent: React.FunctionComponent<any> = (props: {
 
                 {props.template.template.objectTemplates?.map(objectTemplate =>
                     <ObjectComponent
+                        classes={props.classes}
                         parentAbsoluteKey={absoluteKey + ".objectMappingPerKey"}
                         template={objectTemplate}
                     />
