@@ -11,7 +11,7 @@ interface Props extends ElementComponentProps {
     template: IValueTemplate
 }
 
-const ValueMappingComponent: React.FC<Props> = (props: Props) => {
+const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
     const {setValue} = useFormContext();
     const valueAbsoluteKey: string = props.absoluteKey + ".mappingString"
     switch (props.template.type) {
