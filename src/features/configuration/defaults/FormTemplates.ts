@@ -45,7 +45,7 @@ export const testSelectTemplates: IElementTemplate<ISelectableValueTemplate>[] =
             "type": SelectableValueType.SEARCH_SELECT,
             "selectablesSources": [
                 {
-                    "urlTemplate": "api/intern/arkiv/kodeverk/klassifikasjonssystem.mappingString"
+                    "urlTemplate": "api/intern/arkiv/kodeverk/klassifikasjonssystem"
                 }
             ]
         }
