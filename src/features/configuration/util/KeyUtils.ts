@@ -1,23 +1,20 @@
-import {IElementConfig} from "../types/NewForm/FormTemplate";
-
-export function getAbsoluteKey(elementConfig: IElementConfig, parentAbsoluteKey?: string) {
-    return (parentAbsoluteKey ? parentAbsoluteKey + '.' : '') + elementConfig.key
-}
-
-export function getAbsoluteKeyFromValueRef(valueRef: string, parentAbsoluteKey?: string) {
-    if (valueRef.startsWith('/') || !parentAbsoluteKey) {
+export function getAbsoluteKeyFromValueRef(valueRef: string, absoluteKey: string) {
+    if (valueRef.startsWith('/')) {
         return valueRef;
     }
 
-    let valueRefSplit = valueRef.split('../')
-    if (valueRefSplit.length === 1) {
-        return parentAbsoluteKey + '.' + valueRefSplit;
+    const valueRefSplit = valueRef.split('../')
+    const numOfLevelsUpInValueRef = valueRefSplit.length - 1;
+    if (numOfLevelsUpInValueRef === 0) {
+        return absoluteKey + '.' + valueRefSplit;
     }
+    const valueRefRemovedDynamicRefs = valueRefSplit[numOfLevelsUpInValueRef];
 
-    let parentAbsoluteKeySplit = parentAbsoluteKey.split('.')
-    let valueRefRemovedDynamicRefs = valueRefSplit[valueRefSplit.length - 1];
-    let parentAbsoluteKeyAdjustedForDynamicRefs = parentAbsoluteKeySplit
-        .slice(0, parentAbsoluteKeySplit.length - valueRefSplit.length)
+    const absoluteKeySplit = absoluteKey.split('.')
+    const numOfLevelsInAbsoluteKey = absoluteKeySplit.length;
+
+    const parentAbsoluteKeyAdjustedForDynamicRefs = absoluteKeySplit
+        .slice(0, numOfLevelsInAbsoluteKey - numOfLevelsUpInValueRef)
         .join('.')
     return parentAbsoluteKeyAdjustedForDynamicRefs + '.' + valueRefRemovedDynamicRefs
 }

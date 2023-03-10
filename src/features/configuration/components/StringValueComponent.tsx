@@ -1,19 +1,16 @@
-import {IValueTemplate} from "../types/NewForm/FormTemplate";
 import {useFormContext} from "react-hook-form";
-import {getAbsoluteKey} from "../util/KeyUtils";
 import * as React from "react";
 import {ValueType} from "../types/Configuration";
-import {TemplateComponentProps} from "../types/ValueComponentProps";
+import {ElementComponentProps} from "../types/ValueComponentProps";
 
-const StringValueComponent: React.FunctionComponent<any> = (props: TemplateComponentProps<IValueTemplate>) => {
+const StringValueComponent: React.FunctionComponent<any> = (props: ElementComponentProps) => {
     const {register, setValue} = useFormContext();
-    const absoluteKey = getAbsoluteKey(props.template.elementConfig, props.parentAbsoluteKey)
-    setValue(absoluteKey + ".type", ValueType.STRING)
+    setValue(props.absoluteKey + ".type", ValueType.STRING)
     return (
-        <label key={props.template.elementConfig.displayName} className={props.classes.label}>
-            {props.template.elementConfig.displayName}:
+        <label key={props.displayName} className={props.classes.label}>
+            {props.displayName}:
             <input className={props.classes.input} type="text"
-                   {...register(absoluteKey + ".mappingString")}
+                   {...register(props.absoluteKey + ".mappingString")}
             />
         </label>
     )

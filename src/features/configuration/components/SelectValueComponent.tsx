@@ -1,29 +1,32 @@
 import {useFormContext} from "react-hook-form"
-import {getAbsoluteKey} from "../util/KeyUtils";
 import {CreateSelectables} from "../util/SelectablesUtils";
 import * as React from "react";
 import {ValueType} from "../types/Configuration";
-import {TemplateComponentProps} from "../types/ValueComponentProps";
-import {ISelectableValueTemplate} from "../types/NewForm/FormTemplate";
+import {ElementComponentProps} from "../types/ValueComponentProps";
+import {IUrlBuilder} from "../types/NewForm/FormTemplate";
+import {ISelectable} from "./FormPanel";
 
 const SelectValueComponent: React.FunctionComponent<any> =
-    (props: TemplateComponentProps<ISelectableValueTemplate> & { autoComplete: boolean }) => {
+    (props: ElementComponentProps & {
+        selectables?: ISelectable[],
+        selectablesSources?: IUrlBuilder[],
+        autoComplete: boolean
+    }) => {
         const {register, setValue, control} = useFormContext();
-        const absoluteKey = getAbsoluteKey(props.template.elementConfig, props.parentAbsoluteKey)
         const selectables = CreateSelectables(
             control,
-            props.template.template.selectables,
-            props.template.template.selectablesSources,
-            props.parentAbsoluteKey
+            props.selectables,
+            props.selectablesSources,
+            props.absoluteKey
         );
 
-        setValue(absoluteKey + ".type", ValueType.STRING)
+        setValue(props.absoluteKey + ".type", ValueType.STRING)
         return (
             <>
-                <label key={props.template.elementConfig.displayName} className={props.classes.label}>
-                    {props.template.elementConfig.displayName}:
+                <label key={props.displayName} className={props.classes.label}>
+                    {props.displayName}:
                     <select className={props.classes.select}
-                            {...register(absoluteKey + ".mappingString")}
+                            {...register(props.absoluteKey + ".mappingString")}
                             autoComplete={props.autoComplete ? 'on' : 'off'}
                     >
                         {selectables.map(option => {

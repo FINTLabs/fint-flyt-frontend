@@ -1,51 +1,57 @@
 import * as React from "react";
-import {IObjectTemplate, SelectableValueType, ValueType} from "../types/NewForm/FormTemplate";
-import {getAbsoluteKey} from "../util/KeyUtils";
+import {IObjectTemplate, SelectableValueType, ValueType as TemplateValueType} from "../types/NewForm/FormTemplate";
 import StringValueComponent from "./StringValueComponent";
 import SelectValueComponent from "./SelectValueComponent";
 import DynamicStringValueComponent from "./DynamicStringValueComponent";
-import {TemplateComponentProps} from "../types/ValueComponentProps";
+import {ElementComponentProps} from "../types/ValueComponentProps";
+import {ValueType as MetadataValueType} from "../types/Metadata/IntegrationMetadata";
 
-const ObjectComponent: React.FunctionComponent<any> = (props: TemplateComponentProps<IObjectTemplate>) => {
-    const absoluteKey = getAbsoluteKey(props.template.elementConfig, props.parentAbsoluteKey)
+const ObjectComponent: React.FunctionComponent<any> = (props: ElementComponentProps & IObjectTemplate) => {
     return (
         <>
-            <div className="title">{props.template.elementConfig.displayName}</div>
+            <div className="title">{props.displayName}</div>
             <fieldset style={{display: "grid"}}>
 
-                {props.template.template.valueTemplates?.map(valueTemplate => {
-                        switch (valueTemplate.template.type) {
-                            case ValueType.STRING:
+                {props.valueTemplates?.map(template => {
+                        const key = props.absoluteKey + ".valueMappingPerKey." + template.elementConfig.key;
+                        switch (template.template.type) {
+                            case TemplateValueType.STRING:
                                 return <StringValueComponent
                                     classes={props.classes}
-                                    parentAbsoluteKey={absoluteKey + ".valueMappingPerKey"}
-                                    template={valueTemplate}
+                                    absoluteKey={key}
+                                    displayName={template.elementConfig.displayName}
                                 />
-                            case ValueType.DYNAMIC_STRING:
+                            case TemplateValueType.DYNAMIC_STRING:
                                 return <DynamicStringValueComponent
                                     classes={props.classes}
-                                    parentAbsoluteKey={absoluteKey + ".valueMappingPerKey"}
-                                    template={valueTemplate}
+                                    absoluteKey={key}
+                                    displayName={template.elementConfig.displayName}
+                                    accept={[MetadataValueType.STRING, MetadataValueType.EMAIL]}
                                 />
-                            case ValueType.FILE:
+                            case TemplateValueType.FILE:
                         }
                     }
                 )}
 
-                {props.template.template.selectableValueTemplates?.map(selectableValueTemplate => {
-                        switch (selectableValueTemplate.template.type) {
+                {props.selectableValueTemplates?.map(template => {
+                        const key = props.absoluteKey + ".valueMappingPerKey." + template.elementConfig.key;
+                        switch (template.template.type) {
                             case SelectableValueType.DROPDOWN:
                                 return <SelectValueComponent
                                     classes={props.classes}
-                                    parentAbsoluteKey={absoluteKey + ".valueMappingPerKey"}
-                                    template={selectableValueTemplate}
+                                    absoluteKey={key}
+                                    displayName={template.elementConfig.displayName}
+                                    selectables={template.template.selectables}
+                                    selectablesSources={template.template.selectablesSources}
                                     autoComplete={false}
                                 />
                             case SelectableValueType.SEARCH_SELECT:
                                 return <SelectValueComponent
                                     classes={props.classes}
-                                    parentAbsoluteKey={absoluteKey + ".valueMappingPerKey"}
-                                    template={selectableValueTemplate}
+                                    absoluteKey={key}
+                                    displayName={template.elementConfig.displayName}
+                                    selectables={template.template.selectables}
+                                    selectablesSources={template.template.selectablesSources}
                                     autoComplete={true}
                                 />
                             case SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT:
@@ -54,11 +60,12 @@ const ObjectComponent: React.FunctionComponent<any> = (props: TemplateComponentP
                     }
                 )}
 
-                {props.template.template.objectTemplates?.map(objectTemplate =>
+                {props.objectTemplates?.map(template =>
                     <ObjectComponent
                         classes={props.classes}
-                        parentAbsoluteKey={absoluteKey + ".objectMappingPerKey"}
-                        template={objectTemplate}
+                        absoluteKey={props.absoluteKey + ".objectMappingPerKey." + template.elementConfig.key}
+                        displayName={template.elementConfig.displayName}
+                        {...template.template}
                     />
                 )}
             </fieldset>

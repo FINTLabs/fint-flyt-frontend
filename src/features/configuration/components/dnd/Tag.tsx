@@ -10,7 +10,7 @@ import DialpadIcon from '@mui/icons-material/Dialpad';
 import ToggleOnIcon from '@mui/icons-material/ToggleOn';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import {ITag} from "../../types/Metadata/Tag";
-import {Type} from "../../types/Metadata/IntegrationMetadata";
+import {ValueType} from "../../types/Metadata/IntegrationMetadata";
 
 export const Tag: FC<ITag> = function Tag({name, value, type}) {
     const [{isDragging}, drag] = useDrag(() => ({
@@ -22,28 +22,25 @@ export const Tag: FC<ITag> = function Tag({name, value, type}) {
     }))
 
     function typeToIcon(type: string) {
-        if (type === Type.STRING) {
+        if (type === ValueType.STRING) {
             return <TextFieldsIcon/>
         }
-        if (type === Type.DYNAMIC_STRING) {
-            return <TextFieldsIcon/>
-        }
-        if (type === Type.FILE) {
+        if (type === ValueType.FILE) {
             return <ListIcon/>
         }
-        if (type === Type.INTEGER) {
+        if (type === ValueType.INTEGER) {
             return <NumbersIcon/>
         }
-        if (type === Type.DATE) {
+        if (type === ValueType.DATE) {
             return <CalendarMonthIcon/>
         }
-        if (type === Type.PHONE) {
+        if (type === ValueType.PHONE) {
             return <DialpadIcon/>
         }
-        if (type === Type.BOOLEAN) {
+        if (type === ValueType.BOOLEAN) {
             return <ToggleOnIcon/>
         }
-        if (type === Type.EMAIL) {
+        if (type === ValueType.EMAIL) {
             return <AlternateEmailIcon/>
         }
         if (type === undefined) {

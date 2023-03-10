@@ -83,13 +83,13 @@ export const testSelectTemplates: IElementTemplate<ISelectableValueTemplate>[] =
                 {
                     "urlTemplate": "api/intern/arkiv/kodeverk/klasse",
                     "valueRefPerRequestParamKey": {
-                        "klassifikasjonssystemLink": "klassifikasjonssystem.mappingString"
+                        "klassifikasjonssystemLink": "../klassifikasjonssystem.mappingString"
                     }
                 },
                 {
                     "urlTemplate": "api/intern/arkiv/{a}/saksmappetype",
                     "valueRefPerPathParamKey": {
-                        "a": "tittel.mappingString"
+                        "a": "../tittel.mappingString"
                     }
                 }
             ]

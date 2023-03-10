@@ -1,19 +1,17 @@
 import * as React from "react";
-import {IValueTemplate} from "../types/NewForm/FormTemplate";
 import {useFormContext} from "react-hook-form";
-import {getAbsoluteKey} from "../util/KeyUtils";
 import {useDrop} from "react-dnd";
 import {ITag} from "../types/Metadata/Tag";
-import {TemplateComponentProps} from "../types/ValueComponentProps";
+import {ElementComponentProps} from "../types/ValueComponentProps";
+import {ValueType} from "../types/Metadata/IntegrationMetadata"
 
-const DynamicStringValueComponent: React.FunctionComponent<any> = (props: TemplateComponentProps<IValueTemplate>) => {
+const DynamicStringValueComponent: React.FunctionComponent<any> = (props: ElementComponentProps & { accept: ValueType[] }) => {
     const {register, setValue, getValues} = useFormContext();
-    const absoluteKey = getAbsoluteKey(props.template.elementConfig, props.parentAbsoluteKey)
-    const templateType = props.template.template.type; // TODO: handle all template types, match to metadata type
+    const mappingStringAbsoluteKey = props.absoluteKey + ".mappingString";
     const [{canDrop, isOver}, dropRef] = useDrop({
-        accept: templateType,
+        accept: props.accept,
         drop: (tag: ITag) => {
-            setValue(absoluteKey, (getValues(absoluteKey) + tag.value))
+            setValue(mappingStringAbsoluteKey, (getValues(mappingStringAbsoluteKey) + tag.value))
         },
         collect: monitor => ({
             canDrop: monitor.canDrop(),
@@ -42,12 +40,12 @@ const DynamicStringValueComponent: React.FunctionComponent<any> = (props: Templa
     }
 
     return (
-        <div ref={dropRef} key={absoluteKey}>
-            <label key={absoluteKey} className={props.classes.label}>
-                {props.template.elementConfig.displayName}:
+        <div ref={dropRef} key={mappingStringAbsoluteKey}>
+            <label key={mappingStringAbsoluteKey} className={props.classes.label}>
+                {props.displayName}:
                 <input type="text"
                        style={dynamicStyle}
-                       {...register(absoluteKey)}
+                       {...register(mappingStringAbsoluteKey)}
                 />
             </label>
         </div>

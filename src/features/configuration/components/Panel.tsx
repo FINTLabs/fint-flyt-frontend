@@ -37,8 +37,10 @@ const Panel: React.FunctionComponent<any> = (props) => {
             <FormProvider {...methods} >
                 <form onSubmit={methods.handleSubmit(onSubmit)}>
                     <ObjectComponent
-                        template={testObjectTemplateSak}
                         classes={classes}
+                        absoluteKey={testObjectTemplateSak.elementConfig.key}
+                        displayName={testObjectTemplateSak.elementConfig.displayName}
+                        {...testObjectTemplateSak.template}
                     />
                     <input type="submit"/>
                 </form>

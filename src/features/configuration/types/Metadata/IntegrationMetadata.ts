@@ -1,16 +1,11 @@
-export const Type = {
-    STRING: "STRING",
-    DYNAMIC_STRING: "DYNAMIC_STRING",
-    DATE: "DATE",
-    DATETIME: "DATETIME",
-    URL: "URL",
-    EMAIL: "EMAIL",
-    PHONE: "PHONE",
-    BOOLEAN: "BOOLEAN",
-    INTEGER: "INTEGER",
-    DOUBLE: "DOUBLE",
-    FILE: "FILE",
-    UNKNOWN: "UNKNOWN"
+export enum ValueType {
+    STRING = "STRING",
+    BOOLEAN = "BOOLEAN",
+    INTEGER = "INTEGER",
+    EMAIL = "EMAIL",
+    DATE = "DATE",
+    PHONE = "PHONE",
+    FILE = "FILE"
 }
 
 export interface IIntegrationMetadata {
@@ -26,7 +21,7 @@ export interface IIntegrationMetadata {
 
 export interface IInstanceValueMetadata {
     displayName: string;
-    type: string;
+    type: ValueType;
     key: string;
 }
 
@@ -59,12 +54,12 @@ export const MOCK_INSTANCE_METADATA: IIntegrationMetadata = {
         instanceValueMetadata: [
             {
                 displayName: "Fornavn 1",
-                type: Type.STRING,
+                type: ValueType.STRING,
                 key: "navn1"
             },
             {
                 displayName: "Fornavn 2",
-                type: Type.EMAIL,
+                type: ValueType.EMAIL,
                 key: "navn2"
             }
         ],
@@ -76,12 +71,12 @@ export const MOCK_INSTANCE_METADATA: IIntegrationMetadata = {
                     instanceValueMetadata: [
                         {
                             displayName: "vedlegg1",
-                            type: Type.STRING,
+                            type: ValueType.STRING,
                             key: "v1"
                         },
                         {
                             displayName: "vedlegg2",
-                            type: Type.EMAIL,
+                            type: ValueType.EMAIL,
                             key: "v2"
                         }
                     ],
@@ -98,12 +93,12 @@ export const MOCK_INSTANCE_METADATA: IIntegrationMetadata = {
                     instanceValueMetadata: [
                         {
                             displayName: "navn",
-                            type: Type.STRING,
+                            type: ValueType.STRING,
                             key: "navn"
                         },
                         {
                             displayName: "epost",
-                            type: Type.EMAIL,
+                            type: ValueType.EMAIL,
                             key: "epost"
                         }
                     ],
@@ -115,12 +110,12 @@ export const MOCK_INSTANCE_METADATA: IIntegrationMetadata = {
                                 instanceValueMetadata: [
                                     {
                                         displayName: "navn2",
-                                        type: Type.STRING,
+                                        type: ValueType.STRING,
                                         key: "navn2"
                                     },
                                     {
                                         displayName: "epost2",
-                                        type: Type.EMAIL,
+                                        type: ValueType.EMAIL,
                                         key: "epost2"
                                     }
                                 ],
@@ -132,12 +127,12 @@ export const MOCK_INSTANCE_METADATA: IIntegrationMetadata = {
                                             instanceValueMetadata: [
                                                 {
                                                     displayName: "navn2.test",
-                                                    type: Type.STRING,
+                                                    type: ValueType.STRING,
                                                     key: "navn2.test"
                                                 },
                                                 {
                                                     displayName: "Fil",
-                                                    type: Type.FILE,
+                                                    type: ValueType.FILE,
                                                     key: "test2.fil"
                                                 }
                                             ],
@@ -157,12 +152,12 @@ export const MOCK_INSTANCE_METADATA: IIntegrationMetadata = {
                     instanceValueMetadata: [
                         {
                             displayName: "test2.navn",
-                            type: Type.STRING,
+                            type: ValueType.STRING,
                             key: "t2.navn"
                         },
                         {
                             displayName: "test2.epost",
-                            type: Type.EMAIL,
+                            type: ValueType.EMAIL,
                             key: "t2.epost"
                         }
                     ],

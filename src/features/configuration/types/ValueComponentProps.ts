@@ -1,8 +1,7 @@
-import {IElementTemplate} from "./NewForm/FormTemplate";
 import {ClassNameMap} from "@mui/styles";
 
-export type TemplateComponentProps<T> = {
-    parentAbsoluteKey?: string,
-    template: IElementTemplate<T>;
+export type ElementComponentProps = {
     classes: ClassNameMap;
+    absoluteKey: string;
+    displayName: string;
 }

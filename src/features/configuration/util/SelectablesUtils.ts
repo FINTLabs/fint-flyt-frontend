@@ -12,12 +12,12 @@ export function CreateSelectables(
     control: Control,
     staticSelectables: ISelectable[] = [],
     sourceUrlBuilders: IUrlBuilder[] = [],
-    parentAbsoluteKey?: string
+    absoluteKey: string
 ): ISelectable[] {
     const [selectables, setSelectables] = useState<ISelectable[]>(staticSelectables)
     const valueRefPerAbsoluteKey: Record<string, string> = createValueRefPerAbsoluteKey(
         sourceUrlBuilders,
-        parentAbsoluteKey
+        absoluteKey
     )
     const absoluteKeys: string[] = Object.keys(valueRefPerAbsoluteKey)
     const useWatchValues: any[] = useWatch({control, name: absoluteKeys})
@@ -33,7 +33,7 @@ export function CreateSelectables(
     return selectables
 }
 
-function createValueRefPerAbsoluteKey(sourceUrlBuilders: IUrlBuilder[], parentAbsoluteKey?: string): Record<string, string> {
+function createValueRefPerAbsoluteKey(sourceUrlBuilders: IUrlBuilder[], absoluteKey: string): Record<string, string> {
     return sourceUrlBuilders.map(urlBuilder => [
             ...urlBuilder.valueRefPerRequestParamKey ? Object.values(urlBuilder.valueRefPerRequestParamKey) : [],
             ...urlBuilder.valueRefPerPathParamKey ? Object.values(urlBuilder.valueRefPerPathParamKey) : []
@@ -41,7 +41,7 @@ function createValueRefPerAbsoluteKey(sourceUrlBuilders: IUrlBuilder[], parentAb
     ).reduce<Record<string, string>>(
         (valueRefPerAbsoluteKey: Record<string, string>, currentValue) => {
             currentValue.forEach(
-                valueRef => valueRefPerAbsoluteKey[getAbsoluteKeyFromValueRef(valueRef, parentAbsoluteKey)] = valueRef
+                valueRef => valueRefPerAbsoluteKey[getAbsoluteKeyFromValueRef(valueRef, absoluteKey)] = valueRef
             )
             return valueRefPerAbsoluteKey;
         },
