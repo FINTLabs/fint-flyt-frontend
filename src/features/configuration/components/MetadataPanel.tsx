@@ -94,8 +94,8 @@ const MetadataPanel: React.FunctionComponent<any> = (props) => {
 
     return (
         <>
-            <Box className={props.style.sourceApplicationFormContainer} sx={{position: 'sticky'}}>
-                <Box className={props.style.sourceApplicationForm}>
+            <Box className={props.style.panelContainer} sx={{position: 'sticky'}}>
+                <Box className={props.style.panel}>
                     <Box className={props.style.row}>
                         <Typography variant={"h6"}>{t('header')}</Typography>
                         <HelpPopover popoverContent="metadataPanelPopoverContent"/>

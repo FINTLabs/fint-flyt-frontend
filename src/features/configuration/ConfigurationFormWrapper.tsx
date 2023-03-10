@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
             flex: '50%',
             paddingLeft: theme.spacing(2)
         },
-        sourceApplicationFormContainer: {
+        panelContainer: {
             padding: theme.spacing(2),
             border: 'solid 1px',
             borderColor: 'black',
@@ -34,35 +34,12 @@ const useStyles = makeStyles((theme: Theme) =>
             height: 'fit-content',
             top: theme.spacing(16)
         },
-        sourceApplicationForm: {
+        panel: {
             opacity: 0.99,
             padding: theme.spacing(2),
             height: 'fit-content',
             overflow: 'auto',
             maxHeight: theme.spacing(100)
-        },
-        submitButton: {
-            backgroundColor: theme.palette.primary.dark,
-            border: 'none',
-            color: 'white',
-            padding: theme.spacing(2),
-            cursor: 'pointer'
-        },
-        label: {
-            fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
-            fontSize: '16px'
-        },
-        select: {
-            width: '350px',
-            height: '30px',
-            borderRadius: '3px',
-            margin: '5px'
-        },
-        input: {
-            width: '350px',
-            borderRadius: '3px',
-            margin: '5px',
-            height: '24px'
         }
     })
 );

@@ -2,7 +2,7 @@ import * as React from "react";
 import {useFormContext} from "react-hook-form";
 import {useDrop} from "react-dnd";
 import {ITag} from "../types/Metadata/Tag";
-import {ElementComponentProps} from "../types/ValueComponentProps";
+import {ElementComponentProps} from "../types/ElementComponentProps";
 import {ValueType} from "../types/Metadata/IntegrationMetadata"
 
 const DynamicStringValueComponent: React.FunctionComponent<any> = (props: ElementComponentProps & { accept: ValueType[] }) => {
@@ -19,7 +19,7 @@ const DynamicStringValueComponent: React.FunctionComponent<any> = (props: Elemen
         })
     })
 
-    let border = 'solid 2px black';
+    let border = 'solid 1px black';
 
     const inputStyle = {
         width: '350px',
@@ -30,8 +30,10 @@ const DynamicStringValueComponent: React.FunctionComponent<any> = (props: Elemen
 
     if (canDrop && isOver) {
         border = 'solid 3px green';
+        inputStyle.margin = '3px';
     } else if (canDrop) {
         border = 'solid 3px blue';
+        inputStyle.margin = '3px';
     }
 
     const dynamicStyle = {

@@ -3,15 +3,14 @@ import {IObjectTemplate, SelectableValueType, ValueType as TemplateValueType} fr
 import StringValueComponent from "./StringValueComponent";
 import SelectValueComponent from "./SelectValueComponent";
 import DynamicStringValueComponent from "./DynamicStringValueComponent";
-import {ElementComponentProps} from "../types/ValueComponentProps";
-import {ValueType as MetadataValueType} from "../types/Metadata/IntegrationMetadata";
+import {ElementComponentProps} from "../types/ElementComponentProps";
+import {ValueType} from "../types/Metadata/IntegrationMetadata";
 
 const ObjectComponent: React.FunctionComponent<any> = (props: ElementComponentProps & IObjectTemplate) => {
     return (
         <>
-            <div className="title">{props.displayName}</div>
-            <fieldset style={{display: "grid"}}>
-
+            <div className={props.classes.title}>{props.displayName}</div>
+            <fieldset className={props.classes.fieldSet}>
                 {props.valueTemplates?.map(template => {
                         const key = props.absoluteKey + ".valueMappingPerKey." + template.elementConfig.key;
                         switch (template.template.type) {
@@ -26,7 +25,7 @@ const ObjectComponent: React.FunctionComponent<any> = (props: ElementComponentPr
                                     classes={props.classes}
                                     absoluteKey={key}
                                     displayName={template.elementConfig.displayName}
-                                    accept={[MetadataValueType.STRING, MetadataValueType.EMAIL]}
+                                    accept={[ValueType.STRING, ValueType.EMAIL]}
                                 />
                             case TemplateValueType.FILE:
                         }

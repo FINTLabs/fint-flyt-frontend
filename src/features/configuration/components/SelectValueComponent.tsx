@@ -2,7 +2,7 @@ import {useFormContext} from "react-hook-form"
 import {CreateSelectables} from "../util/SelectablesUtils";
 import * as React from "react";
 import {ValueType} from "../types/Configuration";
-import {ElementComponentProps} from "../types/ValueComponentProps";
+import {ElementComponentProps} from "../types/ElementComponentProps";
 import {IUrlBuilder} from "../types/NewForm/FormTemplate";
 import {ISelectable} from "./FormPanel";
 

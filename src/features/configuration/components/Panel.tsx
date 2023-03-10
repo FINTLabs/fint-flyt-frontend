@@ -22,6 +22,23 @@ const useStyles = makeStyles((theme: Theme) =>
             borderRadius: '3px',
             margin: '5px',
             height: '24px'
+        },
+        title: {
+            fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
+            fontSize: '20px',
+        },
+        fieldSet: {
+            display: 'grid',
+            padding: '16px'
+        },
+        submitButton: {
+            backgroundColor: theme.palette.primary.main,
+            borderRadius: '5px',
+            color: 'white',
+            cursor: 'pointer',
+            padding: '8px',
+            fontSize: '16px',
+            marginTop: '16px'
         }
     })
 );
@@ -33,7 +50,7 @@ const Panel: React.FunctionComponent<any> = (props) => {
         console.log(data);
     };
     return (
-        <Box className={props.style.sourceApplicationFormContainer}>
+        <Box className={props.style.panelContainer}>
             <FormProvider {...methods} >
                 <form onSubmit={methods.handleSubmit(onSubmit)}>
                     <ObjectComponent
@@ -42,7 +59,7 @@ const Panel: React.FunctionComponent<any> = (props) => {
                         displayName={testObjectTemplateSak.elementConfig.displayName}
                         {...testObjectTemplateSak.template}
                     />
-                    <input type="submit"/>
+                    <input type="submit" className={classes.submitButton}/>
                 </form>
             </FormProvider>
         </Box>

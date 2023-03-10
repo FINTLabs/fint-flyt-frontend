@@ -14,7 +14,7 @@ import {ValueType} from "../../types/Metadata/IntegrationMetadata";
 
 export const Tag: FC<ITag> = function Tag({name, value, type}) {
     const [{isDragging}, drag] = useDrag(() => ({
-        type: type === 'STRING' ? 'DYNAMIC_STRING' : type,
+        type: type,
         item: {name, value, type},
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
