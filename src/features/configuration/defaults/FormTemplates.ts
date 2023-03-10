@@ -1,4 +1,5 @@
 import {
+    ICollectionTemplate,
     IElementTemplate,
     IObjectTemplate,
     ISelectableValueTemplate,
@@ -120,6 +121,18 @@ export const testObjectTemplateJournalpost: IElementTemplate<IObjectTemplate> = 
     }
 }
 
+export const testObjectCollectionTemplate: IElementTemplate<ICollectionTemplate<IObjectTemplate>> = {
+    "order": 6,
+    "elementConfig": {
+        "key": "journalposter",
+        "displayName": "Journalposter",
+        "description": ""
+    },
+    template: {
+        "elementTemplate": testObjectTemplateJournalpost.template
+    }
+}
+
 export const testObjectTemplateSak: IElementTemplate<IObjectTemplate> = {
     "order": 0,
     "elementConfig": {
@@ -130,6 +143,7 @@ export const testObjectTemplateSak: IElementTemplate<IObjectTemplate> = {
     "template": {
         "valueTemplates": testStringTemplates,
         "selectableValueTemplates": testSelectTemplates,
-        "objectTemplates": [testObjectTemplateJournalpost]
+        "objectTemplates": [testObjectTemplateJournalpost],
+        "objectCollectionTemplates": [testObjectCollectionTemplate]
     }
 }

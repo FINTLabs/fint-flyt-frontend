@@ -5,7 +5,11 @@ import {ITag} from "../../types/Metadata/Tag";
 import {ElementComponentProps} from "../../types/ElementComponentProps";
 import {ValueType} from "../../types/Metadata/IntegrationMetadata"
 
-const DynamicStringValueComponent: React.FunctionComponent<any> = (props: ElementComponentProps & { accept: ValueType[] }) => {
+interface Props extends ElementComponentProps {
+    accept: ValueType[]
+}
+
+const DynamicStringValueComponent: React.FunctionComponent<Props> = (props: Props) => {
     const {register, setValue, getValues} = useFormContext();
     const [{canDrop, isOver}, dropRef] = useDrop({
         accept: props.accept,

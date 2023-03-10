@@ -1,5 +1,6 @@
 import * as React from "react";
 import {
+    ICollectionTemplate,
     IElementTemplate,
     IObjectTemplate,
     ISelectableValueTemplate,
@@ -8,6 +9,7 @@ import {
 import {ElementComponentProps} from "../../types/ElementComponentProps";
 import ValueMappingComponent from "./ValueMappingComponent";
 import SelectableValueMappingComponent from "./SelectableValueMappingComponent";
+import CollectionMappingComponent from "./CollectionMappingComponent";
 
 interface Props extends ElementComponentProps {
     template: IObjectTemplate
@@ -46,6 +48,23 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                             absoluteKey={props.absoluteKey + ".objectMappingPerKey." + template.elementConfig.key}
                             displayName={template.elementConfig.displayName}
                             template={template.template}
+                        />
+                )}
+
+                {props.template.objectCollectionTemplates?.map(
+                    (template: IElementTemplate<ICollectionTemplate<IObjectTemplate>>) =>
+                        <CollectionMappingComponent
+                            classes={props.classes}
+                            absoluteKey={props.absoluteKey + ".objectCollectionMappingPerKey." + template.elementConfig.key}
+                            displayName={template.elementConfig.displayName}
+                            elementComponentCreator={(absoluteKey: string, displayName: string) =>
+                                <ObjectMappingComponent
+                                    classes={props.classes}
+                                    absoluteKey={absoluteKey}
+                                    displayName={displayName}
+                                    template={template.template.elementTemplate}
+                                />
+                            }
                         />
                 )}
 
