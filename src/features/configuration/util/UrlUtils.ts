@@ -2,15 +2,6 @@ import {IUrlBuilder} from "../types/NewForm/FormTemplate";
 import {AxiosRequestConfig} from "axios";
 import {recordOrEmpty} from "./ObjectUtils";
 
-export function containsOnlyStaticUrls(selectableSources: IUrlBuilder[]): boolean {
-    return selectableSources.every(isStaticUrl)
-}
-
-function isStaticUrl(builder: IUrlBuilder): boolean {
-    return (Object.keys(recordOrEmpty(builder.valueRefPerPathParamKey)).length === 0)
-        && (Object.keys(recordOrEmpty(builder.valueRefPerRequestParamKey)).length === 0)
-}
-
 export type Source = { url: string, config?: AxiosRequestConfig }
 
 const pathParamKeyRegExp: RegExp = new RegExp(/{[^{}]+}/g);

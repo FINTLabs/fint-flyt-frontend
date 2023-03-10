@@ -1,5 +1,5 @@
 import * as React from "react";
-import {IObjectTemplate, ValueType} from "../types/NewForm/FormTemplate";
+import {IObjectTemplate, SelectableValueType, ValueType} from "../types/NewForm/FormTemplate";
 import {getAbsoluteKey} from "../util/KeyUtils";
 import StringValueComponent from "./StringValueComponent";
 import SelectValueComponent from "./SelectValueComponent";
@@ -32,12 +32,26 @@ const ObjectComponent: React.FunctionComponent<any> = (props: TemplateComponentP
                     }
                 )}
 
-                {props.template.template.selectableValueTemplates?.map(valueTemplate =>
-                    <SelectValueComponent
-                        classes={props.classes}
-                        parentAbsoluteKey={absoluteKey + ".valueMappingPerKey"}
-                        template={valueTemplate}
-                    />
+                {props.template.template.selectableValueTemplates?.map(selectableValueTemplate => {
+                        switch (selectableValueTemplate.template.type) {
+                            case SelectableValueType.DROPDOWN:
+                                return <SelectValueComponent
+                                    classes={props.classes}
+                                    parentAbsoluteKey={absoluteKey + ".valueMappingPerKey"}
+                                    template={selectableValueTemplate}
+                                    autoComplete={false}
+                                />
+                            case SelectableValueType.SEARCH_SELECT:
+                                return <SelectValueComponent
+                                    classes={props.classes}
+                                    parentAbsoluteKey={absoluteKey + ".valueMappingPerKey"}
+                                    template={selectableValueTemplate}
+                                    autoComplete={true}
+                                />
+                            case SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT:
+                        }
+
+                    }
                 )}
 
                 {props.template.template.objectTemplates?.map(objectTemplate =>

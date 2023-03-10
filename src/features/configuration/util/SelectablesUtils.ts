@@ -1,4 +1,4 @@
-import {IElementTemplate, ISelectableValueTemplate, IUrlBuilder} from "../types/NewForm/FormTemplate";
+import {IUrlBuilder} from "../types/NewForm/FormTemplate";
 import {AxiosResponse} from "axios";
 import ResourceRepository from "../../../shared/repositories/ResourceRepository";
 import {ISelectable} from "../components/FormPanel";
@@ -9,14 +9,12 @@ import {createSource, Source} from "./UrlUtils";
 import {getAbsoluteKeyFromValueRef} from "./KeyUtils";
 
 export function CreateSelectables(
-    valueTemplate: IElementTemplate<ISelectableValueTemplate>,
     control: Control,
+    staticSelectables: ISelectable[] = [],
+    sourceUrlBuilders: IUrlBuilder[] = [],
     parentAbsoluteKey?: string
 ): ISelectable[] {
-
-    const [selectables, setSelectables] = useState<ISelectable[]>([])
-
-    const sourceUrlBuilders = valueTemplate.template.selectablesSources ? valueTemplate.template.selectablesSources : [];
+    const [selectables, setSelectables] = useState<ISelectable[]>(staticSelectables)
     const valueRefPerAbsoluteKey: Record<string, string> = createValueRefPerAbsoluteKey(
         sourceUrlBuilders,
         parentAbsoluteKey
@@ -30,7 +28,7 @@ export function CreateSelectables(
             .forEach(i =>
                 valuePerValueRef[valueRefPerAbsoluteKey[absoluteKeys[i]]] = useWatchValues[i]
             )
-        updateSelectables(sourceUrlBuilders, valuePerValueRef, setSelectables)
+        updateSelectables(staticSelectables, sourceUrlBuilders, valuePerValueRef, setSelectables)
     }, [useWatchValues])
     return selectables
 }
@@ -52,6 +50,7 @@ function createValueRefPerAbsoluteKey(sourceUrlBuilders: IUrlBuilder[], parentAb
 }
 
 function updateSelectables(
+    staticSelectables: ISelectable[],
     sourceUrlBuilders: IUrlBuilder[],
     valuePerValueRef: Record<string, string>,
     setSelectables: Dispatch<SetStateAction<any>>
@@ -61,7 +60,7 @@ function updateSelectables(
         .filter((source): source is Source => !!source)
 
     getSelectables(sources).then((result: ISelectable[]) => {
-        setSelectables(result)
+        setSelectables([...staticSelectables, ...result])
     })
 }
 

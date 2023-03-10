@@ -42,7 +42,17 @@ export const testSelectTemplates: IElementTemplate<ISelectableValueTemplate>[] =
             "description": ""
         },
         "template": {
-            "type": SelectableValueType.SEARCH_SELECT,
+            "type": SelectableValueType.DROPDOWN,
+            "selectables": [
+                {
+                    displayName: "Statisk valg 1",
+                    value: "value1"
+                },
+                {
+                    displayName: "Statisk valg 2",
+                    value: "value2"
+                }
+            ],
             "selectablesSources": [
                 {
                     "urlTemplate": "api/intern/arkiv/kodeverk/klassifikasjonssystem"
@@ -58,7 +68,17 @@ export const testSelectTemplates: IElementTemplate<ISelectableValueTemplate>[] =
             "description": ""
         },
         "template": {
-            "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
+            "type": SelectableValueType.SEARCH_SELECT,
+            "selectables": [
+                {
+                    displayName: "Statisk valg 1",
+                    value: "value1"
+                },
+                {
+                    displayName: "Statisk valg 2",
+                    value: "value2"
+                }
+            ],
             "selectablesSources": [
                 {
                     "urlTemplate": "api/intern/arkiv/kodeverk/klasse",
