@@ -9,45 +9,48 @@ import {ElementComponentProps} from "../../types/ElementComponentProps";
 import ValueMappingComponent from "./ValueMappingComponent";
 import SelectableValueMappingComponent from "./SelectableValueMappingComponent";
 
-const ObjectMappingComponent: React.FunctionComponent<ElementComponentProps & { template: IObjectTemplate }> =
-    (props: ElementComponentProps & { template: IObjectTemplate }) => {
-        return (
-            <>
-                <div className={props.classes.title}>{props.displayName}</div>
-                <fieldset className={props.classes.fieldSet}>
+interface Props extends ElementComponentProps {
+    template: IObjectTemplate
+}
 
-                    {props.template.valueTemplates?.map(
-                        (template: IElementTemplate<IValueTemplate>) =>
-                            <ValueMappingComponent
-                                classes={props.classes}
-                                absoluteKey={props.absoluteKey + ".valueMappingPerKey." + template.elementConfig.key}
-                                displayName={template.elementConfig.displayName}
-                                template={template.template}
-                            />
-                    )}
+const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
+    return (
+        <>
+            <div className={props.classes.title}>{props.displayName}</div>
+            <fieldset className={props.classes.fieldSet}>
 
-                    {props.template.selectableValueTemplates?.map(
-                        (template: IElementTemplate<ISelectableValueTemplate>) =>
-                            <SelectableValueMappingComponent
-                                classes={props.classes}
-                                absoluteKey={props.absoluteKey + ".valueMappingPerKey." + template.elementConfig.key}
-                                displayName={template.elementConfig.displayName}
-                                template={template.template}
-                            />
-                    )}
+                {props.template.valueTemplates?.map(
+                    (template: IElementTemplate<IValueTemplate>) =>
+                        <ValueMappingComponent
+                            classes={props.classes}
+                            absoluteKey={props.absoluteKey + ".valueMappingPerKey." + template.elementConfig.key}
+                            displayName={template.elementConfig.displayName}
+                            template={template.template}
+                        />
+                )}
 
-                    {props.template.objectTemplates?.map(
-                        (template: IElementTemplate<IObjectTemplate>) =>
-                            <ObjectMappingComponent
-                                classes={props.classes}
-                                absoluteKey={props.absoluteKey + ".objectMappingPerKey." + template.elementConfig.key}
-                                displayName={template.elementConfig.displayName}
-                                template={template.template}
-                            />
-                    )}
+                {props.template.selectableValueTemplates?.map(
+                    (template: IElementTemplate<ISelectableValueTemplate>) =>
+                        <SelectableValueMappingComponent
+                            classes={props.classes}
+                            absoluteKey={props.absoluteKey + ".valueMappingPerKey." + template.elementConfig.key}
+                            displayName={template.elementConfig.displayName}
+                            template={template.template}
+                        />
+                )}
 
-                </fieldset>
-            </>
-        )
-    }
+                {props.template.objectTemplates?.map(
+                    (template: IElementTemplate<IObjectTemplate>) =>
+                        <ObjectMappingComponent
+                            classes={props.classes}
+                            absoluteKey={props.absoluteKey + ".objectMappingPerKey." + template.elementConfig.key}
+                            displayName={template.elementConfig.displayName}
+                            template={template.template}
+                        />
+                )}
+
+            </fieldset>
+        </>
+    )
+}
 export default ObjectMappingComponent;
