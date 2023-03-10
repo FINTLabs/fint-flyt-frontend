@@ -30,6 +30,17 @@ export const testStringTemplates: IElementTemplate<IValueTemplate>[] = [
         "template": {
             "type": ValueType.DYNAMIC_STRING
         }
+    },
+    {
+        "order": 5,
+        "elementConfig": {
+            "key": "fil",
+            "displayName": "Fil",
+            "description": ""
+        },
+        "template": {
+            "type": ValueType.FILE
+        }
     }
 ]
 

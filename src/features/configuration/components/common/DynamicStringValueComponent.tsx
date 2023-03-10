@@ -1,17 +1,16 @@
 import * as React from "react";
 import {useFormContext} from "react-hook-form";
 import {useDrop} from "react-dnd";
-import {ITag} from "../types/Metadata/Tag";
-import {ElementComponentProps} from "../types/ElementComponentProps";
-import {ValueType} from "../types/Metadata/IntegrationMetadata"
+import {ITag} from "../../types/Metadata/Tag";
+import {ElementComponentProps} from "../../types/ElementComponentProps";
+import {ValueType} from "../../types/Metadata/IntegrationMetadata"
 
 const DynamicStringValueComponent: React.FunctionComponent<any> = (props: ElementComponentProps & { accept: ValueType[] }) => {
     const {register, setValue, getValues} = useFormContext();
-    const mappingStringAbsoluteKey = props.absoluteKey + ".mappingString";
     const [{canDrop, isOver}, dropRef] = useDrop({
         accept: props.accept,
         drop: (tag: ITag) => {
-            setValue(mappingStringAbsoluteKey, (getValues(mappingStringAbsoluteKey) + tag.value))
+            setValue(props.absoluteKey, (getValues(props.absoluteKey) + tag.value))
         },
         collect: monitor => ({
             canDrop: monitor.canDrop(),
@@ -42,12 +41,12 @@ const DynamicStringValueComponent: React.FunctionComponent<any> = (props: Elemen
     }
 
     return (
-        <div ref={dropRef} key={mappingStringAbsoluteKey}>
-            <label key={mappingStringAbsoluteKey} className={props.classes.label}>
+        <div ref={dropRef} key={props.absoluteKey}>
+            <label key={props.absoluteKey} className={props.classes.label}>
                 {props.displayName}:
                 <input type="text"
                        style={dynamicStyle}
-                       {...register(mappingStringAbsoluteKey)}
+                       {...register(props.absoluteKey)}
                 />
             </label>
         </div>

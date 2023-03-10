@@ -1,6 +1,6 @@
 import * as React from "react";
 import {FormProvider, useForm} from "react-hook-form";
-import ObjectComponent from "./ObjectComponent";
+import ObjectMappingComponent from "./mapping/ObjectMappingComponent";
 import {testObjectTemplateSak} from "../defaults/FormTemplates";
 import {Box, Theme} from "@mui/material";
 import {createStyles, makeStyles} from "@mui/styles";
@@ -53,11 +53,11 @@ const Panel: React.FunctionComponent<any> = (props) => {
         <Box className={props.style.panelContainer}>
             <FormProvider {...methods} >
                 <form onSubmit={methods.handleSubmit(onSubmit)}>
-                    <ObjectComponent
+                    <ObjectMappingComponent
                         classes={classes}
                         absoluteKey={testObjectTemplateSak.elementConfig.key}
                         displayName={testObjectTemplateSak.elementConfig.displayName}
-                        {...testObjectTemplateSak.template}
+                        template={testObjectTemplateSak.template}
                     />
                     <input type="submit" className={classes.submitButton}/>
                 </form>
