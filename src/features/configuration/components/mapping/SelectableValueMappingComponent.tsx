@@ -1,6 +1,6 @@
 import * as React from "react";
 import {ElementComponentProps} from "../../types/ElementComponentProps";
-import {ISelectableValueTemplate, SelectableValueType} from "../../types/NewForm/FormTemplate";
+import {ISelectableValueTemplate, SelectableValueType} from "../../types/FormTemplate";
 import SelectValueComponent from "../common/SelectValueComponent";
 import {useFormContext} from "react-hook-form";
 import {ValueType} from "../../types/Configuration";

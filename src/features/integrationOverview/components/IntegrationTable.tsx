@@ -1,12 +1,10 @@
-import {
-    Box
-} from "@mui/material";
-import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
+import {Box} from "@mui/material";
+import {DataGrid, GridColDef, GridToolbar} from "@mui/x-data-grid";
 import * as React from "react";
-import { useHistory } from "react-router-dom";
-import { gridLocaleNoNB } from "../../util/locale/gridLocaleNoNB";
-import {useTranslation} from "react-i18next";
 import {useContext} from "react";
+import {useHistory} from "react-router-dom";
+import {gridLocaleNoNB} from "../../util/locale/gridLocaleNoNB";
+import {useTranslation} from "react-i18next";
 import {SourceApplicationContext} from "../../../context/sourceApplicationContext";
 import {
     getDestinationDisplayName,
@@ -14,28 +12,68 @@ import {
     getStateDisplayName
 } from "../../configuration/defaults/DefaultValues";
 import {IntegrationContext} from "../../../context/integrationContext";
+import {ClassNameMap} from "@mui/styles";
 
-const IntegrationTable: React.FunctionComponent<any> = (props) => {
-    const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.integrationOverview'});
+const IntegrationTable: React.FunctionComponent<any> = (props: { classes: ClassNameMap }) => {
+    const {t, i18n} = useTranslation('translations', {keyPrefix: 'pages.integrationOverview'});
     const classes = props.classes;
     let history = useHistory();
-    const {setExistingIntegration, newIntegrations, getCompletedConfigurations, getConfigurations} = useContext(IntegrationContext)
+    const {
+        setExistingIntegration,
+        newIntegrations,
+        getCompletedConfigurations,
+        getConfigurations
+    } = useContext(IntegrationContext)
     const {setSourceApplication, getAllMetadata} = useContext(SourceApplicationContext)
 
     const columns: GridColDef[] = [
-        { field: 'sourceApplicationId', type: 'string', headerName: t('table.columns.sourceApplicationId'), minWidth: 150, flex: 1,
+        {
+            field: 'sourceApplicationId',
+            type: 'string',
+            headerName: t('table.columns.sourceApplicationId'),
+            minWidth: 150,
+            flex: 1,
             valueGetter: (params) => (getSourceApplicationDisplayName(params.row.sourceApplicationId))
         },
-        { field: 'sourceApplicationIntegrationId', type: 'string', headerName: t('table.columns.sourceApplicationIntegrationId'), minWidth: 250, flex: 1},
-        { field: 'displayName', type: 'string', headerName: t('table.columns.sourceApplicationIntegrationIdDisplayName'), minWidth: 500, flex: 1, sortable: false },
-        { field: 'destination', type: 'string', headerName:  t('table.columns.destination' ), minWidth: 150, flex: 1,
+        {
+            field: 'sourceApplicationIntegrationId',
+            type: 'string',
+            headerName: t('table.columns.sourceApplicationIntegrationId'),
+            minWidth: 250,
+            flex: 1
+        },
+        {
+            field: 'displayName',
+            type: 'string',
+            headerName: t('table.columns.sourceApplicationIntegrationIdDisplayName'),
+            minWidth: 500,
+            flex: 1,
+            sortable: false
+        },
+        {
+            field: 'destination', type: 'string', headerName: t('table.columns.destination'), minWidth: 150, flex: 1,
             valueGetter: (params) => getDestinationDisplayName(params.row.destination)
         },
-        { field: 'state', type: 'string', headerName:  t('table.columns.state'), minWidth: 100, flex: 1,
+        {
+            field: 'state', type: 'string', headerName: t('table.columns.state'), minWidth: 100, flex: 1,
             valueGetter: (params) => getStateDisplayName(params.row.state)
         },
-        { field: 'dispatched', type: 'number', headerName: t('table.columns.dispatched'), minWidth: 100, flex: 1, sortable: false },
-        { field: 'errors', type: 'number', headerName: t('table.columns.errors'), minWidth: 150, flex: 1, sortable: false }
+        {
+            field: 'dispatched',
+            type: 'number',
+            headerName: t('table.columns.dispatched'),
+            minWidth: 100,
+            flex: 1,
+            sortable: false
+        },
+        {
+            field: 'errors',
+            type: 'number',
+            headerName: t('table.columns.errors'),
+            minWidth: 150,
+            flex: 1,
+            sortable: false
+        }
     ];
 
     const setHistory = () => {
@@ -84,7 +122,7 @@ const IntegrationTable: React.FunctionComponent<any> = (props) => {
                                 },
                             },
                             sorting: {
-                                sortModel: [{ field: 'state', sort: 'asc' }],
+                                sortModel: [{field: 'state', sort: 'asc'}],
                             },
                         }}
                     />

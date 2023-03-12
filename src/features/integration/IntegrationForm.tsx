@@ -10,7 +10,7 @@ import {createStyles, makeStyles} from "@mui/styles";
 import {toIntegration} from "../util/mapping/ToIntegration";
 import IntegrationRepository from '../../shared/repositories/IntegrationRepository';
 import {IntegrationState} from "./types/Integration";
-import {IFormIntegration} from "../configuration/types/FormData";
+import {IFormIntegration} from "../configuration/types/FormIntegration";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

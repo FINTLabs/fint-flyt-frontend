@@ -1,4 +1,4 @@
-import {IUrlBuilder} from "../types/NewForm/FormTemplate";
+import {IUrlBuilder} from "../types/FormTemplate";
 import {AxiosRequestConfig} from "axios";
 import {recordOrEmpty} from "./ObjectUtils";
 

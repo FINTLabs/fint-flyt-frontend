@@ -1,4 +1,4 @@
-import {ISelectable} from "../../components/FormPanel";
+import {ISelectable} from "./Selectable";
 
 export interface IElementTemplate<T extends IValueTemplate | ISelectableValueTemplate | IObjectTemplate | ICollectionTemplate<IValueTemplate | IObjectTemplate>> {
     order: number,

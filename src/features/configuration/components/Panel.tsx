@@ -4,6 +4,7 @@ import ObjectMappingComponent from "./mapping/ObjectMappingComponent";
 import {testObjectTemplateSak} from "../defaults/FormTemplates";
 import {Box, Theme} from "@mui/material";
 import {createStyles, makeStyles} from "@mui/styles";
+import {useTranslation} from "react-i18next";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -26,24 +27,28 @@ const useStyles = makeStyles((theme: Theme) =>
         title: {
             fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
             fontSize: '20px',
+            marginTop: '16px'
         },
         fieldSet: {
             display: 'grid',
-            padding: '16px'
+            padding: '16px',
+            borderRadius: '4px'
         },
-        submitButton: {
+        button: {
             backgroundColor: theme.palette.primary.main,
             borderRadius: '5px',
             color: 'white',
             cursor: 'pointer',
             padding: '8px',
             fontSize: '16px',
-            marginTop: '16px'
+            marginTop: '16px',
+            width: 'fit-content'
         }
     })
 );
 
 const Panel: React.FunctionComponent<any> = (props) => {
+    const {t} = useTranslation('translations', {keyPrefix: 'pages.configuration'});
     const classes = useStyles();
     const methods = useForm();
     const onSubmit = (data: any) => {
@@ -59,7 +64,9 @@ const Panel: React.FunctionComponent<any> = (props) => {
                         displayName={testObjectTemplateSak.elementConfig.displayName}
                         template={testObjectTemplateSak.template}
                     />
-                    <input type="submit" className={classes.submitButton}/>
+                    <button className={classes.button} type="submit" onClick={onSubmit}>
+                        {t("button.submit")}
+                    </button>
                 </form>
             </FormProvider>
         </Box>

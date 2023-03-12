@@ -38,8 +38,9 @@ import ResourceRepository from "../../../shared/repositories/ResourceRepository"
 import {IResourceItem} from "../../../context/resourcesContext/types";
 import {IConfiguration, IObjectMapping} from "../../configuration/types/Configuration";
 import {ISelect} from "../../configuration/types/Select";
+import {ClassNameMap} from "@mui/styles";
 
-const IntegrationPanel: React.FunctionComponent<any> = (props) => {
+const IntegrationPanel: React.FunctionComponent<any> = (props: { classes: ClassNameMap }) => {
     const {t, i18n} = useTranslation('translations', {keyPrefix: 'pages.integrationOverview'});
     const classes = props.classes;
     let history = useHistory();
@@ -311,7 +312,6 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                     <DataGrid
                         loading={completedConfigurations === undefined}
                         localeText={i18n.language === 'no' ? gridLocaleNoNB : undefined}
-                        //getRowId={(row) => row.configurationId}
                         density='compact'
                         rows={completedConfigurations ? completedConfigurations : []}
                         columns={columns}
@@ -342,7 +342,6 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                     <DataGrid
                         loading={configurations === undefined}
                         localeText={i18n.language === 'no' ? gridLocaleNoNB : undefined}
-                        //getRowId={(row) => row.configurationId}
                         density='compact'
                         rows={configurations ? configurations : []}
                         columns={draftColumns}
@@ -371,9 +370,9 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
             </Box>
             <Button
                 sx={{mt: 5}}
-                id="demo-positioned-button"
+                id="positioned-button"
                 variant="contained"
-                aria-controls={open ? 'demo-positioned-menu' : undefined}
+                aria-controls={open ? 'positioned-menu' : undefined}
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
                 onClick={handleNewConfigClick}
@@ -382,8 +381,8 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                 {t('button.newConfiguration')}
             </Button>
             <Menu
-                id="demo-positioned-menu"
-                aria-labelledby="demo-positioned-button"
+                id="positioned-menu"
+                aria-labelledby="positioned-button"
                 anchorEl={anchorEl}
                 open={open}
                 onClose={handleNewConfigClose}
@@ -411,8 +410,8 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                 <MenuItem>
                     <Button
                         disabled={!completedConfigurations}
-                        id="demo-positioned-button"
-                        aria-controls={openSub ? 'demo-positioned-menu' : undefined}
+                        id="positioned-button"
+                        aria-controls={openSub ? 'positioned-menu' : undefined}
                         aria-haspopup="true"
                         aria-expanded={openSub ? 'true' : undefined}
                         onClick={handleNewConfigSubClick}
@@ -421,8 +420,8 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
                         {t('button.templateConfiguration')}
                     </Button>
                     <Menu
-                        id="demo-positioned-menu"
-                        aria-labelledby="demo-positioned-button"
+                        id="positioned-menu"
+                        aria-labelledby="positioned-button"
                         anchorEl={anchorSubEl}
                         open={openSub}
                         onClose={handleNewConfigSubClose}
@@ -450,7 +449,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props) => {
             </Menu>
             <Button
                 sx={{mt: 5, ml: 5}}
-                id="demo-positioned-button"
+                id="back-button"
                 variant="contained"
                 onClick={(e) => {
                     resetIntegrations();

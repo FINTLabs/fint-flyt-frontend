@@ -1,7 +1,7 @@
-import {IUrlBuilder} from "../types/NewForm/FormTemplate";
+import {IUrlBuilder} from "../types/FormTemplate";
 import {AxiosResponse} from "axios";
 import ResourceRepository from "../../../shared/repositories/ResourceRepository";
-import {ISelectable} from "../components/FormPanel";
+import {ISelectable} from "../types/Selectable";
 import {Dispatch, SetStateAction, useEffect, useState} from "react";
 import {Control} from "react-hook-form/dist/types/form";
 import {useWatch} from "react-hook-form";

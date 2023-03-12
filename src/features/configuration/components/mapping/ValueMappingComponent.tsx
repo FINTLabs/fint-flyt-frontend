@@ -1,6 +1,6 @@
 import * as React from "react";
 import {ElementComponentProps} from "../../types/ElementComponentProps";
-import {IValueTemplate, ValueType as TemplateValueType} from "../../types/NewForm/FormTemplate";
+import {IValueTemplate, ValueType as TemplateValueType} from "../../types/FormTemplate";
 import StringValueComponent from "../common/StringValueComponent";
 import DynamicStringValueComponent from "../common/DynamicStringValueComponent";
 import {useFormContext} from "react-hook-form";

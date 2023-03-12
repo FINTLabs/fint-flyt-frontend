@@ -5,7 +5,7 @@ import {
     IObjectTemplate,
     ISelectableValueTemplate,
     IValueTemplate
-} from "../../types/NewForm/FormTemplate";
+} from "../../types/FormTemplate";
 import {ElementComponentProps} from "../../types/ElementComponentProps";
 import ValueMappingComponent from "./ValueMappingComponent";
 import SelectableValueMappingComponent from "./SelectableValueMappingComponent";

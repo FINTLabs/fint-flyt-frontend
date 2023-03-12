@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 );
 
-const ConfigurationFormWrapper: React.FunctionComponent<RouteComponentProps<any>> = () => {
+const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const {sourceApplication} = useContext(SourceApplicationContext)
     const classes = useStyles();
 
@@ -58,4 +58,4 @@ const ConfigurationFormWrapper: React.FunctionComponent<RouteComponentProps<any>
     );
 }
 
-export default withRouter(ConfigurationFormWrapper);
+export default withRouter(ConfigurationForm);

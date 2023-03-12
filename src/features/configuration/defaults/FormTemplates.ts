@@ -6,7 +6,7 @@ import {
     IValueTemplate,
     SelectableValueType,
     ValueType
-} from "../types/NewForm/FormTemplate";
+} from "../types/FormTemplate";
 
 
 export const testStringTemplates: IElementTemplate<IValueTemplate>[] = [

@@ -1,7 +1,7 @@
 import {useFormContext} from "react-hook-form"
 import * as React from "react";
 import {ElementComponentProps} from "../../types/ElementComponentProps";
-import {ISelectable} from "../FormPanel";
+import {ISelectable} from "../../types/Selectable";
 
 interface Props extends ElementComponentProps {
     selectables: ISelectable[]

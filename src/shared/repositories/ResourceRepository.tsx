@@ -1,5 +1,5 @@
 import axios, {AxiosRequestConfig, AxiosResponse} from "axios";
-import {ISelectable} from "../../features/configuration/components/FormPanel";
+import {ISelectable} from "../../features/configuration/types/Selectable";
 
 const getClasses = (link: string) => {
     return axios.get<any>(`/api/intern/arkiv/kodeverk/klasse/`, {params: {klassifikasjonssystemLink: link}});

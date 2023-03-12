@@ -2,19 +2,22 @@ import {ElementComponentProps} from "../../types/ElementComponentProps";
 import * as React from "react";
 import ArrayComponent from "../common/ArrayComponent";
 import DynamicStringValueComponent from "../common/DynamicStringValueComponent";
+import {useTranslation} from "react-i18next";
 
 interface Props extends ElementComponentProps {
     elementComponentCreator: (absoluteKey: string, displayName: string) => JSX.Element
 }
 
 const FromCollectionMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
+    const {t} = useTranslation('translations', {keyPrefix: 'pages.configuration.fromCollectionMapping'});
+
     return (
         <>
             <div className={props.classes.title}>{props.displayName}</div>
             <ArrayComponent
                 classes={props.classes}
                 absoluteKey={props.absoluteKey + ".instanceCollectionReferencesOrdered"}
-                displayName={"Samlinger"}
+                displayName={t("collections")}
                 fieldComponentCreator={(absoluteKey: string, displayName: string) =>
                     <DynamicStringValueComponent
                         classes={props.classes}
@@ -28,7 +31,7 @@ const FromCollectionMappingComponent: React.FunctionComponent<Props> = (props: P
             />
             {props.elementComponentCreator(
                 props.absoluteKey + ".elementMapping",
-                "Konvertering av samlingselementer"
+                t("convertCollectionElements")
             )}
         </>
     );
