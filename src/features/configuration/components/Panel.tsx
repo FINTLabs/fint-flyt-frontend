@@ -1,10 +1,10 @@
 import * as React from "react";
 import {FormProvider, useForm} from "react-hook-form";
-import ObjectMappingComponent from "./mapping/ObjectMappingComponent";
-import {testObjectTemplateSak} from "../defaults/FormTemplates";
 import {Box, Theme} from "@mui/material";
 import {createStyles, makeStyles} from "@mui/styles";
 import {useTranslation} from "react-i18next";
+import {testObjectTemplateSak} from "../defaults/FormTemplates";
+import ConfigurationMappingComponent from "./mapping/ConfigurationMappingComponent";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -54,15 +54,14 @@ const Panel: React.FunctionComponent<any> = (props) => {
     const onSubmit = (data: any) => {
         console.log(data);
     };
+
     return (
         <Box className={props.style.panelContainer}>
             <FormProvider {...methods} >
                 <form onSubmit={methods.handleSubmit(onSubmit)}>
-                    <ObjectMappingComponent
+                    <ConfigurationMappingComponent
                         classes={classes}
-                        absoluteKey={testObjectTemplateSak.elementConfig.key}
-                        displayName={testObjectTemplateSak.elementConfig.displayName}
-                        template={testObjectTemplateSak.template}
+                        rootObjectTemplate={testObjectTemplateSak}
                     />
                     <button className={classes.button} type="submit" onClick={onSubmit}>
                         {t("button.submit")}

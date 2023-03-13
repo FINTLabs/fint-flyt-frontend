@@ -1,6 +1,6 @@
 import {ISelectable} from "./Selectable";
 
-export interface IElementTemplate<T extends IValueTemplate | ISelectableValueTemplate | IObjectTemplate | ICollectionTemplate<IValueTemplate | IObjectTemplate>> {
+export interface IElementTemplate<T extends IValueTemplate | ISelectableValueTemplate | IObjectTemplate | INestedObjectRefTemplate | ICollectionTemplate<IValueTemplate | IObjectTemplate>> {
     order: number,
     elementConfig: IElementConfig;
     template: T;
@@ -64,4 +64,8 @@ export interface IValuePredicate {
     defined: boolean;
     value?: string;
     notValue?: string;
+}
+
+export interface INestedObjectRefTemplate {
+
 }

@@ -5,3 +5,8 @@ export type ElementComponentProps = {
     absoluteKey: string;
     displayName: string;
 }
+
+
+export type ElementTemplateComponentProps<T> = {
+    template: T
+}

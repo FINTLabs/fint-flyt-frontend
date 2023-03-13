@@ -24,8 +24,35 @@ const ArrayComponent: React.FunctionComponent<Props> = (props: Props) => {
                     {fields.map((field, index) => (
                             <li key={field.id}>
                                 {props.fieldComponentCreator(props.absoluteKey + "." + index, "" + index)}
-                                <button type="button" className={classes.button}
-                                        onClick={() => remove(index)}>{t("button.remove")}</button>
+                                <button
+                                    type="button"
+                                    className={classes.button}
+                                    onClick={() => {
+                                        if (index > 0) {
+                                            move(index, index - 1)
+                                        }
+                                    }}
+                                >
+                                    {String.fromCharCode(9650)}
+                                </button>
+                                <button
+                                    type="button"
+                                    className={classes.button}
+                                    onClick={() => {
+                                        if (index < fields.length - 1) {
+                                            move(index, index + 1)
+                                        }
+                                    }}
+                                >
+                                    {String.fromCharCode(9660)}
+                                </button>
+                                <button
+                                    type="button"
+                                    className={classes.button}
+                                    onClick={() => remove(index)}
+                                >
+                                    {t("button.remove")}
+                                </button>
                             </li>
                         )
                     )}

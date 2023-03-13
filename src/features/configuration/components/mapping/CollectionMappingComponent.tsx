@@ -1,11 +1,14 @@
 import * as React from "react";
-import {ElementComponentProps} from "../../types/ElementComponentProps";
+import {ReactElement} from "react";
 import ArrayComponent from "../common/ArrayComponent";
 import FromCollectionMappingComponent from "./FromCollectionMappingComponent";
 import {useTranslation} from "react-i18next";
+import {ClassNameMap} from "@mui/styles";
 
-interface Props extends ElementComponentProps {
-    elementComponentCreator: (absoluteKey: string, displayName: string) => JSX.Element
+interface Props {
+    classes: ClassNameMap;
+    absoluteKey: string;
+    elementComponentCreator: (absoluteKey: string, displayName: string) => ReactElement;
 }
 
 const CollectionMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
@@ -13,7 +16,6 @@ const CollectionMappingComponent: React.FunctionComponent<Props> = (props: Props
 
     return (
         <>
-            <div className={props.classes.title}>{props.displayName}</div>
             <ArrayComponent
                 classes={props.classes}
                 absoluteKey={props.absoluteKey + ".elementMappings"}

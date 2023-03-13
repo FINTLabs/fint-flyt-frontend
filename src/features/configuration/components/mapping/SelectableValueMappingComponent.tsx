@@ -1,13 +1,13 @@
 import * as React from "react";
-import {ElementComponentProps} from "../../types/ElementComponentProps";
+import {ElementComponentProps, ElementTemplateComponentProps} from "../../types/ElementComponentProps";
 import {ISelectableValueTemplate, SelectableValueType} from "../../types/FormTemplate";
 import SelectValueComponent from "../common/SelectValueComponent";
 import {useFormContext} from "react-hook-form";
 import {ValueType} from "../../types/Configuration";
 import {CreateSelectables} from "../../util/SelectablesUtils";
 
-interface Props extends ElementComponentProps {
-    template: ISelectableValueTemplate
+interface Props extends ElementComponentProps,
+    ElementTemplateComponentProps<ISelectableValueTemplate> {
 }
 
 const SelectableValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
