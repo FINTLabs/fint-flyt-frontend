@@ -1,80 +1,109 @@
 import * as React from "react";
-import {
-    ICollectionTemplate,
-    IElementTemplate,
-    IObjectTemplate,
-    ISelectableValueTemplate,
-    IValueTemplate
-} from "../../types/FormTemplate";
+import {ReactElement} from "react";
+import {IElementTemplate, ISelectableValueTemplate, IValueTemplate} from "../../types/FormTemplate";
 import {ElementComponentProps} from "../../types/ElementComponentProps";
 import ValueMappingComponent from "./ValueMappingComponent";
 import SelectableValueMappingComponent from "./SelectableValueMappingComponent";
-import CollectionMappingComponent from "./CollectionMappingComponent";
+import {ClassNameMap} from "@mui/styles";
 import HelpPopover from "../popover/HelpPopover";
 import {Box} from "@mui/material";
 
-interface Props extends ElementComponentProps {
-    template: IObjectTemplate
+interface Props extends Omit<ElementComponentProps, 'displayName'> {
+    classes: ClassNameMap;
+    absoluteKey: string;
+    valueTemplates: IElementTemplate<IValueTemplate>[]
+    selectableValueTemplates: IElementTemplate<ISelectableValueTemplate>[]
+    nestedObjectButtons: OrderedElement[]
+}
+
+export type OrderedElement = {
+    order: string
+    element: ReactElement;
+}
+
+function toOrderedReactElements<T>(
+    elementTemplates: IElementTemplate<T>[] = [],
+    reactElementMappingFunction: (elementTemplate: IElementTemplate<T>, order: number) => ReactElement
+): OrderedElement[] {
+    return elementTemplates
+        .map((template: IElementTemplate<T>) => ({
+                order: "" + template.order,
+                element: reactElementMappingFunction(template, template.order)
+            })
+        )
+}
+
+export function ascendingCompare<T extends OrderedElement>(a: T, b: T) {
+    return a.order.localeCompare(b.order)
 }
 
 const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
     return (
         <>
-            <div className={props.classes.title}>{props.displayName}</div>
             <fieldset className={props.classes.fieldSet}>
-                {props.template.valueTemplates?.map(
-                    (template: IElementTemplate<IValueTemplate>) =>
-                        <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+                {[
+                    ...toOrderedReactElements(
+                        props.valueTemplates,
+                        (template: IElementTemplate<IValueTemplate>) =>
+                            <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
                             <ValueMappingComponent
                                 classes={props.classes}
                                 absoluteKey={props.absoluteKey + ".valueMappingPerKey." + template.elementConfig.key}
                                 displayName={template.elementConfig.displayName}
-                                template={template.template}
-                            />
-                            <HelpPopover popoverContent={template.elementConfig.description}/>
-                        </Box>
-                )}
-
-                {props.template.selectableValueTemplates?.map(
-                    (template: IElementTemplate<ISelectableValueTemplate>) =>
-                        <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+                                template={template.template}/>
+                                <HelpPopover popoverContent={template.elementConfig.description}/>
+                            </Box>
+                    ),
+                    ...toOrderedReactElements(
+                        props.selectableValueTemplates,
+                        (template: IElementTemplate<ISelectableValueTemplate>) =>
+                            <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
                             <SelectableValueMappingComponent
                                 classes={props.classes}
                                 absoluteKey={props.absoluteKey + ".valueMappingPerKey." + template.elementConfig.key}
                                 displayName={template.elementConfig.displayName}
-                                template={template.template}
-                            />
-                            <HelpPopover popoverContent={template.elementConfig.description}/>
-                        </Box>
-                )}
-
-                {props.template.objectTemplates?.map(
-                    (template: IElementTemplate<IObjectTemplate>) =>
-                        <ObjectMappingComponent
-                            classes={props.classes}
-                            absoluteKey={props.absoluteKey + ".objectMappingPerKey." + template.elementConfig.key}
-                            displayName={template.elementConfig.displayName}
-                            template={template.template}
-                        />
-                )}
-
-                {props.template.objectCollectionTemplates?.map(
-                    (template: IElementTemplate<ICollectionTemplate<IObjectTemplate>>) =>
-                        <CollectionMappingComponent
-                            classes={props.classes}
-                            absoluteKey={props.absoluteKey + ".objectCollectionMappingPerKey." + template.elementConfig.key}
-                            displayName={template.elementConfig.displayName}
-                            elementComponentCreator={(absoluteKey: string, displayName: string) =>
-                                <ObjectMappingComponent
-                                    classes={props.classes}
-                                    absoluteKey={absoluteKey}
-                                    displayName={displayName}
-                                    template={template.template.elementTemplate}
-                                />
-                            }
-                        />
-                )}
-
+                                template={template.template}/>
+                                <HelpPopover popoverContent={template.elementConfig.description}/>
+                            </Box>
+                    ),
+                    ...props.nestedObjectButtons,
+                    // ...toOrderedReactElements(
+                    //     props.template.objectCollectionTemplates,
+                    //     (template: IElementTemplate<ICollectionTemplate<IObjectTemplate>>) =>
+                    //         <CollectionMappingComponent
+                    //             classes={props.classes}
+                    //             absoluteKey={props.absoluteKey + ".objectCollectionMappingPerKey." + template.elementConfig.key}
+                    //             displayName={template.elementConfig.displayName}
+                    //             elementComponentCreator={(absoluteKey: string, displayName: string) =>
+                    //                 <ObjectMappingComponent
+                    //                     classes={props.classes}
+                    //                     absoluteKey={absoluteKey}
+                    //                     displayName={displayName}
+                    //                     template={template.template.elementTemplate}
+                    //                 />
+                    //             }
+                    //         />
+                    // ),
+                    // ...toOrderedReactElements(
+                    //     props.template.valueCollectionTemplates,
+                    //     (template: IElementTemplate<ICollectionTemplate<IValueTemplate>>) =>
+                    //         <CollectionMappingComponent
+                    //             classes={props.classes}
+                    //             absoluteKey={props.absoluteKey + ".valueCollectionMappingPerKey." + template.elementConfig.key}
+                    //             displayName={template.elementConfig.displayName}
+                    //             elementComponentCreator={(absoluteKey: string, displayName: string) =>
+                    //                 <ValueMappingComponent
+                    //                     classes={props.classes}
+                    //                     absoluteKey={absoluteKey}
+                    //                     displayName={displayName}
+                    //                     template={template.template.elementTemplate}
+                    //                 />
+                    //             }
+                    //         />
+                    // )
+                ]
+                    .sort(ascendingCompare)
+                    .map((orderedElement) => orderedElement.element)}
             </fieldset>
         </>
     )

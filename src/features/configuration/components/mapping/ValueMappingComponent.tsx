@@ -1,5 +1,5 @@
 import * as React from "react";
-import {ElementComponentProps} from "../../types/ElementComponentProps";
+import {ElementComponentProps, ElementTemplateComponentProps} from "../../types/ElementComponentProps";
 import {IValueTemplate, ValueType as TemplateValueType} from "../../types/FormTemplate";
 import StringValueComponent from "../common/StringValueComponent";
 import DynamicStringValueComponent from "../common/DynamicStringValueComponent";
@@ -7,8 +7,8 @@ import {useFormContext} from "react-hook-form";
 import {ValueType as ConfigurationValueType} from "../../types/Configuration";
 import {ValueType as MetadataValueType} from "../../types/Metadata/IntegrationMetadata";
 
-interface Props extends ElementComponentProps {
-    template: IValueTemplate
+interface Props extends ElementComponentProps,
+    ElementTemplateComponentProps<IValueTemplate> {
 }
 
 const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
@@ -48,4 +48,4 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
             />
     }
 }
-export default ValueMappingComponent
+export default ValueMappingComponent;

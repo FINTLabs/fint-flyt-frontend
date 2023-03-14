@@ -6,3 +6,8 @@ export type ElementComponentProps = {
     displayName: string;
     description?: string;
 }
+
+
+export type ElementTemplateComponentProps<T> = {
+    template: T
+}

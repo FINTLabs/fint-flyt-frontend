@@ -33,7 +33,7 @@ export const testStringTemplates: IElementTemplate<IValueTemplate>[] = [
         }
     },
     {
-        "order": 5,
+        "order": 4,
         "elementConfig": {
             "key": "fil",
             "displayName": "Fil",
@@ -110,14 +110,25 @@ export const testSelectTemplates: IElementTemplate<ISelectableValueTemplate>[] =
 ]
 
 export const testObjectTemplateJournalpost: IElementTemplate<IObjectTemplate> = {
-    "order": 4,
+    "order": 5,
     "elementConfig": {
         "key": "journalpost",
         "displayName": "Journalpost",
         "description": ""
     },
     "template": {
-        "valueTemplates": testStringTemplates
+        "valueTemplates": testStringTemplates,
+        "objectTemplates": [{
+            "order": 5,
+            "elementConfig": {
+                "key": "avsender",
+                "displayName": "Avsender",
+                "description": ""
+            },
+            "template": {
+                "valueTemplates": testStringTemplates
+            }
+        }]
     }
 }
 
@@ -133,6 +144,20 @@ export const testObjectCollectionTemplate: IElementTemplate<ICollectionTemplate<
     }
 }
 
+export const testValueCollectionTemplate: IElementTemplate<ICollectionTemplate<IValueTemplate>> = {
+    "order": 6,
+    "elementConfig": {
+        "key": "venner",
+        "displayName": "Venner",
+        "description": ""
+    },
+    template: {
+        "elementTemplate": {
+            "type": ValueType.DYNAMIC_STRING
+        }
+    }
+}
+
 export const testObjectTemplateSak: IElementTemplate<IObjectTemplate> = {
     "order": 0,
     "elementConfig": {
@@ -143,7 +168,8 @@ export const testObjectTemplateSak: IElementTemplate<IObjectTemplate> = {
     "template": {
         "valueTemplates": testStringTemplates,
         "selectableValueTemplates": testSelectTemplates,
-        "objectTemplates": [],
-        "objectCollectionTemplates": [testObjectCollectionTemplate]
+        "objectTemplates": [testObjectTemplateJournalpost],
+        "objectCollectionTemplates": [testObjectCollectionTemplate],
+        "valueCollectionTemplates": [testValueCollectionTemplate]
     }
 }
