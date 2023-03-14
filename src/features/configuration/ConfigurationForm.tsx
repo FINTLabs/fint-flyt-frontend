@@ -18,13 +18,13 @@ const useStyles = makeStyles((theme: Theme) =>
             alignItems: 'center',
             position: 'sticky',
             top: 0,
-            background: 'white'
         },
         column: {
             flex: '50%',
             paddingLeft: theme.spacing(2)
         },
         panelContainer: {
+            backgroundColor: 'white',
             padding: theme.spacing(2),
             border: 'solid 1px',
             borderColor: 'black',
@@ -50,7 +50,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
 
     return (
         <DndProvider backend={HTML5Backend}>
-            <Box display="flex" position="relative" width={1} height={1} style={{backgroundColor: 'white'}}>
+            <Box display="flex" position="relative" width={1} height={1}>
                 <MetadataPanel style={classes}/>
                 <Panel style={classes}/>
             </Box>

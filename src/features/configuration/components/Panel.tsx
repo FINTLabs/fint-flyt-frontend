@@ -31,8 +31,17 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         fieldSet: {
             display: 'grid',
+            border: 'none'
+        },
+        list: {
+            listStyle: 'none',
+            padding: 'unset'
+        },
+        listItem: {
+            border: 'solid 1px black',
             padding: '16px',
-            borderRadius: '4px'
+            borderRadius: '4px',
+            marginBottom: '8px'
         },
         button: {
             backgroundColor: theme.palette.primary.main,
@@ -49,13 +58,15 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Panel: React.FunctionComponent<any> = (props) => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.configuration'});
+
+    const style = props.style;
     const classes = useStyles();
     const methods = useForm();
     const onSubmit = (data: any) => {
         console.log(data);
     };
     return (
-        <Box className={props.style.panelContainer}>
+        <Box className={style.panelContainer}>
             <FormProvider {...methods} >
                 <form onSubmit={methods.handleSubmit(onSubmit)}>
                     <ObjectMappingComponent

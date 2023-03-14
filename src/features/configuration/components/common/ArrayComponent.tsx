@@ -20,9 +20,9 @@ const ArrayComponent: React.FunctionComponent<Props> = (props: Props) => {
         <>
             <div className={classes.title}>{props.displayName}</div>
             {fields.length > 0 &&
-                <ul>
+                <ul className={classes.list}>
                     {fields.map((field, index) => (
-                            <li key={field.id}>
+                            <li className={classes.listItem} key={field.id}>
                                 {props.fieldComponentCreator(props.absoluteKey + "." + index, "" + index)}
                                 <button type="button" className={classes.button}
                                         onClick={() => remove(index)}>{t("button.remove")}</button>

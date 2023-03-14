@@ -15,7 +15,7 @@ export const testStringTemplates: IElementTemplate<IValueTemplate>[] = [
         "elementConfig": {
             "key": "tittel",
             "displayName": "Tittel",
-            "description": ""
+            "description": "Tittel"
         },
         "template": {
             "type": ValueType.DYNAMIC_STRING
@@ -26,7 +26,7 @@ export const testStringTemplates: IElementTemplate<IValueTemplate>[] = [
         "elementConfig": {
             "key": "offentligTittel",
             "displayName": "Offentlig tittel",
-            "description": ""
+            "description": "Offentlig tittel"
         },
         "template": {
             "type": ValueType.DYNAMIC_STRING
@@ -51,7 +51,7 @@ export const testSelectTemplates: IElementTemplate<ISelectableValueTemplate>[] =
         "elementConfig": {
             "key": "klassifikasjonssystem",
             "displayName": "Klassifikasjonssystem",
-            "description": ""
+            "description": "Klassifikasjonssystem, f.eks emnekode, tilgangskode"
         },
         "template": {
             "type": SelectableValueType.DROPDOWN,
@@ -77,7 +77,7 @@ export const testSelectTemplates: IElementTemplate<ISelectableValueTemplate>[] =
         "elementConfig": {
             "key": "klasseId",
             "displayName": "KlasseID",
-            "description": ""
+            "description": "klasseid"
         },
         "template": {
             "type": SelectableValueType.SEARCH_SELECT,
@@ -143,7 +143,7 @@ export const testObjectTemplateSak: IElementTemplate<IObjectTemplate> = {
     "template": {
         "valueTemplates": testStringTemplates,
         "selectableValueTemplates": testSelectTemplates,
-        "objectTemplates": [testObjectTemplateJournalpost],
+        "objectTemplates": [],
         "objectCollectionTemplates": [testObjectCollectionTemplate]
     }
 }
