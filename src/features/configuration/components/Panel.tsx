@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
             marginTop: '16px'
         },
         fieldSet: {
-            display: 'grid',
+            backgroundColor: '#EBF4F5',
             border: 'none'
         },
         list: {
@@ -70,10 +70,12 @@ const Panel: React.FunctionComponent<any> = (props) => {
         <Box className={style.panelContainer}>
             <FormProvider {...methods} >
                 <form onSubmit={methods.handleSubmit(onSubmit)}>
-                    <ConfigurationMappingComponent
-                        classes={classes}
-                        rootObjectTemplate={testObjectTemplateSak}
-                    />
+                    <Box sx={{display: 'flex', border: '1px solid black', borderRadius: '4px'}}>
+                        <ConfigurationMappingComponent
+                            classes={classes}
+                            rootObjectTemplate={testObjectTemplateSak}
+                        />
+                    </Box>
                     <button className={classes.button} type="submit" onClick={onSubmit}>
                         {t("button.submit")}
                     </button>

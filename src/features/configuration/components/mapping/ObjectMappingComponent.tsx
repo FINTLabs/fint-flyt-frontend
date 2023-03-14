@@ -46,11 +46,11 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                         props.valueTemplates,
                         (template: IElementTemplate<IValueTemplate>) =>
                             <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
-                            <ValueMappingComponent
-                                classes={props.classes}
-                                absoluteKey={props.absoluteKey + ".valueMappingPerKey." + template.elementConfig.key}
-                                displayName={template.elementConfig.displayName}
-                                template={template.template}/>
+                                <ValueMappingComponent
+                                    classes={props.classes}
+                                    absoluteKey={props.absoluteKey + ".valueMappingPerKey." + template.elementConfig.key}
+                                    displayName={template.elementConfig.displayName}
+                                    template={template.template}/>
                                 <HelpPopover popoverContent={template.elementConfig.description}/>
                             </Box>
                     ),
@@ -58,11 +58,11 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                         props.selectableValueTemplates,
                         (template: IElementTemplate<ISelectableValueTemplate>) =>
                             <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
-                            <SelectableValueMappingComponent
-                                classes={props.classes}
-                                absoluteKey={props.absoluteKey + ".valueMappingPerKey." + template.elementConfig.key}
-                                displayName={template.elementConfig.displayName}
-                                template={template.template}/>
+                                <SelectableValueMappingComponent
+                                    classes={props.classes}
+                                    absoluteKey={props.absoluteKey + ".valueMappingPerKey." + template.elementConfig.key}
+                                    displayName={template.elementConfig.displayName}
+                                    template={template.template}/>
                                 <HelpPopover popoverContent={template.elementConfig.description}/>
                             </Box>
                     ),
