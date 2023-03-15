@@ -11,11 +11,15 @@ interface Props extends ElementComponentProps {
 }
 
 const DynamicStringValueComponent: React.FunctionComponent<Props> = (props: Props) => {
-    const {register, setValue, getValues, control} = useFormContext();
+    const {setValue, getValues, control} = useFormContext();
     const [{canDrop, isOver}, dropRef] = useDrop({
         accept: props.accept,
         drop: (tag: ITag) => {
-            setValue(props.absoluteKey, (getValues(props.absoluteKey) + tag.value))
+            getValues(props.absoluteKey) === undefined
+                ?
+                setValue(props.absoluteKey, tag.value)
+                :
+                setValue(props.absoluteKey, (getValues(props.absoluteKey) + tag.value))
         },
         collect: monitor => ({
             canDrop: monitor.canDrop(),
@@ -23,7 +27,7 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = (props: Prop
         })
     })
 
-    let border = 'none';
+    let background = 'white';
 
     const inputStyle = {
         backgroundColor: 'white',
@@ -35,16 +39,16 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = (props: Prop
     };
 
     if (canDrop && isOver) {
-        border = 'solid 3px lightgreen';
-        inputStyle.margin = '3px';
+        background = 'lightgreen';
     } else if (canDrop) {
-        border = 'solid 3px lightblue';
-        inputStyle.margin = '3px';
+        background = 'lightblue';
+    } else if (isOver && !canDrop) {
+        background = 'red';
     }
 
-    const dynamicStyle = {
-        border: border,
-        ...inputStyle
+    const dynamicStyle: React.CSSProperties = {
+        ...inputStyle,
+        background
     }
 
     return (
@@ -52,9 +56,11 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = (props: Prop
             <Controller
                 name={props.absoluteKey}
                 control={control}
+                defaultValue=""
                 render={({field}) =>
                     <TextField style={dynamicStyle} variant='outlined' size='small'
-                               label={props.displayName} {...field}/>
+                               label={props.displayName}{...field}
+                    />
                 }
             />
         </div>

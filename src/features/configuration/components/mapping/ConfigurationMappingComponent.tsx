@@ -108,6 +108,7 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
         return {
             order: buttonOrder,
             element: <NestedElementMappingComponent
+                key={buttonOrder}
                 classes={props.classes}
                 displayName={buttonDisplayName}
                 onChildOpen={() => {
@@ -272,15 +273,15 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
 
     return (
         <>
-            {displayGrid.map(column =>
+            {displayGrid.map((column: ColumnElement[], index) =>
                 <>
-                    <div id={'fieldset-column-' + index} className={props.classes.fieldSetContainer}>
+                    <div id={'fieldset-column-' + index} key={'fieldset-column-' + index}
+                         className={props.classes.fieldSetContainer}>
                         {
                             column
                                 .sort(compareColumnElements)
                                 .map(columnElement =>
                                     <div>
-                                        <hr/>
                                         {columnElement.columnOrder}
                                         {columnElement.element}
                                     </div>

@@ -52,7 +52,7 @@ export const testObjectTemplateSak: IElementTemplate<IObjectTemplate> = {
                     "description": ""
                 },
                 "template": {
-                    "type": SelectableValueType.DROPDOWN,
+                    "type": SelectableValueType.SEARCH_SELECT,
                     "selectables": [
                         {
                             displayName: "Statisk valg 1",
@@ -245,19 +245,6 @@ export const testObjectTemplateSak: IElementTemplate<IObjectTemplate> = {
                             }
                         }
                     ]
-                }
-            }
-        }],
-        "valueCollectionTemplates": [{
-            "order": 5,
-            "elementConfig": {
-                "key": "venner",
-                "displayName": "Venner",
-                "description": ""
-            },
-            template: {
-                "elementTemplate": {
-                    "type": ValueType.DYNAMIC_STRING
                 }
             }
         }]

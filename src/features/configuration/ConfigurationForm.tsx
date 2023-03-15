@@ -93,14 +93,14 @@ const useStyles = makeStyles((theme: Theme) =>
             border: 'none',
         },
         list: {
+            backgroundColor: 'white',
             listStyle: 'none',
-            padding: 'unset'
-        },
-        listItem: {
+            padding: 'unset',
             border: 'solid 1px black',
             borderRadius: '4px',
-            marginBottom: '8px'
+            margin: '16px'
         },
+        listItem: {},
         collectionButton: {
             backgroundColor: theme.palette.primary.main,
             borderRadius: '5px',
@@ -131,7 +131,10 @@ const useStyles = makeStyles((theme: Theme) =>
             padding: '8px',
             fontSize: '16px',
             marginTop: '16px',
-            width: 'fit-content'
+            width: 'fit-content',
+            "&:last-child": {
+                marginLeft: '16px'
+            }
         }
     })
 );
