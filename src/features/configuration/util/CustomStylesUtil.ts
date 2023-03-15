@@ -21,3 +21,9 @@ export const toggleButtonSX: SxProps<Theme> = {
         backgroundColor: (theme: Theme) => theme.palette.primary.main,
     }
 }
+
+export const flexCenter: SxProps<Theme> = {
+    display: "flex",
+    alignItems: 'center',
+    mb: 1
+}

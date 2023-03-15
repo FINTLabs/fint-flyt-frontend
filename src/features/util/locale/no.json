@@ -41,8 +41,11 @@
     },
     "configuration": {
       "header": "Konfigurasjon",
+      "metadataVersion": "Metadataversjon",
+      "formHeader": "Utgående data",
       "button": {
         "submit": "Send inn",
+        "cancel": "Avbryt",
         "append": "Legg til",
         "remove": "Fjern"
       },

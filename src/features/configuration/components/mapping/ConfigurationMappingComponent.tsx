@@ -1,10 +1,11 @@
 import {ClassNameMap} from "@mui/styles";
 import * as React from "react";
 import {ReactElement, useState} from "react";
-import ObjectMappingComponent, {ascendingCompare, OrderedElement} from "./ObjectMappingComponent";
+import ObjectMappingComponent, {OrderedElement} from "./ObjectMappingComponent";
 import {ICollectionTemplate, IElementTemplate, IObjectTemplate} from "../../types/FormTemplate";
 import NestedElementMappingComponent from "./NestedObjectMappingComponent";
 import CollectionMappingComponent from "./CollectionMappingComponent";
+import {range} from "lodash";
 
 interface Props {
     classes: ClassNameMap
@@ -31,54 +32,44 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
 
     const [grid, setGrid] = useState<OrderedElementWithAbsoluteKey[][]>([..._grid.map(column => [...column])]);
 
-    function onOpenObjectCollectionMappingChild(
+    function onOpenChild<T>(
         childColumnIndex: number,
         childOrder: string,
         childAbsoluteKey: string,
         childDisplayName: string,
-        childTemplate: ICollectionTemplate<IObjectTemplate>) {
+        childElement: ReactElement
+    ) {
         const child: OrderedElementWithAbsoluteKey = {
             order: childOrder,
             absoluteKey: childAbsoluteKey,
-            element: createObjectCollectionMappingComponent(
-                childColumnIndex,
-                childOrder,
-                childAbsoluteKey,
-                childDisplayName,
-                childTemplate
-            )
+            element: childElement
         }
-        addChild(childColumnIndex, child);
+        _grid[childColumnIndex] = _grid[childColumnIndex]
+            ? [..._grid[childColumnIndex], child]
+            : [child];
+        setGrid([..._grid.map(column => [...column])]);
     }
 
-    function onOpenObjectMappingChild(
+    function onChildClose(
         childColumnIndex: number,
-        childOrder: string,
-        childAbsoluteKey: string,
-        childDisplayName: string,
-        childTemplate: IObjectTemplate) {
-        const child: OrderedElementWithAbsoluteKey = {
-            order: childOrder,
-            absoluteKey: childAbsoluteKey,
-            element: createObjectMappingComponent(
-                childColumnIndex,
-                childOrder,
-                childAbsoluteKey,
-                childDisplayName,
-                childTemplate
+        childAbsoluteKey: string
+    ) {
+        _grid = range(0, _grid.length)
+            .map(columnIndex => {
+                    if (columnIndex < childColumnIndex) {
+                        return grid[columnIndex];
+                    } else if (columnIndex === childColumnIndex) {
+                        return _grid[columnIndex].filter(orderedElementWithAbsoluteKey =>
+                            orderedElementWithAbsoluteKey.absoluteKey !== (childAbsoluteKey)
+                        );
+                    } else {
+                        return _grid[columnIndex].filter(orderedElementWithAbsoluteKey =>
+                            !orderedElementWithAbsoluteKey.absoluteKey.startsWith(childAbsoluteKey + ".")
+                        );
+                    }
+                }
             )
-        }
-        addChild(childColumnIndex, child);
-    }
-
-    function addChild(childColumnIndex: number, child: OrderedElementWithAbsoluteKey) {
-        console.log("add child:", childColumnIndex, child)
-        console.log("old grid:", _grid)
-        const newGrid = _grid.map(column => [...column]);
-        const childColumn: OrderedElementWithAbsoluteKey[] = newGrid[childColumnIndex] ? newGrid[childColumnIndex] : []
-        newGrid[childColumnIndex] = [...childColumn, child]
-        console.log("new grid:", newGrid)
-        _grid = [...newGrid.map(column => [...column])];
+            .filter(column => column.length > 0)
         setGrid([..._grid.map(column => [...column])]);
     }
 
@@ -104,11 +95,55 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
         />
     }
 
+    function createNestedElementButton<T>(
+        columnIndex: number,
+        nestedOrder: string,
+        absoluteKeyPrefix: string,
+        template: IElementTemplate<T>,
+        mapToReactElement: (
+            columnIndex: number,
+            order: string,
+            displayName: string,
+            absoluteKeyPrefix: string,
+            template: T,
+        ) => ReactElement
+    ): OrderedElement {
+        const absoluteKey = absoluteKeyPrefix + template.elementConfig.key
+        return {
+            order: nestedOrder,
+            element: <NestedElementMappingComponent
+                classes={props.classes}
+                displayName={template.elementConfig.displayName}
+                onChildOpen={() => {
+                    onOpenChild(
+                        columnIndex,
+                        nestedOrder,
+                        absoluteKey,
+                        template.elementConfig.displayName,
+                        mapToReactElement(
+                            columnIndex,
+                            nestedOrder,
+                            absoluteKey,
+                            template.elementConfig.displayName,
+                            template.template
+                        )
+                    )
+                }}
+                onChildClose={() => {
+                    onChildClose(
+                        columnIndex,
+                        absoluteKey
+                    )
+                }}
+            />
+        }
+    }
+
     function createObjectMappingComponent(
         childColumnIndex: number,
         childOrder: string,
         childAbsoluteKey: string,
-        childDisplayName: string, // TODO eivindmorch 13/03/2023 : Use
+        childDisplayName: string,
         childTemplate: IObjectTemplate
     ): ReactElement {
         return <ObjectMappingComponent
@@ -119,92 +154,36 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
             nestedObjectButtons={[
                 ...childTemplate.objectTemplates
                     ? childTemplate.objectTemplates
-                        .map((objectTemplate: IElementTemplate<IObjectTemplate>) => {
-                                return {
-                                    order: childOrder,
-                                    element: <NestedElementMappingComponent
-                                        classes={props.classes}
-                                        displayName={objectTemplate.elementConfig.displayName}
-                                        onChildOpen={() => {
-                                            onOpenObjectMappingChild(
-                                                childColumnIndex + 1,
-                                                childOrder + objectTemplate.order,
-                                                childAbsoluteKey + ".objectMappingPerKey." + objectTemplate.elementConfig.key,
-                                                objectTemplate.elementConfig.displayName,
-                                                objectTemplate.template
-                                            )
-                                        }}
-                                        onChildClose={() => {
-                                            onChildClose(
-                                                childColumnIndex + 1,
-                                                childAbsoluteKey + ".objectMappingPerKey." + objectTemplate.elementConfig.key
-                                            )
-                                        }}
-                                    />
-                                }
-                            }
-                        ) : [],
+                        .map(template => createNestedElementButton(
+                            childColumnIndex + 1,
+                            childOrder + template.order,
+                            childAbsoluteKey + ".objectMappingPerKey.",
+                            template,
+                            createObjectMappingComponent
+                        ))
+                    : [],
                 ...childTemplate.objectCollectionTemplates
                     ? childTemplate.objectCollectionTemplates
-                        .map((objectCollectionTemplate: IElementTemplate<ICollectionTemplate<IObjectTemplate>>) => {
-                            return {
-                                order: childOrder,
-                                element: <NestedElementMappingComponent
-                                    classes={props.classes}
-                                    displayName={objectCollectionTemplate.elementConfig.displayName}
-                                    onChildOpen={() => {
-                                        onOpenObjectCollectionMappingChild(
-                                            childColumnIndex + 1,
-                                            childOrder + objectCollectionTemplate.order,
-                                            childAbsoluteKey + ".objectCollectionMappingPerKey." + objectCollectionTemplate.elementConfig.key,
-                                            objectCollectionTemplate.elementConfig.displayName,
-                                            objectCollectionTemplate.template
-                                        )
-                                    }}
-                                    onChildClose={() => {
-                                        onChildClose(
-                                            childColumnIndex + 1,
-                                            childAbsoluteKey + ".objectCollectionMappingPerKey." + objectCollectionTemplate.elementConfig.key
-                                        )
-                                    }}
-                                />
-                            }
-                        })
+                        .map(template => createNestedElementButton(
+                            childColumnIndex + 1,
+                            childOrder + template.order,
+                            childAbsoluteKey + ".objectCollectionMappingPerKey.",
+                            template,
+                            createObjectCollectionMappingComponent
+                        ))
                     : []
             ]}
         />
     }
 
-    const range = (start: number, end: number) => Array.from({length: (end - start)}, (v, k) => k + start);
-
-
-    function onChildClose(
-        childColumnIndex: number,
-        childAbsoluteKey: string
-    ) {
-        {
-            console.log("close", childColumnIndex, childAbsoluteKey)
-        }
-        const newGrid: OrderedElementWithAbsoluteKey[][] = range(0, _grid.length)
-            .map(index => {
-                if (index < childColumnIndex) {
-                    return _grid[index]
-                } else {
-                    return _grid[index]
-                        .filter(orderedElementWithAbsoluteKey => orderedElementWithAbsoluteKey.absoluteKey !== childAbsoluteKey)
-                }
-            })
-        _grid = [...newGrid.map(column => [...column])];
-        setGrid([..._grid.map(column => [...column])]);
-    }
-
     return (
         <>
-            {console.log(_grid)}
             {grid.map((column, index) =>
                 <div id={'fieldset-column-' + index} className={props.classes.fieldSetContainer}>
                     {column
-                        .sort(ascendingCompare)
+                        .sort((a: OrderedElementWithAbsoluteKey, b: OrderedElementWithAbsoluteKey) =>
+                            (a.order + a.absoluteKey).localeCompare(b.order + b.absoluteKey)
+                        )
                         .map(orderedElementWithAbsoluteKey => orderedElementWithAbsoluteKey.element)
                     }
                 </div>

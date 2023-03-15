@@ -1,11 +1,10 @@
-import {Box, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Typography} from "@mui/material";
+import {Box, Typography} from "@mui/material";
 import {Tag} from "./dnd/Tag";
 import * as React from "react";
 import {useContext, useEffect} from "react";
 import HelpPopover from "./popover/HelpPopover";
 import {useTranslation} from "react-i18next";
 import {toTagValue} from "../../util/JsonUtil";
-import {IntegrationContext} from "../../../context/integrationContext";
 // eslint-disable-next-line
 import {SourceApplicationContext} from "../../../context/sourceApplicationContext";
 import {
@@ -19,40 +18,18 @@ import {ClassNameMap} from "@mui/styles";
 
 const MetadataPanel: React.FunctionComponent<any> = (props: { classes: ClassNameMap }) => {
     const {t} = useTranslation('translations', {keyPrefix: 'components.MetadataPanel'});
-    const {selectedMetadata, setSelectedMetadata} = useContext(IntegrationContext)
-    const {
-        allMetadata,
-        instanceElementMetadata,
-        getInstanceElementMetadata,
-        getAllMetadata
-    } = useContext(SourceApplicationContext)
-    let initialVersion = selectedMetadata.version;
-    const [version, setVersion] = React.useState(initialVersion ? String(initialVersion) : '');
-
-    const handleChange = (event: SelectChangeEvent) => {
-        setVersion(event.target.value);
-        let version: number = Number(event.target.value)
-        let config = availableVersions.filter(metadata => {
-            return metadata.version === version
-        })
-        setSelectedMetadata(config[0])
-        getInstanceElementMetadata(config[0].id)
-    };
+    const {instanceElementMetadata, getAllMetadata} = useContext(SourceApplicationContext)
 
     useEffect(() => {
         getAllMetadata(false)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    const availableVersions = allMetadata.filter(md => {
-        return md.sourceApplicationId === selectedMetadata.sourceApplicationId &&
-            md.sourceApplicationIntegrationId === selectedMetadata.sourceApplicationIntegrationId
-    })
-
     function TagTreeValues({items, depth = 0}: any) {
         return (<>
                 {items.instanceValueMetadata.map((ivm: IInstanceValueMetadata) => (
-                    <div id={'tagtreeValue-' + ivm.key} style={{paddingLeft: depth * 10}} key={'tagtreeValues-' + ivm.key}>
+                    <div id={'tagtreeValue-' + ivm.key} style={{paddingLeft: depth * 10}}
+                         key={'tagtreeValues-' + ivm.key}>
                         <Tag disabled={false} type={ivm.type} name={ivm.displayName + ' {' + (ivm.key) + '}'}
                              value={toTagValue(ivm.key)}/>
                     </div>
@@ -98,26 +75,12 @@ const MetadataPanel: React.FunctionComponent<any> = (props: { classes: ClassName
     return (
         <>
             <Box className={props.classes.panelContainer} sx={{position: 'sticky'}}>
+                <Box className={props.classes.row}>
+                    <Typography variant={"h6"}>{t('header')}</Typography>
+                    <HelpPopover
+                        popoverContent="Metadata er data fra innsendt skjema du kan bruke i konfigurasjon av utgående data"/>
+                </Box>
                 <Box className={props.classes.panel}>
-                    <Box className={props.classes.row}>
-                        <Typography variant={"h6"}>{t('header')}</Typography>
-                        <HelpPopover popoverContent="metadataPanelPopoverContent"/>
-                        <FormControl sx={{m: 1, minWidth: 120}} size="small">
-                            <InputLabel id="metadata-version-select">{t('version')} </InputLabel>
-                            <Select
-                                labelId="version-select"
-                                id="version-select"
-                                value={version}
-                                label={t('version') as string}
-                                onChange={handleChange}
-                            >
-                                {availableVersions.map((md, index) => {
-                                    return <MenuItem key={index}
-                                                     value={md.version}>{t('version')} {md.version}</MenuItem>
-                                })}
-                            </Select>
-                        </FormControl>
-                    </Box>
                     {/*TODO 09/03 ingrie: before merge, switch back to use real metadata*/}
                     <TagTree items={MOCK_INSTANCE_METADATA.instanceMetadata}/>
                     {/*<Link style={{fontFamily: 'sans-serif'}} to={{pathname: selectedMetadata.sourceApplicationIntegrationUri}} target="_blank">{t('openLink')}</Link>*/}
