@@ -76,9 +76,9 @@ const useStyles = makeStyles((theme: Theme) =>
             border: '1px solid',
             borderRadius: '4px',
             height: 'fit-content',
-            paddingRight: '16px',
+            marginRight: '16px',
             "&:last-child": {
-                paddingRight: 0
+                marginRight: 0
             }
         },
         fieldSet: {
