@@ -1,11 +1,14 @@
-import {ElementComponentProps} from "../../types/ElementComponentProps";
 import * as React from "react";
+import {ReactElement} from "react";
 import ArrayComponent from "../common/ArrayComponent";
 import DynamicStringValueComponent from "../common/DynamicStringValueComponent";
 import {useTranslation} from "react-i18next";
+import {ClassNameMap} from "@mui/styles";
 
-interface Props extends ElementComponentProps {
-    elementComponentCreator: (absoluteKey: string, displayName: string) => JSX.Element
+interface Props {
+    classes: ClassNameMap;
+    absoluteKey: string;
+    elementComponentCreator: (absoluteKey: string) => ReactElement;
 }
 
 const FromCollectionMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
@@ -13,26 +16,23 @@ const FromCollectionMappingComponent: React.FunctionComponent<Props> = (props: P
 
     return (
         <>
-            <div id={'collection-mapping-header-' + props.displayName} className={props.classes.title}>{props.displayName}</div>
+            <div id={'collection-mapping-header-' + props.absoluteKey} className={props.classes.title}>{t("collections")}</div>
             <ArrayComponent
                 classes={props.classes}
                 absoluteKey={props.absoluteKey + ".instanceCollectionReferencesOrdered"}
-                displayName={t("collections")}
-                fieldComponentCreator={(absoluteKey: string, displayName: string) =>
+                fieldComponentCreator={(index: number, absoluteKey: string) =>
                     <DynamicStringValueComponent
                         classes={props.classes}
                         absoluteKey={absoluteKey}
-                        displayName={displayName}
+                        displayName={"" + index}
                         accept={[]}
                     />
 
                 }
                 defaultValueCreator={() => undefined}
             />
-            {props.elementComponentCreator(
-                props.absoluteKey + ".elementMapping",
-                t("convertCollectionElements")
-            )}
+            <div className={props.classes.title}>{t("convertCollectionElements")}</div>
+            {props.elementComponentCreator(props.absoluteKey + ".elementMapping")}
         </>
     );
 }

@@ -46,8 +46,8 @@
       "button": {
         "submit": "Send inn",
         "cancel": "Avbryt",
-        "append": "Legg til",
-        "remove": "Fjern"
+        "append": "+",
+        "remove": "-"
       },
       "collectionMapping": {
         "defaultElements": "Faste elementer",
