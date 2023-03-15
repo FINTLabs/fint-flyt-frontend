@@ -13,7 +13,7 @@ const FromCollectionMappingComponent: React.FunctionComponent<Props> = (props: P
 
     return (
         <>
-            <div className={props.classes.title}>{props.displayName}</div>
+            <div id={'collection-mapping-header-' + props.displayName} className={props.classes.title}>{props.displayName}</div>
             <ArrayComponent
                 classes={props.classes}
                 absoluteKey={props.absoluteKey + ".instanceCollectionReferencesOrdered"}

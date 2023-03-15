@@ -201,14 +201,13 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
     return (
         <>
             {console.log(_grid)}
-            {grid.map(column =>
-                <fieldset className={props.classes.fieldSet}>
-
+            {grid.map((column, index) =>
+                <div id={'fieldset-column-' + index} className={props.classes.fieldSetContainer}>
                     {column
                         .sort(ascendingCompare)
                         .map(orderedElementWithAbsoluteKey => orderedElementWithAbsoluteKey.element)
                     }
-                </fieldset>
+                </div>
             )}
         </>
     )

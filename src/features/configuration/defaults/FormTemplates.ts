@@ -54,7 +54,7 @@ export const testSelectTemplates: IElementTemplate<ISelectableValueTemplate>[] =
             "description": "Klassifikasjonssystem, f.eks emnekode, tilgangskode"
         },
         "template": {
-            "type": SelectableValueType.DROPDOWN,
+            "type": SelectableValueType.SEARCH_SELECT,
             "selectables": [
                 {
                     displayName: "Statisk valg 1",

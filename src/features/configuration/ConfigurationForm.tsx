@@ -40,6 +40,80 @@ const useStyles = makeStyles((theme: Theme) =>
             height: 'fit-content',
             overflow: 'auto',
             maxHeight: theme.spacing(100)
+        },
+        valueMappingContainer: {
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between'
+        },
+        label: {
+            fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
+            fontSize: '16px'
+        },
+        select: {
+            width: '350px',
+            height: '30px',
+            borderRadius: '4px',
+            marginTop: '5px',
+            marginBottom: '5px'
+        },
+        input: {
+            width: '350px',
+            borderRadius: '4px',
+            marginTop: '5px',
+            marginBottom: '5px',
+            height: '24px'
+        },
+        title: {
+            fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
+            fontSize: '20px',
+            marginTop: '16px',
+            marginLeft: '16px'
+        },
+        fieldSetContainer: {
+            display: 'grid',
+            backgroundColor: '#EBF4F5',
+            border: '1px solid',
+            borderRadius: '4px',
+            height: 'fit-content',
+            paddingRight: '16px',
+            "&:last-child": {
+                paddingRight: 0
+            }
+        },
+        fieldSet: {
+            display: 'grid',
+            border: 'none',
+        },
+        list: {
+            listStyle: 'none',
+            padding: 'unset'
+        },
+        listItem: {
+            border: 'solid 1px black',
+            borderRadius: '4px',
+            marginBottom: '8px'
+        },
+        button: {
+            backgroundColor: theme.palette.primary.main,
+            borderRadius: '5px',
+            color: 'white',
+            cursor: 'pointer',
+            padding: '8px',
+            fontSize: '16px',
+            marginTop: '16px',
+            marginLeft: '16px',
+            width: 'fit-content'
+        },
+        submitButton: {
+            backgroundColor: theme.palette.primary.main,
+            borderRadius: '5px',
+            color: 'white',
+            cursor: 'pointer',
+            padding: '8px',
+            fontSize: '16px',
+            marginTop: '16px',
+            width: 'fit-content'
         }
     })
 );
@@ -50,9 +124,9 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
 
     return (
         <DndProvider backend={HTML5Backend}>
-            <Box display="flex" position="relative" width={1} height={1}>
-                <MetadataPanel style={classes}/>
-                <Panel style={classes}/>
+            <Box display="flex" position="relative" width={1} height={1} sx={{border: 'none'}}>
+                <MetadataPanel classes={classes}/>
+                <Panel classes={classes}/>
             </Box>
         </DndProvider>
     );

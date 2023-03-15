@@ -14,9 +14,10 @@ import {
     IInstanceValueMetadata,
     MOCK_INSTANCE_METADATA
 } from "../types/Metadata/IntegrationMetadata";
+import {ClassNameMap} from "@mui/styles";
 
 
-const MetadataPanel: React.FunctionComponent<any> = (props) => {
+const MetadataPanel: React.FunctionComponent<any> = (props: { classes: ClassNameMap }) => {
     const {t} = useTranslation('translations', {keyPrefix: 'components.MetadataPanel'});
     const {selectedMetadata, setSelectedMetadata} = useContext(IntegrationContext)
     const {
@@ -51,7 +52,7 @@ const MetadataPanel: React.FunctionComponent<any> = (props) => {
     function TagTreeValues({items, depth = 0}: any) {
         return (<>
                 {items.instanceValueMetadata.map((ivm: IInstanceValueMetadata) => (
-                    <div style={{paddingLeft: depth * 10}} key={'tagtreeValues-' + ivm.key}>
+                    <div id={'tagtreeValue-' + ivm.key} style={{paddingLeft: depth * 10}} key={'tagtreeValues-' + ivm.key}>
                         <Tag disabled={false} type={ivm.type} name={ivm.displayName + ' {' + (ivm.key) + '}'}
                              value={toTagValue(ivm.key)}/>
                     </div>
@@ -83,8 +84,10 @@ const MetadataPanel: React.FunctionComponent<any> = (props) => {
                 }
                 {items.categories.map((category: IInstanceMetadataCategory) => (
                     <div style={{paddingLeft: depth * 10}} key={'tagTree-' + category.displayName}>
-                        {category.content.instanceValueMetadata && <div><Typography>{category.displayName}</Typography>
-                        </div>}
+                        {category.content.instanceValueMetadata &&
+                            <div id={'tagTree-' + category.displayName + '-category-display-name'}>
+                                <Typography>{category.displayName}</Typography>
+                            </div>}
                         <TagTree items={category.content} depth={depth + 1}/>
                     </div>
                 ))}
@@ -94,9 +97,9 @@ const MetadataPanel: React.FunctionComponent<any> = (props) => {
 
     return (
         <>
-            <Box className={props.style.panelContainer} sx={{position: 'sticky'}}>
-                <Box className={props.style.panel}>
-                    <Box className={props.style.row}>
+            <Box className={props.classes.panelContainer} sx={{position: 'sticky'}}>
+                <Box className={props.classes.panel}>
+                    <Box className={props.classes.row}>
                         <Typography variant={"h6"}>{t('header')}</Typography>
                         <HelpPopover popoverContent="metadataPanelPopoverContent"/>
                         <FormControl sx={{m: 1, minWidth: 120}} size="small">
@@ -120,8 +123,8 @@ const MetadataPanel: React.FunctionComponent<any> = (props) => {
                     {/*<Link style={{fontFamily: 'sans-serif'}} to={{pathname: selectedMetadata.sourceApplicationIntegrationUri}} target="_blank">{t('openLink')}</Link>*/}
 
                 </Box>
-                <Box className={props.style.sourceApplicationForm}>
-                    <Box className={props.style.row}>
+                <Box className={props.classes.sourceApplicationForm}>
+                    <Box className={props.classes.row}>
                         {instanceElementMetadata && <TagTreeCollectionValues items={instanceElementMetadata}/>}
                     </Box>
                 </Box>

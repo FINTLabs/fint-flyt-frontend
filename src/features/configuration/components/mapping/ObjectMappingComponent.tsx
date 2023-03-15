@@ -45,26 +45,26 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                     ...toOrderedReactElements(
                         props.valueTemplates,
                         (template: IElementTemplate<IValueTemplate>) =>
-                            <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+                            <div id={'value-mapping-wrapper-' + props.absoluteKey} className={props.classes.valueMappingContainer}>
                                 <ValueMappingComponent
                                     classes={props.classes}
                                     absoluteKey={props.absoluteKey + ".valueMappingPerKey." + template.elementConfig.key}
                                     displayName={template.elementConfig.displayName}
                                     template={template.template}/>
                                 <HelpPopover popoverContent={template.elementConfig.description}/>
-                            </Box>
+                            </div>
                     ),
                     ...toOrderedReactElements(
                         props.selectableValueTemplates,
                         (template: IElementTemplate<ISelectableValueTemplate>) =>
-                            <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+                            <div id={'selectable-value-mapping-wrapper-' + props.absoluteKey} className={props.classes.valueMappingContainer}>
                                 <SelectableValueMappingComponent
                                     classes={props.classes}
                                     absoluteKey={props.absoluteKey + ".valueMappingPerKey." + template.elementConfig.key}
                                     displayName={template.elementConfig.displayName}
                                     template={template.template}/>
                                 <HelpPopover popoverContent={template.elementConfig.description}/>
-                            </Box>
+                            </div>
                     ),
                     ...props.nestedObjectButtons,
                     // ...toOrderedReactElements(

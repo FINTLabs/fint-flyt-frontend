@@ -18,7 +18,7 @@ const ArrayComponent: React.FunctionComponent<Props> = (props: Props) => {
     });
     return (
         <>
-            <div className={classes.title}>{props.displayName}</div>
+            <div id={'array-header-' + props.displayName} className={classes.title}>{props.displayName}</div>
             {fields.length > 0 &&
                 <ul className={classes.list}>
                     {fields.map((field, index) => (
