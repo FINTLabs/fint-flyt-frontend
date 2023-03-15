@@ -11,28 +11,28 @@ interface Props extends Omit<ElementComponentProps, 'displayName'> {
     absoluteKey: string;
     valueTemplates: IElementTemplate<IValueTemplate>[]
     selectableValueTemplates: IElementTemplate<ISelectableValueTemplate>[]
-    nestedObjectButtons: OrderedElement[]
+    nestedObjectButtons: OrderedObjectElement[]
 }
 
-export type OrderedElement = {
-    order: string
+export type OrderedObjectElement = {
+    order: number
     element: ReactElement;
 }
 
 function toOrderedReactElements<T>(
     elementTemplates: IElementTemplate<T>[] = [],
     reactElementMappingFunction: (elementTemplate: IElementTemplate<T>, order: number) => ReactElement
-): OrderedElement[] {
+): OrderedObjectElement[] {
     return elementTemplates
         .map((template: IElementTemplate<T>) => ({
-                order: "" + template.order,
+                order: template.order,
                 element: reactElementMappingFunction(template, template.order)
             })
         )
 }
 
-export function ascendingCompare<T extends OrderedElement>(a: T, b: T) {
-    return a.order.localeCompare(b.order)
+export function ascendingCompare<T extends OrderedObjectElement>(a: T, b: T) {
+    return a.order - b.order
 }
 
 const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
@@ -59,40 +59,6 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                                 template={template.template}/>
                     ),
                     ...props.nestedObjectButtons,
-                    // ...toOrderedReactElements(
-                    //     props.template.objectCollectionTemplates,
-                    //     (template: IElementTemplate<ICollectionTemplate<IObjectTemplate>>) =>
-                    //         <CollectionMappingComponent
-                    //             classes={props.classes}
-                    //             absoluteKey={props.absoluteKey + ".objectCollectionMappingPerKey." + template.elementConfig.key}
-                    //             displayName={template.elementConfig.displayName}
-                    //             elementComponentCreator={(absoluteKey: string, displayName: string) =>
-                    //                 <ObjectMappingComponent
-                    //                     classes={props.classes}
-                    //                     absoluteKey={absoluteKey}
-                    //                     displayName={displayName}
-                    //                     template={template.template.elementTemplate}
-                    //                 />
-                    //             }
-                    //         />
-                    // ),
-                    // ...toOrderedReactElements(
-                    //     props.template.valueCollectionTemplates,
-                    //     (template: IElementTemplate<ICollectionTemplate<IValueTemplate>>) =>
-                    //         <CollectionMappingComponent
-                    //             classes={props.classes}
-                    //             absoluteKey={props.absoluteKey + ".valueCollectionMappingPerKey." + template.elementConfig.key}
-                    //             displayName={template.elementConfig.displayName}
-                    //             elementComponentCreator={(absoluteKey: string, displayName: string) =>
-                    //                 <ValueMappingComponent
-                    //                     classes={props.classes}
-                    //                     absoluteKey={absoluteKey}
-                    //                     displayName={displayName}
-                    //                     template={template.template.elementTemplate}
-                    //                 />
-                    //             }
-                    //         />
-                    // )
                 ]
                     .sort(ascendingCompare)
                     .map((orderedElement) => orderedElement.element)}

@@ -43,8 +43,8 @@
       "header": "Konfigurasjon",
       "button": {
         "submit": "Send inn",
-        "append": "Legg til",
-        "remove": "Fjern"
+        "append": "+",
+        "remove": "-"
       },
       "collectionMapping": {
         "defaultElements": "Faste elementer",

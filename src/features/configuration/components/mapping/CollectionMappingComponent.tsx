@@ -8,7 +8,7 @@ import {ClassNameMap} from "@mui/styles";
 interface Props {
     classes: ClassNameMap;
     absoluteKey: string;
-    elementComponentCreator: (absoluteKey: string, displayName: string) => ReactElement;
+    elementComponentCreator: (collectionElementOrder: number[], absoluteKey: string) => ReactElement;
 }
 
 const CollectionMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
@@ -16,25 +16,28 @@ const CollectionMappingComponent: React.FunctionComponent<Props> = (props: Props
 
     return (
         <>
+            <div className={props.classes.title}>{t("defaultElements")}</div>
             <ArrayComponent
                 classes={props.classes}
                 absoluteKey={props.absoluteKey + ".elementMappings"}
-                displayName={t("defaultElements")}
-                fieldComponentCreator={props.elementComponentCreator}
+                fieldComponentCreator={(index: number, absoluteKey: string) =>
+                    props.elementComponentCreator([0, index], absoluteKey)
+                }
                 defaultValueCreator={() => {
                     return {}
                 }}
             />
+            <div className={props.classes.title}>{t("generatedElements")}</div>
             <ArrayComponent
                 classes={props.classes}
                 absoluteKey={props.absoluteKey + ".fromCollectionMappings"}
-                displayName={t("generatedElements")}
-                fieldComponentCreator={(absoluteKey: string, displayName: string) =>
+                fieldComponentCreator={(index: number, absoluteKey: string) =>
                     <FromCollectionMappingComponent
                         classes={props.classes}
                         absoluteKey={absoluteKey}
-                        displayName={displayName}
-                        elementComponentCreator={props.elementComponentCreator}
+                        elementComponentCreator={(absoluteKey: string) =>
+                            props.elementComponentCreator([1, index], absoluteKey)
+                        }
                     />
                 }
                 defaultValueCreator={() => {
