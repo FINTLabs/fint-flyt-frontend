@@ -5,7 +5,7 @@ import ValueMappingComponent from "./ValueMappingComponent";
 import SelectableValueMappingComponent from "./SelectableValueMappingComponent";
 import {ClassNameMap} from "@mui/styles";
 import ToggleButtonComponent from "../common/ToggleButtonComponent";
-import {NestedElementsCallbacks} from "../../types/ElementComponentProps";
+import {NestedElementsCallbacks} from "../../types/NestedElementCallbacks";
 
 interface Props {
     classes: ClassNameMap;

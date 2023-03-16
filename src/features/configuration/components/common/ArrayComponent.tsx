@@ -8,7 +8,8 @@ interface Props {
     classes: ClassNameMap;
     absoluteKey: string;
     fieldComponentCreator: (index: number, absoluteKey: string) => ReactElement
-    defaultValueCreator: () => any
+    defaultValueCreator: () => any,
+    onFieldClose?: (index: number) => void
 }
 
 const ArrayComponent: React.FunctionComponent<Props> = (props: Props) => {
@@ -50,7 +51,11 @@ const ArrayComponent: React.FunctionComponent<Props> = (props: Props) => {
                     className={classes.button}
                     style={{marginTop: '8px'}}
                     onClick={() => {
-                        remove(fields.length - 1)
+                        const index = fields.length - 1;
+                        remove(fields.length - 1);
+                        if (props.onFieldClose) {
+                            props.onFieldClose(index)
+                        }
                     }}
                 >
                     {t("button.remove")}

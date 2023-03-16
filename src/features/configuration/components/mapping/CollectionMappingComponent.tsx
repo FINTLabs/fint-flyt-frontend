@@ -4,16 +4,12 @@ import ArrayComponent from "../common/ArrayComponent";
 import FromCollectionMappingComponent from "./FromCollectionMappingComponent";
 import {useTranslation} from "react-i18next";
 import {ClassNameMap} from "@mui/styles";
-import {NestedElementsCallbacks, prefixNestedElementsCallbacksOrder} from "../../types/ElementComponentProps";
 
 interface Props {
     classes: ClassNameMap;
     absoluteKey: string;
-    nestedElementCallbacks: NestedElementsCallbacks
-    elementComponentCreator: (
-        absoluteKey: string,
-        nestedElementsCallbacks: NestedElementsCallbacks
-    ) => ReactElement;
+    elementComponentCreator: (order: number[], absoluteKey: string) => ReactElement;
+    onFieldClose?: (order: number[]) => void,
 }
 
 const CollectionMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
@@ -25,14 +21,16 @@ const CollectionMappingComponent: React.FunctionComponent<Props> = (props: Props
             <ArrayComponent
                 classes={props.classes}
                 absoluteKey={props.absoluteKey + ".elementMappings"}
-                fieldComponentCreator={(index: number, absoluteKey: string) =>
-                    props.elementComponentCreator(
-                        absoluteKey,
-                        prefixNestedElementsCallbacksOrder([0, index], props.nestedElementCallbacks)
-                    )
+                fieldComponentCreator={
+                    (index: number, absoluteKey: string) => props.elementComponentCreator([0, index], absoluteKey)
                 }
                 defaultValueCreator={() => {
                     return {}
+                }}
+                onFieldClose={(index: number) => {
+                    if (props.onFieldClose) {
+                        props.onFieldClose([0, index])
+                    }
                 }}
             />
             <div className={props.classes.title}>{t("generatedElements")}</div>
@@ -43,16 +41,18 @@ const CollectionMappingComponent: React.FunctionComponent<Props> = (props: Props
                     <FromCollectionMappingComponent
                         classes={props.classes}
                         absoluteKey={absoluteKey}
-                        elementComponentCreator={(absoluteKey: string) =>
-                            props.elementComponentCreator(
-                                absoluteKey,
-                                prefixNestedElementsCallbacksOrder([1, index], props.nestedElementCallbacks)
-                            )
+                        elementComponentCreator={
+                            (absoluteKey: string) => props.elementComponentCreator([1, index], absoluteKey)
                         }
                     />
                 }
                 defaultValueCreator={() => {
                     return {}
+                }}
+                onFieldClose={(index: number) => {
+                    if (props.onFieldClose) {
+                        props.onFieldClose([1, index])
+                    }
                 }}
             />
         </>

@@ -3,11 +3,10 @@ import * as React from "react";
 import {ReactElement, useState} from "react";
 import ObjectMappingComponent, {NestedElementTemplate} from "./ObjectMappingComponent";
 import {ICollectionTemplate, IElementTemplate, IObjectTemplate, IValueTemplate} from "../../types/FormTemplate";
-import CollectionMappingComponent from "./CollectionMappingComponent";
-import ValueMappingComponent from "./ValueMappingComponent";
-import LifeCycleComponent from "./LifeCycleComponent";
 import {range} from "lodash";
-import {NestedElementsCallbacks} from "../../types/ElementComponentProps";
+import {NestedElementsCallbacks} from "../../types/NestedElementCallbacks";
+import ValueCollectionMappingComponent from "./ValueCollectionMappingComponent";
+import ObjectCollectionMappingComponent from "./ObjectCollectionMappingComponent";
 
 interface Props {
     classes: ClassNameMap
@@ -85,25 +84,13 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
                         orderToString(template.order),
                         createNewColumnElement(
                             (newColumnElementNestedColumnElementsPerOrder: Map<string, ColumnElement>) =>
-                                <CollectionMappingComponent
+                                <ObjectCollectionMappingComponent
                                     classes={props.classes}
                                     absoluteKey={template.absoluteKey}
                                     nestedElementCallbacks={
                                         createNestedElementsCallbacks(newColumnElementNestedColumnElementsPerOrder)
                                     }
-                                    elementComponentCreator={(absoluteKey: string, nestedElementsCallbacks: NestedElementsCallbacks) =>
-                                        <LifeCycleComponent
-                                            onDestroy={() => newColumnElementNestedColumnElementsPerOrder.clear()}
-                                            content={
-                                                <ObjectMappingComponent
-                                                    classes={props.classes}
-                                                    absoluteKey={absoluteKey}
-                                                    template={template.template.elementTemplate}
-                                                    nestedElementCallbacks={nestedElementsCallbacks}
-                                                />
-                                            }
-                                        />
-                                    }
+                                    elementTemplate={template.template.elementTemplate}
                                 />
                         )
                     )
@@ -116,21 +103,12 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
                     console.log("Root element before", rootElement);
                     nestedColumnElementsPerOrder.set(
                         orderToString(template.order),
-                        createNewColumnElement(
-                            (newColumnElementNestedColumnElementsPerOrder: Map<string, ColumnElement>) =>
-                                <CollectionMappingComponent
-                                    classes={props.classes}
-                                    absoluteKey={template.absoluteKey}
-                                    nestedElementCallbacks={createNestedElementsCallbacks(newColumnElementNestedColumnElementsPerOrder)} // TODO eivindmorch 16/03/2023 : Remove this from value collection
-                                    elementComponentCreator={(absoluteKey: string, nestedElementsCallbacks: NestedElementsCallbacks) =>
-                                        <ValueMappingComponent
-                                            classes={props.classes}
-                                            absoluteKey={absoluteKey}
-                                            displayName={"" + absoluteKey}
-                                            template={template.template.elementTemplate}
-                                        />
-                                    }
-                                />
+                        createNewColumnElement(() =>
+                            <ValueCollectionMappingComponent
+                                classes={props.classes}
+                                absoluteKey={template.absoluteKey}
+                                elementTemplate={template.template.elementTemplate}
+                            />
                         )
                     )
                     setDisplayRootElement({...rootElement});
@@ -140,6 +118,18 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
                 console.log("Remove element with order", order)
                 console.log("Root element before", rootElement);
                 nestedColumnElementsPerOrder.delete(orderToString(order))
+                setDisplayRootElement({...rootElement});
+                console.log("Root element after", rootElement);
+            },
+            onAllNestedElementsClose: (parentOrder: number[]) => {
+                console.log("Remove all nested elements with order starting with", parentOrder)
+                console.log("Root element before", rootElement);
+                const parentOrderString = orderToString(parentOrder);
+                const nestedElementsToCloseKeys: string[] = Array.from(nestedColumnElementsPerOrder.keys())
+                    .filter(key => key.startsWith(parentOrderString))
+                nestedElementsToCloseKeys.forEach(key => {
+                    nestedColumnElementsPerOrder.delete(key)
+                })
                 setDisplayRootElement({...rootElement});
                 console.log("Root element after", rootElement);
             }
@@ -191,4 +181,5 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
         </>
     )
 }
+
 export default ConfigurationMappingComponent;

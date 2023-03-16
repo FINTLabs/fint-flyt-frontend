@@ -6,6 +6,7 @@ export type NestedElementsCallbacks = {
     onNestedObjectCollectionOpen: (template: NestedElementTemplate<ICollectionTemplate<IObjectTemplate>>) => void;
     onNestedValueCollectionOpen: (template: NestedElementTemplate<ICollectionTemplate<IValueTemplate>>) => void;
     onNestedElementClose: (order: number[]) => void;
+    onAllNestedElementsClose: (parentOrder: number[]) => void;
 }
 
 export function prefixNestedElementsCallbacksOrder(orderPrefix: number[], nestedElementsCallbacks: NestedElementsCallbacks): NestedElementsCallbacks {
@@ -20,7 +21,11 @@ export function prefixNestedElementsCallbacksOrder(orderPrefix: number[], nested
             nestedElementsCallbacks.onNestedValueCollectionOpen(prefixOrder(orderPrefix, template)),
 
         onNestedElementClose: (order: number[]) =>
-            nestedElementsCallbacks.onNestedElementClose([...orderPrefix, ...order])
+            nestedElementsCallbacks.onNestedElementClose([...orderPrefix, ...order]),
+
+        onAllNestedElementsClose: (parentOrder: number[]) => {
+            nestedElementsCallbacks.onAllNestedElementsClose([...orderPrefix, ...parentOrder])
+        }
     }
 }
 
