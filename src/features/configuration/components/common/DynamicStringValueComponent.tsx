@@ -2,10 +2,13 @@ import * as React from "react";
 import {useFormContext} from "react-hook-form";
 import {useDrop} from "react-dnd";
 import {ITag} from "../../types/Metadata/Tag";
-import {ElementComponentProps} from "../../types/ElementComponentProps";
 import {ValueType} from "../../types/Metadata/IntegrationMetadata"
+import {ClassNameMap} from "@mui/styles";
 
-interface Props extends ElementComponentProps {
+interface Props {
+    classes: ClassNameMap;
+    absoluteKey: string;
+    displayName: string;
     accept: ValueType[]
 }
 

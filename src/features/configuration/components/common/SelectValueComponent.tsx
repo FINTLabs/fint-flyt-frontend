@@ -1,9 +1,12 @@
 import {useFormContext} from "react-hook-form"
 import * as React from "react";
-import {ElementComponentProps} from "../../types/ElementComponentProps";
 import {ISelectable} from "../../types/Selectable";
+import {ClassNameMap} from "@mui/styles";
 
-interface Props extends ElementComponentProps {
+interface Props {
+    classes: ClassNameMap;
+    absoluteKey: string;
+    displayName: string;
     selectables: ISelectable[]
     autoComplete: boolean
 }

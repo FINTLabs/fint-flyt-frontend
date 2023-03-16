@@ -4,11 +4,16 @@ import ArrayComponent from "../common/ArrayComponent";
 import FromCollectionMappingComponent from "./FromCollectionMappingComponent";
 import {useTranslation} from "react-i18next";
 import {ClassNameMap} from "@mui/styles";
+import {NestedElementsCallbacks, prefixNestedElementsCallbacksOrder} from "../../types/ElementComponentProps";
 
 interface Props {
     classes: ClassNameMap;
     absoluteKey: string;
-    elementComponentCreator: (collectionElementOrder: number[], absoluteKey: string) => ReactElement;
+    nestedElementCallbacks: NestedElementsCallbacks
+    elementComponentCreator: (
+        absoluteKey: string,
+        nestedElementsCallbacks: NestedElementsCallbacks
+    ) => ReactElement;
 }
 
 const CollectionMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
@@ -21,7 +26,10 @@ const CollectionMappingComponent: React.FunctionComponent<Props> = (props: Props
                 classes={props.classes}
                 absoluteKey={props.absoluteKey + ".elementMappings"}
                 fieldComponentCreator={(index: number, absoluteKey: string) =>
-                    props.elementComponentCreator([0, index], absoluteKey)
+                    props.elementComponentCreator(
+                        absoluteKey,
+                        prefixNestedElementsCallbacksOrder([0, index], props.nestedElementCallbacks)
+                    )
                 }
                 defaultValueCreator={() => {
                     return {}
@@ -36,7 +44,10 @@ const CollectionMappingComponent: React.FunctionComponent<Props> = (props: Props
                         classes={props.classes}
                         absoluteKey={absoluteKey}
                         elementComponentCreator={(absoluteKey: string) =>
-                            props.elementComponentCreator([1, index], absoluteKey)
+                            props.elementComponentCreator(
+                                absoluteKey,
+                                prefixNestedElementsCallbacksOrder([1, index], props.nestedElementCallbacks)
+                            )
                         }
                     />
                 }

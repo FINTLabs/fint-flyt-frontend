@@ -1,8 +1,14 @@
 import {useFormContext} from "react-hook-form";
 import * as React from "react";
-import {ElementComponentProps} from "../../types/ElementComponentProps";
+import {ClassNameMap} from "@mui/styles";
 
-const StringValueComponent: React.FunctionComponent<ElementComponentProps> = (props: ElementComponentProps) => {
+interface Props {
+    classes: ClassNameMap;
+    absoluteKey: string;
+    displayName: string;
+}
+
+const StringValueComponent: React.FunctionComponent<Props> = (props: Props) => {
     const {register} = useFormContext();
     return (
         <label key={props.displayName} className={props.classes.label}>
