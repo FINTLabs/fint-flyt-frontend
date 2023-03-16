@@ -57,8 +57,6 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
         return {
             onNestedObjectOpen:
                 (template: NestedElementTemplate<IObjectTemplate>) => {
-                    console.log("Open object mapping", template)
-                    console.log("Root element before", rootElement);
                     nestedColumnElementsPerOrder.set(
                         orderToString(template.order),
                         createNewColumnElement(
@@ -74,12 +72,9 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
                         )
                     )
                     setDisplayRootElement({...rootElement});
-                    console.log("Root element after", rootElement);
                 },
             onNestedObjectCollectionOpen:
                 (template: NestedElementTemplate<ICollectionTemplate<IObjectTemplate>>) => {
-                    console.log("Open object collection mapping", template);
-                    console.log("Root element before", rootElement);
                     nestedColumnElementsPerOrder.set(
                         orderToString(template.order),
                         createNewColumnElement(
@@ -95,12 +90,9 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
                         )
                     )
                     setDisplayRootElement({...rootElement});
-                    console.log("Root element after", rootElement);
                 },
             onNestedValueCollectionOpen:
                 (template: NestedElementTemplate<ICollectionTemplate<IValueTemplate>>) => {
-                    console.log("Open value collection mapping", template)
-                    console.log("Root element before", rootElement);
                     nestedColumnElementsPerOrder.set(
                         orderToString(template.order),
                         createNewColumnElement(() =>
@@ -112,18 +104,12 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
                         )
                     )
                     setDisplayRootElement({...rootElement});
-                    console.log("Root element after", rootElement);
                 },
             onNestedElementClose: (order: number[]) => {
-                console.log("Remove element with order", order)
-                console.log("Root element before", rootElement);
                 nestedColumnElementsPerOrder.delete(orderToString(order))
                 setDisplayRootElement({...rootElement});
-                console.log("Root element after", rootElement);
             },
             onAllNestedElementsClose: (parentOrder: number[]) => {
-                console.log("Remove all nested elements with order starting with", parentOrder)
-                console.log("Root element before", rootElement);
                 const parentOrderString = orderToString(parentOrder);
                 const nestedElementsToCloseKeys: string[] = Array.from(nestedColumnElementsPerOrder.keys())
                     .filter(key => key.startsWith(parentOrderString))
@@ -131,7 +117,6 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
                     nestedColumnElementsPerOrder.delete(key)
                 })
                 setDisplayRootElement({...rootElement});
-                console.log("Root element after", rootElement);
             }
         }
     }
@@ -157,8 +142,6 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
 
     return (
         <>
-            {console.log(displayRootElement)}
-            {console.log(getElementsByColumn(displayRootElement))}
             {getElementsByColumn(displayRootElement).map((column: ReactElement[]) =>
                 <>
                     <fieldset className={props.classes.fieldSet}>
@@ -167,7 +150,6 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
                                 .map(element =>
                                     <div>
                                         <hr/>
-                                        {console.log(element.props.absoluteKey)}
                                         {element}
                                     </div>
                                 )
