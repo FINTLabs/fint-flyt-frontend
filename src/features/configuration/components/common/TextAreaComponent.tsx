@@ -7,7 +7,7 @@ const TextAreaComponent: React.FunctionComponent<ElementComponentProps> = (props
     return (
         <TextareaAutosize
             className={props.classes.input}
-            style={{fontFamily: fontFamily}}
+            style={{fontFamily: fontFamily, width: '270px'}}
             id={props.absoluteKey}
             placeholder={props.absoluteKey}
             minRows={3}

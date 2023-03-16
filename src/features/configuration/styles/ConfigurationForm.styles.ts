@@ -65,6 +65,7 @@ export const configurationFormStyles = makeStyles((theme: Theme) =>
         },
         column: {
             maxHeight: 'calc(100vh/1.5)',
+            minWidth: theme.spacing(56),
             overflow: 'auto',
             display: 'grid',
             backgroundColor: 'white',
@@ -92,7 +93,11 @@ export const configurationFormStyles = makeStyles((theme: Theme) =>
             borderRadius: theme.spacing(0.5),
             margin: theme.spacing(2)
         },
-        listItem: {},
+        listItem: {
+            "&:first-child": {
+                marginTop: '16px'
+            }
+        },
         collectionButton: {
             backgroundColor: theme.palette.primary.main,
             borderRadius: theme.spacing(0.5),

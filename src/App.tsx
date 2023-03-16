@@ -7,6 +7,7 @@ import IntegrationProvider from "./context/integrationContext";
 import SourceApplicationProvider from "./context/sourceApplicationContext";
 import HistoryProvider from "./context/historyContext";
 import axios from "axios";
+import ConfigurationProvider from "./context/configurationContext";
 
 const theme = createTheme({
     palette: {
@@ -54,9 +55,11 @@ function App() {
                     <HistoryProvider>
                         <SourceApplicationProvider>
                             <IntegrationProvider>
-                                <BrowserRouter basename={basePath}>
-                                    <Main/>
-                                </BrowserRouter>
+                                <ConfigurationProvider>
+                                    <BrowserRouter basename={basePath}>
+                                        <Main/>
+                                    </BrowserRouter>
+                                </ConfigurationProvider>
                             </IntegrationProvider>
                         </SourceApplicationProvider>
                     </HistoryProvider>
