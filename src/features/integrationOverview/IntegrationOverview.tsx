@@ -4,7 +4,7 @@ import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {createStyles, makeStyles} from "@mui/styles";
 import IntegrationTable from "./components/IntegrationTable";
 import {IntegrationContext} from "../../context/integrationContext";
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 import IntegrationPanel from "./components/IntegrationPanel";
 import {SourceApplicationContext} from "../../context/sourceApplicationContext";
 
@@ -18,29 +18,34 @@ const useStyles = makeStyles((theme: Theme) =>
             display: 'flex'
         },
         dataGridBox: {
-            height: "900px",
+            height: theme.spacing(112),
             backgroundColor: 'white',
             width: '100%'
         },
         dataPanelBox: {
-            height: '600px',
+            height: theme.spacing(75),
             width: '100%',
             backgroundColor: 'white',
-            marginRight: '8px'
+            marginRight: theme.spacing(1)
         }
     })
 );
 
 const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = () => {
-    const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationOverview'});
+    const {t} = useTranslation('translations', {keyPrefix: 'pages.integrationOverview'});
     const classes = useStyles();
-    const {existingIntegration, setNewIntegration, getNewIntegrations, resetIntegrations} = useContext(IntegrationContext)
+    const {
+        existingIntegration,
+        setNewIntegration,
+        getNewIntegrations,
+        resetIntegrations
+    } = useContext(IntegrationContext)
     const {sourceApplication, getAllMetadata} = useContext(SourceApplicationContext)
     const showPanel: boolean = /panel$/.test(window.location.pathname)
     const showList: boolean = /list$/.test(window.location.pathname)
 
 
-    useEffect(()=> {
+    useEffect(() => {
         if (showList) resetIntegrations();
         getNewIntegrations(sourceApplication.toString());
         getAllMetadata(true);

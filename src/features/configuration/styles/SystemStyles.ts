@@ -1,12 +1,12 @@
 import {SxProps, Theme} from "@mui/material";
 
 export const toggleButtonSX: SxProps<Theme> = {
-    height: '40px',
-    width: '350px',
+    height: (theme: Theme) => theme.spacing(5),
+    width: (theme: Theme) => theme.spacing(44),
     backgroundColor: 'white',
     color: 'black',
     border: '1px solid',
-    marginBottom: '16px',
+    marginBottom: (theme: Theme) => theme.spacing(2),
     justifyContent: 'space-between',
     "&:hover": {
         backgroundColor: 'white',
@@ -22,8 +22,18 @@ export const toggleButtonSX: SxProps<Theme> = {
     }
 }
 
-export const flexCenter: SxProps<Theme> = {
+export const iconButtonSX: SxProps<Theme> = {
+    cursor: 'pointer',
+    m: 2
+}
+
+export const flexCenterSX: SxProps<Theme> = {
     display: "flex",
     alignItems: 'center',
     mb: 1
+}
+
+export const autoCompleteSX: SxProps<Theme> = {
+    backgroundColor: 'white',
+    width: (theme: Theme) => theme.spacing(44)
 }

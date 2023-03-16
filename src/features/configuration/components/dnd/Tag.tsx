@@ -1,6 +1,6 @@
 import {FC} from 'react'
 import {useDrag} from 'react-dnd'
-import {Chip} from "@mui/material";
+import {Chip, Theme} from "@mui/material";
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import TextFieldsIcon from '@mui/icons-material/TextFields';
 import NumbersIcon from '@mui/icons-material/Numbers';
@@ -51,7 +51,7 @@ export const Tag: FC<ITag> = function Tag({name, value, type}) {
     const opacity = isDragging ? 0.4 : 1
     return (
         <Chip
-            sx={{borderRadius: '4px'}}
+            sx={{borderRadius: (theme: Theme) => theme.spacing(0.5)}}
             icon={typeToIcon(type)}
             ref={drag}
             variant="outlined"

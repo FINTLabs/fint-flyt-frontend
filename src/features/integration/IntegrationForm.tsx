@@ -121,7 +121,7 @@ export const IntegrationForm: React.FunctionComponent<any> = () => {
                     </Box>
                     <Box sx={{width: '100%', display: 'flex'}}>
                         <Autocomplete
-                            sx={{minWidth: '520px', mb: 3}}
+                            sx={{minWidth: ((theme: Theme) => theme.spacing(65)), mb: 3}}
                             id='sourceApplicationIntegrationId'
                             options={sourceApplication && availableForms.forms ? availableForms.forms : [{
                                 label: 'Velg kildeapplikasjon først',

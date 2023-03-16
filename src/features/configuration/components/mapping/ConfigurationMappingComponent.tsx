@@ -275,13 +275,13 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
         <>
             {displayGrid.map((column: ColumnElement[], index) =>
                 <>
-                    <div id={'fieldset-column-' + index} key={'fieldset-column-' + index}
-                         className={props.classes.fieldSetContainer}>
+                    <div id={'column-' + index} key={'column-' + index}
+                         className={props.classes.column}>
                         {
                             column
                                 .sort(compareColumnElements)
-                                .map(columnElement =>
-                                    <div>
+                                .map((columnElement, columIndex) =>
+                                    <div id={'column-item-' + columIndex} className={props.classes.columnItem}>
                                         {columnElement.columnOrder}
                                         {columnElement.element}
                                     </div>

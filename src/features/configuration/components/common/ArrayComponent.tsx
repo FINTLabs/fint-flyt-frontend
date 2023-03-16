@@ -5,6 +5,7 @@ import {useTranslation} from "react-i18next";
 import {ClassNameMap} from "@mui/styles";
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import {iconButtonSX} from "../../styles/SystemStyles";
 
 interface Props {
     classes: ClassNameMap;
@@ -36,11 +37,11 @@ const ArrayComponent: React.FunctionComponent<Props> = (props: Props) => {
                     )}
                 </ul>
             }
-            <AddIcon sx={{cursor: 'pointer', m: 2}} onClick={() => {
+            <AddIcon sx={iconButtonSX} onClick={() => {
                 append(props.defaultValueCreator())
             }}/>
             {fields.length > 0 &&
-                <RemoveIcon sx={{cursor: 'pointer', m: 2}} onClick={() => {
+                <RemoveIcon sx={iconButtonSX} onClick={() => {
                     remove(fields.length - 1)
                 }}/>}
         </>

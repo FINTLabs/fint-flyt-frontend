@@ -3,6 +3,7 @@ import * as React from "react";
 import {ElementComponentProps} from "../../types/ElementComponentProps";
 import {ISelectable} from "../../types/Selectable";
 import {Autocomplete, createFilterOptions, TextField} from "@mui/material";
+import {autoCompleteSX} from "../../styles/SystemStyles";
 
 interface Props extends ElementComponentProps {
     selectables: ISelectable[]
@@ -11,7 +12,7 @@ interface Props extends ElementComponentProps {
 
 const SearchSelectValueComponent: React.FunctionComponent<Props> = (props: Props) => {
     console.log('render searchselect')
-    const {register, control, getValues, setValue} = useFormContext();
+    const {control} = useFormContext();
     const filterOptions = createFilterOptions({
         matchFrom: 'any',
         stringify: (option: ISelectable) => option.displayName,
@@ -33,7 +34,7 @@ const SearchSelectValueComponent: React.FunctionComponent<Props> = (props: Props
                     renderInput={(params) => (
                         <TextField
                             {...params}
-                            sx={{backgroundColor: 'white', width: '350px'}}
+                            sx={autoCompleteSX}
                             size="small"
                             label={props.displayName}
                         />

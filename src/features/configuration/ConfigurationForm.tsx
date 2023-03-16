@@ -5,139 +5,15 @@ import Panel from "./components/Panel";
 import {HTML5Backend} from "react-dnd-html5-backend";
 import {DndProvider} from "react-dnd";
 import MetadataPanel from "./components/MetadataPanel";
-import {createStyles, makeStyles} from "@mui/styles";
 import {Box, FormControl, MenuItem, Select, SelectChangeEvent, Theme, Typography} from "@mui/material";
 import {IntegrationContext} from "../../context/integrationContext";
 import {IIntegrationMetadata} from "./types/Metadata/IntegrationMetadata";
 import {useTranslation} from "react-i18next";
-import {flexCenter} from "./util/CustomStylesUtil";
+import {flexCenterSX} from "./styles/SystemStyles";
 import TextAreaComponent from "./components/common/TextAreaComponent";
+import {configurationFormStyles} from "./styles/ConfigurationForm.styles";
 
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        form: {
-            width: theme.spacing(100)
-        },
-        row: {
-            display: 'flex',
-            alignItems: 'center',
-            position: 'sticky',
-            top: 0,
-        },
-        column: {
-            flex: '50%',
-            paddingLeft: theme.spacing(2)
-        },
-        panelContainer: {
-            backgroundColor: 'white',
-            padding: theme.spacing(2),
-            border: 'solid 1px',
-            borderColor: 'black',
-            marginLeft: theme.spacing(1),
-            borderRadius: '4px',
-            height: 'fit-content',
-        },
-        panel: {
-            opacity: 0.99,
-            padding: theme.spacing(2),
-            height: 'fit-content',
-            overflow: 'auto',
-            maxHeight: theme.spacing(100),
-            backgroundColor: '#EBF4F5',
-            borderRadius: '4px',
-            border: 'solid 1px'
-        },
-        valueMappingContainer: {
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between'
-        },
-        label: {
-            fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
-            fontSize: '16px'
-        },
-        select: {
-            backgroundColor: 'white',
-            width: '350px',
-            height: '30px',
-            borderRadius: '4px',
-            marginTop: '5px',
-            marginBottom: '5px'
-        },
-        input: {
-            width: '350px',
-            borderRadius: '4px',
-            marginTop: '5px',
-            marginBottom: '5px',
-            height: '24px'
-        },
-        title: {
-            fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
-            fontSize: '20px',
-            marginTop: '16px',
-            marginLeft: '16px'
-        },
-        fieldSetContainer: {
-            display: 'grid',
-            backgroundColor: '#EBF4F5',
-            border: '1px solid',
-            borderRadius: '4px',
-            height: 'fit-content',
-            marginRight: '16px',
-            "&:last-child": {
-                marginRight: 0
-            }
-        },
-        fieldSet: {
-            display: 'grid',
-            border: 'none',
-        },
-        list: {
-            backgroundColor: 'white',
-            listStyle: 'none',
-            padding: 'unset',
-            border: 'solid 1px black',
-            borderRadius: '4px',
-            margin: '16px'
-        },
-        listItem: {},
-        collectionButton: {
-            backgroundColor: theme.palette.primary.main,
-            borderRadius: '5px',
-            color: 'white',
-            cursor: 'pointer',
-            padding: '8px',
-            fontSize: '16px',
-            marginTop: '16px',
-            marginLeft: '16px',
-            width: 'fit-content'
-        },
-        button: {
-            backgroundColor: theme.palette.primary.main,
-            borderRadius: '5px',
-            color: 'white',
-            cursor: 'pointer',
-            padding: '8px',
-            fontSize: '16px',
-            marginTop: '16px',
-            marginLeft: '16px',
-            width: 'fit-content'
-        },
-        submitButton: {
-            backgroundColor: theme.palette.primary.main,
-            borderRadius: '5px',
-            color: 'white',
-            cursor: 'pointer',
-            padding: '8px',
-            fontSize: '16px',
-            marginTop: '16px',
-            width: 'fit-content',
-            "&:last-child": {
-                marginLeft: '16px'
-            }
-        }
-    })
-);
+const useStyles = configurationFormStyles
 
 const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const {sourceApplication} = useContext(SourceApplicationContext)
@@ -166,9 +42,10 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
             <Box sx={{m: 1}}>
                 <Typography variant={"h6"}>{t('header')}</Typography>
                 <Typography>Integrasjon: PLACEHOLDER VIK123 - TEST - TEST</Typography>
-                <Box sx={flexCenter}>
+                <Box sx={flexCenterSX}>
                     <Typography sx={{mr: 1}}>{t('metadataVersion')}: </Typography>
-                    <FormControl sx={{backgroundColor: 'white', width: '150px'}} size="small">
+                    <FormControl sx={{backgroundColor: 'white', width: (theme: Theme) => theme.spacing(18)}}
+                                 size="small">
                         <Select
                             id="version-select"
                             value={version}

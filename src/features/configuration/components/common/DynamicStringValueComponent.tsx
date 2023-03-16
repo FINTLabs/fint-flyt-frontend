@@ -32,9 +32,8 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = (props: Prop
     const inputStyle = {
         backgroundColor: 'white',
         width: '350px',
-        borderRadius: '3px',
+        borderRadius: '4px',
         margin: 'none',
-        marginTop: '5px',
         marginBottom: '16px'
     };
 
@@ -58,8 +57,14 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = (props: Prop
                 control={control}
                 defaultValue=""
                 render={({field}) =>
-                    <TextField style={dynamicStyle} variant='outlined' size='small'
-                               label={props.displayName}{...field}
+                    <TextField
+                        style={dynamicStyle}
+                        variant='outlined'
+                        size='small'
+                        multiline
+                        maxRows={3}
+                        label={props.displayName}
+                        {...field}
                     />
                 }
             />
