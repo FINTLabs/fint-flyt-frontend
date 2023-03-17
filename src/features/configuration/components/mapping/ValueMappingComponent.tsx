@@ -6,6 +6,7 @@ import {useFormContext} from "react-hook-form";
 import {ValueType as ConfigurationValueType} from "../../types/Configuration";
 import {ValueType as MetadataValueType} from "../../types/Metadata/IntegrationMetadata";
 import {ClassNameMap} from "@mui/styles";
+import DragAndDropComponent from "../common/DragAndDropComponent";
 
 interface Props {
     classes: ClassNameMap;
@@ -41,7 +42,7 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
             />
         case TemplateValueType.FILE:
             setValue(props.absoluteKey + ".type", ConfigurationValueType.FILE)
-            return <DynamicStringValueComponent
+            return <DragAndDropComponent
                 classes={props.classes}
                 absoluteKey={valueAbsoluteKey}
                 displayName={props.displayName}

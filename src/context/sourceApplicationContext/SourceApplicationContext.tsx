@@ -20,18 +20,21 @@ const SourceApplicationProvider: FC = ({children}) => {
     const [availableForms, setAvailableForms] = useState<ISourceApplicationItem>(contextDefaultValues.availableForms);
     const [allMetadata, setAllMetadata] = useState<IIntegrationMetadata[]>(contextDefaultValues.allMetadata)
     const [instanceElementMetadata, setInstanceElementMetadata] = useState<IInstanceMetadataContent | undefined>(MOCK_INSTANCE_METADATA.instanceMetadata)
-    const [instanceObjectCollectionMetadata, setInstanceObjectCollectionMetadata] = useState<IInstanceObjectCollectionMetadata | undefined>(undefined)
+    const [instanceObjectCollectionMetadata, setInstanceObjectCollectionMetadata] = useState<IInstanceObjectCollectionMetadata[]>(contextDefaultValues.instanceObjectCollectionMetadata)
     const [sourceApplication, setSourceApplication] = useState<number>(contextDefaultValues.sourceApplication);
 
 
     function getInstanceObjectCollectionMetadata(key: string): void {
-        console.log(instanceElementMetadata?.instanceObjectCollectionMetadata)
-        console.log(key)
-        const selectedInstanceObjectCollectionMetadata: IInstanceObjectCollectionMetadata | undefined = instanceElementMetadata?.instanceObjectCollectionMetadata ?
+    //TODO: refactor and support nested vedlegg
+        const selectedInstanceObjectCollectionMetadata: IInstanceObjectCollectionMetadata | undefined =
+        instanceElementMetadata?.instanceObjectCollectionMetadata
+            ?
             instanceElementMetadata.instanceObjectCollectionMetadata.find(instanceObjectCollectionMetadata =>
-                instanceObjectCollectionMetadata.key === key
-            ) : undefined
-        setInstanceObjectCollectionMetadata(selectedInstanceObjectCollectionMetadata)
+                instanceObjectCollectionMetadata.key === key)
+            : undefined
+        if (selectedInstanceObjectCollectionMetadata) {
+            setInstanceObjectCollectionMetadata(oldList => [...oldList, selectedInstanceObjectCollectionMetadata])
+        }
     }
 
     const getAvailableForms = () => {
