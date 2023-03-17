@@ -29,7 +29,7 @@ export const testObjectTemplateSak: IElementTemplate<IObjectTemplate> =
                         }
                     },
                     "template": {
-                        "type": ValueType.STRING,
+                        "type": ValueType.DYNAMIC_STRING,
                         "search": {
                             "urlTemplate": "api/intern/arkiv/saker/{caseId}/tittel",
                             "valueRefPerPathParamKey": {
