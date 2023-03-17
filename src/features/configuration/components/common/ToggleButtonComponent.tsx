@@ -9,12 +9,13 @@ import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 interface Props {
     classes: ClassNameMap;
     displayName: string;
-    onChildOpen: () => void
-    onChildClose: () => void
+    onSelected: () => void;
+    onUnselected: () => void;
+    initiallySelected?: boolean
 }
 
-const NestedObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
-    const [selected, setSelected] = useState(false);
+const ToggleButtonComponent: React.FunctionComponent<Props> = (props: Props) => {
+    const [selected, setSelected] = useState(props.initiallySelected ? props.initiallySelected : false);
     return (
         <>
             <ToggleButton
@@ -23,9 +24,9 @@ const NestedObjectMappingComponent: React.FunctionComponent<Props> = (props: Pro
                 selected={selected}
                 onClick={() => {
                     if (!selected) {
-                        props.onChildOpen()
+                        props.onSelected()
                     } else {
-                        props.onChildClose()
+                        props.onUnselected()
                     }
                     setSelected(!selected);
                 }}
@@ -36,4 +37,4 @@ const NestedObjectMappingComponent: React.FunctionComponent<Props> = (props: Pro
         </>
     )
 }
-export default NestedObjectMappingComponent;
+export default ToggleButtonComponent;

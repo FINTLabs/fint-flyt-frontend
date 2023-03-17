@@ -1,10 +1,16 @@
 import {Controller, useFormContext} from "react-hook-form";
 import * as React from "react";
-import {ElementComponentProps} from "../../types/ElementComponentProps";
+import {ClassNameMap} from "@mui/styles";
 import {TextField} from "@mui/material";
 
-const StringValueComponent: React.FunctionComponent<ElementComponentProps> = (props: ElementComponentProps) => {
-    const {register, control} = useFormContext();
+interface Props {
+    classes: ClassNameMap;
+    absoluteKey: string;
+    displayName: string;
+}
+
+const StringValueComponent: React.FunctionComponent<Props> = (props: Props) => {
+    const {control} = useFormContext();
     return (
         <div id={"string-value-component-" + props.absoluteKey} style={{display: 'flex', flexDirection: 'column'}}>
             <Controller

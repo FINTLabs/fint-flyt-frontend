@@ -1,13 +1,12 @@
 import {ClassNameMap} from "@mui/styles";
 import * as React from "react";
 import {ReactElement, useState} from "react";
-import ObjectMappingComponent, {OrderedObjectElement} from "./ObjectMappingComponent";
+import ObjectMappingComponent, {NestedElementTemplate} from "./ObjectMappingComponent";
 import {ICollectionTemplate, IElementTemplate, IObjectTemplate, IValueTemplate} from "../../types/FormTemplate";
-import NestedElementMappingComponent from "./NestedObjectMappingComponent";
-import CollectionMappingComponent from "./CollectionMappingComponent";
 import {range} from "lodash";
-import ValueMappingComponent from "./ValueMappingComponent";
-import LifeCycleComponent from "./LifeCycleComponent";
+import {NestedElementsCallbacks} from "../../types/NestedElementCallbacks";
+import ValueCollectionMappingComponent from "./ValueCollectionMappingComponent";
+import ObjectCollectionMappingComponent from "./ObjectCollectionMappingComponent";
 
 interface Props {
     classes: ClassNameMap
@@ -17,273 +16,141 @@ interface Props {
 const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
 
     type ColumnElement = {
-        columnIndex: number,
-        columnOrder: number[],
-        element: ReactElement;
+        reactElement: ReactElement,
+        nestedColumnElementsPerOrder: Map<string, ColumnElement>
     }
 
-    type ColumnElementTemplate<T> = {
-        columnIndex: number,
-        columnOrder: number[],
-        absoluteKey: string,
-        displayName: string,
-        template: T
-    }
-
-    let grid: ColumnElement[][] = [[{
-        columnIndex: 0,
-        columnOrder: [0],
-        element: createObjectMappingComponent(
-            {
-                columnIndex: 0,
-                columnOrder: [0],
-                absoluteKey: props.rootObjectTemplate.elementConfig.key,
-                displayName: props.rootObjectTemplate.elementConfig.displayName,
-                template: props.rootObjectTemplate.template
-            }
-        ).element
-    }]]
-
-    const [displayGrid, setDisplayGrid] = useState<ColumnElement[][]>([...grid.map(column => [...column])]);
-
-    function addElement<T>(element: ColumnElement) {
-        console.log("Adding element: ", element)
-        console.log("Grid before: ", grid)
-        grid[element.columnIndex] = grid[element.columnIndex]
-            ? [...grid[element.columnIndex], element]
-            : [element];
-        setDisplayGrid([...grid.map(column => [...column])]);
-        console.log("Grid after: ", grid)
-    }
-
-    function removeElement(columnIndex: number, columnOrder: number[]) {
-        console.log("Removing element with columnIndex=" + columnIndex + " and columnOrder=" + columnOrder)
-        console.log("Grid before: ", grid)
-        grid = range(0, grid.length)
-            .map((i: number) => {
-                    if (i < columnIndex) {
-                        return grid[i];
-                    } else if (i === columnIndex) {
-                        return grid[i].filter((columnElement: ColumnElement) =>
-                            !orderEquals(columnElement.columnOrder, columnOrder)
-                        );
-                    } else {
-                        return grid[i].filter((columnElement: ColumnElement) =>
-                            !orderStartsWith(columnElement.columnOrder, columnOrder)
-                        );
-                    }
-                }
-            )
-            .filter(column => column && column.length > 0)
-        setDisplayGrid([...grid.map(column => [...column])]);
-        console.log("Grid after: ", grid)
-    }
-
-    function removeNestedElements(columnIndex: number, columnOrder: number[]) {
-        console.log("Removing nested elements of element with columnIndex=" + columnIndex + " and columnOrder=" + columnOrder)
-        console.log("Grid before: ", grid)
-        grid = range(0, grid.length)
-            .map((i: number) => {
-                    if (i <= columnIndex) {
-                        return grid[i];
-                    } else {
-                        return grid[i].filter((columnElement: ColumnElement) =>
-                            !orderStartsWith(columnElement.columnOrder, columnOrder)
-                        );
-                    }
-                }
-            )
-            .filter(column => column && column.length > 0)
-        setDisplayGrid([...grid.map(column => [...column])]);
-        console.log("Grid after: ", grid)
-    }
-
-    function createNestedElementButton<T>(
-        buttonOrder: number,
-        buttonDisplayName: string,
-        nestedElementColumnIndex: number,
-        nestedElementColumnOrder: number[],
-        elementProvider: () => ColumnElement
-    ): OrderedObjectElement {
+    function createRootElement(): ColumnElement {
+        const newColumnElementNestedColumnElementsPerOrder: Map<string, ColumnElement> = new Map<string, ColumnElement>();
         return {
-            order: buttonOrder,
-            element: <NestedElementMappingComponent
-                key={buttonOrder}
-                classes={props.classes}
-                displayName={buttonDisplayName}
-                onChildOpen={() => {
-                    addElement(elementProvider())
-                }}
-                onChildClose={() => {
-                    removeElement(nestedElementColumnIndex, nestedElementColumnOrder)
-                }}
-            />
+            reactElement:
+                <ObjectMappingComponent
+                    classes={props.classes}
+                    absoluteKey={props.rootObjectTemplate.elementConfig.key}
+                    template={props.rootObjectTemplate.template}
+                    nestedElementCallbacks={
+                        createNestedElementsCallbacks(newColumnElementNestedColumnElementsPerOrder)
+                    }
+                />,
+            nestedColumnElementsPerOrder: newColumnElementNestedColumnElementsPerOrder
         }
     }
 
-    function createValueCollectionMappingComponent(
-        columnElementTemplate: ColumnElementTemplate<ICollectionTemplate<IValueTemplate>>
+    const rootElement = createRootElement();
+    const [displayRootElement, setDisplayRootElement] = useState<ColumnElement>(rootElement);
+
+    function createNewColumnElement(
+        reactElementCreator: (newColumnElementNestedColumnElementsPerOrder: Map<string, ColumnElement>) => ReactElement
     ): ColumnElement {
+        const newColumnElementNestedColumnElementsPerOrder: Map<string, ColumnElement> = new Map<string, ColumnElement>();
         return {
-            columnIndex: columnElementTemplate.columnIndex,
-            columnOrder: columnElementTemplate.columnOrder,
-            element: <CollectionMappingComponent
-                classes={props.classes}
-                absoluteKey={columnElementTemplate.absoluteKey}
-                elementComponentCreator={(collectionElementOrder: number[], absoluteKey: string) =>
-                    <LifeCycleComponent
-                        onDestroy={() => removeNestedElements(columnElementTemplate.columnIndex, columnElementTemplate.columnOrder)}
-                        content={
-                            <ValueMappingComponent
+            reactElement: reactElementCreator(newColumnElementNestedColumnElementsPerOrder),
+            nestedColumnElementsPerOrder: newColumnElementNestedColumnElementsPerOrder
+        }
+    }
+
+    function orderToString(order: number[]): string {
+        return order.join(".")
+    }
+
+    function createNestedElementsCallbacks(nestedColumnElementsPerOrder: Map<string, ColumnElement>): NestedElementsCallbacks {
+        return {
+            onNestedObjectOpen:
+                (template: NestedElementTemplate<IObjectTemplate>) => {
+                    nestedColumnElementsPerOrder.set(
+                        orderToString(template.order),
+                        createNewColumnElement(
+                            (newColumnElementNestedColumnElementsPerOrder: Map<string, ColumnElement>) =>
+                                <ObjectMappingComponent
+                                    classes={props.classes}
+                                    absoluteKey={template.absoluteKey}
+                                    template={template.template}
+                                    nestedElementCallbacks={
+                                        createNestedElementsCallbacks(newColumnElementNestedColumnElementsPerOrder)
+                                    }
+                                />
+                        )
+                    )
+                    setDisplayRootElement({...rootElement});
+                },
+            onNestedObjectCollectionOpen:
+                (template: NestedElementTemplate<ICollectionTemplate<IObjectTemplate>>) => {
+                    nestedColumnElementsPerOrder.set(
+                        orderToString(template.order),
+                        createNewColumnElement(
+                            (newColumnElementNestedColumnElementsPerOrder: Map<string, ColumnElement>) =>
+                                <ObjectCollectionMappingComponent
+                                    classes={props.classes}
+                                    absoluteKey={template.absoluteKey}
+                                    nestedElementCallbacks={
+                                        createNestedElementsCallbacks(newColumnElementNestedColumnElementsPerOrder)
+                                    }
+                                    elementTemplate={template.template.elementTemplate}
+                                />
+                        )
+                    )
+                    setDisplayRootElement({...rootElement});
+                },
+            onNestedValueCollectionOpen:
+                (template: NestedElementTemplate<ICollectionTemplate<IValueTemplate>>) => {
+                    nestedColumnElementsPerOrder.set(
+                        orderToString(template.order),
+                        createNewColumnElement(() =>
+                            <ValueCollectionMappingComponent
                                 classes={props.classes}
-                                absoluteKey={absoluteKey}
-                                displayName={"" + collectionElementOrder}
-                                template={columnElementTemplate.template.elementTemplate}
+                                absoluteKey={template.absoluteKey}
+                                elementTemplate={template.template.elementTemplate}
                             />
-                        }/>
-                }
-            />
-        }
-    }
-
-    function createObjectCollectionMappingComponent(
-        columnElementTemplate: ColumnElementTemplate<ICollectionTemplate<IObjectTemplate>>
-    ): ColumnElement {
-        return {
-            columnIndex: columnElementTemplate.columnIndex,
-            columnOrder: columnElementTemplate.columnOrder,
-            element: <CollectionMappingComponent
-                classes={props.classes}
-                absoluteKey={columnElementTemplate.absoluteKey}
-                elementComponentCreator={(collectionElementOrder: number[], absoluteKey: string) =>
-                    <LifeCycleComponent
-                        onDestroy={() => removeNestedElements(columnElementTemplate.columnIndex, [...columnElementTemplate.columnOrder, ...collectionElementOrder])}
-                        content={
-                            createObjectMappingComponent(
-                                {
-                                    columnIndex: columnElementTemplate.columnIndex,
-                                    columnOrder: [...columnElementTemplate.columnOrder, ...collectionElementOrder],
-                                    absoluteKey: absoluteKey,
-                                    displayName: "" + collectionElementOrder,
-                                    template: columnElementTemplate.template.elementTemplate
-                                }
-                            ).element
-                        }
-                    />
-                }
-            />
-        }
-    }
-
-    function createObjectMappingComponent(
-        columnElementTemplate: ColumnElementTemplate<IObjectTemplate>
-    ): ColumnElement {
-        const absoluteKey: string = columnElementTemplate.absoluteKey;
-        const template: IObjectTemplate = columnElementTemplate.template;
-        const columnOrder: number[] = columnElementTemplate.columnOrder
-        return {
-            columnIndex: columnElementTemplate.columnIndex,
-            columnOrder: columnElementTemplate.columnOrder,
-            element: <ObjectMappingComponent
-                classes={props.classes}
-                absoluteKey={absoluteKey}
-                valueTemplates={template.valueTemplates ? template.valueTemplates : []}
-                selectableValueTemplates={template.selectableValueTemplates ? template.selectableValueTemplates : []}
-                nestedObjectButtons={[
-                    ...template.valueCollectionTemplates
-                        ? template.valueCollectionTemplates
-                            .map(template => createNestedElementButton(
-                                template.order,
-                                template.elementConfig.displayName,
-                                columnElementTemplate.columnIndex + 1,
-                                [...columnOrder, template.order],
-                                () => createValueCollectionMappingComponent(
-                                    {
-                                        columnIndex: columnElementTemplate.columnIndex + 1,
-                                        columnOrder: [...columnOrder, template.order],
-                                        absoluteKey: absoluteKey + ".valueCollectionPerKey." + template.elementConfig.key,
-                                        displayName: template.elementConfig.displayName,
-                                        template: template.template
-                                    }
-                                )
-                            ))
-                        : [],
-                    ...template.objectTemplates
-                        ? template.objectTemplates
-                            .map(template => createNestedElementButton(
-                                template.order,
-                                template.elementConfig.displayName,
-                                columnElementTemplate.columnIndex + 1,
-                                [...columnOrder, template.order],
-                                () => createObjectMappingComponent(
-                                    {
-                                        columnIndex: columnElementTemplate.columnIndex + 1,
-                                        columnOrder: [...columnOrder, template.order],
-                                        absoluteKey: absoluteKey + ".objectMappingPerKey." + template.elementConfig.key,
-                                        displayName: template.elementConfig.displayName,
-                                        template: template.template
-                                    }
-                                )
-                            ))
-                        : [],
-                    ...template.objectCollectionTemplates
-                        ? template.objectCollectionTemplates
-                            .map(template => createNestedElementButton(
-                                template.order,
-                                template.elementConfig.displayName,
-                                columnElementTemplate.columnIndex + 1,
-                                [...columnOrder, template.order],
-                                () => createObjectCollectionMappingComponent(
-                                    {
-                                        columnIndex: columnElementTemplate.columnIndex + 1,
-                                        columnOrder: [...columnOrder, template.order],
-                                        absoluteKey: absoluteKey + ".objectCollectionMappingPerKey." + template.elementConfig.key,
-                                        displayName: template.elementConfig.displayName,
-                                        template: template.template
-                                    }
-                                )
-                            ))
-                        : []
-                ]}
-            />
-        }
-    }
-
-    function compareColumnElements(columnElement1: ColumnElement, columnElement2: ColumnElement): number {
-        return compareOrder(columnElement1.columnOrder, columnElement2.columnOrder);
-    }
-
-    function compareOrder(columnOrder1: number[], columnOrder2: number[]): number {
-        for (let columnIndex = 0; columnIndex < Math.min(columnOrder1.length, columnOrder2.length); columnIndex++) {
-            const compare = columnOrder1[columnIndex] - columnOrder2[columnIndex];
-            if (compare !== 0) {
-                return compare;
+                        )
+                    )
+                    setDisplayRootElement({...rootElement});
+                },
+            onNestedElementClose: (order: number[]) => {
+                nestedColumnElementsPerOrder.delete(orderToString(order))
+                setDisplayRootElement({...rootElement});
+            },
+            onAllNestedElementsClose: (parentOrder: number[]) => {
+                const parentOrderString = orderToString(parentOrder);
+                const nestedElementsToCloseKeys: string[] = Array.from(nestedColumnElementsPerOrder.keys())
+                    .filter(key => key.startsWith(parentOrderString))
+                nestedElementsToCloseKeys.forEach(key => {
+                    nestedColumnElementsPerOrder.delete(key)
+                })
+                setDisplayRootElement({...rootElement});
             }
         }
-        return columnOrder1.length - columnOrder2.length
     }
 
-    function orderEquals(columnOrder1: number[], columnOrder2: number[]) {
-        return compareOrder(columnOrder1, columnOrder2) === 0;
-    }
-
-    function orderStartsWith(columnOrder: number[], columnOrderStart: number[]): boolean {
-        return orderEquals(columnOrder.slice(0, columnOrderStart.length), columnOrderStart);
+    function getElementsByColumn(columnElement: ColumnElement): ReactElement[][] {
+        return [
+            [columnElement.reactElement],
+            ...Array.from(columnElement.nestedColumnElementsPerOrder.entries())
+                .sort()
+                .map(([order, nestedColumnElement]) => getElementsByColumn(nestedColumnElement))
+                .reduce((combinedChildColumns: ReactElement[][], childColumns: ReactElement[][]) => {
+                    range(0, childColumns.length)
+                        .forEach((columnIndex: number) => {
+                            if (!combinedChildColumns[columnIndex]) {
+                                combinedChildColumns[columnIndex] = []
+                            }
+                            combinedChildColumns[columnIndex] = combinedChildColumns[columnIndex].concat(childColumns[columnIndex])
+                        })
+                    return combinedChildColumns;
+                }, [])
+        ]
     }
 
     return (
         <>
-            {displayGrid.map((column: ColumnElement[], index) =>
+            {getElementsByColumn(displayRootElement).map((column: ReactElement[], index) =>
                 <>
                     <div id={'column-' + index} key={'column-' + index}
                          className={props.classes.column}>
                         {
                             column
-                                .sort(compareColumnElements)
-                                .map((columnElement, columIndex) =>
-                                    <div id={'column-item-' + columIndex} className={props.classes.columnItem}>
-                                        {columnElement.columnOrder}
-                                        {columnElement.element}
+                                .map((element, elementIndex) =>
+                                    <div id={'column-item-' + elementIndex} className={props.classes.columnItem}>
+                                        {element}
                                     </div>
                                 )
                         }
@@ -293,5 +160,5 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
         </>
     )
 }
-export default ConfigurationMappingComponent;
 
+export default ConfigurationMappingComponent;

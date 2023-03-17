@@ -11,7 +11,8 @@ interface Props {
     classes: ClassNameMap;
     absoluteKey: string;
     fieldComponentCreator: (index: number, absoluteKey: string) => ReactElement
-    defaultValueCreator: () => any
+    defaultValueCreator: () => any,
+    onFieldClose?: (index: number) => void
 }
 
 const ArrayComponent: React.FunctionComponent<Props> = (props: Props) => {
@@ -42,8 +43,13 @@ const ArrayComponent: React.FunctionComponent<Props> = (props: Props) => {
             }}/>
             {fields.length > 0 &&
                 <RemoveIcon sx={iconButtonSX} onClick={() => {
-                    remove(fields.length - 1)
-                }}/>}
+                    const index = fields.length - 1;
+                    remove(fields.length - 1);
+                    if (props.onFieldClose) {
+                        props.onFieldClose(index)
+                    }
+                }}
+                />}
         </>
     );
 }

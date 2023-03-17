@@ -1,23 +1,30 @@
 import * as React from "react";
 import {ReactElement} from "react";
-import {IElementTemplate, ISelectableValueTemplate, IValueTemplate} from "../../types/FormTemplate";
-import {ElementComponentProps} from "../../types/ElementComponentProps";
+import {IElementTemplate, IObjectTemplate, ISelectableValueTemplate, IValueTemplate} from "../../types/FormTemplate";
 import ValueMappingComponent from "./ValueMappingComponent";
 import SelectableValueMappingComponent from "./SelectableValueMappingComponent";
 import {ClassNameMap} from "@mui/styles";
 import HelpPopover from "../popover/HelpPopover";
 import {Box} from "@mui/material";
+import ToggleButtonComponent from "../common/ToggleButtonComponent";
+import {NestedElementsCallbacks} from "../../types/NestedElementCallbacks";
 
-interface Props extends Omit<ElementComponentProps, 'displayName'> {
+interface Props {
     classes: ClassNameMap;
     absoluteKey: string;
-    valueTemplates: IElementTemplate<IValueTemplate>[]
-    selectableValueTemplates: IElementTemplate<ISelectableValueTemplate>[]
-    nestedObjectButtons: OrderedObjectElement[]
+    template: IObjectTemplate;
+    nestedElementCallbacks: NestedElementsCallbacks
+}
+
+export type NestedElementTemplate<T> = {
+    order: number[];
+    absoluteKey: string;
+    displayName: string;
+    template: T;
 }
 
 export type OrderedObjectElement = {
-    order: number
+    order: number[]
     element: ReactElement;
 }
 
@@ -27,14 +34,20 @@ function toOrderedReactElements<T>(
 ): OrderedObjectElement[] {
     return elementTemplates
         .map((template: IElementTemplate<T>) => ({
-                order: template.order,
+                order: [template.order],
                 element: reactElementMappingFunction(template, template.order)
             })
         )
 }
 
-export function ascendingCompare<T extends OrderedObjectElement>(a: T, b: T) {
-    return a.order - b.order
+function compareOrder(columnOrder1: number[], columnOrder2: number[]): number {
+    for (let columnIndex = 0; columnIndex < Math.min(columnOrder1.length, columnOrder2.length); columnIndex++) {
+        const compare = columnOrder1[columnIndex] - columnOrder2[columnIndex];
+        if (compare !== 0) {
+            return compare;
+        }
+    }
+    return columnOrder1.length - columnOrder2.length
 }
 
 const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
@@ -43,7 +56,7 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
             <fieldset className={props.classes.fieldSet}>
                 {[
                     ...toOrderedReactElements(
-                        props.valueTemplates,
+                        props.template.valueTemplates,
                         (template: IElementTemplate<IValueTemplate>) =>
                             <div id={'value-mapping-wrapper-' + props.absoluteKey} className={props.classes.valueMappingContainer}>
                                 <ValueMappingComponent
@@ -55,7 +68,7 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                             </div>
                     ),
                     ...toOrderedReactElements(
-                        props.selectableValueTemplates,
+                        props.template.selectableValueTemplates,
                         (template: IElementTemplate<ISelectableValueTemplate>) =>
                             <div id={'selectable-value-mapping-wrapper-' + props.absoluteKey} className={props.classes.valueMappingContainer}>
                                 <SelectableValueMappingComponent
@@ -66,9 +79,53 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                                 <HelpPopover popoverContent={template.elementConfig.description}/>
                             </div>
                     ),
-                    ...props.nestedObjectButtons,
+                    ...toOrderedReactElements(
+                        props.template.valueCollectionTemplates,
+                        (template) =>
+                            <ToggleButtonComponent
+                                classes={props.classes}
+                                displayName={template.elementConfig.displayName}
+                                onSelected={() => props.nestedElementCallbacks.onNestedValueCollectionOpen({
+                                    order: [template.order],
+                                    absoluteKey: props.absoluteKey + ".valueCollectionMappingPerKey." + template.elementConfig.key,
+                                    displayName: template.elementConfig.displayName,
+                                    template: template.template
+                                })}
+                                onUnselected={() => props.nestedElementCallbacks.onNestedElementClose([template.order])}
+                            />
+                    ),
+                    ...toOrderedReactElements(
+                        props.template.objectTemplates,
+                        (template) =>
+                            <ToggleButtonComponent
+                                classes={props.classes}
+                                displayName={template.elementConfig.displayName}
+                                onSelected={() => props.nestedElementCallbacks.onNestedObjectOpen({
+                                    order: [template.order],
+                                    absoluteKey: props.absoluteKey + ".objectMappingPerKey." + template.elementConfig.key,
+                                    displayName: template.elementConfig.displayName,
+                                    template: template.template
+                                })}
+                                onUnselected={() => props.nestedElementCallbacks.onNestedElementClose([template.order])}
+                            />
+                    ),
+                    ...toOrderedReactElements(
+                        props.template.objectCollectionTemplates,
+                        (template) =>
+                            <ToggleButtonComponent
+                                classes={props.classes}
+                                displayName={template.elementConfig.displayName}
+                                onSelected={() => props.nestedElementCallbacks.onNestedObjectCollectionOpen({
+                                    order: [template.order],
+                                    absoluteKey: props.absoluteKey + ".objectCollectionMappingPerKey." + template.elementConfig.key,
+                                    displayName: template.elementConfig.displayName,
+                                    template: template.template
+                                })}
+                                onUnselected={() => props.nestedElementCallbacks.onNestedElementClose([template.order])}
+                            />
+                    )
                 ]
-                    .sort(ascendingCompare)
+                    .sort((a, b) => compareOrder(a.order, b.order))
                     .map((orderedElement) => orderedElement.element)}
             </fieldset>
         </>
