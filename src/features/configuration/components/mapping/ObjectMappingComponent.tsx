@@ -5,7 +5,6 @@ import ValueMappingComponent from "./ValueMappingComponent";
 import SelectableValueMappingComponent from "./SelectableValueMappingComponent";
 import {ClassNameMap} from "@mui/styles";
 import HelpPopover from "../popover/HelpPopover";
-import {Box} from "@mui/material";
 import ToggleButtonComponent from "../common/ToggleButtonComponent";
 import {NestedElementsCallbacks} from "../../types/NestedElementCallbacks";
 
@@ -19,6 +18,7 @@ interface Props {
 export type NestedElementTemplate<T> = {
     order: number[];
     absoluteKey: string;
+    displayPath: string[];
     displayName: string;
     template: T;
 }
@@ -58,7 +58,8 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                     ...toOrderedReactElements(
                         props.template.valueTemplates,
                         (template: IElementTemplate<IValueTemplate>) =>
-                            <div id={'value-mapping-wrapper-' + props.absoluteKey} className={props.classes.valueMappingContainer}>
+                            <div id={'value-mapping-wrapper-' + props.absoluteKey}
+                                 className={props.classes.valueMappingContainer}>
                                 <ValueMappingComponent
                                     classes={props.classes}
                                     absoluteKey={props.absoluteKey + ".valueMappingPerKey." + template.elementConfig.key}
@@ -70,7 +71,8 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                     ...toOrderedReactElements(
                         props.template.selectableValueTemplates,
                         (template: IElementTemplate<ISelectableValueTemplate>) =>
-                            <div id={'selectable-value-mapping-wrapper-' + props.absoluteKey} className={props.classes.valueMappingContainer}>
+                            <div id={'selectable-value-mapping-wrapper-' + props.absoluteKey}
+                                 className={props.classes.valueMappingContainer}>
                                 <SelectableValueMappingComponent
                                     classes={props.classes}
                                     absoluteKey={props.absoluteKey + ".valueMappingPerKey." + template.elementConfig.key}
@@ -88,6 +90,7 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                                 onSelected={() => props.nestedElementCallbacks.onNestedValueCollectionOpen({
                                     order: [template.order],
                                     absoluteKey: props.absoluteKey + ".valueCollectionMappingPerKey." + template.elementConfig.key,
+                                    displayPath: [],
                                     displayName: template.elementConfig.displayName,
                                     template: template.template
                                 })}
@@ -103,6 +106,7 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                                 onSelected={() => props.nestedElementCallbacks.onNestedObjectOpen({
                                     order: [template.order],
                                     absoluteKey: props.absoluteKey + ".objectMappingPerKey." + template.elementConfig.key,
+                                    displayPath: [],
                                     displayName: template.elementConfig.displayName,
                                     template: template.template
                                 })}
@@ -118,6 +122,7 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                                 onSelected={() => props.nestedElementCallbacks.onNestedObjectCollectionOpen({
                                     order: [template.order],
                                     absoluteKey: props.absoluteKey + ".objectCollectionMappingPerKey." + template.elementConfig.key,
+                                    displayPath: [],
                                     displayName: template.elementConfig.displayName,
                                     template: template.template
                                 })}

@@ -3,22 +3,26 @@ import {SxProps, Theme} from "@mui/material";
 export const toggleButtonSX: SxProps<Theme> = {
     height: (theme: Theme) => theme.spacing(5),
     width: (theme: Theme) => theme.spacing(44),
-    backgroundColor: 'white',
-    color: 'black',
-    border: '1px solid',
+    border: '2px solid',
+    color: 'white',
+    borderColor: '#398085',
+    backgroundColor: (theme: Theme) => theme.palette.primary.main,
     marginBottom: (theme: Theme) => theme.spacing(2),
     justifyContent: 'space-between',
     "&:hover": {
-        backgroundColor: 'white',
-        color: 'black',
+        color: 'white',
+        borderColor: '#398085',
+        backgroundColor: (theme: Theme) => theme.palette.primary.main,
     },
     "&.Mui-selected": {
         color: 'white',
-        backgroundColor: (theme: Theme) => theme.palette.primary.main,
+        backgroundColor: '#398085',
+        borderColor: (theme: Theme) => theme.palette.primary.main,
     },
     "&.Mui-selected:hover": {
         color: 'white',
-        backgroundColor: (theme: Theme) => theme.palette.primary.main,
+        backgroundColor: '#398085',
+        borderColor: (theme: Theme) => theme.palette.primary.main,
     }
 }
 

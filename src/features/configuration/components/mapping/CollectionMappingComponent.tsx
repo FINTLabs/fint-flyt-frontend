@@ -8,7 +8,7 @@ import {ClassNameMap} from "@mui/styles";
 interface Props {
     classes: ClassNameMap;
     absoluteKey: string;
-    elementComponentCreator: (order: number[], absoluteKey: string) => ReactElement;
+    elementComponentCreator: (order: number[], displayPath: string[], absoluteKey: string) => ReactElement;
     onFieldClose?: (order: number[]) => void,
 }
 
@@ -22,7 +22,11 @@ const CollectionMappingComponent: React.FunctionComponent<Props> = (props: Props
                 classes={props.classes}
                 absoluteKey={props.absoluteKey + ".elementMappings"}
                 fieldComponentCreator={
-                    (index: number, absoluteKey: string) => props.elementComponentCreator([0, index], absoluteKey)
+                    (index: number, absoluteKey: string) => props.elementComponentCreator(
+                        [0, index],
+                        [t("defaultElements"), (index + 1).toString()],
+                        absoluteKey
+                    )
                 }
                 defaultValueCreator={() => {
                     return {}
@@ -42,7 +46,11 @@ const CollectionMappingComponent: React.FunctionComponent<Props> = (props: Props
                         classes={props.classes}
                         absoluteKey={absoluteKey}
                         elementComponentCreator={
-                            (absoluteKey: string) => props.elementComponentCreator([1, index], absoluteKey)
+                            (absoluteKey: string) => props.elementComponentCreator(
+                                [1, index],
+                                [t("generatedElements"), (index + 1).toString()],
+                                absoluteKey
+                            )
                         }
                     />
                 }

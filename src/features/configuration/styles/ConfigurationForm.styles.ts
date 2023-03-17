@@ -67,7 +67,42 @@ export const configurationFormStyles = makeStyles((theme: Theme) =>
             fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
             fontSize: theme.spacing(2),
             marginTop: theme.spacing(2),
-            marginLeft: theme.spacing(2)
+            marginLeft: theme.spacing(2),
+        },
+        titlePath: {
+            fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
+            fontSize: theme.spacing(2),
+            marginTop: theme.spacing(2),
+            marginLeft: theme.spacing(2),
+            fontWeight: 'normal'
+        },
+        title1: {
+            fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
+            fontSize: theme.spacing(3),
+            marginTop: theme.spacing(2),
+            marginLeft: theme.spacing(2),
+            fontWeight: 'normal'
+        },
+        title2: {
+            fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
+            fontSize: theme.spacing(2.6),
+            marginTop: theme.spacing(2),
+            marginLeft: theme.spacing(2),
+            fontWeight: 'normal'
+        },
+        title3: {
+            fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
+            fontSize: theme.spacing(2.2),
+            marginTop: theme.spacing(2),
+            marginLeft: theme.spacing(2),
+            fontWeight: 'normal'
+        },
+        path: {
+            fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
+            fontSize: theme.spacing(1.5),
+            marginTop: theme.spacing(-2),
+            marginLeft: theme.spacing(2),
+            color: theme.palette.primary.main
         },
         column: {
             maxHeight: 'calc(100vh/1.5)',

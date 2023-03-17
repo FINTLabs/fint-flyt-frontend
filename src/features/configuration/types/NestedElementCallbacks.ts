@@ -9,16 +9,16 @@ export type NestedElementsCallbacks = {
     onAllNestedElementsClose: (parentOrder: number[]) => void;
 }
 
-export function prefixNestedElementsCallbacksOrder(orderPrefix: number[], nestedElementsCallbacks: NestedElementsCallbacks): NestedElementsCallbacks {
+export function prefixNestedElementsCallbacks(orderPrefix: number[], displayPath: string[], nestedElementsCallbacks: NestedElementsCallbacks): NestedElementsCallbacks {
     return {
         onNestedObjectOpen: (template: NestedElementTemplate<IObjectTemplate>) =>
-            nestedElementsCallbacks.onNestedObjectOpen(prefixOrder(orderPrefix, template)),
+            nestedElementsCallbacks.onNestedObjectOpen(prefix(orderPrefix, displayPath, template)),
 
         onNestedObjectCollectionOpen: (template: NestedElementTemplate<ICollectionTemplate<IObjectTemplate>>) =>
-            nestedElementsCallbacks.onNestedObjectCollectionOpen(prefixOrder(orderPrefix, template)),
+            nestedElementsCallbacks.onNestedObjectCollectionOpen(prefix(orderPrefix, displayPath, template)),
 
         onNestedValueCollectionOpen: (template: NestedElementTemplate<ICollectionTemplate<IValueTemplate>>) =>
-            nestedElementsCallbacks.onNestedValueCollectionOpen(prefixOrder(orderPrefix, template)),
+            nestedElementsCallbacks.onNestedValueCollectionOpen(prefix(orderPrefix, displayPath, template)),
 
         onNestedElementClose: (order: number[]) =>
             nestedElementsCallbacks.onNestedElementClose([...orderPrefix, ...order]),
@@ -29,9 +29,10 @@ export function prefixNestedElementsCallbacksOrder(orderPrefix: number[], nested
     }
 }
 
-export function prefixOrder<T>(orderPrefix: number[], template: NestedElementTemplate<T>): NestedElementTemplate<T> {
+export function prefix<T>(orderPrefix: number[], displayPath: string[], template: NestedElementTemplate<T>): NestedElementTemplate<T> {
     return {
         ...template,
+        displayPath: [...displayPath, ...template.displayPath],
         order: [...orderPrefix, ...template.order]
     }
 }
