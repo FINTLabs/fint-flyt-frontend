@@ -9,13 +9,14 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import DialpadIcon from '@mui/icons-material/Dialpad';
 import ToggleOnIcon from '@mui/icons-material/ToggleOn';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
+import CollectionsIcon from '@mui/icons-material/Collections';
 import {ITag} from "../../types/Metadata/Tag";
 import {ValueType} from "../../types/Metadata/IntegrationMetadata";
 
-export const Tag: FC<ITag> = function Tag({name, value, type}) {
+export const Tag: FC<ITag> = function Tag({name, value, type, tagKey}) {
     const [{isDragging}, drag] = useDrag(() => ({
         type: type,
-        item: {name, value, type},
+        item: {name, value, type, tagKey},
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
         }),
@@ -42,6 +43,9 @@ export const Tag: FC<ITag> = function Tag({name, value, type}) {
         }
         if (type === ValueType.EMAIL) {
             return <AlternateEmailIcon/>
+        }
+        if (type === ValueType.COLLECTION) {
+            return <CollectionsIcon/>
         }
         if (type === undefined) {
             return <DragIndicatorIcon/>

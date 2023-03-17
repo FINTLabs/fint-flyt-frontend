@@ -2,12 +2,10 @@ import React, {useEffect, useState} from 'react';
 import {createTheme, ThemeProvider} from "@mui/material";
 import Main from "./features/main/Main";
 import {BrowserRouter} from "react-router-dom";
-import ResourcesProvider from "./context/resourcesContext";
 import IntegrationProvider from "./context/integrationContext";
 import SourceApplicationProvider from "./context/sourceApplicationContext";
 import HistoryProvider from "./context/historyContext";
 import axios from "axios";
-import ConfigurationProvider from "./context/configurationContext";
 
 const theme = createTheme({
     palette: {
@@ -51,19 +49,15 @@ function App() {
     return basePath ?
         (
             <ThemeProvider theme={theme}>
-                <ResourcesProvider>
-                    <HistoryProvider>
-                        <SourceApplicationProvider>
-                            <IntegrationProvider>
-                                <ConfigurationProvider>
-                                    <BrowserRouter basename={basePath}>
-                                        <Main/>
-                                    </BrowserRouter>
-                                </ConfigurationProvider>
-                            </IntegrationProvider>
-                        </SourceApplicationProvider>
-                    </HistoryProvider>
-                </ResourcesProvider>
+                <HistoryProvider>
+                    <SourceApplicationProvider>
+                        <IntegrationProvider>
+                            <BrowserRouter basename={basePath}>
+                                <Main/>
+                            </BrowserRouter>
+                        </IntegrationProvider>
+                    </SourceApplicationProvider>
+                </HistoryProvider>
             </ThemeProvider>
         )
         : <h1>Loading</h1>

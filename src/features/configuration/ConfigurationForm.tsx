@@ -12,6 +12,7 @@ import {useTranslation} from "react-i18next";
 import {flexCenterSX} from "./styles/SystemStyles";
 import TextAreaComponent from "./components/common/TextAreaComponent";
 import {configurationFormStyles} from "./styles/ConfigurationForm.styles";
+import ConfigurationProvider from '../../context/configurationContext';
 
 const useStyles = configurationFormStyles
 
@@ -39,32 +40,34 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     };
     return (
         <DndProvider backend={HTML5Backend}>
-            <Box sx={{m: 1}}>
-                <Typography variant={"h6"}>{t('header')}</Typography>
-                <Typography>Integrasjon: PLACEHOLDER VIK123 - TEST - TEST</Typography>
-                <Box sx={flexCenterSX}>
-                    <Typography sx={{mr: 1}}>{t('metadataVersion')}: </Typography>
-                    <FormControl sx={{backgroundColor: 'white', width: (theme: Theme) => theme.spacing(18)}}
-                                 size="small">
-                        <Select
-                            id="version-select"
-                            value={version}
-                            onChange={handleChange}
-                        >
-                            {availableVersions.map((md, index) => {
-                                return <MenuItem key={index}
-                                                 value={md.version}>Versjon {md.version}</MenuItem>
-                            })}
-                        </Select>
-                    </FormControl>
+            <ConfigurationProvider>
+                <Box sx={{m: 1}}>
+                    <Typography variant={"h6"}>{t('header')}</Typography>
+                    <Typography>Integrasjon: PLACEHOLDER VIK123 - TEST - TEST</Typography>
+                    <Box sx={flexCenterSX}>
+                        <Typography sx={{mr: 1}}>{t('metadataVersion')}: </Typography>
+                        <FormControl sx={{backgroundColor: 'white', width: (theme: Theme) => theme.spacing(18)}}
+                                     size="small">
+                            <Select
+                                id="version-select"
+                                value={version}
+                                onChange={handleChange}
+                            >
+                                {availableVersions.map((md, index) => {
+                                    return <MenuItem key={index}
+                                                     value={md.version}>Versjon {md.version}</MenuItem>
+                                })}
+                            </Select>
+                        </FormControl>
+                    </Box>
+                    <TextAreaComponent classes={classes} displayName={"Kommentar"} absoluteKey={"kommentar"}
+                                       description={"kommentar"}/>
                 </Box>
-                <TextAreaComponent classes={classes} displayName={"Kommentar"} absoluteKey={"kommentar"}
-                                   description={"kommentar"}/>
-            </Box>
-            <Box display="flex" position="relative" width={1} height={1} sx={{border: 'none'}}>
-                <MetadataPanel classes={classes}/>
-                <Panel classes={classes}/>
-            </Box>
+                <Box display="flex" position="relative" width={1} height={1} sx={{border: 'none'}}>
+                    <MetadataPanel classes={classes}/>
+                    <Panel classes={classes}/>
+                </Box>
+            </ConfigurationProvider>
         </DndProvider>
     );
 }

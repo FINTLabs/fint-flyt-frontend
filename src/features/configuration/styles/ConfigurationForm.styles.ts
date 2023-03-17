@@ -31,7 +31,10 @@ export const configurationFormStyles = makeStyles((theme: Theme) =>
             maxHeight: theme.spacing(100),
             backgroundColor: '#EBF4F5',
             borderRadius: theme.spacing(0.5),
-            border: 'solid 1px'
+            border: 'solid 1px',
+            '&:not(:first-child)': {
+                marginTop: theme.spacing(2)
+            }
         },
         valueMappingContainer: {
             display: 'flex',

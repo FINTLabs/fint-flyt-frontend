@@ -5,7 +5,9 @@ import IntegrationRepository from "../../shared/repositories/IntegrationReposito
 import {getSourceApplicationDisplayName} from "../../features/configuration/defaults/DefaultValues";
 import {
     IInstanceMetadataContent,
-    IIntegrationMetadata
+    IInstanceObjectCollectionMetadata,
+    IIntegrationMetadata,
+    MOCK_INSTANCE_METADATA
 } from "../../features/configuration/types/Metadata/IntegrationMetadata";
 import {ISelect} from "../../features/configuration/types/Select";
 
@@ -17,9 +19,20 @@ const SourceApplicationProvider: FC = ({children}) => {
     const [isAdmin, setIsAdmin] = useState<boolean>(contextDefaultValues.isAdmin)
     const [availableForms, setAvailableForms] = useState<ISourceApplicationItem>(contextDefaultValues.availableForms);
     const [allMetadata, setAllMetadata] = useState<IIntegrationMetadata[]>(contextDefaultValues.allMetadata)
-    const [instanceElementMetadata, setInstanceElementMetadata] = useState<IInstanceMetadataContent | undefined>(undefined)
+    const [instanceElementMetadata, setInstanceElementMetadata] = useState<IInstanceMetadataContent | undefined>(MOCK_INSTANCE_METADATA.instanceMetadata)
+    const [instanceObjectCollectionMetadata, setInstanceObjectCollectionMetadata] = useState<IInstanceObjectCollectionMetadata | undefined>(undefined)
     const [sourceApplication, setSourceApplication] = useState<number>(contextDefaultValues.sourceApplication);
 
+
+    function getInstanceObjectCollectionMetadata(key: string): void {
+        console.log(instanceElementMetadata?.instanceObjectCollectionMetadata)
+        console.log(key)
+        const selectedInstanceObjectCollectionMetadata: IInstanceObjectCollectionMetadata | undefined = instanceElementMetadata?.instanceObjectCollectionMetadata ?
+            instanceElementMetadata.instanceObjectCollectionMetadata.find(instanceObjectCollectionMetadata =>
+                instanceObjectCollectionMetadata.key === key
+            ) : undefined
+        setInstanceObjectCollectionMetadata(selectedInstanceObjectCollectionMetadata)
+    }
 
     const getAvailableForms = () => {
         SourceApplicationRepository.getMetadata(sourceApplication !== null ? sourceApplication.toString() : "1", true)
@@ -71,7 +84,7 @@ const SourceApplicationProvider: FC = ({children}) => {
                 }
             })
             .catch((err) => {
-                setInstanceElementMetadata(undefined)
+                setInstanceElementMetadata(MOCK_INSTANCE_METADATA.instanceMetadata)
                 console.error(err)
             })
     }
@@ -112,6 +125,8 @@ const SourceApplicationProvider: FC = ({children}) => {
                 getAvailableForms,
                 allMetadata,
                 instanceElementMetadata,
+                instanceObjectCollectionMetadata,
+                getInstanceObjectCollectionMetadata,
                 getAllMetadata,
                 getInstanceElementMetadata,
                 getAllForms,

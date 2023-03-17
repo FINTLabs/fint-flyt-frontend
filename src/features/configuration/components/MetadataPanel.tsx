@@ -1,4 +1,4 @@
-import {Box, Typography} from "@mui/material";
+import {Box, Theme, Typography} from "@mui/material";
 import {Tag} from "./dnd/Tag";
 import * as React from "react";
 import {useContext, useEffect} from "react";
@@ -11,14 +11,25 @@ import {
     IInstanceMetadataCategory,
     IInstanceObjectCollectionMetadata,
     IInstanceValueMetadata,
-    MOCK_INSTANCE_METADATA
+    MOCK_INSTANCE_METADATA,
+    ValueType
 } from "../types/Metadata/IntegrationMetadata";
 import {ClassNameMap} from "@mui/styles";
 
 
 const MetadataPanel: React.FunctionComponent<any> = (props: { classes: ClassNameMap }) => {
     const {t} = useTranslation('translations', {keyPrefix: 'components.MetadataPanel'});
-    const {instanceElementMetadata, getAllMetadata} = useContext(SourceApplicationContext)
+    const {
+        instanceElementMetadata,
+        getAllMetadata,
+        instanceObjectCollectionMetadata
+    } = useContext(SourceApplicationContext)
+
+    useEffect(() => {
+        getAllMetadata(false)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
 
     useEffect(() => {
         getAllMetadata(false)
@@ -31,6 +42,7 @@ const MetadataPanel: React.FunctionComponent<any> = (props: { classes: ClassName
                     <div id={'tagtreeValue-' + ivm.key} style={{paddingLeft: depth * 10}}
                          key={'tagtreeValues-' + ivm.key}>
                         <Tag disabled={false} type={ivm.type} name={ivm.displayName + ' {' + (ivm.key) + '}'}
+                             tagKey={ivm.key}
                              value={toTagValue(ivm.key)}/>
                     </div>
                 ))}</>
@@ -39,12 +51,13 @@ const MetadataPanel: React.FunctionComponent<any> = (props: { classes: ClassName
 
     function TagTreeCollectionValues({items, depth = 0}: any) {
         return (<>
-                {items.instanceObjectCollectionMetadata.map((ivm: IInstanceObjectCollectionMetadata) => (
-                    <div style={{paddingLeft: depth * 15}} key={'tagTreeCollectionValues-' + ivm.key}>
-                        <Typography>{ivm.displayName}</Typography>
-                        <TagTreeValues items={ivm.objectMetadata}/>
+                <div>
+                    <div style={{paddingLeft: depth * 15}} key={'tagTreeCollectionValues-' + items.key}>
+                        <Typography>Valgt Samling: {items.displayName}</Typography>
+                        <TagTreeValues items={items.objectMetadata}/>
                     </div>
-                ))}</>
+                </div>
+            </>
         )
     }
 
@@ -68,13 +81,26 @@ const MetadataPanel: React.FunctionComponent<any> = (props: { classes: ClassName
                         <TagTree items={category.content} depth={depth + 1}/>
                     </div>
                 ))}
+                {items.instanceObjectCollectionMetadata.map((instanceObjectCollectionMetadata: IInstanceObjectCollectionMetadata) => {
+                    return (
+                        <div id={'tag-' + instanceObjectCollectionMetadata.key} style={{paddingLeft: depth * 10}}
+                             key={'tag-' + instanceObjectCollectionMetadata.key}>
+                            <Tag disabled={false} type={ValueType.COLLECTION}
+                                 name={instanceObjectCollectionMetadata.displayName + ' {' + (instanceObjectCollectionMetadata.key) + '}'}
+                                 value={toTagValue(instanceObjectCollectionMetadata.key)}
+                                 tagKey={instanceObjectCollectionMetadata.key}/>
+                        </div>
+                    )
+                })
+                }
             </React.Fragment>
         )
     }
 
     return (
         <>
-            <Box className={props.classes.panelContainer} sx={{position: 'sticky'}}>
+            <Box className={props.classes.panelContainer}
+                 sx={{position: 'sticky', maxHeight: (theme: Theme) => theme.spacing(122), overflow: 'auto'}}>
                 <Box className={props.classes.row}>
                     <Typography variant={"h6"}>{t('header')}</Typography>
                     <HelpPopover
@@ -84,13 +110,11 @@ const MetadataPanel: React.FunctionComponent<any> = (props: { classes: ClassName
                     {/*TODO 09/03 ingrie: before merge, switch back to use real metadata*/}
                     <TagTree items={MOCK_INSTANCE_METADATA.instanceMetadata}/>
                     {/*<Link style={{fontFamily: 'sans-serif'}} to={{pathname: selectedMetadata.sourceApplicationIntegrationUri}} target="_blank">{t('openLink')}</Link>*/}
-
                 </Box>
-                <Box className={props.classes.sourceApplicationForm}>
-                    <Box className={props.classes.row}>
-                        {instanceElementMetadata && <TagTreeCollectionValues items={instanceElementMetadata}/>}
-                    </Box>
-                </Box>
+                {instanceObjectCollectionMetadata &&
+                    <Box className={props.classes.panel}>
+                        <TagTreeCollectionValues items={instanceObjectCollectionMetadata}/>
+                    </Box>}
             </Box>
         </>
     );

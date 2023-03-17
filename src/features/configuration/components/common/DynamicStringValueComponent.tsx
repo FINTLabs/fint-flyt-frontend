@@ -1,25 +1,35 @@
 import * as React from "react";
+import {useContext} from "react";
 import {Controller, useFormContext} from "react-hook-form";
 import {useDrop} from "react-dnd";
 import {ITag} from "../../types/Metadata/Tag";
 import {ElementComponentProps} from "../../types/ElementComponentProps";
 import {ValueType} from "../../types/Metadata/IntegrationMetadata"
 import {TextField} from "@mui/material";
+import {SourceApplicationContext} from "../../../../context/sourceApplicationContext";
 
 interface Props extends ElementComponentProps {
     accept: ValueType[]
 }
 
 const DynamicStringValueComponent: React.FunctionComponent<Props> = (props: Props) => {
+    const {getInstanceObjectCollectionMetadata} = useContext(SourceApplicationContext)
     const {setValue, getValues, control} = useFormContext();
+
+
     const [{canDrop, isOver}, dropRef] = useDrop({
         accept: props.accept,
         drop: (tag: ITag) => {
+            console.log(tag)
             getValues(props.absoluteKey) === undefined
                 ?
                 setValue(props.absoluteKey, tag.value)
                 :
                 setValue(props.absoluteKey, (getValues(props.absoluteKey) + tag.value))
+            if (tag.type === ValueType.COLLECTION && tag.tagKey !== undefined) {
+                console.log('tag type is collection')
+                getInstanceObjectCollectionMetadata(tag.tagKey)
+            }
         },
         collect: monitor => ({
             canDrop: monitor.canDrop(),
