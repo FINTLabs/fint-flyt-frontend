@@ -144,7 +144,7 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
         return [
             [columnElement],
             ...Array.from(columnElement.nestedColumnElementsPerOrder.entries())
-                .sort()
+                .sort(([key1], [key2]) => key1.localeCompare(key2, undefined, {numeric: true}))
                 .map(([order, nestedColumnElement]) => getElementsByColumn(nestedColumnElement))
                 .reduce((combinedChildColumns: Omit<ColumnElement, 'nestedColumnElementsPerOrder'>[][], childColumns: Omit<ColumnElement, 'nestedColumnElementsPerOrder'>[][]) => {
                     range(0, childColumns.length)
@@ -161,7 +161,6 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
 
     return (
         <>
-
             {getElementsByColumn(displayRootElement).map((column: Omit<ColumnElement, 'nestedColumnElementsPerOrder'>[], index) =>
                 <>
                     <div id={'column-' + index} key={'column-' + index}
