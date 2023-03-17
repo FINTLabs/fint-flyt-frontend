@@ -4,6 +4,8 @@ import {IElementTemplate, IObjectTemplate, ISelectableValueTemplate, IValueTempl
 import ValueMappingComponent from "./ValueMappingComponent";
 import SelectableValueMappingComponent from "./SelectableValueMappingComponent";
 import {ClassNameMap} from "@mui/styles";
+import HelpPopover from "../popover/HelpPopover";
+import {Box} from "@mui/material";
 import ToggleButtonComponent from "../common/ToggleButtonComponent";
 import {NestedElementsCallbacks} from "../../types/NestedElementCallbacks";
 
@@ -56,20 +58,26 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                     ...toOrderedReactElements(
                         props.template.valueTemplates,
                         (template: IElementTemplate<IValueTemplate>) =>
-                            <ValueMappingComponent
-                                classes={props.classes}
-                                absoluteKey={props.absoluteKey + ".valueMappingPerKey." + template.elementConfig.key}
-                                displayName={template.elementConfig.displayName}
-                                template={template.template}/>
+                            <div id={'value-mapping-wrapper-' + props.absoluteKey} className={props.classes.valueMappingContainer}>
+                                <ValueMappingComponent
+                                    classes={props.classes}
+                                    absoluteKey={props.absoluteKey + ".valueMappingPerKey." + template.elementConfig.key}
+                                    displayName={template.elementConfig.displayName}
+                                    template={template.template}/>
+                                <HelpPopover popoverContent={template.elementConfig.description}/>
+                            </div>
                     ),
                     ...toOrderedReactElements(
                         props.template.selectableValueTemplates,
                         (template: IElementTemplate<ISelectableValueTemplate>) =>
-                            <SelectableValueMappingComponent
-                                classes={props.classes}
-                                absoluteKey={props.absoluteKey + ".valueMappingPerKey." + template.elementConfig.key}
-                                displayName={template.elementConfig.displayName}
-                                template={template.template}/>
+                            <div id={'selectable-value-mapping-wrapper-' + props.absoluteKey} className={props.classes.valueMappingContainer}>
+                                <SelectableValueMappingComponent
+                                    classes={props.classes}
+                                    absoluteKey={props.absoluteKey + ".valueMappingPerKey." + template.elementConfig.key}
+                                    displayName={template.elementConfig.displayName}
+                                    template={template.template}/>
+                                <HelpPopover popoverContent={template.elementConfig.description}/>
+                            </div>
                     ),
                     ...toOrderedReactElements(
                         props.template.valueCollectionTemplates,

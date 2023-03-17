@@ -1,6 +1,7 @@
 import {ISelect} from "../../features/configuration/types/Select";
 import {
     IInstanceMetadataContent,
+    IInstanceObjectCollectionMetadata,
     IIntegrationMetadata
 } from "../../features/configuration/types/Metadata/IntegrationMetadata";
 
@@ -18,6 +19,8 @@ export type SourceApplicationContextState = {
     getAvailableForms: () => void;
     allMetadata: IIntegrationMetadata[];
     instanceElementMetadata: IInstanceMetadataContent | undefined;
+    instanceObjectCollectionMetadata: IInstanceObjectCollectionMetadata | undefined,
+    getInstanceObjectCollectionMetadata: (key: string) => void,
     getAllMetadata: (onlyLatest: boolean) => void;
     getInstanceElementMetadata: (metadataId: string) => void;
     sourceApplication: number;
@@ -26,7 +29,7 @@ export type SourceApplicationContextState = {
 
 export const contextDefaultValues: SourceApplicationContextState = {
     isAdmin: false,
-    setIsAdmin: (admin: boolean) => {
+    setIsAdmin: () => {
     },
     availableForms: {
         sourceApplicationDisplayName: '',
@@ -46,9 +49,12 @@ export const contextDefaultValues: SourceApplicationContextState = {
         version: 0
     }],
     instanceElementMetadata: undefined,
-    getAllMetadata: (onlyLatest) => {
+    instanceObjectCollectionMetadata: undefined,
+    getInstanceObjectCollectionMetadata: () => {
     },
-    getInstanceElementMetadata: (metadataId) => {
+    getAllMetadata: () => {
+    },
+    getInstanceElementMetadata: () => {
     },
     sourceApplication: 1,
     setSourceApplication: () => {

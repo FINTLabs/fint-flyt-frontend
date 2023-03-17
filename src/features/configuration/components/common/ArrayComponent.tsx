@@ -3,6 +3,9 @@ import {ReactElement} from "react";
 import {useFieldArray, useFormContext} from "react-hook-form";
 import {useTranslation} from "react-i18next";
 import {ClassNameMap} from "@mui/styles";
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+import {iconButtonSX} from "../../styles/SystemStyles";
 
 interface Props {
     classes: ClassNameMap;
@@ -23,9 +26,9 @@ const ArrayComponent: React.FunctionComponent<Props> = (props: Props) => {
     return (
         <>
             {fields.length > 0 &&
-                <ul>
+                <ul id={'list-' + props.absoluteKey} className={props.classes.list}>
                     {fields.map((field, index) => (
-                            <li key={field.id}>
+                            <li id={'list-item-' + index} className={classes.listItem} key={field.id}>
                                 {props.fieldComponentCreator(
                                     index,
                                     props.absoluteKey + "." + index
@@ -35,32 +38,18 @@ const ArrayComponent: React.FunctionComponent<Props> = (props: Props) => {
                     )}
                 </ul>
             }
-            <button
-                type="button"
-                className={classes.button}
-                style={{marginTop: '8px'}}
-                onClick={() => {
-                    append(props.defaultValueCreator())
-                }}
-            >
-                {t("button.append")}
-            </button>
+            <AddIcon sx={iconButtonSX} onClick={() => {
+                append(props.defaultValueCreator())
+            }}/>
             {fields.length > 0 &&
-                <button
-                    type="button"
-                    className={classes.button}
-                    style={{marginTop: '8px'}}
-                    onClick={() => {
-                        const index = fields.length - 1;
-                        remove(fields.length - 1);
-                        if (props.onFieldClose) {
-                            props.onFieldClose(index)
-                        }
-                    }}
-                >
-                    {t("button.remove")}
-                </button>
-            }
+                <RemoveIcon sx={iconButtonSX} onClick={() => {
+                    const index = fields.length - 1;
+                    remove(fields.length - 1);
+                    if (props.onFieldClose) {
+                        props.onFieldClose(index)
+                    }
+                }}
+                />}
         </>
     );
 }

@@ -4,6 +4,7 @@ import SelectValueComponent from "../common/SelectValueComponent";
 import {useFormContext} from "react-hook-form";
 import {ValueType} from "../../types/Configuration";
 import {CreateSelectables} from "../../util/SelectablesUtils";
+import SearchSelectValueComponent from "../common/SearchSelectValueComponent";
 import {ClassNameMap} from "@mui/styles";
 
 interface Props {
@@ -34,7 +35,7 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = (props: 
                 autoComplete={false}
             />
         case SelectableValueType.SEARCH_SELECT:
-            return <SelectValueComponent
+            return <SearchSelectValueComponent
                 classes={props.classes}
                 absoluteKey={valueAbsoluteKey}
                 displayName={props.displayName}

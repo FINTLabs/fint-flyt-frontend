@@ -1,9 +1,10 @@
 import * as React from "react";
 import {ReactElement} from "react";
 import ArrayComponent from "../common/ArrayComponent";
-import DynamicStringValueComponent from "../common/DynamicStringValueComponent";
 import {useTranslation} from "react-i18next";
 import {ClassNameMap} from "@mui/styles";
+import DynamicStringValueComponent from "../common/DynamicStringValueComponent";
+import {ValueType} from "../../types/Metadata/IntegrationMetadata";
 
 interface Props {
     classes: ClassNameMap;
@@ -16,7 +17,8 @@ const FromCollectionMappingComponent: React.FunctionComponent<Props> = (props: P
 
     return (
         <>
-            <div className={props.classes.title}>{t("collections")}</div>
+            <div id={'collection-mapping-header-' + props.absoluteKey}
+                 className={props.classes.title}>{t("collections")}</div>
             <ArrayComponent
                 classes={props.classes}
                 absoluteKey={props.absoluteKey + ".instanceCollectionReferencesOrdered"}
@@ -25,7 +27,7 @@ const FromCollectionMappingComponent: React.FunctionComponent<Props> = (props: P
                         classes={props.classes}
                         absoluteKey={absoluteKey}
                         displayName={"" + index}
-                        accept={[]}
+                        accept={[ValueType.COLLECTION]}
                     />
 
                 }

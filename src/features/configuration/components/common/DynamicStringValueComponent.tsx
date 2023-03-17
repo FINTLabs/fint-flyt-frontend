@@ -1,9 +1,12 @@
 import * as React from "react";
-import {useFormContext} from "react-hook-form";
+import {useContext} from "react";
+import {Controller, useFormContext} from "react-hook-form";
 import {useDrop} from "react-dnd";
 import {ITag} from "../../types/Metadata/Tag";
 import {ValueType} from "../../types/Metadata/IntegrationMetadata"
 import {ClassNameMap} from "@mui/styles";
+import {TextField} from "@mui/material";
+import {SourceApplicationContext} from "../../../../context/sourceApplicationContext";
 
 interface Props {
     classes: ClassNameMap;
@@ -13,11 +16,23 @@ interface Props {
 }
 
 const DynamicStringValueComponent: React.FunctionComponent<Props> = (props: Props) => {
-    const {register, setValue, getValues} = useFormContext();
+    const {getInstanceObjectCollectionMetadata} = useContext(SourceApplicationContext)
+    const {setValue, getValues, control} = useFormContext();
+
+
     const [{canDrop, isOver}, dropRef] = useDrop({
         accept: props.accept,
         drop: (tag: ITag) => {
-            setValue(props.absoluteKey, (getValues(props.absoluteKey) + tag.value))
+            console.log(tag)
+            getValues(props.absoluteKey) === undefined
+                ?
+                setValue(props.absoluteKey, tag.value)
+                :
+                setValue(props.absoluteKey, (getValues(props.absoluteKey) + tag.value))
+            if (tag.type === ValueType.COLLECTION && tag.tagKey !== undefined) {
+                console.log('tag type is collection')
+                getInstanceObjectCollectionMetadata(tag.tagKey)
+            }
         },
         collect: monitor => ({
             canDrop: monitor.canDrop(),
@@ -25,37 +40,47 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = (props: Prop
         })
     })
 
-    let border = 'solid 1px black';
+    let background = 'white';
 
     const inputStyle = {
+        backgroundColor: 'white',
         width: '350px',
-        borderRadius: '3px',
-        margin: '5px',
-        height: '24px'
+        borderRadius: '4px',
+        margin: 'none',
+        marginBottom: '16px'
     };
 
     if (canDrop && isOver) {
-        border = 'solid 3px green';
-        inputStyle.margin = '3px';
+        background = 'lightgreen';
     } else if (canDrop) {
-        border = 'solid 3px blue';
-        inputStyle.margin = '3px';
+        background = 'lightblue';
+    } else if (isOver && !canDrop) {
+        background = 'red';
     }
 
-    const dynamicStyle = {
-        border: border,
-        ...inputStyle
+    const dynamicStyle: React.CSSProperties = {
+        ...inputStyle,
+        background
     }
 
     return (
-        <div ref={dropRef} key={props.absoluteKey}>
-            <label key={props.absoluteKey} className={props.classes.label}>
-                {props.displayName}:
-                <input type="text"
-                       style={dynamicStyle}
-                       {...register(props.absoluteKey)}
-                />
-            </label>
+        <div id={"dnd-value-component-" + props.absoluteKey} ref={dropRef} key={props.absoluteKey}>
+            <Controller
+                name={props.absoluteKey}
+                control={control}
+                defaultValue=""
+                render={({field}) =>
+                    <TextField
+                        style={dynamicStyle}
+                        variant='outlined'
+                        size='small'
+                        multiline
+                        maxRows={3}
+                        label={props.displayName}
+                        {...field}
+                    />
+                }
+            />
         </div>
     )
 }

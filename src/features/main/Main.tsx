@@ -1,12 +1,5 @@
 import React, {useContext} from "react";
-import {
-    AppBar, Badge,
-    Box, Button,
-    Drawer,
-    Theme,
-    Toolbar,
-    Typography
-} from "@mui/material";
+import {AppBar, Badge, Box, Button, Drawer, Theme, Toolbar, Typography} from "@mui/material";
 import NotificationsIcon from '@mui/icons-material/Notifications';
 
 import {createStyles, makeStyles} from "@mui/styles";
@@ -37,6 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         content: {
             width: "100%",
+            height: "calc(100% - 64px)",
             flexGrow: 1,
             backgroundColor: theme.palette.background.default,
             padding: theme.spacing(4),
@@ -83,7 +77,7 @@ function Main() {
 
     //TODO 15/12: set admin access based on log in
     // eslint-disable-next-line
-    const { isAdmin, setIsAdmin } = useContext(SourceApplicationContext)
+    const {isAdmin, setIsAdmin} = useContext(SourceApplicationContext)
     const {statistics} = useContext(IntegrationContext)
     let totalErrors = 0;
     statistics?.map((stat: any) => {
@@ -103,8 +97,9 @@ function Main() {
                         {i18n.language === 'no' && <Button size="small" variant="contained" onClick={() => changeLanguage("en")}>{t('language.english')}</Button>}
                         {i18n.language === 'en' && <Button size="small" variant="contained" onClick={() => changeLanguage("no")}>{t('language.norwegian')}</Button>}
                     </Box>*/}
-                    {isAdmin && <Box sx={{ mr: 2}}>
-                        <Button size="medium" variant="contained" component={RouterLink} to="/admin" endIcon={<AdminPanelSettingsIcon />}
+                    {isAdmin && <Box sx={{mr: 2}}>
+                        <Button size="medium" variant="contained" component={RouterLink} to="/admin"
+                                endIcon={<AdminPanelSettingsIcon/>}
                         >
                             {t('adminHeader')}
                         </Button>

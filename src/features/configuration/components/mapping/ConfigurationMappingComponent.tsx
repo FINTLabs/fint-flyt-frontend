@@ -142,22 +142,19 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
 
     return (
         <>
-            {getElementsByColumn(displayRootElement).map((column: ReactElement[]) =>
+            {getElementsByColumn(displayRootElement).map((column: ReactElement[], index) =>
                 <>
-                    <fieldset className={props.classes.fieldSet}>
+                    <div id={'column-' + index} key={'column-' + index}
+                         className={props.classes.column}>
                         {
                             column
-                                .map(element =>
-                                    <div>
-                                        <hr/>
+                                .map((element, elementIndex) =>
+                                    <div id={'column-item-' + elementIndex} className={props.classes.columnItem}>
                                         {element}
                                     </div>
                                 )
                         }
-                    </fieldset>
-                    <hr/>
-                    <hr/>
-                    <hr/>
+                    </div>
                 </>
             )}
         </>

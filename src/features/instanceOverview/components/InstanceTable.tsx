@@ -1,4 +1,4 @@
-import {Box, Button, Dialog, DialogActions, DialogContent, IconButton} from "@mui/material";
+import {Box, Button, Dialog, DialogActions, DialogContent, IconButton, Theme} from "@mui/material";
 import {DataGrid, GridCellParams, GridColumns, GridToolbar} from "@mui/x-data-grid";
 import * as React from "react";
 import {useContext, useEffect, useState} from "react";
@@ -252,7 +252,12 @@ const InstanceTable: React.FunctionComponent<any> = (props: { classes: ClassName
                     <DialogContent>
                         {selectedRow &&
                             <Stack id={props.row.type + `-panel`}
-                                   sx={{py: 2, boxSizing: 'border-box', height: '350px', minWidth: '900px'}}
+                                   sx={{
+                                       py: 2,
+                                       boxSizing: 'border-box',
+                                       height: ((theme: Theme) => theme.spacing(44)),
+                                       minWidth: ((theme: Theme) => theme.spacing(112))
+                                   }}
                                    direction="column">
                                 <Stack direction="column" sx={{height: 1}}>
                                     <DataGrid

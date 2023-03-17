@@ -14,12 +14,12 @@ const useStyles = makeStyles((theme: Theme) =>
             display: 'flex'
         },
         dataGridBox: {
-            height: "900px",
+            height: theme.spacing(112),
             background: 'white',
             width: '100%'
         },
         dataPanelBox: {
-            height: "900px",
+            height: theme.spacing(112),
             background: 'white',
             width: '100%'
         }

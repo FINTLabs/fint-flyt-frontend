@@ -1,6 +1,6 @@
 import {FC} from 'react'
 import {useDrag} from 'react-dnd'
-import {Chip} from "@mui/material";
+import {Chip, Theme} from "@mui/material";
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import TextFieldsIcon from '@mui/icons-material/TextFields';
 import NumbersIcon from '@mui/icons-material/Numbers';
@@ -9,13 +9,14 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import DialpadIcon from '@mui/icons-material/Dialpad';
 import ToggleOnIcon from '@mui/icons-material/ToggleOn';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
+import CollectionsIcon from '@mui/icons-material/Collections';
 import {ITag} from "../../types/Metadata/Tag";
 import {ValueType} from "../../types/Metadata/IntegrationMetadata";
 
-export const Tag: FC<ITag> = function Tag({name, value, type}) {
+export const Tag: FC<ITag> = function Tag({name, value, type, tagKey}) {
     const [{isDragging}, drag] = useDrag(() => ({
         type: type,
-        item: {name, value, type},
+        item: {name, value, type, tagKey},
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
         }),
@@ -43,6 +44,9 @@ export const Tag: FC<ITag> = function Tag({name, value, type}) {
         if (type === ValueType.EMAIL) {
             return <AlternateEmailIcon/>
         }
+        if (type === ValueType.COLLECTION) {
+            return <CollectionsIcon/>
+        }
         if (type === undefined) {
             return <DragIndicatorIcon/>
         }
@@ -51,7 +55,7 @@ export const Tag: FC<ITag> = function Tag({name, value, type}) {
     const opacity = isDragging ? 0.4 : 1
     return (
         <Chip
-            sx={{borderRadius: '4px'}}
+            sx={{borderRadius: (theme: Theme) => theme.spacing(0.5)}}
             icon={typeToIcon(type)}
             ref={drag}
             variant="outlined"

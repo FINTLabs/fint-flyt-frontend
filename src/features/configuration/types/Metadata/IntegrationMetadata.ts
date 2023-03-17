@@ -5,7 +5,8 @@ export enum ValueType {
     EMAIL = "EMAIL",
     DATE = "DATE",
     PHONE = "PHONE",
-    FILE = "FILE"
+    FILE = "FILE",
+    COLLECTION = "COLLECTION"
 }
 
 export interface IIntegrationMetadata {
@@ -70,14 +71,59 @@ export const MOCK_INSTANCE_METADATA: IIntegrationMetadata = {
                 objectMetadata: {
                     instanceValueMetadata: [
                         {
-                            displayName: "vedlegg1",
+                            displayName: "tittel",
                             type: ValueType.STRING,
-                            key: "v1"
+                            key: "tittel"
                         },
                         {
-                            displayName: "vedlegg2",
+                            displayName: "opplaster",
+                            type: ValueType.STRING,
+                            key: "opplaster"
+                        },
+                        {
+                            displayName: "Dato",
+                            type: ValueType.DATE,
+                            key: "dato"
+                        },
+                        {
+                            displayName: "Filer",
+                            type: ValueType.FILE,
+                            key: "filer"
+                        },
+                        {
+                            displayName: "Filtype",
+                            type: ValueType.STRING,
+                            key: "filtype"
+                        },
+                        {
+                            displayName: "Kontaktperson",
+                            type: ValueType.DATE,
+                            key: "kontaktperson"
+                        },
+                        {
+                            displayName: "test1",
+                            type: ValueType.FILE,
+                            key: "test1"
+                        }
+                    ],
+                    instanceObjectCollectionMetadata: [],
+                    categories: []
+                }
+            },
+            {
+                displayName: 'vedlegg2',
+                key: 'vedlegg2',
+                objectMetadata: {
+                    instanceValueMetadata: [
+                        {
+                            displayName: "vedlegg2.1",
+                            type: ValueType.STRING,
+                            key: "v2.1"
+                        },
+                        {
+                            displayName: "vedlegg2.2",
                             type: ValueType.EMAIL,
-                            key: "v2"
+                            key: "v2.2"
                         }
                     ],
                     instanceObjectCollectionMetadata: [],

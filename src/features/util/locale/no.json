@@ -41,8 +41,15 @@
     },
     "configuration": {
       "header": "Konfigurasjon",
+      "metadataVersion": "Metadataversjon",
+      "formHeader": "Utgående data",
+      "label": {
+        "checkLabel": "Ferdigstilt",
+        "activeLabel": "Aktiv"
+      },
       "button": {
         "submit": "Send inn",
+        "cancel": "Avbryt",
         "append": "+",
         "remove": "-"
       },

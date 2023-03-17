@@ -2,6 +2,9 @@ import * as React from "react";
 import {useState} from "react";
 import {ToggleButton} from "@mui/material";
 import {ClassNameMap} from "@mui/styles";
+import {toggleButtonSX} from "../../styles/SystemStyles";
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 
 interface Props {
     classes: ClassNameMap;
@@ -16,6 +19,7 @@ const ToggleButtonComponent: React.FunctionComponent<Props> = (props: Props) => 
     return (
         <>
             <ToggleButton
+                sx={toggleButtonSX}
                 value={selected}
                 selected={selected}
                 onClick={() => {
@@ -28,6 +32,7 @@ const ToggleButtonComponent: React.FunctionComponent<Props> = (props: Props) => 
                 }}
             >
                 {props.displayName}
+                {selected ? <KeyboardArrowLeftIcon/> : <KeyboardArrowRightIcon/>}
             </ToggleButton>
         </>
     )
