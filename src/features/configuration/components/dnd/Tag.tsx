@@ -2,16 +2,18 @@ import {FC} from 'react'
 import {useDrag} from 'react-dnd'
 import {Chip, Theme} from "@mui/material";
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
-import TextFieldsIcon from '@mui/icons-material/TextFields';
 import NumbersIcon from '@mui/icons-material/Numbers';
-import ListIcon from '@mui/icons-material/List';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import DialpadIcon from '@mui/icons-material/Dialpad';
-import ToggleOnIcon from '@mui/icons-material/ToggleOn';
-import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
-import CollectionsIcon from '@mui/icons-material/Collections';
 import {ITag} from "../../types/Metadata/Tag";
 import {ValueType} from "../../types/Metadata/IntegrationMetadata";
+import {
+    AlternateEmailRounded,
+    Dialpad,
+    FilePresent,
+    FormatListNumbered,
+    RuleRounded,
+    TextFieldsRounded
+} from "@mui/icons-material";
 
 export const Tag: FC<ITag> = function Tag({name, value, type, tagKey}) {
     const [{isDragging}, drag] = useDrag(() => ({
@@ -24,10 +26,10 @@ export const Tag: FC<ITag> = function Tag({name, value, type, tagKey}) {
 
     function typeToIcon(type: string) {
         if (type === ValueType.STRING) {
-            return <TextFieldsIcon/>
+            return <TextFieldsRounded/>
         }
         if (type === ValueType.FILE) {
-            return <ListIcon/>
+            return <FilePresent/>
         }
         if (type === ValueType.INTEGER) {
             return <NumbersIcon/>
@@ -36,16 +38,16 @@ export const Tag: FC<ITag> = function Tag({name, value, type, tagKey}) {
             return <CalendarMonthIcon/>
         }
         if (type === ValueType.PHONE) {
-            return <DialpadIcon/>
+            return <Dialpad/>
         }
         if (type === ValueType.BOOLEAN) {
-            return <ToggleOnIcon/>
+            return <RuleRounded/>
         }
         if (type === ValueType.EMAIL) {
-            return <AlternateEmailIcon/>
+            return <AlternateEmailRounded/>
         }
         if (type === ValueType.COLLECTION) {
-            return <CollectionsIcon/>
+            return <FormatListNumbered/>
         }
         if (type === undefined) {
             return <DragIndicatorIcon/>
