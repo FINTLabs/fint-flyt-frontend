@@ -40,7 +40,6 @@ const SearchSelectValueComponent: React.FunctionComponent<Props> = (props: Props
                     )}
                     onChange={(_, data) => {
                         data !== null ? field.onChange(data.value) : field.onChange(data)
-                        console.log(data)
                     }}
                 />
             )}
