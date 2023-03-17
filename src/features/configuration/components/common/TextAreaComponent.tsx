@@ -1,9 +1,14 @@
 import * as React from "react";
-import {ElementComponentProps} from "../../types/ElementComponentProps";
 import {TextareaAutosize} from "@mui/material";
 import {fontFamily} from "../../styles/ConfigurationForm.styles";
+import {ClassNameMap} from "@mui/styles";
 
-const TextAreaComponent: React.FunctionComponent<ElementComponentProps> = (props: ElementComponentProps) => {
+interface Props {
+    classes: ClassNameMap;
+    absoluteKey: string;
+}
+
+const TextAreaComponent: React.FunctionComponent<Props> = (props: Props) => {
     return (
         <TextareaAutosize
             className={props.classes.input}

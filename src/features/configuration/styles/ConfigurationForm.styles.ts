@@ -39,7 +39,10 @@ export const configurationFormStyles = makeStyles((theme: Theme) =>
         valueMappingContainer: {
             display: 'flex',
             flexDirection: 'row',
-            justifyContent: 'space-between'
+            justifyContent: 'space-between',
+            "&:first-child": {
+                marginTop: '16px'
+            }
         },
         label: {
             fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
@@ -96,11 +99,14 @@ export const configurationFormStyles = makeStyles((theme: Theme) =>
             borderRadius: theme.spacing(0.5),
             margin: theme.spacing(2)
         },
-        listItem: {
-            "&:first-child": {
-                marginTop: '16px'
-            }
+        listBorderless: {
+            backgroundColor: 'white',
+            listStyle: 'none',
+            padding: 'unset',
+            border: 'none',
+            margin: theme.spacing(2)
         },
+        listItem: {},
         collectionButton: {
             backgroundColor: theme.palette.primary.main,
             borderRadius: theme.spacing(0.5),

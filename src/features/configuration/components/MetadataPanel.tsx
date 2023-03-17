@@ -1,4 +1,4 @@
-import {Box, Theme, Typography} from "@mui/material";
+import {Box, Typography} from "@mui/material";
 import {Tag} from "./dnd/Tag";
 import * as React from "react";
 import {useContext, useEffect} from "react";
@@ -15,6 +15,7 @@ import {
     ValueType
 } from "../types/Metadata/IntegrationMetadata";
 import {ClassNameMap} from "@mui/styles";
+import {metadataPanelSX} from "../styles/SystemStyles";
 
 
 const MetadataPanel: React.FunctionComponent<any> = (props: { classes: ClassNameMap }) => {
@@ -100,7 +101,7 @@ const MetadataPanel: React.FunctionComponent<any> = (props: { classes: ClassName
     return (
         <>
             <Box className={props.classes.panelContainer}
-                 sx={{position: 'sticky', maxHeight: (theme: Theme) => theme.spacing(122), overflow: 'auto'}}>
+                 sx={metadataPanelSX}>
                 <Box className={props.classes.row}>
                     <Typography variant={"h6"}>{t('header')}</Typography>
                     <HelpPopover

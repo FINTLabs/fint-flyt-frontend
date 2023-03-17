@@ -26,7 +26,7 @@ const ArrayComponent: React.FunctionComponent<Props> = (props: Props) => {
     return (
         <>
             {fields.length > 0 &&
-                <ul id={'list-' + props.absoluteKey} className={classes.list}>
+                <ul id={'list-' + props.absoluteKey} className={props.classes.list}>
                     {fields.map((field, index) => (
                             <li id={'list-item-' + index} className={classes.listItem} key={field.id}>
                                 {props.fieldComponentCreator(

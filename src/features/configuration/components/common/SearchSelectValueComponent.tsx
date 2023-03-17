@@ -1,17 +1,19 @@
 import {Controller, useFormContext} from "react-hook-form"
 import * as React from "react";
-import {ElementComponentProps} from "../../types/ElementComponentProps";
 import {ISelectable} from "../../types/Selectable";
 import {Autocomplete, createFilterOptions, TextField} from "@mui/material";
 import {autoCompleteSX} from "../../styles/SystemStyles";
+import {ClassNameMap} from "@mui/styles";
 
-interface Props extends ElementComponentProps {
+interface Props {
+    classes: ClassNameMap;
+    absoluteKey: string;
+    displayName: string;
     selectables: ISelectable[]
     autoComplete: boolean
 }
 
 const SearchSelectValueComponent: React.FunctionComponent<Props> = (props: Props) => {
-    console.log('render searchselect')
     const {control} = useFormContext();
     const filterOptions = createFilterOptions({
         matchFrom: 'any',

@@ -60,8 +60,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                             </Select>
                         </FormControl>
                     </Box>
-                    <TextAreaComponent classes={classes} displayName={"Kommentar"} absoluteKey={"kommentar"}
-                                       description={"kommentar"}/>
+                    <TextAreaComponent classes={classes} absoluteKey={"kommentar"}/>
                 </Box>
                 <Box display="flex" position="relative" width={1} height={1} sx={{border: 'none'}}>
                     <MetadataPanel classes={classes}/>
