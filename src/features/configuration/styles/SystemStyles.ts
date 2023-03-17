@@ -44,3 +44,9 @@ export const autoCompleteSX: SxProps<Theme> = {
     backgroundColor: 'white',
     width: (theme: Theme) => theme.spacing(44)
 }
+
+export const selectSX: SxProps<Theme> = {
+    mb: 2,
+    backgroundColor: 'white',
+    width: (theme: Theme) => theme.spacing(44)
+}

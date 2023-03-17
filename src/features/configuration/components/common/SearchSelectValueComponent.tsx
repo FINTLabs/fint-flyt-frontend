@@ -3,14 +3,11 @@ import * as React from "react";
 import {ISelectable} from "../../types/Selectable";
 import {Autocomplete, createFilterOptions, TextField} from "@mui/material";
 import {autoCompleteSX} from "../../styles/SystemStyles";
-import {ClassNameMap} from "@mui/styles";
 
 interface Props {
-    classes: ClassNameMap;
     absoluteKey: string;
     displayName: string;
     selectables: ISelectable[]
-    autoComplete: boolean
 }
 
 const SearchSelectValueComponent: React.FunctionComponent<Props> = (props: Props) => {

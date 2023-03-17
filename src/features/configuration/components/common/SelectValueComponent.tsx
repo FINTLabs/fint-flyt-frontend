@@ -1,36 +1,39 @@
-import {useFormContext} from "react-hook-form"
+import {Controller, useFormContext} from "react-hook-form"
 import * as React from "react";
 import {ISelectable} from "../../types/Selectable";
-import {ClassNameMap} from "@mui/styles";
+import {MenuItem, Select} from "@mui/material";
+import {selectSX} from "../../styles/SystemStyles";
 
 interface Props {
-    classes: ClassNameMap;
     absoluteKey: string;
     displayName: string;
     selectables: ISelectable[]
-    autoComplete: boolean
 }
 
 const SelectValueComponent: React.FunctionComponent<Props> = (props: Props) => {
-    const {register} = useFormContext();
+    const {control} = useFormContext();
+
     return (
-        <>
-            <label key={props.displayName} className={props.classes.label}>
-                {props.displayName}:
-                <select className={props.classes.select}
-                        {...register(props.absoluteKey)}
-                        autoComplete={props.autoComplete ? 'on' : 'off'}
+        <Controller
+            name={props.absoluteKey}
+            defaultValue={props.selectables[0].value}
+            control={control}
+            render={({field}) =>
+                <Select
+                    {...field}
+                    id={props.absoluteKey}
+                    size={'small'}
+                    sx={selectSX}
                 >
-                    {props.selectables.map(option => {
-                        return (
-                            <option key={option.displayName} value={option.value}>
-                                {option.displayName}
-                            </option>
-                        )
-                    })}
-                </select>
-            </label>
-        </>
+                    {
+                        props.selectables.map(selectable =>
+                            <MenuItem value={selectable.value}>
+                                {selectable.displayName}
+                            </MenuItem>)
+                    }
+                </Select>
+            }
+        />
     );
 }
 export default SelectValueComponent;

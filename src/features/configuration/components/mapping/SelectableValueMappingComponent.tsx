@@ -28,19 +28,15 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = (props: 
     switch (props.template.type) {
         case SelectableValueType.DROPDOWN:
             return <SelectValueComponent
-                classes={props.classes}
                 absoluteKey={valueAbsoluteKey}
                 displayName={props.displayName}
                 selectables={selectables}
-                autoComplete={false}
             />
         case SelectableValueType.SEARCH_SELECT:
             return <SearchSelectValueComponent
-                classes={props.classes}
                 absoluteKey={valueAbsoluteKey}
                 displayName={props.displayName}
                 selectables={selectables}
-                autoComplete={true}
             />
         case SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT:
             return <></>
