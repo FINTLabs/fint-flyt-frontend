@@ -11,7 +11,8 @@ interface Props {
     classes: ClassNameMap;
     absoluteKey: string;
     displayName: string;
-    template: ISelectableValueTemplate
+    template: ISelectableValueTemplate;
+    disabled?: boolean;
 }
 
 const SelectableValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
@@ -31,12 +32,14 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = (props: 
                 absoluteKey={valueAbsoluteKey}
                 displayName={props.displayName}
                 selectables={selectables}
+                disabled={props.disabled}
             />
         case SelectableValueType.SEARCH_SELECT:
             return <SearchSelectValueComponent
                 absoluteKey={valueAbsoluteKey}
                 displayName={props.displayName}
                 selectables={selectables}
+                disabled={props.disabled}
             />
         case SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT:
             return <></>

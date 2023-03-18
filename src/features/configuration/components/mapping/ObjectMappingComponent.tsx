@@ -7,6 +7,7 @@ import {ClassNameMap} from "@mui/styles";
 import HelpPopover from "../popover/HelpPopover";
 import ToggleButtonComponent from "../common/ToggleButtonComponent";
 import {NestedElementsCallbacks} from "../../types/NestedElementCallbacks";
+import {DependencySatisfiedStatefulValue} from "../../util/DependencyUtils";
 
 interface Props {
     classes: ClassNameMap;
@@ -64,10 +65,13 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                                     classes={props.classes}
                                     absoluteKey={props.absoluteKey + ".valueMappingPerKey." + template.elementConfig.key}
                                     displayName={template.elementConfig.displayName}
-                                    template={template.template}/>
+                                    template={template.template}
+                                    disabled={template.elementConfig.enableDependency ? !DependencySatisfiedStatefulValue(props.absoluteKey, template.elementConfig.enableDependency) : undefined}
+                                />
                                 <HelpPopover popoverContent={template.elementConfig.description}/>
                             </div>
                     ),
+
                     ...toOrderedReactElements(
                         props.template.selectableValueTemplates,
                         (template: IElementTemplate<ISelectableValueTemplate>) =>
@@ -77,10 +81,13 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                                     classes={props.classes}
                                     absoluteKey={props.absoluteKey + ".valueMappingPerKey." + template.elementConfig.key}
                                     displayName={template.elementConfig.displayName}
-                                    template={template.template}/>
+                                    template={template.template}
+                                    disabled={template.elementConfig.enableDependency ? !DependencySatisfiedStatefulValue(props.absoluteKey, template.elementConfig.enableDependency) : undefined}
+                                />
                                 <HelpPopover popoverContent={template.elementConfig.description}/>
                             </div>
                     ),
+
                     ...toOrderedReactElements(
                         props.template.valueCollectionTemplates,
                         (template) =>
@@ -95,8 +102,10 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                                     template: template.template
                                 })}
                                 onUnselected={() => props.nestedElementCallbacks.onNestedElementClose([template.order])}
+                                disabled={template.elementConfig.enableDependency ? !DependencySatisfiedStatefulValue(props.absoluteKey, template.elementConfig.enableDependency) : undefined}
                             />
                     ),
+
                     ...toOrderedReactElements(
                         props.template.objectTemplates,
                         (template) =>
@@ -111,8 +120,10 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                                     template: template.template
                                 })}
                                 onUnselected={() => props.nestedElementCallbacks.onNestedElementClose([template.order])}
+                                disabled={template.elementConfig.enableDependency ? !DependencySatisfiedStatefulValue(props.absoluteKey, template.elementConfig.enableDependency) : undefined}
                             />
                     ),
+
                     ...toOrderedReactElements(
                         props.template.objectCollectionTemplates,
                         (template) =>
@@ -127,6 +138,7 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                                     template: template.template
                                 })}
                                 onUnselected={() => props.nestedElementCallbacks.onNestedElementClose([template.order])}
+                                disabled={template.elementConfig.enableDependency ? !DependencySatisfiedStatefulValue(props.absoluteKey, template.elementConfig.enableDependency) : undefined}
                             />
                     )
                 ]

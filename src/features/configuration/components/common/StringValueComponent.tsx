@@ -7,6 +7,7 @@ interface Props {
     classes: ClassNameMap;
     absoluteKey: string;
     displayName: string;
+    disabled?: boolean;
 }
 
 const StringValueComponent: React.FunctionComponent<Props> = (props: Props) => {
@@ -17,8 +18,14 @@ const StringValueComponent: React.FunctionComponent<Props> = (props: Props) => {
                 name={props.absoluteKey}
                 control={control}
                 render={({field}) =>
-                    <TextField style={{backgroundColor: 'white'}} variant='outlined' size='small'
-                               label={props.displayName} {...field}/>
+                    <TextField
+                        style={{backgroundColor: 'white'}}
+                        variant='outlined'
+                        size='small'
+                        label={props.displayName}
+                        disabled={props.disabled}
+                        {...field}
+                    />
                 }
             />
         </div>

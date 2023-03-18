@@ -12,7 +12,8 @@ interface Props {
     classes: ClassNameMap;
     absoluteKey: string;
     displayName: string;
-    accept: ValueType[]
+    accept: ValueType[];
+    disabled?: boolean;
 }
 
 const DynamicStringValueComponent: React.FunctionComponent<Props> = (props: Props) => {
@@ -77,6 +78,7 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = (props: Prop
                         multiline
                         maxRows={3}
                         label={props.displayName}
+                        disabled={props.disabled}
                         {...field}
                     />
                 }

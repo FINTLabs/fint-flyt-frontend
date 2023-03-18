@@ -11,7 +11,9 @@ interface Props {
     classes: ClassNameMap;
     absoluteKey: string;
     displayName: string;
-    template: IValueTemplate
+    template: IValueTemplate,
+    disabled?: boolean;
+    hidden?: boolean;
 }
 
 const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
@@ -24,6 +26,7 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
                 classes={props.classes}
                 absoluteKey={valueAbsoluteKey}
                 displayName={props.displayName}
+                disabled={props.disabled}
             />
         case TemplateValueType.DYNAMIC_STRING:
             setValue(props.absoluteKey + ".type", ConfigurationValueType.DYNAMIC_STRING)
@@ -38,6 +41,7 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
                     MetadataValueType.DATE,
                     MetadataValueType.PHONE
                 ]}
+                disabled={props.disabled}
             />
         case TemplateValueType.FILE:
             setValue(props.absoluteKey + ".type", ConfigurationValueType.FILE)
@@ -48,6 +52,7 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
                 accept={[
                     MetadataValueType.FILE
                 ]}
+                disabled={props.disabled}
             />
     }
 }

@@ -7,7 +7,8 @@ import {autoCompleteSX} from "../../styles/SystemStyles";
 interface Props {
     absoluteKey: string;
     displayName: string;
-    selectables: ISelectable[]
+    selectables: ISelectable[];
+    disabled?: boolean;
 }
 
 const SearchSelectValueComponent: React.FunctionComponent<Props> = (props: Props) => {
@@ -42,6 +43,7 @@ const SearchSelectValueComponent: React.FunctionComponent<Props> = (props: Props
                         data !== null ? field.onChange(data.value) : field.onChange(data)
                         console.log(data)
                     }}
+                    disabled={props.disabled}
                 />
             )}
         />

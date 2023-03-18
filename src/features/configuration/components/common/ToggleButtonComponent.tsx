@@ -11,7 +11,8 @@ interface Props {
     displayName: string;
     onSelected: () => void;
     onUnselected: () => void;
-    initiallySelected?: boolean
+    initiallySelected?: boolean;
+    disabled?: boolean;
 }
 
 const ToggleButtonComponent: React.FunctionComponent<Props> = (props: Props) => {
@@ -30,6 +31,7 @@ const ToggleButtonComponent: React.FunctionComponent<Props> = (props: Props) => 
                     }
                     setSelected(!selected);
                 }}
+                disabled={props.disabled}
             >
                 {props.displayName}
                 {selected ? <KeyboardArrowLeftIcon/> : <KeyboardArrowRightIcon/>}
