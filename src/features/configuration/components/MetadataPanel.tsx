@@ -64,7 +64,6 @@ const MetadataPanel: React.FunctionComponent<any> = (props: { classes: ClassName
 
 
     function TagTree({items, depth = 0}: any) {
-        console.log(items)
         if (!items.categories || !items.instanceValueMetadata || !items.instanceObjectCollectionMetadata) {
             return null
         }
@@ -115,10 +114,10 @@ const MetadataPanel: React.FunctionComponent<any> = (props: { classes: ClassName
                 </Box>
                 {instanceObjectCollectionMetadata.length > 0 &&
                     <>
-                        {instanceObjectCollectionMetadata.map((iocm: IInstanceObjectCollectionMetadata) => {
+                        {instanceObjectCollectionMetadata.map((instanceObjectCollectionMetadata: IInstanceObjectCollectionMetadata, index) => {
                             return (
-                                <Box className={props.classes.panel}>
-                                    <TagTreeCollectionValues items={iocm}/>
+                                <Box key={index} className={props.classes.panel}>
+                                    <TagTreeCollectionValues items={instanceObjectCollectionMetadata}/>
                                 </Box>
                             )
                         })}

@@ -24,11 +24,10 @@ const SourceApplicationProvider: FC = ({children}) => {
     const [instanceObjectCollectionMetadata, setInstanceObjectCollectionMetadata] = useState<IInstanceObjectCollectionMetadata[]>(contextDefaultValues.instanceObjectCollectionMetadata)
     const [sourceApplication, setSourceApplication] = useState<number>(contextDefaultValues.sourceApplication);
 
-    function getInstanceObjectCollectionMetadata(key: string): void {
+    function getInstanceObjectCollectionMetadata(valueKey: string): void {
         if (instanceElementMetadata) {
-            console.log(findInInstanceMetadata(instanceElementMetadata, 'key', key))
             const selectedInstanceObjectCollectionMetadata: IInstanceObjectCollectionMetadata | undefined =
-                findInInstanceMetadata(instanceElementMetadata, 'key', key)
+                findInInstanceMetadata(instanceElementMetadata, 'key', valueKey)
             if (selectedInstanceObjectCollectionMetadata) {
                 setInstanceObjectCollectionMetadata(oldList => [...oldList, selectedInstanceObjectCollectionMetadata])
             }

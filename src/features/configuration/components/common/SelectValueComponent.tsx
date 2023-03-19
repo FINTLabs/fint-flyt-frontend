@@ -26,8 +26,8 @@ const SelectValueComponent: React.FunctionComponent<Props> = (props: Props) => {
                     sx={selectSX}
                 >
                     {
-                        props.selectables.map(selectable =>
-                            <MenuItem value={selectable.value}>
+                        props.selectables.map((selectable: ISelectable, index) =>
+                            <MenuItem key={index} value={selectable.value}>
                                 {selectable.displayName}
                             </MenuItem>)
                     }

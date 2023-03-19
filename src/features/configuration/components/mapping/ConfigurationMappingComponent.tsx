@@ -162,23 +162,21 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
     return (
         <>
             {getElementsByColumn(displayRootElement).map((column: Omit<ColumnElement, 'nestedColumnElementsPerOrder'>[], index) =>
-                <>
-                    <div id={'column-' + index} key={'column-' + index}
-                         className={props.classes.column}>
-                        {
-                            column
-                                .map((element, elementIndex) =>
-                                    <ColumnElementComponent
-                                        classes={props.classes}
-                                        index={elementIndex}
-                                        path={element.path}
-                                        title={element.title}
-                                        content={element.reactElement}
-                                    />
-                                )
-                        }
-                    </div>
-                </>
+                <div id={'column-' + index} key={'column-' + index}
+                     className={props.classes.column}>
+                    {
+                        column
+                            .map((element, elementIndex) =>
+                                <ColumnElementComponent
+                                    classes={props.classes}
+                                    index={elementIndex}
+                                    path={element.path}
+                                    title={element.title}
+                                    content={element.reactElement}
+                                />
+                            )
+                    }
+                </div>
             )}
         </>
     )

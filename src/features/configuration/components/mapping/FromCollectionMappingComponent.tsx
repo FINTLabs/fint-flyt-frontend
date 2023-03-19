@@ -1,5 +1,5 @@
 import * as React from "react";
-import {ReactElement, useState} from "react";
+import {ReactElement, useContext} from "react";
 import ArrayComponent from "../common/ArrayComponent";
 import {useTranslation} from "react-i18next";
 import {ClassNameMap} from "@mui/styles";
@@ -8,6 +8,7 @@ import {ValueType} from "../../types/Metadata/IntegrationMetadata";
 import EditIcon from '@mui/icons-material/Edit';
 import EditOffIcon from '@mui/icons-material/EditOff';
 import {IconButton} from "@mui/material";
+import {ConfigurationContext} from "../../../../context/configurationContext";
 
 interface Props {
     classes: ClassNameMap;
@@ -17,15 +18,19 @@ interface Props {
 
 const FromCollectionMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.configuration.fromCollectionMapping'});
-    // TODO: replace with context state
-    const [canEdit, setCanEdit] = useState<boolean>(true);
-
+    // TODO: disable fields not decending from editCollections key
+    const {editingCollection, setEditingCollection} = useContext(ConfigurationContext);
+    console.log(editingCollection)
     return (
         <>
             <div id={'collection-mapping-header-' + props.absoluteKey}
                  className={props.classes.title}>{t("collections")}
-                <IconButton aria-label="edit" onClick={(e) => setCanEdit(prevState => !prevState)}>
-                    {canEdit ? <EditIcon/> : <EditOffIcon/>}
+                <IconButton aria-label="edit" onClick={(e) => {
+                    editingCollection !== props.absoluteKey
+                        ? setEditingCollection(props.absoluteKey)
+                        : setEditingCollection(undefined)
+                }}>
+                    {editingCollection !== props.absoluteKey ? <EditIcon/> : <EditOffIcon/>}
                 </IconButton>
             </div>
             <ArrayComponent
