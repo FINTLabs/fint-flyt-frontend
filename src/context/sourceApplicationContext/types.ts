@@ -19,7 +19,7 @@ export type SourceApplicationContextState = {
     getAvailableForms: () => void;
     allMetadata: IIntegrationMetadata[];
     instanceElementMetadata: IInstanceMetadataContent | undefined;
-    instanceObjectCollectionMetadata: IInstanceObjectCollectionMetadata | undefined,
+    instanceObjectCollectionMetadata: IInstanceObjectCollectionMetadata[],
     getInstanceObjectCollectionMetadata: (key: string) => void,
     getAllMetadata: (onlyLatest: boolean) => void;
     getInstanceElementMetadata: (metadataId: string) => void;
@@ -49,7 +49,7 @@ export const contextDefaultValues: SourceApplicationContextState = {
         version: 0
     }],
     instanceElementMetadata: undefined,
-    instanceObjectCollectionMetadata: undefined,
+    instanceObjectCollectionMetadata: [],
     getInstanceObjectCollectionMetadata: () => {
     },
     getAllMetadata: () => {

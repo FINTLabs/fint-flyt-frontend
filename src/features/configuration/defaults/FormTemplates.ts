@@ -15,7 +15,7 @@ export const testObjectTemplateSak: IElementTemplate<IObjectTemplate> =
                     "elementConfig": {
                         "key": "id",
                         "displayName": "Saksnummer",
-                        "description": "",
+                        "description": "Eksempel 2021/12345",
                         "showDependency": {
                             "hasAnyCombination": [
                                 [
@@ -45,7 +45,7 @@ export const testObjectTemplateSak: IElementTemplate<IObjectTemplate> =
                     "elementConfig": {
                         "key": "type",
                         "displayName": "Sakslogikk",
-                        "description": ""
+                        "description": "Integrasjonslogikk"
                     },
                     "template": {
                         "type": SelectableValueType.DROPDOWN,
@@ -95,7 +95,7 @@ export const testObjectTemplateSak: IElementTemplate<IObjectTemplate> =
                                 "elementConfig": {
                                     "key": "tittel",
                                     "displayName": "Tittel",
-                                    "description": ""
+                                    "description": "Tittel eller navn på arkivenheten"
                                 },
                                 "template": {
                                     "type": ValueType.DYNAMIC_STRING
@@ -106,7 +106,7 @@ export const testObjectTemplateSak: IElementTemplate<IObjectTemplate> =
                                 "elementConfig": {
                                     "key": "offentligTittel",
                                     "displayName": "Offentlig tittel",
-                                    "description": ""
+                                    "description": "Offentlig tittel på arkivenheten, ord som skal skjermes er fjernet fra innholdet i tittelen (erstattet med ******)"
                                 },
                                 "template": {
                                     "type": ValueType.DYNAMIC_STRING
@@ -119,7 +119,7 @@ export const testObjectTemplateSak: IElementTemplate<IObjectTemplate> =
                                 "elementConfig": {
                                     "key": "saksmappetype",
                                     "displayName": "Saksmappetype",
-                                    "description": ""
+                                    "description": "Type saksmappe."
                                 },
                                 "template": {
                                     "type": SelectableValueType.SEARCH_SELECT,
@@ -135,7 +135,7 @@ export const testObjectTemplateSak: IElementTemplate<IObjectTemplate> =
                                 "elementConfig": {
                                     "key": "journalenhet",
                                     "displayName": "Journalenhet",
-                                    "description": ""
+                                    "description": "Navn på enhet som har det arkivmessige ansvaret for kvalitetssikring av arkivdanningen, og eventuelt registrering (journalføring) og arkivering av fysiske dokumenter."
                                 },
                                 "template": {
                                     "type": SelectableValueType.SEARCH_SELECT,
@@ -151,7 +151,7 @@ export const testObjectTemplateSak: IElementTemplate<IObjectTemplate> =
                                 "elementConfig": {
                                     "key": "administrativenhet",
                                     "displayName": "Administrativ enhet",
-                                    "description": ""
+                                    "description": "Navn på avdeling, kontor eller annen administrativ enhet som har ansvaret for saksbehandlingen."
                                 },
                                 "template": {
                                     "type": SelectableValueType.SEARCH_SELECT,
@@ -167,7 +167,7 @@ export const testObjectTemplateSak: IElementTemplate<IObjectTemplate> =
                                 "elementConfig": {
                                     "key": "saksansvarlig",
                                     "displayName": "Saksansvarlig",
-                                    "description": ""
+                                    "description": "Navn på person som er saksansvarlig."
                                 },
                                 "template": {
                                     "type": SelectableValueType.SEARCH_SELECT,
@@ -183,7 +183,7 @@ export const testObjectTemplateSak: IElementTemplate<IObjectTemplate> =
                                 "elementConfig": {
                                     "key": "arkivdel",
                                     "displayName": "Arkivdel",
-                                    "description": ""
+                                    "description": "Arkivdel som mappe tilhører."
                                 },
                                 "template": {
                                     "type": SelectableValueType.SEARCH_SELECT,
@@ -199,7 +199,7 @@ export const testObjectTemplateSak: IElementTemplate<IObjectTemplate> =
                                 "elementConfig": {
                                     "key": "saksstatus",
                                     "displayName": "Saksstatus",
-                                    "description": ""
+                                    "description": "Registreres automatisk gjennom forskjellig saksbehandlings- funksjonalitet, eller overstyres manuelt."
                                 },
                                 "template": {
                                     "type": SelectableValueType.SEARCH_SELECT,
@@ -217,7 +217,7 @@ export const testObjectTemplateSak: IElementTemplate<IObjectTemplate> =
                                 "elementConfig": {
                                     "key": "skjerming",
                                     "displayName": "Skjerming",
-                                    "description": ""
+                                    "description": "Skjerming av mappe"
                                 },
                                 "template": {
                                     "selectableValueTemplates": [
@@ -226,7 +226,7 @@ export const testObjectTemplateSak: IElementTemplate<IObjectTemplate> =
                                             "elementConfig": {
                                                 "key": "tilgangsrestriksjon",
                                                 "displayName": "Tilgangsrestriksjon",
-                                                "description": ""
+                                                "description": "Tilgangsrestriksjon"
                                             },
                                             "template": {
                                                 "type": SelectableValueType.SEARCH_SELECT,
@@ -242,7 +242,7 @@ export const testObjectTemplateSak: IElementTemplate<IObjectTemplate> =
                                             "elementConfig": {
                                                 "key": "skjermingshjemmel",
                                                 "displayName": "Skjermingshjemmel",
-                                                "description": ""
+                                                "description": "Skjermingshjemmel"
                                             },
                                             "template": {
                                                 "type": SelectableValueType.SEARCH_SELECT,
@@ -263,7 +263,7 @@ export const testObjectTemplateSak: IElementTemplate<IObjectTemplate> =
                                 "elementConfig": {
                                     "key": "klassering",
                                     "displayName": "Klassering",
-                                    "description": ""
+                                    "description": "Klassifisering av mappe"
                                 },
                                 "template": {
                                     "elementTemplate": {
@@ -273,7 +273,7 @@ export const testObjectTemplateSak: IElementTemplate<IObjectTemplate> =
                                                 "elementConfig": {
                                                     "key": "rekkefølge",
                                                     "displayName": "Rekkefølge",
-                                                    "description": ""
+                                                    "description": "Rekkefølge for klasseringer"
                                                 },
                                                 "template": {
                                                     "type": ValueType.STRING
@@ -297,7 +297,7 @@ export const testObjectTemplateSak: IElementTemplate<IObjectTemplate> =
                                                 "elementConfig": {
                                                     "key": "klassifikasjonssystem",
                                                     "displayName": "Klassifikasjonssystem",
-                                                    "description": ""
+                                                    "description": "Klassifikasjonssystem klassen tilhører"
                                                 },
                                                 "template": {
                                                     "type": SelectableValueType.SEARCH_SELECT,
@@ -313,7 +313,7 @@ export const testObjectTemplateSak: IElementTemplate<IObjectTemplate> =
                                                 "elementConfig": {
                                                     "key": "klasseId",
                                                     "displayName": "KlasseID",
-                                                    "description": ""
+                                                    "description": "Entydig identifikasjon av klassen innenfor klassifikasjonssystemet."
                                                 },
                                                 "template": {
                                                     "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
@@ -346,7 +346,7 @@ export const testObjectTemplateSak: IElementTemplate<IObjectTemplate> =
                                                 "elementConfig": {
                                                     "key": "tittel",
                                                     "displayName": "Tittel",
-                                                    "description": ""
+                                                    "description": "Tittel eller navn på arkivenheten"
                                                 },
                                                 "template": {
                                                     "type": ValueType.DYNAMIC_STRING
@@ -357,7 +357,7 @@ export const testObjectTemplateSak: IElementTemplate<IObjectTemplate> =
                                                 "elementConfig": {
                                                     "key": "offentligTittel",
                                                     "displayName": "Offentlig tittel",
-                                                    "description": ""
+                                                    "description": "Offentlig tittel på arkivenheten, ord som skal skjermes er fjernet fra innholdet i tittelen (erstattet med ******)"
                                                 },
                                                 "template": {
                                                     "type": ValueType.DYNAMIC_STRING
@@ -761,7 +761,7 @@ export const testObjectTemplateSak: IElementTemplate<IObjectTemplate> =
                                                                                 "elementConfig": {
                                                                                     "key": "fil",
                                                                                     "displayName": "Fil",
-                                                                                    "description": ""
+                                                                                    "description": "Her kan du kun bruke metadata"
                                                                                 },
                                                                                 "template": {
                                                                                     "type": ValueType.FILE
@@ -1259,7 +1259,7 @@ export const testObjectTemplateSak: IElementTemplate<IObjectTemplate> =
                                                                     "elementConfig": {
                                                                         "key": "fil",
                                                                         "displayName": "Fil",
-                                                                        "description": ""
+                                                                        "description": "Her kan du kun bruke metadata"
                                                                     },
                                                                     "template": {
                                                                         "type": ValueType.FILE

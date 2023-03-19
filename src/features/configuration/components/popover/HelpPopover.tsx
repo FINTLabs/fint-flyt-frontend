@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
-import {IconButton} from "@mui/material";
+import {IconButton, Theme} from "@mui/material";
 import HelpIcon from '@mui/icons-material/Help';
 
 const HelpPopover: React.FunctionComponent<any> = (props: {popoverContent: string}) => {
@@ -38,7 +38,7 @@ const HelpPopover: React.FunctionComponent<any> = (props: {popoverContent: strin
                     horizontal: 'left',
                 }}
             >
-                <Typography sx={{ p: 3 }}>{props.popoverContent}</Typography>
+                <Typography sx={{ p: 3, width: (theme: Theme) => theme.spacing(30)}}>{props.popoverContent}</Typography>
             </Popover>
         </div>
     );

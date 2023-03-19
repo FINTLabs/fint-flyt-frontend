@@ -96,7 +96,6 @@ const IntegrationTable: React.FunctionComponent<any> = (props: { classes: ClassN
                                 setExistingIntegration(params.row)
                                 setSourceApplication(params.row.sourceApplicationId)
                                 getAllMetadata(true);
-                                //TODO: remove when we can no longer use old forms, and use selected sourceApplication and sourceApplicationIntegrationId to get the right metadata
                                 getConfigurations(0, 10000, "version", "DESC", false, params.row.id, true)
                                 getCompletedConfigurations(0, 10000, "id", "ASC", true, params.row.id, true)
                                 setHistory();

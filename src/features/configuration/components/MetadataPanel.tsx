@@ -55,7 +55,7 @@ const MetadataPanel: React.FunctionComponent<any> = (props: { classes: ClassName
                 <div>
                     <div style={{paddingLeft: depth * 15}} key={'tagTreeCollectionValues-' + items.key}>
                         <Typography>Valgt Samling: {items.displayName}</Typography>
-                        <TagTreeValues items={items.objectMetadata}/>
+                        <TagTree items={items.objectMetadata}/>
                     </div>
                 </div>
             </>
@@ -112,10 +112,17 @@ const MetadataPanel: React.FunctionComponent<any> = (props: { classes: ClassName
                     <TagTree items={MOCK_INSTANCE_METADATA.instanceMetadata}/>
                     {/*<Link style={{fontFamily: 'sans-serif'}} to={{pathname: selectedMetadata.sourceApplicationIntegrationUri}} target="_blank">{t('openLink')}</Link>*/}
                 </Box>
-                {instanceObjectCollectionMetadata &&
-                    <Box className={props.classes.panel}>
-                        <TagTreeCollectionValues items={instanceObjectCollectionMetadata}/>
-                    </Box>}
+                {instanceObjectCollectionMetadata.length > 0 &&
+                    <>
+                        {instanceObjectCollectionMetadata.map((instanceObjectCollectionMetadata: IInstanceObjectCollectionMetadata, index) => {
+                            return (
+                                <Box key={index} className={props.classes.panel}>
+                                    <TagTreeCollectionValues items={instanceObjectCollectionMetadata}/>
+                                </Box>
+                            )
+                        })}
+                    </>
+                }
             </Box>
         </>
     );
