@@ -1,5 +1,4 @@
 import * as React from "react";
-import {useState} from "react";
 import {ToggleButton} from "@mui/material";
 import {ClassNameMap} from "@mui/styles";
 import {toggleButtonSX} from "../../styles/SystemStyles";
@@ -11,30 +10,28 @@ interface Props {
     displayName: string;
     onSelected: () => void;
     onUnselected: () => void;
-    initiallySelected?: boolean;
+    selected: boolean;
     disabled?: boolean;
 }
 
 const ToggleButtonComponent: React.FunctionComponent<Props> = (props: Props) => {
-    const [selected, setSelected] = useState(props.initiallySelected ? props.initiallySelected : false);
     return (
         <>
             <ToggleButton
                 sx={toggleButtonSX}
-                value={selected}
-                selected={selected}
+                value={props.selected}
+                selected={props.selected}
                 onClick={() => {
-                    if (!selected) {
+                    if (!props.selected) {
                         props.onSelected()
                     } else {
                         props.onUnselected()
                     }
-                    setSelected(!selected);
                 }}
                 disabled={props.disabled}
             >
                 {props.displayName}
-                {selected ? <KeyboardArrowLeftIcon/> : <KeyboardArrowRightIcon/>}
+                {props.selected ? <KeyboardArrowLeftIcon/> : <KeyboardArrowRightIcon/>}
             </ToggleButton>
         </>
     )

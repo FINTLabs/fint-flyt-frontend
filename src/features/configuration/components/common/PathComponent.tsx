@@ -21,7 +21,7 @@ const PathComponent: React.FunctionComponent<Props> = (props: { classes: ClassNa
             {
                 splitPath(4, props.path)
                     .map((pathChunk: string[]) => {
-                        return <>{pathChunk.join("/") + "/"}<br/></>
+                        return <>{pathChunk.join("/")}<br/></>
                     })
             }
         </p>

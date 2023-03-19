@@ -8,8 +8,8 @@ import {ClassNameMap} from "@mui/styles";
 interface Props {
     classes: ClassNameMap;
     absoluteKey: string;
-    elementComponentCreator: (order: number[], displayPath: string[], absoluteKey: string) => ReactElement;
-    onFieldClose?: (order: number[]) => void,
+    elementComponentCreator: (order: string, displayPath: string[], absoluteKey: string) => ReactElement;
+    onFieldClose?: (order: string) => void,
 }
 
 const CollectionMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
@@ -23,7 +23,7 @@ const CollectionMappingComponent: React.FunctionComponent<Props> = (props: Props
                 absoluteKey={props.absoluteKey + ".elementMappings"}
                 fieldComponentCreator={
                     (index: number, absoluteKey: string) => props.elementComponentCreator(
-                        [0, index],
+                        0 + "-" + index,
                         [t("defaultElements"), (index + 1).toString()],
                         absoluteKey
                     )
@@ -33,7 +33,7 @@ const CollectionMappingComponent: React.FunctionComponent<Props> = (props: Props
                 }}
                 onFieldClose={(index: number) => {
                     if (props.onFieldClose) {
-                        props.onFieldClose([0, index])
+                        props.onFieldClose(0 + "-" + index)
                     }
                 }}
             />
@@ -47,7 +47,7 @@ const CollectionMappingComponent: React.FunctionComponent<Props> = (props: Props
                         absoluteKey={absoluteKey}
                         elementComponentCreator={
                             (absoluteKey: string) => props.elementComponentCreator(
-                                [1, index],
+                                1 + "-" + index,
                                 [t("generatedElements"), (index + 1).toString()],
                                 absoluteKey
                             )
@@ -59,7 +59,7 @@ const CollectionMappingComponent: React.FunctionComponent<Props> = (props: Props
                 }}
                 onFieldClose={(index: number) => {
                     if (props.onFieldClose) {
-                        props.onFieldClose([1, index])
+                        props.onFieldClose(1 + "-" + index)
                     }
                 }}
             />

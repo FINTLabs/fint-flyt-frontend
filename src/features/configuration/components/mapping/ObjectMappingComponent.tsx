@@ -9,15 +9,16 @@ import ToggleButtonComponent from "../common/ToggleButtonComponent";
 import {NestedElementsCallbacks} from "../../types/NestedElementCallbacks";
 import {DependencySatisfiedStatefulValue} from "../../util/DependencyUtils";
 
-interface Props {
+export interface Props {
     classes: ClassNameMap;
     absoluteKey: string;
     template: IObjectTemplate;
-    nestedElementCallbacks: NestedElementsCallbacks
+    nestedElementCallbacks: NestedElementsCallbacks,
+    openNestedElementsByOrder: Set<string>
 }
 
 export type NestedElementTemplate<T> = {
-    order: number[];
+    order: string;
     absoluteKey: string;
     displayPath: string[];
     displayName: string;
@@ -25,7 +26,7 @@ export type NestedElementTemplate<T> = {
 }
 
 export type OrderedObjectElement = {
-    order: number[]
+    order: string,
     element: ReactElement;
 }
 
@@ -35,20 +36,10 @@ function toOrderedReactElements<T>(
 ): OrderedObjectElement[] {
     return elementTemplates
         .map((template: IElementTemplate<T>) => ({
-                order: [template.order],
+                order: template.order.toString(),
                 element: reactElementMappingFunction(template, template.order)
             })
         )
-}
-
-function compareOrder(columnOrder1: number[], columnOrder2: number[]): number {
-    for (let columnIndex = 0; columnIndex < Math.min(columnOrder1.length, columnOrder2.length); columnIndex++) {
-        const compare = columnOrder1[columnIndex] - columnOrder2[columnIndex];
-        if (compare !== 0) {
-            return compare;
-        }
-    }
-    return columnOrder1.length - columnOrder2.length
 }
 
 const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
@@ -90,20 +81,23 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
 
                     ...toOrderedReactElements(
                         props.template.valueCollectionTemplates,
-                        (template) =>
-                            <ToggleButtonComponent
+                        (template) => {
+                            const order: string = template.order.toString();
+                            return <ToggleButtonComponent
                                 classes={props.classes}
                                 displayName={template.elementConfig.displayName}
+                                selected={props.openNestedElementsByOrder.has(order)}
                                 onSelected={() => props.nestedElementCallbacks.onNestedValueCollectionOpen({
-                                    order: [template.order],
+                                    order: order,
                                     absoluteKey: props.absoluteKey + ".valueCollectionMappingPerKey." + template.elementConfig.key,
                                     displayPath: [],
                                     displayName: template.elementConfig.displayName,
                                     template: template.template
                                 })}
-                                onUnselected={() => props.nestedElementCallbacks.onNestedElementClose([template.order])}
+                                onUnselected={() => props.nestedElementCallbacks.onNestedValueCollectionClose(template.order.toString())}
                                 disabled={template.elementConfig.enableDependency ? !DependencySatisfiedStatefulValue(props.absoluteKey, template.elementConfig.enableDependency) : undefined}
                             />
+                        }
                     ),
 
                     ...toOrderedReactElements(
@@ -112,14 +106,15 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                             <ToggleButtonComponent
                                 classes={props.classes}
                                 displayName={template.elementConfig.displayName}
+                                selected={props.openNestedElementsByOrder.has(template.order.toString())}
                                 onSelected={() => props.nestedElementCallbacks.onNestedObjectOpen({
-                                    order: [template.order],
+                                    order: template.order.toString(),
                                     absoluteKey: props.absoluteKey + ".objectMappingPerKey." + template.elementConfig.key,
                                     displayPath: [],
                                     displayName: template.elementConfig.displayName,
                                     template: template.template
                                 })}
-                                onUnselected={() => props.nestedElementCallbacks.onNestedElementClose([template.order])}
+                                onUnselected={() => props.nestedElementCallbacks.onNestedObjectClose(template.order.toString())}
                                 disabled={template.elementConfig.enableDependency ? !DependencySatisfiedStatefulValue(props.absoluteKey, template.elementConfig.enableDependency) : undefined}
                             />
                     ),
@@ -130,19 +125,20 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                             <ToggleButtonComponent
                                 classes={props.classes}
                                 displayName={template.elementConfig.displayName}
+                                selected={props.openNestedElementsByOrder.has(template.order.toString())}
                                 onSelected={() => props.nestedElementCallbacks.onNestedObjectCollectionOpen({
-                                    order: [template.order],
+                                    order: template.order.toString(),
                                     absoluteKey: props.absoluteKey + ".objectCollectionMappingPerKey." + template.elementConfig.key,
                                     displayPath: [],
                                     displayName: template.elementConfig.displayName,
                                     template: template.template
                                 })}
-                                onUnselected={() => props.nestedElementCallbacks.onNestedElementClose([template.order])}
+                                onUnselected={() => props.nestedElementCallbacks.onNestedObjectCollectionClose(template.order.toString())}
                                 disabled={template.elementConfig.enableDependency ? !DependencySatisfiedStatefulValue(props.absoluteKey, template.elementConfig.enableDependency) : undefined}
                             />
                     )
                 ]
-                    .sort((a, b) => compareOrder(a.order, b.order))
+                    .sort((a, b) => a.order.localeCompare(b.order, undefined, {numeric: true}))
                     .map((orderedElement) => orderedElement.element)}
             </fieldset>
         </>

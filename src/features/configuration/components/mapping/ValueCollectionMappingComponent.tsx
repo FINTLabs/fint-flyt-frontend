@@ -4,7 +4,7 @@ import CollectionMappingComponent from "./CollectionMappingComponent";
 import ValueMappingComponent from "./ValueMappingComponent";
 import {IValueTemplate} from "../../types/FormTemplate";
 
-interface Props {
+export interface Props {
     classes: ClassNameMap;
     absoluteKey: string;
     elementTemplate: IValueTemplate
@@ -14,7 +14,7 @@ const ValueCollectionMappingComponent: React.FunctionComponent<Props> = (props: 
     return <CollectionMappingComponent
         classes={props.classes}
         absoluteKey={props.absoluteKey}
-        elementComponentCreator={(order: number[], displayPath: string[], absoluteKey: string) =>
+        elementComponentCreator={(order: string, displayPath: string[], absoluteKey: string) =>
             <ValueMappingComponent
                 classes={props.classes}
                 absoluteKey={absoluteKey}
