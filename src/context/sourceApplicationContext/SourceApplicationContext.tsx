@@ -10,6 +10,7 @@ import {
     MOCK_INSTANCE_METADATA
 } from "../../features/configuration/types/Metadata/IntegrationMetadata";
 import {ISelect} from "../../features/configuration/types/Select";
+import {findInInstanceMetadata} from "../../features/configuration/util/ObjectUtils";
 
 export const SourceApplicationContext = createContext<SourceApplicationContextState>(
     contextDefaultValues
@@ -23,17 +24,14 @@ const SourceApplicationProvider: FC = ({children}) => {
     const [instanceObjectCollectionMetadata, setInstanceObjectCollectionMetadata] = useState<IInstanceObjectCollectionMetadata[]>(contextDefaultValues.instanceObjectCollectionMetadata)
     const [sourceApplication, setSourceApplication] = useState<number>(contextDefaultValues.sourceApplication);
 
-
     function getInstanceObjectCollectionMetadata(key: string): void {
-    //TODO: refactor and support nested vedlegg
-        const selectedInstanceObjectCollectionMetadata: IInstanceObjectCollectionMetadata | undefined =
-        instanceElementMetadata?.instanceObjectCollectionMetadata
-            ?
-            instanceElementMetadata.instanceObjectCollectionMetadata.find(instanceObjectCollectionMetadata =>
-                instanceObjectCollectionMetadata.key === key)
-            : undefined
-        if (selectedInstanceObjectCollectionMetadata) {
-            setInstanceObjectCollectionMetadata(oldList => [...oldList, selectedInstanceObjectCollectionMetadata])
+        if (instanceElementMetadata) {
+            console.log(findInInstanceMetadata(instanceElementMetadata, 'key', key))
+            const selectedInstanceObjectCollectionMetadata: IInstanceObjectCollectionMetadata | undefined =
+                findInInstanceMetadata(instanceElementMetadata, 'key', key)
+            if (selectedInstanceObjectCollectionMetadata) {
+                setInstanceObjectCollectionMetadata(oldList => [...oldList, selectedInstanceObjectCollectionMetadata])
+            }
         }
     }
 
