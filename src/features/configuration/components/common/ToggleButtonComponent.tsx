@@ -7,6 +7,7 @@ import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 
 interface Props {
     classes: ClassNameMap;
+    order: number;
     displayName: string;
     onSelected: () => void;
     onUnselected: () => void;

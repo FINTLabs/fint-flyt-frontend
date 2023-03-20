@@ -3,13 +3,14 @@ import * as React from "react";
 import {useState} from "react";
 import ObjectMappingComponent, {NestedElementTemplate, Props as ObjectMappingProps} from "./ObjectMappingComponent";
 import {ICollectionTemplate, IElementTemplate, IObjectTemplate, IValueTemplate} from "../../types/FormTemplate";
-import {NestedElementsCallbacks} from "../../types/NestedElementCallbacks";
+import {ElementOrders, ElementTemplates, NestedElementsCallbacks} from "../../types/NestedElementCallbacks";
 import ValueCollectionMappingComponent, {Props as ValueCollectionMappingProps} from "./ValueCollectionMappingComponent";
 import ObjectCollectionMappingComponent, {
     Props as ObjectCollectionMappingProps
 } from "./ObjectCollectionMappingComponent";
 import ColumnElementComponent from "./ColumnElementComponent";
 import {range} from "lodash";
+import {useFormContext} from "react-hook-form";
 
 interface Props {
     classes: ClassNameMap
@@ -17,6 +18,8 @@ interface Props {
 }
 
 const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
+
+    const {unregister} = useFormContext();
 
     type ColumnElement<T extends Omit<ObjectMappingProps, 'openNestedElementsByOrder'>
         | Omit<ObjectCollectionMappingProps, 'openNestedElementsByOrder'>
@@ -35,7 +38,7 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
 
     function createEmptyColumnElements(): ColumnElements {
         return {
-            nestedObjectsPerOrder: new Map<string, ColumnElement<ObjectMappingProps>>(),
+            nestedObjectsPerOrder: new Map<string, ColumnElement<Omit<ObjectMappingProps, 'openNestedElementsByOrder'>>>(),
             nestedObjectCollectionsPerOrder: new Map<string, ColumnElement<Omit<ObjectCollectionMappingProps, 'openNestedElementsByOrder'>>>(),
             nestedValueCollectionsPerOrder: new Map<string, ColumnElement<ValueCollectionMappingProps>>()
         }
@@ -64,102 +67,113 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
 
     function createNestedElementsCallbacks(displayPath: string[], nestedColumnElements: ColumnElements): NestedElementsCallbacks {
         return {
-            onNestedObjectOpen:
-                (template: NestedElementTemplate<IObjectTemplate>) => {
-                    const newNestedColumnElements: ColumnElements = createEmptyColumnElements();
-                    nestedColumnElements.nestedObjectsPerOrder.set(
-                        template.order.toString(),
-                        {
-                            path: [...displayPath, ...template.displayPath],
-                            title: template.displayName,
-                            props: {
-                                classes: props.classes,
-                                absoluteKey: template.absoluteKey,
-                                template: template.template,
-                                nestedElementCallbacks: createNestedElementsCallbacks(
-                                    [...displayPath, ...template.displayPath, template.displayName],
-                                    newNestedColumnElements
-                                )
-                            },
-                            nestedColumnElements: newNestedColumnElements
-                        }
-                    )
-                    setDisplayRootElement({...rootElement});
-                },
-            onNestedObjectClose: (order: string) => {
-                nestedColumnElements.nestedObjectsPerOrder.delete(order)
-                setDisplayRootElement({...rootElement});
-            },
-            onNestedObjectCollectionOpen:
-                (template: NestedElementTemplate<ICollectionTemplate<IObjectTemplate>>) => {
-                    const newNestedColumnElements: ColumnElements = createEmptyColumnElements();
+            onElementsOpen: (elementTemplates: ElementTemplates) => {
+                elementTemplates.objects?.forEach(
+                    (template: NestedElementTemplate<IObjectTemplate>) => {
+                        const newNestedColumnElements: ColumnElements = createEmptyColumnElements();
+                        nestedColumnElements.nestedObjectsPerOrder.set(
+                            template.order.toString(),
+                            {
+                                path: [...displayPath, ...template.displayPath],
+                                title: template.displayName,
+                                props: {
+                                    classes: props.classes,
+                                    absoluteKey: template.absoluteKey,
+                                    template: template.template,
+                                    nestedElementCallbacks: createNestedElementsCallbacks(
+                                        [...displayPath, ...template.displayPath, template.displayName],
+                                        newNestedColumnElements
+                                    )
+                                },
+                                nestedColumnElements: newNestedColumnElements
+                            }
+                        )
+                    })
+                elementTemplates.objectCollections?.forEach(
+                    (template: NestedElementTemplate<ICollectionTemplate<IObjectTemplate>>) => {
+                        const newNestedColumnElements: ColumnElements = createEmptyColumnElements();
 
-                    nestedColumnElements.nestedObjectCollectionsPerOrder.set(
-                        template.order,
-                        {
-                            path: [...displayPath, ...template.displayPath],
-                            title: template.displayName,
-                            props: {
-                                classes: props.classes,
-                                absoluteKey: template.absoluteKey,
-                                elementTemplate: template.template.elementTemplate,
-                                nestedElementCallbacks: createNestedElementsCallbacks(
-                                    [...displayPath, ...template.displayPath, template.displayName],
-                                    newNestedColumnElements
-                                )
-                            },
-                            nestedColumnElements: newNestedColumnElements
-                        }
-                    )
-                    setDisplayRootElement({...rootElement});
-                },
-            onNestedObjectCollectionClose: (order: string) => {
-                nestedColumnElements.nestedObjectCollectionsPerOrder.delete(order)
+                        nestedColumnElements.nestedObjectCollectionsPerOrder.set(
+                            template.order,
+                            {
+                                path: [...displayPath, ...template.displayPath],
+                                title: template.displayName,
+                                props: {
+                                    classes: props.classes,
+                                    absoluteKey: template.absoluteKey,
+                                    elementTemplate: template.template.elementTemplate,
+                                    nestedElementCallbacks: createNestedElementsCallbacks(
+                                        [...displayPath, ...template.displayPath, template.displayName],
+                                        newNestedColumnElements
+                                    )
+                                },
+                                nestedColumnElements: newNestedColumnElements
+                            }
+                        )
+                    })
+                elementTemplates.valueCollections?.forEach(
+                    (template: NestedElementTemplate<ICollectionTemplate<IValueTemplate>>) => {
+                        const newNestedColumnElements: ColumnElements = createEmptyColumnElements();
+                        nestedColumnElements.nestedValueCollectionsPerOrder.set(
+                            template.order,
+                            {
+                                path: [...displayPath, ...template.displayPath],
+                                title: template.displayName,
+                                props: {
+                                    classes: props.classes,
+                                    absoluteKey: template.absoluteKey,
+                                    elementTemplate: template.template.elementTemplate
+                                },
+                                nestedColumnElements: newNestedColumnElements
+                            }
+                        )
+
+                    }
+                )
                 setDisplayRootElement({...rootElement});
             },
-            onNestedValueCollectionOpen:
-                (template: NestedElementTemplate<ICollectionTemplate<IValueTemplate>>) => {
-                    const newNestedColumnElements: ColumnElements = createEmptyColumnElements();
-                    nestedColumnElements.nestedValueCollectionsPerOrder.set(
-                        template.order,
-                        {
-                            path: [...displayPath, ...template.displayPath],
-                            title: template.displayName,
-                            props: {
-                                classes: props.classes,
-                                absoluteKey: template.absoluteKey,
-                                elementTemplate: template.template.elementTemplate
-                            },
-                            nestedColumnElements: newNestedColumnElements
-                        }
-                    )
-                    setDisplayRootElement({...rootElement});
-                },
-            onNestedValueCollectionClose: (order: string) => {
-                nestedColumnElements.nestedValueCollectionsPerOrder.delete(order)
+
+            onElementsClose: (elementOrders: ElementOrders) => {
+                const keysToUnregister: string[] = [];
+                elementOrders.objects?.forEach((order: string) => {
+                    nestedColumnElements.nestedObjectsPerOrder.delete(order)
+                })
+                elementOrders.objectCollections?.forEach((order: string) => {
+                    nestedColumnElements.nestedObjectCollectionsPerOrder.delete(order)
+                })
+                elementOrders.valueCollections?.forEach((order: string) => {
+                    nestedColumnElements.nestedValueCollectionsPerOrder.delete(order)
+                })
                 setDisplayRootElement({...rootElement});
+                if (keysToUnregister.length > 0) {
+                    unregister(keysToUnregister);
+                }
             },
+
             onAllNestedElementsClose: (parentOrder: string) => {
-                getKeysStartingWith(nestedColumnElements.nestedObjectsPerOrder, parentOrder).forEach((key) => {
-                        nestedColumnElements.nestedObjectsPerOrder.delete(key)
-                    }
-                );
-                getKeysStartingWith(nestedColumnElements.nestedObjectCollectionsPerOrder, parentOrder).forEach((key) => {
-                        nestedColumnElements.nestedObjectCollectionsPerOrder.delete(key)
-                    }
-                );
-                getKeysStartingWith(nestedColumnElements.nestedValueCollectionsPerOrder, parentOrder).forEach((key) => {
-                        nestedColumnElements.nestedValueCollectionsPerOrder.delete(key)
-                    }
-                );
+                getEntriesWithKeyStartingWith(nestedColumnElements.nestedObjectsPerOrder, parentOrder)
+                    .forEach(([order, value]) => {
+                            nestedColumnElements.nestedObjectsPerOrder.delete(order)
+                        }
+                    );
+                getEntriesWithKeyStartingWith(nestedColumnElements.nestedObjectCollectionsPerOrder, parentOrder)
+                    .forEach(([order, value]) => {
+                            nestedColumnElements.nestedObjectCollectionsPerOrder.delete(order)
+                        }
+                    );
+                getEntriesWithKeyStartingWith(nestedColumnElements.nestedValueCollectionsPerOrder, parentOrder)
+                    .forEach(([order, value]) => {
+                            nestedColumnElements.nestedValueCollectionsPerOrder.delete(order)
+                        }
+                    );
                 setDisplayRootElement({...rootElement});
             }
         }
     }
 
-    function getKeysStartingWith(map: Map<string, any>, startingWith: string): string[] {
-        return Array.from(map.keys())
-            .filter((order: string) => order.startsWith(startingWith))
+    function getEntriesWithKeyStartingWith<T>(map: Map<string, T>, startingWith: string): [string, T][] {
+        return Array.from(map.entries())
+            .filter(([order]: [string, T]) => order.startsWith(startingWith))
     }
 
     function getElementsByColumn(columnElement: ColumnElement<Omit<ObjectMappingProps, 'openNestedElementsByOrder'>>): ColumnElements[] {
@@ -171,7 +185,9 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
         ]
     }
 
-    function getNestedElementsByColumn<T extends Omit<ObjectMappingProps, 'openNestedElementsByOrder'> | Omit<ObjectCollectionMappingProps, 'openNestedElementsByOrder'> | ValueCollectionMappingProps>
+    function getNestedElementsByColumn<T extends Omit<ObjectMappingProps, 'openNestedElementsByOrder'>
+        | Omit<ObjectCollectionMappingProps, 'openNestedElementsByOrder'>
+        | ValueCollectionMappingProps>
     (columnElement: ColumnElement<T>): ColumnElements[] {
         return (columnElement.nestedColumnElements.nestedObjectsPerOrder.size === 0
             && columnElement.nestedColumnElements.nestedObjectCollectionsPerOrder.size === 0
@@ -192,13 +208,16 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
                                     combinedChildColumns[columnIndex] = createEmptyColumnElements()
                                 }
                                 nestedElements[columnIndex].nestedObjectsPerOrder.forEach(
-                                    (value, key) => combinedChildColumns[columnIndex].nestedObjectsPerOrder.set(order + "." + key, value)
+                                    (value, key) =>
+                                        combinedChildColumns[columnIndex].nestedObjectsPerOrder.set(order + "." + key, value)
                                 )
                                 nestedElements[columnIndex].nestedObjectCollectionsPerOrder.forEach(
-                                    (value, key) => combinedChildColumns[columnIndex].nestedObjectCollectionsPerOrder.set(order + "." + key, value)
+                                    (value, key) =>
+                                        combinedChildColumns[columnIndex].nestedObjectCollectionsPerOrder.set(order + "." + key, value)
                                 )
                                 nestedElements[columnIndex].nestedValueCollectionsPerOrder.forEach(
-                                    (value, key) => combinedChildColumns[columnIndex].nestedValueCollectionsPerOrder.set(order + "." + key, value)
+                                    (value, key) =>
+                                        combinedChildColumns[columnIndex].nestedValueCollectionsPerOrder.set(order + "." + key, value)
                                 )
                             })
                         return combinedChildColumns;

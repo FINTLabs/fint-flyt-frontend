@@ -17,8 +17,9 @@ const ValueCollectionMappingComponent: React.FunctionComponent<Props> = (props: 
         elementComponentCreator={(order: string, displayPath: string[], absoluteKey: string) =>
             <ValueMappingComponent
                 classes={props.classes}
+                order={Number.parseInt(order)}
                 absoluteKey={absoluteKey}
-                displayName={order.toString()}
+                displayName={order}
                 template={props.elementTemplate}
             />
         }
