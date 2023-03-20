@@ -81,7 +81,6 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = memo((props: Prop
     }
 
     useEffect(() => {
-        console.log("absoluteKeysToUnregister", ...absoluteKeysToUnregister.current)
         if (objectsToCloseByOrder.current.length > 0
             || valueCollectionsToCloseByOrder.current.length > 0
             || objectCollectionsToCloseByOrder.current.length > 0) {

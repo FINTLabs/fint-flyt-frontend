@@ -27,7 +27,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                     "search": {
                         "urlTemplate": "api/intern/arkiv/saker/{caseId}/tittel",
                         "valueRefPerPathParamKey": {
-                            "caseId": "id"
+                            "caseId": "valueMappingPerKey.id.mappingString"
                         }
                     }
                 }
@@ -472,7 +472,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                                     {
                                                         "urlTemplate": "api/intern/arkiv/kodeverk/klasse",
                                                         "valueRefPerRequestParamKey": {
-                                                            "klassifikasjonssystemLink": "klassifikasjonssystem"
+                                                            "klassifikasjonssystemLink": "valueMappingPerKey.klassifikasjonssystem.mappingString"
                                                         }
                                                     }
                                                 ]

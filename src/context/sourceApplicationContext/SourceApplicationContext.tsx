@@ -25,8 +25,6 @@ const SourceApplicationProvider: FC = ({children}) => {
 
 
     function getInstanceObjectCollectionMetadata(key: string): void {
-        console.log(instanceElementMetadata?.instanceObjectCollectionMetadata)
-        console.log(key)
         const selectedInstanceObjectCollectionMetadata: IInstanceObjectCollectionMetadata | undefined = instanceElementMetadata?.instanceObjectCollectionMetadata ?
             instanceElementMetadata.instanceObjectCollectionMetadata.find(instanceObjectCollectionMetadata =>
                 instanceObjectCollectionMetadata.key === key
