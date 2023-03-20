@@ -93,8 +93,8 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = (props: Prop
                                         console.log(props.search)
                                         if (props.search?.source) {
                                             ResourceRepository.search(props.search.source)
-                                                .then((result: string | undefined) => {
-                                                    setSearchResult("Søkeresultat: " + (result ? result : "Ingen treff"));
+                                                .then((result: { value: string } | undefined) => {
+                                                    setSearchResult("Søkeresultat: " + (result ? result.value : "Ingen treff"));
                                                 })
                                         }
                                     }}>

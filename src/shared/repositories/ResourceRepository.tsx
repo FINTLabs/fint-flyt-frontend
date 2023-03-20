@@ -18,9 +18,9 @@ const getSak = (caseYear: any, id: any) => {
     return axios.get<any>(`/api/intern/arkiv/saker/${caseYear}/${id}/tittel`, {timeout: 10000})
 }
 
-const search = (source: Source): Promise<string | undefined> => {
-    return axios.get<string>(source.url, source.config)
-        .then<string | undefined>((response: AxiosResponse<string | undefined>): string | undefined => response.data)
+const search = (source: Source): Promise<{ value: string } | undefined> => {
+    return axios.get<{ value: string }>('/' + source.url, source.config)
+        .then<{ value: string } | undefined>((response: AxiosResponse<{ value: string } | undefined>): { value: string } | undefined => response.data)
         .catch((err) => {
             console.error(err);
             return undefined;

@@ -30,7 +30,7 @@ const SearchSelectValueComponent: React.FunctionComponent<Props> = (props: Props
                     sx={{mb: 2}}
                     filterOptions={filterOptions}
                     options={props.selectables}
-                    getOptionLabel={(option: ISelectable) => option.displayName}
+                    getOptionLabel={(option: ISelectable) => option ? option.displayName : ''}
                     renderInput={(params) => (
                         <TextField
                             {...params}

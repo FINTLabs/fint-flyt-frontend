@@ -205,7 +205,7 @@ export const testObjectTemplateSak: IElementTemplate<IObjectTemplate> =
                                     "type": SelectableValueType.SEARCH_SELECT,
                                     "selectablesSources": [
                                         {
-                                            "urlTemplate": "api/intern/arkiv/kodeverk/saksstatus"
+                                            "urlTemplate": "api/intern/arkiv/kodeverk/sakstatus"
                                         }
                                     ]
                                 }
