@@ -7,6 +7,7 @@ interface Props {
     classes: ClassNameMap;
     absoluteKey: string;
     displayName: string;
+    multiline?: boolean;
     disabled?: boolean;
 }
 
@@ -25,6 +26,7 @@ const StringValueComponent: React.FunctionComponent<Props> = (props: Props) => {
                             size='small'
                             label={props.displayName}
                             disabled={props.disabled}
+                            multiline={props.multiline}
                             {...field}
                         />
                     </>

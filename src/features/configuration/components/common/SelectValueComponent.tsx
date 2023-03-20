@@ -17,9 +17,9 @@ const SelectValueComponent: React.FunctionComponent<Props> = (props: Props) => {
     return (
         <Controller
             name={props.absoluteKey}
-            defaultValue={props.selectables[0].value}
+            defaultValue={"none"}
             control={control}
-            render={({field}) =>
+            render={({field}) => <>
                 <Select
                     {...field}
                     id={props.absoluteKey}
@@ -27,6 +27,9 @@ const SelectValueComponent: React.FunctionComponent<Props> = (props: Props) => {
                     sx={selectSX}
                     disabled={props.disabled}
                 >
+                    <MenuItem value="none" disabled>
+                        {props.displayName}
+                    </MenuItem>
                     {
                         props.selectables.map(selectable =>
                             <MenuItem value={selectable.value}>
@@ -34,8 +37,10 @@ const SelectValueComponent: React.FunctionComponent<Props> = (props: Props) => {
                             </MenuItem>)
                     }
                 </Select>
+            </>
             }
         />
+
     );
 }
 export default SelectValueComponent;

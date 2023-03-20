@@ -19,6 +19,7 @@ export const destinations: ISelect[] = [
 //TODO after removing old forms
 export const SOURCE_FORM_NO_VALUES: IIntegrationMetadata[] = [
     {
+        id: "0",
         sourceApplicationId: "string",
         sourceApplicationIntegrationId: "string",
         sourceApplicationIntegrationUri: "string",

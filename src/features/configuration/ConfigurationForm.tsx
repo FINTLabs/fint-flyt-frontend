@@ -7,24 +7,14 @@ import {FormProvider, useForm} from "react-hook-form";
 import {HTML5Backend} from "react-dnd-html5-backend";
 import {DndProvider} from "react-dnd";
 import MetadataPanel from "./components/MetadataPanel";
-import {
-    Box,
-    Checkbox,
-    FormControl,
-    FormControlLabel,
-    MenuItem,
-    Select,
-    SelectChangeEvent,
-    Theme,
-    Typography
-} from "@mui/material";
+import {Box, Checkbox, FormControlLabel, Typography} from "@mui/material";
 import {IntegrationContext} from "../../context/integrationContext";
 import {IIntegrationMetadata} from "./types/Metadata/IntegrationMetadata";
 import {useTranslation} from "react-i18next";
-import {flexCenterSX} from "./styles/SystemStyles";
-import TextAreaComponent from "./components/common/TextAreaComponent";
 import {configurationFormStyles} from "./styles/ConfigurationForm.styles";
 import {ConfigurationContext} from '../../context/configurationContext';
+import SelectValueComponent from "./components/common/SelectValueComponent";
+import StringValueComponent from "./components/common/StringValueComponent";
 
 const useStyles = configurationFormStyles
 
@@ -35,7 +25,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     const classes = useStyles();
     const methods = useForm();
     const {selectedMetadata, setSelectedMetadata} = useContext(IntegrationContext)
-    const {allMetadata, getInstanceElementMetadata,} = useContext(SourceApplicationContext)
+    const {allMetadata,} = useContext(SourceApplicationContext)
     const initialVersion: number = selectedMetadata.version;
     const [version, setVersion] = React.useState<string>(initialVersion ? String(initialVersion) : '');
 
@@ -48,14 +38,6 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
             md.sourceApplicationIntegrationId === selectedMetadata.sourceApplicationIntegrationId
     })
 
-    const handleChange = (event: SelectChangeEvent) => {
-        setVersion(event.target.value);
-        let version: number = Number(event.target.value)
-        let integrationMetadata: IIntegrationMetadata[] = availableVersions
-            .filter(metadata => metadata.version === version)
-        setSelectedMetadata(integrationMetadata[0])
-        getInstanceElementMetadata(integrationMetadata[0].id)
-    };
     return (
         <DndProvider backend={HTML5Backend}>
             <FormProvider {...methods}>
@@ -63,23 +45,23 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                     <Box sx={{m: 1}}>
                         <Typography variant={"h6"}>{t('header')}</Typography>
                         <Typography>Integrasjon: PLACEHOLDER VIK123 - TEST - TEST</Typography>
-                        <Box sx={flexCenterSX}>
-                            <Typography sx={{mr: 1}}>{t('metadataVersion')}: </Typography>
-                            <FormControl sx={{backgroundColor: 'white', width: (theme: Theme) => theme.spacing(18)}}
-                                         size="small">
-                                <Select
-                                    id="version-select"
-                                    value={version}
-                                    onChange={handleChange}
-                                >
-                                    {availableVersions.map((md, index) => {
-                                        return <MenuItem key={index}
-                                                         value={md.version}>Versjon {md.version}</MenuItem>
-                                    })}
-                                </Select>
-                            </FormControl>
-                        </Box>
-                        <TextAreaComponent classes={classes} absoluteKey={"comment"}/>
+                        <SelectValueComponent
+                            absoluteKey={"integrationMetadataId"}
+                            displayName={t('metadataVersion')}
+                            selectables={
+                                availableVersions.map(metadata => {
+                                    return {
+                                        displayName: metadata.version.toString(),
+                                        value: metadata.id ? metadata.id.toString() : "0"
+                                    }
+                                })}
+                        />
+                        <StringValueComponent
+                            classes={classes}
+                            displayName={"Kommentar"}
+                            absoluteKey={"comment"}
+                            multiline
+                        />
                     </Box>
                     <Box display="flex" position="relative" width={1} height={1} sx={{border: 'none'}}>
                         <MetadataPanel classes={classes}/>
