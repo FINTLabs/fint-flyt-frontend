@@ -18,18 +18,19 @@ const StringValueComponent: React.FunctionComponent<Props> = (props: Props) => {
                 name={props.absoluteKey}
                 control={control}
                 render={({field}) =>
-                    <TextField
-                        style={{backgroundColor: 'white'}}
-                        variant='outlined'
-                        size='small'
-                        label={props.displayName}
-                        disabled={props.disabled}
-                        {...field}
-                    />
+                    <>
+                        <TextField
+                            style={{backgroundColor: 'white'}}
+                            variant='outlined'
+                            size='small'
+                            label={props.displayName}
+                            disabled={props.disabled}
+                            {...field}
+                        />
+                    </>
                 }
             />
         </div>
-
     )
 }
 export default StringValueComponent;

@@ -7,6 +7,7 @@ import {ValueType as ConfigurationValueType} from "../../types/Configuration";
 import {ValueType as MetadataValueType} from "../../types/Metadata/IntegrationMetadata";
 import {ClassNameMap} from "@mui/styles";
 import HelpPopover from "../popover/HelpPopover";
+import {Search, SourceStatefulValue} from "../../util/UrlUtils";
 
 interface Props {
     classes: ClassNameMap;
@@ -22,6 +23,11 @@ interface Props {
 const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
     const {setValue} = useFormContext();
     const valueAbsoluteKey: string = props.absoluteKey + ".mappingString"
+    let search: Search | undefined;
+    if (props.template.search) {
+        const absoluteKeySplit = props.absoluteKey.split(".");
+        search = SourceStatefulValue(props.template.search, absoluteKeySplit.slice(0, absoluteKeySplit.length - 2).join("."));
+    }
     switch (props.template.type) {
         case TemplateValueType.STRING:
             setValue(props.absoluteKey + ".type", ConfigurationValueType.STRING)
@@ -43,6 +49,7 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
                     classes={props.classes}
                     absoluteKey={valueAbsoluteKey}
                     displayName={props.displayName}
+                    search={search}
                     accept={[
                         MetadataValueType.STRING,
                         MetadataValueType.INTEGER,

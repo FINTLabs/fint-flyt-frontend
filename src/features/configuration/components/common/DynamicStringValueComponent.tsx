@@ -1,17 +1,22 @@
 import * as React from "react";
-import {useContext} from "react";
+import {useContext, useEffect, useState} from "react";
 import {Controller, useFormContext} from "react-hook-form";
 import {useDrop} from "react-dnd";
 import {ITag} from "../../types/Metadata/Tag";
 import {ValueType} from "../../types/Metadata/IntegrationMetadata"
 import {ClassNameMap} from "@mui/styles";
-import {TextField} from "@mui/material";
+import {IconButton, TextField, Typography} from "@mui/material";
 import {SourceApplicationContext} from "../../../../context/sourceApplicationContext";
+import {Search} from "../../util/UrlUtils";
+import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
+import ResourceRepository from "../../../../shared/repositories/ResourceRepository";
+import {searchResultSX} from "../../styles/SystemStyles";
 
 interface Props {
     classes: ClassNameMap;
     absoluteKey: string;
     displayName: string;
+    search?: Search;
     accept: ValueType[];
     disabled?: boolean;
 }
@@ -19,17 +24,15 @@ interface Props {
 const DynamicStringValueComponent: React.FunctionComponent<Props> = (props: Props) => {
     const {getInstanceObjectCollectionMetadata} = useContext(SourceApplicationContext)
     const {setValue, getValues, control} = useFormContext();
-
+    const [searchResult, setSearchResult] = useState<string>()
 
     const [{canDrop, isOver}, dropRef] = useDrop({
         accept: props.accept,
         drop: (tag: ITag) => {
             console.log(tag)
             getValues(props.absoluteKey) === undefined
-                ?
-                setValue(props.absoluteKey, tag.value)
-                :
-                setValue(props.absoluteKey, (getValues(props.absoluteKey) + tag.value))
+                ? setValue(props.absoluteKey, tag.value)
+                : setValue(props.absoluteKey, (getValues(props.absoluteKey) + tag.value))
             if (tag.type === ValueType.COLLECTION && tag.tagKey !== undefined) {
                 console.log('tag type is collection')
                 getInstanceObjectCollectionMetadata(tag.tagKey)
@@ -40,6 +43,10 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = (props: Prop
             isOver: monitor.isOver()
         })
     })
+
+    useEffect(() => {
+        setSearchResult(undefined)
+    }, [props.search])
 
     let background = 'white';
 
@@ -79,10 +86,28 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = (props: Prop
                         maxRows={3}
                         label={props.displayName}
                         disabled={props.disabled}
+                        InputProps={{
+                            endAdornment: (
+                                <>
+                                    {props.search && <IconButton sx={{padding: "4px", margin: "-4px"}} onClick={() => {
+                                        console.log(props.search)
+                                        if (props.search?.source) {
+                                            ResourceRepository.search(props.search.source)
+                                                .then((result: string | undefined) => {
+                                                    setSearchResult("Søkeresultat: " + (result ? result : "Ingen treff"));
+                                                })
+                                        }
+                                    }}>
+                                        <SearchRoundedIcon/>
+                                    </IconButton>}
+                                </>
+                            ),
+                        }}
                         {...field}
                     />
                 }
             />
+            {searchResult && <Typography sx={searchResultSX}>{searchResult}</Typography>}
         </div>
     )
 }

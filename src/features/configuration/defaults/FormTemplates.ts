@@ -33,7 +33,7 @@ export const testObjectTemplateSak: IElementTemplate<IObjectTemplate> =
                         "search": {
                             "urlTemplate": "api/intern/arkiv/saker/{caseId}/tittel",
                             "valueRefPerPathParamKey": {
-                                "caseId": "id"
+                                "caseId": "valueMappingPerKey.id.mappingString"
                             }
                         }
                     }
@@ -336,7 +336,7 @@ export const testObjectTemplateSak: IElementTemplate<IObjectTemplate> =
                                                         {
                                                             "urlTemplate": "api/intern/arkiv/kodeverk/klasse",
                                                             "valueRefPerRequestParamKey": {
-                                                                "klassifikasjonssystemLink": "klassifikasjonssystem"
+                                                                "klassifikasjonssystemLink": "valueMappingPerKey.klassifikasjonssystem.mappingString"
                                                             }
                                                         }
                                                     ]

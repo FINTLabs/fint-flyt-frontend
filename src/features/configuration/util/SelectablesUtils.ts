@@ -5,10 +5,10 @@ import {ISelectable} from "../types/Selectable";
 import {Dispatch, SetStateAction, useEffect, useState} from "react";
 import {Control} from "react-hook-form/dist/types/form";
 import {useWatch} from "react-hook-form";
-import {createSource, Source} from "./UrlUtils";
+import {createSource, createValueRefPerAbsoluteKey, Source} from "./UrlUtils";
 import {getAbsoluteKeyFromValueRef} from "./KeyUtils";
 
-export function CreateSelectables(
+export function SelectablesStatefulValue(
     control: Control,
     staticSelectables: ISelectable[] = [],
     sourceUrlBuilders: IUrlBuilder[] = [],
@@ -31,22 +31,6 @@ export function CreateSelectables(
         updateSelectables(staticSelectables, sourceUrlBuilders, valuePerValueRef, setSelectables)
     }, [useWatchValues])
     return selectables
-}
-
-function createValueRefPerAbsoluteKey(sourceUrlBuilders: IUrlBuilder[], absoluteKey: string): Record<string, string> {
-    return sourceUrlBuilders.map(urlBuilder => [
-            ...urlBuilder.valueRefPerRequestParamKey ? Object.values(urlBuilder.valueRefPerRequestParamKey) : [],
-            ...urlBuilder.valueRefPerPathParamKey ? Object.values(urlBuilder.valueRefPerPathParamKey) : []
-        ]
-    ).reduce<Record<string, string>>(
-        (valueRefPerAbsoluteKey: Record<string, string>, currentValue) => {
-            currentValue.forEach(
-                valueRef => valueRefPerAbsoluteKey[getAbsoluteKeyFromValueRef(valueRef, absoluteKey)] = valueRef
-            )
-            return valueRefPerAbsoluteKey;
-        },
-        {}
-    )
 }
 
 function updateSelectables(

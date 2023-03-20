@@ -1,5 +1,6 @@
 import axios, {AxiosRequestConfig, AxiosResponse} from "axios";
 import {ISelectable} from "../../features/configuration/types/Selectable";
+import {Source} from "../../features/configuration/util/UrlUtils";
 
 const getClasses = (link: string) => {
     return axios.get<any>(`/api/intern/arkiv/kodeverk/klasse/`, {params: {klassifikasjonssystemLink: link}});
@@ -16,11 +17,22 @@ const getSelectables = (url: string, config?: AxiosRequestConfig): Promise<Axios
 const getSak = (caseYear: any, id: any) => {
     return axios.get<any>(`/api/intern/arkiv/saker/${caseYear}/${id}/tittel`, {timeout: 10000})
 }
+
+const search = (source: Source): Promise<string | undefined> => {
+    return axios.get<string>(source.url, source.config)
+        .then<string | undefined>((response: AxiosResponse<string | undefined>): string | undefined => response.data)
+        .catch((err) => {
+            console.error(err);
+            return undefined;
+        })
+}
+
 const ResourceRepository = {
     getClasses,
     getResource,
     getSelectables,
-    getSak
+    getSak,
+    search
 };
 
 export default ResourceRepository;

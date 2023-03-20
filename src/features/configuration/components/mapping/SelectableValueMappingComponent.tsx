@@ -3,7 +3,7 @@ import {ISelectableValueTemplate, SelectableValueType} from "../../types/FormTem
 import SelectValueComponent from "../common/SelectValueComponent";
 import {useFormContext} from "react-hook-form";
 import {ValueType} from "../../types/Configuration";
-import {CreateSelectables} from "../../util/SelectablesUtils";
+import {SelectablesStatefulValue} from "../../util/SelectablesUtils";
 import SearchSelectValueComponent from "../common/SearchSelectValueComponent";
 import {ClassNameMap} from "@mui/styles";
 import HelpPopover from "../popover/HelpPopover";
@@ -20,7 +20,7 @@ interface Props {
 
 const SelectableValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
     const {control, setValue} = useFormContext();
-    const selectables = CreateSelectables(
+    const selectables = SelectablesStatefulValue(
         control,
         props.template.selectables,
         props.template.selectablesSources,
