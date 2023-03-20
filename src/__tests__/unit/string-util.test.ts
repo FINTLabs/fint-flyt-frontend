@@ -1,5 +1,5 @@
 import {IErrorArg, stringReplace} from "../../features/util/StringUtil";
-import {ErrorType} from "../../features/log/types/ErrorType";
+import {ErrorType} from "../../features/instanceOverview/types/ErrorType";
 
 const testStrings: string[] = [
     "Valideringsfeil i mottak av instans, '#fieldPath# #errorMessage#'",

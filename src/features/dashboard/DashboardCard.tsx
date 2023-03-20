@@ -7,7 +7,7 @@ const DashboardCard: React.FunctionComponent<any> = (props) => {
     const classes = props.classes;
 
     return (
-        <Card className={classes.card} sx={{ minWidth: 200, maxWidth: 345 }}>
+        <Card className={classes.card} sx={{minWidth: 200, maxWidth: 345}}>
             <CardContent>
                 <Typography>
                     {props.value} {props.content}
@@ -16,7 +16,8 @@ const DashboardCard: React.FunctionComponent<any> = (props) => {
             <CardActions>
                 {props.links && props.links.map((link: ILink, index: number) => {
                     return (
-                        <Button key={index} id={props.id + `-btn-` + index} size="small" variant="text" component={RouterLink} to={link.href}>{link.name}</Button>
+                        <Button key={index} id={props.id + `-btn-` + index} size="small" variant="text"
+                                component={RouterLink} to={link.href}>{link.name}</Button>
                     )
                 })}
             </CardActions>

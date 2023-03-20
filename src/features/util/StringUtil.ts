@@ -1,4 +1,4 @@
-import {ErrorType} from "../log/types/ErrorType";
+import {ErrorType} from "../instanceOverview/types/ErrorType";
 
 export function stringReplace(baseString: string, errorArgs: IErrorArg[]) {
     let errorString = baseString;

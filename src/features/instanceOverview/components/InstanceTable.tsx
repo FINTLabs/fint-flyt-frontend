@@ -16,8 +16,8 @@ import {getSourceApplicationDisplayName} from "../../configuration/defaults/Defa
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import Stack from "@mui/material/Stack";
 import {stringReplace} from "../../util/StringUtil";
-import {ErrorType} from "../../log/types/ErrorType";
-import {IEvent} from "../../log/types/Event";
+import {ErrorType} from "../types/ErrorType";
+import {IEvent} from "../types/Event";
 import {SourceApplicationContext} from "../../../context/sourceApplicationContext";
 import RefreshIcon from '@mui/icons-material/Refresh';
 import {ClassNameMap} from "@mui/styles";
@@ -174,7 +174,7 @@ const InstanceTable: React.FunctionComponent<any> = (props: { classes: ClassName
             <Button
                 sx={{mb: 2}}
                 variant='contained'
-                onClick={e => getLatestInstances(0, 10000, "timestamp", "DESC",
+                onClick={() => getLatestInstances(0, 10000, "timestamp", "DESC",
                     sourceApplication.toString())}
                 endIcon={<RefreshIcon/>}
             >{t('button.refresh')}
