@@ -16,3 +16,7 @@ export function findInInstanceMetadata(instanceMetadata: IInstanceMetadataConten
     });
     return instanceObjectCollectionMetadata;
 }
+
+export function editCollectionAbsoluteKeyIncludesAbsoluteKey(editCollectionKey: string, absoluteKey: string): boolean {
+    return absoluteKey.includes(editCollectionKey);
+}

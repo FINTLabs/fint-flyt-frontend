@@ -5,6 +5,9 @@ import {ITag} from "../../types/Metadata/Tag";
 import {ValueType} from "../../types/Metadata/IntegrationMetadata"
 import {ClassNameMap} from "@mui/styles";
 import {TextField} from "@mui/material";
+import {useContext} from "react";
+import {ConfigurationContext} from "../../../../context/configurationContext";
+import {editCollectionAbsoluteKeyIncludesAbsoluteKey} from "../../util/ObjectUtils";
 
 interface Props {
     classes: ClassNameMap;
@@ -15,6 +18,10 @@ interface Props {
 
 const DragAndDropComponent: React.FunctionComponent<Props> = (props: Props) => {
     const {setValue, getValues, control} = useFormContext();
+    const {editingCollection} = useContext(ConfigurationContext)
+    let disable: boolean = editingCollection ?
+        !editCollectionAbsoluteKeyIncludesAbsoluteKey(editingCollection, props.absoluteKey)
+        : false;
 
     const [{canDrop, isOver}, dropRef] = useDrop({
         accept: props.accept,
@@ -55,7 +62,7 @@ const DragAndDropComponent: React.FunctionComponent<Props> = (props: Props) => {
     }
 
     return (
-        <div id={"dnd-value-component-" + props.absoluteKey} ref={dropRef} key={props.absoluteKey}>
+        <div id={"dnd-value-component-" + props.absoluteKey} ref={disable ? undefined : dropRef} key={props.absoluteKey}>
             <Controller
                 name={props.absoluteKey}
                 control={control}

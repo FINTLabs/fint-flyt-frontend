@@ -3,6 +3,9 @@ import * as React from "react";
 import {ISelectable} from "../../types/Selectable";
 import {MenuItem, Select} from "@mui/material";
 import {selectSX} from "../../styles/SystemStyles";
+import {useContext} from "react";
+import {ConfigurationContext} from "../../../../context/configurationContext";
+import {editCollectionAbsoluteKeyIncludesAbsoluteKey} from "../../util/ObjectUtils";
 
 interface Props {
     absoluteKey: string;
@@ -12,7 +15,10 @@ interface Props {
 
 const SelectValueComponent: React.FunctionComponent<Props> = (props: Props) => {
     const {control} = useFormContext();
-
+    const {editingCollection} = useContext(ConfigurationContext)
+    let disable: boolean = editingCollection ?
+        !editCollectionAbsoluteKeyIncludesAbsoluteKey(editingCollection, props.absoluteKey)
+        : false;
     return (
         <Controller
             name={props.absoluteKey}
@@ -21,6 +27,7 @@ const SelectValueComponent: React.FunctionComponent<Props> = (props: Props) => {
             render={({field}) =>
                 <Select
                     {...field}
+                    disabled={disable}
                     id={props.absoluteKey}
                     size={'small'}
                     sx={selectSX}

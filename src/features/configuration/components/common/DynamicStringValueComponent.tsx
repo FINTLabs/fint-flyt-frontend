@@ -7,6 +7,8 @@ import {ValueType} from "../../types/Metadata/IntegrationMetadata"
 import {ClassNameMap} from "@mui/styles";
 import {TextField} from "@mui/material";
 import {SourceApplicationContext} from "../../../../context/sourceApplicationContext";
+import {ConfigurationContext} from "../../../../context/configurationContext";
+import {editCollectionAbsoluteKeyIncludesAbsoluteKey} from "../../util/ObjectUtils";
 
 interface Props {
     classes: ClassNameMap;
@@ -18,19 +20,20 @@ interface Props {
 const DynamicStringValueComponent: React.FunctionComponent<Props> = (props: Props) => {
     const {getInstanceObjectCollectionMetadata} = useContext(SourceApplicationContext)
     const {setValue, getValues, control} = useFormContext();
-
+    const {editingCollection} = useContext(ConfigurationContext)
+    let disable: boolean = editingCollection ?
+        !editCollectionAbsoluteKeyIncludesAbsoluteKey(editingCollection, props.absoluteKey)
+        : false;
 
     const [{canDrop, isOver}, dropRef] = useDrop({
         accept: props.accept,
         drop: (tag: ITag) => {
-            console.log(tag)
             getValues(props.absoluteKey) === undefined
                 ?
                 setValue(props.absoluteKey, tag.value)
                 :
                 setValue(props.absoluteKey, (getValues(props.absoluteKey) + tag.value))
             if (tag.type === ValueType.COLLECTION && tag.tagKey !== undefined) {
-                console.log('tag type is collection')
                 getInstanceObjectCollectionMetadata(tag.tagKey)
             }
         },
@@ -52,10 +55,8 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = (props: Prop
 
     if (canDrop && isOver) {
         background = 'lightgreen';
-    } else if (canDrop) {
+    } else if (canDrop && !disable) {
         background = 'lightblue';
-    } else if (isOver && !canDrop) {
-        background = 'red';
     }
 
     const dynamicStyle: React.CSSProperties = {
@@ -64,7 +65,7 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = (props: Prop
     }
 
     return (
-        <div id={"dnd-value-component-" + props.absoluteKey} ref={dropRef} key={props.absoluteKey}>
+        <div id={"dnd-value-component-" + props.absoluteKey} ref={disable ? undefined : dropRef} key={props.absoluteKey}>
             <Controller
                 name={props.absoluteKey}
                 control={control}
@@ -72,6 +73,7 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = (props: Prop
                 render={({field}) =>
                     <TextField
                         style={dynamicStyle}
+                        disabled={disable}
                         variant='outlined'
                         size='small'
                         multiline

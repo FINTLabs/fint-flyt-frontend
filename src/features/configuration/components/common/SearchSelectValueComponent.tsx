@@ -3,6 +3,9 @@ import * as React from "react";
 import {ISelectable} from "../../types/Selectable";
 import {Autocomplete, createFilterOptions, TextField} from "@mui/material";
 import {autoCompleteSX} from "../../styles/SystemStyles";
+import {useContext} from "react";
+import {ConfigurationContext} from "../../../../context/configurationContext";
+import {editCollectionAbsoluteKeyIncludesAbsoluteKey} from "../../util/ObjectUtils";
 
 interface Props {
     absoluteKey: string;
@@ -12,12 +15,15 @@ interface Props {
 
 const SearchSelectValueComponent: React.FunctionComponent<Props> = (props: Props) => {
     const {control} = useFormContext();
+    const {editingCollection} = useContext(ConfigurationContext)
     const filterOptions = createFilterOptions({
         matchFrom: 'any',
         stringify: (option: ISelectable) => option.displayName,
         limit: 250
     });
-
+    let disable: boolean = editingCollection ?
+        !editCollectionAbsoluteKeyIncludesAbsoluteKey(editingCollection, props.absoluteKey)
+        : false;
     return (
         <Controller
             name={props.absoluteKey}
@@ -25,6 +31,7 @@ const SearchSelectValueComponent: React.FunctionComponent<Props> = (props: Props
             render={({field}) => (
                 <Autocomplete
                     {...field}
+                    disabled={disable}
                     id={props.absoluteKey}
                     sx={{mb: 2}}
                     filterOptions={filterOptions}
