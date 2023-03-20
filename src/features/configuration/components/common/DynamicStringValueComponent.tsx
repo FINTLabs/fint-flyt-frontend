@@ -65,7 +65,8 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = (props: Prop
     }
 
     return (
-        <div id={"dnd-value-component-" + props.absoluteKey} ref={disable ? undefined : dropRef} key={props.absoluteKey}>
+        <div id={"dnd-value-component-" + props.absoluteKey} ref={disable ? undefined : dropRef}
+             key={props.absoluteKey}>
             <Controller
                 name={props.absoluteKey}
                 control={control}

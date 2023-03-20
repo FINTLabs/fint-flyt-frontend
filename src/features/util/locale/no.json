@@ -330,7 +330,7 @@
   },
   "components": {
     "MetadataPanel": {
-      "header": "Metadata",
+      "header": "Innkommende data",
       "version": "Versjon",
       "openLink": "Åpne i skjemaadministrator"
     },

@@ -16,7 +16,7 @@ export interface IIntegrationMetadata {
     sourceApplicationIntegrationUri: string;
     integrationDisplayName: string;
     version: number;
-    instanceElementMetadata: IInstanceElementMetadata[];
+    instanceElementMetadata: IInstanceElementMetadata[]; // TODO: remove old instanceElementMetadata
     instanceMetadata?: IInstanceMetadataContent;
 }
 
@@ -230,6 +230,142 @@ export const MOCK_INSTANCE_METADATA: IIntegrationMetadata = {
                     ],
                     categories: []
                 }
+            }
+        ]
+    }
+}
+
+export const MOCK_INSTANCE_EGRV_METADATA: IIntegrationMetadata = {
+    "sourceApplicationId": "2",
+    "sourceApplicationIntegrationId": "arkivsak",
+    "sourceApplicationIntegrationUri": "",
+    "integrationDisplayName": "Arkivsak",
+    "version": 1,
+    "instanceElementMetadata": [],
+    "instanceMetadata": {
+        "categories": [],
+        "instanceValueMetadata": [
+            {
+                "displayName": "Kommunenummer",
+                "type": ValueType.STRING,
+                "key": "knr"
+            },
+            {
+                "displayName": "Gårdsnummer",
+                "type": ValueType.STRING,
+                "key": "gnr"
+            },
+            {
+                "displayName": "Bruksnummer",
+                "type": ValueType.STRING,
+                "key": "bnr"
+            },
+            {
+                "displayName": "Festenummer",
+                "type": ValueType.STRING,
+                "key": "fnr"
+            },
+            {
+                "displayName": "Seksjonsnummer",
+                "type": ValueType.STRING,
+                "key": "snr"
+            },
+            {
+                "displayName": "Eierforholdskode",
+                "type": ValueType.STRING,
+                "key": "eierforholdskode"
+            },
+            {
+                "displayName": "Eierforholdsnavn",
+                "type": ValueType.STRING,
+                "key": "eierforholdsnavn"
+            },
+            {
+                "displayName": "Takstnummer",
+                "type": ValueType.STRING,
+                "key": "takstnummer"
+            },
+            {
+                "displayName": "Prosjektnummer",
+                "type": ValueType.STRING,
+                "key": "prosjektnr"
+            },
+            {
+                "displayName": "Prosjektnavn",
+                "type": ValueType.STRING,
+                "key": "prosjektnavn"
+            },
+            {
+                "displayName": "Kommunenavn",
+                "type": ValueType.STRING,
+                "key": "kommunenavn"
+            },
+            {
+                "displayName": "Adresse",
+                "type": ValueType.STRING,
+                "key": "adresse"
+            },
+            {
+                "displayName": "Tittel",
+                "type": ValueType.STRING,
+                "key": "tittel"
+            },
+            {
+                "displayName": "Saksansvarlig E-post",
+                "type": ValueType.STRING,
+                "key": "saksansvarligEpost"
+            }
+        ],
+        "instanceObjectCollectionMetadata": [
+            {
+                "displayName": "Saksparter",
+                "objectMetadata": {
+                    "categories": [],
+                    "instanceObjectCollectionMetadata": [],
+                    "instanceValueMetadata": [
+                        {
+                            "displayName": "RolleID",
+                            "type": ValueType.STRING,
+                            "key": "sakspartRolleId"
+                        },
+                        {
+                            "displayName": "Navn",
+                            "type": ValueType.STRING,
+                            "key": "navn"
+                        },
+                        {
+                            "displayName": "Organisasjonsnummer",
+                            "type": ValueType.STRING,
+                            "key": "organisasjonsnummer"
+                        },
+                        {
+                            "displayName": "E-post",
+                            "type": ValueType.STRING,
+                            "key": "epost"
+                        },
+                        {
+                            "displayName": "Telefon",
+                            "type": ValueType.STRING,
+                            "key": "telefon"
+                        },
+                        {
+                            "displayName": "Postadresse",
+                            "type": ValueType.STRING,
+                            "key": "postadresse"
+                        },
+                        {
+                            "displayName": "Postnummer",
+                            "type": ValueType.STRING,
+                            "key": "postnummer"
+                        },
+                        {
+                            "displayName": "Poststed",
+                            "type": ValueType.STRING,
+                            "key": "poststed"
+                        }
+                    ]
+                },
+                "key": "saksparter"
             }
         ]
     }

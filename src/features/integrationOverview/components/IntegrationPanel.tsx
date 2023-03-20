@@ -33,7 +33,6 @@ import {
 } from "../../configuration/defaults/DefaultValues";
 import ConfigurationRepository from "../../../shared/repositories/ConfigurationRepository";
 import {IIntegrationPatch} from "../../integration/types/Integration";
-import {ResourcesContext} from "../../../context/resourcesContext";
 import {IConfiguration} from "../../configuration/types/Configuration";
 import {ISelect} from "../../configuration/types/Select";
 import {ClassNameMap} from "@mui/styles";
@@ -169,8 +168,8 @@ const IntegrationPanel: React.FunctionComponent<any> = (props: { classes: ClassN
                 <Button
                     size="small"
                     variant="contained"
-                    onClick={(e) => {
-                        handleNewOrEditConfigClick(props.row.id).then(r => history.push("/integration/configuration/edit")
+                    onClick={() => {
+                        handleNewOrEditConfigClick(props.row.id).then(() => history.push("/integration/configuration/edit")
                         )
                     }}
                 >{completed ? t('button.show') : t('button.edit')}
@@ -343,7 +342,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props: { classes: ClassN
             >
                 <MenuItem component={RouterLink} to='/integration/configuration/new-configuration'
                           onClick={handleNewConfigClose}>
-                    <Button id="demo-positioned-button" onClick={(e) => {
+                    <Button id="demo-positioned-button" onClick={() => {
                         let selectedForm = allMetadata.filter(md => md.sourceApplicationIntegrationId === existingIntegration?.sourceApplicationIntegrationId)
                         setSelectedMetadata(selectedForm.length > 0 ? selectedForm[0] : SOURCE_FORM_NO_VALUES[0])
                         getInstanceElementMetadata(selectedForm[0].id)
@@ -382,8 +381,8 @@ const IntegrationPanel: React.FunctionComponent<any> = (props: { classes: ClassN
                     >
                         {completedConfigurations && completedConfigurations.map((config: any, index: number) => {
                                 return <MenuItem onClick={handleNewConfigSubClose} key={index}>
-                                    <Button id="version-button" onClick={(e) => {
-                                        handleNewOrEditConfigClick(config.id, config.version).then(r => history.push("/integration/configuration/edit"))
+                                    <Button id="version-button" onClick={() => {
+                                        handleNewOrEditConfigClick(config.id, config.version).then(() => history.push("/integration/configuration/edit"))
                                     }}>
                                         {t('button.version')} {config.version}
                                     </Button>
@@ -397,7 +396,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props: { classes: ClassN
                 sx={{mt: 5, ml: 5}}
                 id="back-button"
                 variant="contained"
-                onClick={(e) => {
+                onClick={() => {
                     resetIntegrations();
                     history.push("/integration/list")
                 }}

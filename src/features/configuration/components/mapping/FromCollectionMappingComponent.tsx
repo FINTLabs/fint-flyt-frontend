@@ -18,13 +18,12 @@ interface Props {
 
 const FromCollectionMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.configuration.fromCollectionMapping'});
-    // TODO: disable fields not decending from editCollections key
     const {editingCollection, setEditingCollection} = useContext(ConfigurationContext);
     return (
         <>
             <div id={'collection-mapping-header-' + props.absoluteKey}
                  className={props.classes.title}>{t("collections")}
-                <IconButton aria-label="edit" onClick={(e) => {
+                <IconButton aria-label="edit" onClick={() => {
                     editingCollection !== props.absoluteKey
                         ? setEditingCollection(props.absoluteKey)
                         : setEditingCollection(undefined)

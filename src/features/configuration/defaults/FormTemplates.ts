@@ -9,36 +9,7 @@ export const testObjectTemplateSak: IElementTemplate<IObjectTemplate> =
             "description": ""
         },
         "template": {
-            "valueTemplates": [
-                {
-                    "order": 2,
-                    "elementConfig": {
-                        "key": "id",
-                        "displayName": "Saksnummer",
-                        "description": "Eksempel 2021/12345",
-                        "showDependency": {
-                            "hasAnyCombination": [
-                                [
-                                    {
-                                        "key": "type",
-                                        "defined": true,
-                                        "value": "BY_ID"
-                                    }
-                                ]
-                            ]
-                        }
-                    },
-                    "template": {
-                        "type": ValueType.DYNAMIC_STRING,
-                        "search": {
-                            "urlTemplate": "api/intern/arkiv/saker/{caseId}/tittel",
-                            "valueRefPerPathParamKey": {
-                                "caseId": "id"
-                            }
-                        }
-                    }
-                }
-            ],
+            "valueTemplates": [],
             "selectableValueTemplates": [
                 {
                     "order": 0,
@@ -812,160 +783,211 @@ export const testObjectTemplateSak: IElementTemplate<IObjectTemplate> =
                                         ]
                                     }
                                 }
-                            }
-                        ]
-                    }
-                }
-            ],
-            "objectCollectionTemplates": [
-                {
-                    "order": 3,
-                    "elementConfig": {
-                        "key": "journalpost",
-                        "displayName": "Journalposter",
-                        "description": "",
-                        "showDependency": {
-                            "hasAnyCombination": [
-                                [
-                                    {
-                                        "key": "type",
-                                        "defined": true,
-                                        "value": "BY_ID"
-                                    }
-                                ]
-                            ]
-                        }
-                    },
-                    "template": {
-                        "elementTemplate": {
-                            "valueTemplates": [
-                                {
-                                    "order": 0,
-                                    "elementConfig": {
-                                        "key": "tittel",
-                                        "displayName": "Tittel",
-                                        "description": ""
-                                    },
-                                    "template": {
-                                        "type": ValueType.DYNAMIC_STRING
-                                    }
+                            },
+                            {
+                                "order": 10,
+                                "elementConfig": {
+                                    "key": "part",
+                                    "displayName": "Parter",
+                                    "description": ""
                                 },
-                                {
-                                    "order": 1,
-                                    "elementConfig": {
-                                        "key": "offentligTittel",
-                                        "displayName": "Offentlig tittel",
-                                        "description": ""
-                                    },
-                                    "template": {
-                                        "type": ValueType.DYNAMIC_STRING
-                                    }
-                                }
-                            ],
-                            "selectableValueTemplates": [
-                                {
-                                    "order": 2,
-                                    "elementConfig": {
-                                        "key": "journalposttype",
-                                        "displayName": "Journalposttype",
-                                        "description": ""
-                                    },
-                                    "template": {
-                                        "type": SelectableValueType.SEARCH_SELECT,
-                                        "selectablesSources": [
+                                "template": {
+                                    "elementTemplate": {
+                                        "valueTemplates": [
                                             {
-                                                "urlTemplate": "api/intern/arkiv/kodeverk/journalposttype"
-                                            }
-                                        ]
-                                    }
-                                },
-                                {
-                                    "order": 3,
-                                    "elementConfig": {
-                                        "key": "administrativEnhet",
-                                        "displayName": "Administrativ enhet",
-                                        "description": ""
-                                    },
-                                    "template": {
-                                        "type": SelectableValueType.SEARCH_SELECT,
-                                        "selectablesSources": [
+                                                "order": 1,
+                                                "elementConfig": {
+                                                    "key": "organisasjonsnummer",
+                                                    "displayName": "Organisasjonsnummer",
+                                                    "description": ""
+                                                },
+                                                "template": {
+                                                    "type": ValueType.DYNAMIC_STRING
+                                                }
+                                            },
                                             {
-                                                "urlTemplate": "api/intern/arkiv/kodeverk/administrativenhet"
-                                            }
-                                        ]
-                                    }
-                                },
-                                {
-                                    "order": 4,
-                                    "elementConfig": {
-                                        "key": "saksbehandler",
-                                        "displayName": "Saksbehandler",
-                                        "description": ""
-                                    },
-                                    "template": {
-                                        "type": SelectableValueType.SEARCH_SELECT,
-                                        "selectablesSources": [
+                                                "order": 2,
+                                                "elementConfig": {
+                                                    "key": "fodselsnummer",
+                                                    "displayName": "Fødselsnummer",
+                                                    "description": ""
+                                                },
+                                                "template": {
+                                                    "type": ValueType.DYNAMIC_STRING
+                                                }
+                                            },
                                             {
-                                                "urlTemplate": "api/intern/arkiv/kodeverk/arkivressurs"
+                                                "order": 3,
+                                                "elementConfig": {
+                                                    "key": "navn",
+                                                    "displayName": "Navn",
+                                                    "description": ""
+                                                },
+                                                "template": {
+                                                    "type": ValueType.DYNAMIC_STRING
+                                                }
                                             }
-                                        ]
-                                    }
-                                },
-                                {
-                                    "order": 5,
-                                    "elementConfig": {
-                                        "key": "journalstatus",
-                                        "displayName": "Journalstatus",
-                                        "description": ""
-                                    },
-                                    "template": {
-                                        "type": SelectableValueType.SEARCH_SELECT,
-                                        "selectablesSources": [
-                                            {
-                                                "urlTemplate": "api/intern/arkiv/kodeverk/journalstatus"
-                                            }
-                                        ]
-                                    }
-                                }
-                            ],
-                            "objectTemplates": [
-                                {
-                                    "order": 6,
-                                    "elementConfig": {
-                                        "key": "skjerming",
-                                        "displayName": "Skjerming",
-                                        "description": ""
-                                    },
-                                    "template": {
+                                        ],
                                         "selectableValueTemplates": [
                                             {
                                                 "order": 0,
                                                 "elementConfig": {
-                                                    "key": "tilgangsrestriksjon",
-                                                    "displayName": "Tilgangsrestriksjon",
+                                                    "key": "parttype",
+                                                    "displayName": "Parttype",
                                                     "description": ""
                                                 },
                                                 "template": {
                                                     "type": SelectableValueType.SEARCH_SELECT,
                                                     "selectablesSources": [
                                                         {
-                                                            "urlTemplate": "api/intern/arkiv/kodeverk/tilgangsrestriksjon"
+                                                            "urlTemplate": "api/intern/arkiv/kodeverk/part"
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        ],
+                                        "objectTemplates": [
+                                            {
+                                                "order": 4,
+                                                "elementConfig": {
+                                                    "key": "adresse",
+                                                    "displayName": "Adresse",
+                                                    "description": ""
+                                                },
+                                                "template": {
+                                                    "valueTemplates": [
+                                                        {
+                                                            "order": 0,
+                                                            "elementConfig": {
+                                                                "key": "adresselinje",
+                                                                "displayName": "Adresselinje",
+                                                                "description": ""
+                                                            },
+                                                            "template": {
+                                                                "type": ValueType.DYNAMIC_STRING
+                                                            }
+                                                        },
+                                                        {
+                                                            "order": 1,
+                                                            "elementConfig": {
+                                                                "key": "postnummer",
+                                                                "displayName": "Postnummer",
+                                                                "description": ""
+                                                            },
+                                                            "template": {
+                                                                "type": ValueType.DYNAMIC_STRING
+                                                            }
+                                                        },
+                                                        {
+                                                            "order": 2,
+                                                            "elementConfig": {
+                                                                "key": "poststed",
+                                                                "displayName": "Poststed",
+                                                                "description": ""
+                                                            },
+                                                            "template": {
+                                                                "type": ValueType.DYNAMIC_STRING
+                                                            }
                                                         }
                                                     ]
                                                 }
                                             },
                                             {
-                                                "order": 1,
+                                                "order": 5,
                                                 "elementConfig": {
-                                                    "key": "skjermingshjemmel",
-                                                    "displayName": "Skjermingshjemmel",
+                                                    "key": "kontaktinformasjon",
+                                                    "displayName": "Kontaktinformasjon",
                                                     "description": ""
                                                 },
                                                 "template": {
-                                                    "type": SelectableValueType.SEARCH_SELECT,
-                                                    "selectablesSources": [
+                                                    "valueTemplates": [
                                                         {
-                                                            "urlTemplate": "api/intern/arkiv/kodeverk/skjermingshjemmel"
+                                                            "order": 0,
+                                                            "elementConfig": {
+                                                                "key": "kontaktperson",
+                                                                "displayName": "Kontaktperson",
+                                                                "description": ""
+                                                            },
+                                                            "template": {
+                                                                "type": ValueType.DYNAMIC_STRING
+                                                            }
+                                                        },
+                                                        {
+                                                            "order": 1,
+                                                            "elementConfig": {
+                                                                "key": "mobiltelefonnummer",
+                                                                "displayName": "Mobiltelefonnummer",
+                                                                "description": ""
+                                                            },
+                                                            "template": {
+                                                                "type": ValueType.DYNAMIC_STRING
+                                                            }
+                                                        },
+                                                        {
+                                                            "order": 2,
+                                                            "elementConfig": {
+                                                                "key": "telefonnummer",
+                                                                "displayName": "Telefonnummer",
+                                                                "description": ""
+                                                            },
+                                                            "template": {
+                                                                "type": ValueType.DYNAMIC_STRING
+                                                            }
+                                                        },
+                                                        {
+                                                            "order": 3,
+                                                            "elementConfig": {
+                                                                "key": "epost",
+                                                                "displayName": "E-post",
+                                                                "description": ""
+                                                            },
+                                                            "template": {
+                                                                "type": ValueType.DYNAMIC_STRING
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            {
+                                                "order": 6,
+                                                "elementConfig": {
+                                                    "key": "skjerming",
+                                                    "displayName": "Skjerming",
+                                                    "description": ""
+                                                },
+                                                "template": {
+                                                    "selectableValueTemplates": [
+                                                        {
+                                                            "order": 0,
+                                                            "elementConfig": {
+                                                                "key": "tilgangsrestriksjon",
+                                                                "displayName": "Tilgangsrestriksjon",
+                                                                "description": ""
+                                                            },
+                                                            "template": {
+                                                                "type": SelectableValueType.SEARCH_SELECT,
+                                                                "selectablesSources": [
+                                                                    {
+                                                                        "urlTemplate": "api/intern/arkiv/kodeverk/tilgangsrestriksjon"
+                                                                    }
+                                                                ]
+                                                            }
+                                                        },
+                                                        {
+                                                            "order": 1,
+                                                            "elementConfig": {
+                                                                "key": "skjermingshjemmel",
+                                                                "displayName": "Skjermingshjemmel",
+                                                                "description": ""
+                                                            },
+                                                            "template": {
+                                                                "type": SelectableValueType.SEARCH_SELECT,
+                                                                "selectablesSources": [
+                                                                    {
+                                                                        "urlTemplate": "api/intern/arkiv/kodeverk/skjermingshjemmel"
+                                                                    }
+                                                                ]
+                                                            }
                                                         }
                                                     ]
                                                 }
@@ -973,345 +995,12 @@ export const testObjectTemplateSak: IElementTemplate<IObjectTemplate> =
                                         ]
                                     }
                                 }
-                            ],
-                            "objectCollectionTemplates": [
-                                {
-                                    "order": 7,
-                                    "elementConfig": {
-                                        "key": "korrespondansepart",
-                                        "displayName": "Korrespondanseparter",
-                                        "description": ""
-                                    },
-                                    "template": {
-                                        "elementTemplate": {
-                                            "valueTemplates": [
-                                                {
-                                                    "order": 1,
-                                                    "elementConfig": {
-                                                        "key": "organisasjonsnummer",
-                                                        "displayName": "Organisasjonsnummer",
-                                                        "description": ""
-                                                    },
-                                                    "template": {
-                                                        "type": ValueType.DYNAMIC_STRING
-                                                    }
-                                                },
-                                                {
-                                                    "order": 2,
-                                                    "elementConfig": {
-                                                        "key": "fodselsnummer",
-                                                        "displayName": "Fødselsnummer",
-                                                        "description": ""
-                                                    },
-                                                    "template": {
-                                                        "type": ValueType.DYNAMIC_STRING
-                                                    }
-                                                },
-                                                {
-                                                    "order": 3,
-                                                    "elementConfig": {
-                                                        "key": "navn",
-                                                        "displayName": "Navn",
-                                                        "description": ""
-                                                    },
-                                                    "template": {
-                                                        "type": ValueType.DYNAMIC_STRING
-                                                    }
-                                                }
-                                            ],
-                                            "selectableValueTemplates": [
-                                                {
-                                                    "order": 0,
-                                                    "elementConfig": {
-                                                        "key": "korrespondanseparttype",
-                                                        "displayName": "Korrespondanseparttype",
-                                                        "description": ""
-                                                    },
-                                                    "template": {
-                                                        "type": SelectableValueType.SEARCH_SELECT,
-                                                        "selectablesSources": [
-                                                            {
-                                                                "urlTemplate": "api/intern/arkiv/kodeverk/skjermingshjemmel"
-                                                            }
-                                                        ]
-                                                    }
-                                                }
-                                            ],
-                                            "objectTemplates": [
-                                                {
-                                                    "order": 4,
-                                                    "elementConfig": {
-                                                        "key": "adresse",
-                                                        "displayName": "Adresse",
-                                                        "description": ""
-                                                    },
-                                                    "template": {
-                                                        "valueTemplates": [
-                                                            {
-                                                                "order": 0,
-                                                                "elementConfig": {
-                                                                    "key": "adresselinje",
-                                                                    "displayName": "Adresselinje",
-                                                                    "description": ""
-                                                                },
-                                                                "template": {
-                                                                    "type": ValueType.DYNAMIC_STRING
-                                                                }
-                                                            },
-                                                            {
-                                                                "order": 1,
-                                                                "elementConfig": {
-                                                                    "key": "postnummer",
-                                                                    "displayName": "Postnummer",
-                                                                    "description": ""
-                                                                },
-                                                                "template": {
-                                                                    "type": ValueType.DYNAMIC_STRING
-                                                                }
-                                                            },
-                                                            {
-                                                                "order": 2,
-                                                                "elementConfig": {
-                                                                    "key": "poststed",
-                                                                    "displayName": "Poststed",
-                                                                    "description": ""
-                                                                },
-                                                                "template": {
-                                                                    "type": ValueType.DYNAMIC_STRING
-                                                                }
-                                                            }
-                                                        ]
-                                                    }
-                                                },
-                                                {
-                                                    "order": 5,
-                                                    "elementConfig": {
-                                                        "key": "kontaktinformasjon",
-                                                        "displayName": "Kontaktinformasjon",
-                                                        "description": ""
-                                                    },
-                                                    "template": {
-                                                        "valueTemplates": [
-                                                            {
-                                                                "order": 0,
-                                                                "elementConfig": {
-                                                                    "key": "kontaktperson",
-                                                                    "displayName": "Kontaktperson",
-                                                                    "description": ""
-                                                                },
-                                                                "template": {
-                                                                    "type": ValueType.DYNAMIC_STRING
-                                                                }
-                                                            },
-                                                            {
-                                                                "order": 1,
-                                                                "elementConfig": {
-                                                                    "key": "mobiltelefonnummer",
-                                                                    "displayName": "Mobiltelefonnummer",
-                                                                    "description": ""
-                                                                },
-                                                                "template": {
-                                                                    "type": ValueType.DYNAMIC_STRING
-                                                                }
-                                                            },
-                                                            {
-                                                                "order": 2,
-                                                                "elementConfig": {
-                                                                    "key": "telefonnummer",
-                                                                    "displayName": "Telefonnummer",
-                                                                    "description": ""
-                                                                },
-                                                                "template": {
-                                                                    "type": ValueType.DYNAMIC_STRING
-                                                                }
-                                                            },
-                                                            {
-                                                                "order": 3,
-                                                                "elementConfig": {
-                                                                    "key": "epost",
-                                                                    "displayName": "E-post",
-                                                                    "description": ""
-                                                                },
-                                                                "template": {
-                                                                    "type": ValueType.DYNAMIC_STRING
-                                                                }
-                                                            }
-                                                        ]
-                                                    }
-                                                },
-                                                {
-                                                    "order": 6,
-                                                    "elementConfig": {
-                                                        "key": "skjerming",
-                                                        "displayName": "Skjerming",
-                                                        "description": ""
-                                                    },
-                                                    "template": {
-                                                        "selectableValueTemplates": [
-                                                            {
-                                                                "order": 0,
-                                                                "elementConfig": {
-                                                                    "key": "tilgangsrestriksjon",
-                                                                    "displayName": "Tilgangsrestriksjon",
-                                                                    "description": ""
-                                                                },
-                                                                "template": {
-                                                                    "type": SelectableValueType.SEARCH_SELECT,
-                                                                    "selectablesSources": [
-                                                                        {
-                                                                            "urlTemplate": "api/intern/arkiv/kodeverk/tilgangsrestriksjon"
-                                                                        }
-                                                                    ]
-                                                                }
-                                                            },
-                                                            {
-                                                                "order": 1,
-                                                                "elementConfig": {
-                                                                    "key": "skjermingshjemmel",
-                                                                    "displayName": "Skjermingshjemmel",
-                                                                    "description": ""
-                                                                },
-                                                                "template": {
-                                                                    "type": SelectableValueType.SEARCH_SELECT,
-                                                                    "selectablesSources": [
-                                                                        {
-                                                                            "urlTemplate": "api/intern/arkiv/kodeverk/skjermingshjemmel"
-                                                                        }
-                                                                    ]
-                                                                }
-                                                            }
-                                                        ]
-                                                    }
-                                                }
-                                            ]
-                                        }
-                                    }
-                                },
-                                {
-                                    "order": 8,
-                                    "elementConfig": {
-                                        "key": "dokumentbeskrivelse",
-                                        "displayName": "Dokumentbeskrivelser",
-                                        "description": ""
-                                    },
-                                    "template": {
-                                        "elementTemplate": {
-                                            "valueTemplates": [
-                                                {
-                                                    "order": 0,
-                                                    "elementConfig": {
-                                                        "key": "tittel",
-                                                        "displayName": "Tittel",
-                                                        "description": ""
-                                                    },
-                                                    "template": {
-                                                        "type": ValueType.DYNAMIC_STRING
-                                                    }
-                                                }
-                                            ],
-                                            "selectableValueTemplates": [
-                                                {
-                                                    "order": 1,
-                                                    "elementConfig": {
-                                                        "key": "dokumentstatus",
-                                                        "displayName": "Dokumentstatus",
-                                                        "description": ""
-                                                    },
-                                                    "template": {
-                                                        "type": SelectableValueType.SEARCH_SELECT,
-                                                        "selectablesSources": [
-                                                            {
-                                                                "urlTemplate": "api/intern/kodeverk/dokumentstatus"
-                                                            }
-                                                        ]
-                                                    }
-                                                },
-                                                {
-                                                    "order": 2,
-                                                    "elementConfig": {
-                                                        "key": "dokumentType",
-                                                        "displayName": "Dokumenttype",
-                                                        "description": ""
-                                                    },
-                                                    "template": {
-                                                        "type": SelectableValueType.SEARCH_SELECT,
-                                                        "selectablesSources": [
-                                                            {
-                                                                "urlTemplate": "api/intern/kodeverk/dokumenttype"
-                                                            }
-                                                        ]
-                                                    }
-                                                }
-                                            ],
-                                            "objectCollectionTemplates": [
-                                                {
-                                                    "order": 3,
-                                                    "elementConfig": {
-                                                        "key": "dokumentobjekt",
-                                                        "displayName": "Dokumentobjekter",
-                                                        "description": ""
-                                                    },
-                                                    "template": {
-                                                        "elementTemplate": {
-                                                            "valueTemplates": [
-                                                                {
-                                                                    "order": 2,
-                                                                    "elementConfig": {
-                                                                        "key": "fil",
-                                                                        "displayName": "Fil",
-                                                                        "description": "Her kan du kun bruke metadata"
-                                                                    },
-                                                                    "template": {
-                                                                        "type": ValueType.FILE
-                                                                    }
-                                                                }
-                                                            ],
-                                                            "selectableValueTemplates": [
-                                                                {
-                                                                    "order": 0,
-                                                                    "elementConfig": {
-                                                                        "key": "variantformat",
-                                                                        "displayName": "Variantformat",
-                                                                        "description": ""
-                                                                    },
-                                                                    "template": {
-                                                                        "type": SelectableValueType.SEARCH_SELECT,
-                                                                        "selectablesSources": [
-                                                                            {
-                                                                                "urlTemplate": "api/intern/arkiv/kodeverk/variantformat"
-                                                                            }
-                                                                        ]
-                                                                    }
-                                                                },
-                                                                {
-                                                                    "order": 1,
-                                                                    "elementConfig": {
-                                                                        "key": "filformat",
-                                                                        "displayName": "Filformat",
-                                                                        "description": ""
-                                                                    },
-                                                                    "template": {
-                                                                        "type": SelectableValueType.SEARCH_SELECT,
-                                                                        "selectablesSources": [
-                                                                            {
-                                                                                "urlTemplate": "api/intern/arkiv/kodeverk/format"
-                                                                            }
-                                                                        ]
-                                                                    }
-                                                                }
-                                                            ]
-                                                        }
-                                                    }
-                                                }
-                                            ]
-                                        }
-                                    }
-                                }
-                            ]
-                        }
+                            }
+                        ]
                     }
                 }
-            ]
+            ],
+            "objectCollectionTemplates": []
         }
     }
 

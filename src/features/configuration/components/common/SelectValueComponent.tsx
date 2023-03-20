@@ -1,9 +1,9 @@
 import {Controller, useFormContext} from "react-hook-form"
 import * as React from "react";
+import {useContext} from "react";
 import {ISelectable} from "../../types/Selectable";
 import {MenuItem, Select} from "@mui/material";
 import {selectSX} from "../../styles/SystemStyles";
-import {useContext} from "react";
 import {ConfigurationContext} from "../../../../context/configurationContext";
 import {editCollectionAbsoluteKeyIncludesAbsoluteKey} from "../../util/ObjectUtils";
 

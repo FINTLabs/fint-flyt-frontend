@@ -124,7 +124,7 @@ const InstancePanel: React.FunctionComponent<any> = (props: { classes: ClassName
                     <Button
                         sx={{mb: 2}}
                         variant='contained'
-                        onClick={(e) => history.push("integration/instance/list")}
+                        onClick={() => history.push("integration/instance/list")}
                     >{t('button.back')}
                     </Button>
                     <DataGrid
