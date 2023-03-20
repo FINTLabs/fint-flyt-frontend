@@ -20,7 +20,6 @@ const FromCollectionMappingComponent: React.FunctionComponent<Props> = (props: P
     const {t} = useTranslation('translations', {keyPrefix: 'pages.configuration.fromCollectionMapping'});
     // TODO: disable fields not decending from editCollections key
     const {editingCollection, setEditingCollection} = useContext(ConfigurationContext);
-    console.log(editingCollection)
     return (
         <>
             <div id={'collection-mapping-header-' + props.absoluteKey}
