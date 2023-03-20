@@ -3,20 +3,24 @@ import {ISelectableValueTemplate, SelectableValueType} from "../../types/FormTem
 import SelectValueComponent from "../common/SelectValueComponent";
 import {useFormContext} from "react-hook-form";
 import {ValueType} from "../../types/Configuration";
-import {CreateSelectables} from "../../util/SelectablesUtils";
+import {SelectablesStatefulValue} from "../../util/SelectablesUtils";
 import SearchSelectValueComponent from "../common/SearchSelectValueComponent";
 import {ClassNameMap} from "@mui/styles";
+import HelpPopover from "../popover/HelpPopover";
 
 interface Props {
     classes: ClassNameMap;
+    order: number;
     absoluteKey: string;
     displayName: string;
-    template: ISelectableValueTemplate
+    description: string;
+    template: ISelectableValueTemplate;
+    disabled?: boolean;
 }
 
 const SelectableValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
     const {control, setValue} = useFormContext();
-    const selectables = CreateSelectables(
+    const selectables = SelectablesStatefulValue(
         control,
         props.template.selectables,
         props.template.selectablesSources,
@@ -27,19 +31,28 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = (props: 
 
     switch (props.template.type) {
         case SelectableValueType.DROPDOWN:
-            return <SelectValueComponent
-                absoluteKey={valueAbsoluteKey}
-                displayName={props.displayName}
-                selectables={selectables}
-            />
+            return <div id={'selectable-value-mapping-wrapper-' + props.absoluteKey}
+                        className={props.classes.valueMappingContainer}>
+                <SelectValueComponent
+                    absoluteKey={valueAbsoluteKey}
+                    displayName={props.displayName}
+                    selectables={selectables}
+                    disabled={props.disabled}
+                />
+                <HelpPopover popoverContent={props.description}/>
+            </div>
         case SelectableValueType.SEARCH_SELECT:
-            return <SearchSelectValueComponent
-                absoluteKey={valueAbsoluteKey}
-                displayName={props.displayName}
-                selectables={selectables}
-            />
         case SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT:
-            return <></>
+            return <div id={'selectable-value-mapping-wrapper-' + props.absoluteKey}
+                        className={props.classes.valueMappingContainer}>
+                <SearchSelectValueComponent
+                    absoluteKey={valueAbsoluteKey}
+                    displayName={props.displayName}
+                    selectables={selectables}
+                    disabled={props.disabled}
+                />
+                <HelpPopover popoverContent={props.description}/>
+            </div>
     }
 }
 export default SelectableValueMappingComponent;

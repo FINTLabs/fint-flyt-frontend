@@ -10,7 +10,8 @@ import {editCollectionAbsoluteKeyIncludesAbsoluteKey} from "../../util/ObjectUti
 interface Props {
     absoluteKey: string;
     displayName: string;
-    selectables: ISelectable[]
+    selectables: ISelectable[];
+    disabled?: boolean;
 }
 
 const SelectValueComponent: React.FunctionComponent<Props> = (props: Props) => {
@@ -31,6 +32,7 @@ const SelectValueComponent: React.FunctionComponent<Props> = (props: Props) => {
                     id={props.absoluteKey}
                     size={'small'}
                     sx={selectSX}
+                    disabled={props.disabled}
                 >
                     {
                         props.selectables.map((selectable: ISelectable, index) =>

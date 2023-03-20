@@ -141,6 +141,14 @@ export const configurationFormStyles = makeStyles((theme: Theme) =>
             border: 'none',
             margin: theme.spacing(2)
         },
+        collectionElementWrapper: {
+            backgroundColor: 'white',
+            listStyle: 'none',
+            padding: 'unset',
+            border: 'solid 1px black',
+            borderRadius: theme.spacing(0.5),
+            marginTop: theme.spacing(2)
+        },
         listItem: {},
         collectionButton: {
             backgroundColor: theme.palette.primary.main,

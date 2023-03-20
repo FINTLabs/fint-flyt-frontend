@@ -1,12 +1,16 @@
 import * as React from "react";
-import {useContext} from "react";
+import {useContext, useEffect, useState} from "react";
 import {Controller, useFormContext} from "react-hook-form";
 import {useDrop} from "react-dnd";
 import {ITag} from "../../types/Metadata/Tag";
 import {ValueType} from "../../types/Metadata/IntegrationMetadata"
 import {ClassNameMap} from "@mui/styles";
-import {TextField} from "@mui/material";
+import {IconButton, TextField, Typography} from "@mui/material";
 import {SourceApplicationContext} from "../../../../context/sourceApplicationContext";
+import {Search} from "../../util/UrlUtils";
+import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
+import ResourceRepository from "../../../../shared/repositories/ResourceRepository";
+import {searchResultSX} from "../../styles/SystemStyles";
 import {ConfigurationContext} from "../../../../context/configurationContext";
 import {editCollectionAbsoluteKeyIncludesAbsoluteKey} from "../../util/ObjectUtils";
 
@@ -14,7 +18,9 @@ interface Props {
     classes: ClassNameMap;
     absoluteKey: string;
     displayName: string;
-    accept: ValueType[]
+    search?: Search;
+    accept: ValueType[];
+    disabled?: boolean;
 }
 
 const DynamicStringValueComponent: React.FunctionComponent<Props> = (props: Props) => {
@@ -24,15 +30,14 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = (props: Prop
     let disable: boolean = editingCollection ?
         !editCollectionAbsoluteKeyIncludesAbsoluteKey(editingCollection, props.absoluteKey)
         : false;
+    const [searchResult, setSearchResult] = useState<string>()
 
     const [{canDrop, isOver}, dropRef] = useDrop({
         accept: props.accept,
         drop: (tag: ITag) => {
             getValues(props.absoluteKey) === undefined
-                ?
-                setValue(props.absoluteKey, tag.value)
-                :
-                setValue(props.absoluteKey, (getValues(props.absoluteKey) + tag.value))
+                ? setValue(props.absoluteKey, tag.value)
+                : setValue(props.absoluteKey, (getValues(props.absoluteKey) + tag.value))
             if (tag.type === ValueType.COLLECTION && tag.tagKey !== undefined) {
                 getInstanceObjectCollectionMetadata(tag.tagKey)
             }
@@ -42,6 +47,10 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = (props: Prop
             isOver: monitor.isOver()
         })
     })
+
+    useEffect(() => {
+        setSearchResult(undefined)
+    }, [props.search])
 
     let background = 'white';
 
@@ -74,16 +83,34 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = (props: Prop
                 render={({field}) =>
                     <TextField
                         style={dynamicStyle}
-                        disabled={disable}
                         variant='outlined'
                         size='small'
                         multiline
                         maxRows={3}
                         label={props.displayName}
+                        disabled={props.disabled || disable}
+                        InputProps={{
+                            endAdornment: (
+                                <>
+                                    {props.search && <IconButton sx={{padding: "4px", margin: "-4px"}} onClick={() => {
+                                        console.log(props.search)
+                                        if (props.search?.source) {
+                                            ResourceRepository.search(props.search.source)
+                                                .then((result: { value: string } | undefined) => {
+                                                    setSearchResult("Søkeresultat: " + (result ? result.value : "Ingen treff"));
+                                                })
+                                        }
+                                    }}>
+                                        <SearchRoundedIcon/>
+                                    </IconButton>}
+                                </>
+                            ),
+                        }}
                         {...field}
                     />
                 }
             />
+            {searchResult && <Typography sx={searchResultSX}>{searchResult}</Typography>}
         </div>
     )
 }

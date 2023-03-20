@@ -1,38 +1,58 @@
 import {ICollectionTemplate, IObjectTemplate, IValueTemplate} from "./FormTemplate";
 import {NestedElementTemplate} from "../components/mapping/ObjectMappingComponent";
 
-export type NestedElementsCallbacks = {
-    onNestedObjectOpen: (template: NestedElementTemplate<IObjectTemplate>) => void;
-    onNestedObjectCollectionOpen: (template: NestedElementTemplate<ICollectionTemplate<IObjectTemplate>>) => void;
-    onNestedValueCollectionOpen: (template: NestedElementTemplate<ICollectionTemplate<IValueTemplate>>) => void;
-    onNestedElementClose: (order: number[]) => void;
-    onAllNestedElementsClose: (parentOrder: number[]) => void;
+export type ElementTemplates = {
+    objects?: NestedElementTemplate<IObjectTemplate>[],
+    objectCollections?: NestedElementTemplate<ICollectionTemplate<IObjectTemplate>>[],
+    valueCollections?: NestedElementTemplate<ICollectionTemplate<IValueTemplate>>[]
 }
 
-export function prefixNestedElementsCallbacks(orderPrefix: number[], displayPath: string[], nestedElementsCallbacks: NestedElementsCallbacks): NestedElementsCallbacks {
+export type ElementOrders = {
+    objects?: string[],
+    objectCollections?: string[],
+    valueCollections?: string[]
+}
+
+export type NestedElementsCallbacks = {
+    onElementsOpen: (elementTemplates: ElementTemplates) => void;
+    onElementsClose: (elementOrders: ElementOrders) => void;
+    onAllNestedElementsClose: (parentOrder: string) => void;
+}
+
+export function prefixNestedElementsCallbacks(orderPrefix: string, displayPath: string[], nestedElementsCallbacks: NestedElementsCallbacks): NestedElementsCallbacks {
     return {
-        onNestedObjectOpen: (template: NestedElementTemplate<IObjectTemplate>) =>
-            nestedElementsCallbacks.onNestedObjectOpen(prefix(orderPrefix, displayPath, template)),
+        onElementsOpen: (elementTemplates) =>
+            nestedElementsCallbacks.onElementsOpen(prefixTemplates(orderPrefix, displayPath, elementTemplates)),
 
-        onNestedObjectCollectionOpen: (template: NestedElementTemplate<ICollectionTemplate<IObjectTemplate>>) =>
-            nestedElementsCallbacks.onNestedObjectCollectionOpen(prefix(orderPrefix, displayPath, template)),
+        onElementsClose: (elementOrders: ElementOrders) =>
+            nestedElementsCallbacks.onElementsClose(prefixOrders(orderPrefix, elementOrders)),
 
-        onNestedValueCollectionOpen: (template: NestedElementTemplate<ICollectionTemplate<IValueTemplate>>) =>
-            nestedElementsCallbacks.onNestedValueCollectionOpen(prefix(orderPrefix, displayPath, template)),
-
-        onNestedElementClose: (order: number[]) =>
-            nestedElementsCallbacks.onNestedElementClose([...orderPrefix, ...order]),
-
-        onAllNestedElementsClose: (parentOrder: number[]) => {
-            nestedElementsCallbacks.onAllNestedElementsClose([...orderPrefix, ...parentOrder])
+        onAllNestedElementsClose: (parentOrder: string) => {
+            nestedElementsCallbacks.onAllNestedElementsClose(orderPrefix + "-" + parentOrder)
         }
     }
 }
 
-export function prefix<T>(orderPrefix: number[], displayPath: string[], template: NestedElementTemplate<T>): NestedElementTemplate<T> {
+function prefixTemplates(orderPrefix: string, displayPath: string[], elementTemplates: ElementTemplates): ElementTemplates {
+    return {
+        objects: elementTemplates.objects?.map(template => prefixTemplate(orderPrefix, displayPath, template)),
+        objectCollections: elementTemplates.objectCollections?.map(template => prefixTemplate(orderPrefix, displayPath, template)),
+        valueCollections: elementTemplates.valueCollections?.map(template => prefixTemplate(orderPrefix, displayPath, template)),
+    }
+}
+
+function prefixOrders(orderPrefix: string, elementOrder: ElementOrders): ElementOrders {
+    return {
+        objects: elementOrder.objects?.map(order => orderPrefix + "-" + order),
+        objectCollections: elementOrder.objectCollections?.map(order => orderPrefix + "-" + order),
+        valueCollections: elementOrder.valueCollections?.map(order => orderPrefix + "-" + order)
+    }
+}
+
+function prefixTemplate<T>(orderPrefix: string, displayPath: string[], template: NestedElementTemplate<T>): NestedElementTemplate<T> {
     return {
         ...template,
         displayPath: [...displayPath, ...template.displayPath],
-        order: [...orderPrefix, ...template.order]
+        order: orderPrefix + "-" + template.order
     }
 }

@@ -4,9 +4,10 @@ import {ReactElement} from "react";
 import PathComponent from "../common/PathComponent";
 import FlytTitle2Component from "../common/title/FlytTitle2Component";
 
-interface Props {
+export interface Props {
     classes: ClassNameMap;
     index: number;
+    order: string;
     title: string;
     path: string[];
     content: ReactElement;

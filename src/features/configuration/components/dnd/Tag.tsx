@@ -4,7 +4,6 @@ import {Chip, Theme} from "@mui/material";
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import NumbersIcon from '@mui/icons-material/Numbers';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-
 import {ITag} from "../../types/Metadata/Tag";
 import {ValueType} from "../../types/Metadata/IntegrationMetadata";
 import {

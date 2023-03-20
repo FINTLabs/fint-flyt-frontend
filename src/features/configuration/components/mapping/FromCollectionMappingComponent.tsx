@@ -20,7 +20,7 @@ const FromCollectionMappingComponent: React.FunctionComponent<Props> = (props: P
     const {t} = useTranslation('translations', {keyPrefix: 'pages.configuration.fromCollectionMapping'});
     const {editingCollection, setEditingCollection} = useContext(ConfigurationContext);
     return (
-        <>
+        <div className={props.classes.collectionElementWrapper}>
             <div id={'collection-mapping-header-' + props.absoluteKey}
                  className={props.classes.title}>{t("collections")}
                 <IconButton aria-label="edit" onClick={() => {
@@ -35,6 +35,7 @@ const FromCollectionMappingComponent: React.FunctionComponent<Props> = (props: P
                 classes={props.classes}
                 absoluteKey={props.absoluteKey + ".instanceCollectionReferencesOrdered"}
                 fieldComponentCreator={(index: number, absoluteKey: string) =>
+
                     <DynamicStringValueComponent
                         classes={props.classes}
                         absoluteKey={absoluteKey}
@@ -47,7 +48,7 @@ const FromCollectionMappingComponent: React.FunctionComponent<Props> = (props: P
             />
             <div className={props.classes.title}>{t("convertCollectionElements")}</div>
             {props.elementComponentCreator(props.absoluteKey + ".elementMapping")}
-        </>
+        </div>
     );
 }
 export default FromCollectionMappingComponent

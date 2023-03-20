@@ -10,7 +10,8 @@ import {editCollectionAbsoluteKeyIncludesAbsoluteKey} from "../../util/ObjectUti
 interface Props {
     absoluteKey: string;
     displayName: string;
-    selectables: ISelectable[]
+    selectables: ISelectable[];
+    disabled?: boolean;
 }
 
 const SearchSelectValueComponent: React.FunctionComponent<Props> = (props: Props) => {
@@ -36,7 +37,7 @@ const SearchSelectValueComponent: React.FunctionComponent<Props> = (props: Props
                     sx={{mb: 2}}
                     filterOptions={filterOptions}
                     options={props.selectables}
-                    getOptionLabel={(option: ISelectable) => option.displayName}
+                    getOptionLabel={(option: ISelectable) => option ? option.displayName : ''}
                     renderInput={(params) => (
                         <TextField
                             {...params}
@@ -48,6 +49,7 @@ const SearchSelectValueComponent: React.FunctionComponent<Props> = (props: Props
                     onChange={(_, data) => {
                         data !== null ? field.onChange(data.value) : field.onChange(data)
                     }}
+                    disabled={props.disabled}
                 />
             )}
         />
