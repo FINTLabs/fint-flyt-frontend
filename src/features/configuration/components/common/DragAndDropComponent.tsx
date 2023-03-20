@@ -14,6 +14,7 @@ interface Props {
     absoluteKey: string;
     displayName: string;
     accept: ValueType[]
+    disabled?: boolean
 }
 
 const DragAndDropComponent: React.FunctionComponent<Props> = (props: Props) => {

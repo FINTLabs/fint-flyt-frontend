@@ -28,11 +28,10 @@ const SelectValueComponent: React.FunctionComponent<Props> = (props: Props) => {
             render={({field}) =>
                 <Select
                     {...field}
-                    disabled={disable}
                     id={props.absoluteKey}
                     size={'small'}
                     sx={selectSX}
-                    disabled={props.disabled}
+                    disabled={props.disabled || disable}
                 >
                     {
                         props.selectables.map((selectable: ISelectable, index) =>

@@ -32,7 +32,6 @@ const SearchSelectValueComponent: React.FunctionComponent<Props> = (props: Props
             render={({field}) => (
                 <Autocomplete
                     {...field}
-                    disabled={disable}
                     id={props.absoluteKey}
                     sx={{mb: 2}}
                     filterOptions={filterOptions}
@@ -49,7 +48,7 @@ const SearchSelectValueComponent: React.FunctionComponent<Props> = (props: Props
                     onChange={(_, data) => {
                         data !== null ? field.onChange(data.value) : field.onChange(data)
                     }}
-                    disabled={props.disabled}
+                    disabled={props.disabled || disable}
                 />
             )}
         />
