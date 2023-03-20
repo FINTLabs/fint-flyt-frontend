@@ -17,6 +17,7 @@ const ObjectCollectionMappingComponent: React.FunctionComponent<Props> = (props:
     return <CollectionMappingComponent
         classes={props.classes}
         absoluteKey={props.absoluteKey}
+        createElementWrapper
         elementComponentCreator={(order: string, displayPath: string[], absoluteKey: string) =>
             <ObjectMappingComponent
                 classes={props.classes}

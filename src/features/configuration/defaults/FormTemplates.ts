@@ -257,6 +257,21 @@ export const testObjectTemplateSak: IElementTemplate<IObjectTemplate> =
                                 }
                             }
                         ],
+                        "valueCollectionTemplates": [
+                            {
+                                "order": 20,
+                                "elementConfig": {
+                                    "key": "valueCollection",
+                                    "displayName": "Verdisamling",
+                                    "description": ""
+                                },
+                                "template": {
+                                    elementTemplate: {
+                                        "type": ValueType.DYNAMIC_STRING
+                                    }
+                                }
+                            }
+                        ],
                         "objectCollectionTemplates": [
                             {
                                 "order": 9,

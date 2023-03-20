@@ -8,6 +8,7 @@ import {ClassNameMap} from "@mui/styles";
 interface Props {
     classes: ClassNameMap;
     absoluteKey: string;
+    createElementWrapper?: boolean
     elementComponentCreator: (order: string, displayPath: string[], absoluteKey: string) => ReactElement;
     onFieldClose?: (order: string) => void,
 }
@@ -22,11 +23,18 @@ const CollectionMappingComponent: React.FunctionComponent<Props> = (props: Props
                 classes={props.classes}
                 absoluteKey={props.absoluteKey + ".elementMappings"}
                 fieldComponentCreator={
-                    (index: number, absoluteKey: string) => props.elementComponentCreator(
-                        0 + "-" + index,
-                        [t("defaultElements"), (index + 1).toString()],
-                        absoluteKey
-                    )
+                    (index: number, absoluteKey: string) => {
+                        const field: ReactElement = props.elementComponentCreator(
+                            0 + "-" + index,
+                            [t("defaultElements"), (index + 1).toString()],
+                            absoluteKey
+                        )
+                        return props.createElementWrapper
+                            ? <div className={props.classes.collectionElementWrapper}>
+                                {field}
+                            </div>
+                            : field;
+                    }
                 }
                 defaultValueCreator={() => {
                     return {}
