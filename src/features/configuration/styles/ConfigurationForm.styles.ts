@@ -172,7 +172,9 @@ export const configurationFormStyles = makeStyles((theme: Theme) =>
             marginLeft: theme.spacing(2),
             width: 'fit-content'
         },
-        formFooter: {},
+        formFooter: {
+            marginLeft: theme.spacing(1)
+        },
         submitButton: {
             backgroundColor: theme.palette.primary.main,
             borderRadius: theme.spacing(0.5),

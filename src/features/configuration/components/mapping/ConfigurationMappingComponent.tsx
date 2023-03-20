@@ -2,7 +2,7 @@ import {ClassNameMap} from "@mui/styles";
 import * as React from "react";
 import {useState} from "react";
 import ObjectMappingComponent, {NestedElementTemplate, Props as ObjectMappingProps} from "./ObjectMappingComponent";
-import {ICollectionTemplate, IElementTemplate, IObjectTemplate, IValueTemplate} from "../../types/FormTemplate";
+import {ICollectionTemplate, IMappingTemplate, IObjectTemplate, IValueTemplate} from "../../types/FormTemplate";
 import {ElementOrders, ElementTemplates, NestedElementsCallbacks} from "../../types/NestedElementCallbacks";
 import ValueCollectionMappingComponent, {Props as ValueCollectionMappingProps} from "./ValueCollectionMappingComponent";
 import ObjectCollectionMappingComponent, {
@@ -14,7 +14,7 @@ import {useFormContext} from "react-hook-form";
 
 interface Props {
     classes: ClassNameMap
-    rootObjectTemplate: IElementTemplate<IObjectTemplate>
+    mappingTemplate: IMappingTemplate;
 }
 
 const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
@@ -48,13 +48,13 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
         const nestedColumnElements = createEmptyColumnElements();
         return {
             path: [],
-            title: props.rootObjectTemplate.elementConfig.displayName,
+            title: props.mappingTemplate.displayName,
             props: {
                 classes: props.classes,
-                absoluteKey: props.rootObjectTemplate.elementConfig.key,
-                template: props.rootObjectTemplate.template,
+                absoluteKey: 'mapping',
+                template: props.mappingTemplate.rootObjectTemplate,
                 nestedElementCallbacks: createNestedElementsCallbacks(
-                    [props.rootObjectTemplate.elementConfig.displayName],
+                    [],
                     nestedColumnElements
                 ),
             },

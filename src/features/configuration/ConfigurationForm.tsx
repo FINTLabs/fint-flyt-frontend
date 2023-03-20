@@ -2,28 +2,46 @@ import React, {useContext} from 'react';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {SourceApplicationContext} from "../../context/sourceApplicationContext";
 import Panel from "./components/Panel";
+import {FormProvider, useForm} from "react-hook-form";
+
 import {HTML5Backend} from "react-dnd-html5-backend";
 import {DndProvider} from "react-dnd";
 import MetadataPanel from "./components/MetadataPanel";
-import {Box, FormControl, MenuItem, Select, SelectChangeEvent, Theme, Typography} from "@mui/material";
+import {
+    Box,
+    Checkbox,
+    FormControl,
+    FormControlLabel,
+    MenuItem,
+    Select,
+    SelectChangeEvent,
+    Theme,
+    Typography
+} from "@mui/material";
 import {IntegrationContext} from "../../context/integrationContext";
 import {IIntegrationMetadata} from "./types/Metadata/IntegrationMetadata";
 import {useTranslation} from "react-i18next";
 import {flexCenterSX} from "./styles/SystemStyles";
 import TextAreaComponent from "./components/common/TextAreaComponent";
 import {configurationFormStyles} from "./styles/ConfigurationForm.styles";
-import ConfigurationProvider from '../../context/configurationContext';
+import {ConfigurationContext} from '../../context/configurationContext';
 
 const useStyles = configurationFormStyles
 
 const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const {sourceApplication} = useContext(SourceApplicationContext)
+    const {completed, setCompleted, active, setActive} = useContext(ConfigurationContext)
     const {t} = useTranslation('translations', {keyPrefix: 'pages.configuration'});
     const classes = useStyles();
+    const methods = useForm();
     const {selectedMetadata, setSelectedMetadata} = useContext(IntegrationContext)
     const {allMetadata, getInstanceElementMetadata,} = useContext(SourceApplicationContext)
     const initialVersion: number = selectedMetadata.version;
     const [version, setVersion] = React.useState<string>(initialVersion ? String(initialVersion) : '');
+
+    const onSubmit = (data: any) => {
+        console.log(data);
+    };
 
     const availableVersions: IIntegrationMetadata[] = allMetadata.filter(md => {
         return md.sourceApplicationId === selectedMetadata.sourceApplicationId &&
@@ -40,33 +58,68 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     };
     return (
         <DndProvider backend={HTML5Backend}>
-            <ConfigurationProvider>
-                <Box sx={{m: 1}}>
-                    <Typography variant={"h6"}>{t('header')}</Typography>
-                    <Typography>Integrasjon: PLACEHOLDER VIK123 - TEST - TEST</Typography>
-                    <Box sx={flexCenterSX}>
-                        <Typography sx={{mr: 1}}>{t('metadataVersion')}: </Typography>
-                        <FormControl sx={{backgroundColor: 'white', width: (theme: Theme) => theme.spacing(18)}}
-                                     size="small">
-                            <Select
-                                id="version-select"
-                                value={version}
-                                onChange={handleChange}
-                            >
-                                {availableVersions.map((md, index) => {
-                                    return <MenuItem key={index}
-                                                     value={md.version}>Versjon {md.version}</MenuItem>
-                                })}
-                            </Select>
-                        </FormControl>
+            <FormProvider {...methods}>
+                <form id="react-hook-form" onSubmit={methods.handleSubmit(onSubmit)}>
+                    <Box sx={{m: 1}}>
+                        <Typography variant={"h6"}>{t('header')}</Typography>
+                        <Typography>Integrasjon: PLACEHOLDER VIK123 - TEST - TEST</Typography>
+                        <Box sx={flexCenterSX}>
+                            <Typography sx={{mr: 1}}>{t('metadataVersion')}: </Typography>
+                            <FormControl sx={{backgroundColor: 'white', width: (theme: Theme) => theme.spacing(18)}}
+                                         size="small">
+                                <Select
+                                    id="version-select"
+                                    value={version}
+                                    onChange={handleChange}
+                                >
+                                    {availableVersions.map((md, index) => {
+                                        return <MenuItem key={index}
+                                                         value={md.version}>Versjon {md.version}</MenuItem>
+                                    })}
+                                </Select>
+                            </FormControl>
+                        </Box>
+                        <TextAreaComponent classes={classes} absoluteKey={"comment"}/>
                     </Box>
-                    <TextAreaComponent classes={classes} absoluteKey={"kommentar"}/>
-                </Box>
-                <Box display="flex" position="relative" width={1} height={1} sx={{border: 'none'}}>
-                    <MetadataPanel classes={classes}/>
-                    <Panel classes={classes}/>
-                </Box>
-            </ConfigurationProvider>
+                    <Box display="flex" position="relative" width={1} height={1} sx={{border: 'none'}}>
+                        <MetadataPanel classes={classes}/>
+
+                        <Panel classes={classes}/>
+                    </Box>
+                    <Box className={classes.formFooter}>
+                        <button id="form-submit-btn" className={classes.submitButton} type="submit" onClick={onSubmit}>
+                            {t("button.submit")}
+                        </button>
+                        <button id="form-cancel-btn" className={classes.submitButton} type="button"
+                                onClick={() => {
+                                    console.log('cancel')
+                                }}
+                        >{t("button.cancel")}
+                        </button>
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    id="form-complete"
+                                    checked={completed}
+                                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                                        console.log(event.target.checked)
+                                        setCompleted(event.target.checked)
+                                    }}
+                                    inputProps={{'aria-label': 'completed-checkbox'}}/>}
+                            label={t('label.checkLabel') as string}/>
+                        {completed && <FormControlLabel
+                            control={
+                                <Checkbox
+                                    id="form-active"
+                                    checked={active}
+                                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                                        setActive(event.target.checked)
+                                    }}
+                                    inputProps={{'aria-label': 'active-checkbox'}}/>}
+                            label={t('label.activeLabel') as string}/>}
+                    </Box>
+                </form>
+            </FormProvider>
         </DndProvider>
     );
 }

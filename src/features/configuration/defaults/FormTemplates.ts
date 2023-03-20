@@ -1,14 +1,9 @@
-import {IElementTemplate, IObjectTemplate, SelectableValueType, ValueType} from "../types/FormTemplate";
+import {IMappingTemplate, SelectableValueType, ValueType} from "../types/FormTemplate";
 
-export const testObjectTemplateSak: IElementTemplate<IObjectTemplate> =
+export const testObjectTemplateSak: IMappingTemplate =
     {
-        "order": 0,
-        "elementConfig": {
-            "key": "sak",
-            "displayName": "Sak",
-            "description": ""
-        },
-        "template": {
+        displayName: 'Arkivering',
+        rootObjectTemplate: {
             "valueTemplates": [
                 {
                     "order": 2,
@@ -67,7 +62,7 @@ export const testObjectTemplateSak: IElementTemplate<IObjectTemplate> =
                     "order": 1,
                     "elementConfig": {
                         "key": "new",
-                        "displayName": "Ny sak",
+                        "displayName": "Sak",
                         "description": "",
                         "showDependency": {
                             "hasAnyCombination": [
@@ -1329,4 +1324,6 @@ export const testObjectTemplateSak: IElementTemplate<IObjectTemplate> =
             ]
         }
     }
+
+
 

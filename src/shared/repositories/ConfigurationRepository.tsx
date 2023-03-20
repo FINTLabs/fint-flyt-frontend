@@ -2,7 +2,7 @@ import axios from "axios";
 import {IConfiguration, IConfigurationPatch} from "../../features/configuration/types/Configuration";
 
 //TODO: test with updated API urls
-const getConfigurations = (page: number, size: number, sortProperty: string, sortDirection: string, complete: boolean, integrationId: string,  excludeElements?: boolean) => {
+const getConfigurations = (page: number, size: number, sortProperty: string, sortDirection: string, complete: boolean, integrationId: string, excludeElements?: boolean) => {
     return axios.get<any>('/api/intern/konfigurasjoner/', {
         params: {
             side: page,
@@ -16,9 +16,9 @@ const getConfigurations = (page: number, size: number, sortProperty: string, sor
     });
 }
 const getConfiguration = (configurationId: string, excludeElements?: boolean) => {
-    return axios.get<any>(`/api/intern/konfigurasjoner/${configurationId}`, { params: { ekskluderMapping: excludeElements } });
+    return axios.get<any>(`/api/intern/konfigurasjoner/${configurationId}`, {params: {ekskluderMapping: excludeElements}});
 }
-const createConfiguration = (integrationId: string, data: IConfiguration) => {
+const createConfiguration = (data: IConfiguration) => {
     return axios.post<any>(`/api/intern/konfigurasjoner`, data);
 }
 const updateConfiguration = (configurationId: string, data: IConfigurationPatch) => {

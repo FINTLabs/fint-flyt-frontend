@@ -1,5 +1,10 @@
 import {ISelectable} from "./Selectable";
 
+export interface IMappingTemplate {
+    displayName: string;
+    rootObjectTemplate: IObjectTemplate;
+}
+
 export interface IElementTemplate<T extends IValueTemplate | ISelectableValueTemplate | IObjectTemplate | INestedObjectRefTemplate | ICollectionTemplate<IValueTemplate | IObjectTemplate>> {
     order: number,
     elementConfig: IElementConfig;
