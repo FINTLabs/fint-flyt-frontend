@@ -23,7 +23,7 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
         path: string[],
         title: string,
         reactElement: ReactElement<{ absoluteKey: string }>,
-        nestedColumnElements: Record<string, ColumnElement>
+        nestedColumnElementPerOrder: Record<string, ColumnElement>
     }
 
     function createRootElement(): ColumnElement {
@@ -40,7 +40,7 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
                     nestedColumnElements
                 )}
             />,
-            nestedColumnElements: nestedColumnElements
+            nestedColumnElementPerOrder: nestedColumnElements
         }
     }
 
@@ -66,7 +66,7 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
                                         newNestedColumnElements
                                     )}
                                 />,
-                                nestedColumnElements: newNestedColumnElements
+                                nestedColumnElementPerOrder: newNestedColumnElements
                             }
 
                     })
@@ -88,7 +88,7 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
                                         )
                                     }
                                 />,
-                                nestedColumnElements: newNestedColumnElements
+                                nestedColumnElementPerOrder: newNestedColumnElements
                             }
                     })
                 elementTemplates.valueCollections?.forEach(
@@ -103,7 +103,7 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
                                     absoluteKey={template.absoluteKey}
                                     elementTemplate={template.template.elementTemplate}
                                 />,
-                                nestedColumnElements: newNestedColumnElements
+                                nestedColumnElementPerOrder: newNestedColumnElements
                             }
                     }
                 )
@@ -137,13 +137,13 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
             .filter(([order]: [string, T]) => order.startsWith(startingWith))
     }
 
-    function getElementsByColumn(columnElement: ColumnElement): Omit<ColumnElement, 'nestedColumnElements'>[][] {
+    function getElementsByColumn(columnElement: ColumnElement): Omit<ColumnElement, 'nestedColumnElementPerOrder'>[][] {
         return [
             [columnElement],
-            ...Object.entries(columnElement.nestedColumnElements)
+            ...Object.entries(columnElement.nestedColumnElementPerOrder)
                 .sort(([key1], [key2]) => key1.localeCompare(key2, undefined, {numeric: true}))
                 .map(([order, nestedColumnElement]) => getElementsByColumn(nestedColumnElement))
-                .reduce((combinedChildColumns: Omit<ColumnElement, 'nestedColumnElements'>[][], childColumns: Omit<ColumnElement, 'nestedColumnElements'>[][]) => {
+                .reduce((combinedChildColumns: Omit<ColumnElement, 'nestedColumnElementPerOrder'>[][], childColumns: Omit<ColumnElement, 'nestedColumnElementPerOrder'>[][]) => {
                     range(0, childColumns.length)
                         .forEach((columnIndex: number) => {
                             if (!combinedChildColumns[columnIndex]) {
@@ -158,12 +158,12 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
 
     return (
         <>
-            {getElementsByColumn(displayRootElement).map((columns: Omit<ColumnElement, 'nestedColumnElements'>[], index) =>
+            {getElementsByColumn(displayRootElement).map((columns: Omit<ColumnElement, 'nestedColumnElementPerOrder'>[], index) =>
                 <>
                     <div id={'column-' + index} key={'column-' + index}
                          className={props.classes.column}>
                         {
-                            columns.map((columnElement: Omit<ColumnElement, 'nestedColumnElements'>) => {
+                            columns.map((columnElement: Omit<ColumnElement, 'nestedColumnElementPerOrder'>) => {
                                     return <ColumnElementComponent
                                         classes={props.classes}
                                         index={index}

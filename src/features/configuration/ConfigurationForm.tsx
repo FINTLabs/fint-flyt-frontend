@@ -1,12 +1,12 @@
 import React, {useContext} from 'react';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {SourceApplicationContext} from "../../context/sourceApplicationContext";
-import Panel from "./components/Panel";
+import OutgoingDataComponent from "./components/OutgoingDataComponent";
 import {FormProvider, useForm} from "react-hook-form";
 
 import {HTML5Backend} from "react-dnd-html5-backend";
 import {DndProvider} from "react-dnd";
-import MetadataPanel from "./components/MetadataPanel";
+import IncomingDataComponent from "./components/IncomingDataComponent";
 import {Box, Checkbox, FormControlLabel, Typography} from "@mui/material";
 import {IntegrationContext} from "../../context/integrationContext";
 import {IIntegrationMetadata} from "./types/Metadata/IntegrationMetadata";
@@ -64,9 +64,9 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                         />
                     </Box>
                     <Box display="flex" position="relative" width={1} height={1} sx={{border: 'none'}}>
-                        <MetadataPanel classes={classes}/>
+                        <IncomingDataComponent classes={classes}/>
 
-                        <Panel classes={classes}/>
+                        <OutgoingDataComponent classes={classes}/>
                     </Box>
                     <Box className={classes.formFooter}>
                         <button id="form-submit-btn" className={classes.submitButton} type="submit" onClick={onSubmit}>

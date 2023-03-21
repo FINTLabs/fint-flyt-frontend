@@ -57,8 +57,12 @@ export const selectSX: SxProps<Theme> = {
 
 export const searchResultSX: SxProps<Theme> = {
     fontSize: (theme: Theme) => theme.spacing(1.75),
-    padding:  (theme: Theme) => theme.spacing(.2),
-    marginTop:  (theme: Theme) => theme.spacing(-2),
-    marginBottom:  (theme: Theme) => theme.spacing(2),
+    padding: (theme: Theme) => theme.spacing(.2),
+    marginTop: (theme: Theme) => theme.spacing(-2),
+    marginBottom: (theme: Theme) => theme.spacing(2),
     marginLeft: (theme: Theme) => theme.spacing(1),
+}
+
+export const metadataCategoryTitleSX: SxProps<Theme> = {
+    paddingTop: (theme: Theme) => theme.spacing(2)
 }

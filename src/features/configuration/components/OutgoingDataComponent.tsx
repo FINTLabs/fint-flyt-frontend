@@ -7,7 +7,7 @@ import ConfigurationMappingComponent from "./mapping/ConfigurationMappingCompone
 import HelpPopover from "./popover/HelpPopover";
 
 
-const Panel: React.FunctionComponent<any> = (props: { classes: ClassNameMap }) => {
+const OutgoingDataComponent: React.FunctionComponent<any> = (props: { classes: ClassNameMap }) => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.configuration'});
     const classes = props.classes;
 
@@ -26,4 +26,4 @@ const Panel: React.FunctionComponent<any> = (props: { classes: ClassNameMap }) =
         </Box>
     );
 }
-export default Panel;
+export default OutgoingDataComponent;

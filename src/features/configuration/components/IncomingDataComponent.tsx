@@ -15,10 +15,10 @@ import {
     ValueType
 } from "../types/Metadata/IntegrationMetadata";
 import {ClassNameMap} from "@mui/styles";
-import {metadataPanelSX} from "../styles/SystemStyles";
+import {metadataCategoryTitleSX, metadataPanelSX} from "../styles/SystemStyles";
 
 
-const MetadataPanel: React.FunctionComponent<any> = (props: { classes: ClassNameMap }) => {
+const IncomingDataComponent: React.FunctionComponent<any> = (props: { classes: ClassNameMap }) => {
     const {t} = useTranslation('translations', {keyPrefix: 'components.MetadataPanel'});
     const {
         instanceElementMetadata,
@@ -31,16 +31,12 @@ const MetadataPanel: React.FunctionComponent<any> = (props: { classes: ClassName
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    const paddingPerDepth = 10;
 
-    useEffect(() => {
-        getAllMetadata(false)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-
-    function TagTreeValues({items, depth = 0}: any) {
+    function TagTreeValues({items, depth}: any) {
         return (<>
                 {items.instanceValueMetadata.map((ivm: IInstanceValueMetadata) => (
-                    <div id={'tagtreeValue-' + ivm.key} style={{paddingLeft: depth * 10}}
+                    <div id={'tagtreeValue-' + ivm.key} style={{paddingLeft: depth * paddingPerDepth}}
                          key={'tagtreeValues-' + ivm.key}>
                         <Tag disabled={false} type={ivm.type} name={ivm.displayName + ' {' + (ivm.key) + '}'}
                              tagKey={ivm.key}
@@ -50,20 +46,19 @@ const MetadataPanel: React.FunctionComponent<any> = (props: { classes: ClassName
         )
     }
 
-    function TagTreeCollectionValues({items, depth = 0}: any) {
+    function TagTreeCollectionValues({items, depth}: any) {
         return (<>
                 <div>
-                    <div style={{paddingLeft: depth * 15}} key={'tagTreeCollectionValues-' + items.key}>
+                    <div style={{paddingLeft: depth * paddingPerDepth}} key={'tagTreeCollectionValues-' + items.key}>
                         <Typography>Valgt Samling: {items.displayName}</Typography>
-                        <TagTreeValues items={items.objectMetadata}/>
+                        <TagTree items={items.objectMetadata}/>
                     </div>
                 </div>
             </>
         )
     }
 
-
-    function TagTree({items, depth = 0}: any) {
+    function TagTree({items, depth}: any) {
         if (!items.categories || !items.instanceValueMetadata || !items.instanceObjectCollectionMetadata) {
             return null
         }
@@ -71,29 +66,27 @@ const MetadataPanel: React.FunctionComponent<any> = (props: { classes: ClassName
         return (
             <React.Fragment key={depth}>
                 {items.instanceValueMetadata &&
-                    <TagTreeValues items={items} depth={depth + 1}/>
+                    <TagTreeValues items={items} depth={depth}/>
                 }
-                {items.categories.map((category: IInstanceMetadataCategory) => (
-                    <div style={{paddingLeft: depth * 10}} key={'tagTree-' + category.displayName}>
+                {items.instanceObjectCollectionMetadata.map((instanceObjectCollectionMetadata: IInstanceObjectCollectionMetadata) => {
+                    return <div id={'tag-' + instanceObjectCollectionMetadata.key}
+                                style={{paddingLeft: depth * paddingPerDepth}}
+                                key={'tag-' + instanceObjectCollectionMetadata.key}>
+                        <Tag disabled={false} type={ValueType.COLLECTION}
+                             name={instanceObjectCollectionMetadata.displayName + ' {' + (instanceObjectCollectionMetadata.key) + '}'}
+                             value={toTagValue(instanceObjectCollectionMetadata.key)}
+                             tagKey={instanceObjectCollectionMetadata.key}/>
+                    </div>
+                })}
+                {items.categories.map((category: IInstanceMetadataCategory) =>
+                    <div style={{paddingLeft: depth * paddingPerDepth}} key={'tagTree-' + category.displayName}>
                         {category.content.instanceValueMetadata &&
                             <div id={'tagTree-' + category.displayName + '-category-display-name'}>
-                                <Typography>{category.displayName}</Typography>
+                                <Typography sx={metadataCategoryTitleSX}>{category.displayName}</Typography>
                             </div>}
                         <TagTree items={category.content} depth={depth + 1}/>
                     </div>
-                ))}
-                {items.instanceObjectCollectionMetadata.map((instanceObjectCollectionMetadata: IInstanceObjectCollectionMetadata) => {
-                    return (
-                        <div id={'tag-' + instanceObjectCollectionMetadata.key} style={{paddingLeft: depth * 10}}
-                             key={'tag-' + instanceObjectCollectionMetadata.key}>
-                            <Tag disabled={false} type={ValueType.COLLECTION}
-                                 name={instanceObjectCollectionMetadata.displayName + ' {' + (instanceObjectCollectionMetadata.key) + '}'}
-                                 value={toTagValue(instanceObjectCollectionMetadata.key)}
-                                 tagKey={instanceObjectCollectionMetadata.key}/>
-                        </div>
-                    )
-                })
-                }
+                )}
             </React.Fragment>
         )
     }
@@ -109,7 +102,7 @@ const MetadataPanel: React.FunctionComponent<any> = (props: { classes: ClassName
                 </Box>
                 <Box className={props.classes.panel}>
                     {/*TODO 09/03 ingrie: before merge, switch back to use real metadata*/}
-                    <TagTree items={MOCK_INSTANCE_METADATA.instanceMetadata}/>
+                    <TagTree items={MOCK_INSTANCE_METADATA.instanceMetadata} depth={0}/>
                     {/*<Link style={{fontFamily: 'sans-serif'}} to={{pathname: selectedMetadata.sourceApplicationIntegrationUri}} target="_blank">{t('openLink')}</Link>*/}
                 </Box>
                 {instanceObjectCollectionMetadata &&
@@ -121,4 +114,4 @@ const MetadataPanel: React.FunctionComponent<any> = (props: { classes: ClassName
     );
 }
 
-export default MetadataPanel;
+export default IncomingDataComponent;

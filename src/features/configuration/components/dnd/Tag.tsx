@@ -64,7 +64,7 @@ export const Tag: FC<ITag> = function Tag({name, value, type, tagKey}) {
             role="Tag"
             label={name}
             style={
-                {cursor: 'move', backgroundColor: 'white', margin: 8, opacity}
+                {cursor: 'move', backgroundColor: 'white', margin: 8, marginLeft: 0, opacity}
             }
         />
     )
