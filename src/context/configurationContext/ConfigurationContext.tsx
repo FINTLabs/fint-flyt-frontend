@@ -10,7 +10,6 @@ const ConfigurationProvider: FC = ({children}) => {
     const [completed, setCompleted] = useState<boolean>(contextDefaultValues.completed);
     const [active, setActive] = useState<boolean>(contextDefaultValues.active);
     const [editingCollection, setEditingCollection] = useState<string | undefined>(contextDefaultValues.editingCollection);
-    //TODO: set valgt metadata vedlegg
 
     return (
         <ConfigurationContext.Provider

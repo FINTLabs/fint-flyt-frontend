@@ -8,6 +8,7 @@ import {ClassNameMap} from "@mui/styles";
 import {TextField} from "@mui/material";
 import {ConfigurationContext} from "../../../../context/configurationContext";
 import {editCollectionAbsoluteKeyIncludesAbsoluteKey} from "../../util/ObjectUtils";
+import {SourceApplicationContext} from "../../../../context/sourceApplicationContext";
 
 interface Props {
     classes: ClassNameMap;
@@ -19,6 +20,7 @@ interface Props {
 
 const DragAndDropComponent: React.FunctionComponent<Props> = (props: Props) => {
     const {setValue, getValues, control} = useFormContext();
+    const {getInstanceObjectCollectionMetadata} = useContext(SourceApplicationContext)
     const {editingCollection} = useContext(ConfigurationContext)
     let disable: boolean = editingCollection ?
         !editCollectionAbsoluteKeyIncludesAbsoluteKey(editingCollection, props.absoluteKey)
@@ -32,6 +34,9 @@ const DragAndDropComponent: React.FunctionComponent<Props> = (props: Props) => {
                 setValue(props.absoluteKey, tag.value)
                 :
                 setValue(props.absoluteKey, ('' + tag.value))
+            if (tag.type === ValueType.COLLECTION && tag.tagKey !== undefined) {
+                getInstanceObjectCollectionMetadata(tag.tagKey)
+            }
         },
         collect: monitor => ({
             canDrop: monitor.canDrop(),
