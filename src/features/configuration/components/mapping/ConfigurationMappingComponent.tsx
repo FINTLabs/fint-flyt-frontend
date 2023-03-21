@@ -59,6 +59,7 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
                                 title: template.displayName,
                                 reactElement: <ObjectMappingComponent
                                     classes={props.classes}
+                                    key={template.absoluteKey}
                                     absoluteKey={template.absoluteKey}
                                     template={template.template}
                                     nestedElementCallbacks={createNestedElementsCallbacks(
@@ -79,6 +80,7 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
                                 title: template.displayName,
                                 reactElement: <ObjectCollectionMappingComponent
                                     classes={props.classes}
+                                    key={template.absoluteKey}
                                     absoluteKey={template.absoluteKey}
                                     elementTemplate={template.template.elementTemplate}
                                     nestedElementCallbacks={
@@ -100,6 +102,7 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
                                 title: template.displayName,
                                 reactElement: <ValueCollectionMappingComponent
                                     classes={props.classes}
+                                    key={template.absoluteKey}
                                     absoluteKey={template.absoluteKey}
                                     elementTemplate={template.template.elementTemplate}
                                 />,
@@ -158,24 +161,23 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
 
     return (
         <>
-            {getElementsByColumn(displayRootElement).map((columns: Omit<ColumnElement, 'nestedColumnElementPerOrder'>[], index) =>
-                <>
-                    <div id={'column-' + index} key={'column-' + index}
-                         className={props.classes.column}>
-                        {
-                            columns.map((columnElement: Omit<ColumnElement, 'nestedColumnElementPerOrder'>) => {
-                                    return <ColumnElementComponent
-                                        classes={props.classes}
-                                        index={index}
-                                        path={columnElement.path}
-                                        title={columnElement.title}
-                                        content={columnElement.reactElement}
-                                    />
-                                }
-                            )
-                        }
-                    </div>
-                </>
+            {getElementsByColumn(displayRootElement).map((columns: Omit<ColumnElement, 'nestedColumnElementPerOrder'>[], columnIndex) =>
+                <div id={'column-' + columnIndex} key={'column-' + columnIndex}
+                     className={props.classes.column}>
+                    {
+                        columns.map((columnElement: Omit<ColumnElement, 'nestedColumnElementPerOrder'>, columnElementIndex: number) => {
+                                return <ColumnElementComponent
+                                    classes={props.classes}
+                                    key={'column-' + columnIndex + '-element-' + columnElementIndex}
+                                    index={columnElementIndex}
+                                    path={columnElement.path}
+                                    title={columnElement.title}
+                                    content={columnElement.reactElement}
+                                />
+                            }
+                        )
+                    }
+                </div>
             )}
         </>
     )

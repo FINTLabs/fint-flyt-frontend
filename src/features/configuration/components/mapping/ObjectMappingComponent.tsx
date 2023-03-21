@@ -96,10 +96,7 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
         }
     }
 
-    return (
-        <>
-            {console.log("render")}
-            <fieldset className={props.classes.fieldSet}>
+    return <fieldset className={props.classes.fieldSet}>
                 {[
                     ...(props.template.valueTemplates ? props.template.valueTemplates : [])
                         .filter((template: IElementTemplate<IValueTemplate>) => {
@@ -108,6 +105,7 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                         .map<ReactElement<{ order: number }>>((template: IElementTemplate<IValueTemplate>) =>
                             <ValueMappingComponent
                                 classes={props.classes}
+                                key={props.absoluteKey + template.order}
                                 order={template.order}
                                 absoluteKey={getValueMappingKey(template)}
                                 displayName={template.elementConfig.displayName}
@@ -124,6 +122,7 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                         .map<ReactElement<{ order: number }>>((template: IElementTemplate<ISelectableValueTemplate>) =>
                             <SelectableValueMappingComponent
                                 classes={props.classes}
+                                key={props.absoluteKey + template.order}
                                 order={template.order}
                                 absoluteKey={getValueMappingKey(template)}
                                 displayName={template.elementConfig.displayName}
@@ -140,6 +139,7 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                         .map<ReactElement<{ order: number }>>((template: IElementTemplate<ICollectionTemplate<IValueTemplate>>) =>
                             <ToggleButtonComponent
                                 classes={props.classes}
+                                key={props.absoluteKey + template.order}
                                 order={template.order}
                                 displayName={template.elementConfig.displayName}
                                 onSelect={() => {
@@ -167,6 +167,7 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                         .map<ReactElement<{ order: number }>>((template: IElementTemplate<IObjectTemplate>) =>
                             <ToggleButtonComponent
                                 classes={props.classes}
+                                key={props.absoluteKey + template.order}
                                 order={template.order}
                                 displayName={template.elementConfig.displayName}
                                 onSelect={() => {
@@ -194,6 +195,7 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                         .map<ReactElement<{ order: number }>>((template: IElementTemplate<ICollectionTemplate<IObjectTemplate>>) =>
                             <ToggleButtonComponent
                                 classes={props.classes}
+                                key={props.absoluteKey + template.order}
                                 order={template.order}
                                 displayName={template.elementConfig.displayName}
                                 onSelect={() => {
@@ -215,7 +217,5 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                         )
                 ].sort((a: ReactElement<{ order: number }>, b: ReactElement<{ order: number }>) => a.props.order - b.props.order)}
             </fieldset>
-        </>
-    )
 }
 export default ObjectMappingComponent;

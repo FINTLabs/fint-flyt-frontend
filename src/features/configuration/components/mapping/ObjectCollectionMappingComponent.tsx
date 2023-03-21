@@ -20,6 +20,7 @@ const ObjectCollectionMappingComponent: React.FunctionComponent<Props> = (props:
         elementComponentCreator={(order: string, displayPath: string[], absoluteKey: string) =>
             <ObjectMappingComponent
                 classes={props.classes}
+                key={order}
                 absoluteKey={absoluteKey}
                 template={props.elementTemplate}
                 nestedElementCallbacks={

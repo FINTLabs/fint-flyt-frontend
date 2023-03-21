@@ -27,12 +27,12 @@ const SelectValueComponent: React.FunctionComponent<Props> = (props: Props) => {
                     sx={selectSX}
                     disabled={props.disabled}
                 >
-                    <MenuItem value="none" disabled>
+                    <MenuItem key={props.absoluteKey + ".0"} value="none" disabled>
                         {props.displayName}
                     </MenuItem>
                     {
-                        props.selectables.map(selectable =>
-                            <MenuItem value={selectable.value}>
+                        props.selectables.map((selectable: ISelectable, index: number) =>
+                            <MenuItem key={props.absoluteKey + "." + index} value={selectable.value}>
                                 {selectable.displayName}
                             </MenuItem>)
                     }

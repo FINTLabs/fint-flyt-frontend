@@ -16,15 +16,13 @@ function splitPath(chunkSize: number, path: string[]): string[][] {
 
 
 const PathComponent: React.FunctionComponent<Props> = (props: { classes: ClassNameMap; path: string[]; }) => {
-    return <div>
-        <p className={props.classes.path}>
-            {
-                splitPath(4, props.path)
-                    .map((pathChunk: string[]) => {
-                        return <>{pathChunk.join("/")}<br/></>
-                    })
-            }
-        </p>
+    return <div className={props.classes.path}>
+        {
+            splitPath(4, props.path)
+                .map((pathChunk: string[], index: number) => {
+                    return <p key={index}>{pathChunk.join("/")}</p>
+                })
+        }
     </div>
 }
 export default PathComponent
