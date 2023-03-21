@@ -7,7 +7,6 @@ export const toggleButtonSX: SxProps<Theme> = {
     color: 'white',
     borderColor: '#398085',
     backgroundColor: (theme: Theme) => theme.palette.primary.main,
-    marginBottom: (theme: Theme) => theme.spacing(2),
     justifyContent: 'space-between',
     "&:hover": {
         color: 'white',
@@ -38,19 +37,12 @@ export const iconButtonSX: SxProps<Theme> = {
     m: 2
 }
 
-export const flexCenterSX: SxProps<Theme> = {
-    display: "flex",
-    alignItems: 'center',
-    mb: 1
-}
-
 export const autoCompleteSX: SxProps<Theme> = {
     backgroundColor: 'white',
     width: (theme: Theme) => theme.spacing(44)
 }
 
 export const selectSX: SxProps<Theme> = {
-    mb: 2,
     backgroundColor: 'white',
     width: (theme: Theme) => theme.spacing(44)
 }

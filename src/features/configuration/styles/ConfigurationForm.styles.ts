@@ -40,9 +40,6 @@ export const configurationFormStyles = makeStyles((theme: Theme) =>
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-between',
-            "&:first-child": {
-                marginTop: '16px'
-            }
         },
         label: {
             fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
@@ -125,6 +122,8 @@ export const configurationFormStyles = makeStyles((theme: Theme) =>
         fieldSet: {
             display: 'grid',
             border: 'none',
+            margin: '0',
+            padding: '16px'
         },
         list: {
             backgroundColor: 'white',
@@ -135,7 +134,6 @@ export const configurationFormStyles = makeStyles((theme: Theme) =>
             margin: theme.spacing(2)
         },
         listBorderless: {
-            backgroundColor: 'white',
             listStyle: 'none',
             padding: 'unset',
             border: 'none',
@@ -189,6 +187,15 @@ export const configurationFormStyles = makeStyles((theme: Theme) =>
             "&:last-child": {
                 marginLeft: theme.spacing(2)
             }
+        },
+        fieldsetElement: {
+            marginBottom: theme.spacing(2),
+            "&:last-child": {
+                marginBottom: theme.spacing(0)
+            }
+        },
+        pathChunk: {
+            margin: 0
         }
     })
 );

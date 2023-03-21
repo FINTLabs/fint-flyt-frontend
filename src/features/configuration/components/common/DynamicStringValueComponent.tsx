@@ -52,10 +52,9 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = (props: Prop
 
     const inputStyle = {
         backgroundColor: 'white',
-        width: '350px',
+        width: '352px',
         borderRadius: '4px',
-        margin: 'none',
-        marginBottom: '16px'
+        margin: 'none'
     };
 
     if (canDrop && isOver) {

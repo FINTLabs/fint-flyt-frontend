@@ -27,7 +27,6 @@ const SearchSelectValueComponent: React.FunctionComponent<Props> = (props: Props
                 <Autocomplete
                     {...field}
                     id={props.absoluteKey}
-                    sx={{mb: 2}}
                     filterOptions={filterOptions}
                     options={props.selectables}
                     getOptionLabel={(option: ISelectable) => option ? option.displayName : ''}
