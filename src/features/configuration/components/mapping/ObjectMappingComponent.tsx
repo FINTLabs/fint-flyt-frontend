@@ -1,5 +1,5 @@
 import * as React from "react";
-import {memo, MutableRefObject, ReactElement, useEffect, useRef} from "react";
+import {MutableRefObject, ReactElement, useRef} from "react";
 import {
     ICollectionTemplate,
     IDependency,
@@ -20,8 +20,7 @@ export interface Props {
     classes: ClassNameMap;
     absoluteKey: string;
     template: IObjectTemplate;
-    nestedElementCallbacks: NestedElementsCallbacks,
-    openNestedElementsByOrder: Set<string>
+    nestedElementCallbacks: NestedElementsCallbacks
 }
 
 export type NestedElementTemplate<T> = {
@@ -32,30 +31,47 @@ export type NestedElementTemplate<T> = {
     template: T;
 }
 
-const ObjectMappingComponent: React.FunctionComponent<Props> = memo((props: Props) => {
-    const {unregister} = useFormContext();
-    const registeredElementsOrders: MutableRefObject<Set<number>> = useRef<Set<number>>(new Set());
+const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
 
-    const absoluteKeysToUnregister: MutableRefObject<string[]> = useRef<string[]>([]);
-    const objectsToCloseByOrder: MutableRefObject<number[]> = useRef<number[]>([]);
-    const objectCollectionsToCloseByOrder: MutableRefObject<number[]> = useRef<number[]>([]);
-    const valueCollectionsToCloseByOrder: MutableRefObject<number[]> = useRef<number[]>([]);
+    const {unregister, getValues} = useFormContext()
 
-    const showDependencyValuePerOrder: Record<string, boolean> = {};
+    const showDependencyValuePerOrder: MutableRefObject<Record<string, boolean>> = useRef<Record<string, boolean>>({});
     [
         ...props.template.valueTemplates ? props.template.valueTemplates : [],
         ...props.template.selectableValueTemplates ? props.template.selectableValueTemplates : [],
+    ]
+        .map((elementTemplate: IElementTemplate<IValueTemplate | ISelectableValueTemplate>) => [
+            elementTemplate.order,
+            getValueMappingKey(elementTemplate),
+            elementTemplate.elementConfig.showDependency
+        ])
+        .filter((entry): entry is [number, string, IDependency] => !!entry[2])
+        .forEach(([order, absoluteKey, dependency]: [number, string, IDependency]) => DependencySatisfiedStatefulValue(props.absoluteKey, dependency,
+            (value) => {
+                showDependencyValuePerOrder.current[order] = value;
+                if (!value && getValues(absoluteKey) !== undefined) {
+                    unregister(absoluteKey)
+                }
+            })
+        );
+    [
         ...props.template.valueCollectionTemplates ? props.template.valueCollectionTemplates : [],
         ...props.template.objectTemplates ? props.template.objectTemplates : [],
         ...props.template.objectCollectionTemplates ? props.template.objectCollectionTemplates : [],
     ]
-        .map((elementTemplate: IElementTemplate<any>) => [
+        .map((elementTemplate: IElementTemplate<IObjectTemplate | ICollectionTemplate<IObjectTemplate | IValueTemplate>>) => [
             elementTemplate.order,
             elementTemplate.elementConfig.showDependency
         ])
         .filter((entry): entry is [number, IDependency] => !!entry[1])
-        .forEach(([order, dependency]: [number, IDependency]) =>
-            showDependencyValuePerOrder[order] = DependencySatisfiedStatefulValue(props.absoluteKey, dependency))
+        .forEach(([order, dependency]: [number, IDependency]) => DependencySatisfiedStatefulValue(props.absoluteKey, dependency,
+            (value) => {
+                showDependencyValuePerOrder.current[order] = value;
+                if (!value) {
+                    props.nestedElementCallbacks.onElementsClose([order.toString()], true)
+                }
+            })
+        );
 
     function getValueMappingKey(template: IElementTemplate<IValueTemplate | ISelectableValueTemplate>): string {
         return props.absoluteKey + ".valueMappingPerKey." + template.elementConfig.key;
@@ -74,55 +90,20 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = memo((props: Prop
     }
 
     function shouldShowElementWithOrder(order: number) {
-        const showDependencyValue: boolean | undefined = showDependencyValuePerOrder[order.toString()]
+        const showDependencyValue: boolean | undefined = showDependencyValuePerOrder.current[order.toString()]
         if (showDependencyValue === undefined || showDependencyValue) {
             return true;
         }
     }
 
-    useEffect(() => {
-        if (objectsToCloseByOrder.current.length > 0
-            || valueCollectionsToCloseByOrder.current.length > 0
-            || objectCollectionsToCloseByOrder.current.length > 0) {
-            const objectsToCloseByOrderCopy = [...objectsToCloseByOrder.current]
-            objectsToCloseByOrder.current = [];
-            const objectCollectionsToCloseByOrderCopy = [...objectCollectionsToCloseByOrder.current]
-            objectCollectionsToCloseByOrder.current = [];
-            const valueCollectionsToCloseByOrderCopy = [...valueCollectionsToCloseByOrder.current]
-            valueCollectionsToCloseByOrder.current = [];
-            props.nestedElementCallbacks.onElementsClose(
-                {
-                    objects: objectsToCloseByOrderCopy.map((order: number) => {
-                        return order.toString()
-                    }),
-                    objectCollections: objectCollectionsToCloseByOrderCopy.map((order: number) => {
-                        return order.toString()
-                    }),
-                    valueCollections: valueCollectionsToCloseByOrderCopy.map((order: number) => {
-                        return order.toString()
-                    }),
-                }
-            )
-        }
-        if (absoluteKeysToUnregister.current.length > 0) {
-            unregister([...absoluteKeysToUnregister.current]);
-            absoluteKeysToUnregister.current = [];
-        }
-    })
-
     return (
         <>
+            {console.log("render")}
             <fieldset className={props.classes.fieldSet}>
                 {[
                     ...(props.template.valueTemplates ? props.template.valueTemplates : [])
                         .filter((template: IElementTemplate<IValueTemplate>) => {
-                            if (shouldShowElementWithOrder(template.order)) {
-                                return true;
-                            }
-                            if (registeredElementsOrders.current.has(template.order)) {
-                                absoluteKeysToUnregister.current.push(getValueMappingKey(template))
-                            }
-                            return false;
+                            return shouldShowElementWithOrder(template.order)
                         })
                         .map<ReactElement<{ order: number }>>((template: IElementTemplate<IValueTemplate>) =>
                             <ValueMappingComponent
@@ -138,13 +119,7 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = memo((props: Prop
 
                     ...(props.template.selectableValueTemplates ? props.template.selectableValueTemplates : [])
                         .filter((template: IElementTemplate<ISelectableValueTemplate>) => {
-                            if (shouldShowElementWithOrder(template.order)) {
-                                return true;
-                            }
-                            if (registeredElementsOrders.current.has(template.order)) {
-                                absoluteKeysToUnregister.current.push(getValueMappingKey(template))
-                            }
-                            return false;
+                            return shouldShowElementWithOrder(template.order)
                         })
                         .map<ReactElement<{ order: number }>>((template: IElementTemplate<ISelectableValueTemplate>) =>
                             <SelectableValueMappingComponent
@@ -160,24 +135,14 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = memo((props: Prop
 
                     ...(props.template.valueCollectionTemplates ? props.template.valueCollectionTemplates : [])
                         .filter((template: IElementTemplate<ICollectionTemplate<IValueTemplate>>) => {
-                            if (shouldShowElementWithOrder(template.order)) {
-                                return true;
-                            }
-                            if (props.openNestedElementsByOrder.has(template.order.toString())) {
-                                valueCollectionsToCloseByOrder.current.push(template.order)
-                            }
-                            if (registeredElementsOrders.current.has(template.order)) {
-                                absoluteKeysToUnregister.current.push(getValueCollectionMappingKey(template))
-                            }
-                            return false;
+                            return shouldShowElementWithOrder(template.order)
                         })
                         .map<ReactElement<{ order: number }>>((template: IElementTemplate<ICollectionTemplate<IValueTemplate>>) =>
                             <ToggleButtonComponent
                                 classes={props.classes}
                                 order={template.order}
                                 displayName={template.elementConfig.displayName}
-                                selected={props.openNestedElementsByOrder.has(template.order.toString())}
-                                onSelected={() => {
+                                onSelect={() => {
                                     props.nestedElementCallbacks.onElementsOpen({
                                         valueCollections: [{
                                             order: template.order.toString(),
@@ -188,8 +153,8 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = memo((props: Prop
                                         }]
                                     });
                                 }}
-                                onUnselected={() => {
-                                    props.nestedElementCallbacks.onElementsClose({valueCollections: [template.order.toString()]})
+                                onUnselect={() => {
+                                    props.nestedElementCallbacks.onElementsClose([template.order.toString()])
                                 }}
                                 disabled={template.elementConfig.enableDependency ? !DependencySatisfiedStatefulValue(props.absoluteKey, template.elementConfig.enableDependency) : undefined}
                             />
@@ -197,24 +162,14 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = memo((props: Prop
 
                     ...(props.template.objectTemplates ? props.template.objectTemplates : [])
                         .filter((template: IElementTemplate<IObjectTemplate>) => {
-                            if (shouldShowElementWithOrder(template.order)) {
-                                return true;
-                            }
-                            if (props.openNestedElementsByOrder.has(template.order.toString())) {
-                                objectsToCloseByOrder.current.push(template.order)
-                            }
-                            if (registeredElementsOrders.current.has(template.order)) {
-                                absoluteKeysToUnregister.current.push(getObjectMappingKey(template))
-                            }
-                            return false;
+                            return shouldShowElementWithOrder(template.order)
                         })
                         .map<ReactElement<{ order: number }>>((template: IElementTemplate<IObjectTemplate>) =>
                             <ToggleButtonComponent
                                 classes={props.classes}
                                 order={template.order}
                                 displayName={template.elementConfig.displayName}
-                                selected={props.openNestedElementsByOrder.has(template.order.toString())}
-                                onSelected={() => {
+                                onSelect={() => {
                                     props.nestedElementCallbacks.onElementsOpen({
                                         objects: [{
                                             order: template.order.toString(),
@@ -225,8 +180,8 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = memo((props: Prop
                                         }]
                                     });
                                 }}
-                                onUnselected={() => {
-                                    props.nestedElementCallbacks.onElementsClose({objects: [template.order.toString()]})
+                                onUnselect={() => {
+                                    props.nestedElementCallbacks.onElementsClose([template.order.toString()])
                                 }}
                                 disabled={template.elementConfig.enableDependency ? !DependencySatisfiedStatefulValue(props.absoluteKey, template.elementConfig.enableDependency) : undefined}
                             />
@@ -234,24 +189,14 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = memo((props: Prop
 
                     ...(props.template.objectCollectionTemplates ? props.template.objectCollectionTemplates : [])
                         .filter((template: IElementTemplate<ICollectionTemplate<IObjectTemplate>>) => {
-                            if (shouldShowElementWithOrder(template.order)) {
-                                return true;
-                            }
-                            if (props.openNestedElementsByOrder.has(template.order.toString())) {
-                                objectCollectionsToCloseByOrder.current.push(template.order)
-                            }
-                            if (registeredElementsOrders.current.has(template.order)) {
-                                absoluteKeysToUnregister.current.push(getObjectCollectionMappingKey(template))
-                            }
-                            return false;
+                            return shouldShowElementWithOrder(template.order);
                         })
                         .map<ReactElement<{ order: number }>>((template: IElementTemplate<ICollectionTemplate<IObjectTemplate>>) =>
                             <ToggleButtonComponent
                                 classes={props.classes}
                                 order={template.order}
                                 displayName={template.elementConfig.displayName}
-                                selected={props.openNestedElementsByOrder.has(template.order.toString())}
-                                onSelected={() => {
+                                onSelect={() => {
                                     props.nestedElementCallbacks.onElementsOpen({
                                         objectCollections: [{
                                             order: template.order.toString(),
@@ -262,21 +207,15 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = memo((props: Prop
                                         }]
                                     });
                                 }}
-                                onUnselected={() => {
-                                    props.nestedElementCallbacks.onElementsClose({objectCollections: [template.order.toString()]});
+                                onUnselect={() => {
+                                    props.nestedElementCallbacks.onElementsClose([template.order.toString()]);
                                 }}
                                 disabled={template.elementConfig.enableDependency ? !DependencySatisfiedStatefulValue(props.absoluteKey, template.elementConfig.enableDependency) : undefined}
                             />
                         )
-                ]
-                    .map((reactElement: ReactElement<{ order: number }>) => {
-                        registeredElementsOrders.current.clear();
-                        registeredElementsOrders.current.add(reactElement.props.order);
-                        return reactElement;
-                    })
-                    .sort((a: ReactElement<{ order: number }>, b: ReactElement<{ order: number }>) => a.props.order - b.props.order)}
+                ].sort((a: ReactElement<{ order: number }>, b: ReactElement<{ order: number }>) => a.props.order - b.props.order)}
             </fieldset>
         </>
     )
-})
+}
 export default ObjectMappingComponent;

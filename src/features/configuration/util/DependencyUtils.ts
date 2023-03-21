@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import {useFormContext, useWatch} from "react-hook-form";
 import {getAbsoluteKeyFromValueRef} from "./KeyUtils";
 
-export function DependencySatisfiedStatefulValue(absoluteKey: string, dependency: IDependency): boolean {
+export function DependencySatisfiedStatefulValue(absoluteKey: string, dependency: IDependency, callback?: (value: boolean) => void): boolean {
     const {control} = useFormContext();
     const [dependencyValue, setDependencyValue] = useState<boolean>(false);
 
@@ -25,7 +25,11 @@ export function DependencySatisfiedStatefulValue(absoluteKey: string, dependency
             .map((combination: IValuePredicate[]) => getCombinationValue(
                 valuePerValueRef, combination
             ))
-        setDependencyValue(combinationValues.includes(true))
+        const value: boolean = combinationValues.includes(true)
+        setDependencyValue(value)
+        if (callback) {
+            callback(value)
+        }
 
     }, [predicateValuesWatch])
 

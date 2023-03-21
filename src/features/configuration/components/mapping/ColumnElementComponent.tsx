@@ -7,7 +7,6 @@ import FlytTitle2Component from "../common/title/FlytTitle2Component";
 export interface Props {
     classes: ClassNameMap;
     index: number;
-    order: string;
     title: string;
     path: string[];
     content: ReactElement;

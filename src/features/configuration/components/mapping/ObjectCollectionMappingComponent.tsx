@@ -10,7 +10,6 @@ export interface Props {
     absoluteKey: string;
     nestedElementCallbacks: NestedElementsCallbacks
     elementTemplate: IObjectTemplate
-    openNestedElementsByOrder: Set<string>
 }
 
 const ObjectCollectionMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
@@ -23,12 +22,6 @@ const ObjectCollectionMappingComponent: React.FunctionComponent<Props> = (props:
                 classes={props.classes}
                 absoluteKey={absoluteKey}
                 template={props.elementTemplate}
-                openNestedElementsByOrder={
-                    new Set<string>(Array.from(props.openNestedElementsByOrder.values())
-                        .filter((openNestedElementOrder: string) => openNestedElementOrder.startsWith(order))
-                        .map((openNestedElementOrder: string) => openNestedElementOrder.split("-")[2])
-                    )
-                }
                 nestedElementCallbacks={
                     prefixNestedElementsCallbacks(order, displayPath, props.nestedElementCallbacks)
                 }

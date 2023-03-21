@@ -7,15 +7,9 @@ export type ElementTemplates = {
     valueCollections?: NestedElementTemplate<ICollectionTemplate<IValueTemplate>>[]
 }
 
-export type ElementOrders = {
-    objects?: string[],
-    objectCollections?: string[],
-    valueCollections?: string[]
-}
-
 export type NestedElementsCallbacks = {
     onElementsOpen: (elementTemplates: ElementTemplates) => void;
-    onElementsClose: (elementOrders: ElementOrders) => void;
+    onElementsClose: (elementOrders: string[], unregister?: boolean) => void;
     onAllNestedElementsClose: (parentOrder: string) => void;
 }
 
@@ -24,8 +18,8 @@ export function prefixNestedElementsCallbacks(orderPrefix: string, displayPath: 
         onElementsOpen: (elementTemplates) =>
             nestedElementsCallbacks.onElementsOpen(prefixTemplates(orderPrefix, displayPath, elementTemplates)),
 
-        onElementsClose: (elementOrders: ElementOrders) =>
-            nestedElementsCallbacks.onElementsClose(prefixOrders(orderPrefix, elementOrders)),
+        onElementsClose: (elementOrders: string[], unregister?: boolean) =>
+            nestedElementsCallbacks.onElementsClose(elementOrders.map(order => orderPrefix + "-" + order), unregister),
 
         onAllNestedElementsClose: (parentOrder: string) => {
             nestedElementsCallbacks.onAllNestedElementsClose(orderPrefix + "-" + parentOrder)
@@ -38,14 +32,6 @@ function prefixTemplates(orderPrefix: string, displayPath: string[], elementTemp
         objects: elementTemplates.objects?.map(template => prefixTemplate(orderPrefix, displayPath, template)),
         objectCollections: elementTemplates.objectCollections?.map(template => prefixTemplate(orderPrefix, displayPath, template)),
         valueCollections: elementTemplates.valueCollections?.map(template => prefixTemplate(orderPrefix, displayPath, template)),
-    }
-}
-
-function prefixOrders(orderPrefix: string, elementOrder: ElementOrders): ElementOrders {
-    return {
-        objects: elementOrder.objects?.map(order => orderPrefix + "-" + order),
-        objectCollections: elementOrder.objectCollections?.map(order => orderPrefix + "-" + order),
-        valueCollections: elementOrder.valueCollections?.map(order => orderPrefix + "-" + order)
     }
 }
 
