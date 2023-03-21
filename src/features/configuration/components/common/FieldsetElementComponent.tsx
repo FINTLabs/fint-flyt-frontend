@@ -7,9 +7,9 @@ export interface Props {
     content: ReactElement;
 }
 
-const FieldsetElement: React.FunctionComponent<Props> = (props: Props) => {
+const FieldsetElementComponent: React.FunctionComponent<Props> = (props: Props) => {
     return <div className={props.classes.fieldsetElement}>
         {props.content}
     </div>
 }
-export default FieldsetElement;
+export default FieldsetElementComponent;

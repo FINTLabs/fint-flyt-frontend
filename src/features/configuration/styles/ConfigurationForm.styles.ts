@@ -62,44 +62,56 @@ export const configurationFormStyles = makeStyles((theme: Theme) =>
         },
         title: {
             fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
+            padding: 0,
             fontSize: theme.spacing(2),
-            marginTop: theme.spacing(2),
-            marginLeft: theme.spacing(2),
-        },
-        titlePath: {
-            fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
-            fontSize: theme.spacing(2),
-            marginTop: theme.spacing(2),
-            marginLeft: theme.spacing(2),
-            fontWeight: 'normal'
+            marginTop: theme.spacing(0)
         },
         title1: {
             fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
             fontSize: theme.spacing(3),
-            marginTop: theme.spacing(2),
-            marginLeft: theme.spacing(2),
+            padding: 0,
+            marginTop: theme.spacing(0),
             fontWeight: 'normal'
         },
         title2: {
             fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
             fontSize: theme.spacing(2.6),
-            marginTop: theme.spacing(2),
-            marginLeft: theme.spacing(2),
+            padding: 0,
+            marginTop: theme.spacing(0),
             fontWeight: 'normal'
         },
         title3: {
             fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
             fontSize: theme.spacing(2.2),
-            marginTop: theme.spacing(2),
-            marginLeft: theme.spacing(2),
+            padding: 0,
+            marginTop: theme.spacing(0),
+            marginBottom: theme.spacing(2),
+            fontWeight: 'normal'
+        },
+        title4: {
+            fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
+            fontSize: theme.spacing(2),
+            padding: 0,
+            marginTop: theme.spacing(0),
+            marginBottom: theme.spacing(2),
+            fontWeight: 'normal'
+        },
+        titlePath: {
+            fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
+            fontSize: theme.spacing(2),
+            padding: 0,
+            marginTop: theme.spacing(0),
             fontWeight: 'normal'
         },
         path: {
             fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
             fontSize: theme.spacing(1.5),
             marginTop: theme.spacing(-2),
-            marginLeft: theme.spacing(2),
+            marginBottom: theme.spacing(2),
             color: theme.palette.primary.main
+        },
+        pathChunk: {
+            margin: 0
         },
         column: {
             maxHeight: 'calc(100vh/1.5)',
@@ -123,29 +135,26 @@ export const configurationFormStyles = makeStyles((theme: Theme) =>
             display: 'grid',
             border: 'none',
             margin: '0',
-            padding: '16px'
-        },
-        list: {
-            backgroundColor: 'white',
-            listStyle: 'none',
-            padding: 'unset',
-            border: 'solid 1px black',
-            borderRadius: theme.spacing(0.5),
-            margin: theme.spacing(2)
+            padding: '0'
         },
         listBorderless: {
             listStyle: 'none',
             padding: 'unset',
-            border: 'none',
-            margin: theme.spacing(2)
+            margin: 'unset',
+            border: 'none'
         },
-        collectionElementWrapper: {
+        arrayObjectWrapper: {
             backgroundColor: 'white',
-            listStyle: 'none',
-            padding: 'unset',
             border: 'solid 1px black',
             borderRadius: theme.spacing(0.5),
-            marginTop: theme.spacing(2)
+            padding: 'unset',
+            // paddingTop: theme.spacing(2),
+            // paddingBottom: theme.spacing(2),
+            marginBottom: theme.spacing(2)
+        },
+        arrayValueWrapper: {
+            padding: 'unset',
+            marginBottom: theme.spacing(2)
         },
         listItem: {},
         collectionButton: {
@@ -194,8 +203,11 @@ export const configurationFormStyles = makeStyles((theme: Theme) =>
                 marginBottom: theme.spacing(0)
             }
         },
-        pathChunk: {
-            margin: 0
+        wrapperPadding: {
+            padding: theme.spacing(2),
+        },
+        wrapperVerticalMargin: {
+            marginBottom: theme.spacing(2)
         }
     })
 );

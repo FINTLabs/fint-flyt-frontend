@@ -23,34 +23,28 @@ const ArrayComponent: React.FunctionComponent<Props> = (props: Props) => {
         control,
         name: props.absoluteKey
     });
-    return (
-        <>
-            {fields.length > 0 &&
-                <ul id={'list-' + props.absoluteKey} className={props.classes.listBorderless}>
-                    {fields.map((field, index) => (
-                            <li id={'list-item-' + index} className={classes.listItem} key={field.id}>
-                                {props.fieldComponentCreator(
-                                    index,
-                                    props.absoluteKey + "." + index
-                                )}
-                            </li>
-                        )
+    return <ul id={'list-' + props.absoluteKey} className={props.classes.listBorderless}>
+        {fields.map((field, index) => (
+                <li id={'list-item-' + index} className={classes.listItem} key={field.id}>
+                    {props.fieldComponentCreator(
+                        index,
+                        props.absoluteKey + "." + index
                     )}
-                </ul>
-            }
-            <AddIcon sx={iconButtonSX} onClick={() => {
-                append(props.defaultValueCreator())
-            }}/>
-            {fields.length > 0 &&
-                <RemoveIcon sx={iconButtonSX} onClick={() => {
-                    const index = fields.length - 1;
-                    remove(fields.length - 1);
-                    if (props.onFieldClose) {
-                        props.onFieldClose(index)
-                    }
-                }}
-                />}
-        </>
-    );
+                </li>
+            )
+        )}
+        <AddIcon sx={iconButtonSX} onClick={() => {
+            append(props.defaultValueCreator())
+        }}/>
+        {fields.length > 0 &&
+            <RemoveIcon sx={iconButtonSX} onClick={() => {
+                const index = fields.length - 1;
+                remove(fields.length - 1);
+                if (props.onFieldClose) {
+                    props.onFieldClose(index)
+                }
+            }}
+            />}
+    </ul>
 }
 export default ArrayComponent

@@ -15,7 +15,7 @@ import ToggleButtonComponent from "../common/ToggleButtonComponent";
 import {NestedElementsCallbacks} from "../../types/NestedElementCallbacks";
 import {DependencySatisfiedStatefulValue} from "../../util/DependencyUtils";
 import {useFormContext} from "react-hook-form";
-import FieldsetElement from "../common/FieldsetElement";
+import FieldsetElementComponent from "../common/FieldsetElementComponent";
 
 export interface Props {
     classes: ClassNameMap;
@@ -212,8 +212,9 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                     />
                 )
         ].sort((a: ReactElement<{ order: number }>, b: ReactElement<{ order: number }>) => a.props.order - b.props.order)
-            .map((reactElement: ReactElement, index: number) => <FieldsetElement classes={props.classes} key={index}
-                                                                                 content={reactElement}/>)
+            .map((reactElement: ReactElement, index: number) => <FieldsetElementComponent classes={props.classes}
+                                                                                          key={index}
+                                                                                          content={reactElement}/>)
         }
     </fieldset>
 }

@@ -34,7 +34,8 @@ export const metadataPanelSX: SxProps<Theme> = {
 
 export const iconButtonSX: SxProps<Theme> = {
     cursor: 'pointer',
-    m: 2
+    marginTop: (theme: Theme) => theme.spacing(0),
+    marginRight: (theme: Theme) => theme.spacing(2)
 }
 
 export const autoCompleteSX: SxProps<Theme> = {

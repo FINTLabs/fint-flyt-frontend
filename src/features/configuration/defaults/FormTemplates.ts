@@ -964,7 +964,22 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                 }
                             }
                         }
-                    ]
+                    ],
+                    "valueCollectionTemplates": [
+                        {
+                            "order": 20,
+                            "elementConfig": {
+                                "key": "valueCollection",
+                                "displayName": "Verdisamling",
+                                "description": ""
+                            },
+                            "template": {
+                                elementTemplate: {
+                                    "type": ValueType.DYNAMIC_STRING
+                                }
+                            }
+                        }
+                    ],
                 }
             }
         ],

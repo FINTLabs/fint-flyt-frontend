@@ -4,11 +4,15 @@ import ArrayComponent from "../common/ArrayComponent";
 import FromCollectionMappingComponent from "./FromCollectionMappingComponent";
 import {useTranslation} from "react-i18next";
 import {ClassNameMap} from "@mui/styles";
+import ArrayObjectWrapperComponent from "../common/ArrayObjectWrapperComponent";
+import ArrayValueWrapperComponent from "../common/ArrayValueWrapperComponent";
+import FlytTitle3Component from "../common/title/FlytTitle3Component";
+
 
 interface Props {
     classes: ClassNameMap;
     absoluteKey: string;
-    createElementWrapper?: boolean
+    createObjectWrapper?: boolean
     elementComponentCreator: (order: string, displayPath: string[], absoluteKey: string) => ReactElement;
     onFieldClose?: (order: string) => void,
 }
@@ -16,9 +20,9 @@ interface Props {
 const CollectionMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.configuration.collectionMapping'});
 
-    return (
-        <>
-            <div className={props.classes.title}>{t("defaultElements")}</div>
+    return <>
+        <div className={props.classes.wrapperVerticalMargin}>
+            <FlytTitle3Component classes={props.classes} title={t("defaultElements")}/>
             <ArrayComponent
                 classes={props.classes}
                 absoluteKey={props.absoluteKey + ".elementMappings"}
@@ -29,11 +33,15 @@ const CollectionMappingComponent: React.FunctionComponent<Props> = (props: Props
                             [t("defaultElements"), (index + 1).toString()],
                             absoluteKey
                         )
-                        return props.createElementWrapper
-                            ? <div className={props.classes.collectionElementWrapper}>
-                                {field}
-                            </div>
-                            : field;
+                        return props.createObjectWrapper
+                            ? <ArrayObjectWrapperComponent
+                                classes={props.classes}
+                                content={field}
+                            />
+                            : <ArrayValueWrapperComponent
+                                classes={props.classes}
+                                content={field}
+                            />;
                     }
                 }
                 defaultValueCreator={() => {
@@ -45,33 +53,38 @@ const CollectionMappingComponent: React.FunctionComponent<Props> = (props: Props
                     }
                 }}
             />
-            <div className={props.classes.title}>{t("generatedElements")}</div>
-            <ArrayComponent
-                classes={props.classes}
-                absoluteKey={props.absoluteKey + ".fromCollectionMappings"}
-                fieldComponentCreator={(index: number, absoluteKey: string) =>
-                    <FromCollectionMappingComponent
-                        classes={props.classes}
-                        absoluteKey={absoluteKey}
-                        elementComponentCreator={
-                            (absoluteKey: string) => props.elementComponentCreator(
-                                1 + "-" + index,
-                                [t("generatedElements"), (index + 1).toString()],
-                                absoluteKey
-                            )
-                        }
-                    />
-                }
-                defaultValueCreator={() => {
-                    return {}
-                }}
-                onFieldClose={(index: number) => {
-                    if (props.onFieldClose) {
-                        props.onFieldClose(1 + "-" + index)
+        </div>
+        <FlytTitle3Component classes={props.classes} title={t("generatedElements")}/>
+        <ArrayComponent
+            classes={props.classes}
+            absoluteKey={props.absoluteKey + ".fromCollectionMappings"}
+            fieldComponentCreator={(index: number, absoluteKey: string) =>
+                <ArrayObjectWrapperComponent
+                    classes={props.classes}
+                    content={
+                        <FromCollectionMappingComponent
+                            classes={props.classes}
+                            absoluteKey={absoluteKey}
+                            elementComponentCreator={
+                                (absoluteKey: string) => props.elementComponentCreator(
+                                    1 + "-" + index,
+                                    [t("generatedElements"), (index + 1).toString()],
+                                    absoluteKey
+                                )
+                            }
+                        />
                     }
-                }}
-            />
-        </>
-    );
+                />
+            }
+            defaultValueCreator={() => {
+                return {}
+            }}
+            onFieldClose={(index: number) => {
+                if (props.onFieldClose) {
+                    props.onFieldClose(1 + "-" + index)
+                }
+            }}
+        />
+    </>
 }
 export default CollectionMappingComponent;

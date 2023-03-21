@@ -14,11 +14,13 @@ export interface Props {
 
 const ColumnElementComponent: React.FunctionComponent<Props> = (props: Props) => {
     return <div id={'column-item-' + props.index} className={props.classes.columnItem}>
-        <div>
-            <FlytTitle2Component classes={props.classes} title={props.title}/>
-            {props.path.length > 0 && <PathComponent classes={props.classes} path={props.path}/>}
+        <div className={props.classes.wrapperPadding}>
+            <div>
+                <FlytTitle2Component classes={props.classes} title={props.title}/>
+                {props.path.length > 0 && <PathComponent classes={props.classes} path={props.path}/>}
+            </div>
+            {props.content}
         </div>
-        {props.content}
     </div>
 }
 export default ColumnElementComponent

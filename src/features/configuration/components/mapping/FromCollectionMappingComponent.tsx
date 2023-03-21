@@ -5,6 +5,8 @@ import {useTranslation} from "react-i18next";
 import {ClassNameMap} from "@mui/styles";
 import DynamicStringValueComponent from "../common/DynamicStringValueComponent";
 import {ValueType} from "../../types/Metadata/IntegrationMetadata";
+import ArrayValueWrapperComponent from "../common/ArrayValueWrapperComponent";
+import FlytTitle4Component from "../common/title/FlytTitle4Component";
 
 interface Props {
     classes: ClassNameMap;
@@ -15,28 +17,36 @@ interface Props {
 const FromCollectionMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.configuration.fromCollectionMapping'});
 
-    return (
-        <div className={props.classes.collectionElementWrapper}>
-            <div id={'collection-mapping-header-' + props.absoluteKey}
-                 className={props.classes.title}>{t("collections")}</div>
+    return <>
+        <div className={props.classes.wrapperVerticalMargin}>
+            <FlytTitle4Component
+                id={'collection-mapping-header-' + props.absoluteKey}
+                classes={props.classes}
+                title={t("collections")}
+            />
             <ArrayComponent
                 classes={props.classes}
                 absoluteKey={props.absoluteKey + ".instanceCollectionReferencesOrdered"}
                 fieldComponentCreator={(index: number, absoluteKey: string) =>
-
-                    <DynamicStringValueComponent
+                    <ArrayValueWrapperComponent
                         classes={props.classes}
-                        absoluteKey={absoluteKey}
-                        displayName={"" + index}
-                        accept={[ValueType.COLLECTION]}
+                        content={<DynamicStringValueComponent
+                            classes={props.classes}
+                            absoluteKey={absoluteKey}
+                            displayName={"" + index}
+                            accept={[ValueType.COLLECTION]}
+                        />}
                     />
-
                 }
                 defaultValueCreator={() => undefined}
             />
-            <div className={props.classes.title}>{t("convertCollectionElements")}</div>
-            {props.elementComponentCreator(props.absoluteKey + ".elementMapping")}
         </div>
-    );
+        <FlytTitle4Component
+            id={'collection-mapping-header-' + props.absoluteKey}
+            classes={props.classes}
+            title={t("convertCollectionElements")}
+        />
+        {props.elementComponentCreator(props.absoluteKey + ".elementMapping")}
+    </>
 }
 export default FromCollectionMappingComponent
