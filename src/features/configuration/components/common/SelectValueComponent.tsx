@@ -1,7 +1,7 @@
 import {Controller, useFormContext} from "react-hook-form"
 import * as React from "react";
 import {ISelectable} from "../../types/Selectable";
-import {MenuItem, Select} from "@mui/material";
+import {MenuItem, TextField} from "@mui/material";
 import {selectSX} from "../../styles/SystemStyles";
 
 interface Props {
@@ -19,12 +19,14 @@ const SelectValueComponent: React.FunctionComponent<Props> = (props: Props) => {
             name={props.absoluteKey}
             defaultValue={"none"}
             control={control}
-            render={({field}) => <>
-                <Select
+            render={({field}) =>
+                <TextField
                     {...field}
                     id={props.absoluteKey}
                     size={'small'}
                     sx={selectSX}
+                    select
+                    label={props.displayName}
                     disabled={props.disabled}
                 >
                     <MenuItem key={props.absoluteKey + ".0"} value="none" disabled>
@@ -36,11 +38,9 @@ const SelectValueComponent: React.FunctionComponent<Props> = (props: Props) => {
                                 {selectable.displayName}
                             </MenuItem>)
                     }
-                </Select>
-            </>
+                </TextField>
             }
         />
-
     );
 }
 export default SelectValueComponent;
