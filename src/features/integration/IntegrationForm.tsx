@@ -64,7 +64,7 @@ export const IntegrationForm: React.FunctionComponent<any> = () => {
         setSelectedMetadata,
         setIntegration,
         setExistingIntegration,
-        resetIntegrationContext
+        resetIntegrationContext,
     } = useContext(IntegrationContext)
     const {
         getAvailableForms,
@@ -83,7 +83,7 @@ export const IntegrationForm: React.FunctionComponent<any> = () => {
 
     const navToConfiguration = () => {
         history.push({
-            pathname: '/configuration/new-configuration',
+            pathname: '/integration/configuration/new-configuration',
         })
     }
     const cancel = () => {
@@ -94,6 +94,7 @@ export const IntegrationForm: React.FunctionComponent<any> = () => {
 
     useEffect(() => {
         resetIntegrationContext();
+
         return () => {
             setSourceApplication(sourceApplication)
         }
