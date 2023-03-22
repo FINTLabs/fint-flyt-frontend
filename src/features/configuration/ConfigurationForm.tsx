@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {SourceApplicationContext} from "../../context/sourceApplicationContext";
 import OutgoingDataComponent from "./components/OutgoingDataComponent";
@@ -27,7 +27,8 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
         setSelectedMetadata,
         existingIntegration,
         configuration,
-        setConfiguration
+        setConfiguration,
+        resetIntegrationContext
     } = useContext(IntegrationContext)
     const {allMetadata,} = useContext(SourceApplicationContext)
     const methods = useForm({
@@ -38,6 +39,13 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
             ...configuration
         }
     });
+
+    useEffect(() => {
+        return () => {
+            resetIntegrationContext()
+        }
+    }, [])
+
     const onSubmit = (data: any) => {
         console.log('submitting data ', data);
         if (configuration) {
