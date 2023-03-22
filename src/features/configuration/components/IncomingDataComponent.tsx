@@ -11,7 +11,6 @@ import {
     IInstanceMetadataCategory,
     IInstanceObjectCollectionMetadata,
     IInstanceValueMetadata,
-    MOCK_INSTANCE_METADATA,
     ValueType
 } from "../types/Metadata/IntegrationMetadata";
 import {ClassNameMap} from "@mui/styles";
@@ -102,7 +101,7 @@ const IncomingDataComponent: React.FunctionComponent<any> = (props: { classes: C
                 </Box>
                 <Box className={props.classes.panel}>
                     {/*TODO 09/03 ingrie: before merge, switch back to use real metadata*/}
-                    <TagTree items={MOCK_INSTANCE_METADATA.instanceMetadata} depth={0}/>
+                    {instanceElementMetadata && <TagTree items={instanceElementMetadata} depth={0}/>}
                     {/*<Link style={{fontFamily: 'sans-serif'}} to={{pathname: selectedMetadata.sourceApplicationIntegrationUri}} target="_blank">{t('openLink')}</Link>*/}
                 </Box>
                 {instanceObjectCollectionMetadata &&

@@ -12,12 +12,22 @@ interface Props {
 }
 
 const SearchSelectValueComponent: React.FunctionComponent<Props> = (props: Props) => {
-    const {control} = useFormContext();
+    const {control, getValues} = useFormContext();
     const filterOptions = createFilterOptions({
         matchFrom: 'any',
         stringify: (option: ISelectable) => option.displayName,
         limit: 250
     });
+
+    function getSelectedValue(absoluteKey: string): ISelectable | null {
+        if (getValues(absoluteKey)) {
+            let foundValue = props.selectables.find(({value}: { value: any }) => value === getValues(props.absoluteKey))
+            if (foundValue) {
+                return foundValue
+            }
+        }
+        return null
+    }
 
     return (
         <Controller
@@ -30,6 +40,7 @@ const SearchSelectValueComponent: React.FunctionComponent<Props> = (props: Props
                     filterOptions={filterOptions}
                     options={props.selectables}
                     getOptionLabel={(option: ISelectable) => option ? option.displayName : ''}
+                    value={getSelectedValue(props.absoluteKey)}
                     renderInput={(params) => (
                         <TextField
                             {...params}

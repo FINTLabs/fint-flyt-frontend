@@ -5,13 +5,13 @@ import {IIntegrationMetadata} from "../../features/configuration/types/Metadata/
 export type IntegrationContextState = {
     id: string | undefined;
     setId: (number: string | undefined) => void;
-    newIntegration: IIntegration | undefined;
+    integration: IIntegration | undefined;
     existingIntegration: IIntegration | undefined;
-    setNewIntegration: (integration: IIntegration | undefined) => void;
+    setIntegration: (integration: IIntegration | undefined) => void;
     setExistingIntegration: (integration: IIntegration | undefined) => void;
-    newIntegrations: IIntegration[] | undefined;
-    setNewIntegrations: (integrations: IIntegration[]) => void;
-    getNewIntegrations: (sourceApplicationId: string) => void;
+    integrations: IIntegration[] | undefined;
+    setIntegrations: (integrations: IIntegration[]) => void;
+    getIntegrations: (sourceApplicationId: string) => void;
     configuration: IConfiguration | undefined;
     setConfiguration: (configuration: IConfiguration | undefined) => void;
     configurations: IConfiguration[] | undefined;
@@ -38,16 +38,16 @@ export const contextDefaultValues: IntegrationContextState = {
     id: undefined,
     setId: (number: string | undefined) => {
     },
-    newIntegration: {},
+    integration: {},
     existingIntegration: {},
-    setNewIntegration: () => {
+    setIntegration: () => {
     },
     setExistingIntegration: () => {
     },
-    newIntegrations: [],
-    setNewIntegrations: () => {
+    integrations: [],
+    setIntegrations: () => {
     },
-    getNewIntegrations: () => {
+    getIntegrations: () => {
     },
     configuration: undefined,
     setConfiguration: () => {

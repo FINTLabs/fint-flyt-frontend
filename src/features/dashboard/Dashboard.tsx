@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.dashboard'});
     const classes = useStyles();
-    const {statistics, resetIntegrations, newIntegrations, getNewIntegrations} = useContext(IntegrationContext)
+    const {statistics, resetIntegrations, integrations, getIntegrations} = useContext(IntegrationContext)
     const {sourceApplication} = useContext(SourceApplicationContext)
     let totalErrors = 0;
     statistics?.map((stat: any) => {
@@ -43,17 +43,17 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
     })
 
     useEffect(() => {
-        getNewIntegrations(sourceApplication.toString());
+        getIntegrations(sourceApplication.toString());
         resetIntegrations();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const cards: ICard[] = [
         {
-            value: newIntegrations === undefined || newIntegrations.length === 0 ? t('empty') : newIntegrations.length,
-            content: newIntegrations !== undefined && newIntegrations.length === 1 ? t('oneForm') : t('form'),
+            value: integrations === undefined || integrations.length === 0 ? t('empty') : integrations.length,
+            content: integrations !== undefined && integrations.length === 1 ? t('oneForm') : t('form'),
             links: [
-                {name: t('links.newIntegration'), href: '/integration/new'}
+                {name: t('links.integration'), href: '/integration/new'}
             ]
         },
         {

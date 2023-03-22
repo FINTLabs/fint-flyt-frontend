@@ -3,7 +3,6 @@ import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {SourceApplicationContext} from "../../context/sourceApplicationContext";
 import OutgoingDataComponent from "./components/OutgoingDataComponent";
 import {FormProvider, useForm} from "react-hook-form";
-
 import {HTML5Backend} from "react-dnd-html5-backend";
 import {DndProvider} from "react-dnd";
 import IncomingDataComponent from "./components/IncomingDataComponent";
@@ -15,22 +14,45 @@ import {configurationFormStyles} from "./styles/ConfigurationForm.styles";
 import {ConfigurationContext} from '../../context/configurationContext';
 import SelectValueComponent from "./components/common/SelectValueComponent";
 import StringValueComponent from "./components/common/StringValueComponent";
+import ConfigurationRepository from "../../shared/repositories/ConfigurationRepository";
 
 const useStyles = configurationFormStyles
 
 const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
-    const {sourceApplication} = useContext(SourceApplicationContext)
     const {completed, setCompleted, active, setActive} = useContext(ConfigurationContext)
     const {t} = useTranslation('translations', {keyPrefix: 'pages.configuration'});
     const classes = useStyles();
-    const methods = useForm();
-    const {selectedMetadata, setSelectedMetadata} = useContext(IntegrationContext)
+    const {
+        selectedMetadata,
+        setSelectedMetadata,
+        existingIntegration,
+        configuration,
+        setConfiguration
+    } = useContext(IntegrationContext)
     const {allMetadata,} = useContext(SourceApplicationContext)
-    const initialVersion: number = selectedMetadata.version;
-    const [version, setVersion] = React.useState<string>(initialVersion ? String(initialVersion) : '');
-
+    const methods = useForm({
+        defaultValues: !configuration ? {
+            integrationId: existingIntegration?.id,
+            integrationMetadataId: selectedMetadata.id
+        } : {
+            ...configuration
+        }
+    });
     const onSubmit = (data: any) => {
-        console.log(data);
+        console.log('submitting data ', data);
+        if (configuration) {
+            ConfigurationRepository.updateConfiguration(configuration.id.toString(), data)
+                .then(response => setConfiguration(response.data)
+                ).catch(e => {
+                console.log('error', e)
+            })
+        } else {
+            ConfigurationRepository.createConfiguration(data)
+                .then(response => setConfiguration(response.data)
+                ).catch(e => {
+                console.log('error', e)
+            })
+        }
     };
 
     const availableVersions: IIntegrationMetadata[] = allMetadata.filter(md => {
@@ -44,12 +66,13 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                 <form id="react-hook-form" onSubmit={methods.handleSubmit(onSubmit)}>
                     <Box sx={{m: 1}}>
                         <Typography variant={"h6"}>{t('header')}</Typography>
-                        <Typography>Integrasjon: PLACEHOLDER VIK123 - TEST - TEST</Typography>
+                        <Typography>Integrasjon: {existingIntegration?.sourceApplicationIntegrationId} - {existingIntegration?.displayName}</Typography>
                         <SelectValueComponent
-                            absoluteKey={"integrationMetadataId"}
+                            absoluteKey={"metadataVersion"}
                             displayName={t('metadataVersion')}
                             selectables={
                                 availableVersions.map(metadata => {
+                                    //TODO: changing version must change selected metadata and its metadataId
                                     return {
                                         displayName: metadata.version.toString(),
                                         value: metadata.id ? metadata.id.toString() : "0"
@@ -65,7 +88,6 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                     </Box>
                     <Box display="flex" position="relative" width={1} height={1} sx={{border: 'none'}}>
                         <IncomingDataComponent classes={classes}/>
-
                         <OutgoingDataComponent classes={classes}/>
                     </Box>
                     <Box className={classes.formFooter}>

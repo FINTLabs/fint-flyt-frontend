@@ -12,12 +12,10 @@ import IntegrationRepository from '../../shared/repositories/IntegrationReposito
 import {IntegrationState} from "./types/Integration";
 import {IFormIntegration} from "../configuration/types/FormIntegration";
 import {selectSX} from "../configuration/styles/SystemStyles";
+import {ISelect} from "../configuration/types/Select";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        formControl: {
-            width: theme.spacing(70)
-        },
         panelContainer: {
             backgroundColor: 'white',
             padding: theme.spacing(2),
@@ -51,9 +49,7 @@ const useStyles = makeStyles((theme: Theme) =>
             fontWeight: 'normal'
         },
         incomingWrapper: {},
-        outgoingWrapper: {
-            marginTop: theme.spacing(2)
-        }
+        outgoingWrapper: {}
     }));
 
 export const IntegrationForm: React.FunctionComponent<any> = () => {
@@ -63,7 +59,6 @@ export const IntegrationForm: React.FunctionComponent<any> = () => {
     const {
         setSelectedMetadata,
         setIntegration,
-        setExistingIntegration,
         resetIntegrationContext
     } = useContext(IntegrationContext)
     const {
@@ -83,13 +78,18 @@ export const IntegrationForm: React.FunctionComponent<any> = () => {
 
     const navToConfiguration = () => {
         history.push({
-            pathname: '/configuration/new-configuration',
+            pathname: '/integration/configuration/new',
         })
     }
     const cancel = () => {
         history.push({
             pathname: '/',
         })
+    }
+
+    const defaultSelectable: ISelect = {
+        label: 'Velg kildeapplikasjon først',
+        value: 'null'
     }
 
     useEffect(() => {
@@ -120,7 +120,7 @@ export const IntegrationForm: React.FunctionComponent<any> = () => {
             IntegrationRepository.createIntegration(toIntegration(formConfiguration, IntegrationState.DEACTIVATED))
                 .then((response) => {
                     setSourceApplicationIntegrationId(response.data.sourceApplicationIntegrationId)
-                    setExistingIntegration(response.data)
+                    setIntegration(response.data)
                     navToConfiguration();
                 })
                 .catch(e => console.error(e))
@@ -159,14 +159,11 @@ export const IntegrationForm: React.FunctionComponent<any> = () => {
                             </TextField>
                             <HelpPopover popoverContent={'sourceApplicationId'}/>
                         </Box>
-                        <Box sx={{display: 'flex', mt: 2}}>
+                        <Box sx={{display: 'flex'}}>
                             <Autocomplete
                                 sx={selectSX}
                                 id='sourceApplicationIntegrationId'
-                                options={sourceApplication && availableForms.forms ? availableForms.forms : [{
-                                    label: 'Velg kildeapplikasjon først',
-                                    value: 'null'
-                                }]}
+                                options={sourceApplication && availableForms.forms ? availableForms.forms : [defaultSelectable]}
                                 renderInput={params => (
                                     <TextField {...params}
                                                size="small"
@@ -207,11 +204,10 @@ export const IntegrationForm: React.FunctionComponent<any> = () => {
                         color={"error"}>{!sourceApplicationId || !sourceApplicationIntegrationId || !destination ? error : ''}</Typography>
                 </Box>
                 <Box sx={{mt: 2}}>
-                    <Button id="form-settings-confirm-btn" onClick={confirm}
-                            variant="contained">{t('button.confirm')}</Button>
-                    <Button id="form-settings-cancel-btn" onClick={cancel} sx={{ml: 2}}
-                            variant="contained">{t('button.cancel')}</Button>
-
+                    <Button id="form-settings-cancel-btn" onClick={cancel} variant="contained">
+                        {t('button.cancel')}</Button>
+                    <Button id="form-settings-confirm-btn" onClick={confirm} variant="contained">
+                        {t('button.confirm')}</Button>
                 </Box>
             </FormGroup>
         </>

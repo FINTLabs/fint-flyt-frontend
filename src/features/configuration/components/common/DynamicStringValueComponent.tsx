@@ -103,6 +103,7 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = (props: Prop
                             ),
                         }}
                         {...field}
+                        value={getValues(props.absoluteKey)}
                     />
                 }
             />
