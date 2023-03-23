@@ -18,6 +18,7 @@ import CheckboxValueComponent from "./components/common/CheckboxValueComponent";
 import IntegrationRepository from "../../shared/repositories/IntegrationRepository";
 import {IConfiguration} from "./types/Configuration";
 import {IIntegrationPatch, IntegrationState} from "../integration/types/Integration";
+import {ConfigurationContext} from "../../context/configurationContext";
 
 const useStyles = configurationFormStyles
 
@@ -33,7 +34,8 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
         setConfiguration,
         resetIntegrationContext
     } = useContext(IntegrationContext)
-    const {allMetadata,} = useContext(SourceApplicationContext)
+    const {allMetadata} = useContext(SourceApplicationContext)
+    const {completed, setCompleted} = useContext(ConfigurationContext)
     const methods = useForm({
         defaultValues: configuration
             ? {...configuration}
