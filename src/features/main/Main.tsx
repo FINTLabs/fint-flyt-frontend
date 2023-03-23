@@ -10,7 +10,6 @@ import {useTranslation} from "react-i18next";
 import {IntegrationContext} from "../../context/integrationContext";
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import {SourceApplicationContext} from "../../context/sourceApplicationContext";
-import ConfigurationProvider from "../../context/configurationContext";
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme: Theme) =>
@@ -118,9 +117,7 @@ function Main() {
                 <MenuItems/>
             </Drawer>
             <main className={classes.content}>
-                <ConfigurationProvider>
-                    <Router/>
-                </ConfigurationProvider>
+                <Router/>
             </main>
         </Box>
     );

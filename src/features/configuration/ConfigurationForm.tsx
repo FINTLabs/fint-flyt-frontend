@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {SourceApplicationContext} from "../../context/sourceApplicationContext";
 import OutgoingDataComponent from "./components/OutgoingDataComponent";
@@ -11,15 +11,18 @@ import {IntegrationContext} from "../../context/integrationContext";
 import {IIntegrationMetadata} from "./types/Metadata/IntegrationMetadata";
 import {useTranslation} from "react-i18next";
 import {configurationFormStyles} from "./styles/ConfigurationForm.styles";
-import {ConfigurationContext} from '../../context/configurationContext';
 import SelectValueComponent from "./components/common/SelectValueComponent";
 import StringValueComponent from "./components/common/StringValueComponent";
 import ConfigurationRepository from "../../shared/repositories/ConfigurationRepository";
+import CheckboxValueComponent from "./components/common/CheckboxValueComponent";
+import IntegrationRepository from "../../shared/repositories/IntegrationRepository";
+import {IConfiguration} from "./types/Configuration";
+import {IIntegrationPatch, IntegrationState} from "../integration/types/Integration";
 
 const useStyles = configurationFormStyles
 
 const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
-    const {completed, setCompleted, active, setActive} = useContext(ConfigurationContext)
+    const [active, setActive] = useState<boolean>(false)
     const {t} = useTranslation('translations', {keyPrefix: 'pages.configuration'});
     const classes = useStyles();
     const {
@@ -32,12 +35,13 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     } = useContext(IntegrationContext)
     const {allMetadata,} = useContext(SourceApplicationContext)
     const methods = useForm({
-        defaultValues: !configuration ? {
-            integrationId: existingIntegration?.id,
-            integrationMetadataId: selectedMetadata.id
-        } : {
-            ...configuration
-        }
+        defaultValues: configuration
+            ? {...configuration}
+            : {
+                integrationId: existingIntegration?.id,
+                integrationMetadataId: selectedMetadata.id,
+                completed: false
+            }
     });
 
     useEffect(() => {
@@ -50,18 +54,42 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
         console.log('submitting data ', data);
         if (configuration) {
             ConfigurationRepository.updateConfiguration(configuration.id.toString(), data)
-                .then(response => setConfiguration(response.data)
+                .then(response => {
+                        setConfiguration(response.data)
+                        if (active && existingIntegration) {
+                            activateConfiguration(existingIntegration.id, response.data)
+                        }
+                    }
                 ).catch(e => {
                 console.log('error', e)
             })
         } else {
             ConfigurationRepository.createConfiguration(data)
-                .then(response => setConfiguration(response.data)
+                .then(response => {
+                        setConfiguration(response.data)
+                        if (active && existingIntegration) {
+                            activateConfiguration(existingIntegration.id, response.data)
+                        }
+                    }
                 ).catch(e => {
                 console.log('error', e)
             })
         }
     };
+
+    function activateConfiguration(integrationId: string, configuration: IConfiguration) {
+        const patch: IIntegrationPatch = {
+            activeConfigurationId: configuration.id.toString(),
+            state: IntegrationState.ACTIVE,
+            destination: existingIntegration?.destination
+        }
+        IntegrationRepository.updateIntegration(integrationId, patch)
+            .then(response => {
+                console.log('set active configuration: ', response.data.activeConfigurationId, ' active: ')
+            }).catch((e) => {
+            console.log('could not set active configuration', e)
+        })
+    }
 
     const availableVersions: IIntegrationMetadata[] = allMetadata.filter(md => {
         return md.sourceApplicationId === selectedMetadata.sourceApplicationId &&
@@ -108,18 +136,8 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                                 }}
                         >{t("button.cancel")}
                         </button>
+                        <CheckboxValueComponent absoluteKey={"completed"} displayName={t('label.checkLabel')}/>
                         <FormControlLabel
-                            control={
-                                <Checkbox
-                                    id="form-complete"
-                                    checked={completed}
-                                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                        console.log(event.target.checked)
-                                        setCompleted(event.target.checked)
-                                    }}
-                                    inputProps={{'aria-label': 'completed-checkbox'}}/>}
-                            label={t('label.checkLabel') as string}/>
-                        {completed && <FormControlLabel
                             control={
                                 <Checkbox
                                     id="form-active"
@@ -128,7 +146,8 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                                         setActive(event.target.checked)
                                     }}
                                     inputProps={{'aria-label': 'active-checkbox'}}/>}
-                            label={t('label.activeLabel') as string}/>}
+                            label={t('label.activeLabel') as string}
+                        />
                     </Box>
                 </form>
             </FormProvider>

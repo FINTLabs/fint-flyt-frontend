@@ -166,7 +166,10 @@ const IntegrationPanel: React.FunctionComponent<any> = (props: { classes: ClassN
             size="small"
             variant="contained"
             onClick={() => {
-                handleNewOrEditConfigClick(props.row.id).then(() => history.push("/integration/configuration/edit")
+                handleNewOrEditConfigClick(props.row.id).then(() => history.push("/integration/configuration/edit", {
+                        integrationId: existingIntegration?.id,
+                        configurationId: props.row.id
+                    })
                 )
             }}
         >{completed ? t('button.show') : t('button.edit')}
@@ -376,7 +379,11 @@ const IntegrationPanel: React.FunctionComponent<any> = (props: { classes: ClassN
                         {completedConfigurations && completedConfigurations.map((config: any, index: number) => {
                                 return <MenuItem onClick={handleNewConfigSubClose} key={index}>
                                     <Button id="version-button" onClick={() => {
-                                        handleNewOrEditConfigClick(config.id, config.version).then(() => history.push("/integration/configuration/edit"))
+                                        handleNewOrEditConfigClick(config.id, config.version).then(() => history.push("/integration/configuration/edit", {
+                                            integrationId: existingIntegration?.id,
+                                            configurationId: config.id,
+                                            version: config.version
+                                        }))
                                     }}>
                                         {t('button.version')} {config.version}
                                     </Button>

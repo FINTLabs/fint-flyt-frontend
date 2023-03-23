@@ -81,9 +81,11 @@ export const IntegrationForm: React.FunctionComponent<any> = () => {
     const [sourceApplicationIntegrationId, setSourceApplicationIntegrationId] = useState<string>('');
     let backgroundColor = 'white';
 
-    const navToConfiguration = () => {
+    const navToConfiguration = (id: string) => {
         history.push({
             pathname: '/integration/configuration/new-configuration',
+        }, {
+            id: id
         })
     }
     const cancel = () => {
@@ -122,7 +124,7 @@ export const IntegrationForm: React.FunctionComponent<any> = () => {
                 .then((response) => {
                     setSourceApplicationIntegrationId(response.data.sourceApplicationIntegrationId)
                     setExistingIntegration(response.data)
-                    navToConfiguration();
+                    navToConfiguration(response.data.sourceApplicationIntegrationId);
                 })
                 .catch(e => console.error(e))
             console.log('create new integration', toIntegration(formConfiguration, IntegrationState.DEACTIVATED))
@@ -208,11 +210,10 @@ export const IntegrationForm: React.FunctionComponent<any> = () => {
                         color={"error"}>{!sourceApplicationId || !sourceApplicationIntegrationId || !destination ? error : ''}</Typography>
                 </Box>
                 <Box sx={{mt: 2}}>
-                    <Button id="form-settings-confirm-btn" onClick={confirm}
-                            variant="contained">{t('button.confirm')}</Button>
-                    <Button id="form-settings-cancel-btn" onClick={cancel} sx={{ml: 2}}
-                            variant="contained">{t('button.cancel')}</Button>
-
+                    <Button id="form-settings-confirm-btn" onClick={confirm} variant="contained">
+                        {t('button.confirm')}</Button>
+                    <Button id="form-settings-cancel-btn" onClick={cancel} sx={{ml: 2}} variant="contained">
+                        {t('button.cancel')}</Button>
                 </Box>
             </FormGroup>
         </>
