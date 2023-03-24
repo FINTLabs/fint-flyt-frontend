@@ -52,9 +52,6 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
         history.push('/')
     }
 
-    console.log(configuration)
-    console.log(completed)
-
     useEffect(() => {
         if (configuration?.completed) {
             console.log('config is competed')
