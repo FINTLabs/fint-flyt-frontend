@@ -1,8 +1,10 @@
 import {Controller, useFormContext} from "react-hook-form"
 import * as React from "react";
+import {useContext} from "react";
 import {ISelectable} from "../../types/Selectable";
 import {Autocomplete, createFilterOptions, TextField} from "@mui/material";
 import {autoCompleteSX} from "../../styles/SystemStyles";
+import {ConfigurationContext} from "../../../../context/configurationContext";
 
 interface Props {
     absoluteKey: string;
@@ -13,6 +15,7 @@ interface Props {
 
 const SearchSelectValueComponent: React.FunctionComponent<Props> = (props: Props) => {
     const {control, getValues} = useFormContext();
+    const {completed} = useContext(ConfigurationContext)
     const filterOptions = createFilterOptions({
         matchFrom: 'any',
         stringify: (option: ISelectable) => option.displayName,
@@ -52,7 +55,7 @@ const SearchSelectValueComponent: React.FunctionComponent<Props> = (props: Props
                     onChange={(_, data) => {
                         data !== null ? field.onChange(data.value) : field.onChange(data)
                     }}
-                    disabled={props.disabled}
+                    disabled={props.disabled || completed}
                 />
             )}
         />

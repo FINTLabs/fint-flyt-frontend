@@ -1,8 +1,10 @@
 import {Controller, useFormContext} from "react-hook-form"
 import * as React from "react";
+import {useContext} from "react";
 import {ISelectable} from "../../types/Selectable";
 import {MenuItem, Select} from "@mui/material";
 import {selectSX} from "../../styles/SystemStyles";
+import {ConfigurationContext} from "../../../../context/configurationContext";
 
 interface Props {
     absoluteKey: string;
@@ -13,6 +15,7 @@ interface Props {
 
 const SelectValueComponent: React.FunctionComponent<Props> = (props: Props) => {
     const {control} = useFormContext();
+    const {completed} = useContext(ConfigurationContext)
 
     return (
         <Controller
@@ -25,7 +28,7 @@ const SelectValueComponent: React.FunctionComponent<Props> = (props: Props) => {
                     id={props.absoluteKey}
                     size={'small'}
                     sx={selectSX}
-                    disabled={props.disabled}
+                    disabled={props.disabled || completed}
                 >
                     <MenuItem key={props.absoluteKey + ".0"} value="none" disabled>
                         {props.displayName}

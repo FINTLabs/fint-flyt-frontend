@@ -8,11 +8,16 @@ export const ConfigurationContext = createContext<ConfigurationContextState>(
 const ConfigurationProvider: FC = ({children}) => {
     const [completed, setCompleted] = useState<boolean>(contextDefaultValues.completed);
 
+    function resetConfigurationContext() {
+        setCompleted(contextDefaultValues.completed)
+    }
+
     return (
         <ConfigurationContext.Provider
             value={{
                 completed,
-                setCompleted
+                setCompleted,
+                resetConfigurationContext
             }}
         >
             {children}

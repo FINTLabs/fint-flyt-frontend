@@ -11,6 +11,7 @@ import {Search} from "../../util/UrlUtils";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import ResourceRepository from "../../../../shared/repositories/ResourceRepository";
 import {searchResultSX} from "../../styles/SystemStyles";
+import {ConfigurationContext} from "../../../../context/configurationContext";
 
 interface Props {
     classes: ClassNameMap;
@@ -23,6 +24,7 @@ interface Props {
 
 const DynamicStringValueComponent: React.FunctionComponent<Props> = (props: Props) => {
     const {getInstanceObjectCollectionMetadata} = useContext(SourceApplicationContext)
+    const {completed} = useContext(ConfigurationContext)
     const {setValue, getValues, control} = useFormContext();
     const [searchResult, setSearchResult] = useState<string>()
 
@@ -82,7 +84,7 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = (props: Prop
                         multiline
                         maxRows={3}
                         label={props.displayName}
-                        disabled={props.disabled}
+                        disabled={props.disabled || completed}
                         InputProps={{
                             endAdornment: (
                                 <>

@@ -23,7 +23,6 @@ import {ConfigurationContext} from "../../context/configurationContext";
 const useStyles = configurationFormStyles
 
 const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
-    const [active, setActive] = useState<boolean>(false)
     const {t} = useTranslation('translations', {keyPrefix: 'pages.configuration'});
     const history = useHistory();
     const classes = useStyles();
@@ -35,8 +34,10 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
         setConfiguration,
         resetIntegrationContext
     } = useContext(IntegrationContext)
+    const [active, setActive] = useState<boolean>(existingIntegration?.activeConfigurationId === configuration?.id)
     const {allMetadata} = useContext(SourceApplicationContext)
-    const {completed, setCompleted} = useContext(ConfigurationContext)
+    const {completed, setCompleted, resetConfigurationContext} = useContext(ConfigurationContext)
+
     const methods = useForm({
         defaultValues: configuration
             ? {...configuration}
@@ -51,9 +52,17 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
         history.push('/')
     }
 
+    console.log(configuration)
+    console.log(completed)
+
     useEffect(() => {
+        if (configuration?.completed) {
+            console.log('config is competed')
+            setCompleted(true)
+        }
         return () => {
             resetIntegrationContext()
+            resetConfigurationContext()
         }
     }, [])
 
@@ -63,6 +72,9 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
             ConfigurationRepository.updateConfiguration(configuration.id.toString(), data)
                 .then(response => {
                         setConfiguration(response.data)
+                        if (response.data.completed) {
+                            setCompleted(true)
+                        }
                         if (active && existingIntegration) {
                             activateConfiguration(existingIntegration.id, response.data)
                         }
@@ -74,6 +86,9 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
             ConfigurationRepository.createConfiguration(data)
                 .then(response => {
                         setConfiguration(response.data)
+                        if (response.data.completed) {
+                            setCompleted(true)
+                        }
                         if (active && existingIntegration) {
                             activateConfiguration(existingIntegration.id, response.data)
                         }
@@ -149,6 +164,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                                 <Checkbox
                                     id="form-active"
                                     checked={active}
+                                    disabled={completed}
                                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                         setActive(event.target.checked)
                                     }}
