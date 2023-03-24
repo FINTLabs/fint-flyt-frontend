@@ -140,8 +140,6 @@ const IntegrationPanel: React.FunctionComponent<any> = (props: { classes: ClassN
     }
 
     async function handleNewOrEditConfigClick(id: any, version?: any) {
-        console.log('handle new or edit', id, version)
-        console.log(allMetadata)
         let selectedForm = allMetadata.filter(md => md.sourceApplicationIntegrationId === existingIntegration?.sourceApplicationIntegrationId)
         setSelectedMetadata(selectedForm.length > 0 ? selectedForm[0] : SOURCE_FORM_NO_VALUES[0])
         getInstanceElementMetadata(selectedForm[0].id)
@@ -183,7 +181,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props: { classes: ClassN
         }
         IntegrationRepository.updateIntegration(existingIntegration?.id, patch).then(
             (response) => {
-                console.log(response)
+                console.log('updated integration: ', existingIntegration?.id, response)
             }
         ).catch(e => console.error(e))
         setActiveVersion('ingen aktiv konfigurasjon')
@@ -338,8 +336,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props: { classes: ClassN
             >
                 <MenuItem component={RouterLink} to='/integration/configuration/new-configuration'
                           onClick={handleNewConfigClose}>
-                    <Button id="demo-positioned-button" onClick={() => {
-                        console.log('new config', allMetadata, existingIntegration)
+                    <Button id="new-configuration-button" onClick={() => {
                         let selectedForm = allMetadata.filter(md => md.sourceApplicationIntegrationId === existingIntegration?.sourceApplicationIntegrationId)
                         setSelectedMetadata(selectedForm.length > 0 ? selectedForm[0] : SOURCE_FORM_NO_VALUES[0])
                         getInstanceElementMetadata(selectedForm[0].id)

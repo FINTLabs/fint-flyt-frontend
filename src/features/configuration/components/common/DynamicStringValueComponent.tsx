@@ -29,12 +29,10 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = (props: Prop
     const [{canDrop, isOver}, dropRef] = useDrop({
         accept: props.accept,
         drop: (tag: ITag) => {
-            console.log(tag)
             getValues(props.absoluteKey) === undefined
                 ? setValue(props.absoluteKey, tag.value)
                 : setValue(props.absoluteKey, (getValues(props.absoluteKey) + tag.value))
             if (tag.type === ValueType.COLLECTION && tag.tagKey !== undefined) {
-                console.log('tag type is collection')
                 getInstanceObjectCollectionMetadata(tag.tagKey)
             }
         },
@@ -89,7 +87,6 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = (props: Prop
                             endAdornment: (
                                 <>
                                     {props.search && <IconButton sx={{padding: "4px", margin: "-4px"}} onClick={() => {
-                                        console.log(props.search)
                                         if (props.search?.source) {
                                             ResourceRepository.search(props.search.source)
                                                 .then((result: { value: string } | undefined) => {

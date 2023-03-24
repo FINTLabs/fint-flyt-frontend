@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {RouteComponentProps, withRouter} from 'react-router-dom';
+import {RouteComponentProps, useHistory, withRouter} from 'react-router-dom';
 import {SourceApplicationContext} from "../../context/sourceApplicationContext";
 import OutgoingDataComponent from "./components/OutgoingDataComponent";
 import {FormProvider, useForm} from "react-hook-form";
@@ -25,6 +25,7 @@ const useStyles = configurationFormStyles
 const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const [active, setActive] = useState<boolean>(false)
     const {t} = useTranslation('translations', {keyPrefix: 'pages.configuration'});
+    const history = useHistory();
     const classes = useStyles();
     const {
         selectedMetadata,
@@ -45,6 +46,10 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                 completed: false
             }
     });
+
+    if (!existingIntegration) {
+        history.push('/')
+    }
 
     useEffect(() => {
         return () => {
