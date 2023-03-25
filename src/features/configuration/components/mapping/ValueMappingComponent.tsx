@@ -21,16 +21,25 @@ interface Props {
 }
 
 const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
-    const {setValue} = useFormContext();
-    const valueAbsoluteKey: string = props.absoluteKey + ".mappingString"
+    const {getValues, setValue} = useFormContext();
+    const typeAbsoluteKey: string = props.absoluteKey + ".type";
+    const valueAbsoluteKey: string = props.absoluteKey + ".mappingString";
+
+    function setTypeIfUndefined(type: ConfigurationValueType) {
+        if (!getValues(typeAbsoluteKey)) {
+            setValue(typeAbsoluteKey, type)
+        }
+    }
+
     let search: Search | undefined;
     if (props.template.search) {
         const absoluteKeySplit = props.absoluteKey.split(".");
         search = SourceStatefulValue(props.template.search, absoluteKeySplit.slice(0, absoluteKeySplit.length - 2).join("."));
     }
+
     switch (props.template.type) {
         case TemplateValueType.STRING:
-            setValue(props.absoluteKey + ".type", ConfigurationValueType.STRING)
+            setTypeIfUndefined(ConfigurationValueType.STRING);
             return <div id={'value-mapping-wrapper-' + props.absoluteKey}
                         className={props.classes.valueMappingContainer}>
                 <StringValueComponent
@@ -42,7 +51,7 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
                 {props.description && <HelpPopover popoverContent={props.description}/>}
             </div>
         case TemplateValueType.DYNAMIC_STRING:
-            setValue(props.absoluteKey + ".type", ConfigurationValueType.DYNAMIC_STRING)
+            setTypeIfUndefined(ConfigurationValueType.DYNAMIC_STRING);
             return <div id={'value-mapping-wrapper-' + props.absoluteKey}
                         className={props.classes.valueMappingContainer}>
                 <DynamicStringValueComponent
@@ -62,7 +71,7 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
                 {props.description && <HelpPopover popoverContent={props.description}/>}
             </div>
         case TemplateValueType.FILE:
-            setValue(props.absoluteKey + ".type", ConfigurationValueType.FILE)
+            setTypeIfUndefined(ConfigurationValueType.FILE);
             return <div id={'value-mapping-wrapper-' + props.absoluteKey}
                         className={props.classes.valueMappingContainer}>
                 <DynamicStringValueComponent
