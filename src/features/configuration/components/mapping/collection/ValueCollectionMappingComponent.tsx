@@ -1,8 +1,8 @@
 import {ClassNameMap} from "@mui/styles";
 import * as React from "react";
 import CollectionMappingComponent from "./CollectionMappingComponent";
-import ValueMappingComponent from "./ValueMappingComponent";
-import {IValueTemplate} from "../../types/FormTemplate";
+import ValueMappingComponent from "../value/ValueMappingComponent";
+import {IValueTemplate} from "../../../types/FormTemplate";
 
 export interface Props {
     classes: ClassNameMap;

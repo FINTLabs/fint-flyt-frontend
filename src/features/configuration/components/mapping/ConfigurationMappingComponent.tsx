@@ -1,11 +1,11 @@
 import {ClassNameMap} from "@mui/styles";
 import * as React from "react";
 import {ReactElement, useContext, useState} from "react";
-import ObjectMappingComponent, {NestedElementTemplate} from "./ObjectMappingComponent";
+import ObjectMappingComponent from "./object/ObjectMappingComponent";
 import {ICollectionTemplate, IMappingTemplate, IObjectTemplate, IValueTemplate} from "../../types/FormTemplate";
-import {ElementTemplates, NestedElementsCallbacks} from "../../types/NestedElementCallbacks";
-import ValueCollectionMappingComponent from "./ValueCollectionMappingComponent";
-import ObjectCollectionMappingComponent from "./ObjectCollectionMappingComponent";
+import {ElementTemplates, NestedElementsCallbacks, NestedElementTemplate} from "../../types/NestedElement";
+import ValueCollectionMappingComponent from "./collection/ValueCollectionMappingComponent";
+import ObjectCollectionMappingComponent from "./collection/ObjectCollectionMappingComponent";
 import ColumnElementComponent from "./ColumnElementComponent";
 import {range} from "lodash";
 import {useFormContext} from "react-hook-form";

@@ -13,8 +13,8 @@ import {IIntegrationMetadata} from "./types/Metadata/IntegrationMetadata";
 import {useTranslation} from "react-i18next";
 import {configurationFormStyles} from "./styles/ConfigurationForm.styles";
 import {ConfigurationContext} from '../../context/configurationContext';
-import SelectValueComponent from "./components/common/SelectValueComponent";
-import StringValueComponent from "./components/common/StringValueComponent";
+import SelectValueComponent from "./components/mapping/value/select/SelectValueComponent";
+import StringValueComponent from "./components/mapping/value/StringValueComponent";
 
 const useStyles = configurationFormStyles
 

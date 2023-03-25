@@ -1,14 +1,14 @@
 import * as React from "react";
 import {ReactElement, useContext} from "react";
-import ArrayComponent from "../common/ArrayComponent";
+import ArrayComponent from "../../common/array/ArrayComponent";
 import {useTranslation} from "react-i18next";
 import {ClassNameMap} from "@mui/styles";
-import DynamicStringValueComponent from "../common/DynamicStringValueComponent";
-import {ValueType} from "../../types/Metadata/IntegrationMetadata";
-import ArrayValueWrapperComponent from "../common/ArrayValueWrapperComponent";
-import FlytTitle4Component from "../common/title/FlytTitle4Component";
-import {ConfigurationContext} from "../../../../context/configurationContext";
-import {isOutsideCollectionEditContext} from "../../util/KeyUtils";
+import DynamicStringValueComponent from "../value/DynamicStringValueComponent";
+import {ValueType} from "../../../types/Metadata/IntegrationMetadata";
+import ArrayValueWrapperComponent from "../../common/array/ArrayValueWrapperComponent";
+import FlytTitle4Component from "../../common/title/FlytTitle4Component";
+import {ConfigurationContext} from "../../../../../context/configurationContext";
+import {isOutsideCollectionEditContext} from "../../../util/KeyUtils";
 import {IconButton} from "@mui/material";
 import {EditOffRounded, EditRounded} from "@mui/icons-material";
 

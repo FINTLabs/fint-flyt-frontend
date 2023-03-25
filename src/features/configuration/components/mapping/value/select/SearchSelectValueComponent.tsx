@@ -1,11 +1,11 @@
 import {Controller, useFormContext} from "react-hook-form"
 import * as React from "react";
 import {useContext} from "react";
-import {ISelectable} from "../../types/Selectable";
+import {ISelectable} from "../../../../types/Selectable";
 import {Autocomplete, createFilterOptions, TextField} from "@mui/material";
-import {autoCompleteSX} from "../../styles/SystemStyles";
-import {ConfigurationContext} from "../../../../context/configurationContext";
-import {isOutsideCollectionEditContext} from "../../util/KeyUtils";
+import {autoCompleteSX} from "../../../../styles/SystemStyles";
+import {ConfigurationContext} from "../../../../../../context/configurationContext";
+import {isOutsideCollectionEditContext} from "../../../../util/KeyUtils";
 
 interface Props {
     absoluteKey: string;

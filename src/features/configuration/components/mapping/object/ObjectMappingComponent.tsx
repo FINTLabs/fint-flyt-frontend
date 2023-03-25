@@ -7,29 +7,21 @@ import {
     IObjectTemplate,
     ISelectableValueTemplate,
     IValueTemplate
-} from "../../types/FormTemplate";
-import ValueMappingComponent from "./ValueMappingComponent";
-import SelectableValueMappingComponent from "./SelectableValueMappingComponent";
+} from "../../../types/FormTemplate";
+import ValueMappingComponent from "../value/ValueMappingComponent";
+import SelectableValueMappingComponent from "../value/select/SelectableValueMappingComponent";
 import {ClassNameMap} from "@mui/styles";
-import ToggleButtonComponent from "../common/ToggleButtonComponent";
-import {NestedElementsCallbacks} from "../../types/NestedElementCallbacks";
-import {DependencySatisfiedStatefulValue} from "../../util/DependencyUtils";
+import ToggleButtonComponent from "../../common/ToggleButtonComponent";
+import {NestedElementsCallbacks} from "../../../types/NestedElement";
+import {DependencySatisfiedStatefulValue} from "../../../util/DependencyUtils";
 import {useFormContext} from "react-hook-form";
-import FieldsetElementComponent from "../common/FieldsetElementComponent";
+import FieldsetElementComponent from "../../common/FieldsetElementComponent";
 
 export interface Props {
     classes: ClassNameMap;
     absoluteKey: string;
     template: IObjectTemplate;
     nestedElementCallbacks: NestedElementsCallbacks
-}
-
-export type NestedElementTemplate<T> = {
-    order: string;
-    absoluteKey: string;
-    displayPath: string[];
-    displayName: string;
-    template: T;
 }
 
 const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) => {

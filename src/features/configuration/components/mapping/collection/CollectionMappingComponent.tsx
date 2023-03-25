@@ -1,14 +1,14 @@
 import * as React from "react";
 import {ReactElement, useContext} from "react";
-import ArrayComponent from "../common/ArrayComponent";
+import ArrayComponent from "../../common/array/ArrayComponent";
 import FromCollectionMappingComponent from "./FromCollectionMappingComponent";
 import {useTranslation} from "react-i18next";
 import {ClassNameMap} from "@mui/styles";
-import ArrayObjectWrapperComponent from "../common/ArrayObjectWrapperComponent";
-import ArrayValueWrapperComponent from "../common/ArrayValueWrapperComponent";
-import FlytTitle3Component from "../common/title/FlytTitle3Component";
-import {ConfigurationContext} from "../../../../context/configurationContext";
-import {isOutsideCollectionEditContext} from "../../util/KeyUtils";
+import ArrayObjectWrapperComponent from "../../common/array/ArrayObjectWrapperComponent";
+import ArrayValueWrapperComponent from "../../common/array/ArrayValueWrapperComponent";
+import FlytTitle3Component from "../../common/title/FlytTitle3Component";
+import {ConfigurationContext} from "../../../../../context/configurationContext";
+import {isOutsideCollectionEditContext} from "../../../util/KeyUtils";
 
 
 interface Props {

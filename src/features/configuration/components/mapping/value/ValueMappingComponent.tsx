@@ -1,13 +1,13 @@
 import * as React from "react";
-import {IValueTemplate, ValueType as TemplateValueType} from "../../types/FormTemplate";
-import StringValueComponent from "../common/StringValueComponent";
-import DynamicStringValueComponent from "../common/DynamicStringValueComponent";
+import {IValueTemplate, ValueType as TemplateValueType} from "../../../types/FormTemplate";
+import StringValueComponent from "./StringValueComponent";
+import DynamicStringValueComponent from "./DynamicStringValueComponent";
 import {useFormContext} from "react-hook-form";
-import {ValueType as ConfigurationValueType} from "../../types/Configuration";
-import {ValueType as MetadataValueType} from "../../types/Metadata/IntegrationMetadata";
+import {ValueType as ConfigurationValueType} from "../../../types/Configuration";
+import {ValueType as MetadataValueType} from "../../../types/Metadata/IntegrationMetadata";
 import {ClassNameMap} from "@mui/styles";
-import HelpPopover from "../popover/HelpPopover";
-import {Search, SourceStatefulValue} from "../../util/UrlUtils";
+import HelpPopover from "../../common/popover/HelpPopover";
+import {Search, SourceStatefulValue} from "../../../util/UrlUtils";
 
 interface Props {
     classes: ClassNameMap;

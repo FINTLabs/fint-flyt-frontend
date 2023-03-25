@@ -1,7 +1,7 @@
 import {Box, Typography} from "@mui/material";
 import * as React from "react";
 import {useContext, useEffect} from "react";
-import HelpPopover from "./popover/HelpPopover";
+import HelpPopover from "./common/popover/HelpPopover";
 import {useTranslation} from "react-i18next";
 // eslint-disable-next-line
 import {SourceApplicationContext} from "../../../context/sourceApplicationContext";

@@ -3,7 +3,7 @@ import {Chip} from "@mui/material";
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import NumbersIcon from '@mui/icons-material/Numbers';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import {ValueType} from "../../types/Metadata/IntegrationMetadata";
+import {ValueType} from "../../../types/Metadata/IntegrationMetadata";
 import {
     AlternateEmailRounded,
     Dialpad,
@@ -14,7 +14,7 @@ import {
 } from "@mui/icons-material";
 import {FunctionComponent} from "react";
 import {ClassNameMap} from "@mui/styles";
-import {tagSX} from "../../styles/SystemStyles";
+import {tagSX} from "../../../styles/SystemStyles";
 
 export interface Props {
     classes: ClassNameMap

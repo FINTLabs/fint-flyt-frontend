@@ -1,12 +1,12 @@
 import * as React from "react";
-import {ISelectableValueTemplate, SelectableValueType} from "../../types/FormTemplate";
-import SelectValueComponent from "../common/SelectValueComponent";
+import {ISelectableValueTemplate, SelectableValueType} from "../../../../types/FormTemplate";
+import SelectValueComponent from "./SelectValueComponent";
 import {useFormContext} from "react-hook-form";
-import {ValueType} from "../../types/Configuration";
-import {SelectablesStatefulValue} from "../../util/SelectablesUtils";
-import SearchSelectValueComponent from "../common/SearchSelectValueComponent";
+import {ValueType} from "../../../../types/Configuration";
+import {SelectablesStatefulValue} from "../../../../util/SelectablesUtils";
+import SearchSelectValueComponent from "./SearchSelectValueComponent";
 import {ClassNameMap} from "@mui/styles";
-import HelpPopover from "../popover/HelpPopover";
+import HelpPopover from "../../../common/popover/HelpPopover";
 
 interface Props {
     classes: ClassNameMap;

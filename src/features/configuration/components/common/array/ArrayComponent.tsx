@@ -5,7 +5,7 @@ import {useTranslation} from "react-i18next";
 import {ClassNameMap} from "@mui/styles";
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import {iconButtonSX} from "../../styles/SystemStyles";
+import {iconButtonSX} from "../../../styles/SystemStyles";
 import {IconButton} from "@mui/material";
 
 interface Props {

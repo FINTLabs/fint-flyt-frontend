@@ -4,7 +4,7 @@ import {ClassNameMap} from "@mui/styles";
 import {useTranslation} from "react-i18next";
 import {testObjectTemplateSak} from "../defaults/FormTemplates";
 import ConfigurationMappingComponent from "./mapping/ConfigurationMappingComponent";
-import HelpPopover from "./popover/HelpPopover";
+import HelpPopover from "./common/popover/HelpPopover";
 
 export interface Props {
     classes: ClassNameMap

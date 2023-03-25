@@ -3,8 +3,8 @@ import * as React from "react";
 import {useContext} from "react";
 import {ClassNameMap} from "@mui/styles";
 import {TextField} from "@mui/material";
-import {ConfigurationContext} from "../../../../context/configurationContext";
-import {isOutsideCollectionEditContext} from "../../util/KeyUtils";
+import {ConfigurationContext} from "../../../../../context/configurationContext";
+import {isOutsideCollectionEditContext} from "../../../util/KeyUtils";
 
 interface Props {
     classes: ClassNameMap;

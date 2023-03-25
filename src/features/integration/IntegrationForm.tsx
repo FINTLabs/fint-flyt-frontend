@@ -3,7 +3,7 @@ import {destinations, sourceApplications} from "../configuration/defaults/Defaul
 import {Autocomplete, Box, Button, FormGroup, MenuItem, TextField, Theme, Typography} from "@mui/material";
 import {useHistory} from "react-router-dom";
 import {IntegrationContext} from "../../context/integrationContext";
-import HelpPopover from "../configuration/components/popover/HelpPopover";
+import HelpPopover from "../configuration/components/common/popover/HelpPopover";
 import {useTranslation} from "react-i18next";
 import {SourceApplicationContext} from "../../context/sourceApplicationContext";
 import {createStyles, makeStyles} from "@mui/styles";

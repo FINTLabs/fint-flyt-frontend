@@ -8,7 +8,7 @@ import {
 } from "../../types/Metadata/IntegrationMetadata";
 import * as React from "react";
 import {ReactElement} from "react";
-import {Tag} from "../dnd/Tag";
+import {Tag} from "../common/dnd/Tag";
 import FlytCategoryHeaderComponent from "../common/title/FlytCategoryHeaderComponent";
 import FlytTitle3Component from "../common/title/FlytTitle3Component";
 
