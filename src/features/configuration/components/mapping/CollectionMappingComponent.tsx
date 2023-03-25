@@ -1,5 +1,5 @@
 import * as React from "react";
-import {ReactElement} from "react";
+import {ReactElement, useContext} from "react";
 import ArrayComponent from "../common/ArrayComponent";
 import FromCollectionMappingComponent from "./FromCollectionMappingComponent";
 import {useTranslation} from "react-i18next";
@@ -7,18 +7,21 @@ import {ClassNameMap} from "@mui/styles";
 import ArrayObjectWrapperComponent from "../common/ArrayObjectWrapperComponent";
 import ArrayValueWrapperComponent from "../common/ArrayValueWrapperComponent";
 import FlytTitle3Component from "../common/title/FlytTitle3Component";
+import {ConfigurationContext} from "../../../../context/configurationContext";
+import {isOutsideCollectionEditContext} from "../../util/KeyUtils";
 
 
 interface Props {
     classes: ClassNameMap;
     absoluteKey: string;
-    createObjectWrapper?: boolean
+    createObjectWrapper?: boolean;
     elementComponentCreator: (order: string, displayPath: string[], absoluteKey: string) => ReactElement;
     onFieldClose?: (order: string) => void,
 }
 
 const CollectionMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.configuration.collectionMapping'});
+    const {editCollectionAbsoluteKey} = useContext(ConfigurationContext)
 
     return <>
         <div className={props.classes.wrapperVerticalMargin}>
@@ -52,6 +55,7 @@ const CollectionMappingComponent: React.FunctionComponent<Props> = (props: Props
                         props.onFieldClose(0 + "-" + index)
                     }
                 }}
+                disabled={isOutsideCollectionEditContext(props.absoluteKey, editCollectionAbsoluteKey)}
             />
         </div>
         <FlytTitle3Component classes={props.classes} title={t("generatedElements")}/>
@@ -84,6 +88,7 @@ const CollectionMappingComponent: React.FunctionComponent<Props> = (props: Props
                     props.onFieldClose(1 + "-" + index)
                 }
             }}
+            disabled={isOutsideCollectionEditContext(props.absoluteKey, editCollectionAbsoluteKey)}
         />
     </>
 }

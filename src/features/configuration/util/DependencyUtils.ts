@@ -62,7 +62,6 @@ function getCombinationValue(valuePerValueRef: Record<string, string>, combinati
 }
 
 function getPredicateValue(valuePerValueRef: Record<string, string>, predicate: IValuePredicate): boolean {
-    // TODO eivindmorch 17/03/2023 : Change name from key to valueRef
     // TODO eivindmorch 17/03/2023 : Fix better ref to absolute key processing
     const value: string = valuePerValueRef[predicate.key];
     if (predicate.defined !== (value !== undefined)) {

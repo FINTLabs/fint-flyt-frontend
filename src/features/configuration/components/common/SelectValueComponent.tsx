@@ -1,8 +1,11 @@
 import {Controller, useFormContext} from "react-hook-form"
 import * as React from "react";
+import {useContext} from "react";
 import {ISelectable} from "../../types/Selectable";
 import {MenuItem, TextField} from "@mui/material";
 import {selectSX} from "../../styles/SystemStyles";
+import {ConfigurationContext} from "../../../../context/configurationContext";
+import {isOutsideCollectionEditContext} from "../../util/KeyUtils";
 
 interface Props {
     absoluteKey: string;
@@ -13,6 +16,7 @@ interface Props {
 
 const SelectValueComponent: React.FunctionComponent<Props> = (props: Props) => {
     const {control} = useFormContext();
+    const {editCollectionAbsoluteKey} = useContext(ConfigurationContext)
 
     return (
         <Controller
@@ -27,7 +31,10 @@ const SelectValueComponent: React.FunctionComponent<Props> = (props: Props) => {
                     sx={selectSX}
                     select
                     label={props.displayName}
-                    disabled={props.disabled}
+                    disabled={
+                        props.disabled
+                        || isOutsideCollectionEditContext(props.absoluteKey, editCollectionAbsoluteKey)
+                    }
                 >
                     <MenuItem key={props.absoluteKey + ".0"} value="none" disabled>
                         {props.displayName}

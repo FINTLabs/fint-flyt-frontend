@@ -6,11 +6,12 @@ import {ITag} from "../../types/Metadata/Tag";
 import {ValueType} from "../../types/Metadata/IntegrationMetadata"
 import {ClassNameMap} from "@mui/styles";
 import {IconButton, TextField, Typography} from "@mui/material";
-import {SourceApplicationContext} from "../../../../context/sourceApplicationContext";
 import {Search} from "../../util/UrlUtils";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import ResourceRepository from "../../../../shared/repositories/ResourceRepository";
 import {searchResultSX} from "../../styles/SystemStyles";
+import {ConfigurationContext} from "../../../../context/configurationContext";
+import {isOutsideCollectionEditContext} from "../../util/KeyUtils";
 
 interface Props {
     classes: ClassNameMap;
@@ -22,9 +23,9 @@ interface Props {
 }
 
 const DynamicStringValueComponent: React.FunctionComponent<Props> = (props: Props) => {
-    const {getInstanceObjectCollectionMetadata} = useContext(SourceApplicationContext)
     const {setValue, getValues, control} = useFormContext();
     const [searchResult, setSearchResult] = useState<string>()
+    const {editCollectionAbsoluteKey} = useContext(ConfigurationContext)
 
     const [{canDrop, isOver}, dropRef] = useDrop({
         accept: props.accept,
@@ -33,17 +34,12 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = (props: Prop
             getValues(props.absoluteKey) === undefined
                 ? setValue(props.absoluteKey, tag.value)
                 : setValue(props.absoluteKey, (getValues(props.absoluteKey) + tag.value))
-            if (tag.type === ValueType.COLLECTION && tag.tagKey !== undefined) {
-                console.log('tag type is collection')
-                getInstanceObjectCollectionMetadata(tag.tagKey)
-            }
         },
         collect: monitor => ({
             canDrop: monitor.canDrop(),
             isOver: monitor.isOver()
         })
     })
-
     useEffect(() => {
         setSearchResult(undefined)
     }, [props.search])
@@ -84,7 +80,10 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = (props: Prop
                         multiline
                         maxRows={3}
                         label={props.displayName}
-                        disabled={props.disabled}
+                        disabled={
+                            props.disabled
+                            || isOutsideCollectionEditContext(props.absoluteKey, editCollectionAbsoluteKey)
+                        }
                         InputProps={{
                             endAdornment: (
                                 <>

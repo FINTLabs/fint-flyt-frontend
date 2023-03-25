@@ -8,8 +8,8 @@ import ObjectMappingComponent from "./ObjectMappingComponent";
 export interface Props {
     classes: ClassNameMap;
     absoluteKey: string;
-    nestedElementCallbacks: NestedElementsCallbacks
-    elementTemplate: IObjectTemplate
+    nestedElementCallbacks: NestedElementsCallbacks;
+    elementTemplate: IObjectTemplate;
 }
 
 const ObjectCollectionMappingComponent: React.FunctionComponent<Props> = (props: Props) => {

@@ -1,6 +1,6 @@
 import {ClassNameMap} from "@mui/styles";
 import * as React from "react";
-import {ReactElement, useState} from "react";
+import {ReactElement, useContext, useState} from "react";
 import ObjectMappingComponent, {NestedElementTemplate} from "./ObjectMappingComponent";
 import {ICollectionTemplate, IMappingTemplate, IObjectTemplate, IValueTemplate} from "../../types/FormTemplate";
 import {ElementTemplates, NestedElementsCallbacks} from "../../types/NestedElementCallbacks";
@@ -9,15 +9,19 @@ import ObjectCollectionMappingComponent from "./ObjectCollectionMappingComponent
 import ColumnElementComponent from "./ColumnElementComponent";
 import {range} from "lodash";
 import {useFormContext} from "react-hook-form";
+import {ConfigurationContext} from "../../../../context/configurationContext";
+import ValueWatchComponent from "../common/ValueWatchComponent";
+import {findFromCollectionMappingAbsoluteKeys} from "../../util/KeyUtils";
 
 interface Props {
     classes: ClassNameMap
     mappingTemplate: IMappingTemplate;
+    onCollectionReferencesInEditContextChange: (collectionReferences: string[]) => void;
 }
 
 const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
-
     const {unregister} = useFormContext();
+    const {editCollectionAbsoluteKey} = useContext(ConfigurationContext)
 
     type ColumnElement = {
         path: string[],
@@ -161,6 +165,26 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
 
     return (
         <>
+            <ValueWatchComponent
+                key={editCollectionAbsoluteKey}
+                classes={props.classes}
+                names={
+                    editCollectionAbsoluteKey
+                        ? findFromCollectionMappingAbsoluteKeys(editCollectionAbsoluteKey)
+                            .map((fromCollectionMappingAbsoluteKey: string) =>
+                                fromCollectionMappingAbsoluteKey + ".instanceCollectionReferencesOrdered"
+                            )
+                        : []
+                }
+                onValuesChange={(values: string[]) => {
+                    props.onCollectionReferencesInEditContextChange(
+                        values
+                            .filter(value => !!value)
+                            .flat()
+                            .filter((value: string) => value.length > 0)
+                    )
+                }}
+            />
             {getElementsByColumn(displayRootElement).map((columns: Omit<ColumnElement, 'nestedColumnElementPerOrder'>[], columnIndex) =>
                 <div id={'column-' + columnIndex} key={'column-' + columnIndex}
                      className={props.classes.column}>

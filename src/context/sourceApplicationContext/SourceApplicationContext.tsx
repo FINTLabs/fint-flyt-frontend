@@ -20,16 +20,16 @@ const SourceApplicationProvider: FC = ({children}) => {
     const [availableForms, setAvailableForms] = useState<ISourceApplicationItem>(contextDefaultValues.availableForms);
     const [allMetadata, setAllMetadata] = useState<IIntegrationMetadata[]>(contextDefaultValues.allMetadata)
     const [instanceElementMetadata, setInstanceElementMetadata] = useState<IInstanceMetadataContent | undefined>(MOCK_INSTANCE_METADATA.instanceMetadata)
-    const [instanceObjectCollectionMetadata, setInstanceObjectCollectionMetadata] = useState<IInstanceObjectCollectionMetadata | undefined>(undefined)
+    const [instanceObjectCollectionMetadata, setInstanceObjectCollectionMetadata] = useState<IInstanceObjectCollectionMetadata[]>([])
     const [sourceApplication, setSourceApplication] = useState<number>(contextDefaultValues.sourceApplication);
 
 
-    function getInstanceObjectCollectionMetadata(key: string): void {
-        const selectedInstanceObjectCollectionMetadata: IInstanceObjectCollectionMetadata | undefined = instanceElementMetadata?.instanceObjectCollectionMetadata ?
-            instanceElementMetadata.instanceObjectCollectionMetadata.find(instanceObjectCollectionMetadata =>
-                instanceObjectCollectionMetadata.key === key
-            ) : undefined
-        setInstanceObjectCollectionMetadata(selectedInstanceObjectCollectionMetadata)
+    function getInstanceObjectCollectionMetadata(keys: string[]): void {
+        setInstanceObjectCollectionMetadata(
+            keys.map((key: string) => instanceElementMetadata?.instanceObjectCollectionMetadata
+                .find(instanceObjectCollectionMetadata => instanceObjectCollectionMetadata.key === key)
+            ).filter((metadata): metadata is IInstanceObjectCollectionMetadata => !!metadata)
+        );
     }
 
     const getAvailableForms = () => {

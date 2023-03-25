@@ -9,7 +9,8 @@ export const ConfigurationContext = createContext<ConfigurationContextState>(
 const ConfigurationProvider: FC = ({children}) => {
     const [completed, setCompleted] = useState<boolean>(contextDefaultValues.completed);
     const [active, setActive] = useState<boolean>(contextDefaultValues.active);
-    //TODO: set valgt metadata vedlegg
+    const [editCollectionAbsoluteKey, setEditCollectionAbsoluteKey] =
+        useState<string>(contextDefaultValues.editCollectionAbsoluteKey)
 
     return (
         <ConfigurationContext.Provider
@@ -17,7 +18,9 @@ const ConfigurationProvider: FC = ({children}) => {
                 completed,
                 setCompleted,
                 active,
-                setActive
+                setActive,
+                editCollectionAbsoluteKey,
+                setEditCollectionAbsoluteKey
             }}
         >
             {children}

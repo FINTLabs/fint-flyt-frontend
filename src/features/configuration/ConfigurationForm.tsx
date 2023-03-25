@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {SourceApplicationContext} from "../../context/sourceApplicationContext";
 import OutgoingDataComponent from "./components/OutgoingDataComponent";
@@ -19,15 +19,15 @@ import StringValueComponent from "./components/common/StringValueComponent";
 const useStyles = configurationFormStyles
 
 const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
-    const {sourceApplication} = useContext(SourceApplicationContext)
-    const {completed, setCompleted, active, setActive} = useContext(ConfigurationContext)
+    const {sourceApplication, allMetadata} = useContext(SourceApplicationContext)
+    const {selectedMetadata, setSelectedMetadata} = useContext(IntegrationContext)
+    const {completed, setCompleted, active, setActive, editCollectionAbsoluteKey} = useContext(ConfigurationContext)
     const {t} = useTranslation('translations', {keyPrefix: 'pages.configuration'});
     const classes = useStyles();
     const methods = useForm();
-    const {selectedMetadata, setSelectedMetadata} = useContext(IntegrationContext)
-    const {allMetadata,} = useContext(SourceApplicationContext)
     const initialVersion: number = selectedMetadata.version;
     const [version, setVersion] = React.useState<string>(initialVersion ? String(initialVersion) : '');
+    const [collectionReferencesInEditContext, setCollectionReferencesInEditContext] = useState<string[]>([])
 
     const onSubmit = (data: any) => {
         console.log(data);
@@ -64,9 +64,17 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                         />
                     </Box>
                     <Box display="flex" position="relative" width={1} height={1} sx={{border: 'none'}}>
-                        <IncomingDataComponent classes={classes}/>
-
-                        <OutgoingDataComponent classes={classes}/>
+                        <IncomingDataComponent
+                            classes={classes}
+                            collectionsToShowByReference={collectionReferencesInEditContext}
+                        />
+                        <OutgoingDataComponent
+                            classes={classes}
+                            onCollectionReferencesInEditContextChange={
+                                (collectionReferences: string[]) => {
+                                    setCollectionReferencesInEditContext(collectionReferences)
+                                }}
+                        />
                     </Box>
                     <Box className={classes.formFooter}>
                         <button id="form-submit-btn" className={classes.submitButton} type="submit" onClick={onSubmit}>

@@ -7,7 +7,7 @@ import {IValueTemplate} from "../../types/FormTemplate";
 export interface Props {
     classes: ClassNameMap;
     absoluteKey: string;
-    elementTemplate: IValueTemplate
+    elementTemplate: IValueTemplate;
 }
 
 const ValueCollectionMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
