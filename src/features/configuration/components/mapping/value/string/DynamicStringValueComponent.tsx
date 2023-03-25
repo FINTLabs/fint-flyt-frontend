@@ -2,16 +2,16 @@ import * as React from "react";
 import {useContext, useEffect, useState} from "react";
 import {Controller, useFormContext} from "react-hook-form";
 import {useDrop} from "react-dnd";
-import {ITag} from "../../../types/Metadata/Tag";
-import {ValueType} from "../../../types/Metadata/IntegrationMetadata"
+import {ITag} from "../../../../types/Metadata/Tag";
+import {ValueType} from "../../../../types/Metadata/IntegrationMetadata"
 import {ClassNameMap} from "@mui/styles";
 import {IconButton, TextField, Typography} from "@mui/material";
-import {Search} from "../../../util/UrlUtils";
+import {Search} from "../../../../util/UrlUtils";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
-import ResourceRepository from "../../../../../shared/repositories/ResourceRepository";
-import {searchResultSX} from "../../../styles/SystemStyles";
-import {ConfigurationContext} from "../../../../../context/configurationContext";
-import {isOutsideCollectionEditContext} from "../../../util/KeyUtils";
+import ResourceRepository from "../../../../../../shared/repositories/ResourceRepository";
+import {searchResultSX} from "../../../../styles/SystemStyles";
+import {ConfigurationContext} from "../../../../../../context/configurationContext";
+import {isOutsideCollectionEditContext} from "../../../../util/KeyUtils";
 
 interface Props {
     classes: ClassNameMap;

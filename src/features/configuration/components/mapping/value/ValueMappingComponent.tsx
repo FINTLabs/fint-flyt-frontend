@@ -1,7 +1,7 @@
 import * as React from "react";
 import {IValueTemplate, ValueType as TemplateValueType} from "../../../types/FormTemplate";
-import StringValueComponent from "./StringValueComponent";
-import DynamicStringValueComponent from "./DynamicStringValueComponent";
+import StringValueComponent from "./string/StringValueComponent";
+import DynamicStringValueComponent from "./string/DynamicStringValueComponent";
 import {useFormContext} from "react-hook-form";
 import {ValueType as ConfigurationValueType} from "../../../types/Configuration";
 import {ValueType as MetadataValueType} from "../../../types/Metadata/IntegrationMetadata";

@@ -1,6 +1,6 @@
 import {ClassNameMap} from "@mui/styles";
 import * as React from "react";
-import CollectionMappingComponent from "./CollectionMappingComponent";
+import CollectionMappingComponent from "./common/CollectionMappingComponent";
 import ValueMappingComponent from "../value/ValueMappingComponent";
 import {IValueTemplate} from "../../../types/FormTemplate";
 

@@ -1,7 +1,7 @@
 import {ClassNameMap} from "@mui/styles";
 import {NestedElementsCallbacks, prefixNestedElementsCallbacks} from "../../../types/NestedElement";
 import * as React from "react";
-import CollectionMappingComponent from "./CollectionMappingComponent";
+import CollectionMappingComponent from "./common/CollectionMappingComponent";
 import {IObjectTemplate} from "../../../types/FormTemplate";
 import ObjectMappingComponent from "../object/ObjectMappingComponent";
 

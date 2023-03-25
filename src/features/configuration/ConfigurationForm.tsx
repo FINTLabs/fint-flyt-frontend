@@ -14,7 +14,7 @@ import {useTranslation} from "react-i18next";
 import {configurationFormStyles} from "./styles/ConfigurationForm.styles";
 import {ConfigurationContext} from '../../context/configurationContext';
 import SelectValueComponent from "./components/mapping/value/select/SelectValueComponent";
-import StringValueComponent from "./components/mapping/value/StringValueComponent";
+import StringValueComponent from "./components/mapping/value/string/StringValueComponent";
 
 const useStyles = configurationFormStyles
 
