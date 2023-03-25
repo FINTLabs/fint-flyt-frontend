@@ -5,7 +5,11 @@ import HelpPopover from "./popover/HelpPopover";
 import {useTranslation} from "react-i18next";
 // eslint-disable-next-line
 import {SourceApplicationContext} from "../../../context/sourceApplicationContext";
-import {IInstanceObjectCollectionMetadata, MOCK_INSTANCE_METADATA} from "../types/Metadata/IntegrationMetadata";
+import {
+    IInstanceMetadataContent,
+    IInstanceObjectCollectionMetadata,
+    MOCK_INSTANCE_METADATA
+} from "../types/Metadata/IntegrationMetadata";
 import {ClassNameMap} from "@mui/styles";
 import {metadataPanelSX} from "../styles/SystemStyles";
 import {
@@ -22,7 +26,7 @@ export type Props = {
     classes: ClassNameMap,
     // TODO eivindmorch 24/03/2023 : Change to metadata as prop
     // metadata?: IInstanceMetadataContent,
-    collectionsToShowByReference: string[]
+    referencesForCollectionsToShow: string[]
 }
 
 const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => {
@@ -37,31 +41,47 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    function getCollectionsToShowPerReference(collectionsToShowByReference: string[]): [string, IInstanceObjectCollectionMetadata][] {
-        const collectionsMetadata: [string, IInstanceObjectCollectionMetadata][] = []
-        collectionsToShowByReference.forEach((reference: string) => {
+    function findInstanceObjectCollectionMetadata(metadataContent: IInstanceMetadataContent, key: string): IInstanceObjectCollectionMetadata | undefined {
+        const searchResultInCurrent: IInstanceObjectCollectionMetadata | undefined =
+            metadataContent.instanceObjectCollectionMetadata
+                .find((instanceObjectCollectionMetadata: IInstanceObjectCollectionMetadata) =>
+                    instanceObjectCollectionMetadata.key === key
+                )
+        if (searchResultInCurrent) {
+            return searchResultInCurrent;
+        }
+        for (let category of metadataContent.categories) {
+            const categorySearchResult: IInstanceObjectCollectionMetadata | undefined =
+                findInstanceObjectCollectionMetadata(category.content, key)
+            if (categorySearchResult) {
+                return categorySearchResult;
+            }
+        }
+        return undefined;
+    }
+
+    function getReferenceAndCollectionMetadata(references: string[]): [string, IInstanceObjectCollectionMetadata][] {
+        const referenceAndCollectionMetadata: [string, IInstanceObjectCollectionMetadata][] = []
+        references.forEach((reference: string) => {
 
             if (isFieldReference(reference)) {
                 const key: string = extractFieldReferenceKey(reference)
-                const collectionMetadata: IInstanceObjectCollectionMetadata | undefined =
-                    instanceElementMetadata?.instanceObjectCollectionMetadata
-                        .find(instanceObjectCollectionMetadata => instanceObjectCollectionMetadata.key === key);
+                const collectionMetadata: IInstanceObjectCollectionMetadata | undefined = instanceElementMetadata
+                    ? findInstanceObjectCollectionMetadata(instanceElementMetadata, key)
+                    : undefined;
                 if (!!collectionMetadata) {
-                    collectionsMetadata.push([reference, collectionMetadata])
+                    referenceAndCollectionMetadata.push([reference, collectionMetadata])
                 }
             } else if (isCollectionFieldReference(reference)) {
                 const [index, key]: [number, string] = extractCollectionFieldReferenceIndexAndKey(reference);
-                // TODO eivindmorch 24/03/2023 : Handle categories
-                //  Store all metadata in record for lookup
                 const collectionMetadata: IInstanceObjectCollectionMetadata | undefined =
-                    collectionsMetadata[index][1].objectMetadata.instanceObjectCollectionMetadata
-                        .find(instanceObjectCollectionMetadata => instanceObjectCollectionMetadata.key === key)
+                    findInstanceObjectCollectionMetadata(referenceAndCollectionMetadata[index][1].objectMetadata, key)
                 if (!!collectionMetadata) {
-                    collectionsMetadata.push([reference, collectionMetadata])
+                    referenceAndCollectionMetadata.push([reference, collectionMetadata])
                 }
             }
         })
-        return collectionsMetadata;
+        return referenceAndCollectionMetadata;
     }
 
     return (
@@ -82,8 +102,8 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
                         />
                     </Box>
                 }
-                {props.collectionsToShowByReference.length > 0 &&
-                    getCollectionsToShowPerReference(props.collectionsToShowByReference)
+                {props.referencesForCollectionsToShow.length > 0 &&
+                    getReferenceAndCollectionMetadata(props.referencesForCollectionsToShow)
                         .map(([reference, objectCollectionMetadata]: [string, IInstanceObjectCollectionMetadata], index: number) =>
                             <Box
                                 key={'tagTreeCollectionValues-' + index}

@@ -66,7 +66,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                     <Box display="flex" position="relative" width={1} height={1} sx={{border: 'none'}}>
                         <IncomingDataComponent
                             classes={classes}
-                            collectionsToShowByReference={collectionReferencesInEditContext}
+                            referencesForCollectionsToShow={collectionReferencesInEditContext}
                         />
                         <OutgoingDataComponent
                             classes={classes}
