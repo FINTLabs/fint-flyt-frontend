@@ -5,14 +5,16 @@ import {useTranslation} from "react-i18next";
 import {ClassNameMap} from "@mui/styles";
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import {iconButtonSX} from "../../styles/SystemStyles";
+import {iconButtonSX} from "../../../styles/SystemStyles";
+import {IconButton} from "@mui/material";
 
 interface Props {
     classes: ClassNameMap;
     absoluteKey: string;
     fieldComponentCreator: (index: number, absoluteKey: string) => ReactElement
     defaultValueCreator: () => any,
-    onFieldClose?: (index: number) => void
+    onFieldClose?: (index: number) => void,
+    disabled?: boolean
 }
 
 const ArrayComponent: React.FunctionComponent<Props> = (props: Props) => {
@@ -33,18 +35,28 @@ const ArrayComponent: React.FunctionComponent<Props> = (props: Props) => {
                 </li>
             )
         )}
-        <AddIcon sx={iconButtonSX} onClick={() => {
-            append(props.defaultValueCreator())
-        }}/>
-        {fields.length > 0 &&
-            <RemoveIcon sx={iconButtonSX} onClick={() => {
-                const index = fields.length - 1;
-                remove(fields.length - 1);
-                if (props.onFieldClose) {
-                    props.onFieldClose(index)
-                }
+        <IconButton
+            onClick={() => {
+                append(props.defaultValueCreator())
             }}
-            />}
+            disabled={props.disabled}
+        >
+            <AddIcon sx={iconButtonSX}/>
+        </IconButton>
+        {fields.length > 0 &&
+            <IconButton
+                onClick={() => {
+                    const index = fields.length - 1;
+                    remove(fields.length - 1);
+                    if (props.onFieldClose) {
+                        props.onFieldClose(index)
+                    }
+                }}
+                disabled={props.disabled}
+            >
+                <RemoveIcon sx={iconButtonSX}/>
+            </IconButton>
+        }
     </ul>
 }
 export default ArrayComponent

@@ -1,11 +1,9 @@
-import {FC} from 'react'
 import {useDrag} from 'react-dnd'
-import {Chip, Theme} from "@mui/material";
+import {Chip} from "@mui/material";
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import NumbersIcon from '@mui/icons-material/Numbers';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import {ITag} from "../../types/Metadata/Tag";
-import {ValueType} from "../../types/Metadata/IntegrationMetadata";
+import {ValueType} from "../../../types/Metadata/IntegrationMetadata";
 import {
     AlternateEmailRounded,
     Dialpad,
@@ -14,11 +12,23 @@ import {
     RuleRounded,
     TextFieldsRounded
 } from "@mui/icons-material";
+import {FunctionComponent} from "react";
+import {ClassNameMap} from "@mui/styles";
+import {tagSX} from "../../../styles/SystemStyles";
 
-export const Tag: FC<ITag> = function Tag({name, value, type, tagKey}) {
+export interface Props {
+    classes: ClassNameMap
+    name: string;
+    description: string;
+    value: string;
+    type: string;
+    tagKey: string;
+}
+
+export const Tag: FunctionComponent<Props> = (props: Props) => {
     const [{isDragging}, drag] = useDrag(() => ({
-        type: type,
-        item: {name, value, type, tagKey},
+        type: props.type,
+        item: {...props},
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
         }),
@@ -57,15 +67,13 @@ export const Tag: FC<ITag> = function Tag({name, value, type, tagKey}) {
     const opacity = isDragging ? 0.4 : 1
     return (
         <Chip
-            sx={{borderRadius: (theme: Theme) => theme.spacing(0.5)}}
-            icon={typeToIcon(type)}
+            sx={tagSX}
+            icon={typeToIcon(props.type)}
             ref={drag}
             variant="outlined"
             role="Tag"
-            label={name}
-            style={
-                {cursor: 'move', backgroundColor: 'white', margin: 8, marginLeft: 0, opacity}
-            }
+            label={props.name + " - " + props.description}
+            style={{opacity}}
         />
     )
 }

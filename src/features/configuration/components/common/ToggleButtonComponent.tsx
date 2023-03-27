@@ -13,16 +13,21 @@ interface Props {
     onSelect: () => void;
     onUnselect: () => void;
     disabled?: boolean;
+    selected?: boolean
 }
 
 const ToggleButtonComponent: React.FunctionComponent<Props> = (props: Props) => {
-    const [selected, setSelected] = useState(false);
+    const [selectedState, setSelectedState] = useState(false);
+    const selected: boolean = props.selected === undefined ? selectedState : props.selected;
+    const setSelected = props.selected === undefined ? setSelectedState : (value: boolean) => {
+        props.selected = value
+    }
     return (
         <>
             <ToggleButton
                 sx={toggleButtonSX}
                 value={selected}
-                selected={selected}
+                selected={props.selected !== undefined ? props.selected : selected}
                 onClick={() => {
                     if (!selected) {
                         props.onSelect();

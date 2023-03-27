@@ -4,10 +4,14 @@ import {ClassNameMap} from "@mui/styles";
 import {useTranslation} from "react-i18next";
 import {testObjectTemplateSak} from "../defaults/FormTemplates";
 import ConfigurationMappingComponent from "./mapping/ConfigurationMappingComponent";
-import HelpPopover from "./popover/HelpPopover";
+import HelpPopover from "./common/popover/HelpPopover";
 
+export interface Props {
+    classes: ClassNameMap
+    onCollectionReferencesInEditContextChange: (collectionReferences: string[]) => void;
+}
 
-const OutgoingDataComponent: React.FunctionComponent<any> = (props: { classes: ClassNameMap }) => {
+const OutgoingDataComponent: React.FunctionComponent<Props> = (props: Props) => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.configuration'});
     const classes = props.classes;
 
@@ -21,6 +25,9 @@ const OutgoingDataComponent: React.FunctionComponent<any> = (props: { classes: C
                 <ConfigurationMappingComponent
                     classes={classes}
                     mappingTemplate={testObjectTemplateSak}
+                    onCollectionReferencesInEditContextChange={(collectionReferences => {
+                        props.onCollectionReferencesInEditContextChange(collectionReferences)
+                    })}
                 />
             </Box>
         </Box>

@@ -96,6 +96,14 @@ export const configurationFormStyles = makeStyles((theme: Theme) =>
             marginBottom: theme.spacing(2),
             fontWeight: 'normal'
         },
+        categoryHeader: {
+            fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
+            fontSize: theme.spacing(2),
+            padding: 0,
+            marginTop: theme.spacing(0),
+            marginBottom: theme.spacing(.5),
+            fontWeight: 'normal'
+        },
         titlePath: {
             fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
             fontSize: theme.spacing(2),
@@ -208,6 +216,12 @@ export const configurationFormStyles = makeStyles((theme: Theme) =>
         },
         wrapperVerticalMargin: {
             marginBottom: theme.spacing(2)
+        },
+        tagWrapper: {
+            marginBottom: theme.spacing(.5),
+            "&:last-child": {
+                marginBottom: theme.spacing(0)
+            }
         }
     })
 );

@@ -1,15 +1,15 @@
 import {ClassNameMap} from "@mui/styles";
-import {NestedElementsCallbacks, prefixNestedElementsCallbacks} from "../../types/NestedElementCallbacks";
+import {NestedElementsCallbacks, prefixNestedElementsCallbacks} from "../../../types/NestedElement";
 import * as React from "react";
-import CollectionMappingComponent from "./CollectionMappingComponent";
-import {IObjectTemplate} from "../../types/FormTemplate";
-import ObjectMappingComponent from "./ObjectMappingComponent";
+import CollectionMappingComponent from "./common/CollectionMappingComponent";
+import {IObjectTemplate} from "../../../types/FormTemplate";
+import ObjectMappingComponent from "../object/ObjectMappingComponent";
 
 export interface Props {
     classes: ClassNameMap;
     absoluteKey: string;
-    nestedElementCallbacks: NestedElementsCallbacks
-    elementTemplate: IObjectTemplate
+    nestedElementCallbacks: NestedElementsCallbacks;
+    elementTemplate: IObjectTemplate;
 }
 
 const ObjectCollectionMappingComponent: React.FunctionComponent<Props> = (props: Props) => {

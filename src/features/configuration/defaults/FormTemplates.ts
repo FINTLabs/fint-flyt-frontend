@@ -116,7 +116,17 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                 "description": ""
                             },
                             "template": {
-                                "type": SelectableValueType.SEARCH_SELECT,
+                                "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
+                                "selectables": [
+                                    {
+                                        "displayName": "Valg 1",
+                                        "value": "v1"
+                                    },
+                                    {
+                                        "displayName": "Valg 2",
+                                        "value": "v2"
+                                    }
+                                ],
                                 "selectablesSources": [
                                     {
                                         "urlTemplate": "api/intern/arkiv/kodeverk/saksmappetype"
@@ -133,6 +143,16 @@ export const testObjectTemplateSak: IMappingTemplate = {
                             },
                             "template": {
                                 "type": SelectableValueType.SEARCH_SELECT,
+                                "selectables": [
+                                    {
+                                        "displayName": "Valg 1",
+                                        "value": "v1"
+                                    },
+                                    {
+                                        "displayName": "Valg 2",
+                                        "value": "v2"
+                                    }
+                                ],
                                 "selectablesSources": [
                                     {
                                         "urlTemplate": "api/intern/arkiv/kodeverk/administrativenhet"

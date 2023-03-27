@@ -127,7 +127,37 @@ export const MOCK_INSTANCE_METADATA: IIntegrationMetadata = {
                         }
                     ],
                     instanceObjectCollectionMetadata: [],
-                    categories: []
+                    categories: [
+                        {
+                            displayName: "abc",
+                            content: {
+                                instanceValueMetadata: [],
+                                instanceObjectCollectionMetadata: [
+                                    {
+                                        displayName: 'vedlegg3',
+                                        key: 'vedlegg3',
+                                        objectMetadata: {
+                                            instanceValueMetadata: [
+                                                {
+                                                    displayName: "vedlegg3.1",
+                                                    type: ValueType.STRING,
+                                                    key: "v3.1"
+                                                },
+                                                {
+                                                    displayName: "vedlegg3.2",
+                                                    type: ValueType.EMAIL,
+                                                    key: "v3.2"
+                                                }
+                                            ],
+                                            instanceObjectCollectionMetadata: [],
+                                            categories: []
+                                        }
+                                    }
+                                ],
+                                categories: []
+                            }
+                        }
+                    ]
                 }
             }
         ],

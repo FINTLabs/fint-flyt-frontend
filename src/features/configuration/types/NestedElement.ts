@@ -1,5 +1,12 @@
 import {ICollectionTemplate, IObjectTemplate, IValueTemplate} from "./FormTemplate";
-import {NestedElementTemplate} from "../components/mapping/ObjectMappingComponent";
+
+export type NestedElementTemplate<T> = {
+    order: string;
+    absoluteKey: string;
+    displayPath: string[];
+    displayName: string;
+    template: T;
+}
 
 export type ElementTemplates = {
     objects?: NestedElementTemplate<IObjectTemplate>[],

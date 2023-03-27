@@ -1,28 +1,39 @@
 import {Box, Typography} from "@mui/material";
-import {Tag} from "./dnd/Tag";
 import * as React from "react";
 import {useContext, useEffect} from "react";
-import HelpPopover from "./popover/HelpPopover";
+import HelpPopover from "./common/popover/HelpPopover";
 import {useTranslation} from "react-i18next";
-import {toTagValue} from "../../util/JsonUtil";
 // eslint-disable-next-line
 import {SourceApplicationContext} from "../../../context/sourceApplicationContext";
 import {
-    IInstanceMetadataCategory,
+    IInstanceMetadataContent,
     IInstanceObjectCollectionMetadata,
-    IInstanceValueMetadata,
-    ValueType
+    MOCK_INSTANCE_METADATA
 } from "../types/Metadata/IntegrationMetadata";
 import {ClassNameMap} from "@mui/styles";
-import {metadataCategoryTitleSX, metadataPanelSX} from "../styles/SystemStyles";
+import {metadataPanelSX} from "../styles/SystemStyles";
+import {
+    extractCollectionFieldReferenceIndexAndKey,
+    extractFieldReferenceKey,
+    isCollectionFieldReference,
+    isFieldReference
+} from "../util/FieldReferenceUtils";
+import MetadataContentComponent from "./metadata/MetadataContentComponent";
+import {toInstanceFieldReference} from "../../util/JsonUtil";
+import ObjectCollectionMetadataContentComponent from "./metadata/ObjectCollectionMetadataContentComponent";
 
+export type Props = {
+    classes: ClassNameMap,
+    // TODO eivindmorch 24/03/2023 : Change to metadata as prop
+    // metadata?: IInstanceMetadataContent,
+    referencesForCollectionsToShow: string[]
+}
 
-const IncomingDataComponent: React.FunctionComponent<any> = (props: { classes: ClassNameMap }) => {
+const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => {
     const {t} = useTranslation('translations', {keyPrefix: 'components.MetadataPanel'});
     const {
         instanceElementMetadata,
         getAllMetadata,
-        instanceObjectCollectionMetadata
     } = useContext(SourceApplicationContext)
 
     useEffect(() => {
@@ -30,64 +41,47 @@ const IncomingDataComponent: React.FunctionComponent<any> = (props: { classes: C
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    const paddingPerDepth = 10;
-
-    function TagTreeValues({items, depth}: any) {
-        return (<>
-                {items.instanceValueMetadata.map((ivm: IInstanceValueMetadata) => (
-                    <div id={'tagtreeValue-' + ivm.key} style={{paddingLeft: depth * paddingPerDepth}}
-                         key={'tagtreeValues-' + ivm.key}>
-                        <Tag disabled={false} type={ivm.type} name={ivm.displayName + ' {' + (ivm.key) + '}'}
-                             tagKey={ivm.key}
-                             value={toTagValue(ivm.key)}/>
-                    </div>
-                ))}</>
-        )
-    }
-
-    function TagTreeCollectionValues({items, depth}: any) {
-        return (<>
-                <div>
-                    <div style={{paddingLeft: depth * paddingPerDepth}} key={'tagTreeCollectionValues-' + items.key}>
-                        <Typography>Valgt Samling: {items.displayName}</Typography>
-                        <TagTree items={items.objectMetadata}/>
-                    </div>
-                </div>
-            </>
-        )
-    }
-
-    function TagTree({items, depth}: any) {
-        if (!items.categories || !items.instanceValueMetadata || !items.instanceObjectCollectionMetadata) {
-            return null
+    function findInstanceObjectCollectionMetadata(metadataContent: IInstanceMetadataContent, key: string): IInstanceObjectCollectionMetadata | undefined {
+        const searchResultInCurrent: IInstanceObjectCollectionMetadata | undefined =
+            metadataContent.instanceObjectCollectionMetadata
+                .find((instanceObjectCollectionMetadata: IInstanceObjectCollectionMetadata) =>
+                    instanceObjectCollectionMetadata.key === key
+                )
+        if (searchResultInCurrent) {
+            return searchResultInCurrent;
         }
+        for (let category of metadataContent.categories) {
+            const categorySearchResult: IInstanceObjectCollectionMetadata | undefined =
+                findInstanceObjectCollectionMetadata(category.content, key)
+            if (categorySearchResult) {
+                return categorySearchResult;
+            }
+        }
+        return undefined;
+    }
 
-        return (
-            <React.Fragment key={depth}>
-                {items.instanceValueMetadata &&
-                    <TagTreeValues items={items} depth={depth}/>
+    function getReferenceAndCollectionMetadata(references: string[]): [string, IInstanceObjectCollectionMetadata][] {
+        const referenceAndCollectionMetadata: [string, IInstanceObjectCollectionMetadata][] = []
+        references.forEach((reference: string) => {
+
+            if (isFieldReference(reference)) {
+                const key: string = extractFieldReferenceKey(reference)
+                const collectionMetadata: IInstanceObjectCollectionMetadata | undefined = instanceElementMetadata
+                    ? findInstanceObjectCollectionMetadata(instanceElementMetadata, key)
+                    : undefined;
+                if (!!collectionMetadata) {
+                    referenceAndCollectionMetadata.push([reference, collectionMetadata])
                 }
-                {items.instanceObjectCollectionMetadata.map((instanceObjectCollectionMetadata: IInstanceObjectCollectionMetadata) => {
-                    return <div id={'tag-' + instanceObjectCollectionMetadata.key}
-                                style={{paddingLeft: depth * paddingPerDepth}}
-                                key={'tag-' + instanceObjectCollectionMetadata.key}>
-                        <Tag disabled={false} type={ValueType.COLLECTION}
-                             name={instanceObjectCollectionMetadata.displayName + ' {' + (instanceObjectCollectionMetadata.key) + '}'}
-                             value={toTagValue(instanceObjectCollectionMetadata.key)}
-                             tagKey={instanceObjectCollectionMetadata.key}/>
-                    </div>
-                })}
-                {items.categories.map((category: IInstanceMetadataCategory) =>
-                    <div style={{paddingLeft: depth * paddingPerDepth}} key={'tagTree-' + category.displayName}>
-                        {category.content.instanceValueMetadata &&
-                            <div id={'tagTree-' + category.displayName + '-category-display-name'}>
-                                <Typography sx={metadataCategoryTitleSX}>{category.displayName}</Typography>
-                            </div>}
-                        <TagTree items={category.content} depth={depth + 1}/>
-                    </div>
-                )}
-            </React.Fragment>
-        )
+            } else if (isCollectionFieldReference(reference)) {
+                const [index, key]: [number, string] = extractCollectionFieldReferenceIndexAndKey(reference);
+                const collectionMetadata: IInstanceObjectCollectionMetadata | undefined =
+                    findInstanceObjectCollectionMetadata(referenceAndCollectionMetadata[index][1].objectMetadata, key)
+                if (!!collectionMetadata) {
+                    referenceAndCollectionMetadata.push([reference, collectionMetadata])
+                }
+            }
+        })
+        return referenceAndCollectionMetadata;
     }
 
     return (
@@ -99,15 +93,31 @@ const IncomingDataComponent: React.FunctionComponent<any> = (props: { classes: C
                     <HelpPopover
                         popoverContent="Metadata er data fra innsendt skjema du kan bruke i konfigurasjon av utgående data"/>
                 </Box>
-                <Box className={props.classes.panel}>
-                    {/*TODO 09/03 ingrie: before merge, switch back to use real metadata*/}
-                    {instanceElementMetadata && <TagTree items={instanceElementMetadata} depth={0}/>}
-                    {/*<Link style={{fontFamily: 'sans-serif'}} to={{pathname: selectedMetadata.sourceApplicationIntegrationUri}} target="_blank">{t('openLink')}</Link>*/}
-                </Box>
-                {instanceObjectCollectionMetadata &&
+                {MOCK_INSTANCE_METADATA.instanceMetadata &&
                     <Box className={props.classes.panel}>
-                        <TagTreeCollectionValues items={instanceObjectCollectionMetadata}/>
-                    </Box>}
+                        <MetadataContentComponent
+                            classes={props.classes}
+                            content={MOCK_INSTANCE_METADATA.instanceMetadata}
+                            keyToReferenceFunction={(key: string) => toInstanceFieldReference(key)}
+                        />
+                    </Box>
+                }
+                {props.referencesForCollectionsToShow.length > 0 &&
+                    getReferenceAndCollectionMetadata(props.referencesForCollectionsToShow)
+                        .map(([reference, objectCollectionMetadata]: [string, IInstanceObjectCollectionMetadata], index: number) =>
+                            <Box
+                                key={'tagTreeCollectionValues-' + index}
+                                className={props.classes.panel}
+                            >
+                                <ObjectCollectionMetadataContentComponent
+                                    classes={props.classes}
+                                    collectionIndex={index}
+                                    reference={reference}
+                                    objectCollectionMetadata={objectCollectionMetadata}
+                                />
+                            </Box>
+                        )
+                }
             </Box>
         </>
     );

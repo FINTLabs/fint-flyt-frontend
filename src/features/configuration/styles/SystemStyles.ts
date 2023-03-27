@@ -34,8 +34,7 @@ export const metadataPanelSX: SxProps<Theme> = {
 
 export const iconButtonSX: SxProps<Theme> = {
     cursor: 'pointer',
-    marginTop: (theme: Theme) => theme.spacing(0),
-    marginRight: (theme: Theme) => theme.spacing(2)
+    margin: (theme: Theme) => theme.spacing(0)
 }
 
 export const autoCompleteSX: SxProps<Theme> = {
@@ -54,6 +53,10 @@ export const searchResultSX: SxProps<Theme> = {
     marginLeft: (theme: Theme) => theme.spacing(1)
 }
 
-export const metadataCategoryTitleSX: SxProps<Theme> = {
-    paddingTop: (theme: Theme) => theme.spacing(2)
+export const tagSX: SxProps<Theme> = {
+    cursor: 'move',
+    backgroundColor: 'white',
+    borderRadius: (theme: Theme) => theme.spacing(0.5),
+    marginLeft: (theme: Theme) => theme.spacing(0),
+    margin: (theme: Theme) => theme.spacing(0)
 }

@@ -7,17 +7,23 @@ export const ConfigurationContext = createContext<ConfigurationContextState>(
 
 const ConfigurationProvider: FC = ({children}) => {
     const [completed, setCompleted] = useState<boolean>(contextDefaultValues.completed);
+    const [active, setActive] = useState<boolean>(contextDefaultValues.active);
+    const [editCollectionAbsoluteKey, setEditCollectionAbsoluteKey] =
+        useState<string>(contextDefaultValues.editCollectionAbsoluteKey)
 
     function resetConfigurationContext() {
         setCompleted(contextDefaultValues.completed)
     }
-
     return (
         <ConfigurationContext.Provider
             value={{
                 completed,
                 setCompleted,
-                resetConfigurationContext
+                resetConfigurationContext,
+                active,
+                setActive,
+                editCollectionAbsoluteKey,
+                setEditCollectionAbsoluteKey
             }}
         >
             {children}
