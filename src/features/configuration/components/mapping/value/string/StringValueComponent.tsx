@@ -18,7 +18,7 @@ interface Props {
 }
 
 const StringValueComponent: React.FunctionComponent<Props> = forwardRef<any, Props>((props: Props, ref) => {
-    const {editCollectionAbsoluteKey} = useContext(ConfigurationContext)
+    const {editCollectionAbsoluteKey, completed} = useContext(ConfigurationContext)
     const absoluteKey: string = props.name;
     return (
         <div id={"string-value-component-" + absoluteKey} style={{display: 'flex', flexDirection: 'column'}}>
@@ -35,8 +35,10 @@ const StringValueComponent: React.FunctionComponent<Props> = forwardRef<any, Pro
                 disabled={
                     props.disabled
                     || isOutsideCollectionEditContext(absoluteKey, editCollectionAbsoluteKey)
+                    || completed
                 }
                 multiline={props.multiline}
+                maxRows={props.multiline ? 4 : undefined}
             />
         </div>
     )

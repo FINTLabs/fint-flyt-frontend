@@ -28,7 +28,7 @@ interface Props {
 const DynamicStringValueComponent: React.FunctionComponent<Props> = forwardRef<any, Props>((props: Props, ref) => {
     const [searchResult, setSearchResult] = useState<string>()
     const [shrink, setShrink] = useState<boolean | undefined>(undefined)
-    const {editCollectionAbsoluteKey} = useContext(ConfigurationContext)
+    const {editCollectionAbsoluteKey, completed} = useContext(ConfigurationContext)
     const absoluteKey: string = props.name;
 
     const [{canDrop, isOver}, dropRef] = useDrop({
@@ -86,6 +86,7 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = forwardRef<a
                 disabled={
                     props.disabled
                     || isOutsideCollectionEditContext(absoluteKey, editCollectionAbsoluteKey)
+                    || completed
                 }
                 onChange={(e: BaseSyntheticEvent) => {
                     if (props.onChange) {

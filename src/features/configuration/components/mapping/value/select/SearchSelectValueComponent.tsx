@@ -18,7 +18,7 @@ interface Props {
 }
 
 const SearchSelectValueComponent: React.FunctionComponent<Props> = forwardRef<any, Props>((props: Props, ref) => {
-    const {editCollectionAbsoluteKey} = useContext(ConfigurationContext)
+    const {editCollectionAbsoluteKey, completed} = useContext(ConfigurationContext)
     const absoluteKey: string = props.name;
     const filterOptions = createFilterOptions({
         matchFrom: 'any',
@@ -42,6 +42,7 @@ const SearchSelectValueComponent: React.FunctionComponent<Props> = forwardRef<an
         filterOptions={filterOptions}
         options={Object.keys(displayNamePerValue)}
         getOptionLabel={(option: string) => option ? displayNamePerValue[option as string] : ''}
+        isOptionEqualToValue={(option, value) => option === value}
         renderInput={(params) => (
             <TextField
                 {...params}
@@ -60,6 +61,7 @@ const SearchSelectValueComponent: React.FunctionComponent<Props> = forwardRef<an
         disabled={
             props.disabled
             || isOutsideCollectionEditContext(absoluteKey, editCollectionAbsoluteKey)
+            || completed
         }
     />
 })

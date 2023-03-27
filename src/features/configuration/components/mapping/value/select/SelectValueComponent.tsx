@@ -18,7 +18,7 @@ interface Props {
 }
 
 const SelectValueComponent: React.FunctionComponent<Props> = forwardRef<any, Props>((props: Props, ref) => {
-    const {editCollectionAbsoluteKey} = useContext(ConfigurationContext)
+    const {editCollectionAbsoluteKey, completed} = useContext(ConfigurationContext)
     const absoluteKey: string = props.name;
     return <TextField
         id={absoluteKey}
@@ -34,6 +34,7 @@ const SelectValueComponent: React.FunctionComponent<Props> = forwardRef<any, Pro
         disabled={
             props.disabled
             || isOutsideCollectionEditContext(absoluteKey, editCollectionAbsoluteKey)
+            || completed
         }
     >
         {

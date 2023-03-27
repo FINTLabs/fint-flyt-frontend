@@ -127,9 +127,9 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
         <DndProvider backend={HTML5Backend}>
             <FormProvider {...methods}>
                 <form id="react-hook-form" onSubmit={methods.handleSubmit(onSubmit)}>
-                    <Box sx={{m: 1}}>
-                        <Typography variant={"h6"}>{t('header')}</Typography>
-                        <Typography>
+                    <Box className={classes.configurationBox} sx={{m: 1}}>
+                        <Typography sx={{m: 1}} variant={"h6"}>{t('header')}</Typography>
+                        <Typography sx={{m: 1}}>
                             Integrasjon: {existingIntegration?.sourceApplicationIntegrationId} - {existingIntegration?.displayName}
                         </Typography>
                         <Controller
@@ -175,7 +175,8 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                         />
                     </Box>
                     <Box className={classes.formFooter}>
-                        <button id="form-submit-btn" className={classes.submitButton} type="submit" onClick={onSubmit}>
+                        <button id="form-submit-btn" className={classes.submitButton}
+                                disabled={configuration?.completed} type="submit" onClick={onSubmit}>
                             {t("button.submit")}
                         </button>
                         <button id="form-cancel-btn" className={classes.submitButton} type="button"
