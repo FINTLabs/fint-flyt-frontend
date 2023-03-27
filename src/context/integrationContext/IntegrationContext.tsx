@@ -16,7 +16,6 @@ export const IntegrationContext = createContext<IntegrationContextState>(
 const IntegrationProvider: FC = ({children}) => {
     const [existingIntegration, setExistingIntegration] = useState<IIntegration | undefined>(undefined);
     const [id, setId] = useState<string | undefined>(undefined);
-    const [integration, setIntegration] = useState<IIntegration | undefined>(undefined);
     const [integrations, setIntegrations] = useState<IIntegration[] | undefined>(undefined);
     const [configuration, setConfiguration] = useState<IConfiguration | undefined>(contextDefaultValues.configuration);
     const [configurations, setConfigurations] = useState<IConfiguration[] | undefined>(contextDefaultValues.configurations);
@@ -31,15 +30,13 @@ const IntegrationProvider: FC = ({children}) => {
         setDestination('');
         setSourceApplicationId('');
         setExistingIntegration(undefined);
-        setIntegration(undefined)
         setSourceApplicationIntegrationId('');
         setSelectedMetadata(contextDefaultValues.selectedMetadata)
         setId(undefined);
         resetConfiguration();
     }
 
-    const resetIntegrations = () => {
-        setIntegration(undefined);
+    const resetIntegration = () => {
         setExistingIntegration(undefined)
     }
 
@@ -156,8 +153,6 @@ const IntegrationProvider: FC = ({children}) => {
                 id,
                 setId,
                 statistics,
-                integration,
-                setIntegration,
                 existingIntegration,
                 setExistingIntegration,
                 integrations,
@@ -181,7 +176,7 @@ const IntegrationProvider: FC = ({children}) => {
                 setSourceApplicationIntegrationId,
                 setSourceApplicationId,
                 resetIntegrationContext,
-                resetIntegrations
+                resetIntegrations: resetIntegration
             }}
         >
             {children}

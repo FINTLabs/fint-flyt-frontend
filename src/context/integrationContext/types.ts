@@ -5,9 +5,7 @@ import {IIntegrationMetadata} from "../../features/configuration/types/Metadata/
 export type IntegrationContextState = {
     id: string | undefined;
     setId: (number: string | undefined) => void;
-    integration: IIntegration | undefined;
     existingIntegration: IIntegration | undefined;
-    setIntegration: (integration: IIntegration | undefined) => void;
     setExistingIntegration: (integration: IIntegration | undefined) => void;
     integrations: IIntegration[] | undefined;
     setIntegrations: (integrations: IIntegration[]) => void;
@@ -38,10 +36,7 @@ export const contextDefaultValues: IntegrationContextState = {
     id: undefined,
     setId: (number: string | undefined) => {
     },
-    integration: {},
     existingIntegration: {},
-    setIntegration: () => {
-    },
     setExistingIntegration: () => {
     },
     integrations: [],

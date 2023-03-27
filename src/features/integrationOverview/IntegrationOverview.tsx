@@ -55,7 +55,7 @@ const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = (
     const classes = useStyles();
     const {
         existingIntegration,
-        setIntegration,
+        setExistingIntegration,
         getIntegrations,
         resetIntegrations
     } = useContext(IntegrationContext)
@@ -72,7 +72,7 @@ const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = (
     }, []);
 
     const resetConfiguration = () => {
-        setIntegration({})
+        setExistingIntegration({})
         getIntegrations(sourceApplication.toString());
     }
 

@@ -62,7 +62,6 @@ export const IntegrationForm: React.FunctionComponent<any> = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'components.integrationForm'});
     const {
         setSelectedMetadata,
-        setIntegration,
         setExistingIntegration,
         resetIntegrationContext,
     } = useContext(IntegrationContext)
