@@ -30,16 +30,19 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = forwardRef<a
     const [shrink, setShrink] = useState<boolean | undefined>(undefined)
     const {editCollectionAbsoluteKey, completed} = useContext(ConfigurationContext)
     const absoluteKey: string = props.name;
+    let enableDrop: boolean = !isOutsideCollectionEditContext(absoluteKey, editCollectionAbsoluteKey) && !props.disabled && !completed
 
     const [{canDrop, isOver}, dropRef] = useDrop({
         accept: props.accept,
         drop: (tag: ITag) => {
-            if (props.onChange) {
-                if (props.value === undefined || props.value === "") {
-                    setShrink(true)
-                    props.onChange(tag.value)
-                } else {
-                    props.onChange(props.value + tag.value)
+            if (enableDrop) {
+                if (props.onChange) {
+                    if (props.value === undefined || props.value === "") {
+                        setShrink(true)
+                        props.onChange(tag.value)
+                    } else {
+                        props.onChange(props.value + tag.value)
+                    }
                 }
             }
         },
@@ -61,12 +64,10 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = forwardRef<a
         margin: 'none'
     };
 
-    if (canDrop && isOver) {
+    if (canDrop && isOver && enableDrop) {
         background = 'lightgreen';
-    } else if (canDrop) {
+    } else if (canDrop && enableDrop) {
         background = 'lightblue';
-    } else if (isOver && !canDrop) {
-        background = 'red';
     }
 
     const dynamicStyle: React.CSSProperties = {

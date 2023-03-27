@@ -13,7 +13,9 @@ const ConfigurationProvider: FC = ({children}) => {
 
     function resetConfigurationContext() {
         setCompleted(contextDefaultValues.completed)
+        setEditCollectionAbsoluteKey(contextDefaultValues.editCollectionAbsoluteKey)
     }
+
     return (
         <ConfigurationContext.Provider
             value={{
