@@ -47,7 +47,7 @@ const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> 
             ]}
             disabled={props.disabled}
             onChange={
-                (_m, value: string | null) => {
+                (value: string | null) => {
                     setSelectValue(value)
                     if (value === "$dynamic") {
                         if (props.onTypeChange) {
