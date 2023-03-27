@@ -1,34 +1,36 @@
 import * as React from "react";
-import {useEffect, useState} from "react";
+import {forwardRef, useEffect, useState} from "react";
 import {ISelectable} from "../../../types/Selectable";
-import {ControllerRenderProps} from "react-hook-form/dist/types/controller";
 import SearchSelectValueComponent from "./select/SearchSelectValueComponent";
 import DynamicStringValueComponent from "./string/DynamicStringValueComponent";
 import {ClassNameMap} from "@mui/styles";
 import {ValueType as MetadataValueType} from "../../../types/Metadata/IntegrationMetadata";
-import {useFormContext} from "react-hook-form";
-import {ValueType} from "../../../types/Configuration";
+import {Noop} from "react-hook-form/dist/types";
 
 interface Props {
     classes: ClassNameMap
     displayName: string;
     selectables: ISelectable[];
     disabled?: boolean;
-    field: ControllerRenderProps;
+    initialType: Type;
+    onTypeChange?: (type: Type) => void;
+    onChange?: (value: string | null) => void;
+    onBlur?: Noop;
+    name: string;
+    value: string | null;
 }
 
-const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> = (props: Props) => {
-    const {setValue, getValues} = useFormContext();
+export enum Type {
+    SELECT,
+    DYNAMIC
+}
+
+const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> = forwardRef<any, Props>((props: Props, ref) => {
     const [selectValue, setSelectValue] = useState<string | null>(null)
     const [dynamicValue, setDynamicValue] = useState<string>('')
 
-    // TODO eivindmorch 26/03/2023 : Fix
-    const typeAbsoluteKey: string = props.field.name.slice(0, props.field.name.length - 14) + ".type";
-    const absoluteKey: string = props.field.name;
-
     useEffect(() => {
-        const type: string = getValues(typeAbsoluteKey)
-        if (type === ValueType.DYNAMIC_STRING.toString()) {
+        if (props.initialType === Type.DYNAMIC) {
             setSelectValue("$dynamic")
         }
     }, [])
@@ -44,24 +46,29 @@ const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> 
                 ...props.selectables
             ]}
             disabled={props.disabled}
-            field={{
-                onChange: (value: string) => {
+            onChange={
+                (_m, value: string | null) => {
                     setSelectValue(value)
                     if (value === "$dynamic") {
-                        setValue(typeAbsoluteKey, ValueType.DYNAMIC_STRING)
-                        setValue(absoluteKey, "")
+                        if (props.onTypeChange) {
+                            props.onTypeChange(Type.DYNAMIC)
+                        }
+                        if (props.onChange) {
+                            props.onChange("")
+                        }
                     } else {
-                        setValue(typeAbsoluteKey, ValueType.STRING)
-                        setValue(absoluteKey, value)
+                        if (props.onTypeChange && props.initialType !== Type.SELECT) {
+                            props.onTypeChange(Type.SELECT)
+                        }
+                        if (props.onChange) {
+                            props.onChange(value)
+                        }
                     }
-                },
-                onBlur: () => {
-                },
-                value: selectValue,
-                name: props.field.name,
-                ref: () => {
-                },
-            }}
+                }
+            }
+            onBlur={props.onBlur}
+            value={selectValue}
+            name={props.name}
         />
         {selectValue === "$dynamic" && <DynamicStringValueComponent
             classes={props.classes}
@@ -73,20 +80,15 @@ const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> 
                 MetadataValueType.PHONE
             ]}
             disabled={props.disabled}
-            field={{
-                onChange: (value: string) => {
-                    setDynamicValue(value)
-                    props.field.onChange(value)
-                },
-                onBlur: () => {
-                },
-                value: dynamicValue,
-                name: props.field.name,
-                ref: () => {
-                },
+            onChange={(value: string) => {
+                setDynamicValue(value)
+                if (props.onChange) {
+                    props.onChange(value)
+                }
             }}
+            value={dynamicValue}
+            name={props.name}
         />}
     </fieldset>
-}
-
+})
 export default DynamicStringOrSearchSelectValueComponent;

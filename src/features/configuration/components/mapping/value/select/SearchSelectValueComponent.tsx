@@ -1,22 +1,31 @@
 import * as React from "react";
-import {useContext, useEffect, useState} from "react";
+import {forwardRef, useContext, useEffect, useState} from "react";
 import {ISelectable} from "../../../../types/Selectable";
 import {Autocomplete, createFilterOptions, TextField} from "@mui/material";
 import {autoCompleteSX} from "../../../../styles/SystemStyles";
 import {ConfigurationContext} from "../../../../../../context/configurationContext";
 import {isOutsideCollectionEditContext} from "../../../../util/KeyUtils";
-import {ControllerRenderProps} from "react-hook-form/dist/types/controller";
+import {Noop} from "react-hook-form/dist/types";
+import {AutocompleteChangeDetails, AutocompleteChangeReason} from "@mui/base/AutocompleteUnstyled/useAutocomplete";
 
 interface Props {
     displayName: string;
     selectables: ISelectable[];
     disabled?: boolean;
-    field: ControllerRenderProps;
+    onChange?: (
+        event: React.SyntheticEvent,
+        value: string | null,
+        reason: AutocompleteChangeReason,
+        details?: AutocompleteChangeDetails,
+    ) => void;
+    onBlur?: Noop;
+    name: string;
+    value: string | null;
 }
 
-const SearchSelectValueComponent: React.FunctionComponent<Props> = (props: Props) => {
+const SearchSelectValueComponent: React.FunctionComponent<Props> = forwardRef<any, Props>((props: Props, ref) => {
     const {editCollectionAbsoluteKey} = useContext(ConfigurationContext)
-    const absoluteKey: string = props.field.name;
+    const absoluteKey: string = props.name;
     const filterOptions = createFilterOptions({
         matchFrom: 'any',
         stringify: (option: string) => displayNamePerValue[option],
@@ -35,7 +44,6 @@ const SearchSelectValueComponent: React.FunctionComponent<Props> = (props: Props
     }, [props.selectables])
 
     return <Autocomplete
-        {...props.field}
         sx={autoCompleteSX}
         id={absoluteKey}
         filterOptions={filterOptions}
@@ -48,15 +56,14 @@ const SearchSelectValueComponent: React.FunctionComponent<Props> = (props: Props
                 label={props.displayName}
             />
         )}
-        onChange={(_, data) => {
-            // TODO eivindmorch 26/03/2023 : What is this for?
-            data !== null ? props.field.onChange(data) : props.field.onChange(null)
-        }}
+        onChange={props.onChange}
+        onBlur={props.onBlur}
+        value={props.value}
+        ref={ref}
         disabled={
             props.disabled
             || isOutsideCollectionEditContext(absoluteKey, editCollectionAbsoluteKey)
         }
     />
-}
-
+})
 export default SearchSelectValueComponent;

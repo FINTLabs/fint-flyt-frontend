@@ -1,5 +1,5 @@
 import * as React from "react";
-import {BaseSyntheticEvent, useContext, useEffect, useState} from "react";
+import {BaseSyntheticEvent, forwardRef, useContext, useEffect, useState} from "react";
 import {useDrop} from "react-dnd";
 import {ITag} from "../../../../types/Metadata/Tag";
 import {ValueType} from "../../../../types/Metadata/IntegrationMetadata"
@@ -11,7 +11,7 @@ import ResourceRepository from "../../../../../../shared/repositories/ResourceRe
 import {searchResultSX} from "../../../../styles/SystemStyles";
 import {ConfigurationContext} from "../../../../../../context/configurationContext";
 import {isOutsideCollectionEditContext} from "../../../../util/KeyUtils";
-import {ControllerRenderProps} from "react-hook-form/dist/types/controller";
+import {Noop} from "react-hook-form/dist/types";
 
 interface Props {
     classes: ClassNameMap;
@@ -19,21 +19,29 @@ interface Props {
     search?: Search;
     accept: ValueType[];
     disabled?: boolean;
-    field: ControllerRenderProps;
+    onChange?: (value: string) => void;
+    onBlur?: Noop;
+    name: string;
+    value: string | null;
 }
 
-const DynamicStringValueComponent: React.FunctionComponent<Props> = (props: Props) => {
+const DynamicStringValueComponent: React.FunctionComponent<Props> = forwardRef<any, Props>((props: Props, ref) => {
     const [searchResult, setSearchResult] = useState<string>()
+    const [shrink, setShrink] = useState<boolean | undefined>(undefined)
     const {editCollectionAbsoluteKey} = useContext(ConfigurationContext)
-    const absoluteKey: string = props.field.name;
+    const absoluteKey: string = props.name;
 
     const [{canDrop, isOver}, dropRef] = useDrop({
         accept: props.accept,
         drop: (tag: ITag) => {
-            console.log(tag)
-            props.field.value === undefined
-                ? props.field.onChange(tag.value)
-                : props.field.onChange(props.field.value + tag.value)
+            if (props.onChange) {
+                if (props.value === undefined || props.value === "") {
+                    setShrink(true)
+                    props.onChange(tag.value)
+                } else {
+                    props.onChange(props.value + tag.value)
+                }
+            }
         },
         collect: monitor => ({
             canDrop: monitor.canDrop(),
@@ -69,7 +77,6 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = (props: Prop
     return (
         <div id={"dnd-value-component-" + absoluteKey} ref={dropRef} key={absoluteKey}>
             <TextField
-                {...props.field}
                 style={dynamicStyle}
                 variant='outlined'
                 size='small'
@@ -81,8 +88,16 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = (props: Prop
                     || isOutsideCollectionEditContext(absoluteKey, editCollectionAbsoluteKey)
                 }
                 onChange={(e: BaseSyntheticEvent) => {
-                    e ? props.field.onChange(e.target.value) : props.field.onChange(null)
+                    if (props.onChange) {
+                        props.onChange(e.target.value)
+                    }
+                    setShrink(undefined)
                 }}
+                onBlur={props.onBlur}
+                value={props.value}
+                name={props.name}
+                ref={ref}
+                InputLabelProps={{shrink}}
                 InputProps={{
                     endAdornment: (
                         <>
@@ -104,5 +119,5 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = (props: Prop
             {searchResult && <Typography sx={searchResultSX}>{searchResult}</Typography>}
         </div>
     )
-}
+})
 export default DynamicStringValueComponent;

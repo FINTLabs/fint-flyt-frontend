@@ -46,10 +46,10 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
                     return <div id={'value-mapping-wrapper-' + props.absoluteKey}
                                 className={props.classes.valueMappingContainer}>
                         <StringValueComponent
+                            {...field}
                             classes={props.classes}
                             displayName={props.displayName}
                             disabled={props.disabled}
-                            field={field}
                         />
                         {props.description && <HelpPopover popoverContent={props.description}/>}
                     </div>
@@ -58,6 +58,7 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
                     return <div id={'value-mapping-wrapper-' + props.absoluteKey}
                                 className={props.classes.valueMappingContainer}>
                         <DynamicStringValueComponent
+                            {...field}
                             classes={props.classes}
                             displayName={props.displayName}
                             search={search}
@@ -69,7 +70,6 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
                                 MetadataValueType.PHONE
                             ]}
                             disabled={props.disabled}
-                            field={field}
                         />
                         {props.description && <HelpPopover popoverContent={props.description}/>}
                     </div>
@@ -78,13 +78,13 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
                     return <div id={'value-mapping-wrapper-' + props.absoluteKey}
                                 className={props.classes.valueMappingContainer}>
                         <DynamicStringValueComponent
+                            {...field}
                             classes={props.classes}
                             displayName={props.displayName}
                             accept={[
                                 MetadataValueType.FILE
                             ]}
                             disabled={props.disabled}
-                            field={field}
                         />
                         {props.description && <HelpPopover popoverContent={props.description}/>}
                     </div>

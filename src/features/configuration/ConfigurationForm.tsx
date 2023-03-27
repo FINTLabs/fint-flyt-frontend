@@ -50,6 +50,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                             defaultValue={''}
                             render={({field}) =>
                                 <SelectValueComponent
+                                    {...field}
                                     displayName={t('metadataVersion')}
                                     selectables={
                                         availableVersions.map(metadata => {
@@ -58,7 +59,6 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                                                 value: metadata.id ? metadata.id.toString() : "0"
                                             }
                                         })}
-                                    field={field}
                                 />
                             }
                         />
@@ -66,10 +66,10 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                             name={"comment".toString()}
                             render={({field}) =>
                                 <StringValueComponent
+                                    {...field}
                                     classes={classes}
                                     displayName={"Kommentar"}
                                     multiline
-                                    field={field}
                                 />
                             }
                         />

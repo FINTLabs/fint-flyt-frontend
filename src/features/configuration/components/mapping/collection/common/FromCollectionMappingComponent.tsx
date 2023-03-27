@@ -59,10 +59,10 @@ const FromCollectionMappingComponent: React.FunctionComponent<Props> = (props: P
                                 control={control}
                                 render={({field}) =>
                                     <DynamicStringValueComponent
+                                        {...field}
                                         classes={props.classes}
                                         displayName={"" + index}
                                         accept={[ValueType.COLLECTION]}
-                                        field={field}
                                     />
                                 }
                             />

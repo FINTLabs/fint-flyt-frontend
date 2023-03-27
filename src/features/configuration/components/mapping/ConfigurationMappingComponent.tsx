@@ -181,6 +181,7 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
                         values
                             .filter(value => !!value)
                             .flat()
+                            .filter(value => !!value)
                             .filter((value: string) => value.length > 0)
                     )
                 }}
