@@ -1,6 +1,5 @@
 import * as React from "react";
-import {useContext, useEffect, useState} from "react";
-import {Controller, useFormContext} from "react-hook-form";
+import {BaseSyntheticEvent, useContext, useEffect, useState} from "react";
 import {useDrop} from "react-dnd";
 import {ITag} from "../../../../types/Metadata/Tag";
 import {ValueType} from "../../../../types/Metadata/IntegrationMetadata"
@@ -12,28 +11,29 @@ import ResourceRepository from "../../../../../../shared/repositories/ResourceRe
 import {searchResultSX} from "../../../../styles/SystemStyles";
 import {ConfigurationContext} from "../../../../../../context/configurationContext";
 import {isOutsideCollectionEditContext} from "../../../../util/KeyUtils";
+import {ControllerRenderProps} from "react-hook-form/dist/types/controller";
 
 interface Props {
     classes: ClassNameMap;
-    absoluteKey: string;
-    displayName: string;
+    displayName?: string;
     search?: Search;
     accept: ValueType[];
     disabled?: boolean;
+    field: ControllerRenderProps;
 }
 
 const DynamicStringValueComponent: React.FunctionComponent<Props> = (props: Props) => {
-    const {setValue, getValues, control} = useFormContext();
     const [searchResult, setSearchResult] = useState<string>()
     const {editCollectionAbsoluteKey} = useContext(ConfigurationContext)
+    const absoluteKey: string = props.field.name;
 
     const [{canDrop, isOver}, dropRef] = useDrop({
         accept: props.accept,
         drop: (tag: ITag) => {
             console.log(tag)
-            getValues(props.absoluteKey) === undefined
-                ? setValue(props.absoluteKey, tag.value)
-                : setValue(props.absoluteKey, (getValues(props.absoluteKey) + tag.value))
+            props.field.value === undefined
+                ? props.field.onChange(tag.value)
+                : props.field.onChange(props.field.value + tag.value)
         },
         collect: monitor => ({
             canDrop: monitor.canDrop(),
@@ -67,43 +67,39 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = (props: Prop
     }
 
     return (
-        <div id={"dnd-value-component-" + props.absoluteKey} ref={dropRef} key={props.absoluteKey}>
-            <Controller
-                name={props.absoluteKey}
-                control={control}
-                defaultValue=""
-                render={({field}) =>
-                    <TextField
-                        style={dynamicStyle}
-                        variant='outlined'
-                        size='small'
-                        multiline
-                        maxRows={3}
-                        label={props.displayName}
-                        disabled={
-                            props.disabled
-                            || isOutsideCollectionEditContext(props.absoluteKey, editCollectionAbsoluteKey)
-                        }
-                        InputProps={{
-                            endAdornment: (
-                                <>
-                                    {props.search && <IconButton sx={{padding: "4px", margin: "-4px"}} onClick={() => {
-                                        console.log(props.search)
-                                        if (props.search?.source) {
-                                            ResourceRepository.search(props.search.source)
-                                                .then((result: { value: string } | undefined) => {
-                                                    setSearchResult("Søkeresultat: " + (result ? result.value : "Ingen treff"));
-                                                })
-                                        }
-                                    }}>
-                                        <SearchRoundedIcon/>
-                                    </IconButton>}
-                                </>
-                            ),
-                        }}
-                        {...field}
-                    />
+        <div id={"dnd-value-component-" + absoluteKey} ref={dropRef} key={absoluteKey}>
+            <TextField
+                {...props.field}
+                style={dynamicStyle}
+                variant='outlined'
+                size='small'
+                multiline
+                maxRows={3}
+                label={props.displayName}
+                disabled={
+                    props.disabled
+                    || isOutsideCollectionEditContext(absoluteKey, editCollectionAbsoluteKey)
                 }
+                onChange={(e: BaseSyntheticEvent) => {
+                    e ? props.field.onChange(e.target.value) : props.field.onChange(null)
+                }}
+                InputProps={{
+                    endAdornment: (
+                        <>
+                            {props.search && <IconButton sx={{padding: "4px", margin: "-4px"}} onClick={() => {
+                                console.log(props.search)
+                                if (props.search?.source) {
+                                    ResourceRepository.search(props.search.source)
+                                        .then((result: { value: string } | undefined) => {
+                                            setSearchResult("Søkeresultat: " + (result ? result.value : "Ingen treff"));
+                                        })
+                                }
+                            }}>
+                                <SearchRoundedIcon/>
+                            </IconButton>}
+                        </>
+                    ),
+                }}
             />
             {searchResult && <Typography sx={searchResultSX}>{searchResult}</Typography>}
         </div>

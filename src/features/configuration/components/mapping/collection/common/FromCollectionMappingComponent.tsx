@@ -11,6 +11,7 @@ import {ConfigurationContext} from "../../../../../../context/configurationConte
 import {isOutsideCollectionEditContext} from "../../../../util/KeyUtils";
 import {IconButton} from "@mui/material";
 import {EditOffRounded, EditRounded} from "@mui/icons-material";
+import {Controller, useFormContext} from "react-hook-form";
 
 interface Props {
     classes: ClassNameMap;
@@ -20,6 +21,7 @@ interface Props {
 
 const FromCollectionMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.configuration.fromCollectionMapping'});
+    const {control} = useFormContext();
     const {editCollectionAbsoluteKey, setEditCollectionAbsoluteKey} = useContext(ConfigurationContext)
 
     return <>
@@ -51,12 +53,20 @@ const FromCollectionMappingComponent: React.FunctionComponent<Props> = (props: P
                 fieldComponentCreator={(index: number, absoluteKey: string) =>
                     <ArrayValueWrapperComponent
                         classes={props.classes}
-                        content={<DynamicStringValueComponent
-                            classes={props.classes}
-                            absoluteKey={absoluteKey}
-                            displayName={"" + index}
-                            accept={[ValueType.COLLECTION]}
-                        />}
+                        content={
+                            <Controller
+                                name={absoluteKey}
+                                control={control}
+                                render={({field}) =>
+                                    <DynamicStringValueComponent
+                                        classes={props.classes}
+                                        displayName={"" + index}
+                                        accept={[ValueType.COLLECTION]}
+                                        field={field}
+                                    />
+                                }
+                            />
+                        }
                     />
                 }
                 defaultValueCreator={() => undefined}

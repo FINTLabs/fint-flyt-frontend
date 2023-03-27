@@ -9,7 +9,7 @@ import {
     IValueTemplate
 } from "../../../types/FormTemplate";
 import ValueMappingComponent from "../value/ValueMappingComponent";
-import SelectableValueMappingComponent from "../value/select/SelectableValueMappingComponent";
+import SelectableValueMappingComponent from "../value/SelectableValueMappingComponent";
 import {ClassNameMap} from "@mui/styles";
 import ToggleButtonComponent from "../../common/ToggleButtonComponent";
 import {NestedElementsCallbacks} from "../../../types/NestedElement";

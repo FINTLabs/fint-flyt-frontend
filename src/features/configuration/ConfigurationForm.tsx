@@ -2,7 +2,7 @@ import React, {useContext, useState} from 'react';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {SourceApplicationContext} from "../../context/sourceApplicationContext";
 import OutgoingDataComponent from "./components/OutgoingDataComponent";
-import {FormProvider, useForm} from "react-hook-form";
+import {Controller, FormProvider, useForm} from "react-hook-form";
 
 import {HTML5Backend} from "react-dnd-html5-backend";
 import {DndProvider} from "react-dnd";
@@ -45,22 +45,33 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                     <Box sx={{m: 1}}>
                         <Typography variant={"h6"}>{t('header')}</Typography>
                         <Typography>Integrasjon: PLACEHOLDER VIK123 - TEST - TEST</Typography>
-                        <SelectValueComponent
-                            absoluteKey={"integrationMetadataId"}
-                            displayName={t('metadataVersion')}
-                            selectables={
-                                availableVersions.map(metadata => {
-                                    return {
-                                        displayName: metadata.version.toString(),
-                                        value: metadata.id ? metadata.id.toString() : "0"
-                                    }
-                                })}
+                        <Controller
+                            name={"integrationMetadataId".toString()}
+                            defaultValue={''}
+                            render={({field}) =>
+                                <SelectValueComponent
+                                    displayName={t('metadataVersion')}
+                                    selectables={
+                                        availableVersions.map(metadata => {
+                                            return {
+                                                displayName: metadata.version.toString(),
+                                                value: metadata.id ? metadata.id.toString() : "0"
+                                            }
+                                        })}
+                                    field={field}
+                                />
+                            }
                         />
-                        <StringValueComponent
-                            classes={classes}
-                            displayName={"Kommentar"}
-                            absoluteKey={"comment"}
-                            multiline
+                        <Controller
+                            name={"comment".toString()}
+                            render={({field}) =>
+                                <StringValueComponent
+                                    classes={classes}
+                                    displayName={"Kommentar"}
+                                    multiline
+                                    field={field}
+                                />
+                            }
                         />
                     </Box>
                     <Box display="flex" position="relative" width={1} height={1} sx={{border: 'none'}}>

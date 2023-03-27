@@ -2,7 +2,7 @@ import * as React from "react";
 import {IValueTemplate, ValueType as TemplateValueType} from "../../../types/FormTemplate";
 import StringValueComponent from "./string/StringValueComponent";
 import DynamicStringValueComponent from "./string/DynamicStringValueComponent";
-import {useFormContext} from "react-hook-form";
+import {Controller, useFormContext} from "react-hook-form";
 import {ValueType as ConfigurationValueType} from "../../../types/Configuration";
 import {ValueType as MetadataValueType} from "../../../types/Metadata/IntegrationMetadata";
 import {ClassNameMap} from "@mui/styles";
@@ -37,54 +37,59 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
         search = SourceStatefulValue(props.template.search, absoluteKeySplit.slice(0, absoluteKeySplit.length - 2).join("."));
     }
 
-    switch (props.template.type) {
-        case TemplateValueType.STRING:
-            setTypeIfUndefined(ConfigurationValueType.STRING);
-            return <div id={'value-mapping-wrapper-' + props.absoluteKey}
-                        className={props.classes.valueMappingContainer}>
-                <StringValueComponent
-                    classes={props.classes}
-                    absoluteKey={valueAbsoluteKey}
-                    displayName={props.displayName}
-                    disabled={props.disabled}
-                />
-                {props.description && <HelpPopover popoverContent={props.description}/>}
-            </div>
-        case TemplateValueType.DYNAMIC_STRING:
-            setTypeIfUndefined(ConfigurationValueType.DYNAMIC_STRING);
-            return <div id={'value-mapping-wrapper-' + props.absoluteKey}
-                        className={props.classes.valueMappingContainer}>
-                <DynamicStringValueComponent
-                    classes={props.classes}
-                    absoluteKey={valueAbsoluteKey}
-                    displayName={props.displayName}
-                    search={search}
-                    accept={[
-                        MetadataValueType.STRING,
-                        MetadataValueType.INTEGER,
-                        MetadataValueType.EMAIL,
-                        MetadataValueType.DATE,
-                        MetadataValueType.PHONE
-                    ]}
-                    disabled={props.disabled}
-                />
-                {props.description && <HelpPopover popoverContent={props.description}/>}
-            </div>
-        case TemplateValueType.FILE:
-            setTypeIfUndefined(ConfigurationValueType.FILE);
-            return <div id={'value-mapping-wrapper-' + props.absoluteKey}
-                        className={props.classes.valueMappingContainer}>
-                <DynamicStringValueComponent
-                    classes={props.classes}
-                    absoluteKey={valueAbsoluteKey}
-                    displayName={props.displayName}
-                    accept={[
-                        MetadataValueType.FILE
-                    ]}
-                    disabled={props.disabled}
-                />
-                {props.description && <HelpPopover popoverContent={props.description}/>}
-            </div>
-    }
+    return <Controller
+        name={valueAbsoluteKey}
+        render={({field}) => {
+            switch (props.template.type) {
+                case TemplateValueType.STRING:
+                    setTypeIfUndefined(ConfigurationValueType.STRING);
+                    return <div id={'value-mapping-wrapper-' + props.absoluteKey}
+                                className={props.classes.valueMappingContainer}>
+                        <StringValueComponent
+                            classes={props.classes}
+                            displayName={props.displayName}
+                            disabled={props.disabled}
+                            field={field}
+                        />
+                        {props.description && <HelpPopover popoverContent={props.description}/>}
+                    </div>
+                case TemplateValueType.DYNAMIC_STRING:
+                    setTypeIfUndefined(ConfigurationValueType.DYNAMIC_STRING);
+                    return <div id={'value-mapping-wrapper-' + props.absoluteKey}
+                                className={props.classes.valueMappingContainer}>
+                        <DynamicStringValueComponent
+                            classes={props.classes}
+                            displayName={props.displayName}
+                            search={search}
+                            accept={[
+                                MetadataValueType.STRING,
+                                MetadataValueType.INTEGER,
+                                MetadataValueType.EMAIL,
+                                MetadataValueType.DATE,
+                                MetadataValueType.PHONE
+                            ]}
+                            disabled={props.disabled}
+                            field={field}
+                        />
+                        {props.description && <HelpPopover popoverContent={props.description}/>}
+                    </div>
+                case TemplateValueType.FILE:
+                    setTypeIfUndefined(ConfigurationValueType.FILE);
+                    return <div id={'value-mapping-wrapper-' + props.absoluteKey}
+                                className={props.classes.valueMappingContainer}>
+                        <DynamicStringValueComponent
+                            classes={props.classes}
+                            displayName={props.displayName}
+                            accept={[
+                                MetadataValueType.FILE
+                            ]}
+                            disabled={props.disabled}
+                            field={field}
+                        />
+                        {props.description && <HelpPopover popoverContent={props.description}/>}
+                    </div>
+            }
+        }}
+    />
 }
 export default ValueMappingComponent;
