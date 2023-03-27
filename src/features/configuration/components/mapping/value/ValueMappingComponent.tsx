@@ -1,4 +1,5 @@
 import * as React from "react";
+import {useContext} from "react";
 import {IValueTemplate, ValueType as TemplateValueType} from "../../../types/FormTemplate";
 import StringValueComponent from "./string/StringValueComponent";
 import DynamicStringValueComponent from "./string/DynamicStringValueComponent";
@@ -8,6 +9,8 @@ import {ValueType as MetadataValueType} from "../../../types/Metadata/Integratio
 import {ClassNameMap} from "@mui/styles";
 import HelpPopover from "../../common/popover/HelpPopover";
 import {Search, SourceStatefulValue} from "../../../util/UrlUtils";
+import {isOutsideCollectionEditContext} from "../../../util/KeyUtils";
+import {ConfigurationContext} from "../../../../../context/configurationContext";
 
 interface Props {
     classes: ClassNameMap;
@@ -22,8 +25,8 @@ interface Props {
 
 const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
     const {getValues, setValue} = useFormContext();
+    const {editCollectionAbsoluteKey} = useContext(ConfigurationContext)
     const typeAbsoluteKey: string = props.absoluteKey + ".type";
-    const valueAbsoluteKey: string = props.absoluteKey + ".mappingString";
 
     function setTypeIfUndefined(type: ConfigurationValueType) {
         if (!getValues(typeAbsoluteKey)) {
@@ -38,7 +41,7 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
     }
 
     return <Controller
-        name={valueAbsoluteKey}
+        name={props.absoluteKey + ".mappingString"}
         render={({field}) => {
             switch (props.template.type) {
                 case TemplateValueType.STRING:
@@ -49,7 +52,10 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
                             {...field}
                             classes={props.classes}
                             displayName={props.displayName}
-                            disabled={props.disabled}
+                            disabled={
+                                props.disabled
+                                || isOutsideCollectionEditContext(field.name, editCollectionAbsoluteKey)
+                            }
                         />
                         {props.description && <HelpPopover popoverContent={props.description}/>}
                     </div>
@@ -69,7 +75,10 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
                                 MetadataValueType.DATE,
                                 MetadataValueType.PHONE
                             ]}
-                            disabled={props.disabled}
+                            disabled={
+                                props.disabled
+                                || isOutsideCollectionEditContext(field.name, editCollectionAbsoluteKey)
+                            }
                         />
                         {props.description && <HelpPopover popoverContent={props.description}/>}
                     </div>
@@ -84,7 +93,10 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
                             accept={[
                                 MetadataValueType.FILE
                             ]}
-                            disabled={props.disabled}
+                            disabled={
+                                props.disabled
+                                || isOutsideCollectionEditContext(field.name, editCollectionAbsoluteKey)
+                            }
                         />
                         {props.description && <HelpPopover popoverContent={props.description}/>}
                     </div>

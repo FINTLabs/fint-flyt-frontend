@@ -1,5 +1,5 @@
 import * as React from "react";
-import {BaseSyntheticEvent, forwardRef, useContext, useEffect, useState} from "react";
+import {BaseSyntheticEvent, forwardRef, useEffect, useState} from "react";
 import {useDrop} from "react-dnd";
 import {ITag} from "../../../../types/Metadata/Tag";
 import {ValueType} from "../../../../types/Metadata/IntegrationMetadata"
@@ -9,8 +9,6 @@ import {Search} from "../../../../util/UrlUtils";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import ResourceRepository from "../../../../../../shared/repositories/ResourceRepository";
 import {searchResultSX} from "../../../../styles/SystemStyles";
-import {ConfigurationContext} from "../../../../../../context/configurationContext";
-import {isOutsideCollectionEditContext} from "../../../../util/KeyUtils";
 import {Noop} from "react-hook-form/dist/types";
 
 interface Props {
@@ -28,7 +26,6 @@ interface Props {
 const DynamicStringValueComponent: React.FunctionComponent<Props> = forwardRef<any, Props>((props: Props, ref) => {
     const [searchResult, setSearchResult] = useState<string>()
     const [shrink, setShrink] = useState<boolean | undefined>(undefined)
-    const {editCollectionAbsoluteKey} = useContext(ConfigurationContext)
     const absoluteKey: string = props.name;
 
     const [{canDrop, isOver}, dropRef] = useDrop({
@@ -83,10 +80,7 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = forwardRef<a
                 multiline
                 maxRows={3}
                 label={props.displayName}
-                disabled={
-                    props.disabled
-                    || isOutsideCollectionEditContext(absoluteKey, editCollectionAbsoluteKey)
-                }
+                disabled={props.disabled}
                 onChange={(e: BaseSyntheticEvent) => {
                     if (props.onChange) {
                         props.onChange(e.target.value)

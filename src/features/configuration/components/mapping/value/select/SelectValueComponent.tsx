@@ -1,10 +1,8 @@
 import * as React from "react";
-import {forwardRef, useContext} from "react";
+import {forwardRef} from "react";
 import {ISelectable} from "../../../../types/Selectable";
 import {MenuItem, TextField} from "@mui/material";
 import {selectSX} from "../../../../styles/SystemStyles";
-import {ConfigurationContext} from "../../../../../../context/configurationContext";
-import {isOutsideCollectionEditContext} from "../../../../util/KeyUtils";
 import {Noop} from "react-hook-form/dist/types";
 
 interface Props {
@@ -18,7 +16,6 @@ interface Props {
 }
 
 const SelectValueComponent: React.FunctionComponent<Props> = forwardRef<any, Props>((props: Props, ref) => {
-    const {editCollectionAbsoluteKey} = useContext(ConfigurationContext)
     const absoluteKey: string = props.name;
     return <TextField
         id={absoluteKey}
@@ -31,10 +28,7 @@ const SelectValueComponent: React.FunctionComponent<Props> = forwardRef<any, Pro
         name={props.name}
         value={props.value}
         ref={ref}
-        disabled={
-            props.disabled
-            || isOutsideCollectionEditContext(absoluteKey, editCollectionAbsoluteKey)
-        }
+        disabled={props.disabled}
     >
         {
             props.selectables.map((selectable: ISelectable, index: number) =>
