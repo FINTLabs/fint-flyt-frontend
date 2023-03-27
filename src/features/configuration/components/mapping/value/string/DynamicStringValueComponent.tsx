@@ -102,7 +102,6 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = forwardRef<a
                     endAdornment: (
                         <>
                             {props.search && <IconButton sx={{padding: "4px", margin: "-4px"}} onClick={() => {
-                                console.log(props.search)
                                 if (props.search?.source) {
                                     ResourceRepository.search(props.search.source)
                                         .then((result: { value: string } | undefined) => {

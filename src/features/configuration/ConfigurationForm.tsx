@@ -60,7 +60,6 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
 
     useEffect(() => {
         if (configuration?.completed) {
-            console.log('config is competed')
             setCompleted(true)
         }
         return () => {
