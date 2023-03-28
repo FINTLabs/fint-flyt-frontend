@@ -27,7 +27,12 @@ const theme = createTheme({
     typography: {
         fontFamily: [
             "Nunito Sans", 'sans-serif'
-        ].join(',')
+        ].join(','),
+        button: {
+            textTransform: 'none',
+            font: "Nunito Sans",
+            fontSize: 16
+        }
     }
 });
 
