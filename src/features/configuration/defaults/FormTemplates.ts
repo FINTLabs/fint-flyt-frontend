@@ -27,7 +27,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                     "search": {
                         "urlTemplate": "api/intern/arkiv/saker/{caseId}/tittel",
                         "valueRefPerPathParamKey": {
-                            "caseId": "valueMappingPerKey.id.mappingString"
+                            "caseId": "id"
                         }
                     }
                 }
@@ -117,16 +117,6 @@ export const testObjectTemplateSak: IMappingTemplate = {
                             },
                             "template": {
                                 "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
-                                "selectables": [
-                                    {
-                                        "displayName": "Valg 1",
-                                        "value": "v1"
-                                    },
-                                    {
-                                        "displayName": "Valg 2",
-                                        "value": "v2"
-                                    }
-                                ],
                                 "selectablesSources": [
                                     {
                                         "urlTemplate": "api/intern/arkiv/kodeverk/saksmappetype"
@@ -142,17 +132,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                 "description": ""
                             },
                             "template": {
-                                "type": SelectableValueType.SEARCH_SELECT,
-                                "selectables": [
-                                    {
-                                        "displayName": "Valg 1",
-                                        "value": "v1"
-                                    },
-                                    {
-                                        "displayName": "Valg 2",
-                                        "value": "v2"
-                                    }
-                                ],
+                                "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
                                 "selectablesSources": [
                                     {
                                         "urlTemplate": "api/intern/arkiv/kodeverk/administrativenhet"
@@ -168,7 +148,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                 "description": ""
                             },
                             "template": {
-                                "type": SelectableValueType.SEARCH_SELECT,
+                                "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
                                 "selectablesSources": [
                                     {
                                         "urlTemplate": "api/intern/arkiv/kodeverk/administrativenhet"
@@ -184,7 +164,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                 "description": ""
                             },
                             "template": {
-                                "type": SelectableValueType.SEARCH_SELECT,
+                                "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
                                 "selectablesSources": [
                                     {
                                         "urlTemplate": "api/intern/arkiv/kodeverk/arkivressurs"
@@ -200,7 +180,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                 "description": ""
                             },
                             "template": {
-                                "type": SelectableValueType.SEARCH_SELECT,
+                                "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
                                 "selectablesSources": [
                                     {
                                         "urlTemplate": "api/intern/arkiv/kodeverk/arkivdel"
@@ -216,7 +196,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                 "description": ""
                             },
                             "template": {
-                                "type": SelectableValueType.SEARCH_SELECT,
+                                "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
                                 "selectablesSources": [
                                     {
                                         "urlTemplate": "api/intern/arkiv/kodeverk/sakstatus"
@@ -243,7 +223,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                             "description": ""
                                         },
                                         "template": {
-                                            "type": SelectableValueType.SEARCH_SELECT,
+                                            "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
                                             "selectablesSources": [
                                                 {
                                                     "urlTemplate": "api/intern/arkiv/kodeverk/tilgangsrestriksjon"
@@ -259,7 +239,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                             "description": ""
                                         },
                                         "template": {
-                                            "type": SelectableValueType.SEARCH_SELECT,
+                                            "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
                                             "selectablesSources": [
                                                 {
                                                     "urlTemplate": "api/intern/arkiv/kodeverk/skjermingshjemmel"
@@ -314,7 +294,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                                 "description": ""
                                             },
                                             "template": {
-                                                "type": SelectableValueType.SEARCH_SELECT,
+                                                "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
                                                 "selectablesSources": [
                                                     {
                                                         "urlTemplate": "api/intern/arkiv/kodeverk/partrolle"
@@ -471,7 +451,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                                 "description": ""
                                             },
                                             "template": {
-                                                "type": SelectableValueType.SEARCH_SELECT,
+                                                "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
                                                 "selectablesSources": [
                                                     {
                                                         "urlTemplate": "api/intern/arkiv/kodeverk/klassifikasjonssystem"
@@ -492,7 +472,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                                     {
                                                         "urlTemplate": "api/intern/arkiv/kodeverk/klasse",
                                                         "valueRefPerRequestParamKey": {
-                                                            "klassifikasjonssystemLink": "valueMappingPerKey.klassifikasjonssystem.mappingString"
+                                                            "klassifikasjonssystemLink": "klassifikasjonssystem"
                                                         }
                                                     }
                                                 ]
@@ -544,7 +524,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                                 "description": ""
                                             },
                                             "template": {
-                                                "type": SelectableValueType.SEARCH_SELECT,
+                                                "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
                                                 "selectablesSources": [
                                                     {
                                                         "urlTemplate": "api/intern/arkiv/kodeverk/journalposttype"
@@ -560,7 +540,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                                 "description": ""
                                             },
                                             "template": {
-                                                "type": SelectableValueType.SEARCH_SELECT,
+                                                "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
                                                 "selectablesSources": [
                                                     {
                                                         "urlTemplate": "api/intern/arkiv/kodeverk/administrativenhet"
@@ -576,7 +556,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                                 "description": ""
                                             },
                                             "template": {
-                                                "type": SelectableValueType.SEARCH_SELECT,
+                                                "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
                                                 "selectablesSources": [
                                                     {
                                                         "urlTemplate": "api/intern/arkiv/kodeverk/arkivressurs"
@@ -592,7 +572,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                                 "description": ""
                                             },
                                             "template": {
-                                                "type": SelectableValueType.SEARCH_SELECT,
+                                                "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
                                                 "selectablesSources": [
                                                     {
                                                         "urlTemplate": "api/intern/arkiv/kodeverk/journalstatus"
@@ -619,7 +599,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                                             "description": ""
                                                         },
                                                         "template": {
-                                                            "type": SelectableValueType.SEARCH_SELECT,
+                                                            "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
                                                             "selectablesSources": [
                                                                 {
                                                                     "urlTemplate": "api/intern/arkiv/kodeverk/tilgangsrestriksjon"
@@ -635,7 +615,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                                             "description": ""
                                                         },
                                                         "template": {
-                                                            "type": SelectableValueType.SEARCH_SELECT,
+                                                            "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
                                                             "selectablesSources": [
                                                                 {
                                                                     "urlTemplate": "api/intern/arkiv/kodeverk/skjermingshjemmel"
@@ -701,7 +681,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                                                 "description": ""
                                                             },
                                                             "template": {
-                                                                "type": SelectableValueType.SEARCH_SELECT,
+                                                                "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
                                                                 "selectablesSources": [
                                                                     {
                                                                         "urlTemplate": "api/intern/arkiv/kodeverk/korrespondanseparttype"
@@ -829,7 +809,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                                                             "description": ""
                                                                         },
                                                                         "template": {
-                                                                            "type": SelectableValueType.SEARCH_SELECT,
+                                                                            "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
                                                                             "selectablesSources": [
                                                                                 {
                                                                                     "urlTemplate": "api/intern/arkiv/kodeverk/tilgangsrestriksjon"
@@ -845,7 +825,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                                                             "description": ""
                                                                         },
                                                                         "template": {
-                                                                            "type": SelectableValueType.SEARCH_SELECT,
+                                                                            "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
                                                                             "selectablesSources": [
                                                                                 {
                                                                                     "urlTemplate": "api/intern/arkiv/kodeverk/skjermingshjemmel"
@@ -891,7 +871,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                                                 "description": ""
                                                             },
                                                             "template": {
-                                                                "type": SelectableValueType.SEARCH_SELECT,
+                                                                "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
                                                                 "selectablesSources": [
                                                                     {
                                                                         "urlTemplate": "api/intern/kodeverk/dokumentstatus"
@@ -907,7 +887,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                                                 "description": ""
                                                             },
                                                             "template": {
-                                                                "type": SelectableValueType.SEARCH_SELECT,
+                                                                "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
                                                                 "selectablesSources": [
                                                                     {
                                                                         "urlTemplate": "api/intern/kodeverk/dokumenttype"
@@ -948,7 +928,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                                                                 "description": ""
                                                                             },
                                                                             "template": {
-                                                                                "type": SelectableValueType.SEARCH_SELECT,
+                                                                                "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
                                                                                 "selectablesSources": [
                                                                                     {
                                                                                         "urlTemplate": "api/intern/arkiv/kodeverk/variantformat"
@@ -964,7 +944,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                                                                 "description": ""
                                                                             },
                                                                             "template": {
-                                                                                "type": SelectableValueType.SEARCH_SELECT,
+                                                                                "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
                                                                                 "selectablesSources": [
                                                                                     {
                                                                                         "urlTemplate": "api/intern/arkiv/kodeverk/format"
@@ -984,22 +964,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                 }
                             }
                         }
-                    ],
-                    "valueCollectionTemplates": [
-                        {
-                            "order": 20,
-                            "elementConfig": {
-                                "key": "valueCollection",
-                                "displayName": "Verdisamling",
-                                "description": ""
-                            },
-                            "template": {
-                                elementTemplate: {
-                                    "type": ValueType.DYNAMIC_STRING
-                                }
-                            }
-                        }
-                    ],
+                    ]
                 }
             }
         ],
@@ -1057,7 +1022,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                     "description": ""
                                 },
                                 "template": {
-                                    "type": SelectableValueType.SEARCH_SELECT,
+                                    "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
                                     "selectablesSources": [
                                         {
                                             "urlTemplate": "api/intern/arkiv/kodeverk/journalposttype"
@@ -1073,7 +1038,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                     "description": ""
                                 },
                                 "template": {
-                                    "type": SelectableValueType.SEARCH_SELECT,
+                                    "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
                                     "selectablesSources": [
                                         {
                                             "urlTemplate": "api/intern/arkiv/kodeverk/administrativenhet"
@@ -1089,7 +1054,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                     "description": ""
                                 },
                                 "template": {
-                                    "type": SelectableValueType.SEARCH_SELECT,
+                                    "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
                                     "selectablesSources": [
                                         {
                                             "urlTemplate": "api/intern/arkiv/kodeverk/arkivressurs"
@@ -1105,7 +1070,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                     "description": ""
                                 },
                                 "template": {
-                                    "type": SelectableValueType.SEARCH_SELECT,
+                                    "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
                                     "selectablesSources": [
                                         {
                                             "urlTemplate": "api/intern/arkiv/kodeverk/journalstatus"
@@ -1132,7 +1097,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                                 "description": ""
                                             },
                                             "template": {
-                                                "type": SelectableValueType.SEARCH_SELECT,
+                                                "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
                                                 "selectablesSources": [
                                                     {
                                                         "urlTemplate": "api/intern/arkiv/kodeverk/tilgangsrestriksjon"
@@ -1148,7 +1113,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                                 "description": ""
                                             },
                                             "template": {
-                                                "type": SelectableValueType.SEARCH_SELECT,
+                                                "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
                                                 "selectablesSources": [
                                                     {
                                                         "urlTemplate": "api/intern/arkiv/kodeverk/skjermingshjemmel"
@@ -1214,7 +1179,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                                     "description": ""
                                                 },
                                                 "template": {
-                                                    "type": SelectableValueType.SEARCH_SELECT,
+                                                    "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
                                                     "selectablesSources": [
                                                         {
                                                             "urlTemplate": "api/intern/arkiv/kodeverk/korrespondanseparttype"
@@ -1342,7 +1307,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                                                 "description": ""
                                                             },
                                                             "template": {
-                                                                "type": SelectableValueType.SEARCH_SELECT,
+                                                                "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
                                                                 "selectablesSources": [
                                                                     {
                                                                         "urlTemplate": "api/intern/arkiv/kodeverk/tilgangsrestriksjon"
@@ -1358,7 +1323,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                                                 "description": ""
                                                             },
                                                             "template": {
-                                                                "type": SelectableValueType.SEARCH_SELECT,
+                                                                "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
                                                                 "selectablesSources": [
                                                                     {
                                                                         "urlTemplate": "api/intern/arkiv/kodeverk/skjermingshjemmel"
@@ -1404,7 +1369,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                                     "description": ""
                                                 },
                                                 "template": {
-                                                    "type": SelectableValueType.SEARCH_SELECT,
+                                                    "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
                                                     "selectablesSources": [
                                                         {
                                                             "urlTemplate": "api/intern/kodeverk/dokumentstatus"
@@ -1420,7 +1385,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                                     "description": ""
                                                 },
                                                 "template": {
-                                                    "type": SelectableValueType.SEARCH_SELECT,
+                                                    "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
                                                     "selectablesSources": [
                                                         {
                                                             "urlTemplate": "api/intern/kodeverk/dokumenttype"
@@ -1461,7 +1426,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                                                     "description": ""
                                                                 },
                                                                 "template": {
-                                                                    "type": SelectableValueType.SEARCH_SELECT,
+                                                                    "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
                                                                     "selectablesSources": [
                                                                         {
                                                                             "urlTemplate": "api/intern/arkiv/kodeverk/variantformat"
@@ -1477,7 +1442,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                                                     "description": ""
                                                                 },
                                                                 "template": {
-                                                                    "type": SelectableValueType.SEARCH_SELECT,
+                                                                    "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
                                                                     "selectablesSources": [
                                                                         {
                                                                             "urlTemplate": "api/intern/arkiv/kodeverk/format"
