@@ -32,6 +32,11 @@ const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> 
     useEffect(() => {
         if (props.initialType === Type.DYNAMIC) {
             setSelectValue("$dynamic")
+            if (props.value) {
+                setDynamicValue(props.value)
+            }
+        } else {
+            setSelectValue(props.value)
         }
     }, [])
 
