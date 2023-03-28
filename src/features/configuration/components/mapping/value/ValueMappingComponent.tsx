@@ -9,10 +9,8 @@ import {ValueType as MetadataValueType} from "../../../types/Metadata/Integratio
 import {ClassNameMap} from "@mui/styles";
 import HelpPopover from "../../common/popover/HelpPopover";
 import {Search, SourceStatefulValue} from "../../../util/UrlUtils";
-import {useContext} from "react";
 import {ConfigurationContext} from "../../../../../context/configurationContext";
 import {isOutsideCollectionEditContext} from "../../../util/KeyUtils";
-
 
 interface Props {
     classes: ClassNameMap;
@@ -59,11 +57,8 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
                                 props.disabled
                                 || isOutsideCollectionEditContext(field.name, editCollectionAbsoluteKey)
                                 || completed
-                            }                        
-                            />
                             }
                         />
-
                         {props.description && <HelpPopover popoverContent={props.description}/>}
                     </div>
                 case TemplateValueType.DYNAMIC_STRING:
@@ -86,7 +81,6 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
                                 props.disabled
                                 || isOutsideCollectionEditContext(field.name, editCollectionAbsoluteKey)
                                 || completed
-                            }                        />
                             }
                         />
                         {props.description && <HelpPopover popoverContent={props.description}/>}
@@ -106,7 +100,6 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
                                 props.disabled
                                 || isOutsideCollectionEditContext(field.name, editCollectionAbsoluteKey)
                                 || completed
-                            }                        />
                             }
                         />
                         {props.description && <HelpPopover popoverContent={props.description}/>}
