@@ -1,10 +1,8 @@
 import * as React from "react";
-import {forwardRef, useContext, useEffect, useState} from "react";
+import {forwardRef, useEffect, useState} from "react";
 import {ISelectable} from "../../../../types/Selectable";
 import {Autocomplete, createFilterOptions, TextField} from "@mui/material";
 import {autoCompleteSX} from "../../../../styles/SystemStyles";
-import {ConfigurationContext} from "../../../../../../context/configurationContext";
-import {isOutsideCollectionEditContext} from "../../../../util/KeyUtils";
 import {Noop} from "react-hook-form/dist/types";
 
 interface Props {
@@ -18,7 +16,6 @@ interface Props {
 }
 
 const SearchSelectValueComponent: React.FunctionComponent<Props> = forwardRef<any, Props>((props: Props, ref) => {
-    const {editCollectionAbsoluteKey, completed} = useContext(ConfigurationContext)
     const absoluteKey: string = props.name;
     const filterOptions = createFilterOptions({
         matchFrom: 'any',
@@ -58,11 +55,7 @@ const SearchSelectValueComponent: React.FunctionComponent<Props> = forwardRef<an
         onBlur={props.onBlur}
         value={props.value}
         ref={ref}
-        disabled={
-            props.disabled
-            || isOutsideCollectionEditContext(absoluteKey, editCollectionAbsoluteKey)
-            || completed
-        }
+        disabled={props.disabled}
     />
 })
 export default SearchSelectValueComponent;

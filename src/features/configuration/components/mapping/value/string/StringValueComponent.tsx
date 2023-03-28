@@ -1,9 +1,7 @@
 import * as React from "react";
-import {forwardRef, useContext} from "react";
+import {forwardRef} from "react";
 import {ClassNameMap} from "@mui/styles";
 import {TextField} from "@mui/material";
-import {ConfigurationContext} from "../../../../../../context/configurationContext";
-import {isOutsideCollectionEditContext} from "../../../../util/KeyUtils";
 import {Noop} from "react-hook-form/dist/types";
 
 interface Props {
@@ -18,7 +16,6 @@ interface Props {
 }
 
 const StringValueComponent: React.FunctionComponent<Props> = forwardRef<any, Props>((props: Props, ref) => {
-    const {editCollectionAbsoluteKey, completed} = useContext(ConfigurationContext)
     const absoluteKey: string = props.name;
     return (
         <div id={"string-value-component-" + absoluteKey} style={{display: 'flex', flexDirection: 'column'}}>
@@ -32,11 +29,7 @@ const StringValueComponent: React.FunctionComponent<Props> = forwardRef<any, Pro
                 name={props.name}
                 value={props.value}
                 ref={ref}
-                disabled={
-                    props.disabled
-                    || isOutsideCollectionEditContext(absoluteKey, editCollectionAbsoluteKey)
-                    || completed
-                }
+                disabled={props.disabled}
                 multiline={props.multiline}
                 maxRows={props.multiline ? 4 : undefined}
             />
