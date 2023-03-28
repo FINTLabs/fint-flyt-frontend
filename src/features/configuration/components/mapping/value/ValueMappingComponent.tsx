@@ -22,7 +22,6 @@ interface Props {
 
 const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
     const {getValues, setValue} = useFormContext();
-    const {editCollectionAbsoluteKey, completed} = useContext(ConfigurationContext)
     const typeAbsoluteKey: string = props.absoluteKey + ".type";
     const valueAbsoluteKey: string = props.absoluteKey + ".mappingString";
 
