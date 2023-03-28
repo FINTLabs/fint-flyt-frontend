@@ -6,7 +6,7 @@ import {Controller, FormProvider, useForm} from "react-hook-form";
 import {HTML5Backend} from "react-dnd-html5-backend";
 import {DndProvider} from "react-dnd";
 import IncomingDataComponent from "./components/IncomingDataComponent";
-import {Box, Checkbox, FormControlLabel, Typography} from "@mui/material";
+import {Alert, AlertColor, Box, Checkbox, FormControlLabel, Snackbar, Typography} from "@mui/material";
 import {IntegrationContext} from "../../context/integrationContext";
 import {IIntegrationMetadata} from "./types/Metadata/IntegrationMetadata";
 import {useTranslation} from "react-i18next";
@@ -42,8 +42,18 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
         resetIntegrationContext
     } = useContext(IntegrationContext)
     const [active, setActive] = useState<boolean>(existingIntegration?.activeConfigurationId === configuration?.id)
+    const initialVersion: number = selectedMetadata.version;
+    const [version, setVersion] = React.useState<string>(initialVersion ? String(initialVersion) : '');
+    const [showAlert, setShowAlert] = React.useState<boolean>(false)
+    const [alertState, setAlertState] = React.useState<{ severity: AlertColor, message: string }>({
+        severity: 'info',
+        message: ''
+    })
+    const [collectionReferencesInEditContext, setCollectionReferencesInEditContext] = useState<string[]>([])
 
-
+    if (!existingIntegration) {
+        history.push('/')
+    }
     const methods = useForm({
         defaultValues: configuration
             ? {...configuration}
@@ -54,9 +64,13 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
             }
     });
 
-    if (!existingIntegration) {
-        history.push('/')
-    }
+    const handleClose = (event: React.SyntheticEvent | Event, reason?: string) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setShowAlert(false);
+        setAlertState({severity: 'info', message: ''})
+    };
 
     useEffect(() => {
         if (configuration?.completed) {
@@ -67,39 +81,65 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
             resetConfigurationContext()
         }
     }, [])
-    const initialVersion: number = selectedMetadata.version;
-    const [version, setVersion] = React.useState<string>(initialVersion ? String(initialVersion) : '');
-    const [collectionReferencesInEditContext, setCollectionReferencesInEditContext] = useState<string[]>([])
+
+    console.log(configuration)
 
     const onSubmit = (data: any) => {
         console.log('submitting data ', data);
-        if (configuration) {
+        if (configuration?.id) {
             ConfigurationRepository.updateConfiguration(configuration.id.toString(), data)
                 .then(response => {
-                        setConfiguration(response.data)
+                    console.log('updated', response)
+                    if (!response.data.completed) {
+                        setAlertState({severity: 'info', message: 'Konfigurasjon lagret'})
+                        setShowAlert(true);
+                    }
+                    if (response.data.completed && !active) {
                         if (response.data.completed) {
+                            setAlertState({severity: 'success', message: 'Konfigurasjon ferdigstilt'})
+                            setShowAlert(true);
                             setCompleted(true)
                         }
                         if (active && existingIntegration) {
                             activateConfiguration(existingIntegration.id, response.data)
                         }
                     }
-                ).catch(e => {
-                console.log('error', e)
-            })
+                }).catch(function (error) {
+                    if (error.response.status === 422) {
+                        setAlertState({
+                            severity: 'error',
+                            message: 'Feilet under lagring, feilmelding: ' + error.response.data.message
+                        })
+                        setShowAlert(true);
+                    }
+                }
+            )
         } else {
             ConfigurationRepository.createConfiguration(data)
                 .then(response => {
-                        setConfiguration(response.data)
-                        if (response.data.completed) {
-                            setCompleted(true)
-                        }
-                        if (active && existingIntegration) {
-                            activateConfiguration(existingIntegration.id, response.data)
-                        }
+                    console.log('created', response)
+                    setConfiguration(response.data)
+                    if (!response.data.completed) {
+                        setAlertState({severity: 'info', message: 'Konfigurasjon lagret'})
+                        setShowAlert(true);
                     }
-                ).catch(e => {
-                console.log('error', e)
+                    if (response.data.completed && !active) {
+                        setAlertState({severity: 'success', message: 'Konfigurasjon ferdigstilt'})
+                        setShowAlert(true);
+                        setCompleted(true)
+                    }
+                    if (active && existingIntegration) {
+                        activateConfiguration(existingIntegration.id, response.data)
+                    }
+                }).catch(function (error) {
+                console.log('error', error.response)
+                if (error.response.status === 422) {
+                    setAlertState({
+                        severity: 'error',
+                        message: 'Feilet under opprettelse, feilmelding: ' + error.response.data.message
+                    })
+                    setShowAlert(true);
+                }
             })
         }
     };
@@ -112,6 +152,8 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
         }
         IntegrationRepository.updateIntegration(integrationId, patch)
             .then(response => {
+                setAlertState({severity: 'success', message: 'Konfigurasjon aktivert'})
+                setShowAlert(false);
                 console.log('set active configuration: ', response.data.activeConfigurationId, ' active: ')
             }).catch((e) => {
             console.log('could not set active configuration', e)
@@ -199,6 +241,11 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                             label={t('label.activeLabel') as string}
                         />
                     </Box>
+                    <Snackbar id="integration-form-snackbar-saved" open={showAlert} onClose={handleClose}>
+                        <Alert onClose={handleClose} severity={alertState.severity} sx={{width: '100%'}}>
+                            {alertState.message}
+                        </Alert>
+                    </Snackbar>
                 </form>
             </FormProvider>
         </DndProvider>
