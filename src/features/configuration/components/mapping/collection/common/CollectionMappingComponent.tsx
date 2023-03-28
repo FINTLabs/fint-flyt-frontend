@@ -21,7 +21,7 @@ interface Props {
 
 const CollectionMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.configuration.collectionMapping'});
-    const {editCollectionAbsoluteKey} = useContext(ConfigurationContext)
+    const {editCollectionAbsoluteKey, completed} = useContext(ConfigurationContext)
 
     return <>
         <div className={props.classes.wrapperVerticalMargin}>
@@ -55,7 +55,7 @@ const CollectionMappingComponent: React.FunctionComponent<Props> = (props: Props
                         props.onFieldClose(0 + "-" + index)
                     }
                 }}
-                disabled={isOutsideCollectionEditContext(props.absoluteKey, editCollectionAbsoluteKey)}
+                disabled={isOutsideCollectionEditContext(props.absoluteKey, editCollectionAbsoluteKey) || completed}
             />
         </div>
         <FlytTitle3Component classes={props.classes} title={t("generatedElements")}/>
@@ -88,7 +88,7 @@ const CollectionMappingComponent: React.FunctionComponent<Props> = (props: Props
                     props.onFieldClose(1 + "-" + index)
                 }
             }}
-            disabled={isOutsideCollectionEditContext(props.absoluteKey, editCollectionAbsoluteKey)}
+            disabled={isOutsideCollectionEditContext(props.absoluteKey, editCollectionAbsoluteKey) || completed}
         />
     </>
 }

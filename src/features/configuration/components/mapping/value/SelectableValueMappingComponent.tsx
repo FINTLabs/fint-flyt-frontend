@@ -52,7 +52,11 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = forwardR
                             {...field}
                             displayName={props.displayName}
                             selectables={selectables}
-                            disabled={props.disabled}
+                            disabled={
+                                props.disabled
+                                || isOutsideCollectionEditContext(field.name, editCollectionAbsoluteKey)
+                                || completed
+                            }
                         />
                         <HelpPopover popoverContent={props.description}/>
                     </div>
