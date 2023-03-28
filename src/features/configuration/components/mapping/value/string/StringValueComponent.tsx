@@ -31,6 +31,7 @@ const StringValueComponent: React.FunctionComponent<Props> = forwardRef<any, Pro
                 ref={ref}
                 disabled={props.disabled}
                 multiline={props.multiline}
+                maxRows={props.multiline ? 4 : undefined}
             />
         </div>
     )

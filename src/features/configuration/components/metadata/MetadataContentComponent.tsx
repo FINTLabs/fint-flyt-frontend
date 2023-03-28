@@ -76,7 +76,7 @@ const MetadataContentComponent: React.FunctionComponent<Props> = (props: Props) 
                     classes={props.classes}
                     title={category.displayName}
                 />
-                <div style={{paddingLeft: paddingPerDepth, borderLeft: '1px dotted black'}}>
+                <div style={{paddingLeft: paddingPerDepth, borderLeft: '1px solid gray'}}>
                     <MetadataContentComponent
                         classes={props.classes}
                         content={category.content}

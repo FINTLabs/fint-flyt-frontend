@@ -8,7 +8,7 @@
   },
   "menuItems": {
     "dashboard": "Dashbord",
-    "newIntegration": "Ny",
+    "integration": "Ny",
     "newConfiguration": "Ny konfigurasjon",
     "editIntegration": "Rediger",
     "integrationOverview": "Integrasjoner",
@@ -33,7 +33,7 @@
       "errors": "feilmeldinger",
       "links": {
         "integrationOverview": "Se integrasjoner",
-        "newIntegration": "Ny integrasjon",
+        "integration": "Ny integrasjon",
         "log": "Se logg",
         "instanceOverview": "Se instansoversikt",
         "support": "Kontakt support"
@@ -334,8 +334,10 @@
       "version": "Versjon",
       "openLink": "Åpne i skjemaadministrator"
     },
-    "formSettings": {
-      "header": "Velg kildeapplikasjon, skjema og destinasjon",
+    "integrationForm": {
+      "header": "Ny integrasjon",
+      "incoming": "Innkommende",
+      "outgoing": "Utgående",
       "error": "du må velge kildeapplikasjon, skjema og destinasjon",
       "labels": {
         "sourceApplicationId": "Kildeapplikasjon",

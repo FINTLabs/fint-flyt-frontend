@@ -1,5 +1,5 @@
 export interface IConfiguration {
-    id?: number;
+    id: number;
     integrationId?: number;
     integrationMetadataId?: number;
     version?: number | null;

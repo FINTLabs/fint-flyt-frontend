@@ -14,6 +14,9 @@ export const configurationFormStyles = makeStyles((theme: Theme) =>
             position: 'sticky',
             top: 0,
         },
+        configurationBox: {
+            width: theme.spacing(44)
+        },
         panelContainer: {
             backgroundColor: 'white',
             padding: theme.spacing(2),
@@ -201,6 +204,11 @@ export const configurationFormStyles = makeStyles((theme: Theme) =>
             marginRight: theme.spacing(2),
             width: 'fit-content',
             height: 'fit-content',
+            "&:disabled": {
+                cursor: 'auto',
+                backgroundColor: 'lightgray',
+                color: 'gray'
+            },
             "&:last-child": {
                 marginLeft: theme.spacing(2)
             }

@@ -9,8 +9,8 @@ import {ValueType as MetadataValueType} from "../../../types/Metadata/Integratio
 import {ClassNameMap} from "@mui/styles";
 import HelpPopover from "../../common/popover/HelpPopover";
 import {Search, SourceStatefulValue} from "../../../util/UrlUtils";
-import {isOutsideCollectionEditContext} from "../../../util/KeyUtils";
 import {ConfigurationContext} from "../../../../../context/configurationContext";
+import {isOutsideCollectionEditContext} from "../../../util/KeyUtils";
 
 interface Props {
     classes: ClassNameMap;
@@ -25,7 +25,8 @@ interface Props {
 
 const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
     const {getValues, setValue} = useFormContext();
-    const {editCollectionAbsoluteKey} = useContext(ConfigurationContext)
+    const {editCollectionAbsoluteKey, completed} = useContext(ConfigurationContext)
+
     const typeAbsoluteKey: string = props.absoluteKey + ".type";
 
     function setTypeIfUndefined(type: ConfigurationValueType) {
@@ -55,6 +56,7 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
                             disabled={
                                 props.disabled
                                 || isOutsideCollectionEditContext(field.name, editCollectionAbsoluteKey)
+                                || completed
                             }
                         />
                         {props.description && <HelpPopover popoverContent={props.description}/>}
@@ -78,6 +80,7 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
                             disabled={
                                 props.disabled
                                 || isOutsideCollectionEditContext(field.name, editCollectionAbsoluteKey)
+                                || completed
                             }
                         />
                         {props.description && <HelpPopover popoverContent={props.description}/>}
@@ -96,6 +99,7 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
                             disabled={
                                 props.disabled
                                 || isOutsideCollectionEditContext(field.name, editCollectionAbsoluteKey)
+                                || completed
                             }
                         />
                         {props.description && <HelpPopover popoverContent={props.description}/>}

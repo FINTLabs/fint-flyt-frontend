@@ -5,11 +5,14 @@ export type ConfigurationContextState = {
     setActive: (completed: boolean) => void,
     editCollectionAbsoluteKey: string;
     setEditCollectionAbsoluteKey: (absoluteKey: string) => void
+    resetConfigurationContext: () => void;
 }
 
 export const contextDefaultValues: ConfigurationContextState = {
     completed: false,
     setCompleted: () => {
+    },
+    resetConfigurationContext: () => {
     },
     active: false,
     setActive: () => {

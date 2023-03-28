@@ -1,5 +1,5 @@
-import {Box} from "@mui/material";
-import {DataGrid, GridColDef, GridToolbar} from "@mui/x-data-grid";
+import {Box, Button} from "@mui/material";
+import {DataGrid, GridCellParams, GridColDef, GridToolbar} from "@mui/x-data-grid";
 import * as React from "react";
 import {useContext} from "react";
 import {useHistory} from "react-router-dom";
@@ -20,13 +20,22 @@ const IntegrationTable: React.FunctionComponent<any> = (props: { classes: ClassN
     let history = useHistory();
     const {
         setExistingIntegration,
-        newIntegrations,
+        integrations,
         getCompletedConfigurations,
         getConfigurations
     } = useContext(IntegrationContext)
     const {setSourceApplication, getAllMetadata} = useContext(SourceApplicationContext)
 
     const columns: GridColDef[] = [
+        {
+            field: 'details',
+            headerName: t('table.columns.show'),
+            minWidth: 150,
+            flex: 0.5,
+            sortable: false,
+            filterable: false,
+            renderCell: (params) => (<ShowButtonToggle row={params.row}/>)
+        },
         {
             field: 'sourceApplicationId',
             type: 'string',
@@ -82,28 +91,32 @@ const IntegrationTable: React.FunctionComponent<any> = (props: { classes: ClassN
         })
     }
 
+    function ShowButtonToggle(props: GridCellParams["row"]): JSX.Element {
+        return <Button
+            size="small"
+            variant="contained"
+            onClick={() => {
+                setExistingIntegration(props.row)
+                setSourceApplication(props.row.sourceApplicationId)
+                getAllMetadata(true);
+                getConfigurations(0, 10000, "version", "DESC", false, props.row.id, true)
+                getCompletedConfigurations(0, 10000, "id", "ASC", true, props.row.id, true)
+                setHistory();
+            }}
+        >{t('button.show')}
+        </Button>
+    }
+
     return (
         <Box>
             <Box display="flex" position="relative" width={1} height={1}>
                 <Box id="integration-list" className={classes.dataGridBox}>
                     <DataGrid
-                        loading={newIntegrations === undefined}
+                        loading={integrations === undefined}
                         localeText={i18n.language === 'no' ? gridLocaleNoNB : undefined}
                         getRowId={(row) => row.sourceApplicationIntegrationId}
-                        onCellDoubleClick={(params, event) => {
-                            if (!event.ctrlKey) {
-                                event.defaultMuiPrevented = true;
-                                setExistingIntegration(params.row)
-                                setSourceApplication(params.row.sourceApplicationId)
-                                getAllMetadata(true);
-                                //TODO: remove when we can no longer use old forms, and use selected sourceApplication and sourceApplicationIntegrationId to get the right metadata
-                                getConfigurations(0, 10000, "version", "DESC", false, params.row.id, true)
-                                getCompletedConfigurations(0, 10000, "id", "ASC", true, params.row.id, true)
-                                setHistory();
-                            }
-                        }}
                         density='compact'
-                        rows={newIntegrations ? newIntegrations : []}
+                        rows={integrations ? integrations : []}
                         columns={columns}
                         pageSize={20}
                         rowsPerPageOptions={[20]}

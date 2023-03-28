@@ -19,28 +19,26 @@ const routes: IRoute[] = [
     },
     {
         path: '/integration/new',
-        name: 'newIntegration',
+        name: 'integration',
         component: IntegrationForm,
         exact: true,
         icon: 'add',
         inNavigationMenu: true
     },
     {
-        path: '/configuration/new-configuration',
-        name: 'newConfiguration',
-        component: ConfigurationForm,
-        exact: true,
-        icon: 'add',
-        inNavigationMenu: true
-    },
-    {
-        path: '/integration/configuration/new',
-        name: 'newIntegration',
+        path: '/integration/configuration/new-configuration',
+        name: 'integration',
         component: ConfigurationForm,
         exact: true,
     },
     {
         path: '/integration/configuration/edit',
+        name: 'editIntegration',
+        component: ConfigurationForm,
+        exact: true
+    },
+    {
+        path: 'configuration/new-configuration',
         name: 'editIntegration',
         component: ConfigurationForm,
         exact: true

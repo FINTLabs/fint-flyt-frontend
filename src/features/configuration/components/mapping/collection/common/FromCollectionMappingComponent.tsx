@@ -22,7 +22,7 @@ interface Props {
 const FromCollectionMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.configuration.fromCollectionMapping'});
     const {control} = useFormContext();
-    const {editCollectionAbsoluteKey, setEditCollectionAbsoluteKey} = useContext(ConfigurationContext)
+    const {editCollectionAbsoluteKey, setEditCollectionAbsoluteKey, completed} = useContext(ConfigurationContext)
 
     return <>
         <div className={props.classes.wrapperVerticalMargin}>
@@ -70,7 +70,7 @@ const FromCollectionMappingComponent: React.FunctionComponent<Props> = (props: P
                     />
                 }
                 defaultValueCreator={() => undefined}
-                disabled={isOutsideCollectionEditContext(props.absoluteKey, editCollectionAbsoluteKey)}
+                disabled={isOutsideCollectionEditContext(props.absoluteKey, editCollectionAbsoluteKey) || completed}
             />
         </div>
         <FlytTitle4Component

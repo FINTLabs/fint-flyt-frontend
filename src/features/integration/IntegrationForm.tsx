@@ -11,22 +11,59 @@ import {toIntegration} from "../util/mapping/ToIntegration";
 import IntegrationRepository from '../../shared/repositories/IntegrationRepository';
 import {IntegrationState} from "./types/Integration";
 import {IFormIntegration} from "../configuration/types/FormIntegration";
+import {selectSX} from "../configuration/styles/SystemStyles";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         formControl: {
             width: theme.spacing(70)
+        },
+        panelContainer: {
+            backgroundColor: 'white',
+            padding: theme.spacing(2),
+            border: 'solid 1px',
+            borderColor: 'black',
+            marginLeft: theme.spacing(1),
+            borderRadius: theme.spacing(0.5),
+            height: 'fit-content',
+            width: theme.spacing(70)
+        },
+        title1: {
+            fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
+            fontSize: theme.spacing(3),
+            padding: 0,
+            marginTop: theme.spacing(0),
+            fontWeight: 'normal'
+        },
+        title2: {
+            fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
+            fontSize: theme.spacing(2.6),
+            padding: 0,
+            marginTop: theme.spacing(0),
+            fontWeight: 'normal'
+        },
+        title3: {
+            fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
+            fontSize: theme.spacing(2.2),
+            padding: 0,
+            marginTop: theme.spacing(0),
+            marginBottom: theme.spacing(2),
+            fontWeight: 'normal'
+        },
+        incomingWrapper: {},
+        outgoingWrapper: {
+            marginTop: theme.spacing(2)
         }
     }));
 
 export const IntegrationForm: React.FunctionComponent<any> = () => {
     const classes = useStyles();
     let history = useHistory();
-    const {t} = useTranslation('translations', {keyPrefix: 'components.formSettings'});
+    const {t} = useTranslation('translations', {keyPrefix: 'components.integrationForm'});
     const {
         setSelectedMetadata,
-        setNewIntegration,
-        resetIntegrationContext
+        setExistingIntegration,
+        resetIntegrationContext,
     } = useContext(IntegrationContext)
     const {
         getAvailableForms,
@@ -43,9 +80,11 @@ export const IntegrationForm: React.FunctionComponent<any> = () => {
     const [sourceApplicationIntegrationId, setSourceApplicationIntegrationId] = useState<string>('');
     let backgroundColor = 'white';
 
-    const navToConfiguration = () => {
+    const navToConfiguration = (id: string) => {
         history.push({
-            pathname: '/integration/configuration/new',
+            pathname: '/integration/configuration/new-configuration',
+        }, {
+            id: id
         })
     }
     const cancel = () => {
@@ -56,6 +95,7 @@ export const IntegrationForm: React.FunctionComponent<any> = () => {
 
     useEffect(() => {
         resetIntegrationContext();
+
         return () => {
             setSourceApplication(sourceApplication)
         }
@@ -82,8 +122,8 @@ export const IntegrationForm: React.FunctionComponent<any> = () => {
             IntegrationRepository.createIntegration(toIntegration(formConfiguration, IntegrationState.DEACTIVATED))
                 .then((response) => {
                     setSourceApplicationIntegrationId(response.data.sourceApplicationIntegrationId)
-                    setNewIntegration(response.data)
-                    navToConfiguration();
+                    setExistingIntegration(response.data)
+                    navToConfiguration(response.data.sourceApplicationIntegrationId);
                 })
                 .catch(e => console.error(e))
             console.log('create new integration', toIntegration(formConfiguration, IntegrationState.DEACTIVATED))
@@ -95,79 +135,84 @@ export const IntegrationForm: React.FunctionComponent<any> = () => {
 
     return (
         <>
-            <FormGroup id="case-information" className={classes.formControl}>
+            <FormGroup id="case-information" className={classes.panelContainer}>
                 <Box>
-                    <Typography id="integration-form-settings-header" sx={{mb: 2}}>{t('header')}</Typography>
-                    <Box sx={{width: '100%', display: 'flex'}}>
-                        <TextField
-                            id='sourceApplicationId'
-                            select
-                            size="small"
-                            style={{backgroundColor}}
-                            sx={{mb: 3, width: 'inherit'}}
-                            value={sourceApplicationId}
-                            label={t('labels.sourceApplicationId') + '*'}
-                            onChange={event => {
-                                setSourceApplication(Number(event.target.value))
-                                setSourceApplicationId(event.target.value)
-                                setSourceApplicationIntegrationId('')
-                            }}
-                        >
-                            {sourceApplications.map((item: any, index: number) => (
-                                <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
-                            ))}
-                        </TextField>
-                        <HelpPopover popoverContent={'sourceApplicationId'}/>
+                    <h2 className={classes.title2} id="integration-form-settings-header">{t('header')}</h2>
+                    <Box className={classes.incomingWrapper}>
+                        <h3 className={classes.title3}>{t('incoming')}</h3>
+                        <Box sx={{display: 'flex'}}>
+                            <TextField
+                                id='sourceApplicationId'
+                                select
+                                size="small"
+                                style={{backgroundColor}}
+                                sx={selectSX}
+                                value={sourceApplicationId}
+                                label={t('labels.sourceApplicationId') + '*'}
+                                onChange={event => {
+                                    setSourceApplication(Number(event.target.value))
+                                    setSourceApplicationId(event.target.value)
+                                    setSourceApplicationIntegrationId('')
+                                }}
+                            >
+                                {sourceApplications.map((item: any, index: number) => (
+                                    <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
+                                ))}
+                            </TextField>
+                            <HelpPopover popoverContent={'sourceApplicationId'}/>
+                        </Box>
+                        <Box sx={{display: 'flex', mt: 2}}>
+                            <Autocomplete
+                                sx={selectSX}
+                                id='sourceApplicationIntegrationId'
+                                options={sourceApplication && availableForms.forms ? availableForms.forms : [{
+                                    label: 'Velg kildeapplikasjon først',
+                                    value: 'null'
+                                }]}
+                                renderInput={params => (
+                                    <TextField {...params}
+                                               size="small"
+                                               style={{backgroundColor}}
+                                               label={t('labels.sourceApplicationIntegrationId') + '*'}
+                                               variant="outlined"/>
+                                )}
+                                getOptionLabel={option => option.label}
+                                value={sourceApplicationIntegrationId ? availableForms.forms.find(({value}: { value: any }) => value === sourceApplicationIntegrationId) : null}
+                                onChange={(_event, select) => {
+                                    setSourceApplicationIntegrationId(select ? select.value : '');
+                                }}
+                            />
+                            <HelpPopover popoverContent={'sourceApplicationIntegrationId'}/>
+                        </Box>
                     </Box>
-                    <Box sx={{width: '100%', display: 'flex'}}>
-                        <Autocomplete
-                            sx={{minWidth: ((theme: Theme) => theme.spacing(65)), mb: 3}}
-                            id='sourceApplicationIntegrationId'
-                            options={sourceApplication && availableForms.forms ? availableForms.forms : [{
-                                label: 'Velg kildeapplikasjon først',
-                                value: 'null'
-                            }]}
-                            renderInput={params => (
-                                <TextField {...params}
-                                           size="small"
-                                           style={{backgroundColor}}
-                                           label={t('labels.sourceApplicationIntegrationId') + '*'}
-                                           variant="outlined"/>
-                            )}
-                            getOptionLabel={option => option.label}
-                            value={sourceApplicationIntegrationId ? availableForms.forms.find(({value}: { value: any }) => value === sourceApplicationIntegrationId) : null}
-                            onChange={(_event, select) => {
-                                setSourceApplicationIntegrationId(select ? select.value : '');
-                            }}
-                        />
-                        <HelpPopover popoverContent={'sourceApplicationIntegrationId'}/>
-                    </Box>
-
-                    <Box sx={{width: '100%', display: 'flex'}}>
-                        <TextField
-                            id='destination'
-                            select
-                            size="small"
-                            sx={{mb: 1, width: 'inherit'}}
-                            style={{backgroundColor}}
-                            value={destination}
-                            label={t('labels.destination') + '*'}
-                            onChange={event => setDestination(event.target.value)}
-                        >
-                            {destinations.map((item: any, index: number) => (
-                                <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
-                            ))}
-                        </TextField>
-                        <HelpPopover popoverContent={'destination'}/>
+                    <Box className={classes.outgoingWrapper}>
+                        <h3 className={classes.title3}>{t('outgoing')}</h3>
+                        <Box sx={{display: 'flex'}}>
+                            <TextField
+                                id='destination'
+                                select
+                                size="small"
+                                sx={selectSX}
+                                style={{backgroundColor}}
+                                value={destination}
+                                label={t('labels.destination') + '*'}
+                                onChange={event => setDestination(event.target.value)}
+                            >
+                                {destinations.map((item: any, index: number) => (
+                                    <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
+                                ))}
+                            </TextField>
+                            <HelpPopover popoverContent={'destination'}/>
+                        </Box>
                     </Box>
                     <Typography
                         color={"error"}>{!sourceApplicationId || !sourceApplicationIntegrationId || !destination ? error : ''}</Typography>
                 </Box>
                 <Box sx={{mt: 2}}>
-                    <Button id="form-settings-cancel-btn" onClick={cancel}
-                            variant="contained">{t('button.cancel')}</Button>
-                    <Button id="form-settings-confirm-btn" sx={{float: 'right'}} onClick={confirm}
-                            variant="contained">{t('button.confirm')}</Button>
+                    <Button id="form-settings-confirm-btn" onClick={confirm} variant="contained">
+                        {t('button.confirm')}</Button>
+                    <Button id="form-settings-cancel-btn" onClick={cancel} sx={{ml: 2}} variant="contained">
+                        {t('button.cancel')}</Button>
                 </Box>
             </FormGroup>
         </>

@@ -31,12 +31,14 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = forwardRef<a
     const [{canDrop, isOver}, dropRef] = useDrop({
         accept: props.accept,
         drop: (tag: ITag) => {
-            if (props.onChange) {
-                if (props.value === undefined || props.value === "") {
-                    setShrink(true)
-                    props.onChange(tag.value)
-                } else {
-                    props.onChange(props.value + tag.value)
+            if (!props.disabled) {
+                if (props.onChange) {
+                    if (props.value === undefined || props.value === "") {
+                        setShrink(true)
+                        props.onChange(tag.value)
+                    } else {
+                        props.onChange(props.value + tag.value)
+                    }
                 }
             }
         },
@@ -58,12 +60,10 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = forwardRef<a
         margin: 'none'
     };
 
-    if (canDrop && isOver) {
+    if (canDrop && isOver && !props.disabled) {
         background = 'lightgreen';
-    } else if (canDrop) {
+    } else if (canDrop && !props.disabled) {
         background = 'lightblue';
-    } else if (isOver && !canDrop) {
-        background = 'red';
     }
 
     const dynamicStyle: React.CSSProperties = {
@@ -96,7 +96,6 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = forwardRef<a
                     endAdornment: (
                         <>
                             {props.search && <IconButton sx={{padding: "4px", margin: "-4px"}} onClick={() => {
-                                console.log(props.search)
                                 if (props.search?.source) {
                                     ResourceRepository.search(props.search.source)
                                         .then((result: { value: string } | undefined) => {

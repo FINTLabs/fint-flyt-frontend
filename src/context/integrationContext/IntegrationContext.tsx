@@ -16,8 +16,7 @@ export const IntegrationContext = createContext<IntegrationContextState>(
 const IntegrationProvider: FC = ({children}) => {
     const [existingIntegration, setExistingIntegration] = useState<IIntegration | undefined>(undefined);
     const [id, setId] = useState<string | undefined>(undefined);
-    const [newIntegration, setNewIntegration] = useState<IIntegration | undefined>(undefined);
-    const [newIntegrations, setNewIntegrations] = useState<IIntegration[] | undefined>(undefined);
+    const [integrations, setIntegrations] = useState<IIntegration[] | undefined>(undefined);
     const [configuration, setConfiguration] = useState<IConfiguration | undefined>(contextDefaultValues.configuration);
     const [configurations, setConfigurations] = useState<IConfiguration[] | undefined>(contextDefaultValues.configurations);
     const [completedConfigurations, setCompletedConfigurations] = useState<IConfiguration[] | undefined>(contextDefaultValues.completedConfigurations);
@@ -31,14 +30,13 @@ const IntegrationProvider: FC = ({children}) => {
         setDestination('');
         setSourceApplicationId('');
         setExistingIntegration(undefined);
-        setNewIntegration(undefined)
         setSourceApplicationIntegrationId('');
         setSelectedMetadata(contextDefaultValues.selectedMetadata)
-        setId(undefined)
+        setId(undefined);
+        resetConfiguration();
     }
 
-    const resetIntegrations = () => {
-        setNewIntegration(undefined);
+    const resetIntegration = () => {
         setExistingIntegration(undefined)
     }
 
@@ -48,7 +46,7 @@ const IntegrationProvider: FC = ({children}) => {
         setConfiguration(undefined)
     }
 
-    const getNewIntegrations = (sourceApplicationId: string) => {
+    const getIntegrations = (sourceApplicationId: string) => {
         EventRepository.getStatistics()
             .then((response) => {
                 let data = response.data;
@@ -82,23 +80,23 @@ const IntegrationProvider: FC = ({children}) => {
                                                 })
                                                 return metadata;
                                             })
-                                            return setNewIntegrations(mergedList);
+                                            return setIntegrations(mergedList);
                                         }
                                     })
                                     .catch((e) => {
                                         console.error('Error: ', e)
-                                        setNewIntegrations([]);
+                                        setIntegrations([]);
                                         setStatistics([])
                                     })
                             }
                         }).catch((e) => {
                         console.error('Error: ', e)
-                        setNewIntegrations([]);
+                        setIntegrations([]);
                         setStatistics([])
                     })
                 }
             }).catch(e => {
-                setNewIntegrations([]);
+                setIntegrations([]);
                 setStatistics([])
                 console.log('error', e)
             }
@@ -155,13 +153,11 @@ const IntegrationProvider: FC = ({children}) => {
                 id,
                 setId,
                 statistics,
-                newIntegration,
-                setNewIntegration,
                 existingIntegration,
                 setExistingIntegration,
-                newIntegrations,
-                setNewIntegrations,
-                getNewIntegrations,
+                integrations,
+                setIntegrations,
+                getIntegrations,
                 configuration,
                 setConfiguration,
                 getConfiguration,
@@ -180,7 +176,7 @@ const IntegrationProvider: FC = ({children}) => {
                 setSourceApplicationIntegrationId,
                 setSourceApplicationId,
                 resetIntegrationContext,
-                resetIntegrations
+                resetIntegrations: resetIntegration
             }}
         >
             {children}

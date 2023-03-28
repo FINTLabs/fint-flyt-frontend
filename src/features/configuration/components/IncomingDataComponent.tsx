@@ -7,8 +7,7 @@ import {useTranslation} from "react-i18next";
 import {SourceApplicationContext} from "../../../context/sourceApplicationContext";
 import {
     IInstanceMetadataContent,
-    IInstanceObjectCollectionMetadata,
-    MOCK_INSTANCE_METADATA
+    IInstanceObjectCollectionMetadata
 } from "../types/Metadata/IntegrationMetadata";
 import {ClassNameMap} from "@mui/styles";
 import {metadataPanelSX} from "../styles/SystemStyles";
@@ -93,11 +92,11 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
                     <HelpPopover
                         popoverContent="Metadata er data fra innsendt skjema du kan bruke i konfigurasjon av utgående data"/>
                 </Box>
-                {MOCK_INSTANCE_METADATA.instanceMetadata &&
+                {instanceElementMetadata &&
                     <Box className={props.classes.panel}>
                         <MetadataContentComponent
                             classes={props.classes}
-                            content={MOCK_INSTANCE_METADATA.instanceMetadata}
+                            content={instanceElementMetadata}
                             keyToReferenceFunction={(key: string) => toInstanceFieldReference(key)}
                         />
                     </Box>

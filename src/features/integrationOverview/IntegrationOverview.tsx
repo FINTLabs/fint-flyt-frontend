@@ -20,6 +20,9 @@ const useStyles = makeStyles((theme: Theme) =>
         dataGridBox: {
             height: theme.spacing(112),
             backgroundColor: 'white',
+            border: '1px solid black',
+            borderRadius: theme.spacing(0.5),
+            padding: theme.spacing(2),
             width: '100%'
         },
         dataPanelBox: {
@@ -27,6 +30,22 @@ const useStyles = makeStyles((theme: Theme) =>
             width: '100%',
             backgroundColor: 'white',
             marginRight: theme.spacing(1)
+        },
+        tableWrapper: {
+            maxWidth: theme.spacing(220),
+            border: '1px solid black',
+            borderRadius: theme.spacing(0.5),
+            padding: theme.spacing(2),
+            backgroundColor: 'white'
+        },
+        integrationWrapper: {
+            height: theme.spacing(22),
+            minWidth: theme.spacing(80),
+            width: 'fit-content',
+            border: '1px solid black',
+            borderRadius: theme.spacing(0.5),
+            padding: theme.spacing(2),
+            backgroundColor: 'white'
         }
     })
 );
@@ -36,8 +55,8 @@ const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = (
     const classes = useStyles();
     const {
         existingIntegration,
-        setNewIntegration,
-        getNewIntegrations,
+        setExistingIntegration,
+        getIntegrations,
         resetIntegrations
     } = useContext(IntegrationContext)
     const {sourceApplication, getAllMetadata} = useContext(SourceApplicationContext)
@@ -47,14 +66,14 @@ const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = (
 
     useEffect(() => {
         if (showList) resetIntegrations();
-        getNewIntegrations(sourceApplication.toString());
+        getIntegrations(sourceApplication.toString());
         getAllMetadata(true);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const resetConfiguration = () => {
-        setNewIntegration({})
-        getNewIntegrations(sourceApplication.toString());
+        setExistingIntegration({})
+        getIntegrations(sourceApplication.toString());
     }
 
     return (

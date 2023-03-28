@@ -24,7 +24,8 @@ interface Props {
 
 const SelectableValueMappingComponent: React.FunctionComponent<Props> = forwardRef<any, Props>((props: Props) => {
     const {control, setValue, getValues} = useFormContext();
-    const {editCollectionAbsoluteKey} = useContext(ConfigurationContext)
+    const {editCollectionAbsoluteKey, completed} = useContext(ConfigurationContext)
+
     const selectables = SelectablesStatefulValue(
         control,
         props.template.selectables,
@@ -55,6 +56,7 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = forwardR
                             disabled={
                                 props.disabled
                                 || isOutsideCollectionEditContext(field.name, editCollectionAbsoluteKey)
+                                || completed
                             }
                         />
                         <HelpPopover popoverContent={props.description}/>
@@ -70,6 +72,8 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = forwardR
                             disabled={
                                 props.disabled
                                 || isOutsideCollectionEditContext(field.name, editCollectionAbsoluteKey)
+                                || completed
+
                             }
                         />
                         <HelpPopover popoverContent={props.description}/>
@@ -93,6 +97,7 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = forwardR
                             disabled={
                                 props.disabled
                                 || isOutsideCollectionEditContext(field.name, editCollectionAbsoluteKey)
+                                || completed
                             }
                         />
                         <HelpPopover popoverContent={props.description}/>
