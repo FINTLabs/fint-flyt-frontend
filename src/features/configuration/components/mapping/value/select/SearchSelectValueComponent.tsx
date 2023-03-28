@@ -39,7 +39,6 @@ const SearchSelectValueComponent: React.FunctionComponent<Props> = forwardRef<an
         filterOptions={filterOptions}
         options={Object.keys(displayNamePerValue)}
         getOptionLabel={(option: string) => option ? displayNamePerValue[option as string] : ''}
-        isOptionEqualToValue={(option, value) => option === value}
         renderInput={(params) => (
             <TextField
                 {...params}
