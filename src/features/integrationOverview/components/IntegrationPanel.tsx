@@ -51,7 +51,6 @@ const IntegrationPanel: React.FunctionComponent<any> = (props: { classes: ClassN
         allMetadata,
         getAllMetadata,
         getInstanceElementMetadata,
-        sourceApplication,
         setSourceApplication
     } = useContext(SourceApplicationContext)
     const [version, setVersion] = useState('null');
@@ -100,8 +99,6 @@ const IntegrationPanel: React.FunctionComponent<any> = (props: { classes: ClassN
             setSourceApplication(undefined)
         }
     }, [])
-
-    console.log(allMetadata, sourceApplication)
 
     const columns: GridColDef[] = [
         {field: 'id', type: 'string', headerName: t('table.columns.configurationId'), minWidth: 100, flex: 0.5},
