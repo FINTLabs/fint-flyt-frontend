@@ -97,9 +97,9 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                             setShowAlert(true);
                             setCompleted(true)
                         }
-                        if (active && existingIntegration) {
-                            activateConfiguration(existingIntegration.id, response.data)
-                        }
+                    }
+                    if (active && existingIntegration) {
+                        activateConfiguration(existingIntegration.id, response.data)
                     }
                 }).catch(function (error) {
                     if (error.response.status === 422) {
