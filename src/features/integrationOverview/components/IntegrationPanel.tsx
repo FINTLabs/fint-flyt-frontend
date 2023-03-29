@@ -151,9 +151,6 @@ const IntegrationPanel: React.FunctionComponent<any> = (props: { classes: ClassN
     }
 
     async function handleNewOrEditConfigClick(id: any, version?: any) {
-        console.log('handleNewOrEditConfigClick', id, version)
-        console.log(existingIntegration)
-        console.log(allMetadata)
         let selectedForm = allMetadata.filter(md => md.sourceApplicationIntegrationId === existingIntegration?.sourceApplicationIntegrationId)
         setSelectedMetadata(selectedForm.length > 0 ? selectedForm[0] : SOURCE_FORM_NO_VALUES[0])
         getInstanceElementMetadata(selectedForm[0].id)
@@ -385,7 +382,6 @@ const IntegrationPanel: React.FunctionComponent<any> = (props: { classes: ClassN
                         }}
                     >
                         {completedConfigurations && completedConfigurations.map((config: any, index: number) => {
-                                console.log(config)
                                 return <MenuItem onClick={handleNewConfigSubClose} key={index}>
                                     <Button id="version-button" onClick={() => {
                                         handleNewOrEditConfigClick(config.id, config.version).then(() => history.push("/integration/configuration/edit"))
