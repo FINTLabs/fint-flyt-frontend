@@ -7,7 +7,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
             {
                 "order": 2,
                 "elementConfig": {
-                    "key": "id",
+                    "key": "caseId",
                     "displayName": "Saksnummer",
                     "description": "",
                     "showDependency": {
@@ -60,7 +60,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
             {
                 "order": 1,
                 "elementConfig": {
-                    "key": "new",
+                    "key": "newCase",
                     "displayName": "Sak",
                     "description": "",
                     "showDependency": {
@@ -263,6 +263,17 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                 "elementTemplate": {
                                     "valueTemplates": [
                                         {
+                                            "order": 0,
+                                            "elementConfig": {
+                                                "key": "partNavn",
+                                                "displayName": "Navn",
+                                                "description": ""
+                                            },
+                                            "template": {
+                                                "type": ValueType.DYNAMIC_STRING
+                                            }
+                                        },
+                                        {
                                             "order": 2,
                                             "elementConfig": {
                                                 "key": "kontaktperson",
@@ -272,22 +283,11 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                             "template": {
                                                 "type": ValueType.DYNAMIC_STRING
                                             }
-                                        },
-                                        {
-                                            "order": 3,
-                                            "elementConfig": {
-                                                "key": "partNavn",
-                                                "displayName": "Navn",
-                                                "description": ""
-                                            },
-                                            "template": {
-                                                "type": ValueType.DYNAMIC_STRING
-                                            }
                                         }
                                     ],
                                     "selectableValueTemplates": [
                                         {
-                                            "order": 4,
+                                            "order": 1,
                                             "elementConfig": {
                                                 "key": "partRolle",
                                                 "displayName": "Rolle",
@@ -305,7 +305,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                     ],
                                     "objectTemplates": [
                                         {
-                                            "order": 0,
+                                            "order": 3,
                                             "elementConfig": {
                                                 "key": "adresse",
                                                 "displayName": "Adresse",
@@ -350,7 +350,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                             }
                                         },
                                         {
-                                            "order": 1,
+                                            "order": 4,
                                             "elementConfig": {
                                                 "key": "kontaktinformasjon",
                                                 "displayName": "Kontaktinformasjon",
@@ -361,8 +361,8 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                                     {
                                                         "order": 0,
                                                         "elementConfig": {
-                                                            "key": "kontaktperson",
-                                                            "displayName": "Kontaktperson",
+                                                            "key": "epostadresse",
+                                                            "displayName": "E-post",
                                                             "description": ""
                                                         },
                                                         "template": {
@@ -390,17 +390,6 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                                         "template": {
                                                             "type": ValueType.DYNAMIC_STRING
                                                         }
-                                                    },
-                                                    {
-                                                        "order": 3,
-                                                        "elementConfig": {
-                                                            "key": "epost",
-                                                            "displayName": "E-post",
-                                                            "description": ""
-                                                        },
-                                                        "template": {
-                                                            "type": ValueType.DYNAMIC_STRING
-                                                        }
                                                     }
                                                 ]
                                             }
@@ -412,7 +401,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                         {
                             "order": 10,
                             "elementConfig": {
-                                "key": "klassering",
+                                "key": "klasse",
                                 "displayName": "Klassering",
                                 "description": ""
                             },
@@ -422,7 +411,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                         {
                                             "order": 0,
                                             "elementConfig": {
-                                                "key": "rekkefølge",
+                                                "key": "rekkefolge",
                                                 "displayName": "Rekkefølge",
                                                 "description": ""
                                             },
@@ -473,6 +462,52 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                                         "urlTemplate": "api/intern/arkiv/kodeverk/klasse",
                                                         "valueRefPerRequestParamKey": {
                                                             "klassifikasjonssystemLink": "klassifikasjonssystem"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ],
+                                    "objectTemplates": [
+                                        {
+                                            "order": 4,
+                                            "elementConfig": {
+                                                "key": "skjerming",
+                                                "displayName": "Skjerming",
+                                                "description": ""
+                                            },
+                                            "template": {
+                                                "selectableValueTemplates": [
+                                                    {
+                                                        "order": 0,
+                                                        "elementConfig": {
+                                                            "key": "tilgangsrestriksjon",
+                                                            "displayName": "Tilgangsrestriksjon",
+                                                            "description": ""
+                                                        },
+                                                        "template": {
+                                                            "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
+                                                            "selectablesSources": [
+                                                                {
+                                                                    "urlTemplate": "api/intern/arkiv/kodeverk/tilgangsrestriksjon"
+                                                                }
+                                                            ]
+                                                        }
+                                                    },
+                                                    {
+                                                        "order": 1,
+                                                        "elementConfig": {
+                                                            "key": "skjermingshjemmel",
+                                                            "displayName": "Skjermingshjemmel",
+                                                            "description": ""
+                                                        },
+                                                        "template": {
+                                                            "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
+                                                            "selectablesSources": [
+                                                                {
+                                                                    "urlTemplate": "api/intern/arkiv/kodeverk/skjermingshjemmel"
+                                                                }
+                                                            ]
                                                         }
                                                     }
                                                 ]
@@ -663,8 +698,19 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                                         {
                                                             "order": 3,
                                                             "elementConfig": {
-                                                                "key": "navn",
+                                                                "key": "korrespondansepartNavn",
                                                                 "displayName": "Navn",
+                                                                "description": ""
+                                                            },
+                                                            "template": {
+                                                                "type": ValueType.DYNAMIC_STRING
+                                                            }
+                                                        },
+                                                        {
+                                                            "order": 4,
+                                                            "elementConfig": {
+                                                                "key": "kontaktperson",
+                                                                "displayName": "Kontaktperson",
                                                                 "description": ""
                                                             },
                                                             "template": {
@@ -692,7 +738,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                                     ],
                                                     "objectTemplates": [
                                                         {
-                                                            "order": 4,
+                                                            "order": 5,
                                                             "elementConfig": {
                                                                 "key": "adresse",
                                                                 "displayName": "Adresse",
@@ -737,7 +783,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                                             }
                                                         },
                                                         {
-                                                            "order": 5,
+                                                            "order": 6,
                                                             "elementConfig": {
                                                                 "key": "kontaktinformasjon",
                                                                 "displayName": "Kontaktinformasjon",
@@ -748,8 +794,8 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                                                     {
                                                                         "order": 0,
                                                                         "elementConfig": {
-                                                                            "key": "kontaktperson",
-                                                                            "displayName": "Kontaktperson",
+                                                                            "key": "epostadresse",
+                                                                            "displayName": "E-post",
                                                                             "description": ""
                                                                         },
                                                                         "template": {
@@ -777,23 +823,12 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                                                         "template": {
                                                                             "type": ValueType.DYNAMIC_STRING
                                                                         }
-                                                                    },
-                                                                    {
-                                                                        "order": 3,
-                                                                        "elementConfig": {
-                                                                            "key": "epost",
-                                                                            "displayName": "E-post",
-                                                                            "description": ""
-                                                                        },
-                                                                        "template": {
-                                                                            "type": ValueType.DYNAMIC_STRING
-                                                                        }
                                                                     }
                                                                 ]
                                                             }
                                                         },
                                                         {
-                                                            "order": 6,
+                                                            "order": 7,
                                                             "elementConfig": {
                                                                 "key": "skjerming",
                                                                 "displayName": "Skjerming",
@@ -894,11 +929,27 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                                                     }
                                                                 ]
                                                             }
+                                                        },
+                                                        {
+                                                            "order": 3,
+                                                            "elementConfig": {
+                                                                "key": "tilknyttetRegistreringSom",
+                                                                "displayName": "Tilknyttet registrering som",
+                                                                "description": ""
+                                                            },
+                                                            "template": {
+                                                                "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
+                                                                "selectablesSources": [
+                                                                    {
+                                                                        "urlTemplate": "api/intern/kodeverk/tilknyttetregistreringsom"
+                                                                    }
+                                                                ]
+                                                            }
                                                         }
                                                     ],
                                                     "objectCollectionTemplates": [
                                                         {
-                                                            "order": 3,
+                                                            "order": 4,
                                                             "elementConfig": {
                                                                 "key": "dokumentobjekt",
                                                                 "displayName": "Dokumentobjekter",
@@ -1161,8 +1212,19 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                             {
                                                 "order": 3,
                                                 "elementConfig": {
-                                                    "key": "navn",
+                                                    "key": "korrespondansepartNavn",
                                                     "displayName": "Navn",
+                                                    "description": ""
+                                                },
+                                                "template": {
+                                                    "type": ValueType.DYNAMIC_STRING
+                                                }
+                                            },
+                                            {
+                                                "order": 4,
+                                                "elementConfig": {
+                                                    "key": "kontaktperson",
+                                                    "displayName": "Kontaktperson",
                                                     "description": ""
                                                 },
                                                 "template": {
@@ -1190,7 +1252,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                         ],
                                         "objectTemplates": [
                                             {
-                                                "order": 4,
+                                                "order": 5,
                                                 "elementConfig": {
                                                     "key": "adresse",
                                                     "displayName": "Adresse",
@@ -1235,7 +1297,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                                 }
                                             },
                                             {
-                                                "order": 5,
+                                                "order": 6,
                                                 "elementConfig": {
                                                     "key": "kontaktinformasjon",
                                                     "displayName": "Kontaktinformasjon",
@@ -1246,8 +1308,8 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                                         {
                                                             "order": 0,
                                                             "elementConfig": {
-                                                                "key": "kontaktperson",
-                                                                "displayName": "Kontaktperson",
+                                                                "key": "epostadresse",
+                                                                "displayName": "E-post",
                                                                 "description": ""
                                                             },
                                                             "template": {
@@ -1275,23 +1337,12 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                                             "template": {
                                                                 "type": ValueType.DYNAMIC_STRING
                                                             }
-                                                        },
-                                                        {
-                                                            "order": 3,
-                                                            "elementConfig": {
-                                                                "key": "epost",
-                                                                "displayName": "E-post",
-                                                                "description": ""
-                                                            },
-                                                            "template": {
-                                                                "type": ValueType.DYNAMIC_STRING
-                                                            }
                                                         }
                                                     ]
                                                 }
                                             },
                                             {
-                                                "order": 6,
+                                                "order": 7,
                                                 "elementConfig": {
                                                     "key": "skjerming",
                                                     "displayName": "Skjerming",
@@ -1392,11 +1443,27 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                                         }
                                                     ]
                                                 }
+                                            },
+                                            {
+                                                "order": 3,
+                                                "elementConfig": {
+                                                    "key": "tilknyttetRegistreringSom",
+                                                    "displayName": "Tilknyttet registrering som",
+                                                    "description": ""
+                                                },
+                                                "template": {
+                                                    "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
+                                                    "selectablesSources": [
+                                                        {
+                                                            "urlTemplate": "api/intern/kodeverk/tilknyttetregistreringsom"
+                                                        }
+                                                    ]
+                                                }
                                             }
                                         ],
                                         "objectCollectionTemplates": [
                                             {
-                                                "order": 3,
+                                                "order": 4,
                                                 "elementConfig": {
                                                     "key": "dokumentobjekt",
                                                     "displayName": "Dokumentobjekter",
