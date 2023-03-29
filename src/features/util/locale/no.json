@@ -48,7 +48,7 @@
         "activeLabel": "Aktiv"
       },
       "button": {
-        "submit": "Send inn",
+        "submit": "Lagre",
         "cancel": "Avbryt",
         "append": "+",
         "remove": "-"

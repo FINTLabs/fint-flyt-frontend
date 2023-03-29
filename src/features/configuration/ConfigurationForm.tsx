@@ -154,7 +154,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                 setAlertContent(activeAlert)
                 setShowAlert(true);
                 setCompleted(true)
-                console.log('set active configuration: ', response.data.activeConfigurationId, ' active: ')
+                console.log('set active configuration: ', response.data.activeConfigurationId)
             }).catch((e) => {
             console.log('could not set active configuration', e)
         })
