@@ -21,7 +21,7 @@ const SourceApplicationProvider: FC = ({children}) => {
     const [allMetadata, setAllMetadata] = useState<IIntegrationMetadata[]>(contextDefaultValues.allMetadata)
     const [instanceElementMetadata, setInstanceElementMetadata] = useState<IInstanceMetadataContent | undefined>(MOCK_INSTANCE_METADATA.instanceMetadata)
     const [instanceObjectCollectionMetadata, setInstanceObjectCollectionMetadata] = useState<IInstanceObjectCollectionMetadata[]>([])
-    const [sourceApplication, setSourceApplication] = useState<number>(contextDefaultValues.sourceApplication);
+    const [sourceApplication, setSourceApplication] = useState<number | undefined>(contextDefaultValues.sourceApplication);
 
 
     function getInstanceObjectCollectionMetadata(keys: string[]): void {
@@ -33,7 +33,7 @@ const SourceApplicationProvider: FC = ({children}) => {
     }
 
     const getAvailableForms = () => {
-        SourceApplicationRepository.getMetadata(sourceApplication !== null ? sourceApplication.toString() : "1", true)
+        SourceApplicationRepository.getMetadata(sourceApplication !== undefined ? sourceApplication.toString() : "2", true)
             .then(response => {
                 let data = response.data
                 if (data) {
@@ -95,7 +95,7 @@ const SourceApplicationProvider: FC = ({children}) => {
                 if (data) {
                     let ids: string[] = data.map((config: any) => config.sourceApplicationIntegrationId)
                     let selectableForms = forms.filter(form => !ids.includes(form.value));
-                    if (sourceApplication !== null) {
+                    if (sourceApplication !== undefined) {
                         setAvailableForms({
                             sourceApplicationDisplayName: getSourceApplicationDisplayName(sourceApplication),
                             sourceApplicationId: sourceApplication.toString(),

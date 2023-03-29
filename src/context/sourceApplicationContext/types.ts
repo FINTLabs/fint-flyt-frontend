@@ -23,8 +23,8 @@ export type SourceApplicationContextState = {
     getInstanceObjectCollectionMetadata: (key: string[]) => void,
     getAllMetadata: (onlyLatest: boolean) => void;
     getInstanceElementMetadata: (metadataId: string) => void;
-    sourceApplication: number;
-    setSourceApplication: (id: number) => void;
+    sourceApplication: number | undefined;
+    setSourceApplication: (id: number | undefined) => void;
 };
 
 export const contextDefaultValues: SourceApplicationContextState = {
@@ -56,7 +56,7 @@ export const contextDefaultValues: SourceApplicationContextState = {
     },
     getInstanceElementMetadata: () => {
     },
-    sourceApplication: 1,
+    sourceApplication: undefined,
     setSourceApplication: () => {
     }
 };

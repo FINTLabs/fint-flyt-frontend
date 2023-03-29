@@ -26,11 +26,10 @@ import {pruneObjectMapping} from "../util/mapping/helpers/pruning";
 const useStyles = configurationFormStyles
 
 const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
-    const {sourceApplication, allMetadata} = useContext(SourceApplicationContext)
+    const {setSourceApplication, allMetadata} = useContext(SourceApplicationContext)
     const {
         completed,
         setCompleted,
-        editCollectionAbsoluteKey,
         resetConfigurationContext
     } = useContext(ConfigurationContext)
     const {t} = useTranslation('translations', {keyPrefix: 'pages.configuration'});
@@ -38,15 +37,12 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     const classes = useStyles();
     const {
         selectedMetadata,
-        setSelectedMetadata,
         existingIntegration,
         configuration,
         setConfiguration,
         resetIntegrationContext
     } = useContext(IntegrationContext)
     const [active, setActive] = useState<boolean>(existingIntegration?.activeConfigurationId === configuration?.id)
-    const initialVersion: number = selectedMetadata.version;
-    const [version, setVersion] = React.useState<string>(initialVersion ? String(initialVersion) : '');
     const [showAlert, setShowAlert] = React.useState<boolean>(false)
     const [alertContent, setAlertContent] = React.useState<IAlertContent>(defaultAlert)
     const [collectionReferencesInEditContext, setCollectionReferencesInEditContext] = useState<string[]>([])
@@ -79,6 +75,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
         return () => {
             resetIntegrationContext()
             resetConfigurationContext()
+            setSourceApplication(undefined)
         }
     }, [])
 

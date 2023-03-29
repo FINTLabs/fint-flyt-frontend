@@ -65,15 +65,17 @@ const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = (
 
 
     useEffect(() => {
-        if (showList) resetIntegrations();
-        getIntegrations(sourceApplication.toString());
+        if (showList) {
+            resetIntegrations();
+        }
+        getIntegrations(sourceApplication ? sourceApplication.toString() : "2");
         getAllMetadata(true);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const resetConfiguration = () => {
         setExistingIntegration({})
-        getIntegrations(sourceApplication.toString());
+        getIntegrations(sourceApplication ? sourceApplication.toString() : "2");
     }
 
     return (
@@ -88,7 +90,6 @@ const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = (
                 /> :
                 <IntegrationTable
                     classes={classes}
-
                 />
             }
         </>

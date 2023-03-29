@@ -43,7 +43,7 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
     })
 
     useEffect(() => {
-        getIntegrations(sourceApplication.toString());
+        getIntegrations(sourceApplication ? sourceApplication.toString() : "2");
         resetIntegrations();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])

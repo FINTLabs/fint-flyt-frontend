@@ -51,7 +51,8 @@ const IntegrationPanel: React.FunctionComponent<any> = (props: { classes: ClassN
         allMetadata,
         getAllMetadata,
         getInstanceElementMetadata,
-        sourceApplication
+        sourceApplication,
+        setSourceApplication
     } = useContext(SourceApplicationContext)
     const [version, setVersion] = useState('null');
     const [activeVersion, setActiveVersion] = useState<any>('');
@@ -95,6 +96,9 @@ const IntegrationPanel: React.FunctionComponent<any> = (props: { classes: ClassN
         getAllMetadata(true)
         getVersionForActiveConfig(existingIntegration?.activeConfigurationId ? existingIntegration.activeConfigurationId : undefined)
         // eslint-disable-next-line react-hooks/exhaustive-deps
+        return () => {
+            setSourceApplication(undefined)
+        }
     }, [])
 
     console.log(allMetadata, sourceApplication)

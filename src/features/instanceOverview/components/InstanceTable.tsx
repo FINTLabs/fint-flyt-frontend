@@ -140,7 +140,7 @@ const InstanceTable: React.FunctionComponent<any> = (props: { classes: ClassName
     }
 
     useEffect(() => {
-        getLatestInstances(0, 10000, "timestamp", "DESC", sourceApplication.toString());
+        getLatestInstances(0, 10000, "timestamp", "DESC", sourceApplication ? sourceApplication.toString() : "2");
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -174,8 +174,8 @@ const InstanceTable: React.FunctionComponent<any> = (props: { classes: ClassName
             <Button
                 sx={{mb: 2}}
                 variant='contained'
-                onClick={e => getLatestInstances(0, 10000, "timestamp", "DESC",
-                    sourceApplication.toString())}
+                onClick={() => getLatestInstances(0, 10000, "timestamp", "DESC",
+                    sourceApplication ? sourceApplication.toString() : "2")}
                 endIcon={<RefreshIcon/>}
             >{t('button.refresh')}
             </Button>
