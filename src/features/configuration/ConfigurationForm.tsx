@@ -11,16 +11,18 @@ import {IntegrationContext} from "../../context/integrationContext";
 import {IIntegrationMetadata} from "./types/Metadata/IntegrationMetadata";
 import {useTranslation} from "react-i18next";
 import {configurationFormStyles} from "./styles/ConfigurationForm.styles";
-import ConfigurationRepository from "../../shared/repositories/ConfigurationRepository";
 import CheckboxValueComponent from "./components/common/CheckboxValueComponent";
 import IntegrationRepository from "../../shared/repositories/IntegrationRepository";
 import {IConfiguration, IConfigurationPatch} from "./types/Configuration";
+import {IConfiguration, IObjectMapping} from "./types/Configuration";
 import {IIntegrationPatch, IntegrationState} from "../integration/types/Integration";
 import {ConfigurationContext} from "../../context/configurationContext";
 import SelectValueComponent from "./components/mapping/value/select/SelectValueComponent";
 import StringValueComponent from "./components/mapping/value/string/StringValueComponent";
 import {IAlertContent} from "./types/AlertContent";
 import {activeAlert, defaultAlert, infoAlert, savedAlert} from "./defaults/DefaultValues";
+import ConfigurationRepository from "../../shared/repositories/ConfigurationRepository";
+import {pruneObjectMapping} from "../util/mapping/helpers/pruning";
 
 const useStyles = configurationFormStyles
 
@@ -83,6 +85,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
 
 
     const onSubmit = (data: any) => {
+        data.mapping = pruneObjectMapping(data.mapping as IObjectMapping)
         console.log('submitting data ', data);
         if (configuration?.id) {
             ConfigurationRepository.updateConfiguration(configuration.id.toString(), data as IConfigurationPatch)
