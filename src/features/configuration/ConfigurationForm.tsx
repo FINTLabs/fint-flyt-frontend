@@ -13,14 +13,13 @@ import {useTranslation} from "react-i18next";
 import {configurationFormStyles} from "./styles/ConfigurationForm.styles";
 import CheckboxValueComponent from "./components/common/CheckboxValueComponent";
 import IntegrationRepository from "../../shared/repositories/IntegrationRepository";
-import {IConfiguration, IConfigurationPatch} from "./types/Configuration";
-import {IConfiguration, IObjectMapping} from "./types/Configuration";
+import {IConfiguration, IConfigurationPatch, IObjectMapping} from "./types/Configuration";
 import {IIntegrationPatch, IntegrationState} from "../integration/types/Integration";
 import {ConfigurationContext} from "../../context/configurationContext";
 import SelectValueComponent from "./components/mapping/value/select/SelectValueComponent";
 import StringValueComponent from "./components/mapping/value/string/StringValueComponent";
 import {IAlertContent} from "./types/AlertContent";
-import {activeAlert, defaultAlert, infoAlert, savedAlert} from "./defaults/DefaultValues";
+import {activeAlert, defaultAlert, savedAlert, completedAlert} from "./defaults/DefaultValues";
 import ConfigurationRepository from "../../shared/repositories/ConfigurationRepository";
 import {pruneObjectMapping} from "../util/mapping/helpers/pruning";
 
@@ -92,12 +91,12 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                 .then(response => {
                     console.log('updated', response)
                     if (!response.data.completed) {
-                        setAlertContent(infoAlert)
+                        setAlertContent(savedAlert)
                         setShowAlert(true);
                     }
                     if (response.data.completed && !active) {
                         if (response.data.completed) {
-                            setAlertContent(savedAlert)
+                            setAlertContent(completedAlert)
                             setShowAlert(true);
                             setCompleted(true)
                         }
@@ -121,11 +120,11 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                     console.log('created', response)
                     setConfiguration(response.data)
                     if (!response.data.completed) {
-                        setAlertContent(infoAlert)
+                        setAlertContent(savedAlert)
                         setShowAlert(true);
                     }
                     if (response.data.completed && !active) {
-                        setAlertContent(savedAlert)
+                        setAlertContent(completedAlert)
                         setShowAlert(true);
                         setCompleted(true)
                     }
@@ -133,7 +132,6 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                         activateConfiguration(existingIntegration.id, response.data)
                     }
                 }).catch(function (error) {
-                console.log('error', error.response)
                 if (error.response.status === 422) {
                     setAlertContent({
                         severity: 'error',
@@ -154,7 +152,8 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
         IntegrationRepository.updateIntegration(integrationId, patch)
             .then(response => {
                 setAlertContent(activeAlert)
-                setShowAlert(false);
+                setShowAlert(true);
+                setCompleted(true)
                 console.log('set active configuration: ', response.data.activeConfigurationId, ' active: ')
             }).catch((e) => {
             console.log('could not set active configuration', e)

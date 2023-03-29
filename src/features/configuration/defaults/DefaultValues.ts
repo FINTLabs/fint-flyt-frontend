@@ -5,10 +5,9 @@ import {ISelect} from "../types/Select";
 import {IAlertContent} from "../types/AlertContent";
 
 export const defaultAlert: IAlertContent = {severity: 'info', message: ''}
-export const infoAlert: IAlertContent = {severity: 'info', message: 'Konfigurasjon lagret'}
-export const savedAlert: IAlertContent = {severity: 'info', message: 'Konfigurasjon ferdigstilt'}
+export const savedAlert: IAlertContent = {severity: 'info', message: 'Konfigurasjon lagret'}
+export const completedAlert: IAlertContent = {severity: 'success', message: 'Konfigurasjon ferdigstilt'}
 export const activeAlert: IAlertContent = {severity: 'success', message: 'Konfigurasjon aktivert'}
-export const errorAlert: IAlertContent = {severity: 'error', message: ''}
 
 export const variant: string = 'https://beta.felleskomponent.no/arkiv/kodeverk/variantformat/systemid/P'
 export const format: string = 'https://beta.felleskomponent.no/arkiv/kodeverk/format/systemid/PDF'
