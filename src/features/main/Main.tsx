@@ -30,8 +30,8 @@ const useStyles = makeStyles((theme: Theme) =>
             ...theme.mixins.toolbar
         },
         content: {
-            width: "100%",
-            height: "calc(100% - 64px)",
+            width: "fit-content",
+            height: "calc(100% - 164px)",
             flexGrow: 1,
             backgroundColor: theme.palette.background.default,
             padding: theme.spacing(4),

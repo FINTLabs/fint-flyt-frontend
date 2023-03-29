@@ -95,7 +95,6 @@ export const IntegrationForm: React.FunctionComponent<any> = () => {
 
     useEffect(() => {
         resetIntegrationContext();
-
         return () => {
             setSourceApplication(sourceApplication)
         }

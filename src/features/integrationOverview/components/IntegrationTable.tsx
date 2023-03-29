@@ -24,7 +24,7 @@ const IntegrationTable: React.FunctionComponent<any> = (props: { classes: ClassN
         getCompletedConfigurations,
         getConfigurations
     } = useContext(IntegrationContext)
-    const {setSourceApplication, getAllMetadata} = useContext(SourceApplicationContext)
+    const {setSourceApplication} = useContext(SourceApplicationContext)
 
     const columns: GridColDef[] = [
         {
@@ -98,7 +98,6 @@ const IntegrationTable: React.FunctionComponent<any> = (props: { classes: ClassN
             onClick={() => {
                 setExistingIntegration(props.row)
                 setSourceApplication(props.row.sourceApplicationId)
-                getAllMetadata(true);
                 getConfigurations(0, 10000, "version", "DESC", false, props.row.id, true)
                 getCompletedConfigurations(0, 10000, "id", "ASC", true, props.row.id, true)
                 setHistory();
