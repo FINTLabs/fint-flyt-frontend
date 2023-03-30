@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         content: {
             width: "fit-content",
-            height: "calc(100% - 164px)",
+            height: "calc(100% - 64px)",
             flexGrow: 1,
             backgroundColor: theme.palette.background.default,
             padding: theme.spacing(4),
