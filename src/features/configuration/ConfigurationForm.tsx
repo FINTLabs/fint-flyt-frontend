@@ -82,7 +82,6 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
 
     const onSubmit = (data: any) => {
         data.mapping = pruneObjectMapping(data.mapping as IObjectMapping)
-        console.log('submitting data ', data.mapping);
         if (configuration?.id) {
             ConfigurationRepository.updateConfiguration(configuration.id.toString(), data as IConfigurationPatch)
                 .then(response => {
@@ -102,7 +101,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                         activateConfiguration(existingIntegration.id, response.data)
                     }
                 }).catch(function (error) {
-                    if (error.response.status === 422) {
+                    if (error.response?.status === 422) {
                         setAlertContent({
                             severity: 'error',
                             message: 'Feilet under lagring, feilmelding: ' + error.response.data.message
@@ -129,7 +128,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                         activateConfiguration(existingIntegration.id, response.data)
                     }
                 }).catch(function (error) {
-                if (error.response.status === 422) {
+                if (error.response?.status === 422) {
                     setAlertContent({
                         severity: 'error',
                         message: 'Feilet under opprettelse, feilmelding: ' + error.response.data.message
@@ -238,7 +237,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                             label={t('label.activeLabel') as string}
                         />
                     </Box>
-                    <Snackbar id="integration-form-snackbar-saved" open={showAlert} onClose={handleClose}>
+                    <Snackbar id="integration-form-snackbar-saved" autoHideDuration={4000} open={showAlert} onClose={handleClose}>
                         <Alert onClose={handleClose} severity={alertContent.severity} sx={{width: '100%'}}>
                             {alertContent.message}
                         </Alert>
