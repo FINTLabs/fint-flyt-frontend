@@ -143,7 +143,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                         {
                             "order": 4,
                             "elementConfig": {
-                                "key": "administrativenhet",
+                                "key": "administrativEnhet",
                                 "displayName": "Administrativ enhet",
                                 "description": ""
                             },
@@ -570,7 +570,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                         {
                                             "order": 3,
                                             "elementConfig": {
-                                                "key": "administrativenhet",
+                                                "key": "administrativEnhet",
                                                 "displayName": "Administrativ enhet",
                                                 "description": ""
                                             },
@@ -1084,7 +1084,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                             {
                                 "order": 3,
                                 "elementConfig": {
-                                    "key": "administrativenhet",
+                                    "key": "administrativEnhet",
                                     "displayName": "Administrativ enhet",
                                     "description": ""
                                 },
