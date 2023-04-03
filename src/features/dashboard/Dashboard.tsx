@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
             marginTop: theme.spacing(4)
         },
         dataGridBox: {
-            minHeight: theme.spacing(50),
+            minHeight: theme.spacing(70),
             maxHeight: theme.spacing(300),
             width: '100%'
         }

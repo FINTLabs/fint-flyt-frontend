@@ -169,7 +169,7 @@ const InstanceTable: React.FunctionComponent<any> = (props: { classes: ClassName
     }
 
     return (
-        <Box sx={{width: 1, height: 900}}>
+        <Box>
             <AlertDialog row={selectedRow}/>
             <Button
                 sx={{mb: 2}}
@@ -179,42 +179,44 @@ const InstanceTable: React.FunctionComponent<any> = (props: { classes: ClassName
                 endIcon={<RefreshIcon/>}
             >{t('button.refresh')}
             </Button>
-            <Box id="instance-list" className={classes.dataGridBox}>
-                <DataGrid
-                    loading={!latestInstances}
-                    columns={columns}
-                    density='compact'
-                    localeText={gridLocaleNoNB}
-                    rows={latestInstances ? latestInstances : []}
-                    components={{
-                        Toolbar: GridToolbar,
-                    }}
-                    onCellDoubleClick={(params, event) => {
-                        if (!event.ctrlKey) {
-                            event.defaultMuiPrevented = true;
-                            getEventsWithInstanceId(params.row.instanceFlowHeaders.sourceApplicationId, params.row.instanceFlowHeaders.sourceApplicationInstanceId)
-                        }
-                    }}
-                    rowThreshold={0}
-                    initialState={{
-                        pagination: {
-                            pageSize: 20,
-                        },
-                        sorting: {
-                            sortModel: [{field: 'timestamp', sort: 'desc'}],
-                        },
-                        filter: {
-                            filterModel: {
-                                items: [
-                                    {
-                                        columnField: 'sourceApplicationInstanceId',
-                                        operatorValue: 'contains'
-                                    },
-                                ],
+            <Box display="flex" position="relative" width={1} height={1}>
+                <Box id="instance-list" className={classes.dataGridBox}>
+                    <DataGrid
+                        loading={!latestInstances}
+                        columns={columns}
+                        density='compact'
+                        localeText={gridLocaleNoNB}
+                        rows={latestInstances ? latestInstances : []}
+                        components={{
+                            Toolbar: GridToolbar,
+                        }}
+                        onCellDoubleClick={(params, event) => {
+                            if (!event.ctrlKey) {
+                                event.defaultMuiPrevented = true;
+                                getEventsWithInstanceId(params.row.instanceFlowHeaders.sourceApplicationId, params.row.instanceFlowHeaders.sourceApplicationInstanceId)
+                            }
+                        }}
+                        rowThreshold={0}
+                        initialState={{
+                            pagination: {
+                                pageSize: 20,
                             },
-                        },
-                    }}
-                />
+                            sorting: {
+                                sortModel: [{field: 'timestamp', sort: 'desc'}],
+                            },
+                            filter: {
+                                filterModel: {
+                                    items: [
+                                        {
+                                            columnField: 'sourceApplicationInstanceId',
+                                            operatorValue: 'contains'
+                                        },
+                                    ],
+                                },
+                            },
+                        }}
+                    />
+                </Box>
             </Box>
 
         </Box>

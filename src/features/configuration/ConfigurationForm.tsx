@@ -219,7 +219,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                         </button>
                         <button id="form-cancel-btn" className={classes.submitButton} type="button"
                                 onClick={() => {
-                                    console.log('cancel')
+                                    history.push('/')
                                 }}
                         >{t("button.cancel")}
                         </button>
@@ -237,7 +237,8 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                             label={t('label.activeLabel') as string}
                         />
                     </Box>
-                    <Snackbar id="integration-form-snackbar-saved" autoHideDuration={4000} open={showAlert} onClose={handleClose}>
+                    <Snackbar id="integration-form-snackbar-saved" autoHideDuration={4000} open={showAlert}
+                              onClose={handleClose}>
                         <Alert onClose={handleClose} severity={alertContent.severity} sx={{width: '100%'}}>
                             {alertContent.message}
                         </Alert>

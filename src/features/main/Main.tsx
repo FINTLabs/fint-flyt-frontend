@@ -31,14 +31,13 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         content: {
             width: "fit-content",
-            height: "calc(100% - 64px)",
+            height: "calc(100vh/1.3)",
             flexGrow: 1,
             backgroundColor: theme.palette.background.default,
             padding: theme.spacing(4),
             [theme.breakpoints.up("sm")]: {
                 marginTop: theme.spacing(8),
-                minHeight: '100vh',
-                height: 'fit-content'
+                minHeight: 'calc(100vh/1.2)'
             }
         },
         logo: {

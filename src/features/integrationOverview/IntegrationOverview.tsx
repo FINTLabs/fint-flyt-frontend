@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) =>
             display: 'flex'
         },
         dataGridBox: {
-            height: theme.spacing(112),
+            minHeight: theme.spacing(80),
             backgroundColor: 'white',
             border: '1px solid black',
             borderRadius: theme.spacing(0.5),
