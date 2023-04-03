@@ -19,6 +19,7 @@ import {IIntegrationPatch, IntegrationState} from "../integration/types/Integrat
 import {ConfigurationContext} from "../../context/configurationContext";
 import SelectValueComponent from "./components/mapping/value/select/SelectValueComponent";
 import StringValueComponent from "./components/mapping/value/string/StringValueComponent";
+import EditingProvider, {EditingContext} from "../../context/editingContext";
 
 const useStyles = configurationFormStyles
 
@@ -27,9 +28,9 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     const {
         completed,
         setCompleted,
-        editCollectionAbsoluteKey,
         resetConfigurationContext
     } = useContext(ConfigurationContext)
+    const {setEditCollectionAbsoluteKey} = useContext(EditingContext)
     const {t} = useTranslation('translations', {keyPrefix: 'pages.configuration'});
     const history = useHistory();
     const classes = useStyles();
@@ -65,6 +66,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
         return () => {
             resetIntegrationContext()
             resetConfigurationContext()
+            setEditCollectionAbsoluteKey("")
         }
     }, [])
     const initialVersion: number = selectedMetadata.version;
@@ -125,82 +127,84 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
 
     return (
         <DndProvider backend={HTML5Backend}>
-            <FormProvider {...methods}>
-                <form id="react-hook-form" onSubmit={methods.handleSubmit(onSubmit)}>
-                    <Box className={classes.configurationBox} sx={{m: 1}}>
-                        <Typography sx={{m: 1}} variant={"h6"}>{t('header')}</Typography>
-                        <Typography sx={{m: 1}}>
-                            Integrasjon: {existingIntegration?.sourceApplicationIntegrationId} - {existingIntegration?.displayName}
-                        </Typography>
-                        <Controller
-                            name={"integrationMetadataId".toString()}
-                            defaultValue={''}
-                            render={({field}) =>
-                                <SelectValueComponent
-                                    {...field}
-                                    displayName={t('metadataVersion')}
-                                    selectables={
-                                        availableVersions.map(metadata => {
-                                            return {
-                                                displayName: metadata.version.toString(),
-                                                value: metadata.id ? metadata.id.toString() : "0"
-                                            }
-                                        })}
-                                />
-                            }
-                        />
-                        <Controller
-                            name={"comment".toString()}
-                            render={({field}) =>
-                                <StringValueComponent
-                                    {...field}
-                                    classes={classes}
-                                    displayName={"Kommentar"}
-                                    multiline
-                                />
-                            }
-                        />
-                    </Box>
-                    <Box display="flex" position="relative" width={1} height={1} sx={{border: 'none'}}>
-                        <IncomingDataComponent
-                            classes={classes}
-                            referencesForCollectionsToShow={collectionReferencesInEditContext}
-                        />
-                        <OutgoingDataComponent
-                            classes={classes}
-                            onCollectionReferencesInEditContextChange={
-                                (collectionReferences: string[]) => {
-                                    setCollectionReferencesInEditContext(collectionReferences)
-                                }}
-                        />
-                    </Box>
-                    <Box className={classes.formFooter}>
-                        <button id="form-submit-btn" className={classes.submitButton}
-                                disabled={configuration?.completed} type="submit" onClick={onSubmit}>
-                            {t("button.submit")}
-                        </button>
-                        <button id="form-cancel-btn" className={classes.submitButton} type="button"
-                                onClick={() => {
-                                    console.log('cancel')
-                                }}
-                        >{t("button.cancel")}
-                        </button>
-                        <CheckboxValueComponent absoluteKey={"completed"} displayName={t('label.checkLabel')}/>
-                        <FormControlLabel
-                            control={
-                                <Checkbox
-                                    id="form-active"
-                                    checked={active}
-                                    disabled={completed}
-                                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                        setActive(event.target.checked)
+            <EditingProvider>
+                <FormProvider {...methods}>
+                    <form id="react-hook-form" onSubmit={methods.handleSubmit(onSubmit)}>
+                        <Box className={classes.configurationBox} sx={{m: 1}}>
+                            <Typography sx={{m: 1}} variant={"h6"}>{t('header')}</Typography>
+                            <Typography sx={{m: 1}}>
+                                Integrasjon: {existingIntegration?.sourceApplicationIntegrationId} - {existingIntegration?.displayName}
+                            </Typography>
+                            <Controller
+                                name={"integrationMetadataId".toString()}
+                                defaultValue={''}
+                                render={({field}) =>
+                                    <SelectValueComponent
+                                        {...field}
+                                        displayName={t('metadataVersion')}
+                                        selectables={
+                                            availableVersions.map(metadata => {
+                                                return {
+                                                    displayName: metadata.version.toString(),
+                                                    value: metadata.id ? metadata.id.toString() : "0"
+                                                }
+                                            })}
+                                    />
+                                }
+                            />
+                            <Controller
+                                name={"comment".toString()}
+                                render={({field}) =>
+                                    <StringValueComponent
+                                        {...field}
+                                        classes={classes}
+                                        displayName={"Kommentar"}
+                                        multiline
+                                    />
+                                }
+                            />
+                        </Box>
+                        <Box display="flex" position="relative" width={1} height={1} sx={{border: 'none'}}>
+                            <IncomingDataComponent
+                                classes={classes}
+                                referencesForCollectionsToShow={collectionReferencesInEditContext}
+                            />
+                            <OutgoingDataComponent
+                                classes={classes}
+                                onCollectionReferencesInEditContextChange={
+                                    (collectionReferences: string[]) => {
+                                        setCollectionReferencesInEditContext(collectionReferences)
                                     }}
-                                    inputProps={{'aria-label': 'active-checkbox'}}/>}
-                            label={t('label.activeLabel') as string}
-                        />
-                    </Box>
-                </form>
-            </FormProvider>
+                            />
+                        </Box>
+                        <Box className={classes.formFooter}>
+                            <button id="form-submit-btn" className={classes.submitButton}
+                                    disabled={configuration?.completed} type="submit" onClick={onSubmit}>
+                                {t("button.submit")}
+                            </button>
+                            <button id="form-cancel-btn" className={classes.submitButton} type="button"
+                                    onClick={() => {
+                                        console.log('cancel')
+                                    }}
+                            >{t("button.cancel")}
+                            </button>
+                            <CheckboxValueComponent absoluteKey={"completed"} displayName={t('label.checkLabel')}/>
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        id="form-active"
+                                        checked={active}
+                                        disabled={completed}
+                                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                                            setActive(event.target.checked)
+                                        }}
+                                        inputProps={{'aria-label': 'active-checkbox'}}/>}
+                                label={t('label.activeLabel') as string}
+                            />
+                        </Box>
+                    </form>
+                </FormProvider>
+            </EditingProvider>
         </DndProvider>
     );
 }

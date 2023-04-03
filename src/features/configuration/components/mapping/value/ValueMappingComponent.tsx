@@ -11,6 +11,7 @@ import HelpPopover from "../../common/popover/HelpPopover";
 import {Search, SourceStatefulValue} from "../../../util/UrlUtils";
 import {ConfigurationContext} from "../../../../../context/configurationContext";
 import {isOutsideCollectionEditContext} from "../../../util/KeyUtils";
+import {EditingContext} from "../../../../../context/editingContext";
 
 interface Props {
     classes: ClassNameMap;
@@ -25,7 +26,8 @@ interface Props {
 
 const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
     const {getValues, setValue} = useFormContext();
-    const {editCollectionAbsoluteKey, completed} = useContext(ConfigurationContext)
+    const {completed} = useContext(ConfigurationContext)
+    const {editCollectionAbsoluteKey} = useContext(EditingContext)
 
     const typeAbsoluteKey: string = props.absoluteKey + ".type";
 

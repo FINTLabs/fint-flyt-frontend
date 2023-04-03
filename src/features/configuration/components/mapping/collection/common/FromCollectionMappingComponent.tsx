@@ -12,6 +12,7 @@ import {isOutsideCollectionEditContext} from "../../../../util/KeyUtils";
 import {IconButton} from "@mui/material";
 import {EditOffRounded, EditRounded} from "@mui/icons-material";
 import {Controller, useFormContext} from "react-hook-form";
+import {EditingContext} from "../../../../../../context/editingContext";
 
 interface Props {
     classes: ClassNameMap;
@@ -22,7 +23,8 @@ interface Props {
 const FromCollectionMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.configuration.fromCollectionMapping'});
     const {control} = useFormContext();
-    const {editCollectionAbsoluteKey, setEditCollectionAbsoluteKey, completed} = useContext(ConfigurationContext)
+    const {completed} = useContext(ConfigurationContext)
+    const {editCollectionAbsoluteKey, setEditCollectionAbsoluteKey} = useContext(EditingContext)
 
     return <>
         <div className={props.classes.wrapperVerticalMargin}>

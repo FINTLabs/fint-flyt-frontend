@@ -11,6 +11,7 @@ import HelpPopover from "../../common/popover/HelpPopover";
 import DynamicStringOrSearchSelectValueComponent, {Type} from "./DynamicStringOrSearchSelectValueComponent";
 import {isOutsideCollectionEditContext} from "../../../util/KeyUtils";
 import {ConfigurationContext} from "../../../../../context/configurationContext";
+import {EditingContext} from "../../../../../context/editingContext";
 
 interface Props {
     classes: ClassNameMap;
@@ -24,7 +25,8 @@ interface Props {
 
 const SelectableValueMappingComponent: React.FunctionComponent<Props> = forwardRef<any, Props>((props: Props) => {
     const {control, setValue, getValues} = useFormContext();
-    const {editCollectionAbsoluteKey, completed} = useContext(ConfigurationContext)
+    const {completed} = useContext(ConfigurationContext)
+    const {editCollectionAbsoluteKey} = useContext(EditingContext)
 
     const selectables = SelectablesStatefulValue(
         control,

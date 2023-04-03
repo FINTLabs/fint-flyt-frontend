@@ -9,7 +9,7 @@ import ArrayValueWrapperComponent from "../../../common/array/ArrayValueWrapperC
 import FlytTitle3Component from "../../../common/title/FlytTitle3Component";
 import {ConfigurationContext} from "../../../../../../context/configurationContext";
 import {isOutsideCollectionEditContext} from "../../../../util/KeyUtils";
-
+import {EditingContext} from "../../../../../../context/editingContext";
 
 interface Props {
     classes: ClassNameMap;
@@ -21,7 +21,8 @@ interface Props {
 
 const CollectionMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.configuration.collectionMapping'});
-    const {editCollectionAbsoluteKey, completed} = useContext(ConfigurationContext)
+    const {completed} = useContext(ConfigurationContext)
+    const {editCollectionAbsoluteKey} = useContext(EditingContext)
 
     return <>
         <div className={props.classes.wrapperVerticalMargin}>

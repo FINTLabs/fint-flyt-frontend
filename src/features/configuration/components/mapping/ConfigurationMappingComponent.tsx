@@ -9,9 +9,9 @@ import ObjectCollectionMappingComponent from "./collection/ObjectCollectionMappi
 import ColumnElementComponent from "./ColumnElementComponent";
 import {range} from "lodash";
 import {useFormContext} from "react-hook-form";
-import {ConfigurationContext} from "../../../../context/configurationContext";
 import ValueWatchComponent from "../common/ValueWatchComponent";
 import {findFromCollectionMappingAbsoluteKeys} from "../../util/KeyUtils";
+import {EditingContext} from "../../../../context/editingContext";
 
 interface Props {
     classes: ClassNameMap
@@ -21,7 +21,7 @@ interface Props {
 
 const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
     const {unregister} = useFormContext();
-    const {editCollectionAbsoluteKey} = useContext(ConfigurationContext)
+    const {editCollectionAbsoluteKey} = useContext(EditingContext)
 
     type ColumnElement = {
         path: string[],
