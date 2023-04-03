@@ -26,10 +26,10 @@ const useStyles = makeStyles((theme: Theme) =>
             width: '100%'
         },
         dataPanelBox: {
-            height: theme.spacing(75),
+            height: theme.spacing(45),
             width: '100%',
             backgroundColor: 'white',
-            marginRight: theme.spacing(1)
+            marginBottom: theme.spacing(3)
         },
         tableWrapper: {
             maxWidth: theme.spacing(220),
