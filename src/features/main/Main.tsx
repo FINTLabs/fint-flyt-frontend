@@ -37,7 +37,8 @@ const useStyles = makeStyles((theme: Theme) =>
             padding: theme.spacing(4),
             [theme.breakpoints.up("sm")]: {
                 marginTop: theme.spacing(8),
-                minHeight: 'calc(100vh/1.2)'
+                minHeight: 'calc(100vh/1.2)',
+                height: 'fit-content'
             }
         },
         logo: {
