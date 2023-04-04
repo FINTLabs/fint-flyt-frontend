@@ -104,10 +104,10 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                         activateConfiguration(existingIntegration.id, response.data)
                     }
                 }).catch(function (error) {
-                    if (error.response?.status === 422) {
+                    if (error.response?.status) {
                         setAlertContent({
                             severity: 'error',
-                            message: 'Feilet under lagring, feilmelding: ' + error.response.data.message
+                            message: 'Feilet under lagring, status: ' + error.response.status +  ', feilmelding: ' + error.response.data.message
                         })
                         setShowAlert(true);
                     }
@@ -131,10 +131,10 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                         activateConfiguration(existingIntegration.id, response.data)
                     }
                 }).catch(function (error) {
-                if (error.response?.status === 422) {
+                if (error.response?.status) {
                     setAlertContent({
                         severity: 'error',
-                        message: 'Feilet under opprettelse, feilmelding: ' + error.response.data.message
+                        message: 'Feilet under lagring, status: ' + error.response.status +  ', feilmelding: ' + error.response.data.message
                     })
                     setShowAlert(true);
                 }
