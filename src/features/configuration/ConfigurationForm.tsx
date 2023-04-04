@@ -6,25 +6,28 @@ import {Controller, FormProvider, useForm} from "react-hook-form";
 import {HTML5Backend} from "react-dnd-html5-backend";
 import {DndProvider} from "react-dnd";
 import IncomingDataComponent from "./components/IncomingDataComponent";
-import {Box, Checkbox, FormControlLabel, Typography} from "@mui/material";
+import {Alert, Box, Checkbox, FormControlLabel, Snackbar, Typography} from "@mui/material";
 import {IntegrationContext} from "../../context/integrationContext";
 import {IIntegrationMetadata} from "./types/Metadata/IntegrationMetadata";
 import {useTranslation} from "react-i18next";
 import {configurationFormStyles} from "./styles/ConfigurationForm.styles";
-import ConfigurationRepository from "../../shared/repositories/ConfigurationRepository";
 import CheckboxValueComponent from "./components/common/CheckboxValueComponent";
 import IntegrationRepository from "../../shared/repositories/IntegrationRepository";
-import {IConfiguration} from "./types/Configuration";
+import {IConfiguration, IConfigurationPatch, IObjectMapping} from "./types/Configuration";
 import {IIntegrationPatch, IntegrationState} from "../integration/types/Integration";
 import {ConfigurationContext} from "../../context/configurationContext";
 import SelectValueComponent from "./components/mapping/value/select/SelectValueComponent";
 import StringValueComponent from "./components/mapping/value/string/StringValueComponent";
+import {IAlertContent} from "./types/AlertContent";
+import {activeAlert, completedAlert, defaultAlert, savedAlert} from "./defaults/DefaultValues";
+import ConfigurationRepository from "../../shared/repositories/ConfigurationRepository";
+import {pruneObjectMapping} from "../util/mapping/helpers/pruning";
 import EditingProvider, {EditingContext} from "../../context/editingContext";
 
 const useStyles = configurationFormStyles
 
 const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
-    const {sourceApplication, allMetadata} = useContext(SourceApplicationContext)
+    const {setSourceApplication, allMetadata} = useContext(SourceApplicationContext)
     const {
         completed,
         setCompleted,
@@ -36,15 +39,19 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     const classes = useStyles();
     const {
         selectedMetadata,
-        setSelectedMetadata,
         existingIntegration,
         configuration,
         setConfiguration,
         resetIntegrationContext
     } = useContext(IntegrationContext)
     const [active, setActive] = useState<boolean>(existingIntegration?.activeConfigurationId === configuration?.id)
+    const [showAlert, setShowAlert] = React.useState<boolean>(false)
+    const [alertContent, setAlertContent] = React.useState<IAlertContent>(defaultAlert)
+    const [collectionReferencesInEditContext, setCollectionReferencesInEditContext] = useState<string[]>([])
 
-
+    if (!existingIntegration) {
+        history.push('/')
+    }
     const methods = useForm({
         defaultValues: configuration
             ? {...configuration}
@@ -55,9 +62,13 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
             }
     });
 
-    if (!existingIntegration) {
-        history.push('/')
-    }
+    const handleClose = (event: React.SyntheticEvent | Event, reason?: string) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setShowAlert(false);
+        setAlertContent(defaultAlert)
+    };
 
     useEffect(() => {
         if (configuration?.completed) {
@@ -66,42 +77,67 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
         return () => {
             resetIntegrationContext()
             resetConfigurationContext()
+            setSourceApplication(undefined)
             setEditCollectionAbsoluteKey("")
         }
     }, [])
-    const initialVersion: number = selectedMetadata.version;
-    const [version, setVersion] = React.useState<string>(initialVersion ? String(initialVersion) : '');
-    const [collectionReferencesInEditContext, setCollectionReferencesInEditContext] = useState<string[]>([])
+
 
     const onSubmit = (data: any) => {
-        console.log('submitting data ', data);
-        if (configuration) {
-            ConfigurationRepository.updateConfiguration(configuration.id.toString(), data)
+        data.mapping = pruneObjectMapping(data.mapping as IObjectMapping)
+        if (configuration?.id) {
+            ConfigurationRepository.updateConfiguration(configuration.id.toString(), data as IConfigurationPatch)
                 .then(response => {
-                        setConfiguration(response.data)
+                    console.log('updated', response)
+                    if (!response.data.completed) {
+                        setAlertContent(savedAlert)
+                        setShowAlert(true);
+                    }
+                    if (response.data.completed && !active) {
                         if (response.data.completed) {
+                            setAlertContent(completedAlert)
+                            setShowAlert(true);
                             setCompleted(true)
                         }
-                        if (active && existingIntegration) {
-                            activateConfiguration(existingIntegration.id, response.data)
-                        }
                     }
-                ).catch(e => {
-                console.log('error', e)
-            })
+                    if (active && existingIntegration) {
+                        activateConfiguration(existingIntegration.id, response.data)
+                    }
+                }).catch(function (error) {
+                    if (error.response?.status === 422) {
+                        setAlertContent({
+                            severity: 'error',
+                            message: 'Feilet under lagring, feilmelding: ' + error.response.data.message
+                        })
+                        setShowAlert(true);
+                    }
+                }
+            )
         } else {
-            ConfigurationRepository.createConfiguration(data)
+            ConfigurationRepository.createConfiguration(data as IConfiguration)
                 .then(response => {
-                        setConfiguration(response.data)
-                        if (response.data.completed) {
-                            setCompleted(true)
-                        }
-                        if (active && existingIntegration) {
-                            activateConfiguration(existingIntegration.id, response.data)
-                        }
+                    console.log('created', response)
+                    setConfiguration(response.data)
+                    if (!response.data.completed) {
+                        setAlertContent(savedAlert)
+                        setShowAlert(true);
                     }
-                ).catch(e => {
-                console.log('error', e)
+                    if (response.data.completed && !active) {
+                        setAlertContent(completedAlert)
+                        setShowAlert(true);
+                        setCompleted(true)
+                    }
+                    if (active && existingIntegration) {
+                        activateConfiguration(existingIntegration.id, response.data)
+                    }
+                }).catch(function (error) {
+                if (error.response?.status === 422) {
+                    setAlertContent({
+                        severity: 'error',
+                        message: 'Feilet under opprettelse, feilmelding: ' + error.response.data.message
+                    })
+                    setShowAlert(true);
+                }
             })
         }
     };
@@ -114,7 +150,10 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
         }
         IntegrationRepository.updateIntegration(integrationId, patch)
             .then(response => {
-                console.log('set active configuration: ', response.data.activeConfigurationId, ' active: ')
+                setAlertContent(activeAlert)
+                setShowAlert(true);
+                setCompleted(true)
+                console.log('set active configuration: ', response.data.activeConfigurationId)
             }).catch((e) => {
             console.log('could not set active configuration', e)
         })
@@ -128,83 +167,90 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     return (
         <DndProvider backend={HTML5Backend}>
             <EditingProvider>
-                <FormProvider {...methods}>
-                    <form id="react-hook-form" onSubmit={methods.handleSubmit(onSubmit)}>
-                        <Box className={classes.configurationBox} sx={{m: 1}}>
-                            <Typography sx={{m: 1}} variant={"h6"}>{t('header')}</Typography>
-                            <Typography sx={{m: 1}}>
-                                Integrasjon: {existingIntegration?.sourceApplicationIntegrationId} - {existingIntegration?.displayName}
-                            </Typography>
-                            <Controller
-                                name={"integrationMetadataId".toString()}
-                                defaultValue={''}
-                                render={({field}) =>
-                                    <SelectValueComponent
-                                        {...field}
-                                        displayName={t('metadataVersion')}
-                                        selectables={
-                                            availableVersions.map(metadata => {
-                                                return {
-                                                    displayName: metadata.version.toString(),
-                                                    value: metadata.id ? metadata.id.toString() : "0"
-                                                }
-                                            })}
-                                    />
-                                }
-                            />
-                            <Controller
-                                name={"comment".toString()}
-                                render={({field}) =>
-                                    <StringValueComponent
-                                        {...field}
-                                        classes={classes}
-                                        displayName={"Kommentar"}
-                                        multiline
-                                    />
-                                }
-                            />
-                        </Box>
-                        <Box display="flex" position="relative" width={1} height={1} sx={{border: 'none'}}>
-                            <IncomingDataComponent
-                                classes={classes}
-                                referencesForCollectionsToShow={collectionReferencesInEditContext}
-                            />
-                            <OutgoingDataComponent
-                                classes={classes}
-                                onCollectionReferencesInEditContextChange={
-                                    (collectionReferences: string[]) => {
-                                        setCollectionReferencesInEditContext(collectionReferences)
+            <FormProvider {...methods}>
+                <form id="react-hook-form" onSubmit={methods.handleSubmit(onSubmit)}>
+                    <Box className={classes.configurationBox} sx={{m: 1}}>
+                        <Typography sx={{m: 1}} variant={"h6"}>{t('header')}</Typography>
+                        <Typography sx={{m: 1}}>
+                            Integrasjon: {existingIntegration?.sourceApplicationIntegrationId} - {existingIntegration?.displayName}
+                        </Typography>
+                        <Controller
+                            name={"integrationMetadataId".toString()}
+                            defaultValue={''}
+                            render={({field}) =>
+                                <SelectValueComponent
+                                    {...field}
+                                    displayName={t('metadataVersion')}
+                                    selectables={
+                                        availableVersions.map(metadata => {
+                                            return {
+                                                displayName: metadata.version.toString(),
+                                                value: metadata.id ? metadata.id.toString() : "0"
+                                            }
+                                        })}
+                                />
+                            }
+                        />
+                        <Controller
+                            name={"comment".toString()}
+                            render={({field}) =>
+                                <StringValueComponent
+                                    {...field}
+                                    classes={classes}
+                                    displayName={"Kommentar"}
+                                    multiline
+                                />
+                            }
+                        />
+                    </Box>
+                    <Box display="flex" position="relative" width={1} height={1} sx={{border: 'none'}}>
+                        <IncomingDataComponent
+                            classes={classes}
+                            referencesForCollectionsToShow={collectionReferencesInEditContext}
+                        />
+                        <OutgoingDataComponent
+                            classes={classes}
+                            onCollectionReferencesInEditContextChange={
+                                (collectionReferences: string[]) => {
+                                    setCollectionReferencesInEditContext(collectionReferences)
+                                }}
+                        />
+                    </Box>
+                    <Box className={classes.formFooter}>
+                        <button id="form-submit-btn" className={classes.submitButton}
+                                disabled={configuration?.completed} type="submit" onClick={onSubmit}>
+                            {t("button.submit")}
+                        </button>
+                        <button id="form-cancel-btn" className={classes.submitButton} type="button"
+                                onClick={() => {
+                                    history.push('/')
+                                }}
+                        >{t("button.cancel")}
+                        </button>
+                        <CheckboxValueComponent absoluteKey={"completed"} displayName={t('label.checkLabel')}/>
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    id="form-active"
+                                    checked={active}
+                                    disabled={completed}
+                                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                                        setActive(event.target.checked)
                                     }}
-                            />
-                        </Box>
-                        <Box className={classes.formFooter}>
-                            <button id="form-submit-btn" className={classes.submitButton}
-                                    disabled={configuration?.completed} type="submit" onClick={onSubmit}>
-                                {t("button.submit")}
-                            </button>
-                            <button id="form-cancel-btn" className={classes.submitButton} type="button"
-                                    onClick={() => {
-                                        console.log('cancel')
-                                    }}
-                            >{t("button.cancel")}
-                            </button>
-                            <CheckboxValueComponent absoluteKey={"completed"} displayName={t('label.checkLabel')}/>
-                            <FormControlLabel
-                                control={
-                                    <Checkbox
-                                        id="form-active"
-                                        checked={active}
-                                        disabled={completed}
-                                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                            setActive(event.target.checked)
-                                        }}
-                                        inputProps={{'aria-label': 'active-checkbox'}}/>}
-                                label={t('label.activeLabel') as string}
-                            />
-                        </Box>
-                    </form>
-                </FormProvider>
+                                    inputProps={{'aria-label': 'active-checkbox'}}/>}
+                            label={t('label.activeLabel') as string}
+                        />
+                    </Box>
+                    <Snackbar id="integration-form-snackbar-saved" autoHideDuration={4000} open={showAlert}
+                              onClose={handleClose}>
+                        <Alert onClose={handleClose} severity={alertContent.severity} sx={{width: '100%'}}>
+                            {alertContent.message}
+                        </Alert>
+                    </Snackbar>
+                </form>
+            </FormProvider>
             </EditingProvider>
+
         </DndProvider>
     );
 }

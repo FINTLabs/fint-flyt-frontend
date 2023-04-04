@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
             marginTop: theme.spacing(4)
         },
         dataGridBox: {
-            minHeight: theme.spacing(50),
+            minHeight: theme.spacing(70),
             maxHeight: theme.spacing(300),
             width: '100%'
         }
@@ -43,7 +43,7 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
     })
 
     useEffect(() => {
-        getIntegrations(sourceApplication.toString());
+        getIntegrations(sourceApplication ? sourceApplication.toString() : "2");
         resetIntegrations();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])

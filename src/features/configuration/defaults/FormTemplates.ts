@@ -143,7 +143,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                         {
                             "order": 4,
                             "elementConfig": {
-                                "key": "administrativenhet",
+                                "key": "administrativEnhet",
                                 "displayName": "Administrativ enhet",
                                 "description": ""
                             },
@@ -909,7 +909,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                                                 "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
                                                                 "selectablesSources": [
                                                                     {
-                                                                        "urlTemplate": "api/intern/kodeverk/dokumentstatus"
+                                                                        "urlTemplate": "api/intern/arkiv/kodeverk/dokumentstatus"
                                                                     }
                                                                 ]
                                                             }
@@ -925,7 +925,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                                                 "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
                                                                 "selectablesSources": [
                                                                     {
-                                                                        "urlTemplate": "api/intern/kodeverk/dokumenttype"
+                                                                        "urlTemplate": "api/intern/arkiv/kodeverk/dokumenttype"
                                                                     }
                                                                 ]
                                                             }
@@ -941,7 +941,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                                                 "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
                                                                 "selectablesSources": [
                                                                     {
-                                                                        "urlTemplate": "api/intern/kodeverk/tilknyttetregistreringsom"
+                                                                        "urlTemplate": "api/intern/arkiv/kodeverk/tilknyttetregistreringsom"
                                                                     }
                                                                 ]
                                                             }
@@ -1423,7 +1423,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                                     "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
                                                     "selectablesSources": [
                                                         {
-                                                            "urlTemplate": "api/intern/kodeverk/dokumentstatus"
+                                                            "urlTemplate": "api/intern/arkiv/kodeverk/dokumentstatus"
                                                         }
                                                     ]
                                                 }
@@ -1439,7 +1439,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                                     "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
                                                     "selectablesSources": [
                                                         {
-                                                            "urlTemplate": "api/intern/kodeverk/dokumenttype"
+                                                            "urlTemplate": "api/intern/arkiv/kodeverk/dokumenttype"
                                                         }
                                                     ]
                                                 }
@@ -1455,7 +1455,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                                     "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
                                                     "selectablesSources": [
                                                         {
-                                                            "urlTemplate": "api/intern/kodeverk/tilknyttetregistreringsom"
+                                                            "urlTemplate": "api/intern/arkiv/kodeverk/tilknyttetregistreringsom"
                                                         }
                                                     ]
                                                 }

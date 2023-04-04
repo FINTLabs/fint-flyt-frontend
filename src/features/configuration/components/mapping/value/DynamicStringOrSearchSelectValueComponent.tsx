@@ -12,7 +12,7 @@ interface Props {
     displayName: string;
     selectables: ISelectable[];
     disabled?: boolean;
-    initialType: Type;
+    initialType: Type | string;
     onTypeChange?: (type: Type) => void;
     onChange?: (value: string | null) => void;
     onBlur?: Noop;
@@ -30,7 +30,7 @@ const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> 
     const [dynamicValue, setDynamicValue] = useState<string>('')
 
     useEffect(() => {
-        if (props.initialType === Type.DYNAMIC) {
+        if (props.initialType === 'DYNAMIC_STRING' || props.initialType === Type.DYNAMIC) {
             setSelectValue("$dynamic")
             if (props.value) {
                 setDynamicValue(props.value)

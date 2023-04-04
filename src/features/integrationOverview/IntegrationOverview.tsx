@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) =>
             display: 'flex'
         },
         dataGridBox: {
-            height: theme.spacing(112),
+            minHeight: theme.spacing(80),
             backgroundColor: 'white',
             border: '1px solid black',
             borderRadius: theme.spacing(0.5),
@@ -26,10 +26,10 @@ const useStyles = makeStyles((theme: Theme) =>
             width: '100%'
         },
         dataPanelBox: {
-            height: theme.spacing(75),
+            height: theme.spacing(45),
             width: '100%',
             backgroundColor: 'white',
-            marginRight: theme.spacing(1)
+            marginBottom: theme.spacing(3)
         },
         tableWrapper: {
             maxWidth: theme.spacing(220),
@@ -65,15 +65,17 @@ const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = (
 
 
     useEffect(() => {
-        if (showList) resetIntegrations();
-        getIntegrations(sourceApplication.toString());
+        if (showList) {
+            resetIntegrations();
+        }
+        getIntegrations(sourceApplication ? sourceApplication.toString() : "2");
         getAllMetadata(true);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const resetConfiguration = () => {
         setExistingIntegration({})
-        getIntegrations(sourceApplication.toString());
+        getIntegrations(sourceApplication ? sourceApplication.toString() : "2");
     }
 
     return (
@@ -88,7 +90,6 @@ const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = (
                 /> :
                 <IntegrationTable
                     classes={classes}
-
                 />
             }
         </>

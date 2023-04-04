@@ -47,7 +47,12 @@ const IntegrationPanel: React.FunctionComponent<any> = (props: { classes: ClassN
         configurations,
         completedConfigurations
     } = useContext(IntegrationContext);
-    const {allMetadata, getAllMetadata, getInstanceElementMetadata} = useContext(SourceApplicationContext)
+    const {
+        allMetadata,
+        getAllMetadata,
+        getInstanceElementMetadata,
+        setSourceApplication
+    } = useContext(SourceApplicationContext)
     const [version, setVersion] = useState('null');
     const [activeVersion, setActiveVersion] = useState<any>('');
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -90,6 +95,9 @@ const IntegrationPanel: React.FunctionComponent<any> = (props: { classes: ClassN
         getAllMetadata(true)
         getVersionForActiveConfig(existingIntegration?.activeConfigurationId ? existingIntegration.activeConfigurationId : undefined)
         // eslint-disable-next-line react-hooks/exhaustive-deps
+        return () => {
+            setSourceApplication(undefined)
+        }
     }, [])
 
     const columns: GridColDef[] = [
