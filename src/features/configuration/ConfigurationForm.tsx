@@ -107,7 +107,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                     if (error.response?.status) {
                         setAlertContent({
                             severity: 'error',
-                            message: 'Feilet under lagring, status: ' + error.response.status +  ', feilmelding: ' + error.response.data.message
+                            message: 'Feilet under lagring, feilmelding: ' + (error.response.data.message ? error.response.data.message : 'Det har oppstått en feil') + ', status: ' + error.response.status
                         })
                         setShowAlert(true);
                     }
@@ -134,7 +134,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                 if (error.response?.status) {
                     setAlertContent({
                         severity: 'error',
-                        message: 'Feilet under lagring, status: ' + error.response.status +  ', feilmelding: ' + error.response.data.message
+                        message: 'Feilet under lagring, feilmelding: ' + (error.response.data.message ? error.response.data.message : 'Det har oppstått en feil') + ', status: ' + error.response.status
                     })
                     setShowAlert(true);
                 }
