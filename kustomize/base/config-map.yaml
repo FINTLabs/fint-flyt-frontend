@@ -3,4 +3,4 @@ kind: ConfigMap
 metadata:
   name: fint-flyt-integration-frontend
 data:
-  TZ: Europe/Oslo
+  TZ: 'Europe/Oslo'
