@@ -167,88 +167,103 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     return (
         <DndProvider backend={HTML5Backend}>
             <EditingProvider>
-            <FormProvider {...methods}>
-                <form id="react-hook-form" onSubmit={methods.handleSubmit(onSubmit)}>
-                    <Box className={classes.configurationBox} sx={{m: 1}}>
-                        <Typography sx={{m: 1}} variant={"h6"}>{t('header')}</Typography>
-                        <Typography sx={{m: 1}}>
-                            Integrasjon: {existingIntegration?.sourceApplicationIntegrationId} - {existingIntegration?.displayName}
-                        </Typography>
-                        <Controller
-                            name={"integrationMetadataId".toString()}
-                            defaultValue={''}
-                            render={({field}) =>
-                                <SelectValueComponent
-                                    {...field}
-                                    displayName={t('metadataVersion')}
-                                    selectables={
-                                        availableVersions.map(metadata => {
-                                            return {
-                                                displayName: metadata.version.toString(),
-                                                value: metadata.id ? metadata.id.toString() : "0"
-                                            }
-                                        })}
-                                />
-                            }
-                        />
-                        <Controller
-                            name={"comment".toString()}
-                            render={({field}) =>
-                                <StringValueComponent
-                                    {...field}
-                                    classes={classes}
-                                    displayName={"Kommentar"}
-                                    multiline
-                                />
-                            }
-                        />
-                    </Box>
-                    <Box display="flex" position="relative" width={1} height={1} sx={{border: 'none'}}>
-                        <IncomingDataComponent
-                            classes={classes}
-                            referencesForCollectionsToShow={collectionReferencesInEditContext}
-                        />
-                        <OutgoingDataComponent
-                            classes={classes}
-                            onCollectionReferencesInEditContextChange={
-                                (collectionReferences: string[]) => {
-                                    setCollectionReferencesInEditContext(collectionReferences)
-                                }}
-                        />
-                    </Box>
-                    <Box className={classes.formFooter}>
-                        <button id="form-submit-btn" className={classes.submitButton}
-                                disabled={configuration?.completed} type="submit" onClick={onSubmit}>
-                            {t("button.submit")}
-                        </button>
-                        <button id="form-cancel-btn" className={classes.submitButton} type="button"
-                                onClick={() => {
-                                    history.push('/')
-                                }}
-                        >{t("button.cancel")}
-                        </button>
-                        <CheckboxValueComponent absoluteKey={"completed"} displayName={t('label.checkLabel')}/>
-                        <FormControlLabel
-                            control={
-                                <Checkbox
-                                    id="form-active"
-                                    checked={active}
-                                    disabled={completed}
-                                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                        setActive(event.target.checked)
+                <FormProvider {...methods}>
+                    <form id="react-hook-form" onSubmit={methods.handleSubmit(onSubmit)}>
+                        <Box className={classes.configurationBox} sx={{m: 1}}>
+                            <Typography sx={{m: 1}} variant={"h6"}>{t('header')}</Typography>
+                            <Typography sx={{m: 1}}>
+                                Integrasjon: {existingIntegration?.sourceApplicationIntegrationId} - {existingIntegration?.displayName}
+                            </Typography>
+                            <Controller
+                                name={"integrationMetadataId".toString()}
+                                defaultValue={''}
+                                render={({field}) =>
+                                    <SelectValueComponent
+                                        {...field}
+                                        displayName={t('metadataVersion')}
+                                        selectables={
+                                            availableVersions.map(metadata => {
+                                                return {
+                                                    displayName: metadata.version.toString(),
+                                                    value: metadata.id ? metadata.id.toString() : "0"
+                                                }
+                                            })}
+                                    />
+                                }
+                            />
+                            <Controller
+                                name={"comment".toString()}
+                                render={({field}) =>
+                                    <StringValueComponent
+                                        {...field}
+                                        classes={classes}
+                                        displayName={"Kommentar"}
+                                        multiline
+                                    />
+                                }
+                            />
+                        </Box>
+                        <Box display="flex" position="relative" width={1} height={1} sx={{border: 'none'}}>
+                            <IncomingDataComponent
+                                classes={classes}
+                                referencesForCollectionsToShow={collectionReferencesInEditContext}
+                            />
+                            <OutgoingDataComponent
+                                classes={classes}
+                                onCollectionReferencesInEditContextChange={
+                                    (collectionReferences: string[]) => {
+                                        setCollectionReferencesInEditContext(collectionReferences)
                                     }}
-                                    inputProps={{'aria-label': 'active-checkbox'}}/>}
-                            label={t('label.activeLabel') as string}
-                        />
-                    </Box>
-                    <Snackbar id="integration-form-snackbar-saved" autoHideDuration={4000} open={showAlert}
-                              onClose={handleClose}>
-                        <Alert onClose={handleClose} severity={alertContent.severity} sx={{width: '100%'}}>
-                            {alertContent.message}
-                        </Alert>
-                    </Snackbar>
-                </form>
-            </FormProvider>
+                            />
+                        </Box>
+                        <Box className={classes.formFooter}>
+                            <button id="form-submit-btn" className={classes.submitButton}
+                                    disabled={configuration?.completed} type="submit" onClick={onSubmit}>
+                                {t("button.submit")}
+                            </button>
+                            <button id="form-cancel-btn" className={classes.submitButton} type="button"
+                                    onClick={() => {
+                                        history.push('/')
+                                    }}
+                            >{t("button.cancel")}
+                            </button>
+
+                            <FormControlLabel
+                                label={t('label.checkLabel')}
+                                control={
+                                    <Controller
+                                        name={"completed"}
+                                        render={({field}) =>
+                                            <CheckboxValueComponent
+                                                {...field}
+                                                classes={classes}
+                                                displayName={t('label.checkLabel')}
+                                            />
+                                        }
+                                    />
+                                }
+                            />
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        id="form-active"
+                                        checked={active}
+                                        disabled={completed}
+                                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                                            setActive(event.target.checked)
+                                        }}
+                                        inputProps={{'aria-label': 'active-checkbox'}}/>}
+                                label={t('label.activeLabel') as string}
+                            />
+                        </Box>
+                        <Snackbar id="integration-form-snackbar-saved" autoHideDuration={4000} open={showAlert}
+                                  onClose={handleClose}>
+                            <Alert onClose={handleClose} severity={alertContent.severity} sx={{width: '100%'}}>
+                                {alertContent.message}
+                            </Alert>
+                        </Snackbar>
+                    </form>
+                </FormProvider>
             </EditingProvider>
 
         </DndProvider>

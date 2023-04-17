@@ -1,17 +1,18 @@
 import * as React from "react";
-import {useContext} from "react";
+import {ReactElement, useContext} from "react";
 import {IValueTemplate, ValueType as TemplateValueType} from "../../../types/FormTemplate";
 import StringValueComponent from "./string/StringValueComponent";
 import DynamicStringValueComponent from "./string/DynamicStringValueComponent";
-import {Controller, useFormContext} from "react-hook-form";
+import {Controller, FieldValues, useFormContext} from "react-hook-form";
 import {ValueType as ConfigurationValueType} from "../../../types/Configuration";
 import {ValueType as MetadataValueType} from "../../../types/Metadata/IntegrationMetadata";
 import {ClassNameMap} from "@mui/styles";
-import HelpPopover from "../../common/popover/HelpPopover";
 import {Search, SourceStatefulValue} from "../../../util/UrlUtils";
 import {ConfigurationContext} from "../../../../../context/configurationContext";
 import {isOutsideCollectionEditContext} from "../../../util/KeyUtils";
 import {EditingContext} from "../../../../../context/editingContext";
+import CheckboxValueComponent from "../../common/CheckboxValueComponent";
+import {ControllerRenderProps} from "react-hook-form/dist/types/controller";
 
 interface Props {
     classes: ClassNameMap;
@@ -43,71 +44,63 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
         search = SourceStatefulValue(props.template.search, absoluteKeySplit.slice(0, absoluteKeySplit.length - 2).join("."));
     }
 
+    type RenderProps = ControllerRenderProps<FieldValues, string> & {
+        classes: ClassNameMap,
+        displayName: string,
+        disabled: boolean
+    }
+
+    function createComponent(renderProps: RenderProps): ReactElement {
+        switch (props.template.type) {
+            case TemplateValueType.BOOLEAN:
+                setTypeIfUndefined(ConfigurationValueType.BOOLEAN)
+                return <CheckboxValueComponent
+                    {...renderProps}
+                />
+            case TemplateValueType.STRING:
+                setTypeIfUndefined(ConfigurationValueType.STRING);
+                return <StringValueComponent
+                    {...renderProps}
+                />
+            case TemplateValueType.DYNAMIC_STRING:
+                setTypeIfUndefined(ConfigurationValueType.DYNAMIC_STRING);
+                return <DynamicStringValueComponent
+                    {...renderProps}
+                    search={search}
+                    accept={[
+                        MetadataValueType.STRING,
+                        MetadataValueType.INTEGER,
+                        MetadataValueType.EMAIL,
+                        MetadataValueType.DATE,
+                        MetadataValueType.PHONE
+                    ]}
+                />
+            case TemplateValueType.FILE:
+                setTypeIfUndefined(ConfigurationValueType.FILE);
+                return <DynamicStringValueComponent
+                    {...renderProps}
+                    accept={[
+                        MetadataValueType.FILE
+                    ]}
+                />
+        }
+    }
+
     return <Controller
         name={props.absoluteKey + ".mappingString"}
-        render={({field}) => {
-            switch (props.template.type) {
-                case TemplateValueType.STRING:
-                    setTypeIfUndefined(ConfigurationValueType.STRING);
-                    return <div id={'value-mapping-wrapper-' + props.absoluteKey}
-                                className={props.classes.valueMappingContainer}>
-                        <StringValueComponent
-                            {...field}
-                            classes={props.classes}
-                            displayName={props.displayName}
-                            disabled={
-                                props.disabled
-                                || isOutsideCollectionEditContext(field.name, editCollectionAbsoluteKey)
-                                || completed
-                            }
-                        />
-                        {props.description && <HelpPopover popoverContent={props.description}/>}
-                    </div>
-                case TemplateValueType.DYNAMIC_STRING:
-                    setTypeIfUndefined(ConfigurationValueType.DYNAMIC_STRING);
-                    return <div id={'value-mapping-wrapper-' + props.absoluteKey}
-                                className={props.classes.valueMappingContainer}>
-                        <DynamicStringValueComponent
-                            {...field}
-                            classes={props.classes}
-                            displayName={props.displayName}
-                            search={search}
-                            accept={[
-                                MetadataValueType.STRING,
-                                MetadataValueType.INTEGER,
-                                MetadataValueType.EMAIL,
-                                MetadataValueType.DATE,
-                                MetadataValueType.PHONE
-                            ]}
-                            disabled={
-                                props.disabled
-                                || isOutsideCollectionEditContext(field.name, editCollectionAbsoluteKey)
-                                || completed
-                            }
-                        />
-                        {props.description && <HelpPopover popoverContent={props.description}/>}
-                    </div>
-                case TemplateValueType.FILE:
-                    setTypeIfUndefined(ConfigurationValueType.FILE);
-                    return <div id={'value-mapping-wrapper-' + props.absoluteKey}
-                                className={props.classes.valueMappingContainer}>
-                        <DynamicStringValueComponent
-                            {...field}
-                            classes={props.classes}
-                            displayName={props.displayName}
-                            accept={[
-                                MetadataValueType.FILE
-                            ]}
-                            disabled={
-                                props.disabled
-                                || isOutsideCollectionEditContext(field.name, editCollectionAbsoluteKey)
-                                || completed
-                            }
-                        />
-                        {props.description && <HelpPopover popoverContent={props.description}/>}
-                    </div>
-            }
-        }}
+        render={({field}) =>
+            <div id={'value-mapping-wrapper-' + props.absoluteKey}
+                 className={props.classes.valueMappingContainer}>
+                {createComponent({
+                    ...field,
+                    classes: props.classes,
+                    displayName: props.displayName,
+                    disabled: props.disabled
+                        || isOutsideCollectionEditContext(field.name, editCollectionAbsoluteKey)
+                        || completed
+                })}
+            </div>
+        }
     />
 }
 export default ValueMappingComponent;
