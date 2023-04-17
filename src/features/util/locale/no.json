@@ -15,7 +15,7 @@
     "instanceOverview": "Instanser",
     "integrationDetails": "Detaljer",
     "log": "Logg",
-    "support": "Support"
+    "support": "Hjelp og support"
   },
   "pages": {
     "admin": {
@@ -255,7 +255,7 @@
       }
     },
     "support": {
-      "header": "Kontakt support"
+      "header": "Hjelp og support"
     }
   },
   "models": {
