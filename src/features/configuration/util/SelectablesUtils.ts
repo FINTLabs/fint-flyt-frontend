@@ -6,7 +6,6 @@ import {Dispatch, SetStateAction, useEffect, useState} from "react";
 import {Control} from "react-hook-form/dist/types/form";
 import {useWatch} from "react-hook-form";
 import {createSource, createValueRefPerAbsoluteKey, Source} from "./UrlUtils";
-import {getAbsoluteKeyFromValueRef} from "./KeyUtils";
 
 export function SelectablesStatefulValue(
     control: Control,

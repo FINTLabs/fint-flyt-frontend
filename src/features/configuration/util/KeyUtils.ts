@@ -1,4 +1,5 @@
 export function getAbsoluteKeyFromValueRef(valueRef: string, absoluteKey: string) {
+    valueRef = "valueMappingPerKey." + valueRef + ".mappingString";
     if (valueRef.startsWith('/')) {
         return valueRef;
     }
