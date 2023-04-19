@@ -6,7 +6,7 @@ import InstanceOverview from "../instanceOverview/InstanceOverview";
 import Support from "../support/Support";
 import {IntegrationForm} from "../integration/IntegrationForm";
 import Admin from "../admin/Admin";
-import ConfigurationFormWrapper from "../configuration/ConfigurationFormWrapper";
+import ConfigurationForm from "../configuration/ConfigurationForm";
 
 const routes: IRoute[] = [
     {
@@ -19,28 +19,28 @@ const routes: IRoute[] = [
     },
     {
         path: '/integration/new',
-        name: 'newIntegration',
+        name: 'integration',
         component: IntegrationForm,
         exact: true,
         icon: 'add',
         inNavigationMenu: true
     },
     {
-        path: '/integration/configuration/new',
-        name: 'newIntegration',
-        component: ConfigurationFormWrapper,
+        path: '/integration/configuration/new-configuration',
+        name: 'integration',
+        component: ConfigurationForm,
         exact: true,
     },
     {
         path: '/integration/configuration/edit',
         name: 'editIntegration',
-        component: ConfigurationFormWrapper,
+        component: ConfigurationForm,
         exact: true
     },
     {
-        path: '/integration/configuration/new-configuration',
-        name: 'newConfiguration',
-        component: ConfigurationFormWrapper,
+        path: 'configuration/new-configuration',
+        name: 'editIntegration',
+        component: ConfigurationForm,
         exact: true
     },
     {

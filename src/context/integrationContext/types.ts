@@ -1,17 +1,15 @@
 import {IIntegration} from "../../features/integration/types/Integration";
 import {IConfiguration} from "../../features/configuration/types/Configuration";
-import {IIntegrationMetadata} from "../../features/configuration/types/IntegrationMetadata";
+import {IIntegrationMetadata} from "../../features/configuration/types/Metadata/IntegrationMetadata";
 
 export type IntegrationContextState = {
     id: string | undefined;
     setId: (number: string | undefined) => void;
-    newIntegration: IIntegration | undefined;
     existingIntegration: IIntegration | undefined;
-    setNewIntegration: (integration: IIntegration | undefined) => void;
     setExistingIntegration: (integration: IIntegration | undefined) => void;
-    newIntegrations: IIntegration[] | undefined;
-    setNewIntegrations: (integrations: IIntegration[]) => void;
-    getNewIntegrations: (sourceApplicationId: string) => void;
+    integrations: IIntegration[] | undefined;
+    setIntegrations: (integrations: IIntegration[]) => void;
+    getIntegrations: (sourceApplicationId: string) => void;
     configuration: IConfiguration | undefined;
     setConfiguration: (configuration: IConfiguration | undefined) => void;
     configurations: IConfiguration[] | undefined;
@@ -36,23 +34,31 @@ export type IntegrationContextState = {
 
 export const contextDefaultValues: IntegrationContextState = {
     id: undefined,
-    setId: (number: string | undefined) => {},
-    newIntegration: {},
+    setId: (number: string | undefined) => {
+    },
     existingIntegration: {},
-    setNewIntegration: () => {},
-    setExistingIntegration: () => {},
-    newIntegrations: [],
-    setNewIntegrations: () => {},
-    getNewIntegrations: () => {},
+    setExistingIntegration: () => {
+    },
+    integrations: [],
+    setIntegrations: () => {
+    },
+    getIntegrations: () => {
+    },
     configuration: undefined,
-    setConfiguration: () => {},
+    setConfiguration: () => {
+    },
     configurations: undefined,
     completedConfigurations: undefined,
-    getConfiguration: () => {},
-    getConfigurations: () => {},
-    getCompletedConfigurations: () => {},
-    setConfigurations: () => {},
-    setCompletedConfigurations: () => {},
+    getConfiguration: () => {
+    },
+    getConfigurations: () => {
+    },
+    getCompletedConfigurations: () => {
+    },
+    setConfigurations: () => {
+    },
+    setCompletedConfigurations: () => {
+    },
     destination: '',
     selectedMetadata: {
         instanceElementMetadata: [],
@@ -62,13 +68,19 @@ export const contextDefaultValues: IntegrationContextState = {
         integrationDisplayName: '',
         version: 0
     },
-    setSelectedMetadata: () => {},
-    setDestination: () => {},
+    setSelectedMetadata: () => {
+    },
+    setDestination: () => {
+    },
     sourceApplicationId: '',
-    setSourceApplicationId: () => {},
+    setSourceApplicationId: () => {
+    },
     sourceApplicationIntegrationId: '',
-    setSourceApplicationIntegrationId: () => {},
-    resetIntegrationContext: () => {},
-    resetIntegrations: () => {},
+    setSourceApplicationIntegrationId: () => {
+    },
+    resetIntegrationContext: () => {
+    },
+    resetIntegrations: () => {
+    },
     statistics: []
 };

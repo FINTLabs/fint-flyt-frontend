@@ -1,4 +1,4 @@
-import {IInstanceMetadataContent} from "../configuration/types/IntegrationMetadata";
+import {IInstanceMetadataContent} from "../configuration/types/Metadata/IntegrationMetadata";
 
 export function addId(id: number, field: string) {
     return function iter(obj: any) {
@@ -11,13 +11,17 @@ export function addId(id: number, field: string) {
     };
 }
 
-export function toTagValue(input: string): string {
-    return '$if{' + input + '}';
+export function toInstanceFieldReference(key: string): string {
+    return '$if{' + key + '}';
+}
+
+export function toInstanceCollectionFieldReference(collectionIndex: number, key: string): string {
+    return '$icf{' + collectionIndex + '}{' + key + '}';
 }
 
 export function flatten(data: IInstanceMetadataContent): any {
     let ids: string[] = [];
-    JSON.parse(JSON.stringify(data), function(key, value) {
+    JSON.parse(JSON.stringify(data), function (key, value) {
         if (key === "key")
             ids.push(value);
         return value;

@@ -1,12 +1,5 @@
 import React, {useContext} from "react";
-import {
-    AppBar, Badge,
-    Box, Button,
-    Drawer,
-    Theme,
-    Toolbar,
-    Typography
-} from "@mui/material";
+import {AppBar, Badge, Box, Button, Drawer, Theme, Toolbar, Typography} from "@mui/material";
 import NotificationsIcon from '@mui/icons-material/Notifications';
 
 import {createStyles, makeStyles} from "@mui/styles";
@@ -17,6 +10,7 @@ import {useTranslation} from "react-i18next";
 import {IntegrationContext} from "../../context/integrationContext";
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import {SourceApplicationContext} from "../../context/sourceApplicationContext";
+import ConfigurationProvider from "../../context/configurationContext";
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme: Theme) =>
@@ -33,18 +27,18 @@ const useStyles = makeStyles((theme: Theme) =>
             display: "flex",
             alignItems: "center",
             justifyContent: "flex-end",
-            padding: "0 8px",
             ...theme.mixins.toolbar
         },
         content: {
-            width: "100%",
+            width: "fit-content",
+            height: "calc(100vh/1.3)",
             flexGrow: 1,
             backgroundColor: theme.palette.background.default,
-            padding: 24,
-            marginTop: theme.spacing(7),
+            padding: theme.spacing(4),
             [theme.breakpoints.up("sm")]: {
-                height: "calc(100% - 64px)",
-                marginTop: theme.spacing(8)
+                marginTop: theme.spacing(8),
+                minHeight: 'calc(100vh/1.2)',
+                height: 'fit-content'
             }
         },
         logo: {
@@ -84,7 +78,7 @@ function Main() {
 
     //TODO 15/12: set admin access based on log in
     // eslint-disable-next-line
-    const { isAdmin, setIsAdmin } = useContext(SourceApplicationContext)
+    const {isAdmin, setIsAdmin} = useContext(SourceApplicationContext)
     const {statistics} = useContext(IntegrationContext)
     let totalErrors = 0;
     statistics?.map((stat: any) => {
@@ -104,8 +98,9 @@ function Main() {
                         {i18n.language === 'no' && <Button size="small" variant="contained" onClick={() => changeLanguage("en")}>{t('language.english')}</Button>}
                         {i18n.language === 'en' && <Button size="small" variant="contained" onClick={() => changeLanguage("no")}>{t('language.norwegian')}</Button>}
                     </Box>*/}
-                    {isAdmin && <Box sx={{ mr: 2}}>
-                        <Button size="medium" variant="contained" component={RouterLink} to="/admin" endIcon={<AdminPanelSettingsIcon />}
+                    {isAdmin && <Box sx={{mr: 2}}>
+                        <Button size="medium" variant="contained" component={RouterLink} to="/admin"
+                                endIcon={<AdminPanelSettingsIcon/>}
                         >
                             {t('adminHeader')}
                         </Button>
@@ -123,7 +118,9 @@ function Main() {
                 <MenuItems/>
             </Drawer>
             <main className={classes.content}>
-                <Router/>
+                <ConfigurationProvider>
+                    <Router/>
+                </ConfigurationProvider>
             </main>
         </Box>
     );

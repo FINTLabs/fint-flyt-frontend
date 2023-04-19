@@ -1,12 +1,10 @@
-import {
-    Box
-} from "@mui/material";
-import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
+import {Box, Button} from "@mui/material";
+import {DataGrid, GridCellParams, GridColDef, GridToolbar} from "@mui/x-data-grid";
 import * as React from "react";
-import { useHistory } from "react-router-dom";
-import { gridLocaleNoNB } from "../../util/locale/gridLocaleNoNB";
-import {useTranslation} from "react-i18next";
 import {useContext} from "react";
+import {useHistory} from "react-router-dom";
+import {gridLocaleNoNB} from "../../util/locale/gridLocaleNoNB";
+import {useTranslation} from "react-i18next";
 import {SourceApplicationContext} from "../../../context/sourceApplicationContext";
 import {
     getDestinationDisplayName,
@@ -14,28 +12,77 @@ import {
     getStateDisplayName
 } from "../../configuration/defaults/DefaultValues";
 import {IntegrationContext} from "../../../context/integrationContext";
+import {ClassNameMap} from "@mui/styles";
 
-const IntegrationTable: React.FunctionComponent<any> = (props) => {
-    const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.integrationOverview'});
+const IntegrationTable: React.FunctionComponent<any> = (props: { classes: ClassNameMap }) => {
+    const {t, i18n} = useTranslation('translations', {keyPrefix: 'pages.integrationOverview'});
     const classes = props.classes;
     let history = useHistory();
-    const {setExistingIntegration, newIntegrations, getCompletedConfigurations, getConfigurations} = useContext(IntegrationContext)
-    const {setSourceApplication, getAllMetadata} = useContext(SourceApplicationContext)
+    const {
+        setExistingIntegration,
+        integrations,
+        getCompletedConfigurations,
+        getConfigurations
+    } = useContext(IntegrationContext)
+    const {setSourceApplication} = useContext(SourceApplicationContext)
 
     const columns: GridColDef[] = [
-        { field: 'sourceApplicationId', type: 'string', headerName: t('table.columns.sourceApplicationId'), minWidth: 150, flex: 1,
+        {
+            field: 'details',
+            headerName: t('table.columns.show'),
+            minWidth: 150,
+            flex: 0.5,
+            sortable: false,
+            filterable: false,
+            renderCell: (params) => (<ShowButtonToggle row={params.row}/>)
+        },
+        {
+            field: 'sourceApplicationId',
+            type: 'string',
+            headerName: t('table.columns.sourceApplicationId'),
+            minWidth: 150,
+            flex: 1,
             valueGetter: (params) => (getSourceApplicationDisplayName(params.row.sourceApplicationId))
         },
-        { field: 'sourceApplicationIntegrationId', type: 'string', headerName: t('table.columns.sourceApplicationIntegrationId'), minWidth: 250, flex: 1},
-        { field: 'displayName', type: 'string', headerName: t('table.columns.sourceApplicationIntegrationIdDisplayName'), minWidth: 500, flex: 1, sortable: false },
-        { field: 'destination', type: 'string', headerName:  t('table.columns.destination' ), minWidth: 150, flex: 1,
+        {
+            field: 'sourceApplicationIntegrationId',
+            type: 'string',
+            headerName: t('table.columns.sourceApplicationIntegrationId'),
+            minWidth: 250,
+            flex: 1
+        },
+        {
+            field: 'displayName',
+            type: 'string',
+            headerName: t('table.columns.sourceApplicationIntegrationIdDisplayName'),
+            minWidth: 500,
+            flex: 1,
+            sortable: false
+        },
+        {
+            field: 'destination', type: 'string', headerName: t('table.columns.destination'), minWidth: 150, flex: 1,
             valueGetter: (params) => getDestinationDisplayName(params.row.destination)
         },
-        { field: 'state', type: 'string', headerName:  t('table.columns.state'), minWidth: 100, flex: 1,
+        {
+            field: 'state', type: 'string', headerName: t('table.columns.state'), minWidth: 100, flex: 1,
             valueGetter: (params) => getStateDisplayName(params.row.state)
         },
-        { field: 'dispatched', type: 'number', headerName: t('table.columns.dispatched'), minWidth: 100, flex: 1, sortable: false },
-        { field: 'errors', type: 'number', headerName: t('table.columns.errors'), minWidth: 150, flex: 1, sortable: false }
+        {
+            field: 'dispatched',
+            type: 'number',
+            headerName: t('table.columns.dispatched'),
+            minWidth: 100,
+            flex: 1,
+            sortable: false
+        },
+        {
+            field: 'errors',
+            type: 'number',
+            headerName: t('table.columns.errors'),
+            minWidth: 150,
+            flex: 1,
+            sortable: false
+        }
     ];
 
     const setHistory = () => {
@@ -44,28 +91,31 @@ const IntegrationTable: React.FunctionComponent<any> = (props) => {
         })
     }
 
+    function ShowButtonToggle(props: GridCellParams["row"]): JSX.Element {
+        return <Button
+            size="small"
+            variant="contained"
+            onClick={() => {
+                setExistingIntegration(props.row)
+                setSourceApplication(props.row.sourceApplicationId)
+                getConfigurations(0, 10000, "version", "DESC", false, props.row.id, true)
+                getCompletedConfigurations(0, 10000, "id", "ASC", true, props.row.id, true)
+                setHistory();
+            }}
+        >{t('button.show')}
+        </Button>
+    }
+
     return (
         <Box>
             <Box display="flex" position="relative" width={1} height={1}>
                 <Box id="integration-list" className={classes.dataGridBox}>
                     <DataGrid
-                        loading={newIntegrations === undefined}
+                        loading={integrations === undefined}
                         localeText={i18n.language === 'no' ? gridLocaleNoNB : undefined}
                         getRowId={(row) => row.sourceApplicationIntegrationId}
-                        onCellDoubleClick={(params, event) => {
-                            if (!event.ctrlKey) {
-                                event.defaultMuiPrevented = true;
-                                setExistingIntegration(params.row)
-                                setSourceApplication(params.row.sourceApplicationId)
-                                getAllMetadata(true);
-                                //TODO: remove when we can no longer use old forms, and use selected sourceApplication and sourceApplicationIntegrationId to get the right metadata
-                                getConfigurations(0, 10000, "version", "DESC", false, params.row.id, true)
-                                getCompletedConfigurations(0, 10000, "id", "ASC", true, params.row.id, true)
-                                setHistory();
-                            }
-                        }}
                         density='compact'
-                        rows={newIntegrations ? newIntegrations : []}
+                        rows={integrations ? integrations : []}
                         columns={columns}
                         pageSize={20}
                         rowsPerPageOptions={[20]}
@@ -84,7 +134,7 @@ const IntegrationTable: React.FunctionComponent<any> = (props) => {
                                 },
                             },
                             sorting: {
-                                sortModel: [{ field: 'state', sort: 'asc' }],
+                                sortModel: [{field: 'state', sort: 'asc'}],
                             },
                         }}
                     />

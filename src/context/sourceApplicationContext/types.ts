@@ -1,9 +1,9 @@
-import {ISelect} from "../../features/configuration/types/InputField";
+import {ISelect} from "../../features/configuration/types/Select";
 import {
-    IInstanceElementMetadata,
     IInstanceMetadataContent,
+    IInstanceObjectCollectionMetadata,
     IIntegrationMetadata
-} from "../../features/configuration/types/IntegrationMetadata";
+} from "../../features/configuration/types/Metadata/IntegrationMetadata";
 
 export interface ISourceApplicationItem {
     sourceApplicationDisplayName: string;
@@ -19,19 +19,29 @@ export type SourceApplicationContextState = {
     getAvailableForms: () => void;
     allMetadata: IIntegrationMetadata[];
     instanceElementMetadata: IInstanceMetadataContent | undefined;
+    instanceObjectCollectionMetadata: IInstanceObjectCollectionMetadata[],
+    getInstanceObjectCollectionMetadata: (key: string[]) => void,
     getAllMetadata: (onlyLatest: boolean) => void;
     getInstanceElementMetadata: (metadataId: string) => void;
-    sourceApplication: number;
-    setSourceApplication: (id: number) => void;
+    sourceApplication: number | undefined;
+    setSourceApplication: (id: number | undefined) => void;
 };
 
 export const contextDefaultValues: SourceApplicationContextState = {
     isAdmin: false,
-    setIsAdmin: (admin: boolean) => {},
-    availableForms: {sourceApplicationDisplayName: '', sourceApplicationId: '1', forms: [{value: 'null', label: 'Velg skjemaleverandør først'}]},
-    getAllForms: () => {},
-    getAvailableForms: () => {},
-    allMetadata: [{instanceElementMetadata: [],
+    setIsAdmin: () => {
+    },
+    availableForms: {
+        sourceApplicationDisplayName: '',
+        sourceApplicationId: '1',
+        forms: [{value: 'null', label: 'Velg skjemaleverandør først'}]
+    },
+    getAllForms: () => {
+    },
+    getAvailableForms: () => {
+    },
+    allMetadata: [{
+        instanceElementMetadata: [],
         sourceApplicationIntegrationUri: '',
         sourceApplicationIntegrationId: '',
         sourceApplicationId: '',
@@ -39,8 +49,14 @@ export const contextDefaultValues: SourceApplicationContextState = {
         version: 0
     }],
     instanceElementMetadata: undefined,
-    getAllMetadata: (onlyLatest) => {},
-    getInstanceElementMetadata: (metadataId) => {},
-    sourceApplication: 1,
-    setSourceApplication: () => {}
+    instanceObjectCollectionMetadata: [],
+    getInstanceObjectCollectionMetadata: () => {
+    },
+    getAllMetadata: () => {
+    },
+    getInstanceElementMetadata: () => {
+    },
+    sourceApplication: undefined,
+    setSourceApplication: () => {
+    }
 };

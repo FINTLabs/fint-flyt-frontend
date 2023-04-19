@@ -1,25 +1,25 @@
-import {addId, toTagValue} from "../../features/util/JsonUtil";
+import {addId, toInstanceFieldReference} from "../../features/util/JsonUtil";
 
 const array = [
     {
-        "name":"name0",
-        "type":"INFO",
+        "name": "name0",
+        "type": "INFO",
     }, {
-        "name":"name1",
-        "type":"ERROR",
+        "name": "name1",
+        "type": "ERROR",
     }
 ]
 const nestedArray = [
     {
-        "name":"name0",
-        "type":"INFO",
-        "errors":[]
+        "name": "name0",
+        "type": "INFO",
+        "errors": []
     }, {
-        "name":"name1",
-        "type":"ERROR",
-        "errors":[
-            {"errorCode":"error0Code"},
-            {"errorCode":"error1Code"}
+        "name": "name1",
+        "type": "ERROR",
+        "errors": [
+            {"errorCode": "error0Code"},
+            {"errorCode": "error1Code"}
         ]
     }
 ]
@@ -27,26 +27,26 @@ const nestedArray = [
 const expectedArray = [
     {
         "id": 0,
-        "name":"name0",
-        "type":"INFO",
+        "name": "name0",
+        "type": "INFO",
     }, {
-        "name":"name1",
+        "name": "name1",
         "id": 1,
-        "type":"ERROR",
+        "type": "ERROR",
     }
 ]
 
 const expectedNestedArray = [
     {
-        "name":"name0",
-        "type":"INFO",
-        "errors":[]
+        "name": "name0",
+        "type": "INFO",
+        "errors": []
     }, {
-        "name":"name1",
-        "type":"ERROR",
-        "errors":[
-            {"id": 0, "errorCode":"error0Code"},
-            {"id": 1, "errorCode":"error1Code"}
+        "name": "name1",
+        "type": "ERROR",
+        "errors": [
+            {"id": 0, "errorCode": "error0Code"},
+            {"id": 1, "errorCode": "error1Code"}
         ]
     }
 ]
@@ -66,7 +66,7 @@ test('It should add id field to nested json object, where there is a "errorCode"
 });
 
 test('It should return correct tag from string', () => {
-    const tag = toTagValue(tagString)
+    const tag = toInstanceFieldReference(tagString)
     expect(tag).toEqual('$if{fornavn}');
 });
 

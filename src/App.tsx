@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {createTheme, ThemeProvider} from "@mui/material";
 import Main from "./features/main/Main";
 import {BrowserRouter} from "react-router-dom";
-import ResourcesProvider from "./context/resourcesContext";
 import IntegrationProvider from "./context/integrationContext";
 import SourceApplicationProvider from "./context/sourceApplicationContext";
 import HistoryProvider from "./context/historyContext";
@@ -20,12 +19,20 @@ const theme = createTheme({
             main: '#1F4F59',
             dark: '#15373e',
         },
+        background: {
+            default: '#EBF4F5',
+        }
     },
     spacing: 8,
     typography: {
         fontFamily: [
             "Nunito Sans", 'sans-serif'
-        ].join(',')
+        ].join(','),
+        button: {
+            textTransform: 'none',
+            font: "Nunito Sans",
+            fontSize: 16
+        }
     }
 });
 
@@ -47,17 +54,15 @@ function App() {
     return basePath ?
         (
             <ThemeProvider theme={theme}>
-                <ResourcesProvider>
-                    <HistoryProvider>
-                        <SourceApplicationProvider>
-                            <IntegrationProvider>
-                                <BrowserRouter basename={basePath}>
-                                    <Main/>
-                                </BrowserRouter>
-                            </IntegrationProvider>
-                        </SourceApplicationProvider>
-                    </HistoryProvider>
-                </ResourcesProvider>
+                <HistoryProvider>
+                    <SourceApplicationProvider>
+                        <IntegrationProvider>
+                            <BrowserRouter basename={basePath}>
+                                <Main/>
+                            </BrowserRouter>
+                        </IntegrationProvider>
+                    </SourceApplicationProvider>
+                </HistoryProvider>
             </ThemeProvider>
         )
         : <h1>Loading</h1>
