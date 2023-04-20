@@ -6,6 +6,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import {ValueType} from "../../../types/Metadata/IntegrationMetadata";
 import {
     AlternateEmailRounded,
+    ChangeCircle,
     Dialpad,
     FilePresent,
     FormatListNumbered,
@@ -58,6 +59,9 @@ export const Tag: FunctionComponent<Props> = (props: Props) => {
         }
         if (type === ValueType.COLLECTION) {
             return <FormatListNumbered/>
+        }
+        if (type === ValueType.VALUE_CONVERTING) {
+            return <ChangeCircle/>
         }
         if (type === undefined) {
             return <DragIndicatorIcon/>

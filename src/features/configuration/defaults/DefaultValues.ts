@@ -16,8 +16,32 @@ export const sourceApplications: ISelect[] = [
     {label: "ACOS", value: "1"},
     {label: "eGrunnerverv", value: "2"}
 ];
+export const fromApplicationIds: ISelect[] = [
+    {label: "eGrunnerverv", value: "2"}
+];
+
+export const fromTypeIds: ISelect[] = [
+    {label: "Mediatype", value: "mediatype"},
+];
+
+export const toTypeIds: ISelect[] = [
+    {label: "Filformat", value: "filformat"},
+];
+
+export const fromTypes: ISelect[] = [
+    {label: ".pdf", value: "application/pdf"},
+    {label: ".docx", value: "application/msword"}
+];
+
+export const toTypes: ISelect[] = [
+    {label: "PDF", value: "tpdf"},
+    {label: "DOC", value: "tdoc"}
+];
 
 export const destinations: ISelect[] = [
+    {label: "Fylkesråd", value: "fylkesrad"}
+];
+export const toApplicationIds: ISelect[] = [
     {label: "Fylkesråd", value: "fylkesrad"}
 ];
 

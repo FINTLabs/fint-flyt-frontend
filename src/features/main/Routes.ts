@@ -7,6 +7,8 @@ import Support from "../support/Support";
 import {IntegrationForm} from "../integration/IntegrationForm";
 import Admin from "../admin/Admin";
 import ConfigurationForm from "../configuration/ConfigurationForm";
+import ValueConverting from "../valueConverting/ValueConverting";
+import ValueConvertingForm from "../valueConverting/components/ValueConvertingForm";
 
 const routes: IRoute[] = [
     {
@@ -78,6 +80,26 @@ const routes: IRoute[] = [
         icon: 'event-note-icon',
         exact: true,
         inNavigationMenu: false
+    },
+    {
+        path: '/valueconverting',
+        name: 'valueConverting',
+        component: ValueConverting,
+        icon: 'change_circle_icon',
+        exact: true,
+        inNavigationMenu: true
+    },
+    {
+        path: '/valueconverting/new',
+        name: 'newValueConverting',
+        component: ValueConvertingForm,
+        exact: true,
+    },
+    {
+        path: '/valueconverting/view',
+        name: 'wiewValueConverting',
+        component: ValueConvertingForm,
+        exact: true,
     },
     {
         path: '/support',

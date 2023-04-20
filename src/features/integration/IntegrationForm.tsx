@@ -134,7 +134,7 @@ export const IntegrationForm: React.FunctionComponent<any> = () => {
 
     return (
         <>
-            <FormGroup id="case-information" className={classes.panelContainer}>
+            <FormGroup id="integration-form" className={classes.panelContainer}>
                 <Box>
                     <h2 className={classes.title2} id="integration-form-settings-header">{t('header')}</h2>
                     <Box className={classes.incomingWrapper}>
