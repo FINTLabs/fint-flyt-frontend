@@ -12,7 +12,7 @@ interface Props {
     displayName: string;
     selectables: ISelectable[];
     disabled?: boolean;
-    initialType: Type | string;
+    initialType: Type;
     onTypeChange?: (type: Type) => void;
     onChange?: (value: string | null) => void;
     onBlur?: Noop;
@@ -22,7 +22,8 @@ interface Props {
 
 export enum Type {
     SELECT,
-    DYNAMIC
+    DYNAMIC,
+    VALUE_CONVERTING
 }
 
 const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> = forwardRef<any, Props>((props: Props, ref) => {
@@ -30,13 +31,18 @@ const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> 
     const [dynamicValue, setDynamicValue] = useState<string>('')
 
     useEffect(() => {
-        if (props.initialType === 'DYNAMIC_STRING' || props.initialType === Type.DYNAMIC) {
+        if (props.initialType === undefined || props.initialType === Type.SELECT) {
+            setSelectValue(props.value)
+        } else if (props.initialType === Type.DYNAMIC) {
             setSelectValue("$dynamic")
             if (props.value) {
                 setDynamicValue(props.value)
             }
-        } else {
-            setSelectValue(props.value)
+        } else if (props.initialType === Type.VALUE_CONVERTING) {
+            setSelectValue("$valueConverting")
+            if (props.value) {
+                setDynamicValue(props.value)
+            }
         }
     }, [])
 
@@ -47,6 +53,10 @@ const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> 
                 {
                     displayName: "Dynamisk verdi",
                     value: "$dynamic"
+                },
+                {
+                    displayName: "Verdikonvertering",
+                    value: "$valueConverting"
                 },
                 ...props.selectables
             ]}
@@ -59,6 +69,15 @@ const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> 
                             props.onTypeChange(Type.DYNAMIC)
                         }
                         if (props.onChange) {
+                            setDynamicValue("")
+                            props.onChange("")
+                        }
+                    } else if (value === "$valueConverting") {
+                        if (props.onTypeChange) {
+                            props.onTypeChange(Type.VALUE_CONVERTING)
+                        }
+                        if (props.onChange) {
+                            setDynamicValue("")
                             props.onChange("")
                         }
                     } else {
@@ -75,25 +94,27 @@ const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> 
             value={selectValue}
             name={props.name}
         />
-        {selectValue === "$dynamic" && <DynamicStringValueComponent
-            classes={props.classes}
-            accept={[
-                MetadataValueType.STRING,
-                MetadataValueType.INTEGER,
-                MetadataValueType.EMAIL,
-                MetadataValueType.DATE,
-                MetadataValueType.PHONE
-            ]}
-            disabled={props.disabled}
-            onChange={(value: string) => {
-                setDynamicValue(value)
-                if (props.onChange) {
-                    props.onChange(value)
-                }
-            }}
-            value={dynamicValue}
-            name={props.name}
-        />}
+        {(selectValue === "$dynamic" || selectValue === '$valueConverting') &&
+            <DynamicStringValueComponent
+                classes={props.classes}
+                accept={[
+                    MetadataValueType.STRING,
+                    MetadataValueType.INTEGER,
+                    MetadataValueType.EMAIL,
+                    MetadataValueType.DATE,
+                    MetadataValueType.PHONE
+                ]}
+                disabled={props.disabled}
+                onChange={(value: string) => {
+                    setDynamicValue(value)
+                    if (props.onChange) {
+                        props.onChange(value)
+                    }
+                }}
+                value={dynamicValue}
+                name={props.name}
+            />
+        }
     </fieldset>
 })
 export default DynamicStringOrSearchSelectValueComponent;
