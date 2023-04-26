@@ -260,6 +260,7 @@
     },
     "valueConverting": {
       "header": "Verdikonvertering",
+      "panelHeader": "Verdikonverteringer",
       "displayName": "Navn",
       "fromApplicationId": "Applikasjon",
       "fromTypeId": "Type",

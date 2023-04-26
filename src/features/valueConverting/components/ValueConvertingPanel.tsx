@@ -81,7 +81,7 @@ const ValueConvertingPanel: React.FunctionComponent<any> = (props: Props) => {
 
     return (
         <>
-            <Box sx={{height: 400, width: '100%', backgroundColor: 'white'}}>
+            <Box sx={{height: 800, width: '100%', backgroundColor: 'white'}}>
                 <DataGrid
                     rows={rows}
                     columns={columns}

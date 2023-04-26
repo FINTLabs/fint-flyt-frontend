@@ -1,11 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Link as RouterLink, withRouter} from 'react-router-dom';
-import {Box, Button, IconButton, Typography} from "@mui/material";
+import {Alert, Box, Button, IconButton, Snackbar} from "@mui/material";
 import {useTranslation} from 'react-i18next';
 import {configurationFormStyles} from "../../configuration/styles/ConfigurationForm.styles";
 import {Controller, FormProvider, useForm} from "react-hook-form";
 import SelectValueComponent from "../../configuration/components/mapping/value/select/SelectValueComponent";
 import {
+    defaultAlert,
     fromApplicationIds,
     fromTypeIds,
     fromTypes,
@@ -18,6 +19,8 @@ import StringValueComponent from "../../configuration/components/mapping/value/s
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {IValueConverting} from "../types/ValueConverting";
+import {IAlertContent} from "../../configuration/types/AlertContent";
+import {toRecord} from "../../util/mapping/helpers/toRecord";
 
 const useStyles = configurationFormStyles
 
@@ -29,10 +32,11 @@ type Props = {
 export const ValueConvertingForm: React.FunctionComponent<any> = (props: Props) => {
     const classes = useStyles();
     const {t} = useTranslation('translations', {keyPrefix: 'pages.valueConverting'});
-    const disabled: boolean = !!props.existingValueConverting;
+    const [disabled, setDisabled] = useState<boolean>(!!props.existingValueConverting);
     const [counter, setCounter] = React.useState(0);
     const [indexes, setIndexes] = React.useState([]);
-
+    const [showAlert, setShowAlert] = React.useState<boolean>(false)
+    const [alertContent, setAlertContent] = React.useState<IAlertContent>(defaultAlert)
 
     const addConverting = () => {
         // @ts-ignore
@@ -52,22 +56,26 @@ export const ValueConvertingForm: React.FunctionComponent<any> = (props: Props) 
         }
     );
 
-    function toConverts(data: any): Record<string, string> {
-        let rec: Record<string, string> = {};
-        console.log(data)
-        data.map((convert: any) => {
-            rec[convert.from] = convert.to;
-        })
-        console.log(rec)
-        return rec;
-
-    }
-
     const onSubmit = (data: any) => {
-        data.convertingMap = toConverts(data.convertingMap)
-        console.log(data);
-        ValueConvertingRepository.createValueConverting(data).then(r => console.log(r))
-            .catch(e => console.log(e))
+        data.convertingMap = toRecord(data.convertingMap)
+        ValueConvertingRepository.createValueConverting(data).then(r => {
+            console.log(r)
+            setDisabled(true)
+            setShowAlert(true)
+            setAlertContent({
+                severity: 'success',
+                message: 'verdikonvertering lagret'
+            })
+        })
+            .catch(function (error) {
+                if (error.response?.status) {
+                    setAlertContent({
+                        severity: 'error',
+                        message: 'Feilet under lagring, feilmelding: ' + (error.response.data.message ? error.response.data.message : 'Det har oppstått en feil') + ', status: ' + error.response.status
+                    })
+                    setShowAlert(true);
+                }
+            })
     }
 
     function handleCancel() {
@@ -76,7 +84,13 @@ export const ValueConvertingForm: React.FunctionComponent<any> = (props: Props) 
         }
     }
 
-    console.log(props.existingValueConverting ? props.existingValueConverting : "hei")
+    const handleClose = (event: React.SyntheticEvent | Event, reason?: string) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setShowAlert(false);
+        setAlertContent(defaultAlert)
+    };
 
     return (
         <Box className={classes.panelContainer}>
@@ -174,8 +188,31 @@ export const ValueConvertingForm: React.FunctionComponent<any> = (props: Props) 
                             id="from-value-header">Konvertering(er)</h4>
                         {disabled && props.existingValueConverting?.convertingMap &&
                             <div>
-                                {Object.keys(props.existingValueConverting.convertingMap).map((k) => {
-                                    return <Typography>{k + ' --> ' + props.existingValueConverting.convertingMap[k]}</Typography>
+                                {Object.keys(props.existingValueConverting.convertingMap).map((k, index) => {
+                                    return <Box sx={{display: 'flex', width: '500px'}}>
+                                        <SelectValueComponent
+                                            displayName={'fra'}
+                                            disabled={true}
+                                            selectables={
+                                                fromTypes.map(type => {
+                                                    return {
+                                                        displayName: type.label,
+                                                        value: type.value
+                                                    }
+                                                })} name={'fra'} value={k}
+                                        />
+                                        <SelectValueComponent
+                                            displayName={'til'}
+                                            disabled={true}
+                                            selectables={
+                                                toTypes.map(type => {
+                                                    return {
+                                                        displayName: type.label,
+                                                        value: type.value
+                                                    }
+                                                })} name={'til'} value={props.existingValueConverting.convertingMap[k]}
+                                        />
+                                    </Box>
                                 })}
                             </div>}
 
@@ -242,8 +279,13 @@ export const ValueConvertingForm: React.FunctionComponent<any> = (props: Props) 
                                 variant="contained" component={RouterLink}
                                 to={'/valueconverting'}>Avbryt</Button>
                     </Box>
+                    <Snackbar id="integration-form-snackbar-saved" autoHideDuration={4000} open={showAlert}
+                              onClose={handleClose}>
+                        <Alert onClose={handleClose} severity={alertContent.severity} sx={{width: '100%'}}>
+                            {alertContent.message}
+                        </Alert>
+                    </Snackbar>
                 </form>
-
             </FormProvider>
 
         </Box>

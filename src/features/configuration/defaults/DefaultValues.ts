@@ -30,7 +30,9 @@ export const toTypeIds: ISelect[] = [
 
 export const fromTypes: ISelect[] = [
     {label: ".pdf", value: "application/pdf"},
-    {label: ".docx", value: "application/msword"}
+    {label: ".docx", value: "application/msword"},
+    {label: ".jpeg", value: "application/jpeg"},
+    {label: ".mp4", value: "application/vid"}
 ];
 
 export const toTypes: ISelect[] = [

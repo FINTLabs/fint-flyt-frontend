@@ -140,10 +140,10 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
                             return <div className={props.classes.tagWrapper}>
                                 <Tag
                                     classes={props.classes}
-                                    value={'vc{' + valueConverting.id.toString() + '}'}
+                                    value={'$vc{' + valueConverting.id.toString() + '}'}
                                     tagKey={valueConverting.displayName}
                                     name={valueConverting.displayName}
-                                    description={'vc{' + valueConverting.id.toString() + '}'}
+                                    description={'$vc{' + valueConverting.id.toString() + '}'}
                                     type={ValueType.VALUE_CONVERTING}
                                 />
                             </div>
