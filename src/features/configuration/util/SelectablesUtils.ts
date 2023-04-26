@@ -6,7 +6,6 @@ import {Dispatch, SetStateAction, useEffect, useState} from "react";
 import {Control} from "react-hook-form/dist/types/form";
 import {useWatch} from "react-hook-form";
 import {createSource, createValueRefPerAbsoluteKey, Source} from "./UrlUtils";
-import {getAbsoluteKeyFromValueRef} from "./KeyUtils";
 
 export function SelectablesStatefulValue(
     control: Control,
@@ -48,7 +47,7 @@ function updateSelectables(
     })
 }
 
-function getSelectables(sources: Source[]): Promise<ISelectable[]> {
+export default function getSelectables(sources: Source[]): Promise<ISelectable[]> {
     return Promise.all(
         sources.map(source =>
             ResourceRepository.getSelectables('/' + source.url, source.config)

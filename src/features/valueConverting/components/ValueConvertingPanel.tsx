@@ -4,6 +4,7 @@ import {Box, Button} from "@mui/material";
 import {useTranslation} from 'react-i18next';
 import {DataGrid, GridCellParams, GridColDef} from "@mui/x-data-grid";
 import ValueConvertingRepository from "../../../shared/repositories/ValueConvertingRepository";
+import {IValueConverting} from "../types/ValueConverting";
 
 type Props = {
     setExistingValueConverting: any
@@ -14,7 +15,7 @@ const ValueConvertingPanel: React.FunctionComponent<any> = (props: Props) => {
     const [rows, setRows] = useState([])
 
     useEffect(() => {
-        ValueConvertingRepository.getValueConvertings(0, 100, 'fromApplicationId', 'ASC', false)
+        ValueConvertingRepository.getValueConvertings(0, 100, 'fromApplicationId', 'ASC', true)
             .then(response => {
                 setRows(response.data.content)
             })
@@ -73,7 +74,13 @@ const ValueConvertingPanel: React.FunctionComponent<any> = (props: Props) => {
             size="small"
             variant="contained"
             onClick={() => {
-                props.setExistingValueConverting(props.row)
+                ValueConvertingRepository.getValueConverting(props.row.id)
+                    .then(response => {
+                        props.setExistingValueConverting(response.data.content)
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
             }}
         >Vis
         </Button>

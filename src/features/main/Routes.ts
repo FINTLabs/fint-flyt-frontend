@@ -85,7 +85,7 @@ const routes: IRoute[] = [
         path: '/valueconverting',
         name: 'valueConverting',
         component: ValueConverting,
-        icon: 'change_circle_icon',
+        icon: 'switch_access_shortcut',
         exact: true,
         inNavigationMenu: true
     },

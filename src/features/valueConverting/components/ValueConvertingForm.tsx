@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link as RouterLink, withRouter} from 'react-router-dom';
-import {Alert, Box, Button, IconButton, Snackbar} from "@mui/material";
+import {Alert, Box, Button, Snackbar} from "@mui/material";
 import {useTranslation} from 'react-i18next';
 import {configurationFormStyles} from "../../configuration/styles/ConfigurationForm.styles";
 import {Controller, FormProvider, useForm} from "react-hook-form";
@@ -9,18 +9,17 @@ import {
     defaultAlert,
     fromApplicationIds,
     fromTypeIds,
-    fromTypes,
     toApplicationIds,
-    toTypeIds,
-    toTypes
+    toTypeIds
 } from "../../configuration/defaults/DefaultValues";
 import ValueConvertingRepository from "../../../shared/repositories/ValueConvertingRepository";
 import StringValueComponent from "../../configuration/components/mapping/value/string/StringValueComponent";
-import AddIcon from '@mui/icons-material/Add';
-import DeleteIcon from '@mui/icons-material/Delete';
 import {IValueConverting} from "../types/ValueConverting";
 import {IAlertContent} from "../../configuration/types/AlertContent";
-import {toRecord} from "../../util/mapping/helpers/toRecord";
+import getSelectables from "../../configuration/util/SelectablesUtils";
+import {ISelectable} from "../../configuration/types/Selectable";
+import ArrayComponent from "../../configuration/components/common/array/ArrayComponent";
+import FlytTitle4Component from "../../configuration/components/common/title/FlytTitle4Component";
 
 const useStyles = configurationFormStyles
 
@@ -28,37 +27,64 @@ type Props = {
     existingValueConverting: IValueConverting,
     setExistingValueConverting: any
 }
+type IValueConvertingFormData = Omit<IValueConverting, 'convertingMap'> & {
+    convertingArray: IValueConvertingConvertingArrayEntry[]
+}
+
+type IValueConvertingConvertingArrayEntry = { from: string, to: string }
 
 export const ValueConvertingForm: React.FunctionComponent<any> = (props: Props) => {
     const classes = useStyles();
     const {t} = useTranslation('translations', {keyPrefix: 'pages.valueConverting'});
     const [disabled, setDisabled] = useState<boolean>(!!props.existingValueConverting);
-    const [counter, setCounter] = React.useState(0);
-    const [indexes, setIndexes] = React.useState([]);
     const [showAlert, setShowAlert] = React.useState<boolean>(false)
     const [alertContent, setAlertContent] = React.useState<IAlertContent>(defaultAlert)
 
-    const addConverting = () => {
-        // @ts-ignore
-        setIndexes(prevIndexes => [...prevIndexes, counter]);
-        setCounter(prevCounter => prevCounter + 1);
-    };
+    const [toSelectables, setToSelectables] = useState<ISelectable[]>([])
 
-    const removeConverting = (index: any) => () => {
-        setIndexes(prevIndexes => [...prevIndexes.filter(item => item !== index)]);
-        setCounter(prevCounter => prevCounter - 1);
-    };
+    useEffect(() => {
+        getSelectables([{
+            url: "api/intern/arkiv/kodeverk/format"
+        }])
+            .then((result: ISelectable[]) => {
+                setToSelectables(result);
+            })
+    }, [])
 
-    const methods = useForm<IValueConverting>(
+    const methods = useForm<IValueConvertingFormData>(
         {
             defaultValues: props.existingValueConverting ?
-                props.existingValueConverting : {}
+                toFormData(props.existingValueConverting) : {}
         }
     );
 
-    const onSubmit = (data: any) => {
-        data.convertingMap = toRecord(data.convertingMap)
-        ValueConvertingRepository.createValueConverting(data).then(r => {
+    function toFormData(valueConverting: IValueConverting): IValueConvertingFormData {
+        let withRemovedConvertingMap = (({convertingMap, ...rest}) => rest)(valueConverting);
+        return {
+            ...withRemovedConvertingMap,
+            convertingArray: Object.entries(valueConverting.convertingMap)
+                .map(([key, value]) => {
+                    return {from: key, to: value}
+                })
+        }
+    }
+
+    function toValueConverting(valueConvertingFormData: IValueConvertingFormData): IValueConverting {
+        let withRemovedConvertingArray = (({convertingArray, ...rest}) => rest)(valueConvertingFormData);
+        let convertingMap: Record<string, string> = {}
+        valueConvertingFormData.convertingArray
+            .forEach((entry: IValueConvertingConvertingArrayEntry) => {
+                convertingMap[entry.from] = entry.to;
+            })
+        return {
+            ...withRemovedConvertingArray,
+            convertingMap
+        }
+    }
+
+    const onSubmit = (valueConvertingFormData: IValueConvertingFormData) => {
+        let valueConverting: IValueConverting = toValueConverting(valueConvertingFormData);
+        ValueConvertingRepository.createValueConverting(valueConverting).then(r => {
             console.log(r)
             setDisabled(true)
             setShowAlert(true)
@@ -99,7 +125,7 @@ export const ValueConvertingForm: React.FunctionComponent<any> = (props: Props) 
                 <form onSubmit={methods.handleSubmit(onSubmit)}>
                     <Box className={classes.configurationBox} sx={{m: 1}}>
                         <Controller
-                            name={"displayName".toString()}
+                            name={"displayName"}
                             defaultValue={''}
                             render={({field}) =>
                                 <StringValueComponent
@@ -112,7 +138,7 @@ export const ValueConvertingForm: React.FunctionComponent<any> = (props: Props) 
                         />
                         <h4 style={{marginTop: '16px'}} className={classes.title4} id="from-value-header">Fra</h4>
                         <Controller
-                            name={"fromApplicationId".toString()}
+                            name={"fromApplicationId"}
                             defaultValue={''}
                             render={({field}) =>
                                 <SelectValueComponent
@@ -130,7 +156,7 @@ export const ValueConvertingForm: React.FunctionComponent<any> = (props: Props) 
                             }
                         />
                         <Controller
-                            name={"fromTypeId".toString()}
+                            name={"fromTypeId"}
                             defaultValue={''}
                             render={({field}) =>
                                 <SelectValueComponent
@@ -149,7 +175,7 @@ export const ValueConvertingForm: React.FunctionComponent<any> = (props: Props) 
                         />
                         <h4 style={{marginTop: '16px'}} className={classes.title4} id="from-value-header">Til</h4>
                         <Controller
-                            name={"toApplicationId".toString()}
+                            name={"toApplicationId"}
                             defaultValue={''}
                             render={({field}) =>
                                 <SelectValueComponent
@@ -167,7 +193,7 @@ export const ValueConvertingForm: React.FunctionComponent<any> = (props: Props) 
                             }
                         />
                         <Controller
-                            name={"toTypeId".toString()}
+                            name={"toTypeId"}
                             defaultValue={''}
                             render={({field}) =>
                                 <SelectValueComponent
@@ -184,97 +210,53 @@ export const ValueConvertingForm: React.FunctionComponent<any> = (props: Props) 
                                 />
                             }
                         />
-                        <h4 style={{marginTop: '32px'}} className={classes.title4}
-                            id="from-value-header">Konvertering(er)</h4>
-                        {disabled && props.existingValueConverting?.convertingMap &&
-                            <div>
-                                {Object.keys(props.existingValueConverting.convertingMap).map((k, index) => {
-                                    return <Box sx={{display: 'flex', width: '500px'}}>
-                                        <SelectValueComponent
-                                            displayName={'fra'}
-                                            disabled={true}
-                                            selectables={
-                                                fromTypes.map(type => {
-                                                    return {
-                                                        displayName: type.label,
-                                                        value: type.value
-                                                    }
-                                                })} name={'fra'} value={k}
-                                        />
-                                        <SelectValueComponent
-                                            displayName={'til'}
-                                            disabled={true}
-                                            selectables={
-                                                toTypes.map(type => {
-                                                    return {
-                                                        displayName: type.label,
-                                                        value: type.value
-                                                    }
-                                                })} name={'til'} value={props.existingValueConverting.convertingMap[k]}
-                                        />
-                                    </Box>
-                                })}
-                            </div>}
-
-                        {indexes.map(index => {
-                            const fieldName = `convertingMap[${index}]`;
-                            return (
+                        <FlytTitle4Component classes={classes} title={'Konvertering(er)'}/>
+                        <ArrayComponent
+                            classes={classes}
+                            absoluteKey={'convertingArray'}
+                            disabled={disabled}
+                            fieldComponentCreator={(index: number, absoluteKey: string) =>
                                 <Box sx={{display: 'flex', width: '500px'}}>
                                     <Controller
-                                        name={`${fieldName}.from`}
+                                        name={`${absoluteKey}.from`}
                                         defaultValue={''}
                                         render={({field}) =>
-                                            <SelectValueComponent
+                                            <StringValueComponent
                                                 {...field}
-                                                disabled={disabled}
+                                                classes={classes}
                                                 displayName={t('from')}
-                                                selectables={
-                                                    fromTypes.map(type => {
-                                                        return {
-                                                            displayName: type.label,
-                                                            value: type.value
-                                                        }
-                                                    })}
                                             />
                                         }
                                     />
                                     <Controller
-                                        name={`${fieldName}.to`}
+                                        name={`${absoluteKey}.to`}
                                         defaultValue={''}
                                         render={({field}) =>
                                             <SelectValueComponent
                                                 {...field}
-                                                disabled={disabled}
                                                 displayName={t('to')}
-                                                selectables={
-                                                    toTypes.map(type => {
-                                                        return {
-                                                            displayName: type.label,
-                                                            value: type.value
-                                                        }
-                                                    })}
+                                                selectables={toSelectables}
                                             />
                                         }
                                     />
-                                    {!disabled &&
-                                        <IconButton onClick={removeConverting(index)}>
-                                            <DeleteIcon/>
-                                        </IconButton>
-                                    }
                                 </Box>
-                            );
-                        })}
-                        <Box sx={{mt: 2}}>
-                            {!disabled &&
-                                <IconButton onClick={addConverting}>
-                                    <AddIcon/>
-                                </IconButton>
                             }
-                        </Box>
+                            defaultValueCreator={() => {
+                                return {
+                                    from: '',
+                                    to: ''
+                                }
+                            }}
+                        />
                     </Box>
                     <Box sx={{mt: 2}}>
                         {!disabled &&
-                            <button className={classes.submitButton} type="submit" onClick={onSubmit}>Opprett</button>}
+                            <button
+                                className={classes.submitButton}
+                                type="submit"
+                            >
+                                Opprett
+                            </button>}
                         <Button className={classes.submitButton} onClick={handleCancel} size="medium"
                                 variant="contained" component={RouterLink}
                                 to={'/valueconverting'}>Avbryt</Button>

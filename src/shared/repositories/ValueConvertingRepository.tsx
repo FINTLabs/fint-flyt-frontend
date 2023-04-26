@@ -13,14 +13,13 @@ const getValueConvertings = (page: number, size: any, sortProperty: string, sort
     });
 }
 
-const getValueConverting = (valueConvertingId: string) => {
+const getValueConverting = (valueConvertingId: number) => {
     return axios.get<any>(`/api/intern/value-convertings/${valueConvertingId}`)
 }
 
 const createValueConverting = (data: IValueConverting) => {
     return axios.post<any>("/api/intern/value-convertings", data);
 }
-
 
 const ValueConvertingRepository = {
     getValueConvertings,
