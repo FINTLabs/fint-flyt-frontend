@@ -97,13 +97,23 @@ const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> 
         {(selectValue === "$dynamic" || selectValue === '$valueConverting') &&
             <DynamicStringValueComponent
                 classes={props.classes}
-                accept={[
-                    MetadataValueType.STRING,
-                    MetadataValueType.INTEGER,
-                    MetadataValueType.EMAIL,
-                    MetadataValueType.DATE,
-                    MetadataValueType.PHONE
-                ]}
+                accept={selectValue === "$dynamic"
+                    ? [
+                        MetadataValueType.STRING,
+                        MetadataValueType.INTEGER,
+                        MetadataValueType.EMAIL,
+                        MetadataValueType.DATE,
+                        MetadataValueType.PHONE
+                    ]
+                    : [
+                        MetadataValueType.STRING,
+                        MetadataValueType.INTEGER,
+                        MetadataValueType.EMAIL,
+                        MetadataValueType.DATE,
+                        MetadataValueType.PHONE,
+                        MetadataValueType.VALUE_CONVERTING
+                    ]
+                }
                 disabled={props.disabled}
                 onChange={(value: string) => {
                     setDynamicValue(value)
