@@ -4,10 +4,12 @@ import {Box, Button} from "@mui/material";
 import {useTranslation} from 'react-i18next';
 import {DataGrid, GridCellParams, GridColDef} from "@mui/x-data-grid";
 import ValueConvertingRepository from "../../../shared/repositories/ValueConvertingRepository";
+import {getDestinationDisplayName, getSourceApplicationDisplayName} from "../../configuration/defaults/DefaultValues";
 import {IValueConverting} from "../types/ValueConverting";
+import {GridValueGetterParams} from "@mui/x-data-grid/models/params/gridCellParams";
 
 type Props = {
-    setExistingValueConverting: any
+    onValueConvertingSelected: (id: number) => void;
 }
 
 const ValueConvertingPanel: React.FunctionComponent<any> = (props: Props) => {
@@ -25,8 +27,8 @@ const ValueConvertingPanel: React.FunctionComponent<any> = (props: Props) => {
     }, [])
 
 
-    const columns: GridColDef[] = [
-        {field: 'id', headerName: 'ID', width: 90},
+    const columns: GridColDef<IValueConverting, string>[] = [
+        {field: 'id', headerName: 'ID', width: 90, editable: false},
         {
             field: 'displayName',
             headerName: 'Navn',
@@ -38,6 +40,7 @@ const ValueConvertingPanel: React.FunctionComponent<any> = (props: Props) => {
             headerName: 'Fra applikasjon',
             width: 150,
             editable: false,
+            valueGetter: (params: GridValueGetterParams<string, IValueConverting>) => getSourceApplicationDisplayName(params.row.fromApplicationId)
         },
         {
             field: 'fromTypeId',
@@ -50,6 +53,7 @@ const ValueConvertingPanel: React.FunctionComponent<any> = (props: Props) => {
             headerName: 'Til applikasjon',
             width: 110,
             editable: false,
+            valueGetter: (params: GridValueGetterParams<string, IValueConverting>) => getDestinationDisplayName(params.row.toApplicationId)
         },
         {
             field: 'toTypeId',
@@ -64,23 +68,17 @@ const ValueConvertingPanel: React.FunctionComponent<any> = (props: Props) => {
             flex: 0.5,
             sortable: false,
             filterable: false,
-            renderCell: (params) => (
-                <EditButtonToggle setExistingValueConverting={props.setExistingValueConverting} row={params.row}/>)
+            renderCell: (params: GridCellParams<any, IValueConverting>) => (
+                <EditButtonToggle row={params.row}/>)
         }
     ]
 
-    function EditButtonToggle(props: GridCellParams["row"]) {
+    function EditButtonToggle(rowProps: GridCellParams["row"]) {
         return <Button
             size="small"
             variant="contained"
             onClick={() => {
-                ValueConvertingRepository.getValueConverting(props.row.id)
-                    .then(response => {
-                        props.setExistingValueConverting(response.data.content)
-                    })
-                    .catch(e => {
-                        console.log(e)
-                    })
+                props.onValueConvertingSelected(rowProps.row.id)
             }}
         >Vis
         </Button>

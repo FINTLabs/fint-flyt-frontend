@@ -7,9 +7,9 @@ import {Controller, FormProvider, useForm} from "react-hook-form";
 import SelectValueComponent from "../../configuration/components/mapping/value/select/SelectValueComponent";
 import {
     defaultAlert,
+    destinations,
     fromApplicationIds,
     fromTypeIds,
-    toApplicationIds,
     toTypeIds
 } from "../../configuration/defaults/DefaultValues";
 import ValueConvertingRepository from "../../../shared/repositories/ValueConvertingRepository";
@@ -183,10 +183,10 @@ export const ValueConvertingForm: React.FunctionComponent<any> = (props: Props) 
                                     disabled={disabled}
                                     displayName={t('toApplicationId')}
                                     selectables={
-                                        toApplicationIds.map(toApplicationId => {
+                                        destinations.map(destination => {
                                             return {
-                                                displayName: toApplicationId.label,
-                                                value: toApplicationId.value
+                                                displayName: destination.label,
+                                                value: destination.value
                                             }
                                         })}
                                 />
@@ -223,6 +223,7 @@ export const ValueConvertingForm: React.FunctionComponent<any> = (props: Props) 
                                         render={({field}) =>
                                             <StringValueComponent
                                                 {...field}
+                                                disabled={disabled}
                                                 classes={classes}
                                                 displayName={t('from')}
                                             />
@@ -234,6 +235,7 @@ export const ValueConvertingForm: React.FunctionComponent<any> = (props: Props) 
                                         render={({field}) =>
                                             <SelectValueComponent
                                                 {...field}
+                                                disabled={disabled}
                                                 displayName={t('to')}
                                                 selectables={toSelectables}
                                             />

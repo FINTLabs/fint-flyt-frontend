@@ -1,7 +1,7 @@
 export interface IValueConverting {
     id: number,
     displayName: string,
-    fromApplicationId: string,
+    fromApplicationId: number,
     fromTypeId: string,
     toApplicationId: string,
     toTypeId: string,
