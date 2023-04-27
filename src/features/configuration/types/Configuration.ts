@@ -20,7 +20,8 @@ export enum ValueType {
     URL = 'URL',
     BOOLEAN = 'BOOLEAN',
     DYNAMIC_STRING = 'DYNAMIC_STRING',
-    FILE = 'FILE'
+    FILE = 'FILE',
+    VALUE_CONVERTING = 'VALUE_CONVERTING'
 }
 
 export interface IValueMapping {

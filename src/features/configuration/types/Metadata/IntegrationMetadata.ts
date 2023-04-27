@@ -3,10 +3,12 @@ export enum ValueType {
     BOOLEAN = "BOOLEAN",
     INTEGER = "INTEGER",
     EMAIL = "EMAIL",
+    URL = "URL",
     DATE = "DATE",
     PHONE = "PHONE",
     FILE = "FILE",
-    COLLECTION = "COLLECTION"
+    COLLECTION = "COLLECTION",
+    VALUE_CONVERTING = "VALUE_CONVERTING"
 }
 
 export interface IIntegrationMetadata {

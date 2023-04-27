@@ -227,10 +227,10 @@ const IntegrationPanel: React.FunctionComponent<any> = (props: { classes: ClassN
                     id="details-sourceApplicationIntegrationId"><strong>{t('labels.sourceApplicationIntegrationId')}</strong>{existingIntegration?.sourceApplicationIntegrationId} - {existingIntegration?.displayName}
                 </Typography>
                 <Typography
-                    id="details-sourceApplicationId"><strong>{t('labels.sourceApplicationId')} </strong>{getSourceApplicationDisplayName(existingIntegration?.sourceApplicationId)}
+                    id="details-sourceApplicationId"><strong>{t('labels.sourceApplicationId')} </strong>{getSourceApplicationDisplayName(Number(existingIntegration?.sourceApplicationId))}
                 </Typography>
                 <Typography
-                    id="details-destination"><strong>{t('labels.destination')} </strong>{getDestinationDisplayName(existingIntegration?.destination)}
+                    id="details-destination"><strong>{t('labels.destination')} </strong>{getDestinationDisplayName(existingIntegration?.destination ? existingIntegration?.destination : "")}
                 </Typography>
                 <Typography
                     id="details-activeConfiguration"><strong>{t('labels.activeConfigurationId')} </strong>{activeVersion}

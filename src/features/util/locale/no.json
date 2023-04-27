@@ -15,7 +15,8 @@
     "instanceOverview": "Instanser",
     "integrationDetails": "Detaljer",
     "log": "Logg",
-    "support": "Support"
+    "support": "Support",
+    "valueConverting": "Verdikonvertering"
   },
   "pages": {
     "admin": {
@@ -76,7 +77,7 @@
         "back": "Tilbake",
         "version": "Versjon ",
         "changeVersion": "Bruk denne konfigurasjonen",
-        "newConfiguration": "NY KONFIGURASJON",
+        "newConfiguration": "Ny konfigurasjon",
         "blankConfiguration": "Blank konfigurasjon",
         "templateConfiguration": "Basert på eksisterende versjon"
       },
@@ -256,6 +257,18 @@
     },
     "support": {
       "header": "Kontakt support"
+    },
+    "valueConverting": {
+      "header": "Verdikonvertering",
+      "panelHeader": "Verdikonverteringer",
+      "displayName": "Navn",
+      "fromApplicationId": "Applikasjon",
+      "fromTypeId": "Type",
+      "toApplicationId": "Applikasjon",
+      "toTypeId": "Type",
+      "convertingMap": "Konverteringer",
+      "to": "Til",
+      "from": "Fra"
     }
   },
   "models": {

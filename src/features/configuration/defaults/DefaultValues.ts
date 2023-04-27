@@ -16,6 +16,17 @@ export const sourceApplications: ISelect[] = [
     {label: "ACOS", value: "1"},
     {label: "eGrunnerverv", value: "2"}
 ];
+export const fromApplicationIds: ISelect[] = [
+    {label: "eGrunnerverv", value: "2"}
+];
+
+export const fromTypeIds: ISelect[] = [
+    {label: "Mediatype", value: "mediatype"},
+];
+
+export const toTypeIds: ISelect[] = [
+    {label: "Filformat", value: "filformat"},
+];
 
 export const destinations: ISelect[] = [
     {label: "Fylkesråd", value: "fylkesrad"}
@@ -120,13 +131,13 @@ export const fieldHelp = {
     }
 }
 
-export function getSourceApplicationDisplayName(id: any): string {
+export function getSourceApplicationDisplayName(id: number): string {
     if (id === 1) return 'ACOS';
     if (id === 2) return 'eGrunnerverv';
     else return "ukjent";
 }
 
-export function getDestinationDisplayName(id: any): string {
+export function getDestinationDisplayName(id: string): string {
     if (id === 'fylkesrad') return 'Fylkesråd';
     else return "ukjent";
 }

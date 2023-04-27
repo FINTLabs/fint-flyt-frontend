@@ -1,13 +1,14 @@
 import {Box, Typography} from "@mui/material";
 import * as React from "react";
-import {useContext, useEffect} from "react";
+import {useContext, useEffect, useState} from "react";
 import HelpPopover from "./common/popover/HelpPopover";
 import {useTranslation} from "react-i18next";
 // eslint-disable-next-line
 import {SourceApplicationContext} from "../../../context/sourceApplicationContext";
 import {
     IInstanceMetadataContent,
-    IInstanceObjectCollectionMetadata
+    IInstanceObjectCollectionMetadata,
+    ValueType
 } from "../types/Metadata/IntegrationMetadata";
 import {ClassNameMap} from "@mui/styles";
 import {metadataPanelSX} from "../styles/SystemStyles";
@@ -20,6 +21,9 @@ import {
 import MetadataContentComponent from "./metadata/MetadataContentComponent";
 import {toInstanceFieldReference} from "../../util/JsonUtil";
 import ObjectCollectionMetadataContentComponent from "./metadata/ObjectCollectionMetadataContentComponent";
+import ValueConvertingRepository from "../../../shared/repositories/ValueConvertingRepository";
+import {Tag} from "./common/dnd/Tag";
+import {IValueConverting} from "../../valueConverting/types/ValueConverting";
 
 export type Props = {
     classes: ClassNameMap,
@@ -34,6 +38,18 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
         instanceElementMetadata,
         getAllMetadata,
     } = useContext(SourceApplicationContext)
+    const [valueConvertings, setValueConvertings] = useState<[] | undefined>(undefined)
+
+    useEffect(() => {
+        ValueConvertingRepository.getValueConvertings(0, 100, 'fromApplicationId', 'ASC', false)
+            .then(response => {
+                setValueConvertings(response.data.content)
+            })
+            .catch(e => {
+                console.log(e)
+                setValueConvertings([])
+            })
+    }, [])
 
     useEffect(() => {
         getAllMetadata(false)
@@ -116,6 +132,23 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
                                 />
                             </Box>
                         )
+                }
+                {valueConvertings &&
+                    <Box className={props.classes.panel}>
+                        <Typography variant={"h6"}>Verdikonvertering</Typography>
+                        {valueConvertings.map((valueConverting: IValueConverting) => {
+                            return <div className={props.classes.tagWrapper}>
+                                <Tag
+                                    classes={props.classes}
+                                    value={'$vc{' + valueConverting.id.toString() + '}'}
+                                    tagKey={valueConverting.displayName}
+                                    name={valueConverting.displayName}
+                                    description={'$vc{' + valueConverting.id.toString() + '}'}
+                                    type={ValueType.VALUE_CONVERTING}
+                                />
+                            </div>
+                        })}
+                    </Box>
                 }
             </Box>
         </>

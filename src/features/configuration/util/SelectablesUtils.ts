@@ -47,7 +47,7 @@ function updateSelectables(
     })
 }
 
-function getSelectables(sources: Source[]): Promise<ISelectable[]> {
+export default function getSelectables(sources: Source[]): Promise<ISelectable[]> {
     return Promise.all(
         sources.map(source =>
             ResourceRepository.getSelectables('/' + source.url, source.config)
