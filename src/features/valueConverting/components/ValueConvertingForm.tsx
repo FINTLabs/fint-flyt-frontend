@@ -4,7 +4,6 @@ import {Alert, Box, Button, Snackbar} from "@mui/material";
 import {useTranslation} from 'react-i18next';
 import {configurationFormStyles} from "../../configuration/styles/ConfigurationForm.styles";
 import {Controller, FormProvider, useForm} from "react-hook-form";
-import SelectValueComponent from "../../configuration/components/mapping/value/select/SelectValueComponent";
 import {
     defaultAlert,
     destinations,
@@ -20,6 +19,7 @@ import getSelectables from "../../configuration/util/SelectablesUtils";
 import {ISelectable} from "../../configuration/types/Selectable";
 import ArrayComponent from "../../configuration/components/common/array/ArrayComponent";
 import FlytTitle4Component from "../../configuration/components/common/title/FlytTitle4Component";
+import SearchSelectValueComponent from "../../configuration/components/mapping/value/select/SearchSelectValueComponent";
 
 const useStyles = configurationFormStyles
 
@@ -141,7 +141,7 @@ export const ValueConvertingForm: React.FunctionComponent<any> = (props: Props) 
                             name={"fromApplicationId"}
                             defaultValue={''}
                             render={({field}) =>
-                                <SelectValueComponent
+                                <SearchSelectValueComponent
                                     {...field}
                                     disabled={disabled}
                                     displayName={t('fromApplicationId')}
@@ -159,7 +159,7 @@ export const ValueConvertingForm: React.FunctionComponent<any> = (props: Props) 
                             name={"fromTypeId"}
                             defaultValue={''}
                             render={({field}) =>
-                                <SelectValueComponent
+                                <SearchSelectValueComponent
                                     {...field}
                                     disabled={disabled}
                                     displayName={t('fromTypeId')}
@@ -178,7 +178,7 @@ export const ValueConvertingForm: React.FunctionComponent<any> = (props: Props) 
                             name={"toApplicationId"}
                             defaultValue={''}
                             render={({field}) =>
-                                <SelectValueComponent
+                                <SearchSelectValueComponent
                                     {...field}
                                     disabled={disabled}
                                     displayName={t('toApplicationId')}
@@ -196,7 +196,7 @@ export const ValueConvertingForm: React.FunctionComponent<any> = (props: Props) 
                             name={"toTypeId"}
                             defaultValue={''}
                             render={({field}) =>
-                                <SelectValueComponent
+                                <SearchSelectValueComponent
                                     {...field}
                                     disabled={disabled}
                                     displayName={t('toTypeId')}
@@ -233,7 +233,7 @@ export const ValueConvertingForm: React.FunctionComponent<any> = (props: Props) 
                                         name={`${absoluteKey}.to`}
                                         defaultValue={''}
                                         render={({field}) =>
-                                            <SelectValueComponent
+                                            <SearchSelectValueComponent
                                                 {...field}
                                                 disabled={disabled}
                                                 displayName={t('to')}
