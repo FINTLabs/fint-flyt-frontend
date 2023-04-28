@@ -1,8 +1,6 @@
 import {createStyles, makeStyles} from "@mui/styles";
 import {Theme} from "@mui/material";
 
-export const fontFamily: string = ["Nunito Sans", 'sans-serif'].join(',')
-
 export const valueConvertingStyles = makeStyles((theme: Theme) =>
     createStyles({
         configurationBox: {
