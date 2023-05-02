@@ -4,8 +4,6 @@ import {Alert, Box, Button, Snackbar} from "@mui/material";
 import {useTranslation} from 'react-i18next';
 import {Controller, FormProvider, useForm} from "react-hook-form";
 import SelectValueComponent from "../../configuration/components/mapping/value/select/SelectValueComponent";
-import {configurationFormStyles} from "../../configuration/styles/ConfigurationForm.styles";
-import {Controller, FormProvider, useForm} from "react-hook-form";
 import {
     defaultAlert,
     destinations,
@@ -25,7 +23,6 @@ import {valueConvertingStyles} from "../../configuration/styles/ValueConverting.
 import FlytTitle2Component from "../../configuration/components/common/title/FlytTitle2Component";
 
 const useStyles = valueConvertingStyles
-import SearchSelectValueComponent from "../../configuration/components/mapping/value/select/SearchSelectValueComponent";
 
 
 type Props = {
