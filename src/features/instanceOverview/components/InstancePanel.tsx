@@ -3,13 +3,10 @@ import {useContext, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {DataGrid, GridCellParams, GridColumns, GridToolbar} from "@mui/x-data-grid";
 import moment from "moment/moment";
-import {Box, Button, Dialog, DialogActions, DialogContent, IconButton, Theme} from "@mui/material";
+import {Box, Button, Dialog, DialogActions, DialogContent, IconButton} from "@mui/material";
 import {gridLocaleNoNB} from "../../util/locale/gridLocaleNoNB";
 import {HistoryContext} from "../../../context/historyContext";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
-import Stack from "@mui/material/Stack";
-import {stringReplace} from "../../util/StringUtil";
-import {ErrorType} from "../../log/types/ErrorType";
 import {IEvent} from "../../log/types/Event";
 import ErrorIcon from "@mui/icons-material/Error";
 import InfoIcon from "@mui/icons-material/Info";
@@ -17,6 +14,7 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import {getSourceApplicationDisplayName} from "../../configuration/defaults/DefaultValues";
 import {useHistory} from "react-router-dom";
 import {ClassNameMap} from "@mui/styles";
+import DialogContentComponent from "./DialogContentComponent";
 
 const InstancePanel: React.FunctionComponent<any> = (props: { classes: ClassNameMap }) => {
     const {t, i18n} = useTranslation('translations', {keyPrefix: 'pages.instanceOverview'});
@@ -24,13 +22,7 @@ const InstancePanel: React.FunctionComponent<any> = (props: { classes: ClassName
     let history = useHistory();
     const {selectedInstances} = useContext(HistoryContext)
     const [selectedRow, setSelectedRow] = useState<IEvent>();
-    const [open, setOpen] = React.useState(false);
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-    const handleClose = () => {
-        setOpen(false);
-    };
+    const [openErrorDialog, setOpenErrorDialog] = React.useState(false);
 
     const columns: GridColumns = [
         {field: 'id', hide: true, type: 'string', headerName: 'id', minWidth: 150, flex: 0.5},
@@ -120,11 +112,11 @@ const InstancePanel: React.FunctionComponent<any> = (props: { classes: ClassName
         <Box>
             <Box display="flex" position="relative" width={1} height={1}>
                 <Box id="integration-list" className={classes.dataPanelBox}>
-                    <AlertDialog row={selectedRow}/>
+                    <ErrorAlertDialog row={selectedRow}/>
                     <Button
                         sx={{mb: 2}}
                         variant='contained'
-                        onClick={(e) => history.push("integration/instance/list")}
+                        onClick={() => history.push("integration/instance/list")}
                     >{t('button.back')}
                     </Button>
                     <DataGrid
@@ -169,7 +161,7 @@ const InstancePanel: React.FunctionComponent<any> = (props: { classes: ClassName
                         size="small"
                         onClick={() => {
                             setSelectedRow(props.row);
-                            handleClickOpen()
+                            setOpenErrorDialog(true)
                         }}
                         tabIndex={-1}>
                         <OpenInNewIcon id={props.row.id + `-icon`} fontSize="inherit"/>
@@ -179,64 +171,23 @@ const InstancePanel: React.FunctionComponent<any> = (props: { classes: ClassName
         );
     }
 
-    function AlertDialog(props: any) {
+    function ErrorAlertDialog(props: any) {
         return (
-            <div>
-                <Dialog
-                    open={open}
-                    fullWidth={true}
-                    maxWidth={"lg"}
-                    onClose={handleClose}
-                >
-                    <DialogContent>
-                        {selectedRow &&
-                            <Stack id={props.row.type + `-panel`}
-                                   sx={{
-                                       py: 2,
-                                       boxSizing: 'border-box',
-                                       height: ((theme: Theme) => theme.spacing(44)),
-                                       minWidth: ((theme: Theme) => theme.spacing(112))
-                                   }}
-                                   direction="column">
-                                <Stack direction="column" sx={{height: 1}}>
-                                    <DataGrid
-                                        density="compact"
-                                        columns={[
-                                            {
-                                                field: 'errorMessage',
-                                                headerName: t('table.columns.errorMessage'),
-                                                type: 'string',
-                                                width: 2500,
-                                                valueGetter: (params) => {
-                                                    return (stringReplace(t(params.row.errorCode), [
-                                                        {
-                                                            type: ErrorType.INSTANCE_FIELD_KEY,
-                                                            value: params.row.args.instanceFieldKey
-                                                        },
-                                                        {type: ErrorType.FIELD_PATH, value: params.row.args.fieldPath},
-                                                        {
-                                                            type: ErrorType.ERROR_MESSAGE,
-                                                            value: params.row.args.errorMessage
-                                                        },
-                                                    ]))
-                                                }
-                                            }
-                                        ]}
-                                        rows={props.row.errors}
-                                        hideFooter
-                                    />
-                                </Stack>
-                            </Stack>}
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={handleClose} autoFocus>{t('button.close')}</Button>
-                    </DialogActions>
-                </Dialog>
-            </div>
+            <Dialog
+                open={openErrorDialog}
+                fullWidth={true}
+                maxWidth={"md"}
+                onClose={() => setOpenErrorDialog(false)}
+            >
+                <DialogContent>
+                    <DialogContentComponent row={props.row}/>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => setOpenErrorDialog(false)} autoFocus>{t('button.close')}</Button>
+                </DialogActions>
+            </Dialog>
         )
     }
-
-
 }
 
 export default InstancePanel;

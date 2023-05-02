@@ -1,4 +1,4 @@
-import {Box, Button, Dialog, DialogActions, DialogContent, IconButton, Theme} from "@mui/material";
+import {Box, Button, Dialog, DialogActions, DialogContent, IconButton} from "@mui/material";
 import {DataGrid, GridCellParams, GridColumns, GridToolbar} from "@mui/x-data-grid";
 import * as React from "react";
 import {useContext, useEffect, useState} from "react";
@@ -14,13 +14,11 @@ import {HistoryContext} from "../../../context/historyContext";
 import InstanceRepository from "../repository/InstanceRepository";
 import {getSourceApplicationDisplayName} from "../../configuration/defaults/DefaultValues";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
-import Stack from "@mui/material/Stack";
-import {stringReplace} from "../../util/StringUtil";
-import {ErrorType} from "../../log/types/ErrorType";
 import {IEvent} from "../../log/types/Event";
 import {SourceApplicationContext} from "../../../context/sourceApplicationContext";
 import RefreshIcon from '@mui/icons-material/Refresh';
 import {ClassNameMap} from "@mui/styles";
+import DialogContentComponent from "./DialogContentComponent";
 
 const InstanceTable: React.FunctionComponent<any> = (props: { classes: ClassNameMap }) => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.instanceOverview'})
@@ -29,13 +27,7 @@ const InstanceTable: React.FunctionComponent<any> = (props: { classes: ClassName
     const {latestInstances, getLatestInstances, getSelectedInstances} = useContext(HistoryContext)
     const {sourceApplication} = useContext(SourceApplicationContext)
     const [selectedRow, setSelectedRow] = useState<IEvent>();
-    const [open, setOpen] = React.useState(false);
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-    const handleClose = () => {
-        setOpen(false);
-    };
+    const [openDialog, setOpenDialog] = React.useState(false);
 
     const errorsNotForRetry: string[] = ['instance-receival-error', 'instance-registration-error']
 
@@ -170,7 +162,7 @@ const InstanceTable: React.FunctionComponent<any> = (props: { classes: ClassName
 
     return (
         <Box>
-            <AlertDialog row={selectedRow}/>
+            <ErrorAlertDialog row={selectedRow}/>
             <Button
                 sx={{mb: 2}}
                 variant='contained'
@@ -232,7 +224,7 @@ const InstanceTable: React.FunctionComponent<any> = (props: { classes: ClassName
                         size="small"
                         onClick={() => {
                             setSelectedRow(props.row);
-                            handleClickOpen()
+                            setOpenDialog(true)
                         }}
                         tabIndex={-1}>
                         <OpenInNewIcon id={props.row.id + `-icon`} fontSize="inherit"/>
@@ -242,62 +234,26 @@ const InstanceTable: React.FunctionComponent<any> = (props: { classes: ClassName
         );
     }
 
-    function AlertDialog(props: any) {
+    function ErrorAlertDialog(props: any) {
         return (
             <div>
                 <Dialog
-                    open={open}
+                    open={openDialog}
                     fullWidth={true}
-                    maxWidth={"lg"}
-                    onClose={handleClose}
+                    maxWidth={"md"}
+                    onClose={() => setOpenDialog(false)}
                 >
                     <DialogContent>
-                        {selectedRow &&
-                            <Stack id={props.row.type + `-panel`}
-                                   sx={{
-                                       py: 2,
-                                       boxSizing: 'border-box',
-                                       height: ((theme: Theme) => theme.spacing(44)),
-                                       minWidth: ((theme: Theme) => theme.spacing(112))
-                                   }}
-                                   direction="column">
-                                <Stack direction="column" sx={{height: 1}}>
-                                    <DataGrid
-                                        density="compact"
-                                        columns={[
-                                            {
-                                                field: 'errorMessage',
-                                                headerName: t('table.columns.errorMessage'),
-                                                type: 'string',
-                                                width: 2500,
-                                                valueGetter: (params) => {
-                                                    return (stringReplace(t(params.row.errorCode), [
-                                                        {
-                                                            type: ErrorType.INSTANCE_FIELD_KEY,
-                                                            value: params.row.args.instanceFieldKey
-                                                        },
-                                                        {type: ErrorType.FIELD_PATH, value: params.row.args.fieldPath},
-                                                        {
-                                                            type: ErrorType.ERROR_MESSAGE,
-                                                            value: params.row.args.errorMessage
-                                                        },
-                                                    ]))
-                                                }
-                                            }
-                                        ]}
-                                        rows={props.row.errors}
-                                        hideFooter
-                                    />
-                                </Stack>
-                            </Stack>}
+                        <DialogContentComponent row={props.row}/>
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={handleClose} autoFocus>{t('button.close')}</Button>
+                        <Button onClick={() => setOpenDialog(false)} autoFocus>{t('button.close')}</Button>
                     </DialogActions>
                 </Dialog>
             </div>
         )
     }
+
 }
 
 export default InstanceTable;
