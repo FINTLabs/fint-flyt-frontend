@@ -40,11 +40,7 @@ function createValueRefPerAbsoluteKey(absoluteKey: string, dependency: IDependen
     return dependency.hasAnyCombination
         .flat()
         .reduce((valueAbsoluteKeysPerRef: Record<string, string>, predicate: IValuePredicate) => {
-                valueAbsoluteKeysPerRef[getAbsoluteKeyFromValueRef(
-                    "valueMappingPerKey." +
-                    predicate.key +
-                    ".mappingString", absoluteKey
-                )] = predicate.key;
+                valueAbsoluteKeysPerRef[getAbsoluteKeyFromValueRef(predicate.key, absoluteKey)] = predicate.key;
                 return valueAbsoluteKeysPerRef
             },
             {}
