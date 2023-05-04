@@ -128,7 +128,7 @@ export const configurationFormStyles = makeStyles((theme: Theme) =>
         },
         column: {
             maxHeight: 'calc(100vh/1.5)',
-            minWidth: theme.spacing(60),
+            minWidth: theme.spacing(58),
             overflowY: 'auto',
             overflowX: 'hidden',
             display: 'grid',
