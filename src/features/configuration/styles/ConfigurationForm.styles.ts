@@ -25,7 +25,7 @@ export const configurationFormStyles = makeStyles((theme: Theme) =>
             marginLeft: theme.spacing(1),
             borderRadius: theme.spacing(0.5),
             height: 'fit-content',
-            maxWidth: theme.spacing(150),
+            maxWidth: 'calc(100vw/1.6)',
             overflow: 'auto'
         },
         panel: {
