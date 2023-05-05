@@ -14,15 +14,19 @@ type Props = {
 
 const ValueConvertingPanel: React.FunctionComponent<any> = (props: Props) => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.valueConverting'});
-    const [rows, setRows] = useState([])
+    const [rows, setRows] = useState<IValueConverting[] | undefined>(undefined)
 
     useEffect(() => {
         ValueConvertingRepository.getValueConvertings(0, 100, 'fromApplicationId', 'ASC', true)
             .then(response => {
-                setRows(response.data.content)
+                let data = response.data
+                if(data.content) {
+                    setRows(data.content)
+                }
             })
             .catch(e => {
                 console.log(e)
+                setRows([])
             })
     }, [])
 
@@ -88,7 +92,8 @@ const ValueConvertingPanel: React.FunctionComponent<any> = (props: Props) => {
         <>
             <Box sx={{height: 800, width: '100%', backgroundColor: 'white'}}>
                 <DataGrid
-                    rows={rows}
+                    loading={rows == undefined}
+                    rows={rows ? rows : []}
                     columns={columns}
                 />
             </Box>
