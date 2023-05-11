@@ -6,11 +6,13 @@ resources:
   - ../../../base2
 
 commonLabels:
-  app.kubernetes.io/instance: fint-flyt-integration-frontend_trondelagfylke_no
   fintlabs.no/org-id: trondelagfylke.no
 
 patches:
   - patch: |-
+      - op: replace
+        path: "/metadata/labels/app.kubernetes.io~1instance"
+        value: "fint-flyt-integration-frontend_trondelagfylke-no"
       - op: replace
         path: "/spec/orgId"
         value: "trondelagfylke.no"
@@ -27,5 +29,5 @@ patches:
         value: "/beta/trondelagfylke-no"
     target:
       kind: FLAISSso
-      name: fint-flyt-integration-frontend-sso
+      name: fint-flyt-auth-forward-sso
 

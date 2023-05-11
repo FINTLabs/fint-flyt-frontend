@@ -1,10 +1,10 @@
 apiVersion: fintlabs.no/v1alpha1
 kind: FLAISSso
 metadata:
-  name: fint-flyt-integration-frontend-sso
+  name: fint-flyt-auth-forward-sso
   labels:
-    app.kubernetes.io/name: fint-flyt-integration-frontend-sso
-    app.kubernetes.io/instance: fint-flyt-integration-frontend_fintlabs_no
+    app.kubernetes.io/name: fint-flyt-auth-forward-sso
+    app.kubernetes.io/instance: fint-flyt-auth-forward-sso_fintlabs_no
     app.kubernetes.io/version: latest
     app.kubernetes.io/component: sso
     app.kubernetes.io/part-of: fint-flyt
