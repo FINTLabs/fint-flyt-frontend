@@ -17,7 +17,7 @@ patches:
         path: "/spec/orgId"
         value: "trondelagfylke.no"
       - op: replace
-        path: "/spec/url/basePath"
+        path: "/spec/env/0/value"
         value: "/beta/trondelagfylke-no"
     target:
       kind: Application

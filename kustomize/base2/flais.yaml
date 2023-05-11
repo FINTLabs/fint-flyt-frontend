@@ -16,13 +16,16 @@ spec:
   imagePullPolicy: Always
   orgId: fintlabs.no
   image: ghcr.io/fintlabs/fint-flyt-integration-frontend:sha-0000000
-  url:
-    hostname: flyt.vigoiks.no
-    basePath: path
+#  url:
+#    hostname: flyt.vigoiks.no
+#    basePath: path
   ingress:
     enabled: true
     middlewares:
       - fint-flyt-auth-forward-sso
+  env:
+    - name: BASE_PATH
+      value: path
   resources:
     limits:
       memory: "128Mi"
