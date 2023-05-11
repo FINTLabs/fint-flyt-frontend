@@ -29,5 +29,3 @@ spec:
       cpu: "500m"
   restartPolicy: Always
   replicas: 1
-  strategy:
-    type: Recreate
