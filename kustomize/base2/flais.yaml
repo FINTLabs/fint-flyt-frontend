@@ -22,7 +22,7 @@ spec:
   ingress:
     enabled: true
     middlewares:
-      - fint-flyt-integration-frontend
+      - fint-flyt-integration-frontend-sso
   resources:
     limits:
       memory: "128Mi"
