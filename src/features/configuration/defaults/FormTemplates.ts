@@ -5,7 +5,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
     "rootObjectTemplate": {
         "valueTemplates": [
             {
-                "order": 2,
+                "order": 3,
                 "elementConfig": {
                     "key": "caseId",
                     "displayName": "Saksnummer",
@@ -27,7 +27,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                     "search": {
                         "urlTemplate": "api/intern/arkiv/saker/{caseId}/tittel",
                         "valueRefPerPathParamKey": {
-                            "caseId": "id"
+                            "caseId": "caseId"
                         }
                     }
                 }
@@ -49,6 +49,10 @@ export const testObjectTemplateSak: IMappingTemplate = {
                             "value": "NEW"
                         },
                         {
+                            "displayName": "På søk, eller ny",
+                            "value": "BY_SEARCH_OR_NEW"
+                        },
+                        {
                             "displayName": "På saksnummer",
                             "value": "BY_ID"
                         }
@@ -59,6 +63,160 @@ export const testObjectTemplateSak: IMappingTemplate = {
         "objectTemplates": [
             {
                 "order": 1,
+                "elementConfig": {
+                    "key": "caseSearchParameters",
+                    "displayName": "Søkeparametre",
+                    "description": "",
+                    "showDependency": {
+                        "hasAnyCombination": [
+                            [
+                                {
+                                    "key": "type",
+                                    "defined": true,
+                                    "value": "BY_SEARCH_OR_NEW"
+                                }
+                            ]
+                        ]
+                    }
+                },
+                "template": {
+                    "valueTemplates": [
+                        {
+                            "order": 0,
+                            "elementConfig": {
+                                "key": "arkivdel",
+                                "displayName": "Arkivdel",
+                                "description": ""
+                            },
+                            "template": {
+                                "type": ValueType.BOOLEAN
+                            }
+                        },
+                        {
+                            "order": 1,
+                            "elementConfig": {
+                                "key": "tilgangsrestriksjon",
+                                "displayName": "Tilgangsrestriksjon",
+                                "description": ""
+                            },
+                            "template": {
+                                "type": ValueType.BOOLEAN
+                            }
+                        },
+                        {
+                            "order": 2,
+                            "elementConfig": {
+                                "key": "saksmappetype",
+                                "displayName": "Saksmappetype",
+                                "description": ""
+                            },
+                            "template": {
+                                "type": ValueType.BOOLEAN
+                            }
+                        },
+                        {
+                            "order": 3,
+                            "elementConfig": {
+                                "key": "tittel",
+                                "displayName": "Tittel",
+                                "description": ""
+                            },
+                            "template": {
+                                "type": ValueType.BOOLEAN
+                            }
+                        },
+                        {
+                            "order": 4,
+                            "elementConfig": {
+                                "key": "klassering",
+                                "displayName": "Klassering",
+                                "description": ""
+                            },
+                            "template": {
+                                "type": ValueType.BOOLEAN
+                            }
+                        },
+                        {
+                            "order": 5,
+                            "elementConfig": {
+                                "key": "klasseringRekkefolge",
+                                "displayName": "Rekkefølge",
+                                "description": "",
+                                "enableDependency": {
+                                    "hasAnyCombination": [
+                                        [
+                                            {
+                                                "key": "klassering",
+                                                "defined": true,
+                                                "value": "true"
+                                            }
+                                        ]
+                                    ]
+                                }
+                            },
+                            "template": {
+                                "type": ValueType.STRING
+                            }
+                        },
+                        {
+                            "order": 6,
+                            "elementConfig": {
+                                "key": "klasseringKlassifikasjonssystem",
+                                "displayName": "Klassifikasjonssystem",
+                                "description": "",
+                                "enableDependency": {
+                                    "hasAnyCombination": [
+                                        [
+                                            {
+                                                "key": "klassering",
+                                                "defined": true,
+                                                "value": "true"
+                                            },
+                                            {
+                                                "key": "klasseringRekkefolge",
+                                                "defined": true,
+                                                "notValue": ""
+                                            }
+                                        ]
+                                    ]
+                                }
+                            },
+                            "template": {
+                                "type": ValueType.BOOLEAN
+                            }
+                        },
+                        {
+                            "order": 7,
+                            "elementConfig": {
+                                "key": "klasseringKlasseId",
+                                "displayName": "KlasseID",
+                                "description": "",
+                                "enableDependency": {
+                                    "hasAnyCombination": [
+                                        [
+                                            {
+                                                "key": "klassering",
+                                                "defined": true,
+                                                "value": "true"
+                                            },
+                                            {
+                                                "key": "klasseringKlassifikasjonssystem",
+                                                "defined": true,
+                                                "notValue": ""
+                                            }
+                                        ]
+                                    ]
+                                }
+                            },
+                            "template": {
+                                "type": ValueType.BOOLEAN
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "order": 2,
                 "elementConfig": {
                     "key": "newCase",
                     "displayName": "Sak",
@@ -1021,7 +1179,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
         ],
         "objectCollectionTemplates": [
             {
-                "order": 3,
+                "order": 4,
                 "elementConfig": {
                     "key": "journalpost",
                     "displayName": "Journalposter",
