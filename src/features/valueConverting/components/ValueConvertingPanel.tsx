@@ -23,6 +23,9 @@ const ValueConvertingPanel: React.FunctionComponent<any> = (props: Props) => {
                 if(data.content) {
                     setRows(data.content)
                 }
+                else {
+                    setRows([])
+                }
             })
             .catch(e => {
                 console.log(e)
@@ -92,7 +95,7 @@ const ValueConvertingPanel: React.FunctionComponent<any> = (props: Props) => {
         <>
             <Box sx={{height: 800, width: '100%', backgroundColor: 'white'}}>
                 <DataGrid
-                    loading={rows == undefined}
+                    loading={rows === undefined}
                     rows={rows ? rows : []}
                     columns={columns}
                 />
