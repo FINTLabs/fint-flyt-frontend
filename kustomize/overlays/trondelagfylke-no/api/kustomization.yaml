@@ -18,10 +18,10 @@ patches:
         value: "trondelagfylke.no"
       - op: replace
         path: "/spec/env/0/value"
-        value: "/beta/trondelagfylke-no"
+        value: "/trondelagfylke-no"
       - op: replace
         path: "/spec/url/basePath"
-        value: "/beta/trondelagfylke-no"
+        value: "/trondelagfylke-no"
     target:
       kind: Application
       name: fint-flyt-integration-frontend

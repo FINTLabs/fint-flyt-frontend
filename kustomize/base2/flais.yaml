@@ -16,6 +16,9 @@ spec:
   imagePullPolicy: Always
   orgId: fintlabs.no
   image: ghcr.io/fintlabs/fint-flyt-integration-frontend:sha-0000000
+  url:
+    hostname: flyt.vigoiks.no
+    basePath: path
   ingress:
     enabled: true
     middlewares:
