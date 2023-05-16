@@ -1,6 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: fint-flyt-integration-frontend
-data:
-  TZ: 'Europe/Oslo'

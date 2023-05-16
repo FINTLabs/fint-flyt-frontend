@@ -3,7 +3,7 @@ kind: Kustomization
 namespace: trondelagfylke-no
 
 resources:
-  - ../../../base2
+  - ../../../base
 
 commonLabels:
   fintlabs.no/org-id: trondelagfylke.no
