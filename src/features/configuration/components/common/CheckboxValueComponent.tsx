@@ -1,5 +1,5 @@
 import * as React from "react";
-import {BaseSyntheticEvent, useContext} from "react";
+import {useContext} from "react";
 import {Checkbox, FormControlLabel} from "@mui/material";
 import {ConfigurationContext} from "../../../../context/configurationContext";
 import {ClassNameMap} from "@mui/styles";
@@ -9,7 +9,7 @@ interface Props {
     classes: ClassNameMap;
     displayName: string;
     disabled?: boolean;
-    onChange?: React.ChangeEventHandler<HTMLInputElement>;
+    onChange?: (value: boolean) => void;
     onBlur?: Noop;
     name: string;
     value: boolean;
@@ -21,9 +21,9 @@ const CheckboxValueComponent: React.FunctionComponent<Props> = (props: Props) =>
     return <FormControlLabel
         label={props.displayName}
         disabled={props.disabled}
-        onChange={(e: BaseSyntheticEvent) => {
+        onChange={(_, value) => {
             if (props.onChange) {
-                props.onChange(e.target.value)
+                props.onChange(value)
             }
         }}
         onBlur={props.onBlur}
@@ -31,10 +31,11 @@ const CheckboxValueComponent: React.FunctionComponent<Props> = (props: Props) =>
         value={props.value}
         control={
             <Checkbox
+                sx={{paddingY: 0}}
                 disabled={props.disabled || completed}
                 id="form-complete"
                 checked={props.value}
-                // onChange={(e) => fields.onChange(e.target.checked)}
+                //onChange={(e) => fields.onChange(e.target.checked)}
                 inputProps={{'aria-label': props.name + 'checkbox'}}
             />
         }

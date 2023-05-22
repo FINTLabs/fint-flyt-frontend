@@ -65,6 +65,7 @@ const FromCollectionMappingComponent: React.FunctionComponent<Props> = (props: P
                                         classes={props.classes}
                                         displayName={"" + index}
                                         accept={[ValueType.COLLECTION]}
+                                        disabled={completed}
                                     />
                                 }
                             />

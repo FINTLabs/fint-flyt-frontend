@@ -228,18 +228,14 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                             >{t("button.cancel")}
                             </button>
 
-                            <FormControlLabel
-                                label={t('label.checkLabel')}
-                                control={
-                                    <Controller
-                                        name={"completed"}
-                                        render={({field}) =>
-                                            <CheckboxValueComponent
-                                                {...field}
-                                                classes={classes}
-                                                displayName={t('label.checkLabel')}
-                                            />
-                                        }
+
+                            <Controller
+                                name={"completed"}
+                                render={({field}) =>
+                                    <CheckboxValueComponent
+                                        {...field}
+                                        classes={classes}
+                                        displayName={t('label.checkLabel')}
                                     />
                                 }
                             />

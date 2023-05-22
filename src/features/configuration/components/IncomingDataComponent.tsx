@@ -136,8 +136,8 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
                 {valueConvertings &&
                     <Box className={props.classes.panel}>
                         <Typography variant={"h6"}>Verdikonvertering</Typography>
-                        {valueConvertings.map((valueConverting: IValueConverting) => {
-                            return <div className={props.classes.tagWrapper}>
+                        {valueConvertings.map((valueConverting: IValueConverting, index: number) => {
+                            return <div key={'valueConvertingValue-' + index} className={props.classes.tagWrapper}>
                                 <Tag
                                     classes={props.classes}
                                     value={'$vc{' + valueConverting.id.toString() + '}'}

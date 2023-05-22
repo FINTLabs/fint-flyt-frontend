@@ -50,12 +50,24 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
         disabled: boolean
     }
 
+    function getBooleanFromString(value: string): boolean {
+        if (value == 'true') {
+            return true
+        }
+        if (value == 'false' || value === undefined) {
+            return false
+        }
+        throw new Error('cannot convert string="' + value + '" to boolean')
+    }
+
     function createComponent(renderProps: RenderProps): ReactElement {
         switch (props.template.type) {
             case TemplateValueType.BOOLEAN:
                 setTypeIfUndefined(ConfigurationValueType.BOOLEAN)
                 return <CheckboxValueComponent
                     {...renderProps}
+                    value={getBooleanFromString(renderProps.value)}
+                    onChange={(value: boolean) => renderProps.onChange(String(value))}
                 />
             case TemplateValueType.STRING:
                 setTypeIfUndefined(ConfigurationValueType.STRING);
