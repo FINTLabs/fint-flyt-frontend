@@ -52,15 +52,15 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     if (!existingIntegration) {
         history.push('/')
     }
-    const methods = useForm({
-        defaultValues: configuration
-            ? {...configuration}
-            : {
-                integrationId: existingIntegration?.id,
-                integrationMetadataId: selectedMetadata.id,
-                completed: false
-            }
+    const methods = useForm<IConfiguration>({
+        defaultValues: {
+            integrationId: existingIntegration?.id,
+            integrationMetadataId: selectedMetadata.id,
+            completed: configuration ? configuration.completed : false,
+            comment: configuration?.comment,
+        }
     });
+
 
     const handleClose = (event: React.SyntheticEvent | Event, reason?: string) => {
         if (reason === 'clickaway') {
@@ -71,6 +71,8 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     };
 
     useEffect(() => {
+        // @ts-ignore
+        methods.setValue('mapping', configuration?.mapping, {shouldDirty: true, shouldTouch: true});
         if (configuration?.completed) {
             setCompleted(true)
         }
