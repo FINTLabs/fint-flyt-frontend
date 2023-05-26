@@ -38,19 +38,7 @@ const FromCollectionMappingComponent: React.FunctionComponent<Props> = (props: P
 
     useEffect(() => {
         return () => {
-            console.log(isEditingRef)
-            console.log(editCollectionAbsoluteKey)
-            console.log(props.absoluteKey)
-            if(isEditingRef.current && editCollectionAbsoluteKey === '') {
-                console.log('if1')
-                setEditCollectionAbsoluteKey('')
-            }
-            else if(isEditingRef.current && editCollectionAbsoluteKey !== props.absoluteKey) {
-                console.log('if2')
-                setEditCollectionAbsoluteKey('')
-            }
-            else if(editCollectionAbsoluteKey === props.absoluteKey) {
-                console.log('if3')
+            if (isEditingRef.current) {
                 setEditCollectionAbsoluteKey('')
             }
         }
