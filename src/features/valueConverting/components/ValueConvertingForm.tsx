@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Link as RouterLink, withRouter} from 'react-router-dom';
 import {Alert, Box, Button, Snackbar} from "@mui/material";
 import {useTranslation} from 'react-i18next';
-import {Controller, FormProvider, useForm} from "react-hook-form";
+import {Controller, FormProvider, useForm, useWatch} from "react-hook-form";
 import SelectValueComponent from "../../configuration/components/mapping/value/select/SelectValueComponent";
 import {
     defaultAlert,
@@ -59,6 +59,8 @@ export const ValueConvertingForm: React.FunctionComponent<any> = (props: Props) 
                 toFormData(props.existingValueConverting) : {}
         }
     );
+
+    const toTypeIdWatch = useWatch({control: methods.control, name: 'toTypeId'})
 
     function toFormData(valueConverting: IValueConverting): IValueConvertingFormData {
         let withRemovedConvertingMap = (({convertingMap, ...rest}) => rest)(valueConverting);
@@ -241,14 +243,20 @@ export const ValueConvertingForm: React.FunctionComponent<any> = (props: Props) 
                                         <Controller
                                             name={`${absoluteKey}.to`}
                                             defaultValue={''}
-                                            render={({field}) =>
-                                                <SelectValueComponent
-                                                    {...field}
-                                                    disabled={disabled}
-                                                    displayName={t('to')}
-                                                    selectables={toSelectables}
-                                                />
-                                            }
+                                            render={({field}) => {
+                                                return toTypeIdWatch === 'text'
+                                                    ? <StringValueComponent
+                                                        {...field}
+                                                        disabled={disabled}
+                                                        displayName={t('to')}
+                                                    />
+                                                    : <SelectValueComponent
+                                                        {...field}
+                                                        disabled={disabled}
+                                                        displayName={t('to')}
+                                                        selectables={toSelectables}
+                                                    />
+                                            }}
                                         />
                                     </Box>
                                 }
