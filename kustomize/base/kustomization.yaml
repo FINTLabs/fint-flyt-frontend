@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - flais.yaml
   - FLAISSso.yaml
+  - oauth2-egrunnerverv-client.yaml
