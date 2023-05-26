@@ -247,6 +247,7 @@ export const ValueConvertingForm: React.FunctionComponent<any> = (props: Props) 
                                                 return toTypeIdWatch === 'text'
                                                     ? <StringValueComponent
                                                         {...field}
+                                                        classes={classes}
                                                         disabled={disabled}
                                                         displayName={t('to')}
                                                     />
