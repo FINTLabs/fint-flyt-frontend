@@ -29,6 +29,7 @@ const useStyles = valueConvertingStyles
 type Props = {
     existingValueConverting: IValueConverting,
     setExistingValueConverting: any
+    view: boolean
 }
 type IValueConvertingFormData = Omit<IValueConverting, 'convertingMap'> & {
     convertingArray: IValueConvertingConvertingArrayEntry[]
@@ -39,7 +40,7 @@ type IValueConvertingConvertingArrayEntry = { from: string, to: string }
 export const ValueConvertingForm: React.FunctionComponent<any> = (props: Props) => {
     const classes = useStyles();
     const {t} = useTranslation('translations', {keyPrefix: 'pages.valueConverting'});
-    const [disabled, setDisabled] = useState<boolean>(!!props.existingValueConverting);
+    const [disabled, setDisabled] = useState<boolean>(props.view);
     const [showAlert, setShowAlert] = React.useState<boolean>(false)
     const [alertContent, setAlertContent] = React.useState<IAlertContent>(defaultAlert)
 
@@ -238,6 +239,7 @@ export const ValueConvertingForm: React.FunctionComponent<any> = (props: Props) 
                                                     disabled={disabled}
                                                     classes={classes}
                                                     displayName={t('from')}
+                                                    multiline={true}
                                                 />
                                             }
                                         />
@@ -251,6 +253,7 @@ export const ValueConvertingForm: React.FunctionComponent<any> = (props: Props) 
                                                         classes={classes}
                                                         disabled={disabled}
                                                         displayName={t('to')}
+                                                        multiline={true}
                                                     />
                                                     : <SearchSelectValueComponent
                                                         {...field}

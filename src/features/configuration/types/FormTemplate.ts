@@ -20,6 +20,7 @@ export interface IElementConfig {
 }
 
 export enum ValueType {
+    BOOLEAN = "BOOLEAN",
     STRING = "STRING",
     DYNAMIC_STRING = "DYNAMIC_STRING",
     FILE = "FILE"
