@@ -1,29 +1,46 @@
 import React, {useEffect, useState} from 'react';
-import {withRouter} from 'react-router-dom';
-import {Box, Button} from "@mui/material";
+import {Link as RouterLink, useHistory, withRouter} from 'react-router-dom';
+import {Box, Button, Menu, MenuItem} from "@mui/material";
 import {useTranslation} from 'react-i18next';
 import {DataGrid, GridCellParams, GridColDef} from "@mui/x-data-grid";
 import ValueConvertingRepository from "../../../shared/repositories/ValueConvertingRepository";
 import {getDestinationDisplayName, getSourceApplicationDisplayName} from "../../configuration/defaults/DefaultValues";
 import {IValueConverting} from "../types/ValueConverting";
 import {GridValueGetterParams} from "@mui/x-data-grid/models/params/gridCellParams";
+import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 
 type Props = {
-    onValueConvertingSelected: (id: number) => void;
+    onValueConvertingSelected: (id: number, view: boolean) => void;
 }
 
 const ValueConvertingPanel: React.FunctionComponent<any> = (props: Props) => {
+    let history = useHistory();
     const {t} = useTranslation('translations', {keyPrefix: 'pages.valueConverting'});
     const [rows, setRows] = useState<IValueConverting[] | undefined>(undefined)
+    const [anchorElement, setAnchorElement] = React.useState<null | HTMLElement>(null);
+    const [anchorSubEl, setAnchorSubEl] = React.useState<null | HTMLElement>(null);
+    const open = Boolean(anchorElement);
+    const openSub = Boolean(anchorSubEl);
+    const handleNewConfigClick = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorElement(event.currentTarget);
+    };
+    const handleNewConfigClose = () => {
+        setAnchorElement(null);
+    };
+    const handleNewConfigSubClick = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorSubEl(event.currentTarget);
+    };
+    const handleNewConfigSubClose = () => {
+        setAnchorSubEl(null);
+    };
 
     useEffect(() => {
         ValueConvertingRepository.getValueConvertings(0, 100, 'fromApplicationId', 'ASC', true)
             .then(response => {
                 let data = response.data
-                if(data.content) {
+                if (data.content) {
                     setRows(data.content)
-                }
-                else {
+                } else {
                     setRows([])
                 }
             })
@@ -85,10 +102,14 @@ const ValueConvertingPanel: React.FunctionComponent<any> = (props: Props) => {
             size="small"
             variant="contained"
             onClick={() => {
-                props.onValueConvertingSelected(rowProps.row.id)
+                props.onValueConvertingSelected(rowProps.row.id, true)
             }}
         >Vis
         </Button>
+    }
+
+    async function handleNewOrEditConvertingClick(id: any) {
+        props.onValueConvertingSelected(id, false)
     }
 
     return (
@@ -100,6 +121,80 @@ const ValueConvertingPanel: React.FunctionComponent<any> = (props: Props) => {
                     columns={columns}
                 />
             </Box>
+            <Button
+                sx={{mt: 5}}
+                id="positioned-button"
+                variant="contained"
+                aria-controls={open ? 'positioned-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? 'true' : undefined}
+                onClick={handleNewConfigClick}
+                endIcon={<ArrowRightIcon/>}
+            >
+                {t('button.newConverting')}
+            </Button>
+            <Menu
+                id="positioned-menu"
+                aria-labelledby="positioned-button"
+                anchorEl={anchorElement}
+                open={open}
+                onClose={handleNewConfigClose}
+                anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                }}
+                transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'left',
+                }}
+            >
+                <MenuItem component={RouterLink} to='/valueconverting/new'
+                          onClick={handleNewConfigClose}>
+                    <Button>
+                        {t('button.blankConverting')}
+                    </Button>
+                </MenuItem>
+
+                <MenuItem>
+                    <Button
+                        disabled={!rows}
+                        id="positioned-button"
+                        aria-controls={openSub ? 'positioned-menu' : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={openSub ? 'true' : undefined}
+                        onClick={handleNewConfigSubClick}
+                        endIcon={<ArrowRightIcon/>}
+                    >
+                        {t('button.templateConverting')}
+                    </Button>
+                    <Menu
+                        id="positioned-menu"
+                        aria-labelledby="positioned-button"
+                        anchorEl={anchorSubEl}
+                        open={openSub}
+                        onClose={handleNewConfigSubClose}
+                        anchorOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right',
+                        }}
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'left',
+                        }}
+                    >
+                        {rows && rows.map((row: any, index: number) => {
+                                return <MenuItem onClick={handleNewConfigSubClose} key={index}>
+                                    <Button id="version-button" onClick={() => {
+                                        handleNewOrEditConvertingClick(row.id).then(() => history.push('/valueconverting'))
+                                    }}>
+                                        {t('button.id')} {row.id}
+                                    </Button>
+                                </MenuItem>
+                            }
+                        )}
+                    </Menu>
+                </MenuItem>
+            </Menu>
         </>
     );
 }
