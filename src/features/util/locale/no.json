@@ -259,6 +259,12 @@
       "header": "Kontakt support"
     },
     "valueConverting": {
+      "button": {
+        "newConverting": "Ny",
+        "blankConverting": "Blank vertikonvertering",
+        "templateConverting": "Basert på vertikonvertering",
+        "id": "id"
+      },
       "header": "Verdikonvertering",
       "panelHeader": "Verdikonverteringer",
       "displayName": "Navn",

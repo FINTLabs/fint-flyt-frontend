@@ -21,6 +21,7 @@ import ArrayComponent from "../../configuration/components/common/array/ArrayCom
 import FlytTitle4Component from "../../configuration/components/common/title/FlytTitle4Component";
 import {valueConvertingStyles} from "../../configuration/styles/ValueConverting.styles";
 import FlytTitle2Component from "../../configuration/components/common/title/FlytTitle2Component";
+import SearchSelectValueComponent from "../../configuration/components/mapping/value/select/SearchSelectValueComponent";
 
 const useStyles = valueConvertingStyles
 
@@ -28,6 +29,7 @@ const useStyles = valueConvertingStyles
 type Props = {
     existingValueConverting: IValueConverting,
     setExistingValueConverting: any
+    view: boolean
 }
 type IValueConvertingFormData = Omit<IValueConverting, 'convertingMap'> & {
     convertingArray: IValueConvertingConvertingArrayEntry[]
@@ -38,7 +40,7 @@ type IValueConvertingConvertingArrayEntry = { from: string, to: string }
 export const ValueConvertingForm: React.FunctionComponent<any> = (props: Props) => {
     const classes = useStyles();
     const {t} = useTranslation('translations', {keyPrefix: 'pages.valueConverting'});
-    const [disabled, setDisabled] = useState<boolean>(!!props.existingValueConverting);
+    const [disabled, setDisabled] = useState<boolean>(props.view);
     const [showAlert, setShowAlert] = React.useState<boolean>(false)
     const [alertContent, setAlertContent] = React.useState<IAlertContent>(defaultAlert)
 
@@ -227,7 +229,7 @@ export const ValueConvertingForm: React.FunctionComponent<any> = (props: Props) 
                                 absoluteKey={'convertingArray'}
                                 disabled={disabled}
                                 fieldComponentCreator={(index: number, absoluteKey: string) =>
-                                    <Box sx={{display: 'flex', width: '500px'}}>
+                                    <Box sx={{display: 'flex', width: 'fit-content'}}>
                                         <Controller
                                             name={`${absoluteKey}.from`}
                                             defaultValue={''}
@@ -237,6 +239,7 @@ export const ValueConvertingForm: React.FunctionComponent<any> = (props: Props) 
                                                     disabled={disabled}
                                                     classes={classes}
                                                     displayName={t('from')}
+                                                    multiline={true}
                                                 />
                                             }
                                         />
@@ -250,8 +253,9 @@ export const ValueConvertingForm: React.FunctionComponent<any> = (props: Props) 
                                                         classes={classes}
                                                         disabled={disabled}
                                                         displayName={t('to')}
+                                                        multiline={true}
                                                     />
-                                                    : <SelectValueComponent
+                                                    : <SearchSelectValueComponent
                                                         {...field}
                                                         disabled={disabled}
                                                         displayName={t('to')}
