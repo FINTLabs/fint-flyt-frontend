@@ -5,14 +5,14 @@ export interface IConfiguration {
     version?: number | null;
     completed?: boolean;
     comment?: string;
-    mapping?: IObjectMapping;
+    mapping: IObjectMapping;
 }
 
 export interface IConfigurationPatch {
     comment?: string;
     integrationMetadataId?: number;
     completed?: boolean;
-    mapping?: IObjectMapping;
+    mapping: IObjectMapping;
 }
 
 export enum ValueType {
