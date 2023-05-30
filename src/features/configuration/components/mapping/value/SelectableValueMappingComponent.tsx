@@ -30,11 +30,12 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = forwardR
     const {completed} = useContext(ConfigurationContext)
     const {editCollectionAbsoluteKey} = useContext(EditingContext)
 
+    const absoluteKeySplit = props.absoluteKey.split(".");
     const selectables = SelectablesStatefulValue(
         control,
         props.template.selectables,
         props.template.selectablesSources,
-        props.absoluteKey
+        absoluteKeySplit.slice(0, absoluteKeySplit.length - 2).join(".")
     );
     const typeAbsoluteKey: string = props.absoluteKey + ".type";
 
