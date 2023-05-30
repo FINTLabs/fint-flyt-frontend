@@ -339,7 +339,8 @@ const IntegrationPanel: React.FunctionComponent<any> = (props: { classes: ClassN
                     horizontal: 'left',
                 }}
             >
-                <MenuItem component={RouterLink} to='/integration/configuration/new-configuration'
+                <MenuItem disableGutters={true} divider={true} dense={true} component={RouterLink}
+                          to='/integration/configuration/new-configuration'
                           onClick={handleNewConfigClose}>
                     <Button id="new-configuration-button" onClick={() => {
                         let selectedForm = allMetadata.filter(md => md.sourceApplicationIntegrationId === existingIntegration?.sourceApplicationIntegrationId)
@@ -351,7 +352,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props: { classes: ClassN
                     </Button>
                 </MenuItem>
 
-                <MenuItem>
+                <MenuItem disableGutters={true} divider={true} dense={true}>
                     <Button
                         disabled={!completedConfigurations}
                         id="positioned-button"
@@ -379,7 +380,8 @@ const IntegrationPanel: React.FunctionComponent<any> = (props: { classes: ClassN
                         }}
                     >
                         {completedConfigurations && completedConfigurations.map((config: any, index: number) => {
-                                return <MenuItem onClick={handleNewConfigSubClose} key={index}>
+                                return <MenuItem onClick={handleNewConfigSubClose} disableGutters={true} divider={true}
+                                                 dense={true} key={index}>
                                     <Button id="version-button" onClick={() => {
                                         handleNewOrEditConfigClick(config.id, config.version).then(() => history.push("/integration/configuration/edit"))
                                     }}>

@@ -168,6 +168,7 @@ const ValueConvertingPanel: React.FunctionComponent<any> = (props: Props) => {
                         {t('button.templateConverting')}
                     </Button>
                     <Menu
+                        sx={{padding: 'none'}}
                         id="positioned-menu"
                         aria-labelledby="positioned-button"
                         anchorEl={anchorSubEl}
@@ -183,10 +184,12 @@ const ValueConvertingPanel: React.FunctionComponent<any> = (props: Props) => {
                         }}
                     >
                         {rows && rows.map((row: any, index: number) => {
-                                return <MenuItem onClick={handleNewConfigSubClose} key={index}>
-                                    <Button id="version-button" onClick={() => {
-                                        handleNewOrEditConvertingClick(row.id).then(() => history.push('/valueconverting'))
-                                    }}>
+                                return <MenuItem onClick={handleNewConfigSubClose} sx={{padding: 'none'}}
+                                                 disableGutters={true} divider={true} dense={true} key={index}>
+                                    <Button id="version-button" sx={{width: '140px', height: 'webkit-fill-available'}}
+                                            onClick={() => {
+                                                handleNewOrEditConvertingClick(row.id).then(() => history.push('/valueconverting'))
+                                            }}>
                                         {t('button.id')} {row.id}
                                     </Button>
                                 </MenuItem>
