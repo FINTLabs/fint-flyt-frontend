@@ -1,27 +1,27 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: trondelagfylke-no
+namespace: viken-no
 
 resources:
   - ../../../base
 
 commonLabels:
-  fintlabs.no/org-id: trondelagfylke.no
+  fintlabs.no/org-id: viken.no
 
 patches:
   - patch: |-
       - op: replace
         path: "/metadata/labels/app.kubernetes.io~1instance"
-        value: "fint-flyt-integration-frontend_trondelagfylke-no"
+        value: "fint-flyt-integration-frontend_viken-no"
       - op: replace
         path: "/spec/orgId"
-        value: "trondelagfylke.no"
+        value: "viken.no"
       - op: replace
         path: "/spec/env/0/value"
-        value: "/trondelagfylke-no"
+        value: "/alpha/viken-no"
       - op: replace
         path: "/spec/url/basePath"
-        value: "/trondelagfylke-no"
+        value: "/alpha/viken-no"
     target:
       kind: Application
       name: fint-flyt-integration-frontend
@@ -29,7 +29,7 @@ patches:
   - patch: |-
       - op: replace
         path: "/spec/basePath"
-        value: "/trondelagfylke-no"
+        value: "/alpha/viken-no"
     target:
       kind: FLAISSso
       name: fint-flyt-auth-forward-sso
