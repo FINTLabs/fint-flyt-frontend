@@ -20,7 +20,7 @@ const StringValueComponent: React.FunctionComponent<Props> = forwardRef<any, Pro
     return (
         <div id={"string-value-component-" + absoluteKey} style={{display: 'flex', flexDirection: 'column'}}>
             <TextField
-                style={{backgroundColor: 'white'}}
+                style={{backgroundColor: 'white', width: '352px'}}
                 variant='outlined'
                 size='small'
                 label={props.displayName}

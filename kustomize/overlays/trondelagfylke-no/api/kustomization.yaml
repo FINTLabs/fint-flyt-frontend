@@ -29,7 +29,7 @@ patches:
   - patch: |-
       - op: replace
         path: "/spec/basePath"
-        value: "/beta/trondelagfylke-no"
+        value: "/trondelagfylke-no"
     target:
       kind: FLAISSso
       name: fint-flyt-auth-forward-sso
