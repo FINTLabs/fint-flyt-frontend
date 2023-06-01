@@ -6,7 +6,18 @@ import {Controller, FormProvider, useForm} from "react-hook-form";
 import {HTML5Backend} from "react-dnd-html5-backend";
 import {DndProvider} from "react-dnd";
 import IncomingDataComponent from "./components/IncomingDataComponent";
-import {Alert, Box, Checkbox, FormControlLabel, Snackbar, Typography} from "@mui/material";
+import {
+    Alert,
+    Box,
+    Checkbox,
+    FormControl,
+    FormControlLabel,
+    MenuItem,
+    Snackbar,
+    TextField,
+    Theme,
+    Typography
+} from "@mui/material";
 import {IntegrationContext} from "../../context/integrationContext";
 import {IIntegrationMetadata} from "./types/Metadata/IntegrationMetadata";
 import {useTranslation} from "react-i18next";
@@ -16,7 +27,6 @@ import IntegrationRepository from "../../shared/repositories/IntegrationReposito
 import {IConfiguration, IConfigurationPatch, IObjectMapping} from "./types/Configuration";
 import {IIntegrationPatch, IntegrationState} from "../integration/types/Integration";
 import {ConfigurationContext} from "../../context/configurationContext";
-import SelectValueComponent from "./components/mapping/value/select/SelectValueComponent";
 import StringValueComponent from "./components/mapping/value/string/StringValueComponent";
 import {IAlertContent} from "./types/AlertContent";
 import {activeAlert, completedAlert, defaultAlert, savedAlert} from "./defaults/DefaultValues";
@@ -27,7 +37,11 @@ import EditingProvider, {EditingContext} from "../../context/editingContext";
 const useStyles = configurationFormStyles
 
 const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
-    const {setSourceApplication, allMetadata} = useContext(SourceApplicationContext)
+    const {
+        getInstanceElementMetadata,
+        setSourceApplication,
+        allMetadata
+    } = useContext(SourceApplicationContext)
     const {
         completed,
         setCompleted,
@@ -39,6 +53,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     const classes = useStyles();
     const {
         selectedMetadata,
+        setSelectedMetadata,
         existingIntegration,
         configuration,
         setConfiguration,
@@ -48,6 +63,11 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     const [showAlert, setShowAlert] = React.useState<boolean>(false)
     const [alertContent, setAlertContent] = React.useState<IAlertContent>(defaultAlert)
     const [collectionReferencesInEditContext, setCollectionReferencesInEditContext] = useState<string[]>([])
+    const [version, setVersion] = React.useState<string>(selectedMetadata ? String(selectedMetadata.version) : '');
+    const availableVersions: IIntegrationMetadata[] = allMetadata.filter(md => {
+        return md.sourceApplicationId === selectedMetadata.sourceApplicationId &&
+            md.sourceApplicationIntegrationId === selectedMetadata.sourceApplicationIntegrationId
+    })
 
     if (!existingIntegration) {
         history.push('/')
@@ -76,6 +96,10 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
         if (configuration?.completed) {
             setCompleted(true)
         }
+        if (configuration?.integrationMetadataId
+        ) {
+            getInstanceElementMetadata(configuration.integrationMetadataId.toString())
+        }
         return () => {
             resetIntegrationContext()
             resetConfigurationContext()
@@ -83,6 +107,16 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
             setEditCollectionAbsoluteKey("")
         }
     }, [])
+
+    const handleChange = (event: any) => {
+        setVersion(event.target.value);
+        let version: number = Number(event.target.value)
+        let integrationMetadata: IIntegrationMetadata[] = availableVersions
+            .filter(metadata => metadata.version === version)
+        setSelectedMetadata(integrationMetadata[0])
+        methods.setValue('integrationMetadataId', integrationMetadata[0].id)
+        getInstanceElementMetadata(integrationMetadata[0].id)
+    };
 
 
     const onSubmit = (data: any) => {
@@ -161,11 +195,6 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
         })
     }
 
-    const availableVersions: IIntegrationMetadata[] = allMetadata.filter(md => {
-        return md.sourceApplicationId === selectedMetadata.sourceApplicationId &&
-            md.sourceApplicationIntegrationId === selectedMetadata.sourceApplicationIntegrationId
-    })
-
     return (
         <DndProvider backend={HTML5Backend}>
             <EditingProvider>
@@ -176,23 +205,26 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                             <Typography sx={{m: 1}}>
                                 Integrasjon: {existingIntegration?.sourceApplicationIntegrationId} - {existingIntegration?.displayName}
                             </Typography>
-                            <Controller
-                                name={"integrationMetadataId".toString()}
-                                defaultValue={''}
-                                render={({field}) =>
-                                    <SelectValueComponent
-                                        {...field}
-                                        displayName={t('metadataVersion')}
-                                        selectables={
-                                            availableVersions.map(metadata => {
-                                                return {
-                                                    displayName: metadata.version.toString(),
-                                                    value: metadata.id ? metadata.id.toString() : "0"
-                                                }
-                                            })}
-                                    />
-                                }
-                            />
+                            <Box>
+                                <FormControl>
+                                    <TextField
+                                        select
+                                        sx={{backgroundColor: 'white', width: (theme: Theme) => theme.spacing(18)}}
+                                        size={"small"}
+                                        id="version-select"
+                                        value={version}
+                                        label={t('metadataVersion')}
+                                        onChange={(e) => {
+                                            handleChange(e)
+                                        }}
+                                    >
+                                        {availableVersions.map((md, index) => {
+                                            return <MenuItem key={index}
+                                                             value={md.version}>Versjon {md.version}</MenuItem>
+                                        })}
+                                    </TextField>
+                                </FormControl>
+                            </Box>
                             <Controller
                                 name={"comment".toString()}
                                 render={({field}) =>

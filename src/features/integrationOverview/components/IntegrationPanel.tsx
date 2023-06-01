@@ -92,7 +92,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props: { classes: ClassN
     })
 
     useEffect(() => {
-        getAllMetadata(true)
+        getAllMetadata(false)
         getVersionForActiveConfig(existingIntegration?.activeConfigurationId ? existingIntegration.activeConfigurationId : undefined)
         // eslint-disable-next-line react-hooks/exhaustive-deps
         return () => {
@@ -148,12 +148,11 @@ const IntegrationPanel: React.FunctionComponent<any> = (props: { classes: ClassN
     }
 
     async function handleNewOrEditConfigClick(id: any, version?: any) {
-        let selectedForm = allMetadata.filter(md => md.sourceApplicationIntegrationId === existingIntegration?.sourceApplicationIntegrationId)
-        setSelectedMetadata(selectedForm.length > 0 ? selectedForm[0] : SOURCE_FORM_NO_VALUES[0])
-        getInstanceElementMetadata(selectedForm[0].id)
         await ConfigurationRepository.getConfiguration(id.toString(), false)
             .then(async (response) => {
                 let data = response.data
+                let usedVersionMetadata = allMetadata.filter(md => md.id === data.integrationMetadataId)
+                setSelectedMetadata(usedVersionMetadata[0])
                 if (version) {
                     data.id = undefined;
                     data.completed = false;
@@ -344,8 +343,8 @@ const IntegrationPanel: React.FunctionComponent<any> = (props: { classes: ClassN
                           onClick={handleNewConfigClose}>
                     <Button id="new-configuration-button" onClick={() => {
                         let selectedForm = allMetadata.filter(md => md.sourceApplicationIntegrationId === existingIntegration?.sourceApplicationIntegrationId)
-                        setSelectedMetadata(selectedForm.length > 0 ? selectedForm[0] : SOURCE_FORM_NO_VALUES[0])
-                        getInstanceElementMetadata(selectedForm[0].id)
+                        setSelectedMetadata(selectedForm.length > 0 ? selectedForm[selectedForm.length - 1] : SOURCE_FORM_NO_VALUES[0])
+                        getInstanceElementMetadata(selectedForm[selectedForm.length - 1].id)
                     }}
                     >
                         {t('button.blankConfiguration')}
