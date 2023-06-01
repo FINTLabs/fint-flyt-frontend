@@ -209,6 +209,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                                     <FormControl sx={{backgroundColor: 'white', width: (theme: Theme) => theme.spacing(44), mr: 1}}>
                                         <TextField
                                             select
+                                            disabled={completed}
                                             size={"small"}
                                             id="version-select"
                                             value={version}
