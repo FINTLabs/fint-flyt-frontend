@@ -221,8 +221,10 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                                             }}
                                         >
                                             {availableVersions.map((md, index) => {
-                                                return <MenuItem key={index}
-                                                                 value={md.version}>Versjon {md.version}</MenuItem>
+                                                return <MenuItem
+                                                    key={index}
+                                                    value={md.version}>Versjon {md.version}
+                                                </MenuItem>
                                             })}
                                         </TextField>
                                     </FormControl>
