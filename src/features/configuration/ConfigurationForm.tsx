@@ -81,6 +81,8 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
         }
     });
 
+    // @ts-ignore
+    console.log(version, availableVersions.some(av => av.version > version))
 
     const handleClose = (event: React.SyntheticEvent | Event, reason?: string) => {
         if (reason === 'clickaway') {
@@ -205,25 +207,31 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                             <Typography sx={{m: 1}}>
                                 Integrasjon: {existingIntegration?.sourceApplicationIntegrationId} - {existingIntegration?.displayName}
                             </Typography>
-                            <Box>
-                                <FormControl>
-                                    <TextField
-                                        select
-                                        sx={{backgroundColor: 'white', width: (theme: Theme) => theme.spacing(18)}}
-                                        size={"small"}
-                                        id="version-select"
-                                        value={version}
-                                        label={t('metadataVersion')}
-                                        onChange={(e) => {
-                                            handleChange(e)
-                                        }}
-                                    >
-                                        {availableVersions.map((md, index) => {
-                                            return <MenuItem key={index}
-                                                             value={md.version}>Versjon {md.version}</MenuItem>
-                                        })}
-                                    </TextField>
-                                </FormControl>
+                            <Box sx={{mb: 1, width: (theme: Theme) => theme.spacing(100)}}>
+                                <div style={{display: 'flex', alignItems: 'center'}}>
+                                    <FormControl sx={{backgroundColor: 'white', width: (theme: Theme) => theme.spacing(44), mr: 1}}>
+                                        <TextField
+                                            select
+                                            size={"small"}
+                                            id="version-select"
+                                            value={version}
+                                            label={t('metadataVersion')}
+                                            onChange={(e) => {
+                                                handleChange(e)
+                                            }}
+                                        >
+                                            {availableVersions.map((md, index) => {
+                                                return <MenuItem key={index}
+                                                                 value={md.version}>Versjon {md.version}</MenuItem>
+                                            })}
+                                        </TextField>
+                                    </FormControl>
+                                    {availableVersions.some(av => av.version > Number(version)) &&
+                                        <Alert variant="outlined" severity="warning" sx={{color: 'black'}}>
+                                            {t('metadataWarning')}
+                                        </Alert>
+                                    }
+                                </div>
                             </Box>
                             <Controller
                                 name={"comment".toString()}
