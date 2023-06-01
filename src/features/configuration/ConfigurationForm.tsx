@@ -205,7 +205,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                         <Box className={classes.configurationBox} sx={{m: 1}}>
                             <Typography sx={{m: 1}} variant={"h6"}>{t('header')}</Typography>
                             <Typography sx={{m: 1}}>
-                                Integrasjon: {existingIntegration?.sourceApplicationIntegrationId} - {existingIntegration?.displayName}
+                                {t('integration')}: {existingIntegration?.sourceApplicationIntegrationId} - {existingIntegration?.displayName}
                             </Typography>
                             <Box sx={{mb: 1, width: (theme: Theme) => theme.spacing(100)}}>
                                 <div style={{display: 'flex', alignItems: 'center'}}>
@@ -216,9 +216,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                                             id="version-select"
                                             value={version}
                                             label={t('metadataVersion')}
-                                            onChange={(e) => {
-                                                handleChange(e)
-                                            }}
+                                            onChange={(e) => {handleChange(e)}}
                                         >
                                             {availableVersions.map((md, index) => {
                                                 return <MenuItem

@@ -42,6 +42,7 @@
     },
     "configuration": {
       "header": "Konfigurasjon",
+      "integration": "Integrasjon",
       "metadataVersion": "Metadataversjon",
       "metadataWarning": "Det fins nyere versjon av metadata",
       "formHeader": "Utgående data",
