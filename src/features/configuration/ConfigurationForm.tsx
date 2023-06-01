@@ -81,9 +81,6 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
         }
     });
 
-    // @ts-ignore
-    console.log(version, availableVersions.some(av => av.version > version))
-
     const handleClose = (event: React.SyntheticEvent | Event, reason?: string) => {
         if (reason === 'clickaway') {
             return;
