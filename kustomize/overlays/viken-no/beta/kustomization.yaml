@@ -1,29 +1,36 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: viken-no
+
 resources:
   - ../../../base
+
 commonLabels:
-  app.kubernetes.io/name: fint-flyt-integration-frontend
-  app.kubernetes.io/instance: fint-flyt-integration-frontend_viken-no
-  app.kubernetes.io/version: latest
-  app.kubernetes.io/component: frontend
-  app.kubernetes.io/part-of: fint-flyt
-  fintlabs.no/team: flyt
   fintlabs.no/org-id: viken.no
+
 patches:
   - patch: |-
       - op: replace
-        path: "/data/BASE_PATH"
-        value: /beta/viken-no
-    target:
-      kind: ConfigMap
-      name: fint-flyt-integration-frontend
-  - patch: |-
+        path: "/metadata/labels/app.kubernetes.io~1instance"
+        value: "fint-flyt-integration-frontend_viken-no"
       - op: replace
-        path: "/spec/routes/0/match"
-        value: "Host(`flyt.vigoiks.no`) && PathPrefix(`/beta/viken-no`)"
+        path: "/spec/orgId"
+        value: "viken.no"
+      - op: replace
+        path: "/spec/env/0/value"
+        value: "/beta/viken-no"
+      - op: replace
+        path: "/spec/url/basePath"
+        value: "/beta/viken-no"
     target:
-      kind: IngressRoute
+      kind: Application
       name: fint-flyt-integration-frontend
 
+  - patch: |-
+      - op: replace
+        path: "/spec/basePath"
+        value: "/beta/viken-no"
+    target:
+      kind: FLAISSso
+      name: fint-flyt-auth-forward-sso
 

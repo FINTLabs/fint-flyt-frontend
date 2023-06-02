@@ -22,10 +22,9 @@ on:
           - viken-no
           - rogfk-no
           - vtfk-no
-          - trondelagfk-no
+          - trondelagfylke-no
           - innlandet-no
           - agderfk-no
-          - viken-test
 
 env:
   REGISTRY: ghcr.io

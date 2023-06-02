@@ -9,7 +9,8 @@ import {
     Dialpad,
     FilePresent,
     FormatListNumbered,
-    RuleRounded,
+    Link,
+    RuleRounded, SwitchAccessShortcut,
     TextFieldsRounded
 } from "@mui/icons-material";
 import {FunctionComponent} from "react";
@@ -56,8 +57,14 @@ export const Tag: FunctionComponent<Props> = (props: Props) => {
         if (type === ValueType.EMAIL) {
             return <AlternateEmailRounded/>
         }
+        if (type === ValueType.URL) {
+            return <Link/>
+        }
         if (type === ValueType.COLLECTION) {
             return <FormatListNumbered/>
+        }
+        if (type === ValueType.VALUE_CONVERTING) {
+            return <SwitchAccessShortcut/>
         }
         if (type === undefined) {
             return <DragIndicatorIcon/>

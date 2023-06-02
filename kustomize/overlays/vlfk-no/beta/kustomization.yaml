@@ -18,10 +18,10 @@ patches:
         value: "vlfk.no"
       - op: replace
         path: "/spec/env/0/value"
-        value: "/alpha/vlfk-no"
+        value: "/beta/vlfk-no"
       - op: replace
         path: "/spec/url/basePath"
-        value: "/alpha/vlfk-no"
+        value: "/beta/vlfk-no"
     target:
       kind: Application
       name: fint-flyt-integration-frontend
@@ -29,7 +29,7 @@ patches:
   - patch: |-
       - op: replace
         path: "/spec/basePath"
-        value: "/alpha/vlfk-no"
+        value: "/beta/vlfk-no"
     target:
       kind: FLAISSso
       name: fint-flyt-auth-forward-sso

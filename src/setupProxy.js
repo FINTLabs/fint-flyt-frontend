@@ -1,4 +1,4 @@
-const { createProxyMiddleware } = require('http-proxy-middleware');
+const {createProxyMiddleware} = require('http-proxy-middleware');
 
 module.exports = function (app) {
     app.use(
@@ -67,6 +67,17 @@ module.exports = function (app) {
             target: 'http://localhost:8081',
             changeOrigin: true,
             pathRewrite: {"^/api7": ""},
+            headers: {
+                Connection: "keep-alive"
+            }
+        })
+    );
+
+    app.use(
+        createProxyMiddleware('/api/intern/value-convertings', {
+            target: 'http://localhost:8094',
+            changeOrigin: true,
+            pathRewrite: {"^/api8": ""},
             headers: {
                 Connection: "keep-alive"
             }

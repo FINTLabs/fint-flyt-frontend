@@ -15,7 +15,8 @@
     "instanceOverview": "Instanser",
     "integrationDetails": "Detaljer",
     "log": "Logg",
-    "support": "Hjelp og support"
+    "support": "Hjelp og support",
+    "valueConverting": "Verdikonvertering"
   },
   "pages": {
     "admin": {
@@ -41,7 +42,9 @@
     },
     "configuration": {
       "header": "Konfigurasjon",
+      "integration": "Integrasjon",
       "metadataVersion": "Metadataversjon",
+      "metadataWarning": "Det fins nyere versjon av metadata",
       "formHeader": "Utgående data",
       "label": {
         "checkLabel": "Ferdigstilt",
@@ -76,7 +79,7 @@
         "back": "Tilbake",
         "version": "Versjon ",
         "changeVersion": "Bruk denne konfigurasjonen",
-        "newConfiguration": "NY KONFIGURASJON",
+        "newConfiguration": "Ny konfigurasjon",
         "blankConfiguration": "Blank konfigurasjon",
         "templateConfiguration": "Basert på eksisterende versjon"
       },
@@ -256,6 +259,24 @@
     },
     "support": {
       "header": "Hjelp og support"
+    },
+    "valueConverting": {
+      "button": {
+        "newConverting": "Ny",
+        "blankConverting": "Blank vertikonvertering",
+        "templateConverting": "Basert på vertikonvertering",
+        "id": "id"
+      },
+      "header": "Verdikonvertering",
+      "panelHeader": "Verdikonverteringer",
+      "displayName": "Navn",
+      "fromApplicationId": "Applikasjon",
+      "fromTypeId": "Type",
+      "toApplicationId": "Applikasjon",
+      "toTypeId": "Type",
+      "convertingMap": "Konverteringer",
+      "to": "Til",
+      "from": "Fra"
     }
   },
   "models": {

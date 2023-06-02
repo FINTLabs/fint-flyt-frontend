@@ -8,7 +8,9 @@ import {SelectablesStatefulValue} from "../../../util/SelectablesUtils";
 import SearchSelectValueComponent from "./select/SearchSelectValueComponent";
 import {ClassNameMap} from "@mui/styles";
 import HelpPopover from "../../common/popover/HelpPopover";
-import DynamicStringOrSearchSelectValueComponent, {Type} from "./DynamicStringOrSearchSelectValueComponent";
+import DynamicStringOrSearchSelectValueComponent, {
+    Type as DynamicStringOrSearchSelectType
+} from "./DynamicStringOrSearchSelectValueComponent";
 import {isOutsideCollectionEditContext} from "../../../util/KeyUtils";
 import {ConfigurationContext} from "../../../../../context/configurationContext";
 import {EditingContext} from "../../../../../context/editingContext";
@@ -28,17 +30,44 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = forwardR
     const {completed} = useContext(ConfigurationContext)
     const {editCollectionAbsoluteKey} = useContext(EditingContext)
 
+    const absoluteKeySplit = props.absoluteKey.split(".");
     const selectables = SelectablesStatefulValue(
         control,
         props.template.selectables,
         props.template.selectablesSources,
-        props.absoluteKey
+        absoluteKeySplit.slice(0, absoluteKeySplit.length - 2).join(".")
     );
     const typeAbsoluteKey: string = props.absoluteKey + ".type";
 
     function setTypeIfUndefined(type: ConfigurationValueType) {
         if (!getValues(typeAbsoluteKey)) {
             setValue(typeAbsoluteKey, type)
+        }
+    }
+
+    function getDynamicStringOrSearchSelectTypeFromConfigurationType(configurationType: ConfigurationValueType) {
+        switch (configurationType) {
+            case ConfigurationValueType.STRING:
+                return DynamicStringOrSearchSelectType.SELECT;
+            case ConfigurationValueType.DYNAMIC_STRING:
+                return DynamicStringOrSearchSelectType.DYNAMIC;
+            case ConfigurationValueType.VALUE_CONVERTING:
+                return DynamicStringOrSearchSelectType.VALUE_CONVERTING;
+            default:
+                throw new Error("Invalid configurationValueType");
+        }
+    }
+
+    function getConfigurationTypeFromDynamicStringOrSearchSelectType(dynamicStringOrSearchSelectType: DynamicStringOrSearchSelectType) {
+        switch (dynamicStringOrSearchSelectType) {
+            case DynamicStringOrSearchSelectType.SELECT:
+                return ConfigurationValueType.STRING;
+            case DynamicStringOrSearchSelectType.DYNAMIC:
+                return ConfigurationValueType.DYNAMIC_STRING;
+            case DynamicStringOrSearchSelectType.VALUE_CONVERTING:
+                return ConfigurationValueType.VALUE_CONVERTING;
+            default:
+                throw new Error("Invalid dynamicStringOrSearchSelectType");
         }
     }
 
@@ -89,11 +118,13 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = forwardR
                             classes={props.classes}
                             displayName={props.displayName}
                             selectables={selectables}
-                            initialType={getValues(typeAbsoluteKey)}
-                            onTypeChange={(type: Type) => {
-                                setValue(typeAbsoluteKey, type === Type.SELECT
-                                    ? ConfigurationValueType.STRING
-                                    : ConfigurationValueType.DYNAMIC_STRING
+                            initialType={
+                                getDynamicStringOrSearchSelectTypeFromConfigurationType(getValues(typeAbsoluteKey))
+                            }
+                            onTypeChange={(type: DynamicStringOrSearchSelectType) => {
+                                setValue(
+                                    typeAbsoluteKey,
+                                    getConfigurationTypeFromDynamicStringOrSearchSelectType(type)
                                 )
                             }}
                             disabled={

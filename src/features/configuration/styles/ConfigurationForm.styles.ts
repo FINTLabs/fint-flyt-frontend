@@ -25,6 +25,8 @@ export const configurationFormStyles = makeStyles((theme: Theme) =>
             marginLeft: theme.spacing(1),
             borderRadius: theme.spacing(0.5),
             height: 'fit-content',
+            maxWidth: 'calc(100vw/1.6)',
+            overflow: 'auto'
         },
         panel: {
             opacity: 0.99,
@@ -126,21 +128,23 @@ export const configurationFormStyles = makeStyles((theme: Theme) =>
         },
         column: {
             maxHeight: 'calc(100vh/1.5)',
-            minWidth: theme.spacing(56),
-            overflow: 'auto',
+            minWidth: theme.spacing(58),
+            overflowY: 'auto',
+            overflowX: 'hidden',
             display: 'grid',
             backgroundColor: 'white',
             height: 'fit-content',
             marginRight: theme.spacing(2),
             "&:last-child": {
-                marginRight: 0
+                marginRight: theme.spacing(2)
             }
         },
         columnItem: {
             backgroundColor: '#EBF4F5',
             marginTop: theme.spacing(2),
             border: '1px solid black',
-            borderRadius: theme.spacing(0.5)
+            borderRadius: theme.spacing(0.5),
+            marginRight: 'inherit'
         },
         fieldSet: {
             display: 'grid',

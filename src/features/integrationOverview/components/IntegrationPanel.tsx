@@ -92,7 +92,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props: { classes: ClassN
     })
 
     useEffect(() => {
-        getAllMetadata(true)
+        getAllMetadata(false)
         getVersionForActiveConfig(existingIntegration?.activeConfigurationId ? existingIntegration.activeConfigurationId : undefined)
         // eslint-disable-next-line react-hooks/exhaustive-deps
         return () => {
@@ -148,12 +148,11 @@ const IntegrationPanel: React.FunctionComponent<any> = (props: { classes: ClassN
     }
 
     async function handleNewOrEditConfigClick(id: any, version?: any) {
-        let selectedForm = allMetadata.filter(md => md.sourceApplicationIntegrationId === existingIntegration?.sourceApplicationIntegrationId)
-        setSelectedMetadata(selectedForm.length > 0 ? selectedForm[0] : SOURCE_FORM_NO_VALUES[0])
-        getInstanceElementMetadata(selectedForm[0].id)
         await ConfigurationRepository.getConfiguration(id.toString(), false)
             .then(async (response) => {
                 let data = response.data
+                let usedVersionMetadata = allMetadata.filter(md => md.id === data.integrationMetadataId)
+                setSelectedMetadata(usedVersionMetadata[0])
                 if (version) {
                     data.id = undefined;
                     data.completed = false;
@@ -227,10 +226,10 @@ const IntegrationPanel: React.FunctionComponent<any> = (props: { classes: ClassN
                     id="details-sourceApplicationIntegrationId"><strong>{t('labels.sourceApplicationIntegrationId')}</strong>{existingIntegration?.sourceApplicationIntegrationId} - {existingIntegration?.displayName}
                 </Typography>
                 <Typography
-                    id="details-sourceApplicationId"><strong>{t('labels.sourceApplicationId')} </strong>{getSourceApplicationDisplayName(existingIntegration?.sourceApplicationId)}
+                    id="details-sourceApplicationId"><strong>{t('labels.sourceApplicationId')} </strong>{getSourceApplicationDisplayName(Number(existingIntegration?.sourceApplicationId))}
                 </Typography>
                 <Typography
-                    id="details-destination"><strong>{t('labels.destination')} </strong>{getDestinationDisplayName(existingIntegration?.destination)}
+                    id="details-destination"><strong>{t('labels.destination')} </strong>{getDestinationDisplayName(existingIntegration?.destination ? existingIntegration?.destination : "")}
                 </Typography>
                 <Typography
                     id="details-activeConfiguration"><strong>{t('labels.activeConfigurationId')} </strong>{activeVersion}
@@ -339,19 +338,20 @@ const IntegrationPanel: React.FunctionComponent<any> = (props: { classes: ClassN
                     horizontal: 'left',
                 }}
             >
-                <MenuItem component={RouterLink} to='/integration/configuration/new-configuration'
+                <MenuItem disableGutters={true} divider={true} dense={true} component={RouterLink}
+                          to='/integration/configuration/new-configuration'
                           onClick={handleNewConfigClose}>
                     <Button id="new-configuration-button" onClick={() => {
                         let selectedForm = allMetadata.filter(md => md.sourceApplicationIntegrationId === existingIntegration?.sourceApplicationIntegrationId)
-                        setSelectedMetadata(selectedForm.length > 0 ? selectedForm[0] : SOURCE_FORM_NO_VALUES[0])
-                        getInstanceElementMetadata(selectedForm[0].id)
+                        setSelectedMetadata(selectedForm.length > 0 ? selectedForm[selectedForm.length - 1] : SOURCE_FORM_NO_VALUES[0])
+                        getInstanceElementMetadata(selectedForm[selectedForm.length - 1].id)
                     }}
                     >
                         {t('button.blankConfiguration')}
                     </Button>
                 </MenuItem>
 
-                <MenuItem>
+                <MenuItem disableGutters={true} divider={true} dense={true}>
                     <Button
                         disabled={!completedConfigurations}
                         id="positioned-button"
@@ -379,7 +379,8 @@ const IntegrationPanel: React.FunctionComponent<any> = (props: { classes: ClassN
                         }}
                     >
                         {completedConfigurations && completedConfigurations.map((config: any, index: number) => {
-                                return <MenuItem onClick={handleNewConfigSubClose} key={index}>
+                                return <MenuItem onClick={handleNewConfigSubClose} disableGutters={true} divider={true}
+                                                 dense={true} key={index}>
                                     <Button id="version-button" onClick={() => {
                                         handleNewOrEditConfigClick(config.id, config.version).then(() => history.push("/integration/configuration/edit"))
                                     }}>

@@ -1,5 +1,5 @@
 import * as React from "react";
-import {ReactElement, useContext} from "react";
+import {MutableRefObject, ReactElement, useContext, useEffect, useRef, useState} from "react";
 import ArrayComponent from "../../../common/array/ArrayComponent";
 import {useTranslation} from "react-i18next";
 import {ClassNameMap} from "@mui/styles";
@@ -25,6 +25,24 @@ const FromCollectionMappingComponent: React.FunctionComponent<Props> = (props: P
     const {control} = useFormContext();
     const {completed} = useContext(ConfigurationContext)
     const {editCollectionAbsoluteKey, setEditCollectionAbsoluteKey} = useContext(EditingContext)
+    const isEditingRef: MutableRefObject<boolean> = useRef<boolean>(false)
+    const [isEditingState, setIsEditingState] = useState<boolean>(false)
+
+    useEffect(() => {
+        const isEditing: boolean = editCollectionAbsoluteKey === props.absoluteKey;
+        if (isEditing !== isEditingRef.current) {
+            isEditingRef.current = isEditing
+            setIsEditingState(isEditing)
+        }
+    }, [editCollectionAbsoluteKey])
+
+    useEffect(() => {
+        return () => {
+            if (isEditingRef.current) {
+                setEditCollectionAbsoluteKey('')
+            }
+        }
+    }, [])
 
     return <>
         <div className={props.classes.wrapperVerticalMargin}>
@@ -38,14 +56,15 @@ const FromCollectionMappingComponent: React.FunctionComponent<Props> = (props: P
                 <IconButton aria-label="edit"
                             onClick={() => {
                                 setEditCollectionAbsoluteKey(
-                                    editCollectionAbsoluteKey === props.absoluteKey
+                                    isEditingState
                                         ? ""
                                         : props.absoluteKey
                                 )
                             }}>
-                    {editCollectionAbsoluteKey === props.absoluteKey
-                        ? <EditOffRounded style={{color: 'blue'}}/>
-                        : <EditRounded/>
+                    {
+                        isEditingState
+                            ? <EditOffRounded style={{color: 'blue'}}/>
+                            : <EditRounded/>
                     }
                 </IconButton>
             </div>
@@ -65,6 +84,7 @@ const FromCollectionMappingComponent: React.FunctionComponent<Props> = (props: P
                                         classes={props.classes}
                                         displayName={"" + index}
                                         accept={[ValueType.COLLECTION]}
+                                        disabled={completed}
                                     />
                                 }
                             />

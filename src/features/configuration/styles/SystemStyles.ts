@@ -60,3 +60,10 @@ export const tagSX: SxProps<Theme> = {
     marginLeft: (theme: Theme) => theme.spacing(0),
     margin: (theme: Theme) => theme.spacing(0)
 }
+
+export const dialogSX: SxProps<Theme> = {
+    py: 2,
+    boxSizing: 'border-box',
+    height: ((theme: Theme) => theme.spacing(44)),
+    minWidth: ((theme: Theme) => theme.spacing(70))
+}
