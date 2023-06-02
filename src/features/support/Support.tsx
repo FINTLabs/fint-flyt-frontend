@@ -1,6 +1,6 @@
 import React from 'react';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
-import {Accordion, AccordionDetails, AccordionSummary, Theme, Typography} from "@mui/material";
+import {Accordion, AccordionDetails, AccordionSummary, Box, Theme, Typography} from "@mui/material";
 import {useTranslation} from 'react-i18next';
 import StatusComponent from "./components/StatusComponent";
 import {createStyles, makeStyles} from "@mui/styles";
@@ -29,17 +29,18 @@ const Support: React.FunctionComponent<RouteComponentProps<any>> = () => {
     return (
         <>
             <Typography variant={"h6"}>{t('header')}</Typography>
-            <div>
-                <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+            <Box sx={{mt: 2}}>
+                <Accordion disableGutters={true} sx={{mb: 2}} expanded={expanded === 'panel1'}
+                           onChange={handleChange('panel1')}>
                     <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
+                        expandIcon={<ExpandMoreIcon/>}
                         aria-controls="panel1bh-content"
                         id="panel1bh-header"
                     >
-                        <Typography sx={{ width: '33%', flexShrink: 0 }}>
+                        <Typography sx={{width: '33%', flexShrink: 0}}>
                             Brukerveiledning
                         </Typography>
-                        <Typography sx={{ color: 'text.secondary' }}>Hvordan bruke FINT Flyt</Typography>
+                        <Typography sx={{color: 'text.secondary'}}>Hvordan bruke FINT Flyt</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                         <Typography>
@@ -47,14 +48,14 @@ const Support: React.FunctionComponent<RouteComponentProps<any>> = () => {
                         </Typography>
                     </AccordionDetails>
                 </Accordion>
-                <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
+                <Accordion disableGutters={true} expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
                     <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
+                        expandIcon={<ExpandMoreIcon/>}
                         aria-controls="panel2bh-content"
                         id="panel2bh-header"
                     >
-                        <Typography sx={{ width: '33%', flexShrink: 0 }}>Tjenester</Typography>
-                        <Typography sx={{ color: 'text.secondary' }}>
+                        <Typography sx={{width: '33%', flexShrink: 0}}>Tjenester</Typography>
+                        <Typography sx={{color: 'text.secondary'}}>
                             Status på tjenester brukt av FINT Flyt
                         </Typography>
                     </AccordionSummary>
@@ -62,7 +63,7 @@ const Support: React.FunctionComponent<RouteComponentProps<any>> = () => {
                         <StatusComponent classes={classes}/>
                     </AccordionDetails>
                 </Accordion>
-            </div>
+            </Box>
         </>
     );
 }
