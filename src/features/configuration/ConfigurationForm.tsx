@@ -63,11 +63,8 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     const [showAlert, setShowAlert] = React.useState<boolean>(false)
     const [alertContent, setAlertContent] = React.useState<IAlertContent>(defaultAlert)
     const [collectionReferencesInEditContext, setCollectionReferencesInEditContext] = useState<string[]>([])
-    const [version, setVersion] = React.useState<string>(selectedMetadata ? String(selectedMetadata.version) : '');
-    const availableVersions: IIntegrationMetadata[] = allMetadata.filter(md => {
-        return md.sourceApplicationId === selectedMetadata.sourceApplicationId &&
-            md.sourceApplicationIntegrationId === selectedMetadata.sourceApplicationIntegrationId
-    })
+    const [version, setVersion] = React.useState<string>(selectedMetadata ? String(selectedMetadata.version) : '')
+
 
     if (!existingIntegration) {
         history.push('/')
@@ -193,6 +190,11 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
             console.log('could not set active configuration', e)
         })
     }
+
+    const availableVersions: IIntegrationMetadata[] = allMetadata.filter(md => {
+        return md.sourceApplicationId === selectedMetadata?.sourceApplicationId &&
+            md.sourceApplicationIntegrationId === selectedMetadata.sourceApplicationIntegrationId
+    })
 
     return (
         <DndProvider backend={HTML5Backend}>

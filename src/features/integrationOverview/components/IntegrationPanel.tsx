@@ -152,7 +152,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props: { classes: ClassN
             .then(async (response) => {
                 let data = response.data
                 let usedVersionMetadata = allMetadata.filter(md => md.id === data.integrationMetadataId)
-                setSelectedMetadata(usedVersionMetadata[0])
+                setSelectedMetadata(usedVersionMetadata.length > 0 ? usedVersionMetadata[0] : SOURCE_FORM_NO_VALUES[0])
                 if (version) {
                     data.id = undefined;
                     data.completed = false;
