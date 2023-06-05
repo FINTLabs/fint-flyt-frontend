@@ -192,7 +192,6 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     }
 
     const availableVersions: IIntegrationMetadata[] = allMetadata.filter(md => {
-        console.log('selectedMetadata', selectedMetadata, 'md', md)
         return md.sourceApplicationId === selectedMetadata?.sourceApplicationId &&
             md.sourceApplicationIntegrationId === selectedMetadata.sourceApplicationIntegrationId
     })
