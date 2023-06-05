@@ -69,7 +69,7 @@ const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = (
             resetIntegrations();
         }
         getIntegrations(sourceApplication ? sourceApplication.toString() : "2");
-        getAllMetadata(true);
+        getAllMetadata(false);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
