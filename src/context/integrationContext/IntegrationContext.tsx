@@ -21,7 +21,7 @@ const IntegrationProvider: FC = ({children}) => {
     const [configurations, setConfigurations] = useState<IConfiguration[] | undefined>(contextDefaultValues.configurations);
     const [completedConfigurations, setCompletedConfigurations] = useState<IConfiguration[] | undefined>(contextDefaultValues.completedConfigurations);
     const [destination, setDestination] = useState<string>('');
-    const [selectedMetadata, setSelectedMetadata] = useState<IIntegrationMetadata>(contextDefaultValues.selectedMetadata);
+    const [selectedMetadata, setSelectedMetadata] = useState<IIntegrationMetadata | undefined>(contextDefaultValues.selectedMetadata);
     const [sourceApplicationIntegrationId, setSourceApplicationIntegrationId] = useState<string>('');
     const [sourceApplicationId, setSourceApplicationId] = useState<string>('');
     const [statistics, setStatistics] = useState<any[]>(contextDefaultValues.statistics);

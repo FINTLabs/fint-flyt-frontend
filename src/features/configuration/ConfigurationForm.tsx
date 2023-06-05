@@ -39,6 +39,7 @@ const useStyles = configurationFormStyles
 const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const {
         getInstanceElementMetadata,
+        setInstanceElementMetadata,
         setSourceApplication,
         allMetadata
     } = useContext(SourceApplicationContext)
@@ -65,14 +66,13 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     const [collectionReferencesInEditContext, setCollectionReferencesInEditContext] = useState<string[]>([])
     const [version, setVersion] = React.useState<string>(selectedMetadata ? String(selectedMetadata.version) : '')
 
-
     if (!existingIntegration) {
         history.push('/')
     }
     const methods = useForm<IConfiguration>({
         defaultValues: {
             integrationId: existingIntegration?.id,
-            integrationMetadataId: selectedMetadata.id,
+            integrationMetadataId: selectedMetadata?.id,
             completed: configuration ? configuration.completed : false,
             comment: configuration?.comment,
         }
@@ -101,6 +101,8 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
             resetConfigurationContext()
             setSourceApplication(undefined)
             setEditCollectionAbsoluteKey("")
+            setSelectedMetadata(undefined)
+            setInstanceElementMetadata(undefined)
         }
     }, [])
 
@@ -208,7 +210,11 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                             </Typography>
                             <Box sx={{mb: 1, width: (theme: Theme) => theme.spacing(100)}}>
                                 <div style={{display: 'flex', alignItems: 'center'}}>
-                                    <FormControl sx={{backgroundColor: 'white', width: (theme: Theme) => theme.spacing(44), mr: 1}}>
+                                    <FormControl sx={{
+                                        backgroundColor: 'white',
+                                        width: (theme: Theme) => theme.spacing(44),
+                                        mr: 1
+                                    }}>
                                         <TextField
                                             select
                                             disabled={completed}
@@ -216,7 +222,9 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                                             id="version-select"
                                             value={version}
                                             label={t('metadataVersion')}
-                                            onChange={(e) => {handleChange(e)}}
+                                            onChange={(e) => {
+                                                handleChange(e)
+                                            }}
                                         >
                                             {availableVersions.map((md, index) => {
                                                 return <MenuItem
