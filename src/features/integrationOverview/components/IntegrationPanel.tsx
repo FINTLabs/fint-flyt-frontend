@@ -24,11 +24,7 @@ import {Link as RouterLink, useHistory} from 'react-router-dom';
 import IntegrationRepository from "../../../shared/repositories/IntegrationRepository";
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import {SourceApplicationContext} from "../../../context/sourceApplicationContext";
-import {
-    getDestinationDisplayName,
-    getSourceApplicationDisplayName,
-    SOURCE_FORM_NO_VALUES
-} from "../../configuration/defaults/DefaultValues";
+import {getDestinationDisplayName, getSourceApplicationDisplayName} from "../../configuration/defaults/DefaultValues";
 import ConfigurationRepository from "../../../shared/repositories/ConfigurationRepository";
 import {IIntegrationPatch} from "../../integration/types/Integration";
 import {IConfiguration} from "../../configuration/types/Configuration";
@@ -157,7 +153,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props: { classes: ClassN
                 let usedVersionMetadata = allMetadata.filter(md => md.id === data.integrationMetadataId)
                 console.log('allMetadata', allMetadata)
                 console.log('usedVersionMetadata', usedVersionMetadata)
-                setSelectedMetadata(usedVersionMetadata.length > 0 ? usedVersionMetadata[0] : SOURCE_FORM_NO_VALUES[0])
+                setSelectedMetadata(usedVersionMetadata.length > 0 ? usedVersionMetadata[0] : undefined)
                 if (version) {
                     data.id = undefined;
                     data.completed = false;
@@ -349,7 +345,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props: { classes: ClassN
                           onClick={handleNewConfigClose}>
                     <Button id="new-configuration-button" onClick={() => {
                         let selectedForm = allMetadata.filter(md => md.sourceApplicationIntegrationId === existingIntegration?.sourceApplicationIntegrationId)
-                        setSelectedMetadata(selectedForm.length > 0 ? selectedForm[selectedForm.length - 1] : SOURCE_FORM_NO_VALUES[0])
+                        setSelectedMetadata(selectedForm.length > 0 ? selectedForm[selectedForm.length - 1] : undefined)
                         getInstanceElementMetadata(selectedForm[selectedForm.length - 1].id)
                     }}
                     >

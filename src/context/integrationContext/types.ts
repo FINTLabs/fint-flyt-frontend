@@ -20,8 +20,8 @@ export type IntegrationContextState = {
     getConfigurations: (page: number, size: number, sortProperty: string, sortDirection: string, complete: boolean, integration: string, excludeElements: boolean) => void;
     getCompletedConfigurations: (page: number, size: number, sortProperty: string, sortDirection: string, complete: boolean, integration: string, excludeElements: boolean) => void;
     destination: string,
-    selectedMetadata: IIntegrationMetadata;
-    setSelectedMetadata: (form: IIntegrationMetadata) => void,
+    selectedMetadata: IIntegrationMetadata | undefined;
+    setSelectedMetadata: (form: IIntegrationMetadata | undefined) => void,
     sourceApplicationIntegrationId: string,
     setSourceApplicationIntegrationId: (id: string) => void,
     setDestination: (destination: string) => void;
@@ -60,14 +60,7 @@ export const contextDefaultValues: IntegrationContextState = {
     setCompletedConfigurations: () => {
     },
     destination: '',
-    selectedMetadata: {
-        instanceElementMetadata: [],
-        sourceApplicationIntegrationUri: '',
-        sourceApplicationIntegrationId: '',
-        sourceApplicationId: '',
-        integrationDisplayName: '',
-        version: 0
-    },
+    selectedMetadata: undefined,
     setSelectedMetadata: () => {
     },
     setDestination: () => {
