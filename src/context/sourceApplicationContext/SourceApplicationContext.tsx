@@ -82,7 +82,7 @@ const SourceApplicationProvider: FC = ({children}) => {
                 }
             })
             .catch((err) => {
-                setInstanceElementMetadata(MOCK_INSTANCE_METADATA.instanceMetadata)
+                setInstanceElementMetadata(undefined)
                 console.error(err)
             })
     }
@@ -123,6 +123,7 @@ const SourceApplicationProvider: FC = ({children}) => {
                 getAvailableForms,
                 allMetadata,
                 instanceElementMetadata,
+                setInstanceElementMetadata,
                 instanceObjectCollectionMetadata,
                 getInstanceObjectCollectionMetadata,
                 getAllMetadata,

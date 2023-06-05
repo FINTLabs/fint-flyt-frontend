@@ -39,6 +39,7 @@ const useStyles = configurationFormStyles
 const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const {
         getInstanceElementMetadata,
+        setInstanceElementMetadata,
         setSourceApplication,
         allMetadata
     } = useContext(SourceApplicationContext)
@@ -101,6 +102,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
             setSourceApplication(undefined)
             setEditCollectionAbsoluteKey("")
             setSelectedMetadata(undefined)
+            setInstanceElementMetadata(undefined)
         }
     }, [])
 
