@@ -65,10 +65,6 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     const [collectionReferencesInEditContext, setCollectionReferencesInEditContext] = useState<string[]>([])
     const [version, setVersion] = React.useState<string>(selectedMetadata ? String(selectedMetadata.version) : '')
 
-    console.log('selectedMetadata', selectedMetadata)
-    console.log('version', version)
-
-
     if (!existingIntegration) {
         history.push('/')
     }
@@ -200,8 +196,6 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
         return md.sourceApplicationId === selectedMetadata?.sourceApplicationId &&
             md.sourceApplicationIntegrationId === selectedMetadata.sourceApplicationIntegrationId
     })
-
-    console.log('availableVersions', availableVersions)
 
     return (
         <DndProvider backend={HTML5Backend}>
