@@ -29,7 +29,7 @@ import {IIntegrationPatch, IntegrationState} from "../integration/types/Integrat
 import {ConfigurationContext} from "../../context/configurationContext";
 import StringValueComponent from "./components/mapping/value/string/StringValueComponent";
 import {IAlertContent} from "./types/AlertContent";
-import {activeAlert, completedAlert, defaultAlert, savedAlert} from "./defaults/DefaultValues";
+import {activeAlert, completedAlert, defaultAlert, savedAlert, SOURCE_FORM_NO_VALUES} from "./defaults/DefaultValues";
 import ConfigurationRepository from "../../shared/repositories/ConfigurationRepository";
 import {pruneObjectMapping} from "../util/mapping/helpers/pruning";
 import EditingProvider, {EditingContext} from "../../context/editingContext";
@@ -64,6 +64,9 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     const [alertContent, setAlertContent] = React.useState<IAlertContent>(defaultAlert)
     const [collectionReferencesInEditContext, setCollectionReferencesInEditContext] = useState<string[]>([])
     const [version, setVersion] = React.useState<string>(selectedMetadata ? String(selectedMetadata.version) : '')
+
+    console.log('selectedMetadata', selectedMetadata)
+    console.log('version', version)
 
 
     if (!existingIntegration) {
@@ -101,6 +104,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
             resetConfigurationContext()
             setSourceApplication(undefined)
             setEditCollectionAbsoluteKey("")
+            setSelectedMetadata(SOURCE_FORM_NO_VALUES[0])
         }
     }, [])
 
@@ -192,9 +196,12 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     }
 
     const availableVersions: IIntegrationMetadata[] = allMetadata.filter(md => {
+        console.log('selectedMetadata', selectedMetadata, 'md', md)
         return md.sourceApplicationId === selectedMetadata?.sourceApplicationId &&
             md.sourceApplicationIntegrationId === selectedMetadata.sourceApplicationIntegrationId
     })
+
+    console.log('availableVersions', availableVersions)
 
     return (
         <DndProvider backend={HTML5Backend}>

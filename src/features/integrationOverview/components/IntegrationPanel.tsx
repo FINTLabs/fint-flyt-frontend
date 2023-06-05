@@ -42,6 +42,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props: { classes: ClassN
     const {
         existingIntegration,
         setConfiguration,
+        selectedMetadata,
         setSelectedMetadata,
         resetIntegrations,
         configurations,
@@ -148,15 +149,20 @@ const IntegrationPanel: React.FunctionComponent<any> = (props: { classes: ClassN
     }
 
     async function handleNewOrEditConfigClick(id: any, version?: any) {
+        console.log('id', id, 'version', version)
         await ConfigurationRepository.getConfiguration(id.toString(), false)
             .then(async (response) => {
                 let data = response.data
+                console.log('data', data)
                 let usedVersionMetadata = allMetadata.filter(md => md.id === data.integrationMetadataId)
+                console.log('allMetadata', allMetadata)
+                console.log('usedVersionMetadata', usedVersionMetadata)
                 setSelectedMetadata(usedVersionMetadata.length > 0 ? usedVersionMetadata[0] : SOURCE_FORM_NO_VALUES[0])
                 if (version) {
                     data.id = undefined;
                     data.completed = false;
                 }
+                console.log('selectedMetadata', selectedMetadata)
                 setConfiguration(data);
             })
             .catch((e) => {
