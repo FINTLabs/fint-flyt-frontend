@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const Support: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.support'});
     const classes = useStyles();
+    const view: boolean = false;
     const [expanded, setExpanded] = React.useState<string | false>(false);
 
     const handleChange =
@@ -26,7 +27,7 @@ const Support: React.FunctionComponent<RouteComponentProps<any>> = () => {
             setExpanded(isExpanded ? panel : false);
         };
 
-    return (
+    return view ? (
         <>
             <Typography variant={"h6"}>{t('header')}</Typography>
             <Box sx={{mt: 2}}>
@@ -64,6 +65,9 @@ const Support: React.FunctionComponent<RouteComponentProps<any>> = () => {
                     </AccordionDetails>
                 </Accordion>
             </Box>
+        </>
+    ) : ( <>
+            <Typography variant={"h6"}>{t('header')}</Typography>
         </>
     );
 }
