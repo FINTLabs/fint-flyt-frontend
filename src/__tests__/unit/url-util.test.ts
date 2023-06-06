@@ -10,13 +10,12 @@ const sourceUrlBuilder: IUrlBuilder[] = [
     }
 ];
 const absoluteKey: string = 'mapping.objectMappingPerKey.newCase.objectCollectionMappingPerKey.klasse.elementMappings.0'
-
-const expectedRecord: Record<string, string> = {
+const expectedValueRefRecord: Record<string, string> = {
     'mapping.objectMappingPerKey.newCase.objectCollectionMappingPerKey.klasse.elementMappings.0.valueMappingPerKey.klassifikasjonssystem.mappingString': "klassifikasjonssystem"
 }
 
 
 test('It should create value ref per absolute key', () => {
     createValueRefPerAbsoluteKey(sourceUrlBuilder, absoluteKey);
-    expect(createValueRefPerAbsoluteKey(sourceUrlBuilder, absoluteKey)).toEqual(expectedRecord)
+    expect(createValueRefPerAbsoluteKey(sourceUrlBuilder, absoluteKey)).toEqual(expectedValueRefRecord)
 });
