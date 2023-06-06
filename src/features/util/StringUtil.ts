@@ -1,4 +1,5 @@
-import {ErrorType} from "../log/types/ErrorType";
+import {ErrorType, getErrorType} from "../log/types/ErrorType";
+import {IError, IErrorArg} from "../log/types/Event";
 
 export function stringReplace(baseString: string, errorArgs: IErrorArg[]) {
     let errorString = baseString;
@@ -10,7 +11,7 @@ export function stringReplace(baseString: string, errorArgs: IErrorArg[]) {
     ]
     errorTypes.map(errorType => {
         errorArgs.map(arg => {
-            if (arg.type === errorType && arg.value !== undefined) {
+            if (getErrorType(arg.type) === errorType && arg.value !== undefined) {
                 helpString = errorString.replace(errorType, arg.value)
                 return errorString = helpString
             }
@@ -19,11 +20,6 @@ export function stringReplace(baseString: string, errorArgs: IErrorArg[]) {
         return errorTypes;
     })
     return errorString;
-}
-
-export interface IErrorArg {
-    type: string,
-    value: string
 }
 
 export function extractTags(sentence: string, first: string, last: string): string[] {
@@ -36,4 +32,17 @@ export function extractTags(sentence: string, first: string, last: string): stri
         }
     });
     return tags;
+}
+
+export function getErrorArgs(error: IError): IErrorArg[] {
+    if (!error.args) {
+        return []
+    }
+    let entries: [string, string][] = Object.entries(error.args)
+    return  entries.map(entry => {
+        return {
+            value: entry[0],
+            type: entry[1]
+        }
+    })
 }

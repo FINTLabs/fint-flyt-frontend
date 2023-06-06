@@ -1,8 +1,7 @@
 import * as React from "react";
 import {Box, Typography} from "@mui/material";
-import {stringReplace} from "../../util/StringUtil";
-import {ErrorType} from "../../log/types/ErrorType";
-import {IEvent} from "../../log/types/Event";
+import {getErrorArgs, IErrorArg, stringReplace} from "../../util/StringUtil";
+import {IError, IEvent} from "../../log/types/Event";
 import {useTranslation} from "react-i18next";
 import {dialogSX} from "../../configuration/styles/SystemStyles";
 
@@ -19,21 +18,11 @@ const DialogContentComponent: React.FunctionComponent<Props> = (props: Props) =>
                 <Box id={props.row.type + `-panel`} sx={dialogSX}>
                     <Typography>{props.row.errors.length > 1 ? "Feilmeldinger:" : "Feilmelding:"}</Typography>
                     <ol style={{fontFamily: 'sans-serif'}}>
-                        {props.row.errors.map((error: any, index: number) => {
+                        {props.row.errors.map((error: IError, index: number) => {
+                            let errorArgs: IErrorArg[] = getErrorArgs(error)
                             return <li key={index}>
                                 <Typography>
-                                    {stringReplace(t(error.errorCode), [
-                                        {
-                                            type: ErrorType.INSTANCE_FIELD_KEY,
-                                            value: error.instanceFieldKey
-                                        },
-                                        {type: ErrorType.FIELD_PATH, value: error.args.fieldPath},
-                                        {
-                                            type: ErrorType.ERROR_MESSAGE,
-                                            value: error.args.errorMessage
-                                        },
-                                    ])
-                                    }
+                                    {stringReplace(t(error.errorCode), errorArgs)}
                                 </Typography>
                             </li>
                         })}
