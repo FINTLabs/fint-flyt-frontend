@@ -2,9 +2,9 @@ import {getErrorArgs, stringReplace} from "../../features/util/StringUtil";
 import {IError, IErrorArg} from "../../features/log/types/Event";
 
 const testErrorArgs: Record<string, string> = {
-    'form.title': 'instanceFieldKey',
-    'Here is the error, and ': 'fieldPath',
-    'On a scale of 1-10 my friend, you\'re f\'ed': 'errorMessage'
+    'instanceFieldKey': 'form.title',
+    'fieldPath': 'Here is the error, and ',
+    'errorMessage': 'On a scale of 1-10 my friend, you\'re f\'ed'
 }
 
 const testError: IError = {

@@ -41,8 +41,8 @@ export function getErrorArgs(error: IError): IErrorArg[] {
     let entries: [string, string][] = Object.entries(error.args)
     return  entries.map(entry => {
         return {
-            value: entry[0],
-            type: entry[1]
+            type: entry[0],
+            value: entry[1]
         }
     })
 }
