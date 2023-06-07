@@ -1,4 +1,3 @@
-
 export interface IEvent {
     id?: string;
     name: string;
@@ -26,11 +25,10 @@ export interface IInstanceFlowHeadersEmbeddable {
 export interface IError {
     id?: string;
     errorCode: string;
-    args: errorArgs;
+    args: Record<string, string>;
 }
 
-export interface errorArgs {
-    instanceFieldKey?: string;
-    fieldPath?: string;
-    errorMessage?: string;
+export interface IErrorArg {
+    type: string,
+    value: string
 }
