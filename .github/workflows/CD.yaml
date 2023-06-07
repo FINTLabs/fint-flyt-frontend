@@ -1,121 +1,108 @@
 name: CD
 
 on:
-  workflow_dispatch:
-    inputs:
-      cluster:
-        description: 'Select and environment'
-        required: true
-        default: 'warning'
-        type: choice
-        options:
-          - aks-alpha-fint-2021-11-18
-          - aks-beta-fint-2021-11-23
-          - aks-api-fint-2022-02-08
-      org:
-        description: 'Select organisation'
-        required: true
-        default: 'warning'
-        type: choice
-        options:
-          - vlfk-no
-          - viken-no
-          - rogfk-no
-          - vtfk-no
-          - trondelagfylke-no
-          - innlandet-no
-          - agderfk-no
+  repository_dispatch:
+    types: [ trigger-cd ]
 
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-  CLUSTER_NAME: ${{ inputs.cluster }}
-  ORG: ${{ inputs.org }}
 
 jobs:
-  cd:
+  build-and-push:
+    name: Build and push Docker image
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
-
+    outputs:
+      tags: ${{ steps.meta.outputs.tags }}
     steps:
-      - uses: actions/github-script@v6
-        name: Get resource group name
-        id: rg
-        with:
-          script: |
-            const a = '${{ inputs.cluster }}'.split('-')
-            return `rg-${a[0]}-${a[1]}`
-          result-encoding: string
-
-      - uses: actions/github-script@v6
-        name: Get environment
-        id: environment
-        with:
-          script: |
-            const a = '${{ inputs.cluster }}'.split('-')
-            return `${a[1]}`
-          result-encoding: string
-      - uses: actions/github-script@v6
-        name: Get auth
-        id: auth
-        with:
-          script: |
-            const e = '${{ steps.environment.outputs.result }}'.toUpperCase()
-            return `secrets.AKS_${e}_FINT_GITHUB`
-          result-encoding: string
-
-      - run: |
-          echo "Cluster: $CLUSTER_NAME"
-          echo "Resource group: ${{ steps.rg.outputs.result }}"
-          echo "Environment: ${{ steps.environment.outputs.result }}"
-          echo "OrgId: $ORG"
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3.5.2
 
-      - name: Log in to the Container registry
-        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2.1.0
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Extract metadata (tags, labels) for Docker
+        uses: docker/metadata-action@v4.3.0
         id: meta
-        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          tags: |
-            type=sha,enable=true,priority=100,prefix=sha-,suffix=,format=short
+          tags: type=sha,enable=true,priority=100,prefix=shaF-,suffix=,format=short
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@v3.1.1
+        uses: docker/build-push-action@v4
         with:
           context: .
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
+  deploy-to-aks:
+    name: deploy for ${{ matrix.org }} to ${{ matrix.cluster }}
+    runs-on: ubuntu-latest
+    needs: build-and-push
+    permissions:
+      contents: read
+      packages: write
+    strategy:
+      matrix:
+        include:
+          - org: viken-no
+            cluster: aks-beta-fint-2021-11-23
+
+          - org: vlfk-no
+            cluster: aks-api-fint-2022-02-08
+          - org: vlfk-no
+            cluster: aks-beta-fint-2021-11-23
+          - org: vlfk-no
+            cluster: aks-alpha-fint-2021-11-18
+
+          - org: trondelagfylke-no
+            cluster: aks-beta-fint-2021-11-23
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3.5.2
+
+      - name: Get environment
+        uses: actions/github-script@v6
+        id: environment
+        with:
+          script: return '${{ matrix.cluster }}'.split('-')[1]
+          result-encoding: string
+
+      - name: Get resource group name
+        uses: actions/github-script@v6
+        id: resource-group
+        with:
+          script: return 'rg-aks-${{ steps.environment.outputs.result }}'
+          result-encoding: string
+
       - name: Bake manifests with Kustomize
-        uses: azure/k8s-bake@v2.2
+        id: bake
+        uses: azure/k8s-bake@v2.4
         with:
           renderEngine: 'kustomize'
-          kustomizationPath: 'kustomize/overlays/${{ env.ORG}}/${{ steps.environment.outputs.result }}'
-        id: bake
+          kustomizationPath: 'kustomize/overlays/${{ matrix.org }}/${{ steps.environment.outputs.result }}'
 
-      - name: Set the target to ${{ env.CLUSTER_NAME }} cluster.
+      - name: Set the target cluster
         uses: azure/aks-set-context@v1
         with:
           creds: "${{ secrets[format('AKS_{0}_FINT_GITHUB', steps.environment.outputs.result)] }}"
-          cluster-name: ${{ env.CLUSTER_NAME }}
-          resource-group: ${{ steps.rg.outputs.result }}
+          cluster-name: '${{ matrix.cluster }}'
+          resource-group: '${{ steps.resource-group.outputs.result }}'
 
-      - name: Deploy to ${{ env.CLUSTER_NAME }}
-        uses: azure/k8s-deploy@v4.4
+      - name: Deploy
+        if: github.ref == 'refs/heads/main'
+        uses: azure/k8s-deploy@v4.9
         with:
-          manifests: ${{ steps.bake.outputs.manifestsBundle }}
-          images: |
-            ${{ steps.meta.outputs.tags }}
-          namespace: ${{ env.ORG }}
           action: deploy
+          manifests: ${{ steps.bake.outputs.manifestsBundle }}
+          images: ${{ needs.build-and-push.outputs.tags }}
+          namespace: ${{ matrix.org }}
