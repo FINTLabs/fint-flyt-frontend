@@ -32,7 +32,20 @@ export const MOCK_EMPTY_MAPPING: IObjectMapping = {
                         }
                     },
                     "valueCollectionMappingPerKey":{
+                        "test": {
+                            "elementMappings": [
+                                {
+                                    type: ValueType.STRING,
+                                    mappingString: 'valueCollectionMappingString'
+                                },
+                                {
+                                    type: ValueType.DYNAMIC_STRING,
+                                    mappingString: ''
+                                }
+                            ],
+                            "fromCollectionMappings": []
 
+                        }
                     },
                     "objectMappingPerKey":{
 

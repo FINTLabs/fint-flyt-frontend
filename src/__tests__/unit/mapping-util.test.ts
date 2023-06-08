@@ -12,7 +12,17 @@ const expectedMapping: IObjectMapping = {
                 {
                     "objectCollectionMappingPerKey": {},
                     "objectMappingPerKey": {},
-                    "valueCollectionMappingPerKey": {},
+                    "valueCollectionMappingPerKey": {
+                        "test": {
+                            "elementMappings": [
+                                {
+                                    "mappingString": "valueCollectionMappingString",
+                                    "type": ValueType.STRING
+                                }
+                            ],
+                            "fromCollectionMappings": []
+                        }
+                    },
                     "valueMappingPerKey": {
                         "testEnhet": {
                             "mappingString": "https://kodeverk.no/systemid/100",
