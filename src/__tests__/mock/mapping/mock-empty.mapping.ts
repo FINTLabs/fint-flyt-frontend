@@ -43,6 +43,30 @@ export const MOCK_EMPTY_MAPPING: IObjectMapping = {
                 }
             ],
                 "fromCollectionMappings":[
+                    {
+                        elementMapping: {
+                            "valueMappingPerKey":{
+                                "testSamlingEnhet":{
+                                    "type":ValueType.STRING,
+                                    "mappingString":"https://kodeverk.no/systemid/100"
+                                },
+                                "tomSamlingTestEnhet":{
+                                    "type":ValueType.STRING,
+                                    "mappingString":""
+                                }
+                            },
+                            "valueCollectionMappingPerKey":{
+
+                            },
+                            "objectMappingPerKey":{
+
+                            },
+                            "objectCollectionMappingPerKey":{
+
+                            }
+                        },
+                        instanceCollectionReferencesOrdered: ['$if{collectionRef}']
+                    }
 
             ]
         }

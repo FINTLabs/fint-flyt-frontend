@@ -1,7 +1,8 @@
 export function getAbsoluteKeyFromValueRef(valueRef: string, absoluteKey: string) {
+    let originalValueRef: string = valueRef;
     valueRef = "valueMappingPerKey." + valueRef + ".mappingString";
-    if (valueRef.startsWith('/')) {
-        return valueRef;
+    if (originalValueRef.startsWith('/')) {
+        return originalValueRef;
     }
 
     const valueRefSplit = valueRef.split('../')

@@ -1,4 +1,4 @@
-import {addId, toInstanceFieldReference} from "../../features/util/JsonUtil";
+import {addId, toInstanceCollectionFieldReference, toInstanceFieldReference} from "../../features/util/JsonUtil";
 
 const array = [
     {
@@ -53,6 +53,10 @@ const expectedNestedArray = [
 
 const tagString = 'fornavn';
 
+const icfStrings = [
+    'name', 'phone', 'address'
+]
+
 test('It should add id field to json object, where there is a "name" field', () => {
     array.forEach(addId(0, 'name'))
     expect(array).toEqual(expectedArray);
@@ -65,8 +69,18 @@ test('It should add id field to nested json object, where there is a "errorCode"
     expect(nestedArray).toEqual(expectedNestedArray);
 });
 
-test('It should return correct tag from string', () => {
+test('It should return correct instance field tag from string', () => {
     const tag = toInstanceFieldReference(tagString)
     expect(tag).toEqual('$if{fornavn}');
 });
 
+test('It should return correct instance collection field tag from string', () => {
+    const tag = toInstanceCollectionFieldReference(0, tagString)
+    expect(tag).toEqual('$icf{0}{fornavn}');
+});
+
+test('It should return correct list of instance collection field tags from strings', () => {
+    const tagList = icfStrings.map((string, index) => '$icf{' + index + '}{' + string + '}')
+        toInstanceCollectionFieldReference(0, tagString)
+    expect(tagList).toEqual(['$icf{0}{name}', '$icf{1}{phone}', '$icf{2}{address}']);
+});
