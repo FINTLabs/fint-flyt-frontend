@@ -5,7 +5,6 @@ import {
 } from "../../features/configuration/util/KeyUtils";
 
 const valueRefString: string = 'testField';
-const valueRefString2: string = '/testField';
 const valueRefString3: string = '../../../testField';
 const absoluteKey: string = 'mapping'
 
@@ -23,17 +22,11 @@ describe('It should get correct absolute keys', () => {
         expect(getAbsoluteKeyFromValueRef(valueRefString, absoluteKey)).toEqual(expected)
     });
 
-    test('It should get correct Absolute Key From ValueRef starting with /', () => {
-        const expected: string = '/testField'
-        expect(getAbsoluteKeyFromValueRef(valueRefString2, absoluteKey)).toEqual(expected)
-    });
     test('It should get correct Absolute Key From deep ValueRef', () => {
         const expected: string = '.testField.mappingString'
         expect(getAbsoluteKeyFromValueRef(valueRefString3, absoluteKey)).toEqual(expected)
     });
 })
-
-
 
 
 test('It should find From Collection Mapping Absolute Keys', () => {
