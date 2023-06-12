@@ -1,10 +1,13 @@
 describe('Testing support page', () => {
-    beforeEach(() => {
-        cy.intercept('GET', '**/api/application/configuration', { forceNetworkError: true, fixture: 'config.json' }).as('getConfig')
-        cy.visit('/')
-    })
+    beforeEach(() => {})
 
-    it('should show value converting page', () => {
-        cy.visit('/support')
+    function prep() {
+        cy.intercept('GET', '**/api/application/configuration', { forceNetworkError: true, fixture: 'config.json' }).as('getConfig')
+        cy.visit('/support');
+        cy.wait('@getConfig')
+    }
+
+    it('should show support page', () => {
+        prep()
     })
 });

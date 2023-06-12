@@ -277,12 +277,13 @@ export const ValueConvertingForm: React.FunctionComponent<any> = (props: Props) 
                     <Box sx={{mt: 2}}>
                         {!disabled &&
                             <button
+                                id={'submit-button'}
                                 className={classes.submitButton}
                                 type="submit"
                             >
                                 Opprett
                             </button>}
-                        <Button className={classes.submitButton} onClick={handleCancel} size="medium"
+                        <Button id={'cancel-button'} className={classes.submitButton} onClick={handleCancel} size="medium"
                                 variant="contained" component={RouterLink}
                                 to={'/valueconverting'}>Avbryt</Button>
                     </Box>
@@ -294,7 +295,6 @@ export const ValueConvertingForm: React.FunctionComponent<any> = (props: Props) 
                     </Snackbar>
                 </form>
             </FormProvider>
-
         </Box>
     );
 }

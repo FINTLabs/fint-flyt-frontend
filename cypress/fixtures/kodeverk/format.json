@@ -1,0 +1,14 @@
+[
+  {
+    "id":"kodeverk/format/systemid/HTML",
+    "displayName":"[HTML] HTML-format #HTML"
+  },
+  {
+    "id":"kodeverk/format/systemid/RA-PDF",
+    "displayName":"[RA-PDF] Portable document format #RA-PDF"
+  },
+  {
+    "id":"kodeverk/format/systemid/DOCX",
+    "displayName":"[DOCX] Microsoft Word format #DOCX"
+  }
+]
