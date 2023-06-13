@@ -25,7 +25,7 @@ interface Props {
     disabled?: boolean;
 }
 
-const SelectableValueMappingComponent: React.FunctionComponent<Props> = forwardRef<any, Props>((props: Props) => {
+const SelectableValueMappingComponent: React.FunctionComponent<Props> = forwardRef<any, Props>((props: Props, ref) => {
     const {control, setValue, getValues} = useFormContext();
     const {completed} = useContext(ConfigurationContext)
     const {editCollectionAbsoluteKey} = useContext(EditingContext)

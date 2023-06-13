@@ -123,7 +123,7 @@ const ValueConvertingPanel: React.FunctionComponent<any> = (props: Props) => {
             </Box>
             <Button
                 sx={{mt: 5}}
-                id="positioned-button"
+                id="root-button"
                 variant="contained"
                 aria-controls={open ? 'positioned-menu' : undefined}
                 aria-haspopup="true"
@@ -150,7 +150,7 @@ const ValueConvertingPanel: React.FunctionComponent<any> = (props: Props) => {
             >
                 <MenuItem component={RouterLink} to='/valueconverting/new'
                           onClick={handleNewConfigClose}>
-                    <Button>
+                    <Button id="blank-button">
                         {t('button.blankConverting')}
                     </Button>
                 </MenuItem>
@@ -158,7 +158,7 @@ const ValueConvertingPanel: React.FunctionComponent<any> = (props: Props) => {
                 <MenuItem>
                     <Button
                         disabled={!rows}
-                        id="positioned-button"
+                        id="based-on-button"
                         aria-controls={openSub ? 'positioned-menu' : undefined}
                         aria-haspopup="true"
                         aria-expanded={openSub ? 'true' : undefined}
@@ -186,7 +186,7 @@ const ValueConvertingPanel: React.FunctionComponent<any> = (props: Props) => {
                         {rows && rows.map((row: any, index: number) => {
                                 return <MenuItem onClick={handleNewConfigSubClose} sx={{padding: 'none'}}
                                                  disableGutters={true} divider={true} dense={true} key={index}>
-                                    <Button id="version-button" sx={{width: '140px', height: 'webkit-fill-available'}}
+                                    <Button id={"version-button-" + index} sx={{width: '140px', height: 'webkit-fill-available'}}
                                             onClick={() => {
                                                 handleNewOrEditConvertingClick(row.id).then(() => history.push('/valueconverting'))
                                             }}>

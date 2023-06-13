@@ -1,5 +1,3 @@
-import {IInstanceMetadataContent} from "../configuration/types/Metadata/IntegrationMetadata";
-
 export function addId(id: number, field: string) {
     return function iter(obj: any) {
         if (field in obj) {
@@ -17,15 +15,5 @@ export function toInstanceFieldReference(key: string): string {
 
 export function toInstanceCollectionFieldReference(collectionIndex: number, key: string): string {
     return '$icf{' + collectionIndex + '}{' + key + '}';
-}
-
-export function flatten(data: IInstanceMetadataContent): any {
-    let ids: string[] = [];
-    JSON.parse(JSON.stringify(data), function (key, value) {
-        if (key === "key")
-            ids.push(value);
-        return value;
-    });
-    return ids;
 }
 

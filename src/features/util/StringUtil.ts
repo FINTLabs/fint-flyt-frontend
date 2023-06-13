@@ -22,18 +22,6 @@ export function stringReplace(baseString: string, errorArgs: IErrorArg[]) {
     return errorString;
 }
 
-export function extractTags(sentence: string, first: string, last: string): string[] {
-    let tags: string[] = [];
-    const splitString = sentence.split(first);
-    splitString.forEach((subStr: string) => {
-        if (subStr.indexOf(last) > -1) {
-            const toSave = (subStr.split(last))[0];
-            tags = tags.concat(toSave);
-        }
-    });
-    return tags;
-}
-
 export function getErrorArgs(error: IError): IErrorArg[] {
     if (!error.args) {
         return []

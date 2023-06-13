@@ -36,6 +36,7 @@ const ArrayComponent: React.FunctionComponent<Props> = (props: Props) => {
             )
         )}
         <IconButton
+            id={'add-icon'}
             onClick={() => {
                 append(props.defaultValueCreator())
             }}
@@ -45,6 +46,7 @@ const ArrayComponent: React.FunctionComponent<Props> = (props: Props) => {
         </IconButton>
         {fields.length > 0 &&
             <IconButton
+                id={'remove-icon'}
                 onClick={() => {
                     const index = fields.length - 1;
                     remove(fields.length - 1);

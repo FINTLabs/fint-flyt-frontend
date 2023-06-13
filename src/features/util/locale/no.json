@@ -15,7 +15,7 @@
     "instanceOverview": "Instanser",
     "integrationDetails": "Detaljer",
     "log": "Logg",
-    "support": "Support",
+    "support": "Hjelp og support",
     "valueConverting": "Verdikonvertering"
   },
   "pages": {
@@ -258,7 +258,7 @@
       }
     },
     "support": {
-      "header": "Kontakt support"
+      "header": "Hjelp og support"
     },
     "valueConverting": {
       "button": {

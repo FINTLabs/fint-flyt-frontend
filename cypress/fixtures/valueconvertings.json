@@ -1,0 +1,32 @@
+{
+  "content":[
+    {"id":1,"displayName":"test t2t","fromApplicationId":2,"fromTypeId":"text","toApplicationId":"fylkesrad","toTypeId":"text"},
+    {"id":2,"displayName":"test m2f","fromApplicationId":2,"fromTypeId":"mediatype","toApplicationId":"fylkesrad","toTypeId":"filformat"}
+  ],
+  "pageable": {
+    "sort": {
+      "empty":false,
+      "sorted":true,
+      "unsorted":false
+    },
+    "offset":0,
+    "pageNumber":0,
+    "pageSize":100,
+    "paged":true,
+    "unpaged":false
+  },
+  "last":true,
+  "totalPages":1,
+  "totalElements":6,
+  "first":true,
+  "size":100,
+  "number":0,
+  "sort":{
+    "empty":false,
+    "sorted":true,
+    "unsorted":false
+  },
+  "numberOfElements":6,
+  "empty":false
+}
+

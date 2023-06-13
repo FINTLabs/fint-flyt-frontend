@@ -1,0 +1,11 @@
+{
+  "id":1,
+  "displayName":"test t2t",
+  "fromApplicationId":2,
+  "fromTypeId":"text",
+  "toApplicationId":"fylkesrad",
+  "toTypeId":"text",
+  "convertingMap": {
+    "test":"kodeverk/format/systemid/DOCX"
+  }
+}
