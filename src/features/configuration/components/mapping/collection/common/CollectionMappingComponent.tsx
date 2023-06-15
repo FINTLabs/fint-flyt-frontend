@@ -10,6 +10,8 @@ import FlytTitle3Component from "../../../common/title/FlytTitle3Component";
 import {ConfigurationContext} from "../../../../../../context/configurationContext";
 import {isOutsideCollectionEditContext} from "../../../../util/KeyUtils";
 import {EditingContext} from "../../../../../../context/editingContext";
+import HelpPopover from "../../../common/popover/HelpPopover";
+import {Box} from "@mui/material";
 
 interface Props {
     classes: ClassNameMap;
@@ -26,7 +28,10 @@ const CollectionMappingComponent: React.FunctionComponent<Props> = (props: Props
 
     return <>
         <div className={props.classes.wrapperVerticalMargin}>
-            <FlytTitle3Component classes={props.classes} title={t("defaultElements")}/>
+            <Box className={props.classes.valueMappingContainer}>
+                <FlytTitle3Component classes={props.classes} title={t("defaultElements")}/>
+                <HelpPopover helpPopoverContent={''} noMargin={true}/>
+            </Box>
             <ArrayComponent
                 classes={props.classes}
                 absoluteKey={props.absoluteKey + ".elementMappings"}
@@ -59,7 +64,10 @@ const CollectionMappingComponent: React.FunctionComponent<Props> = (props: Props
                 disabled={isOutsideCollectionEditContext(props.absoluteKey, editCollectionAbsoluteKey) || completed}
             />
         </div>
-        <FlytTitle3Component classes={props.classes} title={t("generatedElements")}/>
+        <Box className={props.classes.valueMappingContainer}>
+            <FlytTitle3Component classes={props.classes} title={t("generatedElements")}/>
+            <HelpPopover helpPopoverContent={''} noMargin={true}/>
+        </Box>
         <ArrayComponent
             classes={props.classes}
             absoluteKey={props.absoluteKey + ".fromCollectionMappings"}

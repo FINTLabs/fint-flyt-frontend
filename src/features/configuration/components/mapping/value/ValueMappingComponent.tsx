@@ -13,6 +13,7 @@ import {isOutsideCollectionEditContext} from "../../../util/KeyUtils";
 import {EditingContext} from "../../../../../context/editingContext";
 import CheckboxValueComponent from "../../common/CheckboxValueComponent";
 import {ControllerRenderProps} from "react-hook-form/dist/types/controller";
+import HelpPopover from "../../common/popover/HelpPopover";
 
 interface Props {
     classes: ClassNameMap;
@@ -71,30 +72,39 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
                 />
             case TemplateValueType.STRING:
                 setTypeIfUndefined(ConfigurationValueType.STRING);
-                return <StringValueComponent
-                    {...renderProps}
-                />
+                return <>
+                    <StringValueComponent
+                        {...renderProps}
+                    />
+                    <HelpPopover popoverContent={props.description}/>
+                </>
             case TemplateValueType.DYNAMIC_STRING:
                 setTypeIfUndefined(ConfigurationValueType.DYNAMIC_STRING);
-                return <DynamicStringValueComponent
-                    {...renderProps}
-                    search={search}
-                    accept={[
-                        MetadataValueType.STRING,
-                        MetadataValueType.INTEGER,
-                        MetadataValueType.EMAIL,
-                        MetadataValueType.DATE,
-                        MetadataValueType.PHONE
-                    ]}
-                />
+                return <>
+                    <DynamicStringValueComponent
+                        {...renderProps}
+                        search={search}
+                        accept={[
+                            MetadataValueType.STRING,
+                            MetadataValueType.INTEGER,
+                            MetadataValueType.EMAIL,
+                            MetadataValueType.DATE,
+                            MetadataValueType.PHONE
+                        ]}
+                    />
+                    <HelpPopover popoverContent={props.description}/>
+                </>
             case TemplateValueType.FILE:
                 setTypeIfUndefined(ConfigurationValueType.FILE);
-                return <DynamicStringValueComponent
-                    {...renderProps}
-                    accept={[
-                        MetadataValueType.FILE
-                    ]}
-                />
+                return <>
+                    <DynamicStringValueComponent
+                        {...renderProps}
+                        accept={[
+                            MetadataValueType.FILE
+                        ]}
+                    />
+                    <HelpPopover popoverContent={props.description}/>
+                </>
         }
     }
 
