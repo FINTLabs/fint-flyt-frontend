@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
-import ValueConvertingPanel from "./components/ValueConvertingPanel";
+import ValueConvertingPanel from "./components/ValueConvertingTable";
 import ValueConvertingForm from "./components/ValueConvertingForm";
 import {configurationFormStyles} from "../configuration/styles/ConfigurationForm.styles";
 import ValueConvertingRepository from "../../shared/repositories/ValueConvertingRepository";
