@@ -146,7 +146,7 @@ const InstanceTable: React.FunctionComponent<any> = (props: { classes: ClassName
         return (
             <>
                 {hasErrors &&
-                    <Button size="small" variant="outlined" onClick={(e) => {
+                    <Button id={'retry-btn-' + props.row.id} size="small" variant="outlined" onClick={(e) => {
                         resend(e, props.row.instanceFlowHeaders.instanceId);
                     }}>{t('button.retry')}</Button>
                 }
@@ -220,7 +220,7 @@ const InstanceTable: React.FunctionComponent<any> = (props: { classes: ClassName
             <>
                 {hasErrors &&
                     <IconButton
-                        id={props.row.id}
+                        id={'error-dialog-btn-' + props.row.id}
                         size="small"
                         onClick={() => {
                             setSelectedRow(props.row);
@@ -247,7 +247,7 @@ const InstanceTable: React.FunctionComponent<any> = (props: { classes: ClassName
                         <DialogContentComponent row={props.row}/>
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={() => setOpenDialog(false)} autoFocus>{t('button.close')}</Button>
+                        <Button id={'error-dialog-close-btn'} onClick={() => setOpenDialog(false)} autoFocus>{t('button.close')}</Button>
                     </DialogActions>
                 </Dialog>
             </div>

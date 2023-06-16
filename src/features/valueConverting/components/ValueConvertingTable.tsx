@@ -13,7 +13,7 @@ type Props = {
     onValueConvertingSelected: (id: number, view: boolean) => void;
 }
 
-const ValueConvertingPanel: React.FunctionComponent<any> = (props: Props) => {
+const ValueConvertingTable: React.FunctionComponent<any> = (props: Props) => {
     let history = useHistory();
     const {t} = useTranslation('translations', {keyPrefix: 'pages.valueConverting'});
     const [rows, setRows] = useState<IValueConverting[] | undefined>(undefined)
@@ -202,4 +202,4 @@ const ValueConvertingPanel: React.FunctionComponent<any> = (props: Props) => {
     );
 }
 
-export default withRouter(ValueConvertingPanel);
+export default withRouter(ValueConvertingTable);

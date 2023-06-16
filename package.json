@@ -90,6 +90,7 @@
     ]
   },
   "devDependencies": {
+    "@cypress/code-coverage": "^3.10.7",
     "@types/react-router-dom": "^5.1.7",
     "cypress": "^12.14.0",
     "http-proxy-middleware": "^2.0.1"
