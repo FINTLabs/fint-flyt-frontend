@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
-import ValueConvertingPanel from "./components/ValueConvertingTable";
+import ValueConvertingTable from "./components/ValueConvertingTable";
 import ValueConvertingForm from "./components/ValueConvertingForm";
 import {configurationFormStyles} from "../configuration/styles/ConfigurationForm.styles";
 import ValueConvertingRepository from "../../shared/repositories/ValueConvertingRepository";
@@ -23,7 +23,7 @@ const ValueConverting: React.FunctionComponent<RouteComponentProps<any>> = () =>
                 :
                 <>
                     <h2 className={classes.title2} id="value-converting-panel-header">{t('panelHeader')}</h2>
-                    <ValueConvertingPanel onValueConvertingSelected={(id: number, view: boolean) => {
+                    <ValueConvertingTable onValueConvertingSelected={(id: number, view: boolean) => {
                         return ValueConvertingRepository.getValueConverting(id)
                             .then(response => {
                                 console.log(response)
