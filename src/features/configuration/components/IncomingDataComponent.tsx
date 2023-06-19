@@ -11,7 +11,7 @@ import {
     ValueType
 } from "../types/Metadata/IntegrationMetadata";
 import {ClassNameMap} from "@mui/styles";
-import {metadataPanelSX} from "../styles/SystemStyles";
+import {metadataPanelSX} from "../../styles/SystemStyles";
 import {
     extractCollectionFieldReferenceIndexAndKey,
     extractFieldReferenceKey,

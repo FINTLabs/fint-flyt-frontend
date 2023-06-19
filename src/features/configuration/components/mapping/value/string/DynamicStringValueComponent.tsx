@@ -8,7 +8,7 @@ import {IconButton, TextField, Typography} from "@mui/material";
 import {Search} from "../../../../util/UrlUtils";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import ResourceRepository from "../../../../../../shared/repositories/ResourceRepository";
-import {searchResultSX} from "../../../../styles/SystemStyles";
+import {searchResultSX} from "../../../../../styles/SystemStyles";
 import {Noop} from "react-hook-form/dist/types";
 
 interface Props {

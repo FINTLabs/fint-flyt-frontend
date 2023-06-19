@@ -5,7 +5,7 @@ import {useTranslation} from "react-i18next";
 import {ClassNameMap} from "@mui/styles";
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import {iconButtonSX} from "../../../styles/SystemStyles";
+import {iconButtonSX} from "../../../../styles/SystemStyles";
 import {IconButton} from "@mui/material";
 
 interface Props {
@@ -18,7 +18,6 @@ interface Props {
 }
 
 const ArrayComponent: React.FunctionComponent<Props> = (props: Props) => {
-    const {t} = useTranslation('translations', {keyPrefix: 'pages.configuration'});
     const classes = props.classes;
     const {control} = useFormContext();
     const {fields, append, remove} = useFieldArray({

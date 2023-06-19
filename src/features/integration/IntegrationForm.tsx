@@ -11,7 +11,7 @@ import {toIntegration} from "../util/mapping/ToIntegration";
 import IntegrationRepository from '../../shared/repositories/IntegrationRepository';
 import {IntegrationState} from "./types/Integration";
 import {IFormIntegration} from "../configuration/types/FormIntegration";
-import {selectSX} from "../configuration/styles/SystemStyles";
+import {selectSX} from "../styles/SystemStyles";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

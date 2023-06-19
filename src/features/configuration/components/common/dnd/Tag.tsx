@@ -15,7 +15,7 @@ import {
 } from "@mui/icons-material";
 import {FunctionComponent} from "react";
 import {ClassNameMap} from "@mui/styles";
-import {tagSX} from "../../../styles/SystemStyles";
+import {tagSX} from "../../../../styles/SystemStyles";
 
 export interface Props {
     classes: ClassNameMap

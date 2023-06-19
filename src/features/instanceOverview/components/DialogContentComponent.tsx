@@ -3,7 +3,7 @@ import {Box, Typography} from "@mui/material";
 import {getErrorArgs, stringReplace} from "../../util/StringUtil";
 import {IError, IErrorArg, IEvent} from "../../log/types/Event";
 import {useTranslation} from "react-i18next";
-import {dialogSX} from "../../configuration/styles/SystemStyles";
+import {dialogSX} from "../../styles/SystemStyles";
 
 type Props = {
     row: IEvent | undefined

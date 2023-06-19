@@ -19,7 +19,7 @@ import getSelectables from "../../configuration/util/SelectablesUtils";
 import {ISelectable} from "../../configuration/types/Selectable";
 import ArrayComponent from "../../configuration/components/common/array/ArrayComponent";
 import FlytTitle4Component from "../../configuration/components/common/title/FlytTitle4Component";
-import {valueConvertingStyles} from "../../configuration/styles/ValueConverting.styles";
+import {valueConvertingStyles} from "../../styles/ValueConverting.styles";
 import FlytTitle2Component from "../../configuration/components/common/title/FlytTitle2Component";
 import SearchSelectValueComponent from "../../configuration/components/mapping/value/select/SearchSelectValueComponent";
 

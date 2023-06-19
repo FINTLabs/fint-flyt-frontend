@@ -21,7 +21,7 @@ import {
 import {IntegrationContext} from "../../context/integrationContext";
 import {IIntegrationMetadata} from "./types/Metadata/IntegrationMetadata";
 import {useTranslation} from "react-i18next";
-import {configurationFormStyles} from "./styles/ConfigurationForm.styles";
+import {configurationFormStyles} from "../styles/ConfigurationForm.styles";
 import CheckboxValueComponent from "./components/common/CheckboxValueComponent";
 import IntegrationRepository from "../../shared/repositories/IntegrationRepository";
 import {IConfiguration, IConfigurationPatch, IObjectMapping} from "./types/Configuration";
