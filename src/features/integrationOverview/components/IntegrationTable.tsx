@@ -17,7 +17,7 @@ import {ClassNameMap} from "@mui/styles";
 const IntegrationTable: React.FunctionComponent<any> = (props: { classes: ClassNameMap }) => {
     const {t, i18n} = useTranslation('translations', {keyPrefix: 'pages.integrationOverview'});
     const classes = props.classes;
-    let history = useHistory();
+    const history = useHistory();
     const {
         setExistingIntegration,
         integrations,

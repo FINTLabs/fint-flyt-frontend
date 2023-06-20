@@ -19,7 +19,7 @@ const HistoryProvider: FC = ({children}) => {
         setEvents([]);
         EventRepository.getEvents(page, size, sortProperty, sortDirection)
             .then((response) => {
-                let data = response.data.content;
+                const data = response.data.content;
                 if (data) {
                     data.forEach(addId(0, 'name'))
                     data.forEach((event: any) =>
@@ -38,10 +38,10 @@ const HistoryProvider: FC = ({children}) => {
         SourceApplicationRepository.getMetadata(sourceApplicationId, true)
             .then((response) => {
                 if (response.data) {
-                    let metadata: IIntegrationMetadata[] = response.data;
+                    const metadata: IIntegrationMetadata[] = response.data;
                     EventRepository.getLatestEvents(page, size, sortProperty, sortDirection)
                         .then((response) => {
-                            let events: IEvent[] = response.data.content;
+                            const events: IEvent[] = response.data.content;
                             if (events) {
                                 events.forEach(addId(0, 'name'))
                                 events.forEach((event: any) =>
@@ -72,10 +72,10 @@ const HistoryProvider: FC = ({children}) => {
         SourceApplicationRepository.getMetadata(sourceApplicationId, true)
             .then((response) => {
                 if (response.data) {
-                    let metadata: IIntegrationMetadata[] = response.data;
+                    const metadata: IIntegrationMetadata[] = response.data;
                     EventRepository.getEventsByInstanceId(page, size, sortProperty, sortDirection, sourceApplicationId, instanceId)
                         .then((response) => {
-                            let events: IEvent[] = response.data.content;
+                            const events: IEvent[] = response.data.content;
                             if (events) {
                                 events.forEach(addId(0, 'name'))
                                 events.forEach((event: any) =>

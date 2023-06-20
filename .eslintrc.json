@@ -16,9 +16,11 @@
     },
     "plugins": [
         "@typescript-eslint",
-        "react"
+        "react",
+        "react-hooks"
     ],
     "rules": {
-        "react/react-in-tsx-scope": "off"
+        "react/react-in-jsx-scope": "off",
+        "react/jsx-uses-react": "off"
     }
 }

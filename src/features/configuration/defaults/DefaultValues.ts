@@ -9,8 +9,8 @@ export const savedAlert: IAlertContent = {severity: 'info', message: 'Konfiguras
 export const completedAlert: IAlertContent = {severity: 'success', message: 'Konfigurasjon ferdigstilt'}
 export const activeAlert: IAlertContent = {severity: 'success', message: 'Konfigurasjon aktivert'}
 
-export const variant: string = 'https://beta.felleskomponent.no/arkiv/kodeverk/variantformat/systemid/P'
-export const format: string = 'https://beta.felleskomponent.no/arkiv/kodeverk/format/systemid/PDF'
+export const variant = 'https://beta.felleskomponent.no/arkiv/kodeverk/variantformat/systemid/P'
+export const format = 'https://beta.felleskomponent.no/arkiv/kodeverk/format/systemid/PDF'
 
 export const sourceApplications: ISelect[] = [
     {label: "ACOS", value: "1"},

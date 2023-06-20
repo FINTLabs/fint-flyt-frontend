@@ -12,7 +12,7 @@ export interface Props {
     classes: ClassNameMap
 }
 
-const StatusComponent: React.FunctionComponent<Props> = (props: Props) => {
+const StatusComponent: React.FunctionComponent<Props> = () => {
     const [integrationStatus, setIntegrationStatus] = useState<boolean | undefined>(undefined);
     const [configurationStatus, setConfigurationStatus] = useState<boolean | undefined>(undefined);
     const [historyStatus, setHistoryStatus] = useState<boolean | undefined>(undefined);
@@ -39,7 +39,6 @@ const StatusComponent: React.FunctionComponent<Props> = (props: Props) => {
 
 
     return (
-
         <Box>
             <Alert variant="outlined" severity={historyStatus ? "success" : "warning"} sx={{color: 'black', mb: 2}}>
                 Historikk

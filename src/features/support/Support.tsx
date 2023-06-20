@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const Support: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.support'});
     const classes = useStyles();
-    const view: boolean = false;
+    const view = false;
     const [expanded, setExpanded] = React.useState<string | false>(false);
 
     const handleChange =

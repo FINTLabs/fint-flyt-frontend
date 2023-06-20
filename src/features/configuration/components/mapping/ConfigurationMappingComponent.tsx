@@ -130,7 +130,7 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
 
             onAllNestedElementsClose: (parentOrder: string) => {
                 getEntriesWithKeyStartingWith(nestedColumnElements, parentOrder)
-                    .forEach(([order, value]) => {
+                    .forEach(([order]) => {
                             delete nestedColumnElements[order]
                         }
                     );
@@ -149,6 +149,7 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
             [columnElement],
             ...Object.entries(columnElement.nestedColumnElementPerOrder)
                 .sort(([key1], [key2]) => key1.localeCompare(key2, undefined, {numeric: true}))
+                // eslint-disable-next-line
                 .map(([order, nestedColumnElement]) => getElementsByColumn(nestedColumnElement))
                 .reduce((combinedChildColumns: Omit<ColumnElement, 'nestedColumnElementPerOrder'>[][], childColumns: Omit<ColumnElement, 'nestedColumnElementPerOrder'>[][]) => {
                     range(0, childColumns.length)

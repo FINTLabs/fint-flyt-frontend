@@ -19,7 +19,7 @@ const DialogContentComponent: React.FunctionComponent<Props> = (props: Props) =>
                     <Typography>{props.row.errors.length > 1 ? "Feilmeldinger:" : "Feilmelding:"}</Typography>
                     <ol id={'error-list'} style={{fontFamily: 'sans-serif'}}>
                         {props.row.errors.map((error: IError, index: number) => {
-                            let errorArgs: IErrorArg[] = getErrorArgs(error)
+                            const errorArgs: IErrorArg[] = getErrorArgs(error)
                             return <li id={'error'} key={index}>
                                 <Typography>
                                     {stringReplace(t(error.errorCode), errorArgs)}

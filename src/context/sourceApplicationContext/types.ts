@@ -30,17 +30,14 @@ export type SourceApplicationContextState = {
 
 export const contextDefaultValues: SourceApplicationContextState = {
     isAdmin: false,
-    setIsAdmin: () => {
-    },
+    setIsAdmin: () => undefined,
     availableForms: {
         sourceApplicationDisplayName: '',
         sourceApplicationId: '1',
         forms: [{value: 'null', label: 'Velg skjemaleverandør først'}]
     },
-    getAllForms: () => {
-    },
-    getAvailableForms: () => {
-    },
+    getAllForms: () => undefined,
+    getAvailableForms: () => undefined,
     allMetadata: [{
         instanceElementMetadata: [],
         sourceApplicationIntegrationUri: '',
@@ -50,16 +47,11 @@ export const contextDefaultValues: SourceApplicationContextState = {
         version: 0
     }],
     instanceElementMetadata: undefined,
-    setInstanceElementMetadata: () => {
-    },
+    setInstanceElementMetadata: () => undefined,
     instanceObjectCollectionMetadata: [],
-    getInstanceObjectCollectionMetadata: () => {
-    },
-    getAllMetadata: () => {
-    },
-    getInstanceElementMetadata: () => {
-    },
+    getInstanceObjectCollectionMetadata: () => undefined,
+    getAllMetadata: () => undefined,
+    getInstanceElementMetadata: () => undefined,
     sourceApplication: undefined,
-    setSourceApplication: () => {
-    }
+    setSourceApplication: () => undefined
 };

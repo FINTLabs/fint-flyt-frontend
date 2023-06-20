@@ -7,7 +7,7 @@ import {useFormContext, useWatch} from "react-hook-form";
 
 export type Source = { url: string, config?: AxiosRequestConfig }
 
-const pathParamKeyRegExp: RegExp = new RegExp(/{[^{}]+}/g);
+const pathParamKeyRegExp = new RegExp(/{[^{}]+}/g);
 
 export type Search = {
     dependsOn: string[],
@@ -31,7 +31,7 @@ export function SourceStatefulValue(urlBuilder: IUrlBuilder, absoluteKey: string
     })
 
     useEffect(() => {
-        let valuePerValueRef: Record<string, any> = {};
+        const valuePerValueRef: Record<string, any> = {};
         Array.from(Array(absoluteKeys.length).keys())
             .forEach(i =>
                 valuePerValueRef[valueRefPerAbsoluteKey[absoluteKeys[i]]] = urlParamValuesWatch[i]
@@ -64,11 +64,11 @@ export function createValueRefPerAbsoluteKey(sourceUrlBuilders: IUrlBuilder[], a
 }
 
 export function createSource(urlBuilder: IUrlBuilder, valuePerValueRef: Record<string, any>): Source | undefined {
-    let params: Record<string, string> = {};
+    const params: Record<string, string> = {};
     let url: string = urlBuilder.urlTemplate;
-    let valueRefPerRequestParamKey = recordOrEmpty(urlBuilder.valueRefPerRequestParamKey);
-    let valueRefPerPathParamKey = recordOrEmpty(urlBuilder.valueRefPerPathParamKey);
-    let dependsOnUndefinedValue: boolean = [
+    const valueRefPerRequestParamKey = recordOrEmpty(urlBuilder.valueRefPerRequestParamKey);
+    const valueRefPerPathParamKey = recordOrEmpty(urlBuilder.valueRefPerPathParamKey);
+    const dependsOnUndefinedValue: boolean = [
         ...Object.values(valueRefPerRequestParamKey),
         ...Object.values(valueRefPerPathParamKey)
     ]
@@ -87,7 +87,7 @@ export function createSource(urlBuilder: IUrlBuilder, valuePerValueRef: Record<s
         url = url.replaceAll(
             pathParamKeyRegExp,
             ((substring: string) => {
-                let pathParamKey: string = substring.slice(1, substring.length - 1)
+                const pathParamKey: string = substring.slice(1, substring.length - 1)
                 return valuePerValueRef[valueRefPerPathParamKey[pathParamKey]]
             })
         )

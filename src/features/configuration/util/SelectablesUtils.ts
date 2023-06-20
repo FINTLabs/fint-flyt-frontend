@@ -22,7 +22,7 @@ export function SelectablesStatefulValue(
     const useWatchValues: any[] = useWatch({control, name: absoluteKeys})
 
     useEffect(() => {
-        let valuePerValueRef: Record<string, any> = {};
+        const valuePerValueRef: Record<string, any> = {};
         Array.from(Array(absoluteKeys.length).keys())
             .forEach(i =>
                 valuePerValueRef[valueRefPerAbsoluteKey[absoluteKeys[i]]] = useWatchValues[i]
@@ -38,7 +38,7 @@ function updateSelectables(
     valuePerValueRef: Record<string, string>,
     setSelectables: Dispatch<SetStateAction<any>>
 ): void {
-    let sources: Source[] = sourceUrlBuilders
+    const sources: Source[] = sourceUrlBuilders
         .map(urlBuilder => createSource(urlBuilder, valuePerValueRef))
         .filter((source): source is Source => !!source)
 

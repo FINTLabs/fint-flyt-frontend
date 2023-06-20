@@ -19,7 +19,7 @@ import DialogContentComponent from "./DialogContentComponent";
 const InstancePanel: React.FunctionComponent<any> = (props: { classes: ClassNameMap }) => {
     const {t, i18n} = useTranslation('translations', {keyPrefix: 'pages.instanceOverview'});
     const classes = props.classes;
-    let history = useHistory();
+    const history = useHistory();
     const {selectedInstances} = useContext(HistoryContext)
     const [selectedRow, setSelectedRow] = useState<IEvent>();
     const [openErrorDialog, setOpenErrorDialog] = React.useState(false);

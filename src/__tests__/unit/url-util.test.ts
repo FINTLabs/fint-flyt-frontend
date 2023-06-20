@@ -9,7 +9,7 @@ const sourceUrlBuilder: IUrlBuilder[] = [
         }
     }
 ];
-const absoluteKey: string = 'mapping.objectMappingPerKey.newCase.objectCollectionMappingPerKey.klasse.elementMappings.0'
+const absoluteKey = 'mapping.objectMappingPerKey.newCase.objectCollectionMappingPerKey.klasse.elementMappings.0'
 const expectedValueRefRecord: Record<string, string> = {
     'mapping.objectMappingPerKey.newCase.objectCollectionMappingPerKey.klasse.elementMappings.0.valueMappingPerKey.klassifikasjonssystem.mappingString': "klassifikasjonssystem"
 }

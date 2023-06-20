@@ -72,11 +72,11 @@ const expectedIntegration: IIntegration = {
 
 
 test('It should prune empties from object mapping', () => {
-    let mapping = pruneObjectMapping(MOCK_EMPTY_MAPPING);
+    const mapping = pruneObjectMapping(MOCK_EMPTY_MAPPING);
     expect(mapping).toEqual(expectedMapping)
 });
 
 test('It should map from form data to integration dto correctly', () => {
-    let integration: IIntegration = toIntegration(MOCK_FORM_INTEGRATION, 'false');
+    const integration: IIntegration = toIntegration(MOCK_FORM_INTEGRATION, 'false');
     expect(integration).toEqual(expectedIntegration)
 });

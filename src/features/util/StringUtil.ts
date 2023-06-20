@@ -26,7 +26,7 @@ export function getErrorArgs(error: IError): IErrorArg[] {
     if (!error.args) {
         return []
     }
-    let entries: [string, string][] = Object.entries(error.args)
+    const entries: [string, string][] = Object.entries(error.args)
     return  entries.map(entry => {
         return {
             type: entry[0],

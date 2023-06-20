@@ -73,5 +73,5 @@ export interface IValuePredicate {
 }
 
 export interface INestedObjectRefTemplate {
-
+    id: string
 }

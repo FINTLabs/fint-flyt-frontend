@@ -34,46 +34,30 @@ export type IntegrationContextState = {
 
 export const contextDefaultValues: IntegrationContextState = {
     id: undefined,
-    setId: (number: string | undefined) => {
-    },
-    existingIntegration: {},
-    setExistingIntegration: () => {
-    },
+    setId: () => undefined,
+    existingIntegration: undefined,
+    setExistingIntegration: () => undefined,
     integrations: [],
-    setIntegrations: () => {
-    },
-    getIntegrations: () => {
-    },
+    setIntegrations: () => undefined,
+    getIntegrations: () => undefined,
     configuration: undefined,
-    setConfiguration: () => {
-    },
+    setConfiguration: () => undefined,
     configurations: undefined,
     completedConfigurations: undefined,
-    getConfiguration: () => {
-    },
-    getConfigurations: () => {
-    },
-    getCompletedConfigurations: () => {
-    },
-    setConfigurations: () => {
-    },
-    setCompletedConfigurations: () => {
-    },
+    getConfiguration: () => undefined,
+    getConfigurations: () => undefined,
+    getCompletedConfigurations: () => undefined,
+    setConfigurations: () => undefined,
+    setCompletedConfigurations: () => undefined,
     destination: '',
     selectedMetadata: undefined,
-    setSelectedMetadata: () => {
-    },
-    setDestination: () => {
-    },
+    setSelectedMetadata: () => undefined,
+    setDestination: () => undefined,
     sourceApplicationId: '',
-    setSourceApplicationId: () => {
-    },
+    setSourceApplicationId: () => undefined,
     sourceApplicationIntegrationId: '',
-    setSourceApplicationIntegrationId: () => {
-    },
-    resetIntegrationContext: () => {
-    },
-    resetIntegrations: () => {
-    },
+    setSourceApplicationIntegrationId: () => undefined,
+    resetIntegrationContext: () => undefined,
+    resetIntegrations: () => undefined,
     statistics: []
 };
