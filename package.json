@@ -31,6 +31,7 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@types/react-redux": "^7.1.20",
+    "@typescript-eslint/parser": "^5.60.0",
     "autoprefixer": "^10.4.2",
     "axios": "^0.26.0",
     "axios-auth-refresh": "^3.2.2",
@@ -93,6 +94,7 @@
     "@cypress/code-coverage": "^3.10.7",
     "@types/react-router-dom": "^5.1.7",
     "cypress": "^12.14.0",
+    "eslint": "^8.43.0",
     "http-proxy-middleware": "^2.0.1"
   }
 }
