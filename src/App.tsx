@@ -40,7 +40,7 @@ function App() {
     const [basePath, setBasePath] = useState<string>();
 
     useEffect(() => {
-        axios.get<any>('api/application/configuration')
+        axios.get('api/application/configuration')
             .then(value => {
                 axios.defaults.baseURL = value.data.basePath;
                 setBasePath(value.data.basePath);

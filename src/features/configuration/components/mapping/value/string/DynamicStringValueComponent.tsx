@@ -23,7 +23,7 @@ interface Props {
     value: string | null;
 }
 
-const DynamicStringValueComponent: React.FunctionComponent<Props> = forwardRef<any, Props>((props: Props, ref) => {
+const DynamicStringValueComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivElement, Props>((props: Props, ref) => {
     DynamicStringValueComponent.displayName = "DynamicStringValueComponent"
     const [searchResult, setSearchResult] = useState<string>()
     const [shrink, setShrink] = useState<boolean | undefined>(undefined)

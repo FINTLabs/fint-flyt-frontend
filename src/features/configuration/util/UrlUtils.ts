@@ -31,7 +31,7 @@ export function SourceStatefulValue(urlBuilder: IUrlBuilder, absoluteKey: string
     })
 
     useEffect(() => {
-        const valuePerValueRef: Record<string, any> = {};
+        const valuePerValueRef: Record<string, string> = {};
         Array.from(Array(absoluteKeys.length).keys())
             .forEach(i =>
                 valuePerValueRef[valueRefPerAbsoluteKey[absoluteKeys[i]]] = urlParamValuesWatch[i]
@@ -63,7 +63,7 @@ export function createValueRefPerAbsoluteKey(sourceUrlBuilders: IUrlBuilder[], a
     )
 }
 
-export function createSource(urlBuilder: IUrlBuilder, valuePerValueRef: Record<string, any>): Source | undefined {
+export function createSource(urlBuilder: IUrlBuilder, valuePerValueRef: Record<string, string>): Source | undefined {
     const params: Record<string, string> = {};
     let url: string = urlBuilder.urlTemplate;
     const valueRefPerRequestParamKey = recordOrEmpty(urlBuilder.valueRefPerRequestParamKey);

@@ -12,6 +12,8 @@ import IntegrationRepository from '../../shared/repositories/IntegrationReposito
 import {IntegrationState} from "./types/Integration";
 import {IFormIntegration} from "../configuration/types/FormIntegration";
 import {selectSX} from "../configuration/styles/SystemStyles";
+import {ISelect} from "../configuration/types/Select";
+import {IIntegrationMetadata} from "../configuration/types/Metadata/IntegrationMetadata";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -56,7 +58,11 @@ const useStyles = makeStyles((theme: Theme) =>
         }
     }));
 
-export const IntegrationForm: React.FunctionComponent<any> = () => {
+type Props = {
+    id: string
+}
+
+export const IntegrationForm: React.FunctionComponent<Props> = () => {
     const classes = useStyles();
     const history = useHistory();
     const {t} = useTranslation('translations', {keyPrefix: 'components.integrationForm'});
@@ -110,7 +116,7 @@ export const IntegrationForm: React.FunctionComponent<any> = () => {
 
     const confirm = () => {
         if (destination && sourceApplicationId && sourceApplicationIntegrationId) {
-            const selectedForm = allMetadata.filter((md: any) => md.sourceApplicationIntegrationId === sourceApplicationIntegrationId)
+            const selectedForm = allMetadata.filter((md: IIntegrationMetadata) => md.sourceApplicationIntegrationId === sourceApplicationIntegrationId)
             setSelectedMetadata(selectedForm[0])
             getInstanceElementMetadata(selectedForm[0].id)
             const formConfiguration: IFormIntegration = {
@@ -154,7 +160,7 @@ export const IntegrationForm: React.FunctionComponent<any> = () => {
                                     setSourceApplicationIntegrationId('')
                                 }}
                             >
-                                {sourceApplications.map((item: any, index: number) => (
+                                {sourceApplications.map((item: ISelect, index: number) => (
                                     <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
                                 ))}
                             </TextField>
@@ -175,8 +181,8 @@ export const IntegrationForm: React.FunctionComponent<any> = () => {
                                                label={t('labels.sourceApplicationIntegrationId') + '*'}
                                                variant="outlined"/>
                                 )}
-                                getOptionLabel={option => option.label}
-                                value={sourceApplicationIntegrationId ? availableForms.forms.find(({value}: { value: any }) => value === sourceApplicationIntegrationId) : null}
+                                getOptionLabel={(option: ISelect) => option.label}
+                                value={sourceApplicationIntegrationId ? availableForms.forms.find(({value}: { value: string }) => value === sourceApplicationIntegrationId) : null}
                                 onChange={(_event, select) => {
                                     setSourceApplicationIntegrationId(select ? select.value : '');
                                 }}
@@ -195,9 +201,9 @@ export const IntegrationForm: React.FunctionComponent<any> = () => {
                                 style={{backgroundColor}}
                                 value={destination}
                                 label={t('labels.destination') + '*'}
-                                onChange={event => setDestination(event.target.value)}
+                                onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => setDestination(event.target.value)}
                             >
-                                {destinations.map((item: any, index: number) => (
+                                {destinations.map((item: ISelect, index: number) => (
                                     <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
                                 ))}
                             </TextField>

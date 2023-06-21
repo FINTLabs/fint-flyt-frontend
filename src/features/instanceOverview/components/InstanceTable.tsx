@@ -20,7 +20,11 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 import {ClassNameMap} from "@mui/styles";
 import DialogContentComponent from "./DialogContentComponent";
 
-const InstanceTable: React.FunctionComponent<any> = (props: { classes: ClassNameMap }) => {
+type Props = {
+    classes: ClassNameMap
+}
+
+const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.instanceOverview'})
     const history = useHistory();
     const classes = props.classes;
@@ -120,7 +124,7 @@ const InstanceTable: React.FunctionComponent<any> = (props: { classes: ClassName
         );
     }
 
-    const resend = (event: any, instanceId: string) => {
+    const resend = (instanceId: string) => {
         //TODO: add notification on successful or failed resending
         InstanceRepository.resendInstance(instanceId)
             .then(response => {
@@ -146,8 +150,8 @@ const InstanceTable: React.FunctionComponent<any> = (props: { classes: ClassName
         return (
             <>
                 {hasErrors &&
-                    <Button id={'retry-btn-' + props.row.id} size="small" variant="outlined" onClick={(e) => {
-                        resend(e, props.row.instanceFlowHeaders.instanceId);
+                    <Button id={'retry-btn-' + props.row.id} size="small" variant="outlined" onClick={() => {
+                        resend(props.row.instanceFlowHeaders.instanceId);
                     }}>{t('button.retry')}</Button>
                 }
             </>
@@ -234,7 +238,7 @@ const InstanceTable: React.FunctionComponent<any> = (props: { classes: ClassName
         );
     }
 
-    function ErrorAlertDialog(props: any) {
+    function ErrorAlertDialog(props: GridCellParams['row']) {
         return (
             <div>
                 <Dialog
@@ -247,7 +251,8 @@ const InstanceTable: React.FunctionComponent<any> = (props: { classes: ClassName
                         <DialogContentComponent row={props.row}/>
                     </DialogContent>
                     <DialogActions>
-                        <Button id={'error-dialog-close-btn'} onClick={() => setOpenDialog(false)} autoFocus>{t('button.close')}</Button>
+                        <Button id={'error-dialog-close-btn'} onClick={() => setOpenDialog(false)}
+                                autoFocus>{t('button.close')}</Button>
                     </DialogActions>
                 </Dialog>
             </div>

@@ -21,8 +21,9 @@ const HistoryProvider: FC = ({children}) => {
             .then((response) => {
                 const data = response.data.content;
                 if (data) {
+                    console.log(data)
                     data.forEach(addId(0, 'name'))
-                    data.forEach((event: any) =>
+                    data.forEach((event: IEvent) =>
                         event.errors.forEach(addId(0, 'errorCode'))
                     );
                     setEvents(data);
@@ -43,8 +44,10 @@ const HistoryProvider: FC = ({children}) => {
                         .then((response) => {
                             const events: IEvent[] = response.data.content;
                             if (events) {
+                                console.log(events)
                                 events.forEach(addId(0, 'name'))
-                                events.forEach((event: any) =>
+                                console.log(events)
+                                events.forEach((event: IEvent) =>
                                     event.errors.forEach(addId(0, 'errorCode'))
                                 );
 
@@ -78,7 +81,7 @@ const HistoryProvider: FC = ({children}) => {
                             const events: IEvent[] = response.data.content;
                             if (events) {
                                 events.forEach(addId(0, 'name'))
-                                events.forEach((event: any) =>
+                                events.forEach((event: IEvent) =>
                                     event.errors.forEach(addId(0, 'errorCode'))
                                 );
 

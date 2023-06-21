@@ -1,4 +1,5 @@
 export function addId(id: number, field: string) {
+    // eslint-disable-next-line
     return function iter(obj: any) {
         if (field in obj) {
             obj.id = id++;

@@ -3,19 +3,19 @@ import {ISelectable} from "../../features/configuration/types/Selectable";
 import {Source} from "../../features/configuration/util/UrlUtils";
 
 const getClasses = (link: string) => {
-    return axios.get<any>(`/api/intern/arkiv/kodeverk/klasse/`, {params: {klassifikasjonssystemLink: link}});
+    return axios.get(`/api/intern/arkiv/kodeverk/klasse/`, {params: {klassifikasjonssystemLink: link}});
 };
 
 const getResource = (resource: string) => {
-    return axios.get<any>(`/api/intern/arkiv/kodeverk/${resource}`);
+    return axios.get(`/api/intern/arkiv/kodeverk/${resource}`);
 }
 
 const getSelectables = (url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<ISelectable[]>> => {
     return axios.get<ISelectable[]>(url, config);
 }
 
-const getSak = (caseYear: any, id: any) => {
-    return axios.get<any>(`/api/intern/arkiv/saker/${caseYear}/${id}/tittel`, {timeout: 10000})
+const getSak = (caseYear: number | string, id: number | string) => {
+    return axios.get(`/api/intern/arkiv/saker/${caseYear}/${id}/tittel`, {timeout: 10000})
 }
 
 const search = (source: Source): Promise<{ value: string } | undefined> => {

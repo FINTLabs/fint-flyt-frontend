@@ -11,6 +11,7 @@ import {IntegrationContext} from "../../context/integrationContext";
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import {SourceApplicationContext} from "../../context/sourceApplicationContext";
 import ConfigurationProvider from "../../context/configurationContext";
+import {IIntegrationStatistics} from "../log/types/IntegrationStatistics";
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme: Theme) =>
@@ -81,7 +82,7 @@ function Main() {
     const {isAdmin, setIsAdmin} = useContext(SourceApplicationContext)
     const {statistics} = useContext(IntegrationContext)
     let totalErrors = 0;
-    statistics?.map((stat: any) => {
+    statistics?.map((stat: IIntegrationStatistics) => {
         return totalErrors += stat.currentErrors
     })
 

@@ -1,6 +1,7 @@
 import {IIntegration} from "../../features/integration/types/Integration";
 import {IConfiguration} from "../../features/configuration/types/Configuration";
 import {IIntegrationMetadata} from "../../features/configuration/types/Metadata/IntegrationMetadata";
+import {IIntegrationStatistics} from "../../features/log/types/IntegrationStatistics";
 
 export type IntegrationContextState = {
     id: string | undefined;
@@ -29,7 +30,7 @@ export type IntegrationContextState = {
     setSourceApplicationId: (destination: string) => void,
     resetIntegrationContext: () => void;
     resetIntegrations: () => void;
-    statistics: any[]
+    statistics: IIntegrationStatistics[]
 };
 
 export const contextDefaultValues: IntegrationContextState = {

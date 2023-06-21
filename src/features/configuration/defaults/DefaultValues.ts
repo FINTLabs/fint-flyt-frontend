@@ -145,7 +145,7 @@ export function getDestinationDisplayName(id: string): string {
     else return "ukjent";
 }
 
-export function getStateDisplayName(id: any): string {
+export function getStateDisplayName(id: string): string {
     if (id === 'ACTIVE') return 'Aktiv';
     if (id === 'DEACTIVATED') return 'Deaktivert';
     else return "ukjent";

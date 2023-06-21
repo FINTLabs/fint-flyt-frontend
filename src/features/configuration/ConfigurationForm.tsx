@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {RouteComponentProps, useHistory, withRouter} from 'react-router-dom';
+import {RouteComponentProps, useHistory} from 'react-router-dom';
 import {SourceApplicationContext} from "../../context/sourceApplicationContext";
 import OutgoingDataComponent from "./components/OutgoingDataComponent";
 import {Controller, FormProvider, useForm} from "react-hook-form";
@@ -35,8 +35,11 @@ import {pruneObjectMapping} from "../util/mapping/helpers/pruning";
 import EditingProvider, {EditingContext} from "../../context/editingContext";
 
 const useStyles = configurationFormStyles
+type Props = {
+    id: string
+}
 
-const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
+const ConfigurationForm: React.FunctionComponent<RouteComponentProps<Props>> = () => {
     const {
         getInstanceElementMetadata,
         setInstanceElementMetadata,
@@ -87,7 +90,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     };
 
     useEffect(() => {
-        if(configuration) {
+        if (configuration) {
             methods.setValue('mapping', configuration?.mapping, {shouldDirty: true, shouldTouch: true});
         }
         if (configuration?.completed) {
@@ -107,7 +110,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
         }
     }, [])
 
-    const handleChange = (event: any) => {
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setVersion(event.target.value);
         const version = Number(event.target.value)
         const integrationMetadata: IIntegrationMetadata[] = availableVersions
@@ -117,7 +120,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
         getInstanceElementMetadata(integrationMetadata[0].id)
     };
 
-
+    // eslint-disable-next-line
     const onSubmit = (data: any) => {
         data.mapping = pruneObjectMapping(data.mapping as IObjectMapping)
         if (configuration?.id) {
@@ -223,7 +226,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                                             id="version-select"
                                             value={version}
                                             label={t('metadataVersion')}
-                                            onChange={(e) => {
+                                            onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
                                                 handleChange(e)
                                             }}
                                         >
@@ -317,4 +320,4 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     );
 }
 
-export default withRouter(ConfigurationForm);
+export default ConfigurationForm;

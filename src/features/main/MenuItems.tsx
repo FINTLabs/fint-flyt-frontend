@@ -2,10 +2,10 @@ import React from 'react';
 import {Link} from "react-router-dom";
 import {Icon, List, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
 import routes from "./Routes";
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 
 const MenuItems = () => {
-    const { t } = useTranslation('translations', { keyPrefix: 'menuItems'});
+    const {t} = useTranslation('translations', {keyPrefix: 'menuItems'});
 
     const [selectedIndex, setSelectedIndex] = React.useState(0);
     const handleListItemClick = (
@@ -24,6 +24,7 @@ const MenuItems = () => {
                     id={route.name + 'Button'}
                     key={route.name}
                     selected={selectedIndex === index}
+                    // eslint-disable-next-line
                     onClick={(event: any) => handleListItemClick(event, index)}
                 >
                     <ListItemIcon>

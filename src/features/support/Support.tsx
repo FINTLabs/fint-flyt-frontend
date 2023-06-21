@@ -1,5 +1,5 @@
 import React from 'react';
-import {RouteComponentProps, withRouter} from 'react-router-dom';
+import {RouteComponentProps} from 'react-router-dom';
 import {Accordion, AccordionDetails, AccordionSummary, Box, Theme, Typography} from "@mui/material";
 import {useTranslation} from 'react-i18next';
 import StatusComponent from "./components/StatusComponent";
@@ -16,7 +16,11 @@ const useStyles = makeStyles((theme: Theme) =>
         }
     }));
 
-const Support: React.FunctionComponent<RouteComponentProps<any>> = () => {
+type Props = {
+    id: string
+}
+
+const Support: React.FunctionComponent<RouteComponentProps<Props>> = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.support'});
     const classes = useStyles();
     const view = false;
@@ -66,10 +70,10 @@ const Support: React.FunctionComponent<RouteComponentProps<any>> = () => {
                 </Accordion>
             </Box>
         </>
-    ) : ( <>
+    ) : (<>
             <Typography variant={"h6"}>{t('header')}</Typography>
         </>
     );
 }
 
-export default withRouter(Support);
+export default Support;
