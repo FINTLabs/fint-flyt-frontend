@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {Link as RouterLink, RouteComponentProps, withRouter} from 'react-router-dom';
+import {Link as RouterLink, RouteComponentProps} from 'react-router-dom';
 import {Button, Typography} from "@mui/material";
 import {useTranslation} from 'react-i18next';
 import {SourceApplicationContext} from "../../context/sourceApplicationContext";
@@ -31,4 +31,4 @@ const Admin: React.FunctionComponent<RouteComponentProps<Props>> = () => {
     );
 }
 
-export default withRouter(Admin);
+export default Admin;

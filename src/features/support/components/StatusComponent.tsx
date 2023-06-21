@@ -4,7 +4,7 @@ import {Alert, Box} from "@mui/material";
 import {ClassNameMap} from "@mui/styles";
 import IntegrationRepository from "../../../shared/repositories/IntegrationRepository";
 import ConfigurationRepository from "../../../shared/repositories/ConfigurationRepository";
-import EventRepository from "../../log/repository/EventRepository";
+import EventRepository from "../../../shared/repositories/EventRepository";
 import ResourceRepository from "../../../shared/repositories/ResourceRepository";
 import SourceApplicationRepository from "../../../shared/repositories/SourceApplicationRepository";
 

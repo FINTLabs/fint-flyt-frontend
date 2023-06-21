@@ -1,11 +1,6 @@
-export const ErrorType = {
-    INSTANCE_FIELD_KEY: '#instanceFieldKey#',
-    ERROR_MESSAGE: '#errorMessage#',
-    FIELD_PATH: '#fieldPath#',
-    UNKNOWN: 'unknownErrorType'
-}
+import {ErrorType} from "../../../instanceOverview/types/ErrorType";
 
-export function getErrorType(type: string): string {
+export function toErrorType(type: string): string {
     if (type === 'instanceFieldKey') {
         return ErrorType.INSTANCE_FIELD_KEY
     }

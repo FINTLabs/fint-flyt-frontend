@@ -1,7 +1,7 @@
 import * as React from "react";
 import {Box, Typography} from "@mui/material";
 import {getErrorArgs, stringReplace} from "../../util/StringUtil";
-import {IError, IErrorArg, IEvent} from "../../log/types/Event";
+import {IError, IErrorArg, IEvent} from "../types/Event";
 import {useTranslation} from "react-i18next";
 import {dialogSX} from "../../configuration/styles/SystemStyles";
 
