@@ -23,8 +23,8 @@ const templateReferenceDynamicPathLevel: string = '../';
 const templateReferencePathComponentSeparator: string = '.';
 
 const collectionIndexSame: RegExp = new RegExp(/^n$/);
-const collectionIndexGreater: RegExp = new RegExp(/^n\\+(\\d+)$/);
-const collectionIndexLess: RegExp = new RegExp(/^n\\-(\\d+)$/);
+const collectionIndexGreater: RegExp = new RegExp(/^n\+(\d+)$/);
+const collectionIndexLess: RegExp = new RegExp(/^n-(\d+)$/);
 
 const configurationKeyComponentSeparator: string = '.';
 
@@ -46,10 +46,10 @@ export function getTemplatePathFromTemplateReference(referenceOriginPath: string
             .split(templateReferencePathComponentSeparator);
 
     const referenceOriginPathAdjustedForDynamicPathLevels: string[] = referenceOriginPath
-        .slice(0, referenceOriginPath.length - 1 - numOfDynamicPathLevels);
+        .slice(0, referenceOriginPath.length - numOfDynamicPathLevels);
 
     const referenceOriginRemovedDynamicPathLevels: string[] = referenceOriginPath
-        .slice(referenceOriginPath.length - 1 - numOfDynamicPathLevels, 0);
+        .slice(referenceOriginPath.length - numOfDynamicPathLevels);
 
     const referencePathWithoutDynamicPathLevelsAndWithAbsoluteCollectionIndexes: string[] =
         convertDynamicCollectionIndexesToAbsolute(
@@ -133,4 +133,13 @@ export function getConfigurationPathFromTemplatePath(templateInfo: TemplateEleme
 
 export function getConfigurationKeyFromTemplatePath(templateInfo: TemplateElementInfo, templatePath: string[]) {
     return getConfigurationPathFromTemplatePath(templateInfo, templatePath).join(configurationKeyComponentSeparator);
+}
+
+export function getConfigurationKeyFromTemplateReference(
+    templateInfo: TemplateElementInfo,
+    referenceOriginPath: string[],
+    reference: string
+): string {
+    const templatePath: string[] = getTemplatePathFromTemplateReference(referenceOriginPath, reference);
+    return getConfigurationKeyFromTemplatePath(templateInfo, templatePath);
 }
