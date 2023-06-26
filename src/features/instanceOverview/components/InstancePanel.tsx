@@ -114,6 +114,7 @@ const InstancePanel: React.FunctionComponent<any> = (props: { classes: ClassName
                 <Box id="integration-list" className={classes.dataPanelBox}>
                     <ErrorAlertDialog row={selectedRow}/>
                     <Button
+                        id={'back-button'}
                         sx={{mb: 2}}
                         variant='contained'
                         onClick={() => history.push("integration/instance/list")}

@@ -6,10 +6,10 @@ function prep() {
 
 describe('Testing value converting page', () => {
     beforeEach(() => {
-        cy.intercept('GET', '**/value-convertings?page=0&size=100&sortProperty=fromApplicationId&sortDirection=ASC&excludeConvertingMap=true', { fixture: 'valueconvertings.json' }).as('getValueconvertings')
-        cy.intercept('GET', '**/value-convertings/1', { fixture: 'valueconverting1.json' }).as('getValueconverting')
+        cy.intercept('GET', '**/value-convertings?page=0&size=100&sortProperty=fromApplicationId&sortDirection=ASC&excludeConvertingMap=true', { fixture: 'valueconverting/valueconvertings.json' }).as('getValueconvertings')
+        cy.intercept('GET', '**/value-convertings/1', { fixture: 'valueconverting/valueconverting1.json' }).as('getValueconverting')
         cy.intercept('GET', '**/arkiv/kodeverk/format', { fixture: 'kodeverk/format.json' }).as('getFormat')
-        cy.intercept('POST', '**/value-convertings', { fixture: 'valueconverting2.json' }).as('postValueconverting')
+        cy.intercept('POST', '**/value-convertings', { fixture: 'valueconverting/valueconverting2.json' }).as('postValueconverting')
     })
 
     it('should show page and table', () => {
@@ -26,10 +26,10 @@ describe('Testing value converting page', () => {
 
 describe('Testing create new value converting', () => {
     beforeEach(() => {
-        cy.intercept('GET', '**/value-convertings?page=0&size=100&sortProperty=fromApplicationId&sortDirection=ASC&excludeConvertingMap=true', { fixture: 'valueconvertings.json' }).as('getValueconvertings')
-        cy.intercept('GET', '**/value-convertings/1', { fixture: 'valueconverting1.json' }).as('getValueconverting')
+        cy.intercept('GET', '**/value-convertings?page=0&size=100&sortProperty=fromApplicationId&sortDirection=ASC&excludeConvertingMap=true', { fixture: 'valueconverting/valueconvertings.json' }).as('getValueconvertings')
+        cy.intercept('GET', '**/value-convertings/1', { fixture: 'valueconverting/valueconverting1.json' }).as('getValueconverting')
         cy.intercept('GET', '**/arkiv/kodeverk/format', { fixture: 'kodeverk/format.json' }).as('getFormat')
-        cy.intercept('POST', '**/value-convertings', { fixture: 'valueconverting3.json' }).as('postValueconverting')
+        cy.intercept('POST', '**/value-convertings', { fixture: 'valueconverting/valueconverting3.json' }).as('postValueconverting')
     })
 
     it('should open and fill new converting form', () => {
@@ -65,10 +65,10 @@ describe('Testing create new value converting', () => {
 
 describe('Testing create new based on existing value converting', () => {
     beforeEach(() => {
-        cy.intercept('GET', '**/value-convertings?page=0&size=100&sortProperty=fromApplicationId&sortDirection=ASC&excludeConvertingMap=true', { fixture: 'valueconvertings.json' }).as('getValueconvertings')
-        cy.intercept('GET', '**/value-convertings/1', { fixture: 'valueconverting1.json' }).as('getValueconverting')
+        cy.intercept('GET', '**/value-convertings?page=0&size=100&sortProperty=fromApplicationId&sortDirection=ASC&excludeConvertingMap=true', { fixture: 'valueconverting/valueconvertings.json' }).as('getValueconvertings')
+        cy.intercept('GET', '**/value-convertings/1', { fixture: 'valueconverting/valueconverting1.json' }).as('getValueconverting')
         cy.intercept('GET', '**/arkiv/kodeverk/format', { fixture: 'kodeverk/format.json' }).as('getFormat')
-        cy.intercept('POST', '**/value-convertings', { fixture: 'valueconverting3.json' }).as('postValueconverting')
+        cy.intercept('POST', '**/value-convertings', { fixture: 'valueconverting/valueconverting3.json' }).as('postValueconverting')
     })
 
     it('should open and fill converting form based on existing', () => {
