@@ -78,7 +78,7 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = forwardRef<a
                 variant='outlined'
                 size='small'
                 multiline
-                maxRows={3}
+                maxRows={5}
                 label={props.displayName}
                 disabled={props.disabled}
                 onChange={(e: BaseSyntheticEvent) => {
