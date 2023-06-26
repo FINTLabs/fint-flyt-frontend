@@ -4,7 +4,12 @@ import Typography from '@mui/material/Typography';
 import {IconButton} from "@mui/material";
 import HelpIcon from '@mui/icons-material/Help';
 
-const HelpPopover: React.FunctionComponent<any> = (props: {popoverContent: string}) => {
+interface Props {
+    popoverContent: string;
+    noMargin?: boolean;
+}
+
+const HelpPopover: React.FunctionComponent<any> = (props: Props) => {
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -19,9 +24,9 @@ const HelpPopover: React.FunctionComponent<any> = (props: {popoverContent: strin
     const id = open ? 'info-popover' : undefined;
 
     return (
-        <div>
+        <div style={props.noMargin ? {marginTop: '-8px'} : {marginTop: 'inherit'}}>
             <IconButton aria-label="help" color="primary" onClick={handleClick}>
-                <HelpIcon />
+                <HelpIcon/>
             </IconButton>
             <Popover
                 id={id}
@@ -38,7 +43,7 @@ const HelpPopover: React.FunctionComponent<any> = (props: {popoverContent: strin
                     horizontal: 'left',
                 }}
             >
-                <Typography sx={{ p: 3 }}>{props.popoverContent}</Typography>
+                <Typography sx={{p: 3, maxWidth: '450px'}}>{props.popoverContent}</Typography>
             </Popover>
         </div>
     );
