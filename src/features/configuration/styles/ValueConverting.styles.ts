@@ -6,6 +6,12 @@ export const valueConvertingStyles = makeStyles((theme: Theme) =>
         configurationBox: {
             width: theme.spacing(44)
         },
+        headerContainer: {
+            display: 'flex',
+            width: theme.spacing(44),
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+        },
         panelContainer: {
             backgroundColor: 'white',
             padding: theme.spacing(2),
