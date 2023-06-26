@@ -53,6 +53,7 @@
       "button": {
         "submit": "Lagre",
         "cancel": "Avbryt",
+        "complete": "Fullfør",
         "append": "+",
         "remove": "-"
       },

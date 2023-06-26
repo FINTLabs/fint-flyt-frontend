@@ -269,7 +269,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                         <Box className={classes.formFooter}>
                             <button id="form-submit-btn" className={classes.submitButton}
                                     disabled={configuration?.completed} type="submit" onClick={onSubmit}>
-                                {t("button.submit")}
+                                {!methods.watch("completed") ? t("button.submit") : t("button.complete")}
                             </button>
                             <button id="form-cancel-btn" className={classes.submitButton} type="button"
                                     onClick={() => {
@@ -277,8 +277,6 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                                     }}
                             >{t("button.cancel")}
                             </button>
-
-
                             <Controller
                                 name={"completed"}
                                 render={({field}) =>
@@ -289,7 +287,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                                     />
                                 }
                             />
-                            <FormControlLabel
+                            {methods.watch("completed") && <FormControlLabel
                                 control={
                                     <Checkbox
                                         id="form-active"
@@ -300,7 +298,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
                                         }}
                                         inputProps={{'aria-label': 'active-checkbox'}}/>}
                                 label={t('label.activeLabel') as string}
-                            />
+                            />}
                         </Box>
                         <Snackbar id="integration-form-snackbar-saved" autoHideDuration={4000} open={showAlert}
                                   onClose={handleClose}>
