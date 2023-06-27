@@ -1,9 +1,9 @@
 import * as React from "react";
 import {Box, Typography} from "@mui/material";
-import {getErrorArgs, stringReplace} from "../../util/StringUtil";
+import {errorStringReplace, getErrorArgs} from "../../../util/StringUtil";
 import {IError, IErrorArg, IEvent} from "../../log/types/Event";
 import {useTranslation} from "react-i18next";
-import {dialogSX} from "../../styles/SystemStyles";
+import {dialogSX} from "../../../util/styles/SystemStyles";
 
 type Props = {
     row: IEvent | undefined
@@ -22,7 +22,7 @@ const DialogContentComponent: React.FunctionComponent<Props> = (props: Props) =>
                             let errorArgs: IErrorArg[] = getErrorArgs(error)
                             return <li id={'error'} key={index}>
                                 <Typography>
-                                    {stringReplace(t(error.errorCode), errorArgs)}
+                                    {errorStringReplace(t(error.errorCode), errorArgs)}
                                 </Typography>
                             </li>
                         })}

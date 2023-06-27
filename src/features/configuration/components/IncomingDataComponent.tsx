@@ -11,7 +11,7 @@ import {
     ValueType
 } from "../types/Metadata/IntegrationMetadata";
 import {ClassNameMap} from "@mui/styles";
-import {metadataPanelSX} from "../../styles/SystemStyles";
+import {metadataPanelSX} from "../../../util/styles/SystemStyles";
 import {
     extractCollectionFieldReferenceIndexAndKey,
     extractFieldReferenceKey,
@@ -19,7 +19,7 @@ import {
     isFieldReference
 } from "../util/FieldReferenceUtils";
 import MetadataContentComponent from "./metadata/MetadataContentComponent";
-import {toInstanceFieldReference} from "../../util/JsonUtil";
+import {toInstanceFieldReference} from "../../../util/JsonUtil";
 import ObjectCollectionMetadataContentComponent from "./metadata/ObjectCollectionMetadataContentComponent";
 import ValueConvertingRepository from "../../../shared/repositories/ValueConvertingRepository";
 import {Tag} from "./common/dnd/Tag";

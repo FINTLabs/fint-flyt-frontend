@@ -1,4 +1,4 @@
-import {addId, toInstanceCollectionFieldReference, toInstanceFieldReference} from "../../features/util/JsonUtil";
+import {addId, toInstanceCollectionFieldReference, toInstanceFieldReference} from "../../util/JsonUtil";
 
 const array = [
     {

@@ -10,12 +10,13 @@ import {
     FilePresent,
     FormatListNumbered,
     Link,
-    RuleRounded, SwitchAccessShortcut,
+    RuleRounded,
+    SwitchAccessShortcut,
     TextFieldsRounded
 } from "@mui/icons-material";
 import {FunctionComponent} from "react";
 import {ClassNameMap} from "@mui/styles";
-import {tagSX} from "../../../../styles/SystemStyles";
+import {tagSX} from "../../../../../util/styles/SystemStyles";
 
 export interface Props {
     classes: ClassNameMap

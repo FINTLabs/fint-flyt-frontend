@@ -3,7 +3,7 @@ import {DataGrid, GridCellParams, GridColumns, GridToolbar} from "@mui/x-data-gr
 import * as React from "react";
 import {useContext, useEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
-import {gridLocaleNoNB} from "../../util/locale/gridLocaleNoNB";
+import {gridLocaleNoNB} from "../../../util/locale/gridLocaleNoNB";
 import {useTranslation} from "react-i18next";
 import ErrorIcon from '@mui/icons-material/Error';
 import InfoIcon from '@mui/icons-material/Info';
@@ -247,7 +247,8 @@ const InstanceTable: React.FunctionComponent<any> = (props: { classes: ClassName
                         <DialogContentComponent row={props.row}/>
                     </DialogContent>
                     <DialogActions>
-                        <Button id={'error-dialog-close-btn'} onClick={() => setOpenDialog(false)} autoFocus>{t('button.close')}</Button>
+                        <Button id={'error-dialog-close-btn'} onClick={() => setOpenDialog(false)}
+                                autoFocus>{t('button.close')}</Button>
                     </DialogActions>
                 </Dialog>
             </div>

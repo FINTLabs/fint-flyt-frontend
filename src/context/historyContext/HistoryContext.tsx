@@ -2,7 +2,7 @@ import {IEvent} from "../../features/log/types/Event";
 import {contextDefaultValues, HistoryContextState} from "./types";
 import {createContext, FC, useState} from "react";
 import EventRepository from "../../features/log/repository/EventRepository";
-import {addId} from "../../features/util/JsonUtil";
+import {addId} from "../../util/JsonUtil";
 import SourceApplicationRepository from "../../shared/repositories/SourceApplicationRepository";
 import {IIntegrationMetadata} from "../../features/configuration/types/Metadata/IntegrationMetadata";
 

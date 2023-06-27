@@ -8,7 +8,7 @@ import {IconButton, TextField, Typography} from "@mui/material";
 import {Search} from "../../../../util/UrlUtils";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import ResourceRepository from "../../../../../../shared/repositories/ResourceRepository";
-import {searchResultSX} from "../../../../../styles/SystemStyles";
+import {searchResultSX} from "../../../../../../util/styles/SystemStyles";
 import {Noop} from "react-hook-form/dist/types";
 
 interface Props {
@@ -78,7 +78,7 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = forwardRef<a
                 variant='outlined'
                 size='small'
                 multiline
-                maxRows={3}
+                maxRows={5}
                 label={props.displayName}
                 disabled={props.disabled}
                 onChange={(e: BaseSyntheticEvent) => {

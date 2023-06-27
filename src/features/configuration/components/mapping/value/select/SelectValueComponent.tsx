@@ -2,7 +2,7 @@ import * as React from "react";
 import {forwardRef} from "react";
 import {ISelectable} from "../../../../types/Selectable";
 import {MenuItem, TextField} from "@mui/material";
-import {selectSX} from "../../../../../styles/SystemStyles";
+import {selectSX} from "../../../../../../util/styles/SystemStyles";
 import {Noop} from "react-hook-form/dist/types";
 
 interface Props {

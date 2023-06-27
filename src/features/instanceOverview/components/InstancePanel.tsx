@@ -4,7 +4,7 @@ import {useTranslation} from "react-i18next";
 import {DataGrid, GridCellParams, GridColumns, GridToolbar} from "@mui/x-data-grid";
 import moment from "moment/moment";
 import {Box, Button, Dialog, DialogActions, DialogContent, IconButton} from "@mui/material";
-import {gridLocaleNoNB} from "../../util/locale/gridLocaleNoNB";
+import {gridLocaleNoNB} from "../../../util/locale/gridLocaleNoNB";
 import {HistoryContext} from "../../../context/historyContext";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import {IEvent} from "../../log/types/Event";

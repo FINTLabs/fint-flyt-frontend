@@ -19,7 +19,7 @@ import getSelectables from "../../configuration/util/SelectablesUtils";
 import {ISelectable} from "../../configuration/types/Selectable";
 import ArrayComponent from "../../configuration/components/common/array/ArrayComponent";
 import FlytTitle4Component from "../../configuration/components/common/title/FlytTitle4Component";
-import {valueConvertingStyles} from "../../styles/ValueConverting.styles";
+import {valueConvertingStyles} from "../../../util/styles/ValueConverting.styles";
 import FlytTitle2Component from "../../configuration/components/common/title/FlytTitle2Component";
 import SearchSelectValueComponent from "../../configuration/components/mapping/value/select/SearchSelectValueComponent";
 
@@ -283,7 +283,8 @@ export const ValueConvertingForm: React.FunctionComponent<any> = (props: Props) 
                             >
                                 Opprett
                             </button>}
-                        <Button id={'cancel-button'} className={classes.submitButton} onClick={handleCancel} size="medium"
+                        <Button id={'cancel-button'} className={classes.submitButton} onClick={handleCancel}
+                                size="medium"
                                 variant="contained" component={RouterLink}
                                 to={'/valueconverting'}>Avbryt</Button>
                     </Box>

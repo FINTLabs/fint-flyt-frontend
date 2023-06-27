@@ -17,7 +17,7 @@ import {
 import {DataGrid, GridCellParams, GridColDef, GridToolbar} from "@mui/x-data-grid";
 import * as React from "react";
 import {useContext, useEffect, useState} from "react";
-import {gridLocaleNoNB} from "../../util/locale/gridLocaleNoNB";
+import {gridLocaleNoNB} from "../../../util/locale/gridLocaleNoNB";
 import {useTranslation} from "react-i18next";
 import {IntegrationContext} from "../../../context/integrationContext";
 import {Link as RouterLink, useHistory} from 'react-router-dom';

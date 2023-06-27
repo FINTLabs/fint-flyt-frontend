@@ -2,7 +2,7 @@ import {ClassNameMap} from "@mui/styles";
 import {IInstanceObjectCollectionMetadata} from "../../types/Metadata/IntegrationMetadata";
 import * as React from "react";
 import MetadataContentComponent from "./MetadataContentComponent";
-import {toInstanceCollectionFieldReference} from "../../../util/JsonUtil";
+import {toInstanceCollectionFieldReference} from "../../../../util/JsonUtil";
 import {FormatListNumbered} from "@mui/icons-material";
 
 interface Props {
