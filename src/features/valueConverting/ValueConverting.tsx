@@ -3,10 +3,10 @@ import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
 import ValueConvertingTable from "./components/ValueConvertingTable";
 import ValueConvertingForm from "./components/ValueConvertingForm";
-import {configurationFormStyles} from "../../util/styles/ConfigurationForm.styles";
+import {ConfigurationFormStyles} from "../../util/styles/ConfigurationFormStyles";
 import ValueConvertingRepository from "../../shared/repositories/ValueConvertingRepository";
 
-const useStyles = configurationFormStyles
+const useStyles = ConfigurationFormStyles
 
 const ValueConverting: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.valueConverting'});

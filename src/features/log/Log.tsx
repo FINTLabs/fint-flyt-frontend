@@ -27,7 +27,6 @@ function Log() {
     };
     const {events, getEvents} = useContext(HistoryContext)
 
-
     const columns: GridColumns = [
         {field: 'id', hide: true, type: 'string', headerName: 'id', flex: 0.5},
         {

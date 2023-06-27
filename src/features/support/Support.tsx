@@ -6,7 +6,6 @@ import StatusComponent from "./components/StatusComponent";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {SupportStyles} from "../../util/styles/Support.styles";
 
-
 const useStyles = SupportStyles
 
 const Support: React.FunctionComponent<RouteComponentProps<any>> = () => {

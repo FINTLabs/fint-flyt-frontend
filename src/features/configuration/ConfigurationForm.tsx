@@ -21,7 +21,7 @@ import {
 import {IntegrationContext} from "../../context/integrationContext";
 import {IIntegrationMetadata} from "./types/Metadata/IntegrationMetadata";
 import {useTranslation} from "react-i18next";
-import {configurationFormStyles} from "../../util/styles/ConfigurationForm.styles";
+import {ConfigurationFormStyles} from "../../util/styles/ConfigurationFormStyles";
 import CheckboxValueComponent from "./components/common/CheckboxValueComponent";
 import IntegrationRepository from "../../shared/repositories/IntegrationRepository";
 import {IConfiguration, IConfigurationPatch, IObjectMapping} from "./types/Configuration";
@@ -34,7 +34,7 @@ import ConfigurationRepository from "../../shared/repositories/ConfigurationRepo
 import {pruneObjectMapping} from "../../util/mapping/helpers/pruning";
 import EditingProvider, {EditingContext} from "../../context/editingContext";
 
-const useStyles = configurationFormStyles
+const useStyles = ConfigurationFormStyles
 
 const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const {
