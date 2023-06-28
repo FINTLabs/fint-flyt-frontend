@@ -95,6 +95,17 @@ export const testObjectTemplateSak: IMappingTemplate = {
                         {
                             "order": 1,
                             "elementConfig": {
+                                "key": "administrativEnhet",
+                                "displayName": "Administrativ enhet",
+                                "description": ""
+                            },
+                            "template": {
+                                "type": ValueType.BOOLEAN
+                            }
+                        },
+                        {
+                            "order": 2,
+                            "elementConfig": {
                                 "key": "tilgangsrestriksjon",
                                 "displayName": "Tilgangsrestriksjon",
                                 "description": ""
@@ -104,7 +115,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                             }
                         },
                         {
-                            "order": 2,
+                            "order": 3,
                             "elementConfig": {
                                 "key": "saksmappetype",
                                 "displayName": "Saksmappetype",
@@ -115,7 +126,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                             }
                         },
                         {
-                            "order": 3,
+                            "order": 4,
                             "elementConfig": {
                                 "key": "tittel",
                                 "displayName": "Tittel",
@@ -126,7 +137,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                             }
                         },
                         {
-                            "order": 4,
+                            "order": 5,
                             "elementConfig": {
                                 "key": "klassering",
                                 "displayName": "Klassering",
@@ -137,7 +148,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                             }
                         },
                         {
-                            "order": 5,
+                            "order": 6,
                             "elementConfig": {
                                 "key": "klasseringRekkefolge",
                                 "displayName": "Rekkefølge",
@@ -159,7 +170,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                             }
                         },
                         {
-                            "order": 6,
+                            "order": 7,
                             "elementConfig": {
                                 "key": "klasseringKlassifikasjonssystem",
                                 "displayName": "Klassifikasjonssystem",
@@ -186,7 +197,7 @@ export const testObjectTemplateSak: IMappingTemplate = {
                             }
                         },
                         {
-                            "order": 7,
+                            "order": 8,
                             "elementConfig": {
                                 "key": "klasseringKlasseId",
                                 "displayName": "KlasseID",
@@ -1105,6 +1116,52 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                                             }
                                                         }
                                                     ],
+                                                    "objectTemplates": [
+                                                        {
+                                                            "order": 5,
+                                                            "elementConfig": {
+                                                                "key": "skjerming",
+                                                                "displayName": "Skjerming",
+                                                                "description": ""
+                                                            },
+                                                            "template": {
+                                                                "selectableValueTemplates": [
+                                                                    {
+                                                                        "order": 0,
+                                                                        "elementConfig": {
+                                                                            "key": "tilgangsrestriksjon",
+                                                                            "displayName": "Tilgangsrestriksjon",
+                                                                            "description": ""
+                                                                        },
+                                                                        "template": {
+                                                                            "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
+                                                                            "selectablesSources": [
+                                                                                {
+                                                                                    "urlTemplate": "api/intern/arkiv/kodeverk/tilgangsrestriksjon"
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    },
+                                                                    {
+                                                                        "order": 1,
+                                                                        "elementConfig": {
+                                                                            "key": "skjermingshjemmel",
+                                                                            "displayName": "Skjermingshjemmel",
+                                                                            "description": ""
+                                                                        },
+                                                                        "template": {
+                                                                            "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
+                                                                            "selectablesSources": [
+                                                                                {
+                                                                                    "urlTemplate": "api/intern/arkiv/kodeverk/skjermingshjemmel"
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    }
+                                                                ]
+                                                            }
+                                                        }
+                                                    ],
                                                     "objectCollectionTemplates": [
                                                         {
                                                             "order": 4,
@@ -1614,6 +1671,52 @@ export const testObjectTemplateSak: IMappingTemplate = {
                                                     "selectablesSources": [
                                                         {
                                                             "urlTemplate": "api/intern/arkiv/kodeverk/tilknyttetregistreringsom"
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        ],
+                                        "objectTemplates": [
+                                            {
+                                                "order": 5,
+                                                "elementConfig": {
+                                                    "key": "skjerming",
+                                                    "displayName": "Skjerming",
+                                                    "description": ""
+                                                },
+                                                "template": {
+                                                    "selectableValueTemplates": [
+                                                        {
+                                                            "order": 0,
+                                                            "elementConfig": {
+                                                                "key": "tilgangsrestriksjon",
+                                                                "displayName": "Tilgangsrestriksjon",
+                                                                "description": ""
+                                                            },
+                                                            "template": {
+                                                                "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
+                                                                "selectablesSources": [
+                                                                    {
+                                                                        "urlTemplate": "api/intern/arkiv/kodeverk/tilgangsrestriksjon"
+                                                                    }
+                                                                ]
+                                                            }
+                                                        },
+                                                        {
+                                                            "order": 1,
+                                                            "elementConfig": {
+                                                                "key": "skjermingshjemmel",
+                                                                "displayName": "Skjermingshjemmel",
+                                                                "description": ""
+                                                            },
+                                                            "template": {
+                                                                "type": SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT,
+                                                                "selectablesSources": [
+                                                                    {
+                                                                        "urlTemplate": "api/intern/arkiv/kodeverk/skjermingshjemmel"
+                                                                    }
+                                                                ]
+                                                            }
                                                         }
                                                     ]
                                                 }
