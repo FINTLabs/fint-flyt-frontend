@@ -51,21 +51,20 @@ export function getTemplatePathFromTemplateReference(referenceOriginPath: string
     const referenceOriginRemovedDynamicPathLevels: string[] = referenceOriginPath
         .slice(referenceOriginPath.length - numOfDynamicPathLevels);
 
-    const referencePathWithoutDynamicPathLevelsAndWithAbsoluteCollectionIndexes: string[] =
-        convertDynamicCollectionIndexesToAbsolute(
-            referencePathWithoutDynamicPathLevels,
-            referenceOriginRemovedDynamicPathLevels
-        )
-
     return [
         ...referenceOriginPathAdjustedForDynamicPathLevels,
-        ...referencePathWithoutDynamicPathLevelsAndWithAbsoluteCollectionIndexes
+        ...(referencePathWithoutDynamicPathLevels.length === 1 && referencePathWithoutDynamicPathLevels[0] === ""
+            ? []
+            : convertDynamicCollectionIndexesToAbsolute(
+                referenceOriginRemovedDynamicPathLevels,
+                referencePathWithoutDynamicPathLevels
+            ))
     ];
 }
 
 function convertDynamicCollectionIndexesToAbsolute(
-    referencePathWithoutDynamicPathLevels: string[],
     referenceOriginRemovedDynamicPathLevels: string[],
+    referencePathWithoutDynamicPathLevels: string[],
 ): string[] {
     return referencePathWithoutDynamicPathLevels.map((pathComponent: string, index: number) => {
         if (collectionIndexSame.test(pathComponent)) {
