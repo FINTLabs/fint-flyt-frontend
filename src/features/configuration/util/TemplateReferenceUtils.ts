@@ -5,18 +5,14 @@ import {
     VALUE_MAPPING_PER_KEY,
     VALUE_MAPPING_STRING
 } from "../components/mapping/ConfigurationKeyUtils";
-
-export enum TemplateElementType {
-    VALUE,
-    OBJECT,
-    VALUE_COLLECTION,
-    OBJECT_COLLECTION
-}
-
-export type TemplateElementInfo = {
-    type: TemplateElementType;
-    childrenPerKey: Record<string, TemplateElementInfo>
-}
+import {
+    ICollectionTemplate,
+    IElementTemplate,
+    IMappingTemplate,
+    IObjectTemplate,
+    ISelectableValueTemplate,
+    IValueTemplate
+} from "../types/FormTemplate";
 
 const templateReferenceHardReferencePrefix: string = '/'
 const templateReferenceDynamicPathLevel: string = '../';
@@ -88,57 +84,104 @@ function convertDynamicCollectionIndexesToAbsolute(
     })
 }
 
-export function getConfigurationPathFromTemplatePath(templateInfo: TemplateElementInfo, templatePath: string[]) {
-    const configurationPath: string[] = ['mapping'];
-    let currentElement: TemplateElementInfo = templateInfo;
-    let i = 0;
-    while (i < templatePath.length) {
-        const templatePathComponent = templatePath[i];
-        currentElement = currentElement.childrenPerKey[templatePathComponent]
 
-        if (currentElement.type === TemplateElementType.VALUE) {
-            if (i < templatePath.length - 1) {
-                throw Error("Template path refers to element that does not exist inside a value mapping")
-            }
-            configurationPath.push(VALUE_MAPPING_PER_KEY);
-            configurationPath.push(templatePathComponent)
-            configurationPath.push(VALUE_MAPPING_STRING)
-        } else if (currentElement.type === TemplateElementType.OBJECT) {
-            configurationPath.push(OBJECT_MAPPING_PER_KEY)
-            configurationPath.push(templatePathComponent)
-        } else if (currentElement.type == TemplateElementType.VALUE_COLLECTION) {
-            if (i < templatePath.length - 1) {
-                throw Error("Template path refers to element that does not exist inside a value mapping")
-            }
-            configurationPath.push(VALUE_COLLECTION_MAPPING_PER_KEY)
-            configurationPath.push(templatePathComponent)
-            configurationPath.push(VALUE_MAPPING_STRING)
-            if (i + 1 < templatePath.length) {
-                configurationPath.push(templatePath[i + 1]);
-                i++;
-            }
-        } else if (currentElement.type == TemplateElementType.OBJECT_COLLECTION) {
-            configurationPath.push(OBJECT_COLLECTION_MAPPING_PER_KEY)
-            configurationPath.push(templatePathComponent)
-            if (i + 1 < templatePath.length) {
-                configurationPath.push(templatePath[i + 1]);
-                i++;
-            }
-        }
-        i++;
-    }
-    return configurationPath;
+function findTemplate<T>(templatePathComponent: string, elements?: IElementTemplate<T>[]): T | undefined {
+    return elements?.find(
+        (elementTemplate: IElementTemplate<T>) =>
+            elementTemplate.elementConfig.key === templatePathComponent
+    )?.template;
 }
 
-export function getConfigurationKeyFromTemplatePath(templateInfo: TemplateElementInfo, templatePath: string[]) {
-    return getConfigurationPathFromTemplatePath(templateInfo, templatePath).join(configurationKeyComponentSeparator);
+function getConfigurationPathFromTemplatePathForValueCollection(template: ICollectionTemplate<IValueTemplate>, templatePath: string[]): string[] {
+    if (templatePath.length == 0) {
+        return [];
+    }
+    const currentTemplatePathComponent: string = templatePath[0]
+    return [
+        currentTemplatePathComponent,
+        ...getConfigurationPathFromTemplatePathForValue(templatePath.slice(1))
+    ]
+}
+
+function getConfigurationPathFromTemplatePathForObjectCollection(template: ICollectionTemplate<IObjectTemplate>, templatePath: string[]): string[] {
+    if (templatePath.length == 0) {
+        return [];
+    }
+    const currentTemplatePathComponent: string = templatePath[0]
+    return [
+        currentTemplatePathComponent,
+        ...getConfigurationPathFromTemplatePathForObject(template.elementTemplate, templatePath.slice(1))
+    ]
+}
+
+// TODO eivindmorch 28/06/2023 : Replace with O(1) (record per key)
+function getConfigurationPathFromTemplatePathForObject(template: IObjectTemplate, templatePath: string[]): string[] {
+    if (templatePath.length == 0) {
+        return [];
+    }
+    const currentTemplatePathComponent: string = templatePath[0];
+
+    const valueTemplate: IValueTemplate | undefined = findTemplate(currentTemplatePathComponent, template.valueTemplates);
+    const selectableValueTemplate: ISelectableValueTemplate | undefined = findTemplate(currentTemplatePathComponent, template.selectableValueTemplates);
+    if (valueTemplate || selectableValueTemplate) {
+        return [
+            VALUE_MAPPING_PER_KEY,
+            currentTemplatePathComponent,
+            ...getConfigurationPathFromTemplatePathForValue(templatePath.slice(1))
+        ]
+    }
+
+    const objectTemplate: IObjectTemplate | undefined = findTemplate(currentTemplatePathComponent, template.objectTemplates);
+    if (objectTemplate) {
+        return [
+            OBJECT_MAPPING_PER_KEY,
+            currentTemplatePathComponent,
+            ...getConfigurationPathFromTemplatePathForObject(objectTemplate, templatePath.slice(1))
+        ]
+    }
+
+    const valueCollectionTemplate: ICollectionTemplate<IValueTemplate> | undefined
+        = findTemplate(currentTemplatePathComponent, template.valueCollectionTemplates);
+    if (valueCollectionTemplate) {
+        return [
+            VALUE_COLLECTION_MAPPING_PER_KEY,
+            currentTemplatePathComponent,
+            ...getConfigurationPathFromTemplatePathForValueCollection(valueCollectionTemplate, templatePath.slice(1))
+        ]
+    }
+
+    const objectCollectionTemplate: ICollectionTemplate<IObjectTemplate> | undefined
+        = findTemplate(currentTemplatePathComponent, template.objectCollectionTemplates);
+    if (objectCollectionTemplate) {
+        return [
+            OBJECT_COLLECTION_MAPPING_PER_KEY,
+            currentTemplatePathComponent,
+            ...getConfigurationPathFromTemplatePathForObjectCollection(objectCollectionTemplate, templatePath.slice(1))
+        ]
+    }
+    throw new Error('Could not find element with key=' + currentTemplatePathComponent);
+}
+
+function getConfigurationPathFromTemplatePathForValue(templatePath: string[]) {
+    if (templatePath.length > 0) {
+        throw Error("Template path refers to element that does not exist inside a value mapping");
+    }
+    return [VALUE_MAPPING_STRING]
+}
+
+export function getConfigurationPathFromTemplatePath(template: IMappingTemplate, templatePath: string[]) {
+    return getConfigurationPathFromTemplatePathForObject(template.rootObjectTemplate, templatePath);
+}
+
+export function getConfigurationKeyFromTemplatePath(template: IMappingTemplate, templatePath: string[]) {
+    return getConfigurationPathFromTemplatePath(template, templatePath).join(configurationKeyComponentSeparator);
 }
 
 export function getConfigurationKeyFromTemplateReference(
-    templateInfo: TemplateElementInfo,
+    template: IMappingTemplate,
     referenceOriginPath: string[],
     reference: string
 ): string {
     const templatePath: string[] = getTemplatePathFromTemplateReference(referenceOriginPath, reference);
-    return getConfigurationKeyFromTemplatePath(templateInfo, templatePath);
+    return getConfigurationKeyFromTemplatePath(template, templatePath);
 }

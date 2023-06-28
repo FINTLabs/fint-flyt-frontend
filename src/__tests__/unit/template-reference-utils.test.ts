@@ -1,4 +1,8 @@
-import {getTemplatePathFromTemplateReference} from "../../features/configuration/util/TemplateReferenceUtils";
+import {
+    getConfigurationPathFromTemplatePath,
+    getTemplatePathFromTemplateReference
+} from "../../features/configuration/util/TemplateReferenceUtils";
+import {IMappingTemplate, ValueType} from "../../features/configuration/types/FormTemplate";
 
 
 describe('Template reference utils', () => {
@@ -69,5 +73,132 @@ describe('Template reference utils', () => {
         });
     })
 
+    describe('getConfigurationPathFromTemplatePath', () => {
+        let template: IMappingTemplate;
+        beforeEach(() => {
+            template = {
+                displayName: 'MappingTemplateDisplayName',
+                rootObjectTemplate: {
+                    objectTemplates: [
+                        {
+                            order: 0,
+                            elementConfig: {
+                                key: 'sak',
+                                displayName: '',
+                                description: ''
+                            },
+                            template: {
+                                valueTemplates: [
+                                    {
+                                        order: 0,
+                                        elementConfig: {
+                                            key: 'tittel',
+                                            displayName: '',
+                                            description: ''
+                                        },
+                                        template: {
+                                            type: ValueType.DYNAMIC_STRING
+                                        }
+                                    }
+                                ],
+                                valueCollectionTemplates: [
+                                    {
+                                        order: 1,
+                                        elementConfig: {
+                                            key: 'kontaktpersoner',
+                                            displayName: '',
+                                            description: ''
+                                        },
+                                        template: {
+                                            elementTemplate: {
+                                                type: ValueType.DYNAMIC_STRING
+                                            }
+                                        }
+                                    }
+                                ],
+                                objectCollectionTemplates: [
+                                    {
+                                        order: 2,
+                                        elementConfig: {
+                                            key: 'journalposter',
+                                            displayName: '',
+                                            description: ''
+                                        },
+                                        template: {
+                                            elementTemplate: {
+                                                valueTemplates: [
+                                                    {
+                                                        order: 0,
+                                                        elementConfig: {
+                                                            key: 'tittel',
+                                                            displayName: '',
+                                                            description: ''
+                                                        },
+                                                        template: {
+                                                            type: ValueType.DYNAMIC_STRING
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            };
+        })
+
+        test('value', () => {
+
+            const templatePath: string[] = ['sak', 'tittel'];
+
+            const configurationPath: string[] = getConfigurationPathFromTemplatePath(template, templatePath);
+
+            expect(configurationPath).toEqual([
+                'objectMappingPerKey',
+                'sak',
+                'valueMappingPerKey',
+                'tittel',
+                'mappingString'
+            ])
+        })
+
+        test('value collection', () => {
+
+            const templatePath: string[] = ['sak', 'kontaktpersoner', '2'];
+
+            const configurationPath: string[] = getConfigurationPathFromTemplatePath(template, templatePath);
+
+            expect(configurationPath).toEqual([
+                'objectMappingPerKey',
+                'sak',
+                'valueCollectionMappingPerKey',
+                'kontaktpersoner',
+                '2',
+                'mappingString'
+            ])
+        })
+
+        test('object collection', () => {
+
+            const templatePath: string[] = ['sak', 'journalposter', '0', 'tittel'];
+
+            const configurationPath: string[] = getConfigurationPathFromTemplatePath(template, templatePath);
+
+            expect(configurationPath).toEqual([
+                'objectMappingPerKey',
+                'sak',
+                'objectCollectionMappingPerKey',
+                'journalposter',
+                '0',
+                'valueMappingPerKey',
+                'tittel',
+                'mappingString'
+            ])
+        })
+
+    });
 
 })
