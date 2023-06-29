@@ -21,7 +21,6 @@ const HistoryProvider: FC = ({children}) => {
             .then((response) => {
                 const data = response.data.content;
                 if (data) {
-                    console.log(data)
                     data.forEach(addId(0, 'name'))
                     data.forEach((event: IEvent) =>
                         event.errors.forEach(addId(0, 'errorCode'))
