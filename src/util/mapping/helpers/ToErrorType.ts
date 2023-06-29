@@ -1,4 +1,4 @@
-import {ErrorType} from "../../../instanceOverview/types/ErrorType";
+import {ErrorType} from "../../../features/instanceOverview/types/ErrorType";
 
 export function toErrorType(type: string): string {
     if (type === 'instanceFieldKey') {

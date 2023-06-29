@@ -1,8 +1,6 @@
 import {Box, Card, CardContent} from '@mui/material';
 import React, {useContext, useEffect} from 'react';
-import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {RouteComponentProps} from 'react-router-dom';
-import {createStyles, makeStyles} from "@mui/styles";
 import {IntegrationContext} from "../../context/integrationContext";
 import IntegrationTable from "../integrationOverview/components/IntegrationTable";
 import DashboardCard from "./DashboardCard";
@@ -13,6 +11,10 @@ import {DashboardStyles} from "../../util/styles/Dashboard.styles";
 import {IIntegrationStatistics} from "./types/IntegrationStatistics";
 
 const useStyles = DashboardStyles;
+
+type Props = {
+    id: string
+}
 
 const Dashboard: React.FunctionComponent<RouteComponentProps<Props>> = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.dashboard'});

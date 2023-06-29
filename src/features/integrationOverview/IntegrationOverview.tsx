@@ -1,14 +1,12 @@
 import {Breadcrumbs, Typography} from '@mui/material';
 import React, {useContext, useEffect} from 'react';
-import {RouteComponentProps} from 'react-router-dom';
-import {createStyles, makeStyles} from "@mui/styles";
-import {RouteComponentProps, withRouter} from 'react-router-dom';
 import IntegrationTable from "./components/IntegrationTable";
 import {IntegrationContext} from "../../context/integrationContext";
 import {useTranslation} from 'react-i18next';
 import IntegrationPanel from "./components/IntegrationPanel";
 import {SourceApplicationContext} from "../../context/sourceApplicationContext";
 import {IntegrationStyles} from "../../util/styles/Integration.styles";
+import {RouteComponentProps} from "react-router-dom";
 
 const useStyles = IntegrationStyles;
 
