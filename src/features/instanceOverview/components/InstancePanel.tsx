@@ -7,7 +7,7 @@ import {Box, Button, Dialog, DialogActions, DialogContent, IconButton} from "@mu
 import {gridLocaleNoNB} from "../../util/locale/gridLocaleNoNB";
 import {HistoryContext} from "../../../context/historyContext";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
-import {IEvent} from "../../log/types/Event";
+import {IEvent} from "../types/Event";
 import ErrorIcon from "@mui/icons-material/Error";
 import InfoIcon from "@mui/icons-material/Info";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";

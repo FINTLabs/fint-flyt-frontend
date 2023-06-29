@@ -14,7 +14,7 @@ import {HistoryContext} from "../../../context/historyContext";
 import InstanceRepository from "../repository/InstanceRepository";
 import {getSourceApplicationDisplayName} from "../../configuration/defaults/DefaultValues";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
-import {IEvent} from "../../log/types/Event";
+import {IEvent} from "../types/Event";
 import {SourceApplicationContext} from "../../../context/sourceApplicationContext";
 import RefreshIcon from '@mui/icons-material/Refresh';
 import {ClassNameMap} from "@mui/styles";

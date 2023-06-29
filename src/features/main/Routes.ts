@@ -1,6 +1,5 @@
 import IRoute from './Route';
 import Dashboard from "../dashboard/Dashboard";
-import Log from "../log/Log";
 import IntegrationOverview from "../integrationOverview/IntegrationOverview";
 import InstanceOverview from "../instanceOverview/InstanceOverview";
 import Support from "../support/Support";
@@ -72,14 +71,6 @@ const routes: IRoute[] = [
         name: 'instancePanel',
         component: InstanceOverview,
         exact: true,
-    },
-    {
-        path: '/log',
-        name: 'log',
-        component: Log,
-        icon: 'event-note-icon',
-        exact: true,
-        inNavigationMenu: false
     },
     {
         path: '/valueconverting',

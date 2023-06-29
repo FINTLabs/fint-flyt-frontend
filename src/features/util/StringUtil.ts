@@ -1,5 +1,6 @@
-import {ErrorType, getErrorType} from "../log/types/ErrorType";
-import {IError, IErrorArg} from "../log/types/Event";
+import {ErrorType} from "../instanceOverview/types/ErrorType";
+import {IError, IErrorArg} from "../instanceOverview/types/Event";
+import {toErrorType} from "./mapping/helpers/ToErrorType";
 
 export function stringReplace(baseString: string, errorArgs: IErrorArg[]) {
     let errorString = baseString;
@@ -11,7 +12,7 @@ export function stringReplace(baseString: string, errorArgs: IErrorArg[]) {
     ]
     errorTypes.map(errorType => {
         errorArgs.map(arg => {
-            if (getErrorType(arg.type) === errorType && arg.value !== undefined) {
+            if (toErrorType(arg.type) === errorType && arg.value !== undefined) {
                 helpString = errorString.replace(errorType, arg.value)
                 return errorString = helpString
             }

@@ -8,7 +8,7 @@ import DashboardCard from "./DashboardCard";
 import {ICard} from "./types/Card";
 import {useTranslation} from "react-i18next";
 import {SourceApplicationContext} from "../../context/sourceApplicationContext";
-import {IIntegrationStatistics} from "../log/types/IntegrationStatistics";
+import {IIntegrationStatistics} from "./types/IntegrationStatistics";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

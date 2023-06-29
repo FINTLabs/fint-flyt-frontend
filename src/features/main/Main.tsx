@@ -11,7 +11,7 @@ import {IntegrationContext} from "../../context/integrationContext";
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import {SourceApplicationContext} from "../../context/sourceApplicationContext";
 import ConfigurationProvider from "../../context/configurationContext";
-import {IIntegrationStatistics} from "../log/types/IntegrationStatistics";
+import {IIntegrationStatistics} from "../dashboard/types/IntegrationStatistics";
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme: Theme) =>

@@ -1,4 +1,4 @@
-import {IEvent} from "../../features/log/types/Event";
+import {IEvent} from "../../features/instanceOverview/types/Event";
 
 export type HistoryContextState = {
     events: IEvent[] | undefined,

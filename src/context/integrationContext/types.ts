@@ -1,7 +1,7 @@
 import {IIntegration} from "../../features/integration/types/Integration";
 import {IConfiguration} from "../../features/configuration/types/Configuration";
 import {IIntegrationMetadata} from "../../features/configuration/types/Metadata/IntegrationMetadata";
-import {IIntegrationStatistics} from "../../features/log/types/IntegrationStatistics";
+import {IIntegrationStatistics} from "../../features/dashboard/types/IntegrationStatistics";
 
 export type IntegrationContextState = {
     id: string | undefined;
