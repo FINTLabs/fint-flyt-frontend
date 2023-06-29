@@ -12,12 +12,19 @@ import {IFormIntegration} from "../configuration/types/FormIntegration";
 import {selectSX} from "../../util/styles/SystemStyles";
 import {IntegrationFormStyles} from "../../util/styles/IntegrationForm.styles"
 import {toIntegration} from "../../util/mapping/ToIntegration";
+import {selectSX} from "../configuration/styles/SystemStyles";
+import {ISelect} from "../configuration/types/Select";
+import {IIntegrationMetadata} from "../configuration/types/Metadata/IntegrationMetadata";
 
 const useStyles = IntegrationFormStyles;
 
-export const IntegrationForm: React.FunctionComponent<any> = () => {
+type Props = {
+    id: string
+}
+
+export const IntegrationForm: React.FunctionComponent<Props> = () => {
     const classes = useStyles();
-    let history = useHistory();
+    const history = useHistory();
     const {t} = useTranslation('translations', {keyPrefix: 'components.integrationForm'});
     const {
         setSelectedMetadata,
@@ -37,7 +44,7 @@ export const IntegrationForm: React.FunctionComponent<any> = () => {
     const [destination, setDestination] = useState<string>('');
     const [sourceApplicationId, setSourceApplicationId] = useState<string>('');
     const [sourceApplicationIntegrationId, setSourceApplicationIntegrationId] = useState<string>('');
-    let backgroundColor = 'white';
+    const backgroundColor = 'white';
 
     const navToConfiguration = (id: string) => {
         history.push({
@@ -69,10 +76,10 @@ export const IntegrationForm: React.FunctionComponent<any> = () => {
 
     const confirm = () => {
         if (destination && sourceApplicationId && sourceApplicationIntegrationId) {
-            let selectedForm = allMetadata.filter((md: any) => md.sourceApplicationIntegrationId === sourceApplicationIntegrationId)
+            const selectedForm = allMetadata.filter((md: IIntegrationMetadata) => md.sourceApplicationIntegrationId === sourceApplicationIntegrationId)
             setSelectedMetadata(selectedForm[0])
             getInstanceElementMetadata(selectedForm[0].id)
-            let formConfiguration: IFormIntegration = {
+            const formConfiguration: IFormIntegration = {
                 destination: destination,
                 sourceApplicationIntegrationId: sourceApplicationIntegrationId,
                 sourceApplicationId: sourceApplicationId
@@ -113,7 +120,7 @@ export const IntegrationForm: React.FunctionComponent<any> = () => {
                                     setSourceApplicationIntegrationId('')
                                 }}
                             >
-                                {sourceApplications.map((item: any, index: number) => (
+                                {sourceApplications.map((item: ISelect, index: number) => (
                                     <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
                                 ))}
                             </TextField>
@@ -134,8 +141,8 @@ export const IntegrationForm: React.FunctionComponent<any> = () => {
                                                label={t('labels.sourceApplicationIntegrationId') + '*'}
                                                variant="outlined"/>
                                 )}
-                                getOptionLabel={option => option.label}
-                                value={sourceApplicationIntegrationId ? availableForms.forms.find(({value}: { value: any }) => value === sourceApplicationIntegrationId) : null}
+                                getOptionLabel={(option: ISelect) => option.label}
+                                value={sourceApplicationIntegrationId ? availableForms.forms.find(({value}: { value: string }) => value === sourceApplicationIntegrationId) : null}
                                 onChange={(_event, select) => {
                                     setSourceApplicationIntegrationId(select ? select.value : '');
                                 }}
@@ -154,9 +161,9 @@ export const IntegrationForm: React.FunctionComponent<any> = () => {
                                 style={{backgroundColor}}
                                 value={destination}
                                 label={t('labels.destination') + '*'}
-                                onChange={event => setDestination(event.target.value)}
+                                onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => setDestination(event.target.value)}
                             >
-                                {destinations.map((item: any, index: number) => (
+                                {destinations.map((item: ISelect, index: number) => (
                                     <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
                                 ))}
                             </TextField>

@@ -19,10 +19,11 @@ export function SelectablesStatefulValue(
         absoluteKey
     )
     const absoluteKeys: string[] = Object.keys(valueRefPerAbsoluteKey)
+    // eslint-disable-next-line
     const useWatchValues: any[] = useWatch({control, name: absoluteKeys})
 
     useEffect(() => {
-        let valuePerValueRef: Record<string, any> = {};
+        const valuePerValueRef: Record<string, any> = {};
         Array.from(Array(absoluteKeys.length).keys())
             .forEach(i =>
                 valuePerValueRef[valueRefPerAbsoluteKey[absoluteKeys[i]]] = useWatchValues[i]
@@ -36,9 +37,9 @@ function updateSelectables(
     staticSelectables: ISelectable[],
     sourceUrlBuilders: IUrlBuilder[],
     valuePerValueRef: Record<string, string>,
-    setSelectables: Dispatch<SetStateAction<any>>
+    setSelectables: Dispatch<SetStateAction<ISelectable[]>>
 ): void {
-    let sources: Source[] = sourceUrlBuilders
+    const sources: Source[] = sourceUrlBuilders
         .map(urlBuilder => createSource(urlBuilder, valuePerValueRef))
         .filter((source): source is Source => !!source)
 

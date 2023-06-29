@@ -1,4 +1,4 @@
-import {IEvent} from "../../features/log/types/Event";
+import {IEvent} from "../../features/instanceOverview/types/Event";
 
 export type HistoryContextState = {
     events: IEvent[] | undefined,
@@ -12,8 +12,8 @@ export type HistoryContextState = {
 export const contextDefaultValues: HistoryContextState = {
     events: undefined,
     latestInstances: undefined,
-    getEvents: () => {},
-    getLatestInstances: () => {},
+    getEvents: () => undefined,
+    getLatestInstances: () => undefined,
     selectedInstances: undefined,
-    getSelectedInstances: (page: number, size: number, sortProperty: string, sortDirection: string, sourceApplicationId: string, instanceId: string) => {}
+    getSelectedInstances: () => undefined
 };

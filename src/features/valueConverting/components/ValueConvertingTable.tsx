@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Link as RouterLink, useHistory, withRouter} from 'react-router-dom';
+import {Link as RouterLink, useHistory} from 'react-router-dom';
 import {Box, Button, Menu, MenuItem} from "@mui/material";
 import {useTranslation} from 'react-i18next';
 import {DataGrid, GridCellParams, GridColDef} from "@mui/x-data-grid";
@@ -13,8 +13,8 @@ type Props = {
     onValueConvertingSelected: (id: number, view: boolean) => void;
 }
 
-const ValueConvertingTable: React.FunctionComponent<any> = (props: Props) => {
-    let history = useHistory();
+const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
+    const history = useHistory();
     const {t} = useTranslation('translations', {keyPrefix: 'pages.valueConverting'});
     const [rows, setRows] = useState<IValueConverting[] | undefined>(undefined)
     const [anchorElement, setAnchorElement] = React.useState<null | HTMLElement>(null);
@@ -37,7 +37,7 @@ const ValueConvertingTable: React.FunctionComponent<any> = (props: Props) => {
     useEffect(() => {
         ValueConvertingRepository.getValueConvertings(0, 100, 'fromApplicationId', 'ASC', true)
             .then(response => {
-                let data = response.data
+                const data = response.data
                 if (data.content) {
                     setRows(data.content)
                 } else {
@@ -92,7 +92,7 @@ const ValueConvertingTable: React.FunctionComponent<any> = (props: Props) => {
             flex: 0.5,
             sortable: false,
             filterable: false,
-            renderCell: (params: GridCellParams<any, IValueConverting>) => (
+            renderCell: (params: GridCellParams<string, IValueConverting>) => (
                 <EditButtonToggle row={params.row}/>)
         }
     ]
@@ -108,7 +108,7 @@ const ValueConvertingTable: React.FunctionComponent<any> = (props: Props) => {
         </Button>
     }
 
-    async function handleNewOrEditConvertingClick(id: any) {
+    async function handleNewOrEditConvertingClick(id: number) {
         props.onValueConvertingSelected(id, false)
     }
 
@@ -183,10 +183,11 @@ const ValueConvertingTable: React.FunctionComponent<any> = (props: Props) => {
                             horizontal: 'left',
                         }}
                     >
-                        {rows && rows.map((row: any, index: number) => {
+                        {rows && rows.map((row: IValueConverting, index: number) => {
                                 return <MenuItem onClick={handleNewConfigSubClose} sx={{padding: 'none'}}
                                                  disableGutters={true} divider={true} dense={true} key={index}>
-                                    <Button id={"version-button-" + index} sx={{width: '140px', height: 'webkit-fill-available'}}
+                                    <Button id={"version-button-" + index}
+                                            sx={{width: '140px', height: 'webkit-fill-available'}}
                                             onClick={() => {
                                                 handleNewOrEditConvertingClick(row.id).then(() => history.push('/valueconverting'))
                                             }}>
@@ -202,4 +203,4 @@ const ValueConvertingTable: React.FunctionComponent<any> = (props: Props) => {
     );
 }
 
-export default withRouter(ValueConvertingTable);
+export default ValueConvertingTable;

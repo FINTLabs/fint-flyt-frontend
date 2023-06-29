@@ -11,11 +11,10 @@ const Router: React.FunctionComponent = () => {
                         key={index}
                         exact={route.exact}
                         path={route.path}
-                        render={(props: RouteComponentProps<any>) => (
+                        render={(props: RouteComponentProps) => (
                             <route.component
                                 name={route.name}
                                 {...props}
-                                {...route.props}
                             />
                         )}
                     />

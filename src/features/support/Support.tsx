@@ -8,10 +8,14 @@ import {SupportStyles} from "../../util/styles/Support.styles";
 
 const useStyles = SupportStyles
 
-const Support: React.FunctionComponent<RouteComponentProps<any>> = () => {
+type Props = {
+    id: string
+}
+
+const Support: React.FunctionComponent<RouteComponentProps<Props>> = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.support'});
     const classes = useStyles();
-    const view: boolean = false;
+    const view = false;
     const [expanded, setExpanded] = React.useState<string | false>(false);
 
     const handleChange =
@@ -64,4 +68,4 @@ const Support: React.FunctionComponent<RouteComponentProps<any>> = () => {
     );
 }
 
-export default withRouter(Support);
+export default Support;

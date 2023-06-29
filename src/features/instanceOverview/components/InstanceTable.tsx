@@ -14,15 +14,19 @@ import {HistoryContext} from "../../../context/historyContext";
 import InstanceRepository from "../repository/InstanceRepository";
 import {getSourceApplicationDisplayName} from "../../configuration/defaults/DefaultValues";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
-import {IEvent} from "../../log/types/Event";
+import {IEvent} from "../types/Event";
 import {SourceApplicationContext} from "../../../context/sourceApplicationContext";
 import RefreshIcon from '@mui/icons-material/Refresh';
 import {ClassNameMap} from "@mui/styles";
 import DialogContentComponent from "./DialogContentComponent";
 
-const InstanceTable: React.FunctionComponent<any> = (props: { classes: ClassNameMap }) => {
+type Props = {
+    classes: ClassNameMap
+}
+
+const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.instanceOverview'})
-    let history = useHistory();
+    const history = useHistory();
     const classes = props.classes;
     const {latestInstances, getLatestInstances, getSelectedInstances} = useContext(HistoryContext)
     const {sourceApplication} = useContext(SourceApplicationContext)
@@ -120,7 +124,7 @@ const InstanceTable: React.FunctionComponent<any> = (props: { classes: ClassName
         );
     }
 
-    const resend = (event: any, instanceId: string) => {
+    const resend = (instanceId: string) => {
         //TODO: add notification on successful or failed resending
         InstanceRepository.resendInstance(instanceId)
             .then(response => {
@@ -146,8 +150,8 @@ const InstanceTable: React.FunctionComponent<any> = (props: { classes: ClassName
         return (
             <>
                 {hasErrors &&
-                    <Button id={'retry-btn-' + props.row.id} size="small" variant="outlined" onClick={(e) => {
-                        resend(e, props.row.instanceFlowHeaders.instanceId);
+                    <Button id={'retry-btn-' + props.row.id} size="small" variant="outlined" onClick={() => {
+                        resend(props.row.instanceFlowHeaders.instanceId);
                     }}>{t('button.retry')}</Button>
                 }
             </>
@@ -234,7 +238,7 @@ const InstanceTable: React.FunctionComponent<any> = (props: { classes: ClassName
         );
     }
 
-    function ErrorAlertDialog(props: any) {
+    function ErrorAlertDialog(props: GridCellParams['row']) {
         return (
             <div>
                 <Dialog

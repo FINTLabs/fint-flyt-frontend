@@ -10,6 +10,7 @@ import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import {SourceApplicationContext} from "../../context/sourceApplicationContext";
 import ConfigurationProvider from "../../context/configurationContext";
 import {MainStyles} from "../../util/styles/Main.styles";
+import {IIntegrationStatistics} from "../dashboard/types/IntegrationStatistics";
 
 const useStyles = MainStyles;
 
@@ -26,7 +27,7 @@ function Main() {
     const {isAdmin, setIsAdmin} = useContext(SourceApplicationContext)
     const {statistics} = useContext(IntegrationContext)
     let totalErrors = 0;
-    statistics?.map((stat: any) => {
+    statistics?.map((stat: IIntegrationStatistics) => {
         return totalErrors += stat.currentErrors
     })
 

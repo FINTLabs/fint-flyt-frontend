@@ -7,7 +7,7 @@ import {Box, Button, Dialog, DialogActions, DialogContent, IconButton} from "@mu
 import {gridLocaleNoNB} from "../../../util/locale/gridLocaleNoNB";
 import {HistoryContext} from "../../../context/historyContext";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
-import {IEvent} from "../../log/types/Event";
+import {IEvent} from "../types/Event";
 import ErrorIcon from "@mui/icons-material/Error";
 import InfoIcon from "@mui/icons-material/Info";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
@@ -16,10 +16,14 @@ import {useHistory} from "react-router-dom";
 import {ClassNameMap} from "@mui/styles";
 import DialogContentComponent from "./DialogContentComponent";
 
-const InstancePanel: React.FunctionComponent<any> = (props: { classes: ClassNameMap }) => {
+type Props = {
+    classes: ClassNameMap
+}
+
+const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
     const {t, i18n} = useTranslation('translations', {keyPrefix: 'pages.instanceOverview'});
     const classes = props.classes;
-    let history = useHistory();
+    const history = useHistory();
     const {selectedInstances} = useContext(HistoryContext)
     const [selectedRow, setSelectedRow] = useState<IEvent>();
     const [openErrorDialog, setOpenErrorDialog] = React.useState(false);
@@ -172,7 +176,7 @@ const InstancePanel: React.FunctionComponent<any> = (props: { classes: ClassName
         );
     }
 
-    function ErrorAlertDialog(props: any) {
+    function ErrorAlertDialog(props: GridCellParams['row']) {
         return (
             <Dialog
                 open={openErrorDialog}

@@ -1,6 +1,7 @@
 import {IIntegration} from "../../features/integration/types/Integration";
 import {IConfiguration} from "../../features/configuration/types/Configuration";
 import {IIntegrationMetadata} from "../../features/configuration/types/Metadata/IntegrationMetadata";
+import {IIntegrationStatistics} from "../../features/dashboard/types/IntegrationStatistics";
 
 export type IntegrationContextState = {
     id: string | undefined;
@@ -29,51 +30,35 @@ export type IntegrationContextState = {
     setSourceApplicationId: (destination: string) => void,
     resetIntegrationContext: () => void;
     resetIntegrations: () => void;
-    statistics: any[]
+    statistics: IIntegrationStatistics[]
 };
 
 export const contextDefaultValues: IntegrationContextState = {
     id: undefined,
-    setId: (number: string | undefined) => {
-    },
-    existingIntegration: {},
-    setExistingIntegration: () => {
-    },
+    setId: () => undefined,
+    existingIntegration: undefined,
+    setExistingIntegration: () => undefined,
     integrations: [],
-    setIntegrations: () => {
-    },
-    getIntegrations: () => {
-    },
+    setIntegrations: () => undefined,
+    getIntegrations: () => undefined,
     configuration: undefined,
-    setConfiguration: () => {
-    },
+    setConfiguration: () => undefined,
     configurations: undefined,
     completedConfigurations: undefined,
-    getConfiguration: () => {
-    },
-    getConfigurations: () => {
-    },
-    getCompletedConfigurations: () => {
-    },
-    setConfigurations: () => {
-    },
-    setCompletedConfigurations: () => {
-    },
+    getConfiguration: () => undefined,
+    getConfigurations: () => undefined,
+    getCompletedConfigurations: () => undefined,
+    setConfigurations: () => undefined,
+    setCompletedConfigurations: () => undefined,
     destination: '',
     selectedMetadata: undefined,
-    setSelectedMetadata: () => {
-    },
-    setDestination: () => {
-    },
+    setSelectedMetadata: () => undefined,
+    setDestination: () => undefined,
     sourceApplicationId: '',
-    setSourceApplicationId: () => {
-    },
+    setSourceApplicationId: () => undefined,
     sourceApplicationIntegrationId: '',
-    setSourceApplicationIntegrationId: () => {
-    },
-    resetIntegrationContext: () => {
-    },
-    resetIntegrations: () => {
-    },
+    setSourceApplicationIntegrationId: () => undefined,
+    resetIntegrationContext: () => undefined,
+    resetIntegrations: () => undefined,
     statistics: []
 };

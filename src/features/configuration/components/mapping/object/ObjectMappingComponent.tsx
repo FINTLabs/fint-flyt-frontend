@@ -96,8 +96,9 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                 .filter((template: IElementTemplate<IValueTemplate>) => {
                     return shouldShowElementWithOrder(template.order)
                 })
-                .map<ReactElement<{ order: number }>>((template: IElementTemplate<IValueTemplate>) =>
+                .map<ReactElement<{ order: number }>>((template: IElementTemplate<IValueTemplate>, index) =>
                     <ValueMappingComponent
+                        key={index}
                         classes={props.classes}
                         order={template.order}
                         absoluteKey={getValueMappingKey(template)}
@@ -112,8 +113,9 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                 .filter((template: IElementTemplate<ISelectableValueTemplate>) => {
                     return shouldShowElementWithOrder(template.order)
                 })
-                .map<ReactElement<{ order: number }>>((template: IElementTemplate<ISelectableValueTemplate>) =>
+                .map<ReactElement<{ order: number }>>((template: IElementTemplate<ISelectableValueTemplate>, index) =>
                     <SelectableValueMappingComponent
+                        key={index}
                         classes={props.classes}
                         order={template.order}
                         absoluteKey={getValueMappingKey(template)}
@@ -128,8 +130,9 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                 .filter((template: IElementTemplate<ICollectionTemplate<IValueTemplate>>) => {
                     return shouldShowElementWithOrder(template.order)
                 })
-                .map<ReactElement<{ order: number }>>((template: IElementTemplate<ICollectionTemplate<IValueTemplate>>) =>
+                .map<ReactElement<{ order: number }>>((template: IElementTemplate<ICollectionTemplate<IValueTemplate>>, index) =>
                     <ToggleButtonComponent
+                        key={index}
                         classes={props.classes}
                         order={template.order}
                         displayName={template.elementConfig.displayName}
@@ -155,8 +158,9 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                 .filter((template: IElementTemplate<IObjectTemplate>) => {
                     return shouldShowElementWithOrder(template.order)
                 })
-                .map<ReactElement<{ order: number }>>((template: IElementTemplate<IObjectTemplate>) =>
+                .map<ReactElement<{ order: number }>>((template: IElementTemplate<IObjectTemplate>, index) =>
                     <ToggleButtonComponent
+                        key={index}
                         classes={props.classes}
                         order={template.order}
                         displayName={template.elementConfig.displayName}
@@ -182,8 +186,9 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                 .filter((template: IElementTemplate<ICollectionTemplate<IObjectTemplate>>) => {
                     return shouldShowElementWithOrder(template.order);
                 })
-                .map<ReactElement<{ order: number }>>((template: IElementTemplate<ICollectionTemplate<IObjectTemplate>>) =>
+                .map<ReactElement<{ order: number }>>((template: IElementTemplate<ICollectionTemplate<IObjectTemplate>>, index) =>
                     <ToggleButtonComponent
+                        key={index}
                         classes={props.classes}
                         order={template.order}
                         displayName={template.elementConfig.displayName}

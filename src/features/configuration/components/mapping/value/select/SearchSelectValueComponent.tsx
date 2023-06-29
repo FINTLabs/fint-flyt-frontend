@@ -15,7 +15,8 @@ interface Props {
     value: string | null;
 }
 
-const SearchSelectValueComponent: React.FunctionComponent<Props> = forwardRef<any, Props>((props: Props, ref) => {
+const SearchSelectValueComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivElement, Props>((props: Props, ref) => {
+    SearchSelectValueComponent.displayName = "SearchSelectValueComponent"
     const absoluteKey: string = props.name;
     const filterOptions = createFilterOptions({
         matchFrom: 'any',

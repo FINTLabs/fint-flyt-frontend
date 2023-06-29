@@ -1,8 +1,10 @@
-import {IEvent} from "../../features/log/types/Event";
+import {IEvent} from "../../features/instanceOverview/types/Event";
 import {contextDefaultValues, HistoryContextState} from "./types";
 import {createContext, FC, useState} from "react";
 import EventRepository from "../../features/log/repository/EventRepository";
 import {addId} from "../../util/JsonUtil";
+import EventRepository from "../../shared/repositories/EventRepository";
+import {addId} from "../../features/util/JsonUtil";
 import SourceApplicationRepository from "../../shared/repositories/SourceApplicationRepository";
 import {IIntegrationMetadata} from "../../features/configuration/types/Metadata/IntegrationMetadata";
 
@@ -19,10 +21,10 @@ const HistoryProvider: FC = ({children}) => {
         setEvents([]);
         EventRepository.getEvents(page, size, sortProperty, sortDirection)
             .then((response) => {
-                let data = response.data.content;
+                const data = response.data.content;
                 if (data) {
                     data.forEach(addId(0, 'name'))
-                    data.forEach((event: any) =>
+                    data.forEach((event: IEvent) =>
                         event.errors.forEach(addId(0, 'errorCode'))
                     );
                     setEvents(data);
@@ -38,13 +40,15 @@ const HistoryProvider: FC = ({children}) => {
         SourceApplicationRepository.getMetadata(sourceApplicationId, true)
             .then((response) => {
                 if (response.data) {
-                    let metadata: IIntegrationMetadata[] = response.data;
+                    const metadata: IIntegrationMetadata[] = response.data;
                     EventRepository.getLatestEvents(page, size, sortProperty, sortDirection)
                         .then((response) => {
-                            let events: IEvent[] = response.data.content;
+                            const events: IEvent[] = response.data.content;
                             if (events) {
+                                console.log(events)
                                 events.forEach(addId(0, 'name'))
-                                events.forEach((event: any) =>
+                                console.log(events)
+                                events.forEach((event: IEvent) =>
                                     event.errors.forEach(addId(0, 'errorCode'))
                                 );
 
@@ -72,13 +76,13 @@ const HistoryProvider: FC = ({children}) => {
         SourceApplicationRepository.getMetadata(sourceApplicationId, true)
             .then((response) => {
                 if (response.data) {
-                    let metadata: IIntegrationMetadata[] = response.data;
+                    const metadata: IIntegrationMetadata[] = response.data;
                     EventRepository.getEventsByInstanceId(page, size, sortProperty, sortDirection, sourceApplicationId, instanceId)
                         .then((response) => {
-                            let events: IEvent[] = response.data.content;
+                            const events: IEvent[] = response.data.content;
                             if (events) {
                                 events.forEach(addId(0, 'name'))
-                                events.forEach((event: any) =>
+                                events.forEach((event: IEvent) =>
                                     event.errors.forEach(addId(0, 'errorCode'))
                                 );
 

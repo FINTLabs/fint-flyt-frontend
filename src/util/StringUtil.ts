@@ -1,3 +1,6 @@
+import {ErrorType} from "../instanceOverview/types/ErrorType";
+import {IError, IErrorArg} from "../instanceOverview/types/Event";
+import {toErrorType} from "./mapping/helpers/ToErrorType";
 import {ErrorType, getErrorType} from "../features/log/types/ErrorType";
 import {IError, IErrorArg} from "../features/log/types/Event";
 
@@ -11,7 +14,7 @@ export function errorStringReplace(baseString: string, errorArgs: IErrorArg[]) {
     ]
     errorTypes.map(errorType => {
         errorArgs.map(arg => {
-            if (getErrorType(arg.type) === errorType && arg.value !== undefined) {
+            if (toErrorType(arg.type) === errorType && arg.value !== undefined) {
                 helpString = errorString.replace(errorType, arg.value)
                 return errorString = helpString
             }
@@ -26,7 +29,7 @@ export function getErrorArgs(error: IError): IErrorArg[] {
     if (!error.args) {
         return []
     }
-    let entries: [string, string][] = Object.entries(error.args)
+    const entries: [string, string][] = Object.entries(error.args)
     return entries.map(entry => {
         return {
             type: entry[0],

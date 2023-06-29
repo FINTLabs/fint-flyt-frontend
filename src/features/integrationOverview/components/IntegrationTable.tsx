@@ -14,10 +14,14 @@ import {
 import {IntegrationContext} from "../../../context/integrationContext";
 import {ClassNameMap} from "@mui/styles";
 
-const IntegrationTable: React.FunctionComponent<any> = (props: { classes: ClassNameMap }) => {
+type Props = {
+    classes: ClassNameMap
+}
+
+const IntegrationTable: React.FunctionComponent<Props> = (props: Props) => {
     const {t, i18n} = useTranslation('translations', {keyPrefix: 'pages.integrationOverview'});
     const classes = props.classes;
-    let history = useHistory();
+    const history = useHistory();
     const {
         setExistingIntegration,
         integrations,

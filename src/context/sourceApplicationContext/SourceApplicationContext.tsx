@@ -10,6 +10,7 @@ import {
     MOCK_INSTANCE_METADATA
 } from "../../features/configuration/types/Metadata/IntegrationMetadata";
 import {ISelect} from "../../features/configuration/types/Select";
+import {IIntegration} from "../../features/integration/types/Integration";
 
 export const SourceApplicationContext = createContext<SourceApplicationContextState>(
     contextDefaultValues
@@ -35,10 +36,10 @@ const SourceApplicationProvider: FC = ({children}) => {
     const getAvailableForms = () => {
         SourceApplicationRepository.getMetadata(sourceApplication !== undefined ? sourceApplication.toString() : "2", true)
             .then(response => {
-                let data = response.data
+                const data = response.data
                 if (data) {
-                    let selects: ISelect[] = [];
-                    data.forEach((value: any) => {
+                    const selects: ISelect[] = [];
+                    data.forEach((value: IIntegrationMetadata) => {
                         selects.push({
                             value: value.sourceApplicationIntegrationId,
                             label: '[' + value.sourceApplicationIntegrationId + '] ' + value.integrationDisplayName
@@ -56,7 +57,7 @@ const SourceApplicationProvider: FC = ({children}) => {
         if (sourceApplication) {
             SourceApplicationRepository.getMetadata(sourceApplication.toString(), onlyLatest)
                 .then(response => {
-                    let data: IIntegrationMetadata[] = response.data
+                    const data: IIntegrationMetadata[] = response.data
                     if (data) {
                         setAllMetadata(data)
                     }
@@ -76,7 +77,7 @@ const SourceApplicationProvider: FC = ({children}) => {
     const getInstanceElementMetadata = (metadataId: string) => {
         SourceApplicationRepository.getInstanceElementMetadata(metadataId)
             .then(response => {
-                let data: IInstanceMetadataContent = response.data
+                const data: IInstanceMetadataContent = response.data
                 if (data) {
                     setInstanceElementMetadata(data)
                 }
@@ -91,10 +92,10 @@ const SourceApplicationProvider: FC = ({children}) => {
     const getAllForms = (forms: ISelect[]) => {
         IntegrationRepository.getAllIntegrations()
             .then(response => {
-                let data = response.data;
+                const data = response.data;
                 if (data) {
-                    let ids: string[] = data.map((config: any) => config.sourceApplicationIntegrationId)
-                    let selectableForms = forms.filter(form => !ids.includes(form.value));
+                    const ids: string[] = data.map((integration: IIntegration) => integration.sourceApplicationIntegrationId)
+                    const selectableForms = forms.filter(form => !ids.includes(form.value));
                     if (sourceApplication !== undefined) {
                         setAvailableForms({
                             sourceApplicationDisplayName: getSourceApplicationDisplayName(sourceApplication),

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {RouteComponentProps, withRouter} from 'react-router-dom';
+import {RouteComponentProps} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
 import ValueConvertingTable from "./components/ValueConvertingTable";
 import ValueConvertingForm from "./components/ValueConvertingForm";
@@ -8,7 +8,11 @@ import ValueConvertingRepository from "../../shared/repositories/ValueConverting
 
 const useStyles = ConfigurationFormStyles
 
-const ValueConverting: React.FunctionComponent<RouteComponentProps<any>> = () => {
+type Props = {
+    id: string
+}
+
+const ValueConverting: React.FunctionComponent<RouteComponentProps<Props>> = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.valueConverting'});
     const [existingValueConverting, setExistingValueConverting] = useState(undefined);
     const [view, setView] = useState<boolean>(false);
@@ -40,4 +44,4 @@ const ValueConverting: React.FunctionComponent<RouteComponentProps<any>> = () =>
     );
 }
 
-export default withRouter(ValueConverting);
+export default ValueConverting;

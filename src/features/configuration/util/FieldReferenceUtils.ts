@@ -1,5 +1,5 @@
-const ifRegex: RegExp = new RegExp(/^\$if{([^.]*)}$/);
-const icfRegex: RegExp = new RegExp(/^\$icf{(\d+)}{([^.]*)}$/);
+const ifRegex = new RegExp(/^\$if{([^.]*)}$/);
+const icfRegex = new RegExp(/^\$icf{(\d+)}{([^.]*)}$/);
 
 export function isFieldReference(reference: string): boolean {
     return ifRegex.test(reference);

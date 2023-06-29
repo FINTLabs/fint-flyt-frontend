@@ -15,7 +15,8 @@ interface Props {
     value: string | null;
 }
 
-const SelectValueComponent: React.FunctionComponent<Props> = forwardRef<any, Props>((props: Props, ref) => {
+const SelectValueComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivElement, Props>((props: Props, ref) => {
+    SelectValueComponent.displayName = "SelectValueComponent";
     const absoluteKey: string = props.name;
     return <TextField
         id={absoluteKey}

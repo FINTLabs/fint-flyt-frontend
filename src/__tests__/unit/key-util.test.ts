@@ -4,26 +4,26 @@ import {
     isOutsideCollectionEditContext
 } from "../../features/configuration/util/KeyUtils";
 
-const valueRefString: string = 'testField';
-const valueRefString3: string = '../../../testField';
-const absoluteKey: string = 'mapping'
+const valueRefString = 'testField';
+const valueRefString3 = '../../../testField';
+const absoluteKey = 'mapping'
 
-const editCollectionAbsoluteKey: string = 'mapping.objectMappingPerKey.newCase.objectCollectionMappingPerKey.journalpost.fromCollectionMappings.0.elementMapping.objectCollectionMappingPerKey.dokumentbeskrivelse.fromCollectionMappings.0'
+const editCollectionAbsoluteKey = 'mapping.objectMappingPerKey.newCase.objectCollectionMappingPerKey.journalpost.fromCollectionMappings.0.elementMapping.objectCollectionMappingPerKey.dokumentbeskrivelse.fromCollectionMappings.0'
 
-const absoluteKeyInside: string = 'mapping.objectMappingPerKey.newCase.objectCollectionMappingPerKey.journalpost.fromCollectionMappings.0.elementMapping.objectCollectionMappingPerKey.dokumentbeskrivelse'
-const editContextAbsoluteKey: string = 'mapping.objectMappingPerKey.newCase.objectCollectionMappingPerKey.journalpost.fromCollectionMappings.0.elementMapping.objectCollectionMappingPerKey.dokumentbeskrivelse.fromCollectionMappings.0'
+const absoluteKeyInside = 'mapping.objectMappingPerKey.newCase.objectCollectionMappingPerKey.journalpost.fromCollectionMappings.0.elementMapping.objectCollectionMappingPerKey.dokumentbeskrivelse'
+const editContextAbsoluteKey = 'mapping.objectMappingPerKey.newCase.objectCollectionMappingPerKey.journalpost.fromCollectionMappings.0.elementMapping.objectCollectionMappingPerKey.dokumentbeskrivelse.fromCollectionMappings.0'
 
 
-const absoluteKeyOutside: string = 'mapping.objectMappingPerKey.newCase.objectCollectionMappingPerKey.journalpost.fromCollectionMappings.0.elementMapping.objectCollectionMappingPerKey.dokumentbeskrivelse.fromCollectionMappings.0'
+const absoluteKeyOutside = 'mapping.objectMappingPerKey.newCase.objectCollectionMappingPerKey.journalpost.fromCollectionMappings.0.elementMapping.objectCollectionMappingPerKey.dokumentbeskrivelse.fromCollectionMappings.0'
 
 describe('It should get correct absolute keys', () => {
     test('It should get correct Absolute Key From ValueRef', () => {
-        const expected: string = 'mapping.valueMappingPerKey.testField.mappingString'
+        const expected = 'mapping.valueMappingPerKey.testField.mappingString'
         expect(getAbsoluteKeyFromValueRef(valueRefString, absoluteKey)).toEqual(expected)
     });
 
     test('It should get correct Absolute Key From deep ValueRef', () => {
-        const expected: string = '.testField.mappingString'
+        const expected = '.testField.mappingString'
         expect(getAbsoluteKeyFromValueRef(valueRefString3, absoluteKey)).toEqual(expected)
     });
 })
