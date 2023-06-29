@@ -136,6 +136,7 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                         classes={props.classes}
                         order={template.order}
                         displayName={template.elementConfig.displayName}
+                        description={template.elementConfig.description}
                         onSelect={() => {
                             props.nestedElementCallbacks.onElementsOpen({
                                 valueCollections: [{
