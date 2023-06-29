@@ -90,7 +90,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<Props>> = (
     };
 
     useEffect(() => {
-        if (configuration) {
+        if(configuration) {
             methods.setValue('mapping', configuration?.mapping, {shouldDirty: true, shouldTouch: true});
         }
         if (configuration?.completed) {
