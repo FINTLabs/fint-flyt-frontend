@@ -72,39 +72,32 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
                 />
             case TemplateValueType.STRING:
                 setTypeIfUndefined(ConfigurationValueType.STRING);
-                return <>
-                    <StringValueComponent
-                        {...renderProps}
-                    />
-                    {props.description && <HelpPopover popoverContent={props.description}/>}
-                </>
+                return <StringValueComponent
+                    {...renderProps}
+                />
             case TemplateValueType.DYNAMIC_STRING:
                 setTypeIfUndefined(ConfigurationValueType.DYNAMIC_STRING);
-                return <>
-                    <DynamicStringValueComponent
-                        {...renderProps}
-                        search={search}
-                        accept={[
-                            MetadataValueType.STRING,
-                            MetadataValueType.INTEGER,
-                            MetadataValueType.EMAIL,
-                            MetadataValueType.DATE,
-                            MetadataValueType.PHONE
-                        ]}
-                    />
-                    {props.description && <HelpPopover popoverContent={props.description}/>}
-                </>
+                return <DynamicStringValueComponent
+                    {...renderProps}
+                    search={search}
+                    accept={[
+                        MetadataValueType.STRING,
+                        MetadataValueType.INTEGER,
+                        MetadataValueType.EMAIL,
+                        MetadataValueType.DATE,
+                        MetadataValueType.PHONE
+                    ]}
+                />
+
             case TemplateValueType.FILE:
                 setTypeIfUndefined(ConfigurationValueType.FILE);
-                return <>
-                    <DynamicStringValueComponent
-                        {...renderProps}
-                        accept={[
-                            MetadataValueType.FILE
-                        ]}
-                    />
-                    {props.description && <HelpPopover popoverContent={props.description}/>}
-                </>
+                return <DynamicStringValueComponent
+                    {...renderProps}
+                    accept={[
+                        MetadataValueType.FILE
+                    ]}
+                />
+
         }
     }
 
@@ -112,7 +105,7 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
         name={props.absoluteKey + ".mappingString"}
         render={({field}) =>
             <div id={'value-mapping-wrapper-' + props.absoluteKey}
-                 className={props.classes.valueMappingContainer}>
+                 className={props.classes.flexRowContainer}>
                 {createComponent({
                     ...field,
                     classes: props.classes,
@@ -121,6 +114,7 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
                         || isOutsideCollectionEditContext(field.name, editCollectionAbsoluteKey)
                         || completed
                 })}
+                {props.description && <HelpPopover popoverContent={props.description}/>}
             </div>
         }
     />

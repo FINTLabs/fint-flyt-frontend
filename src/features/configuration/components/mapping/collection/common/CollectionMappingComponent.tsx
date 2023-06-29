@@ -28,7 +28,7 @@ const CollectionMappingComponent: React.FunctionComponent<Props> = (props: Props
 
     return <>
         <div className={props.classes.wrapperVerticalMargin}>
-            <Box className={props.classes.valueMappingContainer}>
+            <Box className={props.classes.flexRowContainer}>
                 <FlytTitle3Component classes={props.classes} title={t("defaultElements")}/>
                 <HelpPopover popoverContent={'Faste elementer'} noMargin={true}/>
             </Box>
@@ -64,7 +64,7 @@ const CollectionMappingComponent: React.FunctionComponent<Props> = (props: Props
                 disabled={isOutsideCollectionEditContext(props.absoluteKey, editCollectionAbsoluteKey) || completed}
             />
         </div>
-        <Box className={props.classes.valueMappingContainer}>
+        <Box className={props.classes.flexRowContainer}>
             <FlytTitle3Component classes={props.classes} title={t("generatedElements")}/>
             <HelpPopover popoverContent={'Generert fra innhold i en samling'} noMargin={true}/>
         </Box>

@@ -47,7 +47,7 @@ const FromCollectionMappingComponent: React.FunctionComponent<Props> = (props: P
     return <>
         <div className={props.classes.wrapperVerticalMargin}>
             <div id={'selectable-value-mapping-wrapper-' + props.absoluteKey}
-                 className={props.classes.valueMappingContainer}>
+                 className={props.classes.flexRowSpacedContainer}>
                 <FlytTitle4Component
                     id={'collection-mapping-header-' + props.absoluteKey}
                     classes={props.classes}

@@ -39,10 +39,14 @@ export const ConfigurationFormStyles = makeStyles((theme: Theme) =>
                 marginTop: theme.spacing(2)
             }
         },
-        valueMappingContainer: {
+        flexRowContainer: {
             display: 'flex',
             flexDirection: 'row',
-            justifyContent: 'space-between',
+        },
+        flexRowSpacedContainer: {
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between'
         },
         label: {
             fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
