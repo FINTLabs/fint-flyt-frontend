@@ -1,10 +1,10 @@
 import {IEvent} from "../../features/instanceOverview/types/Event";
 import {contextDefaultValues, HistoryContextState} from "./types";
 import {createContext, FC, useState} from "react";
-import EventRepository from "../../shared/repositories/EventRepository";
-import {addId} from "../../features/util/JsonUtil";
 import SourceApplicationRepository from "../../shared/repositories/SourceApplicationRepository";
 import {IIntegrationMetadata} from "../../features/configuration/types/Metadata/IntegrationMetadata";
+import {addId} from "../../util/JsonUtil";
+import EventRepository from "../../shared/repositories/EventRepository";
 
 export const HistoryContext = createContext<HistoryContextState>(
     contextDefaultValues
@@ -95,7 +95,7 @@ const HistoryProvider: FC = ({children}) => {
                                 setSelectedInstances(events);
                             }
                         })
-                        .catch(e => {
+                        .catch((e: Error) => {
                             console.error('Error: ', e)
                         })
                 }

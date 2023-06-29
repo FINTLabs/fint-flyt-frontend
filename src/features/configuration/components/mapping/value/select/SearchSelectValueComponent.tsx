@@ -2,7 +2,7 @@ import * as React from "react";
 import {forwardRef, useEffect, useState} from "react";
 import {ISelectable} from "../../../../types/Selectable";
 import {Autocomplete, createFilterOptions, TextField} from "@mui/material";
-import {autoCompleteSX} from "../../../../styles/SystemStyles";
+import {autoCompleteSX} from "../../../../../../util/styles/SystemStyles";
 import {Noop} from "react-hook-form/dist/types";
 
 interface Props {

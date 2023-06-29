@@ -1,9 +1,7 @@
 import {createStyles, makeStyles} from "@mui/styles";
 import {Theme} from "@mui/material";
 
-export const fontFamily: string = ["Nunito Sans", 'sans-serif'].join(',')
-
-export const configurationFormStyles = makeStyles((theme: Theme) =>
+export const ConfigurationFormStyles = makeStyles((theme: Theme) =>
     createStyles({
         form: {
             width: theme.spacing(100)

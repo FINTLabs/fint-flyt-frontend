@@ -1,37 +1,17 @@
-import {Box, Card, CardContent, Theme} from '@mui/material';
+import {Box, Card, CardContent} from '@mui/material';
 import React, {useContext, useEffect} from 'react';
 import {RouteComponentProps} from 'react-router-dom';
-import {createStyles, makeStyles} from "@mui/styles";
 import {IntegrationContext} from "../../context/integrationContext";
 import IntegrationTable from "../integrationOverview/components/IntegrationTable";
 import DashboardCard from "./DashboardCard";
 import {ICard} from "./types/Card";
 import {useTranslation} from "react-i18next";
 import {SourceApplicationContext} from "../../context/sourceApplicationContext";
+import {DashboardStyles} from "../../util/styles/Dashboard.styles";
 import {IIntegrationStatistics} from "./types/IntegrationStatistics";
 
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        card: {
-            border: 'solid 1px',
-            marginRight: theme.spacing(2),
-            borderColor: theme.palette.primary.main
-        },
-        form: {
-            width: theme.spacing(120)
-        },
-        row: {
-            display: 'flex'
-        },
-        dataGridContainer: {
-            marginTop: theme.spacing(4)
-        },
-        dataGridBox: {
-            minHeight: theme.spacing(70),
-            maxHeight: theme.spacing(300),
-            width: '100%'
-        }
-    }));
+const useStyles = DashboardStyles;
+
 type Props = {
     id: string
 }

@@ -1,20 +1,12 @@
 import React from 'react';
 import {RouteComponentProps} from 'react-router-dom';
-import {Accordion, AccordionDetails, AccordionSummary, Box, Theme, Typography} from "@mui/material";
+import {Accordion, AccordionDetails, AccordionSummary, Box, Typography} from "@mui/material";
 import {useTranslation} from 'react-i18next';
 import StatusComponent from "./components/StatusComponent";
-import {createStyles, makeStyles} from "@mui/styles";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import {SupportStyles} from "../../util/styles/Support.styles";
 
-
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        card: {
-            border: 'solid 1px',
-            marginRight: theme.spacing(2),
-            borderColor: theme.palette.primary.main
-        }
-    }));
+const useStyles = SupportStyles
 
 type Props = {
     id: string

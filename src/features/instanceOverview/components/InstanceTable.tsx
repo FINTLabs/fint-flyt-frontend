@@ -3,7 +3,7 @@ import {DataGrid, GridCellParams, GridColumns, GridToolbar} from "@mui/x-data-gr
 import * as React from "react";
 import {useContext, useEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
-import {gridLocaleNoNB} from "../../util/locale/gridLocaleNoNB";
+import {gridLocaleNoNB} from "../../../util/locale/gridLocaleNoNB";
 import {useTranslation} from "react-i18next";
 import ErrorIcon from '@mui/icons-material/Error';
 import InfoIcon from '@mui/icons-material/Info';

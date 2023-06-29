@@ -1,62 +1,21 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {destinations, sourceApplications} from "../configuration/defaults/DefaultValues";
-import {Autocomplete, Box, Button, FormGroup, MenuItem, TextField, Theme, Typography} from "@mui/material";
+import {Autocomplete, Box, Button, FormGroup, MenuItem, TextField, Typography} from "@mui/material";
 import {useHistory} from "react-router-dom";
 import {IntegrationContext} from "../../context/integrationContext";
 import HelpPopover from "../configuration/components/common/popover/HelpPopover";
 import {useTranslation} from "react-i18next";
 import {SourceApplicationContext} from "../../context/sourceApplicationContext";
-import {createStyles, makeStyles} from "@mui/styles";
-import {toIntegration} from "../util/mapping/ToIntegration";
 import IntegrationRepository from '../../shared/repositories/IntegrationRepository';
 import {IntegrationState} from "./types/Integration";
 import {IFormIntegration} from "../configuration/types/FormIntegration";
-import {selectSX} from "../configuration/styles/SystemStyles";
+import {selectSX} from "../../util/styles/SystemStyles";
+import {IntegrationFormStyles} from "../../util/styles/IntegrationForm.styles"
+import {toIntegration} from "../../util/mapping/ToIntegration";
 import {ISelect} from "../configuration/types/Select";
 import {IIntegrationMetadata} from "../configuration/types/Metadata/IntegrationMetadata";
 
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        formControl: {
-            width: theme.spacing(70)
-        },
-        panelContainer: {
-            backgroundColor: 'white',
-            padding: theme.spacing(2),
-            border: 'solid 1px',
-            borderColor: 'black',
-            marginLeft: theme.spacing(1),
-            borderRadius: theme.spacing(0.5),
-            height: 'fit-content',
-            width: theme.spacing(70)
-        },
-        title1: {
-            fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
-            fontSize: theme.spacing(3),
-            padding: 0,
-            marginTop: theme.spacing(0),
-            fontWeight: 'normal'
-        },
-        title2: {
-            fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
-            fontSize: theme.spacing(2.6),
-            padding: 0,
-            marginTop: theme.spacing(0),
-            fontWeight: 'normal'
-        },
-        title3: {
-            fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
-            fontSize: theme.spacing(2.2),
-            padding: 0,
-            marginTop: theme.spacing(0),
-            marginBottom: theme.spacing(2),
-            fontWeight: 'normal'
-        },
-        incomingWrapper: {},
-        outgoingWrapper: {
-            marginTop: theme.spacing(2)
-        }
-    }));
+const useStyles = IntegrationFormStyles;
 
 type Props = {
     id: string

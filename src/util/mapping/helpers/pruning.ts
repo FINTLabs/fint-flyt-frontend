@@ -3,7 +3,7 @@ import {
     IFromCollectionMapping,
     IObjectMapping,
     IValueMapping
-} from "../../../configuration/types/Configuration";
+} from "../../../features/configuration/types/Configuration";
 
 function filterNotNull<T>(value: T | null): value is T {
     return value !== null
