@@ -25,7 +25,7 @@ const HelpPopover: React.FunctionComponent<Props> = (props: Props) => {
 
     return (
         <div style={props.noMargin ? {marginTop: '-8px'} : {marginTop: 'inherit'}}>
-            <IconButton aria-label="help" color="primary" onClick={handleClick}>
+            <IconButton sx={{color: 'silver'}} aria-label="help" onClick={handleClick}>
                 <HelpIcon/>
             </IconButton>
             <Popover

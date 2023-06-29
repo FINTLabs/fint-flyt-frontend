@@ -5,6 +5,7 @@ import {ClassNameMap} from "@mui/styles";
 import {toggleButtonSX} from "../../../../util/styles/SystemStyles";
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
+import HelpPopover from "./popover/HelpPopover";
 
 interface Props {
     classes: ClassNameMap;
@@ -13,6 +14,7 @@ interface Props {
     onSelect: () => void;
     onUnselect: () => void;
     disabled?: boolean;
+    description?: string;
     selected?: boolean
 }
 
@@ -23,7 +25,7 @@ const ToggleButtonComponent: React.FunctionComponent<Props> = (props: Props) => 
         props.selected = value
     }
     return (
-        <>
+        <div className={props.classes.flexRowContainer}>
             <ToggleButton
                 sx={toggleButtonSX}
                 value={selected}
@@ -41,7 +43,8 @@ const ToggleButtonComponent: React.FunctionComponent<Props> = (props: Props) => 
                 {props.displayName}
                 {selected ? <KeyboardArrowLeftIcon/> : <KeyboardArrowRightIcon/>}
             </ToggleButton>
-        </>
+            {props.description && <HelpPopover popoverContent={props.description}/>}
+        </div>
     )
 }
 export default ToggleButtonComponent;

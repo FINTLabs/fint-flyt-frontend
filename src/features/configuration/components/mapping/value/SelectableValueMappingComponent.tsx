@@ -80,7 +80,7 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = forwardR
                 case SelectableValueType.DROPDOWN:
                     setTypeIfUndefined(ConfigurationValueType.STRING);
                     return <div id={'selectable-value-mapping-wrapper-' + props.absoluteKey}
-                                className={props.classes.valueMappingContainer}>
+                                className={props.classes.flexRowContainer}>
                         <SelectValueComponent
                             {...field}
                             displayName={props.displayName}
@@ -96,7 +96,7 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = forwardR
                 case SelectableValueType.SEARCH_SELECT:
                     setTypeIfUndefined(ConfigurationValueType.STRING);
                     return <div id={'selectable-value-mapping-wrapper-' + props.absoluteKey}
-                                className={props.classes.valueMappingContainer}>
+                                className={props.classes.flexRowContainer}>
                         <SearchSelectValueComponent
                             {...field}
                             displayName={props.displayName}
@@ -113,7 +113,7 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = forwardR
                 case SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT:
                     setTypeIfUndefined(ConfigurationValueType.STRING);
                     return <div id={'selectable-value-mapping-wrapper-' + props.absoluteKey}
-                                className={props.classes.valueMappingContainer}>
+                                className={props.classes.flexRowContainer}>
                         <DynamicStringOrSearchSelectValueComponent
                             {...field}
                             classes={props.classes}
