@@ -24,6 +24,7 @@ interface Props {
 }
 
 const DynamicStringValueComponent: React.FunctionComponent<Props> = forwardRef<any, Props>((props: Props, ref) => {
+    DynamicStringValueComponent.displayName = "DynamicStringValueComponent"
     const [searchResult, setSearchResult] = useState<string>()
     const [shrink, setShrink] = useState<boolean | undefined>(undefined)
     const absoluteKey: string = props.name;

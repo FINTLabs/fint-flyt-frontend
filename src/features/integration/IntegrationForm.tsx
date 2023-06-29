@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const IntegrationForm: React.FunctionComponent<any> = () => {
     const classes = useStyles();
-    let history = useHistory();
+    const history = useHistory();
     const {t} = useTranslation('translations', {keyPrefix: 'components.integrationForm'});
     const {
         setSelectedMetadata,
@@ -78,7 +78,7 @@ export const IntegrationForm: React.FunctionComponent<any> = () => {
     const [destination, setDestination] = useState<string>('');
     const [sourceApplicationId, setSourceApplicationId] = useState<string>('');
     const [sourceApplicationIntegrationId, setSourceApplicationIntegrationId] = useState<string>('');
-    let backgroundColor = 'white';
+    const backgroundColor = 'white';
 
     const navToConfiguration = (id: string) => {
         history.push({
@@ -110,10 +110,10 @@ export const IntegrationForm: React.FunctionComponent<any> = () => {
 
     const confirm = () => {
         if (destination && sourceApplicationId && sourceApplicationIntegrationId) {
-            let selectedForm = allMetadata.filter((md: any) => md.sourceApplicationIntegrationId === sourceApplicationIntegrationId)
+            const selectedForm = allMetadata.filter((md: any) => md.sourceApplicationIntegrationId === sourceApplicationIntegrationId)
             setSelectedMetadata(selectedForm[0])
             getInstanceElementMetadata(selectedForm[0].id)
-            let formConfiguration: IFormIntegration = {
+            const formConfiguration: IFormIntegration = {
                 destination: destination,
                 sourceApplicationIntegrationId: sourceApplicationIntegrationId,
                 sourceApplicationId: sourceApplicationId

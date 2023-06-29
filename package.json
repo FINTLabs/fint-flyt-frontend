@@ -31,6 +31,7 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@types/react-redux": "^7.1.20",
+    "@typescript-eslint/parser": "^5.60.0",
     "autoprefixer": "^10.4.2",
     "axios": "^0.26.0",
     "axios-auth-refresh": "^3.2.2",
@@ -64,7 +65,7 @@
     "test:ci": "CI=true react-scripts test",
     "eject": "react-scripts eject",
     "ci": "start-server-and-test start http://localhost:3000 test",
-    "lint": "eslint --ext js,ts,tsx src"
+    "lint": "eslint --ext ts,tsx src"
   },
   "jest": {
     "testMatch": [
@@ -92,7 +93,10 @@
   "devDependencies": {
     "@cypress/code-coverage": "^3.10.7",
     "@types/react-router-dom": "^5.1.7",
+    "@typescript-eslint/eslint-plugin": "^5.60.0",
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "cypress": "^12.14.0",
+    "eslint": "^8.43.0",
     "http-proxy-middleware": "^2.0.1"
   }
 }

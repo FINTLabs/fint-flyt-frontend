@@ -34,7 +34,7 @@ import {ISelect} from "../../configuration/types/Select";
 const IntegrationPanel: React.FunctionComponent<any> = (props: { classes: ClassNameMap }) => {
     const {t, i18n} = useTranslation('translations', {keyPrefix: 'pages.integrationOverview'});
     const classes = props.classes;
-    let history = useHistory();
+    const history = useHistory();
     const {
         existingIntegration,
         setConfiguration,
@@ -132,7 +132,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props: { classes: ClassN
         }
         ConfigurationRepository.getConfiguration(id.toString(), true)
             .then((response) => {
-                let data: IConfiguration = response.data;
+                const data: IConfiguration = response.data;
                 if (data) {
                     setActiveVersion(t('version') + data.version)
                 }
@@ -146,8 +146,8 @@ const IntegrationPanel: React.FunctionComponent<any> = (props: { classes: ClassN
     async function handleNewOrEditConfigClick(id: any, version?: any) {
         await ConfigurationRepository.getConfiguration(id.toString(), false)
             .then(async (response) => {
-                let data = response.data
-                let usedVersionMetadata = allMetadata.filter(md => md.id === data.integrationMetadataId)
+                const data = response.data
+                const usedVersionMetadata = allMetadata.filter(md => md.id === data.integrationMetadataId)
                 setSelectedMetadata(usedVersionMetadata.length > 0 ? usedVersionMetadata[0] : undefined)
                 if (version) {
                     data.id = undefined;
@@ -175,7 +175,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props: { classes: ClassN
     }
 
     const activateConfiguration = (configurationId: string) => {
-        let patch: IIntegrationPatch = {
+        const patch: IIntegrationPatch = {
             activeConfigurationId: configurationId,
             state: 'ACTIVE'
         }
@@ -338,7 +338,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props: { classes: ClassN
                           to='/integration/configuration/new-configuration'
                           onClick={handleNewConfigClose}>
                     <Button id="new-configuration-button" onClick={() => {
-                        let selectedForm = allMetadata.filter(md => md.sourceApplicationIntegrationId === existingIntegration?.sourceApplicationIntegrationId)
+                        const selectedForm = allMetadata.filter(md => md.sourceApplicationIntegrationId === existingIntegration?.sourceApplicationIntegrationId)
                         setSelectedMetadata(selectedForm.length > 0 ? selectedForm[selectedForm.length - 1] : undefined)
                         getInstanceElementMetadata(selectedForm[selectedForm.length - 1].id)
                     }}

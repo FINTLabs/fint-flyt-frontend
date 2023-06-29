@@ -5,6 +5,5 @@ export type EditingContextState = {
 
 export const contextDefaultValues: EditingContextState = {
     editCollectionAbsoluteKey: "",
-    setEditCollectionAbsoluteKey: () => {
-    }
+    setEditCollectionAbsoluteKey: () => undefined
 };

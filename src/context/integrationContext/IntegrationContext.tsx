@@ -49,18 +49,18 @@ const IntegrationProvider: FC = ({children}) => {
     const getIntegrations = (sourceApplicationId: string) => {
         EventRepository.getStatistics()
             .then((response) => {
-                let data = response.data;
+                const data = response.data;
                 if (data) {
                     setStatistics(data)
-                    let stats = data;
+                    const stats = data;
                     SourceApplicationRepository.getMetadata(sourceApplicationId, true)
                         .then((response) => {
                             if (response.data) {
-                                let metadata: IIntegrationMetadata[] = response.data;
+                                const metadata: IIntegrationMetadata[] = response.data;
                                 IntegrationRepository.getIntegrations(0, null, "state", "ASC")
                                     .then((response) => {
                                         if (response.data) {
-                                            let mergedList: IIntegration[] = response.data;
+                                            const mergedList: IIntegration[] = response.data;
                                             stats.forEach((value: IIntegrationStatistics) => {
                                                 mergedList.map((integration: IIntegration) => {
                                                     if (integration.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {
@@ -106,9 +106,9 @@ const IntegrationProvider: FC = ({children}) => {
     const getConfigurations = (page: number, size: number, sortProperty: string, sortDirection: string, complete: boolean, id: any, excludeElements?: boolean) => {
         ConfigurationRepository.getConfigurations(page, size, sortProperty, sortDirection, complete, id.toString(), excludeElements)
             .then((response) => {
-                let data = response.data.content;
+                const data = response.data.content;
                 if (data) {
-                    let configurations: IConfiguration[] = data;
+                    const configurations: IConfiguration[] = data;
                     setConfigurations(configurations);
                 }
             })
@@ -121,9 +121,9 @@ const IntegrationProvider: FC = ({children}) => {
     const getCompletedConfigurations = (page: number, size: number, sortProperty: string, sortDirection: string, complete: boolean, id: any, excludeElements?: boolean) => {
         ConfigurationRepository.getConfigurations(page, size, sortProperty, sortDirection, complete, id.toString(), excludeElements)
             .then((response) => {
-                let data = response.data.content;
+                const data = response.data.content;
                 if (data) {
-                    let configurations: IConfiguration[] = data;
+                    const configurations: IConfiguration[] = data;
                     setCompletedConfigurations(configurations);
                 }
             })
@@ -136,7 +136,7 @@ const IntegrationProvider: FC = ({children}) => {
     const getConfiguration = async (id: any, excludeElements?: boolean) => {
         ConfigurationRepository.getConfiguration(id.toString(), excludeElements)
             .then((response) => {
-                let data: IConfiguration = response.data;
+                const data: IConfiguration = response.data;
                 if (data) {
                     setConfiguration(data);
                 }

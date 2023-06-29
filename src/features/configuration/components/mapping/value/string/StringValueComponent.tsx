@@ -16,6 +16,7 @@ interface Props {
 }
 
 const StringValueComponent: React.FunctionComponent<Props> = forwardRef<any, Props>((props: Props, ref) => {
+    StringValueComponent.displayName = "StringValueComponent";
     const absoluteKey: string = props.name;
     return (
         <div id={"string-value-component-" + absoluteKey} style={{display: 'flex', flexDirection: 'column'}}>

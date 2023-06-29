@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 const InstanceOverview: React.FunctionComponent<RouteComponentProps<any>> = () => {
     const classes = useStyles();
-    const showPanel: boolean = !(/list/.test(window.location.pathname))
+    const showPanel = !(/list/.test(window.location.pathname))
 
     return (
         <>

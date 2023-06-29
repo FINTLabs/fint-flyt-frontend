@@ -87,8 +87,9 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
     };
 
     useEffect(() => {
-        // @ts-ignore
-        methods.setValue('mapping', configuration?.mapping, {shouldDirty: true, shouldTouch: true});
+        if(configuration) {
+            methods.setValue('mapping', configuration?.mapping, {shouldDirty: true, shouldTouch: true});
+        }
         if (configuration?.completed) {
             setCompleted(true)
         }
@@ -108,8 +109,8 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<any>> = () 
 
     const handleChange = (event: any) => {
         setVersion(event.target.value);
-        let version: number = Number(event.target.value)
-        let integrationMetadata: IIntegrationMetadata[] = availableVersions
+        const version = Number(event.target.value)
+        const integrationMetadata: IIntegrationMetadata[] = availableVersions
             .filter(metadata => metadata.version === version)
         setSelectedMetadata(integrationMetadata[0])
         methods.setValue('integrationMetadataId', integrationMetadata[0].id)

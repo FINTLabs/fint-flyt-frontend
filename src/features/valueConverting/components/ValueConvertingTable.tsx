@@ -14,7 +14,7 @@ type Props = {
 }
 
 const ValueConvertingTable: React.FunctionComponent<any> = (props: Props) => {
-    let history = useHistory();
+    const history = useHistory();
     const {t} = useTranslation('translations', {keyPrefix: 'pages.valueConverting'});
     const [rows, setRows] = useState<IValueConverting[] | undefined>(undefined)
     const [anchorElement, setAnchorElement] = React.useState<null | HTMLElement>(null);
@@ -37,7 +37,7 @@ const ValueConvertingTable: React.FunctionComponent<any> = (props: Props) => {
     useEffect(() => {
         ValueConvertingRepository.getValueConvertings(0, 100, 'fromApplicationId', 'ASC', true)
             .then(response => {
-                let data = response.data
+                const data = response.data
                 if (data.content) {
                     setRows(data.content)
                 } else {

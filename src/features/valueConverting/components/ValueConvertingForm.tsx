@@ -29,7 +29,7 @@ const useStyles = valueConvertingStyles
 
 type Props = {
     existingValueConverting: IValueConverting,
-    setExistingValueConverting: any
+    setExistingValueConverting: any,
     view: boolean
 }
 type IValueConvertingFormData = Omit<IValueConverting, 'convertingMap'> & {
@@ -66,7 +66,8 @@ export const ValueConvertingForm: React.FunctionComponent<any> = (props: Props) 
     const toTypeIdWatch = useWatch({control: methods.control, name: 'toTypeId'})
 
     function toFormData(valueConverting: IValueConverting): IValueConvertingFormData {
-        let withRemovedConvertingMap = (({convertingMap, ...rest}) => rest)(valueConverting);
+        // eslint-disable-next-line
+        const withRemovedConvertingMap = (({convertingMap, ...rest}) => rest)(valueConverting);
         return {
             ...withRemovedConvertingMap,
             convertingArray: Object.entries(valueConverting.convertingMap)
@@ -77,8 +78,8 @@ export const ValueConvertingForm: React.FunctionComponent<any> = (props: Props) 
     }
 
     function toValueConverting(valueConvertingFormData: IValueConvertingFormData): IValueConverting {
-        let withRemovedConvertingArray = (({convertingArray, ...rest}) => rest)(valueConvertingFormData);
-        let convertingMap: Record<string, string> = {}
+        const withRemovedConvertingArray = (({convertingArray, ...rest}) => rest)(valueConvertingFormData);
+        const convertingMap: Record<string, string> = {}
         valueConvertingFormData.convertingArray
             .forEach((entry: IValueConvertingConvertingArrayEntry) => {
                 convertingMap[entry.from] = entry.to;
@@ -90,7 +91,7 @@ export const ValueConvertingForm: React.FunctionComponent<any> = (props: Props) 
     }
 
     const onSubmit = (valueConvertingFormData: IValueConvertingFormData) => {
-        let valueConverting: IValueConverting = toValueConverting(valueConvertingFormData);
+        const valueConverting: IValueConverting = toValueConverting(valueConvertingFormData);
         ValueConvertingRepository.createValueConverting(valueConverting).then(r => {
             console.log(r)
             setDisabled(true)

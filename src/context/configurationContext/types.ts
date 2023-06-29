@@ -8,11 +8,8 @@ export type ConfigurationContextState = {
 
 export const contextDefaultValues: ConfigurationContextState = {
     completed: false,
-    setCompleted: () => {
-    },
-    resetConfigurationContext: () => {
-    },
+    setCompleted: () => undefined,
+    resetConfigurationContext: () => undefined,
     active: false,
-    setActive: () => {
-    }
+    setActive: () => undefined
 };

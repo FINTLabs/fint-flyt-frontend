@@ -22,7 +22,7 @@ import DialogContentComponent from "./DialogContentComponent";
 
 const InstanceTable: React.FunctionComponent<any> = (props: { classes: ClassNameMap }) => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.instanceOverview'})
-    let history = useHistory();
+    const history = useHistory();
     const classes = props.classes;
     const {latestInstances, getLatestInstances, getSelectedInstances} = useContext(HistoryContext)
     const {sourceApplication} = useContext(SourceApplicationContext)

@@ -14,7 +14,7 @@ function filterEntryNotNull<T>(entry: { key: string, value: T | null }): entry i
 }
 
 function pruneValueMapping(valueMapping: IValueMapping): IValueMapping | null {
-    return !!valueMapping.mappingString ? valueMapping : null
+    return valueMapping.mappingString ? valueMapping : null
 }
 
 function pruneCollectionMapping<T extends IValueMapping | IObjectMapping>(

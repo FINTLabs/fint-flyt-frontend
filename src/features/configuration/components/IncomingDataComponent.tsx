@@ -65,7 +65,7 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
         if (searchResultInCurrent) {
             return searchResultInCurrent;
         }
-        for (let category of metadataContent.categories) {
+        for (const category of metadataContent.categories) {
             const categorySearchResult: IInstanceObjectCollectionMetadata | undefined =
                 findInstanceObjectCollectionMetadata(category.content, key)
             if (categorySearchResult) {
@@ -84,14 +84,14 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
                 const collectionMetadata: IInstanceObjectCollectionMetadata | undefined = instanceElementMetadata
                     ? findInstanceObjectCollectionMetadata(instanceElementMetadata, key)
                     : undefined;
-                if (!!collectionMetadata) {
+                if (collectionMetadata) {
                     referenceAndCollectionMetadata.push([reference, collectionMetadata])
                 }
             } else if (isCollectionFieldReference(reference)) {
                 const [index, key]: [number, string] = extractCollectionFieldReferenceIndexAndKey(reference);
                 const collectionMetadata: IInstanceObjectCollectionMetadata | undefined =
                     findInstanceObjectCollectionMetadata(referenceAndCollectionMetadata[index][1].objectMetadata, key)
-                if (!!collectionMetadata) {
+                if (collectionMetadata) {
                     referenceAndCollectionMetadata.push([reference, collectionMetadata])
                 }
             }

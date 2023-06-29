@@ -64,7 +64,7 @@ describe('It should add ids correctly to arrays missing id', () => {
     });
 
     test('It should add id field to nested json object, where there is a "errorCode" field', () => {
-        nestedArray.forEach((item: any) =>
+        nestedArray.forEach((item: {name: string, type: string, errors: {errorCode: string}[]}) =>
             item.errors.forEach(addId(0, 'errorCode'))
         );
         expect(nestedArray).toEqual(expectedNestedArray);
