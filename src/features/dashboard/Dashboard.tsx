@@ -1,6 +1,6 @@
 import {Box, Card, CardContent, Theme} from '@mui/material';
 import React, {useContext, useEffect} from 'react';
-import {RouteComponentProps, withRouter} from 'react-router-dom';
+import {RouteComponentProps} from 'react-router-dom';
 import {createStyles, makeStyles} from "@mui/styles";
 import {IntegrationContext} from "../../context/integrationContext";
 import IntegrationTable from "../integrationOverview/components/IntegrationTable";
@@ -8,6 +8,7 @@ import DashboardCard from "./DashboardCard";
 import {ICard} from "./types/Card";
 import {useTranslation} from "react-i18next";
 import {SourceApplicationContext} from "../../context/sourceApplicationContext";
+import {IIntegrationStatistics} from "../log/types/IntegrationStatistics";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -31,14 +32,17 @@ const useStyles = makeStyles((theme: Theme) =>
             width: '100%'
         }
     }));
+type Props = {
+    id: string
+}
 
-const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
+const Dashboard: React.FunctionComponent<RouteComponentProps<Props>> = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.dashboard'});
     const classes = useStyles();
     const {statistics, resetIntegrations, integrations, getIntegrations} = useContext(IntegrationContext)
     const {sourceApplication} = useContext(SourceApplicationContext)
     let totalErrors = 0;
-    statistics?.map((stat: any) => {
+    statistics?.map((stat: IIntegrationStatistics) => {
         return totalErrors += stat.currentErrors
     })
 
@@ -50,7 +54,7 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
 
     const cards: ICard[] = [
         {
-            value: integrations === undefined || integrations.length === 0 ? t('empty') : integrations.length,
+            value: integrations === undefined || integrations.length === 0 ? t('empty') : integrations.length.toString(),
             content: integrations !== undefined && integrations.length === 1 ? t('oneForm') : t('form'),
             links: [
                 {name: t('links.integration'), href: '/integration/new'}
@@ -91,4 +95,4 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<any>> = () => {
     );
 }
 
-export default withRouter(Dashboard);
+export default Dashboard;

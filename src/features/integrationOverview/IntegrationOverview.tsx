@@ -1,6 +1,6 @@
 import {Breadcrumbs, Theme, Typography} from '@mui/material';
 import React, {useContext, useEffect} from 'react';
-import {RouteComponentProps, withRouter} from 'react-router-dom';
+import {RouteComponentProps} from 'react-router-dom';
 import {createStyles, makeStyles} from "@mui/styles";
 import IntegrationTable from "./components/IntegrationTable";
 import {IntegrationContext} from "../../context/integrationContext";
@@ -50,7 +50,11 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 );
 
-const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = () => {
+type Props = {
+    id: string
+}
+
+const IntegrationOverview: React.FunctionComponent<RouteComponentProps<Props>> = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.integrationOverview'});
     const classes = useStyles();
     const {
@@ -96,4 +100,4 @@ const IntegrationOverview: React.FunctionComponent<RouteComponentProps<any>> = (
     );
 }
 
-export default withRouter(IntegrationOverview);
+export default IntegrationOverview;

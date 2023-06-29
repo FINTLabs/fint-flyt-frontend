@@ -16,7 +16,11 @@ import {useHistory} from "react-router-dom";
 import {ClassNameMap} from "@mui/styles";
 import DialogContentComponent from "./DialogContentComponent";
 
-const InstancePanel: React.FunctionComponent<any> = (props: { classes: ClassNameMap }) => {
+type Props = {
+    classes: ClassNameMap
+}
+
+const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
     const {t, i18n} = useTranslation('translations', {keyPrefix: 'pages.instanceOverview'});
     const classes = props.classes;
     const history = useHistory();
@@ -172,7 +176,7 @@ const InstancePanel: React.FunctionComponent<any> = (props: { classes: ClassName
         );
     }
 
-    function ErrorAlertDialog(props: any) {
+    function ErrorAlertDialog(props: GridCellParams['row']) {
         return (
             <Dialog
                 open={openErrorDialog}

@@ -9,7 +9,7 @@ interface Props {
     noMargin?: boolean;
 }
 
-const HelpPopover: React.FunctionComponent<any> = (props: Props) => {
+const HelpPopover: React.FunctionComponent<Props> = (props: Props) => {
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {

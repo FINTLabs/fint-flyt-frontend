@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Link as RouterLink, withRouter} from 'react-router-dom';
+import {Link as RouterLink} from 'react-router-dom';
 import {Alert, Box, Button, Snackbar} from "@mui/material";
 import {useTranslation} from 'react-i18next';
 import {Controller, FormProvider, useForm, useWatch} from "react-hook-form";
@@ -29,7 +29,7 @@ const useStyles = valueConvertingStyles
 
 type Props = {
     existingValueConverting: IValueConverting,
-    setExistingValueConverting: any,
+    setExistingValueConverting: React.Dispatch<React.SetStateAction<undefined>>,
     view: boolean
 }
 type IValueConvertingFormData = Omit<IValueConverting, 'convertingMap'> & {
@@ -38,7 +38,7 @@ type IValueConvertingFormData = Omit<IValueConverting, 'convertingMap'> & {
 
 type IValueConvertingConvertingArrayEntry = { from: string, to: string }
 
-export const ValueConvertingForm: React.FunctionComponent<any> = (props: Props) => {
+export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props) => {
     const classes = useStyles();
     const {t} = useTranslation('translations', {keyPrefix: 'pages.valueConverting'});
     const [disabled, setDisabled] = useState<boolean>(props.view);
@@ -78,6 +78,7 @@ export const ValueConvertingForm: React.FunctionComponent<any> = (props: Props) 
     }
 
     function toValueConverting(valueConvertingFormData: IValueConvertingFormData): IValueConverting {
+        // eslint-disable-next-line
         const withRemovedConvertingArray = (({convertingArray, ...rest}) => rest)(valueConvertingFormData);
         const convertingMap: Record<string, string> = {}
         valueConvertingFormData.convertingArray
@@ -288,7 +289,8 @@ export const ValueConvertingForm: React.FunctionComponent<any> = (props: Props) 
                             >
                                 Opprett
                             </button>}
-                        <Button id={'cancel-button'} className={classes.submitButton} onClick={handleCancel} size="medium"
+                        <Button id={'cancel-button'} className={classes.submitButton} onClick={handleCancel}
+                                size="medium"
                                 variant="contained" component={RouterLink}
                                 to={'/valueconverting'}>Avbryt</Button>
                     </Box>
@@ -304,4 +306,4 @@ export const ValueConvertingForm: React.FunctionComponent<any> = (props: Props) 
     );
 }
 
-export default withRouter(ValueConvertingForm);
+export default ValueConvertingForm;

@@ -24,7 +24,7 @@ const IntegrationProvider: FC = ({children}) => {
     const [selectedMetadata, setSelectedMetadata] = useState<IIntegrationMetadata | undefined>(contextDefaultValues.selectedMetadata);
     const [sourceApplicationIntegrationId, setSourceApplicationIntegrationId] = useState<string>('');
     const [sourceApplicationId, setSourceApplicationId] = useState<string>('');
-    const [statistics, setStatistics] = useState<any[]>(contextDefaultValues.statistics);
+    const [statistics, setStatistics] = useState<IIntegrationStatistics[]>(contextDefaultValues.statistics);
 
     const resetIntegrationContext = () => {
         setDestination('');
@@ -103,7 +103,7 @@ const IntegrationProvider: FC = ({children}) => {
         )
     }
 
-    const getConfigurations = (page: number, size: number, sortProperty: string, sortDirection: string, complete: boolean, id: any, excludeElements?: boolean) => {
+    const getConfigurations = (page: number, size: number, sortProperty: string, sortDirection: string, complete: boolean, id: number | string, excludeElements?: boolean) => {
         ConfigurationRepository.getConfigurations(page, size, sortProperty, sortDirection, complete, id.toString(), excludeElements)
             .then((response) => {
                 const data = response.data.content;
@@ -118,7 +118,7 @@ const IntegrationProvider: FC = ({children}) => {
             })
     }
 
-    const getCompletedConfigurations = (page: number, size: number, sortProperty: string, sortDirection: string, complete: boolean, id: any, excludeElements?: boolean) => {
+    const getCompletedConfigurations = (page: number, size: number, sortProperty: string, sortDirection: string, complete: boolean, id: number | string, excludeElements?: boolean) => {
         ConfigurationRepository.getConfigurations(page, size, sortProperty, sortDirection, complete, id.toString(), excludeElements)
             .then((response) => {
                 const data = response.data.content;
@@ -133,7 +133,7 @@ const IntegrationProvider: FC = ({children}) => {
             })
     }
 
-    const getConfiguration = async (id: any, excludeElements?: boolean) => {
+    const getConfiguration = async (id: number | string, excludeElements?: boolean) => {
         ConfigurationRepository.getConfiguration(id.toString(), excludeElements)
             .then((response) => {
                 const data: IConfiguration = response.data;

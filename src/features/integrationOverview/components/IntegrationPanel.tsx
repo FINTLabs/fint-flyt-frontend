@@ -31,7 +31,11 @@ import {IConfiguration} from "../../configuration/types/Configuration";
 import {ClassNameMap} from "@mui/styles";
 import {ISelect} from "../../configuration/types/Select";
 
-const IntegrationPanel: React.FunctionComponent<any> = (props: { classes: ClassNameMap }) => {
+type Props = {
+    classes: ClassNameMap
+}
+
+const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
     const {t, i18n} = useTranslation('translations', {keyPrefix: 'pages.integrationOverview'});
     const classes = props.classes;
     const history = useHistory();
@@ -50,7 +54,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props: { classes: ClassN
         setSourceApplication
     } = useContext(SourceApplicationContext)
     const [version, setVersion] = useState('null');
-    const [activeVersion, setActiveVersion] = useState<any>('');
+    const [activeVersion, setActiveVersion] = useState<string>('');
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [anchorSubEl, setAnchorSubEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
@@ -83,8 +87,8 @@ const IntegrationPanel: React.FunctionComponent<any> = (props: { classes: ClassN
         setOpenDialog(false)
     }
 
-    completedConfigurations?.map((configuration: any) => {
-        return versionsToActivate.push({value: configuration.id, label: 'versjon ' + configuration.version})
+    completedConfigurations?.map((configuration: IConfiguration) => {
+        return versionsToActivate.push({value: configuration.id.toString(), label: 'versjon ' + configuration.version})
     })
 
     useEffect(() => {
@@ -125,7 +129,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props: { classes: ClassN
         }
     ];
 
-    function getVersionForActiveConfig(id: any): void {
+    function getVersionForActiveConfig(id: string | undefined): void {
         if (id === undefined) {
             setActiveVersion('ingen aktiv konfigurasjon')
             return;
@@ -143,7 +147,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props: { classes: ClassN
             })
     }
 
-    async function handleNewOrEditConfigClick(id: any, version?: any) {
+    async function handleNewOrEditConfigClick(id: number | string, version?: unknown) {
         await ConfigurationRepository.getConfiguration(id.toString(), false)
             .then(async (response) => {
                 const data = response.data
@@ -239,7 +243,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props: { classes: ClassN
                         label={t('version')}
                         onChange={handleChange}
                     >
-                        {versionsToActivate.map((item: any, index: number) => (
+                        {versionsToActivate.map((item: ISelect, index: number) => (
                             <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
                         ))}
                     </Select>
@@ -374,7 +378,7 @@ const IntegrationPanel: React.FunctionComponent<any> = (props: { classes: ClassN
                             horizontal: 'left',
                         }}
                     >
-                        {completedConfigurations && completedConfigurations.map((config: any, index: number) => {
+                        {completedConfigurations && completedConfigurations.map((config: IConfiguration, index: number) => {
                                 return <MenuItem onClick={handleNewConfigSubClose} disableGutters={true} divider={true}
                                                  dense={true} key={index}>
                                     <Button id="version-button" onClick={() => {

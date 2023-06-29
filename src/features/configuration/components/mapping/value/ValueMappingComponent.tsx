@@ -76,7 +76,7 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
                     <StringValueComponent
                         {...renderProps}
                     />
-                    <HelpPopover popoverContent={props.description}/>
+                    {props.description && <HelpPopover popoverContent={props.description}/>}
                 </>
             case TemplateValueType.DYNAMIC_STRING:
                 setTypeIfUndefined(ConfigurationValueType.DYNAMIC_STRING);
@@ -92,7 +92,7 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
                             MetadataValueType.PHONE
                         ]}
                     />
-                    <HelpPopover popoverContent={props.description}/>
+                    {props.description && <HelpPopover popoverContent={props.description}/>}
                 </>
             case TemplateValueType.FILE:
                 setTypeIfUndefined(ConfigurationValueType.FILE);
@@ -103,7 +103,7 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
                             MetadataValueType.FILE
                         ]}
                     />
-                    <HelpPopover popoverContent={props.description}/>
+                    {props.description && <HelpPopover popoverContent={props.description}/>}
                 </>
         }
     }

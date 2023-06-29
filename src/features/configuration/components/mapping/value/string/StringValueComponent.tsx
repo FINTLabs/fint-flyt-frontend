@@ -15,7 +15,7 @@ interface Props {
     value: string | null;
 }
 
-const StringValueComponent: React.FunctionComponent<Props> = forwardRef<any, Props>((props: Props, ref) => {
+const StringValueComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivElement, Props>((props: Props, ref) => {
     StringValueComponent.displayName = "StringValueComponent";
     const absoluteKey: string = props.name;
     return (

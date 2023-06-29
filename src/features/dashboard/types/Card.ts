@@ -1,7 +1,7 @@
 import {ILink} from "./Link";
 
 export interface ICard {
-    value: any,
+    value: string,
     content: string,
     links?: ILink[],
 }
