@@ -1,5 +1,5 @@
 import React from 'react';
-import {RouteComponentProps, withRouter} from 'react-router-dom';
+import {RouteComponentProps} from 'react-router-dom';
 import {Accordion, AccordionDetails, AccordionSummary, Box, Typography} from "@mui/material";
 import {useTranslation} from 'react-i18next';
 import StatusComponent from "./components/StatusComponent";

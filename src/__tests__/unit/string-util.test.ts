@@ -1,5 +1,5 @@
 import {errorStringReplace, getErrorArgs} from "../../util/StringUtil";
-import {IError, IErrorArg} from "../../features/log/types/Event";
+import {IError, IErrorArg} from "../../features/instanceOverview/types/Event";
 
 const testErrorArgs: Record<string, string> = {
     'instanceFieldKey': 'form.title',
@@ -37,5 +37,5 @@ test('It should create errorArgs list correctly', () => {
 test('It should show error messages correctly', () => {
     expect(errorStringReplace(testStrings[0], errorArgs)).toEqual("Valideringsfeil i mottak av instans, 'foo bar'")
     expect(errorStringReplace(testStrings[1], errorArgs)).toEqual("Mangler felt ‘qux’ i instans, som kreves for å sette felt i sak")
-    expect(errorStringReplace(testStrings[2], resultingErrorArgs)).toEqual("Instansen ble avvist av destinasjon med følgende feilmelding: 'On a scale of 1-10 my friend, you\'re f\'ed'")
+    expect(errorStringReplace(testStrings[2], resultingErrorArgs)).toEqual("Instansen ble avvist av destinasjon med følgende feilmelding: 'On a scale of 1-10 my friend, you're f'ed'")
 });
