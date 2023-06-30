@@ -43,9 +43,7 @@ const HistoryProvider: FC = ({children}) => {
                         .then((response) => {
                             const events: IEvent[] = response.data.content;
                             if (events) {
-                                console.log(events)
                                 events.forEach(addId(0, 'name'))
-                                console.log(events)
                                 events.forEach((event: IEvent) =>
                                     event.errors.forEach(addId(0, 'errorCode'))
                                 );
