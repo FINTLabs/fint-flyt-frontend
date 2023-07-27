@@ -34,6 +34,8 @@ jobs:
         run: yarn test
 
       - name: Build project
+        env:
+          CI: false
         run: yarn build
 
       - name: Trigger CD
