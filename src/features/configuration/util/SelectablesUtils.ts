@@ -19,11 +19,10 @@ export function SelectablesStatefulValue(
         absoluteKey
     )
     const absoluteKeys: string[] = Object.keys(valueRefPerAbsoluteKey)
-    // eslint-disable-next-line
-    const useWatchValues: any[] = useWatch({control, name: absoluteKeys})
+    const useWatchValues: any[] = useWatch({control, name: absoluteKeys}) // eslint-disable-line
 
     useEffect(() => {
-        const valuePerValueRef: Record<string, any> = {};
+        const valuePerValueRef: Record<string, any> = {}; // eslint-disable-line
         Array.from(Array(absoluteKeys.length).keys())
             .forEach(i =>
                 valuePerValueRef[valueRefPerAbsoluteKey[absoluteKeys[i]]] = useWatchValues[i]
@@ -57,7 +56,7 @@ export default function getSelectables(sources: Source[]): Promise<ISelectable[]
                         response.data
                             ? response.data
                                 .sort((a: ISelectable, b: ISelectable) => (a.displayName < b.displayName) ? -1 : 1)
-                                .map((resource: any) => ({
+                                .map((resource: any) => ({ // eslint-disable-line
                                     displayName: resource.displayName,
                                     value: resource.id
                                 }))

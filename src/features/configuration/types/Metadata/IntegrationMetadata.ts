@@ -12,7 +12,7 @@ export enum ValueType {
 }
 
 export interface IIntegrationMetadata {
-    id?: any;
+    id?: any; // eslint-disable-line
     sourceApplicationId: string;
     sourceApplicationIntegrationId: string;
     sourceApplicationIntegrationUri: string;
