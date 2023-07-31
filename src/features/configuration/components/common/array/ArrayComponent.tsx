@@ -11,7 +11,7 @@ interface Props {
     classes: ClassNameMap;
     absoluteKey: string;
     fieldComponentCreator: (index: number, absoluteKey: string) => ReactElement
-    defaultValueCreator: () => any,
+    defaultValueCreator: () => any, // eslint-disable-line
     onFieldClose?: (index: number) => void,
     disabled?: boolean
 }

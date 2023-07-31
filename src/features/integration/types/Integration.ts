@@ -1,5 +1,5 @@
 export interface IIntegration {
-    id?: any;
+    id?: any; // eslint-disable-line
     sourceApplicationId?: string;
     sourceApplicationIntegrationId?: string;
     destination?: string;
