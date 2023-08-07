@@ -183,13 +183,16 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
             activeConfigurationId: configurationId,
             state: 'ACTIVE'
         }
-        IntegrationRepository.updateIntegration(existingIntegration?.id, patch).then(
-            (response) => {
-                console.log('updated integration: ', existingIntegration?.id, response)
-            }
-        ).catch(e => console.error(e))
-        setActiveVersion('ingen aktiv konfigurasjon')
-        console.log('set active config, integrationId', existingIntegration?.id, 'configurationId', configurationId)
+        if (existingIntegration?.id) {
+            IntegrationRepository.updateIntegration(existingIntegration?.id, patch).then(
+                (response) => {
+                    console.log('updated integration: ', existingIntegration?.id, response)
+                }
+            ).catch(e => console.error(e))
+            setActiveVersion('ingen aktiv konfigurasjon')
+            console.log('set active config, integrationId', existingIntegration?.id, 'configurationId', configurationId)
+        }
+
     }
 
     const handleChange = (event: SelectChangeEvent) => {

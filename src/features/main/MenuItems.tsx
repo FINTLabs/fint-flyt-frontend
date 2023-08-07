@@ -24,8 +24,7 @@ const MenuItems = () => {
                     id={route.name + 'Button'}
                     key={route.name}
                     selected={selectedIndex === index}
-                    // eslint-disable-next-line
-                    onClick={(event: any) => handleListItemClick(event, index)}
+                    onClick={(event: any) => handleListItemClick(event, index)} // eslint-disable-line
                 >
                     <ListItemIcon>
                         <Icon>{route.icon}</Icon>
