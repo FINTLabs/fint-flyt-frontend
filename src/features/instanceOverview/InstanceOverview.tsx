@@ -1,15 +1,12 @@
 import React from 'react';
-import {RouteComponentProps} from 'react-router-dom';
 import InstanceTable from "./components/InstanceTable";
 import InstancePanel from "./components/InstancePanel";
 import {InstanceStyles} from "../../util/styles/Instance.styles";
+import {RouteComponent} from "../main/Route";
 
 const useStyles = InstanceStyles;
 
-type Props = {
-    id: string
-}
-const InstanceOverview: React.FunctionComponent<RouteComponentProps<Props>> = () => {
+const InstanceOverview: RouteComponent = () => {
     const classes = useStyles();
     const showPanel = !(/list/.test(window.location.pathname))
 

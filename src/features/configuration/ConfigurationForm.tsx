@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {RouteComponentProps, useHistory} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import {SourceApplicationContext} from "../../context/sourceApplicationContext";
 import OutgoingDataComponent from "./components/OutgoingDataComponent";
 import {Controller, FormProvider, useForm} from "react-hook-form";
@@ -33,14 +33,11 @@ import {activeAlert, completedAlert, defaultAlert, savedAlert} from "./defaults/
 import ConfigurationRepository from "../../shared/repositories/ConfigurationRepository";
 import {pruneObjectMapping} from "../../util/mapping/helpers/pruning";
 import EditingProvider, {EditingContext} from "../../context/editingContext";
+import {RouteComponent} from "../main/Route";
 
 const useStyles = ConfigurationFormStyles
 
-type Props = {
-    id: string
-}
-
-const ConfigurationForm: React.FunctionComponent<RouteComponentProps<Props>> = () => {
+const ConfigurationForm: RouteComponent = () => {
     const {
         getInstanceElementMetadata,
         setInstanceElementMetadata,

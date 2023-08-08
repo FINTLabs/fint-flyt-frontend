@@ -3,11 +3,10 @@ import Dashboard from "../dashboard/Dashboard";
 import IntegrationOverview from "../integrationOverview/IntegrationOverview";
 import InstanceOverview from "../instanceOverview/InstanceOverview";
 import Support from "../support/Support";
-import {IntegrationForm} from "../integration/IntegrationForm";
+import IntegrationForm from "../integration/IntegrationForm";
 import Admin from "../admin/Admin";
 import ConfigurationForm from "../configuration/ConfigurationForm";
 import ValueConverting from "../valueConverting/ValueConverting";
-import ValueConvertingForm from "../valueConverting/components/ValueConvertingForm";
 
 const routes: IRoute[] = [
     {
@@ -79,18 +78,6 @@ const routes: IRoute[] = [
         icon: 'switch_access_shortcut',
         exact: true,
         inNavigationMenu: true
-    },
-    {
-        path: '/valueconverting/new',
-        name: 'newValueConverting',
-        component: ValueConvertingForm,
-        exact: true,
-    },
-    {
-        path: '/valueconverting/view',
-        name: 'wiewValueConverting',
-        component: ValueConvertingForm,
-        exact: true,
     },
     {
         path: '/support',

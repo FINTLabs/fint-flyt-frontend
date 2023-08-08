@@ -1,14 +1,11 @@
 import React, {useContext} from 'react';
-import {Link as RouterLink, RouteComponentProps} from 'react-router-dom';
+import {Link as RouterLink} from 'react-router-dom';
 import {Button, Typography} from "@mui/material";
 import {useTranslation} from 'react-i18next';
 import {SourceApplicationContext} from "../../context/sourceApplicationContext";
+import {RouteComponent} from "../main/Route";
 
-type Props = {
-    id: string
-}
-
-const Admin: React.FunctionComponent<RouteComponentProps<Props>> = () => {
+const Admin: RouteComponent = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.admin'});
     const {isAdmin} = useContext(SourceApplicationContext)
 
