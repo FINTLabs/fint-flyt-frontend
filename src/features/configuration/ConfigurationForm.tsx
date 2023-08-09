@@ -254,6 +254,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<Props>> = (
                                         classes={classes}
                                         displayName={"Kommentar"}
                                         multiline
+                                        required={methods.watch("completed")}
                                     />
                                 }
                             />

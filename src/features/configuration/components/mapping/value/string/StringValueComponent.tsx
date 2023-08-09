@@ -11,6 +11,7 @@ interface Props {
     disabled?: boolean;
     onChange?: React.ChangeEventHandler<HTMLInputElement>;
     onBlur?: Noop;
+    required?: boolean;
     name: string;
     value: string | null;
 }
@@ -32,6 +33,7 @@ const StringValueComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivE
                 value={props.value}
                 ref={ref}
                 disabled={props.disabled}
+                required={props.required}
                 multiline={props.multiline}
                 maxRows={props.multiline ? 4 : undefined}
             />
