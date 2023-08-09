@@ -253,6 +253,7 @@ const ConfigurationForm: RouteComponent = () => {
                                         classes={classes}
                                         displayName={"Kommentar"}
                                         multiline
+                                        required={methods.watch("completed")}
                                     />
                                 }
                             />
