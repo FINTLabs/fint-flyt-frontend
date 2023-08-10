@@ -11,31 +11,38 @@ const useStyles = ConfigurationFormStyles
 const ValueConverting: RouteComponent = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.valueConverting'});
     const [existingValueConverting, setExistingValueConverting] = useState(undefined);
+    const [newValueConverting, setNewValueConverting] = useState<boolean>(false)
     const [view, setView] = useState<boolean>(false);
     const classes = useStyles();
     return (
         <>
             {existingValueConverting ?
                 <ValueConvertingForm existingValueConverting={existingValueConverting}
+                                     setNewValueConverting={setNewValueConverting}
                                      setExistingValueConverting={setExistingValueConverting}
                                      view={view}
                 />
                 :
-                <>
-                    <h2 className={classes.title2} id="value-converting-panel-header">{t('panelHeader')}</h2>
-                    <ValueConvertingTable onValueConvertingSelected={(id: number, view: boolean) => {
-                        return ValueConvertingRepository.getValueConverting(id)
-                            .then(response => {
-                                console.log(response)
-                                setView(view)
-                                setExistingValueConverting(response.data);
-                            })
-                            .catch(e => {
-                                console.log(e);
-                            });
-                    }
-                    }/>
-                </>
+                newValueConverting ?
+                    <ValueConvertingForm setNewValueConverting={setNewValueConverting}
+                                         existingValueConverting={undefined}
+                                         setExistingValueConverting={setExistingValueConverting} view={false}/>
+                    :
+                    <>
+                        <h2 className={classes.title2} id="value-converting-panel-header">{t('panelHeader')}</h2>
+                        <ValueConvertingTable setNewValueConverting={setNewValueConverting}
+                                              onValueConvertingSelected={(id: number, view: boolean) => {
+                                                  return ValueConvertingRepository.getValueConverting(id)
+                                                      .then(response => {
+                                                          setView(view)
+                                                          setExistingValueConverting(response.data);
+                                                      })
+                                                      .catch(e => {
+                                                          console.log(e);
+                                                      });
+                                              }
+                                              }/>
+                    </>
             }</>
     );
 }

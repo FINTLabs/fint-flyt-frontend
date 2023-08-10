@@ -28,8 +28,9 @@ const useStyles = valueConvertingStyles
 
 
 type Props = {
-    existingValueConverting: IValueConverting,
+    existingValueConverting: IValueConverting | undefined,
     setExistingValueConverting: React.Dispatch<React.SetStateAction<undefined>>,
+    setNewValueConverting: React.Dispatch<React.SetStateAction<boolean>>,
     view: boolean
 }
 type IValueConvertingFormData = Omit<IValueConverting, 'convertingMap'> & {
@@ -116,6 +117,7 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
     function handleCancel() {
         if (props.setExistingValueConverting) {
             props.setExistingValueConverting(undefined)
+            props.setNewValueConverting(false)
         }
     }
 

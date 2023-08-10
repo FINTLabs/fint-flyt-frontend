@@ -11,7 +11,7 @@ export default interface IRoute {
     exact: boolean;
     name: string;
     path: string;
-    component: React.FunctionComponent<RouteComponentProps<Props>>;
+    component: RouteComponent;
     icon?: string;
     inNavigationMenu?: boolean;
 }
