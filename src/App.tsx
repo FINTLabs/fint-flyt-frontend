@@ -1,12 +1,10 @@
 import React, {useEffect, useState} from 'react';
+import Cookies from 'js-cookie';
 import {createTheme, ThemeProvider} from "@mui/material";
 import Main from "./features/main/Main";
 import {BrowserRouter} from "react-router-dom";
-import IntegrationProvider from "./context/integrationContext";
-import SourceApplicationProvider from "./context/sourceApplicationContext";
-import HistoryProvider from "./context/historyContext";
 import axios from "axios";
-import { nbNO } from '@mui/material/locale';
+import {nbNO} from '@mui/material/locale';
 
 const theme = createTheme(
     {
@@ -44,6 +42,12 @@ function App() {
     const [basePath, setBasePath] = useState<string>();
 
     useEffect(() => {
+        const sessionCookie = Cookies.get('user_session');
+        console.log(sessionCookie)
+    }, []);
+
+
+    useEffect(() => {
         axios.get('api/application/configuration')
             .then(value => {
                 axios.defaults.baseURL = value.data.basePath;
@@ -58,15 +62,9 @@ function App() {
     return basePath ?
         (
             <ThemeProvider theme={theme}>
-                <HistoryProvider>
-                    <SourceApplicationProvider>
-                        <IntegrationProvider>
-                            <BrowserRouter basename={basePath}>
-                                <Main/>
-                            </BrowserRouter>
-                        </IntegrationProvider>
-                    </SourceApplicationProvider>
-                </HistoryProvider>
+                <BrowserRouter basename={basePath}>
+                    <Main/>
+                </BrowserRouter>
             </ThemeProvider>
         )
         : <h1>Loading</h1>
