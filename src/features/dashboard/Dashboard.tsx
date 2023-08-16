@@ -18,8 +18,10 @@ const Dashboard: RouteComponent = () => {
     const {statistics, resetIntegrations, integrations, getIntegrations} = useContext(IntegrationContext)
     const {sourceApplication} = useContext(SourceApplicationContext)
     let totalErrors = 0;
+    let totalDispatched = 0;
     statistics?.map((stat: IIntegrationStatistics) => {
-        return totalErrors += stat.currentErrors
+        totalErrors += stat.currentErrors;
+        totalDispatched += stat.dispatchedInstances;
     })
 
     useEffect(() => {
@@ -34,6 +36,13 @@ const Dashboard: RouteComponent = () => {
             content: integrations !== undefined && integrations.length === 1 ? t('oneForm') : t('form'),
             links: [
                 {name: t('links.integration'), href: '/integration/new'}
+            ]
+        },
+        {
+            value: totalDispatched === 0 ? t('empty') : totalDispatched.toString(),
+            content: totalDispatched === 1 ? t('oneInstance') : t('instances'),
+            links: [
+                {name: t('links.instanceOverview'), href: '/integration/instance/list'}
             ]
         },
         {

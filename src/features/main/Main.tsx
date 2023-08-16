@@ -1,16 +1,13 @@
 import React, {useContext} from "react";
-import {AppBar, Badge, Box, Button, Drawer, Toolbar, Typography} from "@mui/material";
-import NotificationsIcon from '@mui/icons-material/Notifications';
+import {AppBar, Box, Button, Drawer, Toolbar, Typography} from "@mui/material";
 import Router from "./Router";
 import MenuItems from "./MenuItems";
 import {Link as RouterLink} from "react-router-dom";
 import {useTranslation} from "react-i18next";
-import {IntegrationContext} from "../../context/integrationContext";
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import {SourceApplicationContext} from "../../context/sourceApplicationContext";
 import ConfigurationProvider from "../../context/configurationContext";
 import {MainStyles} from "../../util/styles/Main.styles";
-import {IIntegrationStatistics} from "../dashboard/types/IntegrationStatistics";
 
 const useStyles = MainStyles;
 
@@ -22,15 +19,8 @@ function Main() {
         i18n.changeLanguage(lng);
     };
 
-    //TODO 15/12: set admin access based on log in
     // eslint-disable-next-line
     const {isAdmin, setIsAdmin} = useContext(SourceApplicationContext)
-    const {statistics} = useContext(IntegrationContext)
-    let totalErrors = 0;
-    statistics?.map((stat: IIntegrationStatistics) => {
-        return totalErrors += stat.currentErrors
-    })
-
 
     return (
         <Box display="flex" position="relative" width={1} height={1}>
@@ -51,12 +41,6 @@ function Main() {
                             {t('adminHeader')}
                         </Button>
                     </Box>}
-                    <Badge className={classes.badge}
-                           badgeContent={totalErrors}
-                           color="secondary"
-                           component={RouterLink} to="/integration/instance/list">
-                        <NotificationsIcon htmlColor={"white"}/>
-                    </Badge>
                 </Toolbar>
             </AppBar>
             <Drawer variant="permanent" className={classes.drawer}>

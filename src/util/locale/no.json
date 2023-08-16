@@ -29,6 +29,8 @@
     "dashboard": {
       "form": "integrasjoner",
       "oneForm": "integrasjon",
+      "instances": "arkiverte instanser",
+      "oneInstance": "arkivert instans",
       "empty": "Ingen",
       "oneError": "feilmelding",
       "errors": "feilmeldinger",
