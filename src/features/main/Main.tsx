@@ -1,5 +1,5 @@
 import React, {useContext} from "react";
-import {AppBar, Badge, Box, Button, Drawer, Toolbar, Typography} from "@mui/material";
+import {Alert, AppBar, Badge, Box, Button, Drawer, Toolbar, Typography} from "@mui/material";
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import Router from "./Router";
 import MenuItems from "./MenuItems";
@@ -12,12 +12,16 @@ import ConfigurationProvider from "../../context/configurationContext";
 import {MainStyles} from "../../util/styles/Main.styles";
 import {IIntegrationStatistics} from "../dashboard/types/IntegrationStatistics";
 import HistoryProvider from "../../context/historyContext";
+import {SessionContext} from "../../context/sessionContext";
+import DialogComponent from "../../shared/components/DialogComponent";
 
 const useStyles = MainStyles;
 
 function Main() {
     const classes = useStyles();
     const {t, i18n} = useTranslation();
+    const {expires, expired} = useContext(SessionContext)
+
     // eslint-disable-next-line
     const changeLanguage = (lng: string) => {
         i18n.changeLanguage(lng);
@@ -38,6 +42,7 @@ function Main() {
             <SourceApplicationProvider>
                 <IntegrationProvider>
                     <Box display="flex" position="relative" width={1} height={1}>
+
                         <AppBar position="fixed" sx={{zIndex: (theme) => theme.zIndex.drawer + 1}}>
                             <Toolbar className={classes.toolbar} id={"toolbar"}>
                                 <img src="https://cdn.flais.io/media/fint-by-vigo-white.svg" alt="logo"
@@ -70,6 +75,17 @@ function Main() {
                         </Drawer>
                         <main className={classes.content}>
                             <ConfigurationProvider>
+                                {expired &&
+                                    <>
+                                        <Alert sx={{mb: 2, backgroundColor: 'white'}}
+                                               variant="outlined"
+                                               severity="warning">
+                                            Du vil bli logget ut om 30 minutter
+                                        </Alert>
+                                        <DialogComponent title={"advarsel"} content={"Du vil bli logget ut om 30 min"}
+                                                         open={expired}/>
+                                    </>
+                                }
                                 <Router/>
                             </ConfigurationProvider>
                         </main>

@@ -5,6 +5,7 @@ import Main from "./features/main/Main";
 import {BrowserRouter} from "react-router-dom";
 import axios from "axios";
 import {nbNO} from '@mui/material/locale';
+import SessionProvider from "./context/sessionContext";
 
 const theme = createTheme(
     {
@@ -63,7 +64,9 @@ function App() {
         (
             <ThemeProvider theme={theme}>
                 <BrowserRouter basename={basePath}>
-                    <Main/>
+                    <SessionProvider>
+                        <Main/>
+                    </SessionProvider>
                 </BrowserRouter>
             </ThemeProvider>
         )

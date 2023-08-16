@@ -108,6 +108,7 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = forwardRef<H
                             </IconButton>}
                         </>
                     ),
+                    readOnly: (props.accept.includes(ValueType.FILE))
                 }}
             />
             {searchResult && <Typography sx={searchResultSX}>{searchResult}</Typography>}
