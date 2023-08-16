@@ -12,7 +12,7 @@ export enum ValueType {
 }
 
 export interface IIntegrationMetadata {
-    id?: any; // eslint-disable-line
+    id: string;
     sourceApplicationId: string;
     sourceApplicationIntegrationId: string;
     sourceApplicationIntegrationUri: string;
@@ -46,7 +46,7 @@ export interface IInstanceMetadataContent {
 }
 
 export const MOCK_INSTANCE_METADATA: IIntegrationMetadata = {
-    id: 1234,
+    id: '1234',
     sourceApplicationId: "1",
     sourceApplicationIntegrationId: "PROD0195",
     sourceApplicationIntegrationUri: "",

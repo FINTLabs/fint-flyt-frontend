@@ -40,21 +40,8 @@ const StatusComponent: React.FunctionComponent<Props> = () => {
 
     return (
         <Box>
-            <Alert variant="outlined" severity={historyStatus ? "success" : "warning"} sx={{color: 'black', mb: 2}}>
-                Historikk
-            </Alert>
-            <Alert variant="outlined" severity={configurationStatus ? "success" : "warning"}
-                   sx={{color: 'black', mb: 2}}>
-                Konfigurasjoner
-            </Alert>
-            <Alert variant="outlined" severity={integrationStatus ? "success" : "warning"} sx={{color: 'black', mb: 2}}>
-                Integrasjoner
-            </Alert>
-            <Alert variant="outlined" severity={discoveryStatus ? "success" : "warning"} sx={{color: 'black', mb: 2}}>
-                Kildeapplikasjon
-            </Alert>
-            <Alert variant="outlined" severity={dataStatus ? "success" : "warning"} sx={{color: 'black', mb: 2}}>
-                Kodeverk og arkiv
+            <Alert variant="outlined" severity={historyStatus && configurationStatus && integrationStatus && discoveryStatus && dataStatus ? "success" : "warning"} sx={{color: 'black', mb: 2}}>
+                Interne tjenester i FLYT
             </Alert>
         </Box>
     );

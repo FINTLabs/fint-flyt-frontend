@@ -1,22 +1,18 @@
-import {Route, RouteComponentProps} from "react-router-dom"
+import {Route} from "react-router-dom"
 import routes from "./Routes";
 import React from "react";
+import IRoute from "./Route";
 
 const Router: React.FunctionComponent = () => {
     return (
         <>
-            {routes.map((route, index) => {
+            {routes.map((route: IRoute, index: number) => {
                 return (
                     <Route
                         key={index}
                         exact={route.exact}
                         path={route.path}
-                        render={(props: RouteComponentProps) => (
-                            <route.component
-                                name={route.name}
-                                {...props}
-                            />
-                        )}
+                        component={route.component}
                     />
                 );
             })}

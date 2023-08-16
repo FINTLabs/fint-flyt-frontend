@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {RouteComponentProps, useHistory} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import {SourceApplicationContext} from "../../context/sourceApplicationContext";
 import OutgoingDataComponent from "./components/OutgoingDataComponent";
 import {Controller, FormProvider, useForm} from "react-hook-form";
@@ -33,14 +33,11 @@ import {activeAlert, completedAlert, defaultAlert, savedAlert} from "./defaults/
 import ConfigurationRepository from "../../shared/repositories/ConfigurationRepository";
 import {pruneObjectMapping} from "../../util/mapping/helpers/pruning";
 import EditingProvider, {EditingContext} from "../../context/editingContext";
+import {RouteComponent} from "../main/Route";
 
 const useStyles = ConfigurationFormStyles
 
-type Props = {
-    id: string
-}
-
-const ConfigurationForm: React.FunctionComponent<RouteComponentProps<Props>> = () => {
+const ConfigurationForm: RouteComponent = () => {
     const {
         getInstanceElementMetadata,
         setInstanceElementMetadata,
@@ -75,8 +72,8 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<Props>> = (
     }
     const methods = useForm<IConfiguration>({
         defaultValues: {
-            integrationId: existingIntegration?.id,
-            integrationMetadataId: selectedMetadata?.id,
+            integrationId: Number(existingIntegration?.id),
+            integrationMetadataId: Number(selectedMetadata?.id),
             completed: configuration ? configuration.completed : false,
             comment: configuration?.comment,
         }
@@ -117,12 +114,14 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<Props>> = (
         const integrationMetadata: IIntegrationMetadata[] = availableVersions
             .filter(metadata => metadata.version === version)
         setSelectedMetadata(integrationMetadata[0])
-        methods.setValue('integrationMetadataId', integrationMetadata[0].id)
-        getInstanceElementMetadata(integrationMetadata[0].id)
+        if (integrationMetadata[0].id) {
+            methods.setValue('integrationMetadataId', Number(integrationMetadata[0].id))
+            getInstanceElementMetadata(integrationMetadata[0].id)
+        }
+
     };
 
-    // eslint-disable-next-line
-    const onSubmit = (data: any) => {
+    const onSubmit = (data: any) => { // eslint-disable-line
         data.mapping = pruneObjectMapping(data.mapping as IObjectMapping)
         if (configuration?.id) {
             ConfigurationRepository.updateConfiguration(configuration.id.toString(), data as IConfigurationPatch)
@@ -139,7 +138,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<Props>> = (
                             setCompleted(true)
                         }
                     }
-                    if (active && existingIntegration) {
+                    if (active && existingIntegration && existingIntegration.id) {
                         activateConfiguration(existingIntegration.id, response.data)
                     }
                 }).catch(function (error) {
@@ -166,7 +165,7 @@ const ConfigurationForm: React.FunctionComponent<RouteComponentProps<Props>> = (
                         setShowAlert(true);
                         setCompleted(true)
                     }
-                    if (active && existingIntegration) {
+                    if (active && existingIntegration && existingIntegration.id) {
                         activateConfiguration(existingIntegration.id, response.data)
                     }
                 }).catch(function (error) {
