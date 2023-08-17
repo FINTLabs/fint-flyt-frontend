@@ -29,7 +29,7 @@ import {IIntegrationPatch, IntegrationState} from "../integration/types/Integrat
 import {ConfigurationContext} from "../../context/configurationContext";
 import StringValueComponent from "./components/mapping/value/string/StringValueComponent";
 import {IAlertContent} from "./types/AlertContent";
-import {activeAlert, completedAlert, defaultAlert, savedAlert} from "./defaults/DefaultValues";
+import {activeAlert, completedAlert, defaultAlert, errorAlert, savedAlert} from "./defaults/DefaultValues";
 import ConfigurationRepository from "../../shared/repositories/ConfigurationRepository";
 import {pruneObjectMapping} from "../../util/mapping/helpers/pruning";
 import EditingProvider, {EditingContext} from "../../context/editingContext";
@@ -122,6 +122,11 @@ const ConfigurationForm: RouteComponent = () => {
     };
 
     const onSubmit = (data: any) => { // eslint-disable-line
+        console.log(methods.formState.errors ? 'feil' : 'ingen feil')
+        if (methods.formState.errors) {
+            setAlertContent(errorAlert)
+            setShowAlert(true);
+        }
         data.mapping = pruneObjectMapping(data.mapping as IObjectMapping)
         if (configuration?.id) {
             ConfigurationRepository.updateConfiguration(configuration.id.toString(), data as IConfigurationPatch)

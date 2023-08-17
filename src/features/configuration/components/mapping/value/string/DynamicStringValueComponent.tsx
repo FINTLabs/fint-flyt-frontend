@@ -8,8 +8,9 @@ import {IconButton, TextField, Typography} from "@mui/material";
 import {Search} from "../../../../util/UrlUtils";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import ResourceRepository from "../../../../../../shared/repositories/ResourceRepository";
-import {searchResultSX} from "../../../../../../util/styles/SystemStyles";
+import {errorMsgSX, searchResultSX} from "../../../../../../util/styles/SystemStyles";
 import {Noop} from "react-hook-form/dist/types";
+import {FieldError} from "react-hook-form";
 
 interface Props {
     classes: ClassNameMap;
@@ -21,6 +22,7 @@ interface Props {
     onBlur?: Noop;
     name: string;
     value: string | null;
+    error: FieldError | undefined,
 }
 
 const DynamicStringValueComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivElement, Props>((props: Props, ref) => {
@@ -28,6 +30,7 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = forwardRef<H
     const [searchResult, setSearchResult] = useState<string>()
     const [shrink, setShrink] = useState<boolean | undefined>(undefined)
     const absoluteKey: string = props.name;
+
 
     const [{canDrop, isOver}, dropRef] = useDrop({
         accept: props.accept,
@@ -75,6 +78,7 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = forwardRef<H
     return (
         <div id={"dnd-value-component-" + absoluteKey} ref={dropRef} key={absoluteKey}>
             <TextField
+                error={!!props.error}
                 style={dynamicStyle}
                 variant='outlined'
                 size='small'
@@ -111,6 +115,7 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = forwardRef<H
                 }}
             />
             {searchResult && <Typography sx={searchResultSX}>{searchResult}</Typography>}
+            {props.error && <Typography sx={errorMsgSX}>{props.error.message}</Typography>}
         </div>
     )
 })

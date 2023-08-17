@@ -3,7 +3,7 @@ import {ReactElement, useContext} from "react";
 import {IValueTemplate, ValueType as TemplateValueType} from "../../../types/FormTemplate";
 import StringValueComponent from "./string/StringValueComponent";
 import DynamicStringValueComponent from "./string/DynamicStringValueComponent";
-import {Controller, FieldValues, useFormContext} from "react-hook-form";
+import {Controller, FieldError, FieldValues, useFormContext} from "react-hook-form";
 import {ValueType as ConfigurationValueType} from "../../../types/Configuration";
 import {ValueType as MetadataValueType} from "../../../types/Metadata/IntegrationMetadata";
 import {ClassNameMap} from "@mui/styles";
@@ -14,6 +14,7 @@ import {EditingContext} from "../../../../../context/editingContext";
 import CheckboxValueComponent from "../../common/CheckboxValueComponent";
 import {ControllerRenderProps} from "react-hook-form/dist/types/controller";
 import HelpPopover from "../../common/popover/HelpPopover";
+import {getRegexFromType} from "../../../util/ValidationUtil";
 
 interface Props {
     classes: ClassNameMap;
@@ -31,6 +32,7 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
     const {completed} = useContext(ConfigurationContext)
     const {editCollectionAbsoluteKey} = useContext(EditingContext)
 
+
     const typeAbsoluteKey: string = props.absoluteKey + ".type";
 
     function setTypeIfUndefined(type: ConfigurationValueType) {
@@ -46,6 +48,7 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
     }
 
     type RenderProps = ControllerRenderProps<FieldValues, string> & {
+        error: FieldError | undefined,
         classes: ClassNameMap,
         displayName: string,
         disabled: boolean
@@ -103,11 +106,16 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
 
     return <Controller
         name={props.absoluteKey + ".mappingString"}
-        render={({field}) =>
+        rules={{
+            pattern: getRegexFromType(props.template.type)
+        }
+        }
+        render={({field, fieldState: {error}}) =>
             <div id={'value-mapping-wrapper-' + props.absoluteKey}
                  className={props.classes.flexRowContainer}>
                 {createComponent({
                     ...field,
+                    error,
                     classes: props.classes,
                     displayName: props.displayName,
                     disabled: props.disabled

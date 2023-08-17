@@ -75,7 +75,7 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = forwardR
     return <Controller
         name={props.absoluteKey + ".mappingString"}
         defaultValue={props.template.type == SelectableValueType.DROPDOWN ? '' : null}
-        render={({field}) => {
+        render={({field, fieldState: {error}}) => {
             switch (props.template.type) {
                 case SelectableValueType.DROPDOWN:
                     setTypeIfUndefined(ConfigurationValueType.STRING);
@@ -119,6 +119,7 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = forwardR
                             classes={props.classes}
                             displayName={props.displayName}
                             selectables={selectables}
+                            error={error}
                             initialType={
                                 getDynamicStringOrSearchSelectTypeFromConfigurationType(getValues(typeAbsoluteKey))
                             }
