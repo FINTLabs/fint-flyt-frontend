@@ -34,6 +34,7 @@ import ConfigurationRepository from "../../shared/repositories/ConfigurationRepo
 import {pruneObjectMapping} from "../../util/mapping/helpers/pruning";
 import EditingProvider, {EditingContext} from "../../context/editingContext";
 import {RouteComponent} from "../main/Route";
+import {isEmpty} from "lodash";
 
 const useStyles = ConfigurationFormStyles
 
@@ -71,7 +72,7 @@ const ConfigurationForm: RouteComponent = () => {
         history.push('/')
     }
     const methods = useForm<IConfiguration>({
-        mode: 'onTouched',
+        mode: 'onChange',
         defaultValues: {
             integrationId: Number(existingIntegration?.id),
             integrationMetadataId: Number(selectedMetadata?.id),
@@ -123,7 +124,7 @@ const ConfigurationForm: RouteComponent = () => {
     };
 
     const onSubmit = (data: any) => { // eslint-disable-line
-        if (!methods.formState.isValid) {
+        if (!isEmpty(methods.formState.errors)) {
             setAlertContent(errorAlert)
             setShowAlert(true);
         }
