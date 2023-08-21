@@ -78,7 +78,7 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = forwardR
     return <Controller
         name={props.absoluteKey + ".mappingString"}
         rules={{
-            pattern: getRegexFromType(validationType)
+            pattern: getRegexFromType(validationType, getValues('completed'))
         }}
         defaultValue={props.template.type == SelectableValueType.DROPDOWN ? '' : null}
         render={({field, fieldState}) => {

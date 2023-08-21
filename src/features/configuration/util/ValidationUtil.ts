@@ -16,8 +16,11 @@ export const textPattern = new RegExp("(?:(?!\\$if\\{).)*");
 
 export const dynamicStringPattern = new RegExp(`^(?:${textPattern.source}|${ifReferencePattern.source})*$`);
 
-
-export function getRegexFromType(type: ValueType | SelectableValueType | Type, collection?: boolean): ValidationRule<RegExp> | undefined {
+export function getRegexFromType(type: ValueType | SelectableValueType | Type, completed: boolean, collection?: boolean): ValidationRule<RegExp> | undefined {
+    console.log(completed)
+    if (!completed) {
+        return undefined
+    }
     if (collection) {
         if (type === ValueType.DYNAMIC_STRING) {
             return {

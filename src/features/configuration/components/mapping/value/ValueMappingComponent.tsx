@@ -106,9 +106,10 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
 
     return <Controller
         name={props.absoluteKey + ".mappingString"}
-        rules={{
-            pattern: getRegexFromType(props.template.type)
-        }
+        rules={
+            {
+                pattern: getRegexFromType(props.template.type, getValues('completed'))
+            }
         }
         render={({field, fieldState}) =>
             <div id={'value-mapping-wrapper-' + props.absoluteKey}

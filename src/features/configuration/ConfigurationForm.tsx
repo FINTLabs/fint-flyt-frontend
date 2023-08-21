@@ -120,9 +120,10 @@ const ConfigurationForm: RouteComponent = () => {
             methods.setValue('integrationMetadataId', Number(integrationMetadata[0].id))
             getInstanceElementMetadata(integrationMetadata[0].id)
         }
-
     };
 
+    console.log(completed)
+    console.log(methods.formState.errors)
     const onSubmit = (data: any) => { // eslint-disable-line
         if (!isEmpty(methods.formState.errors)) {
             setAlertContent(errorAlert)
@@ -207,6 +208,8 @@ const ConfigurationForm: RouteComponent = () => {
         return md.sourceApplicationId === selectedMetadata?.sourceApplicationId &&
             md.sourceApplicationIntegrationId === selectedMetadata.sourceApplicationIntegrationId
     })
+
+    console.log(methods.formState.errors)
 
     return (
         <DndProvider backend={HTML5Backend}>
