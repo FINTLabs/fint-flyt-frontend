@@ -4,15 +4,19 @@ import {ValidationRule} from "react-hook-form";
 export const numberPattern = /\d+/;
 export const valueConverterReferencePattern = new RegExp(`\\$vc\\{${numberPattern.source}\\}`);
 
-export const instanceValueKeyPattern = /(?:(?!\$if\\{).)+/;
-export const ifReferencePattern = new RegExp(`\\$if\\{${instanceValueKeyPattern.source}\\}`);
+export const instanceValueKeyPattern = new RegExp("(?:(?!\\$if\\{).)+");
+export const ifReferencePattern = new RegExp(`(?:\\$if\\{${instanceValueKeyPattern.source}\\})*`);
 export const instanceCollectionFieldReferencePattern = new RegExp(`\\$icf\\{${numberPattern.source}\\}\\{${instanceValueKeyPattern.source}\\}`);
 
 export const valueConvertingPattern = new RegExp(`^${valueConverterReferencePattern.source}(${ifReferencePattern.source}|${instanceCollectionFieldReferencePattern.source})$`);
 
+export const textPattern = new RegExp("(?:(?!\\$if\\{).)*");
+
+export const dynamicStringPattern = new RegExp(`^(?:${textPattern.source}|${ifReferencePattern.source})*$`);
+
 
 export function getRegexFromType(type: ValueType, collection?: boolean): ValidationRule<RegExp> | undefined {
-    if(collection) {
+    if (collection) {
         if (type === ValueType.DYNAMIC_STRING) {
             return {
                 value: ifReferencePattern,
@@ -22,7 +26,7 @@ export function getRegexFromType(type: ValueType, collection?: boolean): Validat
     }
     if (type === ValueType.DYNAMIC_STRING) {
         return {
-            value: ifReferencePattern,
+            value: dynamicStringPattern,
             message: 'Oppfyller ikke påkrevd format'
         }
     }

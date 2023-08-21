@@ -3,7 +3,7 @@ import {ReactElement, useContext} from "react";
 import {IValueTemplate, ValueType as TemplateValueType} from "../../../types/FormTemplate";
 import StringValueComponent from "./string/StringValueComponent";
 import DynamicStringValueComponent from "./string/DynamicStringValueComponent";
-import {Controller, FieldError, FieldValues, useFormContext} from "react-hook-form";
+import {Controller, ControllerFieldState, FieldValues, useFormContext} from "react-hook-form";
 import {ValueType as ConfigurationValueType} from "../../../types/Configuration";
 import {ValueType as MetadataValueType} from "../../../types/Metadata/IntegrationMetadata";
 import {ClassNameMap} from "@mui/styles";
@@ -48,7 +48,7 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
     }
 
     type RenderProps = ControllerRenderProps<FieldValues, string> & {
-        error: FieldError | undefined,
+        fieldState: ControllerFieldState | undefined,
         classes: ClassNameMap,
         displayName: string,
         disabled: boolean
@@ -110,12 +110,12 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
             pattern: getRegexFromType(props.template.type)
         }
         }
-        render={({field, fieldState: {error}}) =>
+        render={({field, fieldState}) =>
             <div id={'value-mapping-wrapper-' + props.absoluteKey}
                  className={props.classes.flexRowContainer}>
                 {createComponent({
                     ...field,
-                    error,
+                    fieldState,
                     classes: props.classes,
                     displayName: props.displayName,
                     disabled: props.disabled

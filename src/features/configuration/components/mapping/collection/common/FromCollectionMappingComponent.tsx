@@ -78,14 +78,14 @@ const FromCollectionMappingComponent: React.FunctionComponent<Props> = (props: P
                             <Controller
                                 name={absoluteKey}
                                 control={control}
-                                render={({field, fieldState: {error}}) =>
+                                render={({field, fieldState}) =>
                                     <DynamicStringValueComponent
                                         {...field}
                                         classes={props.classes}
                                         displayName={"" + index}
                                         accept={[ValueType.COLLECTION]}
                                         disabled={completed}
-                                        error={error}
+                                        fieldState={fieldState}
                                     />
                                 }
                             />

@@ -71,6 +71,7 @@ const ConfigurationForm: RouteComponent = () => {
         history.push('/')
     }
     const methods = useForm<IConfiguration>({
+        mode: 'onTouched',
         defaultValues: {
             integrationId: Number(existingIntegration?.id),
             integrationMetadataId: Number(selectedMetadata?.id),
@@ -122,8 +123,7 @@ const ConfigurationForm: RouteComponent = () => {
     };
 
     const onSubmit = (data: any) => { // eslint-disable-line
-        console.log(methods.formState.errors ? 'feil' : 'ingen feil')
-        if (methods.formState.errors) {
+        if (!methods.formState.isValid) {
             setAlertContent(errorAlert)
             setShowAlert(true);
         }
