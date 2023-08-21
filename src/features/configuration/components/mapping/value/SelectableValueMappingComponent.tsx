@@ -1,5 +1,5 @@
 import * as React from "react";
-import {forwardRef, useContext} from "react";
+import {forwardRef, useContext, useState} from "react";
 import {ISelectableValueTemplate, SelectableValueType} from "../../../types/FormTemplate";
 import SelectValueComponent from "./select/SelectValueComponent";
 import {Controller, useFormContext} from "react-hook-form";
@@ -14,6 +14,7 @@ import DynamicStringOrSearchSelectValueComponent, {
 import {isOutsideCollectionEditContext} from "../../../util/KeyUtils";
 import {ConfigurationContext} from "../../../../../context/configurationContext";
 import {EditingContext} from "../../../../../context/editingContext";
+import {getRegexFromType} from "../../../util/ValidationUtil";
 
 interface Props {
     classes: ClassNameMap;
@@ -40,13 +41,15 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = forwardR
     );
     const typeAbsoluteKey: string = props.absoluteKey + ".type";
 
+    const [validationType, setValidationType] = useState<ConfigurationValueType>(ConfigurationValueType.STRING)
+
     function setTypeIfUndefined(type: ConfigurationValueType) {
         if (!getValues(typeAbsoluteKey)) {
             setValue(typeAbsoluteKey, type)
         }
     }
 
-    function getDynamicStringOrSearchSelectTypeFromConfigurationType(configurationType: ConfigurationValueType) {
+    function getDynamicStringOrSearchSelectTypeFromConfigurationType(configurationType: ConfigurationValueType): DynamicStringOrSearchSelectType {
         switch (configurationType) {
             case ConfigurationValueType.STRING:
                 return DynamicStringOrSearchSelectType.SELECT;
@@ -59,7 +62,7 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = forwardR
         }
     }
 
-    function getConfigurationTypeFromDynamicStringOrSearchSelectType(dynamicStringOrSearchSelectType: DynamicStringOrSearchSelectType) {
+    function getConfigurationTypeFromDynamicStringOrSearchSelectType(dynamicStringOrSearchSelectType: DynamicStringOrSearchSelectType): ConfigurationValueType {
         switch (dynamicStringOrSearchSelectType) {
             case DynamicStringOrSearchSelectType.SELECT:
                 return ConfigurationValueType.STRING;
@@ -74,6 +77,9 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = forwardR
 
     return <Controller
         name={props.absoluteKey + ".mappingString"}
+        rules={{
+            pattern: getRegexFromType(validationType)
+        }}
         defaultValue={props.template.type == SelectableValueType.DROPDOWN ? '' : null}
         render={({field, fieldState}) => {
             switch (props.template.type) {
@@ -124,6 +130,7 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = forwardR
                                 getDynamicStringOrSearchSelectTypeFromConfigurationType(getValues(typeAbsoluteKey))
                             }
                             onTypeChange={(type: DynamicStringOrSearchSelectType) => {
+                                setValidationType(getConfigurationTypeFromDynamicStringOrSearchSelectType(type))
                                 setValue(
                                     typeAbsoluteKey,
                                     getConfigurationTypeFromDynamicStringOrSearchSelectType(type)
