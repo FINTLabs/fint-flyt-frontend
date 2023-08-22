@@ -31,7 +31,6 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = forwardRef<H
     const [shrink, setShrink] = useState<boolean | undefined>(undefined)
     const absoluteKey: string = props.name;
 
-
     const [{canDrop, isOver}, dropRef] = useDrop({
         accept: props.accept,
         drop: (tag: ITag) => {

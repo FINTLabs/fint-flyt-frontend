@@ -28,7 +28,7 @@ interface Props {
 
 const SelectableValueMappingComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivElement, Props>((props: Props) => {
     SelectableValueMappingComponent.displayName = "SelectableValueMappingComponent"
-    const {control, setValue, getValues} = useFormContext();
+    const {control, setValue, getValues, watch} = useFormContext();
     const {completed} = useContext(ConfigurationContext)
     const {editCollectionAbsoluteKey} = useContext(EditingContext)
 
@@ -78,7 +78,7 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = forwardR
     return <Controller
         name={props.absoluteKey + ".mappingString"}
         rules={{
-            pattern: getRegexFromType(validationType, getValues('completed'))
+            pattern: getRegexFromType(validationType, watch('completed'))
         }}
         defaultValue={props.template.type == SelectableValueType.DROPDOWN ? '' : null}
         render={({field, fieldState}) => {

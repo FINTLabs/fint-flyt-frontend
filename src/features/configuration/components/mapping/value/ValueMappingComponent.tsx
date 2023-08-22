@@ -29,7 +29,7 @@ interface Props {
 }
 
 const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
-    const {getValues, setValue} = useFormContext();
+    const {getValues, setValue, watch} = useFormContext();
     const {completed} = useContext(ConfigurationContext)
     const {editCollectionAbsoluteKey} = useContext(EditingContext)
 
@@ -108,7 +108,7 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
         name={props.absoluteKey + ".mappingString"}
         rules={
             {
-                pattern: getRegexFromType(props.template.type, getValues('completed'), props.collection)
+                pattern: getRegexFromType(props.template.type, watch('completed'), props.collection)
             }
         }
         render={({field, fieldState}) =>

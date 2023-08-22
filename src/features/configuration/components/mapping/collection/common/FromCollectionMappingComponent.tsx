@@ -24,7 +24,7 @@ interface Props {
 
 const FromCollectionMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.configuration.fromCollectionMapping'});
-    const {control, getValues} = useFormContext();
+    const {control, watch} = useFormContext();
     const {completed} = useContext(ConfigurationContext)
     const {editCollectionAbsoluteKey, setEditCollectionAbsoluteKey} = useContext(EditingContext)
     const isEditingRef: MutableRefObject<boolean> = useRef<boolean>(false)
@@ -80,7 +80,7 @@ const FromCollectionMappingComponent: React.FunctionComponent<Props> = (props: P
                             <Controller
                                 name={absoluteKey}
                                 rules={{
-                                    pattern: getRegexFromType(ConfigurationValueType.DYNAMIC_STRING, getValues('completed'), true)
+                                    pattern: getRegexFromType(ConfigurationValueType.DYNAMIC_STRING, watch('completed'), true)
                                 }}
                                 control={control}
                                 render={({field, fieldState}) =>
