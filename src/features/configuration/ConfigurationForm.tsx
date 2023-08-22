@@ -122,8 +122,6 @@ const ConfigurationForm: RouteComponent = () => {
         }
     };
 
-    console.log(completed)
-    console.log(methods.formState.errors)
     const onSubmit = (data: any) => { // eslint-disable-line
         if (!isEmpty(methods.formState.errors)) {
             setAlertContent(errorAlert)
@@ -209,8 +207,6 @@ const ConfigurationForm: RouteComponent = () => {
             md.sourceApplicationIntegrationId === selectedMetadata.sourceApplicationIntegrationId
     })
 
-    console.log(methods.formState.errors)
-
     return (
         <DndProvider backend={HTML5Backend}>
             <EditingProvider>
@@ -256,13 +252,19 @@ const ConfigurationForm: RouteComponent = () => {
                             </Box>
                             <Controller
                                 name={"comment".toString()}
-                                render={({field}) =>
+                                rules={{
+                                    required: {
+                                        value: !!methods.watch("completed"),
+                                        message: 'Kommentar er påkrevd ved ferdigstilling'
+                                    }
+                                }}
+                                render={({field, fieldState}) =>
                                     <StringValueComponent
                                         {...field}
                                         classes={classes}
                                         displayName={"Kommentar"}
                                         multiline
-                                        required={methods.watch("completed")}
+                                        fieldState={fieldState}
                                     />
                                 }
                             />

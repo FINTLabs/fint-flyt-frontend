@@ -21,6 +21,7 @@ const ValueCollectionMappingComponent: React.FunctionComponent<Props> = (props: 
                 absoluteKey={absoluteKey}
                 displayName={order}
                 template={props.elementTemplate}
+                collection={true}
             />
         }
     />

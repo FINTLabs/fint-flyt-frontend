@@ -1,6 +1,4 @@
-import {SelectableValueType} from "../types/FormTemplate";
 import {ValidationRule} from "react-hook-form";
-import {Type} from "../components/mapping/value/DynamicStringOrSearchSelectValueComponent";
 import {ValueType} from "../types/Configuration";
 
 export const numberPattern = /\d+/;
@@ -16,45 +14,37 @@ export const textPattern = new RegExp("(?:(?!\\$if\\{).)*");
 
 export const dynamicStringPattern = new RegExp(`^(?:${textPattern.source}|${ifReferencePattern.source})*$`);
 
-export function getRegexFromType(type: ValueType | SelectableValueType | Type, completed: boolean, collection?: boolean): ValidationRule<RegExp> | undefined {
-    console.log(completed)
+export const dynamicStringCollectionPattern = new RegExp(`^${dynamicStringPattern.source}|${instanceCollectionFieldReferencePattern.source}`)
+
+export function getRegexFromType(type: ValueType, completed: boolean, collection?: boolean): ValidationRule<RegExp> | undefined {
     if (!completed) {
         return undefined
     }
     if (collection) {
-        if (type === ValueType.DYNAMIC_STRING) {
-            return {
-                value: ifReferencePattern,
-                message: 'Oppfyller ikke påkrevd format'
-            }
-        }
-    }
-    if (type === ValueType.DYNAMIC_STRING) {
-        return {
-            value: dynamicStringPattern,
-            message: 'Oppfyller ikke påkrevd format'
-        }
-    }
-    if (type === ValueType.VALUE_CONVERTING) {
-        return {
-            value: valueConvertingPattern,
-            message: 'Oppfyller ikke påkrevd format for verdikonvertering'
-        }
-    }
-    if (type === ValueType.FILE) {
-        return {
-            value: dynamicStringPattern,
-            message: 'Oppfyller ikke påkrevd filformat'
-        }
+        return undefined
     }
 
-    if (type === SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT) {
-        return {
-            value: dynamicStringPattern,
-            message: 'Oppfyller ikke påkrevd format'
-        }
+    switch (type) {
+        case ValueType.DYNAMIC_STRING:
+            return {
+                value: dynamicStringPattern,
+                message: 'Oppfyller ikke påkrevd format'
+            }
+        case ValueType.VALUE_CONVERTING:
+            return {
+                value: valueConvertingPattern,
+                message: 'Oppfyller ikke påkrevd format for verdikonvertering'
+            }
+        case ValueType.FILE:
+            type
+            return {
+                value: dynamicStringPattern,
+                message: 'Oppfyller ikke påkrevd filformat'
+            }
+        case ValueType.BOOLEAN:
+        case ValueType.STRING:
+        case ValueType.URL:
+        default:
+            return undefined
     }
-    if (type === SelectableValueType.DROPDOWN) {
-        return undefined
-    } else return undefined
 }

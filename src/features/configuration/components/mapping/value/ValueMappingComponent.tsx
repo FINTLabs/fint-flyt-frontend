@@ -25,13 +25,13 @@ interface Props {
     template: IValueTemplate,
     disabled?: boolean;
     hidden?: boolean;
+    collection?: boolean;
 }
 
 const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
     const {getValues, setValue} = useFormContext();
     const {completed} = useContext(ConfigurationContext)
     const {editCollectionAbsoluteKey} = useContext(EditingContext)
-
 
     const typeAbsoluteKey: string = props.absoluteKey + ".type";
 
@@ -108,7 +108,7 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
         name={props.absoluteKey + ".mappingString"}
         rules={
             {
-                pattern: getRegexFromType(props.template.type, getValues('completed'))
+                pattern: getRegexFromType(props.template.type, getValues('completed'), props.collection)
             }
         }
         render={({field, fieldState}) =>
