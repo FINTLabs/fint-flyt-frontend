@@ -39,6 +39,7 @@ export const contextDefaultValues: SourceApplicationContextState = {
     getAllForms: () => undefined,
     getAvailableForms: () => undefined,
     allMetadata: [{
+        id: '',
         instanceElementMetadata: [],
         sourceApplicationIntegrationUri: '',
         sourceApplicationIntegrationId: '',

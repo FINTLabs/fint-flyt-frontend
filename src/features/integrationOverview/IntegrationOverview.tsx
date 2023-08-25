@@ -6,15 +6,11 @@ import {useTranslation} from 'react-i18next';
 import IntegrationPanel from "./components/IntegrationPanel";
 import {SourceApplicationContext} from "../../context/sourceApplicationContext";
 import {IntegrationStyles} from "../../util/styles/Integration.styles";
-import {RouteComponentProps} from "react-router-dom";
+import {RouteComponent} from "../main/Route";
 
 const useStyles = IntegrationStyles;
 
-type Props = {
-    id: string
-}
-
-const IntegrationOverview: React.FunctionComponent<RouteComponentProps<Props>> = () => {
+const IntegrationOverview: RouteComponent = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.integrationOverview'});
     const classes = useStyles();
     const {

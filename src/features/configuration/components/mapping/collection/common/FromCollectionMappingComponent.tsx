@@ -4,7 +4,6 @@ import ArrayComponent from "../../../common/array/ArrayComponent";
 import {useTranslation} from "react-i18next";
 import {ClassNameMap} from "@mui/styles";
 import DynamicStringValueComponent from "../../value/string/DynamicStringValueComponent";
-import {ValueType} from "../../../../types/Metadata/IntegrationMetadata";
 import ArrayValueWrapperComponent from "../../../common/array/ArrayValueWrapperComponent";
 import FlytTitle4Component from "../../../common/title/FlytTitle4Component";
 import {ConfigurationContext} from "../../../../../../context/configurationContext";
@@ -13,6 +12,9 @@ import {IconButton} from "@mui/material";
 import {EditOffRounded, EditRounded} from "@mui/icons-material";
 import {Controller, useFormContext} from "react-hook-form";
 import {EditingContext} from "../../../../../../context/editingContext";
+import {getRegexFromType} from "../../../../util/ValidationUtil";
+import {ValueType as ConfigurationValueType} from "../../../../types/Configuration";
+import {ValueType} from "../../../../types/Metadata/IntegrationMetadata";
 
 interface Props {
     classes: ClassNameMap;
@@ -22,7 +24,7 @@ interface Props {
 
 const FromCollectionMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.configuration.fromCollectionMapping'});
-    const {control} = useFormContext();
+    const {control, watch} = useFormContext();
     const {completed} = useContext(ConfigurationContext)
     const {editCollectionAbsoluteKey, setEditCollectionAbsoluteKey} = useContext(EditingContext)
     const isEditingRef: MutableRefObject<boolean> = useRef<boolean>(false)
@@ -77,14 +79,18 @@ const FromCollectionMappingComponent: React.FunctionComponent<Props> = (props: P
                         content={
                             <Controller
                                 name={absoluteKey}
+                                rules={{
+                                    pattern: getRegexFromType(ConfigurationValueType.DYNAMIC_STRING, watch('completed'), true)
+                                }}
                                 control={control}
-                                render={({field}) =>
+                                render={({field, fieldState}) =>
                                     <DynamicStringValueComponent
                                         {...field}
                                         classes={props.classes}
                                         displayName={"" + index}
                                         accept={[ValueType.COLLECTION]}
                                         disabled={completed}
+                                        fieldState={fieldState}
                                     />
                                 }
                             />

@@ -28,8 +28,9 @@ const useStyles = valueConvertingStyles
 
 
 type Props = {
-    existingValueConverting: IValueConverting,
+    existingValueConverting: IValueConverting | undefined,
     setExistingValueConverting: React.Dispatch<React.SetStateAction<undefined>>,
+    setNewValueConverting: React.Dispatch<React.SetStateAction<boolean>>,
     view: boolean
 }
 type IValueConvertingFormData = Omit<IValueConverting, 'convertingMap'> & {
@@ -116,6 +117,7 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
     function handleCancel() {
         if (props.setExistingValueConverting) {
             props.setExistingValueConverting(undefined)
+            props.setNewValueConverting(false)
         }
     }
 
@@ -140,12 +142,13 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
                             <Controller
                                 name={"displayName"}
                                 defaultValue={''}
-                                render={({field}) =>
+                                render={({field, fieldState}) =>
                                     <StringValueComponent
                                         {...field}
                                         classes={classes}
                                         disabled={disabled}
                                         displayName={t('displayName')}
+                                        fieldState={fieldState}
                                     />
                                 }
                             />
@@ -239,20 +242,21 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
                                         <Controller
                                             name={`${absoluteKey}.from`}
                                             defaultValue={''}
-                                            render={({field}) =>
+                                            render={({field, fieldState}) =>
                                                 <StringValueComponent
                                                     {...field}
                                                     disabled={disabled}
                                                     classes={classes}
                                                     displayName={t('from')}
                                                     multiline={true}
+                                                    fieldState={fieldState}
                                                 />
                                             }
                                         />
                                         <Controller
                                             name={`${absoluteKey}.to`}
                                             defaultValue={''}
-                                            render={({field}) => {
+                                            render={({field, fieldState}) => {
                                                 return toTypeIdWatch === 'text'
                                                     ? <StringValueComponent
                                                         {...field}
@@ -260,6 +264,7 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
                                                         disabled={disabled}
                                                         displayName={t('to')}
                                                         multiline={true}
+                                                        fieldState={fieldState}
                                                     />
                                                     : <SearchSelectValueComponent
                                                         {...field}

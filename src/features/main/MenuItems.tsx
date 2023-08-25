@@ -9,7 +9,7 @@ const MenuItems = () => {
 
     const [selectedIndex, setSelectedIndex] = React.useState(0);
     const handleListItemClick = (
-        event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+        event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
         index: number,
     ) => {
         setSelectedIndex(index);
@@ -24,8 +24,7 @@ const MenuItems = () => {
                     id={route.name + 'Button'}
                     key={route.name}
                     selected={selectedIndex === index}
-                    // eslint-disable-next-line
-                    onClick={(event: any) => handleListItemClick(event, index)}
+                    onClick={(event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => handleListItemClick(event, index)}
                 >
                     <ListItemIcon>
                         <Icon>{route.icon}</Icon>

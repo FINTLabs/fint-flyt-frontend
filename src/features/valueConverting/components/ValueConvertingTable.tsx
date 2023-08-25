@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Link as RouterLink, useHistory} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import {Box, Button, Menu, MenuItem} from "@mui/material";
 import {useTranslation} from 'react-i18next';
 import {DataGrid, GridCellParams, GridColDef} from "@mui/x-data-grid";
@@ -11,6 +11,7 @@ import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 
 type Props = {
     onValueConvertingSelected: (id: number, view: boolean) => void;
+    setNewValueConverting: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
 const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
@@ -148,9 +149,8 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
                     horizontal: 'left',
                 }}
             >
-                <MenuItem component={RouterLink} to='/valueconverting/new'
-                          onClick={handleNewConfigClose}>
-                    <Button id="blank-button">
+                <MenuItem onClick={handleNewConfigClose}>
+                    <Button id="blank-button" onClick={() => props.setNewValueConverting(true)}>
                         {t('button.blankConverting')}
                     </Button>
                 </MenuItem>

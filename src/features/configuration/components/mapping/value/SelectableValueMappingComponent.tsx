@@ -1,5 +1,5 @@
 import * as React from "react";
-import {forwardRef, useContext} from "react";
+import {forwardRef, useContext, useState} from "react";
 import {ISelectableValueTemplate, SelectableValueType} from "../../../types/FormTemplate";
 import SelectValueComponent from "./select/SelectValueComponent";
 import {Controller, useFormContext} from "react-hook-form";
@@ -14,6 +14,7 @@ import DynamicStringOrSearchSelectValueComponent, {
 import {isOutsideCollectionEditContext} from "../../../util/KeyUtils";
 import {ConfigurationContext} from "../../../../../context/configurationContext";
 import {EditingContext} from "../../../../../context/editingContext";
+import {getRegexFromType} from "../../../util/ValidationUtil";
 
 interface Props {
     classes: ClassNameMap;
@@ -27,7 +28,7 @@ interface Props {
 
 const SelectableValueMappingComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivElement, Props>((props: Props) => {
     SelectableValueMappingComponent.displayName = "SelectableValueMappingComponent"
-    const {control, setValue, getValues} = useFormContext();
+    const {control, setValue, getValues, watch} = useFormContext();
     const {completed} = useContext(ConfigurationContext)
     const {editCollectionAbsoluteKey} = useContext(EditingContext)
 
@@ -40,13 +41,15 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = forwardR
     );
     const typeAbsoluteKey: string = props.absoluteKey + ".type";
 
+    const [validationType, setValidationType] = useState<ConfigurationValueType>(ConfigurationValueType.STRING)
+
     function setTypeIfUndefined(type: ConfigurationValueType) {
         if (!getValues(typeAbsoluteKey)) {
             setValue(typeAbsoluteKey, type)
         }
     }
 
-    function getDynamicStringOrSearchSelectTypeFromConfigurationType(configurationType: ConfigurationValueType) {
+    function getDynamicStringOrSearchSelectTypeFromConfigurationType(configurationType: ConfigurationValueType): DynamicStringOrSearchSelectType {
         switch (configurationType) {
             case ConfigurationValueType.STRING:
                 return DynamicStringOrSearchSelectType.SELECT;
@@ -59,7 +62,7 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = forwardR
         }
     }
 
-    function getConfigurationTypeFromDynamicStringOrSearchSelectType(dynamicStringOrSearchSelectType: DynamicStringOrSearchSelectType) {
+    function getConfigurationTypeFromDynamicStringOrSearchSelectType(dynamicStringOrSearchSelectType: DynamicStringOrSearchSelectType): ConfigurationValueType {
         switch (dynamicStringOrSearchSelectType) {
             case DynamicStringOrSearchSelectType.SELECT:
                 return ConfigurationValueType.STRING;
@@ -74,8 +77,11 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = forwardR
 
     return <Controller
         name={props.absoluteKey + ".mappingString"}
+        rules={{
+            pattern: getRegexFromType(validationType, watch('completed'))
+        }}
         defaultValue={props.template.type == SelectableValueType.DROPDOWN ? '' : null}
-        render={({field}) => {
+        render={({field, fieldState}) => {
             switch (props.template.type) {
                 case SelectableValueType.DROPDOWN:
                     setTypeIfUndefined(ConfigurationValueType.STRING);
@@ -119,10 +125,12 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = forwardR
                             classes={props.classes}
                             displayName={props.displayName}
                             selectables={selectables}
+                            fieldState={fieldState}
                             initialType={
                                 getDynamicStringOrSearchSelectTypeFromConfigurationType(getValues(typeAbsoluteKey))
                             }
                             onTypeChange={(type: DynamicStringOrSearchSelectType) => {
+                                setValidationType(getConfigurationTypeFromDynamicStringOrSearchSelectType(type))
                                 setValue(
                                     typeAbsoluteKey,
                                     getConfigurationTypeFromDynamicStringOrSearchSelectType(type)

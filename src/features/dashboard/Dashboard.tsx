@@ -1,6 +1,5 @@
 import {Box, Card, CardContent} from '@mui/material';
 import React, {useContext, useEffect} from 'react';
-import {RouteComponentProps} from 'react-router-dom';
 import {IntegrationContext} from "../../context/integrationContext";
 import IntegrationTable from "../integrationOverview/components/IntegrationTable";
 import DashboardCard from "./DashboardCard";
@@ -9,21 +8,20 @@ import {useTranslation} from "react-i18next";
 import {SourceApplicationContext} from "../../context/sourceApplicationContext";
 import {DashboardStyles} from "../../util/styles/Dashboard.styles";
 import {IIntegrationStatistics} from "./types/IntegrationStatistics";
+import {RouteComponent} from "../main/Route";
 
 const useStyles = DashboardStyles;
 
-type Props = {
-    id: string
-}
-
-const Dashboard: React.FunctionComponent<RouteComponentProps<Props>> = () => {
+const Dashboard: RouteComponent = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.dashboard'});
     const classes = useStyles();
     const {statistics, resetIntegrations, integrations, getIntegrations} = useContext(IntegrationContext)
     const {sourceApplication} = useContext(SourceApplicationContext)
     let totalErrors = 0;
+    let totalDispatched = 0;
     statistics?.map((stat: IIntegrationStatistics) => {
-        return totalErrors += stat.currentErrors
+        totalErrors += stat.currentErrors;
+        totalDispatched += stat.dispatchedInstances;
     })
 
     useEffect(() => {
@@ -38,6 +36,13 @@ const Dashboard: React.FunctionComponent<RouteComponentProps<Props>> = () => {
             content: integrations !== undefined && integrations.length === 1 ? t('oneForm') : t('form'),
             links: [
                 {name: t('links.integration'), href: '/integration/new'}
+            ]
+        },
+        {
+            value: totalDispatched === 0 ? t('empty') : totalDispatched.toString(),
+            content: totalDispatched === 1 ? t('oneInstance') : t('instances'),
+            links: [
+                {name: t('links.instanceOverview'), href: '/integration/instance/list'}
             ]
         },
         {

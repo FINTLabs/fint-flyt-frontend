@@ -8,6 +8,7 @@ export function errorStringReplace(baseString: string, errorArgs: IErrorArg[]) {
     const errorTypes = [
         ErrorType.INSTANCE_FIELD_KEY,
         ErrorType.ERROR_MESSAGE,
+        ErrorType.MESSAGE,
         ErrorType.FIELD_PATH,
     ]
     errorTypes.map(errorType => {

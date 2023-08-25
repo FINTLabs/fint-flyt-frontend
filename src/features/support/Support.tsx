@@ -1,18 +1,14 @@
 import React from 'react';
-import {RouteComponentProps} from 'react-router-dom';
 import {Accordion, AccordionDetails, AccordionSummary, Box, Typography} from "@mui/material";
 import {useTranslation} from 'react-i18next';
 import StatusComponent from "./components/StatusComponent";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {SupportStyles} from "../../util/styles/Support.styles";
+import {RouteComponent} from "../main/Route";
 
 const useStyles = SupportStyles
 
-type Props = {
-    id: string
-}
-
-const Support: React.FunctionComponent<RouteComponentProps<Props>> = () => {
+const Support: RouteComponent = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.support'});
     const classes = useStyles();
     const view = false;

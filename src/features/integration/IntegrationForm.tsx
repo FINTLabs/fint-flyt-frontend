@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {destinations, sourceApplications} from "../configuration/defaults/DefaultValues";
 import {Autocomplete, Box, Button, FormGroup, MenuItem, TextField, Typography} from "@mui/material";
-import {useHistory} from "react-router-dom";
+import {RouteComponentProps, useHistory} from "react-router-dom";
 import {IntegrationContext} from "../../context/integrationContext";
 import HelpPopover from "../configuration/components/common/popover/HelpPopover";
 import {useTranslation} from "react-i18next";
@@ -21,7 +21,7 @@ type Props = {
     id: string
 }
 
-export const IntegrationForm: React.FunctionComponent<Props> = () => {
+export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>> = () => {
     const classes = useStyles();
     const history = useHistory();
     const {t} = useTranslation('translations', {keyPrefix: 'components.integrationForm'});
@@ -182,3 +182,5 @@ export const IntegrationForm: React.FunctionComponent<Props> = () => {
         </>
     )
 }
+
+export default IntegrationForm;

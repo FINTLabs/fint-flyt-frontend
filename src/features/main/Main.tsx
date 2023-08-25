@@ -27,26 +27,17 @@ function Main() {
         i18n.changeLanguage(lng);
     };
 
-    //TODO 15/12: set admin access based on log in
     // eslint-disable-next-line
     const {isAdmin, setIsAdmin} = useContext(SourceApplicationContext)
-    const {statistics} = useContext(IntegrationContext)
-    let totalErrors = 0;
-    statistics?.map((stat: IIntegrationStatistics) => {
-        return totalErrors += stat.currentErrors
-    })
-
 
     return (
         <HistoryProvider>
             <SourceApplicationProvider>
                 <IntegrationProvider>
                     <Box display="flex" position="relative" width={1} height={1}>
-
                         <AppBar position="fixed" sx={{zIndex: (theme) => theme.zIndex.drawer + 1}}>
                             <Toolbar className={classes.toolbar} id={"toolbar"}>
-                                <img src="https://cdn.flais.io/media/fint-by-vigo-white.svg" alt="logo"
-                                     className={classes.logo}/>
+                                <img src="https://cdn.flais.io/media/fint-by-vigo-white.svg" alt="logo" className={classes.logo}/>
                                 <Typography variant="h6" color="inherit" noWrap className={classes.flex}>
                                     {t('appbarHeader')}
                                 </Typography>
@@ -61,12 +52,6 @@ function Main() {
                                         {t('adminHeader')}
                                     </Button>
                                 </Box>}
-                                <Badge className={classes.badge}
-                                       badgeContent={totalErrors}
-                                       color="secondary"
-                                       component={RouterLink} to="/integration/instance/list">
-                                    <NotificationsIcon htmlColor={"white"}/>
-                                </Badge>
                             </Toolbar>
                         </AppBar>
                         <Drawer variant="permanent" className={classes.drawer}>
@@ -75,17 +60,6 @@ function Main() {
                         </Drawer>
                         <main className={classes.content}>
                             <ConfigurationProvider>
-                                {expired &&
-                                    <>
-                                        <Alert sx={{mb: 2, backgroundColor: 'white'}}
-                                               variant="outlined"
-                                               severity="warning">
-                                            Du vil bli logget ut om 30 minutter
-                                        </Alert>
-                                        <DialogComponent title={"advarsel"} content={"Du vil bli logget ut om 30 min"}
-                                                         open={expired}/>
-                                    </>
-                                }
                                 <Router/>
                             </ConfigurationProvider>
                         </main>

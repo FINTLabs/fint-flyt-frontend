@@ -3,7 +3,6 @@ import * as React from "react";
 import {useContext, useEffect, useState} from "react";
 import HelpPopover from "./common/popover/HelpPopover";
 import {useTranslation} from "react-i18next";
-// eslint-disable-next-line
 import {SourceApplicationContext} from "../../../context/sourceApplicationContext";
 import {
     IInstanceMetadataContent,
