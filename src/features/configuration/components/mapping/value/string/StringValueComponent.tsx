@@ -1,8 +1,10 @@
 import * as React from "react";
 import {forwardRef} from "react";
 import {ClassNameMap} from "@mui/styles";
-import {TextField} from "@mui/material";
+import {TextField, Typography} from "@mui/material";
 import {Noop} from "react-hook-form/dist/types";
+import {ControllerFieldState} from "react-hook-form";
+import {errorMsgSX} from "../../../../../../util/styles/SystemStyles";
 
 interface Props {
     classes: ClassNameMap;
@@ -14,6 +16,7 @@ interface Props {
     required?: boolean;
     name: string;
     value: string | null;
+    fieldState: ControllerFieldState | undefined
 }
 
 const StringValueComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivElement, Props>((props: Props, ref) => {
@@ -36,7 +39,9 @@ const StringValueComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivE
                 required={props.required}
                 multiline={props.multiline}
                 maxRows={props.multiline ? 4 : undefined}
+                error={!!props.fieldState?.error}
             />
+            {props.fieldState?.error && <Typography sx={errorMsgSX}>{props.fieldState?.error.message}</Typography>}
         </div>
     )
 })

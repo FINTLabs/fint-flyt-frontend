@@ -6,6 +6,7 @@ import DynamicStringValueComponent from "./string/DynamicStringValueComponent";
 import {ClassNameMap} from "@mui/styles";
 import {ValueType as MetadataValueType} from "../../../types/Metadata/IntegrationMetadata";
 import {Noop} from "react-hook-form/dist/types";
+import {ControllerFieldState} from "react-hook-form";
 
 interface Props {
     classes: ClassNameMap
@@ -18,6 +19,7 @@ interface Props {
     onBlur?: Noop;
     name: string;
     value: string | null;
+    fieldState: ControllerFieldState | undefined
 }
 
 export enum Type {
@@ -97,6 +99,7 @@ const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> 
         />
         {(selectValue === "$dynamic" || selectValue === '$valueConverting') &&
             <DynamicStringValueComponent
+                fieldState={props.fieldState}
                 classes={props.classes}
                 accept={selectValue === "$dynamic"
                     ? [

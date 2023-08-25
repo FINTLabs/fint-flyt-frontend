@@ -8,8 +8,9 @@ import {IconButton, TextField, Typography} from "@mui/material";
 import {Search} from "../../../../util/UrlUtils";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import ResourceRepository from "../../../../../../shared/repositories/ResourceRepository";
-import {searchResultSX} from "../../../../../../util/styles/SystemStyles";
+import {errorMsgSX, searchResultSX} from "../../../../../../util/styles/SystemStyles";
 import {Noop} from "react-hook-form/dist/types";
+import {ControllerFieldState} from "react-hook-form";
 
 interface Props {
     classes: ClassNameMap;
@@ -21,6 +22,7 @@ interface Props {
     onBlur?: Noop;
     name: string;
     value: string | null;
+    fieldState: ControllerFieldState | undefined
 }
 
 const DynamicStringValueComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivElement, Props>((props: Props, ref) => {
@@ -75,6 +77,7 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = forwardRef<H
     return (
         <div id={"dnd-value-component-" + absoluteKey} ref={dropRef} key={absoluteKey}>
             <TextField
+                error={!!props.fieldState?.error}
                 style={dynamicStyle}
                 variant='outlined'
                 size='small'
@@ -111,6 +114,7 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = forwardRef<H
                 }}
             />
             {searchResult && <Typography sx={searchResultSX}>{searchResult}</Typography>}
+            {props.fieldState?.error && <Typography sx={errorMsgSX}>{props.fieldState?.error.message}</Typography>}
         </div>
     )
 })

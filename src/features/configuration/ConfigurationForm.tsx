@@ -29,11 +29,12 @@ import {IIntegrationPatch, IntegrationState} from "../integration/types/Integrat
 import {ConfigurationContext} from "../../context/configurationContext";
 import StringValueComponent from "./components/mapping/value/string/StringValueComponent";
 import {IAlertContent} from "./types/AlertContent";
-import {activeAlert, completedAlert, defaultAlert, savedAlert} from "./defaults/DefaultValues";
+import {activeAlert, completedAlert, defaultAlert, errorAlert, savedAlert} from "./defaults/DefaultValues";
 import ConfigurationRepository from "../../shared/repositories/ConfigurationRepository";
 import {pruneObjectMapping} from "../../util/mapping/helpers/pruning";
 import EditingProvider, {EditingContext} from "../../context/editingContext";
 import {RouteComponent} from "../main/Route";
+import {isEmpty} from "lodash";
 
 const useStyles = ConfigurationFormStyles
 
@@ -71,6 +72,7 @@ const ConfigurationForm: RouteComponent = () => {
         history.push('/')
     }
     const methods = useForm<IConfiguration>({
+        mode: 'onChange',
         defaultValues: {
             integrationId: Number(existingIntegration?.id),
             integrationMetadataId: Number(selectedMetadata?.id),
@@ -118,10 +120,13 @@ const ConfigurationForm: RouteComponent = () => {
             methods.setValue('integrationMetadataId', Number(integrationMetadata[0].id))
             getInstanceElementMetadata(integrationMetadata[0].id)
         }
-
     };
 
     const onSubmit = (data: any) => { // eslint-disable-line
+        if (!isEmpty(methods.formState.errors)) {
+            setAlertContent(errorAlert)
+            setShowAlert(true);
+        }
         data.mapping = pruneObjectMapping(data.mapping as IObjectMapping)
         if (configuration?.id) {
             ConfigurationRepository.updateConfiguration(configuration.id.toString(), data as IConfigurationPatch)
@@ -247,13 +252,19 @@ const ConfigurationForm: RouteComponent = () => {
                             </Box>
                             <Controller
                                 name={"comment".toString()}
-                                render={({field}) =>
+                                rules={{
+                                    required: {
+                                        value: !!methods.watch("completed"),
+                                        message: 'Kommentar er påkrevd ved ferdigstilling'
+                                    }
+                                }}
+                                render={({field, fieldState}) =>
                                     <StringValueComponent
                                         {...field}
                                         classes={classes}
                                         displayName={"Kommentar"}
                                         multiline
-                                        required={methods.watch("completed")}
+                                        fieldState={fieldState}
                                     />
                                 }
                             />
