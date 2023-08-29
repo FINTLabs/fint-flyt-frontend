@@ -1,16 +1,5 @@
 import React, {useContext, useEffect, useState} from "react";
-import {
-    AppBar,
-    Box,
-    Button,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogTitle,
-    Drawer,
-    Toolbar,
-    Typography
-} from "@mui/material";
+import {AppBar, Box, Button, Drawer, Toolbar, Typography} from "@mui/material";
 import Router from "./Router";
 import MenuItems from "./MenuItems";
 import {Link as RouterLink} from "react-router-dom";
@@ -24,19 +13,18 @@ import {useIdleTimer} from "react-idle-timer";
 const useStyles = MainStyles;
 
 function Main() {
-    const [idleState, setIdleState] = useState<string>('Active')
-    const [count, setCount] = useState<number>(0)
-    const [remaining, setRemaining] = useState<number>(0)
-    const [idleTime, setIdleTime] = useState<number>(0)
     const classes = useStyles();
     const {t, i18n} = useTranslation();
+    const {isAdmin, timeOut, setTimeOut} = useContext(SourceApplicationContext) // eslint-disable-line
+    const [idleState, setIdleState] = useState<string>('Active') // eslint-disable-line
+    const [remaining, setRemaining] = useState<number>(0) // eslint-disable-line
+    const [count, setCount] = useState<number>(0)
+    const [idleTime, setIdleTime] = useState<number>(0)
+
     // eslint-disable-next-line
     const changeLanguage = (lng: string) => {
         i18n.changeLanguage(lng);
     };
-
-    // eslint-disable-next-line
-    const {isAdmin, setIsAdmin, timeOut, setTimeOut} = useContext(SourceApplicationContext)
 
     const onIdle = () => {
         setIdleState('Idle')
@@ -51,23 +39,13 @@ function Main() {
         setCount(count + 1)
     }
 
-    const {getRemainingTime, isIdle} = useIdleTimer({
+    const {getRemainingTime, isIdle} = useIdleTimer({ // eslint-disable-line
         onIdle,
         onActive,
         onAction,
         promptBeforeIdle: 9_000,
         timeout: 10_000,
         throttle: 500
-    })
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setRemaining(Math.ceil(getRemainingTime() / 1000))
-        }, 500)
-
-        return () => {
-            clearInterval(interval)
-        }
     })
 
     useEffect(() => {
@@ -81,17 +59,16 @@ function Main() {
         }
     })
 
-    console.log(idleState, remaining)
-    console.log('idle i ', idleTime, ' millisekund')
-    console.log('timeOut', timeOut)
-
     if (idleTime > 30000) {
         setTimeOut(true)
     }
 
+    // eslint-disable-next-line
     function onCloseAction() {
         setTimeOut(false)
     }
+
+    // console.log('idle i ', idleTime/1000, 'sekund. timeOut: ', timeOut, idleState)
 
     return (
         <Box display="flex" position="relative" width={1} height={1}>
@@ -119,10 +96,10 @@ function Main() {
                 <MenuItems/>
             </Drawer>
             <main className={classes.content}>
-                <Dialog open={timeOut}>
-                    <DialogTitle>hei</DialogTitle>
+                {/*<Dialog open={timeOut}>
+                    <DialogTitle>Advarsel</DialogTitle>
                     <DialogContent>
-                        Du blir logget ut as
+                        Du blir logget ut om ... sekunder
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={onCloseAction}>Disagree</Button>
@@ -130,7 +107,7 @@ function Main() {
                             Agree
                         </Button>
                     </DialogActions>
-                </Dialog>
+                </Dialog>*/}
                 <ConfigurationProvider>
                     <Router/>
                 </ConfigurationProvider>
