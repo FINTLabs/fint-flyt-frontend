@@ -43,7 +43,6 @@ function Main() {
         onIdle,
         onActive,
         onAction,
-        promptBeforeIdle: 9_000,
         timeout: 10_000,
         throttle: 500
     })
@@ -59,7 +58,7 @@ function Main() {
         }
     })
 
-    if (idleTime > 30000) {
+    if (idleTime > 1800000) { // 30 minutes
         setTimeOut(true)
     }
 
@@ -67,8 +66,6 @@ function Main() {
     function onCloseAction() {
         setTimeOut(false)
     }
-
-    // console.log('idle i ', idleTime/1000, 'sekund. timeOut: ', timeOut, idleState)
 
     return (
         <Box display="flex" position="relative" width={1} height={1}>
