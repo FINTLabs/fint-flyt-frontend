@@ -9,17 +9,31 @@ import {SourceApplicationContext} from "../../context/sourceApplicationContext";
 import ConfigurationProvider from "../../context/configurationContext";
 import {MainStyles} from "../../util/styles/Main.styles";
 import {useIdleTimer} from "react-idle-timer";
+import IntegrationRepository from "../../shared/repositories/IntegrationRepository";
+import {IIntegration} from "../integration/types/Integration";
 
 const useStyles = MainStyles;
 
 function Main() {
     const classes = useStyles();
     const {t, i18n} = useTranslation();
-    const {isAdmin, timeOut, setTimeOut} = useContext(SourceApplicationContext) // eslint-disable-line
+    const {isAdmin, timeOut, setTimeOut, setSourceApplication} = useContext(SourceApplicationContext) // eslint-disable-line
     const [idleState, setIdleState] = useState<string>('Active') // eslint-disable-line
     const [remaining, setRemaining] = useState<number>(0) // eslint-disable-line
     const [count, setCount] = useState<number>(0)
     const [idleTime, setIdleTime] = useState<number>(0)
+
+
+    useEffect(() => {
+        IntegrationRepository.getAllIntegrations()
+            .then(response => {
+                const data: IIntegration[] = response.data
+                setSourceApplication(Number(data[0].sourceApplicationId))
+            })
+            .catch(e => {
+                console.log(e)
+            })
+    }, []);
 
     // eslint-disable-next-line
     const changeLanguage = (lng: string) => {
