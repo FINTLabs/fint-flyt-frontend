@@ -39,7 +39,7 @@ export function getRegexFromType(type: ValueType, completed: boolean, collection
             type
             return {
                 value: dynamicStringPattern,
-                message: 'Oppfyller ikke påkrevd filformat'
+                message: 'Oppfyller ikke påkrevd format'
             }
         case ValueType.BOOLEAN:
         case ValueType.STRING:
