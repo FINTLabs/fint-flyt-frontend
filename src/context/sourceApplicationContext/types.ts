@@ -26,8 +26,6 @@ export type SourceApplicationContextState = {
     getInstanceElementMetadata: (metadataId: string) => void;
     sourceApplication: number | undefined;
     setSourceApplication: (id: number | undefined) => void;
-    timeOut: boolean;
-    setTimeOut: (state: boolean) => void;
 };
 
 export const contextDefaultValues: SourceApplicationContextState = {
@@ -56,7 +54,5 @@ export const contextDefaultValues: SourceApplicationContextState = {
     getAllMetadata: () => undefined,
     getInstanceElementMetadata: () => undefined,
     sourceApplication: undefined,
-    setSourceApplication: () => undefined,
-    timeOut: false,
-    setTimeOut: () => undefined
+    setSourceApplication: () => undefined
 };

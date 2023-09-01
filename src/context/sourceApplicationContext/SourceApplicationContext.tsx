@@ -23,8 +23,6 @@ const SourceApplicationProvider: FC = ({children}) => {
     const [instanceElementMetadata, setInstanceElementMetadata] = useState<IInstanceMetadataContent | undefined>(MOCK_INSTANCE_METADATA.instanceMetadata)
     const [instanceObjectCollectionMetadata, setInstanceObjectCollectionMetadata] = useState<IInstanceObjectCollectionMetadata[]>([])
     const [sourceApplication, setSourceApplication] = useState<number | undefined>(contextDefaultValues.sourceApplication);
-    const [timeOut, setTimeOut] = useState<boolean>(contextDefaultValues.timeOut)
-
 
     function getInstanceObjectCollectionMetadata(keys: string[]): void {
         setInstanceObjectCollectionMetadata(
@@ -132,9 +130,7 @@ const SourceApplicationProvider: FC = ({children}) => {
                 getInstanceElementMetadata,
                 getAllForms,
                 sourceApplication,
-                setSourceApplication,
-                timeOut,
-                setTimeOut
+                setSourceApplication
             }}
         >
             {children}
