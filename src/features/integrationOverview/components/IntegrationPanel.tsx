@@ -88,8 +88,18 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
     }
 
     completedConfigurations?.map((configuration: IConfiguration) => {
-        return versionsToActivate.push({value: configuration.id.toString(), label: 'versjon ' + configuration.version})
+        versionsToActivate.push({ value: configuration.id.toString(), label: 'versjon ' + configuration.version })
+        return versionsToActivate.sort((a, b) => {
+            if (a.label.toUpperCase() < b.label.toUpperCase()) {
+                return -1;
+            } else if (a.label.toUpperCase() > b.label.toUpperCase()) {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
     })
+
 
     useEffect(() => {
         getAllMetadata(false)
