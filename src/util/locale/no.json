@@ -156,6 +156,7 @@
         "edit": "Rediger",
         "back": "Tilbake",
         "retry": "Prøv igjen",
+        "show": "Vis",
         "refresh": "Oppdater side",
         "changeVersion": "Bruk denne konfigurasjonen"
       },
@@ -171,6 +172,7 @@
           "timestamp": "Tidspunkt",
           "timestampLatest": "Sist hendelse",
           "name": "Status",
+          "show": "Vis",
           "actions": "Handlinger",
           "details": "Detaljer",
           "errorMessage": "Feilmelding(er)"

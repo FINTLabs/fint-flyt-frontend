@@ -36,6 +36,15 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
     const errorsNotForRetry: string[] = ['instance-receival-error', 'instance-registration-error']
 
     const columns: GridColumns = [
+        {
+            field: 'show',
+            headerName: t('table.columns.show'),
+            minWidth: 150,
+            flex: 0.5,
+            sortable: false,
+            filterable: false,
+            renderCell: (params) => (<ShowButtonToggle row={params.row}/>)
+        },
         {field: 'id', hide: true, type: 'string', headerName: 'id', minWidth: 150, flex: 0.5},
         {
             field: 'sourceApplicationId',
@@ -57,7 +66,7 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
             field: 'displayName',
             type: 'string',
             headerName: t('table.columns.sourceApplicationIntegrationIdDisplayName'),
-            minWidth: 500,
+            minWidth: 400,
             flex: 1,
             sortable: false
         },
@@ -143,6 +152,17 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
     const getEventsWithInstanceId = (sourceApplicationID: string, instanceId: string) => {
         getSelectedInstances(0, 10000, "timestamp", "DESC", sourceApplicationID, instanceId)
         setHistory();
+    }
+
+    function ShowButtonToggle(props: GridCellParams["row"]): JSX.Element {
+        return <Button
+            size="small"
+            variant="contained"
+            onClick={() => {
+                getEventsWithInstanceId(props.row.instanceFlowHeaders.sourceApplicationId, props.row.instanceFlowHeaders.sourceApplicationInstanceId)
+            }}
+        >{t('button.show')}
+        </Button>
     }
 
     function CustomButtonToggle(props: GridCellParams["row"]) {
