@@ -20,14 +20,16 @@ function Main() {
 
 
     useEffect(() => {
-        IntegrationRepository.getAllIntegrations()
-            .then(response => {
-                const data: IIntegration[] = response.data
-                setSourceApplication(Number(data[0].sourceApplicationId))
-            })
-            .catch(e => {
-                console.log(e)
-            })
+        (async () => {
+            await IntegrationRepository.getAllIntegrations()
+                .then(response => {
+                    const data: IIntegration[] = response.data
+                    setSourceApplication(Number(data[0].sourceApplicationId))
+                })
+                .catch(e => {
+                    console.log(e)
+                })
+        })();
     }, []);
 
     // eslint-disable-next-line
