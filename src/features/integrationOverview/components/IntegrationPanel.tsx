@@ -91,6 +91,21 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
         return versionsToActivate.push({value: configuration.id.toString(), label: 'versjon ' + configuration.version})
     })
 
+    completedConfigurations?.map((configuration: IConfiguration) => {
+        const versionsToActivate: { value: string; label: string }[] = [];
+        versionsToActivate.push({ value: configuration.id.toString(), label: 'versjon ' + configuration.version });
+        versionsToActivate.sort((a, b) => {
+            if (a.label.toUpperCase() < b.label.toUpperCase()) {
+                return -1;
+            } else if (a.label.toUpperCase() > b.label.toUpperCase()) {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
+        return versionsToActivate;
+    })
+
     useEffect(() => {
         getAllMetadata(false)
         getVersionForActiveConfig(existingIntegration?.activeConfigurationId ? existingIntegration.activeConfigurationId : undefined)
