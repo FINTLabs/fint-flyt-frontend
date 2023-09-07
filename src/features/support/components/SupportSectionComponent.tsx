@@ -25,7 +25,7 @@ const SupportSectionComponent: React.FunctionComponent<Props> = (props: Props) =
         return (
             <Accordion
                 disableGutters={true}
-                sx={{mb: 2}}
+                sx={{mb: 2, border: 1, borderRadius: 1, boxShadow: 'none', maxWidth: '85%'}}
                 key={props.content.id}
                 onChange={handleChangeExpanded(`panel_${props.content.id}`)}
             >

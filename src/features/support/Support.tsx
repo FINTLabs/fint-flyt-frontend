@@ -23,7 +23,8 @@ const Support: RouteComponent = () => {
             id: "2",
             summary: "Brukerveiledning",
             summary2: "Hvordan opprette en integrasjon og konfigurasjon",
-            details: USER_GUIDE
+            details: "",
+            listItems: USER_GUIDE
         },
         {
             id: "3",
@@ -38,13 +39,13 @@ const Support: RouteComponent = () => {
             summary2: "Ofte stilte spørsmål",
             details: "",
             listItems: FAQ
-        },
+        }/*,
         {
             id: "5",
             summary: "Hjelp og support",
             summary2: "Finner du ikke svaret på det du lurer på?",
             details: "LOL synd for deg"
-        }
+        }*/
     ];
 
     return view ? (
