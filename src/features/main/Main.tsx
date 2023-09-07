@@ -16,7 +16,7 @@ const useStyles = MainStyles;
 function Main() {
     const classes = useStyles();
     const {t, i18n} = useTranslation();
-    const {isAdmin, setSourceApplication} = useContext(SourceApplicationContext)
+    const {isAdmin, sourceApplication, setSourceApplication} = useContext(SourceApplicationContext)
 
 
     useEffect(() => {
@@ -24,9 +24,15 @@ function Main() {
             await IntegrationRepository.getAllIntegrations()
                 .then(response => {
                     const data: IIntegration[] = response.data
-                    setSourceApplication(Number(data[0].sourceApplicationId))
+                    if(data.length > 0) {
+                        setSourceApplication(Number(data[0].sourceApplicationId))
+                    }
+                    else {
+                        setSourceApplication(1)
+                    }
                 })
                 .catch(e => {
+                    setSourceApplication(1)
                     console.log(e)
                 })
         })();
@@ -42,7 +48,8 @@ function Main() {
         <Box display="flex" position="relative" width={1} height={1}>
             <AppBar position="fixed" sx={{zIndex: (theme) => theme.zIndex.drawer + 1}}>
                 <Toolbar className={classes.toolbar} id={"toolbar"}>
-                    <img src="https://cdn.flais.io/media/fint-by-vigo-white.svg" alt="logo" className={classes.logo}/>
+                    <img src="https://cdn.flais.io/media/fint-by-vigo-white.svg" alt="logo"
+                         className={classes.logo}/>
                     <Typography variant="h6" color="inherit" noWrap className={classes.flex}>
                         {t('appbarHeader')}
                     </Typography>
@@ -63,11 +70,14 @@ function Main() {
                 <Toolbar/>
                 <MenuItems/>
             </Drawer>
-            <main className={classes.content}>
-                <ConfigurationProvider>
-                    <Router/>
-                </ConfigurationProvider>
-            </main>
+            {sourceApplication ?
+                <main className={classes.content}>
+                    <ConfigurationProvider>
+                        <Router/>
+                    </ConfigurationProvider>
+                </main>
+                : <><Typography>Loading</Typography></>
+            }
         </Box>
     );
 }
