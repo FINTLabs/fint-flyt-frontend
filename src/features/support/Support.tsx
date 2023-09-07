@@ -3,7 +3,7 @@ import {Box, Typography} from "@mui/material";
 import {useTranslation} from 'react-i18next';
 import {SupportStyles} from "../../util/styles/Support.styles";
 import {RouteComponent} from "../main/Route";
-import SupportSectionComponent from "./components/SupportSectionComponent";
+import AccordionComponent from "./components/AccordionComponent";
 import {SUPPORT_CONTENT} from "./supportTexts";
 
 const useStyles = SupportStyles
@@ -17,7 +17,7 @@ const Support: RouteComponent = () => {
         <>
             <Typography variant={"h6"}>{t('header')}</Typography>
             <Box sx={{mt: 2}}>
-                <SupportSectionComponent data={SUPPORT_CONTENT} classes={classes}/>
+                <AccordionComponent data={SUPPORT_CONTENT} classes={classes}/>
             </Box>
         </>
     ) : (<>

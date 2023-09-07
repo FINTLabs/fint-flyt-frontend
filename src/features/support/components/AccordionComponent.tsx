@@ -16,7 +16,7 @@ export type AccordionData = {
     listItems?: string[]
 }
 
-const SupportSectionComponent: React.FunctionComponent<Props> = (props: Props) => {
+const AccordionComponent: React.FunctionComponent<Props> = (props: Props) => {
     const SingleAccordion = (props: { content: AccordionData }) => {
         const [expanded, setExpanded] = React.useState<string | boolean>("panel_0"); //eslint-disable-line
         const handleChangeExpanded = (panel: string) => (event: React.SyntheticEvent, newExpanded: boolean) => {
@@ -69,4 +69,4 @@ const SupportSectionComponent: React.FunctionComponent<Props> = (props: Props) =
     );
 
 }
-export default SupportSectionComponent;
+export default AccordionComponent;

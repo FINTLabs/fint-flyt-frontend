@@ -1,4 +1,4 @@
-import {AccordionData} from "./components/SupportSectionComponent";
+import {AccordionData} from "./components/AccordionComponent";
 
 const FLYT_DESCRIPTION = "Fint Flyt er en integrasjonsplattform utviklet for å forenkle og redusere antall integrasjoner mellom fagsystemer. \n" +
     "\n" +
