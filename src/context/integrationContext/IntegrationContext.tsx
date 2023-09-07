@@ -28,7 +28,6 @@ const IntegrationProvider: FC = ({children}) => {
 
     const resetIntegrationContext = () => {
         setDestination('');
-        setSourceApplicationId('');
         setExistingIntegration(undefined);
         setSourceApplicationIntegrationId('');
         setSelectedMetadata(contextDefaultValues.selectedMetadata)
