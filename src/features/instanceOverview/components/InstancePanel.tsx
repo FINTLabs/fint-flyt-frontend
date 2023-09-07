@@ -114,16 +114,16 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
 
     return (
         <Box>
+            <ErrorAlertDialog row={selectedRow}/>
+            <Button
+                id={'back-button'}
+                sx={{mb: 2}}
+                variant='contained'
+                onClick={() => history.push("integration/instance/list")}
+            >{t('button.back')}
+            </Button>
             <Box display="flex" position="relative" width={1} height={1}>
-                <Box id="integration-list" className={classes.dataPanelBox}>
-                    <ErrorAlertDialog row={selectedRow}/>
-                    <Button
-                        id={'back-button'}
-                        sx={{mb: 2}}
-                        variant='contained'
-                        onClick={() => history.push("integration/instance/list")}
-                    >{t('button.back')}
-                    </Button>
+                <Box id="instance-panel" className={classes.dataPanelBox}>
                     <DataGrid
                         loading={selectedInstances === undefined}
                         localeText={i18n.language === 'no' ? gridLocaleNoNB : undefined}

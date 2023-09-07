@@ -1,61 +1,23 @@
 import React from 'react';
-import {Accordion, AccordionDetails, AccordionSummary, Box, Typography} from "@mui/material";
+import {Box, Typography} from "@mui/material";
 import {useTranslation} from 'react-i18next';
-import StatusComponent from "./components/StatusComponent";
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {SupportStyles} from "../../util/styles/Support.styles";
 import {RouteComponent} from "../main/Route";
+import AccordionComponent from "./components/AccordionComponent";
+import {SUPPORT_CONTENT} from "./supportTexts";
 
 const useStyles = SupportStyles
 
 const Support: RouteComponent = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.support'});
     const classes = useStyles();
-    const view = false;
-    const [expanded, setExpanded] = React.useState<string | false>(false);
-
-    const handleChange =
-        (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
-            setExpanded(isExpanded ? panel : false);
-        };
+    const view = true;
 
     return view ? (
         <>
             <Typography variant={"h6"}>{t('header')}</Typography>
             <Box sx={{mt: 2}}>
-                <Accordion disableGutters={true} sx={{mb: 2}} expanded={expanded === 'panel1'}
-                           onChange={handleChange('panel1')}>
-                    <AccordionSummary
-                        expandIcon={<ExpandMoreIcon/>}
-                        aria-controls="panel1bh-content"
-                        id="panel1bh-header"
-                    >
-                        <Typography sx={{width: '33%', flexShrink: 0}}>
-                            Brukerveiledning
-                        </Typography>
-                        <Typography sx={{color: 'text.secondary'}}>Hvordan bruke FINT Flyt</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <Typography>
-                            Kommer
-                        </Typography>
-                    </AccordionDetails>
-                </Accordion>
-                <Accordion disableGutters={true} expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
-                    <AccordionSummary
-                        expandIcon={<ExpandMoreIcon/>}
-                        aria-controls="panel2bh-content"
-                        id="panel2bh-header"
-                    >
-                        <Typography sx={{width: '33%', flexShrink: 0}}>Tjenester</Typography>
-                        <Typography sx={{color: 'text.secondary'}}>
-                            Status på tjenester brukt av FINT Flyt
-                        </Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <StatusComponent classes={classes}/>
-                    </AccordionDetails>
-                </Accordion>
+                <AccordionComponent data={SUPPORT_CONTENT} classes={classes}/>
             </Box>
         </>
     ) : (<>
