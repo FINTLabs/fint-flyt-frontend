@@ -42,8 +42,10 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
     const [error, setError] = useState<string>('');
     const [destination, setDestination] = useState<string>('');
     const [sourceApplicationId, setSourceApplicationId] = useState<string>('');
+    const [initialSourceApplication] = useState<number | undefined>(sourceApplication);
     const [sourceApplicationIntegrationId, setSourceApplicationIntegrationId] = useState<string>('');
     const backgroundColor = 'white';
+
 
     const navToConfiguration = (id: string) => {
         history.push({
@@ -61,7 +63,7 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
     useEffect(() => {
         resetIntegrationContext();
         return () => {
-            setSourceApplication(sourceApplication)
+            setSourceApplication(initialSourceApplication)
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
@@ -96,6 +98,8 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
             setError(t('error'))
         }
     }
+
+    console.log(initialSourceApplication)
 
     return (
         <>
