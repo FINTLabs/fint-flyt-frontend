@@ -20,7 +20,7 @@ const WORD_LIST = [
     "Konfigurasjon - Hvordan dataen skal omformes fra kilde til destinasjon",
     "Metadata - I fint Flyt er metadata informasjon om innholdet i data som skal omformes. Metadata beskriver dataen som kommer inn til Flyt, mens konfigurasjonen beskriver hvordan utgående data skal være ",
     "Instans - Hver innsending av data for én integrasjon er en instans. Innholdet i innstansen blir omformet og videresent",
-    "Verdikonvertering - Siden Flyt er platformuavhengig og ikke 'vet' hva som blir sendt inn eller hva destinsjonen godtar, vil det av og til dukke opp behov for verdikonvertering. Da vil vi sette opp et regelsett som betyr at for hver forekomst av dette, vil verdien bli omformet eller konvertert til noe annet. Eksempler på dette er dersom et arkiv kun godtar enkelte mediatyper, eller dersom destinasjon kun godtar format som for eksempel stor/liten bokstav.",
+    "Verdikonvertering - Siden Flyt er platformuavhengig og ikke 'vet' hva som blir sendt inn eller hva destinsjonen godtar, vil det av og til dukke opp behov for verdikonvertering. Da vil vi sette opp et regelsett som betyr at for hver forekomst av en gitt data/verdi, vil verdien bli omformet eller konvertert til noe annet. Eksempler på dette er dersom et arkiv kun godtar enkelte mediatyper, eller dersom destinasjon kun godtar format som for eksempel stor/liten bokstav.",
     "Kildeapplikasjon - En kildeapplikasjon er fagsystemet hvor data som trenger omforming oppstår.",
     "Destinasjon - Hvor data skal sendes etter omforming i Flyt",
     "Dynamisk felt/verdi - For å benytte metadata i konfigurasjonen må vi ha felter som tillatter både firtekst og referanser til metadata. Dette kalles i Flyt dynamiske felter. "
