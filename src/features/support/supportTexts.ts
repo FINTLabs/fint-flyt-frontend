@@ -59,11 +59,12 @@ export const SUPPORT_CONTENT: AccordionData[] = [
         summary2: "Ofte stilte spørsmål",
         details: "",
         listItems: FAQ
-    }/*,
-        {
-            id: "5",
-            summary: "Hjelp og support",
-            summary2: "Finner du ikke svaret på det du lurer på?",
-            details: "LOL synd for deg"
-        }*/
+    },
+    {
+        id: "5",
+        summary: "Hjelp og support",
+        summary2: "Finner du ikke svar på det du lurer på?",
+        details: "Dersom det oppstår problemer, eller du har spørsmål som ikke blir besvart her, ta kontakt med prosjektleder på epost;",
+        link: 'jon.erik.stensrod@vigoiks.no'
+    }
 ];
