@@ -6,22 +6,30 @@ export const valueConverterReferencePattern = new RegExp(`\\$vc\\{${numberPatter
 
 export const instanceValueKeyPattern = new RegExp("(?:(?!\\$if\\{).)+");
 export const ifReferencePattern = new RegExp(`(?:\\$if\\{${instanceValueKeyPattern.source}\\})*`);
-export const instanceCollectionFieldReferencePattern = new RegExp(`\\$icf\\{${numberPattern.source}\\}\\{${instanceValueKeyPattern.source}\\}`);
 
-export const valueConvertingPattern = new RegExp(`^${valueConverterReferencePattern.source}(${ifReferencePattern.source}|${instanceCollectionFieldReferencePattern.source})$`);
 
 export const textPattern = new RegExp("(?:(?!\\$if\\{).)*");
 
 export const dynamicStringPattern = new RegExp(`^(?:${textPattern.source}|${ifReferencePattern.source})*$`);
+export const instanceCollectionFieldReferencePattern = new RegExp(`\\$icf\\{${numberPattern.source}\\}\\{${instanceValueKeyPattern.source}\\}`);
 
-export const dynamicStringCollectionPattern = new RegExp(`^${dynamicStringPattern.source}|${instanceCollectionFieldReferencePattern.source}`)
+
+export const valueConvertingPattern = new RegExp(`^${valueConverterReferencePattern.source}(${ifReferencePattern.source}|${instanceCollectionFieldReferencePattern.source})$`);
+
+export const combinedCollectionPattern = /^(?:(\$if\{[^}]+\})|(\$icf\{\d+}{[^}]+\}))$/;
+
 
 export function getRegexFromType(type: ValueType, completed: boolean, collection?: boolean): ValidationRule<RegExp> | undefined {
     if (!completed) {
         return undefined
     }
     if (collection) {
-        return undefined
+        if (type === ValueType.DYNAMIC_STRING) {
+            return {
+                value: combinedCollectionPattern,
+                message: 'Oppfyller ikke påkrevd format'
+            }
+        } else return undefined
     }
 
     switch (type) {
