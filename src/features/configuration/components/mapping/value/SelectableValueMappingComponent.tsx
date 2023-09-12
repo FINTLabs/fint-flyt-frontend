@@ -14,7 +14,7 @@ import DynamicStringOrSearchSelectValueComponent, {
 import {isOutsideCollectionEditContext} from "../../../util/KeyUtils";
 import {ConfigurationContext} from "../../../../../context/configurationContext";
 import {EditingContext} from "../../../../../context/editingContext";
-import {getRegexFromType} from "../../../util/ValidationUtil";
+import {hasValidFormat} from "../../../util/ValidationUtil";
 
 interface Props {
     classes: ClassNameMap;
@@ -78,8 +78,8 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = forwardR
     return <Controller
         name={props.absoluteKey + ".mappingString"}
         rules={{
-            pattern: getRegexFromType(validationType, watch('completed'))
-        }}
+                validate: (value) => hasValidFormat(value, validationType, watch('completed'))
+            }}
         defaultValue={props.template.type == SelectableValueType.DROPDOWN ? '' : null}
         render={({field, fieldState}) => {
             switch (props.template.type) {
