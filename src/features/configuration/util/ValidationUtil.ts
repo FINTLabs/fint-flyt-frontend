@@ -1,4 +1,3 @@
-import {ValidationRule} from "react-hook-form";
 import {ValueType} from "../types/Configuration";
 
 export const numberPattern = /\d+/;
@@ -10,8 +9,8 @@ export const ifReferencePattern = new RegExp(`(?:\\$if\\{${instanceValueKeyPatte
 
 export const textPattern = new RegExp("(?:(?!\\$if\\{).)*");
 
-export const dynamicStringPattern = new RegExp(`^(?:${textPattern.source}|${ifReferencePattern.source})*$`);
 export const instanceCollectionFieldReferencePattern = new RegExp(`\\$icf\\{${numberPattern.source}\\}\\{${instanceValueKeyPattern.source}\\}`);
+export const dynamicStringPattern = new RegExp(`^(?:${textPattern.source}|${ifReferencePattern.source}|${ifReferencePattern.source})*$`);
 
 
 export const valueConvertingPattern = new RegExp(`^${valueConverterReferencePattern.source}(${ifReferencePattern.source}|${instanceCollectionFieldReferencePattern.source})$`);
@@ -19,40 +18,23 @@ export const valueConvertingPattern = new RegExp(`^${valueConverterReferencePatt
 export const combinedCollectionPattern = /^(?:(\$if\{[^}]+\})|(\$icf\{\d+}{[^}]+\}))$/;
 
 
-export function getRegexFromType(type: ValueType, completed: boolean, collection?: boolean): ValidationRule<RegExp> | undefined {
-    if (!completed) {
+export const hasValidFormat = (value: any, type: ValueType, completeCheck: boolean, collection?: boolean) => { //eslint-disable-line
+    if (!completeCheck) {
         return undefined
     }
-    if (collection) {
-        if (type === ValueType.DYNAMIC_STRING) {
-            return {
-                value: combinedCollectionPattern,
-                message: 'Oppfyller ikke påkrevd format'
-            }
-        } else return undefined
+
+    if(collection && type === ValueType.DYNAMIC_STRING) {
+        return combinedCollectionPattern.test(value)
     }
 
-    switch (type) {
-        case ValueType.DYNAMIC_STRING:
-            return {
-                value: dynamicStringPattern,
-                message: 'Oppfyller ikke påkrevd format'
-            }
-        case ValueType.VALUE_CONVERTING:
-            return {
-                value: valueConvertingPattern,
-                message: 'Oppfyller ikke påkrevd format for verdikonvertering'
-            }
-        case ValueType.FILE:
-            type
-            return {
-                value: dynamicStringPattern,
-                message: 'Oppfyller ikke påkrevd format'
-            }
-        case ValueType.BOOLEAN:
-        case ValueType.STRING:
-        case ValueType.URL:
-        default:
-            return undefined
+    const icfPattern = /^\$vc\{\d+\}((?:\$if\{(?:(?!\$if\{).)+\})*|\$icf\{\d+\}\{(?:(?!\$if\{).)+\})$/
+
+    if (type === ValueType.VALUE_CONVERTING) {
+        return icfPattern.test(value)
     }
-}
+
+    if (type === ValueType.DYNAMIC_STRING) {
+        return true
+    }
+    return true;
+};
