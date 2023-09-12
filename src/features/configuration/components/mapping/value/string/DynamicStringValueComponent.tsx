@@ -114,7 +114,7 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = forwardRef<H
                 }}
             />
             {searchResult && <Typography sx={searchResultSX}>{searchResult}</Typography>}
-            {props.fieldState?.error && <Typography sx={errorMsgSX}>{props.fieldState?.error.message}</Typography>}
+            {props.fieldState?.error && <Typography sx={errorMsgSX}>Feltet oppfyller ikke påkrevd format</Typography>}
         </div>
     )
 })

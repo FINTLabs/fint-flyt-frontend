@@ -14,7 +14,7 @@ import {EditingContext} from "../../../../../context/editingContext";
 import CheckboxValueComponent from "../../common/CheckboxValueComponent";
 import {ControllerRenderProps} from "react-hook-form/dist/types/controller";
 import HelpPopover from "../../common/popover/HelpPopover";
-import {getRegexFromType} from "../../../util/ValidationUtil";
+import {hasValidFormat} from "../../../util/ValidationUtil";
 
 interface Props {
     classes: ClassNameMap;
@@ -31,6 +31,7 @@ interface Props {
 const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
     const {getValues, setValue, watch} = useFormContext();
     const {completed} = useContext(ConfigurationContext)
+    const completeCheck: boolean = watch('completed')
     const {editCollectionAbsoluteKey} = useContext(EditingContext)
 
     const typeAbsoluteKey: string = props.absoluteKey + ".type";
@@ -106,11 +107,9 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
 
     return <Controller
         name={props.absoluteKey + ".mappingString"}
-        rules={
-            {
-                pattern: getRegexFromType(props.template.type, watch('completed'), props.collection)
-            }
-        }
+        rules={{
+                validate: (value) => hasValidFormat(value, props.template.type, completeCheck)
+            }}
         render={({field, fieldState}) =>
             <div id={'value-mapping-wrapper-' + props.absoluteKey}
                  className={props.classes.flexRowContainer}>

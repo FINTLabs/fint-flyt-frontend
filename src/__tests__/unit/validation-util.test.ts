@@ -7,7 +7,7 @@ describe('it shpuld validate format', () => {
     test('It should return true when completeCheck is false', () =>  {
         expect(hasValidFormat('$if{test}', ValueType.DYNAMIC_STRING, false)).toBe(true)
         expect(hasValidFormat('$if{test}', ValueType.VALUE_CONVERTING, false)).toBe(true)
-  });
+    });
 
     test('It should return correct boolean value validating dynamic string', () =>  {
         expect(hasValidFormat('$if{test}', ValueType.DYNAMIC_STRING, true)).toBe(true)
