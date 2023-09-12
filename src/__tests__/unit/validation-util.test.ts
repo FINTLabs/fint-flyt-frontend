@@ -1,6 +1,5 @@
 import {combinedCollectionPattern, dynamicStringPattern} from "../../features/configuration/util/ValidationUtil";
 
-
 test('It should validate dynamicStringPattern references', () => {
     expect(dynamicStringPattern.test('$if{test}')).toBe(true)
     expect(dynamicStringPattern.test('$if{test')).toBe(false)

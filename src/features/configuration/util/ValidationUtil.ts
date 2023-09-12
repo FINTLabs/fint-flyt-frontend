@@ -10,16 +10,15 @@ export const textPattern = new RegExp("(?:(?!\\$if\\{).)*");
 
 export const instanceCollectionFieldReferencePattern = new RegExp(`\\$icf\\{${numberPattern.source}\\}\\{${instanceValueKeyPattern.source}\\}`);
 export const dynamicStringPattern = new RegExp(`^(?:${textPattern.source}|${ifReferencePattern.source}|${ifReferencePattern.source})*$`);
+export const icfPattern = /^\$vc\{\d+\}((?:\$if\{(?:(?!\$if\{).)+\})*|\$icf\{\d+\}\{(?:(?!\$if\{).)+\})$/
+export const combinedCollectionPattern = /^(?:(\$if\{[^}]+\})|(\$icf\{\d+}{[^}]+\}))$/;
 
 export const hasValidFormat = (value: any, type: ValueType, completeCheck: boolean, collection?: boolean) => { //eslint-disable-line
-    const icfPattern = /^\$vc\{\d+\}((?:\$if\{(?:(?!\$if\{).)+\})*|\$icf\{\d+\}\{(?:(?!\$if\{).)+\})$/
-    const combinedCollectionPattern = /^(?:(\$if\{[^}]+\})|(\$icf\{\d+}{[^}]+\}))$/;
-
     if (!completeCheck) {
         return undefined
     }
 
-    if(collection && type === ValueType.DYNAMIC_STRING) {
+    if (collection && type === ValueType.DYNAMIC_STRING) {
         return combinedCollectionPattern.test(value)
     }
 
