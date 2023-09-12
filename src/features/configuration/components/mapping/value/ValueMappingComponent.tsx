@@ -14,7 +14,7 @@ import {EditingContext} from "../../../../../context/editingContext";
 import CheckboxValueComponent from "../../common/CheckboxValueComponent";
 import {ControllerRenderProps} from "react-hook-form/dist/types/controller";
 import HelpPopover from "../../common/popover/HelpPopover";
-import {dynamicStringPattern, hasValidFormat} from "../../../util/ValidationUtil";
+import {hasValidFormat} from "../../../util/ValidationUtil";
 
 interface Props {
     classes: ClassNameMap;
