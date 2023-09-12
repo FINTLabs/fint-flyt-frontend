@@ -26,9 +26,14 @@ export const hasValidFormat = (value: string, type: ValueType, completeCheck: bo
 
     if (type === ValueType.DYNAMIC_STRING) {
         const ifRefCount = (value.match(/\$if\{/g) || []).length
-        if(ifRefCount && ifRefCount > 0) {
+        const icfRefCount = (value.match(/\$icf\{\d+/g) || []).length
+        if(ifRefCount > 0 && !value.includes('$icf')) {
             const ifRefCloserCount = (value.match(/}/g) || []).length
             return ifRefCount === ifRefCloserCount
+        }
+        else if (icfRefCount > 0 && !value.includes('$if')) {
+            const icfRefCloserCount = (value.match(/}/g) || []).length
+            return (icfRefCount*2) === icfRefCloserCount
         }
         return true
     }
