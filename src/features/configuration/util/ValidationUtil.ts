@@ -16,6 +16,10 @@ export const hasValidFormat = (value: string, type: ValueType, completeCheck: bo
         return true
     }
 
+    if(!value) {
+        return true
+    }
+
     if (collection && type === ValueType.DYNAMIC_STRING) {
         return combinedCollectionPattern.test(value)
     }
