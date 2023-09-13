@@ -12,7 +12,7 @@ import {IconButton} from "@mui/material";
 import {EditOffRounded, EditRounded} from "@mui/icons-material";
 import {Controller, useFormContext} from "react-hook-form";
 import {EditingContext} from "../../../../../../context/editingContext";
-import {getRegexFromType} from "../../../../util/ValidationUtil";
+import {hasValidFormat} from "../../../../util/ValidationUtil";
 import {ValueType as ConfigurationValueType} from "../../../../types/Configuration";
 import {ValueType} from "../../../../types/Metadata/IntegrationMetadata";
 
@@ -80,8 +80,8 @@ const FromCollectionMappingComponent: React.FunctionComponent<Props> = (props: P
                             <Controller
                                 name={absoluteKey}
                                 rules={{
-                                    pattern: getRegexFromType(ConfigurationValueType.DYNAMIC_STRING, watch('completed'), true)
-                                }}
+                                        validate: (value) => hasValidFormat(value, ConfigurationValueType.DYNAMIC_STRING, watch('completed'), true)
+                                    }}
                                 control={control}
                                 render={({field, fieldState}) =>
                                     <DynamicStringValueComponent

@@ -14,6 +14,7 @@ export type AccordionData = {
     summary2?: string
     details: string
     listItems?: string[]
+    link?: string
 }
 
 const AccordionComponent: React.FunctionComponent<Props> = (props: Props) => {
@@ -56,6 +57,10 @@ const AccordionComponent: React.FunctionComponent<Props> = (props: Props) => {
                             })}
                         </ul>
                     }
+                    {props.content.link &&
+                    <Typography>
+                        <a href={"mailto:" + props.content.link}  target="_top">{props.content.link}</a>
+                    </Typography>}
                 </AccordionDetails>
             </Accordion>
         );
