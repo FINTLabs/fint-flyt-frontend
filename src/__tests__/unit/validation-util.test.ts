@@ -33,4 +33,10 @@ describe('it shpuld validate format', () => {
         expect(hasValidFormat('$if{test', ValueType.DYNAMIC_STRING, true, true)).toBe(false)
     });
 
+    test('It should return true if there is no or undefined input value or boolean type', () =>  {
+        expect(hasValidFormat(undefined, ValueType.DYNAMIC_STRING, true, true)).toBe(true)
+        expect(hasValidFormat('', ValueType.DYNAMIC_STRING, true, true)).toBe(true)
+        expect(hasValidFormat('$if{test', ValueType.BOOLEAN, true, true)).toBe(true)
+    });
+
 })
