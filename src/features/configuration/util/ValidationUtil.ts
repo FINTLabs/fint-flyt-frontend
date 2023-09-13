@@ -2,20 +2,22 @@ import {ValueType} from "../types/Configuration";
 
 export const numberPattern = /\d+/;
 export const valueConverterReferencePattern = new RegExp(`\\$vc\\{${numberPattern.source}\\}`);
-
 export const instanceValueKeyPattern = new RegExp("(?:(?!\\$if\\{).)+");
 export const ifReferencePattern = new RegExp(`(?:\\$if\\{${instanceValueKeyPattern.source}\\})*`);
-
 export const textPattern = new RegExp("(?:(?!\\$if\\{).)*");
-
 export const instanceCollectionFieldReferencePattern = new RegExp(`\\$icf\\{${numberPattern.source}\\}\\{${instanceValueKeyPattern.source}\\}`);
 export const dynamicStringPattern = new RegExp(`^(?:${textPattern.source}|${ifReferencePattern.source}|${ifReferencePattern.source})*$`);
-export const icfPattern = /^\$vc\{\d+\}((?:\$if\{(?:(?!\$if\{).)+\})*|\$icf\{\d+\}\{(?:(?!\$if\{).)+\})$/
+
+export const vcPattern = /^\$vc\{\d+\}((?:\$if\{(?:(?!\$if\{).)+\})*|\$icf\{\d+\}\{(?:(?!\$if\{).)+\})$/
 export const combinedCollectionPattern = /^(?:(\$if\{[^}]+\})|(\$icf\{\d+}{[^}]+\}))$/;
 
-export const hasValidFormat = (value: any, type: ValueType, completeCheck: boolean, collection?: boolean) => { //eslint-disable-line
+export const hasValidFormat = (value: string | undefined, type: ValueType, completeCheck: boolean, collection?: boolean) => { //eslint-disable-line
     if (!completeCheck) {
-        return undefined
+        return true
+    }
+
+    if(!value) {
+        return true
     }
 
     if (collection && type === ValueType.DYNAMIC_STRING) {
@@ -23,10 +25,20 @@ export const hasValidFormat = (value: any, type: ValueType, completeCheck: boole
     }
 
     if (type === ValueType.VALUE_CONVERTING) {
-        return icfPattern.test(value)
+        return vcPattern.test(value)
     }
 
     if (type === ValueType.DYNAMIC_STRING) {
+        const ifRefCount = (value.match(/\$if\{/g) || []).length
+        const icfRefCount = (value.match(/\$icf\{\d+/g) || []).length
+        if(ifRefCount > 0 && !value.includes('$icf')) {
+            const ifRefCloserCount = (value.match(/}/g) || []).length
+            return ifRefCount === ifRefCloserCount
+        }
+        else if (icfRefCount > 0 && !value.includes('$if')) {
+            const icfRefCloserCount = (value.match(/}/g) || []).length
+            return (icfRefCount*2) === icfRefCloserCount
+        }
         return true
     }
     return true;
