@@ -99,8 +99,6 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
         }
     }
 
-    console.log(initialSourceApplication)
-
     return (
         <>
             <FormGroup id="integration-form" className={classes.panelContainer}>
