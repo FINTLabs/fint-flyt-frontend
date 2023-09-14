@@ -61,6 +61,7 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
 
     useEffect(() => {
         resetIntegrationContext();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
 
