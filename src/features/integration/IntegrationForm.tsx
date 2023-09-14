@@ -45,6 +45,7 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
     const [sourceApplicationIntegrationId, setSourceApplicationIntegrationId] = useState<string>('');
     const backgroundColor = 'white';
 
+
     const navToConfiguration = (id: string) => {
         history.push({
             pathname: '/integration/configuration/new-configuration',
@@ -60,9 +61,6 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
 
     useEffect(() => {
         resetIntegrationContext();
-        return () => {
-            setSourceApplication(sourceApplication)
-        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 

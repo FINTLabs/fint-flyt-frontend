@@ -51,7 +51,6 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
         allMetadata,
         getAllMetadata,
         getInstanceElementMetadata,
-        setSourceApplication
     } = useContext(SourceApplicationContext)
     const [version, setVersion] = useState('null');
     const [activeVersion, setActiveVersion] = useState<string>('');
@@ -88,7 +87,7 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
     }
 
     completedConfigurations?.map((configuration: IConfiguration) => {
-        versionsToActivate.push({ value: configuration.id.toString(), label: 'versjon ' + configuration.version })
+        versionsToActivate.push({value: configuration.id.toString(), label: 'versjon ' + configuration.version})
         return versionsToActivate.sort((a, b) => {
             if (a.label.toUpperCase() < b.label.toUpperCase()) {
                 return -1;
@@ -105,9 +104,6 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
         getAllMetadata(false)
         getVersionForActiveConfig(existingIntegration?.activeConfigurationId ? existingIntegration.activeConfigurationId : undefined)
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        return () => {
-            setSourceApplication(undefined)
-        }
     }, [])
 
     const columns: GridColDef[] = [

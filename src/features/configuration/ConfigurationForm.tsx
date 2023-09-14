@@ -42,7 +42,6 @@ const ConfigurationForm: RouteComponent = () => {
     const {
         getInstanceElementMetadata,
         setInstanceElementMetadata,
-        setSourceApplication,
         allMetadata
     } = useContext(SourceApplicationContext)
     const {
@@ -103,7 +102,6 @@ const ConfigurationForm: RouteComponent = () => {
         return () => {
             resetIntegrationContext()
             resetConfigurationContext()
-            setSourceApplication(undefined)
             setEditCollectionAbsoluteKey("")
             setSelectedMetadata(undefined)
             setInstanceElementMetadata(undefined)
