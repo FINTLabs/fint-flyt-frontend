@@ -33,7 +33,7 @@ const Dashboard: RouteComponent = () => {
     const cards: ICard[] = [
         {
             value: integrations === undefined || integrations.length === 0 ? t('empty') : integrations.length.toString(),
-            content: integrations !== undefined && integrations.length === 1 ? t('oneForm') : t('form'),
+            content: integrations !== undefined && integrations.length === 1 ? t('oneIntegration') : t('integrations'),
             links: [
                 {name: t('links.integration'), href: '/integration/new'}
             ]

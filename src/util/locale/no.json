@@ -27,8 +27,8 @@
       }
     },
     "dashboard": {
-      "form": "integrasjoner",
-      "oneForm": "integrasjon",
+      "integrations": "integrasjoner",
+      "oneIntegration": "integrasjon",
       "instances": "arkiverte instanser",
       "oneInstance": "arkivert instans",
       "empty": "Ingen",
