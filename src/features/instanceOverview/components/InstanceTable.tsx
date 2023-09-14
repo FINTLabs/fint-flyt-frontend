@@ -66,7 +66,7 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
             sortable: false
         },
         {
-            field: 'timestamp', type: 'dateTime', headerName: t('table.columns.timestamp'), description: t('table.columns.timestamp'), minWidth: 200, flex: 1,
+            field: 'timestamp', type: 'dateTime', headerName: t('table.columns.timestamp'), description: t('table.columns.timestamp'), minWidth: 150, flex: 1,
             valueGetter: (params) => moment(params.row.timestamp).format('DD/MM/YY HH:mm'),
             sortComparator: (v1, v2, row1: any, row2: any) => { // eslint-disable-line
                 const timestamp1 = new Date(row1.timestamp).getTime();
@@ -82,7 +82,7 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
             field: 'details',
             headerName: t('table.columns.details'),
             description: t('table.columns.detailsDescription'),
-            minWidth: 150,
+            minWidth: 100,
             flex: 1,
             sortable: false,
             filterable: false,

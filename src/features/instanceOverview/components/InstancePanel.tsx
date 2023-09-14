@@ -52,7 +52,7 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
             type: 'dateTime',
             headerName: t('table.columns.timestampLatest'),
             description: t('table.columns.timestampLatest'),
-            minWidth: 200,
+            minWidth: 150,
             flex: 2,
             valueGetter: (params) => moment(params.row.timestamp).format('YYYY/MM/DD HH:mm.ss'),
             sortComparator: (v1, v2, row1: any, row2: any) => { // eslint-disable-line
@@ -69,11 +69,20 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
             field: 'details',
             headerName: t('table.columns.details'),
             description: t('table.columns.detailsDescription'),
-            minWidth: 150,
+            minWidth: 100,
             flex: 1,
             sortable: false,
             filterable: false,
             renderCell: (params) => (<CustomDialogToggle row={params.row}/>)
+        },
+        {
+            field: 'archiveInstanceId',
+            type: 'string',
+            headerName: t('table.columns.archiveInstanceId'),
+            description: t('table.columns.archiveInstanceId'),
+            minWidth: 150,
+            flex: 1,
+            valueGetter: (params) => params.row.instanceFlowHeaders.archiveInstanceId
         },
         {
             field: 'sourceApplicationInstanceId',
@@ -100,15 +109,6 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
             minWidth: 150,
             flex: 1,
             valueGetter: (params) => getSourceApplicationDisplayName(params.row.instanceFlowHeaders.sourceApplicationId)
-        },
-        {
-            field: 'archiveInstanceId',
-            type: 'string',
-            headerName: t('table.columns.archiveInstanceId'),
-            description: t('table.columns.archiveInstanceId'),
-            minWidth: 150,
-            flex: 1,
-            valueGetter: (params) => params.row.instanceFlowHeaders.archiveInstanceId
         }
     ];
 
