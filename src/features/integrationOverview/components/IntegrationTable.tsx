@@ -95,17 +95,19 @@ const IntegrationTable: React.FunctionComponent<Props> = (props: Props) => {
         })
     }
 
+    function handleShowButtonClick(row: GridCellParams["row"]) {
+        setExistingIntegration(row);
+        setSourceApplication(row.sourceApplicationId);
+        getConfigurations(0, 10000, "version", "DESC", false, row.id, true);
+        getCompletedConfigurations(0, 10000, "id", "ASC", true, row.id, true);
+        setHistory();
+    }
+
     function ShowButtonToggle(props: GridCellParams["row"]): JSX.Element {
         return <Button
             size="small"
             variant="contained"
-            onClick={() => {
-                setExistingIntegration(props.row)
-                setSourceApplication(props.row.sourceApplicationId)
-                getConfigurations(0, 10000, "version", "DESC", false, props.row.id, true)
-                getCompletedConfigurations(0, 10000, "id", "ASC", true, props.row.id, true)
-                setHistory();
-            }}
+            onClick={() => handleShowButtonClick(props.row)}
         >{t('button.show')}
         </Button>
     }
@@ -119,7 +121,7 @@ const IntegrationTable: React.FunctionComponent<Props> = (props: Props) => {
                         localeText={i18n.language === 'no' ? gridLocaleNoNB : undefined}
                         getRowId={(row) => row.sourceApplicationIntegrationId}
                         density='compact'
-                        rows={integrations ? integrations : []}
+                        rows={integrations ?? []}
                         columns={columns}
                         pageSize={20}
                         rowsPerPageOptions={[20]}
