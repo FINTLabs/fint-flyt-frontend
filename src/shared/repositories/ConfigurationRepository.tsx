@@ -15,7 +15,7 @@ const getConfigurations = (page: number, size: number, sortProperty: string, sor
         }
     });
 }
-const getConfiguration = (configurationId: string, excludeElements?: boolean) => {
+const getConfigurationById = (configurationId: string, excludeElements?: boolean) => {
     return axios.get(`/api/intern/konfigurasjoner/${configurationId}`, {params: {ekskluderMapping: excludeElements}});
 }
 const createConfiguration = (data: IConfiguration) => {
@@ -32,7 +32,7 @@ const ConfigurationRepository = {
     createConfiguration,
     updateConfiguration,
     getConfigurations,
-    getConfiguration,
+    getConfigurationById,
     deleteConfiguration
 };
 

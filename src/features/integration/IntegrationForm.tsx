@@ -14,6 +14,7 @@ import {IntegrationFormStyles} from "../../util/styles/IntegrationForm.styles"
 import {toIntegration} from "../../util/mapping/ToIntegration";
 import {ISelect} from "../configuration/types/Select";
 import {IIntegrationMetadata} from "../configuration/types/Metadata/IntegrationMetadata";
+import {contextDefaultValues} from "../../context/sourceApplicationContext/types";
 
 const useStyles = IntegrationFormStyles;
 
@@ -25,20 +26,9 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
     const classes = useStyles();
     const history = useHistory();
     const {t} = useTranslation('translations', {keyPrefix: 'components.integrationForm'});
-    const {
-        setSelectedMetadata,
-        setExistingIntegration,
-        resetIntegrationContext,
-    } = useContext(IntegrationContext)
-    const {
-        getAvailableForms,
-        sourceApplication,
-        setSourceApplication,
-        availableForms,
-        allMetadata,
-        getAllMetadata,
-        getInstanceElementMetadata
-    } = useContext(SourceApplicationContext)
+    const {setSelectedMetadata, setExistingIntegration, resetIntegrationContext} = useContext(IntegrationContext)
+    const {getAvailableForms, sourceApplication, setSourceApplication, availableForms, allMetadata, getAllMetadata,
+        getInstanceElementMetadata} = useContext(SourceApplicationContext)
     const [error, setError] = useState<string>('');
     const [destination, setDestination] = useState<string>('');
     const [sourceApplicationId, setSourceApplicationId] = useState<string>('');
@@ -127,10 +117,7 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
                             <Autocomplete
                                 sx={selectSX}
                                 id='sourceApplicationIntegrationId'
-                                options={sourceApplication && availableForms.forms ? availableForms.forms : [{
-                                    label: 'Velg kildeapplikasjon først',
-                                    value: 'null'
-                                }]}
+                                options={sourceApplication && availableForms ? availableForms : contextDefaultValues.availableForms}
                                 renderInput={params => (
                                     <TextField {...params}
                                                size="small"
@@ -139,7 +126,7 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
                                                variant="outlined"/>
                                 )}
                                 getOptionLabel={(option: ISelect) => option.label}
-                                value={sourceApplicationIntegrationId ? availableForms.forms.find(({value}: { value: string }) => value === sourceApplicationIntegrationId) : null}
+                                value={sourceApplicationIntegrationId ? availableForms.find(({value}: { value: string }) => value === sourceApplicationIntegrationId) : null}
                                 onChange={(_event, select) => {
                                     setSourceApplicationIntegrationId(select ? select.value : '');
                                 }}

@@ -39,68 +39,56 @@ const IntegrationProvider: FC = ({children}) => {
         setExistingIntegration(undefined)
     }
 
+    const resetIntegrationsAndStats = () => {
+        setIntegrations([]);
+        setStatistics([])
+    }
+
     // eslint-disable-next-line
     const resetConfiguration = () => {
         setConfigurations(undefined)
         setConfiguration(undefined)
     }
 
-    const getIntegrations = (sourceApplicationId: string) => {
-        EventRepository.getStatistics()
-            .then((response) => {
-                const data = response.data;
-                if (data) {
-                    setStatistics(data)
-                    const stats = data;
-                    SourceApplicationRepository.getMetadata(sourceApplicationId, true)
-                        .then((response) => {
-                            if (response.data) {
-                                const metadata: IIntegrationMetadata[] = response.data;
-                                IntegrationRepository.getIntegrations(0, null, "state", "ASC")
-                                    .then((response) => {
-                                        if (response.data) {
-                                            const mergedList: IIntegration[] = response.data;
-                                            stats.forEach((value: IIntegrationStatistics) => {
-                                                mergedList.map((integration: IIntegration) => {
-                                                    if (integration.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {
-                                                        integration.errors = value.currentErrors;
-                                                        return integration.dispatched = value.dispatchedInstances;
-                                                    }
-                                                    return mergedList;
-                                                })
-                                                return stats;
-                                            })
-                                            metadata.forEach((value: IIntegrationMetadata) => {
-                                                mergedList.map((integration: IIntegration) => {
-                                                    if (integration.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {
-                                                        return integration.displayName = value.integrationDisplayName;
-                                                    }
-                                                    return mergedList;
-                                                })
-                                                return metadata;
-                                            })
-                                            return setIntegrations(mergedList);
-                                        }
-                                    })
-                                    .catch((e) => {
-                                        console.error('Error: ', e)
-                                        setIntegrations([]);
-                                        setStatistics([])
-                                    })
-                            }
-                        }).catch((e) => {
-                        console.error('Error: ', e)
-                        setIntegrations([]);
-                        setStatistics([])
-                    })
-                }
-            }).catch(e => {
-                setIntegrations([]);
-                setStatistics([])
-                console.log('error', e)
+    const getIntegrations = async (sourceApplicationId: string) => {
+        try {
+            const response = await EventRepository.getStatistics();
+            const data = response.data;
+
+            if (data) {
+                setStatistics(data);
+                const stats = data;
+
+                const metadataResponse = await SourceApplicationRepository.getMetadata(sourceApplicationId, true);
+                const metadata = metadataResponse.data || [];
+
+                const integrationResponse = await IntegrationRepository.getIntegrations(0, null, "state", "ASC");
+                const mergedList = integrationResponse.data || [];
+
+                stats.forEach((value: IIntegrationStatistics) => {
+                    mergedList.forEach((integration: IIntegration) => {
+                        if (integration.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {
+                            integration.errors = value.currentErrors;
+                            integration.dispatched = value.dispatchedInstances;
+                        }
+                    });
+                });
+
+                metadata.forEach((value: IIntegrationMetadata) => {
+                    mergedList.forEach((integration: IIntegration) => {
+                        if (integration.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {
+                            integration.displayName = value.integrationDisplayName;
+                        }
+                    });
+                });
+
+                setIntegrations(mergedList);
             }
-        )
-    }
+        } catch (e) {
+            console.error('Error: ', e);
+            resetIntegrationsAndStats();
+        }
+    };
 
     const getConfigurations = (page: number, size: number, sortProperty: string, sortDirection: string, complete: boolean, id: number | string, excludeElements?: boolean) => {
         ConfigurationRepository.getConfigurations(page, size, sortProperty, sortDirection, complete, id.toString(), excludeElements)
@@ -133,7 +121,7 @@ const IntegrationProvider: FC = ({children}) => {
     }
 
     const getConfiguration = async (id: number | string, excludeElements?: boolean) => {
-        ConfigurationRepository.getConfiguration(id.toString(), excludeElements)
+        ConfigurationRepository.getConfigurationById(id.toString(), excludeElements)
             .then((response) => {
                 const data: IConfiguration = response.data;
                 if (data) {

@@ -140,7 +140,7 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
             setActiveVersion('ingen aktiv konfigurasjon')
             return;
         }
-        ConfigurationRepository.getConfiguration(id.toString(), true)
+        ConfigurationRepository.getConfigurationById(id.toString(), true)
             .then((response) => {
                 const data: IConfiguration = response.data;
                 if (data) {
@@ -154,7 +154,7 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
     }
 
     async function handleNewOrEditConfigClick(id: number | string, version?: unknown) {
-        await ConfigurationRepository.getConfiguration(id.toString(), false)
+        await ConfigurationRepository.getConfigurationById(id.toString(), false)
             .then(async (response) => {
                 const data = response.data
                 const usedVersionMetadata = allMetadata.filter(md => md.id === data.integrationMetadataId)

@@ -5,17 +5,11 @@ import {
     IIntegrationMetadata
 } from "../../features/configuration/types/Metadata/IntegrationMetadata";
 
-export interface ISourceApplicationItem {
-    sourceApplicationDisplayName: string;
-    sourceApplicationId: string;
-    forms: ISelect[];
-}
-
 export type SourceApplicationContextState = {
     isAdmin: boolean;
     setIsAdmin: (admin: boolean) => void;
-    availableForms: ISourceApplicationItem;
-    getAllForms: (forms: ISelect[]) => void;
+    availableForms: ISelect[];
+    getAllIntegrationsAndSetAvailableForms: (forms: ISelect[]) => void;
     getAvailableForms: () => void;
     allMetadata: IIntegrationMetadata[];
     instanceElementMetadata: IInstanceMetadataContent | undefined;
@@ -31,12 +25,10 @@ export type SourceApplicationContextState = {
 export const contextDefaultValues: SourceApplicationContextState = {
     isAdmin: false,
     setIsAdmin: () => undefined,
-    availableForms: {
-        sourceApplicationDisplayName: '',
-        sourceApplicationId: '1',
-        forms: [{value: 'null', label: 'Velg skjemaleverandør først'}]
-    },
-    getAllForms: () => undefined,
+    availableForms: [
+        {value: 'null', label: 'Velg skjemaleverandør først'}
+    ],
+    getAllIntegrationsAndSetAvailableForms: () => undefined,
     getAvailableForms: () => undefined,
     allMetadata: [{
         id: '',
