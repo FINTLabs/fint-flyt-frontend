@@ -87,7 +87,7 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
             field: 'archiveInstanceId',
             type: 'string',
             headerName: t('table.columns.archiveInstanceId'),
-            description: t('table.columns.archiveInstanceId'),
+            description: t('table.columns.archiveInstanceIdDescription'),
             minWidth: 150,
             flex: 1,
             valueGetter: (params) => params.row.instanceFlowHeaders.archiveInstanceId
