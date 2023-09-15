@@ -31,6 +31,14 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
     const columns: GridColumns = [
         {field: 'id', hide: true, type: 'string', headerName: 'id', minWidth: 150, flex: 0.5},
         {
+            field: 'sourceApplicationId',
+            type: 'string',
+            headerName: t('table.columns.sourceApplicationId'),
+            minWidth: 150,
+            flex: 1,
+            valueGetter: (params) => getSourceApplicationDisplayName(params.row.instanceFlowHeaders.sourceApplicationId)
+        },
+        {
             field: 'sourceApplicationIntegrationId',
             type: 'string',
             headerName: t('table.columns.sourceApplicationIntegrationId'),
@@ -101,14 +109,6 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
             minWidth: 150,
             flex: 1,
             valueGetter: (params) => params.row.instanceFlowHeaders.configurationId
-        },
-        {
-            field: 'sourceApplicationId',
-            type: 'string',
-            headerName: t('table.columns.sourceApplicationId'),
-            minWidth: 150,
-            flex: 1,
-            valueGetter: (params) => getSourceApplicationDisplayName(params.row.instanceFlowHeaders.sourceApplicationId)
         }
     ];
 
