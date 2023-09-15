@@ -64,9 +64,12 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
             flex: 2,
             valueGetter: (params) => moment(params.row.timestamp).format('YYYY/MM/DD HH:mm.ss'),
             sortComparator: (v1, v2, row1: any, row2: any) => { // eslint-disable-line
-                const timestamp1 = new Date(row1.timestamp).getTime();
-                const timestamp2 = new Date(row2.timestamp).getTime();
-                return timestamp1 - timestamp2;
+                if (row1 && row2 && row1.timestamp && row2.timestamp) {
+                    const timestamp1 = new Date(row1.timestamp).getTime();
+                    const timestamp2 = new Date(row2.timestamp).getTime();
+                    return timestamp1 - timestamp2;
+                }
+                return -1
             },
         },
         {
