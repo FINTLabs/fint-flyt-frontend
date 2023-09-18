@@ -1,0 +1,36 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: nfk-no
+
+resources:
+  - ../../../base
+
+commonLabels:
+  fintlabs.no/org-id: nfk.no
+
+patches:
+  - patch: |-
+      - op: replace
+        path: "/metadata/labels/app.kubernetes.io~1instance"
+        value: "fint-flyt-integration-frontend_nfk-no"
+      - op: replace
+        path: "/spec/orgId"
+        value: "nfk.no"
+      - op: replace
+        path: "/spec/env/0/value"
+        value: "/beta/nfk-no"
+      - op: replace
+        path: "/spec/url/basePath"
+        value: "/beta/nfk-no"
+    target:
+      kind: Application
+      name: fint-flyt-integration-frontend
+
+  - patch: |-
+      - op: replace
+        path: "/spec/basePath"
+        value: "/beta/nfk-no"
+    target:
+      kind: FLAISSso
+      name: fint-flyt-auth-forward-sso
+
