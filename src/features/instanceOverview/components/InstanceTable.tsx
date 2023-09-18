@@ -39,6 +39,7 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
         {
             field: 'show',
             headerName: t('table.columns.show'),
+            description: t('table.columns.show'),
             minWidth: 150,
             flex: 0.5,
             sortable: false,
@@ -50,6 +51,7 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
             field: 'sourceApplicationId',
             type: 'string',
             headerName: t('table.columns.sourceApplicationId'),
+            description: t('table.columns.sourceApplicationId'),
             minWidth: 150,
             flex: 1,
             valueGetter: (params) => getSourceApplicationDisplayName(params.row.instanceFlowHeaders.sourceApplicationId)
@@ -58,7 +60,8 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
             field: 'sourceApplicationIntegrationId',
             type: 'string',
             headerName: t('table.columns.sourceApplicationIntegrationId'),
-            minWidth: 250,
+            description: t('table.columns.sourceApplicationIntegrationIdDescription'),
+            minWidth: 150,
             flex: 1,
             valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplicationIntegrationId
         },
@@ -66,46 +69,32 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
             field: 'displayName',
             type: 'string',
             headerName: t('table.columns.sourceApplicationIntegrationIdDisplayName'),
-            minWidth: 400,
+            description: t('table.columns.sourceApplicationIntegrationIdDisplayName'),
+            minWidth: 300,
             flex: 1,
             sortable: false
         },
         {
-            field: 'sourceApplicationInstanceId',
-            type: 'string',
-            headerName: t('table.columns.sourceApplicationInstanceId'),
-            minWidth: 200,
-            flex: 1,
-            valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplicationInstanceId
+            field: 'timestamp', type: 'dateTime', headerName: t('table.columns.timestamp'), description: t('table.columns.timestamp'), minWidth: 150, flex: 1,
+            valueGetter: (params) => moment(params.row.timestamp).format('DD/MM/YY HH:mm'),
+            sortComparator: (v1, v2, row1: any, row2: any) => { // eslint-disable-line
+                if (row1 && row2 && row1.timestamp && row2.timestamp) {
+                    const timestamp1 = new Date(row1.timestamp).getTime();
+                    const timestamp2 = new Date(row2.timestamp).getTime();
+                    return timestamp1 - timestamp2;
+                }
+                return -1
+            },
         },
         {
-            field: 'configurationId',
-            type: 'string',
-            headerName: t('table.columns.configurationId'),
-            minWidth: 150,
-            flex: 1,
-            valueGetter: (params) => params.row.instanceFlowHeaders.configurationId
-        },
-        {
-            field: 'archiveInstanceId',
-            type: 'string',
-            headerName: t('table.columns.archiveInstanceId'),
-            minWidth: 150,
-            flex: 1,
-            valueGetter: (params) => params.row.instanceFlowHeaders.archiveInstanceId
-        },
-        {
-            field: 'timestamp', type: 'dateTime', headerName: t('table.columns.timestamp'), minWidth: 200, flex: 1,
-            valueGetter: (params) => moment(params.row.timestamp).format('YYYY/MM/DD HH:mm:ss.SSS'),
-        },
-        {
-            field: 'name', type: 'string', headerName: t('table.columns.name'), minWidth: 250, flex: 3,
+            field: 'name', type: 'string', headerName: t('table.columns.name'), description: t('table.columns.name'), minWidth: 250, flex: 3,
             renderCell: params => (<CustomCellRender row={params.row}/>)
         },
         {
             field: 'details',
             headerName: t('table.columns.details'),
-            minWidth: 150,
+            description: t('table.columns.detailsDescription'),
+            minWidth: 100,
             flex: 1,
             sortable: false,
             filterable: false,
@@ -114,11 +103,39 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
         {
             field: 'actions',
             headerName: t('table.columns.actions'),
+            description: t('table.columns.actionsDescription'),
             minWidth: 150,
             flex: 1,
             sortable: false,
             filterable: false,
             renderCell: (params) => (<CustomButtonToggle row={params.row}/>)
+        },
+        {
+            field: 'archiveInstanceId',
+            type: 'string',
+            headerName: t('table.columns.archiveInstanceId'),
+            description: t('table.columns.archiveInstanceIdDescription'),
+            minWidth: 150,
+            flex: 1,
+            valueGetter: (params) => params.row.instanceFlowHeaders.archiveInstanceId
+        },
+        {
+            field: 'sourceApplicationInstanceId',
+            type: 'string',
+            headerName: t('table.columns.sourceApplicationInstanceId'),
+            description: t('table.columns.sourceApplicationInstanceId'),
+            minWidth: 200,
+            flex: 1,
+            valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplicationInstanceId
+        },
+        {
+            field: 'configurationId',
+            type: 'string',
+            headerName: t('table.columns.configurationId'),
+            description: t('table.columns.configurationId'),
+            minWidth: 150,
+            flex: 1,
+            valueGetter: (params) => params.row.instanceFlowHeaders.configurationId
         }
     ];
 
