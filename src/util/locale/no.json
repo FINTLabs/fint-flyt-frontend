@@ -29,6 +29,8 @@
     "dashboard": {
       "integrations": "integrasjoner",
       "oneIntegration": "integrasjon",
+      "activeIntegrations": "aktive integrasjoner",
+      "oneActiveIntegration": "aktiv integrasjon",
       "instances": "arkiverte instanser",
       "oneInstance": "arkivert instans",
       "empty": "Ingen",

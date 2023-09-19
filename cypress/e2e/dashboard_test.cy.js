@@ -13,6 +13,11 @@ describe('Testing dashboard', () => {
         cy.wait('@getConfig')
     }
 
+    it('should show 4 dashboard cards', () => {
+        prep()
+        cy.get('#dashboard-card-container').children().should("have.length", 4)
+    })
+
     it('should show datagrid', () => {
         prep()
         cy.get('.MuiDataGrid-root').should("be.visible")
