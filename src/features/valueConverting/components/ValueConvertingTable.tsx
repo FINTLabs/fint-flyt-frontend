@@ -8,13 +8,17 @@ import {getDestinationDisplayName, getSourceApplicationDisplayName} from "../../
 import {IValueConverting} from "../types/ValueConverting";
 import {GridValueGetterParams} from "@mui/x-data-grid/models/params/gridCellParams";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
+import {valueConvertingStyles} from "../../../util/styles/ValueConverting.styles";
 
 type Props = {
     onValueConvertingSelected: (id: number, view: boolean) => void;
     setNewValueConverting: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
+const useStyles = valueConvertingStyles;
+
 const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
+    const classes = useStyles();
     const history = useHistory();
     const {t} = useTranslation('translations', {keyPrefix: 'pages.valueConverting'});
     const [rows, setRows] = useState<IValueConverting[] | undefined>(undefined)
@@ -57,34 +61,39 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
         {
             field: 'displayName',
             headerName: 'Navn',
-            width: 150,
+            minWidth: 350,
+            flex: 2,
+            editable: false,
+        },
+        {
+            field: 'fromTypeId',
+            headerName: 'Fra type',
+            minWidth: 150,
+            flex: 1,
+            editable: false,
+        },
+        {
+            field: 'toTypeId',
+            headerName: 'Til type',
+            minWidth: 110,
+            flex: 1,
             editable: false,
         },
         {
             field: 'fromApplicationId',
             headerName: 'Fra applikasjon',
-            width: 150,
+            minWidth: 150,
+            flex: 1,
             editable: false,
             valueGetter: (params: GridValueGetterParams<string, IValueConverting>) => getSourceApplicationDisplayName(params.row.fromApplicationId)
         },
         {
-            field: 'fromTypeId',
-            headerName: 'Fra type',
-            width: 150,
-            editable: false,
-        },
-        {
             field: 'toApplicationId',
             headerName: 'Til applikasjon',
-            width: 110,
+            minWidth: 150,
+            flex: 1,
             editable: false,
             valueGetter: (params: GridValueGetterParams<string, IValueConverting>) => getDestinationDisplayName(params.row.toApplicationId)
-        },
-        {
-            field: 'toTypeId',
-            headerName: 'Til type',
-            width: 110,
-            editable: false,
         },
         {
             field: 'details',
@@ -115,7 +124,7 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
 
     return (
         <>
-            <Box sx={{height: 800, width: '100%', backgroundColor: 'white'}}>
+            <Box className={classes.valueConvertingBox}>
                 <DataGrid
                     loading={rows === undefined}
                     rows={rows ? rows : []}
