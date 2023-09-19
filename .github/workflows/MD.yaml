@@ -20,6 +20,8 @@ on:
         options:
           - fintlabs-no
           - innlandetfylke-no
+          - mrfylke-no
+          - nfk-no
           - viken-no
           - vlfk-no
           - trondelagfylke-no

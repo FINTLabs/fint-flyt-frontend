@@ -59,6 +59,16 @@ jobs:
           - org: innlandetfylke-no
             cluster: aks-beta-fint-2021-11-23
 
+          - org: mrfylke-no
+            cluster: aks-api-fint-2022-02-08
+          - org: mrfylke-no
+            cluster: aks-beta-fint-2021-11-23
+
+          - org: nfk-no
+            cluster: aks-api-fint-2022-02-08
+          - org: nfk-no
+            cluster: aks-beta-fint-2021-11-23
+
           - org: viken-no
             cluster: aks-api-fint-2022-02-08
           - org: viken-no
@@ -71,6 +81,8 @@ jobs:
           - org: vlfk-no
             cluster: aks-alpha-fint-2021-11-18
 
+          - org: trondelagfylke-no
+            cluster: aks-api-fint-2022-02-08
           - org: trondelagfylke-no
             cluster: aks-beta-fint-2021-11-23
 
