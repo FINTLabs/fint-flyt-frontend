@@ -17,8 +17,10 @@ const Dashboard: RouteComponent = () => {
     const classes = useStyles();
     const {statistics, resetIntegrations, integrations, getIntegrations} = useContext(IntegrationContext)
     const {sourceApplication} = useContext(SourceApplicationContext)
+    const activeIntegrations = integrations?.filter(integration => integration.state === 'ACTIVE') || [];
     let totalErrors = 0;
     let totalDispatched = 0;
+    const totalActive = activeIntegrations.length;
     statistics?.map((stat: IIntegrationStatistics) => {
         totalErrors += stat.currentErrors;
         totalDispatched += stat.dispatchedInstances;
@@ -39,6 +41,13 @@ const Dashboard: RouteComponent = () => {
             ]
         },
         {
+            value: totalActive === 0 ? t('empty') : totalActive.toString(),
+            content: totalActive === 1 ? t('oneActiveIntegration') : t('activeIntegrations'),
+            links: [
+                {name: t('links.integrationOverview'), href: '/integration/list'}
+            ]
+        },
+        {
             value: totalDispatched === 0 ? t('empty') : totalDispatched.toString(),
             content: totalDispatched === 1 ? t('oneInstance') : t('instances'),
             links: [
@@ -56,7 +65,7 @@ const Dashboard: RouteComponent = () => {
 
     return (
         <Box>
-            <Box display="flex" position="relative" width={1} height={1}>
+            <Box id={'dashboard-card-container'} display="flex" position="relative" width={1} height={1}>
                 {cards.map((card: ICard, index) => {
                     return (
                         <DashboardCard
