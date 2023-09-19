@@ -12,15 +12,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@main
 
       - name: Setup Node.js environment
-        uses: actions/setup-node@v3.7.0
+        uses: actions/setup-node@v3
         with:
           node-version: 16
 
       - name: Cache Node.js modules
-        uses: actions/cache@v3.2.1
+        uses: actions/cache@v3
         with:
           path: ~/.npm
           key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
@@ -38,7 +38,7 @@ jobs:
 
       - name: Trigger CD
         if: github.ref == 'refs/heads/main'
-        uses: peter-evans/repository-dispatch@v2.1.1
+        uses: peter-evans/repository-dispatch@v2
         with:
           token: ${{ secrets.GITHUBACTION_TOKEN }}
           repository: ${{ github.repository }}
