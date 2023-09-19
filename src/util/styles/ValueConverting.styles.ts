@@ -3,6 +3,14 @@ import {Theme} from "@mui/material";
 
 export const valueConvertingStyles = makeStyles((theme: Theme) =>
     createStyles({
+        valueConvertingBox: {
+            height: theme.spacing(75),
+            width: '85%',
+            backgroundColor: 'white',
+            border: 'solid 1px',
+            borderColor: 'black',
+            borderRadius: theme.spacing(0.5),
+        },
         configurationBox: {
             width: theme.spacing(44)
         },
