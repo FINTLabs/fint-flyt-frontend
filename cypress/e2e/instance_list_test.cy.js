@@ -20,7 +20,7 @@ describe('Testing instance list', () => {
 
     it('should contain correct colunms', () => {
         prep()
-        let columns = ['Kildeapplikasjon', 'Kildeapplikasjons integrasjons-ID', 'Integrasjonsnavn', 'Kildeapplikasjons instans-ID', 'Konfigurasjon ID', 'Arkivsak ID', 'Tidspunkt', 'Status', 'Detaljer', 'Handlinger']
+        let columns = ['Kildeapplikasjon', 'Kildeapp. integr.ID', 'Integrasjonsnavn', 'Kildeapplikasjons instans-ID', 'Konfigurasjon ID', 'Destinasjon ID', 'Tidspunkt', 'Status', 'Detaljer', 'Handlinger']
         columns.forEach(column => {
             cy.get('.MuiDataGrid-root').should("contain.text", column)
         })
