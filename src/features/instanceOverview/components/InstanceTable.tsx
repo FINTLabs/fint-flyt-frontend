@@ -39,7 +39,7 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
         {
             field: 'show',
             headerName: t('table.columns.show'),
-            description: t('table.columns.show'),
+            description: t('table.columns.showDescription'),
             minWidth: 150,
             flex: 0.5,
             sortable: false,
