@@ -14,12 +14,12 @@ const Support: RouteComponent = () => {
     const view = true;
 
     return view ? (
-        <>
-            <Typography variant={"h6"}>{t('header')}</Typography>
-            <Box sx={{mt: 2}}>
+        <Box id={'support-page'}>
+            <Typography id={'support-header'} variant={"h6"}>{t('header')}</Typography>
+            <Box id={'support-content'} sx={{mt: 2}}>
                 <AccordionComponent data={SUPPORT_CONTENT} classes={classes}/>
             </Box>
-        </>
+        </Box>
     ) : (<>
             <Typography variant={"h6"}>{t('header')}</Typography>
         </>
