@@ -55,7 +55,7 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
             description: t('table.columns.sourceApplicationId'),
             minWidth: 150,
             flex: 1,
-            valueGetter: (params) => getSourceApplicationDisplayName(params.row.instanceFlowHeaders.sourceApplicationId),
+            valueGetter: (params) => getSourceApplicationDisplayName(params.row.instanceFlowHeaders.sourceApplicationId)
         },
         {
             field: 'sourceApplicationIntegrationId',
@@ -75,7 +75,7 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
             minWidth: 300,
             flex: 1,
             sortable: false,
-            renderCell: (params) => renderCellWithTooltip(params.value as string),
+            renderCell: (params) => renderCellWithTooltip(params.value as string)
         },
         {
             field: 'timestamp', type: 'dateTime', headerName: t('table.columns.timestamp'), description: t('table.columns.timestamp'), minWidth: 150, flex: 1,

@@ -37,7 +37,7 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
             headerName: t('table.columns.sourceApplicationId'),
             minWidth: 150,
             flex: 1,
-            valueGetter: (params) => getSourceApplicationDisplayName(params.row.instanceFlowHeaders.sourceApplicationId),
+            valueGetter: (params) => getSourceApplicationDisplayName(params.row.instanceFlowHeaders.sourceApplicationId)
         },
         {
             field: 'sourceApplicationIntegrationId',
@@ -116,7 +116,7 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
             description: t('table.columns.configurationId'),
             minWidth: 150,
             flex: 1,
-            valueGetter: (params) => params.row.instanceFlowHeaders.configurationId,
+            valueGetter: (params) => params.row.instanceFlowHeaders.configurationId
         }
     ];
 
