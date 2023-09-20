@@ -72,10 +72,10 @@ jobs:
           echo "Environment: ${{ steps.environment.outputs.result }}"
           echo "OrgId: $ORG"
       - name: Checkout repository
-        uses: actions/checkout@v3.5.2
+        uses: actions/checkout@v4
 
       - name: Log in to the Container registry
-        uses: docker/login-action@v2.1.0
+        uses: docker/login-action@v3
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
@@ -83,14 +83,14 @@ jobs:
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
-        uses: docker/metadata-action@v4.3.0
+        uses: docker/metadata-action@v5
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
             type=sha,enable=true,priority=100,prefix=sha-,suffix=,format=short
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           context: .
           push: true
@@ -98,21 +98,30 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
 
       - name: Bake manifests with Kustomize
-        uses: azure/k8s-bake@v2.4
+        uses: azure/k8s-bake@v2
         with:
           renderEngine: 'kustomize'
           kustomizationPath: 'kustomize/overlays/${{ env.ORG}}/${{ steps.environment.outputs.result }}'
         id: bake
 
-      - name: Set the target to ${{ env.CLUSTER_NAME }} cluster.
-        uses: azure/aks-set-context@v1
+      - uses: azure/login@v1
         with:
           creds: "${{ secrets[format('AKS_{0}_FINT_GITHUB', steps.environment.outputs.result)] }}"
+
+      - uses: azure/use-kubelogin@v1
+        with:
+          kubelogin-version: 'v0.0.32'
+
+      - name: Set the target cluster
+        uses: azure/aks-set-context@v3
+        with:
           cluster-name: ${{ env.CLUSTER_NAME }}
           resource-group: ${{ steps.rg.outputs.result }}
+          admin: 'true'
+          use-kubelogin: 'true'
 
       - name: Deploy to ${{ env.CLUSTER_NAME }}
-        uses: azure/k8s-deploy@v4.9
+        uses: azure/k8s-deploy@v4
         with:
           manifests: ${{ steps.bake.outputs.manifestsBundle }}
           images: |

@@ -29,6 +29,8 @@
     "dashboard": {
       "integrations": "integrasjoner",
       "oneIntegration": "integrasjon",
+      "activeIntegrations": "aktive integrasjoner",
+      "oneActiveIntegration": "aktiv integrasjon",
       "instances": "arkiverte instanser",
       "oneInstance": "arkivert instans",
       "empty": "Ingen",
@@ -175,8 +177,9 @@
           "timestampLatest": "Sist hendelse",
           "name": "Status",
           "show": "Vis",
+          "showDescription": "Viser alle hendelser for én instans",
           "actions": "Handlinger",
-          "actionsDescription": "Dersom en instans har feilet vil du få mulighet for å prøve igjen",
+          "actionsDescription": "I noen tilfeller hvor en instans har feilet vil du få mulighet for å prøve igjen",
           "details": "Detaljer",
           "detailsDescription": "Se detaljer om en instans dersom det har feilet",
           "errorMessage": "Feilmelding(er)"
