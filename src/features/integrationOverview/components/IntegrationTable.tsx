@@ -10,9 +10,10 @@ import {
     getDestinationDisplayName,
     getSourceApplicationDisplayName,
     getStateDisplayName
-} from "../../configuration/defaults/DefaultValues";
+} from "../../../util/DataGridUtil";
 import {IntegrationContext} from "../../../context/integrationContext";
 import {ClassNameMap} from "@mui/styles";
+import {renderCellWithTooltip} from "../../../util/DataGridUtil";
 
 type Props = {
     classes: ClassNameMap
@@ -53,7 +54,8 @@ const IntegrationTable: React.FunctionComponent<Props> = (props: Props) => {
             type: 'string',
             headerName: t('table.columns.sourceApplicationIntegrationId'),
             minWidth: 250,
-            flex: 1
+            flex: 1,
+            renderCell: (params) => renderCellWithTooltip(params.value as string)
         },
         {
             field: 'displayName',
@@ -61,11 +63,13 @@ const IntegrationTable: React.FunctionComponent<Props> = (props: Props) => {
             headerName: t('table.columns.sourceApplicationIntegrationIdDisplayName'),
             minWidth: 500,
             flex: 1,
-            sortable: false
+            sortable: false,
+            renderCell: (params) => renderCellWithTooltip(params.value as string)
         },
         {
             field: 'destination', type: 'string', headerName: t('table.columns.destination'), minWidth: 150, flex: 1,
-            valueGetter: (params) => getDestinationDisplayName(params.row.destination)
+            valueGetter: (params) => getDestinationDisplayName(params.row.destination),
+            renderCell: (params) => renderCellWithTooltip(params.value as string)
         },
         {
             field: 'state', type: 'string', headerName: t('table.columns.state'), minWidth: 100, flex: 1,

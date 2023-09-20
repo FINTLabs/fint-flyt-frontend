@@ -2,7 +2,7 @@ import React, {createContext, FC, useState} from "react";
 import {contextDefaultValues, ISourceApplicationItem, SourceApplicationContextState} from "./types";
 import SourceApplicationRepository from "../../shared/repositories/SourceApplicationRepository";
 import IntegrationRepository from "../../shared/repositories/IntegrationRepository";
-import {getSourceApplicationDisplayName} from "../../features/configuration/defaults/DefaultValues";
+import {getSourceApplicationDisplayName} from "../../util/DataGridUtil";
 import {
     IInstanceMetadataContent,
     IInstanceObjectCollectionMetadata,
