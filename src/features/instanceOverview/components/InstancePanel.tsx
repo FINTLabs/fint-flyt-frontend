@@ -11,10 +11,11 @@ import {IEvent} from "../types/Event";
 import ErrorIcon from "@mui/icons-material/Error";
 import InfoIcon from "@mui/icons-material/Info";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import {getSourceApplicationDisplayName} from "../../configuration/defaults/DefaultValues";
+import {getSourceApplicationDisplayName} from "../../../util/DataGridUtil";
 import {useHistory} from "react-router-dom";
 import {ClassNameMap} from "@mui/styles";
 import DialogContentComponent from "./DialogContentComponent";
+import {renderCellWithTooltip} from "../../../util/DataGridUtil";
 
 type Props = {
     classes: ClassNameMap
@@ -36,7 +37,7 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
             headerName: t('table.columns.sourceApplicationId'),
             minWidth: 150,
             flex: 1,
-            valueGetter: (params) => getSourceApplicationDisplayName(params.row.instanceFlowHeaders.sourceApplicationId)
+            valueGetter: (params) => getSourceApplicationDisplayName(params.row.instanceFlowHeaders.sourceApplicationId),
         },
         {
             field: 'sourceApplicationIntegrationId',
@@ -45,7 +46,8 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
             description: t('table.columns.sourceApplicationIntegrationIdDescription'),
             minWidth: 150,
             flex: 1,
-            valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplicationIntegrationId
+            valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplicationIntegrationId,
+            renderCell: (params) => renderCellWithTooltip(params.value as string)
         },
         {
             field: 'displayName',
@@ -53,7 +55,8 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
             headerName: t('table.columns.sourceApplicationIntegrationIdDisplayName'),
             description: t('table.columns.sourceApplicationIntegrationIdDisplayName'),
             minWidth: 300,
-            flex: 1
+            flex: 1,
+            renderCell: (params) => renderCellWithTooltip(params.value as string)
         },
         {
             field: 'timestamp',
@@ -93,7 +96,8 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
             description: t('table.columns.archiveInstanceIdDescription'),
             minWidth: 150,
             flex: 1,
-            valueGetter: (params) => params.row.instanceFlowHeaders.archiveInstanceId
+            valueGetter: (params) => params.row.instanceFlowHeaders.archiveInstanceId,
+            renderCell: (params) => renderCellWithTooltip(params.value as string)
         },
         {
             field: 'sourceApplicationInstanceId',
@@ -102,7 +106,8 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
             description: t('table.columns.sourceApplicationInstanceId'),
             minWidth: 200,
             flex: 1,
-            valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplicationInstanceId
+            valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplicationInstanceId,
+            renderCell: (params) => renderCellWithTooltip(params.value as string)
         },
         {
             field: 'configurationId',
@@ -111,7 +116,7 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
             description: t('table.columns.configurationId'),
             minWidth: 150,
             flex: 1,
-            valueGetter: (params) => params.row.instanceFlowHeaders.configurationId
+            valueGetter: (params) => params.row.instanceFlowHeaders.configurationId,
         }
     ];
 

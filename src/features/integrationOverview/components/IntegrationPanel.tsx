@@ -24,12 +24,13 @@ import {Link as RouterLink, useHistory} from 'react-router-dom';
 import IntegrationRepository from "../../../shared/repositories/IntegrationRepository";
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import {SourceApplicationContext} from "../../../context/sourceApplicationContext";
-import {getDestinationDisplayName, getSourceApplicationDisplayName} from "../../configuration/defaults/DefaultValues";
+import {getDestinationDisplayName, getSourceApplicationDisplayName} from "../../../util/DataGridUtil";
 import ConfigurationRepository from "../../../shared/repositories/ConfigurationRepository";
 import {IIntegrationPatch} from "../../integration/types/Integration";
 import {IConfiguration} from "../../configuration/types/Configuration";
 import {ClassNameMap} from "@mui/styles";
 import {ISelect} from "../../configuration/types/Select";
+import {renderCellWithTooltip} from "../../../util/DataGridUtil";
 
 type Props = {
     classes: ClassNameMap
@@ -109,7 +110,9 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
     const columns: GridColDef[] = [
         {field: 'id', type: 'string', headerName: t('table.columns.configurationId'), minWidth: 100, flex: 0.5},
         {field: 'version', type: 'number', headerName: t('table.columns.version'), minWidth: 100, flex: 0.5},
-        {field: 'comment', type: 'string', headerName: t('table.columns.comment'), minWidth: 250, flex: 1},
+        {field: 'comment', type: 'string', headerName: t('table.columns.comment'), minWidth: 250, flex: 1,
+            renderCell: (params) => renderCellWithTooltip(params.value as string)
+        },
         {
             field: 'details',
             headerName: t('table.columns.show'),
