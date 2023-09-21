@@ -149,7 +149,7 @@
       "instance-requested-for-retry": "Instans forespurt for nytt forsøk",
       "instance-mapped": "Instans konvertert",
       "instance-ready-for-dispatch": "Instans klar for sending til destinasjon",
-      "instance-dispatched": "Instans arkivert",
+      "instance-dispatched": "Instans godtatt av destinasjon",
       "instance-receival-error": "Feilet under mottak av instans",
       "instance-registration-error": "Feilet under registrering av instans",
       "instance-retry-request-error": "Feilet under forespørsel for nytt forsøk",
