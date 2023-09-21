@@ -1,0 +1,127 @@
+{
+  "instanceValueMetadata": [
+    {
+      "displayName": "Kommunenummer",
+      "type": "STRING",
+      "key": "knr"
+    },
+    {
+      "displayName": "Gårdsnummer",
+      "type": "STRING",
+      "key": "gnr"
+    },
+    {
+      "displayName": "Bruksnummer",
+      "type": "STRING",
+      "key": "bnr"
+    },
+    {
+      "displayName": "Festenummer",
+      "type": "STRING",
+      "key": "fnr"
+    },
+    {
+      "displayName": "Seksjonsnummer",
+      "type": "STRING",
+      "key": "snr"
+    },
+    {
+      "displayName": "Eierforholdskode",
+      "type": "STRING",
+      "key": "eierforholdskode"
+    },
+    {
+      "displayName": "Eierforholdsnavn",
+      "type": "STRING",
+      "key": "eierforholdsnavn"
+    },
+    {
+      "displayName": "Takstnummer",
+      "type": "STRING",
+      "key": "takstnummer"
+    },
+    {
+      "displayName": "Prosjektnummer",
+      "type": "STRING",
+      "key": "prosjektnr"
+    },
+    {
+      "displayName": "Prosjektnavn",
+      "type": "STRING",
+      "key": "prosjektnavn"
+    },
+    {
+      "displayName": "Kommunenavn",
+      "type": "STRING",
+      "key": "kommunenavn"
+    },
+    {
+      "displayName": "Adresse",
+      "type": "STRING",
+      "key": "adresse"
+    },
+    {
+      "displayName": "Tittel",
+      "type": "STRING",
+      "key": "tittel"
+    },
+    {
+      "displayName": "Saksansvarlig E-post",
+      "type": "STRING",
+      "key": "saksansvarligEpost"
+    },
+    {
+      "displayName": "Saksansvarlig",
+      "type": "STRING",
+      "key": "saksansvarlig"
+    }
+  ],
+  "instanceObjectCollectionMetadata": [
+    {
+      "displayName": "Saksparter",
+      "objectMetadata": {
+        "instanceValueMetadata": [
+          {
+            "displayName": "Navn",
+            "type": "STRING",
+            "key": "navn"
+          },
+          {
+            "displayName": "Organisasjonsnummer",
+            "type": "STRING",
+            "key": "organisasjonsnummer"
+          },
+          {
+            "displayName": "E-post",
+            "type": "STRING",
+            "key": "epost"
+          },
+          {
+            "displayName": "Telefon",
+            "type": "STRING",
+            "key": "telefon"
+          },
+          {
+            "displayName": "Postadresse",
+            "type": "STRING",
+            "key": "postadresse"
+          },
+          {
+            "displayName": "Postnummer",
+            "type": "STRING",
+            "key": "postnummer"
+          },
+          {
+            "displayName": "Poststed",
+            "type": "STRING",
+            "key": "poststed"
+          }
+        ],
+        "instanceObjectCollectionMetadata": [],
+        "categories": []
+      },
+      "key": "saksparter"
+    }
+  ],
+  "categories": []
+}

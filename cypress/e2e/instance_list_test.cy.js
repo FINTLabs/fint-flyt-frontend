@@ -31,7 +31,7 @@ describe('Testing instance list', () => {
         prep()
         cy.viewport(3000, 2000)
         cy.get('.MuiDataGrid-row--lastVisible > [data-field="sourceApplicationIntegrationId"]').dblclick()
-        cy.get('[data-id="0"] > [data-field="name"]').should('contain.text', 'Instans arkivert')
+        cy.get('[data-id="0"] > [data-field="name"]').should('contain.text', 'Instans godtatt av destinasjon')
         cy.get('#back-button').click()
     })
 

@@ -167,7 +167,7 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
                             <HelpPopover popoverContent={'destination'}/>
                         </Box>
                     </Box>
-                    <Typography
+                    <Typography id={'form-error-msg'}
                         color={"error"}>{!sourceApplicationId || !sourceApplicationIntegrationId || !destination ? error : ''}</Typography>
                 </Box>
                 <Box sx={{mt: 2}}>

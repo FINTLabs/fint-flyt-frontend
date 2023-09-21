@@ -3,8 +3,11 @@
 describe('Testing integration list', () => {
     beforeEach(() => {
         cy.intercept('GET', '**/integrasjoner?side=0&sorteringFelt=state&sorteringRetning=ASC', { fixture: 'integrations.json' }).as('getIntegrations')
+        cy.intercept('GET', '**/integrasjoner', { fixture: 'allIntegrations.json' }).as('getAllIntegrations')
         cy.intercept('GET', '**/historikk/statistikk/integrasjoner', { fixture: 'historikk.json' }).as('getHistory')
-        cy.intercept('GET', '**/metadata?kildeapplikasjonId=2&bareSisteVersjoner=true', { fixture: 'metadata.json' }).as('getMetadata')
+        cy.intercept('GET', '**/metadata?kildeapplikasjonId=2&bareSisteVersjoner=true', { fixture: 'metadataLatest.json' }).as('getLatestMetadata')
+        cy.intercept('GET', '**/metadata?kildeapplikasjonId=1&bareSisteVersjoner=false', { fixture: 'metadata.json' }).as('getMetadata')
+        cy.intercept('GET', '**/metadata?kildeapplikasjonId=1&bareSisteVersjoner=true', { fixture: 'metadata.json' }).as('getMetadata')
     })
 
     function prep() {
