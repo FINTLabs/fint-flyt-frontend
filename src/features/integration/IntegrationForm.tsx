@@ -7,7 +7,7 @@ import HelpPopover from "../configuration/components/common/popover/HelpPopover"
 import {useTranslation} from "react-i18next";
 import {SourceApplicationContext} from "../../context/sourceApplicationContext";
 import IntegrationRepository from '../../shared/repositories/IntegrationRepository';
-import {IntegrationState} from "./types/Integration";
+import {IIntegration, IntegrationState} from "./types/Integration";
 import {IFormIntegration} from "../configuration/types/FormIntegration";
 import {selectSX} from "../../util/styles/SystemStyles";
 import {IntegrationFormStyles} from "../../util/styles/IntegrationForm.styles"
@@ -35,7 +35,6 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
     const [sourceApplicationIntegrationId, setSourceApplicationIntegrationId] = useState<string>('');
     const backgroundColor = 'white';
 
-
     const navToConfiguration = (id: string) => {
         history.push({
             pathname: '/integration/configuration/new-configuration',
@@ -54,7 +53,6 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-
     useEffect(() => {
         getAllMetadata(true);
         getAvailableForms();
@@ -62,27 +60,28 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
     }, [sourceApplication, setSourceApplication])
 
     const confirm = () => {
-        if (destination && sourceApplicationId && sourceApplicationIntegrationId) {
-            const selectedForm = allMetadata.filter((md: IIntegrationMetadata) => md.sourceApplicationIntegrationId === sourceApplicationIntegrationId)
-            setSelectedMetadata(selectedForm[0])
-            getInstanceElementMetadata(selectedForm[0].id)
-            const formConfiguration: IFormIntegration = {
-                destination: destination,
-                sourceApplicationIntegrationId: sourceApplicationIntegrationId,
-                sourceApplicationId: sourceApplicationId
-            }
-            IntegrationRepository.createIntegration(toIntegration(formConfiguration, IntegrationState.DEACTIVATED))
-                .then((response) => {
-                    setSourceApplicationIntegrationId(response.data.sourceApplicationIntegrationId)
-                    setExistingIntegration(response.data)
-                    navToConfiguration(response.data.sourceApplicationIntegrationId);
-                })
-                .catch(e => console.error(e))
-            console.log('create new integration', toIntegration(formConfiguration, IntegrationState.DEACTIVATED))
-            setError('');
-        } else {
+        const selectedForm = allMetadata.find((md: IIntegrationMetadata) => md.sourceApplicationIntegrationId === sourceApplicationIntegrationId);
+        if (!destination || !sourceApplicationId || !sourceApplicationIntegrationId || !selectedForm) {
             setError(t('error'))
+            return;
         }
+        setSelectedMetadata(selectedForm);
+        getInstanceElementMetadata(selectedForm.id);
+
+        const formConfiguration: IFormIntegration = {destination, sourceApplicationIntegrationId, sourceApplicationId};
+        const newIntegration: IIntegration = toIntegration(formConfiguration, IntegrationState.DEACTIVATED)
+
+        IntegrationRepository.createIntegration(newIntegration)
+            .then((response) => {
+                setSourceApplicationIntegrationId(response.data.sourceApplicationIntegrationId)
+                setExistingIntegration(response.data)
+                navToConfiguration(response.data.sourceApplicationIntegrationId);
+                setError('');
+                console.log('create new integration', newIntegration)})
+            .catch((e) => {
+                console.error(e)
+                setError(t('error'))}
+            )
     }
 
     return (
