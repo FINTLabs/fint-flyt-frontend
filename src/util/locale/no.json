@@ -138,6 +138,7 @@
       "FINT_FLYT_DISPATCH_SERVICE_GENERAL_SYSTEM_ERROR": "Systemfeil - Ta kontakt med FINT",
       "FINT_FLYT_DISPATCH_GATEWAY_GENERAL_SYSTEM_ERROR": "Systemfeil - Ta kontakt med FINT",
       "FINT_FLYT_DISPATCH_GATEWAY_INSTANCE_DISPATCH_DECLINED_ERROR": "Instansen ble avvist av destinasjon med følgende feilmelding: '#errorMessage#'",
+      "FINT_FLYT_DISPATCH_SERVICE_INSTANCE_DISPATCH_DECLINED_ERROR": "Instansen ble avvist av destinasjon med følgende feilmelding: '#errorMessage#'",
       "REQUESTED": "Forespurt",
       "SENT": "Sendt",
       "FAILED": "Feilet",
