@@ -18,7 +18,7 @@ export type AccordionData = {
 }
 
 const AccordionComponent: React.FunctionComponent<Props> = (props: Props) => {
-    const SingleAccordion = (props: { content: AccordionData }) => {
+    const SingleAccordion = (props: { id: string, content: AccordionData }) => {
         const [expanded, setExpanded] = React.useState<string | boolean>("panel_0"); //eslint-disable-line
         const handleChangeExpanded = (panel: string) => (event: React.SyntheticEvent, newExpanded: boolean) => {
             setExpanded(newExpanded ? panel : false);
@@ -32,8 +32,8 @@ const AccordionComponent: React.FunctionComponent<Props> = (props: Props) => {
             >
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon/>}
-                    aria-controls="panel1a-content"
-                    id="panel1a-header"
+                    aria-controls={props.id +'-content'}
+                    id={props.id +'-header'}
                 >
                     <Typography sx={{width: '33%', flexShrink: 0}}>
                         {props.content.summary}
@@ -42,8 +42,7 @@ const AccordionComponent: React.FunctionComponent<Props> = (props: Props) => {
                         <Typography sx={{color: 'text.secondary'}}>{props.content.summary2}</Typography>
                     }
                 </AccordionSummary>
-                <AccordionDetails
-                >
+                <AccordionDetails id={props.id + '-details'}>
                     <Typography>
                         {props.content.details}
                     </Typography>
@@ -66,9 +65,9 @@ const AccordionComponent: React.FunctionComponent<Props> = (props: Props) => {
         );
     };
     return (
-        <div>
+        <div id={'accordion-container'}>
             {props.data.map((accordionData, index) => {
-                return <SingleAccordion key={index} content={accordionData}/>;
+                return <SingleAccordion id={'accordion-' + index} key={index} content={accordionData}/>;
             })}
         </div>
     );

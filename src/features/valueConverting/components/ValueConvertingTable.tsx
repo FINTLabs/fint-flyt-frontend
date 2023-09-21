@@ -4,11 +4,11 @@ import {Box, Button, Menu, MenuItem} from "@mui/material";
 import {useTranslation} from 'react-i18next';
 import {DataGrid, GridCellParams, GridColDef} from "@mui/x-data-grid";
 import ValueConvertingRepository from "../../../shared/repositories/ValueConvertingRepository";
-import {getDestinationDisplayName, getSourceApplicationDisplayName} from "../../configuration/defaults/DefaultValues";
 import {IValueConverting} from "../types/ValueConverting";
 import {GridValueGetterParams} from "@mui/x-data-grid/models/params/gridCellParams";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import {valueConvertingStyles} from "../../../util/styles/ValueConverting.styles";
+import {getDestinationDisplayName, getSourceApplicationDisplayName} from "../../../util/DataGridUtil";
 
 type Props = {
     onValueConvertingSelected: (id: number, view: boolean) => void;
