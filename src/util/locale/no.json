@@ -148,7 +148,7 @@
       "instance-registered": "Instans registrert",
       "instance-requested-for-retry": "Instans forespurt for nytt forsøk",
       "instance-mapped": "Instans konvertert",
-      "instance-ready-for-dispatch": "Instans klar for arkivering",
+      "instance-ready-for-dispatch": "Instans klar for sending til destinasjon",
       "instance-dispatched": "Instans arkivert",
       "instance-receival-error": "Feilet under mottak av instans",
       "instance-registration-error": "Feilet under registrering av instans",
