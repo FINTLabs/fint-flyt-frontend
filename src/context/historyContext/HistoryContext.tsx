@@ -68,20 +68,20 @@ const HistoryProvider: FC = ({children}) => {
     }
 
 
-        return (
-            <HistoryContext.Provider
-                value={{
-                    events,
-                    getEvents,
-                    latestInstances,
-                    getLatestInstances,
-                    selectedInstances,
-                    getSelectedInstances
-                }}
-            >
-                {children}
-            </HistoryContext.Provider>
-        );
-    };
+    return (
+        <HistoryContext.Provider
+            value={{
+                events,
+                getEvents,
+                latestInstances,
+                getLatestInstances,
+                selectedInstances,
+                getSelectedInstances
+            }}
+        >
+            {children}
+        </HistoryContext.Provider>
+    );
+};
 
-    export default HistoryProvider;
+export default HistoryProvider;
