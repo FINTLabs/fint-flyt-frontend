@@ -1,8 +1,7 @@
 import React, {createContext, FC, useState} from "react";
-import {contextDefaultValues, ISourceApplicationItem, SourceApplicationContextState} from "./types";
+import {contextDefaultValues, SourceApplicationContextState} from "./types";
 import SourceApplicationRepository from "../../shared/repositories/SourceApplicationRepository";
 import IntegrationRepository from "../../shared/repositories/IntegrationRepository";
-import {getSourceApplicationDisplayName} from "../../util/DataGridUtil";
 import {
     IInstanceMetadataContent,
     IInstanceObjectCollectionMetadata,
@@ -18,7 +17,7 @@ export const SourceApplicationContext = createContext<SourceApplicationContextSt
 
 const SourceApplicationProvider: FC = ({children}) => {
     const [isAdmin, setIsAdmin] = useState<boolean>(contextDefaultValues.isAdmin)
-    const [availableForms, setAvailableForms] = useState<ISourceApplicationItem>(contextDefaultValues.availableForms);
+    const [availableForms, setAvailableForms] = useState<ISelect[]>(contextDefaultValues.availableForms);
     const [allMetadata, setAllMetadata] = useState<IIntegrationMetadata[]>(contextDefaultValues.allMetadata)
     const [instanceElementMetadata, setInstanceElementMetadata] = useState<IInstanceMetadataContent | undefined>(MOCK_INSTANCE_METADATA.instanceMetadata)
     const [instanceObjectCollectionMetadata, setInstanceObjectCollectionMetadata] = useState<IInstanceObjectCollectionMetadata[]>([])
@@ -32,25 +31,41 @@ const SourceApplicationProvider: FC = ({children}) => {
         );
     }
 
-    const getAvailableForms = () => {
-        SourceApplicationRepository.getMetadata(sourceApplication !== undefined ? sourceApplication.toString() : "2", true)
-            .then(response => {
-                const data = response.data
-                if (data) {
-                    const selects: ISelect[] = [];
-                    data.forEach((value: IIntegrationMetadata) => {
-                        selects.push({
-                            value: value.sourceApplicationIntegrationId,
-                            label: '[' + value.sourceApplicationIntegrationId + '] ' + value.integrationDisplayName
-                        })
-                    })
-                    getAllForms(selects)
-                }
-            })
-            .catch((err) => {
-                console.error(err);
-            })
-    }
+    const getAvailableForms = async () => {
+        try {
+            const sourceAppId = sourceApplication !== undefined ? sourceApplication.toString() : "2";
+
+            const response = await SourceApplicationRepository.getMetadata(sourceAppId, true);
+            const data = response.data || [];
+
+            const selectables: ISelect[] = data.map((value: IIntegrationMetadata) => ({
+                value: value.sourceApplicationIntegrationId,
+                label: `[${value.sourceApplicationIntegrationId}] ${value.integrationDisplayName}`,
+            }));
+
+            await getAllIntegrationsAndSetAvailableForms(selectables);
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+    const getAllIntegrationsAndSetAvailableForms = async (forms: ISelect[]) => {
+        try {
+            const response = await IntegrationRepository.getAllIntegrations();
+            const data = response.data || [];
+
+            const ids: string[] = data.map((integration: IIntegration) => integration.sourceApplicationIntegrationId);
+
+            if (sourceApplication !== undefined) {
+                const selectableForms = forms.filter((form) => !ids.includes(form.value));
+                setAvailableForms(selectableForms);
+            }
+        } catch (err) {
+            console.error(err);
+            setAvailableForms([{ value: 'null', label: 'No options' }]);
+        }
+    };
+
 
     const getAllMetadata = (onlyLatest: boolean) => {
         if (sourceApplication) {
@@ -63,18 +78,14 @@ const SourceApplicationProvider: FC = ({children}) => {
                 })
                 .catch((err) => {
                     setAllMetadata(contextDefaultValues.allMetadata)
-                    setAvailableForms({
-                        sourceApplicationDisplayName: '',
-                        sourceApplicationId: '1',
-                        forms: [{value: 'null', label: 'No options'}]
-                    })
+                    setAvailableForms([{value: 'null', label: 'No options'}])
                     console.error(err);
                 })
         }
     }
 
     const getInstanceElementMetadata = (metadataId: string) => {
-        SourceApplicationRepository.getInstanceElementMetadata(metadataId)
+        SourceApplicationRepository.getInstanceElementMetadataById(metadataId)
             .then(response => {
                 const data: IInstanceMetadataContent = response.data
                 if (data) {
@@ -84,33 +95,6 @@ const SourceApplicationProvider: FC = ({children}) => {
             .catch((err) => {
                 setInstanceElementMetadata(undefined)
                 console.error(err)
-            })
-    }
-
-    //TODO: get all forms from sourceApplication when available
-    const getAllForms = (forms: ISelect[]) => {
-        IntegrationRepository.getAllIntegrations()
-            .then(response => {
-                const data = response.data;
-                if (data) {
-                    const ids: string[] = data.map((integration: IIntegration) => integration.sourceApplicationIntegrationId)
-                    const selectableForms = forms.filter(form => !ids.includes(form.value));
-                    if (sourceApplication !== undefined) {
-                        setAvailableForms({
-                            sourceApplicationDisplayName: getSourceApplicationDisplayName(sourceApplication),
-                            sourceApplicationId: sourceApplication.toString(),
-                            forms: selectableForms
-                        })
-                    }
-                }
-            })
-            .catch((err) => {
-                console.error(err);
-                setAvailableForms({
-                    sourceApplicationDisplayName: '',
-                    sourceApplicationId: '1',
-                    forms: [{value: 'null', label: 'No options'}]
-                })
             })
     }
 
@@ -128,7 +112,7 @@ const SourceApplicationProvider: FC = ({children}) => {
                 getInstanceObjectCollectionMetadata,
                 getAllMetadata,
                 getInstanceElementMetadata,
-                getAllForms,
+                getAllIntegrationsAndSetAvailableForms,
                 sourceApplication,
                 setSourceApplication
             }}

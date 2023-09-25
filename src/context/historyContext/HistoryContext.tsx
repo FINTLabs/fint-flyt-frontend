@@ -34,7 +34,6 @@ const HistoryProvider: FC = ({children}) => {
     }
 
     const getLatestInstances = (page: number, size: number, sortProperty: string, sortDirection: string, sourceApplicationId: string) => {
-        setLatestInstances([]);
         SourceApplicationRepository.getMetadata(sourceApplicationId, true)
             .then((response) => {
                 if (response.data) {
@@ -60,15 +59,16 @@ const HistoryProvider: FC = ({children}) => {
                             }
                         })
                         .catch(e => {
+                            setLatestInstances([])
                             console.error('Error: ', e)
                         })
                 }
             }).catch((e) => {
+                setLatestInstances([])
             console.error('Error: ', e)
         })
     }
     const getSelectedInstances = (page: number, size: number, sortProperty: string, sortDirection: string, sourceApplicationId: string, instanceId: string) => {
-        setSelectedInstances([]);
         SourceApplicationRepository.getMetadata(sourceApplicationId, true)
             .then((response) => {
                 if (response.data) {
@@ -94,10 +94,12 @@ const HistoryProvider: FC = ({children}) => {
                             }
                         })
                         .catch((e: Error) => {
+                            setSelectedInstances([]);
                             console.error('Error: ', e)
                         })
                 }
             }).catch((e) => {
+            setSelectedInstances([]);
             console.error('Error: ', e)
         })
     }

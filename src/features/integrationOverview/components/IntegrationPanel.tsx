@@ -72,7 +72,7 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
         setAnchorSubEl(null);
     };
 
-    const versionsToActivate: ISelect[] = [{value: 'null', label: 'velg aktiv versjon'}];
+    let versionsToActivate: ISelect[] = [{value: 'null', label: 'velg aktiv versjon'}];
     const [openDialog, setOpenDialog] = React.useState(false);
     const [configToActivate, setConfigToActivate] = React.useState<string>('')
 
@@ -87,19 +87,12 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
         setOpenDialog(false)
     }
 
-    completedConfigurations?.map((configuration: IConfiguration) => {
-        versionsToActivate.push({value: configuration.id.toString(), label: 'versjon ' + configuration.version})
-        return versionsToActivate.sort((a, b) => {
-            if (a.label.toUpperCase() < b.label.toUpperCase()) {
-                return -1;
-            } else if (a.label.toUpperCase() > b.label.toUpperCase()) {
-                return 1;
-            } else {
-                return 0;
-            }
-        });
-    })
-
+    versionsToActivate = versionsToActivate.concat(
+        (completedConfigurations || []).map((configuration) => ({
+            value: configuration.id.toString(),
+            label: `versjon ${configuration.version}`,
+        })).sort((a, b) => a.label.toUpperCase().localeCompare(b.label.toUpperCase()))
+    );
 
     useEffect(() => {
         getAllMetadata(false)
@@ -143,7 +136,7 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
             setActiveVersion('ingen aktiv konfigurasjon')
             return;
         }
-        ConfigurationRepository.getConfiguration(id.toString(), true)
+        ConfigurationRepository.getConfigurationById(id.toString(), true)
             .then((response) => {
                 const data: IConfiguration = response.data;
                 if (data) {
@@ -157,7 +150,7 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
     }
 
     async function handleNewOrEditConfigClick(id: number | string, version?: unknown) {
-        await ConfigurationRepository.getConfiguration(id.toString(), false)
+        await ConfigurationRepository.getConfigurationById(id.toString(), false)
             .then(async (response) => {
                 const data = response.data
                 const usedVersionMetadata = allMetadata.filter(md => md.id === data.integrationMetadataId)
@@ -209,6 +202,12 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
         setConfigToActivate(event.target.value)
     };
 
+    const infoTypography = (label: string, value: string) => (
+        <Typography>
+            <strong>{label}</strong> {value}
+        </Typography>
+    );
+
     return (
         <Box>
             <Dialog
@@ -231,21 +230,11 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
                 </DialogActions>
             </Dialog>
             <Box sx={{mb: 2}} className={classes.integrationWrapper}>
-                <Typography
-                    id="details-sourceApplicationIntegrationId"><strong>id:</strong>{existingIntegration?.id}
-                </Typography>
-                <Typography
-                    id="details-sourceApplicationIntegrationId"><strong>{t('labels.sourceApplicationIntegrationId')}</strong>{existingIntegration?.sourceApplicationIntegrationId} - {existingIntegration?.displayName}
-                </Typography>
-                <Typography
-                    id="details-sourceApplicationId"><strong>{t('labels.sourceApplicationId')} </strong>{getSourceApplicationDisplayName(Number(existingIntegration?.sourceApplicationId))}
-                </Typography>
-                <Typography
-                    id="details-destination"><strong>{t('labels.destination')} </strong>{getDestinationDisplayName(existingIntegration?.destination ? existingIntegration?.destination : "")}
-                </Typography>
-                <Typography
-                    id="details-activeConfiguration"><strong>{t('labels.activeConfigurationId')} </strong>{activeVersion}
-                </Typography>
+                {infoTypography('id:', existingIntegration?.id ? existingIntegration.id : '')}
+                {infoTypography(t('labels.sourceApplicationIntegrationId'), `${existingIntegration?.sourceApplicationIntegrationId} - ${existingIntegration?.displayName}`)}
+                {infoTypography(t('labels.sourceApplicationId'), getSourceApplicationDisplayName(Number(existingIntegration?.sourceApplicationId)))}
+                {infoTypography(t('labels.destination'), getDestinationDisplayName(existingIntegration?.destination || ''))}
+                {infoTypography(t('labels.activeConfigurationId'), activeVersion)}
                 <FormControl size='small' sx={{float: 'left', width: 300, mt: 2}}>
                     <InputLabel id="version-select-input-label">{t('version')}</InputLabel>
                     <Select

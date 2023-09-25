@@ -7,13 +7,14 @@ import HelpPopover from "../configuration/components/common/popover/HelpPopover"
 import {useTranslation} from "react-i18next";
 import {SourceApplicationContext} from "../../context/sourceApplicationContext";
 import IntegrationRepository from '../../shared/repositories/IntegrationRepository';
-import {IntegrationState} from "./types/Integration";
+import {IIntegration, IntegrationState} from "./types/Integration";
 import {IFormIntegration} from "../configuration/types/FormIntegration";
 import {selectSX} from "../../util/styles/SystemStyles";
 import {IntegrationFormStyles} from "../../util/styles/IntegrationForm.styles"
 import {toIntegration} from "../../util/mapping/ToIntegration";
 import {ISelect} from "../configuration/types/Select";
 import {IIntegrationMetadata} from "../configuration/types/Metadata/IntegrationMetadata";
+import {contextDefaultValues} from "../../context/sourceApplicationContext/types";
 
 const useStyles = IntegrationFormStyles;
 
@@ -25,26 +26,14 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
     const classes = useStyles();
     const history = useHistory();
     const {t} = useTranslation('translations', {keyPrefix: 'components.integrationForm'});
-    const {
-        setSelectedMetadata,
-        setExistingIntegration,
-        resetIntegrationContext,
-    } = useContext(IntegrationContext)
-    const {
-        getAvailableForms,
-        sourceApplication,
-        setSourceApplication,
-        availableForms,
-        allMetadata,
-        getAllMetadata,
-        getInstanceElementMetadata
-    } = useContext(SourceApplicationContext)
+    const {setSelectedMetadata, setExistingIntegration, resetIntegrationContext} = useContext(IntegrationContext)
+    const {getAvailableForms, sourceApplication, setSourceApplication, availableForms, allMetadata, getAllMetadata,
+        getInstanceElementMetadata} = useContext(SourceApplicationContext)
     const [error, setError] = useState<string>('');
     const [destination, setDestination] = useState<string>('');
     const [sourceApplicationId, setSourceApplicationId] = useState<string>('');
     const [sourceApplicationIntegrationId, setSourceApplicationIntegrationId] = useState<string>('');
     const backgroundColor = 'white';
-
 
     const navToConfiguration = (id: string) => {
         history.push({
@@ -64,7 +53,6 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-
     useEffect(() => {
         getAllMetadata(true);
         getAvailableForms();
@@ -72,27 +60,28 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
     }, [sourceApplication, setSourceApplication])
 
     const confirm = () => {
-        if (destination && sourceApplicationId && sourceApplicationIntegrationId) {
-            const selectedForm = allMetadata.filter((md: IIntegrationMetadata) => md.sourceApplicationIntegrationId === sourceApplicationIntegrationId)
-            setSelectedMetadata(selectedForm[0])
-            getInstanceElementMetadata(selectedForm[0].id)
-            const formConfiguration: IFormIntegration = {
-                destination: destination,
-                sourceApplicationIntegrationId: sourceApplicationIntegrationId,
-                sourceApplicationId: sourceApplicationId
-            }
-            IntegrationRepository.createIntegration(toIntegration(formConfiguration, IntegrationState.DEACTIVATED))
-                .then((response) => {
-                    setSourceApplicationIntegrationId(response.data.sourceApplicationIntegrationId)
-                    setExistingIntegration(response.data)
-                    navToConfiguration(response.data.sourceApplicationIntegrationId);
-                })
-                .catch(e => console.error(e))
-            console.log('create new integration', toIntegration(formConfiguration, IntegrationState.DEACTIVATED))
-            setError('');
-        } else {
+        const selectedForm = allMetadata.find((md: IIntegrationMetadata) => md.sourceApplicationIntegrationId === sourceApplicationIntegrationId);
+        if (!destination || !sourceApplicationId || !sourceApplicationIntegrationId || !selectedForm) {
             setError(t('error'))
+            return;
         }
+        setSelectedMetadata(selectedForm);
+        getInstanceElementMetadata(selectedForm.id);
+
+        const formConfiguration: IFormIntegration = {destination, sourceApplicationIntegrationId, sourceApplicationId};
+        const newIntegration: IIntegration = toIntegration(formConfiguration, IntegrationState.DEACTIVATED)
+
+        IntegrationRepository.createIntegration(newIntegration)
+            .then((response) => {
+                setSourceApplicationIntegrationId(response.data.sourceApplicationIntegrationId)
+                setExistingIntegration(response.data)
+                navToConfiguration(response.data.sourceApplicationIntegrationId);
+                setError('');
+                console.log('create new integration', newIntegration)})
+            .catch((e) => {
+                console.error(e)
+                setError(t('error'))}
+            )
     }
 
     return (
@@ -127,10 +116,7 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
                             <Autocomplete
                                 sx={selectSX}
                                 id='sourceApplicationIntegrationId'
-                                options={sourceApplication && availableForms.forms ? availableForms.forms : [{
-                                    label: 'Velg kildeapplikasjon først',
-                                    value: 'null'
-                                }]}
+                                options={sourceApplication && availableForms ? availableForms : contextDefaultValues.availableForms}
                                 renderInput={params => (
                                     <TextField {...params}
                                                size="small"
@@ -139,7 +125,7 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
                                                variant="outlined"/>
                                 )}
                                 getOptionLabel={(option: ISelect) => option.label}
-                                value={sourceApplicationIntegrationId ? availableForms.forms.find(({value}: { value: string }) => value === sourceApplicationIntegrationId) : null}
+                                value={sourceApplicationIntegrationId ? availableForms.find(({value}: { value: string }) => value === sourceApplicationIntegrationId) : null}
                                 onChange={(_event, select) => {
                                     setSourceApplicationIntegrationId(select ? select.value : '');
                                 }}
