@@ -100,7 +100,7 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
 
     return (
         <>
-            <Box className={props.classes.panelContainer}
+            <Box id={'incoming-form-panel'} className={props.classes.panelContainer}
                  sx={metadataPanelSX}>
                 <Box className={props.classes.row}>
                     <Typography variant={"h6"}>{t('header')}</Typography>
@@ -108,7 +108,7 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
                         popoverContent="Metadata er data fra innsendt skjema du kan bruke i konfigurasjon av utgående data"/>
                 </Box>
                 {instanceElementMetadata &&
-                    <Box className={props.classes.panel}>
+                    <Box id={'metadata-content-panel'} className={props.classes.panel}>
                         <MetadataContentComponent
                             classes={props.classes}
                             content={instanceElementMetadata}
@@ -133,10 +133,10 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
                         )
                 }
                 {valueConvertings &&
-                    <Box className={props.classes.panel}>
+                    <Box id={'value-converting-panel'} className={props.classes.panel}>
                         <Typography variant={"h6"}>Verdikonvertering</Typography>
                         {valueConvertings.map((valueConverting: IValueConverting, index: number) => {
-                            return <div key={'valueConvertingValue-' + index} className={props.classes.tagWrapper}>
+                            return <div id={'vc-tag-' + index} key={'valueConvertingValue-' + index} className={props.classes.tagWrapper}>
                                 <Tag
                                     classes={props.classes}
                                     value={'$vc{' + valueConverting.id.toString() + '}'}

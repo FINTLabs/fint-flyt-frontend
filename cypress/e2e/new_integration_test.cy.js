@@ -1,6 +1,6 @@
 // noinspection DuplicatedCode
 
-describe('Testing new', () => {
+describe('Testing create new integration', () => {
     beforeEach(() => {
         cy.intercept('POST', '**/integrasjoner', { fixture: 'integration.json' }).as('postIntegration')
         cy.intercept('GET', '**/integrasjoner', { fixture: 'allIntegrations.json' }).as('getAllIntegrations')

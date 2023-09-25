@@ -16,7 +16,7 @@ const OutgoingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
     const classes = props.classes;
 
     return (
-        <Box id="form-panel" className={classes.panelContainer}>
+        <Box id="outgoing-form-panel" className={classes.panelContainer}>
             <Box className={props.classes.row}>
                 <Typography variant={"h6"}>{t('formHeader')}</Typography>
                 <HelpPopover popoverContent="Utgående data"/>
