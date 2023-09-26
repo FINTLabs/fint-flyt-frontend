@@ -59,18 +59,10 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
     const [anchorSubEl, setAnchorSubEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const openSub = Boolean(anchorSubEl);
-    const handleNewConfigClick = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
-    const handleNewConfigClose = () => {
-        setAnchorEl(null);
-    };
-    const handleNewConfigSubClick = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorSubEl(event.currentTarget);
-    };
-    const handleNewConfigSubClose = () => {
-        setAnchorSubEl(null);
-    };
+    const handleNewConfigClick = (event: React.MouseEvent<HTMLElement>) => {setAnchorEl(event.currentTarget);};
+    const handleNewConfigClose = () => {setAnchorEl(null);};
+    const handleNewConfigSubClick = (event: React.MouseEvent<HTMLElement>) => {setAnchorSubEl(event.currentTarget);};
+    const handleNewConfigSubClose = () => {setAnchorSubEl(null);};
 
     let versionsToActivate: ISelect[] = [{value: 'null', label: 'velg aktiv versjon'}];
     const [openDialog, setOpenDialog] = React.useState(false);
@@ -91,7 +83,11 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
         (completedConfigurations || []).map((configuration) => ({
             value: configuration.id.toString(),
             label: `versjon ${configuration.version}`,
-        })).sort((a, b) => a.label.toUpperCase().localeCompare(b.label.toUpperCase()))
+        })).sort((a, b) => {
+            const versionA = parseInt(a.label.split(' ')[1], 10);
+            const versionB = parseInt(b.label.split(' ')[1], 10);
+            return versionA - versionB;
+        })
     );
 
     useEffect(() => {
@@ -379,17 +375,24 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
                             horizontal: 'left',
                         }}
                     >
-                        {completedConfigurations && completedConfigurations.map((config: IConfiguration, index: number) => {
-                                return <MenuItem onClick={handleNewConfigSubClose} disableGutters={true} divider={true}
-                                                 dense={true} key={index}>
-                                    <Button id="version-button" onClick={() => {
-                                        handleNewOrEditConfigClick(config.id, config.version).then(() => history.push("/integration/configuration/edit"))
-                                    }}>
-                                        {t('button.version')} {config.version}
-                                    </Button>
-                                </MenuItem>
-                            }
-                        )}
+                        {completedConfigurations && [...completedConfigurations]
+                            .sort((a, b) => {
+                                const versionA = a.version || 0;
+                                const versionB = b.version || 0;
+
+                                return versionA - versionB;
+                            })
+                            .map((config: IConfiguration, index: number) => {
+                                    return <MenuItem onClick={handleNewConfigSubClose} disableGutters={true} divider={true}
+                                                     dense={true} key={index}>
+                                        <Button id="version-button" onClick={() => {
+                                            handleNewOrEditConfigClick(config.id, config.version).then(() => history.push("/integration/configuration/edit"))
+                                        }}>
+                                            {t('button.version')} {config.version}
+                                        </Button>
+                                    </MenuItem>
+                                }
+                            )}
                     </Menu>
                 </MenuItem>
             </Menu>
