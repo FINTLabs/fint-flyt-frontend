@@ -1,8 +1,8 @@
 [
   {
     "id":8,
-    "sourceApplicationId":1,
-    "sourceApplicationIntegrationId":"VIK347",
+    "sourceApplicationId":2,
+    "sourceApplicationIntegrationId":"TEST163",
     "sourceApplicationIntegrationUri":"",
     "integrationDisplayName":"TEST - Teknisk test FINT Flyt - Logikk 2 - Offentlig",
     "version":1,
@@ -145,8 +145,8 @@
   },
   {
     "id":9,
-    "sourceApplicationId":1,
-    "sourceApplicationIntegrationId":"VIK348",
+    "sourceApplicationId":2,
+    "sourceApplicationIntegrationId":"TEST222",
     "sourceApplicationIntegrationUri":"",
     "integrationDisplayName":"TEST - Teknisk test FINT Flyt - Logikk 2 - Unntatt offentlighet",
     "version":1,
