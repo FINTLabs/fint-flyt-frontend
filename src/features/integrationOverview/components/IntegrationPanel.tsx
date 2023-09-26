@@ -350,7 +350,7 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
 
                 <MenuItem disableGutters={true} divider={true} dense={true}>
                     <Button
-                        disabled={!completedConfigurations}
+                        disabled={!completedConfigurations || completedConfigurations.length === 0}
                         id="positioned-button"
                         aria-controls={openSub ? 'positioned-menu' : undefined}
                         aria-haspopup="true"
