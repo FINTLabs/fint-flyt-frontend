@@ -3,7 +3,7 @@ import {IEvent} from "../../features/instanceOverview/types/Event";
 export const MOCK_EVENTS: IEvent[] = [
     {
         name: 'Event 1',
-        timeStamp: new Date(),
+        timeStamp: "2023-09-26T06:57:12.747Z",
         type: 'Type 1',
         errors: [],
         instanceFlowHeaders: {
@@ -22,7 +22,7 @@ export const MOCK_EVENTS: IEvent[] = [
     },
     {
         name: 'Event 2',
-        timeStamp: new Date(),
+        timeStamp: "2023-09-26T06:57:12.747Z",
         type: 'Type 2',
         errors: [
             {

@@ -14,7 +14,7 @@ describe('processEvents', () => {
     });
 
     it('should add id to errors when present in event', () => {
-        expect(processedEvents[0].errors).toBe(undefined)
+        expect(processedEvents[0].errors).toHaveLength(0)
         expect(processedEvents[1].errors[0].id).toEqual(0)
         expect(processedEvents[1].errors[0].errorCode).toEqual("FINT_FLYT_INSTANCE_GATEWAY_INSTANCE_REJECTED_ERROR")
     })
