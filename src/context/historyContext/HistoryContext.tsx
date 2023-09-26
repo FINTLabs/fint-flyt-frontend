@@ -43,6 +43,8 @@ const HistoryProvider: FC = ({children}) => {
             if (metadata && events) {
                 const processedEvents = processEvents(events, metadata)
                 setLatestInstances(processedEvents);
+            } else {
+                setLatestInstances([]);
             }
         }
         catch (e) {
@@ -59,6 +61,8 @@ const HistoryProvider: FC = ({children}) => {
             if (events && metadata) {
                 const processedEvents = processEvents(events, metadata)
                 setSelectedInstances(processedEvents);
+            } else {
+                setLatestInstances([]);
             }
         }
         catch (e) {
