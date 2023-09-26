@@ -1,13 +1,13 @@
 [
-  {"id":"https://beta.felleskomponent.no/arkiv/noark/arkivdel/systemid/PRES","displayName":"Presedenssaker"},
-  {"id":"https://beta.felleskomponent.no/arkiv/noark/arkivdel/systemid/FJELL","displayName":"Fjellnettverkett"},
-  {"id":"https://beta.felleskomponent.no/arkiv/noark/arkivdel/systemid/OESMU","displayName":"Møte"},
-  {"id":"https://beta.felleskomponent.no/arkiv/noark/arkivdel/systemid/PERS","displayName":"Personalmapper"},
-  {"id":"https://beta.felleskomponent.no/arkiv/noark/arkivdel/systemid/MU","displayName":"Møte- og utvalg"},
-  {"id":"https://beta.felleskomponent.no/arkiv/noark/arkivdel/systemid/INNSYN","displayName":"Innsynsbegjæringer"},
-  {"id":"https://beta.felleskomponent.no/arkiv/noark/arkivdel/systemid/OPPL","displayName":"Kompetanse"},
-  {"id":"https://beta.felleskomponent.no/arkiv/noark/arkivdel/systemid/OESSAK","displayName":"Samarbeid Sak"},
-  {"id":"https://beta.felleskomponent.no/arkiv/noark/arkivdel/systemid/SAKSMAPPED","displayName":"Saksmappedokument"},
-  {"id":"https://beta.felleskomponent.no/arkiv/noark/arkivdel/systemid/SAK","displayName":"Sakarkiv"},
-  {"id":"https://beta.felleskomponent.no/arkiv/noark/arkivdel/systemid/SKYSS","displayName":"Skoleskyss"}
+  {"id":"https://beta.felleskomponent.no/arkiv/noark/systemid/PRES","displayName":"Presedenssaker"},
+  {"id":"https://beta.felleskomponent.no/arkiv/noark/systemid/FJELL","displayName":"Fjellnettverkett"},
+  {"id":"https://beta.felleskomponent.no/arkiv/noark/systemid/OESMU","displayName":"Møte"},
+  {"id":"https://beta.felleskomponent.no/arkiv/noark/systemid/PERS","displayName":"Personalmapper"},
+  {"id":"https://beta.felleskomponent.no/arkiv/noark/systemid/MU","displayName":"Møte- og utvalg"},
+  {"id":"https://beta.felleskomponent.no/arkiv/noark/systemid/INNSYN","displayName":"Innsynsbegjæringer"},
+  {"id":"https://beta.felleskomponent.no/arkiv/noark/systemid/OPPL","displayName":"Kompetanse"},
+  {"id":"https://beta.felleskomponent.no/arkiv/noark/systemid/OESSAK","displayName":"Samarbeid Sak"},
+  {"id":"https://beta.felleskomponent.no/arkiv/noark/systemid/SAKSMAPPED","displayName":"Saksmappedokument"},
+  {"id":"https://beta.felleskomponent.no/arkiv/noark/systemid/SAK","displayName":"Sakarkiv"},
+  {"id":"https://beta.felleskomponent.no/arkiv/noark/systemid/SKYSS","displayName":"Skoleskyss"}
 ]

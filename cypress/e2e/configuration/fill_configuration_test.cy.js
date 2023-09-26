@@ -25,7 +25,8 @@ function prep() {
 
 describe('Testing fill new configuration', () => {
     beforeEach(() => {
-        cy.intercept('POST', '**/integrasjoner', { fixture: 'integration.json' }).as('postIntegration')
+        cy.intercept('POST', '**/integrasjoner', { fixture: 'postFixture.json' }).as('postIntegration')
+        cy.intercept('POST', '**/konfigurasjoner', { fixture: 'postFixture.json' }).as('postConfiguration')
         cy.intercept('GET', '**/integrasjoner', { fixture: 'allIntegrations.json' }).as('getAllIntegrations')
         cy.intercept('GET', '**/integrasjoner?side=0&sorteringFelt=state&sorteringRetning=ASC', { fixture: 'integrations.json' }).as('getIntegrations')
         cy.intercept('GET', '**/historikk/statistikk/integrasjoner', { fixture: 'historikk.json' }).as('getHistory')
@@ -50,5 +51,71 @@ describe('Testing fill new configuration', () => {
         cy.get('#mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.saksmappetype\\.mappingString-option-2').click()
         cy.get('#mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.arkivdel\\.mappingString').click()
         cy.get('#mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.arkivdel\\.mappingString-option-4').click()
+        cy.get('#form-submit-btn').click()
+        cy.wait('@postConfiguration').its('request.body').should('deep.equal', {
+                completed: false,
+                integrationId: null,
+                integrationMetadataId: 4,
+                mapping: {
+                    "objectCollectionMappingPerKey":{},
+                    "objectMappingPerKey": {
+                        "newCase": {
+                            "objectCollectionMappingPerKey" : {},
+                            "objectMappingPerKey": {},
+                            "valueCollectionMappingPerKey": {},
+                            "valueMappingPerKey": {
+                                "arkivdel": {"mappingString": "https://beta.felleskomponent.no/arkiv/noark/systemid/OPPL", "type": "STRING" },
+                                "saksmappetype": {"mappingString": "https://beta.felleskomponent.no/arkiv/noark/systemid/FJELL", "type": "STRING"},
+                                "tittel": {"mappingString": "test", "type": "DYNAMIC_STRING"}
+                            }
+                        }
+                    },
+                    "valueCollectionMappingPerKey": {},
+                    "valueMappingPerKey": {
+                        "type": {
+                            "mappingString": "NEW",
+                            "type": "STRING"
+                        }
+                    }
+                }
+            }
+        )
+        cy.get('#mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.saksstatus\\.mappingString').click()
+        cy.get('#mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.saksstatus\\.mappingString-option-6').click()
+        cy.get('#form-complete').click()
+        cy.get('#form-submit-btn').click()
+        cy.get('#string-value-component-comment > .MuiTypography-root').should("contain.text", "Kommentar er påkrevd ved ferdigstilling")
+        cy.get('#comment').type('kommentar')
+        cy.get('#form-submit-btn').click()
+        cy.wait('@postConfiguration').its('request.body').should('deep.equal', {
+                comment: "kommentar",
+                completed: true,
+                integrationId: null,
+                integrationMetadataId: 4,
+                mapping: {
+                    "objectCollectionMappingPerKey":{},
+                    "objectMappingPerKey": {
+                        "newCase": {
+                            "objectCollectionMappingPerKey" : {},
+                            "objectMappingPerKey": {},
+                            "valueCollectionMappingPerKey": {},
+                            "valueMappingPerKey": {
+                                "arkivdel": {"mappingString": "https://beta.felleskomponent.no/arkiv/noark/systemid/OPPL", "type": "STRING" },
+                                "saksmappetype": {"mappingString": "https://beta.felleskomponent.no/arkiv/noark/systemid/FJELL", "type": "STRING"},
+                                "saksstatus": {"mappingString": "https://beta.felleskomponent.no/arkiv/noark/systemid/MU", "type": "STRING"},
+                                "tittel": {"mappingString": "test", "type": "DYNAMIC_STRING"}
+                            }
+                        }
+                    },
+                    "valueCollectionMappingPerKey": {},
+                    "valueMappingPerKey": {
+                        "type": {
+                            "mappingString": "NEW",
+                            "type": "STRING"
+                        }
+                    }
+                }
+            }
+        )
     })
 });

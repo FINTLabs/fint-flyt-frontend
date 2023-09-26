@@ -9,7 +9,7 @@ describe('Testing value converting page', () => {
         cy.intercept('GET', '**/value-convertings?page=0&size=100&sortProperty=fromApplicationId&sortDirection=ASC&excludeConvertingMap=true', { fixture: 'valueconverting/valueconvertings.json' }).as('getValueconvertings')
         cy.intercept('GET', '**/value-convertings/1', { fixture: 'valueconverting/valueconverting1.json' }).as('getValueconverting')
         cy.intercept('GET', '**/arkiv/kodeverk/format', { fixture: 'kodeverk/format.json' }).as('getFormat')
-        cy.intercept('POST', '**/value-convertings', { fixture: 'valueconverting/valueconverting2.json' }).as('postValueconverting')
+        cy.intercept('POST', '**/value-convertings', { fixture: 'postFixture.json' }).as('postValueconverting')
     })
 
     it('should show page and table', () => {
@@ -29,7 +29,7 @@ describe('Testing create new value converting', () => {
         cy.intercept('GET', '**/value-convertings?page=0&size=100&sortProperty=fromApplicationId&sortDirection=ASC&excludeConvertingMap=true', { fixture: 'valueconverting/valueconvertings.json' }).as('getValueconvertings')
         cy.intercept('GET', '**/value-convertings/1', { fixture: 'valueconverting/valueconverting1.json' }).as('getValueconverting')
         cy.intercept('GET', '**/arkiv/kodeverk/format', { fixture: 'kodeverk/format.json' }).as('getFormat')
-        cy.intercept('POST', '**/value-convertings', { fixture: 'valueconverting/valueconverting3.json' }).as('postValueconverting')
+        cy.intercept('POST', '**/value-convertings', { fixture: 'postFixture.json' }).as('postValueconverting')
     })
 
     it('should open and fill new converting form', () => {
@@ -68,7 +68,7 @@ describe('Testing create new based on existing value converting', () => {
         cy.intercept('GET', '**/value-convertings?page=0&size=100&sortProperty=fromApplicationId&sortDirection=ASC&excludeConvertingMap=true', { fixture: 'valueconverting/valueconvertings.json' }).as('getValueconvertings')
         cy.intercept('GET', '**/value-convertings/1', { fixture: 'valueconverting/valueconverting1.json' }).as('getValueconverting')
         cy.intercept('GET', '**/arkiv/kodeverk/format', { fixture: 'kodeverk/format.json' }).as('getFormat')
-        cy.intercept('POST', '**/value-convertings', { fixture: 'valueconverting/valueconverting3.json' }).as('postValueconverting')
+        cy.intercept('POST', '**/value-convertings', { fixture: 'postFixture.json' }).as('postValueconverting')
     })
 
     it('should open and fill converting form based on existing', () => {

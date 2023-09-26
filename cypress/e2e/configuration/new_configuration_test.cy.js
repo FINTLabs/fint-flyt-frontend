@@ -24,7 +24,7 @@ function prep() {
 }
 describe('Testing create new configuration', () => {
     beforeEach(() => {
-        cy.intercept('POST', '**/integrasjoner', { fixture: 'integration.json' }).as('postIntegration')
+        cy.intercept('POST', '**/integrasjoner', { fixture: 'postFixture.json' }).as('postIntegration')
         cy.intercept('GET', '**/integrasjoner', { fixture: 'allIntegrations.json' }).as('getAllIntegrations')
         cy.intercept('GET', '**/integrasjoner?side=0&sorteringFelt=state&sorteringRetning=ASC', { fixture: 'integrations.json' }).as('getIntegrations')
         cy.intercept('GET', '**/historikk/statistikk/integrasjoner', { fixture: 'historikk.json' }).as('getHistory')
@@ -38,7 +38,7 @@ describe('Testing create new configuration', () => {
         cy.intercept('GET', '**/arkiv/kodeverk/**', { fixture: 'kodeverk/mock.json' }).as('getKodeverk')
     })
 
-    it.skip('should navigate to configuration form and show outgoing and incoming data', () => {
+    it('should navigate to configuration form and show outgoing and incoming data', () => {
         prep()
         cy.url().should('contain', '/configuration/new');
         cy.get('#incoming-form-panel').should("be.visible")
