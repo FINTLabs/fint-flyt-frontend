@@ -1,4 +1,4 @@
-import {processEvents} from "../../util/ContextUtil";
+import {processEvents} from "../../util/EventUtil";
 import {MOCK_EVENTS} from "../mock/events";
 import {MOCK_INTEGRATION_METADATA} from "../mock/metadata";
 

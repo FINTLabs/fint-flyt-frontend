@@ -7,7 +7,6 @@ export function processEvents (events: IEvent[], metadata: IIntegrationMetadata[
     events.forEach((event: IEvent) => event.errors.forEach(addId(0, 'errorCode')));
     metadata.forEach((value) => {
         events.forEach((event) => {
-            console.log(event, value)
             if (event.instanceFlowHeaders.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {
                 event.displayName = value.integrationDisplayName;
             }

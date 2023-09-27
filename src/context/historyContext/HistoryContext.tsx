@@ -5,7 +5,7 @@ import SourceApplicationRepository from "../../shared/repositories/SourceApplica
 import {IIntegrationMetadata} from "../../features/configuration/types/Metadata/IntegrationMetadata";
 import {addId} from "../../util/JsonUtil";
 import EventRepository from "../../shared/repositories/EventRepository";
-import {processEvents} from "../../util/ContextUtil";
+import {processEvents} from "../../util/EventUtil";
 
 export const HistoryContext = createContext<HistoryContextState>(
     contextDefaultValues
