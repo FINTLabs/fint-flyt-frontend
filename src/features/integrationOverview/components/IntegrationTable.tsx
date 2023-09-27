@@ -61,7 +61,7 @@ const IntegrationTable: React.FunctionComponent<Props> = (props: Props) => {
             field: 'displayName',
             type: 'string',
             headerName: t('table.columns.sourceApplicationIntegrationIdDisplayName'),
-            minWidth: 500,
+            minWidth: 350,
             flex: 1,
             sortable: false,
             renderCell: (params) => renderCellWithTooltip(params.value as string)
