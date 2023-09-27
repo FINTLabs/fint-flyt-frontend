@@ -5,6 +5,7 @@ import SourceApplicationRepository from "../../shared/repositories/SourceApplica
 import {IIntegrationMetadata} from "../../features/configuration/types/Metadata/IntegrationMetadata";
 import {addId} from "../../util/JsonUtil";
 import EventRepository from "../../shared/repositories/EventRepository";
+import {processEvents} from "../../util/EventUtil";
 
 export const HistoryContext = createContext<HistoryContextState>(
     contextDefaultValues
@@ -33,76 +34,43 @@ const HistoryProvider: FC = ({children}) => {
             })
     }
 
-    const getLatestInstances = (page: number, size: number, sortProperty: string, sortDirection: string, sourceApplicationId: string) => {
-        SourceApplicationRepository.getMetadata(sourceApplicationId, true)
-            .then((response) => {
-                if (response.data) {
-                    const metadata: IIntegrationMetadata[] = response.data;
-                    EventRepository.getLatestEvents(page, size, sortProperty, sortDirection)
-                        .then((response) => {
-                            const events: IEvent[] = response.data.content;
-                            if (events) {
-                                events.forEach(addId(0, 'name'))
-                                events.forEach((event: IEvent) =>
-                                    event.errors.forEach(addId(0, 'errorCode'))
-                                );
-
-                                metadata.forEach((value: IIntegrationMetadata) => {
-                                    events.map((event: IEvent) => {
-                                        if (event.instanceFlowHeaders.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {
-                                            return event.displayName = value.integrationDisplayName
-                                        }
-                                        return events;
-                                    })
-                                })
-                                setLatestInstances(events);
-                            }
-                        })
-                        .catch(e => {
-                            setLatestInstances([])
-                            console.error('Error: ', e)
-                        })
-                }
-            }).catch((e) => {
-                setLatestInstances([])
-            console.error('Error: ', e)
-        })
+    const getLatestInstances = async (page: number, size: number, sortProperty: string, sortDirection: string, sourceApplicationId: string) => {
+        try {
+            const metadataResponse = await SourceApplicationRepository.getMetadata(sourceApplicationId, true)
+            const metadata: IIntegrationMetadata[] = metadataResponse.data;
+            const eventResponse = await EventRepository.getLatestEvents(page, size, sortProperty, sortDirection)
+            const events: IEvent[] = eventResponse.data.content;
+            if (metadata && events) {
+                const processedEvents = processEvents(events, metadata)
+                setLatestInstances(processedEvents);
+            } else {
+                setLatestInstances([]);
+            }
+        }
+        catch (e) {
+            setLatestInstances([]);
+            console.error('Error: ', e);
+        }
     }
-    const getSelectedInstances = (page: number, size: number, sortProperty: string, sortDirection: string, sourceApplicationId: string, instanceId: string) => {
-        SourceApplicationRepository.getMetadata(sourceApplicationId, true)
-            .then((response) => {
-                if (response.data) {
-                    const metadata: IIntegrationMetadata[] = response.data;
-                    EventRepository.getEventsByInstanceId(page, size, sortProperty, sortDirection, sourceApplicationId, instanceId)
-                        .then((response) => {
-                            const events: IEvent[] = response.data.content;
-                            if (events) {
-                                events.forEach(addId(0, 'name'))
-                                events.forEach((event: IEvent) =>
-                                    event.errors.forEach(addId(0, 'errorCode'))
-                                );
-
-                                metadata.forEach((value: IIntegrationMetadata) => {
-                                    events.map((event: IEvent) => {
-                                        if (event.instanceFlowHeaders.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {
-                                            return event.displayName = value.integrationDisplayName
-                                        }
-                                        return events;
-                                    })
-                                })
-                                setSelectedInstances(events);
-                            }
-                        })
-                        .catch((e: Error) => {
-                            setSelectedInstances([]);
-                            console.error('Error: ', e)
-                        })
-                }
-            }).catch((e) => {
+    const getSelectedInstances = async (page: number, size: number, sortProperty: string, sortDirection: string, sourceApplicationId: string, instanceId: string) => {
+        try {
+            const metadataResponse = await SourceApplicationRepository.getMetadata(sourceApplicationId, true)
+            const metadata: IIntegrationMetadata[] = metadataResponse.data;
+            const eventResponse = await EventRepository.getEventsByInstanceId(page, size, sortProperty, sortDirection, sourceApplicationId, instanceId)
+            const events: IEvent[] = eventResponse.data.content;
+            if (events && metadata) {
+                const processedEvents = processEvents(events, metadata)
+                setSelectedInstances(processedEvents);
+            } else {
+                setLatestInstances([]);
+            }
+        }
+        catch (e) {
             setSelectedInstances([]);
-            console.error('Error: ', e)
-        })
+            console.error('Error: ', e);
+        }
     }
+
 
     return (
         <HistoryContext.Provider
