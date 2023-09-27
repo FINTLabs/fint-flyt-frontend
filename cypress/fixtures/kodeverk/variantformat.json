@@ -1,8 +1,0 @@
-[
-  {"id":"https://beta.felleskomponent.no/arkiv/kodeverk/variantformat/systemid/A","displayName":"Arkivformat"},
-  {"id":"https://beta.felleskomponent.no/arkiv/kodeverk/variantformat/systemid/MO","displayName":"Message Only"},
-  {"id":"https://beta.felleskomponent.no/arkiv/kodeverk/variantformat/systemid/S","displayName":"Signert dokument"},
-  {"id":"https://beta.felleskomponent.no/arkiv/kodeverk/variantformat/systemid/OP","displayName":"Offentlig versjon -PDF"},
-  {"id":"https://beta.felleskomponent.no/arkiv/kodeverk/variantformat/systemid/P","displayName":"Produksjonsformat"},
-  {"id":"https://beta.felleskomponent.no/arkiv/kodeverk/variantformat/systemid/O","displayName":"Offentlig tilgjengelig sladdet variant"}
-]
