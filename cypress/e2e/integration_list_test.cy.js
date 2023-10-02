@@ -6,12 +6,12 @@ describe('Testing integration list', () => {
         cy.intercept('GET', '**/integrasjoner', { fixture: 'allIntegrations.json' }).as('getAllIntegrations')
         cy.intercept('GET', '**/historikk/statistikk/integrasjoner', { fixture: 'historikk.json' }).as('getHistory')
         cy.intercept('GET', '**/metadata?kildeapplikasjonId=2&bareSisteVersjoner=true', { fixture: 'metadataLatest.json' }).as('getLatestMetadata')
-        cy.intercept('GET', '**/metadata?kildeapplikasjonId=1&bareSisteVersjoner=false', { fixture: 'metadata.json' }).as('getMetadata')
-        cy.intercept('GET', '**/metadata?kildeapplikasjonId=1&bareSisteVersjoner=true', { fixture: 'metadata.json' }).as('getMetadata')
+        cy.intercept('GET', '**/metadata?kildeapplikasjonId=2&bareSisteVersjoner=false', { fixture: 'metadata.json' }).as('getMetadata')
+        cy.intercept('GET', '**/metadata?kildeapplikasjonId=2&bareSisteVersjoner=true', { fixture: 'metadata.json' }).as('getMetadata')
     })
 
     function prep() {
-        cy.intercept('GET', '**/api/application/configuration', { forceNetworkError: true, fixture: 'config.json' }).as('getConfig')
+        cy.intercept('GET', '**/api/application/configuration', { forceNetworkError: true, fixture: 'basepathConfig.json' }).as('getConfig')
         cy.visit('/integration/list')
         cy.wait('@getConfig')
     }
