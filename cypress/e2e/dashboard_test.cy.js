@@ -8,7 +8,7 @@ describe('Testing dashboard', () => {
     })
 
     function prep() {
-        cy.intercept('GET', '**/api/application/configuration', { forceNetworkError: true, fixture: 'config.json' }).as('getConfig')
+        cy.intercept('GET', '**/api/application/configuration', { forceNetworkError: true, fixture: 'basepathConfig.json' }).as('getConfig')
         cy.visit('/')
         cy.wait('@getConfig')
     }
