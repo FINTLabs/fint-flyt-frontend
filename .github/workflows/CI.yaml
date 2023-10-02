@@ -33,11 +33,22 @@ jobs:
       - name: Run tests
         run: yarn test
 
-      - name: Build project
-        run: yarn build
+      - name: Install Node.js and dependencies
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Install project dependencies
+        run: yarn install
+
+      - name: Start Application
+        run: yarn start
 
       - name: Run Cypress tests
-        run: cypress run
+        run: yarn cypress:run
+
+      - name: Build project
+        run: yarn build
 
       - name: Trigger CD
         if: github.ref == 'refs/heads/main'
