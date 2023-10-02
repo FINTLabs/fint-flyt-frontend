@@ -38,9 +38,6 @@ jobs:
         with:
           node-version: 14
 
-      - name: Start Application
-        run: yarn start
-
       - name: Run Cypress tests
         run: yarn cypress:run
 
