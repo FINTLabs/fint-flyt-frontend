@@ -36,6 +36,9 @@ jobs:
       - name: Build project
         run: yarn build
 
+      - name: Run Cypress tests
+        run: cypress run
+
       - name: Trigger CD
         if: github.ref == 'refs/heads/main'
         uses: peter-evans/repository-dispatch@v2
@@ -43,8 +46,3 @@ jobs:
           token: ${{ secrets.GITHUBACTION_TOKEN }}
           repository: ${{ github.repository }}
           event-type: trigger-cd
-  cypress-run:
-    - name: Cypress run
-      uses: cypress-io/github-action@v6
-      with:
-        start: yarn start
