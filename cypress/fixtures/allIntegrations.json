@@ -1,7 +1,7 @@
 [
   {
     "id":3,
-    "sourceApplicationId":1,
+    "sourceApplicationId":2,
     "sourceApplicationIntegrationId":"TEST123",
     "destination":"fylkesrad",
     "state":"DEACTIVATED",
@@ -9,7 +9,7 @@
   },
   {
     "id":4,
-    "sourceApplicationId":1,
+    "sourceApplicationId":2,
     "sourceApplicationIntegrationId":"TEST124",
     "destination":"fylkesrad",
     "state":"DEACTIVATED",
@@ -17,7 +17,7 @@
   },
   {
     "id":5,
-    "sourceApplicationId":1,
+    "sourceApplicationId":2,
     "sourceApplicationIntegrationId":"TEST125",
     "destination":"fylkesrad",
     "state":"DEACTIVATED",

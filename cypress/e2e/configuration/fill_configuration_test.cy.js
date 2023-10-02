@@ -15,7 +15,7 @@ const recordFields = '#mapping\\.objectMappingPerKey\\.newCase\\.objectCollectio
 const correspondentFields = '#mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.korrespondansepart\\.fromCollectionMappings\\.0\\.elementMapping\\.valueMappingPerKey'
 const correspondentDndFields = '#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.korrespondansepart\\.fromCollectionMappings\\.0\\.elementMapping\\.valueMappingPerKey'
 function prep() {
-    cy.intercept('GET', '**/api/application/configuration', { forceNetworkError: true, fixture: 'config.json' }).as('getConfig')
+    cy.intercept('GET', '**/api/application/configuration', { forceNetworkError: true, fixture: 'basepathConfig.json' }).as('getConfig')
     cy.visit('/integration/new')
     cy.wait('@getConfig')
     fillAll()
