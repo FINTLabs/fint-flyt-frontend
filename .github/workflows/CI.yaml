@@ -33,13 +33,13 @@ jobs:
       - name: Run tests
         run: yarn test
 
-      - name: Install Node.js and dependencies
-        uses: actions/setup-node@v2
+      - name: Cypress run
+        uses: cypress-io/github-action@v3
         with:
-          node-version: 14
-
-      - name: Run Cypress tests
-        run: yarn cypress:run
+          project: ./cypress
+          browser: chrome
+          start: yarn start
+          wait-on: "http://localhost:3000"
 
       - name: Build project
         run: yarn build
