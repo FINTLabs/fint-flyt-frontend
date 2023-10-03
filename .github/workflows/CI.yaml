@@ -30,6 +30,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
   test:
+    runs-on: ubuntu-latest
     needs: install
     steps:
       - name: Run tests
@@ -42,6 +43,7 @@ jobs:
           wait-on: "http://localhost:3000"
 
   build:
+    runs-on: ubuntu-latest
     needs: install
     steps:
       - name: Build project
