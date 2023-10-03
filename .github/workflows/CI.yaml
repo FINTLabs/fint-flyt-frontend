@@ -7,10 +7,8 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
-
+  test:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@main
 
@@ -39,6 +37,11 @@ jobs:
           start: yarn start
           wait-on: "http://localhost:3000"
 
+  build:
+    runs-on: ubuntu-latest
+    needs: [test]
+
+    steps:
       - name: Build project
         run: yarn build
 
