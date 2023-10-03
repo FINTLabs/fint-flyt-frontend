@@ -1,13 +1,31 @@
-import {IEvent} from "../../features/instanceOverview/types/Event";
-import {contextDefaultValues, HistoryContextState} from "./types";
+import {IEvent} from "../features/instanceOverview/types/Event";
 import {createContext, FC, useState} from "react";
-import SourceApplicationRepository from "../../shared/repositories/SourceApplicationRepository";
-import {IIntegrationMetadata} from "../../features/configuration/types/Metadata/IntegrationMetadata";
-import {addId} from "../../util/JsonUtil";
-import EventRepository from "../../shared/repositories/EventRepository";
-import {processEvents} from "../../util/EventUtil";
+import SourceApplicationRepository from "../shared/repositories/SourceApplicationRepository";
+import {IIntegrationMetadata} from "../features/configuration/types/Metadata/IntegrationMetadata";
+import {addId} from "../util/JsonUtil";
+import EventRepository from "../shared/repositories/EventRepository";
+import {processEvents} from "../util/EventUtil";
 
- const HistoryContext = createContext<HistoryContextState>(
+type HistoryContextState = {
+    events: IEvent[] | undefined,
+    getEvents: (page: number, size: number, sortProperty: string, sortDirection: string) => void;
+    latestInstances: IEvent[] | undefined,
+    getLatestInstances: (page: number, size: number, sortProperty: string, sortDirection: string, sourceApplicationId: string) => void;
+    selectedInstances: IEvent[] | undefined,
+    getSelectedInstances: (page: number, size: number, sortProperty: string, sortDirection: string, sourceApplicationId: string, instanceId: string) => void;
+}
+
+const contextDefaultValues: HistoryContextState = {
+    events: undefined,
+    latestInstances: undefined,
+    getEvents: () => undefined,
+    getLatestInstances: () => undefined,
+    selectedInstances: undefined,
+    getSelectedInstances: () => undefined
+};
+
+
+const HistoryContext = createContext<HistoryContextState>(
     contextDefaultValues
 );
 

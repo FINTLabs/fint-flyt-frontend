@@ -6,7 +6,7 @@ import IntegrationProvider from "./context/integrationContext";
 import SourceApplicationProvider from "./context/sourceApplicationContext";
 import axios from "axios";
 import {nbNO} from '@mui/material/locale';
-import HistoryProvider from './context/historyContext/HistoryContext';
+import HistoryProvider from './context/HistoryContext';
 
 
 const theme = createTheme(

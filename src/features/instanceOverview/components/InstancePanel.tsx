@@ -14,7 +14,7 @@ import {getSourceApplicationDisplayName, renderCellWithTooltip} from "../../../u
 import {useHistory} from "react-router-dom";
 import {ClassNameMap} from "@mui/styles";
 import DialogContentComponent from "./DialogContentComponent";
-import { HistoryContext } from "../../../context/historyContext/HistoryContext";
+import { HistoryContext } from "../../../context/HistoryContext";
 
 type Props = {
     classes: ClassNameMap

@@ -19,7 +19,7 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 import {ClassNameMap} from "@mui/styles";
 import DialogContentComponent from "./DialogContentComponent";
 import {renderCellWithTooltip} from "../../../util/DataGridUtil";
-import { HistoryContext } from "../../../context/historyContext/HistoryContext";
+import { HistoryContext } from "../../../context/HistoryContext";
 
 type Props = {
     classes: ClassNameMap
