@@ -7,7 +7,7 @@ import {addId} from "../../util/JsonUtil";
 import EventRepository from "../../shared/repositories/EventRepository";
 import {processEvents} from "../../util/EventUtil";
 
-export const HistoryContext = createContext<HistoryContextState>(
+ const HistoryContext = createContext<HistoryContextState>(
     contextDefaultValues
 );
 
@@ -88,4 +88,4 @@ const HistoryProvider: FC = ({children}) => {
     );
 };
 
-export default HistoryProvider;
+export {HistoryContext, HistoryProvider as default};

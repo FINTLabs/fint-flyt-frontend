@@ -10,7 +10,8 @@ import InfoIcon from '@mui/icons-material/Info';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 import moment from "moment";
-import {HistoryContext} from "../../../context/historyContext";
+//import {HistoryContext} from "../../../context/historyContext";
+
 import InstanceRepository from "../repository/InstanceRepository";
 import {getSourceApplicationDisplayName} from "../../../util/DataGridUtil";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
@@ -20,6 +21,7 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 import {ClassNameMap} from "@mui/styles";
 import DialogContentComponent from "./DialogContentComponent";
 import {renderCellWithTooltip} from "../../../util/DataGridUtil";
+import { HistoryContext } from "../../../context/historyContext/HistoryContext";
 
 type Props = {
     classes: ClassNameMap
