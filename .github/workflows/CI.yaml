@@ -7,8 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
-
+  install:
     runs-on: ubuntu-latest
 
     steps:
@@ -30,6 +29,9 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
+  test:
+    needs: install
+    steps:
       - name: Run tests
         run: yarn test
 
@@ -39,6 +41,9 @@ jobs:
           start: yarn start
           wait-on: "http://localhost:3000"
 
+  build:
+    needs: install
+    steps:
       - name: Build project
         run: yarn build
 
