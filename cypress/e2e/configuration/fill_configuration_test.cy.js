@@ -88,12 +88,12 @@ describe('Testing fill new configuration', () => {
         cy.get('#list-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.korrespondansepart\\.fromCollectionMappings > #add-icon').click()
         cy.get('#selectable-value-mapping-wrapper-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.korrespondansepart\\.fromCollectionMappings\\.0 > .MuiButtonBase-root').click()
         cy.get('#list-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.korrespondansepart\\.fromCollectionMappings\\.0\\.instanceCollectionReferencesOrdered > #add-icon').click()
-        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.korrespondansepart\\.fromCollectionMappings\\.0\\.instanceCollectionReferencesOrdered\\.0 > .MuiFormControl-root > .MuiInputBase-root').type("$if{saksparter}", { parseSpecialCharSequences: false });
+        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.korrespondansepart\\.fromCollectionMappings\\.0\\.instanceCollectionReferencesOrdered\\.0 > .MuiFormControl-root > .MuiInputBase-root').type("$if{saksparter}", { parseSpecialCharSequences: false, delay: 0 });
         cy.get(`${correspondentFields}\\.korrespondanseparttype\\.mappingString`).click()
         cy.get(`${correspondentFields}\\.korrespondanseparttype\\.mappingString-option-4`).click()
-        cy.get(`${correspondentDndFields}\\.organisasjonsnummer\\.mappingString > .MuiFormControl-root > .MuiInputBase-root`).type('$icf{0}{organisasjonsnummer}', {parseSpecialCharSequences: false})
-        cy.get(`${correspondentDndFields}\\.korrespondansepartNavn\\.mappingString > .MuiFormControl-root > .MuiInputBase-root`).type('$icf{0}{navn}', {parseSpecialCharSequences: false})
-        cy.get(`${correspondentDndFields}\\.kontaktperson\\.mappingString > .MuiFormControl-root > .MuiInputBase-root`).type('$icf{0}{navn}', {parseSpecialCharSequences: false})
+        cy.get(`${correspondentDndFields}\\.organisasjonsnummer\\.mappingString > .MuiFormControl-root > .MuiInputBase-root`).type('$icf{0}{organisasjonsnummer}', {parseSpecialCharSequences: false, delay: 0})
+        cy.get(`${correspondentDndFields}\\.korrespondansepartNavn\\.mappingString > .MuiFormControl-root > .MuiInputBase-root`).type('$icf{0}{navn}', {parseSpecialCharSequences: false, delay: 0})
+        cy.get(`${correspondentDndFields}\\.kontaktperson\\.mappingString > .MuiFormControl-root > .MuiInputBase-root`).type('$icf{0}{navn}', {parseSpecialCharSequences: false, delay: 0})
         cy.get('#selectable-value-mapping-wrapper-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.korrespondansepart\\.fromCollectionMappings\\.0 > .MuiButtonBase-root').click()
 
         cy.get(':nth-child(1) > :nth-child(9) > .makeStyles-flexRowContainer-23 > .MuiToggleButton-root').click()
@@ -101,7 +101,7 @@ describe('Testing fill new configuration', () => {
         cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.dokumentbeskrivelse\\.elementMappings\\.0\\.valueMappingPerKey\\.tittel\\.mappingString > .MuiFormControl-root > .MuiInputBase-root').type("tittel");
         cy.get('#mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.dokumentbeskrivelse\\.elementMappings\\.0\\.valueMappingPerKey\\.dokumentstatus\\.mappingString').click()
         cy.get('#mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.dokumentbeskrivelse\\.elementMappings\\.0\\.valueMappingPerKey\\.dokumentstatus\\.mappingString-option-1').click()
-        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.dokumentbeskrivelse\\.elementMappings\\.0\\.valueMappingPerKey\\.dokumentstatus\\.mappingString > .MuiFormControl-root > .MuiInputBase-root').type("$vc{1}$if{bnr}", { parseSpecialCharSequences: false });
+        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.dokumentbeskrivelse\\.elementMappings\\.0\\.valueMappingPerKey\\.dokumentstatus\\.mappingString > .MuiFormControl-root > .MuiInputBase-root').type("$vc{1}$if{bnr}", { parseSpecialCharSequences: false, delay: 0 });
         cy.get('#form-submit-btn').click()
 
         cy.wait('@postConfiguration').its('request.body').should('deep.equal', {
@@ -175,13 +175,13 @@ describe('Testing fill, save and complete new configuration', () => {
         cy.get('#mapping\\.valueMappingPerKey\\.type\\.mappingString').click()
         cy.get('#menu-mapping\\.valueMappingPerKey\\.type\\.mappingString > .MuiPaper-root > .MuiList-root > [tabindex="0"]').type('{enter}')
         cy.get('.MuiToggleButton-root').click()
-        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.tittel\\.mappingString > .MuiFormControl-root > .MuiInputBase-root').type('test ferdigstilling')
+        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.tittel\\.mappingString > .MuiFormControl-root > .MuiInputBase-root').type('test ferdigstilling', {delay: 0})
         cy.get(`${newCaseFields}\\.saksmappetype\\.mappingString`).click()
         cy.get(`${newCaseFields}\\.saksmappetype\\.mappingString-option-2`).click()
         cy.get('#form-complete').click()
         cy.get('#form-submit-btn').click()
         cy.get('#string-value-component-comment > .MuiTypography-root').should("contain.text", "Kommentar er påkrevd ved ferdigstilling")
-        cy.get('#comment').type('kommentar')
+        cy.get('#comment').type('kommentar', {delay: 0})
         cy.get('#form-submit-btn').click()
         cy.wait('@postConfiguration').its('request.body').should('deep.equal', {
                 comment: "kommentar",

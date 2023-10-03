@@ -36,7 +36,7 @@ describe('Testing create new value converting', () => {
         prep()
         cy.get('#root-button').click()
         cy.get('#blank-button').click()
-        cy.get('#displayName').type('testkonvertering')
+        cy.get('#displayName').type('testkonvertering', {delay: 0})
         cy.get('#fromApplicationId').click()
         cy.get('#menu-fromApplicationId > .MuiPaper-root > .MuiList-root > [tabindex="0"]').click()
         cy.get('#fromTypeId').click()
