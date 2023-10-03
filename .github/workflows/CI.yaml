@@ -7,13 +7,12 @@ on:
     branches: [ main ]
 
 jobs:
-
-  build:
+  e2e:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        container: [ 1, 2, 3, 4]
+        container: [ 1, 2, 3, 4 ]
 
     steps:
       - uses: actions/checkout@main
@@ -34,15 +33,35 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Run tests
-        run: yarn test
-
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
           parallel: true
           start: yarn start
           wait-on: "http://localhost:3000"
+
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@main
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Cache Node.js modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-node-
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
 
       - name: Run tests
         run: yarn test
