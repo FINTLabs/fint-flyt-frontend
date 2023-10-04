@@ -9,11 +9,12 @@ import {SourceApplicationContext} from "../../../context/SourceApplicationContex
 import {
     getDestinationDisplayName,
     getSourceApplicationDisplayName,
-    getStateDisplayName
+    getStateDisplayName,
+    renderCellWithTooltip
 } from "../../../util/DataGridUtil";
-import {IntegrationContext} from "../../../context/integrationContext";
+import {IntegrationContext} from "../../../context/integrationContext/IntegrationContext";
 import {ClassNameMap} from "@mui/styles";
-import {renderCellWithTooltip} from "../../../util/DataGridUtil";
+
 
 type Props = {
     classes: ClassNameMap
