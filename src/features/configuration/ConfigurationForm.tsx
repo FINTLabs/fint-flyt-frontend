@@ -26,7 +26,7 @@ import CheckboxValueComponent from "./components/common/CheckboxValueComponent";
 import IntegrationRepository from "../../shared/repositories/IntegrationRepository";
 import {IConfiguration, IConfigurationPatch, IObjectMapping} from "./types/Configuration";
 import {IIntegrationPatch, IntegrationState} from "../integration/types/Integration";
-import {ConfigurationContext} from "../../context/configurationContext";
+import {ConfigurationContext} from "../../context/ConfigurationContext";
 import StringValueComponent from "./components/mapping/value/string/StringValueComponent";
 import {IAlertContent} from "./types/AlertContent";
 import {activeAlert, completedAlert, defaultAlert, errorAlert, savedAlert} from "./defaults/DefaultValues";

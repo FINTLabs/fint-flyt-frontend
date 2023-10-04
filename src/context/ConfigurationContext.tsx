@@ -1,7 +1,25 @@
-import {ConfigurationContextState, contextDefaultValues} from "./types";
+
 import {createContext, FC, useState} from "react";
 
-export const ConfigurationContext = createContext<ConfigurationContextState>(
+
+ type ConfigurationContextState = {
+    completed: boolean;
+    setCompleted: (completed: boolean) => void,
+    active: boolean;
+    setActive: (completed: boolean) => void,
+    resetConfigurationContext: () => void;
+}
+
+ const contextDefaultValues: ConfigurationContextState = {
+    completed: false,
+    setCompleted: () => undefined,
+    resetConfigurationContext: () => undefined,
+    active: false,
+    setActive: () => undefined
+};
+
+
+ const ConfigurationContext = createContext<ConfigurationContextState>(
     contextDefaultValues
 );
 
@@ -28,4 +46,4 @@ const ConfigurationProvider: FC = ({children}) => {
     );
 };
 
-export default ConfigurationProvider;
+ export {ConfigurationContext, ConfigurationProvider as default};

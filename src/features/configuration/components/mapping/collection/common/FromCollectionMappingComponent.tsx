@@ -6,7 +6,7 @@ import {ClassNameMap} from "@mui/styles";
 import DynamicStringValueComponent from "../../value/string/DynamicStringValueComponent";
 import ArrayValueWrapperComponent from "../../../common/array/ArrayValueWrapperComponent";
 import FlytTitle4Component from "../../../common/title/FlytTitle4Component";
-import {ConfigurationContext} from "../../../../../../context/configurationContext";
+import {ConfigurationContext} from "../../../../../../context/ConfigurationContext";
 import {isOutsideCollectionEditContext} from "../../../../util/KeyUtils";
 import {IconButton} from "@mui/material";
 import {EditOffRounded, EditRounded} from "@mui/icons-material";
