@@ -5,11 +5,9 @@ import {IIntegrationMetadata} from "../features/configuration/types/Metadata/Int
 import {addId} from "../util/JsonUtil";
 import EventRepository from "../shared/repositories/EventRepository";
 import {processEvents} from "../util/EventUtil";
+import { ContextProps } from "../util/constants/interface";
 
 
-interface HistoryProviderProps {
-    children: React.ReactNode;
-}
 
 type HistoryContextState = {
     events: IEvent[] | undefined,
@@ -34,7 +32,7 @@ const HistoryContext = createContext<HistoryContextState>(
     contextDefaultValues
 );
 
-const HistoryProvider = ({children}: HistoryProviderProps) => {
+const HistoryProvider = ({children}: ContextProps) => {
     const [events, setEvents] = useState<IEvent[] | undefined>(contextDefaultValues.events);
     const [latestInstances, setLatestInstances] = useState<IEvent[] | undefined>(contextDefaultValues.latestInstances);
     const [selectedInstances, setSelectedInstances] = useState<IEvent[] | undefined>(contextDefaultValues.selectedInstances)

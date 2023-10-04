@@ -7,10 +7,7 @@ import {IIntegrationMetadata} from "../features/configuration/types/Metadata/Int
 import ConfigurationRepository from "../shared/repositories/ConfigurationRepository";
 import IntegrationRepository from "../shared/repositories/IntegrationRepository";
 import SourceApplicationRepository from "../shared/repositories/SourceApplicationRepository";
-
-interface IntegrationContextProps {
-    children: React.ReactNode;
-}
+import { ContextProps } from "../util/constants/interface";
 
 type IntegrationContextState = {
     id: string | undefined;
@@ -77,7 +74,7 @@ const contextDefaultValues: IntegrationContextState = {
 
 
 
-const IntegrationProvider= ({children}: IntegrationContextProps) => {
+const IntegrationProvider= ({children}: ContextProps) => {
     const [existingIntegration, setExistingIntegration] = useState<IIntegration | undefined>(undefined);
     const [id, setId] = useState<string | undefined>(undefined);
     const [integrations, setIntegrations] = useState<IIntegration[] | undefined>(undefined);

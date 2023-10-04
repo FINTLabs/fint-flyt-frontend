@@ -1,9 +1,6 @@
 
 import {createContext, useState} from "react";
-
-interface EditingContextProps {
-    children: React.ReactNode;
-}
+import { ContextProps } from "../util/constants/interface";
 
  type EditingContextState = {
     editCollectionAbsoluteKey: string;
@@ -20,7 +17,7 @@ interface EditingContextProps {
     contextDefaultValues
 );
 
-const EditingProvider = ({children}: EditingContextProps) => {
+const EditingProvider = ({children}: ContextProps) => {
     const [editCollectionAbsoluteKey, setEditCollectionAbsoluteKey] =
         useState<string>(contextDefaultValues.editCollectionAbsoluteKey)
 

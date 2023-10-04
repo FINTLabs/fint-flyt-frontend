@@ -10,10 +10,8 @@ import {
 } from "../features/configuration/types/Metadata/IntegrationMetadata";
 import {ISelect} from "../features/configuration/types/Select";
 import {IIntegration} from "../features/integration/types/Integration";
+import { ContextProps } from "../util/constants/interface";
 
-interface SourceApplicationProviderProps {
-    children: React.ReactNode;
-}
 
 type SourceApplicationContextState = {
     isAdmin: boolean;
@@ -64,7 +62,7 @@ const contextDefaultValues: SourceApplicationContextState = {
     contextDefaultValues
 );
 
-const SourceApplicationProvider = ({children}: SourceApplicationProviderProps) => {
+const SourceApplicationProvider = ({children}: ContextProps) => {
     const [isAdmin, setIsAdmin] = useState<boolean>(contextDefaultValues.isAdmin)
     const [availableForms, setAvailableForms] = useState<ISelect[]>(contextDefaultValues.availableForms);
     const [allMetadata, setAllMetadata] = useState<IIntegrationMetadata[]>(contextDefaultValues.allMetadata)
