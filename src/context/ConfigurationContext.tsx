@@ -1,5 +1,8 @@
 
-import {createContext, FC, useState} from "react";
+import {createContext, useState} from "react";
+interface HistoryProviderProps {
+    children: React.ReactNode;
+}
 
 
  type ConfigurationContextState = {
@@ -23,7 +26,7 @@ import {createContext, FC, useState} from "react";
     contextDefaultValues
 );
 
-const ConfigurationProvider: FC = ({children}) => {
+const ConfigurationProvider = ({children}: HistoryProviderProps) => {
     const [completed, setCompleted] = useState<boolean>(contextDefaultValues.completed);
     const [active, setActive] = useState<boolean>(contextDefaultValues.active);
 
