@@ -6,6 +6,11 @@ import {addId} from "../util/JsonUtil";
 import EventRepository from "../shared/repositories/EventRepository";
 import {processEvents} from "../util/EventUtil";
 
+
+interface HistoryProviderProps {
+    children: React.ReactNode;
+}
+
 type HistoryContextState = {
     events: IEvent[] | undefined,
     getEvents: (page: number, size: number, sortProperty: string, sortDirection: string) => void;
@@ -29,7 +34,7 @@ const HistoryContext = createContext<HistoryContextState>(
     contextDefaultValues
 );
 
-const HistoryProvider: FC = ({children}) => {
+const HistoryProvider = ({children}: HistoryProviderProps) => {
     const [events, setEvents] = useState<IEvent[] | undefined>(contextDefaultValues.events);
     const [latestInstances, setLatestInstances] = useState<IEvent[] | undefined>(contextDefaultValues.latestInstances);
     const [selectedInstances, setSelectedInstances] = useState<IEvent[] | undefined>(contextDefaultValues.selectedInstances)
