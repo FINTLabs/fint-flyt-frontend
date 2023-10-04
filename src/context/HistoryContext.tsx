@@ -1,5 +1,5 @@
 import {IEvent} from "../features/instanceOverview/types/Event";
-import {createContext, FC, useState} from "react";
+import {createContext,  useState} from "react";
 import SourceApplicationRepository from "../shared/repositories/SourceApplicationRepository";
 import {IIntegrationMetadata} from "../features/configuration/types/Metadata/IntegrationMetadata";
 import {addId} from "../util/JsonUtil";

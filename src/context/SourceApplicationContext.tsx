@@ -1,4 +1,4 @@
-import React, {createContext, FC, useState} from "react";
+import React, {createContext, useState} from "react";
 
 import SourceApplicationRepository from "../shared/repositories/SourceApplicationRepository";
 import IntegrationRepository from "../shared/repositories/IntegrationRepository";
