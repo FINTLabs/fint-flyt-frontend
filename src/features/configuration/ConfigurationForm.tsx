@@ -18,7 +18,7 @@ import {
     Theme,
     Typography
 } from "@mui/material";
-import {IntegrationContext} from "../../context/integrationContext/IntegrationContext";
+import {IntegrationContext} from "../../context/IntegrationContext";
 import {IIntegrationMetadata} from "./types/Metadata/IntegrationMetadata";
 import {useTranslation} from "react-i18next";
 import {ConfigurationFormStyles} from "../../util/styles/ConfigurationFormStyles";

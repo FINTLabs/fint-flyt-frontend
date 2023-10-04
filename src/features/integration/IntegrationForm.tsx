@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import {destinations, sourceApplications} from "../configuration/defaults/DefaultValues";
 import {Autocomplete, Box, Button, FormGroup, MenuItem, TextField, Typography} from "@mui/material";
 import {RouteComponentProps, useHistory} from "react-router-dom";
-import {IntegrationContext} from "../../context/integrationContext/IntegrationContext";
+import {IntegrationContext} from "../../context/IntegrationContext";
 import HelpPopover from "../configuration/components/common/popover/HelpPopover";
 import {useTranslation} from "react-i18next";
 import {SourceApplicationContext, contextDefaultValues} from "../../context/SourceApplicationContext";

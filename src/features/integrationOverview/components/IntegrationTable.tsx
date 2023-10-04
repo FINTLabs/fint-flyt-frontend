@@ -12,7 +12,7 @@ import {
     getStateDisplayName,
     renderCellWithTooltip
 } from "../../../util/DataGridUtil";
-import {IntegrationContext} from "../../../context/integrationContext/IntegrationContext";
+import {IntegrationContext} from "../../../context/IntegrationContext";
 import {ClassNameMap} from "@mui/styles";
 
 

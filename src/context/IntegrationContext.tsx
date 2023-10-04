@@ -1,12 +1,12 @@
 import {createContext, useState} from "react";
-import {IIntegration} from "../../features/integration/types/Integration";
-import {IConfiguration} from "../../features/configuration/types/Configuration";
-import EventRepository from "../../shared/repositories/EventRepository";
-import {IIntegrationStatistics} from "../../features/dashboard/types/IntegrationStatistics";
-import {IIntegrationMetadata} from "../../features/configuration/types/Metadata/IntegrationMetadata";
-import ConfigurationRepository from "../../shared/repositories/ConfigurationRepository";
-import IntegrationRepository from "../../shared/repositories/IntegrationRepository";
-import SourceApplicationRepository from "../../shared/repositories/SourceApplicationRepository";
+import {IIntegration} from "../features/integration/types/Integration";
+import {IConfiguration} from "../features/configuration/types/Configuration";
+import EventRepository from "../shared/repositories/EventRepository";
+import {IIntegrationStatistics} from "../features/dashboard/types/IntegrationStatistics";
+import {IIntegrationMetadata} from "../features/configuration/types/Metadata/IntegrationMetadata";
+import ConfigurationRepository from "../shared/repositories/ConfigurationRepository";
+import IntegrationRepository from "../shared/repositories/IntegrationRepository";
+import SourceApplicationRepository from "../shared/repositories/SourceApplicationRepository";
 
 interface IntegrationContextProps {
     children: React.ReactNode;

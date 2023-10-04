@@ -1,6 +1,6 @@
 import {Box, Card, CardContent} from '@mui/material';
 import React, {useContext, useEffect} from 'react';
-import {IntegrationContext} from "../../context/integrationContext/IntegrationContext";
+import {IntegrationContext} from "../../context/IntegrationContext";
 import IntegrationTable from "../integrationOverview/components/IntegrationTable";
 import DashboardCard from "./DashboardCard";
 import {ICard} from "./types/Card";
