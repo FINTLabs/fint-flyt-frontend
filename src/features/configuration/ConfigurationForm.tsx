@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {useHistory} from 'react-router-dom';
-import {SourceApplicationContext} from "../../context/sourceApplicationContext";
+import {SourceApplicationContext} from "../../context/SourceApplicationContext";
 import OutgoingDataComponent from "./components/OutgoingDataComponent";
 import {Controller, FormProvider, useForm} from "react-hook-form";
 import {HTML5Backend} from "react-dnd-html5-backend";

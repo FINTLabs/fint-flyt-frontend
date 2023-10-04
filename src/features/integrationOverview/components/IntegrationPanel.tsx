@@ -23,7 +23,7 @@ import {IntegrationContext} from "../../../context/integrationContext";
 import {Link as RouterLink, useHistory} from 'react-router-dom';
 import IntegrationRepository from "../../../shared/repositories/IntegrationRepository";
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
-import {SourceApplicationContext} from "../../../context/sourceApplicationContext";
+import {SourceApplicationContext} from "../../../context/SourceApplicationContext";
 import {getDestinationDisplayName, getSourceApplicationDisplayName} from "../../../util/DataGridUtil";
 import ConfigurationRepository from "../../../shared/repositories/ConfigurationRepository";
 import {IIntegrationPatch} from "../../integration/types/Integration";

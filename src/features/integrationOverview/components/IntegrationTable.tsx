@@ -5,7 +5,7 @@ import {useContext} from "react";
 import {useHistory} from "react-router-dom";
 import {gridLocaleNoNB} from "../../../util/locale/gridLocaleNoNB";
 import {useTranslation} from "react-i18next";
-import {SourceApplicationContext} from "../../../context/sourceApplicationContext";
+import {SourceApplicationContext} from "../../../context/SourceApplicationContext";
 import {
     getDestinationDisplayName,
     getSourceApplicationDisplayName,

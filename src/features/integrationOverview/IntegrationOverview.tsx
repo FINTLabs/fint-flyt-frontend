@@ -4,7 +4,7 @@ import IntegrationTable from "./components/IntegrationTable";
 import {IntegrationContext} from "../../context/integrationContext";
 import {useTranslation} from 'react-i18next';
 import IntegrationPanel from "./components/IntegrationPanel";
-import {SourceApplicationContext} from "../../context/sourceApplicationContext";
+import {SourceApplicationContext} from "../../context/SourceApplicationContext";
 import {IntegrationStyles} from "../../util/styles/Integration.styles";
 import {RouteComponent} from "../main/Route";
 

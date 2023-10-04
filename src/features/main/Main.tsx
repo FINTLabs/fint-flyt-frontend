@@ -5,7 +5,7 @@ import MenuItems from "./MenuItems";
 import {Link as RouterLink} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
-import {SourceApplicationContext} from "../../context/sourceApplicationContext";
+import {SourceApplicationContext} from "../../context/SourceApplicationContext";
 import ConfigurationProvider from "../../context/configurationContext";
 import {MainStyles} from "../../util/styles/Main.styles";
 import IntegrationRepository from "../../shared/repositories/IntegrationRepository";
