@@ -11,7 +11,7 @@ import {range} from "lodash";
 import {useFormContext} from "react-hook-form";
 import ValueWatchComponent from "../common/ValueWatchComponent";
 import {findFromCollectionMappingAbsoluteKeys} from "../../util/KeyUtils";
-import {EditingContext} from "../../../../context/editingContext";
+import {EditingContext} from "../../../../context/EditingContext";
 
 interface Props {
     classes: ClassNameMap

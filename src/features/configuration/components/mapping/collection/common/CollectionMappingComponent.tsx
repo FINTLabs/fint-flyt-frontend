@@ -9,7 +9,7 @@ import ArrayValueWrapperComponent from "../../../common/array/ArrayValueWrapperC
 import FlytTitle3Component from "../../../common/title/FlytTitle3Component";
 import {ConfigurationContext} from "../../../../../../context/configurationContext";
 import {isOutsideCollectionEditContext} from "../../../../util/KeyUtils";
-import {EditingContext} from "../../../../../../context/editingContext";
+import {EditingContext} from "../../../../../../context/EditingContext";
 import HelpPopover from "../../../common/popover/HelpPopover";
 import {Box} from "@mui/material";
 

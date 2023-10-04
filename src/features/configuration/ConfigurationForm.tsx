@@ -32,7 +32,7 @@ import {IAlertContent} from "./types/AlertContent";
 import {activeAlert, completedAlert, defaultAlert, errorAlert, savedAlert} from "./defaults/DefaultValues";
 import ConfigurationRepository from "../../shared/repositories/ConfigurationRepository";
 import {pruneObjectMapping} from "../../util/mapping/helpers/pruning";
-import EditingProvider, {EditingContext} from "../../context/editingContext";
+import EditingProvider, {EditingContext} from "../../context/EditingContext";
 import {RouteComponent} from "../main/Route";
 import {isEmpty} from "lodash";
 

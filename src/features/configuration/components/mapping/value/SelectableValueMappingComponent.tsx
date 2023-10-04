@@ -13,7 +13,7 @@ import DynamicStringOrSearchSelectValueComponent, {
 } from "./DynamicStringOrSearchSelectValueComponent";
 import {isOutsideCollectionEditContext} from "../../../util/KeyUtils";
 import {ConfigurationContext} from "../../../../../context/configurationContext";
-import {EditingContext} from "../../../../../context/editingContext";
+import {EditingContext} from "../../../../../context/EditingContext";
 import {hasValidFormat} from "../../../util/ValidationUtil";
 
 interface Props {
