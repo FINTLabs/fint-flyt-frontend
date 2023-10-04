@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {useHistory} from 'react-router-dom';
-import {SourceApplicationContext} from "../../context/sourceApplicationContext";
+import {SourceApplicationContext} from "../../context/SourceApplicationContext";
 import OutgoingDataComponent from "./components/OutgoingDataComponent";
 import {Controller, FormProvider, useForm} from "react-hook-form";
 import {HTML5Backend} from "react-dnd-html5-backend";
@@ -18,7 +18,7 @@ import {
     Theme,
     Typography
 } from "@mui/material";
-import {IntegrationContext} from "../../context/integrationContext";
+import {IntegrationContext} from "../../context/IntegrationContext";
 import {IIntegrationMetadata} from "./types/Metadata/IntegrationMetadata";
 import {useTranslation} from "react-i18next";
 import {ConfigurationFormStyles} from "../../util/styles/ConfigurationFormStyles";
@@ -26,13 +26,13 @@ import CheckboxValueComponent from "./components/common/CheckboxValueComponent";
 import IntegrationRepository from "../../shared/repositories/IntegrationRepository";
 import {IConfiguration, IConfigurationPatch, IObjectMapping} from "./types/Configuration";
 import {IIntegrationPatch, IntegrationState} from "../integration/types/Integration";
-import {ConfigurationContext} from "../../context/configurationContext";
+import {ConfigurationContext} from "../../context/ConfigurationContext";
 import StringValueComponent from "./components/mapping/value/string/StringValueComponent";
 import {IAlertContent} from "./types/AlertContent";
 import {activeAlert, completedAlert, defaultAlert, errorAlert, savedAlert} from "./defaults/DefaultValues";
 import ConfigurationRepository from "../../shared/repositories/ConfigurationRepository";
 import {pruneObjectMapping} from "../../util/mapping/helpers/pruning";
-import EditingProvider, {EditingContext} from "../../context/editingContext";
+import EditingProvider, {EditingContext} from "../../context/EditingContext";
 import {RouteComponent} from "../main/Route";
 import {isEmpty} from "lodash";
 

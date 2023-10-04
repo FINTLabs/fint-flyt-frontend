@@ -2,11 +2,12 @@ import React, {useEffect, useState} from 'react';
 import {createTheme, ThemeProvider} from "@mui/material";
 import Main from "./features/main/Main";
 import {BrowserRouter} from "react-router-dom";
-import IntegrationProvider from "./context/integrationContext";
-import SourceApplicationProvider from "./context/sourceApplicationContext";
-import HistoryProvider from "./context/historyContext";
+import IntegrationProvider from "./context/IntegrationContext";
+import SourceApplicationProvider from "./context/SourceApplicationContext";
 import axios from "axios";
 import {nbNO} from '@mui/material/locale';
+import HistoryProvider from './context/HistoryContext';
+
 
 const theme = createTheme(
     {

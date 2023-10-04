@@ -1,19 +1,80 @@
-import React, {createContext, FC, useState} from "react";
-import {contextDefaultValues, IntegrationContextState} from "./types";
-import {IIntegration} from "../../features/integration/types/Integration";
-import {IConfiguration} from "../../features/configuration/types/Configuration";
-import EventRepository from "../../shared/repositories/EventRepository";
-import {IIntegrationStatistics} from "../../features/dashboard/types/IntegrationStatistics";
-import {IIntegrationMetadata} from "../../features/configuration/types/Metadata/IntegrationMetadata";
-import ConfigurationRepository from "../../shared/repositories/ConfigurationRepository";
-import IntegrationRepository from "../../shared/repositories/IntegrationRepository";
-import SourceApplicationRepository from "../../shared/repositories/SourceApplicationRepository";
+import {createContext, useState} from "react";
+import {IIntegration} from "../features/integration/types/Integration";
+import {IConfiguration} from "../features/configuration/types/Configuration";
+import EventRepository from "../shared/repositories/EventRepository";
+import {IIntegrationStatistics} from "../features/dashboard/types/IntegrationStatistics";
+import {IIntegrationMetadata} from "../features/configuration/types/Metadata/IntegrationMetadata";
+import ConfigurationRepository from "../shared/repositories/ConfigurationRepository";
+import IntegrationRepository from "../shared/repositories/IntegrationRepository";
+import SourceApplicationRepository from "../shared/repositories/SourceApplicationRepository";
+import { ContextProps } from "../util/constants/interface";
 
-export const IntegrationContext = createContext<IntegrationContextState>(
+type IntegrationContextState = {
+    id: string | undefined;
+    setId: (number: string | undefined) => void;
+    existingIntegration: IIntegration | undefined;
+    setExistingIntegration: (integration: IIntegration | undefined) => void;
+    integrations: IIntegration[] | undefined;
+    setIntegrations: (integrations: IIntegration[]) => void;
+    getIntegrations: (sourceApplicationId: string) => void;
+    configuration: IConfiguration | undefined;
+    setConfiguration: (configuration: IConfiguration | undefined) => void;
+    configurations: IConfiguration[] | undefined;
+    completedConfigurations: IConfiguration[] | undefined;
+    setConfigurations: (configurations: IConfiguration[]) => void;
+    setCompletedConfigurations: (configurations: IConfiguration[]) => void;
+    getConfiguration: (integration: string, excludeElements: boolean) => void;
+    getConfigurations: (page: number, size: number, sortProperty: string, sortDirection: string, complete: boolean, integration: string, excludeElements: boolean) => void;
+    getCompletedConfigurations: (page: number, size: number, sortProperty: string, sortDirection: string, complete: boolean, integration: string, excludeElements: boolean) => void;
+    destination: string,
+    selectedMetadata: IIntegrationMetadata | undefined;
+    setSelectedMetadata: (form: IIntegrationMetadata | undefined) => void,
+    sourceApplicationIntegrationId: string,
+    setSourceApplicationIntegrationId: (id: string) => void,
+    setDestination: (destination: string) => void;
+    sourceApplicationId: string,
+    setSourceApplicationId: (destination: string) => void,
+    resetIntegrationContext: () => void;
+    resetIntegrations: () => void;
+    statistics: IIntegrationStatistics[]
+};
+
+const contextDefaultValues: IntegrationContextState = {
+    id: undefined,
+    setId: () => undefined,
+    existingIntegration: undefined,
+    setExistingIntegration: () => undefined,
+    integrations: [],
+    setIntegrations: () => undefined,
+    getIntegrations: () => undefined,
+    configuration: undefined,
+    setConfiguration: () => undefined,
+    configurations: undefined,
+    completedConfigurations: undefined,
+    getConfiguration: () => undefined,
+    getConfigurations: () => undefined,
+    getCompletedConfigurations: () => undefined,
+    setConfigurations: () => undefined,
+    setCompletedConfigurations: () => undefined,
+    destination: '',
+    selectedMetadata: undefined,
+    setSelectedMetadata: () => undefined,
+    setDestination: () => undefined,
+    sourceApplicationId: '',
+    setSourceApplicationId: () => undefined,
+    sourceApplicationIntegrationId: '',
+    setSourceApplicationIntegrationId: () => undefined,
+    resetIntegrationContext: () => undefined,
+    resetIntegrations: () => undefined,
+    statistics: []
+};
+ const IntegrationContext = createContext<IntegrationContextState>(
     contextDefaultValues
 );
 
-const IntegrationProvider: FC = ({children}) => {
+
+
+const IntegrationProvider= ({children}: ContextProps) => {
     const [existingIntegration, setExistingIntegration] = useState<IIntegration | undefined>(undefined);
     const [id, setId] = useState<string | undefined>(undefined);
     const [integrations, setIntegrations] = useState<IIntegration[] | undefined>(undefined);
@@ -171,4 +232,4 @@ const IntegrationProvider: FC = ({children}) => {
     );
 };
 
-export default IntegrationProvider;
+export  {IntegrationContext, IntegrationProvider as default};

@@ -5,17 +5,16 @@ import {DataGrid, GridCellParams, GridColumns, GridToolbar} from "@mui/x-data-gr
 import moment from "moment/moment";
 import {Box, Button, Dialog, DialogActions, DialogContent, IconButton} from "@mui/material";
 import {gridLocaleNoNB} from "../../../util/locale/gridLocaleNoNB";
-import {HistoryContext} from "../../../context/historyContext";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import {IEvent} from "../types/Event";
 import ErrorIcon from "@mui/icons-material/Error";
 import InfoIcon from "@mui/icons-material/Info";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import {getSourceApplicationDisplayName} from "../../../util/DataGridUtil";
+import {getSourceApplicationDisplayName, renderCellWithTooltip} from "../../../util/DataGridUtil";
 import {useHistory} from "react-router-dom";
 import {ClassNameMap} from "@mui/styles";
 import DialogContentComponent from "./DialogContentComponent";
-import {renderCellWithTooltip} from "../../../util/DataGridUtil";
+import { HistoryContext } from "../../../context/HistoryContext";
 
 type Props = {
     classes: ClassNameMap

@@ -1,11 +1,11 @@
 import {Box, Card, CardContent} from '@mui/material';
 import React, {useContext, useEffect} from 'react';
-import {IntegrationContext} from "../../context/integrationContext";
+import {IntegrationContext} from "../../context/IntegrationContext";
 import IntegrationTable from "../integrationOverview/components/IntegrationTable";
 import DashboardCard from "./DashboardCard";
 import {ICard} from "./types/Card";
 import {useTranslation} from "react-i18next";
-import {SourceApplicationContext} from "../../context/sourceApplicationContext";
+import {SourceApplicationContext} from "../../context/SourceApplicationContext";
 import {DashboardStyles} from "../../util/styles/Dashboard.styles";
 import {IIntegrationStatistics} from "./types/IntegrationStatistics";
 import {RouteComponent} from "../main/Route";

@@ -1,10 +1,10 @@
 import {Breadcrumbs, Typography} from '@mui/material';
 import React, {useContext, useEffect} from 'react';
 import IntegrationTable from "./components/IntegrationTable";
-import {IntegrationContext} from "../../context/integrationContext";
+import {IntegrationContext} from "../../context/IntegrationContext";
 import {useTranslation} from 'react-i18next';
 import IntegrationPanel from "./components/IntegrationPanel";
-import {SourceApplicationContext} from "../../context/sourceApplicationContext";
+import {SourceApplicationContext} from "../../context/SourceApplicationContext";
 import {IntegrationStyles} from "../../util/styles/Integration.styles";
 import {RouteComponent} from "../main/Route";
 

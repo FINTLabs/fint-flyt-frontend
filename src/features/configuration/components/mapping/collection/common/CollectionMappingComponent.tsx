@@ -7,9 +7,9 @@ import {ClassNameMap} from "@mui/styles";
 import ArrayObjectWrapperComponent from "../../../common/array/ArrayObjectWrapperComponent";
 import ArrayValueWrapperComponent from "../../../common/array/ArrayValueWrapperComponent";
 import FlytTitle3Component from "../../../common/title/FlytTitle3Component";
-import {ConfigurationContext} from "../../../../../../context/configurationContext";
+import {ConfigurationContext} from "../../../../../../context/ConfigurationContext";
 import {isOutsideCollectionEditContext} from "../../../../util/KeyUtils";
-import {EditingContext} from "../../../../../../context/editingContext";
+import {EditingContext} from "../../../../../../context/EditingContext";
 import HelpPopover from "../../../common/popover/HelpPopover";
 import {Box} from "@mui/material";
 

@@ -8,9 +8,9 @@ import {ValueType as ConfigurationValueType} from "../../../types/Configuration"
 import {ValueType as MetadataValueType} from "../../../types/Metadata/IntegrationMetadata";
 import {ClassNameMap} from "@mui/styles";
 import {Search, SourceStatefulValue} from "../../../util/UrlUtils";
-import {ConfigurationContext} from "../../../../../context/configurationContext";
+import {ConfigurationContext} from "../../../../../context/ConfigurationContext";
 import {isOutsideCollectionEditContext} from "../../../util/KeyUtils";
-import {EditingContext} from "../../../../../context/editingContext";
+import {EditingContext} from "../../../../../context/EditingContext";
 import CheckboxValueComponent from "../../common/CheckboxValueComponent";
 import {ControllerRenderProps} from "react-hook-form/dist/types/controller";
 import HelpPopover from "../../common/popover/HelpPopover";

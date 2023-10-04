@@ -1,17 +1,38 @@
-import {IEvent} from "../../features/instanceOverview/types/Event";
-import {contextDefaultValues, HistoryContextState} from "./types";
-import {createContext, FC, useState} from "react";
-import SourceApplicationRepository from "../../shared/repositories/SourceApplicationRepository";
-import {IIntegrationMetadata} from "../../features/configuration/types/Metadata/IntegrationMetadata";
-import {addId} from "../../util/JsonUtil";
-import EventRepository from "../../shared/repositories/EventRepository";
-import {processEvents} from "../../util/EventUtil";
+import {IEvent} from "../features/instanceOverview/types/Event";
+import {createContext,  useState} from "react";
+import SourceApplicationRepository from "../shared/repositories/SourceApplicationRepository";
+import {IIntegrationMetadata} from "../features/configuration/types/Metadata/IntegrationMetadata";
+import {addId} from "../util/JsonUtil";
+import EventRepository from "../shared/repositories/EventRepository";
+import {processEvents} from "../util/EventUtil";
+import { ContextProps } from "../util/constants/interface";
 
-export const HistoryContext = createContext<HistoryContextState>(
+
+
+type HistoryContextState = {
+    events: IEvent[] | undefined,
+    getEvents: (page: number, size: number, sortProperty: string, sortDirection: string) => void;
+    latestInstances: IEvent[] | undefined,
+    getLatestInstances: (page: number, size: number, sortProperty: string, sortDirection: string, sourceApplicationId: string) => void;
+    selectedInstances: IEvent[] | undefined,
+    getSelectedInstances: (page: number, size: number, sortProperty: string, sortDirection: string, sourceApplicationId: string, instanceId: string) => void;
+}
+
+const contextDefaultValues: HistoryContextState = {
+    events: undefined,
+    latestInstances: undefined,
+    getEvents: () => undefined,
+    getLatestInstances: () => undefined,
+    selectedInstances: undefined,
+    getSelectedInstances: () => undefined
+};
+
+
+const HistoryContext = createContext<HistoryContextState>(
     contextDefaultValues
 );
 
-const HistoryProvider: FC = ({children}) => {
+const HistoryProvider = ({children}: ContextProps) => {
     const [events, setEvents] = useState<IEvent[] | undefined>(contextDefaultValues.events);
     const [latestInstances, setLatestInstances] = useState<IEvent[] | undefined>(contextDefaultValues.latestInstances);
     const [selectedInstances, setSelectedInstances] = useState<IEvent[] | undefined>(contextDefaultValues.selectedInstances)
@@ -88,4 +109,4 @@ const HistoryProvider: FC = ({children}) => {
     );
 };
 
-export default HistoryProvider;
+export {HistoryContext, HistoryProvider as default};

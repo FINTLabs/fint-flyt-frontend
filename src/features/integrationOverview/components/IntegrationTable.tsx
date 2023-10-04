@@ -5,15 +5,16 @@ import {useContext} from "react";
 import {useHistory} from "react-router-dom";
 import {gridLocaleNoNB} from "../../../util/locale/gridLocaleNoNB";
 import {useTranslation} from "react-i18next";
-import {SourceApplicationContext} from "../../../context/sourceApplicationContext";
+import {SourceApplicationContext} from "../../../context/SourceApplicationContext";
 import {
     getDestinationDisplayName,
     getSourceApplicationDisplayName,
-    getStateDisplayName
+    getStateDisplayName,
+    renderCellWithTooltip
 } from "../../../util/DataGridUtil";
-import {IntegrationContext} from "../../../context/integrationContext";
+import {IntegrationContext} from "../../../context/IntegrationContext";
 import {ClassNameMap} from "@mui/styles";
-import {renderCellWithTooltip} from "../../../util/DataGridUtil";
+
 
 type Props = {
     classes: ClassNameMap

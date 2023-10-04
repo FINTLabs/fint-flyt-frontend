@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import {Link as RouterLink} from 'react-router-dom';
 import {Button, Typography} from "@mui/material";
 import {useTranslation} from 'react-i18next';
-import {SourceApplicationContext} from "../../context/sourceApplicationContext";
+import {SourceApplicationContext} from "../../context/SourceApplicationContext";
 import {RouteComponent} from "../main/Route";
 
 const Admin: RouteComponent = () => {

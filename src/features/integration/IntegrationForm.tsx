@@ -2,10 +2,10 @@ import React, {useContext, useEffect, useState} from 'react';
 import {destinations, sourceApplications} from "../configuration/defaults/DefaultValues";
 import {Autocomplete, Box, Button, FormGroup, MenuItem, TextField, Typography} from "@mui/material";
 import {RouteComponentProps, useHistory} from "react-router-dom";
-import {IntegrationContext} from "../../context/integrationContext";
+import {IntegrationContext} from "../../context/IntegrationContext";
 import HelpPopover from "../configuration/components/common/popover/HelpPopover";
 import {useTranslation} from "react-i18next";
-import {SourceApplicationContext} from "../../context/sourceApplicationContext";
+import {SourceApplicationContext, contextDefaultValues} from "../../context/SourceApplicationContext";
 import IntegrationRepository from '../../shared/repositories/IntegrationRepository';
 import {IIntegration, IntegrationState} from "./types/Integration";
 import {IFormIntegration} from "../configuration/types/FormIntegration";
@@ -14,7 +14,7 @@ import {IntegrationFormStyles} from "../../util/styles/IntegrationForm.styles"
 import {toIntegration} from "../../util/mapping/ToIntegration";
 import {ISelect} from "../configuration/types/Select";
 import {IIntegrationMetadata} from "../configuration/types/Metadata/IntegrationMetadata";
-import {contextDefaultValues} from "../../context/sourceApplicationContext/types";
+
 
 const useStyles = IntegrationFormStyles;
 

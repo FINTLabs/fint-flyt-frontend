@@ -12,8 +12,8 @@ import DynamicStringOrSearchSelectValueComponent, {
     Type as DynamicStringOrSearchSelectType
 } from "./DynamicStringOrSearchSelectValueComponent";
 import {isOutsideCollectionEditContext} from "../../../util/KeyUtils";
-import {ConfigurationContext} from "../../../../../context/configurationContext";
-import {EditingContext} from "../../../../../context/editingContext";
+import {ConfigurationContext} from "../../../../../context/ConfigurationContext";
+import {EditingContext} from "../../../../../context/EditingContext";
 import {hasValidFormat} from "../../../util/ValidationUtil";
 
 interface Props {
