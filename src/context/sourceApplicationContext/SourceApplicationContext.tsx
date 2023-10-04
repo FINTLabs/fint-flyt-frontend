@@ -1,5 +1,5 @@
 import React, {createContext, FC, useState} from "react";
-import {contextDefaultValues, SourceApplicationContextState} from "./types";
+
 import SourceApplicationRepository from "../../shared/repositories/SourceApplicationRepository";
 import IntegrationRepository from "../../shared/repositories/IntegrationRepository";
 import {
@@ -11,11 +11,60 @@ import {
 import {ISelect} from "../../features/configuration/types/Select";
 import {IIntegration} from "../../features/integration/types/Integration";
 
-export const SourceApplicationContext = createContext<SourceApplicationContextState>(
+interface SourceApplicationProviderProps {
+    children: React.ReactNode;
+}
+
+type SourceApplicationContextState = {
+    isAdmin: boolean;
+    setIsAdmin: (admin: boolean) => void;
+    availableForms: ISelect[];
+    getAllIntegrationsAndSetAvailableForms: (forms: ISelect[]) => void;
+    getAvailableForms: () => void;
+    allMetadata: IIntegrationMetadata[];
+    instanceElementMetadata: IInstanceMetadataContent | undefined;
+    setInstanceElementMetadata: (instanceMetadataContent: IInstanceMetadataContent | undefined) => void;
+    instanceObjectCollectionMetadata: IInstanceObjectCollectionMetadata[],
+    getInstanceObjectCollectionMetadata: (key: string[]) => void,
+    getAllMetadata: (onlyLatest: boolean) => void;
+    getInstanceElementMetadata: (metadataId: string) => void;
+    sourceApplication: number | undefined;
+    setSourceApplication: (id: number | undefined) => void;
+};
+
+const contextDefaultValues: SourceApplicationContextState = {
+    isAdmin: false,
+    setIsAdmin: () => undefined,
+    availableForms: [
+        {value: 'null', label: 'Velg skjemaleverandør først'}
+    ],
+    getAllIntegrationsAndSetAvailableForms: () => undefined,
+    getAvailableForms: () => undefined,
+    allMetadata: [{
+        id: '',
+        instanceElementMetadata: [],
+        sourceApplicationIntegrationUri: '',
+        sourceApplicationIntegrationId: '',
+        sourceApplicationId: '',
+        integrationDisplayName: 'INGEN DATA',
+        version: 0
+    }],
+    instanceElementMetadata: undefined,
+    setInstanceElementMetadata: () => undefined,
+    instanceObjectCollectionMetadata: [],
+    getInstanceObjectCollectionMetadata: () => undefined,
+    getAllMetadata: () => undefined,
+    getInstanceElementMetadata: () => undefined,
+    sourceApplication: undefined,
+    setSourceApplication: () => undefined
+};
+
+
+ const SourceApplicationContext = createContext<SourceApplicationContextState>(
     contextDefaultValues
 );
 
-const SourceApplicationProvider: FC = ({children}) => {
+const SourceApplicationProvider = ({children}: SourceApplicationProviderProps) => {
     const [isAdmin, setIsAdmin] = useState<boolean>(contextDefaultValues.isAdmin)
     const [availableForms, setAvailableForms] = useState<ISelect[]>(contextDefaultValues.availableForms);
     const [allMetadata, setAllMetadata] = useState<IIntegrationMetadata[]>(contextDefaultValues.allMetadata)
@@ -122,4 +171,4 @@ const SourceApplicationProvider: FC = ({children}) => {
     );
 };
 
-export default SourceApplicationProvider;
+export  {SourceApplicationContext, SourceApplicationProvider as default};
