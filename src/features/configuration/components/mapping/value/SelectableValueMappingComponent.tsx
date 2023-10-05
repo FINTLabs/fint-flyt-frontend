@@ -77,7 +77,6 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = forwardR
         }
     }
 
-    console.log(props)
 
     return <Controller
         name={props.absoluteKey + ".mappingString"}
