@@ -385,7 +385,7 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
                             .map((config: IConfiguration, index: number) => {
                                     return <MenuItem onClick={handleNewConfigSubClose} disableGutters={true} divider={true}
                                                      dense={true} key={index}>
-                                        <Button id="version-button" onClick={() => {
+                                        <Button sx={{minWidth: (theme) => theme.spacing(20)}} id="version-button" onClick={() => {
                                             handleNewOrEditConfigClick(config.id, config.version).then(() => history.push("/integration/configuration/edit"))
                                         }}>
                                             {t('button.version')} {config.version}

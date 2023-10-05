@@ -41,7 +41,9 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = forwardR
     );
     const typeAbsoluteKey: string = props.absoluteKey + ".type";
 
-    const [validationType, setValidationType] = useState<ConfigurationValueType>(ConfigurationValueType.STRING)
+    const initialType: {type: ConfigurationValueType, mappingString: string} = getValues(props.absoluteKey)
+
+    const [validationType, setValidationType] = useState<ConfigurationValueType>(initialType? initialType.type : ConfigurationValueType.STRING)
 
     function setTypeIfUndefined(type: ConfigurationValueType) {
         if (!getValues(typeAbsoluteKey)) {
@@ -74,6 +76,8 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = forwardR
                 throw new Error("Invalid dynamicStringOrSearchSelectType");
         }
     }
+
+    console.log(props)
 
     return <Controller
         name={props.absoluteKey + ".mappingString"}
