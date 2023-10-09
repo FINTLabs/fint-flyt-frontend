@@ -196,7 +196,7 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
                                 return <MenuItem onClick={handleNewConfigSubClose} sx={{padding: 'none'}}
                                                  disableGutters={true} divider={true} dense={true} key={index}>
                                     <Button id={"version-button-" + index}
-                                            sx={{width: '140px', height: 'webkit-fill-available'}}
+                                            sx={{minWidth: (theme) => theme.spacing(20), height: 'webkit-fill-available'}}
                                             onClick={() => {
                                                 handleNewOrEditConvertingClick(row.id).then(() => history.push('/valueconverting'))
                                             }}>
