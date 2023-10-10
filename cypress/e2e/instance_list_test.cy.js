@@ -28,13 +28,24 @@ describe('Testing instance list', () => {
         cy.get('.MuiDataGrid-root').should("not.contain.text", 'not_a_column')
     })
 
-    it('instance panel should contain correct instances', () => {
+    it('instance table and panel should have correct formats', () => {
         prep()
         cy.viewport(3000, 2000)
         cy.get('[data-id="1"] > [data-field="timestamp"]').should('contain.text', '02/06/23 13:40')
         cy.get('.MuiDataGrid-row--lastVisible > [data-field="sourceApplicationIntegrationId"]').dblclick()
         cy.get('[data-id="0"] > [data-field="name"]').should('contain.text', 'Instans godtatt av destinasjon')
         cy.get('[data-id="0"] > [data-field="timestamp"]').should('contain.text', '02/06/23 13:40.48')
+        cy.get('#back-button').click()
+    })
+
+    it('instance panel should contain correct instances', () => {
+        prep()
+        cy.viewport(3000, 2000)
+        cy.get('.MuiDataGrid-row--lastVisible > [data-field="sourceApplicationIntegrationId"]').dblclick()
+        cy.get('[data-id="0"] > [data-field="name"]').should('contain.text', 'Instans godtatt av destinasjon')
+        for (let id = 0; id < 4; id++) {
+            cy.get(`[data-id="${id}"] > [data-field="sourceApplicationInstanceId"]`).should("contain.text", '1515557')
+        }
         cy.get('#back-button').click()
     })
 
