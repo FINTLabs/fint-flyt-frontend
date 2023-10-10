@@ -225,6 +225,7 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
                         density='compact'
                         localeText={gridLocaleNoNB}
                         rows={latestInstances ? latestInstances : []}
+                        rowsPerPageOptions={[20]}
                         components={{
                             Toolbar: GridToolbar,
                         }}
@@ -237,7 +238,7 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
                         rowThreshold={0}
                         initialState={{
                             pagination: {
-                                pageSize: 20,
+                                pageSize: 20,   
                             },
                             sorting: {
                                 sortModel: [{field: 'timestamp', sort: 'desc'}],
