@@ -64,7 +64,7 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
             description: t('table.columns.timestampLatest'),
             minWidth: 150,
             flex: 2,
-            valueGetter: (params) => moment(params.row.timestamp).format('YYYY/MM/DD HH:mm.ss'),
+            valueGetter: (params) => moment(params.row.timestamp).format('DD/MM/YY HH:mm.ss'),
             sortComparator: (v1, v2, row1: any, row2: any) => { // eslint-disable-line
                 if (row1 && row2 && row1.timestamp && row2.timestamp) {
                     const timestamp1 = new Date(row1.timestamp).getTime();

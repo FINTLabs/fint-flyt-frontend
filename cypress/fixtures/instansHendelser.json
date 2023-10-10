@@ -12,7 +12,7 @@
         "archiveInstanceId":"2023/132"
       },
       "name":"instance-dispatched",
-      "timestamp":"2023-06-02T13:40:48.589+02:00",
+      "timestamp":"2023-06-02T13:40:48.589",
       "type":"INFO",
       "applicationId":"fint-flyt-dispatch-service",
       "errors":[
@@ -31,7 +31,7 @@
         "archiveInstanceId":null
       },
       "name":"instance-mapped",
-      "timestamp":"2023-06-02T13:40:41.216+02:00",
+      "timestamp":"2023-06-02T13:40:41.216",
       "type":"INFO",
       "applicationId":"fint-flyt-mapping-service",
       "errors":[
@@ -50,7 +50,7 @@
         "archiveInstanceId":null
       },
       "name":"instance-registered",
-      "timestamp":"2023-06-02T13:40:40.929+02:00",
+      "timestamp":"2023-06-02T13:40:40.929",
       "type":"INFO",
       "applicationId":"fint-flyt-instance-service",
       "errors":[
@@ -69,7 +69,7 @@
         "archiveInstanceId":null
       },
       "name":"instance-received",
-      "timestamp":"2023-06-02T13:40:40.894+02:00",
+      "timestamp":"2023-06-02T13:40:40.894",
       "type":"INFO",
       "applicationId":"fint-flyt-acos-instance-gateway",
       "errors":[
