@@ -19,7 +19,7 @@ describe('Testing instance list', () => {
         cy.get('.MuiDataGrid-root').should('be.visible')
     })
 
-    it('should contain correct colunms', () => {
+    it('instance table should contain correct colunms', () => {
         prep()
         let columns = ['Kildeapplikasjon', 'Kildeapp. integr.ID', 'Integrasjonsnavn', 'Kildeapplikasjons instans-ID', 'Konfigurasjon ID', 'Destinasjon ID', 'Tidspunkt', 'Status', 'Detaljer', 'Handlinger']
         columns.forEach(column => {
@@ -31,8 +31,10 @@ describe('Testing instance list', () => {
     it('instance panel should contain correct instances', () => {
         prep()
         cy.viewport(3000, 2000)
+        cy.get('[data-id="1"] > [data-field="timestamp"]').should('contain.text', '02/06/23 13:40')
         cy.get('.MuiDataGrid-row--lastVisible > [data-field="sourceApplicationIntegrationId"]').dblclick()
         cy.get('[data-id="0"] > [data-field="name"]').should('contain.text', 'Instans godtatt av destinasjon')
+        cy.get('[data-id="0"] > [data-field="timestamp"]').should('contain.text', '02/06/23 13:40.48')
         cy.get('#back-button').click()
     })
 
