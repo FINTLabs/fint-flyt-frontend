@@ -41,7 +41,7 @@
     "immutability-helper": "^3.1.1",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
-    "postcss": "^8.4.7",
+    "postcss": "^8.4.31",
     "react": "^18.2.0",
     "react-dnd": "^14.0.4",
     "react-dnd-html5-backend": "^14.0.2",
