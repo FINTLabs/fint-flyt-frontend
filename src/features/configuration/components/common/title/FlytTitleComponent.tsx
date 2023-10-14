@@ -1,19 +1,23 @@
 import React from 'react'
 import {ClassNameMap} from "@mui/styles";
+import { Typography } from '@mui/material';
+
+
 
 interface FlyTitleComponentProps {
     classes: ClassNameMap;
     id?: string,
     title: string;
-    children: React.ReactElement,
-    variant: "h1" | "h2" | "h3";
+    children?: React.ReactElement,
+    variant?: string;
 }
 
-const FlytTitleComponent = ({ children}: FlyTitleComponentProps) => {
+const FlytTitleComponent = ({ children, variant}: FlyTitleComponentProps) => {
   return (
-    <div>
+    <Typography>
     {children}
-    </div>
+    </Typography>
+   
   )
 }
 
