@@ -66,21 +66,7 @@ export const ConfigurationFormStyles = makeStyles((theme: Theme) =>
             marginBottom: theme.spacing(0.5),
             height: theme.spacing(3)
         },
-        title1: {
-            fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
-            fontSize: theme.spacing(3),
-            padding: 0,
-            marginTop: theme.spacing(0),
-            fontWeight: 'normal'
-        },
-        title3: {
-            fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
-            fontSize: theme.spacing(2.2),
-            padding: 0,
-            marginTop: theme.spacing(0),
-            marginBottom: theme.spacing(2),
-            fontWeight: 'normal'
-        },
+    
      
         categoryHeader: {
             fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
