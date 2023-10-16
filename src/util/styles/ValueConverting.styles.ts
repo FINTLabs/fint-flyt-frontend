@@ -54,26 +54,7 @@ export const valueConvertingStyles = makeStyles((theme: Theme) =>
         listItem: {
             paddingBottom: theme.spacing(2)
         },
-        submitButton: {
-            backgroundColor: theme.palette.primary.main,
-            borderRadius: theme.spacing(0.5),
-            color: 'white',
-            cursor: 'pointer',
-            padding: theme.spacing(1),
-            fontSize: theme.spacing(2),
-            marginTop: theme.spacing(2),
-            marginRight: theme.spacing(2),
-            width: 'fit-content',
-            height: 'fit-content',
-            "&:disabled": {
-                cursor: 'auto',
-                backgroundColor: 'lightgray',
-                color: 'gray'
-            },
-            "&:last-child": {
-                marginLeft: theme.spacing(2)
-            }
-        },
+
         wrapperVerticalMargin: {
             marginBottom: theme.spacing(2)
         },

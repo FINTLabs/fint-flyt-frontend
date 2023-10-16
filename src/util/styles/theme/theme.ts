@@ -44,6 +44,15 @@ export const createCommonStyles = (theme : Theme) => {
             padding: theme.spacing(2),
             width: '100%',
         },
+        panelContainer: {
+            backgroundColor: 'white',
+            padding: theme.spacing(2),
+            border: 'solid 1px',
+            borderColor: 'black',
+            marginLeft: theme.spacing(1),
+            borderRadius: theme.spacing(0.5),
+            height: 'fit-content',
+        },
         form: {
             width: theme.spacing(120),
         },
@@ -59,6 +68,26 @@ export const createCommonStyles = (theme : Theme) => {
             padding: 0,
             marginTop: theme.spacing(0),
             fontWeight: 'normal'
+        },
+        submitButton: {
+            backgroundColor: theme.palette.primary.main,
+            borderRadius: theme.spacing(0.5),
+            color: 'white',
+            cursor: 'pointer',
+            padding: theme.spacing(1),
+            fontSize: theme.spacing(2),
+            marginTop: theme.spacing(2),
+            marginRight: theme.spacing(2),
+            width: 'fit-content',
+            height: 'fit-content',
+            "&:disabled": {
+                cursor: 'auto',
+                backgroundColor: 'lightgray',
+                color: 'gray'
+            },
+            "&:last-child": {
+                marginLeft: theme.spacing(2)
+            }
         },
      
     };
