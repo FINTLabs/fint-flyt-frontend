@@ -1,8 +1,10 @@
+import { createCommonStyles } from './theme/theme';
 import {createStyles, makeStyles} from "@mui/styles";
 import {Theme} from "@mui/material";
 
 export const valueConvertingStyles = makeStyles((theme: Theme) =>
     createStyles({
+        ...createCommonStyles(theme), 
         valueConvertingBox: {
             height: theme.spacing(75),
             width: '85%',
@@ -34,13 +36,6 @@ export const valueConvertingStyles = makeStyles((theme: Theme) =>
             padding: 0,
             fontSize: theme.spacing(2),
             marginTop: theme.spacing(0)
-        },
-        title2: {
-            fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
-            fontSize: theme.spacing(2.6),
-            padding: 0,
-            marginTop: theme.spacing(0),
-            fontWeight: 'normal'
         },
         title4: {
             fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
@@ -87,6 +82,7 @@ export const valueConvertingStyles = makeStyles((theme: Theme) =>
             border: 'none',
             margin: '0',
             padding: '0'
-        }
+        },
+        
     })
 );

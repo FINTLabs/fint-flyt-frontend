@@ -53,6 +53,13 @@ export const createCommonStyles = (theme : Theme) => {
         flex: {
             flex: 1
         },
+        title2: {
+            fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
+            fontSize: theme.spacing(2.6),
+            padding: 0,
+            marginTop: theme.spacing(0),
+            fontWeight: 'normal'
+        },
      
     };
 };
