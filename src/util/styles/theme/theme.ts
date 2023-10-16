@@ -1,4 +1,4 @@
-import {createTheme} from "@mui/material";
+import {createTheme, Theme} from "@mui/material";
 import {nbNO} from '@mui/material/locale';
 
 const theme = createTheme(
@@ -32,5 +32,32 @@ const theme = createTheme(
     },
     nbNO
 );
+
+
+export const createCommonStyles = (theme : Theme) => {
+    return {
+        dataGridBox: {
+            minHeight: theme.spacing(80),
+            backgroundColor: 'white',
+            border: '1px solid black',
+            borderRadius: theme.spacing(0.5),
+            padding: theme.spacing(2),
+            width: '100%',
+        },
+        form: {
+            width: theme.spacing(120),
+        },
+        row: {
+            display: 'flex',
+        },
+        flex: {
+            flex: 1
+        },
+     
+    };
+};
+
+
+
 
 export default theme;
