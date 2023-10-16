@@ -86,9 +86,10 @@ const DynamicChipCompponent2: React.FunctionComponent<Props> = forwardRef<HTMLDi
                 isOptionEqualToValue={(option, value) => false} // to allow multiple of same value, i.e. spaces
                 defaultValue={[]}
                 onChange={(event, newValue) => {
+                    console.log(newValue, values)
                     newValue ? setValues(newValue) : null;
                     if (props.onChange) {
-                        props.onChange(stringValue)
+                        props.onChange(arrayToString(values) + newValue)
                     }
                 }}
                 renderTags={(value: readonly string[], getTagProps) =>
@@ -113,7 +114,6 @@ const DynamicChipCompponent2: React.FunctionComponent<Props> = forwardRef<HTMLDi
                         size='small'
                         style={dynamicStyle}
                         variant="outlined"
-                        ref={ref}
                         label={props.displayName}
                         placeholder={values.length === 0 ? "Skriv eller trekk inn fra metadata" : undefined}
                     />
