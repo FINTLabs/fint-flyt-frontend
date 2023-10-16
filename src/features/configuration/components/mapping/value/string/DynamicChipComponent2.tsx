@@ -14,19 +14,19 @@ export interface Props {
     classes: ClassNameMap
     displayName?: string;
     search?: Search;
-    accept?: ValueType[];
+    accept: ValueType[];
     disabled?: boolean;
     onChange?: (value: string) => void;
     onBlur?: Noop;
     name: string;
-    value?: string | null;
-    fieldState?: ControllerFieldState | undefined
+    value: string | null;
+    fieldState: ControllerFieldState | undefined
 }
 
 
 const DynamicChipCompponent2: React.FunctionComponent<Props> = forwardRef<HTMLDivElement, Props>((props: Props, ref) => {
     DynamicChipCompponent2.displayName = "DynamicChipCompponent2"
-    const [values, setValues] = React.useState<string[]>([]);
+    const [values, setValues] = React.useState<string[]>(props.value ? props.value.split(" ") : []);
     const stringValue = values.join("")
     const absoluteKey: string = props.name;
 
@@ -105,7 +105,8 @@ const DynamicChipCompponent2: React.FunctionComponent<Props> = forwardRef<HTMLDi
                         {...params}
                         style={dynamicStyle}
                         variant="outlined"
-                        label={props.name || "dnd"}
+                        ref={ref}
+                        label={props.displayName}
                         placeholder={values.length === 0 ? "Skriv eller trekk inn fra metadata" : undefined}
                     />
                 )}
