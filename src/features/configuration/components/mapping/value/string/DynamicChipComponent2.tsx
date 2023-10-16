@@ -23,20 +23,27 @@ export interface Props {
     fieldState: ControllerFieldState | undefined
 }
 
+function stringToArray(input: string): string[] {
+    return input.split(/(\s+)/).filter(Boolean);
+}
+
+export function arrayToString(input: string[]): string {
+    return input.join('');
+}
+
 
 const DynamicChipCompponent2: React.FunctionComponent<Props> = forwardRef<HTMLDivElement, Props>((props: Props, ref) => {
     DynamicChipCompponent2.displayName = "DynamicChipCompponent2"
-    const [values, setValues] = React.useState<string[]>(props.value ? props.value.split(" ") : []);
+    const [values, setValues] = React.useState<string[]>(props.value ? stringToArray(props.value) : []);
     const stringValue = values.join("")
     const absoluteKey: string = props.name;
-
 
     const [{canDrop, isOver}, dropRef] = useDrop({
         accept: ValueType.STRING,
         drop: (tag: ITag) => {
             setValues([...values, tag.value])
             if (props.onChange) {
-                props.onChange(values.join("") + tag.value)
+                props.onChange(arrayToString(values) + tag.value)
             }
         },
         collect: monitor => ({
@@ -103,6 +110,7 @@ const DynamicChipCompponent2: React.FunctionComponent<Props> = forwardRef<HTMLDi
                 renderInput={(params) => (
                     <TextField
                         {...params}
+                        size='small'
                         style={dynamicStyle}
                         variant="outlined"
                         ref={ref}
