@@ -5,9 +5,6 @@ import {Theme} from "@mui/material";
 export const ConfigurationFormStyles = makeStyles((theme: Theme) =>
     createStyles({
         ...createCommonStyles(theme),
-        form: {
-            width: theme.spacing(100)
-        },
         row: {
             display: 'flex',
             alignItems: 'center',

@@ -5,9 +5,7 @@ import {Theme} from "@mui/material";
 export const InstanceStyles = makeStyles((theme: Theme) =>
     createStyles({
         ...createCommonStyles(theme),
-        form: {
-            width: theme.spacing(120)
-        },
+  
         dataGridBox: {
             minHeight: theme.spacing(80),
             backgroundColor: 'white',
