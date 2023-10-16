@@ -22,29 +22,14 @@ export const valueConvertingStyles = makeStyles((theme: Theme) =>
             flexDirection: 'row',
             justifyContent: 'space-between',
         },
-        panelContainer: {
-            backgroundColor: 'white',
-            padding: theme.spacing(2),
-            border: 'solid 1px',
-            borderColor: 'black',
-            marginLeft: theme.spacing(1),
-            borderRadius: theme.spacing(0.5),
-            height: 'fit-content',
-        },
+   
         title: {
             fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
             padding: 0,
             fontSize: theme.spacing(2),
             marginTop: theme.spacing(0)
         },
-        title4: {
-            fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
-            fontSize: theme.spacing(2),
-            padding: 0,
-            marginTop: theme.spacing(0),
-            marginBottom: theme.spacing(2),
-            fontWeight: 'normal'
-        },
+
         listBorderless: {
             listStyle: 'none',
             padding: 'unset',

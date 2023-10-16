@@ -69,6 +69,14 @@ export const createCommonStyles = (theme : Theme) => {
             marginTop: theme.spacing(0),
             fontWeight: 'normal'
         },
+        title4: {
+            fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
+            fontSize: theme.spacing(2),
+            padding: 0,
+            marginTop: theme.spacing(0),
+            marginBottom: theme.spacing(2),
+            fontWeight: 'normal'
+        },
         submitButton: {
             backgroundColor: theme.palette.primary.main,
             borderRadius: theme.spacing(0.5),

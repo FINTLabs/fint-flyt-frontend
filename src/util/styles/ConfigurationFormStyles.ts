@@ -79,13 +79,6 @@ export const ConfigurationFormStyles = makeStyles((theme: Theme) =>
             marginTop: theme.spacing(0),
             fontWeight: 'normal'
         },
-        title2: {
-            fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
-            fontSize: theme.spacing(2.6),
-            padding: 0,
-            marginTop: theme.spacing(0),
-            fontWeight: 'normal'
-        },
         title3: {
             fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
             fontSize: theme.spacing(2.2),
@@ -94,14 +87,7 @@ export const ConfigurationFormStyles = makeStyles((theme: Theme) =>
             marginBottom: theme.spacing(2),
             fontWeight: 'normal'
         },
-        title4: {
-            fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
-            fontSize: theme.spacing(2),
-            padding: 0,
-            marginTop: theme.spacing(0),
-            marginBottom: theme.spacing(2),
-            fontWeight: 'normal'
-        },
+     
         categoryHeader: {
             fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
             fontSize: theme.spacing(2),
@@ -198,26 +184,7 @@ export const ConfigurationFormStyles = makeStyles((theme: Theme) =>
         formFooter: {
             marginLeft: theme.spacing(1)
         },
-        submitButton: {
-            backgroundColor: theme.palette.primary.main,
-            borderRadius: theme.spacing(0.5),
-            color: 'white',
-            cursor: 'pointer',
-            padding: theme.spacing(1),
-            fontSize: theme.spacing(2),
-            marginTop: theme.spacing(2),
-            marginRight: theme.spacing(2),
-            width: 'fit-content',
-            height: 'fit-content',
-            "&:disabled": {
-                cursor: 'auto',
-                backgroundColor: 'lightgray',
-                color: 'gray'
-            },
-            "&:last-child": {
-                marginLeft: theme.spacing(2)
-            }
-        },
+
         fieldsetElement: {
             marginBottom: theme.spacing(2),
             "&:last-child": {
