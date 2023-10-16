@@ -31,6 +31,17 @@ export function arrayToString(input: string[]): string {
     return input.join('');
 }
 
+export function getTagColor(tag: string): string {
+    if(tag.includes('$vc')) {
+        return '#F3E5F5'
+    } else if (tag.includes('$if')) {
+        return '#E0F7FA'
+    } else if (tag.includes('$icf')) {
+        return '#FFFDE7'
+    } else {
+        return 'white'
+    }
+}
 
 const DynamicChipCompponent2: React.FunctionComponent<Props> = forwardRef<HTMLDivElement, Props>((props: Props, ref) => {
     DynamicChipCompponent2.displayName = "DynamicChipCompponent2"
@@ -86,26 +97,28 @@ const DynamicChipCompponent2: React.FunctionComponent<Props> = forwardRef<HTMLDi
                 isOptionEqualToValue={(option, value) => false} // to allow multiple of same value, i.e. spaces
                 defaultValue={[]}
                 onChange={(event, newValue) => {
-                    console.log(newValue, values)
+                    console.log('newValue, values', newValue, values)
                     newValue ? setValues(newValue) : null;
-                    if (props.onChange) {
-                        props.onChange(arrayToString(values) + newValue)
+                    if (props.onChange && newValue) {
+                        props.onChange(arrayToString(values))
                     }
                 }}
-                renderTags={(value: readonly string[], getTagProps) =>
-                    value.map((option: string, index: number) => (
-                        // eslint-disable-next-line react/jsx-key
-                        <Chip
-                            sx={{borderRadius: '3px'}}
-                            variant="outlined"
-                            label={option}
-                            onDelete={undefined}
-                            key={index}
-                            disabled={false}
-                            tabIndex={-1}
-                            // {...getTagProps({ index })} // using this will not overwrite onDelete an have an icon
-                        />
-                    ))
+                renderTags={(tags: readonly string[], getTagProps) =>
+                    tags.map((tag: string, index: number) => {
+                            // eslint-disable-next-line react/jsx-key
+                            return <Chip
+                                sx={{borderRadius: '3px', background: getTagColor(tag)}}
+                                variant="outlined"
+                                label={tag}
+                                onDelete={undefined}
+                                key={index}
+                                disabled={false}
+                                tabIndex={-1}
+                                // {...getTagProps({ index })} // using this will not overwrite onDelete an have an icon
+                            />
+
+                        }
+                    )
                 }
                 freeSolo
                 renderInput={(params) => (
