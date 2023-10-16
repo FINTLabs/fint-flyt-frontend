@@ -1,13 +1,12 @@
+import { createCommonStyles } from './theme/theme';
 import {createStyles, makeStyles} from "@mui/styles";
 import {Theme} from "@mui/material";
 
 export const InstanceStyles = makeStyles((theme: Theme) =>
     createStyles({
+        ...createCommonStyles(theme),
         form: {
             width: theme.spacing(120)
-        },
-        row: {
-            display: 'flex'
         },
         dataGridBox: {
             minHeight: theme.spacing(80),

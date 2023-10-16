@@ -18,6 +18,7 @@ export const IntegrationFormStyles = makeStyles((theme: Theme) =>
             height: 'fit-content',
             width: theme.spacing(70)
         },
+     
         title1: {
             fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
             fontSize: theme.spacing(3),
