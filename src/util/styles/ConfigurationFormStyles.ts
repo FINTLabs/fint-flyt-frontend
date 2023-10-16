@@ -66,12 +66,6 @@ export const ConfigurationFormStyles = makeStyles((theme: Theme) =>
             marginBottom: theme.spacing(0.5),
             height: theme.spacing(3)
         },
-        title: {
-            fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
-            padding: 0,
-            fontSize: theme.spacing(2),
-            marginTop: theme.spacing(0)
-        },
         title1: {
             fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
             fontSize: theme.spacing(3),

@@ -62,11 +62,33 @@ export const createCommonStyles = (theme : Theme) => {
         flex: {
             flex: 1
         },
+        title: {
+            fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
+            padding: 0,
+            fontSize: theme.spacing(2),
+            marginTop: theme.spacing(0)
+        },
+        title1: {
+            fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
+            fontSize: theme.spacing(3),
+            padding: 0,
+            marginTop: theme.spacing(0),
+            fontWeight: 'normal'
+        },
+
         title2: {
             fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
             fontSize: theme.spacing(2.6),
             padding: 0,
             marginTop: theme.spacing(0),
+            fontWeight: 'normal'
+        },
+        title3: {
+            fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
+            fontSize: theme.spacing(2.2),
+            padding: 0,
+            marginTop: theme.spacing(0),
+            marginBottom: theme.spacing(2),
             fontWeight: 'normal'
         },
         title4: {

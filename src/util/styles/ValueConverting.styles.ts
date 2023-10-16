@@ -22,14 +22,6 @@ export const valueConvertingStyles = makeStyles((theme: Theme) =>
             flexDirection: 'row',
             justifyContent: 'space-between',
         },
-   
-        title: {
-            fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
-            padding: 0,
-            fontSize: theme.spacing(2),
-            marginTop: theme.spacing(0)
-        },
-
         listBorderless: {
             listStyle: 'none',
             padding: 'unset',
