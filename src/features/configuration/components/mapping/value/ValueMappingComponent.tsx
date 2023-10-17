@@ -82,21 +82,33 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
                 />
             case TemplateValueType.DYNAMIC_STRING:
                 setTypeIfUndefined(ConfigurationValueType.DYNAMIC_STRING);
-                return <DynamicChipComponent
-                    {...renderProps}
-                    search={search}
-                    accept={[
-                        MetadataValueType.STRING,
-                        MetadataValueType.INTEGER,
-                        MetadataValueType.EMAIL,
-                        MetadataValueType.DATE,
-                        MetadataValueType.PHONE
-                    ]}
-                />
+                return search ?
+                    <DynamicStringValueComponent
+                        {...renderProps}
+                        search={search}
+                        accept={[
+                            MetadataValueType.STRING,
+                            MetadataValueType.INTEGER,
+                            MetadataValueType.EMAIL,
+                            MetadataValueType.DATE,
+                            MetadataValueType.PHONE
+                        ]}
+                    /> :
+                    <DynamicChipComponent
+                        {...renderProps}
+                        search={search}
+                        accept={[
+                            MetadataValueType.STRING,
+                            MetadataValueType.INTEGER,
+                            MetadataValueType.EMAIL,
+                            MetadataValueType.DATE,
+                            MetadataValueType.PHONE
+                        ]}
+                    />
 
             case TemplateValueType.FILE:
                 setTypeIfUndefined(ConfigurationValueType.FILE);
-                return <DynamicStringValueComponent
+                return <DynamicChipComponent
                     {...renderProps}
                     accept={[
                         MetadataValueType.FILE
@@ -109,8 +121,8 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
     return <Controller
         name={props.absoluteKey + ".mappingString"}
         rules={{
-                validate: (value) => hasValidFormat(value, props.template.type, completeCheck)
-            }}
+            validate: (value) => hasValidFormat(value, props.template.type, completeCheck)
+        }}
         render={({field, fieldState}) =>
             <div id={'value-mapping-wrapper-' + props.absoluteKey}
                  className={props.classes.flexRowContainer}>

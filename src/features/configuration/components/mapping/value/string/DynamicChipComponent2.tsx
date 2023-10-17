@@ -32,7 +32,7 @@ export function arrayToString(input: string[]): string {
 }
 
 export function getTagColor(tag: string): string {
-    if(tag.includes('$vc')) {
+    if (tag.includes('$vc')) {
         return '#F3E5F5'
     } else if (tag.includes('$if')) {
         return '#E0F7FA'
@@ -49,7 +49,7 @@ const DynamicChipComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivE
     const absoluteKey: string = props.name;
 
     const [{canDrop, isOver}, dropRef] = useDrop({
-        accept: ValueType.STRING,
+        accept: props.accept,
         drop: (tag: ITag) => {
             setValues([...values, tag.value])
             if (props.onChange) {
@@ -123,6 +123,7 @@ const DynamicChipComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivE
                         {...params}
                         size='small'
                         style={dynamicStyle}
+                        ref={ref}
                         variant="outlined"
                         label={props.displayName}
                         placeholder={values.length === 0 ? "Skriv eller trekk inn fra metadata" : undefined}

@@ -5,7 +5,6 @@ import {useTranslation} from "react-i18next";
 import {testObjectTemplateSak} from "../defaults/FormTemplates";
 import ConfigurationMappingComponent from "./mapping/ConfigurationMappingComponent";
 import HelpPopover from "./common/popover/HelpPopover";
-import {useFormContext} from "react-hook-form";
 
 export interface Props {
     classes: ClassNameMap
@@ -15,10 +14,7 @@ export interface Props {
 const OutgoingDataComponent: React.FunctionComponent<Props> = (props: Props) => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.configuration'});
     const classes = props.classes;
-    const {getValues, watch} = useFormContext();
 
-
-    console.log(getValues(), watch())
     return (
         <Box id="outgoing-form-panel" className={classes.panelContainer}>
             <Box className={props.classes.row}>
