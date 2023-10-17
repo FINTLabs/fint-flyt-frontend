@@ -43,8 +43,8 @@ export function getTagColor(tag: string): string {
     }
 }
 
-const DynamicChipCompponent2: React.FunctionComponent<Props> = forwardRef<HTMLDivElement, Props>((props: Props, ref) => {
-    DynamicChipCompponent2.displayName = "DynamicChipCompponent2"
+const DynamicChipComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivElement, Props>((props: Props, ref) => {
+    DynamicChipComponent.displayName = "DynamicChipComponent"
     const [values, setValues] = React.useState<string[]>(props.value ? stringToArray(props.value) : []);
     const absoluteKey: string = props.name;
 
@@ -81,8 +81,6 @@ const DynamicChipCompponent2: React.FunctionComponent<Props> = forwardRef<HTMLDi
         ...inputStyle,
         background
     }
-
-    console.log(props.fieldState)
 
     return (
         <div id={"dnd-value-component-" + absoluteKey} key={absoluteKey}>
@@ -136,4 +134,4 @@ const DynamicChipCompponent2: React.FunctionComponent<Props> = forwardRef<HTMLDi
     )
 
 })
-export default DynamicChipCompponent2;
+export default DynamicChipComponent;

@@ -15,7 +15,7 @@ import CheckboxValueComponent from "../../common/CheckboxValueComponent";
 import {ControllerRenderProps} from "react-hook-form/dist/types/controller";
 import HelpPopover from "../../common/popover/HelpPopover";
 import {hasValidFormat} from "../../../util/ValidationUtil";
-import DynamicChipCompponent2 from "./string/DynamicChipComponent2";
+import DynamicChipComponent from "./string/DynamicChipComponent2";
 
 interface Props {
     classes: ClassNameMap;
@@ -82,7 +82,7 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
                 />
             case TemplateValueType.DYNAMIC_STRING:
                 setTypeIfUndefined(ConfigurationValueType.DYNAMIC_STRING);
-                return <DynamicChipCompponent2
+                return <DynamicChipComponent
                     {...renderProps}
                     search={search}
                     accept={[
