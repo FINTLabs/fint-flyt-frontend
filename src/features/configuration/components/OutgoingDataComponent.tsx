@@ -5,9 +5,7 @@ import {useTranslation} from "react-i18next";
 import {testObjectTemplateSak} from "../defaults/FormTemplates";
 import ConfigurationMappingComponent from "./mapping/ConfigurationMappingComponent";
 import HelpPopover from "./common/popover/HelpPopover";
-import {Controller, useFormContext} from "react-hook-form";
-import {ValueType} from "../types/Metadata/IntegrationMetadata";
-import DynamicChipComponent2 from "./mapping/value/string/DynamicChipComponent2";
+import {useFormContext} from "react-hook-form";
 
 export interface Props {
     classes: ClassNameMap
@@ -23,15 +21,6 @@ const OutgoingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
     console.log(getValues(), watch())
     return (
         <Box id="outgoing-form-panel" className={classes.panelContainer}>
-
-            <Controller
-                name={"mappingString"}
-                render={({field, fieldState}) =>
-                    <DynamicChipComponent2 onChange={field.onChange} accept={[ValueType.STRING]} classes={classes}
-                                           fieldState={fieldState} name={"dnd-felt-controlled"} value={field.value}/>
-                }
-            />
-            {/*<DynamicChipComponent2 classes={classes} name={"dnd-felt"}/>*/}
             <Box className={props.classes.row}>
                 <Typography variant={"h6"}>{t('formHeader')}</Typography>
                 <HelpPopover popoverContent="Utgående data"/>

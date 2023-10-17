@@ -54,7 +54,7 @@ describe('Testing fill new configuration', () => {
         cy.get('#mapping\\.valueMappingPerKey\\.type\\.mappingString').click()
         cy.get('#menu-mapping\\.valueMappingPerKey\\.type\\.mappingString > .MuiPaper-root > .MuiList-root > [tabindex="0"]').type('{enter}')
         cy.get('.MuiToggleButton-root').click()
-        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.tittel\\.mappingString > .MuiFormControl-root > .MuiInputBase-root').type('test')
+        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.tittel\\.mappingString > .MuiAutocomplete-root > .MuiFormControl-root').type('test').type('{enter}')
         cy.get(`${newCaseFields}\\.saksmappetype\\.mappingString`).click()
         cy.get(`${newCaseFields}\\.saksmappetype\\.mappingString-option-2`).click()
         cy.get(`${newCaseFields}\\.administrativEnhet\\.mappingString`).click()
@@ -74,7 +74,7 @@ describe('Testing fill new configuration', () => {
         cy.get(`${newCaseClassificationFields}\\.klasseId\\.mappingString-option-3`).click()
         cy.get(':nth-child(12) > .makeStyles-flexRowContainer-23 > .MuiToggleButton-root').click()
         cy.get('#list-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings > #add-icon').click()
-        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.valueMappingPerKey\\.tittel\\.mappingString > .MuiFormControl-root > .MuiInputBase-root').type('journalpost tittel')
+        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.valueMappingPerKey\\.tittel\\.mappingString > .MuiAutocomplete-root > .MuiFormControl-root').type('journalpost tittel').type('{enter}')
         cy.get(`${recordFields}\\.journalposttype\\.mappingString`).click()
         cy.get(`${recordFields}\\.journalposttype\\.mappingString-option-6`).click()
         cy.get(`${recordFields}\\.administrativEnhet\\.mappingString`).click()
@@ -91,14 +91,14 @@ describe('Testing fill new configuration', () => {
         cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.korrespondansepart\\.fromCollectionMappings\\.0\\.instanceCollectionReferencesOrdered\\.0 > .MuiFormControl-root > .MuiInputBase-root').type("$if{saksparter}", { parseSpecialCharSequences: false, delay: 0 });
         cy.get(`${correspondentFields}\\.korrespondanseparttype\\.mappingString`).click()
         cy.get(`${correspondentFields}\\.korrespondanseparttype\\.mappingString-option-4`).click()
-        cy.get(`${correspondentDndFields}\\.organisasjonsnummer\\.mappingString > .MuiFormControl-root > .MuiInputBase-root`).type('$icf{0}{organisasjonsnummer}', {parseSpecialCharSequences: false, delay: 0})
-        cy.get(`${correspondentDndFields}\\.korrespondansepartNavn\\.mappingString > .MuiFormControl-root > .MuiInputBase-root`).type('$icf{0}{navn}', {parseSpecialCharSequences: false, delay: 0})
-        cy.get(`${correspondentDndFields}\\.kontaktperson\\.mappingString > .MuiFormControl-root > .MuiInputBase-root`).type('$icf{0}{navn}', {parseSpecialCharSequences: false, delay: 0})
+        cy.get(`${correspondentDndFields}\\.organisasjonsnummer\\.mappingString > .MuiAutocomplete-root > .MuiFormControl-root`).type('$icf{0}{organisasjonsnummer}', {parseSpecialCharSequences: false, delay: 0}).type('{enter}');
+        cy.get(`${correspondentDndFields}\\.korrespondansepartNavn\\.mappingString > .MuiAutocomplete-root > .MuiFormControl-root`).type('$icf{0}{navn}', {parseSpecialCharSequences: false, delay: 0}).type('{enter}');
+        cy.get(`${correspondentDndFields}\\.kontaktperson\\.mappingString > .MuiAutocomplete-root > .MuiFormControl-root`).type('$icf{0}{navn}', {parseSpecialCharSequences: false, delay: 0}).type('{enter}');
         cy.get('#selectable-value-mapping-wrapper-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.korrespondansepart\\.fromCollectionMappings\\.0 > .MuiButtonBase-root').click()
 
         cy.get(':nth-child(1) > :nth-child(9) > .makeStyles-flexRowContainer-23 > .MuiToggleButton-root').click()
         cy.get('#list-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.dokumentbeskrivelse\\.elementMappings > #add-icon').click()
-        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.dokumentbeskrivelse\\.elementMappings\\.0\\.valueMappingPerKey\\.tittel\\.mappingString > .MuiFormControl-root > .MuiInputBase-root').type("tittel");
+        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.dokumentbeskrivelse\\.elementMappings\\.0\\.valueMappingPerKey\\.tittel\\.mappingString > .MuiAutocomplete-root > .MuiFormControl-root').type("tittel").type('{enter}');
         cy.get('#mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.dokumentbeskrivelse\\.elementMappings\\.0\\.valueMappingPerKey\\.dokumentstatus\\.mappingString').click()
         cy.get('#mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.dokumentbeskrivelse\\.elementMappings\\.0\\.valueMappingPerKey\\.dokumentstatus\\.mappingString-option-1').click()
         cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.dokumentbeskrivelse\\.elementMappings\\.0\\.valueMappingPerKey\\.dokumentstatus\\.mappingString > .MuiFormControl-root > .MuiInputBase-root').type("$vc{1}$if{bnr}", { parseSpecialCharSequences: false, delay: 0 });
@@ -137,7 +137,7 @@ describe('Testing fill, save and complete new configuration', () => {
         cy.get('#mapping\\.valueMappingPerKey\\.type\\.mappingString').click()
         cy.get('#menu-mapping\\.valueMappingPerKey\\.type\\.mappingString > .MuiPaper-root > .MuiList-root > [tabindex="0"]').type('{enter}')
         cy.get('.MuiToggleButton-root').click()
-        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.tittel\\.mappingString > .MuiFormControl-root > .MuiInputBase-root').type('test')
+        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.tittel\\.mappingString > .MuiAutocomplete-root > .MuiFormControl-root').type('test').type('{enter}')
         cy.get(`${newCaseFields}\\.saksmappetype\\.mappingString`).click()
         cy.get(`${newCaseFields}\\.saksmappetype\\.mappingString-option-2`).click()
         cy.get('#form-submit-btn').click()
@@ -175,7 +175,7 @@ describe('Testing fill, save and complete new configuration', () => {
         cy.get('#mapping\\.valueMappingPerKey\\.type\\.mappingString').click()
         cy.get('#menu-mapping\\.valueMappingPerKey\\.type\\.mappingString > .MuiPaper-root > .MuiList-root > [tabindex="0"]').type('{enter}')
         cy.get('.MuiToggleButton-root').click()
-        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.tittel\\.mappingString > .MuiFormControl-root > .MuiInputBase-root').type('test ferdigstilling', {delay: 0})
+        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.tittel\\.mappingString > .MuiAutocomplete-root > .MuiFormControl-root').type('test ferdigstilling', {delay: 0}).type('{enter}')
         cy.get(`${newCaseFields}\\.saksmappetype\\.mappingString`).click()
         cy.get(`${newCaseFields}\\.saksmappetype\\.mappingString-option-2`).click()
         cy.get('#form-complete').click()

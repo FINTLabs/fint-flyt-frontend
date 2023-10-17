@@ -46,7 +46,6 @@ export function getTagColor(tag: string): string {
 const DynamicChipCompponent2: React.FunctionComponent<Props> = forwardRef<HTMLDivElement, Props>((props: Props, ref) => {
     DynamicChipCompponent2.displayName = "DynamicChipCompponent2"
     const [values, setValues] = React.useState<string[]>(props.value ? stringToArray(props.value) : []);
-    const stringValue = values.join("")
     const absoluteKey: string = props.name;
 
     const [{canDrop, isOver}, dropRef] = useDrop({
@@ -83,8 +82,7 @@ const DynamicChipCompponent2: React.FunctionComponent<Props> = forwardRef<HTMLDi
         background
     }
 
-    console.log(values)
-    console.log(stringValue)
+    console.log(props.fieldState)
 
     return (
         <div id={"dnd-value-component-" + absoluteKey} key={absoluteKey}>
@@ -94,16 +92,17 @@ const DynamicChipCompponent2: React.FunctionComponent<Props> = forwardRef<HTMLDi
                 ref={dropRef}
                 id="tags-filled"
                 options={[]}
+                // eslint-disable-next-line
                 isOptionEqualToValue={(option, value) => false} // to allow multiple of same value, i.e. spaces
                 defaultValue={[]}
                 onChange={(event, newValue) => {
-                    console.log('newValue, values', newValue, values)
+                    console.log(newValue)
                     newValue ? setValues(newValue) : null;
                     if (props.onChange && newValue) {
-                        props.onChange(arrayToString(values))
+                        props.onChange(arrayToString(newValue))
                     }
                 }}
-                renderTags={(tags: readonly string[], getTagProps) =>
+                renderTags={(tags: readonly string[]) =>
                     tags.map((tag: string, index: number) => {
                             // eslint-disable-next-line react/jsx-key
                             return <Chip
@@ -114,7 +113,7 @@ const DynamicChipCompponent2: React.FunctionComponent<Props> = forwardRef<HTMLDi
                                 key={index}
                                 disabled={false}
                                 tabIndex={-1}
-                                // {...getTagProps({ index })} // using this will not overwrite onDelete an have an icon
+                                // {...getTagProps({ index })} // using this will not overwrite onDelete and have an icon
                             />
 
                         }
