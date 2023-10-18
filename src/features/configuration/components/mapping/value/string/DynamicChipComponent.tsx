@@ -66,7 +66,7 @@ const DynamicChipComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivE
 
     const inputStyle = {
         backgroundColor: 'white',
-        width: '356px',
+        width: '352px',
         borderRadius: '4px',
         margin: 'none'
     };
