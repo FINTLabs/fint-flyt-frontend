@@ -15,6 +15,7 @@ import {EditingContext} from "../../../../../../context/EditingContext";
 import {hasValidFormat} from "../../../../util/ValidationUtil";
 import {ValueType as ConfigurationValueType} from "../../../../types/Configuration";
 import {ValueType} from "../../../../types/Metadata/IntegrationMetadata";
+import DynamicChipComponent from "../../value/string/DynamicChipComponent";
 
 interface Props {
     classes: ClassNameMap;
@@ -84,7 +85,7 @@ const FromCollectionMappingComponent: React.FunctionComponent<Props> = (props: P
                                     }}
                                 control={control}
                                 render={({field, fieldState}) =>
-                                    <DynamicStringValueComponent
+                                    <DynamicChipComponent
                                         {...field}
                                         classes={props.classes}
                                         displayName={"" + index}

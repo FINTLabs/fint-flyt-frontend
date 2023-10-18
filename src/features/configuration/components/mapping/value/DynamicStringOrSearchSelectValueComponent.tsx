@@ -7,6 +7,7 @@ import {ClassNameMap} from "@mui/styles";
 import {ValueType as MetadataValueType} from "../../../types/Metadata/IntegrationMetadata";
 import {Noop} from "react-hook-form/dist/types";
 import {ControllerFieldState} from "react-hook-form";
+import DynamicChipComponent from "./string/DynamicChipComponent";
 
 interface Props {
     classes: ClassNameMap
@@ -98,7 +99,7 @@ const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> 
             name={props.name}
         />
         {(selectValue === "$dynamic" || selectValue === '$valueConverting') &&
-            <DynamicStringValueComponent
+            <DynamicChipComponent
                 fieldState={props.fieldState}
                 classes={props.classes}
                 accept={selectValue === "$dynamic"
