@@ -1,3 +1,4 @@
+import { createCommonStyles } from './theme/theme';
 import {createStyles, makeStyles} from "@mui/styles";
 import {Theme} from "@mui/material";
 
@@ -5,6 +6,7 @@ const drawerWidth = 240;
 
 export const MainStyles = makeStyles((theme: Theme) =>
     createStyles({
+        ...createCommonStyles(theme),
         appBar: {
             zIndex: theme.zIndex.drawer + 1
         },
@@ -35,9 +37,6 @@ export const MainStyles = makeStyles((theme: Theme) =>
             width: 86,
             marginRight: theme.spacing(4),
             marginBottom: theme.spacing()
-        },
-        flex: {
-            flex: 1
         },
         badge: {
             cursor: 'pointer',

@@ -1,22 +1,10 @@
+import { createCommonStyles } from './theme/theme';
 import {createStyles, makeStyles} from "@mui/styles";
 import {Theme} from "@mui/material";
 
 export const IntegrationStyles = makeStyles((theme: Theme) =>
     createStyles({
-        form: {
-            width: theme.spacing(120)
-        },
-        row: {
-            display: 'flex'
-        },
-        dataGridBox: {
-            minHeight: theme.spacing(80),
-            backgroundColor: 'white',
-            border: '1px solid black',
-            borderRadius: theme.spacing(0.5),
-            padding: theme.spacing(2),
-            width: '100%'
-        },
+        ...createCommonStyles(theme),
         dataPanelBox: {
             height: theme.spacing(45),
             width: '100%',

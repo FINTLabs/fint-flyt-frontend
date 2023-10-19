@@ -1,3 +1,4 @@
+import { createCommonStyles } from './theme/theme';
 import {createStyles, makeStyles} from "@mui/styles";
 import {Theme} from "@mui/material";
 
@@ -5,6 +6,7 @@ export const fontFamily: string = ["Nunito Sans", 'sans-serif'].join(',')
 
 export const IntegrationFormStyles = makeStyles((theme: Theme) =>
     createStyles({
+        ...createCommonStyles(theme),
         formControl: {
             width: theme.spacing(70)
         },
@@ -18,28 +20,7 @@ export const IntegrationFormStyles = makeStyles((theme: Theme) =>
             height: 'fit-content',
             width: theme.spacing(70)
         },
-        title1: {
-            fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
-            fontSize: theme.spacing(3),
-            padding: 0,
-            marginTop: theme.spacing(0),
-            fontWeight: 'normal'
-        },
-        title2: {
-            fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
-            fontSize: theme.spacing(2.6),
-            padding: 0,
-            marginTop: theme.spacing(0),
-            fontWeight: 'normal'
-        },
-        title3: {
-            fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
-            fontSize: theme.spacing(2.2),
-            padding: 0,
-            marginTop: theme.spacing(0),
-            marginBottom: theme.spacing(2),
-            fontWeight: 'normal'
-        },
+     
         incomingWrapper: {},
         outgoingWrapper: {
             marginTop: theme.spacing(2)
