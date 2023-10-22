@@ -25,7 +25,7 @@ const ToggleButtonComponent: React.FunctionComponent<Props> = (props: Props) => 
         props.selected = value
     }
     return (
-        <div className={props.classes.flexRowContainer}>
+        <div id={'toggle-button-' + props.displayName + '-' + props.order} className={props.classes.flexRowContainer}>
             <ToggleButton
                 sx={toggleButtonSX}
                 value={selected}
