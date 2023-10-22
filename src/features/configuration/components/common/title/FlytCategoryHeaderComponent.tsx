@@ -7,6 +7,6 @@ interface Props {
 }
 
 const FlytCategoryHeaderComponent: React.FunctionComponent<Props> = (props: Props) => {
-    return <h6 className={props.classes.categoryHeader}>{props.title}</h6>
+    return <h2 className={props.classes.categoryHeader}>{props.title}</h2>
 }
 export default FlytCategoryHeaderComponent

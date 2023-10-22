@@ -5,7 +5,6 @@ import {useTranslation} from "react-i18next";
 import {ClassNameMap} from "@mui/styles";
 import DynamicStringValueComponent from "../../value/string/DynamicStringValueComponent";
 import ArrayValueWrapperComponent from "../../../common/array/ArrayValueWrapperComponent";
-import FlytTitle4Component from "../../../common/title/FlytTitle4Component";
 import {ConfigurationContext} from "../../../../../../context/ConfigurationContext";
 import {isOutsideCollectionEditContext} from "../../../../util/KeyUtils";
 import {IconButton} from "@mui/material";
@@ -15,6 +14,7 @@ import {EditingContext} from "../../../../../../context/EditingContext";
 import {hasValidFormat} from "../../../../util/ValidationUtil";
 import {ValueType as ConfigurationValueType} from "../../../../types/Configuration";
 import {ValueType} from "../../../../types/Metadata/IntegrationMetadata";
+import FlytTitleComponent from "../../../common/title/FlytTitleComponent";
 
 interface Props {
     classes: ClassNameMap;
@@ -50,7 +50,7 @@ const FromCollectionMappingComponent: React.FunctionComponent<Props> = (props: P
         <div className={props.classes.wrapperVerticalMargin}>
             <div id={'selectable-value-mapping-wrapper-' + props.absoluteKey}
                  className={props.classes.flexRowSpacedContainer}>
-                <FlytTitle4Component
+                <FlytTitleComponent variant='h4'
                     id={'collection-mapping-header-' + props.absoluteKey}
                     classes={props.classes}
                     title={t("collections")}
@@ -101,7 +101,7 @@ const FromCollectionMappingComponent: React.FunctionComponent<Props> = (props: P
                 disabled={isOutsideCollectionEditContext(props.absoluteKey, editCollectionAbsoluteKey) || completed}
             />
         </div>
-        <FlytTitle4Component
+        <FlytTitleComponent variant="h4"
             id={'collection-mapping-header-' + props.absoluteKey}
             classes={props.classes}
             title={t("convertCollectionElements")}
