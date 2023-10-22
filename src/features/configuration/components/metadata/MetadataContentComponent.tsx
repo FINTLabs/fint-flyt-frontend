@@ -10,7 +10,8 @@ import * as React from "react";
 import {ReactElement} from "react";
 import {Tag} from "../common/dnd/Tag";
 import FlytCategoryHeaderComponent from "../common/title/FlytCategoryHeaderComponent";
-import FlytTitle3Component from "../common/title/FlytTitle3Component";
+import FlytTitleComponent from "../common/title/FlytTitleComponent";
+
 
 interface Props {
     classes: ClassNameMap;
@@ -27,7 +28,7 @@ const MetadataContentComponent: React.FunctionComponent<Props> = (props: Props) 
         <div style={{display: 'flex'}}>
             {props.icon && props.icon}
             {props.displayName &&
-                <FlytTitle3Component
+                <FlytTitleComponent variant="h3"
                     classes={props.classes}
                     title={props.displayName}
                 />}

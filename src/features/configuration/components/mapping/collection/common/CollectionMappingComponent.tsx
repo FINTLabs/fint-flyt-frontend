@@ -6,12 +6,12 @@ import {useTranslation} from "react-i18next";
 import {ClassNameMap} from "@mui/styles";
 import ArrayObjectWrapperComponent from "../../../common/array/ArrayObjectWrapperComponent";
 import ArrayValueWrapperComponent from "../../../common/array/ArrayValueWrapperComponent";
-import FlytTitle3Component from "../../../common/title/FlytTitle3Component";
 import {ConfigurationContext} from "../../../../../../context/ConfigurationContext";
 import {isOutsideCollectionEditContext} from "../../../../util/KeyUtils";
 import {EditingContext} from "../../../../../../context/EditingContext";
 import HelpPopover from "../../../common/popover/HelpPopover";
 import {Box} from "@mui/material";
+import FlytTitleComponent from "../../../common/title/FlytTitleComponent";
 
 interface Props {
     classes: ClassNameMap;
@@ -29,7 +29,7 @@ const CollectionMappingComponent: React.FunctionComponent<Props> = (props: Props
     return <>
         <div className={props.classes.wrapperVerticalMargin}>
             <Box className={props.classes.flexRowContainer}>
-                <FlytTitle3Component classes={props.classes} title={t("defaultElements")}/>
+                <FlytTitleComponent variant="h3" classes={props.classes} title={t("defaultElements")}/>
                 <HelpPopover popoverContent={'Faste elementer'} noMargin={true}/>
             </Box>
             <ArrayComponent
@@ -65,7 +65,7 @@ const CollectionMappingComponent: React.FunctionComponent<Props> = (props: Props
             />
         </div>
         <Box className={props.classes.flexRowContainer}>
-            <FlytTitle3Component classes={props.classes} title={t("generatedElements")}/>
+            <FlytTitleComponent variant="h3" classes={props.classes} title={t("generatedElements")}/>
             <HelpPopover popoverContent={'Generert fra innhold i en samling'} noMargin={true}/>
         </Box>
         <ArrayComponent
