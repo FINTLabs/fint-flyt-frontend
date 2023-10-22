@@ -1,6 +1,7 @@
 import React from 'react'
 import {ClassNameMap} from "@mui/styles";
 import { Typography } from '@mui/material';
+import { TypographyVariant } from '../../../../../util/constants/types';
 
 
 
@@ -9,16 +10,15 @@ interface FlyTitleComponentProps {
     id?: string,
     title: string;
     children?: React.ReactElement,
-    variant?: string;
+    variant?: TypographyVariant;
 }
 
 const FlytTitleComponent = ({ children, variant}: FlyTitleComponentProps) => {
   return (
-    <Typography>
+    <Typography variant={variant}>
     {children}
     </Typography>
-   
   )
 }
 
-export default FlytTitleComponent
+export default FlytTitleComponent;

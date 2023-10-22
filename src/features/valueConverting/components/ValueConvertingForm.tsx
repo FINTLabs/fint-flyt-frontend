@@ -20,9 +20,9 @@ import {ISelectable} from "../../configuration/types/Selectable";
 import ArrayComponent from "../../configuration/components/common/array/ArrayComponent";
 import FlytTitle4Component from "../../configuration/components/common/title/FlytTitle4Component";
 import {valueConvertingStyles} from "../../../util/styles/ValueConverting.styles";
-import FlytTitle2Component from "../../configuration/components/common/title/FlytTitle2Component";
 import SearchSelectValueComponent from "../../configuration/components/mapping/value/select/SearchSelectValueComponent";
 import HelpPopover from "../../configuration/components/common/popover/HelpPopover";
+import FlytTitleComponent from '../../configuration/components/common/title/FlytTitleComponent';
 
 const useStyles = valueConvertingStyles
 
@@ -132,7 +132,7 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
     return (
         <Box className={classes.panelContainer}>
             <Box className={classes.headerContainer}>
-                <FlytTitle2Component classes={classes} title={t('header')}/>
+                <FlytTitleComponent variant='h2' classes={classes} title={t('header')}/>
                 <HelpPopover popoverContent={''} noMargin={true}/>
             </Box>
             <FormProvider {...methods}>
