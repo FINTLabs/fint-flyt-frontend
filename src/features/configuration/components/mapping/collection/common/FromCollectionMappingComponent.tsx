@@ -14,7 +14,7 @@ import {EditingContext} from "../../../../../../context/EditingContext";
 import {hasValidFormat} from "../../../../util/ValidationUtil";
 import {ValueType as ConfigurationValueType} from "../../../../types/Configuration";
 import {ValueType} from "../../../../types/Metadata/IntegrationMetadata";
-import FlytTitleComponent from "../../../common/title/FlytTitleComponent";
+import FlytTitleComponent from "../../../atoms/FlytTitleComponent";
 
 interface Props {
     classes: ClassNameMap;

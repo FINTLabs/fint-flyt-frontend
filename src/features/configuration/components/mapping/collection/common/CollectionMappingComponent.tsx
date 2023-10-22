@@ -11,7 +11,7 @@ import {isOutsideCollectionEditContext} from "../../../../util/KeyUtils";
 import {EditingContext} from "../../../../../../context/EditingContext";
 import HelpPopover from "../../../common/popover/HelpPopover";
 import {Box} from "@mui/material";
-import FlytTitleComponent from "../../../common/title/FlytTitleComponent";
+import FlytTitleComponent from "../../../atoms/FlytTitleComponent";
 
 interface Props {
     classes: ClassNameMap;

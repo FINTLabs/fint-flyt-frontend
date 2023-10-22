@@ -1,7 +1,7 @@
 import React from 'react'
 import {ClassNameMap} from "@mui/styles";
 import { Typography } from '@mui/material';
-import { TypographyVariant } from '../../../../../util/constants/types';
+import { TypographyVariant } from '../../../../util/constants/types';
 
 
 

@@ -3,7 +3,7 @@ import * as React from "react";
 import {ReactElement} from "react";
 import PathComponent from "../common/PathComponent";
 
-import FlytTitleComponent from "../common/title/FlytTitleComponent";
+import FlytTitleComponent from "../atoms/FlytTitleComponent";
 
 
 export interface Props {
