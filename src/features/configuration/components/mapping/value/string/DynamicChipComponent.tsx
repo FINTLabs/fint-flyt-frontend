@@ -9,6 +9,7 @@ import {Search} from "../../../../util/UrlUtils";
 import {Noop} from "react-hook-form/dist/types";
 import {ControllerFieldState} from "react-hook-form";
 import {errorMsgSX} from "../../../../../../util/styles/SystemStyles";
+import {SystemStyleObject} from "@mui/system";
 
 export interface Props {
     classes: ClassNameMap
@@ -43,6 +44,18 @@ export function getTagColor(tag: string): string {
     }
 }
 
+export function getTagStyles(tag: string): SystemStyleObject {
+    if (tag.includes('$vc')) {
+        return { borderRadius: '3px', background: '#F3E5F5' }
+    } else if (tag.includes('$if')) {
+        return { borderRadius: '3px', background: '#E0F7FA' }
+    } else if (tag.includes('$icf')) {
+        return { borderRadius: '3px', background: '#FFFDE7' }
+    } else {
+        return { borderRadius: '3px', background: 'white', "& .MuiChip-label": { padding: 0.5}}
+    }
+}
+
 const DynamicChipComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivElement, Props>((props: Props, ref) => {
     DynamicChipComponent.displayName = "DynamicChipComponent"
     const [values, setValues] = React.useState<string[]>(props.value ? stringToArray(props.value) : []);
@@ -52,8 +65,10 @@ const DynamicChipComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivE
         accept: props.accept,
         drop: (tag: ITag) => {
             setValues([...values, tag.value])
-            if (props.onChange) {
-                props.onChange(arrayToString(values) + tag.value)
+            if (!props.disabled) {
+                if (props.onChange) {
+                    props.onChange(arrayToString(values) + tag.value)
+                }
             }
         },
         collect: monitor => ({
@@ -71,9 +86,9 @@ const DynamicChipComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivE
         margin: 'none'
     };
 
-    if (canDrop && isOver) {
+    if (canDrop && isOver && !props.disabled) {
         background = 'lightgreen';
-    } else if (canDrop) {
+    } else if (canDrop && !props.disabled) {
         background = 'lightblue';
     }
 
@@ -82,10 +97,13 @@ const DynamicChipComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivE
         background
     }
 
+
+
     return (
         <div id={"dnd-value-component-" + absoluteKey} key={absoluteKey}>
             <Autocomplete
                 multiple
+                disabled={props.disabled}
                 value={values}
                 ref={dropRef}
                 id="tags-filled"
@@ -104,7 +122,7 @@ const DynamicChipComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivE
                     tags.map((tag: string, index: number) => {
                             // eslint-disable-next-line react/jsx-key
                             return <Chip
-                                sx={{borderRadius: '3px', background: getTagColor(tag)}}
+                                sx={ getTagStyles(tag) }
                                 variant="outlined"
                                 label={tag}
                                 onDelete={undefined}
@@ -127,6 +145,7 @@ const DynamicChipComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivE
                         variant="outlined"
                         label={props.displayName}
                         placeholder={values.length === 0 ? "Skriv eller trekk inn fra metadata" : undefined}
+                        disabled={props.disabled}
                     />
                 )}
             />
