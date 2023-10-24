@@ -9,7 +9,7 @@ import {Search} from "../../../../util/UrlUtils";
 import {Noop} from "react-hook-form/dist/types";
 import {ControllerFieldState} from "react-hook-form";
 import {errorMsgSX} from "../../../../../../util/styles/SystemStyles";
-import {SystemStyleObject} from "@mui/system";
+import {getTagStyles, mappingStringToValueArray, valueArrayToMappingString} from "../../../../util/ValueFieldUtils";
 
 export interface Props {
     classes: ClassNameMap
@@ -24,41 +24,10 @@ export interface Props {
     fieldState: ControllerFieldState | undefined
 }
 
-function stringToArray(input: string): string[] {
-    return input.split(/(\s+)/).filter(Boolean);
-}
-
-export function arrayToString(input: string[]): string {
-    return input.join('');
-}
-
-export function getTagColor(tag: string): string {
-    if (tag.includes('$vc')) {
-        return '#F3E5F5'
-    } else if (tag.includes('$if')) {
-        return '#E0F7FA'
-    } else if (tag.includes('$icf')) {
-        return '#FFFDE7'
-    } else {
-        return 'white'
-    }
-}
-
-export function getTagStyles(tag: string): SystemStyleObject {
-    if (tag.includes('$vc')) {
-        return { borderRadius: '3px', background: '#F3E5F5' }
-    } else if (tag.includes('$if')) {
-        return { borderRadius: '3px', background: '#E0F7FA' }
-    } else if (tag.includes('$icf')) {
-        return { borderRadius: '3px', background: '#FFFDE7' }
-    } else {
-        return { borderRadius: '3px', background: 'white', "& .MuiChip-label": { padding: 0.5}}
-    }
-}
 
 const DynamicChipComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivElement, Props>((props: Props, ref) => {
     DynamicChipComponent.displayName = "DynamicChipComponent"
-    const [values, setValues] = React.useState<string[]>(props.value ? stringToArray(props.value) : []);
+    const [values, setValues] = React.useState<string[]>(props.value ? mappingStringToValueArray(props.value) : []);
     const absoluteKey: string = props.name;
 
     const [{canDrop, isOver}, dropRef] = useDrop({
@@ -67,7 +36,7 @@ const DynamicChipComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivE
             setValues([...values, tag.value])
             if (!props.disabled) {
                 if (props.onChange) {
-                    props.onChange(arrayToString(values) + tag.value)
+                    props.onChange(valueArrayToMappingString(values) + tag.value)
                 }
             }
         },
@@ -98,7 +67,6 @@ const DynamicChipComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivE
     }
 
 
-
     return (
         <div id={"dnd-value-component-" + absoluteKey} key={absoluteKey}>
             <Autocomplete
@@ -115,14 +83,14 @@ const DynamicChipComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivE
                     console.log(newValue)
                     newValue ? setValues(newValue) : null;
                     if (props.onChange && newValue) {
-                        props.onChange(arrayToString(newValue))
+                        props.onChange(valueArrayToMappingString(newValue))
                     }
                 }}
                 renderTags={(tags: readonly string[]) =>
                     tags.map((tag: string, index: number) => {
                             // eslint-disable-next-line react/jsx-key
                             return <Chip
-                                sx={ getTagStyles(tag) }
+                                sx={getTagStyles(tag)}
                                 variant="outlined"
                                 label={tag}
                                 onDelete={undefined}
