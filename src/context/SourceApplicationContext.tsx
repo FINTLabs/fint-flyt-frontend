@@ -136,7 +136,7 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
             .then(response => {
                 const data: IInstanceMetadataContent = response.data
                 if (data) {
-                    setInstanceElementMetadata(MOCK_INSTANCE_METADATA) // TODO dnd_input set back to data
+                    setInstanceElementMetadata(data)
                 }
             })
             .catch((err) => {
