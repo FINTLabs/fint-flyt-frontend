@@ -2,15 +2,12 @@ import {SystemStyleObject} from "@mui/system";
 
 export function mappingStringToValueArray(input: string): string[] {
     const containsValueConverting: boolean = input.includes('$vc')
-
-    if (input.includes(" ") && !containsValueConverting) {
-        return input.split(/\s+/).filter((str) => str.length > 0);
-    }
-    if (containsValueConverting && !input.includes(" ")) {
-        const stringWithSpace = input.replace(/(\$\w+\{\w+\})(\$\w+\{\w+\})/g, '$1 $2');
-        return stringWithSpace.split(/\s+/).filter((str) => str.length > 0);
+    if (containsValueConverting) {
+        const stringWithSpace = input.replace(/(?<=\})(?=\$)/g, ' ');
+        const stringArray = stringWithSpace.split(/(\s+)/).filter(Boolean);
+        return stringArray.filter(str => !(str === ' '))
     } else {
-        return input.split(',')
+        return input.split(/(\s+)/).filter(Boolean);
     }
 
 }
@@ -19,26 +16,26 @@ export function valueArrayToMappingString(input: string[]): string {
     return input.join('');
 }
 
-export function getTagColor(tag: string): string {
+export function getTagColor(tag: string, disabled?: boolean): string {
     if (tag.includes('$vc')) {
-        return '#F3E5F5'
+        return disabled ? '#e0e0e0' : '#F3E5F5'
     } else if (tag.includes('$if')) {
-        return '#E0F7FA'
+        return disabled ? '#eeeeee' :  '#E0F7FA'
     } else if (tag.includes('$icf')) {
-        return '#FFFDE7'
+        return disabled ? '#eeeeee' : '#FFFDE7'
     } else {
         return 'white'
     }
 }
 
-export function getTagStyles(tag: string): SystemStyleObject {
+export function getTagStyles(tag: string, disabled?: boolean): SystemStyleObject {
     if (tag.includes('$vc')) {
-        return {borderRadius: '3px', background: '#F3E5F5'}
+        return {borderRadius: '3px', background: getTagColor(tag, disabled)}
     } else if (tag.includes('$if')) {
-        return {borderRadius: '3px', background: '#E0F7FA'}
+        return {borderRadius: '3px', background: getTagColor(tag, disabled)}
     } else if (tag.includes('$icf')) {
-        return {borderRadius: '3px', background: '#FFFDE7'}
+        return {borderRadius: '3px', background: getTagColor(tag, disabled)}
     } else {
-        return {borderRadius: '3px', background: 'white', "& .MuiChip-label": {padding: 0.5}}
+        return {borderRadius: '3px', background: getTagColor(tag, disabled), "& .MuiChip-label": {padding: 0.5}}
     }
 }

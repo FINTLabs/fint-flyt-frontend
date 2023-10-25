@@ -24,7 +24,6 @@ export interface Props {
     fieldState: ControllerFieldState | undefined
 }
 
-
 const DynamicChipComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivElement, Props>((props: Props, ref) => {
     DynamicChipComponent.displayName = "DynamicChipComponent"
     const [values, setValues] = React.useState<string[]>(props.value ? mappingStringToValueArray(props.value) : []);
@@ -90,7 +89,7 @@ const DynamicChipComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivE
                     tags.map((tag: string, index: number) => {
                             // eslint-disable-next-line react/jsx-key
                             return <Chip
-                                sx={getTagStyles(tag)}
+                                sx={getTagStyles(tag, props.disabled)}
                                 variant="outlined"
                                 label={tag}
                                 onDelete={undefined}
