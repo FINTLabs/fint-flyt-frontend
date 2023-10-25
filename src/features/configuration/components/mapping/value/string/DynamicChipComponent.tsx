@@ -75,11 +75,9 @@ const DynamicChipComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivE
                 ref={dropRef}
                 id="tags-filled"
                 options={[]}
-                // eslint-disable-next-line
-                isOptionEqualToValue={(option, value) => false} // to allow multiple of same value, i.e. spaces
+                isOptionEqualToValue={() => false} // to allow multiple of same value, i.e. spaces
                 defaultValue={[]}
                 onChange={(event, newValue) => {
-                    console.log(newValue)
                     newValue ? setValues(newValue) : null;
                     if (props.onChange && newValue) {
                         props.onChange(valueArrayToMappingString(newValue))
