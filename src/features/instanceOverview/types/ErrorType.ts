@@ -3,5 +3,7 @@ export const ErrorType = {
     ERROR_MESSAGE: '#errorMessage#',
     MESSAGE: '#message#',
     FIELD_PATH: '#fieldPath#',
+    NAME: '#name#',
+    MEDIA_TYPE: '#mediatype#',
     UNKNOWN: 'unknownErrorType'
 }

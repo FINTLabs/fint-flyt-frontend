@@ -10,6 +10,10 @@ export function toErrorType(type: string): string {
             return ErrorType.FIELD_PATH
         case 'message':
             return ErrorType.MESSAGE
+        case 'name':
+            return ErrorType.NAME
+        case 'mediatype':
+            return ErrorType.MEDIA_TYPE
         default:
             return ErrorType.UNKNOWN
 
