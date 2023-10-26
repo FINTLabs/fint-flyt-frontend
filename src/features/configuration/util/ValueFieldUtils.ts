@@ -36,6 +36,7 @@ export function getTagStyles(tag: string, disabled?: boolean): SystemStyleObject
     } else if (tag.includes('$icf')) {
         return {borderRadius: '3px', background: getTagColor(tag, disabled)}
     } else {
+       // return {borderRadius: '1px', borderColor: '#eeeeee', background: getTagColor(tag, disabled), "& .MuiChip-label": {padding: 0.5}}
         return {borderRadius: '3px', background: getTagColor(tag, disabled), "& .MuiChip-label": {padding: 0.5}}
     }
 }
