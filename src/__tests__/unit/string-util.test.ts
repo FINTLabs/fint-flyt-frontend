@@ -25,12 +25,15 @@ const testStrings: string[] = [
     "Valideringsfeil i mottak av instans, '#fieldPath# #errorMessage#'",
     "Mangler felt ‘#instanceFieldKey#’ i instans, som kreves for å sette felt i sak",
     "Instansen ble avvist av destinasjon med følgende feilmelding: '#errorMessage#'",
-    "Instans avvist, '#message#'"
+    "Instans avvist, '#message#'",
+    "Feil under opplasting av fil, filnavn: '#name#' med mediatype: '#mediatype#'",
 ]
 const errorArgs: IErrorArg[] = [
     {value: 'foo', type: 'fieldPath'},
     {value: 'bar', type: 'errorMessage'},
     {value: 'qux', type: 'instanceFieldKey'},
+    {value: 'fil.docx', type: 'name'},
+    {value: 'app/docx', type: 'mediatype'},
 ]
 
 test('It should create errorArgs list correctly', () => {
@@ -42,4 +45,5 @@ test('It should show error messages correctly', () => {
     expect(errorStringReplace(testStrings[1], errorArgs)).toEqual("Mangler felt ‘qux’ i instans, som kreves for å sette felt i sak")
     expect(errorStringReplace(testStrings[2], resultingErrorArgs)).toEqual("Instansen ble avvist av destinasjon med følgende feilmelding: 'On a scale of 1-10 my friend, you're f'ed'")
     expect(errorStringReplace(testStrings[3], resultingErrorArgs)).toEqual("Instans avvist, 'Ingen støtte for dette domenet'")
+    expect(errorStringReplace(testStrings[4], errorArgs)).toEqual("Feil under opplasting av fil, filnavn: 'fil.docx' med mediatype: 'app/docx'")
 });
