@@ -153,6 +153,7 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
                 setSelectedMetadata(usedVersionMetadata.length > 0 ? usedVersionMetadata[0] : undefined)
                 if (version) {
                     data.id = undefined;
+                    data.comment = undefined
                     data.completed = false;
                 }
                 setConfiguration(data);

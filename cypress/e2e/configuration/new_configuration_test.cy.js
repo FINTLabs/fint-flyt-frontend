@@ -97,7 +97,6 @@ describe('Testing creating new and editing configurations from integration overv
         cy.get('#positioned-button').click()
         cy.get('li.MuiButtonBase-root > #positioned-button').click()
         cy.get('#version-button').click()
-        cy.get('#comment').should("contain.text", "completed config")
         cy.get('#mapping\\.valueMappingPerKey\\.type\\.mappingString').click()
         cy.get('#menu-mapping\\.valueMappingPerKey\\.type\\.mappingString > .MuiPaper-root > .MuiList-root > [tabindex="0"]').type('{enter}')
         cy.get('.MuiToggleButton-root').click()
