@@ -11,10 +11,15 @@ interface FlyTitleComponentProps {
     variant?: TitleVariant;
 }
 
-const FlytTitleComponent = ({ children, variant}: FlyTitleComponentProps) => {
+const titleMarginStyle = {
+  marginBottom: '10px', // Adjust the value as needed
+};
+
+const FlytTitleComponent = ({ children, variant, title}: FlyTitleComponentProps) => {
   return (
-    <Typography variant={variant}>
+    <Typography variant={variant} style={titleMarginStyle}>
     {children}
+    {title}
     </Typography>
   )
 }

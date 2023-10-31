@@ -18,7 +18,7 @@ const ColumnElementComponent: React.FunctionComponent<Props> = (props: Props) =>
     return <div id={'column-item-' + props.index} className={props.classes.columnItem}>
         <div className={props.classes.wrapperPadding}>
             <div>
-                <FlytTitleComponent variant="h2" classes={props.classes} title={props.title}/>
+                <FlytTitleComponent variant="h6" classes={props.classes} title={props.title}/>
                 {props.path.length > 0 && <PathComponent classes={props.classes} path={props.path}/>}
             </div>
             {props.content}
