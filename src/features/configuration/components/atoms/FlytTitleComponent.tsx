@@ -2,8 +2,8 @@ import React from 'react'
 import {ClassNameMap} from "@mui/styles";
 import { Typography } from '@mui/material';
 import { TitleVariant } from '../../../../util/styles/theme/types';
-import { useCommonStyles } from '../../../../util/styles/theme/theme';
-import theme from '../../../../util/styles/theme/theme';
+import theme, { useCommonStyles } from '../../../../util/styles/theme/theme';
+
 
 interface FlyTitleComponentProps {
     classes: ClassNameMap;

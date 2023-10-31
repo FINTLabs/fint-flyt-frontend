@@ -4,7 +4,7 @@ import {ClassNameMap} from "@mui/styles";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 export interface Props {
-    classes: ClassNameMap
+    classes:  React.CSSProperties
     data: AccordionData[]
 }
 
