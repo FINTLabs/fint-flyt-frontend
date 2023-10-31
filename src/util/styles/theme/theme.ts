@@ -34,7 +34,7 @@ const theme = createTheme(
 );
 
 
-export const createCommonStyles = (theme : Theme) => {
+export const useCommonStyles = (theme : Theme) => {
     return {
         dataGridBox: {
             minHeight: theme.spacing(80),
@@ -118,6 +118,11 @@ export const createCommonStyles = (theme : Theme) => {
             "&:last-child": {
                 marginLeft: theme.spacing(2)
             }
+        },
+        card: {
+            border: 'solid 1px',
+            marginRight: theme.spacing(2),
+            borderColor: theme.palette.primary.main
         },
      
     };
