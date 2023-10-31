@@ -1,6 +1,5 @@
 import * as React from "react";
 import {Accordion, AccordionDetails, AccordionSummary, Typography} from "@mui/material";
-import {ClassNameMap} from "@mui/styles";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 export interface Props {
