@@ -124,6 +124,9 @@ export const useCommonStyles = (theme : Theme) => {
             marginRight: theme.spacing(2),
             borderColor: theme.palette.primary.main
         },
+        titleMarginStyle : {
+            marginBottom: '10px',
+        }
      
     };
 };
