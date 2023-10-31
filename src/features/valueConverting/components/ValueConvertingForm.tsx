@@ -152,7 +152,7 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
                                 }
                             />
                         </Box>
-                        <FlytTitleComponent variant="h4" classes={classes} title={'Fra'}/>
+                        <FlytTitleComponent variant="h6" classes={classes} title={'Fra'}/>
                         <Box sx={{height: '110px'}} className={classes.valueConvertingWrapper}>
                             <Controller
                                 name={"fromApplicationId"}
@@ -191,7 +191,7 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
                                 }
                             />
                         </Box>
-                        <FlytTitleComponent variant="h4" classes={classes} title={'Til'}/>
+                        <FlytTitleComponent variant="h6" classes={classes} title={'Til'}/>
                         <Box sx={{height: '110px'}} className={classes.valueConvertingWrapper}>
                             <Controller
                                 name={"toApplicationId"}
@@ -230,7 +230,7 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
                                 }
                             />
                         </Box>
-                        <FlytTitleComponent variant="h4" classes={classes} title={'Konvertering(er)'}/>
+                        <FlytTitleComponent variant="h6" classes={classes} title={'Konvertering(er)'}/>
                         <div className={classes.wrapperVerticalMargin}>
                             <ArrayComponent
                                 classes={classes}

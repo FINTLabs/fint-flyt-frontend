@@ -27,7 +27,7 @@ const MetadataContentComponent: React.FunctionComponent<Props> = (props: Props) 
         <div style={{display: 'flex'}}>
             {props.icon && props.icon}
             {props.displayName &&
-                <FlytTitleComponent variant="h3"
+                <FlytTitleComponent variant="h6"
                     classes={props.classes}
                     title={props.displayName}
                 />}

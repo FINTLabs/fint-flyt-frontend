@@ -29,7 +29,7 @@ const CollectionMappingComponent: React.FunctionComponent<Props> = (props: Props
     return <>
         <div className={props.classes.wrapperVerticalMargin}>
             <Box className={props.classes.flexRowContainer}>
-                <FlytTitleComponent variant="h3" classes={props.classes} title={t("defaultElements")}/>
+                <FlytTitleComponent variant="h6" classes={props.classes} title={t("defaultElements")}/>
                 <HelpPopover popoverContent={'Faste elementer'} noMargin={true}/>
             </Box>
             <ArrayComponent
@@ -65,7 +65,7 @@ const CollectionMappingComponent: React.FunctionComponent<Props> = (props: Props
             />
         </div>
         <Box className={props.classes.flexRowContainer}>
-            <FlytTitleComponent variant="h3" classes={props.classes} title={t("generatedElements")}/>
+            <FlytTitleComponent variant="h6" classes={props.classes} title={t("generatedElements")}/>
             <HelpPopover popoverContent={'Generert fra innhold i en samling'} noMargin={true}/>
         </Box>
         <ArrayComponent

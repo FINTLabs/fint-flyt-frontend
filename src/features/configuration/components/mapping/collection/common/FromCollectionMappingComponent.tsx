@@ -101,7 +101,7 @@ const FromCollectionMappingComponent: React.FunctionComponent<Props> = (props: P
                 disabled={isOutsideCollectionEditContext(props.absoluteKey, editCollectionAbsoluteKey) || completed}
             />
         </div>
-        <FlytTitleComponent variant="h4"
+        <FlytTitleComponent variant="h6"
             id={'collection-mapping-header-' + props.absoluteKey}
             classes={props.classes}
             title={t("convertCollectionElements")}
