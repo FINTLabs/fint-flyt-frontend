@@ -131,7 +131,7 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
     return (
         <Box className={classes.panelContainer}>
             <Box className={classes.headerContainer}>
-                <FlytTitleComponent variant='h2' classes={classes} title={t('header')}/>
+                <FlytTitleComponent variant='h4' classes={classes} title={t('header')}/>
                 <HelpPopover popoverContent={''} noMargin={true}/>
             </Box>
             <FormProvider {...methods}>
