@@ -30,13 +30,13 @@ export function getTagColor(tag: string, disabled?: boolean): string {
 
 export function getTagStyles(tag: string, disabled?: boolean): SystemStyleObject {
     if (tag.includes('$vc')) {
-        return {borderRadius: '3px', background: getTagColor(tag, disabled)}
+        return {borderRadius: '3px', background: getTagColor(tag, disabled), color: disabled ? 'gray' : 'black'}
     } else if (tag.includes('$if')) {
-        return {borderRadius: '3px', background: getTagColor(tag, disabled)}
+        return {borderRadius: '3px', background: getTagColor(tag, disabled), color: disabled ? 'gray' : 'black'}
     } else if (tag.includes('$icf')) {
-        return {borderRadius: '3px', background: getTagColor(tag, disabled)}
+        return {borderRadius: '3px', background: getTagColor(tag, disabled), color: disabled ? 'gray' : 'black'}
     } else {
-       // return {borderRadius: '1px', borderColor: '#eeeeee', background: getTagColor(tag, disabled), "& .MuiChip-label": {padding: 0.5}}
-        return {borderRadius: '3px', background: getTagColor(tag, disabled), "& .MuiChip-label": {padding: 0.5}}
+        return {borderRadius: '1px', borderColor: '#eeeeee', background: getTagColor(tag, disabled), "& .MuiChip-label": {padding: 0.5}, color: disabled ? 'gray' : 'black'}
+       // return {borderRadius: '3px', background: getTagColor(tag, disabled), "& .MuiChip-label": {padding: 0.5}}
     }
 }
