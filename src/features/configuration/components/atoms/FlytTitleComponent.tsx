@@ -12,7 +12,7 @@ interface FlyTitleComponentProps {
 }
 
 const titleMarginStyle = {
-  marginBottom: '10px', // Adjust the value as needed
+  marginBottom: '10px', 
 };
 
 const FlytTitleComponent = ({ children, variant, title}: FlyTitleComponentProps) => {
