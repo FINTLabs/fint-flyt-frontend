@@ -14,9 +14,9 @@ interface FlyTitleComponentProps {
 }
 
 const FlytTitleComponent = ({ children, variant, title}: FlyTitleComponentProps) => {
-  const classes = useCommonStyles(theme);
+  const maintheme = useCommonStyles(theme);
   return (
-    <Typography variant={variant} style={classes.titleMarginStyle}>
+    <Typography variant={variant} style={maintheme.titleMarginStyle}>
     {children}
     {title}
     </Typography>
