@@ -9,15 +9,15 @@ interface FlyTitleComponentProps {
     classes: ClassNameMap;
     id?: string,
     title: string;
-    children?: React.ReactElement,
+
     variant?: TitleVariant;
 }
 
-const FlytTitleComponent = ({ children, variant, title}: FlyTitleComponentProps) => {
+const FlytTitleComponent = ({  variant, title}: FlyTitleComponentProps) => {
   const mainTheme = useCommonStyles(theme);
   return (
     <Typography variant={variant} style={mainTheme.titleMarginStyle}>
-    {children}
+
     {title}
     </Typography>
   )
