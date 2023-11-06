@@ -9,8 +9,7 @@ interface FlyTitleComponentProps {
     classes: ClassNameMap;
     id?: string,
     title: string;
-
-    variant?: TitleVariant;
+    variant: TitleVariant;
 }
 
 const FlytTitleComponent = ({  variant, title}: FlyTitleComponentProps) => {
