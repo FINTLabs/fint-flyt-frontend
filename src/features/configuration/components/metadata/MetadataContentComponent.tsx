@@ -9,8 +9,8 @@ import {
 import * as React from "react";
 import {ReactElement} from "react";
 import {Tag} from "../common/dnd/Tag";
-import FlytCategoryHeaderComponent from "../common/title/FlytCategoryHeaderComponent";
-import FlytTitle3Component from "../common/title/FlytTitle3Component";
+import FlytTitleComponent from "../atoms/FlytTitleComponent";
+
 
 interface Props {
     classes: ClassNameMap;
@@ -27,7 +27,7 @@ const MetadataContentComponent: React.FunctionComponent<Props> = (props: Props) 
         <div style={{display: 'flex'}}>
             {props.icon && props.icon}
             {props.displayName &&
-                <FlytTitle3Component
+                <FlytTitleComponent variant="h6"
                     classes={props.classes}
                     title={props.displayName}
                 />}
@@ -72,7 +72,7 @@ const MetadataContentComponent: React.FunctionComponent<Props> = (props: Props) 
             })}
         {props.content.categories.map((category: IInstanceMetadataCategory) =>
             <div key={'tagTree-' + category.displayName} style={{marginTop: '8px'}}>
-                <FlytCategoryHeaderComponent
+                <FlytTitleComponent variant='h6'
                     classes={props.classes}
                     title={category.displayName}
                 />
