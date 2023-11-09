@@ -6,6 +6,6 @@ export const SupportStyles = makeStyles((theme: Theme) =>
         card: {
             border: 'solid 1px',
             marginRight: theme.spacing(2),
-            borderColor: theme.palette.primary.main
+            borderColor: 'lightgray'
         }
     }));

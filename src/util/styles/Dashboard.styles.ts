@@ -1,4 +1,4 @@
-import { createCommonStyles } from './theme/theme';
+import {createCommonStyles} from './theme/theme';
 import {createStyles, makeStyles} from "@mui/styles";
 import {Theme} from "@mui/material";
 
@@ -7,8 +7,8 @@ export const DashboardStyles = makeStyles((theme: Theme) =>
         ...createCommonStyles(theme),
         card: {
             border: 'solid 1px',
+            borderColor: 'lightgray',
             marginRight: theme.spacing(2),
-            borderColor: theme.palette.primary.main
         },
         dataGridContainer: {
             marginTop: theme.spacing(4)

@@ -26,14 +26,14 @@ const AccordionComponent: React.FunctionComponent<Props> = (props: Props) => {
         return (
             <Accordion
                 disableGutters={true}
-                sx={{mb: 2, border: 1, borderRadius: 1, boxShadow: 'none', maxWidth: '85%'}}
+                sx={{mb: 2, border: 1, borderRadius: 1, borderColor: 'lightgray', boxShadow: 'none', maxWidth: '85%'}}
                 key={props.content.id}
                 onChange={handleChangeExpanded(`panel_${props.content.id}`)}
             >
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon/>}
-                    aria-controls={props.id +'-content'}
-                    id={props.id +'-header'}
+                    aria-controls={props.id + '-content'}
+                    id={props.id + '-header'}
                 >
                     <Typography sx={{width: '33%', flexShrink: 0}}>
                         {props.content.summary}
@@ -57,9 +57,9 @@ const AccordionComponent: React.FunctionComponent<Props> = (props: Props) => {
                         </ul>
                     }
                     {props.content.link &&
-                    <Typography>
-                        <a href={"mailto:" + props.content.link}  target="_top">{props.content.link}</a>
-                    </Typography>}
+                        <Typography>
+                            <a href={"mailto:" + props.content.link} target="_top">{props.content.link}</a>
+                        </Typography>}
                 </AccordionDetails>
             </Accordion>
         );

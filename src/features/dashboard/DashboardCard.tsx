@@ -16,7 +16,7 @@ const DashboardCard: React.FunctionComponent<Props> = (props: Props) => {
     const classes = props.classes;
 
     return (
-        <Card className={classes.card} sx={{minWidth: 200, maxWidth: 345}}>
+        <Card className={classes.card} sx={{minWidth: 200, maxWidth: 345, boxShadow: 'none'}}>
             <CardContent>
                 <Typography>
                     {props.value} {props.content}

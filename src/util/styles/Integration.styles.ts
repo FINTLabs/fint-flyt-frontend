@@ -1,4 +1,4 @@
-import { createCommonStyles } from './theme/theme';
+import {createCommonStyles} from './theme/theme';
 import {createStyles, makeStyles} from "@mui/styles";
 import {Theme} from "@mui/material";
 
@@ -13,7 +13,7 @@ export const IntegrationStyles = makeStyles((theme: Theme) =>
         },
         tableWrapper: {
             maxWidth: theme.spacing(220),
-            border: '1px solid black',
+            border: '1px solid lightgrey',
             borderRadius: theme.spacing(0.5),
             padding: theme.spacing(2),
             backgroundColor: 'white'
@@ -22,7 +22,7 @@ export const IntegrationStyles = makeStyles((theme: Theme) =>
             height: theme.spacing(22),
             minWidth: theme.spacing(80),
             width: 'fit-content',
-            border: '1px solid black',
+            border: '1px solid lightgrey',
             borderRadius: theme.spacing(0.5),
             padding: theme.spacing(2),
             backgroundColor: 'white'

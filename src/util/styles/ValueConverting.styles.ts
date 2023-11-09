@@ -1,16 +1,16 @@
-import { createCommonStyles } from './theme/theme';
+import {createCommonStyles} from './theme/theme';
 import {createStyles, makeStyles} from "@mui/styles";
 import {Theme} from "@mui/material";
 
 export const valueConvertingStyles = makeStyles((theme: Theme) =>
     createStyles({
-        ...createCommonStyles(theme), 
+        ...createCommonStyles(theme),
         valueConvertingBox: {
             height: theme.spacing(75),
             width: '85%',
             backgroundColor: 'white',
             border: 'solid 1px',
-            borderColor: 'black',
+            borderColor: 'lightgrey',
             borderRadius: theme.spacing(0.5),
         },
         configurationBox: {
@@ -41,6 +41,6 @@ export const valueConvertingStyles = makeStyles((theme: Theme) =>
             margin: '0',
             padding: '0'
         },
-        
+
     })
 );
