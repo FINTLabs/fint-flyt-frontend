@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from "react";
+import React, {useContext} from "react";
 import {AppBar, Box, Button, Drawer, Toolbar, Typography} from "@mui/material";
 import Router from "./Router";
 import MenuItems from "./MenuItems";
@@ -8,35 +8,14 @@ import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import {SourceApplicationContext} from "../../context/SourceApplicationContext";
 import ConfigurationProvider from "../../context/ConfigurationContext";
 import {MainStyles} from "../../util/styles/Main.styles";
-import IntegrationRepository from "../../shared/repositories/IntegrationRepository";
-import {IIntegration} from "../integration/types/Integration";
 
 const useStyles = MainStyles;
 
 function Main() {
     const classes = useStyles();
     const {t, i18n} = useTranslation();
-    const {isAdmin, sourceApplication, setSourceApplication} = useContext(SourceApplicationContext)
+    const {isAdmin} = useContext(SourceApplicationContext)
 
-
-    useEffect(() => {
-        (async () => {
-            await IntegrationRepository.getAllIntegrations()
-                .then(response => {
-                    const data: IIntegration[] = response.data
-                    if(data.length > 0) {
-                        setSourceApplication(Number(data[0].sourceApplicationId))
-                    }
-                    else {
-                        setSourceApplication(1)
-                    }
-                })
-                .catch(e => {
-                    setSourceApplication(1)
-                    console.log(e)
-                })
-        })();
-    }, []);
 
     // eslint-disable-next-line
     const changeLanguage = (lng: string) => {
@@ -70,14 +49,11 @@ function Main() {
                 <Toolbar/>
                 <MenuItems/>
             </Drawer>
-            {sourceApplication ?
-                <main className={classes.content}>
-                    <ConfigurationProvider>
-                        <Router/>
-                    </ConfigurationProvider>
-                </main>
-                : <><Typography>Loading</Typography></>
-            }
+            <main className={classes.content}>
+                <ConfigurationProvider>
+                    <Router/>
+                </ConfigurationProvider>
+            </main>
         </Box>
     );
 }
