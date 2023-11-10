@@ -14,8 +14,6 @@ import { ContextProps } from "../util/constants/interface";
 
 
 type SourceApplicationContextState = {
-    isAdmin: boolean;
-    setIsAdmin: (admin: boolean) => void;
     availableForms: ISelect[];
     getAllIntegrationsAndSetAvailableForms: (forms: ISelect[]) => void;
     getAvailableForms: () => void;
@@ -31,8 +29,7 @@ type SourceApplicationContextState = {
 };
 
 const contextDefaultValues: SourceApplicationContextState = {
-    isAdmin: false,
-    setIsAdmin: () => undefined,
+  
     availableForms: [
         {value: 'null', label: 'Velg skjemaleverandør først'}
     ],
@@ -63,7 +60,7 @@ const contextDefaultValues: SourceApplicationContextState = {
 );
 
 const SourceApplicationProvider = ({children}: ContextProps) => {
-    const [isAdmin, setIsAdmin] = useState<boolean>(contextDefaultValues.isAdmin)
+   
     const [availableForms, setAvailableForms] = useState<ISelect[]>(contextDefaultValues.availableForms);
     const [allMetadata, setAllMetadata] = useState<IIntegrationMetadata[]>(contextDefaultValues.allMetadata)
     const [instanceElementMetadata, setInstanceElementMetadata] = useState<IInstanceMetadataContent | undefined>(MOCK_INSTANCE_METADATA.instanceMetadata)
@@ -148,8 +145,6 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
     return (
         <SourceApplicationContext.Provider
             value={{
-                isAdmin,
-                setIsAdmin,
                 availableForms,
                 getAvailableForms,
                 allMetadata,
