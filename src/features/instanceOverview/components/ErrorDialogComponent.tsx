@@ -9,7 +9,7 @@ type Props = {
     row: IEvent | undefined
 }
 
-const DialogContentComponent: React.FunctionComponent<Props> = (props: Props) => {
+const ErrorDialogComponent: React.FunctionComponent<Props> = (props: Props) => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.instanceOverview'});
 
     return (
@@ -32,4 +32,4 @@ const DialogContentComponent: React.FunctionComponent<Props> = (props: Props) =>
     )
 }
 
-export default DialogContentComponent;
+export default ErrorDialogComponent;

@@ -13,7 +13,7 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import {getSourceApplicationDisplayName, renderCellWithTooltip} from "../../../util/DataGridUtil";
 import {useHistory} from "react-router-dom";
 import {ClassNameMap} from "@mui/styles";
-import DialogContentComponent from "./DialogContentComponent";
+import DialogContentComponent from "./ErrorDialogComponent";
 import { HistoryContext } from "../../../context/HistoryContext";
 
 type Props = {
