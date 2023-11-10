@@ -46,4 +46,6 @@ test('It should show error messages correctly', () => {
     expect(errorStringReplace(testStrings[2], resultingErrorArgs)).toEqual("Instansen ble avvist av destinasjon med følgende feilmelding: 'On a scale of 1-10 my friend, you're f'ed'")
     expect(errorStringReplace(testStrings[3], resultingErrorArgs)).toEqual("Instans avvist, 'Ingen støtte for dette domenet'")
     expect(errorStringReplace(testStrings[4], errorArgs)).toEqual("Feil under opplasting av fil, filnavn: 'fil.docx' med mediatype: 'app/docx'")
+    expect(errorStringReplace(testStrings[5], errorArgs)).toEqual("Feil under verdikonvertering, finner ikke nøkkel: 'image/png', i verdikonvertering med ID: 4")
+    expect(errorStringReplace(testStrings[6], errorArgs)).toEqual("Feil under verdikonvertering, verdikonvertering ikke funnet")
 });
