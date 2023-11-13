@@ -1,10 +1,10 @@
-import {createCommonStyles} from './theme/theme';
+import { useCommonStyles } from './theme/theme';
 import {createStyles, makeStyles} from "@mui/styles";
 import {Theme} from "@mui/material";
 
 export const ConfigurationFormStyles = makeStyles((theme: Theme) =>
     createStyles({
-        ...createCommonStyles(theme),
+        ...useCommonStyles(theme),
         row: {
             display: 'flex',
             alignItems: 'center',
@@ -67,8 +67,6 @@ export const ConfigurationFormStyles = makeStyles((theme: Theme) =>
             marginBottom: theme.spacing(0.5),
             height: theme.spacing(3)
         },
-
-
         categoryHeader: {
             fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
             fontSize: theme.spacing(2),

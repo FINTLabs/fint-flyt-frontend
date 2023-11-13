@@ -1,10 +1,10 @@
-import {createCommonStyles} from './theme/theme';
+import { useCommonStyles } from './theme/theme';
 import {createStyles, makeStyles} from "@mui/styles";
 import {Theme} from "@mui/material";
 
 export const IntegrationStyles = makeStyles((theme: Theme) =>
     createStyles({
-        ...createCommonStyles(theme),
+        ...useCommonStyles(theme),
         dataPanelBox: {
             height: theme.spacing(45),
             width: '100%',

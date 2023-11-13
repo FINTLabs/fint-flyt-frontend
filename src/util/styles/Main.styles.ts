@@ -1,4 +1,4 @@
-import { createCommonStyles } from './theme/theme';
+import { useCommonStyles } from './theme/theme';
 import {createStyles, makeStyles} from "@mui/styles";
 import {Theme} from "@mui/material";
 
@@ -6,7 +6,7 @@ const drawerWidth = 240;
 
 export const MainStyles = makeStyles((theme: Theme) =>
     createStyles({
-        ...createCommonStyles(theme),
+        ...useCommonStyles(theme),
         appBar: {
             zIndex: theme.zIndex.drawer + 1
         },
