@@ -1,13 +1,8 @@
-import React, {useContext} from "react";
-import {AppBar, Box, Button, Drawer, Toolbar, Typography} from "@mui/material";
-import React, {useContext, useEffect} from "react";
-import {AppBar, Box,  Drawer, Toolbar, Typography} from "@mui/material";
+import React from "react";
+import {AppBar, Box, Drawer, Toolbar, Typography} from "@mui/material";
 import Router from "./Router";
 import MenuItems from "./MenuItems";
-
 import {useTranslation} from "react-i18next";
-
-import {SourceApplicationContext} from "../../context/SourceApplicationContext";
 import ConfigurationProvider from "../../context/ConfigurationContext";
 import {MainStyles} from "../../util/styles/Main.styles";
 
@@ -16,14 +11,11 @@ const useStyles = MainStyles;
 function Main() {
     const classes = useStyles();
     const {t, i18n} = useTranslation();
-    const { sourceApplication, setSourceApplication} = useContext(SourceApplicationContext)
-
 
     // eslint-disable-next-line
     const changeLanguage = (lng: string) => {
         i18n.changeLanguage(lng);
     };
-
 
     return (
         <Box display="flex" position="relative" width={1} height={1}>
@@ -38,7 +30,6 @@ function Main() {
                         {i18n.language === 'no' && <Button size="small" variant="contained" onClick={() => changeLanguage("en")}>{t('language.english')}</Button>}
                         {i18n.language === 'en' && <Button size="small" variant="contained" onClick={() => changeLanguage("no")}>{t('language.norwegian')}</Button>}
                     </Box>*/}
-
                 </Toolbar>
             </AppBar>
             <Drawer variant="permanent" className={classes.drawer}>
