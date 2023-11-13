@@ -2,8 +2,6 @@ import { useCommonStyles } from './theme/theme';
 import {createStyles, makeStyles} from "@mui/styles";
 import {Theme} from "@mui/material";
 
-export const fontFamily: string = ["Nunito Sans", 'sans-serif'].join(',')
-
 export const IntegrationFormStyles = makeStyles((theme: Theme) =>
     createStyles({
         ...useCommonStyles(theme),
