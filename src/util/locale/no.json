@@ -139,6 +139,7 @@
       "FINT_FLYT_DISPATCH_GATEWAY_GENERAL_SYSTEM_ERROR": "Systemfeil - Ta kontakt med FINT",
       "FINT_FLYT_DISPATCH_GATEWAY_INSTANCE_DISPATCH_DECLINED_ERROR": "Instansen ble avvist av destinasjon med følgende feilmelding: '#errorMessage#'",
       "FINT_FLYT_DISPATCH_SERVICE_INSTANCE_DISPATCH_DECLINED_ERROR": "Instansen ble avvist av destinasjon med følgende feilmelding: '#errorMessage#'",
+      "FINT_FLYT_INSTANCE_GATEWAY_FILE_UPLOAD_ERROR": "Feil under opplasting av fil, filnavn: '#name#' med mediatype: '#mediatype#'",
       "REQUESTED": "Forespurt",
       "SENT": "Sendt",
       "FAILED": "Feilet",
@@ -155,6 +156,7 @@
       "instance-retry-request-error": "Feilet under forespørsel for nytt forsøk",
       "instance-mapping-error": "Feilet under konvertering av instans",
       "instance-dispatching-error": "Feilet under sending til destinasjon",
+      "instance-file-upload-error": "Feilet under opplasting av fil",
       "header": "Instansoversikt",
       "button": {
         "close": "Lukk",

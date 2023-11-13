@@ -4,7 +4,6 @@ import IntegrationOverview from "../integrationOverview/IntegrationOverview";
 import InstanceOverview from "../instanceOverview/InstanceOverview";
 import Support from "../support/Support";
 import IntegrationForm from "../integration/IntegrationForm";
-import Admin from "../admin/Admin";
 import ConfigurationForm from "../configuration/ConfigurationForm";
 import ValueConverting from "../valueConverting/ValueConverting";
 
@@ -86,13 +85,6 @@ const routes: IRoute[] = [
         icon: 'contact_support',
         exact: true,
         inNavigationMenu: true
-    },
-    {
-        path: '/admin',
-        name: 'admin',
-        component: Admin,
-        exact: true,
-        inNavigationMenu: false
     }
 ]
 

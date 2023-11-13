@@ -10,7 +10,10 @@ export function errorStringReplace(baseString: string, errorArgs: IErrorArg[]) {
         ErrorType.ERROR_MESSAGE,
         ErrorType.MESSAGE,
         ErrorType.FIELD_PATH,
+        ErrorType.NAME,
+        ErrorType.MEDIA_TYPE
     ]
+
     errorTypes.map(errorType => {
         errorArgs.map(arg => {
             if (toErrorType(arg.type) === errorType && arg.value !== undefined) {
