@@ -19,6 +19,7 @@ const resultingErrorArgs: IErrorArg[] = [
     {value: 'Here is the error, and ', type: 'fieldPath'},
     {value: 'On a scale of 1-10 my friend, you\'re f\'ed', type: 'errorMessage'},
     {value: 'Ingen støtte for dette domenet', type: 'message'}
+
 ]
 
 const testStrings: string[] = [
@@ -27,6 +28,7 @@ const testStrings: string[] = [
     "Instansen ble avvist av destinasjon med følgende feilmelding: '#errorMessage#'",
     "Instans avvist, '#message#'",
     "Feil under opplasting av fil, filnavn: '#name#' med mediatype: '#mediatype#'",
+    "Feil under verdikonvertering, finner ikke nøkkel: '#valueConvertingKey#', i verdikonvertering med ID: #valueConvertingId#"
 ]
 const errorArgs: IErrorArg[] = [
     {value: 'foo', type: 'fieldPath'},
@@ -34,6 +36,8 @@ const errorArgs: IErrorArg[] = [
     {value: 'qux', type: 'instanceFieldKey'},
     {value: 'fil.docx', type: 'name'},
     {value: 'app/docx', type: 'mediatype'},
+    {value: '5', type: 'valueConvertingId'},
+    {value: 'image/jpg', type: 'valueConvertingKey'},
 ]
 
 test('It should create errorArgs list correctly', () => {
@@ -46,4 +50,5 @@ test('It should show error messages correctly', () => {
     expect(errorStringReplace(testStrings[2], resultingErrorArgs)).toEqual("Instansen ble avvist av destinasjon med følgende feilmelding: 'On a scale of 1-10 my friend, you're f'ed'")
     expect(errorStringReplace(testStrings[3], resultingErrorArgs)).toEqual("Instans avvist, 'Ingen støtte for dette domenet'")
     expect(errorStringReplace(testStrings[4], errorArgs)).toEqual("Feil under opplasting av fil, filnavn: 'fil.docx' med mediatype: 'app/docx'")
+    expect(errorStringReplace(testStrings[5], errorArgs)).toEqual("Feil under verdikonvertering, finner ikke nøkkel: 'image/jpg', i verdikonvertering med ID: 5")    
 });

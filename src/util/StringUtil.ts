@@ -11,7 +11,10 @@ export function errorStringReplace(baseString: string, errorArgs: IErrorArg[]) {
         ErrorType.MESSAGE,
         ErrorType.FIELD_PATH,
         ErrorType.NAME,
-        ErrorType.MEDIA_TYPE
+        ErrorType.MEDIA_TYPE,
+        ErrorType.VALUE_CONVERTING_ID,
+        ErrorType.VALUE_CONVERTING_KEY
+        
     ]
 
     errorTypes.map(errorType => {
@@ -19,10 +22,8 @@ export function errorStringReplace(baseString: string, errorArgs: IErrorArg[]) {
             if (toErrorType(arg.type) === errorType && arg.value !== undefined) {
                 helpString = errorString.replace(errorType, arg.value)
                 return errorString = helpString
-            }
-            return errorArgs;
+            }    
         })
-        return errorTypes;
     })
     return errorString;
 }
