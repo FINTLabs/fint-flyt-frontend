@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from "react-router-dom";
-import {Icon, List, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
+import {Icon, List, ListItem, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
 import routes from "./Routes";
 import {useTranslation} from 'react-i18next';
 
@@ -16,21 +16,22 @@ const MenuItems = () => {
     };
 
     return (
-        <List id="menuList">
+        <List id="menuList" sx={{paddingTop: 0}}>
             {routes.filter(route => route.inNavigationMenu).map((route, index) => (
-                <ListItemButton
-                    component={Link}
-                    to={route.path}
-                    id={route.name + 'Button'}
-                    key={route.name}
-                    selected={selectedIndex === index}
-                    onClick={(event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => handleListItemClick(event, index)}
-                >
-                    <ListItemIcon>
-                        <Icon>{route.icon}</Icon>
-                    </ListItemIcon>
-                    <ListItemText primary={t(route.name)} id={route.name + 'ButtonText'}/>
-                </ListItemButton>
+                <ListItem key={route.name} sx={{padding: 0}}>
+                    <ListItemButton
+                        component={Link}
+                        to={route.path}
+                        id={route.name + 'Button'}
+                        selected={selectedIndex === index}
+                        onClick={(event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => handleListItemClick(event, index)}
+                    >
+                        <ListItemIcon>
+                            <Icon>{route.icon}</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary={t(route.name)} id={route.name + 'ButtonText'}/>
+                    </ListItemButton>
+                </ListItem>
             ))}
         </List>
     );

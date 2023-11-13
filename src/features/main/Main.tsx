@@ -1,5 +1,5 @@
 import React, {useContext, useEffect} from "react";
-import {AppBar, Box,  Drawer, Toolbar, Typography} from "@mui/material";
+import {AppBar, Box, Drawer, Toolbar, Typography} from "@mui/material";
 import Router from "./Router";
 import MenuItems from "./MenuItems";
 
@@ -16,7 +16,7 @@ const useStyles = MainStyles;
 function Main() {
     const classes = useStyles();
     const {t, i18n} = useTranslation();
-    const { sourceApplication, setSourceApplication} = useContext(SourceApplicationContext)
+    const {sourceApplication, setSourceApplication} = useContext(SourceApplicationContext)
 
 
     useEffect(() => {
@@ -24,10 +24,9 @@ function Main() {
             await IntegrationRepository.getAllIntegrations()
                 .then(response => {
                     const data: IIntegration[] = response.data
-                    if(data.length > 0) {
+                    if (data.length > 0) {
                         setSourceApplication(Number(data[0].sourceApplicationId))
-                    }
-                    else {
+                    } else {
                         setSourceApplication(1)
                     }
                 })
@@ -46,7 +45,7 @@ function Main() {
 
     return (
         <Box display="flex" position="relative" width={1} height={1}>
-            <AppBar position="fixed" sx={{zIndex: (theme) => theme.zIndex.drawer + 1}}>
+            <AppBar className={classes.appBar} sx={{zIndex: (theme) => theme.zIndex.drawer + 1}}>
                 <Toolbar className={classes.toolbar} id={"toolbar"}>
                     <img src="https://cdn.flais.io/media/fint-by-vigo-white.svg" alt="logo"
                          className={classes.logo}/>
@@ -57,13 +56,15 @@ function Main() {
                         {i18n.language === 'no' && <Button size="small" variant="contained" onClick={() => changeLanguage("en")}>{t('language.english')}</Button>}
                         {i18n.language === 'en' && <Button size="small" variant="contained" onClick={() => changeLanguage("no")}>{t('language.norwegian')}</Button>}
                     </Box>*/}
-              
+
                 </Toolbar>
             </AppBar>
-            <Drawer variant="permanent" className={classes.drawer}>
-                <Toolbar/>
-                <MenuItems/>
-            </Drawer>
+            <nav>
+                <Drawer variant="permanent" className={classes.drawer}>
+                    <Toolbar/>
+                    <MenuItems/>
+                </Drawer>
+            </nav>
             {sourceApplication ?
                 <main className={classes.content}>
                     <ConfigurationProvider>

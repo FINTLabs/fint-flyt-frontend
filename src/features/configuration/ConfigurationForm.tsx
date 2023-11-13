@@ -224,6 +224,7 @@ const ConfigurationForm: RouteComponent = () => {
                                     }}>
                                         <TextField
                                             select
+                                            autoComplete={"off"}
                                             disabled={completed}
                                             size={"small"}
                                             id="version-select"

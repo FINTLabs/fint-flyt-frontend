@@ -11,15 +11,13 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 import moment from "moment";
 import InstanceRepository from "../repository/InstanceRepository";
-import {getSourceApplicationDisplayName} from "../../../util/DataGridUtil";
+import {getSourceApplicationDisplayName, renderCellWithTooltip} from "../../../util/DataGridUtil";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import {IEvent} from "../types/Event";
 import {SourceApplicationContext} from "../../../context/SourceApplicationContext";
 import RefreshIcon from '@mui/icons-material/Refresh';
 import {ClassNameMap} from "@mui/styles";
-
-import {renderCellWithTooltip} from "../../../util/DataGridUtil";
-import { HistoryContext } from "../../../context/HistoryContext";
+import {HistoryContext} from "../../../context/HistoryContext";
 import ErrorDialogComponent from "./ErrorDialogComponent";
 
 type Props = {
@@ -79,7 +77,12 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
             renderCell: (params) => renderCellWithTooltip(params.value as string)
         },
         {
-            field: 'timestamp', type: 'dateTime', headerName: t('table.columns.timestamp'), description: t('table.columns.timestamp'), minWidth: 150, flex: 1,
+            field: 'timestamp',
+            type: 'dateTime',
+            headerName: t('table.columns.timestamp'),
+            description: t('table.columns.timestamp'),
+            minWidth: 150,
+            flex: 1,
             valueGetter: (params) => moment(params.row.timestamp).format('DD/MM/YY HH:mm'),
             sortComparator: (v1, v2, row1: any, row2: any) => { // eslint-disable-line
                 if (row1 && row2 && row1.timestamp && row2.timestamp) {
@@ -91,7 +94,12 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
             },
         },
         {
-            field: 'name', type: 'string', headerName: t('table.columns.name'), description: t('table.columns.name'), minWidth: 250, flex: 3,
+            field: 'name',
+            type: 'string',
+            headerName: t('table.columns.name'),
+            description: t('table.columns.name'),
+            minWidth: 250,
+            flex: 3,
             renderCell: params => (<CustomCellRender row={params.row}/>)
         },
         {
@@ -239,7 +247,7 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
                         rowThreshold={0}
                         initialState={{
                             pagination: {
-                                pageSize: 20,   
+                                pageSize: 20,
                             },
                             sorting: {
                                 sortModel: [{field: 'timestamp', sort: 'desc'}],
@@ -274,7 +282,9 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
                             setSelectedRow(props.row);
                             setOpenDialog(true)
                         }}
-                        tabIndex={-1}>
+                        tabIndex={-1}
+                        aria-label={'error-dialog-btn-' + props.row.id}
+                    >
                         <OpenInNewIcon id={props.row.id + `-icon`} fontSize="inherit"/>
                     </IconButton>
                 }
