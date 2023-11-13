@@ -29,9 +29,9 @@ export const MainStyles = makeStyles((theme: Theme) =>
             backgroundColor: theme.palette.background.default,
             padding: theme.spacing(4),
             [theme.breakpoints.up("sm")]: {
-                marginLeft: theme.spacing(28),
-                marginTop: theme.spacing(7),
-                minHeight: 'calc(100vh/1.2)',
+                marginLeft: theme.spacing(30),
+                marginTop: theme.spacing(8),
+                minHeight: 'calc(100vh/1.1)',
                 height: 'fit-content'
             }
         },
