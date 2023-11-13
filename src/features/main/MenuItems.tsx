@@ -16,7 +16,7 @@ const MenuItems = () => {
     };
 
     return (
-        <List id="menuList" sx={{paddingTop: 0}}>
+        <List id="menuList">
             {routes.filter(route => route.inNavigationMenu).map((route, index) => (
                 <ListItem key={route.name} sx={{padding: 0}}>
                     <ListItemButton

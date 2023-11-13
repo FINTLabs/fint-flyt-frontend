@@ -9,8 +9,7 @@ export const MainStyles = makeStyles((theme: Theme) =>
         ...useCommonStyles(theme),
         appBar: {
             zIndex: theme.zIndex.drawer + 1,
-            position: 'fixed',
-            boxShadow: 'none'
+            position: 'fixed'
         },
         drawer: {
             flexShrink: 0,

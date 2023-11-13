@@ -45,7 +45,7 @@ function Main() {
 
     return (
         <Box display="flex" position="relative" width={1} height={1}>
-            <AppBar className={classes.appBar} sx={{zIndex: (theme) => theme.zIndex.drawer + 1}}>
+            <AppBar className={classes.appBar} sx={{zIndex: (theme) => theme.zIndex.drawer + 1, boxShadow: 'none'}}>
                 <Toolbar className={classes.toolbar} id={"toolbar"}>
                     <img src="https://cdn.flais.io/media/fint-by-vigo-white.svg" alt="logo"
                          className={classes.logo}/>
