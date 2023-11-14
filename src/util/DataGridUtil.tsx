@@ -9,7 +9,7 @@ export const renderCellWithTooltip = (content: string) => (
 export function getSourceApplicationDisplayName(id: number): string {
     if (id === 1) return 'ACOS';
     if (id === 2) return 'eGrunnerverv';
-    if (id === 3) return 'RF13.50'
+    if (id === 3) return 'Regionalforvaltning'
     else return "ukjent";
 }
 

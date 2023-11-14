@@ -16,12 +16,12 @@ export const format = 'https://beta.felleskomponent.no/arkiv/kodeverk/format/sys
 export const sourceApplications: ISelect[] = [
     {label: "ACOS", value: "1"},
     {label: "eGrunnerverv", value: "2"},
-    {label: "RF13.50", value: "3"}
+    {label: "Regionalforvaltning", value: "3"}
 ];
 export const fromApplicationIds: ISelect[] = [
     {label: "ACOS", value: "1"},
     {label: "eGrunnerverv", value: "2"},
-    {label: "RF13.50", value: "3"}
+    {label: "Regionalforvaltning", value: "3"}
 ];
 
 export const fromTypeIds: ISelect[] = [
