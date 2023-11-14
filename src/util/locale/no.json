@@ -100,7 +100,8 @@
         "columns": {
           "configurationId": "KonfigurasjonsId",
           "destination": "Destinasjon/base",
-          "sourceApplicationIntegrationId": "Kildeapplikasjons integrasjons-ID",
+          "sourceApplicationIntegrationId": "Kildeapp. integr.ID",
+          "sourceApplicationIntegrationIdDescription": "Kildeapplikasjons integrasjons-ID",
           "sourceApplicationIntegrationIdDisplayName": "Integrasjonsnavn",
           "sourceApplicationId": "Kildeapplikasjon",
           "name": "Navn",
@@ -108,8 +109,10 @@
           "comment": "Kommentar",
           "finished": "Ferdigstilt",
           "version": "Versjon",
-          "dispatched": "Antall arkiverte instanser",
-          "errors": "Antall gjeldende feil",
+          "dispatched": "Godtatt",
+          "dispatchedDescription": "Antall instanser godtatt av destinasjon for integrasjon",
+          "errors": "Feilet",
+          "errorsDescription": "Antall instanser som har feilet for integrasjon",
           "show": "Vis",
           "edit": "Rediger"
         }
@@ -142,7 +145,6 @@
       "FINT_FLYT_INSTANCE_GATEWAY_FILE_UPLOAD_ERROR": "Feil under opplasting av fil, filnavn: '#name#' med mediatype: '#mediatype#'",
       "FINT_FLYT_MAPPING_SERVICE_VALUE_CONVERTING_KEY_NOT_FOUND": "Feil under verdikonvertering, finner ikke nøkkel: '#valueConvertingKey#', i verdikonvertering med ID: #valueConvertingId#",
       "FINT_FLYT_MAPPING_SERVICE_VALUE_CONVERTER_NOT_FOUND": "Feil under verdikonvertering, verdikonvertering ikke funnet",
-
       "REQUESTED": "Forespurt",
       "SENT": "Sendt",
       "FAILED": "Feilet",
