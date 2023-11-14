@@ -1,5 +1,5 @@
 import React, {useContext, useEffect} from "react";
-import {AppBar, Box, Button, Drawer, Toolbar, Typography} from "@mui/material";
+import {AppBar, Box, Button, Toolbar, Typography} from "@mui/material";
 import Router from "./Router";
 import MenuItems from "./MenuItems";
 import {Link as RouterLink} from "react-router-dom";
@@ -47,8 +47,8 @@ function Main() {
             <AppBar className={classes.appBar} sx={{zIndex: (theme) => theme.zIndex.drawer + 1, boxShadow: 'none'}}>
                 <Toolbar id={"toolbar"}>
                     <Button component={RouterLink} to="/">
-                    <img src="https://cdn.flais.io/media/fint-by-vigo-white.svg" alt="logo"
-                         className={classes.logo}/>
+                        <img src="https://cdn.flais.io/media/fint-by-vigo-white.svg" alt="logo"
+                             className={classes.logo}/>
                     </Button>
                     <nav>
                         <MenuItems/>

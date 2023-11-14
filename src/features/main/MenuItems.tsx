@@ -1,10 +1,11 @@
 import React from 'react';
 import {Link} from "react-router-dom";
-import {List, ListItem, ListItemButton, ListItemText, Theme} from "@mui/material";
+import {ListItem, ListItemButton, ListItemText} from "@mui/material";
 import routes from "./Routes";
 import {useTranslation} from 'react-i18next';
 import MuiList from '@mui/material/List';
 import {styled} from "@mui/styles";
+
 const MenuItems = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'menuItems'});
 
@@ -44,7 +45,8 @@ const MenuItems = () => {
                         selected={selectedIndex === index}
                         onClick={(event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => handleListItemClick(event, index)}
                     >
-                        <ListItemText sx={{justifyItems: 'center'}} primary={t(route.name)} id={route.name + 'ButtonText'}/>
+                        <ListItemText sx={{justifyItems: 'center'}} primary={t(route.name)}
+                                      id={route.name + 'ButtonText'}/>
                     </ListItemButton>
                 </ListItem>
             ))}
