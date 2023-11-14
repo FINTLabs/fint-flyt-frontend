@@ -12,7 +12,7 @@ interface FlyTitleComponentProps {
     variant: TitleVariant;
 }
 
-const FlytTitleComponent = ({  variant, title}: FlyTitleComponentProps) => {
+const FlytTitleComponent = ({variant, title}: FlyTitleComponentProps) => {
   const mainTheme = useCommonStyles(theme);
   return (
     <Typography variant={variant} style={mainTheme.titleMarginStyle}>

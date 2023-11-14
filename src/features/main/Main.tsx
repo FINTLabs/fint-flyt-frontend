@@ -1,10 +1,9 @@
 import React, {useContext, useEffect} from "react";
-import {AppBar, Box, Drawer, Toolbar, Typography} from "@mui/material";
+import {AppBar, Box, Button, Drawer, Toolbar, Typography} from "@mui/material";
 import Router from "./Router";
 import MenuItems from "./MenuItems";
-
+import {Link as RouterLink} from "react-router-dom";
 import {useTranslation} from "react-i18next";
-
 import {SourceApplicationContext} from "../../context/SourceApplicationContext";
 import ConfigurationProvider from "../../context/ConfigurationContext";
 import {MainStyles} from "../../util/styles/Main.styles";
@@ -46,25 +45,20 @@ function Main() {
     return (
         <Box display="flex" position="relative" width={1} height={1}>
             <AppBar className={classes.appBar} sx={{zIndex: (theme) => theme.zIndex.drawer + 1, boxShadow: 'none'}}>
-                <Toolbar className={classes.toolbar} id={"toolbar"}>
+                <Toolbar id={"toolbar"}>
+                    <Button component={RouterLink} to="/">
                     <img src="https://cdn.flais.io/media/fint-by-vigo-white.svg" alt="logo"
                          className={classes.logo}/>
-                    <Typography variant="h6" color="inherit" noWrap className={classes.flex}>
-                        {t('appbarHeader')}
-                    </Typography>
+                    </Button>
+                    <nav>
+                        <MenuItems/>
+                    </nav>
                     {/*<Box sx={{ mr: 2 }}>
                         {i18n.language === 'no' && <Button size="small" variant="contained" onClick={() => changeLanguage("en")}>{t('language.english')}</Button>}
                         {i18n.language === 'en' && <Button size="small" variant="contained" onClick={() => changeLanguage("no")}>{t('language.norwegian')}</Button>}
                     </Box>*/}
-
                 </Toolbar>
             </AppBar>
-            <nav>
-                <Drawer variant="permanent" className={classes.drawer}>
-                    <Toolbar/>
-                    <MenuItems/>
-                </Drawer>
-            </nav>
             {sourceApplication ?
                 <main className={classes.content}>
                     <ConfigurationProvider>

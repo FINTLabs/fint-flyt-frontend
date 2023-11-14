@@ -9,17 +9,11 @@ export const MainStyles = makeStyles((theme: Theme) =>
         ...useCommonStyles(theme),
         appBar: {
             zIndex: theme.zIndex.drawer + 1,
-            position: 'fixed'
+            position: 'fixed',
         },
         drawer: {
             flexShrink: 0,
             [`& .MuiDrawer-paper`]: {width: drawerWidth, boxSizing: 'border-box'}
-        },
-        toolbar: {
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "flex-end",
-            ...theme.mixins.toolbar
         },
         content: {
             width: "fit-content",
@@ -28,8 +22,7 @@ export const MainStyles = makeStyles((theme: Theme) =>
             backgroundColor: theme.palette.background.default,
             padding: theme.spacing(4),
             [theme.breakpoints.up("sm")]: {
-                marginLeft: theme.spacing(30),
-                marginTop: theme.spacing(8),
+                marginTop: theme.spacing(10),
                 minHeight: 'calc(100vh/1.1)',
                 height: 'fit-content'
             }
