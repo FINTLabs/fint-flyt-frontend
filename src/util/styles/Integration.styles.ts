@@ -15,7 +15,6 @@ export const IntegrationStyles = makeStyles((theme: Theme) =>
         },
         tableWrapper: {
             maxWidth: theme.spacing(220),
-            border: '1px solid lightgrey',
             borderRadius: theme.spacing(0.5),
         },
         integrationWrapper: {

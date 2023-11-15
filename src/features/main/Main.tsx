@@ -4,6 +4,8 @@ import MenuItems from "./MenuItems";
 import {Link as RouterLink} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import {MainStyles} from "../../util/styles/Main.styles";
+import ConfigurationProvider from "../../context/ConfigurationContext";
+import Router from "./Router";
 
 const useStyles = MainStyles;
 
@@ -33,6 +35,11 @@ function Main() {
                     </Box>*/}
                 </Toolbar>
             </AppBar>
+            <main className={classes.content}>
+                <ConfigurationProvider>
+                    <Router/>
+                </ConfigurationProvider>
+            </main>
         </Box>
     );
 }

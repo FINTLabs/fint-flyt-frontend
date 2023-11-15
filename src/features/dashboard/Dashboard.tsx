@@ -76,7 +76,7 @@ const Dashboard: RouteComponent = () => {
                         />)
                 })}
             </Box>
-            <Card sx={{mt: 4}}>
+            <Card sx={{mt: 4, boxShadow: 'none'}}>
                 <IntegrationTable
                     classes={classes}
                 />
