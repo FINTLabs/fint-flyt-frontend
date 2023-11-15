@@ -16,10 +16,10 @@ const IntegrationOverview: RouteComponent = () => {
     const {
         existingIntegration,
         setExistingIntegration,
-        getIntegrations,
+        getAllIntegrations,
         resetIntegrations
     } = useContext(IntegrationContext)
-    const {sourceApplication, getAllMetadata} = useContext(SourceApplicationContext)
+    const {getAllMetadata} = useContext(SourceApplicationContext)
     const showPanel: boolean = /panel$/.test(window.location.pathname)
     const showList: boolean = /list$/.test(window.location.pathname)
 
@@ -28,14 +28,14 @@ const IntegrationOverview: RouteComponent = () => {
         if (showList) {
             resetIntegrations();
         }
-        getIntegrations(sourceApplication ? sourceApplication.toString() : "2");
+        getAllIntegrations();
         getAllMetadata(false);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const resetConfiguration = () => {
         setExistingIntegration({})
-        getIntegrations(sourceApplication ? sourceApplication.toString() : "2");
+        getAllIntegrations()
     }
 
     return (

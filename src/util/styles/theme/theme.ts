@@ -37,18 +37,16 @@ const theme = createTheme(
 export const useCommonStyles = (theme : Theme) => {
     return {
         dataGridBox: {
-            minHeight: theme.spacing(80),
+            height: theme.spacing(80),
             backgroundColor: 'white',
-            border: '1px solid black',
             borderRadius: theme.spacing(0.5),
-            padding: theme.spacing(2),
             width: '100%',
         },
         panelContainer: {
             backgroundColor: 'white',
             padding: theme.spacing(2),
             border: 'solid 1px',
-            borderColor: 'black',
+            borderColor: 'lightgrey',
             marginLeft: theme.spacing(1),
             borderRadius: theme.spacing(0.5),
             height: 'fit-content',
@@ -127,11 +125,10 @@ export const useCommonStyles = (theme : Theme) => {
         titleMarginStyle : {
             marginBottom: '10px',
         }
-     
+
+
     };
 };
-
-
 
 
 export default theme;

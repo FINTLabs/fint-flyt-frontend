@@ -17,9 +17,10 @@ import {IEvent} from "../types/Event";
 import {SourceApplicationContext} from "../../../context/SourceApplicationContext";
 import RefreshIcon from '@mui/icons-material/Refresh';
 import {ClassNameMap} from "@mui/styles";
-import DialogContentComponent from "./DialogContentComponent";
+
 import {renderCellWithTooltip} from "../../../util/DataGridUtil";
 import { HistoryContext } from "../../../context/HistoryContext";
+import ErrorDialogComponent from "./ErrorDialogComponent";
 
 type Props = {
     classes: ClassNameMap
@@ -291,7 +292,7 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
                     onClose={() => setOpenDialog(false)}
                 >
                     <DialogContent>
-                        <DialogContentComponent row={props.row}/>
+                        <ErrorDialogComponent row={props.row}/>
                     </DialogContent>
                     <DialogActions>
                         <Button id={'error-dialog-close-btn'} onClick={() => setOpenDialog(false)}
