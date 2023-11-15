@@ -118,39 +118,35 @@ const IntegrationTable: React.FunctionComponent<Props> = (props: Props) => {
     }
 
     return (
-        <Box>
-            <Box display="flex" position="relative" width={1} height={1}>
-                <Box id="integration-list" className={classes.dataGridBox}>
-                    <DataGrid
-                        loading={integrations === undefined}
-                        localeText={i18n.language === 'no' ? gridLocaleNoNB : undefined}
-                        getRowId={(row) => row.sourceApplicationIntegrationId}
-                        density='compact'
-                        rows={integrations ?? []}
-                        columns={columns}
-                        pageSize={20}
-                        rowsPerPageOptions={[20]}
-                        components={{
-                            Toolbar: GridToolbar,
-                        }}
-                        initialState={{
-                            filter: {
-                                filterModel: {
-                                    items: [
-                                        {
-                                            columnField: 'sourceApplicationIntegrationId',
-                                            operatorValue: 'contains'
-                                        },
-                                    ],
+        <Box className={classes.dataGridBox}>
+            <DataGrid
+                loading={integrations === undefined}
+                localeText={i18n.language === 'no' ? gridLocaleNoNB : undefined}
+                getRowId={(row) => row.sourceApplicationIntegrationId}
+                density='compact'
+                rows={integrations ?? []}
+                columns={columns}
+                pageSize={20}
+                rowsPerPageOptions={[20]}
+                components={{
+                    Toolbar: GridToolbar,
+                }}
+                initialState={{
+                    filter: {
+                        filterModel: {
+                            items: [
+                                {
+                                    columnField: 'sourceApplicationIntegrationId',
+                                    operatorValue: 'contains'
                                 },
-                            },
-                            sorting: {
-                                sortModel: [{field: 'state', sort: 'asc'}],
-                            },
-                        }}
-                    />
-                </Box>
-            </Box>
+                            ],
+                        },
+                    },
+                    sorting: {
+                        sortModel: [{field: 'state', sort: 'asc'}],
+                    },
+                }}
+            />
         </Box>
     );
 }
