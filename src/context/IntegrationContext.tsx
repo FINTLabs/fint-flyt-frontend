@@ -7,7 +7,8 @@ import {IIntegrationMetadata} from "../features/configuration/types/Metadata/Int
 import ConfigurationRepository from "../shared/repositories/ConfigurationRepository";
 import IntegrationRepository from "../shared/repositories/IntegrationRepository";
 import SourceApplicationRepository from "../shared/repositories/SourceApplicationRepository";
-import { ContextProps } from "../util/constants/interface";
+import {ContextProps} from "../util/constants/interface";
+import {sourceApplications} from "../features/configuration/defaults/DefaultValues";
 
 type IntegrationContextState = {
     id: string | undefined;
@@ -16,7 +17,8 @@ type IntegrationContextState = {
     setExistingIntegration: (integration: IIntegration | undefined) => void;
     integrations: IIntegration[] | undefined;
     setIntegrations: (integrations: IIntegration[]) => void;
-    getIntegrations: (sourceApplicationId: string) => void;
+    getIntegrationsBySourceApplicationId: (sourceApplicationId: string) => void;
+    getAllIntegrations: () => void;
     configuration: IConfiguration | undefined;
     setConfiguration: (configuration: IConfiguration | undefined) => void;
     configurations: IConfiguration[] | undefined;
@@ -46,7 +48,8 @@ const contextDefaultValues: IntegrationContextState = {
     setExistingIntegration: () => undefined,
     integrations: [],
     setIntegrations: () => undefined,
-    getIntegrations: () => undefined,
+    getIntegrationsBySourceApplicationId: () => undefined,
+    getAllIntegrations: () => undefined,
     configuration: undefined,
     setConfiguration: () => undefined,
     configurations: undefined,
@@ -68,13 +71,12 @@ const contextDefaultValues: IntegrationContextState = {
     resetIntegrations: () => undefined,
     statistics: []
 };
- const IntegrationContext = createContext<IntegrationContextState>(
+const IntegrationContext = createContext<IntegrationContextState>(
     contextDefaultValues
 );
 
 
-
-const IntegrationProvider= ({children}: ContextProps) => {
+const IntegrationProvider = ({children}: ContextProps) => {
     const [existingIntegration, setExistingIntegration] = useState<IIntegration | undefined>(undefined);
     const [id, setId] = useState<string | undefined>(undefined);
     const [integrations, setIntegrations] = useState<IIntegration[] | undefined>(undefined);
@@ -111,7 +113,7 @@ const IntegrationProvider= ({children}: ContextProps) => {
         setConfiguration(undefined)
     }
 
-    const getIntegrations = async (sourceApplicationId: string) => {
+    const getIntegrationsBySourceApplicationId = async (sourceApplicationId: string) => {
         try {
             const response = await EventRepository.getStatistics();
             const data = response.data;
@@ -142,7 +144,6 @@ const IntegrationProvider= ({children}: ContextProps) => {
                         }
                     });
                 });
-
                 setIntegrations(mergedList);
             }
         } catch (e) {
@@ -150,6 +151,52 @@ const IntegrationProvider= ({children}: ContextProps) => {
             resetIntegrationsAndStats();
         }
     };
+
+    const getAllIntegrations = async () => {
+        try {
+            const response = await EventRepository.getStatistics();
+            const data = response.data;
+
+            if (data) {
+                setStatistics(data);
+                const stats = data;
+
+                const allMetadata = []
+
+                for (const sourceApplication of sourceApplications) {
+                    const metadataResponse = await SourceApplicationRepository.getMetadata(sourceApplication.value, true);
+                    allMetadata.push(metadataResponse.data)
+                }
+
+                const metadata = allMetadata.reduce((acc, currentArray) => [...acc, ...currentArray], []) || [];
+
+                const integrationResponse = await IntegrationRepository.getIntegrations(0, null, "state", "ASC");
+                const mergedList = integrationResponse.data || [];
+
+                stats.forEach((value: IIntegrationStatistics) => {
+                    mergedList.forEach((integration: IIntegration) => {
+                        if (integration.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {
+                            integration.errors = value.currentErrors;
+                            integration.dispatched = value.dispatchedInstances;
+                        }
+                    });
+                });
+
+                metadata.forEach((value: IIntegrationMetadata) => {
+                    mergedList.forEach((integration: IIntegration) => {
+                        if (integration.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {
+                            integration.displayName = value.integrationDisplayName;
+                        }
+                    });
+                });
+                setIntegrations(mergedList);
+            }
+        } catch (e) {
+            console.error('Error: ', e);
+            resetIntegrationsAndStats();
+        }
+    };
+
 
     const getConfigurations = (page: number, size: number, sortProperty: string, sortDirection: string, complete: boolean, id: number | string, excludeElements?: boolean) => {
         ConfigurationRepository.getConfigurations(page, size, sortProperty, sortDirection, complete, id.toString(), excludeElements)
@@ -205,7 +252,8 @@ const IntegrationProvider= ({children}: ContextProps) => {
                 setExistingIntegration,
                 integrations,
                 setIntegrations,
-                getIntegrations,
+                getIntegrationsBySourceApplicationId,
+                getAllIntegrations,
                 configuration,
                 setConfiguration,
                 getConfiguration,
@@ -232,4 +280,4 @@ const IntegrationProvider= ({children}: ContextProps) => {
     );
 };
 
-export  {IntegrationContext, IntegrationProvider as default};
+export {IntegrationContext, IntegrationProvider as default};

@@ -112,7 +112,8 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
                                 }}
                             >
                                 {sourceApplications.map((item: ISelect, index: number) => (
-                                    <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
+                                    <MenuItem id={'sourceApplication-' + index} key={index}
+                                              value={item.value}>{item.label}</MenuItem>
                                 ))}
                             </TextField>
                             <HelpPopover popoverContent={'sourceApplicationId'}/>

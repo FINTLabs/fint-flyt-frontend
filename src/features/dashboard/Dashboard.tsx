@@ -5,7 +5,6 @@ import IntegrationTable from "../integrationOverview/components/IntegrationTable
 import DashboardCard from "./DashboardCard";
 import {ICard} from "./types/Card";
 import {useTranslation} from "react-i18next";
-import {SourceApplicationContext} from "../../context/SourceApplicationContext";
 import {DashboardStyles} from "../../util/styles/Dashboard.styles";
 import {IIntegrationStatistics} from "./types/IntegrationStatistics";
 import {RouteComponent} from "../main/Route";
@@ -15,8 +14,7 @@ const useStyles = DashboardStyles;
 const Dashboard: RouteComponent = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.dashboard'});
     const classes = useStyles();
-    const {statistics, resetIntegrations, integrations, getIntegrations} = useContext(IntegrationContext)
-    const {sourceApplication} = useContext(SourceApplicationContext)
+    const {statistics, resetIntegrations, integrations, getAllIntegrations} = useContext(IntegrationContext)
     const activeIntegrations = integrations?.filter(integration => integration.state === 'ACTIVE') || [];
     let totalErrors = 0;
     let totalDispatched = 0;
@@ -27,7 +25,7 @@ const Dashboard: RouteComponent = () => {
     })
 
     useEffect(() => {
-        getIntegrations(sourceApplication ? sourceApplication.toString() : "2");
+        getAllIntegrations();
         resetIntegrations();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
