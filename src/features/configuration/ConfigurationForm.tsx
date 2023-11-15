@@ -211,10 +211,7 @@ const ConfigurationForm: RouteComponent = () => {
                 <FormProvider {...methods}>
                     <form id="react-hook-form" onSubmit={methods.handleSubmit(onSubmit)}>
                         <Box className={classes.configurationBox} sx={{m: 1}}>
-                            <Typography sx={{m: 1}} variant={"h6"}>{t('header')}</Typography>
-                            <Typography sx={{m: 1}}>
-                                {t('integration')}: {existingIntegration?.sourceApplicationIntegrationId} - {existingIntegration?.displayName}
-                            </Typography>
+                            <Typography sx={{m: 1}} variant={"h6"}>{t('header')} {existingIntegration?.sourceApplicationIntegrationId} - {existingIntegration?.displayName}</Typography>
                             <Box sx={{mb: 1, width: (theme: Theme) => theme.spacing(100)}}>
                                 <div style={{display: 'flex', alignItems: 'center'}}>
                                     <FormControl sx={{
