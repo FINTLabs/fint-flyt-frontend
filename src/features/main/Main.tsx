@@ -1,27 +1,22 @@
-import React, {useContext, useEffect} from "react";
+import React from "react";
 import {AppBar, Box, Drawer, Toolbar, Typography} from "@mui/material";
 import Router from "./Router";
 import MenuItems from "./MenuItems";
 import {useTranslation} from "react-i18next";
 import ConfigurationProvider from "../../context/ConfigurationContext";
 import {MainStyles} from "../../util/styles/Main.styles";
-import {ApplicationContext} from "../../context/ApplicationContext";
 
 const useStyles = MainStyles;
 
 function Main() {
     const classes = useStyles();
     const {t, i18n} = useTranslation();
-    const {getFeatures} = useContext(ApplicationContext)
 
     // eslint-disable-next-line
     const changeLanguage = (lng: string) => {
         i18n.changeLanguage(lng);
     };
 
-    useEffect(() => {
-        getFeatures();
-    })
 
     return (
         <Box display="flex" position="relative" width={1} height={1}>
