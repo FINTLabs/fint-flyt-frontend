@@ -7,6 +7,7 @@ import SourceApplicationProvider from "./context/SourceApplicationContext";
 import axios from "axios";
 import HistoryProvider from './context/HistoryContext';
 import theme from './util/styles/theme/theme';
+import ApplicationProvider from "./context/ApplicationContext";
 
 function App() {
     const [basePath, setBasePath] = useState<string>();
@@ -25,15 +26,17 @@ function App() {
     return basePath ?
         (
             <ThemeProvider theme={theme}>
-                <HistoryProvider>
-                    <SourceApplicationProvider>
-                        <IntegrationProvider>
-                            <BrowserRouter basename={basePath}>
-                                <Main/>
-                            </BrowserRouter>
-                        </IntegrationProvider>
-                    </SourceApplicationProvider>
-                </HistoryProvider>
+                <ApplicationProvider>
+                    <HistoryProvider>
+                        <SourceApplicationProvider>
+                            <IntegrationProvider>
+                                <BrowserRouter basename={basePath}>
+                                    <Main/>
+                                </BrowserRouter>
+                            </IntegrationProvider>
+                        </SourceApplicationProvider>
+                    </HistoryProvider>
+                </ApplicationProvider>
             </ThemeProvider>
         )
         : <h1>Loading</h1>

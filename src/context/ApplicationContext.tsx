@@ -12,10 +12,7 @@ type ApplicationContextState = {
 }
 
 const contextDefaultValues: ApplicationContextState = {
-    features: {
-        test1: true,
-        test2: false,
-    },
+    features: {},
     getFeatures: () => undefined
 };
 
@@ -28,8 +25,11 @@ const ApplicationProvider = ({children}: ContextProps) => {
     const [features, setFeatures] = useState<FeatureMap>(contextDefaultValues.features);
 
     function getFeatures() {
-        // await repo.getFeatures() ... setFeatures(response)...
-        setFeatures(contextDefaultValues.features)
+        //TODO: connect to feature toggle api ... await FeatureToggleRepository.getFeatures() ... => setFeatures(response)...
+        setFeatures({
+            test1: true,
+            test2: false,
+        })
     }
 
     return (
