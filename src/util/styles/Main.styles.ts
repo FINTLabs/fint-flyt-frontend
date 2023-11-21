@@ -22,7 +22,7 @@ export const MainStyles = makeStyles((theme: Theme) =>
             backgroundColor: theme.palette.background.default,
             padding: theme.spacing(4),
             [theme.breakpoints.up("sm")]: {
-                marginTop: theme.spacing(10),
+                marginTop: theme.spacing(9.3),
                 minHeight: 'calc(100vh/1.16)',
                 height: 'fit-content'
             }
