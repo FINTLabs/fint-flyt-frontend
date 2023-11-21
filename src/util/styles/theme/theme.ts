@@ -21,11 +21,11 @@ const theme = createTheme(
         spacing: 8,
         typography: {
             fontFamily: [
-                "Nunito Sans", 'sans-serif'
+                "Roboto", 'sans-serif'
             ].join(','),
             button: {
                 textTransform: 'none',
-                font: "Nunito Sans",
+                font: "Roboto",
                 fontSize: 16
             }
         }
@@ -34,7 +34,7 @@ const theme = createTheme(
 );
 
 
-export const useCommonStyles = (theme : Theme) => {
+export const useCommonStyles = (theme: Theme) => {
     return {
         dataGridBox: {
             height: theme.spacing(80),
@@ -61,13 +61,13 @@ export const useCommonStyles = (theme : Theme) => {
             flex: 1
         },
         title: {
-            fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
+            fontFamily: ["Roboto", 'sans-serif'].join(','),
             padding: 0,
             fontSize: theme.spacing(2),
             marginTop: theme.spacing(0)
         },
         title1: {
-            fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
+            fontFamily: ["Roboto", 'sans-serif'].join(','),
             fontSize: theme.spacing(3),
             padding: 0,
             marginTop: theme.spacing(0),
@@ -75,14 +75,14 @@ export const useCommonStyles = (theme : Theme) => {
         },
 
         title2: {
-            fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
+            fontFamily: ["Roboto", 'sans-serif'].join(','),
             fontSize: theme.spacing(2.6),
             padding: 0,
             marginTop: theme.spacing(0),
             fontWeight: 'normal'
         },
         title3: {
-            fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
+            fontFamily: ["Roboto", 'sans-serif'].join(','),
             fontSize: theme.spacing(2.2),
             padding: 0,
             marginTop: theme.spacing(0),
@@ -90,12 +90,15 @@ export const useCommonStyles = (theme : Theme) => {
             fontWeight: 'normal'
         },
         title4: {
-            fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
+            fontFamily: ["Roboto", 'sans-serif'].join(','),
             fontSize: theme.spacing(2),
             padding: 0,
             marginTop: theme.spacing(0),
             marginBottom: theme.spacing(2),
             fontWeight: 'normal'
+        },
+        titleMarginStyle: {
+            marginBottom: '10px',
         },
         submitButton: {
             backgroundColor: theme.palette.primary.main,
@@ -121,12 +124,7 @@ export const useCommonStyles = (theme : Theme) => {
             border: 'solid 1px',
             marginRight: theme.spacing(2),
             borderColor: theme.palette.primary.main
-        },
-        titleMarginStyle : {
-            marginBottom: '10px',
         }
-
-
     };
 };
 

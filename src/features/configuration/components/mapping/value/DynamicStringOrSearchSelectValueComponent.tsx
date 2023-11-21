@@ -7,6 +7,7 @@ import {ClassNameMap} from "@mui/styles";
 import {ValueType as MetadataValueType} from "../../../types/Metadata/IntegrationMetadata";
 import {Noop} from "react-hook-form/dist/types";
 import {ControllerFieldState} from "react-hook-form";
+import {Box} from "@mui/material";
 import DynamicChipComponent from "./string/DynamicChipComponent";
 
 interface Props {
@@ -50,7 +51,7 @@ const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> 
         }
     }, [])
 
-    return <fieldset className={props.classes.fieldSet}>
+    return <Box className={props.classes.fieldSet}>
         <SearchSelectValueComponent
             displayName={props.displayName}
             selectables={[
@@ -130,6 +131,6 @@ const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> 
                 name={props.name}
             />
         }
-    </fieldset>
+    </Box>
 })
 export default DynamicStringOrSearchSelectValueComponent;

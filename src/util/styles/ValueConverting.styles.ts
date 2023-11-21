@@ -7,7 +7,7 @@ export const valueConvertingStyles = makeStyles((theme: Theme) =>
         ...useCommonStyles(theme),
         valueConvertingBox: {
             height: theme.spacing(75),
-            width: '85%',
+            width: '100%',
             backgroundColor: 'white',
             border: 'solid 1px',
             borderColor: 'lightgrey',

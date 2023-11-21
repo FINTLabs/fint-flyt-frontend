@@ -77,6 +77,7 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = forwardRef<H
     return (
         <div id={"dnd-value-component-" + absoluteKey} ref={dropRef} key={absoluteKey}>
             <TextField
+                autoComplete={"off"}
                 error={!!props.fieldState?.error}
                 style={dynamicStyle}
                 variant='outlined'

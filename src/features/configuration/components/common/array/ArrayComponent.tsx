@@ -35,6 +35,7 @@ const ArrayComponent: React.FunctionComponent<Props> = (props: Props) => {
         )}
         <IconButton
             id={'add-icon'}
+            aria-label={'add-icon'}
             onClick={() => {
                 append(props.defaultValueCreator())
             }}

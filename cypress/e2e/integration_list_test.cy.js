@@ -26,12 +26,12 @@ describe('Testing integration list', () => {
         let columns = [
             'Vis',
             'Kildeapplikasjon',
-            'Kildeapplikasjons integrasjons-ID',
+            'Kildeapp. integr.ID',
             'Integrasjonsnavn',
             'Destinasjon/base',
             'Tilstand',
-            'Antall arkiverte instanser',
-            'Antall gjeldende feil'
+            'Godtatt',
+            'Feilet'
         ]
         columns.forEach(column => {
             cy.get('.MuiDataGrid-root').should("contain.text", column)
