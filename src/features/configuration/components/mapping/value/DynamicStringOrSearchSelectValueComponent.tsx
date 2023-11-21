@@ -2,7 +2,6 @@ import * as React from "react";
 import {forwardRef, useEffect, useState} from "react";
 import {ISelectable} from "../../../types/Selectable";
 import SearchSelectValueComponent from "./select/SearchSelectValueComponent";
-import DynamicStringValueComponent from "./string/DynamicStringValueComponent";
 import {ClassNameMap} from "@mui/styles";
 import {ValueType as MetadataValueType} from "../../../types/Metadata/IntegrationMetadata";
 import {Noop} from "react-hook-form/dist/types";

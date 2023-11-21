@@ -3,7 +3,6 @@ import {MutableRefObject, ReactElement, useContext, useEffect, useRef, useState}
 import ArrayComponent from "../../../common/array/ArrayComponent";
 import {useTranslation} from "react-i18next";
 import {ClassNameMap} from "@mui/styles";
-import DynamicStringValueComponent from "../../value/string/DynamicStringValueComponent";
 import ArrayValueWrapperComponent from "../../../common/array/ArrayValueWrapperComponent";
 import {ConfigurationContext} from "../../../../../../context/ConfigurationContext";
 import {isOutsideCollectionEditContext} from "../../../../util/KeyUtils";
