@@ -79,7 +79,6 @@ export const Tag: FunctionComponent<Props> = (props: Props) => {
             icon={typeToIcon(props.type)}
             ref={drag}
             variant="outlined"
-            role="Tag"
             label={props.name + " - " + props.description}
             style={{opacity}}
         />

@@ -20,6 +20,7 @@ const SelectValueComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivE
     const absoluteKey: string = props.name;
     return <TextField
         id={absoluteKey}
+        autoComplete={"off"}
         size={'small'}
         sx={selectSX}
         select

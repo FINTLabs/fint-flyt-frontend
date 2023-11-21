@@ -26,6 +26,7 @@ const StringValueComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivE
         <div id={"string-value-component-" + absoluteKey} style={{display: 'flex', flexDirection: 'column'}}>
             <TextField
                 id={absoluteKey}
+                autoComplete={"off"}
                 style={{backgroundColor: 'white', width: '352px'}}
                 variant='outlined'
                 size='small'

@@ -97,6 +97,7 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
                         <h3 className={classes.title3}>{t('incoming')}</h3>
                         <Box sx={{display: 'flex'}}>
                             <TextField
+                                autoComplete={"off"}
                                 id='sourceApplicationId'
                                 select
                                 size="small"
@@ -125,8 +126,10 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
                                 renderInput={params => (
                                     <TextField {...params}
                                                size="small"
+                                               autoComplete={"off"}
                                                style={{backgroundColor}}
-                                               label={t('labels.sourceApplicationIntegrationId') + '*'}
+                                               required={true}
+                                               label={t('labels.sourceApplicationIntegrationId')}
                                                variant="outlined"/>
                                 )}
                                 getOptionLabel={(option: ISelect) => option.label}
@@ -143,12 +146,14 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
                         <Box sx={{display: 'flex'}}>
                             <TextField
                                 id='destination'
+                                autoComplete={"off"}
                                 select
                                 size="small"
                                 sx={selectSX}
+                                required={true}
                                 style={{backgroundColor}}
                                 value={destination}
-                                label={t('labels.destination') + '*'}
+                                label={t('labels.destination')}
                                 onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => setDestination(event.target.value)}
                             >
                                 {destinations.map((item: ISelect, index: number) => (

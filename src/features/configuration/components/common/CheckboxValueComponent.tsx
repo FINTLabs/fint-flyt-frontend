@@ -34,9 +34,9 @@ const CheckboxValueComponent: React.FunctionComponent<Props> = (props: Props) =>
                 sx={{paddingY: 0}}
                 disabled={props.disabled || completed}
                 id="form-complete"
+                aria-label={props.name + '-checkbox'}
                 checked={props.value}
                 //onChange={(e) => fields.onChange(e.target.checked)}
-                inputProps={{'aria-label': props.name + 'checkbox'}}
             />
         }
     />;
