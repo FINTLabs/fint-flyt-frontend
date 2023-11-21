@@ -7,6 +7,7 @@ import SourceApplicationProvider from "./context/SourceApplicationContext";
 import axios from "axios";
 import HistoryProvider from './context/HistoryContext';
 import theme from './util/styles/theme/theme';
+import './global.css'
 
 function App() {
     const [basePath, setBasePath] = useState<string>();

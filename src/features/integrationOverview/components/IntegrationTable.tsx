@@ -53,6 +53,7 @@ const IntegrationTable: React.FunctionComponent<Props> = (props: Props) => {
         {
             field: 'sourceApplicationIntegrationId',
             type: 'string',
+            description: t('table.columns.sourceApplicationIntegrationIdDescription'),
             headerName: t('table.columns.sourceApplicationIntegrationId'),
             minWidth: 250,
             flex: 1,
@@ -80,16 +81,18 @@ const IntegrationTable: React.FunctionComponent<Props> = (props: Props) => {
             field: 'dispatched',
             type: 'number',
             headerName: t('table.columns.dispatched'),
-            minWidth: 100,
-            flex: 1,
+            description: t('table.columns.dispatchedDescription'),
+            minWidth: 50,
+            flex: 0.5,
             sortable: false
         },
         {
             field: 'errors',
             type: 'number',
             headerName: t('table.columns.errors'),
-            minWidth: 150,
-            flex: 1,
+            description: t('table.columns.errorsDescription'),
+            minWidth: 50,
+            flex: 0.5,
             sortable: false
         }
     ];

@@ -1,4 +1,4 @@
-import {Box, Card, CardContent} from '@mui/material';
+import {Box, Card} from '@mui/material';
 import React, {useContext, useEffect} from 'react';
 import {IntegrationContext} from "../../context/IntegrationContext";
 import IntegrationTable from "../integrationOverview/components/IntegrationTable";
@@ -76,12 +76,10 @@ const Dashboard: RouteComponent = () => {
                         />)
                 })}
             </Box>
-            <Card className={classes.card} sx={{mt: 4, boxShadow: 'none'}}>
-                <CardContent sx={{padding: 'unset'}}>
-                    <IntegrationTable
-                        classes={classes}
-                    />
-                </CardContent>
+            <Card sx={{mt: 4, boxShadow: 'none'}}>
+                <IntegrationTable
+                    classes={classes}
+                />
             </Card>
         </Box>
     );

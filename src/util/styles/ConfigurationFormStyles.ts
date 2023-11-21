@@ -12,7 +12,7 @@ export const ConfigurationFormStyles = makeStyles((theme: Theme) =>
             top: 0,
         },
         configurationBox: {
-            width: theme.spacing(44)
+            width: theme.spacing(54)
         },
         panelContainer: {
             backgroundColor: 'white',

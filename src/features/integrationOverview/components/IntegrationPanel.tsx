@@ -251,6 +251,7 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
                 <Box id="completed-integration-list" className={classes.dataPanelBox}>
                     <Typography>{t('table.completed')}:</Typography>
                     <DataGrid
+                        sx={{backgroundColor: 'white', border: '1px solid lightgray'}}
                         loading={completedConfigurations === undefined}
                         localeText={i18n.language === 'no' ? gridLocaleNoNB : undefined}
                         density='compact'
@@ -281,6 +282,7 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
                 <Box id="integration-list" className={classes.dataPanelBox}>
                     <Typography>{t('table.drafts')}:</Typography>
                     <DataGrid
+                        sx={{backgroundColor: 'white', border: '1px solid lightgray'}}
                         loading={configurations === undefined}
                         localeText={i18n.language === 'no' ? gridLocaleNoNB : undefined}
                         density='compact'
