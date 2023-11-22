@@ -14,7 +14,6 @@ import InstanceRepository from "../repository/InstanceRepository";
 import {getSourceApplicationDisplayName, renderCellWithTooltip} from "../../../util/DataGridUtil";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import {IEvent} from "../types/Event";
-import {SourceApplicationContext} from "../../../context/SourceApplicationContext";
 import RefreshIcon from '@mui/icons-material/Refresh';
 import {ClassNameMap} from "@mui/styles";
 import {HistoryContext} from "../../../context/HistoryContext";
