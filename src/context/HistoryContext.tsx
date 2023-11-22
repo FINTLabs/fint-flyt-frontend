@@ -6,6 +6,7 @@ import {addId} from "../util/JsonUtil";
 import EventRepository from "../shared/repositories/EventRepository";
 import {processEvents} from "../util/EventUtil";
 import { ContextProps } from "../util/constants/interface";
+import {sourceApplications} from "../features/configuration/defaults/DefaultValues";
 
 
 
@@ -13,7 +14,7 @@ type HistoryContextState = {
     events: IEvent[] | undefined,
     getEvents: (page: number, size: number, sortProperty: string, sortDirection: string) => void;
     latestInstances: IEvent[] | undefined,
-    getLatestInstances: (page: number, size: number, sortProperty: string, sortDirection: string, sourceApplicationId: string) => void;
+    getLatestInstances: (page: number, size: number, sortProperty: string, sortDirection: string) => void;
     selectedInstances: IEvent[] | undefined,
     getSelectedInstances: (page: number, size: number, sortProperty: string, sortDirection: string, sourceApplicationId: string, instanceId: string) => void;
 }
@@ -55,14 +56,28 @@ const HistoryProvider = ({children}: ContextProps) => {
             })
     }
 
-    const getLatestInstances = async (page: number, size: number, sortProperty: string, sortDirection: string, sourceApplicationId: string) => {
+    const getLatestInstances = async (page: number, size: number, sortProperty: string, sortDirection: string) => {
         try {
-            const metadataResponse = await SourceApplicationRepository.getMetadata(sourceApplicationId, true)
-            const metadata: IIntegrationMetadata[] = metadataResponse.data;
+            const allMetadata = []
+
+            for (const sourceApplication of sourceApplications) {
+                const metadataResponse = await SourceApplicationRepository.getMetadata(sourceApplication.value, true);
+                allMetadata.push(metadataResponse.data)
+            }
+
+            const metadata = allMetadata.reduce((acc, currentArray) => [...acc, ...currentArray], []) || [];
+
             const eventResponse = await EventRepository.getLatestEvents(page, size, sortProperty, sortDirection)
             const events: IEvent[] = eventResponse.data.content;
             if (metadata && events) {
                 const processedEvents = processEvents(events, metadata)
+                metadata.forEach((value: IIntegrationMetadata) => {
+                    processedEvents.forEach((event: IEvent) => {
+                        if (event.instanceFlowHeaders.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {
+                            event.displayName = value.integrationDisplayName;
+                        }
+                    });
+                });
                 setLatestInstances(processedEvents);
             } else {
                 setLatestInstances([]);

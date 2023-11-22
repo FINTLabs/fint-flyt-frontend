@@ -29,7 +29,6 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
     const history = useHistory();
     const classes = props.classes;
     const {latestInstances, getLatestInstances, getSelectedInstances} = useContext(HistoryContext)
-    const {sourceApplication} = useContext(SourceApplicationContext)
     const [selectedRow, setSelectedRow] = useState<IEvent>();
     const [openDialog, setOpenDialog] = React.useState(false);
 
@@ -176,7 +175,7 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
     }
 
     useEffect(() => {
-        getLatestInstances(0, 10000, "timestamp", "DESC", sourceApplication ? sourceApplication.toString() : "2");
+        getLatestInstances(0, 10000, "timestamp", "DESC");
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -221,8 +220,7 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
             <Button
                 sx={{mb: 2}}
                 variant='contained'
-                onClick={() => getLatestInstances(0, 10000, "timestamp", "DESC",
-                    sourceApplication ? sourceApplication.toString() : "2")}
+                onClick={() => getLatestInstances(0, 10000, "timestamp", "DESC")}
                 endIcon={<RefreshIcon/>}
             >{t('button.refresh')}
             </Button>
