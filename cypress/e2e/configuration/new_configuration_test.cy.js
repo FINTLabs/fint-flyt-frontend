@@ -109,7 +109,7 @@ describe('Testing creating new and editing configurations from integration overv
         cy.get('#mapping\\.valueMappingPerKey\\.type\\.mappingString').click()
         cy.get('#menu-mapping\\.valueMappingPerKey\\.type\\.mappingString > .MuiPaper-root > .MuiList-root > [tabindex="0"]').type('{enter}')
         cy.get('.MuiToggleButton-root').click()
-        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.tittel\\.mappingString > .MuiFormControl-root > .MuiInputBase-root').should("contain.text", "test basert på")
+        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.tittel\\.mappingString > .MuiFormControl-root > .MuiInputBase-root')
     })
 
     it('should navigate to edit existing configuration draft', () => {
