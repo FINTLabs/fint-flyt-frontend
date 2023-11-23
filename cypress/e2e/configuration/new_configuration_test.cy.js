@@ -9,7 +9,7 @@ function fillAll() {
 }
 
 
-describe.skip('Testing create new configuration from new integration', () => {
+describe('Testing create new configuration from new integration', () => {
     beforeEach(() => {
         cy.intercept('POST', '**/integrasjoner', {fixture: 'postFixture.json'}).as('postIntegration')
         cy.intercept('GET', '**/integrasjoner', {fixture: 'allIntegrations.json'}).as('getAllIntegrations')
@@ -66,7 +66,7 @@ describe.skip('Testing create new configuration from new integration', () => {
     })
 });
 
-describe.skip('Testing creating new and editing configurations from integration overview', () => {
+describe('Testing creating new and editing configurations from integration overview', () => {
     function prep() {
         cy.intercept('GET', '**/api/application/configuration', {
             forceNetworkError: true,
@@ -109,7 +109,7 @@ describe.skip('Testing creating new and editing configurations from integration 
         cy.get('#mapping\\.valueMappingPerKey\\.type\\.mappingString').click()
         cy.get('#menu-mapping\\.valueMappingPerKey\\.type\\.mappingString > .MuiPaper-root > .MuiList-root > [tabindex="0"]').type('{enter}')
         cy.get('.MuiToggleButton-root').click()
-        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.tittel\\.mappingString > .MuiAutocomplete-root > .MuiFormControl-root > .MuiInputBase-root').should("contain.text", "test basert på")
+        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.tittel\\.mappingString > .MuiFormControl-root > .MuiInputBase-root').should("contain.text", "test basert på")
     })
 
     it('should navigate to edit existing configuration draft', () => {
