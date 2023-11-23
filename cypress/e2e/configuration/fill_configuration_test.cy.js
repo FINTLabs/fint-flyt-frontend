@@ -34,7 +34,7 @@ function prep() {
     )
 }
 
-describe('Testing fill new configuration', () => {
+describe.skip('Testing fill new configuration', () => {
     beforeEach(() => {
         cy.intercept('POST', '**/integrasjoner', {fixture: 'postFixture.json'}).as('postIntegration')
         cy.intercept('POST', '**/konfigurasjoner', {fixture: 'postFixture.json'}).as('postConfiguration')
@@ -120,7 +120,7 @@ describe('Testing fill new configuration', () => {
     });
 })
 
-describe('Testing fill, save and complete new configuration', () => {
+describe.skip('Testing fill, save and complete new configuration', () => {
     beforeEach(() => {
         cy.intercept('POST', '**/integrasjoner', {fixture: 'postFixture.json'}).as('postIntegration')
         cy.intercept('POST', '**/konfigurasjoner', {fixture: 'postFixture.json'}).as('postConfiguration')

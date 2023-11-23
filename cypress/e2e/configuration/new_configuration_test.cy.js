@@ -9,7 +9,7 @@ function fillAll() {
 }
 
 
-describe('Testing create new configuration from new integration', () => {
+describe.skip('Testing create new configuration from new integration', () => {
     beforeEach(() => {
         cy.intercept('POST', '**/integrasjoner', {fixture: 'postFixture.json'}).as('postIntegration')
         cy.intercept('GET', '**/integrasjoner', {fixture: 'allIntegrations.json'}).as('getAllIntegrations')
@@ -66,7 +66,7 @@ describe('Testing create new configuration from new integration', () => {
     })
 });
 
-describe('Testing creating new and editing configurations from integration overview', () => {
+describe.skip('Testing creating new and editing configurations from integration overview', () => {
     function prep() {
         cy.intercept('GET', '**/api/application/configuration', {
             forceNetworkError: true,

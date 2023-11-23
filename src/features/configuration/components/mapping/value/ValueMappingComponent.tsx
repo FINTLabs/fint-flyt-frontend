@@ -82,8 +82,7 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
                 />
             case TemplateValueType.DYNAMIC_STRING:
                 setTypeIfUndefined(ConfigurationValueType.DYNAMIC_STRING);
-                return search ?
-                    <DynamicStringValueComponent
+                return <DynamicStringValueComponent
                         {...renderProps}
                         search={search}
                         accept={[
@@ -93,18 +92,7 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
                             MetadataValueType.DATE,
                             MetadataValueType.PHONE
                         ]}
-                    /> :
-                    <DynamicChipComponent
-                        {...renderProps}
-                        accept={[
-                            MetadataValueType.STRING,
-                            MetadataValueType.INTEGER,
-                            MetadataValueType.EMAIL,
-                            MetadataValueType.DATE,
-                            MetadataValueType.PHONE
-                        ]}
                     />
-
             case TemplateValueType.FILE:
                 setTypeIfUndefined(ConfigurationValueType.FILE);
                 return <DynamicChipComponent
@@ -113,7 +101,6 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
                         MetadataValueType.FILE
                     ]}
                 />
-
         }
     }
 
