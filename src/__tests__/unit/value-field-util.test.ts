@@ -22,11 +22,11 @@ describe('testing value field utils', () => {
     });
 
     it('should return correct color for tag', () => {
-        expect(getTagColor('$if{test}', false)).toEqual('#E0F7FA')
-        expect(getTagColor('$vc{1}', false)).toEqual('#F3E5F5')
-        expect(getTagColor('$icf{0}{tag}', false)).toEqual('#FFFDE7')
+        expect(getTagColor('$if{test}', false)).toEqual('#C8E6C9')
+        expect(getTagColor('$vc{1}', false)).toEqual('#E1BEE7')
+        expect(getTagColor('$icf{0}{tag}', false)).toEqual('#FFF9C4')
         expect(getTagColor('$if{test}', true)).toEqual('#eeeeee')
-        expect(getTagColor('$vc{1}', true)).toEqual('#e0e0e0')
+        expect(getTagColor('$vc{1}', true)).toEqual('#E0E0E0')
         expect(getTagColor('$icf{0}{tag}', true)).toEqual('#eeeeee')
         expect(getTagColor('tag', false)).toEqual('white')
         expect(getTagColor('tag', true)).toEqual('white')
@@ -34,15 +34,15 @@ describe('testing value field utils', () => {
 
     it('should get correct tag styles based on tag', () => {
         expect(getTagStyles('$if{test}', false))
-            .toEqual({borderRadius: '3px', background: '#E0F7FA', color: 'black'})
+            .toEqual({borderRadius: '3px', background: '#C8E6C9', color: 'black'})
         expect(getTagStyles('$vc{1}', false))
-            .toEqual({borderRadius: '3px', background: '#F3E5F5', color: 'black'})
+            .toEqual({borderRadius: '3px', background: '#E1BEE7', color: 'black'})
         expect(getTagStyles('$icf{0}{tag}', false))
-            .toEqual({borderRadius: '3px', background: '#FFFDE7', color: 'black'})
+            .toEqual({borderRadius: '3px', background: '#FFF9C4', color: 'black'})
         expect(getTagStyles('$if{test}', true))
             .toEqual({borderRadius: '3px', background: '#eeeeee', color: 'gray'})
         expect(getTagStyles('$vc{1}', true))
-            .toEqual({borderRadius: '3px', background: '#e0e0e0', color: 'gray'})
+            .toEqual({borderRadius: '3px', background: '#E0E0E0', color: 'gray'})
         expect(getTagStyles('$icf{0}{tag}', true))
             .toEqual({borderRadius: '3px', background: '#eeeeee', color: 'gray'})
         expect(getTagStyles('tag', false))

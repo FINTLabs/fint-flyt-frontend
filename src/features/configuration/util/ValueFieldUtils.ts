@@ -18,11 +18,11 @@ export function valueArrayToMappingString(input: string[]): string {
 
 export function getTagColor(tag: string, disabled?: boolean): string {
     if (tag.includes('$vc')) {
-        return disabled ? '#e0e0e0' : '#e1bee7'
+        return disabled ? '#E0E0E0' : '#E1BEE7'
     } else if (tag.includes('$if')) {
         return disabled ? '#eeeeee' :  '#C8E6C9'
     } else if (tag.includes('$icf')) {
-        return disabled ? '#eeeeee' : '#fff9c4'
+        return disabled ? '#eeeeee' : '#FFF9C4'
     } else {
         return 'white'
     }
