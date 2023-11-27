@@ -11,8 +11,8 @@ const UserGuide: RouteComponent = () => {
         <Box paddingInline="32" id={"user-guide-content"}>
             <VStack gap={"6"}>
                 <Heading id={"user-guide-heading"} size={"medium"}>{t('header')}</Heading>
-                <Box background={"surface-default"} padding="6" paddingBlock={"8 4"} borderRadius={"xlarge"}
-                     borderWidth="3" borderColor={"border-subtle"}>
+                <Box background={"surface-default"} padding="6" paddingBlock={"8 4"} borderRadius={"large"}
+                     borderWidth="2" borderColor={"border-subtle"}>
                     <Label>Hvordan bruke Fint Flyt</Label>
                     <List as="ul" id={"guide-list"}>
                         {USER_GUIDE.map((item, index) => {

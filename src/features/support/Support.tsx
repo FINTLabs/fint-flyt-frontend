@@ -11,7 +11,7 @@ const Support: RouteComponent = () => {
         <Box paddingInline="32" id={"support-content"}>
             <VStack id={"support-content-stack"} gap={"6"}>
                 <Heading size={"medium"} id={'support-header'}>{t('header')}</Heading>
-                <Box id={"support-information"} background={"surface-default"} padding="6" borderRadius={"xlarge"} borderWidth="3"
+                <Box id={"support-information"} background={"surface-default"} padding="6" borderRadius={"large"} borderWidth="2"
                      borderColor={"border-subtle"}>
                     <VStack gap={"6"}>
                         <Heading size={"small"}>
@@ -44,7 +44,7 @@ const Support: RouteComponent = () => {
                         </ExpansionCard.Content>
                     </ExpansionCard>
                 </Box>
-                <Box id={"support-contact"} background={"surface-alt-3-subtle"} borderRadius="xlarge" padding="6" borderWidth="3"
+                <Box id={"support-contact"} background={"surface-alt-3-subtle"} borderRadius="large" padding="6" borderWidth="3"
                      borderColor={"border-alt-3"}>
                     <BodyShort size="large">
                         Dersom det oppstår problemer, eller du har spørsmål som ikke blir besvart her, ta kontakt med
