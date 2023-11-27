@@ -295,7 +295,7 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
                         }}
                         initialState={{
                             sorting: {
-                                sortModel: [{field: 'version', sort: 'desc'}],
+                                sortModel: [{field: 'id', sort: 'desc'}],
                             },
                             filter: {
                                 filterModel: {

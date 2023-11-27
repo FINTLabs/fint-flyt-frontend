@@ -6,11 +6,11 @@ import {
     IInstanceMetadataContent,
     IInstanceObjectCollectionMetadata,
     IIntegrationMetadata,
-    MOCK_INSTANCE_METADATA
 } from "../features/configuration/types/Metadata/IntegrationMetadata";
 import {ISelect} from "../features/configuration/types/Select";
 import {IIntegration} from "../features/integration/types/Integration";
-import { ContextProps } from "../util/constants/interface";
+import {ContextProps} from "../util/constants/interface";
+import {MOCK_INSTANCE_METADATA} from "../__tests__/mock/mapping/mock-instans-metadata";
 
 
 type SourceApplicationContextState = {
@@ -55,7 +55,7 @@ const contextDefaultValues: SourceApplicationContextState = {
 };
 
 
- const SourceApplicationContext = createContext<SourceApplicationContextState>(
+const SourceApplicationContext = createContext<SourceApplicationContextState>(
     contextDefaultValues
 );
 
@@ -63,7 +63,7 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
    
     const [availableForms, setAvailableForms] = useState<ISelect[]>(contextDefaultValues.availableForms);
     const [allMetadata, setAllMetadata] = useState<IIntegrationMetadata[]>(contextDefaultValues.allMetadata)
-    const [instanceElementMetadata, setInstanceElementMetadata] = useState<IInstanceMetadataContent | undefined>(MOCK_INSTANCE_METADATA.instanceMetadata)
+    const [instanceElementMetadata, setInstanceElementMetadata] = useState<IInstanceMetadataContent | undefined>(MOCK_INSTANCE_METADATA)
     const [instanceObjectCollectionMetadata, setInstanceObjectCollectionMetadata] = useState<IInstanceObjectCollectionMetadata[]>([])
     const [sourceApplication, setSourceApplication] = useState<number | undefined>(contextDefaultValues.sourceApplication);
 
@@ -106,7 +106,7 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
             }
         } catch (err) {
             console.error(err);
-            setAvailableForms([{ value: 'null', label: 'No options' }]);
+            setAvailableForms([{value: 'null', label: 'No options'}]);
         }
     };
 
@@ -164,4 +164,4 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
     );
 };
 
-export  {SourceApplicationContext, contextDefaultValues,  SourceApplicationProvider as default};
+export {SourceApplicationContext, contextDefaultValues, SourceApplicationProvider as default};

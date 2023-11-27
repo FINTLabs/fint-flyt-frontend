@@ -2,12 +2,12 @@ import * as React from "react";
 import {forwardRef, useEffect, useState} from "react";
 import {ISelectable} from "../../../types/Selectable";
 import SearchSelectValueComponent from "./select/SearchSelectValueComponent";
-import DynamicStringValueComponent from "./string/DynamicStringValueComponent";
 import {ClassNameMap} from "@mui/styles";
 import {ValueType as MetadataValueType} from "../../../types/Metadata/IntegrationMetadata";
 import {Noop} from "react-hook-form/dist/types";
 import {ControllerFieldState} from "react-hook-form";
 import {Box} from "@mui/material";
+import DynamicChipComponent from "./string/DynamicChipComponent";
 
 interface Props {
     classes: ClassNameMap
@@ -99,7 +99,7 @@ const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> 
             name={props.name}
         />
         {(selectValue === "$dynamic" || selectValue === '$valueConverting') &&
-            <DynamicStringValueComponent
+            <DynamicChipComponent
                 fieldState={props.fieldState}
                 classes={props.classes}
                 accept={selectValue === "$dynamic"

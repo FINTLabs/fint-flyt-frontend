@@ -60,23 +60,14 @@ describe('Testing fill, validate and complete new configuration', () => {
         cy.get(`${newCaseFields}\\.saksmappetype\\.mappingString-option-1`).click()
         cy.get(`${newCaseFields}\\.arkivdel\\.mappingString`).click()
         cy.get(`${newCaseFields}\\.arkivdel\\.mappingString-option-0`).click()
-        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.saksmappetype\\.mappingString > .MuiFormControl-root > .MuiInputBase-root').type('$if{feil}', {
-            parseSpecialCharSequences: false,
-            delay: 0
-        })
-        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.arkivdel\\.mappingString > .MuiFormControl-root > .MuiInputBase-root').type('$vc{1}$if{testy}', {
-            parseSpecialCharSequences: false,
-            delay: 0
-        })
+        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.saksmappetype\\.mappingString > .MuiAutocomplete-root > .MuiFormControl-root > .MuiInputBase-root').type('$if{feil}', {parseSpecialCharSequences: false, delay: 0}).type('{enter}');
+        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.arkivdel\\.mappingString > .MuiAutocomplete-root > .MuiFormControl-root > .MuiInputBase-root').type('$vc{1}$if{testy}', {parseSpecialCharSequences: false, delay: 0}).type('{enter}');
         cy.get('#comment').type('kommentar', {delay: 0})
         cy.get('#form-complete').click()
         cy.get('#form-submit-btn').click()
         cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.tittel\\.mappingString > .MuiTypography-root').should("contain.text", "Feltet oppfyller ikke påkrevd format")
-        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.saksmappetype\\.mappingString > .MuiFormControl-root > .MuiInputBase-root').clear()
-        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.saksmappetype\\.mappingString > .MuiFormControl-root > .MuiInputBase-root').type('$vc{1}$if{ikke_feil}', {
-            parseSpecialCharSequences: false,
-            delay: 0
-        })
+        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.saksmappetype\\.mappingString > .MuiAutocomplete-root > .MuiFormControl-root > .MuiInputBase-root').type('{backspace}');
+        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.saksmappetype\\.mappingString > .MuiAutocomplete-root > .MuiFormControl-root > .MuiInputBase-root').type('$vc{1}$if{ikke_feil}', {parseSpecialCharSequences: false, delay: 0}).type('{enter}');
 
         cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.tittel\\.mappingString > .MuiFormControl-root > .MuiInputBase-root').clear()
         cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.tittel\\.mappingString > .MuiFormControl-root > .MuiInputBase-root').type('$if{test}', {
@@ -85,11 +76,8 @@ describe('Testing fill, validate and complete new configuration', () => {
         })
         cy.get('#form-submit-btn').click()
         cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.arkivdel\\.mappingString > .MuiTypography-root').should("contain.text", "Feltet oppfyller ikke påkrevd format")
-        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.arkivdel\\.mappingString > .MuiFormControl-root > .MuiInputBase-root').clear()
-        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.arkivdel\\.mappingString > .MuiFormControl-root > .MuiInputBase-root').type('$if{testy}', {
-            parseSpecialCharSequences: false,
-            delay: 0
-        })
+        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.arkivdel\\.mappingString > .MuiAutocomplete-root > .MuiFormControl-root > .MuiInputBase-root').type('{backspace}');
+        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.arkivdel\\.mappingString > .MuiAutocomplete-root > .MuiFormControl-root > .MuiInputBase-root').type('$if{testy}', {parseSpecialCharSequences: false, delay: 0}).type('{enter}');
 
         cy.get('#form-submit-btn').click()
 
