@@ -1,27 +1,60 @@
 import React from 'react';
-import {Box, Typography} from "@mui/material";
 import {useTranslation} from 'react-i18next';
 import {RouteComponent} from "../main/Route";
-import AccordionComponent from "./components/AccordionComponent";
-import {SUPPORT_CONTENT} from "./supportTexts";
-import theme, { useCommonStyles } from '../../util/styles/theme/theme';
+import {FAQ, FLYT_DESCRIPTION} from "./util/supportTexts";
+import {BodyLong, BodyShort, Box, ExpansionCard, Heading, Link, List, VStack} from "@navikt/ds-react";
 
 const Support: RouteComponent = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.support'});
-    const view = true;
-    const maintheme = useCommonStyles(theme);
-    
-    return view ? (
-        <Box id={'support-page'}>
-            <Typography id={'support-header'} variant={"h6"}>{t('header')}</Typography>
-            <Box id={'support-content'} sx={{mt: 2}}>
-                <AccordionComponent data={SUPPORT_CONTENT} classes={maintheme.card} />
-            </Box>
+
+    return (
+        <Box paddingInline="32">
+            <VStack gap={"6"}>
+                <Heading size={"medium"} id={'support-header'}>{t('header')}</Heading>
+                <Box background={"surface-default"} padding="6" borderRadius={"xlarge"} borderWidth="3"
+                     borderColor={"border-subtle"}>
+                    <VStack gap={"6"}>
+                        <Heading size={"small"}>
+                            Hva er FINT Flyt?
+                        </Heading>
+                        <BodyLong>
+                            {FLYT_DESCRIPTION}
+                        </BodyLong>
+                        <BodyLong>
+                            Du kan se en brukerveiledning til <Link href={"/support/guide"}>hvordan du bruker Fint
+                            Flyt</Link> her.
+                        </BodyLong>
+                    </VStack>
+                </Box>
+                <Box>
+                    <ExpansionCard aria-label="default">
+                        <ExpansionCard.Header>
+                            <ExpansionCard.Title>Ofte stilte spørsmål</ExpansionCard.Title>
+                        </ExpansionCard.Header>
+                        <ExpansionCard.Content>
+                            <List as="ul">
+                                {FAQ.map((item, index) => {
+                                    return (
+                                        <List.Item key={index} title={item.header}>
+                                            {item.content}
+                                        </List.Item>
+                                    )
+                                })}
+                            </List>
+                        </ExpansionCard.Content>
+                    </ExpansionCard>
+                </Box>
+                <Box background={"surface-alt-3-subtle"} borderRadius="xlarge" padding="6" borderWidth="3"
+                     borderColor={"border-alt-3"}>
+                    <BodyShort size="large">
+                        Dersom det oppstår problemer, eller du har spørsmål som ikke blir besvart her, ta kontakt med
+                        prosjektleder på epost,
+                        <a href={"mailto:" + "jon.erik.stensrod@vigoiks.no"} target="_top"> Jon Erik Stensrød</a>
+                    </BodyShort>
+                </Box>
+            </VStack>
         </Box>
-    ) : (<>
-            <Typography variant={"h6"}>{t('header')}</Typography>
-        </>
-    );
+    )
 }
 
 export default Support;

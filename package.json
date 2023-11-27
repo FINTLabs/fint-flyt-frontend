@@ -18,6 +18,8 @@
     "@mui/x-data-grid": "^5.10.0",
     "@mui/x-data-grid-generator": "^5.10.0",
     "@mui/x-data-grid-pro": "^5.10.0",
+    "@navikt/ds-css": "^5.11.2",
+    "@navikt/ds-react": "^5.11.2",
     "@react-rxjs/core": "^0.10.3",
     "@react-rxjs/utils": "^0.9.5",
     "@testing-library/dom": "^7.21.4",
