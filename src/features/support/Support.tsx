@@ -8,10 +8,10 @@ const Support: RouteComponent = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.support'});
 
     return (
-        <Box paddingInline="32">
-            <VStack gap={"6"}>
+        <Box paddingInline="32" id={"support-content"}>
+            <VStack id={"support-content-stack"} gap={"6"}>
                 <Heading size={"medium"} id={'support-header'}>{t('header')}</Heading>
-                <Box background={"surface-default"} padding="6" borderRadius={"xlarge"} borderWidth="3"
+                <Box id={"support-information"} background={"surface-default"} padding="6" borderRadius={"xlarge"} borderWidth="3"
                      borderColor={"border-subtle"}>
                     <VStack gap={"6"}>
                         <Heading size={"small"}>
@@ -21,18 +21,18 @@ const Support: RouteComponent = () => {
                             {FLYT_DESCRIPTION}
                         </BodyLong>
                         <BodyLong>
-                            Du kan se en brukerveiledning til <Link href={"/support/guide"}>hvordan du bruker Fint
+                            Du kan se en brukerveiledning til <Link id={"support-guide-link"} href={"/support/guide"}>hvordan du bruker Fint
                             Flyt</Link> her.
                         </BodyLong>
                     </VStack>
                 </Box>
-                <Box>
+                <Box id={"support-faq"}>
                     <ExpansionCard aria-label="default">
-                        <ExpansionCard.Header>
+                        <ExpansionCard.Header id={"support-faq-header"}>
                             <ExpansionCard.Title>Ofte stilte spørsmål</ExpansionCard.Title>
                         </ExpansionCard.Header>
                         <ExpansionCard.Content>
-                            <List as="ul">
+                            <List as="ul" id={"faq-list"}>
                                 {FAQ.map((item, index) => {
                                     return (
                                         <List.Item key={index} title={item.header}>
@@ -44,7 +44,7 @@ const Support: RouteComponent = () => {
                         </ExpansionCard.Content>
                     </ExpansionCard>
                 </Box>
-                <Box background={"surface-alt-3-subtle"} borderRadius="xlarge" padding="6" borderWidth="3"
+                <Box id={"support-contact"} background={"surface-alt-3-subtle"} borderRadius="xlarge" padding="6" borderWidth="3"
                      borderColor={"border-alt-3"}>
                     <BodyShort size="large">
                         Dersom det oppstår problemer, eller du har spørsmål som ikke blir besvart her, ta kontakt med

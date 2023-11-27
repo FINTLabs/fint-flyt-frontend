@@ -8,13 +8,13 @@ const UserGuide: RouteComponent = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.support'});
 
     return (
-        <Box paddingInline="32">
+        <Box paddingInline="32" id={"user-guide-content"}>
             <VStack gap={"6"}>
-                <Heading size={"medium"} id={'support-header'}>{t('header')}</Heading>
+                <Heading id={"user-guide-heading"} size={"medium"}>{t('header')}</Heading>
                 <Box background={"surface-default"} padding="6" paddingBlock={"8 4"} borderRadius={"xlarge"}
                      borderWidth="3" borderColor={"border-subtle"}>
                     <Label>Hvordan bruke Fint Flyt</Label>
-                    <List as="ul">
+                    <List as="ul" id={"guide-list"}>
                         {USER_GUIDE.map((item, index) => {
                             return (
                                 <List.Item key={index}>
@@ -24,7 +24,7 @@ const UserGuide: RouteComponent = () => {
                         })}
                     </List>
                     <Label>Ordbok</Label>
-                    <List as="ul">
+                    <List as="ul" id={"guide-dictionary"}>
                         {WORD_LIST.map((item, index) => {
                             return (
                                 <List.Item key={index}>
@@ -33,7 +33,7 @@ const UserGuide: RouteComponent = () => {
                             )
                         })}
                     </List>
-                    <Link href={"/support"}>Tilbake</Link>
+                    <Link href={"/support"} id={"back-link"}>Tilbake</Link>
                 </Box>
             </VStack>
 
