@@ -87,6 +87,7 @@ const DynamicChipComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivE
                     tags.map((tag: string, index: number) => {
                             // eslint-disable-next-line react/jsx-key
                             return <Chip
+                                title={tag}
                                 sx={getTagStyles(tag, props.disabled)}
                                 variant="outlined"
                                 label={tag}
