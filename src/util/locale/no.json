@@ -249,16 +249,19 @@
     "valueConverting": {
       "button": {
         "newConverting": "Ny",
-        "basedOn": "Lag ny basert på denne"
+        "basedOn": "Lag ny basert på denne",
+        "create": "Opprett",
+        "cancel": "Avbryt"
       },
       "header": "Verdikonvertering",
       "panelHeader": "Verdikonverteringer",
+      "newHeader": "Ny verdikonvertering",
       "fromApplicationId": "Applikasjon",
       "displayName": "Navn",
       "fromTypeId": "Type",
       "toApplicationId": "Applikasjon",
       "toTypeId": "Type",
-      "convertingMap": "Konverteringer",
+      "convertingMap": "Konvertering(er)",
       "to": "Til",
       "from": "Fra",
       "column": {

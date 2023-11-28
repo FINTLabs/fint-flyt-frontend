@@ -4,44 +4,45 @@ import ValueConvertingTable from "./components/ValueConvertingTable";
 import ValueConvertingForm from "./components/ValueConvertingForm";
 import ValueConvertingRepository from "../../shared/repositories/ValueConvertingRepository";
 import {RouteComponent} from "../main/Route";
-import {Box, Heading} from "@navikt/ds-react";
+import {Box, Heading, HStack} from "@navikt/ds-react";
+import HelpPopover from "../configuration/components/common/popover/HelpPopover";
 
 
 const ValueConverting: RouteComponent = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.valueConverting'});
     const [existingValueConverting, setExistingValueConverting] = useState(undefined);
     const [newValueConverting, setNewValueConverting] = useState<boolean>(false)
-    const [view, setView] = useState<boolean>(false);
     return (
         <Box paddingInline={"32"}>
-            {existingValueConverting ?
-                <ValueConvertingForm existingValueConverting={existingValueConverting}
-                                     setNewValueConverting={setNewValueConverting}
-                                     setExistingValueConverting={setExistingValueConverting}
-                                     view={view}
-                />
+            {existingValueConverting || newValueConverting ?
+                <Box>
+                    <HStack>
+                        <Heading size={"medium"} id="value-converting-panel-header" spacing>{t('newHeader')}</Heading>
+                        <HelpPopover popoverContent={''} noMargin={true}/>
+                    </HStack>
+                    <ValueConvertingForm
+                        existingValueConverting={existingValueConverting ?? undefined}
+                        setNewValueConverting={setNewValueConverting}
+                        setExistingValueConverting={setExistingValueConverting}
+                    />
+                </Box>
+
                 :
-                newValueConverting ?
-                    <ValueConvertingForm setNewValueConverting={setNewValueConverting}
-                                         existingValueConverting={undefined}
-                                         setExistingValueConverting={setExistingValueConverting} view={false}/>
-                    :
-                    <Box>
-                        <Heading size={"medium"} id="value-converting-panel-header" spacing>{t('panelHeader')}</Heading>
-                        <ValueConvertingTable
-                            setNewValueConverting={setNewValueConverting}
-                            onValueConvertingSelected={(id: number, view: boolean) => {
-                                return ValueConvertingRepository.getValueConverting(id)
-                                    .then(response => {
-                                        setView(view)
-                                        setExistingValueConverting(response.data);
-                                    })
-                                    .catch(e => {
-                                        console.log(e);
-                                    });
-                            }
-                            }/>
-                    </Box>
+                <Box>
+                    <Heading size={"medium"} id="value-converting-panel-header" spacing>{t('panelHeader')}</Heading>
+                    <ValueConvertingTable
+                        setNewValueConverting={setNewValueConverting}
+                        onValueConvertingSelected={(id: number) => {
+                            return ValueConvertingRepository.getValueConverting(id)
+                                .then(response => {
+                                    setExistingValueConverting(response.data);
+                                })
+                                .catch(e => {
+                                    console.log(e);
+                                });
+                        }
+                        }/>
+                </Box>
             }
         </Box>
     );

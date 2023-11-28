@@ -9,7 +9,7 @@ import {MenuElipsisVerticalCircleIcon} from "@navikt/aksel-icons";
 import ValueConvertingPanel from "./ValueConvertingPanel";
 
 type Props = {
-    onValueConvertingSelected: (id: number, view: boolean) => void;
+    onValueConvertingSelected: (id: number) => void;
     setNewValueConverting: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
@@ -35,7 +35,7 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
     }, [])
 
     async function handleNewOrEditConvertingClick(id: number) {
-        props.onValueConvertingSelected(id, false)
+        props.onValueConvertingSelected(id)
     }
 
     function actionMenu(value: IValueConverting): ReactElement {
