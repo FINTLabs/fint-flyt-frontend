@@ -9,7 +9,6 @@ export function mappingStringToValueArray(input: string): string[] {
     } else {
         return input.split(/(\s+)/).filter(Boolean);
     }
-
 }
 
 export function valueArrayToMappingString(input: string[]): string {
@@ -36,7 +35,7 @@ export function getTagStyles(tag: string, disabled?: boolean): SystemStyleObject
     } else if (tag.includes('$icf')) {
         return {borderRadius: '3px', background: getTagColor(tag, disabled), color: disabled ? 'gray' : 'black'}
     } else {
-        return {borderRadius: '1px', borderColor: '#eeeeee', background: getTagColor(tag, disabled), "& .MuiChip-label": {padding: 0.5}, color: disabled ? 'gray' : 'black'}
-       // return {borderRadius: '3px', background: getTagColor(tag, disabled), "& .MuiChip-label": {padding: 0.5}}
+        // return {borderRadius: '1px', borderColor: '#eeeeee', background: getTagColor(tag, disabled), "& .MuiChip-label": {padding: 0.5}, color: disabled ? 'gray' : 'black'}
+        return {borderRadius: '1px', borderColor: '#eeeeee', color: disabled ? 'gray' : 'black', background: getTagColor(tag, disabled)}
     }
 }
