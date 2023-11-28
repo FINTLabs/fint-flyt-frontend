@@ -21,8 +21,8 @@ const Support: RouteComponent = () => {
                             {FLYT_DESCRIPTION}
                         </BodyLong>
                         <BodyLong>
-                            Du kan se en brukerveiledning til <Link id={"support-guide-link"} href={"/support/guide"}>hvordan du bruker Fint
-                            Flyt</Link> her.
+                            Du kan se en brukerveiledning til hvordan du bruker Fint
+                            Flyt <Link id={"support-guide-link"} href={"/support/guide"}>her.</Link>
                         </BodyLong>
                     </VStack>
                 </Box>
@@ -48,8 +48,8 @@ const Support: RouteComponent = () => {
                      borderColor={"border-alt-3"}>
                     <BodyShort size="large">
                         Dersom det oppstår problemer, eller du har spørsmål som ikke blir besvart her, ta kontakt med
-                        prosjektleder på epost,
-                        <a href={"mailto:" + "jon.erik.stensrod@vigoiks.no"} target="_top"> Jon Erik Stensrød</a>
+                        prosjektleder <a href={"mailto:" + "jon.erik.stensrod@vigoiks.no"} target="_top">Jon Erik Stensrød</a>
+
                     </BodyShort>
                 </Box>
             </VStack>
