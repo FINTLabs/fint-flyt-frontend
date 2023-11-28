@@ -33,12 +33,12 @@ export const ValueConvertingPanel: React.FunctionComponent<Props> = (props: Prop
             <HStack gap="32" wrap={false}>
                 <VStack>
                     <Label>{t('from')}</Label>
-                    {Object.entries(props.existingValueConverting?.convertingMap ?? {}).map(([key, value]) => (
+                    {Object.keys(props.existingValueConverting?.convertingMap ?? {}).map((key) => (
                         <BodyShort key={key}>{key}</BodyShort>))}
                 </VStack>
                 <VStack>
                     <Label>{t('to')}</Label>
-                    {Object.entries(props.existingValueConverting?.convertingMap ?? {}).map(([key, value]) => (
+                    {Object.values(props.existingValueConverting?.convertingMap ?? {}).map((value) => (
                         <Tooltip key={value} content={value} placement="right">
                             <BodyShort>{findDisplayName(value)}</BodyShort>
                         </Tooltip>))}
