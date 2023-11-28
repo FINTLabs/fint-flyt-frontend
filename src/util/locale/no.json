@@ -249,20 +249,27 @@
     "valueConverting": {
       "button": {
         "newConverting": "Ny",
-        "blankConverting": "Blank vertikonvertering",
-        "templateConverting": "Basert på vertikonvertering",
-        "id": "id"
+        "basedOn": "Lag ny basert på denne"
       },
       "header": "Verdikonvertering",
       "panelHeader": "Verdikonverteringer",
-      "displayName": "Navn",
       "fromApplicationId": "Applikasjon",
+      "displayName": "Navn",
       "fromTypeId": "Type",
       "toApplicationId": "Applikasjon",
       "toTypeId": "Type",
       "convertingMap": "Konverteringer",
       "to": "Til",
-      "from": "Fra"
+      "from": "Fra",
+      "column": {
+        "show": "Vis",
+        "displayName": "Navn",
+        "toType": "Til type",
+        "fromType": "Fra type",
+        "toApplication": "Til type",
+        "fromApplication": "Fra type",
+        "actions": "handliger"
+      }
     }
   },
   "models": {
