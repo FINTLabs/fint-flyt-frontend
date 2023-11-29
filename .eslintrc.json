@@ -23,7 +23,6 @@
     "rules": {
         "react/react-in-jsx-scope": "off",
         "react/jsx-uses-react": "off",
-        "no-console": "warn",
         "@typescript-eslint/no-unused-vars": ["error", { "varsIgnorePattern": "^_", "argsIgnorePattern": "^_" }],
         "react-hooks/rules-of-hooks": "warn",
         "import/no-unused-modules": "warn",
