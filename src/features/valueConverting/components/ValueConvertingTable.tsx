@@ -66,7 +66,7 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
             <Box background={"surface-default"} padding="6" borderRadius={"large"} borderWidth="2" borderColor={"border-subtle"}>
                 <VStack gap={"6"}>
                     <Box background={'surface-default'} style={{height: '490px', overflowY: "scroll"}}>
-                        <Table size={"small"}>
+                        <Table id={"value-convertings-table"} size={"small"}>
                             <Table.Header>
                                 <Table.Row>
                                     <Table.HeaderCell scope="col">{t('column.show')}</Table.HeaderCell>
@@ -81,7 +81,7 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
                             <Table.Body>
                                 {sortData?.map((value, i) => {
                                     return (
-                                        <Table.ExpandableRow key={i}
+                                        <Table.ExpandableRow id={"table-row-" + i} key={i}
                                                              content={<ValueConvertingPanel existingValueConverting={value}/>}>
                                             <Table.DataCell scope="row">{value.displayName}</Table.DataCell>
                                             <Table.DataCell scope="row">{value.fromTypeId}</Table.DataCell>
@@ -107,7 +107,7 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
                             />}
                     </HStack>
                     <Box>
-                        <ButtonAks onClick={() => props.setNewValueConverting(true)}>
+                        <ButtonAks id={"new-button"} onClick={() => props.setNewValueConverting(true)}>
                             {t('button.newConverting')}
                         </ButtonAks>
                     </Box>

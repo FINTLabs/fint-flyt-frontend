@@ -28,15 +28,15 @@ export const ValueConvertingPanel: React.FunctionComponent<Props> = (props: Prop
     };
 
     return (
-        <Box padding="4" background={"surface-subtle"} borderRadius="xlarge">
-            <Heading size={"xsmall"} spacing>{t('convertingMap')}</Heading>
+        <Box id={"value-converting-panel"} padding="6" background={"surface-subtle"} borderRadius="large">
+            <Heading id={"value-converting-panel-heading"} size={"xsmall"} spacing>{t('convertingMap')}</Heading>
             <HStack gap="32" wrap={false}>
-                <VStack>
+                <VStack id={"from-values"}>
                     <Label>{t('from')}</Label>
                     {Object.keys(props.existingValueConverting?.convertingMap ?? {}).map((key) => (
                         <BodyShort key={key}>{key}</BodyShort>))}
                 </VStack>
-                <VStack>
+                <VStack id={"to-values"}>
                     <Label>{t('to')}</Label>
                     {Object.values(props.existingValueConverting?.convertingMap ?? {}).map((value) => (
                         <Tooltip key={value} content={value} placement="right">
