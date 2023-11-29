@@ -4,8 +4,7 @@ import ValueConvertingTable from "./components/ValueConvertingTable";
 import ValueConvertingForm from "./components/ValueConvertingForm";
 import ValueConvertingRepository from "../../shared/repositories/ValueConvertingRepository";
 import {RouteComponent} from "../main/Route";
-import {Box, Heading, HStack} from "@navikt/ds-react";
-import HelpPopover from "../configuration/components/common/popover/HelpPopover";
+import {Box, Heading, HelpText, HStack, VStack} from "@navikt/ds-react";
 
 
 const ValueConverting: RouteComponent = () => {
@@ -15,21 +14,22 @@ const ValueConverting: RouteComponent = () => {
     return (
         <Box paddingInline={"32"}>
             {existingValueConverting || newValueConverting ?
-                <Box>
-                    <HStack>
-                        <Heading size={"medium"} id="value-converting-panel-header" spacing>{t('newHeader')}</Heading>
-                        <HelpPopover popoverContent={''} noMargin={true}/>
-                    </HStack>
+                <VStack>
+                    <Heading size={"medium"} id="value-converting-panel-header">{t('newHeader')}</Heading>
                     <ValueConvertingForm
                         existingValueConverting={existingValueConverting ?? undefined}
                         setNewValueConverting={setNewValueConverting}
                         setExistingValueConverting={setExistingValueConverting}
                     />
-                </Box>
-
+                </VStack>
                 :
-                <Box>
-                    <Heading size={"medium"} id="value-converting-panel-header" spacing>{t('panelHeader')}</Heading>
+                <VStack>
+                    <HStack gap={"2"} align="center">
+                        <Heading size={"medium"} id="value-converting-panel-header">{t('panelHeader')}</Heading>
+                        <HelpText title="Verdikonverteringer informasjon" placement="bottom">
+                            {t('help.valueConverting')}
+                        </HelpText>
+                    </HStack>
                     <ValueConvertingTable
                         setNewValueConverting={setNewValueConverting}
                         onValueConvertingSelected={(id: number) => {
@@ -42,7 +42,7 @@ const ValueConverting: RouteComponent = () => {
                                 });
                         }
                         }/>
-                </Box>
+                </VStack>
             }
         </Box>
     );
