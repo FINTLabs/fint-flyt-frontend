@@ -18,7 +18,7 @@ export const IntegrationStyles = makeStyles((theme: Theme) =>
             borderRadius: theme.spacing(0.5),
         },
         integrationWrapper: {
-            height: theme.spacing(22),
+            height: theme.spacing(27),
             minWidth: theme.spacing(80),
             width: 'fit-content',
             border: '1px solid lightgrey',
