@@ -4,7 +4,7 @@ import {useTranslation} from 'react-i18next';
 import ValueConvertingRepository from "../../../shared/repositories/ValueConvertingRepository";
 import {IValueConverting} from "../types/ValueConverting";
 import {getDestinationDisplayName, getSourceApplicationDisplayName} from "../../../util/DataGridUtil";
-import {Box, Button as ButtonAks, Dropdown, Table, VStack} from "@navikt/ds-react";
+import {Box, Button as ButtonAks, Dropdown, HStack, Pagination, Table, VStack} from "@navikt/ds-react";
 import {MenuElipsisVerticalCircleIcon} from "@navikt/aksel-icons";
 import ValueConvertingPanel from "./ValueConvertingPanel";
 
@@ -17,6 +17,12 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
     const history = useHistory();
     const {t} = useTranslation('translations', {keyPrefix: 'pages.valueConverting'});
     const [rows, setRows] = useState<IValueConverting[] | undefined>(undefined)
+    const [page, setPage] = useState(1);
+    const rowsPerPage = 8;
+
+    let sortData = rows ?? [];
+    sortData = sortData.slice((page - 1) * rowsPerPage, page * rowsPerPage);
+
 
     useEffect(() => {
         ValueConvertingRepository.getValueConvertings(0, 100, 'fromApplicationId', 'ASC', false)
@@ -56,50 +62,57 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
         );
     }
 
-
     return (
-        <Box background={"surface-default"} padding="6" borderRadius={"large"} borderWidth="2"
-             borderColor={"border-subtle"}>
-            <VStack gap={"6"}>
-                <Box background={'surface-default'}>
-                    <Table size={"small"}>
-                        <Table.Header>
-                            <Table.Row>
-                                <Table.HeaderCell scope="col">{t('column.show')}</Table.HeaderCell>
-                                <Table.HeaderCell scope="col">{t('column.displayName')}</Table.HeaderCell>
-                                <Table.HeaderCell scope="col">{t('column.fromType')}</Table.HeaderCell>
-                                <Table.HeaderCell scope="col">{t('column.toType')}</Table.HeaderCell>
-                                <Table.HeaderCell scope="col">{t('column.fromApplication')}</Table.HeaderCell>
-                                <Table.HeaderCell scope="col">{t('column.toApplication')}</Table.HeaderCell>
-                                <Table.HeaderCell scope="col">{t('column.actions')}</Table.HeaderCell>
-                            </Table.Row>
-                        </Table.Header>
-                        <Table.Body>
-                            {rows?.map((value, i) => {
-                                return (
-                                    <Table.ExpandableRow key={i}
-                                                         content={<ValueConvertingPanel existingValueConverting={value}/>}>
-                                        <Table.DataCell scope="row">{value.displayName}</Table.DataCell>
-                                        <Table.DataCell>{value.fromTypeId}</Table.DataCell>
-                                        <Table.DataCell>{value.toTypeId}</Table.DataCell>
-                                        <Table.DataCell>{getSourceApplicationDisplayName(value.fromApplicationId)}</Table.DataCell>
-                                        <Table.DataCell>{getDestinationDisplayName(value.toApplicationId)}</Table.DataCell>
-                                        <Table.DataCell>
-                                            {actionMenu(value)}
-                                        </Table.DataCell>
-                                    </Table.ExpandableRow>
-                                );
-                            })}
-                        </Table.Body>
-                    </Table>
-                </Box>
-                <Box>
-                    <ButtonAks onClick={() => props.setNewValueConverting(true)}>
-                        {t('button.newConverting')}
-                    </ButtonAks>
-                </Box>
-            </VStack>
-        </Box>
+            <Box background={"surface-default"} padding="6" borderRadius={"large"} borderWidth="2" borderColor={"border-subtle"}>
+                <VStack gap={"6"}>
+                    <Box background={'surface-default'} style={{height: '490px'}}>
+                        <Table size={"small"}>
+                            <Table.Header>
+                                <Table.Row>
+                                    <Table.HeaderCell scope="col">{t('column.show')}</Table.HeaderCell>
+                                    <Table.HeaderCell scope="col">{t('column.displayName')}</Table.HeaderCell>
+                                    <Table.HeaderCell scope="col">{t('column.fromType')}</Table.HeaderCell>
+                                    <Table.HeaderCell scope="col">{t('column.toType')}</Table.HeaderCell>
+                                    <Table.HeaderCell scope="col">{t('column.fromApplication')}</Table.HeaderCell>
+                                    <Table.HeaderCell scope="col">{t('column.toApplication')}</Table.HeaderCell>
+                                    <Table.HeaderCell scope="col">{t('column.actions')}</Table.HeaderCell>
+                                </Table.Row>
+                            </Table.Header>
+                            <Table.Body>
+                                {sortData?.map((value, i) => {
+                                    return (
+                                        <Table.ExpandableRow key={i}
+                                                             content={<ValueConvertingPanel existingValueConverting={value}/>}>
+                                            <Table.DataCell scope="row">{value.displayName}</Table.DataCell>
+                                            <Table.DataCell>{value.fromTypeId}</Table.DataCell>
+                                            <Table.DataCell>{value.toTypeId}</Table.DataCell>
+                                            <Table.DataCell>{getSourceApplicationDisplayName(value.fromApplicationId)}</Table.DataCell>
+                                            <Table.DataCell>{getDestinationDisplayName(value.toApplicationId)}</Table.DataCell>
+                                            <Table.DataCell>
+                                                {actionMenu(value)}
+                                            </Table.DataCell>
+                                        </Table.ExpandableRow>
+                                    );
+                                })}
+                            </Table.Body>
+                        </Table>
+                    </Box>
+                    <HStack justify={"center"}>
+                        {rows && rows.length > rowsPerPage &&
+                            <Pagination
+                                page={page}
+                                onPageChange={setPage}
+                                count={Math.ceil(rows.length / rowsPerPage)}
+                                size="small"
+                            />}
+                    </HStack>
+                    <Box>
+                        <ButtonAks onClick={() => props.setNewValueConverting(true)}>
+                            {t('button.newConverting')}
+                        </ButtonAks>
+                    </Box>
+                </VStack>
+            </Box>
     );
 }
 

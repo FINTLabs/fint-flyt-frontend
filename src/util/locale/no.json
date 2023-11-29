@@ -272,7 +272,7 @@
         "fromType": "Fra type",
         "toApplication": "Til type",
         "fromApplication": "Fra type",
-        "actions": "handliger"
+        "actions": "Handlinger"
       },
       "help": {
         "valueConverting": "Verdikonvertering er et felt som lar deg bruke en definert regel for å konvertere hver forekomst av en verdi. Verdikonverteringer brukes i konfigurasjoner på samme måte som metadata og vil gjelde for det aktuelle feltet. Det er ikke mulig å redigere en eksisterende verdikonvertering da dette kan påvirke eksisterende konfigurasjoner, men det er mulig å opprette en ny basert på en eksisterende verdikonvertering",
