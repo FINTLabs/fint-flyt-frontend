@@ -11,12 +11,6 @@ export const USER_GUIDE = [
     "Velg rediger om du vil fortesette arbeidet med en påbegynt konfigurasjon eller velg ny dersom du vil opprette en helt ny. Da vil du kunne velge å begynne med en blank konfigurasjon eller basere deg på en tidligere versjon. Merk at du ikke kan redigere en ferdigstilt konfigurasjon",
 ]
 
-
-export const ABOUT_VERSIONS: string[] = [
-    "FLYT er under kontinuerlig utvikling og det blir stadig lagt til ny funksjonalitet samt forbedret brukeropplevelse basert på brukernes innspill - Denne siden beskriver og " +
-    "viser større endringer i FLYT men feilrettinger vil også bli beskrevet på denne siden"
-]
-
 export const WORD_LIST = [
     "Integrasjon - Hvor data som skal omformes kommer fra, hvor den skal og hva den vil inneholde.",
     "Konfigurasjon - Hvordan dataen skal omformes fra kilde til destinasjon",
