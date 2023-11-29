@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {Link as RouterLink} from 'react-router-dom';
-import {Alert, Snackbar} from "@mui/material";
 import {useTranslation} from 'react-i18next';
 import {Controller, FormProvider, useForm, useWatch} from "react-hook-form";
 import SelectValueComponent from "../../configuration/components/mapping/value/select/SelectValueComponent";
@@ -20,7 +19,7 @@ import {ISelectable} from "../../configuration/types/Selectable";
 import ArrayComponent from "../../configuration/components/common/array/ArrayComponent";
 import {valueConvertingStyles} from "../../../util/styles/ValueConverting.styles";
 import SearchSelectValueComponent from "../../configuration/components/mapping/value/select/SearchSelectValueComponent";
-import {Box, Button, Heading, HelpText, HStack, VStack} from "@navikt/ds-react";
+import {Alert, Box, Button, Heading, HelpText, HStack, VStack} from "@navikt/ds-react";
 
 const useStyles = valueConvertingStyles
 
@@ -39,7 +38,7 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
     const classes = useStyles();
     const {t} = useTranslation('translations', {keyPrefix: 'pages.valueConverting'});
     const [disabled, setDisabled] = useState<boolean>(false);
-    const [showAlert, setShowAlert] = React.useState<boolean>(false)
+    const [show, setShow] = React.useState(false);
     const [alertContent, setAlertContent] = React.useState<IAlertContent>(defaultAlert)
 
     const [toSelectables, setToSelectables] = useState<ISelectable[]>([])
@@ -93,7 +92,7 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
         ValueConvertingRepository.createValueConverting(valueConverting).then(r => {
             console.log(r)
             setDisabled(true)
-            setShowAlert(true)
+            setShow(true)
             setAlertContent({
                 severity: 'success',
                 message: 'verdikonvertering lagret'
@@ -105,7 +104,7 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
                         severity: 'error',
                         message: 'Feilet under lagring, feilmelding: ' + (error.response.data.message ? error.response.data.message : 'Det har oppstått en feil') + ', status: ' + error.response.status
                     })
-                    setShowAlert(true);
+                    setShow(true);
                 }
             })
     }
@@ -116,14 +115,6 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
             props.setNewValueConverting(false)
         }
     }
-
-    const handleClose = (event: React.SyntheticEvent | Event, reason?: string) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-        setShowAlert(false);
-        setAlertContent(defaultAlert)
-    };
 
     return (
         <Box background={"surface-default"} padding="6" borderRadius={"large"} borderWidth="2"
@@ -304,6 +295,12 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
                                 }}
                             />
                         </VStack>
+                        {show && <Alert size={"small"} closeButton onClose={() => {
+                            setShow(false);
+                            setAlertContent(defaultAlert)
+                        }} variant={alertContent.severity}>
+                            {alertContent.message}
+                        </Alert>}
                         <HStack id={"button-container"} gap={"6"}>
                             <Button
                                 id={'submit-button'}
@@ -316,16 +313,10 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
                                 id={'cancel-button'}
                                 onClick={handleCancel}
                                 to={'/valueconverting'}
-                            >{t('button.cancel')}
+                            >{disabled ? t('button.back') : t('button.cancel')}
                             </Button>
                         </HStack>
                     </VStack>
-                    <Snackbar id="integration-form-snackbar-saved" autoHideDuration={4000} open={showAlert}
-                              onClose={handleClose}>
-                        <Alert onClose={handleClose} severity={alertContent.severity} sx={{width: '100%'}}>
-                            {alertContent.message}
-                        </Alert>
-                    </Snackbar>
                 </form>
             </FormProvider>
         </Box>
