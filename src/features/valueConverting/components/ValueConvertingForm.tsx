@@ -21,7 +21,7 @@ import ArrayComponent from "../../configuration/components/common/array/ArrayCom
 import {valueConvertingStyles} from "../../../util/styles/ValueConverting.styles";
 import SearchSelectValueComponent from "../../configuration/components/mapping/value/select/SearchSelectValueComponent";
 import HelpPopover from "../../configuration/components/common/popover/HelpPopover";
-import FlytTitleComponent from '../../configuration/components/atoms/FlytTitleComponent';
+import FlytTitleComponent from '../../../components/atoms/FlytTitleComponent';
 
 const useStyles = valueConvertingStyles
 
