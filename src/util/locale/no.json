@@ -251,7 +251,8 @@
         "newConverting": "Ny",
         "basedOn": "Lag ny basert på denne",
         "create": "Opprett",
-        "cancel": "Avbryt"
+        "cancel": "Avbryt",
+        "back": "Tilbake"
       },
       "header": "Verdikonvertering",
       "panelHeader": "Verdikonverteringer",

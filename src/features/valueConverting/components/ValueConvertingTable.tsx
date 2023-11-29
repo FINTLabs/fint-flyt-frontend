@@ -25,7 +25,7 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
 
 
     useEffect(() => {
-        ValueConvertingRepository.getValueConvertings(0, 100, 'fromApplicationId', 'ASC', false)
+        ValueConvertingRepository.getValueConvertings(0, 100, 'id', 'DESC', false)
             .then(response => {
                 const data = response.data
                 if (data.content) {
@@ -65,7 +65,7 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
     return (
             <Box background={"surface-default"} padding="6" borderRadius={"large"} borderWidth="2" borderColor={"border-subtle"}>
                 <VStack gap={"6"}>
-                    <Box background={'surface-default'} style={{height: '490px'}}>
+                    <Box background={'surface-default'} style={{height: '490px', overflowY: "scroll"}}>
                         <Table size={"small"}>
                             <Table.Header>
                                 <Table.Row>
@@ -84,11 +84,11 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
                                         <Table.ExpandableRow key={i}
                                                              content={<ValueConvertingPanel existingValueConverting={value}/>}>
                                             <Table.DataCell scope="row">{value.displayName}</Table.DataCell>
-                                            <Table.DataCell>{value.fromTypeId}</Table.DataCell>
-                                            <Table.DataCell>{value.toTypeId}</Table.DataCell>
-                                            <Table.DataCell>{getSourceApplicationDisplayName(value.fromApplicationId)}</Table.DataCell>
-                                            <Table.DataCell>{getDestinationDisplayName(value.toApplicationId)}</Table.DataCell>
-                                            <Table.DataCell>
+                                            <Table.DataCell scope="row">{value.fromTypeId}</Table.DataCell>
+                                            <Table.DataCell scope="row">{value.toTypeId}</Table.DataCell>
+                                            <Table.DataCell scope="row">{getSourceApplicationDisplayName(value.fromApplicationId)}</Table.DataCell>
+                                            <Table.DataCell scope="row">{getDestinationDisplayName(value.toApplicationId)}</Table.DataCell>
+                                            <Table.DataCell scope="row">
                                                 {actionMenu(value)}
                                             </Table.DataCell>
                                         </Table.ExpandableRow>

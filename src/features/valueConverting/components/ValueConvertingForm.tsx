@@ -308,8 +308,8 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
                             <Button
                                 id={'submit-button'}
                                 type="submit"
-                                disabled={disabled
-                                }>{t('button.create')}
+                                disabled={disabled}
+                            >{t('button.create')}
                             </Button>
                             <Button
                                 as={RouterLink}
