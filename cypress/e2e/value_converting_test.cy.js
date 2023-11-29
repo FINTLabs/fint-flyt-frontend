@@ -16,7 +16,7 @@ describe('Testing value converting page', () => {
         prep()
         cy.get('#value-converting-panel-header').should("be.visible")
         cy.get('#value-convertings-table').should("be.visible")
-      cy.get('#new-button').should("be.visible")
+        cy.get('#new-button').should("be.visible")
     })
 });
 
@@ -39,10 +39,10 @@ describe('Testing value converting table', () => {
         cy.get('#table-row-0 > :nth-child(2)').should("contain.text", "test t2t")
         cy.get(':nth-child(3) > .navds-pagination__item').click()
         cy.get('#table-row-0 > :nth-child(2)').should("contain.text", "test9 next page")
-  })
+    })
 });
 
-describe.skip('Testing create new value converting', () => {
+describe('Testing create new value converting', () => {
     beforeEach(() => {
         cy.intercept('GET', '**/value-convertings?page=0&size=100&sortProperty=id&sortDirection=DESC&excludeConvertingMap=false', { fixture: 'valueconverting/valueconvertings.json' }).as('getValueconvertings')
         cy.intercept('GET', '**/value-convertings/1', { fixture: 'valueconverting/valueconverting1.json' }).as('getValueconverting')
@@ -52,8 +52,7 @@ describe.skip('Testing create new value converting', () => {
 
     it('should open and fill new converting form', () => {
         prep()
-        cy.get('#root-button').click()
-        cy.get('#blank-button').click()
+        cy.get('#new-button').click()
         cy.get('#displayName').type('testkonvertering', {delay: 0})
         cy.get('#fromApplicationId').click()
         cy.get('#menu-fromApplicationId > .MuiPaper-root > .MuiList-root > [tabindex="0"]').click()
@@ -64,7 +63,7 @@ describe.skip('Testing create new value converting', () => {
         cy.get('#toTypeId').click()
         cy.get('#menu-toTypeId > .MuiPaper-root > .MuiList-root > [tabindex="0"]').click()
         cy.get('#add-icon').click()
-        cy.get('#list-item-0').type('test')
+        cy.get('#convertingArray\\.0\\.from').type('test')
         cy.get('.MuiAutocomplete-root > .MuiFormControl-root > .MuiInputBase-root').click().type('doc').type('{downArrow}').type('{enter}')
         cy.get('#submit-button').click()
         cy.wait('@postValueconverting').its('request.body').should('deep.equal', {
@@ -81,9 +80,9 @@ describe.skip('Testing create new value converting', () => {
 });
 
 
-describe.skip('Testing create new based on existing value converting', () => {
+describe('Testing create new based on existing value converting', () => {
     beforeEach(() => {
-        cy.intercept('GET', '**/value-convertings?page=0&size=100&sortProperty=id&sortDirection=DESC&excludeConvertingMap=false', { fixture: 'valueconverting/valueconvertings.json' }).as('getValueconvertings')
+        cy.intercept('GET', '**/value-convertings?page=0&size=100&sortProperty=id&sortDirection=DESC&excludeConvertingMap=false', { fixture: 'valueconverting/valueconvertingsWithMaps.json' }).as('getValueconvertings')
         cy.intercept('GET', '**/value-convertings/1', { fixture: 'valueconverting/valueconverting1.json' }).as('getValueconverting')
         cy.intercept('GET', '**/arkiv/kodeverk/format', { fixture: 'kodeverk/format.json' }).as('getFormat')
         cy.intercept('POST', '**/value-convertings', { fixture: 'postFixture.json' }).as('postValueconverting')
@@ -91,11 +90,10 @@ describe.skip('Testing create new based on existing value converting', () => {
 
     it('should open and fill converting form based on existing', () => {
         prep()
-        cy.get('#root-button').click()
-        cy.get('#based-on-button').click()
-        cy.get('#version-button-0').click()
+        cy.get('#table-row-0 > :nth-child(7) > .navds-dropdown__toggle').click()
+        cy.get('#table-row-0 > :nth-child(7) > .navds-popover > .navds-dropdown__list > .navds-dropdown__list-item > .navds-dropdown__item').click()
         cy.get('#add-icon').click()
-        cy.get('#list-item-1').type('test2')
+        cy.get('#convertingArray\\.1\\.from').type('test2')
         cy.get('#convertingArray\\.1\\.to').type('html')
         cy.get('#submit-button').click()
         cy.wait('@postValueconverting').its('request.body').should('deep.equal', {

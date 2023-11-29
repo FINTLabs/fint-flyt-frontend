@@ -28,7 +28,7 @@ export const ValueConvertingPanel: React.FunctionComponent<Props> = (props: Prop
     };
 
     return (
-        <Box id={"value-converting-panel"} padding="6" background={"surface-subtle"} borderRadius="large">
+        <Box id={"value-converting-panel"} padding="3" background={"surface-subtle"} borderRadius="large">
             <Heading id={"value-converting-panel-heading"} size={"xsmall"} spacing>{t('convertingMap')}</Heading>
             <HStack gap="32" wrap={false}>
                 <VStack id={"from-values"}>
