@@ -1,6 +1,6 @@
 export const ABOUT_VERSIONS: string[] = [
-    "FLYT er under kontinuerlig utvikling og det blir stadig lagt til ny funksjonalitet samt forbedret brukeropplevelse basert på brukernes innspill - Denne siden beskriver og " +
-    "viser større endringer i FLYT men feilrettinger vil også bli beskrevet på denne siden"
+    "FLYT er under kontinuerlig utvikling og det blir stadig lagt til ny funksjonalitet samt forbedret brukeropplevelse basert på brukernes innspill - Denne siden beskriver  " +
+    "større endringer og feilrettinger i FLYT"
 ]
 
 
