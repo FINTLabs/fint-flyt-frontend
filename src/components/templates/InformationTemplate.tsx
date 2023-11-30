@@ -2,12 +2,12 @@ import React from 'react';
 import {useTranslation} from 'react-i18next';
 import { Box, Heading, VStack} from "@navikt/ds-react";
 
-interface SupportTemplateProps {
+interface InformationTemplateProps {
     children: React.ReactNode
     keyPrefix: string
 }
 
-const SupportTemplate = ({children, keyPrefix}:SupportTemplateProps) => {
+const InformationTemplate = ({children, keyPrefix}:InformationTemplateProps) => {
     const {t} = useTranslation('translations', {keyPrefix: keyPrefix});
 
     return (
@@ -19,4 +19,4 @@ const SupportTemplate = ({children, keyPrefix}:SupportTemplateProps) => {
         </Box>
     )
 }
-export default SupportTemplate;
+export default InformationTemplate;
