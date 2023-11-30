@@ -89,7 +89,7 @@ const routes: IRoute[] = [
     },
     {
         path: '/versjon',
-        name: 'versjon',
+        name: 'version',
         component: Version,
         icon: 'contact_support',
         exact: true,
