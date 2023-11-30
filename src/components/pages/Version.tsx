@@ -18,10 +18,8 @@ const Version: RouteComponent = () => {
                     <BodyLong>
                         {NOVEMBER23}
                     </BodyLong>
-
                 </VStack>
             </Box>
-
         <Contact/>
         </SupportTemplate>
     )
