@@ -1,5 +1,6 @@
 import React from 'react';
 import {RouteComponent} from "../main/Route";
+import {Link as RouterLink} from "react-router-dom";
 import {FAQ, FLYT_DESCRIPTION} from "./util/supportTexts";
 import {BodyLong, Box, ExpansionCard, Heading, Link, List, VStack} from "@navikt/ds-react";
 import SupportTemplate from "../../components/templates/SupportTemplate";
@@ -18,6 +19,8 @@ const Support: RouteComponent = () => {
                             {FLYT_DESCRIPTION}
                         </BodyLong>
                         <BodyLong>
+                            Du kan se en brukerveiledning til <Link as={RouterLink} id={"support-guide-link"} to={"/support/guide"}>hvordan du bruker Fint
+                            Flyt</Link> her.
                             Du kan se en brukerveiledning til hvordan du bruker Fint
                             Flyt <Link id={"support-guide-link"} href={"/support/guide"}>her.</Link>
                         </BodyLong>

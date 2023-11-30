@@ -1,6 +1,4 @@
-import {AlertColor} from "@mui/material";
-
 export interface IAlertContent {
-    severity: AlertColor,
+    severity: 'success' | 'info' | 'warning' | 'error',
     message: string
 }

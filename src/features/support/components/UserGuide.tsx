@@ -3,6 +3,7 @@ import {Box, Heading, Label, Link, List, VStack} from "@navikt/ds-react";
 import {RouteComponent} from "../../main/Route";
 import {USER_GUIDE, WORD_LIST} from "../util/supportTexts";
 import {useTranslation} from "react-i18next";
+import {Link as RouterLink} from "react-router-dom";
 
 const UserGuide: RouteComponent = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.support'});
@@ -33,7 +34,7 @@ const UserGuide: RouteComponent = () => {
                             )
                         })}
                     </List>
-                    <Link href={"/support"} id={"back-link"}>Tilbake</Link>
+                    <Link as={RouterLink} to={"/support"} id={"back-link"}>Tilbake</Link>
                 </Box>
             </VStack>
 
