@@ -14,10 +14,11 @@ const Version: RouteComponent = () => {
                 <VStack gap={"6"}>
                     <BodyLong>
                         {ABOUT_VERSIONS}
-                        <BodyLong>
-                            {NOVEMBER23}
-                        </BodyLong>
                     </BodyLong>
+                    <BodyLong>
+                        {NOVEMBER23}
+                    </BodyLong>
+
                 </VStack>
             </Box>
 
