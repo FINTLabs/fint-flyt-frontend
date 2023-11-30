@@ -1,6 +1,6 @@
 import React from 'react';
 import {RouteComponent} from "../../features/main/Route";
-import {BodyLong,  Box, Heading,  VStack} from "@navikt/ds-react";
+import {BodyLong,  Box,  VStack} from "@navikt/ds-react";
 import SupportTemplate from "../templates/SupportTemplate";
 import {Contact} from "../atoms/Contact";
 import {ABOUT_VERSIONS, NOVEMBER23} from "../utils/version/VersionTexts";
