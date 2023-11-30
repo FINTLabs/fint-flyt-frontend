@@ -6,7 +6,6 @@ import {Contact} from "../atoms/Contact";
 import {ABOUT_VERSIONS, NOVEMBER23} from "../utils/version/VersionTexts";
 
 const Version: RouteComponent = () => {
-
     return (
         <SupportTemplate keyPrefix={'pages.version'}>
             <Box id={"support-information"} background={"surface-default"} padding="6" borderRadius={"large"} borderWidth="2"
@@ -24,5 +23,4 @@ const Version: RouteComponent = () => {
         </SupportTemplate>
     )
 }
-
 export default Version;
