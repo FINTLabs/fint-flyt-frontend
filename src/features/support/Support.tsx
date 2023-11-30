@@ -1,6 +1,7 @@
 import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {RouteComponent} from "../main/Route";
+import {Link as RouterLink} from "react-router-dom";
 import {FAQ, FLYT_DESCRIPTION} from "./util/supportTexts";
 import {BodyLong, BodyShort, Box, ExpansionCard, Heading, Link, List, VStack} from "@navikt/ds-react";
 
@@ -21,7 +22,7 @@ const Support: RouteComponent = () => {
                             {FLYT_DESCRIPTION}
                         </BodyLong>
                         <BodyLong>
-                            Du kan se en brukerveiledning til <Link id={"support-guide-link"} href={"/support/guide"}>hvordan du bruker Fint
+                            Du kan se en brukerveiledning til <Link as={RouterLink} id={"support-guide-link"} to={"/support/guide"}>hvordan du bruker Fint
                             Flyt</Link> her.
                         </BodyLong>
                     </VStack>
