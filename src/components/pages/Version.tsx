@@ -2,7 +2,6 @@ import React from 'react';
 import {RouteComponent} from "../../features/main/Route";
 import {BodyLong,  Box,  VStack} from "@navikt/ds-react";
 import InformationTemplate from "../templates/InformationTemplate";
-import {Contact} from "../atoms/Contact";
 import {ABOUT_VERSIONS, NOVEMBER23} from "../utils/version/VersionTexts";
 
 const Version: RouteComponent = () => {
@@ -19,7 +18,6 @@ const Version: RouteComponent = () => {
                     </BodyLong>
                 </VStack>
             </Box>
-        <Contact/>
         </InformationTemplate>
     )
 }
