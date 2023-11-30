@@ -14,20 +14,13 @@ const Version: RouteComponent = () => {
                 <VStack gap={"6"}>
                     <BodyLong>
                         {ABOUT_VERSIONS}
+                        <BodyLong>
+                            {NOVEMBER23}
+                        </BodyLong>
                     </BodyLong>
                 </VStack>
             </Box>
-            <Box id={"support-information"} background={"surface-default"} padding="6" borderRadius={"large"} borderWidth="2"
-                 borderColor={"border-subtle"}>
-                <VStack gap={"6"}>
-                    <Heading size={"small"}>
-                        Versjon 23.11 - November 2023
-                    </Heading>
-                    <BodyLong>
-                        {NOVEMBER23}
-                    </BodyLong>
-                </VStack>
-            </Box>
+
         <Contact/>
         </SupportTemplate>
     )
