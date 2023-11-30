@@ -14,7 +14,7 @@ const ValueConverting: RouteComponent = () => {
     return (
         <Box paddingInline={"32"}>
             {existingValueConverting || newValueConverting ?
-                <VStack>
+                <VStack gap={"6"}>
                     <Heading size={"medium"} id="value-converting-panel-header">{t('newHeader')}</Heading>
                     <ValueConvertingForm
                         existingValueConverting={existingValueConverting ?? undefined}
@@ -23,7 +23,7 @@ const ValueConverting: RouteComponent = () => {
                     />
                 </VStack>
                 :
-                <VStack>
+                <VStack gap={"6"}>
                     <HStack gap={"2"} align="center">
                         <Heading size={"medium"} id="value-converting-panel-header">{t('panelHeader')}</Heading>
                         <HelpText title="Verdikonverteringer informasjon" placement="bottom">
