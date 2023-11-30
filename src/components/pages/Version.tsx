@@ -8,7 +8,7 @@ import {ABOUT_VERSIONS, NOVEMBER23} from "../utils/version/VersionTexts";
 const Version: RouteComponent = () => {
 
     return (
-        <SupportTemplate keyPrefix={'pages.versjon'}>
+        <SupportTemplate keyPrefix={'pages.version'}>
             <Box id={"support-information"} background={"surface-default"} padding="6" borderRadius={"large"} borderWidth="2"
                  borderColor={"border-subtle"}>
                 <VStack gap={"6"}>
