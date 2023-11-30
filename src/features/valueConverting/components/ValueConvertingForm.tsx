@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {Link as RouterLink} from 'react-router-dom';
-import {Alert, Box, Button, Snackbar} from "@mui/material";
 import {useTranslation} from 'react-i18next';
 import {Controller, FormProvider, useForm, useWatch} from "react-hook-form";
 import SelectValueComponent from "../../configuration/components/mapping/value/select/SelectValueComponent";
@@ -20,17 +19,14 @@ import {ISelectable} from "../../configuration/types/Selectable";
 import ArrayComponent from "../../configuration/components/common/array/ArrayComponent";
 import {valueConvertingStyles} from "../../../util/styles/ValueConverting.styles";
 import SearchSelectValueComponent from "../../configuration/components/mapping/value/select/SearchSelectValueComponent";
-import HelpPopover from "../../configuration/components/common/popover/HelpPopover";
-import FlytTitleComponent from '../../configuration/components/atoms/FlytTitleComponent';
+import {Alert, Box, Button, Heading, HelpText, HStack, VStack} from "@navikt/ds-react";
 
 const useStyles = valueConvertingStyles
-
 
 type Props = {
     existingValueConverting: IValueConverting | undefined,
     setExistingValueConverting: React.Dispatch<React.SetStateAction<undefined>>,
     setNewValueConverting: React.Dispatch<React.SetStateAction<boolean>>,
-    view: boolean
 }
 type IValueConvertingFormData = Omit<IValueConverting, 'convertingMap'> & {
     convertingArray: IValueConvertingConvertingArrayEntry[]
@@ -41,8 +37,8 @@ type IValueConvertingConvertingArrayEntry = { from: string, to: string }
 export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props) => {
     const classes = useStyles();
     const {t} = useTranslation('translations', {keyPrefix: 'pages.valueConverting'});
-    const [disabled, setDisabled] = useState<boolean>(props.view);
-    const [showAlert, setShowAlert] = React.useState<boolean>(false)
+    const [disabled, setDisabled] = useState<boolean>(false);
+    const [show, setShow] = React.useState(false);
     const [alertContent, setAlertContent] = React.useState<IAlertContent>(defaultAlert)
 
     const [toSelectables, setToSelectables] = useState<ISelectable[]>([])
@@ -96,7 +92,7 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
         ValueConvertingRepository.createValueConverting(valueConverting).then(r => {
             console.log(r)
             setDisabled(true)
-            setShowAlert(true)
+            setShow(true)
             setAlertContent({
                 severity: 'success',
                 message: 'verdikonvertering lagret'
@@ -108,7 +104,7 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
                         severity: 'error',
                         message: 'Feilet under lagring, feilmelding: ' + (error.response.data.message ? error.response.data.message : 'Det har oppstått en feil') + ', status: ' + error.response.status
                     })
-                    setShowAlert(true);
+                    setShow(true);
                 }
             })
     }
@@ -120,24 +116,19 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
         }
     }
 
-    const handleClose = (event: React.SyntheticEvent | Event, reason?: string) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-        setShowAlert(false);
-        setAlertContent(defaultAlert)
-    };
-
     return (
-        <Box className={classes.panelContainer}>
-            <Box className={classes.headerContainer}>
-                <FlytTitleComponent variant='h4' classes={classes} title={t('header')}/>
-                <HelpPopover popoverContent={''} noMargin={true}/>
-            </Box>
+        <Box background={"surface-default"} padding="6" borderRadius={"large"} borderWidth="2"
+             borderColor={"border-subtle"}>
             <FormProvider {...methods}>
                 <form onSubmit={methods.handleSubmit(onSubmit)}>
-                    <Box className={classes.configurationBox} sx={{m: 1}}>
-                        <Box sx={{mb: 2}}>
+                    <VStack gap={"6"}>
+                        <VStack gap={"3"} id={"name-container"}>
+                            <HStack gap={"2"} align="center">
+                                <Heading size={"small"}>{t('valueConvertingName')}</Heading>
+                                <HelpText title="Hva er dette?" placement="bottom">
+                                    {t('help.valueConvertingName')}
+                                </HelpText>
+                            </HStack>
                             <Controller
                                 name={"displayName"}
                                 defaultValue={''}
@@ -151,93 +142,114 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
                                     />
                                 }
                             />
-                        </Box>
-                        <FlytTitleComponent variant="h6" classes={classes} title={'Fra'}/>
-                        <Box sx={{height: '110px'}} className={classes.valueConvertingWrapper}>
-                            <Controller
-                                name={"fromApplicationId"}
-                                defaultValue={''}
-                                render={({field}) =>
-                                    <SelectValueComponent
-                                        {...field}
-                                        disabled={disabled}
-                                        displayName={t('fromApplicationId')}
-                                        selectables={
-                                            fromApplicationIds.map(fromApplicationId => {
-                                                return {
-                                                    displayName: fromApplicationId.label,
-                                                    value: fromApplicationId.value
-                                                }
-                                            })}
+                        </VStack>
+                        <HStack gap={"6"} id={"from-to-container"}>
+                            <VStack gap={"3"}>
+                                <HStack gap={"2"} align="center">
+                                    <Heading size={"small"}>{t('from')}</Heading>
+                                    <HelpText title="Hva er dette?" placement="bottom">
+                                        {t('help.from')}
+                                    </HelpText>
+                                </HStack>
+                                <VStack gap={"3"}>
+                                    <Controller
+                                        name={"fromApplicationId"}
+                                        defaultValue={''}
+                                        render={({field}) =>
+                                            <SelectValueComponent
+                                                {...field}
+                                                disabled={disabled}
+                                                displayName={t('fromApplicationId')}
+                                                selectables={
+                                                    fromApplicationIds.map(fromApplicationId => {
+                                                        return {
+                                                            displayName: fromApplicationId.label,
+                                                            value: fromApplicationId.value
+                                                        }
+                                                    })}
+                                            />
+                                        }
                                     />
-                                }
-                            />
-                            <Controller
-                                name={"fromTypeId"}
-                                defaultValue={''}
-                                render={({field}) =>
-                                    <SelectValueComponent
-                                        {...field}
-                                        disabled={disabled}
-                                        displayName={t('fromTypeId')}
-                                        selectables={
-                                            fromTypeIds.map(fromTypeId => {
-                                                return {
-                                                    displayName: fromTypeId.label,
-                                                    value: fromTypeId.value
-                                                }
-                                            })}
+                                    <Controller
+                                        name={"fromTypeId"}
+                                        defaultValue={''}
+                                        render={({field}) =>
+                                            <SelectValueComponent
+                                                {...field}
+                                                disabled={disabled}
+                                                displayName={t('fromTypeId')}
+                                                selectables={
+                                                    fromTypeIds.map(fromTypeId => {
+                                                        return {
+                                                            displayName: fromTypeId.label,
+                                                            value: fromTypeId.value
+                                                        }
+                                                    })}
+                                            />
+                                        }
                                     />
-                                }
-                            />
-                        </Box>
-                        <FlytTitleComponent variant="h6" classes={classes} title={'Til'}/>
-                        <Box sx={{height: '110px'}} className={classes.valueConvertingWrapper}>
-                            <Controller
-                                name={"toApplicationId"}
-                                defaultValue={''}
-                                render={({field}) =>
-                                    <SelectValueComponent
-                                        {...field}
-                                        disabled={disabled}
-                                        displayName={t('toApplicationId')}
-                                        selectables={
-                                            destinations.map(destination => {
-                                                return {
-                                                    displayName: destination.label,
-                                                    value: destination.value
-                                                }
-                                            })}
+                                </VStack>
+                            </VStack>
+                            <VStack gap={"3"}>
+                                <HStack gap={"2"} align="center">
+                                    <Heading size={"small"}>{t('to')}</Heading>
+                                    <HelpText title="Hva er dette?" placement="bottom">
+                                        {t('help.to')}
+                                    </HelpText>
+                                </HStack>
+                                <VStack gap={"3"}>
+                                    <Controller
+                                        name={"toApplicationId"}
+                                        defaultValue={''}
+                                        render={({field}) =>
+                                            <SelectValueComponent
+                                                {...field}
+                                                disabled={disabled}
+                                                displayName={t('toApplicationId')}
+                                                selectables={
+                                                    destinations.map(destination => {
+                                                        return {
+                                                            displayName: destination.label,
+                                                            value: destination.value
+                                                        }
+                                                    })}
+                                            />
+                                        }
                                     />
-                                }
-                            />
-                            <Controller
-                                name={"toTypeId"}
-                                defaultValue={''}
-                                render={({field}) =>
-                                    <SelectValueComponent
-                                        {...field}
-                                        disabled={disabled}
-                                        displayName={t('toTypeId')}
-                                        selectables={
-                                            toTypeIds.map(toTypeId => {
-                                                return {
-                                                    displayName: toTypeId.label,
-                                                    value: toTypeId.value
-                                                }
-                                            })}
+                                    <Controller
+                                        name={"toTypeId"}
+                                        defaultValue={''}
+                                        render={({field}) =>
+                                            <SelectValueComponent
+                                                {...field}
+                                                disabled={disabled}
+                                                displayName={t('toTypeId')}
+                                                selectables={
+                                                    toTypeIds.map(toTypeId => {
+                                                        return {
+                                                            displayName: toTypeId.label,
+                                                            value: toTypeId.value
+                                                        }
+                                                    })}
+                                            />
+                                        }
                                     />
-                                }
-                            />
-                        </Box>
-                        <FlytTitleComponent variant="h6" classes={classes} title={'Konvertering(er)'}/>
-                        <div className={classes.wrapperVerticalMargin}>
+                                </VStack>
+                            </VStack>
+                        </HStack>
+                        <VStack gap={"3"} id={"value-convertings-container"}>
+                            <HStack gap={"2"} align="center">
+                                <Heading id={"value-convertings-header"} size={"small"}>{t('convertingMap')}</Heading>
+                                <HelpText title="Konverteringer informasjon" placement="bottom">
+                                    {t('help.convertingMap')}
+                                </HelpText>
+                            </HStack>
                             <ArrayComponent
                                 classes={classes}
                                 absoluteKey={'convertingArray'}
                                 disabled={disabled}
                                 fieldComponentCreator={(index: number, absoluteKey: string) =>
-                                    <Box sx={{display: 'flex', width: 'fit-content'}}>
+                                    <HStack gap={"6"}>
                                         <Controller
                                             name={`${absoluteKey}.from`}
                                             defaultValue={''}
@@ -273,7 +285,7 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
                                                     />
                                             }}
                                         />
-                                    </Box>
+                                    </HStack>
                                 }
                                 defaultValueCreator={() => {
                                     return {
@@ -282,28 +294,29 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
                                     }
                                 }}
                             />
-                        </div>
-                    </Box>
-                    <Box sx={{mt: 2}}>
-                        {!disabled &&
-                            <button
-                                id={'submit-button'}
-                                className={classes.submitButton}
-                                type="submit"
-                            >
-                                Opprett
-                            </button>}
-                        <Button id={'cancel-button'} className={classes.submitButton} onClick={handleCancel}
-                                size="medium"
-                                variant="contained" component={RouterLink}
-                                to={'/valueconverting'}>Avbryt</Button>
-                    </Box>
-                    <Snackbar id="integration-form-snackbar-saved" autoHideDuration={4000} open={showAlert}
-                              onClose={handleClose}>
-                        <Alert onClose={handleClose} severity={alertContent.severity} sx={{width: '100%'}}>
+                        </VStack>
+                        {show && <Alert size={"small"} closeButton onClose={() => {
+                            setShow(false);
+                            setAlertContent(defaultAlert)
+                        }} variant={alertContent.severity}>
                             {alertContent.message}
-                        </Alert>
-                    </Snackbar>
+                        </Alert>}
+                        <HStack id={"button-container"} gap={"6"}>
+                            <Button
+                                id={'submit-button'}
+                                type="submit"
+                                disabled={disabled}
+                            >{t('button.create')}
+                            </Button>
+                            <Button
+                                as={RouterLink}
+                                id={'cancel-button'}
+                                onClick={handleCancel}
+                                to={'/valueconverting'}
+                            >{disabled ? t('button.back') : t('button.cancel')}
+                            </Button>
+                        </HStack>
+                    </VStack>
                 </form>
             </FormProvider>
         </Box>

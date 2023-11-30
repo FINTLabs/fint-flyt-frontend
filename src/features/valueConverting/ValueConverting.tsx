@@ -2,48 +2,49 @@ import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import ValueConvertingTable from "./components/ValueConvertingTable";
 import ValueConvertingForm from "./components/ValueConvertingForm";
-import {ConfigurationFormStyles} from "../../util/styles/ConfigurationFormStyles";
 import ValueConvertingRepository from "../../shared/repositories/ValueConvertingRepository";
 import {RouteComponent} from "../main/Route";
+import {Box, Heading, HelpText, HStack, VStack} from "@navikt/ds-react";
 
-const useStyles = ConfigurationFormStyles
 
 const ValueConverting: RouteComponent = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.valueConverting'});
     const [existingValueConverting, setExistingValueConverting] = useState(undefined);
     const [newValueConverting, setNewValueConverting] = useState<boolean>(false)
-    const [view, setView] = useState<boolean>(false);
-    const classes = useStyles();
     return (
-        <>
-            {existingValueConverting ?
-                <ValueConvertingForm existingValueConverting={existingValueConverting}
-                                     setNewValueConverting={setNewValueConverting}
-                                     setExistingValueConverting={setExistingValueConverting}
-                                     view={view}
-                />
+        <Box paddingInline={"32"}>
+            {existingValueConverting || newValueConverting ?
+                <VStack gap={"6"}>
+                    <Heading size={"medium"} id="value-converting-panel-header">{t('newHeader')}</Heading>
+                    <ValueConvertingForm
+                        existingValueConverting={existingValueConverting ?? undefined}
+                        setNewValueConverting={setNewValueConverting}
+                        setExistingValueConverting={setExistingValueConverting}
+                    />
+                </VStack>
                 :
-                newValueConverting ?
-                    <ValueConvertingForm setNewValueConverting={setNewValueConverting}
-                                         existingValueConverting={undefined}
-                                         setExistingValueConverting={setExistingValueConverting} view={false}/>
-                    :
-                    <>
-                        <h2 className={classes.title2} id="value-converting-panel-header">{t('panelHeader')}</h2>
-                        <ValueConvertingTable setNewValueConverting={setNewValueConverting}
-                                              onValueConvertingSelected={(id: number, view: boolean) => {
-                                                  return ValueConvertingRepository.getValueConverting(id)
-                                                      .then(response => {
-                                                          setView(view)
-                                                          setExistingValueConverting(response.data);
-                                                      })
-                                                      .catch(e => {
-                                                          console.log(e);
-                                                      });
-                                              }
-                                              }/>
-                    </>
-            }</>
+                <VStack gap={"6"}>
+                    <HStack gap={"2"} align="center">
+                        <Heading size={"medium"} id="value-converting-panel-header">{t('panelHeader')}</Heading>
+                        <HelpText title="Verdikonverteringer informasjon" placement="bottom">
+                            {t('help.valueConverting')}
+                        </HelpText>
+                    </HStack>
+                    <ValueConvertingTable
+                        setNewValueConverting={setNewValueConverting}
+                        onValueConvertingSelected={(id: number) => {
+                            return ValueConvertingRepository.getValueConverting(id)
+                                .then(response => {
+                                    setExistingValueConverting(response.data);
+                                })
+                                .catch(e => {
+                                    console.log(e);
+                                });
+                        }
+                        }/>
+                </VStack>
+            }
+        </Box>
     );
 }
 
