@@ -4,7 +4,16 @@ import {useTranslation} from 'react-i18next';
 import ValueConvertingRepository from "../../../shared/repositories/ValueConvertingRepository";
 import {IValueConverting} from "../types/ValueConverting";
 import {getDestinationDisplayName, getSourceApplicationDisplayName} from "../../../util/DataGridUtil";
-import {Box, Button as ButtonAks, Dropdown, HStack, Pagination, Table, VStack} from "@navikt/ds-react";
+import {
+    Box,
+    Button as ButtonAks,
+    Dropdown,
+    HelpText,
+    HStack,
+    Pagination,
+    Table,
+    VStack
+} from "@navikt/ds-react";
 import {MenuElipsisVerticalCircleIcon} from "@navikt/aksel-icons";
 import ValueConvertingPanel from "./ValueConvertingPanel";
 
@@ -106,11 +115,14 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
                                 size="small"
                             />}
                     </HStack>
-                    <Box>
+                    <HStack gap={"2"} align="center">
                         <ButtonAks id={"new-button"} onClick={() => props.setNewValueConverting(true)}>
                             {t('button.newConverting')}
                         </ButtonAks>
-                    </Box>
+                        <HelpText title="Knapp informasjon" placement="right">
+                            {t('help.new')}
+                        </HelpText>
+                    </HStack>
                 </VStack>
             </Box>
     );

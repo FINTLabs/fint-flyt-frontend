@@ -280,7 +280,8 @@
         "valueConvertingName": "Navn på verdikonverteringen som skal opprettes.Merk at navn ikke er påkrevd å være unikt, men det er lurt å gi et beskrivende navn",
         "from": "Velg applikasjonen hvor verdien som skal konverteres kommer fra, og hvilken type data det er som skal konverteres fra",
         "to": "Velg applikasjonen verdiene som trenger konvertering skal til og hvilken type de skal konverteres til.",
-        "convertingMap": "Her legger du til konverteringer, trykk + for å legge til flere og - for å fjerne"
+        "convertingMap": "Her legger du til konverteringer, trykk + for å legge til flere og - for å fjerne",
+        "new": "Her kan du opprette en ny verdikonvertering. Ønsker du å lage ny basert på en tidligere versjon finner du det under handlinger i tabellen"
       }
     }
   },
