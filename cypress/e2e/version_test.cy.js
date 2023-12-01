@@ -5,7 +5,7 @@ describe('Testing support page', () => {
 
     function prep() {
         cy.intercept('GET', '**/api/application/configuration', { forceNetworkError: true, fixture: 'basepathConfig.json' }).as('getConfig')
-        cy.visit('/versjon');
+        cy.visit('/version');
         cy.wait('@getConfig')
     }
 
