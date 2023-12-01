@@ -14,5 +14,3 @@ COPY server/package*.json server
 COPY server/yarn.lock*.json server
 COPY --from=builder /src/build/ build
 RUN yarn --cwd server install
-COPY server server
-CMD [ "node", "server/index.js" ]
