@@ -3,10 +3,4 @@ export const ABOUT_VERSIONS: string[] = [
     "større endringer og feilrettinger i FLYT"
 ]
 
-
-export const NOVEMBER23: string[] = [
-"23.11 versjonen inneholder diverse feilrettinger og noe endring av brukergrensesnittet"
-]
-
-
 export const VERSION_DATA: {heading: string, updates: string[]}[] = [ { heading: "Versjon 23.11 - November 2023", updates: [ "23.11 versjonen inneholder diverse feilrettinger og noe endring av brukergrensesnittet" ] } ]

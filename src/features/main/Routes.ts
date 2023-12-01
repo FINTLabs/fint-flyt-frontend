@@ -88,7 +88,7 @@ const routes: IRoute[] = [
         inNavigationMenu: true
     },
     {
-        path: '/versjon',
+        path: '/version',
         name: 'version',
         component: Version,
         icon: 'contact_support',
