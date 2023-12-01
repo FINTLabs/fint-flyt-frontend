@@ -9,7 +9,7 @@ import {
 import * as React from "react";
 import {ReactElement} from "react";
 import {Tag} from "../common/dnd/Tag";
-import FlytTitleComponent from "../atoms/FlytTitleComponent";
+import FlytTitleComponent from "../../../../components/atoms/FlytTitleComponent";
 
 
 interface Props {

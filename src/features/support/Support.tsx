@@ -1,17 +1,14 @@
 import React from 'react';
-import {useTranslation} from 'react-i18next';
 import {RouteComponent} from "../main/Route";
 import {Link as RouterLink} from "react-router-dom";
 import {FAQ, FLYT_DESCRIPTION} from "./util/supportTexts";
-import {BodyLong, BodyShort, Box, ExpansionCard, Heading, Link, List, VStack} from "@navikt/ds-react";
-
+import {BodyLong, Box, ExpansionCard, Heading, Link, List, VStack} from "@navikt/ds-react";
+import InformationTemplate from "../../components/templates/InformationTemplate";
+import {Contact} from "../../components/atoms/Contact";
 const Support: RouteComponent = () => {
-    const {t} = useTranslation('translations', {keyPrefix: 'pages.support'});
 
     return (
-        <Box paddingInline="32" id={"support-content"}>
-            <VStack id={"support-content-stack"} gap={"6"}>
-                <Heading size={"medium"} id={'support-header'}>{t('header')}</Heading>
+        <InformationTemplate keyPrefix={'pages.support'}>
                 <Box id={"support-information"} background={"surface-default"} padding="6" borderRadius={"large"} borderWidth="2"
                      borderColor={"border-subtle"}>
                     <VStack gap={"6"}>
@@ -24,6 +21,8 @@ const Support: RouteComponent = () => {
                         <BodyLong>
                             Du kan se en brukerveiledning til <Link as={RouterLink} id={"support-guide-link"} to={"/support/guide"}>hvordan du bruker Fint
                             Flyt</Link> her.
+                            Du kan se en brukerveiledning til hvordan du bruker Fint
+                            Flyt <Link id={"support-guide-link"} href={"/support/guide"}>her.</Link>
                         </BodyLong>
                     </VStack>
                 </Box>
@@ -45,16 +44,8 @@ const Support: RouteComponent = () => {
                         </ExpansionCard.Content>
                     </ExpansionCard>
                 </Box>
-                <Box id={"support-contact"} background={"surface-alt-3-subtle"} borderRadius="large" padding="6" borderWidth="3"
-                     borderColor={"border-alt-3"}>
-                    <BodyShort size="large">
-                        Dersom det oppstår problemer, eller du har spørsmål som ikke blir besvart her, ta kontakt med
-                        prosjektleder på epost,
-                        <a href={"mailto:" + "jon.erik.stensrod@vigoiks.no"} target="_top"> Jon Erik Stensrød</a>
-                    </BodyShort>
-                </Box>
-            </VStack>
-        </Box>
+            <Contact/>
+        </InformationTemplate>
     )
 }
 

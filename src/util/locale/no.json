@@ -15,6 +15,7 @@
     "instanceOverview": "Instanser",
     "integrationDetails": "Detaljer",
     "log": "Logg",
+    "version":"Versjon",
     "support": "Hjelp og support",
     "valueConverting": "Verdikonvertering"
   },
@@ -245,6 +246,9 @@
     },
     "support": {
       "header": "Hjelp og support"
+    },
+    "version": {
+      "header": "Versjonering av FLYT"
     },
     "valueConverting": {
       "button": {

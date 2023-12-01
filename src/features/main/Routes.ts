@@ -7,7 +7,7 @@ import IntegrationForm from "../integration/IntegrationForm";
 import ConfigurationForm from "../configuration/ConfigurationForm";
 import ValueConverting from "../valueConverting/ValueConverting";
 import UserGuide from "../support/components/UserGuide";
-
+import Version from "../../components/pages/Version";
 const routes: IRoute[] = [
     {
         path: '/',
@@ -83,6 +83,14 @@ const routes: IRoute[] = [
         path: '/support',
         name: 'support',
         component: Support,
+        icon: 'contact_support',
+        exact: true,
+        inNavigationMenu: true
+    },
+    {
+        path: '/version',
+        name: 'version',
+        component: Version,
         icon: 'contact_support',
         exact: true,
         inNavigationMenu: true

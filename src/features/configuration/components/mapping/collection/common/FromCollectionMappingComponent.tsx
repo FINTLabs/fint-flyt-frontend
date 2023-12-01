@@ -13,7 +13,7 @@ import {EditingContext} from "../../../../../../context/EditingContext";
 import {hasValidFormat} from "../../../../util/ValidationUtil";
 import {ValueType as ConfigurationValueType} from "../../../../types/Configuration";
 import {ValueType} from "../../../../types/Metadata/IntegrationMetadata";
-import FlytTitleComponent from "../../../atoms/FlytTitleComponent";
+import FlytTitleComponent from "../../../../../../components/atoms/FlytTitleComponent";
 import DynamicChipComponent from "../../value/string/DynamicChipComponent";
 
 interface Props {

@@ -21,6 +21,7 @@ import {valueConvertingStyles} from "../../../util/styles/ValueConverting.styles
 import SearchSelectValueComponent from "../../configuration/components/mapping/value/select/SearchSelectValueComponent";
 import {Alert, Box, Button, Heading, HelpText, HStack, VStack} from "@navikt/ds-react";
 
+
 const useStyles = valueConvertingStyles
 
 type Props = {
