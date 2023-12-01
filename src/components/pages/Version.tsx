@@ -1,8 +1,8 @@
 import React from 'react';
 import {RouteComponent} from "../../features/main/Route";
-import {BodyLong,  Box,  VStack} from "@navikt/ds-react";
+import {BodyLong,  Box,  VStack, List} from "@navikt/ds-react";
 import InformationTemplate from "../templates/InformationTemplate";
-import {ABOUT_VERSIONS, NOVEMBER23} from "../utils/version/VersionTexts";
+import {ABOUT_VERSIONS,  VERSION_DATA} from "../utils/version/VersionTexts";
 
 const Version: RouteComponent = () => {
     return (
@@ -14,7 +14,16 @@ const Version: RouteComponent = () => {
                         {ABOUT_VERSIONS}
                     </BodyLong>
                     <BodyLong>
-                        {NOVEMBER23}
+                        <VStack gap={"6"}>
+                            {VERSION_DATA.map((value, i) =>
+                                <List key={i} as="ul" title={value.heading}>
+                                    {value.updates.map((update, i) =>
+                                        <List.Item key={i}>
+                                            {update}
+                                        </List.Item>)}
+                                </List>
+                            )}
+                        </VStack>
                     </BodyLong>
                 </VStack>
             </Box>
