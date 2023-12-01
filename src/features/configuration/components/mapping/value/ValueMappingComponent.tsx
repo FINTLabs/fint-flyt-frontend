@@ -15,6 +15,7 @@ import CheckboxValueComponent from "../../common/CheckboxValueComponent";
 import {ControllerRenderProps} from "react-hook-form/dist/types/controller";
 import HelpPopover from "../../common/popover/HelpPopover";
 import {hasValidFormat} from "../../../util/ValidationUtil";
+import DynamicChipComponent from "./string/DynamicChipComponent";
 
 interface Props {
     classes: ClassNameMap;
@@ -82,34 +83,32 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
             case TemplateValueType.DYNAMIC_STRING:
                 setTypeIfUndefined(ConfigurationValueType.DYNAMIC_STRING);
                 return <DynamicStringValueComponent
-                    {...renderProps}
-                    search={search}
-                    accept={[
-                        MetadataValueType.STRING,
-                        MetadataValueType.INTEGER,
-                        MetadataValueType.EMAIL,
-                        MetadataValueType.DATE,
-                        MetadataValueType.PHONE
-                    ]}
-                />
-
+                        {...renderProps}
+                        search={search}
+                        accept={[
+                            MetadataValueType.STRING,
+                            MetadataValueType.INTEGER,
+                            MetadataValueType.EMAIL,
+                            MetadataValueType.DATE,
+                            MetadataValueType.PHONE
+                        ]}
+                    />
             case TemplateValueType.FILE:
                 setTypeIfUndefined(ConfigurationValueType.FILE);
-                return <DynamicStringValueComponent
+                return <DynamicChipComponent
                     {...renderProps}
                     accept={[
                         MetadataValueType.FILE
                     ]}
                 />
-
         }
     }
 
     return <Controller
         name={props.absoluteKey + ".mappingString"}
         rules={{
-                validate: (value) => hasValidFormat(value, props.template.type, completeCheck)
-            }}
+            validate: (value) => hasValidFormat(value, props.template.type, completeCheck)
+        }}
         render={({field, fieldState}) =>
             <div id={'value-mapping-wrapper-' + props.absoluteKey}
                  className={props.classes.flexRowContainer}>

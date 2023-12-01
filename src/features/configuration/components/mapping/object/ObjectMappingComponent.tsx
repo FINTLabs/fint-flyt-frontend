@@ -16,6 +16,7 @@ import {NestedElementsCallbacks} from "../../../types/NestedElement";
 import {DependencySatisfiedStatefulValue} from "../../../util/DependencyUtils";
 import {useFormContext} from "react-hook-form";
 import FieldsetElementComponent from "../../common/FieldsetElementComponent";
+import {Box} from "@mui/material";
 
 export interface Props {
     classes: ClassNameMap;
@@ -90,7 +91,7 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
         }
     }
 
-    return <fieldset className={props.classes.fieldSet}>
+    return <Box className={props.classes.fieldSet}>
         {[
             ...(props.template.valueTemplates ? props.template.valueTemplates : [])
                 .filter((template: IElementTemplate<IValueTemplate>) => {
@@ -217,6 +218,6 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                                                                                           key={index}
                                                                                           content={reactElement}/>)
         }
-    </fieldset>
+    </Box>
 }
 export default ObjectMappingComponent;

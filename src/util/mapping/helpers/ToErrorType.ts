@@ -14,6 +14,10 @@ export function toErrorType(type: string): string {
             return ErrorType.NAME
         case 'mediatype':
             return ErrorType.MEDIA_TYPE
+        case 'valueConvertingId':
+             return ErrorType. VALUE_CONVERTING_ID
+        case 'valueConvertingKey':
+             return ErrorType.VALUE_CONVERTING_KEY
         default:
             return ErrorType.UNKNOWN
 

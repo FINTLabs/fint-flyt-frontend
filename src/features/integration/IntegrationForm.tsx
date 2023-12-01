@@ -5,7 +5,7 @@ import {RouteComponentProps, useHistory} from "react-router-dom";
 import {IntegrationContext} from "../../context/IntegrationContext";
 import HelpPopover from "../configuration/components/common/popover/HelpPopover";
 import {useTranslation} from "react-i18next";
-import {SourceApplicationContext, contextDefaultValues} from "../../context/SourceApplicationContext";
+import {contextDefaultValues, SourceApplicationContext} from "../../context/SourceApplicationContext";
 import IntegrationRepository from '../../shared/repositories/IntegrationRepository';
 import {IIntegration, IntegrationState} from "./types/Integration";
 import {IFormIntegration} from "../configuration/types/FormIntegration";
@@ -27,8 +27,10 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
     const history = useHistory();
     const {t} = useTranslation('translations', {keyPrefix: 'components.integrationForm'});
     const {setSelectedMetadata, setExistingIntegration, resetIntegrationContext} = useContext(IntegrationContext)
-    const {getAvailableForms, sourceApplication, setSourceApplication, availableForms, allMetadata, getAllMetadata,
-        getInstanceElementMetadata} = useContext(SourceApplicationContext)
+    const {
+        getAvailableForms, sourceApplication, setSourceApplication, availableForms, allMetadata, getAllMetadata,
+        getInstanceElementMetadata
+    } = useContext(SourceApplicationContext)
     const [error, setError] = useState<string>('');
     const [destination, setDestination] = useState<string>('');
     const [sourceApplicationId, setSourceApplicationId] = useState<string>('');
@@ -77,10 +79,12 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
                 setExistingIntegration(response.data)
                 navToConfiguration(response.data.sourceApplicationIntegrationId);
                 setError('');
-                console.log('create new integration', newIntegration)})
+                console.log('create new integration', newIntegration)
+            })
             .catch((e) => {
-                console.error(e)
-                setError(t('error'))}
+                    console.error(e)
+                    setError(t('error'))
+                }
             )
     }
 
@@ -93,6 +97,7 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
                         <h3 className={classes.title3}>{t('incoming')}</h3>
                         <Box sx={{display: 'flex'}}>
                             <TextField
+                                autoComplete={"off"}
                                 id='sourceApplicationId'
                                 select
                                 size="small"
@@ -107,7 +112,8 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
                                 }}
                             >
                                 {sourceApplications.map((item: ISelect, index: number) => (
-                                    <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
+                                    <MenuItem id={'sourceApplication-' + index} key={index}
+                                              value={item.value}>{item.label}</MenuItem>
                                 ))}
                             </TextField>
                             <HelpPopover popoverContent={'sourceApplicationId'}/>
@@ -120,8 +126,10 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
                                 renderInput={params => (
                                     <TextField {...params}
                                                size="small"
+                                               autoComplete={"off"}
                                                style={{backgroundColor}}
-                                               label={t('labels.sourceApplicationIntegrationId') + '*'}
+                                               required={true}
+                                               label={t('labels.sourceApplicationIntegrationId')}
                                                variant="outlined"/>
                                 )}
                                 getOptionLabel={(option: ISelect) => option.label}
@@ -138,12 +146,14 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
                         <Box sx={{display: 'flex'}}>
                             <TextField
                                 id='destination'
+                                autoComplete={"off"}
                                 select
                                 size="small"
                                 sx={selectSX}
+                                required={true}
                                 style={{backgroundColor}}
                                 value={destination}
-                                label={t('labels.destination') + '*'}
+                                label={t('labels.destination')}
                                 onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => setDestination(event.target.value)}
                             >
                                 {destinations.map((item: ISelect, index: number) => (
@@ -154,7 +164,7 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
                         </Box>
                     </Box>
                     <Typography id={'form-error-msg'}
-                        color={"error"}>{!sourceApplicationId || !sourceApplicationIntegrationId || !destination ? error : ''}</Typography>
+                                color={"error"}>{!sourceApplicationId || !sourceApplicationIntegrationId || !destination ? error : ''}</Typography>
                 </Box>
                 <Box sx={{mt: 2}}>
                     <Button id="form-settings-confirm-btn" onClick={confirm} variant="contained">

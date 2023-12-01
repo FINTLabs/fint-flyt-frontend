@@ -12,13 +12,13 @@ export const ConfigurationFormStyles = makeStyles((theme: Theme) =>
             top: 0,
         },
         configurationBox: {
-            width: theme.spacing(44)
+            width: theme.spacing(54)
         },
         panelContainer: {
             backgroundColor: 'white',
             padding: theme.spacing(2),
             border: 'solid 1px',
-            borderColor: 'black',
+            borderColor: 'lightgrey',
             marginLeft: theme.spacing(1),
             borderRadius: theme.spacing(0.5),
             height: 'fit-content',
@@ -33,6 +33,7 @@ export const ConfigurationFormStyles = makeStyles((theme: Theme) =>
             maxHeight: theme.spacing(100),
             backgroundColor: '#EBF4F5',
             borderRadius: theme.spacing(0.5),
+            borderColor: "lightgray",
             border: 'solid 1px',
             '&:not(:first-child)': {
                 marginTop: theme.spacing(2)
@@ -66,8 +67,6 @@ export const ConfigurationFormStyles = makeStyles((theme: Theme) =>
             marginBottom: theme.spacing(0.5),
             height: theme.spacing(3)
         },
-    
-     
         categoryHeader: {
             fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
             fontSize: theme.spacing(2),
@@ -109,7 +108,7 @@ export const ConfigurationFormStyles = makeStyles((theme: Theme) =>
         columnItem: {
             backgroundColor: '#EBF4F5',
             marginTop: theme.spacing(2),
-            border: '1px solid black',
+            border: '1px solid lightgrey',
             borderRadius: theme.spacing(0.5),
             marginRight: 'inherit'
         },
@@ -127,7 +126,7 @@ export const ConfigurationFormStyles = makeStyles((theme: Theme) =>
         },
         arrayObjectWrapper: {
             backgroundColor: 'white',
-            border: 'solid 1px black',
+            border: 'solid 1px lightgrey',
             borderRadius: theme.spacing(0.5),
             padding: 'unset',
             // paddingTop: theme.spacing(2),

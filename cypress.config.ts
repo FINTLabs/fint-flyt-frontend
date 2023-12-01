@@ -1,25 +1,23 @@
-import { defineConfig } from "cypress";
+import {defineConfig} from "cypress";
 
 export default defineConfig({
-  chromeWebSecurity: false,
-  video: false,
+    chromeWebSecurity: false,
+    video: false,
 
-  e2e: {
-    // We've imported your old cypress plugins here.
-    // You may want to clean this up later by importing these.
-    setupNodeEvents(on, config) {
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
-      return require("./cypress/plugins/index.js")(on, config);
+    e2e: {
+        setupNodeEvents(on, config) {
+            return require("./cypress/plugins/index.js")(on, config); // eslint-disable-line
+        },
+        baseUrl: "http://localhost:3000",
+        viewportHeight: 1500,
+        viewportWidth: 2000,
+        experimentalRunAllSpecs: true
     },
-    baseUrl: "http://localhost:3000",
-    viewportHeight: 1500,
-    viewportWidth: 2000
-  },
 
-  component: {
-    devServer: {
-      framework: "create-react-app",
-      bundler: "webpack",
+    component: {
+        devServer: {
+            framework: "create-react-app",
+            bundler: "webpack",
+        },
     },
-  },
 });

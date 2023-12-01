@@ -3,7 +3,6 @@ import {MutableRefObject, ReactElement, useContext, useEffect, useRef, useState}
 import ArrayComponent from "../../../common/array/ArrayComponent";
 import {useTranslation} from "react-i18next";
 import {ClassNameMap} from "@mui/styles";
-import DynamicStringValueComponent from "../../value/string/DynamicStringValueComponent";
 import ArrayValueWrapperComponent from "../../../common/array/ArrayValueWrapperComponent";
 import {ConfigurationContext} from "../../../../../../context/ConfigurationContext";
 import {isOutsideCollectionEditContext} from "../../../../util/KeyUtils";
@@ -14,7 +13,8 @@ import {EditingContext} from "../../../../../../context/EditingContext";
 import {hasValidFormat} from "../../../../util/ValidationUtil";
 import {ValueType as ConfigurationValueType} from "../../../../types/Configuration";
 import {ValueType} from "../../../../types/Metadata/IntegrationMetadata";
-import FlytTitleComponent from "../../../atoms/FlytTitleComponent";
+import FlytTitleComponent from "../../../../../../components/atoms/FlytTitleComponent";
+import DynamicChipComponent from "../../value/string/DynamicChipComponent";
 
 interface Props {
     classes: ClassNameMap;
@@ -84,7 +84,7 @@ const FromCollectionMappingComponent: React.FunctionComponent<Props> = (props: P
                                     }}
                                 control={control}
                                 render={({field, fieldState}) =>
-                                    <DynamicStringValueComponent
+                                    <DynamicChipComponent
                                         {...field}
                                         classes={props.classes}
                                         displayName={"" + index}

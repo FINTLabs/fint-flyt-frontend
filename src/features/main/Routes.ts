@@ -4,10 +4,10 @@ import IntegrationOverview from "../integrationOverview/IntegrationOverview";
 import InstanceOverview from "../instanceOverview/InstanceOverview";
 import Support from "../support/Support";
 import IntegrationForm from "../integration/IntegrationForm";
-import Admin from "../admin/Admin";
 import ConfigurationForm from "../configuration/ConfigurationForm";
 import ValueConverting from "../valueConverting/ValueConverting";
-
+import UserGuide from "../support/components/UserGuide";
+import Version from "../../components/pages/Version";
 const routes: IRoute[] = [
     {
         path: '/',
@@ -88,9 +88,18 @@ const routes: IRoute[] = [
         inNavigationMenu: true
     },
     {
-        path: '/admin',
-        name: 'admin',
-        component: Admin,
+        path: '/version',
+        name: 'version',
+        component: Version,
+        icon: 'contact_support',
+        exact: true,
+        inNavigationMenu: true
+    },
+    {
+        path: '/support/guide',
+        name: 'guide',
+        component: UserGuide,
+        icon: 'user_guide',
         exact: true,
         inNavigationMenu: false
     }

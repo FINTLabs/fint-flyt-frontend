@@ -3,7 +3,7 @@ import * as React from "react";
 import {ReactElement} from "react";
 import PathComponent from "../common/PathComponent";
 
-import FlytTitleComponent from "../atoms/FlytTitleComponent";
+import FlytTitleComponent from "../../../../components/atoms/FlytTitleComponent";
 
 
 export interface Props {
@@ -15,7 +15,7 @@ export interface Props {
 }
 
 const ColumnElementComponent: React.FunctionComponent<Props> = (props: Props) => {
-    return <div id={'column-item-' + props.index} className={props.classes.columnItem}>
+    return <div id={'column-item-' + props.index + '-' + props.title} className={props.classes.columnItem}>
         <div className={props.classes.wrapperPadding}>
             <div>
                 <FlytTitleComponent variant="h6" classes={props.classes} title={props.title}/>

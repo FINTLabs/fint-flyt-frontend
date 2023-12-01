@@ -3,27 +3,32 @@ import {EXPECTED_MAPPING} from "../../fixtures/exectedMapping";
 
 function fillAll() {
     cy.get('#sourceApplicationId').click()
-    cy.get('.MuiList-root > [tabindex="-1"]').click()
+    cy.get('#sourceApplication-1').click()
     cy.get('#sourceApplicationIntegrationId').click()
     cy.get('#sourceApplicationIntegrationId-option-1').click()
     cy.get('#destination').click()
     cy.get('#menu- > .MuiPaper-root > .MuiList-root > .MuiButtonBase-root').click()
 }
+
 const newCaseFields = '#mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey';
 const newCaseClassificationFields = '#mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.klasse\\.elementMappings\\.0\\.valueMappingPerKey'
 const recordFields = '#mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.valueMappingPerKey'
 const correspondentFields = '#mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.korrespondansepart\\.fromCollectionMappings\\.0\\.elementMapping\\.valueMappingPerKey'
 const correspondentDndFields = '#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.korrespondansepart\\.fromCollectionMappings\\.0\\.elementMapping\\.valueMappingPerKey'
+
 function prep() {
-    cy.intercept('GET', '**/api/application/configuration', { forceNetworkError: true, fixture: 'basepathConfig.json' }).as('getConfig')
+    cy.intercept('GET', '**/api/application/configuration', {
+        forceNetworkError: true,
+        fixture: 'basepathConfig.json'
+    }).as('getConfig')
     cy.visit('/integration/new')
     cy.wait('@getConfig')
     fillAll()
     cy.get('#form-settings-confirm-btn').click()
     cy.wait('@postIntegration').its('request.body').should('deep.equal', {
-            "sourceApplicationId":"2",
-            "sourceApplicationIntegrationId":"sak",
-            "destination":"fylkesrad",
+            "sourceApplicationId": "2",
+            "sourceApplicationIntegrationId": "sak",
+            "destination": "fylkesrad",
             "state": "DEACTIVATED"
         }
     )
@@ -88,12 +93,21 @@ describe('Testing fill new configuration', () => {
         cy.get('#list-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.korrespondansepart\\.fromCollectionMappings > #add-icon').click()
         cy.get('#selectable-value-mapping-wrapper-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.korrespondansepart\\.fromCollectionMappings\\.0 > .MuiButtonBase-root').click()
         cy.get('#list-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.korrespondansepart\\.fromCollectionMappings\\.0\\.instanceCollectionReferencesOrdered > #add-icon').click()
-        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.korrespondansepart\\.fromCollectionMappings\\.0\\.instanceCollectionReferencesOrdered\\.0 > .MuiFormControl-root > .MuiInputBase-root').type("$if{saksparter}", { parseSpecialCharSequences: false, delay: 0 });
+        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.korrespondansepart\\.fromCollectionMappings\\.0\\.instanceCollectionReferencesOrdered\\.0 > .MuiAutocomplete-root > .MuiFormControl-root > .MuiInputBase-root').type("$if{saksparter}", { parseSpecialCharSequences: false, delay: 0 }).type('{enter}');
         cy.get(`${correspondentFields}\\.korrespondanseparttype\\.mappingString`).click()
         cy.get(`${correspondentFields}\\.korrespondanseparttype\\.mappingString-option-4`).click()
-        cy.get(`${correspondentDndFields}\\.organisasjonsnummer\\.mappingString > .MuiFormControl-root > .MuiInputBase-root`).type('$icf{0}{organisasjonsnummer}', {parseSpecialCharSequences: false, delay: 0})
-        cy.get(`${correspondentDndFields}\\.korrespondansepartNavn\\.mappingString > .MuiFormControl-root > .MuiInputBase-root`).type('$icf{0}{navn}', {parseSpecialCharSequences: false, delay: 0})
-        cy.get(`${correspondentDndFields}\\.kontaktperson\\.mappingString > .MuiFormControl-root > .MuiInputBase-root`).type('$icf{0}{navn}', {parseSpecialCharSequences: false, delay: 0})
+        cy.get(`${correspondentDndFields}\\.organisasjonsnummer\\.mappingString > .MuiFormControl-root > .MuiInputBase-root`).type('$icf{0}{organisasjonsnummer}', {
+            parseSpecialCharSequences: false,
+            delay: 0
+        })
+        cy.get(`${correspondentDndFields}\\.korrespondansepartNavn\\.mappingString > .MuiFormControl-root > .MuiInputBase-root`).type('$icf{0}{navn}', {
+            parseSpecialCharSequences: false,
+            delay: 0
+        })
+        cy.get(`${correspondentDndFields}\\.kontaktperson\\.mappingString > .MuiFormControl-root > .MuiInputBase-root`).type('$icf{0}{navn}', {
+            parseSpecialCharSequences: false,
+            delay: 0
+        })
         cy.get('#selectable-value-mapping-wrapper-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.korrespondansepart\\.fromCollectionMappings\\.0 > .MuiButtonBase-root').click()
 
         cy.get('#toggle-button-Dokumentbeskrivelser-8 > .MuiToggleButton-root').click()
@@ -101,7 +115,7 @@ describe('Testing fill new configuration', () => {
         cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.dokumentbeskrivelse\\.elementMappings\\.0\\.valueMappingPerKey\\.tittel\\.mappingString > .MuiFormControl-root > .MuiInputBase-root').type("tittel");
         cy.get('#mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.dokumentbeskrivelse\\.elementMappings\\.0\\.valueMappingPerKey\\.dokumentstatus\\.mappingString').click()
         cy.get('#mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.dokumentbeskrivelse\\.elementMappings\\.0\\.valueMappingPerKey\\.dokumentstatus\\.mappingString-option-1').click()
-        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.dokumentbeskrivelse\\.elementMappings\\.0\\.valueMappingPerKey\\.dokumentstatus\\.mappingString > .MuiFormControl-root > .MuiInputBase-root').type("$vc{1}$if{bnr}", { parseSpecialCharSequences: false, delay: 0 });
+        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.dokumentbeskrivelse\\.elementMappings\\.0\\.valueMappingPerKey\\.dokumentstatus\\.mappingString > .MuiAutocomplete-root > .MuiFormControl-root > .MuiInputBase-root').type("$vc{1}$if{bnr}", { parseSpecialCharSequences: false, delay: 0 }).type('{enter}');
         cy.get('#form-submit-btn').click()
 
         cy.wait('@postConfiguration').its('request.body').should('deep.equal', {
@@ -116,19 +130,19 @@ describe('Testing fill new configuration', () => {
 
 describe('Testing fill, save and complete new configuration', () => {
     beforeEach(() => {
-        cy.intercept('POST', '**/integrasjoner', { fixture: 'postFixture.json' }).as('postIntegration')
-        cy.intercept('POST', '**/konfigurasjoner', { fixture: 'postFixture.json' }).as('postConfiguration')
-        cy.intercept('GET', '**/integrasjoner', { fixture: 'allIntegrations.json' }).as('getAllIntegrations')
-        cy.intercept('GET', '**/integrasjoner?side=0&sorteringFelt=state&sorteringRetning=ASC', { fixture: 'integrations.json' }).as('getIntegrations')
-        cy.intercept('GET', '**/historikk/statistikk/integrasjoner', { fixture: 'historikk.json' }).as('getHistory')
-        cy.intercept('GET', '**/metadata?kildeapplikasjonId=2&bareSisteVersjoner=true', { fixture: 'metadataLatest.json' }).as('getLatestMetadata')
-        cy.intercept('GET', '**/metadata?kildeapplikasjonId=*', { fixture: 'metadata.json' }).as('getMetadata')
-        cy.intercept('GET', '**/metadata?kildeapplikasjonId=2&bareSisteVersjoner=false', { fixture: 'metadata.json' }).as('getMetadata')
-        cy.intercept('GET', '**/metadata/4/instans-metadata', { fixture: 'instansMetadata.json' }).as('getInstansMetadata')
-        cy.intercept('GET', '**/historikk/hendelser?side=0&antall=10000&sorteringFelt=timestamp&sorteringRetning=DESC&bareSistePerInstans=true', { fixture: 'hendelser.json' }).as('getHendelser')
-        cy.intercept('GET', '**/value-convertings?page=0&size=100&sortProperty=fromApplicationId&sortDirection=ASC&excludeConvertingMap=true', { fixture: 'valueconverting/valueconvertings.json' }).as('getValueconvertings')
-        cy.intercept('GET', '**/value-convertings?page=0&size=100&sortProperty=fromApplicationId&sortDirection=ASC&excludeConvertingMap=false', { fixture: 'valueconverting/valueconvertings.json' }).as('getValueconvertings')
-        cy.intercept('GET', '**/arkiv/kodeverk/**', { fixture: 'kodeverk/mock.json' }).as('getKodeverk')
+        cy.intercept('POST', '**/integrasjoner', {fixture: 'postFixture.json'}).as('postIntegration')
+        cy.intercept('POST', '**/konfigurasjoner', {fixture: 'postFixture.json'}).as('postConfiguration')
+        cy.intercept('GET', '**/integrasjoner', {fixture: 'allIntegrations.json'}).as('getAllIntegrations')
+        cy.intercept('GET', '**/integrasjoner?side=0&sorteringFelt=state&sorteringRetning=ASC', {fixture: 'integrations.json'}).as('getIntegrations')
+        cy.intercept('GET', '**/historikk/statistikk/integrasjoner', {fixture: 'historikk.json'}).as('getHistory')
+        cy.intercept('GET', '**/metadata?kildeapplikasjonId=2&bareSisteVersjoner=true', {fixture: 'metadataLatest.json'}).as('getLatestMetadata')
+        cy.intercept('GET', '**/metadata?kildeapplikasjonId=*', {fixture: 'metadata.json'}).as('getMetadata')
+        cy.intercept('GET', '**/metadata?kildeapplikasjonId=2&bareSisteVersjoner=false', {fixture: 'metadata.json'}).as('getMetadata')
+        cy.intercept('GET', '**/metadata/4/instans-metadata', {fixture: 'instansMetadata.json'}).as('getInstansMetadata')
+        cy.intercept('GET', '**/historikk/hendelser?side=0&antall=10000&sorteringFelt=timestamp&sorteringRetning=DESC&bareSistePerInstans=true', {fixture: 'hendelser.json'}).as('getHendelser')
+        cy.intercept('GET', '**/value-convertings?page=0&size=100&sortProperty=fromApplicationId&sortDirection=ASC&excludeConvertingMap=true', {fixture: 'valueconverting/valueconvertings.json'}).as('getValueconvertings')
+        cy.intercept('GET', '**/value-convertings?page=0&size=100&sortProperty=fromApplicationId&sortDirection=ASC&excludeConvertingMap=false', {fixture: 'valueconverting/valueconvertings.json'}).as('getValueconvertings')
+        cy.intercept('GET', '**/arkiv/kodeverk/**', {fixture: 'kodeverk/mock.json'}).as('getKodeverk')
     })
 
     it('should fill configuration and save draft', () => {
@@ -146,14 +160,17 @@ describe('Testing fill, save and complete new configuration', () => {
                 integrationId: null,
                 integrationMetadataId: 4,
                 mapping: {
-                    "objectCollectionMappingPerKey":{},
+                    "objectCollectionMappingPerKey": {},
                     "objectMappingPerKey": {
                         "newCase": {
-                            "objectCollectionMappingPerKey" : {},
+                            "objectCollectionMappingPerKey": {},
                             "objectMappingPerKey": {},
                             "valueCollectionMappingPerKey": {},
                             "valueMappingPerKey": {
-                                "saksmappetype": {"mappingString": "https://kodeverk.no/arkiv/noark/systemid/FJELL", "type": "STRING"},
+                                "saksmappetype": {
+                                    "mappingString": "https://kodeverk.no/arkiv/noark/systemid/FJELL",
+                                    "type": "STRING"
+                                },
                                 "tittel": {"mappingString": "test", "type": "DYNAMIC_STRING"}
                             }
                         }
@@ -189,14 +206,17 @@ describe('Testing fill, save and complete new configuration', () => {
                 integrationId: null,
                 integrationMetadataId: 4,
                 mapping: {
-                    "objectCollectionMappingPerKey":{},
+                    "objectCollectionMappingPerKey": {},
                     "objectMappingPerKey": {
                         "newCase": {
-                            "objectCollectionMappingPerKey" : {},
+                            "objectCollectionMappingPerKey": {},
                             "objectMappingPerKey": {},
                             "valueCollectionMappingPerKey": {},
                             "valueMappingPerKey": {
-                                "saksmappetype": {"mappingString": "https://kodeverk.no/arkiv/noark/systemid/FJELL", "type": "STRING"},
+                                "saksmappetype": {
+                                    "mappingString": "https://kodeverk.no/arkiv/noark/systemid/FJELL",
+                                    "type": "STRING"
+                                },
                                 "tittel": {"mappingString": "test ferdigstilling", "type": "DYNAMIC_STRING"}
                             }
                         }
