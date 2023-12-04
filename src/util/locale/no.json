@@ -15,19 +15,13 @@
     "instanceOverview": "Instanser",
     "integrationDetails": "Detaljer",
     "log": "Logg",
-    "version":"Versjon",
+    "version": "Versjon",
     "support": "Hjelp og support",
     "valueConverting": "Verdikonvertering"
   },
   "pages": {
-    "admin": {
-      "header": "Administrasjon",
-      "noAccessMessage": "Du er ikke logget inn med administratorrettigheter",
-      "button": {
-        "back": "Tilbake"
-      }
-    },
     "dashboard": {
+      "header": "Dashboard og oversikt",
       "integrations": "integrasjoner",
       "oneIntegration": "integrasjon",
       "activeIntegrations": "aktive integrasjoner",

@@ -14,6 +14,7 @@ import {IntegrationFormStyles} from "../../util/styles/IntegrationForm.styles"
 import {toIntegration} from "../../util/mapping/ToIntegration";
 import {ISelect} from "../configuration/types/Select";
 import {IIntegrationMetadata} from "../configuration/types/Metadata/IntegrationMetadata";
+import InformationTemplate from "../../components/templates/InformationTemplate";
 
 
 const useStyles = IntegrationFormStyles;
@@ -89,7 +90,7 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
     }
 
     return (
-        <>
+        <InformationTemplate keyPrefix={'components.integrationForm'}>
             <FormGroup id="integration-form" className={classes.panelContainer}>
                 <Box>
                     <h2 className={classes.title2} id="integration-form-settings-header">{t('header')}</h2>
@@ -173,7 +174,7 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
                         {t('button.cancel')}</Button>
                 </Box>
             </FormGroup>
-        </>
+        </InformationTemplate>
     )
 }
 
