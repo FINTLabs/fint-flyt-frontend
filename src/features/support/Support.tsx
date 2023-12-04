@@ -19,10 +19,8 @@ const Support: RouteComponent = () => {
                             {FLYT_DESCRIPTION}
                         </BodyLong>
                         <BodyLong>
-                            Du kan se en brukerveiledning til <Link as={RouterLink} id={"support-guide-link"} to={"/support/guide"}>hvordan du bruker Fint
-                            Flyt</Link> her.
                             Du kan se en brukerveiledning til hvordan du bruker Fint
-                            Flyt <Link id={"support-guide-link"} href={"/support/guide"}>her.</Link>
+                            Flyt <Link as={RouterLink} id={"support-guide-link"} to={"/support/guide"}>her</Link>
                         </BodyLong>
                     </VStack>
                 </Box>
