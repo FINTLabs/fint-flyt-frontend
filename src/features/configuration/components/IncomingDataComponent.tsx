@@ -23,6 +23,8 @@ import ObjectCollectionMetadataContentComponent from "./metadata/ObjectCollectio
 import ValueConvertingRepository from "../../../shared/repositories/ValueConvertingRepository";
 import {Tag} from "./common/dnd/Tag";
 import {IValueConverting} from "../../valueConverting/types/ValueConverting";
+import {ReadMore, VStack} from "@navikt/ds-react";
+import {APPLICATION_VALUE_CONVERTING, DESTINATION_VALUE_CONVERTING} from "../../../__tests__/mock/valueconverting";
 
 export type Props = {
     classes: ClassNameMap,
@@ -38,6 +40,8 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
         getAllMetadata,
     } = useContext(SourceApplicationContext)
     const [valueConvertings, setValueConvertings] = useState<[] | undefined>(undefined)
+    const [applicationValueConvertings, setApplicationValueConvertings] = useState<IValueConverting[] | undefined>(APPLICATION_VALUE_CONVERTING)
+    const [destinationValueConvertings, setDestinationValueConvertings] = useState<IValueConverting[] | undefined>(DESTINATION_VALUE_CONVERTING)
 
     useEffect(() => {
         ValueConvertingRepository.getValueConvertings(0, 100, 'fromApplicationId', 'ASC', false)
@@ -98,6 +102,16 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
         return referenceAndCollectionMetadata;
     }
 
+    const ValueConvertings = ({valueConverting}: { valueConverting: IValueConverting }) => {
+        return <Tag
+            value={'$vc{' + valueConverting.id.toString() + '}'}
+            tagKey={valueConverting.displayName}
+            name={valueConverting.displayName}
+            description={'$vc{' + valueConverting.id.toString() + '}'}
+            type={ValueType.VALUE_CONVERTING}
+        />
+    }
+
     return (
         <>
             <Box id={'incoming-form-panel'} className={props.classes.panelContainer}
@@ -132,23 +146,35 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
                             </Box>
                         )
                 }
-                {valueConvertings &&
-                    <Box id={'value-converting-panel'} className={props.classes.panel}>
-                        <Typography variant={"h6"}>Verdikonvertering</Typography>
-                        {valueConvertings.map((valueConverting: IValueConverting, index: number) => {
-                            return <div id={'vc-tag-' + index} key={'valueConvertingValue-' + index} className={props.classes.tagWrapper}>
-                                <Tag
-                                    classes={props.classes}
-                                    value={'$vc{' + valueConverting.id.toString() + '}'}
-                                    tagKey={valueConverting.displayName}
-                                    name={valueConverting.displayName}
-                                    description={'$vc{' + valueConverting.id.toString() + '}'}
-                                    type={ValueType.VALUE_CONVERTING}
-                                />
-                            </div>
-                        })}
-                    </Box>
-                }
+
+                <Box id={'value-converting-panel'} className={props.classes.panel}>
+                    <Typography variant={"h6"}>Verdikonvertering</Typography>
+                    <ReadMore defaultOpen header={"Manuelle [" + (valueConvertings?.length ?? 0) + ']'}>
+                        <VStack gap={"2"} style={{maxHeight: '200px', overflowY: "scroll"}}>
+                            {valueConvertings && valueConvertings.map((valueConverting: IValueConverting, index: number) => {
+                                return <ValueConvertings key={'valueConvertingValue-' + index}
+                                                         valueConverting={valueConverting}/>
+                            })}
+                        </VStack>
+                    </ReadMore>
+                    <ReadMore header={"Flyt [" + (applicationValueConvertings?.length ?? 0) + ']'}>
+                        <VStack gap={"2"}>
+                            {applicationValueConvertings && applicationValueConvertings.map((valueConverting: IValueConverting, index: number) => {
+                                return <ValueConvertings key={'valueConvertingValue-' + index}
+                                                         valueConverting={valueConverting}/>
+                            })}
+                        </VStack>
+                    </ReadMore>
+                    <ReadMore header={"Destinasjon [" + (destinationValueConvertings?.length ?? 0) + ']'}>
+                        <VStack gap={"2"}>
+                            {destinationValueConvertings && destinationValueConvertings.map((valueConverting: IValueConverting, index: number) => {
+                                return <ValueConvertings key={'valueConvertingValue-' + index}
+                                                         valueConverting={valueConverting}/>
+                            })}
+                        </VStack>
+                    </ReadMore>
+                </Box>
+
             </Box>
         </>
     );

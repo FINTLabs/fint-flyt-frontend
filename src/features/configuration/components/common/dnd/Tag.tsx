@@ -19,7 +19,7 @@ import {ClassNameMap} from "@mui/styles";
 import {tagSX} from "../../../../../util/styles/SystemStyles";
 
 export interface Props {
-    classes: ClassNameMap
+    classes?: ClassNameMap
     name: string;
     description: string;
     value: string;

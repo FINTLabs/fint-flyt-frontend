@@ -1,4 +1,4 @@
-import { useCommonStyles } from './theme/theme';
+import {useCommonStyles} from './theme/theme';
 import {createStyles, makeStyles} from "@mui/styles";
 import {Theme} from "@mui/material";
 
@@ -22,7 +22,7 @@ export const ConfigurationFormStyles = makeStyles((theme: Theme) =>
             marginLeft: theme.spacing(1),
             borderRadius: theme.spacing(0.5),
             height: 'fit-content',
-            maxWidth: 'calc(100vw/1.6)',
+            maxWidth: 'calc(100vw/1.8)',
             overflow: 'auto'
         },
         panel: {
