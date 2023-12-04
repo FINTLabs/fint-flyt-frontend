@@ -3,7 +3,7 @@ export const ABOUT_VERSIONS: string[] = [
     "større endringer og feilrettinger i FLYT"
 ]
 
-export const VERSION_DATA: {heading: string, updates: string[]}[] = [ { heading: "Versjon 1.12 - November 2023",
+export const VERSION_DATA: {heading: string, updates: string[]}[] = [ { heading: "Versjon 1.12 - Desember 2023",
     updates: [
         "1.12 La til ny side med visning av versjoner og hva som er nytt i Flyt"
     ]
