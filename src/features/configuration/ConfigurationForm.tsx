@@ -22,7 +22,7 @@ import { IIntegrationMetadata } from "./types/Metadata/IntegrationMetadata";
 import { useTranslation } from "react-i18next";
 import { ConfigurationFormStyles } from "../../util/styles/ConfigurationFormStyles";
 import CheckboxValueComponent from "./components/common/CheckboxValueComponent";
-import IntegrationRepository from "../../shared/repositories/IntegrationRepository";
+import IntegrationRepository from "../../api/IntegrationRepository";
 import {
 	IConfiguration,
 	IConfigurationPatch,
@@ -42,7 +42,7 @@ import {
 	errorAlert,
 	savedAlert,
 } from "./defaults/DefaultValues";
-import ConfigurationRepository from "../../shared/repositories/ConfigurationRepository";
+import ConfigurationRepository from "../../api/ConfigurationRepository";
 import { pruneObjectMapping } from "../../util/mapping/helpers/pruning";
 import EditingProvider, { EditingContext } from "../../context/EditingContext";
 import { RouteComponent } from "../../routes/Route";

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ValueConvertingTable from "./components/ValueConvertingTable";
 import ValueConvertingForm from "./components/ValueConvertingForm";
-import ValueConvertingRepository from "../../shared/repositories/ValueConvertingRepository";
+import ValueConvertingRepository from "../../api/ValueConvertingRepository";
 import { RouteComponent } from "../../routes/Route";
 import InformationTemplate from "../../components/templates/InformationTemplate";
 
