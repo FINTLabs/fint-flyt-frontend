@@ -1,5 +1,5 @@
 import { useHistory } from "react-router-dom";
-import routes from "../../features/main/Routes";
+import routes from "../../routes/Routes";
 import { useTranslation } from "react-i18next";
 import { Button } from "@navikt/ds-react";
 
