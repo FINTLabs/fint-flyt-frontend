@@ -1,13 +1,14 @@
 import React from 'react';
 import {RouteComponent} from "../../features/main/Route";
-import {BodyLong,  Box,  VStack, List} from "@navikt/ds-react";
+import {BodyLong, Box, List, VStack} from "@navikt/ds-react";
 import InformationTemplate from "../templates/InformationTemplate";
-import {ABOUT_VERSIONS,  VERSION_DATA} from "../utils/version/VersionTexts";
+import {ABOUT_VERSIONS, VERSION_DATA} from "../utils/version/VersionTexts";
 
 const Version: RouteComponent = () => {
     return (
-        <InformationTemplate keyPrefix={'pages.version'}>
-            <Box id={"support-information"} background={"surface-default"} padding="6" borderRadius={"large"} borderWidth="2"
+        <InformationTemplate id={'version'} keyPrefix={'pages.version'}>
+            <Box id={"version-information"} background={"surface-default"} padding="6" borderRadius={"large"}
+                 borderWidth="2"
                  borderColor={"border-subtle"}>
                 <VStack gap={"6"}>
                     <BodyLong>

@@ -18,6 +18,7 @@ const MenuItems = () => {
     };
 
     const List = styled(MuiList)({
+        color: 'white',
         '&& .Mui-selected, && .Mui-selected:hover': {
             backgroundColor: 'teal',
             borderRadius: 4,

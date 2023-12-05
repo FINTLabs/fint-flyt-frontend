@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {ThemeProvider} from "@mui/material";
-import Main from "./features/main/Main";
+import Main from "./components/pages/Main";
 import {BrowserRouter} from "react-router-dom";
 import IntegrationProvider from "./context/IntegrationContext";
 import SourceApplicationProvider from "./context/SourceApplicationContext";

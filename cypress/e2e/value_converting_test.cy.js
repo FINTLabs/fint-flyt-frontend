@@ -14,7 +14,6 @@ describe('Testing value converting page', () => {
 
     it('should show page with table and content', () => {
         prep()
-        cy.get('#value-converting-panel-header').should("be.visible")
         cy.get('#value-convertings-table').should("be.visible")
         cy.get('#new-button').should("be.visible")
     })
@@ -78,7 +77,6 @@ describe('Testing create new value converting', () => {
     })
 
 });
-
 
 describe('Testing create new based on existing value converting', () => {
     beforeEach(() => {

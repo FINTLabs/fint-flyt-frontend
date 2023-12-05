@@ -8,6 +8,7 @@ import {useTranslation} from "react-i18next";
 import {DashboardStyles} from "../../util/styles/Dashboard.styles";
 import {IIntegrationStatistics} from "./types/IntegrationStatistics";
 import {RouteComponent} from "../main/Route";
+import InformationTemplate from "../../components/templates/InformationTemplate";
 
 const useStyles = DashboardStyles;
 
@@ -62,7 +63,7 @@ const Dashboard: RouteComponent = () => {
     ]
 
     return (
-        <Box>
+        <InformationTemplate id={'dashboard'} keyPrefix={'pages.dashboard'} noHeading>
             <Box id={'dashboard-card-container'} display="flex" position="relative" width={1} height={1}>
                 {cards.map((card: ICard, index) => {
                     return (
@@ -81,7 +82,7 @@ const Dashboard: RouteComponent = () => {
                     classes={classes}
                 />
             </Card>
-        </Box>
+        </InformationTemplate>
     );
 }
 
