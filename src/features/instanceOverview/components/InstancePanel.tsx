@@ -1,214 +1,116 @@
 import * as React from "react";
-import {useContext, useState} from "react";
+import {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
-import {DataGrid, GridCellParams, GridColumns, GridToolbar} from "@mui/x-data-grid";
+import {GridCellParams} from "@mui/x-data-grid";
 import moment from "moment/moment";
-import {Box, Button, Dialog, DialogActions, DialogContent, IconButton} from "@mui/material";
-import {gridLocaleNoNB} from "../../../util/locale/gridLocaleNoNB";
-import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import {IEvent} from "../types/Event";
-import ErrorIcon from "@mui/icons-material/Error";
-import InfoIcon from "@mui/icons-material/Info";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import {getSourceApplicationDisplayName, renderCellWithTooltip} from "../../../util/DataGridUtil";
-import {useHistory} from "react-router-dom";
-import {ClassNameMap} from "@mui/styles";
-import DialogContentComponent from "./ErrorDialogComponent";
-import { HistoryContext } from "../../../context/HistoryContext";
+import ErrorDialogComponent from "./ErrorDialogComponent";
+import {Box, Link, Modal, Table} from "@navikt/ds-react";
+import SourceApplicationRepository from "../../../shared/repositories/SourceApplicationRepository";
+import {IIntegrationMetadata} from "../../configuration/types/Metadata/IntegrationMetadata";
+import EventRepository from "../../../shared/repositories/EventRepository";
+import {processEvents} from "../../../util/EventUtil";
+import {GetIcon} from "../util/InstanceUtils";
+import {Button as ButtonAks} from "@navikt/ds-react/esm/button";
 
 type Props = {
-    classes: ClassNameMap
+    instanceId: string;
+    sourceApplicationId: string;
 }
 
 const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
-    const {t, i18n} = useTranslation('translations', {keyPrefix: 'pages.instanceOverview'});
-    const classes = props.classes;
-    const history = useHistory();
-    const {selectedInstances} = useContext(HistoryContext)
+    const {t} = useTranslation('translations', {keyPrefix: 'pages.instanceOverview'});
     const [selectedRow, setSelectedRow] = useState<IEvent>();
+    const [instances, setInstances] = useState<IEvent[]>([])
     const [openErrorDialog, setOpenErrorDialog] = React.useState(false);
+    const errorsNotForRetry: string[] = ['instance-receival-error', 'instance-registration-error']
 
-    const columns: GridColumns = [
-        {field: 'id', hide: true, type: 'string', headerName: 'id', minWidth: 150, flex: 0.5},
-        {
-            field: 'sourceApplicationId',
-            type: 'string',
-            headerName: t('table.columns.sourceApplicationId'),
-            minWidth: 150,
-            flex: 1,
-            valueGetter: (params) => getSourceApplicationDisplayName(params.row.instanceFlowHeaders.sourceApplicationId)
-        },
-        {
-            field: 'sourceApplicationIntegrationId',
-            type: 'string',
-            headerName: t('table.columns.sourceApplicationIntegrationId'),
-            description: t('table.columns.sourceApplicationIntegrationIdDescription'),
-            minWidth: 150,
-            flex: 1,
-            valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplicationIntegrationId,
-            renderCell: (params) => renderCellWithTooltip(params.value as string)
-        },
-        {
-            field: 'displayName',
-            type: 'string',
-            headerName: t('table.columns.sourceApplicationIntegrationIdDisplayName'),
-            description: t('table.columns.sourceApplicationIntegrationIdDisplayName'),
-            minWidth: 300,
-            flex: 1,
-            renderCell: (params) => renderCellWithTooltip(params.value as string)
-        },
-        {
-            field: 'timestamp',
-            type: 'dateTime',
-            headerName: t('table.columns.timestampLatest'),
-            description: t('table.columns.timestampLatest'),
-            minWidth: 150,
-            flex: 2,
-            valueGetter: (params) => moment(params.row.timestamp).format('DD/MM/YY HH:mm.ss'),
-            sortComparator: (v1, v2, row1: any, row2: any) => { // eslint-disable-line
-                if (row1 && row2 && row1.timestamp && row2.timestamp) {
-                    const timestamp1 = new Date(row1.timestamp).getTime();
-                    const timestamp2 = new Date(row2.timestamp).getTime();
-                    return timestamp1 - timestamp2;
+
+    useEffect(() => {
+        getSelectedInstances(0, 10000, "timestamp", "DESC", props.sourceApplicationId, props.instanceId)
+    }, [])
+
+
+    const getSelectedInstances = async (page: number, size: number, sortProperty: string, sortDirection: string, sourceApplicationId: string, instanceId: string) => {
+        if (sourceApplicationId && instanceId) {
+            try {
+                const metadataResponse = await SourceApplicationRepository.getMetadata(sourceApplicationId, true)
+                const metadata: IIntegrationMetadata[] = metadataResponse.data;
+                const eventResponse = await EventRepository.getEventsByInstanceId(page, size, sortProperty, sortDirection, sourceApplicationId, instanceId)
+                const events: IEvent[] = eventResponse.data.content;
+
+                if (events && metadata) {
+                    const processedEvents = processEvents(events, metadata)
+                    setInstances(processedEvents);
+                } else {
+                    setInstances([]);
                 }
-                return -1
-            },
-        },
-        {
-            field: 'name', type: 'string', headerName: t('table.columns.name'), description: t('table.columns.name'), minWidth: 250, flex: 3,
-            renderCell: params => (<CustomCellRender row={params.row}/>)
-        },
-        {
-            field: 'details',
-            headerName: t('table.columns.details'),
-            description: t('table.columns.detailsDescription'),
-            minWidth: 100,
-            flex: 1,
-            sortable: false,
-            filterable: false,
-            renderCell: (params) => (<CustomDialogToggle row={params.row}/>)
-        },
-        {
-            field: 'archiveInstanceId',
-            type: 'string',
-            headerName: t('table.columns.archiveInstanceId'),
-            description: t('table.columns.archiveInstanceIdDescription'),
-            minWidth: 150,
-            flex: 1,
-            valueGetter: (params) => params.row.instanceFlowHeaders.archiveInstanceId,
-            renderCell: (params) => renderCellWithTooltip(params.value as string)
-        },
-        {
-            field: 'sourceApplicationInstanceId',
-            type: 'string',
-            headerName: t('table.columns.sourceApplicationInstanceId'),
-            description: t('table.columns.sourceApplicationInstanceId'),
-            minWidth: 200,
-            flex: 1,
-            valueGetter: (params) => params.row.instanceFlowHeaders.sourceApplicationInstanceId,
-            renderCell: (params) => renderCellWithTooltip(params.value as string)
-        },
-        {
-            field: 'configurationId',
-            type: 'string',
-            headerName: t('table.columns.configurationId'),
-            description: t('table.columns.configurationId'),
-            minWidth: 150,
-            flex: 1,
-            valueGetter: (params) => params.row.instanceFlowHeaders.configurationId
+            } catch (e) {
+                setInstances([]);
+                console.error('Error: ', e);
+            }
+        } else {
+            setInstances([]);
         }
-    ];
-
-    function CustomCellRender(props: GridCellParams["row"]) {
-        return (
-            <>
-                {props.row.type === 'ERROR' && <ErrorIcon color="error"/>}
-                {props.row.type === 'INFO' && props.row.name !== 'instance-dispatched' && <InfoIcon color="info"/>}
-                {props.row.name === 'instance-dispatched' && <CheckCircleIcon color="success"/>}
-                {t(props.row.name)}
-            </>
-        );
     }
 
     return (
-        <Box>
+        <Box padding="4" background={"surface-subtle"} borderRadius="xlarge">
             <ErrorAlertDialog row={selectedRow}/>
-            <Button
-                id={'back-button'}
-                sx={{mb: 2}}
-                variant='contained'
-                onClick={() => history.push("integration/instance/list")}
-            >{t('button.back')}
-            </Button>
-            <Box display="flex" position="relative" width={1} height={1}>
-                <Box id="instance-panel" className={classes.dataPanelBox}>
-                    <DataGrid
-                        loading={selectedInstances === undefined}
-                        localeText={i18n.language === 'no' ? gridLocaleNoNB : undefined}
-                        density='compact'
-                        rows={selectedInstances ? selectedInstances : []}
-                        columns={columns}
-                        pageSize={20}
-                        rowsPerPageOptions={[20]}
-                        components={{
-                            Toolbar: GridToolbar,
-                        }}
-                        initialState={{
-                            sorting: {
-                                sortModel: [{field: 'timestamp', sort: 'desc'}],
-                            },
-                            filter: {
-                                filterModel: {
-                                    items: [
-                                        {
-                                            columnField: 'sourceApplicationIntegrationId',
-                                            operatorValue: 'contains'
-                                        },
-                                    ],
-                                },
-                            },
-                        }}
-                    />
-                </Box>
-            </Box>
+            <Table size={"small"}>
+                <Table.Header>
+                    <Table.Row>
+                        <Table.HeaderCell scope="col">Kildeapplikasjon integrasjon ID</Table.HeaderCell>
+                        <Table.HeaderCell scope="col">Konfigurasjon ID</Table.HeaderCell>
+                        <Table.HeaderCell scope="col">Tidspunkt</Table.HeaderCell>
+                        <Table.HeaderCell scope="col">Status</Table.HeaderCell>
+                        <Table.HeaderCell scope="col">Kildeapplikasjons instans ID</Table.HeaderCell>
+                        <Table.HeaderCell scope="col">Destinasjons ID</Table.HeaderCell>
+                    </Table.Row>
+                </Table.Header>
+                <Table.Body>
+                    {instances?.map((value, i) => {
+                        return (
+                            <Table.Row key={i}>
+                                <Table.DataCell>{value.instanceFlowHeaders.sourceApplicationIntegrationId}</Table.DataCell>
+                                <Table.DataCell>{value.instanceFlowHeaders.configurationId}</Table.DataCell>
+                                <Table.DataCell>{moment(value.timeStamp).format('DD/MM/YY HH:mm')}</Table.DataCell>
+                                <Table.DataCell>
+                                    {GetIcon(value)}
+                                    {t(value.name)} {" "}
+                                    {(value.type === 'ERROR') && !errorsNotForRetry.includes(value.name) &&
+                                        <Link style={{cursor: "pointer"}} onClick={() => {
+                                            setSelectedRow(value);
+                                            setOpenErrorDialog(true)
+                                        }
+                                        }>vis feilmelding</Link>
+                                    }
+                                </Table.DataCell>
+                                <Table.DataCell>{value.instanceFlowHeaders.sourceApplicationInstanceId}</Table.DataCell>
+                                <Table.DataCell>{value.instanceFlowHeaders.archiveInstanceId}</Table.DataCell>
+                            </Table.Row>
+                        );
+                    })}
+                </Table.Body>
+            </Table>
         </Box>
     );
 
-    function CustomDialogToggle(props: GridCellParams["row"]) {
-        const hasErrors: boolean = props.row.errors.length > 0;
-        return (
-            <>
-                {hasErrors &&
-                    <IconButton
-                        id={props.row.id}
-                        size="small"
-                        onClick={() => {
-                            setSelectedRow(props.row);
-                            setOpenErrorDialog(true)
-                        }}
-                        tabIndex={-1}>
-                        <OpenInNewIcon id={props.row.id + `-icon`} fontSize="inherit"/>
-                    </IconButton>
-                }
-            </>
-        );
-    }
-
     function ErrorAlertDialog(props: GridCellParams['row']) {
         return (
-            <Dialog
-                open={openErrorDialog}
-                fullWidth={true}
-                maxWidth={"md"}
-                onClose={() => setOpenErrorDialog(false)}
-            >
-                <DialogContent>
-                    <DialogContentComponent row={props.row}/>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={() => setOpenErrorDialog(false)} autoFocus>{t('button.close')}</Button>
-                </DialogActions>
-            </Dialog>
+            <Modal open={openErrorDialog} header={{
+                heading: props.row?.errors?.length > 1 ? "Feilmeldinger:" : "Feilmelding:",
+                closeButton: false
+            }} closeOnBackdropClick>
+                <Modal.Body>
+                    <ErrorDialogComponent row={props.row}/>
+                </Modal.Body>
+                <Modal.Footer>
+                    <ButtonAks type="button" onClick={() => setOpenErrorDialog(false)}>
+                        Lukk
+                    </ButtonAks>
+                </Modal.Footer>
+            </Modal>
         )
     }
 }
