@@ -32,7 +32,7 @@ const IntegrationOverview: RouteComponent = () => {
 
 
     return (
-        <InformationTemplate keyPrefix={'pages.integrationOverview'} wide>
+        <InformationTemplate id={'integration'} keyPrefix={'pages.integrationOverview'} wide>
             {existingIntegration?.sourceApplicationIntegrationId && showPanel ?
                 <IntegrationPanel
                     classes={classes}

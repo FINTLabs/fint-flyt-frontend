@@ -90,7 +90,7 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
     }
 
     return (
-        <InformationTemplate keyPrefix={'components.integrationForm'}>
+        <InformationTemplate id={'new'} keyPrefix={'components.integrationForm'}>
             <FormGroup id="integration-form" className={classes.panelContainer}>
                 <Box>
                     <h2 className={classes.title2} id="integration-form-settings-header">{t('header')}</h2>

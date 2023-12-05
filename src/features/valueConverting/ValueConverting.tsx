@@ -10,7 +10,7 @@ const ValueConverting: RouteComponent = () => {
     const [existingValueConverting, setExistingValueConverting] = useState(undefined);
     const [newValueConverting, setNewValueConverting] = useState<boolean>(false)
     return (
-        <InformationTemplate keyPrefix={'pages.valueConverting'}
+        <InformationTemplate id={'value-converting'} keyPrefix={'pages.valueConverting'}
                              headingHelpText={{title: "Verdikonverteringer informasjon", info: 'help.valueConverting'}}>
             {existingValueConverting || newValueConverting ?
                 <ValueConvertingForm

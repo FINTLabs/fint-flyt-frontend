@@ -207,13 +207,14 @@ const ConfigurationForm: RouteComponent = () => {
     })
 
     return (
-        <InformationTemplate keyPrefix={'pages.configuration'} wide noHeading>
+        <InformationTemplate id={'configuration'} keyPrefix={'pages.configuration'} wide noHeading>
             <DndProvider backend={HTML5Backend}>
                 <EditingProvider>
                     <FormProvider {...methods}>
                         <form id="react-hook-form" onSubmit={methods.handleSubmit(onSubmit)}>
                             <Box className={classes.configurationBox} sx={{m: 1}}>
-                                <Typography sx={{m: 1}} variant={"h6"}>{t('header')} {existingIntegration?.sourceApplicationIntegrationId} - {existingIntegration?.displayName}</Typography>
+                                <Typography sx={{m: 1}}
+                                            variant={"h6"}>{t('header')} {existingIntegration?.sourceApplicationIntegrationId} - {existingIntegration?.displayName}</Typography>
                                 <Box sx={{mb: 1, width: (theme: Theme) => theme.spacing(100)}}>
                                     <div style={{display: 'flex', alignItems: 'center'}}>
                                         <FormControl sx={{
@@ -314,7 +315,8 @@ const ConfigurationForm: RouteComponent = () => {
                                     label={t('label.activeLabel') as string}
                                 />}
                             </Box>
-                            <Snackbar id="integration-form-snackbar-saved" autoHideDuration={4000} open={showAlert} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                            <Snackbar id="integration-form-snackbar-saved" autoHideDuration={4000} open={showAlert}
+                                      anchorOrigin={{vertical: 'bottom', horizontal: 'center'}}
                                       onClose={handleClose}>
                                 <Alert variant={alertContent.severity} closeButton onClose={() => {
                                     setShowAlert(false);

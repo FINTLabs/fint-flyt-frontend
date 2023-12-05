@@ -12,7 +12,7 @@ const InstanceOverview: RouteComponent = () => {
     const showPanel = !(/list/.test(window.location.pathname))
 
     return (
-        <InformationTemplate keyPrefix={'pages.instanceOverview'} wide>
+        <InformationTemplate id={'instance'} keyPrefix={'pages.instanceOverview'} wide>
             {showPanel ?
                 <InstancePanel
                     classes={classes}

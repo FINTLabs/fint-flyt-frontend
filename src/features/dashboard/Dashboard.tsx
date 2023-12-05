@@ -63,7 +63,7 @@ const Dashboard: RouteComponent = () => {
     ]
 
     return (
-        <InformationTemplate keyPrefix={'pages.dashboard'} noHeading>
+        <InformationTemplate id={'dashboard'} keyPrefix={'pages.dashboard'} noHeading>
             <Box id={'dashboard-card-container'} display="flex" position="relative" width={1} height={1}>
                 {cards.map((card: ICard, index) => {
                     return (
