@@ -27,8 +27,8 @@ export const toggleButtonSX: SxProps<Theme> = {
 
 export const metadataPanelSX: SxProps<Theme> = {
     position: 'sticky',
-    maxHeight: (theme: Theme) => theme.spacing(122),
-    minWidth: (theme: Theme) => theme.spacing(40),
+    maxHeight: '70vh',
+    minWidth: '15vw',
     overflow: 'auto'
 }
 
