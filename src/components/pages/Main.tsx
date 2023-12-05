@@ -1,8 +1,8 @@
 import React from "react";
 import ConfigurationProvider from "../../context/ConfigurationContext";
-import Router from "./Router";
+import Router from "../../features/main/Router";
 import {Box} from "@navikt/ds-react";
-import {AppBar} from "./AppBar";
+import {AppBar} from "../organisms/AppBar";
 
 
 function Main() {

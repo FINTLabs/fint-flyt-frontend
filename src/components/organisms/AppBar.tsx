@@ -1,6 +1,6 @@
 import {Button, Toolbar} from "@mui/material";
 import {Link as RouterLink} from "react-router-dom";
-import MenuItems from "./MenuItems";
+import MenuItems from "../../features/main/MenuItems";
 import {Box} from "@navikt/ds-react";
 import React from "react";
 
