@@ -1,5 +1,5 @@
 import { Link as RouterLink } from "react-router-dom";
-import MenuItems from "../../features/main/MenuItems";
+import MenuItems from "../molecules/MenuItems";
 import { InternalHeader, Button } from "@navikt/ds-react";
 import React from "react";
 
