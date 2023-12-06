@@ -1,7 +1,7 @@
 export interface IEvent {
     id?: string;
     name: string;
-    timeStamp: string | Date;
+    timestamp: Date;
     type: string;
     errors: IError[];
     displayName?: string;

@@ -1,6 +1,6 @@
 import {GridCellParams} from "@mui/x-data-grid";
 import * as React from "react";
-import {useContext, useEffect, useState} from "react";
+import {useContext, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {Box, HStack, Link, Modal, Pagination, Table} from "@navikt/ds-react";
 
@@ -16,27 +16,21 @@ import {Button as ButtonAks} from "@navikt/ds-react/esm/button";
 import InstanceRepository from "../repository/InstanceRepository";
 
 type Props = {
-    classes?: ClassNameMap
+    instances: IEvent[] | undefined;
+    classes?: ClassNameMap;
 }
 
-const InstanceTable: React.FunctionComponent<Props> = () => {
+const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.instanceOverview'})
-    const {latestInstances, getLatestInstances} = useContext(HistoryContext)
+    const {events} = useContext(HistoryContext)
     const [selectedRow, setSelectedRow] = useState<IEvent>();
     const [openDialog, setOpenDialog] = React.useState(false);
-    const [rows, setRows] = useState<IEvent[] | undefined>(latestInstances)
     const [page, setPage] = useState(1);
-    const rowsPerPage = 3;
+    const rowsPerPage = 2;
     const errorsNotForRetry: string[] = ['instance-receival-error', 'instance-registration-error']
 
-    let sortData = rows ?? [];
+    let sortData = props.instances ?? [];
     sortData = sortData.slice((page - 1) * rowsPerPage, page * rowsPerPage);
-
-
-    useEffect(() => {
-        getLatestInstances(0, 10000, "timestamp", "DESC");
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
     const resend = (instanceId: string) => {
         //TODO: add notification on successful or failed resending
@@ -49,10 +43,14 @@ const InstanceTable: React.FunctionComponent<Props> = () => {
             })
     }
 
+    const show = true;
+
+
     return (
         <Box background={"surface-default"} padding="6" borderRadius={"large"} borderWidth="2"
              borderColor={"border-subtle"}>
             <Box background={'surface-default'} style={{height: '60vh', overflowY: "scroll"}}>
+                <ErrorAlertDialog row={selectedRow}/>
                 <Table size={"small"}>
                     <Table.Header>
                         <Table.Row>
@@ -63,23 +61,28 @@ const InstanceTable: React.FunctionComponent<Props> = () => {
                             <Table.HeaderCell scope="col">Status</Table.HeaderCell>
                             <Table.HeaderCell scope="col">Handlinger</Table.HeaderCell>
                             <Table.HeaderCell scope="col">Destinasjons ID</Table.HeaderCell>
+                            {show && <Table.HeaderCell scope="col">Kildeapp. integrasjon ID</Table.HeaderCell>}
+                            {show && <Table.HeaderCell scope="col">Konfigurasjon ID</Table.HeaderCell>}
+                            {show && <Table.HeaderCell scope="col">Kildeapp. instans ID</Table.HeaderCell>}
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
                         {sortData?.map((value, i) => {
+                            console.log(events?.filter((event) => event.instanceFlowHeaders.correlationId === value.instanceFlowHeaders.correlationId))
                             return (
                                 <Table.ExpandableRow key={i} content={<InstancePanel
+                                    instancesOnId={events?.filter((event) => event.instanceFlowHeaders.correlationId === value.instanceFlowHeaders.correlationId)}
                                     instanceId={value.instanceFlowHeaders.sourceApplicationInstanceId}
                                     sourceApplicationId={value.instanceFlowHeaders.sourceApplicationId}
                                 />}>
                                     <Table.DataCell
                                         scope="row">{getSourceApplicationDisplayName(Number(value.instanceFlowHeaders.sourceApplicationId))}</Table.DataCell>
                                     <Table.DataCell>{value.displayName}</Table.DataCell>
-                                    <Table.DataCell>{moment(value.timeStamp).format('DD/MM/YY HH:mm')}</Table.DataCell>
+                                    <Table.DataCell>{moment(value.timestamp).format('DD/MM/YY HH:mm')}</Table.DataCell>
                                     <Table.DataCell>
                                         {GetIcon(value)}
                                         {t(value.name)} {" "}
-                                        {(value.type === 'ERROR') && !errorsNotForRetry.includes(value.name) &&
+                                        {(value.type === 'ERROR') &&
                                             <Link style={{cursor: "pointer"}}
                                                   onClick={() => {
                                                       setSelectedRow(value);
@@ -96,6 +99,12 @@ const InstanceTable: React.FunctionComponent<Props> = () => {
                                         }
                                     </Table.DataCell>
                                     <Table.DataCell>{value.instanceFlowHeaders.archiveInstanceId}</Table.DataCell>
+                                    {show &&
+                                        <Table.DataCell>{value.instanceFlowHeaders.sourceApplicationIntegrationId}</Table.DataCell>}
+                                    {show &&
+                                        <Table.DataCell>{value.instanceFlowHeaders.configurationId}</Table.DataCell>}
+                                    {show &&
+                                        <Table.DataCell>{value.instanceFlowHeaders.sourceApplicationInstanceId}</Table.DataCell>}
                                 </Table.ExpandableRow>
                             );
                         })}
@@ -103,11 +112,11 @@ const InstanceTable: React.FunctionComponent<Props> = () => {
                 </Table>
             </Box>
             <HStack justify={"center"}>
-                {rows && rows.length > rowsPerPage &&
+                {props.instances && props.instances.length > rowsPerPage &&
                     <Pagination
                         page={page}
                         onPageChange={setPage}
-                        count={Math.ceil(rows.length / rowsPerPage)}
+                        count={Math.ceil(props.instances.length / rowsPerPage)}
                         size="small"
                     />}
             </HStack>

@@ -8,42 +8,23 @@ import {GridCellParams} from "@mui/x-data-grid";
 import ErrorDialogComponent from "./components/ErrorDialogComponent";
 import {HistoryContext} from "../../context/HistoryContext";
 import {IEvent} from "./types/Event";
-import InstanceRepository from "./repository/InstanceRepository";
 import InformationTemplate from "../../components/templates/InformationTemplate";
 import InstanceTable from "./components/InstanceTable";
 
 
 const Instances: RouteComponent = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.instanceOverview'})
-    const {latestInstances, getLatestInstances} = useContext(HistoryContext)
-    const [selectedRow, setSelectedRow] = useState<IEvent>();
+    const {latestInstances, getLatestInstances, getEvents} = useContext(HistoryContext)
+    const [selectedRow] = useState<IEvent>();
     const [openDialog, setOpenDialog] = React.useState(false);
-
-    const errorsNotForRetry: string[] = ['instance-receival-error', 'instance-registration-error']
-    const [rows, setRows] = useState<IEvent[] | undefined>(latestInstances)
-    const [page, setPage] = useState(1);
-    const rowsPerPage = 3;
-
-    let sortData = rows ?? [];
-    sortData = sortData.slice((page - 1) * rowsPerPage, page * rowsPerPage);
 
 
     useEffect(() => {
         getLatestInstances(0, 10000, "timestamp", "DESC");
-        setRows(latestInstances)
+        getEvents(0, 10000, "timestamp", "DESC")
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const resend = (instanceId: string) => {
-        //TODO: add notification on successful or failed resending
-        InstanceRepository.resendInstance(instanceId)
-            .then(response => {
-                console.log('resend instance', response)
-            })
-            .catch(e => {
-                console.error(e)
-            })
-    }
 
     function ErrorAlertDialog(props: GridCellParams['row']) {
         return (
@@ -72,7 +53,7 @@ const Instances: RouteComponent = () => {
                     icon={<ArrowCirclepathIcon aria-hidden/>}
                 >{t('button.refresh')}
                 </Button>
-                <InstanceTable/>
+                {latestInstances && <InstanceTable instances={latestInstances}/>}
             </Box>
             <ErrorAlertDialog row={selectedRow}/>
         </InformationTemplate>
