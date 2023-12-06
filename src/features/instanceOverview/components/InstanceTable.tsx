@@ -43,7 +43,7 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
             })
     }
 
-    const show = true;
+    const show = false;
 
 
     return (

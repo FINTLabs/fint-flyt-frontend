@@ -39,6 +39,10 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
                         <Table.HeaderCell scope="col">Tidspunkt</Table.HeaderCell>
                         <Table.HeaderCell scope="col">Status</Table.HeaderCell>
                         <Table.HeaderCell scope="col">Destinasjons ID</Table.HeaderCell>
+                        {!show && <Table.HeaderCell scope="col">Kildeapp. integrasjon ID</Table.HeaderCell>}
+                        {!show && <Table.HeaderCell scope="col">Konfigurasjon ID</Table.HeaderCell>}
+                        {!show && <Table.HeaderCell scope="col">Kildeapp. instans ID</Table.HeaderCell>}
+
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
@@ -58,6 +62,12 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
                                     }
                                 </Table.DataCell>
                                 <Table.DataCell>{value.instanceFlowHeaders.archiveInstanceId}</Table.DataCell>
+                                {!show &&
+                                    <Table.DataCell>{value.instanceFlowHeaders.sourceApplicationIntegrationId}</Table.DataCell>}
+                                {!show &&
+                                    <Table.DataCell>{value.instanceFlowHeaders.configurationId}</Table.DataCell>}
+                                {!show &&
+                                    <Table.DataCell>{value.instanceFlowHeaders.sourceApplicationInstanceId}</Table.DataCell>}
                             </Table.Row>
                         );
                     })}
