@@ -198,6 +198,7 @@ export const IntegrationForm: React.FunctionComponent<
 										? availableForms.find(
 												({ value }: { value: string }) =>
 													value === sourceApplicationIntegrationId
+												// eslint-disable-next-line no-mixed-spaces-and-tabs
 										  )
 										: null
 								}
