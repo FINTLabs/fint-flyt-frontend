@@ -26,7 +26,7 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
     const [selectedRow, setSelectedRow] = useState<IEvent>();
     const [openDialog, setOpenDialog] = React.useState(false);
     const [page, setPage] = useState(1);
-    const rowsPerPage = 2;
+    const rowsPerPage = 8;
     const errorsNotForRetry: string[] = ['instance-receival-error', 'instance-registration-error']
 
     let sortData = props.instances ?? [];
@@ -43,9 +43,6 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
             })
     }
 
-    const show = false;
-
-
     return (
         <Box background={"surface-default"} padding="6" borderRadius={"large"} borderWidth="2"
              borderColor={"border-subtle"}>
@@ -61,9 +58,6 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
                             <Table.HeaderCell scope="col">Status</Table.HeaderCell>
                             <Table.HeaderCell scope="col">Handlinger</Table.HeaderCell>
                             <Table.HeaderCell scope="col">Destinasjons ID</Table.HeaderCell>
-                            {show && <Table.HeaderCell scope="col">Kildeapp. integrasjon ID</Table.HeaderCell>}
-                            {show && <Table.HeaderCell scope="col">Konfigurasjon ID</Table.HeaderCell>}
-                            {show && <Table.HeaderCell scope="col">Kildeapp. instans ID</Table.HeaderCell>}
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
@@ -99,13 +93,7 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
                                         }
                                     </Table.DataCell>
                                     <Table.DataCell>{value.instanceFlowHeaders.archiveInstanceId}</Table.DataCell>
-                                    {show &&
-                                        <Table.DataCell>{value.instanceFlowHeaders.sourceApplicationIntegrationId}</Table.DataCell>}
-                                    {show &&
-                                        <Table.DataCell>{value.instanceFlowHeaders.configurationId}</Table.DataCell>}
-                                    {show &&
-                                        <Table.DataCell>{value.instanceFlowHeaders.sourceApplicationInstanceId}</Table.DataCell>}
-                                </Table.ExpandableRow>
+                             </Table.ExpandableRow>
                             );
                         })}
                     </Table.Body>

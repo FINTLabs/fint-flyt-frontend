@@ -20,14 +20,12 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
     const [selectedRow, setSelectedRow] = useState<IEvent>();
     const [openErrorDialog, setOpenErrorDialog] = React.useState(false);
 
-    const show = true
     return (
         <Box padding="4" background={"surface-subtle"} borderRadius="xlarge">
-            {props.instancesOnId && show &&
+            {props.instancesOnId &&
                 <ul>
                     <li>Kildeapplikasjon integrasjon
                         ID: {props.instancesOnId[0].instanceFlowHeaders.sourceApplicationIntegrationId}</li>
-                    <li>Konfigurasjon ID: {props.instancesOnId[0].instanceFlowHeaders.configurationId}</li>
                     <li>Kildeapplikasjons instans
                         ID: {props.instancesOnId[0].instanceFlowHeaders.sourceApplicationInstanceId}</li>
                 </ul>
@@ -39,10 +37,7 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
                         <Table.HeaderCell scope="col">Tidspunkt</Table.HeaderCell>
                         <Table.HeaderCell scope="col">Status</Table.HeaderCell>
                         <Table.HeaderCell scope="col">Destinasjons ID</Table.HeaderCell>
-                        {!show && <Table.HeaderCell scope="col">Kildeapp. integrasjon ID</Table.HeaderCell>}
-                        {!show && <Table.HeaderCell scope="col">Konfigurasjon ID</Table.HeaderCell>}
-                        {!show && <Table.HeaderCell scope="col">Kildeapp. instans ID</Table.HeaderCell>}
-
+                        <Table.HeaderCell scope="col">Konfigurasjon ID</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
@@ -62,12 +57,7 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
                                     }
                                 </Table.DataCell>
                                 <Table.DataCell>{value.instanceFlowHeaders.archiveInstanceId}</Table.DataCell>
-                                {!show &&
-                                    <Table.DataCell>{value.instanceFlowHeaders.sourceApplicationIntegrationId}</Table.DataCell>}
-                                {!show &&
-                                    <Table.DataCell>{value.instanceFlowHeaders.configurationId}</Table.DataCell>}
-                                {!show &&
-                                    <Table.DataCell>{value.instanceFlowHeaders.sourceApplicationInstanceId}</Table.DataCell>}
+                                <Table.DataCell>{value.instanceFlowHeaders.configurationId}</Table.DataCell>
                             </Table.Row>
                         );
                     })}
