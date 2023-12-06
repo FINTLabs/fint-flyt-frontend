@@ -14,7 +14,6 @@ const routes: IRoute[] = [
 		name: "dashboard",
 		component: Dashboard,
 		exact: true,
-		icon: "dashboard",
 		inNavigationMenu: true,
 	},
 	{
@@ -22,7 +21,7 @@ const routes: IRoute[] = [
 		name: "integration",
 		component: IntegrationForm,
 		exact: true,
-		icon: "add",
+
 		inNavigationMenu: true,
 	},
 	{
@@ -48,7 +47,6 @@ const routes: IRoute[] = [
 		name: "integrationOverview",
 		component: IntegrationOverview,
 		exact: true,
-		icon: "format_list_bulleted",
 		inNavigationMenu: true,
 	},
 	{
@@ -62,7 +60,7 @@ const routes: IRoute[] = [
 		name: "instanceOverview",
 		component: InstanceOverview,
 		exact: true,
-		icon: "format_list_bulleted",
+
 		inNavigationMenu: true,
 	},
 	{
@@ -75,7 +73,6 @@ const routes: IRoute[] = [
 		path: "/valueconverting",
 		name: "valueConverting",
 		component: ValueConverting,
-		icon: "switch_access_shortcut",
 		exact: true,
 		inNavigationMenu: true,
 	},
@@ -83,7 +80,6 @@ const routes: IRoute[] = [
 		path: "/support",
 		name: "support",
 		component: Support,
-		icon: "contact_support",
 		exact: true,
 		inNavigationMenu: true,
 	},
@@ -91,7 +87,6 @@ const routes: IRoute[] = [
 		path: "/version",
 		name: "version",
 		component: Version,
-		icon: "contact_support",
 		exact: true,
 		inNavigationMenu: true,
 	},
@@ -99,7 +94,6 @@ const routes: IRoute[] = [
 		path: "/support/guide",
 		name: "guide",
 		component: UserGuide,
-		icon: "user_guide",
 		exact: true,
 		inNavigationMenu: false,
 	},
