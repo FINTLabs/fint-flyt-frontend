@@ -72,10 +72,10 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
     }
 
     return (
-            <Box background={"surface-default"} padding="6" borderRadius={"large"} borderWidth="2" borderColor={"border-subtle"}>
+            <Box id={"instance-table-container"} background={"surface-default"} padding="6" borderRadius={"large"} borderWidth="2" borderColor={"border-subtle"}>
                 <VStack gap={"6"}>
                     <Box background={'surface-default'} style={{height: '490px', overflowY: "scroll"}}>
-                        <Table id={"value-convertings-table"} size={"small"}>
+                        <Table id={"instance-table"} size={"small"}>
                             <Table.Header>
                                 <Table.Row>
                                     <Table.HeaderCell scope="col">{t('column.show')}</Table.HeaderCell>

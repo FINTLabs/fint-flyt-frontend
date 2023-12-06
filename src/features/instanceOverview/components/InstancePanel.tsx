@@ -21,8 +21,8 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
     const [openErrorDialog, setOpenErrorDialog] = React.useState(false);
 
     return (
-        <Box padding="4" background={"surface-subtle"} borderRadius="xlarge">
-            {props.instancesOnId &&
+        <Box id={"instance-panel"} padding="4" background={"surface-subtle"} borderRadius="xlarge">
+            {props.instancesOnId && props.instancesOnId[0] &&
                 <ul>
                     <li>Kildeapplikasjon integrasjon
                         ID: {props.instancesOnId[0].instanceFlowHeaders.sourceApplicationIntegrationId}</li>
