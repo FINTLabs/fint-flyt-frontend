@@ -1,15 +1,15 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {RouteComponent} from "../main/Route";
+import {RouteComponent} from "../../features/main/Route";
 import {Box, Button, Modal} from "@navikt/ds-react";
 import {useTranslation} from "react-i18next";
 import {ArrowCirclepathIcon} from '@navikt/aksel-icons';
 import {Button as ButtonAks} from "@navikt/ds-react/esm/button";
 import {GridCellParams} from "@mui/x-data-grid";
-import ErrorDialogComponent from "./components/ErrorDialogComponent";
+import ErrorDialogComponent from "../../features/instanceOverview/components/ErrorDialogComponent";
 import {HistoryContext} from "../../context/HistoryContext";
-import {IEvent} from "./types/Event";
-import InformationTemplate from "../../components/templates/InformationTemplate";
-import InstanceTable from "./components/InstanceTable";
+import {IEvent} from "../../features/instanceOverview/types/Event";
+import InformationTemplate from "../templates/InformationTemplate";
+import InstanceTable from "../../features/instanceOverview/components/InstanceTable";
 
 
 const Instances: RouteComponent = () => {
