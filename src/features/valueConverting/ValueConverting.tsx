@@ -3,15 +3,15 @@ import ValueConvertingTable from "./components/ValueConvertingTable";
 import ValueConvertingForm from "./components/ValueConvertingForm";
 import ValueConvertingRepository from "../../shared/repositories/ValueConvertingRepository";
 import {RouteComponent} from "../main/Route";
-import InformationTemplate from "../../components/templates/InformationTemplate";
+import PageTemplate from "../../components/templates/PageTemplate";
 
 
 const ValueConverting: RouteComponent = () => {
     const [existingValueConverting, setExistingValueConverting] = useState(undefined);
     const [newValueConverting, setNewValueConverting] = useState<boolean>(false)
     return (
-        <InformationTemplate id={'value-converting'} keyPrefix={'pages.valueConverting'}
-                             headingHelpText={{title: "Verdikonverteringer informasjon", info: 'help.valueConverting'}}>
+        <PageTemplate id={'value-converting'} keyPrefix={'pages.valueConverting'}
+                      headingHelpText={{title: "Verdikonverteringer informasjon", info: 'help.valueConverting'}}>
             {existingValueConverting || newValueConverting ?
                 <ValueConvertingForm
                     existingValueConverting={existingValueConverting ?? undefined}
@@ -32,7 +32,7 @@ const ValueConverting: RouteComponent = () => {
                     }
                     }/>
             }
-        </InformationTemplate>
+        </PageTemplate>
     );
 }
 

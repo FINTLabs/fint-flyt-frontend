@@ -5,7 +5,7 @@ import IntegrationPanel from "./components/IntegrationPanel";
 import {SourceApplicationContext} from "../../context/SourceApplicationContext";
 import {IntegrationStyles} from "../../util/styles/Integration.styles";
 import {RouteComponent} from "../main/Route";
-import InformationTemplate from "../../components/templates/InformationTemplate";
+import PageTemplate from "../../components/templates/PageTemplate";
 
 const useStyles = IntegrationStyles;
 
@@ -32,7 +32,7 @@ const IntegrationOverview: RouteComponent = () => {
 
 
     return (
-        <InformationTemplate id={'integration'} keyPrefix={'pages.integrationOverview'} wide>
+        <PageTemplate id={'integration'} keyPrefix={'pages.integrationOverview'} wide>
             {existingIntegration?.sourceApplicationIntegrationId && showPanel ?
                 <IntegrationPanel
                     classes={classes}
@@ -41,7 +41,7 @@ const IntegrationOverview: RouteComponent = () => {
                     classes={classes}
                 />
             }
-        </InformationTemplate>
+        </PageTemplate>
     );
 }
 

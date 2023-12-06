@@ -22,20 +22,18 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
         <Box id={"instance-panel"} padding="4" background={"surface-subtle"} borderRadius="xlarge">
             {props.instancesOnId && props.instancesOnId[0] &&
                 <ul>
-                    <li>Kildeapplikasjon integrasjon
-                        ID: {props.instancesOnId[0].instanceFlowHeaders.sourceApplicationIntegrationId}</li>
-                    <li>Kildeapplikasjons instans
-                        ID: {props.instancesOnId[0].instanceFlowHeaders.sourceApplicationInstanceId}</li>
+                    <li>{t('table.column.sourceApplicationIntegrationId')}: {props.instancesOnId[0].instanceFlowHeaders.sourceApplicationIntegrationId}</li>
+                    <li>{t('table.column.sourceApplicationInstanceId')}: {props.instancesOnId[0].instanceFlowHeaders.sourceApplicationInstanceId}</li>
                 </ul>
             }
             <ErrorAlertDialog row={selectedRow}/>
             <Table size={"small"}>
                 <Table.Header>
                     <Table.Row>
-                        <Table.HeaderCell scope="col">Tidspunkt</Table.HeaderCell>
-                        <Table.HeaderCell scope="col">Status</Table.HeaderCell>
-                        <Table.HeaderCell scope="col">Destinasjons ID</Table.HeaderCell>
-                        <Table.HeaderCell scope="col">Konfigurasjon ID</Table.HeaderCell>
+                        <Table.HeaderCell scope="col">{t('table.column.timestamp')}</Table.HeaderCell>
+                        <Table.HeaderCell scope="col">{t('table.column.status')}</Table.HeaderCell>
+                        <Table.HeaderCell scope="col">{t('table.column.archiveInstanceId')}</Table.HeaderCell>
+                        <Table.HeaderCell scope="col">{t('table.column.configurationId')}</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
@@ -75,7 +73,7 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
                 </Modal.Body>
                 <Modal.Footer>
                     <ButtonAks type="button" onClick={() => setOpenErrorDialog(false)}>
-                        Lukk
+                        {t('button.close')}
                     </ButtonAks>
                 </Modal.Footer>
             </Modal>

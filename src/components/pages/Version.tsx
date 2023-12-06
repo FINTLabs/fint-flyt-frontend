@@ -1,12 +1,12 @@
 import React from 'react';
 import {RouteComponent} from "../../features/main/Route";
 import {BodyLong, Box, List, VStack} from "@navikt/ds-react";
-import InformationTemplate from "../templates/InformationTemplate";
+import PageTemplate from "../templates/PageTemplate";
 import {ABOUT_VERSIONS, VERSION_DATA} from "../utils/version/VersionTexts";
 
 const Version: RouteComponent = () => {
     return (
-        <InformationTemplate id={'version'} keyPrefix={'pages.version'}>
+        <PageTemplate id={'version'} keyPrefix={'pages.version'}>
             <Box id={"version-information"} background={"surface-default"} padding="6" borderRadius={"large"}
                  borderWidth="2"
                  borderColor={"border-subtle"}>
@@ -28,7 +28,7 @@ const Version: RouteComponent = () => {
                     </BodyLong>
                 </VStack>
             </Box>
-        </InformationTemplate>
+        </PageTemplate>
     )
 }
 export default Version;

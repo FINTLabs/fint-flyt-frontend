@@ -22,7 +22,7 @@ describe('Testing instance list', () => {
 
     it('instance table should contain correct colunms', () => {
         prep()
-        let columns = ['Kildeapplikasjon', 'Integrasjonsnavn', 'Tidspunkt', 'Status', 'Handlinger', 'Destinasjons ID']
+        let columns = ['Kildeapplikasjon', 'Integrasjonsnavn', 'Tidspunkt', 'Status', 'Handlinger', 'Destinasjon ID']
         columns.forEach(column => {
             cy.get('#instances-content-stack > :nth-child(2)').should("contain.text", column)
         })
@@ -34,8 +34,8 @@ describe('Testing instance list', () => {
         cy.viewport(3000, 2000)
         cy.get(':nth-child(1) > .navds-table__toggle-expand-cell > .navds-table__toggle-expand-button').click()
         cy.get(':nth-child(3) > .navds-table__toggle-expand-cell > .navds-table__toggle-expand-button').click()
-        cy.get('#re > .navds-table__expanded-row-cell > .navds-table__expanded-row-collapse > .navds-table__expanded-row-content > #instance-panel').should('contain.text', '02/06/23 13:40')
-        cy.get('#re > .navds-table__expanded-row-cell > .navds-table__expanded-row-collapse > .navds-table__expanded-row-content > #instance-panel').should('contain.text', 'Instans registrert')
+        cy.get('#rh > .navds-table__expanded-row-cell > .navds-table__expanded-row-collapse > .navds-table__expanded-row-content > #instance-panel').should('contain.text', '02/06/23 13:40')
+        cy.get('#rh > .navds-table__expanded-row-cell > .navds-table__expanded-row-collapse > .navds-table__expanded-row-content > #instance-panel').should('contain.text', 'Instans registrert')
     })
 
     it('it should open error panel and show correct errors', () => {

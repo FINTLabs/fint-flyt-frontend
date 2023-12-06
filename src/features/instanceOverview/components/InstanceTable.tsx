@@ -25,7 +25,7 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
     const [selectedRow, setSelectedRow] = useState<IEvent>();
     const [openDialog, setOpenDialog] = React.useState(false);
     const [page, setPage] = useState(1);
-    const rowsPerPage = 8;
+    const rowsPerPage = 4;
     const errorsNotForRetry: string[] = ['instance-receival-error', 'instance-registration-error']
 
     let sortData = props.instances ?? [];
@@ -43,21 +43,19 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
     }
 
     return (
-        <Box id={"instance-table-container"} background={"surface-default"} padding="6" borderRadius={"large"}
-             borderWidth="2"
-             borderColor={"border-subtle"}>
+        <Box>
             <Box background={'surface-default'} style={{height: '60vh', overflowY: "scroll"}}>
                 <ErrorAlertDialog row={selectedRow}/>
                 <Table id={"instance-table"} size={"small"}>
                     <Table.Header>
                         <Table.Row>
                             <Table.HeaderCell/>
-                            <Table.HeaderCell scope="col">Kildeapplikasjon</Table.HeaderCell>
-                            <Table.HeaderCell scope="col">Integrasjonsnavn</Table.HeaderCell>
-                            <Table.HeaderCell scope="col">Tidspunkt</Table.HeaderCell>
-                            <Table.HeaderCell scope="col">Status</Table.HeaderCell>
-                            <Table.HeaderCell scope="col">Handlinger</Table.HeaderCell>
-                            <Table.HeaderCell scope="col">Destinasjons ID</Table.HeaderCell>
+                            <Table.HeaderCell scope="col">{t('table.column.sourceApplicationId')}</Table.HeaderCell>
+                            <Table.HeaderCell scope="col">{t('table.column.sourceApplicationIntegrationIdDisplayName')}</Table.HeaderCell>
+                            <Table.HeaderCell scope="col">{t('table.column.timestamp')}</Table.HeaderCell>
+                            <Table.HeaderCell scope="col">{t('table.column.status')}</Table.HeaderCell>
+                            <Table.HeaderCell scope="col">{t('table.column.actions')}</Table.HeaderCell>
+                            <Table.HeaderCell scope="col">{t('table.column.archiveInstanceId')}</Table.HeaderCell>
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
@@ -79,7 +77,7 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
                                                       setSelectedRow(value);
                                                       setOpenDialog(true)
                                                   }}>
-                                                vis feilmelding</Link>
+                                                {t('showError')}</Link>
                                         }
                                     </Table.DataCell>
                                     <Table.DataCell>

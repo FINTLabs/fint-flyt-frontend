@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {RouteComponent} from "../../features/main/Route";
-import {Box, Button, Modal} from "@navikt/ds-react";
+import {Box, Button, Heading, HelpText, HStack, Modal} from "@navikt/ds-react";
 import {useTranslation} from "react-i18next";
 import {ArrowCirclepathIcon} from '@navikt/aksel-icons';
 import {Button as ButtonAks} from "@navikt/ds-react/esm/button";
@@ -8,7 +8,7 @@ import {GridCellParams} from "@mui/x-data-grid";
 import ErrorDialogComponent from "../../features/instanceOverview/components/ErrorDialogComponent";
 import {HistoryContext} from "../../context/HistoryContext";
 import {IEvent} from "../../features/instanceOverview/types/Event";
-import InformationTemplate from "../templates/InformationTemplate";
+import PageTemplate from "../templates/PageTemplate";
 import InstanceTable from "../../features/instanceOverview/components/InstanceTable";
 
 
@@ -37,7 +37,7 @@ const Instances: RouteComponent = () => {
                 </Modal.Body>
                 <Modal.Footer>
                     <ButtonAks type="button" onClick={() => setOpenDialog(false)}>
-                        Lukk
+                        {t('button.close')}
                     </ButtonAks>
                 </Modal.Footer>
             </Modal>
@@ -45,8 +45,14 @@ const Instances: RouteComponent = () => {
     }
 
     return (
-        <InformationTemplate id={'instances'} keyPrefix={'pages.instanceOverview'}>
-            <Box>
+        <PageTemplate id={'instances'} keyPrefix={'pages.instanceOverview'} customHeading>
+            <HStack id={'instances-custom-header'} justify={"space-between"}>
+                <HStack align={"center"} gap={"2"}>
+                    <Heading size={"medium"}>{t('header')}</Heading>
+                    <HelpText title={"Hva er dette"} placement="bottom">
+                        {t('help.header')}
+                    </HelpText>
+                </HStack>
                 <Button
                     size={"small"}
                     onClick={() => {
@@ -56,10 +62,13 @@ const Instances: RouteComponent = () => {
                     icon={<ArrowCirclepathIcon aria-hidden/>}
                 >{t('button.refresh')}
                 </Button>
-                {latestInstances && <InstanceTable instances={latestInstances} events={events}/>}
-            </Box>
+            </HStack>
+            <Box id={"instance-table-container"} background={"surface-default"} padding="6" borderRadius={"large"}
+                 borderWidth="2" borderColor={"border-subtle"}>
+                    {latestInstances && <InstanceTable instances={latestInstances} events={events}/>}
+                </Box>
             <ErrorAlertDialog row={selectedRow}/>
-        </InformationTemplate>
+        </PageTemplate>
     );
 }
 

@@ -34,7 +34,7 @@ import {pruneObjectMapping} from "../../util/mapping/helpers/pruning";
 import EditingProvider, {EditingContext} from "../../context/EditingContext";
 import {RouteComponent} from "../main/Route";
 import {isEmpty} from "lodash";
-import InformationTemplate from "../../components/templates/InformationTemplate";
+import PageTemplate from "../../components/templates/PageTemplate";
 import {Alert} from "@navikt/ds-react"
 
 const useStyles = ConfigurationFormStyles
@@ -207,7 +207,7 @@ const ConfigurationForm: RouteComponent = () => {
     })
 
     return (
-        <InformationTemplate id={'configuration'} keyPrefix={'pages.configuration'} wide noHeading>
+        <PageTemplate id={'configuration'} keyPrefix={'pages.configuration'} wide customHeading>
             <DndProvider backend={HTML5Backend}>
                 <EditingProvider>
                     <FormProvider {...methods}>
@@ -330,7 +330,7 @@ const ConfigurationForm: RouteComponent = () => {
                 </EditingProvider>
 
             </DndProvider>
-        </InformationTemplate>
+        </PageTemplate>
     );
 }
 

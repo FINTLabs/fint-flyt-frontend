@@ -3,13 +3,13 @@ import {RouteComponent} from "../main/Route";
 import {Link as RouterLink} from "react-router-dom";
 import {FAQ, FLYT_DESCRIPTION} from "./util/supportTexts";
 import {BodyLong, Box, ExpansionCard, Heading, Link, List, VStack} from "@navikt/ds-react";
-import InformationTemplate from "../../components/templates/InformationTemplate";
+import PageTemplate from "../../components/templates/PageTemplate";
 import {Contact} from "../../components/atoms/Contact";
 
 const Support: RouteComponent = () => {
 
     return (
-        <InformationTemplate id={'support'} keyPrefix={'pages.support'}>
+        <PageTemplate id={'support'} keyPrefix={'pages.support'}>
             <Box id={"support-information"} background={"surface-default"} padding="6" borderRadius={"large"}
                  borderWidth="2"
                  borderColor={"border-subtle"}>
@@ -45,7 +45,7 @@ const Support: RouteComponent = () => {
                 </ExpansionCard>
             </Box>
             <Contact/>
-        </InformationTemplate>
+        </PageTemplate>
     )
 }
 
