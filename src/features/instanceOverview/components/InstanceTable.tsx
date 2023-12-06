@@ -1,6 +1,6 @@
 import {GridCellParams} from "@mui/x-data-grid";
 import * as React from "react";
-import {useContext, useState} from "react";
+import {useState} from "react";
 import {useTranslation} from "react-i18next";
 import {Box, HStack, Link, Modal, Pagination, Table} from "@navikt/ds-react";
 
@@ -8,7 +8,6 @@ import moment from "moment";
 import {getSourceApplicationDisplayName} from "../../../util/DataGridUtil";
 import {IEvent} from "../types/Event";
 import {ClassNameMap} from "@mui/styles";
-import {HistoryContext} from "../../../context/HistoryContext";
 import ErrorDialogComponent from "./ErrorDialogComponent";
 import InstancePanel from "./InstancePanel";
 import {GetIcon} from "../util/InstanceUtils";
@@ -17,12 +16,12 @@ import InstanceRepository from "../repository/InstanceRepository";
 
 type Props = {
     instances: IEvent[] | undefined;
+    events: IEvent[] | undefined;
     classes?: ClassNameMap;
 }
 
 const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.instanceOverview'})
-    const {events} = useContext(HistoryContext)
     const [selectedRow, setSelectedRow] = useState<IEvent>();
     const [openDialog, setOpenDialog] = React.useState(false);
     const [page, setPage] = useState(1);
@@ -44,7 +43,8 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
     }
 
     return (
-        <Box id={"instance-table-container"} background={"surface-default"} padding="6" borderRadius={"large"} borderWidth="2"
+        <Box id={"instance-table-container"} background={"surface-default"} padding="6" borderRadius={"large"}
+             borderWidth="2"
              borderColor={"border-subtle"}>
             <Box background={'surface-default'} style={{height: '60vh', overflowY: "scroll"}}>
                 <ErrorAlertDialog row={selectedRow}/>
@@ -64,7 +64,7 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
                         {sortData?.map((value, i) => {
                             return (
                                 <Table.ExpandableRow key={i} content={<InstancePanel
-                                    instancesOnId={events?.filter((event) => event.instanceFlowHeaders.correlationId === value.instanceFlowHeaders.correlationId)}
+                                    instancesOnId={props.events?.filter((event) => event.instanceFlowHeaders.correlationId === value.instanceFlowHeaders.correlationId)}
                                 />}>
                                     <Table.DataCell
                                         scope="row">{getSourceApplicationDisplayName(Number(value.instanceFlowHeaders.sourceApplicationId))}</Table.DataCell>
@@ -90,7 +90,7 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
                                         }
                                     </Table.DataCell>
                                     <Table.DataCell>{value.instanceFlowHeaders.archiveInstanceId}</Table.DataCell>
-                             </Table.ExpandableRow>
+                                </Table.ExpandableRow>
                             );
                         })}
                     </Table.Body>

@@ -14,7 +14,7 @@ import InstanceTable from "../../features/instanceOverview/components/InstanceTa
 
 const Instances: RouteComponent = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.instanceOverview'})
-    const {latestInstances, getLatestInstances, getEvents} = useContext(HistoryContext)
+    const {latestInstances, getLatestInstances, events, getEvents} = useContext(HistoryContext)
     const [selectedRow] = useState<IEvent>();
     const [openDialog, setOpenDialog] = React.useState(false);
 
@@ -45,15 +45,18 @@ const Instances: RouteComponent = () => {
     }
 
     return (
-        <InformationTemplate id={'instances'} keyPrefix={'pages.instanceOverview'} wide>
+        <InformationTemplate id={'instances'} keyPrefix={'pages.instanceOverview'}>
             <Box>
                 <Button
                     size={"small"}
-                    onClick={() => getLatestInstances(0, 10000, "timestamp", "DESC")}
+                    onClick={() => {
+                        getLatestInstances(0, 10000, "timestamp", "DESC")
+                        getEvents(0, 10000, "timestamp", "DESC")
+                    }}
                     icon={<ArrowCirclepathIcon aria-hidden/>}
                 >{t('button.refresh')}
                 </Button>
-                {latestInstances && <InstanceTable instances={latestInstances}/>}
+                {latestInstances && <InstanceTable instances={latestInstances} events={events}/>}
             </Box>
             <ErrorAlertDialog row={selectedRow}/>
         </InformationTemplate>
