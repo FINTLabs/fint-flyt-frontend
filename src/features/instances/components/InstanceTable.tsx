@@ -21,7 +21,7 @@ type Props = {
 }
 
 const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
-    const {t} = useTranslation('translations', {keyPrefix: 'pages.instanceOverview'})
+    const {t} = useTranslation('translations', {keyPrefix: 'pages.instances'})
     const [selectedRow, setSelectedRow] = useState<IEvent>();
     const [openDialog, setOpenDialog] = React.useState(false);
     const [page, setPage] = useState(1);

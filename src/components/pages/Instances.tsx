@@ -5,15 +5,15 @@ import {useTranslation} from "react-i18next";
 import {ArrowCirclepathIcon} from '@navikt/aksel-icons';
 import {Button as ButtonAks} from "@navikt/ds-react/esm/button";
 import {GridCellParams} from "@mui/x-data-grid";
-import ErrorDialogComponent from "../../features/instanceOverview/components/ErrorDialogComponent";
+import ErrorDialogComponent from "../../features/instances/components/ErrorDialogComponent";
 import {HistoryContext} from "../../context/HistoryContext";
-import {IEvent} from "../../features/instanceOverview/types/Event";
+import {IEvent} from "../../features/instances/types/Event";
 import PageTemplate from "../templates/PageTemplate";
-import InstanceTable from "../../features/instanceOverview/components/InstanceTable";
+import InstanceTable from "../../features/instances/components/InstanceTable";
 
 
 const Instances: RouteComponent = () => {
-    const {t} = useTranslation('translations', {keyPrefix: 'pages.instanceOverview'})
+    const {t} = useTranslation('translations', {keyPrefix: 'pages.instances'})
     const {latestInstances, getLatestInstances, events, getEvents} = useContext(HistoryContext)
     const [selectedRow] = useState<IEvent>();
     const [openDialog, setOpenDialog] = React.useState(false);
@@ -45,7 +45,7 @@ const Instances: RouteComponent = () => {
     }
 
     return (
-        <PageTemplate id={'instances'} keyPrefix={'pages.instanceOverview'} customHeading>
+        <PageTemplate id={'instances'} keyPrefix={'pages.instances'} customHeading>
             <HStack id={'instances-custom-header'} justify={"space-between"}>
                 <HStack align={"center"} gap={"2"}>
                     <Heading size={"medium"}>{t('header')}</Heading>

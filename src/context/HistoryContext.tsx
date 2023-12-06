@@ -1,4 +1,4 @@
-import {IEvent} from "../features/instanceOverview/types/Event";
+import {IEvent} from "../features/instances/types/Event";
 import {createContext,  useState} from "react";
 import SourceApplicationRepository from "../shared/repositories/SourceApplicationRepository";
 import {IIntegrationMetadata} from "../features/configuration/types/Metadata/IntegrationMetadata";

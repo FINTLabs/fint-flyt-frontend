@@ -1,5 +1,5 @@
 import {errorStringReplace, getErrorArgs} from "../../util/StringUtil";
-import {IError, IErrorArg} from "../../features/instanceOverview/types/Event";
+import {IError, IErrorArg} from "../../features/instances/types/Event";
 
 const testErrorArgs: Record<string, string> = {
     'instanceFieldKey': 'form.title',

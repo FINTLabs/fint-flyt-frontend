@@ -50,14 +50,14 @@ const Dashboard: RouteComponent = () => {
             value: totalDispatched === 0 ? t('empty') : totalDispatched.toString(),
             content: totalDispatched === 1 ? t('oneInstance') : t('instances'),
             links: [
-                {name: t('links.instanceOverview'), href: '/integration/instance/list'}
+                {name: t('links.instances'), href: '/integration/instance/list'}
             ]
         },
         {
             value: totalErrors === 0 ? t('empty') : totalErrors.toString(),
             content: totalErrors === 1 ? t('oneError') : t('errors'),
             links: [
-                {name: t('links.instanceOverview'), href: '/integration/instance/list'}
+                {name: t('links.instances'), href: '/integration/instance/list'}
             ]
         }
     ]

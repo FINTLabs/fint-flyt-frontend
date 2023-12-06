@@ -1,6 +1,6 @@
 import {toErrorType} from "./mapping/helpers/ToErrorType";
-import {IError, IErrorArg} from "../features/instanceOverview/types/Event";
-import {ErrorType} from "../features/instanceOverview/types/ErrorType";
+import {IError, IErrorArg} from "../features/instances/types/Event";
+import {ErrorType} from "../features/instances/types/ErrorType";
 
 export function errorStringReplace(baseString: string, errorArgs: IErrorArg[]) {
     let errorString = baseString;

@@ -60,7 +60,7 @@ const routes: IRoute[] = [
     },
     {
         path: '/integration/instance/list',
-        name: 'instanceOverview',
+        name: 'instances',
         component: Instances,
         exact: true,
         icon: 'format_list_bulleted',

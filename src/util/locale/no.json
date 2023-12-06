@@ -8,7 +8,7 @@
     "dashboard": "Dashbord",
     "integration": "Ny",
     "integrationOverview": "Integrasjoner",
-    "instanceOverview": "Instanser",
+    "instances": "Instanser",
     "version": "Versjon",
     "support": "Hjelp og support",
     "valueConverting": "Verdikonvertering"
@@ -29,7 +29,7 @@
         "integrationOverview": "Se integrasjoner",
         "integration": "Ny integrasjon",
         "log": "Se logg",
-        "instanceOverview": "Se instansoversikt",
+        "instances": "Se instansoversikt",
         "support": "Kontakt support"
       }
     },
@@ -117,7 +117,7 @@
         "version": "Versjon: "
       }
     },
-    "instanceOverview": {
+    "instances": {
       "header": "Instanser",
       "showError": "vis feilmelding",
       "button": {

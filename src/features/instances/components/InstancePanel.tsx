@@ -14,7 +14,7 @@ type Props = {
 }
 
 const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
-    const {t} = useTranslation('translations', {keyPrefix: 'pages.instanceOverview'});
+    const {t} = useTranslation('translations', {keyPrefix: 'pages.instances'});
     const [selectedRow, setSelectedRow] = useState<IEvent>();
     const [openErrorDialog, setOpenErrorDialog] = React.useState(false);
 
