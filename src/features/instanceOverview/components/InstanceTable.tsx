@@ -62,7 +62,6 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
                     </Table.Header>
                     <Table.Body>
                         {sortData?.map((value, i) => {
-                            console.log(events?.filter((event) => event.instanceFlowHeaders.correlationId === value.instanceFlowHeaders.correlationId))
                             return (
                                 <Table.ExpandableRow key={i} content={<InstancePanel
                                     instancesOnId={events?.filter((event) => event.instanceFlowHeaders.correlationId === value.instanceFlowHeaders.correlationId)}
