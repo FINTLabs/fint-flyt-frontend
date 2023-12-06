@@ -10,8 +10,6 @@ import {GetIcon} from "../util/InstanceUtils";
 import {Button as ButtonAks} from "@navikt/ds-react/esm/button";
 
 type Props = {
-    instanceId: string;
-    sourceApplicationId: string;
     instancesOnId: IEvent[] | undefined;
 }
 

@@ -44,11 +44,11 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
     }
 
     return (
-        <Box background={"surface-default"} padding="6" borderRadius={"large"} borderWidth="2"
+        <Box id={"instance-table-container"} background={"surface-default"} padding="6" borderRadius={"large"} borderWidth="2"
              borderColor={"border-subtle"}>
             <Box background={'surface-default'} style={{height: '60vh', overflowY: "scroll"}}>
                 <ErrorAlertDialog row={selectedRow}/>
-                <Table size={"small"}>
+                <Table id={"instance-table"} size={"small"}>
                     <Table.Header>
                         <Table.Row>
                             <Table.HeaderCell/>
@@ -65,8 +65,6 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
                             return (
                                 <Table.ExpandableRow key={i} content={<InstancePanel
                                     instancesOnId={events?.filter((event) => event.instanceFlowHeaders.correlationId === value.instanceFlowHeaders.correlationId)}
-                                    instanceId={value.instanceFlowHeaders.sourceApplicationInstanceId}
-                                    sourceApplicationId={value.instanceFlowHeaders.sourceApplicationId}
                                 />}>
                                     <Table.DataCell
                                         scope="row">{getSourceApplicationDisplayName(Number(value.instanceFlowHeaders.sourceApplicationId))}</Table.DataCell>
