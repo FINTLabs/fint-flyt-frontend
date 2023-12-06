@@ -1,10 +1,10 @@
 import React from 'react';
-import {RouteComponent} from "../main/Route";
+import {RouteComponent} from "../../features/main/Route";
 import {Link as RouterLink} from "react-router-dom";
-import {FAQ, FLYT_DESCRIPTION} from "./util/supportTexts";
+import {FAQ, FLYT_DESCRIPTION} from "../../features/support/util/supportTexts";
 import {BodyLong, Box, ExpansionCard, Heading, Link, List, VStack} from "@navikt/ds-react";
-import PageTemplate from "../../components/templates/PageTemplate";
-import {Contact} from "../../components/atoms/Contact";
+import PageTemplate from "../templates/PageTemplate";
+import {Contact} from "../atoms/Contact";
 
 const Support: RouteComponent = () => {
 

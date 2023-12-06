@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import ValueConvertingTable from "./components/ValueConvertingTable";
-import ValueConvertingForm from "./components/ValueConvertingForm";
+import ValueConvertingTable from "../../features/valueConverting/components/ValueConvertingTable";
+import ValueConvertingForm from "../../features/valueConverting/components/ValueConvertingForm";
 import ValueConvertingRepository from "../../shared/repositories/ValueConvertingRepository";
-import {RouteComponent} from "../main/Route";
-import PageTemplate from "../../components/templates/PageTemplate";
+import {RouteComponent} from "../../features/main/Route";
+import PageTemplate from "../templates/PageTemplate";
 
 
 const ValueConverting: RouteComponent = () => {
