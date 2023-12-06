@@ -153,6 +153,7 @@ const ConfigurationForm: RouteComponent = () => {
 		}
 	};
 
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const onSubmit = (data: any) => {
 		// eslint-disable-line
 		if (!isEmpty(methods.formState.errors)) {

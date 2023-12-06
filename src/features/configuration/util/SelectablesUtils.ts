@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { IUrlBuilder } from "../types/FormTemplate";
 import { AxiosResponse } from "axios";
 import ResourceRepository from "../../../api/ResourceRepository";
