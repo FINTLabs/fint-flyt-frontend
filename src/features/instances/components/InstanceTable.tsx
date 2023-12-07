@@ -25,7 +25,7 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
     const [selectedRow, setSelectedRow] = useState<IEvent>();
     const [openDialog, setOpenDialog] = React.useState(false);
     const [page, setPage] = useState(1);
-    const rowsPerPage = 8;
+    const rowsPerPage = 10;
     const errorsNotForRetry: string[] = ['instance-receival-error', 'instance-registration-error']
 
     let sortData = props.instances ?? [];
@@ -44,7 +44,7 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
 
     return (
         <Box>
-            <Box background={'surface-default'} style={{height: '60vh', overflowY: "scroll"}}>
+            <Box background={'surface-default'} style={{height: '70vh', overflowY: "scroll"}}>
                 <ErrorAlertDialog row={selectedRow}/>
                 <Table id={"instance-table"} size={"small"}>
                     <Table.Header>
