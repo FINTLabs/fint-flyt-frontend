@@ -32,7 +32,6 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
     sortData = sortData.slice((page - 1) * rowsPerPage, page * rowsPerPage);
 
     const resend = (instanceId: string) => {
-        //TODO: add notification on successful or failed resending
         InstanceRepository.resendInstance(instanceId)
             .then(response => {
                 console.log('resend instance', response)
