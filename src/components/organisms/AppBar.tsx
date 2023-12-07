@@ -15,7 +15,7 @@ export const AppBar = () => {
 					<img
 						src="https://cdn.flais.io/media/fint-by-vigo-white.svg"
 						alt="logo"
-						style={{ width: 80, marginRight: "32px" }}
+						style={{ width: 80, marginRight: "32px", marginBottom: "8px" }}
 					/>
 				}
 			/>
