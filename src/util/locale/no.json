@@ -272,6 +272,7 @@
       "from": "Fra",
       "column": {
         "show": "Vis",
+        "id": "Id",
         "displayName": "Navn",
         "toType": "Til type",
         "fromType": "Fra type",
