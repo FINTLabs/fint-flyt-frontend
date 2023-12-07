@@ -8,6 +8,7 @@ export const AppBar = () => {
 		<InternalHeader style={{ backgroundColor: "#1F4F59" }}>
 			<Button
 				variant="tertiary-neutral"
+				size={"small"}
 				onClick={() => {
 					history.push("/");
 				}}
