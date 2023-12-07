@@ -68,9 +68,9 @@ const Instances: RouteComponent = () => {
                     {latestInstances && events ?
                         <InstanceTable instances={latestInstances} events={events}/>
                         :
-                        <Box style={{justifyItems: "center"}}>
+                        <>
                             <Loader size={"xlarge"}/>
-                        </Box>
+                        </>
                     }
                 </Box>
             <ErrorAlertDialog row={selectedRow}/>
