@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {RouteComponent} from "../../features/main/Route";
-import {Box, Button, Heading, HelpText, HStack, Modal} from "@navikt/ds-react";
+import {Box, Button, Heading, HelpText, HStack, Loader, Modal} from "@navikt/ds-react";
 import {useTranslation} from "react-i18next";
 import {ArrowCirclepathIcon} from '@navikt/aksel-icons';
 import {Button as ButtonAks} from "@navikt/ds-react/esm/button";
@@ -65,7 +65,13 @@ const Instances: RouteComponent = () => {
             </HStack>
             <Box id={"instance-table-container"} background={"surface-default"} padding="6" borderRadius={"large"}
                  borderWidth="2" borderColor={"border-subtle"}>
-                    {latestInstances && <InstanceTable instances={latestInstances} events={events}/>}
+                    {latestInstances && events ?
+                        <InstanceTable instances={latestInstances} events={events}/>
+                        :
+                        <Box style={{justifyItems: "center"}}>
+                            <Loader size={"xlarge"}/>
+                        </Box>
+                    }
                 </Box>
             <ErrorAlertDialog row={selectedRow}/>
         </PageTemplate>
