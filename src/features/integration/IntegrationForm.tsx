@@ -6,7 +6,7 @@ import {IntegrationContext} from "../../context/IntegrationContext";
 import HelpPopover from "../configuration/components/common/popover/HelpPopover";
 import {useTranslation} from "react-i18next";
 import {contextDefaultValues, SourceApplicationContext} from "../../context/SourceApplicationContext";
-import IntegrationRepository from '../../shared/repositories/IntegrationRepository';
+import IntegrationRepository from "../../api/IntegrationRepository";
 import {IIntegration, IntegrationState} from "./types/Integration";
 import {IFormIntegration} from "../configuration/types/FormIntegration";
 import {selectSX} from "../../util/styles/SystemStyles";

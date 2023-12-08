@@ -29,10 +29,10 @@ import {ConfigurationContext} from "../../context/ConfigurationContext";
 import StringValueComponent from "./components/mapping/value/string/StringValueComponent";
 import {IAlertContent} from "./types/AlertContent";
 import {activeAlert, completedAlert, defaultAlert, errorAlert, savedAlert} from "./defaults/DefaultValues";
-import ConfigurationRepository from "../../shared/repositories/ConfigurationRepository";
+import ConfigurationRepository from "../../api/ConfigurationRepository";
 import {pruneObjectMapping} from "../../util/mapping/helpers/pruning";
 import EditingProvider, {EditingContext} from "../../context/EditingContext";
-import {RouteComponent} from "../main/Route";
+import { RouteComponent } from "../../routes/Route";
 import {isEmpty} from "lodash";
 import PageTemplate from "../../components/templates/PageTemplate";
 import {Alert} from "@navikt/ds-react"
