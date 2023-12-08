@@ -5,7 +5,7 @@ import {GridCellParams} from "@mui/x-data-grid";
 import moment from "moment/moment";
 import {IEvent} from "../types/Event";
 import ErrorDialogComponent from "./ErrorDialogComponent";
-import {Box, Link, Modal, Table} from "@navikt/ds-react";
+import {Box, HStack, Link, Modal, Pagination, Table} from "@navikt/ds-react";
 import {GetIcon} from "../util/InstanceUtils";
 import {Button as ButtonAks} from "@navikt/ds-react/esm/button";
 
@@ -17,8 +17,14 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.instances'});
     const [selectedRow, setSelectedRow] = useState<IEvent>();
     const [openErrorDialog, setOpenErrorDialog] = React.useState(false);
+    const [page, setPage] = useState(1);
+    const rowsPerPage = 10;
+
+    let sortData = props.instancesOnId ?? [];
+    sortData = sortData.slice((page - 1) * rowsPerPage, page * rowsPerPage);
 
     return (
+        <>
         <Box id={"instance-panel"} padding="4" background={"surface-subtle"} borderRadius="xlarge">
             {props.instancesOnId && props.instancesOnId[0] &&
                 <ul>
@@ -37,7 +43,7 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
-                    {props.instancesOnId?.map((value, i) => {
+                    {sortData.map((value, i) => {
                         return (
                             <Table.Row key={i}>
                                 <Table.DataCell>{moment(value.timestamp).format('DD/MM/YY HH:mm')}</Table.DataCell>
@@ -60,6 +66,16 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
                 </Table.Body>
             </Table>
         </Box>
+    <HStack justify={"center"}>
+        {props.instancesOnId && props.instancesOnId.length > rowsPerPage &&
+            <Pagination
+                page={page}
+                onPageChange={setPage}
+                count={Math.ceil(props.instancesOnId.length / rowsPerPage)}
+                size="small"
+            />}
+    </HStack>
+    </>
     );
 
     function ErrorAlertDialog(props: GridCellParams['row']) {
