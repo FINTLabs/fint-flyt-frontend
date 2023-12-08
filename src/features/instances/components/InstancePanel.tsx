@@ -40,6 +40,7 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
                         <Table.HeaderCell scope="col">{t('table.column.status')}</Table.HeaderCell>
                         <Table.HeaderCell scope="col">{t('table.column.archiveInstanceId')}</Table.HeaderCell>
                         <Table.HeaderCell scope="col">{t('table.column.configurationId')}</Table.HeaderCell>
+                        <Table.HeaderCell scope="col">{t('table.column.correlationId')}</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
@@ -60,6 +61,7 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
                                 </Table.DataCell>
                                 <Table.DataCell>{value.instanceFlowHeaders.archiveInstanceId}</Table.DataCell>
                                 <Table.DataCell>{value.instanceFlowHeaders.configurationId}</Table.DataCell>
+                                <Table.DataCell>{value.instanceFlowHeaders.correlationId}</Table.DataCell>
                             </Table.Row>
                         );
                     })}

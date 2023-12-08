@@ -61,7 +61,7 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
                         {sortData?.map((value, i) => {
                             return (
                                 <Table.ExpandableRow key={i} content={<InstancePanel
-                                    instancesOnId={props.events?.filter((event) => event.instanceFlowHeaders.correlationId === value.instanceFlowHeaders.correlationId)}
+                                    instancesOnId={props.events?.filter((event) => event.instanceFlowHeaders.sourceApplicationInstanceId === value.instanceFlowHeaders.sourceApplicationInstanceId)}
                                 />}>
                                     <Table.DataCell
                                         scope="row">{getSourceApplicationDisplayName(Number(value.instanceFlowHeaders.sourceApplicationId))}</Table.DataCell>

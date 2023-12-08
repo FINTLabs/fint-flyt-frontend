@@ -132,8 +132,9 @@
           "sourceApplicationId": "Kildeapplikasjon",
           "status": "Status",
           "actions": "Handlinger",
-          "sourceApplicationInstanceId": "Kildeapplikasjons instans-ID",
+          "sourceApplicationInstanceId": "Kildeapplikasjons instans ID",
           "configurationId": "Konfigurasjon ID",
+          "correlationId": "Korrelasjon ID",
           "archiveInstanceId": "Destinasjon ID",
           "timestamp": "Tidspunkt"
         }
