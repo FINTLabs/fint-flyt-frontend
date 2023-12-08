@@ -47,7 +47,7 @@ export const AppBar = () => {
 						<Dropdown.Menu.GroupedList.Item onClick={() => changeLanguage("nn")}>
 							{t('norwegianNN')}
 						</Dropdown.Menu.GroupedList.Item>
-						<Dropdown.Menu.GroupedList.Item onClick={() => changeLanguage("en")}>
+						<Dropdown.Menu.GroupedList.Item disabled onClick={() => changeLanguage("en")}>
 							{t('english')} (coming soon)
 						</Dropdown.Menu.GroupedList.Item>
 					</Dropdown.Menu.GroupedList>
