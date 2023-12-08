@@ -69,6 +69,10 @@
         "sourceApplicationId": "Kjeldeapplikasjon",
         "sourceApplicationIntegrationId": "Integrasjon",
         "destination": "Destinasjon/Base"
+      },
+      "MetadataPanel": {
+        "header": "Metadata",
+        "version": "Versjon"
       }
     },
     "integrationOverview": {
