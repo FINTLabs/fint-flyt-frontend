@@ -25,7 +25,7 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
     const [selectedRow, setSelectedRow] = useState<IEvent>();
     const [openDialog, setOpenDialog] = React.useState(false);
     const [page, setPage] = useState(1);
-    const rowsPerPage = 10;
+    const rowsPerPage = 12;
     const errorsNotForRetry: string[] = ['instance-receival-error', 'instance-registration-error']
 
     let sortData = props.instances ?? [];
