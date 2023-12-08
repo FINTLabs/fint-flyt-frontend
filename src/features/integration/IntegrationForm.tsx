@@ -6,7 +6,7 @@ import {IntegrationContext} from "../../context/IntegrationContext";
 import HelpPopover from "../configuration/components/common/popover/HelpPopover";
 import {useTranslation} from "react-i18next";
 import {contextDefaultValues, SourceApplicationContext} from "../../context/SourceApplicationContext";
-import IntegrationRepository from '../../shared/repositories/IntegrationRepository';
+import IntegrationRepository from "../../api/IntegrationRepository";
 import {IIntegration, IntegrationState} from "./types/Integration";
 import {IFormIntegration} from "../configuration/types/FormIntegration";
 import {selectSX} from "../../util/styles/SystemStyles";
@@ -14,7 +14,7 @@ import {IntegrationFormStyles} from "../../util/styles/IntegrationForm.styles"
 import {toIntegration} from "../../util/mapping/ToIntegration";
 import {ISelect} from "../configuration/types/Select";
 import {IIntegrationMetadata} from "../configuration/types/Metadata/IntegrationMetadata";
-import InformationTemplate from "../../components/templates/InformationTemplate";
+import PageTemplate from "../../components/templates/PageTemplate";
 
 
 const useStyles = IntegrationFormStyles;
@@ -90,7 +90,7 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
     }
 
     return (
-        <InformationTemplate id={'new'} keyPrefix={'components.integrationForm'}>
+        <PageTemplate id={'new'} keyPrefix={'components.integrationForm'}>
             <FormGroup id="integration-form" className={classes.panelContainer}>
                 <Box>
                     <h2 className={classes.title2} id="integration-form-settings-header">{t('header')}</h2>
@@ -174,7 +174,7 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
                         {t('button.cancel')}</Button>
                 </Box>
             </FormGroup>
-        </InformationTemplate>
+        </PageTemplate>
     )
 }
 

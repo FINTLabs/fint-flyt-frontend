@@ -1,11 +1,11 @@
-import React, {useContext, useEffect} from 'react';
+import React, { useContext, useEffect } from "react";
 import IntegrationTable from "./components/IntegrationTable";
-import {IntegrationContext} from "../../context/IntegrationContext";
-import IntegrationPanel from "./components/IntegrationPanel";
-import {SourceApplicationContext} from "../../context/SourceApplicationContext";
+import { IntegrationContext } from "../../context/IntegrationContext";
+import PageTemplate from "../../components/templates/PageTemplate";
 import {IntegrationStyles} from "../../util/styles/Integration.styles";
-import {RouteComponent} from "../main/Route";
-import InformationTemplate from "../../components/templates/InformationTemplate";
+import {SourceApplicationContext} from "../../context/SourceApplicationContext";
+import IntegrationPanel from "./components/IntegrationPanel";
+import {RouteComponent} from "../../routes/Route";
 
 const useStyles = IntegrationStyles;
 
@@ -32,7 +32,7 @@ const IntegrationOverview: RouteComponent = () => {
 
 
     return (
-        <InformationTemplate id={'integration'} keyPrefix={'pages.integrationOverview'} wide>
+        <PageTemplate id={'integration'} keyPrefix={'pages.integrationOverview'} wide>
             {existingIntegration?.sourceApplicationIntegrationId && showPanel ?
                 <IntegrationPanel
                     classes={classes}
@@ -41,7 +41,7 @@ const IntegrationOverview: RouteComponent = () => {
                     classes={classes}
                 />
             }
-        </InformationTemplate>
+        </PageTemplate>
     );
 }
 

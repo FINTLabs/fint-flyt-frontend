@@ -1,29 +1,27 @@
 import * as React from "react";
-import {Box, Typography} from "@mui/material";
 import {useTranslation} from "react-i18next";
-import {dialogSX} from "../../../util/styles/SystemStyles";
 import {IError, IErrorArg, IEvent} from "../types/Event";
 import {errorStringReplace, getErrorArgs} from "../../../util/StringUtil";
+import {BodyShort, Box} from "@navikt/ds-react";
 
 type Props = {
     row: IEvent | undefined
 }
 
 const ErrorDialogComponent: React.FunctionComponent<Props> = (props: Props) => {
-    const {t} = useTranslation('translations', {keyPrefix: 'pages.instanceOverview'});
+    const {t} = useTranslation('translations', {keyPrefix: 'pages.instances'});
 
     return (
         <>
             {props.row &&
-                <Box id={props.row.type + `-panel`} sx={dialogSX}>
-                    <Typography>{props.row.errors.length > 1 ? "Feilmeldinger:" : "Feilmelding:"}</Typography>
+                <Box>
                     <ol id={'error-list'} style={{fontFamily: 'sans-serif'}}>
                         {props.row.errors.map((error: IError, index: number) => {
                             const errorArgs: IErrorArg[] = getErrorArgs(error)
                             return <li id={'error'} key={index}>
-                                <Typography>
+                                <BodyShort>
                                     {errorStringReplace(t(error.errorCode), errorArgs)}
-                                </Typography>
+                                </BodyShort>
                             </li>
                         })}
                     </ol>

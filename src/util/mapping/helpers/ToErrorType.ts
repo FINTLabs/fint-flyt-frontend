@@ -1,4 +1,4 @@
-import {ErrorType} from "../../../features/instanceOverview/types/ErrorType";
+import {ErrorType} from "../../../features/instances/types/ErrorType";
 
 export function toErrorType(type: string): string {
     switch (type) {

@@ -7,8 +7,8 @@ import {ICard} from "./types/Card";
 import {useTranslation} from "react-i18next";
 import {DashboardStyles} from "../../util/styles/Dashboard.styles";
 import {IIntegrationStatistics} from "./types/IntegrationStatistics";
-import {RouteComponent} from "../main/Route";
-import InformationTemplate from "../../components/templates/InformationTemplate";
+import PageTemplate from "../../components/templates/PageTemplate";
+import {RouteComponent} from "../../routes/Route";
 
 const useStyles = DashboardStyles;
 
@@ -50,20 +50,20 @@ const Dashboard: RouteComponent = () => {
             value: totalDispatched === 0 ? t('empty') : totalDispatched.toString(),
             content: totalDispatched === 1 ? t('oneInstance') : t('instances'),
             links: [
-                {name: t('links.instanceOverview'), href: '/integration/instance/list'}
+                {name: t('links.instances'), href: '/integration/instance/list'}
             ]
         },
         {
             value: totalErrors === 0 ? t('empty') : totalErrors.toString(),
             content: totalErrors === 1 ? t('oneError') : t('errors'),
             links: [
-                {name: t('links.instanceOverview'), href: '/integration/instance/list'}
+                {name: t('links.instances'), href: '/integration/instance/list'}
             ]
         }
     ]
 
     return (
-        <InformationTemplate id={'dashboard'} keyPrefix={'pages.dashboard'} noHeading>
+        <PageTemplate id={'dashboard'} keyPrefix={'pages.dashboard'} customHeading>
             <Box id={'dashboard-card-container'} display="flex" position="relative" width={1} height={1}>
                 {cards.map((card: ICard, index) => {
                     return (
@@ -82,7 +82,7 @@ const Dashboard: RouteComponent = () => {
                     classes={classes}
                 />
             </Card>
-        </InformationTemplate>
+        </PageTemplate>
     );
 }
 

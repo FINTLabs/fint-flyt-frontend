@@ -1,4 +1,4 @@
-import {IEvent} from "../features/instanceOverview/types/Event";
+import {IEvent} from "../features/instances/types/Event";
 import {IIntegrationMetadata} from "../features/configuration/types/Metadata/IntegrationMetadata";
 import {addId} from "./JsonUtil";
 

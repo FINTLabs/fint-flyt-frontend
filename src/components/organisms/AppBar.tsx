@@ -1,20 +1,26 @@
-import {Button, Toolbar} from "@mui/material";
-import {Link as RouterLink} from "react-router-dom";
-import MenuItems from "../../features/main/MenuItems";
-import {Box} from "@navikt/ds-react";
-import React from "react";
+import MenuItems from "../molecules/MenuItems";
+import { InternalHeader, Button } from "@navikt/ds-react";
+import { useHistory } from "react-router-dom";
 
 export const AppBar = () => {
-    return <Box style={{backgroundColor: "#1F4F59"}}>
-        <Toolbar id={"toolbar"}>
-            <Button component={RouterLink} to="/">
-                <img src="https://cdn.flais.io/media/fint-by-vigo-white.svg" alt="logo"
-                     style={{width: 80, marginRight: '32px'}}/>
-            </Button>
-            <nav>
-                <MenuItems/>
-            </nav>
-        </Toolbar>
-    </Box>
-}
-
+	const history = useHistory();
+	return (
+		<InternalHeader style={{ backgroundColor: "#1F4F59" }}>
+			<Button
+				variant="tertiary-neutral"
+				size={"small"}
+				onClick={() => {
+					history.push("/");
+				}}
+				icon={
+					<img
+						src="https://cdn.flais.io/media/fint-by-vigo-white.svg"
+						alt="logo"
+						style={{ width: 80, marginRight: "32px", marginBottom: "8px" }}
+					/>
+				}
+			/>
+			<MenuItems />
+		</InternalHeader>
+	);
+};

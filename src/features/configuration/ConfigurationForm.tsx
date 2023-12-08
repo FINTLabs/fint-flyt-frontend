@@ -22,20 +22,21 @@ import {IIntegrationMetadata} from "./types/Metadata/IntegrationMetadata";
 import {useTranslation} from "react-i18next";
 import {ConfigurationFormStyles} from "../../util/styles/ConfigurationFormStyles";
 import CheckboxValueComponent from "./components/common/CheckboxValueComponent";
-import IntegrationRepository from "../../shared/repositories/IntegrationRepository";
 import {IConfiguration, IConfigurationPatch, IObjectMapping} from "./types/Configuration";
 import {IIntegrationPatch, IntegrationState} from "../integration/types/Integration";
 import {ConfigurationContext} from "../../context/ConfigurationContext";
 import StringValueComponent from "./components/mapping/value/string/StringValueComponent";
 import {IAlertContent} from "./types/AlertContent";
 import {activeAlert, completedAlert, defaultAlert, errorAlert, savedAlert} from "./defaults/DefaultValues";
-import ConfigurationRepository from "../../shared/repositories/ConfigurationRepository";
+import ConfigurationRepository from "../../api/ConfigurationRepository";
 import {pruneObjectMapping} from "../../util/mapping/helpers/pruning";
 import EditingProvider, {EditingContext} from "../../context/EditingContext";
-import {RouteComponent} from "../main/Route";
+import { RouteComponent } from "../../routes/Route";
 import {isEmpty} from "lodash";
-import InformationTemplate from "../../components/templates/InformationTemplate";
+import PageTemplate from "../../components/templates/PageTemplate";
 import {Alert} from "@navikt/ds-react"
+import {AxiosResponse} from "axios";
+import IntegrationRepository from "../../api/IntegrationRepository";
 
 const useStyles = ConfigurationFormStyles
 
@@ -191,12 +192,12 @@ const ConfigurationForm: RouteComponent = () => {
             destination: existingIntegration?.destination
         }
         IntegrationRepository.updateIntegration(integrationId, patch)
-            .then(response => {
+            .then((response: AxiosResponse) => {
                 setAlertContent(activeAlert)
                 setShowAlert(true);
                 setCompleted(true)
                 console.log('set active configuration: ', response.data.activeConfigurationId)
-            }).catch((e) => {
+            }).catch((e: Error) => {
             console.log('could not set active configuration', e)
         })
     }
@@ -207,7 +208,7 @@ const ConfigurationForm: RouteComponent = () => {
     })
 
     return (
-        <InformationTemplate id={'configuration'} keyPrefix={'pages.configuration'} wide noHeading>
+        <PageTemplate id={'configuration'} keyPrefix={'pages.configuration'} wide customHeading>
             <DndProvider backend={HTML5Backend}>
                 <EditingProvider>
                     <FormProvider {...methods}>
@@ -330,7 +331,7 @@ const ConfigurationForm: RouteComponent = () => {
                 </EditingProvider>
 
             </DndProvider>
-        </InformationTemplate>
+        </PageTemplate>
     );
 }
 
