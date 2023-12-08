@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {IValueConverting} from "../types/ValueConverting";
 import getSelectables from "../../configuration/util/SelectablesUtils";
 import {ISelectable} from "../../configuration/types/Selectable";
-import {BodyShort, Box, Heading, HStack, Label, Tooltip, VStack} from "@navikt/ds-react";
+import {Box, Heading, Table} from "@navikt/ds-react";
 import {useTranslation} from "react-i18next";
 
 type Props = {
@@ -30,20 +30,25 @@ export const ValueConvertingPanel: React.FunctionComponent<Props> = (props: Prop
     return (
         <Box id={"value-converting-panel"} padding="3" background={"surface-subtle"} borderRadius="large">
             <Heading id={"value-converting-panel-heading"} size={"xsmall"} spacing>{t('convertingMap')}</Heading>
-            <HStack gap="32" wrap={false}>
-                <VStack id={"from-values"}>
-                    <Label>{t('from')}</Label>
-                    {Object.keys(props.existingValueConverting?.convertingMap ?? {}).map((key) => (
-                        <BodyShort key={key}>{key}</BodyShort>))}
-                </VStack>
-                <VStack id={"to-values"}>
-                    <Label>{t('to')}</Label>
-                    {Object.values(props.existingValueConverting?.convertingMap ?? {}).map((value) => (
-                        <Tooltip key={value} content={value} placement="right">
-                            <BodyShort>{findDisplayName(value)}</BodyShort>
-                        </Tooltip>))}
-                </VStack>
-            </HStack>
+            <Table size="small">
+                <Table.Header>
+                    <Table.Row>
+                        <Table.HeaderCell scope="col">{t('from')}</Table.HeaderCell>
+                        <Table.HeaderCell scope="col">{t('to')}</Table.HeaderCell>
+                    </Table.Row>
+                </Table.Header>
+                <Table.Body>
+                    {Object.entries(props.existingValueConverting?.convertingMap ?? {}).map(([key, value], i) => {
+                            return (
+                                <Table.Row key={i}>
+                                    <Table.DataCell>{key}</Table.DataCell>
+                                    <Table.DataCell>{findDisplayName(value)}</Table.DataCell>
+                                </Table.Row>
+                            )
+                        }
+                    )}
+                </Table.Body>
+            </Table>
         </Box>
     );
 }
