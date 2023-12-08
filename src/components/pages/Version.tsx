@@ -1,8 +1,8 @@
 import React from 'react';
-import {RouteComponent} from "../../features/main/Route";
 import {BodyLong, Box, List, VStack} from "@navikt/ds-react";
 import PageTemplate from "../templates/PageTemplate";
 import {ABOUT_VERSIONS, VERSION_DATA} from "../utils/version/VersionTexts";
+import {RouteComponent} from "../../routes/Route";
 
 const Version: RouteComponent = () => {
     return (

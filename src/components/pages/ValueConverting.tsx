@@ -2,8 +2,8 @@ import React, {useState} from 'react';
 import ValueConvertingTable from "../../features/valueConverting/components/ValueConvertingTable";
 import ValueConvertingForm from "../../features/valueConverting/components/ValueConvertingForm";
 import ValueConvertingRepository from "../../api/ValueConvertingRepository";
-import {RouteComponent} from "../../features/main/Route";
 import PageTemplate from "../templates/PageTemplate";
+import {RouteComponent} from "../../routes/Route";
 
 const ValueConverting: RouteComponent = () => {
     const [existingValueConverting, setExistingValueConverting] = useState(undefined);

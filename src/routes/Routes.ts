@@ -1,13 +1,13 @@
 import IRoute from "./Route";
 import Dashboard from "../features/dashboard/Dashboard";
 import IntegrationOverview from "../features/integrationOverview/IntegrationOverview";
-import InstanceOverview from "../features/instanceOverview/InstanceOverview";
-import Support from "../features/support/Support";
 import IntegrationForm from "../features/integration/IntegrationForm";
 import ConfigurationForm from "../features/configuration/ConfigurationForm";
-import ValueConverting from "../features/valueConverting/ValueConverting";
 import UserGuide from "../features/support/components/UserGuide";
 import Version from "../components/pages/Version";
+import ValueConverting from "../components/pages/ValueConverting";
+import Support from "../components/pages/Support";
+import Instances from "../components/pages/Instances";
 const routes: IRoute[] = [
 	{
 		path: "/",
@@ -57,16 +57,15 @@ const routes: IRoute[] = [
 	},
 	{
 		path: "/integration/instance/list",
-		name: "instanceOverview",
-		component: InstanceOverview,
+		name: "instances",
+		component: Instances,
 		exact: true,
-
 		inNavigationMenu: true,
 	},
 	{
 		path: "/instance/",
 		name: "instancePanel",
-		component: InstanceOverview,
+		component: Instances,
 		exact: true,
 	},
 	{

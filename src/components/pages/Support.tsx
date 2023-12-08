@@ -1,7 +1,6 @@
 import React from "react";
 import { RouteComponent } from "../../routes/Route";
 import { Link as RouterLink } from "react-router-dom";
-import { FAQ, FLYT_DESCRIPTION } from "./util/supportTexts";
 import {
     BodyLong,
     Box,
@@ -13,10 +12,11 @@ import {
 } from "@navikt/ds-react";
 import PageTemplate from "../templates/PageTemplate";
 import {Contact} from "../atoms/Contact";
+import {FAQ, FLYT_DESCRIPTION} from "../../features/support/util/supportTexts";
 
 const Support: RouteComponent = () => {
     return (
-        <InformationTemplate id={"support"} keyPrefix={"pages.support"}>
+        <PageTemplate id={"support"} keyPrefix={"pages.support"}>
             <Box
                 id={"support-information"}
                 background={"surface-default"}
@@ -59,7 +59,7 @@ const Support: RouteComponent = () => {
                 </ExpansionCard>
             </Box>
             <Contact />
-        </InformationTemplate>
+        </PageTemplate>
     );
 };
 

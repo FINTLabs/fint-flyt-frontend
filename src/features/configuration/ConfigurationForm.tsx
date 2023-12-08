@@ -22,7 +22,6 @@ import {IIntegrationMetadata} from "./types/Metadata/IntegrationMetadata";
 import {useTranslation} from "react-i18next";
 import {ConfigurationFormStyles} from "../../util/styles/ConfigurationFormStyles";
 import CheckboxValueComponent from "./components/common/CheckboxValueComponent";
-import IntegrationRepository from "../../shared/repositories/IntegrationRepository";
 import {IConfiguration, IConfigurationPatch, IObjectMapping} from "./types/Configuration";
 import {IIntegrationPatch, IntegrationState} from "../integration/types/Integration";
 import {ConfigurationContext} from "../../context/ConfigurationContext";
@@ -36,6 +35,8 @@ import { RouteComponent } from "../../routes/Route";
 import {isEmpty} from "lodash";
 import PageTemplate from "../../components/templates/PageTemplate";
 import {Alert} from "@navikt/ds-react"
+import {AxiosResponse} from "axios";
+import IntegrationRepository from "../../api/IntegrationRepository";
 
 const useStyles = ConfigurationFormStyles
 
@@ -191,12 +192,12 @@ const ConfigurationForm: RouteComponent = () => {
             destination: existingIntegration?.destination
         }
         IntegrationRepository.updateIntegration(integrationId, patch)
-            .then(response => {
+            .then((response: AxiosResponse) => {
                 setAlertContent(activeAlert)
                 setShowAlert(true);
                 setCompleted(true)
                 console.log('set active configuration: ', response.data.activeConfigurationId)
-            }).catch((e) => {
+            }).catch((e: Error) => {
             console.log('could not set active configuration', e)
         })
     }

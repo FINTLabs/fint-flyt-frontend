@@ -1,5 +1,4 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {RouteComponent} from "../../features/main/Route";
 import {Box, Button, Heading, HelpText, HStack, Loader, Modal} from "@navikt/ds-react";
 import {useTranslation} from "react-i18next";
 import {ArrowCirclepathIcon} from '@navikt/aksel-icons';
@@ -10,7 +9,7 @@ import {HistoryContext} from "../../context/HistoryContext";
 import {IEvent} from "../../features/instances/types/Event";
 import PageTemplate from "../templates/PageTemplate";
 import InstanceTable from "../../features/instances/components/InstanceTable";
-
+import {RouteComponent} from "../../routes/Route";
 
 const Instances: RouteComponent = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.instances'})

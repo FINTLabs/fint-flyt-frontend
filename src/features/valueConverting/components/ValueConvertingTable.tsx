@@ -79,6 +79,7 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
                             <Table.Header>
                                 <Table.Row>
                                     <Table.HeaderCell scope="col">{t('column.show')}</Table.HeaderCell>
+                                    <Table.HeaderCell scope="col">{t('column.id')}</Table.HeaderCell>
                                     <Table.HeaderCell scope="col">{t('column.displayName')}</Table.HeaderCell>
                                     <Table.HeaderCell scope="col">{t('column.fromType')}</Table.HeaderCell>
                                     <Table.HeaderCell scope="col">{t('column.toType')}</Table.HeaderCell>
@@ -92,6 +93,7 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
                                     return (
                                         <Table.ExpandableRow id={"table-row-" + i} key={i}
                                                              content={<ValueConvertingPanel existingValueConverting={value}/>}>
+                                            <Table.DataCell scope="row">{value.id}</Table.DataCell>
                                             <Table.DataCell scope="row">{value.displayName}</Table.DataCell>
                                             <Table.DataCell scope="row">{value.fromTypeId}</Table.DataCell>
                                             <Table.DataCell scope="row">{value.toTypeId}</Table.DataCell>
