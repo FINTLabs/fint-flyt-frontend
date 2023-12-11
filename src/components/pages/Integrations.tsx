@@ -25,18 +25,18 @@ const Integrations: RouteComponent = () => {
     }, []);
 
     useEffect(() => {
-        integrations && getAllConfigurations(0, 10000, "version", "DESC", true)
+        integrations && getAllConfigurations()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [integrations]);
 
-    const getAllConfigurations = async (page: number, size: number, sortProperty: string, sortDirection: string, excludeElements?: boolean) => {
+    const getAllConfigurations = async () => {
         if (integrations) {
             try {
                 const configs = []
                 const completedConfigs = []
                 for (const integration of integrations ?? []) {
-                    const configResponse = await ConfigurationRepository.getConfigurations(page, size, sortProperty, sortDirection, false, integration.id ?? '', excludeElements)
-                    const completedConfigResponse = await ConfigurationRepository.getConfigurations(page, size, sortProperty, sortDirection, true, integration.id ?? '', excludeElements)
+                    const configResponse = await ConfigurationRepository.getConfigurations(0, 10000, "id", "DESC",false, integration.id ?? '', true)
+                    const completedConfigResponse = await ConfigurationRepository.getConfigurations(0, 10000, "version", "DESC", true, integration.id ?? '', true)
                     configs.push(configResponse.data.content)
                     completedConfigs.push(completedConfigResponse.data.content)
                 }
