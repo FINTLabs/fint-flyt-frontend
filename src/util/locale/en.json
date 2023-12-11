@@ -107,11 +107,12 @@
       "table": {
         "completed": "Completed",
         "drafts": "Drafts",
-        "columns": {
-          "configurationId": "Configuration Id",
+        "column": {
+          "id": "Id",
+          "configurationId": "Configuration ID",
           "destination": "Destination",
-          "sourceApplicationIntegrationId": "Source application Integration Id",
-          "sourceApplicationIntegrationIdDescription": "Source application Integration Id",
+          "sourceApplicationIntegrationId": "Source application integration ID",
+          "sourceApplicationIntegrationIdDescription": "Source application Integration ID",
           "sourceApplicationIntegrationIdDisplayName": "Displayname",
           "sourceApplicationId": "Source application",
           "name": "Name",

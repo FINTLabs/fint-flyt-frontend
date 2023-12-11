@@ -74,7 +74,8 @@
       "button": {
         "confirm": "Opprett",
         "cancel": "Avbryt"
-      },"labels": {
+      },
+      "labels": {
         "sourceApplicationId": "Kjeldeapplikasjon",
         "sourceApplicationIntegrationId": "Integrasjon",
         "destination": "Destinasjon/Base"
@@ -106,10 +107,11 @@
       "table": {
         "completed": "Ferdigstilt",
         "drafts": "Utkast",
-        "columns": {
+        "column": {
+          "id": "Id",
           "configurationId": "KonfigurasjonsId",
           "destination": "Destinasjon/base",
-          "sourceApplicationIntegrationId": "Kildeapp. integr.ID",
+          "sourceApplicationIntegrationId": "Kildeapp. integr.Id",
           "sourceApplicationIntegrationIdDescription": "Kjeldeapplikasjons integrasjons-ID",
           "sourceApplicationIntegrationIdDisplayName": "Integrasjonsnavn",
           "sourceApplicationId": "Kjeldeapplikasjon",
@@ -148,12 +150,12 @@
       },
       "table": {
         "column": {
-          "sourceApplicationIntegrationId": "Kjeldeapplikasjon integrasjon ID",
+          "sourceApplicationIntegrationId": "Kjeldeapplikasjon integrasjon-id",
           "sourceApplicationIntegrationIdDisplayName": "Integrasjonsnavn",
           "sourceApplicationId": "Kjeldeapplikasjon",
           "status": "Status",
           "actions": "Handlingar",
-          "sourceApplicationInstanceId": "Kjeldeapplikasjons instans-ID",
+          "sourceApplicationInstanceId": "Kjeldeapplikasjons instans ID",
           "configurationId": "Konfigurasjon ID",
           "correlationId": "Korrelasjon ID",
           "archiveInstanceId": "Destinasjon ID",

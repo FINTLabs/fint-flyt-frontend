@@ -108,7 +108,7 @@
         "completed": "Ferdigstilt",
         "drafts": "Utkast",
         "column": {
-          "id": "ID",
+          "id": "Id",
           "configurationId": "KonfigurasjonsId",
           "destination": "Destinasjon/base",
           "sourceApplicationIntegrationId": "Kildeapp. integr.ID",
