@@ -89,24 +89,16 @@
       "header": "Integrasjoner",
       "version": "Versjon ",
       "noActiveConfig": "ingen aktiv konfigurasjon",
+      "activeConfigurationId": "Aktiv konfigurasjon: ",
       "missingDataError": "Mangler tilstrekkelig data for å kunne opprette ny konfigurasjon",
       "help": {
         "header": "Oversikt over integrasjoner. Her kan du se alle integrasjonene og tilhørende konfigurasjoner, lage nye konfigurasjoner for en integrasjon eller aktivere en konfigurasjon"
       },
       "button": {
-        "show": "Vis",
-        "edit": "Rediger",
-        "back": "Tilbake",
-        "version": "Versjon ",
-        "changeVersion": "Bruk denne konfigurasjonen",
-        "newConfiguration": "Ny konfigurasjon",
-        "blankConfiguration": "Blank konfigurasjon",
-        "templateConfiguration": "Basert på eksisterende versjon"
+        "newConfiguration": "Ny konfigurasjon"
       },
       "dialog": {
-        "header": "Aktiver konfigurasjon?",
         "body": "Er du sikker på at du vil aktivere denne konfigurasjonen?",
-        "confirmMsg": "Bekreft aktivering av konfigurasjon",
         "yes": "Ja, jeg er sikker",
         "cancel": "Avbryt"
       },
@@ -134,15 +126,6 @@
           "dispatched": "# godtatt",
           "errors": "# feilet"
         }
-      },
-      "labels": {
-        "comment": "Kommentar: ",
-        "activeConfigurationId": "Aktiv konfigurasjon: ",
-        "destination": "Destinasjon: ",
-        "sourceApplicationId": "Kildeapplikasjon: ",
-        "sourceApplicationIntegrationId": "Integrasjon: ",
-        "finished": "Ferdigstilt: ",
-        "version": "Versjon: "
       }
     },
     "instances": {

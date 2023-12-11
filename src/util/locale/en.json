@@ -89,24 +89,16 @@
       "header": "Integrations",
       "version": "Version ",
       "noActiveConfig": "no active configuration",
+      "activeConfigurationId": "Active configuration Id: ",
       "missingDataError": "There is insufficient data to create a new configuration",
       "help": {
         "header": "List of integrations. Here you can see all the integrations and associated configurations, create new configurations for an integration or activate a configuration"
       },
       "button": {
-        "show": "View",
-        "edit": "Edit",
-        "back": "Back",
-        "version": "Versjon ",
-        "changeVersion": "Use this configuration",
-        "newConfiguration": "New configuration",
-        "blankConfiguration": "Blank configuration",
-        "templateConfiguration": "Based on existing version"
+        "newConfiguration": "New configuration"
       },
       "dialog": {
-        "header": "Activate configuration?",
         "body": "Are you sure you want to activate this configuration?",
-        "confirmMsg": "Confirm activation of this configuration",
         "yes": "Yes",
         "cancel": "Cancel"
       },
@@ -134,15 +126,6 @@
           "dispatched": "# dispatched",
           "errors": "# failed"
         }
-      },
-      "labels": {
-        "comment": "Comment: ",
-        "activeConfigurationId": "Active configuration Id: ",
-        "destination": "Destination: ",
-        "sourceApplicationId": "Source application Id: ",
-        "sourceApplicationIntegrationId": "Integration: ",
-        "finished": "Completed: ",
-        "version": "Version: "
       }
     },
     "instances": {

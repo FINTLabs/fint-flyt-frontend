@@ -219,7 +219,7 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
                 </Modal.Footer>
             </Modal>
             <VStack gap="4">
-                <Label>{t('labels.activeConfigurationId')} {activeVersion}</Label>
+                <Label>{t('activeConfigurationId')} {activeVersion}</Label>
                 <HGrid gap="6" columns={2}>
                     <Box padding="4" background={"surface-subtle"} borderRadius="xlarge"
                          style={{maxHeight: '440px', overflow: "auto"}}>
