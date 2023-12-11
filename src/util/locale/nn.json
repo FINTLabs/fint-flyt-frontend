@@ -8,7 +8,7 @@
   "menuItems": {
     "dashboard": "Dashbord",
     "integration": "Ny",
-    "integrationOverview": "Integrasjonar",
+    "integrations": "Integrasjonar",
     "instances": "Instansar",
     "version": "Versjon",
     "support": "Hjelp og support",
@@ -27,7 +27,7 @@
       "oneError": "feilmelding",
       "errors": "feilmeldinger",
       "links": {
-        "integrationOverview": "Sjå integrasjonar",
+        "integrations": "Sjå integrasjonar",
         "integration": "Ny integrasjon",
         "log": "Sjå logg",
         "instances": "Sjå instansoversikt",
@@ -84,7 +84,7 @@
         "version": "Versjon"
       }
     },
-    "integrationOverview": {
+    "integrations": {
       "header": "Integrasjonsoversikt",
       "version": "Versjon ",
       "button": {
