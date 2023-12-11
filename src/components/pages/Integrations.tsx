@@ -57,7 +57,7 @@ const Integrations: RouteComponent = () => {
     }
 
     return (
-        <PageTemplate id={'integration'} keyPrefix={'pages.integrations'} wide customHeading>
+        <PageTemplate id={'integration'} keyPrefix={'pages.integrations'} customHeading>
             <HStack id={'instances-custom-header'} align={"center"} gap={"2"}>
                 <Heading size={"medium"}>{t('header')}</Heading>
                 <HelpText title={"Hva er dette"} placement="bottom">
