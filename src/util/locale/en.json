@@ -43,6 +43,9 @@
       "saved": "configuration saved",
       "saveError": "Failed saving, error message: ",
       "genericError": "An error has occured",
+      "version": "Version ",
+      "comment": "Comment",
+      "reqFieldMsg": "Comment is required on completing configuration",
       "label": {
         "checkLabel": "Completed",
         "activeLabel": "Active"

@@ -43,6 +43,9 @@
       "saved": "Konfigurasjon lagret",
       "saveError": "Feilet under lagring, feilmelding: ",
       "genericError": "Det har oppstått en feil",
+      "version": "Versjon ",
+      "comment": "Kommentar",
+      "reqFieldMsg": "Kommentar er påkrevd ved ferdigstilling",
       "label": {
         "checkLabel": "Ferdigstilt",
         "activeLabel": "Aktiv"

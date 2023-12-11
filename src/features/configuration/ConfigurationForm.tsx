@@ -150,7 +150,7 @@ const ConfigurationForm: RouteComponent = () => {
                     if (error.response?.status) {
                         setAlertContent({
                             severity: 'error',
-                            message: 'Feilet under lagring, feilmelding: ' + (error.response.data.message ? error.response.data.message : 'Det har oppstått en feil') + ', status: ' + error.response.status
+                            message: t('saveError') + (error.response.data.message ? error.response.data.message : t('genericError')) + ', status: ' + error.response.status
                         })
                         setShowAlert(true);
                     }
@@ -177,7 +177,7 @@ const ConfigurationForm: RouteComponent = () => {
                 if (error.response?.status) {
                     setAlertContent({
                         severity: 'error',
-                        message: 'Feilet under lagring, feilmelding: ' + (error.response.data.message ? error.response.data.message : 'Det har oppstått en feil') + ', status: ' + error.response.status
+                        message: t('saveError') + (error.response.data.message ? error.response.data.message : t('genericError')) + ', status: ' + error.response.status
                     })
                     setShowAlert(true);
                 }
@@ -238,7 +238,7 @@ const ConfigurationForm: RouteComponent = () => {
                                                 {availableVersions.map((md, index) => {
                                                     return <MenuItem
                                                         key={index}
-                                                        value={md.version}>Versjon {md.version}
+                                                        value={md.version}>{t('version')}{md.version}
                                                     </MenuItem>
                                                 })}
                                             </TextField>
@@ -255,14 +255,14 @@ const ConfigurationForm: RouteComponent = () => {
                                     rules={{
                                         required: {
                                             value: !!methods.watch("completed"),
-                                            message: 'Kommentar er påkrevd ved ferdigstilling'
+                                            message: t('reqFieldMsg')
                                         }
                                     }}
                                     render={({field, fieldState}) =>
                                         <StringValueComponent
                                             {...field}
                                             classes={classes}
-                                            displayName={"Kommentar"}
+                                            displayName={t('comment')}
                                             multiline
                                             fieldState={fieldState}
                                         />
