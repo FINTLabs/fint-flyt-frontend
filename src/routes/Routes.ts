@@ -7,7 +7,7 @@ import Version from "../components/pages/Version";
 import ValueConverting from "../components/pages/ValueConverting";
 import Support from "../components/pages/Support";
 import Instances from "../components/pages/Instances";
-import Integrations from "../features/integrations/Integrations";
+import Integrations from "../components/pages/Integrations";
 
 const routes: IRoute[] = [
     {

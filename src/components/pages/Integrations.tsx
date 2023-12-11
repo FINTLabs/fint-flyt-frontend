@@ -1,12 +1,12 @@
 import React, {useContext, useEffect, useState} from "react";
-import IntegrationTable from "./components/IntegrationTable";
+import IntegrationTable from "../../features/integrations/components/IntegrationTable";
 import {IntegrationContext} from "../../context/IntegrationContext";
-import PageTemplate from "../../components/templates/PageTemplate";
+import PageTemplate from "../templates/PageTemplate";
 import {SourceApplicationContext} from "../../context/SourceApplicationContext";
 import {RouteComponent} from "../../routes/Route";
 import {Box, Heading, HelpText, HStack, Loader} from "@navikt/ds-react";
 import ConfigurationRepository from "../../api/ConfigurationRepository";
-import {IConfiguration} from "../configuration/types/Configuration";
+import {IConfiguration} from "../../features/configuration/types/Configuration";
 import {useTranslation} from "react-i18next";
 
 
