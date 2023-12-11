@@ -3,8 +3,9 @@
     "language": "Language",
     "norwegian": "Norwegian bokmål",
     "norwegianNN": "Norwegian nynorsk",
-    "english": "English"
-  },  "menuItems": {
+    "english": "English (coming soon)"
+  },
+  "menuItems": {
   "dashboard": "Dashbord",
   "integration": "Ny",
   "integrationOverview": "Integrasjoner",
@@ -39,6 +40,9 @@
       "metadataVersion": "Metadata version",
       "metadataWarning": "There exists a newer version of metadata",
       "formHeader": "Outgoing data",
+      "saved": "configuration saved",
+      "saveError": "Failed saving, error message: ",
+      "genericError": "An error has occured",
       "label": {
         "checkLabel": "Completed",
         "activeLabel": "Active"
@@ -129,6 +133,8 @@
     "instances": {
       "header": "Instances",
       "showError": "show error message",
+      "errors": "Errors",
+      "oneError": "Error",
       "button": {
         "close": "Close",
         "retry": "Try again",
@@ -208,6 +214,9 @@
       "convertingMap": "conversion(s)",
       "to": "To",
       "from": "From",
+      "saved": "Value conversion saved",
+      "saveError": "Failed saving, error message: ",
+      "genericError": "An error has occured",
       "column": {
         "show": "Show",
         "id": "Id",

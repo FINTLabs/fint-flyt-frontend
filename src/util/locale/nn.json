@@ -3,7 +3,7 @@
     "language": "Språk",
     "norwegian": "Bokmål",
     "norwegianNN": "Nynorsk",
-    "english": "Engelsk"
+    "english": "Engelsk (kjem snart)"
   },
   "menuItems": {
     "dashboard": "Dashbord",
@@ -40,6 +40,9 @@
       "metadataVersion": "Metadataversjon",
       "metadataWarning": "Det finst nyare versjon av metadata",
       "formHeader": "Utgåande data",
+      "saved": "Konfigurasjon lagra",
+      "saveError": "Feila under lagring, feilmelding: ",
+      "genericError": "Det har oppstått ein feil",
       "label": {
         "checkLabel": "Ferdigstilt",
         "activeLabel": "Aktiv"
@@ -123,7 +126,6 @@
         "destination": "Destinasjon: ",
         "sourceApplicationId": "Kjeldeapplikasjon: ",
         "sourceApplicationIntegrationId": "Integrasjon: ",
-        "caseCreationStrategy": "Avleveringslogikk: ",
         "finished": "Ferdigstilt: ",
         "version": "Versjon: "
       }
@@ -131,6 +133,8 @@
     "instances": {
       "header": "Instansar",
       "showError": "vis feilmelding",
+      "errors": "Feilmeldingar",
+      "oneError": "Feilelding",
       "button": {
         "close": "Lukk",
         "retry": "Prøv igjen",
@@ -210,6 +214,9 @@
       "convertingMap": "Konvertering(ar)",
       "to": "Til",
       "from": "Frå",
+      "saved": "Verdikonvertering lagra",
+      "saveError": "Feila under lagring, feilmelding: ",
+      "genericError": "Det har oppstått ein feil",
       "column": {
         "show": "Vis",
         "id": "ID",

@@ -28,7 +28,7 @@ const Instances: RouteComponent = () => {
     function ErrorAlertDialog(props: GridCellParams['row']) {
         return (
             <Modal open={openDialog} header={{
-                heading: props.row?.errors?.length > 1 ? "Feilmeldinger:" : "Feilmelding:",
+                heading: props.row?.errors?.length > 1 ? t('errors') : "oneError:",
                 closeButton: false
             }} closeOnBackdropClick>
                 <Modal.Body>

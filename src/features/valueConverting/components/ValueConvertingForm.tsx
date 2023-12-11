@@ -124,20 +124,19 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (
 				setShow(true);
 				setAlertContent({
 					severity: "success",
-					message: "verdikonvertering lagret",
+					message: t('saved'),
 				});
 			})
 			.catch(function (error) {
 				if (error.response?.status) {
 					setAlertContent({
 						severity: "error",
-						message:
-							"Feilet under lagring, feilmelding: " +
+						message: t('saveError') +
 							(error.response.data.message
 								? error.response.data.message
-								: "Det har oppstått en feil") +
+								: t('genericError')) +
 							", status: " +
-							error.response.status,
+							error.response.status
 					});
 					setShow(true);
 				}
