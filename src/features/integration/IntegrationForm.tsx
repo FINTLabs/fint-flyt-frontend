@@ -26,7 +26,7 @@ type Props = {
 export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>> = () => {
     const classes = useStyles();
     const history = useHistory();
-    const {t} = useTranslation('translations', {keyPrefix: 'components.integrationForm'});
+    const {t} = useTranslation('translations', {keyPrefix: 'pages.integrationForm'});
     const {setSelectedMetadata, setExistingIntegration, resetIntegrationContext} = useContext(IntegrationContext)
     const {
         getAvailableForms, sourceApplication, setSourceApplication, availableForms, allMetadata, getAllMetadata,
@@ -90,7 +90,7 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
     }
 
     return (
-        <PageTemplate id={'new'} keyPrefix={'components.integrationForm'}>
+        <PageTemplate id={'new'} keyPrefix={'pages.integrationForm'}>
             <FormGroup id="integration-form" className={classes.panelContainer}>
                 <Box>
                     <h2 className={classes.title2} id="integration-form-settings-header">{t('header')}</h2>
