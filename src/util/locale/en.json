@@ -1,7 +1,250 @@
 {
-  "language": {
-    "language": "Språk",
-    "norwegian": "Norsk",
-    "english": "English"
+  "menu": {
+    "language": "Language",
+    "norwegian": "Norwegian bokmål",
+    "norwegianNN": "Norwegian nynorsk",
+    "english": "English (coming soon)"
+  },
+  "menuItems": {
+  "dashboard": "Dashbord",
+  "integration": "Ny",
+  "integrationOverview": "Integrasjoner",
+  "instances": "Instanser",
+  "version": "Versjon",
+  "support": "Hjelp og support",
+  "valueConverting": "Verdikonvertering"
+},
+  "pages": {
+    "dashboard": {
+      "header": "Dashboard",
+      "integrations": "integrations",
+      "oneIntegration": "integration",
+      "activeIntegrations": "active integrations",
+      "oneActiveIntegration": "active integration",
+      "instances": "instances dispatched",
+      "oneInstance": "instance dispatched",
+      "empty": "No",
+      "oneError": "error",
+      "errors": "errors",
+      "links": {
+        "integrationOverview": "View integrations",
+        "integration": "New integration",
+        "log": "View log",
+        "instances": "View instances",
+        "support": "contact support"
+      }
+    },
+    "configuration": {
+      "header": "Configuration",
+      "integration": "Integration",
+      "metadataVersion": "Metadata version",
+      "metadataWarning": "There exists a newer version of metadata",
+      "formHeader": "Outgoing data",
+      "saved": "configuration saved",
+      "saveError": "Failed saving, error message: ",
+      "genericError": "An error has occured",
+      "version": "Version ",
+      "comment": "Comment",
+      "reqFieldMsg": "Comment is required on completing configuration",
+      "label": {
+        "checkLabel": "Completed",
+        "activeLabel": "Active"
+      },
+      "button": {
+        "submit": "Save",
+        "cancel": "Cancel",
+        "complete": "Complete",
+        "append": "+",
+        "remove": "-"
+      },
+      "collectionMapping": {
+        "defaultElements": "Default elements",
+        "generatedElements": "From collection"
+      },
+      "fromCollectionMapping": {
+        "collections": "Collections",
+        "convertCollectionElements": "Converting collection elements"
+      }
+    },
+    "integrationForm": {
+      "header": "New integration",
+      "incoming": "Incoming",
+      "outgoing": "Outgoing",
+      "error": "you must select source application, integration and destination",
+      "button": {
+        "confirm": "Create",
+        "cancel": "Cancel"
+      },
+      "labels": {
+        "sourceApplicationId": "Source application",
+        "sourceApplicationIntegrationId": "Integration",
+        "destination": "Destination"
+      },
+      "metadataPanel": {
+        "header": "Metadata",
+        "version": "Versjon"
+      }
+    },
+    "integrationOverview": {
+      "header": "Integrations",
+      "version": "Version ",
+      "button": {
+        "show": "View",
+        "edit": "Edit",
+        "back": "Back",
+        "version": "Versjon ",
+        "changeVersion": "Use this configuration",
+        "newConfiguration": "New configuration",
+        "blankConfiguration": "Blank configuration",
+        "templateConfiguration": "Based on existing version"
+      },
+      "dialog": {
+        "header": "Activate configuration?",
+        "confirmMsg": "Confirm activation of this configuration",
+        "yes": "Yes",
+        "cancel": "Cancel"
+      },
+      "table": {
+        "completed": "Completed",
+        "drafts": "Drafts",
+        "columns": {
+          "configurationId": "Configuration Id",
+          "destination": "Destination",
+          "sourceApplicationIntegrationId": "Source application Integration Id",
+          "sourceApplicationIntegrationIdDescription": "Source application Integration Id",
+          "sourceApplicationIntegrationIdDisplayName": "Displayname",
+          "sourceApplicationId": "Source application",
+          "name": "Name",
+          "state": "State",
+          "comment": "Comment",
+          "finished": "Completed",
+          "version": "Version",
+          "dispatched": "Dispatched",
+          "dispatchedDescription": "Number of instances dispatched",
+          "errors": "Failed",
+          "errorsDescription": "Number of instances failed",
+          "show": "Show",
+          "edit": "Edit"
+        }
+      },
+      "labels": {
+        "comment": "Comment: ",
+        "activeConfigurationId": "Active configuration Id: ",
+        "destination": "Destination: ",
+        "sourceApplicationId": "Source application Id: ",
+        "sourceApplicationIntegrationId": "Integration: ",
+        "finished": "Completed: ",
+        "version": "Version: "
+      }
+    },
+    "instances": {
+      "header": "Instances",
+      "showError": "show error message",
+      "errors": "Errors",
+      "oneError": "Error",
+      "button": {
+        "close": "Close",
+        "retry": "Try again",
+        "refresh": "Refresh page"
+      },
+      "table": {
+        "column": {
+          "sourceApplicationIntegrationId": "Source application integration Id",
+          "sourceApplicationIntegrationIdDisplayName": "Display name",
+          "sourceApplicationId": "Source application",
+          "status": "Status",
+          "actions": "Actions",
+          "sourceApplicationInstanceId": "Source application instance ID",
+          "configurationId": "Configuration Id",
+          "correlationId": "Correlation Id",
+          "archiveInstanceId": "Destination Id",
+          "timestamp": "Timestamp"
+        }
+      },
+      "help": {
+        "header": "Overview of instances that have been received in Flyt, where each submission of data for one integration is an instance. The content of the instance is transformed and forwarded to the destination set in the integration"
+      },
+      "FINT_FLYT_INSTANCE_GATEWAY_INSTANCE_VALIDATION_ERROR": "Validation error when receiving instance, '#fieldPath# #errorMessage#'",
+      "FINT_FLYT_INSTANCE_GATEWAY_INTEGRATION_DEACTIVATED_ERROR": "The integration is deactivated",
+      "FINT_FLYT_INSTANCE_GATEWAY_INSTANCE_REJECTED_ERROR": "Instance rejected with the following error message, '#message#'",
+      "FINT_FLYT_INSTANCE_GATEWAY_NO_INTEGRATION_FOUND_ERROR": "No integration found",
+      "FINT_FLYT_INSTANCE_GATEWAY_GENERAL_SYSTEM_ERROR": "System error. Contact FINT",
+      "FINT_FLYT_INSTANCE_SERVICE_GENERAL_SYSTEM_ERROR": "System error. Contact FINT",
+      "FINT_FLYT_MAPPING_SERVICE_GENERAL_SYSTEM_ERROR": "System error. Contact FINT",
+      "FINT_FLYT_MAPPING_SERVICE_CONFIGURATION_NOT_FOUND": "No active configuration found for the integration",
+      "FINT_FLYT_MAPPING_SERVICE_INSTANCE_FIELD_NOT_FOUND": "The instance is missing field with key='#instanceFieldKey#', which is required by the configuration",
+      "FINT_FLYT_DISPATCH_SERVICE_GENERAL_SYSTEM_ERROR": "System error. Contact FINT",
+      "FINT_FLYT_DISPATCH_GATEWAY_GENERAL_SYSTEM_ERROR": "System error with the following error message: '#errorMessage#' - Contact FINT",
+      "FINT_FLYT_DISPATCH_GATEWAY_INSTANCE_DISPATCH_DECLINED_ERROR": "Instance rejected by destination with the following error message: '#errorMessage#'",
+      "FINT_FLYT_DISPATCH_SERVICE_INSTANCE_DISPATCH_DECLINED_ERROR": "Instance rejected by destination with the following error message: '#errorMessage#'",
+      "FINT_FLYT_INSTANCE_GATEWAY_FILE_UPLOAD_ERROR": "Error uploading file, filename: '#name#' with media type: '#mediatype#'",
+      "FINT_FLYT_MAPPING_SERVICE_VALUE_CONVERTING_KEY_NOT_FOUND": "Error during value conversion, cannot find key: '#valueConvertingKey#', in value conversion with ID: #valueConvertingId#",
+      "FINT_FLYT_MAPPING_SERVICE_VALUE_CONVERTER_NOT_FOUND": "Error during value conversion, value conversion not found",
+      "REQUESTED": "Requested",
+      "SENT": "Sent",
+      "FAILED": "Failed",
+      "ACCEPTED": "Accepted",
+      "DECLINED": "Declined",
+      "instance-received": "Instance received",
+      "instance-registered": "Instance registered",
+      "instance-requested-for-retry": "Instance requested for retry",
+      "instance-mapped": "Instance converted",
+      "instance-ready-for-dispatch": "Instance ready for dispatch",
+      "instance-dispatched": "Instance dispatched",
+      "instance-receival-error": "Error while receiving instance",
+      "instance-registration-error": "Error while registering instance",
+      "instance-retry-request-error": "Error during retry request",
+      "instance-mapping-error": "Error converting instance",
+      "instance-dispatching-error": "Error while sending to destination",
+      "instance-file-upload-error": "Error while uploading file"
+    },
+    "support": {
+      "header": "Hjelp og support"
+    },
+    "valueConverting": {
+      "button": {
+        "newConverting": "New",
+        "basedOn": "Create new based on this",
+        "create": "Create",
+        "cancel": "Cancel",
+        "back": "Back"
+      },
+      "header": "Value conversion",
+      "panelHeader": "Value conversions",
+      "newHeader": "New value conversion",
+      "fromApplicationId": "Application",
+      "displayName": "Name",
+      "valueConvertingName": "Value conversion name",
+      "fromTypeId": "Type",
+      "toApplicationId": "Application",
+      "toTypeId": "Type",
+      "convertingMap": "conversion(s)",
+      "to": "To",
+      "from": "From",
+      "saved": "Value conversion saved",
+      "saveError": "Failed saving, error message: ",
+      "genericError": "An error has occured",
+      "column": {
+        "show": "Show",
+        "id": "Id",
+        "displayName": "Name",
+        "toType": "To type",
+        "fromType": "From type",
+        "toApplication": "To",
+        "fromApplication": "From",
+        "actions": "Actions"
+      },
+      "help": {
+        "valueConverting": "Value Conversion is a field that allows you to use a defined rule to convert each occurrence of a value. Value conversions are used in configurations in the same way as metadata and will apply to the field in question. It is not possible to edit an existing value conversion as this may affect existing configurations, but it is possible to create a new one based on an existing value conversion",
+        "valueConvertingName": "Name of the value conversion to be created. Note that name is not required to be unique, but it is a good idea to give a descriptive name",
+        "from": "Select the application where the value to be converted comes from, and what type of data it is to be converted from",
+        "to": "Select the application the values that need conversion are to and the type they are to be converted to",
+        "convertingMap": "Here you add conversions, press + to add more and - to remove",
+        "new": "Here you can create a new value conversion. If you want to create a new one based on an earlier version, you can find it under actions in the table"
+      }
+    },
+    "version": {
+      "header": "Version FLYT"
+    }
   }
 }

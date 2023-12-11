@@ -1,8 +1,9 @@
 {
-  "language": {
+  "menu": {
     "language": "Språk",
-    "norwegian": "Norsk",
-    "english": "English"
+    "norwegian": "Bokmål",
+    "norwegianNN": "Nynorsk",
+    "english": "Engelsk (kommer snart)"
   },
   "menuItems": {
     "dashboard": "Dashbord",
@@ -39,6 +40,12 @@
       "metadataVersion": "Metadataversjon",
       "metadataWarning": "Det fins nyere versjon av metadata",
       "formHeader": "Utgående data",
+      "saved": "Konfigurasjon lagret",
+      "saveError": "Feilet under lagring, feilmelding: ",
+      "genericError": "Det har oppstått en feil",
+      "version": "Versjon ",
+      "comment": "Kommentar",
+      "reqFieldMsg": "Kommentar er påkrevd ved ferdigstilling",
       "label": {
         "checkLabel": "Ferdigstilt",
         "activeLabel": "Aktiv"
@@ -59,14 +66,28 @@
         "convertCollectionElements": "Konvertering av samlingselementer"
       }
     },
+    "integrationForm": {
+      "header": "Ny integrasjon",
+      "incoming": "Innkommende",
+      "outgoing": "Utgående",
+      "error": "du må velge kildeapplikasjon, skjema og destinasjon",
+      "button": {
+        "confirm": "Opprett",
+        "cancel": "Avbryt"
+      },
+      "labels": {
+        "sourceApplicationId": "Kildeapplikasjon",
+        "sourceApplicationIntegrationId": "Integrasjon",
+        "destination": "Destinasjon/Base"
+      },
+      "metadataPanel": {
+        "header": "Metadata",
+        "version": "Versjon"
+      }
+    },
     "integrations": {
       "header": "Integrasjonsoversikt",
-      "details": "Konfigurasjonsdetaljer",
       "version": "Versjon ",
-      "case": "Sakspost",
-      "record": "Journalpost",
-      "document": "Dokument- og objektbeskrivelse",
-      "applicant": "Korrespondansepart",
       "button": {
         "show": "Vis",
         "edit": "Rediger",
@@ -113,7 +134,6 @@
         "destination": "Destinasjon: ",
         "sourceApplicationId": "Kildeapplikasjon: ",
         "sourceApplicationIntegrationId": "Integrasjon: ",
-        "caseCreationStrategy": "Avleveringslogikk: ",
         "finished": "Ferdigstilt: ",
         "version": "Versjon: "
       }
@@ -121,6 +141,8 @@
     "instances": {
       "header": "Instanser",
       "showError": "vis feilmelding",
+      "errors": "Feilmeldinger",
+      "oneError": "Feilmelding",
       "button": {
         "close": "Lukk",
         "retry": "Prøv igjen",
@@ -180,9 +202,6 @@
     "support": {
       "header": "Hjelp og support"
     },
-    "version": {
-      "header": "Versjonering av FLYT"
-    },
     "valueConverting": {
       "button": {
         "newConverting": "Ny",
@@ -203,6 +222,9 @@
       "convertingMap": "Konvertering(er)",
       "to": "Til",
       "from": "Fra",
+      "saved": "Verdikonvertering lagret",
+      "saveError": "Feila under lagring, feilmelding: ",
+      "genericError": "Det har oppstått en feil",
       "column": {
         "show": "Vis",
         "id": "ID",
@@ -221,29 +243,9 @@
         "convertingMap": "Her legger du til konverteringer, trykk + for å legge til flere og - for å fjerne",
         "new": "Her kan du opprette en ny verdikonvertering. Ønsker du å lage ny basert på en tidligere versjon finner du det under handlinger i tabellen"
       }
-    }
-  },
-  "components": {
-    "MetadataPanel": {
-      "header": "Metadata",
-      "version": "Versjon",
-      "openLink": "Åpne i skjemaadministrator"
     },
-    "integrationForm": {
-      "header": "Ny integrasjon",
-      "incoming": "Innkommende",
-      "outgoing": "Utgående",
-      "error": "du må velge kildeapplikasjon, skjema og destinasjon",
-      "labels": {
-        "sourceApplicationId": "Kildeapplikasjon",
-        "sourceApplicationIntegrationId": "Integrasjon",
-        "destination": "Destinasjon/Base"
-      },
-      "button": {
-        "confirm": "Opprett",
-        "cancel": "Avbryt"
-      }
+    "version": {
+      "header": "Versjonering av FLYT"
     }
   }
 }
-

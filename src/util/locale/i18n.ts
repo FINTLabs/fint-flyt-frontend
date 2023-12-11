@@ -1,7 +1,8 @@
 import i18n from "i18next";
 import {initReactI18next} from "react-i18next";
-import enUK from './en.json';
+import noNN from './nn.json';
 import noNB from './no.json';
+import enUK from './en.json';
 
 i18n
     .use(initReactI18next)
@@ -9,6 +10,9 @@ i18n
         resources: {
             no: {
                 translations: noNB
+            },
+            nn: {
+                translations: noNN
             },
             en: {
                 translations: enUK

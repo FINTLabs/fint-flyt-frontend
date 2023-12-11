@@ -35,7 +35,7 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (
 	props: Props
 ) => {
 	const { t } = useTranslation("translations", {
-		keyPrefix: "components.MetadataPanel",
+		keyPrefix: "pages.integrationForm.metadataPanel",
 	});
 	const { instanceElementMetadata, getAllMetadata } = useContext(
 		SourceApplicationContext

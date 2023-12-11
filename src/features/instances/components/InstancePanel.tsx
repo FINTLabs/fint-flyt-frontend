@@ -56,7 +56,7 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
                                             setSelectedRow(value);
                                             setOpenErrorDialog(true)
                                         }
-                                        }>vis feilmelding</Link>
+                                        }>{t('showError')}</Link>
                                     }
                                 </Table.DataCell>
                                 <Table.DataCell>{value.instanceFlowHeaders.archiveInstanceId}</Table.DataCell>
@@ -83,7 +83,7 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
     function ErrorAlertDialog(props: GridCellParams['row']) {
         return (
             <Modal open={openErrorDialog} header={{
-                heading: props.row?.errors?.length > 1 ? "Feilmeldinger:" : "Feilmelding:",
+                heading: props.row?.errors?.length > 1 ? t('errors') : t('oneError'),
                 closeButton: false
             }} closeOnBackdropClick>
                 <Modal.Body>

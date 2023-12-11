@@ -33,7 +33,7 @@ describe('Testing value converting table', () => {
     it('should show page and show panel on expand click', () => {
         prep()
         cy.get('#table-row-1 > .navds-table__toggle-expand-cell > .navds-table__toggle-expand-button').click()
-        cy.get('#ra > .navds-table__expanded-row-cell > .navds-table__expanded-row-collapse > .navds-table__expanded-row-content > #value-converting-panel').should("be.visible")
+        cy.get('#rd > .navds-table__expanded-row-cell > .navds-table__expanded-row-collapse > .navds-table__expanded-row-content > #value-converting-panel').should("be.visible")
     })
 
     it('should navigate to page 2 on more than 8 value convertings', () => {
