@@ -7,18 +7,18 @@ import {SourceApplicationContext} from "../../../context/SourceApplicationContex
 import {IIntegration, IIntegrationPatch} from "../../integration/types/Integration";
 import {IConfiguration} from "../../configuration/types/Configuration";
 import {
-	Alert,
-	BodyLong,
-	BodyShort,
-	Box,
-	Button,
-	Dropdown,
-	HGrid,
-	HStack,
-	Label,
-	Modal,
-	Table,
-	VStack
+    Alert,
+    BodyLong,
+    BodyShort,
+    Box,
+    Button,
+    Dropdown,
+    HGrid,
+    HStack,
+    Label,
+    Modal,
+    Table,
+    VStack
 } from "@navikt/ds-react";
 import {MenuElipsisVerticalCircleIcon, PencilWritingIcon} from '@navikt/aksel-icons';
 import IntegrationRepository from "../../../api/IntegrationRepository";
@@ -55,7 +55,7 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
 
     function getVersionForActiveConfig(id: string | undefined): void {
         if (id === undefined) {
-            setActiveVersion('ingen aktiv konfigurasjon')
+            setActiveVersion(t('noActiveConfig'))
             return;
         }
         ConfigurationRepository.getConfigurationById(id.toString(), true)
@@ -67,7 +67,7 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
             })
             .catch((e) => {
                 console.error('Error: ', e)
-                setActiveVersion('ingen aktiv konfigurasjon')
+                setActiveVersion(t('noActiveConfig'))
             })
     }
 
@@ -102,7 +102,7 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
                     console.log('updated integration: ', props.integration?.id, response)
                 }
             ).catch(e => console.error(e))
-            setActiveVersion('ingen aktiv konfigurasjon')
+            setActiveVersion(t('noActiveConfig'))
             console.log('set active config, integrationId', props.integration?.id, 'configurationId', configurationId)
         }
 
@@ -113,10 +113,10 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
         return configs.length > 0 ? <Table size={"small"}>
                 <Table.Header>
                     <Table.Row>
-                        <Table.HeaderCell scope="col">Konfig. ID</Table.HeaderCell>
-                        {completed && <Table.HeaderCell scope="col">Versjon</Table.HeaderCell>}
-                        <Table.HeaderCell scope="col">Kommentar</Table.HeaderCell>
-                        <Table.HeaderCell scope="col">Handlinger</Table.HeaderCell>
+                        <Table.HeaderCell scope="col">{t('table.column.id')}</Table.HeaderCell>
+                        {completed && <Table.HeaderCell scope="col">{t('table.column.version')}</Table.HeaderCell>}
+                        <Table.HeaderCell scope="col">{t('table.column.comment')}</Table.HeaderCell>
+                        <Table.HeaderCell scope="col">{t('table.column.actions')}</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
@@ -134,7 +134,7 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
                     })}
                 </Table.Body>
             </Table>
-            : <BodyShort>Ingen elementer</BodyShort>
+            : <BodyShort>{t('table.noElements')}</BodyShort>
     }
 
 
@@ -150,12 +150,12 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
                                 <Dropdown.Menu.GroupedList.Item onClick={() => {
                                     handleNewOrEditConfigClick(config.id).then(() => history.push("/integration/configuration/edit"))
                                 }}>
-                                    Vis
+                                    {t('table.show')}
                                 </Dropdown.Menu.GroupedList.Item>
                                 <Dropdown.Menu.GroupedList.Item onClick={() => {
                                     handleNewOrEditConfigClick(config.id, config.version).then(() => history.push("/integration/configuration/edit"))
                                 }}>
-                                    Lag ny basert på denne
+                                    {t('table.basedOn')}
                                 </Dropdown.Menu.GroupedList.Item>
                             </Dropdown.Menu.GroupedList>
                             <Dropdown.Menu.Divider/>
@@ -163,7 +163,7 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
                                 <Dropdown.Menu.List.Item onClick={() => {
                                     handleActivateAction(config.id.toString())
                                 }}>
-                                    Aktiver
+                                    {t('table.activate')}
                                 </Dropdown.Menu.List.Item>
                             </Dropdown.Menu.List>
                         </Dropdown.Menu>
@@ -190,7 +190,7 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
                 onClose={() => setOpenDialog(false)
                 }
                 header={{
-                    heading: "Aktiver",
+                    heading: t('table.activate'),
                     size: "small",
                     closeButton: false,
                 }}
@@ -198,7 +198,7 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
             >
                 <Modal.Body>
                     <BodyLong>
-                        Er du sikker på at du vil aktivere denne konfigurasjonen?
+                        {t('dialog.body')}
                     </BodyLong>
                 </Modal.Body>
                 <Modal.Footer>
@@ -207,14 +207,14 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
                         activateConfiguration(configToActivate)
                         setOpenDialog(false)
                     }}>
-                        Ja, jeg er sikker
+                        {t('dialog.yes')}
                     </Button>
                     <Button
                         type="button"
                         variant="secondary"
                         onClick={() => setOpenDialog(false)}
                     >
-                        Avbryt
+                        {t('dialog.cancel')}
                     </Button>
                 </Modal.Footer>
             </Modal>
@@ -246,12 +246,11 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
                                 getInstanceElementMetadata(selectedForm[selectedForm.length - 1].id)
                             }}
                         >
-                            Ny konfigurasjon
+                            {t('button.newConfiguration')}
                         </Button>
                     </Box>
                     {!allMetadata &&
-                        <Alert size="small" variant="warning">Mangler tilstrekkelig data for å kunne opprette ny
-                            konfigurasjon </Alert>}
+                        <Alert size="small" variant="warning">{t('missingDataError')} </Alert>}
                 </HStack>
             </VStack>
         </Box>

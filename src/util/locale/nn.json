@@ -86,8 +86,13 @@
       }
     },
     "integrations": {
-      "header": "Integrasjonsoversikt",
+      "header": "Integrasjonar",
       "version": "Versjon ",
+      "noActiveConfig": "ingen aktiv konfigurasjon",
+      "missingDataError": "Manglar tilstrekkeleg data for å kunna oppretta ny konfigurasjon",
+      "help": {
+        "header": "Oversikt over integrasjonar. Her kan du sjå alle integrasjonane og tilhøyrande konfigurasjonar, laga nye konfigurasjonar for ein integrasjon eller aktivera ein konfigurasjon"
+      },
       "button": {
         "show": "Vis",
         "edit": "Rediger",
@@ -100,6 +105,7 @@
       },
       "dialog": {
         "header": "Aktiver konfigurasjon?",
+        "body": "Er du sikker på at du vil aktivera denne konfigurasjonen?",
         "confirmMsg": "Bekreft aktivering av konfigurasjon",
         "yes": "Ja",
         "cancel": "Avbryt"
@@ -107,25 +113,26 @@
       "table": {
         "completed": "Ferdigstilt",
         "drafts": "Utkast",
+        "noElements": "Ingen element",
+        "show": "Vis",
+        "edit": "Rediger",
+        "basedOn": "Lag ny basert på denne",
+        "activate": "Aktiver",
         "column": {
           "id": "Id",
-          "configurationId": "KonfigurasjonsId",
+          "configurationId": "Konfig. Id",
           "destination": "Destinasjon/base",
           "sourceApplicationIntegrationId": "Kildeapp. integr.Id",
-          "sourceApplicationIntegrationIdDescription": "Kjeldeapplikasjons integrasjons-ID",
           "sourceApplicationIntegrationIdDisplayName": "Integrasjonsnavn",
           "sourceApplicationId": "Kjeldeapplikasjon",
           "name": "Navn",
           "state": "Tilstand",
           "comment": "Kommentar",
+          "actions": "Handlingar",
           "finished": "Ferdigstilt",
           "version": "Versjon",
-          "dispatched": "Godteke",
-          "dispatchedDescription": "Talet på instansar godteke av destinasjon for integrasjon",
-          "errors": "Feilet",
-          "errorsDescription": "Talet på instansar som har feila for integrasjon",
-          "show": "Vis",
-          "edit": "Rediger"
+          "dispatched": "# godteke",
+          "errors": "# feila"
         }
       },
       "labels": {

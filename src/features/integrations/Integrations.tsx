@@ -4,12 +4,14 @@ import {IntegrationContext} from "../../context/IntegrationContext";
 import PageTemplate from "../../components/templates/PageTemplate";
 import {SourceApplicationContext} from "../../context/SourceApplicationContext";
 import {RouteComponent} from "../../routes/Route";
-import {Box, Loader} from "@navikt/ds-react";
+import {Box, Heading, HelpText, HStack, Loader} from "@navikt/ds-react";
 import ConfigurationRepository from "../../api/ConfigurationRepository";
 import {IConfiguration} from "../configuration/types/Configuration";
+import {useTranslation} from "react-i18next";
 
 
 const Integrations: RouteComponent = () => {
+    const {t} = useTranslation('translations', {keyPrefix: 'pages.integrations'})
     const {integrations, getAllIntegrations} = useContext(IntegrationContext)
     const {allMetadata, getAllMetadata} = useContext(SourceApplicationContext)
     const [configs, setConfigs] = useState<IConfiguration[]>([]);
@@ -55,7 +57,13 @@ const Integrations: RouteComponent = () => {
     }
 
     return (
-        <PageTemplate id={'integration'} keyPrefix={'pages.integrations'} wide>
+        <PageTemplate id={'integration'} keyPrefix={'pages.integrations'} wide customHeading>
+            <HStack id={'instances-custom-header'} align={"center"} gap={"2"}>
+                <Heading size={"medium"}>{t('header')}</Heading>
+                <HelpText title={"Hva er dette"} placement="bottom">
+                    {t('help.header')}
+                </HelpText>
+            </HStack>
             <Box id={"integration-table-container"} background={"surface-default"} padding="6" borderRadius={"large"}
                  borderWidth="2" borderColor={"border-subtle"}>
                 {integrations && allMetadata && configs && completedConfigs ?

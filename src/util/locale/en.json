@@ -6,14 +6,14 @@
     "english": "English (coming soon)"
   },
   "menuItems": {
-  "dashboard": "Dashbord",
-  "integration": "Ny",
-  "integrations": "Integrasjoner",
-  "instances": "Instanser",
-  "version": "Versjon",
-  "support": "Hjelp og support",
-  "valueConverting": "Verdikonvertering"
-},
+    "dashboard": "Dashbord",
+    "integration": "Ny",
+    "integrations": "Integrasjoner",
+    "instances": "Instanser",
+    "version": "Versjon",
+    "support": "Hjelp og support",
+    "valueConverting": "Verdikonvertering"
+  },
   "pages": {
     "dashboard": {
       "header": "Dashboard",
@@ -88,6 +88,11 @@
     "integrations": {
       "header": "Integrations",
       "version": "Version ",
+      "noActiveConfig": "no active configuration",
+      "missingDataError": "There is insufficient data to create a new configuration",
+      "help": {
+        "header": "List of integrations. Here you can see all the integrations and associated configurations, create new configurations for an integration or activate a configuration"
+      },
       "button": {
         "show": "View",
         "edit": "Edit",
@@ -100,6 +105,7 @@
       },
       "dialog": {
         "header": "Activate configuration?",
+        "body": "Are you sure you want to activate this configuration?",
         "confirmMsg": "Confirm activation of this configuration",
         "yes": "Yes",
         "cancel": "Cancel"
@@ -107,25 +113,26 @@
       "table": {
         "completed": "Completed",
         "drafts": "Drafts",
+        "noElements": "No elements",
+        "show": "Show",
+        "edit": "Edit",
+        "basedOn": "Create new based on this",
+        "activate": "Activate",
         "column": {
           "id": "Id",
-          "configurationId": "Configuration ID",
+          "configurationId": "Config. ID",
           "destination": "Destination",
           "sourceApplicationIntegrationId": "Source application integration ID",
-          "sourceApplicationIntegrationIdDescription": "Source application Integration ID",
           "sourceApplicationIntegrationIdDisplayName": "Displayname",
           "sourceApplicationId": "Source application",
           "name": "Name",
           "state": "State",
           "comment": "Comment",
+          "actions": "Actions",
           "finished": "Completed",
           "version": "Version",
-          "dispatched": "Dispatched",
-          "dispatchedDescription": "Number of instances dispatched",
-          "errors": "Failed",
-          "errorsDescription": "Number of instances failed",
-          "show": "Show",
-          "edit": "Edit"
+          "dispatched": "# dispatched",
+          "errors": "# failed"
         }
       },
       "labels": {

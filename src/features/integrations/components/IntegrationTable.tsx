@@ -35,7 +35,7 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
                             <Table.HeaderCell scope="col">{t('column.id')}</Table.HeaderCell>
                             <Table.HeaderCell scope="col">{t('column.sourceApplicationId')}</Table.HeaderCell>
                             <Table.HeaderCell
-                                scope="col">{t('column.sourceApplicationIntegrationIdDescription')}</Table.HeaderCell>
+                                scope="col">{t('column.sourceApplicationIntegrationId')}</Table.HeaderCell>
                             <Table.HeaderCell
                                 scope="col">{t('column.sourceApplicationIntegrationIdDisplayName')}</Table.HeaderCell>
                             <Table.HeaderCell scope="col">{t('column.destination')}</Table.HeaderCell>
