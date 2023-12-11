@@ -17,13 +17,11 @@ const Instances: RouteComponent = () => {
     const [selectedRow] = useState<IEvent>();
     const [openDialog, setOpenDialog] = React.useState(false);
 
-
     useEffect(() => {
         getLatestInstances(0, 10000, "timestamp", "DESC");
         getEvents(0, 10000, "timestamp", "DESC")
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
 
     function ErrorAlertDialog(props: GridCellParams['row']) {
         return (
@@ -64,14 +62,14 @@ const Instances: RouteComponent = () => {
             </HStack>
             <Box id={"instance-table-container"} background={"surface-default"} padding="6" borderRadius={"large"}
                  borderWidth="2" borderColor={"border-subtle"}>
-                    {latestInstances && events ?
-                        <InstanceTable instances={latestInstances} events={events}/>
-                        :
-                        <>
-                            <Loader size={"xlarge"}/>
-                        </>
-                    }
-                </Box>
+                {latestInstances && events ?
+                    <InstanceTable instances={latestInstances} events={events}/>
+                    :
+                    <>
+                        <Loader size={"xlarge"}/>
+                    </>
+                }
+            </Box>
             <ErrorAlertDialog row={selectedRow}/>
         </PageTemplate>
     );

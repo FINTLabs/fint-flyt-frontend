@@ -71,12 +71,16 @@
       "incoming": "Innkommende",
       "outgoing": "Utgående",
       "error": "du må velge kildeapplikasjon, skjema og destinasjon",
+      "button": {
+        "confirm": "Opprett",
+        "cancel": "Avbryt"
+      },
       "labels": {
         "sourceApplicationId": "Kildeapplikasjon",
         "sourceApplicationIntegrationId": "Integrasjon",
         "destination": "Destinasjon/Base"
       },
-      "MetadataPanel": {
+      "metadataPanel": {
         "header": "Metadata",
         "version": "Versjon"
       }

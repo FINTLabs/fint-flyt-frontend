@@ -71,12 +71,16 @@
       "incoming": "Incoming",
       "outgoing": "Outgoing",
       "error": "you must select source application, integration and destination",
+      "button": {
+        "confirm": "Create",
+        "cancel": "Cancel"
+      },
       "labels": {
         "sourceApplicationId": "Source application",
         "sourceApplicationIntegrationId": "Integration",
         "destination": "Destination"
       },
-      "MetadataPanel": {
+      "metadataPanel": {
         "header": "Metadata",
         "version": "Versjon"
       }
