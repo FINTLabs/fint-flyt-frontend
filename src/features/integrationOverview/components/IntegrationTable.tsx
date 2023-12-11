@@ -1,155 +1,86 @@
-import {Box, Button} from "@mui/material";
-import {DataGrid, GridCellParams, GridColDef, GridToolbar} from "@mui/x-data-grid";
 import * as React from "react";
-import {useContext} from "react";
-import {useHistory} from "react-router-dom";
-import {gridLocaleNoNB} from "../../../util/locale/gridLocaleNoNB";
-import {useTranslation} from "react-i18next";
-import {SourceApplicationContext} from "../../../context/SourceApplicationContext";
+import {useState} from "react";
 import {
     getDestinationDisplayName,
     getSourceApplicationDisplayName,
     getStateDisplayName,
-    renderCellWithTooltip
 } from "../../../util/DataGridUtil";
-import {IntegrationContext} from "../../../context/IntegrationContext";
-import {ClassNameMap} from "@mui/styles";
+import {Box, HStack, Pagination, Table} from "@navikt/ds-react";
+import IntegrationPanel from "./IntegrationPanel";
+import {IIntegration} from "../../integration/types/Integration";
+import {useTranslation} from "react-i18next";
+import {IConfiguration} from "../../configuration/types/Configuration";
 
-
-type Props = {
-    classes: ClassNameMap
+type IntegrationProps = {
+    integrations: IIntegration[];
+    allConfigs: IConfiguration[];
+    allCompletedConfigs: IConfiguration[];
 }
 
-const IntegrationTable: React.FunctionComponent<Props> = (props: Props) => {
-    const {t, i18n} = useTranslation('translations', {keyPrefix: 'pages.integrationOverview'});
-    const classes = props.classes;
-    const history = useHistory();
-    const {
-        setExistingIntegration,
-        integrations,
-        getCompletedConfigurations,
-        getConfigurations
-    } = useContext(IntegrationContext)
-    const {setSourceApplication} = useContext(SourceApplicationContext)
+const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: IntegrationProps) => {
+    const {t} = useTranslation('translations', {keyPrefix: 'pages.integrations.table'})
+    const [page, setPage] = useState(1);
+    const rowsPerPage = 6;
 
-    const columns: GridColDef[] = [
-        {
-            field: 'details',
-            headerName: t('table.columns.show'),
-            minWidth: 150,
-            flex: 0.5,
-            sortable: false,
-            filterable: false,
-            renderCell: (params) => (<ShowButtonToggle row={params.row}/>)
-        },
-        {
-            field: 'sourceApplicationId',
-            type: 'string',
-            headerName: t('table.columns.sourceApplicationId'),
-            minWidth: 150,
-            flex: 1,
-            valueGetter: (params) => (getSourceApplicationDisplayName(params.row.sourceApplicationId))
-        },
-        {
-            field: 'sourceApplicationIntegrationId',
-            type: 'string',
-            description: t('table.columns.sourceApplicationIntegrationIdDescription'),
-            headerName: t('table.columns.sourceApplicationIntegrationId'),
-            minWidth: 250,
-            flex: 1,
-            renderCell: (params) => renderCellWithTooltip(params.value as string)
-        },
-        {
-            field: 'displayName',
-            type: 'string',
-            headerName: t('table.columns.sourceApplicationIntegrationIdDisplayName'),
-            minWidth: 350,
-            flex: 1,
-            sortable: false,
-            renderCell: (params) => renderCellWithTooltip(params.value as string)
-        },
-        {
-            field: 'destination', type: 'string', headerName: t('table.columns.destination'), minWidth: 150, flex: 1,
-            valueGetter: (params) => getDestinationDisplayName(params.row.destination),
-            renderCell: (params) => renderCellWithTooltip(params.value as string)
-        },
-        {
-            field: 'state', type: 'string', headerName: t('table.columns.state'), minWidth: 100, flex: 1,
-            valueGetter: (params) => getStateDisplayName(params.row.state)
-        },
-        {
-            field: 'dispatched',
-            type: 'number',
-            headerName: t('table.columns.dispatched'),
-            description: t('table.columns.dispatchedDescription'),
-            minWidth: 50,
-            flex: 0.5,
-            sortable: false
-        },
-        {
-            field: 'errors',
-            type: 'number',
-            headerName: t('table.columns.errors'),
-            description: t('table.columns.errorsDescription'),
-            minWidth: 50,
-            flex: 0.5,
-            sortable: false
-        }
-    ];
-
-    const setHistory = () => {
-        history.push({
-            pathname: '/integration/panel',
-        })
-    }
-
-    function handleShowButtonClick(row: GridCellParams["row"]) {
-        setExistingIntegration(row);
-        setSourceApplication(row.sourceApplicationId);
-        getConfigurations(0, 10000, "version", "DESC", false, row.id, true);
-        getCompletedConfigurations(0, 10000, "id", "ASC", true, row.id, true);
-        setHistory();
-    }
-
-    function ShowButtonToggle(props: GridCellParams["row"]): JSX.Element {
-        return <Button
-            size="small"
-            variant="contained"
-            onClick={() => handleShowButtonClick(props.row)}
-        >{t('button.show')}
-        </Button>
-    }
+    let sortData = props.integrations ?? [];
+    sortData = sortData.slice((page - 1) * rowsPerPage, page * rowsPerPage);
 
     return (
-        <Box className={classes.dataGridBox}>
-            <DataGrid
-                loading={integrations === undefined}
-                localeText={i18n.language === 'no' ? gridLocaleNoNB : undefined}
-                getRowId={(row) => row.sourceApplicationIntegrationId}
-                density='compact'
-                rows={integrations ?? []}
-                columns={columns}
-                pageSize={20}
-                rowsPerPageOptions={[20]}
-                components={{
-                    Toolbar: GridToolbar,
-                }}
-                initialState={{
-                    filter: {
-                        filterModel: {
-                            items: [
-                                {
-                                    columnField: 'sourceApplicationIntegrationId',
-                                    operatorValue: 'contains'
-                                },
-                            ],
-                        },
-                    },
-                    sorting: {
-                        sortModel: [{field: 'state', sort: 'asc'}],
-                    },
-                }}
-            />
+        <Box>
+            <Box background={'surface-default'} style={{height: '70vh', overflowY: "scroll"}}>
+                <Table id={"integration-table"} size={"small"}>
+                    <Table.Header>
+                        <Table.Row>
+                            <Table.HeaderCell/>
+                            <Table.HeaderCell scope="col">{t('column.id')}</Table.HeaderCell>
+                            <Table.HeaderCell scope="col">{t('column.sourceApplicationId')}</Table.HeaderCell>
+                            <Table.HeaderCell
+                                scope="col">{t('column.sourceApplicationIntegrationIdDescription')}</Table.HeaderCell>
+                            <Table.HeaderCell
+                                scope="col">{t('column.sourceApplicationIntegrationIdDisplayName')}</Table.HeaderCell>
+                            <Table.HeaderCell scope="col">{t('column.destination')}</Table.HeaderCell>
+                            <Table.HeaderCell scope="col">{t('column.state')}</Table.HeaderCell>
+                            <Table.HeaderCell scope="col">{t('column.dispatched')}</Table.HeaderCell>
+                            <Table.HeaderCell scope="col">{t('column.errors')}</Table.HeaderCell>
+                        </Table.Row>
+                    </Table.Header>
+                    <Table.Body>
+                        {sortData?.map((value, i) => {
+                            return (
+                                <Table.ExpandableRow key={i} content={
+                                    <IntegrationPanel
+                                        draftC={props.allConfigs.filter((config) => config.integrationId === value.id)}
+                                        completedC={props.allCompletedConfigs.filter((config) => config.integrationId === value.id)}
+                                        integration={value}
+                                    />}
+                                >
+                                    <Table.DataCell>{value.id}</Table.DataCell>
+                                    <Table.DataCell
+                                        scope="row">{getSourceApplicationDisplayName(Number(value.sourceApplicationId))}</Table.DataCell>
+                                    <Table.DataCell>{value.sourceApplicationIntegrationId}</Table.DataCell>
+                                    <Table.DataCell>{value.displayName}</Table.DataCell>
+                                    <Table.DataCell>{getDestinationDisplayName(value.destination ?? '')}</Table.DataCell>
+                                    <Table.DataCell>
+                                        {getStateDisplayName(value.state ?? '')}
+                                    </Table.DataCell>
+                                    <Table.DataCell>{value.dispatched}</Table.DataCell>
+                                    <Table.DataCell>{value.errors}</Table.DataCell>
+                                </Table.ExpandableRow>
+                            );
+                        })}
+                    </Table.Body>
+                </Table>
+            </Box>
+            <HStack justify={"center"}>
+                {props.integrations && props.integrations.length > rowsPerPage &&
+                    <Pagination
+                        page={page}
+                        onPageChange={setPage}
+                        count={Math.ceil(props.integrations.length / rowsPerPage)}
+                        size="small"
+                    />
+                }
+            </HStack>
         </Box>
     );
 }

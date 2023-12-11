@@ -116,7 +116,7 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
                 </Modal.Body>
                 <Modal.Footer>
                     <ButtonAks type="button" onClick={() => setOpenDialog(false)}>
-                        Lukk
+                        {t('button.close')}
                     </ButtonAks>
                 </Modal.Footer>
             </Modal>

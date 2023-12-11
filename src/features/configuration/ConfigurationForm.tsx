@@ -31,7 +31,7 @@ import {activeAlert, completedAlert, defaultAlert, errorAlert, savedAlert} from 
 import ConfigurationRepository from "../../api/ConfigurationRepository";
 import {pruneObjectMapping} from "../../util/mapping/helpers/pruning";
 import EditingProvider, {EditingContext} from "../../context/EditingContext";
-import { RouteComponent } from "../../routes/Route";
+import {RouteComponent} from "../../routes/Route";
 import {isEmpty} from "lodash";
 import PageTemplate from "../../components/templates/PageTemplate";
 import {Alert} from "@navikt/ds-react"
@@ -202,10 +202,10 @@ const ConfigurationForm: RouteComponent = () => {
         })
     }
 
-    const availableVersions: IIntegrationMetadata[] = allMetadata.filter(md => {
+    const availableVersions: IIntegrationMetadata[] = allMetadata ? allMetadata.filter(md => {
         return md.sourceApplicationId === selectedMetadata?.sourceApplicationId &&
             md.sourceApplicationIntegrationId === selectedMetadata.sourceApplicationIntegrationId
-    })
+    }) : []
 
     return (
         <PageTemplate id={'configuration'} keyPrefix={'pages.configuration'} wide customHeading>
