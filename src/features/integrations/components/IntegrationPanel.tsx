@@ -184,7 +184,7 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
     }
 
     return (
-        <Box>
+        <Box id={'integration-panel-container'}>
             <Modal
                 open={openDialog}
                 onClose={() => setOpenDialog(false)
@@ -221,12 +221,12 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
             <VStack gap="4">
                 <Label>{t('activeConfigurationId')} {activeVersion}</Label>
                 <HGrid gap="6" columns={2}>
-                    <Box padding="4" background={"surface-subtle"} borderRadius="xlarge"
+                    <Box id={'completed-config-table'} padding="4" background={"surface-subtle"} borderRadius="xlarge"
                          style={{maxHeight: '440px', overflow: "auto"}}>
                         <BodyShort>{t('table.completed')}:</BodyShort>
                         {configTable(props.completedC, true)}
                     </Box>
-                    <Box padding="4" background={"surface-subtle"} borderRadius="xlarge"
+                    <Box id={'draft-config-table'} padding="4" background={"surface-subtle"} borderRadius="xlarge"
                          style={{height: 'fit-content', maxHeight: '440px', overflow: "auto"}}>
                         <BodyShort>{t('table.drafts')}:</BodyShort>
                         {configTable(props.draftC, false)}

@@ -21,11 +21,6 @@ describe('Testing dashboard', () => {
         cy.get('#dashboard-card-container').children().should("have.length", 4)
     })
 
-    it('should show datagrid', () => {
-        prep()
-        cy.get('.MuiDataGrid-root').should("be.visible")
-    })
-
     it('should open new integration component on link click', () => {
         prep()
         cy.get('#dashboard-card-0-btn-0').click()

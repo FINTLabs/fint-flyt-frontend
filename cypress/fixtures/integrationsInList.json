@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "sourceApplicationId": 2,
+    "sourceApplicationIntegrationId": "sak",
+    "destination": "fylkesrad",
+    "state": "ACTIVE",
+    "activeConfigurationId": 4
+  },
+  {
+    "id": 2,
+    "sourceApplicationId": 2,
+    "sourceApplicationIntegrationId": "journalpost",
+    "destination": "fylkesrad",
+    "state": "DEACTIVATED",
+    "activeConfigurationId": null
+  }
+]
