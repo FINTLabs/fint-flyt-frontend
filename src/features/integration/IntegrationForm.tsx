@@ -1,30 +1,27 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {destinations, sourceApplications} from "../configuration/defaults/DefaultValues";
-import {Autocomplete, Box, Button, FormGroup, MenuItem, TextField, Typography} from "@mui/material";
+import {Autocomplete, FormGroup, MenuItem, TextField} from "@mui/material";
 import {RouteComponentProps, useHistory} from "react-router-dom";
 import {IntegrationContext} from "../../context/IntegrationContext";
 import HelpPopover from "../configuration/components/common/popover/HelpPopover";
 import {useTranslation} from "react-i18next";
 import {contextDefaultValues, SourceApplicationContext} from "../../context/SourceApplicationContext";
-import IntegrationRepository from "../../api/IntegrationRepository";
 import {IIntegration, IntegrationState} from "./types/Integration";
 import {IFormIntegration} from "../configuration/types/FormIntegration";
 import {selectSX} from "../../util/styles/SystemStyles";
-import {IntegrationFormStyles} from "../../util/styles/IntegrationForm.styles"
 import {toIntegration} from "../../util/mapping/ToIntegration";
 import {ISelect} from "../configuration/types/Select";
 import {IIntegrationMetadata} from "../configuration/types/Metadata/IntegrationMetadata";
+import {Box, Button, ErrorSummary, HStack, Label, VStack} from "@navikt/ds-react";
 import PageTemplate from "../../components/templates/PageTemplate";
-
-
-const useStyles = IntegrationFormStyles;
+import {AxiosResponse} from "axios";
+import IntegrationRepository from "../../api/IntegrationRepository";
 
 type Props = {
     id: string
 }
 
 export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>> = () => {
-    const classes = useStyles();
     const history = useHistory();
     const {t} = useTranslation('translations', {keyPrefix: 'pages.integrationForm'});
     const {setSelectedMetadata, setExistingIntegration, resetIntegrationContext} = useContext(IntegrationContext)
@@ -75,14 +72,14 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
         const newIntegration: IIntegration = toIntegration(formConfiguration, IntegrationState.DEACTIVATED)
 
         IntegrationRepository.createIntegration(newIntegration)
-            .then((response) => {
+            .then((response: AxiosResponse) => {
                 setSourceApplicationIntegrationId(response.data.sourceApplicationIntegrationId)
                 setExistingIntegration(response.data)
                 navToConfiguration(response.data.sourceApplicationIntegrationId);
                 setError('');
                 console.log('create new integration', newIntegration)
             })
-            .catch((e) => {
+            .catch((e: Error) => {
                     console.error(e)
                     setError(t('error'))
                 }
@@ -91,12 +88,11 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
 
     return (
         <PageTemplate id={'new'} keyPrefix={'pages.integrationForm'}>
-            <FormGroup id="integration-form" className={classes.panelContainer}>
-                <Box>
-                    <h2 className={classes.title2} id="integration-form-settings-header">{t('header')}</h2>
-                    <Box className={classes.incomingWrapper}>
-                        <h3 className={classes.title3}>{t('incoming')}</h3>
-                        <Box sx={{display: 'flex'}}>
+            <Box background={"surface-default"} padding="6" borderRadius={"large"} borderWidth="2" borderColor={"border-subtle"}>
+                <FormGroup id="integration-form">
+                    <VStack gap={"3"}>
+                        <Label>{t('incoming')}</Label>
+                        <HStack>
                             <TextField
                                 autoComplete={"off"}
                                 id='sourceApplicationId'
@@ -118,8 +114,8 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
                                 ))}
                             </TextField>
                             <HelpPopover popoverContent={'sourceApplicationId'}/>
-                        </Box>
-                        <Box sx={{display: 'flex', mt: 2}}>
+                        </HStack>
+                        <HStack>
                             <Autocomplete
                                 sx={selectSX}
                                 id='sourceApplicationIntegrationId'
@@ -140,11 +136,9 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
                                 }}
                             />
                             <HelpPopover popoverContent={'sourceApplicationIntegrationId'}/>
-                        </Box>
-                    </Box>
-                    <Box className={classes.outgoingWrapper}>
-                        <h3 className={classes.title3}>{t('outgoing')}</h3>
-                        <Box sx={{display: 'flex'}}>
+                        </HStack>
+                        <Label>{t('outgoing')}</Label>
+                        <HStack>
                             <TextField
                                 id='destination'
                                 autoComplete={"off"}
@@ -158,22 +152,29 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
                                 onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => setDestination(event.target.value)}
                             >
                                 {destinations.map((item: ISelect, index: number) => (
-                                    <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
+                                    <MenuItem id={'destination-' + index} key={index}
+                                              value={item.value}>{item.label}</MenuItem>
                                 ))}
                             </TextField>
                             <HelpPopover popoverContent={'destination'}/>
-                        </Box>
-                    </Box>
-                    <Typography id={'form-error-msg'}
-                                color={"error"}>{!sourceApplicationId || !sourceApplicationIntegrationId || !destination ? error : ''}</Typography>
-                </Box>
-                <Box sx={{mt: 2}}>
-                    <Button id="form-settings-confirm-btn" onClick={confirm} variant="contained">
-                        {t('button.confirm')}</Button>
-                    <Button id="form-settings-cancel-btn" onClick={cancel} sx={{ml: 2}} variant="contained">
-                        {t('button.cancel')}</Button>
-                </Box>
-            </FormGroup>
+                        </HStack>
+                        {error && (!sourceApplicationId || !sourceApplicationIntegrationId || !destination) &&
+                            <ErrorSummary heading="Du må rette disse feilene, det mangler: " size="small">
+                                {!sourceApplicationId &&
+                                    <ErrorSummary.Item href="#sourceApplicationId">Kildeapplikasjon</ErrorSummary.Item>}
+                                {!sourceApplicationIntegrationId && <ErrorSummary.Item
+                                    href="#sourceApplicationIntegrationId">Integrasjon</ErrorSummary.Item>}
+                                {!destination && <ErrorSummary.Item href="#destination">Destinasjon</ErrorSummary.Item>}
+                            </ErrorSummary>}
+                        <HStack gap={"6"}>
+                            <Button id="form-settings-confirm-btn" onClick={confirm}>
+                                {t('button.confirm')}</Button>
+                            <Button id="form-settings-cancel-btn" onClick={cancel}>
+                                {t('button.cancel')}</Button>
+                        </HStack>
+                    </VStack>
+                </FormGroup>
+            </Box>
         </PageTemplate>
     )
 }

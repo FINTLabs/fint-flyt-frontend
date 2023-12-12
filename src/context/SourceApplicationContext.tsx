@@ -32,7 +32,7 @@ type SourceApplicationContextState = {
 const contextDefaultValues: SourceApplicationContextState = {
 
     availableForms: [
-        {value: 'null', label: 'Velg skjemaleverandør først'}
+        {value: 'null', label: 'Velg kildeapplikasjon først'}
     ],
     getAllIntegrationsAndSetAvailableForms: () => undefined,
     getAvailableForms: () => undefined,
