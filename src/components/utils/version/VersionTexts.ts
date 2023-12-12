@@ -4,8 +4,9 @@ export const ABOUT_VERSIONS: string[] = [
 ]
 
 export const VERSION_DATA: {heading: string, updates: string[]}[] = [
-    { heading: "Versjon 11.12 - Desember 2023",
+    { heading: "Versjon 12.12 - Desember 2023",
         updates: [
+            "12.12 Nytt design av integrasjonsoversikten",
             "11.12 Lagt til støtte for nynorsk språk i Flyt",
             "8.12 Forbedret visning av verdikonvertering med flere verdier. Nytt design av instanssiden hvor all informasjon er samlet på én flate.",
             "1.12 La til ny side med visning av versjoner og hva som er nytt i Flyt"
@@ -25,8 +26,9 @@ export const ABOUT_VERSIONS_NN: string[] = [
 ]
 
 export const VERSION_DATA_NN: {heading: string, updates: string[]}[] = [
-    { heading: "Versjon 11.12 - Desember 2023",
+    { heading: "Versjon 12.12 - Desember 2023",
         updates: [
+            "12.12 Nytt design av integrasjonsoversikta",
             "11.12 Lagt til støtte for nynorsk språk i Flyt",
             "8.12 Forbetra visning av verdikonvertering med fleire verdiar. Nytt design av instanssida der all informasjon er samla på éi flate.",
             "1.12 La til ny side med visning av versjonar og kva som er nytt i Flyt"

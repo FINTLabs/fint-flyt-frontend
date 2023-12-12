@@ -8,7 +8,7 @@
   "menuItems": {
     "dashboard": "Dashbord",
     "integration": "Ny",
-    "integrationOverview": "Integrasjonar",
+    "integrations": "Integrasjonar",
     "instances": "Instansar",
     "version": "Versjon",
     "support": "Hjelp og support",
@@ -27,7 +27,7 @@
       "oneError": "feilmelding",
       "errors": "feilmeldinger",
       "links": {
-        "integrationOverview": "Sjå integrasjonar",
+        "integrations": "Sjå integrasjonar",
         "integration": "Ny integrasjon",
         "log": "Sjå logg",
         "instances": "Sjå instansoversikt",
@@ -74,7 +74,8 @@
       "button": {
         "confirm": "Opprett",
         "cancel": "Avbryt"
-      },"labels": {
+      },
+      "labels": {
         "sourceApplicationId": "Kjeldeapplikasjon",
         "sourceApplicationIntegrationId": "Integrasjon",
         "destination": "Destinasjon/Base"
@@ -84,56 +85,47 @@
         "version": "Versjon"
       }
     },
-    "integrationOverview": {
-      "header": "Integrasjonsoversikt",
+    "integrations": {
+      "header": "Integrasjonar",
       "version": "Versjon ",
+      "noActiveConfig": "ingen aktiv konfigurasjon",
+      "activeConfigurationId": "Aktiv konfigurasjon: ",
+      "missingDataError": "Manglar tilstrekkeleg data for å kunna oppretta ny konfigurasjon",
+      "help": {
+        "header": "Oversikt over integrasjonar. Her kan du sjå alle integrasjonane og tilhøyrande konfigurasjonar, laga nye konfigurasjonar for ein integrasjon eller aktivera ein konfigurasjon"
+      },
       "button": {
-        "show": "Vis",
-        "edit": "Rediger",
-        "back": "Tilbake",
-        "version": "Versjon ",
-        "changeVersion": "Bruk denne konfigurasjonen",
-        "newConfiguration": "Ny konfigurasjon",
-        "blankConfiguration": "Blank konfigurasjon",
-        "templateConfiguration": "Basert på eksisterande versjon"
+        "newConfiguration": "Ny konfigurasjon"
       },
       "dialog": {
-        "header": "Aktiver konfigurasjon?",
-        "confirmMsg": "Bekreft aktivering av konfigurasjon",
+        "body": "Er du sikker på at du vil aktivera denne konfigurasjonen?",
         "yes": "Ja",
         "cancel": "Avbryt"
       },
       "table": {
         "completed": "Ferdigstilt",
         "drafts": "Utkast",
-        "columns": {
-          "configurationId": "KonfigurasjonsId",
+        "noElements": "Ingen element",
+        "show": "Vis",
+        "edit": "Rediger",
+        "basedOn": "Lag ny basert på denne",
+        "activate": "Aktiver",
+        "column": {
+          "id": "Id",
+          "configurationId": "Konfig. Id",
           "destination": "Destinasjon/base",
-          "sourceApplicationIntegrationId": "Kildeapp. integr.ID",
-          "sourceApplicationIntegrationIdDescription": "Kjeldeapplikasjons integrasjons-ID",
+          "sourceApplicationIntegrationId": "Kildeapp. integr.Id",
           "sourceApplicationIntegrationIdDisplayName": "Integrasjonsnavn",
           "sourceApplicationId": "Kjeldeapplikasjon",
           "name": "Navn",
           "state": "Tilstand",
           "comment": "Kommentar",
+          "actions": "Handlingar",
           "finished": "Ferdigstilt",
           "version": "Versjon",
-          "dispatched": "Godteke",
-          "dispatchedDescription": "Talet på instansar godteke av destinasjon for integrasjon",
-          "errors": "Feilet",
-          "errorsDescription": "Talet på instansar som har feila for integrasjon",
-          "show": "Vis",
-          "edit": "Rediger"
+          "dispatched": "# godteke",
+          "errors": "# feila"
         }
-      },
-      "labels": {
-        "comment": "Kommentar: ",
-        "activeConfigurationId": "Aktiv konfigurasjon: ",
-        "destination": "Destinasjon: ",
-        "sourceApplicationId": "Kjeldeapplikasjon: ",
-        "sourceApplicationIntegrationId": "Integrasjon: ",
-        "finished": "Ferdigstilt: ",
-        "version": "Versjon: "
       }
     },
     "instances": {
@@ -148,12 +140,12 @@
       },
       "table": {
         "column": {
-          "sourceApplicationIntegrationId": "Kjeldeapplikasjon integrasjon ID",
+          "sourceApplicationIntegrationId": "Kjeldeapplikasjon integrasjon-id",
           "sourceApplicationIntegrationIdDisplayName": "Integrasjonsnavn",
           "sourceApplicationId": "Kjeldeapplikasjon",
           "status": "Status",
           "actions": "Handlingar",
-          "sourceApplicationInstanceId": "Kjeldeapplikasjons instans-ID",
+          "sourceApplicationInstanceId": "Kjeldeapplikasjons instans ID",
           "configurationId": "Konfigurasjon ID",
           "correlationId": "Korrelasjon ID",
           "archiveInstanceId": "Destinasjon ID",

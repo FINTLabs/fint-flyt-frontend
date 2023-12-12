@@ -8,7 +8,7 @@
   "menuItems": {
     "dashboard": "Dashbord",
     "integration": "Ny",
-    "integrationOverview": "Integrasjoner",
+    "integrations": "Integrasjoner",
     "instances": "Instanser",
     "version": "Versjon",
     "support": "Hjelp og support",
@@ -27,7 +27,7 @@
       "oneError": "feilmelding",
       "errors": "feilmeldinger",
       "links": {
-        "integrationOverview": "Se integrasjoner",
+        "integrations": "Se integrasjoner",
         "integration": "Ny integrasjon",
         "log": "Se logg",
         "instances": "Se instansoversikt",
@@ -85,56 +85,47 @@
         "version": "Versjon"
       }
     },
-    "integrationOverview": {
-      "header": "Integrasjonsoversikt",
+    "integrations": {
+      "header": "Integrasjoner",
       "version": "Versjon ",
+      "noActiveConfig": "ingen aktiv konfigurasjon",
+      "activeConfigurationId": "Aktiv konfigurasjon: ",
+      "missingDataError": "Mangler tilstrekkelig data for å kunne opprette ny konfigurasjon",
+      "help": {
+        "header": "Oversikt over integrasjoner. Her kan du se alle integrasjonene og tilhørende konfigurasjoner, lage nye konfigurasjoner for en integrasjon eller aktivere en konfigurasjon"
+      },
       "button": {
-        "show": "Vis",
-        "edit": "Rediger",
-        "back": "Tilbake",
-        "version": "Versjon ",
-        "changeVersion": "Bruk denne konfigurasjonen",
-        "newConfiguration": "Ny konfigurasjon",
-        "blankConfiguration": "Blank konfigurasjon",
-        "templateConfiguration": "Basert på eksisterende versjon"
+        "newConfiguration": "Ny konfigurasjon"
       },
       "dialog": {
-        "header": "Aktiver konfigurasjon?",
-        "confirmMsg": "Bekreft aktivering av konfigurasjon",
-        "yes": "Ja",
+        "body": "Er du sikker på at du vil aktivere denne konfigurasjonen?",
+        "yes": "Ja, jeg er sikker",
         "cancel": "Avbryt"
       },
       "table": {
         "completed": "Ferdigstilt",
         "drafts": "Utkast",
-        "columns": {
-          "configurationId": "KonfigurasjonsId",
+        "noElements": "No elements",
+        "show": "Vis",
+        "edit": "Rediger",
+        "basedOn": "Lag ny basert på denne",
+        "activate": "Aktiver",
+        "column": {
+          "id": "Id",
+          "configurationId": "Konfig. Id",
           "destination": "Destinasjon/base",
-          "sourceApplicationIntegrationId": "Kildeapp. integr.ID",
-          "sourceApplicationIntegrationIdDescription": "Kildeapplikasjons integrasjons-ID",
+          "sourceApplicationIntegrationId": "Kildeapplikasjons integrasjon-id",
           "sourceApplicationIntegrationIdDisplayName": "Integrasjonsnavn",
           "sourceApplicationId": "Kildeapplikasjon",
           "name": "Navn",
           "state": "Tilstand",
           "comment": "Kommentar",
+          "actions": "Handlinger",
           "finished": "Ferdigstilt",
           "version": "Versjon",
-          "dispatched": "Godtatt",
-          "dispatchedDescription": "Antall instanser godtatt av destinasjon for integrasjon",
-          "errors": "Feilet",
-          "errorsDescription": "Antall instanser som har feilet for integrasjon",
-          "show": "Vis",
-          "edit": "Rediger"
+          "dispatched": "# godtatt",
+          "errors": "# feilet"
         }
-      },
-      "labels": {
-        "comment": "Kommentar: ",
-        "activeConfigurationId": "Aktiv konfigurasjon: ",
-        "destination": "Destinasjon: ",
-        "sourceApplicationId": "Kildeapplikasjon: ",
-        "sourceApplicationIntegrationId": "Integrasjon: ",
-        "finished": "Ferdigstilt: ",
-        "version": "Versjon: "
       }
     },
     "instances": {

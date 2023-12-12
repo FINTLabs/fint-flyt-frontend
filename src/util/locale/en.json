@@ -6,14 +6,14 @@
     "english": "English (coming soon)"
   },
   "menuItems": {
-  "dashboard": "Dashbord",
-  "integration": "Ny",
-  "integrationOverview": "Integrasjoner",
-  "instances": "Instanser",
-  "version": "Versjon",
-  "support": "Hjelp og support",
-  "valueConverting": "Verdikonvertering"
-},
+    "dashboard": "Dashbord",
+    "integration": "Ny",
+    "integrations": "Integrasjoner",
+    "instances": "Instanser",
+    "version": "Versjon",
+    "support": "Hjelp og support",
+    "valueConverting": "Verdikonvertering"
+  },
   "pages": {
     "dashboard": {
       "header": "Dashboard",
@@ -27,7 +27,7 @@
       "oneError": "error",
       "errors": "errors",
       "links": {
-        "integrationOverview": "View integrations",
+        "integrations": "View integrations",
         "integration": "New integration",
         "log": "View log",
         "instances": "View instances",
@@ -85,56 +85,47 @@
         "version": "Versjon"
       }
     },
-    "integrationOverview": {
+    "integrations": {
       "header": "Integrations",
       "version": "Version ",
+      "noActiveConfig": "no active configuration",
+      "activeConfigurationId": "Active configuration Id: ",
+      "missingDataError": "There is insufficient data to create a new configuration",
+      "help": {
+        "header": "List of integrations. Here you can see all the integrations and associated configurations, create new configurations for an integration or activate a configuration"
+      },
       "button": {
-        "show": "View",
-        "edit": "Edit",
-        "back": "Back",
-        "version": "Versjon ",
-        "changeVersion": "Use this configuration",
-        "newConfiguration": "New configuration",
-        "blankConfiguration": "Blank configuration",
-        "templateConfiguration": "Based on existing version"
+        "newConfiguration": "New configuration"
       },
       "dialog": {
-        "header": "Activate configuration?",
-        "confirmMsg": "Confirm activation of this configuration",
+        "body": "Are you sure you want to activate this configuration?",
         "yes": "Yes",
         "cancel": "Cancel"
       },
       "table": {
         "completed": "Completed",
         "drafts": "Drafts",
-        "columns": {
-          "configurationId": "Configuration Id",
+        "noElements": "No elements",
+        "show": "Show",
+        "edit": "Edit",
+        "basedOn": "Create new based on this",
+        "activate": "Activate",
+        "column": {
+          "id": "Id",
+          "configurationId": "Config. ID",
           "destination": "Destination",
-          "sourceApplicationIntegrationId": "Source application Integration Id",
-          "sourceApplicationIntegrationIdDescription": "Source application Integration Id",
+          "sourceApplicationIntegrationId": "Source application integration ID",
           "sourceApplicationIntegrationIdDisplayName": "Displayname",
           "sourceApplicationId": "Source application",
           "name": "Name",
           "state": "State",
           "comment": "Comment",
+          "actions": "Actions",
           "finished": "Completed",
           "version": "Version",
-          "dispatched": "Dispatched",
-          "dispatchedDescription": "Number of instances dispatched",
-          "errors": "Failed",
-          "errorsDescription": "Number of instances failed",
-          "show": "Show",
-          "edit": "Edit"
+          "dispatched": "# dispatched",
+          "errors": "# failed"
         }
-      },
-      "labels": {
-        "comment": "Comment: ",
-        "activeConfigurationId": "Active configuration Id: ",
-        "destination": "Destination: ",
-        "sourceApplicationId": "Source application Id: ",
-        "sourceApplicationIntegrationId": "Integration: ",
-        "finished": "Completed: ",
-        "version": "Version: "
       }
     },
     "instances": {

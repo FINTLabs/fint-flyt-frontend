@@ -63,7 +63,7 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
     }, [sourceApplication, setSourceApplication])
 
     const confirm = () => {
-        const selectedForm = allMetadata.find((md: IIntegrationMetadata) => md.sourceApplicationIntegrationId === sourceApplicationIntegrationId);
+        const selectedForm = allMetadata ? allMetadata.find((md: IIntegrationMetadata) => md.sourceApplicationIntegrationId === sourceApplicationIntegrationId) : undefined;
         if (!destination || !sourceApplicationId || !sourceApplicationIntegrationId || !selectedForm) {
             setError(t('error'))
             return;
