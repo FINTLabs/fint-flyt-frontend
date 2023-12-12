@@ -85,7 +85,7 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
             <Modal open={openErrorDialog} header={{
                 heading: props.row?.errors?.length > 1 ? t('errors') : t('oneError'),
                 closeButton: false
-            }} closeOnBackdropClick>
+            }}>
                 <Modal.Body>
                     <ErrorDialogComponent row={props.row}/>
                 </Modal.Body>
