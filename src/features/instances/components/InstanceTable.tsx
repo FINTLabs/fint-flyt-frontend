@@ -110,7 +110,7 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
             <Modal open={openDialog} header={{
                 heading: props.row?.errors?.length > 1 ? "Feilmeldinger:" : "Feilmelding:",
                 closeButton: false
-            }} closeOnBackdropClick>
+            }}>
                 <Modal.Body>
                     <ErrorDialogComponent row={props.row}/>
                 </Modal.Body>
