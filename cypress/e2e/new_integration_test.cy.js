@@ -49,7 +49,7 @@ describe('Testing create new integration', () => {
         cy.get('#sourceApplicationIntegrationId').click()
         cy.get('#sourceApplicationIntegrationId-option-1').click()
         cy.get('#form-settings-confirm-btn').click()
-        cy.get('#form-error-msg').should("be.visible")
+        cy.get('.navds-error-summary').should("be.visible")
     })
 
     it('should submit complete form and navigate to configuration form', () => {
