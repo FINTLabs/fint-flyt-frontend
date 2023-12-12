@@ -229,8 +229,8 @@
         "displayName": "Namn",
         "toType": "Til type",
         "fromType": "Frå type",
-        "toApplication": "Til type",
-        "fromApplication": "Frå type",
+        "toApplication": "Til",
+        "fromApplication": "Frå",
         "actions": "Handlingar"
       },
       "help": {

@@ -230,8 +230,8 @@
         "displayName": "Navn",
         "toType": "Til type",
         "fromType": "Fra type",
-        "toApplication": "Til type",
-        "fromApplication": "Fra type",
+        "toApplication": "Til",
+        "fromApplication": "Fra",
         "actions": "Handlinger"
       },
       "help": {
