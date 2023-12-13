@@ -80,6 +80,11 @@
         "sourceApplicationIntegrationId": "Integration",
         "destination": "Destination"
       },
+      "help": {
+        "sourceApplicationId": "A source application is the source system that data to be processed in Flyt comes from",
+        "sourceApplicationIntegrationId": "Reference/name/id of data to be processed in Flyt",
+        "destination": "Where data is to be sent after transformation in Flyt"
+      },
       "metadataPanel": {
         "header": "Metadata",
         "version": "Versjon"

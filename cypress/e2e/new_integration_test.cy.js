@@ -24,12 +24,9 @@ describe('Testing create new integration', () => {
     }
 
     function fillAll() {
-        cy.get('#sourceApplicationId').click()
-        cy.get('#sourceApplication-1').click()
-        cy.get('#sourceApplicationIntegrationId').click()
-        cy.get('#sourceApplicationIntegrationId-option-1').click()
-        cy.get('#destination').click()
-        cy.get('#menu- > .MuiPaper-root > .MuiList-root > .MuiButtonBase-root').click()
+        cy.get('#sourceApplicationId').select('2')
+        cy.get('#sourceApplicationIntegrationId').select('sak')
+        cy.get('#destination').select('fylkesrad')
     }
 
     it('should open and show form', () => {
@@ -44,10 +41,8 @@ describe('Testing create new integration', () => {
 
     it('should not allow submit on incomplete form', () => {
         prep()
-        cy.get('#sourceApplicationId').click()
-        cy.get('#sourceApplication-1').click()
-        cy.get('#sourceApplicationIntegrationId').click()
-        cy.get('#sourceApplicationIntegrationId-option-1').click()
+        cy.get('#sourceApplicationId').select('2')
+        cy.get('#sourceApplicationIntegrationId').select('sak')
         cy.get('#form-settings-confirm-btn').click()
         cy.get('.navds-error-summary').should("be.visible")
     })

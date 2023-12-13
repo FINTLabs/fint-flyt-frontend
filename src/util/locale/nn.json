@@ -80,6 +80,11 @@
         "sourceApplicationIntegrationId": "Integrasjon",
         "destination": "Destinasjon/Base"
       },
+      "help": {
+        "sourceApplicationId": "Ein kjeldeapplikasjon er fagsystemet data som skal behandlast i Flyt kjem frå",
+        "sourceApplicationIntegrationId": "Referanse/navn/id til data som skal behandlast i flyt",
+        "destination": "Kvar data skal sendast etter omforming i Flyt"
+      },
       "metadataPanel": {
         "header": "Metadata",
         "version": "Versjon"
