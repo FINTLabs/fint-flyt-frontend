@@ -83,6 +83,7 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
             await getAllIntegrationsAndSetAvailableForms(selectables);
         } catch (err) {
             console.error(err);
+            setAvailableForms([{value: 'null', label: 'No options'}]);
         }
     };
 

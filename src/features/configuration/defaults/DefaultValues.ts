@@ -15,11 +15,6 @@ export const sourceApplications: ISelect[] = [
     {label: "eGrunnerverv", value: "2"},
     {label: "Regionalforvaltning", value: "3"}
 ];
-export const fromApplicationIds: ISelect[] = [
-    {label: "ACOS", value: "1"},
-    {label: "eGrunnerverv", value: "2"},
-    {label: "Regionalforvaltning", value: "3"}
-];
 
 export const fromTypeIds: ISelect[] = [
     {label: "Mediatype", value: "mediatype"},

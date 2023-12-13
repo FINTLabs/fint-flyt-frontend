@@ -159,12 +159,12 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
                             <HelpPopover popoverContent={'destination'}/>
                         </HStack>
                         {error && (!sourceApplicationId || !sourceApplicationIntegrationId || !destination) &&
-                            <ErrorSummary heading="Du må rette disse feilene, det mangler: " size="small">
+                            <ErrorSummary heading={t('errorHeading')} size="small">
                                 {!sourceApplicationId &&
-                                    <ErrorSummary.Item href="#sourceApplicationId">Kildeapplikasjon</ErrorSummary.Item>}
+                                    <ErrorSummary.Item href="#sourceApplicationId">{t('labels.sourceApplicationId')}</ErrorSummary.Item>}
                                 {!sourceApplicationIntegrationId && <ErrorSummary.Item
-                                    href="#sourceApplicationIntegrationId">Integrasjon</ErrorSummary.Item>}
-                                {!destination && <ErrorSummary.Item href="#destination">Destinasjon</ErrorSummary.Item>}
+                                    href="#sourceApplicationIntegrationId">{t('labels.sourceApplicationIntegrationId')}</ErrorSummary.Item>}
+                                {!destination && <ErrorSummary.Item href="#destination">{t('labels.destination')}</ErrorSummary.Item>}
                             </ErrorSummary>}
                         <HStack gap={"6"}>
                             <Button id="form-settings-confirm-btn" onClick={confirm}>

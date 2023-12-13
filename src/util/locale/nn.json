@@ -70,7 +70,7 @@
       "header": "Ny integrasjon",
       "incoming": "Innkommande",
       "outgoing": "Utgåande",
-      "error": "du må velja kjeldeapplikasjon, skjema og destinasjon",
+      "errorHeading": "Du må retta desse feila, det manglar:",
       "button": {
         "confirm": "Opprett",
         "cancel": "Avbryt"

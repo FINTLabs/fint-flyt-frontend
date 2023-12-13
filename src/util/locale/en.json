@@ -70,7 +70,7 @@
       "header": "New integration",
       "incoming": "Incoming",
       "outgoing": "Outgoing",
-      "error": "you must select source application, integration and destination",
+      "errorHeading": "You must correct these errors, missing required fields:",
       "button": {
         "confirm": "Create",
         "cancel": "Cancel"
