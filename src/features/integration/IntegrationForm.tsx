@@ -1,7 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {
-    defaultAlert,
-    destinations,
+    defaultAlert, selectableDestinations,
     selectableSourceApplications,
 } from "../configuration/defaults/DefaultValues";
 import { Snackbar } from "@mui/material";
@@ -180,7 +179,7 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
                                                 field.onChange(event.target.value)
                                             }}
                                         >
-                                            {destinations.map((option, index) => (
+                                            {selectableDestinations.map((option, index) => (
                                                 <option key={index} value={option.value}>{option.label}</option>
                                             ))}
                                         </Select>

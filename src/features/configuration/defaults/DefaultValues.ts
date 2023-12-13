@@ -34,6 +34,10 @@ export const toTypeIds: ISelect[] = [
 ];
 
 export const destinations: ISelect[] = [
+    {label: "Fylkesråd", value: "fylkesrad"}
+];
+
+export const selectableDestinations: ISelect[] = [
     {label: "Velg destinasjon", value: ""},
     {label: "Fylkesråd", value: "fylkesrad"}
 ];
