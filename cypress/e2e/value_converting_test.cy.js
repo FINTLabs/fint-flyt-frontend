@@ -79,6 +79,20 @@ describe('Testing create new value converting', () => {
         )
     })
 
+    it('should fail when trying to save new value converting without all required fields', () => {
+        prep()
+        cy.get('#new-button').click()
+        cy.get('#displayName').type('testkonvertering', {delay: 0})
+        cy.get('#fromApplicationId').click()
+        cy.get('#menu-fromApplicationId > .MuiPaper-root > .MuiList-root > [tabindex="0"]').click()
+        cy.get('#fromTypeId').click()
+        cy.get('#menu-fromTypeId > .MuiPaper-root > .MuiList-root > [tabindex="0"]').click()
+        cy.get('#toApplicationId').click()
+        cy.get('#menu-toApplicationId > .MuiPaper-root > .MuiList-root > [tabindex="0"]').click()
+        cy.get('#submit-button').click()
+        cy.get('#from-to-container > :nth-child(2) > .navds-vstack > :nth-child(2)').should("contain.text", 'Påkrevd felt')
+    })
+
 });
 
 describe('Testing create new based on existing value converting', () => {
