@@ -220,6 +220,7 @@
       "saved": "Value conversion saved",
       "saveError": "Failed saving, error message: ",
       "genericError": "An error has occured",
+      "requiredField": "Required field",
       "column": {
         "show": "Show",
         "id": "Id",

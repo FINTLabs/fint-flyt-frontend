@@ -168,6 +168,7 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (
 								</HelpText>
 							</HStack>
 							<Controller
+								rules={{required: {value: true, message: t('requiredField')}}}
 								name={"displayName"}
 								defaultValue={""}
 								render={({ field, fieldState }) => (
@@ -191,11 +192,13 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (
 								</HStack>
 								<VStack gap={"3"}>
 									<Controller
+										rules={{required: {value: true, message: t('requiredField')}}}
 										name={"fromApplicationId"}
 										defaultValue={""}
-										render={({ field }) => (
+										render={({ field , fieldState}) => (
 											<SelectValueComponent
 												{...field}
+												fieldState={fieldState}
 												disabled={disabled}
 												displayName={t("fromApplicationId")}
 												selectables={sourceApplications.map(
@@ -210,11 +213,13 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (
 										)}
 									/>
 									<Controller
+										rules={{required: {value: true, message: t('requiredField')}}}
 										name={"fromTypeId"}
 										defaultValue={""}
-										render={({ field }) => (
+										render={({ field, fieldState }) => (
 											<SelectValueComponent
 												{...field}
+												fieldState={fieldState}
 												disabled={disabled}
 												displayName={t("fromTypeId")}
 												selectables={fromTypeIds.map((fromTypeId) => {
@@ -237,11 +242,13 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (
 								</HStack>
 								<VStack gap={"3"}>
 									<Controller
+										rules={{required: {value: true, message: t('requiredField')}}}
 										name={"toApplicationId"}
 										defaultValue={""}
-										render={({ field }) => (
+										render={({ field, fieldState }) => (
 											<SelectValueComponent
 												{...field}
+												fieldState={fieldState}
 												disabled={disabled}
 												displayName={t("toApplicationId")}
 												selectables={destinations.map((destination) => {
@@ -254,11 +261,13 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (
 										)}
 									/>
 									<Controller
+										rules={{required: {value: true, message: t('requiredField')}}}
 										name={"toTypeId"}
 										defaultValue={""}
-										render={({ field }) => (
+										render={({ field, fieldState }) => (
 											<SelectValueComponent
 												{...field}
+												fieldState={fieldState}
 												disabled={disabled}
 												displayName={t("toTypeId")}
 												selectables={toTypeIds.map((toTypeId) => {
@@ -289,6 +298,7 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (
 								fieldComponentCreator={(index: number, absoluteKey: string) => (
 									<HStack gap={"6"}>
 										<Controller
+											rules={{required: {value: true, message: t('requiredField')}}}
 											name={`${absoluteKey}.from`}
 											defaultValue={""}
 											render={({ field, fieldState }) => (
@@ -303,6 +313,7 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (
 											)}
 										/>
 										<Controller
+											rules={{required: {value: true, message: t('requiredField')}}}
 											name={`${absoluteKey}.to`}
 											defaultValue={""}
 											render={({ field, fieldState }) => {
@@ -321,6 +332,7 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (
 														disabled={disabled}
 														displayName={t("to")}
 														selectables={toSelectables}
+														fieldState={fieldState}
 													/>
 												);
 											}}

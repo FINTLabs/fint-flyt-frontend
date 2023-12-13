@@ -220,6 +220,7 @@
       "saved": "Verdikonvertering lagra",
       "saveError": "Feila under lagring, feilmelding: ",
       "genericError": "Det har oppstått ein feil",
+      "requiredField": "Påkrevd felt",
       "column": {
         "show": "Vis",
         "id": "ID",
