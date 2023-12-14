@@ -1,411 +1,242 @@
 {
-  "appbarHeader": "Flyt",
-  "language": {
+  "menu": {
     "language": "Language",
-    "norwegian": "Norsk",
-    "english": "English"
+    "norwegian": "Norwegian bokmål",
+    "norwegianNN": "Norwegian nynorsk",
+    "english": "English (coming soon)"
   },
   "menuItems": {
-    "dashboard": "Dashboard",
-    "integration": "New integration",
-    "editIntegration": "Edit integration",
-    "integrationOverview": "Integration list",
-    "integrationDetails": "Details",
-    "log": "Log [beta]",
-    "support": "Support"
+    "dashboard": "Dashbord",
+    "integration": "Ny",
+    "integrations": "Integrasjoner",
+    "instances": "Instanser",
+    "version": "Versjon",
+    "support": "Hjelp og support",
+    "valueConverting": "Verdikonvertering"
   },
   "pages": {
     "dashboard": {
-      "form": "form",
+      "header": "Dashboard",
+      "integrations": "integrations",
+      "oneIntegration": "integration",
+      "activeIntegrations": "active integrations",
+      "oneActiveIntegration": "active integration",
+      "instances": "instances dispatched",
+      "oneInstance": "instance dispatched",
       "empty": "No",
+      "oneError": "error",
       "errors": "errors",
       "links": {
-        "integrationOverview": "View integrations",
+        "integrations": "View integrations",
         "integration": "New integration",
         "log": "View log",
-        "support": "Contact support"
+        "instances": "View instances",
+        "support": "contact support"
       }
     },
-    "configurationForm": {
-      "header": "Integration to archive",
-      "successHeader": "Integration to archive - finished",
-      "accordions": {
-        "caseInformation": {
-          "header": "Integration logic",
-          "button": {
-            "search": "Search",
-            "save": "Save"
-          },
-          "caseSearch": {
-            "id": "Case number",
-            "searching": "Searching...",
-            "info": "Case number must be correct format 'case year/case number', i.e. 2021/03",
-            "noMatch": "No match"
-          }
-        },
-        "caseForm": {
-          "header": "Case description",
-          "classification": "Classification",
-          "button": {
-            "save": "Save"
-          }
-        },
-        "recordForm": {
-          "header": "Record description",
-          "button": {
-            "save": "Save"
-          }
-        },
-        "documentForm": {
-          "header": "Document and object description",
-          "documentDescription": "Document description",
-          "objectDescription": "Object description",
-          "button": {
-            "save": "Save"
-          }
-        },
-        "correspondentForm": {
-          "header": "Applicant",
-          "button": {
-            "save": "Save"
-          }
-        }
-      },
-      "checkLabel": "Completed",
-      "activeLabel": "Active",
+    "configuration": {
+      "header": "Configuration",
+      "integration": "Integration",
+      "metadataVersion": "Metadata version",
+      "metadataWarning": "There exists a newer version of metadata",
+      "formHeader": "Outgoing data",
+      "saved": "configuration saved",
+      "saveError": "Failed saving, error message: ",
+      "genericError": "An error has occured",
+      "version": "Version ",
       "comment": "Comment",
+      "reqFieldMsg": "Comment is required on completing configuration",
+      "label": {
+        "checkLabel": "Completed",
+        "activeLabel": "Active"
+      },
       "button": {
-        "save": "Save",
+        "submit": "Save",
         "cancel": "Cancel",
-        "integrationOverview": "See integrations",
-        "dashboard": "Dashboard",
-        "close": "Close"
+        "complete": "Complete",
+        "append": "+",
+        "remove": "-"
       },
-      "messages": {
-        "success": "Saved",
-        "error": "There was an error saving"
+      "collectionMapping": {
+        "defaultElements": "Default elements",
+        "generatedElements": "From collection"
+      },
+      "fromCollectionMapping": {
+        "collections": "Collections",
+        "convertCollectionElements": "Converting collection elements"
       }
-    },
-    "integrationOverview": {
-      "header": "Overview",
-      "details": "Configuration details",
-      "revision": "Revision",
-      "case": "Case description",
-      "record": "Record description",
-      "document": "Document and object description",
-      "applicant": "Applicant",
-      "changedMsg": "Changed to revision",
-      "button": {
-        "edit": "Edit",
-        "back": "Back",
-        "changeVersion": "Use this configuration"
-      },
-      "table": {
-        "columns": {
-          "sourceApplicationIntegrationId": "Form",
-          "sourceApplicationId": "Source application",
-          "name": "Name",
-          "comment": "Comment",
-          "finished": "Finished",
-          "revision": "Revision"
-        }
-      },
-      "labels": {
-        "comment": "Comment",
-        "destination": "Destination: ",
-        "sourceApplicationId": "Source application: ",
-        "sourceApplicationIntegrationId": "Form: ",
-        "caseCreationStrategy": "Creation strategy: ",
-        "finished": "finished: ",
-        "version": "Version: ",
-        "id": "Case number: ",
-        "title": "Title: ",
-        "publicTitle": "Public title: ",
-        "administrativeUnit": "Administrative unit: ",
-        "archiveUnit": "Archive unit: ",
-        "recordUnit": "Record unit: ",
-        "status": "Status: ",
-        "accessCode": "Access code: ",
-        "paragraph": "Paragraph: ",
-        "responsibleCaseWorker": "Responsible case worker: ",
-        "primaryClassification": "Primary classification: ",
-        "secondaryClassification": "Secondary classification: ",
-        "tertiaryClassification": "Tertiary classification: ",
-        "primaryClass": "Primary class: ",
-        "secondaryClass": "Secondary class: ",
-        "tertiaryClass": "Tertiary class: ",
-        "primaryTitle": "Primary title: ",
-        "secondaryTitle": "Secondary title: ",
-        "tertiaryTitle": "Tertiary title: ",
-        "type": "Type: ",
-        "recordStatus": "Record status: ",
-        "recordType": "Record Type",
-        "documentCategory": "Document category",
-        "caseWorker": "Case worker: ",
-        "documentStatus": "Status: ",
-        "variant": "Variantformat: ",
-        "format": "Filformat: ",
-        "file": "Fil: ",
-        "organisationNumber": "Organisation number: ",
-        "nationalIdentityNumber": "National identity number: ",
-        "correspondentName": "Name: ",
-        "address": "Address: ",
-        "postalCode": "Postal code: ",
-        "city": "City: ",
-        "contactPerson": "Contact person: ",
-        "phoneNumber": "Phone number: ",
-        "email": "Email: "
-      }
-    },
-    "log": {
-      "header": "Log",
-      "dialogHeader": "Event - messages",
-      "table": {
-        "columns": {
-          "details": "Details",
-          "type": "Type",
-          "timestamp": "Time",
-          "sourceApplicationIntegrationId": "Form",
-          "sourceApplicationId": "Source application",
-          "errorMessage": "Error message"
-        }
-      },
-      "button": {
-        "close": "Close"
-      }
-    },
-    "support": {
-      "header": "Contact support"
-    }
-  },
-  "inputField": {
-    "errorMessage": "You must provide ",
-    "requiredField": "Required field",
-    "labels": {
-      "comment": "Comment",
-      "destination": "Destination",
-      "sourceApplicationId": "Source application",
-      "sourceApplicationIntegrationId": "Form",
-      "caseCreationInfo": "Select creation strategy",
-      "caseCreationNew": "As new case",
-      "caseCreationNewInfo": "Form creates new case in Elements",
-      "caseCreationExisting": "On existing case",
-      "caseCreationExistingInfo": "On existing case based on information in form, if no match a new case is created",
-      "caseCreationCollection": "On case collection",
-      "caseCreationCollectionInfo": "Form is part of predefined case collection, here you must provide a case number",
-      "id": "Case number",
-      "title": "Title",
-      "publicTitle": "Public title",
-      "administrativeUnit": "Administrative unit",
-      "archiveUnit": "Archive unit",
-      "recordUnit": "Record unit",
-      "status": "Status",
-      "accessCode": "Access code",
-      "paragraph": "Paragraph",
-      "responsibleCaseWorker": "Responsible case worker",
-      "primaryClassification": "Primary classification",
-      "secondaryClassification": "Secondary classification",
-      "tertiaryClassification": "Tertiary classification",
-      "primaryClass": "Primary class",
-      "secondaryClass": "Secondary class",
-      "tertiaryClass": "Tertiary class",
-      "primaryTitle": "Primary title",
-      "secondaryTitle": "Secondary title",
-      "tertiaryTitle": "Tertiary title",
-      "type": "Type",
-      "recordStatus": "Record status",
-      "recordType": "",
-      "documentCategory": "",
-      "caseWorker": "Case worker",
-      "documentStatus": "Status",
-      "variant": "Variantformat",
-      "fileFormat": "Filformat: ",
-      "file": "Fil: ",
-      "applicantType": "Select applicant type",
-      "organisationNumber": "Organisation number",
-      "nationalIdentityNumber": "National identity number",
-      "correspondentName": "Name",
-      "address": "Address",
-      "postalCode": "Postal code",
-      "city": "City",
-      "contactPerson": "Contact person",
-      "phoneNumber": "Phone number",
-      "email": "Email"
-    },
-    "selects": {
-      "creationStrategies": {
-        "new": "As a new case",
-        "newDesc": "Submitted form created new case in Elements",
-        "existing": "On an existing case",
-        "existingDesc": "Form submitted finds existing form in Elements based on data in the form. If no matching case - a new case is created",
-        "collection": "On a case collection",
-        "collectionDesc": "Form submitted will be added to predefined case collection. This option requires a valid case number"
-      },
-      "sourceApplicationIntegrations": {
-        "VIK014": "Søknad om reservasjon av skoleplass",
-        "VIK036": "Søknad til kombinasjonsprogram",
-        "VIK108": "Søknad om TT-kort",
-        "VIK132": "Samtykke - fotografering/video/lyd"
-      },
-      "sourceApplications": {
-        "label": "ACOS"
-      }
-    }
-  },
-  "models": {
-    "integrationConfiguration": {
-      "comment": "Comment",
-      "version": "Version",
-      "sourceApplicationId": "Source application",
-      "sourceApplicationIntegrationId": "Form",
-      "finished": "Finished",
-      "caseConfiguration": {
-        "caseCreationStrategy": "",
-        "id": "",
-        "title": "",
-        "publicTitle": "",
-        "administrativeUnit": "",
-        "archiveUnit": "",
-        "recordUnit": "",
-        "status": "",
-        "accessCode": "",
-        "caseWorker": "",
-        "primaryClassification": "",
-        "secondaryClassification": "",
-        "tertiaryClassification": "",
-        "primaryClass": "",
-        "secondaryClass": "",
-        "tertiaryClass": "",
-        "primaryTitle": "",
-        "secondaryTitle": "",
-        "tertiaryTitle": ""
-      },
-      "recordConfiguration": {
-        "title": "",
-        "publicTitle": "",
-        "type": "",
-        "administrativeUnit": "",
-        "recordStatus": "",
-        "recordType": "",
-        "documentCategory": "",
-        "caseWorker": "",
-        "accessCode": "",
-        "paragraph": ""
-      },
-      "documentConfiguration": {
-        "title": "",
-        "documentStatus": "",
-        "accessCode": "",
-        "paragraph": "",
-        "fileFormat": "",
-        "variant": "",
-        "file": ""
-      },
-      "applicantConfiguration": {
-        "type": "",
-        "organisationNumber": "",
-        "nationalIdentityNumber": "",
-        "name": "",
-        "address": "",
-        "postalCode": "",
-        "city": "",
-        "contactPerson": "",
-        "phoneNumber": "",
-        "email": "",
-        "accessCode": "",
-        "paragraph": ""
-      }
-    }
-  },
-  "errors": {
-    "connection": "Tilkoblingsfeil",
-    "code0": "General error"
-  },
-  "components": {
-    "metadataPanel": {
-      "header": "Data from form"
     },
     "integrationForm": {
-      "header": "Select source application and destination",
-      "error": "You must select source application and destination",
+      "header": "New integration",
+      "incoming": "Incoming",
+      "outgoing": "Outgoing",
+      "error": "you must select source application, integration and destination",
+      "button": {
+        "confirm": "Create",
+        "cancel": "Cancel"
+      },
       "labels": {
         "sourceApplicationId": "Source application",
+        "sourceApplicationIntegrationId": "Integration",
         "destination": "Destination"
       },
-      "button": {
-        "confirm": "Confirm",
-        "cancel": "Cancel"
+      "metadataPanel": {
+        "header": "Metadata",
+        "version": "Versjon"
       }
-    }
-  },
-  "fieldHelp": {
-    "metadataPanelPopoverContent": "In the forms text fields you can use data from the selected form to fill these. Drag and drop to the field.",
-    "sourceApplicationId": "Source appliation, i.e. ACOS",
-    "sourceApplicationIntegrationId": "Form",
-    "destination": "Choose base to transfer form to",
-    "comment": "",
-    "version": "",
-    "selectedForm": ",",
-    "caseData": {
-      "caseCreationStrategy": "Integration logic",
-      "id": "2021/12345",
-      "title": "Tittel kan være en konkret tekststreng, eller en kombinasjon av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak.  (Se Noark))",
-      "publicTitle": "See Noark (part of title to be hidden)",
-      "status": "-",
-      "caseType": "I.e. Kompetanse, personal, rekrutering etc.",
-      "administrativeUnit": "Avdeling eller enhet som skal behandle saken.",
-      "archiveUnit": "I.e. kompetanse, sakarkiv, personal",
-      "recordUnit": "Navnet på journalførende enhet.Eksempel: Viken fylkesråd",
-      "accessCode": "Dersom noe skjermes må man også sette tilgangskode.Eksempel: Unntatt offentlighet, personal, varslingssak, ugradert. ",
-      "paragraph": "Dersom det settes tilgangskode må det også settes hjemmel. Det må være en lovmessig hjemmel for skjerming eller begrenset tilgang.Eksempel:'Offl. §13 '",
-      "caseWorker": "Konkret saksbehandler eller ufordelt.",
-      "classification": "Det må kunne settes flere klasseringer på en sak, slik at sjemaet kan lete fram riktig sak. Eksempel: Primærkode=K-koder 'Sekundærkode=organisasjonsnummer eller personnummer'",
-      "class": "Vi må kunne fylle ut verdi og betegnelse.Eksempel: K-kode: Verdi 003, Betegnelse: Målbruk.Person: verdi: fødselsnummer, betegnelse = personnavn.",
-      "classTitle": "Tittel/Beskrivelse"
     },
-    "recordData": {
-      "title": "Tittel kan være en konkret tekststreng, eller en kombinasjon av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak. (Se Noark))",
-      "publicTitle": "Se Noark (Del av tittel som skal skjermes)",
-      "type": "",
-      "administrativeUnit": "Enheten/avdelingen. Nedtrekksmeny fra Elements",
-      "recordStatus": "R,F,E,J",
-      "recordType": "I, U, N, X",
-      "documentCategory": "Dokuemtkategori",
-      "caseWorker": "En sak kan ha en ansvarlig saksbehandler men det kan være ulike saksbehandlere på ulike journalposter.",
-      "accessCode": "Eksempel: Unntatt offentlighet, personal varslingssak, ugradert. ",
-      "paragraph": "Eksempel: Offl. §13 ",
-      "mainDocument": {
-        "title": "Tittel kan være en konkret tekststreng, eller en kombinasjon av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak.(Se Noark))",
-        "documentStatus": "Eksempel: B, F",
-        "accessCode": "Eksempel: Unntatt offentlighet, persona,l varslingssak, ugradert. ",
-        "paragraph": "Eksempel: Offl. §13",
-        "fileFormat": "Filformat",
-        "variant": "Arkivformat/ produksjonsformat / offentlig variant",
-        "file": "Fil"
+    "integrations": {
+      "header": "Integrations",
+      "version": "Version ",
+      "noActiveConfig": "no active configuration",
+      "activeConfigurationId": "Active configuration Id: ",
+      "missingDataError": "There is insufficient data to create a new configuration",
+      "help": {
+        "header": "List of integrations. Here you can see all the integrations and associated configurations, create new configurations for an integration or activate a configuration"
       },
-      "attachmentDocuments": {
-        "title": "Tittel kan være en konkret tekststreng, eller en kombinasjon av flere metadatafelt. (Settes opp i henhold til skriveregler for type sak.(Se Noark))",
-        "documentStatus": "Eksempel: B, F",
-        "accessCode": "Eksempel: Unntatt offentlighet, persona,l varslingssak, ugradert. ",
-        "paragraph": "Eksempel: Offl. §13",
-        "fileFormat": "Filformat",
-        "variant": "Arkivformat/ produksjonsformat / offentlig variant",
-        "file": "Fil"
+      "button": {
+        "newConfiguration": "New configuration"
       },
-      "correspondent": {
-        "type": "Person eller organisasjon/bedrift",
-        "organisationNumber": "Orgnr for avsenderbedrift",
-        "nationalIdentityNumber": "Fødselsnummer for avsender",
-        "name": "Navn på bedrift/org, eller person",
-        "address": "Postadresse",
-        "postalCode": "Postkode",
-        "city": "Poststed",
-        "contactPerson": "Navn på søker er ikke alltid lik med kontaktperson",
-        "phoneNumber": "Telefonnummer",
-        "email": "epostadresse",
-        "accessCode": "velge om avsender skal være skjermet",
-        "paragraph": "Denne skal fjernes"
+      "dialog": {
+        "body": "Are you sure you want to activate this configuration?",
+        "yes": "Yes",
+        "cancel": "Cancel"
+      },
+      "table": {
+        "completed": "Completed",
+        "drafts": "Drafts",
+        "noElements": "No elements",
+        "show": "Show",
+        "edit": "Edit",
+        "basedOn": "Create new based on this",
+        "activate": "Activate",
+        "column": {
+          "id": "Id",
+          "configurationId": "Config. ID",
+          "destination": "Destination",
+          "sourceApplicationIntegrationId": "Source application integration ID",
+          "sourceApplicationIntegrationIdDisplayName": "Displayname",
+          "sourceApplicationId": "Source application",
+          "name": "Name",
+          "state": "State",
+          "comment": "Comment",
+          "actions": "Actions",
+          "finished": "Completed",
+          "version": "Version",
+          "dispatched": "# dispatched",
+          "errors": "# failed"
+        }
       }
+    },
+    "instances": {
+      "header": "Instances",
+      "showError": "show error message",
+      "errors": "Errors",
+      "oneError": "Error",
+      "button": {
+        "close": "Close",
+        "retry": "Try again",
+        "refresh": "Refresh page"
+      },
+      "table": {
+        "column": {
+          "sourceApplicationIntegrationId": "Source application integration Id",
+          "sourceApplicationIntegrationIdDisplayName": "Display name",
+          "sourceApplicationId": "Source application",
+          "status": "Status",
+          "actions": "Actions",
+          "sourceApplicationInstanceId": "Source application instance ID",
+          "configurationId": "Configuration Id",
+          "correlationId": "Correlation Id",
+          "archiveInstanceId": "Destination Id",
+          "timestamp": "Timestamp"
+        }
+      },
+      "help": {
+        "header": "Overview of instances that have been received in Flyt, where each submission of data for one integration is an instance. The content of the instance is transformed and forwarded to the destination set in the integration"
+      },
+      "FINT_FLYT_INSTANCE_GATEWAY_INSTANCE_VALIDATION_ERROR": "Validation error when receiving instance, '#fieldPath# #errorMessage#'",
+      "FINT_FLYT_INSTANCE_GATEWAY_INTEGRATION_DEACTIVATED_ERROR": "The integration is deactivated",
+      "FINT_FLYT_INSTANCE_GATEWAY_INSTANCE_REJECTED_ERROR": "Instance rejected with the following error message, '#message#'",
+      "FINT_FLYT_INSTANCE_GATEWAY_NO_INTEGRATION_FOUND_ERROR": "No integration found",
+      "FINT_FLYT_INSTANCE_GATEWAY_GENERAL_SYSTEM_ERROR": "System error. Contact FINT",
+      "FINT_FLYT_INSTANCE_SERVICE_GENERAL_SYSTEM_ERROR": "System error. Contact FINT",
+      "FINT_FLYT_MAPPING_SERVICE_GENERAL_SYSTEM_ERROR": "System error. Contact FINT",
+      "FINT_FLYT_MAPPING_SERVICE_CONFIGURATION_NOT_FOUND": "No active configuration found for the integration",
+      "FINT_FLYT_MAPPING_SERVICE_INSTANCE_FIELD_NOT_FOUND": "The instance is missing field with key='#instanceFieldKey#', which is required by the configuration",
+      "FINT_FLYT_DISPATCH_SERVICE_GENERAL_SYSTEM_ERROR": "System error. Contact FINT",
+      "FINT_FLYT_DISPATCH_GATEWAY_GENERAL_SYSTEM_ERROR": "System error with the following error message: '#errorMessage#' - Contact FINT",
+      "FINT_FLYT_DISPATCH_GATEWAY_INSTANCE_DISPATCH_DECLINED_ERROR": "Instance rejected by destination with the following error message: '#errorMessage#'",
+      "FINT_FLYT_DISPATCH_SERVICE_INSTANCE_DISPATCH_DECLINED_ERROR": "Instance rejected by destination with the following error message: '#errorMessage#'",
+      "FINT_FLYT_INSTANCE_GATEWAY_FILE_UPLOAD_ERROR": "Error uploading file, filename: '#name#' with media type: '#mediatype#'",
+      "FINT_FLYT_MAPPING_SERVICE_VALUE_CONVERTING_KEY_NOT_FOUND": "Error during value conversion, cannot find key: '#valueConvertingKey#', in value conversion with ID: #valueConvertingId#",
+      "FINT_FLYT_MAPPING_SERVICE_VALUE_CONVERTER_NOT_FOUND": "Error during value conversion, value conversion not found",
+      "REQUESTED": "Requested",
+      "SENT": "Sent",
+      "FAILED": "Failed",
+      "ACCEPTED": "Accepted",
+      "DECLINED": "Declined",
+      "instance-received": "Instance received",
+      "instance-registered": "Instance registered",
+      "instance-requested-for-retry": "Instance requested for retry",
+      "instance-mapped": "Instance converted",
+      "instance-ready-for-dispatch": "Instance ready for dispatch",
+      "instance-dispatched": "Instance dispatched",
+      "instance-receival-error": "Error while receiving instance",
+      "instance-registration-error": "Error while registering instance",
+      "instance-retry-request-error": "Error during retry request",
+      "instance-mapping-error": "Error converting instance",
+      "instance-dispatching-error": "Error while sending to destination",
+      "instance-file-upload-error": "Error while uploading file"
+    },
+    "support": {
+      "header": "Hjelp og support"
+    },
+    "valueConverting": {
+      "button": {
+        "newConverting": "New",
+        "basedOn": "Create new based on this",
+        "create": "Create",
+        "cancel": "Cancel",
+        "back": "Back"
+      },
+      "header": "Value conversion",
+      "panelHeader": "Value conversions",
+      "newHeader": "New value conversion",
+      "fromApplicationId": "Application",
+      "displayName": "Name",
+      "valueConvertingName": "Value conversion name",
+      "fromTypeId": "Type",
+      "toApplicationId": "Application",
+      "toTypeId": "Type",
+      "convertingMap": "conversion(s)",
+      "to": "To",
+      "from": "From",
+      "saved": "Value conversion saved",
+      "saveError": "Failed saving, error message: ",
+      "genericError": "An error has occured",
+      "requiredField": "Required field",
+      "column": {
+        "show": "Show",
+        "id": "Id",
+        "displayName": "Name",
+        "toType": "To type",
+        "fromType": "From type",
+        "toApplication": "To",
+        "fromApplication": "From",
+        "actions": "Actions"
+      },
+      "help": {
+        "valueConverting": "Value Conversion is a field that allows you to use a defined rule to convert each occurrence of a value. Value conversions are used in configurations in the same way as metadata and will apply to the field in question. It is not possible to edit an existing value conversion as this may affect existing configurations, but it is possible to create a new one based on an existing value conversion",
+        "valueConvertingName": "Name of the value conversion to be created. Note that name is not required to be unique, but it is a good idea to give a descriptive name",
+        "from": "Select the application where the value to be converted comes from, and what type of data it is to be converted from",
+        "to": "Select the application the values that need conversion are to and the type they are to be converted to",
+        "convertingMap": "Here you add conversions, press + to add more and - to remove",
+        "new": "Here you can create a new value conversion. If you want to create a new one based on an earlier version, you can find it under actions in the table"
+      }
+    },
+    "version": {
+      "header": "Version FLYT"
     }
   }
 }

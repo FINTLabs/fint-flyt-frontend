@@ -1,4 +1,4 @@
-import {IEvent} from "../../features/instanceOverview/types/Event";
+import {IEvent} from "../../features/instances/types/Event";
 
 export const MOCK_EVENTS: IEvent[] = [
     {

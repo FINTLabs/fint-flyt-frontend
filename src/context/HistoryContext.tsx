@@ -1,9 +1,9 @@
-import {IEvent} from "../features/instanceOverview/types/Event";
+import {IEvent} from "../features/instances/types/Event";
 import {createContext,  useState} from "react";
-import SourceApplicationRepository from "../shared/repositories/SourceApplicationRepository";
+import SourceApplicationRepository from "../api/SourceApplicationRepository";
 import {IIntegrationMetadata} from "../features/configuration/types/Metadata/IntegrationMetadata";
 import {addId} from "../util/JsonUtil";
-import EventRepository from "../shared/repositories/EventRepository";
+import EventRepository from "../api/EventRepository";
 import {processEvents} from "../util/EventUtil";
 import { ContextProps } from "../util/constants/interface";
 import {sourceApplications} from "../features/configuration/defaults/DefaultValues";

@@ -1,14 +1,14 @@
 import {createContext, useState} from "react";
 import {IIntegration} from "../features/integration/types/Integration";
 import {IConfiguration} from "../features/configuration/types/Configuration";
-import EventRepository from "../shared/repositories/EventRepository";
 import {IIntegrationStatistics} from "../features/dashboard/types/IntegrationStatistics";
 import {IIntegrationMetadata} from "../features/configuration/types/Metadata/IntegrationMetadata";
-import ConfigurationRepository from "../shared/repositories/ConfigurationRepository";
-import IntegrationRepository from "../shared/repositories/IntegrationRepository";
-import SourceApplicationRepository from "../shared/repositories/SourceApplicationRepository";
 import {ContextProps} from "../util/constants/interface";
 import {sourceApplications} from "../features/configuration/defaults/DefaultValues";
+import IntegrationRepository from "../api/IntegrationRepository";
+import SourceApplicationRepository from "../api/SourceApplicationRepository";
+import EventRepository from "../api/EventRepository";
+import ConfigurationRepository from "../api/ConfigurationRepository";
 
 type IntegrationContextState = {
     id: string | undefined;
@@ -22,12 +22,8 @@ type IntegrationContextState = {
     configuration: IConfiguration | undefined;
     setConfiguration: (configuration: IConfiguration | undefined) => void;
     configurations: IConfiguration[] | undefined;
-    completedConfigurations: IConfiguration[] | undefined;
     setConfigurations: (configurations: IConfiguration[]) => void;
-    setCompletedConfigurations: (configurations: IConfiguration[]) => void;
     getConfiguration: (integration: string, excludeElements: boolean) => void;
-    getConfigurations: (page: number, size: number, sortProperty: string, sortDirection: string, complete: boolean, integration: string, excludeElements: boolean) => void;
-    getCompletedConfigurations: (page: number, size: number, sortProperty: string, sortDirection: string, complete: boolean, integration: string, excludeElements: boolean) => void;
     destination: string,
     selectedMetadata: IIntegrationMetadata | undefined;
     setSelectedMetadata: (form: IIntegrationMetadata | undefined) => void,
@@ -53,12 +49,8 @@ const contextDefaultValues: IntegrationContextState = {
     configuration: undefined,
     setConfiguration: () => undefined,
     configurations: undefined,
-    completedConfigurations: undefined,
     getConfiguration: () => undefined,
-    getConfigurations: () => undefined,
-    getCompletedConfigurations: () => undefined,
     setConfigurations: () => undefined,
-    setCompletedConfigurations: () => undefined,
     destination: '',
     selectedMetadata: undefined,
     setSelectedMetadata: () => undefined,
@@ -82,7 +74,6 @@ const IntegrationProvider = ({children}: ContextProps) => {
     const [integrations, setIntegrations] = useState<IIntegration[] | undefined>(undefined);
     const [configuration, setConfiguration] = useState<IConfiguration | undefined>(contextDefaultValues.configuration);
     const [configurations, setConfigurations] = useState<IConfiguration[] | undefined>(contextDefaultValues.configurations);
-    const [completedConfigurations, setCompletedConfigurations] = useState<IConfiguration[] | undefined>(contextDefaultValues.completedConfigurations);
     const [destination, setDestination] = useState<string>('');
     const [selectedMetadata, setSelectedMetadata] = useState<IIntegrationMetadata | undefined>(contextDefaultValues.selectedMetadata);
     const [sourceApplicationIntegrationId, setSourceApplicationIntegrationId] = useState<string>('');
@@ -193,40 +184,10 @@ const IntegrationProvider = ({children}: ContextProps) => {
             }
         } catch (e) {
             console.error('Error: ', e);
+            setIntegrations([])
             resetIntegrationsAndStats();
         }
     };
-
-
-    const getConfigurations = (page: number, size: number, sortProperty: string, sortDirection: string, complete: boolean, id: number | string, excludeElements?: boolean) => {
-        ConfigurationRepository.getConfigurations(page, size, sortProperty, sortDirection, complete, id.toString(), excludeElements)
-            .then((response) => {
-                const data = response.data.content;
-                if (data) {
-                    const configurations: IConfiguration[] = data;
-                    setConfigurations(configurations);
-                }
-            })
-            .catch((e) => {
-                console.error('Error: ', e)
-                setConfigurations([]);
-            })
-    }
-
-    const getCompletedConfigurations = (page: number, size: number, sortProperty: string, sortDirection: string, complete: boolean, id: number | string, excludeElements?: boolean) => {
-        ConfigurationRepository.getConfigurations(page, size, sortProperty, sortDirection, complete, id.toString(), excludeElements)
-            .then((response) => {
-                const data = response.data.content;
-                if (data) {
-                    const configurations: IConfiguration[] = data;
-                    setCompletedConfigurations(configurations);
-                }
-            })
-            .catch((e) => {
-                console.error('Error: ', e)
-                setCompletedConfigurations([]);
-            })
-    }
 
     const getConfiguration = async (id: number | string, excludeElements?: boolean) => {
         ConfigurationRepository.getConfigurationById(id.toString(), excludeElements)
@@ -258,11 +219,7 @@ const IntegrationProvider = ({children}: ContextProps) => {
                 setConfiguration,
                 getConfiguration,
                 configurations,
-                completedConfigurations,
-                getConfigurations,
-                getCompletedConfigurations,
                 setConfigurations,
-                setCompletedConfigurations,
                 destination,
                 setDestination,
                 selectedMetadata,

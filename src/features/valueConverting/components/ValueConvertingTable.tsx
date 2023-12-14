@@ -1,7 +1,7 @@
 import React, {ReactElement, useEffect, useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
-import ValueConvertingRepository from "../../../shared/repositories/ValueConvertingRepository";
+import ValueConvertingRepository from "../../../api/ValueConvertingRepository";
 import {IValueConverting} from "../types/ValueConverting";
 import {getDestinationDisplayName, getSourceApplicationDisplayName} from "../../../util/DataGridUtil";
 import {

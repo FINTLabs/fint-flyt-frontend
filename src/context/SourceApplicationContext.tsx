@@ -1,23 +1,24 @@
 import React, {createContext, useState} from "react";
 
-import SourceApplicationRepository from "../shared/repositories/SourceApplicationRepository";
-import IntegrationRepository from "../shared/repositories/IntegrationRepository";
 import {
-    IInstanceMetadataContent,
-    IInstanceObjectCollectionMetadata,
-    IIntegrationMetadata,
+	IInstanceMetadataContent,
+	IInstanceObjectCollectionMetadata,
+	IIntegrationMetadata,
 } from "../features/configuration/types/Metadata/IntegrationMetadata";
 import {ISelect} from "../features/configuration/types/Select";
 import {IIntegration} from "../features/integration/types/Integration";
 import {ContextProps} from "../util/constants/interface";
 import {MOCK_INSTANCE_METADATA} from "../__tests__/mock/mapping/mock-instans-metadata";
+import {sourceApplications} from "../features/configuration/defaults/DefaultValues";
+import SourceApplicationRepository from "../api/SourceApplicationRepository";
+import IntegrationRepository from "../api/IntegrationRepository";
 
 
 type SourceApplicationContextState = {
     availableForms: ISelect[];
     getAllIntegrationsAndSetAvailableForms: (forms: ISelect[]) => void;
     getAvailableForms: () => void;
-    allMetadata: IIntegrationMetadata[];
+    allMetadata: IIntegrationMetadata[] | undefined;
     instanceElementMetadata: IInstanceMetadataContent | undefined;
     setInstanceElementMetadata: (instanceMetadataContent: IInstanceMetadataContent | undefined) => void;
     instanceObjectCollectionMetadata: IInstanceObjectCollectionMetadata[],
@@ -29,21 +30,13 @@ type SourceApplicationContextState = {
 };
 
 const contextDefaultValues: SourceApplicationContextState = {
-  
+
     availableForms: [
         {value: 'null', label: 'Velg skjemaleverandør først'}
     ],
     getAllIntegrationsAndSetAvailableForms: () => undefined,
     getAvailableForms: () => undefined,
-    allMetadata: [{
-        id: '',
-        instanceElementMetadata: [],
-        sourceApplicationIntegrationUri: '',
-        sourceApplicationIntegrationId: '',
-        sourceApplicationId: '',
-        integrationDisplayName: 'INGEN DATA',
-        version: 0
-    }],
+    allMetadata: undefined,
     instanceElementMetadata: undefined,
     setInstanceElementMetadata: () => undefined,
     instanceObjectCollectionMetadata: [],
@@ -60,9 +53,9 @@ const SourceApplicationContext = createContext<SourceApplicationContextState>(
 );
 
 const SourceApplicationProvider = ({children}: ContextProps) => {
-   
+
     const [availableForms, setAvailableForms] = useState<ISelect[]>(contextDefaultValues.availableForms);
-    const [allMetadata, setAllMetadata] = useState<IIntegrationMetadata[]>(contextDefaultValues.allMetadata)
+    const [allMetadata, setAllMetadata] = useState<IIntegrationMetadata[] | undefined>(contextDefaultValues.allMetadata)
     const [instanceElementMetadata, setInstanceElementMetadata] = useState<IInstanceMetadataContent | undefined>(MOCK_INSTANCE_METADATA)
     const [instanceObjectCollectionMetadata, setInstanceObjectCollectionMetadata] = useState<IInstanceObjectCollectionMetadata[]>([])
     const [sourceApplication, setSourceApplication] = useState<number | undefined>(contextDefaultValues.sourceApplication);
@@ -111,20 +104,21 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
     };
 
 
-    const getAllMetadata = (onlyLatest: boolean) => {
-        if (sourceApplication) {
-            SourceApplicationRepository.getMetadata(sourceApplication.toString(), onlyLatest)
-                .then(response => {
-                    const data: IIntegrationMetadata[] = response.data
-                    if (data) {
-                        setAllMetadata(data)
-                    }
-                })
-                .catch((err) => {
-                    setAllMetadata(contextDefaultValues.allMetadata)
-                    setAvailableForms([{value: 'null', label: 'No options'}])
-                    console.error(err);
-                })
+    const getAllMetadata = async (onlyLatest: boolean) => {
+        try {
+            const allMetadata = []
+
+            for (const sourceApplication of sourceApplications) {
+                const metadataResponse = await SourceApplicationRepository.getMetadata(sourceApplication.value, onlyLatest);
+                allMetadata.push(metadataResponse.data)
+            }
+            const metadata = allMetadata.reduce((acc, currentArray) => [...acc, ...currentArray], []) || [];
+
+            setAllMetadata(metadata)
+
+        } catch (e) {
+            console.error('Error: ', e);
+            setAllMetadata([])
         }
     }
 

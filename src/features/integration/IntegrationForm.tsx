@@ -6,7 +6,7 @@ import {IntegrationContext} from "../../context/IntegrationContext";
 import HelpPopover from "../configuration/components/common/popover/HelpPopover";
 import {useTranslation} from "react-i18next";
 import {contextDefaultValues, SourceApplicationContext} from "../../context/SourceApplicationContext";
-import IntegrationRepository from '../../shared/repositories/IntegrationRepository';
+import IntegrationRepository from "../../api/IntegrationRepository";
 import {IIntegration, IntegrationState} from "./types/Integration";
 import {IFormIntegration} from "../configuration/types/FormIntegration";
 import {selectSX} from "../../util/styles/SystemStyles";
@@ -14,6 +14,7 @@ import {IntegrationFormStyles} from "../../util/styles/IntegrationForm.styles"
 import {toIntegration} from "../../util/mapping/ToIntegration";
 import {ISelect} from "../configuration/types/Select";
 import {IIntegrationMetadata} from "../configuration/types/Metadata/IntegrationMetadata";
+import PageTemplate from "../../components/templates/PageTemplate";
 
 
 const useStyles = IntegrationFormStyles;
@@ -25,7 +26,7 @@ type Props = {
 export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>> = () => {
     const classes = useStyles();
     const history = useHistory();
-    const {t} = useTranslation('translations', {keyPrefix: 'components.integrationForm'});
+    const {t} = useTranslation('translations', {keyPrefix: 'pages.integrationForm'});
     const {setSelectedMetadata, setExistingIntegration, resetIntegrationContext} = useContext(IntegrationContext)
     const {
         getAvailableForms, sourceApplication, setSourceApplication, availableForms, allMetadata, getAllMetadata,
@@ -62,7 +63,7 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
     }, [sourceApplication, setSourceApplication])
 
     const confirm = () => {
-        const selectedForm = allMetadata.find((md: IIntegrationMetadata) => md.sourceApplicationIntegrationId === sourceApplicationIntegrationId);
+        const selectedForm = allMetadata ? allMetadata.find((md: IIntegrationMetadata) => md.sourceApplicationIntegrationId === sourceApplicationIntegrationId) : undefined;
         if (!destination || !sourceApplicationId || !sourceApplicationIntegrationId || !selectedForm) {
             setError(t('error'))
             return;
@@ -89,7 +90,7 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
     }
 
     return (
-        <>
+        <PageTemplate id={'new'} keyPrefix={'pages.integrationForm'}>
             <FormGroup id="integration-form" className={classes.panelContainer}>
                 <Box>
                     <h2 className={classes.title2} id="integration-form-settings-header">{t('header')}</h2>
@@ -173,7 +174,7 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
                         {t('button.cancel')}</Button>
                 </Box>
             </FormGroup>
-        </>
+        </PageTemplate>
     )
 }
 
