@@ -20,11 +20,10 @@ import {
 import MetadataContentComponent from "./metadata/MetadataContentComponent";
 import {toInstanceFieldReference} from "../../../util/JsonUtil";
 import ObjectCollectionMetadataContentComponent from "./metadata/ObjectCollectionMetadataContentComponent";
-import ValueConvertingRepository from "../../../shared/repositories/ValueConvertingRepository";
 import {Tag} from "./common/dnd/Tag";
 import {IValueConverting} from "../../valueConverting/types/ValueConverting";
 import {ReadMore, VStack} from "@navikt/ds-react";
-import {APPLICATION_VALUE_CONVERTING, DESTINATION_VALUE_CONVERTING} from "../../../__tests__/mock/valueconverting";
+import ValueConvertingRepository from "../../../api/ValueConvertingRepository";
 
 export type Props = {
     classes: ClassNameMap,
@@ -34,14 +33,14 @@ export type Props = {
 }
 
 const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => {
-    const {t} = useTranslation('translations', {keyPrefix: 'components.MetadataPanel'});
+    const {t} = useTranslation('translations', {keyPrefix: 'pages.configuration'});
     const {
         instanceElementMetadata,
         getAllMetadata,
     } = useContext(SourceApplicationContext)
     const [valueConvertings, setValueConvertings] = useState<[] | undefined>(undefined)
-    const [applicationValueConvertings, setApplicationValueConvertings] = useState<IValueConverting[] | undefined>(APPLICATION_VALUE_CONVERTING)
-    const [destinationValueConvertings, setDestinationValueConvertings] = useState<IValueConverting[] | undefined>(DESTINATION_VALUE_CONVERTING)
+    const [applicationValueConvertings, setApplicationValueConvertings] = useState<IValueConverting[] | undefined>(undefined)
+    const [destinationValueConvertings, setDestinationValueConvertings] = useState<IValueConverting[] | undefined>(undefined)
 
     useEffect(() => {
         ValueConvertingRepository.getValueConvertings(0, 100, 'fromApplicationId', 'ASC', false)
@@ -117,7 +116,7 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
             <Box id={'incoming-form-panel'} className={props.classes.panelContainer}
                  sx={metadataPanelSX}>
                 <Box className={props.classes.row}>
-                    <Typography variant={"h6"}>{t('header')}</Typography>
+                    <Typography variant={"h6"}>{t('metadataPanel.header')}</Typography>
                     <HelpPopover
                         popoverContent="Metadata er data fra innsendt skjema du kan bruke i konfigurasjon av utgående data"/>
                 </Box>
@@ -149,7 +148,7 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
 
                 <Box id={'value-converting-panel'} className={props.classes.panel}>
                     <Typography variant={"h6"}>Verdikonvertering</Typography>
-                    <ReadMore defaultOpen header={"Manuelle [" + (valueConvertings?.length ?? 0) + ']'}>
+                    <ReadMore defaultOpen header={t('valueConverting.custom') + " [" + (valueConvertings?.length ?? 0) + ']'}>
                         <VStack gap={"2"} style={{maxHeight: '200px', overflowY: "scroll"}}>
                             {valueConvertings && valueConvertings.map((valueConverting: IValueConverting, index: number) => {
                                 return <ValueConvertings key={'valueConvertingValue-' + index}
@@ -157,7 +156,7 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
                             })}
                         </VStack>
                     </ReadMore>
-                    <ReadMore header={"Flyt [" + (applicationValueConvertings?.length ?? 0) + ']'}>
+                    <ReadMore header={t('valueConverting.application') + " [" + (applicationValueConvertings?.length ?? 0) + ']'}>
                         <VStack gap={"2"}>
                             {applicationValueConvertings && applicationValueConvertings.map((valueConverting: IValueConverting, index: number) => {
                                 return <ValueConvertings key={'valueConvertingValue-' + index}
@@ -165,7 +164,7 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
                             })}
                         </VStack>
                     </ReadMore>
-                    <ReadMore header={"Destinasjon [" + (destinationValueConvertings?.length ?? 0) + ']'}>
+                    <ReadMore header={t('valueConverting.destination') + " [" + (destinationValueConvertings?.length ?? 0) + ']'}>
                         <VStack gap={"2"}>
                             {destinationValueConvertings && destinationValueConvertings.map((valueConverting: IValueConverting, index: number) => {
                                 return <ValueConvertings key={'valueConvertingValue-' + index}
