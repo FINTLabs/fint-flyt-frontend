@@ -50,6 +50,8 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
             .catch(e => {
                 console.log(e)
                 setValueConvertings([])
+                setDestinationValueConvertings([])
+                setApplicationValueConvertings([])
             })
     }, [])
 
