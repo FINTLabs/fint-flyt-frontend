@@ -11,6 +11,12 @@ export interface IIntegration {
     displayName?: string;
 }
 
+export interface IIntegrationFormData {
+    sourceApplicationId?: string;
+    sourceApplicationIntegrationId?: string;
+    destination?: string;
+}
+
 export const IntegrationState = {
     ACTIVE: "ACTIVE",
     DEACTIVATED: "DEACTIVATED"

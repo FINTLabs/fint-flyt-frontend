@@ -2,12 +2,9 @@
 import {EXPECTED_MAPPING} from "../../fixtures/exectedMapping";
 
 function fillAll() {
-    cy.get('#sourceApplicationId').click()
-    cy.get('#sourceApplication-1').click()
-    cy.get('#sourceApplicationIntegrationId').click()
-    cy.get('#sourceApplicationIntegrationId-option-1').click()
-    cy.get('#destination').click()
-    cy.get('#menu- > .MuiPaper-root > .MuiList-root > .MuiButtonBase-root').click()
+    cy.get('#sourceApplicationId').select('2')
+    cy.get('#sourceApplicationIntegrationId').select('sak')
+    cy.get('#destination').select('fylkesrad')
 }
 
 const newCaseFields = '#mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey';

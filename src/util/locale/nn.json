@@ -70,7 +70,7 @@
       "header": "Ny integrasjon",
       "incoming": "Innkommande",
       "outgoing": "Utgåande",
-      "error": "du må velja kjeldeapplikasjon, skjema og destinasjon",
+      "errorHeading": "Du må retta desse feila, det manglar:",
       "button": {
         "confirm": "Opprett",
         "cancel": "Avbryt"
@@ -79,6 +79,11 @@
         "sourceApplicationId": "Kjeldeapplikasjon",
         "sourceApplicationIntegrationId": "Integrasjon",
         "destination": "Destinasjon/Base"
+      },
+      "help": {
+        "sourceApplicationId": "Ein kjeldeapplikasjon er fagsystemet data som skal behandlast i Flyt kjem frå",
+        "sourceApplicationIntegrationId": "Referanse/navn/id til data som skal behandlast i flyt",
+        "destination": "Kvar data skal sendast etter omforming i Flyt"
       },
       "metadataPanel": {
         "header": "Metadata",
