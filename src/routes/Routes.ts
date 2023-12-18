@@ -1,7 +1,7 @@
 import IRoute from "./Route";
 import Dashboard from "../features/dashboard/Dashboard";
 import IntegrationForm from "../features/integration/IntegrationForm";
-import ConfigurationForm from "../features/configuration/ConfigurationForm";
+import Configuration from "../components/pages/Configuration";
 import UserGuide from "../features/support/components/UserGuide";
 import Version from "../components/pages/Version";
 import ValueConverting from "../components/pages/ValueConverting";
@@ -28,19 +28,19 @@ const routes: IRoute[] = [
     {
         path: "/integration/configuration/new-configuration",
         name: "integration",
-        component: ConfigurationForm,
+        component: Configuration,
         exact: true,
     },
     {
         path: "/integration/configuration/edit",
         name: "editIntegration",
-        component: ConfigurationForm,
+        component: Configuration,
         exact: true,
     },
     {
         path: "configuration/new-configuration",
         name: "editIntegration",
-        component: ConfigurationForm,
+        component: Configuration,
         exact: true,
     },
     {

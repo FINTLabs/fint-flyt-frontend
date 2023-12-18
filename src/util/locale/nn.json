@@ -37,8 +37,6 @@
     "configuration": {
       "header": "Konfigurasjon",
       "integration": "Integrasjon",
-      "metadataVersion": "Metadataversjon",
-      "metadataWarning": "Det finst nyare versjon av metadata",
       "formHeader": "Utgåande data",
       "saved": "Konfigurasjon lagra",
       "saveError": "Feila under lagring, feilmelding: ",
@@ -64,6 +62,11 @@
       "fromCollectionMapping": {
         "collections": "Samlingar",
         "convertCollectionElements": "Konvertering av samlingselement"
+      },
+      "metadataPanel": {
+        "header": "Metadata",
+        "version": "Versjon",
+        "metadataWarning": "Det finst nyare versjon av metadata"
       }
     },
     "integrationForm": {
@@ -84,10 +87,6 @@
         "sourceApplicationId": "Ein kjeldeapplikasjon er fagsystemet data som skal behandlast i Flyt kjem frå",
         "sourceApplicationIntegrationId": "Referanse/navn/id til data som skal behandlast i flyt",
         "destination": "Kvar data skal sendast etter omforming i Flyt"
-      },
-      "metadataPanel": {
-        "header": "Metadata",
-        "version": "Versjon"
       }
     },
     "integrations": {

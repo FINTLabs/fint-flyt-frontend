@@ -37,8 +37,6 @@
     "configuration": {
       "header": "Configuration",
       "integration": "Integration",
-      "metadataVersion": "Metadata version",
-      "metadataWarning": "There exists a newer version of metadata",
       "formHeader": "Outgoing data",
       "saved": "configuration saved",
       "saveError": "Failed saving, error message: ",
@@ -64,6 +62,11 @@
       "fromCollectionMapping": {
         "collections": "Collections",
         "convertCollectionElements": "Converting collection elements"
+      },
+      "metadataPanel": {
+        "header": "Metadata",
+        "version": "Versjon",
+        "metadataWarning": "There exists a newer version of metadata"
       }
     },
     "integrationForm": {
@@ -84,10 +87,6 @@
         "sourceApplicationId": "A source application is the source system that data to be processed in Flyt comes from",
         "sourceApplicationIntegrationId": "Reference/name/id of data to be processed in Flyt",
         "destination": "Where data is to be sent after transformation in Flyt"
-      },
-      "metadataPanel": {
-        "header": "Metadata",
-        "version": "Versjon"
       }
     },
     "integrations": {
