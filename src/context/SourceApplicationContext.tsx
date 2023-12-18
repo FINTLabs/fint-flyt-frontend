@@ -1,9 +1,9 @@
 import React, {createContext, useState} from "react";
 
 import {
-	IInstanceMetadataContent,
-	IInstanceObjectCollectionMetadata,
-	IIntegrationMetadata,
+    IInstanceMetadataContent,
+    IInstanceObjectCollectionMetadata,
+    IIntegrationMetadata,
 } from "../features/configuration/types/Metadata/IntegrationMetadata";
 import {ISelect} from "../features/configuration/types/Select";
 import {IIntegration} from "../features/integration/types/Integration";
@@ -17,7 +17,7 @@ import IntegrationRepository from "../api/IntegrationRepository";
 type SourceApplicationContextState = {
     availableForms: ISelect[];
     getAllIntegrationsAndSetAvailableForms: (forms: ISelect[]) => void;
-    getAvailableForms: () => void;
+    getAvailableForms: (sourceApplicationId?: string) => void;
     allMetadata: IIntegrationMetadata[] | undefined;
     instanceElementMetadata: IInstanceMetadataContent | undefined;
     setInstanceElementMetadata: (instanceMetadataContent: IInstanceMetadataContent | undefined) => void;
@@ -32,7 +32,7 @@ type SourceApplicationContextState = {
 const contextDefaultValues: SourceApplicationContextState = {
 
     availableForms: [
-        {value: 'null', label: 'Velg skjemaleverandør først'}
+        {value: '', label: 'Velg kildeapplikasjon først'}
     ],
     getAllIntegrationsAndSetAvailableForms: () => undefined,
     getAvailableForms: () => undefined,
@@ -68,21 +68,25 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
         );
     }
 
-    const getAvailableForms = async () => {
+    const getAvailableForms = async (sourceApplication?: string) => {
         try {
-            const sourceAppId = sourceApplication !== undefined ? sourceApplication.toString() : "2";
+            const sourceAppId = sourceApplication !== undefined ? sourceApplication : "2";
 
             const response = await SourceApplicationRepository.getMetadata(sourceAppId, true);
             const data = response.data || [];
 
-            const selectables: ISelect[] = data.map((value: IIntegrationMetadata) => ({
-                value: value.sourceApplicationIntegrationId,
-                label: `[${value.sourceApplicationIntegrationId}] ${value.integrationDisplayName}`,
-            }));
+            const tempSelectables: ISelect[] = [{value: '', label: 'Velg integrasjon'}]
 
-            await getAllIntegrationsAndSetAvailableForms(selectables);
+            data.map((metadata: IIntegrationMetadata) => {
+                tempSelectables.push({
+                    value: metadata.sourceApplicationIntegrationId,
+                    label: `[${metadata.sourceApplicationIntegrationId}] ${metadata.integrationDisplayName}`})
+            })
+
+            await getAllIntegrationsAndSetAvailableForms(tempSelectables);
         } catch (err) {
             console.error(err);
+            setAvailableForms([{value: 'null', label: 'No options'}]);
         }
     };
 
@@ -99,12 +103,13 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
             }
         } catch (err) {
             console.error(err);
-            setAvailableForms([{value: 'null', label: 'No options'}]);
+            setAvailableForms([{value: '', label: 'Ingen data'}]);
         }
     };
 
 
     const getAllMetadata = async (onlyLatest: boolean) => {
+        console.log('getAllMetadata')
         try {
             const allMetadata = []
 

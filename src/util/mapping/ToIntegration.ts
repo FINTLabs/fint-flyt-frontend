@@ -1,7 +1,6 @@
-import {IFormIntegration} from "../../features/configuration/types/FormIntegration";
-import {IIntegration} from "../../features/integration/types/Integration";
+import {IIntegration, IIntegrationFormData} from "../../features/integration/types/Integration";
 
-export function toIntegration(data: IFormIntegration, state: string): IIntegration {
+export function toIntegration(data: IIntegrationFormData, state: string): IIntegration {
     return {
         sourceApplicationId: data.sourceApplicationId,
         sourceApplicationIntegrationId: data.sourceApplicationIntegrationId,

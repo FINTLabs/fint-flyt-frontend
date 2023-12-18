@@ -20,7 +20,7 @@ type IntegrationProps = {
 const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: IntegrationProps) => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.integrations.table'})
     const [page, setPage] = useState(1);
-    const rowsPerPage = 6;
+    const rowsPerPage = 14;
 
     let sortData = props.integrations ?? [];
     sortData = sortData.slice((page - 1) * rowsPerPage, page * rowsPerPage);
@@ -31,17 +31,17 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
                 <Table id={"integration-table"} size={"small"}>
                     <Table.Header>
                         <Table.Row>
-                            <Table.HeaderCell/>
-                            <Table.HeaderCell scope="col">{t('column.id')}</Table.HeaderCell>
-                            <Table.HeaderCell scope="col">{t('column.sourceApplicationId')}</Table.HeaderCell>
-                            <Table.HeaderCell
-                                scope="col">{t('column.sourceApplicationIntegrationId')}</Table.HeaderCell>
-                            <Table.HeaderCell
-                                scope="col">{t('column.sourceApplicationIntegrationIdDisplayName')}</Table.HeaderCell>
-                            <Table.HeaderCell scope="col">{t('column.destination')}</Table.HeaderCell>
-                            <Table.HeaderCell scope="col">{t('column.state')}</Table.HeaderCell>
-                            <Table.HeaderCell scope="col">{t('column.dispatched')}</Table.HeaderCell>
-                            <Table.HeaderCell scope="col">{t('column.errors')}</Table.HeaderCell>
+                            <Table.ColumnHeader/>
+                            <Table.ColumnHeader>{t('column.id')}</Table.ColumnHeader>
+                            <Table.ColumnHeader>{t('column.sourceApplicationId')}</Table.ColumnHeader>
+                            <Table.ColumnHeader
+                                 >{t('column.sourceApplicationIntegrationId')}</Table.ColumnHeader>
+                            <Table.ColumnHeader
+                                 >{t('column.sourceApplicationIntegrationIdDisplayName')}</Table.ColumnHeader>
+                            <Table.ColumnHeader>{t('column.destination')}</Table.ColumnHeader>
+                            <Table.ColumnHeader>{t('column.state')}</Table.ColumnHeader>
+                            <Table.ColumnHeader>{t('column.dispatched')}</Table.ColumnHeader>
+                            <Table.ColumnHeader>{t('column.errors')}</Table.ColumnHeader>
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>

@@ -79,7 +79,7 @@
       "header": "New integration",
       "incoming": "Incoming",
       "outgoing": "Outgoing",
-      "error": "you must select source application, integration and destination",
+      "errorHeading": "You must correct these errors, missing required fields:",
       "button": {
         "confirm": "Create",
         "cancel": "Cancel"
@@ -88,6 +88,11 @@
         "sourceApplicationId": "Source application",
         "sourceApplicationIntegrationId": "Integration",
         "destination": "Destination"
+      },
+      "help": {
+        "sourceApplicationId": "A source application is the source system that data to be processed in Flyt comes from",
+        "sourceApplicationIntegrationId": "Reference/name/id of data to be processed in Flyt",
+        "destination": "Where data is to be sent after transformation in Flyt"
       }
     },
     "integrations": {

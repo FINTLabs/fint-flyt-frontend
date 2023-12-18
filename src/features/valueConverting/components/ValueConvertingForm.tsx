@@ -6,8 +6,7 @@ import SelectValueComponent from "../../configuration/components/mapping/value/s
 import {
 	defaultAlert,
 	destinations,
-	fromApplicationIds,
-	fromTypeIds,
+	fromTypeIds, sourceApplications,
 	toTypeIds,
 } from "../../configuration/defaults/DefaultValues";
 import ValueConvertingRepository from "../../../api/ValueConvertingRepository";
@@ -202,7 +201,7 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (
 												fieldState={fieldState}
 												disabled={disabled}
 												displayName={t("fromApplicationId")}
-												selectables={fromApplicationIds.map(
+												selectables={sourceApplications.map(
 													(fromApplicationId) => {
 														return {
 															displayName: fromApplicationId.label,

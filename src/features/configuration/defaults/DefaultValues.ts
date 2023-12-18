@@ -15,7 +15,9 @@ export const sourceApplications: ISelect[] = [
     {label: "eGrunnerverv", value: "2"},
     {label: "Regionalforvaltning", value: "3"}
 ];
-export const fromApplicationIds: ISelect[] = [
+
+export const selectableSourceApplications: ISelect[] = [
+    {label: "Velg kildeapplikasjon", value: ""},
     {label: "ACOS", value: "1"},
     {label: "eGrunnerverv", value: "2"},
     {label: "Regionalforvaltning", value: "3"}
@@ -32,6 +34,11 @@ export const toTypeIds: ISelect[] = [
 ];
 
 export const destinations: ISelect[] = [
+    {label: "Fylkesråd", value: "fylkesrad"}
+];
+
+export const selectableDestinations: ISelect[] = [
+    {label: "Velg destinasjon", value: ""},
     {label: "Fylkesråd", value: "fylkesrad"}
 ];
 

@@ -79,7 +79,7 @@
       "header": "Ny integrasjon",
       "incoming": "Innkommende",
       "outgoing": "Utgående",
-      "error": "du må velge kildeapplikasjon, skjema og destinasjon",
+      "errorHeading": "Du må rette disse feilene, det mangler:",
       "button": {
         "confirm": "Opprett",
         "cancel": "Avbryt"
@@ -88,6 +88,11 @@
         "sourceApplicationId": "Kildeapplikasjon",
         "sourceApplicationIntegrationId": "Integrasjon",
         "destination": "Destinasjon/Base"
+      },
+      "help": {
+        "sourceApplicationId": "En kildeapplikasjon er fagsystemet data som skal behandles i Flyt kommer fra",
+        "sourceApplicationIntegrationId": "Referanse/navn/id til data som skal behandles i flyt",
+        "destination": "Hvor data skal sendes etter omforming i Flyt"
       }
     },
     "integrations": {
