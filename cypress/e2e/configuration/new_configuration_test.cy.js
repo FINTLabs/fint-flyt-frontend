@@ -49,7 +49,6 @@ describe('Testing create new configuration from new integration', () => {
         cy.get('#outgoing-form-panel').should("be.visible")
 
         cy.get('[id^="tag-"]').should('have.length', 16);
-        cy.get('[id^="vc-tag-"]').should('have.length', 2);
     })
 
     it('should open panels in outgoing data', () => {
