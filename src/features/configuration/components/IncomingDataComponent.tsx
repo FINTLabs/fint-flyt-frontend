@@ -1,4 +1,3 @@
-import {MenuItem, TextField} from "@mui/material";
 import * as React from "react";
 import {useContext, useEffect, useState} from "react";
 import HelpPopover from "./common/popover/HelpPopover";
@@ -26,7 +25,7 @@ import {IValueConverting} from "../../valueConverting/types/ValueConverting";
 import {IntegrationContext} from "../../../context/IntegrationContext";
 import {useFormContext} from "react-hook-form";
 import {ConfigurationContext} from "../../../context/ConfigurationContext";
-import {Heading, HStack, Tooltip, Box, VStack} from "@navikt/ds-react";
+import {Heading, HStack, Tooltip, Box, VStack, Select} from "@navikt/ds-react";
 import {ExclamationmarkTriangleFillIcon} from '@navikt/aksel-icons';
 
 export type Props = {
@@ -36,9 +35,7 @@ export type Props = {
     referencesForCollectionsToShow: string[];
 };
 
-const IncomingDataComponent: React.FunctionComponent<Props> = (
-    props: Props
-) => {
+const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => {
     const {t} = useTranslation("translations", {keyPrefix: "pages.configuration.metadataPanel"});
     const {
         getInstanceElementMetadata,
@@ -83,7 +80,7 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setVersion(event.target.value);
         const version = Number(event.target.value)
         const integrationMetadata: IIntegrationMetadata[] = availableVersions
@@ -93,7 +90,7 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (
             methods.setValue('integrationMetadataId', Number(integrationMetadata[0].id))
             getInstanceElementMetadata(integrationMetadata[0].id)
         }
-    };
+    }
 
     function findInstanceObjectCollectionMetadata(
         metadataContent: IInstanceMetadataContent,
@@ -165,25 +162,22 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (
                             popoverContent="Metadata er data fra innsendt skjema du kan bruke i konfigurasjon av utgående data"/>
                     </HStack>
                     <HStack gap={"1"} align={"center"}>
-                        <TextField
-                            select
-                            autoComplete={"off"}
-                            disabled={completed}
-                            size={"small"}
-                            id="version-select"
-                            value={version}
+                        <Select
                             label={t('version')}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-                                handleChange(e)
-                            }}
-                        >
+                            hideLabel
+                            disabled={completed}
+                            defaultValue={version}
+                            onChange={((e: React.ChangeEvent<HTMLSelectElement>) => {
+                                handleSelectChange(e)
+                            console.log(e.target.value)
+                        })}>
                             {availableVersions.map((md, index) => {
-                                return <MenuItem
+                                return <option
                                     key={index}
                                     value={md.version}>{t('version')} {md.version}
-                                </MenuItem>
+                                </option>
                             })}
-                        </TextField>
+                        </Select>
                         {availableVersions.some(av => av.version > Number(version)) &&
                             <Tooltip content={t('metadataWarning')}>
                                 <ExclamationmarkTriangleFillIcon color={"orange"} title="a11y-title" fontSize="1.5rem"/>
