@@ -28,8 +28,9 @@ export const toggleButtonSX: SxProps<Theme> = {
 export const metadataPanelSX: SxProps<Theme> = {
     position: 'sticky',
     maxHeight: '70vh',
-    minWidth: '15vw',
-    overflow: 'auto'
+    minWidth: '20vw',
+    maxWidth: '30vw',
+    overflow: 'auto',
 }
 
 export const iconButtonSX: SxProps<Theme> = {

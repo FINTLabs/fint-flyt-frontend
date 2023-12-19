@@ -1,4 +1,4 @@
-import {Box, MenuItem, TextField, Typography} from "@mui/material";
+import {MenuItem, TextField} from "@mui/material";
 import * as React from "react";
 import {useContext, useEffect, useState} from "react";
 import HelpPopover from "./common/popover/HelpPopover";
@@ -11,7 +11,6 @@ import {
 	ValueType,
 } from "../types/Metadata/IntegrationMetadata";
 import {ClassNameMap} from "@mui/styles";
-import {metadataPanelSX} from "../../../util/styles/SystemStyles";
 import {
 	extractCollectionFieldReferenceIndexAndKey,
 	extractFieldReferenceKey,
@@ -27,7 +26,7 @@ import {IValueConverting} from "../../valueConverting/types/ValueConverting";
 import {IntegrationContext} from "../../../context/IntegrationContext";
 import {useFormContext} from "react-hook-form";
 import {ConfigurationContext} from "../../../context/ConfigurationContext";
-import {HStack, Tooltip} from "@navikt/ds-react";
+import {Heading, HStack, Tooltip, Box, VStack} from "@navikt/ds-react";
 import {ExclamationmarkTriangleFillIcon} from '@navikt/aksel-icons';
 
 export type Props = {
@@ -158,15 +157,10 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (
     }
 
     return (
-        <>
-            <Box
-                id={"incoming-form-panel"}
-                className={props.classes.panelContainer}
-                sx={metadataPanelSX}
-            >
+            <Box style={{maxHeight: '70vh', overflow: "auto"}} id={"incoming-form-panel"} background={"surface-default"} padding="6" borderRadius={"large"} borderWidth="2" borderColor={"border-subtle"}>
                 <HStack align={"center"} justify={"space-between"}>
                     <HStack align={"center"}>
-                        <Typography variant={"h6"}>{t("header")}</Typography>
+                        <Heading size={"medium"}>{t("header")}</Heading>
                         <HelpPopover
                             popoverContent="Metadata er data fra innsendt skjema du kan bruke i konfigurasjon av utgående data"/>
                     </HStack>
@@ -197,68 +191,69 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (
                         }
                     </HStack>
                 </HStack>
-                {instanceElementMetadata && (
-                    <Box id={"metadata-content-panel"} className={props.classes.panel}>
-                        <MetadataContentComponent
-                            classes={props.classes}
-                            content={instanceElementMetadata}
-                            keyToReferenceFunction={(key: string) =>
-                                toInstanceFieldReference(key)
-                            }
-                        />
-                    </Box>
-                )}
-                {props.referencesForCollectionsToShow.length > 0 &&
-                    getReferenceAndCollectionMetadata(
-                        props.referencesForCollectionsToShow
-                    ).map(
-                        (
-                            [reference, objectCollectionMetadata]: [
-                                string,
-                                IInstanceObjectCollectionMetadata
-                            ],
-                            index: number
-                        ) => (
-                            <Box
-                                key={"tagTreeCollectionValues-" + index}
-                                className={props.classes.panel}
-                            >
-                                <ObjectCollectionMetadataContentComponent
-                                    classes={props.classes}
-                                    collectionIndex={index}
-                                    reference={reference}
-                                    objectCollectionMetadata={objectCollectionMetadata}
-                                />
-                            </Box>
-                        )
+                <VStack gap={"4"}>
+                    {instanceElementMetadata && (
+                        <Box id={"metadata-content-panel"} background={"surface-subtle"} padding="6" borderRadius={"large"} borderWidth="2" borderColor={"border-subtle"}>
+                            <MetadataContentComponent
+                                classes={props.classes}
+                                content={instanceElementMetadata}
+                                keyToReferenceFunction={(key: string) =>
+                                    toInstanceFieldReference(key)
+                                }
+                            />
+                        </Box>
                     )}
-                {valueConvertings && (
-                    <Box id={"value-converting-panel"} className={props.classes.panel}>
-                        <Typography variant={"h6"}>Verdikonvertering</Typography>
-                        {valueConvertings.map(
-                            (valueConverting: IValueConverting, index: number) => {
-                                return (
-                                    <div
-                                        id={"vc-tag-" + index}
-                                        key={"valueConvertingValue-" + index}
-                                        className={props.classes.tagWrapper}
-                                    >
-                                        <Tag
-                                            classes={props.classes}
-                                            value={"$vc{" + valueConverting.id.toString() + "}"}
-                                            tagKey={valueConverting.displayName}
-                                            name={valueConverting.displayName}
-                                            description={"$vc{" + valueConverting.id.toString() + "}"}
-                                            type={ValueType.VALUE_CONVERTING}
-                                        />
-                                    </div>
-                                );
-                            }
+                    {props.referencesForCollectionsToShow.length > 0 &&
+                        getReferenceAndCollectionMetadata(
+                            props.referencesForCollectionsToShow
+                        ).map(
+                            (
+                                [reference, objectCollectionMetadata]: [
+                                    string,
+                                    IInstanceObjectCollectionMetadata
+                                ],
+                                index: number
+                            ) => (
+                                <Box
+                                    key={"tagTreeCollectionValues-" + index}
+                                    background={"surface-alt-3-subtle"} padding="6" borderRadius={"large"} borderWidth="2" borderColor={"border-subtle"}
+                                >
+                                    <ObjectCollectionMetadataContentComponent
+                                        classes={props.classes}
+                                        collectionIndex={index}
+                                        reference={reference}
+                                        objectCollectionMetadata={objectCollectionMetadata}
+                                    />
+                                </Box>
+                            )
                         )}
-                    </Box>
-                )}
+                    {valueConvertings && (
+                        <Box id={"value-converting-panel"} background={"surface-subtle"} padding="6" borderRadius={"large"} borderWidth="2" borderColor={"border-subtle"}>
+                            <Heading size={"small"}>{t('valueConverting')}</Heading>
+                            {valueConvertings.map(
+                                (valueConverting: IValueConverting, index: number) => {
+                                    return (
+                                        <div
+                                            id={"vc-tag-" + index}
+                                            key={"valueConvertingValue-" + index}
+                                            className={props.classes.tagWrapper}
+                                        >
+                                            <Tag
+                                                classes={props.classes}
+                                                value={"$vc{" + valueConverting.id.toString() + "}"}
+                                                tagKey={valueConverting.displayName}
+                                                name={valueConverting.displayName}
+                                                description={"$vc{" + valueConverting.id.toString() + "}"}
+                                                type={ValueType.VALUE_CONVERTING}
+                                            />
+                                        </div>
+                                    );
+                                }
+                            )}
+                        </Box>
+                    )}
+                </VStack>
             </Box>
-        </>
     );
 };
 

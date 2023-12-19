@@ -65,6 +65,7 @@
       },
       "metadataPanel": {
         "header": "Metadata",
+        "valueConverting": "Verdikonvertering",
         "version": "Versjon",
         "metadataWarning": "Det fins nyere versjon av metadata"
       }

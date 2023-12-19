@@ -9,7 +9,7 @@ import {
 import * as React from "react";
 import {ReactElement} from "react";
 import {Tag} from "../common/dnd/Tag";
-import FlytTitleComponent from "../../../../components/atoms/FlytTitleComponent";
+import {Heading} from "@navikt/ds-react";
 
 
 interface Props {
@@ -27,10 +27,7 @@ const MetadataContentComponent: React.FunctionComponent<Props> = (props: Props) 
         <div style={{display: 'flex'}}>
             {props.icon && props.icon}
             {props.displayName &&
-                <FlytTitleComponent variant="h6"
-                    classes={props.classes}
-                    title={props.displayName}
-                />}
+                <Heading size={"xsmall"}>{props.displayName}</Heading>}
         </div>
         {props.content.instanceValueMetadata
             .map((valueMetadata: IInstanceValueMetadata) => {
@@ -72,10 +69,7 @@ const MetadataContentComponent: React.FunctionComponent<Props> = (props: Props) 
             })}
         {props.content.categories.map((category: IInstanceMetadataCategory) =>
             <div key={'tagTree-' + category.displayName} style={{marginTop: '8px'}}>
-                <FlytTitleComponent variant='h6'
-                    classes={props.classes}
-                    title={category.displayName}
-                />
+                <Heading size={"xsmall"}>{category.displayName}</Heading>
                 <div style={{paddingLeft: paddingPerDepth, borderLeft: '1px solid gray'}}>
                     <MetadataContentComponent
                         classes={props.classes}

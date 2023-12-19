@@ -65,6 +65,7 @@
       },
       "metadataPanel": {
         "header": "Metadata",
+        "valueConverting": "Value converting",
         "version": "Versjon",
         "metadataWarning": "There exists a newer version of metadata"
       }
