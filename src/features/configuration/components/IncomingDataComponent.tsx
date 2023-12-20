@@ -31,7 +31,7 @@ export type Props = {
 }
 
 const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => {
-    const {t} = useTranslation('translations', {keyPrefix: 'pages.configuration.metadataPanel'});
+    const {t} = useTranslation('translations', {keyPrefix: 'pages.configuration'});
     const [valueConvertings, setValueConvertings] = useState<[] | undefined>(undefined)
     const [applicationValueConvertings, setApplicationValueConvertings] = useState<IValueConverting[] | undefined>(undefined)
     const [destinationValueConvertings, setDestinationValueConvertings] = useState<IValueConverting[] | undefined>(undefined)
@@ -150,16 +150,16 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
 				<HStack align={"center"} justify={"space-between"}>
 					<HStack gap={"2"} align={"center"}>
 						<Heading size={"small"}>{t("header")}</Heading>
-						<HelpText title={"Hva er dette?"} placement={"right"}>{t('help.metadata')}</HelpText>
+						<HelpText title={"Hva er dette?"} placement={"right"}>{t('metadataPanel.help.metadata')}</HelpText>
 					</HStack>
 					<HStack gap={"1"} align={"center"}>
 						{availableVersions.some(av => av.version > Number(version)) &&
-							<Tooltip content={t('metadataWarning')}>
+							<Tooltip content={t('metadataPanel.metadataWarning')}>
 								<ExclamationmarkTriangleFillIcon color={"orange"} title="a11y-title" fontSize="1.5rem"/>
 							</Tooltip>
 						}
 						<Select
-							label={t('version')}
+							label={t('metadataPanel.version')}
 							style={{borderColor: 'red'}}
 							hideLabel
 							size={"small"}
@@ -172,7 +172,7 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
 							{availableVersions.map((md, index) => {
 								return <option
 									key={index}
-									value={md.version}>{t('version')} {md.version}
+									value={md.version}>{t('metadataPanel.version')} {md.version}
 								</option>
 							})}
 						</Select>
@@ -204,7 +204,7 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
                 }
 
 					<Box id={"value-converting-panel"} background={"surface-subtle"} padding="6" borderRadius={"large"} borderWidth="2" borderColor={"border-subtle"}>
-						<Heading size={"small"}>{t('valueConverting')}</Heading>
+						<Heading size={"small"}>{t('metadataPanel.valueConverting')}</Heading>
                     <ReadMore defaultOpen header={t('valueConverting.custom') + " [" + (valueConvertings?.length ?? 0) + ']'}>
                         <VStack gap={"2"} style={{maxHeight: '200px', overflowY: "scroll"}}>
                             {valueConvertings && valueConvertings.map((valueConverting: IValueConverting, index: number) => {

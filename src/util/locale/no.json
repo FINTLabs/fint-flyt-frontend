@@ -44,10 +44,6 @@
       "version": "Versjon ",
       "comment": "Kommentar",
       "reqFieldMsg": "Kommentar er påkrevd ved ferdigstilling",
-      "metadataPanel": {
-        "header": "Metadata",
-        "version": "Versjon"
-      },
       "valueConverting": {
         "custom": "Egendefinerte",
         "application": "Flyt",

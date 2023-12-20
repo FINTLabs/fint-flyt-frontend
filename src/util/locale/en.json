@@ -44,10 +44,6 @@
       "version": "Version ",
       "comment": "Comment",
       "reqFieldMsg": "Comment is required on completing configuration",
-      "metadataPanel": {
-        "header": "Metadata",
-        "version": "Versjon"
-      },
       "valueConverting": {
         "custom": "Custom",
         "application": "Flyt",
