@@ -46,6 +46,15 @@
       "version": "Versjon ",
       "comment": "Kommentar",
       "reqFieldMsg": "Kommentar er påkravd ved ferdigstilling",
+      "metadataPanel": {
+        "header": "Metadata",
+        "version": "Versjon"
+      },
+      "valueConverting": {
+        "custom": "Eigendefinerte",
+        "application": "Flyt",
+        "destination": "Destinasjon"
+      },
       "label": {
         "checkLabel": "Ferdigstilt",
         "activeLabel": "Aktiv"
@@ -84,10 +93,6 @@
         "sourceApplicationId": "Ein kjeldeapplikasjon er fagsystemet data som skal behandlast i Flyt kjem frå",
         "sourceApplicationIntegrationId": "Referanse/navn/id til data som skal behandlast i flyt",
         "destination": "Kvar data skal sendast etter omforming i Flyt"
-      },
-      "metadataPanel": {
-        "header": "Metadata",
-        "version": "Versjon"
       }
     },
     "integrations": {
@@ -206,6 +211,9 @@
         "back": "Tilbake"
       },
       "header": "Verdikonvertering",
+      "custom": "Eigendefinerte",
+      "application": "Flyt",
+      "destination": "Destinasjon",
       "panelHeader": "Verdikonverteringer",
       "newHeader": "Ny verdikonvertering",
       "fromApplicationId": "Applikasjon",
@@ -232,6 +240,7 @@
         "actions": "Handlingar"
       },
       "help": {
+        "toggle": "Det blir jobba med fleire moglegheiter for å bruka verdikonverteringar i Flyt. For no er det som før og det er berre eigendefinerte verdikonverteringar som blir nytta",
         "valueConverting": "Verdikonvertering er eit felt som lèt deg bruka ein definert regel for å konvertera kvar førekomst av ein verdi. Verdikonverteringar blir brukte i konfigurasjonar på same måte som metadata og vil gjelda for det aktuelle feltet. Det er ikkje mogleg å redigera ei eksisterande verdikonvertering då dette kan påverka eksisterande konfigurasjonar, men det er mogleg å oppretta ein ny basert på ei eksisterande verdikonvertering",
         "valueConvertingName": "Namn på verdikonverteringa som skal opprettast. Merk at namn ikkje er påkravd å vera unikt, men det er lurt å gi eit beskrivande namn",
         "from": "Velg applikasjonen hvor verdien som skal konverteres kommer fra, og hvilken type data det er som skal konverteres fra",

@@ -46,6 +46,15 @@
       "version": "Versjon ",
       "comment": "Kommentar",
       "reqFieldMsg": "Kommentar er påkrevd ved ferdigstilling",
+      "metadataPanel": {
+        "header": "Metadata",
+        "version": "Versjon"
+      },
+      "valueConverting": {
+        "custom": "Egendefinerte",
+        "application": "Flyt",
+        "destination": "Destinasjon"
+      },
       "label": {
         "checkLabel": "Ferdigstilt",
         "activeLabel": "Aktiv"
@@ -84,10 +93,6 @@
         "sourceApplicationId": "En kildeapplikasjon er fagsystemet data som skal behandles i Flyt kommer fra",
         "sourceApplicationIntegrationId": "Referanse/navn/id til data som skal behandles i flyt",
         "destination": "Hvor data skal sendes etter omforming i Flyt"
-      },
-      "metadataPanel": {
-        "header": "Metadata",
-        "version": "Versjon"
       }
     },
     "integrations": {
@@ -206,6 +211,9 @@
         "back": "Tilbake"
       },
       "header": "Verdikonvertering",
+      "custom": "Egendefinerte",
+      "application": "Flyt",
+      "destination": "Destinasjon",
       "panelHeader": "Verdikonverteringer",
       "newHeader": "Ny verdikonvertering",
       "fromApplicationId": "Applikasjon",
@@ -223,7 +231,7 @@
       "requiredField": "Påkrevd felt",
       "column": {
         "show": "Vis",
-        "id": "ID",
+        "id": "Id",
         "displayName": "Navn",
         "toType": "Til type",
         "fromType": "Fra type",
@@ -232,6 +240,7 @@
         "actions": "Handlinger"
       },
       "help": {
+        "toggle": "Det jobbes med flere muligheter for å bruke verdikonverteringer i Flyt. For nå er det som før og det er kun egendefinerte verdikonverteringer som benyttes",
         "valueConverting": "Verdikonvertering er et felt som lar deg bruke en definert regel for å konvertere hver forekomst av en verdi. Verdikonverteringer brukes i konfigurasjoner på samme måte som metadata og vil gjelde for det aktuelle feltet. Det er ikke mulig å redigere en eksisterende verdikonvertering da dette kan påvirke eksisterende konfigurasjoner, men det er mulig å opprette en ny basert på en eksisterende verdikonvertering",
         "valueConvertingName": "Navn på verdikonverteringen som skal opprettes.Merk at navn ikke er påkrevd å være unikt, men det er lurt å gi et beskrivende navn",
         "from": "Velg applikasjonen hvor verdien som skal konverteres kommer fra, og hvilken type data det er som skal konverteres fra",

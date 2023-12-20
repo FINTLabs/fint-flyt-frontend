@@ -1,16 +1,15 @@
 import React, {useState} from 'react';
-import ValueConvertingTable from "../../features/valueConverting/components/ValueConvertingTable";
+import PageTemplate from "../../components/templates/PageTemplate";
 import ValueConvertingForm from "../../features/valueConverting/components/ValueConvertingForm";
-import ValueConvertingRepository from "../../api/ValueConvertingRepository";
-import PageTemplate from "../templates/PageTemplate";
 import {RouteComponent} from "../../routes/Route";
+import ValueConvertingTable from "../../features/valueConverting/components/ValueConvertingTable";
+import ValueConvertingRepository from "../../api/ValueConvertingRepository";
 
 const ValueConverting: RouteComponent = () => {
     const [existingValueConverting, setExistingValueConverting] = useState(undefined);
     const [newValueConverting, setNewValueConverting] = useState<boolean>(false)
     return (
-        <PageTemplate id={'value-converting'} keyPrefix={'pages.valueConverting'}
-                      headingHelpText={{title: "Verdikonverteringer informasjon", info: 'help.valueConverting'}}>
+        <PageTemplate id={'valueConverting'} keyPrefix={'pages.valueConverting'}>
             {existingValueConverting || newValueConverting ?
                 <ValueConvertingForm
                     existingValueConverting={existingValueConverting ?? undefined}
