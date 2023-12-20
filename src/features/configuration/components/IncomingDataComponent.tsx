@@ -157,7 +157,7 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
                 <VStack gap={"2"}>
                 <HStack align={"center"} justify={"space-between"}>
                     <HStack gap={"2"} align={"center"}>
-                        <Heading size={"medium"}>{t("header")}</Heading>
+                        <Heading size={"small"}>{t("header")}</Heading>
                         <HelpText title={"Hva er dette?"} placement={"right"}>{t('help.metadata')}</HelpText>
                     </HStack>
                     <HStack gap={"1"} align={"center"}>
