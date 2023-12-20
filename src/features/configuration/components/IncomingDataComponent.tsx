@@ -1,6 +1,5 @@
 import * as React from "react";
 import {useContext, useEffect, useState} from "react";
-import HelpPopover from "./common/popover/HelpPopover";
 import {useTranslation} from "react-i18next";
 import {SourceApplicationContext} from "../../../context/SourceApplicationContext";
 import {
@@ -25,7 +24,7 @@ import {IValueConverting} from "../../valueConverting/types/ValueConverting";
 import {IntegrationContext} from "../../../context/IntegrationContext";
 import {useFormContext} from "react-hook-form";
 import {ConfigurationContext} from "../../../context/ConfigurationContext";
-import {Heading, HStack, Tooltip, Box, VStack, Select} from "@navikt/ds-react";
+import {Heading, HStack, Tooltip, Box, VStack, Select, HelpText} from "@navikt/ds-react";
 import {ExclamationmarkTriangleFillIcon} from '@navikt/aksel-icons';
 
 export type Props = {
@@ -154,35 +153,37 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
     }
 
     return (
-            <Box style={{maxHeight: '70vh', overflow: "auto"}} id={"incoming-form-panel"} background={"surface-default"} padding="6" borderRadius={"large"} borderWidth="2" borderColor={"border-subtle"}>
+            <Box style={{minWidth: '400px', maxHeight: '70vh', overflow: "auto"}} id={"incoming-form-panel"} background={"surface-default"} padding="6" borderRadius={"large"} borderWidth="2" borderColor={"border-subtle"}>
+                <VStack gap={"2"}>
                 <HStack align={"center"} justify={"space-between"}>
-                    <HStack align={"center"}>
+                    <HStack gap={"2"} align={"center"}>
                         <Heading size={"medium"}>{t("header")}</Heading>
-                        <HelpPopover
-                            popoverContent="Metadata er data fra innsendt skjema du kan bruke i konfigurasjon av utgående data"/>
+                        <HelpText title={"Hva er dette?"} placement={"right"}>{t('help.metadata')}</HelpText>
                     </HStack>
                     <HStack gap={"1"} align={"center"}>
-                        <Select
-                            label={t('version')}
-                            hideLabel
-                            disabled={completed}
-                            defaultValue={version}
-                            onChange={((e: React.ChangeEvent<HTMLSelectElement>) => {
-                                handleSelectChange(e)
-                            console.log(e.target.value)
-                        })}>
-                            {availableVersions.map((md, index) => {
-                                return <option
-                                    key={index}
-                                    value={md.version}>{t('version')} {md.version}
-                                </option>
-                            })}
-                        </Select>
-                        {availableVersions.some(av => av.version > Number(version)) &&
-                            <Tooltip content={t('metadataWarning')}>
-                                <ExclamationmarkTriangleFillIcon color={"orange"} title="a11y-title" fontSize="1.5rem"/>
-                            </Tooltip>
-                        }
+                            {availableVersions.some(av => av.version > Number(version)) &&
+                                <Tooltip content={t('metadataWarning')}>
+                                    <ExclamationmarkTriangleFillIcon color={"orange"} title="a11y-title" fontSize="1.5rem"/>
+                                </Tooltip>
+                            }
+                            <Select
+                                label={t('version')}
+                                style={{borderColor: 'red'}}
+                                hideLabel
+                                size={"small"}
+                                disabled={completed}
+                                defaultValue={version}
+                                onChange={((e: React.ChangeEvent<HTMLSelectElement>) => {
+                                    handleSelectChange(e)
+                                    console.log(e.target.value)
+                                })}>
+                                {availableVersions.map((md, index) => {
+                                    return <option
+                                        key={index}
+                                        value={md.version}>{t('version')} {md.version}
+                                    </option>
+                                })}
+                            </Select>
                     </HStack>
                 </HStack>
                 <VStack gap={"4"}>
@@ -246,6 +247,7 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
                             )}
                         </Box>
                     )}
+                </VStack>
                 </VStack>
             </Box>
     );

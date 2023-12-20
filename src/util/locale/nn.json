@@ -67,7 +67,10 @@
         "header": "Metadata",
         "valueConverting": "Verdikonvertering",
         "version": "Versjon",
-        "metadataWarning": "Det finst nyare versjon av metadata"
+        "metadataWarning": "Det finst nyare versjon av metadata",
+        "help": {
+          "metadata": "Metadata er data fra innsendt skjema du kan bruke i konfigurasjon av utgående data"
+        }
       }
     },
     "integrationForm": {
