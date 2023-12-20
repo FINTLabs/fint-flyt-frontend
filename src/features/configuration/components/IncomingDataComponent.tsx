@@ -32,29 +32,19 @@ export type Props = {
 
 const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.configuration'});
+    const {getInstanceElementMetadata, instanceElementMetadata, getAllMetadata, allMetadata} = useContext(SourceApplicationContext)
     const [valueConvertings, setValueConvertings] = useState<[] | undefined>(undefined)
     const [applicationValueConvertings, setApplicationValueConvertings] = useState<IValueConverting[] | undefined>(undefined)
     const [destinationValueConvertings, setDestinationValueConvertings] = useState<IValueConverting[] | undefined>(undefined)
-
-    const {
-        getInstanceElementMetadata,
-        instanceElementMetadata,
-        getAllMetadata,
-        allMetadata
-    } = useContext(SourceApplicationContext)
-    const {
-        completed
-    } = useContext(ConfigurationContext)
+    const {completed} = useContext(ConfigurationContext)
     const {selectedMetadata, setSelectedMetadata,} = useContext(IntegrationContext)
     const [version, setVersion] = React.useState<string>(selectedMetadata ? String(selectedMetadata.version) : '')
+    const methods = useFormContext();
 
     const availableVersions: IIntegrationMetadata[] = allMetadata ? allMetadata.filter(md => {
         return md.sourceApplicationId === selectedMetadata?.sourceApplicationId &&
             md.sourceApplicationIntegrationId === selectedMetadata.sourceApplicationIntegrationId
     }) : []
-
-
-    const methods = useFormContext();
 
 	useEffect(() => {
 		ValueConvertingRepository.getValueConvertings(0, 100, 'fromApplicationId', 'ASC', false)
@@ -78,18 +68,6 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
         getAllMetadata(false)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-
-	const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-		setVersion(event.target.value);
-		const version = Number(event.target.value)
-		const integrationMetadata: IIntegrationMetadata[] = availableVersions
-			.filter(metadata => metadata.version === version)
-		setSelectedMetadata(integrationMetadata[0])
-		if (integrationMetadata[0].id) {
-			methods.setValue('integrationMetadataId', Number(integrationMetadata[0].id))
-			getInstanceElementMetadata(integrationMetadata[0].id)
-		}
-	}
 
     function findInstanceObjectCollectionMetadata(metadataContent: IInstanceMetadataContent, key: string): IInstanceObjectCollectionMetadata | undefined {
         const searchResultInCurrent: IInstanceObjectCollectionMetadata | undefined =
@@ -132,6 +110,18 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
             }
         })
         return referenceAndCollectionMetadata;
+    }
+
+    const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setVersion(event.target.value);
+        const version = Number(event.target.value)
+        const integrationMetadata: IIntegrationMetadata[] = availableVersions
+            .filter(metadata => metadata.version === version)
+        setSelectedMetadata(integrationMetadata[0])
+        if (integrationMetadata[0].id) {
+            methods.setValue('integrationMetadataId', Number(integrationMetadata[0].id))
+            getInstanceElementMetadata(integrationMetadata[0].id)
+        }
     }
 
 	const ValueConvertings = ({valueConverting}: { valueConverting: IValueConverting }) => {
