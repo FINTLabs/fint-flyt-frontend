@@ -1,4 +1,3 @@
-import {ClassNameMap} from "@mui/styles";
 import {
     IInstanceMetadataCategory,
     IInstanceMetadataContent,
@@ -10,18 +9,21 @@ import * as React from "react";
 import {ReactElement} from "react";
 import {Tag} from "../common/dnd/Tag";
 import {Heading} from "@navikt/ds-react";
+import {ConfigurationFormStyles} from "../../../../util/styles/ConfigurationFormStyles";
 
 
 interface Props {
-    classes: ClassNameMap;
     icon?: ReactElement
     displayName?: string;
     content: IInstanceMetadataContent
     keyToReferenceFunction: (key: string) => string
 }
 
+    const useStyles = ConfigurationFormStyles
+
 const MetadataContentComponent: React.FunctionComponent<Props> = (props: Props) => {
     const paddingPerDepth = 10;
+    const classes = useStyles();
 
     return <>
         <div style={{display: 'flex'}}>
@@ -33,13 +35,12 @@ const MetadataContentComponent: React.FunctionComponent<Props> = (props: Props) 
             .map((valueMetadata: IInstanceValueMetadata) => {
                     const reference: string = props.keyToReferenceFunction(valueMetadata.key);
                     return <div
-                        className={props.classes.tagWrapper}
+                        className={classes.tagWrapper}
                         id={'tag-' + valueMetadata.key}
                         key={'tag-' + valueMetadata.key}
                     >
                         <Tag
                             key={'tagtreeValues-' + valueMetadata.key}
-                            classes={props.classes}
                             type={valueMetadata.type}
                             name={valueMetadata.displayName}
                             description={reference}
@@ -53,12 +54,11 @@ const MetadataContentComponent: React.FunctionComponent<Props> = (props: Props) 
             .map((objectCollectionMetadata: IInstanceObjectCollectionMetadata) => {
                 const reference: string = props.keyToReferenceFunction(objectCollectionMetadata.key);
                 return <div
-                    className={props.classes.tagWrapper}
+                    className={classes.tagWrapper}
                     id={'tag-' + objectCollectionMetadata.key}
                     key={'tag-' + objectCollectionMetadata.key}
                 >
                     <Tag
-                        classes={props.classes}
                         type={ValueType.COLLECTION}
                         name={objectCollectionMetadata.displayName}
                         description={reference}
@@ -72,7 +72,6 @@ const MetadataContentComponent: React.FunctionComponent<Props> = (props: Props) 
                 <Heading size={"xsmall"}>{category.displayName}</Heading>
                 <div style={{paddingLeft: paddingPerDepth, borderLeft: '1px solid gray'}}>
                     <MetadataContentComponent
-                        classes={props.classes}
                         content={category.content}
                         keyToReferenceFunction={(key: string) => props.keyToReferenceFunction(key)}
                     />

@@ -195,7 +195,6 @@ const Configuration: RouteComponent = () => {
                                     size={"small"}>{t('header')} {existingIntegration?.sourceApplicationIntegrationId} - {existingIntegration?.displayName}</Heading>
                                 <HStack gap={"8"} wrap={false}>
                                     <IncomingDataComponent
-                                        classes={classes}
                                         referencesForCollectionsToShow={collectionReferencesInEditContext}
                                     />
                                     <OutgoingDataComponent

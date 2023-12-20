@@ -8,7 +8,6 @@ import {
 	IIntegrationMetadata,
 	ValueType,
 } from "../types/Metadata/IntegrationMetadata";
-import {ClassNameMap} from "@mui/styles";
 import {
 	extractCollectionFieldReferenceIndexAndKey,
 	extractFieldReferenceKey,
@@ -26,13 +25,13 @@ import {useFormContext} from "react-hook-form";
 import {ConfigurationContext} from "../../../context/ConfigurationContext";
 import {Heading, HStack, Tooltip, Box, VStack, Select, HelpText} from "@navikt/ds-react";
 import {ExclamationmarkTriangleFillIcon} from '@navikt/aksel-icons';
+import {ConfigurationFormStyles} from "../../../util/styles/ConfigurationFormStyles";
 
 export type Props = {
-    classes: ClassNameMap;
-    // TODO eivindmorch 24/03/2023 : Change to metadata as prop
-    // metadata?: IInstanceMetadataContent,
     referencesForCollectionsToShow: string[];
 };
+
+const useStyles = ConfigurationFormStyles
 
 const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => {
     const {t} = useTranslation("translations", {keyPrefix: "pages.configuration.metadataPanel"});
@@ -48,6 +47,7 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
     const {selectedMetadata, setSelectedMetadata,} = useContext(IntegrationContext)
     const [valueConvertings, setValueConvertings] = useState<[] | undefined>(undefined);
     const [version, setVersion] = React.useState<string>(selectedMetadata ? String(selectedMetadata.version) : '')
+    const styles = useStyles();
 
     const availableVersions: IIntegrationMetadata[] = allMetadata ? allMetadata.filter(md => {
         return md.sourceApplicationId === selectedMetadata?.sourceApplicationId &&
@@ -190,7 +190,6 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
                     {instanceElementMetadata && (
                         <Box id={"metadata-content-panel"} background={"surface-subtle"} padding="6" borderRadius={"large"} borderWidth="2" borderColor={"border-subtle"}>
                             <MetadataContentComponent
-                                classes={props.classes}
                                 content={instanceElementMetadata}
                                 keyToReferenceFunction={(key: string) =>
                                     toInstanceFieldReference(key)
@@ -214,7 +213,6 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
                                     background={"surface-alt-3-subtle"} padding="6" borderRadius={"large"} borderWidth="2" borderColor={"border-subtle"}
                                 >
                                     <ObjectCollectionMetadataContentComponent
-                                        classes={props.classes}
                                         collectionIndex={index}
                                         reference={reference}
                                         objectCollectionMetadata={objectCollectionMetadata}
@@ -231,10 +229,9 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
                                         <div
                                             id={"vc-tag-" + index}
                                             key={"valueConvertingValue-" + index}
-                                            className={props.classes.tagWrapper}
+                                            className={styles.tagWrapper}
                                         >
                                             <Tag
-                                                classes={props.classes}
                                                 value={"$vc{" + valueConverting.id.toString() + "}"}
                                                 tagKey={valueConverting.displayName}
                                                 name={valueConverting.displayName}
