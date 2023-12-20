@@ -44,6 +44,15 @@
       "version": "Version ",
       "comment": "Comment",
       "reqFieldMsg": "Comment is required on completing configuration",
+      "metadataPanel": {
+        "header": "Metadata",
+        "version": "Versjon"
+      },
+      "valueConverting": {
+        "custom": "Custom",
+        "application": "Flyt",
+        "destination": "Destination"
+      },
       "label": {
         "checkLabel": "Completed",
         "activeLabel": "Active"
@@ -209,6 +218,9 @@
         "back": "Back"
       },
       "header": "Value conversion",
+      "custom": "Custom",
+      "application": "Flyt",
+      "destination": "Destination",
       "panelHeader": "Value conversions",
       "newHeader": "New value conversion",
       "fromApplicationId": "Application",
@@ -235,6 +247,7 @@
         "actions": "Actions"
       },
       "help": {
+        "toggle": "We are working on more ways to use value conversions in Flyt. For now it is as before and only custom value conversions are used",
         "valueConverting": "Value Conversion is a field that allows you to use a defined rule to convert each occurrence of a value. Value conversions are used in configurations in the same way as metadata and will apply to the field in question. It is not possible to edit an existing value conversion as this may affect existing configurations, but it is possible to create a new one based on an existing value conversion",
         "valueConvertingName": "Name of the value conversion to be created. Note that name is not required to be unique, but it is a good idea to give a descriptive name",
         "from": "Select the application where the value to be converted comes from, and what type of data it is to be converted from",

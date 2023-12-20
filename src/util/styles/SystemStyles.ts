@@ -62,6 +62,7 @@ export const errorMsgSX: SxProps<Theme> = {
 }
 
 export const tagSX: SxProps<Theme> = {
+    width: 'fit-content',
     cursor: 'move',
     backgroundColor: 'white',
     borderRadius: (theme: Theme) => theme.spacing(0.5),

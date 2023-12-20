@@ -1,4 +1,4 @@
-import { useCommonStyles } from './theme/theme';
+import {useCommonStyles} from './theme/theme';
 import {createStyles, makeStyles} from "@mui/styles";
 import {Theme} from "@mui/material";
 
