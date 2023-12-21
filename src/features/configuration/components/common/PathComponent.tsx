@@ -1,8 +1,7 @@
-import {ClassNameMap} from "@mui/styles";
 import * as React from "react";
+import {Box, Detail} from "@navikt/ds-react";
 
 interface Props {
-    classes: ClassNameMap;
     path: string[];
 }
 
@@ -15,14 +14,14 @@ function splitPath(chunkSize: number, path: string[]): string[][] {
 }
 
 
-const PathComponent: React.FunctionComponent<Props> = (props: { classes: ClassNameMap; path: string[]; }) => {
-    return <div className={props.classes.path}>
+const PathComponent: React.FunctionComponent<Props> = (props: { path: string[]; }) => {
+    return <Box style={{marginTop: '-16px', marginBottom: '16px'}}>
         {
             splitPath(4, props.path)
                 .map((pathChunk: string[], index: number) => {
-                    return <p className={props.classes.pathChunk} key={index}>{pathChunk.join("/")}</p>
+                    return <Detail style={{margin: 0}} key={index}>{pathChunk.join("/")}</Detail>
                 })
         }
-    </div>
+    </Box>
 }
 export default PathComponent

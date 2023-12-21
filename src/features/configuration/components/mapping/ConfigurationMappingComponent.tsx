@@ -12,6 +12,7 @@ import {useFormContext} from "react-hook-form";
 import ValueWatchComponent from "../common/ValueWatchComponent";
 import {findFromCollectionMappingAbsoluteKeys} from "../../util/KeyUtils";
 import {EditingContext} from "../../../../context/EditingContext";
+import {Box} from "@navikt/ds-react";
 
 interface Props {
     classes: ClassNameMap
@@ -188,12 +189,18 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
                 }}
             />
             {getElementsByColumn(displayRootElement).map((columns: Omit<ColumnElement, 'nestedColumnElementPerOrder'>[], columnIndex) =>
-                <div id={'column-' + columnIndex} key={'column-' + columnIndex}
-                     className={props.classes.column}>
+                <Box id={'column-' + columnIndex} key={'column-' + columnIndex}
+                     style={{
+                         maxHeight: 'calc(100vh/1.5)',
+                         marginRight: '16px',
+                         minWidth: 'fit-content',
+                         overflowY: 'auto',
+                         overflowX: 'hidden',
+                         height: 'fit-content'
+                     }}>
                     {
                         columns.map((columnElement: Omit<ColumnElement, 'nestedColumnElementPerOrder'>, columnElementIndex: number) => {
                                 return <ColumnElementComponent
-                                    classes={props.classes}
                                     key={'column-' + columnIndex + '-element-' + columnElementIndex}
                                     index={columnElementIndex}
                                     path={columnElement.path}
@@ -203,7 +210,7 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
                             }
                         )
                     }
-                </div>
+                </Box>
             )}
         </>
     )

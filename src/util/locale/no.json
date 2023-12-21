@@ -76,6 +76,9 @@
         "help": {
           "metadata": "Metadata er data fra innsendt skjema du kan bruke i konfigurasjon av utgående data"
         }
+      },
+      "help": {
+        "formHeader": "Utgående data"
       }
     },
     "integrationForm": {

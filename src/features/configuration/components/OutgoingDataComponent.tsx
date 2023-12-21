@@ -1,10 +1,9 @@
 import * as React from "react";
-import {Box, Typography} from "@mui/material";
 import {ClassNameMap} from "@mui/styles";
 import {useTranslation} from "react-i18next";
 import {testObjectTemplateSak} from "../defaults/FormTemplates";
 import ConfigurationMappingComponent from "./mapping/ConfigurationMappingComponent";
-import HelpPopover from "./common/popover/HelpPopover";
+import {Box, Heading, HelpText, HStack} from "@navikt/ds-react";
 
 export interface Props {
     classes: ClassNameMap
@@ -16,12 +15,14 @@ const OutgoingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
     const classes = props.classes;
 
     return (
-        <Box id="outgoing-form-panel" className={classes.panelContainer}>
-            <Box className={props.classes.row}>
-                <Typography variant={"h6"}>{t('formHeader')}</Typography>
-                <HelpPopover popoverContent="Utgående data"/>
-            </Box>
-            <Box id="configuration-mapping-wrapper" sx={{display: 'flex'}}>
+        <Box style={{minWidth: '400px', maxHeight: '70vh', overflow: "auto"}} id={"outgoing-form-panel"}
+             background={"surface-default"} padding="6" borderRadius={"large"} borderWidth="2"
+             borderColor={"border-subtle"}>
+            <HStack align={"center"} gap={"2"}>
+                <Heading size={"small"}>{t('formHeader')}</Heading>
+                <HelpText title={"Hva er dette?"} placement={"right"}>{t('help.formHeader')}</HelpText>
+            </HStack>
+            <HStack id="configuration-mapping-wrapper" wrap={false}>
                 <ConfigurationMappingComponent
                     classes={classes}
                     mappingTemplate={testObjectTemplateSak}
@@ -29,7 +30,7 @@ const OutgoingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
                         props.onCollectionReferencesInEditContextChange(collectionReferences)
                     })}
                 />
-            </Box>
+            </HStack>
         </Box>
     );
 }

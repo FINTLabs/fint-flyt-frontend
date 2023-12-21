@@ -3,10 +3,10 @@ import {useContext, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {SourceApplicationContext} from "../../../context/SourceApplicationContext";
 import {
-	IInstanceMetadataContent,
-	IInstanceObjectCollectionMetadata,
-	ValueType,
-	IIntegrationMetadata,
+    IInstanceMetadataContent,
+    IInstanceObjectCollectionMetadata,
+    IIntegrationMetadata,
+    ValueType,
 } from "../types/Metadata/IntegrationMetadata";
 import {
     extractCollectionFieldReferenceIndexAndKey,
@@ -22,7 +22,7 @@ import {IValueConverting} from "../../valueConverting/types/ValueConverting";
 import {IntegrationContext} from "../../../context/IntegrationContext";
 import {useFormContext} from "react-hook-form";
 import {ConfigurationContext} from "../../../context/ConfigurationContext";
-import {Heading, HStack, VStack, Tooltip, Box, ReadMore, Select, HelpText} from "@navikt/ds-react";
+import {Box, Heading, HelpText, HStack, ReadMore, Select, Tooltip, VStack} from "@navikt/ds-react";
 import {ExclamationmarkTriangleFillIcon} from '@navikt/aksel-icons';
 import ValueConvertingRepository from "../../../api/ValueConvertingRepository";
 
@@ -32,7 +32,12 @@ export type Props = {
 
 const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.configuration'});
-    const {getInstanceElementMetadata, instanceElementMetadata, getAllMetadata, allMetadata} = useContext(SourceApplicationContext)
+    const {
+        getInstanceElementMetadata,
+        instanceElementMetadata,
+        getAllMetadata,
+        allMetadata
+    } = useContext(SourceApplicationContext)
     const [valueConvertings, setValueConvertings] = useState<[] | undefined>(undefined)
     const [applicationValueConvertings, setApplicationValueConvertings] = useState<IValueConverting[] | undefined>(undefined)
     const [destinationValueConvertings, setDestinationValueConvertings] = useState<IValueConverting[] | undefined>(undefined)
@@ -46,23 +51,23 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
             md.sourceApplicationIntegrationId === selectedMetadata.sourceApplicationIntegrationId
     }) : []
 
-	useEffect(() => {
-		ValueConvertingRepository.getValueConvertings(0, 100, 'fromApplicationId', 'ASC', false)
-			.then(response => {
-				setValueConvertings(response.data.content)
-			})
-			.catch(e => {
-				console.log(e)
-				setValueConvertings([])
-				setDestinationValueConvertings([])
-				setApplicationValueConvertings([])
-			})
-	}, [])
+    useEffect(() => {
+        ValueConvertingRepository.getValueConvertings(0, 100, 'fromApplicationId', 'ASC', false)
+            .then(response => {
+                setValueConvertings(response.data.content)
+            })
+            .catch(e => {
+                console.log(e)
+                setValueConvertings([])
+                setDestinationValueConvertings([])
+                setApplicationValueConvertings([])
+            })
+    }, [])
 
-	useEffect(() => {
-		getAllMetadata(false)
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
+    useEffect(() => {
+        getAllMetadata(false)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     useEffect(() => {
         getAllMetadata(false)
@@ -124,105 +129,114 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
         }
     }
 
-	const ValueConvertings = ({valueConverting}: { valueConverting: IValueConverting }) => {
-		return <Tag
-			value={'$vc{' + valueConverting.id.toString() + '}'}
-			tagKey={valueConverting.displayName}
-			name={valueConverting.displayName}
-			description={'$vc{' + valueConverting.id.toString() + '}'}
-			type={ValueType.VALUE_CONVERTING}
-		/>
-	}
+    const ValueConvertings = ({valueConverting}: { valueConverting: IValueConverting }) => {
+        return <Tag
+            value={'$vc{' + valueConverting.id.toString() + '}'}
+            tagKey={valueConverting.displayName}
+            name={valueConverting.displayName}
+            description={'$vc{' + valueConverting.id.toString() + '}'}
+            type={ValueType.VALUE_CONVERTING}
+        />
+    }
 
     return (
-		<Box style={{minWidth: '400px', maxHeight: '70vh', overflow: "auto"}} id={"incoming-form-panel"} background={"surface-default"} padding="6" borderRadius={"large"} borderWidth="2" borderColor={"border-subtle"}>
-			<VStack gap={"2"}>
-				<HStack align={"center"} justify={"space-between"}>
-					<HStack gap={"2"} align={"center"}>
-						<Heading size={"small"}>{t("header")}</Heading>
-						<HelpText title={"Hva er dette?"} placement={"right"}>{t('metadataPanel.help.metadata')}</HelpText>
-					</HStack>
-					<HStack gap={"1"} align={"center"}>
-						{availableVersions.some(av => av.version > Number(version)) &&
-							<Tooltip content={t('metadataPanel.metadataWarning')}>
-								<ExclamationmarkTriangleFillIcon color={"orange"} title="a11y-title" fontSize="1.5rem"/>
-							</Tooltip>
-						}
-						<Select
-							label={t('metadataPanel.version')}
-							style={{borderColor: 'red'}}
-							hideLabel
-							size={"small"}
-							disabled={completed}
-							defaultValue={version}
-							onChange={((e: React.ChangeEvent<HTMLSelectElement>) => {
-								handleSelectChange(e)
-								console.log(e.target.value)
-							})}>
-							{availableVersions.map((md, index) => {
-								return <option
-									key={index}
-									value={md.version}>{t('metadataPanel.version')} {md.version}
-								</option>
-							})}
-						</Select>
-					</HStack>
-				</HStack>
-				<VStack gap={"4"}>
-                {instanceElementMetadata &&
-					<Box id={"metadata-content-panel"} background={"surface-subtle"} padding="6" borderRadius={"large"} borderWidth="2" borderColor={"border-subtle"}>
-                        <MetadataContentComponent
-                            content={instanceElementMetadata}
-                            keyToReferenceFunction={(key: string) => toInstanceFieldReference(key)}
-                        />
-                    </Box>
-                }
-                {props.referencesForCollectionsToShow.length > 0 &&
-                    getReferenceAndCollectionMetadata(props.referencesForCollectionsToShow)
-                        .map(([reference, objectCollectionMetadata]: [string, IInstanceObjectCollectionMetadata], index: number) =>
-                            <Box
-                                key={'tagTreeCollectionValues-' + index}
-								background={"surface-alt-3-subtle"} padding="6" borderRadius={"large"} borderWidth="2" borderColor={"border-subtle"}
-                            >
-                                <ObjectCollectionMetadataContentComponent
-                                    collectionIndex={index}
-                                    reference={reference}
-                                    objectCollectionMetadata={objectCollectionMetadata}
-                                />
-                            </Box>
-                        )
-                }
+        <Box style={{minWidth: '400px', maxHeight: '70vh', overflow: "auto"}} id={"incoming-form-panel"}
+             background={"surface-default"} padding="6" borderRadius={"large"} borderWidth="2"
+             borderColor={"border-subtle"}>
+            <VStack gap={"2"}>
+                <HStack align={"center"} justify={"space-between"}>
+                    <HStack gap={"2"} align={"center"}>
+                        <Heading size={"small"}>{t("metadataPanel.header")}</Heading>
+                        <HelpText title={"Hva er dette?"}
+                                  placement={"right"}>{t('metadataPanel.help.metadata')}</HelpText>
+                    </HStack>
+                    <HStack gap={"1"} align={"center"}>
+                        {availableVersions.some(av => av.version > Number(version)) &&
+                            <Tooltip content={t('metadataPanel.metadataWarning')}>
+                                <ExclamationmarkTriangleFillIcon color={"orange"} title="a11y-title" fontSize="1.5rem"/>
+                            </Tooltip>
+                        }
+                        <Select
+                            label={t('metadataPanel.version')}
+                            style={{borderColor: 'red'}}
+                            hideLabel
+                            size={"small"}
+                            disabled={completed}
+                            defaultValue={version}
+                            onChange={((e: React.ChangeEvent<HTMLSelectElement>) => {
+                                handleSelectChange(e)
+                                console.log(e.target.value)
+                            })}>
+                            {availableVersions.map((md, index) => {
+                                return <option
+                                    key={index}
+                                    value={md.version}>{t('metadataPanel.version')} {md.version}
+                                </option>
+                            })}
+                        </Select>
+                    </HStack>
+                </HStack>
+                <VStack gap={"4"}>
+                    {instanceElementMetadata &&
+                        <Box id={"metadata-content-panel"} background={"surface-subtle"} padding="6"
+                             borderRadius={"large"} borderWidth="2" borderColor={"border-subtle"}>
+                            <MetadataContentComponent
+                                content={instanceElementMetadata}
+                                keyToReferenceFunction={(key: string) => toInstanceFieldReference(key)}
+                            />
+                        </Box>
+                    }
+                    {props.referencesForCollectionsToShow.length > 0 &&
+                        getReferenceAndCollectionMetadata(props.referencesForCollectionsToShow)
+                            .map(([reference, objectCollectionMetadata]: [string, IInstanceObjectCollectionMetadata], index: number) =>
+                                <Box
+                                    key={'tagTreeCollectionValues-' + index}
+                                    background={"surface-alt-3-subtle"} padding="6" borderRadius={"large"}
+                                    borderWidth="2" borderColor={"border-subtle"}
+                                >
+                                    <ObjectCollectionMetadataContentComponent
+                                        collectionIndex={index}
+                                        reference={reference}
+                                        objectCollectionMetadata={objectCollectionMetadata}
+                                    />
+                                </Box>
+                            )
+                    }
 
-					<Box id={"value-converting-panel"} background={"surface-subtle"} padding="6" borderRadius={"large"} borderWidth="2" borderColor={"border-subtle"}>
-						<Heading size={"small"}>{t('metadataPanel.valueConverting')}</Heading>
-                    <ReadMore defaultOpen header={t('valueConverting.custom') + " [" + (valueConvertings?.length ?? 0) + ']'}>
-                        <VStack gap={"2"} style={{maxHeight: '200px', overflowY: "scroll"}}>
-                            {valueConvertings && valueConvertings.map((valueConverting: IValueConverting, index: number) => {
-                                return <ValueConvertings key={'valueConvertingValue-' + index}
-                                                         valueConverting={valueConverting}/>
-                            })}
-                        </VStack>
-                    </ReadMore>
-                    <ReadMore header={t('valueConverting.application') + " [" + (applicationValueConvertings?.length ?? 0) + ']'}>
-                        <VStack gap={"2"}>
-                            {applicationValueConvertings && applicationValueConvertings.map((valueConverting: IValueConverting, index: number) => {
-                                return <ValueConvertings key={'valueConvertingValue-' + index}
-                                                         valueConverting={valueConverting}/>
-                            })}
-                        </VStack>
-                    </ReadMore>
-                    <ReadMore header={t('valueConverting.destination') + " [" + (destinationValueConvertings?.length ?? 0) + ']'}>
-                        <VStack gap={"2"}>
-                            {destinationValueConvertings && destinationValueConvertings.map((valueConverting: IValueConverting, index: number) => {
-                                return <ValueConvertings key={'valueConvertingValue-' + index}
-                                                         valueConverting={valueConverting}/>
-                            })}
-                        </VStack>
-                    </ReadMore>
-                </Box>
-				</VStack>
-				</VStack>
-            </Box>
+                    <Box id={"value-converting-panel"} background={"surface-subtle"} padding="6" borderRadius={"large"}
+                         borderWidth="2" borderColor={"border-subtle"}>
+                        <Heading size={"small"}>{t('metadataPanel.valueConverting')}</Heading>
+                        <ReadMore defaultOpen
+                                  header={t('valueConverting.custom') + " [" + (valueConvertings?.length ?? 0) + ']'}>
+                            <VStack gap={"2"} style={{maxHeight: '200px', overflowY: "scroll"}}>
+                                {valueConvertings && valueConvertings.map((valueConverting: IValueConverting, index: number) => {
+                                    return <ValueConvertings key={'valueConvertingValue-' + index}
+                                                             valueConverting={valueConverting}/>
+                                })}
+                            </VStack>
+                        </ReadMore>
+                        <ReadMore
+                            header={t('valueConverting.application') + " [" + (applicationValueConvertings?.length ?? 0) + ']'}>
+                            <VStack gap={"2"}>
+                                {applicationValueConvertings && applicationValueConvertings.map((valueConverting: IValueConverting, index: number) => {
+                                    return <ValueConvertings key={'valueConvertingValue-' + index}
+                                                             valueConverting={valueConverting}/>
+                                })}
+                            </VStack>
+                        </ReadMore>
+                        <ReadMore
+                            header={t('valueConverting.destination') + " [" + (destinationValueConvertings?.length ?? 0) + ']'}>
+                            <VStack gap={"2"}>
+                                {destinationValueConvertings && destinationValueConvertings.map((valueConverting: IValueConverting, index: number) => {
+                                    return <ValueConvertings key={'valueConvertingValue-' + index}
+                                                             valueConverting={valueConverting}/>
+                                })}
+                            </VStack>
+                        </ReadMore>
+                    </Box>
+                </VStack>
+            </VStack>
+        </Box>
     );
 }
 

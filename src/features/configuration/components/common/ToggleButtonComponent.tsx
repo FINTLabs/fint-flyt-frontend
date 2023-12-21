@@ -5,7 +5,7 @@ import {ClassNameMap} from "@mui/styles";
 import {toggleButtonSX} from "../../../../util/styles/SystemStyles";
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-import HelpPopover from "./popover/HelpPopover";
+import {HelpText, HStack, VStack} from "@navikt/ds-react";
 
 interface Props {
     classes: ClassNameMap;
@@ -25,26 +25,30 @@ const ToggleButtonComponent: React.FunctionComponent<Props> = (props: Props) => 
         props.selected = value
     }
     return (
-        <div id={'toggle-button-' + props.displayName + '-' + props.order} className={props.classes.flexRowContainer}>
-            <ToggleButton
-                sx={toggleButtonSX}
-                value={selected}
-                selected={props.selected !== undefined ? props.selected : selected}
-                onClick={() => {
-                    if (!selected) {
-                        props.onSelect();
-                    } else {
-                        props.onUnselect();
-                    }
-                    setSelected(!selected);
-                }}
-                disabled={props.disabled}
-            >
-                {props.displayName}
-                {selected ? <KeyboardArrowLeftIcon/> : <KeyboardArrowRightIcon/>}
-            </ToggleButton>
-            {props.description && <HelpPopover popoverContent={props.description}/>}
-        </div>
+        <VStack id={'toggle-button-' + props.displayName + '-' + props.order}>
+            <HStack align={"center"} gap={"2"}>
+                <ToggleButton
+                    sx={toggleButtonSX}
+                    value={selected}
+                    selected={props.selected !== undefined ? props.selected : selected}
+                    onClick={() => {
+                        if (!selected) {
+                            props.onSelect();
+                        } else {
+                            props.onUnselect();
+                        }
+                        setSelected(!selected);
+                    }}
+                    disabled={props.disabled}
+                >
+                    {props.displayName}
+                    {selected ? <KeyboardArrowLeftIcon/> : <KeyboardArrowRightIcon/>}
+                </ToggleButton>
+                {props.description &&
+                    <HelpText title={"Hva er dette?"} placement={"right"}>{props.description}</HelpText>
+                }
+            </HStack>
+        </VStack>
     )
 }
 export default ToggleButtonComponent;

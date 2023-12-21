@@ -8,7 +8,7 @@ import {
 import * as React from "react";
 import {ReactElement} from "react";
 import {Tag} from "../common/dnd/Tag";
-import {Heading} from "@navikt/ds-react";
+import {Heading, HStack} from "@navikt/ds-react";
 import {ConfigurationFormStyles} from "../../../../util/styles/ConfigurationFormStyles";
 
 
@@ -19,18 +19,18 @@ interface Props {
     keyToReferenceFunction: (key: string) => string
 }
 
-    const useStyles = ConfigurationFormStyles
+const useStyles = ConfigurationFormStyles
 
 const MetadataContentComponent: React.FunctionComponent<Props> = (props: Props) => {
     const paddingPerDepth = 10;
     const classes = useStyles();
 
     return <>
-        <div style={{display: 'flex'}}>
+        <HStack align={"center"} gap={"2"}>
             {props.icon && props.icon}
             {props.displayName &&
                 <Heading size={"xsmall"}>{props.displayName}</Heading>}
-        </div>
+        </HStack>
         {props.content.instanceValueMetadata
             .map((valueMetadata: IInstanceValueMetadata) => {
                     const reference: string = props.keyToReferenceFunction(valueMetadata.key);

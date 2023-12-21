@@ -9,9 +9,7 @@ import ArrayValueWrapperComponent from "../../../common/array/ArrayValueWrapperC
 import {ConfigurationContext} from "../../../../../../context/ConfigurationContext";
 import {isOutsideCollectionEditContext} from "../../../../util/KeyUtils";
 import {EditingContext} from "../../../../../../context/EditingContext";
-import HelpPopover from "../../../common/popover/HelpPopover";
-import {Box} from "@mui/material";
-import FlytTitleComponent from "../../../../../../components/atoms/FlytTitleComponent";
+import {Heading, HelpText, HStack} from "@navikt/ds-react";
 
 interface Props {
     classes: ClassNameMap;
@@ -28,10 +26,10 @@ const CollectionMappingComponent: React.FunctionComponent<Props> = (props: Props
 
     return <>
         <div className={props.classes.wrapperVerticalMargin}>
-            <Box className={props.classes.flexRowContainer}>
-                <FlytTitleComponent variant="h6" classes={props.classes} title={t("defaultElements")}/>
-                <HelpPopover popoverContent={'Faste elementer'} noMargin={true}/>
-            </Box>
+            <HStack align={"center"} gap={"2"}>
+                <Heading size={"small"}>{t("defaultElements")}</Heading>
+                <HelpText placement={"right"}>{t("defaultElements")}</HelpText>
+            </HStack>
             <ArrayComponent
                 classes={props.classes}
                 absoluteKey={props.absoluteKey + ".elementMappings"}
@@ -64,10 +62,10 @@ const CollectionMappingComponent: React.FunctionComponent<Props> = (props: Props
                 disabled={isOutsideCollectionEditContext(props.absoluteKey, editCollectionAbsoluteKey) || completed}
             />
         </div>
-        <Box className={props.classes.flexRowContainer}>
-            <FlytTitleComponent variant="h6" classes={props.classes} title={t("generatedElements")}/>
-            <HelpPopover popoverContent={'Generert fra innhold i en samling'} noMargin={true}/>
-        </Box>
+        <HStack align={"center"} gap={"2"}>
+            <Heading size={"small"}>{t("generatedElements")}</Heading>
+            <HelpText placement={"right"}>{t("generatedElements")}</HelpText>
+        </HStack>
         <ArrayComponent
             classes={props.classes}
             absoluteKey={props.absoluteKey + ".fromCollectionMappings"}
