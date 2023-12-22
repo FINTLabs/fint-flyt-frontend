@@ -8,9 +8,7 @@ import {
 import * as React from "react";
 import {ReactElement} from "react";
 import {Tag} from "../common/dnd/Tag";
-import {Heading, HStack} from "@navikt/ds-react";
-import {ConfigurationFormStyles} from "../../../../util/styles/ConfigurationFormStyles";
-
+import {Heading, HStack, VStack} from "@navikt/ds-react";
 
 interface Props {
     icon?: ReactElement
@@ -19,11 +17,8 @@ interface Props {
     keyToReferenceFunction: (key: string) => string
 }
 
-const useStyles = ConfigurationFormStyles
-
 const MetadataContentComponent: React.FunctionComponent<Props> = (props: Props) => {
     const paddingPerDepth = 10;
-    const classes = useStyles();
 
     return <>
         <HStack align={"center"} gap={"2"}>
@@ -31,15 +26,11 @@ const MetadataContentComponent: React.FunctionComponent<Props> = (props: Props) 
             {props.displayName &&
                 <Heading size={"xsmall"}>{props.displayName}</Heading>}
         </HStack>
-        {props.content.instanceValueMetadata
-            .map((valueMetadata: IInstanceValueMetadata) => {
-                    const reference: string = props.keyToReferenceFunction(valueMetadata.key);
-                    return <div
-                        className={classes.tagWrapper}
-                        id={'tag-' + valueMetadata.key}
-                        key={'tag-' + valueMetadata.key}
-                    >
-                        <Tag
+        <VStack gap={"1"}>
+            {props.content.instanceValueMetadata
+                .map((valueMetadata: IInstanceValueMetadata) => {
+                        const reference: string = props.keyToReferenceFunction(valueMetadata.key);
+                        return <Tag
                             key={'tagtreeValues-' + valueMetadata.key}
                             type={valueMetadata.type}
                             name={valueMetadata.displayName}
@@ -47,26 +38,21 @@ const MetadataContentComponent: React.FunctionComponent<Props> = (props: Props) 
                             tagKey={valueMetadata.key}
                             value={reference}
                         />
-                    </div>
-                }
-            )}
-        {props.content.instanceObjectCollectionMetadata
-            .map((objectCollectionMetadata: IInstanceObjectCollectionMetadata) => {
-                const reference: string = props.keyToReferenceFunction(objectCollectionMetadata.key);
-                return <div
-                    className={classes.tagWrapper}
-                    id={'tag-' + objectCollectionMetadata.key}
-                    key={'tag-' + objectCollectionMetadata.key}
-                >
-                    <Tag
+                    }
+                )}
+            {props.content.instanceObjectCollectionMetadata
+                .map((objectCollectionMetadata: IInstanceObjectCollectionMetadata) => {
+                    const reference: string = props.keyToReferenceFunction(objectCollectionMetadata.key);
+                    return <Tag
+                        key={'tagtreeValues-' + objectCollectionMetadata.key}
                         type={ValueType.COLLECTION}
                         name={objectCollectionMetadata.displayName}
                         description={reference}
                         value={reference}
                         tagKey={objectCollectionMetadata.key}
                     />
-                </div>
-            })}
+                })}
+        </VStack>
         {props.content.categories.map((category: IInstanceMetadataCategory) =>
             <div key={'tagTree-' + category.displayName} style={{marginTop: '8px'}}>
                 <Heading size={"xsmall"}>{category.displayName}</Heading>

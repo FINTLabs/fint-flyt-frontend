@@ -16,7 +16,7 @@ import {NestedElementsCallbacks} from "../../../types/NestedElement";
 import {DependencySatisfiedStatefulValue} from "../../../util/DependencyUtils";
 import {useFormContext} from "react-hook-form";
 import FieldsetElementComponent from "../../common/FieldsetElementComponent";
-import {Box} from "@mui/material";
+import {VStack} from "@navikt/ds-react";
 
 export interface Props {
     classes: ClassNameMap;
@@ -91,7 +91,7 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
         }
     }
 
-    return <Box className={props.classes.fieldSet}>
+    return <VStack gap={"4"}>
         {[
             ...(props.template.valueTemplates ? props.template.valueTemplates : [])
                 .filter((template: IElementTemplate<IValueTemplate>) => {
@@ -218,6 +218,6 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                                                                                           key={index}
                                                                                           content={reactElement}/>)
         }
-    </Box>
+    </VStack>
 }
 export default ObjectMappingComponent;

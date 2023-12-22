@@ -31,7 +31,6 @@ const CollectionMappingComponent: React.FunctionComponent<Props> = (props: Props
                 <HelpText placement={"right"}>{t("defaultElements")}</HelpText>
             </HStack>
             <ArrayComponent
-                classes={props.classes}
                 absoluteKey={props.absoluteKey + ".elementMappings"}
                 fieldComponentCreator={
                     (index: number, absoluteKey: string) => {
@@ -46,7 +45,6 @@ const CollectionMappingComponent: React.FunctionComponent<Props> = (props: Props
                                 content={field}
                             />
                             : <ArrayValueWrapperComponent
-                                classes={props.classes}
                                 content={field}
                             />;
                     }
@@ -67,7 +65,6 @@ const CollectionMappingComponent: React.FunctionComponent<Props> = (props: Props
             <HelpText placement={"right"}>{t("generatedElements")}</HelpText>
         </HStack>
         <ArrayComponent
-            classes={props.classes}
             absoluteKey={props.absoluteKey + ".fromCollectionMappings"}
             fieldComponentCreator={(index: number, absoluteKey: string) =>
                 <ArrayObjectWrapperComponent

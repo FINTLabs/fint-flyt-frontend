@@ -5,53 +5,6 @@ import {Theme} from "@mui/material";
 export const ConfigurationFormStyles = makeStyles((theme: Theme) =>
     createStyles({
         ...useCommonStyles(theme),
-        row: {
-            display: 'flex',
-            alignItems: 'center',
-            position: 'sticky',
-            top: 0,
-        },
-        configurationBox: {
-            width: theme.spacing(54)
-        },
-        panelContainer: {
-            backgroundColor: 'white',
-            padding: theme.spacing(2),
-            border: 'solid 1px',
-            borderColor: 'lightgrey',
-            marginLeft: theme.spacing(1),
-            borderRadius: theme.spacing(0.5),
-            height: '70vh',
-            maxWidth: '80vw',
-            overflow: 'auto'
-        },
-        panel: {
-            opacity: 0.99,
-            padding: theme.spacing(2),
-            height: 'fit-content',
-            overflow: 'auto',
-            maxHeight: theme.spacing(100),
-            backgroundColor: '#EBF4F5',
-            borderRadius: theme.spacing(0.5),
-            borderColor: "lightgray",
-            border: 'solid 1px',
-            '&:not(:first-child)': {
-                marginTop: theme.spacing(2)
-            }
-        },
-        flexRowContainer: {
-            display: 'flex',
-            flexDirection: 'row',
-        },
-        flexRowSpacedContainer: {
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between'
-        },
-        label: {
-            fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
-            fontSize: theme.spacing(2)
-        },
         select: {
             backgroundColor: 'white',
             width: theme.spacing(44),
@@ -66,57 +19,6 @@ export const ConfigurationFormStyles = makeStyles((theme: Theme) =>
             marginTop: theme.spacing(0.5),
             marginBottom: theme.spacing(0.5),
             height: theme.spacing(3)
-        },
-        categoryHeader: {
-            fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
-            fontSize: theme.spacing(2),
-            padding: 0,
-            marginTop: theme.spacing(0),
-            marginBottom: theme.spacing(.5),
-            fontWeight: 'normal'
-        },
-        titlePath: {
-            fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
-            fontSize: theme.spacing(2),
-            padding: 0,
-            marginTop: theme.spacing(0),
-            fontWeight: 'normal'
-        },
-        path: {
-            fontFamily: ["Nunito Sans", 'sans-serif'].join(','),
-            fontSize: theme.spacing(1.5),
-            marginTop: theme.spacing(-2),
-            marginBottom: theme.spacing(2),
-            color: theme.palette.primary.main
-        },
-        pathChunk: {
-            margin: 0
-        },
-        column: {
-            maxHeight: 'calc(100vh/1.5)',
-            minWidth: theme.spacing(58),
-            overflowY: 'auto',
-            overflowX: 'hidden',
-            display: 'grid',
-            backgroundColor: 'white',
-            height: 'fit-content',
-            marginRight: theme.spacing(2),
-            "&:last-child": {
-                marginRight: theme.spacing(2)
-            }
-        },
-        columnItem: {
-            backgroundColor: '#EBF4F5',
-            marginTop: theme.spacing(2),
-            border: '1px solid lightgrey',
-            borderRadius: theme.spacing(0.5),
-            marginRight: 'inherit'
-        },
-        fieldSet: {
-            display: 'grid',
-            border: 'none',
-            margin: '0',
-            padding: '0'
         },
         listBorderless: {
             listStyle: 'none',

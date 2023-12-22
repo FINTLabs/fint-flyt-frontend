@@ -1,6 +1,7 @@
 import * as React from "react";
 import {ReactElement} from "react";
 import {ClassNameMap} from "@mui/styles";
+import {Box} from "@navikt/ds-react";
 
 export interface Props {
     classes: ClassNameMap,
@@ -8,8 +9,8 @@ export interface Props {
 }
 
 const FieldsetElementComponent: React.FunctionComponent<Props> = (props: Props) => {
-    return <div className={props.classes.fieldsetElement}>
+    return <Box>
         {props.content}
-    </div>
+    </Box>
 }
 export default FieldsetElementComponent;

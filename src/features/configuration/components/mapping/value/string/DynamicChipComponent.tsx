@@ -1,7 +1,6 @@
 import * as React from "react";
 import {forwardRef} from "react";
 import {Autocomplete, Chip, TextField, Typography} from "@mui/material";
-import {ClassNameMap} from "@mui/styles";
 import {useDrop} from "react-dnd";
 import {ITag} from "../../../../types/Metadata/Tag";
 import {ValueType} from "../../../../types/Metadata/IntegrationMetadata";
@@ -12,7 +11,6 @@ import {errorMsgSX} from "../../../../../../util/styles/SystemStyles";
 import {getTagStyles, mappingStringToValueArray, valueArrayToMappingString} from "../../../../util/ValueFieldUtils";
 
 export interface Props {
-    classes: ClassNameMap
     displayName?: string;
     search?: Search;
     accept: ValueType[];
