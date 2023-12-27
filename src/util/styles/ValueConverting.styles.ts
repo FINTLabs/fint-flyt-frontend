@@ -16,22 +16,6 @@ export const valueConvertingStyles = makeStyles((theme: Theme) =>
         configurationBox: {
             width: theme.spacing(44)
         },
-        headerContainer: {
-            display: 'flex',
-            width: theme.spacing(44),
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-        },
-        listBorderless: {
-            listStyle: 'none',
-            padding: 'unset',
-            margin: 'unset',
-            border: 'none'
-        },
-        listItem: {
-            paddingBottom: theme.spacing(2)
-        },
-
         wrapperVerticalMargin: {
             marginBottom: theme.spacing(2)
         },

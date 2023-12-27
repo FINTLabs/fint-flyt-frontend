@@ -39,7 +39,6 @@ export const ConfigurationFormStyles = makeStyles((theme: Theme) =>
             padding: 'unset',
             marginBottom: theme.spacing(2)
         },
-        listItem: {},
         collectionButton: {
             backgroundColor: theme.palette.primary.main,
             borderRadius: theme.spacing(0.5),
