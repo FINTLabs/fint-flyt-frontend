@@ -84,7 +84,11 @@
         "confirm": "Create",
         "cancel": "Cancel"
       },
+      "alert": {
+        "missingMetadata": "Can't find metadata for integration"
+      },
       "labels": {
+        "placeholder": "Select source application first",
         "sourceApplicationId": "Source application",
         "sourceApplicationIntegrationId": "Integration",
         "destination": "Destination"

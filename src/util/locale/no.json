@@ -84,7 +84,11 @@
         "confirm": "Opprett",
         "cancel": "Avbryt"
       },
+      "alert": {
+        "missingMetadata": "Finner ikke metadata for integrasjon"
+      },
       "labels": {
+        "placeholder": "Velg kildeapplikasjon først",
         "sourceApplicationId": "Kildeapplikasjon",
         "sourceApplicationIntegrationId": "Integrasjon",
         "destination": "Destinasjon/Base"

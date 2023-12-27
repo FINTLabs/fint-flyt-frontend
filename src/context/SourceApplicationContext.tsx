@@ -12,6 +12,7 @@ import {MOCK_INSTANCE_METADATA} from "../__tests__/mock/mapping/mock-instans-met
 import {sourceApplications} from "../features/configuration/defaults/DefaultValues";
 import SourceApplicationRepository from "../api/SourceApplicationRepository";
 import IntegrationRepository from "../api/IntegrationRepository";
+import {useTranslation} from "react-i18next";
 
 
 type SourceApplicationContextState = {
@@ -53,7 +54,6 @@ const SourceApplicationContext = createContext<SourceApplicationContextState>(
 );
 
 const SourceApplicationProvider = ({children}: ContextProps) => {
-
     const [availableForms, setAvailableForms] = useState<ISelect[]>(contextDefaultValues.availableForms);
     const [allMetadata, setAllMetadata] = useState<IIntegrationMetadata[] | undefined>(contextDefaultValues.allMetadata)
     const [instanceElementMetadata, setInstanceElementMetadata] = useState<IInstanceMetadataContent | undefined>(MOCK_INSTANCE_METADATA)
@@ -80,7 +80,8 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
             data.map((metadata: IIntegrationMetadata) => {
                 tempSelectables.push({
                     value: metadata.sourceApplicationIntegrationId,
-                    label: `[${metadata.sourceApplicationIntegrationId}] ${metadata.integrationDisplayName}`})
+                    label: `[${metadata.sourceApplicationIntegrationId}] ${metadata.integrationDisplayName}`
+                })
             })
 
             await getAllIntegrationsAndSetAvailableForms(tempSelectables);

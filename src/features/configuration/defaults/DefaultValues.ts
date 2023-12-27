@@ -16,12 +16,25 @@ export const sourceApplications: ISelect[] = [
     {label: "Regionalforvaltning", value: "3"}
 ];
 
-export const selectableSourceApplications: ISelect[] = [
-    {label: "Velg kildeapplikasjon", value: ""},
-    {label: "ACOS", value: "1"},
-    {label: "eGrunnerverv", value: "2"},
-    {label: "Regionalforvaltning", value: "3"}
-];
+export function selectableSourceApplications(lang: string): ISelect[] {
+    return [
+        {label: getSelectableDefaultByLanguage(lang), value: ""},
+        {label: "ACOS", value: "1"},
+        {label: "eGrunnerverv", value: "2"},
+        {label: "Regionalforvaltning", value: "3"}
+    ];
+}
+
+function getSelectableDefaultByLanguage(lang: string): string {
+    if (lang === 'no') {
+        return "Velg kildeapplikasjon";
+    } else if (lang === 'en') {
+        return "Select source application";
+    } else {
+        return "Velg kjeldeapplikasjon";
+
+    }
+}
 
 export const fromTypeIds: ISelect[] = [
     {label: "Mediatype", value: "mediatype"},
@@ -37,10 +50,10 @@ export const destinations: ISelect[] = [
     {label: "Fylkesråd", value: "fylkesrad"}
 ];
 
-export const selectableDestinations: ISelect[] = [
-    {label: "Velg destinasjon", value: ""},
-    {label: "Fylkesråd", value: "fylkesrad"}
-];
-
-
+export function selectableDestinations(lang: string): ISelect[] {
+    return [
+        {label: lang === 'en' ? "Select destination" : "Velg destinasjon", value: ""},
+        {label: "Fylkesråd", value: "fylkesrad"}
+    ]
+}
 
