@@ -12,7 +12,6 @@ import {MOCK_INSTANCE_METADATA} from "../__tests__/mock/mapping/mock-instans-met
 import {sourceApplications} from "../features/configuration/defaults/DefaultValues";
 import SourceApplicationRepository from "../api/SourceApplicationRepository";
 import IntegrationRepository from "../api/IntegrationRepository";
-import {useTranslation} from "react-i18next";
 
 
 type SourceApplicationContextState = {
