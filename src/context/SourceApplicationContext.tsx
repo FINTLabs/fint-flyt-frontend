@@ -12,6 +12,7 @@ import {MOCK_INSTANCE_METADATA} from "../__tests__/mock/mapping/mock-instans-met
 import {sourceApplications} from "../features/configuration/defaults/DefaultValues";
 import SourceApplicationRepository from "../api/SourceApplicationRepository";
 import IntegrationRepository from "../api/IntegrationRepository";
+import i18n from "../util/locale/i18n";
 
 
 type SourceApplicationContextState = {
@@ -30,9 +31,8 @@ type SourceApplicationContextState = {
 };
 
 const contextDefaultValues: SourceApplicationContextState = {
-
     availableForms: [
-        {value: '', label: 'Velg kildeapplikasjon først'}
+        {value: '', label: i18n.language === 'en' ? "Select source application first" : 'Velg kildeapplikasjon først'}
     ],
     getAllIntegrationsAndSetAvailableForms: () => undefined,
     getAvailableForms: () => undefined,
@@ -74,7 +74,7 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
             const response = await SourceApplicationRepository.getMetadata(sourceAppId, true);
             const data = response.data || [];
 
-            const tempSelectables: ISelect[] = [{value: '', label: 'Velg integrasjon'}]
+            const tempSelectables: ISelect[] = [{value: '', label: i18n.language === 'en' ? 'Select integration' : 'Velg integrasjon'}]
 
             data.map((metadata: IIntegrationMetadata) => {
                 tempSelectables.push({
