@@ -1,19 +1,18 @@
 import React from "react";
-import { Box, Heading, Label, Link, List, VStack } from "@navikt/ds-react";
+import { Box, Label, Link, List, VStack } from "@navikt/ds-react";
 import { RouteComponent } from "../../../routes/Route";
-import { USER_GUIDE, WORD_LIST } from "../util/supportTexts";
 import { useTranslation } from "react-i18next";
 import { Link as RouterLink } from "react-router-dom";
+import {getUserGuideByLanguage, getWordListByLanguage} from "../util/SupportUtil";
+import PageTemplate from "../../../components/templates/PageTemplate";
 
 const UserGuide: RouteComponent = () => {
 	const { t } = useTranslation("translations", { keyPrefix: "pages.support" });
+	const {i18n} = useTranslation();
 
 	return (
-		<Box paddingInline="32" id={"user-guide-content"}>
+		<PageTemplate id={"user-guide-content"} keyPrefix={"pages.support"}>
 			<VStack gap={"6"}>
-				<Heading id={"user-guide-heading"} size={"medium"}>
-					{t("header")}
-				</Heading>
 				<Box
 					background={"surface-default"}
 					padding="6"
@@ -22,24 +21,24 @@ const UserGuide: RouteComponent = () => {
 					borderWidth="2"
 					borderColor={"border-subtle"}
 				>
-					<Label>Hvordan bruke Fint Flyt</Label>
+					<Label>{t("userGuide")}</Label>
 					<List as="ul" id={"guide-list"}>
-						{USER_GUIDE.map((item, index) => {
+						{(getUserGuideByLanguage(i18n.language)).map((item, index) => {
 							return <List.Item key={index}>{item}</List.Item>;
 						})}
 					</List>
-					<Label>Ordbok</Label>
+					<Label>{t("wordList")}</Label>
 					<List as="ul" id={"guide-dictionary"}>
-						{WORD_LIST.map((item, index) => {
+						{(getWordListByLanguage(i18n.language)).map((item, index) => {
 							return <List.Item key={index}>{item}</List.Item>;
 						})}
 					</List>
 					<Link as={RouterLink} to={"/support"} id={"back-link"}>
-						Tilbake
+						{t("back")}
 					</Link>
 				</Box>
 			</VStack>
-		</Box>
+		</PageTemplate>
 	);
 };
 

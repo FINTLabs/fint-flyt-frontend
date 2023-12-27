@@ -3,7 +3,7 @@
     "language": "Språk",
     "norwegian": "Bokmål",
     "norwegianNN": "Nynorsk",
-    "english": "Engelsk (kjem snart)"
+    "english": "English"
   },
   "menuItems": {
     "dashboard": "Dashbord",
@@ -200,7 +200,14 @@
       "instance-file-upload-error": "Feila under opplasting av fil"
     },
     "support": {
-      "header": "Hjelp og support"
+      "header": "Hjelp og support",
+      "description": "Kva er FINT Flyt?",
+      "descriptionBody": "Du kan sjå ein brukerveiledning til korleis du brukar Fint Flyt ",
+      "link": "her",
+      "userGuide": "Korleis bruke Fint Flyt",
+      "wordList": "Ordbok",
+      "FAQ": "Ofte stilte spørsmål",
+      "back": "Tilbake"
     },
     "valueConverting": {
       "button": {

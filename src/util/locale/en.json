@@ -3,16 +3,16 @@
     "language": "Language",
     "norwegian": "Norwegian bokmål",
     "norwegianNN": "Norwegian nynorsk",
-    "english": "English (coming soon)"
+    "english": "English"
   },
   "menuItems": {
     "dashboard": "Dashbord",
-    "integration": "Ny",
-    "integrations": "Integrasjoner",
-    "instances": "Instanser",
-    "version": "Versjon",
-    "support": "Hjelp og support",
-    "valueConverting": "Verdikonvertering"
+    "integration": "New",
+    "integrations": "Integrations",
+    "instances": "Instances",
+    "version": "Version",
+    "support": "Help and support",
+    "valueConverting": "Value converting"
   },
   "pages": {
     "dashboard": {
@@ -200,7 +200,14 @@
       "instance-file-upload-error": "Error while uploading file"
     },
     "support": {
-      "header": "Hjelp og support"
+      "header": "Help and support",
+      "description": "What is FINT Flyt?",
+      "descriptionBody": "You can find a guide to using Fint Flyt ",
+      "link": "here",
+      "userGuide": "How to use Fint Flyt",
+      "wordList": "Word list",
+      "FAQ": "Frequently asked questions",
+      "back": "Back"
     },
     "valueConverting": {
       "button": {
