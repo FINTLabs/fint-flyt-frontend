@@ -4,16 +4,12 @@ import {IntegrationContext} from "../../context/IntegrationContext";
 import DashboardCard from "./DashboardCard";
 import {ICard} from "./types/Card";
 import {useTranslation} from "react-i18next";
-import {DashboardStyles} from "../../util/styles/Dashboard.styles";
 import {IIntegrationStatistics} from "./types/IntegrationStatistics";
 import PageTemplate from "../../components/templates/PageTemplate";
 import {RouteComponent} from "../../routes/Route";
 
-const useStyles = DashboardStyles;
-
 const Dashboard: RouteComponent = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.dashboard'});
-    const classes = useStyles();
     const {statistics, resetIntegrations, integrations, getAllIntegrations} = useContext(IntegrationContext)
     const activeIntegrations = integrations?.filter(integration => integration.state === 'ACTIVE') || [];
     let totalErrors = 0;
@@ -72,7 +68,6 @@ const Dashboard: RouteComponent = () => {
                             value={card.value}
                             content={card.content}
                             links={card.links}
-                            classes={classes}
                         />)
                 })}
             </Box>

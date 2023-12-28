@@ -25,14 +25,6 @@ export const toggleButtonSX: SxProps<Theme> = {
     }
 }
 
-export const metadataPanelSX: SxProps<Theme> = {
-    position: 'sticky',
-    maxHeight: '70vh',
-    minWidth: '20vw',
-    maxWidth: '30vw',
-    overflow: 'auto',
-}
-
 export const iconButtonSX: SxProps<Theme> = {
     cursor: 'pointer',
     margin: (theme: Theme) => theme.spacing(0)
@@ -68,11 +60,4 @@ export const tagSX: SxProps<Theme> = {
     borderRadius: (theme: Theme) => theme.spacing(0.5),
     marginLeft: (theme: Theme) => theme.spacing(0),
     margin: (theme: Theme) => theme.spacing(0)
-}
-
-export const dialogSX: SxProps<Theme> = {
-    py: 2,
-    boxSizing: 'border-box',
-    height: ((theme: Theme) => theme.spacing(44)),
-    minWidth: ((theme: Theme) => theme.spacing(70))
 }
