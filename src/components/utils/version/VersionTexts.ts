@@ -4,7 +4,7 @@ export const ABOUT_VERSIONS = "FLYT er under kontinuerlig utvikling og det blir 
 
 export const VERSION_DATA: {heading: string, updates: string[]}[] = [
     {
-        heading: "Version 1.1 - January 2024",
+        heading: "Versjon 1.1 - Januar 2024",
         updates: [
             "1.1 Nytt design på sidene for ny integrasjon og konfigurasjonsoppsett"
         ]
@@ -34,7 +34,7 @@ export const ABOUT_VERSIONS_NN = "FLYT er under kontinuerleg utvikling og det bl
 
 export const VERSION_DATA_NN: {heading: string, updates: string[]}[] = [
     {
-        heading: "Version 1.1 - January 2024",
+        heading: "Versjon 1.1 - Januar 2024",
         updates: [
             "1.1 Nytt design på sidene for ny integrasjon og konfigurasjonsoppsett"
         ]
