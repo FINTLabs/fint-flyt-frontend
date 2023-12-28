@@ -1,13 +1,14 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {
-    defaultAlert, selectableDestinations,
+    defaultAlert,
+    selectableDestinations,
     selectableSourceApplications,
 } from "../configuration/defaults/DefaultValues";
-import { Snackbar } from "@mui/material";
+import {Snackbar} from "@mui/material";
 import {RouteComponentProps, useHistory} from "react-router-dom";
 import {IntegrationContext} from "../../context/IntegrationContext";
 import {useTranslation} from "react-i18next";
-import {contextDefaultValues, SourceApplicationContext} from "../../context/SourceApplicationContext";
+import {SourceApplicationContext} from "../../context/SourceApplicationContext";
 import {IIntegration, IIntegrationFormData, IntegrationState} from "./types/Integration";
 import {toIntegration} from "../../util/mapping/ToIntegration";
 import {IIntegrationMetadata} from "../configuration/types/Metadata/IntegrationMetadata";
@@ -17,6 +18,7 @@ import {AxiosResponse} from "axios";
 import IntegrationRepository from "../../api/IntegrationRepository";
 import {Controller, FormProvider, useForm} from 'react-hook-form';
 import {IAlertContent} from "../configuration/types/AlertContent";
+import i18n from "../../util/locale/i18n";
 
 type Props = {
     id: string
@@ -35,6 +37,7 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
     const [showAlert, setShowAlert] = React.useState<boolean>(false)
     const [alertContent, setAlertContent] = React.useState<IAlertContent>(defaultAlert)
     const [sourceApplicationIntegrationId, setSourceApplicationIntegrationId] = useState<string>('');
+    const selectPlaceholder: { label: string, value: string }[] = [{label: t('labels.placeholder'), value: ''}]
     const methods = useForm<IIntegrationFormData>();
     const navToConfiguration = (id: string) => {
         history.push({
@@ -74,7 +77,7 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
     const onSubmit = (data: IIntegrationFormData) => {
         const selectedForm = allMetadata ? allMetadata.find((md: IIntegrationMetadata) => md.sourceApplicationIntegrationId === data.sourceApplicationIntegrationId) : undefined;
         if (!selectedForm) {
-            setAlertContent({severity: 'warning', message: 'Finner ikke metadata for integrasjon'})
+            setAlertContent({severity: 'warning', message: t("alert.missingMetadata")})
             setShowAlert(true)
             return;
         }
@@ -98,7 +101,8 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
 
     return (
         <PageTemplate id={'new'} keyPrefix={'pages.integrationForm'}>
-            <Box id={'integration-form'} background={"surface-default"} padding="6" borderRadius={"large"} borderWidth="2" borderColor={"border-subtle"}>
+            <Box id={'integration-form'} background={"surface-default"} padding="6" borderRadius={"large"}
+                 borderWidth="2" borderColor={"border-subtle"}>
                 <FormProvider {...methods}>
                     <form onSubmit={methods.handleSubmit(onSubmit)}>
                         <VStack gap={"6"}>
@@ -108,13 +112,14 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
                                     rules={{required: true}}
                                     name={"sourceApplicationId"}
                                     defaultValue={""}
-                                    render={({  fieldState, field }) => (
+                                    render={({fieldState, field}) => (
                                         <Select
                                             id={"sourceApplicationId"}
                                             label={
                                                 <HStack gap={"2"} align={"center"}>
                                                     {t('labels.sourceApplicationId')}
-                                                    <HelpText title={'hva er dette'} placement="right">{t('help.sourceApplicationId')}</HelpText>
+                                                    <HelpText title={'hva er dette'}
+                                                              placement="right">{t('help.sourceApplicationId')}</HelpText>
                                                 </HStack>
                                             }
                                             error={!!fieldState.error}
@@ -125,7 +130,7 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
                                                 field.onChange(event.target.value)
                                             }}
                                         >
-                                            {selectableSourceApplications.map((option, index) => (
+                                            {selectableSourceApplications(i18n.language).map((option, index) => (
                                                 <option key={index} value={option.value}>{option.label}</option>
                                             ))}
                                         </Select>
@@ -136,13 +141,14 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
                                     rules={{required: true}}
                                     name={"sourceApplicationIntegrationId"}
                                     defaultValue={""}
-                                    render={({  fieldState, field }) => (
+                                    render={({fieldState, field}) => (
                                         <Select
                                             id={"sourceApplicationIntegrationId"}
                                             label={
                                                 <HStack gap={"2"} align={"center"}>
                                                     {t('labels.sourceApplicationIntegrationId')}
-                                                    <HelpText title={'hva er dette'} placement="right">{t('help.sourceApplicationIntegrationId')}</HelpText>
+                                                    <HelpText title={'hva er dette'}
+                                                              placement="right">{t('help.sourceApplicationIntegrationId')}</HelpText>
                                                 </HStack>
                                             }
                                             error={!!fieldState.error}
@@ -151,7 +157,7 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
                                                 field.onChange(event.target.value)
                                             }}
                                         >
-                                            {(sourceApplication && availableForms ? availableForms : contextDefaultValues.availableForms).map((option, index) => (
+                                            {(sourceApplication && availableForms ? availableForms : selectPlaceholder).map((option, index) => (
                                                 <option key={index} value={option.value}>{option.label}</option>
                                             ))}
                                         </Select>
@@ -164,13 +170,14 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
                                     rules={{required: true}}
                                     name={"destination"}
                                     defaultValue={""}
-                                    render={({  fieldState, field }) => (
+                                    render={({fieldState, field}) => (
                                         <Select
                                             id={"destination"}
                                             label={
                                                 <HStack gap={"2"} align={"center"}>
                                                     {t('labels.destination')}
-                                                    <HelpText title={'hva er dette'} placement="right">{t('help.destination')}</HelpText>
+                                                    <HelpText title={'hva er dette'}
+                                                              placement="right">{t('help.destination')}</HelpText>
                                                 </HStack>
                                             }
                                             error={!!fieldState.error}
@@ -179,7 +186,7 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
                                                 field.onChange(event.target.value)
                                             }}
                                         >
-                                            {selectableDestinations.map((option, index) => (
+                                            {selectableDestinations(i18n.language).map((option, index) => (
                                                 <option key={index} value={option.value}>{option.label}</option>
                                             ))}
                                         </Select>
@@ -189,10 +196,12 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
                             {!methods.formState.isValid && methods.formState.isSubmitted &&
                                 <ErrorSummary heading={t('errorHeading')} size="small">
                                     {!sourceApplicationId &&
-                                        <ErrorSummary.Item href="#sourceApplicationId">{t('labels.sourceApplicationId')}</ErrorSummary.Item>}
+                                        <ErrorSummary.Item
+                                            href="#sourceApplicationId">{t('labels.sourceApplicationId')}</ErrorSummary.Item>}
                                     {!sourceApplicationIntegrationId && <ErrorSummary.Item
                                         href="#sourceApplicationIntegrationId">{t('labels.sourceApplicationIntegrationId')}</ErrorSummary.Item>}
-                                    {!destination && <ErrorSummary.Item href="#destination">{t('labels.destination')}</ErrorSummary.Item>}
+                                    {!destination && <ErrorSummary.Item
+                                        href="#destination">{t('labels.destination')}</ErrorSummary.Item>}
                                 </ErrorSummary>}
                             <HStack id={"button-container"} gap={"6"}>
                                 <Button id="form-settings-confirm-btn" type="submit">

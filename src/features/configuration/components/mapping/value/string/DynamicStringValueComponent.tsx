@@ -14,6 +14,7 @@ import {
 } from "../../../../../../util/styles/SystemStyles";
 import { Noop } from "react-hook-form/dist/types";
 import { ControllerFieldState } from "react-hook-form";
+import {useTranslation} from "react-i18next";
 
 interface Props {
 	classes: ClassNameMap;
@@ -36,6 +37,7 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = forwardRef<
 	const [searchResult, setSearchResult] = useState<string>();
 	const [shrink, setShrink] = useState<boolean | undefined>(undefined);
 	const absoluteKey: string = props.name;
+	const { t } = useTranslation("translations", { keyPrefix: "pages.configuration" });
 
 	const [{ canDrop, isOver }, dropRef] = useDrop({
 		accept: props.accept,
@@ -138,7 +140,7 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = forwardRef<
 			)}
 			{props.fieldState?.error && (
 				<Typography sx={errorMsgSX}>
-					Feltet oppfyller ikke påkrevd format
+					{t('label.formatError')}
 				</Typography>
 			)}
 		</div>

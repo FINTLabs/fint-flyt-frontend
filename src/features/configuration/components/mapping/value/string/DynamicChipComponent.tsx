@@ -10,6 +10,7 @@ import {Noop} from "react-hook-form/dist/types";
 import {ControllerFieldState} from "react-hook-form";
 import {errorMsgSX} from "../../../../../../util/styles/SystemStyles";
 import {getTagStyles, mappingStringToValueArray, valueArrayToMappingString} from "../../../../util/ValueFieldUtils";
+import {useTranslation} from "react-i18next";
 
 export interface Props {
     classes: ClassNameMap
@@ -28,6 +29,7 @@ const DynamicChipComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivE
     DynamicChipComponent.displayName = "DynamicChipComponent"
     const [values, setValues] = React.useState<string[]>(props.value ? mappingStringToValueArray(props.value) : []);
     const absoluteKey: string = props.name;
+    const { t } = useTranslation("translations", { keyPrefix: "pages.configuration" });
 
     const [{canDrop, isOver}, dropRef] = useDrop({
         accept: props.accept,
@@ -110,12 +112,12 @@ const DynamicChipComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivE
                         ref={ref}
                         variant="outlined"
                         label={props.displayName}
-                        placeholder={values.length === 0 ? "Skriv eller trekk inn fra metadata" : undefined}
+                        placeholder={values.length === 0 ? t('label.placeholder') : undefined}
                         disabled={props.disabled}
                     />
                 )}
             />
-            {props.fieldState?.error && <Typography sx={errorMsgSX}>Feltet oppfyller ikke påkrevd format</Typography>}
+            {props.fieldState?.error && <Typography sx={errorMsgSX}>{t('label.formatError')}</Typography>}
         </div>
     )
 

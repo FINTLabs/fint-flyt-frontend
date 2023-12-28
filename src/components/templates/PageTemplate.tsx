@@ -15,7 +15,7 @@ const PageTemplate = ({id, children, keyPrefix, headingHelpText, wide, customHea
     const {t} = useTranslation('translations', {keyPrefix: keyPrefix});
 
     return (
-        <Box paddingInline={wide ? "8" : "32"} paddingBlock="8" id={id + "-content"}>
+        <Box paddingInline={wide ? "8" : "32"} paddingBlock="8" id={id + "-content"} style={{backgroundColor: "#EBF4F5"}}>
             <VStack id={id + "-content-stack"} gap={"6"}>
                 {!customHeading && <HStack gap={"2"} align="center">
                     <Heading size={"medium"} id={id + '-header'}>{t('header')}</Heading>

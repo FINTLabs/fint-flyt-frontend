@@ -12,9 +12,12 @@ import {
 } from "@navikt/ds-react";
 import PageTemplate from "../templates/PageTemplate";
 import {Contact} from "../atoms/Contact";
-import {FAQ, FLYT_DESCRIPTION} from "../../features/support/util/supportTexts";
+import {useTranslation} from "react-i18next";
+import {getAboutFlytByLanguage, getFAQByLanguage} from "../../features/support/util/SupportUtil";
 
 const Support: RouteComponent = () => {
+    const { t } = useTranslation("translations", { keyPrefix: "pages.support" });
+    const {i18n} = useTranslation();
     return (
         <PageTemplate id={"support"} keyPrefix={"pages.support"}>
             <Box
@@ -26,16 +29,16 @@ const Support: RouteComponent = () => {
                 borderColor={"border-subtle"}
             >
                 <VStack gap={"6"}>
-                    <Heading size={"small"}>Hva er FINT Flyt?</Heading>
-                    <BodyLong>{FLYT_DESCRIPTION}</BodyLong>
+                    <Heading size={"small"}>{t('description')}</Heading>
+                    <BodyLong>{getAboutFlytByLanguage(i18n.language)}</BodyLong>
                     <BodyLong>
-                        Du kan se en brukerveiledning til hvordan du bruker Fint Flyt{" "}
+                        {t('descriptionBody')}
                         <Link
                             as={RouterLink}
                             id={"support-guide-link"}
                             to={"/support/guide"}
                         >
-                            her
+                            {t('link')}
                         </Link>
                     </BodyLong>
                 </VStack>
@@ -43,11 +46,11 @@ const Support: RouteComponent = () => {
             <Box id={"support-faq"}>
                 <ExpansionCard aria-label="default">
                     <ExpansionCard.Header id={"support-faq-header"}>
-                        <ExpansionCard.Title>Ofte stilte spørsmål</ExpansionCard.Title>
+                        <ExpansionCard.Title> {t('FAQ')}</ExpansionCard.Title>
                     </ExpansionCard.Header>
                     <ExpansionCard.Content>
                         <List as="ul" id={"faq-list"}>
-                            {FAQ.map((item, index) => {
+                            {getFAQByLanguage(i18n.language).map((item, index) => {
                                 return (
                                     <List.Item key={index} title={item.header}>
                                         {item.content}

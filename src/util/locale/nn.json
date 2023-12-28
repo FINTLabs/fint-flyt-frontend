@@ -3,7 +3,7 @@
     "language": "Språk",
     "norwegian": "Bokmål",
     "norwegianNN": "Nynorsk",
-    "english": "Engelsk (kjem snart)"
+    "english": "English"
   },
   "menuItems": {
     "dashboard": "Dashbord",
@@ -56,8 +56,12 @@
         "destination": "Destinasjon"
       },
       "label": {
+        "valueConverting": "Verdikonvertering",
+        "dynamicValue": "Dynamisk verdi",
         "checkLabel": "Ferdigstilt",
-        "activeLabel": "Aktiv"
+        "activeLabel": "Aktiv",
+        "placeholder": "Skriv eller trekk inn frå metadata",
+        "formatError": "Feltet oppfyller ikkje påkrevd format"
       },
       "button": {
         "submit": "Lagra",
@@ -84,7 +88,11 @@
         "confirm": "Opprett",
         "cancel": "Avbryt"
       },
+      "alert": {
+        "missingMetadata": "Finner ikkje metadata for integrasjon"
+      },
       "labels": {
+        "placeholder": "Velg kjeldeapplikasjon først",
         "sourceApplicationId": "Kjeldeapplikasjon",
         "sourceApplicationIntegrationId": "Integrasjon",
         "destination": "Destinasjon/Base"
@@ -200,7 +208,14 @@
       "instance-file-upload-error": "Feila under opplasting av fil"
     },
     "support": {
-      "header": "Hjelp og support"
+      "header": "Hjelp og support",
+      "description": "Kva er FINT Flyt?",
+      "descriptionBody": "Du kan sjå ein brukerveiledning til korleis du brukar Fint Flyt ",
+      "link": "her",
+      "userGuide": "Korleis bruke Fint Flyt",
+      "wordList": "Ordbok",
+      "FAQ": "Ofte stilte spørsmål",
+      "back": "Tilbake"
     },
     "valueConverting": {
       "button": {
