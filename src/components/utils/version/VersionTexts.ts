@@ -3,7 +3,14 @@ export const ABOUT_VERSIONS = "FLYT er under kontinuerlig utvikling og det blir 
 
 
 export const VERSION_DATA: {heading: string, updates: string[]}[] = [
-    { heading: "Versjon 27.12 - Desember 2023",
+    {
+        heading: "Version 1.1 - January 2024",
+        updates: [
+            "1.1 Nytt design på sidene for ny integrasjon og konfigurasjonsoppsett"
+        ]
+    },
+    {
+        heading: "Desember 2023",
         updates: [
             "11.12 Lagt til støtte for engelsk språk i Flyt",
             "12.12 Nytt design av integrasjonsoversikten",
@@ -12,7 +19,8 @@ export const VERSION_DATA: {heading: string, updates: string[]}[] = [
             "1.12 La til ny side med visning av versjoner og hva som er nytt i Flyt"
         ]
     },
-    { heading: "November 2023",
+    {
+        heading: "November 2023",
         updates: [
             "30.11  Nytt design av vertikonvertering siden og oppdaterete feilmeldinger for instans som feilet ved innsending",
             "27.11  Nytt design av support siden",
@@ -25,7 +33,14 @@ export const ABOUT_VERSIONS_NN = "FLYT er under kontinuerleg utvikling og det bl
 
 
 export const VERSION_DATA_NN: {heading: string, updates: string[]}[] = [
-    { heading: "Versjon 27.12 - Desember 2023",
+    {
+        heading: "Version 1.1 - January 2024",
+        updates: [
+            "1.1 Nytt design på sidene for ny integrasjon og konfigurasjonsoppsett"
+        ]
+    },
+    {
+        heading: "Desember 2023",
         updates: [
             "27.12 Lagt til støtte for engelsk språk i Flyt",
             "12.12 Nytt design av integrasjonsoversikta",
@@ -34,7 +49,8 @@ export const VERSION_DATA_NN: {heading: string, updates: string[]}[] = [
             "1.12 La til ny side med visning av versjonar og kva som er nytt i Flyt"
         ]
     },
-    { heading: "November 2023",
+    {
+        heading: "November 2023",
         updates: [
             "30.11  Nytt design av vertikonverteringsida og oppdaterte feilmeldingar for instans som feila ved innsending",
             "27.11  Nytt design av supportsida",
@@ -48,7 +64,13 @@ export const ABOUT_VERSIONS_EN = "FLYT is under continuous development, with new
 
 export const VERSION_DATA_EN: { heading: string, updates: string[] }[] = [
     {
-        heading: "Version 27.12 - December 2023",
+        heading: "Version 1.1 - January 2024",
+        updates: [
+            "1.1 New design of the new integration and configuration pages"
+        ]
+    },
+    {
+        heading: "December 2023",
         updates: [
             "27.12 Added support for English language in Flyt",
             "12.12 New design of the integration overview",
