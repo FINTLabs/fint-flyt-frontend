@@ -6,6 +6,7 @@ import {ValueType as MetadataValueType} from "../../../types/Metadata/Integratio
 import {Noop} from "react-hook-form/dist/types";
 import {ControllerFieldState} from "react-hook-form";
 import DynamicChipComponent from "./string/DynamicChipComponent";
+import {useTranslation} from "react-i18next";
 import {Box} from "@navikt/ds-react";
 
 interface Props {
@@ -31,6 +32,7 @@ const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> 
     DynamicStringOrSearchSelectValueComponent.displayName = "DynamicStringOrSearchSelectValueComponent"
     const [selectValue, setSelectValue] = useState<string | null>(null)
     const [dynamicValue, setDynamicValue] = useState<string>('')
+    const { t } = useTranslation("translations", { keyPrefix: "pages.configuration" });
 
     useEffect(() => {
         if (props.initialType === undefined || props.initialType === Type.SELECT) {
@@ -53,11 +55,11 @@ const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> 
             displayName={props.displayName}
             selectables={[
                 {
-                    displayName: "Dynamisk verdi",
+                    displayName: t('label.dynamicValue'),
                     value: "$dynamic"
                 },
                 {
-                    displayName: "Verdikonvertering",
+                    displayName: t('label.valueConverting'),
                     value: "$valueConverting"
                 },
                 ...props.selectables
