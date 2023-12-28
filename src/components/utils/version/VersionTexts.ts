@@ -1,11 +1,11 @@
-export const ABOUT_VERSIONS: string[] = [
-    "FLYT er under kontinuerlig utvikling og det blir stadig lagt til ny funksjonalitet samt forbedret brukeropplevelse basert på brukernes innspill - Denne siden beskriver  " +
+export const ABOUT_VERSIONS = "FLYT er under kontinuerlig utvikling og det blir stadig lagt til ny funksjonalitet samt forbedret brukeropplevelse basert på brukernes innspill - Denne siden beskriver  " +
     "større endringer og feilrettinger i FLYT"
-]
+
 
 export const VERSION_DATA: {heading: string, updates: string[]}[] = [
-    { heading: "Versjon 12.12 - Desember 2023",
+    { heading: "Versjon 27.12 - Desember 2023",
         updates: [
+            "11.12 Lagt til støtte for engelsk språk i Flyt",
             "12.12 Nytt design av integrasjonsoversikten",
             "11.12 Lagt til støtte for nynorsk språk i Flyt",
             "8.12 Forbedret visning av verdikonvertering med flere verdier. Nytt design av instanssiden hvor all informasjon er samlet på én flate.",
@@ -21,13 +21,13 @@ export const VERSION_DATA: {heading: string, updates: string[]}[] = [
     }
 ]
 
-export const ABOUT_VERSIONS_NN: string[] = [
-    "FLYT er under kontinuerleg utvikling og det blir stadig lagt til ny funksjonalitet og forbetra brukaroppleving basert på innspel frå brukarar. Denne sida beskriv større endringar og feilrettingar i FLYT"
-]
+export const ABOUT_VERSIONS_NN = "FLYT er under kontinuerleg utvikling og det blir stadig lagt til ny funksjonalitet og forbetra brukaroppleving basert på innspel frå brukarar. Denne sida beskriv større endringar og feilrettingar i FLYT"
+
 
 export const VERSION_DATA_NN: {heading: string, updates: string[]}[] = [
-    { heading: "Versjon 12.12 - Desember 2023",
+    { heading: "Versjon 27.12 - Desember 2023",
         updates: [
+            "27.12 Lagt til støtte for engelsk språk i Flyt",
             "12.12 Nytt design av integrasjonsoversikta",
             "11.12 Lagt til støtte for nynorsk språk i Flyt",
             "8.12 Forbetra visning av verdikonvertering med fleire verdiar. Nytt design av instanssida der all informasjon er samla på éi flate.",
@@ -42,3 +42,52 @@ export const VERSION_DATA_NN: {heading: string, updates: string[]}[] = [
         ]
     }
 ]
+
+export const ABOUT_VERSIONS_EN = "FLYT is under continuous development, with new functionality being added regularly and improvements to user experience based on user feedback. This page describes major changes and bug fixes in FLYT."
+
+
+export const VERSION_DATA_EN: { heading: string, updates: string[] }[] = [
+    {
+        heading: "Version 27.12 - December 2023",
+        updates: [
+            "27.12 Added support for English language in Flyt",
+            "12.12 New design of the integration overview",
+            "11.12 Added support for Nynorsk language in Flyt",
+            "8.12 Improved display of value conversion with multiple values. New design of the instance page where all information is consolidated on one surface.",
+            "1.12 Added a new page displaying versions and what's new in Flyt"
+        ]
+    },
+    {
+        heading: "November 2023",
+        updates: [
+            "30.11 New design of the value conversion page and updated error messages for instances that failed upon submission",
+            "27.11 New design of the support page",
+            "23.11 Various bug fixes and some changes to the user interface"
+        ]
+    }
+]
+
+export function getAboutByLanguage(lang: string): string {
+    if (lang === 'no') {
+        return ABOUT_VERSIONS;
+    }
+    else if (lang === 'en') {
+        return ABOUT_VERSIONS_EN
+    }
+    else {
+        return ABOUT_VERSIONS_NN
+    }
+}
+
+
+export function getVersionDataByLanguage(lang: string): { heading: string, updates: string[] }[] {
+    if (lang === 'no') {
+        return VERSION_DATA;
+    }
+    else if (lang === 'en') {
+        return VERSION_DATA_EN
+    }
+    else {
+        return VERSION_DATA_NN
+    }
+}

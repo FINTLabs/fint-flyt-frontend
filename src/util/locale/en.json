@@ -3,16 +3,16 @@
     "language": "Language",
     "norwegian": "Norwegian bokmål",
     "norwegianNN": "Norwegian nynorsk",
-    "english": "English (coming soon)"
+    "english": "English"
   },
   "menuItems": {
     "dashboard": "Dashbord",
-    "integration": "Ny",
-    "integrations": "Integrasjoner",
-    "instances": "Instanser",
-    "version": "Versjon",
-    "support": "Hjelp og support",
-    "valueConverting": "Verdikonvertering"
+    "integration": "New",
+    "integrations": "Integrations",
+    "instances": "Instances",
+    "version": "Version",
+    "support": "Help and support",
+    "valueConverting": "Value converting"
   },
   "pages": {
     "dashboard": {
@@ -56,8 +56,12 @@
         "destination": "Destination"
       },
       "label": {
+        "valueConverting": "Value converting",
+        "dynamicValue": "Dynamic value",
         "checkLabel": "Completed",
-        "activeLabel": "Active"
+        "activeLabel": "Active",
+        "placeholder": "Write or drag and drop from metadata",
+        "formatError": "Value does not have required format"
       },
       "button": {
         "submit": "Save",
@@ -84,7 +88,11 @@
         "confirm": "Create",
         "cancel": "Cancel"
       },
+      "alert": {
+        "missingMetadata": "Can't find metadata for integration"
+      },
       "labels": {
+        "placeholder": "Select source application first",
         "sourceApplicationId": "Source application",
         "sourceApplicationIntegrationId": "Integration",
         "destination": "Destination"
@@ -200,7 +208,14 @@
       "instance-file-upload-error": "Error while uploading file"
     },
     "support": {
-      "header": "Hjelp og support"
+      "header": "Help and support",
+      "description": "What is FINT Flyt?",
+      "descriptionBody": "You can find a guide to using Fint Flyt ",
+      "link": "here",
+      "userGuide": "How to use Fint Flyt",
+      "wordList": "Word list",
+      "FAQ": "Frequently asked questions",
+      "back": "Back"
     },
     "valueConverting": {
       "button": {

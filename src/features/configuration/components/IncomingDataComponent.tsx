@@ -151,7 +151,7 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
                 <Box id={'value-converting-panel'} className={props.classes.panel}>
                     <Typography variant={"h6"}>Verdikonvertering</Typography>
                     <ReadMore defaultOpen header={t('valueConverting.custom') + " [" + (valueConvertings?.length ?? 0) + ']'}>
-                        <VStack gap={"2"} style={{maxHeight: '200px', overflowY: "scroll"}}>
+                        <VStack gap={"2"} style={{maxHeight: '200px', overflowY: "auto"}}>
                             {valueConvertings && valueConvertings.map((valueConverting: IValueConverting, index: number) => {
                                 return <ValueConvertings key={'valueConvertingValue-' + index}
                                                          valueConverting={valueConverting}/>
