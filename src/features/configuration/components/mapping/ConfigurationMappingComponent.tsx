@@ -1,4 +1,3 @@
-import {ClassNameMap} from "@mui/styles";
 import * as React from "react";
 import {ReactElement, useContext, useState} from "react";
 import ObjectMappingComponent from "./object/ObjectMappingComponent";
@@ -15,7 +14,6 @@ import {EditingContext} from "../../../../context/EditingContext";
 import {Box} from "@navikt/ds-react";
 
 interface Props {
-    classes: ClassNameMap
     mappingTemplate: IMappingTemplate;
     onCollectionReferencesInEditContextChange: (collectionReferences: string[]) => void;
 }
@@ -37,7 +35,6 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
             path: [],
             title: props.mappingTemplate.displayName,
             reactElement: <ObjectMappingComponent
-                classes={props.classes}
                 absoluteKey={"mapping"}
                 template={props.mappingTemplate.rootObjectTemplate}
                 nestedElementCallbacks={createNestedElementsCallbacks(
@@ -63,7 +60,6 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
                                 path: [...displayPath, ...template.displayPath],
                                 title: template.displayName,
                                 reactElement: <ObjectMappingComponent
-                                    classes={props.classes}
                                     key={template.absoluteKey}
                                     absoluteKey={template.absoluteKey}
                                     template={template.template}
@@ -84,7 +80,6 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
                                 path: [...displayPath, ...template.displayPath],
                                 title: template.displayName,
                                 reactElement: <ObjectCollectionMappingComponent
-                                    classes={props.classes}
                                     key={template.absoluteKey}
                                     absoluteKey={template.absoluteKey}
                                     elementTemplate={template.template.elementTemplate}
@@ -106,7 +101,6 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
                                 path: [...displayPath, ...template.displayPath],
                                 title: template.displayName,
                                 reactElement: <ValueCollectionMappingComponent
-                                    classes={props.classes}
                                     key={template.absoluteKey}
                                     absoluteKey={template.absoluteKey}
                                     elementTemplate={template.template.elementTemplate}
@@ -169,7 +163,6 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
         <>
             <ValueWatchComponent
                 key={editCollectionAbsoluteKey}
-                classes={props.classes}
                 names={
                     editCollectionAbsoluteKey
                         ? findFromCollectionMappingAbsoluteKeys(editCollectionAbsoluteKey)

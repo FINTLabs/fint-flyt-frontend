@@ -9,7 +9,6 @@ import IncomingDataComponent from "../../features/configuration/components/Incom
 import {Checkbox, FormControlLabel, Snackbar} from "@mui/material";
 import {IntegrationContext} from "../../context/IntegrationContext";
 import {useTranslation} from "react-i18next";
-import {ConfigurationFormStyles} from "../../util/styles/ConfigurationFormStyles";
 import CheckboxValueComponent from "../../features/configuration/components/common/CheckboxValueComponent";
 import {IConfiguration, IConfigurationPatch, IObjectMapping} from "../../features/configuration/types/Configuration";
 import {IIntegrationPatch, IntegrationState} from "../../features/integration/types/Integration";
@@ -33,7 +32,6 @@ import {Alert, Button, Heading, HStack, VStack} from "@navikt/ds-react"
 import {AxiosResponse} from "axios";
 import IntegrationRepository from "../../api/IntegrationRepository";
 
-const useStyles = ConfigurationFormStyles
 
 const Configuration: RouteComponent = () => {
     const {
@@ -48,7 +46,6 @@ const Configuration: RouteComponent = () => {
     const {setEditCollectionAbsoluteKey} = useContext(EditingContext)
     const {t} = useTranslation('translations', {keyPrefix: 'pages.configuration'});
     const history = useHistory();
-    const classes = useStyles();
     const {
         selectedMetadata,
         setSelectedMetadata,
@@ -198,7 +195,6 @@ const Configuration: RouteComponent = () => {
                                         referencesForCollectionsToShow={collectionReferencesInEditContext}
                                     />
                                     <OutgoingDataComponent
-                                        classes={classes}
                                         onCollectionReferencesInEditContextChange={
                                             (collectionReferences: string[]) => {
                                                 setCollectionReferencesInEditContext(collectionReferences)
@@ -218,7 +214,6 @@ const Configuration: RouteComponent = () => {
                                             render={({field, fieldState}) =>
                                                 <StringValueComponent
                                                     {...field}
-                                                    classes={classes}
                                                     displayName={t('comment')}
                                                     multiline
                                                     fieldState={fieldState}
@@ -230,7 +225,6 @@ const Configuration: RouteComponent = () => {
                                             render={({field}) =>
                                                 <CheckboxValueComponent
                                                     {...field}
-                                                    classes={classes}
                                                     displayName={t('label.checkLabel')}
                                                 />
                                             }

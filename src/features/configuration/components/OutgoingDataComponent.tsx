@@ -1,18 +1,15 @@
 import * as React from "react";
-import {ClassNameMap} from "@mui/styles";
 import {useTranslation} from "react-i18next";
 import {testObjectTemplateSak} from "../defaults/FormTemplates";
 import ConfigurationMappingComponent from "./mapping/ConfigurationMappingComponent";
 import {Box, Heading, HelpText, HStack} from "@navikt/ds-react";
 
 export interface Props {
-    classes: ClassNameMap
     onCollectionReferencesInEditContextChange: (collectionReferences: string[]) => void;
 }
 
 const OutgoingDataComponent: React.FunctionComponent<Props> = (props: Props) => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.configuration'});
-    const classes = props.classes;
 
     return (
         <Box style={{minWidth: '400px', maxHeight: '70vh', overflow: "auto"}} id={"outgoing-form-panel"}
@@ -24,7 +21,6 @@ const OutgoingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
             </HStack>
             <HStack id="configuration-mapping-wrapper" wrap={false}>
                 <ConfigurationMappingComponent
-                    classes={classes}
                     mappingTemplate={testObjectTemplateSak}
                     onCollectionReferencesInEditContextChange={(collectionReferences => {
                         props.onCollectionReferencesInEditContextChange(collectionReferences)

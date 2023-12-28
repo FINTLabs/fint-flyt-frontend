@@ -6,7 +6,6 @@ import DynamicStringValueComponent from "./string/DynamicStringValueComponent";
 import {Controller, ControllerFieldState, FieldValues, useFormContext} from "react-hook-form";
 import {ValueType as ConfigurationValueType} from "../../../types/Configuration";
 import {ValueType as MetadataValueType} from "../../../types/Metadata/IntegrationMetadata";
-import {ClassNameMap} from "@mui/styles";
 import {Search, SourceStatefulValue} from "../../../util/UrlUtils";
 import {ConfigurationContext} from "../../../../../context/ConfigurationContext";
 import {isOutsideCollectionEditContext} from "../../../util/KeyUtils";
@@ -18,7 +17,6 @@ import DynamicChipComponent from "./string/DynamicChipComponent";
 import {HelpText, HStack} from "@navikt/ds-react";
 
 interface Props {
-    classes: ClassNameMap;
     order: number;
     absoluteKey: string;
     displayName: string;
@@ -51,7 +49,6 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
 
     type RenderProps = ControllerRenderProps<FieldValues, string> & {
         fieldState: ControllerFieldState | undefined,
-        classes: ClassNameMap,
         displayName: string,
         disabled: boolean
     }
@@ -114,7 +111,6 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
                 {createComponent({
                     ...field,
                     fieldState,
-                    classes: props.classes,
                     displayName: props.displayName,
                     disabled: props.disabled
                         || isOutsideCollectionEditContext(field.name, editCollectionAbsoluteKey)

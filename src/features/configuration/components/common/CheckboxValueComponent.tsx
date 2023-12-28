@@ -2,11 +2,9 @@ import * as React from "react";
 import {useContext} from "react";
 import {Checkbox, FormControlLabel} from "@mui/material";
 import {ConfigurationContext} from "../../../../context/ConfigurationContext";
-import {ClassNameMap} from "@mui/styles";
 import {Noop} from "react-hook-form/dist/types";
 
 interface Props {
-    classes: ClassNameMap;
     displayName: string;
     disabled?: boolean;
     onChange?: (value: boolean) => void;

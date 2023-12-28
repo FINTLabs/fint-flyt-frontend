@@ -4,11 +4,11 @@ import {useTranslation} from "react-i18next";
 import {Controller, FormProvider, useForm, useWatch} from "react-hook-form";
 import SelectValueComponent from "../../configuration/components/mapping/value/select/SelectValueComponent";
 import {
-	defaultAlert,
-	destinations,
-	fromTypeIds,
-	sourceApplications,
-	toTypeIds,
+    defaultAlert,
+    destinations,
+    fromTypeIds,
+    sourceApplications,
+    toTypeIds,
 } from "../../configuration/defaults/DefaultValues";
 import ValueConvertingRepository from "../../../api/ValueConvertingRepository";
 import StringValueComponent from "../../configuration/components/mapping/value/string/StringValueComponent";
@@ -17,11 +17,9 @@ import {IAlertContent} from "../../configuration/types/AlertContent";
 import getSelectables from "../../configuration/util/SelectablesUtils";
 import {ISelectable} from "../../configuration/types/Selectable";
 import ArrayComponent from "../../configuration/components/common/array/ArrayComponent";
-import {valueConvertingStyles} from "../../../util/styles/ValueConverting.styles";
 import SearchSelectValueComponent from "../../configuration/components/mapping/value/select/SearchSelectValueComponent";
 import {Alert, Box, Button, Heading, HelpText, HStack, VStack,} from "@navikt/ds-react";
 
-const useStyles = valueConvertingStyles;
 
 type Props = {
     existingValueConverting: IValueConverting | undefined;
@@ -37,7 +35,6 @@ type IValueConvertingConvertingArrayEntry = { from: string; to: string };
 export const ValueConvertingForm: React.FunctionComponent<Props> = (
     props: Props
 ) => {
-    const classes = useStyles();
     const {t} = useTranslation("translations", {
         keyPrefix: "pages.valueConverting",
     });
@@ -167,7 +164,6 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (
                                 render={({field, fieldState}) => (
                                     <StringValueComponent
                                         {...field}
-                                        classes={classes}
                                         disabled={disabled}
                                         displayName={t("displayName")}
                                         fieldState={fieldState}
@@ -297,7 +293,6 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (
                                                 <StringValueComponent
                                                     {...field}
                                                     disabled={disabled}
-                                                    classes={classes}
                                                     displayName={t("from")}
                                                     multiline={true}
                                                     fieldState={fieldState}
@@ -312,7 +307,6 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (
                                                 return toTypeIdWatch === "text" ? (
                                                     <StringValueComponent
                                                         {...field}
-                                                        classes={classes}
                                                         disabled={disabled}
                                                         displayName={t("to")}
                                                         multiline={true}

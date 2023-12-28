@@ -6,7 +6,6 @@ import {Controller, useFormContext} from "react-hook-form";
 import {ValueType as ConfigurationValueType} from "../../../types/Configuration";
 import {SelectablesStatefulValue} from "../../../util/SelectablesUtils";
 import SearchSelectValueComponent from "./select/SearchSelectValueComponent";
-import {ClassNameMap} from "@mui/styles";
 import DynamicStringOrSearchSelectValueComponent, {
     Type as DynamicStringOrSearchSelectType
 } from "./DynamicStringOrSearchSelectValueComponent";
@@ -17,7 +16,6 @@ import {hasValidFormat} from "../../../util/ValidationUtil";
 import {HelpText, HStack} from "@navikt/ds-react";
 
 interface Props {
-    classes: ClassNameMap;
     order: number;
     absoluteKey: string;
     displayName: string;
@@ -124,7 +122,6 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = forwardR
                                    gap={"2"}>
                         <DynamicStringOrSearchSelectValueComponent
                             {...field}
-                            classes={props.classes}
                             displayName={props.displayName}
                             selectables={selectables}
                             fieldState={fieldState}

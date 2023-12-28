@@ -48,7 +48,7 @@ describe('Testing create new configuration from new integration', () => {
         cy.get('#value-converting-panel').should("be.visible")
         cy.get('#outgoing-form-panel').should("be.visible")
 
-        cy.get('[id^="tag-"]').should('have.length', 16);
+        cy.get('#metadata-content-panel > .navds-vstack').children().should('have.length', 16);
     })
 
     it('should open panels in outgoing data', () => {
@@ -104,16 +104,16 @@ describe('Testing creating new and editing configurations from integration overv
         cy.get('.min-h-32 > .navds-dropdown__toggle').click()
         cy.get('.min-h-32 > .navds-popover > dl.navds-dropdown__list > :nth-child(2) > .navds-dropdown__item').click()
 
-      cy.get('#mapping\\.valueMappingPerKey\\.type\\.mappingString').click()
-     cy.get('#menu-mapping\\.valueMappingPerKey\\.type\\.mappingString > .MuiPaper-root > .MuiList-root > [tabindex="0"]').type('{enter}')
-      cy.get('.MuiToggleButton-root').click()
-      cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.tittel\\.mappingString > .MuiFormControl-root > .MuiInputBase-root').should("contain.text", "test basert på")
+        cy.get('#mapping\\.valueMappingPerKey\\.type\\.mappingString').click()
+        cy.get('#menu-mapping\\.valueMappingPerKey\\.type\\.mappingString > .MuiPaper-root > .MuiList-root > [tabindex="0"]').type('{enter}')
+        cy.get('.MuiToggleButton-root').click()
+        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.tittel\\.mappingString > .MuiFormControl-root > .MuiInputBase-root').should("contain.text", "test basert på")
     })
 
     it('should navigate to edit existing configuration draft', () => {
         prep()
         cy.get(':nth-child(3) > .navds-table__toggle-expand-cell > .navds-table__toggle-expand-button').click()
-            cy.get(':nth-child(2) > :nth-child(3) > .min-h-32 > .navds-button').click()
-       cy.get('#comment').should("contain.text", "rediger denne konfig")
+        cy.get(':nth-child(2) > :nth-child(3) > .min-h-32 > .navds-button').click()
+        cy.get('#comment').should("contain.text", "rediger denne konfig")
     })
 });

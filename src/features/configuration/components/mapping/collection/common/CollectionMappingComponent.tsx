@@ -3,16 +3,14 @@ import {ReactElement, useContext} from "react";
 import ArrayComponent from "../../../common/array/ArrayComponent";
 import FromCollectionMappingComponent from "./FromCollectionMappingComponent";
 import {useTranslation} from "react-i18next";
-import {ClassNameMap} from "@mui/styles";
 import ArrayObjectWrapperComponent from "../../../common/array/ArrayObjectWrapperComponent";
 import ArrayValueWrapperComponent from "../../../common/array/ArrayValueWrapperComponent";
 import {ConfigurationContext} from "../../../../../../context/ConfigurationContext";
 import {isOutsideCollectionEditContext} from "../../../../util/KeyUtils";
 import {EditingContext} from "../../../../../../context/EditingContext";
-import {Box, Heading, HelpText, VStack, HStack} from "@navikt/ds-react";
+import {Box, Heading, HelpText, HStack, VStack} from "@navikt/ds-react";
 
 interface Props {
-    classes: ClassNameMap;
     absoluteKey: string;
     createObjectWrapper?: boolean;
     elementComponentCreator: (order: string, displayPath: string[], absoluteKey: string) => ReactElement;
@@ -42,7 +40,6 @@ const CollectionMappingComponent: React.FunctionComponent<Props> = (props: Props
                             )
                             return props.createObjectWrapper
                                 ? <ArrayObjectWrapperComponent
-                                    classes={props.classes}
                                     content={field}
                                 />
                                 : <ArrayValueWrapperComponent
@@ -69,10 +66,8 @@ const CollectionMappingComponent: React.FunctionComponent<Props> = (props: Props
                 absoluteKey={props.absoluteKey + ".fromCollectionMappings"}
                 fieldComponentCreator={(index: number, absoluteKey: string) =>
                     <ArrayObjectWrapperComponent
-                        classes={props.classes}
                         content={
                             <FromCollectionMappingComponent
-                                classes={props.classes}
                                 absoluteKey={absoluteKey}
                                 elementComponentCreator={
                                     (absoluteKey: string) => props.elementComponentCreator(

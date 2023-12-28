@@ -2,7 +2,6 @@ import * as React from "react";
 import {MutableRefObject, ReactElement, useContext, useEffect, useRef, useState} from "react";
 import ArrayComponent from "../../../common/array/ArrayComponent";
 import {useTranslation} from "react-i18next";
-import {ClassNameMap} from "@mui/styles";
 import ArrayValueWrapperComponent from "../../../common/array/ArrayValueWrapperComponent";
 import {ConfigurationContext} from "../../../../../../context/ConfigurationContext";
 import {isOutsideCollectionEditContext} from "../../../../util/KeyUtils";
@@ -13,12 +12,10 @@ import {EditingContext} from "../../../../../../context/EditingContext";
 import {hasValidFormat} from "../../../../util/ValidationUtil";
 import {ValueType as ConfigurationValueType} from "../../../../types/Configuration";
 import {ValueType} from "../../../../types/Metadata/IntegrationMetadata";
-import FlytTitleComponent from "../../../../../../components/atoms/FlytTitleComponent";
 import DynamicChipComponent from "../../value/string/DynamicChipComponent";
 import {Box, Heading, HStack} from "@navikt/ds-react";
 
 interface Props {
-    classes: ClassNameMap;
     absoluteKey: string;
     elementComponentCreator: (absoluteKey: string) => ReactElement;
 }
@@ -96,11 +93,9 @@ const FromCollectionMappingComponent: React.FunctionComponent<Props> = (props: P
                 disabled={isOutsideCollectionEditContext(props.absoluteKey, editCollectionAbsoluteKey) || completed}
             />
         </Box>
-        <FlytTitleComponent variant="h6"
-                            id={'collection-mapping-header-' + props.absoluteKey}
-                            classes={props.classes}
-                            title={t("convertCollectionElements")}
-        />
+        <Heading size={"small"} id={'collection-mapping-header-' + props.absoluteKey}>
+            {t("convertCollectionElements")}
+        </Heading>
         {props.elementComponentCreator(props.absoluteKey + ".elementMapping")}
     </>
 }
