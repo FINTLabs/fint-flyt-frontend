@@ -56,8 +56,12 @@
         "destination": "Destinasjon"
       },
       "label": {
+        "valueConverting": "Verdikonvertering",
+        "dynamicValue": "Dynamisk verdi",
         "checkLabel": "Ferdigstilt",
-        "activeLabel": "Aktiv"
+        "activeLabel": "Aktiv",
+        "placeholder": "Skriv eller trekk inn fra metadata",
+        "formatError": "Feltet oppfyller ikke påkrevd format"
       },
       "button": {
         "submit": "Lagre",

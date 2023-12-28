@@ -56,8 +56,12 @@
         "destination": "Destinasjon"
       },
       "label": {
+        "valueConverting": "Verdikonvertering",
+        "dynamicValue": "Dynamisk verdi",
         "checkLabel": "Ferdigstilt",
-        "activeLabel": "Aktiv"
+        "activeLabel": "Aktiv",
+        "placeholder": "Skriv eller trekk inn frå metadata",
+        "formatError": "Feltet oppfyller ikkje påkrevd format"
       },
       "button": {
         "submit": "Lagra",

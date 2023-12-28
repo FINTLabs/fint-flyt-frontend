@@ -56,8 +56,12 @@
         "destination": "Destination"
       },
       "label": {
+        "valueConverting": "Value converting",
+        "dynamicValue": "Dynamic value",
         "checkLabel": "Completed",
-        "activeLabel": "Active"
+        "activeLabel": "Active",
+        "placeholder": "Write or drag and drop from metadata",
+        "formatError": "Value does not have required format"
       },
       "button": {
         "submit": "Save",
