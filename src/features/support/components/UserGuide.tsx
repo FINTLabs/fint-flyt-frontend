@@ -11,7 +11,7 @@ const UserGuide: RouteComponent = () => {
 	const {i18n} = useTranslation();
 
 	return (
-		<PageTemplate id={"user-guide-content"} keyPrefix={"pages.support"}>
+		<PageTemplate id={"user-guide"} keyPrefix={"pages.support"}>
 			<VStack gap={"6"}>
 				<Box
 					background={"surface-default"}
