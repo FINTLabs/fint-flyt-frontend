@@ -21,13 +21,11 @@ import { Link as RouterLink } from "react-router-dom";
 import { FAQ, FLYT_DESCRIPTION } from "../support/util/supportTexts";
 import { Contact } from "../../components/atoms/Contact";
 
-const useStyles = DashboardStyles;
-
 const Dashboard: RouteComponent = () => {
 	const { t } = useTranslation("translations", {
 		keyPrefix: "pages.dashboard",
 	});
-	const classes = useStyles();
+
 	const { statistics, resetIntegrations, integrations, getAllIntegrations } =
 		useContext(IntegrationContext);
 	const activeIntegrations =
