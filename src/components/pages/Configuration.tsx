@@ -214,6 +214,7 @@ const Configuration: RouteComponent = () => {
                                             render={({field, fieldState}) =>
                                                 <StringValueComponent
                                                     {...field}
+                                                    disabled={completed}
                                                     displayName={t('comment')}
                                                     multiline
                                                     fieldState={fieldState}
