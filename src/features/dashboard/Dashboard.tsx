@@ -3,7 +3,6 @@ import { IntegrationContext } from "../../context/IntegrationContext";
 import DashboardCard from "./DashboardCard";
 import { ICard } from "./types/Card";
 import { useTranslation } from "react-i18next";
-import { DashboardStyles } from "../../util/styles/Dashboard.styles";
 import { IIntegrationStatistics } from "./types/IntegrationStatistics";
 import PageTemplate from "../../components/templates/PageTemplate";
 import { RouteComponent } from "../../routes/Route";
