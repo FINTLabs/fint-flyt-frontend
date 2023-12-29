@@ -7,7 +7,6 @@ import { IIntegrationStatistics } from "./types/IntegrationStatistics";
 import PageTemplate from "../../components/templates/PageTemplate";
 import { RouteComponent } from "../../routes/Route";
 import { HStack } from "@navikt/ds-react";
-
 import { Contact } from "../../components/atoms/Contact";
 import SupportContent from "../../components/molecules/SupportContent";
 
