@@ -5,7 +5,6 @@ import ConfigurationForm from "../features/configuration/ConfigurationForm";
 import UserGuide from "../features/support/components/UserGuide";
 import Version from "../components/pages/Version";
 import ValueConverting from "../components/pages/ValueConverting";
-import Support from "../components/pages/Support";
 import Instances from "../components/pages/Instances";
 import Integrations from "../components/pages/Integrations";
 
@@ -76,13 +75,7 @@ const routes: IRoute[] = [
 		exact: true,
 		inNavigationMenu: true,
 	},
-	{
-		path: "/support",
-		name: "support",
-		component: Support,
-		exact: true,
-		inNavigationMenu: false,
-	},
+
 	{
 		path: "/version",
 		name: "version",
