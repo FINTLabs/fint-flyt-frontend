@@ -69,7 +69,7 @@ const Dashboard: RouteComponent = () => {
 
 	return (
 		<PageTemplate id={"dashboard"} keyPrefix={"pages.dashboard"} customHeading>
-			<HStack align={"center"} justify={"center"} gap={"16"}>
+			<HStack align={"center"} justify={"center"} gap={"16"} wrap={false}>
 				{cards.map((card: ICard, index) => {
 					return (
 						<DashboardCard
