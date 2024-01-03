@@ -208,7 +208,7 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
                         <Heading size={"small"}>{t('metadataPanel.valueConverting')}</Heading>
                         <ReadMore defaultOpen
                                   header={t('valueConverting.custom') + " [" + (valueConvertings?.length ?? 0) + ']'}>
-                            <VStack gap={"2"} style={{maxHeight: '200px', overflowY: "scroll"}}>
+                            <VStack gap={"2"} style={{maxHeight: '200px', overflowY: "auto"}}>
                                 {valueConvertings && valueConvertings.map((valueConverting: IValueConverting, index: number) => {
                                     return <ValueConvertings key={'valueConvertingValue-' + index}
                                                              valueConverting={valueConverting}/>
@@ -217,7 +217,7 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
                         </ReadMore>
                         <ReadMore
                             header={t('valueConverting.application') + " [" + (applicationValueConvertings?.length ?? 0) + ']'}>
-                            <VStack gap={"2"}>
+                            <VStack gap={"2"} style={{maxHeight: '200px', overflowY: "auto"}}>
                                 {applicationValueConvertings && applicationValueConvertings.map((valueConverting: IValueConverting, index: number) => {
                                     return <ValueConvertings key={'valueConvertingValue-' + index}
                                                              valueConverting={valueConverting}/>
@@ -226,7 +226,7 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
                         </ReadMore>
                         <ReadMore
                             header={t('valueConverting.destination') + " [" + (destinationValueConvertings?.length ?? 0) + ']'}>
-                            <VStack gap={"2"}>
+                            <VStack gap={"2"} style={{maxHeight: '200px', overflowY: "auto"}}>
                                 {destinationValueConvertings && destinationValueConvertings.map((valueConverting: IValueConverting, index: number) => {
                                     return <ValueConvertings key={'valueConvertingValue-' + index}
                                                              valueConverting={valueConverting}/>
