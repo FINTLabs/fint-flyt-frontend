@@ -1,7 +1,6 @@
 import * as React from "react";
 import { ILink } from "./types/Link";
 import { Box, Heading, BodyLong, Link } from "@navikt/ds-react";
-import { minWidth } from "@mui/system";
 
 type Props = {
 	content: string;
