@@ -12,6 +12,7 @@ type Props = {
 const DashboardCard: React.FunctionComponent<Props> = (props: Props) => {
 	return (
 		<Box
+			justify={"space-between"}
 			id={"support-information"}
 			background={"surface-default"}
 			padding="6"
