@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { IIntegrationStatistics } from "./types/IntegrationStatistics";
 import PageTemplate from "../../components/templates/PageTemplate";
 import { RouteComponent } from "../../routes/Route";
-import { HStack } from "@navikt/ds-react";
+import { Box, HStack } from "@navikt/ds-react";
 import { Contact } from "../../components/atoms/Contact";
 import SupportContent from "../../components/molecules/SupportContent";
 
@@ -69,16 +69,29 @@ const Dashboard: RouteComponent = () => {
 
 	return (
 		<PageTemplate id={"dashboard"} keyPrefix={"pages.dashboard"} customHeading>
-			<HStack align={"center"} justify={"center"} gap={"16"} wrap={false}>
+			<HStack gap={"6"} wrap={false}>
 				{cards.map((card: ICard, index) => {
 					return (
-						<DashboardCard
+						<Box
 							key={index}
+							style={{
+								width: "25%",
+								minWidth: "150px",
+							}}
 							id={`dashboard-card-` + index}
 							value={card.value}
 							content={card.content}
+							padding={"0"}
 							links={card.links}
-						/>
+						>
+							<DashboardCard
+								key={index}
+								id={`dashboard-card-` + index}
+								value={card.value}
+								content={card.content}
+								links={card.links}
+							/>
+						</Box>
 					);
 				})}
 			</HStack>
