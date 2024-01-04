@@ -95,7 +95,7 @@ describe('Testing creating new and editing configurations from integration overv
     it('should navigate to create new blank configuration form', () => {
         prep()
         cy.get(':nth-child(3) > .navds-table__toggle-expand-cell > .navds-table__toggle-expand-button').click()
-        cy.get('#rb > .navds-table__expanded-row-cell > .navds-table__expanded-row-collapse > .navds-table__expanded-row-content > #integration-panel-container > .navds-vstack > .navds-stack > .navds-box > #new-configuration-button').click()
+        cy.get('#ra > .navds-table__expanded-row-cell > .navds-table__expanded-row-collapse > .navds-table__expanded-row-content > #integration-panel-container > .navds-vstack > .navds-stack > .navds-box > #new-configuration-button').click()
     })
 
     it('should navigate to create new configuration based on existing completed version', () => {
