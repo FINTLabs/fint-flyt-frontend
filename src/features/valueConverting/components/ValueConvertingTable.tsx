@@ -80,7 +80,7 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
         <Box background={"surface-default"} padding="6" borderRadius={"large"} borderWidth="2"
              borderColor={"border-subtle"}>
             <VStack gap={"6"}>
-                {showToggle && <HStack style={{alignSelf: "center"}} gap={"3"} align={"center"}>
+                {showToggle && <HStack style={{alignSelf: "center"}} gap={"3"} align={"center"} wrap={false}>
                     <ToggleGroup defaultValue="custom" onChange={(value) => {
                         setRows([])
                         setToggleValue(value)

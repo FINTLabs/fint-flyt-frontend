@@ -284,7 +284,7 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (
                                 absoluteKey={"convertingArray"}
                                 disabled={disabled}
                                 fieldComponentCreator={(index: number, absoluteKey: string) => (
-                                    <HStack gap={"6"}>
+                                    <HStack gap={"6"} wrap={false}>
                                         <Controller
                                             rules={{required: {value: true, message: t('requiredField')}}}
                                             name={`${absoluteKey}.from`}
