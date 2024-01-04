@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ILink } from "./types/Link";
-import { Box, Heading, BodyLong, Link, VStack, HStack } from "@navikt/ds-react";
+import { Box, Heading, BodyLong, Link } from "@navikt/ds-react";
 
 type Props = {
 	content: string;
@@ -17,10 +17,8 @@ const DashboardCard: React.FunctionComponent<Props> = (props: Props) => {
 			align={"center"}
 			padding="6"
 			borderRadius={"large"}
-			shadow="small"
 			borderWidth="2"
 			borderColor={"border-subtle"}
-			shape={"large"}
 		>
 			<Heading size="medium"> {props.value}</Heading>
 			<Heading size="small">{props.content}</Heading>
