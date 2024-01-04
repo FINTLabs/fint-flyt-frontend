@@ -95,7 +95,7 @@ describe('Testing creating new and editing configurations from integration overv
     it('should navigate to create new blank configuration form', () => {
         prep()
         cy.get(':nth-child(3) > .navds-table__toggle-expand-cell > .navds-table__toggle-expand-button').click()
-        cy.get('#ra > .navds-table__expanded-row-cell > .navds-table__expanded-row-collapse > .navds-table__expanded-row-content > #integration-panel-container > .navds-vstack > .navds-stack > .navds-box > #new-configuration-button').click()
+        cy.get('#panel-1-new-configuration-button').click()
     })
 
     it('should navigate to create new configuration based on existing completed version', () => {
@@ -104,16 +104,16 @@ describe('Testing creating new and editing configurations from integration overv
         cy.get('.min-h-32 > .navds-dropdown__toggle').click()
         cy.get('.min-h-32 > .navds-popover > dl.navds-dropdown__list > :nth-child(2) > .navds-dropdown__item').click()
 
-      cy.get('#mapping\\.valueMappingPerKey\\.type\\.mappingString').click()
-     cy.get('#menu-mapping\\.valueMappingPerKey\\.type\\.mappingString > .MuiPaper-root > .MuiList-root > [tabindex="0"]').type('{enter}')
-      cy.get('.MuiToggleButton-root').click()
-      cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.tittel\\.mappingString > .MuiFormControl-root > .MuiInputBase-root').should("contain.text", "test basert på")
+        cy.get('#mapping\\.valueMappingPerKey\\.type\\.mappingString').click()
+        cy.get('#menu-mapping\\.valueMappingPerKey\\.type\\.mappingString > .MuiPaper-root > .MuiList-root > [tabindex="0"]').type('{enter}')
+        cy.get('.MuiToggleButton-root').click()
+        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.tittel\\.mappingString > .MuiFormControl-root > .MuiInputBase-root').should("contain.text", "test basert på")
     })
 
     it('should navigate to edit existing configuration draft', () => {
         prep()
         cy.get(':nth-child(3) > .navds-table__toggle-expand-cell > .navds-table__toggle-expand-button').click()
-            cy.get(':nth-child(2) > :nth-child(3) > .min-h-32 > .navds-button').click()
-       cy.get('#comment').should("contain.text", "rediger denne konfig")
+        cy.get(':nth-child(2) > :nth-child(3) > .min-h-32 > .navds-button').click()
+        cy.get('#comment').should("contain.text", "rediger denne konfig")
     })
 });
