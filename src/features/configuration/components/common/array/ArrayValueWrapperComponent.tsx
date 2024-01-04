@@ -7,7 +7,7 @@ export interface Props {
 }
 
 const ArrayValueWrapperComponent: React.FunctionComponent<Props> = (props: Props) => {
-    return <Box>
+    return <Box id={'array-value-wrapper-component'}>
         {props.content}
     </Box>
 }

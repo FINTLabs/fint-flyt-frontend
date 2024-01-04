@@ -11,11 +11,9 @@ export interface Props {
 }
 
 const ColumnElementComponent: React.FunctionComponent<Props> = (props: Props) => {
-    return <Box id={'column-item-' + props.index + '-' + props.title} style={{
+    return <Box id={'column-item-' + props.index + '-' + props.title} borderRadius={"large"} borderWidth="2" borderColor={"border-subtle"} style={{
         backgroundColor: '#EBF4F5',
         marginTop: '8px',
-        border: '1px solid lightgrey',
-        borderRadius: '4px',
         minWidth: '416px',
     }}>
         <Box padding={'4'}>
