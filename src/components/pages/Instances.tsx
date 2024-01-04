@@ -43,8 +43,8 @@ const Instances: RouteComponent = () => {
 
     return (
         <PageTemplate id={'instances'} keyPrefix={'pages.instances'} customHeading>
-            <HStack id={'instances-custom-header'} justify={"space-between"}>
-                <HStack align={"center"} gap={"2"}>
+            <HStack id={'instances-custom-header'} justify={"space-between"} wrap={false}>
+                <HStack align={"center"} gap={"2"} wrap={false}>
                     <Heading size={"medium"}>{t('header')}</Heading>
                     <HelpText title={"Hva er dette"} placement="bottom">
                         {t('help.header')}
