@@ -1,6 +1,6 @@
 describe('Testing dashboard', () => {
     beforeEach(() => {
-        cy.intercept('GET', '**/integrasjoner?side=0&sorteringFelt=state&sorteringRetning=ASC', {fixture: 'integrations.json'}).as('getIntegrations')
+        cy.intercept('GET', '**/integrasjoner?side=0&antall=1000&sorteringFelt=state&sorteringRetning=ASC', {fixture: 'integrations.json'}).as('getIntegrations')
         cy.intercept('GET', '**/historikk/statistikk/integrasjoner', {fixture: 'historikk.json'}).as('getHistory')
         cy.intercept('GET', '**/metadata?kildeapplikasjonId=*&bareSisteVersjoner=true', {fixture: 'metadata.json'}).as('getMetadata')
         cy.intercept('GET', '**/integrasjoner', {fixture: 'integrations.json'}).as('getIntegrations')
