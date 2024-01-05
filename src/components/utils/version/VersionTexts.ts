@@ -4,9 +4,9 @@ export const ABOUT_VERSIONS = "FLYT er under kontinuerlig utvikling og det blir 
 
 export const VERSION_DATA: {heading: string, updates: string[]}[] = [
     {
-        heading: "Versjon 1.1 - Januar 2024",
+        heading: "Versjon 5.1 - Januar 2024",
         updates: [
-            "1.1 Nytt design på sidene for ny integrasjon og konfigurasjonsoppsett"
+            "5.1 Nytt design på sidene for ny integrasjon og konfigurasjonsoppsett, språkvalg på menybar"
         ]
     },
     {
@@ -34,9 +34,9 @@ export const ABOUT_VERSIONS_NN = "FLYT er under kontinuerleg utvikling og det bl
 
 export const VERSION_DATA_NN: {heading: string, updates: string[]}[] = [
     {
-        heading: "Versjon 1.1 - Januar 2024",
+        heading: "Versjon 5.1 - Januar 2024",
         updates: [
-            "1.1 Nytt design på sidene for ny integrasjon og konfigurasjonsoppsett"
+            "5.1 Nytt design på sidene for ny integrasjon og konfigurasjonsoppsett, språkval på menybar"
         ]
     },
     {
@@ -64,9 +64,9 @@ export const ABOUT_VERSIONS_EN = "FLYT is under continuous development, with new
 
 export const VERSION_DATA_EN: { heading: string, updates: string[] }[] = [
     {
-        heading: "Version 1.1 - January 2024",
+        heading: "Version 5.1 - January 2024",
         updates: [
-            "1.1 New design of the new integration and configuration pages"
+            "5.1 New design of the new integration and configuration pages, language selection on the menu bar"
         ]
     },
     {
