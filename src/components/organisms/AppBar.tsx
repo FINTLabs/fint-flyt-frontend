@@ -1,7 +1,6 @@
 import MenuItems from "../molecules/MenuItems";
-import {InternalHeader, Button, Dropdown, Spacer} from "@navikt/ds-react";
+import {InternalHeader, Button, Dropdown, Spacer, Label} from "@navikt/ds-react";
 import { useHistory } from "react-router-dom";
-import { CogIcon } from '@navikt/aksel-icons';
 import { LanguageIcon } from '@navikt/aksel-icons';
 import {useTranslation} from "react-i18next";
 import {changeLanguage} from "i18next";
@@ -30,17 +29,11 @@ export const AppBar = () => {
 			<Spacer/>
 			<Dropdown>
 				<InternalHeader.Button as={Dropdown.Toggle}>
-					<CogIcon
-						style={{ fontSize: "1.5rem" }}
-						title="Meny"
-					/>
+					<LanguageIcon aria-hidden />
+					<Label>{t('language')}</Label>
 				</InternalHeader.Button>
-
 				<Dropdown.Menu>
 					<Dropdown.Menu.GroupedList>
-						<Dropdown.Menu.GroupedList.Heading>
-							{t('language')} <LanguageIcon aria-hidden />
-						</Dropdown.Menu.GroupedList.Heading>
 						<Dropdown.Menu.GroupedList.Item onClick={() => changeLanguage("no")}>
 							{t('norwegian')}
 						</Dropdown.Menu.GroupedList.Item>

@@ -6,6 +6,7 @@ import {Box, Heading, Table} from "@navikt/ds-react";
 import {useTranslation} from "react-i18next";
 
 type Props = {
+    id: number;
     existingValueConverting: IValueConverting | undefined,
 }
 
@@ -28,7 +29,7 @@ export const ValueConvertingPanel: React.FunctionComponent<Props> = (props: Prop
     };
 
     return (
-        <Box id={"value-converting-panel"} padding="3" background={"surface-subtle"} borderRadius="large">
+        <Box id={"value-converting-panel-" + props.id} padding="3" background={"surface-subtle"} borderRadius="large">
             <Heading id={"value-converting-panel-heading"} size={"xsmall"} spacing>{t('convertingMap')}</Heading>
             <Table size="small">
                 <Table.Header>

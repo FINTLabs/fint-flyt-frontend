@@ -25,6 +25,7 @@ import IntegrationRepository from "../../../api/IntegrationRepository";
 import ConfigurationRepository from "../../../api/ConfigurationRepository";
 
 type Props = {
+    id: string
     integration: IIntegration,
     completedC: IConfiguration[]
     draftC: IConfiguration[]
@@ -235,7 +236,7 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
                 <HStack gap={"6"}>
                     <Box>
                         <Button
-                            id="new-configuration-button"
+                            id={props.id + "-new-configuration-button"}
                             disabled={!allMetadata}
                             as={RouterLink}
                             to='/integration/configuration/new-configuration'
