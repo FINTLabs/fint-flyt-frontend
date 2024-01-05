@@ -75,7 +75,7 @@ const Dashboard: RouteComponent = () => {
 						<Box
 							key={index}
 							style={{
-								width: "25%",
+								width: `calc(100% / ${cards.length})`,
 								minWidth: "150px",
 							}}
 							id={`dashboard-card-` + index}
