@@ -6,7 +6,7 @@ export const VERSION_DATA: {heading: string, updates: string[]}[] = [
     {
         heading: "Versjon 5.1 - Januar 2024",
         updates: [
-            "5.1 Nytt design på sidene for ny integrasjon og konfigurasjonsoppsett, språkvalg på menybar"
+            "5.1 Oppdatert/nytt design på sidene for ny integrasjon og konfigurasjonsoppsett, språkvalg på menybar"
         ]
     },
     {
@@ -36,7 +36,7 @@ export const VERSION_DATA_NN: {heading: string, updates: string[]}[] = [
     {
         heading: "Versjon 5.1 - Januar 2024",
         updates: [
-            "5.1 Nytt design på sidene for ny integrasjon og konfigurasjonsoppsett, språkval på menybar"
+            "5.1 Oppdatert/nytt design på sidene for ny integrasjon og konfigurasjonsoppsett, språkval på menybar"
         ]
     },
     {
@@ -66,7 +66,7 @@ export const VERSION_DATA_EN: { heading: string, updates: string[] }[] = [
     {
         heading: "Version 5.1 - January 2024",
         updates: [
-            "5.1 New design of the new integration and configuration pages, language selection on the menu bar"
+            "5.1 New/updated design of the new integration and configuration pages, language selection on the menu bar"
         ]
     },
     {
