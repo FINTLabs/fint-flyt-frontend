@@ -102,7 +102,7 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
     return (
         <PageTemplate id={'new'} keyPrefix={'pages.integrationForm'}>
             <Box id={'integration-form'} background={"surface-default"} padding="6" borderRadius={"large"}
-                 borderWidth="2" borderColor={"border-subtle"}>
+                 borderWidth="2" borderColor={"border-subtle"} style={{minWidth: "fit-content"}}>
                 <FormProvider {...methods}>
                     <form onSubmit={methods.handleSubmit(onSubmit)}>
                         <VStack gap={"6"}>
@@ -116,7 +116,7 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
                                         <Select
                                             id={"sourceApplicationId"}
                                             label={
-                                                <HStack gap={"2"} align={"center"}>
+                                                <HStack gap={"2"} align={"center"} wrap={false}>
                                                     {t('labels.sourceApplicationId')}
                                                     <HelpText title={'hva er dette'}
                                                               placement="right">{t('help.sourceApplicationId')}</HelpText>

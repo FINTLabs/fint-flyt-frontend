@@ -1,13 +1,9 @@
-import {ClassNameMap} from "@mui/styles";
 import * as React from "react";
 import {ReactElement} from "react";
 import PathComponent from "../common/PathComponent";
-
-import FlytTitleComponent from "../../../../components/atoms/FlytTitleComponent";
-
+import {Box, Heading} from "@navikt/ds-react";
 
 export interface Props {
-    classes: ClassNameMap;
     index: number;
     title: string;
     path: string[];
@@ -15,14 +11,18 @@ export interface Props {
 }
 
 const ColumnElementComponent: React.FunctionComponent<Props> = (props: Props) => {
-    return <div id={'column-item-' + props.index + '-' + props.title} className={props.classes.columnItem}>
-        <div className={props.classes.wrapperPadding}>
-            <div>
-                <FlytTitleComponent variant="h6" classes={props.classes} title={props.title}/>
-                {props.path.length > 0 && <PathComponent classes={props.classes} path={props.path}/>}
-            </div>
+    return <Box id={'column-item-' + props.index + '-' + props.title} borderRadius={"large"} borderWidth="2" borderColor={"border-subtle"} style={{
+        backgroundColor: '#EBF4F5',
+        marginTop: '8px',
+        minWidth: '416px',
+    }}>
+        <Box padding={'4'}>
+            <Box>
+                <Heading size={"xsmall"} style={{marginBottom: '8px'}}>{props.title}</Heading>
+                {props.path.length > 0 && <PathComponent path={props.path}/>}
+            </Box>
             {props.content}
-        </div>
-    </div>
+        </Box>
+    </Box>
 }
-export default ColumnElementComponent
+export default ColumnElementComponent;

@@ -2,7 +2,7 @@ describe("Testing dashboard", () => {
 	beforeEach(() => {
 		cy.intercept(
 			"GET",
-			"**/integrasjoner?side=0&sorteringFelt=state&sorteringRetning=ASC",
+			"**/integrasjoner?side=0&antall=1000&sorteringFelt=state&sorteringRetning=ASC",
 			{ fixture: "integrations.json" }
 		).as("getIntegrations");
 		cy.intercept("GET", "**/historikk/statistikk/integrasjoner", {

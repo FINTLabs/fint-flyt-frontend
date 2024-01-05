@@ -4,13 +4,14 @@ export const ABOUT_VERSIONS =
 
 export const VERSION_DATA: { heading: string; updates: string[] }[] = [
 	{
-		heading: "Versjon 05.01 - Januar 2024",
+		heading: "Versjon 5.01 - Januar 2024",
 		updates: [
-			"05.01 Nytt utsende på Dashbord - Innhold fra supportsiden ligger nå her",
+            "5.1 Oppdatert/nytt design på sidene for ny integrasjon og konfigurasjonsoppsett, språkvalg på menybar",
+            "5.1 Nytt utsende på Dashbord - Innhold fra supportsiden ligger nå her",
 		],
 	},
 	{
-		heading: "Versjon 27.12 - Desember 2023",
+		heading: "Desember 2023",
 		updates: [
 			"11.12 Lagt til støtte for engelsk språk i Flyt",
 			"12.12 Nytt design av integrasjonsoversikten",
@@ -34,13 +35,14 @@ export const ABOUT_VERSIONS_NN =
 
 export const VERSION_DATA_NN: { heading: string; updates: string[] }[] = [
 	{
-		heading: "Versjon 05.01 - Januar 2024",
+		heading: "Versjon 5.1 - Januar 2024",
 		updates: [
-			"05.01 Nytt utseende på Dashbordet - Innhald frå supportsida ligg no her",
+            "5.1 Oppdatert/nytt design på sidene for ny integrasjon og konfigurasjonsoppsett, språkval på menybar",
+            "5.1 Nytt utseende på Dashbordet - Innhald frå supportsida ligg no her",
 		],
 	},
 	{
-		heading: "Versjon 27.12 - Desember 2023",
+		heading: "Desember 2023",
 		updates: [
 			"27.12 Lagt til støtte for engelsk språk i Flyt",
 			"12.12 Nytt design av integrasjonsoversikta",
@@ -64,13 +66,14 @@ export const ABOUT_VERSIONS_EN =
 
 export const VERSION_DATA_EN: { heading: string; updates: string[] }[] = [
 	{
-		heading: "Version 05.01 - January 2024",
+		heading: "Version 5.1 - January 2024",
 		updates: [
-			"05.01 New look on the Dashboard - Content from the support page is now here",
+            "5.1 New/updated design of the new integration and configuration pages, language selection on the menu bar",
+            "5.1 New look on the Dashboard - Content from the support page is now here",
 		],
 	},
 	{
-		heading: "Version 27.12 - December 2023",
+		heading: "December 2023",
 		updates: [
 			"27.12 Added support for English language in Flyt",
 			"12.12 New design of the integration overview",

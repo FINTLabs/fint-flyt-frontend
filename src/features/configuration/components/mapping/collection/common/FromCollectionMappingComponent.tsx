@@ -2,7 +2,6 @@ import * as React from "react";
 import {MutableRefObject, ReactElement, useContext, useEffect, useRef, useState} from "react";
 import ArrayComponent from "../../../common/array/ArrayComponent";
 import {useTranslation} from "react-i18next";
-import {ClassNameMap} from "@mui/styles";
 import ArrayValueWrapperComponent from "../../../common/array/ArrayValueWrapperComponent";
 import {ConfigurationContext} from "../../../../../../context/ConfigurationContext";
 import {isOutsideCollectionEditContext} from "../../../../util/KeyUtils";
@@ -13,11 +12,10 @@ import {EditingContext} from "../../../../../../context/EditingContext";
 import {hasValidFormat} from "../../../../util/ValidationUtil";
 import {ValueType as ConfigurationValueType} from "../../../../types/Configuration";
 import {ValueType} from "../../../../types/Metadata/IntegrationMetadata";
-import FlytTitleComponent from "../../../../../../components/atoms/FlytTitleComponent";
 import DynamicChipComponent from "../../value/string/DynamicChipComponent";
+import {Box, Heading, HStack} from "@navikt/ds-react";
 
 interface Props {
-    classes: ClassNameMap;
     absoluteKey: string;
     elementComponentCreator: (absoluteKey: string) => ReactElement;
 }
@@ -47,14 +45,11 @@ const FromCollectionMappingComponent: React.FunctionComponent<Props> = (props: P
     }, [])
 
     return <>
-        <div className={props.classes.wrapperVerticalMargin}>
-            <div id={'selectable-value-mapping-wrapper-' + props.absoluteKey}
-                 className={props.classes.flexRowSpacedContainer}>
-                <FlytTitleComponent variant='h6'
-                    id={'collection-mapping-header-' + props.absoluteKey}
-                    classes={props.classes}
-                    title={t("collections")}
-                />
+        <Box>
+            <HStack id={'selectable-value-mapping-wrapper-' + props.absoluteKey} justify={"space-between"}
+                    align={"center"}>
+                <Heading id={'collection-mapping-header-' + props.absoluteKey}
+                         size={"small"}>{t("collections")}</Heading>
                 <IconButton aria-label="edit"
                             onClick={() => {
                                 setEditCollectionAbsoluteKey(
@@ -69,24 +64,21 @@ const FromCollectionMappingComponent: React.FunctionComponent<Props> = (props: P
                             : <EditRounded/>
                     }
                 </IconButton>
-            </div>
+            </HStack>
             <ArrayComponent
-                classes={props.classes}
                 absoluteKey={props.absoluteKey + ".instanceCollectionReferencesOrdered"}
                 fieldComponentCreator={(index: number, absoluteKey: string) =>
                     <ArrayValueWrapperComponent
-                        classes={props.classes}
                         content={
                             <Controller
                                 name={absoluteKey}
                                 rules={{
-                                        validate: (value) => hasValidFormat(value, ConfigurationValueType.DYNAMIC_STRING, watch('completed'), true)
-                                    }}
+                                    validate: (value) => hasValidFormat(value, ConfigurationValueType.DYNAMIC_STRING, watch('completed'), true)
+                                }}
                                 control={control}
                                 render={({field, fieldState}) =>
                                     <DynamicChipComponent
                                         {...field}
-                                        classes={props.classes}
                                         displayName={"" + index}
                                         accept={[ValueType.COLLECTION]}
                                         disabled={completed}
@@ -100,12 +92,10 @@ const FromCollectionMappingComponent: React.FunctionComponent<Props> = (props: P
                 defaultValueCreator={() => undefined}
                 disabled={isOutsideCollectionEditContext(props.absoluteKey, editCollectionAbsoluteKey) || completed}
             />
-        </div>
-        <FlytTitleComponent variant="h6"
-            id={'collection-mapping-header-' + props.absoluteKey}
-            classes={props.classes}
-            title={t("convertCollectionElements")}
-        />
+        </Box>
+        <Heading size={"small"} id={'collection-mapping-header-' + props.absoluteKey}>
+            {t("convertCollectionElements")}
+        </Heading>
         {props.elementComponentCreator(props.absoluteKey + ".elementMapping")}
     </>
 }

@@ -6,8 +6,6 @@ import {Controller, useFormContext} from "react-hook-form";
 import {ValueType as ConfigurationValueType} from "../../../types/Configuration";
 import {SelectablesStatefulValue} from "../../../util/SelectablesUtils";
 import SearchSelectValueComponent from "./select/SearchSelectValueComponent";
-import {ClassNameMap} from "@mui/styles";
-import HelpPopover from "../../common/popover/HelpPopover";
 import DynamicStringOrSearchSelectValueComponent, {
     Type as DynamicStringOrSearchSelectType
 } from "./DynamicStringOrSearchSelectValueComponent";
@@ -15,9 +13,9 @@ import {isOutsideCollectionEditContext} from "../../../util/KeyUtils";
 import {ConfigurationContext} from "../../../../../context/ConfigurationContext";
 import {EditingContext} from "../../../../../context/EditingContext";
 import {hasValidFormat} from "../../../util/ValidationUtil";
+import {HelpText, HStack} from "@navikt/ds-react";
 
 interface Props {
-    classes: ClassNameMap;
     order: number;
     absoluteKey: string;
     displayName: string;
@@ -41,9 +39,9 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = forwardR
     );
     const typeAbsoluteKey: string = props.absoluteKey + ".type";
 
-    const initialType: {type: ConfigurationValueType, mappingString: string} = getValues(props.absoluteKey)
+    const initialType: { type: ConfigurationValueType, mappingString: string } = getValues(props.absoluteKey)
 
-    const [validationType, setValidationType] = useState<ConfigurationValueType>(initialType? initialType.type : ConfigurationValueType.STRING)
+    const [validationType, setValidationType] = useState<ConfigurationValueType>(initialType ? initialType.type : ConfigurationValueType.STRING)
 
     function setTypeIfUndefined(type: ConfigurationValueType) {
         if (!getValues(typeAbsoluteKey)) {
@@ -80,15 +78,15 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = forwardR
     return <Controller
         name={props.absoluteKey + ".mappingString"}
         rules={{
-                validate: (value) => hasValidFormat(value, validationType, watch('completed'))
-            }}
+            validate: (value) => hasValidFormat(value, validationType, watch('completed'))
+        }}
         defaultValue={props.template.type == SelectableValueType.DROPDOWN ? '' : null}
         render={({field, fieldState}) => {
             switch (props.template.type) {
                 case SelectableValueType.DROPDOWN:
                     setTypeIfUndefined(ConfigurationValueType.STRING);
-                    return <div id={'selectable-value-mapping-wrapper-' + props.absoluteKey}
-                                className={props.classes.flexRowContainer}>
+                    return <HStack id={'selectable-value-mapping-wrapper-' + props.absoluteKey}
+                                   align={"center"} gap={"2"}>
                         <SelectValueComponent
                             {...field}
                             displayName={props.displayName}
@@ -99,12 +97,12 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = forwardR
                                 || completed
                             }
                         />
-                        <HelpPopover popoverContent={props.description}/>
-                    </div>
+                        <HelpText placement={"right"}>{props.description}</HelpText>
+                    </HStack>
                 case SelectableValueType.SEARCH_SELECT:
                     setTypeIfUndefined(ConfigurationValueType.STRING);
-                    return <div id={'selectable-value-mapping-wrapper-' + props.absoluteKey}
-                                className={props.classes.flexRowContainer}>
+                    return <HStack id={'selectable-value-mapping-wrapper-' + props.absoluteKey} align={"center"}
+                                   gap={"2"}>
                         <SearchSelectValueComponent
                             {...field}
                             displayName={props.displayName}
@@ -116,15 +114,14 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = forwardR
 
                             }
                         />
-                        <HelpPopover popoverContent={props.description}/>
-                    </div>
+                        <HelpText placement={"right"}>{props.description}</HelpText>
+                    </HStack>
                 case SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT:
                     setTypeIfUndefined(ConfigurationValueType.STRING);
-                    return <div id={'selectable-value-mapping-wrapper-' + props.absoluteKey}
-                                className={props.classes.flexRowContainer}>
+                    return <HStack id={'selectable-value-mapping-wrapper-' + props.absoluteKey} align={"center"}
+                                   gap={"2"}>
                         <DynamicStringOrSearchSelectValueComponent
                             {...field}
-                            classes={props.classes}
                             displayName={props.displayName}
                             selectables={selectables}
                             fieldState={fieldState}
@@ -144,8 +141,8 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = forwardR
                                 || completed
                             }
                         />
-                        <HelpPopover popoverContent={props.description}/>
-                    </div>
+                        <HelpText placement={"right"}>{props.description}</HelpText>
+                    </HStack>
             }
         }}
     />

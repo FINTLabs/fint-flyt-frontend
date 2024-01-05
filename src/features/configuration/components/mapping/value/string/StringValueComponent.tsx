@@ -1,13 +1,11 @@
 import * as React from "react";
 import {forwardRef} from "react";
-import {ClassNameMap} from "@mui/styles";
 import {TextField, Typography} from "@mui/material";
 import {Noop} from "react-hook-form/dist/types";
 import {ControllerFieldState} from "react-hook-form";
 import {errorMsgSX} from "../../../../../../util/styles/SystemStyles";
 
 interface Props {
-    classes: ClassNameMap;
     displayName: string;
     multiline?: boolean;
     disabled?: boolean;

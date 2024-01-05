@@ -1,15 +1,14 @@
-import {ClassNameMap} from "@mui/styles";
 import * as React from "react";
 import {ReactElement} from "react";
+import {Box} from "@navikt/ds-react";
 
 export interface Props {
-    classes: ClassNameMap,
     content: ReactElement;
 }
 
 const ArrayValueWrapperComponent: React.FunctionComponent<Props> = (props: Props) => {
-    return <div className={props.classes.arrayValueWrapper}>
+    return <Box id={'array-value-wrapper-component'}>
         {props.content}
-    </div>
+    </Box>
 }
 export default ArrayValueWrapperComponent;

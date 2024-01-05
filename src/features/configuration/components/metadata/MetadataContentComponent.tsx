@@ -1,4 +1,3 @@
-import {ClassNameMap} from "@mui/styles";
 import {
     IInstanceMetadataCategory,
     IInstanceMetadataContent,
@@ -9,11 +8,9 @@ import {
 import * as React from "react";
 import {ReactElement} from "react";
 import {Tag} from "../common/dnd/Tag";
-import FlytTitleComponent from "../../../../components/atoms/FlytTitleComponent";
-
+import {Heading, HStack, VStack} from "@navikt/ds-react";
 
 interface Props {
-    classes: ClassNameMap;
     icon?: ReactElement
     displayName?: string;
     content: IInstanceMetadataContent
@@ -24,61 +21,43 @@ const MetadataContentComponent: React.FunctionComponent<Props> = (props: Props) 
     const paddingPerDepth = 10;
 
     return <>
-        <div style={{display: 'flex'}}>
+        <HStack align={"center"} gap={"2"}>
             {props.icon && props.icon}
             {props.displayName &&
-                <FlytTitleComponent variant="h6"
-                    classes={props.classes}
-                    title={props.displayName}
-                />}
-        </div>
-        {props.content.instanceValueMetadata
-            .map((valueMetadata: IInstanceValueMetadata) => {
-                    const reference: string = props.keyToReferenceFunction(valueMetadata.key);
-                    return <div
-                        className={props.classes.tagWrapper}
-                        id={'tag-' + valueMetadata.key}
-                        key={'tag-' + valueMetadata.key}
-                    >
-                        <Tag
+                <Heading size={"xsmall"}>{props.displayName}</Heading>}
+        </HStack>
+        <VStack gap={"1"}>
+            {props.content.instanceValueMetadata
+                .map((valueMetadata: IInstanceValueMetadata) => {
+                        const reference: string = props.keyToReferenceFunction(valueMetadata.key);
+                        return <Tag
                             key={'tagtreeValues-' + valueMetadata.key}
-                            classes={props.classes}
                             type={valueMetadata.type}
                             name={valueMetadata.displayName}
                             description={reference}
                             tagKey={valueMetadata.key}
                             value={reference}
                         />
-                    </div>
-                }
-            )}
-        {props.content.instanceObjectCollectionMetadata
-            .map((objectCollectionMetadata: IInstanceObjectCollectionMetadata) => {
-                const reference: string = props.keyToReferenceFunction(objectCollectionMetadata.key);
-                return <div
-                    className={props.classes.tagWrapper}
-                    id={'tag-' + objectCollectionMetadata.key}
-                    key={'tag-' + objectCollectionMetadata.key}
-                >
-                    <Tag
-                        classes={props.classes}
+                    }
+                )}
+            {props.content.instanceObjectCollectionMetadata
+                .map((objectCollectionMetadata: IInstanceObjectCollectionMetadata) => {
+                    const reference: string = props.keyToReferenceFunction(objectCollectionMetadata.key);
+                    return <Tag
+                        key={'tagtreeValues-' + objectCollectionMetadata.key}
                         type={ValueType.COLLECTION}
                         name={objectCollectionMetadata.displayName}
                         description={reference}
                         value={reference}
                         tagKey={objectCollectionMetadata.key}
                     />
-                </div>
-            })}
+                })}
+        </VStack>
         {props.content.categories.map((category: IInstanceMetadataCategory) =>
             <div key={'tagTree-' + category.displayName} style={{marginTop: '8px'}}>
-                <FlytTitleComponent variant='h6'
-                    classes={props.classes}
-                    title={category.displayName}
-                />
+                <Heading size={"xsmall"}>{category.displayName}</Heading>
                 <div style={{paddingLeft: paddingPerDepth, borderLeft: '1px solid gray'}}>
                     <MetadataContentComponent
-                        classes={props.classes}
                         content={category.content}
                         keyToReferenceFunction={(key: string) => props.keyToReferenceFunction(key)}
                     />

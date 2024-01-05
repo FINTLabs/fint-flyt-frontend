@@ -149,6 +149,7 @@ const IntegrationProvider = ({children}: ContextProps) => {
             const data = response.data;
 
             if (data) {
+                console.log(data)
                 setStatistics(data);
                 const stats = data;
 
@@ -161,8 +162,9 @@ const IntegrationProvider = ({children}: ContextProps) => {
 
                 const metadata = allMetadata.reduce((acc, currentArray) => [...acc, ...currentArray], []) || [];
 
-                const integrationResponse = await IntegrationRepository.getIntegrations(0, null, "state", "ASC");
-                const mergedList = integrationResponse.data || [];
+                const integrationResponse = await IntegrationRepository.getIntegrations(0, 1000, "state", "ASC");
+                console.log(integrationResponse)
+                const mergedList = integrationResponse.data.content || [];
 
                 stats.forEach((value: IIntegrationStatistics) => {
                     mergedList.forEach((integration: IIntegration) => {

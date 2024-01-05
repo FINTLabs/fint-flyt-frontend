@@ -109,7 +109,6 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
 
 
     const getAllMetadata = async (onlyLatest: boolean) => {
-        console.log('getAllMetadata')
         try {
             const allMetadata = []
 

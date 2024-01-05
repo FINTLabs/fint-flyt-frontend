@@ -1,11 +1,10 @@
 import * as React from "react";
-import { BaseSyntheticEvent, forwardRef, useEffect, useState } from "react";
-import { useDrop } from "react-dnd";
-import { ITag } from "../../../../types/Metadata/Tag";
-import { ValueType } from "../../../../types/Metadata/IntegrationMetadata";
-import { ClassNameMap } from "@mui/styles";
-import { IconButton, TextField, Typography } from "@mui/material";
-import { Search } from "../../../../util/UrlUtils";
+import {BaseSyntheticEvent, forwardRef, useEffect, useState} from "react";
+import {useDrop} from "react-dnd";
+import {ITag} from "../../../../types/Metadata/Tag";
+import {ValueType} from "../../../../types/Metadata/IntegrationMetadata";
+import {IconButton, TextField, Typography} from "@mui/material";
+import {Search} from "../../../../util/UrlUtils";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import ResourceRepository from "../../../../../../api/ResourceRepository";
 import {
@@ -17,16 +16,15 @@ import { ControllerFieldState } from "react-hook-form";
 import {useTranslation} from "react-i18next";
 
 interface Props {
-	classes: ClassNameMap;
-	displayName?: string;
-	search?: Search;
-	accept: ValueType[];
-	disabled?: boolean;
-	onChange?: (value: string) => void;
-	onBlur?: Noop;
-	name: string;
-	value: string | null;
-	fieldState: ControllerFieldState | undefined;
+    displayName?: string;
+    search?: Search;
+    accept: ValueType[];
+    disabled?: boolean;
+    onChange?: (value: string) => void;
+    onBlur?: Noop;
+    name: string;
+    value: string | null;
+    fieldState: ControllerFieldState | undefined;
 }
 
 const DynamicStringValueComponent: React.FunctionComponent<Props> = forwardRef<
@@ -39,48 +37,48 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = forwardRef<
 	const absoluteKey: string = props.name;
 	const { t } = useTranslation("translations", { keyPrefix: "pages.configuration" });
 
-	const [{ canDrop, isOver }, dropRef] = useDrop({
-		accept: props.accept,
-		drop: (tag: ITag) => {
-			if (!props.disabled) {
-				if (props.onChange) {
-					if (props.value === undefined || props.value === "") {
-						setShrink(true);
-						props.onChange(tag.value);
-					} else {
-						props.onChange(props.value + tag.value);
-					}
-				}
-			}
-		},
-		collect: (monitor) => ({
-			canDrop: monitor.canDrop(),
-			isOver: monitor.isOver(),
-		}),
-	});
-	useEffect(() => {
-		setSearchResult(undefined);
-	}, [props.search]);
+    const [{canDrop, isOver}, dropRef] = useDrop({
+        accept: props.accept,
+        drop: (tag: ITag) => {
+            if (!props.disabled) {
+                if (props.onChange) {
+                    if (props.value === undefined || props.value === "") {
+                        setShrink(true);
+                        props.onChange(tag.value);
+                    } else {
+                        props.onChange(props.value + tag.value);
+                    }
+                }
+            }
+        },
+        collect: (monitor) => ({
+            canDrop: monitor.canDrop(),
+            isOver: monitor.isOver(),
+        }),
+    });
+    useEffect(() => {
+        setSearchResult(undefined);
+    }, [props.search]);
 
-	let background = "white";
+    let background = "white";
 
-	const inputStyle = {
-		backgroundColor: "white",
-		width: "352px",
-		borderRadius: "4px",
-		margin: "none",
-	};
+    const inputStyle = {
+        backgroundColor: "white",
+        width: "352px",
+        borderRadius: "4px",
+        margin: "none",
+    };
 
-	if (canDrop && isOver && !props.disabled) {
-		background = "lightgreen";
-	} else if (canDrop && !props.disabled) {
-		background = "lightblue";
-	}
+    if (canDrop && isOver && !props.disabled) {
+        background = "lightgreen";
+    } else if (canDrop && !props.disabled) {
+        background = "lightblue";
+    }
 
-	const dynamicStyle: React.CSSProperties = {
-		...inputStyle,
-		background,
-	};
+    const dynamicStyle: React.CSSProperties = {
+        ...inputStyle,
+        background,
+    };
 
 	return (
 		<div

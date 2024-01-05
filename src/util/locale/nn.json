@@ -37,8 +37,6 @@
     "configuration": {
       "header": "Konfigurasjon",
       "integration": "Integrasjon",
-      "metadataVersion": "Metadataversjon",
-      "metadataWarning": "Det finst nyare versjon av metadata",
       "formHeader": "Utgåande data",
       "saved": "Konfigurasjon lagra",
       "saveError": "Feila under lagring, feilmelding: ",
@@ -46,10 +44,6 @@
       "version": "Versjon ",
       "comment": "Kommentar",
       "reqFieldMsg": "Kommentar er påkravd ved ferdigstilling",
-      "metadataPanel": {
-        "header": "Metadata",
-        "version": "Versjon"
-      },
       "valueConverting": {
         "custom": "Eigendefinerte",
         "application": "Flyt",
@@ -77,6 +71,18 @@
       "fromCollectionMapping": {
         "collections": "Samlingar",
         "convertCollectionElements": "Konvertering av samlingselement"
+      },
+      "metadataPanel": {
+        "header": "Metadata",
+        "valueConverting": "Verdikonvertering",
+        "version": "Versjon",
+        "metadataWarning": "Det finst nyare versjon av metadata",
+        "help": {
+          "metadata": "Metadata er data fra innsendt skjema du kan bruke i konfigurasjon av utgående data"
+        }
+      },
+      "help": {
+        "formHeader": "Utgåande data"
       }
     },
     "integrationForm": {

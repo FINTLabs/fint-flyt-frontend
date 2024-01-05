@@ -31,7 +31,7 @@ describe('Testing fill, validate and complete new configuration', () => {
         cy.intercept('POST', '**/integrasjoner', {fixture: 'postFixture.json'}).as('postIntegration')
         cy.intercept('POST', '**/konfigurasjoner', {fixture: 'postFixture.json'}).as('postConfiguration')
         cy.intercept('GET', '**/integrasjoner', {fixture: 'allIntegrations.json'}).as('getAllIntegrations')
-        cy.intercept('GET', '**/integrasjoner?side=0&sorteringFelt=state&sorteringRetning=ASC', {fixture: 'integrations.json'}).as('getIntegrations')
+        cy.intercept('GET', '**/integrasjoner?side=0&antall=1000&sorteringFelt=state&sorteringRetning=ASC', {fixture: 'integrations.json'}).as('getIntegrations')
         cy.intercept('GET', '**/historikk/statistikk/integrasjoner', {fixture: 'historikk.json'}).as('getHistory')
         cy.intercept('GET', '**/metadata?kildeapplikasjonId=2&bareSisteVersjoner=true', {fixture: 'metadataLatest.json'}).as('getLatestMetadata')
         cy.intercept('GET', '**/metadata?kildeapplikasjonId=*', {fixture: 'metadata.json'}).as('getMetadata')
@@ -57,14 +57,23 @@ describe('Testing fill, validate and complete new configuration', () => {
         cy.get(`${newCaseFields}\\.saksmappetype\\.mappingString-option-1`).click()
         cy.get(`${newCaseFields}\\.arkivdel\\.mappingString`).click()
         cy.get(`${newCaseFields}\\.arkivdel\\.mappingString-option-0`).click()
-        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.saksmappetype\\.mappingString > .MuiAutocomplete-root > .MuiFormControl-root > .MuiInputBase-root').type('$if{feil}', {parseSpecialCharSequences: false, delay: 0}).type('{enter}');
-        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.arkivdel\\.mappingString > .MuiAutocomplete-root > .MuiFormControl-root > .MuiInputBase-root').type('$vc{1}$if{testy}', {parseSpecialCharSequences: false, delay: 0}).type('{enter}');
+        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.saksmappetype\\.mappingString > .MuiAutocomplete-root > .MuiFormControl-root > .MuiInputBase-root').type('$if{feil}', {
+            parseSpecialCharSequences: false,
+            delay: 0
+        }).type('{enter}');
+        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.arkivdel\\.mappingString > .MuiAutocomplete-root > .MuiFormControl-root > .MuiInputBase-root').type('$vc{1}$if{testy}', {
+            parseSpecialCharSequences: false,
+            delay: 0
+        }).type('{enter}');
         cy.get('#comment').type('kommentar', {delay: 0})
         cy.get('#form-complete').click()
         cy.get('#form-submit-btn').click()
         cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.tittel\\.mappingString > .MuiTypography-root').should("contain.text", "Feltet oppfyller ikke påkrevd format")
         cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.saksmappetype\\.mappingString > .MuiAutocomplete-root > .MuiFormControl-root > .MuiInputBase-root').type('{backspace}');
-        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.saksmappetype\\.mappingString > .MuiAutocomplete-root > .MuiFormControl-root > .MuiInputBase-root').type('$vc{1}$if{ikke_feil}', {parseSpecialCharSequences: false, delay: 0}).type('{enter}');
+        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.saksmappetype\\.mappingString > .MuiAutocomplete-root > .MuiFormControl-root > .MuiInputBase-root').type('$vc{1}$if{ikke_feil}', {
+            parseSpecialCharSequences: false,
+            delay: 0
+        }).type('{enter}');
 
         cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.tittel\\.mappingString > .MuiFormControl-root > .MuiInputBase-root').clear()
         cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.tittel\\.mappingString > .MuiFormControl-root > .MuiInputBase-root').type('$if{test}', {
@@ -74,7 +83,10 @@ describe('Testing fill, validate and complete new configuration', () => {
         cy.get('#form-submit-btn').click()
         cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.arkivdel\\.mappingString > .MuiTypography-root').should("contain.text", "Feltet oppfyller ikke påkrevd format")
         cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.arkivdel\\.mappingString > .MuiAutocomplete-root > .MuiFormControl-root > .MuiInputBase-root').type('{backspace}');
-        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.arkivdel\\.mappingString > .MuiAutocomplete-root > .MuiFormControl-root > .MuiInputBase-root').type('$if{testy}', {parseSpecialCharSequences: false, delay: 0}).type('{enter}');
+        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.arkivdel\\.mappingString > .MuiAutocomplete-root > .MuiFormControl-root > .MuiInputBase-root').type('$if{testy}', {
+            parseSpecialCharSequences: false,
+            delay: 0
+        }).type('{enter}');
 
         cy.get('#form-submit-btn').click()
 

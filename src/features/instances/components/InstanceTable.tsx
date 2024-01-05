@@ -7,7 +7,6 @@ import {Box, HStack, Link, Modal, Pagination, Table} from "@navikt/ds-react";
 import moment from "moment";
 import {getSourceApplicationDisplayName} from "../../../util/DataGridUtil";
 import {IEvent} from "../types/Event";
-import {ClassNameMap} from "@mui/styles";
 import ErrorDialogComponent from "./ErrorDialogComponent";
 import InstancePanel from "./InstancePanel";
 import {GetIcon} from "../util/InstanceUtils";
@@ -17,7 +16,6 @@ import InstanceRepository from "../repository/InstanceRepository";
 type Props = {
     instances: IEvent[] | undefined;
     events: IEvent[] | undefined;
-    classes?: ClassNameMap;
 }
 
 const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
@@ -50,7 +48,8 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
                         <Table.Row>
                             <Table.HeaderCell/>
                             <Table.HeaderCell scope="col">{t('table.column.sourceApplicationId')}</Table.HeaderCell>
-                            <Table.HeaderCell scope="col">{t('table.column.sourceApplicationIntegrationIdDisplayName')}</Table.HeaderCell>
+                            <Table.HeaderCell
+                                scope="col">{t('table.column.sourceApplicationIntegrationIdDisplayName')}</Table.HeaderCell>
                             <Table.HeaderCell scope="col">{t('table.column.timestamp')}</Table.HeaderCell>
                             <Table.HeaderCell scope="col">{t('table.column.status')}</Table.HeaderCell>
                             <Table.HeaderCell scope="col">{t('table.column.actions')}</Table.HeaderCell>

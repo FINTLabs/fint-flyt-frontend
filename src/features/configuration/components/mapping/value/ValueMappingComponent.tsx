@@ -6,19 +6,17 @@ import DynamicStringValueComponent from "./string/DynamicStringValueComponent";
 import {Controller, ControllerFieldState, FieldValues, useFormContext} from "react-hook-form";
 import {ValueType as ConfigurationValueType} from "../../../types/Configuration";
 import {ValueType as MetadataValueType} from "../../../types/Metadata/IntegrationMetadata";
-import {ClassNameMap} from "@mui/styles";
 import {Search, SourceStatefulValue} from "../../../util/UrlUtils";
 import {ConfigurationContext} from "../../../../../context/ConfigurationContext";
 import {isOutsideCollectionEditContext} from "../../../util/KeyUtils";
 import {EditingContext} from "../../../../../context/EditingContext";
 import CheckboxValueComponent from "../../common/CheckboxValueComponent";
 import {ControllerRenderProps} from "react-hook-form/dist/types/controller";
-import HelpPopover from "../../common/popover/HelpPopover";
 import {hasValidFormat} from "../../../util/ValidationUtil";
 import DynamicChipComponent from "./string/DynamicChipComponent";
+import {HelpText, HStack} from "@navikt/ds-react";
 
 interface Props {
-    classes: ClassNameMap;
     order: number;
     absoluteKey: string;
     displayName: string;
@@ -51,7 +49,6 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
 
     type RenderProps = ControllerRenderProps<FieldValues, string> & {
         fieldState: ControllerFieldState | undefined,
-        classes: ClassNameMap,
         displayName: string,
         disabled: boolean
     }
@@ -83,16 +80,16 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
             case TemplateValueType.DYNAMIC_STRING:
                 setTypeIfUndefined(ConfigurationValueType.DYNAMIC_STRING);
                 return <DynamicStringValueComponent
-                        {...renderProps}
-                        search={search}
-                        accept={[
-                            MetadataValueType.STRING,
-                            MetadataValueType.INTEGER,
-                            MetadataValueType.EMAIL,
-                            MetadataValueType.DATE,
-                            MetadataValueType.PHONE
-                        ]}
-                    />
+                    {...renderProps}
+                    search={search}
+                    accept={[
+                        MetadataValueType.STRING,
+                        MetadataValueType.INTEGER,
+                        MetadataValueType.EMAIL,
+                        MetadataValueType.DATE,
+                        MetadataValueType.PHONE
+                    ]}
+                />
             case TemplateValueType.FILE:
                 setTypeIfUndefined(ConfigurationValueType.FILE);
                 return <DynamicChipComponent
@@ -110,19 +107,18 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
             validate: (value) => hasValidFormat(value, props.template.type, completeCheck)
         }}
         render={({field, fieldState}) =>
-            <div id={'value-mapping-wrapper-' + props.absoluteKey}
-                 className={props.classes.flexRowContainer}>
+            <HStack id={'value-mapping-wrapper-' + props.absoluteKey} align={"center"} gap={"2"}>
                 {createComponent({
                     ...field,
                     fieldState,
-                    classes: props.classes,
                     displayName: props.displayName,
                     disabled: props.disabled
                         || isOutsideCollectionEditContext(field.name, editCollectionAbsoluteKey)
                         || completed
                 })}
-                {props.description && <HelpPopover popoverContent={props.description}/>}
-            </div>
+                {props.description && <HelpText placement={"right"}>{props.description}</HelpText>
+                }
+            </HStack>
         }
     />
 }

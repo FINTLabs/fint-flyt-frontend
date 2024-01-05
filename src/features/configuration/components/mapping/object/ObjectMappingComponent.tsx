@@ -10,16 +10,14 @@ import {
 } from "../../../types/FormTemplate";
 import ValueMappingComponent from "../value/ValueMappingComponent";
 import SelectableValueMappingComponent from "../value/SelectableValueMappingComponent";
-import {ClassNameMap} from "@mui/styles";
 import ToggleButtonComponent from "../../common/ToggleButtonComponent";
 import {NestedElementsCallbacks} from "../../../types/NestedElement";
 import {DependencySatisfiedStatefulValue} from "../../../util/DependencyUtils";
 import {useFormContext} from "react-hook-form";
 import FieldsetElementComponent from "../../common/FieldsetElementComponent";
-import {Box} from "@mui/material";
+import {VStack} from "@navikt/ds-react";
 
 export interface Props {
-    classes: ClassNameMap;
     absoluteKey: string;
     template: IObjectTemplate;
     nestedElementCallbacks: NestedElementsCallbacks
@@ -91,7 +89,7 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
         }
     }
 
-    return <Box className={props.classes.fieldSet}>
+    return <VStack gap={"4"}>
         {[
             ...(props.template.valueTemplates ? props.template.valueTemplates : [])
                 .filter((template: IElementTemplate<IValueTemplate>) => {
@@ -100,7 +98,6 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                 .map<ReactElement<{ order: number }>>((template: IElementTemplate<IValueTemplate>, index) =>
                     <ValueMappingComponent
                         key={index}
-                        classes={props.classes}
                         order={template.order}
                         absoluteKey={getValueMappingKey(template)}
                         displayName={template.elementConfig.displayName}
@@ -117,7 +114,6 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                 .map<ReactElement<{ order: number }>>((template: IElementTemplate<ISelectableValueTemplate>, index) =>
                     <SelectableValueMappingComponent
                         key={index}
-                        classes={props.classes}
                         order={template.order}
                         absoluteKey={getValueMappingKey(template)}
                         displayName={template.elementConfig.displayName}
@@ -134,7 +130,6 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                 .map<ReactElement<{ order: number }>>((template: IElementTemplate<ICollectionTemplate<IValueTemplate>>, index) =>
                     <ToggleButtonComponent
                         key={index}
-                        classes={props.classes}
                         order={template.order}
                         displayName={template.elementConfig.displayName}
                         description={template.elementConfig.description}
@@ -163,7 +158,6 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                 .map<ReactElement<{ order: number }>>((template: IElementTemplate<IObjectTemplate>, index) =>
                     <ToggleButtonComponent
                         key={index}
-                        classes={props.classes}
                         order={template.order}
                         displayName={template.elementConfig.displayName}
                         description={template.elementConfig.description}
@@ -192,7 +186,6 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                 .map<ReactElement<{ order: number }>>((template: IElementTemplate<ICollectionTemplate<IObjectTemplate>>, index) =>
                     <ToggleButtonComponent
                         key={index}
-                        classes={props.classes}
                         order={template.order}
                         displayName={template.elementConfig.displayName}
                         description={template.elementConfig.description}
@@ -214,10 +207,9 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                     />
                 )
         ].sort((a: ReactElement<{ order: number }>, b: ReactElement<{ order: number }>) => a.props.order - b.props.order)
-            .map((reactElement: ReactElement, index: number) => <FieldsetElementComponent classes={props.classes}
-                                                                                          key={index}
+            .map((reactElement: ReactElement, index: number) => <FieldsetElementComponent key={index}
                                                                                           content={reactElement}/>)
         }
-    </Box>
+    </VStack>
 }
 export default ObjectMappingComponent;

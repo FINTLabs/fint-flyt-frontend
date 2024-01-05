@@ -10,7 +10,7 @@ describe('Testing create new configuration from new integration', () => {
     beforeEach(() => {
         cy.intercept('POST', '**/integrasjoner', {fixture: 'postFixture.json'}).as('postIntegration')
         cy.intercept('GET', '**/integrasjoner', {fixture: 'allIntegrations.json'}).as('getAllIntegrations')
-        cy.intercept('GET', '**/integrasjoner?side=0&sorteringFelt=state&sorteringRetning=ASC', {fixture: 'integrations.json'}).as('getIntegrations')
+        cy.intercept('GET', '**/integrasjoner?side=0&antall=1000&sorteringFelt=state&sorteringRetning=ASC', {fixture: 'integrations.json'}).as('getIntegrations')
         cy.intercept('GET', '**/historikk/statistikk/integrasjoner', {fixture: 'historikk.json'}).as('getHistory')
         cy.intercept('GET', '**/metadata?kildeapplikasjonId=2&bareSisteVersjoner=true', {fixture: 'metadataLatest.json'}).as('getLatestMetadata')
         cy.intercept('GET', '**/metadata?kildeapplikasjonId=*', {fixture: 'metadata.json'}).as('getMetadata')
@@ -48,7 +48,7 @@ describe('Testing create new configuration from new integration', () => {
         cy.get('#value-converting-panel').should("be.visible")
         cy.get('#outgoing-form-panel').should("be.visible")
 
-        cy.get('[id^="tag-"]').should('have.length', 16);
+        cy.get('#metadata-content-panel > .navds-vstack').children().should('have.length', 16);
     })
 
     it('should open panels in outgoing data', () => {
@@ -74,7 +74,7 @@ describe('Testing creating new and editing configurations from integration overv
 
     beforeEach(() => {
         cy.intercept('POST', '**/integrasjoner', {fixture: 'postFixture.json'}).as('postIntegration');
-        cy.intercept('GET', '**/integrasjoner?side=0&sorteringFelt=state&sorteringRetning=ASC', {fixture: 'integrationsInList.json'}).as('getIntegrations');
+        cy.intercept('GET', '**/integrasjoner?side=0&antall=1000&sorteringFelt=state&sorteringRetning=ASC', {fixture: 'integrationsInList.json'}).as('getIntegrations');
         cy.intercept('GET', '**/integrasjoner', {fixture: 'allIntegrations.json'}).as('getAllIntegrations');
         cy.intercept('GET', '**/historikk/statistikk/integrasjoner', {fixture: 'historikk.json'}).as('getHistory')
         cy.intercept('GET', '**/metadata?kildeapplikasjonId=*&bareSisteVersjoner=true', {fixture: 'metadataLatest.json'}).as('getLatestMetadata');
