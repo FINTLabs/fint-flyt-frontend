@@ -1,37 +1,38 @@
-import {Button, Card, CardActions, CardContent, Typography} from "@mui/material";
 import * as React from "react";
-import {Link as RouterLink} from "react-router-dom";
-import {ILink} from "./types/Link";
-import {ClassNameMap} from "@mui/styles";
+import { ILink } from "./types/Link";
+import { Box, Heading, BodyLong, Link } from "@navikt/ds-react";
+import { Link as RouterLink } from "react-router-dom";
 
 type Props = {
-    content: string
-    value: string
-    links?: ILink[],
-    id: string
-    classes: ClassNameMap
-}
+	content: string;
+	value: string;
+	links?: ILink[];
+	id: string;
+};
 
 const DashboardCard: React.FunctionComponent<Props> = (props: Props) => {
-    const classes = props.classes;
-
-    return (
-        <Card className={classes.card} sx={{minWidth: 200, maxWidth: 345, boxShadow: 'none', borderRadius: 2}}>
-            <CardContent>
-                <Typography>
-                    {props.value} {props.content}
-                </Typography>
-            </CardContent>
-            <CardActions>
-                {props.links && props.links.map((link: ILink, index: number) => {
-                    return (
-                        <Button key={index} id={props.id + `-btn-` + index} size="small" variant="text"
-                                component={RouterLink} to={link.href}>{link.name}</Button>
-                    )
-                })}
-            </CardActions>
-        </Card>
-    );
-}
+	return (
+		<Box
+			id={"support-information"}
+			background={"surface-default"}
+			align={"center"}
+			padding="6"
+			borderRadius={"large"}
+			borderWidth="2"
+			borderColor={"border-subtle"}
+		>
+			<Heading size="medium"> {props.value}</Heading>
+			<Heading size="small">{props.content}</Heading>
+			{props.links &&
+				props.links.map((link: ILink, index: number) => (
+					<BodyLong key={index} id={props.id + `-btn-` + index}>
+						<Link as={RouterLink} to={link.href}>
+							{link.name}
+						</Link>
+					</BodyLong>
+				))}
+		</Box>
+	);
+};
 
 export default DashboardCard;
