@@ -34,6 +34,12 @@ export const ABOUT_VERSIONS_NN =
 
 export const VERSION_DATA_NN: { heading: string; updates: string[] }[] = [
 	{
+		heading: "Versjon 05.01 - Januar 2024",
+		updates: [
+			"05.01 Nytt utseende på Dashbordet - Innhald frå supportsida ligg no her",
+		],
+	},
+	{
 		heading: "Versjon 27.12 - Desember 2023",
 		updates: [
 			"27.12 Lagt til støtte for engelsk språk i Flyt",
@@ -57,6 +63,12 @@ export const ABOUT_VERSIONS_EN =
 	"FLYT is under continuous development, with new functionality being added regularly and improvements to user experience based on user feedback. This page describes major changes and bug fixes in FLYT.";
 
 export const VERSION_DATA_EN: { heading: string; updates: string[] }[] = [
+	{
+		heading: "Version 05.01 - January 2024",
+		updates: [
+			"05.01 New look on the Dashboard - Content from the support page is now here",
+		],
+	},
 	{
 		heading: "Version 27.12 - December 2023",
 		updates: [
