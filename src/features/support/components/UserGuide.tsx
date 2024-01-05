@@ -3,12 +3,15 @@ import { Box, Label, Link, List, VStack } from "@navikt/ds-react";
 import { RouteComponent } from "../../../routes/Route";
 import { useTranslation } from "react-i18next";
 import { Link as RouterLink } from "react-router-dom";
-import {getUserGuideByLanguage, getWordListByLanguage} from "../util/SupportUtil";
+import {
+	getUserGuideByLanguage,
+	getWordListByLanguage,
+} from "../util/SupportUtil";
 import PageTemplate from "../../../components/templates/PageTemplate";
 
 const UserGuide: RouteComponent = () => {
 	const { t } = useTranslation("translations", { keyPrefix: "pages.support" });
-	const {i18n} = useTranslation();
+	const { i18n } = useTranslation();
 
 	return (
 		<PageTemplate id={"user-guide"} keyPrefix={"pages.support"}>
@@ -23,17 +26,17 @@ const UserGuide: RouteComponent = () => {
 				>
 					<Label>{t("userGuide")}</Label>
 					<List as="ul" id={"guide-list"}>
-						{(getUserGuideByLanguage(i18n.language)).map((item, index) => {
+						{getUserGuideByLanguage(i18n.language).map((item, index) => {
 							return <List.Item key={index}>{item}</List.Item>;
 						})}
 					</List>
 					<Label>{t("wordList")}</Label>
 					<List as="ul" id={"guide-dictionary"}>
-						{(getWordListByLanguage(i18n.language)).map((item, index) => {
+						{getWordListByLanguage(i18n.language).map((item, index) => {
 							return <List.Item key={index}>{item}</List.Item>;
 						})}
 					</List>
-					<Link as={RouterLink} to={"/support"} id={"back-link"}>
+					<Link as={RouterLink} to={"/"} id={"back-link"}>
 						{t("back")}
 					</Link>
 				</Box>

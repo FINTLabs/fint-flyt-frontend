@@ -5,23 +5,22 @@ import Configuration from "../components/pages/Configuration";
 import UserGuide from "../features/support/components/UserGuide";
 import Version from "../components/pages/Version";
 import ValueConverting from "../components/pages/ValueConverting";
-import Support from "../components/pages/Support";
 import Instances from "../components/pages/Instances";
 import Integrations from "../components/pages/Integrations";
 
 const routes: IRoute[] = [
-    {
-        path: "/",
-        name: "dashboard",
-        component: Dashboard,
-        exact: true,
-        inNavigationMenu: true,
-    },
-    {
-        path: "/integration/new",
-        name: "integration",
-        component: IntegrationForm,
-        exact: true,
+	{
+		path: "/",
+		name: "dashboard",
+		component: Dashboard,
+		exact: true,
+		inNavigationMenu: true,
+	},
+	{
+		path: "/integration/new",
+		name: "integration",
+		component: IntegrationForm,
+		exact: true,
 
         inNavigationMenu: true,
     },
@@ -73,13 +72,6 @@ const routes: IRoute[] = [
         path: "/valueconverting",
         name: "valueConverting",
         component: ValueConverting,
-        exact: true,
-        inNavigationMenu: true,
-    },
-    {
-        path: "/support",
-        name: "support",
-        component: Support,
         exact: true,
         inNavigationMenu: true,
     },
