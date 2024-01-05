@@ -1,6 +1,7 @@
 import * as React from "react";
 import { ILink } from "./types/Link";
 import { Box, Heading, BodyLong, Link } from "@navikt/ds-react";
+import { Link as RouterLink } from "react-router-dom";
 
 type Props = {
 	content: string;
@@ -25,7 +26,9 @@ const DashboardCard: React.FunctionComponent<Props> = (props: Props) => {
 			{props.links &&
 				props.links.map((link: ILink, index: number) => (
 					<BodyLong key={index} id={props.id + `-btn-` + index}>
-						<Link href={link.href}>{link.name}</Link>
+						<Link as={RouterLink} to={link.href}>
+							{link.name}
+						</Link>
 					</BodyLong>
 				))}
 		</Box>
