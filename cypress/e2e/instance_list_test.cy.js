@@ -34,8 +34,8 @@ describe('Testing instance list', () => {
         cy.viewport(3000, 2000)
         cy.get(':nth-child(1) > .navds-table__toggle-expand-cell > .navds-table__toggle-expand-button').click()
         cy.get(':nth-child(3) > .navds-table__toggle-expand-cell > .navds-table__toggle-expand-button').click()
-        cy.get('#rl > .navds-table__expanded-row-cell > .navds-table__expanded-row-collapse > .navds-table__expanded-row-content > #instance-panel').should('contain.text', '02/06/23 13:40')
-        cy.get('#rl > .navds-table__expanded-row-cell > .navds-table__expanded-row-collapse > .navds-table__expanded-row-content > #instance-panel').should('contain.text', 'Instans registrert')
+        cy.get('#instance-panel > .navds-table > .navds-table__body > :nth-child(1) > :nth-child(1)').should('contain.text', '02/06/23 13:40')
+        cy.get('#instance-panel > .navds-table > .navds-table__body > :nth-child(3) > :nth-child(2)').should('contain.text', 'Instans registrert')
     })
 
     it('it should open error panel and show correct errors', () => {

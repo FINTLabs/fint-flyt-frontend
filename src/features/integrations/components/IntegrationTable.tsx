@@ -48,7 +48,7 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
                         {sortData?.map((value, i) => {
                             return (
                                 <Table.ExpandableRow key={i} content={
-                                    <IntegrationPanel
+                                    <IntegrationPanel id={'panel-' + i}
                                         draftC={props.allConfigs.filter((config) => config.integrationId === value.id)}
                                         completedC={props.allCompletedConfigs.filter((config) => config.integrationId === value.id)}
                                         integration={value}
