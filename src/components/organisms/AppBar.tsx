@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import { LanguageIcon } from '@navikt/aksel-icons';
 import {useTranslation} from "react-i18next";
 import {changeLanguage} from "i18next";
+import { ReactComponent as Logo } from '../../images/fint-by-novari.svg'; // Import the SVG file
 
 export const AppBar = () => {
 	const history = useHistory();
@@ -17,14 +18,11 @@ export const AppBar = () => {
 				onClick={() => {
 					history.push("/");
 				}}
-				icon={
-					<img
-						src="https://cdn.flais.io/media/fint-by-vigo-white.svg"
-						alt="logo"
-						style={{ width: 80, marginRight: "32px", marginBottom: "8px" }}
-					/>
-				}
-			/>
+			>
+				<Logo
+					style={{ width: 80, height: 60, marginRight: "8px" }}
+				/>
+			</Button>
 			<MenuItems />
 			<Spacer/>
 			<Dropdown>
