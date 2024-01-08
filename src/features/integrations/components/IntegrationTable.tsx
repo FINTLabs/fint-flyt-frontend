@@ -5,7 +5,7 @@ import {
     getSourceApplicationDisplayName,
     getStateDisplayName,
 } from "../../../util/DataGridUtil";
-import {Box, HStack, Pagination, Table} from "@navikt/ds-react";
+import {Box, HStack, Pagination, SortState, Table} from "@navikt/ds-react";
 import IntegrationPanel from "./IntegrationPanel";
 import {IIntegration} from "../../integration/types/Integration";
 import {useTranslation} from "react-i18next";
@@ -21,50 +21,90 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
     const {t} = useTranslation('translations', {keyPrefix: 'pages.integrations.table'})
     const [page, setPage] = useState(1);
     const rowsPerPage = 14;
+    const [sort, setSort] = useState<SortState>({orderBy: 'id', direction: "descending"});
 
     let sortData = props.integrations ?? [];
     sortData = sortData.slice((page - 1) * rowsPerPage, page * rowsPerPage);
 
+    const handleSort = (sortKey: string) => {
+        setSort(
+            sort && sortKey === sort.orderBy && sort.direction === "descending"
+                ? {orderBy: 'id', direction: 'ascending'}
+                : {
+                    orderBy: sortKey,
+                    direction:
+                        sort && sortKey === sort.orderBy && sort.direction === "ascending"
+                            ? "descending"
+                            : "ascending",
+                }
+        );
+    };
+
+
+    // @ts-ignore
+    const comparator = (a, b, orderBy) => {
+        if (b[orderBy] < a[orderBy] || b[orderBy] === undefined) {
+            return -1;
+        }
+        if (b[orderBy] > a[orderBy]) {
+            return 1;
+        }
+        return 0;
+    };
+
+
+    const sortedData = sortData.slice().sort((a, b) => {
+        if (sort) {
+            return sort.direction === "ascending"
+                ? comparator(b, a, sort.orderBy)
+                : comparator(a, b, sort.orderBy);
+        }
+        return 1;
+    });
+
+
     return (
         <Box>
             <Box background={'surface-default'} style={{height: '70vh', overflowY: "scroll"}}>
-                <Table id={"integration-table"} size={"small"}>
+                <Table sort={sort} onSortChange={(sortKey) => handleSort(sortKey ? sortKey : 'id')} id={"integration-table"} size={"small"}>
                     <Table.Header>
                         <Table.Row>
                             <Table.ColumnHeader/>
-                            <Table.ColumnHeader>{t('column.id')}</Table.ColumnHeader>
+                            <Table.ColumnHeader sortKey="id" sortable>{t('column.id')}</Table.ColumnHeader>
                             <Table.ColumnHeader>{t('column.sourceApplicationId')}</Table.ColumnHeader>
                             <Table.ColumnHeader
                                  >{t('column.sourceApplicationIntegrationId')}</Table.ColumnHeader>
                             <Table.ColumnHeader
                                  >{t('column.sourceApplicationIntegrationIdDisplayName')}</Table.ColumnHeader>
                             <Table.ColumnHeader>{t('column.destination')}</Table.ColumnHeader>
-                            <Table.ColumnHeader>{t('column.state')}</Table.ColumnHeader>
+                            <Table.ColumnHeader sortKey="state" sortable>{t('column.state')}</Table.ColumnHeader>
                             <Table.ColumnHeader>{t('column.dispatched')}</Table.ColumnHeader>
                             <Table.ColumnHeader>{t('column.errors')}</Table.ColumnHeader>
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                        {sortData?.map((value, i) => {
+                        {sortedData?.map(({ id, sourceApplicationId, sourceApplicationIntegrationId, displayName,
+                                            destination, state, dispatched, errors }, i) => {
                             return (
                                 <Table.ExpandableRow key={i} content={
                                     <IntegrationPanel id={'panel-' + i}
-                                        draftC={props.allConfigs.filter((config) => config.integrationId === value.id)}
-                                        completedC={props.allCompletedConfigs.filter((config) => config.integrationId === value.id)}
-                                        integration={value}
+                                        draftC={props.allConfigs.filter((config) => config.integrationId === id)}
+                                        completedC={props.allCompletedConfigs.filter((config) => config.integrationId === id)}
+                                        integration={{id, sourceApplicationId, sourceApplicationIntegrationId, displayName,
+                                            destination, state, dispatched, errors}}
                                     />}
                                 >
-                                    <Table.DataCell>{value.id}</Table.DataCell>
+                                    <Table.DataCell>{id}</Table.DataCell>
                                     <Table.DataCell
-                                        scope="row">{getSourceApplicationDisplayName(Number(value.sourceApplicationId))}</Table.DataCell>
-                                    <Table.DataCell>{value.sourceApplicationIntegrationId}</Table.DataCell>
-                                    <Table.DataCell>{value.displayName}</Table.DataCell>
-                                    <Table.DataCell>{getDestinationDisplayName(value.destination ?? '')}</Table.DataCell>
+                                        scope="row">{getSourceApplicationDisplayName(Number(sourceApplicationId))}</Table.DataCell>
+                                    <Table.DataCell>{sourceApplicationIntegrationId}</Table.DataCell>
+                                    <Table.DataCell>{displayName}</Table.DataCell>
+                                    <Table.DataCell>{getDestinationDisplayName(destination ?? '')}</Table.DataCell>
                                     <Table.DataCell>
-                                        {getStateDisplayName(value.state ?? '')}
+                                        {getStateDisplayName(state ?? '')}
                                     </Table.DataCell>
-                                    <Table.DataCell>{value.dispatched}</Table.DataCell>
-                                    <Table.DataCell>{value.errors}</Table.DataCell>
+                                    <Table.DataCell>{dispatched}</Table.DataCell>
+                                    <Table.DataCell>{errors}</Table.DataCell>
                                 </Table.ExpandableRow>
                             );
                         })}
