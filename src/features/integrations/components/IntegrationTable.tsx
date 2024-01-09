@@ -20,8 +20,8 @@ type IntegrationProps = {
 const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: IntegrationProps) => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.integrations.table'})
     const [page, setPage] = useState(1);
-    const rowsPerPage = 6;
-    const [sort, setSort] = useState<SortState>({orderBy: 'id', direction: "descending"});
+    const rowsPerPage = 14;
+    const [sort, setSort] = useState<SortState>({orderBy: 'stace', direction: "ascending"});
     const [tableData, setTableData] = useState<IIntegration[]>(props.integrations ?? [])
     const [currentSortedData, setCurrentSortedData] = useState<IIntegration[]>(props.integrations ?? [])
 
@@ -37,7 +37,6 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
 
 
     const handleSort = (sortKey: string) => {
-        console.log("handleSort, sortkey: ", sortKey)
         setSort(
             sort && sortKey === sort.orderBy && sort.direction === "descending"
                 ? {orderBy: 'id', direction: 'ascending'}
@@ -62,7 +61,6 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
         setTableData(newData.slice((page - 1) * rowsPerPage, page * rowsPerPage))
     };
 
-
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const comparator = (a, b, orderBy) => {
@@ -85,13 +83,12 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
                             <Table.ColumnHeader/>
                             <Table.ColumnHeader sortKey="id" sortable>{t('column.id')}</Table.ColumnHeader>
                             <Table.ColumnHeader>{t('column.sourceApplicationId')}</Table.ColumnHeader>
-                            <Table.ColumnHeader
-                            >{t('column.sourceApplicationIntegrationId')}</Table.ColumnHeader>
-                            <Table.ColumnHeader
+                            <Table.ColumnHeader>{t('column.sourceApplicationIntegrationId')}</Table.ColumnHeader>
+                            <Table.ColumnHeader sortKey="displayName" sortable
                             >{t('column.sourceApplicationIntegrationIdDisplayName')}</Table.ColumnHeader>
                             <Table.ColumnHeader>{t('column.destination')}</Table.ColumnHeader>
                             <Table.ColumnHeader sortKey="state" sortable>{t('column.state')}</Table.ColumnHeader>
-                            <Table.ColumnHeader>{t('column.dispatched')}</Table.ColumnHeader>
+                            <Table.ColumnHeader sortKey="dispatched" sortable>{t('column.dispatched')}</Table.ColumnHeader>
                             <Table.ColumnHeader>{t('column.errors')}</Table.ColumnHeader>
                         </Table.Row>
                     </Table.Header>
