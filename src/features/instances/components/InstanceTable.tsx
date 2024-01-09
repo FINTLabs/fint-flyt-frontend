@@ -2,7 +2,7 @@ import {GridCellParams} from "@mui/x-data-grid";
 import * as React from "react";
 import {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
-import {Box, HStack, Link, Modal, Pagination, Table} from "@navikt/ds-react";
+import {Box, HStack, Link, Loader, Modal, Pagination, Table} from "@navikt/ds-react";
 
 import moment from "moment";
 import {getSourceApplicationDisplayName, Page} from "../../../util/DataGridUtil";
@@ -88,7 +88,7 @@ const InstanceTable: React.FunctionComponent = () => {
 
     console.log(tableData)
 
-    return (
+    return instancesPage && instancesPage?.content?.length > 0 ? (
         <Box>
             <Box background={'surface-default'} style={{height: '70vh', overflowY: "scroll"}}>
                 <ErrorAlertDialog row={selectedRow}/>
@@ -152,7 +152,7 @@ const InstanceTable: React.FunctionComponent = () => {
                     />}
             </HStack>
         </Box>
-    );
+    ) : <Loader/>;
 
     function ErrorAlertDialog(props: GridCellParams['row']) {
         return (
