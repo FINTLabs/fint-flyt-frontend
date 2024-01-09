@@ -1,5 +1,5 @@
 import * as React from "react";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {
     getDestinationDisplayName,
     getSourceApplicationDisplayName,
@@ -20,13 +20,24 @@ type IntegrationProps = {
 const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: IntegrationProps) => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.integrations.table'})
     const [page, setPage] = useState(1);
-    const rowsPerPage = 14;
+    const rowsPerPage = 6;
     const [sort, setSort] = useState<SortState>({orderBy: 'id', direction: "descending"});
+    const [tableData, setTableData] = useState<IIntegration[]>(props.integrations ?? [])
+    const [currentSortedData, setCurrentSortedData] = useState<IIntegration[]>(props.integrations ?? [])
 
-    let sortData = props.integrations ?? [];
-    sortData = sortData.slice((page - 1) * rowsPerPage, page * rowsPerPage);
+    useEffect(() => {
+        setTableData(currentSortedData
+            .slice((page - 1) * rowsPerPage, page * rowsPerPage))
+    }, [])
+
+
+    useEffect(() => {
+        setTableData(currentSortedData.slice((page - 1) * rowsPerPage, page * rowsPerPage))
+    }, [page, setPage])
+
 
     const handleSort = (sortKey: string) => {
+        console.log("handleSort, sortkey: ", sortKey)
         setSort(
             sort && sortKey === sort.orderBy && sort.direction === "descending"
                 ? {orderBy: 'id', direction: 'ascending'}
@@ -38,9 +49,21 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
                             : "ascending",
                 }
         );
+        const newData = props.integrations
+            .slice().sort((a, b) => {
+                if (sort) {
+                    return sort.direction === "ascending"
+                        ? comparator(b, a, sort.orderBy)
+                        : comparator(a, b, sort.orderBy);
+                }
+                return 1;
+            })
+        setCurrentSortedData(newData)
+        setTableData(newData.slice((page - 1) * rowsPerPage, page * rowsPerPage))
     };
 
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const comparator = (a, b, orderBy) => {
         if (b[orderBy] < a[orderBy] || b[orderBy] === undefined) {
@@ -53,16 +76,6 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
     };
 
 
-    const sortedData = sortData.slice().sort((a, b) => {
-        if (sort) {
-            return sort.direction === "ascending"
-                ? comparator(b, a, sort.orderBy)
-                : comparator(a, b, sort.orderBy);
-        }
-        return 1;
-    });
-
-
     return (
         <Box>
             <Box background={'surface-default'} style={{height: '70vh', overflowY: "scroll"}}>
@@ -73,9 +86,9 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
                             <Table.ColumnHeader sortKey="id" sortable>{t('column.id')}</Table.ColumnHeader>
                             <Table.ColumnHeader>{t('column.sourceApplicationId')}</Table.ColumnHeader>
                             <Table.ColumnHeader
-                                 >{t('column.sourceApplicationIntegrationId')}</Table.ColumnHeader>
+                            >{t('column.sourceApplicationIntegrationId')}</Table.ColumnHeader>
                             <Table.ColumnHeader
-                                 >{t('column.sourceApplicationIntegrationIdDisplayName')}</Table.ColumnHeader>
+                            >{t('column.sourceApplicationIntegrationIdDisplayName')}</Table.ColumnHeader>
                             <Table.ColumnHeader>{t('column.destination')}</Table.ColumnHeader>
                             <Table.ColumnHeader sortKey="state" sortable>{t('column.state')}</Table.ColumnHeader>
                             <Table.ColumnHeader>{t('column.dispatched')}</Table.ColumnHeader>
@@ -83,15 +96,15 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                        {sortedData?.map(({ id, sourceApplicationId, sourceApplicationIntegrationId, displayName,
-                                            destination, state, dispatched, errors }, i) => {
+                        {tableData?.map(({ id, sourceApplicationId, sourceApplicationIntegrationId, displayName,
+                                             destination, state, dispatched, errors }, i) => {
                             return (
                                 <Table.ExpandableRow key={i} content={
                                     <IntegrationPanel id={'panel-' + i}
-                                        draftC={props.allConfigs.filter((config) => config.integrationId === id)}
-                                        completedC={props.allCompletedConfigs.filter((config) => config.integrationId === id)}
-                                        integration={{id, sourceApplicationId, sourceApplicationIntegrationId, displayName,
-                                            destination, state, dispatched, errors}}
+                                                      draftC={props.allConfigs.filter((config) => config.integrationId === id)}
+                                                      completedC={props.allCompletedConfigs.filter((config) => config.integrationId === id)}
+                                                      integration={{id, sourceApplicationId, sourceApplicationIntegrationId, displayName,
+                                                          destination, state, dispatched, errors}}
                                     />}
                                 >
                                     <Table.DataCell>{id}</Table.DataCell>
