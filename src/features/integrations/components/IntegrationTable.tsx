@@ -1,10 +1,11 @@
 import * as React from "react";
 import {useEffect, useState} from "react";
 import {
+    comparator,
     getDestinationDisplayName,
     getSourceApplicationDisplayName,
     getStateDisplayName,
-} from "../../../util/DataGridUtil";
+} from "../../../util/TableUtil";
 import {Box, HStack, Pagination, SortState, Table} from "@navikt/ds-react";
 import IntegrationPanel from "./IntegrationPanel";
 import {IIntegration} from "../../integration/types/Integration";
@@ -21,7 +22,7 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
     const {t} = useTranslation('translations', {keyPrefix: 'pages.integrations.table'})
     const [page, setPage] = useState(1);
     const rowsPerPage = 14;
-    const [sort, setSort] = useState<SortState>({orderBy: 'stace', direction: "ascending"});
+    const [sort, setSort] = useState<SortState | undefined>({orderBy: 'state', direction: "ascending"});
     const [tableData, setTableData] = useState<IIntegration[]>(props.integrations ?? [])
     const [currentSortedData, setCurrentSortedData] = useState<IIntegration[]>(props.integrations ?? [])
 
@@ -30,47 +31,38 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
             .slice((page - 1) * rowsPerPage, page * rowsPerPage))
     }, [])
 
-
     useEffect(() => {
         setTableData(currentSortedData.slice((page - 1) * rowsPerPage, page * rowsPerPage))
     }, [page, setPage])
 
-
-    const handleSort = (sortKey: string) => {
-        setSort(
-            sort && sortKey === sort.orderBy && sort.direction === "descending"
-                ? {orderBy: 'id', direction: 'ascending'}
-                : {
-                    orderBy: sortKey,
-                    direction:
-                        sort && sortKey === sort.orderBy && sort.direction === "ascending"
-                            ? "descending"
-                            : "ascending",
-                }
-        );
+    useEffect(() => {
         const newData = props.integrations
-            .slice().sort((a, b) => {
+            .slice()
+            .sort((a, b) => {
                 if (sort) {
                     return sort.direction === "ascending"
                         ? comparator(b, a, sort.orderBy)
                         : comparator(a, b, sort.orderBy);
                 }
                 return 1;
-            })
-        setCurrentSortedData(newData)
-        setTableData(newData.slice((page - 1) * rowsPerPage, page * rowsPerPage))
-    };
+            });
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const comparator = (a, b, orderBy) => {
-        if (b[orderBy] < a[orderBy] || b[orderBy] === undefined) {
-            return -1;
-        }
-        if (b[orderBy] > a[orderBy]) {
-            return 1;
-        }
-        return 0;
+        setCurrentSortedData(newData);
+        setTableData(newData.slice((page - 1) * rowsPerPage, page * rowsPerPage));
+    }, [sort]);
+
+    const handleSort = (sortKey: string) => {
+        setSort(prevSort => {
+            return prevSort && sortKey === prevSort.orderBy && prevSort.direction === "descending"
+                ? undefined
+                : {
+                    orderBy: sortKey,
+                    direction:
+                        prevSort && sortKey === prevSort.orderBy && prevSort.direction === "ascending"
+                            ? "descending"
+                            : "ascending",
+                };
+        });
     };
 
 
@@ -88,7 +80,7 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
                             >{t('column.sourceApplicationIntegrationIdDisplayName')}</Table.ColumnHeader>
                             <Table.ColumnHeader>{t('column.destination')}</Table.ColumnHeader>
                             <Table.ColumnHeader sortKey="state" sortable>{t('column.state')}</Table.ColumnHeader>
-                            <Table.ColumnHeader sortKey="dispatched" sortable>{t('column.dispatched')}</Table.ColumnHeader>
+                            <Table.ColumnHeader>{t('column.dispatched')}</Table.ColumnHeader>
                             <Table.ColumnHeader>{t('column.errors')}</Table.ColumnHeader>
                         </Table.Row>
                     </Table.Header>

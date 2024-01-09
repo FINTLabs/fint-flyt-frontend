@@ -5,7 +5,7 @@ import {useTranslation} from "react-i18next";
 import {Box, HStack, Link, Modal, Pagination, Table} from "@navikt/ds-react";
 
 import moment from "moment";
-import {getSourceApplicationDisplayName} from "../../../util/DataGridUtil";
+import {getSourceApplicationDisplayName} from "../../../util/TableUtil";
 import {IEvent} from "../types/Event";
 import ErrorDialogComponent from "./ErrorDialogComponent";
 import InstancePanel from "./InstancePanel";
