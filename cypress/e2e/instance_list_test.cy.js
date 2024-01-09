@@ -2,10 +2,10 @@ describe('Testing instance list', () => {
     beforeEach(() => {
         cy.intercept('GET', '**/intern/integrasjoner', { fixture: 'integrations.json' }).as('getIntegrations')
         cy.intercept('GET', '**/metadata?kildeapplikasjonId=*&bareSisteVersjoner=true', { fixture: 'metadataLatest.json' }).as('getLatestMetadata')
-        cy.intercept('GET', '**/historikk/hendelser?side=0&antall=1000&sorteringFelt=timestamp&sorteringRetning=DESC&bareSistePerInstans=*', { fixture: 'hendelser.json' }).as('getHendelser')
+        cy.intercept('GET', '**/historikk/hendelser?side=0&antall=8&sorteringFelt=timestamp&sorteringRetning=DESC&bareSistePerInstans=*', { fixture: 'hendelser.json' }).as('getHendelser')
         cy.intercept('GET', '**/metadata?kildeapplikasjonId=*&bareSisteVersjoner=false', { fixture: 'metadata1.json' }).as('getMetadata1')
-        cy.intercept('GET', '**/historikk/hendelser?side=0&antall=1000&sorteringFelt=timestamp&sorteringRetning=DESC&kildeapplikasjonId=2&kildeapplikasjonInstansId=1515557', { fixture: 'instansHendelser.json' }).as('getInstansHendelser')
-        cy.intercept('GET', '**/historikk/hendelser?side=0&antall=1000&sorteringFelt=timestamp&sorteringRetning=DESC&bareSistePerInstans=false', { fixture: 'instansHendelser.json' }).as('getInstansHendelser')
+        cy.intercept('GET', '**/historikk/hendelser?side=0&antall=8&sorteringFelt=timestamp&sorteringRetning=DESC&kildeapplikasjonId=2&kildeapplikasjonInstansId=1515557', { fixture: 'instansHendelser.json' }).as('getInstansHendelser')
+        cy.intercept('GET', '**/historikk/hendelser?side=0&antall=8&sorteringFelt=timestamp&sorteringRetning=DESC&bareSistePerInstans=false', { fixture: 'instansHendelser.json' }).as('getInstansHendelser')
         cy.intercept('POST', '**/handlinger/instanser/44/prov-igjen', {statusCode: 200}).as('postRetry')
     })
 

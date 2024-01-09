@@ -1,17 +1,23 @@
 import {GridCellParams} from "@mui/x-data-grid";
 import * as React from "react";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {Box, HStack, Link, Modal, Pagination, Table} from "@navikt/ds-react";
 
 import moment from "moment";
-import {getSourceApplicationDisplayName} from "../../../util/DataGridUtil";
+import {getSourceApplicationDisplayName, Page} from "../../../util/DataGridUtil";
 import {IEvent} from "../types/Event";
 import ErrorDialogComponent from "./ErrorDialogComponent";
 import InstancePanel from "./InstancePanel";
 import {GetIcon} from "../util/InstanceUtils";
 import {Button as ButtonAks} from "@navikt/ds-react/esm/button";
 import InstanceRepository from "../repository/InstanceRepository";
+import EventRepository from "../../../api/EventRepository";
+import {addId} from "../../../util/JsonUtil";
+import {sourceApplications} from "../../configuration/defaults/DefaultValues";
+import SourceApplicationRepository from "../../../api/SourceApplicationRepository";
+import {processEvents} from "../../../util/EventUtil";
+import {IIntegrationMetadata} from "../../configuration/types/Metadata/IntegrationMetadata";
 
 type Props = {
     instances: IEvent[] | undefined;
@@ -23,11 +29,75 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
     const [selectedRow, setSelectedRow] = useState<IEvent>();
     const [openDialog, setOpenDialog] = React.useState(false);
     const [page, setPage] = useState(1);
-    const rowsPerPage = 12;
     const errorsNotForRetry: string[] = ['instance-receival-error', 'instance-registration-error']
+    const [sortData, setSortData] = useState<IEvent[]>([])
+    const [eventsPage, setEventsPage] = useState<Page<IEvent>>()
+    const [instancesPage, setInstancesPage] = useState<Page<IEvent>>()
 
-    let sortData = props.instances ?? [];
-    sortData = sortData.slice((page - 1) * rowsPerPage, page * rowsPerPage);
+    useEffect(() => {
+        getLatestInstances(page-1, 8, "timestamp", "DESC");
+        getEvents(page-1, 8, "timestamp", "DESC")
+    }, [])
+
+    const getEvents = (page: number, size: number, sortProperty: string, sortDirection: string) => {
+        setEventsPage({content: []});
+        EventRepository.getEvents(page, size, sortProperty, sortDirection)
+            .then((response) => {
+                const data = response.data;
+                if (data) {
+                    data.content.forEach(addId(0, 'name'))
+                    data.content.forEach((event: IEvent) =>
+                        event.errors.forEach(addId(0, 'errorCode'))
+                    );
+                    setEventsPage(data);
+                }
+            })
+            .catch(e => {
+                console.error('Error: ', e)
+            })
+    }
+
+    const getLatestInstances = async (page: number, size: number, sortProperty: string, sortDirection: string) => {
+        try {
+            const allMetadata = []
+
+            for (const sourceApplication of sourceApplications) {
+                const metadataResponse = await SourceApplicationRepository.getMetadata(sourceApplication.value, true);
+                allMetadata.push(metadataResponse.data)
+            }
+
+            const metadata = allMetadata.reduce((acc, currentArray) => [...acc, ...currentArray], []) || [];
+
+            const eventResponse = await EventRepository.getLatestEvents(page, size, sortProperty, sortDirection)
+            const events: Page<IEvent> = eventResponse.data;
+            if (metadata && events) {
+                const processedEvents = processEvents(events, metadata)
+                metadata.forEach((value: IIntegrationMetadata) => {
+                    processedEvents.content.forEach((event: IEvent) => {
+                        if (event.instanceFlowHeaders.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {
+                            event.displayName = value.integrationDisplayName;
+                        }
+                    });
+                });
+                setInstancesPage(processedEvents);
+            } else {
+                setInstancesPage({content: []});
+            }
+        }
+        catch (e) {
+            setInstancesPage({content: []});
+            console.error('Error: ', e);
+        }
+    }
+
+    useEffect(() => {
+        getLatestInstances(page-1, 8, "timestamp", "DESC");
+        getEvents(page-1, 8, "timestamp", "DESC")
+    }, [page, setPage])
+
+    useEffect(() => {
+        setSortData(instancesPage?.content ?? [])
+    }, [eventsPage, instancesPage])
 
     const resend = (instanceId: string) => {
         InstanceRepository.resendInstance(instanceId)
@@ -38,6 +108,10 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
                 console.error(e)
             })
     }
+
+    console.log(instancesPage, eventsPage, sortData)
+
+    console.log(instancesPage?.totalElements, sortData.length, Math.ceil((instancesPage?.numberOfElements ?? sortData.length) / sortData.length))
 
     return (
         <Box>
@@ -93,11 +167,11 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
                 </Table>
             </Box>
             <HStack justify={"center"}>
-                {props.instances && props.instances.length > rowsPerPage &&
+                {sortData && instancesPage?.totalElements && instancesPage?.totalElements > page &&
                     <Pagination
                         page={page}
                         onPageChange={setPage}
-                        count={Math.ceil(props.instances.length / rowsPerPage)}
+                        count={instancesPage?.totalPages ?? 1}
                         size="small"
                     />}
             </HStack>
