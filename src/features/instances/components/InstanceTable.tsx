@@ -13,49 +13,24 @@ import {GetIcon} from "../util/InstanceUtils";
 import {Button as ButtonAks} from "@navikt/ds-react/esm/button";
 import InstanceRepository from "../repository/InstanceRepository";
 import EventRepository from "../../../api/EventRepository";
-import {addId} from "../../../util/JsonUtil";
 import {sourceApplications} from "../../configuration/defaults/DefaultValues";
 import SourceApplicationRepository from "../../../api/SourceApplicationRepository";
 import {processEvents} from "../../../util/EventUtil";
 import {IIntegrationMetadata} from "../../configuration/types/Metadata/IntegrationMetadata";
 
-type Props = {
-    instances: IEvent[] | undefined;
-    events: IEvent[] | undefined;
-}
 
-const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
+const InstanceTable: React.FunctionComponent = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.instances'})
     const [selectedRow, setSelectedRow] = useState<IEvent>();
     const [openDialog, setOpenDialog] = React.useState(false);
     const [page, setPage] = useState(1);
     const errorsNotForRetry: string[] = ['instance-receival-error', 'instance-registration-error']
-    const [sortData, setSortData] = useState<IEvent[]>([])
-    const [eventsPage, setEventsPage] = useState<Page<IEvent>>()
     const [instancesPage, setInstancesPage] = useState<Page<IEvent>>()
+    const [tableData, setTableData] = useState<IEvent[]>()
 
     useEffect(() => {
         getLatestInstances(page-1, 8, "timestamp", "DESC");
-        getEvents(page-1, 8, "timestamp", "DESC")
     }, [])
-
-    const getEvents = (page: number, size: number, sortProperty: string, sortDirection: string) => {
-        setEventsPage({content: []});
-        EventRepository.getEvents(page, size, sortProperty, sortDirection)
-            .then((response) => {
-                const data = response.data;
-                if (data) {
-                    data.content.forEach(addId(0, 'name'))
-                    data.content.forEach((event: IEvent) =>
-                        event.errors.forEach(addId(0, 'errorCode'))
-                    );
-                    setEventsPage(data);
-                }
-            })
-            .catch(e => {
-                console.error('Error: ', e)
-            })
-    }
 
     const getLatestInstances = async (page: number, size: number, sortProperty: string, sortDirection: string) => {
         try {
@@ -88,16 +63,18 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
             setInstancesPage({content: []});
             console.error('Error: ', e);
         }
+
+
     }
 
     useEffect(() => {
+        setInstancesPage({content: []})
         getLatestInstances(page-1, 8, "timestamp", "DESC");
-        getEvents(page-1, 8, "timestamp", "DESC")
     }, [page, setPage])
 
     useEffect(() => {
-        setSortData(instancesPage?.content ?? [])
-    }, [eventsPage, instancesPage])
+        setTableData(instancesPage?.content ?? [])
+    }, [instancesPage, setInstancesPage])
 
     const resend = (instanceId: string) => {
         InstanceRepository.resendInstance(instanceId)
@@ -109,9 +86,7 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
             })
     }
 
-    console.log(instancesPage, eventsPage, sortData)
-
-    console.log(instancesPage?.totalElements, sortData.length, Math.ceil((instancesPage?.numberOfElements ?? sortData.length) / sortData.length))
+    console.log(tableData)
 
     return (
         <Box>
@@ -131,10 +106,11 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                        {sortData?.map((value, i) => {
+                        {instancesPage?.content?.map((value, i) => {
                             return (
                                 <Table.ExpandableRow key={i} content={<InstancePanel
-                                    instancesOnId={props.events?.filter((event) => event.instanceFlowHeaders.sourceApplicationInstanceId === value.instanceFlowHeaders.sourceApplicationInstanceId)}
+                                    instanceId={value.instanceFlowHeaders.sourceApplicationInstanceId}
+                                    sourceApplicationId={value.instanceFlowHeaders.sourceApplicationId}
                                 />}>
                                     <Table.DataCell
                                         scope="row">{getSourceApplicationDisplayName(Number(value.instanceFlowHeaders.sourceApplicationId))}</Table.DataCell>
@@ -167,7 +143,7 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
                 </Table>
             </Box>
             <HStack justify={"center"}>
-                {sortData && instancesPage?.totalElements && instancesPage?.totalElements > page &&
+                {instancesPage && instancesPage?.totalElements && instancesPage?.totalElements > page &&
                     <Pagination
                         page={page}
                         onPageChange={setPage}

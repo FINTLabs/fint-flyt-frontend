@@ -70,15 +70,15 @@ const HistoryProvider = ({children}: ContextProps) => {
             const eventResponse = await EventRepository.getLatestEvents(page, size, sortProperty, sortDirection)
             const events: IEvent[] = eventResponse.data.content;
             if (metadata && events) {
-                const processedEvents = processEvents(events, metadata)
+                const processedEvents = processEvents(eventResponse.data, metadata)
                 metadata.forEach((value: IIntegrationMetadata) => {
-                    processedEvents.forEach((event: IEvent) => {
+                    processedEvents.content.forEach((event: IEvent) => {
                         if (event.instanceFlowHeaders.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {
                             event.displayName = value.integrationDisplayName;
                         }
                     });
                 });
-                setLatestInstances(processedEvents);
+                setLatestInstances(processedEvents.content);
             } else {
                 setLatestInstances([]);
             }
@@ -95,8 +95,8 @@ const HistoryProvider = ({children}: ContextProps) => {
             const eventResponse = await EventRepository.getEventsByInstanceId(page, size, sortProperty, sortDirection, sourceApplicationId, instanceId)
             const events: IEvent[] = eventResponse.data.content;
             if (events && metadata) {
-                const processedEvents = processEvents(events, metadata)
-                setSelectedInstances(processedEvents);
+                const processedEvents = processEvents(eventResponse.data, metadata)
+                setSelectedInstances(processedEvents.content);
             } else {
                 setLatestInstances([]);
             }

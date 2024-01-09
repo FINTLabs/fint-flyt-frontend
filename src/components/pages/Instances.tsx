@@ -1,5 +1,5 @@
-import React, {useContext, useEffect, useState} from 'react';
-import {Box, Button, Heading, HelpText, HStack, Loader, Modal} from "@navikt/ds-react";
+import React, {useContext, useState} from 'react';
+import {Box, Button, Heading, HelpText, HStack, Modal} from "@navikt/ds-react";
 import {useTranslation} from "react-i18next";
 import {ArrowCirclepathIcon} from '@navikt/aksel-icons';
 import {Button as ButtonAks} from "@navikt/ds-react/esm/button";
@@ -13,15 +13,9 @@ import {RouteComponent} from "../../routes/Route";
 
 const Instances: RouteComponent = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.instances'})
-    const {latestInstances, getLatestInstances, events, getEvents} = useContext(HistoryContext)
+    const {getLatestInstances, getEvents} = useContext(HistoryContext)
     const [selectedRow] = useState<IEvent>();
     const [openDialog, setOpenDialog] = React.useState(false);
-
-    useEffect(() => {
-        getLatestInstances(0, 8, "timestamp", "DESC");
-        getEvents(0, 8, "timestamp", "DESC")
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
     function ErrorAlertDialog(props: GridCellParams['row']) {
         return (
@@ -62,13 +56,7 @@ const Instances: RouteComponent = () => {
             </HStack>
             <Box id={"instance-table-container"} background={"surface-default"} padding="6" borderRadius={"large"}
                  borderWidth="2" borderColor={"border-subtle"}>
-                {latestInstances && events ?
-                    <InstanceTable instances={latestInstances} events={events}/>
-                    :
-                    <>
-                        <Loader size={"xlarge"}/>
-                    </>
-                }
+                    <InstanceTable/>
             </Box>
             <ErrorAlertDialog row={selectedRow}/>
         </PageTemplate>

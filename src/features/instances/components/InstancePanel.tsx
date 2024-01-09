@@ -1,5 +1,5 @@
 import * as React from "react";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {GridCellParams} from "@mui/x-data-grid";
 import moment from "moment/moment";
@@ -8,9 +8,14 @@ import ErrorDialogComponent from "./ErrorDialogComponent";
 import {Box, HStack, Link, Modal, Pagination, Table} from "@navikt/ds-react";
 import {GetIcon} from "../util/InstanceUtils";
 import {Button as ButtonAks} from "@navikt/ds-react/esm/button";
+import SourceApplicationRepository from "../../../api/SourceApplicationRepository";
+import {IIntegrationMetadata} from "../../configuration/types/Metadata/IntegrationMetadata";
+import EventRepository from "../../../api/EventRepository";
+import {processEvents} from "../../../util/EventUtil";
 
 type Props = {
-    instancesOnId: IEvent[] | undefined;
+    instanceId: string;
+    sourceApplicationId: string
 }
 
 const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
@@ -18,18 +23,43 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
     const [selectedRow, setSelectedRow] = useState<IEvent>();
     const [openErrorDialog, setOpenErrorDialog] = React.useState(false);
     const [page, setPage] = useState(1);
+    const [selectedInstances, setSelectedInstances] = useState<IEvent[] | undefined>([])
+
     const rowsPerPage = 10;
 
-    let sortData = props.instancesOnId ?? [];
+    let sortData = selectedInstances ?? [];
     sortData = sortData.slice((page - 1) * rowsPerPage, page * rowsPerPage);
+
+    const getSelectedInstances = async (page: number, size: number, sortProperty: string, sortDirection: string, sourceApplicationId: string, instanceId: string) => {
+        try {
+            const metadataResponse = await SourceApplicationRepository.getMetadata(sourceApplicationId, true)
+            const metadata: IIntegrationMetadata[] = metadataResponse.data;
+            const eventResponse = await EventRepository.getEventsByInstanceId(page, size, sortProperty, sortDirection, sourceApplicationId, instanceId)
+            const events: IEvent[] = eventResponse.data.content;
+            if (events && metadata) {
+                const processedEvents = processEvents(eventResponse.data, metadata)
+                setSelectedInstances(processedEvents.content);
+            } else {
+                setSelectedInstances([]);
+            }
+        }
+        catch (e) {
+            setSelectedInstances([]);
+            console.error('Error: ', e);
+        }
+    }
+
+    useEffect(() => {
+        getSelectedInstances(page-1, 8, "timestamp", "DESC", props.sourceApplicationId, props.instanceId)
+    }, [])
 
     return (
         <>
         <Box id={"instance-panel"} padding="4" background={"surface-subtle"} borderRadius="xlarge">
-            {props.instancesOnId && props.instancesOnId[0] &&
+            {selectedInstances && selectedInstances[0] &&
                 <ul>
-                    <li>{t('table.column.sourceApplicationIntegrationId')}: {props.instancesOnId[0].instanceFlowHeaders.sourceApplicationIntegrationId}</li>
-                    <li>{t('table.column.sourceApplicationInstanceId')}: {props.instancesOnId[0].instanceFlowHeaders.sourceApplicationInstanceId}</li>
+                    <li>{t('table.column.sourceApplicationIntegrationId')}: {selectedInstances[0].instanceFlowHeaders.sourceApplicationIntegrationId}</li>
+                    <li>{t('table.column.sourceApplicationInstanceId')}: {selectedInstances[0].instanceFlowHeaders.sourceApplicationInstanceId}</li>
                 </ul>
             }
             <ErrorAlertDialog row={selectedRow}/>
@@ -69,11 +99,11 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
             </Table>
         </Box>
     <HStack justify={"center"}>
-        {props.instancesOnId && props.instancesOnId.length > rowsPerPage &&
+        {selectedInstances && selectedInstances.length > rowsPerPage &&
             <Pagination
                 page={page}
                 onPageChange={setPage}
-                count={Math.ceil(props.instancesOnId.length / rowsPerPage)}
+                count={Math.ceil(selectedInstances.length / rowsPerPage)}
                 size="small"
             />}
     </HStack>
