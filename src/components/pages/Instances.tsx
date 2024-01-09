@@ -18,8 +18,8 @@ const Instances: RouteComponent = () => {
     const [openDialog, setOpenDialog] = React.useState(false);
 
     useEffect(() => {
-        getLatestInstances(0, 10000, "timestamp", "DESC");
-        getEvents(0, 10000, "timestamp", "DESC")
+        getLatestInstances(0, 1000, "timestamp", "DESC");
+        getEvents(0, 1000, "timestamp", "DESC")
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -53,8 +53,8 @@ const Instances: RouteComponent = () => {
                 <Button
                     size={"small"}
                     onClick={() => {
-                        getLatestInstances(0, 10000, "timestamp", "DESC")
-                        getEvents(0, 10000, "timestamp", "DESC")
+                        getLatestInstances(0, 1000, "timestamp", "DESC")
+                        getEvents(0, 1000, "timestamp", "DESC")
                     }}
                     icon={<ArrowCirclepathIcon aria-hidden/>}
                 >{t('button.refresh')}
