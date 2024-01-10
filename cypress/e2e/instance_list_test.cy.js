@@ -1,17 +1,21 @@
 describe('Testing instance list', () => {
     beforeEach(() => {
-        cy.intercept('GET', '**/intern/integrasjoner', { fixture: 'integrations.json' }).as('getIntegrations')
-        cy.intercept('GET', '**/metadata?kildeapplikasjonId=*&bareSisteVersjoner=true', { fixture: 'metadataLatest.json' }).as('getLatestMetadata')
-        cy.intercept('GET', '**/historikk/hendelser?side=0&antall=8&sorteringFelt=timestamp&sorteringRetning=DESC&bareSistePerInstans=*', { fixture: 'hendelser.json' }).as('getHendelser')
-        cy.intercept('GET', '**/metadata?kildeapplikasjonId=*&bareSisteVersjoner=false', { fixture: 'metadata1.json' }).as('getMetadata1')
-        cy.intercept('GET', '**/historikk/hendelser?side=0&antall=10&sorteringFelt=timestamp&sorteringRetning=DESC&kildeapplikasjonId=2&kildeapplikasjonInstansId=1515557', { fixture: 'instansHendelser.json' }).as('getInstansHendelser')
-        cy.intercept('GET', '**/historikk/hendelser?side=0&antall=10&sorteringFelt=timestamp&sorteringRetning=DESC&kildeapplikasjonId=2&kildeapplikasjonInstansId=142312', { fixture: 'instansHendelser.json' }).as('getInstansHendelser')
-        cy.intercept('GET', '**/historikk/hendelser?side=0&antall=8&sorteringFelt=timestamp&sorteringRetning=DESC&bareSistePerInstans=false', { fixture: 'instansHendelser.json' }).as('getInstansHendelser')
+        cy.intercept('GET', '**/intern/integrasjoner', {fixture: 'integrations.json'}).as('getIntegrations')
+        cy.intercept('GET', '**/metadata?kildeapplikasjonId=*&bareSisteVersjoner=true', {fixture: 'metadataLatest.json'}).as('getLatestMetadata')
+        cy.intercept('GET', '**/historikk/hendelser?side=0&antall=8&sorteringFelt=timestamp&sorteringRetning=DESC&bareSistePerInstans=*', {fixture: 'hendelser.json'}).as('getHendelser')
+        cy.intercept('GET', '**/historikk/hendelser?side=0&antall=8&sorteringFelt=timestamp&sorteringRetning=ASC&bareSistePerInstans=*', {fixture: 'hendelserASC.json'}).as('getHendelserASC')
+        cy.intercept('GET', '**/metadata?kildeapplikasjonId=*&bareSisteVersjoner=false', {fixture: 'metadata1.json'}).as('getMetadata1')
+        cy.intercept('GET', '**/historikk/hendelser?side=0&antall=10&sorteringFelt=timestamp&sorteringRetning=DESC&kildeapplikasjonId=2&kildeapplikasjonInstansId=1515557', {fixture: 'instansHendelser.json'}).as('getInstansHendelser')
+        cy.intercept('GET', '**/historikk/hendelser?side=0&antall=10&sorteringFelt=timestamp&sorteringRetning=DESC&kildeapplikasjonId=2&kildeapplikasjonInstansId=142312', {fixture: 'instansHendelser.json'}).as('getInstansHendelser')
+        cy.intercept('GET', '**/historikk/hendelser?side=0&antall=8&sorteringFelt=timestamp&sorteringRetning=DESC&bareSistePerInstans=false', {fixture: 'instansHendelser.json'}).as('getInstansHendelser')
         cy.intercept('POST', '**/handlinger/instanser/44/prov-igjen', {statusCode: 200}).as('postRetry')
     })
 
     function prep() {
-        cy.intercept('GET', '**/api/application/configuration', { forceNetworkError: true, fixture: 'basepathConfig.json' }).as('getConfig')
+        cy.intercept('GET', '**/api/application/configuration', {
+            forceNetworkError: true,
+            fixture: 'basepathConfig.json'
+        }).as('getConfig')
         cy.visit('/integration/instance/list')
         cy.wait('@getConfig')
     }
@@ -53,5 +57,15 @@ describe('Testing instance list', () => {
         cy.viewport(3000, 2000)
         cy.get('#retry-btn-0').click()
         cy.wait('@postRetry')
+    })
+
+    it('it should sort columns correctly', () => {
+        prep()
+        cy.viewport(3000, 2000)
+        cy.get('#instance-table > :nth-child(2) > :nth-child(1) > :nth-child(4)').should("contain.text", "06/06/23 15:16")
+        cy.get('.navds-table__sort-button').click()
+        cy.get('.navds-table__sort-button').click()
+        cy.get('#instance-table > :nth-child(2) > :nth-child(1) > :nth-child(4)').should("contain.text", "02/06/23 13:40")
+
     })
 });
