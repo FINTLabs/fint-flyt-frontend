@@ -2,10 +2,11 @@ describe('Testing instance list', () => {
     beforeEach(() => {
         cy.intercept('GET', '**/intern/integrasjoner', { fixture: 'integrations.json' }).as('getIntegrations')
         cy.intercept('GET', '**/metadata?kildeapplikasjonId=*&bareSisteVersjoner=true', { fixture: 'metadataLatest.json' }).as('getLatestMetadata')
-        cy.intercept('GET', '**/historikk/hendelser?side=0&antall=10000&sorteringFelt=timestamp&sorteringRetning=DESC&bareSistePerInstans=*', { fixture: 'hendelser.json' }).as('getHendelser')
+        cy.intercept('GET', '**/historikk/hendelser?side=0&antall=8&sorteringFelt=timestamp&sorteringRetning=DESC&bareSistePerInstans=*', { fixture: 'hendelser.json' }).as('getHendelser')
         cy.intercept('GET', '**/metadata?kildeapplikasjonId=*&bareSisteVersjoner=false', { fixture: 'metadata1.json' }).as('getMetadata1')
-        cy.intercept('GET', '**/historikk/hendelser?side=0&antall=10000&sorteringFelt=timestamp&sorteringRetning=DESC&kildeapplikasjonId=2&kildeapplikasjonInstansId=1515557', { fixture: 'instansHendelser.json' }).as('getInstansHendelser')
-        cy.intercept('GET', '**/historikk/hendelser?side=0&antall=10000&sorteringFelt=timestamp&sorteringRetning=DESC&bareSistePerInstans=false', { fixture: 'instansHendelser.json' }).as('getInstansHendelser')
+        cy.intercept('GET', '**/historikk/hendelser?side=0&antall=10&sorteringFelt=timestamp&sorteringRetning=DESC&kildeapplikasjonId=2&kildeapplikasjonInstansId=1515557', { fixture: 'instansHendelser.json' }).as('getInstansHendelser')
+        cy.intercept('GET', '**/historikk/hendelser?side=0&antall=10&sorteringFelt=timestamp&sorteringRetning=DESC&kildeapplikasjonId=2&kildeapplikasjonInstansId=142312', { fixture: 'instansHendelser.json' }).as('getInstansHendelser')
+        cy.intercept('GET', '**/historikk/hendelser?side=0&antall=8&sorteringFelt=timestamp&sorteringRetning=DESC&bareSistePerInstans=false', { fixture: 'instansHendelser.json' }).as('getInstansHendelser')
         cy.intercept('POST', '**/handlinger/instanser/44/prov-igjen', {statusCode: 200}).as('postRetry')
     })
 
@@ -34,8 +35,8 @@ describe('Testing instance list', () => {
         cy.viewport(3000, 2000)
         cy.get(':nth-child(1) > .navds-table__toggle-expand-cell > .navds-table__toggle-expand-button').click()
         cy.get(':nth-child(3) > .navds-table__toggle-expand-cell > .navds-table__toggle-expand-button').click()
-        cy.get('#instance-panel > .navds-table > .navds-table__body > :nth-child(1) > :nth-child(1)').should('contain.text', '02/06/23 13:40')
-        cy.get('#instance-panel > .navds-table > .navds-table__body > :nth-child(3) > :nth-child(2)').should('contain.text', 'Instans registrert')
+        cy.get('#instance-panel-1').should('contain.text', '02/06/23 13:40')
+        cy.get('#instance-panel-1').should('contain.text', 'Instans registrert')
     })
 
     it('it should open error panel and show correct errors', () => {
