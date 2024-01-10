@@ -3,7 +3,6 @@ import * as React from "react";
 import {useContext, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {Box, HStack, Link, Loader, Modal, Pagination, Table} from "@navikt/ds-react";
-
 import moment from "moment";
 import {getSourceApplicationDisplayName, Page} from "../../../util/DataGridUtil";
 import {IEvent} from "../types/Event";
@@ -16,7 +15,6 @@ import EventRepository from "../../../api/EventRepository";
 import {IIntegrationMetadata} from "../../configuration/types/Metadata/IntegrationMetadata";
 import {SourceApplicationContext} from "../../../context/SourceApplicationContext";
 
-
 const InstanceTable: React.FunctionComponent = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.instances'})
     const [selectedRow, setSelectedRow] = useState<IEvent>();
@@ -27,33 +25,29 @@ const InstanceTable: React.FunctionComponent = () => {
     const rowsPerPage = 8
     const {allMetadata} = useContext(SourceApplicationContext)
 
-
     useEffect(() => {
         getLatestInstances(page - 1, rowsPerPage, "timestamp", "DESC");
     }, [])
 
     const getLatestInstances = async (page: number, size: number, sortProperty: string, sortDirection: string) => {
-        if (allMetadata) {
-            try {
-                const metadata: IIntegrationMetadata[] = allMetadata;
-                const eventResponse = await EventRepository.getLatestEvents(page, size, sortProperty, sortDirection)
-                const events: Page<IEvent> = eventResponse.data;
-                if (metadata && events) {
-                    metadata.forEach((value: IIntegrationMetadata) => {
-                        eventResponse.data.content.forEach((event: IEvent) => {
-                            if (event.instanceFlowHeaders.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {
-                                event.displayName = value.integrationDisplayName;
-                            }
-                        });
+        try {
+            const eventResponse = await EventRepository.getLatestEvents(page, size, sortProperty, sortDirection)
+            const events: Page<IEvent> = eventResponse.data;
+            if (allMetadata && events) {
+                allMetadata.forEach((value: IIntegrationMetadata) => {
+                    eventResponse.data.content.forEach((event: IEvent) => {
+                        if (event.instanceFlowHeaders.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {
+                            event.displayName = value.integrationDisplayName;
+                        }
                     });
-                    setInstancesPage(events);
-                } else {
-                    setInstancesPage({content: []});
-                }
-            } catch (e) {
+                });
+                setInstancesPage(events);
+            } else {
                 setInstancesPage({content: []});
-                console.error('Error: ', e);
             }
+        } catch (e) {
+            setInstancesPage({content: []});
+            console.error('Error: ', e);
         }
     }
 

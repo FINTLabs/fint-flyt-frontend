@@ -1,5 +1,5 @@
 import * as React from "react";
-import {useContext, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {GridCellParams} from "@mui/x-data-grid";
 import moment from "moment/moment";
@@ -8,10 +8,8 @@ import ErrorDialogComponent from "./ErrorDialogComponent";
 import {Box, HStack, Link, Loader, Modal, Pagination, Table} from "@navikt/ds-react";
 import {GetIcon} from "../util/InstanceUtils";
 import {Button as ButtonAks} from "@navikt/ds-react/esm/button";
-import {IIntegrationMetadata} from "../../configuration/types/Metadata/IntegrationMetadata";
 import EventRepository from "../../../api/EventRepository";
 import {Page} from "../../../util/DataGridUtil";
-import {SourceApplicationContext} from "../../../context/SourceApplicationContext";
 
 type Props = {
     id: string;
@@ -26,25 +24,20 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
     const [page, setPage] = useState(1);
     const [selectedInstances, setSelectedInstances] = useState<Page<IEvent>>()
     const rowsPerPage = 10
-    const {allMetadata} = useContext(SourceApplicationContext)
 
     const getSelectedInstances = async (page: number, size: number, sortProperty: string, sortDirection: string, sourceApplicationId: string, instanceId: string) => {
-        if (allMetadata) {
-            try {
-                const metadata: IIntegrationMetadata[] = allMetadata;
-                const eventResponse = await EventRepository.getEventsByInstanceId(page, size, sortProperty, sortDirection, sourceApplicationId, instanceId)
-                const events: Page<IEvent> = eventResponse.data;
-                if (events && metadata) {
-                    setSelectedInstances(events);
-                } else {
-                    setSelectedInstances({content: []});
-                }
-            } catch (e) {
+        try {
+            const eventResponse = await EventRepository.getEventsByInstanceId(page, size, sortProperty, sortDirection, sourceApplicationId, instanceId)
+            const events: Page<IEvent> = eventResponse.data;
+            if (events) {
+                setSelectedInstances(events);
+            } else {
                 setSelectedInstances({content: []});
-                console.error('Error: ', e);
             }
+        } catch (e) {
+            setSelectedInstances({content: []});
+            console.error('Error: ', e);
         }
-
     }
     useEffect(() => {
         getSelectedInstances(page - 1, rowsPerPage, "timestamp", "DESC", props.sourceApplicationId, props.instanceId)
