@@ -25,6 +25,7 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
     const [openErrorDialog, setOpenErrorDialog] = React.useState(false);
     const [page, setPage] = useState(1);
     const [selectedInstances, setSelectedInstances] = useState<Page<IEvent>>()
+    const rowsPerPage = 10
 
     const getSelectedInstances = async (page: number, size: number, sortProperty: string, sortDirection: string, sourceApplicationId: string, instanceId: string) => {
         try {
@@ -45,13 +46,13 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
         }
     }
     useEffect(() => {
-        getSelectedInstances(page-1, 10, "timestamp", "DESC", props.sourceApplicationId, props.instanceId)
+        getSelectedInstances(page-1, rowsPerPage, "timestamp", "DESC", props.sourceApplicationId, props.instanceId)
     }, [])
 
 
     useEffect(() => {
         setSelectedInstances({content: []})
-        getSelectedInstances(page-1, 10, "timestamp", "DESC", props.sourceApplicationId, props.instanceId)
+        getSelectedInstances(page-1, rowsPerPage, "timestamp", "DESC", props.sourceApplicationId, props.instanceId)
     }, [page, setPage])
 
     return (
@@ -102,7 +103,7 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
             </Box> : <Loader/>}
         </Box>
     <HStack justify={"center"}>
-        {selectedInstances && selectedInstances.totalElements && selectedInstances.totalElements > page &&
+        {selectedInstances?.totalElements && selectedInstances.totalElements > rowsPerPage &&
             <Pagination
                 page={page}
                 onPageChange={setPage}

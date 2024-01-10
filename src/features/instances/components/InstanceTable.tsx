@@ -26,10 +26,10 @@ const InstanceTable: React.FunctionComponent = () => {
     const [page, setPage] = useState(1);
     const errorsNotForRetry: string[] = ['instance-receival-error', 'instance-registration-error']
     const [instancesPage, setInstancesPage] = useState<Page<IEvent>>()
-    const [tableData, setTableData] = useState<IEvent[]>()
+    const rowsPerPage = 8
 
     useEffect(() => {
-        getLatestInstances(page-1, 8, "timestamp", "DESC");
+        getLatestInstances(page-1, rowsPerPage, "timestamp", "DESC");
     }, [])
 
     const getLatestInstances = async (page: number, size: number, sortProperty: string, sortDirection: string) => {
@@ -69,12 +69,9 @@ const InstanceTable: React.FunctionComponent = () => {
 
     useEffect(() => {
         setInstancesPage({content: []})
-        getLatestInstances(page-1, 8, "timestamp", "DESC");
+        getLatestInstances(page-1, rowsPerPage, "timestamp", "DESC");
     }, [page, setPage])
 
-    useEffect(() => {
-        setTableData(instancesPage?.content ?? [])
-    }, [instancesPage, setInstancesPage])
 
     const resend = (instanceId: string) => {
         InstanceRepository.resendInstance(instanceId)
@@ -86,13 +83,11 @@ const InstanceTable: React.FunctionComponent = () => {
             })
     }
 
-    console.log(tableData)
-
     return instancesPage && instancesPage?.content?.length > 0 ? (
         <Box>
             <Box background={'surface-default'} style={{height: '70vh', overflowY: "scroll"}}>
                 <ErrorAlertDialog row={selectedRow}/>
-                <Table id={"instance-table"} size={"small"}>
+                <Table id={"instance-table"}>
                     <Table.Header>
                         <Table.Row>
                             <Table.HeaderCell/>
@@ -143,7 +138,7 @@ const InstanceTable: React.FunctionComponent = () => {
                 </Table>
             </Box>
             <HStack justify={"center"}>
-                {instancesPage && instancesPage?.totalElements && instancesPage?.totalElements > page &&
+                {instancesPage?.totalElements && instancesPage?.totalElements > rowsPerPage &&
                     <Pagination
                         page={page}
                         onPageChange={setPage}

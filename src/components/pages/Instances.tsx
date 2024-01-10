@@ -1,11 +1,9 @@
-import React, {useContext, useState} from 'react';
-import {Box, Button, Heading, HelpText, HStack, Modal} from "@navikt/ds-react";
+import React, {useState} from 'react';
+import {Box, Heading, HelpText, HStack, Modal} from "@navikt/ds-react";
 import {useTranslation} from "react-i18next";
-import {ArrowCirclepathIcon} from '@navikt/aksel-icons';
 import {Button as ButtonAks} from "@navikt/ds-react/esm/button";
 import {GridCellParams} from "@mui/x-data-grid";
 import ErrorDialogComponent from "../../features/instances/components/ErrorDialogComponent";
-import {HistoryContext} from "../../context/HistoryContext";
 import {IEvent} from "../../features/instances/types/Event";
 import PageTemplate from "../templates/PageTemplate";
 import InstanceTable from "../../features/instances/components/InstanceTable";
@@ -13,7 +11,6 @@ import {RouteComponent} from "../../routes/Route";
 
 const Instances: RouteComponent = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.instances'})
-    const {getLatestInstances, getEvents} = useContext(HistoryContext)
     const [selectedRow] = useState<IEvent>();
     const [openDialog, setOpenDialog] = React.useState(false);
 
@@ -44,15 +41,6 @@ const Instances: RouteComponent = () => {
                         {t('help.header')}
                     </HelpText>
                 </HStack>
-                <Button
-                    size={"small"}
-                    onClick={() => {
-                        getLatestInstances(0, 8, "timestamp", "DESC")
-                        getEvents(0, 8, "timestamp", "DESC")
-                    }}
-                    icon={<ArrowCirclepathIcon aria-hidden/>}
-                >{t('button.refresh')}
-                </Button>
             </HStack>
             <Box id={"instance-table-container"} background={"surface-default"} padding="6" borderRadius={"large"}
                  borderWidth="2" borderColor={"border-subtle"}>
