@@ -104,6 +104,7 @@ const InstanceTable: React.FunctionComponent = () => {
                         {instancesPage?.content?.map((value, i) => {
                             return (
                                 <Table.ExpandableRow key={i} content={<InstancePanel
+                                    id={'instance-panel-' + i}
                                     instanceId={value.instanceFlowHeaders.sourceApplicationInstanceId}
                                     sourceApplicationId={value.instanceFlowHeaders.sourceApplicationId}
                                 />}>

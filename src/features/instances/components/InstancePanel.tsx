@@ -15,6 +15,7 @@ import {processEvents} from "../../../util/EventUtil";
 import {Page} from "../../../util/DataGridUtil";
 
 type Props = {
+    id: string;
     instanceId: string;
     sourceApplicationId: string
 }
@@ -57,7 +58,7 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
 
     return (
         <>
-        <Box id={"instance-panel"} padding="4" background={"surface-subtle"} borderRadius="xlarge">
+        <Box id={props.id} padding="4" background={"surface-subtle"} borderRadius="xlarge">
             {selectedInstances && selectedInstances.content.length > 0 ?
             <Box> {selectedInstances && selectedInstances.content[0] &&
                 <ul>
