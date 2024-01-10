@@ -1,33 +1,61 @@
 import {GridCellParams} from "@mui/x-data-grid";
 import * as React from "react";
-import {useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
-import {Box, HStack, Link, Modal, Pagination, Table} from "@navikt/ds-react";
-
+import {Box, HStack, Link, Loader, Modal, Pagination, Table} from "@navikt/ds-react";
 import moment from "moment";
-import {getSourceApplicationDisplayName} from "../../../util/DataGridUtil";
+import {getSourceApplicationDisplayName, Page} from "../../../util/DataGridUtil";
 import {IEvent} from "../types/Event";
 import ErrorDialogComponent from "./ErrorDialogComponent";
 import InstancePanel from "./InstancePanel";
 import {GetIcon} from "../util/InstanceUtils";
 import {Button as ButtonAks} from "@navikt/ds-react/esm/button";
 import InstanceRepository from "../repository/InstanceRepository";
+import EventRepository from "../../../api/EventRepository";
+import {IIntegrationMetadata} from "../../configuration/types/Metadata/IntegrationMetadata";
+import {SourceApplicationContext} from "../../../context/SourceApplicationContext";
 
-type Props = {
-    instances: IEvent[] | undefined;
-    events: IEvent[] | undefined;
-}
-
-const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
+const InstanceTable: React.FunctionComponent = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.instances'})
     const [selectedRow, setSelectedRow] = useState<IEvent>();
     const [openDialog, setOpenDialog] = React.useState(false);
     const [page, setPage] = useState(1);
-    const rowsPerPage = 12;
     const errorsNotForRetry: string[] = ['instance-receival-error', 'instance-registration-error']
+    const [instancesPage, setInstancesPage] = useState<Page<IEvent>>()
+    const rowsPerPage = 8
+    const {allMetadata} = useContext(SourceApplicationContext)
 
-    let sortData = props.instances ?? [];
-    sortData = sortData.slice((page - 1) * rowsPerPage, page * rowsPerPage);
+    useEffect(() => {
+        getLatestInstances(page - 1, rowsPerPage, "timestamp", "DESC");
+    }, [])
+
+    const getLatestInstances = async (page: number, size: number, sortProperty: string, sortDirection: string) => {
+        try {
+            const eventResponse = await EventRepository.getLatestEvents(page, size, sortProperty, sortDirection)
+            const events: Page<IEvent> = eventResponse.data;
+            if (allMetadata && events) {
+                allMetadata.forEach((value: IIntegrationMetadata) => {
+                    eventResponse.data.content.forEach((event: IEvent) => {
+                        if (event.instanceFlowHeaders.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {
+                            event.displayName = value.integrationDisplayName;
+                        }
+                    });
+                });
+                setInstancesPage(events);
+            } else {
+                setInstancesPage({content: []});
+            }
+        } catch (e) {
+            setInstancesPage({content: []});
+            console.error('Error: ', e);
+        }
+    }
+
+    useEffect(() => {
+        setInstancesPage({content: []})
+        getLatestInstances(page - 1, rowsPerPage, "timestamp", "DESC");
+    }, [page, setPage])
+
 
     const resend = (instanceId: string) => {
         InstanceRepository.resendInstance(instanceId)
@@ -39,11 +67,11 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
             })
     }
 
-    return (
+    return instancesPage && instancesPage?.content?.length > 0 ? (
         <Box>
             <Box background={'surface-default'} style={{height: '70vh', overflowY: "scroll"}}>
                 <ErrorAlertDialog row={selectedRow}/>
-                <Table id={"instance-table"} size={"small"}>
+                <Table id={"instance-table"}>
                     <Table.Header>
                         <Table.Row>
                             <Table.HeaderCell/>
@@ -57,10 +85,12 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                        {sortData?.map((value, i) => {
+                        {instancesPage?.content?.map((value, i) => {
                             return (
                                 <Table.ExpandableRow key={i} content={<InstancePanel
-                                    instancesOnId={props.events?.filter((event) => event.instanceFlowHeaders.sourceApplicationInstanceId === value.instanceFlowHeaders.sourceApplicationInstanceId)}
+                                    id={'instance-panel-' + i}
+                                    instanceId={value.instanceFlowHeaders.sourceApplicationInstanceId}
+                                    sourceApplicationId={value.instanceFlowHeaders.sourceApplicationId}
                                 />}>
                                     <Table.DataCell
                                         scope="row">{getSourceApplicationDisplayName(Number(value.instanceFlowHeaders.sourceApplicationId))}</Table.DataCell>
@@ -80,7 +110,7 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
                                     </Table.DataCell>
                                     <Table.DataCell>
                                         {(value.type === 'ERROR') && !errorsNotForRetry.includes(value.name) &&
-                                            <ButtonAks id={'retry-btn-' + value.id} size="small" onClick={() => {
+                                            <ButtonAks id={'retry-btn-' + i} size="small" onClick={() => {
                                                 resend(value.instanceFlowHeaders.instanceId);
                                             }}>{t('button.retry')}</ButtonAks>
                                         }
@@ -93,16 +123,16 @@ const InstanceTable: React.FunctionComponent<Props> = (props: Props) => {
                 </Table>
             </Box>
             <HStack justify={"center"}>
-                {props.instances && props.instances.length > rowsPerPage &&
+                {instancesPage?.totalElements && instancesPage?.totalElements > rowsPerPage &&
                     <Pagination
                         page={page}
                         onPageChange={setPage}
-                        count={Math.ceil(props.instances.length / rowsPerPage)}
+                        count={instancesPage?.totalPages ?? 1}
                         size="small"
                     />}
             </HStack>
         </Box>
-    );
+    ) : <Loader/>;
 
     function ErrorAlertDialog(props: GridCellParams['row']) {
         return (

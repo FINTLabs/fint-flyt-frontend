@@ -35,8 +35,8 @@ const Integrations: RouteComponent = () => {
                 const configs = []
                 const completedConfigs = []
                 for (const integration of integrations ?? []) {
-                    const configResponse = await ConfigurationRepository.getConfigurations(0, 10000, "id", "DESC",false, integration.id ?? '', true)
-                    const completedConfigResponse = await ConfigurationRepository.getConfigurations(0, 10000, "version", "DESC", true, integration.id ?? '', true)
+                    const configResponse = await ConfigurationRepository.getConfigurations(0, 1000, "id", "DESC",false, integration.id ?? '', true)
+                    const completedConfigResponse = await ConfigurationRepository.getConfigurations(0, 1000, "version", "DESC", true, integration.id ?? '', true)
                     configs.push(configResponse.data.content)
                     completedConfigs.push(completedConfigResponse.data.content)
                 }

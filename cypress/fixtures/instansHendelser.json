@@ -85,14 +85,14 @@
     },
     "offset":0,
     "pageNumber":0,
-    "pageSize":10000,
+    "pageSize":1000,
     "paged":true,
     "unpaged":false
   },
   "totalPages":1,
   "totalElements":4,
   "last":true,
-  "size":10000,
+  "size":1000,
   "number":0,
   "sort":{
     "empty":false,
