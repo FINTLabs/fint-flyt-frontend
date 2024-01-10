@@ -18,7 +18,7 @@ describe("Testing dashboard", () => {
 		}).as("getIntegrations");
 		cy.intercept(
 			"GET",
-			"**/historikk/hendelser?side=0&antall=10000&sorteringFelt=timestamp&sorteringRetning=DESC&bareSistePerInstans=true",
+			"**/historikk/hendelser?side=0&antall=1000&sorteringFelt=timestamp&sorteringRetning=DESC&bareSistePerInstans=true",
 			{ fixture: "hendelser.json" }
 		).as("getHendelser");
 	});

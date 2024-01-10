@@ -16,7 +16,7 @@ describe('Testing create new configuration from new integration', () => {
         cy.intercept('GET', '**/metadata?kildeapplikasjonId=*', {fixture: 'metadata.json'}).as('getMetadata')
         cy.intercept('GET', '**/metadata?kildeapplikasjonId=2&bareSisteVersjoner=false', {fixture: 'metadata.json'}).as('getMetadata')
         cy.intercept('GET', '**/metadata/4/instans-metadata', {fixture: 'instansMetadata.json'}).as('getInstansMetadata')
-        cy.intercept('GET', '**/historikk/hendelser?side=0&antall=10000&sorteringFelt=timestamp&sorteringRetning=DESC&bareSistePerInstans=true', {fixture: 'hendelser.json'}).as('getHendelser')
+        cy.intercept('GET', '**/historikk/hendelser?side=0&antall=1000&sorteringFelt=timestamp&sorteringRetning=DESC&bareSistePerInstans=true', {fixture: 'hendelser.json'}).as('getHendelser')
         cy.intercept('GET', '**/value-convertings?page=0&size=100&sortProperty=fromApplicationId&sortDirection=ASC&excludeConvertingMap=true', {fixture: 'valueconverting/valueconvertings.json'}).as('getValueconvertings')
         cy.intercept('GET', '**/value-convertings?page=0&size=100&sortProperty=fromApplicationId&sortDirection=ASC&excludeConvertingMap=false', {fixture: 'valueconverting/valueconvertings.json'}).as('getValueconvertings')
         cy.intercept('GET', '**/arkiv/kodeverk/**', {fixture: 'kodeverk/mock.json'}).as('getKodeverk')
@@ -83,10 +83,10 @@ describe('Testing creating new and editing configurations from integration overv
         cy.intercept('GET', '**/metadata/1/instans-metadata', {fixture: 'instansMetadata.json'}).as('getInstansMetadata');
         cy.intercept('GET', '**/value-convertings?page=0&size=100&sortProperty=fromApplicationId&sortDirection=ASC&excludeConvertingMap=false', {fixture: 'valueconverting/valueconvertings.json'}).as('getValueconvertings');
         cy.intercept('GET', '**/arkiv/kodeverk/**', {fixture: 'kodeverk/mock.json'}).as('getKodeverk');
-        cy.intercept('GET', '**/konfigurasjoner/?side=0&antall=10000&sorteringFelt=id&sorteringRetning=DESC&ferdigstilt=false&integrasjonId=1&ekskluderMapping=true', {fixture: 'configDrafts.json'}).as('getConfigDrafts');
-        cy.intercept('GET', '**/konfigurasjoner/?side=0&antall=10000&sorteringFelt=id&sorteringRetning=DESC&ferdigstilt=false&integrasjonId=2&ekskluderMapping=true', {fixture: 'configDrafts2.json'}).as('getConfigDrafts2');
-        cy.intercept('GET', '**/konfigurasjoner/?side=0&antall=10000&sorteringFelt=version&sorteringRetning=DESC&ferdigstilt=true&integrasjonId=1&ekskluderMapping=true', {fixture: 'configCompleted.json'}).as('getConfigCompleted');
-        cy.intercept('GET', '**/konfigurasjoner/?side=0&antall=10000&sorteringFelt=version&sorteringRetning=DESC&ferdigstilt=true&integrasjonId=2&ekskluderMapping=true', {fixture: 'configCompleted2.json'}).as('getConfigCompleted2');
+        cy.intercept('GET', '**/konfigurasjoner/?side=0&antall=1000&sorteringFelt=id&sorteringRetning=DESC&ferdigstilt=false&integrasjonId=1&ekskluderMapping=true', {fixture: 'configDrafts.json'}).as('getConfigDrafts');
+        cy.intercept('GET', '**/konfigurasjoner/?side=0&antall=1000&sorteringFelt=id&sorteringRetning=DESC&ferdigstilt=false&integrasjonId=2&ekskluderMapping=true', {fixture: 'configDrafts2.json'}).as('getConfigDrafts2');
+        cy.intercept('GET', '**/konfigurasjoner/?side=0&antall=1000&sorteringFelt=version&sorteringRetning=DESC&ferdigstilt=true&integrasjonId=1&ekskluderMapping=true', {fixture: 'configCompleted.json'}).as('getConfigCompleted');
+        cy.intercept('GET', '**/konfigurasjoner/?side=0&antall=1000&sorteringFelt=version&sorteringRetning=DESC&ferdigstilt=true&integrasjonId=2&ekskluderMapping=true', {fixture: 'configCompleted2.json'}).as('getConfigCompleted2');
         cy.intercept('GET', '**/konfigurasjoner/5?ekskluderMapping=false', {fixture: 'config.json'}).as('getConfig');
         cy.intercept('GET', '**/konfigurasjoner/4?ekskluderMapping=true', {fixture: 'config.json'}).as('getConfig');
         cy.intercept('GET', '**/konfigurasjoner/6?ekskluderMapping=false', {fixture: 'editConfig.json'}).as('getEditConfig');

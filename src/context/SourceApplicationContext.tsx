@@ -74,7 +74,10 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
             const response = await SourceApplicationRepository.getMetadata(sourceAppId, true);
             const data = response.data || [];
 
-            const tempSelectables: ISelect[] = [{value: '', label: i18n.language === 'en' ? 'Select integration' : 'Velg integrasjon'}]
+            const tempSelectables: ISelect[] = [{
+                value: '',
+                label: i18n.language === 'en' ? 'Select integration' : 'Velg integrasjon'
+            }]
 
             data.map((metadata: IIntegrationMetadata) => {
                 tempSelectables.push({
@@ -122,7 +125,7 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
 
         } catch (e) {
             console.error('Error: ', e);
-            setAllMetadata([])
+            setAllMetadata(undefined)
         }
     }
 
