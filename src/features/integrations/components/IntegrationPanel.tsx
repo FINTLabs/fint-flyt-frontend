@@ -17,18 +17,18 @@ import {
     HStack,
     Label,
     Modal,
+    Pagination,
     Table,
     VStack
 } from "@navikt/ds-react";
 import {MenuElipsisVerticalCircleIcon, PencilWritingIcon} from '@navikt/aksel-icons';
 import IntegrationRepository from "../../../api/IntegrationRepository";
 import ConfigurationRepository from "../../../api/ConfigurationRepository";
+import {Page} from "../../../util/DataGridUtil";
 
 type Props = {
     id: string
     integration: IIntegration,
-    completedC: IConfiguration[]
-    draftC: IConfiguration[]
 }
 
 const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
@@ -47,6 +47,33 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
     const [activeVersion, setActiveVersion] = useState<string>('');
     const [openDialog, setOpenDialog] = React.useState(false);
     const [configToActivate, setConfigToActivate] = React.useState<string>('')
+    const [completedConfigs, setCompletedConfigs] = useState<Page<IConfiguration>>();
+    const [draftConfigs, setDraftConfigs] = useState<Page<IConfiguration>>();
+    const [page, setPage] = useState(1);
+    const rowsPerPage = 30;
+
+    useEffect(() => {
+        getAllConfigurations();
+    }, [])
+
+    useEffect(() => {
+        setCompletedConfigs({content: []})
+        setDraftConfigs({content: []})
+        getAllConfigurations();
+    }, [page, setPage])
+
+    const getAllConfigurations = async () => {
+        try {
+            const configResponse = await ConfigurationRepository.getConfigurations(page - 1, rowsPerPage, "id", "DESC", false, props.integration.id ?? '', true)
+            const completedConfigResponse = await ConfigurationRepository.getConfigurations(page - 1, rowsPerPage, "version", "DESC", true, props.integration.id ?? '', true)
+            setDraftConfigs(configResponse.data)
+            setCompletedConfigs(completedConfigResponse.data)
+
+        } catch (e) {
+            console.error('Error: ', e);
+        }
+    }
+
 
     useEffect(() => {
         setSourceApplication(Number(props.integration.sourceApplicationId) ?? 1);
@@ -109,39 +136,52 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
 
     }
 
-    function configTable(configs: IConfiguration[], completed: boolean): ReactElement {
+    function configTable(configs: Page<IConfiguration>, completed: boolean): ReactElement {
         // tslint-ignore-next-line
-        return configs.length > 0 ? <Table size={"small"}>
-                <Table.Header>
-                    <Table.Row>
-                        <Table.HeaderCell scope="col">{t('table.column.id')}</Table.HeaderCell>
-                        {completed && <Table.HeaderCell scope="col">{t('table.column.version')}</Table.HeaderCell>}
-                        <Table.HeaderCell scope="col">{t('table.column.comment')}</Table.HeaderCell>
-                        <Table.HeaderCell scope="col">{t('table.column.actions')}</Table.HeaderCell>
-                    </Table.Row>
-                </Table.Header>
-                <Table.Body>
-                    {configs?.map((value, i) => {
-                        return (
-                            <Table.Row key={i}>
-                                <Table.DataCell>{value.id}</Table.DataCell>
-                                {completed && <Table.DataCell>{value.version}</Table.DataCell>}
-                                <Table.DataCell>{value.comment}</Table.DataCell>
-                                <Table.DataCell>
-                                    {actionMenu(value)}
-                                </Table.DataCell>
-                            </Table.Row>
-                        );
-                    })}
-                </Table.Body>
-            </Table>
+        return configs.content.length > 0 ?
+            <Box>
+                <Table size={"small"}>
+                    <Table.Header>
+                        <Table.Row>
+                            <Table.HeaderCell scope="col">{t('table.column.id')}</Table.HeaderCell>
+                            {completed && <Table.HeaderCell scope="col">{t('table.column.version')}</Table.HeaderCell>}
+                            <Table.HeaderCell scope="col">{t('table.column.comment')}</Table.HeaderCell>
+                            <Table.HeaderCell scope="col">{t('table.column.actions')}</Table.HeaderCell>
+                        </Table.Row>
+                    </Table.Header>
+                    <Table.Body>
+                        {configs?.content.map((value, i) => {
+                            return (
+                                <Table.Row key={i}>
+                                    <Table.DataCell>{value.id}</Table.DataCell>
+                                    {completed && <Table.DataCell>{value.version}</Table.DataCell>}
+                                    <Table.DataCell>{value.comment}</Table.DataCell>
+                                    <Table.DataCell>
+                                        {actionMenu(value)}
+                                    </Table.DataCell>
+                                </Table.Row>
+                            );
+                        })}
+                    </Table.Body>
+                </Table>
+                <HStack justify={"center"}>
+                    {configs?.totalElements && configs?.totalElements > rowsPerPage &&
+                        <Pagination
+                            page={page}
+                            onPageChange={setPage}
+                            count={configs?.totalPages ?? 1}
+                            size="small"
+                        />
+                    }
+                </HStack>
+            </Box>
             : <BodyShort>{t('table.noElements')}</BodyShort>
     }
 
 
     function actionMenu(config: IConfiguration): ReactElement {
         return (
-            <div className="min-h-32">
+            <div id={props.id + "-action-toggle"} className="min-h-32">
                 {config.completed ?
                     <Dropdown>
                         <Button as={Dropdown.Toggle} variant="tertiary-neutral"
@@ -225,12 +265,12 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
                     <Box id={'completed-config-table'} padding="4" background={"surface-subtle"} borderRadius="xlarge"
                          style={{maxHeight: '440px', overflow: "auto"}}>
                         <BodyShort>{t('table.completed')}:</BodyShort>
-                        {configTable(props.completedC, true)}
+                        {configTable(completedConfigs ?? {content: []}, true)}
                     </Box>
                     <Box id={'draft-config-table'} padding="4" background={"surface-subtle"} borderRadius="xlarge"
                          style={{height: 'fit-content', maxHeight: '440px', overflow: "auto"}}>
                         <BodyShort>{t('table.drafts')}:</BodyShort>
-                        {configTable(props.draftC, false)}
+                        {configTable(draftConfigs ?? {content: []}, false)}
                     </Box>
                 </HGrid>
                 <HStack gap={"6"}>

@@ -1,43 +1,91 @@
 import * as React from "react";
-import {useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {
     getDestinationDisplayName,
     getSourceApplicationDisplayName,
     getStateDisplayName,
+    Page,
 } from "../../../util/DataGridUtil";
-import {Box, HStack, Pagination, Table} from "@navikt/ds-react";
+import {Box, HStack, Loader, Pagination, Table} from "@navikt/ds-react";
 import IntegrationPanel from "./IntegrationPanel";
-import {IIntegration} from "../../integration/types/Integration";
 import {useTranslation} from "react-i18next";
-import {IConfiguration} from "../../configuration/types/Configuration";
+import EventRepository from "../../../api/EventRepository";
+import IntegrationRepository from "../../../api/IntegrationRepository";
+import {IIntegrationStatistics} from "../../dashboard/types/IntegrationStatistics";
+import {IIntegration} from "../../integration/types/Integration";
+import {IIntegrationMetadata} from "../../configuration/types/Metadata/IntegrationMetadata";
+import {SourceApplicationContext} from "../../../context/SourceApplicationContext";
 
 type IntegrationProps = {
-    integrations: IIntegration[];
-    allConfigs: IConfiguration[];
-    allCompletedConfigs: IConfiguration[];
+    id: string;
 }
 
 const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: IntegrationProps) => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.integrations.table'})
     const [page, setPage] = useState(1);
-    const rowsPerPage = 14;
+    const rowsPerPage = 10;
+    const [integrations, setIntegrations] = useState<Page<IIntegration> | undefined>()
+    const {allMetadata} = useContext(SourceApplicationContext)
 
-    let sortData = props.integrations ?? [];
-    sortData = sortData.slice((page - 1) * rowsPerPage, page * rowsPerPage);
+    useEffect(() => {
+        getAllIntegrations()
+    }, [])
 
-    return (
+    useEffect(() => {
+        setIntegrations({content: []})
+        getAllIntegrations();
+    }, [page, setPage])
+
+    const getAllIntegrations = async () => {
+        if (allMetadata) {
+            try {
+                const response = await EventRepository.getStatistics();
+                const data = response.data;
+
+                if (data) {
+                    const stats = data;
+
+                    const integrationResponse = await IntegrationRepository.getIntegrations(page - 1, rowsPerPage, "state", "ASC");
+                    const mergedList = integrationResponse.data || [];
+
+                    stats.forEach((value: IIntegrationStatistics) => {
+                        mergedList.content.forEach((integration: IIntegration) => {
+                            if (integration.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {
+                                integration.errors = value.currentErrors;
+                                integration.dispatched = value.dispatchedInstances;
+                            }
+                        });
+                    });
+
+                    allMetadata.forEach((value: IIntegrationMetadata) => {
+                        mergedList.content.forEach((integration: IIntegration) => {
+                            if (integration.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {
+                                integration.displayName = value.integrationDisplayName;
+                            }
+                        });
+                    });
+                    setIntegrations(mergedList);
+                }
+            } catch (e) {
+                console.error('Error: ', e);
+                setIntegrations(undefined)
+            }
+        }
+    };
+
+    return integrations && integrations?.content?.length > 0 ? (
         <Box>
             <Box background={'surface-default'} style={{height: '70vh', overflowY: "scroll"}}>
-                <Table id={"integration-table"} size={"small"}>
+                <Table id={props.id}>
                     <Table.Header>
                         <Table.Row>
                             <Table.ColumnHeader/>
                             <Table.ColumnHeader>{t('column.id')}</Table.ColumnHeader>
                             <Table.ColumnHeader>{t('column.sourceApplicationId')}</Table.ColumnHeader>
                             <Table.ColumnHeader
-                                 >{t('column.sourceApplicationIntegrationId')}</Table.ColumnHeader>
+                            >{t('column.sourceApplicationIntegrationId')}</Table.ColumnHeader>
                             <Table.ColumnHeader
-                                 >{t('column.sourceApplicationIntegrationIdDisplayName')}</Table.ColumnHeader>
+                            >{t('column.sourceApplicationIntegrationIdDisplayName')}</Table.ColumnHeader>
                             <Table.ColumnHeader>{t('column.destination')}</Table.ColumnHeader>
                             <Table.ColumnHeader>{t('column.state')}</Table.ColumnHeader>
                             <Table.ColumnHeader>{t('column.dispatched')}</Table.ColumnHeader>
@@ -45,12 +93,11 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                        {sortData?.map((value, i) => {
+                        {integrations?.content?.map((value, i) => {
                             return (
                                 <Table.ExpandableRow key={i} content={
-                                    <IntegrationPanel id={'panel-' + i}
-                                        draftC={props.allConfigs.filter((config) => config.integrationId === value.id)}
-                                        completedC={props.allCompletedConfigs.filter((config) => config.integrationId === value.id)}
+                                    <IntegrationPanel
+                                        id={'panel-' + i}
                                         integration={value}
                                     />}
                                 >
@@ -72,17 +119,17 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
                 </Table>
             </Box>
             <HStack justify={"center"}>
-                {props.integrations && props.integrations.length > rowsPerPage &&
+                {integrations?.totalElements && integrations?.totalElements > rowsPerPage &&
                     <Pagination
                         page={page}
                         onPageChange={setPage}
-                        count={Math.ceil(props.integrations.length / rowsPerPage)}
+                        count={integrations?.totalPages ?? 1}
                         size="small"
                     />
                 }
             </HStack>
         </Box>
-    );
+    ) : <Loader size={"xlarge"}/>;
 }
 
 export default IntegrationTable;
