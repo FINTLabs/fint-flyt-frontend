@@ -43,7 +43,7 @@ const Instances: RouteComponent = () => {
                 </HStack>
             </HStack>
             <Box id={"instance-table-container"} background={"surface-default"} padding="6" borderRadius={"large"}
-                 borderWidth="2" borderColor={"border-subtle"}>
+                 borderWidth="2" borderColor={"border-subtle"} style={{height: '80vh'}}>
                     <InstanceTable/>
             </Box>
             <ErrorAlertDialog row={selectedRow}/>
