@@ -125,7 +125,7 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
 
         } catch (e) {
             console.error('Error: ', e);
-            setAllMetadata(undefined)
+            setAllMetadata([])
         }
     }
 

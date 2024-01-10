@@ -1,4 +1,6 @@
 import {Tooltip} from "@mui/material";
+import {IIntegration} from "../features/integration/types/Integration";
+import {MOCK_INTEGRATION} from "../__tests__/mock/integration";
 
 export const renderCellWithTooltip = (content: string) => (
     <Tooltip title={content}>
@@ -24,6 +26,32 @@ export function getStateDisplayName(id: string): string {
     else return "ukjent";
 }
 
+export const isKeyOfIntegration = (key: string): key is keyof IIntegration => {
+    return Object.keys(MOCK_INTEGRATION).includes(key);
+};
+
+export const comparator = (a: IIntegration, b: IIntegration, orderBy: string) => {
+    if (isKeyOfIntegration(orderBy)) {
+        const aValue = a[orderBy];
+        const bValue = b[orderBy];
+
+        if (bValue === undefined || aValue === undefined) {
+            return -1;
+        }
+
+        if (bValue < aValue) {
+            return -1;
+        }
+        if (bValue > aValue) {
+            return 1;
+        }
+        return 0;
+    } else {
+        return -1;
+    }
+
+};
+
 export interface Page<T> {
     content: T[]
     empty?: boolean
@@ -31,9 +59,9 @@ export interface Page<T> {
     last?: boolean
     number?: number
     numberOfElements?: number
-    pageable?: {offset: number, pageNumber: number, pageSize: number, paged: boolean, sort: {empty: boolean, sorted: boolean, unsorted: boolean}, empty: boolean, sorted: boolean, unsorted: boolean, unpaged: boolean}
+    pageable?: { offset: number, pageNumber: number, pageSize: number, paged: boolean, sort: { empty: boolean, sorted: boolean, unsorted: boolean }, empty: boolean, sorted: boolean, unsorted: boolean, unpaged: boolean }
     size?: number
-    sort?: {empty: boolean, sorted: boolean, unsorted: boolean}
+    sort?: { empty: boolean, sorted: boolean, unsorted: boolean }
     totalElements?: number
     totalPages?: number
 }
