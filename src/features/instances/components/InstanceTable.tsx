@@ -1,6 +1,6 @@
 import {GridCellParams} from "@mui/x-data-grid";
 import * as React from "react";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {Box, HStack, Link, Loader, Modal, Pagination, Table} from "@navikt/ds-react";
 
@@ -13,10 +13,8 @@ import {GetIcon} from "../util/InstanceUtils";
 import {Button as ButtonAks} from "@navikt/ds-react/esm/button";
 import InstanceRepository from "../repository/InstanceRepository";
 import EventRepository from "../../../api/EventRepository";
-import {sourceApplications} from "../../configuration/defaults/DefaultValues";
-import SourceApplicationRepository from "../../../api/SourceApplicationRepository";
-import {processEvents} from "../../../util/EventUtil";
 import {IIntegrationMetadata} from "../../configuration/types/Metadata/IntegrationMetadata";
+import {SourceApplicationContext} from "../../../context/SourceApplicationContext";
 
 
 const InstanceTable: React.FunctionComponent = () => {
@@ -27,49 +25,41 @@ const InstanceTable: React.FunctionComponent = () => {
     const errorsNotForRetry: string[] = ['instance-receival-error', 'instance-registration-error']
     const [instancesPage, setInstancesPage] = useState<Page<IEvent>>()
     const rowsPerPage = 8
+    const {allMetadata} = useContext(SourceApplicationContext)
+
 
     useEffect(() => {
-        getLatestInstances(page-1, rowsPerPage, "timestamp", "DESC");
+        getLatestInstances(page - 1, rowsPerPage, "timestamp", "DESC");
     }, [])
 
     const getLatestInstances = async (page: number, size: number, sortProperty: string, sortDirection: string) => {
-        try {
-            const allMetadata = []
-
-            for (const sourceApplication of sourceApplications) {
-                const metadataResponse = await SourceApplicationRepository.getMetadata(sourceApplication.value, true);
-                allMetadata.push(metadataResponse.data)
-            }
-
-            const metadata = allMetadata.reduce((acc, currentArray) => [...acc, ...currentArray], []) || [];
-
-            const eventResponse = await EventRepository.getLatestEvents(page, size, sortProperty, sortDirection)
-            const events: Page<IEvent> = eventResponse.data;
-            if (metadata && events) {
-                const processedEvents = processEvents(events, metadata)
-                metadata.forEach((value: IIntegrationMetadata) => {
-                    processedEvents.content.forEach((event: IEvent) => {
-                        if (event.instanceFlowHeaders.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {
-                            event.displayName = value.integrationDisplayName;
-                        }
+        if (allMetadata) {
+            try {
+                const metadata: IIntegrationMetadata[] = allMetadata;
+                const eventResponse = await EventRepository.getLatestEvents(page, size, sortProperty, sortDirection)
+                const events: Page<IEvent> = eventResponse.data;
+                if (metadata && events) {
+                    metadata.forEach((value: IIntegrationMetadata) => {
+                        eventResponse.data.content.forEach((event: IEvent) => {
+                            if (event.instanceFlowHeaders.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {
+                                event.displayName = value.integrationDisplayName;
+                            }
+                        });
                     });
-                });
-                setInstancesPage(processedEvents);
-            } else {
+                    setInstancesPage(events);
+                } else {
+                    setInstancesPage({content: []});
+                }
+            } catch (e) {
                 setInstancesPage({content: []});
+                console.error('Error: ', e);
             }
         }
-        catch (e) {
-            setInstancesPage({content: []});
-            console.error('Error: ', e);
-        }
-
-
     }
 
     useEffect(() => {
         setInstancesPage({content: []})
-        getLatestInstances(page-1, rowsPerPage, "timestamp", "DESC");
+        getLatestInstances(page - 1, rowsPerPage, "timestamp", "DESC");
     }, [page, setPage])
 
 
@@ -126,7 +116,7 @@ const InstanceTable: React.FunctionComponent = () => {
                                     </Table.DataCell>
                                     <Table.DataCell>
                                         {(value.type === 'ERROR') && !errorsNotForRetry.includes(value.name) &&
-                                            <ButtonAks id={'retry-btn-' + value.id} size="small" onClick={() => {
+                                            <ButtonAks id={'retry-btn-' + i} size="small" onClick={() => {
                                                 resend(value.instanceFlowHeaders.instanceId);
                                             }}>{t('button.retry')}</ButtonAks>
                                         }

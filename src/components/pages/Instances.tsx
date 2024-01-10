@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {Box, Heading, HelpText, HStack, Modal} from "@navikt/ds-react";
+import React, {useContext, useEffect, useState} from 'react';
+import {Box, Heading, HelpText, HStack, Loader, Modal} from "@navikt/ds-react";
 import {useTranslation} from "react-i18next";
 import {Button as ButtonAks} from "@navikt/ds-react/esm/button";
 import {GridCellParams} from "@mui/x-data-grid";
@@ -8,11 +8,17 @@ import {IEvent} from "../../features/instances/types/Event";
 import PageTemplate from "../templates/PageTemplate";
 import InstanceTable from "../../features/instances/components/InstanceTable";
 import {RouteComponent} from "../../routes/Route";
+import {SourceApplicationContext} from "../../context/SourceApplicationContext";
 
 const Instances: RouteComponent = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.instances'})
     const [selectedRow] = useState<IEvent>();
     const [openDialog, setOpenDialog] = React.useState(false);
+    const {allMetadata, getAllMetadata} = useContext(SourceApplicationContext)
+
+    useEffect(() => {
+        getAllMetadata(true)
+    }, [])
 
     function ErrorAlertDialog(props: GridCellParams['row']) {
         return (
@@ -44,7 +50,7 @@ const Instances: RouteComponent = () => {
             </HStack>
             <Box id={"instance-table-container"} background={"surface-default"} padding="6" borderRadius={"large"}
                  borderWidth="2" borderColor={"border-subtle"} style={{height: '80vh'}}>
-                    <InstanceTable/>
+                {allMetadata ? <InstanceTable/> : <Loader/>}
             </Box>
             <ErrorAlertDialog row={selectedRow}/>
         </PageTemplate>
