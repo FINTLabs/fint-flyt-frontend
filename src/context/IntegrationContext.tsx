@@ -163,7 +163,7 @@ const IntegrationProvider = ({children}: ContextProps) => {
                 const metadata = allMetadata.reduce((acc, currentArray) => [...acc, ...currentArray], []) || [];
 
                 const integrationResponse = await IntegrationRepository.getIntegrations(0, 1000, "state", "ASC");
-                console.log(integrationResponse)
+                console.log("THIS THEN", integrationResponse)
                 const mergedList = integrationResponse.data.content || [];
 
                 stats.forEach((value: IIntegrationStatistics) => {
