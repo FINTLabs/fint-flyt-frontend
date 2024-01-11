@@ -119,6 +119,7 @@
         "header": "Oversikt over integrasjonar. Her kan du sjå alle integrasjonane og tilhøyrande konfigurasjonar, laga nye konfigurasjonar for ein integrasjon eller aktivera ein konfigurasjon"
       },
       "button": {
+        "newIntegration": "Ny integrasjon",
         "newConfiguration": "Ny konfigurasjon"
       },
       "dialog": {

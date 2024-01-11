@@ -119,6 +119,7 @@
         "header": "List of integrations. Here you can see all the integrations and associated configurations, create new configurations for an integration or activate a configuration"
       },
       "button": {
+        "newIntegration": "New integration",
         "newConfiguration": "New configuration"
       },
       "dialog": {
