@@ -2,9 +2,9 @@ import {GridCellParams} from "@mui/x-data-grid";
 import * as React from "react";
 import {useContext, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
-import {Box, HStack, Link, Loader, Modal, Pagination, Table} from "@navikt/ds-react";
+import {Box, HStack, Link, Loader, Modal, Pagination, SortState, Table} from "@navikt/ds-react";
 import moment from "moment";
-import {getSourceApplicationDisplayName, Page} from "../../../util/DataGridUtil";
+import {eventComparator, getSourceApplicationDisplayName, Page} from "../../../util/DataGridUtil";
 import {IEvent} from "../types/Event";
 import ErrorDialogComponent from "./ErrorDialogComponent";
 import InstancePanel from "./InstancePanel";
@@ -20,18 +20,19 @@ const InstanceTable: React.FunctionComponent = () => {
     const [selectedRow, setSelectedRow] = useState<IEvent>();
     const [openDialog, setOpenDialog] = React.useState(false);
     const [page, setPage] = useState(1);
+    const [sort, setSort] = useState<SortState | undefined>({orderBy: 'timestamp', direction: "descending"});
     const errorsNotForRetry: string[] = ['instance-receival-error', 'instance-registration-error']
     const [instancesPage, setInstancesPage] = useState<Page<IEvent>>()
     const rowsPerPage = 8
     const {allMetadata} = useContext(SourceApplicationContext)
 
     useEffect(() => {
-        getLatestInstances(page - 1, rowsPerPage, "timestamp", "DESC");
+        getLatestInstances(sort);
     }, [])
 
-    const getLatestInstances = async (page: number, size: number, sortProperty: string, sortDirection: string) => {
+    const getLatestInstances = async (sort?: SortState) => {
         try {
-            const eventResponse = await EventRepository.getLatestEvents(page, size, sortProperty, sortDirection)
+            const eventResponse = await EventRepository.getLatestEvents(page - 1, rowsPerPage, sort ? sort.orderBy : "timestamp", sort ? (sort.direction === "ascending" ? "ASC" : "DESC") : "DESC")
             const events: Page<IEvent> = eventResponse.data;
             if (allMetadata && events) {
                 allMetadata.forEach((value: IIntegrationMetadata) => {
@@ -41,6 +42,15 @@ const InstanceTable: React.FunctionComponent = () => {
                         }
                     });
                 });
+                events.content.slice()
+                    .sort((a, b) => {
+                        if (sort) {
+                            return sort.direction === "ascending"
+                                ? eventComparator(b, a, sort.orderBy)
+                                : eventComparator(a, b, sort.orderBy);
+                        }
+                        return 1;
+                    });
                 setInstancesPage(events);
             } else {
                 setInstancesPage({content: []});
@@ -53,9 +63,26 @@ const InstanceTable: React.FunctionComponent = () => {
 
     useEffect(() => {
         setInstancesPage({content: []})
-        getLatestInstances(page - 1, rowsPerPage, "timestamp", "DESC");
+        getLatestInstances(sort);
     }, [page, setPage])
 
+    useEffect(() => {
+        getLatestInstances(sort);
+    }, [sort])
+
+    const handleSort = (sortKey: string) => {
+        setSort(prevSort => {
+            return prevSort && sortKey === prevSort.orderBy && prevSort.direction === "descending"
+                ? undefined
+                : {
+                    orderBy: sortKey,
+                    direction:
+                        prevSort && sortKey === prevSort.orderBy && prevSort.direction === "ascending"
+                            ? "descending"
+                            : "ascending",
+                };
+        });
+    };
 
     const resend = (instanceId: string) => {
         InstanceRepository.resendInstance(instanceId)
@@ -71,17 +98,18 @@ const InstanceTable: React.FunctionComponent = () => {
         <Box>
             <Box background={'surface-default'} style={{height: '70vh', overflowY: "scroll"}}>
                 <ErrorAlertDialog row={selectedRow}/>
-                <Table id={"instance-table"}>
+                <Table sort={sort} onSortChange={(sortKey) => handleSort(sortKey ? sortKey : "timestamp")}
+                       id={"instance-table"}>
                     <Table.Header>
                         <Table.Row>
-                            <Table.HeaderCell/>
-                            <Table.HeaderCell scope="col">{t('table.column.sourceApplicationId')}</Table.HeaderCell>
-                            <Table.HeaderCell
-                                scope="col">{t('table.column.sourceApplicationIntegrationIdDisplayName')}</Table.HeaderCell>
-                            <Table.HeaderCell scope="col">{t('table.column.timestamp')}</Table.HeaderCell>
-                            <Table.HeaderCell scope="col">{t('table.column.status')}</Table.HeaderCell>
-                            <Table.HeaderCell scope="col">{t('table.column.actions')}</Table.HeaderCell>
-                            <Table.HeaderCell scope="col">{t('table.column.archiveInstanceId')}</Table.HeaderCell>
+                            <Table.ColumnHeader/>
+                            <Table.ColumnHeader>{t('table.column.sourceApplicationId')}</Table.ColumnHeader>
+                            <Table.ColumnHeader>{t('table.column.sourceApplicationIntegrationIdDisplayName')}</Table.ColumnHeader>
+                            <Table.ColumnHeader sortKey="timestamp"
+                                                sortable>{t('table.column.timestamp')}</Table.ColumnHeader>
+                            <Table.ColumnHeader>{t('table.column.status')}</Table.ColumnHeader>
+                            <Table.ColumnHeader>{t('table.column.actions')}</Table.ColumnHeader>
+                            <Table.ColumnHeader>{t('table.column.archiveInstanceId')}</Table.ColumnHeader>
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
