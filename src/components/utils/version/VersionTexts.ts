@@ -4,8 +4,9 @@ export const ABOUT_VERSIONS =
 
 export const VERSION_DATA: { heading: string; updates: string[] }[] = [
 	{
-		heading: "Versjon 5.01 - Januar 2024",
+		heading: "Versjon 11.1 - Januar 2024",
 		updates: [
+            "11.1 Fjernet menyvalget for \"NY\" og opprettet knapp for ny integrasjon på integrasjonssiden",
             "5.1 Oppdatert/nytt design på sidene for ny integrasjon og konfigurasjonsoppsett, språkvalg på menybar",
             "5.1 Nytt utsende på Dashbord - Innhold fra supportsiden ligger nå her",
 		],
@@ -35,9 +36,10 @@ export const ABOUT_VERSIONS_NN =
 
 export const VERSION_DATA_NN: { heading: string; updates: string[] }[] = [
 	{
-		heading: "Versjon 5.1 - Januar 2024",
+		heading: "Versjon 11.1 - Januar 2024",
 		updates: [
-            "5.1 Oppdatert/nytt design på sidene for ny integrasjon og konfigurasjonsoppsett, språkval på menybar",
+			"11.1 Fjerna menyvalet for \"NY\" og oppretta knapp for ny integrasjon på integrasjonssidaa",
+			"5.1 Oppdatert/nytt design på sidene for ny integrasjon og konfigurasjonsoppsett, språkval på menybar",
             "5.1 Nytt utseende på Dashbordet - Innhald frå supportsida ligg no her",
 		],
 	},
@@ -66,9 +68,10 @@ export const ABOUT_VERSIONS_EN =
 
 export const VERSION_DATA_EN: { heading: string; updates: string[] }[] = [
 	{
-		heading: "Version 5.1 - January 2024",
+		heading: "Version 11.1 - January 2024",
 		updates: [
-            "5.1 New/updated design of the new integration and configuration pages, language selection on the menu bar",
+			"11.1 Removed menu option for \"New\" and created button for new integration in the integrations page",
+			"5.1 New/updated design of the new integration and configuration pages, language selection on the menu bar",
             "5.1 New look on the Dashboard - Content from the support page is now here",
 		],
 	},
