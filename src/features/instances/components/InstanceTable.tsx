@@ -94,7 +94,7 @@ const InstanceTable: React.FunctionComponent = () => {
             })
     }
 
-    return instancesPage && instancesPage?.content?.length > 0 ? (
+    return instancesPage ? (
         <Box>
             <Box background={'surface-default'} style={{height: '70vh', overflowY: "scroll"}}>
                 <ErrorAlertDialog row={selectedRow}/>
