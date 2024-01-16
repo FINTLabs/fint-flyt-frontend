@@ -21,8 +21,6 @@ const routes: IRoute[] = [
 		name: "integration",
 		component: IntegrationForm,
 		exact: true,
-
-		inNavigationMenu: true,
 	},
 	{
 		path: "/integration/configuration/new-configuration",
