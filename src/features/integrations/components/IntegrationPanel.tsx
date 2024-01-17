@@ -24,7 +24,7 @@ import {
 import {MenuElipsisVerticalCircleIcon, PencilWritingIcon} from '@navikt/aksel-icons';
 import IntegrationRepository from "../../../api/IntegrationRepository";
 import ConfigurationRepository from "../../../api/ConfigurationRepository";
-import {Page} from "../../../util/DataGridUtil";
+import {Page} from "../../../util/TableUtil";
 
 type Props = {
     id: string

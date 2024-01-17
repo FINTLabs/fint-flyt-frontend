@@ -112,12 +112,12 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
                             <Table.ColumnHeader/>
                             <Table.ColumnHeader sortKey="id" sortable>{t('column.id')}</Table.ColumnHeader>
                             <Table.ColumnHeader>{t('column.sourceApplicationId')}</Table.ColumnHeader>
-                            <Table.ColumnHeader
+                            <Table.ColumnHeader sortKey="sourceApplicationIntegrationId" sortable
                             >{t('column.sourceApplicationIntegrationId')}</Table.ColumnHeader>
                             <Table.ColumnHeader
                             >{t('column.sourceApplicationIntegrationIdDisplayName')}</Table.ColumnHeader>
                             <Table.ColumnHeader>{t('column.destination')}</Table.ColumnHeader>
-                            <Table.ColumnHeader>{t('column.state')}</Table.ColumnHeader>
+                            <Table.ColumnHeader sortKey="state" sortable>{t('column.state')}</Table.ColumnHeader>
                             <Table.ColumnHeader>{t('column.dispatched')}</Table.ColumnHeader>
                             <Table.ColumnHeader>{t('column.errors')}</Table.ColumnHeader>
                         </Table.Row>
