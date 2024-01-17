@@ -227,7 +227,7 @@
     },
     "valueConverting": {
       "button": {
-        "newConverting": "New",
+        "newConverting": "New value converting",
         "basedOn": "Create new based on this",
         "create": "Create",
         "cancel": "Cancel",

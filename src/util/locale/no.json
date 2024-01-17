@@ -227,7 +227,7 @@
     },
     "valueConverting": {
       "button": {
-        "newConverting": "Ny",
+        "newConverting": "Ny verdikonvertering",
         "basedOn": "Lag ny basert på denne",
         "create": "Opprett",
         "cancel": "Avbryt",
