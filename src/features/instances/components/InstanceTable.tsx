@@ -14,8 +14,14 @@ import InstanceRepository from "../repository/InstanceRepository";
 import EventRepository from "../../../api/EventRepository";
 import {IIntegrationMetadata} from "../../configuration/types/Metadata/IntegrationMetadata";
 import {SourceApplicationContext} from "../../../context/SourceApplicationContext";
+import {IError} from "../types/Error";
 
-const InstanceTable: React.FunctionComponent = () => {
+
+interface Props {
+    onError: (error: IError | undefined) => void;
+}
+
+const InstanceTable: React.FunctionComponent<Props> = ({onError}) => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.instances'})
     const [selectedRow, setSelectedRow] = useState<IEvent>();
     const [openDialog, setOpenDialog] = React.useState(false);
@@ -31,6 +37,7 @@ const InstanceTable: React.FunctionComponent = () => {
     }, [])
 
     const getLatestInstances = async (sort?: SortState) => {
+        onError(undefined)
         try {
             const eventResponse = await EventRepository.getLatestEvents(page - 1, rowsPerPage, sort ? sort.orderBy : "timestamp", sort ? (sort.direction === "ascending" ? "ASC" : "DESC") : "DESC")
             const events: Page<IEvent> = eventResponse.data;
@@ -53,9 +60,11 @@ const InstanceTable: React.FunctionComponent = () => {
                     });
                 setInstancesPage(events);
             } else {
+                onError({message: t('errorMessage')});
                 setInstancesPage({content: []});
             }
         } catch (e) {
+            onError({message: t('errorMessage')});
             setInstancesPage({content: []});
             console.error('Error: ', e);
         }
@@ -94,7 +103,7 @@ const InstanceTable: React.FunctionComponent = () => {
             })
     }
 
-    return instancesPage && instancesPage?.content?.length > 0 ? (
+    return instancesPage ? (
         <Box>
             <Box background={'surface-default'} style={{height: '70vh', overflowY: "scroll"}}>
                 <ErrorAlertDialog row={selectedRow}/>
@@ -117,6 +126,9 @@ const InstanceTable: React.FunctionComponent = () => {
                             return (
                                 <Table.ExpandableRow key={i} content={<InstancePanel
                                     id={'instance-panel-' + i}
+                                    onError={(error) => {
+                                        onError(error)
+                                    }}
                                     instanceId={value.instanceFlowHeaders.sourceApplicationInstanceId}
                                     sourceApplicationId={value.instanceFlowHeaders.sourceApplicationId}
                                 />}>
