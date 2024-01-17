@@ -158,6 +158,7 @@
       "showError": "vis feilmelding",
       "errors": "Feilmeldinger",
       "oneError": "Feilmelding",
+      "errorMessage": "Det oppsto en feil under henting av data, prøv igjen senere.",
       "button": {
         "close": "Lukk",
         "retry": "Prøv igjen",
