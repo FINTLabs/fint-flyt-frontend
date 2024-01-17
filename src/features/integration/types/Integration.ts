@@ -27,3 +27,9 @@ export interface IIntegrationPatch {
     state?: string;
     activeConfigurationId?: string;
 }
+
+export interface IIntegrationStatistics {
+    sourceApplicationIntegrationId: string;
+    dispatchedInstances: number;
+    currentErrors: number;
+}

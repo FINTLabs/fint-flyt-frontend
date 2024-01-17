@@ -1,7 +1,7 @@
 import { createContext, useState } from "react";
 import { IIntegration } from "../features/integration/types/Integration";
 import { IConfiguration } from "../features/configuration/types/Configuration";
-import { IIntegrationStatistics } from "../features/dashboard/IntegrationStatistics";
+import { IIntegrationStatistics } from "../features/integration/types/Integration";
 import { IIntegrationMetadata } from "../features/configuration/types/Metadata/IntegrationMetadata";
 import { ContextProps } from "./constants/interface";
 import { sourceApplications } from "../features/configuration/defaults/DefaultValues";
