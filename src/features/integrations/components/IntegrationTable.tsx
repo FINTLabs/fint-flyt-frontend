@@ -1,7 +1,7 @@
 import * as React from "react";
 import {useContext, useEffect, useState} from "react";
 import {
-    comparator,
+    integrationComparator,
     getDestinationDisplayName,
     getSourceApplicationDisplayName,
     getStateDisplayName,
@@ -12,10 +12,10 @@ import IntegrationPanel from "./IntegrationPanel";
 import {useTranslation} from "react-i18next";
 import EventRepository from "../../../api/EventRepository";
 import IntegrationRepository from "../../../api/IntegrationRepository";
-import {IIntegrationStatistics} from "../../dashboard/types/IntegrationStatistics";
 import {IIntegration} from "../../integration/types/Integration";
 import {IIntegrationMetadata} from "../../configuration/types/Metadata/IntegrationMetadata";
 import {SourceApplicationContext} from "../../../context/SourceApplicationContext";
+import {IIntegrationStatistics} from "../../integration/types/Integration";
 
 type IntegrationProps = {
     id: string;
@@ -72,8 +72,8 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
                         .sort((a: IIntegration, b: IIntegration) => {
                             if (sort) {
                                 return sort.direction === "ascending"
-                                    ? comparator(b, a, sort.orderBy)
-                                    : comparator(a, b, sort.orderBy);
+                                    ? integrationComparator(b, a, sort.orderBy)
+                                    : integrationComparator(a, b, sort.orderBy);
                             }
                             return 1;
                         });

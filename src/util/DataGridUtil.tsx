@@ -10,10 +10,6 @@ export function getSourceApplicationDisplayName(id: number): string {
     else return "ukjent";
 }
 
-export const isKeyOfEvent = (key: string): key is keyof IEvent => {
-    return Object.keys(MOCK_EVENTS.content[0]).includes(key);
-};
-
 export function getDestinationDisplayName(id: string): string {
     if (id === "fylkesrad") return "Arkivsystem";
     else return "ukjent";
@@ -29,7 +25,7 @@ export const isKeyOfIntegration = (key: string): key is keyof IIntegration => {
     return Object.keys(MOCK_INTEGRATION).includes(key);
 };
 
-export const comparator = (a: IIntegration, b: IIntegration, orderBy: string) => {
+export const integrationComparator = (a: IIntegration, b: IIntegration, orderBy: string) => {
     if (isKeyOfIntegration(orderBy)) {
         const aValue = a[orderBy];
         const bValue = b[orderBy];
@@ -50,6 +46,10 @@ export const comparator = (a: IIntegration, b: IIntegration, orderBy: string) =>
         return -1;
     }
 
+};
+
+export const isKeyOfEvent = (key: string): key is keyof IEvent => {
+    return Object.keys(MOCK_EVENTS.content[0]).includes(key);
 };
 
 export const eventComparator = (a: IEvent, b: IEvent, orderBy: string) => {

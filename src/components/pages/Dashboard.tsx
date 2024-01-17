@@ -3,7 +3,7 @@ import { IntegrationContext } from "../../context/IntegrationContext";
 import DashboardCard from "../organisms/DashboardCard";
 import { ICard } from "../../features/dashboard/Card";
 import { useTranslation } from "react-i18next";
-import { IIntegrationStatistics } from "../../features/dashboard/IntegrationStatistics";
+import { IIntegrationStatistics } from "../../features/integration/types/Integration";
 import PageTemplate from "../templates/PageTemplate";
 import { RouteComponent } from "../../routes/Route";
 import { Box, HStack } from "@navikt/ds-react";
