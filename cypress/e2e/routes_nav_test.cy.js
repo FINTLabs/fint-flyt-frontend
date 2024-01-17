@@ -1,12 +1,11 @@
 describe("Testing Routes", () => {
 	const links = [
-		"/integration/configuration/new",
 		"/integration/configuration/list",
 		"/integration/instance/list",
 		"/valueconverting",
-		"/support",
+		"/version",
 	];
-	const pages = ["Ny", "Integrasjoner", "Instanser", "Verdikonvertering"];
+	const pages = ["Integrasjoner", "Instanser", "Verdikonvertering", "Versjon"];
 
         beforeEach(() => {
             cy.intercept("GET", "**/integrasjoner?side=0&antall=1000&sorteringFelt=state&sorteringRetning=ASC", {fixture: "integrations.json"}).as("getIntegrations")

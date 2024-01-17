@@ -119,6 +119,7 @@
         "header": "List of integrations. Here you can see all the integrations and associated configurations, create new configurations for an integration or activate a configuration"
       },
       "button": {
+        "newIntegration": "New integration",
         "newConfiguration": "New configuration"
       },
       "dialog": {
@@ -157,6 +158,7 @@
       "showError": "show error message",
       "errors": "Errors",
       "oneError": "Error",
+      "errorMessage": "There was an error fetching data, try again later.",
       "button": {
         "close": "Close",
         "retry": "Try again",
@@ -225,7 +227,7 @@
     },
     "valueConverting": {
       "button": {
-        "newConverting": "New",
+        "newConverting": "New value converting",
         "basedOn": "Create new based on this",
         "create": "Create",
         "cancel": "Cancel",

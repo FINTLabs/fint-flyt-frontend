@@ -119,6 +119,7 @@
         "header": "Oversikt over integrasjonar. Her kan du sjå alle integrasjonane og tilhøyrande konfigurasjonar, laga nye konfigurasjonar for ein integrasjon eller aktivera ein konfigurasjon"
       },
       "button": {
+        "newIntegration": "Ny integrasjon",
         "newConfiguration": "Ny konfigurasjon"
       },
       "dialog": {
@@ -157,6 +158,7 @@
       "showError": "vis feilmelding",
       "errors": "Feilmeldingar",
       "oneError": "Feilelding",
+      "errorMessage": "Det oppstod ein feil under henting av data, prøv igjen seinare.",
       "button": {
         "close": "Lukk",
         "retry": "Prøv igjen",
@@ -225,7 +227,7 @@
     },
     "valueConverting": {
       "button": {
-        "newConverting": "Ny",
+        "newConverting": "Ny verdikonvertering",
         "basedOn": "Lag ny basert på denne",
         "create": "Opprett",
         "cancel": "Avbryt",

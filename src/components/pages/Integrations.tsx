@@ -3,9 +3,10 @@ import IntegrationTable from "../../features/integrations/components/Integration
 import PageTemplate from "../templates/PageTemplate";
 import {SourceApplicationContext} from "../../context/SourceApplicationContext";
 import {RouteComponent} from "../../routes/Route";
-import {Box, Heading, HelpText, HStack, Loader} from "@navikt/ds-react";
+import {Link as RouterLink} from "react-router-dom"
+import {Box, Button, Heading, HelpText, HStack, Loader} from "@navikt/ds-react";
 import {useTranslation} from "react-i18next";
-
+import { PlusIcon } from '@navikt/aksel-icons';
 
 const Integrations: RouteComponent = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.integrations'})
@@ -19,11 +20,20 @@ const Integrations: RouteComponent = () => {
 
     return (
         <PageTemplate id={'integration'} keyPrefix={'pages.integrations'} customHeading>
-            <HStack id={'instances-custom-header'} align={"center"} gap={"2"} wrap={false}>
-                <Heading size={"medium"}>{t('header')}</Heading>
+            <HStack id={'instances-custom-header'} align={"center"} justify={"space-between"} gap={"2"} wrap={false}>
+                <HStack align={"center"} gap={"2"}>
+                    <Heading size={"medium"}>{t('header')}</Heading>
                 <HelpText title={"Hva er dette"} placement="bottom">
                     {t('help.header')}
                 </HelpText>
+                </HStack>
+                <Button
+                    as={RouterLink}
+                    to={"/integration/new"}
+                    size={"small"}
+                    icon={<PlusIcon aria-hidden/>}
+                >{t('button.newIntegration')}
+                </Button>
             </HStack>
             <Box id={"integration-table-container"} background={"surface-default"} padding="6" borderRadius={"large"}
                  borderWidth="2" borderColor={"border-subtle"}>
