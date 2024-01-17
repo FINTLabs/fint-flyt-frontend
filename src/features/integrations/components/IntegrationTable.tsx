@@ -4,7 +4,7 @@ import {
     getDestinationDisplayName,
     getSourceApplicationDisplayName,
     getStateDisplayName,
-} from "../../../util/DataGridUtil";
+} from "../../../util/TableUtil";
 import {Box, HStack, Pagination, Table} from "@navikt/ds-react";
 import IntegrationPanel from "./IntegrationPanel";
 import {IIntegration} from "../../integration/types/Integration";

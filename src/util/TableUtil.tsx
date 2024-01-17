@@ -4,7 +4,7 @@ import { IEvent } from "../features/instances/types/Event";
 export function getSourceApplicationDisplayName(id: number): string {
 	if (id === 1) return "ACOS";
 	if (id === 2) return "eGrunnerverv";
-	if (id === 3) return "Regionalforvaltning";
+	if (id === 3) return "Riksantikvaren";
 	else return "ukjent";
 }
 
