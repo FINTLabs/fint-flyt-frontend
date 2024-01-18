@@ -4,7 +4,7 @@ import {useContext, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {Box, HStack, Link, Loader, Modal, Pagination, SortState, Table} from "@navikt/ds-react";
 import moment from "moment";
-import {eventComparator, getSourceApplicationDisplayName, Page} from "../../../util/TableUtil";
+import {eventComparator, getSourceApplicationDisplayName, IError, Page} from "../../../util/TableUtil";
 import {IEvent} from "../types/Event";
 import ErrorDialogComponent from "./ErrorDialogComponent";
 import InstancePanel from "./InstancePanel";
@@ -14,7 +14,6 @@ import InstanceRepository from "../repository/InstanceRepository";
 import EventRepository from "../../../api/EventRepository";
 import {IIntegrationMetadata} from "../../configuration/types/Metadata/IntegrationMetadata";
 import {SourceApplicationContext} from "../../../context/SourceApplicationContext";
-import {IError} from "../types/Error";
 
 
 interface Props {

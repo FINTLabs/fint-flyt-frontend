@@ -9,8 +9,7 @@ import {Box, HStack, Link, Loader, Modal, Pagination, Table} from "@navikt/ds-re
 import {GetIcon} from "../util/InstanceUtils";
 import {Button as ButtonAks} from "@navikt/ds-react/esm/button";
 import EventRepository from "../../../api/EventRepository";
-import {Page} from "../../../util/TableUtil";
-import {IError} from "../types/Error";
+import {IError, Page} from "../../../util/TableUtil";
 
 type Props = {
     id: string;

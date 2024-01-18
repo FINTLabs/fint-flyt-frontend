@@ -24,11 +24,12 @@ import {
 import {MenuElipsisVerticalCircleIcon, PencilWritingIcon} from '@navikt/aksel-icons';
 import IntegrationRepository from "../../../api/IntegrationRepository";
 import ConfigurationRepository from "../../../api/ConfigurationRepository";
-import {Page} from "../../../util/TableUtil";
+import {IError, Page} from "../../../util/TableUtil";
 
 type Props = {
     id: string
     integration: IIntegration,
+    onError: (error: IError | undefined) => void;
 }
 
 const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
@@ -63,6 +64,7 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
     }, [page, setPage])
 
     const getAllConfigurations = async () => {
+        props.onError(undefined)
         try {
             const configResponse = await ConfigurationRepository.getConfigurations(page - 1, rowsPerPage, "id", "DESC", false, props.integration.id ?? '', true)
             const completedConfigResponse = await ConfigurationRepository.getConfigurations(page - 1, rowsPerPage, "version", "DESC", true, props.integration.id ?? '', true)
@@ -70,6 +72,7 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
             setCompletedConfigs(completedConfigResponse.data)
 
         } catch (e) {
+            props.onError(undefined)
             console.error('Error: ', e);
         }
     }

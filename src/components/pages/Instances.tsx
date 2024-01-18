@@ -9,7 +9,7 @@ import PageTemplate from "../templates/PageTemplate";
 import InstanceTable from "../../features/instances/components/InstanceTable";
 import {RouteComponent} from "../../routes/Route";
 import {SourceApplicationContext} from "../../context/SourceApplicationContext";
-import {IError} from "../../features/instances/types/Error";
+import {IError} from "../../util/TableUtil";
 
 const Instances: RouteComponent = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.instances'})

@@ -1,13 +1,13 @@
-import { MOCK_EVENTS } from "../__tests__/mock/events";
-import { IEvent } from "../features/instances/types/Event";
+import {MOCK_EVENTS} from "../__tests__/mock/events";
+import {IEvent} from "../features/instances/types/Event";
 import {IIntegration} from "../features/integration/types/Integration";
 import {MOCK_INTEGRATION} from "../__tests__/mock/integration";
 
 export function getSourceApplicationDisplayName(id: number): string {
-	if (id === 1) return "ACOS";
-	if (id === 2) return "eGrunnerverv";
-	if (id === 3) return "Riksantikvaren";
-	else return "ukjent";
+    if (id === 1) return "ACOS";
+    if (id === 2) return "eGrunnerverv";
+    if (id === 3) return "Riksantikvaren";
+    else return "ukjent";
 }
 
 export function getDestinationDisplayName(id: string): string {
@@ -41,8 +41,7 @@ export const integrationComparator = (a: IIntegration, b: IIntegration, orderBy:
             return 1;
         }
         return 0;
-    }
-    else {
+    } else {
         return -1;
     }
 
@@ -95,4 +94,8 @@ export interface Page<T> {
     sort?: { empty: boolean; sorted: boolean; unsorted: boolean };
     totalElements?: number;
     totalPages?: number;
+}
+
+export interface IError {
+    message: string
 }
