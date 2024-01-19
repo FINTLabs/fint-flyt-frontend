@@ -75,6 +75,7 @@ const InstanceTable: React.FunctionComponent<Props> = ({onError}) => {
     }, [page, setPage])
 
     useEffect(() => {
+        setInstancesPage({content: []})
         getLatestInstances(sort);
     }, [sort])
 
