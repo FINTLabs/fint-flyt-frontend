@@ -6,7 +6,6 @@ import {
     getSourceApplicationDisplayName,
     getStateDisplayName,
     IError,
-    integrationComparator,
     Page,
 } from "../../../util/TableUtil";
 import {Box, HStack, Loader, Pagination, SortState, Table} from "@navikt/ds-react";
