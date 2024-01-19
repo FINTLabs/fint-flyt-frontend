@@ -2,7 +2,7 @@ import {GridCellParams} from "@mui/x-data-grid";
 import * as React from "react";
 import {useContext, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
-import {Box, HStack, Link, Loader, Modal, Pagination, SortState, Table} from "@navikt/ds-react";
+import {Box, HStack, Link, Loader, Modal, Pagination, Select, SortState, Table} from "@navikt/ds-react";
 import moment from "moment";
 import {eventComparator, getSourceApplicationDisplayName, IError, Page} from "../../../util/TableUtil";
 import {IEvent} from "../types/Event";
@@ -14,7 +14,6 @@ import InstanceRepository from "../repository/InstanceRepository";
 import EventRepository from "../../../api/EventRepository";
 import {IIntegrationMetadata} from "../../configuration/types/Metadata/IntegrationMetadata";
 import {SourceApplicationContext} from "../../../context/SourceApplicationContext";
-
 
 interface Props {
     onError: (error: IError | undefined) => void;
@@ -28,17 +27,17 @@ const InstanceTable: React.FunctionComponent<Props> = ({onError}) => {
     const [sort, setSort] = useState<SortState | undefined>({orderBy: 'timestamp', direction: "descending"});
     const errorsNotForRetry: string[] = ['instance-receival-error', 'instance-registration-error']
     const [instancesPage, setInstancesPage] = useState<Page<IEvent>>()
-    const rowsPerPage = 8
+    const [rowCount, setRowCount] = useState<number>(8)
     const {allMetadata} = useContext(SourceApplicationContext)
 
     useEffect(() => {
-        getLatestInstances(sort);
+        getLatestInstances(rowCount, sort);
     }, [])
 
-    const getLatestInstances = async (sort?: SortState) => {
+    const getLatestInstances = async (rowCount: number, sort?: SortState) => {
         onError(undefined)
         try {
-            const eventResponse = await EventRepository.getLatestEvents(page - 1, rowsPerPage, sort ? sort.orderBy : "timestamp", sort ? (sort.direction === "ascending" ? "ASC" : "DESC") : "DESC")
+            const eventResponse = await EventRepository.getLatestEvents(page - 1, rowCount, sort ? sort.orderBy : "timestamp", sort ? (sort.direction === "ascending" ? "ASC" : "DESC") : "DESC")
             const events: Page<IEvent> = eventResponse.data;
             if (allMetadata && events) {
                 allMetadata.forEach((value: IIntegrationMetadata) => {
@@ -71,12 +70,9 @@ const InstanceTable: React.FunctionComponent<Props> = ({onError}) => {
 
     useEffect(() => {
         setInstancesPage({content: []})
-        getLatestInstances(sort);
-    }, [page, setPage])
+        getLatestInstances(rowCount, sort);
+    }, [page, setPage, sort, rowCount])
 
-    useEffect(() => {
-        getLatestInstances(sort);
-    }, [sort])
 
     const handleSort = (sortKey: string) => {
         setSort(prevSort => {
@@ -161,15 +157,24 @@ const InstanceTable: React.FunctionComponent<Props> = ({onError}) => {
                     </Table.Body>
                 </Table>
             </Box>
-            <HStack justify={"center"}>
-                {instancesPage?.totalElements && instancesPage?.totalElements > rowsPerPage &&
-                    <Pagination
+                <HStack justify={"center"} style={{marginTop: '16px'}}>
+                <Select onChange={(e) => setRowCount(Number(e.target.value))} label="hvor mange instanser vil du vise per side?" hideLabel size={"small"}>
+                    <option disabled value="">Velg antall per side</option>
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </Select>
+                    {instancesPage?.totalElements && instancesPage?.totalElements > rowCount &&
+
+                        <Pagination
                         page={page}
                         onPageChange={setPage}
                         count={instancesPage?.totalPages ?? 1}
                         size="small"
                     />}
             </HStack>
+
         </Box>
     ) : <Loader/>;
 
