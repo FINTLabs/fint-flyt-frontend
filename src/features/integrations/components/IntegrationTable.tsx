@@ -103,6 +103,7 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
     };
 
     useEffect(() => {
+        setIntegrations({content: []})
         getAllIntegrations(sort)
     }, [sort]);
 
