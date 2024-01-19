@@ -115,6 +115,7 @@
       "noActiveConfig": "ingen aktiv konfigurasjon",
       "activeConfigurationId": "Aktiv konfigurasjon: ",
       "missingDataError": "Manglar tilstrekkeleg data for å kunna oppretta ny konfigurasjon",
+      "errorMessage": "Det oppstod ein feil under henting av data, prøv igjen seinare.",
       "help": {
         "header": "Oversikt over integrasjonar. Her kan du sjå alle integrasjonane og tilhøyrande konfigurasjonar, laga nye konfigurasjonar for ein integrasjon eller aktivera ein konfigurasjon"
       },
