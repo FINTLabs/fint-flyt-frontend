@@ -73,7 +73,6 @@ const InstanceTable: React.FunctionComponent<Props> = ({onError}) => {
         getLatestInstances(rowCount, sort);
     }, [page, setPage, sort, rowCount])
 
-
     const handleSort = (sortKey: string) => {
         setSort(prevSort => {
             return prevSort && sortKey === prevSort.orderBy && prevSort.direction === "descending"
