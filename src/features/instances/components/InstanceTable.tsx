@@ -158,7 +158,7 @@ const InstanceTable: React.FunctionComponent<Props> = ({onError}) => {
             </Box>
                 <HStack justify={"center"} style={{marginTop: '16px'}}>
                 <Select onChange={(e) => setRowCount(Number(e.target.value))} label="hvor mange instanser vil du vise per side?" hideLabel size={"small"}>
-                    <option disabled value="">Velg antall per side</option>
+                    <option disabled value="">{t('numberPerPage')}</option>
                     <option value="10">10</option>
                     <option value="25">25</option>
                     <option value="50">50</option>

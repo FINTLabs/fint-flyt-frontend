@@ -8,7 +8,7 @@ import {
     IError,
     Page,
 } from "../../../util/TableUtil";
-import {Box, HStack, Loader, Pagination, SortState, Table} from "@navikt/ds-react";
+import {Box, HStack, Loader, Pagination, Select, SortState, Table} from "@navikt/ds-react";
 import IntegrationPanel from "./IntegrationPanel";
 import {useTranslation} from "react-i18next";
 import EventRepository from "../../../api/EventRepository";
@@ -24,21 +24,21 @@ type IntegrationProps = {
 const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: IntegrationProps) => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.integrations'})
     const [page, setPage] = useState(1);
-    const rowsPerPage = 10;
     const [integrations, setIntegrations] = useState<Page<IIntegration> | undefined>()
     const [sort, setSort] = useState<SortState | undefined>({orderBy: 'state', direction: "ascending"});
+    const [rowCount, setRowCount] = useState<number>(10)
     const {allMetadata} = useContext(SourceApplicationContext)
 
     useEffect(() => {
-        getAllIntegrations(sort)
+        getAllIntegrations(rowCount, sort)
     }, [])
 
     useEffect(() => {
         setIntegrations({content: []})
-        getAllIntegrations(sort);
-    }, [page, setPage])
+        getAllIntegrations(rowCount, sort);
+    }, [page, setPage, sort, rowCount])
 
-    const getAllIntegrations = async (sort?: SortState) => {
+    const getAllIntegrations = async (rowCount: number, sort?: SortState) => {
         props.onError(undefined)
         if (allMetadata) {
             try {
@@ -48,7 +48,7 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
                 if (data) {
                     const stats = data;
 
-                    const integrationResponse = await IntegrationRepository.getIntegrations(page - 1, rowsPerPage, sort ? sort.orderBy : "state", sort ? sort.direction === 'ascending' ? "ASC" : "DESC" : "ASC");
+                    const integrationResponse = await IntegrationRepository.getIntegrations(page - 1, rowCount, sort ? sort.orderBy : "state", sort ? sort.direction === 'ascending' ? "ASC" : "DESC" : "ASC");
                     const mergedList = integrationResponse.data || [];
 
                     stats.forEach((value: IIntegrationStatistics) => {
@@ -102,11 +102,6 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
         });
     };
 
-    useEffect(() => {
-        setIntegrations({content: []})
-        getAllIntegrations(sort)
-    }, [sort]);
-
     return integrations ? (
         <Box>
             <Box background={'surface-default'} style={{height: '70vh', overflowY: "scroll"}}>
@@ -155,8 +150,15 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
                     </Table.Body>
                 </Table>
             </Box>
-            <HStack justify={"center"}>
-                {integrations?.totalElements && integrations?.totalElements > rowsPerPage &&
+            <HStack justify={"center"} style={{marginTop: '16px'}}>
+                <Select onChange={(e) => setRowCount(Number(e.target.value))} label="hvor mange instanser vil du vise per side?" hideLabel size={"small"}>
+                    <option disabled value="">{t('numberPerPage')}</option>
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </Select>
+                {integrations?.totalElements && integrations?.totalElements > rowCount &&
                     <Pagination
                         page={page}
                         onPageChange={setPage}
