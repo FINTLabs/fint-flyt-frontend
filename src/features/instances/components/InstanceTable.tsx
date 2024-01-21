@@ -2,7 +2,7 @@ import {GridCellParams} from "@mui/x-data-grid";
 import * as React from "react";
 import {useContext, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
-import {Box, HStack, Link, Loader, Modal, Pagination, Select, SortState, Table} from "@navikt/ds-react";
+import {Box, HStack, Link, Loader, Modal, Pagination, SortState, Table} from "@navikt/ds-react";
 import moment from "moment";
 import {eventComparator, getSourceApplicationDisplayName, IError, Page} from "../../../util/TableUtil";
 import {IEvent} from "../types/Event";
@@ -14,6 +14,7 @@ import InstanceRepository from "../repository/InstanceRepository";
 import EventRepository from "../../../api/EventRepository";
 import {IIntegrationMetadata} from "../../configuration/types/Metadata/IntegrationMetadata";
 import {SourceApplicationContext} from "../../../context/SourceApplicationContext";
+import {CustomSelect} from "../../../components/organisms/CustomSelect";
 
 interface Props {
     onError: (error: IError | undefined) => void;
@@ -27,17 +28,18 @@ const InstanceTable: React.FunctionComponent<Props> = ({onError}) => {
     const [sort, setSort] = useState<SortState | undefined>({orderBy: 'timestamp', direction: "descending"});
     const errorsNotForRetry: string[] = ['instance-receival-error', 'instance-registration-error']
     const [instancesPage, setInstancesPage] = useState<Page<IEvent>>()
-    const [rowCount, setRowCount] = useState<number>(8)
+    const [rowCount, setRowCount] = useState<string>("10")
     const {allMetadata} = useContext(SourceApplicationContext)
+    const selectOptions = [{value: "", label: t('numberPerPage'), disabled: true}, {value: "10", label: "10"}, {value: "25", label: "25"}, {value: "50", label: "50"}, {value: "100", label: "100"}]
 
     useEffect(() => {
         getLatestInstances(rowCount, sort);
     }, [])
 
-    const getLatestInstances = async (rowCount: number, sort?: SortState) => {
+    const getLatestInstances = async (rowCount: string, sort?: SortState) => {
         onError(undefined)
         try {
-            const eventResponse = await EventRepository.getLatestEvents(page - 1, rowCount, sort ? sort.orderBy : "timestamp", sort ? (sort.direction === "ascending" ? "ASC" : "DESC") : "DESC")
+            const eventResponse = await EventRepository.getLatestEvents(page - 1, Number(rowCount), sort ? sort.orderBy : "timestamp", sort ? (sort.direction === "ascending" ? "ASC" : "DESC") : "DESC")
             const events: Page<IEvent> = eventResponse.data;
             if (allMetadata && events) {
                 allMetadata.forEach((value: IIntegrationMetadata) => {
@@ -156,17 +158,16 @@ const InstanceTable: React.FunctionComponent<Props> = ({onError}) => {
                     </Table.Body>
                 </Table>
             </Box>
-                <HStack justify={"center"} style={{marginTop: '16px'}}>
-                <Select onChange={(e) => setRowCount(Number(e.target.value))} label="hvor mange instanser vil du vise per side?" hideLabel size={"small"}>
-                    <option disabled value="">{t('numberPerPage')}</option>
-                    <option value="10">10</option>
-                    <option value="25">25</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                </Select>
-                    {instancesPage?.totalElements && instancesPage?.totalElements > rowCount &&
-
-                        <Pagination
+            <HStack justify={"center"} style={{marginTop: '16px'}}>
+                {instancesPage?.totalElements &&
+                    <CustomSelect
+                        options={selectOptions}
+                        onChange={setRowCount}
+                        label={t('numberPerPage')}
+                        hideLabel={true}
+                    />}
+                {instancesPage?.totalElements && instancesPage?.totalElements > Number(rowCount) &&
+                    <Pagination
                         page={page}
                         onPageChange={setPage}
                         count={instancesPage?.totalPages ?? 1}

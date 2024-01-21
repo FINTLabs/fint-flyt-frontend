@@ -2,6 +2,7 @@ import {MOCK_EVENTS} from "../__tests__/mock/events";
 import {IEvent} from "../features/instances/types/Event";
 import {IIntegration} from "../features/integration/types/Integration";
 import {MOCK_INTEGRATION} from "../__tests__/mock/integration";
+import {ISelect} from "../features/configuration/types/Select";
 
 export function getSourceApplicationDisplayName(id: number): string {
     if (id === 1) return "ACOS";
@@ -98,4 +99,8 @@ export interface Page<T> {
 
 export interface IError {
     message: string
+}
+
+export interface ITableSelect extends ISelect {
+    disabled?: boolean
 }

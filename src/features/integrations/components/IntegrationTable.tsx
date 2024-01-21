@@ -1,14 +1,14 @@
 import * as React from "react";
 import {useContext, useEffect, useState} from "react";
 import {
-    integrationComparator,
     getDestinationDisplayName,
     getSourceApplicationDisplayName,
     getStateDisplayName,
     IError,
+    integrationComparator,
     Page,
 } from "../../../util/TableUtil";
-import {Box, HStack, Loader, Pagination, Select, SortState, Table} from "@navikt/ds-react";
+import {Box, HStack, Loader, Pagination, SortState, Table} from "@navikt/ds-react";
 import IntegrationPanel from "./IntegrationPanel";
 import {useTranslation} from "react-i18next";
 import EventRepository from "../../../api/EventRepository";
@@ -16,6 +16,7 @@ import IntegrationRepository from "../../../api/IntegrationRepository";
 import {IIntegration, IIntegrationStatistics} from "../../integration/types/Integration";
 import {IIntegrationMetadata} from "../../configuration/types/Metadata/IntegrationMetadata";
 import {SourceApplicationContext} from "../../../context/SourceApplicationContext";
+import {CustomSelect} from "../../../components/organisms/CustomSelect";
 
 type IntegrationProps = {
     id: string;
@@ -26,8 +27,9 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
     const [page, setPage] = useState(1);
     const [integrations, setIntegrations] = useState<Page<IIntegration> | undefined>()
     const [sort, setSort] = useState<SortState | undefined>({orderBy: 'state', direction: "ascending"});
-    const [rowCount, setRowCount] = useState<number>(10)
+    const [rowCount, setRowCount] = useState<string>("10")
     const {allMetadata} = useContext(SourceApplicationContext)
+    const selectOptions = [{value: "", label: t('numberPerPage'), disabled: true}, {value: "10", label: "10"}, {value: "25", label: "25"}, {value: "50", label: "50"}, {value: "100", label: "100"}]
 
     useEffect(() => {
         getAllIntegrations(rowCount, sort)
@@ -38,7 +40,7 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
         getAllIntegrations(rowCount, sort);
     }, [page, setPage, sort, rowCount])
 
-    const getAllIntegrations = async (rowCount: number, sort?: SortState) => {
+    const getAllIntegrations = async (rowCount: string, sort?: SortState) => {
         props.onError(undefined)
         if (allMetadata) {
             try {
@@ -48,7 +50,7 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
                 if (data) {
                     const stats = data;
 
-                    const integrationResponse = await IntegrationRepository.getIntegrations(page - 1, rowCount, sort ? sort.orderBy : "state", sort ? sort.direction === 'ascending' ? "ASC" : "DESC" : "ASC");
+                    const integrationResponse = await IntegrationRepository.getIntegrations(page - 1, Number(rowCount), sort ? sort.orderBy : "state", sort ? sort.direction === 'ascending' ? "ASC" : "DESC" : "ASC");
                     const mergedList = integrationResponse.data || [];
 
                     stats.forEach((value: IIntegrationStatistics) => {
@@ -151,14 +153,14 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
                 </Table>
             </Box>
             <HStack justify={"center"} style={{marginTop: '16px'}}>
-                <Select onChange={(e) => setRowCount(Number(e.target.value))} label="hvor mange instanser vil du vise per side?" hideLabel size={"small"}>
-                    <option disabled value="">{t('numberPerPage')}</option>
-                    <option value="10">10</option>
-                    <option value="25">25</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                </Select>
-                {integrations?.totalElements && integrations?.totalElements > rowCount &&
+                {integrations?.totalElements &&
+                    <CustomSelect
+                        options={selectOptions}
+                        onChange={setRowCount}
+                        label={t('numberPerPage')}
+                        hideLabel={true}
+                    />}
+                {integrations?.totalElements && integrations?.totalElements > Number(rowCount) &&
                     <Pagination
                         page={page}
                         onPageChange={setPage}
