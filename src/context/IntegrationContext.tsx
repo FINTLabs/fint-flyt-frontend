@@ -1,9 +1,9 @@
 import { createContext, useState } from "react";
 import { IIntegration } from "../features/integration/types/Integration";
 import { IConfiguration } from "../features/configuration/types/Configuration";
-import { IIntegrationStatistics } from "../features/dashboard/types/IntegrationStatistics";
+import { IIntegrationStatistics } from "../features/integration/types/Integration";
 import { IIntegrationMetadata } from "../features/configuration/types/Metadata/IntegrationMetadata";
-import { ContextProps } from "../util/constants/interface";
+import { ContextProps } from "./constants/interface";
 import { sourceApplications } from "../features/configuration/defaults/DefaultValues";
 import IntegrationRepository from "../api/IntegrationRepository";
 import SourceApplicationRepository from "../api/SourceApplicationRepository";
@@ -94,14 +94,6 @@ const IntegrationProvider = ({ children }: ContextProps) => {
 		contextDefaultValues.statistics
 	);
 
-	const { isError, isPending, allintegrations, error } = useAllIntegrations(
-		0,
-		1000,
-		"state",
-		"ASC"
-	);
-
-	console.log("HOW BOUT THIS", allintegrations?.data);
 	const resetIntegrationContext = () => {
 		setDestination("");
 		setExistingIntegration(undefined);
@@ -208,17 +200,13 @@ const IntegrationProvider = ({ children }: ContextProps) => {
 						[]
 					) || [];
 
-				const info = allintegrations;
-				console.log("====================================");
-				console.log("iunfor", info?.data);
-				console.log("====================================");
 				const integrationResponse = await IntegrationRepository.getIntegrations(
 					0,
 					1000,
 					"state",
 					"ASC"
 				);
-				console.log("THIS THEN", integrationResponse.data.content);
+				console.log(integrationResponse);
 				const mergedList = integrationResponse.data.content || [];
 
 				stats.forEach((value: IIntegrationStatistics) => {

@@ -1,5 +1,5 @@
 import {IEvent} from "../../features/instances/types/Event";
-import {Page} from "../../util/DataGridUtil";
+import {Page} from "../../util/TableUtil";
 
 export const MOCK_EVENTS: Page<IEvent> = {
     content: [
@@ -7,7 +7,15 @@ export const MOCK_EVENTS: Page<IEvent> = {
             name: 'Event 1',
             timestamp: new Date("2023-09-26T06:57:12.747Z"),
             type: 'Type 1',
-            errors: [],
+            displayName: 'test',
+            errors: [
+                {
+                    errorCode: "FINT_FLYT_INSTANCE_GATEWAY_INSTANCE_REJECTED_ERROR",
+                    args: {
+                        message: "error message'"
+                    }
+                }
+            ],
             instanceFlowHeaders: {
                 orgId: '52314',
                 service: 'flyt-dispatch-service',

@@ -1,14 +1,14 @@
 import React, { useContext, useEffect } from "react";
 import { IntegrationContext } from "../../context/IntegrationContext";
-import DashboardCard from "./DashboardCard";
-import { ICard } from "./types/Card";
+import DashboardCard from "../organisms/DashboardCard";
+import { ICard } from "../../features/dashboard/Card";
 import { useTranslation } from "react-i18next";
-import { IIntegrationStatistics } from "./types/IntegrationStatistics";
-import PageTemplate from "../../components/templates/PageTemplate";
+import { IIntegrationStatistics } from "../../features/integration/types/Integration";
+import PageTemplate from "../templates/PageTemplate";
 import { RouteComponent } from "../../routes/Route";
 import { Box, HStack } from "@navikt/ds-react";
-import { Contact } from "../../components/atoms/Contact";
-import SupportContent from "../../components/molecules/SupportContent";
+import { Contact } from "../atoms/Contact";
+import SupportContent from "../molecules/SupportContent";
 
 const Dashboard: RouteComponent = () => {
 	const { t } = useTranslation("translations", {
@@ -17,7 +17,6 @@ const Dashboard: RouteComponent = () => {
 
 	const { statistics, resetIntegrations, integrations, getAllIntegrations } =
 		useContext(IntegrationContext);
-
 	const activeIntegrations =
 		integrations?.filter((integration) => integration.state === "ACTIVE") || [];
 	let totalErrors = 0;

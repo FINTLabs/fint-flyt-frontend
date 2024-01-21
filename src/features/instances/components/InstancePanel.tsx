@@ -9,12 +9,13 @@ import {Box, HStack, Link, Loader, Modal, Pagination, Table} from "@navikt/ds-re
 import {GetIcon} from "../util/InstanceUtils";
 import {Button as ButtonAks} from "@navikt/ds-react/esm/button";
 import EventRepository from "../../../api/EventRepository";
-import {Page} from "../../../util/DataGridUtil";
+import {IError, Page} from "../../../util/TableUtil";
 
 type Props = {
     id: string;
     instanceId: string;
     sourceApplicationId: string
+    onError: (error: IError | undefined) => void;
 }
 
 const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
@@ -26,15 +27,18 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
     const rowsPerPage = 10
 
     const getSelectedInstances = async (page: number, size: number, sortProperty: string, sortDirection: string, sourceApplicationId: string, instanceId: string) => {
+        props.onError(undefined)
         try {
             const eventResponse = await EventRepository.getEventsByInstanceId(page, size, sortProperty, sortDirection, sourceApplicationId, instanceId)
             const events: Page<IEvent> = eventResponse.data;
             if (events) {
                 setSelectedInstances(events);
             } else {
+                props.onError({message: t('errorMessage')});
                 setSelectedInstances({content: []});
             }
         } catch (e) {
+            props.onError({message: t('errorMessage')});
             setSelectedInstances({content: []});
             console.error('Error: ', e);
         }

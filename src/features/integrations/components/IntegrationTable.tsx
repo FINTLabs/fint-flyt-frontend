@@ -1,56 +1,140 @@
 import * as React from "react";
-import {useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {
+    integrationComparator,
     getDestinationDisplayName,
     getSourceApplicationDisplayName,
     getStateDisplayName,
-} from "../../../util/DataGridUtil";
-import {Box, HStack, Pagination, Table} from "@navikt/ds-react";
+    IError,
+    Page,
+} from "../../../util/TableUtil";
+import {Box, HStack, Loader, Pagination, SortState, Table} from "@navikt/ds-react";
 import IntegrationPanel from "./IntegrationPanel";
-import {IIntegration} from "../../integration/types/Integration";
 import {useTranslation} from "react-i18next";
-import {IConfiguration} from "../../configuration/types/Configuration";
+import EventRepository from "../../../api/EventRepository";
+import IntegrationRepository from "../../../api/IntegrationRepository";
+import {IIntegration, IIntegrationStatistics} from "../../integration/types/Integration";
+import {IIntegrationMetadata} from "../../configuration/types/Metadata/IntegrationMetadata";
+import {SourceApplicationContext} from "../../../context/SourceApplicationContext";
 
 type IntegrationProps = {
-    integrations: IIntegration[];
-    allConfigs: IConfiguration[];
-    allCompletedConfigs: IConfiguration[];
+    id: string;
+    onError: (error: IError | undefined) => void;
 }
-
 const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: IntegrationProps) => {
-    const {t} = useTranslation('translations', {keyPrefix: 'pages.integrations.table'})
+    const {t} = useTranslation('translations', {keyPrefix: 'pages.integrations'})
     const [page, setPage] = useState(1);
-    const rowsPerPage = 14;
+    const rowsPerPage = 10;
+    const [integrations, setIntegrations] = useState<Page<IIntegration> | undefined>()
+    const [sort, setSort] = useState<SortState | undefined>({orderBy: 'state', direction: "ascending"});
+    const {allMetadata} = useContext(SourceApplicationContext)
 
-    let sortData = props.integrations ?? [];
-    sortData = sortData.slice((page - 1) * rowsPerPage, page * rowsPerPage);
+    useEffect(() => {
+        getAllIntegrations(sort)
+    }, [])
 
-    return (
+    useEffect(() => {
+        setIntegrations({content: []})
+        getAllIntegrations(sort);
+    }, [page, setPage])
+
+    const getAllIntegrations = async (sort?: SortState) => {
+        props.onError(undefined)
+        if (allMetadata) {
+            try {
+                const response = await EventRepository.getStatistics();
+                const data = response.data;
+
+                if (data) {
+                    const stats = data;
+
+                    const integrationResponse = await IntegrationRepository.getIntegrations(page - 1, rowsPerPage, sort ? sort.orderBy : "state", sort ? sort.direction === 'ascending' ? "ASC" : "DESC" : "ASC");
+                    const mergedList = integrationResponse.data || [];
+
+                    stats.forEach((value: IIntegrationStatistics) => {
+                        mergedList.content.forEach((integration: IIntegration) => {
+                            if (integration.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {
+                                integration.errors = value.currentErrors;
+                                integration.dispatched = value.dispatchedInstances;
+                            }
+                        });
+                    });
+
+                    allMetadata.forEach((value: IIntegrationMetadata) => {
+                        mergedList.content.forEach((integration: IIntegration) => {
+                            if (integration.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {
+                                integration.displayName = value.integrationDisplayName;
+                            }
+                        });
+                    });
+
+                    const sortedData: IIntegration[] = mergedList.content
+                        .slice()
+                        .sort((a: IIntegration, b: IIntegration) => {
+                            if (sort) {
+                                return sort.direction === "ascending"
+                                    ? integrationComparator(b, a, sort.orderBy)
+                                    : integrationComparator(a, b, sort.orderBy);
+                            }
+                            return 1;
+                        });
+                    setIntegrations({...mergedList, content: sortedData});
+                }
+            } catch (e) {
+                props.onError({message: t('errorMessage')});
+                console.error('Error: ', e);
+                setIntegrations({content: []})
+            }
+        }
+    };
+
+    const handleSort = (sortKey: string) => {
+        setSort(prevSort => {
+            return prevSort && sortKey === prevSort.orderBy && prevSort.direction === "descending"
+                ? undefined
+                : {
+                    orderBy: sortKey,
+                    direction:
+                        prevSort && sortKey === prevSort.orderBy && prevSort.direction === "ascending"
+                            ? "descending"
+                            : "ascending",
+                };
+        });
+    };
+
+    useEffect(() => {
+        setIntegrations({content: []})
+        getAllIntegrations(sort)
+    }, [sort]);
+
+    return integrations ? (
         <Box>
             <Box background={'surface-default'} style={{height: '70vh', overflowY: "scroll"}}>
-                <Table id={"integration-table"} size={"small"}>
+                <Table sort={sort} onSortChange={(sortKey) => handleSort(sortKey ? sortKey : 'id')} id={props.id}>
                     <Table.Header>
                         <Table.Row>
                             <Table.ColumnHeader/>
-                            <Table.ColumnHeader>{t('column.id')}</Table.ColumnHeader>
-                            <Table.ColumnHeader>{t('column.sourceApplicationId')}</Table.ColumnHeader>
+                            <Table.ColumnHeader sortKey="id" sortable>{t('table.column.id')}</Table.ColumnHeader>
+                            <Table.ColumnHeader>{t('table.column.sourceApplicationId')}</Table.ColumnHeader>
+                            <Table.ColumnHeader sortKey="sourceApplicationIntegrationId" sortable
+                            >{t('table.column.sourceApplicationIntegrationId')}</Table.ColumnHeader>
                             <Table.ColumnHeader
-                                 >{t('column.sourceApplicationIntegrationId')}</Table.ColumnHeader>
-                            <Table.ColumnHeader
-                                 >{t('column.sourceApplicationIntegrationIdDisplayName')}</Table.ColumnHeader>
-                            <Table.ColumnHeader>{t('column.destination')}</Table.ColumnHeader>
-                            <Table.ColumnHeader>{t('column.state')}</Table.ColumnHeader>
-                            <Table.ColumnHeader>{t('column.dispatched')}</Table.ColumnHeader>
-                            <Table.ColumnHeader>{t('column.errors')}</Table.ColumnHeader>
+                            >{t('table.column.sourceApplicationIntegrationIdDisplayName')}</Table.ColumnHeader>
+                            <Table.ColumnHeader>{t('table.column.destination')}</Table.ColumnHeader>
+                            <Table.ColumnHeader sortKey="state" sortable>{t('table.column.state')}</Table.ColumnHeader>
+                            <Table.ColumnHeader>{t('table.column.dispatched')}</Table.ColumnHeader>
+                            <Table.ColumnHeader>{t('table.column.errors')}</Table.ColumnHeader>
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                        {sortData?.map((value, i) => {
+                        {integrations?.content?.map((value, i) => {
                             return (
                                 <Table.ExpandableRow key={i} content={
-                                    <IntegrationPanel id={'panel-' + i}
-                                        draftC={props.allConfigs.filter((config) => config.integrationId === value.id)}
-                                        completedC={props.allCompletedConfigs.filter((config) => config.integrationId === value.id)}
+                                    <IntegrationPanel
+                                        id={'panel-' + i}
+                                        onError={(error) => {
+                                            props.onError(error)
+                                        }}
                                         integration={value}
                                     />}
                                 >
@@ -72,17 +156,17 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
                 </Table>
             </Box>
             <HStack justify={"center"}>
-                {props.integrations && props.integrations.length > rowsPerPage &&
+                {integrations?.totalElements && integrations?.totalElements > rowsPerPage &&
                     <Pagination
                         page={page}
                         onPageChange={setPage}
-                        count={Math.ceil(props.integrations.length / rowsPerPage)}
+                        count={integrations?.totalPages ?? 1}
                         size="small"
                     />
                 }
             </HStack>
         </Box>
-    );
+    ) : <Loader size={"xlarge"}/>;
 }
 
 export default IntegrationTable;

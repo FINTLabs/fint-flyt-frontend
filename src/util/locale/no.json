@@ -115,10 +115,12 @@
       "noActiveConfig": "ingen aktiv konfigurasjon",
       "activeConfigurationId": "Aktiv konfigurasjon: ",
       "missingDataError": "Mangler tilstrekkelig data for å kunne opprette ny konfigurasjon",
+      "errorMessage": "Det oppsto en feil under henting av data, prøv igjen senere.",
       "help": {
         "header": "Oversikt over integrasjoner. Her kan du se alle integrasjonene og tilhørende konfigurasjoner, lage nye konfigurasjoner for en integrasjon eller aktivere en konfigurasjon"
       },
       "button": {
+        "newIntegration": "Ny integrasjon",
         "newConfiguration": "Ny konfigurasjon"
       },
       "dialog": {
@@ -157,6 +159,7 @@
       "showError": "vis feilmelding",
       "errors": "Feilmeldinger",
       "oneError": "Feilmelding",
+      "errorMessage": "Det oppsto en feil under henting av data, prøv igjen senere.",
       "button": {
         "close": "Lukk",
         "retry": "Prøv igjen",
@@ -225,7 +228,7 @@
     },
     "valueConverting": {
       "button": {
-        "newConverting": "Ny",
+        "newConverting": "Ny verdikonvertering",
         "basedOn": "Lag ny basert på denne",
         "create": "Opprett",
         "cancel": "Avbryt",

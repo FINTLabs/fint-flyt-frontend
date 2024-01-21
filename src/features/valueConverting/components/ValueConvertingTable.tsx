@@ -3,7 +3,7 @@ import {useHistory} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
 import ValueConvertingRepository from "../../../api/ValueConvertingRepository";
 import {IValueConverting} from "../types/ValueConverting";
-import {getDestinationDisplayName, getSourceApplicationDisplayName} from "../../../util/DataGridUtil";
+import {getDestinationDisplayName, getSourceApplicationDisplayName} from "../../../util/TableUtil";
 import {
     Box,
     Button as ButtonAks,
@@ -98,29 +98,38 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
                     <Table id={"value-convertings-table"} size={"small"}>
                         <Table.Header>
                             <Table.Row>
-                                <Table.HeaderCell scope="col">{toggleValue === 'custom' ? t('column.show') : ''}</Table.HeaderCell>
+                                <Table.HeaderCell
+                                    scope="col">{toggleValue === 'custom' ? t('column.show') : ''}</Table.HeaderCell>
                                 <Table.HeaderCell scope="col">{t('column.id')}</Table.HeaderCell>
                                 <Table.HeaderCell scope="col">{t('column.displayName')}</Table.HeaderCell>
                                 <Table.HeaderCell scope="col">{t('column.fromType')}</Table.HeaderCell>
                                 <Table.HeaderCell scope="col">{t('column.toType')}</Table.HeaderCell>
-                                {toggleValue === 'custom' && <Table.HeaderCell scope="col">{t('column.fromApplication')}</Table.HeaderCell>}
-                                {toggleValue === 'custom' && <Table.HeaderCell scope="col">{t('column.toApplication')}</Table.HeaderCell>}
-                                {toggleValue === 'custom' && <Table.HeaderCell scope="col">{t('column.actions')}</Table.HeaderCell>}
+                                {toggleValue === 'custom' &&
+                                    <Table.HeaderCell scope="col">{t('column.fromApplication')}</Table.HeaderCell>}
+                                {toggleValue === 'custom' &&
+                                    <Table.HeaderCell scope="col">{t('column.toApplication')}</Table.HeaderCell>}
+                                {toggleValue === 'custom' &&
+                                    <Table.HeaderCell scope="col">{t('column.actions')}</Table.HeaderCell>}
                             </Table.Row>
                         </Table.Header>
                         <Table.Body>
                             {sortData?.map((value, i) => {
                                 return (
-                                    <Table.ExpandableRow id={"table-row-" + i} key={i} expansionDisabled={toggleValue !== 'custom'}
-                                                         content={toggleValue === 'custom' ? <ValueConvertingPanel id={i}
-                                                             existingValueConverting={value}/> : <></>}>
+                                    <Table.ExpandableRow id={"table-row-" + i} key={i}
+                                                         expansionDisabled={toggleValue !== 'custom'}
+                                                         content={toggleValue === 'custom' ?
+                                                             <ValueConvertingPanel id={i}
+                                                                                   existingValueConverting={value}/> : <></>}>
                                         <Table.DataCell scope="row">{value.id}</Table.DataCell>
                                         <Table.DataCell scope="row">{value.displayName}</Table.DataCell>
                                         <Table.DataCell scope="row">{value.fromTypeId}</Table.DataCell>
                                         <Table.DataCell scope="row">{value.toTypeId}</Table.DataCell>
-                                        {toggleValue === 'custom' && <Table.DataCell scope="row">{getSourceApplicationDisplayName(value.fromApplicationId)}</Table.DataCell>}
-                                        {toggleValue === 'custom' && <Table.DataCell scope="row">{getDestinationDisplayName(value.toApplicationId)}</Table.DataCell>}
-                                        {toggleValue === 'custom' && <Table.DataCell scope="row">{actionMenu(value)}</Table.DataCell>}
+                                        {toggleValue === 'custom' && <Table.DataCell
+                                            scope="row">{getSourceApplicationDisplayName(value.fromApplicationId)}</Table.DataCell>}
+                                        {toggleValue === 'custom' && <Table.DataCell
+                                            scope="row">{getDestinationDisplayName(value.toApplicationId)}</Table.DataCell>}
+                                        {toggleValue === 'custom' &&
+                                            <Table.DataCell scope="row">{actionMenu(value)}</Table.DataCell>}
                                     </Table.ExpandableRow>
                                 );
                             })}
@@ -136,14 +145,6 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
                             size="small"
                         />}
                 </HStack>
-                {toggleValue === 'custom' && <HStack gap={"2"} align="center">
-                    <ButtonAks id={"new-button"} onClick={() => props.setNewValueConverting(true)}>
-                        {t('button.newConverting')}
-                    </ButtonAks>
-                    <HelpText title="Knapp informasjon" placement="right">
-                        {t('help.new')}
-                    </HelpText>
-                </HStack>}
             </VStack>
         </Box>
     );
