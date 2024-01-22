@@ -165,6 +165,7 @@ const InstanceTable: React.FunctionComponent<Props> = ({onError}) => {
                         onChange={setRowCount}
                         label={t('numberPerPage')}
                         hideLabel={true}
+                        default={rowCount}
                     />}
                 {instancesPage?.totalElements && instancesPage?.totalElements > Number(rowCount) &&
                     <Pagination
