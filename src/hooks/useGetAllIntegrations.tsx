@@ -1,23 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
-import IntegrationRepository from "../api/IntegrationRepository"; // Adjust the path as needed
-
-const useAllIntegrations = (
-	page: number,
-	size: number,
-	sortProperty: string,
-	sortDirection: string
-) => {
+import axios from "axios";
+export const useGetAllIntegrations = () => {
 	const {
-		isError,
-		isPending,
-		data: allintegrations,
+		data: integrasjoner,
 		error,
+		isFetched,
 	} = useQuery({
-		queryKey: ["allintegrations", page, size, sortProperty, sortDirection],
-		queryFn: () => IntegrationRepository.getAllIntegrations(),
+		queryKey: ["integrasjoner"],
+		queryFn: async () => {
+			return await axios.get("/api/intern/integrasjoner");
+		},
 	});
-
-	return { isError, isPending, allintegrations, error };
+	return { integrasjoner, isFetched, error };
 };
-
-export default useAllIntegrations;
