@@ -116,6 +116,7 @@
       "activeConfigurationId": "Aktiv konfigurasjon: ",
       "missingDataError": "Manglar tilstrekkeleg data for å kunna oppretta ny konfigurasjon",
       "errorMessage": "Det oppstod ein feil under henting av data, prøv igjen seinare.",
+      "numberPerPage": "Antall per side",
       "help": {
         "header": "Oversikt over integrasjonar. Her kan du sjå alle integrasjonane og tilhøyrande konfigurasjonar, laga nye konfigurasjonar for ein integrasjon eller aktivera ein konfigurasjon"
       },
@@ -160,6 +161,7 @@
       "errors": "Feilmeldingar",
       "oneError": "Feilelding",
       "errorMessage": "Det oppstod ein feil under henting av data, prøv igjen seinare.",
+      "numberPerPage": "Antall per side",
       "button": {
         "close": "Lukk",
         "retry": "Prøv igjen",
