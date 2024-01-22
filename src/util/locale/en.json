@@ -116,6 +116,7 @@
       "activeConfigurationId": "Active configuration Id: ",
       "missingDataError": "There is insufficient data to create a new configuration",
       "errorMessage": "There was an error fetching data, try again later.",
+      "numberPerPage": "Show per page",
       "help": {
         "header": "List of integrations. Here you can see all the integrations and associated configurations, create new configurations for an integration or activate a configuration"
       },
@@ -160,6 +161,7 @@
       "errors": "Errors",
       "oneError": "Error",
       "errorMessage": "There was an error fetching data, try again later.",
+      "numberPerPage": "Show per page",
       "button": {
         "close": "Close",
         "retry": "Try again",

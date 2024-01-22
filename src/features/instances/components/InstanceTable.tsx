@@ -14,7 +14,7 @@ import InstanceRepository from "../repository/InstanceRepository";
 import EventRepository from "../../../api/EventRepository";
 import {IIntegrationMetadata} from "../../configuration/types/Metadata/IntegrationMetadata";
 import {SourceApplicationContext} from "../../../context/SourceApplicationContext";
-
+import {CustomSelect} from "../../../components/organisms/CustomSelect";
 
 interface Props {
     onError: (error: IError | undefined) => void;
@@ -28,17 +28,18 @@ const InstanceTable: React.FunctionComponent<Props> = ({onError}) => {
     const [sort, setSort] = useState<SortState | undefined>({orderBy: 'timestamp', direction: "descending"});
     const errorsNotForRetry: string[] = ['instance-receival-error', 'instance-registration-error']
     const [instancesPage, setInstancesPage] = useState<Page<IEvent>>()
-    const rowsPerPage = 8
+    const [rowCount, setRowCount] = useState<string>("10")
     const {allMetadata} = useContext(SourceApplicationContext)
+    const selectOptions = [{value: "", label: t('numberPerPage'), disabled: true}, {value: "10", label: "10"}, {value: "25", label: "25"}, {value: "50", label: "50"}, {value: "100", label: "100"}]
 
     useEffect(() => {
-        getLatestInstances(sort);
+        getLatestInstances(rowCount, sort);
     }, [])
 
-    const getLatestInstances = async (sort?: SortState) => {
+    const getLatestInstances = async (rowCount: string, sort?: SortState) => {
         onError(undefined)
         try {
-            const eventResponse = await EventRepository.getLatestEvents(page - 1, rowsPerPage, sort ? sort.orderBy : "timestamp", sort ? (sort.direction === "ascending" ? "ASC" : "DESC") : "DESC")
+            const eventResponse = await EventRepository.getLatestEvents(page - 1, Number(rowCount), sort ? sort.orderBy : "timestamp", sort ? (sort.direction === "ascending" ? "ASC" : "DESC") : "DESC")
             const events: Page<IEvent> = eventResponse.data;
             if (allMetadata && events) {
                 allMetadata.forEach((value: IIntegrationMetadata) => {
@@ -71,13 +72,8 @@ const InstanceTable: React.FunctionComponent<Props> = ({onError}) => {
 
     useEffect(() => {
         setInstancesPage({content: []})
-        getLatestInstances(sort);
-    }, [page, setPage])
-
-    useEffect(() => {
-        setInstancesPage({content: []})
-        getLatestInstances(sort);
-    }, [sort])
+        getLatestInstances(rowCount, sort);
+    }, [page, setPage, sort, rowCount])
 
     const handleSort = (sortKey: string) => {
         setSort(prevSort => {
@@ -162,8 +158,15 @@ const InstanceTable: React.FunctionComponent<Props> = ({onError}) => {
                     </Table.Body>
                 </Table>
             </Box>
-            <HStack justify={"center"}>
-                {instancesPage?.totalElements && instancesPage?.totalElements > rowsPerPage &&
+            <HStack justify={"center"} style={{marginTop: '16px'}}>
+                {instancesPage?.totalElements &&
+                    <CustomSelect
+                        options={selectOptions}
+                        onChange={setRowCount}
+                        label={t('numberPerPage')}
+                        hideLabel={true}
+                    />}
+                {instancesPage?.totalElements && instancesPage?.totalElements > Number(rowCount) &&
                     <Pagination
                         page={page}
                         onPageChange={setPage}
@@ -171,6 +174,7 @@ const InstanceTable: React.FunctionComponent<Props> = ({onError}) => {
                         size="small"
                     />}
             </HStack>
+
         </Box>
     ) : <Loader/>;
 
