@@ -159,6 +159,7 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
                         onChange={setRowCount}
                         label={t('numberPerPage')}
                         hideLabel={true}
+                        default={rowCount}
                     />}
                 {integrations?.totalElements && integrations?.totalElements > Number(rowCount) &&
                     <Pagination
