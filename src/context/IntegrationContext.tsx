@@ -176,10 +176,10 @@ const IntegrationProvider = ({ children }: ContextProps) => {
 			const data = response.data;
 
 			if (data) {
-				console.log("What data is this: ", data);
+
 				setStatistics(data);
 				const stats = data;
-				console.log("What data is this then: ", stats);
+
 
 				const allMetadata = [];
 
@@ -204,11 +204,9 @@ const IntegrationProvider = ({ children }: ContextProps) => {
 					"state",
 					"ASC"
 				);
-				console.log("Tell me ", integrationResponse);
+
 				const mergedList = integrationResponse.data.content || [];
-				console.log("====================================");
-				console.log("Dette er den mergede listen", mergedList);
-				console.log("====================================");
+
 
 				stats.forEach((value: IIntegrationStatistics) => {
 					mergedList.forEach((integration: IIntegration) => {
@@ -250,9 +248,7 @@ const IntegrationProvider = ({ children }: ContextProps) => {
 				const data: IConfiguration = response.data;
 
 				if (data) {
-					console.log("====================================");
-					console.log("THIS", data);
-					console.log("====================================");
+
 					setConfiguration(data);
 				}
 			})
