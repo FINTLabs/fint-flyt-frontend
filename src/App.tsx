@@ -5,7 +5,6 @@ import { BrowserRouter } from "react-router-dom";
 import IntegrationProvider from "./context/IntegrationContext";
 import SourceApplicationProvider from "./context/SourceApplicationContext";
 import axios from "axios";
-
 import theme from "./util/styles/theme/theme";
 import "./global.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -30,13 +29,13 @@ function App() {
 	return basePath ? (
 		<ThemeProvider theme={theme}>
 			<QueryClientProvider client={queryClient}>
-					<SourceApplicationProvider>
-						<IntegrationProvider>
-							<BrowserRouter basename={basePath}>
-								<Main />
-							</BrowserRouter>
-						</IntegrationProvider>
-					</SourceApplicationProvider>
+				<SourceApplicationProvider>
+					<IntegrationProvider>
+						<BrowserRouter basename={basePath}>
+							<Main />
+						</BrowserRouter>
+					</IntegrationProvider>
+				</SourceApplicationProvider>
 			</QueryClientProvider>
 		</ThemeProvider>
 	) : (

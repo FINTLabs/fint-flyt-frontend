@@ -9,9 +9,6 @@ import IntegrationRepository from "../api/IntegrationRepository";
 import SourceApplicationRepository from "../api/SourceApplicationRepository";
 import EventRepository from "../api/EventRepository";
 import ConfigurationRepository from "../api/ConfigurationRepository";
-import { useQuery } from "@tanstack/react-query";
-import useAllIntegrations from "../hooks/useGetAllIntegrations";
-import { log } from "console";
 
 type IntegrationContextState = {
 	id: string | undefined;
@@ -179,9 +176,10 @@ const IntegrationProvider = ({ children }: ContextProps) => {
 			const data = response.data;
 
 			if (data) {
-				console.log(data);
+				console.log("What data is this: ", data);
 				setStatistics(data);
 				const stats = data;
+				console.log("What data is this then: ", stats);
 
 				const allMetadata = [];
 
@@ -206,8 +204,11 @@ const IntegrationProvider = ({ children }: ContextProps) => {
 					"state",
 					"ASC"
 				);
-				console.log(integrationResponse);
+				console.log("Tell me ", integrationResponse);
 				const mergedList = integrationResponse.data.content || [];
+				console.log("====================================");
+				console.log("Dette er den mergede listen", mergedList);
+				console.log("====================================");
 
 				stats.forEach((value: IIntegrationStatistics) => {
 					mergedList.forEach((integration: IIntegration) => {
@@ -247,7 +248,11 @@ const IntegrationProvider = ({ children }: ContextProps) => {
 		ConfigurationRepository.getConfigurationById(id.toString(), excludeElements)
 			.then((response) => {
 				const data: IConfiguration = response.data;
+
 				if (data) {
+					console.log("====================================");
+					console.log("THIS", data);
+					console.log("====================================");
 					setConfiguration(data);
 				}
 			})

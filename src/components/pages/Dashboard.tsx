@@ -9,6 +9,7 @@ import { RouteComponent } from "../../routes/Route";
 import { Box, HStack } from "@navikt/ds-react";
 import { Contact } from "../atoms/Contact";
 import SupportContent from "../molecules/SupportContent";
+import { useGetAllIntegrations } from "../../hooks/useGetAllIntegrations";
 
 const Dashboard: RouteComponent = () => {
 	const { t } = useTranslation("translations", {
@@ -26,6 +27,9 @@ const Dashboard: RouteComponent = () => {
 		totalErrors += stat.currentErrors;
 		totalDispatched += stat.dispatchedInstances;
 	});
+
+	const { integrasjoner, isFetched, error } = useGetAllIntegrations();
+	console.log("alle integrasjoner ", integrasjoner, isFetched, error);
 
 	useEffect(() => {
 		getAllIntegrations();
