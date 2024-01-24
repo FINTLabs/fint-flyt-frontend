@@ -3,33 +3,40 @@ import { IntegrationContext } from "../../context/IntegrationContext";
 import DashboardCard from "../organisms/DashboardCard";
 import { ICard } from "../../features/dashboard/Card";
 import { useTranslation } from "react-i18next";
-import { IIntegrationStatistics } from "../../features/integration/types/Integration";
+import {
+	IIntegration,
+	IIntegrationStatistics,
+} from "../../features/integration/types/Integration";
 import PageTemplate from "../templates/PageTemplate";
 import { RouteComponent } from "../../routes/Route";
 import { Box, HStack } from "@navikt/ds-react";
 import { Contact } from "../atoms/Contact";
 import SupportContent from "../molecules/SupportContent";
-import { useGetAllIntegrations } from "../../hooks/useGetAllIntegrations";
+import { useGetAllIntegrations } from "../../hooks/integration/useGetIntegrations";
 
 const Dashboard: RouteComponent = () => {
 	const { t } = useTranslation("translations", {
 		keyPrefix: "pages.dashboard",
 	});
 
-	const { statistics, resetIntegrations, integrations, getAllIntegrations } =
+	const { alleintegrasjoner, isFetched, error } = useGetAllIntegrations();
+
+	const allIntegrations = alleintegrasjoner?.data;
+	const allActiveIntegrations =
+		allIntegrations?.filter(
+			(integrasjoner: IIntegration | undefined) =>
+				integrasjoner?.state === "ACTIVE"
+		) || [];
+	const allActiveIntegrationsLength = allActiveIntegrations.length;
+	const { statistics, resetIntegrations, getAllIntegrations } =
 		useContext(IntegrationContext);
-	const activeIntegrations =
-		integrations?.filter((integration) => integration.state === "ACTIVE") || [];
 	let totalErrors = 0;
 	let totalDispatched = 0;
-	const totalActive = activeIntegrations.length;
+
 	statistics?.map((stat: IIntegrationStatistics) => {
 		totalErrors += stat.currentErrors;
 		totalDispatched += stat.dispatchedInstances;
 	});
-
-	const { integrasjoner, isFetched, error } = useGetAllIntegrations();
-	console.log("alle integrasjoner ", integrasjoner, isFetched, error);
 
 	useEffect(() => {
 		getAllIntegrations();
@@ -40,19 +47,24 @@ const Dashboard: RouteComponent = () => {
 	const cards: ICard[] = [
 		{
 			value:
-				integrations === undefined || integrations.length === 0
+				allIntegrations === undefined || allIntegrations.length === 0
 					? t("empty")
-					: integrations.length.toString(),
+					: allIntegrations.length.toString(),
 			content:
-				integrations !== undefined && integrations.length === 1
+				allIntegrations !== undefined && allIntegrations.length === 1
 					? t("oneIntegration")
 					: t("integrations"),
 			links: [{ name: t("links.integration"), href: "/integration/new" }],
 		},
 		{
-			value: totalActive === 0 ? t("empty") : totalActive.toString(),
+			value:
+				allActiveIntegrationsLength === 0
+					? t("empty")
+					: allActiveIntegrationsLength.toString(),
 			content:
-				totalActive === 1 ? t("oneActiveIntegration") : t("activeIntegrations"),
+				allActiveIntegrationsLength === 1
+					? t("oneActiveIntegration")
+					: t("activeIntegrations"),
 			links: [{ name: t("links.integrations"), href: "/integration/list" }],
 		},
 		{
