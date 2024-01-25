@@ -19,11 +19,11 @@ const Dashboard: RouteComponent = () => {
 		useContext(IntegrationContext);
 	const activeIntegrations =
 		integrations?.filter((integration) => integration.state === "ACTIVE") || [];
-	let totalErrors = 0;
+	let currentErrors = 0;
 	let totalDispatched = 0;
 	const totalActive = activeIntegrations.length;
 	statistics?.map((stat: IIntegrationStatistics) => {
-		totalErrors += stat.currentErrors;
+		currentErrors += stat.currentErrors;
 		totalDispatched += stat.dispatchedInstances;
 	});
 
@@ -59,8 +59,8 @@ const Dashboard: RouteComponent = () => {
 			],
 		},
 		{
-			value: totalErrors === 0 ? t("empty") : totalErrors.toString(),
-			content: totalErrors === 1 ? t("oneError") : t("errors"),
+			value: currentErrors === 0 ? t("empty") : currentErrors.toString(),
+			content: currentErrors === 1 ? t("oneError") : t("errors"),
 			links: [
 				{ name: t("links.instances"), href: "/integration/instance/list" },
 			],
