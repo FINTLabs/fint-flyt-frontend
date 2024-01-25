@@ -24,8 +24,8 @@
       "instances": "arkiverte instanser",
       "oneInstance": "arkivert instans",
       "empty": "Ingen",
-      "oneError": "feilmelding",
-      "errors": "feilmeldinger",
+      "oneError": "nåværende feilmelding",
+      "errors": "nåværende feilmeldinger",
       "links": {
         "integrations": "Se integrasjoner",
         "integration": "Ny integrasjon",

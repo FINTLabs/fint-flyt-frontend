@@ -24,8 +24,8 @@
       "instances": "instances dispatched",
       "oneInstance": "instance dispatched",
       "empty": "No",
-      "oneError": "error",
-      "errors": "errors",
+      "oneError": "current error",
+      "errors": "current errors",
       "links": {
         "integrations": "View integrations",
         "integration": "New integration",
