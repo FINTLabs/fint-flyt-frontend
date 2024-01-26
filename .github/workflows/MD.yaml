@@ -19,16 +19,20 @@ on:
         type: choice
         options:
           - afk-no
+          - agderfk-no
           - bfk-no
+          - ffk-no
           - fintlabs-no
           - innlandetfylke-no
           - mrfylke-no
           - nfk-no
           - ofk-no
+          - rogfk-no
           - telemarkfylke-no
+          - tromsfylke-no
+          - trondelagfylke-no
           - vestfoldfylke-no
           - vlfk-no
-          - trondelagfylke-no
 
 env:
   REGISTRY: ghcr.io
