@@ -176,10 +176,8 @@ const IntegrationProvider = ({ children }: ContextProps) => {
 			const data = response.data;
 
 			if (data) {
-
 				setStatistics(data);
 				const stats = data;
-
 
 				const allMetadata = [];
 
@@ -206,7 +204,6 @@ const IntegrationProvider = ({ children }: ContextProps) => {
 				);
 
 				const mergedList = integrationResponse.data.content || [];
-
 
 				stats.forEach((value: IIntegrationStatistics) => {
 					mergedList.forEach((integration: IIntegration) => {
@@ -246,9 +243,7 @@ const IntegrationProvider = ({ children }: ContextProps) => {
 		ConfigurationRepository.getConfigurationById(id.toString(), excludeElements)
 			.then((response) => {
 				const data: IConfiguration = response.data;
-
 				if (data) {
-
 					setConfiguration(data);
 				}
 			})
