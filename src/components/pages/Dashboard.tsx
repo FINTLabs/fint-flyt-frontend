@@ -20,7 +20,6 @@ const Dashboard: RouteComponent = () => {
 	});
 
 	const { alleintegrasjoner } = useGetAllIntegrations();
-
 	const allIntegrations = alleintegrasjoner?.data;
 	const allActiveIntegrations =
 		allIntegrations?.filter(
