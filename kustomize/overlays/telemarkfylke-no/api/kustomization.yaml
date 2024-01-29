@@ -24,7 +24,7 @@ patches:
         value: "/telemarkfylke-no"
     target:
       kind: Application
-      name: fint-flyt-integration-frontend
+      name: fint-flyt-frontend
 
   - patch: |-
       - op: replace
