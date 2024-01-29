@@ -6,4 +6,3 @@
 
 ### run tests
 `yarn test`
-
