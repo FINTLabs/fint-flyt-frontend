@@ -12,7 +12,7 @@ patches:
   - patch: |-
       - op: replace
         path: "/metadata/labels/app.kubernetes.io~1instance"
-        value: "fint-flyt-integration-frontend_trondelagfylke-no"
+        value: "fint-flyt-frontend_trondelagfylke-no"
       - op: replace
         path: "/spec/orgId"
         value: "trondelagfylke.no"

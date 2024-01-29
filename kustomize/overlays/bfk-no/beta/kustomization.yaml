@@ -12,7 +12,7 @@ patches:
   - patch: |-
       - op: replace
         path: "/metadata/labels/app.kubernetes.io~1instance"
-        value: "fint-flyt-integration-frontend_bfk-no"
+        value: "fint-flyt-frontend_bfk-no"
       - op: replace
         path: "/spec/orgId"
         value: "bfk.no"

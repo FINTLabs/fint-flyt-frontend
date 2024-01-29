@@ -5,7 +5,7 @@ metadata:
   namespace: fintlabs-no
   labels:
     app.kubernetes.io/name: fint-flyt-frontend
-    app.kubernetes.io/instance: fint-flyt-integration-frontend_fintlabs_no
+    app.kubernetes.io/instance: fint-flyt-frontend_fintlabs_no
     app.kubernetes.io/version: latest
     app.kubernetes.io/component: frontend
     app.kubernetes.io/part-of: fint-flyt
