@@ -7,6 +7,7 @@ import Version from "../components/pages/Version";
 import ValueConverting from "../components/pages/ValueConverting";
 import Instances from "../components/pages/Instances";
 import Integrations from "../components/pages/Integrations";
+import TestPage from "../components/pages/TestPage";
 
 const routes: IRoute[] = [
 	{
@@ -86,6 +87,13 @@ const routes: IRoute[] = [
 		component: UserGuide,
 		exact: true,
 		inNavigationMenu: false,
+	},
+	{
+		path: "/test/playground",
+		name: "playground",
+		component: TestPage,
+		exact: true,
+		inNavigationMenu: true,
 	},
 ];
 
