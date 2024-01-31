@@ -1,10 +1,11 @@
 import { Box } from '@mui/system';
 import type { CSSProperties, FC } from 'react'
-import {memo, useState} from 'react'
+import React, {memo, useState} from 'react'
 import { useDrop } from 'react-dnd'
 import {TagProps} from "./Tag";
 import {Button} from "@navikt/ds-react";
 import {Typography} from "@mui/material";
+import {ItemTypes} from "./ItemTypes";
 
 const style: CSSProperties = {
     height: '30vh',
@@ -12,7 +13,6 @@ const style: CSSProperties = {
     marginRight: '1.5rem',
     marginBottom: '1.5rem',
     color: 'white',
-    padding: '1rem',
     textAlign: 'center',
     fontSize: '1rem',
     lineHeight: 'normal',
@@ -24,47 +24,40 @@ export interface CustomFieldProps {
     lastDroppedItem?: TagProps
     onDrop: (item: TagProps) => void
 }
+export const ValueConvertingComp = (value: TagProps, handleDrop: (index: number, item: any) => void) => {
+    return <Box style={{backgroundColor: 'green', height: '100px', width: '200px'}}>
+        <Typography>I am a Value Converting comp I need:</Typography>
+        <CustomField
+            accept={[ItemTypes.STRING, ItemTypes.METADATA, ItemTypes.VALUE_CONVERTING]}
+            lastDroppedItem={undefined}
+            onDrop={(item) => handleDrop(0, item )}
+        />
+    </Box>
+}
+
+export const StringComp = (value: TagProps) => {
+    return <Box style={{backgroundColor: 'darksalmon', height: '100px', width: '200px'}}>
+        <Typography>I am a String comp, my value is {value.name} and I have type {value.type}</Typography>
+    </Box>
+}
+
+export const MetadataComp = (value: TagProps) => {
+    return <Box style={{backgroundColor: 'darkblue', height: '100px', width: '200px'}}>
+        <Typography>I am a Metadata comp, my value is {value.name} and I have type {value.type}</Typography>
+    </Box>
+}
+
+export const AlphaNumericComp = (value: TagProps) => {
+    return <Box style={{backgroundColor: 'darkmagenta', height: '100px', width: '200px'}}>
+        <Typography>I am a Alphanumeric comp, my value is {value.name} and I have type {value.type}</Typography>
+    </Box>
+}
+
 
 // eslint-disable-next-line react/prop-types
 export const CustomField: FC<CustomFieldProps> = memo(function CustomField({accept, lastDroppedItem, onDrop}) {
-    const [content, setContent] = useState<TagProps[]>([]);
-    const [{ isOver, canDrop }, drop] = useDrop({
-        accept,
-        drop: (item: TagProps) => {
-            setContent([...content, item])
-        },
-        collect: (monitor) => ({
-            isOver: monitor.isOver(),
-            canDrop: monitor.canDrop(),
-        }),
-    })
-
-    const isActive = isOver && canDrop
-    let backgroundColor = '#222'
-    if (isActive) {
-        backgroundColor = 'darkgreen'
-    } else if (canDrop) {
-        backgroundColor = 'darkkhaki'
-    }
-
-    console.log(content)
-
     return (
         <Box>
-            <div ref={drop} style={{ ...style, backgroundColor }} data-testid="custom-field">
-                {isActive
-                    ? 'Release to drop'
-                    // eslint-disable-next-line react/prop-types
-                    : `This custom field accepts: ${accept.join(', ')}`}
-
-                <Typography>
-                {JSON.stringify(content)}
-                </Typography>
-                {lastDroppedItem && (
-                    <p>Last dropped: {JSON.stringify(lastDroppedItem)}</p>
-                )}
-            </div>
-            <Button onClick={() => setContent([])}>Fjern innhold</Button>
         </Box>
     )
 })

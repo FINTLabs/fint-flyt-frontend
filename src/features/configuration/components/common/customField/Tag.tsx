@@ -16,14 +16,15 @@ export interface TagProps {
     name: string
     type: string
     isDropped: boolean
+    collection?: boolean
 }
 
 // eslint-disable-next-line react/prop-types
-export const Tag: FC<TagProps> = memo(function Tag({ name, type, isDropped }) {
+export const Tag: FC<TagProps> = memo(function Tag({ name, type, collection, isDropped }) {
     const [{ opacity }, drag] = useDrag(
         () => ({
             type,
-            item: { name, type },
+            item: { name, type, collection },
             collect: (monitor) => ({
                 opacity: monitor.isDragging() ? 0.4 : 1,
             }),
