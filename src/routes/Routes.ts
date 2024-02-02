@@ -7,94 +7,94 @@ import Version from "../components/pages/Version";
 import ValueConverting from "../components/pages/ValueConverting";
 import Instances from "../components/pages/Instances";
 import Integrations from "../components/pages/Integrations";
-import TestPage from "../components/pages/TestPage";
+import PlaygroundPage from "../components/pages/PlaygroundPage";
 
 const routes: IRoute[] = [
-	{
-		path: "/",
-		name: "dashboard",
-		component: Dashboard,
-		exact: true,
-		inNavigationMenu: true,
-	},
-	{
-		path: "/integration/new",
-		name: "integration",
-		component: IntegrationForm,
-		exact: true,
-	},
-	{
-		path: "/integration/configuration/new-configuration",
-		name: "integration",
-		component: Configuration,
-		exact: true,
-	},
-	{
-		path: "/integration/configuration/edit",
-		name: "editIntegration",
-		component: Configuration,
-		exact: true,
-	},
-	{
-		path: "configuration/new-configuration",
-		name: "editIntegration",
-		component: Configuration,
-		exact: true,
-	},
-	{
-		path: "/integration/list",
-		name: "integrations",
-		component: Integrations,
-		exact: true,
-		inNavigationMenu: true,
-	},
-	{
-		path: "/integration/panel",
-		name: "integrationPanel",
-		component: Integrations,
-		exact: true,
-	},
-	{
-		path: "/integration/instance/list",
-		name: "instances",
-		component: Instances,
-		exact: true,
-		inNavigationMenu: true,
-	},
-	{
-		path: "/instance/",
-		name: "instancePanel",
-		component: Instances,
-		exact: true,
-	},
-	{
-		path: "/valueconverting",
-		name: "valueConverting",
-		component: ValueConverting,
-		exact: true,
-		inNavigationMenu: true,
-	},
-	{
-		path: "/version",
-		name: "version",
-		component: Version,
-		exact: true,
-		inNavigationMenu: true,
-	},
-	{
-		path: "/support/guide",
-		name: "guide",
-		component: UserGuide,
-		exact: true,
-		inNavigationMenu: false,
-	},
-	{
-		path: "/test/playground",
-		name: "playground",
-		component: TestPage,
-		exact: true,
-		inNavigationMenu: true,
-	},
+    {
+        path: "/",
+        name: "dashboard",
+        component: Dashboard,
+        exact: true,
+        inNavigationMenu: true,
+    },
+    {
+        path: "/integration/new",
+        name: "integration",
+        component: IntegrationForm,
+        exact: true,
+    },
+    {
+        path: "/integration/configuration/new-configuration",
+        name: "integration",
+        component: Configuration,
+        exact: true,
+    },
+    {
+        path: "/integration/configuration/edit",
+        name: "editIntegration",
+        component: Configuration,
+        exact: true,
+    },
+    {
+        path: "configuration/new-configuration",
+        name: "editIntegration",
+        component: Configuration,
+        exact: true,
+    },
+    {
+        path: "/integration/list",
+        name: "integrations",
+        component: Integrations,
+        exact: true,
+        inNavigationMenu: true,
+    },
+    {
+        path: "/integration/panel",
+        name: "integrationPanel",
+        component: Integrations,
+        exact: true,
+    },
+    {
+        path: "/integration/instance/list",
+        name: "instances",
+        component: Instances,
+        exact: true,
+        inNavigationMenu: true,
+    },
+    {
+        path: "/instance/",
+        name: "instancePanel",
+        component: Instances,
+        exact: true,
+    },
+    {
+        path: "/valueconverting",
+        name: "valueConverting",
+        component: ValueConverting,
+        exact: true,
+        inNavigationMenu: true,
+    },
+    {
+        path: "/version",
+        name: "version",
+        component: Version,
+        exact: true,
+        inNavigationMenu: true,
+    },
+    {
+        path: "/support/guide",
+        name: "guide",
+        component: UserGuide,
+        exact: true,
+        inNavigationMenu: false,
+    },
+    {
+        path: "/test/playground",
+        name: "playground",
+        component: PlaygroundPage,
+        exact: true,
+        inNavigationMenu: true,
+    },
 ];
 
 export default routes;

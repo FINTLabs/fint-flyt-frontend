@@ -1,6 +1,6 @@
-import type { CSSProperties, FC } from 'react'
-import { memo } from 'react'
-import { useDrag } from 'react-dnd'
+import type {CSSProperties, FC} from 'react'
+import {memo} from 'react'
+import {useDrag} from 'react-dnd'
 
 const style: CSSProperties = {
     border: '1px dashed gray',
@@ -15,16 +15,15 @@ const style: CSSProperties = {
 export interface TagProps {
     name: string
     type: string
-    isDropped: boolean
     collection?: boolean
 }
 
 // eslint-disable-next-line react/prop-types
-export const Tag: FC<TagProps> = memo(function Tag({ name, type, collection, isDropped }) {
-    const [{ opacity }, drag] = useDrag(
+export const Tag: FC<TagProps> = memo(function Tag({name, type, collection}) {
+    const [{opacity}, drag] = useDrag(
         () => ({
             type,
-            item: { name, type, collection },
+            item: {name, type, collection},
             collect: (monitor) => ({
                 opacity: monitor.isDragging() ? 0.4 : 1,
             }),
@@ -33,7 +32,7 @@ export const Tag: FC<TagProps> = memo(function Tag({ name, type, collection, isD
     )
 
     return (
-        <div ref={drag} style={{ ...style, opacity }} data-testid="tag">
+        <div ref={drag} style={{...style, opacity}} data-testid="tag">
             {name}
         </div>
     )
