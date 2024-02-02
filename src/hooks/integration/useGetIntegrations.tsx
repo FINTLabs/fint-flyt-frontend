@@ -2,16 +2,16 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 export const useGetAllIntegrations = () => {
 	const {
-		data: alleintegrasjoner,
+		data: allAvailableIntegrations,
 		error,
 		isFetched,
 	} = useQuery({
-		queryKey: ["alleintegrasjoner"],
+		queryKey: ["allAvailableIntegrations"],
 		queryFn: async () => {
 			return await axios.get("/api/intern/integrasjoner");
 		},
 	});
-	return { alleintegrasjoner, isFetched, error };
+	return { allAvailableIntegrations, isFetched, error };
 };
 
 export const useGetIntegrations = (
@@ -21,11 +21,11 @@ export const useGetIntegrations = (
 	sortDirection: string
 ) => {
 	const {
-		data: integrasjoner,
+		data: integrations,
 		error,
 		isFetched,
 	} = useQuery({
-		queryKey: ["integrasjoner"],
+		queryKey: ["integrations"],
 		queryFn: async () => {
 			return await axios.get("/api/intern/integrasjoner", {
 				params: {
@@ -38,5 +38,5 @@ export const useGetIntegrations = (
 		},
 	});
 
-	return { integrasjoner, isFetched, error };
+	return { integrations, isFetched, error };
 };

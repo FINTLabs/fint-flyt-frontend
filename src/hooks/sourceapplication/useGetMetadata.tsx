@@ -7,7 +7,7 @@ export const useGetMetadata = (id: number, onlyLastestVersion: boolean) => {
 		error,
 		isFetched,
 	} = useQuery({
-		queryKey: ["allmetadata"],
+		queryKey: ["allMetadata"],
 		queryFn: async () => {
 			return (
 				await axios.get("/api/intern/metadata"),

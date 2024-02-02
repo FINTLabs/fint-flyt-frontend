@@ -19,8 +19,8 @@ const Dashboard: RouteComponent = () => {
 		keyPrefix: "pages.dashboard",
 	});
 
-	const { alleintegrasjoner } = useGetAllIntegrations();
-	const allIntegrations = alleintegrasjoner?.data;
+	const { allAvailableIntegrations } = useGetAllIntegrations();
+	const allIntegrations = allAvailableIntegrations?.data;
 	const allActiveIntegrations =
 		allIntegrations?.filter(
 			(integrasjoner: IIntegration | undefined) =>
