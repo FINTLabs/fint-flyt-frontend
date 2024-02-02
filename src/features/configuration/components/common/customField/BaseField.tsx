@@ -53,7 +53,7 @@ const BaseField: React.FunctionComponent<BaseFieldProps> = forwardRef<HTMLDivEle
             } else if (tag.type === 'double') {
                 child = <EditableField key={tag.name} fieldType={tag.type} value={tag.name}/>
             } else if (tag.type === 'value_converting') {
-                child = <VCField key={tag.name} fieldType={tag.type} value={tag.name}/>
+                child = <VCField key={tag.name} fieldType={tag.type} name={tag.name}/>
             } else {
                 child = <div key={tag.name}>ukjent</div>
             }
@@ -100,8 +100,8 @@ const BaseField: React.FunctionComponent<BaseFieldProps> = forwardRef<HTMLDivEle
     return (
         <div id={"custom-field-component-" + absoluteKey} key={absoluteKey}>
             {props.topComponent && <Heading size={"xsmall"} align={"start"}>Felt</Heading>}
-            <HStack wrap={false}>
-                <Box padding="4" background={"surface-subtle"} borderWidth={"2"} borderRadius="xlarge"
+            <HStack align={"center"} wrap={false}>
+                <Box background={"surface-subtle"} borderWidth={"2"} borderRadius="xlarge"
                      borderColor={"border-subtle"}
                      style={dynamicStyle}
                      ref={dropRef}

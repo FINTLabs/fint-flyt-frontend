@@ -1,5 +1,5 @@
 import React from 'react'
-import {Box, HStack} from "@navikt/ds-react";
+import {Box, Heading, HStack} from "@navikt/ds-react";
 
 import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
 import {ItemTypes} from "./ItemTypes";
@@ -7,14 +7,15 @@ import BaseField from "./BaseField";
 
 export interface VCFieldProps {
     fieldType: string;
-    value?: string | undefined
+    name: string | null
 }
 
 const VCField: React.FunctionComponent<VCFieldProps> = (props: VCFieldProps) => {
     return (
         <Box padding="4" borderWidth={"2"} borderRadius="medium"
              borderColor={"border-subtle"} style={{backgroundColor: 'lightyellow'}}>
-            <HStack align={"center"}>
+            <Heading size={"xsmall"} align={"start"}>{props.name}</Heading>
+            <HStack gap={"2"} align={"center"} wrap={false}>
                 <SettingsSuggestIcon/>
                 <BaseField
                     accept={[ItemTypes.STRING, ItemTypes.INTEGER, ItemTypes.DOUBLE, ItemTypes.VALUE_CONVERTING, ItemTypes.METADATA]}

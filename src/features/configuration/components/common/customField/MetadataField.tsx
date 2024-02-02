@@ -13,7 +13,7 @@ const MetadataField: React.FunctionComponent<MetadataFieldProps> = (props: Metad
     return (
         <Box padding="4" borderWidth={"2"} borderRadius="medium"
              borderColor={"border-subtle"} style={{backgroundColor: 'lightblue'}}>
-            <HStack>
+            <HStack gap={"2"}>
                 <AutoAwesomeIcon/>
                 {props.reference}
             </HStack>
