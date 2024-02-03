@@ -52,7 +52,7 @@
       },
       "label": {
         "valueConverting": "Verdikonvertering",
-        "dynamicValue": "Dynamisk verdi",
+        "customValue": "Egendefinert verdi",
         "checkLabel": "Ferdigstilt",
         "activeLabel": "Aktiv",
         "placeholder": "Skriv eller trekk inn fra metadata",

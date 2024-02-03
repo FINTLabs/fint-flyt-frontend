@@ -51,7 +51,7 @@
       },
       "label": {
         "valueConverting": "Value converting",
-        "dynamicValue": "Dynamic value",
+        "customValue": "Custom value",
         "checkLabel": "Completed",
         "activeLabel": "Active",
         "placeholder": "Write or drag and drop from metadata",

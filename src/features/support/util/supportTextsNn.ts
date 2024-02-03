@@ -20,17 +20,17 @@ export const WORD_LIST_NN = [
     "Verdikonvertering - Sida Flyt er plattformuavhengig og ikkje 'veit' kva som vert sendt inn eller kva destinasjonen godtek, vil det av og til dukke opp behov for verdikonvertering. Då vil vi setje opp eit regelsett som betyr at for kvar førekomst av ei gitt data/verdi, vil verdien verte omforma eller konvertert til noko anna. Døme på dette er dersom eit arkiv berre godtek visse mediatypar, eller dersom destinasjonen berre godtek format som til dømes stor/liten bokstav.",
     "Kjeldeapplikasjon - Ein kjeldeapplikasjon er fagsystemet der data som treng omforming oppstår.",
     "Destinasjon - Kor data skal sendast etter omforming i Flyt",
-    "Dynamisk felt/verdi - For å nyttja metadata i konfigurasjonen må vi ha felt som tillèt både fri tekst og referansar til metadata. Dette kallast i Flyt dynamiske felt."
+    "Eigendefinert felt/verdi - For å nyttja metadata i konfigurasjonen må vi ha felt som tillèt både fri tekst og referansar til metadata. Dette kallast i Flyt eigendefinerte felt."
 ];
 
 export const FAQ_NN: { header: string, content: string }[] = [
     {
         header: "Korleis brukar eg metadata?",
-        content: "Metadata kan nyttast i alle dynamiske felt. I utgåande data er det alle tekstfeltene, og i tillegg dei nedtrekksmenyane der du kan velje 'dynamisk verdi'. Dette gjer at brukaren kan byggje opp titlar, personalia eller andre felt med informasjon frå innsendt data."
+        content: "Metadata kan nyttast i alle eigendefinerte felt. I utgåande data er det alle tekstfeltene, og i tillegg dei nedtrekksmenyane der du kan velje 'dynamisk verdi'. Dette gjer at brukaren kan byggje opp titlar, personalia eller andre felt med informasjon frå innsendt data."
     },
     {
         header: "Kva tyder symbola som dukkar opp når eg nyttar metadata?",
-        content: "Dei dynamiske felta tillèt både fri tekst og å nytte data frå skjema. For at ein datamaskin skal kunne skilje fri tekst frå metadata, viser metadata seg på denne forma: '$if{metadata-id}'. På den måten kan systemet gjenkjenne desse referansane og bytte ut innhaldet med data frå innsendt instans. Difor er det viktig å halde forma til metadata-referansar når ein redigerer eller legg til fri tekst i eit dynamisk felt."
+        content: "Dei eigendefinerte felta tillèt både fri tekst og å nytte data frå skjema. For at ein datamaskin skal kunne skilje fri tekst frå metadata, viser metadata seg på denne forma: '$if{metadata-id}'. På den måten kan systemet gjenkjenne desse referansane og bytte ut innhaldet med data frå innsendt instans. Difor er det viktig å halde forma til metadata-referansar når ein redigerer eller legg til fri tekst i eit eigendefinert felt."
     },
     {
         header: "Kva er ein verdikonvertering og korleis brukar eg den?",

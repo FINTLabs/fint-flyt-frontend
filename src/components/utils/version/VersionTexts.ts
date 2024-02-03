@@ -4,7 +4,13 @@ export const ABOUT_VERSIONS =
 
 export const VERSION_DATA: { heading: string; updates: string[] }[] = [
 	{
-		heading: "Versjon 20.1 - Januar 2024",
+		heading: "Versjon 3.2 - Februar 2024",
+		updates: [
+			"3.2 Navneendring i konfigurasjonsoppsett, \"dynamisk verdi\" heter nå \"egendefinert verdi\"",
+		],
+	},
+	{
+		heading: "Januar 2024",
 		updates: [
             "20.1 Lagt til mulighet for å velge å vise flere instanser og integrasjoner per side i tabellene",
             "11.1 Fjernet menyvalget for \"NY\" og opprettet knapp for ny integrasjon på integrasjonssiden",
@@ -37,7 +43,13 @@ export const ABOUT_VERSIONS_NN =
 
 export const VERSION_DATA_NN: { heading: string; updates: string[] }[] = [
 	{
-		heading: "Versjon 20.1 - Januar 2024",
+		heading: "Versjon 3.2 - Februar 2024",
+		updates: [
+			"3.2 Navneendring i konfigurasjonsoppsett, \"dynamisk verdi\" heiter nå \"eigendefinert verdi\"",
+		],
+	},
+	{
+		heading: "Januar 2024",
 		updates: [
 			"20.1 Lagt til moglegheit for å velja å visa fleire instansar og integrasjonar per side i tabellane",
 			"11.1 Fjerna menyvalet for \"NY\" og oppretta knapp for ny integrasjon på integrasjonssidaa",
@@ -70,7 +82,13 @@ export const ABOUT_VERSIONS_EN =
 
 export const VERSION_DATA_EN: { heading: string; updates: string[] }[] = [
 	{
-		heading: "Version 20.1 - January 2024",
+		heading: "Version 3.2 - February 2024",
+		updates: [
+			"3.2 Name change in configuration view, \"dynamic value/field\" changed to \"custom value/field\"",
+		],
+	},
+	{
+		heading: "Vanuary 2024",
 		updates: [
 			"20.1 Added option to choose to show multiple instances and integrations per page in the data tables",
 			"11.1 Removed menu option for \"New\" and created button for new integration in the integrations page",
