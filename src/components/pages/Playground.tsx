@@ -4,37 +4,56 @@ import {RouteComponent} from "../../routes/Route";
 import {HTML5Backend} from 'react-dnd-html5-backend'
 import {DndProvider} from "react-dnd";
 import BaseField from "../../features/configuration/components/common/custom/BaseField";
-import {ItemTypes} from "../../features/configuration/components/common/custom/ItemTypes";
-import {Tag} from "../../features/configuration/components/common/custom/Tag";
+import {Tag, TagProps} from "../../features/configuration/components/common/custom/Tag";
+import {ValueType} from "../../features/configuration/types/Metadata/IntegrationMetadata";
+import {HStack} from "@navikt/ds-react";
 
 const Playground: RouteComponent = () => {
-    const [boxes] = useState<{ name: string, type: string, collection?: boolean }[]>([
-        {name: 'I am a string', type: ItemTypes.STRING},
-        {name: '23', type: ItemTypes.INTEGER},
-        {name: '2,99', type: ItemTypes.DOUBLE},
-        {name: 'Fornavn [fornavn]', type: ItemTypes.METADATA},
-        {name: 'til store bokstaver VC[1]', type: ItemTypes.VALUE_CONVERTING},
-        {name: 'Vil ha flere inputs VC[2]', type: ItemTypes.VALUE_CONVERTING, collection: true}
+    const [boxes] = useState<TagProps[]>([
+        {name: 'I am a string', type: ValueType.STRING},
+        {name: '23', type: ValueType.INTEGER},
+        {name: '2,99', type: ValueType.DOUBLE},
+        {name: 'Fornavn [fornavn]', type: ValueType.METADATA},
+        {name: 'til store bokstaver VC[1]', type: ValueType.VALUE_CONVERTING, collection: false, requiredFields: [
+                {outputType: ValueType.STRING, accept: [ValueType.STRING, ValueType.METADATA]}
+            ]},
+        {
+            name: 'krever en alfanr. og en string VC[2]', type: ValueType.VALUE_CONVERTING, collection: false, requiredFields: [
+                {outputType: ValueType.STRING, accept: [ValueType.STRING, ValueType.INTEGER]},
+                {outputType: ValueType.STRING, accept: [ValueType.STRING]}]
+        },
+        {
+            name: 'krever en string. og en metadata VC[3]', type: ValueType.VALUE_CONVERTING, collection: false, requiredFields: [
+                {outputType: ValueType.STRING, accept: [ValueType.STRING]},
+                {outputType: ValueType.STRING, accept: [ValueType.METADATA]}]
+        },
+        {
+            name: 'slå sammen tekst VC[4]', type: ValueType.VALUE_CONVERTING, collection: true, requiredFields: [
+                {outputType: ValueType.STRING, accept: [ValueType.STRING]}]
+        }
+
     ])
     return (
         <DndProvider backend={HTML5Backend}>
             <PageTemplate id={'version'} keyPrefix={'pages'} customHeading>
                 <BaseField topComponent
-                           accept={[ItemTypes.STRING, ItemTypes.INTEGER, ItemTypes.DOUBLE, ItemTypes.VALUE_CONVERTING, ItemTypes.METADATA]}
+                           outputType={ValueType.STRING}
+                           accept={[ValueType.STRING, ValueType.INTEGER, ValueType.DOUBLE, ValueType.VALUE_CONVERTING, ValueType.METADATA]}
                            value={null}
                            name={"testfield"}
                            fieldState={undefined}
                 />
-                <div style={{overflow: 'auto', clear: 'both'}}>
-                    {boxes.map(({name, type, collection}, index) => (
+                <HStack gap={"2"} style={{width: '600px', overflow: 'auto', clear: 'both'}}>
+                    {boxes.map(({name, type, collection, requiredFields}, index) => (
                         <Tag
                             name={name}
                             type={type}
                             collection={collection}
+                            requiredFields={requiredFields}
                             key={index}
                         />
                     ))}
-                </div>
+                </HStack>
             </PageTemplate>
         </DndProvider>
 
