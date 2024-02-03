@@ -19,17 +19,17 @@ export const WORD_LIST_EN = [
     "Value Conversion - Since Flyt is platform-independent and doesn't 'know' what's being sent in or what the destination accepts, there's sometimes a need for value conversion. In such cases, we set up a rule set that means for each occurrence of a given data/value, the value will be transformed or converted into something else. Examples include when an archive only accepts certain media types or when the destination only accepts formats such as uppercase/lowercase.",
     "Source Application - A source application is the system where data needing transformation originates.",
     "Destination - Where data should be sent after transformation in Flyt",
-    "Dynamic Field/Value - To use metadata in the configuration, we need fields that allow both text and references to metadata. In Flyt, these are called dynamic fields."
+    "Custom Field/Value - To use metadata in the configuration, we need fields that allow both text and references to metadata. In Flyt, these are called custom fields."
 ];
 
 export const FAQ_EN: { header: string, content: string }[] = [
     {
         header: "How do I use metadata?",
-        content: "Metadata can be used in all dynamic fields. In outgoing data, it's all the text fields, and additionally, the dropdown menus where you can select 'dynamic value.' This allows the user to build titles, personal information, or other fields with information from submitted data."
+        content: "Metadata can be used in all custom fields. In outgoing data, it's all the text fields, and additionally, the dropdown menus where you can select 'dynamic value.' This allows the user to build titles, personal information, or other fields with information from submitted data."
     },
     {
         header: "What do the symbols mean when I use metadata?",
-        content: "The dynamic fields allow both free text and using data from the form. For a computer to distinguish free text from metadata, metadata appears in this format: '$if{metadata-id}'. This way, the system can recognize these references and replace the content with data from the submitted instance. Therefore, it's important to maintain the format of metadata references when editing or adding free text in a dynamic field."
+        content: "The custom fields allow both free text and using data from the form. For a computer to distinguish free text from metadata, metadata appears in this format: '$if{metadata-id}'. This way, the system can recognize these references and replace the content with data from the submitted instance. Therefore, it's important to maintain the format of metadata references when editing or adding free text in a custom field."
     },
     {
         header: "What is value conversion, and how do I use it?",

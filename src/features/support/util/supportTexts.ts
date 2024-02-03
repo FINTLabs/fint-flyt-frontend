@@ -19,17 +19,17 @@ export const WORD_LIST = [
     "Verdikonvertering - Siden Flyt er platformuavhengig og ikke 'vet' hva som blir sendt inn eller hva destinsjonen godtar, vil det av og til dukke opp behov for verdikonvertering. Da vil vi sette opp et regelsett som betyr at for hver forekomst av en gitt data/verdi, vil verdien bli omformet eller konvertert til noe annet. Eksempler på dette er dersom et arkiv kun godtar enkelte mediatyper, eller dersom destinasjon kun godtar format som for eksempel stor/liten bokstav.",
     "Kildeapplikasjon - En kildeapplikasjon er fagsystemet hvor data som trenger omforming oppstår.",
     "Destinasjon - Hvor data skal sendes etter omforming i Flyt",
-    "Dynamisk felt/verdi - For å benytte metadata i konfigurasjonen må vi ha felter som tillatter både firtekst og referanser til metadata. Dette kalles i Flyt dynamiske felter. "
+    "Egendefinert felt/verdi - For å benytte metadata i konfigurasjonen må vi ha felter som tillatter både fritekst og referanser til metadata. Dette kalles i Flyt egendefinerte felter. "
 ]
 
 export const FAQ: { header: string, content: string }[] = [
     {
         header: "Hvordan bruker jeg metadata?",
-        content: "Metadata kan brukes i alle dynamiske felt. I utgående data er det alle tekstfeltene, og i tillegg de nedtrekksmenyene hvor du kan velge 'dynamisk verdi'. Dette gjør at bruker kan bygge opp titler, personalia eller andre felter med informasjon fra innsendt data"
+        content: "Metadata kan brukes i alle egendefinerte felt. I utgående data er det alle tekstfeltene, og i tillegg de nedtrekksmenyene hvor du kan velge 'egendefinert verdi'. Dette gjør at bruker kan bygge opp titler, personalia eller andre felter med informasjon fra innsendt data"
     },
     {
         header: "Hva betyr symbolene som dukker opp når jeg bruker metadata?",
-        content: "De dynamiske feltene tillater både fri tekst og å benytte data fra skjema. For at en datamaskin skal kunne skille fritekst fra metadata vises metadata på dette formatet: '$if{metadata-id}. På den måten kan systemet gjenkjenne disse referansene og bytte ut innholdet med data fra innsendt instans. Det er derfor viktig at man beholder formatet til metadata-referanser når man redigerer eller legger til fritekst i et dynamisk felt"
+        content: "De egendefinerte feltene tillater både fri tekst og å benytte data fra skjema. For at en datamaskin skal kunne skille fritekst fra metadata vises metadata på dette formatet: '$if{metadata-id}. På den måten kan systemet gjenkjenne disse referansene og bytte ut innholdet med data fra innsendt instans. Det er derfor viktig at man beholder formatet til metadata-referanser når man redigerer eller legger til fritekst i et egendefinert felt"
     },
     {
         header: "Hva er en verdikonvertering og hvordan bruker jeg den?",
