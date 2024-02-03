@@ -1,9 +1,7 @@
 import React, {useRef, useState} from 'react'
 import {Box, Button, Heading, HStack, Modal, TextField} from "@navikt/ds-react";
-
-import FormatSizeIcon from '@mui/icons-material/FormatSize';
-import NumbersIcon from '@mui/icons-material/Numbers';
 import {ValueType} from "../../../types/Metadata/IntegrationMetadata";
+import {typeToIcon} from "../dnd/Tag";
 
 export interface EditableFieldProps {
     fieldType: string;
@@ -43,8 +41,8 @@ const EditableField: React.FunctionComponent<EditableFieldProps> = (props: Edita
                     </Button>
                 </Modal.Footer>
             </Modal>
-            <HStack gap={"2"} onDoubleClick={() => ref.current?.showModal()}>
-                {props.fieldType === ValueType.STRING ? <FormatSizeIcon/> : <NumbersIcon/>}
+            <HStack gap={"2"} style={{cursor: 'pointer'}} onDoubleClick={() => ref.current?.showModal()}>
+                {typeToIcon(props.fieldType)}
                 <Heading size={"xsmall"} style={{backgroundColor: "white", whiteSpace: 'pre'}}>
                     {value}
                 </Heading>

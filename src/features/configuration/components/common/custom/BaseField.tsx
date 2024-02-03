@@ -107,7 +107,7 @@ const BaseField: React.FunctionComponent<BaseFieldProps> = forwardRef<HTMLDivEle
             <HStack gap={props.topComponent ? "0" : "2"} align={"center"}>
                 {props.outputType && typeToIcon(props.outputType)}
                 <Box>
-                    {props.topComponent && <Heading size={"xsmall"} align={"start"}>{props.displayName}</Heading>}
+                    {props.topComponent && <Heading size={"xsmall"} align={"start"}>{props.name}</Heading>}
                     <HStack align={"center"} wrap={false}>
                         <Box background={"surface-subtle"} borderWidth={"2"} borderRadius="xlarge"
                              borderColor={"border-subtle"}

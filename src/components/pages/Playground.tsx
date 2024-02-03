@@ -72,16 +72,14 @@ const Playground: RouteComponent = () => {
                                    outputType={ValueType.STRING}
                                    accept={[ValueType.STRING, ValueType.INTEGER, ValueType.DOUBLE, ValueType.VALUE_CONVERTING, ValueType.METADATA]}
                                    value={null}
-                                   name={"testFelt"}
-                                   displayName={"Felt1"}
+                                   name={"Felt1"}
                                    fieldState={undefined}
                         />
                         <BaseField topComponent
                                    outputType={ValueType.STRING}
                                    accept={[ValueType.STRING, ValueType.INTEGER, ValueType.DOUBLE, ValueType.VALUE_CONVERTING, ValueType.METADATA]}
                                    value={null}
-                                   name={"testFelt"}
-                                   displayName={"Felt2"}
+                                   name={"Felt2"}
                                    fieldState={undefined}
                         />
                     </VStack>
