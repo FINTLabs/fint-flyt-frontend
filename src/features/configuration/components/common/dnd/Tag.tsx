@@ -14,8 +14,9 @@ import {
     SwitchAccessShortcut,
     TextFieldsRounded
 } from "@mui/icons-material";
-import {FunctionComponent} from "react";
+import React, {FunctionComponent} from "react";
 import {tagSX} from "../../../../../util/styles/SystemStyles";
+import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 
 export interface Props {
     name: string;
@@ -24,6 +25,48 @@ export interface Props {
     type: string;
     tagKey: string;
 }
+export function typeToIcon(type: string) {
+    if (type === ValueType.STRING) {
+        return <TextFieldsRounded/>
+    }
+    if (type === ValueType.FILE) {
+        return <FilePresent/>
+    }
+    if (type === ValueType.INTEGER) {
+        return <NumbersIcon/>
+    }
+    if (type === ValueType.DOUBLE) {
+        return <NumbersIcon/>
+    }
+    if (type === ValueType.DATE) {
+        return <CalendarMonthIcon/>
+    }
+    if (type === ValueType.PHONE) {
+        return <Dialpad/>
+    }
+    if (type === ValueType.BOOLEAN) {
+        return <RuleRounded/>
+    }
+    if (type === ValueType.EMAIL) {
+        return <AlternateEmailRounded/>
+    }
+    if (type === ValueType.METADATA) {
+        return <AutoAwesomeIcon/>
+    }
+    if (type === ValueType.URL) {
+        return <Link/>
+    }
+    if (type === ValueType.COLLECTION) {
+        return <FormatListNumbered/>
+    }
+    if (type === ValueType.VALUE_CONVERTING) {
+        return <SwitchAccessShortcut/>
+    }
+    if (type === undefined) {
+        return <DragIndicatorIcon/>
+    }
+}
+
 
 export const Tag: FunctionComponent<Props> = (props: Props) => {
     const [{isDragging}, drag] = useDrag(() => ({
@@ -33,42 +76,6 @@ export const Tag: FunctionComponent<Props> = (props: Props) => {
             isDragging: monitor.isDragging(),
         }),
     }))
-
-    function typeToIcon(type: string) {
-        if (type === ValueType.STRING) {
-            return <TextFieldsRounded/>
-        }
-        if (type === ValueType.FILE) {
-            return <FilePresent/>
-        }
-        if (type === ValueType.INTEGER) {
-            return <NumbersIcon/>
-        }
-        if (type === ValueType.DATE) {
-            return <CalendarMonthIcon/>
-        }
-        if (type === ValueType.PHONE) {
-            return <Dialpad/>
-        }
-        if (type === ValueType.BOOLEAN) {
-            return <RuleRounded/>
-        }
-        if (type === ValueType.EMAIL) {
-            return <AlternateEmailRounded/>
-        }
-        if (type === ValueType.URL) {
-            return <Link/>
-        }
-        if (type === ValueType.COLLECTION) {
-            return <FormatListNumbered/>
-        }
-        if (type === ValueType.VALUE_CONVERTING) {
-            return <SwitchAccessShortcut/>
-        }
-        if (type === undefined) {
-            return <DragIndicatorIcon/>
-        }
-    }
 
     const opacity = isDragging ? 0.4 : 1
     return (
