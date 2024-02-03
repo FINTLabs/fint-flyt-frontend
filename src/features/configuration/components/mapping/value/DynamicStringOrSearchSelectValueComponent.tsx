@@ -55,7 +55,7 @@ const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> 
             displayName={props.displayName}
             selectables={[
                 {
-                    displayName: t('label.dynamicValue'),
+                    displayName: t('label.customValue'),
                     value: "$dynamic"
                 },
                 {
