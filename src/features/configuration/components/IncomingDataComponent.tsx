@@ -25,6 +25,7 @@ import {ConfigurationContext} from "../../../context/ConfigurationContext";
 import {Box, Heading, HelpText, HStack, ReadMore, Select, Tooltip, VStack} from "@navikt/ds-react";
 import {ExclamationmarkTriangleFillIcon} from '@navikt/aksel-icons';
 import ValueConvertingRepository from "../../../api/ValueConvertingRepository";
+import ToolsComponent from "./tools/ToolsComponent";
 
 export type Props = {
     referencesForCollectionsToShow: string[]
@@ -202,7 +203,10 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
                                 </Box>
                             )
                     }
-
+                    <Box id={"tools-panel"} background={"surface-subtle"} padding="6" borderRadius={"large"}
+                         borderWidth="2" borderColor={"border-subtle"} style={{maxWidth: '450px'}}>
+                        <ToolsComponent displayName={"Verktøy"} content={[]}/>
+                    </Box>
                     <Box id={"value-converting-panel"} background={"surface-subtle"} padding="6" borderRadius={"large"}
                          borderWidth="2" borderColor={"border-subtle"}>
                         <Heading size={"small"}>{t('metadataPanel.valueConverting')}</Heading>

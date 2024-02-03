@@ -12,7 +12,7 @@ patches:
   - patch: |-
       - op: replace
         path: "/metadata/labels/app.kubernetes.io~1instance"
-        value: "fint-flyt-integration-frontend_vestfoldfylke-no"
+        value: "fint-flyt-frontend_vestfoldfylke-no"
       - op: replace
         path: "/spec/orgId"
         value: "vestfoldfylke.no"
@@ -24,7 +24,7 @@ patches:
         value: "/beta/vestfoldfylke-no"
     target:
       kind: Application
-      name: fint-flyt-integration-frontend
+      name: fint-flyt-frontend
 
   - patch: |-
       - op: replace
