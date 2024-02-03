@@ -40,7 +40,6 @@ const BaseField: React.FunctionComponent<BaseFieldProps> = forwardRef<HTMLDivEle
     const [{canDrop, isOver}, dropRef] = useDrop({
         accept: props.accept,
         drop: (tag: TagProps, monitor) => {
-            console.log(tag)
             if (values.length > 0) {
                 return
             }
@@ -110,7 +109,7 @@ const BaseField: React.FunctionComponent<BaseFieldProps> = forwardRef<HTMLDivEle
 
     return (
         <div id={"custom-field-component-" + absoluteKey} key={absoluteKey}>
-            <HStack align={"center"}>
+            <HStack gap={props.topComponent ? "0" : "2"} align={"center"}>
                 {props.outputType && getIcon(props.outputType)}
                 <Box>
                     {props.topComponent && <Heading size={"xsmall"} align={"start"}>Felt</Heading>}

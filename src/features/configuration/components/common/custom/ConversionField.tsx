@@ -17,13 +17,14 @@ export interface VCFieldProps {
 
 const ConversionField: React.FunctionComponent<VCFieldProps> = (props: VCFieldProps) => {
     const [reqFields, setReqFields] = useState<{ outputType: ValueType, accept: ValueType[] }[]>(props.requiredFields ?? [])
-    console.log(props)
     return (
         <Box padding="4" borderWidth={"2"} borderRadius="medium"
              borderColor={"border-subtle"} style={{backgroundColor: 'lightyellow'}}>
-            <Heading size={"xsmall"} align={"start"}>{props.name}</Heading>
-            <HStack gap={"2"} align={"center"} wrap={false}>
+            <HStack gap={"2"} align={"center"} >
                 <SettingsSuggestIcon/>
+                <Heading size={"xsmall"} align={"start"}>{props.name}</Heading>
+            </HStack>
+            <HStack gap={"2"} align={"center"} wrap={false}>
                 <VStack gap={"4"}>
                     {reqFields && reqFields.map((field, index) => {
                         return <BaseField

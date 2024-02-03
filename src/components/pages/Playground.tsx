@@ -15,7 +15,7 @@ const Playground: RouteComponent = () => {
         {name: '2,99', type: ValueType.DOUBLE},
         {name: 'Fornavn [fornavn]', type: ValueType.METADATA},
         {name: 'til store bokstaver VC[1]', type: ValueType.VALUE_CONVERTING, collection: false, requiredFields: [
-                {outputType: ValueType.STRING, accept: [ValueType.STRING, ValueType.METADATA]}
+                {outputType: ValueType.STRING, accept: [ValueType.STRING, ValueType.METADATA, ValueType.VALUE_CONVERTING]}
             ]},
         {
             name: 'krever en alfanr. og en string VC[2]', type: ValueType.VALUE_CONVERTING, collection: false, requiredFields: [
