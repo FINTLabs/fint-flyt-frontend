@@ -1,4 +1,4 @@
-import type {ReactChild, ReactElement} from 'react'
+import type {ReactChild} from 'react'
 import React, {forwardRef} from 'react'
 import {useDrop} from 'react-dnd'
 import {Box, Heading, HStack} from "@navikt/ds-react";
@@ -11,9 +11,8 @@ import {IconButton} from "@mui/material";
 import MetadataField from "./MetadataField";
 import EditableField from "./EditableField";
 import ConversionField from "./ConversionField";
-import FormatSizeIcon from "@mui/icons-material/FormatSize";
 import {ValueType} from "../../../types/Metadata/IntegrationMetadata";
-import NumbersIcon from "@mui/icons-material/Numbers";
+import {typeToIcon} from "../dnd/Tag";
 
 
 export interface BaseFieldProps {
@@ -103,16 +102,12 @@ const BaseField: React.FunctionComponent<BaseFieldProps> = forwardRef<HTMLDivEle
     }
 
 
-    function getIcon(outputType: ValueType): ReactElement {
-        return outputType === ValueType.STRING ? <FormatSizeIcon/> : <NumbersIcon/>
-    }
-
     return (
         <div id={"custom-field-component-" + absoluteKey} key={absoluteKey}>
             <HStack gap={props.topComponent ? "0" : "2"} align={"center"}>
-                {props.outputType && getIcon(props.outputType)}
+                {props.outputType && typeToIcon(props.outputType)}
                 <Box>
-                    {props.topComponent && <Heading size={"xsmall"} align={"start"}>Felt</Heading>}
+                    {props.topComponent && <Heading size={"xsmall"} align={"start"}>{props.displayName}</Heading>}
                     <HStack align={"center"} wrap={false}>
                         <Box background={"surface-subtle"} borderWidth={"2"} borderRadius="xlarge"
                              borderColor={"border-subtle"}
