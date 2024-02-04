@@ -45,11 +45,11 @@ const ConversionField: React.FunctionComponent<VCFieldProps> = (props: VCFieldPr
                             }>
                                 <PlusIcon title="a11y-title" fontSize="1.5rem" />
                             </IconButton>
-                            <IconButton type="button" onClick={() => {
-                                setReqFields(reqFields.slice(0, -1))}
-                            }>
+                            {reqFields.length > 1 && <IconButton type="button" onClick={() => {
+                                setReqFields(reqFields.slice(0, -1))}}>
                                 <MinusIcon title="a11y-title" fontSize="1.5rem" />
-                            </IconButton>
+                            </IconButton>}
+
                         </HStack>
                     }
                 </VStack>

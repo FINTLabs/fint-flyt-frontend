@@ -6,14 +6,13 @@ import {Search} from "../../../util/UrlUtils";
 import {Noop} from "react-hook-form/dist/types";
 import {ControllerFieldState} from "react-hook-form";
 import {TagProps} from "./Tag";
-import {TrashIcon} from '@navikt/aksel-icons';
 import {IconButton} from "@mui/material";
 import MetadataField from "./MetadataField";
 import EditableField from "./EditableField";
 import ConversionField from "./ConversionField";
 import {ValueType} from "../../../types/Metadata/IntegrationMetadata";
 import {typeToIcon} from "../dnd/Tag";
-
+import CancelIcon from '@mui/icons-material/Cancel';
 
 export interface BaseFieldProps {
     outputType?: ValueType;
@@ -118,7 +117,7 @@ const BaseField: React.FunctionComponent<BaseFieldProps> = forwardRef<HTMLDivEle
                         </Box>
                         {values.length > 0 &&
                             <IconButton onClick={() => setValues([])}>
-                                <TrashIcon title="a11y-title" fontSize="1.5rem"/>
+                                <CancelIcon/>
                             </IconButton>
                         }
                     </HStack>
