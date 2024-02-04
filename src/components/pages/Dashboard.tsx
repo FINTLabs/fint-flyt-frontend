@@ -29,6 +29,8 @@ const Dashboard: RouteComponent = () => {
 	const allActiveIntegrationsLength = allActiveIntegrations.length;
 	const { statistics, resetIntegrations, getAllIntegrations } =
 		useContext(IntegrationContext);
+	const activeIntegrations =
+		integrations?.filter((integration) => integration.state === "ACTIVE") || [];
 	let currentErrors = 0;
 	let totalDispatched = 0;
 

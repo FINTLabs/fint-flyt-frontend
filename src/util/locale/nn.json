@@ -24,8 +24,8 @@
       "instances": "arkiverte instansar",
       "oneInstance": "arkivert instans",
       "empty": "Ingen",
-      "oneError": "feilmelding",
-      "errors": "feilmeldinger",
+      "oneError": "noverande feilmelding",
+      "errors": " noverande feilmeldinger",
       "links": {
         "integrations": "Sjå integrasjonar",
         "integration": "Ny integrasjon",
@@ -51,7 +51,7 @@
       },
       "label": {
         "valueConverting": "Verdikonvertering",
-        "dynamicValue": "Dynamisk verdi",
+        "customValue": "Eigendefinert verdi",
         "checkLabel": "Ferdigstilt",
         "activeLabel": "Aktiv",
         "placeholder": "Skriv eller trekk inn frå metadata",
