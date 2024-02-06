@@ -27,7 +27,7 @@ export const Tag: FC<TagProps> = memo(function Tag({name, type, collection, requ
     )
 
     return (<Chip
-            style={{opacity}}
+            style={{opacity, border: '2px solid dimgray'}}
             ref={drag}
             sx={tagSX}
             icon={typeToIcon(type)} label={name}/>

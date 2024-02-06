@@ -20,7 +20,7 @@ const ToolsComponent: React.FunctionComponent<Props> = (props: Props) => {
             {props.displayName &&
                 <Heading size={"xsmall"}>{props.displayName}</Heading>}
         </HStack>
-        <ReadMore defaultOpen header={"Tekst og tall"}>
+        <ReadMore defaultOpen={false} header={"Tekst og tall"}>
             <Box background={"surface-default"} padding={"2"} borderRadius={"large"}
                  borderWidth="2" borderColor={"border-subtle"}>
                 <HStack justify={"space-between"}>

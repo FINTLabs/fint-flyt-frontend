@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import PageTemplate from "../templates/PageTemplate";
 import {RouteComponent} from "../../routes/Route";
 import {HTML5Backend} from 'react-dnd-html5-backend'
@@ -6,14 +6,29 @@ import {DndProvider} from "react-dnd";
 import BaseField from "../../features/configuration/components/common/custom/BaseField";
 import {Tag, TagProps} from "../../features/configuration/components/common/custom/Tag";
 import {ValueType} from "../../features/configuration/types/Metadata/IntegrationMetadata";
-import {Box, HStack, VStack} from "@navikt/ds-react";
+import {Box, Heading, HStack, VStack} from "@navikt/ds-react";
 import ToolsComponent from "../../features/configuration/components/tools/ToolsComponent";
 
 const Playground: RouteComponent = () => {
-    const [boxes] = useState<TagProps[]>([
+    const baseFields: {name: string, outputField: ValueType}[] = [
+        {name: "Tittel", outputField: ValueType.STRING},
+        {name: "Offentlig tittel", outputField: ValueType.STRING},
+        {name: "Navn", outputField: ValueType.STRING},
+        {name: "Saksansvarlig", outputField: ValueType.STRING}
+    ]
+    const metadatas: TagProps[] = [
         {name: 'Fornavn [fornavn]', type: ValueType.METADATA},
         {name: 'Etternavn [etternavn]', type: ValueType.METADATA},
+        {name: 'Adresse [adresse]', type: ValueType.METADATA},
         {name: 'Postnummer [postnr]', type: ValueType.METADATA},
+        {name: 'Kommunenr [knr]', type: ValueType.METADATA},
+        {name: 'Gårdsnr [gnr]', type: ValueType.METADATA},
+        {name: 'Bruksnr [bnr]', type: ValueType.METADATA},
+        {name: 'Kommunenavn [postnr]', type: ValueType.METADATA},
+        {name: 'Prosjektnavn [prosjektnavn]', type: ValueType.METADATA},
+        {name: 'Saksansvarlig [saksanvarlig]', type: ValueType.METADATA}
+    ]
+    const valueConvertings: TagProps[] = [
         {
             name: 'til store bokstaver VC[1]', type: ValueType.VALUE_CONVERTING, collection: false, requiredFields: [
                 {
@@ -41,20 +56,34 @@ const Playground: RouteComponent = () => {
         },
         {
             name: 'slå sammen tekst VC[4]', type: ValueType.VALUE_CONVERTING, collection: true, requiredFields: [
-                {outputType: ValueType.STRING, accept: [ValueType.STRING]}]
+                {outputType: ValueType.STRING, accept: [ValueType.STRING, ValueType.METADATA]}]
         }
 
-    ])
+    ]
+
     return (
         <DndProvider backend={HTML5Backend}>
             <PageTemplate id={'version'} keyPrefix={'pages'} customHeading>
                 <HStack gap={"6"} wrap={false}>
                     <VStack gap={"6"}>
-                        <Box style={{width: '400px'}}>
+                        <VStack gap={"2"} style={{backgroundColor: 'lightblue', padding: '10px', border: '2px solid dimgray'}}>
+                            <Heading size={"xsmall"}>Metadata</Heading>
+                            {metadatas.map(({name, type, collection, requiredFields}, index) => (
+                                <Tag
+                                    name={name}
+                                    type={type}
+                                    collection={collection}
+                                    requiredFields={requiredFields}
+                                    key={index}
+                                />
+                            ))}
+                        </VStack>
+                        <Box style={{width: '400px', backgroundColor: 'lightgray', padding: '10px', border: '2px solid dimgray'}}>
                             <ToolsComponent displayName={"Verktøy"} content={[]}/>
                         </Box>
-                        <VStack gap={"2"} style={{width: '500px', overflow: 'auto', clear: 'both'}}>
-                            {boxes.map(({name, type, collection, requiredFields}, index) => (
+                        <VStack gap={"2"} style={{backgroundColor: 'lightyellow', padding: '10px', border: '2px solid dimgray'}}>
+                            <Heading size={"xsmall"}>Verdikonvertering</Heading>
+                            {valueConvertings.map(({name, type, collection, requiredFields}, index) => (
                                 <Tag
                                     name={name}
                                     type={type}
@@ -65,21 +94,18 @@ const Playground: RouteComponent = () => {
                             ))}
                         </VStack>
                     </VStack>
+
                     <VStack gap={"4"}>
-                        <BaseField topComponent
-                                   outputType={ValueType.STRING}
-                                   accept={[ValueType.STRING, ValueType.INTEGER, ValueType.DOUBLE, ValueType.VALUE_CONVERTING, ValueType.METADATA]}
-                                   value={null}
-                                   name={"Felt1"}
-                                   fieldState={undefined}
-                        />
-                        <BaseField topComponent
-                                   outputType={ValueType.STRING}
-                                   accept={[ValueType.STRING, ValueType.INTEGER, ValueType.DOUBLE, ValueType.VALUE_CONVERTING, ValueType.METADATA]}
-                                   value={null}
-                                   name={"Felt2"}
-                                   fieldState={undefined}
-                        />
+                        {baseFields.map((baseField, index) =>
+                            <BaseField key={index}
+                                       topComponent
+                                       outputType={baseField.outputField}
+                                       accept={[ValueType.STRING, ValueType.INTEGER, ValueType.DOUBLE, ValueType.VALUE_CONVERTING, ValueType.METADATA]}
+                                       value={null}
+                                       name={baseField.name}
+                                       fieldState={undefined}
+                            />
+                        )}
                     </VStack>
                 </HStack>
             </PageTemplate>
