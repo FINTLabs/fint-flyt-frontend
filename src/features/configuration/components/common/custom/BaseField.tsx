@@ -7,12 +7,10 @@ import {Noop} from "react-hook-form/dist/types";
 import {ControllerFieldState} from "react-hook-form";
 import {TagProps} from "./Tag";
 import {IconButton} from "@mui/material";
-import MetadataField from "./MetadataField";
-import EditableField from "./EditableField";
-import ConversionField from "./ConversionField";
 import {ValueType} from "../../../types/Metadata/IntegrationMetadata";
 import {typeToIcon} from "../dnd/Tag";
 import CancelIcon from '@mui/icons-material/Cancel';
+import {getChildByTagType} from "../../../util/CustomFieldUtils";
 
 export interface BaseFieldProps {
     outputType?: ValueType;
@@ -44,22 +42,7 @@ const BaseField: React.FunctionComponent<BaseFieldProps> = forwardRef<HTMLDivEle
             if (monitor.didDrop() && !props.greedy) {
                 return
             }
-            let child: ReactChild;
-            if (tag.type === 'METADATA') {
-                child = <MetadataField key={tag.name} metadataType={tag.type} reference={tag.name}/>
-            } else if (tag.type === 'STRING') {
-                child = <EditableField key={tag.name} fieldType={tag.type} value={tag.name}/>
-            } else if (tag.type === 'INTEGER') {
-                child = <EditableField key={tag.name} fieldType={tag.type} value={tag.name}/>
-            } else if (tag.type === 'DOUBLE') {
-                child = <EditableField key={tag.name} fieldType={tag.type} value={tag.name}/>
-            } else if (tag.type === 'VALUE_CONVERTING') {
-                child = <ConversionField key={tag.name} fieldType={tag.type} name={tag.name} collection={tag.collection}
-                                         requiredFields={tag.requiredFields}/>
-            } else {
-                child = <div key={tag.name}>ukjent</div>
-            }
-            setValues([...values, child])
+            setValues([...values, getChildByTagType(tag)]);
         },
         collect: monitor => ({
             canDrop: monitor.canDrop(),

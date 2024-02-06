@@ -11,9 +11,6 @@ import ToolsComponent from "../../features/configuration/components/tools/ToolsC
 
 const Playground: RouteComponent = () => {
     const [boxes] = useState<TagProps[]>([
-        /*        {name: 'I am a string', type: ValueType.STRING},
-                {name: '23', type: ValueType.INTEGER},
-                {name: '2,99', type: ValueType.DOUBLE},*/
         {name: 'Fornavn [fornavn]', type: ValueType.METADATA},
         {name: 'Etternavn [etternavn]', type: ValueType.METADATA},
         {name: 'Postnummer [postnr]', type: ValueType.METADATA},
@@ -26,15 +23,16 @@ const Playground: RouteComponent = () => {
             ]
         },
         {
-            name: 'krever en alfanr. og en string VC[2]',
+            name: 'krever en alfanr. og et heltall VC[2]',
             type: ValueType.VALUE_CONVERTING,
             collection: false,
             requiredFields: [
                 {outputType: ValueType.STRING, accept: [ValueType.STRING, ValueType.INTEGER]},
-                {outputType: ValueType.STRING, accept: [ValueType.STRING]}]
+                {outputType: ValueType.INTEGER, accept: [ValueType.INTEGER]}
+            ]
         },
         {
-            name: 'krever en string. og en metadata VC[3]',
+            name: 'krever en alfanr. og en metadata VC[3]',
             type: ValueType.VALUE_CONVERTING,
             collection: false,
             requiredFields: [
