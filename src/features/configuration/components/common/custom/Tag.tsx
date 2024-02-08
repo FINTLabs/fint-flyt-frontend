@@ -6,19 +6,26 @@ import {typeToIcon} from "../dnd/Tag";
 import {Chip} from "@mui/material";
 import {tagSX} from "../../../../../util/styles/SystemStyles";
 
+export interface IRequiredField {
+    outputType: ValueType;
+    accept: ValueType[];
+}
+
 export interface TagProps {
-    name: string
-    type: string
-    collection?: boolean
-    requiredFields?: { outputType: ValueType, accept: ValueType[] }[]
+    name: string; // FIELD NAME, i.e metadata displayname, conversion displayname
+    type: ValueType; // THIS FIELDS TYPE
+    collection?: boolean; // ALLOWED TO ADD MORE FIELDS?
+    referenceValue?: string; // METADATA OR CONVERSION REFERENCE ID
+    value?: string; // VALUE IF EDITABLE FIELD
+    requiredFields?: IRequiredField[]; // REQUIRED FIELDS FOR A CONVERSION
 }
 
 // eslint-disable-next-line react/prop-types
-export const Tag: FC<TagProps> = memo(function Tag({name, type, collection, requiredFields}) {
+export const Tag: FC<TagProps> = memo(function Tag({name, type, collection, requiredFields, referenceValue, value}) {
     const [{opacity}, drag] = useDrag(
         () => ({
             type,
-            item: {name, type, collection, requiredFields},
+            item: {name, type, collection, requiredFields, referenceValue, value},
             collect: (monitor) => ({
                 opacity: monitor.isDragging() ? 0.4 : 1,
             }),

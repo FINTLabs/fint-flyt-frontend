@@ -5,8 +5,8 @@ import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 
 export interface MetadataFieldProps {
     metadataType: string;
-    reference: string
-
+    reference: string;
+    displayName: string;
 }
 
 const MetadataField: React.FunctionComponent<MetadataFieldProps> = (props: MetadataFieldProps) => {
@@ -15,7 +15,7 @@ const MetadataField: React.FunctionComponent<MetadataFieldProps> = (props: Metad
              borderColor={"border-subtle"} style={{backgroundColor: 'lightblue'}}>
             <HStack gap={"2"}>
                 <AutoAwesomeIcon/>
-                {props.reference}
+                {props.displayName} [{props.reference}]
             </HStack>
         </Box>
     )

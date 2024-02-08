@@ -17,20 +17,20 @@ const Playground: RouteComponent = () => {
         {name: "Saksansvarlig", outputField: ValueType.STRING}
     ]
     const metadatas: TagProps[] = [
-        {name: 'Fornavn [fornavn]', type: ValueType.METADATA},
-        {name: 'Etternavn [etternavn]', type: ValueType.METADATA},
-        {name: 'Adresse [adresse]', type: ValueType.METADATA},
-        {name: 'Postnummer [postnr]', type: ValueType.METADATA},
-        {name: 'Kommunenr [knr]', type: ValueType.METADATA},
-        {name: 'Gårdsnr [gnr]', type: ValueType.METADATA},
-        {name: 'Bruksnr [bnr]', type: ValueType.METADATA},
-        {name: 'Kommunenavn [postnr]', type: ValueType.METADATA},
-        {name: 'Prosjektnavn [prosjektnavn]', type: ValueType.METADATA},
-        {name: 'Saksansvarlig [saksanvarlig]', type: ValueType.METADATA}
+        {name: 'Fornavn', type: ValueType.METADATA, referenceValue: "fornavn"},
+        {name: 'Etternavn', type: ValueType.METADATA, referenceValue: "etternavn"},
+        {name: 'Adresse', type: ValueType.METADATA, referenceValue: "adresse"},
+        {name: 'Postnummer', type: ValueType.METADATA, referenceValue: "postnr"},
+        {name: 'Kommunenr', type: ValueType.METADATA, referenceValue: "knr"},
+        {name: 'Gårdsnr', type: ValueType.METADATA, referenceValue: "gnr"},
+        {name: 'Bruksnr', type: ValueType.METADATA, referenceValue: "bnr"},
+        {name: 'Kommunenavn', type: ValueType.METADATA, referenceValue: "postnr"},
+        {name: 'Prosjektnavn', type: ValueType.METADATA, referenceValue: "prosjektnavn"},
+        {name: 'Saksansvarlig', type: ValueType.METADATA, referenceValue: "saksanvarlig"}
     ]
     const valueConvertings: TagProps[] = [
         {
-            name: 'til store bokstaver VC[1]', type: ValueType.VALUE_CONVERTING, collection: false, requiredFields: [
+            name: 'til store bokstaver', type: ValueType.VALUE_CONVERTING, referenceValue: 'VC[1]', collection: false, requiredFields: [
                 {
                     outputType: ValueType.STRING,
                     accept: [ValueType.STRING, ValueType.METADATA, ValueType.VALUE_CONVERTING]
@@ -38,27 +38,50 @@ const Playground: RouteComponent = () => {
             ]
         },
         {
-            name: 'krever en alfanr. og et heltall VC[2]',
+            name: 'til små bokstaver', type: ValueType.VALUE_CONVERTING, referenceValue: "VC[2]",
+            collection: false, requiredFields: [
+                {
+                    outputType: ValueType.STRING,
+                    accept: [ValueType.STRING, ValueType.METADATA, ValueType.VALUE_CONVERTING]
+                }
+            ]
+        },
+        {
+            name: 'krever en alfanr. og et heltall',
             type: ValueType.VALUE_CONVERTING,
             collection: false,
+            referenceValue: "VC[3]",
             requiredFields: [
                 {outputType: ValueType.STRING, accept: [ValueType.STRING, ValueType.INTEGER]},
                 {outputType: ValueType.INTEGER, accept: [ValueType.INTEGER]}
             ]
         },
         {
-            name: 'krever en alfanr. og en metadata VC[3]',
+            name: 'krever en alfanr. og en metadata',
             type: ValueType.VALUE_CONVERTING,
             collection: false,
+            referenceValue: "VC[4]",
             requiredFields: [
-                {outputType: ValueType.STRING, accept: [ValueType.STRING]},
+                {outputType: ValueType.STRING, accept: [ValueType.STRING, ValueType.INTEGER]},
                 {outputType: ValueType.METADATA, accept: [ValueType.METADATA]}]
         },
         {
-            name: 'slå sammen tekst VC[4]', type: ValueType.VALUE_CONVERTING, collection: true, requiredFields: [
-                {outputType: ValueType.STRING, accept: [ValueType.STRING, ValueType.METADATA]}]
-        }
-
+            name: 'slå sammen tekst',
+            type: ValueType.VALUE_CONVERTING,
+            referenceValue: "VC[5]",
+            collection: true,
+            requiredFields: [
+                {outputType: ValueType.STRING, accept: [ValueType.STRING, ValueType.METADATA, ValueType.VALUE_CONVERTING]}]
+        },
+        {
+            name: 'epost til saksansvarlig ID',
+            type: ValueType.VALUE_CONVERTING,
+            referenceValue: "VC[6]",
+            collection: false,
+            requiredFields: [
+                {outputType: ValueType.STRING, accept: [ValueType.STRING, ValueType.VALUE_CONVERTING, ValueType.METADATA]}
+            ]
+        },
     ]
 
     return (
@@ -66,14 +89,15 @@ const Playground: RouteComponent = () => {
             <PageTemplate id={'version'} keyPrefix={'pages'} customHeading>
                 <HStack gap={"6"} wrap={false}>
                     <VStack gap={"6"}>
-                        <VStack gap={"2"} style={{backgroundColor: 'lightblue', padding: '10px', border: '2px solid dimgray'}}>
+                        <VStack gap={"2"} style={{backgroundColor: 'skyblue', padding: '10px', border: '2px solid dimgray'}}>
                             <Heading size={"xsmall"}>Metadata</Heading>
-                            {metadatas.map(({name, type, collection, requiredFields}, index) => (
+                            {metadatas.map((tag, index) => (
                                 <Tag
-                                    name={name}
-                                    type={type}
-                                    collection={collection}
-                                    requiredFields={requiredFields}
+                                    name={tag.name}
+                                    type={tag.type}
+                                    collection={tag.collection}
+                                    requiredFields={tag.requiredFields}
+                                    referenceValue={tag.referenceValue}
                                     key={index}
                                 />
                             ))}
@@ -81,14 +105,15 @@ const Playground: RouteComponent = () => {
                         <Box style={{width: '400px', backgroundColor: 'lightgray', padding: '10px', border: '2px solid dimgray'}}>
                             <ToolsComponent displayName={"Verktøy"} content={[]}/>
                         </Box>
-                        <VStack gap={"2"} style={{backgroundColor: 'lightyellow', padding: '10px', border: '2px solid dimgray'}}>
+                        <VStack gap={"2"} style={{backgroundColor: 'lightgoldenrodyellow', padding: '10px', border: '2px solid dimgray'}}>
                             <Heading size={"xsmall"}>Verdikonvertering</Heading>
-                            {valueConvertings.map(({name, type, collection, requiredFields}, index) => (
+                            {valueConvertings.map((tag, index) => (
                                 <Tag
-                                    name={name}
-                                    type={type}
-                                    collection={collection}
-                                    requiredFields={requiredFields}
+                                    name={tag.name}
+                                    type={tag.type}
+                                    collection={tag.collection}
+                                    requiredFields={tag.requiredFields}
+                                    referenceValue={tag.referenceValue}
                                     key={index}
                                 />
                             ))}

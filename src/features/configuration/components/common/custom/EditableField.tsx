@@ -6,6 +6,7 @@ import {typeToIcon} from "../dnd/Tag";
 export interface EditableFieldProps {
     fieldType: string;
     value: string
+    onValueChange?: () => void;
 }
 
 const EditableField: React.FunctionComponent<EditableFieldProps> = (props: EditableFieldProps) => {
