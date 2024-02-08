@@ -12,7 +12,7 @@ export interface IRequiredField {
 }
 
 export interface TagProps {
-    name: string; // FIELD NAME, i.e metadata displayname, conversion displayname
+    name: string; // FIELD NAME, i.e metadata display name, conversion display name
     type: ValueType; // THIS FIELDS TYPE
     collection?: boolean; // ALLOWED TO ADD MORE FIELDS?
     referenceValue?: string; // METADATA OR CONVERSION REFERENCE ID

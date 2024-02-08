@@ -29,6 +29,7 @@ export interface BaseFieldProps {
 
 const BaseField: React.FunctionComponent<BaseFieldProps> = forwardRef<HTMLDivElement, BaseFieldProps>((props: BaseFieldProps, ref) => {
     BaseField.displayName = "CustomFieldComponent"
+    // TODO: få disse inn i et objekt? props som inneholder ReactChild component også?
     const [childProps, setChildProps] = useState<TagProps | undefined>(undefined);
     const [childComponent, setChildComponent] = useState<ReactChild | undefined>(undefined);
     const absoluteKey: string = props.name;
@@ -53,6 +54,7 @@ const BaseField: React.FunctionComponent<BaseFieldProps> = forwardRef<HTMLDivEle
         })
     })
 
+    //TODO: rydde opp i styling og velge farger
     let background = 'white';
 
     const inputStyle = {

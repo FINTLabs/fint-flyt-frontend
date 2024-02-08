@@ -84,6 +84,7 @@ const Playground: RouteComponent = () => {
         },
     ]
 
+
     return (
         <DndProvider backend={HTML5Backend}>
             <PageTemplate id={'version'} keyPrefix={'pages'} customHeading>

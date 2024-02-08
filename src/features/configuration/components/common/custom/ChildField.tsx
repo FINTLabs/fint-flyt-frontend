@@ -1,85 +1,56 @@
-import React, {Dispatch, SetStateAction, useRef, useState} from 'react'
-import {Box, Button, Heading, HStack, Modal, TextField, VStack} from "@navikt/ds-react";
+import React, {Dispatch, SetStateAction, useState} from 'react'
+import {Box, Heading, HStack, TextField, VStack} from "@navikt/ds-react";
 
 import {typeToIcon} from "../dnd/Tag";
 import {IRequiredField, TagProps} from "./Tag";
 import BaseField from "./BaseField";
 import {IconButton} from "@mui/material";
-import {MinusIcon, PlusIcon} from "@navikt/aksel-icons";
+import {CheckmarkCircleFillIcon, MinusIcon, PlusIcon} from "@navikt/aksel-icons";
 import {ValueType} from "../../../types/Metadata/IntegrationMetadata";
+import {getBackgroundColorByType, isEditable} from "../../../util/CustomFieldUtils";
 
 export interface ChildFieldProps {
     tag: TagProps;
     setValue: Dispatch<SetStateAction<TagProps | undefined>>
 }
 
-function isEditable(type: string): boolean {
-    switch (type) {
-        case 'STRING':
-        case 'INTEGER':
-        case 'DOUBLE':
-            return true
-        default:
-            return false
-    }
-}
-
-function getColorByType(type: string): string {
-    switch (type) {
-        case 'METADATA' :
-            return 'skyblue'
-        case 'STRING':
-        case 'INTEGER':
-        case 'DOUBLE':
-            return 'lightgray'
-        case 'VALUE_CONVERTING':
-            return 'lightgoldenrodyellow'
-        default:
-            return 'white'
-    }
-}
-
 const ChildField: React.FunctionComponent<ChildFieldProps> = (props: ChildFieldProps) => {
     const [reqFields, setReqFields] = useState<IRequiredField[]>(props.tag.requiredFields ?? [])
     const [value, setValue] = useState<string | undefined>(props.tag.value)
-    const ref = useRef<HTMLDialogElement>(null);
+    const [edit, setEdit] = useState<boolean>(false)
+
     return (
         <Box padding="4" borderWidth={"2"} borderRadius="medium"
-             borderColor={"border-subtle"} style={{backgroundColor: getColorByType(props.tag.type)}}>
-            <Modal ref={ref} header={{heading: "Endre"}}>
-                <Modal.Body>
-                    <form method="dialog" id="skjema">
-                        <TextField type={props.tag.type === ValueType.STRING ? 'text' : "number"}
-                                   onChange={(event) => {
-                                       {
-                                           setValue(event.target.value)
-                                           props.setValue({...props.tag, value: event.target.value})
-                                       }
-                                   }} id={"value"} name={"input"} defaultValue={value} label=""/>
-                    </form>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button type="button" onClick={() => {
-                        ref.current?.close()
-                    }}>
-                        Bekreft
-                    </Button>
-                    <Button
-                        type="button"
-                        variant="secondary"
-                        onClick={() => ref.current?.close()}
-                    >
-                        Avbryt
-                    </Button>
-                </Modal.Footer>
-            </Modal>
-            {isEditable(props.tag.type) && <HStack gap={"2"} style={{cursor: 'pointer'}} onDoubleClick={() => ref.current?.showModal()}>
-            {typeToIcon(props.tag.type)}
+             borderColor={"border-subtle"} style={{backgroundColor: getBackgroundColorByType(props.tag.type)}}>
+            {isEditable(props.tag.type) && <HStack gap={"2"} style={{cursor: 'pointer'}} onDoubleClick={() => setEdit(true)}>
+                {typeToIcon(props.tag.type)}
                 <Heading size={"xsmall"} style={{backgroundColor: "white", whiteSpace: 'pre'}}>
-                    {value}
+                    {!edit && value}
                 </Heading>
+                {edit &&
+                    <HStack align={"center"}>
+                        <TextField
+                            size={"small"}
+                            style={{width: 'fit-content', padding: 'none'}}
+                            type={props.tag.type === ValueType.STRING ? 'text' : "number"}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter') {
+                                setEdit(false)
+                                }
+                            }}
+                            onChange={(event) => {
+                                {
+                                    setValue(event.target.value)
+                                    props.setValue({...props.tag, value: event.target.value})
+                                }
+                            }} id={"value"} name={"input"} defaultValue={value} label=""/>
+                        <IconButton onClick={() => setEdit(false)}>
+                            <CheckmarkCircleFillIcon title="Ferdig" fontSize="1.5rem" />
+                        </IconButton>
+                    </HStack>
+                }
             </HStack>}
-            {!isEditable(props.tag.type) && <HStack gap={"2"} onDoubleClick={() => ref.current?.showModal()}>
+            {!isEditable(props.tag.type) && <HStack gap={"2"}>
                 {typeToIcon(props.tag.type)}
                 {props.tag.name}
                 {props.tag.type === 'METADATA' || props.tag.type === 'VALUE_CONVERTING' && [props.tag.referenceValue]}
