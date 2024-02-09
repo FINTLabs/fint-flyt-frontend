@@ -81,6 +81,12 @@
           "metadata": "Metadata is described in the incoming data and can be used to build the configuration of outgoing data"
         }
       },
+      "toolsPanel": {
+        "header": "Tools",
+        "description": "Text and number",
+        "string": "Text",
+        "integer": "Whole number"
+      },
       "help": {
         "formHeader": "Outgoing data"
       }
