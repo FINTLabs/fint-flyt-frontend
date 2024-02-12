@@ -2,7 +2,6 @@ import React, {useState} from 'react'
 import {Box, Heading, HStack, VStack} from "@navikt/ds-react";
 
 import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
-import BaseField from "./BaseField";
 import {IconButton} from "@mui/material";
 import {PlusIcon} from "@navikt/aksel-icons";
 import {MinusIcon} from "@navikt/aksel-icons";
@@ -27,18 +26,6 @@ const ConversionField: React.FunctionComponent<VCFieldProps> = (props: VCFieldPr
             </HStack>
             <HStack gap={"2"} align={"center"} wrap={false}>
                 <VStack gap={"4"}>
-                    {reqFields && reqFields.map((field, index) => {
-                        return <BaseField
-                            outputType={field.outputType}
-                            key={index}
-                            accept={field.accept}
-                            topComponent={false}
-                            value={null}
-                            greedy
-                            name={"testfield"}
-                            fieldState={undefined}
-                        />
-                    })}
                     {props.collection &&
                         <HStack justify={"end"}>
                             <IconButton type="button" onClick={() => {
