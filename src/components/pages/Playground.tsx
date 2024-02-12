@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PageTemplate from "../templates/PageTemplate";
 import {RouteComponent} from "../../routes/Route";
 import {HTML5Backend} from 'react-dnd-html5-backend'
@@ -10,7 +10,7 @@ import {Box, Heading, HStack, VStack} from "@navikt/ds-react";
 import ToolsComponent from "../../features/configuration/components/tools/ToolsComponent";
 
 const Playground: RouteComponent = () => {
-    const baseFields: {name: string, outputField: ValueType}[] = [
+    const baseFields: { name: string, outputField: ValueType }[] = [
         {name: "Tittel", outputField: ValueType.STRING},
         {name: "Offentlig tittel", outputField: ValueType.STRING},
         {name: "Navn", outputField: ValueType.STRING},
@@ -30,7 +30,11 @@ const Playground: RouteComponent = () => {
     ]
     const valueConvertings: TagProps[] = [
         {
-            name: 'til store bokstaver', type: ValueType.VALUE_CONVERTING, referenceValue: 'VC[1]', collection: false, requiredFields: [
+            name: 'til store bokstaver',
+            type: ValueType.VALUE_CONVERTING,
+            referenceValue: 'VC[1]',
+            collection: false,
+            requiredFields: [
                 {
                     outputType: ValueType.STRING,
                     accept: [ValueType.STRING, ValueType.METADATA, ValueType.VALUE_CONVERTING]
@@ -71,7 +75,10 @@ const Playground: RouteComponent = () => {
             referenceValue: "VC[5]",
             collection: true,
             requiredFields: [
-                {outputType: ValueType.STRING, accept: [ValueType.STRING, ValueType.METADATA, ValueType.VALUE_CONVERTING]}]
+                {
+                    outputType: ValueType.STRING,
+                    accept: [ValueType.STRING, ValueType.METADATA, ValueType.VALUE_CONVERTING]
+                }]
         },
         {
             name: 'epost til saksansvarlig ID',
@@ -79,18 +86,30 @@ const Playground: RouteComponent = () => {
             referenceValue: "VC[6]",
             collection: false,
             requiredFields: [
-                {outputType: ValueType.STRING, accept: [ValueType.STRING, ValueType.VALUE_CONVERTING, ValueType.METADATA]}
+                {
+                    outputType: ValueType.STRING,
+                    accept: [ValueType.STRING, ValueType.VALUE_CONVERTING, ValueType.METADATA]
+                }
             ]
         },
     ]
 
+    const [baseFieldValues, setBaseFieldValues] = useState<string[]>([]);
+
+    console.log(baseFieldValues)
+
+    const handleBaseFieldValueChange = (newValue: string) => {
+        // Update state with the received value
+        setBaseFieldValues([...baseFieldValues, newValue]);
+    };
 
     return (
         <DndProvider backend={HTML5Backend}>
             <PageTemplate id={'version'} keyPrefix={'pages'} customHeading>
                 <HStack gap={"6"} wrap={false}>
                     <VStack gap={"6"}>
-                        <VStack gap={"2"} style={{backgroundColor: 'skyblue', padding: '10px', border: '2px solid dimgray'}}>
+                        <VStack gap={"2"}
+                                style={{backgroundColor: 'skyblue', padding: '10px', border: '2px solid dimgray'}}>
                             <Heading size={"xsmall"}>Metadata</Heading>
                             {metadatas.map((tag, index) => (
                                 <Tag
@@ -103,10 +122,19 @@ const Playground: RouteComponent = () => {
                                 />
                             ))}
                         </VStack>
-                        <Box style={{width: '400px', backgroundColor: 'lightgray', padding: '10px', border: '2px solid dimgray'}}>
+                        <Box style={{
+                            width: '400px',
+                            backgroundColor: 'lightgray',
+                            padding: '10px',
+                            border: '2px solid dimgray'
+                        }}>
                             <ToolsComponent displayName={"Verktøy"} content={[]}/>
                         </Box>
-                        <VStack gap={"2"} style={{backgroundColor: 'lightgoldenrodyellow', padding: '10px', border: '2px solid dimgray'}}>
+                        <VStack gap={"2"} style={{
+                            backgroundColor: 'lightgoldenrodyellow',
+                            padding: '10px',
+                            border: '2px solid dimgray'
+                        }}>
                             <Heading size={"xsmall"}>Verdikonvertering</Heading>
                             {valueConvertings.map((tag, index) => (
                                 <Tag
@@ -120,7 +148,6 @@ const Playground: RouteComponent = () => {
                             ))}
                         </VStack>
                     </VStack>
-
                     <VStack gap={"4"}>
                         {baseFields.map((baseField, index) =>
                             <BaseField key={index}
@@ -130,13 +157,13 @@ const Playground: RouteComponent = () => {
                                        value={null}
                                        name={baseField.name}
                                        fieldState={undefined}
+                                       onBaseFieldValueChange={handleBaseFieldValueChange}
                             />
                         )}
                     </VStack>
                 </HStack>
             </PageTemplate>
         </DndProvider>
-
     );
 }
 export default Playground;

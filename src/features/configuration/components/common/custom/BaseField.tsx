@@ -1,4 +1,4 @@
-import React, {forwardRef, ReactChild, useState} from 'react'
+import React, {forwardRef, useState} from 'react'
 import {useDrop} from 'react-dnd'
 import {Box, Heading, HStack} from "@navikt/ds-react";
 import {Search} from "../../../util/UrlUtils";
@@ -23,30 +23,31 @@ export interface BaseFieldProps {
     onBlur?: Noop;
     name: string;
     value: string | null;
-    fieldState: ControllerFieldState | undefined
+    fieldState: ControllerFieldState | undefined;
+    onBaseFieldValueChange: (value: string) => void;
 }
-
 
 const BaseField: React.FunctionComponent<BaseFieldProps> = forwardRef<HTMLDivElement, BaseFieldProps>((props: BaseFieldProps, ref) => {
     BaseField.displayName = "CustomFieldComponent"
-    // TODO: få disse inn i et objekt? props som inneholder ReactChild component også?
-    const [childProps, setChildProps] = useState<TagProps | undefined>(undefined);
-    const [childComponent, setChildComponent] = useState<ReactChild | undefined>(undefined);
-    const absoluteKey: string = props.name;
+    const [child, setChild] = useState<TagProps | undefined>(undefined);
+    const absoluteKey: string = props.name
+
+    const handleChildFieldValueChange = (newValue: string) => {
+        // Pass the value to the callback function received from Playground
+        props.onBaseFieldValueChange(newValue);
+    };
 
     const [{canDrop, isOver}, dropRef] = useDrop({
         accept: props.accept,
         drop: (tag: TagProps, monitor) => {
-            if (childComponent) {
+            if (child) {
                 return
             }
             if (monitor.didDrop() && !props.greedy) {
                 return
             }
-            setChildProps(tag)
-            setChildComponent(
-                <ChildField setValue={setChildProps} tag={tag}/>
-            )
+            props.onBaseFieldValueChange(tag.name);
+            setChild(tag)
         },
         collect: monitor => ({
             canDrop: monitor.canDrop(),
@@ -68,13 +69,13 @@ const BaseField: React.FunctionComponent<BaseFieldProps> = forwardRef<HTMLDivEle
     };
 
     if (canDrop && isOver && !props.disabled) {
-        if (childComponent) {
+        if (child) {
             background = 'red';
         } else {
             background = 'lightgreen';
         }
     } else if (canDrop && !props.disabled) {
-        if (childComponent) {
+        if (child) {
             background = 'pink'
         } else {
             background = 'lightcyan';
@@ -100,18 +101,19 @@ const BaseField: React.FunctionComponent<BaseFieldProps> = forwardRef<HTMLDivEle
                              style={dynamicStyle}
                              ref={dropRef}
                         >
-                            {childComponent}
+                            {child && <ChildField setValue={setChild} tag={child}
+                                                  onBaseFieldValueChange={handleChildFieldValueChange}
+                            />}
                         </Box>
-                        {childComponent &&
+                        {child &&
                             <IconButton onClick={() => {
-                                setChildComponent(undefined)
-                                setChildProps(undefined)
+                                setChild(undefined)
                             }}>
                                 <CancelIcon/>
                             </IconButton>
                         }
                     </HStack>
-                    {childProps && <div>type: {childProps.type}, verdi/ref: {childProps.referenceValue} {childProps.value}</div>}
+                    {child && <div>type: {child.type}, verdi/ref: {child.referenceValue} {child.value}</div>}
                 </Box>
             </HStack>
         </div>

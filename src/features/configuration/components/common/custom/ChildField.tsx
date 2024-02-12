@@ -12,6 +12,7 @@ import {getBackgroundColorByType, isEditable} from "../../../util/CustomFieldUti
 export interface ChildFieldProps {
     tag: TagProps;
     setValue: Dispatch<SetStateAction<TagProps | undefined>>
+    onBaseFieldValueChange: (value: string) => void;
 }
 
 const ChildField: React.FunctionComponent<ChildFieldProps> = (props: ChildFieldProps) => {
@@ -19,37 +20,47 @@ const ChildField: React.FunctionComponent<ChildFieldProps> = (props: ChildFieldP
     const [value, setValue] = useState<string | undefined>(props.tag.value)
     const [edit, setEdit] = useState<boolean>(false)
 
+    const handleBaseFieldValueChange = (newValue: string) => {
+        props.onBaseFieldValueChange(newValue);
+    };
+
+
     return (
         <Box padding="4" borderWidth={"2"} borderRadius="medium"
              borderColor={"border-subtle"} style={{backgroundColor: getBackgroundColorByType(props.tag.type)}}>
-            {isEditable(props.tag.type) && <HStack gap={"2"} style={{cursor: 'pointer'}} onDoubleClick={() => setEdit(true)}>
-                {typeToIcon(props.tag.type)}
-                <Heading size={"xsmall"} style={{backgroundColor: "white", whiteSpace: 'pre'}}>
-                    {!edit && value}
-                </Heading>
-                {edit &&
-                    <HStack align={"center"}>
-                        <TextField
-                            size={"small"}
-                            style={{width: 'fit-content', padding: 'none'}}
-                            type={props.tag.type === ValueType.STRING ? 'text' : "number"}
-                            onKeyDown={(e) => {
-                                if (e.key === 'Enter') {
+            {isEditable(props.tag.type) &&
+                <HStack gap={"2"} style={{cursor: 'pointer'}} onDoubleClick={() => setEdit(true)}>
+                    {typeToIcon(props.tag.type)}
+                    <Heading size={"xsmall"} style={{backgroundColor: "white", whiteSpace: 'pre'}}>
+                        {!edit && value}
+                    </Heading>
+                    {edit &&
+                        <HStack align={"center"}>
+                            <TextField
+                                size={"small"}
+                                style={{width: 'fit-content', padding: 'none'}}
+                                type={props.tag.type === ValueType.STRING ? 'text' : "number"}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter') {
+                                        setEdit(false)
+                                        handleBaseFieldValueChange(value ?? '')
+                                    }
+                                }}
+                                onChange={(event) => {
+                                    {
+                                        setValue(event.target.value)
+                                        props.setValue({...props.tag, value: event.target.value})
+                                    }
+                                }} id={"value"} name={"input"} defaultValue={value} label=""/>
+                            <IconButton onClick={() => {
                                 setEdit(false)
-                                }
-                            }}
-                            onChange={(event) => {
-                                {
-                                    setValue(event.target.value)
-                                    props.setValue({...props.tag, value: event.target.value})
-                                }
-                            }} id={"value"} name={"input"} defaultValue={value} label=""/>
-                        <IconButton onClick={() => setEdit(false)}>
-                            <CheckmarkCircleFillIcon title="Ferdig" fontSize="1.5rem" />
-                        </IconButton>
-                    </HStack>
-                }
-            </HStack>}
+                                handleBaseFieldValueChange(value ?? '')
+                            }}>
+                                <CheckmarkCircleFillIcon title="Ferdig" fontSize="1.5rem"/>
+                            </IconButton>
+                        </HStack>
+                    }
+                </HStack>}
             {!isEditable(props.tag.type) && <HStack gap={"2"}>
                 {typeToIcon(props.tag.type)}
                 {props.tag.name}
@@ -67,14 +78,14 @@ const ChildField: React.FunctionComponent<ChildFieldProps> = (props: ChildFieldP
                             greedy
                             name={"testfield"}
                             fieldState={undefined}
+                            onBaseFieldValueChange={handleBaseFieldValueChange}
                         />
                     })}
                     {props.tag.collection &&
                         <HStack justify={"end"}>
                             <IconButton type="button" onClick={() => {
                                 setReqFields([...reqFields, reqFields[0]])
-                            }
-                            }>
+                            }}>
                                 <PlusIcon title="a11y-title" fontSize="1.5rem"/>
                             </IconButton>
                             {reqFields.length > 1 && <IconButton type="button" onClick={() => {

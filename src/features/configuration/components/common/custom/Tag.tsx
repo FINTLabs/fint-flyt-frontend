@@ -1,4 +1,4 @@
-import type {FC} from 'react'
+import type {FC, ReactChild} from 'react'
 import {memo} from 'react'
 import {useDrag} from 'react-dnd'
 import {ValueType} from "../../../types/Metadata/IntegrationMetadata";
@@ -18,6 +18,7 @@ export interface TagProps {
     referenceValue?: string; // METADATA OR CONVERSION REFERENCE ID
     value?: string; // VALUE IF EDITABLE FIELD
     requiredFields?: IRequiredField[]; // REQUIRED FIELDS FOR A CONVERSION
+    content?: ReactChild
 }
 
 // eslint-disable-next-line react/prop-types
