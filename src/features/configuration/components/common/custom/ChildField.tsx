@@ -8,22 +8,24 @@ import {IconButton} from "@mui/material";
 import {CheckmarkCircleFillIcon, MinusIcon, PlusIcon} from "@navikt/aksel-icons";
 import {ValueType} from "../../../types/Metadata/IntegrationMetadata";
 import {getBackgroundColorByType, isEditable} from "../../../util/CustomFieldUtils";
+import {Controller, useFormContext} from "react-hook-form";
 
 export interface ChildFieldProps {
     tag: TagProps;
     setValue: Dispatch<SetStateAction<TagProps | undefined>>
     onBaseFieldValueChange: (value: string) => void;
+    setBaseFieldValues: React.Dispatch<React.SetStateAction<string[]>>
 }
 
 const ChildField: React.FunctionComponent<ChildFieldProps> = (props: ChildFieldProps) => {
     const [reqFields, setReqFields] = useState<IRequiredField[]>(props.tag.requiredFields ?? [])
     const [value, setValue] = useState<string | undefined>(props.tag.value)
     const [edit, setEdit] = useState<boolean>(false)
+    const {control} = useFormContext();
 
     const handleBaseFieldValueChange = (newValue: string) => {
         props.onBaseFieldValueChange(newValue);
     };
-
 
     return (
         <Box padding="4" borderWidth={"2"} borderRadius="medium"
@@ -68,17 +70,24 @@ const ChildField: React.FunctionComponent<ChildFieldProps> = (props: ChildFieldP
             </HStack>}
             {reqFields && <HStack gap={"2"} align={"center"} wrap={false}>
                 <VStack gap={"4"}>
-                    {reqFields.map((field, index) => {
-                        return <BaseField
-                            outputType={field.outputType}
-                            key={index}
-                            accept={field.accept}
-                            topComponent={false}
-                            value={null}
-                            greedy
-                            name={"testfield"}
-                            fieldState={undefined}
-                            onBaseFieldValueChange={handleBaseFieldValueChange}
+                    {reqFields.map((requiredField, index) => {
+                        return <Controller key={index}
+                                           name={"test"}
+                                           control={control}
+                                           render={({field}) =>
+                                               <BaseField
+                                                   {...field}
+                                                   outputType={requiredField.outputType}
+                                                   key={index}
+                                                   accept={requiredField.accept}
+                                                   topComponent={false}
+                                                   greedy
+                                                   name={"testfield"}
+                                                   fieldState={undefined}
+                                                   onBaseFieldValueChange={handleBaseFieldValueChange}
+                                                   setBaseFieldValues={props.setBaseFieldValues}
+                                               />
+                                           }
                         />
                     })}
                     {props.tag.collection &&

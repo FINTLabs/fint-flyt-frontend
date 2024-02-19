@@ -19,12 +19,12 @@ export interface BaseFieldProps {
     topComponent: boolean;
     accept: string[];
     disabled?: boolean;
-    onChange?: (value: string) => void;
     onBlur?: Noop;
     name: string;
-    value: string | null;
+    onChange?: (value: string, where: string) => void;
     fieldState: ControllerFieldState | undefined;
     onBaseFieldValueChange: (value: string) => void;
+    setBaseFieldValues: React.Dispatch<React.SetStateAction<string[]>>
 }
 
 const BaseField: React.FunctionComponent<BaseFieldProps> = forwardRef<HTMLDivElement, BaseFieldProps>((props: BaseFieldProps, ref) => {
@@ -33,9 +33,9 @@ const BaseField: React.FunctionComponent<BaseFieldProps> = forwardRef<HTMLDivEle
     const absoluteKey: string = props.name
 
     const handleChildFieldValueChange = (newValue: string) => {
-        // Pass the value to the callback function received from Playground
         props.onBaseFieldValueChange(newValue);
     };
+
 
     const [{canDrop, isOver}, dropRef] = useDrop({
         accept: props.accept,
@@ -103,11 +103,13 @@ const BaseField: React.FunctionComponent<BaseFieldProps> = forwardRef<HTMLDivEle
                         >
                             {child && <ChildField setValue={setChild} tag={child}
                                                   onBaseFieldValueChange={handleChildFieldValueChange}
+                                                  setBaseFieldValues={props.setBaseFieldValues}
                             />}
                         </Box>
                         {child &&
                             <IconButton onClick={() => {
                                 setChild(undefined)
+                                props.setBaseFieldValues([])
                             }}>
                                 <CancelIcon/>
                             </IconButton>

@@ -8,14 +8,10 @@ import {Tag, TagProps} from "../../features/configuration/components/common/cust
 import {ValueType} from "../../features/configuration/types/Metadata/IntegrationMetadata";
 import {Box, Heading, HStack, VStack} from "@navikt/ds-react";
 import ToolsComponent from "../../features/configuration/components/tools/ToolsComponent";
+import {Controller, FormProvider, useForm} from "react-hook-form";
+
 
 const Playground: RouteComponent = () => {
-    const baseFields: { name: string, outputField: ValueType }[] = [
-        {name: "Tittel", outputField: ValueType.STRING},
-        {name: "Offentlig tittel", outputField: ValueType.STRING},
-        {name: "Navn", outputField: ValueType.STRING},
-        {name: "Saksansvarlig", outputField: ValueType.STRING}
-    ]
     const metadatas: TagProps[] = [
         {name: 'Fornavn', type: ValueType.METADATA, referenceValue: "fornavn"},
         {name: 'Etternavn', type: ValueType.METADATA, referenceValue: "etternavn"},
@@ -94,14 +90,42 @@ const Playground: RouteComponent = () => {
         },
     ]
 
-    const [baseFieldValues, setBaseFieldValues] = useState<string[]>([]);
+    interface Field {
+        name: string, // navnet på selve felet, tittel, offentlig tittel etc.
+        value?: string, // verdien til feltet, som endres på skriving/redigering
+        reference?: string, // verdien til feltet dersom det er metadata eller konvertering
+        type: ValueType, // hvilken type feltet har som output?
+        children: Field[] // feltets underfelt
+    }
 
-    console.log(baseFieldValues)
+    interface Root {
+        name: string,
+        outputType: ValueType,
+        child: Field
+    }
+
+
+    const [baseFieldValues, setBaseFieldValues] = useState<string[]>([]);
+    const [baseFieldRoot, setBaseFieldRoot] = useState<Root>();
 
     const handleBaseFieldValueChange = (newValue: string) => {
-        // Update state with the received value
         setBaseFieldValues([...baseFieldValues, newValue]);
     };
+
+    const methods = useForm<Root>({
+        mode: 'onChange',
+        defaultValues: {
+            name: 'Tittel',
+            outputType: ValueType.STRING,
+            child: {}
+        }
+    });
+
+    const onSubmit = (data: Root) => {
+        console.log(data)
+    };
+
+    console.log(methods.watch())
 
     return (
         <DndProvider backend={HTML5Backend}>
@@ -148,19 +172,25 @@ const Playground: RouteComponent = () => {
                             ))}
                         </VStack>
                     </VStack>
-                    <VStack gap={"4"}>
-                        {baseFields.map((baseField, index) =>
-                            <BaseField key={index}
-                                       topComponent
-                                       outputType={baseField.outputField}
-                                       accept={[ValueType.STRING, ValueType.INTEGER, ValueType.DOUBLE, ValueType.VALUE_CONVERTING, ValueType.METADATA]}
-                                       value={null}
-                                       name={baseField.name}
-                                       fieldState={undefined}
-                                       onBaseFieldValueChange={handleBaseFieldValueChange}
-                            />
-                        )}
-                    </VStack>
+                    <FormProvider {...methods}>
+                        <form onSubmit={methods.handleSubmit(onSubmit)}>
+                            <VStack gap={"4"}>
+                                <Controller
+                                    name={"Tittel"}
+                                    render={({field, fieldState}) =>
+                                        <BaseField topComponent
+                                                   outputType={ValueType.STRING}
+                                                   accept={[ValueType.STRING, ValueType.INTEGER, ValueType.DOUBLE, ValueType.VALUE_CONVERTING, ValueType.METADATA]}
+                                                   fieldState={fieldState}
+                                                   onBaseFieldValueChange={handleBaseFieldValueChange}
+                                                   setBaseFieldValues={setBaseFieldValues}
+                                                   {...field}
+                                        />
+                                    }
+                                />
+                            </VStack>
+                        </form>
+                    </FormProvider>
                 </HStack>
             </PageTemplate>
         </DndProvider>
