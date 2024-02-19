@@ -81,6 +81,12 @@
           "metadata": "Metadata er data fra innsendt skjema du kan bruke i konfigurasjon av utgående data"
         }
       },
+      "toolsPanel": {
+        "header": "Verktøy",
+        "description": "Tekst og tall",
+        "string": "Tekst",
+        "integer": "Heltall"
+      },
       "help": {
         "formHeader": "Utgående data"
       }

@@ -202,7 +202,12 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
                                 </Box>
                             )
                     }
-
+                    {/*TODO: we still need feature toggling
+                    <Box id={"tools-panel"} background={"surface-subtle"} padding="6" borderRadius={"large"}
+                         borderWidth="2" borderColor={"border-subtle"} style={{maxWidth: '450px'}}>
+                        <ToolsComponent content={[]}/>
+                    </Box>
+                    */}
                     <Box id={"value-converting-panel"} background={"surface-subtle"} padding="6" borderRadius={"large"}
                          borderWidth="2" borderColor={"border-subtle"}>
                         <Heading size={"small"}>{t('metadataPanel.valueConverting')}</Heading>
