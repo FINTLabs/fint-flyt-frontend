@@ -27,7 +27,7 @@ export const format =
 export const sourceApplications: ISelect[] = [
 	{ label: "ACOS", value: "1" },
 	{ label: "eGrunnerverv", value: "2" },
-	{ label: "Riksantikvaren", value: "3" },
+	{ label: "Digisak", value: "3" },
 ];
 
 export function selectableSourceApplications(lang: string): ISelect[] {
@@ -35,7 +35,7 @@ export function selectableSourceApplications(lang: string): ISelect[] {
 		{ label: getSelectableDefaultByLanguage(lang), value: "" },
 		{ label: "ACOS", value: "1" },
 		{ label: "eGrunnerverv", value: "2" },
-		{ label: "Riksantikvaren", value: "3" },
+		{ label: "Digisak", value: "3" },
 	];
 }
 
