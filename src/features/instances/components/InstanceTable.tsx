@@ -34,9 +34,7 @@ const InstanceTable: React.FunctionComponent<Props> = ({onError}) => {
 
     useEffect(() => {
         setInstancesPage({content: []})
-        if (!instancesPage) {
-            getLatestInstances(rowCount, sort);
-        }
+        getLatestInstances(rowCount, sort);
     }, [page, setPage, sort, rowCount])
 
     const getLatestInstances = async (rowCount: string, sort?: SortState) => {
