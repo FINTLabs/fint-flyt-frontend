@@ -33,8 +33,9 @@ const InstanceTable: React.FunctionComponent<Props> = ({onError}) => {
     const selectOptions = [{value: "", label: t('numberPerPage'), disabled: true}, {value: "10", label: "10"}, {value: "25", label: "25"}, {value: "50", label: "50"}, {value: "100", label: "100"}]
 
     useEffect(() => {
+        setInstancesPage({content: []})
         getLatestInstances(rowCount, sort);
-    }, [])
+    }, [page, setPage, sort, rowCount])
 
     const getLatestInstances = async (rowCount: string, sort?: SortState) => {
         onError(undefined)
@@ -69,11 +70,6 @@ const InstanceTable: React.FunctionComponent<Props> = ({onError}) => {
             console.error('Error: ', e);
         }
     }
-
-    useEffect(() => {
-        setInstancesPage({content: []})
-        getLatestInstances(rowCount, sort);
-    }, [page, setPage, sort, rowCount])
 
     const handleSort = (sortKey: string) => {
         setSort(prevSort => {
