@@ -82,7 +82,6 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
             getAllMetadata(true);
             getAvailableForms(sourceApplicationId);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [sourceApplication, setSourceApplication])
 
     const handleClose = (event: React.SyntheticEvent | Event, reason?: string) => {
