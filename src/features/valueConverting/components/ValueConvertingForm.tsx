@@ -7,7 +7,6 @@ import {
     defaultAlert,
     destinations,
     fromTypeIds,
-    getSelectableDefaultByLanguage,
     toTypeIds,
 } from "../../configuration/defaults/DefaultValues";
 import ValueConvertingRepository from "../../../api/ValueConvertingRepository";
@@ -20,7 +19,6 @@ import ArrayComponent from "../../configuration/components/common/array/ArrayCom
 import SearchSelectValueComponent from "../../configuration/components/mapping/value/select/SearchSelectValueComponent";
 import {Alert, Box, Button, Heading, HelpText, HStack, VStack,} from "@navikt/ds-react";
 import {ISelect} from "../../configuration/types/Select";
-import i18n from "../../../util/locale/i18n";
 import {SourceApplicationContext} from "../../../context/SourceApplicationContext";
 
 
@@ -42,9 +40,7 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
     const [show, setShow] = React.useState(false);
     const [alertContent, setAlertContent] = React.useState<IAlertContent>(defaultAlert);
     const [toSelectables, setToSelectables] = useState<ISelectable[]>([]);
-    const [selectableSourceApplications, setSelectableSourceApplications] = useState<ISelect[]>([
-        {label: getSelectableDefaultByLanguage(i18n.language), value: ""}
-    ])
+    const [selectableSourceApplications, setSelectableSourceApplications] = useState<ISelect[]>([])
 
     function getSelectableSourceApplications() {
         const sources: ISelect[] = []
