@@ -1,8 +1,8 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {
     defaultAlert,
+    getSelectableDefaultByLanguage,
     selectableDestinations,
-    selectableSourceApplications,
 } from "../configuration/defaults/DefaultValues";
 import {Snackbar} from "@mui/material";
 import {RouteComponentProps, useHistory} from "react-router-dom";
@@ -19,6 +19,7 @@ import IntegrationRepository from "../../api/IntegrationRepository";
 import {Controller, FormProvider, useForm} from 'react-hook-form';
 import {IAlertContent} from "../configuration/types/AlertContent";
 import i18n from "../../util/locale/i18n";
+import {ISelect} from "../configuration/types/Select";
 
 type Props = {
     id: string
@@ -29,7 +30,13 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
     const {t} = useTranslation('translations', {keyPrefix: 'pages.integrationForm'});
     const {setSelectedMetadata, setExistingIntegration, resetIntegrationContext} = useContext(IntegrationContext)
     const {
-        getAvailableForms, sourceApplication, setSourceApplication, availableForms, allMetadata, getAllMetadata,
+        getAvailableForms,
+        sourceApplication,
+        setSourceApplication,
+        sourceApplications,
+        availableForms,
+        allMetadata,
+        getAllMetadata,
         getInstanceElementMetadata
     } = useContext(SourceApplicationContext)
     const [destination, setDestination] = useState<string>('');
@@ -39,6 +46,18 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
     const [sourceApplicationIntegrationId, setSourceApplicationIntegrationId] = useState<string>('');
     const selectPlaceholder: { label: string, value: string }[] = [{label: t('labels.placeholder'), value: ''}]
     const methods = useForm<IIntegrationFormData>();
+    const [selectableSourceApplications, setSelectableSourceApplications] = useState<ISelect[]>([
+        {label: getSelectableDefaultByLanguage(i18n.language), value: ""}
+    ])
+
+    function getSelectableSourceApplications() {
+        const sources: ISelect[] = []
+        sourceApplications && sourceApplications.map((sa) => {
+            sources.push({value: sa.id.toString(), label: sa.displayName})
+        })
+        setSelectableSourceApplications([...selectableSourceApplications, ...sources]);
+    }
+
     const navToConfiguration = (id: string) => {
         history.push({
             pathname: '/integration/configuration/new-configuration',
@@ -54,6 +73,7 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
 
     useEffect(() => {
         resetIntegrationContext();
+        getSelectableSourceApplications();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -72,7 +92,6 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
         setShowAlert(false);
         setAlertContent({severity: 'info', message: ''})
     };
-
 
     const onSubmit = (data: IIntegrationFormData) => {
         const selectedForm = allMetadata ? allMetadata.find((md: IIntegrationMetadata) => md.sourceApplicationIntegrationId === data.sourceApplicationIntegrationId) : undefined;
@@ -130,7 +149,7 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
                                                 field.onChange(event.target.value)
                                             }}
                                         >
-                                            {selectableSourceApplications(i18n.language).map((option, index) => (
+                                            {selectableSourceApplications.map((option, index) => (
                                                 <option key={index} value={option.value}>{option.label}</option>
                                             ))}
                                         </Select>

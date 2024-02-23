@@ -1,4 +1,5 @@
 import axios from "axios";
+import {ISourceApplication} from "../features/configuration/types/SourceApplication";
 
 const getMetadata = (id: string, onlyLastestVersion?: boolean) => {
     return axios.get("/api/intern/metadata", {params: {kildeapplikasjonId: id, bareSisteVersjoner: onlyLastestVersion}})
@@ -8,8 +9,8 @@ const getInstanceElementMetadataById = (metadataId: string) => {
     return axios.get(`/api/intern/metadata/${metadataId}/instans-metadata`)
 }
 
-const getSourceApplications = () => {
-    //return axios.get("/api/intern/kildeapplikasjoner")
+const getSourceApplications = (): ISourceApplication[] => {
+    //return axios.get("/api/intern/sourceApplicationData")
     return [
         {id: 1, displayName: "ACOS Interact", available: true},
         {id: 2, displayName: "eGrunnerverv", available: true},

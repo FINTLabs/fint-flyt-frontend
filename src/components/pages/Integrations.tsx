@@ -11,14 +11,19 @@ import {IError} from "../../util/TableUtil";
 
 const Integrations: RouteComponent = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.integrations'})
-    const {allMetadata, getAllMetadata} = useContext(SourceApplicationContext)
+    const {
+        allMetadata,
+        getAllMetadata,
+        sourceApplications,
+        getSourceApplications
+    } = useContext(SourceApplicationContext)
     const [error, setError] = useState<IError | undefined>(undefined);
 
     useEffect(() => {
+        getSourceApplications();
         getAllMetadata(false);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
 
     return (
         <PageTemplate id={'integration'} keyPrefix={'pages.integrations'} customHeading>
@@ -30,10 +35,11 @@ const Integrations: RouteComponent = () => {
                     </HelpText>
                 </HStack>
                 <Button
+                    disabled={!sourceApplications}
                     as={RouterLink}
                     to={"/integration/new"}
                     size={"small"}
-                    icon={<PlusIcon aria-hidden/>}
+                    icon={sourceApplications ? <PlusIcon aria-hidden/> : <Loader/>}
                 >{t('button.newIntegration')}
                 </Button>
             </HStack>
