@@ -11,16 +11,14 @@ import {IError} from "../../util/TableUtil";
 
 const Integrations: RouteComponent = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.integrations'})
-    const {
-        allMetadata,
-        getAllMetadata
-    } = useContext(SourceApplicationContext)
+    const {allMetadata, getAllMetadata} = useContext(SourceApplicationContext)
     const [error, setError] = useState<IError | undefined>(undefined);
 
     useEffect(() => {
         getAllMetadata(false);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
 
     return (
         <PageTemplate id={'integration'} keyPrefix={'pages.integrations'} customHeading>
