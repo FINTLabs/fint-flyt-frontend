@@ -16,7 +16,6 @@ import {Alert, Box, Button, Heading, HelpText, HStack, VStack,} from "@navikt/ds
 import {ISelect} from "../../configuration/types/Select";
 import {SourceApplicationContext} from "../../../context/SourceApplicationContext";
 
-
 type Props = {
     existingValueConverting: IValueConverting | undefined;
     setExistingValueConverting: React.Dispatch<React.SetStateAction<undefined>>;

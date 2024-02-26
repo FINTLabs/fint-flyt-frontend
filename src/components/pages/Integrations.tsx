@@ -13,14 +13,11 @@ const Integrations: RouteComponent = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.integrations'})
     const {
         allMetadata,
-        getAllMetadata,
-        sourceApplications,
-        getSourceApplications
+        getAllMetadata
     } = useContext(SourceApplicationContext)
     const [error, setError] = useState<IError | undefined>(undefined);
 
     useEffect(() => {
-        getSourceApplications();
         getAllMetadata(false);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -35,11 +32,10 @@ const Integrations: RouteComponent = () => {
                     </HelpText>
                 </HStack>
                 <Button
-                    disabled={!sourceApplications}
                     as={RouterLink}
                     to={"/integration/new"}
                     size={"small"}
-                    icon={sourceApplications ? <PlusIcon aria-hidden/> : <Loader/>}
+                    icon={<PlusIcon aria-hidden/>}
                 >{t('button.newIntegration')}
                 </Button>
             </HStack>
