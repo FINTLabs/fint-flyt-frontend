@@ -89,8 +89,9 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
 
     const getSourceApplications = () => {
         try {
-            const response = SourceApplicationRepository.getSourceApplications()
-            setSourceApplications(response);
+            const response: ISourceApplication[] = SourceApplicationRepository.getSourceApplications()
+            const filteredApplications = response.filter(application => application.available)
+            setSourceApplications(filteredApplications);
         } catch (err) {
             console.error(err);
             setSourceApplications([]);
