@@ -52,9 +52,11 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
 
     function getSelectableSourceApplications() {
         const sources: ISelect[] = []
-        sourceApplications && sourceApplications.map((sa) => {
-            sources.push({value: sa.id.toString(), label: sa.displayName})
-        })
+        sourceApplications && sourceApplications
+            .filter(sourceApplication => sourceApplication.available)
+            .map((sa) => {
+                sources.push({value: sa.id.toString(), label: sa.displayName})
+            })
         setSelectableSourceApplications([...selectableSourceApplications, ...sources]);
     }
 

@@ -1,9 +1,9 @@
 import React, {createContext, useState} from "react";
 
 import {
-	IInstanceMetadataContent,
-	IInstanceObjectCollectionMetadata,
-	IIntegrationMetadata,
+    IInstanceMetadataContent,
+    IInstanceObjectCollectionMetadata,
+    IIntegrationMetadata,
 } from "../features/configuration/types/Metadata/IntegrationMetadata";
 import {ISelect} from "../features/configuration/types/Select";
 import {IIntegration} from "../features/integration/types/Integration";
@@ -90,8 +90,7 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
     const getSourceApplications = () => {
         try {
             const response: ISourceApplication[] = SourceApplicationRepository.getSourceApplications()
-            const filteredApplications = response.filter(application => application.available)
-            setSourceApplications(filteredApplications);
+            setSourceApplications(response);
         } catch (err) {
             console.error(err);
             setSourceApplications([]);

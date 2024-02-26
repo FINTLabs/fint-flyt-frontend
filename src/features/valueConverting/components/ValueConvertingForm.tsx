@@ -3,12 +3,7 @@ import {Link as RouterLink} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import {Controller, FormProvider, useForm, useWatch} from "react-hook-form";
 import SelectValueComponent from "../../configuration/components/mapping/value/select/SelectValueComponent";
-import {
-    defaultAlert,
-    destinations,
-    fromTypeIds,
-    toTypeIds,
-} from "../../configuration/defaults/DefaultValues";
+import {defaultAlert, destinations, fromTypeIds, toTypeIds,} from "../../configuration/defaults/DefaultValues";
 import ValueConvertingRepository from "../../../api/ValueConvertingRepository";
 import StringValueComponent from "../../configuration/components/mapping/value/string/StringValueComponent";
 import {IValueConverting} from "../types/ValueConverting";
@@ -44,9 +39,11 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
 
     function getSelectableSourceApplications() {
         const sources: ISelect[] = []
-        sourceApplications && sourceApplications.map((sourceApplication) => {
-            sources.push({value: sourceApplication.id.toString(), label: sourceApplication.displayName})
-        })
+        sourceApplications && sourceApplications
+            .filter(sourceApplication => sourceApplication.available)
+            .map((sourceApplication) => {
+                sources.push({value: sourceApplication.id.toString(), label: sourceApplication.displayName})
+            })
         setSelectableSourceApplications([...selectableSourceApplications, ...sources]);
     }
 
