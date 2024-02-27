@@ -26,6 +26,11 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
     const [selectedInstances, setSelectedInstances] = useState<Page<IEvent>>()
     const rowsPerPage = 10
 
+    useEffect(() => {
+        setSelectedInstances({content: []})
+        getSelectedInstances(page - 1, rowsPerPage, "timestamp", "DESC", props.sourceApplicationId, props.instanceId)
+    }, [page, setPage])
+
     const getSelectedInstances = async (page: number, size: number, sortProperty: string, sortDirection: string, sourceApplicationId: string, instanceId: string) => {
         props.onError(undefined)
         try {
@@ -43,15 +48,6 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
             console.error('Error: ', e);
         }
     }
-    useEffect(() => {
-        getSelectedInstances(page - 1, rowsPerPage, "timestamp", "DESC", props.sourceApplicationId, props.instanceId)
-    }, [])
-
-
-    useEffect(() => {
-        setSelectedInstances({content: []})
-        getSelectedInstances(page - 1, rowsPerPage, "timestamp", "DESC", props.sourceApplicationId, props.instanceId)
-    }, [page, setPage])
 
     return (
         <>

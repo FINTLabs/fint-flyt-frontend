@@ -54,10 +54,6 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
     const rowsPerPage = 30;
 
     useEffect(() => {
-        getAllConfigurations();
-    }, [])
-
-    useEffect(() => {
         setCompletedConfigs({content: []})
         setDraftConfigs({content: []})
         getAllConfigurations();
