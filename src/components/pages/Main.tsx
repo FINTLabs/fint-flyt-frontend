@@ -1,9 +1,8 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect} from "react";
 import ConfigurationProvider from "../../context/ConfigurationContext";
 import Router from "../../routes/Router";
 import { Box } from "@navikt/ds-react";
 import { AppBar } from "../organisms/AppBar";
-import AuthorizationRepository from "../../api/AuthorizationRepository";
 import {AuthorizationContext} from "../../context/AuthorizationContext";
 import Header from "@navikt/ds-react/esm/table/Header";
 
