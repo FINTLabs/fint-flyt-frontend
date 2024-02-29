@@ -4,7 +4,7 @@ import {useContext, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {Box, HStack, Link, Loader, Modal, Pagination, SortState, Table} from "@navikt/ds-react";
 import moment from "moment";
-import {eventComparator, getSourceApplicationDisplayName, IError, Page} from "../../../util/TableUtil";
+import {eventComparator, getSourceApplicationDisplayNameById, IError, Page} from "../../../util/TableUtil";
 import {IEvent} from "../types/Event";
 import ErrorDialogComponent from "./ErrorDialogComponent";
 import InstancePanel from "./InstancePanel";
@@ -29,9 +29,9 @@ const InstanceTable: React.FunctionComponent<Props> = ({onError}) => {
     const errorsNotForRetry: string[] = ['instance-receival-error', 'instance-registration-error']
     const [instancesPage, setInstancesPage] = useState<Page<IEvent>>()
     const [rowCount, setRowCount] = useState<string>("10")
-    const {allMetadata} = useContext(SourceApplicationContext)
     const selectOptions = [{value: "", label: t('numberPerPage'), disabled: true}, {value: "10", label: "10"}, {value: "25", label: "25"}, {value: "50", label: "50"}, {value: "100", label: "100"}]
     const [disabledRetryButtons, setDisabledRetryButtons] = useState(new Array(Number(rowCount)).fill(false));
+    const {allMetadata, sourceApplications} = useContext(SourceApplicationContext)
 
     useEffect(() => {
         setInstancesPage({content: []})
@@ -132,7 +132,7 @@ const InstanceTable: React.FunctionComponent<Props> = ({onError}) => {
                                     sourceApplicationId={value.instanceFlowHeaders.sourceApplicationId}
                                 />}>
                                     <Table.DataCell
-                                        scope="row">{getSourceApplicationDisplayName(Number(value.instanceFlowHeaders.sourceApplicationId))}</Table.DataCell>
+                                        scope="row">{getSourceApplicationDisplayNameById(Number(value.instanceFlowHeaders.sourceApplicationId), sourceApplications)}</Table.DataCell>
                                     <Table.DataCell>{value.displayName}</Table.DataCell>
                                     <Table.DataCell>{moment(value.timestamp).format('DD/MM/YY HH:mm')}</Table.DataCell>
                                     <Table.DataCell>
