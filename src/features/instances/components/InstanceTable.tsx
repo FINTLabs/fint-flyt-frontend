@@ -9,7 +9,7 @@ import {IEvent} from "../types/Event";
 import ErrorDialogComponent from "./ErrorDialogComponent";
 import InstancePanel from "./InstancePanel";
 import {GetIcon} from "../util/InstanceUtils";
-import {Button as ButtonAks} from "@navikt/ds-react/esm/button";
+import {Button} from "@navikt/ds-react/esm/button";
 import InstanceRepository from "../repository/InstanceRepository";
 import EventRepository from "../../../api/EventRepository";
 import {IIntegrationMetadata} from "../../configuration/types/Metadata/IntegrationMetadata";
@@ -29,16 +29,20 @@ const InstanceTable: React.FunctionComponent<Props> = ({onError}) => {
     const errorsNotForRetry: string[] = ['instance-receival-error', 'instance-registration-error']
     const [instancesPage, setInstancesPage] = useState<Page<IEvent>>()
     const [rowCount, setRowCount] = useState<string>("10")
+    const selectOptions = [{value: "", label: t('numberPerPage'), disabled: true}, {value: "10", label: "10"}, {value: "25", label: "25"}, {value: "50", label: "50"}, {value: "100", label: "100"}]
+    const [disabledRetryButtons, setDisabledRetryButtons] = useState(new Array(Number(rowCount)).fill(false));
     const {allMetadata, sourceApplications} = useContext(SourceApplicationContext)
-    const selectOptions = [{value: "", label: t('numberPerPage'), disabled: true}, {
-        value: "10",
-        label: "10"
-    }, {value: "25", label: "25"}, {value: "50", label: "50"}, {value: "100", label: "100"}]
 
     useEffect(() => {
         setInstancesPage({content: []})
         getLatestInstances(rowCount, sort);
     }, [page, setPage, sort, rowCount])
+
+    const handleRetryButtonClick = (index: number) => {
+        const newDisabledButtons = [...disabledRetryButtons];
+        newDisabledButtons[index] = true;
+        setDisabledRetryButtons(newDisabledButtons);
+    };
 
     const getLatestInstances = async (rowCount: string, sort?: SortState) => {
         onError(undefined)
@@ -134,7 +138,7 @@ const InstanceTable: React.FunctionComponent<Props> = ({onError}) => {
                                     <Table.DataCell>
                                         {GetIcon(value)}
                                         {t(value.name)} {" "}
-                                        {(value.type === 'ERROR') &&
+                                        {(value.type === 'ERROR' && value.errors.length > 0) &&
                                             <Link style={{cursor: "pointer"}}
                                                   onClick={() => {
                                                       setSelectedRow(value);
@@ -145,10 +149,13 @@ const InstanceTable: React.FunctionComponent<Props> = ({onError}) => {
                                     </Table.DataCell>
                                     <Table.DataCell>
                                         {(value.type === 'ERROR') && !errorsNotForRetry.includes(value.name) &&
-                                            <ButtonAks id={'retry-btn-' + i} size="small" onClick={() => {
-                                                resend(value.instanceFlowHeaders.instanceId);
-                                            }}>{t('button.retry')}</ButtonAks>
-                                        }
+                                            <Button id={'retry-btn-' + i} size="small" disabled={disabledRetryButtons[i]}
+                                                    onClick={() => {
+                                                           resend(value.instanceFlowHeaders.instanceId);
+                                                           handleRetryButtonClick(i)
+                                                       }}
+                                            >{t('button.retry')}
+                                            </Button>}
                                     </Table.DataCell>
                                     <Table.DataCell>{value.instanceFlowHeaders.archiveInstanceId}</Table.DataCell>
                                 </Table.ExpandableRow>
@@ -181,16 +188,16 @@ const InstanceTable: React.FunctionComponent<Props> = ({onError}) => {
     function ErrorAlertDialog(props: GridCellParams['row']) {
         return (
             <Modal open={openDialog} header={{
-                heading: props.row?.errors?.length > 1 ? "Feilmeldinger:" : "Feilmelding:",
+                heading: props.row?.errors?.length > 1 ? t('errors') : t('error'),
                 closeButton: false
             }}>
                 <Modal.Body>
                     <ErrorDialogComponent row={props.row}/>
                 </Modal.Body>
                 <Modal.Footer>
-                    <ButtonAks type="button" onClick={() => setOpenDialog(false)}>
+                    <Button type="button" onClick={() => setOpenDialog(false)}>
                         {t('button.close')}
-                    </ButtonAks>
+                    </Button>
                 </Modal.Footer>
             </Modal>
         )
