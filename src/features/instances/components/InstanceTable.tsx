@@ -123,7 +123,7 @@ const InstanceTable: React.FunctionComponent<Props> = ({onError}) => {
                     <Table.Body>
                         {instancesPage?.content?.map((value, i) => {
                             return (
-                                <Table.ExpandableRow key={i} content={<InstancePanel
+                                <Table.ExpandableRow expandOnRowClick key={i} content={<InstancePanel
                                     id={'instance-panel-' + i}
                                     onError={(error) => {
                                         onError(error)

@@ -117,7 +117,7 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
                         <Table.Body>
                             {sortData?.map((value, i) => {
                                 return (
-                                    <Table.ExpandableRow id={"table-row-" + i} key={i}
+                                    <Table.ExpandableRow expandOnRowClick id={"table-row-" + i} key={i}
                                                          expansionDisabled={toggleValue !== 'custom'}
                                                          content={toggleValue === 'custom' ?
                                                              <ValueConvertingPanel id={i}

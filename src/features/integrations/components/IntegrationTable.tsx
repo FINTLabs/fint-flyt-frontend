@@ -125,7 +125,7 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
                     <Table.Body>
                         {integrations?.content?.map((value, i) => {
                             return (
-                                <Table.ExpandableRow key={i} content={
+                                <Table.ExpandableRow expandOnRowClick key={i} content={
                                     <IntegrationPanel
                                         id={'panel-' + i}
                                         onError={(error) => {
