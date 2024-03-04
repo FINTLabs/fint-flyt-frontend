@@ -164,8 +164,8 @@
     "instances": {
       "header": "Instansar",
       "showError": "vis feilmelding",
-      "errors": "Feilmeldingar",
-      "oneError": "Feilelding",
+      "errors": "Feilmeldingar:",
+      "oneError": "Feilelding:",
       "errorMessage": "Det oppstod ein feil under henting av data, prøv igjen seinare.",
       "numberPerPage": "Antall per side",
       "button": {

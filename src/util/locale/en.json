@@ -164,8 +164,8 @@
     "instances": {
       "header": "Instances",
       "showError": "show error message",
-      "errors": "Errors",
-      "oneError": "Error",
+      "errors": "Errors:",
+      "oneError": "Error:",
       "errorMessage": "There was an error fetching data, try again later.",
       "numberPerPage": "Show per page",
       "button": {

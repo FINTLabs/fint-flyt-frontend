@@ -1,9 +1,9 @@
-import React, {ReactElement, useEffect, useState} from 'react';
+import React, {ReactElement, useContext, useEffect, useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
 import ValueConvertingRepository from "../../../api/ValueConvertingRepository";
 import {IValueConverting} from "../types/ValueConverting";
-import {getDestinationDisplayName, getSourceApplicationDisplayName} from "../../../util/TableUtil";
+import {getDestinationDisplayName, getSourceApplicationDisplayNameById} from "../../../util/TableUtil";
 import {
     Box,
     Button as ButtonAks,
@@ -17,6 +17,7 @@ import {
 } from "@navikt/ds-react";
 import {MenuElipsisVerticalCircleIcon} from "@navikt/aksel-icons";
 import ValueConvertingPanel from "./ValueConvertingPanel";
+import {SourceApplicationContext} from "../../../context/SourceApplicationContext";
 
 type Props = {
     onValueConvertingSelected: (id: number) => void;
@@ -31,6 +32,7 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
     const rowsPerPage = 8;
     const [toggleValue, setToggleValue] = useState<string>('custom')
     const showToggle = true;
+    const {sourceApplications} = useContext(SourceApplicationContext)
 
     let sortData = rows ?? [];
     sortData = sortData.slice((page - 1) * rowsPerPage, page * rowsPerPage);
@@ -115,7 +117,7 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
                         <Table.Body>
                             {sortData?.map((value, i) => {
                                 return (
-                                    <Table.ExpandableRow id={"table-row-" + i} key={i}
+                                    <Table.ExpandableRow expandOnRowClick id={"table-row-" + i} key={i}
                                                          expansionDisabled={toggleValue !== 'custom'}
                                                          content={toggleValue === 'custom' ?
                                                              <ValueConvertingPanel id={i}
@@ -125,7 +127,7 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
                                         <Table.DataCell scope="row">{value.fromTypeId}</Table.DataCell>
                                         <Table.DataCell scope="row">{value.toTypeId}</Table.DataCell>
                                         {toggleValue === 'custom' && <Table.DataCell
-                                            scope="row">{getSourceApplicationDisplayName(value.fromApplicationId)}</Table.DataCell>}
+                                            scope="row">{getSourceApplicationDisplayNameById(value.fromApplicationId, sourceApplications)}</Table.DataCell>}
                                         {toggleValue === 'custom' && <Table.DataCell
                                             scope="row">{getDestinationDisplayName(value.toApplicationId)}</Table.DataCell>}
                                         {toggleValue === 'custom' &&

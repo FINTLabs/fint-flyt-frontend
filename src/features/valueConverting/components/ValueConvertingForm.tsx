@@ -1,15 +1,9 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {Link as RouterLink} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import {Controller, FormProvider, useForm, useWatch} from "react-hook-form";
 import SelectValueComponent from "../../configuration/components/mapping/value/select/SelectValueComponent";
-import {
-    defaultAlert,
-    destinations,
-    fromTypeIds,
-    sourceApplications,
-    toTypeIds,
-} from "../../configuration/defaults/DefaultValues";
+import {defaultAlert, destinations, fromTypeIds, toTypeIds,} from "../../configuration/defaults/DefaultValues";
 import ValueConvertingRepository from "../../../api/ValueConvertingRepository";
 import StringValueComponent from "../../configuration/components/mapping/value/string/StringValueComponent";
 import {IValueConverting} from "../types/ValueConverting";
@@ -19,7 +13,8 @@ import {ISelectable} from "../../configuration/types/Selectable";
 import ArrayComponent from "../../configuration/components/common/array/ArrayComponent";
 import SearchSelectValueComponent from "../../configuration/components/mapping/value/select/SearchSelectValueComponent";
 import {Alert, Box, Button, Heading, HelpText, HStack, VStack,} from "@navikt/ds-react";
-
+import {ISelect} from "../../configuration/types/Select";
+import {SourceApplicationContext} from "../../../context/SourceApplicationContext";
 
 type Props = {
     existingValueConverting: IValueConverting | undefined;
@@ -32,20 +27,28 @@ type IValueConvertingFormData = Omit<IValueConverting, "convertingMap"> & {
 
 type IValueConvertingConvertingArrayEntry = { from: string; to: string };
 
-export const ValueConvertingForm: React.FunctionComponent<Props> = (
-    props: Props
-) => {
-    const {t} = useTranslation("translations", {
-        keyPrefix: "pages.valueConverting",
-    });
+export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props) => {
+    const {t} = useTranslation("translations", {keyPrefix: "pages.valueConverting",});
+    const {sourceApplications} = useContext(SourceApplicationContext)
     const [disabled, setDisabled] = useState<boolean>(false);
     const [show, setShow] = React.useState(false);
-    const [alertContent, setAlertContent] =
-        React.useState<IAlertContent>(defaultAlert);
-
+    const [alertContent, setAlertContent] = React.useState<IAlertContent>(defaultAlert);
     const [toSelectables, setToSelectables] = useState<ISelectable[]>([]);
+    const [selectableSourceApplications, setSelectableSourceApplications] = useState<ISelect[]>([])
+
+    function getSelectableSourceApplications() {
+        const sources: ISelect[] = []
+        sourceApplications && sourceApplications
+            .filter(sourceApplication => sourceApplication.available)
+            .map((sourceApplication) => {
+                sources.push({value: sourceApplication.id.toString(), label: sourceApplication.displayName})
+            })
+        setSelectableSourceApplications([...selectableSourceApplications, ...sources]);
+    }
+
 
     useEffect(() => {
+        getSelectableSourceApplications()
         getSelectables([
             {
                 url: "api/intern/arkiv/kodeverk/format",
@@ -190,7 +193,7 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (
                                                 fieldState={fieldState}
                                                 disabled={disabled}
                                                 displayName={t("fromApplicationId")}
-                                                selectables={sourceApplications.map(
+                                                selectables={selectableSourceApplications.map(
                                                     (fromApplicationId) => {
                                                         return {
                                                             displayName: fromApplicationId.label,

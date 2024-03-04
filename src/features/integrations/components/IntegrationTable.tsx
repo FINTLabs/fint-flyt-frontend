@@ -2,7 +2,7 @@ import * as React from "react";
 import {useContext, useEffect, useState} from "react";
 import {
     getDestinationDisplayName,
-    getSourceApplicationDisplayName,
+    getSourceApplicationDisplayNameById,
     getStateDisplayName,
     IError,
     integrationComparator,
@@ -28,8 +28,11 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
     const [integrations, setIntegrations] = useState<Page<IIntegration> | undefined>()
     const [sort, setSort] = useState<SortState | undefined>({orderBy: 'state', direction: "ascending"});
     const [rowCount, setRowCount] = useState<string>("10")
-    const {allMetadata} = useContext(SourceApplicationContext)
-    const selectOptions = [{value: "", label: t('numberPerPage'), disabled: true}, {value: "10", label: "10"}, {value: "25", label: "25"}, {value: "50", label: "50"}, {value: "100", label: "100"}]
+    const {allMetadata, sourceApplications} = useContext(SourceApplicationContext)
+    const selectOptions = [{value: "", label: t('numberPerPage'), disabled: true}, {
+        value: "10",
+        label: "10"
+    }, {value: "25", label: "25"}, {value: "50", label: "50"}, {value: "100", label: "100"}]
 
     useEffect(() => {
         setIntegrations({content: []})
@@ -122,7 +125,7 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
                     <Table.Body>
                         {integrations?.content?.map((value, i) => {
                             return (
-                                <Table.ExpandableRow key={i} content={
+                                <Table.ExpandableRow expandOnRowClick key={i} content={
                                     <IntegrationPanel
                                         id={'panel-' + i}
                                         onError={(error) => {
@@ -133,7 +136,7 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
                                 >
                                     <Table.DataCell>{value.id}</Table.DataCell>
                                     <Table.DataCell
-                                        scope="row">{getSourceApplicationDisplayName(Number(value.sourceApplicationId))}</Table.DataCell>
+                                        scope="row">{getSourceApplicationDisplayNameById(Number(value.sourceApplicationId), sourceApplications)}</Table.DataCell>
                                     <Table.DataCell>{value.sourceApplicationIntegrationId}</Table.DataCell>
                                     <Table.DataCell>{value.displayName}</Table.DataCell>
                                     <Table.DataCell>{getDestinationDisplayName(value.destination ?? '')}</Table.DataCell>
