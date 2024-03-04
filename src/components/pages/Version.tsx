@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext, useEffect} from 'react';
 import {BodyLong, Box, List, VStack} from "@navikt/ds-react";
 import PageTemplate from "../templates/PageTemplate";
 import {
@@ -6,9 +6,15 @@ import {
 } from "../utils/version/VersionTexts";
 import {RouteComponent} from "../../routes/Route";
 import {useTranslation} from "react-i18next";
+import {AuthorizationContext} from "../../context/AuthorizationContext";
 
 const Version: RouteComponent = () => {
     const {i18n} = useTranslation();
+    const {getAuthorization} = useContext(AuthorizationContext)
+
+    useEffect(() => {
+        getAuthorization()
+    }, []);
 
     return (
         <PageTemplate id={'version'} keyPrefix={'pages.version'}>

@@ -8,11 +8,17 @@ import {Alert, Box, Button, Heading, HelpText, HStack, Loader} from "@navikt/ds-
 import {useTranslation} from "react-i18next";
 import {PlusIcon} from '@navikt/aksel-icons';
 import {IError} from "../../util/TableUtil";
+import {AuthorizationContext} from "../../context/AuthorizationContext";
 
 const Integrations: RouteComponent = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.integrations'})
     const {allMetadata, getAllMetadata} = useContext(SourceApplicationContext)
     const [error, setError] = useState<IError | undefined>(undefined);
+    const {getAuthorization} = useContext(AuthorizationContext)
+
+    useEffect(() => {
+        getAuthorization()
+    }, []);
 
     useEffect(() => {
         getAllMetadata(false);

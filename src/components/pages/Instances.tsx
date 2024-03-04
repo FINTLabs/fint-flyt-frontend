@@ -10,6 +10,7 @@ import InstanceTable from "../../features/instances/components/InstanceTable";
 import {RouteComponent} from "../../routes/Route";
 import {SourceApplicationContext} from "../../context/SourceApplicationContext";
 import {IError} from "../../util/TableUtil";
+import {AuthorizationContext} from "../../context/AuthorizationContext";
 
 const Instances: RouteComponent = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.instances'})
@@ -17,6 +18,11 @@ const Instances: RouteComponent = () => {
     const [openDialog, setOpenDialog] = React.useState(false);
     const {allMetadata, getAllMetadata} = useContext(SourceApplicationContext)
     const [error, setError] = useState<IError | undefined>(undefined);
+    const {getAuthorization} = useContext(AuthorizationContext)
+
+    useEffect(() => {
+        getAuthorization()
+    }, []);
 
     useEffect(() => {
         getAllMetadata(true)

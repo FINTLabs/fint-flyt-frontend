@@ -31,6 +31,7 @@ import PageTemplate from "../templates/PageTemplate";
 import {Alert, Button, Heading, HStack, VStack} from "@navikt/ds-react"
 import {AxiosResponse} from "axios";
 import IntegrationRepository from "../../api/IntegrationRepository";
+import {AuthorizationContext} from "../../context/AuthorizationContext";
 
 
 const Configuration: RouteComponent = () => {
@@ -58,6 +59,7 @@ const Configuration: RouteComponent = () => {
     const [showAlert, setShowAlert] = React.useState<boolean>(false)
     const [alertContent, setAlertContent] = React.useState<IAlertContent>(defaultAlert)
     const [collectionReferencesInEditContext, setCollectionReferencesInEditContext] = useState<string[]>([])
+    const {getAuthorization} = useContext(AuthorizationContext)
 
     if (!existingIntegration) {
         history.push('/')
@@ -100,6 +102,9 @@ const Configuration: RouteComponent = () => {
         }
     }, [])
 
+    useEffect(() => {
+        getAuthorization()
+    }, []);
 
     const onSubmit = (data: any) => { // eslint-disable-line
         if (!isEmpty(methods.formState.errors)) {

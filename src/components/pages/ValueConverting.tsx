@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import PageTemplate from "../../components/templates/PageTemplate";
 import ValueConvertingForm from "../../features/valueConverting/components/ValueConvertingForm";
 import {RouteComponent} from "../../routes/Route";
@@ -7,11 +7,18 @@ import ValueConvertingRepository from "../../api/ValueConvertingRepository";
 import {Button, Heading, HelpText, HStack} from "@navikt/ds-react";
 import {PlusIcon} from "@navikt/aksel-icons";
 import {useTranslation} from "react-i18next";
+import {AuthorizationContext} from "../../context/AuthorizationContext";
 
 const ValueConverting: RouteComponent = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.valueConverting'})
     const [existingValueConverting, setExistingValueConverting] = useState(undefined);
     const [newValueConverting, setNewValueConverting] = useState<boolean>(false)
+    const {getAuthorization} = useContext(AuthorizationContext)
+
+    useEffect(() => {
+        getAuthorization()
+    }, []);
+
     return (
         <PageTemplate id={'valueConverting'} keyPrefix={'pages.valueConverting'} customHeading>
             <HStack id={'instances-custom-header'} align={"center"} justify={"space-between"} gap={"2"} wrap={false}>
