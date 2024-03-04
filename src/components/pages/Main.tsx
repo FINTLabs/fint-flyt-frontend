@@ -1,29 +1,32 @@
 import React, {useContext, useEffect} from "react";
 import ConfigurationProvider from "../../context/ConfigurationContext";
 import Router from "../../routes/Router";
-import { Box } from "@navikt/ds-react";
-import { AppBar } from "../organisms/AppBar";
+import {Box} from "@navikt/ds-react";
+import {AppBar} from "../organisms/AppBar";
+import {SourceApplicationContext} from "../../context/SourceApplicationContext";
 import {AuthorizationContext} from "../../context/AuthorizationContext";
-import Header from "@navikt/ds-react/esm/table/Header";
 
 function Main() {
-const {authorized, getAuthorization} = useContext(AuthorizationContext)
+    const {sourceApplications, getSourceApplications} = useContext(SourceApplicationContext)
+    const {authorized, getAuthorization} = useContext(AuthorizationContext)
 
-	useEffect(() => {
-		getAuthorization()
-	}, []);
+    useEffect(() => {
+        getSourceApplications();
+        getAuthorization()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
-	return (
-		<Box style={{ height: "100vh", backgroundColor: "#EBF4F5" }}>
-			<AppBar />
-			<main>
-				<ConfigurationProvider>
-					{authorized && <Header>Autorisert</Header>}
-					<Router />
-				</ConfigurationProvider>
-			</main>
-		</Box>
-	);
+    return (
+        <Box style={{height: "100vh", backgroundColor: "#EBF4F5"}}>
+            <AppBar/>
+            {sourceApplications && authorized ? <main>
+                <ConfigurationProvider>
+                    <Router/>
+                </ConfigurationProvider>
+            </main> : <h1>unathorized</h1>
+            }
+        </Box>
+    );
 }
 
 export default Main;
