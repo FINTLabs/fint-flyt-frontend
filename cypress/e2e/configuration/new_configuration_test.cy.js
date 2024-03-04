@@ -23,6 +23,7 @@ describe('Testing create new configuration from new integration', () => {
     })
 
     function prep() {
+        cy.intercept("GET", "**/authorization/check-authorized", {fixture: "auth.json"}).as("getAuth")
         cy.intercept('GET', '**/api/application/configuration', {
             forceNetworkError: true,
             fixture: 'basepathConfig.json'
@@ -64,6 +65,7 @@ describe('Testing create new configuration from new integration', () => {
 
 describe('Testing creating new and editing configurations from integration overview', () => {
     function prep() {
+        cy.intercept("GET", "**/authorization/check-authorized", {fixture: "auth.json"}).as("getAuth")
         cy.intercept('GET', '**/api/application/configuration', {
             forceNetworkError: true,
             fixture: 'basepathConfig.json'

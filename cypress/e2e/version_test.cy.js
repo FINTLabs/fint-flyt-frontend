@@ -1,9 +1,6 @@
-describe('Testing support page', () => {
-    beforeEach(() => {
-        prep()
-    })
-
+describe('Testing version page', () => {
     function prep() {
+        cy.intercept("GET", "**/authorization/check-authorized", {fixture: "auth.json"}).as("getAuth")
         cy.intercept('GET', '**/api/application/configuration', {
             forceNetworkError: true,
             fixture: 'basepathConfig.json'
@@ -13,9 +10,11 @@ describe('Testing support page', () => {
     }
 
     it('should show version page', () => {
+        prep()
         cy.get('#version-content').should("be.visible")
     })
     it('should show header and 1 section', () => {
+        prep()
         cy.get('#version-information').should("be.visible")
 
     })

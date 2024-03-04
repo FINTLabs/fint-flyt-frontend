@@ -13,6 +13,7 @@ describe('Testing integration list', () => {
     })
 
     function prep() {
+        cy.intercept("GET", "**/authorization/check-authorized", {fixture: "auth.json"}).as("getAuth")
         cy.intercept('GET', '**/api/application/configuration', {
             forceNetworkError: true,
             fixture: 'basepathConfig.json'

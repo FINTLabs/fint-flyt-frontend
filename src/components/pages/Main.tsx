@@ -9,8 +9,7 @@ import {AuthorizationContext} from "../../context/AuthorizationContext";
 
 function Main() {
 	const {sourceApplications, getSourceApplications} = useContext(SourceApplicationContext)
-	const [authorized, setAuthorized] = useState<boolean>(false)
-	const {getAuthorization} = useContext(AuthorizationContext)
+	const {authorized, setAuthorized, getAuthorization} = useContext(AuthorizationContext)
 
 	axios.interceptors.response.use(function (response) {
 		setAuthorized(true)
