@@ -4,9 +4,8 @@ import {
     getDestinationDisplayName,
     getSourceApplicationDisplayNameById,
     getStateDisplayName,
-    IError,
     integrationComparator,
-    Page,
+
 } from "../../../util/TableUtil";
 import {Box, HStack, Loader, Pagination, SortState, Table} from "@navikt/ds-react";
 import IntegrationPanel from "./IntegrationPanel";
@@ -17,10 +16,11 @@ import {IIntegration, IIntegrationStatistics} from "../../integration/types/Inte
 import {IIntegrationMetadata} from "../../configuration/types/Metadata/IntegrationMetadata";
 import {SourceApplicationContext} from "../../../context/SourceApplicationContext";
 import {CustomSelect} from "../../../components/organisms/CustomSelect";
+import {IAlertMessage, Page} from "../../../components/types/TableTypes";
 
 type IntegrationProps = {
     id: string;
-    onError: (error: IError | undefined) => void;
+    onError: (error: IAlertMessage | undefined) => void;
 }
 const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: IntegrationProps) => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.integrations'})

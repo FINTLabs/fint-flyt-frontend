@@ -9,14 +9,14 @@ import PageTemplate from "../templates/PageTemplate";
 import InstanceTable from "../../features/instances/components/InstanceTable";
 import {RouteComponent} from "../../routes/Route";
 import {SourceApplicationContext} from "../../context/SourceApplicationContext";
-import {IError} from "../../util/TableUtil";
+import {IAlertMessage} from "../types/TableTypes";
 
 const Instances: RouteComponent = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.instances'})
     const [selectedRow] = useState<IEvent>();
     const [openDialog, setOpenDialog] = React.useState(false);
     const {allMetadata, getAllMetadata} = useContext(SourceApplicationContext)
-    const [error, setError] = useState<IError | undefined>(undefined);
+    const [error, setError] = useState<IAlertMessage | undefined>(undefined);
 
     useEffect(() => {
         getAllMetadata(true)
