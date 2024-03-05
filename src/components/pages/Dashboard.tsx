@@ -73,9 +73,6 @@ const Dashboard: RouteComponent = () => {
 
 	useEffect(() => {
 		getAuthorization()
-	}, []);
-
-	useEffect(() => {
 		getAllIntegrations();
 		resetIntegrations();
 		// eslint-disable-next-line react-hooks/exhaustive-deps

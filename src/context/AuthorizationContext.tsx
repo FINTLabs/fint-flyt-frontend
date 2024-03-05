@@ -3,13 +3,13 @@ import { ContextProps } from "./constants/interface";
 import AuthorizationRepository from "../api/AuthorizationRepository";
 
 type AuthorizationContextState = {
-    authorized: boolean;
+    authorized: boolean | undefined;
     setAuthorized: (authorized: boolean) => void;
     getAuthorization: () => void;
 };
 
 const contextDefaultValues: AuthorizationContextState = {
-    authorized: false,
+    authorized: undefined,
     setAuthorized: () => undefined,
     getAuthorization: () => undefined
 };
@@ -17,18 +17,16 @@ const contextDefaultValues: AuthorizationContextState = {
 const AuthorizationContext = createContext<AuthorizationContextState>(contextDefaultValues);
 
 const AuthorizationProvider = ({ children }: ContextProps) => {
-    const [authorized, setAuthorized] = useState<boolean>(contextDefaultValues.authorized);
+    const [authorized, setAuthorized] = useState<boolean | undefined>(contextDefaultValues.authorized);
 
     const getAuthorization = async () => {
         try {
             const response = await AuthorizationRepository.getAuthorized()
-            console.log(response)
             if(response.status === 200 && response.data === 'User authorized') {
                 setAuthorized(true)
             }
         } catch (err) {
             setAuthorized(false)
-            console.log(err)
         }
     }
 
