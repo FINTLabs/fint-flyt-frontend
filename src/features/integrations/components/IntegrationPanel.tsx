@@ -24,12 +24,12 @@ import {
 import {MenuElipsisVerticalCircleIcon, PencilWritingIcon} from '@navikt/aksel-icons';
 import IntegrationRepository from "../../../api/IntegrationRepository";
 import ConfigurationRepository from "../../../api/ConfigurationRepository";
-import {IError, Page} from "../../../util/TableUtil";
+import {IAlertMessage, Page} from "../../../components/types/TableTypes";
 
 type Props = {
     id: string
     integration: IIntegration,
-    onError: (error: IError | undefined) => void;
+    onError: (error: IAlertMessage | undefined) => void;
 }
 
 const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {

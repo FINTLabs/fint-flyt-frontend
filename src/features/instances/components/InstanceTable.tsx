@@ -4,7 +4,7 @@ import {useContext, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {Box, HStack, Link, Loader, Modal, Pagination, SortState, Table} from "@navikt/ds-react";
 import moment from "moment";
-import {eventComparator, getSourceApplicationDisplayNameById, IError, Page} from "../../../util/TableUtil";
+import {eventComparator, getSourceApplicationDisplayNameById} from "../../../util/TableUtil";
 import {IEvent} from "../types/Event";
 import ErrorDialogComponent from "./ErrorDialogComponent";
 import InstancePanel from "./InstancePanel";
@@ -15,9 +15,10 @@ import EventRepository from "../../../api/EventRepository";
 import {IIntegrationMetadata} from "../../configuration/types/Metadata/IntegrationMetadata";
 import {SourceApplicationContext} from "../../../context/SourceApplicationContext";
 import {CustomSelect} from "../../../components/organisms/CustomSelect";
+import {IAlertMessage, Page} from "../../../components/types/TableTypes";
 
 interface Props {
-    onError: (error: IError | undefined) => void;
+    onError: (error: IAlertMessage | undefined) => void;
 }
 
 const InstanceTable: React.FunctionComponent<Props> = ({onError}) => {
