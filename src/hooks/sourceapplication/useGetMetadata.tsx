@@ -1,7 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-export const useGetMetadata = (id: number, onlyLastestVersion: boolean) => {
+export const useGetMetadata = (
+	id: string,
+	onlyLastestVersion?: boolean | undefined
+) => {
 	const {
 		data: allMetadata,
 		error,

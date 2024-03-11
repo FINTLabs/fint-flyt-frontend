@@ -13,6 +13,7 @@ import { sourceApplications } from "../features/configuration/defaults/DefaultVa
 import SourceApplicationRepository from "../api/SourceApplicationRepository";
 import IntegrationRepository from "../api/IntegrationRepository";
 import i18n from "../util/locale/i18n";
+import { useGetMetadata } from "../hooks/sourceapplication/useGetMetadata";
 
 type SourceApplicationContextState = {
 	availableForms: ISelect[];
@@ -90,7 +91,6 @@ const SourceApplicationProvider = ({ children }: ContextProps) => {
 				)
 		);
 	}
-
 	const getAvailableForms = async (sourceApplication?: string) => {
 		try {
 			const sourceAppId =
@@ -124,6 +124,9 @@ const SourceApplicationProvider = ({ children }: ContextProps) => {
 		}
 	};
 
+	// denne må ha generiske verdier ved compile time - og hookes lenger ned - rules of hooks
+	const { allMetadata: alleMetadata } = useGetMetadata("t", false);
+
 	const getAllIntegrationsAndSetAvailableForms = async (forms: ISelect[]) => {
 		try {
 			const response = await IntegrationRepository.getAllIntegrations();
@@ -148,22 +151,27 @@ const SourceApplicationProvider = ({ children }: ContextProps) => {
 
 	const getAllMetadata = async (onlyLatest: boolean) => {
 		try {
-			const allMetadata = [];
+			const allMetadata: {
+				params: [
+					{
+						kildeapplikasjonId: string;
+						bareSisteVersjoner: boolean | undefined;
+					}
+				];
+			}[] = [];
 
 			for (const sourceApplication of sourceApplications) {
-				const metadataResponse = await SourceApplicationRepository.getMetadata(
+				const metadataResponse = await useGetMetadata(
 					sourceApplication.value,
 					onlyLatest
 				);
-				allMetadata.push(metadataResponse.data);
-			}
-			const metadata =
-				allMetadata.reduce(
-					(acc, currentArray) => [...acc, ...currentArray],
-					[]
-				) || [];
 
-			setAllMetadata(metadata);
+				if (metadataResponse.allMetadata) {
+					allMetadata.push(...metadataResponse.allMetadata);
+				}
+			}
+			console.log(allMetadata);
+			setAllMetadata(allMetadata);
 		} catch (e) {
 			console.error("Error: ", e);
 			setAllMetadata([]);
