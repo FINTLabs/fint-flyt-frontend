@@ -35,6 +35,9 @@ const InstanceTable: React.FunctionComponent<Props> = ({onError}) => {
     const {allMetadata, sourceApplications} = useContext(SourceApplicationContext)
 
     useEffect(() => {
+        if(instancesPage?.totalElements && (instancesPage.totalElements < Number(rowCount))) {
+            setPage(1)
+        }
         setInstancesPage({content: []})
         getLatestInstances(rowCount, sort);
     }, [page, setPage, sort, rowCount])
