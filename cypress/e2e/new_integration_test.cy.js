@@ -16,6 +16,7 @@ describe('Testing create new integration', () => {
 
     function prep() {
         cy.intercept("GET", "**/authorization/check-authorized", {fixture: "auth.json"}).as("getAuth")
+        cy.intercept("GET", "**/authorization/user", {fixture: "user.json"}).as("getUser")
         cy.intercept('GET', '**/api/application/configuration', {
             forceNetworkError: true,
             fixture: 'basepathConfig.json'
