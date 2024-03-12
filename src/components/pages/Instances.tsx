@@ -9,7 +9,7 @@ import PageTemplate from "../templates/PageTemplate";
 import InstanceTable from "../../features/instances/components/InstanceTable";
 import {RouteComponent} from "../../routes/Route";
 import {SourceApplicationContext} from "../../context/SourceApplicationContext";
-import {IError} from "../../util/TableUtil";
+import {IAlertMessage} from "../types/TableTypes";
 import {AuthorizationContext} from "../../context/AuthorizationContext";
 
 const Instances: RouteComponent = () => {
@@ -17,7 +17,7 @@ const Instances: RouteComponent = () => {
     const [selectedRow] = useState<IEvent>();
     const [openDialog, setOpenDialog] = React.useState(false);
     const {allMetadata, getAllMetadata} = useContext(SourceApplicationContext)
-    const [error, setError] = useState<IError | undefined>(undefined);
+    const [error, setError] = useState<IAlertMessage | undefined>(undefined);
     const {getAuthorization} = useContext(AuthorizationContext)
 
     useEffect(() => {

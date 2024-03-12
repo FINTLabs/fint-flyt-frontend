@@ -2,7 +2,6 @@ import {MOCK_EVENTS} from "../__tests__/mock/events";
 import {IEvent} from "../features/instances/types/Event";
 import {IIntegration} from "../features/integration/types/Integration";
 import {MOCK_INTEGRATION} from "../__tests__/mock/integration";
-import {ISelect} from "../features/configuration/types/Select";
 import {ISourceApplication} from "../features/configuration/types/SourceApplication";
 
 export function getSourceApplicationDisplayNameById(id: number, sourceApplications: ISourceApplication[] | undefined): string {
@@ -74,34 +73,3 @@ export const eventComparator = (a: IEvent, b: IEvent, orderBy: string) => {
     }
 };
 
-export interface Page<T> {
-    content: T[];
-    empty?: boolean;
-    first?: boolean;
-    last?: boolean;
-    number?: number;
-    numberOfElements?: number;
-    pageable?: {
-        offset: number;
-        pageNumber: number;
-        pageSize: number;
-        paged: boolean;
-        sort: { empty: boolean; sorted: boolean; unsorted: boolean };
-        empty: boolean;
-        sorted: boolean;
-        unsorted: boolean;
-        unpaged: boolean;
-    };
-    size?: number;
-    sort?: { empty: boolean; sorted: boolean; unsorted: boolean };
-    totalElements?: number;
-    totalPages?: number;
-}
-
-export interface IError {
-    message: string
-}
-
-export interface ITableSelect extends ISelect {
-    disabled?: boolean
-}

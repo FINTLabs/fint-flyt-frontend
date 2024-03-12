@@ -9,13 +9,13 @@ import {Box, HStack, Link, Loader, Modal, Pagination, Table} from "@navikt/ds-re
 import {GetIcon} from "../util/InstanceUtils";
 import {Button as ButtonAks} from "@navikt/ds-react/esm/button";
 import EventRepository from "../../../api/EventRepository";
-import {IError, Page} from "../../../util/TableUtil";
+import {IAlertMessage, Page} from "../../../components/types/TableTypes";
 
 type Props = {
     id: string;
     instanceId: string;
     sourceApplicationId: string
-    onError: (error: IError | undefined) => void;
+    onError: (error: IAlertMessage | undefined) => void;
 }
 
 const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
