@@ -27,6 +27,7 @@ function App() {
             });
     }, [basePath]);
 
+
     return basePath ? (
         <ThemeProvider theme={theme}>
             <QueryClientProvider client={queryClient}>
