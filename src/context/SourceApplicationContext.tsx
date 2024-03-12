@@ -170,7 +170,7 @@ const SourceApplicationProvider = ({ children }: ContextProps) => {
 					allMetadata.push(...metadataResponse.allMetadata);
 				}
 			}
-			console.log(allMetadata);
+			console.log("all META ", allMetadata);
 			setAllMetadata(allMetadata);
 		} catch (e) {
 			console.error("Error: ", e);
