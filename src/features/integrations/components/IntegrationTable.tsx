@@ -35,6 +35,9 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
     }, {value: "25", label: "25"}, {value: "50", label: "50"}, {value: "100", label: "100"}]
 
     useEffect(() => {
+        if(integrations?.totalElements && (integrations.totalElements < Number(rowCount))) {
+            setPage(1)
+        }
         setIntegrations({content: []})
         getAllIntegrations(rowCount, sort);
     }, [page, setPage, sort, rowCount])
