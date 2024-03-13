@@ -7,18 +7,12 @@ import {Link as RouterLink} from "react-router-dom"
 import {Alert, Box, Button, Heading, HelpText, HStack, Loader} from "@navikt/ds-react";
 import {useTranslation} from "react-i18next";
 import {PlusIcon} from '@navikt/aksel-icons';
-import {AuthorizationContext} from "../../context/AuthorizationContext";
 import {IAlertMessage} from "../types/TableTypes";
 
 const Integrations: RouteComponent = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.integrations'})
     const {allMetadata, getAllMetadata} = useContext(SourceApplicationContext)
     const [error, setError] = useState<IAlertMessage | undefined>(undefined);
-    const {getAuthorization} = useContext(AuthorizationContext)
-
-    useEffect(() => {
-        getAuthorization()
-    }, []);
 
     useEffect(() => {
         getAllMetadata(false);

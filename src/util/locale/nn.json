@@ -16,6 +16,9 @@
     "admin": "Administrasjon"
   },
   "pages": {
+    "admin": {
+      "header": "Administrasjon"
+    },
     "dashboard": {
       "header": "Dashboard og oversikt",
       "integrations": "integrasjonar",
