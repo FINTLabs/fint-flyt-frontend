@@ -192,7 +192,7 @@ const InstanceTable: React.FunctionComponent<Props> = ({onError}) => {
     function ErrorAlertDialog(props: GridCellParams['row']) {
         return (
             <Modal open={openDialog} header={{
-                heading: props.row?.errors?.length > 1 ? t('errors') : t('error'),
+                heading: props.row?.errors?.length > 1 ? t('errors') : t('oneError'),
                 closeButton: false
             }}>
                 <Modal.Body>
