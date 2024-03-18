@@ -13,6 +13,7 @@
     "version": "Versjon",
     "support": "Hjelp og support",
     "valueConverting": "Verdikonvertering"
+   
   },
   "pages": {
     "dashboard": {
@@ -233,6 +234,10 @@
       "wordList": "Ordbok",
       "FAQ": "Ofte stilte spørsmål",
       "back": "Tilbake"
+    },
+    "forbidden": {
+      "status": "Du har ikke tilgang til denne siden",
+      "return": "tilbake til Dashbord"
     },
     "valueConverting": {
       "button": {
