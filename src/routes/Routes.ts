@@ -87,7 +87,6 @@ const routes: IRoute[] = [
 		name: "forbidden",
 		component: Forbidden,
 		exact: true,
-		// inNavigationMenu: true,
 	},
 	{
 		path: "/support/guide",
