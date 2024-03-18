@@ -144,7 +144,6 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
                 const selectableForms = forms.filter(
                     (form) => !ids.includes(form.value)
                 );
-                console.log(selectableForms)
                 setAvailableForms(selectableForms.length === 1 ? [{value: "", label: i18n.language === 'en' ? "No available integrations" : "Ingen tilgjengelige integrasjoner"}] : selectableForms);
             }
         } catch (err) {
