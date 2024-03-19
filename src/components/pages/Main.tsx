@@ -14,10 +14,15 @@ function Main() {
     const history = useHistory();
 
     axios.interceptors.response.use(function (response) {
-        setAuthorized(true)
+        if(response.status === 307) {
+            setAuthorized(false)
+        }
+        else {
+            setAuthorized(true)
+        }
         return response;
     }, function (error) {
-        if (error.response.status === 307 || error.response.status === 401) {
+        if (error.response.status === 401) {
             setAuthorized(false)
             history.push('/401') // change to using 401 page
         }
