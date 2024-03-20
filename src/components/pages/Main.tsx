@@ -14,6 +14,7 @@ function Main() {
     const history = useHistory();
 
     axios.interceptors.response.use(function (response) {
+        console.log('intercept, response: ', response)
         if(response.status === 307) {
             setAuthorized(false)
         }
@@ -22,6 +23,7 @@ function Main() {
         }
         return response;
     }, function (error) {
+        console.log('intercept, error, response: ', error)
         if (error.response.status === 401) {
             setAuthorized(false)
             history.push('/401') // change to using 401 page
