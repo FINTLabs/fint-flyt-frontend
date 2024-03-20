@@ -10,7 +10,7 @@ import {useHistory} from "react-router-dom";
 
 function Main() {
     const {sourceApplications, getSourceApplications} = useContext(SourceApplicationContext)
-    const {setAuthorized, getAuthorization, getUser, isAdmin} = useContext(AuthorizationContext)
+    const {authorized, setAuthorized, getAuthorization, getUser, isAdmin} = useContext(AuthorizationContext)
     const history = useHistory();
 
     axios.interceptors.response.use(function (response) {
@@ -38,6 +38,7 @@ function Main() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    console.log(authorized)
 
     return (
         <Box style={{height: "100vh", backgroundColor: "#EBF4F5"}}>
