@@ -8,6 +8,7 @@ export function getSourceApplicationDisplayName(id: number): string {
     if (id === 1) return "ACOS";
     if (id === 2) return "eGrunnerverv";
     if (id === 3) return "Digisak";
+    if (id === 4) return "VIGO-OT";
     else return "ukjent";
 }
 
