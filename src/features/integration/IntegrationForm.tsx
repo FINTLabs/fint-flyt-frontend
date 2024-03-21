@@ -69,7 +69,7 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
     }
     const cancel = () => {
         history.push({
-            pathname: '/',
+            pathname: '/integration/list',
         })
     }
 
