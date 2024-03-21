@@ -234,6 +234,10 @@
       "FAQ": "Frequently asked questions",
       "back": "Back"
     },
+    "forbidden": {
+      "status": "You do not have access to this page",
+      "return": "Back to Dashboard"
+    },
     "valueConverting": {
       "button": {
         "newConverting": "New value converting",

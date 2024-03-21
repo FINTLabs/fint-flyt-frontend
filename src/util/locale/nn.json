@@ -234,6 +234,10 @@
       "FAQ": "Ofte stilte spørsmål",
       "back": "Tilbake"
     },
+    "forbidden": {
+      "status": "Du har ikkje tilgang til denne sida",
+      "return": "tilbake til Dashbord"
+    },
     "valueConverting": {
       "button": {
         "newConverting": "Ny verdikonvertering",
