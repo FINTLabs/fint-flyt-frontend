@@ -18,9 +18,6 @@ function Main() {
         if(response.status === 307) {
             setAuthorized(false)
         }
-        else {
-            setAuthorized(true)
-        }
         return response;
     }, function (error) {
         console.log('intercept, error, response: ', error)

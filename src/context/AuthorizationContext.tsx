@@ -30,7 +30,7 @@ const AuthorizationProvider = ({children}: ContextProps) => {
         console.log('get auth')
         try {
             const response = await AuthorizationRepository.getAuthorized()
-            console.log('get auth response')
+            console.log('get auth response', response)
             if (response.status === 200 && response.data === 'User authorized') {
                 setAuthorized(true)
             } else {
