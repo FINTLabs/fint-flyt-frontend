@@ -59,8 +59,11 @@ const Configuration: RouteComponent = () => {
     const [showAlert, setShowAlert] = React.useState<boolean>(false)
     const [alertContent, setAlertContent] = React.useState<IAlertContent>(defaultAlert)
     const [collectionReferencesInEditContext, setCollectionReferencesInEditContext] = useState<string[]>([])
-    const {getAuthorization} = useContext(AuthorizationContext)
+    const { authorized, getAuthorization} = useContext(AuthorizationContext)
 
+    if(!authorized) {
+        history.push('/401')
+    }
     if (!existingIntegration) {
         history.push('/')
     }
@@ -83,6 +86,10 @@ const Configuration: RouteComponent = () => {
     };
 
     useEffect(() => {
+        getAuthorization()
+    }, []);
+
+    useEffect(() => {
         if (configuration) {
             methods.setValue('mapping', configuration?.mapping, {shouldDirty: true, shouldTouch: true});
         }
@@ -102,9 +109,6 @@ const Configuration: RouteComponent = () => {
         }
     }, [])
 
-    useEffect(() => {
-        getAuthorization()
-    }, []);
 
     const onSubmit = (data: any) => { // eslint-disable-line
         if (!isEmpty(methods.formState.errors)) {

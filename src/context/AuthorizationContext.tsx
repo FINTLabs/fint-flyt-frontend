@@ -27,17 +27,14 @@ const AuthorizationProvider = ({children}: ContextProps) => {
     const [isAdmin, setIsAdmin] = useState<boolean | undefined>(contextDefaultValues.isAdmin);
 
     const getAuthorization = async () => {
-        console.log('get auth')
         try {
             const response = await AuthorizationRepository.getAuthorized()
-            console.log('get auth response', response)
             if (response.status === 200 && response.data === 'User authorized') {
                 setAuthorized(true)
             } else {
                 setAuthorized(false)
             }
         } catch (err) {
-            console.log('get auth err')
             setAuthorized(false)
         }
     }

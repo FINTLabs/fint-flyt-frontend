@@ -7,11 +7,16 @@ import {
 import {RouteComponent} from "../../routes/Route";
 import {useTranslation} from "react-i18next";
 import {AuthorizationContext} from "../../context/AuthorizationContext";
+import {useHistory} from "react-router-dom";
 
 const Version: RouteComponent = () => {
     const {i18n} = useTranslation();
-    const {getAuthorization} = useContext(AuthorizationContext)
+    const { authorized, getAuthorization} = useContext(AuthorizationContext)
+    const history = useHistory();
 
+    if(!authorized) {
+        history.push('/401')
+    }
     useEffect(() => {
         getAuthorization()
     }, []);

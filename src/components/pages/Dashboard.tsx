@@ -14,6 +14,7 @@ import { Contact } from "../atoms/Contact";
 import SupportContent from "../molecules/SupportContent";
 import { useGetAllIntegrations } from "../../hooks/integration/useGetIntegrations";
 import {AuthorizationContext} from "../../context/AuthorizationContext";
+import {useHistory} from "react-router-dom";
 
 const Dashboard: RouteComponent = () => {
 	const { t } = useTranslation("translations", {
@@ -25,7 +26,12 @@ const Dashboard: RouteComponent = () => {
 	const allActiveIntegrations = allIntegrations?.filter((integration: IIntegration | undefined) => integration?.state === "ACTIVE") || [];
 	const allActiveIntegrationsLength = allActiveIntegrations.length;
 	const { statistics, resetIntegrations, getAllIntegrations } = useContext(IntegrationContext);
-	const {getAuthorization} = useContext(AuthorizationContext)
+	const { authorized, getAuthorization} = useContext(AuthorizationContext)
+	const history = useHistory();
+
+	if(!authorized) {
+		history.push('/401')
+	}
 	let currentErrors = 0;
 	let totalDispatched = 0;
 	statistics?.map((stat: IIntegrationStatistics) => {
@@ -73,6 +79,9 @@ const Dashboard: RouteComponent = () => {
 
 	useEffect(() => {
 		getAuthorization()
+	}, []);
+
+	useEffect(() => {
 		getAllIntegrations();
 		resetIntegrations();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
