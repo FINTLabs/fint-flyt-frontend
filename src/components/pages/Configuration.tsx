@@ -100,7 +100,6 @@ const Configuration: RouteComponent = () => {
         }
     }, [])
 
-
     const onSubmit = (data: any) => { // eslint-disable-line
         if (!isEmpty(methods.formState.errors)) {
             setAlertContent(errorAlert)
