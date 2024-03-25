@@ -8,7 +8,7 @@ import {AuthorizationContext} from "../../context/AuthorizationContext";
 
 function Main() {
     const {sourceApplications, getSourceApplications} = useContext(SourceApplicationContext)
-    const {getAuthorization} = useContext(AuthorizationContext)
+    const {authorized, getAuthorization} = useContext(AuthorizationContext)
 
     useEffect(() => {
         getAuthorization();
@@ -19,7 +19,7 @@ function Main() {
     return (
         <Box style={{height: "100vh", backgroundColor: "#EBF4F5"}}>
             <AppBar/>
-            {sourceApplications && <main>
+            {sourceApplications && authorized !== undefined && <main>
                 <ConfigurationProvider>
                     <Router/>
                 </ConfigurationProvider>
