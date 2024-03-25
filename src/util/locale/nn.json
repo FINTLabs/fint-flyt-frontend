@@ -12,7 +12,8 @@
     "instances": "Instansar",
     "version": "Versjon",
     "support": "Hjelp og support",
-    "valueConverting": "Verdikonvertering"
+    "valueConverting": "Verdikonvertering",
+    "admin": "Administrasjon"
   },
   "pages": {
     "dashboard": {

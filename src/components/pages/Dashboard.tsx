@@ -13,6 +13,8 @@ import { Box, HStack } from "@navikt/ds-react";
 import { Contact } from "../atoms/Contact";
 import SupportContent from "../molecules/SupportContent";
 import { useGetAllIntegrations } from "../../hooks/integration/useGetIntegrations";
+import {AuthorizationContext} from "../../context/AuthorizationContext";
+import {useHistory} from "react-router-dom";
 
 const Dashboard: RouteComponent = () => {
 	const { t } = useTranslation("translations", {
@@ -21,29 +23,21 @@ const Dashboard: RouteComponent = () => {
 
 	const { allAvailableIntegrations } = useGetAllIntegrations();
 	const allIntegrations = allAvailableIntegrations?.data;
-	const allActiveIntegrations =
-		allIntegrations?.filter(
-			(integrasjoner: IIntegration | undefined) =>
-				integrasjoner?.state === "ACTIVE"
-		) || [];
+	const allActiveIntegrations = allIntegrations?.filter((integration: IIntegration | undefined) => integration?.state === "ACTIVE") || [];
 	const allActiveIntegrationsLength = allActiveIntegrations.length;
-	const { statistics, resetIntegrations, getAllIntegrations } =
-		useContext(IntegrationContext);
+	const { statistics, resetIntegrations, getAllIntegrations } = useContext(IntegrationContext);
+	const { authorized, getAuthorization} = useContext(AuthorizationContext)
+	const history = useHistory();
 
+	if(!authorized) {
+		history.push('/401')
+	}
 	let currentErrors = 0;
 	let totalDispatched = 0;
-
 	statistics?.map((stat: IIntegrationStatistics) => {
 		currentErrors += stat.currentErrors;
 		totalDispatched += stat.dispatchedInstances;
 	});
-
-	useEffect(() => {
-		getAllIntegrations();
-		resetIntegrations();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
-
 	const cards: ICard[] = [
 		{
 			value:
@@ -82,6 +76,16 @@ const Dashboard: RouteComponent = () => {
 			],
 		},
 	];
+
+	useEffect(() => {
+		getAuthorization()
+	}, []);
+
+	useEffect(() => {
+		getAllIntegrations();
+		resetIntegrations();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	return (
 		<PageTemplate id={"dashboard"} keyPrefix={"pages.dashboard"} customHeading>
