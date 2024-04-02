@@ -13,8 +13,6 @@ import { Box, HStack } from "@navikt/ds-react";
 import { Contact } from "../atoms/Contact";
 import SupportContent from "../molecules/SupportContent";
 import { useGetAllIntegrations } from "../../hooks/integration/useGetIntegrations";
-import {AuthorizationContext} from "../../context/AuthorizationContext";
-import {useHistory} from "react-router-dom";
 
 const Dashboard: RouteComponent = () => {
 	const { t } = useTranslation("translations", {
