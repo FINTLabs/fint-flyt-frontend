@@ -5,7 +5,7 @@ import {Box} from "@navikt/ds-react";
 
 const Page401: RouteComponent = () => {
     return (
-        <PageTemplate id={'version'} keyPrefix={'pages.401'}>
+        <PageTemplate id={'version'} keyPrefix={'pages.401'} customHeading>
             <Box
                 id={"version-information"}
                 background={"surface-default"}

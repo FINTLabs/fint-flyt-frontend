@@ -26,12 +26,7 @@ const Dashboard: RouteComponent = () => {
 	const allActiveIntegrations = allIntegrations?.filter((integration: IIntegration | undefined) => integration?.state === "ACTIVE") || [];
 	const allActiveIntegrationsLength = allActiveIntegrations.length;
 	const { statistics, resetIntegrations, getAllIntegrations } = useContext(IntegrationContext);
-	const { authorized, getAuthorization} = useContext(AuthorizationContext)
-	const history = useHistory();
 
-	if(!authorized) {
-		history.push('/401')
-	}
 	let currentErrors = 0;
 	let totalDispatched = 0;
 	statistics?.map((stat: IIntegrationStatistics) => {
@@ -76,10 +71,6 @@ const Dashboard: RouteComponent = () => {
 			],
 		},
 	];
-
-	useEffect(() => {
-		getAuthorization()
-	}, []);
 
 	useEffect(() => {
 		getAllIntegrations();
