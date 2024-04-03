@@ -237,7 +237,7 @@
     },
     "forbidden": {
       "status": "Du har ikkje tilgang til denne sida",
-      "return": "tilbake til Dashbord"
+      "return": "Tilbake til Dashbord"
     },
     "valueConverting": {
       "button": {

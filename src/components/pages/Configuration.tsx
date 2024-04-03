@@ -62,7 +62,7 @@ const Configuration: RouteComponent = () => {
     const { authorized, getAuthorization} = useContext(AuthorizationContext)
 
     if(!authorized) {
-        history.push('/401')
+        history.push('/forbidden')
     }
     if (!existingIntegration) {
         history.push('/')

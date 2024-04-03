@@ -23,7 +23,7 @@ const Instances: RouteComponent = () => {
     const history = useHistory();
 
     if(!authorized) {
-        history.push('/401')
+        history.push('/forbidden')
     }
     useEffect(() => {
         getAuthorization()
