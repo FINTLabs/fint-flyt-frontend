@@ -1,6 +1,6 @@
-import {ITableSelect} from "../../util/TableUtil";
 import * as React from "react";
 import {Select} from "@navikt/ds-react";
+import {ITableSelect} from "../types/TableTypes";
 
 type SelectProps = {
     options: ITableSelect[],

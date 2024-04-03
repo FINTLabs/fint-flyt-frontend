@@ -1,5 +1,5 @@
 import {IEvent} from "../../features/instances/types/Event";
-import {Page} from "../../util/TableUtil";
+import {Page} from "../../components/types/TableTypes";
 
 export const MOCK_EVENTS: Page<IEvent> = {
     content: [
