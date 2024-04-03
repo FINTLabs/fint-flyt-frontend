@@ -81,7 +81,6 @@ const routes: IRoute[] = [
 		exact: true,
 		inNavigationMenu: true,
 	},
-	// -> 
 	{
 		path: "/forbidden",
 		name: "forbidden",
