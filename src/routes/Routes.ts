@@ -7,6 +7,7 @@ import Version from "../components/pages/Version";
 import ValueConverting from "../components/pages/ValueConverting";
 import Instances from "../components/pages/Instances";
 import Integrations from "../components/pages/Integrations";
+import Forbidden from "../components/pages/Forbidden";
 
 const routes: IRoute[] = [
 	{
@@ -79,6 +80,12 @@ const routes: IRoute[] = [
 		component: Version,
 		exact: true,
 		inNavigationMenu: true,
+	},
+	{
+		path: "/forbidden",
+		name: "forbidden",
+		component: Forbidden,
+		exact: true,
 	},
 	{
 		path: "/support/guide",
