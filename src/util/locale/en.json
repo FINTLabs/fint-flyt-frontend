@@ -12,7 +12,8 @@
     "instances": "Instances",
     "version": "Version",
     "support": "Help and support",
-    "valueConverting": "Value converting"
+    "valueConverting": "Value converting",
+    "admin": "Administration"
   },
   "pages": {
     "dashboard": {

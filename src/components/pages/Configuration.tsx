@@ -31,6 +31,7 @@ import PageTemplate from "../templates/PageTemplate";
 import {Alert, Button, Heading, HStack, VStack} from "@navikt/ds-react"
 import {AxiosResponse} from "axios";
 import IntegrationRepository from "../../api/IntegrationRepository";
+import {AuthorizationContext} from "../../context/AuthorizationContext";
 
 
 const Configuration: RouteComponent = () => {
@@ -58,7 +59,11 @@ const Configuration: RouteComponent = () => {
     const [showAlert, setShowAlert] = React.useState<boolean>(false)
     const [alertContent, setAlertContent] = React.useState<IAlertContent>(defaultAlert)
     const [collectionReferencesInEditContext, setCollectionReferencesInEditContext] = useState<string[]>([])
+    const { authorized, getAuthorization} = useContext(AuthorizationContext)
 
+    if(!authorized) {
+        history.push('/forbidden')
+    }
     if (!existingIntegration) {
         history.push('/')
     }
@@ -79,6 +84,10 @@ const Configuration: RouteComponent = () => {
         setShowAlert(false);
         setAlertContent(defaultAlert)
     };
+
+    useEffect(() => {
+        getAuthorization()
+    }, []);
 
     useEffect(() => {
         if (configuration) {

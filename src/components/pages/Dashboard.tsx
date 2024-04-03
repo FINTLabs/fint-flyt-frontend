@@ -21,29 +21,16 @@ const Dashboard: RouteComponent = () => {
 
 	const { allAvailableIntegrations } = useGetAllIntegrations();
 	const allIntegrations = allAvailableIntegrations?.data;
-	const allActiveIntegrations =
-		allIntegrations?.filter(
-			(integrasjoner: IIntegration | undefined) =>
-				integrasjoner?.state === "ACTIVE"
-		) || [];
+	const allActiveIntegrations = allIntegrations?.filter((integration: IIntegration | undefined) => integration?.state === "ACTIVE") || [];
 	const allActiveIntegrationsLength = allActiveIntegrations.length;
-	const { statistics, resetIntegrations, getAllIntegrations } =
-		useContext(IntegrationContext);
+	const { statistics, resetIntegrations, getAllIntegrations } = useContext(IntegrationContext);
 
 	let currentErrors = 0;
 	let totalDispatched = 0;
-
 	statistics?.map((stat: IIntegrationStatistics) => {
 		currentErrors += stat.currentErrors;
 		totalDispatched += stat.dispatchedInstances;
 	});
-
-	useEffect(() => {
-		getAllIntegrations();
-		resetIntegrations();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
-
 	const cards: ICard[] = [
 		{
 			value:
@@ -82,6 +69,12 @@ const Dashboard: RouteComponent = () => {
 			],
 		},
 	];
+
+	useEffect(() => {
+		getAllIntegrations();
+		resetIntegrations();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	return (
 		<PageTemplate id={"dashboard"} keyPrefix={"pages.dashboard"} customHeading>

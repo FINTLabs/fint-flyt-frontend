@@ -12,8 +12,8 @@
     "instances": "Instanser",
     "version": "Versjon",
     "support": "Hjelp og support",
-    "valueConverting": "Verdikonvertering"
-   
+    "valueConverting": "Verdikonvertering",
+    "admin": "Administrasjon"
   },
   "pages": {
     "dashboard": {
@@ -237,7 +237,7 @@
     },
     "forbidden": {
       "status": "Du har ikke tilgang til denne siden",
-      "return": "tilbake til Dashbord"
+      "return": "Tilbake til Dashbord"
     },
     "valueConverting": {
       "button": {
