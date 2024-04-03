@@ -28,10 +28,6 @@ export function getSelectableDefaultByLanguage(lang: string): string {
         return "Velg kjeldeapplikasjon";
     }
 }
-export const variant =
-	"https://beta.felleskomponent.no/arkiv/kodeverk/variantformat/systemid/P";
-export const format =
-	"https://beta.felleskomponent.no/arkiv/kodeverk/format/systemid/PDF";
 
 export const sourceApplications: ISelect[] = [
 	{ label: "ACOS", value: "1" },
