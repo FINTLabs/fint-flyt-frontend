@@ -235,6 +235,10 @@
       "FAQ": "Ofte stilte spørsmål",
       "back": "Tilbake"
     },
+    "forbidden": {
+      "status": "Du har ikke tilgang til denne siden",
+      "return": "tilbake til Dashbord"
+    },
     "valueConverting": {
       "button": {
         "newConverting": "Ny verdikonvertering",
