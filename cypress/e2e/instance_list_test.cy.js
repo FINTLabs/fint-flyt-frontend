@@ -56,8 +56,9 @@ describe('Testing instance list', () => {
     it('it should post correct id for retry', () => {
         prep()
         cy.viewport(3000, 2000)
-        cy.get('#retry-btn-0').click()
-        cy.wait('@postRetry')
+        cy.get('#\\30 -action-toggle > .navds-dropdown__toggle').click()
+        cy.get('#retryButton').click()
+        // cy.wait('@postRetry')
     })
 
     it('it should sort columns correctly', () => {

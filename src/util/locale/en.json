@@ -169,9 +169,19 @@
       "oneError": "Error:",
       "errorMessage": "There was an error fetching data, try again later.",
       "numberPerPage": "Show per page",
+      "customStatus": "Manually override status",
+      "retry": "Try again",
+      "dialog": {
+        "cancel": "Cancel",
+        "confirm": "Yes I am sure",
+        "destinationId": "Destination ID",
+        "status": "Status",
+        "reqFieldMsg": "Required field",
+        "warning": "Adds a manual status and replaces the system generated status. The action can not be undone"
+      },
       "button": {
         "close": "Close",
-        "retry": "Try again",
+        "save": "Save",
         "refresh": "Refresh page"
       },
       "table": {
@@ -218,6 +228,7 @@
       "instance-mapped": "Instance converted",
       "instance-ready-for-dispatch": "Instance ready for dispatch",
       "instance-dispatched": "Instance dispatched",
+      "instance-status-overridden": "Instance handled manually",
       "instance-receival-error": "Error while receiving instance",
       "instance-registration-error": "Error while registering instance",
       "instance-retry-request-error": "Error during retry request",
