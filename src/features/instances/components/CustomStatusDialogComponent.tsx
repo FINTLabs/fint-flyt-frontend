@@ -2,7 +2,7 @@ import * as React from "react";
 import {useRef, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {IEvent} from "../types/Event";
-import {Alert, Button, Label, Modal, Select, TextField, VStack} from "@navikt/ds-react";
+import {Alert, Button, Modal, Select, TextField, VStack} from "@navikt/ds-react";
 import {ISelectable} from "../../configuration/types/Selectable";
 
 type Props = {
