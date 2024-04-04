@@ -48,10 +48,9 @@ const CustomStatusDialogComponent: React.FunctionComponent<Props> = (props: Prop
     ]
 
     return (
-        <Modal open={props.open} ref={ref} header={{heading: t('customStatus'), closeButton: false}}>
+        <Modal open={props.open} ref={ref} header={{heading: t('customStatus'), closeButton: false}} style={{maxWidth: '500px'}}>
             <Modal.Body>
-                <VStack gap={"6"}>
-                    <Label>{props.row.name}</Label>
+                <VStack gap={"4"}>
                     <Select label={t("dialog.status")} value={status} onChange={(e) => setStatus(e.target.value)}>
                         {instanceStatuses.map((status, i) => {
                             return <option key={i} value={status.value}>{status.displayName}</option>
@@ -66,12 +65,12 @@ const CustomStatusDialogComponent: React.FunctionComponent<Props> = (props: Prop
                 </VStack>
             </Modal.Body>
             <Modal.Footer>
-                <Button size="small" type="button" variant="danger" onClick={() => {
+                <Button type="button" variant="danger" onClick={() => {
                     updateStatus(props.row, status, destinationId)
                 }}>
                     {t('dialog.confirm')}
                 </Button>
-                <Button size="small" type="button" variant="secondary" onClick={() => props.setOpenCustomDialog(false)}
+                <Button type="button" variant="secondary" onClick={() => props.setOpenCustomDialog(false)}
                 >
                     {t('dialog.cancel')}
                 </Button>
