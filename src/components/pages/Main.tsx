@@ -9,9 +9,11 @@ import {AuthorizationContext} from "../../context/AuthorizationContext";
 function Main() {
     const {sourceApplications, getSourceApplications} = useContext(SourceApplicationContext)
     const {getUser, isAdmin} = useContext(AuthorizationContext)
+    const {authorized, getAuthorization} = useContext(AuthorizationContext)
 
     useEffect(() => {
         getUser();
+        getAuthorization();
         getSourceApplications();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -19,7 +21,7 @@ function Main() {
     return (
         <Box style={{height: "100vh", backgroundColor: "#EBF4F5"}}>
             {isAdmin !== undefined && <AppBar/>}
-            {sourceApplications && isAdmin !== undefined && <main>
+            {sourceApplications && authorized !== undefined && isAdmin !== undefined && <main>
                 <ConfigurationProvider>
                     <Router/>
                 </ConfigurationProvider>
