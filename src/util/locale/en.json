@@ -266,6 +266,7 @@
       "saveError": "Failed saving, error message: ",
       "genericError": "An error has occured",
       "requiredField": "Required field",
+      "uniqueField": "Name must be unique",
       "column": {
         "show": "Show",
         "id": "Id",

@@ -35,6 +35,7 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
     const [alertContent, setAlertContent] = React.useState<IAlertContent>(defaultAlert);
     const [toSelectables, setToSelectables] = useState<ISelectable[]>([]);
     const [selectableSourceApplications, setSelectableSourceApplications] = useState<ISelect[]>([])
+    const [valueConvertings, setValueConvertings] = useState<string[] | undefined>(undefined)
 
     function getSelectableSourceApplications() {
         const sources: ISelect[] = []
@@ -46,6 +47,23 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
         setSelectableSourceApplications([...selectableSourceApplications, ...sources]);
     }
 
+    console.log(valueConvertings)
+
+    useEffect(() => {
+        ValueConvertingRepository.getValueConvertings(0, 1000, 'id', 'DESC', true)
+            .then(response => {
+                const data: IValueConverting[] = response.data.content
+                if (data) {
+                    setValueConvertings(data.map(vc => vc.displayName))
+                } else {
+                    setValueConvertings([])
+                }
+            })
+            .catch(e => {
+                setValueConvertings([])
+                console.log(e)
+            })
+    }, [])
 
     useEffect(() => {
         getSelectableSourceApplications()
@@ -161,13 +179,13 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
                                 </HelpText>
                             </HStack>
                             <Controller
-                                rules={{required: {value: true, message: t('requiredField')}}}
+                                rules={{ required: t('requiredField'), validate: (value) => !valueConvertings?.includes(value) || t('uniqueField') }}
                                 name={"displayName"}
                                 defaultValue={""}
                                 render={({field, fieldState}) => (
                                     <StringValueComponent
                                         {...field}
-                                        disabled={disabled}
+                                        disabled={disabled || !valueConvertings}
                                         displayName={t("displayName")}
                                         fieldState={fieldState}
                                     />
