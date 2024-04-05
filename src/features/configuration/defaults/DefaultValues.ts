@@ -33,7 +33,7 @@ export const sourceApplications: ISelect[] = [
 	{ label: "ACOS", value: "1" },
 	{ label: "eGrunnerverv", value: "2" },
 	{ label: "Digisak", value: "3" },
-	{ label: "VIGO-OT", value: "4"},
+	{ label: "VIGO OT", value: "4"},
 ];
 
 export function selectableSourceApplications(lang: string): ISelect[] {
@@ -42,7 +42,7 @@ export function selectableSourceApplications(lang: string): ISelect[] {
 		{ label: "ACOS", value: "1" },
 		{ label: "eGrunnerverv", value: "2" },
 		{ label: "Digisak", value: "3" },
-		{ label: "VIGO-OT", value: "4"},
+		{ label: "VIGO OT", value: "4"},
 	];
 }
 

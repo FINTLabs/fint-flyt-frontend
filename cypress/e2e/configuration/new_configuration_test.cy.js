@@ -85,6 +85,7 @@ describe('Testing creating new and editing configurations from integration overv
         cy.intercept('GET', '**/metadata?kildeapplikasjonId=1&bareSisteVersjoner=false', {fixture: 'metadata.json'}).as('getMetadata');
         cy.intercept('GET', '**/metadata?kildeapplikasjonId=2&bareSisteVersjoner=false', {fixture: 'metadata.json'}).as('getMetadata')
         cy.intercept('GET', '**/metadata?kildeapplikasjonId=3&bareSisteVersjoner=false', {fixture: 'metadata.json'}).as('getMetadata')
+        cy.intercept('GET', '**/metadata?kildeapplikasjonId=4&bareSisteVersjoner=false', {fixture: 'metadata.json'}).as('getMetadata')
         cy.intercept('GET', '**/metadata/11/instans-metadata', {fixture: 'instansMetadata.json'}).as('getInstansMetadata');
         cy.intercept('GET', '**/metadata/1/instans-metadata', {fixture: 'instansMetadata.json'}).as('getInstansMetadata');
         cy.intercept('GET', '**/value-convertings?page=0&size=100&sortProperty=fromApplicationId&sortDirection=ASC&excludeConvertingMap=false', {fixture: 'valueconverting/valueconvertings.json'}).as('getValueconvertings');
