@@ -5,9 +5,8 @@ import {GridCellParams} from "@mui/x-data-grid";
 import moment from "moment/moment";
 import {IEvent} from "../types/Event";
 import ErrorDialogComponent from "./ErrorDialogComponent";
-import {Box, HStack, Link, Loader, Modal, Pagination, Table} from "@navikt/ds-react";
+import {Box, HStack, Link, Loader, Pagination, Table} from "@navikt/ds-react";
 import {GetIcon} from "../util/InstanceUtils";
-import {Button as ButtonAks} from "@navikt/ds-react/esm/button";
 import EventRepository from "../../../api/EventRepository";
 import {IAlertMessage, Page} from "../../../components/types/TableTypes";
 

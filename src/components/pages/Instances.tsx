@@ -1,7 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {Alert, Box, Heading, HelpText, HStack, Loader, Modal} from "@navikt/ds-react";
+import {Alert, Box, Heading, HelpText, HStack, Loader} from "@navikt/ds-react";
 import {useTranslation} from "react-i18next";
-import {Button as ButtonAks} from "@navikt/ds-react/esm/button";
 import {GridCellParams} from "@mui/x-data-grid";
 import ErrorDialogComponent from "../../features/instances/components/ErrorDialogComponent";
 import {IEvent} from "../../features/instances/types/Event";
