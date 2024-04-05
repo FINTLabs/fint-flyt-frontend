@@ -13,17 +13,25 @@ import { Box, HStack } from "@navikt/ds-react";
 import { Contact } from "../atoms/Contact";
 import SupportContent from "../molecules/SupportContent";
 import { useGetAllIntegrations } from "../../hooks/integration/useGetIntegrations";
+import IntegrationRepository from "../../api/IntegrationRepository";
 
 const Dashboard: RouteComponent = () => {
 	const { t } = useTranslation("translations", {
 		keyPrefix: "pages.dashboard",
 	});
 
+	const response = IntegrationRepository.getAllIntegrations();
+	console.log(response);
+
 	const { allAvailableIntegrations } = useGetAllIntegrations();
 	const allIntegrations = allAvailableIntegrations?.data;
-	const allActiveIntegrations = allIntegrations?.filter((integration: IIntegration | undefined) => integration?.state === "ACTIVE") || [];
+	const allActiveIntegrations =
+		allIntegrations?.filter(
+			(integration: IIntegration | undefined) => integration?.state === "ACTIVE"
+		) || [];
 	const allActiveIntegrationsLength = allActiveIntegrations.length;
-	const { statistics, resetIntegrations, getAllIntegrations } = useContext(IntegrationContext);
+	const { statistics, resetIntegrations, getAllIntegrations } =
+		useContext(IntegrationContext);
 
 	let currentErrors = 0;
 	let totalDispatched = 0;
