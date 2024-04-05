@@ -266,6 +266,7 @@
       "saveError": "Feila under lagring, feilmelding: ",
       "genericError": "Det har oppstått ein feil",
       "requiredField": "Påkrevd felt",
+      "requiredConverting": "Det kreves minst én konvertering for lagring av ny verdikonvertering",
       "uniqueField": "Namn må være unikt",
       "column": {
         "show": "Vis",
