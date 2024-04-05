@@ -173,11 +173,11 @@
       "retry": "Prøv igjen",
       "dialog": {
         "cancel": "Avbryt",
-        "confirm": "Ja, jeg er sikker",
+        "confirm": "Lagre",
         "destinationId": "Destinasjon ID",
         "status": "Status",
         "reqFieldMsg": "Påkrevd felt",
-        "warning": "Legger til en manuell status, og erstatter systemgenerert status, vær sikker før du endrer, handlingen kan ikke angres"
+        "warning": "Legger til en manuell status, og erstatter systemgenerert status, vær sikker før du endrer, handlingen kan ikke angres?"
       },
       "button": {
         "close": "Lukk",

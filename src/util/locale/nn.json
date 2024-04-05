@@ -173,7 +173,7 @@
       "retry": "Prøv igjen",
       "dialog": {
         "cancel": "Avbryt",
-        "confirm": "Ja, eg er sikker",
+        "confirm": "Lagre",
         "destinationId": "Destinasjon ID",
         "status": "Status",
         "reqFieldMsg": "Påkrevd felt",

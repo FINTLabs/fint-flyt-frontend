@@ -173,7 +173,7 @@
       "retry": "Try again",
       "dialog": {
         "cancel": "Cancel",
-        "confirm": "Yes I am sure",
+        "confirm": "Save",
         "destinationId": "Destination ID",
         "status": "Status",
         "reqFieldMsg": "Required field",
