@@ -111,19 +111,7 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
 
     function ErrorAlertDialog(props: GridCellParams['row']) {
         return (
-            <Modal open={openErrorDialog} header={{
-                heading: props.row?.errors?.length > 1 ? t('errors') : t('oneError'),
-                closeButton: false
-            }}>
-                <Modal.Body>
-                    <ErrorDialogComponent row={props.row}/>
-                </Modal.Body>
-                <Modal.Footer>
-                    <ButtonAks type="button" onClick={() => setOpenErrorDialog(false)}>
-                        {t('button.close')}
-                    </ButtonAks>
-                </Modal.Footer>
-            </Modal>
+            <ErrorDialogComponent open={openErrorDialog} setOpenErrorDialog={setOpenErrorDialog} row={props.row}/>
         )
     }
 }
