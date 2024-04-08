@@ -19,7 +19,7 @@ const CustomStatusDialogComponent: React.FunctionComponent<Props> = (props: Prop
     const [destinationId, setDestinationId] = useState<string | undefined>(undefined)
     const [error, setError] = useState<boolean>(false)
 
-    const createEvent = (instance: IEvent) => {
+/*    const createEvent = (instance: IEvent) => {
         EventRepository.createEvent(instance)
             .then(response => {
                 console.log('created event', response)
@@ -27,7 +27,7 @@ const CustomStatusDialogComponent: React.FunctionComponent<Props> = (props: Prop
             .catch(e => {
                 console.error(e)
             })
-    }
+    }*/
 
     const updateStatus = (instance: IEvent, status: string, destinationId: string | undefined) => {
         instance.name = status;
