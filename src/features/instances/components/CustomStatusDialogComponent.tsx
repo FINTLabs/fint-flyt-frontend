@@ -4,7 +4,6 @@ import {useTranslation} from "react-i18next";
 import {IEvent} from "../types/Event";
 import {Alert, Button, Modal, Select, TextField, VStack} from "@navikt/ds-react";
 import {ISelectable} from "../../configuration/types/Selectable";
-import EventRepository from "../../../api/EventRepository";
 
 type Props = {
     row: IEvent,
