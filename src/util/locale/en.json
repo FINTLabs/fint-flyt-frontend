@@ -175,6 +175,7 @@
         "cancel": "Cancel",
         "confirm": "Save",
         "destinationId": "Destination ID",
+        "destinationIdDesc": "Required on instances manually created in destination",
         "status": "Status",
         "reqFieldMsg": "Required field",
         "warning": "Adds a manual status and replaces the system generated status. The action can not be undone"
@@ -228,7 +229,8 @@
       "instance-mapped": "Instance converted",
       "instance-ready-for-dispatch": "Instance ready for dispatch",
       "instance-dispatched": "Instance dispatched",
-      "instance-status-overridden": "Instance handled manually",
+      "instance-overridden": "Instance handled manually and created in destination",
+      "instance-overridden-rejected": "Instance handled manually and rejected",
       "instance-receival-error": "Error while receiving instance",
       "instance-registration-error": "Error while registering instance",
       "instance-retry-request-error": "Error during retry request",
