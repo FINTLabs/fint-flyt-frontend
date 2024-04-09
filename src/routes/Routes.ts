@@ -8,6 +8,7 @@ import ValueConverting from "../components/pages/ValueConverting";
 import Instances from "../components/pages/Instances";
 import Integrations from "../components/pages/Integrations";
 import Forbidden from "../components/pages/Forbidden";
+import Admin from "../components/pages/Admin";
 
 const routes: IRoute[] = [
 	{
@@ -94,6 +95,13 @@ const routes: IRoute[] = [
 		exact: true,
 		inNavigationMenu: false,
 	},
+    {
+        path: "/admin",
+        name: "admin",
+        component: Admin,
+        exact: true,
+        inNavigationMenu: false,
+    }
 ];
 
 export default routes;
