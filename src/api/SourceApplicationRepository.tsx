@@ -14,7 +14,8 @@ const getSourceApplications = (): ISourceApplication[] => {
     return [
         {id: 1, displayName: "ACOS Interact", available: true},
         {id: 2, displayName: "eGrunnerverv", available: true},
-        {id: 3, displayName: "Digisak", available: true}
+        {id: 3, displayName: "Digisak", available: true},
+        {id: 4, displayName: "VIGO OT", available: true}
 
     ]
 }
