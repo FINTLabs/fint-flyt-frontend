@@ -126,7 +126,8 @@ const InstanceTable: React.FunctionComponent<Props> = ({onError}) => {
                             <Table.ColumnHeader>{t('table.column.sourceApplicationIntegrationIdDisplayName')}</Table.ColumnHeader>
                             <Table.ColumnHeader sortKey="timestamp"
                                                 sortable>{t('table.column.timestamp')}</Table.ColumnHeader>
-                            <Table.ColumnHeader>{t('table.column.status')}</Table.ColumnHeader>
+                            <Table.ColumnHeader sortKey="type"
+                                                sortable>{t('table.column.status')}</Table.ColumnHeader>
                             <Table.ColumnHeader>{t('table.column.actions')}</Table.ColumnHeader>
                             <Table.ColumnHeader>{t('table.column.archiveInstanceId')}</Table.ColumnHeader>
                         </Table.Row>

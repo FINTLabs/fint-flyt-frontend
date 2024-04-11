@@ -35,6 +35,8 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
     const [alertContent, setAlertContent] = React.useState<IAlertContent>(defaultAlert);
     const [toSelectables, setToSelectables] = useState<ISelectable[]>([]);
     const [selectableSourceApplications, setSelectableSourceApplications] = useState<ISelect[]>([])
+    const [valueConvertings, setValueConvertings] = useState<string[] | undefined>(undefined)
+
 
     function getSelectableSourceApplications() {
         const sources: ISelect[] = []
@@ -49,13 +51,23 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
 
     useEffect(() => {
         getSelectableSourceApplications()
-        getSelectables([
-            {
-                url: "api/intern/arkiv/kodeverk/format",
-            },
+        getSelectables([{url: "api/intern/arkiv/kodeverk/format",},
         ]).then((result: ISelectable[]) => {
             setToSelectables(result);
         });
+        ValueConvertingRepository.getValueConvertings(0, 1000, 'id', 'DESC', true)
+            .then(response => {
+                const data: IValueConverting[] = response.data.content
+                if (data) {
+                    setValueConvertings(data.map(vc => vc.displayName))
+                } else {
+                    setValueConvertings([])
+                }
+            })
+            .catch(e => {
+                setValueConvertings([])
+                console.log(e)
+            })
     }, []);
 
     const methods = useForm<IValueConvertingFormData>({
@@ -109,30 +121,41 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
         const valueConverting: IValueConverting = toValueConverting(
             valueConvertingFormData
         );
-        ValueConvertingRepository.createValueConverting(valueConverting)
-            .then((r) => {
-                console.log(r);
-                setDisabled(true);
-                setShow(true);
-                setAlertContent({
-                    severity: "success",
-                    message: t('saved'),
-                });
-            })
-            .catch(function (error) {
-                if (error.response?.status) {
-                    setAlertContent({
-                        severity: "error",
-                        message: t('saveError') +
-                            (error.response.data.message
-                                ? error.response.data.message
-                                : t('genericError')) +
-                            ", status: " +
-                            error.response.status
-                    });
+        console.log(valueConverting)
+
+        if (Object.keys(valueConverting.convertingMap).length > 0) {
+            ValueConvertingRepository.createValueConverting(valueConverting)
+                .then((r) => {
+                    console.log(r);
+                    setDisabled(true);
                     setShow(true);
-                }
+                    setAlertContent({
+                        severity: "success",
+                        message: t('saved'),
+                    });
+                })
+                .catch(function (error) {
+                    if (error.response?.status) {
+                        setAlertContent({
+                            severity: "error",
+                            message: t('saveError') +
+                                (error.response.data.message
+                                    ? error.response.data.message
+                                    : t('genericError')) +
+                                ", status: " +
+                                error.response.status
+                        });
+                        setShow(true);
+                    }
+                });
+        }
+        else {
+            setAlertContent({
+                severity: "error",
+                message: t('requiredConverting')
             });
+            setShow(true);
+        }
     };
 
     function handleCancel() {
@@ -161,13 +184,13 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
                                 </HelpText>
                             </HStack>
                             <Controller
-                                rules={{required: {value: true, message: t('requiredField')}}}
+                                rules={{ required: t('requiredField'), validate: (value) => !valueConvertings?.includes(value) || t('uniqueField') }}
                                 name={"displayName"}
                                 defaultValue={""}
                                 render={({field, fieldState}) => (
                                     <StringValueComponent
                                         {...field}
-                                        disabled={disabled}
+                                        disabled={disabled || !valueConvertings}
                                         displayName={t("displayName")}
                                         fieldState={fieldState}
                                     />

@@ -65,7 +65,7 @@ describe('Testing instance list', () => {
         prep()
         cy.viewport(3000, 2000)
         cy.get('#instance-table > :nth-child(2) > :nth-child(1) > :nth-child(5)').should("contain.text", "Feilet under konvertering")
-        cy.get('.navds-table__sort-button').click().click()
+        cy.get('[aria-sort="descending"] > .navds-table__sort-button').click().click()
         cy.get('#instance-table > :nth-child(2) > :nth-child(1) > :nth-child(5)').should("contain.text", "Instans godtatt av destinasjon")
 
     })
