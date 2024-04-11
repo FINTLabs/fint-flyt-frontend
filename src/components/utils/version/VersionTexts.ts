@@ -4,7 +4,13 @@ export const ABOUT_VERSIONS =
 
 export const VERSION_DATA: { heading: string; updates: string[] }[] = [
 	{
-		heading: "Versjon 3.2 - Februar 2024",
+		heading: "Versjon 10.4 - April 2024",
+		updates: [
+			"10.4 Ny verdikonvertering krever unikt navn for å gjøre dem enklere å bruke i konfigurasjoner",
+		],
+	},
+	{
+		heading: "Februar 2024",
 		updates: [
 			"3.2 Navneendring i konfigurasjonsoppsett, \"dynamisk verdi\" heter nå \"egendefinert verdi\"",
 		],
@@ -43,7 +49,13 @@ export const ABOUT_VERSIONS_NN =
 
 export const VERSION_DATA_NN: { heading: string; updates: string[] }[] = [
 	{
-		heading: "Versjon 3.2 - Februar 2024",
+		heading: "Versjon 10.4 - April 2024",
+		updates: [
+			"10.4 Ny verdikonvertering krev unikt namn for å gjera dei enklare å bruka i konfigurasjonar",
+		],
+	},
+	{
+		heading: "Februar 2024",
 		updates: [
 			"3.2 Navneendring i konfigurasjonsoppsett, \"dynamisk verdi\" heiter nå \"eigendefinert verdi\"",
 		],
@@ -82,7 +94,13 @@ export const ABOUT_VERSIONS_EN =
 
 export const VERSION_DATA_EN: { heading: string; updates: string[] }[] = [
 	{
-		heading: "Version 3.2 - February 2024",
+		heading: "Version 10.4 - April 2024",
+		updates: [
+			"10.4 Creating a new value conversion requires unique name to make them easier to use in configurations",
+		],
+	},
+	{
+		heading: "February 2024",
 		updates: [
 			"3.2 Name change in configuration view, \"dynamic value/field\" changed to \"custom value/field\"",
 		],
