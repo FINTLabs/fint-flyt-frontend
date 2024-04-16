@@ -29,25 +29,6 @@ export function getSelectableDefaultByLanguage(lang: string): string {
     }
 }
 
-export const sourceApplications: ISelect[] = [
-	{ label: "ACOS", value: "1" },
-	{ label: "eGrunnerverv", value: "2" },
-	{ label: "Digisak", value: "3" },
-	{ label: "VIGO OT", value: "4"},
-];
-
-export function selectableSourceApplications(lang: string): ISelect[] {
-	return [
-		{ label: getSelectableDefaultByLanguage(lang), value: "" },
-		{ label: "ACOS", value: "1" },
-		{ label: "eGrunnerverv", value: "2" },
-		{ label: "Digisak", value: "3" },
-		{ label: "VIGO OT", value: "4"},
-	];
-}
-
-
-
 export const fromTypeIds: ISelect[] = [
     {label: "Mediatype", value: "mediatype"},
     {label: "Tekst", value: "text"},
