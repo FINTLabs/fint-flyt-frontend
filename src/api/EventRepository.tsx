@@ -1,5 +1,4 @@
 import axios from "axios";
-import {IEvent} from "../features/instances/types/Event";
 
 const getEvents = (
     page: number,
