@@ -15,9 +15,9 @@ export function GetIcon(event: IEvent) {
             return <IconButton disabled>
                 <CheckmarkCircleFillIcon color={'green'} title="a11y-title" fontSize="1.5rem"/>
             </IconButton>
-        } else if (event.name === 'instance-overridden' || event.name === 'instance-overridden-rejected') {
+        } else if (event.name === 'instance-manually-processed' || event.name === 'instance-manually-rejected') {
             return <IconButton disabled>
-                <ManageAccountsIcon color="success"/>
+                <ManageAccountsIcon color={event.name === 'instance-manually-processed' ? "success" : "disabled"}/>
             </IconButton>
         } else {
             return <IconButton disabled>

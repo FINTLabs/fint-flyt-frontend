@@ -55,8 +55,12 @@ const getEventsByInstanceId = (
     });
 };
 
-const createEvent = (data: IEvent) => {
-    return axios.post(`/api/intern/historikk/hendelser`, data);
+const manualDispatchEvent = (instanceId: string, sourceApplicationId: string, archiveId: string,) => {
+    return axios.post(`/api/intern/handlinger/instanser/${instanceId}/settStatus`, {archiveId, sourceApplicationId}
+    );
+};
+const manualRejectEvent = (instanceId: string, sourceApplicationId: string) => {
+    return axios.post(`/api/intern/handlinger/instanser/${instanceId}/sett-status/manuelt-avvist`, sourceApplicationId);
 };
 
 const getAllStatistics = () => {
@@ -73,7 +77,8 @@ const EventRepository = {
     getEventsByInstanceId,
     getAllStatistics,
     getStatistics,
-    createEvent
+    manualRejectEvent,
+    manualDispatchEvent
 };
 
 export default EventRepository;

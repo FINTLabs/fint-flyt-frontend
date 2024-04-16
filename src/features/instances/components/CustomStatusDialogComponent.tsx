@@ -1,9 +1,10 @@
 import * as React from "react";
 import {useRef, useState} from "react";
 import {useTranslation} from "react-i18next";
-import {IEvent} from "../types/Event";
+import {IEvent, IInstanceFlowHeadersEmbeddable} from "../types/Event";
 import {Alert, Button, Modal, Select, TextField, VStack} from "@navikt/ds-react";
 import {ISelectable} from "../../configuration/types/Selectable";
+import EventRepository from "../../../api/EventRepository";
 
 type Props = {
     row: IEvent,
@@ -18,15 +19,27 @@ const CustomStatusDialogComponent: React.FunctionComponent<Props> = (props: Prop
     const [destinationId, setDestinationId] = useState<string | undefined>(undefined)
     const [error, setError] = useState<boolean>(false)
 
-/*    const createEvent = (instance: IEvent) => {
-        EventRepository.createEvent(instance)
+   const createDispatchEvent = (instance: IInstanceFlowHeadersEmbeddable, archiveId: string) => {
+       console.log(instance)
+        EventRepository.manualDispatchEvent(instance.sourceApplicationInstanceId, instance.sourceApplicationId, archiveId)
             .then(response => {
                 console.log('created event', response)
             })
             .catch(e => {
                 console.error(e)
             })
-    }*/
+    }
+
+    const createRejectEvent = (instance: IInstanceFlowHeadersEmbeddable) => {
+        console.log(instance)
+        EventRepository.manualRejectEvent(instance.sourceApplicationInstanceId, instance.sourceApplicationId)
+            .then(response => {
+                console.log('created event', response)
+            })
+            .catch(e => {
+                console.error(e)
+            })
+    }
 
     const updateStatus = (instance: IEvent, status: string, destinationId: string | undefined) => {
         instance.name = status;
@@ -34,28 +47,26 @@ const CustomStatusDialogComponent: React.FunctionComponent<Props> = (props: Prop
         instance.type = 'INFO'
         instance.timestamp = new Date().toISOString()
 
-        if (status === 'instance-overridden' && !destinationId) {
+        if (status === 'instance-manually-processed' && !destinationId) {
             setError(true)
         }
-        else if (status === 'instance-overridden' && destinationId) {
-            instance.instanceFlowHeaders.archiveInstanceId = destinationId
-            /* createEvent(instance) */
+        else if (status === 'instance-manually-processed' && destinationId) {
+            createDispatchEvent(instance.instanceFlowHeaders, destinationId)
             props.setOpenCustomDialog(false)
         }
-        if (instance && status === 'instance-overridden-rejected') {
-            /* createEvent(instance) */
+        if (instance && status === 'instance-manually-rejected') {
+            createRejectEvent(instance.instanceFlowHeaders)
             props.setOpenCustomDialog(false)
         } else {
             setError(true)
         }
-
     }
 
 
     const instanceStatuses: ISelectable[] = [
         {displayName: t(props.row.name), value: props.row.name},
-        {displayName: t('instance-overridden'), value: 'instance-overridden'},
-        {displayName: t('instance-overridden-rejected'), value: 'instance-overridden-rejected'}
+        {displayName: t('instance-manually-processed'), value: 'instance-manually-processed'},
+        {displayName: t('instance-manually-rejected'), value: 'instance-manually-rejected'}
     ]
 
     return (
@@ -69,7 +80,7 @@ const CustomStatusDialogComponent: React.FunctionComponent<Props> = (props: Prop
                     </Select>
                     <TextField label={t('dialog.destinationId')}
                                error={error && !destinationId && t('dialog.reqFieldMsg')}
-                               disabled={status !== 'instance-overridden'}
+                               disabled={status !== 'instance-manually-processed'}
                                description={t('dialog.destinationIdDesc')}
                                onChange={(e) => setDestinationId(e.target.value)}/>
                     <Alert variant="warning">
