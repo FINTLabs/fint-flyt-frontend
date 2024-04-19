@@ -54,12 +54,12 @@ const getEventsByInstanceId = (
     });
 };
 
-const manualDispatchEvent = (instanceId: string, sourceApplicationId: string, destinationId: string,) => {
-    return axios.post(`/api/intern/handlinger/instanser/${instanceId}/settStatus`, {destinationId, sourceApplicationId}
+const manualDispatchEvent = (sourceApplicationInstanceId: string, sourceApplicationId: string, archiveInstanceId: string, sourceApplicationIntegrationId: string) => {
+    return axios.post(`/api/intern/historikk/handlinger/instanser/settStatus`, {archiveInstanceId, sourceApplicationId, sourceApplicationInstanceId, sourceApplicationIntegrationId}
     );
 };
-const manualRejectEvent = (instanceId: string, sourceApplicationId: string) => {
-    return axios.post(`/api/intern/handlinger/instanser/${instanceId}/sett-status/manuelt-avvist`, sourceApplicationId);
+const manualRejectEvent = (sourceApplicationInstanceId: string, sourceApplicationId: string, sourceApplicationIntegrationId: string) => {
+    return axios.post(`/api/intern/historikk/handlinger/instanser/sett-status/manuelt-avvist`, {sourceApplicationId, sourceApplicationInstanceId, sourceApplicationIntegrationId});
 };
 
 const getAllStatistics = () => {

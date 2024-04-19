@@ -19,9 +19,8 @@ const CustomStatusDialogComponent: React.FunctionComponent<Props> = (props: Prop
     const [destinationId, setDestinationId] = useState<string | undefined>(undefined)
     const [error, setError] = useState<boolean>(false)
 
-   const createDispatchEvent = (instance: IInstanceFlowHeadersEmbeddable, destinationId: string) => {
-       console.log(instance)
-        EventRepository.manualDispatchEvent(instance.sourceApplicationInstanceId, instance.sourceApplicationId, destinationId)
+   const createDispatchEvent = (instance: IInstanceFlowHeadersEmbeddable, archiveInstanceId: string) => {
+        EventRepository.manualDispatchEvent(instance.sourceApplicationInstanceId, instance.sourceApplicationId, archiveInstanceId, instance.sourceApplicationIntegrationId)
             .then(response => {
                 console.log('created event', response)
             })
@@ -31,8 +30,7 @@ const CustomStatusDialogComponent: React.FunctionComponent<Props> = (props: Prop
     }
 
     const createRejectEvent = (instance: IInstanceFlowHeadersEmbeddable) => {
-        console.log(instance)
-        EventRepository.manualRejectEvent(instance.sourceApplicationInstanceId, instance.sourceApplicationId)
+        EventRepository.manualRejectEvent(instance.sourceApplicationInstanceId, instance.sourceApplicationId, instance.sourceApplicationIntegrationId)
             .then(response => {
                 console.log('created event', response)
             })
