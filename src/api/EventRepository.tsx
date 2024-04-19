@@ -55,7 +55,7 @@ const getEventsByInstanceId = (
 };
 
 const manualDispatchEvent = (sourceApplicationInstanceId: string, sourceApplicationId: string, archiveInstanceId: string, sourceApplicationIntegrationId: string) => {
-    return axios.post(`/api/intern/historikk/handlinger/instanser/settStatus`, {archiveInstanceId, sourceApplicationId, sourceApplicationInstanceId, sourceApplicationIntegrationId}
+    return axios.post(`/api/intern/historikk/handlinger/instanser/sett-status/manuelt-behandlet-ok`, {archiveInstanceId, sourceApplicationId, sourceApplicationInstanceId, sourceApplicationIntegrationId}
     );
 };
 const manualRejectEvent = (sourceApplicationInstanceId: string, sourceApplicationId: string, sourceApplicationIntegrationId: string) => {
