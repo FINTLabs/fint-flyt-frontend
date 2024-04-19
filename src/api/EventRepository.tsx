@@ -54,8 +54,8 @@ const getEventsByInstanceId = (
     });
 };
 
-const manualDispatchEvent = (instanceId: string, sourceApplicationId: string, archiveId: string,) => {
-    return axios.post(`/api/intern/handlinger/instanser/${instanceId}/settStatus`, {archiveId, sourceApplicationId}
+const manualDispatchEvent = (instanceId: string, sourceApplicationId: string, destinationId: string,) => {
+    return axios.post(`/api/intern/handlinger/instanser/${instanceId}/settStatus`, {destinationId, sourceApplicationId}
     );
 };
 const manualRejectEvent = (instanceId: string, sourceApplicationId: string) => {
