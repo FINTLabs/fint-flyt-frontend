@@ -1,8 +1,8 @@
 import {GridCellParams} from "@mui/x-data-grid";
 import * as React from "react";
-import {useContext, useEffect, useState} from "react";
+import {ReactElement, useContext, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
-import {Box, HStack, Link, Loader, Modal, Pagination, SortState, Table} from "@navikt/ds-react";
+import {Box, Dropdown, HStack, Link, Loader, Pagination, SortState, Table} from "@navikt/ds-react";
 import moment from "moment";
 import {eventComparator, getSourceApplicationDisplayNameById} from "../../../util/TableUtil";
 import {IEvent} from "../types/Event";
@@ -16,6 +16,8 @@ import {IIntegrationMetadata} from "../../configuration/types/Metadata/Integrati
 import {SourceApplicationContext} from "../../../context/SourceApplicationContext";
 import {CustomSelect} from "../../../components/organisms/CustomSelect";
 import {IAlertMessage, Page} from "../../../components/types/TableTypes";
+import {MenuElipsisVerticalCircleIcon} from "@navikt/aksel-icons";
+import CustomStatusDialogComponent from "./CustomStatusDialogComponent";
 
 interface Props {
     onError: (error: IAlertMessage | undefined) => void;
@@ -24,18 +26,22 @@ interface Props {
 const InstanceTable: React.FunctionComponent<Props> = ({onError}) => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.instances'})
     const [selectedRow, setSelectedRow] = useState<IEvent>();
-    const [openDialog, setOpenDialog] = React.useState(false);
+    const [openErrorDialog, setOpenErrorDialog] = React.useState(false);
+    const [openCustomDialog, setOpenCustomDialog] = React.useState(false);
     const [page, setPage] = useState(1);
     const [sort, setSort] = useState<SortState | undefined>({orderBy: 'timestamp', direction: "descending"});
     const errorsNotForRetry: string[] = ['instance-receival-error', 'instance-registration-error']
     const [instancesPage, setInstancesPage] = useState<Page<IEvent>>()
     const [rowCount, setRowCount] = useState<string>("10")
-    const selectOptions = [{value: "", label: t('numberPerPage'), disabled: true}, {value: "10", label: "10"}, {value: "25", label: "25"}, {value: "50", label: "50"}, {value: "100", label: "100"}]
+    const selectOptions = [{value: "", label: t('numberPerPage'), disabled: true}, {
+        value: "10",
+        label: "10"
+    }, {value: "25", label: "25"}, {value: "50", label: "50"}, {value: "100", label: "100"}]
     const [disabledRetryButtons, setDisabledRetryButtons] = useState(new Array(Number(rowCount)).fill(false));
     const {allMetadata, sourceApplications} = useContext(SourceApplicationContext)
 
     useEffect(() => {
-        if(instancesPage?.totalElements && (instancesPage.totalElements < Number(rowCount))) {
+        if (instancesPage?.totalElements && (instancesPage.totalElements < Number(rowCount))) {
             setPage(1)
         }
         setInstancesPage({content: []})
@@ -110,6 +116,7 @@ const InstanceTable: React.FunctionComponent<Props> = ({onError}) => {
         <Box>
             <Box background={'surface-default'} style={{height: '70vh', overflowY: "scroll"}}>
                 <ErrorAlertDialog row={selectedRow}/>
+                <CustomStatusDialog row={selectedRow}/>
                 <Table sort={sort} onSortChange={(sortKey) => handleSort(sortKey ? sortKey : "timestamp")}
                        id={"instance-table"}>
                     <Table.Header>
@@ -147,20 +154,15 @@ const InstanceTable: React.FunctionComponent<Props> = ({onError}) => {
                                             <Link style={{cursor: "pointer"}}
                                                   onClick={() => {
                                                       setSelectedRow(value);
-                                                      setOpenDialog(true)
+                                                      setOpenErrorDialog(true)
                                                   }}>
                                                 {t('showError')}</Link>
                                         }
                                     </Table.DataCell>
                                     <Table.DataCell>
-                                        {(value.type === 'ERROR') && !errorsNotForRetry.includes(value.name) &&
-                                            <Button id={'retry-btn-' + i} size="small" disabled={disabledRetryButtons[i]}
-                                                    onClick={() => {
-                                                           resend(value.instanceFlowHeaders.instanceId);
-                                                           handleRetryButtonClick(i)
-                                                       }}
-                                            >{t('button.retry')}
-                                            </Button>}
+                                        {(value.type === 'ERROR') &&
+                                            actionMenu(value, i)
+                                        }
                                     </Table.DataCell>
                                     <Table.DataCell>{value.instanceFlowHeaders.archiveInstanceId}</Table.DataCell>
                                 </Table.ExpandableRow>
@@ -190,21 +192,54 @@ const InstanceTable: React.FunctionComponent<Props> = ({onError}) => {
         </Box>
     ) : <Loader/>;
 
+    function actionMenu(event: IEvent, id: number): ReactElement {
+        return (
+            <div id={id + "-action-toggle"} className="min-h-32">
+                <Dropdown>
+                    <Button as={Dropdown.Toggle} variant="tertiary-neutral"
+                            icon={<MenuElipsisVerticalCircleIcon aria-hidden/>}/>
+                    <Dropdown.Menu>
+                        <Dropdown.Menu.List>
+                            <Dropdown.Menu.List.Item
+                                id={'retryButton'}
+                                disabled={errorsNotForRetry.includes(event.name) || disabledRetryButtons[id]}
+                                onClick={() => {
+                                    resend(event.instanceFlowHeaders.instanceId);
+                                    handleRetryButtonClick(id)
+                                }}>
+                                {t('retry')}
+                            </Dropdown.Menu.List.Item>
+                        </Dropdown.Menu.List>
+                        <Dropdown.Menu.Divider/>
+                        <Dropdown.Menu.List>
+                            <Dropdown.Menu.List.Item id={'statusButton'} onClick={() => {
+                                setSelectedRow(event);
+                                setOpenCustomDialog(true)
+                            }}>
+                                {t('customStatus')}
+                            </Dropdown.Menu.List.Item>
+                        </Dropdown.Menu.List>
+                    </Dropdown.Menu>
+                </Dropdown>
+            </div>
+        );
+
+    }
+
     function ErrorAlertDialog(props: GridCellParams['row']) {
         return (
-            <Modal open={openDialog} header={{
-                heading: props.row?.errors?.length > 1 ? t('errors') : t('oneError'),
-                closeButton: false
-            }}>
-                <Modal.Body>
-                    <ErrorDialogComponent row={props.row}/>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button type="button" onClick={() => setOpenDialog(false)}>
-                        {t('button.close')}
-                    </Button>
-                </Modal.Footer>
-            </Modal>
+            <ErrorDialogComponent open={openErrorDialog} row={props.row} setOpenErrorDialog={setOpenErrorDialog}/>
+        )
+    }
+
+    function CustomStatusDialog(props: GridCellParams['row']) {
+        return (
+            <>
+                {props.row &&
+                    <CustomStatusDialogComponent open={openCustomDialog} row={props.row}
+                                                 setOpenCustomDialog={setOpenCustomDialog}/>
+                }
+            </>
         )
     }
 }

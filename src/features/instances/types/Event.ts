@@ -1,9 +1,10 @@
 export interface IEvent {
     id?: string;
     name: string;
-    timestamp: Date;
+    timestamp: Date | string;
     type: string;
     errors: IError[];
+    applicationId?: string;
     displayName?: string;
     instanceFlowHeaders: IInstanceFlowHeadersEmbeddable;
 }

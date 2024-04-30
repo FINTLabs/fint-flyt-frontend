@@ -172,9 +172,20 @@
       "oneError": "Feilelding:",
       "errorMessage": "Det oppstod ein feil under henting av data, prøv igjen seinare.",
       "numberPerPage": "Antall per side",
+      "customStatus": "Sett status manuelt",
+      "retry": "Prøv igjen",
+      "dialog": {
+        "cancel": "Avbryt",
+        "confirm": "Lagre",
+        "destinationId": "Destinasjon ID",
+        "destinationIdDesc": "Trengast på instansar manuelt oppretta i destinasjon",
+        "status": "Status",
+        "reqFieldMsg": "Påkrevd felt",
+        "warning": "Legg til ein manuell status, og erstattar systemgenerert status, ver sikker før du endrar, handlinga kan ikkje angrast"
+      },
       "button": {
         "close": "Lukk",
-        "retry": "Prøv igjen",
+        "save": "Lagre",
         "refresh": "Oppdater side"
       },
       "table": {
@@ -221,6 +232,8 @@
       "instance-mapped": "Instans konvertert",
       "instance-ready-for-dispatch": "Instans klar for sending til destinasjon",
       "instance-dispatched": "Instans godteke av destinasjon",
+      "instance-manually-processed": "Instans manuelt behandla og oppretta i destinasjon",
+      "instance-manually-rejected": "Instans manuelt behandla og avvist",
       "instance-receival-error": "Feila under mottak av instans",
       "instance-registration-error": "Feila under registrering av instans",
       "instance-retry-request-error": "Feila under førespurnad for nytt forsøk",

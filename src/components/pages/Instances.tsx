@@ -1,7 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {Alert, Box, Heading, HelpText, HStack, Loader, Modal} from "@navikt/ds-react";
+import {Alert, Box, Heading, HelpText, HStack, Loader} from "@navikt/ds-react";
 import {useTranslation} from "react-i18next";
-import {Button as ButtonAks} from "@navikt/ds-react/esm/button";
 import {GridCellParams} from "@mui/x-data-grid";
 import ErrorDialogComponent from "../../features/instances/components/ErrorDialogComponent";
 import {IEvent} from "../../features/instances/types/Event";
@@ -35,19 +34,7 @@ const Instances: RouteComponent = () => {
 
     function ErrorAlertDialog(props: GridCellParams['row']) {
         return (
-            <Modal open={openDialog} header={{
-                heading: props.row?.errors?.length > 1 ? t('errors') : t('oneError'),
-                closeButton: false
-            }} closeOnBackdropClick>
-                <Modal.Body>
-                    <ErrorDialogComponent row={props.row}/>
-                </Modal.Body>
-                <Modal.Footer>
-                    <ButtonAks type="button" onClick={() => setOpenDialog(false)}>
-                        {t('button.close')}
-                    </ButtonAks>
-                </Modal.Footer>
-            </Modal>
+            <ErrorDialogComponent open={openDialog} setOpenErrorDialog={setOpenDialog} row={props.row}/>
         )
     }
 

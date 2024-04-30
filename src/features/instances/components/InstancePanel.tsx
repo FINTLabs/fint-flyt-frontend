@@ -5,9 +5,8 @@ import {GridCellParams} from "@mui/x-data-grid";
 import moment from "moment/moment";
 import {IEvent} from "../types/Event";
 import ErrorDialogComponent from "./ErrorDialogComponent";
-import {Box, HStack, Link, Loader, Modal, Pagination, Table} from "@navikt/ds-react";
+import {Box, HStack, Link, Loader, Pagination, Table} from "@navikt/ds-react";
 import {GetIcon} from "../util/InstanceUtils";
-import {Button as ButtonAks} from "@navikt/ds-react/esm/button";
 import EventRepository from "../../../api/EventRepository";
 import {IAlertMessage, Page} from "../../../components/types/TableTypes";
 
@@ -111,19 +110,7 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
 
     function ErrorAlertDialog(props: GridCellParams['row']) {
         return (
-            <Modal open={openErrorDialog} header={{
-                heading: props.row?.errors?.length > 1 ? t('errors') : t('oneError'),
-                closeButton: false
-            }}>
-                <Modal.Body>
-                    <ErrorDialogComponent row={props.row}/>
-                </Modal.Body>
-                <Modal.Footer>
-                    <ButtonAks type="button" onClick={() => setOpenErrorDialog(false)}>
-                        {t('button.close')}
-                    </ButtonAks>
-                </Modal.Footer>
-            </Modal>
+            <ErrorDialogComponent open={openErrorDialog} setOpenErrorDialog={setOpenErrorDialog} row={props.row}/>
         )
     }
 }
