@@ -140,7 +140,7 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
     }
 
     return (
-        <Box style={{minWidth: '400px', maxHeight: '70vh', overflow: "auto"}} id={"incoming-form-panel"}
+        <Box style={{minWidth: '400px', maxWidth: '500px', maxHeight: '70vh', overflow: "auto"}} id={"incoming-form-panel"}
              background={"surface-default"} padding="6" borderRadius={"large"} borderWidth="2"
              borderColor={"border-subtle"}>
             <VStack gap={"2"}>

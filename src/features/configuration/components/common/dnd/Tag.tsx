@@ -16,6 +16,7 @@ import {
 } from "@mui/icons-material";
 import {FunctionComponent} from "react";
 import {tagSX} from "../../../../../util/styles/SystemStyles";
+import {Tooltip} from "@navikt/ds-react";
 
 export interface Props {
     name: string;
@@ -72,13 +73,15 @@ export const Tag: FunctionComponent<Props> = (props: Props) => {
 
     const opacity = isDragging ? 0.4 : 1
     return (
-        <Chip
-            sx={tagSX}
-            icon={typeToIcon(props.type)}
-            ref={drag}
-            variant="outlined"
-            label={props.name + " - " + props.description}
-            style={{opacity}}
-        />
+        <Tooltip content={props.name}>
+            <Chip
+                sx={tagSX}
+                icon={typeToIcon(props.type)}
+                ref={drag}
+                variant="outlined"
+                label={props.name + " - " + props.description}
+                style={{opacity}}
+            />
+        </Tooltip>
     )
 }
