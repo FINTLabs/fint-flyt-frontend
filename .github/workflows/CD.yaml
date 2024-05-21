@@ -93,8 +93,6 @@ jobs:
             cluster: aks-beta-fint-2021-11-23
           - org: telemarkfylke-no
             cluster: aks-beta-fint-2021-11-23
-          - org: tromsfylke-no
-            cluster: aks-beta-fint-2021-11-23
           - org: vestfoldfylke-no
             cluster: aks-beta-fint-2021-11-23
 
