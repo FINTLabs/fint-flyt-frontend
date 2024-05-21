@@ -9,7 +9,7 @@ const getInstanceElementMetadataById = (metadataId: string) => {
     return axios.get(`/api/intern/metadata/${metadataId}/instans-metadata`)
 }
 
-const getSourceApplications = (): ISourceApplication[] => {
+export const getSourceApplications = (): ISourceApplication[] => {
     //return axios.get("/api/intern/sourceApplicationData")
     return [
         {id: 1, displayName: "ACOS Interact", available: true},

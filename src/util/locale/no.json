@@ -17,7 +17,19 @@
   },
   "pages": {
     "admin": {
-      "header": "Administrasjon"
+      "header": "Administrasjon",
+      "help": {
+        "header": "Admin help"
+      },
+      "button": {
+        "edit": "Rediger"
+      },
+      "table": {
+        "column": {
+          "id": "ID",
+          "email": "Epost"
+        }
+      }
     },
     "dashboard": {
       "header": "Dashboard og oversikt",

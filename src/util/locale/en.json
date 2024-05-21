@@ -17,7 +17,19 @@
   },
   "pages": {
     "admin": {
-      "header": "Administration"
+      "header": "Administration",
+      "help": {
+        "header": "Admin help"
+      },
+      "button": {
+        "edit": "Edit"
+      },
+      "table": {
+        "column": {
+          "id": "ID",
+          "email": "Email"
+        }
+      }
     },
     "dashboard": {
       "header": "Dashboard",
