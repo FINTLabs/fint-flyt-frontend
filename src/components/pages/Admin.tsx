@@ -2,15 +2,14 @@ import {RouteComponent} from "../../routes/Route";
 import PageTemplate from "../templates/PageTemplate";
 import {ReactElement, useContext, useEffect, useState} from "react";
 import {AuthorizationContext} from "../../context/AuthorizationContext";
-import {Link as RouterLink, useHistory} from "react-router-dom";
-import {Box, SortState, Switch, Table, Checkbox, VStack, HStack, Button, Heading, HelpText} from "@navikt/ds-react";
+import {useHistory} from "react-router-dom";
+import {Box, SortState, Table, Checkbox, VStack, HStack, Button, Heading, HelpText} from "@navikt/ds-react";
 
 import * as React from "react";
 import {Page} from "../types/TableTypes";
 import {useTranslation} from "react-i18next";
 import AuthorizationRepository from "../../api/AuthorizationRepository";
-import {PencilWritingIcon, PlusIcon} from "@navikt/aksel-icons";
-import {ButtonGroup} from "@mui/material";
+import {PencilWritingIcon} from "@navikt/aksel-icons";
 
 export interface IUser {
     id: string,
@@ -71,28 +70,11 @@ const Admin: RouteComponent = () => {
         "empty": false
     }
 
-    const [initUsers, setInitUsers] = useState<Page<IUser> | undefined>(pageDef)
     const [users, setUsers] = useState<Page<IUser> | undefined>(pageDef)
-    const [sort, setSort] = useState<SortState | undefined>({orderBy: 'id', direction: "ascending"});
     const [editMode, setEditMode] = useState<boolean>(false)
 
 
-    const handleSort = (sortKey: string) => {
-        setSort(prevSort => {
-            return prevSort && sortKey === prevSort.orderBy && prevSort.direction === "descending"
-                ? undefined
-                : {
-                    orderBy: sortKey,
-                    direction:
-                        prevSort && sortKey === prevSort.orderBy && prevSort.direction === "ascending"
-                            ? "descending"
-                            : "ascending",
-                };
-        });
-    };
-
     const updateUsers = () => {
-        console.log(users)
         setUsers(users)
         setEditMode(false)
         AuthorizationRepository.updateUsers(users?.content ? users.content : [])
@@ -113,9 +95,6 @@ const Admin: RouteComponent = () => {
 
         setUsers({ ...users, content: updatedUsers });
     };
-
-    console.log(initUsers)
-    console.log('users', users?.content)
 
     useEffect(() => {
         console.log('Users state updated:', users);
