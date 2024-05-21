@@ -3,7 +3,7 @@ import PageTemplate from "../templates/PageTemplate";
 import {ReactElement, useContext, useEffect, useState} from "react";
 import {AuthorizationContext} from "../../context/AuthorizationContext";
 import {useHistory} from "react-router-dom";
-import {Box, SortState, Table, Checkbox, VStack, HStack, Button, Heading, HelpText} from "@navikt/ds-react";
+import {Box, Table, Checkbox, VStack, HStack, Button, Heading, HelpText} from "@navikt/ds-react";
 
 import * as React from "react";
 import {Page} from "../types/TableTypes";
