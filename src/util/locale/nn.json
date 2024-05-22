@@ -18,9 +18,6 @@
   "pages": {
     "admin": {
       "header": "Administrasjon",
-      "help": {
-        "header": "Admin help"
-      },
       "button": {
         "edit": "Rediger"
       },
