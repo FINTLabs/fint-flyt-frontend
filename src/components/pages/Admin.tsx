@@ -26,6 +26,25 @@ const Admin: RouteComponent = () => {
         history.push('/')
     }
 
+    const userDef: IUser[] = [
+        {
+            "id": "1",
+            "email": "navn@domene.no",
+            "access": ["1","3","4"]
+        },
+        {
+            "id": "2",
+            "email": "navn@domene.no",
+            "access": ["1"]
+        },
+        {
+            "id": "3",
+            "email": "navn@domene.no",
+            "access": ["2","4"]
+
+        }
+    ]
+
     const pageDef: Page<IUser> = {
         "content": [
             {
@@ -70,22 +89,22 @@ const Admin: RouteComponent = () => {
         "empty": false
     }
 
-    const [users, setUsers] = useState<Page<IUser> | undefined>(pageDef)
+    const [users, setUsers] = useState<IUser[] | undefined>(userDef)
     const [editMode, setEditMode] = useState<boolean>(false)
 
 
     const updateUsers = () => {
         setUsers(users)
         setEditMode(false)
-        AuthorizationRepository.updateUsers(users?.content ? users.content : [])
+        AuthorizationRepository.updateUsers(users ? users : [])
     }
 
-    const updateUserAccess = (id: string, sourceApp: string, checked: boolean) => {
+    const updateUserAccess = (id: string, sourceApp: string, accessCheck: boolean) => {
         if (!users) return;
 
-        const updatedUsers = users.content.map(user => {
+        const updatedUsers = users.map(user => {
             if (user.id === id) {
-                const newAccess = checked
+                const newAccess = accessCheck
                     ? [...user.access, sourceApp]
                     : user.access.filter(access => access !== sourceApp);
                 return { ...user, access: newAccess };
@@ -93,34 +112,18 @@ const Admin: RouteComponent = () => {
             return user;
         });
 
-        setUsers({ ...users, content: updatedUsers });
+        setUsers(updatedUsers);
     };
 
     useEffect(() => {
         console.log('Users state updated:', users);
     }, [users]);
 
-    function checkButton(value: boolean, id: string, sourceApp: string): ReactElement {
-        const [checked, setChecked] = useState(value);
-        return (
-            <Checkbox disabled={!editMode} checked={checked} onChange={(e) => {
-                setChecked(e.target.checked)
-                updateUserAccess(id, sourceApp, e.target.checked)
-            }} hideLabel>
-                Gi tilgang
-            </Checkbox>
-        )
-    }
 
     return (
         <PageTemplate id={'admin'} keyPrefix={'pages.admin'} customHeading>
             <HStack id={'instances-custom-header'} align={"center"} justify={"space-between"} gap={"2"} wrap={false}>
-                <HStack align={"center"} gap={"2"}>
-                    <Heading size={"medium"}>{t('header')}</Heading>
-                    <HelpText title={"Hva er dette"} placement="bottom">
-                        {t('help.header')}
-                    </HelpText>
-                </HStack>
+                <Heading size={"medium"}>{t('header')}</Heading>
                 <Button
                     disabled={editMode}
                     onClick={() => setEditMode((prevState => !prevState))}
@@ -143,7 +146,7 @@ const Admin: RouteComponent = () => {
                             </Table.Row>
                         </Table.Header>
                         <Table.Body>
-                            {users?.content?.map((value, i) => {
+                            {users?.map((value, i) => {
                                 return (
                                     <Table.Row key={i}>
                                         <Table.DataCell>{value.id}</Table.DataCell>
@@ -164,16 +167,16 @@ const Admin: RouteComponent = () => {
                     </Table>
                     {editMode &&
                         <HStack justify={"end"} gap={"6"} style={{marginRight: '24px'}}>
-                        <Button id="form-submit-btn" type="submit" onClick={updateUsers}>
-                            Lagre
-                        </Button>
-                        <Button id="form-cancel-btn" onClick={() => {
-                            setUsers(pageDef)
-                            setEditMode(false)}
-                        }>
-                            Avbryt
-                        </Button>
-                    </HStack>}
+                            <Button id="form-submit-btn" type="submit" onClick={updateUsers}>
+                                Lagre
+                            </Button>
+                            <Button id="form-cancel-btn" onClick={() => {
+                                setUsers(userDef)
+                                setEditMode(false)}
+                            }>
+                                Avbryt
+                            </Button>
+                        </HStack>}
                 </VStack>
             </Box>
         </PageTemplate>
