@@ -38,11 +38,11 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
         getAllMetadata,
         allMetadata
     } = useContext(SourceApplicationContext)
-    const [valueConvertings, setValueConvertings] = useState<[] | undefined>(undefined)
+    const [valueConvertings, setValueConvertings] = useState<IValueConverting[] | undefined>(undefined)
     const [applicationValueConvertings, setApplicationValueConvertings] = useState<IValueConverting[] | undefined>(undefined)
     const [destinationValueConvertings, setDestinationValueConvertings] = useState<IValueConverting[] | undefined>(undefined)
     const {completed} = useContext(ConfigurationContext)
-    const {selectedMetadata, setSelectedMetadata,} = useContext(IntegrationContext)
+    const {existingIntegration, selectedMetadata, setSelectedMetadata,} = useContext(IntegrationContext)
     const [version, setVersion] = React.useState<string>(selectedMetadata ? String(selectedMetadata.version) : '')
     const methods = useFormContext();
 
@@ -54,7 +54,9 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
     useEffect(() => {
         ValueConvertingRepository.getValueConvertings(0, 100, 'fromApplicationId', 'ASC', false)
             .then(response => {
-                setValueConvertings(response.data.content)
+                const data: IValueConverting[] = response.data.content
+                const convertings: IValueConverting[] = existingIntegration?.sourceApplicationId ? data.filter(vc => vc.fromApplicationId === Number(existingIntegration.sourceApplicationId)) : data
+                setValueConvertings(convertings)
             })
             .catch(e => {
                 console.log(e)
@@ -202,43 +204,39 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
                                 </Box>
                             )
                     }
-                    {/*TODO: we still need feature toggling
-                    <Box id={"tools-panel"} background={"surface-subtle"} padding="6" borderRadius={"large"}
-                         borderWidth="2" borderColor={"border-subtle"} style={{maxWidth: '450px'}}>
-                        <ToolsComponent content={[]}/>
-                    </Box>
-                    */}
-                    <Box id={"value-converting-panel"} background={"surface-subtle"} padding="6" borderRadius={"large"}
-                         borderWidth="2" borderColor={"border-subtle"}>
-                        <Heading size={"small"}>{t('metadataPanel.valueConverting')}</Heading>
-                        <ReadMore defaultOpen
-                                  header={t('valueConverting.custom') + " [" + (valueConvertings?.length ?? 0) + ']'}>
-                            <VStack gap={"2"} style={{maxHeight: '200px', overflowY: "auto"}}>
-                                {valueConvertings && valueConvertings.map((valueConverting: IValueConverting, index: number) => {
-                                    return <ValueConvertings key={'valueConvertingValue-' + index}
-                                                             valueConverting={valueConverting}/>
-                                })}
-                            </VStack>
-                        </ReadMore>
-                        <ReadMore
-                            header={t('valueConverting.application') + " [" + (applicationValueConvertings?.length ?? 0) + ']'}>
-                            <VStack gap={"2"} style={{maxHeight: '200px', overflowY: "auto"}}>
-                                {applicationValueConvertings && applicationValueConvertings.map((valueConverting: IValueConverting, index: number) => {
-                                    return <ValueConvertings key={'valueConvertingValue-' + index}
-                                                             valueConverting={valueConverting}/>
-                                })}
-                            </VStack>
-                        </ReadMore>
-                        <ReadMore
-                            header={t('valueConverting.destination') + " [" + (destinationValueConvertings?.length ?? 0) + ']'}>
-                            <VStack gap={"2"} style={{maxHeight: '200px', overflowY: "auto"}}>
-                                {destinationValueConvertings && destinationValueConvertings.map((valueConverting: IValueConverting, index: number) => {
-                                    return <ValueConvertings key={'valueConvertingValue-' + index}
-                                                             valueConverting={valueConverting}/>
-                                })}
-                            </VStack>
-                        </ReadMore>
-                    </Box>
+                    {valueConvertings && valueConvertings?.length > 0 &&
+                        <Box id={"value-converting-panel"} background={"surface-subtle"} padding="6" borderRadius={"large"}
+                             borderWidth="2" borderColor={"border-subtle"}>
+                            <Heading size={"small"}>{t('metadataPanel.valueConverting')}</Heading>
+                            <ReadMore defaultOpen
+                                      header={t('valueConverting.custom') + " [" + (valueConvertings?.length ?? 0) + ']'}>
+                                <VStack gap={"2"} style={{maxHeight: '200px', overflowY: "auto"}}>
+                                    {valueConvertings && valueConvertings.map((valueConverting: IValueConverting, index: number) => {
+                                        return <ValueConvertings key={'valueConvertingValue-' + index}
+                                                                 valueConverting={valueConverting}/>
+                                    })}
+                                </VStack>
+                            </ReadMore>
+                            <ReadMore
+                                header={t('valueConverting.application') + " [" + (applicationValueConvertings?.length ?? 0) + ']'}>
+                                <VStack gap={"2"} style={{maxHeight: '200px', overflowY: "auto"}}>
+                                    {applicationValueConvertings && applicationValueConvertings.map((valueConverting: IValueConverting, index: number) => {
+                                        return <ValueConvertings key={'valueConvertingValue-' + index}
+                                                                 valueConverting={valueConverting}/>
+                                    })}
+                                </VStack>
+                            </ReadMore>
+                            <ReadMore
+                                header={t('valueConverting.destination') + " [" + (destinationValueConvertings?.length ?? 0) + ']'}>
+                                <VStack gap={"2"} style={{maxHeight: '200px', overflowY: "auto"}}>
+                                    {destinationValueConvertings && destinationValueConvertings.map((valueConverting: IValueConverting, index: number) => {
+                                        return <ValueConvertings key={'valueConvertingValue-' + index}
+                                                                 valueConverting={valueConverting}/>
+                                    })}
+                                </VStack>
+                            </ReadMore>
+                        </Box>
+                    }
                 </VStack>
             </VStack>
         </Box>
