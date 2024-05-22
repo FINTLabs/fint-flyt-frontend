@@ -3,7 +3,7 @@ import PageTemplate from "../templates/PageTemplate";
 import {useContext, useEffect, useState} from "react";
 import {AuthorizationContext} from "../../context/AuthorizationContext";
 import {useHistory} from "react-router-dom";
-import {Box, Table, Checkbox, VStack, HStack, Button, Heading} from "@navikt/ds-react";
+import {Box, Table, Checkbox, VStack, HStack, Button, Heading, Loader} from "@navikt/ds-react";
 
 import * as React from "react";
 import {Page} from "../types/TableTypes";
@@ -13,6 +13,7 @@ import {PencilWritingIcon} from "@navikt/aksel-icons";
 
 export interface IUser {
     id: string,
+    admin: boolean,
     email: string,
     access: string[]
 }
@@ -29,68 +30,31 @@ const Admin: RouteComponent = () => {
     const userDef: IUser[] = [
         {
             "id": "1",
+            "admin": true,
             "email": "navn@domene.no",
             "access": ["1","3","4"]
         },
         {
             "id": "2",
+            "admin": false,
             "email": "navn@domene.no",
             "access": ["1"]
         },
         {
             "id": "3",
+            "admin": false,
             "email": "navn@domene.no",
             "access": ["2","4"]
 
         }
     ]
 
-    const pageDef: Page<IUser> = {
-        "content": [
-            {
-                "id": "1",
-                "email": "navn@domene.no",
-                "access": ["1","3","4"]
-            },
-            {
-                "id": "2",
-                "email": "navn@domene.no",
-                "access": ["1"]
-            },
-            {
-                "id": "3",
-                "email": "navn@domene.no",
-                "access": ["2","4"]
-
-            }
-        ],
-        "pageable": {
-            "sort": {
-                "empty": false,
-                "unsorted": false,
-                "sorted": true
-            },
-            "offset": 0,
-            "pageNumber": 0,
-            "pageSize": 100,
-            "paged": true,
-            "unpaged": false,
-            "empty": false,
-            "sorted": false,
-            "unsorted": false
-        },
-        "last": true,
-        "totalPages": 1,
-        "totalElements": 3,
-        "first": true,
-        "size": 100,
-        "number": 0,
-        "numberOfElements": 3,
-        "empty": false
-    }
-
-    const [users, setUsers] = useState<IUser[] | undefined>(userDef)
+    const [users, setUsers] = useState<IUser[] | undefined>(undefined)
     const [editMode, setEditMode] = useState<boolean>(false)
+
+    useEffect(() => {
+        AuthorizationRepository.getUsers().then(r => setUsers(userDef)).catch(() => setUsers(userDef))
+    }, []);
 
 
     const updateUsers = () => {
@@ -133,51 +97,52 @@ const Admin: RouteComponent = () => {
                 </Button>
             </HStack>
             <Box background={'surface-default'} style={{height: '70vh', overflowY: "scroll"}}>
-                <VStack gap={"6"}>
-                    <Table>
-                        <Table.Header>
-                            <Table.Row>
-                                <Table.ColumnHeader>{t('table.column.id')}</Table.ColumnHeader>
-                                <Table.ColumnHeader>{t('table.column.email')}</Table.ColumnHeader>
-                                <Table.ColumnHeader>ACOS</Table.ColumnHeader>
-                                <Table.ColumnHeader>eGrunnerverv</Table.ColumnHeader>
-                                <Table.ColumnHeader>Digisak</Table.ColumnHeader>
-                                <Table.ColumnHeader>VIGO OT</Table.ColumnHeader>
-                            </Table.Row>
-                        </Table.Header>
-                        <Table.Body>
-                            {users?.map((value, i) => {
-                                return (
-                                    <Table.Row key={i}>
-                                        <Table.DataCell>{value.id}</Table.DataCell>
-                                        <Table.DataCell>{value.email}</Table.DataCell>
-                                        {["1", "2", "3", "4"].map(sourceApp => <Table.DataCell key={`${value.id}-permission-${sourceApp}`}>
-                                            <Checkbox
-                                                disabled={!editMode}
-                                                checked={value.access.includes(sourceApp)}
-                                                onChange={(e) => updateUserAccess(value.id, sourceApp, e.target.checked)}
-                                                hideLabel
-                                            >Gi tilgang
-                                            </Checkbox>
-                                        </Table.DataCell>)}
-                                    </Table.Row>
-                                );
-                            })}
-                        </Table.Body>
-                    </Table>
-                    {editMode &&
-                        <HStack justify={"end"} gap={"6"} style={{marginRight: '24px'}}>
-                            <Button id="form-submit-btn" type="submit" onClick={updateUsers}>
-                                Lagre
-                            </Button>
-                            <Button id="form-cancel-btn" onClick={() => {
-                                setUsers(userDef)
-                                setEditMode(false)}
-                            }>
-                                Avbryt
-                            </Button>
-                        </HStack>}
-                </VStack>
+                {users ? <VStack gap={"6"}>
+                        <Table>
+                            <Table.Header>
+                                <Table.Row>
+                                    <Table.ColumnHeader>{t('table.column.id')}</Table.ColumnHeader>
+                                    <Table.ColumnHeader>{t('table.column.email')}</Table.ColumnHeader>
+                                    <Table.ColumnHeader>ACOS</Table.ColumnHeader>
+                                    <Table.ColumnHeader>eGrunnerverv</Table.ColumnHeader>
+                                    <Table.ColumnHeader>Digisak</Table.ColumnHeader>
+                                    <Table.ColumnHeader>VIGO OT</Table.ColumnHeader>
+                                </Table.Row>
+                            </Table.Header>
+                            <Table.Body>
+                                {users?.map((value, i) => {
+                                    return (
+                                        <Table.Row key={i}>
+                                            <Table.DataCell>{value.id}</Table.DataCell>
+                                            <Table.DataCell>{value.email}</Table.DataCell>
+                                            {["1", "2", "3", "4"].map(sourceApp => <Table.DataCell key={`${value.id}-permission-${sourceApp}`}>
+                                                <Checkbox
+                                                    disabled={!editMode}
+                                                    checked={value.access.includes(sourceApp)}
+                                                    onChange={(e) => updateUserAccess(value.id, sourceApp, e.target.checked)}
+                                                    hideLabel
+                                                >Gi tilgang
+                                                </Checkbox>
+                                            </Table.DataCell>)}
+                                        </Table.Row>
+                                    );
+                                })}
+                            </Table.Body>
+                        </Table>
+                        {editMode &&
+                            <HStack justify={"end"} gap={"6"} style={{marginRight: '24px'}}>
+                                <Button id="form-submit-btn" type="submit" onClick={updateUsers}>
+                                    Lagre
+                                </Button>
+                                <Button id="form-cancel-btn" onClick={() => {
+                                    setUsers(userDef)
+                                    setEditMode(false)}
+                                }>
+                                    Avbryt
+                                </Button>
+                            </HStack>}
+                    </VStack>
+                     : <Loader/> }
             </Box>
         </PageTemplate>
     );
