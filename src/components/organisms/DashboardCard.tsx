@@ -13,7 +13,7 @@ type Props = {
 };
 
 const DashboardCard: React.FunctionComponent<Props> = (props: Props) => {
-	const { statistics, resetIntegrations, integrations, getAllIntegrations } = useContext(IntegrationContext);
+	const { statistics, integrations } = useContext(IntegrationContext);
 
 	return (
 		<Box
