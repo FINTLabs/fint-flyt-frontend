@@ -22,7 +22,6 @@ import {
     HStack,
     Loader,
     Select,
-    Spacer,
     VStack
 } from "@navikt/ds-react";
 import PageTemplate from "../../components/templates/PageTemplate";
