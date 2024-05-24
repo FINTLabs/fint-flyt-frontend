@@ -12,7 +12,19 @@ import {SourceApplicationContext} from "../../context/SourceApplicationContext";
 import {IIntegration, IIntegrationFormData, IntegrationState} from "./types/Integration";
 import {toIntegration} from "../../util/mapping/ToIntegration";
 import {IIntegrationMetadata} from "../configuration/types/Metadata/IntegrationMetadata";
-import {Alert, Box, Button, ErrorSummary, Heading, HelpText, HStack, Select, VStack} from "@navikt/ds-react";
+import {
+    Alert,
+    Box,
+    Button,
+    ErrorSummary,
+    Heading,
+    HelpText,
+    HStack,
+    Loader,
+    Select,
+    Spacer,
+    VStack
+} from "@navikt/ds-react";
 import PageTemplate from "../../components/templates/PageTemplate";
 import {AxiosResponse} from "axios";
 import IntegrationRepository from "../../api/IntegrationRepository";
@@ -35,6 +47,7 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
         setSourceApplication,
         sourceApplications,
         availableForms,
+        setAvailableForms,
         allMetadata,
         getAllMetadata,
         getInstanceElementMetadata
@@ -45,6 +58,7 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
     const [alertContent, setAlertContent] = React.useState<IAlertContent>(defaultAlert)
     const [sourceApplicationIntegrationId, setSourceApplicationIntegrationId] = useState<string>('');
     const selectPlaceholder: { label: string, value: string }[] = [{label: t('labels.placeholder'), value: ''}]
+    const loadingPlaceholder: { label: string, value: string }[] = [{label: t('labels.loading'), value: ''}]
     const methods = useForm<IIntegrationFormData>();
     const [selectableSourceApplications, setSelectableSourceApplications] = useState<ISelect[]>([
         {label: getSelectableDefaultByLanguage(i18n.language), value: ""}
@@ -74,12 +88,14 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
     }
 
     useEffect(() => {
+        setSourceApplication(0)
         resetIntegrationContext();
         getSelectableSourceApplications();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
+        setAvailableForms(undefined)
         if (sourceApplicationId) {
             getAllMetadata(true);
             getAvailableForms(sourceApplicationId);
@@ -126,8 +142,11 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
                 <FormProvider {...methods}>
                     <form onSubmit={methods.handleSubmit(onSubmit)}>
                         <VStack gap={"6"}>
-                            <VStack gap={"3"} style={{maxWidth: '40%'}}>
+                            <HStack justify={"space-between"}>
                                 <Heading size={"small"}>{t('incoming')}</Heading>
+                                {sourceApplication !== undefined && sourceApplication !== 0 && !availableForms && <Loader title={t('labels.loading')}/>}
+                            </HStack>
+                            <VStack gap={"3"} style={{maxWidth: '40%'}}>
                                 <Controller
                                     rules={{required: true}}
                                     name={"sourceApplicationId"}
@@ -177,7 +196,9 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
                                                 field.onChange(event.target.value)
                                             }}
                                         >
-                                            {(sourceApplication && availableForms ? availableForms : selectPlaceholder).map((option, index) => (
+                                            {(sourceApplication ?
+                                                availableForms ? availableForms : loadingPlaceholder
+                                                : selectPlaceholder).map((option, index) => (
                                                 <option key={index} value={option.value}>{option.label}</option>
                                             ))}
                                         </Select>
@@ -244,7 +265,7 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
                 </FormProvider>
             </Box>
         </PageTemplate>
-    )
+    );
 }
 
 export default IntegrationForm;
