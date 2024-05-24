@@ -38,7 +38,7 @@ const InstanceTable: React.FunctionComponent<Props> = ({onError}) => {
         label: "10"
     }, {value: "25", label: "25"}, {value: "50", label: "50"}, {value: "100", label: "100"}]
     const [disabledRetryButtons, setDisabledRetryButtons] = useState(new Array(Number(rowCount)).fill(false));
-    const {allMetadata, sourceApplications} = useContext(SourceApplicationContext)
+    const {allMetadata} = useContext(SourceApplicationContext)
 
     useEffect(() => {
         if (instancesPage?.totalElements && (instancesPage.totalElements < Number(rowCount))) {

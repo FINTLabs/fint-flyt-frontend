@@ -27,7 +27,7 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
     const [integrations, setIntegrations] = useState<Page<IIntegration> | undefined>()
     const [sort, setSort] = useState<SortState | undefined>({orderBy: 'state', direction: "ascending"});
     const [rowCount, setRowCount] = useState<string>("10")
-    const {allMetadata, sourceApplications} = useContext(SourceApplicationContext)
+    const {allMetadata} = useContext(SourceApplicationContext)
     const selectOptions = [{value: "", label: t('numberPerPage'), disabled: true}, {
         value: "10",
         label: "10"

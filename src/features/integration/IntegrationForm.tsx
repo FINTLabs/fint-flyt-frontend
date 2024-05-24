@@ -35,7 +35,6 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
         getAvailableForms,
         sourceApplication,
         setSourceApplication,
-        sourceApplications,
         availableForms,
         allMetadata,
         getAllMetadata,

@@ -32,7 +32,6 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
     const rowsPerPage = 8;
     const [toggleValue, setToggleValue] = useState<string>('custom')
     const showToggle = true;
-    const {sourceApplications} = useContext(SourceApplicationContext)
 
     let sortData = rows ?? [];
     sortData = sortData.slice((page - 1) * rowsPerPage, page * rowsPerPage);
