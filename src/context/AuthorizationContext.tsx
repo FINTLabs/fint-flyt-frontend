@@ -48,7 +48,6 @@ const AuthorizationProvider = ({children}: ContextProps) => {
         try {
             const response = await AuthorizationRepository.getUserSourceApplications()
             const stringArray = response.data.sourceApplicationIds.map(String)
-            console.log(stringArray)
             setActiveUserSourceApps(stringArray)
         } catch (err) {
             setActiveUserSourceApps([])
