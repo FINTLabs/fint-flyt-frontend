@@ -15,7 +15,7 @@ const Dashboard: RouteComponent = () => {
 		keyPrefix: "pages.dashboard",
 	});
 
-	const { statistics, resetIntegrations, integrations, getAllIntegrations } =
+	const { statistics, resetIntegration, integrations, getAllIntegrations } =
 		useContext(IntegrationContext);
 	const activeIntegrations =
 		integrations?.filter((integration) => integration.state === "ACTIVE") || [];
@@ -29,7 +29,7 @@ const Dashboard: RouteComponent = () => {
 
 	useEffect(() => {
 		getAllIntegrations();
-		resetIntegrations();
+		resetIntegration();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
