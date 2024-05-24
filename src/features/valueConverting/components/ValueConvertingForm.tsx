@@ -14,7 +14,8 @@ import ArrayComponent from "../../configuration/components/common/array/ArrayCom
 import SearchSelectValueComponent from "../../configuration/components/mapping/value/select/SearchSelectValueComponent";
 import {Alert, Box, Button, Heading, HelpText, HStack, VStack,} from "@navikt/ds-react";
 import {ISelect} from "../../configuration/types/Select";
-import {SourceApplicationContext} from "../../../context/SourceApplicationContext";
+import {AuthorizationContext} from "../../../context/AuthorizationContext";
+import {getSourceApplicationDisplayNameById} from "../../../util/TableUtil";
 
 type Props = {
     existingValueConverting: IValueConverting | undefined;
@@ -29,7 +30,7 @@ type IValueConvertingConvertingArrayEntry = { from: string; to: string };
 
 export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props) => {
     const {t} = useTranslation("translations", {keyPrefix: "pages.valueConverting",});
-    const {sourceApplications} = useContext(SourceApplicationContext)
+    const {activeUserSourceApps} = useContext(AuthorizationContext)
     const [disabled, setDisabled] = useState<boolean>(false);
     const [show, setShow] = React.useState(false);
     const [alertContent, setAlertContent] = React.useState<IAlertContent>(defaultAlert);
@@ -40,10 +41,9 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
 
     function getSelectableSourceApplications() {
         const sources: ISelect[] = []
-        sourceApplications && sourceApplications
-            .filter(sourceApplication => sourceApplication.available)
+        activeUserSourceApps && activeUserSourceApps
             .map((sourceApplication) => {
-                sources.push({value: sourceApplication.id.toString(), label: sourceApplication.displayName})
+                sources.push({value: sourceApplication, label: getSourceApplicationDisplayNameById(sourceApplication)})
             })
         setSelectableSourceApplications([...selectableSourceApplications, ...sources]);
     }
@@ -148,8 +148,7 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
                         setShow(true);
                     }
                 });
-        }
-        else {
+        } else {
             setAlertContent({
                 severity: "error",
                 message: t('requiredConverting')
@@ -184,7 +183,10 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
                                 </HelpText>
                             </HStack>
                             <Controller
-                                rules={{ required: t('requiredField'), validate: (value) => !valueConvertings?.includes(value) || t('uniqueField') }}
+                                rules={{
+                                    required: t('requiredField'),
+                                    validate: (value) => !valueConvertings?.includes(value) || t('uniqueField')
+                                }}
                                 name={"displayName"}
                                 defaultValue={""}
                                 render={({field, fieldState}) => (

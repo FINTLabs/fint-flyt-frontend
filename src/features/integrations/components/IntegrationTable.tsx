@@ -5,7 +5,6 @@ import {
     getSourceApplicationDisplayNameById,
     getStateDisplayName,
     integrationComparator,
-
 } from "../../../util/TableUtil";
 import {Box, HStack, Loader, Pagination, SortState, Table} from "@navikt/ds-react";
 import IntegrationPanel from "./IntegrationPanel";
@@ -35,7 +34,7 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
     }, {value: "25", label: "25"}, {value: "50", label: "50"}, {value: "100", label: "100"}]
 
     useEffect(() => {
-        if(integrations?.totalElements && (integrations.totalElements < Number(rowCount))) {
+        if (integrations?.totalElements && (integrations.totalElements < Number(rowCount))) {
             setPage(1)
         }
         setIntegrations({content: []})
@@ -139,7 +138,7 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
                                 >
                                     <Table.DataCell>{value.id}</Table.DataCell>
                                     <Table.DataCell
-                                        scope="row">{getSourceApplicationDisplayNameById(Number(value.sourceApplicationId), sourceApplications)}</Table.DataCell>
+                                        scope="row">{getSourceApplicationDisplayNameById(String(value.sourceApplicationId))}</Table.DataCell>
                                     <Table.DataCell>{value.sourceApplicationIntegrationId}</Table.DataCell>
                                     <Table.DataCell>{value.displayName}</Table.DataCell>
                                     <Table.DataCell>{getDestinationDisplayName(value.destination ?? '')}</Table.DataCell>

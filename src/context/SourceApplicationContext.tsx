@@ -13,6 +13,7 @@ import SourceApplicationRepository from "../api/SourceApplicationRepository";
 import IntegrationRepository from "../api/IntegrationRepository";
 import i18n from "../util/locale/i18n";
 import {ISourceApplication} from "../features/configuration/types/SourceApplication";
+import AuthorizationRepository from "../api/AuthorizationRepository";
 
 type SourceApplicationContextState = {
     availableForms: ISelect[];
@@ -144,7 +145,10 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
                 const selectableForms = forms.filter(
                     (form) => !ids.includes(form.value)
                 );
-                setAvailableForms(selectableForms.length === 1 ? [{value: "", label: i18n.language === 'en' ? "No available integrations" : "Ingen tilgjengelige integrasjoner"}] : selectableForms);
+                setAvailableForms(selectableForms.length === 1 ? [{
+                    value: "",
+                    label: i18n.language === 'en' ? "No available integrations" : "Ingen tilgjengelige integrasjoner"
+                }] : selectableForms);
             }
         } catch (err) {
             console.error(err);
@@ -156,11 +160,12 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
         try {
             const allMetadata = [];
 
-            const sourceApplications: ISourceApplication[] = SourceApplicationRepository.getSourceApplications()
+            const sourceApplicationsResponse = await AuthorizationRepository.getUserSourceApplications()
+            const sourceApplications: string[] = sourceApplicationsResponse.data.sourceApplicationIds.map(String)
 
             for (const sourceApplication of sourceApplications) {
                 const metadataResponse = await SourceApplicationRepository.getMetadata(
-                    sourceApplication.id.toString(),
+                    sourceApplication,
                     onlyLatest
                 );
                 allMetadata.push(metadataResponse.data);

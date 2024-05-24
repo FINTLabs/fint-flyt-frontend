@@ -9,6 +9,10 @@ const getUser = () => {
     return axios.get<{ admin: boolean }>("/api/intern/authorization/user")
 };
 
+const getUserSourceApplications = () => {
+    return axios.get<{ sourceApplicationIds: number[] }>("/api/intern/authorization/usersourceapplications")
+};
+
 const getUsers = () => {
     return axios.get<IUser[]>("/api/intern/authorization/users")
 };
@@ -21,7 +25,8 @@ const AuthorizationRepository = {
     getAuthorized,
     getUser,
     getUsers,
-    updateUsers
+    updateUsers,
+    getUserSourceApplications
 };
 
 export default AuthorizationRepository;

@@ -2,13 +2,19 @@ import {MOCK_EVENTS} from "../__tests__/mock/events";
 import {IEvent} from "../features/instances/types/Event";
 import {IIntegration} from "../features/integration/types/Integration";
 import {MOCK_INTEGRATION} from "../__tests__/mock/integration";
-import {ISourceApplication} from "../features/configuration/types/SourceApplication";
 
-export function getSourceApplicationDisplayNameById(id: number, sourceApplications: ISourceApplication[] | undefined): string {
-    if (!sourceApplications) {
-        return 'ukjent'
+export function getSourceApplicationDisplayNameById(id: string): string {
+    if (id === '1') {
+        return "ACOS Interact"
+    } else if (id === '2') {
+        return "eGrunnerverv"
+    } else if (id === '3') {
+        return "Digisak"
+    } else if (id === '4') {
+        return "VIGO"
+    } else {
+        return "ukjent"
     }
-    return sourceApplications.find(sourceApplication => sourceApplication.id === id)?.displayName ?? 'ukjent'
 }
 
 export function getDestinationDisplayName(id: string): string {

@@ -7,6 +7,7 @@ import IntegrationRepository from "../api/IntegrationRepository";
 import SourceApplicationRepository from "../api/SourceApplicationRepository";
 import EventRepository from "../api/EventRepository";
 import ConfigurationRepository from "../api/ConfigurationRepository";
+import AuthorizationRepository from "../api/AuthorizationRepository";
 
 type IntegrationContextState = {
     id: string | undefined;
@@ -160,7 +161,10 @@ const IntegrationProvider = ({children}: ContextProps) => {
             const response = await EventRepository.getStatistics();
             const data = response.data;
 
-            const sourceApplications = SourceApplicationRepository.getSourceApplications()
+            const sourceApplicationsResponse = await AuthorizationRepository.getUserSourceApplications()
+            const sourceApplications: string[] = sourceApplicationsResponse.data.sourceApplicationIds.map(String)
+
+            console.log(sourceApplications)
 
             if (data) {
                 setStatistics(data);
@@ -171,7 +175,7 @@ const IntegrationProvider = ({children}: ContextProps) => {
                 for (const sourceApplication of sourceApplications) {
                     const metadataResponse =
                         await SourceApplicationRepository.getMetadata(
-                            sourceApplication.id.toString(),
+                            sourceApplication,
                             true
                         );
                     allMetadata.push(metadataResponse.data);

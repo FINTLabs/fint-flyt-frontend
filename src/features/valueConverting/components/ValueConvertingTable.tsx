@@ -127,7 +127,7 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
                                         <Table.DataCell scope="row">{value.fromTypeId}</Table.DataCell>
                                         <Table.DataCell scope="row">{value.toTypeId}</Table.DataCell>
                                         {toggleValue === 'custom' && <Table.DataCell
-                                            scope="row">{getSourceApplicationDisplayNameById(value.fromApplicationId, sourceApplications)}</Table.DataCell>}
+                                            scope="row">{getSourceApplicationDisplayNameById(String(value.fromApplicationId))}</Table.DataCell>}
                                         {toggleValue === 'custom' && <Table.DataCell
                                             scope="row">{getDestinationDisplayName(value.toApplicationId)}</Table.DataCell>}
                                         {toggleValue === 'custom' &&
