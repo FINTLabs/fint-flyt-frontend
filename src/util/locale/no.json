@@ -109,6 +109,7 @@
       },
       "labels": {
         "placeholder": "Velg kildeapplikasjon først",
+        "loading": "Laster inn...",
         "sourceApplicationId": "Kildeapplikasjon",
         "sourceApplicationIntegrationId": "Integrasjon",
         "destination": "Destinasjon/Base"

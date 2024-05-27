@@ -109,6 +109,7 @@
       },
       "labels": {
         "placeholder": "Select source application first",
+        "loading": "Loading...",
         "sourceApplicationId": "Source application",
         "sourceApplicationIntegrationId": "Integration",
         "destination": "Destination"
