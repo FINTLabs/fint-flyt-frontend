@@ -6,16 +6,14 @@ import {useHistory} from "react-router-dom";
 import {Box, Table, Checkbox, VStack, HStack, Button, Heading, Loader} from "@navikt/ds-react";
 
 import * as React from "react";
-import {Page} from "../types/TableTypes";
 import {useTranslation} from "react-i18next";
 import AuthorizationRepository from "../../api/AuthorizationRepository";
 import {PencilWritingIcon} from "@navikt/aksel-icons";
 
 export interface IUser {
-    id: string,
-    admin: boolean,
+    sub: string,
     email: string,
-    access: string[]
+    sourceApplicationIds: string[]
 }
 
 const Admin: RouteComponent = () => {
@@ -29,22 +27,19 @@ const Admin: RouteComponent = () => {
 
     const userDef: IUser[] = [
         {
-            "id": "1",
-            "admin": true,
+            "sub": "1",
             "email": "navn@domene.no",
-            "access": ["1","3","4"]
+            "sourceApplicationIds": ["1","3","4"]
         },
         {
-            "id": "2",
-            "admin": false,
+            "sub": "2",
             "email": "navn@domene.no",
-            "access": ["1"]
+            "sourceApplicationIds": ["1"]
         },
         {
-            "id": "3",
-            "admin": false,
+            "sub": "3",
             "email": "navn@domene.no",
-            "access": ["2","4"]
+            "sourceApplicationIds": ["2","4"]
 
         }
     ]
@@ -63,26 +58,23 @@ const Admin: RouteComponent = () => {
         AuthorizationRepository.updateUsers(users ? users : [])
     }
 
-    const updateUserAccess = (id: string, sourceApp: string, accessCheck: boolean) => {
+    console.log(users)
+
+    const updateUserAccess = (sub: string, sourceAppInput: string, permissionCheck: boolean) => {
         if (!users) return;
 
         const updatedUsers = users.map(user => {
-            if (user.id === id) {
-                const newAccess = accessCheck
-                    ? [...user.access, sourceApp]
-                    : user.access.filter(access => access !== sourceApp);
-                return { ...user, access: newAccess };
+            if (user.sub === sub) {
+                const newSourceApplicationIds = permissionCheck
+                    ? [...user.sourceApplicationIds, sourceAppInput]
+                    : user.sourceApplicationIds.filter(sourceAppId => sourceAppId !== sourceAppInput);
+                return { ...user, sourceApplicationIds: newSourceApplicationIds };
             }
             return user;
         });
 
         setUsers(updatedUsers);
     };
-
-    useEffect(() => {
-        console.log('Users state updated:', users);
-    }, [users]);
-
 
     return (
         <PageTemplate id={'admin'} keyPrefix={'pages.admin'} customHeading>
@@ -101,7 +93,6 @@ const Admin: RouteComponent = () => {
                         <Table>
                             <Table.Header>
                                 <Table.Row>
-                                    <Table.ColumnHeader>{t('table.column.id')}</Table.ColumnHeader>
                                     <Table.ColumnHeader>{t('table.column.email')}</Table.ColumnHeader>
                                     <Table.ColumnHeader>ACOS</Table.ColumnHeader>
                                     <Table.ColumnHeader>eGrunnerverv</Table.ColumnHeader>
@@ -113,13 +104,12 @@ const Admin: RouteComponent = () => {
                                 {users?.map((value, i) => {
                                     return (
                                         <Table.Row key={i}>
-                                            <Table.DataCell>{value.id}</Table.DataCell>
                                             <Table.DataCell>{value.email}</Table.DataCell>
-                                            {["1", "2", "3", "4"].map(sourceApp => <Table.DataCell key={`${value.id}-permission-${sourceApp}`}>
+                                            {["1", "2", "3", "4"].map(sourceApp => <Table.DataCell key={`${value.sub}-permission-${sourceApp}`}>
                                                 <Checkbox
                                                     disabled={!editMode}
-                                                    checked={value.access.includes(sourceApp)}
-                                                    onChange={(e) => updateUserAccess(value.id, sourceApp, e.target.checked)}
+                                                    checked={value.sourceApplicationIds.includes(sourceApp)}
+                                                    onChange={(e) => updateUserAccess(value.sub, sourceApp, e.target.checked)}
                                                     hideLabel
                                                 >Gi tilgang
                                                 </Checkbox>
