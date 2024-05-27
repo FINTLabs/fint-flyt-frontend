@@ -1,4 +1,4 @@
-import React, {ReactElement, useContext, useEffect, useState} from 'react';
+import React, {ReactElement, useEffect, useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
 import ValueConvertingRepository from "../../../api/ValueConvertingRepository";
@@ -17,7 +17,6 @@ import {
 } from "@navikt/ds-react";
 import {MenuElipsisVerticalCircleIcon} from "@navikt/aksel-icons";
 import ValueConvertingPanel from "./ValueConvertingPanel";
-import {SourceApplicationContext} from "../../../context/SourceApplicationContext";
 
 type Props = {
     onValueConvertingSelected: (id: number) => void;
