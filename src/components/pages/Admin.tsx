@@ -58,8 +58,6 @@ const Admin: RouteComponent = () => {
         AuthorizationRepository.updateUsers(users ? users : [])
     }
 
-    console.log(users)
-
     const updateUserAccess = (sub: string, sourceAppInput: string, permissionCheck: boolean) => {
         if (!users) return;
 
