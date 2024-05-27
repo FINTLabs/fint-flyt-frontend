@@ -16,9 +16,10 @@ import {ISourceApplication} from "../features/configuration/types/SourceApplicat
 import AuthorizationRepository from "../api/AuthorizationRepository";
 
 type SourceApplicationContextState = {
-    availableForms: ISelect[];
+    availableForms: ISelect[] | undefined;
     getAllIntegrationsAndSetAvailableForms: (forms: ISelect[]) => void;
     getAvailableForms: (sourceApplicationId?: string) => void;
+    setAvailableForms: (forms: ISelect[] | undefined) => void;
     allMetadata: IIntegrationMetadata[] | undefined;
     instanceElementMetadata: IInstanceMetadataContent | undefined;
     setInstanceElementMetadata: (
@@ -36,17 +37,10 @@ type SourceApplicationContextState = {
 };
 
 const contextDefaultValues: SourceApplicationContextState = {
-    availableForms: [
-        {
-            value: "",
-            label:
-                i18n.language === "en"
-                    ? "Select source application first"
-                    : "Velg kildeapplikasjon først",
-        },
-    ],
+    availableForms: undefined,
     getAllIntegrationsAndSetAvailableForms: () => undefined,
     getAvailableForms: () => undefined,
+    setAvailableForms: () => undefined,
     allMetadata: undefined,
     instanceElementMetadata: undefined,
     setInstanceElementMetadata: () => undefined,
@@ -65,7 +59,7 @@ const SourceApplicationContext =
     createContext<SourceApplicationContextState>(contextDefaultValues);
 
 const SourceApplicationProvider = ({children}: ContextProps) => {
-    const [availableForms, setAvailableForms] = useState<ISelect[]>(contextDefaultValues.availableForms);
+    const [availableForms, setAvailableForms] = useState<ISelect[] | undefined>(contextDefaultValues.availableForms);
     const [allMetadata, setAllMetadata] = useState<IIntegrationMetadata[] | undefined>(contextDefaultValues.allMetadata);
     const [instanceElementMetadata, setInstanceElementMetadata] = useState<IInstanceMetadataContent | undefined>(MOCK_INSTANCE_METADATA);
     const [instanceObjectCollectionMetadata, setInstanceObjectCollectionMetadata,] = useState<IInstanceObjectCollectionMetadata[]>([]);
@@ -202,6 +196,7 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
             value={{
                 availableForms,
                 getAvailableForms,
+                setAvailableForms,
                 allMetadata,
                 instanceElementMetadata,
                 setInstanceElementMetadata,

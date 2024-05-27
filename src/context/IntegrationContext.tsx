@@ -32,7 +32,7 @@ type IntegrationContextState = {
     sourceApplicationId: string;
     setSourceApplicationId: (destination: string) => void;
     resetIntegrationContext: () => void;
-    resetIntegrations: () => void;
+    resetIntegration: () => void;
     statistics: IIntegrationStatistics[];
 };
 
@@ -59,7 +59,7 @@ const contextDefaultValues: IntegrationContextState = {
     sourceApplicationIntegrationId: "",
     setSourceApplicationIntegrationId: () => undefined,
     resetIntegrationContext: () => undefined,
-    resetIntegrations: () => undefined,
+    resetIntegration: () => undefined,
     statistics: [],
 };
 const IntegrationContext =
@@ -270,7 +270,7 @@ const IntegrationProvider = ({children}: ContextProps) => {
                 setSourceApplicationIntegrationId,
                 setSourceApplicationId,
                 resetIntegrationContext,
-                resetIntegrations: resetIntegration,
+                resetIntegration,
             }}
         >
             {children}
