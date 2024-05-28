@@ -48,7 +48,9 @@ const Admin: RouteComponent = () => {
     const [editMode, setEditMode] = useState<boolean>(false)
 
     useEffect(() => {
-        AuthorizationRepository.getUsers().then(() => setUsers(userDef)).catch(() => setUsers(userDef))
+        AuthorizationRepository.getUsers()
+            .then(() => setUsers(userDef))
+            .catch(() => setUsers([]))
     }, []);
 
 
