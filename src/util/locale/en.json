@@ -26,7 +26,8 @@
           "id": "ID",
           "email": "Email"
         }
-      }
+      },
+      "errorMessage": "There was an error fetching data, try again later."
     },
     "dashboard": {
       "header": "Dashboard",

@@ -26,7 +26,8 @@
           "id": "ID",
           "email": "Epost"
         }
-      }
+      },
+      "errorMessage": "Det oppstod ein feil under henting av data, prøv igjen seinare."
     },
     "dashboard": {
       "header": "Dashboard og oversikt",
