@@ -12,7 +12,7 @@ import {PencilWritingIcon} from "@navikt/aksel-icons";
 import {IAlertMessage} from "../types/TableTypes";
 
 export interface IUser {
-    sub: string,
+    objectIdentifier: string,
     email: string,
     sourceApplicationIds: string[]
 }
@@ -53,7 +53,7 @@ const Admin: RouteComponent = () => {
         if (!users) return;
 
         const updatedUsers = users.map(user => {
-            if (user.sub === sub) {
+            if (user.objectIdentifier === sub) {
                 const newSourceApplicationIds = permissionCheck
                     ? [...user.sourceApplicationIds, sourceAppInput]
                     : user.sourceApplicationIds.filter(sourceAppId => sourceAppId !== sourceAppInput);
@@ -95,11 +95,11 @@ const Admin: RouteComponent = () => {
                                     return (
                                         <Table.Row key={i}>
                                             <Table.DataCell>{value.email}</Table.DataCell>
-                                            {["1", "2", "3", "4"].map(sourceApp => <Table.DataCell key={`${value.sub}-permission-${sourceApp}`}>
+                                            {["1", "2", "3", "4"].map(sourceApp => <Table.DataCell key={`${value.objectIdentifier}-permission-${sourceApp}`}>
                                                 <Checkbox
                                                     disabled={!editMode}
                                                     checked={value.sourceApplicationIds.includes(sourceApp)}
-                                                    onChange={(e) => updateUserAccess(value.sub, sourceApp, e.target.checked)}
+                                                    onChange={(e) => updateUserAccess(value.objectIdentifier, sourceApp, e.target.checked)}
                                                     hideLabel
                                                 >Gi tilgang
                                                 </Checkbox>
