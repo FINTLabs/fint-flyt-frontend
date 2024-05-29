@@ -23,8 +23,9 @@ describe('Testing create new configuration from new integration', () => {
     })
 
     function prep() {
-        cy.intercept("GET", "**/authorization/check-authorized", {fixture: "auth.json"}).as("getAuth")
-        cy.intercept("GET", "**/authorization/user", {fixture: "user.json"}).as("getUser")
+        cy.intercept("GET", "**/authorization/user/check-authorized", {fixture: "auth.json"}).as("getAuth")
+        cy.intercept("GET", "**/authorization/adminuser/check-is-admin", {fixture: "user.json"}).as("getUser")
+        cy.intercept("GET", "**/authorization/user/permission", {fixture: "permission.json"}).as("getPermission")
         cy.intercept("GET", "**/authorization/usersourceapplications", {fixture: "userSourceApplications.json"}).as("getUserSourceApplications")
         cy.intercept('GET', '**/api/application/configuration', {
             forceNetworkError: true,
@@ -67,8 +68,9 @@ describe('Testing create new configuration from new integration', () => {
 
 describe('Testing creating new and editing configurations from integration overview', () => {
     function prep() {
-        cy.intercept("GET", "**/authorization/check-authorized", {fixture: "auth.json"}).as("getAuth")
-        cy.intercept("GET", "**/authorization/user", {fixture: "user.json"}).as("getUser")
+        cy.intercept("GET", "**/authorization/user/check-authorized", {fixture: "auth.json"}).as("getAuth")
+        cy.intercept("GET", "**/authorization/adminuser/check-is-admin", {fixture: "user.json"}).as("getUser")
+        cy.intercept("GET", "**/authorization/user/permission", {fixture: "permission.json"}).as("getPermission")
         cy.intercept("GET", "**/authorization/usersourceapplications", {fixture: "userSourceApplications.json"}).as("getUserSourceApplications")
         cy.intercept('GET', '**/api/application/configuration', {
             forceNetworkError: true,
