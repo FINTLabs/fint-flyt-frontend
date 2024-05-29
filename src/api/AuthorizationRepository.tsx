@@ -18,7 +18,7 @@ const getUsers = () => {
 };
 
 const updateUsers = (data: IUser[]) => {
-    return axios.put<{ admin: boolean }>("/api/intern/authorization/user", data)
+    return axios.put<IUser[]>("/api/intern/authorization/user", data)
 };
 
 const AuthorizationRepository = {
