@@ -9,6 +9,8 @@ type AuthorizationContextState = {
     isAdmin: boolean | undefined;
     setIsAdmin: (admin: boolean) => void;
     getUser: () => void
+    activeUserSourceApps: string[] | undefined,
+    getActiveUserSourceApps: () => void
 };
 
 const contextDefaultValues: AuthorizationContextState = {
@@ -17,7 +19,9 @@ const contextDefaultValues: AuthorizationContextState = {
     getAuthorization: () => undefined,
     isAdmin: undefined,
     setIsAdmin: () => undefined,
-    getUser: () => undefined
+    getUser: () => undefined,
+    activeUserSourceApps: undefined,
+    getActiveUserSourceApps: () => undefined
 };
 
 const AuthorizationContext = createContext<AuthorizationContextState>(contextDefaultValues);
@@ -25,6 +29,7 @@ const AuthorizationContext = createContext<AuthorizationContextState>(contextDef
 const AuthorizationProvider = ({children}: ContextProps) => {
     const [authorized, setAuthorized] = useState<boolean | undefined>(contextDefaultValues.authorized);
     const [isAdmin, setIsAdmin] = useState<boolean | undefined>(contextDefaultValues.isAdmin);
+    const [activeUserSourceApps, setActiveUserSourceApps] = useState<string[] | undefined>(undefined);
 
     const getAuthorization = async () => {
         try {
@@ -36,6 +41,16 @@ const AuthorizationProvider = ({children}: ContextProps) => {
             }
         } catch (err) {
             setAuthorized(false)
+        }
+    }
+
+    const getActiveUserSourceApps = async () => {
+        try {
+            const response = await AuthorizationRepository.getUserSourceApplications()
+            const stringArray = response.data.sourceApplicationIds.map(String)
+            setActiveUserSourceApps(stringArray)
+        } catch (err) {
+            setActiveUserSourceApps([])
         }
     }
 
@@ -56,7 +71,9 @@ const AuthorizationProvider = ({children}: ContextProps) => {
                 getAuthorization,
                 isAdmin,
                 setIsAdmin,
-                getUser
+                getUser,
+                activeUserSourceApps,
+                getActiveUserSourceApps
             }}
         >
             {children}

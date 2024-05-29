@@ -17,7 +17,17 @@
   },
   "pages": {
     "admin": {
-      "header": "Administration"
+      "header": "Administration",
+      "button": {
+        "edit": "Edit"
+      },
+      "table": {
+        "column": {
+          "id": "ID",
+          "email": "Email"
+        }
+      },
+      "errorMessage": "There was an error fetching data, try again later."
     },
     "dashboard": {
       "header": "Dashboard",

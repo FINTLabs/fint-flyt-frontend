@@ -3,25 +3,23 @@ import ConfigurationProvider from "../../context/ConfigurationContext";
 import Router from "../../routes/Router";
 import {Box} from "@navikt/ds-react";
 import {AppBar} from "../organisms/AppBar";
-import {SourceApplicationContext} from "../../context/SourceApplicationContext";
 import {AuthorizationContext} from "../../context/AuthorizationContext";
 
 function Main() {
-    const {sourceApplications, getSourceApplications} = useContext(SourceApplicationContext)
-    const {getUser, isAdmin} = useContext(AuthorizationContext)
+    const {activeUserSourceApps, getUser, isAdmin, getActiveUserSourceApps} = useContext(AuthorizationContext)
     const {authorized, getAuthorization} = useContext(AuthorizationContext)
 
     useEffect(() => {
         getUser();
         getAuthorization();
-        getSourceApplications();
+        getActiveUserSourceApps();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
         <Box style={{height: "100vh", backgroundColor: "#EBF4F5"}}>
             {isAdmin !== undefined && <AppBar/>}
-            {sourceApplications && authorized !== undefined && isAdmin !== undefined && <main>
+            {authorized !== undefined && isAdmin !== undefined && activeUserSourceApps !== undefined && <main>
                 <ConfigurationProvider>
                     <Router/>
                 </ConfigurationProvider>

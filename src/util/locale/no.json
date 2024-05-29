@@ -17,7 +17,17 @@
   },
   "pages": {
     "admin": {
-      "header": "Administrasjon"
+      "header": "Administrasjon",
+      "button": {
+        "edit": "Rediger"
+      },
+      "table": {
+        "column": {
+          "id": "ID",
+          "email": "Epost"
+        }
+      },
+      "errorMessage": "Det oppsto en feil under henting av data, prøv igjen senere."
     },
     "dashboard": {
       "header": "Dashboard og oversikt",

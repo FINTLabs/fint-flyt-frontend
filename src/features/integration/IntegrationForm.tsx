@@ -31,6 +31,8 @@ import {Controller, FormProvider, useForm} from 'react-hook-form';
 import {IAlertContent} from "../configuration/types/AlertContent";
 import i18n from "../../util/locale/i18n";
 import {ISelect} from "../configuration/types/Select";
+import {AuthorizationContext} from "../../context/AuthorizationContext";
+import {getSourceApplicationDisplayNameById} from "../../util/TableUtil";
 
 type Props = {
     id: string
@@ -44,13 +46,13 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
         getAvailableForms,
         sourceApplication,
         setSourceApplication,
-        sourceApplications,
         availableForms,
         setAvailableForms,
         allMetadata,
         getAllMetadata,
         getInstanceElementMetadata
     } = useContext(SourceApplicationContext)
+    const {activeUserSourceApps} = useContext(AuthorizationContext)
     const [destination, setDestination] = useState<string>('');
     const [sourceApplicationId, setSourceApplicationId] = useState<string>('');
     const [showAlert, setShowAlert] = React.useState<boolean>(false)
@@ -65,10 +67,9 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
 
     function getSelectableSourceApplications() {
         const sources: ISelect[] = []
-        sourceApplications && sourceApplications
-            .filter(sourceApplication => sourceApplication.available)
+        activeUserSourceApps && activeUserSourceApps
             .map((sa) => {
-                sources.push({value: sa.id.toString(), label: sa.displayName})
+                sources.push({value: sa, label: getSourceApplicationDisplayNameById(sa)})
             })
         setSelectableSourceApplications([...selectableSourceApplications, ...sources]);
     }

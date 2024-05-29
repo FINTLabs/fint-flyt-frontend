@@ -1,27 +1,21 @@
-import {ISourceApplication} from "../../features/configuration/types/SourceApplication";
 import {
     eventComparator,
     getDestinationDisplayName,
     getSourceApplicationDisplayNameById,
-    getStateDisplayName, integrationComparator, isKeyOfEvent, isKeyOfIntegration
+    getStateDisplayName,
+    integrationComparator,
+    isKeyOfEvent,
+    isKeyOfIntegration
 } from "../../util/TableUtil";
 import {IIntegration} from "../../features/integration/types/Integration";
 import {MOCK_INTEGRATION, MOCK_INTEGRATION2, MOCK_INTEGRATION3} from "../mock/integration";
 import {IEvent} from "../../features/instances/types/Event";
-import {MOCK_EVENTS} from "../mock/events";
 import {MOCK_EVENT, MOCK_EVENT2, MOCK_EVENT3} from "../mock/event";
-import integrations from "../../components/pages/Integrations";
-
-const sourceApplications: ISourceApplication[] = [
-    {displayName: 'Foo', id: 1, available: true},
-    {displayName: 'Bar', id: 2, available: true},
-    {displayName: 'Bubu', id: 3, available: true}
-]
 
 describe('Testing table utils', () => {
     test('should return correct source appliction display name by id', () => {
-        expect(getSourceApplicationDisplayNameById(3, sourceApplications)).toEqual('Bubu')
-        expect(getSourceApplicationDisplayNameById(4, sourceApplications)).toEqual('ukjent')
+        expect(getSourceApplicationDisplayNameById("3")).toEqual('Digisak')
+        expect(getSourceApplicationDisplayNameById("5")).toEqual('ukjent')
     })
 
     test('Should return correct destination displayname by id', () => {
