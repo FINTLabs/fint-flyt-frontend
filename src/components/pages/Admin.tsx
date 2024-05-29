@@ -75,7 +75,7 @@ const Admin: RouteComponent = () => {
             <HStack id={'instances-custom-header'} align={"center"} justify={"space-between"} gap={"2"} wrap={false}>
                 <Heading size={"medium"}>{t('header')}</Heading>
                 <Button
-                    disabled={!users || !editMode}
+                    disabled={!users || editMode}
                     onClick={() => setEditMode((prevState => !prevState))}
                     size={"small"}
                     icon={<PencilWritingIcon aria-hidden/>}
