@@ -10,7 +10,8 @@ const getUser = () => {
 };
 
 const getUserSourceApplications = () => {
-    return axios.get<{ sourceApplicationIds: number[] }>("/api/intern/authorization/usersourceapplications")
+    //return axios.get<{ sourceApplicationIds: number[] }>("/api/intern/authorization/usersourceapplications")
+    return {data: {sourceApplicationIds: [1,2,3,4]}}
 };
 
 const getUsers = () => {
