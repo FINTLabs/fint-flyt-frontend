@@ -44,9 +44,14 @@ const Admin: RouteComponent = () => {
 
 
     const updateUsers = () => {
-        setUsers(users)
         setEditMode(false)
         AuthorizationRepository.updateUsers(users ? users : [])
+            .then(response => {
+            setUsers(response.data)
+        })
+            .catch((e) => {
+                console.log('error updating data, ', e)
+            })
     }
 
     const updateUserAccess = (sub: string, sourceAppInput: string, permissionCheck: boolean) => {
