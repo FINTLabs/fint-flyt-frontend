@@ -14,7 +14,7 @@ import {IAlertMessage} from "../types/TableTypes";
 export interface IUser {
     objectIdentifier: string,
     email: string,
-    sourceApplicationIds: string[]
+    sourceApplicationIds: number[]
 }
 
 const Admin: RouteComponent = () => {
@@ -44,12 +44,17 @@ const Admin: RouteComponent = () => {
 
 
     const updateUsers = () => {
-        setUsers(users)
         setEditMode(false)
         AuthorizationRepository.updateUsers(users ? users : [])
+            .then(response => {
+            setUsers(response.data)
+        })
+            .catch((e) => {
+                console.log('error updating data, ', e)
+            })
     }
 
-    const updateUserAccess = (sub: string, sourceAppInput: string, permissionCheck: boolean) => {
+    const updateUserAccess = (sub: string, sourceAppInput: number, permissionCheck: boolean) => {
         if (!users) return;
 
         const updatedUsers = users.map(user => {
@@ -70,7 +75,7 @@ const Admin: RouteComponent = () => {
             <HStack id={'instances-custom-header'} align={"center"} justify={"space-between"} gap={"2"} wrap={false}>
                 <Heading size={"medium"}>{t('header')}</Heading>
                 <Button
-                    disabled={!users || !editMode}
+                    disabled={!users || editMode}
                     onClick={() => setEditMode((prevState => !prevState))}
                     size={"small"}
                     icon={<PencilWritingIcon aria-hidden/>}
@@ -95,7 +100,7 @@ const Admin: RouteComponent = () => {
                                     return (
                                         <Table.Row key={i}>
                                             <Table.DataCell>{value.email}</Table.DataCell>
-                                            {["1", "2", "3", "4"].map(sourceApp => <Table.DataCell key={`${value.objectIdentifier}-permission-${sourceApp}`}>
+                                            {[1,2,3,4].map(sourceApp => <Table.DataCell key={`${value.objectIdentifier}-permission-${sourceApp}`}>
                                                 <Checkbox
                                                     disabled={!editMode}
                                                     checked={value.sourceApplicationIds.includes(sourceApp)}
