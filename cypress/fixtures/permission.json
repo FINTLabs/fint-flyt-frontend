@@ -1,0 +1,7 @@
+{
+  "objectIdentifier": "123",
+  "email": "test@test.no",
+  "sourceApplicationIds": [
+    1,2,3,4
+  ]
+}
