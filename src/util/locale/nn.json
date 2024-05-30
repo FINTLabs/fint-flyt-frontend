@@ -275,6 +275,7 @@
         "back": "Tilbake"
       },
       "header": "Verdikonvertering",
+      "errorMessage": "Det oppstod ein feil under henting av data, prøv igjen seinare.",
       "custom": "Eigendefinerte",
       "application": "Flyt",
       "destination": "Destinasjon",
