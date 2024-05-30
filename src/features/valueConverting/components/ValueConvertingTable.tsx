@@ -5,6 +5,7 @@ import ValueConvertingRepository from "../../../api/ValueConvertingRepository";
 import {IValueConverting} from "../types/ValueConverting";
 import {getDestinationDisplayName, getSourceApplicationDisplayNameById} from "../../../util/TableUtil";
 import {
+    Alert,
     Box,
     Button as ButtonAks,
     Dropdown,
@@ -17,6 +18,7 @@ import {
 } from "@navikt/ds-react";
 import {MenuElipsisVerticalCircleIcon} from "@navikt/aksel-icons";
 import ValueConvertingPanel from "./ValueConvertingPanel";
+import {IAlertMessage} from "../../../components/types/TableTypes";
 
 type Props = {
     onValueConvertingSelected: (id: number) => void;
@@ -27,6 +29,7 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
     const history = useHistory();
     const {t} = useTranslation('translations', {keyPrefix: 'pages.valueConverting'});
     const [rows, setRows] = useState<IValueConverting[] | undefined>(undefined)
+    const [error, setError] = useState<IAlertMessage | undefined>(undefined);
     const [page, setPage] = useState(1);
     const rowsPerPage = 8;
     const [toggleValue, setToggleValue] = useState<string>('custom')
@@ -40,6 +43,7 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
         toggleValue === 'custom'
             ? ValueConvertingRepository.getValueConvertings(0, 100, 'id', 'DESC', false)
                 .then(response => {
+                    setError(undefined)
                     const data = response.data
                     if (data.content) {
                         setRows(data.content)
@@ -49,6 +53,7 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
                 })
                 .catch(e => {
                     console.log(e)
+                    setError({message: t('errorMessage')})
                     setRows([])
                 })
             : setRows([])
@@ -79,6 +84,7 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
     return (
         <Box background={"surface-default"} padding="6" borderRadius={"large"} borderWidth="2"
              borderColor={"border-subtle"}>
+            {error && <Alert style={{maxWidth: '100%'}} variant="error">{error.message}</Alert>}
             {rows ?
                 <VStack gap={"6"}>
                     {showToggle && <HStack style={{alignSelf: "center"}} gap={"3"} align={"center"} wrap={false}>

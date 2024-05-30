@@ -275,6 +275,7 @@
         "back": "Back"
       },
       "header": "Value conversion",
+      "errorMessage": "There was an error fetching data, try again later.",
       "custom": "Custom",
       "application": "Flyt",
       "destination": "Destination",
