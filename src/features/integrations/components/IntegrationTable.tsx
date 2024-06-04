@@ -154,7 +154,7 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
                 </Table>
             </Box>
             <HStack justify={"center"} style={{marginTop: '16px'}}>
-                {integrations?.totalElements &&
+                {(integrations?.totalElements !== undefined) &&
                     <CustomSelect
                         options={selectOptions}
                         onChange={setRowCount}
@@ -162,7 +162,7 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
                         hideLabel={true}
                         default={rowCount}
                     />}
-                {integrations?.totalElements && integrations?.totalElements > Number(rowCount) &&
+                {(integrations?.totalElements !== undefined) && integrations?.totalElements > Number(rowCount) &&
                     <Pagination
                         page={page}
                         onPageChange={setPage}
