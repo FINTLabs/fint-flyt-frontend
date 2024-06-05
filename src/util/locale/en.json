@@ -18,8 +18,12 @@
   "pages": {
     "admin": {
       "header": "Administration",
+      "giveAccess": "Give access",
       "button": {
-        "edit": "Edit"
+        "edit": "Edit",
+        "noEdit": "Cancel editing",
+        "save": "Save",
+        "cancel": "Cancel"
       },
       "table": {
         "column": {
