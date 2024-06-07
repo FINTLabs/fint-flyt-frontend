@@ -154,7 +154,7 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
         try {
             const allMetadata = [];
 
-            const sourceApplicationsResponse = await AuthorizationRepository.getUserSourceApplications()
+            const sourceApplicationsResponse = AuthorizationRepository.getUserSourceApplications()
             const sourceApplications: string[] = sourceApplicationsResponse.data.sourceApplicationIds.map(String)
 
             for (const sourceApplication of sourceApplications) {

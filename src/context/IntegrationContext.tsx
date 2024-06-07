@@ -161,7 +161,7 @@ const IntegrationProvider = ({children}: ContextProps) => {
             const response = await EventRepository.getStatistics();
             const data = response.data;
 
-            const sourceApplicationsResponse = await AuthorizationRepository.getUserSourceApplications()
+            const sourceApplicationsResponse = AuthorizationRepository.getUserSourceApplications()
             const sourceApplications: string[] = sourceApplicationsResponse.data.sourceApplicationIds.map(String)
 
             console.log(sourceApplications)
