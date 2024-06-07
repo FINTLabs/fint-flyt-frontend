@@ -1,10 +1,10 @@
 import {ValueType} from "../types/Configuration";
 
 
-export const vcPattern = /^\$vc\{\d+\}((?:\$if\{(?:(?!\$if\{).)+\})*|\$icf\{\d+\}\{(?:(?!\$if\{).)+\})$/
-export const combinedCollectionPattern = /^(?:(\$if\{[^}]+\})|(\$icf\{\d+}{[^}]+\}))$/;
+export const vcPattern = /^\$vc\{\d+}((?:\$if\{(?:(?!\$if\{).)+})*|\$icf\{\d+}\{(?:(?!\$if\{).)+})$/
+export const combinedCollectionPattern = /^(?:(\$if\{[^}]+})|(\$icf\{\d+}{[^}]+}))$/;
 
-export const hasValidFormat = (value: string | undefined, type: ValueType, completeCheck: boolean, collection?: boolean) => { //eslint-disable-line
+export const hasValidFormat = (value: string | undefined, type: ValueType, completeCheck: boolean, collection?: boolean) => {
     if (!completeCheck) {
         return true
     }
