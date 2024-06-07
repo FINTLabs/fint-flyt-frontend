@@ -18,8 +18,12 @@
   "pages": {
     "admin": {
       "header": "Administrasjon",
+      "giveAccess": "Gi tilgang",
       "button": {
-        "edit": "Rediger"
+        "edit": "Rediger",
+        "noEdit": "Avslutt redigering",
+        "save": "Lagre",
+        "cancel": "Avbryt"
       },
       "table": {
         "column": {

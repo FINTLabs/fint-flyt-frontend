@@ -75,6 +75,7 @@ const Admin: RouteComponent = () => {
             <HStack id={'instances-custom-header'} align={"center"} justify={"space-between"} gap={"2"} wrap={false}>
                 <Heading size={"medium"}>{t('header')}</Heading>
                 <Button
+                    id={'edit-toggle-btn'}
                     disabled={!users || editMode}
                     onClick={() => setEditMode((prevState => !prevState))}
                     size={"small"}
@@ -85,28 +86,29 @@ const Admin: RouteComponent = () => {
             {error && <Alert style={{maxWidth: '100%'}} variant="error">{error.message}</Alert>}
             <Box background={'surface-default'} style={{height: '70vh', overflowY: "scroll"}}>
                 {users ? <VStack gap={"6"}>
-                        <Table>
+                        <Table id={'admin-table'}>
                             <Table.Header>
-                                <Table.Row>
-                                    <Table.ColumnHeader>{t('table.column.email')}</Table.ColumnHeader>
-                                    <Table.ColumnHeader>ACOS</Table.ColumnHeader>
-                                    <Table.ColumnHeader>eGrunnerverv</Table.ColumnHeader>
-                                    <Table.ColumnHeader>Digisak</Table.ColumnHeader>
-                                    <Table.ColumnHeader>VIGO OT</Table.ColumnHeader>
+                                <Table.Row id={'table-row-header'}>
+                                    <Table.ColumnHeader id={'column-header-email'}>{t('table.column.email')}</Table.ColumnHeader>
+                                    <Table.ColumnHeader id={'column-header-acos'}>ACOS</Table.ColumnHeader>
+                                    <Table.ColumnHeader id={'column-header-egrv'}>eGrunnerverv</Table.ColumnHeader>
+                                    <Table.ColumnHeader id={'column-header-digisak'}>Digisak</Table.ColumnHeader>
+                                    <Table.ColumnHeader id={'column-header-vigo'}>VIGO OT</Table.ColumnHeader>
                                 </Table.Row>
                             </Table.Header>
                             <Table.Body>
                                 {users?.map((value, i) => {
                                     return (
-                                        <Table.Row key={i}>
-                                            <Table.DataCell>{value.email}</Table.DataCell>
+                                        <Table.Row id={'table-row-' + i} key={i}>
+                                            <Table.DataCell id={'table-row-cell-' + i}>{value.email}</Table.DataCell>
                                             {[1,2,3,4].map(sourceApp => <Table.DataCell key={`${value.objectIdentifier}-permission-${sourceApp}`}>
                                                 <Checkbox
+                                                    id={'check-row-' + i + '-cell-' + sourceApp}
                                                     disabled={!editMode}
                                                     checked={value.sourceApplicationIds.includes(sourceApp)}
                                                     onChange={(e) => updateUserAccess(value.objectIdentifier, sourceApp, e.target.checked)}
                                                     hideLabel
-                                                >Gi tilgang
+                                                > {t('button.giveAccess')}
                                                 </Checkbox>
                                             </Table.DataCell>)}
                                         </Table.Row>
@@ -116,14 +118,14 @@ const Admin: RouteComponent = () => {
                         </Table>
                         {editMode &&
                             <HStack justify={"end"} gap={"6"} style={{marginRight: '24px'}}>
-                                <Button id="form-submit-btn" type="submit" onClick={updateUsers}>
-                                    Lagre
+                                <Button id="form-save-btn" type="submit" onClick={updateUsers}>
+                                    {t('button.save')}
                                 </Button>
                                 <Button id="form-cancel-btn" onClick={() => {
                                     setUsers(users)
                                     setEditMode(false)}
                                 }>
-                                    Avbryt
+                                    {t('button.cancel')}
                                 </Button>
                             </HStack>}
                     </VStack>
