@@ -1,4 +1,4 @@
-import { createProxyMiddleware } from 'http-proxy-middleware';
+const {createProxyMiddleware} = require('http-proxy-middleware');
 
 let proxies = [
     {context: '/api/intern/arkiv', target: 'http://localhost:8085'},
