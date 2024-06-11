@@ -112,6 +112,7 @@ const InstanceTable: React.FunctionComponent<Props> = ({onError}) => {
             })
     }
 
+
     return instancesPage ? (
         <Box>
             <Box background={'surface-default'} style={{height: '70vh', overflowY: "scroll"}}>
@@ -172,7 +173,7 @@ const InstanceTable: React.FunctionComponent<Props> = ({onError}) => {
                 </Table>
             </Box>
             <HStack justify={"center"} style={{marginTop: '16px'}}>
-                {instancesPage?.totalElements &&
+                {(instancesPage?.totalElements !== undefined) &&
                     <CustomSelect
                         options={selectOptions}
                         onChange={setRowCount}
@@ -180,7 +181,7 @@ const InstanceTable: React.FunctionComponent<Props> = ({onError}) => {
                         hideLabel={true}
                         default={rowCount}
                     />}
-                {instancesPage?.totalElements && instancesPage?.totalElements > Number(rowCount) &&
+                {(instancesPage?.totalElements !== undefined) && instancesPage?.totalElements > Number(rowCount) &&
                     <Pagination
                         page={page}
                         onPageChange={setPage}
