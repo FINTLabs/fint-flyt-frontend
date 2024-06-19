@@ -48,8 +48,8 @@ const Configuration: RouteComponent = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.configuration'});
     const history = useHistory();
     const {
-        selectedMetadata,
-        setSelectedMetadata,
+        existingIntegrationMetadata,
+        setExistingIntegrationMetadata,
         existingIntegration,
         configuration,
         setConfiguration,
@@ -71,7 +71,7 @@ const Configuration: RouteComponent = () => {
         mode: 'onChange',
         defaultValues: {
             integrationId: Number(existingIntegration?.id),
-            integrationMetadataId: Number(selectedMetadata?.id),
+            integrationMetadataId: Number(existingIntegrationMetadata?.id),
             completed: configuration ? configuration.completed : false,
             comment: configuration?.comment,
         }
@@ -104,7 +104,7 @@ const Configuration: RouteComponent = () => {
             resetIntegrationContext()
             resetConfigurationContext()
             setEditCollectionAbsoluteKey("")
-            setSelectedMetadata(undefined)
+            setExistingIntegrationMetadata(undefined)
             setInstanceElementMetadata(undefined)
         }
     }, [])

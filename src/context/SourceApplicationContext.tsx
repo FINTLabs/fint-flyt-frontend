@@ -6,19 +6,17 @@ import {
     IIntegrationMetadata,
 } from "../features/configuration/types/Metadata/IntegrationMetadata";
 import {ISelect} from "../features/configuration/types/Select";
-import {IIntegration} from "../features/integration/types/Integration";
 import {ContextProps} from "./constants/interface";
 import {MOCK_INSTANCE_METADATA} from "../__tests__/mock/mapping/mock-instans-metadata";
 import SourceApplicationRepository from "../api/SourceApplicationRepository";
-import IntegrationRepository from "../api/IntegrationRepository";
 import i18n from "../util/locale/i18n";
 import {ISourceApplication} from "../features/configuration/types/SourceApplication";
 import AuthorizationRepository from "../api/AuthorizationRepository";
 
 type SourceApplicationContextState = {
     availableForms: ISelect[] | undefined;
-    getAllIntegrationsAndSetAvailableForms: (forms: ISelect[]) => void;
-    getAvailableForms: (sourceApplicationId?: string) => void;
+    getAllIntegrationsAndSetAvailableForms: (forms: ISelect[], sourceApplicationId: string) => void;
+    getAllAvailableFormsBySourceApplicationId: (sourceApplicationId: string) => void;
     setAvailableForms: (forms: ISelect[] | undefined) => void;
     allMetadata: IIntegrationMetadata[] | undefined;
     instanceElementMetadata: IInstanceMetadataContent | undefined;
@@ -39,7 +37,7 @@ type SourceApplicationContextState = {
 const contextDefaultValues: SourceApplicationContextState = {
     availableForms: undefined,
     getAllIntegrationsAndSetAvailableForms: () => undefined,
-    getAvailableForms: () => undefined,
+    getAllAvailableFormsBySourceApplicationId: () => undefined,
     setAvailableForms: () => undefined,
     allMetadata: undefined,
     instanceElementMetadata: undefined,
@@ -92,58 +90,44 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
         }
     }
 
-    const getAvailableForms = async (sourceApplication?: string) => {
+    const getAllAvailableFormsBySourceApplicationId = async (sourceApplicationId: string) => {
         try {
-            const sourceAppId =
-                sourceApplication !== undefined ? sourceApplication : "2";
-
-            const response = await SourceApplicationRepository.getMetadata(
-                sourceAppId,
-                true
-            );
+            const response = await SourceApplicationRepository.getMetadata(sourceApplicationId, true);
             const data = response.data || [];
 
-            const tempSelectables: ISelect[] = [
-                {
-                    value: "",
-                    label:
-                        i18n.language === "en" ? "Select integration" : "Velg integrasjon",
-                },
+            const tempAvailableForms: ISelect[] = [
+                {value: "", label: i18n.language === "en" ? "Select integration" : "Velg integrasjon"}
             ];
 
             data.map((metadata: IIntegrationMetadata) => {
-                tempSelectables.push({
+                tempAvailableForms.push({
                     value: metadata.sourceApplicationIntegrationId,
                     label: `[${metadata.sourceApplicationIntegrationId}] ${metadata.integrationDisplayName}`,
                 });
             });
+            if (data.length > 0) {
+                const selectableForms = tempAvailableForms.filter((form) => sourceApplicationId !== form.value);
+                setAvailableForms(selectableForms);
+            } else {
+                setAvailableForms([
+                    {
+                        value: "",
+                        label: i18n.language === 'en' ? "No available integrations" : "Ingen tilgjengelige integrasjoner"
+                    }
+                ])
+            }
 
-            await getAllIntegrationsAndSetAvailableForms(tempSelectables);
         } catch (err) {
             console.error(err);
             setAvailableForms([{value: "null", label: "No options"}]);
         }
     };
 
-    const getAllIntegrationsAndSetAvailableForms = async (forms: ISelect[]) => {
+    const getAllIntegrationsAndSetAvailableForms = async (forms: ISelect[], sourceApplicationId: string) => {
         try {
-            const response = await IntegrationRepository.getAllIntegrations();
-            const data = response.data || [];
+            const selectableForms = forms.filter((form) => sourceApplicationId !== form.value);
+            setAvailableForms(selectableForms);
 
-            const ids: string[] = data.map(
-                (integration: IIntegration) =>
-                    integration.sourceApplicationIntegrationId
-            );
-
-            if (sourceApplication !== undefined) {
-                const selectableForms = forms.filter(
-                    (form) => !ids.includes(form.value)
-                );
-                setAvailableForms(selectableForms.length === 1 ? [{
-                    value: "",
-                    label: i18n.language === 'en' ? "No available integrations" : "Ingen tilgjengelige integrasjoner"
-                }] : selectableForms);
-            }
         } catch (err) {
             console.error(err);
             setAvailableForms([{value: "", label: "Ingen data"}]);
@@ -154,8 +138,7 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
         try {
             const allMetadata = [];
 
-            const sourceApplicationsResponse = AuthorizationRepository.getUserSourceApplications()
-            const sourceApplications: string[] = sourceApplicationsResponse.data.sourceApplicationIds.map(String)
+            const sourceApplications: string[] = AuthorizationRepository.getUserSourceApplications().data.sourceApplicationIds.map(String)
 
             for (const sourceApplication of sourceApplications) {
                 const metadataResponse = await SourceApplicationRepository.getMetadata(
@@ -164,11 +147,7 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
                 );
                 allMetadata.push(metadataResponse.data);
             }
-            const metadata =
-                allMetadata.reduce(
-                    (acc, currentArray) => [...acc, ...currentArray],
-                    []
-                ) || [];
+            const metadata = allMetadata.reduce((acc, currentArray) => [...acc, ...currentArray], []) || [];
 
             setAllMetadata(metadata);
         } catch (e) {
@@ -195,7 +174,7 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
         <SourceApplicationContext.Provider
             value={{
                 availableForms,
-                getAvailableForms,
+                getAllAvailableFormsBySourceApplicationId,
                 setAvailableForms,
                 allMetadata,
                 instanceElementMetadata,

@@ -37,7 +37,7 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
     const history = useHistory();
     const {
         setConfiguration,
-        setSelectedMetadata,
+        setExistingIntegrationMetadata,
         setExistingIntegration
     } = useContext(IntegrationContext);
     const {
@@ -104,7 +104,7 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
             .then(async (response) => {
                 const data = response.data
                 const usedVersionMetadata = allMetadata?.filter(md => md.id === data.integrationMetadataId)
-                setSelectedMetadata(usedVersionMetadata ? usedVersionMetadata[0] : undefined)
+                setExistingIntegrationMetadata(usedVersionMetadata ? usedVersionMetadata[0] : undefined)
                 if (version) {
                     data.id = undefined;
                     data.comment = undefined
@@ -282,7 +282,7 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
                             onClick={() => {
                                 setExistingIntegration(props.integration)
                                 const selectedForm = allMetadata ? allMetadata.filter(md => md.sourceApplicationIntegrationId === props.integration?.sourceApplicationIntegrationId) : []
-                                setSelectedMetadata(selectedForm.length > 0 ? selectedForm[selectedForm.length - 1] : undefined)
+                                setExistingIntegrationMetadata(selectedForm.length > 0 ? selectedForm[selectedForm.length - 1] : undefined)
                                 getInstanceElementMetadata(selectedForm[selectedForm.length - 1].id)
                             }}
                         >

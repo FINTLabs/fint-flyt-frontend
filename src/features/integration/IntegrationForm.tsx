@@ -12,18 +12,7 @@ import {SourceApplicationContext} from "../../context/SourceApplicationContext";
 import {IIntegration, IIntegrationFormData, IntegrationState} from "./types/Integration";
 import {toIntegration} from "../../util/mapping/ToIntegration";
 import {IIntegrationMetadata} from "../configuration/types/Metadata/IntegrationMetadata";
-import {
-    Alert,
-    Box,
-    Button,
-    ErrorSummary,
-    Heading,
-    HelpText,
-    HStack,
-    Loader,
-    Select,
-    VStack
-} from "@navikt/ds-react";
+import {Alert, Box, Button, ErrorSummary, Heading, HelpText, HStack, Loader, Select, VStack} from "@navikt/ds-react";
 import PageTemplate from "../../components/templates/PageTemplate";
 import {AxiosResponse} from "axios";
 import IntegrationRepository from "../../api/IntegrationRepository";
@@ -41,9 +30,9 @@ type Props = {
 export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>> = () => {
     const history = useHistory();
     const {t} = useTranslation('translations', {keyPrefix: 'pages.integrationForm'});
-    const {setSelectedMetadata, setExistingIntegration, resetIntegrationContext} = useContext(IntegrationContext)
+    const {setExistingIntegrationMetadata, setExistingIntegration, resetIntegrationContext} = useContext(IntegrationContext)
     const {
-        getAvailableForms,
+        getAllAvailableFormsBySourceApplicationId,
         sourceApplication,
         setSourceApplication,
         availableForms,
@@ -98,7 +87,7 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
         setAvailableForms(undefined)
         if (sourceApplicationId) {
             getAllMetadata(true);
-            getAvailableForms(sourceApplicationId);
+            getAllAvailableFormsBySourceApplicationId(sourceApplicationId);
         }
     }, [sourceApplication, setSourceApplication])
 
@@ -117,7 +106,7 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
             setShowAlert(true)
             return;
         }
-        setSelectedMetadata(selectedForm);
+        setExistingIntegrationMetadata(selectedForm);
         getInstanceElementMetadata(selectedForm.id);
 
         const newIntegration: IIntegration = toIntegration(data, IntegrationState.DEACTIVATED)
@@ -144,7 +133,8 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
                         <VStack gap={"6"}>
                             <HStack justify={"space-between"}>
                                 <Heading size={"small"}>{t('incoming')}</Heading>
-                                {sourceApplication !== undefined && sourceApplication !== 0 && !availableForms && <Loader title={t('labels.loading')}/>}
+                                {sourceApplication !== undefined && sourceApplication !== 0 && !availableForms &&
+                                    <Loader title={t('labels.loading')}/>}
                             </HStack>
                             <VStack gap={"3"} style={{maxWidth: '40%'}}>
                                 <Controller
