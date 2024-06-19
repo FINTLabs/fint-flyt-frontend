@@ -4,7 +4,6 @@ import {
 	IConfigurationPatch,
 } from "../features/configuration/types/Configuration";
 
-//TODO: test with updated API urls
 const getConfigurations = (
 	page: number,
 	size: number,

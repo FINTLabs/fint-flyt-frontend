@@ -65,8 +65,6 @@ export function getPredicateValue(valuePerValueRef: Record<string, string>, pred
     if (predicate.value !== undefined && predicate.value !== value) {
         return false;
     }
-    if (predicate.notValue !== undefined && predicate.notValue === value) {
-        return false;
-    }
-    return true;
+    return !(predicate.notValue !== undefined && predicate.notValue === value);
+
 }

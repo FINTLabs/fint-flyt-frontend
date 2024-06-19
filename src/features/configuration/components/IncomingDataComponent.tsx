@@ -42,13 +42,13 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
     const [applicationValueConvertings, setApplicationValueConvertings] = useState<IValueConverting[] | undefined>(undefined)
     const [destinationValueConvertings, setDestinationValueConvertings] = useState<IValueConverting[] | undefined>(undefined)
     const {completed} = useContext(ConfigurationContext)
-    const {existingIntegration, selectedMetadata, setSelectedMetadata,} = useContext(IntegrationContext)
-    const [version, setVersion] = React.useState<string>(selectedMetadata ? String(selectedMetadata.version) : '')
+    const {existingIntegration, existingIntegrationMetadata, setExistingIntegrationMetadata,} = useContext(IntegrationContext)
+    const [version, setVersion] = React.useState<string>(existingIntegrationMetadata ? String(existingIntegrationMetadata.version) : '')
     const methods = useFormContext();
 
     const availableVersions: IIntegrationMetadata[] = allMetadata ? allMetadata.filter(md => {
-        return md.sourceApplicationId === selectedMetadata?.sourceApplicationId &&
-            md.sourceApplicationIntegrationId === selectedMetadata.sourceApplicationIntegrationId
+        return md.sourceApplicationId === existingIntegrationMetadata?.sourceApplicationId &&
+            md.sourceApplicationIntegrationId === existingIntegrationMetadata.sourceApplicationIntegrationId
     }) : []
 
     useEffect(() => {
@@ -124,7 +124,7 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
         const version = Number(event.target.value)
         const integrationMetadata: IIntegrationMetadata[] = availableVersions
             .filter(metadata => metadata.version === version)
-        setSelectedMetadata(integrationMetadata[0])
+        setExistingIntegrationMetadata(integrationMetadata[0])
         if (integrationMetadata[0].id) {
             methods.setValue('integrationMetadataId', Number(integrationMetadata[0].id))
             getInstanceElementMetadata(integrationMetadata[0].id)

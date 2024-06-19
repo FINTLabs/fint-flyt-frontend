@@ -10,8 +10,6 @@ import ConfigurationRepository from "../api/ConfigurationRepository";
 import AuthorizationRepository from "../api/AuthorizationRepository";
 
 type IntegrationContextState = {
-    id: string | undefined;
-    setId: (number: string | undefined) => void;
     existingIntegration: IIntegration | undefined;
     setExistingIntegration: (integration: IIntegration | undefined) => void;
     integrations: IIntegration[] | undefined;
@@ -24,8 +22,8 @@ type IntegrationContextState = {
     setConfigurations: (configurations: IConfiguration[]) => void;
     getConfiguration: (integration: string, excludeElements: boolean) => void;
     destination: string;
-    selectedMetadata: IIntegrationMetadata | undefined;
-    setSelectedMetadata: (form: IIntegrationMetadata | undefined) => void;
+    existingIntegrationMetadata: IIntegrationMetadata | undefined;
+    setExistingIntegrationMetadata: (form: IIntegrationMetadata | undefined) => void;
     sourceApplicationIntegrationId: string;
     setSourceApplicationIntegrationId: (id: string) => void;
     setDestination: (destination: string) => void;
@@ -37,8 +35,6 @@ type IntegrationContextState = {
 };
 
 const contextDefaultValues: IntegrationContextState = {
-    id: undefined,
-    setId: () => undefined,
     existingIntegration: undefined,
     setExistingIntegration: () => undefined,
     integrations: [],
@@ -51,8 +47,8 @@ const contextDefaultValues: IntegrationContextState = {
     getConfiguration: () => undefined,
     setConfigurations: () => undefined,
     destination: "",
-    selectedMetadata: undefined,
-    setSelectedMetadata: () => undefined,
+    existingIntegrationMetadata: undefined,
+    setExistingIntegrationMetadata: () => undefined,
     setDestination: () => undefined,
     sourceApplicationId: "",
     setSourceApplicationId: () => undefined,
@@ -67,12 +63,11 @@ const IntegrationContext =
 
 const IntegrationProvider = ({children}: ContextProps) => {
     const [existingIntegration, setExistingIntegration] = useState<IIntegration | undefined>(undefined);
-    const [id, setId] = useState<string | undefined>(undefined);
     const [integrations, setIntegrations] = useState<IIntegration[] | undefined>(undefined);
     const [configuration, setConfiguration] = useState<IConfiguration | undefined>(contextDefaultValues.configuration);
     const [configurations, setConfigurations] = useState<IConfiguration[] | undefined>(contextDefaultValues.configurations);
     const [destination, setDestination] = useState<string>("");
-    const [selectedMetadata, setSelectedMetadata] = useState<IIntegrationMetadata | undefined>(contextDefaultValues.selectedMetadata);
+    const [existingIntegrationMetadata, setExistingIntegrationMetadata] = useState<IIntegrationMetadata | undefined>(contextDefaultValues.existingIntegrationMetadata);
     const [sourceApplicationIntegrationId, setSourceApplicationIntegrationId] = useState<string>("");
     const [sourceApplicationId, setSourceApplicationId] = useState<string>("");
     const [statistics, setStatistics] = useState<IIntegrationStatistics[]>(contextDefaultValues.statistics);
@@ -81,8 +76,7 @@ const IntegrationProvider = ({children}: ContextProps) => {
         setDestination("");
         setExistingIntegration(undefined);
         setSourceApplicationIntegrationId("");
-        setSelectedMetadata(contextDefaultValues.selectedMetadata);
-        setId(undefined);
+        setExistingIntegrationMetadata(contextDefaultValues.existingIntegrationMetadata);
         resetConfiguration();
     };
 
@@ -101,55 +95,32 @@ const IntegrationProvider = ({children}: ContextProps) => {
         setConfiguration(undefined);
     };
 
-    const getIntegrationsBySourceApplicationId = async (
-        sourceApplicationId: string
-    ) => {
+    const getIntegrationsBySourceApplicationId = async (sourceApplicationId: string) => {
         try {
-            const response = await EventRepository.getStatistics();
-            const data = response.data;
+            const [statisticsResponse, metadataResponse, integrationResponse] = await Promise.all([
+                EventRepository.getStatistics(),
+                SourceApplicationRepository.getMetadata(sourceApplicationId, true),
+                IntegrationRepository.getIntegrations(0, null, "state", "ASC")
+            ]);
 
-            if (data) {
-                setStatistics(data);
-                const stats = data;
+            const statistics: IIntegrationStatistics[] = statisticsResponse.data || [];
+            const metadata: IIntegrationMetadata[] = metadataResponse.data || [];
+            const integrations: IIntegration[] = integrationResponse.data || [];
 
-                const metadataResponse = await SourceApplicationRepository.getMetadata(
-                    sourceApplicationId,
-                    true
-                );
-                const metadata = metadataResponse.data || [];
+            const updatedIntegrations = integrations.map(integration => {
+                const stat = statistics.find(s => s.sourceApplicationIntegrationId === integration.sourceApplicationIntegrationId);
+                const meta = metadata.find(m => m.sourceApplicationIntegrationId === integration.sourceApplicationIntegrationId);
 
-                const integrationResponse = await IntegrationRepository.getIntegrations(
-                    0,
-                    null,
-                    "state",
-                    "ASC"
-                );
-                const mergedList = integrationResponse.data || [];
+                return {
+                    ...integration,
+                    errors: stat?.currentErrors,
+                    dispatched: stat?.dispatchedInstances,
+                    displayName: meta?.integrationDisplayName
+                };
+            });
 
-                stats.forEach((value: IIntegrationStatistics) => {
-                    mergedList.forEach((integration: IIntegration) => {
-                        if (
-                            integration.sourceApplicationIntegrationId ===
-                            value.sourceApplicationIntegrationId
-                        ) {
-                            integration.errors = value.currentErrors;
-                            integration.dispatched = value.dispatchedInstances;
-                        }
-                    });
-                });
-
-                metadata.forEach((value: IIntegrationMetadata) => {
-                    mergedList.forEach((integration: IIntegration) => {
-                        if (
-                            integration.sourceApplicationIntegrationId ===
-                            value.sourceApplicationIntegrationId
-                        ) {
-                            integration.displayName = value.integrationDisplayName;
-                        }
-                    });
-                });
-                setIntegrations(mergedList);
-            }
+            setStatistics(statistics);
+            setIntegrations(updatedIntegrations);
         } catch (e) {
             console.error("Error: ", e);
             resetIntegrationsAndStats();
@@ -158,67 +129,40 @@ const IntegrationProvider = ({children}: ContextProps) => {
 
     const getAllIntegrations = async () => {
         try {
-            const response = await EventRepository.getStatistics();
-            const data = response.data;
+            const [statisticsResponse, sourceApplicationsResponse, integrationResponse] = await Promise.all([
+                EventRepository.getStatistics(),
+                AuthorizationRepository.getUserSourceApplications(),
+                IntegrationRepository.getIntegrations(0, 1000, "state", "ASC")
+            ]);
 
-            const sourceApplicationsResponse = await AuthorizationRepository.getUserSourceApplications()
-            const sourceApplications: string[] = sourceApplicationsResponse.data.sourceApplicationIds.map(String)
+            const statistics: IIntegrationStatistics[] = statisticsResponse.data || [];
+            const sourceApplicationIds = sourceApplicationsResponse.data.sourceApplicationIds.map(String);
+            const integrations: IIntegration[] = integrationResponse.data || [];
 
-            console.log(sourceApplications)
+            if (statistics.length > 0) {
+                setStatistics(statistics);
 
-            if (data) {
-                setStatistics(data);
-                const stats = data;
-
-                const allMetadata = [];
-
-                for (const sourceApplication of sourceApplications) {
-                    const metadataResponse =
-                        await SourceApplicationRepository.getMetadata(
-                            sourceApplication,
-                            true
-                        );
-                    allMetadata.push(metadataResponse.data);
-                }
-
-                const metadata =
-                    allMetadata.reduce(
-                        (acc, currentArray) => [...acc, ...currentArray],
-                        []
-                    ) || [];
-
-                const integrationResponse = await IntegrationRepository.getIntegrations(
-                    0,
-                    1000,
-                    "state",
-                    "ASC"
+                const metadataResponses = await Promise.all(
+                    sourceApplicationIds.map(sourceApplicationId =>
+                        SourceApplicationRepository.getMetadata(sourceApplicationId, true)
+                    )
                 );
 
-                const mergedList = integrationResponse.data.content || [];
+                const metadata = metadataResponses.flatMap(response => response.data || []);
 
-                stats.forEach((value: IIntegrationStatistics) => {
-                    mergedList.forEach((integration: IIntegration) => {
-                        if (
-                            integration.sourceApplicationIntegrationId ===
-                            value.sourceApplicationIntegrationId
-                        ) {
-                            integration.errors = value.currentErrors;
-                            integration.dispatched = value.dispatchedInstances;
-                        }
-                    });
+                const updatedIntegrations = integrations.map(integration => {
+                    const stat = statistics.find(s => s.sourceApplicationIntegrationId === integration.sourceApplicationIntegrationId);
+                    const meta = metadata.find(m => m.sourceApplicationIntegrationId === integration.sourceApplicationIntegrationId);
+
+                    return {
+                        ...integration,
+                        errors: stat?.currentErrors,
+                        dispatched: stat?.dispatchedInstances,
+                        displayName: meta?.integrationDisplayName
+                    };
                 });
 
-                metadata.forEach((value: IIntegrationMetadata) => {
-                    mergedList.forEach((integration: IIntegration) => {
-                        if (
-                            integration.sourceApplicationIntegrationId ===
-                            value.sourceApplicationIntegrationId
-                        ) {
-                            integration.displayName = value.integrationDisplayName;
-                        }
-                    });
-                });
-                setIntegrations(mergedList);
+                setIntegrations(updatedIntegrations);
             }
         } catch (e) {
             console.error("Error: ", e);
@@ -247,8 +191,6 @@ const IntegrationProvider = ({children}: ContextProps) => {
     return (
         <IntegrationContext.Provider
             value={{
-                id,
-                setId,
                 statistics,
                 existingIntegration,
                 setExistingIntegration,
@@ -263,8 +205,8 @@ const IntegrationProvider = ({children}: ContextProps) => {
                 setConfigurations,
                 destination,
                 setDestination,
-                selectedMetadata,
-                setSelectedMetadata,
+                existingIntegrationMetadata,
+                setExistingIntegrationMetadata,
                 sourceApplicationId,
                 sourceApplicationIntegrationId,
                 setSourceApplicationIntegrationId,

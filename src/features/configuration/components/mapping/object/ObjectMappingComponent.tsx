@@ -41,7 +41,6 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
         .forEach(([order, absoluteKey, dependency]: [number, string, IDependency]) => DependencySatisfiedStatefulValue(props.absoluteKey, dependency,
             (value) => {
                 showDependencyValuePerOrder.current[order] = value;
-                // TODO eivindmorch 27/03/2023 : Move to configurationMappingComponent to unregister not open object values
                 if (!value && getValues(absoluteKey) !== undefined) {
                     unregister(absoluteKey)
                 }
