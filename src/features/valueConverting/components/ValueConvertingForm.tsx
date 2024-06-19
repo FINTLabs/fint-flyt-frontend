@@ -121,7 +121,6 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
         const valueConverting: IValueConverting = toValueConverting(
             valueConvertingFormData
         );
-        console.log(valueConverting)
 
         if (Object.keys(valueConverting.convertingMap).length > 0) {
             ValueConvertingRepository.createValueConverting(valueConverting)
