@@ -47,7 +47,7 @@ function createValueRefPerAbsoluteKey(absoluteKey: string, dependency: IDependen
         )
 }
 
-function getCombinationValue(valuePerValueRef: Record<string, string>, combination: IValuePredicate[]): boolean {
+export function getCombinationValue(valuePerValueRef: Record<string, string>, combination: IValuePredicate[]): boolean {
     const predicateValues: boolean[] = combination
         .map((predicate: IValuePredicate) => getPredicateValue(
                 valuePerValueRef,
@@ -57,7 +57,7 @@ function getCombinationValue(valuePerValueRef: Record<string, string>, combinati
     return !predicateValues.includes(false);
 }
 
-function getPredicateValue(valuePerValueRef: Record<string, string>, predicate: IValuePredicate): boolean {
+export function getPredicateValue(valuePerValueRef: Record<string, string>, predicate: IValuePredicate): boolean {
     const value: string = valuePerValueRef[predicate.key];
     if (predicate.defined !== (value !== undefined)) {
         return false;
