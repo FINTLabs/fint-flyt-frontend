@@ -31,6 +31,9 @@ const SearchSelectValueComponent: React.FunctionComponent<Props> = forwardRef<HT
 
     const [displayNamePerValue, setDisplayNamePerValue] = useState<Record<string, string>>({});
 
+    console.log(displayNamePerValue)
+    console.log(props)
+
     useEffect(() => {
         const newDisplayNamePerValue: Record<string, string> = {}
         props.selectables.forEach((selectable: ISelectable) => {
