@@ -3,6 +3,7 @@ import {
 	IIntegration,
 	IIntegrationPatch,
 } from "../features/integration/types/Integration";
+import {Page} from "../components/types/TableTypes";
 
 const getAllIntegrations = () => {
 	return axios.get("/api/intern/integrasjoner");
@@ -14,7 +15,7 @@ const getIntegrations = (
 	sortProperty: string,
 	sortDirection: string
 ) => {
-	return axios.get("/api/intern/integrasjoner", {
+	return axios.get<Page<IIntegration>>("/api/intern/integrasjoner", {
 		params: {
 			side: page,
 			antall: size,
