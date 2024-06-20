@@ -31,9 +31,6 @@ const SearchSelectValueComponent: React.FunctionComponent<Props> = forwardRef<HT
 
     const [displayNamePerValue, setDisplayNamePerValue] = useState<Record<string, string>>({});
 
-    console.log(displayNamePerValue)
-    console.log(props)
-
     useEffect(() => {
         console.log('in useEffect', props.selectables)
         const newDisplayNamePerValue: Record<string, string> = {}
@@ -41,13 +38,10 @@ const SearchSelectValueComponent: React.FunctionComponent<Props> = forwardRef<HT
             newDisplayNamePerValue[selectable.value] = selectable.displayName;
         })
         setDisplayNamePerValue(newDisplayNamePerValue);
-        console.log(Object.keys(displayNamePerValue))
     }, [props.selectables])
 
     useEffect(() => {
-        console.log(Object.keys(displayNamePerValue))
         if(props.value !== null && props.value !== "$dynamic" && props.value !== "$valueConverting") {
-            console.log('hit if')
             setWarning(!Object.keys(displayNamePerValue).includes(props.value))
         } else {
             setWarning(false)
