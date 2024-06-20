@@ -105,7 +105,7 @@ const IntegrationProvider = ({children}: ContextProps) => {
 
             const statistics: IIntegrationStatistics[] = statisticsResponse.data || [];
             const metadata: IIntegrationMetadata[] = metadataResponse.data || [];
-            const integrations: IIntegration[] = integrationResponse.data || [];
+            const integrations: IIntegration[] = integrationResponse.data.content || [];
 
             const updatedIntegrations = integrations.map(integration => {
                 const stat = statistics.find(s => s.sourceApplicationIntegrationId === integration.sourceApplicationIntegrationId);
@@ -137,7 +137,7 @@ const IntegrationProvider = ({children}: ContextProps) => {
 
             const statistics: IIntegrationStatistics[] = statisticsResponse.data || [];
             const sourceApplicationIds = sourceApplicationsResponse.data.sourceApplicationIds.map(String);
-            const integrations: IIntegration[] = integrationResponse.data || [];
+            const integrations: IIntegration[] = integrationResponse.data.content || [];
 
             if (statistics.length > 0) {
                 setStatistics(statistics);
@@ -161,7 +161,6 @@ const IntegrationProvider = ({children}: ContextProps) => {
                         displayName: meta?.integrationDisplayName
                     };
                 });
-
                 setIntegrations(updatedIntegrations);
             }
         } catch (e) {
