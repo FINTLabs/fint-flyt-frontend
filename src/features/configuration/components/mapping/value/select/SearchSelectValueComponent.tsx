@@ -35,12 +35,17 @@ const SearchSelectValueComponent: React.FunctionComponent<Props> = forwardRef<HT
     console.log(props)
 
     useEffect(() => {
+        console.log('in useEffect', props.selectables)
         const newDisplayNamePerValue: Record<string, string> = {}
         props.selectables.forEach((selectable: ISelectable) => {
             newDisplayNamePerValue[selectable.value] = selectable.displayName;
         })
         setDisplayNamePerValue(newDisplayNamePerValue);
-        setWarning(props.value !== null && !Object.keys(displayNamePerValue).includes(props.value))
+        if(props.value !== null && props.value !== "$dynamic" && props.value !== "$valueConverting") {
+            setWarning(!Object.keys(displayNamePerValue).includes(props.value))
+        } else {
+            setWarning(false)
+        }
     }, [props.selectables])
 
     return <div>
