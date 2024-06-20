@@ -30,10 +30,10 @@ export const iconButtonSX: SxProps<Theme> = {
     margin: (theme: Theme) => theme.spacing(0)
 }
 
-export const autoCompleteSX: SxProps<Theme> = {
+export const autoCompleteSX = (warning?: boolean): SxProps<Theme> => ({
     backgroundColor: 'white',
-    width: (theme: Theme) => theme.spacing(44)
-}
+    width: (theme: Theme) => theme.spacing(warning ? 40 : 44)
+})
 
 export const selectSX: SxProps<Theme> = {
     backgroundColor: 'white',
@@ -47,10 +47,11 @@ export const searchResultSX: SxProps<Theme> = {
 }
 
 export const errorMsgSX: SxProps<Theme> = {
-    color: 'red',
+    color: 'orangered',
     fontSize: (theme: Theme) => theme.spacing(1.75),
     padding: (theme: Theme) => theme.spacing(.2),
-    marginLeft: (theme: Theme) => theme.spacing(1)
+    marginLeft: (theme: Theme) => theme.spacing(1),
+    width: (theme: Theme) => theme.spacing(40)
 }
 
 export const tagSX: SxProps<Theme> = {

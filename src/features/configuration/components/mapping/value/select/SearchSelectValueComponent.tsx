@@ -5,6 +5,8 @@ import {Autocomplete, createFilterOptions, TextField, Typography} from "@mui/mat
 import {autoCompleteSX, errorMsgSX} from "../../../../../../util/styles/SystemStyles";
 import {Noop} from "react-hook-form/dist/types";
 import {ControllerFieldState} from "react-hook-form";
+import {HStack, Tooltip} from "@navikt/ds-react";
+import {ExclamationmarkTriangleFillIcon} from "@navikt/aksel-icons";
 
 interface Props {
     displayName: string;
@@ -20,6 +22,7 @@ interface Props {
 const SearchSelectValueComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivElement, Props>((props: Props, ref) => {
     SearchSelectValueComponent.displayName = "SearchSelectValueComponent"
     const absoluteKey: string = props.name;
+    const [warning, setWarning] = useState<boolean>(false);
     const filterOptions = createFilterOptions({
         matchFrom: 'any',
         stringify: (option: string) => displayNamePerValue[option],
@@ -34,34 +37,42 @@ const SearchSelectValueComponent: React.FunctionComponent<Props> = forwardRef<HT
             newDisplayNamePerValue[selectable.value] = selectable.displayName;
         })
         setDisplayNamePerValue(newDisplayNamePerValue);
+        setWarning(props.value !== null && !Object.keys(displayNamePerValue).includes(props.value))
     }, [props.selectables])
 
     return <div>
-        <Autocomplete
-            sx={autoCompleteSX}
-            id={absoluteKey}
-            filterOptions={filterOptions}
-            options={Object.keys(displayNamePerValue)}
-            getOptionLabel={(option: string) => option ? displayNamePerValue[option as string] : ''}
-            renderInput={(params) => (
-                <TextField
-                    {...params}
-                    size="small"
-                    label={props.displayName}
-                    error={!!props.fieldState?.error}
-                />
-            )}
-            onChange={(_, value: string | null) => {
-                if (props.onChange) {
-                    props.onChange(value)
-                }
-            }}
-            onBlur={props.onBlur}
-            value={props.value}
-            ref={ref}
-            disabled={props.disabled}
-        />
+        <HStack gap={"2"} align={"center"}>
+            <Autocomplete
+                sx={autoCompleteSX(warning)}
+                id={absoluteKey}
+                filterOptions={filterOptions}
+                options={Object.keys(displayNamePerValue)}
+                getOptionLabel={(option: string) => option ? displayNamePerValue[option as string] : ''}
+                renderInput={(params) => (
+                    <TextField
+                        {...params}
+                        size="small"
+                        label={props.displayName}
+                        error={!!props.fieldState?.error}
+                    />
+                )}
+                onChange={(_, value: string | null) => {
+                    if (props.onChange) {
+                        props.onChange(value)
+                    }
+                }}
+                onBlur={props.onBlur}
+                value={props.value}
+                ref={ref}
+                disabled={props.disabled}
+            />
+            {warning &&  <Tooltip content={`Eksisterende verdi: "${props.value}" fins ikke`}>
+                <ExclamationmarkTriangleFillIcon color={"orange"} fontSize="1.5rem"/>
+            </Tooltip>
+            }
+        </HStack>
         {props.fieldState?.error && <Typography sx={errorMsgSX}>{props.fieldState?.error.message}</Typography>}
+        {warning && <Typography sx={errorMsgSX}>{`Manglende kodeverk`}</Typography>}
     </div>
 })
 export default SearchSelectValueComponent;
