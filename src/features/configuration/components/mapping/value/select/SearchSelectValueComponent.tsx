@@ -32,7 +32,6 @@ const SearchSelectValueComponent: React.FunctionComponent<Props> = forwardRef<HT
     const [displayNamePerValue, setDisplayNamePerValue] = useState<Record<string, string>>({});
 
     useEffect(() => {
-        console.log('in useEffect', props.selectables)
         const newDisplayNamePerValue: Record<string, string> = {}
         props.selectables.forEach((selectable: ISelectable) => {
             newDisplayNamePerValue[selectable.value] = selectable.displayName;
@@ -80,7 +79,7 @@ const SearchSelectValueComponent: React.FunctionComponent<Props> = forwardRef<HT
             }
         </HStack>
         {props.fieldState?.error && <Typography sx={errorMsgSX}>{props.fieldState?.error.message}</Typography>}
-        {warning && <Typography sx={errorMsgSX}>{`Manglende kodeverk`}</Typography>}
+        {/*warning && <Typography sx={errorMsgSX}>{`Manglende kodeverk`}</Typography>*/}
     </div>
 })
 export default SearchSelectValueComponent;
