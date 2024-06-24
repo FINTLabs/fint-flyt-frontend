@@ -28,6 +28,7 @@
       "table": {
         "column": {
           "id": "ID",
+          "name": "Navn",
           "email": "Epost"
         }
       },

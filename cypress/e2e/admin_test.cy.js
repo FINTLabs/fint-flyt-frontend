@@ -1,6 +1,6 @@
 describe("Testing admin page", () => {
 	const columns = [
-		'Epost', 'ACOS', 'eGrunnerverv', 'Digisak', 'VIGO OT'
+		'Navn', 'Epost', 'ACOS', 'eGrunnerverv', 'Digisak', 'VIGO OT'
 	]
 	beforeEach(() => {
 		cy.intercept("GET", "**/authorization/user/check-authorized", {fixture: "auth.json"}).as("getAuth")
