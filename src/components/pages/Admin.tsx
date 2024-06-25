@@ -14,6 +14,7 @@ import {IAlertMessage} from "../types/TableTypes";
 export interface IUser {
     objectIdentifier: string,
     email: string,
+    name: string,
     sourceApplicationIds: number[]
 }
 
@@ -89,6 +90,7 @@ const Admin: RouteComponent = () => {
                         <Table id={'admin-table'}>
                             <Table.Header>
                                 <Table.Row id={'table-row-header'}>
+                                    <Table.ColumnHeader id={'column-header-email'}>{t('table.column.name')}</Table.ColumnHeader>
                                     <Table.ColumnHeader id={'column-header-email'}>{t('table.column.email')}</Table.ColumnHeader>
                                     <Table.ColumnHeader id={'column-header-acos'}>ACOS</Table.ColumnHeader>
                                     <Table.ColumnHeader id={'column-header-egrv'}>eGrunnerverv</Table.ColumnHeader>
@@ -100,6 +102,7 @@ const Admin: RouteComponent = () => {
                                 {users?.map((value, i) => {
                                     return (
                                         <Table.Row id={'table-row-' + i} key={i}>
+                                            <Table.DataCell id={'table-row-cell-name-' + i}>{value.name}</Table.DataCell>
                                             <Table.DataCell id={'table-row-cell-' + i}>{value.email}</Table.DataCell>
                                             {[1,2,3,4].map(sourceApp => <Table.DataCell key={`${value.objectIdentifier}-permission-${sourceApp}`}>
                                                 <Checkbox
