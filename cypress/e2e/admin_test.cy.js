@@ -1,10 +1,10 @@
-describe("Testing admin page", () => {
+describe("Testing useraccess page", () => {
 	const columns = [
 		'Navn', 'Epost', 'ACOS', 'eGrunnerverv', 'Digisak', 'VIGO OT'
 	]
 	beforeEach(() => {
 		cy.intercept("GET", "**/authorization/me/is-authorized", {fixture: "auth.json"}).as("getAuth")
-		cy.intercept("GET", "**/authorization/me/restricted-page-authorization", {admin: true}).as("getUser")
+		cy.intercept("GET", "**/authorization/me/restricted-page-authorization", {userPermissionPage: true}).as("getUser")
 		cy.intercept("GET", "**/authorization/users", {fixture: "permission.json"}).as("getPermission")
 		cy.intercept("POST", "**/authorization/users/actions/userPermissionBatchPut", {fixture: "postPermission.json"}).as("postPermission")
 	});
@@ -14,11 +14,11 @@ describe("Testing admin page", () => {
 			forceNetworkError: true,
 			fixture: "basepathConfig.json",
 		}).as("getConfig");
-		cy.visit("/admin");
+		cy.visit("/useraccesser");
 		cy.wait("@getConfig");
 	}
 
-	it("should open admin page and show tables with correct table", () => {
+	it("should open user access page and show tables with correct table", () => {
 		prep();
 		cy.get('#admin-table').should("be.visible")
 		columns.map(column => {

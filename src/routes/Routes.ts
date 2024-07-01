@@ -8,7 +8,7 @@ import ValueConverting from "../components/pages/ValueConverting";
 import Instances from "../components/pages/Instances";
 import Integrations from "../components/pages/Integrations";
 import Forbidden from "../components/pages/Forbidden";
-import Brukertilgang from "../components/pages/Brukertilgang";
+import UserAccess from "../components/pages/useraccess";
 
 const routes: IRoute[] = [
 	{
@@ -96,9 +96,9 @@ const routes: IRoute[] = [
 		inNavigationMenu: false,
 	},
     {
-        path: "/brukertilgang",
-        name: "brukertilgang",
-        component: Brukertilgang,
+        path: "/useraccess",
+        name: "useraccess",
+        component: UserAccess,
         exact: true,
         inNavigationMenu: false,
     }

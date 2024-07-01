@@ -13,7 +13,7 @@
     "version": "Version",
     "support": "Help and support",
     "valueConverting": "Value converting",
-    "admin": "Administration"
+    "useraccess": "User Access"
   },
   "pages": {
     "admin": {

@@ -1,5 +1,5 @@
 import axios from "axios";
-import {IUser} from "../components/pages/Brukertilgang";
+import {IUser} from "../components/pages/useraccess";
 
 const getAuthorized = () => {
     return axios.get("/api/intern/authorization/me/is-authorized")

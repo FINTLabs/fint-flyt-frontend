@@ -32,7 +32,7 @@ const MenuItems = () => {
                     style={{color: "white"}}
                     variant={"tertiary-neutral"}
                     onClick={() => {
-                        history.push('/brukertilgang');
+                        history.push('/useraccess');
                     }}
                     key={'admin'}
                 >
