@@ -2,11 +2,11 @@ import axios from "axios";
 import {IUser} from "../components/pages/Admin";
 
 const getAuthorized = () => {
-    return axios.get("/api/intern/authorization/user/check-authorized")
+    return axios.get("/api/intern/authorization/me/is-authorized")
 };
 
 const getUser = () => {
-    return axios.get<{ admin: boolean }>("/api/intern/authorization/adminuser/check-is-admin")
+    return axios.get<{ admin: boolean }>("/api/intern/authorization/me/restricted-page-authorization")
 };
 
 const getUserSourceApplications = () => {
@@ -15,11 +15,11 @@ const getUserSourceApplications = () => {
 };
 
 const getUsers = () => {
-    return axios.get<IUser[]>("/api/intern/authorization/adminuser/userpermissions")
+    return axios.get<IUser[]>("/api/intern/authorization/users")
 };
 
 const updateUsers = (data: IUser[]) => {
-    return axios.post<IUser[]>("/api/intern/authorization/adminuser/userpermissions", data)
+    return axios.post<IUser[]>("/api/intern/authorization/users/actions/userPermissionBatchPut", data)
 };
 
 const AuthorizationRepository = {

@@ -3,10 +3,10 @@ describe("Testing admin page", () => {
 		'Navn', 'Epost', 'ACOS', 'eGrunnerverv', 'Digisak', 'VIGO OT'
 	]
 	beforeEach(() => {
-		cy.intercept("GET", "**/authorization/user/check-authorized", {fixture: "auth.json"}).as("getAuth")
-		cy.intercept("GET", "**/authorization/adminuser/check-is-admin", {admin: true}).as("getUser")
-		cy.intercept("GET", "**/authorization/adminuser/userpermissions", {fixture: "permission.json"}).as("getPermission")
-		cy.intercept("POST", "**/authorization/adminuser/userpermissions", {fixture: "postPermission.json"}).as("postPermission")
+		cy.intercept("GET", "**/authorization/me/is-authorized", {fixture: "auth.json"}).as("getAuth")
+		cy.intercept("GET", "**/authorization/me/restricted-page-authorization", {admin: true}).as("getUser")
+		cy.intercept("GET", "**/authorization/users", {fixture: "permission.json"}).as("getPermission")
+		cy.intercept("POST", "**/authorization/users/actions/userPermissionBatchPut", {fixture: "postPermission.json"}).as("postPermission")
 	});
 
 	function prep() {

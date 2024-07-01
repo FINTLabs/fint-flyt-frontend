@@ -24,8 +24,8 @@ describe("Testing dashboard", () => {
 	});
 
 	function prep() {
-		cy.intercept("GET", "**/authorization/user/check-authorized", {fixture: "auth.json"}).as("getAuth")
-		cy.intercept("GET", "**/authorization/adminuser/check-is-admin", {fixture: "user.json"}).as("getUser")
+		cy.intercept("GET", "**/authorization/me/is-authorized", {fixture: "auth.json"}).as("getAuth")
+		cy.intercept("GET", "**/authorization/me/restricted-page-authorization", {fixture: "user.json"}).as("getUser")
 		cy.intercept("GET", "**/authorization/user/permission", {fixture: "permission.json"}).as("getPermission")
 		cy.intercept("GET", "**/authorization/usersourceapplications", {fixture: "userSourceApplications.json"}).as("getUserSourceApplications")
 		cy.intercept("GET", "**/api/application/configuration", {
