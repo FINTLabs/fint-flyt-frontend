@@ -18,13 +18,13 @@ export interface IUser {
     sourceApplicationIds: number[]
 }
 
-const Admin: RouteComponent = () => {
-    const {t} = useTranslation('translations', {keyPrefix: 'pages.admin'})
-    const {isAdmin} = useContext(AuthorizationContext)
+const Brukertilgang: RouteComponent = () => {
+    const {t} = useTranslation('translations', {keyPrefix: 'pages.brukertilgang'})
+    const {hasAccessToUserPermissionPage} = useContext(AuthorizationContext)
     const [error, setError] = useState<IAlertMessage | undefined>(undefined);
     const history = useHistory();
 
-    if (!isAdmin) {
+    if (!hasAccessToUserPermissionPage) {
         history.push('/')
     }
 
@@ -72,7 +72,7 @@ const Admin: RouteComponent = () => {
     };
 
     return (
-        <PageTemplate id={'admin'} keyPrefix={'pages.admin'} customHeading>
+        <PageTemplate id={'brukertilgang'} keyPrefix={'pages.brukertilgang'} customHeading>
             <HStack id={'instances-custom-header'} align={"center"} justify={"space-between"} gap={"2"} wrap={false}>
                 <Heading size={"medium"}>{t('header')}</Heading>
                 <Button
@@ -87,7 +87,7 @@ const Admin: RouteComponent = () => {
             {error && <Alert style={{maxWidth: '100%'}} variant="error">{error.message}</Alert>}
             <Box background={'surface-default'} style={{height: '70vh', overflowY: "scroll"}}>
                 {users ? <VStack gap={"6"}>
-                        <Table id={'admin-table'}>
+                        <Table id={'brukertilgang-table'}>
                             <Table.Header>
                                 <Table.Row id={'table-row-header'}>
                                     <Table.ColumnHeader id={'column-header-email'}>{t('table.column.name')}</Table.ColumnHeader>
@@ -137,4 +137,4 @@ const Admin: RouteComponent = () => {
         </PageTemplate>
     );
 }
-export default Admin;
+export default Brukertilgang;

@@ -6,7 +6,7 @@ import {AppBar} from "../organisms/AppBar";
 import {AuthorizationContext} from "../../context/AuthorizationContext";
 
 function Main() {
-    const {activeUserSourceApps, getUser, isAdmin, getActiveUserSourceApps} = useContext(AuthorizationContext)
+    const {activeUserSourceApps, getUser, hasAccessToUserPermissionPage, getActiveUserSourceApps} = useContext(AuthorizationContext)
     const {authorized, getAuthorization} = useContext(AuthorizationContext)
 
     useEffect(() => {
@@ -18,8 +18,8 @@ function Main() {
 
     return (
         <Box style={{height: "100vh", backgroundColor: "#EBF4F5"}}>
-            {isAdmin !== undefined && <AppBar/>}
-            {authorized !== undefined && isAdmin !== undefined && activeUserSourceApps !== undefined && <main>
+            {hasAccessToUserPermissionPage !== undefined && <AppBar/>}
+            {authorized !== undefined && hasAccessToUserPermissionPage !== undefined && activeUserSourceApps !== undefined && <main>
                 <ConfigurationProvider>
                     <Router/>
                 </ConfigurationProvider>

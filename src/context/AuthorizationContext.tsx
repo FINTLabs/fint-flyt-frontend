@@ -1,13 +1,14 @@
 import {createContext, useState} from "react";
 import {ContextProps} from "./constants/interface";
 import AuthorizationRepository from "../api/AuthorizationRepository";
+import {AxiosResponse} from "axios";
 
 type AuthorizationContextState = {
     authorized: boolean | undefined;
     setAuthorized: (authorized: boolean) => void;
     getAuthorization: () => void;
-    isAdmin: boolean | undefined;
-    setIsAdmin: (admin: boolean) => void;
+    hasAccessToUserPermissionPage: boolean | undefined;
+    sethasAccessToUserPermissionPage: (admin: boolean) => void;
     getUser: () => void
     activeUserSourceApps: string[] | undefined,
     getActiveUserSourceApps: () => void
@@ -17,8 +18,8 @@ const contextDefaultValues: AuthorizationContextState = {
     authorized: undefined,
     setAuthorized: () => undefined,
     getAuthorization: () => undefined,
-    isAdmin: undefined,
-    setIsAdmin: () => undefined,
+    hasAccessToUserPermissionPage: undefined,
+    sethasAccessToUserPermissionPage: () => undefined,
     getUser: () => undefined,
     activeUserSourceApps: undefined,
     getActiveUserSourceApps: () => undefined
@@ -28,7 +29,7 @@ const AuthorizationContext = createContext<AuthorizationContextState>(contextDef
 
 const AuthorizationProvider = ({children}: ContextProps) => {
     const [authorized, setAuthorized] = useState<boolean | undefined>(contextDefaultValues.authorized);
-    const [isAdmin, setIsAdmin] = useState<boolean | undefined>(contextDefaultValues.isAdmin);
+    const [hasAccessToUserPermissionPage, sethasAccessToUserPermissionPage] = useState<boolean | undefined>(contextDefaultValues.hasAccessToUserPermissionPage);
     const [activeUserSourceApps, setActiveUserSourceApps] = useState<string[] | undefined>(undefined);
 
     const getAuthorization = async () => {
@@ -44,22 +45,24 @@ const AuthorizationProvider = ({children}: ContextProps) => {
         }
     }
 
-    const getActiveUserSourceApps = async () => {
+
+    const getActiveUserSourceApps = async (): Promise<void> => {
         try {
-            const response = AuthorizationRepository.getUserSourceApplications()
-            const stringArray = response.data.sourceApplicationIds.map(String)
-            setActiveUserSourceApps(stringArray)
+            const response: Promise<AxiosResponse<{ sourceApplicationIds: number[] }>> = AuthorizationRepository.getUserSourceApplications();
+            const stringArray = (await response).data.sourceApplicationIds.map(id => String(id));
+            setActiveUserSourceApps(stringArray);
         } catch (err) {
-            setActiveUserSourceApps([])
+            setActiveUserSourceApps([]);
         }
-    }
+    };
+
 
     const getUser = async () => {
         try {
             const response = await AuthorizationRepository.getUser()
-            response.data.admin ? setIsAdmin(true) : setIsAdmin(false)
+            response.data.userPermissionPage ? sethasAccessToUserPermissionPage(true) : sethasAccessToUserPermissionPage(false)
         } catch (err) {
-            setIsAdmin(false)
+            sethasAccessToUserPermissionPage(false)
         }
     }
 
@@ -69,8 +72,8 @@ const AuthorizationProvider = ({children}: ContextProps) => {
                 authorized,
                 setAuthorized,
                 getAuthorization,
-                isAdmin,
-                setIsAdmin,
+                hasAccessToUserPermissionPage,
+                sethasAccessToUserPermissionPage,
                 getUser,
                 activeUserSourceApps,
                 getActiveUserSourceApps
