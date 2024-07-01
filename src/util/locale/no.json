@@ -13,7 +13,7 @@
     "version": "Versjon",
     "support": "Hjelp og support",
     "valueConverting": "Verdikonvertering",
-    "admin": "Administrasjon"
+    "brukertilgang": "Brukertilgang"
   },
   "pages": {
     "admin": {
