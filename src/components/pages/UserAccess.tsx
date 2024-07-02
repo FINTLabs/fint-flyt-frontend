@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 import { Alert, Box, Button, Checkbox, Heading, HStack, Loader, Table, VStack } from "@navikt/ds-react";
 import { useTranslation } from "react-i18next";
 import AuthorizationRepository from "../../api/AuthorizationRepository";
-import { PencilWritingIcon } from "@navikt/aksel-icons";
+import { PencilWritingIcon, ArrowLeftIcon, ArrowRightIcon } from "@navikt/aksel-icons";
 import { IAlertMessage } from "../types/TableTypes";
 
 export interface IUser {
@@ -92,6 +92,18 @@ const UserAccess: RouteComponent = () => {
         setUsers(updatedUsers);
     };
 
+    const handleNextPage = () => {
+        if (page < totalPages - 1) {
+            setPage(page + 1);
+        }
+    };
+
+    const handlePreviousPage = () => {
+        if (page > 0) {
+            setPage(page - 1);
+        }
+    };
+
     return (
         <PageTemplate id={'useraccess'} keyPrefix={'pages.useraccess'} customHeading>
             <HStack id={'instances-custom-header'} align={"center"} justify={"space-between"} gap={"2"} wrap={false}>
@@ -155,6 +167,24 @@ const UserAccess: RouteComponent = () => {
                                     {t('button.cancel')}
                                 </Button>
                             </HStack>}
+                        <HStack justify={"space-between"} align={"center"} style={{ marginTop: '24px' }}>
+                            <Button
+                                variant="secondary"
+                                onClick={handlePreviousPage}
+                                disabled={page === 0}
+                                icon={<ArrowLeftIcon aria-hidden />}
+                            >
+                                {t('Previous')}
+                            </Button>
+                            <Button
+                                variant="secondary"
+                                onClick={handleNextPage}
+                                disabled={page >= totalPages - 1}
+                                icon={<ArrowRightIcon aria-hidden />}
+                            >
+                                {t('Next')}
+                            </Button>
+                        </HStack>
                     </VStack>
                     : <Loader />}
             </Box>
