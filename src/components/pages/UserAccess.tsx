@@ -4,10 +4,10 @@ import * as React from "react";
 import { useContext, useEffect, useState } from "react";
 import { AuthorizationContext } from "../../context/AuthorizationContext";
 import { useHistory } from "react-router-dom";
-import { Alert, Box, Button, Checkbox, Heading, HStack, Loader, Table, VStack } from "@navikt/ds-react";
+import { Alert, Box, Button, Checkbox, Heading, HStack, Loader, Table, VStack, Pagination, SortState } from "@navikt/ds-react";
 import { useTranslation } from "react-i18next";
 import AuthorizationRepository from "../../api/AuthorizationRepository";
-import { PencilWritingIcon, ArrowLeftIcon, ArrowRightIcon } from "@navikt/aksel-icons";
+import { PencilWritingIcon } from "@navikt/aksel-icons";
 import { IAlertMessage } from "../types/TableTypes";
 
 export interface IUser {
@@ -43,12 +43,13 @@ const UserAccess: RouteComponent = () => {
 
     const [users, setUsers] = useState<IUser[] | undefined>(undefined);
     const [editMode, setEditMode] = useState<boolean>(false);
-    const [page, setPage] = useState(0);
-    const [pageSize] = useState(10);
+    const [page, setPage] = useState(1);
+    const [pageSize, setPageSize] = useState(10);
     const [totalPages, setTotalPages] = useState(0);
+    const [sort, setSort] = useState<SortState | undefined>({ orderBy: 'name', direction: "ascending" });
 
     const fetchUsers = () => {
-        AuthorizationRepository.getUsers(page, pageSize)
+        AuthorizationRepository.getUsers(page - 1, pageSize)
             .then((response) => {
                 const pageableResponse: PageableResponse<IUser> = response.data;
                 setUsers(pageableResponse.content);
@@ -63,7 +64,7 @@ const UserAccess: RouteComponent = () => {
 
     useEffect(() => {
         fetchUsers();
-    }, [page]);
+    }, [page, pageSize, sort]);
 
     const updateUsers = () => {
         setEditMode(false);
@@ -92,17 +93,35 @@ const UserAccess: RouteComponent = () => {
         setUsers(updatedUsers);
     };
 
-    const handleNextPage = () => {
-        if (page < totalPages - 1) {
-            setPage(page + 1);
-        }
+    const handlePageChange = (value: number) => {
+        setPage(value);
     };
 
-    const handlePreviousPage = () => {
-        if (page > 0) {
-            setPage(page - 1);
-        }
+    const handlePageSizeChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+        setPageSize(Number(event.target.value));
+        setPage(1); // Reset to first page when page size changes
     };
+
+    const handleSortChange = (sortKey: string) => {
+        setSort(prevSort => {
+            return prevSort && sortKey === prevSort.orderBy && prevSort.direction === "descending"
+                ? undefined
+                : {
+                    orderBy: sortKey,
+                    direction:
+                        prevSort && sortKey === prevSort.orderBy && prevSort.direction === "ascending"
+                            ? "descending"
+                            : "ascending",
+                };
+        });
+    };
+
+    const selectOptions = [
+        { value: "10", label: "10" },
+        { value: "25", label: "25" },
+        { value: "50", label: "50" },
+        { value: "100", label: "100" }
+    ];
 
     return (
         <PageTemplate id={'useraccess'} keyPrefix={'pages.useraccess'} customHeading>
@@ -120,7 +139,7 @@ const UserAccess: RouteComponent = () => {
             {error && <Alert style={{ maxWidth: '100%' }} variant="error">{error.message}</Alert>}
             <Box background={'surface-default'} style={{ height: '70vh', overflowY: "scroll" }}>
                 {users ? <VStack gap={"6"}>
-                        <Table id={'useraccess-table'}>
+                        <Table sort={sort} onSortChange={(sortKey) => handleSortChange(sortKey ? sortKey : "name")} id={'useraccess-table'}>
                             <Table.Header>
                                 <Table.Row id={'table-row-header'}>
                                     <Table.ColumnHeader
@@ -167,23 +186,21 @@ const UserAccess: RouteComponent = () => {
                                     {t('button.cancel')}
                                 </Button>
                             </HStack>}
-                        <HStack justify={"space-between"} align={"center"} style={{ marginTop: '24px' }}>
-                            <Button
-                                variant="secondary"
-                                onClick={handlePreviousPage}
-                                disabled={page === 0}
-                                icon={<ArrowLeftIcon aria-hidden />}
-                            >
-                                {t('Previous')}
-                            </Button>
-                            <Button
-                                variant="secondary"
-                                onClick={handleNextPage}
-                                disabled={page >= totalPages - 1}
-                                icon={<ArrowRightIcon aria-hidden />}
-                            >
-                                {t('Next')}
-                            </Button>
+                        <HStack justify={"center"} align={"center"} style={{ marginTop: '16px' }}>
+                            <Box>
+                                <label htmlFor="select-row-count">{t('numberPerPage')}</label>
+                                <select id="select-row-count" value={pageSize} onChange={handlePageSizeChange}>
+                                    {selectOptions.map(option => (
+                                        <option key={option.value} value={option.value}>{option.label}</option>
+                                    ))}
+                                </select>
+                            </Box>
+                            <Pagination
+                                page={page}
+                                onPageChange={handlePageChange}
+                                count={totalPages}
+                                size="small"
+                            />
                         </HStack>
                     </VStack>
                     : <Loader />}
