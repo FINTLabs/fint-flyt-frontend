@@ -32,7 +32,7 @@ export interface PageableResponse<T> {
 }
 
 const UserAccess: RouteComponent = () => {
-    const { t } = useTranslation('translations', { keyPrefix: 'pages.UserAccess' });
+    const { t } = useTranslation('translations', { keyPrefix: 'pages.useraccess' });
     const { hasAccessToUserPermissionPage } = useContext(AuthorizationContext);
     const [error, setError] = useState<IAlertMessage | undefined>(undefined);
     const history = useHistory();
@@ -89,7 +89,7 @@ const UserAccess: RouteComponent = () => {
     };
 
     return (
-        <PageTemplate id={'useraccess'} keyPrefix={'pages.UserAccess'} customHeading>
+        <PageTemplate id={'useraccess'} keyPrefix={'pages.useraccess'} customHeading>
             <HStack id={'instances-custom-header'} align={"center"} justify={"space-between"} gap={"2"} wrap={false}>
                 <Heading size={"medium"}>{t('header')}</Heading>
                 <Button
