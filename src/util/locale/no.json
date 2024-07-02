@@ -32,6 +32,7 @@
           "email": "Epost"
         }
       },
+      "numberPerPage": "Antall per side",
       "errorMessage": "Det oppsto en feil under henting av data, prøv igjen senere."
     },
     "dashboard": {

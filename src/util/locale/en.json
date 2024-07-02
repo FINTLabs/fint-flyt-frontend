@@ -32,6 +32,7 @@
           "email": "Email"
         }
       },
+      "numberPerPage": "Show per page",
       "errorMessage": "There was an error fetching data, try again later."
     },
     "dashboard": {
