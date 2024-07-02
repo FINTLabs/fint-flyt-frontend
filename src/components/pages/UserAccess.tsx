@@ -108,7 +108,7 @@ const UserAccess: RouteComponent = () => {
                             <Table.Header>
                                 <Table.Row id={'table-row-header'}>
                                     <Table.ColumnHeader
-                                        id={'column-header-email'}>{t('table.column.name')}</Table.ColumnHeader>
+                                        id={'column-header-name'}>{t('table.column.name')}</Table.ColumnHeader>
                                     <Table.ColumnHeader
                                         id={'column-header-email'}>{t('table.column.email')}</Table.ColumnHeader>
                                     <Table.ColumnHeader id={'column-header-acos'}>ACOS</Table.ColumnHeader>
@@ -131,7 +131,7 @@ const UserAccess: RouteComponent = () => {
                                                     checked={value.sourceApplicationIds.includes(sourceApp)}
                                                     onChange={(e) => updateUserAccess(value.objectIdentifier, sourceApp, e.target.checked)}
                                                     hideLabel
-                                                > {t('button.giveAccess')}
+                                                > {t('giveAccess')}
                                                 </Checkbox>
                                             </Table.DataCell>)}
                                         </Table.Row>
@@ -156,5 +156,5 @@ const UserAccess: RouteComponent = () => {
             </Box>
         </PageTemplate>
     );
-}
+};
 export default UserAccess;
