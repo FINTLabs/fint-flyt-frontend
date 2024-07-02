@@ -13,11 +13,11 @@
     "version": "Version",
     "support": "Help and support",
     "valueConverting": "Value converting",
-    "useraccess": "User Access"
+    "useraccess": "User access"
   },
   "pages": {
-    "admin": {
-      "header": "Administration",
+    "useraccess": {
+      "header": "User access",
       "giveAccess": "Give access",
       "button": {
         "edit": "Edit",

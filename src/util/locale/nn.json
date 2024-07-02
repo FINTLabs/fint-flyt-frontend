@@ -16,8 +16,8 @@
     "useraccess": "Brukertilgang"
   },
   "pages": {
-    "admin": {
-      "header": "Administrasjon",
+    "useraccess": {
+      "header": "Brukertilgang",
       "giveAccess": "Gi tilgang",
       "button": {
         "edit": "Rediger",
