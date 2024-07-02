@@ -8,7 +8,7 @@ import ValueConverting from "../components/pages/ValueConverting";
 import Instances from "../components/pages/Instances";
 import Integrations from "../components/pages/Integrations";
 import Forbidden from "../components/pages/Forbidden";
-import UserAccess from "../components/pages/useraccess";
+import UserAccess from "../components/pages/UserAccess";
 
 const routes: IRoute[] = [
 	{

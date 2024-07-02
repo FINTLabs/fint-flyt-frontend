@@ -1,11 +1,10 @@
 import {RouteComponent} from "../../routes/Route";
 import PageTemplate from "../templates/PageTemplate";
+import * as React from "react";
 import {useContext, useEffect, useState} from "react";
 import {AuthorizationContext} from "../../context/AuthorizationContext";
 import {useHistory} from "react-router-dom";
-import {Box, Table, Checkbox, VStack, HStack, Button, Heading, Loader, Alert} from "@navikt/ds-react";
-
-import * as React from "react";
+import {Alert, Box, Button, Checkbox, Heading, HStack, Loader, Table, VStack} from "@navikt/ds-react";
 import {useTranslation} from "react-i18next";
 import AuthorizationRepository from "../../api/AuthorizationRepository";
 import {PencilWritingIcon} from "@navikt/aksel-icons";
@@ -48,8 +47,8 @@ const UserAccess: RouteComponent = () => {
         setEditMode(false)
         AuthorizationRepository.updateUsers(users ? users : [])
             .then(response => {
-            setUsers(response.data)
-        })
+                setUsers(response.data)
+            })
             .catch((e) => {
                 console.log('error updating data, ', e)
             })
@@ -63,7 +62,7 @@ const UserAccess: RouteComponent = () => {
                 const newSourceApplicationIds = permissionCheck
                     ? [...user.sourceApplicationIds, sourceAppInput]
                     : user.sourceApplicationIds.filter(sourceAppId => sourceAppId !== sourceAppInput);
-                return { ...user, sourceApplicationIds: newSourceApplicationIds };
+                return {...user, sourceApplicationIds: newSourceApplicationIds};
             }
             return user;
         });
@@ -90,8 +89,10 @@ const UserAccess: RouteComponent = () => {
                         <Table id={'useraccess-table'}>
                             <Table.Header>
                                 <Table.Row id={'table-row-header'}>
-                                    <Table.ColumnHeader id={'column-header-email'}>{t('table.column.name')}</Table.ColumnHeader>
-                                    <Table.ColumnHeader id={'column-header-email'}>{t('table.column.email')}</Table.ColumnHeader>
+                                    <Table.ColumnHeader
+                                        id={'column-header-email'}>{t('table.column.name')}</Table.ColumnHeader>
+                                    <Table.ColumnHeader
+                                        id={'column-header-email'}>{t('table.column.email')}</Table.ColumnHeader>
                                     <Table.ColumnHeader id={'column-header-acos'}>ACOS</Table.ColumnHeader>
                                     <Table.ColumnHeader id={'column-header-egrv'}>eGrunnerverv</Table.ColumnHeader>
                                     <Table.ColumnHeader id={'column-header-digisak'}>Digisak</Table.ColumnHeader>
@@ -104,7 +105,8 @@ const UserAccess: RouteComponent = () => {
                                         <Table.Row id={'table-row-' + i} key={i}>
                                             <Table.DataCell id={'table-row-cell-name-' + i}>{value.name}</Table.DataCell>
                                             <Table.DataCell id={'table-row-cell-' + i}>{value.email}</Table.DataCell>
-                                            {[1,2,3,4].map(sourceApp => <Table.DataCell key={`${value.objectIdentifier}-permission-${sourceApp}`}>
+                                            {[1, 2, 3, 4].map(sourceApp => <Table.DataCell
+                                                key={`${value.objectIdentifier}-permission-${sourceApp}`}>
                                                 <Checkbox
                                                     id={'check-row-' + i + '-cell-' + sourceApp}
                                                     disabled={!editMode}
@@ -126,13 +128,14 @@ const UserAccess: RouteComponent = () => {
                                 </Button>
                                 <Button id="form-cancel-btn" onClick={() => {
                                     setUsers(users)
-                                    setEditMode(false)}
+                                    setEditMode(false)
+                                }
                                 }>
                                     {t('button.cancel')}
                                 </Button>
                             </HStack>}
                     </VStack>
-                     : <Loader/> }
+                    : <Loader/>}
             </Box>
         </PageTemplate>
     );
