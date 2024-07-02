@@ -13,8 +13,13 @@ const getUserSourceApplications = () => {
     return axios.get<IUser>("/api/intern/authorization/me")
 };
 
-const getUsers = () => {
-    return axios.get<IUser[]>("/api/intern/authorization/users")
+const getUsers = (page = 0, size = 10) => {
+    return axios.get(`/api/intern/authorization/users`, {
+        params: {
+            page,
+            size,
+        },
+    });
 };
 
 const updateUsers = (data: IUser[]) => {
