@@ -47,7 +47,7 @@ const UserAccess: RouteComponent = () => {
     const [pageSize] = useState(10);
     const [totalPages, setTotalPages] = useState(0);
 
-    useEffect(() => {
+    const fetchUsers = () => {
         AuthorizationRepository.getUsers(page, pageSize)
             .then((response) => {
                 const pageableResponse: PageableResponse<IUser> = response.data;
@@ -59,13 +59,17 @@ const UserAccess: RouteComponent = () => {
                 setUsers([]);
                 setError({ message: t('errorMessage') });
             });
+    };
+
+    useEffect(() => {
+        fetchUsers();
     }, [page]);
 
     const updateUsers = () => {
         setEditMode(false);
         AuthorizationRepository.updateUsers(users ? users : [])
-            .then(response => {
-                setUsers(response.data);
+            .then(() => {
+                fetchUsers(); // Fetch users after update to refresh the data
             })
             .catch((e) => {
                 console.log('error updating data, ', e);
