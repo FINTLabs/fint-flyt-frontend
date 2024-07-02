@@ -34,9 +34,9 @@ const MenuItems = () => {
                     onClick={() => {
                         history.push('/useraccess');
                     }}
-                    key={'admin'}
+                    key={'useraccess'}
                 >
-                    {t('admin')}
+                    {t('useraccess')}
                 </Button>
             }
         </>
