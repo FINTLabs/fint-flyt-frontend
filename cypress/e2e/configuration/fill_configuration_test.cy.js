@@ -14,10 +14,10 @@ const correspondentFields = '#mapping\\.objectMappingPerKey\\.newCase\\.objectCo
 const correspondentDndFields = '#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.korrespondansepart\\.fromCollectionMappings\\.0\\.elementMapping\\.valueMappingPerKey'
 
 function prep() {
-    cy.intercept("GET", "**/authorization/user/check-authorized", {fixture: "auth.json"}).as("getAuth")
-    cy.intercept("GET", "**/authorization/adminuser/check-is-admin", {fixture: "user.json"}).as("getUser")
-    cy.intercept("GET", "**/authorization/user/permission", {fixture: "permission.json"}).as("getPermission")
-    cy.intercept("GET", "**/authorization/usersourceapplications", {fixture: "userSourceApplications.json"}).as("getUserSourceApplications")
+    cy.intercept("GET", "**/authorization/me", {fixture: "me.json"}).as("getMe")
+    cy.intercept("GET", "**/authorization/me/is-authorized", {fixture: "auth.json"}).as("getAuth")
+    cy.intercept("GET", "**/authorization/me/restricted-page-authorization", {userPermissionPage: true}).as("getUserPermissionsPage")
+    cy.intercept("GET", "**/authorization/users?page=0&size=10", {fixture: "users.json"}).as("getUsersPermissions")
     cy.intercept('GET', '**/api/application/configuration', {
         forceNetworkError: true,
         fixture: 'basepathConfig.json'

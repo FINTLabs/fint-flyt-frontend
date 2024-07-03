@@ -7,7 +7,7 @@ import {AuthorizationContext} from "../../context/AuthorizationContext";
 
 const MenuItems = () => {
     const {t} = useTranslation("translations", {keyPrefix: "menuItems"});
-    const {isAdmin} = useContext(AuthorizationContext)
+    const {hasAccessToUserPermissionPage} = useContext(AuthorizationContext)
     const history = useHistory();
     return (
         <>
@@ -26,17 +26,17 @@ const MenuItems = () => {
                         {t(route.name)}
                     </Button>
                 ))}
-            {isAdmin &&
+            {hasAccessToUserPermissionPage &&
                 <Button
                     size={"medium"}
                     style={{color: "white"}}
                     variant={"tertiary-neutral"}
                     onClick={() => {
-                        history.push('/admin');
+                        history.push('/useraccess');
                     }}
-                    key={'admin'}
+                    key={'useraccess'}
                 >
-                    {t('admin')}
+                    {t('useraccess')}
                 </Button>
             }
         </>

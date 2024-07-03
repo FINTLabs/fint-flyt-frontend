@@ -13,11 +13,11 @@
     "version": "Versjon",
     "support": "Hjelp og support",
     "valueConverting": "Verdikonvertering",
-    "admin": "Administrasjon"
+    "useraccess": "Brukertilgang"
   },
   "pages": {
-    "admin": {
-      "header": "Administrasjon",
+    "useraccess": {
+      "header": "Brukertilgang",
       "giveAccess": "Gi tilgang",
       "button": {
         "edit": "Rediger",
@@ -32,6 +32,7 @@
           "email": "Epost"
         }
       },
+      "numberPerPage": "Antall per side",
       "errorMessage": "Det oppsto en feil under henting av data, prøv igjen senere."
     },
     "dashboard": {

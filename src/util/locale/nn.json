@@ -13,11 +13,11 @@
     "version": "Versjon",
     "support": "Hjelp og support",
     "valueConverting": "Verdikonvertering",
-    "admin": "Administrasjon"
+    "useraccess": "Brukertilgang"
   },
   "pages": {
-    "admin": {
-      "header": "Administrasjon",
+    "useraccess": {
+      "header": "Brukertilgang",
       "giveAccess": "Gi tilgang",
       "button": {
         "edit": "Rediger",
@@ -32,6 +32,7 @@
           "email": "Epost"
         }
       },
+      "numberPerPage": "Tal per side",
       "errorMessage": "Det oppstod ein feil under henting av data, prøv igjen seinare."
     },
     "dashboard": {
@@ -142,7 +143,7 @@
       "activeConfigurationId": "Aktiv konfigurasjon: ",
       "missingDataError": "Manglar tilstrekkeleg data for å kunna oppretta ny konfigurasjon",
       "errorMessage": "Det oppstod ein feil under henting av data, prøv igjen seinare.",
-      "numberPerPage": "Antall per side",
+      "numberPerPage": "Tal per side",
       "help": {
         "header": "Oversikt over integrasjonar. Her kan du sjå alle integrasjonane og tilhøyrande konfigurasjonar, laga nye konfigurasjonar for ein integrasjon eller aktivera ein konfigurasjon"
       },

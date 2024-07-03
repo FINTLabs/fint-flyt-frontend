@@ -13,11 +13,11 @@
     "version": "Version",
     "support": "Help and support",
     "valueConverting": "Value converting",
-    "admin": "Administration"
+    "useraccess": "User access"
   },
   "pages": {
-    "admin": {
-      "header": "Administration",
+    "useraccess": {
+      "header": "User access",
       "giveAccess": "Give access",
       "button": {
         "edit": "Edit",
@@ -32,6 +32,7 @@
           "email": "Email"
         }
       },
+      "numberPerPage": "Show per page",
       "errorMessage": "There was an error fetching data, try again later."
     },
     "dashboard": {
