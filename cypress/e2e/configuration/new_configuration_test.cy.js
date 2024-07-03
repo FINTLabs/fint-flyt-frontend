@@ -23,10 +23,10 @@ describe('Testing create new configuration from new integration', () => {
     })
 
     function prep() {
+        cy.intercept("GET", "**/authorization/me", {fixture: "me.json"}).as("getMe")
         cy.intercept("GET", "**/authorization/me/is-authorized", {fixture: "auth.json"}).as("getAuth")
-        cy.intercept("GET", "**/authorization/me/restricted-page-authorization", {fixture: "user.json"}).as("getUser")
-        cy.intercept("GET", "**/authorization/user/permission", {fixture: "permission.json"}).as("getPermission")
-        cy.intercept("GET", "**/authorization/usersourceapplications", {fixture: "userSourceApplications.json"}).as("getUserSourceApplications")
+        cy.intercept("GET", "**/authorization/me/restricted-page-authorization", {userPermissionPage: true}).as("getUserPermissionsPage")
+        cy.intercept("GET", "**/authorization/users?page=0&size=10", {fixture: "users.json"}).as("getUsersPermissions")
         cy.intercept('GET', '**/api/application/configuration', {
             forceNetworkError: true,
             fixture: 'basepathConfig.json'
@@ -68,10 +68,10 @@ describe('Testing create new configuration from new integration', () => {
 
 describe('Testing creating new and editing configurations from integration overview', () => {
     function prep() {
+        cy.intercept("GET", "**/authorization/me", {fixture: "me.json"}).as("getMe")
         cy.intercept("GET", "**/authorization/me/is-authorized", {fixture: "auth.json"}).as("getAuth")
-        cy.intercept("GET", "**/authorization/me/restricted-page-authorization", {fixture: "user.json"}).as("getUser")
-        cy.intercept("GET", "**/authorization/user/permission", {fixture: "permission.json"}).as("getPermission")
-        cy.intercept("GET", "**/authorization/usersourceapplications", {fixture: "userSourceApplications.json"}).as("getUserSourceApplications")
+        cy.intercept("GET", "**/authorization/me/restricted-page-authorization", {userPermissionPage: true}).as("getUserPermissionsPage")
+        cy.intercept("GET", "**/authorization/users?page=0&size=10", {fixture: "users.json"}).as("getUsersPermissions")
         cy.intercept('GET', '**/api/application/configuration', {
             forceNetworkError: true,
             fixture: 'basepathConfig.json'
