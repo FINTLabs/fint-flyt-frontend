@@ -13,6 +13,7 @@ import i18n from "../util/locale/i18n";
 import {ISourceApplication} from "../features/configuration/types/SourceApplication";
 import AuthorizationRepository from "../api/AuthorizationRepository";
 import {AxiosResponse} from "axios";
+import {IUser} from "../components/pages/UserAccess";
 
 type SourceApplicationContextState = {
     availableForms: ISelect[] | undefined;
@@ -137,23 +138,23 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
 
     const getAllMetadata = async (onlyLatest: boolean): Promise<void> => {
         try {
-            const allMetadata: any[] = [];
+            const allMetadata: IIntegrationMetadata[][] = [];
 
-            const response = await AuthorizationRepository.getUserSourceApplications();
+            const response: AxiosResponse<IUser> = await AuthorizationRepository.getUserSourceApplications();
             const sourceApplications: string[] = response.data.sourceApplicationIds.map(String);
 
             for (const sourceApplication of sourceApplications) {
-                const metadataResponse: AxiosResponse<any, any> = await SourceApplicationRepository.getMetadata(
+                const metadataResponse: AxiosResponse<IIntegrationMetadata[]> = await SourceApplicationRepository.getMetadata(
                     sourceApplication,
                     onlyLatest
                 );
                 allMetadata.push(metadataResponse.data);
             }
 
-            const metadata = allMetadata.reduce((acc, currentArray) => [...acc, ...currentArray], []) || [];
+            const metadata: IIntegrationMetadata[] = allMetadata.reduce((acc, currentArray) => [...acc, ...currentArray], []) || [];
             setAllMetadata(metadata);
         } catch (e) {
-            console.error("Error: ", e);
+            console.error('Error: ', e);
             setAllMetadata([]);
         }
     };
