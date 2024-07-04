@@ -9,12 +9,14 @@ import { RouteComponent } from "../../routes/Route";
 import { Box, HStack } from "@navikt/ds-react";
 import { Contact } from "../atoms/Contact";
 import SupportContent from "../molecules/SupportContent";
+import {AuthorizationContext} from "../../context/AuthorizationContext";
+import {useHistory} from "react-router-dom";
 
 const Dashboard: RouteComponent = () => {
 	const { t } = useTranslation("translations", {
 		keyPrefix: "pages.dashboard",
 	});
-
+	const history = useHistory();
 	const { statistics, resetIntegration, integrations, getAllIntegrations } =
 		useContext(IntegrationContext);
 	const activeIntegrations =
@@ -26,12 +28,18 @@ const Dashboard: RouteComponent = () => {
 		currentErrors += stat.currentErrors;
 		totalDispatched += stat.dispatchedInstances;
 	});
+	const { authorized} = useContext(AuthorizationContext)
 
 	useEffect(() => {
 		getAllIntegrations();
 		resetIntegration();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
+
+
+	if(!authorized) {
+		history.push('/forbidden')
+	}
 
 	const cards: ICard[] = [
 		{
