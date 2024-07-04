@@ -36,6 +36,11 @@ const UserAccess: RouteComponent = () => {
     const { hasAccessToUserPermissionPage } = useContext(AuthorizationContext);
     const [error, setError] = useState<IAlertMessage | undefined>(undefined);
     const history = useHistory();
+    const { authorized} = useContext(AuthorizationContext)
+
+    if(!authorized) {
+        history.push('/forbidden')
+    }
 
     if (!hasAccessToUserPermissionPage) {
         history.push('/');
