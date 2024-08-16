@@ -75,11 +75,7 @@ jobs:
         exclude:
           - org: fintlabs-no
             cluster: aks-api-fint-2022-02-08
-          - org: afk-no
-            cluster: aks-beta-fint-2021-11-23
           - org: agderfk-no
-            cluster: aks-beta-fint-2021-11-23
-          - org: bfk-no
             cluster: aks-beta-fint-2021-11-23
           - org: ffk-no
             cluster: aks-beta-fint-2021-11-23
