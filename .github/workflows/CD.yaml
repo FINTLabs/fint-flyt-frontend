@@ -75,21 +75,9 @@ jobs:
         exclude:
           - org: fintlabs-no
             cluster: aks-api-fint-2022-02-08
-          - org: agderfk-no
-            cluster: aks-beta-fint-2021-11-23
-          - org: ffk-no
-            cluster: aks-beta-fint-2021-11-23
-          - org: innlandetfylke-no
-            cluster: aks-beta-fint-2021-11-23
           - org: mrfylke-no
             cluster: aks-beta-fint-2021-11-23
           - org: nfk-no
-            cluster: aks-beta-fint-2021-11-23
-          - org: rogfk-no
-            cluster: aks-beta-fint-2021-11-23
-          - org: telemarkfylke-no
-            cluster: aks-beta-fint-2021-11-23
-          - org: vestfoldfylke-no
             cluster: aks-beta-fint-2021-11-23
 
     steps:

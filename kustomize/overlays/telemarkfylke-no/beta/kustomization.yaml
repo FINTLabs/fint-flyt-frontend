@@ -1,0 +1,36 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: telemarkfylke-no
+
+resources:
+  - ../../../base
+
+commonLabels:
+  fintlabs.no/org-id: telemarkfylke.no
+
+patches:
+  - patch: |-
+      - op: replace
+        path: "/metadata/labels/app.kubernetes.io~1instance"
+        value: "fint-flyt-frontend_telemarkfylke-no"
+      - op: replace
+        path: "/spec/orgId"
+        value: "telemarkfylke.no"
+      - op: replace
+        path: "/spec/env/0/value"
+        value: "/beta/telemarkfylke-no"
+      - op: replace
+        path: "/spec/url/basePath"
+        value: "/beta/telemarkfylke-no"
+    target:
+      kind: Application
+      name: fint-flyt-frontend
+
+  - patch: |-
+      - op: replace
+        path: "/spec/basePath"
+        value: "/beta/telemarkfylke-no"
+    target:
+      kind: FLAISSso
+      name: fint-flyt-auth-forward-sso
+
