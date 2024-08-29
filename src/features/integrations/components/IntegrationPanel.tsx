@@ -276,7 +276,7 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
                     <Box>
                         <Button
                             id={props.id + "-new-configuration-button"}
-                            disabled={!allMetadata || allMetadata.length < 1}
+                            disabled={!allMetadata || allMetadata.length == 0}
                             as={RouterLink}
                             to='/integration/configuration/new-configuration'
                             onClick={() => {
