@@ -282,6 +282,10 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
                             onClick={() => {
                                 setExistingIntegration(props.integration)
                                 const selectedForm = allMetadata ? allMetadata.filter(md => md.sourceApplicationIntegrationId === props.integration?.sourceApplicationIntegrationId) : []
+                                console.log("props: ", props.integration);
+                                console.log("allMetadata.length: ", allMetadata?.length);
+                                console.log("selectedForm.length: ", selectedForm.length);
+                                console.log("selectedForm: ", selectedForm);
                                 setExistingIntegrationMetadata(selectedForm.length > 0 ? selectedForm[selectedForm.length - 1] : undefined)
                                 getInstanceElementMetadata(selectedForm[selectedForm.length - 1].id)
                             }}
