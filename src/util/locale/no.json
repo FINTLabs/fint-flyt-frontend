@@ -249,7 +249,7 @@
       "instance-mapped": "Instans konvertert",
       "instance-ready-for-dispatch": "Instans klar for sending til destinasjon",
       "instance-dispatched": "Instans godtatt av destinasjon",
-      "instance-deleted": "Mellomlagring av filer slettet",
+      "instance-deleted": "Mellomlagring av instans slettet",
       "instance-manually-processed": "Instans manuelt behandlet og opprettet i destinasjon",
       "instance-manually-rejected": "Instans manuelt behandlet og avvist",
       "instance-receival-error": "Feilet under mottak av instans",

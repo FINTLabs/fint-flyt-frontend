@@ -249,7 +249,7 @@
       "instance-mapped": "Instance converted",
       "instance-ready-for-dispatch": "Instance ready for dispatch",
       "instance-dispatched": "Instance dispatched",
-      "instance-deleted": "Temporary storage of files deleted",
+      "instance-deleted": "Temporary storage of instance deleted",
       "instance-manually-processed": "Instance handled manually and created in destination",
       "instance-manually-rejected": "Instance handled manually and rejected",
       "instance-receival-error": "Error while receiving instance",
