@@ -3,6 +3,7 @@ export interface IEvent {
     name: string;
     timestamp: Date | string;
     type: string;
+    status: string;
     errors: IError[];
     applicationId?: string;
     displayName?: string;

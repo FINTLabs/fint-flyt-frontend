@@ -210,6 +210,7 @@
           "sourceApplicationIntegrationId": "Kjeldeapplikasjon integrasjon-id",
           "sourceApplicationIntegrationIdDisplayName": "Integrasjonsnavn",
           "sourceApplicationId": "Kjeldeapplikasjon",
+          "event": "Hending",
           "status": "Status",
           "actions": "Handlingar",
           "sourceApplicationInstanceId": "Kjeldeapplikasjons instans ID",

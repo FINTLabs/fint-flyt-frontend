@@ -128,7 +128,8 @@ const InstanceTable: React.FunctionComponent<Props> = ({onError}) => {
                             <Table.ColumnHeader sortKey="timestamp"
                                                 sortable>{t('table.column.timestamp')}</Table.ColumnHeader>
                             <Table.ColumnHeader sortKey="type"
-                                                sortable>{t('table.column.status')}</Table.ColumnHeader>
+                                                sortable>{t('table.column.event')}</Table.ColumnHeader>
+                            <Table.ColumnHeader>{t('table.column.status')}</Table.ColumnHeader>
                             <Table.ColumnHeader>{t('table.column.actions')}</Table.ColumnHeader>
                             <Table.ColumnHeader>{t('table.column.archiveInstanceId')}</Table.ColumnHeader>
                         </Table.Row>
@@ -160,8 +161,9 @@ const InstanceTable: React.FunctionComponent<Props> = ({onError}) => {
                                                 {t('showError')}</Link>
                                         }
                                     </Table.DataCell>
+                                    <Table.DataCell>{value.status}</Table.DataCell>
                                     <Table.DataCell>
-                                        {(value.type === 'ERROR') &&
+                                        {(value.type === 'ERROR' && value.status != "instance-deleted") &&
                                             actionMenu(value, i)
                                         }
                                     </Table.DataCell>
