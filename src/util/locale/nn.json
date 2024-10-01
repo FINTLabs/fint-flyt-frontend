@@ -245,7 +245,7 @@
       "ACCEPTED": "Akseptert",
       "DECLINED": "Avvist",
       "instance-received": "Instans motteke",
-      "instance-registered": "Instans registrert",
+      "instance-registered": "Instans mellomlagra",
       "instance-requested-for-retry": "Instans spurt for nytt forsøk",
       "instance-mapped": "Instans konvertert",
       "instance-ready-for-dispatch": "Instans klar for sending til destinasjon",
