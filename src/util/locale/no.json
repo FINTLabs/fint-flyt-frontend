@@ -210,7 +210,7 @@
           "sourceApplicationIntegrationId": "Kildeapplikasjon integrasjon ID",
           "sourceApplicationIntegrationIdDisplayName": "Integrasjonsnavn",
           "sourceApplicationId": "Kildeapplikasjon",
-          "event": "Hendelse",
+          "storage": "Mellomlagring",
           "status": "Status",
           "actions": "Handlinger",
           "sourceApplicationInstanceId": "Kildeapplikasjons instans ID",
