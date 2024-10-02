@@ -29,9 +29,9 @@ describe('Testing instance list', () => {
         cy.get('#instances-content-stack > :nth-child(2)').should('be.visible')
     })
 
-    it('instance table should contain correct colunms', () => {
+    it('instance table should contain correct columns', () => {
         prep()
-        let columns = ['Kildeapplikasjon', 'Integrasjonsnavn', 'Tidspunkt', 'Status', 'Handlinger', 'Destinasjon ID']
+        let columns = ['Kildeapplikasjon', 'Integrasjonsnavn', 'Tidspunkt', 'Handlinger', 'Status', 'Handlinger', 'Destinasjon ID']
         columns.forEach(column => {
             cy.get('#instances-content-stack > :nth-child(2)').should("contain.text", column)
         })
@@ -43,7 +43,7 @@ describe('Testing instance list', () => {
         cy.viewport(3000, 2000)
         cy.get(':nth-child(1) > .navds-table__toggle-expand-cell > .navds-table__toggle-expand-button').click()
         cy.get(':nth-child(3) > .navds-table__toggle-expand-cell > .navds-table__toggle-expand-button').click()
-        cy.get('#instance-panel-1').should('contain.text', 'Instans registrert')
+        cy.get('#instance-panel-1').should('contain.text', 'Instans mottatt')
     })
 
     it('it should open error panel and show correct errors', () => {
