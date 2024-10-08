@@ -8,8 +8,7 @@ export const Contact = () => {
              borderColor={"border-alt-3"}>
             <BodyShort size="large">
                 Dersom det oppstår problemer, eller du har spørsmål som ikke blir besvart her kan du ta kontakt med
-                prosjektleder, Jon Erik Stensrød, på
-                <a href={"mailto:" + "jon.erik.stensrod@vigoiks.no"} target="_top"> epost</a>
+                Novari support <a href="https://support.jira.novari.no/servicedesk/customer/portals" target="_top">her</a>
             </BodyShort>
         </Box>
     )

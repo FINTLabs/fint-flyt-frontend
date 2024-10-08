@@ -38,6 +38,18 @@ export function getWordListByLanguage(lang: string): string[] {
     }
 }
 
+export function getStatusDescriptionsByLanguage(lang: string): string[] {
+    if (lang === 'no') {
+        return WORD_LIST;
+    }
+    else if (lang === 'en') {
+        return WORD_LIST_EN
+    }
+    else {
+        return WORD_LIST_NN
+    }
+}
+
 export function getFAQByLanguage(lang: string): { header: string, content: string }[] {
     if (lang === 'no') {
         return FAQ;
