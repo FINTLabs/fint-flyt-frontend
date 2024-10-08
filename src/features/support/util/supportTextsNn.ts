@@ -30,7 +30,7 @@ export const STATUS_DESCRIPTIONS_NN = [
     "Instans klar for sending til destinasjon - Instans er ferdigbehandla i FINT-Flyt og blir sendt vidare automatisk til fagsystemet. Blir instansen ståande på denne statusen, har det skjedd ein feil, og de må ta kontakt med Novari support <a href='https://support.jira.novari.no/servicedesk/customer/portals' target='_top'>her</a>",
     "Instans godkjent av destinasjon - Tilbakemelding frå fagsystemet om at instans er sendt og alt gjekk bra.",
     "Mellombels lagring av instans sletta - Opprydding i samsvar med GDPR der me slettar filer og instans etter den er sendt vidare med suksess.",
-    "Feil under sending til destinasjon - Feilmelding frå fagsystemet kjem ofte her. Dersom meldinga er mangelfull eller uforståeleg, ta kontakt med Novari.",
+    "Feila under sending til destinasjon - Feilmelding frå fagsystemet kjem ofte her. Dersom meldinga er mangelfull eller uforståeleg, ta kontakt med Novari.",
 ];
 
 export const FAQ_NN: { header: string, content: string }[] = [
