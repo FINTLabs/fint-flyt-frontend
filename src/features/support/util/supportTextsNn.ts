@@ -23,7 +23,7 @@ export const WORD_LIST_NN = [
     "Eigendefinert felt/verdi - For å nyttja metadata i konfigurasjonen må vi ha felt som tillèt både fri tekst og referansar til metadata. Dette kallast i Flyt eigendefinerte felt."
 ];
 
-export const EVENT_DESCRIPTIONS_NN = [
+export const STATUS_DESCRIPTIONS_NN = [
     "Instans mottatt - Instans har kome inn i flyten frå fagsystemet.",
     "Instans mellombels lagra - Instans mellombels lagra i fil-lagring, minne og i databasen.",
     "Instans konvertert - Instans behandla og data konvertert i samsvar med konfigurasjonen.",

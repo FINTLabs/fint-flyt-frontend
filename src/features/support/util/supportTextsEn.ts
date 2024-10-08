@@ -22,7 +22,7 @@ export const WORD_LIST_EN = [
     "Custom Field/Value - To use metadata in the configuration, we need fields that allow both text and references to metadata. In Flyt, these are called custom fields."
 ];
 
-export const EVENT_DESCRIPTIONS_EN = [
+export const STATUS_DESCRIPTIONS_EN = [
     "Instance received - Instance has entered the flow from the case management system.",
     "Instance temporarily stored - Instance temporarily stored in file storage, memory, and in the database.",
     "Instance converted - Instance processed and data converted according to the configuration.",

@@ -22,7 +22,7 @@ export const WORD_LIST = [
     "Egendefinert felt/verdi - For å benytte metadata i konfigurasjonen må vi ha felter som tillatter både fritekst og referanser til metadata. Dette kalles i Flyt egendefinerte felter. "
 ]
 
-export const EVENT_DESCRIPTIONS = [
+export const STATUS_DESCRIPTIONS = [
     "Instans mottatt - Instans ankommet flyt fra fagsystem.",
     "Instans mellomlagret - Instans mellomlagret i fil-lagring, minne og i database.",
     "Instans konvertert - Instans behandlet og data konvertert i henhold til konfigurasjonen.",
