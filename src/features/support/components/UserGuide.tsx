@@ -37,7 +37,7 @@ const UserGuide: RouteComponent = () => {
 							return <List.Item key={index}>{item}</List.Item>;
 						})}
 					</List>
-					<Label>{t("eventDescriptions")}</Label>
+					<Label>{t("statusDescriptions")}</Label>
 					<List as="ul" id={"guide-status-events"}>
 						{getStatusDescriptionsByLanguage(i18n.language).map((item, index) => {
 							return <List.Item key={index}>{item}</List.Item>;
