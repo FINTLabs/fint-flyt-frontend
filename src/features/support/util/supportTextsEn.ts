@@ -22,6 +22,16 @@ export const WORD_LIST_EN = [
     "Custom Field/Value - To use metadata in the configuration, we need fields that allow both text and references to metadata. In Flyt, these are called custom fields."
 ];
 
+export const STATUS_DESCRIPTIONS_EN = [
+    "Instance received - Instance has entered FINT-Flyt from the case management system.",
+    "Instance temporarily stored - Instance temporarily stored in file storage, memory, and in the database.",
+    "Instance converted - Instance processed and data converted according to the configuration.",
+    "Instance ready for sending to destination - Instance has been fully processed in FINT-Flyt and will be automatically sent to the case management system. If the instance remains in this status, an error has occurred, and you should contact Novari support <a href='https://support.jira.novari.no/servicedesk/customer/portals' target='_top'>here</a>",
+    "Instance accepted by destination - Feedback from the case management system confirms that the instance has been sent and everything went well.",
+    "Temporary storage of instance deleted - Cleanup according to GDPR, where files and instances are deleted after they have been successfully sent.",
+    "Error while sending to destination - Error messages from the case management system often appear here. If the message is incomplete or unclear, contact Novari.",
+];
+
 export const FAQ_EN: { header: string, content: string }[] = [
     {
         header: "How do I use metadata?",

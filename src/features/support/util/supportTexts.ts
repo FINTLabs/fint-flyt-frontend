@@ -22,6 +22,16 @@ export const WORD_LIST = [
     "Egendefinert felt/verdi - For å benytte metadata i konfigurasjonen må vi ha felter som tillatter både fritekst og referanser til metadata. Dette kalles i Flyt egendefinerte felter. "
 ]
 
+export const STATUS_DESCRIPTIONS = [
+    "Instans mottatt - Instans ankommet FINT-Flyt fra fagsystem.",
+    "Instans mellomlagret - Instans mellomlagret i fil-lagring, minne og i database.",
+    "Instans konvertert - Instans behandlet og data konvertert i henhold til konfigurasjonen.",
+    "Instans klar for sending til destinasjon - Instans er ferdigbehandlet i FINT-Flyt og blir sendt videre automatisk til fagsystem. Blir instansen hengende igjen på denne statusen har det skjedd en feil og dere må ta kontakt med Novari support <a href='https://support.jira.novari.no/servicedesk/customer/portals' target='_top'>her</a>",
+    "Instans godtatt av destinasjon - Tilbakemelding fra fagsystem om at instans er sendt og alt gikk bra.",
+    "Mellomlagring av instans slettet - Opprydning i henhold til GDPR om at vi sletter filer og instans etter den er videresendt med suksess.",
+    "Feilet under sending til destinasjon - Feilmelding fra fagssystem havner ofte her. Dersom den er manglerfull eller uforståeling, ta kontakt med Novari.",
+]
+
 export const FAQ: { header: string, content: string }[] = [
     {
         header: "Hvordan bruker jeg metadata?",
