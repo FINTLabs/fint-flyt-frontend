@@ -26,7 +26,7 @@ export const STATUS_DESCRIPTIONS = [
     "Instans mottatt - Instans ankommet FINT-Flyt fra fagsystem.",
     "Instans mellomlagret - Instans mellomlagret i fil-lagring, minne og i database.",
     "Instans konvertert - Instans behandlet og data konvertert i henhold til konfigurasjonen.",
-    "Instans klar for sending til destinasjon - Instans er ferdigbehandlet i FINT-Flyt og blir sendt videre automatisk til fagsystem. Blir instansen hengende igjen på denne statusen har det skjedd en feil og dere må ta kontakt med Novari support her: https://support.jira.novari.no/servicedesk/customer/portals",
+    "Instans klar for sending til destinasjon - Instans er ferdigbehandlet i FINT-Flyt og blir sendt videre automatisk til fagsystem. Blir instansen hengende igjen på denne statusen har det skjedd en feil og dere må ta kontakt med Novari support <a href='https://support.jira.novari.no/servicedesk/customer/portals' target='_top'>her</a>",
     "Instans godtatt av destinasjon - Tilbakemelding fra fagsystem om at instans er sendt og alt gikk bra.",
     "Mellomlagring av instans slettet - Opprydning i henhold til GDPR om at vi sletter filer og instans etter den er videresendt med suksess.",
     "Feilet under sending til destinasjon - Feilmelding fra fagssystem havner ofte her. Dersom den er manglerfull eller uforståeling, ta kontakt med Novari.",
