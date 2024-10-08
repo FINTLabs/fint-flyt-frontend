@@ -23,7 +23,7 @@ export const WORD_LIST = [
 ]
 
 export const STATUS_DESCRIPTIONS = [
-    "Instans mottatt - Instans ankommet flyt fra fagsystem.",
+    "Instans mottatt - Instans ankommet FINT-Flyt fra fagsystem.",
     "Instans mellomlagret - Instans mellomlagret i fil-lagring, minne og i database.",
     "Instans konvertert - Instans behandlet og data konvertert i henhold til konfigurasjonen.",
     "Instans klar for sending til destinasjon - Instans er ferdigbehandlet i FINT-Flyt og blir sendt videre automatisk til fagsystem. Blir instansen hengende igjen på denne statusen har det skjedd en feil og dere må ta kontakt med Novari support her: https://support.jira.novari.no/servicedesk/customer/portals",

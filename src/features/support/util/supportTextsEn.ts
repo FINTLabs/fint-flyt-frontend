@@ -23,7 +23,7 @@ export const WORD_LIST_EN = [
 ];
 
 export const STATUS_DESCRIPTIONS_EN = [
-    "Instance received - Instance has entered the flow from the case management system.",
+    "Instance received - Instance has entered FINT-Flyt from the case management system.",
     "Instance temporarily stored - Instance temporarily stored in file storage, memory, and in the database.",
     "Instance converted - Instance processed and data converted according to the configuration.",
     "Instance ready for sending to destination - Instance has been fully processed in FINT-Flyt and will be automatically sent to the case management system. If the instance remains in this status, an error has occurred, and you should contact Novari support here: https://support.jira.novari.no/servicedesk/customer/portals",
