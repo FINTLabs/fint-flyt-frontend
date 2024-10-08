@@ -40,7 +40,11 @@ const UserGuide: RouteComponent = () => {
 					<Label>{t("statusDescriptions")}</Label>
 					<List as="ul" id={"guide-status-events"}>
 						{getStatusDescriptionsByLanguage(i18n.language).map((item, index) => {
-							return <List.Item key={index}>{item}</List.Item>;
+							return (
+								<List.Item key={index}>
+									<span dangerouslySetInnerHTML={{ __html: item }} />
+								</List.Item>
+							);
 						})}
 					</List>
 					<Link as={RouterLink} to={"/"} id={"back-link"}>
