@@ -28,7 +28,10 @@ spec:
       value: path
   resources:
     limits:
-      memory: "128Mi"
-      cpu: "500m"
+      memory: "40Mi"
+      cpu: "6m"
+    requests:
+      memory: "40Mi"
+      cpu: "6m"
   restartPolicy: Always
   replicas: 1
