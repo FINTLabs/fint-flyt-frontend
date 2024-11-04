@@ -103,6 +103,6 @@
     "@typescript-eslint/eslint-plugin": "^5.60.0",
     "cypress": "^12.14.0",
     "eslint": "^8.43.0",
-    "http-proxy-middleware": "^2.0.1"
+    "http-proxy-middleware": "^2.0.7"
   }
 }
