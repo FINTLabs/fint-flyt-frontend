@@ -148,8 +148,8 @@ const InstanceTable: React.FunctionComponent<Props> = ({onError}) => {
                                 />}>
                                     <Table.DataCell
                                         scope="row">{getSourceApplicationDisplayNameById(String(value.instanceFlowHeaders.sourceApplicationId))}</Table.DataCell>
-                                    <Table.DataCell>{value.instanceFlowHeaders.sourceApplicationInstanceId}</Table.DataCell>
                                     <Table.DataCell>{value.displayName}</Table.DataCell>
+                                    <Table.DataCell>{value.instanceFlowHeaders.sourceApplicationInstanceId}</Table.DataCell>
                                     <Table.DataCell>{moment(value.timestamp).format('DD/MM/YY HH:mm')}</Table.DataCell>
                                     <Table.DataCell>
                                         {GetIcon(value)}
