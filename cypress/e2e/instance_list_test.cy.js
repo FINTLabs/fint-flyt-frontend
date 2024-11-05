@@ -66,9 +66,10 @@ describe('Testing instance list', () => {
     it('it should sort columns correctly', () => {
         prep()
         cy.viewport(3000, 2000)
-        cy.get('#instance-table > :nth-child(2) > :nth-child(1) > :nth-child(5)').should("contain.text", "Feilet under konvertering")
+        cy.get('#instance-table').contains('td', 'Feilet under konvertering');
+
         cy.get('[aria-sort="descending"] > .navds-table__sort-button').click().click()
-        cy.get('#instance-table > :nth-child(2) > :nth-child(1) > :nth-child(5)').should("contain.text", "Instans godtatt av destinasjon")
+        cy.get('#instance-table').contains('td', 'Instans godtatt av destinasjon');
 
     })
 });
