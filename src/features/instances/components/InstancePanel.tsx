@@ -52,12 +52,7 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
         <>
             <Box id={props.id} padding="4" background={"surface-subtle"} borderRadius="xlarge">
                 {selectedInstances && selectedInstances.content.length > 0 ?
-                    <Box> {selectedInstances && selectedInstances.content[0] &&
-                        <ul>
-                            <li>{t('table.column.sourceApplicationIntegrationId')}: {selectedInstances.content[0].instanceFlowHeaders.sourceApplicationIntegrationId}</li>
-                            <li>{t('table.column.sourceApplicationInstanceId')}: {selectedInstances.content[0].instanceFlowHeaders.sourceApplicationInstanceId}</li>
-                        </ul>
-                    }
+                    <Box>
                         <ErrorAlertDialog row={selectedRow}/>
                         <Table size={"small"}>
                             <Table.Header>

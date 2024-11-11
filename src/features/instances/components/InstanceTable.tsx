@@ -125,6 +125,7 @@ const InstanceTable: React.FunctionComponent<Props> = ({onError}) => {
                             <Table.ColumnHeader/>
                             <Table.ColumnHeader>{t('table.column.sourceApplicationId')}</Table.ColumnHeader>
                             <Table.ColumnHeader>{t('table.column.sourceApplicationIntegrationIdDisplayName')}</Table.ColumnHeader>
+                            <Table.ColumnHeader>{t('table.column.sourceApplicationIntegrationId')}</Table.ColumnHeader>
                             <Table.ColumnHeader>{t('table.column.sourceApplicationInstanceId')}</Table.ColumnHeader>
                             <Table.ColumnHeader sortKey="timestamp"
                                                 sortable>{t('table.column.timestamp')}</Table.ColumnHeader>
@@ -149,6 +150,7 @@ const InstanceTable: React.FunctionComponent<Props> = ({onError}) => {
                                     <Table.DataCell
                                         scope="row">{getSourceApplicationDisplayNameById(String(value.instanceFlowHeaders.sourceApplicationId))}</Table.DataCell>
                                     <Table.DataCell>{value.displayName}</Table.DataCell>
+                                    <Table.DataCell>{value.instanceFlowHeaders.sourceApplicationIntegrationId}</Table.DataCell>
                                     <Table.DataCell>{value.instanceFlowHeaders.sourceApplicationInstanceId}</Table.DataCell>
                                     <Table.DataCell>{moment(value.timestamp).format('DD/MM/YY HH:mm')}</Table.DataCell>
                                     <Table.DataCell>
