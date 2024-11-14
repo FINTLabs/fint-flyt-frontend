@@ -178,7 +178,8 @@
           "finished": "Completed",
           "version": "Version",
           "dispatched": "# dispatched",
-          "errors": "# failed"
+          "errors": "# failed",
+          "total": "# total"
         }
       }
     },

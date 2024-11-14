@@ -59,6 +59,7 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
                             if (integration.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {
                                 integration.errors = value.currentErrors;
                                 integration.dispatched = value.dispatchedInstances;
+                                integration.total = value.totalInstances;
                             }
                         });
                     });
@@ -122,6 +123,7 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
                             <Table.ColumnHeader sortKey="state" sortable>{t('table.column.state')}</Table.ColumnHeader>
                             <Table.ColumnHeader>{t('table.column.dispatched')}</Table.ColumnHeader>
                             <Table.ColumnHeader>{t('table.column.errors')}</Table.ColumnHeader>
+                            <Table.ColumnHeader>{t('table.column.total')}</Table.ColumnHeader>
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
@@ -147,6 +149,7 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
                                     </Table.DataCell>
                                     <Table.DataCell>{value.dispatched}</Table.DataCell>
                                     <Table.DataCell>{value.errors}</Table.DataCell>
+                                    <Table.DataCell>{value.total}</Table.DataCell>
                                 </Table.ExpandableRow>
                             );
                         })}
