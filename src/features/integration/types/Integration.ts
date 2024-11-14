@@ -8,6 +8,7 @@ export interface IIntegration {
     activeConfigurationVersion?: string;
     dispatched?: number;
     errors?: number;
+    total?: number;
     displayName?: string;
 }
 
@@ -32,4 +33,5 @@ export interface IIntegrationStatistics {
     sourceApplicationIntegrationId: string;
     dispatchedInstances: number;
     currentErrors: number;
+    totalInstances: number;
 }

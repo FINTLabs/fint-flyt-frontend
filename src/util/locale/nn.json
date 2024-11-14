@@ -178,7 +178,8 @@
           "finished": "Ferdigstilt",
           "version": "Versjon",
           "dispatched": "# godteke",
-          "errors": "# feila"
+          "errors": "# feila",
+          "total": "# totalt"
         }
       }
     },
