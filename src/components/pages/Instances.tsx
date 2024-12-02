@@ -10,7 +10,7 @@ import {RouteComponent} from "../../routes/Route";
 import {SourceApplicationContext} from "../../context/SourceApplicationContext";
 import {IAlertMessage} from "../types/TableTypes";
 import {AuthorizationContext} from "../../context/AuthorizationContext";
-import {useHistory} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Instances: RouteComponent = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.instances'})
@@ -19,10 +19,10 @@ const Instances: RouteComponent = () => {
     const {allMetadata, getAllMetadata} = useContext(SourceApplicationContext)
     const [error, setError] = useState<IAlertMessage | undefined>(undefined);
     const { authorized, getAuthorization} = useContext(AuthorizationContext)
-    const history = useHistory();
+    const history = useNavigate();
 
     if(!authorized) {
-        history.push('/forbidden')
+        history('/forbidden')
     }
     useEffect(() => {
         getAuthorization()

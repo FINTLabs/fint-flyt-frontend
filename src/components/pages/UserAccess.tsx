@@ -3,7 +3,7 @@ import PageTemplate from "../templates/PageTemplate";
 import * as React from "react";
 import { useContext, useEffect, useState } from "react";
 import { AuthorizationContext } from "../../context/AuthorizationContext";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Alert, Box, Button, Checkbox, Heading, HStack, Loader, Table, VStack, Pagination, SortState } from "@navikt/ds-react";
 import { useTranslation } from "react-i18next";
 import AuthorizationRepository from "../../api/AuthorizationRepository";
@@ -35,15 +35,15 @@ const UserAccess: RouteComponent = () => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.useraccess' });
     const { hasAccessToUserPermissionPage } = useContext(AuthorizationContext);
     const [error, setError] = useState<IAlertMessage | undefined>(undefined);
-    const history = useHistory();
+    const history = useNavigate();
     const { authorized} = useContext(AuthorizationContext)
 
     if(!authorized) {
-        history.push('/forbidden')
+        history('/forbidden')
     }
 
     if (!hasAccessToUserPermissionPage) {
-        history.push('/');
+        history('/');
     }
 
     const [users, setUsers] = useState<IUser[] | undefined>(undefined);

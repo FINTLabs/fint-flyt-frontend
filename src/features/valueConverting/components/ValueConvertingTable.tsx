@@ -1,5 +1,5 @@
 import React, {ReactElement, useEffect, useState} from 'react';
-import {useHistory} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
 import ValueConvertingRepository from "../../../api/ValueConvertingRepository";
 import {IValueConverting} from "../types/ValueConverting";
@@ -24,7 +24,7 @@ type Props = {
 }
 
 const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
-    const history = useHistory();
+    const history = useNavigate();
     const {t} = useTranslation('translations', {keyPrefix: 'pages.valueConverting'});
     const [rows, setRows] = useState<IValueConverting[] | undefined>(undefined)
     const [error, setError] = useState<IAlertMessage | undefined>(undefined);
@@ -63,7 +63,7 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
                 <Dropdown.Menu>
                     <Dropdown.Menu.GroupedList>
                         <Dropdown.Menu.GroupedList.Item onClick={() => {
-                            handleNewOrEditConvertingClick(value.id).then(() => history.push('/valueconverting'))
+                            handleNewOrEditConvertingClick(value.id).then(() => history('/valueconverting'))
                         }}>
                             {t('button.basedOn')}
                         </Dropdown.Menu.GroupedList.Item>
