@@ -5,7 +5,7 @@ import {
     selectableDestinations,
 } from "../configuration/defaults/DefaultValues";
 import {Snackbar} from "@mui/material";
-import {RouteComponentProps, useHistory} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {IntegrationContext} from "../../context/IntegrationContext";
 import {useTranslation} from "react-i18next";
 import {SourceApplicationContext} from "../../context/SourceApplicationContext";
@@ -27,8 +27,8 @@ type Props = {
     id: string
 }
 
-export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>> = () => {
-    const history = useHistory();
+export const IntegrationForm: React.FunctionComponent<Props> = () => {
+    const history = useNavigate();
     const {t} = useTranslation('translations', {keyPrefix: 'pages.integrationForm'});
     const {setExistingIntegrationMetadata, setExistingIntegration, resetIntegrationContext} = useContext(IntegrationContext)
     const {
@@ -64,14 +64,11 @@ export const IntegrationForm: React.FunctionComponent<RouteComponentProps<Props>
     }
 
     const navToConfiguration = (id: string) => {
-        history.push({
-            pathname: '/integration/configuration/new-configuration',
-        }, {
-            id: id
-        })
+        history('/integration/configuration/new-configuration', { state: { id } });
+
     }
     const cancel = () => {
-        history.push({
+        history({
             pathname: '/integration/list',
         })
     }

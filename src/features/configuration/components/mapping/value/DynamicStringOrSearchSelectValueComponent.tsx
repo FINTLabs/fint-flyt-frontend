@@ -28,7 +28,7 @@ export enum Type {
     VALUE_CONVERTING
 }
 
-const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivElement, Props>((props: Props) => {
+const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivElement, Props>((props, ref) => {
     DynamicStringOrSearchSelectValueComponent.displayName = "DynamicStringOrSearchSelectValueComponent"
     const [selectValue, setSelectValue] = useState<string | null>(null)
     const [dynamicValue, setDynamicValue] = useState<string>('')
@@ -50,7 +50,7 @@ const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> 
         }
     }, [])
 
-    return <Box>
+    return <Box ref={ref}>
         <SearchSelectValueComponent
             displayName={props.displayName}
             selectables={[

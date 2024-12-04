@@ -3,7 +3,7 @@ import IntegrationTable from "../../features/integrations/components/Integration
 import PageTemplate from "../templates/PageTemplate";
 import {SourceApplicationContext} from "../../context/SourceApplicationContext";
 import {RouteComponent} from "../../routes/Route";
-import {Link as RouterLink, useHistory} from "react-router-dom"
+import {Link as RouterLink, useNavigate} from "react-router-dom"
 import {Alert, Box, Button, Heading, HelpText, HStack, Loader} from "@navikt/ds-react";
 import {useTranslation} from "react-i18next";
 import {PlusIcon} from '@navikt/aksel-icons';
@@ -15,10 +15,10 @@ const Integrations: RouteComponent = () => {
     const {allMetadata, getAllMetadata} = useContext(SourceApplicationContext)
     const [error, setError] = useState<IAlertMessage | undefined>(undefined);
     const { authorized, getAuthorization} = useContext(AuthorizationContext)
-    const history = useHistory();
+    const history = useNavigate();
 
     if(!authorized) {
-        history.push('/forbidden')
+        history('/forbidden')
     }
     useEffect(() => {
         getAuthorization()

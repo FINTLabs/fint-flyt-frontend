@@ -10,13 +10,13 @@ import { Box, HStack } from "@navikt/ds-react";
 import { Contact } from "../atoms/Contact";
 import SupportContent from "../molecules/SupportContent";
 import {AuthorizationContext} from "../../context/AuthorizationContext";
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 const Dashboard: RouteComponent = () => {
 	const { t } = useTranslation("translations", {
 		keyPrefix: "pages.dashboard",
 	});
-	const history = useHistory();
+	const history = useNavigate();
 	const { statistics, resetIntegration, integrations, getAllIntegrations } =
 		useContext(IntegrationContext);
 	const activeIntegrations =
@@ -38,7 +38,7 @@ const Dashboard: RouteComponent = () => {
 
 
 	if(!authorized) {
-		history.push('/forbidden')
+		history('/forbidden')
 	}
 
 	const cards: ICard[] = [

@@ -5,15 +5,15 @@ import {getAboutByLanguage, getVersionDataByLanguage,} from "../utils/version/Ve
 import {RouteComponent} from "../../routes/Route";
 import {useTranslation} from "react-i18next";
 import {AuthorizationContext} from "../../context/AuthorizationContext";
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 const Version: RouteComponent = () => {
     const {i18n} = useTranslation();
     const { authorized, getAuthorization} = useContext(AuthorizationContext)
-    const history = useHistory();
+    const history = useNavigate();
 
     if(!authorized) {
-        history.push('/forbidden')
+        history('/forbidden')
     }
     useEffect(() => {
         getAuthorization()
@@ -31,7 +31,7 @@ const Version: RouteComponent = () => {
             >
                 <VStack gap={"6"}>
                     <BodyLong>{getAboutByLanguage(i18n.language)}</BodyLong>
-                    <BodyLong>
+                    {/*<BodyLong>*/}
                         <VStack gap={"6"}>
                             {(getVersionDataByLanguage(i18n.language)).map((value, i) => (
                                 <List key={i} as="ul" title={value.heading}>
@@ -41,7 +41,7 @@ const Version: RouteComponent = () => {
                                 </List>
                             ))}
                         </VStack>
-                    </BodyLong>
+                    {/*</BodyLong>*/}
                 </VStack>
             </Box>
         </PageTemplate>

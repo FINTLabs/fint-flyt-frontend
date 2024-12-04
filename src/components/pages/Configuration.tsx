@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {useHistory} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import {SourceApplicationContext} from "../../context/SourceApplicationContext";
 import OutgoingDataComponent from "../../features/configuration/components/OutgoingDataComponent";
 import {Controller, FormProvider, useForm} from "react-hook-form";
@@ -46,7 +46,7 @@ const Configuration: RouteComponent = () => {
     } = useContext(ConfigurationContext)
     const {setEditCollectionAbsoluteKey} = useContext(EditingContext)
     const {t} = useTranslation('translations', {keyPrefix: 'pages.configuration'});
-    const history = useHistory();
+    const history = useNavigate();
     const {
         existingIntegrationMetadata,
         setExistingIntegrationMetadata,
@@ -62,10 +62,10 @@ const Configuration: RouteComponent = () => {
     const { authorized, getAuthorization} = useContext(AuthorizationContext)
 
     if(!authorized) {
-        history.push('/forbidden')
+        history('/forbidden')
     }
     if (!existingIntegration) {
-        history.push('/')
+        history('/')
     }
     const methods = useForm<IConfiguration>({
         mode: 'onChange',
@@ -260,7 +260,7 @@ const Configuration: RouteComponent = () => {
                                         <Button id="form-cancel-btn"
                                                 size={"small"}
                                                 onClick={() => {
-                                                    history.push('/')
+                                                    history('/')
                                                 }}
                                         >{t("button.cancel")}
                                         </Button>

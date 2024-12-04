@@ -1,4 +1,4 @@
-import {useHistory} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import routes from "../../routes/Routes";
 import {useTranslation} from "react-i18next";
 import {Button} from "@navikt/ds-react";
@@ -8,7 +8,7 @@ import {AuthorizationContext} from "../../context/AuthorizationContext";
 const MenuItems = () => {
     const {t} = useTranslation("translations", {keyPrefix: "menuItems"});
     const {hasAccessToUserPermissionPage} = useContext(AuthorizationContext)
-    const history = useHistory();
+    const history = useNavigate();
     return (
         <>
             {routes
@@ -19,7 +19,7 @@ const MenuItems = () => {
                         style={{color: "white"}}
                         variant={"tertiary-neutral"}
                         onClick={() => {
-                            history.push(route.path);
+                            history(route.path);
                         }}
                         key={route.name}
                     >
@@ -32,7 +32,7 @@ const MenuItems = () => {
                     style={{color: "white"}}
                     variant={"tertiary-neutral"}
                     onClick={() => {
-                        history.push('/useraccess');
+                        history('/useraccess');
                     }}
                     key={'useraccess'}
                 >
