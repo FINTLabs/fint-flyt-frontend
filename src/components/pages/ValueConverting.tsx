@@ -8,17 +8,17 @@ import {Button, Heading, HelpText, HStack} from "@navikt/ds-react";
 import {PlusIcon} from "@navikt/aksel-icons";
 import {useTranslation} from "react-i18next";
 import {AuthorizationContext} from "../../context/AuthorizationContext";
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 const ValueConverting: RouteComponent = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.valueConverting'})
     const [existingValueConverting, setExistingValueConverting] = useState(undefined);
     const [newValueConverting, setNewValueConverting] = useState<boolean>(false)
     const { authorized, getAuthorization} = useContext(AuthorizationContext)
-    const history = useHistory();
+    const history = useNavigate();
 
     if(!authorized) {
-        history.push('/forbidden')
+        history('/forbidden')
     }
     useEffect(() => {
         getAuthorization()

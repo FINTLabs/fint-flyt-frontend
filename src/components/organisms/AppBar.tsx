@@ -1,13 +1,13 @@
 import MenuItems from "../molecules/MenuItems";
 import {Button, Dropdown, InternalHeader, Label, Spacer} from "@navikt/ds-react";
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {LanguageIcon} from '@navikt/aksel-icons';
 import {useTranslation} from "react-i18next";
 import {changeLanguage} from "i18next";
 import {ReactComponent as Logo} from '../../images/fint-by-novari.svg';
 
 export const AppBar = () => {
-    const history = useHistory();
+    const history = useNavigate();
     const {t} = useTranslation('translations', {keyPrefix: 'menu'});
 
     return (
@@ -16,7 +16,7 @@ export const AppBar = () => {
                 variant="tertiary-neutral"
                 size={"small"}
                 onClick={() => {
-                    history.push("/");
+                    history("/");
                 }}
             >
                 <Logo

@@ -1,23 +1,23 @@
-import {Route} from "react-router-dom"
+import { Routes, Route } from "react-router-dom";
 import routes from "./Routes";
 import React from "react";
 import IRoute from "./Route";
 
 const Router: React.FunctionComponent = () => {
     return (
-        <>
+        <Routes>
             {routes.map((route: IRoute, index: number) => {
+                const Component = route.component;
                 return (
                     <Route
                         key={index}
-                        exact={route.exact}
                         path={route.path}
-                        component={route.component}
+                        element={<Component id={route.name} />}
                     />
                 );
             })}
-        </>
+        </Routes>
     );
-}
+};
 
 export default Router;

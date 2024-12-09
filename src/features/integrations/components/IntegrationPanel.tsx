@@ -2,7 +2,7 @@ import * as React from "react";
 import {ReactElement, useContext, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {IntegrationContext} from "../../../context/IntegrationContext";
-import {Link as RouterLink, useHistory} from 'react-router-dom';
+import {Link as RouterLink, useNavigate} from 'react-router-dom';
 import {SourceApplicationContext} from "../../../context/SourceApplicationContext";
 import {IIntegration, IIntegrationPatch} from "../../integration/types/Integration";
 import {IConfiguration} from "../../configuration/types/Configuration";
@@ -34,7 +34,7 @@ type Props = {
 
 const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.integrations'});
-    const history = useHistory();
+    const history = useNavigate();
     const {
         setConfiguration,
         setExistingIntegrationMetadata,
@@ -188,12 +188,12 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
                         <Dropdown.Menu>
                             <Dropdown.Menu.GroupedList>
                                 <Dropdown.Menu.GroupedList.Item onClick={() => {
-                                    handleNewOrEditConfigClick(config.id).then(() => history.push("/integration/configuration/edit"))
+                                    handleNewOrEditConfigClick(config.id).then(() => history("/integration/configuration/edit"))
                                 }}>
                                     {t('table.show')}
                                 </Dropdown.Menu.GroupedList.Item>
                                 <Dropdown.Menu.GroupedList.Item onClick={() => {
-                                    handleNewOrEditConfigClick(config.id, config.version).then(() => history.push("/integration/configuration/edit"))
+                                    handleNewOrEditConfigClick(config.id, config.version).then(() => history("/integration/configuration/edit"))
                                 }}>
                                     {t('table.basedOn')}
                                 </Dropdown.Menu.GroupedList.Item>
@@ -210,7 +210,7 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
                     </Dropdown>
                     :
                     <Button variant="tertiary-neutral" icon={<PencilWritingIcon aria-hidden/>} onClick={() => {
-                        handleNewOrEditConfigClick(config.id).then(() => history.push("/integration/configuration/edit"))
+                        handleNewOrEditConfigClick(config.id).then(() => history("/integration/configuration/edit"))
                     }}>
                     </Button>
                 }
