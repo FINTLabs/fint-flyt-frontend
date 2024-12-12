@@ -88,6 +88,54 @@ export const IntegrationForm: React.FunctionComponent<Props> = () => {
         }
     }, [sourceApplication, setSourceApplication])
 
+    useEffect(() => {
+        console.log("Fetching metadata...");
+        getAllMetadata(true);
+        console.log("Fetched metadata: ", allMetadata);
+    }, [sourceApplicationId]);
+
+    const fetchFormsAndDisableExisting = React.useCallback(async () => {
+        try {
+            console.log("Fetching metadata and integrations...");
+            await getAllMetadata(true);
+            const metadata = allMetadata || [];
+            console.log("Metadata fetched:", metadata);
+
+            const integrationResponse = await IntegrationRepository.getIntegrations(0, null, "state", "ASC");
+            const integrations = integrationResponse.data.content || [];
+            console.log("Integrations fetched:", integrations);
+
+            const updatedForms = metadata.map((form) => ({
+                value: form.sourceApplicationIntegrationId,
+                label: `[${form.sourceApplicationIntegrationId}] ${form.integrationDisplayName}`,
+                disabled: integrations.some(
+                    (integration) =>
+                        integration.sourceApplicationIntegrationId === form.sourceApplicationIntegrationId
+                ),
+            }));
+
+            setAvailableForms(updatedForms);
+            console.log("Available forms updated:", updatedForms);
+        } catch (error) {
+            console.error("Error fetching metadata or integrations:", error);
+            setAvailableForms([]);
+        }
+    }, [allMetadata, setAvailableForms]);
+
+    useEffect(() => {
+        if (sourceApplicationId) {
+            console.log("Fetching forms for SourceApplicationId:", sourceApplicationId);
+            fetchFormsAndDisableExisting();
+        } else {
+            console.log("SourceApplicationId is empty, clearing forms...");
+            setAvailableForms([]);
+        }
+    }, [sourceApplicationId]);
+
+    useEffect(() => {
+        console.log("Available Forms Updated:", availableForms);
+    }, [availableForms]);
+
     const handleClose = (event: React.SyntheticEvent | Event, reason?: string) => {
         if (reason === 'clickaway') {
             return;
