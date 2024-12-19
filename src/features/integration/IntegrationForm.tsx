@@ -47,7 +47,6 @@ export const IntegrationForm: React.FunctionComponent<Props> = () => {
     const [showAlert, setShowAlert] = React.useState<boolean>(false)
     const [alertContent, setAlertContent] = React.useState<IAlertContent>(defaultAlert)
     const [sourceApplicationIntegrationId, setSourceApplicationIntegrationId] = useState<string>('');
-    const selectPlaceholder: { label: string, value: string }[] = [{label: t('labels.placeholder'), value: ''}]
     const loadingPlaceholder: { label: string, value: string }[] = [{label: t('labels.loading'), value: ''}]
     const methods = useForm<IIntegrationFormData>();
     const [selectableSourceApplications, setSelectableSourceApplications] = useState<ISelect[]>([
@@ -94,47 +93,55 @@ export const IntegrationForm: React.FunctionComponent<Props> = () => {
         console.log("Fetched metadata: ", allMetadata);
     }, [sourceApplicationId]);
 
-    const fetchFormsAndDisableExisting = React.useCallback(async () => {
+    const fetchFormsAndFilterExisting = async () => {
         try {
             console.log("Fetching metadata and integrations...");
+
             await getAllMetadata(true);
-            const metadata = allMetadata || [];
-            console.log("Metadata fetched:", metadata);
 
-            const integrationResponse = await IntegrationRepository.getIntegrations(0, null, "state", "ASC");
-            const integrations = integrationResponse.data.content || [];
-            console.log("Integrations fetched:", integrations);
+            const integrationsResponse = await IntegrationRepository.getIntegrations(0, null, "state", "ASC") as unknown as AxiosResponse<IIntegration[]>;
+            const integrations: IIntegration[] = integrationsResponse.data || [];
 
-            const updatedForms = metadata.map((form) => ({
-                value: form.sourceApplicationIntegrationId,
-                label: `[${form.sourceApplicationIntegrationId}] ${form.integrationDisplayName}`,
-                disabled: integrations.some(
-                    (integration) =>
-                        integration.sourceApplicationIntegrationId === form.sourceApplicationIntegrationId
-                ),
-            }));
+            console.log("Fetched metadata:", allMetadata);
+            console.log("Fetched integrations:", integrations);
 
-            setAvailableForms(updatedForms);
-            console.log("Available forms updated:", updatedForms);
+            const filteredForms: ISelect[] = (allMetadata || [])
+                .filter(
+                    (form: IIntegrationMetadata) =>
+                        !integrations.some(
+                            (integration: IIntegration) =>
+                                integration.sourceApplicationIntegrationId === form.sourceApplicationIntegrationId
+                        )
+                )
+                .map((form: IIntegrationMetadata) => ({
+                    value: form.sourceApplicationIntegrationId,
+                    label: `[${form.sourceApplicationIntegrationId}] ${form.integrationDisplayName}`,
+                }));
+
+            console.log("Filtered forms:", filteredForms);
+            setAvailableForms(filteredForms);
         } catch (error) {
             console.error("Error fetching metadata or integrations:", error);
             setAvailableForms([]);
         }
-    }, [allMetadata, setAvailableForms]);
+    };
 
     useEffect(() => {
         if (sourceApplicationId) {
             console.log("Fetching forms for SourceApplicationId:", sourceApplicationId);
-            fetchFormsAndDisableExisting();
+            fetchFormsAndFilterExisting()
+                .then(() => {
+                    console.log("Fetched and updated forms successfully.");
+                })
+                .catch((error) => {
+                    console.error("Error fetching forms:", error);
+                });
         } else {
             console.log("SourceApplicationId is empty, clearing forms...");
             setAvailableForms([]);
         }
     }, [sourceApplicationId]);
 
-    useEffect(() => {
-        console.log("Available Forms Updated:", availableForms);
-    }, [availableForms]);
 
     const handleClose = (event: React.SyntheticEvent | Event, reason?: string) => {
         if (reason === 'clickaway') {
@@ -212,33 +219,49 @@ export const IntegrationForm: React.FunctionComponent<Props> = () => {
                                 />
 
                                 <Controller
-                                    rules={{required: true}}
+                                    rules={{ required: true }}
                                     name={"sourceApplicationIntegrationId"}
-                                    defaultValue={""}
-                                    render={({fieldState, field}) => (
+                                    defaultValue=""
+                                    render={({ fieldState, field }) => (
                                         <Select
                                             id={"sourceApplicationIntegrationId"}
                                             label={
                                                 <HStack gap={"2"} align={"center"}>
-                                                    {t('labels.sourceApplicationIntegrationId')}
-                                                    <HelpText title={'hva er dette'}
-                                                              placement="right">{t('help.sourceApplicationIntegrationId')}</HelpText>
+                                                    {t("labels.sourceApplicationIntegrationId")}
+                                                    <HelpText title={"hva er dette"} placement="right">
+                                                        {t("help.sourceApplicationIntegrationId")}
+                                                    </HelpText>
                                                 </HStack>
                                             }
                                             error={!!fieldState.error}
-                                            onChange={event => {
+                                            value={field.value || ""}
+                                            onChange={(event) => {
                                                 setSourceApplicationIntegrationId(event.target.value);
-                                                field.onChange(event.target.value)
+                                                field.onChange(event.target.value);
                                             }}
                                         >
-                                            {(sourceApplication ?
-                                                availableForms ? availableForms : loadingPlaceholder
-                                                : selectPlaceholder).map((option, index) => (
-                                                <option key={index} value={option.value}>{option.label}</option>
+                                            <option value="" disabled>
+                                                {!sourceApplication
+                                                    ? t("labels.placeholderBeforeSelect")
+                                                    : t("labels.placeholderAfterSelect")
+                                                }
+                                            </option>
+
+                                            {availableForms?.map((option, index) => (
+                                                <option key={index} value={option.value}>
+                                                    {option.label}
+                                                </option>
+                                            ))}
+
+                                            {!availableForms && loadingPlaceholder.map((option) => (
+                                                <option key="loading" value={option.value}>
+                                                    {option.label}
+                                                </option>
                                             ))}
                                         </Select>
                                     )}
                                 />
+
                             </VStack>
                             <VStack gap={"3"} style={{maxWidth: '40%'}}>
                                 <Heading size={"small"}>{t('outgoing')}</Heading>

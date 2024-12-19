@@ -124,7 +124,8 @@
         "missingMetadata": "Can't find metadata for integration"
       },
       "labels": {
-        "placeholder": "Select source application first",
+        "placeholderBeforeSelect": "Select source application first",
+        "placeholderAfterSelect": "Select integration",
         "loading": "Loading...",
         "sourceApplicationId": "Source application",
         "sourceApplicationIntegrationId": "Integration",

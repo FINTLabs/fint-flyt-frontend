@@ -124,7 +124,8 @@
         "missingMetadata": "Finner ikkje metadata for integrasjon"
       },
       "labels": {
-        "placeholder": "Velg kjeldeapplikasjon først",
+        "placeholderBeforeSelect": "Velg kjeldeapplikasjon først",
+        "placeholderAfterSelect": "Velg integrasjon",
         "loading": "Lastar inn...",
         "sourceApplicationId": "Kjeldeapplikasjon",
         "sourceApplicationIntegrationId": "Integrasjon",
