@@ -4,7 +4,27 @@ export const ABOUT_VERSIONS =
 
 export const VERSION_DATA: { heading: string; updates: string[] }[] = [
 	{
-		heading: "Versjon 10.4 - April 2024",
+		heading: "Oktober 2024",
+		updates: [
+			"Støtte for VIGO OT",
+			"Lagt til bedre og mer presis feilhåndtering",
+		],
+	},
+	{
+		heading: "September 2024",
+		updates: [
+			"Sletting av mellomlagrede instanser",
+			"Lagt til tilgangsstyring på kildeapplikasjon",
+		],
+	},
+	{
+		heading: "August 2024",
+		updates: [
+			"Lagt til manuell behandling av instanser",
+		],
+	},
+	{
+		heading: "April 2024",
 		updates: [
 			"10.4 Ny verdikonvertering krever unikt navn for å gjøre dem enklere å bruke i konfigurasjoner",
 		],
