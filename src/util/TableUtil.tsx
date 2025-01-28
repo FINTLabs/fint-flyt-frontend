@@ -14,6 +14,8 @@ export function getSourceApplicationDisplayNameById(id: string): string {
         return "VIGO"
     } else if (id === '5') {
         return "Altinn"
+    } else if (id === '6') {
+        return "HMSReg"
     } else {
         return "ukjent"
     }
