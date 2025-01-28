@@ -156,7 +156,7 @@ const UserAccess: RouteComponent = () => {
                                     <Table.ColumnHeader id={'column-header-digisak'}>Digisak</Table.ColumnHeader>
                                     <Table.ColumnHeader id={'column-header-vigo'}>VIGO</Table.ColumnHeader>
                                     <Table.ColumnHeader id={'column-header-altinn'}>Altinn</Table.ColumnHeader>
-                                    <Table.ColumnHeader id={'column-header-altinn'}>HMSReg</Table.ColumnHeader>
+                                    <Table.ColumnHeader id={'column-header-hmsreg'}>HMSReg</Table.ColumnHeader>
                                 </Table.Row>
                             </Table.Header>
                             <Table.Body>
