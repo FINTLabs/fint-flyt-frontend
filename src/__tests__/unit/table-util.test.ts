@@ -15,7 +15,7 @@ import {MOCK_EVENT, MOCK_EVENT2, MOCK_EVENT3} from "../mock/event";
 describe('Testing table utils', () => {
     test('should return correct source appliction display name by id', () => {
         expect(getSourceApplicationDisplayNameById("3")).toEqual('Digisak')
-        expect(getSourceApplicationDisplayNameById("6")).toEqual('ukjent')
+        expect(getSourceApplicationDisplayNameById("99")).toEqual('ukjent')
     })
 
     test('Should return correct destination displayname by id', () => {
