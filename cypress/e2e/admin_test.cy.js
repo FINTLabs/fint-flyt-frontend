@@ -1,6 +1,6 @@
 describe("Testing useraccess page", () => {
 	const columns = [
-		'Navn', 'Epost', 'ACOS', 'eGrunnerverv', 'Digisak', 'VIGO', 'Altinn'
+		'Navn', 'Epost', 'ACOS', 'eGrunnerverv', 'Digisak', 'VIGO', 'Altinn', 'HMSReg'
 	]
 	beforeEach(() => {
 		cy.intercept("GET", "**/authorization/me/is-authorized", {fixture: "auth.json"}).as("getAuth")

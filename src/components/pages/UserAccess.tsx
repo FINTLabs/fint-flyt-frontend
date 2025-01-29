@@ -156,6 +156,7 @@ const UserAccess: RouteComponent = () => {
                                     <Table.ColumnHeader id={'column-header-digisak'}>Digisak</Table.ColumnHeader>
                                     <Table.ColumnHeader id={'column-header-vigo'}>VIGO</Table.ColumnHeader>
                                     <Table.ColumnHeader id={'column-header-altinn'}>Altinn</Table.ColumnHeader>
+                                    <Table.ColumnHeader id={'column-header-hmsreg'}>HMSReg</Table.ColumnHeader>
                                 </Table.Row>
                             </Table.Header>
                             <Table.Body>
@@ -164,7 +165,7 @@ const UserAccess: RouteComponent = () => {
                                         <Table.Row id={'table-row-' + i} key={i}>
                                             <Table.DataCell id={'table-row-cell-name-' + i}>{value.name}</Table.DataCell>
                                             <Table.DataCell id={'table-row-cell-' + i}>{value.email}</Table.DataCell>
-                                            {[1, 2, 3, 4, 5].map(sourceApp => <Table.DataCell
+                                            {[1, 2, 3, 4, 5, 6].map(sourceApp => <Table.DataCell
                                                 key={`${value.objectIdentifier}-permission-${sourceApp}`}>
                                                 <Checkbox
                                                     id={'check-row-' + i + '-cell-' + sourceApp}
