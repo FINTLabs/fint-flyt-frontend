@@ -1,24 +1,4 @@
-# FINT Flyt Integration Frontend
-[![CI](https://github.com/FINTLabs/fint-flyt-frontend/actions/workflows/CI.yaml/badge.svg)](https://github.com/FINTLabs/fint-flyt-frontend/actions/workflows/CI.yaml)
 
-### run application
-`yarn start`
-
-### run tests
-`yarn test`
-
-### local set-up
-Run the script to start up all port forwarding. 
-Check that you have the right kcl environment
-kubectl config use-context aks-beta-fint-2021-11-23
-and check your name space : NAMESPACE="vlfk-no"
-make sure your setupProxy.js matches the name space
-`startUpForwards.sh`_
-_
-
-You can copy and paste the formatted code block below into your `README.md` or wherever you need it.
-
-```markdown
 # FINT Flyt Integration Frontend  
 [![CI](https://github.com/FINTLabs/fint-flyt-frontend/actions/workflows/CI.yaml/badge.svg)](https://github.com/FINTLabs/fint-flyt-frontend/actions/workflows/CI.yaml)
 
