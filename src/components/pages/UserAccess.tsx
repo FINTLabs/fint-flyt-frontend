@@ -142,7 +142,7 @@ const UserAccess: RouteComponent = () => {
                 </Button>
             </HStack>
             {error && <Alert style={{ maxWidth: '100%' }} variant="error">{error.message}</Alert>}
-            <Box background={'surface-default'} style={{ height: '70vh', overflowY: "scroll" }}>
+            <Box background={'surface-default'} style={{ minHeight: '70vh' }}>
                 {users ? <VStack gap={"6"}>
                         <Table sort={sort} onSortChange={(sortKey) => handleSortChange(sortKey ? sortKey : "name")} id={'useraccess-table'}>
                             <Table.Header>

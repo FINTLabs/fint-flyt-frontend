@@ -50,7 +50,7 @@ const Instances: RouteComponent = () => {
             </HStack>
             {error && <Alert style={{maxWidth: '100%'}} variant="error">{error.message}</Alert>}
             <Box id={"instance-table-container"} background={"surface-default"} padding="6" borderRadius={"large"}
-                 borderWidth="2" borderColor={"border-subtle"} style={{height: '80vh'}}>
+                 borderWidth="2" borderColor={"border-subtle"} >
                 {allMetadata ? <InstanceTable onError={(error) => {
                     setError(error)
                 }}/> : <Loader/>}

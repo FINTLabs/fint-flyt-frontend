@@ -12,7 +12,7 @@ export interface Props {
 
 const ColumnElementComponent: React.FunctionComponent<Props> = (props: Props) => {
     return <Box id={'column-item-' + props.index + '-' + props.title} borderRadius={"large"} borderWidth="2" borderColor={"border-subtle"} style={{
-        backgroundColor: '#EBF4F5',
+        // backgroundColor: '#EBF4F5',
         marginTop: '8px',
         minWidth: '416px',
     }}>

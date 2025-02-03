@@ -108,7 +108,7 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
 
     return integrations ? (
         <Box>
-            <Box background={'surface-default'} style={{height: '70vh', overflowY: "scroll"}}>
+            <Box background={'surface-default'} style={{minHeight: '70vh'}}>
                 <Table sort={sort} onSortChange={(sortKey) => handleSort(sortKey ? sortKey : 'id')} id={props.id}>
                     <Table.Header>
                         <Table.Row>

@@ -68,7 +68,7 @@ const CustomStatusDialogComponent: React.FunctionComponent<Props> = (props: Prop
     ]
 
     return (
-        <Modal open={props.open} ref={ref} header={{heading: t('customStatus'), closeButton: false}} style={{maxWidth: '500px'}}>
+        <Modal open={props.open} ref={ref} header={{heading: t('customStatus'), closeButton: false}} style={{maxWidth: '500px'}} onClose={() => props.setOpenCustomDialog(false)}>
             <Modal.Body>
                 <VStack gap={"4"}>
                     <Select label={t("dialog.status")} value={status} onChange={(e) => setStatus(e.target.value)}>

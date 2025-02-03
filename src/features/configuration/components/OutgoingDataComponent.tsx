@@ -12,7 +12,7 @@ const OutgoingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
     const {t} = useTranslation('translations', {keyPrefix: 'pages.configuration'});
 
     return (
-        <Box style={{minWidth: '400px', maxHeight: '70vh', maxWidth: '70vw', overflow: "auto"}} id={"outgoing-form-panel"}
+        <Box style={{minWidth: '400px', minHeight: '70vh'}} id={"outgoing-form-panel"}
              background={"surface-default"} padding="6" borderRadius={"large"} borderWidth="2"
              borderColor={"border-subtle"}>
             <HStack align={"center"} gap={"2"}>

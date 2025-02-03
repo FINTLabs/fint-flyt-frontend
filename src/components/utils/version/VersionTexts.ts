@@ -4,6 +4,13 @@ export const ABOUT_VERSIONS =
 
 export const VERSION_DATA: { heading: string; updates: string[] }[] = [
 	{
+		heading: "Februar 2025",
+		updates: [
+			"Konverter til nytt Novari-tema",
+			"Flyttet rullefelt til vindu, still fokus",
+		],
+	},
+	{
 		heading: "Oktober 2024",
 		updates: [
 			"Støtte for VIGO OT",
@@ -69,6 +76,13 @@ export const ABOUT_VERSIONS_NN =
 
 export const VERSION_DATA_NN: { heading: string; updates: string[] }[] = [
 	{
+		heading: "Versjon 10.5 - Februar 2025",
+		updates: [
+			"Konverter til nytt Novari-tema",
+			"Flytta rullefelt til vindauge, set fokus",
+		],
+	},
+	{
 		heading: "Versjon 10.4 - April 2024",
 		updates: [
 			"10.4 Ny verdikonvertering krev unikt namn for å gjera dei enklare å bruka i konfigurasjonar",
@@ -113,6 +127,13 @@ export const ABOUT_VERSIONS_EN =
 	"FLYT is under continuous development, with new functionality being added regularly and improvements to user experience based on user feedback. This page describes major changes and bug fixes in FLYT.";
 
 export const VERSION_DATA_EN: { heading: string; updates: string[] }[] = [
+	{
+		heading: "Versjon 10.5 - February 2025",
+		updates: [
+			"Converted to the new Novari theme",
+			"Moved scroll bars to outter window, focus columns.",
+		],
+	},
 	{
 		heading: "Version 10.4 - April 2024",
 		updates: [

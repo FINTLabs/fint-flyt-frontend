@@ -5,23 +5,23 @@ export const toggleButtonSX: SxProps<Theme> = {
     width: (theme: Theme) => theme.spacing(44),
     border: '2px solid',
     color: 'white',
-    borderColor: '#398085',
+    // borderColor: '#6B133D',
     backgroundColor: (theme: Theme) => theme.palette.primary.main,
     justifyContent: 'space-between',
     "&:hover": {
         color: 'white',
-        borderColor: '#398085',
+        // borderColor: '#6B133D',
         backgroundColor: (theme: Theme) => theme.palette.primary.main,
     },
     "&.Mui-selected": {
         color: 'white',
-        backgroundColor: '#398085',
-        borderColor: (theme: Theme) => theme.palette.primary.main,
+        backgroundColor: '#6B133D',
+        // borderColor: (theme: Theme) => theme.palette.primary.main,
     },
     "&.Mui-selected:hover": {
         color: 'white',
-        backgroundColor: '#398085',
-        borderColor: (theme: Theme) => theme.palette.primary.main,
+        backgroundColor: '#6B133D',
+        // borderColor: (theme: Theme) => theme.palette.primary.main,
     }
 }
 

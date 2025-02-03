@@ -198,17 +198,9 @@ const Configuration: RouteComponent = () => {
                             <VStack gap={"3"}>
                                 <Heading
                                     size={"small"}>{t('header')} {existingIntegration?.sourceApplicationIntegrationId} - {existingIntegration?.displayName}</Heading>
-                                <HStack gap={"8"} wrap={false}>
-                                    <IncomingDataComponent
-                                        referencesForCollectionsToShow={collectionReferencesInEditContext}
-                                    />
-                                    <OutgoingDataComponent
-                                        onCollectionReferencesInEditContextChange={
-                                            (collectionReferences: string[]) => {
-                                                setCollectionReferencesInEditContext(collectionReferences)
-                                            }}
-                                    />
-                                </HStack>
+
+
+
                                 <VStack gap={"3"}>
                                     <HStack gap={"6"}>
                                         <Controller
@@ -268,17 +260,35 @@ const Configuration: RouteComponent = () => {
                                 </VStack>
 
 
+                                <Snackbar id="integration-form-snackbar-saved" autoHideDuration={4000} open={showAlert}
+                                          anchorOrigin={{vertical: 'top', horizontal: 'center'}}
+                                          onClose={handleClose}>
+                                    <Alert variant={alertContent.severity} closeButton onClose={() => {
+                                        setShowAlert(false);
+                                        setAlertContent(defaultAlert)
+                                    }}>
+                                        {alertContent.message}
+                                    </Alert>
+                                </Snackbar>
+
+
+
+                                <HStack gap={"8"} wrap={false}>
+                                    <IncomingDataComponent
+                                        referencesForCollectionsToShow={collectionReferencesInEditContext}
+                                    />
+                                    <OutgoingDataComponent
+                                        onCollectionReferencesInEditContextChange={
+                                            (collectionReferences: string[]) => {
+                                                setCollectionReferencesInEditContext(collectionReferences)
+                                            }}
+                                    />
+                                </HStack>
+
+
+
                             </VStack>
-                            <Snackbar id="integration-form-snackbar-saved" autoHideDuration={4000} open={showAlert}
-                                      anchorOrigin={{vertical: 'bottom', horizontal: 'center'}}
-                                      onClose={handleClose}>
-                                <Alert variant={alertContent.severity} closeButton onClose={() => {
-                                    setShowAlert(false);
-                                    setAlertContent(defaultAlert)
-                                }}>
-                                    {alertContent.message}
-                                </Alert>
-                            </Snackbar>
+
                         </form>
                     </FormProvider>
                 </EditingProvider>

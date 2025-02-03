@@ -79,7 +79,7 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
             {error && <Alert style={{maxWidth: '100%'}} variant="error">{error.message}</Alert>}
             {rows ?
                 <VStack gap={"6"}>
-                    <Box background={'surface-default'} style={{height: '490px', overflowY: "scroll"}}>
+                    <Box background={'surface-default'} style={{minHeight: '490px'}}>
                         <Table id={"value-convertings-table"} size={"small"}>
                             <Table.Header>
                                 <Table.Row>
