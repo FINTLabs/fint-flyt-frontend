@@ -210,7 +210,7 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
                 <Box id={'column-' + columnIndex} key={'column-' + columnIndex}
                      style={{
                          // maxHeight: 'calc(100vh/1.5)',
-                         marginRight: '16px',
+                         marginRight: '18px',
                          minWidth: 'fit-content',
                          overflowY: 'auto',
                          overflowX: 'hidden',
