@@ -2,8 +2,7 @@ import * as React from "react";
 import {useTranslation} from "react-i18next";
 import {IError, IErrorArg, IEvent} from "../types/Event";
 import {errorStringReplace, getErrorArgs} from "../../../util/StringUtil";
-import {BodyShort, Box, Modal} from "@navikt/ds-react";
-import {Button} from "@navikt/ds-react/esm/button";
+import {BodyShort, Box, Button, Modal} from "@navikt/ds-react";
 
 type Props = {
     row: IEvent | undefined
@@ -17,7 +16,7 @@ const ErrorDialogComponent: React.FunctionComponent<Props> = (props: Props) => {
     return (
         <>
             {props.row &&
-                <Modal open={props.open} header={{
+                <Modal open={props.open} onClose={() => props.setOpenErrorDialog(false)} header={{
                     heading: props.row?.errors?.length > 1 ? t('errors') : t('oneError'),
                     closeButton: false
                 }}>
@@ -35,7 +34,7 @@ const ErrorDialogComponent: React.FunctionComponent<Props> = (props: Props) => {
                             </ol>
                         </Box> </Modal.Body>
                     <Modal.Footer>
-                        <Button type="button" onClick={() => props.setOpenErrorDialog(false)}>
+                        <Button type="button" onClick={() => props.setOpenErrorDialog(false)} >
                             {t('button.close')}
                         </Button>
                     </Modal.Footer>

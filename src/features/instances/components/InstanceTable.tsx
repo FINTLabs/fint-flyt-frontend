@@ -2,14 +2,13 @@ import {GridCellParams} from "@mui/x-data-grid";
 import * as React from "react";
 import {ReactElement, useContext, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
-import {Box, Dropdown, HStack, Link, Loader, Pagination, SortState, Table} from "@navikt/ds-react";
+import {Box, Button, Dropdown, HStack, Link, Loader, Pagination, SortState, Table} from "@navikt/ds-react";
 import moment from "moment";
 import {eventComparator, getSourceApplicationDisplayNameById} from "../../../util/TableUtil";
 import {IEvent} from "../types/Event";
 import ErrorDialogComponent from "./ErrorDialogComponent";
 import InstancePanel from "./InstancePanel";
 import {GetIcon} from "../util/InstanceUtils";
-import {Button} from "@navikt/ds-react/esm/button";
 import InstanceRepository from "../repository/InstanceRepository";
 import EventRepository from "../../../api/EventRepository";
 import {IIntegrationMetadata} from "../../configuration/types/Metadata/IntegrationMetadata";
@@ -115,7 +114,7 @@ const InstanceTable: React.FunctionComponent<Props> = ({onError}) => {
 
     return instancesPage ? (
         <Box>
-            <Box background={'surface-default'} style={{height: '70vh', overflowY: "scroll"}}>
+            <Box background={'surface-default'} style={{minHeight: '70vh'}}>
                 <ErrorAlertDialog row={selectedRow}/>
                 <CustomStatusDialog row={selectedRow}/>
                 <Table sort={sort} onSortChange={(sortKey) => handleSort(sortKey ? sortKey : "timestamp")}

@@ -262,12 +262,12 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
                 <Label>{t('activeConfigurationId')} {activeVersion}</Label>
                 <HGrid gap="6" columns={2}>
                     <Box id={'completed-config-table'} padding="4" background={"surface-subtle"} borderRadius="xlarge"
-                         style={{maxHeight: '440px', overflow: "auto"}}>
+                         style={{minHeight: '440px'}}>
                         <BodyShort>{t('table.completed')}:</BodyShort>
                         {configTable(completedConfigs ?? {content: []}, true)}
                     </Box>
                     <Box id={'draft-config-table'} padding="4" background={"surface-subtle"} borderRadius="xlarge"
-                         style={{height: 'fit-content', maxHeight: '440px', overflow: "auto"}}>
+                         style={{height: 'fit-content'}}>
                         <BodyShort>{t('table.drafts')}:</BodyShort>
                         {configTable(draftConfigs ?? {content: []}, false)}
                     </Box>

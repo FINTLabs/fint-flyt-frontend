@@ -142,7 +142,7 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
     }
 
     return (
-        <Box style={{minWidth: '400px', maxWidth: '500px', maxHeight: '70vh', overflow: "auto"}} id={"incoming-form-panel"}
+        <Box style={{minWidth: '400px'}} id={"incoming-form-panel"}
              background={"surface-default"} padding="6" borderRadius={"large"} borderWidth="2"
              borderColor={"border-subtle"}>
             <VStack gap={"2"}>
@@ -210,7 +210,7 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
                             <Heading size={"small"}>{t('metadataPanel.valueConverting')}</Heading>
                             <ReadMore defaultOpen
                                       header={t('valueConverting.custom') + " [" + (valueConvertings?.length ?? 0) + ']'}>
-                                <VStack gap={"2"} style={{maxHeight: '200px', overflowY: "auto"}}>
+                                <VStack gap={"2"} style={{minHeight: '200px'}}>
                                     {valueConvertings && valueConvertings.map((valueConverting: IValueConverting, index: number) => {
                                         return <ValueConvertings key={'valueConvertingValue-' + index}
                                                                  valueConverting={valueConverting}/>
@@ -219,7 +219,7 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
                             </ReadMore>
                             <ReadMore
                                 header={t('valueConverting.application') + " [" + (applicationValueConvertings?.length ?? 0) + ']'}>
-                                <VStack gap={"2"} style={{maxHeight: '200px', overflowY: "auto"}}>
+                                <VStack gap={"2"} style={{minHeight: '200px'}}>
                                     {applicationValueConvertings && applicationValueConvertings.map((valueConverting: IValueConverting, index: number) => {
                                         return <ValueConvertings key={'valueConvertingValue-' + index}
                                                                  valueConverting={valueConverting}/>
@@ -228,7 +228,7 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
                             </ReadMore>
                             <ReadMore
                                 header={t('valueConverting.destination') + " [" + (destinationValueConvertings?.length ?? 0) + ']'}>
-                                <VStack gap={"2"} style={{maxHeight: '200px', overflowY: "auto"}}>
+                                <VStack gap={"2"} style={{minHeight: '200px'}}>
                                     {destinationValueConvertings && destinationValueConvertings.map((valueConverting: IValueConverting, index: number) => {
                                         return <ValueConvertings key={'valueConvertingValue-' + index}
                                                                  valueConverting={valueConverting}/>

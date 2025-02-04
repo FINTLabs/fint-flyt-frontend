@@ -109,7 +109,19 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
                             }
                     }
                 )
+
                 setDisplayRootElement({...rootElement});
+                console.log("ADDING A COLUMN")
+                // Scroll to the last added column
+                // Find the deepest (rightmost) column
+                setTimeout(() => {
+                    const lastColumnIndex = findDeepestColumnIndex(displayRootElement);
+                    const lastColumnElement = document.getElementById(`column-${lastColumnIndex}`);
+                    if (lastColumnElement) {
+                        lastColumnElement.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+                    }
+                }, 100);
+
             },
 
             onElementsClose: (elementOrders: string[], unregisterKeys?: boolean) => {
@@ -133,6 +145,19 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
             }
         }
     }
+
+    function findDeepestColumnIndex(columnElement: ColumnElement, depth = 0): number {
+        if (!Object.keys(columnElement.nestedColumnElementPerOrder).length) {
+            return depth; // No more nested columns, return the depth
+        }
+
+        return Math.max(
+            ...Object.values(columnElement.nestedColumnElementPerOrder).map(nested =>
+                findDeepestColumnIndex(nested, depth + 1)
+            )
+        );
+    }
+
 
     function getEntriesWithKeyStartingWith<T>(record: Record<string, T>, startingWith: string): [string, T][] {
         return Object.entries(record)
@@ -184,7 +209,7 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
             {getElementsByColumn(displayRootElement).map((columns: Omit<ColumnElement, 'nestedColumnElementPerOrder'>[], columnIndex) =>
                 <Box id={'column-' + columnIndex} key={'column-' + columnIndex}
                      style={{
-                         maxHeight: 'calc(100vh/1.5)',
+                         // maxHeight: 'calc(100vh/1.5)',
                          marginRight: '16px',
                          minWidth: 'fit-content',
                          overflowY: 'auto',

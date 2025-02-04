@@ -1,13 +1,13 @@
-import React, { useContext, useEffect } from "react";
-import { IntegrationContext } from "../../context/IntegrationContext";
+import React, {useContext, useEffect} from "react";
+import {IntegrationContext} from "../../context/IntegrationContext";
 import DashboardCard from "../organisms/DashboardCard";
-import { ICard } from "../../features/dashboard/Card";
-import { useTranslation } from "react-i18next";
-import { IIntegrationStatistics } from "../../features/integration/types/Integration";
+import {ICard} from "../../features/dashboard/Card";
+import {useTranslation} from "react-i18next";
+import {IIntegrationStatistics} from "../../features/integration/types/Integration";
 import PageTemplate from "../templates/PageTemplate";
-import { RouteComponent } from "../../routes/Route";
-import { Box, HStack } from "@navikt/ds-react";
-import { Contact } from "../atoms/Contact";
+import {RouteComponent} from "../../routes/Route";
+import {HStack} from "@navikt/ds-react";
+import {Contact} from "../atoms/Contact";
 import SupportContent from "../molecules/SupportContent";
 import {AuthorizationContext} from "../../context/AuthorizationContext";
 import {useNavigate} from "react-router-dom";
@@ -28,7 +28,7 @@ const Dashboard: RouteComponent = () => {
 		currentErrors += stat.currentErrors;
 		totalDispatched += stat.dispatchedInstances;
 	});
-	const { authorized} = useContext(AuthorizationContext)
+	const { authorized } = useContext(AuthorizationContext);
 
 	useEffect(() => {
 		getAllIntegrations();
@@ -36,9 +36,8 @@ const Dashboard: RouteComponent = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-
-	if(!authorized) {
-		history('/forbidden')
+	if (!authorized) {
+		history("/forbidden");
 	}
 
 	const cards: ICard[] = [
@@ -77,21 +76,10 @@ const Dashboard: RouteComponent = () => {
 
 	return (
 		<PageTemplate id={"dashboard"} keyPrefix={"pages.dashboard"} customHeading>
-			<HStack gap={"6"} wrap={false}>
+			<HStack gap="3" justify="space-between">
 				{cards.map((card: ICard, index) => {
 					return (
-						<Box
-							key={index}
-							style={{
-								width: `calc(100% / ${cards.length})`,
-								minWidth: "150px",
-							}}
-							id={`dashboard-card-` + index}
-							value={card.value}
-							content={card.content}
-							padding={"0"}
-							links={card.links}
-						>
+
 							<DashboardCard
 								key={index}
 								id={`dashboard-card-` + index}
@@ -99,7 +87,7 @@ const Dashboard: RouteComponent = () => {
 								content={card.content}
 								links={card.links}
 							/>
-						</Box>
+
 					);
 				})}
 			</HStack>

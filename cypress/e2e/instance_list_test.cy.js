@@ -49,7 +49,7 @@ describe('Testing instance list', () => {
     it('it should open error panel and show correct errors', () => {
         prep()
         cy.viewport(3000, 2000)
-        cy.get('.navds-link').click()
+        cy.get(':nth-child(7) > .navds-link').click()
         cy.get('#error-list').should("be.visible")
         cy.get('#error-list').should("contain.text", "Valideringsfeil i mottak av instans")
         cy.get('#error-list').should("contain.text", "Instansen ble avvist av destinasjon med følgende feilmelding: 'Du har driti deg ut")

@@ -16,7 +16,7 @@ const MenuItems = () => {
                 .map((route) => (
                     <Button
                         size={"medium"}
-                        style={{color: "white"}}
+                        // style={{color: "white"}}
                         variant={"tertiary-neutral"}
                         onClick={() => {
                             history(route.path);
@@ -29,7 +29,7 @@ const MenuItems = () => {
             {hasAccessToUserPermissionPage &&
                 <Button
                     size={"medium"}
-                    style={{color: "white"}}
+                    // style={{color: "white"}}
                     variant={"tertiary-neutral"}
                     onClick={() => {
                         history('/useraccess');

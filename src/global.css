@@ -5,3 +5,29 @@ body {
 iframe#webpack-dev-server-client-overlay {
     display: none !important
 }
+
+.navds-pagination__item[aria-current="true"] {
+    background-color: #5A51E1 !important;
+    /*color: var(--ac-pagination-selected-text, var(--a-text-on-action));*/
+}
+
+.navds-button--primary:hover {
+    background-color: #5149CA !important;
+}
+
+.navds-button--primary {
+    background-color: #5A51E1 !important;
+}
+
+.navds-pagination__item[aria-current="true"] {
+    background-color: #5A51E1 !important;
+    /*color: var(--ac-pagination-selected-text, var(--a-text-on-action));*/
+}
+
+.navds-button--primary:hover {
+    background-color: #5149CA !important;
+}
+
+.navds-button--primary {
+    background-color: #5A51E1 !important;
+}
