@@ -1,115 +1,186 @@
 import {
-  Chips,
-  DatePicker,
-  ExpansionCard,
-  HStack,
-  TextField,
-  ToggleGroup,
-  useRangeDatepicker,
-  VStack,
-} from "@navikt/ds-react";
+    DatePicker,
+    ExpansionCard,
+    HStack,
+    Radio,
+    RadioGroup,
+    TextField,
+    ToggleGroup,
+    VStack,
+    useRangeDatepicker,
+} from '@navikt/ds-react';
+import { BriefcaseClockIcon, CalendarIcon, ClockDashedIcon } from '@navikt/aksel-icons';
+import { useState, useEffect } from 'react';
+import { useFilters } from './filterContext';
+import { setSingleValue } from './util';
 
 interface Props {
-  quickOptions: string[];
-  quickSelected: string | null;
-  dateFrom: string | null;
-  dateTo: string | null;
-  // setSelected: (value: string | { from: string; to: string }) => void;
-  onSelect: (key: string, value: string | string[] | null) => void;
-  timeType: string;
-  id: string;
-  isOpen: boolean;
-  toggleOpen: (cardId: string) => void;
+    id: string;
+    isOpen: boolean;
+    toggleOpen: (cardId: string) => void;
+    timeCurrentPeriodOptions: { label: string; value: string }[];
 }
 
-export default function TimeCard({
-  quickOptions,
-  quickSelected,
-  dateFrom,
-  dateTo,
-  timeType,
-  onSelect,
-    id, isOpen, toggleOpen,
-}: Props) {
-  const { datepickerProps, toInputProps, fromInputProps, selectedRange } =
-    useRangeDatepicker({
-      onRangeChange: (range) => {
-        console.log(range);
+export default function TimeCard({ id, isOpen, toggleOpen, timeCurrentPeriodOptions }: Props) {
+    const { updateFilter, filters } = useFilters();
 
-        // if (range?.from && range?.to) {
-        //   setSelected({
-        //     from: range.from.toISOString().split("T")[0],
-        //     to: range.to.toISOString().split("T")[0],
-        //   });
-        // }
-      },
+    const [selectedTab, setSelectedTab] = useState<string>(() => {
+        if (filters.timeCurrentPeriod) return 'period';
+        if (filters.timeTimestampMin || filters.timeTimestampMax) return 'manual';
+        return 'last';
     });
 
-  const getExpansionCardDescription = (): string => {
-    if (timeType === "quick" && quickSelected) {
-      return `Hurtigvalg: ${quickSelected}`;
+    const { datepickerProps, toInputProps, fromInputProps, selectedRange } = useRangeDatepicker({
+        fromDate: new Date('2020-01-01'),
+        onRangeChange: (range) => {
+            if (range?.from) {
+                const fromDate = range.from.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+                updateFilter('timeTimestampMin', fromDate + 'T00:00:00Z'); // Preserve time
+            }
+            if (range?.to) {
+                const toDate = range.to.toISOString().split('T')[0];
+                updateFilter('timeTimestampMax', toDate + 'T23:59:59Z');
+            }
+            console.log('CHANGING DATE:', range?.to, range?.from);
+        },
+    });
+
+    function handleTabChange(tab: string) {
+        setSelectedTab(tab);
+
+        if (tab === 'period') {
+            updateFilter('timeTimestampMin', null);
+            updateFilter('timeTimestampMax', null);
+            updateFilter('timeOffSetHours', null);
+            updateFilter('timeOffsetMinutes', null);
+        } else if (tab === 'manual') {
+            updateFilter('timeCurrentPeriod', null);
+            updateFilter('timeOffSetHours', null);
+            updateFilter('timeOffsetMinutes', null);
+        } else if (tab === 'last') {
+            updateFilter('timeCurrentPeriod', null);
+            updateFilter('timeTimestampMin', null);
+            updateFilter('timeTimestampMax', null);
+        }
     }
 
-    if (timeType === "manual" && dateFrom && dateTo) {
-      console.log("HELLO");
-      return `datoer:  ${dateFrom} -  ${dateTo}`;
-    }
+    const getExpansionCardDescription = (): string => {
+        if (filters.timeCurrentPeriod) {
+            const selectedLabel = timeCurrentPeriodOptions.find(
+                (option) => option.value === filters.timeCurrentPeriod
+            )?.label;
+            return `Periode: ${selectedLabel || 'Ukjent'}`;
+        }
 
-    return "";
-  };
+        if (filters.timeTimestampMin || filters.timeTimestampMax) {
+            return `Manuell: ${filters.timeTimestampMin ?? ''} - ${filters.timeTimestampMax ?? ''}`;
+        }
 
-  return (
-    <ExpansionCard size="small" aria-label="Tidsperiode" open={isOpen}
-                   onToggle={() => toggleOpen(id)}>
-      <ExpansionCard.Header>
-        <ExpansionCard.Title as="h4" size="small">
-          Tidsperiode
-        </ExpansionCard.Title>
-        <ExpansionCard.Description>
-          {getExpansionCardDescription()}
-        </ExpansionCard.Description>
-      </ExpansionCard.Header>
+        if (filters.timeOffSetHours || filters.timeOffsetMinutes) {
+            return `Siste: ${filters.timeOffSetHours ?? '0'}h ${filters.timeOffsetMinutes ?? '0'}m`;
+        }
 
-      <ExpansionCard.Content>
-        <VStack gap="8">
-          {/* ToggleGroup for selecting input mode */}
-          <ToggleGroup
-            value={timeType}
-            onChange={(e) => onSelect("timeType", e)}
-            fill
-          >
-            <ToggleGroup.Item value="quick" label="Hurtigvalg" />
-            <ToggleGroup.Item value="manual" label="Manuell" />
-          </ToggleGroup>
+        return '';
+    };
 
-          {/* Conditional Rendering Based on Selection */}
-          {timeType === "quick" ? (
-            <Chips>
-              {quickOptions.map((label, id) => (
-                <Chips.Toggle
-                  checkmark={false}
-                  key={label}
-                  selected={quickSelected === label}
-                  onClick={() => onSelect("quickSelected", label)}
-                >
-                  {label}
-                </Chips.Toggle>
-              ))}
-            </Chips>
-          ) : (
-            <HStack>
-              <DatePicker {...datepickerProps}>
-                <HStack wrap gap="4" justify="center">
-                  <DatePicker.Input {...fromInputProps} label="Fra" />
-                  <TextField label="Tid" size="small" type={"time"} />
-                  <DatePicker.Input {...toInputProps} label="Til" />
-                  <TextField label="Tid" size="small" type={"time"} />
-                </HStack>
-              </DatePicker>
-            </HStack>
-          )}
-        </VStack>
-      </ExpansionCard.Content>
-    </ExpansionCard>
-  );
+    return (
+        <ExpansionCard
+            size="small"
+            aria-label="Tidsperiode"
+            open={isOpen}
+            onToggle={() => toggleOpen(id)}>
+            <ExpansionCard.Header>
+                <ExpansionCard.Title as="h4" size="small">
+                    Tidsperiode
+                </ExpansionCard.Title>
+                <ExpansionCard.Description>
+                    {getExpansionCardDescription()}
+                </ExpansionCard.Description>
+            </ExpansionCard.Header>
+
+            <ExpansionCard.Content>
+                <VStack gap="8">
+                    <ToggleGroup value={selectedTab} onChange={handleTabChange} fill>
+                        <ToggleGroup.Item
+                            value="last"
+                            label="Siste"
+                            icon={<ClockDashedIcon aria-hidden />}
+                        />
+                        <ToggleGroup.Item
+                            value="period"
+                            label="Periode"
+                            icon={<BriefcaseClockIcon aria-hidden />}
+                        />
+                        <ToggleGroup.Item
+                            value="manual"
+                            label="Manuell"
+                            icon={<CalendarIcon aria-hidden />}
+                        />
+                    </ToggleGroup>
+
+                    {selectedTab === 'last' && (
+                        <HStack gap={'2'}>
+                            <TextField
+                                label="H"
+                                size="small"
+                                type="number"
+                                value={filters.timeOffSetHours ?? ''}
+                                onChange={(e) =>
+                                    setSingleValue(updateFilter, 'timeOffSetHours', e.target.value)
+                                }
+                            />
+                            <TextField
+                                label="M"
+                                size="small"
+                                type="number"
+                                value={filters.timeOffsetMinutes ?? ''}
+                                onChange={(e) =>
+                                    setSingleValue(
+                                        updateFilter,
+                                        'timeOffsetMinutes',
+                                        e.target.value
+                                    )
+                                }
+                            />
+                        </HStack>
+                    )}
+
+                    {selectedTab === 'period' && (
+                        <HStack>
+                            <RadioGroup
+                                size={'small'}
+                                legend="Velg tidsperiode"
+                                onChange={(value) =>
+                                    setSingleValue(updateFilter, 'timeCurrentPeriod', value)
+                                }
+                                value={filters.timeCurrentPeriod ?? ''}>
+                                {timeCurrentPeriodOptions.map((option) => (
+                                    <Radio key={option.value} value={option.value}>
+                                        {option.label}
+                                    </Radio>
+                                ))}
+                            </RadioGroup>
+                        </HStack>
+                    )}
+
+                    {selectedTab === 'manual' && (
+                        <DatePicker {...datepickerProps}>
+                            <HStack wrap gap="4" justify="center">
+                                <DatePicker.Input
+                                    {...fromInputProps}
+                                    label="Fra"
+                                    value={filters.timeTimestampMin ?? ''}
+                                />
+                                <DatePicker.Input
+                                    {...toInputProps}
+                                    label="Til"
+                                    value={filters.timeTimestampMax ?? ''}
+                                />
+                            </HStack>
+                        </DatePicker>
+                    )}
+                </VStack>
+            </ExpansionCard.Content>
+        </ExpansionCard>
+    );
 }
