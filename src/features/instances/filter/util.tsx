@@ -1,4 +1,4 @@
-import { Filters } from './filterContext';
+import { Filters } from './types';
 
 export const getLabelsByIds = (
     ids: string[] | null,

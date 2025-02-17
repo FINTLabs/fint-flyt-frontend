@@ -259,7 +259,22 @@
       "instance-retry-request-error": "Error during retry request",
       "instance-mapping-error": "Error converting instance",
       "instance-dispatching-error": "Error while sending to destination",
-      "instance-file-upload-error": "Error while uploading file"
+      "instance-file-upload-error": "Error while uploading file",
+      "INSTANCE_RECEIVED": "Instance received",
+      "INSTANCE_REGISTERED": "Instance intermediately stored",
+      "INSTANCE_REQUESTED_FOR_RETRY": "Instance requested for retry",
+      "INSTANCE_MAPPED": "Instance converted",
+      "INSTANCE_READY_FOR_DISPATCH": "Instance ready for dispatch",
+      "INSTANCE_DISPATCHED": "Instance dispatched",
+      "INSTANCE_DELETED": "Temporary storage of instance deleted",
+      "INSTANCE_MANUALLY_PROCESSED": "Instance handled manually and created in destination",
+      "INSTANCE_MANUALLY_REJECTED": "Instance handled manually and rejected",
+      "INSTANCE_RECEIVAL_ERROR": "Error while receiving instance",
+      "INSTANCE_REGISTRATION_ERROR": "Error while registering instance",
+      "INSTANCE_RETRY_REQUEST_ERROR": "Error during retry request",
+      "INSTANCE_MAPPING_ERROR": "Error converting instance",
+      "INSTANCE_DISPATCHING_ERROR": "Error while sending to destination",
+      "INSTANCE_FILE_UPLOAD_ERROR": "Error while uploading file"
     },
     "support": {
       "header": "Help and support",

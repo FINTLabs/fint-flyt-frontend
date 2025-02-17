@@ -1,12 +1,7 @@
-import axios from "axios";
+import axios from 'axios';
 
-const getEvents = (
-    page: number,
-    size: number,
-    sortProperty: string,
-    sortDirection: string
-) => {
-    return axios.get(`/api/intern/historikk/hendelser`, {
+const getEvents = (page: number, size: number, sortProperty: string, sortDirection: string) => {
+    return axios.get(`/api/intern/instance-flow-tracking/summaries`, {
         params: {
             side: page,
             antall: size,
@@ -23,7 +18,7 @@ const getLatestEvents = (
     sortProperty: string,
     sortDirection: string
 ) => {
-    return axios.get(`/api/intern/historikk/hendelser`, {
+    return axios.get(`/api/intern/instance-flow-tracking/summaries`, {
         params: {
             side: page,
             antall: size,
@@ -42,7 +37,7 @@ const getEventsByInstanceId = (
     kildeapplikasjonId?: string,
     kildeapplikasjonInstansId?: string
 ) => {
-    return axios.get(`/api/intern/historikk/hendelser`, {
+    return axios.get(`/api/intern/instance-flow-tracking/summaries`, {
         params: {
             side: page,
             antall: size,
@@ -54,20 +49,37 @@ const getEventsByInstanceId = (
     });
 };
 
-const manualDispatchEvent = (sourceApplicationInstanceId: string, sourceApplicationId: string, archiveInstanceId: string, sourceApplicationIntegrationId: string) => {
-    return axios.post(`/api/intern/historikk/handlinger/instanser/sett-status/manuelt-behandlet-ok`, {archiveInstanceId, sourceApplicationId, sourceApplicationInstanceId, sourceApplicationIntegrationId}
-    );
+const manualDispatchEvent = (
+    sourceApplicationInstanceId: string,
+    sourceApplicationId: string,
+    archiveInstanceId: string,
+    sourceApplicationIntegrationId: string
+) => {
+    return axios.post(`/api/intern/instance-flow-tracking/events/instance-manually-processed`, {
+        archiveInstanceId,
+        sourceApplicationId,
+        sourceApplicationInstanceId,
+        sourceApplicationIntegrationId,
+    });
 };
-const manualRejectEvent = (sourceApplicationInstanceId: string, sourceApplicationId: string, sourceApplicationIntegrationId: string) => {
-    return axios.post(`/api/intern/historikk/handlinger/instanser/sett-status/manuelt-avvist`, {sourceApplicationId, sourceApplicationInstanceId, sourceApplicationIntegrationId});
+const manualRejectEvent = (
+    sourceApplicationInstanceId: string,
+    sourceApplicationId: string,
+    sourceApplicationIntegrationId: string
+) => {
+    return axios.post(`/api/intern/instance-flow-tracking/events/instance-manually-rejected`, {
+        sourceApplicationId,
+        sourceApplicationInstanceId,
+        sourceApplicationIntegrationId,
+    });
 };
 
 const getAllStatistics = () => {
-    return axios.get(`/api/intern/historikk/statistikk`);
+    return axios.get(`/api/intern/instance-flow-tracking/statistikk`);
 };
 
 const getStatistics = () => {
-    return axios.get(`/api/intern/historikk/statistikk/integrasjoner`);
+    return axios.get(`/api/intern/instance-flow-tracking/statistics/integrations`);
 };
 
 const EventRepository = {
@@ -77,7 +89,7 @@ const EventRepository = {
     getAllStatistics,
     getStatistics,
     manualRejectEvent,
-    manualDispatchEvent
+    manualDispatchEvent,
 };
 
 export default EventRepository;

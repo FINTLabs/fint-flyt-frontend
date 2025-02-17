@@ -259,7 +259,22 @@
       "instance-retry-request-error": "Feila under førespurnad for nytt forsøk",
       "instance-mapping-error": "Feila under konvertering av instans",
       "instance-dispatching-error": "Feila under sending til destinasjon",
-      "instance-file-upload-error": "Feila under opplasting av fil"
+      "instance-file-upload-error": "Feila under opplasting av fil",
+      "INSTANCE_RECEIVED": "Instans motteke",
+      "INSTANCE_REGISTERED": "Instans mellomlagra",
+      "INSTANCE_REQUESTED_FOR_RETRY": "Instans spurt for nytt forsøk",
+      "INSTANCE_MAPPED": "Instans konvertert",
+      "INSTANCE_READY_FOR_DISPATCH": "Instans klar for sending til destinasjon",
+      "INSTANCE_DISPATCHED": "Instans godteke av destinasjon",
+      "INSTANCE_DELETED": "Mellomlagring av instans sletta",
+      "INSTANCE_MANUALLY_PROCESSED": "Instans manuelt behandla og oppretta i destinasjon",
+      "INSTANCE_MANUALLY_REJECTED": "Instans manuelt behandla og avvist",
+      "INSTANCE_RECEIVAL_ERROR": "Feila under mottak av instans",
+      "INSTANCE_REGISTRATION_ERROR": "Feila under registrering av instans",
+      "INSTANCE_RETRY_REQUEST_ERROR": "Feila under førespurnad for nytt forsøk",
+      "INSTANCE_MAPPING_ERROR": "Feila under konvertering av instans",
+      "INSTANCE_DISPATCHING_ERROR": "Feila under sending til destinasjon",
+      "INSTANCE_FILE_UPLOAD_ERROR": "Feila under opplasting av fil"
     },
     "support": {
       "header": "Hjelp og support",

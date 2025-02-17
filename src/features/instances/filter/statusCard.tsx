@@ -1,6 +1,6 @@
 import { Chips, ExpansionCard, ToggleGroup, UNSAFE_Combobox, VStack } from '@navikt/ds-react';
 import React, { useState } from 'react';
-import { useFilters } from './filterContext';
+import { useFilters } from './FilterContext';
 import { getLabelsByIds, setArrayValue } from './util';
 
 interface Props {
@@ -11,16 +11,10 @@ interface Props {
     toggleOpen: (cardId: string) => void;
 }
 
-export default function StatusCard({
-    associatedEventNamesOptions,
-    statusesOptions,
-    id,
-    isOpen,
-    toggleOpen,
-}: Props) {
+export default function StatusCard(props: Props) {
     const { filters, updateFilter } = useFilters();
     const [selectedTab, setSelectedTab] = useState<string>(
-        (filters.associatedEventNames ?? []).length > 0 ? 'event' : 'status'
+        (filters.associatedEvents ?? []).length > 0 ? 'event' : 'status'
     );
 
     function handleTabChange(tab: string) {
@@ -31,15 +25,17 @@ export default function StatusCard({
 
     const getExpansionCardDescription = (): string => {
         const parts: string[] = [];
-        if ((filters.associatedEventNames ?? []).length > 0) {
+        if ((filters.associatedEvents ?? []).length > 0) {
             // parts.push(`Siste hendelse: ${filters.associatedEventNames}`);
             parts.push(
-                `Siste hendelse: ${getLabelsByIds(filters.associatedEventNames, associatedEventNamesOptions).join(', ')}`
+                `Siste hendelse: ${getLabelsByIds(filters.associatedEvents, props.associatedEventNamesOptions).join(', ')}`
             );
         }
         if ((filters.statuses ?? []).length > 0) {
             // parts.push(`Status: ${filters.statuses}`);
-            parts.push(`Status: ${getLabelsByIds(filters.statuses, statusesOptions).join(', ')}`);
+            parts.push(
+                `Status: ${getLabelsByIds(filters.statuses, props.statusesOptions).join(', ')}`
+            );
         }
         return parts.join(' | ');
     };
@@ -48,8 +44,8 @@ export default function StatusCard({
         <ExpansionCard
             size="small"
             aria-label="Status"
-            open={isOpen}
-            onToggle={() => toggleOpen(id)}>
+            open={props.isOpen}
+            onToggle={() => props.toggleOpen(props.id)}>
             <ExpansionCard.Header>
                 <ExpansionCard.Title as="h4" size="small">
                     Status
@@ -67,7 +63,7 @@ export default function StatusCard({
 
                     {selectedTab === 'status' && (
                         <Chips>
-                            {statusesOptions.map((option) => (
+                            {props.statusesOptions.map((option) => (
                                 <Chips.Toggle
                                     checkmark
                                     key={option.value}
@@ -91,17 +87,17 @@ export default function StatusCard({
                         <UNSAFE_Combobox
                             allowNewValues
                             label="Siste hendelse"
-                            options={associatedEventNamesOptions}
+                            options={props.associatedEventNamesOptions}
                             // selectedOptions={filters.storageStatuses ?? []}
-                            selectedOptions={associatedEventNamesOptions.filter((opt) =>
-                                filters.associatedEventNames?.includes(opt.value)
+                            selectedOptions={props.associatedEventNamesOptions.filter((opt) =>
+                                filters.associatedEvents?.includes(opt.value)
                             )}
                             isMultiSelect
                             onToggleSelected={(option, isSelected) =>
                                 setArrayValue(
                                     updateFilter,
                                     filters,
-                                    'associatedEventNames',
+                                    'associatedEvents',
                                     option,
                                     isSelected
                                 )

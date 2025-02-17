@@ -1,35 +1,35 @@
-import {MOCK_EVENTS} from "../__tests__/mock/events";
-import {IEvent} from "../features/instances/types/Event";
-import {IIntegration} from "../features/integration/types/Integration";
-import {MOCK_INTEGRATION} from "../__tests__/mock/integration";
+import { MOCK_EVENTS } from '../__tests__/mock/events';
+import { IEvent, IEventNew } from '../features/instances/types/Event';
+import { IIntegration } from '../features/integration/types/Integration';
+import { MOCK_INTEGRATION } from '../__tests__/mock/integration';
 
 export function getSourceApplicationDisplayNameById(id: string): string {
     if (id === '1') {
-        return "ACOS Interact"
+        return 'ACOS Interact';
     } else if (id === '2') {
-        return "eGrunnerverv"
+        return 'eGrunnerverv';
     } else if (id === '3') {
-        return "Digisak"
+        return 'Digisak';
     } else if (id === '4') {
-        return "VIGO"
+        return 'VIGO';
     } else if (id === '5') {
-        return "Altinn"
+        return 'Altinn';
     } else if (id === '6') {
-        return "HMSReg"
+        return 'HMSReg';
     } else {
-        return "ukjent"
+        return 'ukjent';
     }
 }
 
 export function getDestinationDisplayName(id: string): string {
-    if (id === "fylkesrad") return "Arkivsystem";
-    else return "ukjent";
+    if (id === 'fylkesrad') return 'Arkivsystem';
+    else return 'ukjent';
 }
 
 export function getStateDisplayName(id: string): string {
-    if (id === "ACTIVE") return "Aktiv";
-    if (id === "DEACTIVATED") return "Deaktivert";
-    else return "ukjent";
+    if (id === 'ACTIVE') return 'Aktiv';
+    if (id === 'DEACTIVATED') return 'Deaktivert';
+    else return 'ukjent';
 }
 
 export const isKeyOfIntegration = (key: string): key is keyof IIntegration => {
@@ -55,19 +55,18 @@ export const integrationComparator = (a: IIntegration, b: IIntegration, orderBy:
     } else {
         return -1;
     }
-
 };
 
-export const isKeyOfEvent = (key: string): key is keyof IEvent => {
+export const isKeyOfEvent = (key: string): key is keyof IEventNew => {
     return Object.keys(MOCK_EVENTS.content[0]).includes(key);
 };
 
-export const eventComparator = (a: IEvent, b: IEvent, orderBy: string) => {
+export const eventComparator = (a: IEventNew, b: IEventNew, orderBy: string) => {
     if (isKeyOfEvent(orderBy)) {
         const aValue = a[orderBy];
         const bValue = b[orderBy];
 
-        if (bValue === undefined || aValue === undefined) {
+        if (!bValue || !aValue) {
             return -1;
         }
 
@@ -82,4 +81,3 @@ export const eventComparator = (a: IEvent, b: IEvent, orderBy: string) => {
         return -1;
     }
 };
-
