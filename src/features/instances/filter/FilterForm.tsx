@@ -142,7 +142,7 @@ const FilterForm: React.FC<FilterFormProps> = ({ allMetaData }) => {
                 />
 
                 <HStack gap={'10'}>
-                    <Button onClick={testFunction}>Test</Button>
+                    {/*<Button onClick={testFunction}>Test</Button>*/}
                     <Button
                         onClick={() => {
                             saveFilters();

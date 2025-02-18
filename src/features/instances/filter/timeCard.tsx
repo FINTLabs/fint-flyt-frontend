@@ -48,7 +48,7 @@ export default function TimeCard(props: Props) {
 
     const { datepickerProps, toInputProps, fromInputProps, selectedRange, setSelected } =
         useRangeDatepicker({
-            fromDate: new Date('2020-01-01'),
+            fromDate: new Date(''),
             // onRangeChange: console.info,
             onRangeChange: (range) => {
                 if (range?.from) {

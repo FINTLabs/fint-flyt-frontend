@@ -67,8 +67,8 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
         // TODO: Take in a string and format from URL
         // timeTimestampMin: getParam('timeTimestampMin', false) as string,
         // timeTimestampMax: getParam('timeTimestampMax', false) as string,
-        timeTimestampMax: new Date(),
-        timeTimestampMin: new Date(),
+        timeTimestampMax: null,
+        timeTimestampMin: null,
         statuses: getParam('statuses', true) as string[],
         storageStatuses: getParam('storageStatuses', true) as string[],
         associatedEvents: getParam('associatedEvens', true) as string[],

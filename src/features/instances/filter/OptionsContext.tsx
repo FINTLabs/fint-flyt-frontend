@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import axios from 'axios';
 
 interface Option {
     value: string;
@@ -39,14 +40,10 @@ export const OptionsProvider: React.FC<OptionsProviderProps> = ({ children }) =>
     // Generic API fetcher
     const fetchData = async (endpoint: string, setState: (data: Option[]) => void) => {
         try {
-            const response = await fetch(
+            const response = await axios.get<Option[]>(
                 `/api/intern/instance-flow-tracking/value-space/${endpoint}`
             );
-            if (!response.ok) {
-                throw new Error(`Failed to fetch ${endpoint}`);
-            }
-            const data: Option[] = await response.json();
-            setState(data);
+            setState(response.data);
         } catch (error) {
             console.error(`Error fetching ${endpoint}:`, error);
         }
