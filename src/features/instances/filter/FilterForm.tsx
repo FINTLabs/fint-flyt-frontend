@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { Box, Button, HStack, VStack } from '@navikt/ds-react';
 import SortSelect from './sortSelect';
 import TimeCard from './timeCard';
@@ -8,9 +8,7 @@ import StatusCard from './statusCard';
 import AdvancedCard from './advancedCard';
 import { useFilters } from './FilterContext';
 import { OptionsProvider, useOptions } from './OptionsContext';
-import { SourceApplicationContext } from '../../../context/SourceApplicationContext';
 import { IIntegrationMetadata } from '../../configuration/types/Metadata/IntegrationMetadata';
-import { ISummary } from '../types/Event';
 
 const apiOptions = {
     sourceApplicationIdsOptions: [
@@ -83,16 +81,6 @@ const FilterForm: React.FC<FilterFormProps> = ({ allMetaData }) => {
         setOpenCard((prev) => (prev === cardId ? null : cardId));
     };
 
-    const testFunction = () => {
-        allMetaData?.forEach((value: IIntegrationMetadata) => {
-            console.log(
-                'LIST TO CREATE?',
-                value.integrationDisplayName,
-                value.sourceApplicationIntegrationId
-            );
-        });
-    };
-
     return (
         <Box minWidth={'300px'} className={'p-20'}>
             <VStack gap="4">
@@ -107,7 +95,7 @@ const FilterForm: React.FC<FilterFormProps> = ({ allMetaData }) => {
                 />
 
                 {/* Multi Selection (Chips, Combobox) */}
-                {/* TODO: name from intergrations API , display as dropdown combo  with search, use metadata for values : THE ID IS NOT THERE!!! */}
+                {/* TODO: BACKEND value/label selection needed */}
                 <IntegrationCard
                     id="integration"
                     isOpen={openCard === 'integration'}
@@ -117,6 +105,8 @@ const FilterForm: React.FC<FilterFormProps> = ({ allMetaData }) => {
                 />
 
                 {/* Comma-separated Text Inputs */}
+                {/*intergration service has list of intergrations
+                missing 3rd dropdown */}
                 <InstanceCard
                     id="instance"
                     isOpen={openCard === 'instance'}
@@ -133,6 +123,7 @@ const FilterForm: React.FC<FilterFormProps> = ({ allMetaData }) => {
                 />
 
                 {/* Multi Selection (Chips + Combobox) */}
+
                 <AdvancedCard
                     id="advanced"
                     isOpen={openCard === 'advanced'}

@@ -2,9 +2,9 @@ import { GridCellParams } from '@mui/x-data-grid';
 import * as React from 'react';
 import { ReactElement, useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Box, Button, Dropdown, HStack, Loader, SortState, Table } from '@navikt/ds-react';
+import { Alert, Box, Button, Dropdown, HStack, Loader, Table } from '@navikt/ds-react';
 import moment from 'moment';
-import { eventComparator, getSourceApplicationDisplayNameById } from '../../../util/TableUtil';
+import { getSourceApplicationDisplayNameById } from '../../../util/TableUtil';
 import { IEventNew, ISummary } from '../types/Event';
 import ErrorDialogComponent from './ErrorDialogComponent';
 import InstancePanel from './InstancePanel';
@@ -17,9 +17,7 @@ import { IAlertMessage, Page } from '../../../components/types/TableTypes';
 import { MenuElipsisVerticalCircleIcon } from '@navikt/aksel-icons';
 import CustomStatusDialogComponent from './CustomStatusDialogComponent';
 import { useFilters } from '../filter/FilterContext';
-import { useSearchParams } from 'react-router-dom';
 import InstanceEventRepository from '../../../api/InstanceEventRepository';
-import IntegrationRepository from '../../../api/IntegrationRepository';
 
 interface Props {
     onError: (error: IAlertMessage | undefined) => void;
@@ -80,7 +78,7 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
             );
 
             const events: Page<ISummary> = eventResponse.data;
-            console.log('EVENTS BEFORE:', events);
+
             if (allMetadata && events) {
                 allMetadata.forEach((value: IIntegrationMetadata) => {
                     eventResponse.data.content.forEach((event: ISummary) => {
@@ -95,11 +93,18 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
 
                 setInstancesPage(events);
             } else {
-                onError({ message: t('errorMessage') });
+                // onError({ message: t('errorMessage') });
+                onError({ message: events.content.toString() });
                 setInstancesPage({ content: [] });
             }
-        } catch (e) {
-            onError({ message: t('errorMessage') });
+        } catch (e: any) {
+            // onError({ message: t('errorMessage') });
+
+            if (e.response && e.response.status === 422) {
+                onError({ message: e.response.data || 'Validation error occurred' });
+            } else {
+                onError({ message: e.message || 'An unexpected error occurred' });
+            }
             setInstancesPage({ content: [] });
             console.error('Error: ', e);
         } finally {
@@ -133,7 +138,13 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
             });
     };
 
-    console.log('FROM HERE?', allMetadata);
+    const [expandedRows, setExpandedRows] = useState<number[]>([]);
+
+    const handleToggle = (index: number) => {
+        setExpandedRows((prev) =>
+            prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
+        );
+    };
 
     return loading ? (
         <Loader size="large" />
@@ -143,14 +154,9 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                 <ErrorAlertDialog row={selectedRow} />
                 <CustomStatusDialog row={selectedRow} />
 
-                {/* Display a filter message, good luck figuring this out...*/}
-                {/*{(hasUrlParams || areFiltersActive()) && (*/}
-                {/*    <Alert style={{ maxWidth: '500px' }} variant="info">*/}
-                {/*        {instancesPage?.content?.length === 0*/}
-                {/*            ? 'Filters returned 0 results'*/}
-                {/*            : 'This table is filtered, please click Filters to view.'}*/}
-                {/*    </Alert>*/}
-                {/*)}*/}
+                {instancesPage?.content?.length === 0 && (
+                    <Alert variant={'info'}>Filters returned 0 results</Alert>
+                )}
 
                 <Table
                     // sort={sort}
@@ -184,27 +190,29 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                         {instancesPage?.content?.map((value, i) => {
                             return (
                                 <Table.ExpandableRow
-                                    expandOnRowClick
                                     key={i}
+                                    expandOnRowClick
+                                    open={expandedRows.includes(i)} // ✅ Check if the row is open
+                                    onOpenChange={() => handleToggle(i)} // ✅ Toggle the row
                                     content={
-                                        <InstancePanel
-                                            id={'instance-panel-' + i}
-                                            onError={(error) => {
-                                                onError(error);
-                                            }}
-                                            instanceId={value.sourceApplicationInstanceId}
-                                            sourceApplicationId={value.sourceApplicationId}
-                                            sourceApplicationIntegrationId={
-                                                value.sourceApplicationIntegrationId
-                                            }
-                                        />
+                                        expandedRows.includes(i) ? ( // ✅ Lazy load content only if open
+                                            <InstancePanel
+                                                id={`instance-panel-${i}`}
+                                                onError={(error) => onError(error)}
+                                                instanceId={value.sourceApplicationInstanceId}
+                                                sourceApplicationId={value.sourceApplicationId}
+                                                sourceApplicationIntegrationId={
+                                                    value.sourceApplicationIntegrationId
+                                                }
+                                            />
+                                        ) : null
                                     }>
                                     <Table.DataCell scope="row">
                                         {getSourceApplicationDisplayNameById(
                                             String(value.sourceApplicationId)
                                         )}
                                     </Table.DataCell>
-                                    {/*TODO: this is only an ID, not a display name */}
+
                                     <Table.DataCell>{value.displayName}</Table.DataCell>
                                     <Table.DataCell>
                                         {value.sourceApplicationIntegrationId}
@@ -218,7 +226,7 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                                     <Table.DataCell>
                                         {GetIcon(value.status)}
                                         {value.status}
-                                        {/*TODO: send in last error from backend ? */}
+                                        {/*TODO: BACKEND send in last error from backend ? */}
                                         {/*{t(value.status)}*/}
                                         {/*{value.status === 'ERROR' && value.errors.length > 0 && (*/}
                                         {/*    <Link*/}
@@ -248,7 +256,7 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                     </Table.Body>
                 </Table>
             </Box>
-            {/*TODO: only load under rows if selected - can open multiple at once */}
+
             <HStack justify={'center'} style={{ marginTop: '16px' }} gap={'10'}>
                 {instancesPage.numberOfElements && !(instancesPage.numberOfElements < 10) && (
                     <CustomSelect

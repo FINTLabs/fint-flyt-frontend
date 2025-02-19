@@ -43,6 +43,7 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
         statuses: [],
         storageStatuses: [],
         associatedEvents: [],
+        lastEvent: [],
         destinationIds: [],
         sort: '',
     };
@@ -53,7 +54,13 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
         return isArray ? value.split(',').map((v) => v.trim()) : value;
     };
 
-    let defaultFilters: Filters = {
+    const parseDateParam = (param: string | null): Date | null => {
+        if (!param) return null;
+        const date = new Date(param);
+        return isNaN(date.getTime()) ? null : date; // Ensure valid date
+    };
+
+    const defaultFilters: Filters = {
         sourceApplicationIds: getParam('sourceApplicationIds', true) as string[],
         sourceApplicationIntegrationIds: getParam(
             'sourceApplicationIntegrationIds',
@@ -64,30 +71,15 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
         timeOffSetHours: getParam('timeOffSetHours', false) as string,
         timeOffsetMinutes: getParam('timeOffsetMinutes', false) as string,
         timeCurrentPeriod: getParam('timeCurrentPeriod', false) as string,
-        // TODO: Take in a string and format from URL
-        // timeTimestampMin: getParam('timeTimestampMin', false) as string,
-        // timeTimestampMax: getParam('timeTimestampMax', false) as string,
-        timeTimestampMax: null,
-        timeTimestampMin: null,
+        timeTimestampMin: parseDateParam(getParam('timeTimestampMin', false) as string),
+        timeTimestampMax: parseDateParam(getParam('timeTimestampMax', false) as string),
         statuses: getParam('statuses', true) as string[],
         storageStatuses: getParam('storageStatuses', true) as string[],
         associatedEvents: getParam('associatedEvens', true) as string[],
+        lastEvent: getParam('lastEvent', true) as string[],
         destinationIds: getParam('destinationIds', true) as string[],
         sort: getParam('sort', false) as string,
     };
-
-    if (
-        defaultFilters.sourceApplicationIds &&
-        defaultFilters.sourceApplicationIds.length > 0 &&
-        defaultFilters.sourceApplicationIntegrationIds &&
-        defaultFilters.sourceApplicationIntegrationIds.length > 0
-    ) {
-        console.error(
-            'INVALID FILTER URL: Both sourceApplicationIds and sourceApplicationIntegrationIds cannot be set'
-        );
-        defaultFilters = emptyFilters;
-        setSearchParams(new URLSearchParams()); // Clear URL params
-    }
 
     const [filters, setFilters] = useState<Filters>(defaultFilters);
     const [refreshKey, setRefreshKey] = useState(0);

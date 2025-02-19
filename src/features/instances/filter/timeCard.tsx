@@ -2,8 +2,6 @@ import {
     DatePicker,
     ExpansionCard,
     HStack,
-    Radio,
-    RadioGroup,
     TextField,
     ToggleGroup,
     VStack,
@@ -11,9 +9,9 @@ import {
     Chips,
 } from '@navikt/ds-react';
 import { BriefcaseClockIcon, CalendarIcon, ClockDashedIcon } from '@navikt/aksel-icons';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useFilters } from './FilterContext';
-import { setArrayValue, setSingleValue } from './util';
+import { setSingleValue } from './util';
 
 interface Props {
     id: string;
@@ -31,56 +29,65 @@ export default function TimeCard(props: Props) {
         return 'offset';
     });
 
-    // const [timeMin, setTimeMin] = useState<string>(
-    //     filters.timeTimestampMin?.split('T')[1]?.substring(0, 5) ?? ''
-    // );
-    // const [timeMax, setTimeMax] = useState<string>(
-    //     filters.timeTimestampMax?.split('T')[1]?.substring(0, 5) ?? ''
-    // );
+    const [timeMin, setTimeMin] = useState<string>('');
+    const [timeMax, setTimeMax] = useState<string>('');
 
-    // function formatToOffsetDateTime(date: Date, time: string): string {
-    //     const [hours, minutes] = time.split(':').map(Number);
-    //     if (!isNaN(hours) && !isNaN(minutes)) {
-    //         date.setHours(hours, minutes, 0, 0);
-    //     }
-    //     return date.toISOString().replace('Z', getTimezoneOffset(date));
-    // }
+    // Function to format date + time in ISO format
+    const formatToOffsetDateTime = (date: Date, time: string): string => {
+        const [hours, minutes] = time.split(':').map(Number);
+        date.setHours(isNaN(hours) ? 0 : hours, isNaN(minutes) ? 0 : minutes, 0, 0);
+        return date.toISOString();
+    };
 
     const { datepickerProps, toInputProps, fromInputProps, selectedRange, setSelected } =
         useRangeDatepicker({
-            fromDate: new Date(''),
-            // onRangeChange: console.info,
             onRangeChange: (range) => {
                 if (range?.from) {
-                    // updateFilter('timeTimestampMin', formatToOffsetDateTime(range.from, timeMin));
-                    updateFilter('timeTimestampMin', range?.from);
+                    updateFilter(
+                        'timeTimestampMin',
+                        formatToOffsetDateTime(range.from, timeMin || '00:00')
+                    );
+                } else {
+                    updateFilter('timeTimestampMin', null);
+                    setTimeMin('');
                 }
+
                 if (range?.to) {
-                    // updateFilter('timeTimestampMax', formatToOffsetDateTime(range.to, timeMax));
-                    updateFilter('timeTimestampMax', range?.to);
+                    updateFilter(
+                        'timeTimestampMax',
+                        formatToOffsetDateTime(range.to, timeMax || '00:00')
+                    );
+                } else {
+                    updateFilter('timeTimestampMax', null);
+                    setTimeMax('');
                 }
             },
         });
 
+    const getRangeFromDates = (startDate: Date | null, endDate: Date | null) => {
+        return {
+            from: startDate ? new Date(startDate) : undefined,
+            to: endDate ? new Date(endDate) : undefined,
+        };
+    };
+
+    useEffect(() => {
+        if (filters.timeTimestampMin || filters.timeTimestampMax) {
+            const range = getRangeFromDates(filters.timeTimestampMin, filters.timeTimestampMax);
+            setSelected(range);
+
+            //TODO: set time from URL
+        }
+    }, [filters]);
+
     const handleTimeChange = (field: 'timeTimestampMin' | 'timeTimestampMax', time: string) => {
-        //     if (field === 'timeTimestampMin') {
-        //         setTimeMin(time);
-        //         if (filters.timeTimestampMin) {
-        //             updateFilter(
-        //                 'timeTimestampMin',
-        //                 formatToOffsetDateTime(new Date(filters.timeTimestampMin), time)
-        //             );
-        //         }
-        //     } else {
-        //         setTimeMax(time);
-        //         if (filters.timeTimestampMax) {
-        //             updateFilter(
-        //                 'timeTimestampMax',
-        //                 formatToOffsetDateTime(new Date(filters.timeTimestampMax), time)
-        //             );
-        //         }
-        //     }
-        console.log('HANDLE TIME CHANGE:', field, time);
+        if (field === 'timeTimestampMin' && selectedRange?.from) {
+            setTimeMin(time);
+            updateFilter(field, formatToOffsetDateTime(new Date(selectedRange.from), time));
+        } else if (field === 'timeTimestampMax' && selectedRange?.to) {
+            setTimeMax(time);
+            updateFilter(field, formatToOffsetDateTime(new Date(selectedRange.to), time));
+        }
     };
 
     function handleTabChange(tab: string) {
@@ -92,6 +99,8 @@ export default function TimeCard(props: Props) {
             updateFilter('timeOffSetHours', null);
             updateFilter('timeOffsetMinutes', null);
             setSelected({ from: undefined, to: undefined });
+            setTimeMin('');
+            setTimeMax('');
         } else if (tab === 'manual') {
             updateFilter('timeCurrentPeriod', null);
             updateFilter('timeOffSetHours', null);
@@ -101,29 +110,34 @@ export default function TimeCard(props: Props) {
             updateFilter('timeTimestampMin', null);
             updateFilter('timeTimestampMax', null);
             setSelected({ from: undefined, to: undefined });
+            setTimeMin('');
+            setTimeMax('');
         }
     }
-    //
-    // const getExpansionCardDescription = (): string => {
-    //     if (filters.timeCurrentPeriod) {
-    //         const selectedLabel = timeCurrentPeriodOptions.find(
-    //             (option) => option.value === filters.timeCurrentPeriod
-    //         )?.label;
-    //         return `Periode: ${selectedLabel || 'Ukjent'}`;
-    //     }
-    //     return date.toISOString().replace('Z', getTimezoneOffset(date));
-    // };
-
-    console.log('FILTER FROM:', filters.timeTimestampMin);
-    console.log('FILTER TO:', filters.timeTimestampMax);
 
     const formatDate = (dateString: Date | null) => {
-        if (!dateString) return ''; // Return empty if no date
-        return new Date(dateString).toLocaleDateString('no-NO', {
+        if (!dateString) return '';
+
+        const date = new Date(dateString);
+        const hours = date.getHours();
+        const minutes = date.getMinutes();
+
+        const datePart = date.toLocaleDateString('no-NO', {
             year: 'numeric',
             month: '2-digit',
             day: '2-digit',
         });
+
+        // 🕰️ Only display time if it's not 00:00
+        const timePart =
+            hours !== 0 || minutes !== 0
+                ? date.toLocaleTimeString('no-NO', {
+                      hour: '2-digit',
+                      minute: '2-digit',
+                  })
+                : '';
+
+        return timePart ? `${datePart}, ${timePart}` : datePart;
     };
 
     const getExpansionCardDescription = (): string => {
@@ -135,6 +149,7 @@ export default function TimeCard(props: Props) {
         }
 
         if (filters.timeTimestampMin || filters.timeTimestampMax) {
+            // return `Manuell: ${formatDate(filters.timeTimestampMin)} - ${formatDate(filters.timeTimestampMax)}`;
             return `Manuell: ${formatDate(filters.timeTimestampMin)} - ${formatDate(filters.timeTimestampMax)}`;
         }
 
@@ -145,17 +160,6 @@ export default function TimeCard(props: Props) {
         return '';
     };
 
-    // function getTimezoneOffset(date: Date): string {
-    //     const offset = -date.getTimezoneOffset();
-    //     const sign = offset >= 0 ? '+' : '-';
-    //     const hours = Math.floor(Math.abs(offset) / 60)
-    //         .toString()
-    //         .padStart(2, '0');
-    //     const minutes = (Math.abs(offset) % 60).toString().padStart(2, '0');
-    //     return `${sign}${hours}:${minutes}`;
-    // }
-
-    // TODO: Time not working correctly yet
     return (
         <ExpansionCard
             size="small"
@@ -220,19 +224,6 @@ export default function TimeCard(props: Props) {
 
                     {selectedTab === 'period' && (
                         <HStack>
-                            {/*<RadioGroup*/}
-                            {/*    size={'small'}*/}
-                            {/*    legend="Velg tidsperiode"*/}
-                            {/*    onChange={(value) =>*/}
-                            {/*        setSingleValue(updateFilter, 'timeCurrentPeriod', value)*/}
-                            {/*    }*/}
-                            {/*    value={filters.timeCurrentPeriod ?? ''}>*/}
-                            {/*    {timeCurrentPeriodOptions.map((option) => (*/}
-                            {/*        <Radio key={option.value} value={option.value}>*/}
-                            {/*            {option.label}*/}
-                            {/*        </Radio>*/}
-                            {/*    ))}*/}
-                            {/*</RadioGroup>*/}
                             <Chips>
                                 {props.timeCurrentPeriodOptions.map((option) => (
                                     <Chips.Toggle
@@ -261,21 +252,22 @@ export default function TimeCard(props: Props) {
                                     label="Tid fra"
                                     size="small"
                                     type="time"
-                                    // value={timeMin}
+                                    value={timeMin}
                                     onChange={(e) =>
                                         handleTimeChange('timeTimestampMin', e.target.value)
                                     }
+                                    disabled={!selectedRange?.from}
                                 />
                                 <DatePicker.Input {...toInputProps} label="Til" size="small" />
-                                {/* TODO: can only select a time if a date is selected */}
                                 <TextField
                                     label="Tid til"
                                     size="small"
                                     type="time"
-                                    // value={timeMax}
+                                    value={timeMax}
                                     onChange={(e) =>
                                         handleTimeChange('timeTimestampMax', e.target.value)
                                     }
+                                    disabled={!selectedRange?.to}
                                 />
                             </HStack>
                         </DatePicker>

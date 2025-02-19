@@ -1,7 +1,6 @@
 import { Select } from '@navikt/ds-react';
 import { useFilters } from './FilterContext';
 
-// TODO: BACKEND: destination not working
 export default function SortSelect() {
     const { filters, updateFilter } = useFilters();
 
@@ -14,7 +13,7 @@ export default function SortSelect() {
             <option value="timestamp,asc">Tidspunkt stigende</option>
             <option value="timestamp,desc">Tidspunkt synkende</option>
             <option value="sourceApplicationInstanceId,desc">Kildeapplikasjons instans-ID</option>
-            <option value="destinationIds,asc">Destinasjons instans-ID</option>
+            <option value="destinationId,desc">Destinasjons instans-ID</option>
         </Select>
     );
 }

@@ -47,7 +47,7 @@ export default function IntegrationCard(props: Props) {
 
     const getExpansionCardDescription = (): string => {
         const parts: string[] = [];
-        // TODO get names
+        // TODO BACKEND get names
         if (integrationInput.length > 0) {
             parts.push(
                 //     `Integrasjon: ${getLabelsByIds(filters.sourceApplicationIntegrationIds, integrationOptions).join(', ')}`
@@ -84,17 +84,37 @@ export default function IntegrationCard(props: Props) {
                         <ToggleGroup.Item value="sourceApp" label="Kildeapplikasjon" />
                     </ToggleGroup>
 
-                    {selectedTab === 'integration' && (
-                        <TextField
-                            label="Integrasjon"
-                            size="small"
-                            value={integrationInput}
-                            onChange={handleIntegrationChange}
-                            onBlur={handleIntegrationBlur}
-                            onKeyDown={(e) => e.key === 'Enter' && handleIntegrationBlur()}
-                            placeholder="Skriv inn integrasjonsnavn, separert med komma"
-                        />
+                    {selectedTab === 'sourceApp' && (
+                        <>
+                            <UNSAFE_Combobox
+                                label="Kildeapplikasjon"
+                                options={props.sourceApplicationIdsOptions}
+                                isMultiSelect
+                                // selectedOptions={filters.sourceApplicationIds ?? []}
+                                selectedOptions={props.sourceApplicationIdsOptions.filter((opt) =>
+                                    filters.sourceApplicationIds?.includes(opt.value)
+                                )}
+                                onToggleSelected={(option, isSelected) =>
+                                    setArrayValue(
+                                        updateFilter,
+                                        filters,
+                                        'sourceApplicationIds',
+                                        option,
+                                        isSelected
+                                    )
+                                }
+                            />
 
+                            <TextField
+                                label="Kildeapplikasjon integrasjon ID"
+                                size="small"
+                                value={integrationInput}
+                                onChange={handleIntegrationChange}
+                                onBlur={handleIntegrationBlur}
+                                onKeyDown={(e) => e.key === 'Enter' && handleIntegrationBlur()}
+                                placeholder="Skriv inn integrasjonsnavn, separert med komma"
+                            />
+                        </>
                         // <UNSAFE_Combobox
                         //     label="Integrasjon-TEXT BOX"
                         //     options={integrationOptions}
@@ -113,9 +133,9 @@ export default function IntegrationCard(props: Props) {
                         //     }
                         // />
                     )}
-                    {selectedTab === 'sourceApp' && (
+                    {selectedTab === 'integration' && (
                         <UNSAFE_Combobox
-                            label="Kildeapplikasjon"
+                            label="Integrasjon"
                             options={props.sourceApplicationIdsOptions}
                             isMultiSelect
                             // selectedOptions={filters.sourceApplicationIds ?? []}
