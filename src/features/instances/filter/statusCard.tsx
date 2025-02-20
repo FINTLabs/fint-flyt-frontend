@@ -14,7 +14,7 @@ interface Props {
 export default function StatusCard(props: Props) {
     const { filters, updateFilter } = useFilters();
     const [selectedTab, setSelectedTab] = useState<string>(
-        (filters.associatedEvents ?? []).length > 0 ? 'event' : 'status'
+        (filters.lastEvent ?? []).length > 0 ? 'event' : 'status'
     );
 
     function handleTabChange(tab: string) {
@@ -25,10 +25,10 @@ export default function StatusCard(props: Props) {
 
     const getExpansionCardDescription = (): string => {
         const parts: string[] = [];
-        if ((filters.associatedEvents ?? []).length > 0) {
+        if ((filters.lastEvent ?? []).length > 0) {
             // parts.push(`Siste hendelse: ${filters.associatedEventNames}`);
             parts.push(
-                `Siste hendelse: ${getLabelsByIds(filters.associatedEvents, props.associatedEventNamesOptions).join(', ')}`
+                `Siste hendelse: ${getLabelsByIds(filters.lastEvent, props.associatedEventNamesOptions).join(', ')}`
             );
         }
         if ((filters.statuses ?? []).length > 0) {
@@ -90,14 +90,14 @@ export default function StatusCard(props: Props) {
                             options={props.associatedEventNamesOptions}
                             // selectedOptions={filters.storageStatuses ?? []}
                             selectedOptions={props.associatedEventNamesOptions.filter((opt) =>
-                                filters.associatedEvents?.includes(opt.value)
+                                filters.lastEvent?.includes(opt.value)
                             )}
                             isMultiSelect
                             onToggleSelected={(option, isSelected) =>
                                 setArrayValue(
                                     updateFilter,
                                     filters,
-                                    'associatedEvents',
+                                    'lastEvent',
                                     option,
                                     isSelected
                                 )

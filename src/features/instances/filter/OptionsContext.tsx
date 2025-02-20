@@ -12,7 +12,7 @@ interface OptionsContextProps {
     eventCategoriesOptions: Option[];
     instanceStatusEventCategoriesOptions: Option[];
     timeCurrentPeriodOptions: Option[];
-    fetchOptions: () => void; // Function to refresh all options from API
+    fetchOptions: () => void;
 }
 
 const OptionsContext = createContext<OptionsContextProps | null>(null);

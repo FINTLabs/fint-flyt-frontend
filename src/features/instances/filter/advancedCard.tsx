@@ -16,9 +16,9 @@ export default function AdvancedCard(props: Props) {
     const getExpansionCardDescription = (): string => {
         const parts: string[] = [];
 
-        if ((filters.lastEvent ?? []).length > 0) {
+        if ((filters.associatedEvents ?? []).length > 0) {
             parts.push(
-                `Tilknyttede hendelser: ${getLabelsByIds(filters.lastEvent, props.associatedEventNamesOptions).join(', ')}`
+                `Tilknyttede hendelser: ${getLabelsByIds(filters.associatedEvents, props.associatedEventNamesOptions).join(', ')}`
             );
         }
 
@@ -53,10 +53,16 @@ export default function AdvancedCard(props: Props) {
                         isMultiSelect
                         // selectedOptions={filters.associatedEventNames ?? []}
                         selectedOptions={props.associatedEventNamesOptions.filter((opt) =>
-                            filters.lastEvent?.includes(opt.value)
+                            filters.associatedEvents?.includes(opt.value)
                         )}
                         onToggleSelected={(option, isSelected) =>
-                            setArrayValue(updateFilter, filters, 'lastEvent', option, isSelected)
+                            setArrayValue(
+                                updateFilter,
+                                filters,
+                                'associatedEvents',
+                                option,
+                                isSelected
+                            )
                         }
                     />
 
