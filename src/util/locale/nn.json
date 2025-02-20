@@ -204,7 +204,116 @@
       "button": {
         "close": "Lukk",
         "save": "Lagre",
-        "refresh": "Oppdater side"
+        "refresh": "Oppdater side",
+        "search": "Søk",
+        "clear": "Tilbakestill"
+      },
+      "filter": {
+        "sort": "Sortering",
+        "sortBy": "Vel sortering",
+        "options": {
+          "timestampAsc": "Tidspunkt stigande",
+          "timestampDesc": "Tidspunkt synkande",
+          "sourceAppId": "Kjeldeapplikasjons instans-ID",
+          "destinationId": "Destinasjons instans-ID"
+        },
+        "timeCard": {
+          "ariaLabel": "Tidsperiode",
+          "title": "Tidsperiode",
+          "description": {
+            "period": "Periode: {{value}}",
+            "manual": "Manuell: {{from}} - {{to}}",
+            "offset": "Siste: {{hours}}t {{minutes}}m"
+          },
+          "tabs": {
+            "offset": "Siste",
+            "period": "Periode",
+            "manual": "Manuell"
+          },
+          "offset": {
+            "hours": "Timar",
+            "minutes": "Minutt"
+          },
+          "manual": {
+            "fromDate": "Frå",
+            "fromTime": "Tid frå",
+            "toDate": "Til",
+            "toTime": "Tid til"
+          }
+        },
+        "advancedCard": {
+          "ariaLabel": "Avansert",
+          "title": "Avansert",
+          "description": {
+            "associatedEvents": "Tilknytte hendingar: {{value}}",
+            "storageStatuses": "Vald mellomlagring: {{value}}"
+          },
+          "combobox": {
+            "label": "Tilknytt hending"
+          },
+          "chips": {
+            "label": "Mellomlagring"
+          }
+        },
+        "instanceCard": {
+          "ariaLabel": "Instans-variant",
+          "title": "Instans",
+          "description": {
+            "source": "Kjelde: {{value}}",
+            "destination": "Destinasjon: {{value}}"
+          },
+          "fields": {
+            "sourceAppInstanceId": {
+              "label": "Kjeldeapplikasjons instans-ID",
+              "placeholder": "Skriv inn kjelde-ID-ar, separert med komma"
+            },
+            "destinationId": {
+              "label": "Destinasjon",
+              "placeholder": "Skriv inn destinasjons-ID-ar, separert med komma"
+            }
+          }
+        },
+        "integrationCard": {
+          "ariaLabel": "Integrasjon og kjeldeapplikasjon",
+          "title": "Integrasjon og kjeldeapplikasjon",
+          "description": {
+            "integration": "Integrasjon: {{value}}",
+            "sourceApplication": "Kjeldeapplikasjon: {{value}}"
+          },
+          "tabs": {
+            "integration": "Integrasjon",
+            "sourceApp": "Kjeldeapplikasjon"
+          },
+          "combobox": {
+            "sourceApp": "Vel kjeldeapplikasjon",
+            "integration": "Vel integrasjon"
+          },
+          "textField": {
+            "integrationId": {
+              "label": "Kjeldeapplikasjon integrasjon ID",
+              "placeholder": "Skriv inn integrasjonsnamn, separert med komma"
+            }
+          }
+        },
+        "statusCard": {
+          "ariaLabel": "Status",
+          "title": "Status",
+          "description": {
+            "event": "Siste hending: {{value}}",
+            "status": "Status: {{value}}"
+          },
+          "tabs": {
+            "status": "Status",
+            "event": "Siste hending"
+          },
+          "chips": {
+            "label": "Status"
+          },
+          "combobox": {
+            "label": "Siste hending",
+            "allowNewValues": "Tillat nye verdiar"
+          }
+        }
       },
       "table": {
         "column": {

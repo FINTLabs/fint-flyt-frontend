@@ -240,7 +240,7 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                                         {/*)}*/}
                                     </Table.DataCell>
                                     <Table.DataCell>
-                                        {/*TODO: translations */}
+                                        {/*TODO: translations for selectables !! */}
                                         {/*{value.intermediateStorageStatus*/}
                                         {/*    ? t(value.intermediateStorageStatus)*/}
                                         {/*    : null}*/}

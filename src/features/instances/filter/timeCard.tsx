@@ -1,17 +1,18 @@
 import {
+    Chips,
     DatePicker,
     ExpansionCard,
     HStack,
     TextField,
     ToggleGroup,
-    VStack,
     useRangeDatepicker,
-    Chips,
+    VStack,
 } from '@navikt/ds-react';
 import { BriefcaseClockIcon, CalendarIcon, ClockDashedIcon } from '@navikt/aksel-icons';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useFilters } from './FilterContext';
 import { setSingleValue } from './util';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     id: string;
@@ -21,6 +22,8 @@ interface Props {
 }
 
 export default function TimeCard(props: Props) {
+    const { t } = useTranslation('translations', { keyPrefix: 'pages.instances' });
+
     const { updateFilter, filters } = useFilters();
 
     const [selectedTab, setSelectedTab] = useState<string>(() => {
@@ -71,14 +74,15 @@ export default function TimeCard(props: Props) {
         };
     };
 
-    useEffect(() => {
-        if (filters.timeTimestampMin || filters.timeTimestampMax) {
-            const range = getRangeFromDates(filters.timeTimestampMin, filters.timeTimestampMax);
-            setSelected(range);
-
-            //TODO: set time from URL
-        }
-    }, [filters]);
+    // TODO: fix setting of time WTF
+    // useEffect(() => {
+    //     if (filters.timeTimestampMin || filters.timeTimestampMax) {
+    //         const range = getRangeFromDates(filters.timeTimestampMin, filters.timeTimestampMax);
+    //         setSelected(range);
+    //
+    //         //TODO: set time from URL
+    //     }
+    // }, [filters]);
 
     const handleTimeChange = (field: 'timeTimestampMin' | 'timeTimestampMax', time: string) => {
         if (field === 'timeTimestampMin' && selectedRange?.from) {
@@ -163,7 +167,7 @@ export default function TimeCard(props: Props) {
     return (
         <ExpansionCard
             size="small"
-            aria-label="Tidsperiode"
+            aria-label="Tidsperiod"
             open={props.isOpen}
             onToggle={() => props.toggleOpen(props.id)}>
             <ExpansionCard.Header>

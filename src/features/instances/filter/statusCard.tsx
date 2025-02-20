@@ -2,6 +2,7 @@ import { Chips, ExpansionCard, ToggleGroup, UNSAFE_Combobox, VStack } from '@nav
 import React, { useState } from 'react';
 import { useFilters } from './FilterContext';
 import { getLabelsByIds, setArrayValue } from './util';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     associatedEventNamesOptions: { label: string; value: string }[];
@@ -12,6 +13,9 @@ interface Props {
 }
 
 export default function StatusCard(props: Props) {
+    const { t } = useTranslation('translations', {
+        keyPrefix: 'pages.instances.filter.statusCard',
+    });
     const { filters, updateFilter } = useFilters();
     const [selectedTab, setSelectedTab] = useState<string>(
         (filters.lastEvent ?? []).length > 0 ? 'event' : 'status'
@@ -19,22 +23,26 @@ export default function StatusCard(props: Props) {
 
     function handleTabChange(tab: string) {
         setSelectedTab(tab);
-        // Clear the opposite selection when switching tabs
         updateFilter(tab === 'status' ? 'storageStatuses' : 'statuses', []);
     }
 
     const getExpansionCardDescription = (): string => {
         const parts: string[] = [];
         if ((filters.lastEvent ?? []).length > 0) {
-            // parts.push(`Siste hendelse: ${filters.associatedEventNames}`);
             parts.push(
-                `Siste hendelse: ${getLabelsByIds(filters.lastEvent, props.associatedEventNamesOptions).join(', ')}`
+                t('description.event', {
+                    value: getLabelsByIds(
+                        filters.lastEvent,
+                        props.associatedEventNamesOptions
+                    ).join(', '),
+                })
             );
         }
         if ((filters.statuses ?? []).length > 0) {
-            // parts.push(`Status: ${filters.statuses}`);
             parts.push(
-                `Status: ${getLabelsByIds(filters.statuses, props.statusesOptions).join(', ')}`
+                t('description.status', {
+                    value: getLabelsByIds(filters.statuses, props.statusesOptions).join(', '),
+                })
             );
         }
         return parts.join(' | ');
@@ -43,12 +51,12 @@ export default function StatusCard(props: Props) {
     return (
         <ExpansionCard
             size="small"
-            aria-label="Status"
+            aria-label={t('ariaLabel') || 'default label'}
             open={props.isOpen}
             onToggle={() => props.toggleOpen(props.id)}>
             <ExpansionCard.Header>
                 <ExpansionCard.Title as="h4" size="small">
-                    Status
+                    {t('title')}
                 </ExpansionCard.Title>
                 <ExpansionCard.Description>
                     {getExpansionCardDescription()}
@@ -57,8 +65,8 @@ export default function StatusCard(props: Props) {
             <ExpansionCard.Content>
                 <VStack gap="8">
                     <ToggleGroup value={selectedTab} onChange={handleTabChange} fill>
-                        <ToggleGroup.Item value="status" label="Status" />
-                        <ToggleGroup.Item value="event" label="Siste hendelse" />
+                        <ToggleGroup.Item value="status" label={t('tabs.status')} />
+                        <ToggleGroup.Item value="event" label={t('tabs.event')} />
                     </ToggleGroup>
 
                     {selectedTab === 'status' && (
@@ -86,9 +94,8 @@ export default function StatusCard(props: Props) {
                     {selectedTab === 'event' && (
                         <UNSAFE_Combobox
                             allowNewValues
-                            label="Siste hendelse"
+                            label={t('combobox.label')}
                             options={props.associatedEventNamesOptions}
-                            // selectedOptions={filters.storageStatuses ?? []}
                             selectedOptions={props.associatedEventNamesOptions.filter((opt) =>
                                 filters.lastEvent?.includes(opt.value)
                             )}

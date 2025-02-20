@@ -1,6 +1,7 @@
 import { Chips, ExpansionCard, Label, UNSAFE_Combobox, VStack } from '@navikt/ds-react';
 import { useFilters } from './FilterContext';
 import { getLabelsByIds, setArrayValue } from './util';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     associatedEventNamesOptions: { label: string; value: string }[];
@@ -11,6 +12,9 @@ interface Props {
 }
 
 export default function AdvancedCard(props: Props) {
+    const { t } = useTranslation('translations', {
+        keyPrefix: 'pages.instances.filter.advancedCard',
+    });
     const { filters, updateFilter } = useFilters();
 
     const getExpansionCardDescription = (): string => {
@@ -18,13 +22,23 @@ export default function AdvancedCard(props: Props) {
 
         if ((filters.associatedEvents ?? []).length > 0) {
             parts.push(
-                `Tilknyttede hendelser: ${getLabelsByIds(filters.associatedEvents, props.associatedEventNamesOptions).join(', ')}`
+                t('description.associatedEvents', {
+                    value: getLabelsByIds(
+                        filters.associatedEvents,
+                        props.associatedEventNamesOptions
+                    ).join(', '),
+                })
             );
         }
 
         if ((filters.storageStatuses ?? []).length > 0) {
             parts.push(
-                `Valgt mellomlagring: ${getLabelsByIds(filters.storageStatuses, props.storageStatusesOptions).join(', ')}`
+                t('description.storageStatuses', {
+                    value: getLabelsByIds(
+                        filters.storageStatuses,
+                        props.storageStatusesOptions
+                    ).join(', '),
+                })
             );
         }
 
@@ -34,12 +48,12 @@ export default function AdvancedCard(props: Props) {
     return (
         <ExpansionCard
             size="small"
-            aria-label="Avansert"
+            aria-label={t('ariaLabel') || 'Default Label'}
             open={props.isOpen}
             onToggle={() => props.toggleOpen(props.id)}>
             <ExpansionCard.Header>
                 <ExpansionCard.Title as="h4" size="small">
-                    Avansert
+                    {t('title')}
                 </ExpansionCard.Title>
                 <ExpansionCard.Description>
                     {getExpansionCardDescription()}
@@ -48,10 +62,9 @@ export default function AdvancedCard(props: Props) {
             <ExpansionCard.Content>
                 <VStack gap="8">
                     <UNSAFE_Combobox
-                        label="Tilknyttet hendelse"
+                        label={t('combobox.label')}
                         options={props.associatedEventNamesOptions}
                         isMultiSelect
-                        // selectedOptions={filters.associatedEventNames ?? []}
                         selectedOptions={props.associatedEventNamesOptions.filter((opt) =>
                             filters.associatedEvents?.includes(opt.value)
                         )}
@@ -66,13 +79,12 @@ export default function AdvancedCard(props: Props) {
                         }
                     />
 
-                    <Label>Mellomlagring</Label>
+                    <Label>{t('chips.label')}</Label>
                     <Chips>
                         {props.storageStatusesOptions.map((option) => (
                             <Chips.Toggle
                                 checkmark
                                 key={option.value}
-                                // selected={(filters.destinationIds ?? []).includes(option)}
                                 selected={filters.storageStatuses?.includes(option.value)}
                                 onClick={() =>
                                     setArrayValue(

@@ -95,7 +95,7 @@ const Instances: RouteComponent = () => {
                                 style={{ position: 'absolute', top: '10px', right: '10px' }}>
                                 Lukk
                             </Button>
-                            <Filters allMetaData={allMetadata} />
+                            {allMetadata && <Filters allMetaData={allMetadata} />}
                         </Box>
                     )}
                     <Box

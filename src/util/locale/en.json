@@ -204,7 +204,116 @@
       "button": {
         "close": "Close",
         "save": "Save",
-        "refresh": "Refresh page"
+        "refresh": "Refresh page",
+        "search": "Search",
+        "clear": "Clear"
+      },
+      "filter": {
+        "sort": "Sorting",
+        "sortBy": "Choose sorting",
+        "options": {
+          "timestampAsc": "Timestamp ascending",
+          "timestampDesc": "Timestamp descending",
+          "sourceAppId": "Source application instance ID",
+          "destinationId": "Destination instance ID"
+        },
+        "timeCard": {
+          "ariaLabel": "Time period",
+          "title": "Time period",
+          "description": {
+            "period": "Period: {{value}}",
+            "manual": "Manual: {{from}} - {{to}}",
+            "offset": "Last: {{hours}}h {{minutes}}m"
+          },
+          "tabs": {
+            "offset": "Last",
+            "period": "Period",
+            "manual": "Manual"
+          },
+          "offset": {
+            "hours": "Hours",
+            "minutes": "Minutes"
+          },
+          "manual": {
+            "fromDate": "From",
+            "fromTime": "Time from",
+            "toDate": "To",
+            "toTime": "Time to"
+          }
+        },
+        "advancedCard": {
+          "ariaLabel": "Advanced",
+          "title": "Advanced",
+          "description": {
+            "associatedEvents": "Associated events: {{value}}",
+            "storageStatuses": "Selected storage: {{value}}"
+          },
+          "combobox": {
+            "label": "Associated event"
+          },
+          "chips": {
+            "label": "Storage"
+          }
+        },
+        "instanceCard": {
+          "ariaLabel": "Instance variant",
+          "title": "Instance",
+          "description": {
+            "source": "Source: {{value}}",
+            "destination": "Destination: {{value}}"
+          },
+          "fields": {
+            "sourceAppInstanceId": {
+              "label": "Source application instance ID",
+              "placeholder": "Enter source IDs, separated by commas"
+            },
+            "destinationId": {
+              "label": "Destination",
+              "placeholder": "Enter destination IDs, separated by commas"
+            }
+          }
+        },
+        "integrationCard": {
+          "ariaLabel": "Integration and source application",
+          "title": "Integration and source application",
+          "description": {
+            "integration": "Integration: {{value}}",
+            "sourceApplication": "Source application: {{value}}"
+          },
+          "tabs": {
+            "integration": "Integration",
+            "sourceApp": "Source application"
+          },
+          "combobox": {
+            "sourceApp": "Select source application",
+            "integration": "Select integration"
+          },
+          "textField": {
+            "integrationId": {
+              "label": "Source application integration ID",
+              "placeholder": "Enter integration names, separated by commas"
+            }
+          }
+        },
+        "statusCard": {
+          "ariaLabel": "Status",
+          "title": "Status",
+          "description": {
+            "event": "Last event: {{value}}",
+            "status": "Status: {{value}}"
+          },
+          "tabs": {
+            "status": "Status",
+            "event": "Last event"
+          },
+          "chips": {
+            "label": "Status"
+          },
+          "combobox": {
+            "label": "Last event",
+            "allowNewValues": "Allow new values"
+          }
+        }
       },
       "table": {
         "column": {

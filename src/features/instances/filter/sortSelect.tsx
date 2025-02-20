@@ -1,19 +1,23 @@
 import { Select } from '@navikt/ds-react';
 import { useFilters } from './FilterContext';
+import { useTranslation } from 'react-i18next';
 
 export default function SortSelect() {
+    const { t } = useTranslation('translations', { keyPrefix: 'pages.instances' });
     const { filters, updateFilter } = useFilters();
 
     return (
         <Select
-            label={'Sortering'}
+            label={t('filter.sort')}
             value={filters.sort || ''}
             onChange={(e) => updateFilter('sort', e.target.value)}>
-            <option value="">Velg sortering</option>
-            <option value="timestamp,asc">Tidspunkt stigende</option>
-            <option value="timestamp,desc">Tidspunkt synkende</option>
-            <option value="sourceApplicationInstanceId,desc">Kildeapplikasjons instans-ID</option>
-            <option value="destinationId,desc">Destinasjons instans-ID</option>
+            <option value="">{t('filter.sortBy')}</option>
+            <option value="timestamp,asc">{t('filter.options.timestampAsc')}</option>
+            <option value="timestamp,desc">{t('filter.options.timestampDesc')}</option>
+            <option value="sourceApplicationInstanceId,desc">
+                {t('filter.options.sourceAppId')}
+            </option>
+            <option value="destinationId,desc">{t('filter.options.destinationId')}</option>
         </Select>
     );
 }

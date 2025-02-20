@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Button, HStack, VStack } from '@navikt/ds-react';
 import SortSelect from './sortSelect';
 import TimeCard from './timeCard';
@@ -9,6 +9,8 @@ import AdvancedCard from './advancedCard';
 import { useFilters } from './FilterContext';
 import { OptionsProvider, useOptions } from './OptionsContext';
 import { IIntegrationMetadata } from '../../configuration/types/Metadata/IntegrationMetadata';
+import IntegrationRepository from '../../../api/IntegrationRepository';
+import { IIntegration } from '../../integration/types/Integration';
 
 const apiOptions = {
     sourceApplicationIdsOptions: [
@@ -19,55 +21,21 @@ const apiOptions = {
         { value: '5', label: 'Altinn' },
         { value: '6', label: 'HMSReg' },
     ],
-    // integrationOptions: [
-    //     // integrationIds
-    //     { value: '1', label: 'Fartøyvern' },
-    //     { value: '2', label: 'Arkivsak' },
-    //     {
-    //         value: '3',
-    //         label: 'Tillatelse til inngrep i automatisk fredet kulturminne for enkelttiltak',
-    //     },
-    //     { value: '4', label: 'Journalpost' },
-    //     { value: '5', label: 'Tilskudd til freda bygninger i privat eie' },
-    // ],
-    // statusesOptions: [
-    //     { value: '1', label: 'Under behandling' },
-    //     { value: '2', label: 'Overført' },
-    //     { value: '3', label: 'Avvist' },
-    //     { value: '4', label: 'Feilet' },
-    // ],
-    // associatedEventNamesOptions: [
-    //     { value: '1', label: 'Mellomlagring av instans slettet' },
-    //     { value: '2', label: 'Instans klar for sending til destinasjon' },
-    //     { value: '3', label: 'Instans konvertert' },
-    // ],
-    // storageStatusesOptions: [
-    //     { value: '1', label: 'Lagret' },
-    //     { value: '2', label: 'Lagret og slettet' },
-    //     { value: '3', label: 'Ikke lagret' },
-    // ],
-    // timeCurrentPeriodOptions: [
-    //     { value: '1', label: 'Denne time' },
-    //     { value: '3', label: 'Denne døgnen' },
-    //     { value: '4', label: 'Denne uke' },
-    //     { value: '5', label: 'Denne måned' },
-    //     { value: '6', label: 'Denne år' },
-    // ],
-
-    // connectedEventsOptions: [
-    //     { id: '1', name: 'Avansert 1' },
-    //     { id: '2', name: 'Avansert 2' },
-    //     { id: '3', name: 'Avansert 3' },
-    // ],
 };
 
 interface FilterFormProps {
-    allMetaData?: IIntegrationMetadata[];
+    allMetaData: IIntegrationMetadata[];
 }
 
 const FilterForm: React.FC<FilterFormProps> = ({ allMetaData }) => {
-    const { clearFilters, saveFilters } = useFilters();
+    const { clearFilters, saveFilters, filters } = useFilters();
     const [openCard, setOpenCard] = useState<string | null>(null);
+    const [sourceApplicationIntegrationOptions, setSourceApplicationIntegrationOptions] = useState<
+        { label: string; value: string }[]
+    >([]);
+    const [integrationsOptions, setIntegrationsOptions] = useState<
+        { label: string; value: string }[]
+    >([]);
 
     const {
         statusesOptions,
@@ -76,6 +44,46 @@ const FilterForm: React.FC<FilterFormProps> = ({ allMetaData }) => {
         timeCurrentPeriodOptions,
         instanceStatusEventCategoriesOptions,
     } = useOptions();
+
+    const getIntegrations = async () => {
+        try {
+            const integrationResponse = await IntegrationRepository.getAllIntegrations();
+            const data = integrationResponse.data;
+
+            console.log('HERE IS MY DATA', allMetaData);
+            allMetaData.forEach((value: IIntegrationMetadata) => {
+                data.forEach((integration: IIntegration) => {
+                    if (
+                        integration.sourceApplicationIntegrationId ===
+                        value.sourceApplicationIntegrationId
+                    ) {
+                        integration.displayName = value.integrationDisplayName;
+                    }
+                });
+            });
+
+            let options = data.map((integration: IIntegration) => ({
+                label: integration.sourceApplicationIntegrationId,
+                value: integration.sourceApplicationIntegrationId,
+            }));
+            setSourceApplicationIntegrationOptions(options);
+
+            options = data.map((integration: IIntegration) => ({
+                label: `${integration.id} - ${integration.displayName}`,
+                value: integration.id,
+            }));
+
+            setIntegrationsOptions(options);
+
+            console.log('INTEGRATION', data);
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
+    useEffect(() => {
+        getIntegrations();
+    }, [filters]);
 
     const toggleCard = (cardId: string) => {
         setOpenCard((prev) => (prev === cardId ? null : cardId));
@@ -95,18 +103,16 @@ const FilterForm: React.FC<FilterFormProps> = ({ allMetaData }) => {
                 />
 
                 {/* Multi Selection (Chips, Combobox) */}
-                {/* TODO: BACKEND value/label selection needed */}
                 <IntegrationCard
                     id="integration"
                     isOpen={openCard === 'integration'}
                     toggleOpen={toggleCard}
-                    // integrationOptions={apiOptions.integrationOptions}
+                    integrationOptions={integrationsOptions}
                     sourceApplicationIdsOptions={apiOptions.sourceApplicationIdsOptions}
+                    sourceApplicationIntegrationOptions={sourceApplicationIntegrationOptions}
                 />
 
                 {/* Comma-separated Text Inputs */}
-                {/*intergration service has list of intergrations
-                missing 3rd dropdown */}
                 <InstanceCard
                     id="instance"
                     isOpen={openCard === 'instance'}
@@ -123,7 +129,6 @@ const FilterForm: React.FC<FilterFormProps> = ({ allMetaData }) => {
                 />
 
                 {/* Multi Selection (Chips + Combobox) */}
-
                 <AdvancedCard
                     id="advanced"
                     isOpen={openCard === 'advanced'}
@@ -133,7 +138,6 @@ const FilterForm: React.FC<FilterFormProps> = ({ allMetaData }) => {
                 />
 
                 <HStack gap={'10'}>
-                    {/*<Button onClick={testFunction}>Test</Button>*/}
                     <Button
                         onClick={() => {
                             saveFilters();

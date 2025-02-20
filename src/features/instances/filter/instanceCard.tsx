@@ -2,6 +2,7 @@ import { ExpansionCard, TextField, VStack } from '@navikt/ds-react';
 import React, { useEffect, useState } from 'react';
 import { useFilters } from './FilterContext';
 import { setCommaSeparatedValue } from './util';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     id: string;
@@ -10,6 +11,9 @@ interface Props {
 }
 
 export default function InstanceCard(props: Props) {
+    const { t } = useTranslation('translations', {
+        keyPrefix: 'pages.instances.filter.instanceCard',
+    });
     const { filters, updateFilter } = useFilters();
 
     const [instanceInput, setInstanceInput] = useState(
@@ -47,10 +51,10 @@ export default function InstanceCard(props: Props) {
         const selectedIntegrationSource = filters.sourceApplicationInstanceIds?.join(', ') ?? '';
 
         if (selectedDestinationSource) {
-            parts.push(`Kilde: ${selectedIntegrationSource}`);
+            parts.push(t('description.source', { value: selectedIntegrationSource }));
         }
         if (selectedIntegrationSource) {
-            parts.push(`Destinasjon: ${selectedDestinationSource}`);
+            parts.push(t('description.destination', { value: selectedDestinationSource }));
         }
         return parts.join(' | ');
     };
@@ -58,12 +62,12 @@ export default function InstanceCard(props: Props) {
     return (
         <ExpansionCard
             size="small"
-            aria-label="Instans-variant"
+            aria-label={t('ariaLabel') || 'default label'}
             open={props.isOpen}
             onToggle={() => props.toggleOpen(props.id)}>
             <ExpansionCard.Header>
                 <ExpansionCard.Title as="h4" size="small">
-                    Instans
+                    {t('title')}
                 </ExpansionCard.Title>
                 <ExpansionCard.Description>
                     {getExpansionCardDescription()}
@@ -72,23 +76,23 @@ export default function InstanceCard(props: Props) {
             <ExpansionCard.Content>
                 <VStack gap="8">
                     <TextField
-                        label="Kildeapplikasjons instans-ID"
+                        label={t('fields.sourceAppInstanceId.label')}
                         size="small"
                         value={instanceInput}
                         onChange={handleInstanceChange}
                         onBlur={handleInstanceBlur}
                         onKeyDown={(e) => e.key === 'Enter' && handleInstanceBlur()}
-                        placeholder="Skriv inn kilde-ID-er, separert med komma"
+                        placeholder={t('fields.sourceAppInstanceId.placeholder')}
                     />
 
                     <TextField
-                        label="Destinasjons"
+                        label={t('fields.destinationId.label')}
                         size="small"
                         value={destinationInput}
                         onChange={handleDestinationChange}
                         onBlur={handleDestinationBlur}
                         onKeyDown={(e) => e.key === 'Enter' && handleDestinationBlur()}
-                        placeholder="Skriv inn destinasjons-ID-er, separert med komma"
+                        placeholder={t('fields.destinationId.placeholder')}
                     />
                 </VStack>
             </ExpansionCard.Content>
