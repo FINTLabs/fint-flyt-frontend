@@ -50,7 +50,6 @@ const FilterForm: React.FC<FilterFormProps> = ({ allMetaData }) => {
             const integrationResponse = await IntegrationRepository.getAllIntegrations();
             const data = integrationResponse.data;
 
-            console.log('HERE IS MY DATA', allMetaData);
             allMetaData.forEach((value: IIntegrationMetadata) => {
                 data.forEach((integration: IIntegration) => {
                     if (
@@ -74,8 +73,6 @@ const FilterForm: React.FC<FilterFormProps> = ({ allMetaData }) => {
             }));
 
             setIntegrationsOptions(options);
-
-            console.log('INTEGRATION', data);
         } catch (e) {
             console.log(e);
         }

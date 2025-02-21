@@ -52,9 +52,11 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
     const { allMetadata } = useContext(SourceApplicationContext);
     const { filters, refreshKey } = useFilters();
     const [loading, setLoading] = useState(true);
+    const [hasFilters, setHasFilters] = useState(false);
 
     useEffect(() => {
         setLoading(true);
+        setHasFilters(false);
         if (instancesPage?.totalElements && instancesPage.totalElements < Number(rowCount)) {
             setPage(1);
         }
@@ -108,7 +110,12 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
             setInstancesPage({ content: [] });
             console.error('Error: ', e);
         } finally {
-            setLoading(false); // Hide loader after fetching
+            setLoading(false);
+            Object.entries(filters).forEach(([key, value]) => {
+                if (value != null && value.length > 0) {
+                    setHasFilters(true);
+                }
+            });
         }
     };
     //
@@ -153,10 +160,11 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
             <Box background={'surface-default'} style={{ minHeight: '70vh' }}>
                 <ErrorAlertDialog row={selectedRow} />
                 <CustomStatusDialog row={selectedRow} />
-
-                {instancesPage?.content?.length === 0 && (
-                    <Alert variant={'info'}>Filters returned 0 results</Alert>
-                )}
+                {hasFilters ? (
+                    <Alert variant="info">Table filtered</Alert>
+                ) : instancesPage?.content?.length === 0 ? (
+                    <Alert variant="info">Filters returned 0 results</Alert>
+                ) : null}
 
                 <Table
                     // sort={sort}
@@ -192,10 +200,10 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                                 <Table.ExpandableRow
                                     key={i}
                                     expandOnRowClick
-                                    open={expandedRows.includes(i)} // ✅ Check if the row is open
-                                    onOpenChange={() => handleToggle(i)} // ✅ Toggle the row
+                                    open={expandedRows.includes(i)}
+                                    onOpenChange={() => handleToggle(i)}
                                     content={
-                                        expandedRows.includes(i) ? ( // ✅ Lazy load content only if open
+                                        expandedRows.includes(i) ? (
                                             <InstancePanel
                                                 id={`instance-panel-${i}`}
                                                 onError={(error) => onError(error)}
@@ -225,7 +233,8 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                                     </Table.DataCell>
                                     <Table.DataCell>
                                         {GetIcon(value.status)}
-                                        {value.status}
+
+                                        {t(value.status)}
                                         {/*TODO: BACKEND send in last error from backend ? */}
                                         {/*{t(value.status)}*/}
                                         {/*{value.status === 'ERROR' && value.errors.length > 0 && (*/}
@@ -244,7 +253,8 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                                         {/*{value.intermediateStorageStatus*/}
                                         {/*    ? t(value.intermediateStorageStatus)*/}
                                         {/*    : null}*/}
-                                        {value.intermediateStorageStatus}
+
+                                        {t(value.intermediateStorageStatus)}
                                     </Table.DataCell>
                                     <Table.DataCell>
                                         {value.status === 'FAILED' && actionMenu(value, i)}

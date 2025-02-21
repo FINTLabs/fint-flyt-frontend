@@ -68,11 +68,12 @@ export default function IntegrationCard(props: Props) {
         return parts.join(' | ');
     };
 
-    console.log(
-        'CHOOSE sourceApplicationIntegrationOptions:',
-        props.sourceApplicationIntegrationOptions
-    );
-    console.log('CHOOSE integrationOptions:', props.integrationOptions);
+    // TODO: remove these lines after debuging is done
+    // console.log(
+    //     'CHOOSE sourceApplicationIntegrationOptions:',
+    //     props.sourceApplicationIntegrationOptions
+    // );
+    // console.log('CHOOSE integrationOptions:', props.integrationOptions);
     return (
         <ExpansionCard
             size="small"

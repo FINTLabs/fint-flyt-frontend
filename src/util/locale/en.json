@@ -208,6 +208,13 @@
         "search": "Search",
         "clear": "Clear"
       },
+      "TRANSFERRED": "Transferred",
+      "ABORTED": "Aborted",
+      "IN_PROGRESS": "In Progress",
+      "FAILED": "Failed",
+      "NEVER_STORED": "Never stored",
+      "STORED": "Failed",
+      "STORED_AND_DELETED": "Stored and deleted",
       "filter": {
         "sort": "Sorting",
         "sortBy": "Choose sorting",
@@ -220,6 +227,10 @@
         "timeCard": {
           "ariaLabel": "Time period",
           "title": "Time period",
+          "Denne dagen": "Today",
+          "Denne måneden": "This month",
+          "Denne uka": "This week",
+          "Dette året": "This year",
           "description": {
             "period": "Period: {{value}}",
             "manual": "Manual: {{from}} - {{to}}",
@@ -235,9 +246,9 @@
             "minutes": "Minutes"
           },
           "manual": {
-            "fromDate": "From",
+            "fromDate": "Date From",
             "fromTime": "Time from",
-            "toDate": "To",
+            "toDate": "Date To",
             "toTime": "Time to"
           }
         },
@@ -253,6 +264,26 @@
           },
           "chips": {
             "label": "Storage"
+          },
+          "statusOptions": {
+            "TRANSFERRED": "Transferred",
+            "ABORTED": "Aborted",
+            "IN_PROGRESS": "In Progress",
+            "FAILED": "Failed"
+          },
+          "associatedEventNames": {
+            "INSTANCE_DISPATCHING_ERROR": "Failed during dispatch to destination",
+            "INSTANCE_REGISTRATION_ERROR": "Failed during registration",
+            "INSTANCE_RECEIVED": "Received",
+            "INSTANCE_MANUALLY_PROCESSED": "Manually processed",
+            "INSTANCE_MAPPING_ERROR": "Failed during conversion",
+            "INSTANCE_MAPPED": "Converted",
+            "INSTANCE_MANUALLY_REJECTED": "Manually rejected",
+            "INSTANCE_READY_FOR_DISPATCH": "Ready for dispatch to destination",
+            "INSTANCE_DISPATCHED": "Dispatched to destination",
+            "INSTANCE_RECEIVAL_ERROR": "Failed during reception",
+            "INSTANCE_RETRY_REQUEST_ERROR": "Failed during retry request",
+            "INSTANCE_REQUESTED_FOR_RETRY": "Requested for retry"
           }
         },
         "instanceCard": {
@@ -298,6 +329,29 @@
         "statusCard": {
           "ariaLabel": "Status",
           "title": "Status",
+          "statusOptions": {
+            "TRANSFERRED": "Transferred",
+            "TRANSFERED": "Transferred",
+            "ABORTED": "Aborted",
+            "IN_PROGRESS": "In Progress",
+            "FAILED": "Failed",
+            "Feilet": "Failed",
+
+          },
+          "associatedEventNames": {
+            "INSTANCE_DISPATCHING_ERROR": "Failed during dispatch to destination",
+            "INSTANCE_REGISTRATION_ERROR": "Failed during registration",
+            "INSTANCE_RECEIVED": "Received",
+            "INSTANCE_MANUALLY_PROCESSED": "Manually processed",
+            "INSTANCE_MAPPING_ERROR": "Failed during conversion",
+            "INSTANCE_MAPPED": "Converted",
+            "INSTANCE_MANUALLY_REJECTED": "Manually rejected",
+            "INSTANCE_READY_FOR_DISPATCH": "Ready for dispatch to destination",
+            "INSTANCE_DISPATCHED": "Dispatched to destination",
+            "INSTANCE_RECEIVAL_ERROR": "Failed during reception",
+            "INSTANCE_RETRY_REQUEST_ERROR": "Failed during retry request",
+            "INSTANCE_REQUESTED_FOR_RETRY": "Requested for retry"
+          },
           "description": {
             "event": "Last event: {{value}}",
             "status": "Status: {{value}}"

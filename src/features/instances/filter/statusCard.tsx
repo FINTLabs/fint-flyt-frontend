@@ -23,28 +23,33 @@ export default function StatusCard(props: Props) {
 
     function handleTabChange(tab: string) {
         setSelectedTab(tab);
-        updateFilter(tab === 'status' ? 'storageStatuses' : 'statuses', []);
+        if (tab === 'status') {
+            updateFilter('lastEvent', null);
+        }
+        if (tab === 'event') {
+            updateFilter('statuses', null);
+        }
     }
 
     const getExpansionCardDescription = (): string => {
         const parts: string[] = [];
+
         if ((filters.lastEvent ?? []).length > 0) {
-            parts.push(
-                t('description.event', {
-                    value: getLabelsByIds(
-                        filters.lastEvent,
-                        props.associatedEventNamesOptions
-                    ).join(', '),
-                })
-            );
+            const eventLabels = getLabelsByIds(filters.lastEvent, props.associatedEventNamesOptions)
+                .map((label) => t(`associatedEventNames.${label}`, label))
+                .join(', ');
+
+            parts.push(t('description.event', { value: eventLabels }));
         }
+
         if ((filters.statuses ?? []).length > 0) {
-            parts.push(
-                t('description.status', {
-                    value: getLabelsByIds(filters.statuses, props.statusesOptions).join(', '),
-                })
-            );
+            const statusLabels = getLabelsByIds(filters.statuses, props.statusesOptions)
+                .map((label) => t(`statusOptions.${label}`, label))
+                .join(', ');
+            console.log('LABEL', t(`statusOptions.TRANSFERED`));
+            parts.push(t('description.status', { value: statusLabels }));
         }
+
         return parts.join(' | ');
     };
 
@@ -85,7 +90,8 @@ export default function StatusCard(props: Props) {
                                             !filters.statuses?.includes(option.value)
                                         )
                                     }>
-                                    {option.label}
+                                    {/*{t(option.label)}*/}
+                                    {t(`statusOptions.${option.value}`)}
                                 </Chips.Toggle>
                             ))}
                         </Chips>
@@ -95,7 +101,11 @@ export default function StatusCard(props: Props) {
                         <UNSAFE_Combobox
                             allowNewValues
                             label={t('combobox.label')}
-                            options={props.associatedEventNamesOptions}
+                            // options={props.associatedEventNamesOptions}
+                            options={props.associatedEventNamesOptions.map((option) => ({
+                                label: t(`associatedEventNames.${option.value}`, option.label),
+                                value: option.value,
+                            }))}
                             selectedOptions={props.associatedEventNamesOptions.filter((opt) =>
                                 filters.lastEvent?.includes(opt.value)
                             )}

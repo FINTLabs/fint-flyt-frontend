@@ -22,7 +22,7 @@ interface Props {
 }
 
 export default function TimeCard(props: Props) {
-    const { t } = useTranslation('translations', { keyPrefix: 'pages.instances' });
+    const { t } = useTranslation('translations', { keyPrefix: 'pages.instances.filter.timeCard' });
 
     const { updateFilter, filters } = useFilters();
 
@@ -132,7 +132,6 @@ export default function TimeCard(props: Props) {
             day: '2-digit',
         });
 
-        // 🕰️ Only display time if it's not 00:00
         const timePart =
             hours !== 0 || minutes !== 0
                 ? date.toLocaleTimeString('no-NO', {
@@ -149,16 +148,24 @@ export default function TimeCard(props: Props) {
             const selectedLabel = props.timeCurrentPeriodOptions.find(
                 (option) => option.value === filters.timeCurrentPeriod
             )?.label;
-            return `Periode: ${selectedLabel || 'Ukjent'}`;
+            const translatedLabel = t(selectedLabel || '');
+            return `Periode: ${translatedLabel || 'Ukjent'}`;
         }
 
         if (filters.timeTimestampMin || filters.timeTimestampMax) {
             // return `Manuell: ${formatDate(filters.timeTimestampMin)} - ${formatDate(filters.timeTimestampMax)}`;
-            return `Manuell: ${formatDate(filters.timeTimestampMin)} - ${formatDate(filters.timeTimestampMax)}`;
+
+            return (
+                t('tabs.manual') +
+                `: ${formatDate(filters.timeTimestampMin)} - ${formatDate(filters.timeTimestampMax)}`
+            );
         }
 
         if (filters.timeOffSetHours || filters.timeOffsetMinutes) {
-            return `Siste: ${filters.timeOffSetHours ?? '0'}h ${filters.timeOffsetMinutes ?? '0'}`;
+            return (
+                t('tabs.offset') +
+                `: ${filters.timeOffSetHours ?? '0'}h ${filters.timeOffsetMinutes ?? '0'}m`
+            );
         }
 
         return '';
@@ -172,7 +179,7 @@ export default function TimeCard(props: Props) {
             onToggle={() => props.toggleOpen(props.id)}>
             <ExpansionCard.Header>
                 <ExpansionCard.Title as="h4" size="small">
-                    Tidsperiode
+                    {t('title')}
                 </ExpansionCard.Title>
                 <ExpansionCard.Description>
                     {getExpansionCardDescription()}
@@ -184,17 +191,17 @@ export default function TimeCard(props: Props) {
                     <ToggleGroup value={selectedTab} onChange={handleTabChange} fill>
                         <ToggleGroup.Item
                             value="offset"
-                            label="Siste"
+                            label={t('tabs.offset')}
                             icon={<ClockDashedIcon aria-hidden />}
                         />
                         <ToggleGroup.Item
                             value="period"
-                            label="Periode"
+                            label={t('tabs.period')}
                             icon={<BriefcaseClockIcon aria-hidden />}
                         />
                         <ToggleGroup.Item
                             value="manual"
-                            label="Manuell"
+                            label={t('tabs.manual')}
                             icon={<CalendarIcon aria-hidden />}
                         />
                     </ToggleGroup>
@@ -202,7 +209,7 @@ export default function TimeCard(props: Props) {
                     {selectedTab === 'offset' && (
                         <HStack gap={'2'}>
                             <TextField
-                                label="H"
+                                label={t('offset.hours')}
                                 size="small"
                                 type="number"
                                 value={filters.timeOffSetHours ?? ''}
@@ -211,7 +218,7 @@ export default function TimeCard(props: Props) {
                                 }
                             />
                             <TextField
-                                label="M"
+                                label={t('offset.minutes')}
                                 size="small"
                                 type="number"
                                 value={filters.timeOffsetMinutes ?? ''}
@@ -241,7 +248,8 @@ export default function TimeCard(props: Props) {
                                                 option.value
                                             )
                                         }>
-                                        {option.label}
+                                        {/*{option.label}*/}
+                                        {t(option.label)}
                                     </Chips.Toggle>
                                 ))}
                             </Chips>
@@ -251,9 +259,13 @@ export default function TimeCard(props: Props) {
                     {selectedTab === 'manual' && (
                         <DatePicker {...datepickerProps}>
                             <HStack wrap gap="4" justify="center">
-                                <DatePicker.Input {...fromInputProps} label="Fra" size="small" />
+                                <DatePicker.Input
+                                    {...fromInputProps}
+                                    label={t('manual.fromDate')}
+                                    size="small"
+                                />
                                 <TextField
-                                    label="Tid fra"
+                                    label={t('manual.fromTime')}
                                     size="small"
                                     type="time"
                                     value={timeMin}
@@ -262,9 +274,13 @@ export default function TimeCard(props: Props) {
                                     }
                                     disabled={!selectedRange?.from}
                                 />
-                                <DatePicker.Input {...toInputProps} label="Til" size="small" />
+                                <DatePicker.Input
+                                    {...toInputProps}
+                                    label={t('manual.toDate')}
+                                    size="small"
+                                />
                                 <TextField
-                                    label="Tid til"
+                                    label={t('manual.toTime')}
                                     size="small"
                                     type="time"
                                     value={timeMax}

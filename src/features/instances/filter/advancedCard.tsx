@@ -20,29 +20,51 @@ export default function AdvancedCard(props: Props) {
     const getExpansionCardDescription = (): string => {
         const parts: string[] = [];
 
+        // if ((filters.associatedEvents ?? []).length > 0) {
+        //     parts.push(
+        //         t('description.associatedEvents', {
+        //             value: getLabelsByIds(
+        //                 filters.associatedEvents,
+        //                 props.associatedEventNamesOptions
+        //             ).join(', '),
+        //         })
+        //     );
+        // }
+
         if ((filters.associatedEvents ?? []).length > 0) {
-            parts.push(
-                t('description.associatedEvents', {
-                    value: getLabelsByIds(
-                        filters.associatedEvents,
-                        props.associatedEventNamesOptions
-                    ).join(', '),
-                })
-            );
+            const eventLabels = getLabelsByIds(
+                filters.associatedEvents,
+                props.associatedEventNamesOptions
+            )
+                .map((label) => t(`associatedEventNames.${label}`, label))
+                .join(', ');
+
+            parts.push(t('description.associatedEvents', { value: eventLabels }));
         }
 
         if ((filters.storageStatuses ?? []).length > 0) {
-            parts.push(
-                t('description.storageStatuses', {
-                    value: getLabelsByIds(
-                        filters.storageStatuses,
-                        props.storageStatusesOptions
-                    ).join(', '),
-                })
-            );
+            const statusLabels = getLabelsByIds(
+                filters.storageStatuses,
+                props.storageStatusesOptions
+            )
+                .map((label) => t(`statusOptions.${label}`, label))
+                .join(', ');
+
+            parts.push(t('description.storageStatuses', { value: statusLabels }));
         }
 
-        return parts.join(' | ') || ''; // Fallback if no selections
+        // if ((filters.storageStatuses ?? []).length > 0) {
+        //     parts.push(
+        //         t('description.storageStatuses', {
+        //             value: getLabelsByIds(
+        //                 filters.storageStatuses,
+        //                 props.storageStatusesOptions
+        //             ).join(', '),
+        //         })
+        //     );
+        // }
+
+        return parts.join(' | ') || '';
     };
 
     return (
@@ -63,7 +85,10 @@ export default function AdvancedCard(props: Props) {
                 <VStack gap="8">
                     <UNSAFE_Combobox
                         label={t('combobox.label')}
-                        options={props.associatedEventNamesOptions}
+                        options={props.associatedEventNamesOptions.map((option) => ({
+                            label: t(`associatedEventNames.${option.value}`, option.label),
+                            value: option.value,
+                        }))}
                         isMultiSelect
                         selectedOptions={props.associatedEventNamesOptions.filter((opt) =>
                             filters.associatedEvents?.includes(opt.value)
@@ -95,7 +120,7 @@ export default function AdvancedCard(props: Props) {
                                         !filters.storageStatuses?.includes(option.value)
                                     )
                                 }>
-                                {option.label}
+                                {t(`statusOptions.${option.value}`)}
                             </Chips.Toggle>
                         ))}
                     </Chips>
