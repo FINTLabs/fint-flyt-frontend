@@ -269,7 +269,12 @@
             "TRANSFERRED": "Transferred",
             "ABORTED": "Aborted",
             "IN_PROGRESS": "In Progress",
-            "FAILED": "Failed"
+            "FAILED": "Failed",
+            "INSTANCE_REGISTERED": "Instance registered",
+            "INSTANCE_DELETED": "Instance deleted",
+            "STORED": "Stored",
+            "STORED_AND_DELETED": "Stored and deleted",
+            "NEVER_STORED": "Never stored"
           },
           "associatedEventNames": {
             "INSTANCE_DISPATCHING_ERROR": "Failed during dispatch to destination",
@@ -283,7 +288,12 @@
             "INSTANCE_DISPATCHED": "Dispatched to destination",
             "INSTANCE_RECEIVAL_ERROR": "Failed during reception",
             "INSTANCE_RETRY_REQUEST_ERROR": "Failed during retry request",
-            "INSTANCE_REQUESTED_FOR_RETRY": "Requested for retry"
+            "INSTANCE_REQUESTED_FOR_RETRY": "Requested for retry",
+            "INSTANCE_REGISTERED": "Instance registered",
+            "INSTANCE_DELETED": "Instance deleted",
+            "INSTANCE_REGISTERED": "Instance registered",
+            "INSTANCE_DELETED": "Instance deleted",
+            "INSTANCE_REGISTERED": "Instance registered"
           }
         },
         "instanceCard": {
@@ -334,9 +344,7 @@
             "TRANSFERED": "Transferred",
             "ABORTED": "Aborted",
             "IN_PROGRESS": "In Progress",
-            "FAILED": "Failed",
-            "Feilet": "Failed",
-
+            "FAILED": "Failed"
           },
           "associatedEventNames": {
             "INSTANCE_DISPATCHING_ERROR": "Failed during dispatch to destination",
@@ -350,7 +358,13 @@
             "INSTANCE_DISPATCHED": "Dispatched to destination",
             "INSTANCE_RECEIVAL_ERROR": "Failed during reception",
             "INSTANCE_RETRY_REQUEST_ERROR": "Failed during retry request",
-            "INSTANCE_REQUESTED_FOR_RETRY": "Requested for retry"
+            "INSTANCE_REQUESTED_FOR_RETRY": "Requested for retry",
+            "INSTANCE_REGISTERED": "Instance registered",
+            "INSTANCE_DELETED": "Instance deleted",
+            "INSTANCE_REGISTERED": "Instance registered",
+            "INSTANCE_DELETED": "Instance deleted",
+            "INSTANCE_REGISTERED": "Instance registered"
+
           },
           "description": {
             "event": "Last event: {{value}}",

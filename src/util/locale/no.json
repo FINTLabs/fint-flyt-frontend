@@ -201,6 +201,8 @@
         "reqFieldMsg": "Påkrevd felt",
         "warning": "Legger til en manuell status, og erstatter systemgenerert status, vær sikker før du endrer, handlingen kan ikke angres"
       },
+      "STORED": "Lagret",
+      "IN_PROGRESS": "Pågår",
       "button": {
         "close": "Lukk",
         "save": "Lagre",
@@ -220,10 +222,14 @@
         "timeCard": {
           "ariaLabel": "Tidsperiode",
           "title": "Tidsperiode",
+          "Denne dagen": "I dag",
+          "Denne måneden": "Denne måneden",
+          "Denne uka": "Denne uken",
+          "Dette året": "Dette året",
           "description": {
             "period": "Periode: {{value}}",
             "manual": "Manuell: {{from}} - {{to}}",
-            "offset": "Siste: {{hours}}h {{minutes}}m"
+            "offset": "Siste: {{hours}}t {{minutes}}m"
           },
           "tabs": {
             "offset": "Siste",
@@ -253,6 +259,33 @@
           },
           "chips": {
             "label": "Mellomlagring"
+          },
+          "statusOptions": {
+            "TRANSFERRED": "Overført",
+            "ABORTED": "Avbrutt",
+            "IN_PROGRESS": "Pågår",
+            "FAILED": "Feilet",
+            "INSTANCE_REGISTERED": "Instans registrert",
+            "INSTANCE_DELETED": "Instans slettet",
+            "STORED": "Lagret",
+            "STORED_AND_DELETED": "Lagret og slettet",
+            "NEVER_STORED": "Aldri lagret"
+          },
+          "associatedEventNames": {
+            "INSTANCE_DISPATCHING_ERROR": "Feil under sending til destinasjon",
+            "INSTANCE_REGISTRATION_ERROR": "Feil under registrering",
+            "INSTANCE_RECEIVED": "Mottatt",
+            "INSTANCE_MANUALLY_PROCESSED": "Manuelt behandlet",
+            "INSTANCE_MAPPING_ERROR": "Feil under konvertering",
+            "INSTANCE_MAPPED": "Konvertert",
+            "INSTANCE_MANUALLY_REJECTED": "Manuelt avvist",
+            "INSTANCE_READY_FOR_DISPATCH": "Klar for sending til destinasjon",
+            "INSTANCE_DISPATCHED": "Sendt til destinasjon",
+            "INSTANCE_RECEIVAL_ERROR": "Feil under mottak",
+            "INSTANCE_RETRY_REQUEST_ERROR": "Feil under forespørsel om nytt forsøk",
+            "INSTANCE_REQUESTED_FOR_RETRY": "Forespurt om nytt forsøk",
+            "INSTANCE_REGISTERED": "Instans registrert",
+            "INSTANCE_DELETED": "Instans slettet"
           }
         },
         "instanceCard": {
@@ -268,7 +301,7 @@
               "placeholder": "Skriv inn kilde-ID-er, separert med komma"
             },
             "destinationId": {
-              "label": "Destinasjons",
+              "label": "Destinasjon",
               "placeholder": "Skriv inn destinasjons-ID-er, separert med komma"
             }
           }
@@ -290,7 +323,7 @@
           },
           "textField": {
             "integrationId": {
-              "label": "Kildeapplikasjon integrasjon ID",
+              "label": "Kildeapplikasjon integrasjons-ID",
               "placeholder": "Skriv inn integrasjonsnavn, separert med komma"
             }
           }
@@ -312,6 +345,29 @@
           "combobox": {
             "label": "Siste hendelse",
             "allowNewValues": "Tillat nye verdier"
+          },
+          "statusOptions": {
+            "TRANSFERRED": "Overført",
+            "TRANSFERED": "Overført",
+            "ABORTED": "Avbrutt",
+            "IN_PROGRESS": "Pågår",
+            "FAILED": "Feilet"
+          },
+          "associatedEventNames": {
+            "INSTANCE_DISPATCHING_ERROR": "Feil under sending til destinasjon",
+            "INSTANCE_REGISTRATION_ERROR": "Feil under registrering",
+            "INSTANCE_RECEIVED": "Mottatt",
+            "INSTANCE_MANUALLY_PROCESSED": "Manuelt behandlet",
+            "INSTANCE_MAPPING_ERROR": "Feil under konvertering",
+            "INSTANCE_MAPPED": "Konvertert",
+            "INSTANCE_MANUALLY_REJECTED": "Manuelt avvist",
+            "INSTANCE_READY_FOR_DISPATCH": "Klar for sending til destinasjon",
+            "INSTANCE_DISPATCHED": "Sendt til destinasjon",
+            "INSTANCE_RECEIVAL_ERROR": "Feil under mottak",
+            "INSTANCE_RETRY_REQUEST_ERROR": "Feil under forespørsel om nytt forsøk",
+            "INSTANCE_REQUESTED_FOR_RETRY": "Forespurt om nytt forsøk",
+            "INSTANCE_REGISTERED": "Instans registrert",
+            "INSTANCE_DELETED": "Instans slettet"
           }
         }
       },

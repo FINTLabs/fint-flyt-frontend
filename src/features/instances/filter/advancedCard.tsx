@@ -1,6 +1,6 @@
 import { Chips, ExpansionCard, Label, UNSAFE_Combobox, VStack } from '@navikt/ds-react';
 import { useFilters } from './FilterContext';
-import { getLabelsByIds, setArrayValue } from './util';
+import { setArrayValue } from './util';
 import { useTranslation } from 'react-i18next';
 
 interface Props {
@@ -20,49 +20,33 @@ export default function AdvancedCard(props: Props) {
     const getExpansionCardDescription = (): string => {
         const parts: string[] = [];
 
-        // if ((filters.associatedEvents ?? []).length > 0) {
-        //     parts.push(
-        //         t('description.associatedEvents', {
-        //             value: getLabelsByIds(
-        //                 filters.associatedEvents,
-        //                 props.associatedEventNamesOptions
-        //             ).join(', '),
-        //         })
-        //     );
-        // }
-
         if ((filters.associatedEvents ?? []).length > 0) {
-            const eventLabels = getLabelsByIds(
-                filters.associatedEvents,
-                props.associatedEventNamesOptions
-            )
-                .map((label) => t(`associatedEventNames.${label}`, label))
+            const eventLabels = (filters.associatedEvents ?? [])
+                .map((id) => {
+                    const option = props.associatedEventNamesOptions.find(
+                        (opt) => opt.value === id
+                    );
+                    return option
+                        ? t(`associatedEventNames.${option.value}`, { defaultValue: option.label })
+                        : id;
+                })
                 .join(', ');
 
             parts.push(t('description.associatedEvents', { value: eventLabels }));
         }
 
         if ((filters.storageStatuses ?? []).length > 0) {
-            const statusLabels = getLabelsByIds(
-                filters.storageStatuses,
-                props.storageStatusesOptions
-            )
-                .map((label) => t(`statusOptions.${label}`, label))
+            const statusLabels = (filters.storageStatuses ?? [])
+                .map((id) => {
+                    const option = props.storageStatusesOptions.find((opt) => opt.value === id);
+                    return option
+                        ? t(`statusOptions.${option.value}`, { defaultValue: option.label })
+                        : id;
+                })
                 .join(', ');
 
             parts.push(t('description.storageStatuses', { value: statusLabels }));
         }
-
-        // if ((filters.storageStatuses ?? []).length > 0) {
-        //     parts.push(
-        //         t('description.storageStatuses', {
-        //             value: getLabelsByIds(
-        //                 filters.storageStatuses,
-        //                 props.storageStatusesOptions
-        //             ).join(', '),
-        //         })
-        //     );
-        // }
 
         return parts.join(' | ') || '';
     };
@@ -86,13 +70,30 @@ export default function AdvancedCard(props: Props) {
                     <UNSAFE_Combobox
                         label={t('combobox.label')}
                         options={props.associatedEventNamesOptions.map((option) => ({
-                            label: t(`associatedEventNames.${option.value}`, option.label),
+                            label: t(`associatedEventNames.${option.value}`, {
+                                defaultValue: option.label,
+                            }),
                             value: option.value,
                         }))}
                         isMultiSelect
-                        selectedOptions={props.associatedEventNamesOptions.filter((opt) =>
-                            filters.associatedEvents?.includes(opt.value)
-                        )}
+                        selectedOptions={(filters.associatedEvents ?? [])
+                            .map((id) => {
+                                const option = props.associatedEventNamesOptions.find(
+                                    (opt) => opt.value === id
+                                );
+                                return option
+                                    ? {
+                                          label: t(`associatedEventNames.${option.value}`, {
+                                              defaultValue: option.label,
+                                          }),
+                                          value: option.value,
+                                      }
+                                    : null;
+                            })
+                            .filter(
+                                (option): option is { label: string; value: string } =>
+                                    option !== null
+                            )} // Type guard
                         onToggleSelected={(option, isSelected) =>
                             setArrayValue(
                                 updateFilter,

@@ -220,6 +220,10 @@
         "timeCard": {
           "ariaLabel": "Tidsperiode",
           "title": "Tidsperiode",
+          "Denne dagen": "I dag",
+          "Denne måneden": "Denne månaden",
+          "Denne uka": "Denne veka",
+          "Dette året": "Dette året",
           "description": {
             "period": "Periode: {{value}}",
             "manual": "Manuell: {{from}} - {{to}}",
@@ -253,6 +257,33 @@
           },
           "chips": {
             "label": "Mellomlagring"
+          },
+          "statusOptions": {
+            "TRANSFERRED": "Overført",
+            "ABORTED": "Avbroten",
+            "IN_PROGRESS": "Pågår",
+            "FAILED": "Feila",
+            "INSTANCE_REGISTERED": "Instans registrert",
+            "INSTANCE_DELETED": "Instans sletta",
+            "STORED": "Lagra",
+            "STORED_AND_DELETED": "Lagret og sletta",
+            "NEVER_STORED": "Aldri lagra"
+          },
+          "associatedEventNames": {
+            "INSTANCE_DISPATCHING_ERROR": "Feil under sending til destinasjon",
+            "INSTANCE_REGISTRATION_ERROR": "Feil under registrering",
+            "INSTANCE_RECEIVED": "Mottatt",
+            "INSTANCE_MANUALLY_PROCESSED": "Manuelt behandla",
+            "INSTANCE_MAPPING_ERROR": "Feil under konvertering",
+            "INSTANCE_MAPPED": "Konvertert",
+            "INSTANCE_MANUALLY_REJECTED": "Manuelt avvist",
+            "INSTANCE_READY_FOR_DISPATCH": "Klar for sending til destinasjon",
+            "INSTANCE_DISPATCHED": "Sendt til destinasjon",
+            "INSTANCE_RECEIVAL_ERROR": "Feil under mottak",
+            "INSTANCE_RETRY_REQUEST_ERROR": "Feil under førespurnad om nytt forsøk",
+            "INSTANCE_REQUESTED_FOR_RETRY": "Førespurt om nytt forsøk",
+            "INSTANCE_REGISTERED": "Instans registrert",
+            "INSTANCE_DELETED": "Instans sletta"
           }
         },
         "instanceCard": {
@@ -290,7 +321,7 @@
           },
           "textField": {
             "integrationId": {
-              "label": "Kjeldeapplikasjon integrasjon ID",
+              "label": "Kjeldeapplikasjon integrasjons-ID",
               "placeholder": "Skriv inn integrasjonsnamn, separert med komma"
             }
           }
@@ -312,6 +343,29 @@
           "combobox": {
             "label": "Siste hending",
             "allowNewValues": "Tillat nye verdiar"
+          },
+          "statusOptions": {
+            "TRANSFERRED": "Overført",
+            "TRANSFERED": "Overført",
+            "ABORTED": "Avbroten",
+            "IN_PROGRESS": "Pågår",
+            "FAILED": "Feila"
+          },
+          "associatedEventNames": {
+            "INSTANCE_DISPATCHING_ERROR": "Feil under sending til destinasjon",
+            "INSTANCE_REGISTRATION_ERROR": "Feil under registrering",
+            "INSTANCE_RECEIVED": "Mottatt",
+            "INSTANCE_MANUALLY_PROCESSED": "Manuelt behandla",
+            "INSTANCE_MAPPING_ERROR": "Feil under konvertering",
+            "INSTANCE_MAPPED": "Konvertert",
+            "INSTANCE_MANUALLY_REJECTED": "Manuelt avvist",
+            "INSTANCE_READY_FOR_DISPATCH": "Klar for sending til destinasjon",
+            "INSTANCE_DISPATCHED": "Sendt til destinasjon",
+            "INSTANCE_RECEIVAL_ERROR": "Feil under mottak",
+            "INSTANCE_RETRY_REQUEST_ERROR": "Feil under førespurnad om nytt forsøk",
+            "INSTANCE_REQUESTED_FOR_RETRY": "Førespurt om nytt forsøk",
+            "INSTANCE_REGISTERED": "Instans registrert",
+            "INSTANCE_DELETED": "Instans sletta"
           }
         }
       },

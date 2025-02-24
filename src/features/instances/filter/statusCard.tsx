@@ -1,7 +1,7 @@
 import { Chips, ExpansionCard, ToggleGroup, UNSAFE_Combobox, VStack } from '@navikt/ds-react';
 import React, { useState } from 'react';
 import { useFilters } from './FilterContext';
-import { getLabelsByIds, setArrayValue } from './util';
+import { setArrayValue } from './util';
 import { useTranslation } from 'react-i18next';
 
 interface Props {
@@ -35,23 +35,57 @@ export default function StatusCard(props: Props) {
         const parts: string[] = [];
 
         if ((filters.lastEvent ?? []).length > 0) {
-            const eventLabels = getLabelsByIds(filters.lastEvent, props.associatedEventNamesOptions)
-                .map((label) => t(`associatedEventNames.${label}`, label))
+            const eventLabels = (filters.lastEvent ?? [])
+                .map((id) => {
+                    const option = props.associatedEventNamesOptions.find(
+                        (opt) => opt.value === id
+                    );
+                    return option
+                        ? t(`associatedEventNames.${option.value}`, { defaultValue: option.label })
+                        : id;
+                })
                 .join(', ');
 
             parts.push(t('description.event', { value: eventLabels }));
         }
 
         if ((filters.statuses ?? []).length > 0) {
-            const statusLabels = getLabelsByIds(filters.statuses, props.statusesOptions)
-                .map((label) => t(`statusOptions.${label}`, label))
+            const statusLabels = (filters.statuses ?? [])
+                .map((id) => {
+                    const option = props.statusesOptions.find((opt) => opt.value === id);
+                    return option
+                        ? t(`statusOptions.${option.value}`, { defaultValue: option.label })
+                        : id;
+                })
                 .join(', ');
-            console.log('LABEL', t(`statusOptions.TRANSFERED`));
+
             parts.push(t('description.status', { value: statusLabels }));
         }
 
         return parts.join(' | ');
     };
+
+    // const getExpansionCardDescription = (): string => {
+    //     const parts: string[] = [];
+    //
+    //     if ((filters.lastEvent ?? []).length > 0) {
+    //         const eventLabels = getLabelsByIds(filters.lastEvent, props.associatedEventNamesOptions)
+    //             .map((label) => t(`associatedEventNames.${label}`, label))
+    //             .join(', ');
+    //
+    //         parts.push(t('description.event', { value: eventLabels }));
+    //     }
+    //
+    //     if ((filters.statuses ?? []).length > 0) {
+    //         const statusLabels = getLabelsByIds(filters.statuses, props.statusesOptions)
+    //             .map((label) => t(`statusOptions.${label}`, label))
+    //             .join(', ');
+    //         console.log('LABEL', t(`statusOptions.TRANSFERED`));
+    //         parts.push(t('description.status', { value: statusLabels }));
+    //     }
+    //
+    //     return parts.join(' | ');
+    // };
 
     return (
         <ExpansionCard
@@ -100,15 +134,17 @@ export default function StatusCard(props: Props) {
                     {selectedTab === 'event' && (
                         <UNSAFE_Combobox
                             allowNewValues
-                            label={t('combobox.label')}
-                            // options={props.associatedEventNamesOptions}
+                            label={t('combobox.label')} // Translate the label
                             options={props.associatedEventNamesOptions.map((option) => ({
-                                label: t(`associatedEventNames.${option.value}`, option.label),
+                                label: t(`associatedEventNames.${option.value}`),
                                 value: option.value,
                             }))}
-                            selectedOptions={props.associatedEventNamesOptions.filter((opt) =>
-                                filters.lastEvent?.includes(opt.value)
-                            )}
+                            selectedOptions={props.associatedEventNamesOptions
+                                .filter((opt) => filters.lastEvent?.includes(opt.value))
+                                .map((option) => ({
+                                    label: t(`associatedEventNames.${option.value}`),
+                                    value: option.value,
+                                }))}
                             isMultiSelect
                             onToggleSelected={(option, isSelected) =>
                                 setArrayValue(
