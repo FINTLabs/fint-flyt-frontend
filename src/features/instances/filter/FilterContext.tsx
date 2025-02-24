@@ -57,7 +57,7 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
     const parseDateParam = (param: string | null): Date | null => {
         if (!param) return null;
         const date = new Date(param);
-        return isNaN(date.getTime()) ? null : date; // Ensure valid date
+        return isNaN(date.getTime()) ? null : date;
     };
 
     const defaultFilters: Filters = {
@@ -85,6 +85,7 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
     const [refreshKey, setRefreshKey] = useState(0);
 
     const updateFilter = <K extends keyof Filters>(key: K, value: Filters[K]) => {
+        // console.log('UPDATING FILTER:', key, value);
         setFilters((prev) => ({
             ...prev,
             [key]: value,

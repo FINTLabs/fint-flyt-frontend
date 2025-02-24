@@ -9,7 +9,7 @@ import {
     VStack,
 } from '@navikt/ds-react';
 import { BriefcaseClockIcon, CalendarIcon, ClockDashedIcon } from '@navikt/aksel-icons';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useFilters } from './FilterContext';
 import { setSingleValue } from './util';
 import { useTranslation } from 'react-i18next';
@@ -34,6 +34,8 @@ export default function TimeCard(props: Props) {
 
     const [timeMin, setTimeMin] = useState<string>('');
     const [timeMax, setTimeMax] = useState<string>('');
+    const [formattedDateMin, setFormattedDateMin] = useState<string>('');
+    const [formattedDateMax, setFormattedDateMax] = useState<string>('');
 
     // Function to format date + time in ISO format
     const formatToOffsetDateTime = (date: Date, time: string): string => {
@@ -74,19 +76,50 @@ export default function TimeCard(props: Props) {
         };
     };
 
-    // TODO: fix setting of time WTF
+    useEffect(() => {
+        if (
+            (filters.timeTimestampMin || filters.timeTimestampMax) &&
+            selectedRange?.from === undefined
+        ) {
+            const range = getRangeFromDates(filters.timeTimestampMin, filters.timeTimestampMax);
+            setSelected(range);
+
+            if (filters.timeTimestampMin) {
+                const date = new Date(filters.timeTimestampMin);
+                setTimeMin(
+                    `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`
+                );
+                setFormattedDateMin(formatDate(date)); // Set formatted date
+            }
+
+            if (filters.timeTimestampMax) {
+                const date = new Date(filters.timeTimestampMax);
+                setTimeMax(
+                    `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`
+                );
+                setFormattedDateMax(formatDate(date)); // Set formatted date
+            }
+        }
+    }, [filters.timeTimestampMax, filters.timeTimestampMin, setSelected, selectedRange?.from]);
+
     // useEffect(() => {
     //     if (filters.timeTimestampMin || filters.timeTimestampMax) {
     //         const range = getRangeFromDates(filters.timeTimestampMin, filters.timeTimestampMax);
     //         setSelected(range);
     //
+    //         console.log(
+    //             'SETTING TIME IN USE EFFECT',
+    //             filters.timeTimestampMin,
+    //             filters.timeTimestampMax
+    //         );
     //         //TODO: set time from URL
     //     }
-    // }, [filters]);
+    // }, [filters.timeTimestampMax, filters.timeTimestampMin]);
 
     const handleTimeChange = (field: 'timeTimestampMin' | 'timeTimestampMax', time: string) => {
         if (field === 'timeTimestampMin' && selectedRange?.from) {
             setTimeMin(time);
+
             updateFilter(field, formatToOffsetDateTime(new Date(selectedRange.from), time));
         } else if (field === 'timeTimestampMax' && selectedRange?.to) {
             setTimeMax(time);
@@ -152,13 +185,8 @@ export default function TimeCard(props: Props) {
             return `Periode: ${translatedLabel || 'Ukjent'}`;
         }
 
-        if (filters.timeTimestampMin || filters.timeTimestampMax) {
-            // return `Manuell: ${formatDate(filters.timeTimestampMin)} - ${formatDate(filters.timeTimestampMax)}`;
-
-            return (
-                t('tabs.manual') +
-                `: ${formatDate(filters.timeTimestampMin)} - ${formatDate(filters.timeTimestampMax)}`
-            );
+        if (formattedDateMin || formattedDateMax) {
+            return t('tabs.manual') + `: ${formattedDateMin} - ${formattedDateMax}`;
         }
 
         if (filters.timeOffSetHours || filters.timeOffsetMinutes) {
@@ -170,6 +198,34 @@ export default function TimeCard(props: Props) {
 
         return '';
     };
+
+    // const getExpansionCardDescription = (): string => {
+    //     if (filters.timeCurrentPeriod) {
+    //         const selectedLabel = props.timeCurrentPeriodOptions.find(
+    //             (option) => option.value === filters.timeCurrentPeriod
+    //         )?.label;
+    //         const translatedLabel = t(selectedLabel || '');
+    //         return `Periode: ${translatedLabel || 'Ukjent'}`;
+    //     }
+    //
+    //     if (filters.timeTimestampMin || filters.timeTimestampMax) {
+    //         // return `Manuell: ${formatDate(filters.timeTimestampMin)} - ${formatDate(filters.timeTimestampMax)}`;
+    //
+    //         return (
+    //             t('tabs.manual') +
+    //             `: ${formatDate(filters.timeTimestampMin)} - ${formatDate(filters.timeTimestampMax)}`
+    //         );
+    //     }
+    //
+    //     if (filters.timeOffSetHours || filters.timeOffsetMinutes) {
+    //         return (
+    //             t('tabs.offset') +
+    //             `: ${filters.timeOffSetHours ?? '0'}h ${filters.timeOffsetMinutes ?? '0'}m`
+    //         );
+    //     }
+    //
+    //     return '';
+    // };
 
     return (
         <ExpansionCard
