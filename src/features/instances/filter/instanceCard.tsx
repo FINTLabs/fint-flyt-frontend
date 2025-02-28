@@ -71,6 +71,7 @@ export default function InstanceCard(props: Props) {
 
     return (
         <ExpansionCard
+            data-testid="instance"
             size="small"
             aria-label={t('ariaLabel') || 'default label'}
             open={props.isOpen}

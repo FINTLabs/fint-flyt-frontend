@@ -87,7 +87,7 @@ const FilterForm: React.FC<FilterFormProps> = ({ allMetaData }) => {
     };
 
     return (
-        <Box minWidth={'300px'} className={'p-20'}>
+        <Box minWidth={'300px'} className={'p-20'} data-testid="filters-form">
             <VStack gap="4">
                 <SortSelect />
 

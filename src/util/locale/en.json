@@ -211,7 +211,6 @@
       "TRANSFERRED": "Transferred",
       "ABORTED": "Aborted",
       "IN_PROGRESS": "In Progress",
-      "FAILED": "Failed",
       "NEVER_STORED": "Never stored",
       "STORED": "Failed",
       "STORED_AND_DELETED": "Stored and deleted",

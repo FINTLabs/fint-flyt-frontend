@@ -17,7 +17,37 @@ describe('Testing instance list', () => {
                 method: 'GET',
                 url: '/api/intern/instance-flow-tracking/value-space/instance-status/selectables',
                 fixture: 'filter/instance-status.json',
-                alias: 'newSummaries',
+                alias: 'instance-status',
+            },
+            {
+                method: 'GET',
+                url: '/api/intern/instance-flow-tracking/value-space/storage-status/selectables',
+                fixture: 'filter/storage-status.json',
+                alias: 'storage-status',
+            },
+            {
+                method: 'GET',
+                url: '/api/intern/instance-flow-tracking/value-space/event-category/selectables',
+                fixture: 'filter/event-category.json',
+                alias: 'event-category',
+            },
+            {
+                method: 'GET',
+                url: '/api/intern/instance-flow-tracking/value-space/instance-status-event-category/selectables',
+                fixture: 'filter/instance-status-event-category.json',
+                alias: 'event-category',
+            },
+            {
+                method: 'GET',
+                url: '/api/intern/instance-flow-tracking/value-space/time/current-period/selectables',
+                fixture: 'filter/current-period.json',
+                alias: 'event-category',
+            },
+            {
+                method: 'GET',
+                url: '/integration/instance/api/application/configuration',
+                fixture: 'basepathConfig.json',
+                alias: 'getConfig',
             },
         ];
 
@@ -31,16 +61,12 @@ describe('Testing instance list', () => {
     });
 
     function prep() {
-        cy.intercept('GET', '**/authorization/me', { fixture: 'me.json' }).as('getMe');
-        cy.intercept('GET', '**/authorization/me/is-authorized', { fixture: 'auth.json' }).as(
-            'getAuth'
-        );
+        // cy.intercept('GET', '**/authorization/me', { fixture: 'me.json' }).as('getMe');
+        cy.intercept('GET', '**/authorization/me/is-authorized', { fixture: 'auth.json' });
         cy.intercept('GET', '**/authorization/me/restricted-page-authorization', {
             userPermissionPage: true,
-        }).as('getUserPermissionsPage');
-        cy.intercept('GET', '**/authorization/users?page=0&size=10', { fixture: 'users.json' }).as(
-            'getUsersPermissions'
-        );
+        });
+        cy.intercept('GET', '**/authorization/users?page=0&size=10', { fixture: 'users.json' });
         cy.intercept('GET', '**/api/application/configuration', {
             forceNetworkError: true,
             fixture: 'basepathConfig.json',
@@ -73,27 +99,33 @@ describe('Testing instance list', () => {
 
         //Sorting options
         cy.get('[data-testid="sortSelect"]').should('exist');
+
         // TimeCard options
-        cy.get('[data-testid="timeCard"]').should('exist').click();
+        cy.get('[data-testid="timeCard"]').should('exist');
+        cy.get('[data-testid="timeCard"]').click();
         // cy.get('[data-testid="timeCard-options"]').children().should('have.length.at.least', 1);
 
         // IntegrationCard options
-        cy.get('[data-testid="integration"]').should('exist').click();
-        // cy.get('[data-testid="integration-options"]').children().should('have.length', 6); // sourceApplicationIdsOptions has 6 options
+        cy.get('[data-testid="integration"]').should('exist');
+        cy.get('[data-testid="integration"]').click();
+        // cy.get('[data-testid="integration-options"]').children().should('have.length', 6);
 
         // InstanceCard
-        cy.get('[data-testid="instance"]').should('exist').click();
+        cy.get('[data-testid="instance"]').should('exist');
+        cy.get('[data-testid="instance"]').click();
 
         // StatusCard options
-        cy.get('[data-testid="status"]').should('exist').click();
+        cy.get('[data-testid="status"]').should('exist');
+        cy.get('[data-testid="status"]').click();
         // cy.get('[data-testid="status-options"]').children().should('have.length.at.least', 1);
 
         // AdvancedCard options
-        cy.get('[data-testid="advanced"]').should('exist').click();
+        cy.get('[data-testid="advanced"]').should('exist');
+        cy.get('[data-testid="advanced"]').click();
         // cy.get('[data-testid="advanced-options"]').children().should('have.length.at.least', 1);
 
         // Buttons
         cy.contains('button', 'Søk').should('be.visible');
-        // cy.contains('button', 'Tilbakestill').should('be.visible');
+        cy.contains('button', 'Tilbakestill').should('be.visible');
     });
 });

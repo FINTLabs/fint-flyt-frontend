@@ -159,6 +159,7 @@ export default function TimeCard(props: Props) {
 
     return (
         <ExpansionCard
+            data-testid="timeCard"
             size="small"
             aria-label="Tidsperiod"
             open={props.isOpen}

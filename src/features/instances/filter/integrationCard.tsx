@@ -85,6 +85,7 @@ export default function IntegrationCard(props: Props) {
 
     return (
         <ExpansionCard
+            data-testid="integration"
             size="small"
             aria-label={t('ariaLabel') || 'Default Label'}
             open={props.isOpen}

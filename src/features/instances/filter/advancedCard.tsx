@@ -59,6 +59,7 @@ export default function AdvancedCard(props: Props) {
 
     return (
         <ExpansionCard
+            data-testid="advanced"
             size="small"
             aria-label={t('advancedCard.ariaLabel') || ''}
             open={props.isOpen}

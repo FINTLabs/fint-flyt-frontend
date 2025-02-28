@@ -82,6 +82,7 @@ export default function StatusCard(props: Props) {
 
     return (
         <ExpansionCard
+            data-testid="status"
             size="small"
             aria-label={t('statusCard.ariaLabel') || ''}
             open={props.isOpen}

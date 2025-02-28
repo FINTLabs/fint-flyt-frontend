@@ -1,14 +1,18 @@
 [
   {
-    "value": "STORED",
-    "label": "Lagret"
+    "value": "IN_PROGRESS",
+    "label": "Under behandling"
   },
   {
-    "value": "STORED_AND_DELETED",
-    "label": "Lagret og slettet"
+    "value": "TRANSFERRED",
+    "label": "Overført"
   },
   {
-    "value": "NEVER_STORED",
-    "label": "Aldri lagret"
+    "value": "ABORTED",
+    "label": "Avbrutt"
+  },
+  {
+    "value": "FAILED",
+    "label": "Feilet"
   }
 ]

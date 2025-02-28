@@ -8,6 +8,7 @@ export default function SortSelect() {
 
     return (
         <Select
+            data-testid="sortSelect"
             label={t('filter.sort')}
             value={filters.sort || ''}
             onChange={(e) => updateFilter('sort', e.target.value)}>
