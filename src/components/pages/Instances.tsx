@@ -76,7 +76,6 @@ const Instances: RouteComponent = () => {
                 )}
 
                 <HGrid columns={showFilters ? 'minmax(450px, 15%) 1fr' : '1fr'} gap="2">
-                    {' '}
                     {showFilters && (
                         <Box
                             id="filter-container"

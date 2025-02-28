@@ -1,4 +1,4 @@
-import { ExpansionCard, TextField, VStack } from '@navikt/ds-react';
+import { Detail, ExpansionCard, TextField, VStack } from '@navikt/ds-react';
 import React, { useEffect, useState } from 'react';
 import { useFilters } from './FilterContext';
 import { setCommaSeparatedValue } from './util';
@@ -44,19 +44,29 @@ export default function InstanceCard(props: Props) {
         setCommaSeparatedValue(updateFilter, 'destinationIds', destinationInput);
     };
 
-    const getExpansionCardDescription = (): string => {
-        const parts: string[] = [];
+    const getExpansionCardDescription = (): React.ReactNode => {
+        const details: React.ReactNode[] = [];
 
         const selectedDestinationSource = filters.destinationIds?.join(', ') ?? '';
         const selectedIntegrationSource = filters.sourceApplicationInstanceIds?.join(', ') ?? '';
 
-        if (selectedDestinationSource) {
-            parts.push(t('description.source', { value: selectedIntegrationSource }));
-        }
         if (selectedIntegrationSource) {
-            parts.push(t('description.destination', { value: selectedDestinationSource }));
+            details.push(
+                <Detail key="source">
+                    {t('description.source', { value: selectedIntegrationSource })}
+                </Detail>
+            );
         }
-        return parts.join(' | ');
+
+        if (selectedDestinationSource) {
+            details.push(
+                <Detail key="destination">
+                    {t('description.destination', { value: selectedDestinationSource })}
+                </Detail>
+            );
+        }
+
+        return details.length > 0 ? <>{details}</> : null; // ✅ Returns JSX elements or null
     };
 
     return (

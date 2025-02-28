@@ -1,4 +1,4 @@
-import { ExpansionCard, ToggleGroup, UNSAFE_Combobox, VStack } from '@navikt/ds-react';
+import { Detail, ExpansionCard, ToggleGroup, UNSAFE_Combobox, VStack } from '@navikt/ds-react';
 import React, { useEffect, useState } from 'react';
 import { useFilters } from './FilterContext';
 import { getLabelsByIds, setArrayValue } from './util';
@@ -32,48 +32,57 @@ export default function IntegrationCard(props: Props) {
         );
     }, [filters]);
 
-    // const handleIntegrationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    //     setIntegrationInput(e.target.value);
-    // };
-    //
-    // const handleIntegrationBlur = () => {
-    //     setCommaSeparatedValue(updateFilter, 'integrationIds', integrationInput);
-    // };
-
     function handleTabChange(tab: string) {
         setSelectedTab(tab);
         if (tab === 'integration') {
             updateFilter('sourceApplicationIds', []);
+            updateFilter('sourceApplicationIntegrationIds', []);
         } else {
             updateFilter('integrationIds', '');
             setIntegrationInput('');
         }
     }
 
-    const getExpansionCardDescription = (): string => {
-        const parts: string[] = [];
+    const getExpansionCardDescription = (): React.ReactNode => {
+        const parts: React.ReactNode[] = [];
+
         if (integrationInput.length > 0) {
-            parts.push(t('description.integration', { value: integrationInput }));
-        }
-        if ((filters.sourceApplicationIds ?? []).length > 0) {
             parts.push(
-                t('description.sourceApplication', {
-                    value: getLabelsByIds(
-                        filters.sourceApplicationIds,
-                        props.sourceApplicationIdsOptions
-                    ).join(', '),
-                })
+                <Detail key="integration">
+                    {t('description.integration', { value: integrationInput })}
+                </Detail>
             );
         }
-        return parts.join(' | ');
+
+        if ((filters.sourceApplicationIds ?? []).length > 0) {
+            parts.push(
+                <Detail key="sourceApplication">
+                    {t('description.sourceApplication', {
+                        value: getLabelsByIds(
+                            filters.sourceApplicationIds,
+                            props.sourceApplicationIdsOptions
+                        ).join(', '),
+                    })}
+                </Detail>
+            );
+        }
+
+        if ((filters.sourceApplicationIntegrationIds ?? []).length > 0) {
+            parts.push(
+                <Detail key="sourceApplicationIntegration">
+                    {t('description.sourceApplicationIntegration', {
+                        value: getLabelsByIds(
+                            filters.sourceApplicationIntegrationIds,
+                            props.sourceApplicationIntegrationOptions
+                        ).join(', '),
+                    })}
+                </Detail>
+            );
+        }
+
+        return parts.length > 0 ? <>{parts}</> : null;
     };
 
-    // TODO: remove these lines after debuging is done
-    // console.log(
-    //     'CHOOSE sourceApplicationIntegrationOptions:',
-    //     props.sourceApplicationIntegrationOptions
-    // );
-    // console.log('CHOOSE integrationOptions:', props.integrationOptions);
     return (
         <ExpansionCard
             size="small"

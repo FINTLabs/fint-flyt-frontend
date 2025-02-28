@@ -3,17 +3,11 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { GridCellParams } from '@mui/x-data-grid';
 import moment from 'moment/moment';
-import {
-    IEvent,
-    IEventNew,
-    IInstanceFlowTracking,
-    IInstanceFlowTrackingResponse,
-} from '../types/Event';
+import { IInstanceFlowTracking, IInstanceFlowTrackingResponse } from '../types/Event';
 import ErrorDialogComponent from './ErrorDialogComponent';
-import { Box, HStack, Link, Loader, Pagination, Table } from '@navikt/ds-react';
+import { Box, Button, HStack, Link, Loader, Table } from '@navikt/ds-react';
 import { GetIcon } from '../util/InstanceUtils';
-import EventRepository from '../../../api/EventRepository';
-import { IAlertMessage, Page } from '../../../components/types/TableTypes';
+import { IAlertMessage } from '../../../components/types/TableTypes';
 import InstanceEventRepository from '../../../api/InstanceEventRepository';
 
 type Props = {
@@ -31,23 +25,29 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
     const [page, setPage] = useState(1);
     const [selectedInstances, setSelectedInstances] = useState<IInstanceFlowTrackingResponse>();
     const rowsPerPage = 10;
+    const [rowCount, setRowCount] = useState<string>('10');
 
     useEffect(() => {
         // setSelectedInstances({ content: [] });
+
+        if (
+            selectedInstances?.totalElements &&
+            selectedInstances.totalElements < Number(rowCount)
+        ) {
+            setPage(1);
+        }
         getSelectedInstances(
-            page - 1,
-            rowsPerPage,
+            rowCount,
             'timestamp',
             'DESC',
             props.sourceApplicationId,
             props.instanceId,
             props.sourceApplicationIntegrationId
         );
-    }, [page, setPage]);
+    }, [rowCount]);
 
     const getSelectedInstances = async (
-        page: number,
-        size: number,
+        rowCount: string,
         sortProperty: string,
         sortDirection: string,
         sourceApplicationId: number,
@@ -57,8 +57,7 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
         props.onError(undefined);
         try {
             const eventResponse = await InstanceEventRepository.getEventsByInstanceId(
-                page,
-                size,
+                rowCount,
                 sortProperty,
                 sortDirection,
                 sourceApplicationIntegrationId,
@@ -116,7 +115,7 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
                                             </Table.DataCell>
                                             <Table.DataCell>
                                                 {GetIcon(value.type)}
-                                                {t(value.category)}{' '}
+                                                {t(`filter.associatedEventNames.${value.category}`)}
                                                 {value.type === 'ERROR' && (
                                                     <Link
                                                         style={{ cursor: 'pointer' }}
@@ -148,15 +147,25 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
                 )}
             </Box>
             <HStack justify={'center'}>
-                {selectedInstances?.totalElements &&
-                    selectedInstances.totalElements > rowsPerPage && (
-                        <Pagination
-                            page={page}
-                            onPageChange={setPage}
-                            count={selectedInstances?.totalPages ?? 1}
-                            size="small"
-                        />
-                    )}
+                {/*{selectedInstances?.totalElements &&*/}
+                {/*    selectedInstances.totalElements > rowsPerPage && (*/}
+                {/*        <Pagination*/}
+                {/*            page={page}*/}
+                {/*            onPageChange={setPage}*/}
+                {/*            count={selectedInstances?.totalPages ?? 1}*/}
+                {/*            size="small"*/}
+                {/*        />*/}
+                {/*    )}*/}
+                {!selectedInstances?.last && (
+                    <>
+                        <Button
+                            variant="secondary"
+                            size={'xsmall'}
+                            onClick={() => setRowCount((prev) => String(Number(prev) + 10))}>
+                            {t('filter.loadMore')}
+                        </Button>
+                    </>
+                )}
             </HStack>
         </>
     );

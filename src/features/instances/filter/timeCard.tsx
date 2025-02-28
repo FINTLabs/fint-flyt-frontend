@@ -1,6 +1,7 @@
 import {
     Chips,
     DatePicker,
+    Detail,
     ExpansionCard,
     HStack,
     TextField,
@@ -9,7 +10,7 @@ import {
     VStack,
 } from '@navikt/ds-react';
 import { BriefcaseClockIcon, CalendarIcon, ClockDashedIcon } from '@navikt/aksel-icons';
-import { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useFilters } from './FilterContext';
 import { setSingleValue } from './util';
 import { useTranslation } from 'react-i18next';
@@ -34,10 +35,7 @@ export default function TimeCard(props: Props) {
 
     const [timeMin, setTimeMin] = useState<string>('');
     const [timeMax, setTimeMax] = useState<string>('');
-    const [formattedDateMin, setFormattedDateMin] = useState<string>('');
-    const [formattedDateMax, setFormattedDateMax] = useState<string>('');
 
-    // Function to format date + time in ISO format
     const formatToOffsetDateTime = (date: Date, time: string): string => {
         const [hours, minutes] = time.split(':').map(Number);
         date.setHours(isNaN(hours) ? 0 : hours, isNaN(minutes) ? 0 : minutes, 0, 0);
@@ -68,53 +66,6 @@ export default function TimeCard(props: Props) {
                 }
             },
         });
-
-    const getRangeFromDates = (startDate: Date | null, endDate: Date | null) => {
-        return {
-            from: startDate ? new Date(startDate) : undefined,
-            to: endDate ? new Date(endDate) : undefined,
-        };
-    };
-
-    useEffect(() => {
-        if (
-            (filters.timeTimestampMin || filters.timeTimestampMax) &&
-            selectedRange?.from === undefined
-        ) {
-            const range = getRangeFromDates(filters.timeTimestampMin, filters.timeTimestampMax);
-            setSelected(range);
-
-            if (filters.timeTimestampMin) {
-                const date = new Date(filters.timeTimestampMin);
-                setTimeMin(
-                    `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`
-                );
-                setFormattedDateMin(formatDate(date)); // Set formatted date
-            }
-
-            if (filters.timeTimestampMax) {
-                const date = new Date(filters.timeTimestampMax);
-                setTimeMax(
-                    `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`
-                );
-                setFormattedDateMax(formatDate(date)); // Set formatted date
-            }
-        }
-    }, [filters.timeTimestampMax, filters.timeTimestampMin, setSelected, selectedRange?.from]);
-
-    // useEffect(() => {
-    //     if (filters.timeTimestampMin || filters.timeTimestampMax) {
-    //         const range = getRangeFromDates(filters.timeTimestampMin, filters.timeTimestampMax);
-    //         setSelected(range);
-    //
-    //         console.log(
-    //             'SETTING TIME IN USE EFFECT',
-    //             filters.timeTimestampMin,
-    //             filters.timeTimestampMax
-    //         );
-    //         //TODO: set time from URL
-    //     }
-    // }, [filters.timeTimestampMax, filters.timeTimestampMin]);
 
     const handleTimeChange = (field: 'timeTimestampMin' | 'timeTimestampMax', time: string) => {
         if (field === 'timeTimestampMin' && selectedRange?.from) {
@@ -152,80 +103,59 @@ export default function TimeCard(props: Props) {
         }
     }
 
-    const formatDate = (dateString: Date | null) => {
-        if (!dateString) return '';
-
-        const date = new Date(dateString);
-        const hours = date.getHours();
-        const minutes = date.getMinutes();
-
-        const datePart = date.toLocaleDateString('no-NO', {
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit',
-        });
-
-        const timePart =
-            hours !== 0 || minutes !== 0
-                ? date.toLocaleTimeString('no-NO', {
-                      hour: '2-digit',
-                      minute: '2-digit',
-                  })
-                : '';
-
-        return timePart ? `${datePart}, ${timePart}` : datePart;
-    };
-
-    const getExpansionCardDescription = (): string => {
+    const getExpansionCardDescription = (): React.ReactNode => {
         if (filters.timeCurrentPeriod) {
             const selectedLabel = props.timeCurrentPeriodOptions.find(
                 (option) => option.value === filters.timeCurrentPeriod
             )?.label;
             const translatedLabel = t(selectedLabel || '');
-            return `Periode: ${translatedLabel || 'Ukjent'}`;
-        }
-
-        if (formattedDateMin || formattedDateMax) {
-            return t('tabs.manual') + `: ${formattedDateMin} - ${formattedDateMax}`;
+            return <Detail>{t('description.period', { value: translatedLabel })}</Detail>;
         }
 
         if (filters.timeOffSetHours || filters.timeOffsetMinutes) {
             return (
-                t('tabs.offset') +
-                `: ${filters.timeOffSetHours ?? '0'}h ${filters.timeOffsetMinutes ?? '0'}m`
+                <Detail>
+                    {t('description.offset', {
+                        hours: filters.timeOffSetHours,
+                        minutes: filters.timeOffsetMinutes,
+                    })}
+                </Detail>
             );
         }
 
-        return '';
-    };
+        if (filters.timeTimestampMin || filters.timeTimestampMax) {
+            return (
+                <>
+                    {filters.timeTimestampMin && (
+                        <Detail>
+                            {t('manual.fromDate')}: &nbsp;
+                            {new Date(filters.timeTimestampMin).toLocaleDateString()}
+                            {new Date(filters.timeTimestampMin).toLocaleTimeString([], {
+                                hour: '2-digit',
+                                minute: '2-digit',
+                            }) !== '00:00'
+                                ? ` ${new Date(filters.timeTimestampMin).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`
+                                : ''}
+                        </Detail>
+                    )}
+                    {filters.timeTimestampMax && (
+                        <Detail>
+                            {t('manual.toDate')}:&nbsp;
+                            {new Date(filters.timeTimestampMax).toLocaleDateString()}
+                            {new Date(filters.timeTimestampMax).toLocaleTimeString([], {
+                                hour: '2-digit',
+                                minute: '2-digit',
+                            }) !== '00:00'
+                                ? ` ${new Date(filters.timeTimestampMax).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`
+                                : ''}
+                        </Detail>
+                    )}
+                </>
+            );
+        }
 
-    // const getExpansionCardDescription = (): string => {
-    //     if (filters.timeCurrentPeriod) {
-    //         const selectedLabel = props.timeCurrentPeriodOptions.find(
-    //             (option) => option.value === filters.timeCurrentPeriod
-    //         )?.label;
-    //         const translatedLabel = t(selectedLabel || '');
-    //         return `Periode: ${translatedLabel || 'Ukjent'}`;
-    //     }
-    //
-    //     if (filters.timeTimestampMin || filters.timeTimestampMax) {
-    //         // return `Manuell: ${formatDate(filters.timeTimestampMin)} - ${formatDate(filters.timeTimestampMax)}`;
-    //
-    //         return (
-    //             t('tabs.manual') +
-    //             `: ${formatDate(filters.timeTimestampMin)} - ${formatDate(filters.timeTimestampMax)}`
-    //         );
-    //     }
-    //
-    //     if (filters.timeOffSetHours || filters.timeOffsetMinutes) {
-    //         return (
-    //             t('tabs.offset') +
-    //             `: ${filters.timeOffSetHours ?? '0'}h ${filters.timeOffsetMinutes ?? '0'}m`
-    //         );
-    //     }
-    //
-    //     return '';
-    // };
+        return <></>;
+    };
 
     return (
         <ExpansionCard

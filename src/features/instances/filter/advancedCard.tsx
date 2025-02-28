@@ -1,4 +1,4 @@
-import { Chips, ExpansionCard, Label, UNSAFE_Combobox, VStack } from '@navikt/ds-react';
+import { Chips, Detail, ExpansionCard, Label, UNSAFE_Combobox, VStack } from '@navikt/ds-react';
 import { useFilters } from './FilterContext';
 import { setArrayValue } from './util';
 import { useTranslation } from 'react-i18next';
@@ -13,12 +13,12 @@ interface Props {
 
 export default function AdvancedCard(props: Props) {
     const { t } = useTranslation('translations', {
-        keyPrefix: 'pages.instances.filter.advancedCard',
+        keyPrefix: 'pages.instances.filter',
     });
     const { filters, updateFilter } = useFilters();
 
-    const getExpansionCardDescription = (): string => {
-        const parts: string[] = [];
+    const getExpansionCardDescription = (): React.ReactNode => {
+        const details: JSX.Element[] = [];
 
         if ((filters.associatedEvents ?? []).length > 0) {
             const eventLabels = (filters.associatedEvents ?? [])
@@ -26,13 +26,15 @@ export default function AdvancedCard(props: Props) {
                     const option = props.associatedEventNamesOptions.find(
                         (opt) => opt.value === id
                     );
-                    return option
-                        ? t(`associatedEventNames.${option.value}`, { defaultValue: option.label })
-                        : id;
+                    return option ? t(`associatedEventNames.${option.value.trim()}`) : id;
                 })
                 .join(', ');
 
-            parts.push(t('description.associatedEvents', { value: eventLabels }));
+            details.push(
+                <Detail key="associatedEvents">
+                    {t('advancedCard.description.associatedEvents', { value: eventLabels })}
+                </Detail>
+            );
         }
 
         if ((filters.storageStatuses ?? []).length > 0) {
@@ -40,26 +42,30 @@ export default function AdvancedCard(props: Props) {
                 .map((id) => {
                     const option = props.storageStatusesOptions.find((opt) => opt.value === id);
                     return option
-                        ? t(`statusOptions.${option.value}`, { defaultValue: option.label })
+                        ? t(`intermediateStorageStatusOptions.${option.value.trim()}`)
                         : id;
                 })
                 .join(', ');
 
-            parts.push(t('description.storageStatuses', { value: statusLabels }));
+            details.push(
+                <Detail key="storageStatuses">
+                    {t('advancedCard.description.storageStatuses', { value: statusLabels })}
+                </Detail>
+            );
         }
 
-        return parts.join(' | ') || '';
+        return details.length > 0 ? <>{details}</> : null; // ✅ Returns JSX elements or null
     };
 
     return (
         <ExpansionCard
             size="small"
-            aria-label={t('ariaLabel') || 'Default Label'}
+            aria-label={t('advancedCard.ariaLabel') || ''}
             open={props.isOpen}
             onToggle={() => props.toggleOpen(props.id)}>
             <ExpansionCard.Header>
                 <ExpansionCard.Title as="h4" size="small">
-                    {t('title')}
+                    {t('advancedCard.title')}
                 </ExpansionCard.Title>
                 <ExpansionCard.Description>
                     {getExpansionCardDescription()}
@@ -68,7 +74,7 @@ export default function AdvancedCard(props: Props) {
             <ExpansionCard.Content>
                 <VStack gap="8">
                     <UNSAFE_Combobox
-                        label={t('combobox.label')}
+                        label={t('advancedCard.combobox.label')}
                         options={props.associatedEventNamesOptions.map((option) => ({
                             label: t(`associatedEventNames.${option.value}`, {
                                 defaultValue: option.label,
@@ -105,7 +111,7 @@ export default function AdvancedCard(props: Props) {
                         }
                     />
 
-                    <Label>{t('chips.label')}</Label>
+                    <Label>{t('advancedCard.chips.label')}</Label>
                     <Chips>
                         {props.storageStatusesOptions.map((option) => (
                             <Chips.Toggle
@@ -121,7 +127,7 @@ export default function AdvancedCard(props: Props) {
                                         !filters.storageStatuses?.includes(option.value)
                                     )
                                 }>
-                                {t(`statusOptions.${option.value}`)}
+                                {t(`intermediateStorageStatusOptions.${option.value}`)}
                             </Chips.Toggle>
                         ))}
                     </Chips>

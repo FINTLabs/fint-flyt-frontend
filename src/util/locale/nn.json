@@ -208,168 +208,151 @@
         "search": "Søk",
         "clear": "Tilbakestill"
       },
-      "filter": {
-        "sort": "Sortering",
-        "sortBy": "Vel sortering",
-        "options": {
-          "timestampAsc": "Tidspunkt stigande",
-          "timestampDesc": "Tidspunkt synkande",
-          "sourceAppId": "Kjeldeapplikasjons instans-ID",
-          "destinationId": "Destinasjons instans-ID"
-        },
-        "timeCard": {
-          "ariaLabel": "Tidsperiode",
-          "title": "Tidsperiode",
-          "Denne dagen": "I dag",
-          "Denne måneden": "Denne månaden",
-          "Denne uka": "Denne veka",
-          "Dette året": "Dette året",
-          "description": {
-            "period": "Periode: {{value}}",
-            "manual": "Manuell: {{from}} - {{to}}",
-            "offset": "Siste: {{hours}}t {{minutes}}m"
-          },
-          "tabs": {
-            "offset": "Siste",
-            "period": "Periode",
-            "manual": "Manuell"
-          },
-          "offset": {
-            "hours": "Timar",
-            "minutes": "Minutt"
-          },
-          "manual": {
-            "fromDate": "Frå",
-            "fromTime": "Tid frå",
-            "toDate": "Til",
-            "toTime": "Tid til"
-          }
-        },
-        "advancedCard": {
-          "ariaLabel": "Avansert",
-          "title": "Avansert",
-          "description": {
-            "associatedEvents": "Tilknytte hendingar: {{value}}",
-            "storageStatuses": "Vald mellomlagring: {{value}}"
-          },
-          "combobox": {
-            "label": "Tilknytt hending"
-          },
-          "chips": {
-            "label": "Mellomlagring"
-          },
-          "statusOptions": {
-            "TRANSFERRED": "Overført",
-            "ABORTED": "Avbroten",
-            "IN_PROGRESS": "Pågår",
-            "FAILED": "Feila",
-            "INSTANCE_REGISTERED": "Instans registrert",
-            "INSTANCE_DELETED": "Instans sletta",
-            "STORED": "Lagra",
-            "STORED_AND_DELETED": "Lagret og sletta",
-            "NEVER_STORED": "Aldri lagra"
-          },
-          "associatedEventNames": {
-            "INSTANCE_DISPATCHING_ERROR": "Feil under sending til destinasjon",
-            "INSTANCE_REGISTRATION_ERROR": "Feil under registrering",
-            "INSTANCE_RECEIVED": "Mottatt",
-            "INSTANCE_MANUALLY_PROCESSED": "Manuelt behandla",
-            "INSTANCE_MAPPING_ERROR": "Feil under konvertering",
-            "INSTANCE_MAPPED": "Konvertert",
-            "INSTANCE_MANUALLY_REJECTED": "Manuelt avvist",
-            "INSTANCE_READY_FOR_DISPATCH": "Klar for sending til destinasjon",
-            "INSTANCE_DISPATCHED": "Sendt til destinasjon",
-            "INSTANCE_RECEIVAL_ERROR": "Feil under mottak",
-            "INSTANCE_RETRY_REQUEST_ERROR": "Feil under førespurnad om nytt forsøk",
-            "INSTANCE_REQUESTED_FOR_RETRY": "Førespurt om nytt forsøk",
-            "INSTANCE_REGISTERED": "Instans registrert",
-            "INSTANCE_DELETED": "Instans sletta"
-          }
-        },
-        "instanceCard": {
-          "ariaLabel": "Instans-variant",
-          "title": "Instans",
-          "description": {
-            "source": "Kjelde: {{value}}",
-            "destination": "Destinasjon: {{value}}"
-          },
-          "fields": {
-            "sourceAppInstanceId": {
-              "label": "Kjeldeapplikasjons instans-ID",
-              "placeholder": "Skriv inn kjelde-ID-ar, separert med komma"
-            },
-            "destinationId": {
-              "label": "Destinasjon",
-              "placeholder": "Skriv inn destinasjons-ID-ar, separert med komma"
-            }
-          }
-        },
-        "integrationCard": {
-          "ariaLabel": "Integrasjon og kjeldeapplikasjon",
-          "title": "Integrasjon og kjeldeapplikasjon",
-          "description": {
-            "integration": "Integrasjon: {{value}}",
-            "sourceApplication": "Kjeldeapplikasjon: {{value}}"
-          },
-          "tabs": {
-            "integration": "Integrasjon",
-            "sourceApp": "Kjeldeapplikasjon"
-          },
-          "combobox": {
-            "sourceApp": "Vel kjeldeapplikasjon",
-            "integration": "Vel integrasjon"
-          },
-          "textField": {
-            "integrationId": {
-              "label": "Kjeldeapplikasjon integrasjons-ID",
-              "placeholder": "Skriv inn integrasjonsnamn, separert med komma"
-            }
-          }
-        },
-        "statusCard": {
-          "ariaLabel": "Status",
-          "title": "Status",
-          "description": {
-            "event": "Siste hending: {{value}}",
-            "status": "Status: {{value}}"
-          },
-          "tabs": {
-            "status": "Status",
-            "event": "Siste hending"
-          },
-          "chips": {
-            "label": "Status"
-          },
-          "combobox": {
-            "label": "Siste hending",
-            "allowNewValues": "Tillat nye verdiar"
-          },
-          "statusOptions": {
-            "TRANSFERRED": "Overført",
-            "TRANSFERED": "Overført",
-            "ABORTED": "Avbroten",
-            "IN_PROGRESS": "Pågår",
-            "FAILED": "Feila"
-          },
-          "associatedEventNames": {
-            "INSTANCE_DISPATCHING_ERROR": "Feil under sending til destinasjon",
-            "INSTANCE_REGISTRATION_ERROR": "Feil under registrering",
-            "INSTANCE_RECEIVED": "Mottatt",
-            "INSTANCE_MANUALLY_PROCESSED": "Manuelt behandla",
-            "INSTANCE_MAPPING_ERROR": "Feil under konvertering",
-            "INSTANCE_MAPPED": "Konvertert",
-            "INSTANCE_MANUALLY_REJECTED": "Manuelt avvist",
-            "INSTANCE_READY_FOR_DISPATCH": "Klar for sending til destinasjon",
-            "INSTANCE_DISPATCHED": "Sendt til destinasjon",
-            "INSTANCE_RECEIVAL_ERROR": "Feil under mottak",
-            "INSTANCE_RETRY_REQUEST_ERROR": "Feil under førespurnad om nytt forsøk",
-            "INSTANCE_REQUESTED_FOR_RETRY": "Førespurt om nytt forsøk",
-            "INSTANCE_REGISTERED": "Instans registrert",
-            "INSTANCE_DELETED": "Instans sletta"
-          }
-        }
+  "filter": {
+    "alerts": {
+      "tableFiltered": "Tabellen er filtrert",
+      "noResults": "Filtra gav 0 resultat"
+    },
+    "loadMore": "Last inn meir...",
+    "sort": "Sortering",
+    "sortBy": "Vel sortering",
+    "options": {
+      "timestampAsc": "Tidspunkt stigande",
+      "timestampDesc": "Tidspunkt fallande",
+      "sourceAppId": "Kjeldeapplikasjon instans-ID",
+      "destinationId": "Destinasjon instans-ID"
+    },
+    "associatedEventNames": {
+      "INSTANCE_DISPATCHING_ERROR": "Feil ved sending til destinasjon",
+      "INSTANCE_REGISTRATION_ERROR": "Feil ved registrering",
+      "INSTANCE_RECEIVED": "Motta",
+      "INSTANCE_MANUALLY_PROCESSED": "Manuelt handsama",
+      "INSTANCE_MAPPING_ERROR": "Feil ved konvertering",
+      "INSTANCE_MAPPED": "Konvertert",
+      "INSTANCE_MANUALLY_REJECTED": "Manuelt avvist",
+      "INSTANCE_READY_FOR_DISPATCH": "Klar for sending til destinasjon",
+      "INSTANCE_DISPATCHED": "Send til destinasjon",
+      "INSTANCE_RECEIVAL_ERROR": "Feil ved mottak",
+      "INSTANCE_RETRY_REQUEST_ERROR": "Feil ved ny forespørsel",
+      "INSTANCE_REQUESTED_FOR_RETRY": "Forespurt om nytt forsøk",
+      "INSTANCE_REGISTERED": "Instans registrert",
+      "INSTANCE_DELETED": "Instans sletta"
+    },
+    "intermediateStorageStatusOptions": {
+      "STORED": "Lagra",
+      "STORED_AND_DELETED": "Lagra og sletta",
+      "NEVER_STORED": "Aldri lagra"
+    },
+    "statusOptions": {
+      "TRANSFERRED": "Overført",
+      "ABORTED": "Avbroten",
+      "IN_PROGRESS": "Pågår",
+      "FAILED": "Feila"
+    },
+    "timeCard": {
+      "ariaLabel": "Tidsperiode",
+      "title": "Tidsperiode",
+      "Denne dagen": "I dag",
+      "Denne måneden": "Denne månaden",
+      "Denne uka": "Denne veka",
+      "Dette året": "Dette året",
+      "description": {
+        "period": "Periode: {{value}}",
+        "manual": "Manuell: {{from}} - {{to}}",
+        "offset": "Siste: {{hours}}t {{minutes}}m"
       },
-      "table": {
+      "tabs": {
+        "offset": "Siste",
+        "period": "Periode",
+        "manual": "Manuell"
+      },
+      "offset": {
+        "hours": "Timar",
+        "minutes": "Minutt"
+      },
+      "manual": {
+        "fromDate": "Frå",
+        "fromTime": "Tid frå",
+        "toDate": "Til",
+        "toTime": "Tid til"
+      }
+    },
+    "advancedCard": {
+      "ariaLabel": "Avansert",
+      "title": "Avansert",
+      "description": {
+        "associatedEvents": "Tilknytte hendingar: {{value}}",
+        "storageStatuses": "Vald mellomlagring: {{value}}"
+      },
+      "combobox": {
+        "label": "Tilknytt hending"
+      },
+      "chips": {
+        "label": "Mellomlagring"
+      }
+    },
+    "instanceCard": {
+      "ariaLabel": "Instans-variant",
+      "title": "Instans",
+      "description": {
+        "source": "Kjelde: {{value}}",
+        "destination": "Destinasjon: {{value}}"
+      },
+      "fields": {
+        "sourceAppInstanceId": {
+          "label": "Kjeldeapplikasjon instans-ID",
+          "placeholder": "Skriv inn kjelde-ID-ar, skilde med komma"
+        },
+        "destinationId": {
+          "label": "Destinasjon",
+          "placeholder": "Skriv inn destinasjons-ID-ar, skilde med komma"
+        }
+      }
+    },
+    "integrationCard": {
+      "ariaLabel": "Integrasjon og kjeldeapplikasjon",
+      "title": "Integrasjon og kjeldeapplikasjon",
+      "description": {
+        "integration": "Integrasjon: {{value}}",
+        "sourceApplication": "Kjeldeapplikasjon: {{value}}",
+        "sourceApplicationIntegration": "Kjeldeapplikasjon integrasjons: {{value}}"
+      },
+      "tabs": {
+        "integration": "Integrasjon",
+        "sourceApp": "Kjeldeapplikasjon"
+      },
+      "combobox": {
+        "sourceApp": "Vel kjeldeapplikasjon",
+        "integration": "Vel integrasjon"
+      },
+      "textField": {
+        "integrationId": {
+          "label": "Kjeldeapplikasjon integrasjons-ID",
+          "placeholder": "Skriv inn integrasjonsnamn, skilde med komma"
+        }
+      }
+    },
+    "statusCard": {
+      "ariaLabel": "Status",
+      "title": "Status",
+      "description": {
+        "event": "Siste hending: {{value}}",
+        "status": "Status: {{value}}"
+      },
+      "tabs": {
+        "status": "Status",
+        "event": "Siste hending"
+      },
+      "chips": {
+        "label": "Status"
+      },
+      "combobox": {
+        "label": "Siste hending",
+        "allowNewValues": "Tillat nye verdiar"
+      }
+    }
+  },
+"table": {
         "column": {
           "sourceApplicationIntegrationId": "Kjeldeapplikasjon integrasjon-id",
           "sourceApplicationIntegrationIdDisplayName": "Integrasjonsnavn",

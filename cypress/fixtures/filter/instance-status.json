@@ -1,0 +1,14 @@
+[
+  {
+    "value": "STORED",
+    "label": "Lagret"
+  },
+  {
+    "value": "STORED_AND_DELETED",
+    "label": "Lagret og slettet"
+  },
+  {
+    "value": "NEVER_STORED",
+    "label": "Aldri lagret"
+  }
+]

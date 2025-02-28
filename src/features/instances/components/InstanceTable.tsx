@@ -118,22 +118,6 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
             });
         }
     };
-    //
-    // const handleSort = (sortKey: string) => {
-    //     setSort((prevSort) => {
-    //         return prevSort && sortKey === prevSort.orderBy && prevSort.direction === 'descending'
-    //             ? undefined
-    //             : {
-    //                   orderBy: sortKey,
-    //                   direction:
-    //                       prevSort &&
-    //                       sortKey === prevSort.orderBy &&
-    //                       prevSort.direction === 'ascending'
-    //                           ? 'descending'
-    //                           : 'ascending',
-    //               };
-    //     });
-    // };
 
     const resend = (instanceId: string) => {
         InstanceRepository.resendInstance(instanceId)
@@ -160,10 +144,10 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
             <Box background={'surface-default'} style={{ minHeight: '70vh' }}>
                 <ErrorAlertDialog row={selectedRow} />
                 <CustomStatusDialog row={selectedRow} />
-                {hasFilters ? (
-                    <Alert variant="info">Table filtered</Alert>
-                ) : instancesPage?.content?.length === 0 ? (
-                    <Alert variant="info">Filters returned 0 results</Alert>
+                {instancesPage?.content?.length === 0 ? (
+                    <Alert variant="info">{t('filter.alerts.noResults')}</Alert>
+                ) : hasFilters ? (
+                    <Alert variant="info">{t('filter.alerts.tableFiltered')}</Alert>
                 ) : null}
 
                 <Table
@@ -234,7 +218,9 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                                     <Table.DataCell>
                                         {GetIcon(value.status)}
 
-                                        {t(value.status)}
+                                        {value.status
+                                            ? t(`filter.statusOptions.${value.status.trim()}`)
+                                            : null}
                                         {/*TODO: BACKEND send in last error from backend ? */}
                                         {/*{t(value.status)}*/}
                                         {/*{value.status === 'ERROR' && value.errors.length > 0 && (*/}
@@ -249,13 +235,13 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                                         {/*)}*/}
                                     </Table.DataCell>
                                     <Table.DataCell>
-                                        {/*TODO: translations for selectables !! */}
-                                        {/*{value.intermediateStorageStatus*/}
-                                        {/*    ? t(value.intermediateStorageStatus)*/}
-                                        {/*    : null}*/}
-
-                                        {t(value.intermediateStorageStatus)}
+                                        {value.intermediateStorageStatus
+                                            ? t(
+                                                  `filter.intermediateStorageStatusOptions.${value.intermediateStorageStatus.trim()}`
+                                              )
+                                            : null}
                                     </Table.DataCell>
+
                                     <Table.DataCell>
                                         {value.status === 'FAILED' && actionMenu(value, i)}
                                     </Table.DataCell>
@@ -282,7 +268,7 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                         <Button
                             variant="secondary"
                             onClick={() => setRowCount((prev) => String(Number(prev) * 2))}>
-                            Load More...
+                            {t('filter.loadMore')}
                         </Button>
                     </>
                 )}

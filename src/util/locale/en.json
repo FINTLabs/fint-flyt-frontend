@@ -215,174 +215,151 @@
       "NEVER_STORED": "Never stored",
       "STORED": "Failed",
       "STORED_AND_DELETED": "Stored and deleted",
-      "filter": {
-        "sort": "Sorting",
-        "sortBy": "Choose sorting",
-        "options": {
-          "timestampAsc": "Timestamp ascending",
-          "timestampDesc": "Timestamp descending",
-          "sourceAppId": "Source application instance ID",
-          "destinationId": "Destination instance ID"
-        },
-        "timeCard": {
-          "ariaLabel": "Time period",
-          "title": "Time period",
-          "Denne dagen": "Today",
-          "Denne måneden": "This month",
-          "Denne uka": "This week",
-          "Dette året": "This year",
-          "description": {
-            "period": "Period: {{value}}",
-            "manual": "Manual: {{from}} - {{to}}",
-            "offset": "Last: {{hours}}h {{minutes}}m"
-          },
-          "tabs": {
-            "offset": "Last",
-            "period": "Period",
-            "manual": "Manual"
-          },
-          "offset": {
-            "hours": "Hours",
-            "minutes": "Minutes"
-          },
-          "manual": {
-            "fromDate": "Date From",
-            "fromTime": "Time from",
-            "toDate": "Date To",
-            "toTime": "Time to"
-          }
-        },
-        "advancedCard": {
-          "ariaLabel": "Advanced",
-          "title": "Advanced",
-          "description": {
-            "associatedEvents": "Associated events: {{value}}",
-            "storageStatuses": "Selected storage: {{value}}"
-          },
-          "combobox": {
-            "label": "Associated event"
-          },
-          "chips": {
-            "label": "Storage"
-          },
-          "statusOptions": {
-            "TRANSFERRED": "Transferred",
-            "ABORTED": "Aborted",
-            "IN_PROGRESS": "In Progress",
-            "FAILED": "Failed",
-            "INSTANCE_REGISTERED": "Instance registered",
-            "INSTANCE_DELETED": "Instance deleted",
-            "STORED": "Stored",
-            "STORED_AND_DELETED": "Stored and deleted",
-            "NEVER_STORED": "Never stored"
-          },
-          "associatedEventNames": {
-            "INSTANCE_DISPATCHING_ERROR": "Failed during dispatch to destination",
-            "INSTANCE_REGISTRATION_ERROR": "Failed during registration",
-            "INSTANCE_RECEIVED": "Received",
-            "INSTANCE_MANUALLY_PROCESSED": "Manually processed",
-            "INSTANCE_MAPPING_ERROR": "Failed during conversion",
-            "INSTANCE_MAPPED": "Converted",
-            "INSTANCE_MANUALLY_REJECTED": "Manually rejected",
-            "INSTANCE_READY_FOR_DISPATCH": "Ready for dispatch to destination",
-            "INSTANCE_DISPATCHED": "Dispatched to destination",
-            "INSTANCE_RECEIVAL_ERROR": "Failed during reception",
-            "INSTANCE_RETRY_REQUEST_ERROR": "Failed during retry request",
-            "INSTANCE_REQUESTED_FOR_RETRY": "Requested for retry",
-            "INSTANCE_REGISTERED": "Instance registered",
-            "INSTANCE_DELETED": "Instance deleted",
-            "INSTANCE_REGISTERED": "Instance registered",
-            "INSTANCE_DELETED": "Instance deleted",
-            "INSTANCE_REGISTERED": "Instance registered"
-          }
-        },
-        "instanceCard": {
-          "ariaLabel": "Instance variant",
-          "title": "Instance",
-          "description": {
-            "source": "Source: {{value}}",
-            "destination": "Destination: {{value}}"
-          },
-          "fields": {
-            "sourceAppInstanceId": {
-              "label": "Source application instance ID",
-              "placeholder": "Enter source IDs, separated by commas"
-            },
-            "destinationId": {
-              "label": "Destination",
-              "placeholder": "Enter destination IDs, separated by commas"
-            }
-          }
-        },
-        "integrationCard": {
-          "ariaLabel": "Integration and source application",
-          "title": "Integration and source application",
-          "description": {
-            "integration": "Integration: {{value}}",
-            "sourceApplication": "Source application: {{value}}"
-          },
-          "tabs": {
-            "integration": "Integration",
-            "sourceApp": "Source application"
-          },
-          "combobox": {
-            "sourceApp": "Select source application",
-            "integration": "Select integration"
-          },
-          "textField": {
-            "integrationId": {
-              "label": "Source application integration ID",
-              "placeholder": "Enter integration names, separated by commas"
-            }
-          }
-        },
-        "statusCard": {
-          "ariaLabel": "Status",
-          "title": "Status",
-          "statusOptions": {
-            "TRANSFERRED": "Transferred",
-            "TRANSFERED": "Transferred",
-            "ABORTED": "Aborted",
-            "IN_PROGRESS": "In Progress",
-            "FAILED": "Failed"
-          },
-          "associatedEventNames": {
-            "INSTANCE_DISPATCHING_ERROR": "Failed during dispatch to destination",
-            "INSTANCE_REGISTRATION_ERROR": "Failed during registration",
-            "INSTANCE_RECEIVED": "Received",
-            "INSTANCE_MANUALLY_PROCESSED": "Manually processed",
-            "INSTANCE_MAPPING_ERROR": "Failed during conversion",
-            "INSTANCE_MAPPED": "Converted",
-            "INSTANCE_MANUALLY_REJECTED": "Manually rejected",
-            "INSTANCE_READY_FOR_DISPATCH": "Ready for dispatch to destination",
-            "INSTANCE_DISPATCHED": "Dispatched to destination",
-            "INSTANCE_RECEIVAL_ERROR": "Failed during reception",
-            "INSTANCE_RETRY_REQUEST_ERROR": "Failed during retry request",
-            "INSTANCE_REQUESTED_FOR_RETRY": "Requested for retry",
-            "INSTANCE_REGISTERED": "Instance registered",
-            "INSTANCE_DELETED": "Instance deleted",
-            "INSTANCE_REGISTERED": "Instance registered",
-            "INSTANCE_DELETED": "Instance deleted",
-            "INSTANCE_REGISTERED": "Instance registered"
-
-          },
-          "description": {
-            "event": "Last event: {{value}}",
-            "status": "Status: {{value}}"
-          },
-          "tabs": {
-            "status": "Status",
-            "event": "Last event"
-          },
-          "chips": {
-            "label": "Status"
-          },
-          "combobox": {
-            "label": "Last event",
-            "allowNewValues": "Allow new values"
-          }
-        }
+  "filter": {
+    "alerts": {
+      "tableFiltered": "Table filtered",
+      "noResults": "Filters returned 0 results"
+    },
+  "loadMore": "Load More...",
+"sort": "Sorting",
+    "sortBy": "Choose sorting",
+    "options": {
+      "timestampAsc": "Timestamp ascending",
+      "timestampDesc": "Timestamp descending",
+      "sourceAppId": "Source application instance ID",
+      "destinationId": "Destination instance ID"
+    },
+    "associatedEventNames": {
+      "INSTANCE_DISPATCHING_ERROR": "Error during dispatch to destination",
+      "INSTANCE_REGISTRATION_ERROR": "Error during registration",
+      "INSTANCE_RECEIVED": "Received",
+      "INSTANCE_MANUALLY_PROCESSED": "Manually processed",
+      "INSTANCE_MAPPING_ERROR": "Error during conversion",
+      "INSTANCE_MAPPED": "Converted",
+      "INSTANCE_MANUALLY_REJECTED": "Manually rejected",
+      "INSTANCE_READY_FOR_DISPATCH": "Ready for dispatch to destination",
+      "INSTANCE_DISPATCHED": "Dispatched to destination",
+      "INSTANCE_RECEIVAL_ERROR": "Error during reception",
+      "INSTANCE_RETRY_REQUEST_ERROR": "Error during retry request",
+      "INSTANCE_REQUESTED_FOR_RETRY": "Requested for retry",
+      "INSTANCE_REGISTERED": "Instance registered",
+      "INSTANCE_DELETED": "Instance deleted"
+    },
+    "intermediateStorageStatusOptions": {
+      "STORED": "Stored",
+      "STORED_AND_DELETED": "Stored and deleted",
+      "NEVER_STORED": "Never stored"
+    },
+    "statusOptions": {
+      "TRANSFERRED": "Transferred",
+      "ABORTED": "Aborted",
+      "IN_PROGRESS": "In progress",
+      "FAILED": "Failed"
+    },
+    "timeCard": {
+      "ariaLabel": "Time period",
+      "title": "Time period",
+      "Denne dagen": "Today",
+      "Denne måneden": "This month",
+      "Denne uka": "This week",
+      "Dette året": "This year",
+      "description": {
+        "period": "Period: {{value}}",
+        "manual": "Manual: {{from}} - {{to}}",
+        "offset": "Last: {{hours}}h {{minutes}}m"
       },
+      "tabs": {
+        "offset": "Last",
+        "period": "Period",
+        "manual": "Manual"
+      },
+      "offset": {
+        "hours": "Hours",
+        "minutes": "Minutes"
+      },
+      "manual": {
+        "fromDate": "From",
+        "fromTime": "From time",
+        "toDate": "To",
+        "toTime": "To time"
+      }
+    },
+    "advancedCard": {
+      "ariaLabel": "Advanced",
+      "title": "Advanced",
+      "description": {
+        "associatedEvents": "Associated events: {{value}}",
+        "storageStatuses": "Selected intermediate storage: {{value}}"
+      },
+      "combobox": {
+        "label": "Associated event"
+      },
+      "chips": {
+        "label": "Intermediate storage"
+      }
+    },
+    "instanceCard": {
+      "ariaLabel": "Instance variant",
+      "title": "Instance",
+      "description": {
+        "source": "Source: {{value}}",
+        "destination": "Destination: {{value}}"
+      },
+      "fields": {
+        "sourceAppInstanceId": {
+          "label": "Source application instance ID",
+          "placeholder": "Enter source IDs, separated by commas"
+        },
+        "destinationId": {
+          "label": "Destination",
+          "placeholder": "Enter destination IDs, separated by commas"
+        }
+      }
+    },
+    "integrationCard": {
+      "ariaLabel": "Integration and source application",
+      "title": "Integration and source application",
+      "description": {
+        "integration": "Integration: {{value}}",
+        "sourceApplication": "Source application: {{value}}",
+        "sourceApplicationIntegration": "Source application integration: {{value}}"
+      },
+      "tabs": {
+        "integration": "Integration",
+        "sourceApp": "Source application"
+      },
+      "combobox": {
+        "sourceApp": "Select source application",
+        "integration": "Select integration"
+      },
+      "textField": {
+        "integrationId": {
+          "label": "Source application integration ID",
+          "placeholder": "Enter integration names, separated by commas"
+        }
+      }
+    },
+    "statusCard": {
+      "ariaLabel": "Status",
+      "title": "Status",
+      "description": {
+        "event": "Last event: {{value}}",
+        "status": "Status: {{value}}"
+      },
+      "tabs": {
+        "status": "Status",
+        "event": "Last event"
+      },
+      "chips": {
+        "label": "Status"
+      },
+      "combobox": {
+        "label": "Last event",
+        "allowNewValues": "Allow new values"
+      }
+    }
+  }
+,
       "table": {
         "column": {
           "sourceApplicationIntegrationId": "Source application integration Id",

@@ -69,8 +69,7 @@ const getLatestEvents = (size: number, filters?: Filters) => {
 };
 
 const getEventsByInstanceId = (
-    page: number,
-    size: number,
+    rowCount: string,
     sortProperty: string,
     sortDirection: string,
     sourceApplicationIntegrationId: string,
@@ -79,8 +78,7 @@ const getEventsByInstanceId = (
 ) => {
     return axios.get(`/api/intern/instance-flow-tracking/events`, {
         params: {
-            side: page,
-            antall: size,
+            size: rowCount,
             sorteringFelt: sortProperty,
             sorteringRetning: sortDirection,
             sourceApplicationId: kildeapplikasjonId,

@@ -1,4 +1,11 @@
-import { Chips, ExpansionCard, ToggleGroup, UNSAFE_Combobox, VStack } from '@navikt/ds-react';
+import {
+    Chips,
+    Detail,
+    ExpansionCard,
+    ToggleGroup,
+    UNSAFE_Combobox,
+    VStack,
+} from '@navikt/ds-react';
 import React, { useState } from 'react';
 import { useFilters } from './FilterContext';
 import { setArrayValue } from './util';
@@ -14,7 +21,7 @@ interface Props {
 
 export default function StatusCard(props: Props) {
     const { t } = useTranslation('translations', {
-        keyPrefix: 'pages.instances.filter.statusCard',
+        keyPrefix: 'pages.instances.filter',
     });
     const { filters, updateFilter } = useFilters();
     const [selectedTab, setSelectedTab] = useState<string>(
@@ -31,8 +38,8 @@ export default function StatusCard(props: Props) {
         }
     }
 
-    const getExpansionCardDescription = (): string => {
-        const parts: string[] = [];
+    const getExpansionCardDescription = (): React.ReactNode => {
+        const details: React.ReactNode[] = [];
 
         if ((filters.lastEvent ?? []).length > 0) {
             const eventLabels = (filters.lastEvent ?? [])
@@ -46,7 +53,11 @@ export default function StatusCard(props: Props) {
                 })
                 .join(', ');
 
-            parts.push(t('description.event', { value: eventLabels }));
+            details.push(
+                <Detail key="event">
+                    {t('statusCard.description.event', { value: eventLabels })}
+                </Detail>
+            );
         }
 
         if ((filters.statuses ?? []).length > 0) {
@@ -59,43 +70,25 @@ export default function StatusCard(props: Props) {
                 })
                 .join(', ');
 
-            parts.push(t('description.status', { value: statusLabels }));
+            details.push(
+                <Detail key="status">
+                    {t('statusCard.description.status', { value: statusLabels })}
+                </Detail>
+            );
         }
 
-        return parts.join(' | ');
+        return details.length > 0 ? <>{details}</> : null; // ✅ Returns JSX elements or null
     };
-
-    // const getExpansionCardDescription = (): string => {
-    //     const parts: string[] = [];
-    //
-    //     if ((filters.lastEvent ?? []).length > 0) {
-    //         const eventLabels = getLabelsByIds(filters.lastEvent, props.associatedEventNamesOptions)
-    //             .map((label) => t(`associatedEventNames.${label}`, label))
-    //             .join(', ');
-    //
-    //         parts.push(t('description.event', { value: eventLabels }));
-    //     }
-    //
-    //     if ((filters.statuses ?? []).length > 0) {
-    //         const statusLabels = getLabelsByIds(filters.statuses, props.statusesOptions)
-    //             .map((label) => t(`statusOptions.${label}`, label))
-    //             .join(', ');
-    //         console.log('LABEL', t(`statusOptions.TRANSFERED`));
-    //         parts.push(t('description.status', { value: statusLabels }));
-    //     }
-    //
-    //     return parts.join(' | ');
-    // };
 
     return (
         <ExpansionCard
             size="small"
-            aria-label={t('ariaLabel') || 'default label'}
+            aria-label={t('statusCard.ariaLabel') || ''}
             open={props.isOpen}
             onToggle={() => props.toggleOpen(props.id)}>
             <ExpansionCard.Header>
                 <ExpansionCard.Title as="h4" size="small">
-                    {t('title')}
+                    {t('statusCard.title')}
                 </ExpansionCard.Title>
                 <ExpansionCard.Description>
                     {getExpansionCardDescription()}
@@ -104,8 +97,8 @@ export default function StatusCard(props: Props) {
             <ExpansionCard.Content>
                 <VStack gap="8">
                     <ToggleGroup value={selectedTab} onChange={handleTabChange} fill>
-                        <ToggleGroup.Item value="status" label={t('tabs.status')} />
-                        <ToggleGroup.Item value="event" label={t('tabs.event')} />
+                        <ToggleGroup.Item value="status" label={t('statusCard.tabs.status')} />
+                        <ToggleGroup.Item value="event" label={t('statusCard.tabs.event')} />
                     </ToggleGroup>
 
                     {selectedTab === 'status' && (
@@ -134,7 +127,7 @@ export default function StatusCard(props: Props) {
                     {selectedTab === 'event' && (
                         <UNSAFE_Combobox
                             allowNewValues
-                            label={t('combobox.label')} // Translate the label
+                            label={t('statusCard.combobox.label')} // Translate the label
                             options={props.associatedEventNamesOptions.map((option) => ({
                                 label: t(`associatedEventNames.${option.value}`),
                                 value: option.value,

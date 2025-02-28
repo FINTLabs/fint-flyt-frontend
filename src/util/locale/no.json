@@ -211,6 +211,12 @@
         "clear": "Tilbakestill"
       },
       "filter": {
+        "alerts": {
+          "tableFiltered": "Tabellen er filtrert",
+          "noResults": "Filtrene returnerte 0 resultater"
+        },
+        "loadMore": "Last inn mer...",
+
         "sort": "Sortering",
         "sortBy": "Velg sortering",
         "options": {
@@ -218,6 +224,33 @@
           "timestampDesc": "Tidspunkt synkende",
           "sourceAppId": "Kildeapplikasjons instans-ID",
           "destinationId": "Destinasjons instans-ID"
+        },
+        "associatedEventNames": {
+          "INSTANCE_DISPATCHING_ERROR": "Feil under sending til destinasjon",
+          "INSTANCE_REGISTRATION_ERROR": "Feil under registrering",
+          "INSTANCE_RECEIVED": "Mottatt",
+          "INSTANCE_MANUALLY_PROCESSED": "Manuelt behandlet",
+          "INSTANCE_MAPPING_ERROR": "Feil under konvertering",
+          "INSTANCE_MAPPED": "Konvertert",
+          "INSTANCE_MANUALLY_REJECTED": "Manuelt avvist",
+          "INSTANCE_READY_FOR_DISPATCH": "Klar for sending til destinasjon",
+          "INSTANCE_DISPATCHED": "Sendt til destinasjon",
+          "INSTANCE_RECEIVAL_ERROR": "Feil under mottak",
+          "INSTANCE_RETRY_REQUEST_ERROR": "Feil under forespørsel om nytt forsøk",
+          "INSTANCE_REQUESTED_FOR_RETRY": "Forespurt om nytt forsøk",
+          "INSTANCE_REGISTERED": "Instans registrert",
+          "INSTANCE_DELETED": "Instans slettet"
+        },
+        "intermediateStorageStatusOptions": {
+          "STORED": "Lagret",
+          "STORED_AND_DELETED": "Lagret og slettet",
+          "NEVER_STORED": "Aldri lagret"
+        },
+        "statusOptions": {
+          "TRANSFERRED": "Overført",
+          "ABORTED": "Avbrutt",
+          "IN_PROGRESS": "Pågår",
+          "FAILED": "Feilet"
         },
         "timeCard": {
           "ariaLabel": "Tidsperiode",
@@ -259,33 +292,6 @@
           },
           "chips": {
             "label": "Mellomlagring"
-          },
-          "statusOptions": {
-            "TRANSFERRED": "Overført",
-            "ABORTED": "Avbrutt",
-            "IN_PROGRESS": "Pågår",
-            "FAILED": "Feilet",
-            "INSTANCE_REGISTERED": "Instans registrert",
-            "INSTANCE_DELETED": "Instans slettet",
-            "STORED": "Lagret",
-            "STORED_AND_DELETED": "Lagret og slettet",
-            "NEVER_STORED": "Aldri lagret"
-          },
-          "associatedEventNames": {
-            "INSTANCE_DISPATCHING_ERROR": "Feil under sending til destinasjon",
-            "INSTANCE_REGISTRATION_ERROR": "Feil under registrering",
-            "INSTANCE_RECEIVED": "Mottatt",
-            "INSTANCE_MANUALLY_PROCESSED": "Manuelt behandlet",
-            "INSTANCE_MAPPING_ERROR": "Feil under konvertering",
-            "INSTANCE_MAPPED": "Konvertert",
-            "INSTANCE_MANUALLY_REJECTED": "Manuelt avvist",
-            "INSTANCE_READY_FOR_DISPATCH": "Klar for sending til destinasjon",
-            "INSTANCE_DISPATCHED": "Sendt til destinasjon",
-            "INSTANCE_RECEIVAL_ERROR": "Feil under mottak",
-            "INSTANCE_RETRY_REQUEST_ERROR": "Feil under forespørsel om nytt forsøk",
-            "INSTANCE_REQUESTED_FOR_RETRY": "Forespurt om nytt forsøk",
-            "INSTANCE_REGISTERED": "Instans registrert",
-            "INSTANCE_DELETED": "Instans slettet"
           }
         },
         "instanceCard": {
@@ -311,7 +317,8 @@
           "title": "Integrasjon og kildeapplikasjon",
           "description": {
             "integration": "Integrasjon: {{value}}",
-            "sourceApplication": "Kildeapplikasjon: {{value}}"
+            "sourceApplication": "Kildeapplikasjon: {{value}}",
+            "sourceApplicationIntegration": "Kildeapplikasjon integrasjons: {{value}}"
           },
           "tabs": {
             "integration": "Integrasjon",
@@ -345,29 +352,6 @@
           "combobox": {
             "label": "Siste hendelse",
             "allowNewValues": "Tillat nye verdier"
-          },
-          "statusOptions": {
-            "TRANSFERRED": "Overført",
-            "TRANSFERED": "Overført",
-            "ABORTED": "Avbrutt",
-            "IN_PROGRESS": "Pågår",
-            "FAILED": "Feilet"
-          },
-          "associatedEventNames": {
-            "INSTANCE_DISPATCHING_ERROR": "Feil under sending til destinasjon",
-            "INSTANCE_REGISTRATION_ERROR": "Feil under registrering",
-            "INSTANCE_RECEIVED": "Mottatt",
-            "INSTANCE_MANUALLY_PROCESSED": "Manuelt behandlet",
-            "INSTANCE_MAPPING_ERROR": "Feil under konvertering",
-            "INSTANCE_MAPPED": "Konvertert",
-            "INSTANCE_MANUALLY_REJECTED": "Manuelt avvist",
-            "INSTANCE_READY_FOR_DISPATCH": "Klar for sending til destinasjon",
-            "INSTANCE_DISPATCHED": "Sendt til destinasjon",
-            "INSTANCE_RECEIVAL_ERROR": "Feil under mottak",
-            "INSTANCE_RETRY_REQUEST_ERROR": "Feil under forespørsel om nytt forsøk",
-            "INSTANCE_REQUESTED_FOR_RETRY": "Forespurt om nytt forsøk",
-            "INSTANCE_REGISTERED": "Instans registrert",
-            "INSTANCE_DELETED": "Instans slettet"
           }
         }
       },
@@ -423,24 +407,7 @@
       "instance-registration-error": "Feilet under registrering av instans",
       "instance-retry-request-error": "Feilet under forespørsel for nytt forsøk",
       "instance-mapping-error": "Feilet under konvertering av instans",
-      "instance-dispatching-error": "Feilet under sending til destinasjon",
-      "instance-file-upload-error": "Feilet under opplasting av fil",
-      "INSTANCE_REGISTERED": "Instans mellomlagret",
-      "INSTANCE_REQUESTED_FOR_RETRY": "Instans forespurt for nytt forsøk",
-      "INSTANCE_MAPPED": "Instans konvertert",
-      "INSTANCE_READY_FOR_DISPATCH": "Instans klar for sending til destinasjon",
-      "INSTANCE_DISPATCHED": "Instans godtatt av destinasjon",
-      "INSTANCE_DELETED": "Mellomlagring av instans slettet",
-      "INSTANCE_MANUALLY_PROCESSED": "Instans manuelt behandlet og opprettet i destinasjon",
-      "INSTANCE_MANUALLY_REJECTED": "Instans manuelt behandlet og avvist",
-      "INSTANCE_RECEIVAL_ERROR": "Feilet under mottak av instans",
-      "INSTANCE_REGISTRATION_ERROR": "Feilet under registrering av instans",
-      "INSTANCE_RETRY_REQUEST_ERROR": "Feilet under forespørsel for nytt forsøk",
-      "INSTANCE_MAPPING_ERROR": "Feilet under konvertering av instans",
-      "INSTANCE_DISPATCHING_ERROR": "Feilet under sending til destinasjon",
-      "INSTANCE_FILE_UPLOAD_ERROR": "Feilet under opplasting av fil",
-      "TRANSFERRED": "Missing translation:",
-      "STORED_AND_DELETED": "Missing translation:"
+      "instance-dispatching-error": "Feilet under sending til destinasjon"
     },
     "support": {
       "header": "Hjelp og support",
