@@ -223,8 +223,8 @@
 "sort": "Sorting",
     "sortBy": "Choose sorting",
     "options": {
-      "timestampAsc": "Timestamp ascending",
-      "timestampDesc": "Timestamp descending",
+      "timestampAsc": "Latest update ascending",
+      "timestampDesc": "Latest update descending",
       "sourceAppId": "Source application instance ID",
       "destinationId": "Destination instance ID"
     },

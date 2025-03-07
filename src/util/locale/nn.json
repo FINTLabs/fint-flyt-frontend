@@ -217,8 +217,8 @@
     "sort": "Sortering",
     "sortBy": "Vel sortering",
     "options": {
-      "timestampAsc": "Tidspunkt stigande",
-      "timestampDesc": "Tidspunkt fallande",
+      "timestampAsc": "Siste oppdatering stigande",
+      "timestampDesc": "Siste oppdatering fallande",
       "sourceAppId": "Kjeldeapplikasjon instans-ID",
       "destinationId": "Destinasjon instans-ID"
     },

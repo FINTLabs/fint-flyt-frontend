@@ -220,8 +220,8 @@
         "sort": "Sortering",
         "sortBy": "Velg sortering",
         "options": {
-          "timestampAsc": "Tidspunkt stigende",
-          "timestampDesc": "Tidspunkt synkende",
+          "timestampAsc": "Siste oppdatering stigende",
+          "timestampDesc": "Siste oppdatering synkende",
           "sourceAppId": "Kildeapplikasjons instans-ID",
           "destinationId": "Destinasjons instans-ID"
         },

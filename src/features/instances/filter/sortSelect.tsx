@@ -15,10 +15,10 @@ export default function SortSelect() {
             <option>{t('filter.sortBy')}</option>
             <option value="timestamp,asc">{t('filter.options.timestampAsc')}</option>
             <option value="timestamp,desc">{t('filter.options.timestampDesc')}</option>
-            <option value="sourceApplicationInstanceId,desc">
-                {t('filter.options.sourceAppId')}
-            </option>
-            <option value="destinationId,desc">{t('filter.options.destinationId')}</option>
+            {/*<option value="sourceApplicationInstanceId,desc">*/}
+            {/*    {t('filter.options.sourceAppId')}*/}
+            {/*</option>*/}
+            {/*<option value="destinationId,desc">{t('filter.options.destinationId')}</option>*/}
         </Select>
     );
 }
