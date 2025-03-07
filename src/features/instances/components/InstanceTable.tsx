@@ -2,13 +2,13 @@ import { GridCellParams } from '@mui/x-data-grid';
 import * as React from 'react';
 import { ReactElement, useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Alert, Box, Button, Dropdown, HStack, Loader, Table } from '@navikt/ds-react';
+import { Alert, Box, Button, Dropdown, HStack, Link, Loader, Table } from '@navikt/ds-react';
 import moment from 'moment';
 import { getSourceApplicationDisplayNameById } from '../../../util/TableUtil';
 import { IEventNew, ISummary } from '../types/Event';
 import ErrorDialogComponent from './ErrorDialogComponent';
 import InstancePanel from './InstancePanel';
-import { GetIcon } from '../util/InstanceUtils';
+import { GetIconTable } from '../util/InstanceUtils';
 import InstanceRepository from '../repository/InstanceRepository';
 import { IIntegrationMetadata } from '../../configuration/types/Metadata/IntegrationMetadata';
 import { SourceApplicationContext } from '../../../context/SourceApplicationContext';
@@ -53,10 +53,12 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
     const { filters, refreshKey } = useFilters();
     const [loading, setLoading] = useState(true);
     const [hasFilters, setHasFilters] = useState(false);
+    const [expandedRows, setExpandedRows] = useState<number[]>([]);
 
     useEffect(() => {
         setLoading(true);
         setHasFilters(false);
+        setExpandedRows([]);
         if (instancesPage?.totalElements && instancesPage.totalElements < Number(rowCount)) {
             setPage(1);
         }
@@ -128,8 +130,6 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                 console.error(e);
             });
     };
-
-    const [expandedRows, setExpandedRows] = useState<number[]>([]);
 
     const handleToggle = (index: number) => {
         setExpandedRows((prev) =>
@@ -216,23 +216,23 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                                         {moment(value.latestUpdate).format('DD/MM/YY HH:mm')}
                                     </Table.DataCell>
                                     <Table.DataCell>
-                                        {GetIcon(value.status)}
+                                        {GetIconTable(value.status)}
 
                                         {value.status
                                             ? t(`filter.statusOptions.${value.status.trim()}`)
                                             : null}
                                         {/*TODO: BACKEND send in last error from backend ? */}
-                                        {/*{t(value.status)}*/}
-                                        {/*{value.status === 'ERROR' && value.errors.length > 0 && (*/}
-                                        {/*    <Link*/}
-                                        {/*        style={{ cursor: 'pointer' }}*/}
-                                        {/*        onClick={() => {*/}
-                                        {/*            setSelectedRow(value);*/}
-                                        {/*            setOpenErrorDialog(true);*/}
-                                        {/*        }}>*/}
-                                        {/*        {t('showError')}*/}
-                                        {/*    </Link>*/}
-                                        {/*)}*/}
+
+                                        {value.status === 'ERROR' && value.errors.length > 0 && (
+                                            <Link
+                                                style={{ cursor: 'pointer' }}
+                                                onClick={() => {
+                                                    setSelectedRow(value);
+                                                    setOpenErrorDialog(true);
+                                                }}>
+                                                {t('showError')}
+                                            </Link>
+                                        )}
                                     </Table.DataCell>
                                     <Table.DataCell>
                                         {value.intermediateStorageStatus
@@ -289,22 +289,31 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                     />
                     <Dropdown.Menu>
                         <Dropdown.Menu.List>
-                            <Dropdown.Menu.List.Item
-                                id={'retryButton'}
-                                disabled={
-                                    errorsNotForRetry.includes(event.displayName ?? '') ||
-                                    disabledRetryButtons[id]
-                                }
-                                onClick={() => {
-                                    resend(event.sourceApplicationInstanceId);
-                                    handleRetryButtonClick(id);
-                                }}>
-                                {t('retry')}
-                            </Dropdown.Menu.List.Item>
+                            {event.intermediateStorageStatus === 'FAILED' &&
+                                event.latestInstanceId && (
+                                    <>
+                                        <Dropdown.Menu.List.Item
+                                            id="retryButton"
+                                            disabled={
+                                                errorsNotForRetry.includes(
+                                                    event.displayName ?? ''
+                                                ) || disabledRetryButtons[id]
+                                            }
+                                            onClick={() => {
+                                                if (event.latestInstanceId) {
+                                                    resend(event.latestInstanceId);
+                                                    handleRetryButtonClick(id);
+                                                }
+                                            }}>
+                                            {t('retry')}
+                                        </Dropdown.Menu.List.Item>
+                                        <Dropdown.Menu.Divider />
+                                    </>
+                                )}
                         </Dropdown.Menu.List>
+
                         {event.intermediateStorageStatus === 'STORED' && (
                             <>
-                                <Dropdown.Menu.Divider />
                                 <Dropdown.Menu.List>
                                     <Dropdown.Menu.List.Item
                                         id={'statusButton'}

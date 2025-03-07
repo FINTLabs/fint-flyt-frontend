@@ -84,6 +84,7 @@ export interface ISummary {
     intermediateStorageStatus: string;
     destinationId: string;
     displayName?: string;
+    errors: IError[];
 }
 
 export interface IEventNew {
@@ -96,6 +97,8 @@ export interface IEventNew {
     intermediateStorageStatus: string;
     destinationId?: string | null;
     displayName?: string;
+    latestDestinationId?: string;
+    latestInstanceId?: string;
 }
 
 export interface IInstanceFlowTrackingResponse {

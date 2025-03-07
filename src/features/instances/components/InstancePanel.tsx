@@ -22,20 +22,20 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.instances' });
     const [selectedRow, setSelectedRow] = useState<IInstanceFlowTracking>();
     const [openErrorDialog, setOpenErrorDialog] = React.useState(false);
-    const [page, setPage] = useState(1);
+    // const [page, setPage] = useState(1);
     const [selectedInstances, setSelectedInstances] = useState<IInstanceFlowTrackingResponse>();
-    const rowsPerPage = 10;
+    // const rowsPerPage = 10;
     const [rowCount, setRowCount] = useState<string>('10');
 
     useEffect(() => {
         // setSelectedInstances({ content: [] });
 
-        if (
-            selectedInstances?.totalElements &&
-            selectedInstances.totalElements < Number(rowCount)
-        ) {
-            setPage(1);
-        }
+        // if (
+        //     selectedInstances?.totalElements &&
+        //     selectedInstances.totalElements < Number(rowCount)
+        // ) {
+        //     setPage(1);
+        // }
         getSelectedInstances(
             rowCount,
             'timestamp',
@@ -114,8 +114,10 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
                                                 {moment(value.timestamp).format('DD/MM/YY HH:mm')}
                                             </Table.DataCell>
                                             <Table.DataCell>
-                                                {GetIcon(value.type)}
-                                                {t(`filter.associatedEventNames.${value.category}`)}
+                                                {GetIcon(value.category)}
+                                                {t(
+                                                    `filter.associatedEventNames.${value.category}`
+                                                )}{' '}
                                                 {value.type === 'ERROR' && (
                                                     <Link
                                                         style={{ cursor: 'pointer' }}
