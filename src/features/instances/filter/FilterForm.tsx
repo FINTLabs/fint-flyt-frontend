@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Button, HStack, VStack } from '@navikt/ds-react';
-import SortSelect from './sortSelect';
+// import SortSelect from './sortSelect';
 import TimeCard from './timeCard';
 import IntegrationCard from './integrationCard';
 import InstanceCard from './instanceCard';
@@ -89,7 +89,7 @@ const FilterForm: React.FC<FilterFormProps> = ({ allMetaData }) => {
     return (
         <Box minWidth={'300px'} className={'p-20'} data-testid="filters-form">
             <VStack gap="4">
-                <SortSelect />
+                {/*<SortSelect />*/}
 
                 {/* Single Selection (Radio) */}
                 <TimeCard
