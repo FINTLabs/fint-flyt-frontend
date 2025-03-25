@@ -71,14 +71,16 @@ describe('Testing fill new configuration', () => {
         cy.get(`${newCaseFields}\\.saksansvarlig\\.mappingString-option-10`).click()
         cy.get(`${newCaseFields}\\.saksstatus\\.mappingString`).click()
         cy.get(`${newCaseFields}\\.saksstatus\\.mappingString-option-5`).click()
-        cy.get('#toggle-button-Klassering-9 > .navds-stack > .MuiButtonBase-root').click()
+        cy.get(`${newCaseFields}\\.tilgangsgruppe\\.mappingString`).click()
+        cy.get(`${newCaseFields}\\.tilgangsgruppe\\.mappingString-option-1`).click()
+        cy.contains('button', 'Klassering').click();
         cy.get('#list-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.klasse\\.elementMappings > #add-icon').click()
         cy.get(`${newCaseClassificationFields}\\.rekkefolge\\.mappingString`).type('0')
         cy.get(`${newCaseClassificationFields}\\.klassifikasjonssystem\\.mappingString`).click()
         cy.get(`${newCaseClassificationFields}\\.klassifikasjonssystem\\.mappingString-option-2`).click()
         cy.get(`${newCaseClassificationFields}\\.klasseId\\.mappingString`).click()
         cy.get(`${newCaseClassificationFields}\\.klasseId\\.mappingString-option-3`).click()
-        cy.get('#toggle-button-Journalposter-10 > .navds-stack > .MuiButtonBase-root').click()
+        cy.contains('button', 'Journalposter').click();
         cy.get('#list-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings > #add-icon').click()
         cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.valueMappingPerKey\\.tittel\\.mappingString > .MuiFormControl-root > .MuiInputBase-root').type('journalpost tittel')
         cy.get(`${recordFields}\\.journalposttype\\.mappingString`).click()
@@ -89,8 +91,10 @@ describe('Testing fill new configuration', () => {
         cy.get(`${recordFields}\\.saksbehandler\\.mappingString-option-10`).click()
         cy.get(`${recordFields}\\.journalstatus\\.mappingString`).click()
         cy.get(`${recordFields}\\.journalstatus\\.mappingString-option-9`).click()
+        cy.get(`${recordFields}\\.tilgangsgruppe\\.mappingString`).click()
+        cy.get(`${recordFields}\\.tilgangsgruppe\\.mappingString-option-1`).click()
 
-        cy.get('#toggle-button-Korrespondanseparter-7 > .navds-stack > .MuiButtonBase-root').click()
+        cy.contains('button', 'Korrespondanseparter').click();
         cy.get('#list-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.korrespondansepart\\.fromCollectionMappings > #add-icon').click()
         cy.get('#selectable-value-mapping-wrapper-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.korrespondansepart\\.fromCollectionMappings\\.0 > .MuiButtonBase-root').click()
         cy.get('#list-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.korrespondansepart\\.fromCollectionMappings\\.0\\.instanceCollectionReferencesOrdered > #add-icon').click()
@@ -114,7 +118,7 @@ describe('Testing fill new configuration', () => {
         })
         cy.get('#selectable-value-mapping-wrapper-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.korrespondansepart\\.fromCollectionMappings\\.0 > .MuiButtonBase-root').click()
 
-        cy.get('#toggle-button-Dokumentbeskrivelser-8 > .navds-stack > .MuiButtonBase-root').click()
+        cy.contains('button', 'Dokumentbeskrivelser').click();
         cy.get('#list-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.dokumentbeskrivelse\\.elementMappings > #add-icon').click()
         cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.dokumentbeskrivelse\\.elementMappings\\.0\\.valueMappingPerKey\\.tittel\\.mappingString > .MuiFormControl-root > .MuiInputBase-root').type("tittel");
         cy.get('#mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.dokumentbeskrivelse\\.elementMappings\\.0\\.valueMappingPerKey\\.dokumentstatus\\.mappingString').click()
