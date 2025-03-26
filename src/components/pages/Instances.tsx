@@ -81,19 +81,20 @@ const Instances: RouteComponent = () => {
                             id="filter-container"
                             background="surface-default"
                             padding="6"
+                            paddingBlock="10"
                             borderRadius="large"
                             borderWidth="2"
                             borderColor="border-subtle"
                             position="relative">
-                            {/* Close Button */}
                             <Button
                                 variant="tertiary"
                                 size="small"
                                 icon={<ChevronLeftDoubleCircleIcon aria-hidden />}
                                 onClick={() => setShowFilters(false)}
-                                style={{ position: 'absolute', top: '10px', right: '10px' }}>
+                                style={{ position: 'absolute', top: '5px', right: '10px' }}>
                                 Lukk
                             </Button>
+
                             {allMetadata && <Filters allMetaData={allMetadata} />}
                         </Box>
                     )}
