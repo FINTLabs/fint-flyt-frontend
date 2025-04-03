@@ -83,9 +83,6 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
             );
 
             const events: ISummary[] = eventResponse.data;
-            console.log('meta data:', allMetadata);
-            console.log('Event: ', events);
-
             if (allMetadata && events) {
                 allMetadata.forEach((value: IIntegrationMetadata) => {
                     console.log('DATA:', eventResponse.data);

@@ -68,6 +68,10 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
             // const events: Page<IEvent> = eventResponse.data;
             const events = eventResponse.data;
             if (events) {
+                events.content.sort(
+                    (a: IInstanceFlowTracking, b: IInstanceFlowTracking) =>
+                        new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+                );
                 setSelectedInstances(events);
             } else {
                 props.onError({ message: t('errorMessage') });
