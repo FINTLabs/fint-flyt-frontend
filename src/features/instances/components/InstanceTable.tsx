@@ -34,7 +34,8 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
     //     direction: 'descending',
     // });
     const errorsNotForRetry: string[] = ['instance-receival-error', 'instance-registration-error'];
-    const [instancesPage, setInstancesPage] = useState<Page<ISummary>>();
+    // const [instancesPage, setInstancesPage] = useState<Page<ISummary>>();
+    const [summaryList, setSummaryList] = useState<ISummary[]>();
     const [rowCount, setRowCount] = useState<string>('10');
     const selectOptions = [
         { value: '', label: t('numberPerPage'), disabled: true },
@@ -59,10 +60,10 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
         setLoading(true);
         setHasFilters(false);
         setExpandedRows([]);
-        if (instancesPage?.totalElements && instancesPage.totalElements < Number(rowCount)) {
-            setPage(1);
-        }
-        setInstancesPage({ content: [] });
+        // if (summaryList?.length && summaryList.length < Number(rowCount)) {
+        //     setPage(1);
+        // }
+        // setSummaryList([]);
         getLatestInstances(rowCount);
     }, [page, setPage, rowCount, refreshKey]);
 
@@ -81,11 +82,14 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                 filters
             );
 
-            const events: Page<ISummary> = eventResponse.data;
+            const events: ISummary[] = eventResponse.data;
+            console.log('meta data:', allMetadata);
+            console.log('Event: ', events);
 
             if (allMetadata && events) {
                 allMetadata.forEach((value: IIntegrationMetadata) => {
-                    eventResponse.data.content.forEach((event: ISummary) => {
+                    console.log('DATA:', eventResponse.data);
+                    eventResponse.data.forEach((event: ISummary) => {
                         if (
                             event.sourceApplicationIntegrationId ===
                             value.sourceApplicationIntegrationId
@@ -95,11 +99,11 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                     });
                 });
 
-                setInstancesPage(events);
+                setSummaryList(events);
             } else {
                 // onError({ message: t('errorMessage') });
-                onError({ message: events.content.toString() });
-                setInstancesPage({ content: [] });
+                // onError({ message: events.content.toString() });
+                setSummaryList([]);
             }
         } catch (e: any) {
             // onError({ message: t('errorMessage') });
@@ -109,7 +113,7 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
             } else {
                 onError({ message: e.message || 'An unexpected error occurred' });
             }
-            setInstancesPage({ content: [] });
+            setSummaryList([]);
             console.error('Error: ', e);
         } finally {
             setLoading(false);
@@ -139,12 +143,12 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
 
     return loading ? (
         <Loader size="large" />
-    ) : instancesPage ? (
+    ) : summaryList ? (
         <Box>
             <Box background={'surface-default'} style={{ minHeight: '70vh' }}>
                 <ErrorAlertDialog row={selectedRow} />
                 <CustomStatusDialog row={selectedRow} />
-                {instancesPage?.content?.length === 0 ? (
+                {summaryList?.length === 0 ? (
                     <Alert variant="info">{t('filter.alerts.noResults')}</Alert>
                 ) : hasFilters ? (
                     <Alert variant="info">{t('filter.alerts.tableFiltered')}</Alert>
@@ -179,7 +183,7 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                        {instancesPage?.content?.map((value, i) => {
+                        {summaryList?.map((value: IEventNew, i: number) => {
                             return (
                                 <Table.ExpandableRow
                                     key={i}
@@ -216,23 +220,24 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                                         {moment(value.latestUpdate).format('DD/MM/YY HH:mm')}
                                     </Table.DataCell>
                                     <Table.DataCell>
-                                        {GetIconTable(value.status)}
+                                        {t(value.status)}
+                                        {/*{GetIconTable(value.status)}*/}
 
-                                        {value.status
-                                            ? t(`filter.statusOptions.${value.status.trim()}`)
-                                            : null}
-                                        {/*TODO: BACKEND send in last error from backend ? */}
+                                        {/*{value.status*/}
+                                        {/*    ? t(`filter.statusOptions.${value.status.trim()}`)*/}
+                                        {/*    : null}*/}
+                                        {/*/!*TODO: BACKEND send in last error from backend ? *!/*/}
 
-                                        {value.status === 'ERROR' && value.errors.length > 0 && (
-                                            <Link
-                                                style={{ cursor: 'pointer' }}
-                                                onClick={() => {
-                                                    setSelectedRow(value);
-                                                    setOpenErrorDialog(true);
-                                                }}>
-                                                {t('showError')}
-                                            </Link>
-                                        )}
+                                        {/*{value.status === 'ERROR' && value.errors.length > 0 && (*/}
+                                        {/*    <Link*/}
+                                        {/*        style={{ cursor: 'pointer' }}*/}
+                                        {/*        onClick={() => {*/}
+                                        {/*            setSelectedRow(value);*/}
+                                        {/*            setOpenErrorDialog(true);*/}
+                                        {/*        }}>*/}
+                                        {/*        {t('showError')}*/}
+                                        {/*    </Link>*/}
+                                        {/*)}*/}
                                     </Table.DataCell>
                                     <Table.DataCell>
                                         {value.intermediateStorageStatus
@@ -254,7 +259,7 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
             </Box>
 
             <HStack justify={'center'} style={{ marginTop: '16px' }} gap={'10'}>
-                {instancesPage.numberOfElements && !(instancesPage.numberOfElements < 10) && (
+                {summaryList.length && !(summaryList.length < 10) && (
                     <CustomSelect
                         options={selectOptions}
                         onChange={setRowCount}
@@ -263,7 +268,7 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                         default={rowCount}
                     />
                 )}
-                {!instancesPage?.last && (
+                {summaryList.length && !(summaryList.length < 10) && (
                     <>
                         <Button
                             variant="secondary"

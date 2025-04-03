@@ -82,9 +82,9 @@ export interface ISummary {
     latestUpdate: string;
     status: string;
     intermediateStorageStatus: string;
-    destinationId: string;
+    latestDestinationId: string;
     displayName?: string;
-    errors: IError[];
+    // errors: IError[];
 }
 
 export interface IEventNew {

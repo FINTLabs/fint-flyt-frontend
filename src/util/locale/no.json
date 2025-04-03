@@ -203,6 +203,8 @@
       },
       "STORED": "Lagret",
       "IN_PROGRESS": "Pågår",
+      "TRANSFERRED": "Overført",
+      "FAILED": "Feilet",
       "button": {
         "close": "Lukk",
         "save": "Lagre",
