@@ -1,4 +1,4 @@
-import { Detail, ExpansionCard, ToggleGroup, UNSAFE_Combobox, VStack } from '@navikt/ds-react';
+import { ExpansionCard, ToggleGroup, UNSAFE_Combobox, VStack } from '@navikt/ds-react';
 import React, { useEffect, useState } from 'react';
 import { useFilters } from './FilterContext';
 import { getLabelsByIds, setArrayValue } from './util';
@@ -43,44 +43,32 @@ export default function IntegrationCard(props: Props) {
         }
     }
 
-    const getExpansionCardDescription = (): React.ReactNode => {
-        const parts: React.ReactNode[] = [];
+    const getExpansionCardDescription = (): string => {
+        const parts: string[] = [];
 
         if (integrationInput.length > 0) {
-            parts.push(
-                <Detail key="integration">
-                    {t('description.integration', { value: integrationInput })}
-                </Detail>
-            );
+            parts.push(t('description.integration', { value: integrationInput }));
         }
 
         if ((filters.sourceApplicationIds ?? []).length > 0) {
-            parts.push(
-                <Detail key="sourceApplication">
-                    {t('description.sourceApplication', {
-                        value: getLabelsByIds(
-                            filters.sourceApplicationIds,
-                            props.sourceApplicationIdsOptions
-                        ).join(', '),
-                    })}
-                </Detail>
-            );
+            const sourceAppLabels = getLabelsByIds(
+                filters.sourceApplicationIds,
+                props.sourceApplicationIdsOptions
+            ).join(', ');
+
+            parts.push(t('description.sourceApplication', { value: sourceAppLabels }));
         }
 
         if ((filters.sourceApplicationIntegrationIds ?? []).length > 0) {
-            parts.push(
-                <Detail key="sourceApplicationIntegration">
-                    {t('description.sourceApplicationIntegration', {
-                        value: getLabelsByIds(
-                            filters.sourceApplicationIntegrationIds,
-                            props.sourceApplicationIntegrationOptions
-                        ).join(', '),
-                    })}
-                </Detail>
-            );
+            const integrationLabels = getLabelsByIds(
+                filters.sourceApplicationIntegrationIds,
+                props.sourceApplicationIntegrationOptions
+            ).join(', ');
+
+            parts.push(t('description.sourceApplicationIntegration', { value: integrationLabels }));
         }
 
-        return parts.length > 0 ? <>{parts}</> : null;
+        return parts.join(', ');
     };
 
     return (
@@ -145,16 +133,6 @@ export default function IntegrationCard(props: Props) {
                         </>
                     )}
                     {selectedTab === 'integration' && (
-                        // <TextField
-                        //     label={t('combobox.integration')}
-                        //     size="small"
-                        //     value={integrationInput}
-                        //     onChange={handleIntegrationChange}
-                        //     onBlur={handleIntegrationBlur}
-                        //     onKeyDown={(e) => e.key === 'Enter' && handleIntegrationBlur()}
-                        //     placeholder={t('textField.integrationId.placeholder')}
-                        // />
-                        // TODO: Backend - what should be the label here??
                         <UNSAFE_Combobox
                             label={t('combobox.integration')}
                             options={props.integrationOptions}

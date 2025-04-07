@@ -2,18 +2,17 @@ import { GridCellParams } from '@mui/x-data-grid';
 import * as React from 'react';
 import { ReactElement, useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Alert, Box, Button, Dropdown, HStack, Link, Loader, Table } from '@navikt/ds-react';
+import { Alert, Box, Button, Dropdown, HStack, Loader, Table } from '@navikt/ds-react';
 import moment from 'moment';
 import { getSourceApplicationDisplayNameById } from '../../../util/TableUtil';
 import { IEventNew, ISummary } from '../types/Event';
-import ErrorDialogComponent from './ErrorDialogComponent';
 import InstancePanel from './InstancePanel';
 import { GetIconTable } from '../util/InstanceUtils';
 import InstanceRepository from '../repository/InstanceRepository';
 import { IIntegrationMetadata } from '../../configuration/types/Metadata/IntegrationMetadata';
 import { SourceApplicationContext } from '../../../context/SourceApplicationContext';
 import { CustomSelect } from '../../../components/organisms/CustomSelect';
-import { IAlertMessage, Page } from '../../../components/types/TableTypes';
+import { IAlertMessage } from '../../../components/types/TableTypes';
 import { MenuElipsisVerticalCircleIcon } from '@navikt/aksel-icons';
 import CustomStatusDialogComponent from './CustomStatusDialogComponent';
 import { useFilters } from '../filter/FilterContext';
@@ -26,7 +25,7 @@ interface Props {
 const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.instances' });
     const [selectedRow, setSelectedRow] = useState<IEventNew>();
-    const [openErrorDialog, setOpenErrorDialog] = React.useState(false);
+    // const [openErrorDialog, setOpenErrorDialog] = React.useState(false);
     const [openCustomDialog, setOpenCustomDialog] = React.useState(false);
     const [page, setPage] = useState(1);
     // const [sort, setSort] = useState<SortState | undefined>({
@@ -85,7 +84,6 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
             const events: ISummary[] = eventResponse.data;
             if (allMetadata && events) {
                 allMetadata.forEach((value: IIntegrationMetadata) => {
-                    console.log('DATA:', eventResponse.data);
                     eventResponse.data.forEach((event: ISummary) => {
                         if (
                             event.sourceApplicationIntegrationId ===
@@ -143,7 +141,7 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
     ) : summaryList ? (
         <Box>
             <Box background={'surface-default'} style={{ minHeight: '70vh' }}>
-                <ErrorAlertDialog row={selectedRow} />
+                {/*<ErrorAlertDialog row={selectedRow} />*/}
                 <CustomStatusDialog row={selectedRow} />
                 {summaryList?.length === 0 ? (
                     <Alert variant="info">{t('filter.alerts.noResults')}</Alert>
@@ -217,29 +215,13 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                                         {moment(value.latestUpdate).format('DD/MM/YY HH:mm')}
                                     </Table.DataCell>
                                     <Table.DataCell>
+                                        {GetIconTable(value.status)}
                                         {t(value.status)}
-                                        {/*{GetIconTable(value.status)}*/}
-
-                                        {/*{value.status*/}
-                                        {/*    ? t(`filter.statusOptions.${value.status.trim()}`)*/}
-                                        {/*    : null}*/}
-                                        {/*/!*TODO: BACKEND send in last error from backend ? *!/*/}
-
-                                        {/*{value.status === 'ERROR' && value.errors.length > 0 && (*/}
-                                        {/*    <Link*/}
-                                        {/*        style={{ cursor: 'pointer' }}*/}
-                                        {/*        onClick={() => {*/}
-                                        {/*            setSelectedRow(value);*/}
-                                        {/*            setOpenErrorDialog(true);*/}
-                                        {/*        }}>*/}
-                                        {/*        {t('showError')}*/}
-                                        {/*    </Link>*/}
-                                        {/*)}*/}
                                     </Table.DataCell>
                                     <Table.DataCell>
                                         {value.intermediateStorageStatus
                                             ? t(
-                                                  `filter.intermediateStorageStatusOptions.${value.intermediateStorageStatus.trim()}`
+                                                  `filter.intermediateStorageStatusOptions.${value.intermediateStorageStatus}`
                                               )
                                             : null}
                                     </Table.DataCell>
@@ -247,7 +229,7 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                                     <Table.DataCell>
                                         {value.status === 'FAILED' && actionMenu(value, i)}
                                     </Table.DataCell>
-                                    <Table.DataCell>{value.destinationId}</Table.DataCell>
+                                    <Table.DataCell>{value.latestDestinationId}</Table.DataCell>
                                 </Table.ExpandableRow>
                             );
                         })}
@@ -255,8 +237,8 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                 </Table>
             </Box>
 
-            <HStack justify={'center'} style={{ marginTop: '16px' }} gap={'10'}>
-                {summaryList.length && !(summaryList.length < 10) && (
+            {summaryList.length >= 10 && (
+                <HStack justify={'center'} style={{ marginTop: '16px' }} gap={'10'}>
                     <CustomSelect
                         options={selectOptions}
                         onChange={setRowCount}
@@ -264,8 +246,7 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                         hideLabel={true}
                         default={rowCount}
                     />
-                )}
-                {summaryList.length && !(summaryList.length < 10) && (
+
                     <>
                         <Button
                             variant="secondary"
@@ -273,8 +254,8 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                             {t('filter.loadMore')}
                         </Button>
                     </>
-                )}
-            </HStack>
+                </HStack>
+            )}
         </Box>
     ) : (
         <Loader />
@@ -291,58 +272,58 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                     />
                     <Dropdown.Menu>
                         <Dropdown.Menu.List>
-                            {event.intermediateStorageStatus === 'FAILED' &&
-                                event.latestInstanceId && (
-                                    <>
-                                        <Dropdown.Menu.List.Item
-                                            id="retryButton"
-                                            disabled={
-                                                errorsNotForRetry.includes(
-                                                    event.displayName ?? ''
-                                                ) || disabledRetryButtons[id]
-                                            }
-                                            onClick={() => {
-                                                if (event.latestInstanceId) {
-                                                    resend(event.latestInstanceId);
-                                                    handleRetryButtonClick(id);
-                                                }
-                                            }}>
-                                            {t('retry')}
-                                        </Dropdown.Menu.List.Item>
-                                        <Dropdown.Menu.Divider />
-                                    </>
-                                )}
-                        </Dropdown.Menu.List>
+                            {/*{*/}
+                            {/*    event.intermediateStorageStatus === 'STORED' && (*/}
+                            {/*        // event.latestInstanceId && (*/}
+                            {/*        <>*/}
+                            <Dropdown.Menu.List.Item
+                                id={'statusButton'}
+                                onClick={() => {
+                                    setSelectedRow(event);
+                                    setOpenCustomDialog(true);
+                                }}>
+                                {t('customStatus')}
+                            </Dropdown.Menu.List.Item>
 
-                        {event.intermediateStorageStatus === 'STORED' && (
-                            <>
-                                <Dropdown.Menu.List>
+                            {event.intermediateStorageStatus === 'STORED' && (
+                                <>
+                                    <Dropdown.Menu.Divider />
                                     <Dropdown.Menu.List.Item
-                                        id={'statusButton'}
+                                        id="retryButton"
+                                        disabled={
+                                            errorsNotForRetry.includes(event.displayName ?? '') ||
+                                            disabledRetryButtons[id]
+                                        }
                                         onClick={() => {
-                                            setSelectedRow(event);
-                                            setOpenCustomDialog(true);
+                                            if (event.latestInstanceId) {
+                                                resend(event.latestInstanceId);
+                                                handleRetryButtonClick(id);
+                                            }
                                         }}>
-                                        {t('customStatus')}
+                                        {t('retry')}
                                     </Dropdown.Menu.List.Item>
-                                </Dropdown.Menu.List>
-                            </>
-                        )}
+                                </>
+                            )}
+
+                            {/*</>*/}
+                            {/*)}*/}
+                        </Dropdown.Menu.List>
                     </Dropdown.Menu>
                 </Dropdown>
             </div>
         );
     }
 
-    function ErrorAlertDialog(props: GridCellParams['row']) {
-        return (
-            <ErrorDialogComponent
-                open={openErrorDialog}
-                row={props.row}
-                setOpenErrorDialog={setOpenErrorDialog}
-            />
-        );
-    }
+    // function ErrorAlertDialog(props: GridCellParams['row']) {
+    //     console.log('ERROR DIALOG:', props.row);
+    //     return (
+    //         <ErrorDialogComponent
+    //             open={openErrorDialog}
+    //             row={props.row}
+    //             setOpenErrorDialog={setOpenErrorDialog}
+    //         />
+    //     );
+    // }
 
     function CustomStatusDialog(props: GridCellParams['row']) {
         return (

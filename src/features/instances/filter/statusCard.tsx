@@ -1,11 +1,4 @@
-import {
-    Chips,
-    Detail,
-    ExpansionCard,
-    ToggleGroup,
-    UNSAFE_Combobox,
-    VStack,
-} from '@navikt/ds-react';
+import { Chips, ExpansionCard, ToggleGroup, UNSAFE_Combobox, VStack } from '@navikt/ds-react';
 import React, { useState } from 'react';
 import { useFilters } from './FilterContext';
 import { setArrayValue } from './util';
@@ -38,8 +31,8 @@ export default function StatusCard(props: Props) {
         }
     }
 
-    const getExpansionCardDescription = (): React.ReactNode => {
-        const details: React.ReactNode[] = [];
+    const getExpansionCardDescription = (): string => {
+        const details: string[] = [];
 
         if ((filters.lastEvent ?? []).length > 0) {
             const eventLabels = (filters.lastEvent ?? [])
@@ -53,11 +46,7 @@ export default function StatusCard(props: Props) {
                 })
                 .join(', ');
 
-            details.push(
-                <Detail key="event">
-                    {t('statusCard.description.event', { value: eventLabels })}
-                </Detail>
-            );
+            details.push(t('statusCard.description.event', { value: eventLabels }));
         }
 
         if ((filters.statuses ?? []).length > 0) {
@@ -70,14 +59,10 @@ export default function StatusCard(props: Props) {
                 })
                 .join(', ');
 
-            details.push(
-                <Detail key="status">
-                    {t('statusCard.description.status', { value: statusLabels })}
-                </Detail>
-            );
+            details.push(t('statusCard.description.status', { value: statusLabels }));
         }
 
-        return details.length > 0 ? <>{details}</> : null; // ✅ Returns JSX elements or null
+        return details.join(', ');
     };
 
     return (

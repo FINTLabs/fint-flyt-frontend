@@ -204,7 +204,6 @@
       "STORED": "Lagret",
       "IN_PROGRESS": "Pågår",
       "TRANSFERRED": "Overført",
-      "FAILED": "Feilet",
       "ABORTED": "Avbrutt",
       "button": {
         "close": "Lukk",
@@ -364,12 +363,12 @@
           "sourceApplicationIntegrationIdDisplayName": "Integrasjonsnavn",
           "sourceApplicationId": "Kildeapplikasjon",
           "storage": "Mellomlagring",
-          "status": "Status",
+          "status": "Hendlser",
           "actions": "Handlinger",
           "sourceApplicationInstanceId": "Kildeapplikasjons instans ID",
           "configurationId": "Konfigurasjon ID",
           "correlationId": "Korrelasjon ID",
-          "archiveInstanceId": "Destinasjon ID",
+          "archiveInstanceId": "Instans destinasjon ID",
           "timestamp": "Tidspunkt"
         }
       },

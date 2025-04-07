@@ -57,7 +57,7 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
     const parseDateParam = (param: string | null): Date | null => {
         if (!param) return null;
         const date = new Date(param);
-        return isNaN(date.getTime()) ? null : date;
+        return Number.isNaN(date.getTime()) ? null : date;
     };
 
     const defaultFilters: Filters = {

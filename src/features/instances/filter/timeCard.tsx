@@ -1,7 +1,6 @@
 import {
     Chips,
     DatePicker,
-    Detail,
     ExpansionCard,
     HStack,
     TextField,
@@ -27,6 +26,14 @@ export default function TimeCard(props: Props) {
 
     const { updateFilter, filters } = useFilters();
 
+    React.useEffect(() => {
+        if (!filters.timeTimestampMin && !filters.timeTimestampMax) {
+            setSelected({ from: undefined, to: undefined });
+            setTimeMin('');
+            setTimeMax('');
+        }
+    }, [filters.timeTimestampMin, filters.timeTimestampMax]);
+
     const [selectedTab, setSelectedTab] = useState<string>(() => {
         if (filters.timeOffsetMinutes || filters.timeOffSetHours) return 'period';
         if (filters.timeTimestampMin || filters.timeTimestampMax) return 'manual';
@@ -38,7 +45,9 @@ export default function TimeCard(props: Props) {
 
     const formatToOffsetDateTime = (date: Date, time: string): string => {
         const [hours, minutes] = time.split(':').map(Number);
-        date.setHours(isNaN(hours) ? 0 : hours, isNaN(minutes) ? 0 : minutes, 0, 0);
+        const safeHours = Number.isNaN(hours) ? 0 : hours;
+        const safeMinutes = Number.isNaN(minutes) ? 0 : minutes;
+        date.setHours(safeHours, safeMinutes, 0, 0);
         return date.toISOString();
     };
 
@@ -103,58 +112,61 @@ export default function TimeCard(props: Props) {
         }
     }
 
-    const getExpansionCardDescription = (): React.ReactNode => {
+    const getExpansionCardDescription = (): string => {
+        const details: string[] = [];
+
+        const addDetail = (text: string) => {
+            details.push(text);
+        };
+
         if (filters.timeCurrentPeriod) {
             const selectedLabel = props.timeCurrentPeriodOptions.find(
                 (option) => option.value === filters.timeCurrentPeriod
             )?.label;
             const translatedLabel = t(selectedLabel || '');
-            return <Detail>{t('description.period', { value: translatedLabel })}</Detail>;
+            addDetail(t('description.period', { value: translatedLabel }));
         }
 
         if (filters.timeOffSetHours || filters.timeOffsetMinutes) {
-            return (
-                <Detail>
-                    {t('description.offset', {
-                        hours: filters.timeOffSetHours,
-                        minutes: filters.timeOffsetMinutes,
-                    })}
-                </Detail>
+            addDetail(
+                t('description.offset', {
+                    hours: filters.timeOffSetHours,
+                    minutes: filters.timeOffsetMinutes,
+                })
             );
         }
 
         if (filters.timeTimestampMin || filters.timeTimestampMax) {
-            return (
-                <>
-                    {filters.timeTimestampMin && (
-                        <Detail>
-                            {t('manual.fromDate')}: &nbsp;
-                            {new Date(filters.timeTimestampMin).toLocaleDateString()}
-                            {new Date(filters.timeTimestampMin).toLocaleTimeString([], {
-                                hour: '2-digit',
-                                minute: '2-digit',
-                            }) !== '00:00'
-                                ? ` ${new Date(filters.timeTimestampMin).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`
-                                : ''}
-                        </Detail>
-                    )}
-                    {filters.timeTimestampMax && (
-                        <Detail>
-                            {t('manual.toDate')}:&nbsp;
-                            {new Date(filters.timeTimestampMax).toLocaleDateString()}
-                            {new Date(filters.timeTimestampMax).toLocaleTimeString([], {
-                                hour: '2-digit',
-                                minute: '2-digit',
-                            }) !== '00:00'
-                                ? ` ${new Date(filters.timeTimestampMax).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`
-                                : ''}
-                        </Detail>
-                    )}
-                </>
-            );
+            if (filters.timeTimestampMin) {
+                const fromDate = new Date(filters.timeTimestampMin);
+                const fromDateString = fromDate.toLocaleDateString();
+                const fromTimeString = fromDate.toLocaleTimeString([], {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                });
+                addDetail(
+                    `${t('manual.fromDate')}: ${fromDateString}${
+                        fromTimeString !== '00:00' ? ` ${fromTimeString}` : ''
+                    }`
+                );
+            }
+
+            if (filters.timeTimestampMax) {
+                const toDate = new Date(filters.timeTimestampMax);
+                const toDateString = toDate.toLocaleDateString();
+                const toTimeString = toDate.toLocaleTimeString([], {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                });
+                addDetail(
+                    `${t('manual.toDate')}: ${toDateString}${
+                        toTimeString !== '00:00' ? ` ${toTimeString}` : ''
+                    }`
+                );
+            }
         }
 
-        return <></>;
+        return details.join(', ');
     };
 
     return (

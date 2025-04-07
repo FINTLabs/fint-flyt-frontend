@@ -14,7 +14,7 @@ import { IIntegration } from '../../integration/types/Integration';
 
 const apiOptions = {
     sourceApplicationIdsOptions: [
-        { value: '1', label: 'COS Interact' },
+        { value: '1', label: 'ACOS Interact' },
         { value: '2', label: 'eGrunnerverv' },
         { value: '3', label: 'Digisak' },
         { value: '4', label: 'VIGO' },
