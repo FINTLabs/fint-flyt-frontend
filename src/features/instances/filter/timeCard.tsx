@@ -123,7 +123,8 @@ export default function TimeCard(props: Props) {
             const selectedLabel = props.timeCurrentPeriodOptions.find(
                 (option) => option.value === filters.timeCurrentPeriod
             )?.label;
-            const translatedLabel = t(selectedLabel || '');
+
+            const translatedLabel = selectedLabel ? t(selectedLabel) : selectedLabel;
             addDetail(t('description.period', { value: translatedLabel }));
         }
 
