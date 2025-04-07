@@ -365,12 +365,12 @@
           "sourceApplicationIntegrationIdDisplayName": "Display name",
           "sourceApplicationId": "Source application",
           "storage": "Intermediate storage",
-          "status": "Status",
+          "status": "Events",
           "actions": "Actions",
           "sourceApplicationInstanceId": "Source application instance ID",
           "configurationId": "Configuration Id",
           "correlationId": "Correlation Id",
-          "archiveInstanceId": "Destination Id",
+          "archiveInstanceId": "Instance Destination Id",
           "timestamp": "Timestamp"
         }
       },

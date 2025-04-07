@@ -1,4 +1,4 @@
-import { Chips, Detail, ExpansionCard, Label, UNSAFE_Combobox, VStack } from '@navikt/ds-react';
+import { Chips, ExpansionCard, Label, UNSAFE_Combobox, VStack } from '@navikt/ds-react';
 import { useFilters } from './FilterContext';
 import { setArrayValue } from './util';
 import { useTranslation } from 'react-i18next';
@@ -17,8 +17,8 @@ export default function AdvancedCard(props: Props) {
     });
     const { filters, updateFilter } = useFilters();
 
-    const getExpansionCardDescription = (): React.ReactNode => {
-        const details: JSX.Element[] = [];
+    const getExpansionCardDescription = (): string => {
+        const details: string[] = [];
 
         if ((filters.associatedEvents ?? []).length > 0) {
             const eventLabels = (filters.associatedEvents ?? [])
@@ -30,11 +30,7 @@ export default function AdvancedCard(props: Props) {
                 })
                 .join(', ');
 
-            details.push(
-                <Detail key="associatedEvents">
-                    {t('advancedCard.description.associatedEvents', { value: eventLabels })}
-                </Detail>
-            );
+            details.push(t('advancedCard.description.associatedEvents', { value: eventLabels }));
         }
 
         if ((filters.storageStatuses ?? []).length > 0) {
@@ -47,14 +43,10 @@ export default function AdvancedCard(props: Props) {
                 })
                 .join(', ');
 
-            details.push(
-                <Detail key="storageStatuses">
-                    {t('advancedCard.description.storageStatuses', { value: statusLabels })}
-                </Detail>
-            );
+            details.push(t('advancedCard.description.storageStatuses', { value: statusLabels }));
         }
 
-        return details.length > 0 ? <>{details}</> : null; // ✅ Returns JSX elements or null
+        return details.join(', ');
     };
 
     return (
