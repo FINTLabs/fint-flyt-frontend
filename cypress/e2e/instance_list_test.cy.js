@@ -38,7 +38,7 @@ describe('Testing instance list', () => {
             'postRetry'
         );
         cy.intercept('GET', '/api/intern/instance-flow-tracking/summaries?size=10', {
-            fixture: 'instanser.json',
+            fixture: 'filter/instanser.json',
         });
     });
 

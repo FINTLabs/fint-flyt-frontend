@@ -1,5 +1,4 @@
-{
-  "content": [
+[
     {
       "sourceApplicationId": 2,
       "sourceApplicationIntegrationId": "journalpost",
@@ -8,7 +7,7 @@
       "latestUpdate": "2023-09-20T13:20:30.28Z",
       "status": "TRANSFERRED",
       "intermediateStorageStatus": "STORED_AND_DELETED",
-      "destinationId": "2023/107-[10]"
+      "latestDestinationId": "2023/107-[10]"
     },
     {
       "sourceApplicationId": 2,
@@ -18,7 +17,7 @@
       "latestUpdate": "2023-09-12T08:36:47.598Z",
       "status": "TRANSFERRED",
       "intermediateStorageStatus": "STORED_AND_DELETED",
-      "destinationId": "2022/179-[15]"
+      "latestDestinationId": "2022/179-[15]"
     },
     {
       "sourceApplicationId": 2,
@@ -28,7 +27,7 @@
       "latestUpdate": "2023-09-21T13:07:34.447Z",
       "status": "TRANSFERRED",
       "intermediateStorageStatus": "STORED_AND_DELETED",
-      "destinationId": "2023/216-[4]"
+      "latestDestinationId": "2023/216-[4]"
     },
     {
       "sourceApplicationId": 2,
@@ -38,7 +37,7 @@
       "latestUpdate": "2025-02-14T00:36:55.591Z",
       "status": "FAILED",
       "intermediateStorageStatus": "STORED",
-      "destinationId": null
+      "latestDestinationId": null
     },
     {
       "sourceApplicationId": 2,
@@ -48,7 +47,7 @@
       "latestUpdate": "2023-09-13T08:02:17.746Z",
       "status": "TRANSFERRED",
       "intermediateStorageStatus": "STORED_AND_DELETED",
-      "destinationId": "2023/332-[1]"
+      "latestDestinationId": "2023/332-[1]"
     },
     {
       "sourceApplicationId": 2,
@@ -58,7 +57,7 @@
       "latestUpdate": "2023-09-21T13:16:24.506Z",
       "status": "TRANSFERRED",
       "intermediateStorageStatus": "STORED_AND_DELETED",
-      "destinationId": "2023/328-[2]"
+      "latestDestinationId": "2023/328-[2]"
     },
     {
       "sourceApplicationId": 2,
@@ -68,7 +67,7 @@
       "latestUpdate": "2023-09-11T08:44:26.318Z",
       "status": "TRANSFERRED",
       "intermediateStorageStatus": "STORED_AND_DELETED",
-      "destinationId": "2023/325-[1]"
+      "latestDestinationId": "2023/325-[1]"
     },
     {
       "sourceApplicationId": 2,
@@ -78,7 +77,7 @@
       "latestUpdate": "2024-09-09T13:56:25.565Z",
       "status": "IN_PROGRESS",
       "intermediateStorageStatus": "STORED_AND_DELETED",
-      "destinationId": null
+      "latestDestinationId": null
     },
     {
       "sourceApplicationId": 2,
@@ -88,7 +87,7 @@
       "latestUpdate": "2023-09-11T08:38:57.276Z",
       "status": "TRANSFERRED",
       "intermediateStorageStatus": "STORED_AND_DELETED",
-      "destinationId": "2023/323-[2]"
+      "latestDestinationId": "2023/323-[2]"
     },
     {
       "sourceApplicationId": 2,
@@ -98,30 +97,6 @@
       "latestUpdate": "2023-09-20T13:14:06.577Z",
       "status": "TRANSFERRED",
       "intermediateStorageStatus": "STORED_AND_DELETED",
-      "destinationId": "2023/107-[9]"
+      "latestDestinationId": "2023/107-[9]"
     }
-  ],
-  "pageable": {
-    "sort": {
-      "empty": true,
-      "unsorted": true,
-      "sorted": false
-    },
-    "offset": 0,
-    "pageNumber": 0,
-    "pageSize": 10,
-    "unpaged": false,
-    "paged": true
-  },
-  "size": 10,
-  "number": 0,
-  "sort": {
-    "empty": true,
-    "unsorted": true,
-    "sorted": false
-  },
-  "numberOfElements": 10,
-  "first": true,
-  "last": false,
-  "empty": false
-}
+  ]
