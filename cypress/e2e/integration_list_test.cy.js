@@ -4,10 +4,10 @@ describe('Testing integration list', () => {
     beforeEach(() => {
         cy.intercept(
             'GET',
-            '**/statistikk/integrasjoner?side=0&antall=10&sorteringFelt=state&sorteringRetning=ASC',
+            '**/integrasjoner?side=0&antall=10&sorteringFelt=state&sorteringRetning=ASC',
             { fixture: 'integrationsInList.json' }
         ).as('getIntegrations');
-        cy.intercept('GET', '**/historikk/statistikk/integrasjoner', {
+        cy.intercept('GET', '**/instance-flow-tracking/statistics/integrations', {
             fixture: 'historikk.json',
         }).as('getHistory');
         cy.intercept('GET', '**/metadata?kildeapplikasjonId=*&bareSisteVersjoner=*', {

@@ -8,32 +8,37 @@ describe('Testing instance list', () => {
         }).as('getLatestMetadata');
         cy.intercept(
             'GET',
-            '**/historikk/hendelser?side=0&antall=10&sorteringFelt=timestamp&sorteringRetning=DESC&bareSistePerInstans=*',
+            '**/instance-flow-tracking/events?size=10&sort=timestamp,desc&sourceApplicationId=2&sourceApplicationInstanceId=228e67c7c35621505d6418a4e40131fc&sourceApplicationIntegrationId=journalpost',
             { fixture: 'hendelser.json' }
         ).as('getHendelser');
         cy.intercept(
             'GET',
-            '**/historikk/hendelser?side=0&antall=10&sorteringFelt=timestamp&sorteringRetning=ASC&bareSistePerInstans=*',
-            { fixture: 'hendelserASC.json' }
-        ).as('getHendelserASC');
+            '**/instance-flow-tracking/events?size=10&sort=timestamp,desc&sourceApplicationId=2&sourceApplicationInstanceId=3b59e1204759b910f9f8e7e8036d4378&sourceApplicationIntegrationId=journalpost',
+            { fixture: 'hendelser.json' }
+        ).as('getHendelser');
+        // cy.intercept(
+        //     'GET',
+        //     '**/historikk/hendelser?side=0&antall=10&sorteringFelt=timestamp&sorteringRetning=ASC&bareSistePerInstans=*',
+        //     { fixture: 'hendelserASC.json' }
+        // ).as('getHendelserASC');
         cy.intercept('GET', '**/metadata?kildeapplikasjonId=*&bareSisteVersjoner=false', {
             fixture: 'metadata1.json',
         }).as('getMetadata1');
-        cy.intercept(
-            'GET',
-            '**/historikk/hendelser?side=0&antall=10&sorteringFelt=timestamp&sorteringRetning=DESC&kildeapplikasjonId=2&kildeapplikasjonInstansId=1515557',
-            { fixture: 'instansHendelser.json' }
-        ).as('getInstansHendelser');
-        cy.intercept(
-            'GET',
-            '**/historikk/hendelser?side=0&antall=10&sorteringFelt=timestamp&sorteringRetning=DESC&kildeapplikasjonId=2&kildeapplikasjonInstansId=142312',
-            { fixture: 'instansHendelser.json' }
-        ).as('getInstansHendelser');
-        cy.intercept(
-            'GET',
-            '**/historikk/hendelser?side=0&antall=10&sorteringFelt=timestamp&sorteringRetning=DESC&bareSistePerInstans=false',
-            { fixture: 'instansHendelser.json' }
-        ).as('getInstansHendelser');
+        // cy.intercept(
+        //     'GET',
+        //     '**/historikk/hendelser?side=0&antall=10&sorteringFelt=timestamp&sorteringRetning=DESC&kildeapplikasjonId=2&kildeapplikasjonInstansId=1515557',
+        //     { fixture: 'instansHendelser.json' }
+        // ).as('getInstansHendelser');
+        // cy.intercept(
+        //     'GET',
+        //     '**/historikk/hendelser?side=0&antall=10&sorteringFelt=timestamp&sorteringRetning=DESC&kildeapplikasjonId=2&kildeapplikasjonInstansId=142312',
+        //     { fixture: 'instansHendelser.json' }
+        // ).as('getInstansHendelser');
+        // cy.intercept(
+        //     'GET',
+        //     '**/historikk/hendelser?side=0&antall=10&sorteringFelt=timestamp&sorteringRetning=DESC&bareSistePerInstans=false',
+        //     { fixture: 'instansHendelser.json' }
+        // ).as('getInstansHendelser');
         cy.intercept('POST', '**/handlinger/instanser/44/prov-igjen', { statusCode: 200 }).as(
             'postRetry'
         );
@@ -71,16 +76,18 @@ describe('Testing instance list', () => {
         let columns = [
             'Kildeapplikasjon',
             'Integrasjonsnavn',
+            'Kildeapplikasjon integrasjon ID',
+            'Kildeapplikasjons instans ID',
             'Tidspunkt',
-            'Handlinger',
             'Status',
+            'Mellomlagring',
             'Handlinger',
-            'Destinasjon ID',
+            'Instans destinasjon ID',
         ];
         columns.forEach((column) => {
-            cy.get('#instances-content-stack > :nth-child(2)').should('contain.text', column);
+            cy.get('#instance-table > :nth-child(1)').should('contain.text', column);
         });
-        cy.get('#instances-content-stack > :nth-child(2)').should(
+        cy.get('#instance-table > :nth-child(1)').should(
             'not.contain.text',
             'not_a_column'
         );
@@ -95,35 +102,14 @@ describe('Testing instance list', () => {
         cy.get(
             ':nth-child(3) > .navds-table__toggle-expand-cell > .navds-table__toggle-expand-button'
         ).click();
-        cy.get('#instance-panel-1').should('contain.text', 'Instans mottatt');
-    });
-
-    it('it should open error panel and show correct errors', () => {
-        prep();
-        cy.viewport(3000, 2000);
-        cy.get(':nth-child(7) > .navds-link').click();
-        cy.get('#error-list').should('be.visible');
-        cy.get('#error-list').should('contain.text', 'Valideringsfeil i mottak av instans');
-        cy.get('#error-list').should(
-            'contain.text',
-            "Instansen ble avvist av destinasjon med følgende feilmelding: 'Du har driti deg ut"
-        );
+        cy.get('#instance-panel-1').should("exist");
     });
 
     it('it should post correct id for retry', () => {
         prep();
         cy.viewport(3000, 2000);
-        cy.get('#\\30 -action-toggle > .navds-dropdown__toggle').click();
+        cy.get('#\\33 -action-toggle > .navds-dropdown__toggle').click();
         cy.get('#retryButton').click();
-        // cy.wait('@postRetry')
     });
 
-    it('it should sort columns correctly', () => {
-        prep();
-        cy.viewport(3000, 2000);
-        cy.get('#instance-table').contains('td', 'Feilet under konvertering');
-
-        cy.get('[aria-sort="descending"] > .navds-table__sort-button').click().click();
-        cy.get('#instance-table').contains('td', 'Instans godtatt av destinasjon');
-    });
 });

@@ -61,7 +61,6 @@ describe('Testing instance list', () => {
     });
 
     function prep() {
-        // cy.intercept('GET', '**/authorization/me', { fixture: 'me.json' }).as('getMe');
         cy.intercept('GET', '**/authorization/me/is-authorized', { fixture: 'auth.json' });
         cy.intercept('GET', '**/authorization/me/restricted-page-authorization', {
             userPermissionPage: true,
