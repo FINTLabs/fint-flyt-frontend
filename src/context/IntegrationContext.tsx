@@ -5,7 +5,7 @@ import {IIntegrationMetadata} from "../features/configuration/types/Metadata/Int
 import {ContextProps} from "./constants/interface";
 import IntegrationRepository from "../api/IntegrationRepository";
 import SourceApplicationRepository from "../api/SourceApplicationRepository";
-import EventRepository from "../api/EventRepository";
+import InstanceFlowTrackingRepository from "../api/InstanceFlowTrackingRepository";
 import ConfigurationRepository from "../api/ConfigurationRepository";
 import AuthorizationRepository from "../api/AuthorizationRepository";
 
@@ -98,7 +98,7 @@ const IntegrationProvider = ({children}: ContextProps) => {
     const getIntegrationsBySourceApplicationId = async (sourceApplicationId: string) => {
         try {
             const [statisticsResponse, metadataResponse, integrationResponse] = await Promise.all([
-                EventRepository.getStatistics(),
+                InstanceFlowTrackingRepository.getStatistics(),
                 SourceApplicationRepository.getMetadata(sourceApplicationId, true),
                 IntegrationRepository.getIntegrations(0, null, "state", "ASC")
             ]);
@@ -130,7 +130,7 @@ const IntegrationProvider = ({children}: ContextProps) => {
     const getAllIntegrations = async () => {
         try {
             const [statisticsResponse, sourceApplicationsResponse, integrationResponse] = await Promise.all([
-                EventRepository.getStatistics(),
+                InstanceFlowTrackingRepository.getStatistics(),
                 AuthorizationRepository.getUserSourceApplications(),
                 IntegrationRepository.getIntegrations(0, 1000, "state", "ASC")
             ]);

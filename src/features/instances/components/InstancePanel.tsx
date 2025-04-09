@@ -8,7 +8,7 @@ import ErrorDialogComponent from './ErrorDialogComponent';
 import { Box, Button, HStack, Link, Loader, Table } from '@navikt/ds-react';
 import { GetIcon } from '../util/InstanceUtils';
 import { IAlertMessage } from '../../../components/types/TableTypes';
-import InstanceEventRepository from '../../../api/InstanceEventRepository';
+import InstanceFlowTrackingRepository from '../../../api/InstanceFlowTrackingRepository';
 
 type Props = {
     id: string;
@@ -22,24 +22,13 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.instances' });
     const [selectedRow, setSelectedRow] = useState<IInstanceFlowTracking>();
     const [openErrorDialog, setOpenErrorDialog] = React.useState(false);
-    // const [page, setPage] = useState(1);
     const [selectedInstances, setSelectedInstances] = useState<IInstanceFlowTrackingResponse>();
-    // const rowsPerPage = 10;
     const [rowCount, setRowCount] = useState<string>('10');
 
     useEffect(() => {
-        // setSelectedInstances({ content: [] });
-
-        // if (
-        //     selectedInstances?.totalElements &&
-        //     selectedInstances.totalElements < Number(rowCount)
-        // ) {
-        //     setPage(1);
-        // }
         getSelectedInstances(
             rowCount,
-            'timestamp',
-            'DESC',
+            'timestamp,desc',
             props.sourceApplicationId,
             props.instanceId,
             props.sourceApplicationIntegrationId
@@ -49,23 +38,20 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
     const getSelectedInstances = async (
         rowCount: string,
         sortProperty: string,
-        sortDirection: string,
         sourceApplicationId: number,
         instanceId: string,
         sourceApplicationIntegrationId: string
     ) => {
         props.onError(undefined);
         try {
-            const eventResponse = await InstanceEventRepository.getEventsByInstanceId(
+            const eventResponse = await InstanceFlowTrackingRepository.getEventsByInstanceId(
                 rowCount,
                 sortProperty,
-                sortDirection,
                 sourceApplicationIntegrationId,
                 sourceApplicationId,
                 instanceId
             );
 
-            // const events: Page<IEvent> = eventResponse.data;
             const events = eventResponse.data;
             if (events) {
                 events.content.sort(
@@ -75,11 +61,9 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
                 setSelectedInstances(events);
             } else {
                 props.onError({ message: t('errorMessage') });
-                // setSelectedInstances({ content: [] });
             }
         } catch (e) {
             props.onError({ message: t('errorMessage') });
-            // setSelectedInstances({ content: [] });
             console.error('Error: ', e);
         }
     };
@@ -97,7 +81,7 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
                                         {t('table.column.timestamp')}
                                     </Table.HeaderCell>
                                     <Table.HeaderCell scope="col">
-                                        {t('table.column.status')}
+                                        {t('table.column.event')}
                                     </Table.HeaderCell>
                                     <Table.HeaderCell scope="col">
                                         {t('table.column.archiveInstanceId')}
@@ -153,15 +137,6 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
                 )}
             </Box>
             <HStack justify={'center'}>
-                {/*{selectedInstances?.totalElements &&*/}
-                {/*    selectedInstances.totalElements > rowsPerPage && (*/}
-                {/*        <Pagination*/}
-                {/*            page={page}*/}
-                {/*            onPageChange={setPage}*/}
-                {/*            count={selectedInstances?.totalPages ?? 1}*/}
-                {/*            size="small"*/}
-                {/*        />*/}
-                {/*    )}*/}
                 {!selectedInstances?.last && (
                     <>
                         <Button

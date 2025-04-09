@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { IEvent, IInstanceFlowHeadersEmbeddable } from '../types/Event';
 import { Alert, Button, Modal, Select, TextField, VStack } from '@navikt/ds-react';
 import { ISelectable } from '../../configuration/types/Selectable';
-import EventRepository from '../../../api/EventRepository';
+import InstanceFlowTrackingRepository from '../../../api/InstanceFlowTrackingRepository';
 
 type Props = {
     row: IEvent;
@@ -23,7 +23,7 @@ const CustomStatusDialogComponent: React.FunctionComponent<Props> = (props: Prop
         instance: IInstanceFlowHeadersEmbeddable,
         archiveInstanceId: string
     ) => {
-        EventRepository.manualDispatchEvent(
+        InstanceFlowTrackingRepository.manualDispatchEvent(
             instance.sourceApplicationInstanceId,
             instance.sourceApplicationId,
             archiveInstanceId,
@@ -38,7 +38,7 @@ const CustomStatusDialogComponent: React.FunctionComponent<Props> = (props: Prop
     };
 
     const createRejectEvent = (instance: IInstanceFlowHeadersEmbeddable) => {
-        EventRepository.manualRejectEvent(
+        InstanceFlowTrackingRepository.manualRejectEvent(
             instance.sourceApplicationInstanceId,
             instance.sourceApplicationId,
             instance.sourceApplicationIntegrationId
@@ -72,7 +72,6 @@ const CustomStatusDialogComponent: React.FunctionComponent<Props> = (props: Prop
     };
 
     const instanceStatuses: ISelectable[] = [
-        // {displayName: t(props.row.name), value: props.row.name},
         { displayName: t('instance-manually-processed'), value: 'instance-manually-processed' },
         { displayName: t('instance-manually-rejected'), value: 'instance-manually-rejected' },
     ];

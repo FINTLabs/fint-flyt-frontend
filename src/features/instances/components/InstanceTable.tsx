@@ -16,7 +16,7 @@ import { IAlertMessage } from '../../../components/types/TableTypes';
 import { MenuElipsisVerticalCircleIcon } from '@navikt/aksel-icons';
 import CustomStatusDialogComponent from './CustomStatusDialogComponent';
 import { useFilters } from '../filter/FilterContext';
-import InstanceEventRepository from '../../../api/InstanceEventRepository';
+import InstanceFlowTrackingRepository from '../../../api/InstanceFlowTrackingRepository';
 
 interface Props {
     onError: (error: IAlertMessage | undefined) => void;
@@ -25,15 +25,9 @@ interface Props {
 const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.instances' });
     const [selectedRow, setSelectedRow] = useState<IEventNew>();
-    // const [openErrorDialog, setOpenErrorDialog] = React.useState(false);
     const [openCustomDialog, setOpenCustomDialog] = React.useState(false);
     const [page, setPage] = useState(1);
-    // const [sort, setSort] = useState<SortState | undefined>({
-    //     orderBy: 'timestamp',
-    //     direction: 'descending',
-    // });
     const errorsNotForRetry: string[] = ['instance-receival-error', 'instance-registration-error'];
-    // const [instancesPage, setInstancesPage] = useState<Page<ISummary>>();
     const [summaryList, setSummaryList] = useState<ISummary[]>();
     const [rowCount, setRowCount] = useState<string>('10');
     const selectOptions = [
@@ -59,10 +53,6 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
         setLoading(true);
         setHasFilters(false);
         setExpandedRows([]);
-        // if (summaryList?.length && summaryList.length < Number(rowCount)) {
-        //     setPage(1);
-        // }
-        // setSummaryList([]);
         getLatestInstances(rowCount);
     }, [page, setPage, rowCount, refreshKey]);
 
@@ -76,7 +66,7 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
         onError(undefined);
 
         try {
-            const eventResponse = await InstanceEventRepository.getLatestEvents(
+            const eventResponse = await InstanceFlowTrackingRepository.getLatestEvents(
                 Number(size),
                 filters
             );
@@ -96,13 +86,9 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
 
                 setSummaryList(events);
             } else {
-                // onError({ message: t('errorMessage') });
-                // onError({ message: events.content.toString() });
                 setSummaryList([]);
             }
         } catch (e: any) {
-            // onError({ message: t('errorMessage') });
-
             if (e.response && e.response.status === 422) {
                 onError({ message: e.response.data || 'Validation error occurred' });
             } else {
@@ -112,7 +98,7 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
             console.error('Error: ', e);
         } finally {
             setLoading(false);
-            Object.entries(filters).forEach(([key, value]) => {
+            Object.entries(filters).forEach(([, value]) => {
                 if (value != null && value.length > 0) {
                     setHasFilters(true);
                 }
@@ -141,7 +127,6 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
     ) : summaryList ? (
         <Box>
             <Box background={'surface-default'} style={{ minHeight: '70vh' }}>
-                {/*<ErrorAlertDialog row={selectedRow} />*/}
                 <CustomStatusDialog row={selectedRow} />
                 {summaryList?.length === 0 ? (
                     <Alert variant="info">{t('filter.alerts.noResults')}</Alert>
@@ -150,8 +135,6 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                 ) : null}
 
                 <Table
-                    // sort={sort}
-                    // onSortChange={(sortKey) => handleSort(sortKey ? sortKey : 'timestamp')}
                     id={'instance-table'}>
                     <Table.Header>
                         <Table.Row>
@@ -313,17 +296,6 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
             </div>
         );
     }
-
-    // function ErrorAlertDialog(props: GridCellParams['row']) {
-    //     console.log('ERROR DIALOG:', props.row);
-    //     return (
-    //         <ErrorDialogComponent
-    //             open={openErrorDialog}
-    //             row={props.row}
-    //             setOpenErrorDialog={setOpenErrorDialog}
-    //         />
-    //     );
-    // }
 
     function CustomStatusDialog(props: GridCellParams['row']) {
         return (

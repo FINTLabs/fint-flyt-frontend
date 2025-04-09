@@ -9,7 +9,7 @@ import {
 import { Box, HStack, Loader, Pagination, SortState, Table } from '@navikt/ds-react';
 import IntegrationPanel from './IntegrationPanel';
 import { useTranslation } from 'react-i18next';
-import EventRepository from '../../../api/EventRepository';
+import InstanceFlowTrackingRepository from '../../../api/InstanceFlowTrackingRepository';
 import IntegrationRepository from '../../../api/IntegrationRepository';
 import { IIntegration, IIntegrationStatistics } from '../../integration/types/Integration';
 import { IIntegrationMetadata } from '../../configuration/types/Metadata/IntegrationMetadata';
@@ -54,7 +54,7 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
         props.onError(undefined);
         if (allMetadata) {
             try {
-                const response = await EventRepository.getStatistics();
+                const response = await InstanceFlowTrackingRepository.getStatistics();
                 const data = response.data;
                 if (data) {
                     const stats = data.content;

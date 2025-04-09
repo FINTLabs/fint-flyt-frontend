@@ -1,36 +1,7 @@
 import axios from 'axios';
 import { Filters } from '../features/instances/filter/types';
 
-const getEvents = (page: number, size: number, sortProperty: string, sortDirection: string) => {
-    return axios.get(`/api/intern/instance-flow-tracking/summaries`, {
-        params: {
-            side: page,
-            antall: size,
-            sorteringFelt: sortProperty,
-            sorteringRetning: sortDirection,
-            bareSistePerInstans: false,
-        },
-    });
-};
-
-// const getLatestEvents = (
-//     page: number,
-//     size: number,
-//     sortProperty: string,
-//     sortDirection: string
-// ) => {
-//     return axios.get(`/api/intern/instance-flow-tracking/summaries`, {
-//         params: {
-//             side: page,
-//             antall: size,
-//             sorteringFelt: sortProperty,
-//             sorteringRetning: sortDirection,
-//             bareSistePerInstans: true,
-//         },
-//     });
-// };
-
-const getLatestEvents = (size: number, filters?: Filters) => {
+const getLatestSummaries = (size: number, filters?: Filters) => {
     const params: Record<string, string | string[] | boolean | number> = {
         size: size,
     };
@@ -71,7 +42,6 @@ const getLatestEvents = (size: number, filters?: Filters) => {
 const getEventsByInstanceId = (
     rowCount: string,
     sortProperty: string,
-    sortDirection: string,
     sourceApplicationIntegrationId: string,
     kildeapplikasjonId?: number,
     kildeapplikasjonInstansId?: string
@@ -79,8 +49,7 @@ const getEventsByInstanceId = (
     return axios.get(`/api/intern/instance-flow-tracking/events`, {
         params: {
             size: rowCount,
-            sorteringFelt: sortProperty,
-            sorteringRetning: sortDirection,
+            sort: sortProperty,
             sourceApplicationId: kildeapplikasjonId,
             sourceApplicationInstanceId: kildeapplikasjonInstansId,
             sourceApplicationIntegrationId: sourceApplicationIntegrationId,
@@ -121,9 +90,8 @@ const getStatistics = () => {
     return axios.get(`/api/intern/instance-flow-tracking/statistics/integrations`);
 };
 
-const InstanceEventRepository = {
-    getEvents,
-    getLatestEvents,
+const InstanceFlowTrackingRepository = {
+    getLatestEvents: getLatestSummaries,
     getEventsByInstanceId,
     getAllStatistics,
     getStatistics,
@@ -131,4 +99,4 @@ const InstanceEventRepository = {
     manualDispatchEvent,
 };
 
-export default InstanceEventRepository;
+export default InstanceFlowTrackingRepository;

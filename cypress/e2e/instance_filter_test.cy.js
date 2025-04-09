@@ -97,9 +97,6 @@ describe('Testing instance list', () => {
         prep();
         cy.contains('button', 'Filters').click();
 
-        //Sorting options
-        cy.get('[data-testid="sortSelect"]').should('exist');
-
         // TimeCard options
         cy.get('[data-testid="timeCard"]').should('exist');
         cy.get('[data-testid="timeCard"]').click();

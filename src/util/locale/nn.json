@@ -359,6 +359,7 @@
           "sourceApplicationId": "Kjeldeapplikasjon",
           "storage": "Mellomlagring",
           "status": "Status",
+          "event": "Hending",
           "actions": "Handlingar",
           "sourceApplicationInstanceId": "Kjeldeapplikasjons instans ID",
           "configurationId": "Konfigurasjon ID",
