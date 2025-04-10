@@ -88,14 +88,22 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
             } else {
                 setSummaryList([]);
             }
-        } catch (e: any) {
-            if (e.response && e.response.status === 422) {
-                onError({ message: e.response.data || 'Validation error occurred' });
+        } catch (error: unknown) {
+            if (
+                typeof error === 'object' &&
+                error !== null &&
+                'response' in error &&
+                (error as { response?: { status?: number; data?: string } }).response?.status === 422
+            ) {
+                const axiosError = error as { response: { data: string } };
+                onError({ message: axiosError.response.data || 'Validation error occurred' });
+            } else if (error instanceof Error) {
+                onError({ message: error.message || 'An unexpected error occurred' });
             } else {
-                onError({ message: e.message || 'An unexpected error occurred' });
+                onError({ message: 'An unexpected error occurred' });
             }
             setSummaryList([]);
-            console.error('Error: ', e);
+            console.error('Error: ', error);
         } finally {
             setLoading(false);
             Object.entries(filters).forEach(([, value]) => {

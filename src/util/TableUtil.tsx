@@ -1,5 +1,5 @@
 import { MOCK_EVENTS } from '../__tests__/mock/events';
-import { IEvent, IEventNew } from '../features/instances/types/Event';
+import { IEventNew } from '../features/instances/types/Event';
 import { IIntegration } from '../features/integration/types/Integration';
 import { MOCK_INTEGRATION } from '../__tests__/mock/integration';
 
