@@ -57,32 +57,13 @@ describe('Testing instance list', () => {
             },
         ];
 
-        cy.then(() => {
-            Cypress._.each(intercepts, (cfg) => {
-                if (cfg.fixture) {
-                    cy.intercept(cfg.method, cfg.url, { fixture: cfg.fixture }).as(cfg.alias);
-                } else {
-                    cy.intercept(cfg.method, cfg.url, cfg.response).as(cfg.alias);
-                }
-            });
+        intercepts.forEach(({ method, url, fixture, response, alias }) => {
+            if (fixture) {
+                cy.intercept(method, url, { fixture }).as(alias);
+            } else {
+                cy.intercept(method, url, response).as(alias);
+            }
         });
-
-
-        // Cypress._.each(intercepts, (cfg) => {
-        //     if (cfg.fixture) {
-        //         cy.intercept(cfg.method, cfg.url, { fixture: cfg.fixture }).as(cfg.alias);
-        //     } else {
-        //         cy.intercept(cfg.method, cfg.url, cfg.response).as(cfg.alias);
-        //     }
-        // });
-
-        // intercepts.forEach(({ method, url, fixture, response, alias }) => {
-        //     if (fixture) {
-        //         cy.intercept(method, url, { fixture }).as(alias);
-        //     } else {
-        //         cy.intercept(method, url, response).as(alias);
-        //     }
-        // });
     });
 
     function prep() {
@@ -117,12 +98,7 @@ describe('Testing instance list', () => {
             fixture: 'metadataLatest.json',
         }).as('getLatestMetadata');
 
-        // cy.intercept('GET', '**/api/application/configuration', {
-        //     forceNetworkError: true,
-        //     fixture: 'basepathConfig.json',
-        // }).as('getConfig');
         cy.visit('/integration/instance/list');
-        // cy.wait('@getConfig');
     }
 
     it('should open and show table', () => {
@@ -146,12 +122,6 @@ describe('Testing instance list', () => {
     it('should load all filter options', () => {
 
         prep();
-        // cy.intercept('GET', '**/api/application/configuration', {
-        //     forceNetworkError: true,
-        //     fixture: 'basepathConfig.json',
-        // }).as('getConfig');
-        // cy.wait('@getConfig');
-
 
         cy.contains('button', 'Filters').click();
 
