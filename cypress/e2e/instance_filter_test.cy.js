@@ -57,12 +57,24 @@ describe('Testing instance list', () => {
             },
         ];
 
-        Cypress._.each(intercepts, (cfg) => {
-            if (cfg.fixture) {
-                cy.intercept(cfg.method, cfg.url, { fixture: cfg.fixture }).as(cfg.alias);
-            } else {
-                cy.intercept(cfg.method, cfg.url, cfg.response).as(cfg.alias);
-            }
+        cy.then(() => {
+            Cypress._.each(intercepts, (cfg) => {
+                if (cfg.fixture) {
+                    cy.intercept(cfg.method, cfg.url, { fixture: cfg.fixture }).as(cfg.alias);
+                } else {
+                    cy.intercept(cfg.method, cfg.url, cfg.response).as(cfg.alias);
+                }
+            });
+        });
+
+
+        // Cypress._.each(intercepts, (cfg) => {
+        //     if (cfg.fixture) {
+        //         cy.intercept(cfg.method, cfg.url, { fixture: cfg.fixture }).as(cfg.alias);
+        //     } else {
+        //         cy.intercept(cfg.method, cfg.url, cfg.response).as(cfg.alias);
+        //     }
+        // });
 
         // intercepts.forEach(({ method, url, fixture, response, alias }) => {
         //     if (fixture) {
@@ -70,7 +82,7 @@ describe('Testing instance list', () => {
         //     } else {
         //         cy.intercept(method, url, response).as(alias);
         //     }
-        });
+        // });
     });
 
     function prep() {
