@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SourceApplicationContext } from '../../context/SourceApplicationContext';
 import OutgoingDataComponent from '../../features/configuration/components/OutgoingDataComponent';
-import {Controller, FormProvider, SubmitHandler, useForm} from 'react-hook-form';
+import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
 import IncomingDataComponent from '../../features/configuration/components/IncomingDataComponent';
@@ -113,7 +113,7 @@ const Configuration: RouteComponent = () => {
         };
     }, []);
 
-    const onSubmit: SubmitHandler<IConfiguration> = (data) => {
+    const onSubmit = (data: IConfigurationPatch) => {
         // If there are any form errors, immediately notify and exit
         if (!isEmpty(methods.formState.errors)) {
             setAlertContent(errorAlert);
@@ -218,7 +218,7 @@ const Configuration: RouteComponent = () => {
 
     return (
         <PageTemplate id={'configuration'} keyPrefix={'pages.configuration'} wide customHeading>
-            <DndProvider backend={HTML5Backend}>
+            <DndProvider backend={HTML5Backend} manager={null}>
                 <EditingProvider>
                     <FormProvider {...methods}>
                         <form id="react-hook-form" onSubmit={methods.handleSubmit(onSubmit)}>
@@ -280,16 +280,18 @@ const Configuration: RouteComponent = () => {
                                         )}
                                     </HStack>
                                     <HStack align={'center'} gap={'6'}>
-                                        <Button
-                                            id="form-submit-btn"
-                                            size={'small'}
-                                            disabled={configuration?.completed}
-                                            type="submit"
-                                            onClick={onSubmit}>
-                                            {!methods.watch('completed')
-                                                ? t('button.submit')
-                                                : t('button.complete')}
-                                        </Button>
+                                        {configuration && (
+                                            <Button
+                                                id="form-submit-btn"
+                                                size={'small'}
+                                                disabled={configuration?.completed}
+                                                type="submit"
+                                                onClick={() => onSubmit(configuration)}>
+                                                {!methods.watch('completed')
+                                                    ? t('button.submit')
+                                                    : t('button.complete')}
+                                            </Button>
+                                        )}
                                         <Button
                                             id="form-cancel-btn"
                                             size={'small'}
