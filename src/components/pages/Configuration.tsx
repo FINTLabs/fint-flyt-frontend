@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SourceApplicationContext } from '../../context/SourceApplicationContext';
 import OutgoingDataComponent from '../../features/configuration/components/OutgoingDataComponent';
-import { Controller, FormProvider, useForm } from 'react-hook-form';
+import {Controller, FormProvider, SubmitHandler, useForm} from 'react-hook-form';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
 import IncomingDataComponent from '../../features/configuration/components/IncomingDataComponent';
@@ -113,14 +113,20 @@ const Configuration: RouteComponent = () => {
         };
     }, []);
 
-    const onSubmit = (data: IConfiguration) => {
-        // eslint-disable-line
+    const onSubmit: SubmitHandler<IConfiguration> = (data) => {
+        // If there are any form errors, immediately notify and exit
         if (!isEmpty(methods.formState.errors)) {
             setAlertContent(errorAlert);
             setShowAlert(true);
+            return;
         }
+
+        // Force data.mapping to be of type IObjectMapping.
+        // This double cast silences the type error by asserting both the input and the output types.
         data.mapping = pruneObjectMapping(data.mapping as IObjectMapping) as IObjectMapping;
+
         if (configuration?.id) {
+            // Update configuration branch
             ConfigurationRepository.updateConfiguration(
                 configuration.id.toString(),
                 data as IConfigurationPatch
@@ -132,17 +138,15 @@ const Configuration: RouteComponent = () => {
                         setShowAlert(true);
                     }
                     if (response.data.completed && !active) {
-                        if (response.data.completed) {
-                            setAlertContent(completedAlert);
-                            setShowAlert(true);
-                            setCompleted(true);
-                        }
+                        setAlertContent(completedAlert);
+                        setShowAlert(true);
+                        setCompleted(true);
                     }
                     if (active && existingIntegration && existingIntegration.id) {
                         activateConfiguration(existingIntegration.id, response.data);
                     }
                 })
-                .catch(function (error) {
+                .catch((error) => {
                     if (error.response?.status) {
                         setAlertContent({
                             severity: 'error',
@@ -158,6 +162,7 @@ const Configuration: RouteComponent = () => {
                     }
                 });
         } else {
+            // Create configuration branch
             ConfigurationRepository.createConfiguration(data as IConfiguration)
                 .then((response) => {
                     console.log('created', response);
@@ -175,7 +180,7 @@ const Configuration: RouteComponent = () => {
                         activateConfiguration(existingIntegration.id, response.data);
                     }
                 })
-                .catch(function (error) {
+                .catch((error) => {
                     if (error.response?.status) {
                         setAlertContent({
                             severity: 'error',
