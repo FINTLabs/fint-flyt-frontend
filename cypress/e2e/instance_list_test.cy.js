@@ -16,29 +16,9 @@ describe('Testing instance list', () => {
             '**/instance-flow-tracking/events?size=10&sort=timestamp,desc&sourceApplicationId=2&sourceApplicationInstanceId=3b59e1204759b910f9f8e7e8036d4378&sourceApplicationIntegrationId=journalpost',
             { fixture: 'hendelser.json' }
         ).as('getHendelser');
-        // cy.intercept(
-        //     'GET',
-        //     '**/historikk/hendelser?side=0&antall=10&sorteringFelt=timestamp&sorteringRetning=ASC&bareSistePerInstans=*',
-        //     { fixture: 'hendelserASC.json' }
-        // ).as('getHendelserASC');
         cy.intercept('GET', '**/metadata?kildeapplikasjonId=*&bareSisteVersjoner=false', {
             fixture: 'metadata1.json',
         }).as('getMetadata1');
-        // cy.intercept(
-        //     'GET',
-        //     '**/historikk/hendelser?side=0&antall=10&sorteringFelt=timestamp&sorteringRetning=DESC&kildeapplikasjonId=2&kildeapplikasjonInstansId=1515557',
-        //     { fixture: 'instansHendelser.json' }
-        // ).as('getInstansHendelser');
-        // cy.intercept(
-        //     'GET',
-        //     '**/historikk/hendelser?side=0&antall=10&sorteringFelt=timestamp&sorteringRetning=DESC&kildeapplikasjonId=2&kildeapplikasjonInstansId=142312',
-        //     { fixture: 'instansHendelser.json' }
-        // ).as('getInstansHendelser');
-        // cy.intercept(
-        //     'GET',
-        //     '**/historikk/hendelser?side=0&antall=10&sorteringFelt=timestamp&sorteringRetning=DESC&bareSistePerInstans=false',
-        //     { fixture: 'instansHendelser.json' }
-        // ).as('getInstansHendelser');
         cy.intercept('POST', '**/handlinger/instanser/44/prov-igjen', { statusCode: 200 }).as(
             'postRetry'
         );
@@ -58,12 +38,7 @@ describe('Testing instance list', () => {
         cy.intercept('GET', '**/authorization/users?page=0&size=10', { fixture: 'users.json' }).as(
             'getUsersPermissions'
         );
-        cy.intercept('GET', '**/api/application/configuration', {
-            forceNetworkError: true,
-            fixture: 'basepathConfig.json',
-        }).as('getConfig');
         cy.visit('/integration/instance/list');
-        cy.wait('@getConfig');
     }
 
     it('should open and show table', () => {

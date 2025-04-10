@@ -3,75 +3,114 @@ describe('Testing instance list', () => {
         const intercepts = [
             {
                 method: 'GET',
-                url: '/api/intern/instance-flow-tracking/summaries?size=10',
+                url: '**/api/intern/instance-flow-tracking/summaries?size=10',
                 fixture: 'filter/instanser.json',
-                alias: 'newSummaries',
+                alias: 'newSummaries1',
             },
             {
                 method: 'GET',
-                url: '/api/intern/instance-flow-tracking/summaries?size=10',
+                url: '**/api/intern/instance-flow-tracking/summaries?size=10',
                 fixture: 'filter/instanser.json',
-                alias: 'newSummaries',
+                alias: 'newSummaries2',
             },
             {
                 method: 'GET',
-                url: '/api/intern/instance-flow-tracking/value-space/instance-status/selectables',
+                url: '**/api/intern/instance-flow-tracking/value-space/instance-status/selectables',
                 fixture: 'filter/instance-status.json',
                 alias: 'instance-status',
             },
             {
                 method: 'GET',
-                url: '/api/intern/instance-flow-tracking/value-space/storage-status/selectables',
+                url: '**/api/intern/instance-flow-tracking/value-space/storage-status/selectables',
                 fixture: 'filter/storage-status.json',
                 alias: 'storage-status',
             },
             {
                 method: 'GET',
-                url: '/api/intern/instance-flow-tracking/value-space/event-category/selectables',
+                url: '**/api/intern/instance-flow-tracking/value-space/event-category/selectables',
                 fixture: 'filter/event-category.json',
-                alias: 'event-category',
+                alias: 'event-category-1',
             },
             {
                 method: 'GET',
-                url: '/api/intern/instance-flow-tracking/value-space/instance-status-event-category/selectables',
+                url: '**/api/intern/instance-flow-tracking/value-space/instance-status-event-category/selectables',
                 fixture: 'filter/instance-status-event-category.json',
-                alias: 'event-category',
+                alias: 'event-category-2',
             },
             {
                 method: 'GET',
-                url: '/api/intern/instance-flow-tracking/value-space/time/current-period/selectables',
+                url: '**/api/intern/instance-flow-tracking/value-space/time/current-period/selectables',
                 fixture: 'filter/current-period.json',
-                alias: 'event-category',
+                alias: 'event-category-3',
             },
             {
                 method: 'GET',
-                url: '/integration/instance/api/application/configuration',
+                url: '/api/application/configuration',
                 fixture: 'basepathConfig.json',
-                alias: 'getConfig',
+                alias: 'getConfig1',
+            },
+            {
+                method: 'GET',
+                url: '**/integration/instance/api/application/configuration',
+                fixture: 'basepathConfig.json',
+                alias: 'getConfig2',
             },
         ];
 
-        intercepts.forEach(({ method, url, fixture, response, alias }) => {
-            if (fixture) {
-                cy.intercept(method, url, { fixture }).as(alias);
+        Cypress._.each(intercepts, (cfg) => {
+            if (cfg.fixture) {
+                cy.intercept(cfg.method, cfg.url, { fixture: cfg.fixture }).as(cfg.alias);
             } else {
-                cy.intercept(method, url, response).as(alias);
+                cy.intercept(cfg.method, cfg.url, cfg.response).as(cfg.alias);
             }
+
+        // intercepts.forEach(({ method, url, fixture, response, alias }) => {
+        //     if (fixture) {
+        //         cy.intercept(method, url, { fixture }).as(alias);
+        //     } else {
+        //         cy.intercept(method, url, response).as(alias);
+        //     }
         });
     });
 
     function prep() {
+        cy.intercept('GET', '**/authorization/me', { fixture: 'me.json' }).as('getMe');
         cy.intercept('GET', '**/authorization/me/is-authorized', { fixture: 'auth.json' });
         cy.intercept('GET', '**/authorization/me/restricted-page-authorization', {
             userPermissionPage: true,
         });
         cy.intercept('GET', '**/authorization/users?page=0&size=10', { fixture: 'users.json' });
-        cy.intercept('GET', '**/api/application/configuration', {
-            forceNetworkError: true,
-            fixture: 'basepathConfig.json',
-        }).as('getConfig');
+
+        cy.intercept('GET', '**/intern/integrasjoner', { fixture: 'integrations.json' }).as(
+            'getIntegrations'
+        );
+
+
+        cy.intercept('GET', '**/metadata?kildeapplikasjonId=1&bareSisteVersjoner=true', {
+            fixture: 'metadataLatest.json',
+        }).as('getLatestMetadata');
+        cy.intercept('GET', '**/metadata?kildeapplikasjonId=2&bareSisteVersjoner=true', {
+            fixture: 'metadataLatest.json',
+        }).as('getLatestMetadata');
+        cy.intercept('GET', '**/metadata?kildeapplikasjonId=3&bareSisteVersjoner=true', {
+            fixture: 'metadataLatest.json',
+        }).as('getLatestMetadata');
+        cy.intercept('GET', '**/metadata?kildeapplikasjonId=4&bareSisteVersjoner=true', {
+            fixture: 'metadataLatest.json',
+        }).as('getLatestMetadata');
+        cy.intercept('GET', '**/metadata?kildeapplikasjonId=5&bareSisteVersjoner=true', {
+            fixture: 'metadataLatest.json',
+        }).as('getLatestMetadata');
+        cy.intercept('GET', '**/metadata?kildeapplikasjonId=6&bareSisteVersjoner=true', {
+            fixture: 'metadataLatest.json',
+        }).as('getLatestMetadata');
+
+        // cy.intercept('GET', '**/api/application/configuration', {
+        //     forceNetworkError: true,
+        //     fixture: 'basepathConfig.json',
+        // }).as('getConfig');
         cy.visit('/integration/instance/list');
-        cy.wait('@getConfig');
+        // cy.wait('@getConfig');
     }
 
     it('should open and show table', () => {
@@ -93,7 +132,15 @@ describe('Testing instance list', () => {
     });
 
     it('should load all filter options', () => {
+
         prep();
+        // cy.intercept('GET', '**/api/application/configuration', {
+        //     forceNetworkError: true,
+        //     fixture: 'basepathConfig.json',
+        // }).as('getConfig');
+        // cy.wait('@getConfig');
+
+
         cy.contains('button', 'Filters').click();
 
         // TimeCard options
