@@ -218,7 +218,7 @@ const Configuration: RouteComponent = () => {
 
     return (
         <PageTemplate id={'configuration'} keyPrefix={'pages.configuration'} wide customHeading>
-            <DndProvider backend={HTML5Backend} manager={null}>
+            <DndProvider backend={HTML5Backend}>
                 <EditingProvider>
                     <FormProvider {...methods}>
                         <form id="react-hook-form" onSubmit={methods.handleSubmit(onSubmit)}>
