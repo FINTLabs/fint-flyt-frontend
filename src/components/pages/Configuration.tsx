@@ -113,13 +113,13 @@ const Configuration: RouteComponent = () => {
         };
     }, []);
 
-    const onSubmit = (data: any) => {
+    const onSubmit = (data: IConfiguration) => {
         // eslint-disable-line
         if (!isEmpty(methods.formState.errors)) {
             setAlertContent(errorAlert);
             setShowAlert(true);
         }
-        data.mapping = pruneObjectMapping(data.mapping as IObjectMapping);
+        data.mapping = pruneObjectMapping(data.mapping as IObjectMapping) as IObjectMapping;
         if (configuration?.id) {
             ConfigurationRepository.updateConfiguration(
                 configuration.id.toString(),
