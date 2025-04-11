@@ -113,7 +113,7 @@ const Configuration: RouteComponent = () => {
         };
     }, []);
 
-    const onSubmit = (data: IConfigurationPatch) => {
+    const onSubmit = (data: IConfiguration) => {
         // If there are any form errors, immediately notify and exit
         if (!isEmpty(methods.formState.errors)) {
             setAlertContent(errorAlert);
@@ -123,6 +123,7 @@ const Configuration: RouteComponent = () => {
 
         // Force data.mapping to be of type IObjectMapping.
         // This double cast silences the type error by asserting both the input and the output types.
+
         data.mapping = pruneObjectMapping(data.mapping as IObjectMapping) as IObjectMapping;
 
         if (configuration?.id) {
@@ -280,18 +281,19 @@ const Configuration: RouteComponent = () => {
                                         )}
                                     </HStack>
                                     <HStack align={'center'} gap={'6'}>
-                                        {configuration && (
-                                            <Button
-                                                id="form-submit-btn"
-                                                size={'small'}
-                                                disabled={configuration?.completed}
-                                                type="submit"
-                                                onClick={() => onSubmit(configuration)}>
-                                                {!methods.watch('completed')
-                                                    ? t('button.submit')
-                                                    : t('button.complete')}
-                                            </Button>
-                                        )}
+                                        {/*{configuration && (*/}
+                                        <Button
+                                            id="form-submit-btn"
+                                            size={'small'}
+                                            disabled={configuration?.completed}
+                                            type="submit"
+                                            // onClick={() => onSubmit(configuration)}
+                                        >
+                                            {!methods.watch('completed')
+                                                ? t('button.submit')
+                                                : t('button.complete')}
+                                        </Button>
+                                        {/*)}*/}
                                         <Button
                                             id="form-cancel-btn"
                                             size={'small'}
