@@ -30,6 +30,7 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
     const errorsNotForRetry: string[] = ['instance-receival-error', 'instance-registration-error'];
     const [summaryList, setSummaryList] = useState<ISummary[]>();
     const [rowCount, setRowCount] = useState<string>('10');
+    const [rowsPerPage, setRowsPerPage] = useState<string>('10');
     const selectOptions = [
         { value: '', label: t('numberPerPage'), disabled: true },
         {
@@ -93,7 +94,8 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                 typeof error === 'object' &&
                 error !== null &&
                 'response' in error &&
-                (error as { response?: { status?: number; data?: string } }).response?.status === 422
+                (error as { response?: { status?: number; data?: string } }).response?.status ===
+                    422
             ) {
                 const axiosError = error as { response: { data: string } };
                 onError({ message: axiosError.response.data || 'Validation error occurred' });
@@ -142,8 +144,7 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                     <Alert variant="info">{t('filter.alerts.tableFiltered')}</Alert>
                 ) : null}
 
-                <Table
-                    id={'instance-table'}>
+                <Table id={'instance-table'}>
                     <Table.Header>
                         <Table.Row>
                             <Table.ColumnHeader />
@@ -232,16 +233,18 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                 <HStack justify={'center'} style={{ marginTop: '16px' }} gap={'10'}>
                     <CustomSelect
                         options={selectOptions}
-                        onChange={setRowCount}
+                        onChange={setRowsPerPage}
                         label={t('numberPerPage')}
                         hideLabel={true}
-                        default={rowCount}
+                        default={rowsPerPage}
                     />
 
                     <>
                         <Button
                             variant="secondary"
-                            onClick={() => setRowCount((prev) => String(Number(prev) * 2))}>
+                            onClick={() =>
+                                setRowCount(String(Number(rowCount) + Number(rowsPerPage)))
+                            }>
                             {t('filter.loadMore')}
                         </Button>
                     </>

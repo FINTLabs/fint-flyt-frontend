@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { IEvent, IInstanceFlowHeadersEmbeddable } from '../types/Event';
+import { IEventNew } from '../types/Event';
 import { Alert, Button, Modal, Select, TextField, VStack } from '@navikt/ds-react';
 import { ISelectable } from '../../configuration/types/Selectable';
 import InstanceFlowTrackingRepository from '../../../api/InstanceFlowTrackingRepository';
 
 type Props = {
-    row: IEvent;
+    row: IEventNew;
     setOpenCustomDialog: React.Dispatch<React.SetStateAction<boolean>>;
     open: boolean;
 };
@@ -15,14 +15,11 @@ type Props = {
 const CustomStatusDialogComponent: React.FunctionComponent<Props> = (props: Props) => {
     const ref = useRef<HTMLDialogElement>(null);
     const { t } = useTranslation('translations', { keyPrefix: 'pages.instances' });
-    const [status, setStatus] = useState<string>(props.row.name);
+    const [status, setStatus] = useState<string>(props.row.status);
     const [destinationId, setDestinationId] = useState<string | undefined>(undefined);
     const [error, setError] = useState<boolean>(false);
 
-    const createDispatchEvent = (
-        instance: IInstanceFlowHeadersEmbeddable,
-        archiveInstanceId: string
-    ) => {
+    const createDispatchEvent = (instance: IEventNew, archiveInstanceId: string) => {
         InstanceFlowTrackingRepository.manualDispatchEvent(
             instance.sourceApplicationInstanceId,
             instance.sourceApplicationId,
@@ -37,7 +34,7 @@ const CustomStatusDialogComponent: React.FunctionComponent<Props> = (props: Prop
             });
     };
 
-    const createRejectEvent = (instance: IInstanceFlowHeadersEmbeddable) => {
+    const createRejectEvent = (instance: IEventNew) => {
         InstanceFlowTrackingRepository.manualRejectEvent(
             instance.sourceApplicationInstanceId,
             instance.sourceApplicationId,
@@ -51,20 +48,19 @@ const CustomStatusDialogComponent: React.FunctionComponent<Props> = (props: Prop
             });
     };
 
-    const updateStatus = (instance: IEvent, status: string, destinationId: string | undefined) => {
-        instance.name = status;
-        instance.applicationId = 'fint-flyt-frontend';
-        instance.type = 'INFO';
-        instance.timestamp = new Date().toISOString();
+    const updateStatus = (instance: IEventNew, status: string, destinationId?: string) => {
+        // instance.name = status;
+        // instance.type = 'INFO';
+        // instance.timestamp = new Date().toISOString();
 
         if (status === 'instance-manually-processed' && !destinationId) {
             setError(true);
         } else if (status === 'instance-manually-processed' && destinationId) {
-            createDispatchEvent(instance.instanceFlowHeaders, destinationId);
+            createDispatchEvent(instance, destinationId);
             props.setOpenCustomDialog(false);
         }
         if (instance && status === 'instance-manually-rejected') {
-            createRejectEvent(instance.instanceFlowHeaders);
+            createRejectEvent(instance);
             props.setOpenCustomDialog(false);
         } else {
             setError(true);
@@ -72,6 +68,7 @@ const CustomStatusDialogComponent: React.FunctionComponent<Props> = (props: Prop
     };
 
     const instanceStatuses: ISelectable[] = [
+        { displayName: t(props.row.status), value: props.row.displayName || 'Feilet' },
         { displayName: t('instance-manually-processed'), value: 'instance-manually-processed' },
         { displayName: t('instance-manually-rejected'), value: 'instance-manually-rejected' },
     ];

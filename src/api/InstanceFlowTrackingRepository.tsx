@@ -59,7 +59,7 @@ const getEventsByInstanceId = (
 
 const manualDispatchEvent = (
     sourceApplicationInstanceId: string,
-    sourceApplicationId: string,
+    sourceApplicationId: number,
     archiveInstanceId: string,
     sourceApplicationIntegrationId: string
 ) => {
@@ -72,7 +72,7 @@ const manualDispatchEvent = (
 };
 const manualRejectEvent = (
     sourceApplicationInstanceId: string,
-    sourceApplicationId: string,
+    sourceApplicationId: number,
     sourceApplicationIntegrationId: string
 ) => {
     return axios.post(`/api/intern/instance-flow-tracking/events/instance-manually-rejected`, {

@@ -35,16 +35,16 @@ export interface IErrorArg {
     value: string;
 }
 
-export interface IEvent {
-    sourceApplicationId: number;
-    sourceApplicationIntegrationId: string;
-    sourceApplicationInstanceId: string;
-    integrationId: number;
-    latestUpdate: string; // ISO timestamp
-    status: string;
-    intermediateStorageStatus: string;
-    destinationId?: string | null;
-}
+// export interface IEvent {
+//     sourceApplicationId: number;
+//     sourceApplicationIntegrationId: string;
+//     sourceApplicationInstanceId: string;
+//     integrationId: number;
+//     latestUpdate: string; // ISO timestamp
+//     status: string;
+//     intermediateStorageStatus: string;
+//     destinationId?: string | null;
+// }
 
 export interface IPageable {
     sort: ISort;
@@ -61,17 +61,17 @@ export interface ISort {
     unsorted: boolean;
 }
 
-export interface IEventResponse {
-    content: IEvent[];
-    pageable: IPageable;
-    size: number;
-    number: number;
-    sort: ISort;
-    numberOfElements: number;
-    first: boolean;
-    last: boolean;
-    empty: boolean;
-}
+// export interface IEventResponse {
+//     content: IEvent[];
+//     pageable: IPageable;
+//     size: number;
+//     number: number;
+//     sort: ISort;
+//     numberOfElements: number;
+//     first: boolean;
+//     last: boolean;
+//     empty: boolean;
+// }
 /// NEW
 
 export interface ISummary {
