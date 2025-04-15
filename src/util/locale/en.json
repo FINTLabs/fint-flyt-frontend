@@ -41,11 +41,14 @@
       "oneIntegration": "integration",
       "activeIntegrations": "active integrations",
       "oneActiveIntegration": "active integration",
-      "instances": "instances dispatched",
-      "oneInstance": "instance dispatched",
       "empty": "No",
-      "oneError": "current error",
-      "errors": "current errors",
+      "cards": {
+        "totalInstances": "Total instances",
+        "inProgress": "In progress",
+        "transferred": "Transferred",
+        "aborted": "Aborted",
+        "failed": "Failed"
+      },
       "links": {
         "integrations": "View integrations",
         "integration": "New integration",
@@ -177,9 +180,13 @@
           "actions": "Actions",
           "finished": "Completed",
           "version": "Version",
-          "dispatched": "# dispatched",
-          "errors": "# failed",
-          "total": "# total"
+          "dispatched": "Dispatched",
+          "errors": "Failed",
+          "total": "Total",
+          "inProgress": "In Progress",
+          "transferred": "Transferred",
+          "aborted": "Aborted",
+          "failed": "Failed"
         }
       }
     },

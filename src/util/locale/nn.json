@@ -41,11 +41,14 @@
       "oneIntegration": "integrasjon",
       "activeIntegrations": "aktive integrasjonar",
       "oneActiveIntegration": "aktiv integrasjon",
-      "instances": "arkiverte instansar",
-      "oneInstance": "arkivert instans",
       "empty": "Ingen",
-      "oneError": "noverande feilmelding",
-      "errors": " noverande feilmeldinger",
+      "cards": {
+        "totalInstances": "Totalt antal instansar",
+        "inProgress": "Under behandling",
+        "transferred": "Overført",
+        "avbrutt": "Avbrote",
+        "failed": "Feila"
+      },
       "links": {
         "integrations": "Sjå integrasjonar",
         "integration": "Ny integrasjon",
@@ -177,9 +180,13 @@
           "actions": "Handlingar",
           "finished": "Ferdigstilt",
           "version": "Versjon",
-          "dispatched": "# godteke",
-          "errors": "# feila",
-          "total": "# totalt"
+          "dispatched": "Godteke",
+          "errors": "Feila",
+          "total": "Totalt",
+          "inProgress": "Under behandling",
+          "transferred": "Overført",
+          "aborted": "Avbrote",
+          "failed": "Feila"
         }
       }
     },
@@ -253,7 +260,7 @@
       "ariaLabel": "Tidsperiode",
       "title": "Tidsperiode",
       "Denne dagen": "I dag",
-      "Denne måneden": "Denne månaden",
+      "Denne måneden": "Denne måneden",
       "Denne uka": "Denne veka",
       "Dette året": "Dette året",
       "description": {

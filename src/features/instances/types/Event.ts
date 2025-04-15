@@ -150,3 +150,24 @@ export interface ISortNew {
     sorted: boolean;
     unsorted: boolean;
 }
+
+export interface ITotalStatistics {
+    total: number;
+    inProgress: number;
+    transferred: number;
+    aborted: number;
+    failed: number;
+}
+
+export interface IIntegrationDetailedStatistics {
+    integrationId: string;
+    total: number;
+    inProgress: number;
+    transferred: number;
+    aborted: number;
+    failed: number;
+}
+
+export interface IIntegrationDetailedStatisticsResponse {
+    content: IIntegrationDetailedStatistics[];
+}

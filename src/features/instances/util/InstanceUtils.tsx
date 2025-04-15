@@ -13,7 +13,8 @@ export function GetIcon(event: string) {
         event === 'FAILED' ||
         event === 'ERROR' ||
         event === 'INSTANCE_RECEIVAL_ERROR' ||
-        event === 'INSTANCE_DISPATCHING_ERROR'
+        event === 'INSTANCE_DISPATCHING_ERROR' ||
+        event === 'INSTANCE_MAPPING_ERROR'
     ) {
         return (
             <IconButton disabled>

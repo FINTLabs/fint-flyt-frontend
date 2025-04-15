@@ -43,7 +43,7 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
         statuses: [],
         storageStatuses: [],
         associatedEvents: [],
-        lastEvent: [],
+        lastStatusEvent: [],
         destinationIds: [],
         sort: '',
     };
@@ -76,7 +76,7 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
         statuses: getParam('statuses', true) as string[],
         storageStatuses: getParam('storageStatuses', true) as string[],
         associatedEvents: getParam('associatedEvents', true) as string[],
-        lastEvent: getParam('lastEvent', true) as string[],
+        lastStatusEvent: getParam('lastStatusEvent', true) as string[],
         destinationIds: getParam('destinationIds', true) as string[],
         sort: getParam('sort', false) as string,
     };

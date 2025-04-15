@@ -62,7 +62,7 @@ describe('Testing integration list', () => {
         cy.get('#integration-table-container').should('be.visible');
     });
 
-    it('should contain correct colunms', () => {
+    it('should contain correct columns', () => {
         prep();
         let columns = [
             'Id',
@@ -71,8 +71,11 @@ describe('Testing integration list', () => {
             'Integrasjonsnavn',
             'Destinasjon/base',
             'Tilstand',
-            '# godtatt',
-            '# feilet',
+            'Totalt',
+            'Under behandling',
+            'Overført',
+            'Avbrutt',
+            'Feilet',
         ];
         columns.forEach((column) => {
             cy.get('#integration-table-container').should('contain.text', column);

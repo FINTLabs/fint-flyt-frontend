@@ -11,7 +11,7 @@ export interface Filters {
     statuses: string[] | null;
     storageStatuses: string[] | null;
     associatedEvents: string[] | null;
-    lastEvent: string[] | null;
+    lastStatusEvent: string[] | null;
     destinationIds: string[] | null;
     sort?: string;
 }

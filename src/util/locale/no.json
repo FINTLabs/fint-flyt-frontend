@@ -177,9 +177,13 @@
           "actions": "Handlinger",
           "finished": "Ferdigstilt",
           "version": "Versjon",
-          "dispatched": "# godtatt",
-          "errors": "# feilet",
-          "total": "# totalt"
+          "dispatched": "Sendt",
+          "errors": "Feilet",
+          "total": "Totalt",
+          "inProgress": "Under behandling",
+          "transferred": "Overført",
+          "aborted": "Avbrutt",
+          "failed": "Feilet"
         }
       }
     },

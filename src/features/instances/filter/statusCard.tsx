@@ -18,13 +18,13 @@ export default function StatusCard(props: Props) {
     });
     const { filters, updateFilter } = useFilters();
     const [selectedTab, setSelectedTab] = useState<string>(
-        (filters.lastEvent ?? []).length > 0 ? 'event' : 'status'
+        (filters.lastStatusEvent ?? []).length > 0 ? 'event' : 'status'
     );
 
     function handleTabChange(tab: string) {
         setSelectedTab(tab);
         if (tab === 'status') {
-            updateFilter('lastEvent', null);
+            updateFilter('lastStatusEvent', null);
         }
         if (tab === 'event') {
             updateFilter('statuses', null);
@@ -34,8 +34,8 @@ export default function StatusCard(props: Props) {
     const getExpansionCardDescription = (): string => {
         const details: string[] = [];
 
-        if ((filters.lastEvent ?? []).length > 0) {
-            const eventLabels = (filters.lastEvent ?? [])
+        if ((filters.lastStatusEvent ?? []).length > 0) {
+            const eventLabels = (filters.lastStatusEvent ?? [])
                 .map((id) => {
                     const option = props.associatedEventNamesOptions.find(
                         (opt) => opt.value === id
@@ -119,7 +119,7 @@ export default function StatusCard(props: Props) {
                                 value: option.value,
                             }))}
                             selectedOptions={props.associatedEventNamesOptions
-                                .filter((opt) => filters.lastEvent?.includes(opt.value))
+                                .filter((opt) => filters.lastStatusEvent?.includes(opt.value))
                                 .map((option) => ({
                                     label: t(`associatedEventNames.${option.value}`),
                                     value: option.value,
@@ -129,7 +129,7 @@ export default function StatusCard(props: Props) {
                                 setArrayValue(
                                     updateFilter,
                                     filters,
-                                    'lastEvent',
+                                    'lastStatusEvent',
                                     option,
                                     isSelected
                                 )

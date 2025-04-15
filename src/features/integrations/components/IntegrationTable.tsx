@@ -16,6 +16,7 @@ import { IIntegrationMetadata } from '../../configuration/types/Metadata/Integra
 import { SourceApplicationContext } from '../../../context/SourceApplicationContext';
 import { CustomSelect } from '../../../components/organisms/CustomSelect';
 import { IAlertMessage, Page } from '../../../components/types/TableTypes';
+import { IIntegrationDetailedStatistics } from '../../instances/types/Event';
 
 type IntegrationProps = {
     id: string;
@@ -41,6 +42,7 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
         { value: '50', label: '50' },
         { value: '100', label: '100' },
     ];
+    const [detailedStats, setDetailedStats] = useState<IIntegrationDetailedStatistics[]>([]);
 
     useEffect(() => {
         if (integrations?.totalElements && integrations.totalElements < Number(rowCount)) {
@@ -54,8 +56,15 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
         props.onError(undefined);
         if (allMetadata) {
             try {
-                const response = await InstanceFlowTrackingRepository.getStatistics();
-                const data = response.data;
+                // Get statistics
+                const statsResponse = await InstanceFlowTrackingRepository.getStatistics();
+                const data = statsResponse.data;
+
+                // Get detailed statistics
+                const detailedStatsResponse =
+                    await InstanceFlowTrackingRepository.getDetailedStatistics();
+                setDetailedStats(detailedStatsResponse.data.content);
+
                 if (data) {
                     const stats = data.content;
 
@@ -153,13 +162,20 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
                             <Table.ColumnHeader sortKey="state" sortable>
                                 {t('table.column.state')}
                             </Table.ColumnHeader>
-                            <Table.ColumnHeader>{t('table.column.dispatched')}</Table.ColumnHeader>
-                            <Table.ColumnHeader>{t('table.column.errors')}</Table.ColumnHeader>
+                            {/*<Table.ColumnHeader>{t('table.column.dispatched')}</Table.ColumnHeader>*/}
+                            {/*<Table.ColumnHeader>{t('table.column.errors')}</Table.ColumnHeader>*/}
                             <Table.ColumnHeader>{t('table.column.total')}</Table.ColumnHeader>
+                            <Table.ColumnHeader>{t('table.column.inProgress')}</Table.ColumnHeader>
+                            <Table.ColumnHeader>{t('table.column.transferred')}</Table.ColumnHeader>
+                            <Table.ColumnHeader>{t('table.column.aborted')}</Table.ColumnHeader>
+                            <Table.ColumnHeader>{t('table.column.failed')}</Table.ColumnHeader>
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
                         {integrations?.content?.map((value, i) => {
+                            const stats = detailedStats.find(
+                                (stat) => stat.integrationId === value.id
+                            );
                             return (
                                 <Table.ExpandableRow
                                     expandOnRowClick
@@ -189,9 +205,24 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
                                     <Table.DataCell>
                                         {getStateDisplayName(value.state ?? '')}
                                     </Table.DataCell>
-                                    <Table.DataCell>{value.dispatched}</Table.DataCell>
-                                    <Table.DataCell>{value.errors}</Table.DataCell>
-                                    <Table.DataCell>{value.total}</Table.DataCell>
+                                    {/*<Table.DataCell>{value.dispatched}</Table.DataCell>*/}
+                                    {/*<Table.DataCell>{value.errors}</Table.DataCell>*/}
+                                    {/*<Table.DataCell>{value.total}</Table.DataCell>*/}
+                                    <Table.DataCell align={'center'}>
+                                        {stats?.total || '-'}
+                                    </Table.DataCell>
+                                    <Table.DataCell align={'center'}>
+                                        {stats?.inProgress || '-'}
+                                    </Table.DataCell>
+                                    <Table.DataCell align={'center'}>
+                                        {stats?.transferred || '-'}
+                                    </Table.DataCell>
+                                    <Table.DataCell align={'center'}>
+                                        {stats?.aborted || '-'}
+                                    </Table.DataCell>
+                                    <Table.DataCell align={'center'}>
+                                        {stats?.failed || '-'}
+                                    </Table.DataCell>
                                 </Table.ExpandableRow>
                             );
                         })}
