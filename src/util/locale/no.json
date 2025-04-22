@@ -37,15 +37,20 @@
     },
     "dashboard": {
       "header": "Dashboard og oversikt",
-      "integrations": "integrasjoner",
-      "oneIntegration": "integrasjon",
-      "activeIntegrations": "aktive integrasjoner",
+      "integrations": "Integrasjoner",
+      "oneIntegration": "Integrasjon",
+      "activeIntegrations": "Aktive integrasjoner",
       "oneActiveIntegration": "aktiv integrasjon",
       "instances": "arkiverte instanser",
       "oneInstance": "arkivert instans",
       "empty": "Ingen",
-      "oneError": "nåværende feilmelding",
-      "errors": "nåværende feilmeldinger",
+      "cards": {
+        "totalInstances": "Totalt antall instanser",
+        "inProgress": "Under behandling",
+        "transferred": "Overført",
+        "aborted": "Avbrutt",
+        "failed": "Feilet"
+      },
       "links": {
         "integrations": "Se integrasjoner",
         "integration": "Ny integrasjon",

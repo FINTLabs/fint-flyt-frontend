@@ -1,9 +1,5 @@
 import axios from 'axios';
 import { Filters } from '../features/instances/filter/types';
-import {
-    ITotalStatistics,
-    IIntegrationDetailedStatisticsResponse,
-} from '../features/instances/types/Event';
 
 const getLatestSummaries = (size: number, filters?: Filters) => {
     const params: Record<string, string | string[] | boolean | number> = {
@@ -87,25 +83,25 @@ const manualRejectEvent = (
 };
 
 const getAllStatistics = () => {
-    return axios.get<ITotalStatistics>('/api/intern/instance-flow-tracking/statistics/total');
+    return axios.get('/api/intern/instance-flow-tracking/statistics/total');
 };
 
 const getStatistics = () => {
     return axios.get(`/api/intern/instance-flow-tracking/statistics/integrations`);
 };
 
-const getDetailedStatistics = () => {
-    return axios.get<IIntegrationDetailedStatisticsResponse>(
-        '/api/intern/instance-flow-tracking/statistics/integrations'
-    );
-};
+// const getDetailedStatistics = () => {
+//     return axios.get<IIntegrationDetailedStatisticsResponse>(
+//         '/api/intern/instance-flow-tracking/statistics/integrations'
+//     );
+// };
 
 const InstanceFlowTrackingRepository = {
     getLatestEvents: getLatestSummaries,
     getEventsByInstanceId,
     getAllStatistics,
     getStatistics,
-    getDetailedStatistics,
+    // getDetailedStatistics,
     manualRejectEvent,
     manualDispatchEvent,
 };

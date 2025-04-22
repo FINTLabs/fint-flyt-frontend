@@ -56,18 +56,15 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
         props.onError(undefined);
         if (allMetadata) {
             try {
-                // Get statistics
+                // Get statistics - using single call now
                 const statsResponse = await InstanceFlowTrackingRepository.getStatistics();
                 const data = statsResponse.data;
-
-                // Get detailed statistics
-                const detailedStatsResponse =
-                    await InstanceFlowTrackingRepository.getDetailedStatistics();
-                setDetailedStats(detailedStatsResponse.data.content);
+                setDetailedStats(data.content);
 
                 if (data) {
                     const stats = data.content;
 
+                    console.log('RUNNING A GET INTEGRATION REQUEST');
                     const integrationResponse = await IntegrationRepository.getIntegrations(
                         page - 1,
                         Number(rowCount),

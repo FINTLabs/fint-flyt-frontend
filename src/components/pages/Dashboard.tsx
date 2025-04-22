@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { IntegrationContext } from '../../context/IntegrationContext';
 import DashboardCard from '../organisms/DashboardCard';
 import { ICard } from '../../features/dashboard/Card';
@@ -10,37 +10,16 @@ import { Contact } from '../atoms/Contact';
 import SupportContent from '../molecules/SupportContent';
 import { AuthorizationContext } from '../../context/AuthorizationContext';
 import { useNavigate } from 'react-router-dom';
-import InstanceFlowTrackingRepository from '../../api/InstanceFlowTrackingRepository';
-import { ITotalStatistics } from '../../features/instances/types/Event';
 
 const Dashboard: RouteComponent = () => {
-    const [totalStats, setTotalStats] = useState<ITotalStatistics>();
+    // const [totalStats, setTotalStats] = useState<ITotalStatistics>();
     const { t } = useTranslation('translations', {
         keyPrefix: 'pages.dashboard',
     });
     const history = useNavigate();
 
-    useEffect(() => {
-        const fetchTotalStats = async () => {
-            try {
-                const response = await InstanceFlowTrackingRepository.getAllStatistics();
-                console.log('Statistics fetched:', response.data);
-                setTotalStats(response.data);
-                console.log('Total Statistics:', response.data);
-                console.log('Total instances:', response.data.total);
-                console.log('In Progress:', response.data.inProgress);
-                console.log('Transferred:', response.data.transferred);
-                console.log('Aborted:', response.data.aborted);
-                console.log('Failed:', response.data.failed);
-            } catch (error) {
-                console.error('Error fetching total statistics:', error);
-            }
-        };
-
-        fetchTotalStats();
-    }, []);
-
-    const { resetIntegration, integrations, getAllIntegrations } = useContext(IntegrationContext);
+    const { resetIntegration, integrations, getAllIntegrations, totalStatistics } =
+        useContext(IntegrationContext);
     const activeIntegrations =
         integrations?.filter((integration) => integration.state === 'ACTIVE') || [];
     // let currentErrors = 0;
@@ -55,7 +34,7 @@ const Dashboard: RouteComponent = () => {
     useEffect(() => {
         getAllIntegrations();
         resetIntegration();
-        console.log('Dashboard effect - getting integrations');
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -66,9 +45,9 @@ const Dashboard: RouteComponent = () => {
     const cards: ICard[] = [
         {
             value:
-                !totalStats?.inProgress || totalStats.inProgress === 0
+                !totalStatistics?.inProgress || totalStatistics.inProgress === 0
                     ? t('empty')
-                    : totalStats.inProgress.toString(),
+                    : totalStatistics.inProgress.toString(),
             content: t('cards.inProgress'),
             links: [
                 {
@@ -79,9 +58,9 @@ const Dashboard: RouteComponent = () => {
         },
         {
             value:
-                !totalStats?.transferred || totalStats.transferred === 0
+                !totalStatistics?.transferred || totalStatistics.transferred === 0
                     ? t('empty')
-                    : totalStats.transferred.toString(),
+                    : totalStatistics.transferred.toString(),
             content: t('cards.transferred'),
             links: [
                 {
@@ -92,9 +71,9 @@ const Dashboard: RouteComponent = () => {
         },
         {
             value:
-                !totalStats?.aborted || totalStats.aborted === 0
+                !totalStatistics?.aborted || totalStatistics.aborted === 0
                     ? t('empty')
-                    : totalStats.aborted.toString(),
+                    : totalStatistics.aborted.toString(),
             content: t('cards.aborted'),
             links: [
                 { name: t('links.instances'), href: '/integration/instance/list?statuses=ABORTED' },
@@ -102,9 +81,9 @@ const Dashboard: RouteComponent = () => {
         },
         {
             value:
-                !totalStats?.failed || totalStats.failed === 0
+                !totalStatistics?.failed || totalStatistics.failed === 0
                     ? t('empty')
-                    : totalStats.failed.toString(),
+                    : totalStatistics.failed.toString(),
             content: t('cards.failed'),
             links: [
                 { name: t('links.instances'), href: '/integration/instance/list?statuses=FAILED' },
@@ -128,9 +107,9 @@ const Dashboard: RouteComponent = () => {
         },
         {
             value:
-                !totalStats?.total || totalStats.total === 0
+                !totalStatistics?.total || totalStatistics.total === 0
                     ? t('empty')
-                    : totalStats.total.toString(),
+                    : totalStatistics.total.toString(),
             content: t('cards.totalInstances'),
             links: [{ name: t('links.instances'), href: '/integration/instance/list' }],
         },
