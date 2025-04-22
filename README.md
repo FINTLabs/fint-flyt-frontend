@@ -18,7 +18,7 @@ yarn test
 1. **Start Port Forwarding**  
    Run the provided script:
    ```bash
-   ./startUpForwards.sh
+   sh ./startUpForwards.sh start
    ```
 
 2. **Verify Kubernetes Context**  
@@ -31,7 +31,9 @@ yarn test
    Confirm the namespace is properly configured:
   
  NAMESPACE="vlfk-no"
-
+ ```bash
+    kubectl config set-context --current --namespace="vlfk-no"
+   ```
 
 4. **Check Proxy Configuration**  
    Verify that your `setupProxy.js` file matches the specified namespace.

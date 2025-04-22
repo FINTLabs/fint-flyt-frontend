@@ -1,51 +1,61 @@
-import {GridCellParams} from "@mui/x-data-grid";
-import * as React from "react";
-import {ReactElement, useContext, useEffect, useState} from "react";
-import {useTranslation} from "react-i18next";
-import {Box, Button, Dropdown, HStack, Link, Loader, Pagination, SortState, Table} from "@navikt/ds-react";
-import moment from "moment";
-import {eventComparator, getSourceApplicationDisplayNameById} from "../../../util/TableUtil";
-import {IEvent} from "../types/Event";
-import ErrorDialogComponent from "./ErrorDialogComponent";
-import InstancePanel from "./InstancePanel";
-import {GetIcon} from "../util/InstanceUtils";
-import InstanceRepository from "../repository/InstanceRepository";
-import EventRepository from "../../../api/EventRepository";
-import {IIntegrationMetadata} from "../../configuration/types/Metadata/IntegrationMetadata";
-import {SourceApplicationContext} from "../../../context/SourceApplicationContext";
-import {CustomSelect} from "../../../components/organisms/CustomSelect";
-import {IAlertMessage, Page} from "../../../components/types/TableTypes";
-import {MenuElipsisVerticalCircleIcon} from "@navikt/aksel-icons";
-import CustomStatusDialogComponent from "./CustomStatusDialogComponent";
+import { GridCellParams } from '@mui/x-data-grid';
+import * as React from 'react';
+import { ReactElement, useContext, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Alert, Box, Button, Dropdown, HStack, Loader, Table } from '@navikt/ds-react';
+import moment from 'moment';
+import { getSourceApplicationDisplayNameById } from '../../../util/TableUtil';
+import { IEventNew, ISummary } from '../types/Event';
+import InstancePanel from './InstancePanel';
+import { GetIconTable } from '../util/InstanceUtils';
+import InstanceRepository from '../repository/InstanceRepository';
+import { IIntegrationMetadata } from '../../configuration/types/Metadata/IntegrationMetadata';
+import { SourceApplicationContext } from '../../../context/SourceApplicationContext';
+import { CustomSelect } from '../../../components/organisms/CustomSelect';
+import { IAlertMessage } from '../../../components/types/TableTypes';
+import { MenuElipsisVerticalCircleIcon } from '@navikt/aksel-icons';
+import CustomStatusDialogComponent from './CustomStatusDialogComponent';
+import { useFilters } from '../filter/FilterContext';
+import InstanceFlowTrackingRepository from '../../../api/InstanceFlowTrackingRepository';
 
 interface Props {
     onError: (error: IAlertMessage | undefined) => void;
 }
 
-const InstanceTable: React.FunctionComponent<Props> = ({onError}) => {
-    const {t} = useTranslation('translations', {keyPrefix: 'pages.instances'})
-    const [selectedRow, setSelectedRow] = useState<IEvent>();
-    const [openErrorDialog, setOpenErrorDialog] = React.useState(false);
+const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
+    const { t } = useTranslation('translations', { keyPrefix: 'pages.instances' });
+    const [selectedRow, setSelectedRow] = useState<IEventNew>();
     const [openCustomDialog, setOpenCustomDialog] = React.useState(false);
     const [page, setPage] = useState(1);
-    const [sort, setSort] = useState<SortState | undefined>({orderBy: 'timestamp', direction: "descending"});
-    const errorsNotForRetry: string[] = ['instance-receival-error', 'instance-registration-error']
-    const [instancesPage, setInstancesPage] = useState<Page<IEvent>>()
-    const [rowCount, setRowCount] = useState<string>("10")
-    const selectOptions = [{value: "", label: t('numberPerPage'), disabled: true}, {
-        value: "10",
-        label: "10"
-    }, {value: "25", label: "25"}, {value: "50", label: "50"}, {value: "100", label: "100"}]
-    const [disabledRetryButtons, setDisabledRetryButtons] = useState(new Array(Number(rowCount)).fill(false));
-    const {allMetadata} = useContext(SourceApplicationContext)
+    const errorsNotForRetry: string[] = ['instance-receival-error', 'instance-registration-error'];
+    const [summaryList, setSummaryList] = useState<ISummary[]>();
+    const [rowCount, setRowCount] = useState<string>('10');
+    const [rowsPerPage, setRowsPerPage] = useState<string>('10');
+    const selectOptions = [
+        { value: '', label: t('numberPerPage'), disabled: true },
+        {
+            value: '10',
+            label: '10',
+        },
+        { value: '25', label: '25' },
+        { value: '50', label: '50' },
+        { value: '100', label: '100' },
+    ];
+    const [disabledRetryButtons, setDisabledRetryButtons] = useState(
+        new Array(Number(rowCount)).fill(false)
+    );
+    const { allMetadata } = useContext(SourceApplicationContext);
+    const { filters, refreshKey } = useFilters();
+    const [loading, setLoading] = useState(true);
+    const [hasFilters, setHasFilters] = useState(false);
+    const [expandedRows, setExpandedRows] = useState<number[]>([]);
 
     useEffect(() => {
-        if (instancesPage?.totalElements && (instancesPage.totalElements < Number(rowCount))) {
-            setPage(1)
-        }
-        setInstancesPage({content: []})
-        getLatestInstances(rowCount, sort);
-    }, [page, setPage, sort, rowCount])
+        setLoading(true);
+        setHasFilters(false);
+        setExpandedRows([]);
+        getLatestInstances(rowCount);
+    }, [page, setPage, rowCount, refreshKey]);
 
     const handleRetryButtonClick = (index: number) => {
         const newDisabledButtons = [...disabledRetryButtons];
@@ -53,201 +63,264 @@ const InstanceTable: React.FunctionComponent<Props> = ({onError}) => {
         setDisabledRetryButtons(newDisabledButtons);
     };
 
-    const getLatestInstances = async (rowCount: string, sort?: SortState) => {
-        onError(undefined)
+    const getLatestInstances = async (size: string) => {
+        onError(undefined);
+
         try {
-            const eventResponse = await EventRepository.getLatestEvents(page - 1, Number(rowCount), sort ? sort.orderBy : "timestamp", sort ? (sort.direction === "ascending" ? "ASC" : "DESC") : "DESC")
-            const events: Page<IEvent> = eventResponse.data;
+            const eventResponse = await InstanceFlowTrackingRepository.getLatestEvents(
+                Number(size),
+                filters
+            );
+
+            const events: ISummary[] = eventResponse.data;
             if (allMetadata && events) {
                 allMetadata.forEach((value: IIntegrationMetadata) => {
-                    eventResponse.data.content.forEach((event: IEvent) => {
-                        if (event.instanceFlowHeaders.sourceApplicationIntegrationId === value.sourceApplicationIntegrationId) {
+                    eventResponse.data.forEach((event: ISummary) => {
+                        if (
+                            event.sourceApplicationIntegrationId ===
+                            value.sourceApplicationIntegrationId
+                        ) {
                             event.displayName = value.integrationDisplayName;
                         }
                     });
                 });
-                events.content.slice()
-                    .sort((a, b) => {
-                        if (sort) {
-                            return sort.direction === "ascending"
-                                ? eventComparator(b, a, sort.orderBy)
-                                : eventComparator(a, b, sort.orderBy);
-                        }
-                        return 1;
-                    });
-                setInstancesPage(events);
-            } else {
-                onError({message: t('errorMessage')});
-                setInstancesPage({content: []});
-            }
-        } catch (e) {
-            onError({message: t('errorMessage')});
-            setInstancesPage({content: []});
-            console.error('Error: ', e);
-        }
-    }
 
-    const handleSort = (sortKey: string) => {
-        setSort(prevSort => {
-            return prevSort && sortKey === prevSort.orderBy && prevSort.direction === "descending"
-                ? undefined
-                : {
-                    orderBy: sortKey,
-                    direction:
-                        prevSort && sortKey === prevSort.orderBy && prevSort.direction === "ascending"
-                            ? "descending"
-                            : "ascending",
-                };
-        });
+                setSummaryList(events);
+            } else {
+                setSummaryList([]);
+            }
+        } catch (error: unknown) {
+            if (
+                typeof error === 'object' &&
+                error !== null &&
+                'response' in error &&
+                (error as { response?: { status?: number; data?: string } }).response?.status ===
+                    422
+            ) {
+                const axiosError = error as { response: { data: string } };
+                onError({ message: axiosError.response.data || 'Validation error occurred' });
+            } else if (error instanceof Error) {
+                onError({ message: error.message || 'An unexpected error occurred' });
+            } else {
+                onError({ message: 'An unexpected error occurred' });
+            }
+            setSummaryList([]);
+            console.error('Error: ', error);
+        } finally {
+            setLoading(false);
+            Object.entries(filters).forEach(([, value]) => {
+                if (value != null && value.length > 0) {
+                    setHasFilters(true);
+                }
+            });
+        }
     };
 
     const resend = (instanceId: string) => {
         InstanceRepository.resendInstance(instanceId)
-            .then(response => {
-                console.log('resend instance', response)
+            .then((response) => {
+                console.log('resend instance', response);
             })
-            .catch(e => {
-                console.error(e)
-            })
-    }
+            .catch((e) => {
+                console.error(e);
+            });
+    };
 
+    const handleToggle = (index: number) => {
+        setExpandedRows((prev) =>
+            prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
+        );
+    };
 
-    return instancesPage ? (
+    return loading ? (
+        <Loader size="large" />
+    ) : summaryList ? (
         <Box>
-            <Box background={'surface-default'} style={{minHeight: '70vh'}}>
-                <ErrorAlertDialog row={selectedRow}/>
-                <CustomStatusDialog row={selectedRow}/>
-                <Table sort={sort} onSortChange={(sortKey) => handleSort(sortKey ? sortKey : "timestamp")}
-                       id={"instance-table"}>
+            <Box background={'surface-default'} style={{ minHeight: '70vh' }}>
+                <CustomStatusDialog row={selectedRow} />
+                {summaryList?.length === 0 ? (
+                    <Alert variant="info">{t('filter.alerts.noResults')}</Alert>
+                ) : hasFilters ? (
+                    <Alert variant="info">{t('filter.alerts.tableFiltered')}</Alert>
+                ) : null}
+
+                <Table id={'instance-table'}>
                     <Table.Header>
                         <Table.Row>
-                            <Table.ColumnHeader/>
-                            <Table.ColumnHeader>{t('table.column.sourceApplicationId')}</Table.ColumnHeader>
-                            <Table.ColumnHeader>{t('table.column.sourceApplicationIntegrationIdDisplayName')}</Table.ColumnHeader>
-                            <Table.ColumnHeader>{t('table.column.sourceApplicationIntegrationId')}</Table.ColumnHeader>
-                            <Table.ColumnHeader>{t('table.column.sourceApplicationInstanceId')}</Table.ColumnHeader>
-                            <Table.ColumnHeader sortKey="timestamp"
-                                                sortable>{t('table.column.timestamp')}</Table.ColumnHeader>
-                            <Table.ColumnHeader sortKey="type"
-                                                sortable>{t('table.column.status')}</Table.ColumnHeader>
+                            <Table.ColumnHeader />
+                            <Table.ColumnHeader>
+                                {t('table.column.sourceApplicationId')}
+                            </Table.ColumnHeader>
+                            <Table.ColumnHeader>
+                                {t('table.column.sourceApplicationIntegrationIdDisplayName')}
+                            </Table.ColumnHeader>
+                            <Table.ColumnHeader>
+                                {t('table.column.sourceApplicationIntegrationId')}
+                            </Table.ColumnHeader>
+                            <Table.ColumnHeader>
+                                {t('table.column.sourceApplicationInstanceId')}
+                            </Table.ColumnHeader>
+                            <Table.ColumnHeader>{t('table.column.timestamp')}</Table.ColumnHeader>
+                            <Table.ColumnHeader>{t('table.column.status')}</Table.ColumnHeader>
                             <Table.ColumnHeader>{t('table.column.storage')}</Table.ColumnHeader>
                             <Table.ColumnHeader>{t('table.column.actions')}</Table.ColumnHeader>
-                            <Table.ColumnHeader>{t('table.column.archiveInstanceId')}</Table.ColumnHeader>
+                            <Table.ColumnHeader>
+                                {t('table.column.archiveInstanceId')}
+                            </Table.ColumnHeader>
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                        {instancesPage?.content?.map((value, i) => {
+                        {summaryList?.map((value: IEventNew, i: number) => {
                             return (
-                                <Table.ExpandableRow expandOnRowClick key={i} content={<InstancePanel
-                                    id={'instance-panel-' + i}
-                                    onError={(error) => {
-                                        onError(error)
-                                    }}
-                                    instanceId={value.instanceFlowHeaders.sourceApplicationInstanceId}
-                                    sourceApplicationId={value.instanceFlowHeaders.sourceApplicationId}
-                                />}>
-                                    <Table.DataCell
-                                        scope="row">{getSourceApplicationDisplayNameById(String(value.instanceFlowHeaders.sourceApplicationId))}</Table.DataCell>
+                                <Table.ExpandableRow
+                                    key={i}
+                                    expandOnRowClick
+                                    open={expandedRows.includes(i)}
+                                    onOpenChange={() => handleToggle(i)}
+                                    content={
+                                        expandedRows.includes(i) ? (
+                                            <InstancePanel
+                                                id={`instance-panel-${i}`}
+                                                onError={(error) => onError(error)}
+                                                instanceId={value.sourceApplicationInstanceId}
+                                                sourceApplicationId={value.sourceApplicationId}
+                                                sourceApplicationIntegrationId={
+                                                    value.sourceApplicationIntegrationId
+                                                }
+                                            />
+                                        ) : null
+                                    }>
+                                    <Table.DataCell scope="row">
+                                        {getSourceApplicationDisplayNameById(
+                                            String(value.sourceApplicationId)
+                                        )}
+                                    </Table.DataCell>
+
                                     <Table.DataCell>{value.displayName}</Table.DataCell>
-                                    <Table.DataCell>{value.instanceFlowHeaders.sourceApplicationIntegrationId}</Table.DataCell>
-                                    <Table.DataCell>{value.instanceFlowHeaders.sourceApplicationInstanceId}</Table.DataCell>
-                                    <Table.DataCell>{moment(value.timestamp).format('DD/MM/YY HH:mm')}</Table.DataCell>
                                     <Table.DataCell>
-                                        {GetIcon(value)}
-                                        {t(value.name)} {" "}
-                                        {(value.type === 'ERROR' && value.errors.length > 0) &&
-                                            <Link style={{cursor: "pointer"}}
-                                                  onClick={() => {
-                                                      setSelectedRow(value);
-                                                      setOpenErrorDialog(true)
-                                                  }}>
-                                                {t('showError')}</Link>
-                                        }
+                                        {value.sourceApplicationIntegrationId}
                                     </Table.DataCell>
-                                    <Table.DataCell>{value.status ? t(value.status) : null}</Table.DataCell>
                                     <Table.DataCell>
-                                        {(value.type === 'ERROR' && value.status != "instance-deleted") &&
-                                            actionMenu(value, i)
-                                        }
+                                        {value.sourceApplicationInstanceId}
                                     </Table.DataCell>
-                                    <Table.DataCell>{value.instanceFlowHeaders.archiveInstanceId}</Table.DataCell>
+                                    <Table.DataCell>
+                                        {moment(value.latestUpdate).format('DD/MM/YY HH:mm')}
+                                    </Table.DataCell>
+                                    <Table.DataCell>
+                                        {GetIconTable(value.status)}
+                                        {t(value.status)}
+                                    </Table.DataCell>
+                                    <Table.DataCell>
+                                        {value.intermediateStorageStatus
+                                            ? t(
+                                                  `filter.intermediateStorageStatusOptions.${value.intermediateStorageStatus}`
+                                              )
+                                            : null}
+                                    </Table.DataCell>
+
+                                    <Table.DataCell>
+                                        {value.status === 'FAILED' && actionMenu(value, i)}
+                                    </Table.DataCell>
+                                    <Table.DataCell>{value.latestDestinationId}</Table.DataCell>
                                 </Table.ExpandableRow>
                             );
                         })}
                     </Table.Body>
                 </Table>
             </Box>
-            <HStack justify={"center"} style={{marginTop: '16px'}}>
-                {(instancesPage?.totalElements !== undefined) &&
+
+            {summaryList.length >= 10 && (
+                <HStack justify={'center'} style={{ marginTop: '16px' }} gap={'10'}>
                     <CustomSelect
                         options={selectOptions}
-                        onChange={setRowCount}
+                        onChange={setRowsPerPage}
                         label={t('numberPerPage')}
                         hideLabel={true}
-                        default={rowCount}
-                    />}
-                {(instancesPage?.totalElements !== undefined) && instancesPage?.totalElements > Number(rowCount) &&
-                    <Pagination
-                        page={page}
-                        onPageChange={setPage}
-                        count={instancesPage?.totalPages ?? 1}
-                        size="small"
-                    />}
-            </HStack>
+                        default={rowsPerPage}
+                    />
 
+                    <>
+                        <Button
+                            variant="secondary"
+                            onClick={() =>
+                                setRowCount(String(Number(rowCount) + Number(rowsPerPage)))
+                            }>
+                            {t('filter.loadMore')}
+                        </Button>
+                    </>
+                </HStack>
+            )}
         </Box>
-    ) : <Loader/>;
+    ) : (
+        <Loader />
+    );
 
-    function actionMenu(event: IEvent, id: number): ReactElement {
+    function actionMenu(event: IEventNew, id: number): ReactElement {
         return (
-            <div id={id + "-action-toggle"} className="min-h-32">
+            <div id={id + '-action-toggle'} className="min-h-32">
                 <Dropdown>
-                    <Button as={Dropdown.Toggle} variant="tertiary-neutral"
-                            icon={<MenuElipsisVerticalCircleIcon aria-hidden/>}/>
+                    <Button
+                        as={Dropdown.Toggle}
+                        variant="tertiary-neutral"
+                        icon={<MenuElipsisVerticalCircleIcon aria-hidden />}
+                    />
                     <Dropdown.Menu>
                         <Dropdown.Menu.List>
+                            {/*{*/}
+                            {/*    event.intermediateStorageStatus === 'STORED' && (*/}
+                            {/*        // event.latestInstanceId && (*/}
+                            {/*        <>*/}
                             <Dropdown.Menu.List.Item
-                                id={'retryButton'}
-                                disabled={errorsNotForRetry.includes(event.name) || disabledRetryButtons[id]}
+                                id={'statusButton'}
                                 onClick={() => {
-                                    resend(event.instanceFlowHeaders.instanceId);
-                                    handleRetryButtonClick(id)
+                                    setSelectedRow(event);
+                                    setOpenCustomDialog(true);
                                 }}>
-                                {t('retry')}
-                            </Dropdown.Menu.List.Item>
-                        </Dropdown.Menu.List>
-                        <Dropdown.Menu.Divider/>
-                        <Dropdown.Menu.List>
-                            <Dropdown.Menu.List.Item id={'statusButton'} onClick={() => {
-                                setSelectedRow(event);
-                                setOpenCustomDialog(true)
-                            }}>
                                 {t('customStatus')}
                             </Dropdown.Menu.List.Item>
+
+                            {event.intermediateStorageStatus === 'STORED' && (
+                                <>
+                                    <Dropdown.Menu.Divider />
+                                    <Dropdown.Menu.List.Item
+                                        id="retryButton"
+                                        disabled={
+                                            errorsNotForRetry.includes(event.displayName ?? '') ||
+                                            disabledRetryButtons[id]
+                                        }
+                                        onClick={() => {
+                                            if (event.latestInstanceId) {
+                                                resend(event.latestInstanceId);
+                                                handleRetryButtonClick(id);
+                                            }
+                                        }}>
+                                        {t('retry')}
+                                    </Dropdown.Menu.List.Item>
+                                </>
+                            )}
+
+                            {/*</>*/}
+                            {/*)}*/}
                         </Dropdown.Menu.List>
                     </Dropdown.Menu>
                 </Dropdown>
             </div>
         );
-
-    }
-
-    function ErrorAlertDialog(props: GridCellParams['row']) {
-        return (
-            <ErrorDialogComponent open={openErrorDialog} row={props.row} setOpenErrorDialog={setOpenErrorDialog}/>
-        )
     }
 
     function CustomStatusDialog(props: GridCellParams['row']) {
         return (
             <>
-                {props.row &&
-                    <CustomStatusDialogComponent open={openCustomDialog} row={props.row}
-                                                 setOpenCustomDialog={setOpenCustomDialog}/>
-                }
+                {props.row && (
+                    <CustomStatusDialogComponent
+                        open={openCustomDialog}
+                        row={props.row}
+                        setOpenCustomDialog={setOpenCustomDialog}
+                    />
+                )}
             </>
-        )
+        );
     }
-}
+};
 
 export default InstanceTable;

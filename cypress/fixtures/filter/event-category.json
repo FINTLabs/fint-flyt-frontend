@@ -1,0 +1,58 @@
+[
+    {
+        "value": "INSTANCE_RECEIVED",
+        "label": "Mottatt"
+    },
+    {
+        "value": "INSTANCE_REGISTERED",
+        "label": "Mellomlagret"
+    },
+    {
+        "value": "INSTANCE_REQUESTED_FOR_RETRY",
+        "label": "Forespurt for nytt forsøk"
+    },
+    {
+        "value": "INSTANCE_MAPPED",
+        "label": "Konvertert"
+    },
+    {
+        "value": "INSTANCE_READY_FOR_DISPATCH",
+        "label": "Klar for sending til destinasjon"
+    },
+    {
+        "value": "INSTANCE_DISPATCHED",
+        "label": "Sendt til destinasjon"
+    },
+    {
+        "value": "INSTANCE_MANUALLY_PROCESSED",
+        "label": "Manuelt behandlet"
+    },
+    {
+        "value": "INSTANCE_MANUALLY_REJECTED",
+        "label": "Manuelt avvist"
+    },
+    {
+        "value": "INSTANCE_RECEIVAL_ERROR",
+        "label": "Feilet under mottak"
+    },
+    {
+        "value": "INSTANCE_REGISTRATION_ERROR",
+        "label": "Feilet under registrering"
+    },
+    {
+        "value": "INSTANCE_RETRY_REQUEST_ERROR",
+        "label": "Feilet under forespørsel om nytt forsøk"
+    },
+    {
+        "value": "INSTANCE_MAPPING_ERROR",
+        "label": "Feilet under konvertering"
+    },
+    {
+        "value": "INSTANCE_DISPATCHING_ERROR",
+        "label": "Feilet under sending til destinasjon"
+    },
+    {
+        "value": "INSTANCE_DELETED",
+        "label": "Mellomlagring av instans slettet"
+    }
+]

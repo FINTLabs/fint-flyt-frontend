@@ -41,11 +41,14 @@
       "oneIntegration": "integration",
       "activeIntegrations": "active integrations",
       "oneActiveIntegration": "active integration",
-      "instances": "instances dispatched",
-      "oneInstance": "instance dispatched",
       "empty": "No",
-      "oneError": "current error",
-      "errors": "current errors",
+      "cards": {
+        "totalInstances": "Total instances",
+        "inProgress": "In progress",
+        "transferred": "Transferred",
+        "aborted": "Aborted",
+        "failed": "Failed"
+      },
       "links": {
         "integrations": "View integrations",
         "integration": "New integration",
@@ -177,9 +180,13 @@
           "actions": "Actions",
           "finished": "Completed",
           "version": "Version",
-          "dispatched": "# dispatched",
-          "errors": "# failed",
-          "total": "# total"
+          "dispatched": "Dispatched",
+          "errors": "Failed",
+          "total": "Total",
+          "inProgress": "In Progress",
+          "transferred": "Transferred",
+          "aborted": "Aborted",
+          "failed": "Failed"
         }
       }
     },
@@ -204,8 +211,161 @@
       "button": {
         "close": "Close",
         "save": "Save",
-        "refresh": "Refresh page"
+        "refresh": "Refresh page",
+        "search": "Search",
+        "clear": "Clear"
       },
+      "TRANSFERRED": "Transferred",
+      "ABORTED": "Aborted",
+      "IN_PROGRESS": "In Progress",
+      "NEVER_STORED": "Never stored",
+      "STORED": "Failed",
+      "STORED_AND_DELETED": "Stored and deleted",
+  "filter": {
+    "alerts": {
+      "tableFiltered": "Table filtered",
+      "noResults": "Filters returned 0 results"
+    },
+  "loadMore": "Load More...",
+"sort": "Sorting",
+    "sortBy": "Choose sorting",
+    "options": {
+      "timestampAsc": "Latest update ascending",
+      "timestampDesc": "Latest update descending",
+      "sourceAppId": "Source application instance ID",
+      "destinationId": "Destination instance ID"
+    },
+    "associatedEventNames": {
+      "INSTANCE_DISPATCHING_ERROR": "Error during dispatch to destination",
+      "INSTANCE_REGISTRATION_ERROR": "Error during registration",
+      "INSTANCE_RECEIVED": "Received",
+      "INSTANCE_MANUALLY_PROCESSED": "Manually processed",
+      "INSTANCE_MAPPING_ERROR": "Error during conversion",
+      "INSTANCE_MAPPED": "Converted",
+      "INSTANCE_MANUALLY_REJECTED": "Manually rejected",
+      "INSTANCE_READY_FOR_DISPATCH": "Ready for dispatch to destination",
+      "INSTANCE_DISPATCHED": "Dispatched to destination",
+      "INSTANCE_RECEIVAL_ERROR": "Error during reception",
+      "INSTANCE_RETRY_REQUEST_ERROR": "Error during retry request",
+      "INSTANCE_REQUESTED_FOR_RETRY": "Requested for retry",
+      "INSTANCE_REGISTERED": "Instance registered",
+      "INSTANCE_DELETED": "Instance deleted"
+    },
+    "intermediateStorageStatusOptions": {
+      "STORED": "Stored",
+      "STORED_AND_DELETED": "Stored and deleted",
+      "NEVER_STORED": "Never stored"
+    },
+    "statusOptions": {
+      "TRANSFERRED": "Transferred",
+      "ABORTED": "Aborted",
+      "IN_PROGRESS": "In progress",
+      "FAILED": "Failed"
+    },
+    "timeCard": {
+      "ariaLabel": "Time period",
+      "title": "Time period",
+      "Denne dagen": "Today",
+      "Denne måneden": "This month",
+      "Denne uka": "This week",
+      "Dette året": "This year",
+      "description": {
+        "period": "Period: {{value}}",
+        "manual": "Manual: {{from}} - {{to}}",
+        "offset": "Last: {{hours}}h {{minutes}}m"
+      },
+      "tabs": {
+        "offset": "Last",
+        "period": "Period",
+        "manual": "Manual"
+      },
+      "offset": {
+        "hours": "Hours",
+        "minutes": "Minutes"
+      },
+      "manual": {
+        "fromDate": "From",
+        "fromTime": "From time",
+        "toDate": "To",
+        "toTime": "To time"
+      }
+    },
+    "advancedCard": {
+      "ariaLabel": "Advanced",
+      "title": "Advanced",
+      "description": {
+        "associatedEvents": "Associated events: {{value}}",
+        "storageStatuses": "Selected intermediate storage: {{value}}"
+      },
+      "combobox": {
+        "label": "Associated event"
+      },
+      "chips": {
+        "label": "Intermediate storage"
+      }
+    },
+    "instanceCard": {
+      "ariaLabel": "Instance variant",
+      "title": "Instance",
+      "description": {
+        "source": "Source: {{value}}",
+        "destination": "Destination: {{value}}"
+      },
+      "fields": {
+        "sourceAppInstanceId": {
+          "label": "Source application instance ID",
+          "placeholder": "Enter source IDs, separated by commas"
+        },
+        "destinationId": {
+          "label": "Destination",
+          "placeholder": "Enter destination IDs, separated by commas"
+        }
+      }
+    },
+    "integrationCard": {
+      "ariaLabel": "Integration and source application",
+      "title": "Integration and source application",
+      "description": {
+        "integration": "Integration: {{value}}",
+        "sourceApplication": "Source application: {{value}}",
+        "sourceApplicationIntegration": "Source application integration: {{value}}"
+      },
+      "tabs": {
+        "integration": "Integration",
+        "sourceApp": "Source application"
+      },
+      "combobox": {
+        "sourceApp": "Select source application",
+        "integration": "Select integration"
+      },
+      "textField": {
+        "integrationId": {
+          "label": "Source application integration ID",
+          "placeholder": "Enter integration names, separated by commas"
+        }
+      }
+    },
+    "statusCard": {
+      "ariaLabel": "Status",
+      "title": "Status",
+      "description": {
+        "event": "Last event: {{value}}",
+        "status": "Status: {{value}}"
+      },
+      "tabs": {
+        "status": "Status",
+        "event": "Last event"
+      },
+      "chips": {
+        "label": "Status"
+      },
+      "combobox": {
+        "label": "Last event",
+        "allowNewValues": "Allow new values"
+      }
+    }
+  }
+,
       "table": {
         "column": {
           "sourceApplicationIntegrationId": "Source application integration Id",
@@ -213,11 +373,12 @@
           "sourceApplicationId": "Source application",
           "storage": "Intermediate storage",
           "status": "Status",
+          "event": "Event",
           "actions": "Actions",
           "sourceApplicationInstanceId": "Source application instance ID",
           "configurationId": "Configuration Id",
           "correlationId": "Correlation Id",
-          "archiveInstanceId": "Destination Id",
+          "archiveInstanceId": "Instance Destination Id",
           "timestamp": "Timestamp"
         }
       },
@@ -259,7 +420,22 @@
       "instance-retry-request-error": "Error during retry request",
       "instance-mapping-error": "Error converting instance",
       "instance-dispatching-error": "Error while sending to destination",
-      "instance-file-upload-error": "Error while uploading file"
+      "instance-file-upload-error": "Error while uploading file",
+      "INSTANCE_RECEIVED": "Instance received",
+      "INSTANCE_REGISTERED": "Instance intermediately stored",
+      "INSTANCE_REQUESTED_FOR_RETRY": "Instance requested for retry",
+      "INSTANCE_MAPPED": "Instance converted",
+      "INSTANCE_READY_FOR_DISPATCH": "Instance ready for dispatch",
+      "INSTANCE_DISPATCHED": "Instance dispatched",
+      "INSTANCE_DELETED": "Temporary storage of instance deleted",
+      "INSTANCE_MANUALLY_PROCESSED": "Instance handled manually and created in destination",
+      "INSTANCE_MANUALLY_REJECTED": "Instance handled manually and rejected",
+      "INSTANCE_RECEIVAL_ERROR": "Error while receiving instance",
+      "INSTANCE_REGISTRATION_ERROR": "Error while registering instance",
+      "INSTANCE_RETRY_REQUEST_ERROR": "Error during retry request",
+      "INSTANCE_MAPPING_ERROR": "Error converting instance",
+      "INSTANCE_DISPATCHING_ERROR": "Error while sending to destination",
+      "INSTANCE_FILE_UPLOAD_ERROR": "Error while uploading file"
     },
     "support": {
       "header": "Help and support",

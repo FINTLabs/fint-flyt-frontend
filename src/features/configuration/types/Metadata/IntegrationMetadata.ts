@@ -1,14 +1,14 @@
 export enum ValueType {
-    STRING = "STRING",
-    BOOLEAN = "BOOLEAN",
-    INTEGER = "INTEGER",
-    EMAIL = "EMAIL",
-    URL = "URL",
-    DATE = "DATE",
-    PHONE = "PHONE",
-    FILE = "FILE",
-    COLLECTION = "COLLECTION",
-    VALUE_CONVERTING = "VALUE_CONVERTING"
+    STRING = 'STRING',
+    BOOLEAN = 'BOOLEAN',
+    INTEGER = 'INTEGER',
+    EMAIL = 'EMAIL',
+    URL = 'URL',
+    DATE = 'DATE',
+    PHONE = 'PHONE',
+    FILE = 'FILE',
+    COLLECTION = 'COLLECTION',
+    VALUE_CONVERTING = 'VALUE_CONVERTING',
 }
 
 export interface IIntegrationMetadata {
@@ -18,7 +18,7 @@ export interface IIntegrationMetadata {
     sourceApplicationIntegrationUri: string;
     integrationDisplayName: string;
     version: number;
-    instanceElementMetadata: IInstanceElementMetadata[];
+    // instanceElementMetadata: IInstanceElementMetadata[];
     instanceMetadata?: IInstanceMetadataContent;
 }
 
@@ -36,7 +36,7 @@ export interface IInstanceObjectCollectionMetadata {
 
 export interface IInstanceMetadataCategory {
     displayName: string;
-    content: IInstanceMetadataContent
+    content: IInstanceMetadataContent;
 }
 
 export interface IInstanceMetadataContent {
