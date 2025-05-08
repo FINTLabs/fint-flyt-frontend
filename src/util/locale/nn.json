@@ -243,7 +243,8 @@
       "INSTANCE_RETRY_REQUEST_ERROR": "Feil ved ny forespørsel",
       "INSTANCE_REQUESTED_FOR_RETRY": "Forespurt om nytt forsøk",
       "INSTANCE_REGISTERED": "Instans registrert",
-      "INSTANCE_DELETED": "Instans sletta"
+      "INSTANCE_DELETED": "Instans sletta",
+      "INSTANCE_STATUS_OVERRIDDEN_AS_TRANSFERRED": "Status overstyrt til 'Overført'"
     },
     "intermediateStorageStatusOptions": {
       "STORED": "Lagra",

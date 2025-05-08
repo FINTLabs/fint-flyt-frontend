@@ -249,7 +249,8 @@
       "INSTANCE_RETRY_REQUEST_ERROR": "Error during retry request",
       "INSTANCE_REQUESTED_FOR_RETRY": "Requested for retry",
       "INSTANCE_REGISTERED": "Instance registered",
-      "INSTANCE_DELETED": "Instance deleted"
+      "INSTANCE_DELETED": "Instance deleted",
+      "INSTANCE_STATUS_OVERRIDDEN_AS_TRANSFERRED": "Status overridden as 'Transferred'"
     },
     "intermediateStorageStatusOptions": {
       "STORED": "Stored",
