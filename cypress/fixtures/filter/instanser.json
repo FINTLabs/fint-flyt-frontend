@@ -7,7 +7,7 @@
       "latestUpdate": "2023-09-20T13:20:30.28Z",
       "status": "TRANSFERRED",
       "intermediateStorageStatus": "STORED_AND_DELETED",
-      "latestDestinationId": "2023/107-[10]"
+      "destinationInstanceIds": "2023/107-[10]"
     },
     {
       "sourceApplicationId": 2,
@@ -17,7 +17,7 @@
       "latestUpdate": "2023-09-12T08:36:47.598Z",
       "status": "TRANSFERRED",
       "intermediateStorageStatus": "STORED_AND_DELETED",
-      "latestDestinationId": "2022/179-[15]"
+      "destinationInstanceIds": "2022/179-[15]"
     },
     {
       "sourceApplicationId": 2,
@@ -27,7 +27,7 @@
       "latestUpdate": "2023-09-21T13:07:34.447Z",
       "status": "TRANSFERRED",
       "intermediateStorageStatus": "STORED_AND_DELETED",
-      "latestDestinationId": "2023/216-[4]"
+      "destinationInstanceIds": "2023/216-[4]"
     },
     {
       "sourceApplicationId": 2,
@@ -37,7 +37,7 @@
       "latestUpdate": "2025-02-14T00:36:55.591Z",
       "status": "FAILED",
       "intermediateStorageStatus": "STORED",
-      "latestDestinationId": null
+      "destinationInstanceIds": null
     },
     {
       "sourceApplicationId": 2,
@@ -47,7 +47,7 @@
       "latestUpdate": "2023-09-13T08:02:17.746Z",
       "status": "TRANSFERRED",
       "intermediateStorageStatus": "STORED_AND_DELETED",
-      "latestDestinationId": "2023/332-[1]"
+      "destinationInstanceIds": "2023/332-[1]"
     },
     {
       "sourceApplicationId": 2,
@@ -57,7 +57,7 @@
       "latestUpdate": "2023-09-21T13:16:24.506Z",
       "status": "TRANSFERRED",
       "intermediateStorageStatus": "STORED_AND_DELETED",
-      "latestDestinationId": "2023/328-[2]"
+      "destinationInstanceIds": "2023/328-[2]"
     },
     {
       "sourceApplicationId": 2,
@@ -67,7 +67,7 @@
       "latestUpdate": "2023-09-11T08:44:26.318Z",
       "status": "TRANSFERRED",
       "intermediateStorageStatus": "STORED_AND_DELETED",
-      "latestDestinationId": "2023/325-[1]"
+      "destinationInstanceIds": "2023/325-[1]"
     },
     {
       "sourceApplicationId": 2,
@@ -77,7 +77,7 @@
       "latestUpdate": "2024-09-09T13:56:25.565Z",
       "status": "IN_PROGRESS",
       "intermediateStorageStatus": "STORED_AND_DELETED",
-      "latestDestinationId": null
+      "destinationInstanceIds": null
     },
     {
       "sourceApplicationId": 2,
@@ -87,7 +87,7 @@
       "latestUpdate": "2023-09-11T08:38:57.276Z",
       "status": "TRANSFERRED",
       "intermediateStorageStatus": "STORED_AND_DELETED",
-      "latestDestinationId": "2023/323-[2]"
+      "destinationInstanceIds": "2023/323-[2]"
     },
     {
       "sourceApplicationId": 2,
@@ -97,6 +97,6 @@
       "latestUpdate": "2023-09-20T13:14:06.577Z",
       "status": "TRANSFERRED",
       "intermediateStorageStatus": "STORED_AND_DELETED",
-      "latestDestinationId": "2023/107-[9]"
+      "destinationInstanceIds": "2023/107-[9]"
     }
   ]

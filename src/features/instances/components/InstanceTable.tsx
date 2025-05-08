@@ -221,7 +221,7 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                                     <Table.DataCell>
                                         {value.status === 'FAILED' && actionMenu(value, i)}
                                     </Table.DataCell>
-                                    <Table.DataCell>{value.latestDestinationId}</Table.DataCell>
+                                    <Table.DataCell>{value.destinationInstanceIds}</Table.DataCell>
                                 </Table.ExpandableRow>
                             );
                         })}

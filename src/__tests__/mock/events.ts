@@ -13,7 +13,7 @@ export const MOCK_EVENTS: Page<IEventNew> = {
             intermediateStorageStatus: 'REJECTED',
             destinationId: '213',
             displayName: 'test',
-            latestDestinationId: '213',
+            destinationInstanceIds: '213',
             latestInstanceId: '2',
         },
         {
@@ -25,7 +25,7 @@ export const MOCK_EVENTS: Page<IEventNew> = {
             status: 'ERROR',
             intermediateStorageStatus: 'REJECTED',
             destinationId: '213',
-            latestDestinationId: '213',
+            destinationInstanceIds: '213',
             latestInstanceId: '2',
         },
     ],

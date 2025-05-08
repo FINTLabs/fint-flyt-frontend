@@ -44,7 +44,7 @@ describe('Testing table utils', () => {
         expect(isKeyOfEvent('intermediateStorageStatus')).toBe(true);
         expect(isKeyOfEvent('destinationId')).toBe(true);
         expect(isKeyOfEvent('displayName')).toBe(true);
-        expect(isKeyOfEvent('latestDestinationId')).toBe(true);
+        expect(isKeyOfEvent('destinationInstanceIds')).toBe(true);
         expect(isKeyOfEvent('latestInstanceId')).toBe(true);
         expect(isKeyOfEvent('notKey')).toBe(false);
     });
