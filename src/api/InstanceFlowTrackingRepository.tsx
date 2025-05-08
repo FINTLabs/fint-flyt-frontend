@@ -82,6 +82,18 @@ const manualRejectEvent = (
     });
 };
 
+const manualTransferEvent = (
+    sourceApplicationInstanceId: string,
+    sourceApplicationId: number,
+    sourceApplicationIntegrationId: string
+) => {
+    return axios.post(`/instance-flow-tracking/events/instance-status-overridden-as-transferred`, {
+        sourceApplicationId,
+        sourceApplicationInstanceId,
+        sourceApplicationIntegrationId,
+    });
+};
+
 const getAllStatistics = () => {
     return axios.get('/api/intern/instance-flow-tracking/statistics/total');
 };
@@ -104,6 +116,7 @@ const InstanceFlowTrackingRepository = {
     // getDetailedStatistics,
     manualRejectEvent,
     manualDispatchEvent,
+    manualTransferEvent,
 };
 
 export default InstanceFlowTrackingRepository;

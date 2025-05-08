@@ -368,10 +368,10 @@
           "status": "Status",
           "event": "Hending",
           "actions": "Handlingar",
-          "sourceApplicationInstanceId": "Kjeldeapplikasjons instans ID",
-          "configurationId": "Konfigurasjon ID",
-          "correlationId": "Korrelasjon ID",
-          "archiveInstanceId": "Destinasjon ID",
+          "sourceApplicationInstanceId": "Kjeldeapplikasjons instans-ID",
+          "configurationId": "Konfigurasjon-ID",
+          "correlationId": "Korrelasjon-ID",
+          "archiveInstanceId": "Destinasjons instans-ID",
           "timestamp": "Tidspunkt"
         }
       },
@@ -428,7 +428,8 @@
       "INSTANCE_RETRY_REQUEST_ERROR": "Feila under førespurnad for nytt forsøk",
       "INSTANCE_MAPPING_ERROR": "Feila under konvertering av instans",
       "INSTANCE_DISPATCHING_ERROR": "Feila under sending til destinasjon",
-      "INSTANCE_FILE_UPLOAD_ERROR": "Feila under opplasting av fil"
+      "INSTANCE_FILE_UPLOAD_ERROR": "Feila under opplasting av fil",
+      "instance-status-overridden-as-transferred": "Status overstyrt som 'Overført'"
     },
     "support": {
       "header": "Hjelp og support",

@@ -48,6 +48,20 @@ const CustomStatusDialogComponent: React.FunctionComponent<Props> = (props: Prop
             });
     };
 
+    const createTransferredEvent = (instance: IEventNew) => {
+        InstanceFlowTrackingRepository.manualTransferEvent(
+            instance.sourceApplicationInstanceId,
+            instance.sourceApplicationId,
+            instance.sourceApplicationIntegrationId
+        )
+            .then((response) => {
+                console.log('created event', response);
+            })
+            .catch((e) => {
+                console.error(e);
+            });
+    };
+
     const updateStatus = (instance: IEventNew, status: string, destinationId?: string) => {
         // instance.name = status;
         // instance.type = 'INFO';
@@ -57,6 +71,9 @@ const CustomStatusDialogComponent: React.FunctionComponent<Props> = (props: Prop
             setError(true);
         } else if (status === 'instance-manually-processed' && destinationId) {
             createDispatchEvent(instance, destinationId);
+            props.setOpenCustomDialog(false);
+        } else if (status === 'instance-status-overridden-as-transferred') {
+            createTransferredEvent(instance);
             props.setOpenCustomDialog(false);
         }
         if (instance && status === 'instance-manually-rejected') {
@@ -71,6 +88,10 @@ const CustomStatusDialogComponent: React.FunctionComponent<Props> = (props: Prop
         { displayName: t(props.row.status), value: props.row.displayName || 'Feilet' },
         { displayName: t('instance-manually-processed'), value: 'instance-manually-processed' },
         { displayName: t('instance-manually-rejected'), value: 'instance-manually-rejected' },
+        {
+            displayName: t('instance-status-overridden-as-transferred'),
+            value: 'instance-status-overridden-as-transferred',
+        },
     ];
 
     return (

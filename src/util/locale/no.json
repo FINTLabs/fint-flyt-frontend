@@ -368,17 +368,17 @@
       },
       "table": {
         "column": {
-          "sourceApplicationIntegrationId": "Kildeapplikasjon integrasjon ID",
+          "sourceApplicationIntegrationId": "Kildeapplikasjon integrasjon-ID",
           "sourceApplicationIntegrationIdDisplayName": "Integrasjonsnavn",
           "sourceApplicationId": "Kildeapplikasjon",
           "storage": "Mellomlagring",
           "status": "Status",
           "event": "Hendelse",
           "actions": "Handlinger",
-          "sourceApplicationInstanceId": "Kildeapplikasjons instans ID",
-          "configurationId": "Konfigurasjon ID",
-          "correlationId": "Korrelasjon ID",
-          "archiveInstanceId": "Instans destinasjon ID",
+          "sourceApplicationInstanceId": "Kildeapplikasjons instans-ID",
+          "configurationId": "Konfigurasjon-ID",
+          "correlationId": "Korrelasjon-ID",
+          "archiveInstanceId": "Destinasjons instans-ID",
           "timestamp": "Tidspunkt"
         }
       },
@@ -419,7 +419,8 @@
       "instance-registration-error": "Feilet under registrering av instans",
       "instance-retry-request-error": "Feilet under forespørsel for nytt forsøk",
       "instance-mapping-error": "Feilet under konvertering av instans",
-      "instance-dispatching-error": "Feilet under sending til destinasjon"
+      "instance-dispatching-error": "Feilet under sending til destinasjon",
+      "instance-status-overridden-as-transferred": "Status overstyrt som 'Overført'"
     },
     "support": {
       "header": "Hjelp og support",

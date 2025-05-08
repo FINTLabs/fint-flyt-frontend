@@ -378,7 +378,7 @@
           "sourceApplicationInstanceId": "Source application instance ID",
           "configurationId": "Configuration Id",
           "correlationId": "Correlation Id",
-          "archiveInstanceId": "Instance Destination Id",
+          "archiveInstanceId": "Destination instance ID",
           "timestamp": "Timestamp"
         }
       },
@@ -435,7 +435,8 @@
       "INSTANCE_RETRY_REQUEST_ERROR": "Error during retry request",
       "INSTANCE_MAPPING_ERROR": "Error converting instance",
       "INSTANCE_DISPATCHING_ERROR": "Error while sending to destination",
-      "INSTANCE_FILE_UPLOAD_ERROR": "Error while uploading file"
+      "INSTANCE_FILE_UPLOAD_ERROR": "Error while uploading file",
+      "instance-status-overridden-as-transferred": "Status overridden as 'Transferred'"
     },
     "support": {
       "header": "Help and support",
