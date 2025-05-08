@@ -87,7 +87,7 @@ const manualTransferEvent = (
     sourceApplicationId: number,
     sourceApplicationIntegrationId: string
 ) => {
-    return axios.post(`/instance-flow-tracking/events/instance-status-overridden-as-transferred`, {
+    return axios.post(`/api/intern/instance-flow-tracking/events/instance-status-overridden-as-transferred`, {
         sourceApplicationId,
         sourceApplicationInstanceId,
         sourceApplicationIntegrationId,
