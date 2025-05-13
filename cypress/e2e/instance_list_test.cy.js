@@ -51,13 +51,13 @@ describe('Testing instance list', () => {
         let columns = [
             'Kildeapplikasjon',
             'Integrasjonsnavn',
-            'Kildeapplikasjon integrasjon ID',
-            'Kildeapplikasjons instans ID',
+            'Kildeapplikasjon integrasjon-ID',
+            'Kildeapplikasjons instans-ID',
             'Tidspunkt',
             'Status',
             'Mellomlagring',
             'Handlinger',
-            'Instans destinasjon ID',
+            'Destinasjons instans-ID',
         ];
         columns.forEach((column) => {
             cy.get('#instance-table > :nth-child(1)').should('contain.text', column);
