@@ -10,7 +10,7 @@ export const MOCK_EVENT: IEventNew = {
     intermediateStorageStatus: 'STORED',
     destinationId: '2342',
     displayName: 'test',
-    latestDestinationId: '2342',
+    destinationInstanceIds: '2342',
     latestInstanceId: '2',
 };
 
@@ -23,7 +23,7 @@ export const MOCK_EVENT2: IEventNew = {
     status: 'FAILED',
     intermediateStorageStatus: 'STORED',
     destinationId: '3462',
-    latestDestinationId: '3462',
+    destinationInstanceIds: '3462',
     latestInstanceId: '2',
 };
 
@@ -36,6 +36,6 @@ export const MOCK_EVENT3: IEventNew = {
     status: 'FAILED',
     intermediateStorageStatus: 'STORED',
     destinationId: '3567',
-    latestDestinationId: '3567',
+    destinationInstanceIds: '3567',
     latestInstanceId: '2',
 };
