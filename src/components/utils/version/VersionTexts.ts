@@ -7,7 +7,7 @@ export const VERSION_DATA: { heading: string; updates: string[] }[] = [
 		heading: "April 2025",
 		updates: [
 			"Støtte for filtrering i instansoversikten",
-			"Lagt til flere detaljer i dashbordet og ulike statuser på instanser",
+			"Lagt til flere detaljer i dashbordet for ulike statuser på instanser",
 		],
 	},
 	{
