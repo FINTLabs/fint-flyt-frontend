@@ -4,6 +4,13 @@ export const ABOUT_VERSIONS =
 
 export const VERSION_DATA: { heading: string; updates: string[] }[] = [
 	{
+		heading: "April 2025",
+		updates: [
+			"Støtte for filtrering i instansoversikten",
+			"Mer detaljer i dashbordet og ulike statuser på instanser",
+		],
+	},
+	{
 		heading: "Februar 2025",
 		updates: [
 			"Konverter til nytt Novari-tema",
