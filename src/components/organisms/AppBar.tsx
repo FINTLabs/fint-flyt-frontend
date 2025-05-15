@@ -1,11 +1,9 @@
 import MenuItems from '../molecules/MenuItems';
 import {
     Button,
-    Dropdown,
     Heading,
     HStack,
     InternalHeader,
-    Label,
     Select,
     Spacer,
 } from '@navikt/ds-react';
