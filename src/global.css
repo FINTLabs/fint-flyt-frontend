@@ -31,3 +31,12 @@ iframe#webpack-dev-server-client-overlay {
 .navds-button--primary {
     background-color: #5A51E1 !important;
 }
+
+
+
+.language-select * .navds-select__input {
+    color: black;
+    border: none;
+    background-color: transparent;
+    padding-left: 0;
+}
