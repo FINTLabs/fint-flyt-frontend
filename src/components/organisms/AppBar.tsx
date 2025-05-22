@@ -38,7 +38,7 @@ export const AppBar = () => {
                     </Dropdown.Menu.GroupedList>
                 </Dropdown.Menu>
             </Dropdown>
-            <InternalHeader.Button as={Link} to={`/_oauth/logout`}>
+            <InternalHeader.Button as={Link} to={`/_oauth/logout`} replace={true}>
                 <HStack gap={'1'} align={'center'}>
                     <LeaveIcon aria-hidden />
                     {t('logout')}
