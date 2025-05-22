@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import routes from '../../routes/Routes';
 import { useTranslation } from 'react-i18next';
-import { Button, InternalHeader } from '@navikt/ds-react';
+import { InternalHeader } from '@navikt/ds-react';
 import { useContext } from 'react';
 import { AuthorizationContext } from '../../context/AuthorizationContext';
 
@@ -21,39 +21,16 @@ const MenuItems = () => {
                         }}>
                         {t(route.name)}
                     </InternalHeader.Button>
-/*                    <Button
-                        size={'medium'}
-                        // style={{color: "white"}}
-                        variant={'tertiary-neutral'}
-                        onClick={() => {
-                            history(route.path);
-                        }}
-                        key={route.name}>
-                        {t(route.name)}
-                    </Button>*/
                 ))}
-            {
-                hasAccessToUserPermissionPage && (
-                    <InternalHeader.Button
-                        key={'useraccess'}
-                        onClick={() => {
-                            history('/useraccess');
-                        }}>
-                        {t('useraccess')}
-                    </InternalHeader.Button>
-                )
-                /*                <Button
-                                    size={"medium"}
-                                    // style={{color: "white"}}
-                                    variant={"tertiary-neutral"}
-                                    onClick={() => {
-                                        history('/useraccess');
-                                    }}
-                                    key={'useraccess'}
-                                >
-                                    {t('useraccess')}
-                                </Button>*/
-            }
+            {hasAccessToUserPermissionPage && (
+                <InternalHeader.Button
+                    key={'useraccess'}
+                    onClick={() => {
+                        history('/useraccess');
+                    }}>
+                    {t('useraccess')}
+                </InternalHeader.Button>
+            )}
         </>
     );
 };
