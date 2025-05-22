@@ -3,7 +3,8 @@
     "language": "Language",
     "norwegian": "Norwegian bokmål",
     "norwegianNN": "Norwegian nynorsk",
-    "english": "English"
+    "english": "English",
+    "logout": "Logout"
   },
   "menuItems": {
     "dashboard": "Dashbord",
