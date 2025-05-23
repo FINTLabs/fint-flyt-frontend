@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useMemo, useState } from 'react';
 import { ContextProps } from './constants/interface';
 import AuthorizationRepository from '../api/AuthorizationRepository';
 import { AxiosResponse } from 'axios';
@@ -12,7 +12,7 @@ type AuthorizationContextState = {
     getUser: () => void;
     activeUserSourceApps: string[] | undefined;
     getActiveUserSourceApps: () => void;
-    logout: () => void;
+    logoutUrl?: string;
 };
 
 const contextDefaultValues: AuthorizationContextState = {
@@ -24,12 +24,12 @@ const contextDefaultValues: AuthorizationContextState = {
     getUser: () => undefined,
     activeUserSourceApps: undefined,
     getActiveUserSourceApps: () => undefined,
-    logout: () => undefined,
+    logoutUrl: undefined
 };
 
 const AuthorizationContext = createContext<AuthorizationContextState>(contextDefaultValues);
 
-const AuthorizationProvider = ({ children }: ContextProps) => {
+const AuthorizationProvider = ({ children, basePath }: ContextProps & { basePath?: string }) => {
     const [authorized, setAuthorized] = useState<boolean | undefined>(
         contextDefaultValues.authorized
     );
@@ -39,6 +39,7 @@ const AuthorizationProvider = ({ children }: ContextProps) => {
     const [activeUserSourceApps, setActiveUserSourceApps] = useState<string[] | undefined>(
         undefined
     );
+    const logoutUrl = useMemo(() => `${basePath}/_oauth/logout`, [basePath]);
 
     const getAuthorization = async () => {
         try {
@@ -75,27 +76,6 @@ const AuthorizationProvider = ({ children }: ContextProps) => {
         }
     };
 
-    // Logout function (removes cookies without js-cookie)
-    const logout = () => {
-        // Remove all cookies
-        console.log('Running a logout...');
-        document.cookie.split(';').forEach((cookie) => {
-            const cookieName = cookie.split('=')[0].trim();
-            document.cookie = `${cookieName}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/`;
-            document.cookie = `${cookieName}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;domain=${window.location.hostname}`;
-        });
-
-        // Clear localStorage & sessionStorage
-        localStorage.clear();
-        sessionStorage.clear();
-
-        // Update authorization state
-        setAuthorized(false);
-
-        // Redirect to login page
-        window.location.href = 'https://idp.felleskomponent.no/nidp/app/logout';
-    };
-
     return (
         <AuthorizationContext.Provider
             value={{
@@ -107,7 +87,7 @@ const AuthorizationProvider = ({ children }: ContextProps) => {
                 getUser,
                 activeUserSourceApps,
                 getActiveUserSourceApps,
-                logout,
+                logoutUrl
             }}>
             {children}
         </AuthorizationContext.Provider>
