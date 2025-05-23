@@ -1,16 +1,23 @@
 import MenuItems from '../molecules/MenuItems';
 import { Dropdown, Heading, HStack, InternalHeader, Spacer } from '@navikt/ds-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { LanguageIcon, LeaveIcon } from '@navikt/aksel-icons';
 import { useTranslation } from 'react-i18next';
 import { changeLanguage } from 'i18next';
+import { useContext } from 'react';
+import { AuthorizationContext } from '../../context/AuthorizationContext';
 
 export const AppBar = () => {
+    const history = useNavigate();
     const { t } = useTranslation('translations', { keyPrefix: 'menu' });
+    const {basePath} = useContext(AuthorizationContext)
 
     return (
         <InternalHeader>
-            <InternalHeader.Title href="/">
+            <InternalHeader.Title
+                onClick={() => {
+                    history('/');
+                }}>
                 <Heading size={'medium'} style={{ color: '#6B133D' }}>
                     FINT Flyt
                 </Heading>
@@ -39,6 +46,12 @@ export const AppBar = () => {
                 </Dropdown.Menu>
             </Dropdown>
             <InternalHeader.Button as={Link} to={`/_oauth/logout`} replace={true}>
+                <HStack gap={'1'} align={'center'}>
+                    <LeaveIcon aria-hidden />
+                    {t('logout')}
+                </HStack>
+            </InternalHeader.Button>
+            <InternalHeader.Button as={"a"} href={`${basePath}/_oauth/logout`} rel="external noopener noreferrer">
                 <HStack gap={'1'} align={'center'}>
                     <LeaveIcon aria-hidden />
                     {t('logout')}

@@ -13,6 +13,7 @@ type AuthorizationContextState = {
     activeUserSourceApps: string[] | undefined;
     getActiveUserSourceApps: () => void;
     logout: () => void;
+    basePath?: string;
 };
 
 const contextDefaultValues: AuthorizationContextState = {
@@ -29,7 +30,7 @@ const contextDefaultValues: AuthorizationContextState = {
 
 const AuthorizationContext = createContext<AuthorizationContextState>(contextDefaultValues);
 
-const AuthorizationProvider = ({ children }: ContextProps) => {
+const AuthorizationProvider = ({ children, basePath }: ContextProps & { basePath?: string }) => {
     const [authorized, setAuthorized] = useState<boolean | undefined>(
         contextDefaultValues.authorized
     );
@@ -108,6 +109,7 @@ const AuthorizationProvider = ({ children }: ContextProps) => {
                 activeUserSourceApps,
                 getActiveUserSourceApps,
                 logout,
+                basePath
             }}>
             {children}
         </AuthorizationContext.Provider>
