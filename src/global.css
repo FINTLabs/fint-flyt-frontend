@@ -31,3 +31,15 @@ iframe#webpack-dev-server-client-overlay {
 .navds-button--primary {
     background-color: #5A51E1 !important;
 }
+
+.navds-internalheader {
+    --ac-internalheader-bg: #F8F4E3;
+    --ac-internalheader-text: #000000;
+    --ac-internalheader-hover-bg: #efd8b8;
+    --ac-internalheader-divider: #F8F4E3;
+    --ac-internalheader-active-bg: #F8F4E3;
+
+    a {
+        text-decoration: none;
+    }
+}

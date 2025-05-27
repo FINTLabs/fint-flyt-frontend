@@ -9,7 +9,6 @@ import Instances from '../components/pages/Instances';
 import Integrations from '../components/pages/Integrations';
 import Forbidden from '../components/pages/Forbidden';
 import UserAccess from '../components/pages/UserAccess';
-import Logout from '../components/pages/Logout';
 
 const routes: IRoute[] = [
     {
@@ -102,14 +101,7 @@ const routes: IRoute[] = [
         component: UserAccess,
         exact: true,
         inNavigationMenu: false,
-    },
-    {
-        path: '/logout',
-        name: 'logout',
-        component: Logout,
-        exact: true,
-        inNavigationMenu: false,
-    },
+    }
 ];
 
 export default routes;

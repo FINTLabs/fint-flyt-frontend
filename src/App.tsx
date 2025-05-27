@@ -26,7 +26,7 @@ function App() {
 
 	return basePath ? (
 		<ThemeProvider theme={theme}>
-			<AuthorizationProvider>
+			<AuthorizationProvider basePath={basePath}>
 				<SourceApplicationProvider>
 					<IntegrationProvider>
 						<BrowserRouter basename={basePath}>
