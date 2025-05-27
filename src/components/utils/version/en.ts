@@ -6,14 +6,49 @@ export const ABOUT_VERSIONS_EN =
 
 export const VERSION_DATA_EN: VersionEntry[] = [
     {
-        heading: "Versjon 10.5 - February 2025",
+        heading: "May 2025",
         updates: [
-            "Converted to the new Novari theme",
-            "Moved scroll bars to outter window, focus columns.",
+            "It is now possible to log out of FLYT via a button in the menu.",
+            "Small design improvements to the menu.",
+            "Cleanup of version logs in various languages",
         ],
     },
     {
-        heading: "Version 10.4 - April 2024",
+        heading: "April 2025",
+        updates: [
+            "Support for filtering in the instance overview",
+            "Added more details to the dashboard for various statuses on instances",
+        ],
+    },
+    {
+        heading: "February 2025",
+        updates: [
+            "Converted to the new Novari theme",
+            "Moved scroll bars to the window, set focus",
+        ],
+    },
+    {
+        heading: "October 2024",
+        updates: [
+            "Support for VIGO OT",
+            "Added better and more precise error handling",
+        ],
+    },
+    {
+        heading: "September 2024",
+        updates: [
+            "Deletion of cached instances",
+            "Added access control for source application",
+        ],
+    },
+    {
+        heading: "August 2024",
+        updates: [
+            "Added manual handling of instances",
+        ],
+    },
+    {
+        heading: "April 2024",
         updates: [
             "10.4 Creating a new value conversion requires unique name to make them easier to use in configurations",
         ],

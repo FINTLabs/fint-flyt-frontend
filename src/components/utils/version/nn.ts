@@ -5,14 +5,49 @@ export const ABOUT_VERSIONS_NN =
 
 export const VERSION_DATA_NN: VersionEntry[] = [
     {
-        heading: "Versjon 10.5 - Februar 2025",
+        heading: "Mai 2025",
+        updates: [
+            "Det er no mogleg å logge ut frå FLYT via ein knapp i menyen.",
+            "Små designforbetringar på menyen.",
+            "Opprydding av versjonsloggar på ulike språk",
+        ],
+    },
+    {
+        heading: "April 2025",
+        updates: [
+            "Støtte for filtrering i instansoversikta",
+            "Lagt til fleire detaljar i dashbordet for ulike statusar på instansar",
+        ],
+    },
+    {
+        heading: "Februar 2025",
         updates: [
             "Konverter til nytt Novari-tema",
             "Flytta rullefelt til vindauge, set fokus",
         ],
     },
     {
-        heading: "Versjon 10.4 - April 2024",
+        heading: "Oktober 2024",
+        updates: [
+            "Støtte for VIGO OT",
+            "Lagt til betre og meir presis feilhandsaming",
+        ],
+    },
+    {
+        heading: "September 2024",
+        updates: [
+            "Sletting av mellomlagra instansar",
+            "Lagt til tilgangsstyring på kjeldeapplikasjon",
+        ],
+    },
+    {
+        heading: "August 2024",
+        updates: [
+            "Lagt til manuell handsaming av instansar",
+        ],
+    },
+    {
+        heading: "April 2024",
         updates: [
             "10.4 Ny verdikonvertering krev unikt namn for å gjera dei enklare å bruka i konfigurasjonar",
         ],

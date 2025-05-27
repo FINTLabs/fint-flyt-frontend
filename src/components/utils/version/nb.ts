@@ -8,7 +8,9 @@ export const VERSION_DATA: VersionEntry[] = [
     {
         heading: "Mai 2025",
         updates: [
-            "Det er nå mulig å logge ut fra FLYT via en knapp i menyen",
+            "Det er nå mulig å logge ut fra FLYT via en knapp i menyen.",
+            "Små designforbedringer på menyen.",
+            "Opprydding av versjonslogger på ulike språk",
         ]
     },
     {
@@ -69,7 +71,7 @@ export const VERSION_DATA: VersionEntry[] = [
     {
         heading: "Desember 2023",
         updates: [
-            "11.12 Lagt til støtte for engelsk språk i Flyt",
+            "27.12 Lagt til støtte for engelsk språk i Flyt",
             "12.12 Nytt design av integrasjonsoversikten",
             "11.12 Lagt til støtte for nynorsk språk i Flyt",
             "8.12 Forbedret visning av verdikonvertering med flere verdier. Nytt design av instanssiden hvor all informasjon er samlet på én flate.",
