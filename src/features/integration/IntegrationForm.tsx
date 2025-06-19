@@ -86,19 +86,17 @@ export const IntegrationForm: React.FunctionComponent<Props> = () => {
                 ) ?? [];
 
             return availableForms
-                .map((form) => {
-                    return {
-                        label: form.label,
-                        value: form.value,
-                        disabled: integrationsForSourceApp.some((integration) => {
-                            return integration.sourceApplicationIntegrationId === form.value;
-                        }),
-                    };
-                })
-                .sort((a, b) => {
-                    return a.disabled ? 1 : b.disabled ? -1 : a.label.localeCompare(b.label);
-                });
-        }, [sourceApplication, availableForms, integrations]);
+                .map((form) => ({
+                    label: form.label,
+                    value: form.value,
+                    disabled: integrationsForSourceApp.some(
+                        (integration) => integration.sourceApplicationIntegrationId === form.value
+                    ),
+                }))
+                .sort((a, b) =>
+                    a.disabled === b.disabled ? a.label.localeCompare(b.label) : a.disabled ? 1 : -1
+                );
+        }, [sourceApplication, availableForms, integrations, i18n.language]);
 
     function getSelectableSourceApplications() {
         const sources: ISelect[] = [];
@@ -125,6 +123,10 @@ export const IntegrationForm: React.FunctionComponent<Props> = () => {
         getAllIntegrations();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    useEffect(() => {
+        getSelectableSourceApplications();
+    }, [i18n.language]);
 
     useEffect(() => {
         setAvailableForms(undefined);
