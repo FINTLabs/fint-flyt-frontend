@@ -14,6 +14,8 @@ import {ISourceApplication} from "../features/configuration/types/SourceApplicat
 import AuthorizationRepository from "../api/AuthorizationRepository";
 import {AxiosResponse} from "axios";
 import {IUser} from "../components/pages/UserAccess";
+import IntegrationRepository from '../api/IntegrationRepository';
+import { IIntegration } from '../features/integration/types/Integration';
 
 type SourceApplicationContextState = {
     availableForms: ISelect[] | undefined;
@@ -94,34 +96,38 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
 
     const getAllAvailableFormsBySourceApplicationId = async (sourceApplicationId: string) => {
         try {
-            const response = await SourceApplicationRepository.getMetadata(sourceApplicationId, true);
-            const data = response.data || [];
+            const metadataResponse: AxiosResponse<IIntegrationMetadata[]> = await SourceApplicationRepository.getMetadata(
+                sourceApplicationId,
+                true
+            );
+            const sourceApplicationData = metadataResponse.data || [];
 
-            const tempAvailableForms: ISelect[] = [
-                {value: "", label: i18n.language === "en" ? "Select integration" : "Velg integrasjon"}
+            const defaultOption: ISelect[] = [
+                {value: "", label: i18n.language === "en" ? "- Select integration" : "- Velg integrasjon"}
             ];
 
-            data.map((metadata: IIntegrationMetadata) => {
-                tempAvailableForms.push({
-                    value: metadata.sourceApplicationIntegrationId,
-                    label: `[${metadata.sourceApplicationIntegrationId}] ${metadata.integrationDisplayName}`,
-                });
-            });
-            if (data.length > 0) {
-                const selectableForms = tempAvailableForms.filter((form) => sourceApplicationId !== form.value);
-                setAvailableForms(selectableForms);
+            if (sourceApplicationData.length > 0) {
+                setAvailableForms([
+                    ...defaultOption,
+                    ...sourceApplicationData
+                        .filter((metadata: IIntegrationMetadata) => sourceApplicationId !== metadata.sourceApplicationIntegrationId)
+                        .map((metadata: IIntegrationMetadata) => ({
+                            value: metadata.sourceApplicationIntegrationId,
+                            label: `[${metadata.sourceApplicationIntegrationId}] ${metadata.integrationDisplayName}`
+                        })),
+                ]);
             } else {
                 setAvailableForms([
                     {
                         value: "",
-                        label: i18n.language === 'en' ? "No available integrations" : "Ingen tilgjengelige integrasjoner"
+                        label: i18n.language === 'en' ? "- No available integrations" : "- Ingen tilgjengelige integrasjoner"
                     }
                 ])
             }
 
         } catch (err) {
             console.error(err);
-            setAvailableForms([{value: "null", label: "No options"}]);
+            setAvailableForms([{value: "null", label: "- No options"}]);
         }
     };
 
@@ -132,7 +138,7 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
 
         } catch (err) {
             console.error(err);
-            setAvailableForms([{value: "", label: "Ingen data"}]);
+            setAvailableForms([{value: "", label: "- Ingen data"}]);
         }
     };
 
