@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useMemo } from 'react';
 import {
     defaultAlert,
     getSelectableDefaultByLanguage,
@@ -41,8 +41,13 @@ type Props = {
 export const IntegrationForm: React.FunctionComponent<Props> = () => {
     const history = useNavigate();
     const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationForm' });
-    const { setExistingIntegrationMetadata, setExistingIntegration, resetIntegrationContext } =
-        useContext(IntegrationContext);
+    const {
+        setExistingIntegrationMetadata,
+        setExistingIntegration,
+        resetIntegrationContext,
+        getAllIntegrations,
+        integrations,
+    } = useContext(IntegrationContext);
     const {
         getAllAvailableFormsBySourceApplicationId,
         sourceApplication,
@@ -60,16 +65,40 @@ export const IntegrationForm: React.FunctionComponent<Props> = () => {
     const [alertContent, setAlertContent] = React.useState<IAlertContent>(defaultAlert);
     const [sourceApplicationIntegrationId, setSourceApplicationIntegrationId] =
         useState<string>('');
-    const selectPlaceholder: { label: string; value: string }[] = [
-        { label: t('labels.placeholder'), value: '' },
-    ];
-    const loadingPlaceholder: { label: string; value: string }[] = [
-        { label: t('labels.loading'), value: '' },
-    ];
     const methods = useForm<IIntegrationFormData>();
     const [selectableSourceApplications, setSelectableSourceApplications] = useState<ISelect[]>([
         { label: getSelectableDefaultByLanguage(i18n.language), value: '' },
     ]);
+
+    const integrationOptions: { label: string; value: string; disabled?: boolean }[] =
+        useMemo(() => {
+            if (!sourceApplication) {
+                return [{ label: `- ${t('labels.placeholder')}`, value: '' }];
+            }
+            if (!availableForms) {
+                return [{ label: `- ${t('labels.loading')}`, value: '' }];
+            }
+
+            const integrationsForSourceApp =
+                integrations?.filter(
+                    (integration) =>
+                        String(integration.sourceApplicationId) === String(sourceApplication)
+                ) ?? [];
+
+            return availableForms
+                .map((form) => {
+                    return {
+                        label: form.label,
+                        value: form.value,
+                        disabled: integrationsForSourceApp.some((integration) => {
+                            return integration.sourceApplicationIntegrationId === form.value;
+                        }),
+                    };
+                })
+                .sort((a, b) => {
+                    return a.disabled ? 1 : b.disabled ? -1 : a.label.localeCompare(b.label);
+                });
+        }, [sourceApplication, availableForms, integrations]);
 
     function getSelectableSourceApplications() {
         const sources: ISelect[] = [];
@@ -93,6 +122,7 @@ export const IntegrationForm: React.FunctionComponent<Props> = () => {
         setSourceApplication(0);
         resetIntegrationContext();
         getSelectableSourceApplications();
+        getAllIntegrations();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -160,7 +190,7 @@ export const IntegrationForm: React.FunctionComponent<Props> = () => {
                                     sourceApplication !== 0 &&
                                     !availableForms && <Loader title={t('labels.loading')} />}
                             </HStack>
-                            <VStack gap={'3'} style={{ maxWidth: '40%' }}>
+                            <VStack gap={'4'} style={{ maxWidth: '40%' }}>
                                 <Controller
                                     rules={{ required: true }}
                                     name={'sourceApplicationId'}
@@ -217,14 +247,13 @@ export const IntegrationForm: React.FunctionComponent<Props> = () => {
                                                     event.target.value
                                                 );
                                                 field.onChange(event.target.value);
-                                            }}>
-                                            {(sourceApplication
-                                                ? availableForms
-                                                    ? availableForms
-                                                    : loadingPlaceholder
-                                                : selectPlaceholder
-                                            ).map((option, index) => (
-                                                <option key={index} value={option.value}>
+                                            }}
+                                            disabled={!sourceApplicationId}>
+                                            {integrationOptions.map((option, index) => (
+                                                <option
+                                                    key={index}
+                                                    value={option.value}
+                                                    disabled={option.disabled}>
                                                     {option.label}
                                                 </option>
                                             ))}
@@ -255,7 +284,8 @@ export const IntegrationForm: React.FunctionComponent<Props> = () => {
                                             onChange={(event) => {
                                                 setDestination(event.target.value);
                                                 field.onChange(event.target.value);
-                                            }}>
+                                            }}
+                                            disabled={!sourceApplicationId}>
                                             {selectableDestinations(i18n.language).map(
                                                 (option, index) => (
                                                     <option key={index} value={option.value}>
@@ -287,7 +317,14 @@ export const IntegrationForm: React.FunctionComponent<Props> = () => {
                                 </ErrorSummary>
                             )}
                             <HStack id={'button-container'} gap={'6'}>
-                                <Button id="form-settings-confirm-btn" type="submit">
+                                <Button
+                                    id="form-settings-confirm-btn"
+                                    type="submit"
+                                    disabled={
+                                        !sourceApplicationId ||
+                                        !sourceApplicationIntegrationId ||
+                                        !destination
+                                    }>
                                     {t('button.confirm')}
                                 </Button>
                                 <Button id="form-settings-cancel-btn" onClick={cancel}>

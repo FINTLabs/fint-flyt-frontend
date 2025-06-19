@@ -46,7 +46,7 @@ export const destinations: ISelect[] = [
 export function selectableDestinations(lang: string): ISelect[] {
     return [
         {
-            label: lang === "en" ? "Select destination" : "Velg destinasjon",
+            label: lang === "en" ? "- Select destination" : "- Velg destinasjon",
             value: "",
         },
         {label: "Arkivsystem", value: "fylkesrad"},
