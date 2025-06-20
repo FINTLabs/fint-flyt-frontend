@@ -14,8 +14,6 @@ import {ISourceApplication} from "../features/configuration/types/SourceApplicat
 import AuthorizationRepository from "../api/AuthorizationRepository";
 import {AxiosResponse} from "axios";
 import {IUser} from "../components/pages/UserAccess";
-import IntegrationRepository from '../api/IntegrationRepository';
-import { IIntegration } from '../features/integration/types/Integration';
 
 type SourceApplicationContextState = {
     availableForms: ISelect[] | undefined;
