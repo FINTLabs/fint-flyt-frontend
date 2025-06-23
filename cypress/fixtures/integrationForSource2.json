@@ -1,0 +1,8 @@
+{
+  "id": 1,
+  "sourceApplicationId": 2,
+  "sourceApplicationIntegrationId": "sak",
+  "destination": "fylkesrad",
+  "state": "ACTIVE",
+  "activeConfigurationId": 4
+}
