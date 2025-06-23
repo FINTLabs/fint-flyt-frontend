@@ -47,8 +47,7 @@ describe('Testing create new integration', () => {
         prep()
         cy.get('#sourceApplicationId').select('2')
         cy.get('#sourceApplicationIntegrationId').select('sak')
-        cy.get('#form-settings-confirm-btn').click()
-        cy.get('.navds-error-summary').should("be.visible")
+        cy.get('#form-settings-confirm-btn').should('be.disabled')
     })
 
     it('should submit complete form and navigate to configuration form', () => {
