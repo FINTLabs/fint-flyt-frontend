@@ -9,6 +9,12 @@ const getAllIntegrations = () => {
 	return axios.get("/api/intern/integrasjoner");
 };
 
+const getAllIntegrationBySourceApplicationId = (
+    sourceApplicationId: string
+): Promise<{ data: IIntegration[] }> => {
+    return axios.get(`/api/intern/integrasjoner?sourceApplicationId=${sourceApplicationId}`);
+};
+
 const getIntegrations = (
 	page: number,
 	size: number | null,
@@ -41,6 +47,7 @@ const IntegrationRepository = {
 	getIntegrations,
 	updateIntegration,
 	getAllIntegrations,
+    getAllIntegrationBySourceApplicationId
 };
 
 export default IntegrationRepository;

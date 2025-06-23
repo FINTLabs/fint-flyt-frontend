@@ -45,7 +45,6 @@ export const IntegrationForm: React.FunctionComponent<Props> = () => {
         setExistingIntegrationMetadata,
         setExistingIntegration,
         resetIntegrationContext,
-        getAllIntegrations,
         integrations,
     } = useContext(IntegrationContext);
     const {
@@ -55,7 +54,6 @@ export const IntegrationForm: React.FunctionComponent<Props> = () => {
         availableForms,
         setAvailableForms,
         allMetadata,
-        getAllMetadata,
         getInstanceElementMetadata,
     } = useContext(SourceApplicationContext);
     const { activeUserSourceApps } = useContext(AuthorizationContext);
@@ -78,24 +76,7 @@ export const IntegrationForm: React.FunctionComponent<Props> = () => {
             if (!availableForms) {
                 return [{ label: `- ${t('labels.loading')}`, value: '' }];
             }
-
-            const integrationsForSourceApp =
-                integrations?.filter(
-                    (integration) =>
-                        String(integration.sourceApplicationId) === String(sourceApplication)
-                ) ?? [];
-
-            return availableForms
-                .map((form) => ({
-                    label: form.label,
-                    value: form.value,
-                    disabled: integrationsForSourceApp.some(
-                        (integration) => integration.sourceApplicationIntegrationId === form.value
-                    ),
-                }))
-                .sort((a, b) =>
-                    a.disabled === b.disabled ? a.label.localeCompare(b.label) : a.disabled ? 1 : -1
-                );
+            return availableForms;
         }, [sourceApplication, availableForms, integrations, i18n.language]);
 
     function getSelectableSourceApplications() {
@@ -120,7 +101,6 @@ export const IntegrationForm: React.FunctionComponent<Props> = () => {
         setSourceApplication(0);
         resetIntegrationContext();
         getSelectableSourceApplications();
-        getAllIntegrations();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -131,7 +111,6 @@ export const IntegrationForm: React.FunctionComponent<Props> = () => {
     useEffect(() => {
         setAvailableForms(undefined);
         if (sourceApplicationId) {
-            getAllMetadata(true);
             getAllAvailableFormsBySourceApplicationId(sourceApplicationId);
         }
     }, [sourceApplication, setSourceApplication]);
