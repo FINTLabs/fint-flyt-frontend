@@ -1,36 +1,52 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, { useContext, useEffect, useState, useMemo } from 'react';
 import {
     defaultAlert,
     getSelectableDefaultByLanguage,
     selectableDestinations,
-} from "../configuration/defaults/DefaultValues";
-import {Snackbar} from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import {IntegrationContext} from "../../context/IntegrationContext";
-import {useTranslation} from "react-i18next";
-import {SourceApplicationContext} from "../../context/SourceApplicationContext";
-import {IIntegration, IIntegrationFormData, IntegrationState} from "./types/Integration";
-import {toIntegration} from "../../util/mapping/ToIntegration";
-import {IIntegrationMetadata} from "../configuration/types/Metadata/IntegrationMetadata";
-import {Alert, Box, Button, ErrorSummary, Heading, HelpText, HStack, Loader, Select, VStack} from "@navikt/ds-react";
-import PageTemplate from "../../components/templates/PageTemplate";
-import {AxiosResponse} from "axios";
-import IntegrationRepository from "../../api/IntegrationRepository";
-import {Controller, FormProvider, useForm} from 'react-hook-form';
-import {IAlertContent} from "../configuration/types/AlertContent";
-import i18n from "../../util/locale/i18n";
-import {ISelect} from "../configuration/types/Select";
-import {AuthorizationContext} from "../../context/AuthorizationContext";
-import {getSourceApplicationDisplayNameById} from "../../util/TableUtil";
+} from '../configuration/defaults/DefaultValues';
+import { Snackbar } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { IntegrationContext } from '../../context/IntegrationContext';
+import { useTranslation } from 'react-i18next';
+import { SourceApplicationContext } from '../../context/SourceApplicationContext';
+import { IIntegration, IIntegrationFormData, IntegrationState } from './types/Integration';
+import { toIntegration } from '../../util/mapping/ToIntegration';
+import { IIntegrationMetadata } from '../configuration/types/Metadata/IntegrationMetadata';
+import {
+    Alert,
+    Box,
+    Button,
+    ErrorSummary,
+    Heading,
+    HelpText,
+    HStack,
+    Loader,
+    Select,
+    VStack,
+} from '@navikt/ds-react';
+import PageTemplate from '../../components/templates/PageTemplate';
+import { AxiosResponse } from 'axios';
+import IntegrationRepository from '../../api/IntegrationRepository';
+import { Controller, FormProvider, useForm } from 'react-hook-form';
+import { IAlertContent } from '../configuration/types/AlertContent';
+import i18n from '../../util/locale/i18n';
+import { ISelect } from '../configuration/types/Select';
+import { AuthorizationContext } from '../../context/AuthorizationContext';
+import { getSourceApplicationDisplayNameById } from '../../util/TableUtil';
 
 type Props = {
-    id: string
-}
+    id: string;
+};
 
 export const IntegrationForm: React.FunctionComponent<Props> = () => {
     const history = useNavigate();
-    const {t} = useTranslation('translations', {keyPrefix: 'pages.integrationForm'});
-    const {setExistingIntegrationMetadata, setExistingIntegration, resetIntegrationContext} = useContext(IntegrationContext)
+    const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationForm' });
+    const {
+        setExistingIntegrationMetadata,
+        setExistingIntegration,
+        resetIntegrationContext,
+        integrations,
+    } = useContext(IntegrationContext);
     const {
         getAllAvailableFormsBySourceApplicationId,
         sourceApplication,
@@ -38,213 +54,278 @@ export const IntegrationForm: React.FunctionComponent<Props> = () => {
         availableForms,
         setAvailableForms,
         allMetadata,
-        getAllMetadata,
-        getInstanceElementMetadata
-    } = useContext(SourceApplicationContext)
-    const {activeUserSourceApps} = useContext(AuthorizationContext)
+        getInstanceElementMetadata,
+    } = useContext(SourceApplicationContext);
+    const { activeUserSourceApps } = useContext(AuthorizationContext);
     const [destination, setDestination] = useState<string>('');
     const [sourceApplicationId, setSourceApplicationId] = useState<string>('');
-    const [showAlert, setShowAlert] = React.useState<boolean>(false)
-    const [alertContent, setAlertContent] = React.useState<IAlertContent>(defaultAlert)
-    const [sourceApplicationIntegrationId, setSourceApplicationIntegrationId] = useState<string>('');
-    const selectPlaceholder: { label: string, value: string }[] = [{label: t('labels.placeholder'), value: ''}]
-    const loadingPlaceholder: { label: string, value: string }[] = [{label: t('labels.loading'), value: ''}]
+    const [showAlert, setShowAlert] = React.useState<boolean>(false);
+    const [alertContent, setAlertContent] = React.useState<IAlertContent>(defaultAlert);
+    const [sourceApplicationIntegrationId, setSourceApplicationIntegrationId] =
+        useState<string>('');
     const methods = useForm<IIntegrationFormData>();
     const [selectableSourceApplications, setSelectableSourceApplications] = useState<ISelect[]>([
-        {label: getSelectableDefaultByLanguage(i18n.language), value: ""}
-    ])
+        { label: getSelectableDefaultByLanguage(i18n.language), value: '' },
+    ]);
+
+    const integrationOptions: { label: string; value: string; disabled?: boolean }[] =
+        useMemo(() => {
+            if (!sourceApplication) {
+                return [{ label: `- ${t('labels.placeholder')}`, value: '' }];
+            }
+            if (!availableForms) {
+                return [{ label: `- ${t('labels.loading')}`, value: '' }];
+            }
+            return availableForms;
+        }, [sourceApplication, availableForms, integrations, i18n.language]);
 
     function getSelectableSourceApplications() {
-        const sources: ISelect[] = []
-        activeUserSourceApps && activeUserSourceApps
-            .map((sa) => {
-                sources.push({value: sa, label: getSourceApplicationDisplayNameById(sa)})
-            })
+        const sources: ISelect[] = [];
+        activeUserSourceApps &&
+        activeUserSourceApps.map((sa) => {
+            sources.push({ value: sa, label: getSourceApplicationDisplayNameById(sa) });
+        });
         setSelectableSourceApplications([...selectableSourceApplications, ...sources]);
     }
 
     const navToConfiguration = (id: string) => {
         history('/integration/configuration/new-configuration', { state: { id } });
-
-    }
+    };
     const cancel = () => {
         history({
             pathname: '/integration/list',
-        })
-    }
+        });
+    };
 
     useEffect(() => {
-        setSourceApplication(0)
+        setSourceApplication(0);
         resetIntegrationContext();
         getSelectableSourceApplications();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, []);
 
     useEffect(() => {
-        setAvailableForms(undefined)
+        getSelectableSourceApplications();
+    }, [i18n.language]);
+
+    useEffect(() => {
+        setAvailableForms(undefined);
         if (sourceApplicationId) {
-            getAllMetadata(true);
             getAllAvailableFormsBySourceApplicationId(sourceApplicationId);
         }
-    }, [sourceApplication, setSourceApplication])
+    }, [sourceApplication, setSourceApplication]);
 
     const handleClose = (event: React.SyntheticEvent | Event, reason?: string) => {
         if (reason === 'clickaway') {
             return;
         }
         setShowAlert(false);
-        setAlertContent({severity: 'info', message: ''})
+        setAlertContent({ severity: 'info', message: '' });
     };
 
     const onSubmit = (data: IIntegrationFormData) => {
-        const selectedForm = allMetadata ? allMetadata.find((md: IIntegrationMetadata) => md.sourceApplicationIntegrationId === data.sourceApplicationIntegrationId) : undefined;
+        const selectedForm = allMetadata
+            ? allMetadata.find(
+                (md: IIntegrationMetadata) =>
+                    md.sourceApplicationIntegrationId === data.sourceApplicationIntegrationId
+            )
+            : undefined;
         if (!selectedForm) {
-            setAlertContent({severity: 'warning', message: t("alert.missingMetadata")})
-            setShowAlert(true)
+            setAlertContent({ severity: 'warning', message: t('alert.missingMetadata') });
+            setShowAlert(true);
             return;
         }
         setExistingIntegrationMetadata(selectedForm);
         getInstanceElementMetadata(selectedForm.id);
 
-        const newIntegration: IIntegration = toIntegration(data, IntegrationState.DEACTIVATED)
+        const newIntegration: IIntegration = toIntegration(data, IntegrationState.DEACTIVATED);
 
         IntegrationRepository.createIntegration(newIntegration)
             .then((response: AxiosResponse) => {
-                setSourceApplicationIntegrationId(response.data.sourceApplicationIntegrationId)
-                setExistingIntegration(response.data)
+                setSourceApplicationIntegrationId(response.data.sourceApplicationIntegrationId);
+                setExistingIntegration(response.data);
                 navToConfiguration(response.data.sourceApplicationIntegrationId);
-                console.log('create new integration', newIntegration)
+                console.log('create new integration', newIntegration);
             })
             .catch((e: Error) => {
-                    console.error(e)
-                }
-            )
-    }
+                console.error(e);
+            });
+    };
 
     return (
         <PageTemplate id={'new'} keyPrefix={'pages.integrationForm'}>
-            <Box id={'integration-form'} background={"surface-default"} padding="6" borderRadius={"large"}
-                 borderWidth="2" borderColor={"border-subtle"} style={{minWidth: "fit-content"}}>
+            <Box
+                id={'integration-form'}
+                background={'surface-default'}
+                padding="6"
+                borderRadius={'large'}
+                borderWidth="2"
+                borderColor={'border-subtle'}
+                style={{ minWidth: 'fit-content' }}>
                 <FormProvider {...methods}>
                     <form onSubmit={methods.handleSubmit(onSubmit)}>
-                        <VStack gap={"6"}>
-                            <HStack justify={"space-between"}>
-                                <Heading size={"small"}>{t('incoming')}</Heading>
-                                {sourceApplication !== undefined && sourceApplication !== 0 && !availableForms &&
-                                    <Loader title={t('labels.loading')}/>}
+                        <VStack gap={'6'}>
+                            <HStack justify={'space-between'}>
+                                <Heading size={'small'}>{t('incoming')}</Heading>
+                                {sourceApplication !== undefined &&
+                                    sourceApplication !== 0 &&
+                                    !availableForms && <Loader title={t('labels.loading')} />}
                             </HStack>
-                            <VStack gap={"3"} style={{maxWidth: '40%'}}>
+                            <VStack gap={'4'} style={{ maxWidth: '40%' }}>
                                 <Controller
-                                    rules={{required: true}}
-                                    name={"sourceApplicationId"}
-                                    defaultValue={""}
-                                    render={({fieldState, field}) => (
+                                    rules={{ required: true }}
+                                    name={'sourceApplicationId'}
+                                    defaultValue={''}
+                                    render={({ fieldState, field }) => (
                                         <Select
-                                            id={"sourceApplicationId"}
+                                            id={'sourceApplicationId'}
                                             label={
-                                                <HStack gap={"2"} align={"center"} wrap={false}>
+                                                <HStack gap={'2'} align={'center'} wrap={false}>
                                                     {t('labels.sourceApplicationId')}
-                                                    <HelpText title={'hva er dette'}
-                                                              placement="right">{t('help.sourceApplicationId')}</HelpText>
+                                                    <HelpText
+                                                        title={'hva er dette'}
+                                                        placement="right">
+                                                        {t('help.sourceApplicationId')}
+                                                    </HelpText>
                                                 </HStack>
                                             }
                                             error={!!fieldState.error}
-                                            onChange={event => {
-                                                setSourceApplication(Number(event.target.value))
-                                                setSourceApplicationId(event.target.value)
-                                                setSourceApplicationIntegrationId('')
-                                                field.onChange(event.target.value)
-                                            }}
-                                        >
+                                            onChange={(event) => {
+                                                setSourceApplication(Number(event.target.value));
+                                                setSourceApplicationId(event.target.value);
+                                                setSourceApplicationIntegrationId('');
+                                                field.onChange(event.target.value);
+                                            }}>
                                             {selectableSourceApplications.map((option, index) => (
-                                                <option key={index} value={option.value}>{option.label}</option>
+                                                <option key={index} value={option.value}>
+                                                    {option.label}
+                                                </option>
                                             ))}
                                         </Select>
                                     )}
                                 />
 
                                 <Controller
-                                    rules={{required: true}}
-                                    name={"sourceApplicationIntegrationId"}
-                                    defaultValue={""}
-                                    render={({fieldState, field}) => (
+                                    rules={{ required: true }}
+                                    name={'sourceApplicationIntegrationId'}
+                                    defaultValue={''}
+                                    render={({ fieldState, field }) => (
                                         <Select
-                                            id={"sourceApplicationIntegrationId"}
+                                            id={'sourceApplicationIntegrationId'}
                                             label={
-                                                <HStack gap={"2"} align={"center"}>
+                                                <HStack gap={'2'} align={'center'}>
                                                     {t('labels.sourceApplicationIntegrationId')}
-                                                    <HelpText title={'hva er dette'}
-                                                              placement="right">{t('help.sourceApplicationIntegrationId')}</HelpText>
+                                                    <HelpText
+                                                        title={'hva er dette'}
+                                                        placement="right">
+                                                        {t('help.sourceApplicationIntegrationId')}
+                                                    </HelpText>
                                                 </HStack>
                                             }
                                             error={!!fieldState.error}
-                                            onChange={event => {
-                                                setSourceApplicationIntegrationId(event.target.value);
-                                                field.onChange(event.target.value)
+                                            onChange={(event) => {
+                                                setSourceApplicationIntegrationId(
+                                                    event.target.value
+                                                );
+                                                field.onChange(event.target.value);
                                             }}
-                                        >
-                                            {(sourceApplication ?
-                                                availableForms ? availableForms : loadingPlaceholder
-                                                : selectPlaceholder).map((option, index) => (
-                                                <option key={index} value={option.value}>{option.label}</option>
+                                            disabled={!sourceApplicationId}>
+                                            {integrationOptions.map((option, index) => (
+                                                <option
+                                                    key={index}
+                                                    value={option.value}
+                                                    disabled={option.disabled}>
+                                                    {option.label}
+                                                </option>
                                             ))}
                                         </Select>
                                     )}
                                 />
                             </VStack>
-                            <VStack gap={"3"} style={{maxWidth: '40%'}}>
-                                <Heading size={"small"}>{t('outgoing')}</Heading>
+                            <VStack gap={'3'} style={{ maxWidth: '40%' }}>
+                                <Heading size={'small'}>{t('outgoing')}</Heading>
                                 <Controller
-                                    rules={{required: true}}
-                                    name={"destination"}
-                                    defaultValue={""}
-                                    render={({fieldState, field}) => (
+                                    rules={{ required: true }}
+                                    name={'destination'}
+                                    defaultValue={''}
+                                    render={({ fieldState, field }) => (
                                         <Select
-                                            id={"destination"}
+                                            id={'destination'}
                                             label={
-                                                <HStack gap={"2"} align={"center"}>
+                                                <HStack gap={'2'} align={'center'}>
                                                     {t('labels.destination')}
-                                                    <HelpText title={'hva er dette'}
-                                                              placement="right">{t('help.destination')}</HelpText>
+                                                    <HelpText
+                                                        title={'hva er dette'}
+                                                        placement="right">
+                                                        {t('help.destination')}
+                                                    </HelpText>
                                                 </HStack>
                                             }
                                             error={!!fieldState.error}
-                                            onChange={event => {
-                                                setDestination(event.target.value)
-                                                field.onChange(event.target.value)
+                                            onChange={(event) => {
+                                                setDestination(event.target.value);
+                                                field.onChange(event.target.value);
                                             }}
-                                        >
-                                            {selectableDestinations(i18n.language).map((option, index) => (
-                                                <option key={index} value={option.value}>{option.label}</option>
-                                            ))}
+                                            disabled={!sourceApplicationId}>
+                                            {selectableDestinations(i18n.language).map(
+                                                (option, index) => (
+                                                    <option key={index} value={option.value}>
+                                                        {option.label}
+                                                    </option>
+                                                )
+                                            )}
                                         </Select>
                                     )}
                                 />
                             </VStack>
-                            {!methods.formState.isValid && methods.formState.isSubmitted &&
+                            {!methods.formState.isValid && methods.formState.isSubmitted && (
                                 <ErrorSummary heading={t('errorHeading')} size="small">
-                                    {!sourceApplicationId &&
-                                        <ErrorSummary.Item
-                                            href="#sourceApplicationId">{t('labels.sourceApplicationId')}</ErrorSummary.Item>}
-                                    {!sourceApplicationIntegrationId && <ErrorSummary.Item
-                                        href="#sourceApplicationIntegrationId">{t('labels.sourceApplicationIntegrationId')}</ErrorSummary.Item>}
-                                    {!destination && <ErrorSummary.Item
-                                        href="#destination">{t('labels.destination')}</ErrorSummary.Item>}
-                                </ErrorSummary>}
-                            <HStack id={"button-container"} gap={"6"}>
-                                <Button id="form-settings-confirm-btn" type="submit">
-                                    {t('button.confirm')}</Button>
+                                    {!sourceApplicationId && (
+                                        <ErrorSummary.Item href="#sourceApplicationId">
+                                            {t('labels.sourceApplicationId')}
+                                        </ErrorSummary.Item>
+                                    )}
+                                    {!sourceApplicationIntegrationId && (
+                                        <ErrorSummary.Item href="#sourceApplicationIntegrationId">
+                                            {t('labels.sourceApplicationIntegrationId')}
+                                        </ErrorSummary.Item>
+                                    )}
+                                    {!destination && (
+                                        <ErrorSummary.Item href="#destination">
+                                            {t('labels.destination')}
+                                        </ErrorSummary.Item>
+                                    )}
+                                </ErrorSummary>
+                            )}
+                            <HStack id={'button-container'} gap={'6'}>
+                                <Button
+                                    id="form-settings-confirm-btn"
+                                    type="submit"
+                                    disabled={
+                                        !sourceApplicationId ||
+                                        !sourceApplicationIntegrationId ||
+                                        !destination
+                                    }>
+                                    {t('button.confirm')}
+                                </Button>
                                 <Button id="form-settings-cancel-btn" onClick={cancel}>
-                                    {t('button.cancel')}</Button>
+                                    {t('button.cancel')}
+                                </Button>
                             </HStack>
                         </VStack>
-                        <Snackbar id="integration-form-snackbar" autoHideDuration={4000} open={showAlert}
-                                  anchorOrigin={{vertical: 'bottom', horizontal: 'center'}}
-                                  onClose={handleClose}>
-                            <Alert variant={alertContent.severity} closeButton onClose={() => {
-                                setShowAlert(false);
-                                setAlertContent(defaultAlert)
-                            }}>
+                        <Snackbar
+                            id="integration-form-snackbar"
+                            autoHideDuration={4000}
+                            open={showAlert}
+                            anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                            onClose={handleClose}>
+                            <Alert
+                                variant={alertContent.severity}
+                                closeButton
+                                onClose={() => {
+                                    setShowAlert(false);
+                                    setAlertContent(defaultAlert);
+                                }}>
                                 {alertContent.message}
                             </Alert>
                         </Snackbar>
@@ -253,6 +334,6 @@ export const IntegrationForm: React.FunctionComponent<Props> = () => {
             </Box>
         </PageTemplate>
     );
-}
+};
 
 export default IntegrationForm;
