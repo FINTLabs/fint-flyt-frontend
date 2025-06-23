@@ -54,6 +54,7 @@ describe('Testing create new integration', () => {
     it('should submit complete form and navigate to configuration form', () => {
         prep()
         fillAll()
+        cy.wait(1000)
         cy.get('#form-settings-confirm-btn').click()
         cy.wait('@postIntegration').its('request.body').should('deep.equal', {
                 "sourceApplicationId": "2",
