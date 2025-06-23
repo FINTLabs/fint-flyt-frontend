@@ -1,8 +1,8 @@
-{
+[{
   "id": 1,
   "sourceApplicationId": 2,
-  "sourceApplicationIntegrationId": "sak",
+  "sourceApplicationIntegrationId": "journalpost",
   "destination": "fylkesrad",
   "state": "ACTIVE",
   "activeConfigurationId": 4
-}
+}]
