@@ -6,6 +6,13 @@ export const ABOUT_VERSIONS_EN =
 
 export const VERSION_DATA_EN: VersionEntry[] = [
     {
+        heading: "June 2025",
+        updates: [
+            "The form for creating a new integration has been updated so that you can no longer select an integration from a source that already exists. The integration will be visible in the dropdown, but not selectable.",
+            "Additionally, the same form has been improved with several small changes to enhance usability.",
+        ],
+    },
+    {
         heading: "May 2025",
         updates: [
             "It is now possible to log out of FLYT via a button in the menu.",
