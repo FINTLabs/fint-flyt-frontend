@@ -9,6 +9,7 @@ import {ISelect} from "../features/configuration/types/Select";
 import {ContextProps} from "./constants/interface";
 import {MOCK_INSTANCE_METADATA} from "../__tests__/mock/mapping/mock-instans-metadata";
 import SourceApplicationRepository from "../api/SourceApplicationRepository";
+import IntegrationRepository from '../api/IntegrationRepository';
 import i18n from "../util/locale/i18n";
 import {ISourceApplication} from "../features/configuration/types/SourceApplication";
 import AuthorizationRepository from "../api/AuthorizationRepository";
@@ -31,10 +32,11 @@ type SourceApplicationContextState = {
     getInstanceElementMetadata: (metadataId: string) => void;
     sourceApplication: number | undefined;
     setSourceApplication: (id: number | undefined) => void;
-    sourceApplications: ISourceApplication[] | undefined
+    sourceApplications: ISourceApplication[] | undefined;
     setSourceApplications: (sourceApp: ISourceApplication[]) => void;
-    getSourceApplications: () => void
-};
+    getSourceApplications: () => void;
+    currentMetaData: IIntegrationMetadata[] | undefined;
+    getMetadataBySourceApplicationId: (sourceApplicationId: string, onlyLatest: boolean, updateAvailableForms: boolean) => void;};
 
 const contextDefaultValues: SourceApplicationContextState = {
     availableForms: undefined,
@@ -52,7 +54,9 @@ const contextDefaultValues: SourceApplicationContextState = {
     setSourceApplication: () => undefined,
     sourceApplications: undefined,
     setSourceApplications: () => undefined,
-    getSourceApplications: () => undefined
+    getSourceApplications: () => undefined,
+    currentMetaData: undefined,
+    getMetadataBySourceApplicationId: () => undefined,
 };
 
 const SourceApplicationContext =
@@ -65,6 +69,9 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
     const [instanceObjectCollectionMetadata, setInstanceObjectCollectionMetadata,] = useState<IInstanceObjectCollectionMetadata[]>([]);
     const [sourceApplication, setSourceApplication] = useState<number | undefined>(contextDefaultValues.sourceApplication);
     const [sourceApplications, setSourceApplications] = useState<ISourceApplication[] | undefined>(contextDefaultValues.sourceApplications);
+    const [currentMetaData, setCurrentMetaData] = useState<IIntegrationMetadata[] | undefined>(
+        contextDefaultValues.currentMetaData
+    );
 
     function getInstanceObjectCollectionMetadata(keys: string[]): void {
         setInstanceObjectCollectionMetadata(
@@ -92,36 +99,74 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
         }
     }
 
-    const getAllAvailableFormsBySourceApplicationId = async (sourceApplicationId: string) => {
+    const getAllAvailableFormsBySourceApplicationId = async (
+        sourceApplicationId: string,
+        prefetchedMetadata?: IIntegrationMetadata[]
+    ) => {
         try {
-            const response = await SourceApplicationRepository.getMetadata(sourceApplicationId, true);
-            const data = response.data || [];
+            let sourceApplicationData = [];
+            if (prefetchedMetadata && prefetchedMetadata.length > 0) {
+                sourceApplicationData = prefetchedMetadata;
+            } else {
+                const metadataResponse = await SourceApplicationRepository.getMetadata(
+                    sourceApplicationId,
+                    true
+                );
+                sourceApplicationData = metadataResponse?.data;
+            }
 
-            const tempAvailableForms: ISelect[] = [
-                {value: "", label: i18n.language === "en" ? "Select integration" : "Velg integrasjon"}
+            const integrationResponse =
+                await IntegrationRepository.getAllIntegrationBySourceApplicationId(
+                    sourceApplicationId
+                );
+            const integrationData = integrationResponse.data || [];
+
+            const defaultOption: ISelect[] = [
+                {
+                    value: '',
+                    label: i18n.language === 'en' ? '- Select integration' : '- Velg integrasjon',
+                },
             ];
 
-            data.map((metadata: IIntegrationMetadata) => {
-                tempAvailableForms.push({
-                    value: metadata.sourceApplicationIntegrationId,
-                    label: `[${metadata.sourceApplicationIntegrationId}] ${metadata.integrationDisplayName}`,
-                });
-            });
-            if (data.length > 0) {
-                const selectableForms = tempAvailableForms.filter((form) => sourceApplicationId !== form.value);
-                setAvailableForms(selectableForms);
+            if (sourceApplicationData.length > 0) {
+                setAvailableForms([
+                    ...defaultOption,
+                    ...sourceApplicationData
+                        .filter(
+                            (metadata: IIntegrationMetadata) =>
+                                sourceApplicationId !== metadata.sourceApplicationIntegrationId
+                        )
+                        .map((metadata: IIntegrationMetadata) => ({
+                            value: metadata.sourceApplicationIntegrationId,
+                            label: `[${metadata.sourceApplicationIntegrationId}] ${metadata.integrationDisplayName}`,
+                            disabled: integrationData.some(
+                                (integration) =>
+                                    integration.sourceApplicationIntegrationId ===
+                                    metadata.sourceApplicationIntegrationId
+                            ),
+                        }))
+                        .sort((a: ISelect, b: ISelect) =>
+                            a.disabled === b.disabled
+                                ? a.label.localeCompare(b.label)
+                                : a.disabled
+                                    ? 1
+                                    : -1
+                        ),
+                ]);
             } else {
                 setAvailableForms([
                     {
-                        value: "",
-                        label: i18n.language === 'en' ? "No available integrations" : "Ingen tilgjengelige integrasjoner"
-                    }
-                ])
+                        value: '',
+                        label:
+                            i18n.language === 'en'
+                                ? '- No available integrations'
+                                : '- Ingen tilgjengelige integrasjoner',
+                    },
+                ]);
             }
-
         } catch (err) {
             console.error(err);
-            setAvailableForms([{value: "null", label: "No options"}]);
+            setAvailableForms([{ value: 'null', label: '- No options' }]);
         }
     };
 
@@ -132,7 +177,7 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
 
         } catch (err) {
             console.error(err);
-            setAvailableForms([{value: "", label: "Ingen data"}]);
+            setAvailableForms([{value: "", label: "- Ingen data"}]);
         }
     };
 
@@ -156,6 +201,26 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
         } catch (e) {
             console.error('Error: ', e);
             setAllMetadata([]);
+        }
+    };
+
+    const getMetadataBySourceApplicationId = async (
+        sourceApplicationId: string,
+        onlyLatest: boolean,
+        updateAvailableForms: boolean
+    ): Promise<void> => {
+        try {
+            const metadataResponse: AxiosResponse<IIntegrationMetadata[]> =
+                await SourceApplicationRepository.getMetadata(sourceApplicationId, onlyLatest);
+            const metaData = metadataResponse.data || [];
+            setCurrentMetaData(metaData);
+
+            if (updateAvailableForms) {
+                await getAllAvailableFormsBySourceApplicationId(sourceApplicationId, metaData);
+            }
+        } catch (e) {
+            console.error('Error: ', e);
+            setCurrentMetaData([]);
         }
     };
 
@@ -191,9 +256,10 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
                 setSourceApplication,
                 sourceApplications,
                 setSourceApplications,
-                getSourceApplications
-            }}
-        >
+                getSourceApplications,
+                currentMetaData,
+                getMetadataBySourceApplicationId,
+            }}>
             {children}
         </SourceApplicationContext.Provider>
     );
