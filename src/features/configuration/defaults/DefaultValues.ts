@@ -21,11 +21,11 @@ export const activeAlert: IAlertContent = {
 
 export function getSelectableDefaultByLanguage(lang: string): string {
     if (lang === "no") {
-        return "Velg kildeapplikasjon";
+        return "- Velg kildeapplikasjon";
     } else if (lang === "en") {
-        return "Select source application";
+        return "- Select source application";
     } else {
-        return "Velg kjeldeapplikasjon";
+        return "- Velg kjeldeapplikasjon";
     }
 }
 
@@ -46,7 +46,7 @@ export const destinations: ISelect[] = [
 export function selectableDestinations(lang: string): ISelect[] {
     return [
         {
-            label: lang === "en" ? "Select destination" : "Velg destinasjon",
+            label: lang === "en" ? "- Select destination" : "- Velg destinasjon",
             value: "",
         },
         {label: "Arkivsystem", value: "fylkesrad"},

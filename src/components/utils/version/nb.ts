@@ -6,6 +6,13 @@ export const ABOUT_VERSIONS =
 
 export const VERSION_DATA: VersionEntry[] = [
     {
+        heading: "Juni 2025",
+        updates: [
+            "Skjemaet for å opprette en ny integrasjon er nå oppdatert slik at man ikke lengre kan velge en integrasjon fra en kilde som allerede finnes. Integrasjonen vil være synlig i nedtrekksfeltet, men ikke mulig å velge.",
+            "I tillegg er det samme skjuemaet nå forbedret med en rekke små endringer for å gjøre det mer brukervennlig.",
+        ]
+    },
+    {
         heading: "Mai 2025",
         updates: [
             "Det er nå mulig å logge ut fra FLYT via en knapp i menyen.",
