@@ -35,7 +35,8 @@ type SourceApplicationContextState = {
     sourceApplications: ISourceApplication[] | undefined;
     setSourceApplications: (sourceApp: ISourceApplication[]) => void;
     getSourceApplications: () => void;
-};
+    currentMetaData: IIntegrationMetadata[] | undefined;
+    getMetadataBySourceApplicationId: (sourceApplicationId: string, onlyLatest: boolean, updateAvailableForms: boolean) => void;};
 
 const contextDefaultValues: SourceApplicationContextState = {
     availableForms: undefined,
@@ -53,7 +54,9 @@ const contextDefaultValues: SourceApplicationContextState = {
     setSourceApplication: () => undefined,
     sourceApplications: undefined,
     setSourceApplications: () => undefined,
-    getSourceApplications: () => undefined
+    getSourceApplications: () => undefined,
+    currentMetaData: undefined,
+    getMetadataBySourceApplicationId: () => undefined,
 };
 
 const SourceApplicationContext =
@@ -66,6 +69,9 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
     const [instanceObjectCollectionMetadata, setInstanceObjectCollectionMetadata,] = useState<IInstanceObjectCollectionMetadata[]>([]);
     const [sourceApplication, setSourceApplication] = useState<number | undefined>(contextDefaultValues.sourceApplication);
     const [sourceApplications, setSourceApplications] = useState<ISourceApplication[] | undefined>(contextDefaultValues.sourceApplications);
+    const [currentMetaData, setCurrentMetaData] = useState<IIntegrationMetadata[] | undefined>(
+        contextDefaultValues.currentMetaData
+    );
 
     function getInstanceObjectCollectionMetadata(keys: string[]): void {
         setInstanceObjectCollectionMetadata(
@@ -93,13 +99,26 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
         }
     }
 
-    const getAllAvailableFormsBySourceApplicationId = async (sourceApplicationId: string) => {
+    const getAllAvailableFormsBySourceApplicationId = async (
+        sourceApplicationId: string,
+        prefetchedMetadata?: IIntegrationMetadata[]
+    ) => {
         try {
-            const [metadataResponse, integrationResponse] = await Promise.all([
-                SourceApplicationRepository.getMetadata(sourceApplicationId, true),
-                IntegrationRepository.getAllIntegrationBySourceApplicationId(sourceApplicationId),
-            ]);
-            const sourceApplicationData = metadataResponse.data || [];
+            let sourceApplicationData = [];
+            if (prefetchedMetadata && prefetchedMetadata.length > 0) {
+                sourceApplicationData = prefetchedMetadata;
+            } else {
+                const metadataResponse = await SourceApplicationRepository.getMetadata(
+                    sourceApplicationId,
+                    true
+                );
+                sourceApplicationData = metadataResponse?.data;
+            }
+
+            const integrationResponse =
+                await IntegrationRepository.getAllIntegrationBySourceApplicationId(
+                    sourceApplicationId
+                );
             const integrationData = integrationResponse.data || [];
 
             const defaultOption: ISelect[] = [
@@ -185,6 +204,26 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
         }
     };
 
+    const getMetadataBySourceApplicationId = async (
+        sourceApplicationId: string,
+        onlyLatest: boolean,
+        updateAvailableForms: boolean
+    ): Promise<void> => {
+        try {
+            const metadataResponse: AxiosResponse<IIntegrationMetadata[]> =
+                await SourceApplicationRepository.getMetadata(sourceApplicationId, onlyLatest);
+            const metaData = metadataResponse.data || [];
+            setCurrentMetaData(metaData);
+
+            if (updateAvailableForms) {
+                await getAllAvailableFormsBySourceApplicationId(sourceApplicationId, metaData);
+            }
+        } catch (e) {
+            console.error('Error: ', e);
+            setCurrentMetaData([]);
+        }
+    };
+
     const getInstanceElementMetadata = (metadataId: string) => {
         SourceApplicationRepository.getInstanceElementMetadataById(metadataId)
             .then((response) => {
@@ -217,9 +256,10 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
                 setSourceApplication,
                 sourceApplications,
                 setSourceApplications,
-                getSourceApplications
-            }}
-        >
+                getSourceApplications,
+                currentMetaData,
+                getMetadataBySourceApplicationId,
+            }}>
             {children}
         </SourceApplicationContext.Provider>
     );

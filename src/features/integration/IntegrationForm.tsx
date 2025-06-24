@@ -48,13 +48,13 @@ export const IntegrationForm: React.FunctionComponent<Props> = () => {
         integrations,
     } = useContext(IntegrationContext);
     const {
-        getAllAvailableFormsBySourceApplicationId,
+        getMetadataBySourceApplicationId,
         sourceApplication,
         setSourceApplication,
         availableForms,
         setAvailableForms,
-        allMetadata,
-        getInstanceElementMetadata,
+        currentMetaData,
+        getInstanceElementMetadata
     } = useContext(SourceApplicationContext);
     const { activeUserSourceApps } = useContext(AuthorizationContext);
     const [destination, setDestination] = useState<string>('');
@@ -111,7 +111,7 @@ export const IntegrationForm: React.FunctionComponent<Props> = () => {
     useEffect(() => {
         setAvailableForms(undefined);
         if (sourceApplicationId) {
-            getAllAvailableFormsBySourceApplicationId(sourceApplicationId);
+            getMetadataBySourceApplicationId(sourceApplicationId, true, true)
         }
     }, [sourceApplication, setSourceApplication]);
 
@@ -124,8 +124,8 @@ export const IntegrationForm: React.FunctionComponent<Props> = () => {
     };
 
     const onSubmit = (data: IIntegrationFormData) => {
-        const selectedForm = allMetadata
-            ? allMetadata.find(
+        const selectedForm = currentMetaData
+            ? currentMetaData.find(
                 (md: IIntegrationMetadata) =>
                     md.sourceApplicationIntegrationId === data.sourceApplicationIntegrationId
             )
