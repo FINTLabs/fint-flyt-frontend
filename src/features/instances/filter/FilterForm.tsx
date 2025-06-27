@@ -11,7 +11,6 @@ import { OptionsProvider, useOptions } from './OptionsContext';
 import { IIntegrationMetadata } from '../../configuration/types/Metadata/IntegrationMetadata';
 import IntegrationRepository from '../../../api/IntegrationRepository';
 import { IIntegration } from '../../integration/types/Integration';
-import { ComboboxOption } from '@navikt/ds-react/cjs/form/combobox/types';
 
 const apiOptions = {
     sourceApplicationIdsOptions: [
