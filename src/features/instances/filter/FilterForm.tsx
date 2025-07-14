@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { Box, Button, HStack, VStack } from '@navikt/ds-react';
 // import SortSelect from './sortSelect';
 import TimeCard from './timeCard';
@@ -28,14 +28,9 @@ interface FilterFormProps {
 }
 
 const FilterForm: React.FC<FilterFormProps> = ({ allMetaData }) => {
-    const { clearFilters, saveFilters, filters } = useFilters();
+    const { clearFilters, saveFilters, filters, updateFilter } = useFilters();
     const [openCard, setOpenCard] = useState<string | null>(null);
-    const [sourceApplicationIntegrationOptions, setSourceApplicationIntegrationOptions] = useState<
-        { label: string; value: string }[]
-    >([]);
-    const [integrationsOptions, setIntegrationsOptions] = useState<
-        { label: string; value: string }[]
-    >([]);
+    const [allIntegrations, setAllIntegrations] = useState<IIntegration[]>([]);
 
     const {
         statusesOptions,
@@ -45,46 +40,65 @@ const FilterForm: React.FC<FilterFormProps> = ({ allMetaData }) => {
         instanceStatusEventCategoriesOptions,
     } = useOptions();
 
-    const getIntegrations = async () => {
-        try {
-            const integrationResponse = await IntegrationRepository.getAllIntegrations();
-            const data = integrationResponse.data;
-
-            allMetaData.forEach((value: IIntegrationMetadata) => {
-                data.forEach((integration: IIntegration) => {
-                    if (
-                        integration.sourceApplicationIntegrationId ===
-                        value.sourceApplicationIntegrationId
-                    ) {
-                        integration.displayName = value.integrationDisplayName;
+    useEffect(() => {
+        IntegrationRepository.getAllIntegrations()
+            .then((response) => {
+                const data = response.data;
+                allMetaData.forEach((meta) => {
+                    const integration = data.find(
+                        (i: IIntegration) => i.sourceApplicationIntegrationId === meta.sourceApplicationIntegrationId
+                    );
+                    if (integration) {
+                        integration.displayName = meta.integrationDisplayName;
                     }
                 });
-            });
+                setAllIntegrations(data);
+            })
+            .catch(console.error);
+    }, [allMetaData]);
 
-            let options = data.map((integration: IIntegration) => ({
-                label: integration.sourceApplicationIntegrationId,
-                value: integration.sourceApplicationIntegrationId,
-            }));
-            setSourceApplicationIntegrationOptions(options);
+    const sourceApplicationIntegrationOptions = useMemo<{ label: string; value: string }[]>(() => {
+        return allIntegrations
+            .filter(
+                (integration) =>
+                    !!integration.sourceApplicationIntegrationId &&
+                    (!filters.sourceApplicationIds?.length ||
+                        filters.sourceApplicationIds.includes(integration.sourceApplicationId?.toString() ?? ''))
+            )
+            .map((integration) => ({
+                label: integration.sourceApplicationIntegrationId ? integration.sourceApplicationIntegrationId : '',
+                value: integration.sourceApplicationIntegrationId ? integration.sourceApplicationIntegrationId : '',
+            }))
+            .filter((option, index, self) => self.findIndex(o => o.value === option.value) === index)
+            .sort((a, b) => a.label.localeCompare(b.label, undefined, { numeric: true }));
+    }, [allIntegrations, filters.sourceApplicationIds]);
 
-            options = data.map((integration: IIntegration) => ({
+    const integrationsOptions = useMemo(() => {
+        return allIntegrations
+            .map((integration) => ({
                 label: `${integration.id} - ${integration.displayName}`,
-                value: integration.id,
-            }));
+                value: `${integration.id ?? ''}`,
+            }))
+            .sort((a, b) => {
+   
+                return Number(a.value) - Number(b.value);
+            });
+    }, [allIntegrations]);
 
-            setIntegrationsOptions(options);
-        } catch (e) {
-            console.log(e);
-        }
-    };
-
+    // Clear invalid sourceApplicationIntegrationIds when sourceApplicationIds changes
     useEffect(() => {
-        getIntegrations();
-    }, [filters]);
+        if (filters.sourceApplicationIntegrationIds?.length) {
+            const validIds = sourceApplicationIntegrationOptions.map(opt => opt.value);
+            const filtered = filters.sourceApplicationIntegrationIds.filter(id => validIds.includes(id));
+            if (filtered.length !== filters.sourceApplicationIntegrationIds.length) {
+                updateFilter('sourceApplicationIntegrationIds', filtered);
+            }
+        }
+    }, [filters.sourceApplicationIds, sourceApplicationIntegrationOptions, filters.sourceApplicationIntegrationIds, updateFilter]);
 
-    const toggleCard = (cardId: string) => {
+    const toggleCard = useCallback((cardId: string) => {
         setOpenCard((prev) => (prev === cardId ? null : cardId));
-    };
+    }, []);
 
     return (
         <Box minWidth={'300px'} className={'p-20'} data-testid="filters-form">
