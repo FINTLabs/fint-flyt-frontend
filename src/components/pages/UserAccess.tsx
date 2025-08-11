@@ -85,7 +85,7 @@ const UserAccess: RouteComponent = () => {
     };
     useEffect(() => {
         fetchUsers();
-    }, [page]);
+    }, [page, pageSize]);
 
     const updateUsers = () => {
         AuthorizationRepository.updateUsers(users ? users : [])
@@ -155,8 +155,7 @@ const UserAccess: RouteComponent = () => {
             <Box background={'surface-default'} style={{ minHeight: '70vh' }}>
                 {users ? (
                     <VStack gap={'6'}>
-                        <Table
-                            id={'useraccess-table'}>
+                        <Table id={'useraccess-table'}>
                             <Table.Header>
                                 <Table.Row id={'table-row-header'}>
                                     <Table.ColumnHeader id={'column-header-name'}>
@@ -243,36 +242,36 @@ const UserAccess: RouteComponent = () => {
                                 align={'center'}
                                 gap={'4'}
                                 style={{ marginBottom: '16px' }}>
-                                {totalPages > 1 && (
-                                    <div
-                                        style={{
-                                            opacity: editMode ? 0.5 : 1,
-                                            pointerEvents: editMode ? 'none' : 'auto',
-                                        }}>
-                                        <HStack align={'center'} gap={'2'}>
-                                            <label htmlFor="select-row-count">
-                                                {t('numberPerPage')}
-                                            </label>
-                                            <select
-                                                disabled={editMode}
-                                                id="select-row-count"
-                                                value={pageSize}
-                                                onChange={handlePageSizeChange}>
-                                                {selectOptions.map((option) => (
-                                                    <option key={option.value} value={option.value}>
-                                                        {option.label}
-                                                    </option>
-                                                ))}
-                                            </select>
-                                        <Pagination
-                                            page={page}
-                                            onPageChange={editMode ? undefined : handlePageChange}
-                                            count={totalPages}
-                                            size="small"
-                                        />
-                                        </HStack>
-                                    </div>
-                                )}
+                                <div
+                                    style={{
+                                        opacity: editMode ? 0.5 : 1,
+                                        pointerEvents: editMode ? 'none' : 'auto',
+                                    }}>
+                                    <HStack align={'center'} gap={'2'}>
+                                        <label htmlFor="select-row-count">
+                                            {t('numberPerPage')}
+                                        </label>
+                                        <select
+                                            disabled={editMode}
+                                            id="select-row-count"
+                                            value={pageSize}
+                                            onChange={handlePageSizeChange}>
+                                            {selectOptions.map((option) => (
+                                                <option key={option.value} value={option.value}>
+                                                    {option.label}
+                                                </option>
+                                            ))}
+                                        </select>
+                                        {totalPages > 1 && (
+                                            <Pagination
+                                                page={page}
+                                                onPageChange={handlePageChange}
+                                                count={totalPages}
+                                                size="small"
+                                            />
+                                        )}
+                                    </HStack>
+                                </div>
                             </HStack>
                             <div style={{ position: 'absolute', right: 0, top: 0 }}>
                                 {editMode ? (
