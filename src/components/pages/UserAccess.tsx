@@ -296,7 +296,7 @@ const UserAccess: RouteComponent = () => {
                                     <HStack justify={'end'} gap={'6'}>
                                         <Button
                                             variant="tertiary"
-                                            id="form-edit-btn"
+                                            id="edit-toggle-btn"
                                             onClick={() => setEditMode(true)}
                                             icon={<PencilWritingIcon />}
                                             size={'small'}>
