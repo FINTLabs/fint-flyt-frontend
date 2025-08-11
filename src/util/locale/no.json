@@ -30,7 +30,7 @@
         "column": {
           "id": "ID",
           "name": "Navn",
-          "email": "Epost"
+          "email": "E-post"
         }
       },
       "numberPerPage": "Antall per side",

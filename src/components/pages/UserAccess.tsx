@@ -59,8 +59,11 @@ const UserAccess: RouteComponent = () => {
     }
 
     const [users, setUsers] = useState<IUser[] | undefined>(undefined);
-    const [editMode, setEditMode] = useState<boolean>(false);
+    const [initialState, setInitialState] = useState<IUser[] | undefined>(undefined);
+
     const [edited, setEdited] = useState<boolean>(false);
+    const [editMode, setEditMode] = useState<boolean>(false);
+
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
     const [totalPages, setTotalPages] = useState(0);
@@ -74,7 +77,10 @@ const UserAccess: RouteComponent = () => {
             .then((response) => {
                 const pageableResponse: PageableResponse<IUser> = response.data;
                 setUsers(pageableResponse.content);
+                setInitialState(pageableResponse.content);
                 setTotalPages(pageableResponse.totalPages);
+                setEdited(false);
+                setEditMode(false);
                 setError(undefined);
             })
             .catch(() => {
@@ -84,10 +90,9 @@ const UserAccess: RouteComponent = () => {
     };
     useEffect(() => {
         fetchUsers();
-    }, []);
+    }, [page]);
 
     const updateUsers = () => {
-        setEditMode(false);
         AuthorizationRepository.updateUsers(users ? users : [])
             .then(() => {
                 fetchUsers(); // Fetch users after update to refresh the data
@@ -95,6 +100,12 @@ const UserAccess: RouteComponent = () => {
             .catch((e) => {
                 console.log('error updating data, ', e);
             });
+    };
+
+    const resetState = () => {
+        setUsers(initialState);
+        setEdited(false);
+        setEditMode(false);
     };
 
     const updateUserAccess = (sub: string, sourceAppInput: number, permissionCheck: boolean) => {
@@ -156,41 +167,6 @@ const UserAccess: RouteComponent = () => {
                 gap={'2'}
                 wrap={false}>
                 <Heading size={'medium'}>{t('header')}</Heading>
-
-                <HStack justify={'end'} gap={'6'}>
-                    {editMode ? (
-                        <>
-                            <Button
-                                id="form-save-btn"
-                                type="submit"
-                                onClick={updateUsers}
-                                size={'small'}
-                                disabled={!edited}
-                            >
-                                {t('button.save')}
-                            </Button>
-                            <Button
-                                variant="secondary"
-                                id="form-cancel-btn"
-                                size={'small'}
-                                onClick={() => {
-                                    setUsers(users);
-                                    setEditMode(false);
-                                }}>
-                                {t('button.cancel')}
-                            </Button>
-                        </>
-                    ) : (
-                        <Button
-                            id={'edit-toggle-btn'}
-                            disabled={!users || editMode}
-                            onClick={() => setEditMode((prevState) => !prevState)}
-                            size={'small'}
-                            icon={<PencilWritingIcon aria-hidden />}>
-                            {t('button.edit')}
-                        </Button>
-                    )}
-                </HStack>
             </HStack>
             {error && (
                 <Alert style={{ maxWidth: '100%' }} variant="error">
@@ -283,32 +259,77 @@ const UserAccess: RouteComponent = () => {
                                 })}
                             </Table.Body>
                         </Table>
-                        {totalPages > 1 && (
+
+                        <div style={{ marginTop: '16px', position: 'relative' }}>
                             <HStack
                                 justify={'center'}
                                 align={'center'}
-                                style={{ marginTop: '16px' }}>
-                                <Box>
-                                    <label htmlFor="select-row-count">{t('numberPerPage')}</label>
-                                    <select
-                                        id="select-row-count"
-                                        value={pageSize}
-                                        onChange={handlePageSizeChange}>
-                                        {selectOptions.map((option) => (
-                                            <option key={option.value} value={option.value}>
-                                                {option.label}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </Box>
-                                <Pagination
-                                    page={page}
-                                    onPageChange={handlePageChange}
-                                    count={totalPages}
-                                    size="small"
-                                />
+                                gap={'4'}
+                                style={{ marginBottom: '16px' }}>
+                                {totalPages > 1 && (
+                                    <div
+                                        style={{
+                                            opacity: editMode ? 0.5 : 1,
+                                            pointerEvents: editMode ? 'none' : 'auto',
+                                        }}>
+                                        <HStack align={'center'} gap={'2'}>
+                                            <label htmlFor="select-row-count">
+                                                {t('numberPerPage')}
+                                            </label>
+                                            <select
+                                                disabled={editMode}
+                                                id="select-row-count"
+                                                value={pageSize}
+                                                onChange={handlePageSizeChange}>
+                                                {selectOptions.map((option) => (
+                                                    <option key={option.value} value={option.value}>
+                                                        {option.label}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        <Pagination
+                                            page={page}
+                                            onPageChange={editMode ? undefined : handlePageChange}
+                                            count={totalPages}
+                                            size="small"
+                                        />
+                                        </HStack>
+                                    </div>
+                                )}
                             </HStack>
-                        )}
+                            <div style={{ position: 'absolute', right: 0, top: 0 }}>
+                                {editMode ? (
+                                    <HStack justify={'end'} gap={'6'}>
+                                        <Button
+                                            variant="secondary"
+                                            id="form-cancel-btn"
+                                            onClick={resetState}
+                                            size={'small'}>
+                                            {t('button.cancel')}
+                                        </Button>
+                                        <Button
+                                            id="form-save-btn"
+                                            type="submit"
+                                            onClick={updateUsers}
+                                            size={'small'}
+                                            disabled={!edited}>
+                                            {t('button.save')}
+                                        </Button>
+                                    </HStack>
+                                ) : (
+                                    <HStack justify={'end'} gap={'6'}>
+                                        <Button
+                                            variant="tertiary"
+                                            id="form-edit-btn"
+                                            onClick={() => setEditMode(true)}
+                                            icon={<PencilWritingIcon />}
+                                            size={'small'}>
+                                            {t('button.edit')}
+                                        </Button>
+                                    </HStack>
+                                )}
+                            </div>
+                        </div>
                     </VStack>
                 ) : (
                     <Loader />
