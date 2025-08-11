@@ -256,27 +256,32 @@ const UserAccess: RouteComponent = () => {
                                 </Button>
                             </HStack>
                         )}
-                        <HStack justify={'center'} align={'center'} style={{ marginTop: '16px' }}>
-                            <Box>
-                                <label htmlFor="select-row-count">{t('numberPerPage')}</label>
-                                <select
-                                    id="select-row-count"
-                                    value={pageSize}
-                                    onChange={handlePageSizeChange}>
-                                    {selectOptions.map((option) => (
-                                        <option key={option.value} value={option.value}>
-                                            {option.label}
-                                        </option>
-                                    ))}
-                                </select>
-                            </Box>
-                            <Pagination
-                                page={page}
-                                onPageChange={handlePageChange}
-                                count={totalPages}
-                                size="small"
-                            />
-                        </HStack>
+                        {totalPages > 1 && (
+                            <HStack
+                                justify={'center'}
+                                align={'center'}
+                                style={{ marginTop: '16px' }}>
+                                <Box>
+                                    <label htmlFor="select-row-count">{t('numberPerPage')}</label>
+                                    <select
+                                        id="select-row-count"
+                                        value={pageSize}
+                                        onChange={handlePageSizeChange}>
+                                        {selectOptions.map((option) => (
+                                            <option key={option.value} value={option.value}>
+                                                {option.label}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </Box>
+                                <Pagination
+                                    page={page}
+                                    onPageChange={handlePageChange}
+                                    count={totalPages}
+                                    size="small"
+                                />
+                            </HStack>
+                        )}
                     </VStack>
                 ) : (
                     <Loader />
