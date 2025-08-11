@@ -15,7 +15,6 @@ import {
     Table,
     VStack,
     Pagination,
-    SortState,
 } from '@navikt/ds-react';
 import { useTranslation } from 'react-i18next';
 import AuthorizationRepository from '../../api/AuthorizationRepository';
@@ -67,10 +66,6 @@ const UserAccess: RouteComponent = () => {
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
     const [totalPages, setTotalPages] = useState(0);
-    const [sort, setSort] = useState<SortState | undefined>({
-        orderBy: 'name',
-        direction: 'ascending',
-    });
 
     const fetchUsers = () => {
         AuthorizationRepository.getUsers(page - 1, pageSize)
@@ -135,22 +130,6 @@ const UserAccess: RouteComponent = () => {
         setPage(1); // Reset to first page when page size changes
     };
 
-    const handleSortChange = (sortKey: string) => {
-        setSort((prevSort) => {
-            return prevSort && sortKey === prevSort.orderBy && prevSort.direction === 'descending'
-                ? undefined
-                : {
-                      orderBy: sortKey,
-                      direction:
-                          prevSort &&
-                          sortKey === prevSort.orderBy &&
-                          prevSort.direction === 'ascending'
-                              ? 'descending'
-                              : 'ascending',
-                  };
-        });
-    };
-
     const selectOptions = [
         { value: '10', label: '10' },
         { value: '25', label: '25' },
@@ -177,8 +156,6 @@ const UserAccess: RouteComponent = () => {
                 {users ? (
                     <VStack gap={'6'}>
                         <Table
-                            sort={sort}
-                            onSortChange={(sortKey) => handleSortChange(sortKey ? sortKey : 'name')}
                             id={'useraccess-table'}>
                             <Table.Header>
                                 <Table.Row id={'table-row-header'}>
