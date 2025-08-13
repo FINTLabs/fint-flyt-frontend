@@ -6,6 +6,13 @@ export const ABOUT_VERSIONS =
 
 export const VERSION_DATA: VersionEntry[] = [
     {
+        heading: "August 2025",
+        updates: [
+            "Feilretting av skjemaet for å endre brukertilganger hvor tilstanden for avmerkingsboksene ikke ble tilbakestilt ved avbrutt redigering, samt feilretting av paginering.",
+            "Det er i tillegg gort noen endringer i designet for å gjøre skjemaet brukervennlig og i tråd med Novaris fargeprofil.",
+        ]
+    },
+    {
         heading: "Juni 2025",
         updates: [
             "Skjemaet for å opprette en ny integrasjon er nå oppdatert slik at man ikke lengre kan velge en integrasjon fra en kilde som allerede finnes. Integrasjonen vil være synlig i nedtrekksfeltet, men ikke mulig å velge.",

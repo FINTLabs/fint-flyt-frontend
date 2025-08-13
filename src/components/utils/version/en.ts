@@ -6,6 +6,13 @@ export const ABOUT_VERSIONS_EN =
 
 export const VERSION_DATA_EN: VersionEntry[] = [
     {
+        heading: "August 2025",
+        updates: [
+            "Fixed the user access form where tha state of the checkboxes was not reset if editing was canceled. In addition, some issues where pagination didn't work has been resolved.",
+            "Additionally, some design changes have been made to enhance usability and align with Novari's color profile.",
+        ],
+    },
+    {
         heading: "June 2025",
         updates: [
             "The form for creating a new integration has been updated so that you can no longer select an integration from a source that already exists. The integration will be visible in the dropdown, but not selectable.",
