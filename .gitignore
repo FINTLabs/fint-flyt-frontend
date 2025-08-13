@@ -9,6 +9,7 @@ server/node_modules
 /server/node_modules
 # testing
 /coverage
+cypress/screenshots/
 
 # production
 /build

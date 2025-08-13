@@ -11,27 +11,6 @@ iframe#webpack-dev-server-client-overlay {
     /*color: var(--ac-pagination-selected-text, var(--a-text-on-action));*/
 }
 
-.navds-button--primary:hover {
-    background-color: #5149CA !important;
-}
-
-.navds-button--primary {
-    background-color: #5A51E1 !important;
-}
-
-.navds-pagination__item[aria-current="true"] {
-    background-color: #5A51E1 !important;
-    /*color: var(--ac-pagination-selected-text, var(--a-text-on-action));*/
-}
-
-.navds-button--primary:hover {
-    background-color: #5149CA !important;
-}
-
-.navds-button--primary {
-    background-color: #5A51E1 !important;
-}
-
 .navds-internalheader {
     --ac-internalheader-bg: #F8F4E3;
     --ac-internalheader-text: #000000;
@@ -43,3 +22,23 @@ iframe#webpack-dev-server-client-overlay {
         text-decoration: none;
     }
 }
+
+
+/* Button colors */
+.navds-button {
+    --a-surface-action-active: #5149ca;
+    --a-surface-action: #5a51e1;
+    --a-surface-action-hover: #5149ca;
+    --a-text-action: #5a51e1;
+    --a-border-action: #5a51e1;
+    --a-border-action-hover: #5149ca;
+    --a-surface-action-subtle-hover: #e5e4fa;
+    --a-text-action-on-action-subtle: #5a51e1;
+}
+
+.navds-checkbox {
+    --ac-radio-checkbox-border: #5a51e1;
+    --ac-radio-checkbox-action: #5a51e1;
+    --ac-radio-checkbox-action-hover-bg: #e5e4fa;
+}
+
