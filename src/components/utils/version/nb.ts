@@ -6,6 +6,12 @@ export const ABOUT_VERSIONS =
 
 export const VERSION_DATA: VersionEntry[] = [
     {
+        heading: "Oktober 2025",
+        updates: [
+            "Du kan nå se hvem som har gjort endringer i konfigurasjoner og når de ble gjort."
+        ]
+    },
+    {
         heading: "Juni 2025",
         updates: [
             "Skjemaet for å opprette en ny integrasjon er nå oppdatert slik at man ikke lengre kan velge en integrasjon fra en kilde som allerede finnes. Integrasjonen vil være synlig i nedtrekksfeltet, men ikke mulig å velge.",
