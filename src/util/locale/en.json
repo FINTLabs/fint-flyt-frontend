@@ -187,7 +187,9 @@
           "inProgress": "In Progress",
           "transferred": "Transferred",
           "aborted": "Aborted",
-          "failed": "Failed"
+          "failed": "Failed",
+          "lastModifiedAt": "Last modified",
+          "lastModifiedBy": "Modified by"
         }
       }
     },

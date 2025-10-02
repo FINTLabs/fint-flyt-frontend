@@ -187,7 +187,9 @@
           "inProgress": "Under behandling",
           "transferred": "Overført",
           "aborted": "Avbrote",
-          "failed": "Feila"
+          "failed": "Feila",
+          "lastModifiedAt": "Sist endra",
+          "lastModifiedBy": "Endra av"
         }
       }
     },
