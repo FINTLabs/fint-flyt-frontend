@@ -133,7 +133,7 @@ describe('Testing creating new and editing configurations from integration overv
     it('should navigate to edit existing configuration draft', () => {
         prep()
         cy.get(':nth-child(3) > .navds-table__toggle-expand-cell > .navds-table__toggle-expand-button').click()
-        cy.get(':nth-child(1) > :nth-child(3) > #panel-1-action-toggle > .navds-button').click()
+        cy.get(':nth-child(1) > :nth-child(5) > #panel-1-action-toggle > .navds-button').click()
         cy.get('#comment').should("contain.text", "rediger denne konfig")
     })
 });
