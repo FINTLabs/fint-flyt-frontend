@@ -189,7 +189,9 @@
           "inProgress": "Under behandling",
           "transferred": "Overført",
           "aborted": "Avbrutt",
-          "failed": "Feilet"
+          "failed": "Feilet",
+          "lastModifiedAt": "Sist endret",
+          "lastModifiedBy": "Endret av"
         }
       }
     },

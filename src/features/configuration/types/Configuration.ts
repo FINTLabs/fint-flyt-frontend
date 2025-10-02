@@ -6,6 +6,8 @@ export interface IConfiguration {
     completed?: boolean;
     comment?: string;
     mapping: IObjectMapping;
+    lastModifiedAt: string;
+    lastModifiedBy: string;
 }
 
 export interface IConfigurationPatch {

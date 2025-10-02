@@ -33,7 +33,7 @@ type Props = {
 }
 
 const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
-    const {t} = useTranslation('translations', {keyPrefix: 'pages.integrations'});
+    const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.integrations' });
     const history = useNavigate();
     const {
         setConfiguration,
@@ -79,6 +79,12 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
         getVersionForActiveConfig(props.integration?.activeConfigurationId ? props.integration.activeConfigurationId : undefined)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+
+    function formatTimestampToMinutes(timestamp?: string, locale?: string): string {
+        if (!timestamp) return "";
+        const options: Intl.DateTimeFormatOptions = { year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" };
+        return new Intl.DateTimeFormat(locale ?? "no-NO", options).format(new Date(timestamp));
+    }
 
     function getVersionForActiveConfig(id: string | undefined): void {
         if (id === undefined) {
@@ -145,6 +151,8 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
                             <Table.HeaderCell scope="col">{t('table.column.id')}</Table.HeaderCell>
                             {completed && <Table.HeaderCell scope="col">{t('table.column.version')}</Table.HeaderCell>}
                             <Table.HeaderCell scope="col">{t('table.column.comment')}</Table.HeaderCell>
+                            <Table.HeaderCell scope="col">{t('table.column.lastModifiedAt')}</Table.HeaderCell>
+                            <Table.HeaderCell scope="col">{t('table.column.lastModifiedBy')}</Table.HeaderCell>
                             <Table.HeaderCell scope="col">{t('table.column.actions')}</Table.HeaderCell>
                         </Table.Row>
                     </Table.Header>
@@ -155,6 +163,8 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
                                     <Table.DataCell>{value.id}</Table.DataCell>
                                     {completed && <Table.DataCell>{value.version}</Table.DataCell>}
                                     <Table.DataCell>{value.comment}</Table.DataCell>
+                                    <Table.DataCell>{formatTimestampToMinutes(value.lastModifiedAt, i18n.language)}</Table.DataCell>
+                                    <Table.DataCell>{value.lastModifiedBy}</Table.DataCell>
                                     <Table.DataCell>
                                         {actionMenu(value)}
                                     </Table.DataCell>
