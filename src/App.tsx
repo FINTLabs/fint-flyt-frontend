@@ -11,18 +11,21 @@ import AuthorizationProvider from "./context/AuthorizationContext";
 
 function App() {
 	const [basePath, setBasePath] = useState<string>();
+    console.log("App", basePath);
 	useEffect(() => {
+        console.log("runnng useeffect");
 		axios
 			.get("api/application/configuration")
 			.then((value: { data: { basePath: string }}) => {
-				axios.defaults.baseURL = value.data.basePath;
-				setBasePath(value.data.basePath);
+                const basePathFromConfig = value.data.basePath ?? "/";
+				axios.defaults.baseURL = basePathFromConfig
+				setBasePath(basePathFromConfig);
 			})
 			.catch((reason) => {
 				console.log("Error getting config:", reason);
 				setBasePath("/");
 			});
-	}, [basePath]);
+	}, []);
 
 	return basePath ? (
 		<ThemeProvider theme={theme}>

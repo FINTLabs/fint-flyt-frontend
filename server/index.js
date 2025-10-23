@@ -7,6 +7,8 @@ const log = log4js.getLogger();
 const promMid = require('express-prometheus-middleware');
 
 
+// TODO: change process.env. to import.meta.env.
+
 const PORT = process.env.PORT || 8000;
 const BASE_PATH = process.env.BASE_PATH || "/";
 log.level = process.env.LOGGING_LEVEL || "info"
