@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Label, Link, List, VStack } from "@navikt/ds-react";
 import { RouteComponent } from "../../../routes/Route";
 import { useTranslation } from "react-i18next";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink } from "react-router";
 import {
 	getUserGuideByLanguage,
 	getWordListByLanguage,

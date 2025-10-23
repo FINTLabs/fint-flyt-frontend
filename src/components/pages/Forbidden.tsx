@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { RouteComponent } from "../../routes/Route";
 import PageTemplate from "../templates/PageTemplate";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink } from "react-router";
 import { Button, VStack } from "@navikt/ds-react";
 
 const Forbidden: RouteComponent = () => {

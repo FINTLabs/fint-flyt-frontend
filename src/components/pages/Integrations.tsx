@@ -3,7 +3,7 @@ import IntegrationTable from "../../features/integrations/components/Integration
 import PageTemplate from "../templates/PageTemplate";
 import {SourceApplicationContext} from "../../context/SourceApplicationContext";
 import {RouteComponent} from "../../routes/Route";
-import {Link as RouterLink, useNavigate} from "react-router-dom"
+import {Link as RouterLink, useNavigate} from "react-router"
 import {Alert, Box, Button, Heading, HelpText, HStack, Loader} from "@navikt/ds-react";
 import {useTranslation} from "react-i18next";
 import {PlusIcon} from '@navikt/aksel-icons';

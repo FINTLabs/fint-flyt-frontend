@@ -10,7 +10,7 @@ import { RouteComponent } from '../../routes/Route';
 import { SourceApplicationContext } from '../../context/SourceApplicationContext';
 import { IAlertMessage } from '../types/TableTypes';
 import { AuthorizationContext } from '../../context/AuthorizationContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import Filters from '../../features/instances/filter/FilterForm';
 import { ChevronLeftDoubleCircleIcon, ChevronRightDoubleCircleIcon } from '@navikt/aksel-icons';
 import { FilterProvider } from '../../features/instances/filter/FilterContext';

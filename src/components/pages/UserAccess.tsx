@@ -3,7 +3,7 @@ import PageTemplate from "../templates/PageTemplate";
 import * as React from "react";
 import { useContext, useEffect, useState } from "react";
 import { AuthorizationContext } from "../../context/AuthorizationContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { Alert, Box, Button, Checkbox, Heading, HStack, Loader, Table, VStack, Pagination, SortState } from "@navikt/ds-react";
 import { useTranslation } from "react-i18next";
 import AuthorizationRepository from "../../api/AuthorizationRepository";

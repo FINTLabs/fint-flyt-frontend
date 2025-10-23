@@ -9,7 +9,7 @@ import { HGrid } from '@navikt/ds-react';
 import { Contact } from '../atoms/Contact';
 import SupportContent from '../molecules/SupportContent';
 import { AuthorizationContext } from '../../context/AuthorizationContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 const Dashboard: RouteComponent = () => {
     // const [totalStats, setTotalStats] = useState<ITotalStatistics>();
