@@ -5,7 +5,7 @@ import { getAboutByLanguage, getVersionDataByLanguage } from '../utils/version/V
 import { RouteComponent } from '../../routes/Route';
 import { useTranslation } from 'react-i18next';
 import { AuthorizationContext } from '../../context/AuthorizationContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 const Version: RouteComponent = () => {
     const { i18n } = useTranslation();

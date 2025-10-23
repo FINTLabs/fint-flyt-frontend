@@ -1,5 +1,5 @@
 import React, {ReactElement, useEffect, useState} from 'react';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router';
 import {useTranslation} from 'react-i18next';
 import ValueConvertingRepository from "../../../api/ValueConvertingRepository";
 import {IValueConverting} from "../types/ValueConverting";

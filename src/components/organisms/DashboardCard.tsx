@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { ILink } from '../../features/dashboard/Link';
 import { Box, Heading, BodyLong, Link, Skeleton } from '@navikt/ds-react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router';
 import { useContext } from 'react';
 import { IntegrationContext } from '../../context/IntegrationContext';
 

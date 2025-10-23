@@ -8,7 +8,7 @@ import {Button, Heading, HelpText, HStack} from "@navikt/ds-react";
 import {PlusIcon} from "@navikt/aksel-icons";
 import {useTranslation} from "react-i18next";
 import {AuthorizationContext} from "../../context/AuthorizationContext";
-import {useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router";
 
 const ValueConverting: RouteComponent = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.valueConverting'})

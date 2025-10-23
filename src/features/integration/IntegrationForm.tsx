@@ -5,7 +5,7 @@ import {
     selectableDestinations,
 } from '../configuration/defaults/DefaultValues';
 import { Snackbar } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { IntegrationContext } from '../../context/IntegrationContext';
 import { useTranslation } from 'react-i18next';
 import { SourceApplicationContext } from '../../context/SourceApplicationContext';

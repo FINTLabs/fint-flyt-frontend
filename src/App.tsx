@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ThemeProvider } from "@mui/material";
 import Main from "./components/pages/Main";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router";
 import IntegrationProvider from "./context/IntegrationContext";
 import SourceApplicationProvider from "./context/SourceApplicationContext";
 import axios from "axios";
@@ -19,7 +19,7 @@ function App() {
 				setBasePath(value.data.basePath);
 			})
 			.catch((reason) => {
-				console.log(reason);
+				console.log("Error getting config:", reason);
 				setBasePath("/");
 			});
 	}, [basePath]);

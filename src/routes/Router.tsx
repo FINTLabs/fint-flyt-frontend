@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router";
 import routes from "./Routes";
 import React from "react";
 import IRoute from "./Route";

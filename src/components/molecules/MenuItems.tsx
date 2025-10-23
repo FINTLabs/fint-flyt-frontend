@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import routes from '../../routes/Routes';
 import { useTranslation } from 'react-i18next';
 import { InternalHeader } from '@navikt/ds-react';

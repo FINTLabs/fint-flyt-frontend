@@ -2,7 +2,7 @@ import * as React from "react";
 import {ReactElement, useContext, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {IntegrationContext} from "../../../context/IntegrationContext";
-import {Link as RouterLink, useNavigate} from 'react-router-dom';
+import {Link as RouterLink, useNavigate} from 'react-router';
 import {SourceApplicationContext} from "../../../context/SourceApplicationContext";
 import {IIntegration, IIntegrationPatch} from "../../integration/types/Integration";
 import {IConfiguration} from "../../configuration/types/Configuration";
