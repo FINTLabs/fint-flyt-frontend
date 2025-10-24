@@ -19,7 +19,7 @@ import {getSourceApplicationDisplayNameById} from "../../../util/TableUtil";
 
 type Props = {
     existingValueConverting: IValueConverting | undefined;
-    setExistingValueConverting: React.Dispatch<React.SetStateAction<undefined>>;
+    setExistingValueConverting: React.Dispatch<React.SetStateAction<IValueConverting | undefined>>;
     setNewValueConverting: React.Dispatch<React.SetStateAction<boolean>>;
 };
 type IValueConvertingFormData = Omit<IValueConverting, "convertingMap"> & {

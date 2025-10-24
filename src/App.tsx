@@ -4,23 +4,24 @@ import Main from "./components/pages/Main";
 import { BrowserRouter } from "react-router";
 import IntegrationProvider from "./context/IntegrationContext";
 import SourceApplicationProvider from "./context/SourceApplicationContext";
-import axios from "axios";
 import theme from "./util/styles/theme/theme";
 import "./global.css";
 import AuthorizationProvider from "./context/AuthorizationContext";
+import apiAdapter from './api/apiAdapter';
 
 function App() {
 	const [basePath, setBasePath] = useState<string>();
 	useEffect(() => {
-		axios
-			.get("api/application/configuration")
-			.then((value: { data: { basePath: string }}) => {
-				axios.defaults.baseURL = value.data.basePath;
+		apiAdapter
+			.get<{ basePath: string }>("api/application/configuration")
+			.then((value) => {
+                apiAdapter.setBaseURL(value.data.basePath);
 				setBasePath(value.data.basePath);
 			})
 			.catch((reason) => {
 				console.log("Error getting config:", reason);
-				setBasePath("/");
+                apiAdapter.setBaseURL("/");
+                setBasePath("/");
 			});
 	}, [basePath]);
 

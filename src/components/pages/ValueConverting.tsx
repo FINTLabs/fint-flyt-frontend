@@ -9,10 +9,11 @@ import {PlusIcon} from "@navikt/aksel-icons";
 import {useTranslation} from "react-i18next";
 import {AuthorizationContext} from "../../context/AuthorizationContext";
 import {useNavigate} from "react-router";
+import { IValueConverting } from '../../features/valueConverting/types/ValueConverting';
 
 const ValueConverting: RouteComponent = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.valueConverting'})
-    const [existingValueConverting, setExistingValueConverting] = useState(undefined);
+    const [existingValueConverting, setExistingValueConverting] = useState<IValueConverting | undefined>(undefined);
     const [newValueConverting, setNewValueConverting] = useState<boolean>(false)
     const { authorized, getAuthorization} = useContext(AuthorizationContext)
     const history = useNavigate();

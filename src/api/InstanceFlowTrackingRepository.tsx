@@ -1,5 +1,9 @@
-import axios from 'axios';
+import apiAdapter from './apiAdapter';
 import { Filters } from '../features/instances/filter/types';
+import {
+    IIntegrationDetailedStatistics,
+    ITotalStatistics,
+} from '../features/instances/types/Event';
 
 const getLatestSummaries = (size: number, filters?: Filters) => {
     const params: Record<string, string | string[] | boolean | number> = {
@@ -36,7 +40,7 @@ const getLatestSummaries = (size: number, filters?: Filters) => {
         });
     }
 
-    return axios.get('/api/intern/instance-flow-tracking/summaries', { params });
+    return apiAdapter.get('/api/intern/instance-flow-tracking/summaries', { params });
 };
 
 const getEventsByInstanceId = (
@@ -46,7 +50,7 @@ const getEventsByInstanceId = (
     kildeapplikasjonId?: number,
     kildeapplikasjonInstansId?: string
 ) => {
-    return axios.get(`/api/intern/instance-flow-tracking/events`, {
+    return apiAdapter.get(`/api/intern/instance-flow-tracking/events`, {
         params: {
             size: rowCount,
             sort: sortProperty,
@@ -63,7 +67,7 @@ const manualDispatchEvent = (
     archiveInstanceId: string,
     sourceApplicationIntegrationId: string
 ) => {
-    return axios.post(`/api/intern/instance-flow-tracking/events/instance-manually-processed`, {
+    return apiAdapter.post(`/api/intern/instance-flow-tracking/events/instance-manually-processed`, {
         archiveInstanceId,
         sourceApplicationId,
         sourceApplicationInstanceId,
@@ -75,7 +79,7 @@ const manualRejectEvent = (
     sourceApplicationId: number,
     sourceApplicationIntegrationId: string
 ) => {
-    return axios.post(`/api/intern/instance-flow-tracking/events/instance-manually-rejected`, {
+    return apiAdapter.post(`/api/intern/instance-flow-tracking/events/instance-manually-rejected`, {
         sourceApplicationId,
         sourceApplicationInstanceId,
         sourceApplicationIntegrationId,
@@ -87,7 +91,7 @@ const manualTransferEvent = (
     sourceApplicationId: number,
     sourceApplicationIntegrationId: string
 ) => {
-    return axios.post(`/api/intern/instance-flow-tracking/events/instance-status-overridden-as-transferred`, {
+    return apiAdapter.post(`/api/intern/instance-flow-tracking/events/instance-status-overridden-as-transferred`, {
         sourceApplicationId,
         sourceApplicationInstanceId,
         sourceApplicationIntegrationId,
@@ -95,15 +99,17 @@ const manualTransferEvent = (
 };
 
 const getAllStatistics = () => {
-    return axios.get('/api/intern/instance-flow-tracking/statistics/total');
+    return apiAdapter.get<ITotalStatistics>('/api/intern/instance-flow-tracking/statistics/total');
 };
 
 const getStatistics = () => {
-    return axios.get(`/api/intern/instance-flow-tracking/statistics/integrations`);
+    // TODO: figure out the correct type of this response
+    return apiAdapter.get<{content: IIntegrationDetailedStatistics[]}>(`/api/intern/instance-flow-tracking/statistics/integrations`);
 };
 
+
 // const getDetailedStatistics = () => {
-//     return axios.get<IIntegrationDetailedStatisticsResponse>(
+//     return apiAdapter.get<IIntegrationDetailedStatisticsResponse>(
 //         '/api/intern/instance-flow-tracking/statistics/integrations'
 //     );
 // };

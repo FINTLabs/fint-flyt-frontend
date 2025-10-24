@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { IUrlBuilder } from "../types/FormTemplate";
-import { AxiosResponse } from "axios";
 import ResourceRepository from "../../../api/ResourceRepository";
 import { ISelectable } from "../types/Selectable";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
@@ -62,7 +61,7 @@ export default function getSelectables(
 				ISelectable[],
 				ISelectable[]
 			>(
-				(response: AxiosResponse<ISelectable[]>): ISelectable[] =>
+				(response: { data: ISelectable[] }): ISelectable[] =>
 					response.data
 						? response.data
 								.sort((a: ISelectable, b: ISelectable) =>

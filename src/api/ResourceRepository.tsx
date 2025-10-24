@@ -1,36 +1,34 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import apiAdapter from "./apiAdapter";
 import { ISelectable } from "../features/configuration/types/Selectable";
 import { Source } from "../features/configuration/util/UrlUtils";
 
 const getClasses = (link: string) => {
-	return axios.get(`/api/intern/arkiv/kodeverk/klasse/`, {
+	return apiAdapter.get(`/api/intern/arkiv/kodeverk/klasse/`, {
 		params: { klassifikasjonssystemLink: link },
 	});
 };
 
 const getResource = (resource: string) => {
-	return axios.get(`/api/intern/arkiv/kodeverk/${resource}`);
+	return apiAdapter.get(`/api/intern/arkiv/kodeverk/${resource}`);
 };
 
 const getSelectables = (
 	url: string,
-	config?: AxiosRequestConfig
-): Promise<AxiosResponse<ISelectable[]>> => {
-	return axios.get<ISelectable[]>(url, config);
+	config?: { params?: Record<string, any> }
+): Promise<{ data: ISelectable[] }> => {
+	return apiAdapter.get<ISelectable[]>(url, config);
 };
 
 const getSak = (caseYear: number | string, id: number | string) => {
-	return axios.get(`/api/intern/arkiv/saker/${caseYear}/${id}/tittel`, {
-		timeout: 10000,
-	});
+	return apiAdapter.get(`/api/intern/arkiv/saker/${caseYear}/${id}/tittel`);
 };
 
 const search = (source: Source): Promise<{ value: string } | undefined> => {
-	return axios
+	return apiAdapter
 		.get<{ value: string }>("/" + source.url, source.config)
 		.then<{ value: string } | undefined>(
 			(
-				response: AxiosResponse<{ value: string } | undefined>
+				response: { data: { value: string } | undefined }
 			): { value: string } | undefined => response.data
 		)
 		.catch((err) => {
