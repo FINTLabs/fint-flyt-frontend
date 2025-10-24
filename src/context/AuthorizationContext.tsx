@@ -1,7 +1,6 @@
 import { createContext, useMemo, useState } from 'react';
 import { ContextProps } from './constants/interface';
 import AuthorizationRepository from '../api/AuthorizationRepository';
-import { AxiosResponse } from 'axios';
 
 type AuthorizationContextState = {
     authorized: boolean | undefined;
@@ -56,7 +55,7 @@ const AuthorizationProvider = ({ children, basePath }: ContextProps & { basePath
 
     const getActiveUserSourceApps = async (): Promise<void> => {
         try {
-            const response: Promise<AxiosResponse<{ sourceApplicationIds: number[] }>> =
+            const response =
                 AuthorizationRepository.getUserSourceApplications();
             const stringArray = (await response).data.sourceApplicationIds.map((id) => String(id));
             setActiveUserSourceApps(stringArray);

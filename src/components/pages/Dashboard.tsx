@@ -29,7 +29,7 @@ const Dashboard: RouteComponent = () => {
     //     currentErrors += stat.currentErrors;
     //     totalDispatched += stat.dispatchedInstances;
     // });
-    const { authorized } = useContext(AuthorizationContext);
+    const { authorized, getAuthorization } = useContext(AuthorizationContext);
 
     useEffect(() => {
         getAllIntegrations();
@@ -39,6 +39,8 @@ const Dashboard: RouteComponent = () => {
     }, []);
 
     if (!authorized) {
+        console.log("Unauthorizes from Dashboard")
+
         history('/forbidden');
     }
 

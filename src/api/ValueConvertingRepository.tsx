@@ -1,4 +1,4 @@
-import axios from "axios";
+import apiAdapter from "./apiAdapter";
 import { IValueConverting } from "../features/valueConverting/types/ValueConverting";
 
 const getValueConvertings = (
@@ -8,7 +8,7 @@ const getValueConvertings = (
 	sortDirection: string,
 	excludeConvertingMap?: boolean
 ) => {
-	return axios.get("/api/intern/value-convertings", {
+	return apiAdapter.get<{content: IValueConverting[]}>("/api/intern/value-convertings", {
 		params: {
 			page: page,
 			size: size,
@@ -20,11 +20,11 @@ const getValueConvertings = (
 };
 
 const getValueConverting = (valueConvertingId: number) => {
-	return axios.get(`/api/intern/value-convertings/${valueConvertingId}`);
+	return apiAdapter.get<IValueConverting>(`/api/intern/value-convertings/${valueConvertingId}`);
 };
 
 const createValueConverting = (data: IValueConverting) => {
-	return axios.post<IValueConverting>("/api/intern/value-convertings", data);
+	return apiAdapter.post<IValueConverting>("/api/intern/value-convertings", data);
 };
 
 const ValueConvertingRepository = {

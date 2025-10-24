@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import axios from 'axios';
+import apiAdapter from '../../../api/apiAdapter';
 
 interface Option {
     value: string;
@@ -40,7 +40,7 @@ export const OptionsProvider: React.FC<OptionsProviderProps> = ({ children }) =>
     // Generic API fetcher
     const fetchData = async (endpoint: string, setState: (data: Option[]) => void) => {
         try {
-            const response = await axios.get<Option[]>(
+            const response = await apiAdapter.get<Option[]>(
                 `/api/intern/instance-flow-tracking/value-space/${endpoint}`
             );
             setState(response.data);

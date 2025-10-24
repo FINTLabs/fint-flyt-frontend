@@ -33,7 +33,6 @@ import { RouteComponent } from '../../routes/Route';
 import { isEmpty } from 'lodash';
 import PageTemplate from '../templates/PageTemplate';
 import { Alert, Button, Heading, HStack, VStack } from '@navikt/ds-react';
-import { AxiosResponse } from 'axios';
 import IntegrationRepository from '../../api/IntegrationRepository';
 import { AuthorizationContext } from '../../context/AuthorizationContext';
 
@@ -168,7 +167,7 @@ const Configuration: RouteComponent = () => {
                 .then((response) => {
                     console.log('created', response);
                     setConfiguration(response.data);
-                    if (!response.data.completed) {
+                    if (!response.data?.completed) {
                         setAlertContent(savedAlert);
                         setShowAlert(true);
                     }
@@ -206,7 +205,7 @@ const Configuration: RouteComponent = () => {
             destination: existingIntegration?.destination,
         };
         IntegrationRepository.updateIntegration(integrationId, patch)
-            .then((response: AxiosResponse) => {
+            .then((response) => {
                 setAlertContent(activeAlert);
                 setShowAlert(true);
                 setCompleted(true);

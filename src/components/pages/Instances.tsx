@@ -26,6 +26,7 @@ const Instances: RouteComponent = () => {
     const [showFilters, setShowFilters] = useState(false);
 
     if (!authorized) {
+        console.log("Unauthorizes from Instances")
         history('/forbidden');
     }
     useEffect(() => {

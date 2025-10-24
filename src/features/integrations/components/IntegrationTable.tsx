@@ -62,9 +62,6 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
                 setDetailedStats(data.content);
 
                 if (data) {
-                    const stats = data.content;
-
-                    console.log('RUNNING A GET INTEGRATION REQUEST');
                     const integrationResponse = await IntegrationRepository.getIntegrations(
                         page - 1,
                         Number(rowCount),
@@ -72,19 +69,6 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
                         sort ? (sort.direction === 'ascending' ? 'ASC' : 'DESC') : 'ASC'
                     );
                     const mergedList = integrationResponse.data || [];
-
-                    stats.forEach((value: IIntegrationStatistics) => {
-                        mergedList.content.forEach((integration: IIntegration) => {
-                            if (
-                                integration.sourceApplicationIntegrationId ===
-                                value.sourceApplicationIntegrationId
-                            ) {
-                                integration.errors = value.currentErrors;
-                                integration.dispatched = value.dispatchedInstances;
-                                integration.total = value.totalInstances;
-                            }
-                        });
-                    });
 
                     allMetadata.forEach((value: IIntegrationMetadata) => {
                         mergedList.content.forEach((integration: IIntegration) => {
@@ -159,8 +143,6 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
                             <Table.ColumnHeader sortKey="state" sortable>
                                 {t('table.column.state')}
                             </Table.ColumnHeader>
-                            {/*<Table.ColumnHeader>{t('table.column.dispatched')}</Table.ColumnHeader>*/}
-                            {/*<Table.ColumnHeader>{t('table.column.errors')}</Table.ColumnHeader>*/}
                             <Table.ColumnHeader>{t('table.column.total')}</Table.ColumnHeader>
                             <Table.ColumnHeader>{t('table.column.inProgress')}</Table.ColumnHeader>
                             <Table.ColumnHeader>{t('table.column.transferred')}</Table.ColumnHeader>

@@ -25,7 +25,6 @@ import {
     VStack,
 } from '@navikt/ds-react';
 import PageTemplate from '../../components/templates/PageTemplate';
-import { AxiosResponse } from 'axios';
 import IntegrationRepository from '../../api/IntegrationRepository';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { IAlertContent } from '../configuration/types/AlertContent';
@@ -141,7 +140,7 @@ export const IntegrationForm: React.FunctionComponent<Props> = () => {
         const newIntegration: IIntegration = toIntegration(data, IntegrationState.DEACTIVATED);
 
         IntegrationRepository.createIntegration(newIntegration)
-            .then((response: AxiosResponse) => {
+            .then((response) => {
                 setSourceApplicationIntegrationId(response.data.sourceApplicationIntegrationId);
                 setExistingIntegration(response.data);
                 navToConfiguration(response.data.sourceApplicationIntegrationId);

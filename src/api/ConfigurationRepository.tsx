@@ -1,4 +1,4 @@
-import axios from "axios";
+import apiAdapter from "./apiAdapter";
 import {
 	IConfiguration,
 	IConfigurationPatch,
@@ -13,7 +13,7 @@ const getConfigurations = (
 	integrationId: string,
 	excludeElements?: boolean
 ) => {
-	return axios.get("/api/intern/konfigurasjoner/", {
+	return apiAdapter.get("/api/intern/konfigurasjoner/", {
 		params: {
 			side: page,
 			antall: size,
@@ -29,21 +29,21 @@ const getConfigurationById = (
 	configurationId: string,
 	excludeElements?: boolean
 ) => {
-	return axios.get(`/api/intern/konfigurasjoner/${configurationId}`, {
+	return apiAdapter.get<IConfiguration>(`/api/intern/konfigurasjoner/${configurationId}`, {
 		params: { ekskluderMapping: excludeElements },
 	});
 };
 const createConfiguration = (data: IConfiguration) => {
-	return axios.post(`/api/intern/konfigurasjoner`, data);
+	return apiAdapter.post<IConfiguration>(`/api/intern/konfigurasjoner`, data);
 };
 const updateConfiguration = (
 	configurationId: string,
 	data: IConfigurationPatch
 ) => {
-	return axios.patch(`/api/intern/konfigurasjoner/${configurationId}`, data);
+	return apiAdapter.patch<IConfiguration>(`/api/intern/konfigurasjoner/${configurationId}`, data);
 };
 const deleteConfiguration = (configurationId: string) => {
-	return axios.delete(`/api/intern/konfigurasjoner/${configurationId}`);
+	return apiAdapter.delete(`/api/intern/konfigurasjoner/${configurationId}`);
 };
 
 const ConfigurationRepository = {

@@ -1,4 +1,4 @@
-import axios from "axios";
+import apiAdapter from "./apiAdapter";
 import {
 	IIntegration,
 	IIntegrationPatch,
@@ -6,13 +6,13 @@ import {
 import {Page} from "../components/types/TableTypes";
 
 const getAllIntegrations = () => {
-	return axios.get("/api/intern/integrasjoner");
+	return apiAdapter.get("/api/intern/integrasjoner");
 };
 
 const getAllIntegrationBySourceApplicationId = (
 	sourceApplicationId: string
 ): Promise<{ data: IIntegration[] }> => {
-	return axios.get(`/api/intern/integrasjoner?sourceApplicationId=${sourceApplicationId}`);
+	return apiAdapter.get(`/api/intern/integrasjoner?sourceApplicationId=${sourceApplicationId}`);
 };
 
 const getIntegrations = (
@@ -21,7 +21,7 @@ const getIntegrations = (
 	sortProperty: string,
 	sortDirection: string
 ) => {
-	return axios.get<Page<IIntegration>>("/api/intern/integrasjoner", {
+	return apiAdapter.get<Page<IIntegration>>("/api/intern/integrasjoner", {
 		params: {
 			side: page,
 			antall: size,
@@ -32,13 +32,13 @@ const getIntegrations = (
 };
 
 const getIntegration = (integrationId: string) => {
-	return axios.get(`/api/intern/integrasjoner/${integrationId}`);
+	return apiAdapter.get(`/api/intern/integrasjoner/${integrationId}`);
 };
 const createIntegration = (data: IIntegration) => {
-	return axios.post("/api/intern/integrasjoner", data);
+	return apiAdapter.post("/api/intern/integrasjoner", data);
 };
 const updateIntegration = (integrationId: string, data: IIntegrationPatch) => {
-	return axios.patch(`/api/intern/integrasjoner/${integrationId}`, data);
+	return apiAdapter.patch<{activeConfigurationId: number}>(`/api/intern/integrasjoner/${integrationId}`, data);
 };
 
 const IntegrationRepository = {

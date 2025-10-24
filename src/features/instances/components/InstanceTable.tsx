@@ -97,8 +97,8 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                 (error as { response?: { status?: number; data?: string } }).response?.status ===
                     422
             ) {
-                const axiosError = error as { response: { data: string } };
-                onError({ message: axiosError.response.data || 'Validation error occurred' });
+                const apiError = error as { response: { data: string } };
+                onError({ message: apiError.response.data || 'Validation error occurred' });
             } else if (error instanceof Error) {
                 onError({ message: error.message || 'An unexpected error occurred' });
             } else {

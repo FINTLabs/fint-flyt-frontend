@@ -1,7 +1,7 @@
-import axios from "axios";
+import apiAdapter from "../../../api/apiAdapter";
 
 const resendInstance = (instanceId: string) => {
-    return axios.post<string>(`/api/intern/handlinger/instanser/${instanceId}/prov-igjen`)
+    return apiAdapter.post<string>(`/api/intern/handlinger/instanser/${instanceId}/prov-igjen`)
 };
 
 
