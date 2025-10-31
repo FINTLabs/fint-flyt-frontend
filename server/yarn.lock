@@ -284,13 +284,13 @@ express-prometheus-middleware@^1.2.0:
   optionalDependencies:
     prometheus-gc-stats "^0.6.2"
 
-express-urlrewrite@^2.0.0:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/express-urlrewrite/-/express-urlrewrite-2.0.1.tgz#0443f784265e186d76af8cc806c85724bb0ad594"
-  integrity sha512-62RvXDgvj6Bnatg6Mi/McQ1H3s46RHMXM45M32O+Za4w7+zoPccNdi9ko0GgOOAklnrAWMLxzWuawaJ5evppPw==
+express-urlrewrite@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/express-urlrewrite/-/express-urlrewrite-2.0.3.tgz#70e0c863743a9e663d9b644ae14aaee478f430f9"
+  integrity sha512-NjsmtYZ1Lpie+XR7VIrvI6aeAmRQDf9cHyGjdIxlE9sc+NhTx3z6fJ0wfxV4rS7AY9ncCK7JDge+VX3e+DQ9Mg==
   dependencies:
     debug "^4.3.4"
-    path-to-regexp "^6.2.1"
+    path-to-regexp "^6.3.0"
 
 express@^4.20.0:
   version "4.20.0"
@@ -819,10 +819,10 @@ path-to-regexp@0.1.10:
   resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-0.1.10.tgz#67e9108c5c0551b9e5326064387de4763c4d5f8b"
   integrity sha512-7lf7qcQidTku0Gu3YDPc8DJ1q7OOucfa/BSsIwjuh56VU7katFvuM8hULfkwB3Fns/rsVF7PwPKVw1sl5KQS9w==
 
-path-to-regexp@^6.2.1:
-  version "6.2.1"
-  resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-6.2.1.tgz#d54934d6798eb9e5ef14e7af7962c945906918e5"
-  integrity sha512-JLyh7xT1kizaEvcaXOQwOc2/Yhw6KZOvPf1S8401UyLk86CU79LN3vl7ztXGm/pZ+YjoyAJ4rxmHwbkBXJX+yw==
+path-to-regexp@^6.3.0:
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-6.3.0.tgz#2b6a26a337737a8e1416f9272ed0766b1c0389f4"
+  integrity sha512-Yhpw4T9C6hPpgPeA28us07OJeqZ5EzQTkbfwuhsUg0c237RomFoETJgmp2sa3F/41gfLE6G5cqcYwznmeEeOlQ==
 
 process-nextick-args@~2.0.0:
   version "2.0.1"
