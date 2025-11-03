@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { IConfiguration, IConfigurationPatch } from '../features/configuration/types/Configuration';
 import { ApiAdapterContext } from '../context/ApiAdapterContext';
+import { Page } from '../components/types/TableTypes';
 
 export default function useConfigurationRepository() {
     const { get, post, patch, deleteFetch } = useContext(ApiAdapterContext);
@@ -14,7 +15,7 @@ export default function useConfigurationRepository() {
         integrationId: string,
         excludeElements?: boolean
     ) => {
-        return get('/api/intern/konfigurasjoner/', {
+        return get<Page<IConfiguration>>('/api/intern/konfigurasjoner/', {
             params: {
                 side: page,
                 antall: size,
@@ -27,7 +28,7 @@ export default function useConfigurationRepository() {
         });
     };
     const getConfigurationById = (configurationId: string, excludeElements?: boolean) => {
-        return get(`/api/intern/konfigurasjoner/${configurationId}`, {
+        return get<IConfiguration>(`/api/intern/konfigurasjoner/${configurationId}`, {
             params: { ekskluderMapping: excludeElements },
         });
     };

@@ -19,18 +19,18 @@ export interface AdapterResponse<T> {
 type apiAdapterState = {
     setBaseURL: (url: string) => void;
     baseURL: string;
-    get: <T = any>(url: string, config?: AdapterRequestConfigType) => Promise<AdapterResponse<T>>;
-    post: <T = any>(
+    get: <T>(url: string, config?: AdapterRequestConfigType) => Promise<AdapterResponse<T>>;
+    post: <T>(
         url: string,
-        data?: any,
+        data?: unknown,
         config?: AdapterRequestConfigType
     ) => Promise<AdapterResponse<T>>;
-    patch: <T = any>(
+    patch: <T>(
         url: string,
-        data?: any,
+        data?: unknown,
         config?: AdapterRequestConfigType
     ) => Promise<AdapterResponse<T>>;
-    deleteFetch: <T = any>(
+    deleteFetch: <T>(
         url: string,
         config?: AdapterRequestConfigType
     ) => Promise<AdapterResponse<T>>;
@@ -40,17 +40,17 @@ type apiAdapterState = {
 const apiAdapterDefaultValues: apiAdapterState = {
     setBaseURL: () => undefined,
     baseURL: '',
-    get: async () => {
-        return { data: undefined as any, status: 0 };
+    get: async <T,>() => {
+        return { data: {} as T, status: 0 };
     },
-    post: async () => {
-        return { data: undefined as any, status: 0 };
+    post: async <T,>() => {
+        return { data: {} as T, status: 0 };
     },
-    patch: async () => {
-        return { data: undefined as any, status: 0 };
+    patch: async <T,>() => {
+        return { data: {} as T, status: 0 };
     },
-    deleteFetch: async () => {
-        return { data: undefined as any, status: 0 };
+    deleteFetch: async <T,>() => {
+        return { data: {} as T, status: 0 };
     },
 };
 
@@ -96,14 +96,14 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
         const isJson = contentType && contentType.includes('application/json');
         let data: T;
         if (isJson) {
-            data = await response.json();
+            data = await response.json() as T
         } else {
             data = (await response.text()) as T;
         }
         return { data, status: response.status };
     }
 
-    async function get<T = any>(
+    async function get<T>(
         url: string,
         config?: AdapterRequestConfigType
     ): Promise<AdapterResponse<T>> {
@@ -155,9 +155,9 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
         }
     }
 
-    async function post<T = any>(
+    async function post<T>(
         url: string,
-        data?: any,
+        data?: unknown,
         config?: AdapterRequestConfigType
     ): Promise<AdapterResponse<T>> {
         const fullURL = buildURL(url);
@@ -178,9 +178,9 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
         return handleResponse<T>(response);
     }
 
-    async function patch<T = any>(
+    async function patch<T>(
         url: string,
-        data?: any,
+        data?: unknown,
         config?: AdapterRequestConfigType
     ): Promise<AdapterResponse<T>> {
         const fullURL = buildURL(url);
@@ -201,7 +201,7 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
         return handleResponse<T>(response);
     }
 
-    async function deleteFetch<T = any>(
+    async function deleteFetch<T>(
         url: string,
         config?: AdapterRequestConfigType
     ): Promise<AdapterResponse<T>> {
