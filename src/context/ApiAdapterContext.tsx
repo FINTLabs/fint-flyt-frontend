@@ -1,7 +1,13 @@
 import { ContextProps } from './constants/interface';
 import { createContext, useEffect, useState } from 'react';
 
-interface AdapterResponse<T> {
+export type AdapterRequestConfigType = {
+    params?: Record<string, string | string[] | number | boolean | null | undefined>;
+    headers?: Headers;
+    timeout?: number;
+};
+
+export interface AdapterResponse<T> {
     data: T;
     status: number;
     /*    statusText: string;
@@ -13,26 +19,20 @@ interface AdapterResponse<T> {
 type apiAdapterState = {
     setBaseURL: (url: string) => void;
     baseURL: string;
-    get: <T = any>(
-        url: string,
-        config?: {
-            params?: Record<string, string | string[] | number | boolean | null | undefined>;
-            headers?: Record<string, string>;
-        }
-    ) => Promise<AdapterResponse<T>>;
+    get: <T = any>(url: string, config?: AdapterRequestConfigType) => Promise<AdapterResponse<T>>;
     post: <T = any>(
         url: string,
         data?: any,
-        config?: { headers?: Record<string, string> }
+        config?: AdapterRequestConfigType
     ) => Promise<AdapterResponse<T>>;
     patch: <T = any>(
         url: string,
         data?: any,
-        config?: { headers?: Record<string, string> }
+        config?: AdapterRequestConfigType
     ) => Promise<AdapterResponse<T>>;
     delete: <T = any>(
         url: string,
-        config?: { headers?: Record<string, string> }
+        config?: AdapterRequestConfigType
     ) => Promise<AdapterResponse<T>>;
 };
 
@@ -58,6 +58,17 @@ const ApiAdapterContext = createContext<apiAdapterState>(apiAdapterDefaultValues
 
 const APIAdapterProvider = ({ children }: ContextProps) => {
     const [baseURL, setBaseURL] = useState<string>('');
+
+    useEffect(() => {
+        get<{ basePath: string }>('api/application/configuration')
+            .then((value) => {
+                setBaseURL(value.data.basePath);
+            })
+            .catch((reason) => {
+                console.log('Error getting config:', reason);
+                setBaseURL('/');
+            });
+    }, []);
 
     function buildURL(url: string): string {
         if (url.startsWith('http://') || url.startsWith('https://')) {
@@ -94,10 +105,7 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
 
     async function get<T = any>(
         url: string,
-        config?: {
-            params?: Record<string, string | string[] | number | boolean | null | undefined>;
-            headers?: Record<string, string>;
-        }
+        config?: AdapterRequestConfigType
     ): Promise<AdapterResponse<T>> {
         try {
             const fullURL = buildURL(url);
@@ -115,19 +123,29 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
                 ? `${fullURL}?${searchParams.toString()}`
                 : fullURL;
 
-            const defaultHeaders = {
+            const headers = new Headers({
                 'Content-Type': 'application/json',
-            };
+            });
 
-            const headers = config?.headers
-                ? { ...defaultHeaders, ...config.headers }
-                : defaultHeaders;
+            if (config?.headers) {
+                config.headers.forEach((value, key) => {
+                    headers.append(key, value);
+                });
+            }
+
+            const controller = new AbortController();
+            const signal = controller.signal;
+
+            if (config?.timeout) {
+                setTimeout(() => controller.abort(), config.timeout);
+            }
 
             console.log('finalURL in apiAdapter get: ', finalURL);
 
             const response = await fetch(finalURL, {
                 method: 'GET',
                 headers,
+                signal
             });
 
             return handleResponse<T>(response);
@@ -140,7 +158,7 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
     async function post<T = any>(
         url: string,
         data?: any,
-        config?: { headers?: Record<string, string> }
+        config?: AdapterRequestConfigType
     ): Promise<AdapterResponse<T>> {
         const fullURL = buildURL(url);
 
@@ -163,7 +181,7 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
     async function patch<T = any>(
         url: string,
         data?: any,
-        config?: { headers?: Record<string, string> }
+        config?: AdapterRequestConfigType
     ): Promise<AdapterResponse<T>> {
         const fullURL = buildURL(url);
 
@@ -185,7 +203,7 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
 
     async function fetchDelete<T = any>(
         url: string,
-        config?: { headers?: Record<string, string> }
+        config?: AdapterRequestConfigType
     ): Promise<AdapterResponse<T>> {
         const fullURL = buildURL(url);
 
@@ -204,17 +222,6 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
         return handleResponse<T>(response);
     }
 
-    useEffect(() => {
-        get<{ basePath: string }>('api/application/configuration')
-            .then((value) => {
-                setBaseURL(value.data.basePath);
-            })
-            .catch((reason) => {
-                console.log('Error getting config:', reason);
-                setBaseURL('/');
-            });
-    }, []);
-
     return (
         <ApiAdapterContext.Provider
             value={{
@@ -223,7 +230,7 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
                 get,
                 post,
                 patch,
-                delete: fetchDelete
+                delete: fetchDelete,
             }}>
             {baseURL ? children : <h1>Laster...</h1>}
         </ApiAdapterContext.Provider>
@@ -231,5 +238,3 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
 };
 
 export { ApiAdapterContext, APIAdapterProvider };
-
-

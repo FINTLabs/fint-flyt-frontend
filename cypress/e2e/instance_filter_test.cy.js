@@ -45,12 +45,6 @@ describe('Testing instance list', () => {
             },
             {
                 method: 'GET',
-                url: '/api/application/configuration',
-                fixture: 'basepathConfig.json',
-                alias: 'getConfig1',
-            },
-            {
-                method: 'GET',
                 url: '**/integration/instance/api/application/configuration',
                 fixture: 'basepathConfig.json',
                 alias: 'getConfig2',
