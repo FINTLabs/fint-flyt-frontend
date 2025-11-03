@@ -5,10 +5,10 @@ import { IIntegrationMetadata } from '../features/configuration/types/Metadata/I
 import { ContextProps } from './constants/interface';
 import IntegrationRepository from '../api/IntegrationRepository';
 import InstanceFlowTrackingRepository from '../api/InstanceFlowTrackingRepository';
-import ConfigurationRepository from '../api/ConfigurationRepository';
 import AuthorizationRepository from '../api/AuthorizationRepository';
 import { ITotalStatistics } from '../features/instances/types/Event';
 import useSourceApplicationRepository from '../api/useSourceApplicationRepository';
+import useConfigurationRepository from '../api/useConfigurationRepository';
 
 type IntegrationContextState = {
     existingIntegration: IIntegration | undefined;
@@ -71,6 +71,7 @@ const IntegrationContext = createContext<IntegrationContextState>(contextDefault
 
 const IntegrationProvider = ({ children }: ContextProps) => {
     const SourceApplicationRepository = useSourceApplicationRepository();
+    const ConfigurationRepository = useConfigurationRepository()
     const [existingIntegration, setExistingIntegration] = useState<IIntegration | undefined>(
         undefined
     );

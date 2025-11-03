@@ -30,7 +30,7 @@ type apiAdapterState = {
         data?: any,
         config?: AdapterRequestConfigType
     ) => Promise<AdapterResponse<T>>;
-    delete: <T = any>(
+    deleteFetch: <T = any>(
         url: string,
         config?: AdapterRequestConfigType
     ) => Promise<AdapterResponse<T>>;
@@ -49,7 +49,7 @@ const apiAdapterDefaultValues: apiAdapterState = {
     patch: async () => {
         return { data: undefined as any, status: 0 };
     },
-    delete: async () => {
+    deleteFetch: async () => {
         return { data: undefined as any, status: 0 };
     },
 };
@@ -201,7 +201,7 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
         return handleResponse<T>(response);
     }
 
-    async function fetchDelete<T = any>(
+    async function deleteFetch<T = any>(
         url: string,
         config?: AdapterRequestConfigType
     ): Promise<AdapterResponse<T>> {
@@ -230,7 +230,7 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
                 get,
                 post,
                 patch,
-                delete: fetchDelete,
+                deleteFetch,
             }}>
             {baseURL ? children : <h1>Laster...</h1>}
         </ApiAdapterContext.Provider>

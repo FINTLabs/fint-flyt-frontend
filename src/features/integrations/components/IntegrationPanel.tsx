@@ -23,8 +23,8 @@ import {
 } from "@navikt/ds-react";
 import {MenuElipsisVerticalCircleIcon, PencilWritingIcon} from '@navikt/aksel-icons';
 import IntegrationRepository from "../../../api/IntegrationRepository";
-import ConfigurationRepository from "../../../api/ConfigurationRepository";
 import {IAlertMessage, Page} from "../../../components/types/TableTypes";
+import useConfigurationRepository from '../../../api/useConfigurationRepository';
 
 type Props = {
     id: string
@@ -45,6 +45,7 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
         setSourceApplication,
         getInstanceElementMetadata,
     } = useContext(SourceApplicationContext)
+    const ConfigurationRepository = useConfigurationRepository()
     const [activeVersion, setActiveVersion] = useState<string>('');
     const [openDialog, setOpenDialog] = React.useState(false);
     const [configToActivate, setConfigToActivate] = React.useState<string>('')

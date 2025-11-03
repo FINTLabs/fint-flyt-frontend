@@ -26,7 +26,6 @@ import {
     errorAlert,
     savedAlert,
 } from '../../features/configuration/defaults/DefaultValues';
-import ConfigurationRepository from '../../api/ConfigurationRepository';
 import { pruneObjectMapping } from '../../util/mapping/helpers/pruning';
 import EditingProvider, { EditingContext } from '../../context/EditingContext';
 import { RouteComponent } from '../../routes/Route';
@@ -36,6 +35,7 @@ import { Alert, Button, Heading, HStack, VStack } from '@navikt/ds-react';
 import { AxiosResponse } from 'axios';
 import IntegrationRepository from '../../api/IntegrationRepository';
 import { AuthorizationContext } from '../../context/AuthorizationContext';
+import useConfigurationRepository from '../../api/useConfigurationRepository';
 
 const Configuration: RouteComponent = () => {
     const { getInstanceElementMetadata, setInstanceElementMetadata } =
@@ -52,6 +52,7 @@ const Configuration: RouteComponent = () => {
         setConfiguration,
         resetIntegrationContext,
     } = useContext(IntegrationContext);
+    const ConfigurationRepository = useConfigurationRepository()
     const [active, setActive] = useState<boolean>(
         existingIntegration?.activeConfigurationId === configuration?.id
     );
