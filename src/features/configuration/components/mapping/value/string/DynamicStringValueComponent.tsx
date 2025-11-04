@@ -6,7 +6,7 @@ import {ValueType} from "../../../../types/Metadata/IntegrationMetadata";
 import {IconButton, TextField, Typography} from "@mui/material";
 import {Search} from "../../../../util/UrlUtils";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
-import ResourceRepository from "../../../../../../api/ResourceRepository";
+import useResourceRepository from '../../../../../../api/useResourceRepository';
 import {
 	errorMsgSX,
 	searchResultSX,
@@ -31,6 +31,7 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = forwardRef<
 	HTMLDivElement,
 	Props
 >((props: Props, ref) => {
+    const ResourceRepository = useResourceRepository();
 	DynamicStringValueComponent.displayName = "DynamicStringValueComponent";
 	const [searchResult, setSearchResult] = useState<string>();
 	const [shrink, setShrink] = useState<boolean | undefined>(undefined);

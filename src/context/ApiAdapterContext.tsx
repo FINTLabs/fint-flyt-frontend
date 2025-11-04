@@ -150,7 +150,7 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
 
             return handleResponse<T>(response);
         } catch (error) {
-            console.log('error in apiAdapter get: ', error);
+            console.log('error in apiAdapter get: ', error, url);
             throw error;
         }
     }

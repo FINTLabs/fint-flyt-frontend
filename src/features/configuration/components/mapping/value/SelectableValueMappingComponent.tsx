@@ -4,7 +4,7 @@ import {ISelectableValueTemplate, SelectableValueType} from "../../../types/Form
 import SelectValueComponent from "./select/SelectValueComponent";
 import {Controller, useFormContext} from "react-hook-form";
 import {ValueType as ConfigurationValueType} from "../../../types/Configuration";
-import {SelectablesStatefulValue} from "../../../util/SelectablesUtils";
+import { useSelectablesStatefulValue } from '../../../util/SelectablesUtils';
 import SearchSelectValueComponent from "./select/SearchSelectValueComponent";
 import DynamicStringOrSearchSelectValueComponent, {
     Type as DynamicStringOrSearchSelectType
@@ -31,7 +31,7 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = forwardR
     const {editCollectionAbsoluteKey} = useContext(EditingContext)
 
     const absoluteKeySplit = props.absoluteKey.split(".");
-    const selectables = SelectablesStatefulValue(
+    const selectables = useSelectablesStatefulValue(
         control,
         props.template.selectables,
         props.template.selectablesSources,
