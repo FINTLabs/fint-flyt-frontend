@@ -213,7 +213,7 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
 
         const headers = config?.headers ? { ...defaultHeaders, ...config.headers } : defaultHeaders;
 
-        console.log('finalURL in apiAdapter patch: ', fullURL);
+        console.log('finalURL in apiAdapter delete: ', fullURL);
         const response = await fetch(fullURL, {
             method: 'DELETE',
             headers,

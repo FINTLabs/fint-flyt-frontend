@@ -3,16 +3,18 @@ import PageTemplate from "../../components/templates/PageTemplate";
 import ValueConvertingForm from "../../features/valueConverting/components/ValueConvertingForm";
 import {RouteComponent} from "../../routes/Route";
 import ValueConvertingTable from "../../features/valueConverting/components/ValueConvertingTable";
-import ValueConvertingRepository from "../../api/ValueConvertingRepository";
 import {Button, Heading, HelpText, HStack} from "@navikt/ds-react";
 import {PlusIcon} from "@navikt/aksel-icons";
 import {useTranslation} from "react-i18next";
 import {AuthorizationContext} from "../../context/AuthorizationContext";
 import {useNavigate} from "react-router";
+import useValueConvertingRepository from '../../api/useValueConvertingRepository';
+import { IValueConverting } from '../../features/valueConverting/types/ValueConverting';
 
 const ValueConverting: RouteComponent = () => {
     const {t} = useTranslation('translations', {keyPrefix: 'pages.valueConverting'})
-    const [existingValueConverting, setExistingValueConverting] = useState(undefined);
+    const ValueConvertingRepository = useValueConvertingRepository();
+    const [existingValueConverting, setExistingValueConverting] = useState<IValueConverting | undefined>(undefined);
     const [newValueConverting, setNewValueConverting] = useState<boolean>(false)
     const { authorized, getAuthorization} = useContext(AuthorizationContext)
     const history = useNavigate();
