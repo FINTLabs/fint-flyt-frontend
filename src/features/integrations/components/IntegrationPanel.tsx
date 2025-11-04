@@ -110,10 +110,10 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
         await ConfigurationRepository.getConfigurationById(id.toString(), false)
             .then(async (response) => {
                 const data = response.data
-                const usedVersionMetadata = allMetadata?.filter(md => md.id === data.integrationMetadataId?.toString())
+                const usedVersionMetadata = allMetadata?.filter(md => md.id.toString() === data.integrationMetadataId?.toString())
                 setExistingIntegrationMetadata(usedVersionMetadata ? usedVersionMetadata[0] : undefined)
                 if (version) {
-                    data.id = undefined;
+                    data.id = 0
                     data.comment = undefined
                     data.completed = false;
                 }

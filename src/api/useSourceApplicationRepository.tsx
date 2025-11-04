@@ -1,7 +1,10 @@
 import { useContext } from 'react';
 import { ISourceApplication } from '../features/configuration/types/SourceApplication';
 import { ApiAdapterContext } from '../context/ApiAdapterContext';
-import { IIntegrationMetadata } from '../features/configuration/types/Metadata/IntegrationMetadata';
+import {
+    IInstanceMetadataContent,
+    IIntegrationMetadata,
+} from '../features/configuration/types/Metadata/IntegrationMetadata';
 
 export default function useSourceApplicationRepository() {
     const { get } = useContext(ApiAdapterContext);
@@ -13,7 +16,7 @@ export default function useSourceApplicationRepository() {
     };
 
     const getInstanceElementMetadataById = (metadataId: string) => {
-        return get(`/api/intern/metadata/${metadataId}/instans-metadata`);
+        return get<IInstanceMetadataContent>(`/api/intern/metadata/${metadataId}/instans-metadata`);
     };
 
     const getSourceApplications = (): ISourceApplication[] => {

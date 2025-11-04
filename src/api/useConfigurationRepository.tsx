@@ -33,10 +33,10 @@ export default function useConfigurationRepository() {
         });
     };
     const createConfiguration = (data: IConfiguration) => {
-        return post(`/api/intern/konfigurasjoner`, data);
+        return post<IConfiguration>(`/api/intern/konfigurasjoner`, data);
     };
     const updateConfiguration = (configurationId: string, data: IConfigurationPatch) => {
-        return patch(`/api/intern/konfigurasjoner/${configurationId}`, data);
+        return patch<IConfiguration>(`/api/intern/konfigurasjoner/${configurationId}`, data);
     };
     const deleteConfiguration = (configurationId: string) => {
         return deleteFetch(`/api/intern/konfigurasjoner/${configurationId}`);
