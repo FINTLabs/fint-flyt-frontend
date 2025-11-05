@@ -10,13 +10,13 @@ import { Box, HStack, Loader, Pagination, SortState, Table } from '@navikt/ds-re
 import IntegrationPanel from './IntegrationPanel';
 import { useTranslation } from 'react-i18next';
 import InstanceFlowTrackingRepository from '../../../api/InstanceFlowTrackingRepository';
-import IntegrationRepository from '../../../api/IntegrationRepository';
 import { IIntegration, IIntegrationStatistics } from '../../integration/types/Integration';
 import { IIntegrationMetadata } from '../../configuration/types/Metadata/IntegrationMetadata';
 import { SourceApplicationContext } from '../../../context/SourceApplicationContext';
 import { CustomSelect } from '../../../components/organisms/CustomSelect';
 import { IAlertMessage, Page } from '../../../components/types/TableTypes';
 import { IIntegrationDetailedStatistics } from '../../instances/types/Event';
+import useIntegrationRepository from '../../../api/useIntegrationRepository';
 
 type IntegrationProps = {
     id: string;
@@ -24,6 +24,7 @@ type IntegrationProps = {
 };
 const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: IntegrationProps) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.integrations' });
+    const IntegrationRepository = useIntegrationRepository();
     const [page, setPage] = useState(1);
     const [integrations, setIntegrations] = useState<Page<IIntegration> | undefined>();
     const [sort, setSort] = useState<SortState | undefined>({

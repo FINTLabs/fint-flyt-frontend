@@ -22,9 +22,9 @@ import {
     VStack
 } from "@navikt/ds-react";
 import {MenuElipsisVerticalCircleIcon, PencilWritingIcon} from '@navikt/aksel-icons';
-import IntegrationRepository from "../../../api/IntegrationRepository";
 import {IAlertMessage, Page} from "../../../components/types/TableTypes";
 import useConfigurationRepository from '../../../api/useConfigurationRepository';
+import useIntegrationRepository from '../../../api/useIntegrationRepository';
 
 type Props = {
     id: string
@@ -35,6 +35,7 @@ type Props = {
 const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
     const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.integrations' });
     const history = useNavigate();
+    const IntegrationRepository = useIntegrationRepository()
     const {
         setConfiguration,
         setExistingIntegrationMetadata,
