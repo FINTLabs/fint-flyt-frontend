@@ -1,6 +1,5 @@
 import { ContextProps } from './constants/interface';
-import { createContext, useEffect, useState } from 'react';
-const BASE_PATH = process.env.BASE_PATH;
+import { createContext, useState } from 'react';
 
 export type AdapterRequestConfigType = {
     params?: Record<string, string | string[] | number | boolean | null | undefined>;
@@ -60,7 +59,7 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
     const [baseURL, setBaseURL] = useState<string>('');
 
 
-    useEffect(() => {
+  /*  useEffect(() => {
         console.log('APIAdapterProvider mounted', BASE_PATH);
     }, []);
 
@@ -77,7 +76,7 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
                 console.error('useEffect - Error getting config:', reason);
                 setBaseURL('/');
             });
-    }, []);
+    }, []);*/
 
     async function getBaseURL(): Promise<string> {
         console.log('Getting base url from configuration');

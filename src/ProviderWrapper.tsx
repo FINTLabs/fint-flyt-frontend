@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ThemeProvider } from '@mui/material';
 import { BrowserRouter } from 'react-router';
 import IntegrationProvider from './context/IntegrationContext';
@@ -9,14 +9,27 @@ import AuthorizationProvider from './context/AuthorizationContext';
 import { ApiAdapterContext } from './context/ApiAdapterContext';
 
 function ProviderWrapper({ children }: { children?: React.ReactNode }) {
-    const { baseURL } = useContext(ApiAdapterContext);
+    const { get, setBaseURL } = useContext(ApiAdapterContext);
 
-    return baseURL ? (
+    const [basePath, setBasePath] = useState<string>();
+    useEffect(() => {
+        get<{basePath: string }>("api/application/configuration")
+            .then((value) => {
+                setBaseURL(value.data.basePath)
+                setBasePath(value.data.basePath);
+            })
+            .catch((reason) => {
+                console.log("Error getting config:", reason);
+                setBasePath("/");
+            });
+    }, [basePath]);
+
+    return basePath ? (
         <ThemeProvider theme={theme}>
-            <AuthorizationProvider basePath={baseURL}>
+            <AuthorizationProvider basePath={basePath}>
                 <SourceApplicationProvider>
                     <IntegrationProvider>
-                        <BrowserRouter basename={baseURL}>{children}</BrowserRouter>
+                        <BrowserRouter basename={basePath}>{children}</BrowserRouter>
                     </IntegrationProvider>
                 </SourceApplicationProvider>
             </AuthorizationProvider>
