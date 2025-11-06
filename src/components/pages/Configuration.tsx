@@ -32,7 +32,6 @@ import { RouteComponent } from '../../routes/Route';
 import { isEmpty } from 'lodash';
 import PageTemplate from '../templates/PageTemplate';
 import { Alert, Button, Heading, HStack, VStack } from '@navikt/ds-react';
-import { AxiosResponse } from 'axios';
 import { AuthorizationContext } from '../../context/AuthorizationContext';
 import useConfigurationRepository from '../../api/useConfigurationRepository';
 import useIntegrationRepository from '../../api/useIntegrationRepository';

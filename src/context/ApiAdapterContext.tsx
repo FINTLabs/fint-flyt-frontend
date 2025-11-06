@@ -113,8 +113,10 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
 
             if (config?.params) {
                 Object.entries(config.params).forEach(([key, value]) => {
-                    if (value !== undefined && value !== null) {
-                        searchParams.append(key, String(value));
+                    if (value != null) {
+                        (Array.isArray(value) ? value : [value]).forEach(v => {
+                            searchParams.append(key, String(v));
+                        });
                     }
                 });
             }

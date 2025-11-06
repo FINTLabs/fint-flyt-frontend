@@ -1,21 +1,20 @@
 import { createContext, useState } from 'react';
-import { IIntegration, IIntegrationStatistics } from '../features/integration/types/Integration';
+import { IIntegration } from '../features/integration/types/Integration';
 import { IConfiguration } from '../features/configuration/types/Configuration';
 import { IIntegrationMetadata } from '../features/configuration/types/Metadata/IntegrationMetadata';
 import { ContextProps } from './constants/interface';
-import InstanceFlowTrackingRepository from '../api/InstanceFlowTrackingRepository';
 import AuthorizationRepository from '../api/AuthorizationRepository';
 import { ITotalStatistics } from '../features/instances/types/Event';
 import useSourceApplicationRepository from '../api/useSourceApplicationRepository';
 import useConfigurationRepository from '../api/useConfigurationRepository';
 import useIntegrationRepository from '../api/useIntegrationRepository';
+import useInstanceFlowTrackingRepository from '../api/useInstanceFlowTrackingRepository';
 
 type IntegrationContextState = {
     existingIntegration: IIntegration | undefined;
     setExistingIntegration: (integration: IIntegration | undefined) => void;
     integrations: IIntegration[] | undefined;
     setIntegrations: (integrations: IIntegration[]) => void;
-    getIntegrationsBySourceApplicationId: (sourceApplicationId: string) => void;
     getAllIntegrations: () => void;
     configuration: IConfiguration | undefined;
     setConfiguration: (configuration: IConfiguration | undefined) => void;
@@ -32,7 +31,6 @@ type IntegrationContextState = {
     setSourceApplicationId: (destination: string) => void;
     resetIntegrationContext: () => void;
     resetIntegration: () => void;
-    statistics: IIntegrationStatistics[];
     totalStatistics: ITotalStatistics | undefined;
 };
 
@@ -41,7 +39,6 @@ const contextDefaultValues: IntegrationContextState = {
     setExistingIntegration: () => undefined,
     integrations: [],
     setIntegrations: () => undefined,
-    getIntegrationsBySourceApplicationId: () => undefined,
     getAllIntegrations: () => undefined,
     configuration: undefined,
     setConfiguration: () => undefined,
@@ -58,7 +55,6 @@ const contextDefaultValues: IntegrationContextState = {
     setSourceApplicationIntegrationId: () => undefined,
     resetIntegrationContext: () => undefined,
     resetIntegration: () => undefined,
-    statistics: [] as IIntegrationStatistics[],
     totalStatistics: {
         total: 0,
         inProgress: 0,
@@ -73,6 +69,8 @@ const IntegrationProvider = ({ children }: ContextProps) => {
     const SourceApplicationRepository = useSourceApplicationRepository();
     const ConfigurationRepository = useConfigurationRepository()
     const IntegrationRepository = useIntegrationRepository();
+    const InstanceFlowTrackingRepository = useInstanceFlowTrackingRepository();
+
     const [existingIntegration, setExistingIntegration] = useState<IIntegration | undefined>(
         undefined
     );
@@ -90,9 +88,6 @@ const IntegrationProvider = ({ children }: ContextProps) => {
     const [sourceApplicationIntegrationId, setSourceApplicationIntegrationId] =
         useState<string>('');
     const [sourceApplicationId, setSourceApplicationId] = useState<string>('');
-    const [statistics, setStatistics] = useState<IIntegrationStatistics[]>(
-        contextDefaultValues.statistics
-    );
     const [totalStatistics, setTotalStatistics] = useState<ITotalStatistics>({
         total: 0,
         inProgress: 0,
@@ -115,7 +110,6 @@ const IntegrationProvider = ({ children }: ContextProps) => {
 
     const resetIntegrationsAndStats = () => {
         setIntegrations([]);
-        setStatistics([]);
     };
 
     // eslint-disable-next-line
@@ -123,56 +117,6 @@ const IntegrationProvider = ({ children }: ContextProps) => {
         setConfigurations(undefined);
         setConfiguration(undefined);
     };
-
-    const getIntegrationsBySourceApplicationId = async (sourceApplicationId: string) => {
-        try {
-            const [statisticsResponse, metadataResponse, integrationResponse] = await Promise.all([
-                InstanceFlowTrackingRepository.getStatistics(),
-                SourceApplicationRepository.getMetadata(sourceApplicationId, true),
-                IntegrationRepository.getIntegrations(0, null, 'state', 'ASC'),
-            ]);
-
-            const statistics: IIntegrationStatistics[] = statisticsResponse.data || [];
-            const metadata: IIntegrationMetadata[] = metadataResponse.data || [];
-            const integrations: IIntegration[] = integrationResponse.data.content || [];
-
-            const updatedIntegrations = integrations.map((integration) => {
-                // const stat = statistics.find(
-                //     (s) =>
-                //         s.sourceApplicationIntegrationId ===
-                //         integration.sourceApplicationIntegrationId
-                // );
-                const meta = metadata.find(
-                    (m) =>
-                        m.sourceApplicationIntegrationId ===
-                        integration.sourceApplicationIntegrationId
-                );
-
-                return {
-                    ...integration,
-                    // errors: stat?.currentErrors,
-                    // dispatched: stat?.dispatchedInstances,
-                    displayName: meta?.integrationDisplayName,
-                };
-            });
-
-            setStatistics(statistics);
-            setIntegrations(updatedIntegrations);
-        } catch (e) {
-            console.error('Error: ', e);
-            resetIntegrationsAndStats();
-        }
-    };
-
-    // const getAllStatistics = async () => {
-    //     try {
-    //         const response = await InstanceFlowTrackingRepository.getAllStatistics();
-    //         setTotalStatistics(response.data);
-    //     } catch (e) {
-    //         console.error('Error: ', e);
-    //         setTotalStatistics(undefined);
-    //     }
-    // };
 
     const getAllIntegrations = async () => {
         try {
@@ -189,7 +133,6 @@ const IntegrationProvider = ({ children }: ContextProps) => {
             const integrations: IIntegration[] = integrationResponse.data.content || [];
 
             if (integrations.length > 0) {
-                // setStatistics(statistics);
                 setTotalStatistics(statistics);
 
                 const metadataResponses = await Promise.all(
@@ -201,11 +144,6 @@ const IntegrationProvider = ({ children }: ContextProps) => {
                 const metadata = metadataResponses.flatMap((response) => response.data || []);
 
                 const updatedIntegrations = integrations.map((integration) => {
-                    // const stat = statistics.find(
-                    //     (s) =>
-                    //         s.sourceApplicationIntegrationId ===
-                    //         integration.sourceApplicationIntegrationId
-                    // );
                     const meta = metadata.find(
                         (m) =>
                             m.sourceApplicationIntegrationId ===
@@ -214,8 +152,6 @@ const IntegrationProvider = ({ children }: ContextProps) => {
 
                     return {
                         ...integration,
-                        // errors: stat?.currentErrors,
-                        // dispatched: stat?.dispatchedInstances,
                         displayName: meta?.integrationDisplayName,
                     };
                 });
@@ -245,13 +181,11 @@ const IntegrationProvider = ({ children }: ContextProps) => {
     return (
         <IntegrationContext.Provider
             value={{
-                statistics,
                 totalStatistics,
                 existingIntegration,
                 setExistingIntegration,
                 integrations,
                 setIntegrations,
-                getIntegrationsBySourceApplicationId,
                 getAllIntegrations,
                 configuration,
                 setConfiguration,

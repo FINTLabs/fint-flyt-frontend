@@ -9,14 +9,14 @@ import {
 import { Box, HStack, Loader, Pagination, SortState, Table } from '@navikt/ds-react';
 import IntegrationPanel from './IntegrationPanel';
 import { useTranslation } from 'react-i18next';
-import InstanceFlowTrackingRepository from '../../../api/InstanceFlowTrackingRepository';
-import { IIntegration, IIntegrationStatistics } from '../../integration/types/Integration';
+import { IIntegration } from '../../integration/types/Integration';
 import { IIntegrationMetadata } from '../../configuration/types/Metadata/IntegrationMetadata';
 import { SourceApplicationContext } from '../../../context/SourceApplicationContext';
 import { CustomSelect } from '../../../components/organisms/CustomSelect';
 import { IAlertMessage, Page } from '../../../components/types/TableTypes';
 import { IIntegrationDetailedStatistics } from '../../instances/types/Event';
 import useIntegrationRepository from '../../../api/useIntegrationRepository';
+import useInstanceFlowTrackingRepository from '../../../api/useInstanceFlowTrackingRepository';
 
 type IntegrationProps = {
     id: string;
@@ -25,6 +25,7 @@ type IntegrationProps = {
 const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: IntegrationProps) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.integrations' });
     const IntegrationRepository = useIntegrationRepository();
+    const InstanceFlowTrackingRepository = useInstanceFlowTrackingRepository();
     const [page, setPage] = useState(1);
     const [integrations, setIntegrations] = useState<Page<IIntegration> | undefined>();
     const [sort, setSort] = useState<SortState | undefined>({
@@ -57,59 +58,41 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
         props.onError(undefined);
         if (allMetadata) {
             try {
-                // Get statistics - using single call now
-                const statsResponse = await InstanceFlowTrackingRepository.getStatistics();
-                const data = statsResponse.data;
-                setDetailedStats(data.content);
-
-                if (data) {
-                    const stats = data.content;
-
-                    console.log('RUNNING A GET INTEGRATION REQUEST');
-                    const integrationResponse = await IntegrationRepository.getIntegrations(
+                const [statsResponse, integrationResponse] = await Promise.all([
+                    InstanceFlowTrackingRepository.getStatistics(),
+                    IntegrationRepository.getIntegrations(
                         page - 1,
                         Number(rowCount),
                         sort ? sort.orderBy : 'state',
                         sort ? (sort.direction === 'ascending' ? 'ASC' : 'DESC') : 'ASC'
-                    );
-                    const mergedList = integrationResponse.data || [];
+                    ),
+                ]);
+                const data = statsResponse.data;
+                setDetailedStats(data.content);
 
-                    stats.forEach((value: IIntegrationStatistics) => {
-                        mergedList.content.forEach((integration: IIntegration) => {
-                            if (
-                                integration.sourceApplicationIntegrationId ===
-                                value.sourceApplicationIntegrationId
-                            ) {
-                                integration.errors = value.currentErrors;
-                                integration.dispatched = value.dispatchedInstances;
-                                integration.total = value.totalInstances;
-                            }
-                        });
+                const mergedList = integrationResponse.data || [];
+                allMetadata.forEach((value: IIntegrationMetadata) => {
+                    mergedList.content.forEach((integration: IIntegration) => {
+                        if (
+                            integration.sourceApplicationIntegrationId ===
+                            value.sourceApplicationIntegrationId
+                        ) {
+                            integration.displayName = value.integrationDisplayName;
+                        }
                     });
+                });
 
-                    allMetadata.forEach((value: IIntegrationMetadata) => {
-                        mergedList.content.forEach((integration: IIntegration) => {
-                            if (
-                                integration.sourceApplicationIntegrationId ===
-                                value.sourceApplicationIntegrationId
-                            ) {
-                                integration.displayName = value.integrationDisplayName;
-                            }
-                        });
+                const sortedData: IIntegration[] = mergedList.content
+                    .slice()
+                    .sort((a: IIntegration, b: IIntegration) => {
+                        if (sort) {
+                            return sort.direction === 'ascending'
+                                ? integrationComparator(b, a, sort.orderBy)
+                                : integrationComparator(a, b, sort.orderBy);
+                        }
+                        return 1;
                     });
-
-                    const sortedData: IIntegration[] = mergedList.content
-                        .slice()
-                        .sort((a: IIntegration, b: IIntegration) => {
-                            if (sort) {
-                                return sort.direction === 'ascending'
-                                    ? integrationComparator(b, a, sort.orderBy)
-                                    : integrationComparator(a, b, sort.orderBy);
-                            }
-                            return 1;
-                        });
-                    setIntegrations({ ...mergedList, content: sortedData });
-                }
+                setIntegrations({ ...mergedList, content: sortedData });
             } catch (e) {
                 props.onError({ message: t('errorMessage') });
                 console.error('Error: ', e);
@@ -160,8 +143,6 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
                             <Table.ColumnHeader sortKey="state" sortable>
                                 {t('table.column.state')}
                             </Table.ColumnHeader>
-                            {/*<Table.ColumnHeader>{t('table.column.dispatched')}</Table.ColumnHeader>*/}
-                            {/*<Table.ColumnHeader>{t('table.column.errors')}</Table.ColumnHeader>*/}
                             <Table.ColumnHeader>{t('table.column.total')}</Table.ColumnHeader>
                             <Table.ColumnHeader>{t('table.column.inProgress')}</Table.ColumnHeader>
                             <Table.ColumnHeader>{t('table.column.transferred')}</Table.ColumnHeader>
@@ -203,9 +184,6 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
                                     <Table.DataCell>
                                         {getStateDisplayName(value.state ?? '')}
                                     </Table.DataCell>
-                                    {/*<Table.DataCell>{value.dispatched}</Table.DataCell>*/}
-                                    {/*<Table.DataCell>{value.errors}</Table.DataCell>*/}
-                                    {/*<Table.DataCell>{value.total}</Table.DataCell>*/}
                                     <Table.DataCell align={'center'}>
                                         {stats?.total || '-'}
                                     </Table.DataCell>

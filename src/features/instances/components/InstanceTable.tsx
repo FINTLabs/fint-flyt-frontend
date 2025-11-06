@@ -16,7 +16,7 @@ import { IAlertMessage } from '../../../components/types/TableTypes';
 import { MenuElipsisVerticalCircleIcon } from '@navikt/aksel-icons';
 import CustomStatusDialogComponent from './CustomStatusDialogComponent';
 import { useFilters } from '../filter/FilterContext';
-import InstanceFlowTrackingRepository from '../../../api/InstanceFlowTrackingRepository';
+import useInstanceFlowTrackingRepository from '../../../api/useInstanceFlowTrackingRepository';
 
 interface Props {
     onError: (error: IAlertMessage | undefined) => void;
@@ -24,6 +24,7 @@ interface Props {
 
 const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.instances' });
+    const InstanceFlowTrackingRepository = useInstanceFlowTrackingRepository()
     const [selectedRow, setSelectedRow] = useState<IEventNew>();
     const [openCustomDialog, setOpenCustomDialog] = React.useState(false);
     const [page, setPage] = useState(1);

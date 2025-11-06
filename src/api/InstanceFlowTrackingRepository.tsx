@@ -102,18 +102,11 @@ const getStatistics = () => {
     return axios.get(`/api/intern/instance-flow-tracking/statistics/integrations`);
 };
 
-// const getDetailedStatistics = () => {
-//     return axios.get<IIntegrationDetailedStatisticsResponse>(
-//         '/api/intern/instance-flow-tracking/statistics/integrations'
-//     );
-// };
-
 const InstanceFlowTrackingRepository = {
     getLatestEvents: getLatestSummaries,
     getEventsByInstanceId,
     getAllStatistics,
     getStatistics,
-    // getDetailedStatistics,
     manualRejectEvent,
     manualDispatchEvent,
     manualTransferEvent,
