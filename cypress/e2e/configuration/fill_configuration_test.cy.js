@@ -15,8 +15,12 @@ const correspondentDndFields = '#dnd-value-component-mapping\\.objectMappingPerK
 
 function prep() {
     cy.intercept("GET", "**/authorization/me", {fixture: "me.json"}).as("getMe")
-    cy.intercept("GET", "**/authorization/me/is-authorized", {fixture: "auth.json"}).as("getAuth")
-    cy.intercept("GET", "**/authorization/me/restricted-page-authorization", {userPermissionPage: true}).as("getUserPermissionsPage")
+    cy.intercept('GET', '**/authorization/me/is-authorized', {
+        fixture: 'auth.json',
+        headers: {
+            'Content-Type': 'text/plain',
+        },
+    }).as('getAuth');    cy.intercept("GET", "**/authorization/me/restricted-page-authorization", {userPermissionPage: true}).as("getUserPermissionsPage")
     cy.intercept("GET", "**/authorization/users?page=0&size=10", {fixture: "users.json"}).as("getUsersPermissions")
     cy.intercept('POST', '**/integrasjoner', {fixture: 'postFixture.json'}).as('postIntegration')
     cy.intercept('GET', '**/api/application/configuration', {

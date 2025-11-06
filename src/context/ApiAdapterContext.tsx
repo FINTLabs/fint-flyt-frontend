@@ -65,7 +65,7 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
                 setBaseURL(value.data.basePath);
             })
             .catch((reason) => {
-                console.log('Error getting config:', reason);
+                console.error('Error getting config:', reason);
                 setBaseURL('/');
             });
     }, []);
@@ -142,8 +142,6 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
                 setTimeout(() => controller.abort(), config.timeout);
             }
 
-            console.log('finalURL in apiAdapter get: ', finalURL);
-
             const response = await fetch(finalURL, {
                 method: 'GET',
                 headers,
@@ -152,7 +150,7 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
 
             return handleResponse<T>(response);
         } catch (error) {
-            console.log('error in apiAdapter get: ', error, url);
+            console.error('error in apiAdapter get: ', error, url);
             throw error;
         }
     }
@@ -170,7 +168,6 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
 
         const headers = config?.headers ? { ...defaultHeaders, ...config.headers } : defaultHeaders;
 
-        console.log('finalURL in apiAdapter post: ', fullURL);
         const response = await fetch(fullURL, {
             method: 'POST',
             headers,
@@ -193,7 +190,6 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
 
         const headers = config?.headers ? { ...defaultHeaders, ...config.headers } : defaultHeaders;
 
-        console.log('finalURL in apiAdapter patch: ', fullURL);
         const response = await fetch(fullURL, {
             method: 'PATCH',
             headers,
@@ -215,7 +211,6 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
 
         const headers = config?.headers ? { ...defaultHeaders, ...config.headers } : defaultHeaders;
 
-        console.log('finalURL in apiAdapter delete: ', fullURL);
         const response = await fetch(fullURL, {
             method: 'DELETE',
             headers,

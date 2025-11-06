@@ -3,12 +3,12 @@ import { IIntegration } from '../features/integration/types/Integration';
 import { IConfiguration } from '../features/configuration/types/Configuration';
 import { IIntegrationMetadata } from '../features/configuration/types/Metadata/IntegrationMetadata';
 import { ContextProps } from './constants/interface';
-import AuthorizationRepository from '../api/AuthorizationRepository';
 import { ITotalStatistics } from '../features/instances/types/Event';
 import useSourceApplicationRepository from '../api/useSourceApplicationRepository';
 import useConfigurationRepository from '../api/useConfigurationRepository';
 import useIntegrationRepository from '../api/useIntegrationRepository';
 import useInstanceFlowTrackingRepository from '../api/useInstanceFlowTrackingRepository';
+import useAuthorizationRepository from '../api/useAuthorizationRepository';
 
 type IntegrationContextState = {
     existingIntegration: IIntegration | undefined;
@@ -66,6 +66,7 @@ const contextDefaultValues: IntegrationContextState = {
 const IntegrationContext = createContext<IntegrationContextState>(contextDefaultValues);
 
 const IntegrationProvider = ({ children }: ContextProps) => {
+    const AuthorizationRepository = useAuthorizationRepository();
     const SourceApplicationRepository = useSourceApplicationRepository();
     const ConfigurationRepository = useConfigurationRepository()
     const IntegrationRepository = useIntegrationRepository();

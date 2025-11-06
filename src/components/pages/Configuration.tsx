@@ -64,9 +64,12 @@ const Configuration: RouteComponent = () => {
     >([]);
     const { authorized, getAuthorization } = useContext(AuthorizationContext);
 
-    if (!authorized) {
-        history('/forbidden');
-    }
+    useEffect(() => {
+        if (authorized === false) {
+            history('/forbidden');
+        }
+    }, [authorized]);
+
     if (!existingIntegration) {
         history('/');
     }

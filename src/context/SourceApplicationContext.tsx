@@ -10,11 +10,11 @@ import {ContextProps} from "./constants/interface";
 import {MOCK_INSTANCE_METADATA} from "../__tests__/mock/mapping/mock-instans-metadata";
 import i18n from "../util/locale/i18n";
 import {ISourceApplication} from "../features/configuration/types/SourceApplication";
-import AuthorizationRepository from "../api/AuthorizationRepository";
 import {AxiosResponse} from "axios";
-import {IUser} from "../components/pages/UserAccess";
+import {IUser} from "../components/types/UserTypes";
 import useSourceApplicationRepository from '../api/useSourceApplicationRepository';
 import useIntegrationRepository from '../api/useIntegrationRepository';
+import useAuthorizationRepository from '../api/useAuthorizationRepository';
 
 type SourceApplicationContextState = {
     availableForms: ISelect[] | undefined;
@@ -63,6 +63,7 @@ const SourceApplicationContext =
     createContext<SourceApplicationContextState>(contextDefaultValues);
 
 const SourceApplicationProvider = ({children}: ContextProps) => {
+    const AuthorizationRepository = useAuthorizationRepository();
     const IntegrationRepository = useIntegrationRepository();
     const [availableForms, setAvailableForms] = useState<ISelect[] | undefined>(contextDefaultValues.availableForms);
     const [allMetadata, setAllMetadata] = useState<IIntegrationMetadata[] | undefined>(contextDefaultValues.allMetadata);
@@ -188,7 +189,7 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
         try {
             const allMetadata: IIntegrationMetadata[][] = [];
 
-            const response: AxiosResponse<IUser> = await AuthorizationRepository.getUserSourceApplications();
+            const response = await AuthorizationRepository.getUserSourceApplications();
             const sourceApplications: string[] = response.data.sourceApplicationIds.map(String);
 
             for (const sourceApplication of sourceApplications) {
