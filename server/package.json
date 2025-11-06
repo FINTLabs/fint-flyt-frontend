@@ -12,6 +12,6 @@
     "prom-client": "^14.1.0"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "DEBUG=express-urlrewrite  node index.js"
   }
 }
