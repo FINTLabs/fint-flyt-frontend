@@ -20,7 +20,7 @@ export default function useSourceApplicationRepository() {
     };
 
     const getSourceApplications = (): ISourceApplication[] => {
-        //return axios.get("/api/intern/sourceApplicationData")
+        //return get("/api/intern/sourceApplicationData")
         return [
             { id: 1, displayName: 'ACOS Interact', available: true },
             { id: 2, displayName: 'eGrunnerverv', available: true },

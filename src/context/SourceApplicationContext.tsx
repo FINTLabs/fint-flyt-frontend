@@ -10,8 +10,6 @@ import {ContextProps} from "./constants/interface";
 import {MOCK_INSTANCE_METADATA} from "../__tests__/mock/mapping/mock-instans-metadata";
 import i18n from "../util/locale/i18n";
 import {ISourceApplication} from "../features/configuration/types/SourceApplication";
-import {AxiosResponse} from "axios";
-import {IUser} from "../components/types/UserTypes";
 import useSourceApplicationRepository from '../api/useSourceApplicationRepository';
 import useIntegrationRepository from '../api/useIntegrationRepository';
 import useAuthorizationRepository from '../api/useAuthorizationRepository';
