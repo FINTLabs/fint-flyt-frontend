@@ -8,21 +8,21 @@ import './global.css';
 import AuthorizationProvider from './context/AuthorizationContext';
 import { ApiAdapterContext } from './context/ApiAdapterContext';
 
-function ProviderWrapper({children}: {children?: React.ReactNode}) {
+function ProviderWrapper({ children }: { children?: React.ReactNode }) {
     const { baseURL } = useContext(ApiAdapterContext);
 
-    return (
+    return baseURL ? (
         <ThemeProvider theme={theme}>
             <AuthorizationProvider basePath={baseURL}>
                 <SourceApplicationProvider>
                     <IntegrationProvider>
-                        <BrowserRouter basename={baseURL}>
-                            {children}
-                        </BrowserRouter>
+                        <BrowserRouter basename={baseURL}>{children}</BrowserRouter>
                     </IntegrationProvider>
                 </SourceApplicationProvider>
             </AuthorizationProvider>
         </ThemeProvider>
+    ) : (
+        <h1>Laster...</h1>
     );
 }
 

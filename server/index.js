@@ -30,6 +30,12 @@ app.get(`${BASE_PATH}/api/application/configuration`, (req, res) => {
     })
 })
 
+app.get(`/api/application/configuration`, (req, res) => {
+    res.send({
+        basePath: BASE_PATH
+    })
+})
+
 app.get(`${BASE_PATH}/*`, (req, res) => {
     console.log("Request path", req.path);
     if (req.path.includes("/api/")) {

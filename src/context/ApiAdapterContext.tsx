@@ -1,6 +1,6 @@
 import { ContextProps } from './constants/interface';
 import { createContext, useEffect, useState } from 'react';
-import { data } from 'autoprefixer';
+const BASE_PATH = process.env.BASE_PATH;
 
 export type AdapterRequestConfigType = {
     params?: Record<string, string | string[] | number | boolean | null | undefined>;
@@ -58,6 +58,11 @@ const ApiAdapterContext = createContext<apiAdapterState>(apiAdapterDefaultValues
 
 const APIAdapterProvider = ({ children }: ContextProps) => {
     const [baseURL, setBaseURL] = useState<string>('');
+
+
+    useEffect(() => {
+        console.log('APIAdapterProvider mounted', BASE_PATH);
+    }, []);
 
     console.log('APIAdapterProvider baseURL', baseURL);
 
@@ -233,7 +238,7 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
 
         const headers = config?.headers ? { ...defaultHeaders, ...config.headers } : defaultHeaders;
 
-        console.log('apiAdapter delete - fullURL: ', fullURL, ' data: ', data);
+        console.log('apiAdapter delete - fullURL: ', fullURL);
         const response = await fetch(fullURL, {
             method: 'DELETE',
             headers,
@@ -253,7 +258,7 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
                 patch,
                 deleteFetch,
             }}>
-            {baseURL ? children : <h1>Laster...</h1>}
+            {children}
         </ApiAdapterContext.Provider>
     );
 };
