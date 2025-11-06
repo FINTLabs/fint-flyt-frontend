@@ -30,7 +30,7 @@ app.get(`${BASE_PATH}/api/application/configuration`, (req, res) => {
     })
 })
 
-app.get(`/api/application/configuration`, (req, res) => {
+app.get(/\/api\/application\/configuration/, (req, res) => {
     res.send({
         basePath: BASE_PATH
     })
