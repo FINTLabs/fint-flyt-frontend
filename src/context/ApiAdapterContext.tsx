@@ -60,8 +60,10 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
     const [baseURL, setBaseURL] = useState<string>('');
 
     useEffect(() => {
+        console.log('Getting base url from configuration');
         get<{ basePath: string }>('api/application/configuration')
             .then((value) => {
+                console.log('Got base url from configuration:', value.data.basePath);
                 setBaseURL(value.data.basePath);
             })
             .catch((reason) => {
