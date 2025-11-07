@@ -2,7 +2,6 @@ FROM node:22-alpine3.18 AS builder
 WORKDIR /src
 COPY package.json .
 COPY yarn.lock .
-COPY environment.js .
 RUN yarn install
 COPY . /src
 RUN yarn test:ci && yarn build

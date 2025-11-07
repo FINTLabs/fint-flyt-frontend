@@ -7,7 +7,7 @@ import theme from './util/styles/theme/theme';
 import './global.css';
 import AuthorizationProvider from './context/AuthorizationContext';
 import { ApiAdapterContext } from './context/ApiAdapterContext';
-import { BASE_PATH } from '../environment';
+import { BASE_PATH } from './environment.js'
 
 
 function ProviderWrapper({ children }: { children?: React.ReactNode }) {
