@@ -14,6 +14,12 @@ log.level = process.env.LOGGING_LEVEL || "info"
 const app = express();
 
 app.use(morgan("combined"))
+
+app.all('*', (req, res, next) => {
+    console.log("Something was requested", req.path);
+    next()
+})
+
 app.use(rewrite(/\/static\/(\w.+)/i, BASE_PATH + '/static/$1'));
 app.use(rewrite(/\/manifest.json$/, BASE_PATH + '/manifest.json'));
 app.use(rewrite(/\/api\/application\/configuration\/?$/i, `${BASE_PATH}/api/application/configuration`));

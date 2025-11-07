@@ -98,7 +98,7 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
             return url;
         }
 
-        if (url.startsWith('/')) {
+/*        if (url.startsWith('/')) {
             if (!baseURL || baseURL === '/') {
                 return url;
             }
@@ -107,9 +107,9 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
 
         if (!baseURL || baseURL === '/') {
             return `/${url}`;
-        }
+        }*/
 
-        return `${baseURL}/${url}`;
+        return `${baseURL}${url}`;
     }
 
     async function handleResponse<T>(response: Response): Promise<{ data: T; status: number }> {
