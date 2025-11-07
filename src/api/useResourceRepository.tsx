@@ -11,13 +11,13 @@ export default function useResourceRepository() {
     const { get } = useContext(ApiAdapterContext);
 
     const getClasses = (link: string) => {
-        return get(`/api/intern/arkiv/kodeverk/klasse/`, {
+        return get(`api/intern/arkiv/kodeverk/klasse/`, {
             params: { klassifikasjonssystemLink: link },
         });
     };
 
     const getResource = (resource: string) => {
-        return get(`/api/intern/arkiv/kodeverk/${resource}`);
+        return get(`api/intern/arkiv/kodeverk/${resource}`);
     };
 
     const getSelectables = (
@@ -28,17 +28,17 @@ export default function useResourceRepository() {
     };
 
     const getSelectableKodeverkFormat = () => {
-        return get<ISelectable[]>('/api/intern/arkiv/kodeverk/format');
+        return get<ISelectable[]>('api/intern/arkiv/kodeverk/format');
     };
 
     const getSak = (caseYear: number | string, id: number | string) => {
-        return get(`/api/intern/arkiv/saker/${caseYear}/${id}/tittel`, {
+        return get(`api/intern/arkiv/saker/${caseYear}/${id}/tittel`, {
             timeout: 10000,
         });
     };
 
     const search = (source: Source): Promise<{ value: string } | undefined> => {
-        return get<{ value: string }>('/' + source.url, source.config)
+        return get<{ value: string }>(source.url, source.config)
             .then<{ value: string } | undefined>(
                 (
                     response: AdapterResponse<{ value: string } | undefined>

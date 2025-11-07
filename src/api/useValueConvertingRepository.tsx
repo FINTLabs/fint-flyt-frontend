@@ -12,7 +12,7 @@ export default function useValueConvertingRepository() {
         sortDirection: string,
         excludeConvertingMap?: boolean
     ) => {
-        return get<Page<IValueConverting>>('/api/intern/value-convertings', {
+        return get<Page<IValueConverting>>('api/intern/value-convertings', {
             params: {
                 page: page,
                 size: size,
@@ -24,11 +24,11 @@ export default function useValueConvertingRepository() {
     };
 
     const getValueConverting = (valueConvertingId: number) => {
-        return get<IValueConverting>(`/api/intern/value-convertings/${valueConvertingId}`);
+        return get<IValueConverting>(`api/intern/value-convertings/${valueConvertingId}`);
     };
 
     const createValueConverting = (data: IValueConverting) => {
-        return post<IValueConverting>('/api/intern/value-convertings', data);
+        return post<IValueConverting>('api/intern/value-convertings', data);
     };
 
     return { getValueConvertings, getValueConverting, createValueConverting };

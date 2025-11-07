@@ -1,8 +1,6 @@
 import { ContextProps } from './constants/interface';
 import { createContext, useState } from 'react';
 
-const BASE_PATH = process.env.BASE_PATH || '';
-
 export type AdapterRequestConfigType = {
     params?: Record<string, string | string[] | number | boolean | null | undefined>;
     headers?: Headers;
@@ -58,7 +56,7 @@ const apiAdapterDefaultValues: apiAdapterState = {
 const ApiAdapterContext = createContext<apiAdapterState>(apiAdapterDefaultValues);
 
 const APIAdapterProvider = ({ children }: ContextProps) => {
-    const [baseURL, setBaseURL] = useState<string>(BASE_PATH);
+    const [baseURL, setBaseURL] = useState<string>('');
 
     async function getBaseURL(): Promise<string> {
         console.log('Getting base url in getBaseURL');
@@ -70,9 +68,8 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
             })
             .catch((reason) => {
                 console.error('Error getting config in getBaseURL:', reason);
-                console.log("BASE_PATH in getBaseURL:", BASE_PATH);
-                setBaseURL(BASE_PATH ?? "/");
-                return BASE_PATH ?? "/";
+                setBaseURL('/');
+                return '/';
             });
     }
 
@@ -81,16 +78,9 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
             return url;
         }
 
-/*       if (url.startsWith('/')) {
-            if (!baseURL || baseURL === '/') {
-                return url;
-            }
-            return `${baseURL}${url}`;
+        if (baseURL !== '/' && baseURL.endsWith('/') && !url.startsWith('/')) {
+            return `${baseURL}/${url}`;
         }
-
-        if (!baseURL) {
-            return `/${url}`;
-        }*/
 
         return `${baseURL}${url}`;
     }

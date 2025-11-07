@@ -42,7 +42,7 @@ export const OptionsProvider: React.FC<OptionsProviderProps> = ({ children }) =>
     const fetchData = async (endpoint: string, setState: (data: Option[]) => void) => {
         try {
             const response = await get<Option[]>(
-                `/api/intern/instance-flow-tracking/value-space/${endpoint}`
+                `api/intern/instance-flow-tracking/value-space/${endpoint}`
             );
             setState(response.data);
         } catch (error) {

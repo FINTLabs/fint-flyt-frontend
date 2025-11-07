@@ -10,17 +10,17 @@ export default function useSourceApplicationRepository() {
     const { get } = useContext(ApiAdapterContext);
 
     const getMetadata = (id: string, onlyLastestVersion?: boolean) => {
-        return get<IIntegrationMetadata[]>('/api/intern/metadata', {
+        return get<IIntegrationMetadata[]>('api/intern/metadata', {
             params: { kildeapplikasjonId: id, bareSisteVersjoner: onlyLastestVersion },
         });
     };
 
     const getInstanceElementMetadataById = (metadataId: string) => {
-        return get<IInstanceMetadataContent>(`/api/intern/metadata/${metadataId}/instans-metadata`);
+        return get<IInstanceMetadataContent>(`api/intern/metadata/${metadataId}/instans-metadata`);
     };
 
     const getSourceApplications = (): ISourceApplication[] => {
-        //return get("/api/intern/sourceApplicationData")
+        //return get("api/intern/sourceApplicationData")
         return [
             { id: 1, displayName: 'ACOS Interact', available: true },
             { id: 2, displayName: 'eGrunnerverv', available: true },
