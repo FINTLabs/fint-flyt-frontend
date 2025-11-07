@@ -8,6 +8,8 @@ import './global.css';
 import AuthorizationProvider from './context/AuthorizationContext';
 import { ApiAdapterContext } from './context/ApiAdapterContext';
 
+const BASE_PATH = process.env.BASE_PATH
+
 function ProviderWrapper({ children }: { children?: React.ReactNode }) {
     const { get, setBaseURL } = useContext(ApiAdapterContext);
 
@@ -23,7 +25,9 @@ function ProviderWrapper({ children }: { children?: React.ReactNode }) {
             })
             .catch((reason) => {
                 console.log("ProviderWrapper - Error getting config:", reason);
-                setBasePath("/");
+                console.log("BASE_PATH:", BASE_PATH);
+                setBaseURL(BASE_PATH ?? "/");
+                setBasePath(BASE_PATH ?? "/");
             });
     }, [basePath]);
 
