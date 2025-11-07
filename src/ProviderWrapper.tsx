@@ -7,13 +7,14 @@ import theme from './util/styles/theme/theme';
 import './global.css';
 import AuthorizationProvider from './context/AuthorizationContext';
 import { ApiAdapterContext } from './context/ApiAdapterContext';
+import { BASE_PATH } from '../environment';
 
-const BASE_PATH = process.env.BASE_PATH
 
 function ProviderWrapper({ children }: { children?: React.ReactNode }) {
     const { get, setBaseURL } = useContext(ApiAdapterContext);
 
     console.log("ProviderWrapper rendered");
+    console.log("ProviderWrapper - BASE_PATH:", BASE_PATH);
 
     const [basePath, setBasePath] = useState<string>();
     useEffect(() => {
