@@ -42,13 +42,7 @@ describe('Testing instance list', () => {
                 url: '**/api/intern/instance-flow-tracking/value-space/time/current-period/selectables',
                 fixture: 'filter/current-period.json',
                 alias: 'event-category-3',
-            },
-            {
-                method: 'GET',
-                url: '**/integration/instance/api/application/configuration',
-                fixture: 'basepathConfig.json',
-                alias: 'getConfig2',
-            },
+            }
         ];
 
         intercepts.forEach(({ method, url, fixture, response, alias }) => {

@@ -1,6 +1,8 @@
 import { ContextProps } from './constants/interface';
 import { createContext, useState } from 'react';
 
+const BASE_PATH = process.env.BASE_PATH || '';
+
 export type AdapterRequestConfigType = {
     params?: Record<string, string | string[] | number | boolean | null | undefined>;
     headers?: Headers;
@@ -56,7 +58,9 @@ const apiAdapterDefaultValues: apiAdapterState = {
 const ApiAdapterContext = createContext<apiAdapterState>(apiAdapterDefaultValues);
 
 const APIAdapterProvider = ({ children }: ContextProps) => {
-    const [baseURL, setBaseURL] = useState<string>('');
+    const [baseURL, setBaseURL] = useState<string>(BASE_PATH);
+
+    console.log('APIAdapterProvider rendered with BASE_PATH:', BASE_PATH);
 
 
   /*  useEffect(() => {

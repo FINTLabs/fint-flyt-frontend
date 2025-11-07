@@ -18,6 +18,7 @@ function ProviderWrapper({ children }: { children?: React.ReactNode }) {
 
     const [basePath, setBasePath] = useState<string>();
     useEffect(() => {
+        console.log("ProviderWrapper useEffect");
         get<{basePath: string }>("api/application/configuration")
             .then((value) => {
                 console.log("ProviderWrapper - Got something from configuration:", value.data.basePath);
@@ -30,7 +31,7 @@ function ProviderWrapper({ children }: { children?: React.ReactNode }) {
                 setBaseURL(BASE_PATH ?? "/");
                 setBasePath(BASE_PATH ?? "/");
             });
-    }, [basePath]);
+    }, []);
 
     return basePath ? (
         <ThemeProvider theme={theme}>

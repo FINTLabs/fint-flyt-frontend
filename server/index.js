@@ -22,7 +22,9 @@ app.all('*', (req, res, next) => {
 
 app.use(rewrite(/\/static\/(\w.+)/i, BASE_PATH + '/static/$1'));
 app.use(rewrite(/\/manifest.json$/, BASE_PATH + '/manifest.json'));
+
 app.use(rewrite(/\/api\/application\/configuration\/?$/i, `${BASE_PATH}/api/application/configuration`));
+
 app.use(promMid({
     metricsPath: `${BASE_PATH}/metrics`,
     collectDefaultMetrics: true,
