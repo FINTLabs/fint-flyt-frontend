@@ -25,12 +25,21 @@ app.use(promMid({
 app.use(BASE_PATH + '/', express.static(path.join(`${__dirname}/../`, 'build')));
 
 app.get(`${BASE_PATH}/api/application/configuration`, (req, res) => {
+    log.info('app.get(`${BASE_PATH}/api/application/configuration`')
     res.send({
         basePath: BASE_PATH
     })
 })
 
-app.get(/\/api\/application\/configuration/, (req, res) => {
+app.get(/api\/application\/configuration/, (req, res) => {
+    log.info('app.get(/api\\/application\\/configuration/');
+    res.send({
+        basePath: BASE_PATH
+    })
+})
+
+app.use(/api\/application\/configuration/, (req, res) => {
+    log.info('app.use(/api\\/application\\/configuration/,');
     res.send({
         basePath: BASE_PATH
     })
@@ -38,6 +47,7 @@ app.get(/\/api\/application\/configuration/, (req, res) => {
 
 app.get(`${BASE_PATH}/*`, (req, res) => {
     console.log("Request path", req.path);
+    log.info(`Handling GET request for ${req.path}`);
     if (req.path.includes("/api/")) {
         res.send([])
     } else {

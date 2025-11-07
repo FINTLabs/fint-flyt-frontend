@@ -11,15 +11,18 @@ import { ApiAdapterContext } from './context/ApiAdapterContext';
 function ProviderWrapper({ children }: { children?: React.ReactNode }) {
     const { get, setBaseURL } = useContext(ApiAdapterContext);
 
+    console.log("ProviderWrapper rendered");
+
     const [basePath, setBasePath] = useState<string>();
     useEffect(() => {
         get<{basePath: string }>("api/application/configuration")
             .then((value) => {
+                console.log("ProviderWrapper - Got something from configuration:", value.data.basePath);
                 setBaseURL(value.data.basePath)
                 setBasePath(value.data.basePath);
             })
             .catch((reason) => {
-                console.log("Error getting config:", reason);
+                console.log("ProviderWrapper - Error getting config:", reason);
                 setBasePath("/");
             });
     }, [basePath]);

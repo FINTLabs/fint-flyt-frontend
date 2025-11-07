@@ -18,6 +18,8 @@ const Dashboard: RouteComponent = () => {
     });
     const history = useNavigate();
 
+    console.log('Dashboard rendered');
+
     const { resetIntegration, integrations, getAllIntegrations, totalStatistics } =
         useContext(IntegrationContext);
     const activeIntegrations =
