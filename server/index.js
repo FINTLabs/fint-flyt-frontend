@@ -16,7 +16,6 @@ const app = express();
 app.use(morgan("combined"))
 app.use(rewrite(/\/static\/(\w.+)/i, BASE_PATH + '/static/$1'));
 app.use(rewrite(/\/manifest.json$/, BASE_PATH + '/manifest.json'));
-app.use(rewrite(/\/*api\/application\/configuration/, `${BASE_PATH}/api/application/configuration`));
 app.use(promMid({
     metricsPath: `${BASE_PATH}/metrics`,
     collectDefaultMetrics: true,
@@ -31,15 +30,8 @@ app.get(`${BASE_PATH}/api/application/configuration`, (req, res) => {
     })
 })
 
-app.get(/api\/application\/configuration/, (req, res) => {
+app.get(/\/api\/application\/configuration\/?$/i, (req, res) => {
     log.info('app.get(/api/application/configuration/');
-    res.send({
-        basePath: BASE_PATH
-    })
-})
-
-app.use(/api\/application\/configuration/, (req, res) => {
-    log.info('app.use(/api/application/configuration/,');
     res.send({
         basePath: BASE_PATH
     })
