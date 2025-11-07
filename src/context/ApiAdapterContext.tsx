@@ -81,7 +81,7 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
             return url;
         }
 
-       if (url.startsWith('/')) {
+/*       if (url.startsWith('/')) {
             if (!baseURL || baseURL === '/') {
                 return url;
             }
@@ -90,7 +90,7 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
 
         if (!baseURL) {
             return `/${url}`;
-        }
+        }*/
 
         return `${baseURL}${url}`;
     }
