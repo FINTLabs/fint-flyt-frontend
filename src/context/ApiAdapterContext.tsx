@@ -1,8 +1,6 @@
 import { ContextProps } from './constants/interface';
 import { createContext, useState } from 'react';
 
-const BASE_PATH = process.env.BASE_PATH || '';
-
 export type AdapterRequestConfigType = {
     params?: Record<string, string | string[] | number | boolean | null | undefined>;
     headers?: Headers;
@@ -58,40 +56,18 @@ const apiAdapterDefaultValues: apiAdapterState = {
 const ApiAdapterContext = createContext<apiAdapterState>(apiAdapterDefaultValues);
 
 const APIAdapterProvider = ({ children }: ContextProps) => {
-    const [baseURL, setBaseURL] = useState<string>(BASE_PATH);
-
-    console.log('APIAdapterProvider rendered with BASE_PATH:', BASE_PATH);
-
-
-  /*  useEffect(() => {
-        console.log('APIAdapterProvider mounted', BASE_PATH);
-    }, []);
-
-    console.log('APIAdapterProvider baseURL', baseURL);
-
-    useEffect(() => {
-        console.log('useEffect - Getting base url from configuration');
-        get<{ basePath: string }>('api/application/configuration')
-            .then((value) => {
-                console.log('useEffect - Got base url from configuration:', value.data.basePath);
-                setBaseURL(value.data.basePath);
-            })
-            .catch((reason) => {
-                console.error('useEffect - Error getting config:', reason);
-                setBaseURL('/');
-            });
-    }, []);*/
+    const [baseURL, setBaseURL] = useState<string>('');
 
     async function getBaseURL(): Promise<string> {
-        console.log('Getting base url from configuration');
+        console.log('Getting base url in getBaseURL');
         return await get<{ basePath: string }>('api/application/configuration')
             .then((value) => {
-                console.log('Got base url from configuration:', value.data.basePath);
+                console.log('Got base url in getBaseURL:', value.data.basePath);
                 setBaseURL(value.data.basePath);
                 return value.data.basePath;
             })
             .catch((reason) => {
-                console.error('Error getting config:', reason);
+                console.error('Error getting config in getBaseURL:', reason);
                 setBaseURL('/');
                 return '/';
             });
@@ -102,7 +78,7 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
             return url;
         }
 
-/*        if (url.startsWith('/')) {
+       if (url.startsWith('/')) {
             if (!baseURL || baseURL === '/') {
                 return url;
             }
@@ -111,7 +87,7 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
 
         if (!baseURL || baseURL === '/') {
             return `/${url}`;
-        }*/
+        }
 
         return `${baseURL}${url}`;
     }

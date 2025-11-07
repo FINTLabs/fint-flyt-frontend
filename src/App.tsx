@@ -5,7 +5,6 @@ import ProviderWrapper from './ProviderWrapper';
 import { APIAdapterProvider } from './context/ApiAdapterContext';
 
 function App() {
-    console.log('App rendered');
     return (
         <APIAdapterProvider>
             <ProviderWrapper>

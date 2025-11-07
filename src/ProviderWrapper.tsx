@@ -7,18 +7,12 @@ import theme from './util/styles/theme/theme';
 import './global.css';
 import AuthorizationProvider from './context/AuthorizationContext';
 import { ApiAdapterContext } from './context/ApiAdapterContext';
-import { BASE_PATH } from './environment.js'
-
 
 function ProviderWrapper({ children }: { children?: React.ReactNode }) {
     const { get, setBaseURL } = useContext(ApiAdapterContext);
 
-    console.log("ProviderWrapper rendered");
-    console.log("ProviderWrapper - BASE_PATH:", BASE_PATH);
-
     const [basePath, setBasePath] = useState<string>();
     useEffect(() => {
-        console.log("ProviderWrapper useEffect");
         get<{basePath: string }>("api/application/configuration")
             .then((value) => {
                 console.log("ProviderWrapper - Got something from configuration:", value.data.basePath);
@@ -27,9 +21,8 @@ function ProviderWrapper({ children }: { children?: React.ReactNode }) {
             })
             .catch((reason) => {
                 console.log("ProviderWrapper - Error getting config:", reason);
-                console.log("BASE_PATH:", BASE_PATH);
-                setBaseURL(BASE_PATH ?? "/");
-                setBasePath(BASE_PATH ?? "/");
+                setBaseURL("/");
+                setBasePath("/");
             });
     }, []);
 

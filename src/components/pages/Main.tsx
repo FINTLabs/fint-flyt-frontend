@@ -15,8 +15,6 @@ function Main() {
     } = useContext(AuthorizationContext);
     const { authorized, getAuthorization } = useContext(AuthorizationContext);
 
-    console.log('Main rendered')
-
     useEffect(() => {
         getUser();
         getAuthorization();

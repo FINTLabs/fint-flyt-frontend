@@ -50,7 +50,4 @@ app.get(`${BASE_PATH}/*`, (req, res) => {
 });
 
 
-app.listen(PORT, () => {
-    log.info(app._router.stack);
-    log.info(`Application started on http://localhost:${PORT}${BASE_PATH}`)
-});
+app.listen(PORT, () => log.info(`Application started on http://localhost:${PORT}${BASE_PATH}`));
