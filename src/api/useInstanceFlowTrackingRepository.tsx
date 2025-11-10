@@ -48,7 +48,7 @@ export default function useInstanceFlowTrackingRepository () {
             });
         }
 
-        return get<ISummary[]>('api/intern/instance-flow-tracking/summaries', { params });
+        return get<ISummary[]>('/api/intern/instance-flow-tracking/summaries', { params });
     };
 
     const getEventsByInstanceId = (
@@ -58,7 +58,7 @@ export default function useInstanceFlowTrackingRepository () {
         kildeapplikasjonId?: number,
         kildeapplikasjonInstansId?: string
     ) => {
-        return get<IInstanceFlowTrackingResponse>(`api/intern/instance-flow-tracking/events`, {
+        return get<IInstanceFlowTrackingResponse>(`/api/intern/instance-flow-tracking/events`, {
             params: {
                 size: rowCount,
                 sort: sortProperty,
@@ -75,7 +75,7 @@ export default function useInstanceFlowTrackingRepository () {
         archiveInstanceId: string,
         sourceApplicationIntegrationId: string
     ) => {
-        return post(`api/intern/instance-flow-tracking/events/instance-manually-processed`, {
+        return post(`/api/intern/instance-flow-tracking/events/instance-manually-processed`, {
             archiveInstanceId,
             sourceApplicationId,
             sourceApplicationInstanceId,
@@ -87,7 +87,7 @@ export default function useInstanceFlowTrackingRepository () {
         sourceApplicationId: number,
         sourceApplicationIntegrationId: string
     ) => {
-        return post(`api/intern/instance-flow-tracking/events/instance-manually-rejected`, {
+        return post(`/api/intern/instance-flow-tracking/events/instance-manually-rejected`, {
             sourceApplicationId,
             sourceApplicationInstanceId,
             sourceApplicationIntegrationId,
@@ -99,7 +99,7 @@ export default function useInstanceFlowTrackingRepository () {
         sourceApplicationId: number,
         sourceApplicationIntegrationId: string
     ) => {
-        return post(`api/intern/instance-flow-tracking/events/instance-status-overridden-as-transferred`, {
+        return post(`/api/intern/instance-flow-tracking/events/instance-status-overridden-as-transferred`, {
             sourceApplicationId,
             sourceApplicationInstanceId,
             sourceApplicationIntegrationId,
@@ -107,11 +107,11 @@ export default function useInstanceFlowTrackingRepository () {
     };
 
     const getAllStatistics = () => {
-        return get<ITotalStatistics>('api/intern/instance-flow-tracking/statistics/total');
+        return get<ITotalStatistics>('/api/intern/instance-flow-tracking/statistics/total');
     };
 
     const getStatistics = () => {
-        return get<Page<IIntegrationDetailedStatistics>>(`api/intern/instance-flow-tracking/statistics/integrations`);
+        return get<Page<IIntegrationDetailedStatistics>>(`/api/intern/instance-flow-tracking/statistics/integrations`);
     };
 
     return {

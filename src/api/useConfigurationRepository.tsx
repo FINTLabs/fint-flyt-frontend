@@ -15,7 +15,7 @@ export default function useConfigurationRepository() {
         integrationId: string,
         excludeElements?: boolean
     ) => {
-        return get<Page<IConfiguration>>('api/intern/konfigurasjoner/', {
+        return get<Page<IConfiguration>>('/api/intern/konfigurasjoner/', {
             params: {
                 side: page,
                 antall: size,
@@ -28,18 +28,18 @@ export default function useConfigurationRepository() {
         });
     };
     const getConfigurationById = (configurationId: string, excludeElements?: boolean) => {
-        return get<IConfiguration>(`api/intern/konfigurasjoner/${configurationId}`, {
+        return get<IConfiguration>(`/api/intern/konfigurasjoner/${configurationId}`, {
             params: { ekskluderMapping: excludeElements },
         });
     };
     const createConfiguration = (data: IConfiguration) => {
-        return post<IConfiguration>(`api/intern/konfigurasjoner`, data);
+        return post<IConfiguration>(`/api/intern/konfigurasjoner`, data);
     };
     const updateConfiguration = (configurationId: string, data: IConfigurationPatch) => {
-        return patch<IConfiguration>(`api/intern/konfigurasjoner/${configurationId}`, data);
+        return patch<IConfiguration>(`/api/intern/konfigurasjoner/${configurationId}`, data);
     };
     const deleteConfiguration = (configurationId: string) => {
-        return deleteFetch(`api/intern/konfigurasjoner/${configurationId}`);
+        return deleteFetch(`/api/intern/konfigurasjoner/${configurationId}`);
     };
 
     return {

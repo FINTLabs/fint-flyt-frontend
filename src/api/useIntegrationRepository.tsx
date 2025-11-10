@@ -8,13 +8,13 @@ export default function useIntegrationRepository () {
     const { get, post, patch } = useContext(ApiAdapterContext)
 
     const getAllIntegrations = () => {
-        return get<IIntegration[]>("api/intern/integrasjoner");
+        return get<IIntegration[]>("/api/intern/integrasjoner");
     };
 
     const getAllIntegrationBySourceApplicationId = (
         sourceApplicationId: string
     ): Promise<{ data: IIntegration[] }> => {
-        return get(`api/intern/integrasjoner?sourceApplicationId=${sourceApplicationId}`);
+        return get(`/api/intern/integrasjoner?sourceApplicationId=${sourceApplicationId}`);
     };
 
     const getIntegrations = (
@@ -23,7 +23,7 @@ export default function useIntegrationRepository () {
         sortProperty: string,
         sortDirection: string
     ) => {
-        return get<Page<IIntegration>>("api/intern/integrasjoner", {
+        return get<Page<IIntegration>>("/api/intern/integrasjoner", {
             params: {
                 side: page,
                 antall: size,
@@ -34,13 +34,13 @@ export default function useIntegrationRepository () {
     };
 
     const getIntegration = (integrationId: string) => {
-        return get(`api/intern/integrasjoner/${integrationId}`);
+        return get(`/api/intern/integrasjoner/${integrationId}`);
     };
     const createIntegration = (data: IIntegration) => {
-        return post<IIntegration>("api/intern/integrasjoner", data);
+        return post<IIntegration>("/api/intern/integrasjoner", data);
     };
     const updateIntegration = (integrationId: string, data: IIntegrationPatch) => {
-        return patch<{activeConfigurationId: string}>(`api/intern/integrasjoner/${integrationId}`, data);
+        return patch<{activeConfigurationId: string}>(`/api/intern/integrasjoner/${integrationId}`, data);
     };
 
     return {

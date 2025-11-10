@@ -68,8 +68,7 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
             })
             .catch((reason) => {
                 console.error('Error getting config in getBaseURL:', reason);
-                setBaseURL('/');
-                return '/';
+                return '';
             });
     }
 
@@ -78,11 +77,18 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
             return url;
         }
 
-        if (baseURL !== '/' && baseURL.endsWith('/') && !url.startsWith('/')) {
-            return `${baseURL}/${url}`;
+        console.log('buildURL url:', url);
+        console.log('buildURL baseURL:', baseURL, baseURL.endsWith('/'));
+
+        if (!baseURL || baseURL === '/') {
+            return url
         }
 
-        return `${baseURL}${url}`;
+        if (baseURL.endsWith('/')) {
+            return `${baseURL}${url}`;
+        }
+
+        return `${baseURL}/${url}`;
     }
 
     async function handleResponse<T>(response: Response): Promise<{ data: T; status: number }> {

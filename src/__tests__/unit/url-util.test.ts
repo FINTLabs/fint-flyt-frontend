@@ -3,7 +3,7 @@ import {IUrlBuilder} from "../../features/configuration/types/FormTemplate";
 
 const sourceUrlBuilder: IUrlBuilder[] = [
     {
-        urlTemplate: "api/intern/arkiv/kodeverk/klasse",
+        urlTemplate: "/api/intern/arkiv/kodeverk/klasse",
         valueRefPerRequestParamKey: {
             klassifikasjonssystemLink: "klassifikasjonssystem"
         }
