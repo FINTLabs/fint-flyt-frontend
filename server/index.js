@@ -15,11 +15,6 @@ const app = express();
 
 app.use(morgan("combined"))
 
-app.all('*', (req, res, next) => {
-    console.log("Something was requested", req.path);
-    next()
-})
-
 app.use(rewrite(/\/static\/(\w.+)/i, BASE_PATH + '/static/$1'));
 app.use(rewrite(/\/manifest.json$/, BASE_PATH + '/manifest.json'));
 
@@ -33,15 +28,12 @@ app.use(promMid({
 app.use(BASE_PATH + '/', express.static(path.join(`${__dirname}/../`, 'build')));
 
 app.get(`${BASE_PATH}/api/application/configuration`, (req, res) => {
-    log.info('app.get(`${BASE_PATH}/api/application/configuration`')
     res.send({
         basePath: BASE_PATH
     })
 })
 
 app.get(`${BASE_PATH}/*`, (req, res) => {
-    console.log("Request path", req.path);
-    log.info(`Handling GET request for ${req.path}`);
     if (req.path.includes("/api/")) {
         res.send([])
     } else {

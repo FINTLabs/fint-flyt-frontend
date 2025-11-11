@@ -56,19 +56,17 @@ const apiAdapterDefaultValues: apiAdapterState = {
 const ApiAdapterContext = createContext<apiAdapterState>(apiAdapterDefaultValues);
 
 const APIAdapterProvider = ({ children }: ContextProps) => {
-    const [baseURL, setBaseURL] = useState<string>('');
+    const [baseURL, setBaseURL] = useState<string>("");
 
     async function getBaseURL(): Promise<string> {
-        console.log('Getting base url in getBaseURL');
         return await get<{ basePath: string }>('api/application/configuration')
             .then((value) => {
-                console.log('Got base url in getBaseURL:', value.data.basePath);
                 setBaseURL(value.data.basePath);
                 return value.data.basePath;
             })
             .catch((reason) => {
                 console.error('Error getting config in getBaseURL:', reason);
-                return '';
+                return "/";
             });
     }
 
@@ -76,9 +74,6 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
         if (url.startsWith('http://') || url.startsWith('https://')) {
             return url;
         }
-
-        console.log('buildURL url:', url);
-        console.log('buildURL baseURL:', baseURL, baseURL.endsWith('/'));
 
         if (!baseURL || baseURL === '/') {
             return url
@@ -145,7 +140,6 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
                 setTimeout(() => controller.abort(), config.timeout);
             }
 
-            console.log('apiAdapter get - finalURL: ', finalURL);
             const response = await fetch(finalURL, {
                 method: 'GET',
                 headers,
@@ -172,7 +166,6 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
 
         const headers = config?.headers ? { ...defaultHeaders, ...config.headers } : defaultHeaders;
 
-        console.log('apiAdapter post - fullURL: ', fullURL, ' data: ', data);
         const response = await fetch(fullURL, {
             method: 'POST',
             headers,
@@ -195,7 +188,6 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
 
         const headers = config?.headers ? { ...defaultHeaders, ...config.headers } : defaultHeaders;
 
-        console.log('apiAdapter patch - fullURL: ', fullURL, ' data: ', data);
         const response = await fetch(fullURL, {
             method: 'PATCH',
             headers,
@@ -217,7 +209,6 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
 
         const headers = config?.headers ? { ...defaultHeaders, ...config.headers } : defaultHeaders;
 
-        console.log('apiAdapter delete - fullURL: ', fullURL);
         const response = await fetch(fullURL, {
             method: 'DELETE',
             headers,

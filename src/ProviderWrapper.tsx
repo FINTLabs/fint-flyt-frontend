@@ -16,7 +16,6 @@ function ProviderWrapper({ children }: { children?: React.ReactNode }) {
     useEffect(() => {
         get<{basePath: string }>("api/application/configuration")
             .then((value) => {
-                console.log("ProviderWrapper - Got something from configuration:", value.data.basePath);
                 setBaseURL(value.data.basePath)
                 setBasePath(value.data.basePath);
             })
