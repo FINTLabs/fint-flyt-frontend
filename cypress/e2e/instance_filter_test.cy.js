@@ -42,19 +42,7 @@ describe('Testing instance list', () => {
                 url: '**/api/intern/instance-flow-tracking/value-space/time/current-period/selectables',
                 fixture: 'filter/current-period.json',
                 alias: 'event-category-3',
-            },
-            {
-                method: 'GET',
-                url: '/api/application/configuration',
-                fixture: 'basepathConfig.json',
-                alias: 'getConfig1',
-            },
-            {
-                method: 'GET',
-                url: '**/integration/instance/api/application/configuration',
-                fixture: 'basepathConfig.json',
-                alias: 'getConfig2',
-            },
+            }
         ];
 
         intercepts.forEach(({ method, url, fixture, response, alias }) => {
@@ -68,8 +56,12 @@ describe('Testing instance list', () => {
 
     function prep() {
         cy.intercept('GET', '**/authorization/me', { fixture: 'me.json' }).as('getMe');
-        cy.intercept('GET', '**/authorization/me/is-authorized', { fixture: 'auth.json' });
-        cy.intercept('GET', '**/authorization/me/restricted-page-authorization', {
+        cy.intercept('GET', '**/authorization/me/is-authorized', {
+            fixture: 'auth.json',
+            headers: {
+                'Content-Type': 'text/plain',
+            },
+        }).as('getAuth');        cy.intercept('GET', '**/authorization/me/restricted-page-authorization', {
             userPermissionPage: true,
         });
         cy.intercept('GET', '**/authorization/users?page=0&size=10', { fixture: 'users.json' });

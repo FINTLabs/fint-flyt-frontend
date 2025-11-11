@@ -25,9 +25,12 @@ const Instances: RouteComponent = () => {
     const history = useNavigate();
     const [showFilters, setShowFilters] = useState(false);
 
-    if (!authorized) {
-        history('/forbidden');
-    }
+    useEffect(() => {
+        if (authorized === false) {
+            history('/forbidden');
+        }
+    }, [authorized]);
+
     useEffect(() => {
         getAuthorization();
     }, []);

@@ -8,7 +8,7 @@ import ErrorDialogComponent from './ErrorDialogComponent';
 import { Box, Button, HStack, Link, Loader, Table } from '@navikt/ds-react';
 import { GetIcon } from '../util/InstanceUtils';
 import { IAlertMessage } from '../../../components/types/TableTypes';
-import InstanceFlowTrackingRepository from '../../../api/InstanceFlowTrackingRepository';
+import useInstanceFlowTrackingRepository from '../../../api/useInstanceFlowTrackingRepository';
 
 type Props = {
     id: string;
@@ -20,6 +20,7 @@ type Props = {
 
 const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.instances' });
+    const InstanceFlowTrackingRepository = useInstanceFlowTrackingRepository()
     const [selectedRow, setSelectedRow] = useState<IInstanceFlowTracking>();
     const [openErrorDialog, setOpenErrorDialog] = React.useState(false);
     const [selectedInstances, setSelectedInstances] = useState<IInstanceFlowTrackingResponse>();

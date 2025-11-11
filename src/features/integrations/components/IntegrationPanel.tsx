@@ -22,9 +22,9 @@ import {
     VStack
 } from "@navikt/ds-react";
 import {MenuElipsisVerticalCircleIcon, PencilWritingIcon} from '@navikt/aksel-icons';
-import IntegrationRepository from "../../../api/IntegrationRepository";
-import ConfigurationRepository from "../../../api/ConfigurationRepository";
 import {IAlertMessage, Page} from "../../../components/types/TableTypes";
+import useConfigurationRepository from '../../../api/useConfigurationRepository';
+import useIntegrationRepository from '../../../api/useIntegrationRepository';
 
 type Props = {
     id: string
@@ -35,6 +35,7 @@ type Props = {
 const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
     const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.integrations' });
     const history = useNavigate();
+    const IntegrationRepository = useIntegrationRepository()
     const {
         setConfiguration,
         setExistingIntegrationMetadata,
@@ -45,6 +46,7 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
         setSourceApplication,
         getInstanceElementMetadata,
     } = useContext(SourceApplicationContext)
+    const ConfigurationRepository = useConfigurationRepository()
     const [activeVersion, setActiveVersion] = useState<string>('');
     const [openDialog, setOpenDialog] = React.useState(false);
     const [configToActivate, setConfigToActivate] = React.useState<string>('')
@@ -109,10 +111,10 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
         await ConfigurationRepository.getConfigurationById(id.toString(), false)
             .then(async (response) => {
                 const data = response.data
-                const usedVersionMetadata = allMetadata?.filter(md => md.id === data.integrationMetadataId)
+                const usedVersionMetadata = allMetadata?.filter(md => md.id.toString() === data.integrationMetadataId?.toString())
                 setExistingIntegrationMetadata(usedVersionMetadata ? usedVersionMetadata[0] : undefined)
                 if (version) {
-                    data.id = undefined;
+                    data.id = 0
                     data.comment = undefined
                     data.completed = false;
                 }

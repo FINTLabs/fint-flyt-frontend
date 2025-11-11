@@ -8,13 +8,11 @@ import {
 import {ISelect} from "../features/configuration/types/Select";
 import {ContextProps} from "./constants/interface";
 import {MOCK_INSTANCE_METADATA} from "../__tests__/mock/mapping/mock-instans-metadata";
-import SourceApplicationRepository from "../api/SourceApplicationRepository";
-import IntegrationRepository from '../api/IntegrationRepository';
 import i18n from "../util/locale/i18n";
 import {ISourceApplication} from "../features/configuration/types/SourceApplication";
-import AuthorizationRepository from "../api/AuthorizationRepository";
-import {AxiosResponse} from "axios";
-import {IUser} from "../components/pages/UserAccess";
+import useSourceApplicationRepository from '../api/useSourceApplicationRepository';
+import useIntegrationRepository from '../api/useIntegrationRepository';
+import useAuthorizationRepository from '../api/useAuthorizationRepository';
 
 type SourceApplicationContextState = {
     availableForms: ISelect[] | undefined;
@@ -63,6 +61,8 @@ const SourceApplicationContext =
     createContext<SourceApplicationContextState>(contextDefaultValues);
 
 const SourceApplicationProvider = ({children}: ContextProps) => {
+    const AuthorizationRepository = useAuthorizationRepository();
+    const IntegrationRepository = useIntegrationRepository();
     const [availableForms, setAvailableForms] = useState<ISelect[] | undefined>(contextDefaultValues.availableForms);
     const [allMetadata, setAllMetadata] = useState<IIntegrationMetadata[] | undefined>(contextDefaultValues.allMetadata);
     const [instanceElementMetadata, setInstanceElementMetadata] = useState<IInstanceMetadataContent | undefined>(MOCK_INSTANCE_METADATA);
@@ -72,6 +72,8 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
     const [currentMetaData, setCurrentMetaData] = useState<IIntegrationMetadata[] | undefined>(
         contextDefaultValues.currentMetaData
     );
+
+    const SourceApplicationRepository = useSourceApplicationRepository()
 
     function getInstanceObjectCollectionMetadata(keys: string[]): void {
         setInstanceObjectCollectionMetadata(
@@ -185,11 +187,11 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
         try {
             const allMetadata: IIntegrationMetadata[][] = [];
 
-            const response: AxiosResponse<IUser> = await AuthorizationRepository.getUserSourceApplications();
+            const response = await AuthorizationRepository.getUserSourceApplications();
             const sourceApplications: string[] = response.data.sourceApplicationIds.map(String);
 
             for (const sourceApplication of sourceApplications) {
-                const metadataResponse: AxiosResponse<IIntegrationMetadata[]> = await SourceApplicationRepository.getMetadata(
+                const metadataResponse = await SourceApplicationRepository.getMetadata(
                     sourceApplication,
                     onlyLatest
                 );
@@ -210,7 +212,7 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
         updateAvailableForms: boolean
     ): Promise<void> => {
         try {
-            const metadataResponse: AxiosResponse<IIntegrationMetadata[]> =
+            const metadataResponse =
                 await SourceApplicationRepository.getMetadata(sourceApplicationId, onlyLatest);
             const metaData = metadataResponse.data || [];
             setCurrentMetaData(metaData);

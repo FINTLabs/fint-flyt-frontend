@@ -4,11 +4,10 @@ import {useTranslation} from "react-i18next";
 import {Controller, FormProvider, useForm, useWatch} from "react-hook-form";
 import SelectValueComponent from "../../configuration/components/mapping/value/select/SelectValueComponent";
 import {defaultAlert, destinations, fromTypeIds, toTypeIds,} from "../../configuration/defaults/DefaultValues";
-import ValueConvertingRepository from "../../../api/ValueConvertingRepository";
 import StringValueComponent from "../../configuration/components/mapping/value/string/StringValueComponent";
 import {IValueConverting} from "../types/ValueConverting";
 import {IAlertContent} from "../../configuration/types/AlertContent";
-import getSelectables from "../../configuration/util/SelectablesUtils";
+import { sortAndHandleSelectables } from '../../configuration/util/SelectablesUtils';
 import {ISelectable} from "../../configuration/types/Selectable";
 import ArrayComponent from "../../configuration/components/common/array/ArrayComponent";
 import SearchSelectValueComponent from "../../configuration/components/mapping/value/select/SearchSelectValueComponent";
@@ -16,10 +15,12 @@ import {Alert, Box, Button, Heading, HelpText, HStack, VStack,} from "@navikt/ds
 import {ISelect} from "../../configuration/types/Select";
 import {AuthorizationContext} from "../../../context/AuthorizationContext";
 import {getSourceApplicationDisplayNameById} from "../../../util/TableUtil";
+import useValueConvertingRepository from '../../../api/useValueConvertingRepository';
+import useResourceRepository from '../../../api/useResourceRepository';
 
 type Props = {
     existingValueConverting: IValueConverting | undefined;
-    setExistingValueConverting: React.Dispatch<React.SetStateAction<undefined>>;
+    setExistingValueConverting: React.Dispatch<React.SetStateAction<IValueConverting | undefined>>;
     setNewValueConverting: React.Dispatch<React.SetStateAction<boolean>>;
 };
 type IValueConvertingFormData = Omit<IValueConverting, "convertingMap"> & {
@@ -29,6 +30,9 @@ type IValueConvertingFormData = Omit<IValueConverting, "convertingMap"> & {
 type IValueConvertingConvertingArrayEntry = { from: string; to: string };
 
 export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props) => {
+    const ValueConvertingRepository = useValueConvertingRepository()
+    const ResourceRepository = useResourceRepository()
+
     const {t} = useTranslation("translations", {keyPrefix: "pages.valueConverting",});
     const {activeUserSourceApps} = useContext(AuthorizationContext)
     const [disabled, setDisabled] = useState<boolean>(false);
@@ -51,10 +55,14 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
 
     useEffect(() => {
         getSelectableSourceApplications()
-        getSelectables([{url: "api/intern/arkiv/kodeverk/format",},
+        ResourceRepository.getSelectableKodeverkFormat().then((result => {
+            const sortedResult = sortAndHandleSelectables(result.data)
+            setToSelectables(sortedResult);
+        }))
+/*        getSelectables([{url: "api/intern/arkiv/kodeverk/format",},
         ]).then((result: ISelectable[]) => {
             setToSelectables(result);
-        });
+        });*/
         ValueConvertingRepository.getValueConvertings(0, 1000, 'id', 'DESC', true)
             .then(response => {
                 const data: IValueConverting[] = response.data.content

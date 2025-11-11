@@ -28,10 +28,15 @@ describe('Testing instance list', () => {
     });
 
     function prep() {
-        cy.intercept('GET', '**/authorization/me', { fixture: 'me.json' }).as('getMe');
-        cy.intercept('GET', '**/authorization/me/is-authorized', { fixture: 'auth.json' }).as(
-            'getAuth'
-        );
+        cy.intercept('GET', '**/authorization/me', {
+            fixture: 'me.json',
+        }).as('getMe');
+        cy.intercept('GET', '**/authorization/me/is-authorized', {
+            fixture: 'auth.json',
+            headers: {
+                'Content-Type': 'text/plain',
+            },
+        }).as('getAuth');
         cy.intercept('GET', '**/authorization/me/restricted-page-authorization', {
             userPermissionPage: true,
         }).as('getUserPermissionsPage');

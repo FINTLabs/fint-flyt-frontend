@@ -38,9 +38,11 @@ const Dashboard: RouteComponent = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    if (!authorized) {
-        history('/forbidden');
-    }
+    useEffect(() => {
+        if (authorized === false) {
+            history('/forbidden');
+        }
+    }, [authorized]);
 
     const cards: ICard[] = [
         {

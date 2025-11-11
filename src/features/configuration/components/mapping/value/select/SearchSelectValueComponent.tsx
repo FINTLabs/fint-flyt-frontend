@@ -1,5 +1,5 @@
 import * as React from "react";
-import {forwardRef, useEffect, useState} from "react";
+import {forwardRef, useEffect, useMemo, useState} from "react";
 import {ISelectable} from "../../../../types/Selectable";
 import {Autocomplete, createFilterOptions, TextField, Typography} from "@mui/material";
 import {autoCompleteSX, errorMsgSX} from "../../../../../../util/styles/SystemStyles";
@@ -27,6 +27,9 @@ const SearchSelectValueComponent: React.FunctionComponent<Props> = forwardRef<HT
     });
 
     const [displayNamePerValue, setDisplayNamePerValue] = useState<Record<string, string>>({});
+    const loading = useMemo(() => {
+        return Object.keys(props.selectables).length === 0 || Object.keys(displayNamePerValue).length === 0;
+    }, [props.selectables])
 
     useEffect(() => {
         const newDisplayNamePerValue: Record<string, string> = {}
@@ -40,9 +43,10 @@ const SearchSelectValueComponent: React.FunctionComponent<Props> = forwardRef<HT
         <Autocomplete
             sx={autoCompleteSX}
             id={absoluteKey}
+            loading={loading}
             filterOptions={filterOptions}
             options={Object.keys(displayNamePerValue)}
-            getOptionLabel={(option: string) => option ? displayNamePerValue[option as string] : ''}
+            getOptionLabel={(option: string) => displayNamePerValue[option as string] ?? ''}
             renderInput={(params) => (
                 <TextField
                     {...params}

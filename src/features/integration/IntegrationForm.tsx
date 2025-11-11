@@ -25,14 +25,13 @@ import {
     VStack,
 } from '@navikt/ds-react';
 import PageTemplate from '../../components/templates/PageTemplate';
-import { AxiosResponse } from 'axios';
-import IntegrationRepository from '../../api/IntegrationRepository';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { IAlertContent } from '../configuration/types/AlertContent';
 import i18n from '../../util/locale/i18n';
 import { ISelect } from '../configuration/types/Select';
 import { AuthorizationContext } from '../../context/AuthorizationContext';
 import { getSourceApplicationDisplayNameById } from '../../util/TableUtil';
+import useIntegrationRepository from '../../api/useIntegrationRepository';
 
 type Props = {
     id: string;
@@ -40,6 +39,7 @@ type Props = {
 
 export const IntegrationForm: React.FunctionComponent<Props> = () => {
     const history = useNavigate();
+    const IntegrationRepository = useIntegrationRepository()
     const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationForm' });
     const {
         setExistingIntegrationMetadata,
@@ -141,10 +141,10 @@ export const IntegrationForm: React.FunctionComponent<Props> = () => {
         const newIntegration: IIntegration = toIntegration(data, IntegrationState.DEACTIVATED);
 
         IntegrationRepository.createIntegration(newIntegration)
-            .then((response: AxiosResponse) => {
-                setSourceApplicationIntegrationId(response.data.sourceApplicationIntegrationId);
+            .then((response) => {
+                setSourceApplicationIntegrationId(response.data.sourceApplicationIntegrationId ?? '');
                 setExistingIntegration(response.data);
-                navToConfiguration(response.data.sourceApplicationIntegrationId);
+                navToConfiguration(response.data.sourceApplicationIntegrationId ?? '');
                 console.log('create new integration', newIntegration);
             })
             .catch((e: Error) => {

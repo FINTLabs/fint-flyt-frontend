@@ -26,22 +26,23 @@ import {
     errorAlert,
     savedAlert,
 } from '../../features/configuration/defaults/DefaultValues';
-import ConfigurationRepository from '../../api/ConfigurationRepository';
 import { pruneObjectMapping } from '../../util/mapping/helpers/pruning';
 import EditingProvider, { EditingContext } from '../../context/EditingContext';
 import { RouteComponent } from '../../routes/Route';
 import { isEmpty } from 'lodash';
 import PageTemplate from '../templates/PageTemplate';
 import { Alert, Button, Heading, HStack, VStack } from '@navikt/ds-react';
-import { AxiosResponse } from 'axios';
-import IntegrationRepository from '../../api/IntegrationRepository';
 import { AuthorizationContext } from '../../context/AuthorizationContext';
+import useConfigurationRepository from '../../api/useConfigurationRepository';
+import useIntegrationRepository from '../../api/useIntegrationRepository';
 
 const Configuration: RouteComponent = () => {
     const { getInstanceElementMetadata, setInstanceElementMetadata } =
         useContext(SourceApplicationContext);
     const { completed, setCompleted, resetConfigurationContext } = useContext(ConfigurationContext);
     const { setEditCollectionAbsoluteKey } = useContext(EditingContext);
+    const IntegrationRepository = useIntegrationRepository()
+
     const { t } = useTranslation('translations', { keyPrefix: 'pages.configuration' });
     const history = useNavigate();
     const {
@@ -52,6 +53,7 @@ const Configuration: RouteComponent = () => {
         setConfiguration,
         resetIntegrationContext,
     } = useContext(IntegrationContext);
+    const ConfigurationRepository = useConfigurationRepository()
     const [active, setActive] = useState<boolean>(
         existingIntegration?.activeConfigurationId === configuration?.id
     );
@@ -62,9 +64,12 @@ const Configuration: RouteComponent = () => {
     >([]);
     const { authorized, getAuthorization } = useContext(AuthorizationContext);
 
-    if (!authorized) {
-        history('/forbidden');
-    }
+    useEffect(() => {
+        if (authorized === false) {
+            history('/forbidden');
+        }
+    }, [authorized]);
+
     if (!existingIntegration) {
         history('/');
     }
@@ -206,7 +211,7 @@ const Configuration: RouteComponent = () => {
             destination: existingIntegration?.destination,
         };
         IntegrationRepository.updateIntegration(integrationId, patch)
-            .then((response: AxiosResponse) => {
+            .then((response) => {
                 setAlertContent(activeAlert);
                 setShowAlert(true);
                 setCompleted(true);

@@ -1,7 +1,6 @@
 import React, {ReactElement, useEffect, useState} from 'react';
 import {useNavigate} from 'react-router';
 import {useTranslation} from 'react-i18next';
-import ValueConvertingRepository from "../../../api/ValueConvertingRepository";
 import {IValueConverting} from "../types/ValueConverting";
 import {getDestinationDisplayName, getSourceApplicationDisplayNameById} from "../../../util/TableUtil";
 import {
@@ -17,6 +16,7 @@ import {
 import {MenuElipsisVerticalCircleIcon} from "@navikt/aksel-icons";
 import ValueConvertingPanel from "./ValueConvertingPanel";
 import {IAlertMessage} from "../../../components/types/TableTypes";
+import useValueConvertingRepository from '../../../api/useValueConvertingRepository';
 
 type Props = {
     onValueConvertingSelected: (id: number) => void;
@@ -24,6 +24,7 @@ type Props = {
 }
 
 const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
+    const ValueConvertingRepository = useValueConvertingRepository()
     const history = useNavigate();
     const {t} = useTranslation('translations', {keyPrefix: 'pages.valueConverting'});
     const [rows, setRows] = useState<IValueConverting[] | undefined>(undefined)
@@ -35,6 +36,7 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
     sortData = sortData.slice((page - 1) * rowsPerPage, page * rowsPerPage);
 
     useEffect(() => {
+        // TODO: fix this
         ValueConvertingRepository.getValueConvertings(0, 100, 'id', 'DESC', false)
             .then(response => {
                 setError(undefined)

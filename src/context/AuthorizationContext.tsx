@@ -1,7 +1,6 @@
 import { createContext, useMemo, useState } from 'react';
 import { ContextProps } from './constants/interface';
-import AuthorizationRepository from '../api/AuthorizationRepository';
-import { AxiosResponse } from 'axios';
+import useAuthorizationRepository from '../api/useAuthorizationRepository';
 
 type AuthorizationContextState = {
     authorized: boolean | undefined;
@@ -24,18 +23,20 @@ const contextDefaultValues: AuthorizationContextState = {
     getUser: () => undefined,
     activeUserSourceApps: undefined,
     getActiveUserSourceApps: () => undefined,
-    logoutUrl: undefined
+    logoutUrl: undefined,
 };
 
 const AuthorizationContext = createContext<AuthorizationContextState>(contextDefaultValues);
 
 const AuthorizationProvider = ({ children, basePath }: ContextProps & { basePath?: string }) => {
+    const AuthorizationRepository = useAuthorizationRepository();
     const [authorized, setAuthorized] = useState<boolean | undefined>(
         contextDefaultValues.authorized
     );
     const [hasAccessToUserPermissionPage, sethasAccessToUserPermissionPage] = useState<
         boolean | undefined
     >(contextDefaultValues.hasAccessToUserPermissionPage);
+
     const [activeUserSourceApps, setActiveUserSourceApps] = useState<string[] | undefined>(
         undefined
     );
@@ -56,8 +57,7 @@ const AuthorizationProvider = ({ children, basePath }: ContextProps & { basePath
 
     const getActiveUserSourceApps = async (): Promise<void> => {
         try {
-            const response: Promise<AxiosResponse<{ sourceApplicationIds: number[] }>> =
-                AuthorizationRepository.getUserSourceApplications();
+            const response = AuthorizationRepository.getUserSourceApplications();
             const stringArray = (await response).data.sourceApplicationIds.map((id) => String(id));
             setActiveUserSourceApps(stringArray);
         } catch (err) {
@@ -87,7 +87,7 @@ const AuthorizationProvider = ({ children, basePath }: ContextProps & { basePath
                 getUser,
                 activeUserSourceApps,
                 getActiveUserSourceApps,
-                logoutUrl
+                logoutUrl,
             }}>
             {children}
         </AuthorizationContext.Provider>
