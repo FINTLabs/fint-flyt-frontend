@@ -169,7 +169,9 @@ const UserAccess: RouteComponent = () => {
                                 <Button id="form-save-btn" type="submit" onClick={updateUsers}>
                                     {t('button.save')}
                                 </Button>
-                                <Button id="form-cancel-btn" onClick={() => {
+                                <Button id="form-cancel-btn"
+                                        variant={"secondary"}
+                                        onClick={() => {
                                     setUsers(users);
                                     setEditMode(false);
                                 }}>
