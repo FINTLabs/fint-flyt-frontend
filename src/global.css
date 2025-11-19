@@ -1,43 +1,50 @@
 body {
     margin: 0;
+    --ac-radio-checkbox-border: #5149ca !important;
+    --ac-radio-checkbox-action: #5149ca !important;
+    --ac-radio-checkbox-action-hover-bg: #e5e4fa !important;
 }
 
 iframe#webpack-dev-server-client-overlay {
-    display: none !important
+    display: none !important;
 }
 
-.navds-pagination__item[aria-current="true"] {
-    background-color: #5A51E1 !important;
+.navds-pagination__item[aria-current='true'] {
+    background-color: #5a51e1 !important;
     /*color: var(--ac-pagination-selected-text, var(--a-text-on-action));*/
 }
 
 .navds-button--primary:hover {
-    background-color: #5149CA !important;
+    background-color: #5149ca !important;
 }
 
 .navds-button--primary {
-    background-color: #5A51E1 !important;
+    background-color: #5a51e1 !important;
 }
 
-.navds-pagination__item[aria-current="true"] {
-    background-color: #5A51E1 !important;
+.navds-pagination__item[aria-current='true'] {
+    background-color: #5a51e1 !important;
     /*color: var(--ac-pagination-selected-text, var(--a-text-on-action));*/
 }
 
 .navds-button--primary:hover {
-    background-color: #5149CA !important;
+    background-color: #5149ca !important;
 }
 
-.navds-button--primary {
-    background-color: #5A51E1 !important;
+.navds-button--secondary {
+    --ac-button-secondary-text: #5149ca !important;
+    --ac-button-secondary-border: #5149ca !important;
+    --ac-button-secondary-hover-border: #5149ca !important;
+    --ac-button-secondary-hover-text: #5149ca !important;
+    --ac-button-secondary-hover-bg: #e5e4fa !important;
 }
 
 .navds-internalheader {
-    --ac-internalheader-bg: #F8F4E3;
+    --ac-internalheader-bg: #f8f4e3;
     --ac-internalheader-text: #000000;
     --ac-internalheader-hover-bg: #efd8b8;
-    --ac-internalheader-divider: #F8F4E3;
-    --ac-internalheader-active-bg: #F8F4E3;
+    --ac-internalheader-divider: #f8f4e3;
+    --ac-internalheader-active-bg: #f8f4e3;
 
     a {
         text-decoration: none;

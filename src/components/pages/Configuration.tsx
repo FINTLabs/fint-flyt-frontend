@@ -292,14 +292,14 @@ const Configuration: RouteComponent = () => {
                                             size={'small'}
                                             disabled={configuration?.completed}
                                             type="submit"
-                                            // onClick={() => onSubmit(configuration)}
                                         >
                                             {!methods.watch('completed')
                                                 ? t('button.submit')
                                                 : t('button.complete')}
                                         </Button>
-                                        {/*)}*/}
+
                                         <Button
+                                            variant={"secondary"}
                                             id="form-cancel-btn"
                                             size={'small'}
                                             onClick={() => {
