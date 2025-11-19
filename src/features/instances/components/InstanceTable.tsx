@@ -3,7 +3,7 @@ import * as React from 'react';
 import { ReactElement, useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Alert, Box, Button, Dropdown, HStack, Loader, Table } from '@navikt/ds-react';
-import moment from 'moment';
+import { format } from 'date-fns';
 import { getSourceApplicationDisplayNameById } from '../../../util/TableUtil';
 import { IEventNew, ISummary } from '../types/Event';
 import InstancePanel from './InstancePanel';
@@ -206,7 +206,7 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                                         {value.sourceApplicationInstanceId}
                                     </Table.DataCell>
                                     <Table.DataCell>
-                                        {moment(value.latestUpdate).format('DD/MM/YY HH:mm')}
+                                        {format(value.latestUpdate, 'dd/MM/yy HH:mm')}
                                     </Table.DataCell>
                                     <Table.DataCell>
                                         {GetIconTable(value.status)}
