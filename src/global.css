@@ -14,17 +14,17 @@ iframe#webpack-dev-server-client-overlay {
     /*color: var(--ac-pagination-selected-text, var(--a-text-on-action));*/
 }
 
+.navds-pagination__item:hover {
+    background-color: #e5e4fa !important;
+    color: #5a51e1 !important;
+}
+
 .navds-button--primary:hover {
     background-color: #5149ca !important;
 }
 
 .navds-button--primary {
     background-color: #5a51e1 !important;
-}
-
-.navds-pagination__item[aria-current='true'] {
-    background-color: #5a51e1 !important;
-    /*color: var(--ac-pagination-selected-text, var(--a-text-on-action));*/
 }
 
 .navds-button--primary:hover {
