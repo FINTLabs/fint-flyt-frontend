@@ -15,7 +15,7 @@ export default function useConfigurationRepository() {
         integrationId: string,
         excludeElements?: boolean
     ) => {
-        return get<Page<IConfiguration>>('/api/intern/konfigurasjoner/', {
+        return get<Page<IConfiguration>>('/api/intern/konfigurasjoner', {
             params: {
                 side: page,
                 antall: size,
