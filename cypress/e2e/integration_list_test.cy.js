@@ -15,22 +15,22 @@ describe('Testing integration list', () => {
         }).as('getMetadata');
         cy.intercept(
             'GET',
-            '**/konfigurasjoner/?side=0&antall=30&sorteringFelt=id&sorteringRetning=DESC&ferdigstilt=false&integrasjonId=1&ekskluderMapping=true',
+            '**/konfigurasjoner?side=0&antall=30&sorteringFelt=id&sorteringRetning=DESC&ferdigstilt=false&integrasjonId=1&ekskluderMapping=true',
             { fixture: 'configDrafts.json' }
         ).as('getConfigDrafts');
         cy.intercept(
             'GET',
-            '**/konfigurasjoner/?side=0&antall=30&sorteringFelt=id&sorteringRetning=DESC&ferdigstilt=false&integrasjonId=2&ekskluderMapping=true',
+            '**/konfigurasjoner?side=0&antall=30&sorteringFelt=id&sorteringRetning=DESC&ferdigstilt=false&integrasjonId=2&ekskluderMapping=true',
             { fixture: 'configDrafts2.json' }
         ).as('getConfigDrafts2');
         cy.intercept(
             'GET',
-            '**/konfigurasjoner/?side=0&antall=30&sorteringFelt=version&sorteringRetning=DESC&ferdigstilt=true&integrasjonId=1&ekskluderMapping=true',
+            '**/konfigurasjoner?side=0&antall=30&sorteringFelt=version&sorteringRetning=DESC&ferdigstilt=true&integrasjonId=1&ekskluderMapping=true',
             { fixture: 'configCompleted.json' }
         ).as('getConfigCompleted');
         cy.intercept(
             'GET',
-            '**/konfigurasjoner/?side=0&antall=30&sorteringFelt=version&sorteringRetning=DESC&ferdigstilt=true&integrasjonId=2&ekskluderMapping=true',
+            '**/konfigurasjoner?side=0&antall=30&sorteringFelt=version&sorteringRetning=DESC&ferdigstilt=true&integrasjonId=2&ekskluderMapping=true',
             { fixture: 'configCompleted2.json' }
         ).as('getConfigCompleted2');
         cy.intercept('GET', '**/konfigurasjoner/4?ekskluderMapping=true', {
