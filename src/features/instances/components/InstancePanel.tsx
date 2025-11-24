@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { GridCellParams } from '@mui/x-data-grid';
-import moment from 'moment/moment';
+import { format } from 'date-fns';
 import { IInstanceFlowTracking, IInstanceFlowTrackingResponse } from '../types/Event';
 import ErrorDialogComponent from './ErrorDialogComponent';
 import { Box, Button, HStack, Link, Loader, Table } from '@navikt/ds-react';
@@ -100,7 +100,7 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
                                     return (
                                         <Table.Row key={i}>
                                             <Table.DataCell>
-                                                {moment(value.timestamp).format('DD/MM/YY HH:mm')}
+                                                {format(value.timestamp, 'dd/MM/yy HH:mm')}
                                             </Table.DataCell>
                                             <Table.DataCell>
                                                 {GetIcon(value.category)}
