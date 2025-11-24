@@ -6,41 +6,24 @@ import { AuthorizationContext } from "../../context/AuthorizationContext";
 import { useNavigate } from "react-router";
 import { Alert, Box, Button, Checkbox, Heading, HStack, Loader, Table, VStack, Pagination, SortState } from "@navikt/ds-react";
 import { useTranslation } from "react-i18next";
-import AuthorizationRepository from "../../api/AuthorizationRepository";
 import { PencilWritingIcon } from "@navikt/aksel-icons";
-import { IAlertMessage } from "../types/TableTypes";
-
-export interface IUser {
-    objectIdentifier: string,
-    email: string,
-    name: string,
-    sourceApplicationIds: number[]
-}
-
-export interface PageableResponse<T> {
-    content: T[];
-    pageable: never;
-    last: boolean;
-    totalPages: number;
-    totalElements: number;
-    first: boolean;
-    size: number;
-    number: number;
-    sort: never;
-    numberOfElements: number;
-    empty: boolean;
-}
+import { IAlertMessage, Page } from '../types/TableTypes';
+import useAuthorizationRepository from '../../api/useAuthorizationRepository';
+import { IUser } from '../types/UserTypes';
 
 const UserAccess: RouteComponent = () => {
+    const AuthorizationRepository = useAuthorizationRepository()
     const { t } = useTranslation('translations', { keyPrefix: 'pages.useraccess' });
     const { hasAccessToUserPermissionPage } = useContext(AuthorizationContext);
     const [error, setError] = useState<IAlertMessage | undefined>(undefined);
     const history = useNavigate();
     const { authorized} = useContext(AuthorizationContext)
 
-    if(!authorized) {
-        history('/forbidden')
-    }
+    useEffect(() => {
+        if (authorized === false) {
+            history('/forbidden');
+        }
+    }, [authorized]);
 
     if (!hasAccessToUserPermissionPage) {
         history('/');
@@ -56,9 +39,9 @@ const UserAccess: RouteComponent = () => {
     const fetchUsers = () => {
         AuthorizationRepository.getUsers(page - 1, pageSize)
             .then((response) => {
-                const pageableResponse: PageableResponse<IUser> = response.data;
+                const pageableResponse: Page<IUser> = response.data;
                 setUsers(pageableResponse.content);
-                setTotalPages(pageableResponse.totalPages);
+                setTotalPages(pageableResponse.totalPages ?? 0);
                 setError(undefined);
             })
             .catch(() => {

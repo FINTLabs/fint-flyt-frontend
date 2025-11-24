@@ -14,9 +14,12 @@ log.level = process.env.LOGGING_LEVEL || "info"
 const app = express();
 
 app.use(morgan("combined"))
+
 app.use(rewrite(/\/static\/(\w.+)/i, BASE_PATH + '/static/$1'));
 app.use(rewrite(/\/manifest.json$/, BASE_PATH + '/manifest.json'));
-app.use(rewrite(/\/api\/application\/configuration/, `${BASE_PATH}/api/application/configuration`));
+
+app.use(rewrite(/\/api\/application\/configuration\/?$/i, `${BASE_PATH}/api/application/configuration`));
+
 app.use(promMid({
     metricsPath: `${BASE_PATH}/metrics`,
     collectDefaultMetrics: true,
@@ -31,7 +34,6 @@ app.get(`${BASE_PATH}/api/application/configuration`, (req, res) => {
 })
 
 app.get(`${BASE_PATH}/*`, (req, res) => {
-    console.log("Request path", req.path);
     if (req.path.includes("/api/")) {
         res.send([])
     } else {

@@ -15,9 +15,14 @@ const correspondentDndFields = '#dnd-value-component-mapping\\.objectMappingPerK
 
 function prep() {
     cy.intercept("GET", "**/authorization/me", {fixture: "me.json"}).as("getMe")
-    cy.intercept("GET", "**/authorization/me/is-authorized", {fixture: "auth.json"}).as("getAuth")
-    cy.intercept("GET", "**/authorization/me/restricted-page-authorization", {userPermissionPage: true}).as("getUserPermissionsPage")
+    cy.intercept('GET', '**/authorization/me/is-authorized', {
+        fixture: 'auth.json',
+        headers: {
+            'Content-Type': 'text/plain',
+        },
+    }).as('getAuth');    cy.intercept("GET", "**/authorization/me/restricted-page-authorization", {userPermissionPage: true}).as("getUserPermissionsPage")
     cy.intercept("GET", "**/authorization/users?page=0&size=10", {fixture: "users.json"}).as("getUsersPermissions")
+    cy.intercept('POST', '**/integrasjoner', {fixture: 'postFixture.json'}).as('postIntegration')
     cy.intercept('GET', '**/api/application/configuration', {
         forceNetworkError: true,
         fixture: 'basepathConfig.json'
@@ -54,8 +59,8 @@ describe('Testing fill new configuration', () => {
         cy.intercept('GET', '**/metadata/4/instans-metadata', {fixture: 'instansMetadata.json'}).as('getInstansMetadata')
         cy.intercept('GET', '**/value-convertings?page=0&size=100&sortProperty=fromApplicationId&sortDirection=ASC&excludeConvertingMap=true', {fixture: 'valueconverting/valueconvertings.json'}).as('getValueconvertings')
         cy.intercept('GET', '**/value-convertings?page=0&size=100&sortProperty=fromApplicationId&sortDirection=ASC&excludeConvertingMap=false', {fixture: 'valueconverting/valueconvertings.json'}).as('getValueconvertings')
-        cy.intercept('GET', '**/arkiv/kodeverk/**', {fixture: 'kodeverk/mock.json'}).as('getKodeverk')
-        cy.intercept('GET', '**/arkiv/kodeverk/klasse?klassifikasjonssystemLink=https:%2F%2Fkodeverk.no%2Farkiv%2Fnoark%2Fsystemid%2FFJELL', {fixture: 'kodeverk/klasse.json'}).as('getKodeverkKlasse')
+        cy.intercept('GET', '**/api/intern/arkiv/kodeverk/klasse?klassifikasjonssystemLink=https%3A%2F%2Fkodeverk.no%2Farkiv%2Fnoark%2Fsystemid%2FFJELL', {fixture: 'kodeverk/klasse.json'}).as('getKodeverkKlasse')
+        cy.intercept('GET', /.*\/arkiv\/kodeverk\/(?!klasse\?).*/, {fixture: 'kodeverk/mock.json'}).as('getKodeverk')
     })
 
     it('should fill configuration, text and dropdown', () => {
@@ -133,7 +138,6 @@ describe('Testing fill new configuration', () => {
             delay: 0
         }).type('{enter}');
         cy.get('#form-submit-btn').click()
-
         cy.wait('@postConfiguration').its('request.body').should('deep.equal', {
                 completed: false,
                 integrationId: null,

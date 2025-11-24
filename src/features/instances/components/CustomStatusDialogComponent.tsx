@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { IEventNew } from '../types/Event';
 import { Alert, Button, Modal, Select, TextField, VStack } from '@navikt/ds-react';
 import { ISelectable } from '../../configuration/types/Selectable';
-import InstanceFlowTrackingRepository from '../../../api/InstanceFlowTrackingRepository';
+import useInstanceFlowTrackingRepository from '../../../api/useInstanceFlowTrackingRepository';
 
 type Props = {
     row: IEventNew;
@@ -14,6 +14,7 @@ type Props = {
 
 const CustomStatusDialogComponent: React.FunctionComponent<Props> = (props: Props) => {
     const ref = useRef<HTMLDialogElement>(null);
+    const InstanceFlowTrackingRepository = useInstanceFlowTrackingRepository()
     const { t } = useTranslation('translations', { keyPrefix: 'pages.instances' });
     const [status, setStatus] = useState<string>(props.row.status);
     const [destinationId, setDestinationId] = useState<string | undefined>(undefined);

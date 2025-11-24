@@ -12,9 +12,11 @@ const Version: RouteComponent = () => {
     const { authorized, getAuthorization } = useContext(AuthorizationContext);
     const history = useNavigate();
 
-    if (!authorized) {
-        history('/forbidden');
-    }
+    useEffect(() => {
+        if (authorized === false) {
+            history('/forbidden');
+        }
+    }, [authorized]);
     useEffect(() => {
         getAuthorization();
     }, []);

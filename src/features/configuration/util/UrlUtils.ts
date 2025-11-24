@@ -1,11 +1,11 @@
 import {IUrlBuilder} from "../types/FormTemplate";
-import {AxiosRequestConfig} from "axios";
 import {recordOrEmpty} from "./ObjectUtils";
 import {getAbsoluteKeyFromValueRef} from "./KeyUtils";
 import {useEffect, useState} from "react";
 import {useFormContext, useWatch} from "react-hook-form";
+import { AdapterRequestConfigType } from '../../../context/ApiAdapterContext';
 
-export type Source = { url: string, config?: AxiosRequestConfig }
+export type Source = { url: string, config?: AdapterRequestConfigType }
 
 const pathParamKeyRegExp = new RegExp(/{[^{}]+}/g);
 

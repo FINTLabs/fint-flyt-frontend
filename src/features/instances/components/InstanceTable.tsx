@@ -8,7 +8,7 @@ import { getSourceApplicationDisplayNameById } from '../../../util/TableUtil';
 import { IEventNew, ISummary } from '../types/Event';
 import InstancePanel from './InstancePanel';
 import { GetIconTable } from '../util/InstanceUtils';
-import InstanceRepository from '../repository/InstanceRepository';
+import useInstanceRepository from '../../../api/useInstanceRepository';
 import { IIntegrationMetadata } from '../../configuration/types/Metadata/IntegrationMetadata';
 import { SourceApplicationContext } from '../../../context/SourceApplicationContext';
 import { CustomSelect } from '../../../components/organisms/CustomSelect';
@@ -16,14 +16,16 @@ import { IAlertMessage } from '../../../components/types/TableTypes';
 import { MenuElipsisVerticalCircleIcon } from '@navikt/aksel-icons';
 import CustomStatusDialogComponent from './CustomStatusDialogComponent';
 import { useFilters } from '../filter/FilterContext';
-import InstanceFlowTrackingRepository from '../../../api/InstanceFlowTrackingRepository';
+import useInstanceFlowTrackingRepository from '../../../api/useInstanceFlowTrackingRepository';
 
 interface Props {
     onError: (error: IAlertMessage | undefined) => void;
 }
 
 const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
+    const InstanceRepository = useInstanceRepository();
     const { t } = useTranslation('translations', { keyPrefix: 'pages.instances' });
+    const InstanceFlowTrackingRepository = useInstanceFlowTrackingRepository()
     const [selectedRow, setSelectedRow] = useState<IEventNew>();
     const [openCustomDialog, setOpenCustomDialog] = React.useState(false);
     const [page, setPage] = useState(1);
@@ -97,8 +99,8 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                 (error as { response?: { status?: number; data?: string } }).response?.status ===
                     422
             ) {
-                const axiosError = error as { response: { data: string } };
-                onError({ message: axiosError.response.data || 'Validation error occurred' });
+                const resError = error as { response: { data: string } };
+                onError({ message: resError.response.data || 'Validation error occurred' });
             } else if (error instanceof Error) {
                 onError({ message: error.message || 'An unexpected error occurred' });
             } else {

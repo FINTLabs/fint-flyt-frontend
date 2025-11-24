@@ -1,44 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { ThemeProvider } from "@mui/material";
-import Main from "./components/pages/Main";
-import { BrowserRouter } from "react-router";
-import IntegrationProvider from "./context/IntegrationContext";
-import SourceApplicationProvider from "./context/SourceApplicationContext";
-import axios from "axios";
-import theme from "./util/styles/theme/theme";
-import "./global.css";
-import AuthorizationProvider from "./context/AuthorizationContext";
+import React from 'react';
+import Main from './components/pages/Main';
+import './global.css';
+import ProviderWrapper from './ProviderWrapper';
+import { APIAdapterProvider } from './context/ApiAdapterContext';
 
 function App() {
-	const [basePath, setBasePath] = useState<string>();
-	useEffect(() => {
-		axios
-			.get("api/application/configuration")
-			.then((value: { data: { basePath: string }}) => {
-				axios.defaults.baseURL = value.data.basePath;
-				setBasePath(value.data.basePath);
-			})
-			.catch((reason) => {
-				console.log("Error getting config:", reason);
-				setBasePath("/");
-			});
-	}, [basePath]);
-
-	return basePath ? (
-		<ThemeProvider theme={theme}>
-			<AuthorizationProvider basePath={basePath}>
-				<SourceApplicationProvider>
-					<IntegrationProvider>
-						<BrowserRouter basename={basePath}>
-							<Main />
-						</BrowserRouter>
-					</IntegrationProvider>
-				</SourceApplicationProvider>
-			</AuthorizationProvider>
-		</ThemeProvider>
-	) : (
-		<h1>Loading</h1>
-	);
+    return (
+        <APIAdapterProvider>
+            <ProviderWrapper>
+                <Main />
+            </ProviderWrapper>
+        </APIAdapterProvider>
+    );
 }
 
 export default App;

@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { Box, Button, HStack, VStack } from '@navikt/ds-react';
-// import SortSelect from './sortSelect';
 import TimeCard from './timeCard';
 import IntegrationCard from './integrationCard';
 import InstanceCard from './instanceCard';
@@ -9,8 +8,8 @@ import AdvancedCard from './advancedCard';
 import { useFilters } from './FilterContext';
 import { OptionsProvider, useOptions } from './OptionsContext';
 import { IIntegrationMetadata } from '../../configuration/types/Metadata/IntegrationMetadata';
-import IntegrationRepository from '../../../api/IntegrationRepository';
 import { IIntegration } from '../../integration/types/Integration';
+import useIntegrationRepository from '../../../api/useIntegrationRepository';
 
 const apiOptions = {
     sourceApplicationIdsOptions: [
@@ -28,6 +27,7 @@ interface FilterFormProps {
 }
 
 const FilterForm: React.FC<FilterFormProps> = ({ allMetaData }) => {
+    const IntegrationRepository = useIntegrationRepository();
     const { clearFilters, saveFilters, filters, updateFilter } = useFilters();
     const [openCard, setOpenCard] = useState<string | null>(null);
     const [allIntegrations, setAllIntegrations] = useState<IIntegration[]>([]);

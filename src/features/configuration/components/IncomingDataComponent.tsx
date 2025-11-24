@@ -33,13 +33,14 @@ import {
     VStack,
 } from '@navikt/ds-react';
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
-import ValueConvertingRepository from '../../../api/ValueConvertingRepository';
+import useValueConvertingRepository from '../../../api/useValueConvertingRepository';
 
 export type Props = {
     referencesForCollectionsToShow: string[];
 };
 
 const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => {
+    const ValueConvertingRepository = useValueConvertingRepository()
     const { t } = useTranslation('translations', { keyPrefix: 'pages.configuration' });
     const { getInstanceElementMetadata, instanceElementMetadata, getAllMetadata, allMetadata } =
         useContext(SourceApplicationContext);
