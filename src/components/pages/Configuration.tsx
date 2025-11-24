@@ -300,6 +300,7 @@ const Configuration: RouteComponent = () => {
 
                                         <Button
                                             variant={"secondary"}
+                                            type="button"
                                             id="form-cancel-btn"
                                             size={'small'}
                                             onClick={() => {
