@@ -68,7 +68,9 @@
     "ci": "start-server-and-test start http://localhost:3000 test",
     "lint": "eslint --ext ts,tsx src",
     "forward": "sh ./startUpForwards.sh start",
-    "stop-forward": "sh ./startUpForwards.sh stop"
+    "stop-forward": "sh ./startUpForwards.sh stop",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "jest": {
     "testMatch": [
