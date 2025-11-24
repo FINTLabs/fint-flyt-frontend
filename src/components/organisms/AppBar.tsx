@@ -10,14 +10,15 @@ import { AuthorizationContext } from '../../context/AuthorizationContext';
 export const AppBar = () => {
     const history = useNavigate();
     const { t } = useTranslation('translations', { keyPrefix: 'menu' });
-    const {logoutUrl} = useContext(AuthorizationContext)
+    const { logoutUrl } = useContext(AuthorizationContext);
 
     return (
         <InternalHeader>
             <InternalHeader.Title
                 onClick={() => {
                     history('/');
-                }}>
+                }}
+            >
                 <Heading size={'medium'} style={{ color: '#6B133D' }}>
                     FINT Flyt
                 </Heading>
@@ -45,13 +46,12 @@ export const AppBar = () => {
                     </Dropdown.Menu.GroupedList>
                 </Dropdown.Menu>
             </Dropdown>
-            <InternalHeader.Button as={"a"} href={logoutUrl} rel="external noopener noreferrer">
+            <InternalHeader.Button as={'a'} href={logoutUrl} rel="external noopener noreferrer">
                 <HStack gap={'1'} align={'center'}>
                     <LeaveIcon aria-hidden />
                     {t('logout')}
                 </HStack>
             </InternalHeader.Button>
-
         </InternalHeader>
     );
 };

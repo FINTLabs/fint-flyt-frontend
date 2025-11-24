@@ -33,7 +33,8 @@ const OutgoingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
             padding="6"
             borderRadius={'large'}
             borderWidth="2"
-            borderColor={'border-subtle'}>
+            borderColor={'border-subtle'}
+        >
             {/* Scroll Buttons */}
             <HStack gap={'10'}>
                 <HStack>
@@ -66,7 +67,8 @@ const OutgoingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
             <Box
                 id="scroll-container"
                 ref={scrollContainerRef}
-                style={{ overflowX: 'auto', display: 'flex', gap: '1rem' }}>
+                style={{ overflowX: 'auto', display: 'flex', gap: '1rem' }}
+            >
                 <HStack id="configuration-mapping-wrapper" wrap={false}>
                     <ConfigurationMappingComponent
                         mappingTemplate={testObjectTemplateSak}

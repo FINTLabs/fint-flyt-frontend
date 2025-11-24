@@ -1,7 +1,7 @@
-import { ILink } from "./Link";
+import { ILink } from './Link';
 
 export interface ICard {
-	value: string;
-	content: string;
-	links?: ILink[];
+    value: string;
+    content: string;
+    links?: ILink[];
 }

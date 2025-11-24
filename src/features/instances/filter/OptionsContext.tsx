@@ -30,7 +30,7 @@ interface OptionsProviderProps {
 }
 
 export const OptionsProvider: React.FC<OptionsProviderProps> = ({ children }) => {
-    const { get } = useContext(ApiAdapterContext)
+    const { get } = useContext(ApiAdapterContext);
     const [statusesOptions, setStatusesOptions] = useState<Option[]>([]);
     const [storageStatusesOptions, setStorageStatusesOptions] = useState<Option[]>([]);
     const [eventCategoriesOptions, setEventCategoriesOptions] = useState<Option[]>([]);
@@ -75,7 +75,8 @@ export const OptionsProvider: React.FC<OptionsProviderProps> = ({ children }) =>
                 instanceStatusEventCategoriesOptions,
                 timeCurrentPeriodOptions,
                 fetchOptions,
-            }}>
+            }}
+        >
             {children}
         </OptionsContext.Provider>
     );

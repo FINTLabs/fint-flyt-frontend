@@ -9,9 +9,8 @@ import {
 } from '../features/instances/types/Event';
 import { Page } from '../components/types/TableTypes';
 
-
-export default function useInstanceFlowTrackingRepository () {
-    const { get, post } = useContext(ApiAdapterContext)
+export default function useInstanceFlowTrackingRepository() {
+    const { get, post } = useContext(ApiAdapterContext);
 
     const getLatestSummaries = (size: number, filters?: Filters) => {
         const params: Record<string, string | string[] | boolean | number> = {
@@ -99,11 +98,14 @@ export default function useInstanceFlowTrackingRepository () {
         sourceApplicationId: number,
         sourceApplicationIntegrationId: string
     ) => {
-        return post(`/api/intern/instance-flow-tracking/events/instance-status-overridden-as-transferred`, {
-            sourceApplicationId,
-            sourceApplicationInstanceId,
-            sourceApplicationIntegrationId,
-        });
+        return post(
+            `/api/intern/instance-flow-tracking/events/instance-status-overridden-as-transferred`,
+            {
+                sourceApplicationId,
+                sourceApplicationInstanceId,
+                sourceApplicationIntegrationId,
+            }
+        );
     };
 
     const getAllStatistics = () => {
@@ -111,7 +113,9 @@ export default function useInstanceFlowTrackingRepository () {
     };
 
     const getStatistics = () => {
-        return get<Page<IIntegrationDetailedStatistics>>(`/api/intern/instance-flow-tracking/statistics/integrations`);
+        return get<Page<IIntegrationDetailedStatistics>>(
+            `/api/intern/instance-flow-tracking/statistics/integrations`
+        );
     };
 
     return {
@@ -121,6 +125,6 @@ export default function useInstanceFlowTrackingRepository () {
         manualRejectEvent,
         manualTransferEvent,
         getAllStatistics,
-        getStatistics
-    }
+        getStatistics,
+    };
 }

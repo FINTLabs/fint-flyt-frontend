@@ -1,7 +1,28 @@
 {
-  "content": [
-    {"comment": "Rediger denne konfig", "completed": false, "id": 7, "integrationId": 2, "integrationMetadataId": 1, "version": null},
-    {"comment": "kommentar1", "completed": false, "id": 6, "integrationId": 2, "integrationMetadataId": 1, "version": null},
-    {"comment": "kommentar", "completed": false, "id": 4, "integrationId": 2, "integrationMetadataId": 1, "version": null}
-  ]
+    "content": [
+        {
+            "comment": "Rediger denne konfig",
+            "completed": false,
+            "id": 7,
+            "integrationId": 2,
+            "integrationMetadataId": 1,
+            "version": null
+        },
+        {
+            "comment": "kommentar1",
+            "completed": false,
+            "id": 6,
+            "integrationId": 2,
+            "integrationMetadataId": 1,
+            "version": null
+        },
+        {
+            "comment": "kommentar",
+            "completed": false,
+            "id": 4,
+            "integrationId": 2,
+            "integrationMetadataId": 1,
+            "version": null
+        }
+    ]
 }

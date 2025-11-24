@@ -1,207 +1,210 @@
-import {IInstanceMetadataContent, ValueType} from "../../../features/configuration/types/Metadata/IntegrationMetadata";
+import {
+    IInstanceMetadataContent,
+    ValueType,
+} from '../../../features/configuration/types/Metadata/IntegrationMetadata';
 
 export const MOCK_INSTANCE_METADATA: IInstanceMetadataContent = {
-    "instanceValueMetadata": [
+    instanceValueMetadata: [
         {
-            "displayName": "Skjema-PDF",
-            "type": ValueType.FILE,
-            "key": "skjemaPdf"
-        }
+            displayName: 'Skjema-PDF',
+            type: ValueType.FILE,
+            key: 'skjemaPdf',
+        },
     ],
-    "instanceObjectCollectionMetadata": [
+    instanceObjectCollectionMetadata: [
         {
-            "displayName": "Vedlegg",
-            "objectMetadata": {
-                "instanceValueMetadata": [
+            displayName: 'Vedlegg',
+            objectMetadata: {
+                instanceValueMetadata: [
                     {
-                        "displayName": "Navn",
-                        "type": ValueType.STRING,
-                        "key": "navn"
+                        displayName: 'Navn',
+                        type: ValueType.STRING,
+                        key: 'navn',
                     },
                     {
-                        "displayName": "Type",
-                        "type": ValueType.STRING,
-                        "key": "type"
+                        displayName: 'Type',
+                        type: ValueType.STRING,
+                        key: 'type',
                     },
                     {
-                        "displayName": "Enkoding",
-                        "type": ValueType.STRING,
-                        "key": "enkoding"
+                        displayName: 'Enkoding',
+                        type: ValueType.STRING,
+                        key: 'enkoding',
                     },
                     {
-                        "displayName": "Fil",
-                        "type": ValueType.FILE,
-                        "key": "fil"
-                    }
+                        displayName: 'Fil',
+                        type: ValueType.FILE,
+                        key: 'fil',
+                    },
                 ],
-                "instanceObjectCollectionMetadata": [
+                instanceObjectCollectionMetadata: [
                     {
-                        "displayName": "Vedlegg i vedlegg",
-                        "objectMetadata": {
-                            "instanceValueMetadata": [
+                        displayName: 'Vedlegg i vedlegg',
+                        objectMetadata: {
+                            instanceValueMetadata: [
                                 {
-                                    "displayName": "Navn",
-                                    "type": ValueType.STRING,
-                                    "key": "navn"
+                                    displayName: 'Navn',
+                                    type: ValueType.STRING,
+                                    key: 'navn',
                                 },
                                 {
-                                    "displayName": "Type",
-                                    "type": ValueType.STRING,
-                                    "key": "type"
+                                    displayName: 'Type',
+                                    type: ValueType.STRING,
+                                    key: 'type',
                                 },
                                 {
-                                    "displayName": "Enkoding",
-                                    "type": ValueType.STRING,
-                                    "key": "enkoding"
+                                    displayName: 'Enkoding',
+                                    type: ValueType.STRING,
+                                    key: 'enkoding',
                                 },
                                 {
-                                    "displayName": "Fil",
-                                    "type": ValueType.FILE,
-                                    "key": "fil"
-                                }
+                                    displayName: 'Fil',
+                                    type: ValueType.FILE,
+                                    key: 'fil',
+                                },
                             ],
-                            "instanceObjectCollectionMetadata": [],
-                            "categories": []
+                            instanceObjectCollectionMetadata: [],
+                            categories: [],
                         },
-                        "key": "ViV"
-                    }
+                        key: 'ViV',
+                    },
                 ],
-                "categories": []
+                categories: [],
             },
-            "key": "vedlegg"
+            key: 'vedlegg',
         },
         {
-            "displayName": "Vedlegg2",
-            "objectMetadata": {
-                "instanceValueMetadata": [
+            displayName: 'Vedlegg2',
+            objectMetadata: {
+                instanceValueMetadata: [
                     {
-                        "displayName": "Navn",
-                        "type": ValueType.STRING,
-                        "key": "navn"
+                        displayName: 'Navn',
+                        type: ValueType.STRING,
+                        key: 'navn',
                     },
                     {
-                        "displayName": "Type",
-                        "type": ValueType.STRING,
-                        "key": "type"
+                        displayName: 'Type',
+                        type: ValueType.STRING,
+                        key: 'type',
                     },
                     {
-                        "displayName": "Enkoding",
-                        "type": ValueType.STRING,
-                        "key": "enkoding"
+                        displayName: 'Enkoding',
+                        type: ValueType.STRING,
+                        key: 'enkoding',
                     },
                     {
-                        "displayName": "Fil",
-                        "type": ValueType.FILE,
-                        "key": "fil"
-                    }
+                        displayName: 'Fil',
+                        type: ValueType.FILE,
+                        key: 'fil',
+                    },
                 ],
-                "instanceObjectCollectionMetadata": [],
-                "categories": []
+                instanceObjectCollectionMetadata: [],
+                categories: [],
             },
-            "key": "vedlegg2"
-        }
+            key: 'vedlegg2',
+        },
     ],
-    "categories": [
+    categories: [
         {
-            "displayName": "Innledning",
-            "content": {
-                "instanceValueMetadata": [],
-                "instanceObjectCollectionMetadata": [],
-                "categories": [
+            displayName: 'Innledning',
+            content: {
+                instanceValueMetadata: [],
+                instanceObjectCollectionMetadata: [],
+                categories: [
                     {
-                        "displayName": "Opplysninger",
-                        "content": {
-                            "instanceValueMetadata": [
+                        displayName: 'Opplysninger',
+                        content: {
+                            instanceValueMetadata: [
                                 {
-                                    "displayName": "Fødselsnummer",
-                                    "type": ValueType.STRING,
-                                    "key": "fodselsnummer"
+                                    displayName: 'Fødselsnummer',
+                                    type: ValueType.STRING,
+                                    key: 'fodselsnummer',
                                 },
                                 {
-                                    "displayName": "Navn",
-                                    "type": ValueType.STRING,
-                                    "key": "navn"
+                                    displayName: 'Navn',
+                                    type: ValueType.STRING,
+                                    key: 'navn',
                                 },
                                 {
-                                    "displayName": "Etternavn",
-                                    "type": ValueType.STRING,
-                                    "key": "etternavn"
+                                    displayName: 'Etternavn',
+                                    type: ValueType.STRING,
+                                    key: 'etternavn',
                                 },
                                 {
-                                    "displayName": "Adresse",
-                                    "type": ValueType.STRING,
-                                    "key": "adresse"
+                                    displayName: 'Adresse',
+                                    type: ValueType.STRING,
+                                    key: 'adresse',
                                 },
                                 {
-                                    "displayName": "PostNr",
-                                    "type": ValueType.STRING,
-                                    "key": "postnr_sted.PostNr"
+                                    displayName: 'PostNr',
+                                    type: ValueType.STRING,
+                                    key: 'postnr_sted.PostNr',
                                 },
                                 {
-                                    "displayName": "PostSted",
-                                    "type": ValueType.STRING,
-                                    "key": "postnr_sted.PostSted"
+                                    displayName: 'PostSted',
+                                    type: ValueType.STRING,
+                                    key: 'postnr_sted.PostSted',
                                 },
                                 {
-                                    "displayName": "E-post",
-                                    "type": ValueType.STRING,
-                                    "key": "e_post"
+                                    displayName: 'E-post',
+                                    type: ValueType.STRING,
+                                    key: 'e_post',
                                 },
                                 {
-                                    "displayName": "Telefon",
-                                    "type": ValueType.STRING,
-                                    "key": "telefon"
+                                    displayName: 'Telefon',
+                                    type: ValueType.STRING,
+                                    key: 'telefon',
                                 },
                                 {
-                                    "displayName": "Referansenummer",
-                                    "type": ValueType.STRING,
-                                    "key": "referansenummer"
+                                    displayName: 'Referansenummer',
+                                    type: ValueType.STRING,
+                                    key: 'referansenummer',
                                 },
                                 {
-                                    "displayName": "Organisasjonsnr",
-                                    "type": ValueType.STRING,
-                                    "key": "organisasjonsnr"
+                                    displayName: 'Organisasjonsnr',
+                                    type: ValueType.STRING,
+                                    key: 'organisasjonsnr',
                                 },
                                 {
-                                    "displayName": "Organisasjonsnavn",
-                                    "type": ValueType.STRING,
-                                    "key": "organisasjonsnavn"
-                                }
+                                    displayName: 'Organisasjonsnavn',
+                                    type: ValueType.STRING,
+                                    key: 'organisasjonsnavn',
+                                },
                             ],
-                            "instanceObjectCollectionMetadata": [],
-                            "categories": []
-                        }
+                            instanceObjectCollectionMetadata: [],
+                            categories: [],
+                        },
                     },
                     {
-                        "displayName": "Vedlegg",
-                        "content": {
-                            "instanceValueMetadata": [
+                        displayName: 'Vedlegg',
+                        content: {
+                            instanceValueMetadata: [
                                 {
-                                    "displayName": "Tittel",
-                                    "type": ValueType.STRING,
-                                    "key": "skjema.Tittel"
-                                }
+                                    displayName: 'Tittel',
+                                    type: ValueType.STRING,
+                                    key: 'skjema.Tittel',
+                                },
                             ],
-                            "instanceObjectCollectionMetadata": [],
-                            "categories": []
-                        }
+                            instanceObjectCollectionMetadata: [],
+                            categories: [],
+                        },
                     },
                     {
-                        "displayName": "Vedlegg2",
-                        "content": {
-                            "instanceValueMetadata": [
+                        displayName: 'Vedlegg2',
+                        content: {
+                            instanceValueMetadata: [
                                 {
-                                    "displayName": "Tittel",
-                                    "type": ValueType.STRING,
-                                    "key": "skjema.Tittel_2"
-                                }
+                                    displayName: 'Tittel',
+                                    type: ValueType.STRING,
+                                    key: 'skjema.Tittel_2',
+                                },
                             ],
-                            "instanceObjectCollectionMetadata": [],
-                            "categories": []
-                        }
-                    }
-                ]
-            }
-        }
-    ]
-}
+                            instanceObjectCollectionMetadata: [],
+                            categories: [],
+                        },
+                    },
+                ],
+            },
+        },
+    ],
+};

@@ -88,7 +88,8 @@ const AuthorizationProvider = ({ children, basePath }: ContextProps & { basePath
                 activeUserSourceApps,
                 getActiveUserSourceApps,
                 logoutUrl,
-            }}>
+            }}
+        >
             {children}
         </AuthorizationContext.Provider>
     );

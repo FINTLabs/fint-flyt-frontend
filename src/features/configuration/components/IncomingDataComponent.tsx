@@ -40,7 +40,7 @@ export type Props = {
 };
 
 const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => {
-    const ValueConvertingRepository = useValueConvertingRepository()
+    const ValueConvertingRepository = useValueConvertingRepository();
     const { t } = useTranslation('translations', { keyPrefix: 'pages.configuration' });
     const { getInstanceElementMetadata, instanceElementMetadata, getAllMetadata, allMetadata } =
         useContext(SourceApplicationContext);
@@ -187,7 +187,8 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
             padding="6"
             borderRadius={'large'}
             borderWidth="2"
-            borderColor={'border-subtle'}>
+            borderColor={'border-subtle'}
+        >
             <VStack gap={'2'}>
                 <HStack align={'center'} justify={'space-between'}>
                     <HStack gap={'2'} align={'center'}>
@@ -216,7 +217,8 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
                             onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                                 handleSelectChange(e);
                                 console.log(e.target.value);
-                            }}>
+                            }}
+                        >
                             {availableVersions.map((md, index) => {
                                 return (
                                     <option key={index} value={md.version}>
@@ -235,7 +237,8 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
                             padding="6"
                             borderRadius={'large'}
                             borderWidth="2"
-                            borderColor={'border-subtle'}>
+                            borderColor={'border-subtle'}
+                        >
                             <MetadataContentComponent
                                 content={instanceElementMetadata}
                                 keyToReferenceFunction={(key: string) =>
@@ -259,7 +262,8 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
                                     padding="6"
                                     borderRadius={'large'}
                                     borderWidth="2"
-                                    borderColor={'border-subtle'}>
+                                    borderColor={'border-subtle'}
+                                >
                                     <ObjectCollectionMetadataContentComponent
                                         collectionIndex={index}
                                         reference={reference}
@@ -275,7 +279,8 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
                             padding="6"
                             borderRadius={'large'}
                             borderWidth="2"
-                            borderColor={'border-subtle'}>
+                            borderColor={'border-subtle'}
+                        >
                             <Heading size={'small'}>{t('metadataPanel.valueConverting')}</Heading>
                             <ReadMore
                                 defaultOpen
@@ -284,7 +289,8 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
                                     ' [' +
                                     (valueConvertings?.length ?? 0) +
                                     ']'
-                                }>
+                                }
+                            >
                                 <VStack gap={'2'} style={{ minHeight: '200px' }}>
                                     {valueConvertings &&
                                         valueConvertings.map(
@@ -305,7 +311,8 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
                                     ' [' +
                                     (applicationValueConvertings?.length ?? 0) +
                                     ']'
-                                }>
+                                }
+                            >
                                 <VStack gap={'2'} style={{ minHeight: '200px', overflowY: 'auto' }}>
                                     {applicationValueConvertings &&
                                         applicationValueConvertings.map(
@@ -326,7 +333,8 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
                                     ' [' +
                                     (destinationValueConvertings?.length ?? 0) +
                                     ']'
-                                }>
+                                }
+                            >
                                 <VStack gap={'2'} style={{ minHeight: '200px' }}>
                                     {destinationValueConvertings &&
                                         destinationValueConvertings.map(

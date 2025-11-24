@@ -68,7 +68,7 @@ const IntegrationContext = createContext<IntegrationContextState>(contextDefault
 const IntegrationProvider = ({ children }: ContextProps) => {
     const AuthorizationRepository = useAuthorizationRepository();
     const SourceApplicationRepository = useSourceApplicationRepository();
-    const ConfigurationRepository = useConfigurationRepository()
+    const ConfigurationRepository = useConfigurationRepository();
     const IntegrationRepository = useIntegrationRepository();
     const InstanceFlowTrackingRepository = useInstanceFlowTrackingRepository();
 
@@ -203,7 +203,8 @@ const IntegrationProvider = ({ children }: ContextProps) => {
                 setSourceApplicationId,
                 resetIntegrationContext,
                 resetIntegration,
-            }}>
+            }}
+        >
             {children}
         </IntegrationContext.Provider>
     );

@@ -146,7 +146,8 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
                 saveFilters,
                 areFiltersActive,
                 refreshKey,
-            }}>
+            }}
+        >
             {children}
         </FilterContext.Provider>
     );

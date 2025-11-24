@@ -20,7 +20,7 @@ type Props = {
 
 const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.instances' });
-    const InstanceFlowTrackingRepository = useInstanceFlowTrackingRepository()
+    const InstanceFlowTrackingRepository = useInstanceFlowTrackingRepository();
     const [selectedRow, setSelectedRow] = useState<IInstanceFlowTracking>();
     const [openErrorDialog, setOpenErrorDialog] = React.useState(false);
     const [selectedInstances, setSelectedInstances] = useState<IInstanceFlowTrackingResponse>();
@@ -113,7 +113,8 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
                                                         onClick={() => {
                                                             setSelectedRow(value);
                                                             setOpenErrorDialog(true);
-                                                        }}>
+                                                        }}
+                                                    >
                                                         {t('showError')}
                                                     </Link>
                                                 )}
@@ -143,7 +144,8 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
                         <Button
                             variant="secondary"
                             size={'xsmall'}
-                            onClick={() => setRowCount((prev) => String(Number(prev) + 10))}>
+                            onClick={() => setRowCount((prev) => String(Number(prev) + 10))}
+                        >
                             {t('filter.loadMore')}
                         </Button>
                     </>

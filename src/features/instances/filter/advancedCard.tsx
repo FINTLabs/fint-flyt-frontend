@@ -55,7 +55,8 @@ export default function AdvancedCard(props: Props) {
             size="small"
             aria-label={t('advancedCard.ariaLabel') || ''}
             open={props.isOpen}
-            onToggle={() => props.toggleOpen(props.id)}>
+            onToggle={() => props.toggleOpen(props.id)}
+        >
             <ExpansionCard.Header>
                 <ExpansionCard.Title as="h4" size="small">
                     {t('advancedCard.title')}
@@ -119,7 +120,8 @@ export default function AdvancedCard(props: Props) {
                                         option.value,
                                         !filters.storageStatuses?.includes(option.value)
                                     )
-                                }>
+                                }
+                            >
                                 {t(`intermediateStorageStatusOptions.${option.value}`)}
                             </Chips.Toggle>
                         ))}

@@ -1,37 +1,37 @@
 apiVersion: fintlabs.no/v1alpha1
 kind: Application
 metadata:
-  name: fint-flyt-frontend
-  namespace: fintlabs-no
-  labels:
-    app.kubernetes.io/name: fint-flyt-frontend
-    app.kubernetes.io/instance: fint-flyt-frontend_fintlabs_no
-    app.kubernetes.io/version: latest
-    app.kubernetes.io/component: frontend
-    app.kubernetes.io/part-of: fint-flyt
-    fintlabs.no/team: flyt
-    fintlabs.no/org-id: fintlabs.no
+    name: fint-flyt-frontend
+    namespace: fintlabs-no
+    labels:
+        app.kubernetes.io/name: fint-flyt-frontend
+        app.kubernetes.io/instance: fint-flyt-frontend_fintlabs_no
+        app.kubernetes.io/version: latest
+        app.kubernetes.io/component: frontend
+        app.kubernetes.io/part-of: fint-flyt
+        fintlabs.no/team: flyt
+        fintlabs.no/org-id: fintlabs.no
 spec:
-  port: 8000
-  imagePullPolicy: Always
-  orgId: fintlabs.no
-  image: ghcr.io/fintlabs/fint-flyt-frontend:sha-0000000
-  url:
-    hostname: flyt.vigoiks.no
-    basePath: path
-  ingress:
-    enabled: true
-    middlewares:
-      - fint-flyt-auth-forward-sso
-  env:
-    - name: BASE_PATH
-      value: path
-  resources:
-    limits:
-      memory: "64Mi"
-      cpu: "25m"
-    requests:
-      memory: "40Mi"
-      cpu: "10m"
-  restartPolicy: Always
-  replicas: 1
+    port: 8000
+    imagePullPolicy: Always
+    orgId: fintlabs.no
+    image: ghcr.io/fintlabs/fint-flyt-frontend:sha-0000000
+    url:
+        hostname: flyt.vigoiks.no
+        basePath: path
+    ingress:
+        enabled: true
+        middlewares:
+            - fint-flyt-auth-forward-sso
+    env:
+        - name: BASE_PATH
+          value: path
+    resources:
+        limits:
+            memory: '64Mi'
+            cpu: '25m'
+        requests:
+            memory: '40Mi'
+            cpu: '10m'
+    restartPolicy: Always
+    replicas: 1

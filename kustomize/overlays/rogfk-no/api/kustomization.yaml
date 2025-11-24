@@ -3,34 +3,33 @@ kind: Kustomization
 namespace: rogfk-no
 
 resources:
-  - ../../../base
+    - ../../../base
 
 commonLabels:
-  fintlabs.no/org-id: rogfk.no
+    fintlabs.no/org-id: rogfk.no
 
 patches:
-  - patch: |-
-      - op: replace
-        path: "/metadata/labels/app.kubernetes.io~1instance"
-        value: "fint-flyt-frontend_rogfk-no"
-      - op: replace
-        path: "/spec/orgId"
-        value: "rogfk.no"
-      - op: replace
-        path: "/spec/env/0/value"
-        value: "/rogfk-no"
-      - op: replace
-        path: "/spec/url/basePath"
-        value: "/rogfk-no"
-    target:
-      kind: Application
-      name: fint-flyt-frontend
+    - patch: |-
+          - op: replace
+            path: "/metadata/labels/app.kubernetes.io~1instance"
+            value: "fint-flyt-frontend_rogfk-no"
+          - op: replace
+            path: "/spec/orgId"
+            value: "rogfk.no"
+          - op: replace
+            path: "/spec/env/0/value"
+            value: "/rogfk-no"
+          - op: replace
+            path: "/spec/url/basePath"
+            value: "/rogfk-no"
+      target:
+          kind: Application
+          name: fint-flyt-frontend
 
-  - patch: |-
-      - op: replace
-        path: "/spec/basePath"
-        value: "/rogfk-no"
-    target:
-      kind: FLAISSso
-      name: fint-flyt-auth-forward-sso
-
+    - patch: |-
+          - op: replace
+            path: "/spec/basePath"
+            value: "/rogfk-no"
+      target:
+          kind: FLAISSso
+          name: fint-flyt-auth-forward-sso

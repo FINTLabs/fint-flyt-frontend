@@ -72,7 +72,8 @@ const Instances: RouteComponent = () => {
                             variant="tertiary"
                             onClick={() => setShowFilters(true)}
                             icon={<ChevronRightDoubleCircleIcon aria-hidden />}
-                            size="small">
+                            size="small"
+                        >
                             Filters
                         </Button>
                     </HStack>
@@ -88,13 +89,15 @@ const Instances: RouteComponent = () => {
                             borderRadius="large"
                             borderWidth="2"
                             borderColor="border-subtle"
-                            position="relative">
+                            position="relative"
+                        >
                             <Button
                                 variant="tertiary"
                                 size="small"
                                 icon={<ChevronLeftDoubleCircleIcon aria-hidden />}
                                 onClick={() => setShowFilters(false)}
-                                style={{ position: 'absolute', top: '5px', right: '10px' }}>
+                                style={{ position: 'absolute', top: '5px', right: '10px' }}
+                            >
                                 Lukk
                             </Button>
 
@@ -107,7 +110,8 @@ const Instances: RouteComponent = () => {
                         padding="6"
                         borderRadius={'large'}
                         borderWidth="2"
-                        borderColor={'border-subtle'}>
+                        borderColor={'border-subtle'}
+                    >
                         {allMetadata ? (
                             <InstanceTable
                                 onError={(error) => {

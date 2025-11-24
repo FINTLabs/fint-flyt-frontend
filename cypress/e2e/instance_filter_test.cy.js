@@ -42,7 +42,7 @@ describe('Testing instance list', () => {
                 url: '**/api/intern/instance-flow-tracking/value-space/time/current-period/selectables',
                 fixture: 'filter/current-period.json',
                 alias: 'event-category-3',
-            }
+            },
         ];
 
         intercepts.forEach(({ method, url, fixture, response, alias }) => {
@@ -61,7 +61,8 @@ describe('Testing instance list', () => {
             headers: {
                 'Content-Type': 'text/plain',
             },
-        }).as('getAuth');        cy.intercept('GET', '**/authorization/me/restricted-page-authorization', {
+        }).as('getAuth');
+        cy.intercept('GET', '**/authorization/me/restricted-page-authorization', {
             userPermissionPage: true,
         });
         cy.intercept('GET', '**/authorization/users?page=0&size=10', { fixture: 'users.json' });
@@ -69,7 +70,6 @@ describe('Testing instance list', () => {
         cy.intercept('GET', '**/intern/integrasjoner', { fixture: 'integrations.json' }).as(
             'getIntegrations'
         );
-
 
         cy.intercept('GET', '**/metadata?kildeapplikasjonId=1&bareSisteVersjoner=true', {
             fixture: 'metadataLatest.json',
@@ -112,7 +112,6 @@ describe('Testing instance list', () => {
     });
 
     it('should load all filter options', () => {
-
         prep();
 
         cy.contains('button', 'Filters').click();

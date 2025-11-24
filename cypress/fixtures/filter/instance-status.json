@@ -1,18 +1,18 @@
 [
-  {
-    "value": "IN_PROGRESS",
-    "label": "Under behandling"
-  },
-  {
-    "value": "TRANSFERRED",
-    "label": "Overført"
-  },
-  {
-    "value": "ABORTED",
-    "label": "Avbrutt"
-  },
-  {
-    "value": "FAILED",
-    "label": "Feilet"
-  }
+    {
+        "value": "IN_PROGRESS",
+        "label": "Under behandling"
+    },
+    {
+        "value": "TRANSFERRED",
+        "label": "Overført"
+    },
+    {
+        "value": "ABORTED",
+        "label": "Avbrutt"
+    },
+    {
+        "value": "FAILED",
+        "label": "Feilet"
+    }
 ]

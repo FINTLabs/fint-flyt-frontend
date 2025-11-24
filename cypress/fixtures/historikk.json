@@ -1,35 +1,35 @@
 {
-  "content": [
-    {
-      "inProgress": 0,
-      "transferred": 0,
-      "aborted": 0,
-      "failed": 1,
-      "integrationId": 2,
-      "total": 1
-    }
-  ],
-  "pageable": {
-    "sort": {
-      "empty": true,
-      "unsorted": true,
-      "sorted": false
+    "content": [
+        {
+            "inProgress": 0,
+            "transferred": 0,
+            "aborted": 0,
+            "failed": 1,
+            "integrationId": 2,
+            "total": 1
+        }
+    ],
+    "pageable": {
+        "sort": {
+            "empty": true,
+            "unsorted": true,
+            "sorted": false
+        },
+        "offset": 0,
+        "pageNumber": 0,
+        "pageSize": 10,
+        "unpaged": false,
+        "paged": true
     },
-    "offset": 0,
-    "pageNumber": 0,
-    "pageSize": 10,
-    "unpaged": false,
-    "paged": true
-  },
-  "size": 10,
-  "number": 0,
-  "sort": {
-    "empty": true,
-    "unsorted": true,
-    "sorted": false
-  },
-  "numberOfElements": 1,
-  "first": true,
-  "last": true,
-  "empty": false
+    "size": 10,
+    "number": 0,
+    "sort": {
+        "empty": true,
+        "unsorted": true,
+        "sorted": false
+    },
+    "numberOfElements": 1,
+    "first": true,
+    "last": true,
+    "empty": false
 }

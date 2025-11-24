@@ -11,7 +11,8 @@ export default function SortSelect() {
             data-testid="sortSelect"
             label={t('filter.sort')}
             value={filters.sort || ''}
-            onChange={(e) => updateFilter('sort', e.target.value)}>
+            onChange={(e) => updateFilter('sort', e.target.value)}
+        >
             <option>{t('filter.sortBy')}</option>
             <option value="timestamp,asc">{t('filter.options.timestampAsc')}</option>
             <option value="timestamp,desc">{t('filter.options.timestampDesc')}</option>

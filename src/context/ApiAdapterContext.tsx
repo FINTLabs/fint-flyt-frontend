@@ -56,7 +56,7 @@ const apiAdapterDefaultValues: apiAdapterState = {
 const ApiAdapterContext = createContext<apiAdapterState>(apiAdapterDefaultValues);
 
 const APIAdapterProvider = ({ children }: ContextProps) => {
-    const [baseURL, setBaseURL] = useState<string>("");
+    const [baseURL, setBaseURL] = useState<string>('');
 
     async function getBaseURL(): Promise<string> {
         return await get<{ basePath: string }>('api/application/configuration')
@@ -66,7 +66,7 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
             })
             .catch((reason) => {
                 console.error('Error getting config in getBaseURL:', reason);
-                return "/";
+                return '/';
             });
     }
 
@@ -76,7 +76,7 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
         }
 
         if (!baseURL || baseURL === '/') {
-            return url
+            return url;
         }
 
         if (baseURL.endsWith('/')) {
@@ -227,7 +227,8 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
                 post,
                 patch,
                 deleteFetch,
-            }}>
+            }}
+        >
             {children}
         </ApiAdapterContext.Provider>
     );

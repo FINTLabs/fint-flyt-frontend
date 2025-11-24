@@ -1,6 +1,6 @@
 export interface ISelect {
-    label: string,
-    value: string,
-    description?: string,
-    disabled?: boolean
+    label: string;
+    value: string;
+    description?: string;
+    disabled?: boolean;
 }

@@ -1,4 +1,4 @@
-import {ISelect} from "../../features/configuration/types/Select";
+import { ISelect } from '../../features/configuration/types/Select';
 
 export interface Page<T> {
     content: T[];
@@ -25,9 +25,9 @@ export interface Page<T> {
 }
 
 export interface IAlertMessage {
-    message: string
+    message: string;
 }
 
 export interface ITableSelect extends ISelect {
-    disabled?: boolean
+    disabled?: boolean;
 }

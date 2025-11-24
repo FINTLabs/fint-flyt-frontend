@@ -123,7 +123,8 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
                 <Table
                     sort={sort}
                     onSortChange={(sortKey) => handleSort(sortKey ? sortKey : 'id')}
-                    id={props.id}>
+                    id={props.id}
+                >
                     <Table.Header>
                         <Table.Row>
                             <Table.ColumnHeader />
@@ -167,7 +168,8 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
                                             }}
                                             integration={value}
                                         />
-                                    }>
+                                    }
+                                >
                                     <Table.DataCell>{value.id}</Table.DataCell>
                                     <Table.DataCell scope="row">
                                         {getSourceApplicationDisplayNameById(

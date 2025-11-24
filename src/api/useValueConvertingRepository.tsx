@@ -4,7 +4,7 @@ import { ApiAdapterContext } from '../context/ApiAdapterContext';
 import { Page } from '../components/types/TableTypes';
 
 export default function useValueConvertingRepository() {
-    const { get, post } = useContext(ApiAdapterContext)
+    const { get, post } = useContext(ApiAdapterContext);
     const getValueConvertings = (
         page: number,
         size: number,

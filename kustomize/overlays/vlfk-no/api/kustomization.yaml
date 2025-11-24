@@ -3,34 +3,33 @@ kind: Kustomization
 namespace: vlfk-no
 
 resources:
-  - ../../../base
+    - ../../../base
 
 commonLabels:
-  fintlabs.no/org-id: vlfk.no
+    fintlabs.no/org-id: vlfk.no
 
 patches:
-  - patch: |-
-      - op: replace
-        path: "/metadata/labels/app.kubernetes.io~1instance"
-        value: "fint-flyt-frontend_vlfk-no"
-      - op: replace
-        path: "/spec/orgId"
-        value: "vlfk.no"
-      - op: replace
-        path: "/spec/env/0/value"
-        value: "/vlfk-no"
-      - op: replace
-        path: "/spec/url/basePath"
-        value: "/vlfk-no"
-    target:
-      kind: Application
-      name: fint-flyt-frontend
+    - patch: |-
+          - op: replace
+            path: "/metadata/labels/app.kubernetes.io~1instance"
+            value: "fint-flyt-frontend_vlfk-no"
+          - op: replace
+            path: "/spec/orgId"
+            value: "vlfk.no"
+          - op: replace
+            path: "/spec/env/0/value"
+            value: "/vlfk-no"
+          - op: replace
+            path: "/spec/url/basePath"
+            value: "/vlfk-no"
+      target:
+          kind: Application
+          name: fint-flyt-frontend
 
-  - patch: |-
-      - op: replace
-        path: "/spec/basePath"
-        value: "/vlfk-no"
-    target:
-      kind: FLAISSso
-      name: fint-flyt-auth-forward-sso
-
+    - patch: |-
+          - op: replace
+            path: "/spec/basePath"
+            value: "/vlfk-no"
+      target:
+          kind: FLAISSso
+          name: fint-flyt-auth-forward-sso

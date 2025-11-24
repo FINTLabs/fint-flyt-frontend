@@ -19,9 +19,9 @@ export interface IIntegrationFormData {
 }
 
 export const IntegrationState = {
-    ACTIVE: "ACTIVE",
-    DEACTIVATED: "DEACTIVATED"
-}
+    ACTIVE: 'ACTIVE',
+    DEACTIVATED: 'DEACTIVATED',
+};
 
 export interface IIntegrationPatch {
     destination?: string;

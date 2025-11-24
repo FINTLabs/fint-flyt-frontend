@@ -1,8 +1,10 @@
-[{
-  "id": 1,
-  "sourceApplicationId": 2,
-  "sourceApplicationIntegrationId": "journalpost",
-  "destination": "fylkesrad",
-  "state": "ACTIVE",
-  "activeConfigurationId": 4
-}]
+[
+    {
+        "id": 1,
+        "sourceApplicationId": 2,
+        "sourceApplicationIntegrationId": "journalpost",
+        "destination": "fylkesrad",
+        "state": "ACTIVE",
+        "activeConfigurationId": 4
+    }
+]

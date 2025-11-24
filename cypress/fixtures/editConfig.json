@@ -1,31 +1,40 @@
 {
-  "comment": "rediger denne konfig",
-  "completed": true,
-  "id": 6,
-  "integrationId": 2,
-  "integrationMetadataId": 1,
-  "version": 1,
-  "mapping": {
-    "objectCollectionMappingPerKey":{},
-    "objectMappingPerKey": {
-      "newCase": {
-        "objectCollectionMappingPerKey" : {},
-        "objectMappingPerKey": {},
+    "comment": "rediger denne konfig",
+    "completed": true,
+    "id": 6,
+    "integrationId": 2,
+    "integrationMetadataId": 1,
+    "version": 1,
+    "mapping": {
+        "objectCollectionMappingPerKey": {},
+        "objectMappingPerKey": {
+            "newCase": {
+                "objectCollectionMappingPerKey": {},
+                "objectMappingPerKey": {},
+                "valueCollectionMappingPerKey": {},
+                "valueMappingPerKey": {
+                    "arkivdel": {
+                        "mappingString": "https://beta.felleskomponent.no/arkiv/noark/systemid/OPPL",
+                        "type": "STRING"
+                    },
+                    "saksmappetype": {
+                        "mappingString": "https://beta.felleskomponent.no/arkiv/noark/systemid/FJELL",
+                        "type": "STRING"
+                    },
+                    "saksstatus": {
+                        "mappingString": "https://beta.felleskomponent.no/arkiv/noark/systemid/MU",
+                        "type": "STRING"
+                    },
+                    "tittel": { "mappingString": "test", "type": "DYNAMIC_STRING" }
+                }
+            }
+        },
         "valueCollectionMappingPerKey": {},
         "valueMappingPerKey": {
-          "arkivdel": {"mappingString": "https://beta.felleskomponent.no/arkiv/noark/systemid/OPPL", "type": "STRING" },
-          "saksmappetype": {"mappingString": "https://beta.felleskomponent.no/arkiv/noark/systemid/FJELL", "type": "STRING"},
-          "saksstatus": {"mappingString": "https://beta.felleskomponent.no/arkiv/noark/systemid/MU", "type": "STRING"},
-          "tittel": {"mappingString": "test", "type": "DYNAMIC_STRING"}
+            "type": {
+                "mappingString": "NEW",
+                "type": "STRING"
+            }
         }
-      }
-    },
-    "valueCollectionMappingPerKey": {},
-    "valueMappingPerKey": {
-      "type": {
-        "mappingString": "NEW",
-        "type": "STRING"
-      }
     }
-  }
 }

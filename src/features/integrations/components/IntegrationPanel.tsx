@@ -1,11 +1,11 @@
-import * as React from "react";
-import {ReactElement, useContext, useEffect, useState} from "react";
-import {useTranslation} from "react-i18next";
-import {IntegrationContext} from "../../../context/IntegrationContext";
-import {Link as RouterLink, useNavigate} from 'react-router';
-import {SourceApplicationContext} from "../../../context/SourceApplicationContext";
-import {IIntegration, IIntegrationPatch} from "../../integration/types/Integration";
-import {IConfiguration} from "../../configuration/types/Configuration";
+import * as React from 'react';
+import { ReactElement, useContext, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { IntegrationContext } from '../../../context/IntegrationContext';
+import { Link as RouterLink, useNavigate } from 'react-router';
+import { SourceApplicationContext } from '../../../context/SourceApplicationContext';
+import { IIntegration, IIntegrationPatch } from '../../integration/types/Integration';
+import { IConfiguration } from '../../configuration/types/Configuration';
 import {
     Alert,
     BodyLong,
@@ -19,143 +19,181 @@ import {
     Modal,
     Pagination,
     Table,
-    VStack
-} from "@navikt/ds-react";
-import {MenuElipsisVerticalCircleIcon, PencilWritingIcon} from '@navikt/aksel-icons';
-import {IAlertMessage, Page} from "../../../components/types/TableTypes";
+    VStack,
+} from '@navikt/ds-react';
+import { MenuElipsisVerticalCircleIcon, PencilWritingIcon } from '@navikt/aksel-icons';
+import { IAlertMessage, Page } from '../../../components/types/TableTypes';
 import useConfigurationRepository from '../../../api/useConfigurationRepository';
 import useIntegrationRepository from '../../../api/useIntegrationRepository';
 
 type Props = {
-    id: string
-    integration: IIntegration,
+    id: string;
+    integration: IIntegration;
     onError: (error: IAlertMessage | undefined) => void;
-}
+};
 
 const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
     const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.integrations' });
     const history = useNavigate();
-    const IntegrationRepository = useIntegrationRepository()
-    const {
-        setConfiguration,
-        setExistingIntegrationMetadata,
-        setExistingIntegration
-    } = useContext(IntegrationContext);
-    const {
-        allMetadata,
-        setSourceApplication,
-        getInstanceElementMetadata,
-    } = useContext(SourceApplicationContext)
-    const ConfigurationRepository = useConfigurationRepository()
+    const IntegrationRepository = useIntegrationRepository();
+    const { setConfiguration, setExistingIntegrationMetadata, setExistingIntegration } =
+        useContext(IntegrationContext);
+    const { allMetadata, setSourceApplication, getInstanceElementMetadata } =
+        useContext(SourceApplicationContext);
+    const ConfigurationRepository = useConfigurationRepository();
     const [activeVersion, setActiveVersion] = useState<string>('');
     const [openDialog, setOpenDialog] = React.useState(false);
-    const [configToActivate, setConfigToActivate] = React.useState<string>('')
+    const [configToActivate, setConfigToActivate] = React.useState<string>('');
     const [completedConfigs, setCompletedConfigs] = useState<Page<IConfiguration>>();
     const [draftConfigs, setDraftConfigs] = useState<Page<IConfiguration>>();
     const [page, setPage] = useState(1);
     const rowsPerPage = 30;
 
     useEffect(() => {
-        setCompletedConfigs({content: []})
-        setDraftConfigs({content: []})
+        setCompletedConfigs({ content: [] });
+        setDraftConfigs({ content: [] });
         getAllConfigurations();
-    }, [page, setPage])
+    }, [page, setPage]);
 
     const getAllConfigurations = async () => {
-        props.onError(undefined)
+        props.onError(undefined);
         try {
-            const configResponse = await ConfigurationRepository.getConfigurations(page - 1, rowsPerPage, "id", "DESC", false, props.integration.id ?? '', true)
-            const completedConfigResponse = await ConfigurationRepository.getConfigurations(page - 1, rowsPerPage, "version", "DESC", true, props.integration.id ?? '', true)
-            setDraftConfigs(configResponse.data)
-            setCompletedConfigs(completedConfigResponse.data)
-
+            const configResponse = await ConfigurationRepository.getConfigurations(
+                page - 1,
+                rowsPerPage,
+                'id',
+                'DESC',
+                false,
+                props.integration.id ?? '',
+                true
+            );
+            const completedConfigResponse = await ConfigurationRepository.getConfigurations(
+                page - 1,
+                rowsPerPage,
+                'version',
+                'DESC',
+                true,
+                props.integration.id ?? '',
+                true
+            );
+            setDraftConfigs(configResponse.data);
+            setCompletedConfigs(completedConfigResponse.data);
         } catch (e) {
-            props.onError(undefined)
+            props.onError(undefined);
             console.error('Error: ', e);
         }
-    }
-
+    };
 
     useEffect(() => {
         setSourceApplication(Number(props.integration.sourceApplicationId) ?? 1);
-        getVersionForActiveConfig(props.integration?.activeConfigurationId ? props.integration.activeConfigurationId : undefined)
+        getVersionForActiveConfig(
+            props.integration?.activeConfigurationId
+                ? props.integration.activeConfigurationId
+                : undefined
+        );
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, []);
 
     function formatTimestampToMinutes(timestamp?: string, locale?: string): string {
-        if (!timestamp) return "";
-        const options: Intl.DateTimeFormatOptions = { year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" };
-        return new Intl.DateTimeFormat(locale ?? "no-NO", options).format(new Date(timestamp));
+        if (!timestamp) return '';
+        const options: Intl.DateTimeFormatOptions = {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+        };
+        return new Intl.DateTimeFormat(locale ?? 'no-NO', options).format(new Date(timestamp));
     }
 
     function getVersionForActiveConfig(id: string | undefined): void {
         if (id === undefined) {
-            setActiveVersion(t('noActiveConfig'))
+            setActiveVersion(t('noActiveConfig'));
             return;
         }
         ConfigurationRepository.getConfigurationById(id.toString(), true)
             .then((response) => {
                 const data: IConfiguration = response.data;
                 if (data) {
-                    setActiveVersion(t('version') + data.version)
+                    setActiveVersion(t('version') + data.version);
                 }
             })
             .catch((e) => {
-                console.error('Error: ', e)
-                setActiveVersion(t('noActiveConfig'))
-            })
+                console.error('Error: ', e);
+                setActiveVersion(t('noActiveConfig'));
+            });
     }
 
     async function handleNewOrEditConfigClick(id: number | string, version?: unknown) {
-        setExistingIntegration(props.integration)
+        setExistingIntegration(props.integration);
         await ConfigurationRepository.getConfigurationById(id.toString(), false)
             .then(async (response) => {
-                const data = response.data
-                const usedVersionMetadata = allMetadata?.filter(md => md.id.toString() === data.integrationMetadataId?.toString())
-                setExistingIntegrationMetadata(usedVersionMetadata ? usedVersionMetadata[0] : undefined)
+                const data = response.data;
+                const usedVersionMetadata = allMetadata?.filter(
+                    (md) => md.id.toString() === data.integrationMetadataId?.toString()
+                );
+                setExistingIntegrationMetadata(
+                    usedVersionMetadata ? usedVersionMetadata[0] : undefined
+                );
                 if (version) {
-                    data.id = 0
-                    data.comment = undefined
+                    data.id = 0;
+                    data.comment = undefined;
                     data.completed = false;
                 }
                 setConfiguration(data);
             })
             .catch((e) => {
-                console.error('Error: ', e)
+                console.error('Error: ', e);
                 setConfiguration(undefined);
-            })
+            });
     }
 
     const activateConfiguration = (configurationId: string) => {
         const patch: IIntegrationPatch = {
             activeConfigurationId: configurationId,
-            state: 'ACTIVE'
-        }
+            state: 'ACTIVE',
+        };
         if (props.integration?.id) {
-            IntegrationRepository.updateIntegration(props.integration?.id, patch).then(
-                (response) => {
-                    console.log('updated integration: ', props.integration?.id, response)
-                }
-            ).catch(e => console.error(e))
-            setActiveVersion(t('noActiveConfig'))
-            console.log('set active config, integrationId', props.integration?.id, 'configurationId', configurationId)
+            IntegrationRepository.updateIntegration(props.integration?.id, patch)
+                .then((response) => {
+                    console.log('updated integration: ', props.integration?.id, response);
+                })
+                .catch((e) => console.error(e));
+            setActiveVersion(t('noActiveConfig'));
+            console.log(
+                'set active config, integrationId',
+                props.integration?.id,
+                'configurationId',
+                configurationId
+            );
         }
-
-    }
+    };
 
     function configTable(configs: Page<IConfiguration>, completed: boolean): ReactElement {
         // tslint-ignore-next-line
-        return configs.content.length > 0 ?
+        return configs.content.length > 0 ? (
             <Box>
-                <Table size={"small"}>
+                <Table size={'small'}>
                     <Table.Header>
                         <Table.Row>
                             <Table.HeaderCell scope="col">{t('table.column.id')}</Table.HeaderCell>
-                            {completed && <Table.HeaderCell scope="col">{t('table.column.version')}</Table.HeaderCell>}
-                            <Table.HeaderCell scope="col">{t('table.column.comment')}</Table.HeaderCell>
-                            <Table.HeaderCell scope="col">{t('table.column.lastModifiedAt')}</Table.HeaderCell>
-                            <Table.HeaderCell scope="col">{t('table.column.lastModifiedBy')}</Table.HeaderCell>
-                            <Table.HeaderCell scope="col">{t('table.column.actions')}</Table.HeaderCell>
+                            {completed && (
+                                <Table.HeaderCell scope="col">
+                                    {t('table.column.version')}
+                                </Table.HeaderCell>
+                            )}
+                            <Table.HeaderCell scope="col">
+                                {t('table.column.comment')}
+                            </Table.HeaderCell>
+                            <Table.HeaderCell scope="col">
+                                {t('table.column.lastModifiedAt')}
+                            </Table.HeaderCell>
+                            <Table.HeaderCell scope="col">
+                                {t('table.column.lastModifiedBy')}
+                            </Table.HeaderCell>
+                            <Table.HeaderCell scope="col">
+                                {t('table.column.actions')}
+                            </Table.HeaderCell>
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
@@ -165,148 +203,194 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
                                     <Table.DataCell>{value.id}</Table.DataCell>
                                     {completed && <Table.DataCell>{value.version}</Table.DataCell>}
                                     <Table.DataCell>{value.comment}</Table.DataCell>
-                                    <Table.DataCell>{formatTimestampToMinutes(value.lastModifiedAt, i18n.language)}</Table.DataCell>
-                                    <Table.DataCell>{value.lastModifiedBy}</Table.DataCell>
                                     <Table.DataCell>
-                                        {actionMenu(value)}
+                                        {formatTimestampToMinutes(
+                                            value.lastModifiedAt,
+                                            i18n.language
+                                        )}
                                     </Table.DataCell>
+                                    <Table.DataCell>{value.lastModifiedBy}</Table.DataCell>
+                                    <Table.DataCell>{actionMenu(value)}</Table.DataCell>
                                 </Table.Row>
                             );
                         })}
                     </Table.Body>
                 </Table>
-                <HStack justify={"center"}>
-                    {configs?.totalElements && configs?.totalElements > rowsPerPage &&
+                <HStack justify={'center'}>
+                    {configs?.totalElements && configs?.totalElements > rowsPerPage && (
                         <Pagination
                             page={page}
                             onPageChange={setPage}
                             count={configs?.totalPages ?? 1}
                             size="small"
                         />
-                    }
+                    )}
                 </HStack>
             </Box>
-            : <BodyShort>{t('table.noElements')}</BodyShort>
+        ) : (
+            <BodyShort>{t('table.noElements')}</BodyShort>
+        );
     }
-
 
     function actionMenu(config: IConfiguration): ReactElement {
         return (
-            <div id={props.id + "-action-toggle"} className="min-h-32">
-                {config.completed ?
+            <div id={props.id + '-action-toggle'} className="min-h-32">
+                {config.completed ? (
                     <Dropdown>
-                        <Button as={Dropdown.Toggle} variant="tertiary-neutral"
-                                icon={<MenuElipsisVerticalCircleIcon aria-hidden/>}/>
+                        <Button
+                            as={Dropdown.Toggle}
+                            variant="tertiary-neutral"
+                            icon={<MenuElipsisVerticalCircleIcon aria-hidden />}
+                        />
                         <Dropdown.Menu>
                             <Dropdown.Menu.GroupedList>
-                                <Dropdown.Menu.GroupedList.Item onClick={() => {
-                                    handleNewOrEditConfigClick(config.id).then(() => history("/integration/configuration/edit"))
-                                }}>
+                                <Dropdown.Menu.GroupedList.Item
+                                    onClick={() => {
+                                        handleNewOrEditConfigClick(config.id).then(() =>
+                                            history('/integration/configuration/edit')
+                                        );
+                                    }}
+                                >
                                     {t('table.show')}
                                 </Dropdown.Menu.GroupedList.Item>
-                                <Dropdown.Menu.GroupedList.Item onClick={() => {
-                                    handleNewOrEditConfigClick(config.id, config.version).then(() => history("/integration/configuration/edit"))
-                                }}>
+                                <Dropdown.Menu.GroupedList.Item
+                                    onClick={() => {
+                                        handleNewOrEditConfigClick(config.id, config.version).then(
+                                            () => history('/integration/configuration/edit')
+                                        );
+                                    }}
+                                >
                                     {t('table.basedOn')}
                                 </Dropdown.Menu.GroupedList.Item>
                             </Dropdown.Menu.GroupedList>
-                            <Dropdown.Menu.Divider/>
+                            <Dropdown.Menu.Divider />
                             <Dropdown.Menu.List>
-                                <Dropdown.Menu.List.Item onClick={() => {
-                                    handleActivateAction(config.id.toString())
-                                }}>
+                                <Dropdown.Menu.List.Item
+                                    onClick={() => {
+                                        handleActivateAction(config.id.toString());
+                                    }}
+                                >
                                     {t('table.activate')}
                                 </Dropdown.Menu.List.Item>
                             </Dropdown.Menu.List>
                         </Dropdown.Menu>
                     </Dropdown>
-                    :
-                    <Button variant="tertiary-neutral" icon={<PencilWritingIcon aria-hidden/>} onClick={() => {
-                        handleNewOrEditConfigClick(config.id).then(() => history("/integration/configuration/edit"))
-                    }}>
-                    </Button>
-                }
+                ) : (
+                    <Button
+                        variant="tertiary-neutral"
+                        icon={<PencilWritingIcon aria-hidden />}
+                        onClick={() => {
+                            handleNewOrEditConfigClick(config.id).then(() =>
+                                history('/integration/configuration/edit')
+                            );
+                        }}
+                    ></Button>
+                )}
             </div>
         );
     }
 
     const handleActivateAction = (configId: string) => {
-        setOpenDialog(true)
-        setConfigToActivate(configId)
-    }
+        setOpenDialog(true);
+        setConfigToActivate(configId);
+    };
 
     return (
         <Box id={'integration-panel-container'}>
             <Modal
                 open={openDialog}
-                onClose={() => setOpenDialog(false)
-                }
+                onClose={() => setOpenDialog(false)}
                 header={{
                     heading: t('table.activate'),
-                    size: "small",
+                    size: 'small',
                     closeButton: false,
                 }}
                 width="small"
             >
                 <Modal.Body>
-                    <BodyLong>
-                        {t('dialog.body')}
-                    </BodyLong>
+                    <BodyLong>{t('dialog.body')}</BodyLong>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button type="button" variant="danger" onClick={() => {
-                        getVersionForActiveConfig(configToActivate)
-                        activateConfiguration(configToActivate)
-                        setOpenDialog(false)
-                    }}>
-                        {t('dialog.yes')}
-                    </Button>
                     <Button
                         type="button"
-                        variant="secondary"
-                        onClick={() => setOpenDialog(false)}
+                        variant="danger"
+                        onClick={() => {
+                            getVersionForActiveConfig(configToActivate);
+                            activateConfiguration(configToActivate);
+                            setOpenDialog(false);
+                        }}
                     >
+                        {t('dialog.yes')}
+                    </Button>
+                    <Button type="button" variant="secondary" onClick={() => setOpenDialog(false)}>
                         {t('dialog.cancel')}
                     </Button>
                 </Modal.Footer>
             </Modal>
             <VStack gap="4">
-                <Label>{t('activeConfigurationId')} {activeVersion}</Label>
+                <Label>
+                    {t('activeConfigurationId')} {activeVersion}
+                </Label>
                 <HGrid gap="6" columns={2}>
-                    <Box id={'completed-config-table'} padding="4" background={"surface-subtle"} borderRadius="xlarge"
-                         style={{minHeight: '440px'}}>
+                    <Box
+                        id={'completed-config-table'}
+                        padding="4"
+                        background={'surface-subtle'}
+                        borderRadius="xlarge"
+                        style={{ minHeight: '440px' }}
+                    >
                         <BodyShort>{t('table.completed')}:</BodyShort>
-                        {configTable(completedConfigs ?? {content: []}, true)}
+                        {configTable(completedConfigs ?? { content: [] }, true)}
                     </Box>
-                    <Box id={'draft-config-table'} padding="4" background={"surface-subtle"} borderRadius="xlarge"
-                         style={{height: 'fit-content'}}>
+                    <Box
+                        id={'draft-config-table'}
+                        padding="4"
+                        background={'surface-subtle'}
+                        borderRadius="xlarge"
+                        style={{ height: 'fit-content' }}
+                    >
                         <BodyShort>{t('table.drafts')}:</BodyShort>
-                        {configTable(draftConfigs ?? {content: []}, false)}
+                        {configTable(draftConfigs ?? { content: [] }, false)}
                     </Box>
                 </HGrid>
-                <HStack gap={"6"}>
+                <HStack gap={'6'}>
                     <Box>
                         <Button
-                            id={props.id + "-new-configuration-button"}
+                            id={props.id + '-new-configuration-button'}
                             disabled={!allMetadata}
                             as={RouterLink}
-                            to='/integration/configuration/new-configuration'
+                            to="/integration/configuration/new-configuration"
                             onClick={() => {
-                                setExistingIntegration(props.integration)
-                                const selectedForm = allMetadata ? allMetadata.filter(md => md.sourceApplicationIntegrationId === props.integration?.sourceApplicationIntegrationId) : []
-                                setExistingIntegrationMetadata(selectedForm.length > 0 ? selectedForm[selectedForm.length - 1] : undefined)
-                                getInstanceElementMetadata(selectedForm[selectedForm.length - 1].id)
+                                setExistingIntegration(props.integration);
+                                const selectedForm = allMetadata
+                                    ? allMetadata.filter(
+                                          (md) =>
+                                              md.sourceApplicationIntegrationId ===
+                                              props.integration?.sourceApplicationIntegrationId
+                                      )
+                                    : [];
+                                setExistingIntegrationMetadata(
+                                    selectedForm.length > 0
+                                        ? selectedForm[selectedForm.length - 1]
+                                        : undefined
+                                );
+                                getInstanceElementMetadata(
+                                    selectedForm[selectedForm.length - 1].id
+                                );
                             }}
                         >
                             {t('button.newConfiguration')}
                         </Button>
                     </Box>
-                    {!allMetadata &&
-                        <Alert size="small" variant="warning">{t('missingDataError')} </Alert>}
+                    {!allMetadata && (
+                        <Alert size="small" variant="warning">
+                            {t('missingDataError')}{' '}
+                        </Alert>
+                    )}
                 </HStack>
             </VStack>
         </Box>
     );
-}
+};
 
 export default IntegrationPanel;

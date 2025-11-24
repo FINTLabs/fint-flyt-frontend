@@ -1,498 +1,498 @@
 {
-  "menu": {
-    "language": "Språk",
-    "norwegian": "Bokmål",
-    "norwegianNN": "Nynorsk",
-    "english": "English",
-    "logout": "Logg ut"
-  },
-  "menuItems": {
-    "dashboard": "Dashbord",
-    "integration": "Ny",
-    "integrations": "Integrasjoner",
-    "instances": "Instanser",
-    "version": "Versjon",
-    "support": "Hjelp og support",
-    "valueConverting": "Verdikonvertering",
-    "useraccess": "Brukertilgang"
-  },
-  "pages": {
-    "useraccess": {
-      "header": "Brukertilgang",
-      "giveAccess": "Gi tilgang",
-      "button": {
-        "edit": "Rediger",
-        "noEdit": "Avslutt redigering",
-        "save": "Lagre",
-        "cancel": "Avbryt"
-      },
-      "table": {
-        "column": {
-          "id": "ID",
-          "name": "Navn",
-          "email": "Epost"
-        }
-      },
-      "numberPerPage": "Antall per side",
-      "errorMessage": "Det oppsto en feil under henting av data, prøv igjen senere."
+    "menu": {
+        "language": "Språk",
+        "norwegian": "Bokmål",
+        "norwegianNN": "Nynorsk",
+        "english": "English",
+        "logout": "Logg ut"
     },
-    "dashboard": {
-      "header": "Dashboard og oversikt",
-      "integrations": "Integrasjoner",
-      "oneIntegration": "Integrasjon",
-      "activeIntegrations": "Aktive integrasjoner",
-      "oneActiveIntegration": "aktiv integrasjon",
-      "instances": "arkiverte instanser",
-      "oneInstance": "arkivert instans",
-      "empty": "Ingen",
-      "cards": {
-        "totalInstances": "Totalt antall instanser",
-        "inProgress": "Under behandling",
-        "transferred": "Overført",
-        "aborted": "Avbrutt",
-        "failed": "Feilet"
-      },
-      "links": {
-        "integrations": "Se integrasjoner",
-        "integration": "Ny integrasjon",
-        "log": "Se logg",
-        "instances": "Se instansoversikt",
-        "support": "Kontakt support"
-      }
-    },
-    "configuration": {
-      "header": "Konfigurasjon",
-      "integration": "Integrasjon",
-      "formHeader": "Utgående data",
-      "saved": "Konfigurasjon lagret",
-      "saveError": "Feilet under lagring, feilmelding: ",
-      "genericError": "Det har oppstått en feil",
-      "version": "Versjon ",
-      "comment": "Kommentar",
-      "reqFieldMsg": "Kommentar er påkrevd ved ferdigstilling",
-      "valueConverting": {
-        "custom": "Egendefinerte",
-        "application": "Flyt",
-        "destination": "Destinasjon"
-      },
-      "label": {
-        "valueConverting": "Verdikonvertering",
-        "customValue": "Egendefinert verdi",
-        "checkLabel": "Ferdigstilt",
-        "activeLabel": "Aktiv",
-        "placeholder": "Skriv eller trekk inn fra metadata",
-        "formatError": "Feltet oppfyller ikke påkrevd format"
-      },
-      "button": {
-        "submit": "Lagre",
-        "cancel": "Avbryt",
-        "complete": "Fullfør",
-        "append": "+",
-        "remove": "-"
-      },
-      "collectionMapping": {
-        "defaultElements": "Faste elementer",
-        "generatedElements": "Generert fra samlinger"
-      },
-      "fromCollectionMapping": {
-        "collections": "Samlinger",
-        "convertCollectionElements": "Konvertering av samlingselementer"
-      },
-      "metadataPanel": {
-        "header": "Metadata",
-        "valueConverting": "Verdikonvertering",
+    "menuItems": {
+        "dashboard": "Dashbord",
+        "integration": "Ny",
+        "integrations": "Integrasjoner",
+        "instances": "Instanser",
         "version": "Versjon",
-        "metadataWarning": "Det fins nyere versjon av metadata",
-        "help": {
-          "metadata": "Metadata er data fra innsendt skjema du kan bruke i konfigurasjon av utgående data"
-        }
-      },
-      "toolsPanel": {
-        "header": "Verktøy",
-        "description": "Tekst og tall",
-        "string": "Tekst",
-        "integer": "Heltall"
-      },
-      "help": {
-        "formHeader": "Utgående data"
-      }
+        "support": "Hjelp og support",
+        "valueConverting": "Verdikonvertering",
+        "useraccess": "Brukertilgang"
     },
-    "integrationForm": {
-      "header": "Ny integrasjon",
-      "incoming": "Innkommende",
-      "outgoing": "Utgående",
-      "errorHeading": "Du må rette disse feilene, det mangler:",
-      "button": {
-        "confirm": "Opprett",
-        "cancel": "Avbryt"
-      },
-      "alert": {
-        "missingMetadata": "Finner ikke metadata for integrasjon"
-      },
-      "labels": {
-        "placeholder": "Velg kildeapplikasjon først",
-        "loading": "Laster inn...",
-        "sourceApplicationId": "Kildeapplikasjon",
-        "sourceApplicationIntegrationId": "Integrasjon",
-        "destination": "Destinasjon/Base"
-      },
-      "help": {
-        "sourceApplicationId": "En kildeapplikasjon er fagsystemet data som skal behandles i Flyt kommer fra",
-        "sourceApplicationIntegrationId": "Referanse/navn/id til data som skal behandles i flyt",
-        "destination": "Hvor data skal sendes etter omforming i Flyt"
-      }
-    },
-    "integrations": {
-      "header": "Integrasjoner",
-      "version": "Versjon ",
-      "noActiveConfig": "ingen aktiv konfigurasjon",
-      "activeConfigurationId": "Aktiv konfigurasjon: ",
-      "missingDataError": "Mangler tilstrekkelig data for å kunne opprette ny konfigurasjon",
-      "errorMessage": "Det oppsto en feil under henting av data, prøv igjen senere.",
-      "numberPerPage": "Antall per side",
-      "help": {
-        "header": "Oversikt over integrasjoner. Her kan du se alle integrasjonene og tilhørende konfigurasjoner, lage nye konfigurasjoner for en integrasjon eller aktivere en konfigurasjon"
-      },
-      "button": {
-        "newIntegration": "Ny integrasjon",
-        "newConfiguration": "Ny konfigurasjon"
-      },
-      "dialog": {
-        "body": "Er du sikker på at du vil aktivere denne konfigurasjonen?",
-        "yes": "Ja, jeg er sikker",
-        "cancel": "Avbryt"
-      },
-      "table": {
-        "completed": "Ferdigstilt",
-        "drafts": "Utkast",
-        "noElements": "No elements",
-        "show": "Vis",
-        "edit": "Rediger",
-        "basedOn": "Lag ny basert på denne",
-        "activate": "Aktiver",
-        "column": {
-          "id": "Id",
-          "configurationId": "Konfig. Id",
-          "destination": "Destinasjon/base",
-          "sourceApplicationIntegrationId": "Kildeapplikasjons integrasjon-id",
-          "sourceApplicationIntegrationIdDisplayName": "Integrasjonsnavn",
-          "sourceApplicationId": "Kildeapplikasjon",
-          "name": "Navn",
-          "state": "Tilstand",
-          "comment": "Kommentar",
-          "actions": "Handlinger",
-          "finished": "Ferdigstilt",
-          "version": "Versjon",
-          "dispatched": "Sendt",
-          "errors": "Feilet",
-          "total": "Totalt",
-          "inProgress": "Under behandling",
-          "transferred": "Overført",
-          "aborted": "Avbrutt",
-          "failed": "Feilet",
-          "lastModifiedAt": "Sist endret",
-          "lastModifiedBy": "Endret av"
-        }
-      }
-    },
-    "instances": {
-      "header": "Instanser",
-      "showError": "vis feilmelding",
-      "errors": "Feilmeldinger:",
-      "oneError": "Feilmelding:",
-      "errorMessage": "Det oppsto en feil under henting av data, prøv igjen senere.",
-      "numberPerPage": "Antall per side",
-      "customStatus": "Sett status manuelt",
-      "retry": "Prøv igjen",
-      "dialog": {
-        "cancel": "Avbryt",
-        "confirm": "Lagre",
-        "destinationId": "Destinasjon ID",
-        "destinationIdDesc": "Kreves på instanser manuelt opprettet i destinasjon",
-        "status": "Status",
-        "reqFieldMsg": "Påkrevd felt",
-        "warning": "Legger til en manuell status, og erstatter systemgenerert status, vær sikker før du endrer, handlingen kan ikke angres"
-      },
-      "STORED": "Lagret",
-      "IN_PROGRESS": "Pågår",
-      "TRANSFERRED": "Overført",
-      "ABORTED": "Avbrutt",
-      "button": {
-        "close": "Lukk",
-        "save": "Lagre",
-        "refresh": "Oppdater side",
-        "search": "Søk",
-        "clear": "Tilbakestill"
-      },
-      "filter": {
-        "alerts": {
-          "tableFiltered": "Tabellen er filtrert",
-          "noResults": "Filtrene returnerte 0 resultater"
-        },
-        "loadMore": "Last inn mer...",
-
-        "sort": "Sortering",
-        "sortBy": "Velg sortering",
-        "options": {
-          "timestampAsc": "Siste oppdatering stigende",
-          "timestampDesc": "Siste oppdatering synkende",
-          "sourceAppId": "Kildeapplikasjons instans-ID",
-          "destinationId": "Destinasjons instans-ID"
-        },
-        "associatedEventNames": {
-          "INSTANCE_DISPATCHING_ERROR": "Feil under sending til destinasjon",
-          "INSTANCE_REGISTRATION_ERROR": "Feil under registrering",
-          "INSTANCE_RECEIVED": "Mottatt",
-          "INSTANCE_MANUALLY_PROCESSED": "Manuelt behandlet",
-          "INSTANCE_MAPPING_ERROR": "Feil under konvertering",
-          "INSTANCE_MAPPED": "Konvertert",
-          "INSTANCE_MANUALLY_REJECTED": "Manuelt avvist",
-          "INSTANCE_READY_FOR_DISPATCH": "Klar for sending til destinasjon",
-          "INSTANCE_DISPATCHED": "Sendt til destinasjon",
-          "INSTANCE_RECEIVAL_ERROR": "Feil under mottak",
-          "INSTANCE_RETRY_REQUEST_ERROR": "Feil under forespørsel om nytt forsøk",
-          "INSTANCE_REQUESTED_FOR_RETRY": "Forespurt om nytt forsøk",
-          "INSTANCE_REGISTERED": "Instans registrert",
-          "INSTANCE_DELETED": "Instans slettet",
-          "INSTANCE_STATUS_OVERRIDDEN_AS_TRANSFERRED": "Status overstyrt som 'Overført'"
-        },
-        "intermediateStorageStatusOptions": {
-          "STORED": "Lagret",
-          "STORED_AND_DELETED": "Lagret og slettet",
-          "NEVER_STORED": "Aldri lagret"
-        },
-        "statusOptions": {
-          "TRANSFERRED": "Overført",
-          "ABORTED": "Avbrutt",
-          "IN_PROGRESS": "Pågår",
-          "FAILED": "Feilet"
-        },
-        "timeCard": {
-          "ariaLabel": "Tidsperiode",
-          "title": "Tidsperiode",
-          "Denne dagen": "I dag",
-          "Denne måneden": "Denne måneden",
-          "Denne uka": "Denne uken",
-          "Dette året": "Dette året",
-          "description": {
-            "period": "Periode: {{value}}",
-            "manual": "Manuell: {{from}} - {{to}}",
-            "offset": "Siste: {{hours}}t {{minutes}}m"
-          },
-          "tabs": {
-            "offset": "Siste",
-            "period": "Periode",
-            "manual": "Manuell"
-          },
-          "offset": {
-            "hours": "Timer",
-            "minutes": "Minutter"
-          },
-          "manual": {
-            "fromDate": "Fra",
-            "fromTime": "Tid fra",
-            "toDate": "Til",
-            "toTime": "Tid til"
-          }
-        },
-        "advancedCard": {
-          "ariaLabel": "Avansert",
-          "title": "Avansert",
-          "description": {
-            "associatedEvents": "Tilknyttede hendelser: {{value}}",
-            "storageStatuses": "Valgt mellomlagring: {{value}}"
-          },
-          "combobox": {
-            "label": "Tilknyttet hendelse"
-          },
-          "chips": {
-            "label": "Mellomlagring"
-          }
-        },
-        "instanceCard": {
-          "ariaLabel": "Instans-variant",
-          "title": "Instans",
-          "description": {
-            "source": "Kilde: {{value}}",
-            "destination": "Destinasjon: {{value}}"
-          },
-          "fields": {
-            "sourceAppInstanceId": {
-              "label": "Kildeapplikasjons instans-ID",
-              "placeholder": "Skriv inn kilde-ID-er, separert med komma"
+    "pages": {
+        "useraccess": {
+            "header": "Brukertilgang",
+            "giveAccess": "Gi tilgang",
+            "button": {
+                "edit": "Rediger",
+                "noEdit": "Avslutt redigering",
+                "save": "Lagre",
+                "cancel": "Avbryt"
             },
-            "destinationId": {
-              "label": "Destinasjon",
-              "placeholder": "Skriv inn destinasjons-ID-er, separert med komma"
-            }
-          }
+            "table": {
+                "column": {
+                    "id": "ID",
+                    "name": "Navn",
+                    "email": "Epost"
+                }
+            },
+            "numberPerPage": "Antall per side",
+            "errorMessage": "Det oppsto en feil under henting av data, prøv igjen senere."
         },
-        "integrationCard": {
-          "ariaLabel": "Integrasjon og kildeapplikasjon",
-          "title": "Integrasjon og kildeapplikasjon",
-          "description": {
-            "integration": "Integrasjon: {{value}}",
-            "sourceApplication": "Kildeapplikasjon: {{value}}",
-            "sourceApplicationIntegration": "Kildeapplikasjon integrasjons: {{value}}"
-          },
-          "tabs": {
+        "dashboard": {
+            "header": "Dashboard og oversikt",
+            "integrations": "Integrasjoner",
+            "oneIntegration": "Integrasjon",
+            "activeIntegrations": "Aktive integrasjoner",
+            "oneActiveIntegration": "aktiv integrasjon",
+            "instances": "arkiverte instanser",
+            "oneInstance": "arkivert instans",
+            "empty": "Ingen",
+            "cards": {
+                "totalInstances": "Totalt antall instanser",
+                "inProgress": "Under behandling",
+                "transferred": "Overført",
+                "aborted": "Avbrutt",
+                "failed": "Feilet"
+            },
+            "links": {
+                "integrations": "Se integrasjoner",
+                "integration": "Ny integrasjon",
+                "log": "Se logg",
+                "instances": "Se instansoversikt",
+                "support": "Kontakt support"
+            }
+        },
+        "configuration": {
+            "header": "Konfigurasjon",
             "integration": "Integrasjon",
-            "sourceApp": "Kildeapplikasjon"
-          },
-          "combobox": {
-            "sourceApp": "Velg kildeapplikasjon",
-            "integration": "Velg integrasjon"
-          },
-          "textField": {
-            "integrationId": {
-              "label": "Kildeapplikasjon integrasjons-ID",
-              "placeholder": "Skriv inn integrasjonsnavn, separert med komma"
+            "formHeader": "Utgående data",
+            "saved": "Konfigurasjon lagret",
+            "saveError": "Feilet under lagring, feilmelding: ",
+            "genericError": "Det har oppstått en feil",
+            "version": "Versjon ",
+            "comment": "Kommentar",
+            "reqFieldMsg": "Kommentar er påkrevd ved ferdigstilling",
+            "valueConverting": {
+                "custom": "Egendefinerte",
+                "application": "Flyt",
+                "destination": "Destinasjon"
+            },
+            "label": {
+                "valueConverting": "Verdikonvertering",
+                "customValue": "Egendefinert verdi",
+                "checkLabel": "Ferdigstilt",
+                "activeLabel": "Aktiv",
+                "placeholder": "Skriv eller trekk inn fra metadata",
+                "formatError": "Feltet oppfyller ikke påkrevd format"
+            },
+            "button": {
+                "submit": "Lagre",
+                "cancel": "Avbryt",
+                "complete": "Fullfør",
+                "append": "+",
+                "remove": "-"
+            },
+            "collectionMapping": {
+                "defaultElements": "Faste elementer",
+                "generatedElements": "Generert fra samlinger"
+            },
+            "fromCollectionMapping": {
+                "collections": "Samlinger",
+                "convertCollectionElements": "Konvertering av samlingselementer"
+            },
+            "metadataPanel": {
+                "header": "Metadata",
+                "valueConverting": "Verdikonvertering",
+                "version": "Versjon",
+                "metadataWarning": "Det fins nyere versjon av metadata",
+                "help": {
+                    "metadata": "Metadata er data fra innsendt skjema du kan bruke i konfigurasjon av utgående data"
+                }
+            },
+            "toolsPanel": {
+                "header": "Verktøy",
+                "description": "Tekst og tall",
+                "string": "Tekst",
+                "integer": "Heltall"
+            },
+            "help": {
+                "formHeader": "Utgående data"
             }
-          }
         },
-        "statusCard": {
-          "ariaLabel": "Status",
-          "title": "Status",
-          "description": {
-            "event": "Siste hendelse: {{value}}",
-            "status": "Status: {{value}}"
-          },
-          "tabs": {
-            "status": "Status",
-            "event": "Siste hendelse"
-          },
-          "chips": {
-            "label": "Status"
-          },
-          "combobox": {
-            "label": "Siste hendelse",
-            "allowNewValues": "Tillat nye verdier"
-          }
+        "integrationForm": {
+            "header": "Ny integrasjon",
+            "incoming": "Innkommende",
+            "outgoing": "Utgående",
+            "errorHeading": "Du må rette disse feilene, det mangler:",
+            "button": {
+                "confirm": "Opprett",
+                "cancel": "Avbryt"
+            },
+            "alert": {
+                "missingMetadata": "Finner ikke metadata for integrasjon"
+            },
+            "labels": {
+                "placeholder": "Velg kildeapplikasjon først",
+                "loading": "Laster inn...",
+                "sourceApplicationId": "Kildeapplikasjon",
+                "sourceApplicationIntegrationId": "Integrasjon",
+                "destination": "Destinasjon/Base"
+            },
+            "help": {
+                "sourceApplicationId": "En kildeapplikasjon er fagsystemet data som skal behandles i Flyt kommer fra",
+                "sourceApplicationIntegrationId": "Referanse/navn/id til data som skal behandles i flyt",
+                "destination": "Hvor data skal sendes etter omforming i Flyt"
+            }
+        },
+        "integrations": {
+            "header": "Integrasjoner",
+            "version": "Versjon ",
+            "noActiveConfig": "ingen aktiv konfigurasjon",
+            "activeConfigurationId": "Aktiv konfigurasjon: ",
+            "missingDataError": "Mangler tilstrekkelig data for å kunne opprette ny konfigurasjon",
+            "errorMessage": "Det oppsto en feil under henting av data, prøv igjen senere.",
+            "numberPerPage": "Antall per side",
+            "help": {
+                "header": "Oversikt over integrasjoner. Her kan du se alle integrasjonene og tilhørende konfigurasjoner, lage nye konfigurasjoner for en integrasjon eller aktivere en konfigurasjon"
+            },
+            "button": {
+                "newIntegration": "Ny integrasjon",
+                "newConfiguration": "Ny konfigurasjon"
+            },
+            "dialog": {
+                "body": "Er du sikker på at du vil aktivere denne konfigurasjonen?",
+                "yes": "Ja, jeg er sikker",
+                "cancel": "Avbryt"
+            },
+            "table": {
+                "completed": "Ferdigstilt",
+                "drafts": "Utkast",
+                "noElements": "No elements",
+                "show": "Vis",
+                "edit": "Rediger",
+                "basedOn": "Lag ny basert på denne",
+                "activate": "Aktiver",
+                "column": {
+                    "id": "Id",
+                    "configurationId": "Konfig. Id",
+                    "destination": "Destinasjon/base",
+                    "sourceApplicationIntegrationId": "Kildeapplikasjons integrasjon-id",
+                    "sourceApplicationIntegrationIdDisplayName": "Integrasjonsnavn",
+                    "sourceApplicationId": "Kildeapplikasjon",
+                    "name": "Navn",
+                    "state": "Tilstand",
+                    "comment": "Kommentar",
+                    "actions": "Handlinger",
+                    "finished": "Ferdigstilt",
+                    "version": "Versjon",
+                    "dispatched": "Sendt",
+                    "errors": "Feilet",
+                    "total": "Totalt",
+                    "inProgress": "Under behandling",
+                    "transferred": "Overført",
+                    "aborted": "Avbrutt",
+                    "failed": "Feilet",
+                    "lastModifiedAt": "Sist endret",
+                    "lastModifiedBy": "Endret av"
+                }
+            }
+        },
+        "instances": {
+            "header": "Instanser",
+            "showError": "vis feilmelding",
+            "errors": "Feilmeldinger:",
+            "oneError": "Feilmelding:",
+            "errorMessage": "Det oppsto en feil under henting av data, prøv igjen senere.",
+            "numberPerPage": "Antall per side",
+            "customStatus": "Sett status manuelt",
+            "retry": "Prøv igjen",
+            "dialog": {
+                "cancel": "Avbryt",
+                "confirm": "Lagre",
+                "destinationId": "Destinasjon ID",
+                "destinationIdDesc": "Kreves på instanser manuelt opprettet i destinasjon",
+                "status": "Status",
+                "reqFieldMsg": "Påkrevd felt",
+                "warning": "Legger til en manuell status, og erstatter systemgenerert status, vær sikker før du endrer, handlingen kan ikke angres"
+            },
+            "STORED": "Lagret",
+            "IN_PROGRESS": "Pågår",
+            "TRANSFERRED": "Overført",
+            "ABORTED": "Avbrutt",
+            "button": {
+                "close": "Lukk",
+                "save": "Lagre",
+                "refresh": "Oppdater side",
+                "search": "Søk",
+                "clear": "Tilbakestill"
+            },
+            "filter": {
+                "alerts": {
+                    "tableFiltered": "Tabellen er filtrert",
+                    "noResults": "Filtrene returnerte 0 resultater"
+                },
+                "loadMore": "Last inn mer...",
+
+                "sort": "Sortering",
+                "sortBy": "Velg sortering",
+                "options": {
+                    "timestampAsc": "Siste oppdatering stigende",
+                    "timestampDesc": "Siste oppdatering synkende",
+                    "sourceAppId": "Kildeapplikasjons instans-ID",
+                    "destinationId": "Destinasjons instans-ID"
+                },
+                "associatedEventNames": {
+                    "INSTANCE_DISPATCHING_ERROR": "Feil under sending til destinasjon",
+                    "INSTANCE_REGISTRATION_ERROR": "Feil under registrering",
+                    "INSTANCE_RECEIVED": "Mottatt",
+                    "INSTANCE_MANUALLY_PROCESSED": "Manuelt behandlet",
+                    "INSTANCE_MAPPING_ERROR": "Feil under konvertering",
+                    "INSTANCE_MAPPED": "Konvertert",
+                    "INSTANCE_MANUALLY_REJECTED": "Manuelt avvist",
+                    "INSTANCE_READY_FOR_DISPATCH": "Klar for sending til destinasjon",
+                    "INSTANCE_DISPATCHED": "Sendt til destinasjon",
+                    "INSTANCE_RECEIVAL_ERROR": "Feil under mottak",
+                    "INSTANCE_RETRY_REQUEST_ERROR": "Feil under forespørsel om nytt forsøk",
+                    "INSTANCE_REQUESTED_FOR_RETRY": "Forespurt om nytt forsøk",
+                    "INSTANCE_REGISTERED": "Instans registrert",
+                    "INSTANCE_DELETED": "Instans slettet",
+                    "INSTANCE_STATUS_OVERRIDDEN_AS_TRANSFERRED": "Status overstyrt som 'Overført'"
+                },
+                "intermediateStorageStatusOptions": {
+                    "STORED": "Lagret",
+                    "STORED_AND_DELETED": "Lagret og slettet",
+                    "NEVER_STORED": "Aldri lagret"
+                },
+                "statusOptions": {
+                    "TRANSFERRED": "Overført",
+                    "ABORTED": "Avbrutt",
+                    "IN_PROGRESS": "Pågår",
+                    "FAILED": "Feilet"
+                },
+                "timeCard": {
+                    "ariaLabel": "Tidsperiode",
+                    "title": "Tidsperiode",
+                    "Denne dagen": "I dag",
+                    "Denne måneden": "Denne måneden",
+                    "Denne uka": "Denne uken",
+                    "Dette året": "Dette året",
+                    "description": {
+                        "period": "Periode: {{value}}",
+                        "manual": "Manuell: {{from}} - {{to}}",
+                        "offset": "Siste: {{hours}}t {{minutes}}m"
+                    },
+                    "tabs": {
+                        "offset": "Siste",
+                        "period": "Periode",
+                        "manual": "Manuell"
+                    },
+                    "offset": {
+                        "hours": "Timer",
+                        "minutes": "Minutter"
+                    },
+                    "manual": {
+                        "fromDate": "Fra",
+                        "fromTime": "Tid fra",
+                        "toDate": "Til",
+                        "toTime": "Tid til"
+                    }
+                },
+                "advancedCard": {
+                    "ariaLabel": "Avansert",
+                    "title": "Avansert",
+                    "description": {
+                        "associatedEvents": "Tilknyttede hendelser: {{value}}",
+                        "storageStatuses": "Valgt mellomlagring: {{value}}"
+                    },
+                    "combobox": {
+                        "label": "Tilknyttet hendelse"
+                    },
+                    "chips": {
+                        "label": "Mellomlagring"
+                    }
+                },
+                "instanceCard": {
+                    "ariaLabel": "Instans-variant",
+                    "title": "Instans",
+                    "description": {
+                        "source": "Kilde: {{value}}",
+                        "destination": "Destinasjon: {{value}}"
+                    },
+                    "fields": {
+                        "sourceAppInstanceId": {
+                            "label": "Kildeapplikasjons instans-ID",
+                            "placeholder": "Skriv inn kilde-ID-er, separert med komma"
+                        },
+                        "destinationId": {
+                            "label": "Destinasjon",
+                            "placeholder": "Skriv inn destinasjons-ID-er, separert med komma"
+                        }
+                    }
+                },
+                "integrationCard": {
+                    "ariaLabel": "Integrasjon og kildeapplikasjon",
+                    "title": "Integrasjon og kildeapplikasjon",
+                    "description": {
+                        "integration": "Integrasjon: {{value}}",
+                        "sourceApplication": "Kildeapplikasjon: {{value}}",
+                        "sourceApplicationIntegration": "Kildeapplikasjon integrasjons: {{value}}"
+                    },
+                    "tabs": {
+                        "integration": "Integrasjon",
+                        "sourceApp": "Kildeapplikasjon"
+                    },
+                    "combobox": {
+                        "sourceApp": "Velg kildeapplikasjon",
+                        "integration": "Velg integrasjon"
+                    },
+                    "textField": {
+                        "integrationId": {
+                            "label": "Kildeapplikasjon integrasjons-ID",
+                            "placeholder": "Skriv inn integrasjonsnavn, separert med komma"
+                        }
+                    }
+                },
+                "statusCard": {
+                    "ariaLabel": "Status",
+                    "title": "Status",
+                    "description": {
+                        "event": "Siste hendelse: {{value}}",
+                        "status": "Status: {{value}}"
+                    },
+                    "tabs": {
+                        "status": "Status",
+                        "event": "Siste hendelse"
+                    },
+                    "chips": {
+                        "label": "Status"
+                    },
+                    "combobox": {
+                        "label": "Siste hendelse",
+                        "allowNewValues": "Tillat nye verdier"
+                    }
+                }
+            },
+            "table": {
+                "column": {
+                    "sourceApplicationIntegrationId": "Kildeapplikasjon integrasjon-ID",
+                    "sourceApplicationIntegrationIdDisplayName": "Integrasjonsnavn",
+                    "sourceApplicationId": "Kildeapplikasjon",
+                    "storage": "Mellomlagring",
+                    "status": "Status",
+                    "event": "Hendelse",
+                    "actions": "Handlinger",
+                    "sourceApplicationInstanceId": "Kildeapplikasjons instans-ID",
+                    "configurationId": "Konfigurasjon-ID",
+                    "correlationId": "Korrelasjon-ID",
+                    "archiveInstanceId": "Destinasjons instans-ID",
+                    "timestamp": "Tidspunkt"
+                }
+            },
+            "help": {
+                "header": "Oversikt over instanser som har kommet inn til Flyt, hvor hver innsending av data for én integrasjon er en instans. Innholdet i innstansen blir omformet og videresent til destinasjon satt i integrasjon"
+            },
+            "FINT_FLYT_INSTANCE_GATEWAY_INSTANCE_VALIDATION_ERROR": "Valideringsfeil i mottak av instans, '#fieldPath# #errorMessage#'",
+            "FINT_FLYT_INSTANCE_GATEWAY_INTEGRATION_DEACTIVATED_ERROR": "Integrasjonen er deaktivert",
+            "FINT_FLYT_INSTANCE_GATEWAY_INSTANCE_REJECTED_ERROR": "Instans avvist med følgende feilmelding, '#message#'",
+            "FINT_FLYT_INSTANCE_GATEWAY_NO_INTEGRATION_FOUND_ERROR": "Ingen integrasjon funnet",
+            "FINT_FLYT_INSTANCE_GATEWAY_GENERAL_SYSTEM_ERROR": "Systemfeil. Ta kontakt med FINT",
+            "FINT_FLYT_INSTANCE_SERVICE_GENERAL_SYSTEM_ERROR": "Systemfeil. Ta kontakt med FINT",
+            "FINT_FLYT_MAPPING_SERVICE_GENERAL_SYSTEM_ERROR": "Systemfeil - Ta kontakt med FINT",
+            "FINT_FLYT_MAPPING_SERVICE_CONFIGURATION_NOT_FOUND": "Fant ikke aktiv konfigurasjon for integrasjonen",
+            "FINT_FLYT_MAPPING_SERVICE_INSTANCE_FIELD_NOT_FOUND": "Instansen mangler felt med nøkkel='#instanceFieldKey#', som kreves av konfigurasjonen",
+            "FINT_FLYT_DISPATCH_SERVICE_GENERAL_SYSTEM_ERROR": "Systemfeil - Ta kontakt med FINT",
+            "FINT_FLYT_DISPATCH_GATEWAY_GENERAL_SYSTEM_ERROR": "Systemfeil med følgende feilmelding: '#errorMessage#' - Ta kontakt med FINT",
+            "FINT_FLYT_DISPATCH_GATEWAY_INSTANCE_DISPATCH_DECLINED_ERROR": "Instansen ble avvist av destinasjon med følgende feilmelding: '#errorMessage#'",
+            "FINT_FLYT_DISPATCH_SERVICE_INSTANCE_DISPATCH_DECLINED_ERROR": "Instansen ble avvist av destinasjon med følgende feilmelding: '#errorMessage#'",
+            "FINT_FLYT_INSTANCE_GATEWAY_FILE_UPLOAD_ERROR": "Feil under opplasting av fil, filnavn: '#name#' med mediatype: '#mediatype#'",
+            "FINT_FLYT_MAPPING_SERVICE_VALUE_CONVERTING_KEY_NOT_FOUND": "Feil under verdikonvertering, finner ikke nøkkel: '#valueConvertingKey#', i verdikonvertering med ID: #valueConvertingId#",
+            "FINT_FLYT_MAPPING_SERVICE_VALUE_CONVERTER_NOT_FOUND": "Feil under verdikonvertering, verdikonvertering ikke funnet",
+            "REQUESTED": "Forespurt",
+            "SENT": "Sendt",
+            "FAILED": "Feilet",
+            "ACCEPTED": "Akseptert",
+            "DECLINED": "Avvist",
+            "instance-received": "Instans mottatt",
+            "instance-registered": "Instans mellomlagret",
+            "instance-requested-for-retry": "Instans forespurt for nytt forsøk",
+            "instance-mapped": "Instans konvertert",
+            "instance-ready-for-dispatch": "Instans klar for sending til destinasjon",
+            "instance-dispatched": "Instans godtatt av destinasjon",
+            "instance-deleted": "Mellomlagring av instans slettet",
+            "instance-manually-processed": "Instans manuelt behandlet og opprettet i destinasjon",
+            "instance-manually-rejected": "Instans manuelt behandlet og avvist",
+            "instance-receival-error": "Feilet under mottak av instans",
+            "instance-registration-error": "Feilet under registrering av instans",
+            "instance-retry-request-error": "Feilet under forespørsel for nytt forsøk",
+            "instance-mapping-error": "Feilet under konvertering av instans",
+            "instance-dispatching-error": "Feilet under sending til destinasjon",
+            "instance-status-overridden-as-transferred": "Status overstyrt som 'Overført'"
+        },
+        "support": {
+            "header": "Hjelp og support",
+            "description": "Hva er FINT Flyt?",
+            "descriptionBody": "Du kan se en brukerveiledning til hvordan du bruker Fint Flyt ",
+            "link": "her",
+            "userGuide": "Hvordan bruke Fint Flyt",
+            "wordList": "Ordbok",
+            "statusDescriptions": "Beskrivelser av status på instans",
+            "FAQ": "Ofte stilte spørsmål",
+            "back": "Tilbake"
+        },
+        "forbidden": {
+            "status": "Du har ikke tilgang til denne siden",
+            "return": "Tilbake til Dashbord"
+        },
+        "valueConverting": {
+            "button": {
+                "newConverting": "Ny verdikonvertering",
+                "basedOn": "Lag ny basert på denne",
+                "create": "Opprett",
+                "cancel": "Avbryt",
+                "back": "Tilbake"
+            },
+            "header": "Verdikonvertering",
+            "errorMessage": "Det oppsto en feil under henting av data, prøv igjen senere.",
+            "custom": "Egendefinerte",
+            "application": "Flyt",
+            "destination": "Destinasjon",
+            "panelHeader": "Verdikonverteringer",
+            "newHeader": "Ny verdikonvertering",
+            "fromApplicationId": "Applikasjon",
+            "displayName": "Navn",
+            "valueConvertingName": "Navn på verdikonvertering",
+            "fromTypeId": "Type",
+            "toApplicationId": "Applikasjon",
+            "toTypeId": "Type",
+            "convertingMap": "Konvertering(er)",
+            "to": "Til",
+            "from": "Fra",
+            "saved": "Verdikonvertering lagret",
+            "saveError": "Feila under lagring, feilmelding: ",
+            "genericError": "Det har oppstått en feil",
+            "requiredField": "Påkrevd felt",
+            "requiredConverting": "Det kreves minst én konvertering for lagring av ny verdikonvertering",
+            "uniqueField": "Navn må være unikt",
+            "column": {
+                "show": "Vis",
+                "id": "Id",
+                "displayName": "Navn",
+                "toType": "Til type",
+                "fromType": "Fra type",
+                "toApplication": "Til",
+                "fromApplication": "Fra",
+                "actions": "Handlinger"
+            },
+            "help": {
+                "toggle": "Det jobbes med flere muligheter for å bruke verdikonverteringer i Flyt. For nå er det som før og det er kun egendefinerte verdikonverteringer som benyttes",
+                "valueConverting": "Verdikonvertering er et felt som lar deg bruke en definert regel for å konvertere hver forekomst av en verdi. Verdikonverteringer brukes i konfigurasjoner på samme måte som metadata og vil gjelde for det aktuelle feltet. Det er ikke mulig å redigere en eksisterende verdikonvertering da dette kan påvirke eksisterende konfigurasjoner, men det er mulig å opprette en ny basert på en eksisterende verdikonvertering",
+                "valueConvertingName": "Navn på verdikonverteringen som skal opprettes.Merk at navn ikke er påkrevd å være unikt, men det er lurt å gi et beskrivende navn",
+                "from": "Velg applikasjonen hvor verdien som skal konverteres kommer fra, og hvilken type data det er som skal konverteres fra",
+                "to": "Velg applikasjonen verdiene som trenger konvertering skal til og hvilken type de skal konverteres til.",
+                "convertingMap": "Her legger du til konverteringer, trykk + for å legge til flere og - for å fjerne",
+                "new": "Her kan du opprette en ny verdikonvertering. Ønsker du å lage ny basert på en tidligere versjon finner du det under handlinger i tabellen"
+            }
+        },
+        "version": {
+            "header": "Versjonering av FLYT"
         }
-      },
-      "table": {
-        "column": {
-          "sourceApplicationIntegrationId": "Kildeapplikasjon integrasjon-ID",
-          "sourceApplicationIntegrationIdDisplayName": "Integrasjonsnavn",
-          "sourceApplicationId": "Kildeapplikasjon",
-          "storage": "Mellomlagring",
-          "status": "Status",
-          "event": "Hendelse",
-          "actions": "Handlinger",
-          "sourceApplicationInstanceId": "Kildeapplikasjons instans-ID",
-          "configurationId": "Konfigurasjon-ID",
-          "correlationId": "Korrelasjon-ID",
-          "archiveInstanceId": "Destinasjons instans-ID",
-          "timestamp": "Tidspunkt"
-        }
-      },
-      "help": {
-        "header": "Oversikt over instanser som har kommet inn til Flyt, hvor hver innsending av data for én integrasjon er en instans. Innholdet i innstansen blir omformet og videresent til destinasjon satt i integrasjon"
-      },
-      "FINT_FLYT_INSTANCE_GATEWAY_INSTANCE_VALIDATION_ERROR": "Valideringsfeil i mottak av instans, '#fieldPath# #errorMessage#'",
-      "FINT_FLYT_INSTANCE_GATEWAY_INTEGRATION_DEACTIVATED_ERROR": "Integrasjonen er deaktivert",
-      "FINT_FLYT_INSTANCE_GATEWAY_INSTANCE_REJECTED_ERROR": "Instans avvist med følgende feilmelding, '#message#'",
-      "FINT_FLYT_INSTANCE_GATEWAY_NO_INTEGRATION_FOUND_ERROR": "Ingen integrasjon funnet",
-      "FINT_FLYT_INSTANCE_GATEWAY_GENERAL_SYSTEM_ERROR": "Systemfeil. Ta kontakt med FINT",
-      "FINT_FLYT_INSTANCE_SERVICE_GENERAL_SYSTEM_ERROR": "Systemfeil. Ta kontakt med FINT",
-      "FINT_FLYT_MAPPING_SERVICE_GENERAL_SYSTEM_ERROR": "Systemfeil - Ta kontakt med FINT",
-      "FINT_FLYT_MAPPING_SERVICE_CONFIGURATION_NOT_FOUND": "Fant ikke aktiv konfigurasjon for integrasjonen",
-      "FINT_FLYT_MAPPING_SERVICE_INSTANCE_FIELD_NOT_FOUND": "Instansen mangler felt med nøkkel='#instanceFieldKey#', som kreves av konfigurasjonen",
-      "FINT_FLYT_DISPATCH_SERVICE_GENERAL_SYSTEM_ERROR": "Systemfeil - Ta kontakt med FINT",
-      "FINT_FLYT_DISPATCH_GATEWAY_GENERAL_SYSTEM_ERROR": "Systemfeil med følgende feilmelding: '#errorMessage#' - Ta kontakt med FINT",
-      "FINT_FLYT_DISPATCH_GATEWAY_INSTANCE_DISPATCH_DECLINED_ERROR": "Instansen ble avvist av destinasjon med følgende feilmelding: '#errorMessage#'",
-      "FINT_FLYT_DISPATCH_SERVICE_INSTANCE_DISPATCH_DECLINED_ERROR": "Instansen ble avvist av destinasjon med følgende feilmelding: '#errorMessage#'",
-      "FINT_FLYT_INSTANCE_GATEWAY_FILE_UPLOAD_ERROR": "Feil under opplasting av fil, filnavn: '#name#' med mediatype: '#mediatype#'",
-      "FINT_FLYT_MAPPING_SERVICE_VALUE_CONVERTING_KEY_NOT_FOUND": "Feil under verdikonvertering, finner ikke nøkkel: '#valueConvertingKey#', i verdikonvertering med ID: #valueConvertingId#",
-      "FINT_FLYT_MAPPING_SERVICE_VALUE_CONVERTER_NOT_FOUND": "Feil under verdikonvertering, verdikonvertering ikke funnet",
-      "REQUESTED": "Forespurt",
-      "SENT": "Sendt",
-      "FAILED": "Feilet",
-      "ACCEPTED": "Akseptert",
-      "DECLINED": "Avvist",
-      "instance-received": "Instans mottatt",
-      "instance-registered": "Instans mellomlagret",
-      "instance-requested-for-retry": "Instans forespurt for nytt forsøk",
-      "instance-mapped": "Instans konvertert",
-      "instance-ready-for-dispatch": "Instans klar for sending til destinasjon",
-      "instance-dispatched": "Instans godtatt av destinasjon",
-      "instance-deleted": "Mellomlagring av instans slettet",
-      "instance-manually-processed": "Instans manuelt behandlet og opprettet i destinasjon",
-      "instance-manually-rejected": "Instans manuelt behandlet og avvist",
-      "instance-receival-error": "Feilet under mottak av instans",
-      "instance-registration-error": "Feilet under registrering av instans",
-      "instance-retry-request-error": "Feilet under forespørsel for nytt forsøk",
-      "instance-mapping-error": "Feilet under konvertering av instans",
-      "instance-dispatching-error": "Feilet under sending til destinasjon",
-      "instance-status-overridden-as-transferred": "Status overstyrt som 'Overført'"
-    },
-    "support": {
-      "header": "Hjelp og support",
-      "description": "Hva er FINT Flyt?",
-      "descriptionBody": "Du kan se en brukerveiledning til hvordan du bruker Fint Flyt ",
-      "link": "her",
-      "userGuide": "Hvordan bruke Fint Flyt",
-      "wordList": "Ordbok",
-      "statusDescriptions": "Beskrivelser av status på instans",
-      "FAQ": "Ofte stilte spørsmål",
-      "back": "Tilbake"
-    },
-    "forbidden": {
-      "status": "Du har ikke tilgang til denne siden",
-      "return": "Tilbake til Dashbord"
-    },
-    "valueConverting": {
-      "button": {
-        "newConverting": "Ny verdikonvertering",
-        "basedOn": "Lag ny basert på denne",
-        "create": "Opprett",
-        "cancel": "Avbryt",
-        "back": "Tilbake"
-      },
-      "header": "Verdikonvertering",
-      "errorMessage": "Det oppsto en feil under henting av data, prøv igjen senere.",
-      "custom": "Egendefinerte",
-      "application": "Flyt",
-      "destination": "Destinasjon",
-      "panelHeader": "Verdikonverteringer",
-      "newHeader": "Ny verdikonvertering",
-      "fromApplicationId": "Applikasjon",
-      "displayName": "Navn",
-      "valueConvertingName": "Navn på verdikonvertering",
-      "fromTypeId": "Type",
-      "toApplicationId": "Applikasjon",
-      "toTypeId": "Type",
-      "convertingMap": "Konvertering(er)",
-      "to": "Til",
-      "from": "Fra",
-      "saved": "Verdikonvertering lagret",
-      "saveError": "Feila under lagring, feilmelding: ",
-      "genericError": "Det har oppstått en feil",
-      "requiredField": "Påkrevd felt",
-      "requiredConverting": "Det kreves minst én konvertering for lagring av ny verdikonvertering",
-      "uniqueField": "Navn må være unikt",
-      "column": {
-        "show": "Vis",
-        "id": "Id",
-        "displayName": "Navn",
-        "toType": "Til type",
-        "fromType": "Fra type",
-        "toApplication": "Til",
-        "fromApplication": "Fra",
-        "actions": "Handlinger"
-      },
-      "help": {
-        "toggle": "Det jobbes med flere muligheter for å bruke verdikonverteringer i Flyt. For nå er det som før og det er kun egendefinerte verdikonverteringer som benyttes",
-        "valueConverting": "Verdikonvertering er et felt som lar deg bruke en definert regel for å konvertere hver forekomst av en verdi. Verdikonverteringer brukes i konfigurasjoner på samme måte som metadata og vil gjelde for det aktuelle feltet. Det er ikke mulig å redigere en eksisterende verdikonvertering da dette kan påvirke eksisterende konfigurasjoner, men det er mulig å opprette en ny basert på en eksisterende verdikonvertering",
-        "valueConvertingName": "Navn på verdikonverteringen som skal opprettes.Merk at navn ikke er påkrevd å være unikt, men det er lurt å gi et beskrivende navn",
-        "from": "Velg applikasjonen hvor verdien som skal konverteres kommer fra, og hvilken type data det er som skal konverteres fra",
-        "to": "Velg applikasjonen verdiene som trenger konvertering skal til og hvilken type de skal konverteres til.",
-        "convertingMap": "Her legger du til konverteringer, trykk + for å legge til flere og - for å fjerne",
-        "new": "Her kan du opprette en ny verdikonvertering. Ønsker du å lage ny basert på en tidligere versjon finner du det under handlinger i tabellen"
-      }
-    },
-    "version": {
-      "header": "Versjonering av FLYT"
     }
-  }
 }

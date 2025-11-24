@@ -71,7 +71,8 @@ export default function StatusCard(props: Props) {
             size="small"
             aria-label={t('statusCard.ariaLabel') || ''}
             open={props.isOpen}
-            onToggle={() => props.toggleOpen(props.id)}>
+            onToggle={() => props.toggleOpen(props.id)}
+        >
             <ExpansionCard.Header>
                 <ExpansionCard.Title as="h4" size="small">
                     {t('statusCard.title')}
@@ -102,7 +103,8 @@ export default function StatusCard(props: Props) {
                                             option.value,
                                             !filters.statuses?.includes(option.value)
                                         )
-                                    }>
+                                    }
+                                >
                                     {/*{t(option.label)}*/}
                                     {t(`statusOptions.${option.value}`)}
                                 </Chips.Toggle>

@@ -67,7 +67,8 @@ export default function InstanceCard(props: Props) {
             size="small"
             aria-label={t('ariaLabel') || 'default label'}
             open={props.isOpen}
-            onToggle={() => props.toggleOpen(props.id)}>
+            onToggle={() => props.toggleOpen(props.id)}
+        >
             <ExpansionCard.Header>
                 <ExpansionCard.Title as="h4" size="small">
                     {t('title')}

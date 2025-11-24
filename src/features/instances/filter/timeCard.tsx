@@ -176,7 +176,8 @@ export default function TimeCard(props: Props) {
             size="small"
             aria-label="Tidsperiod"
             open={props.isOpen}
-            onToggle={() => props.toggleOpen(props.id)}>
+            onToggle={() => props.toggleOpen(props.id)}
+        >
             <ExpansionCard.Header>
                 <ExpansionCard.Title as="h4" size="small">
                     {t('title')}
@@ -247,7 +248,8 @@ export default function TimeCard(props: Props) {
                                                 'timeCurrentPeriod',
                                                 option.value
                                             )
-                                        }>
+                                        }
+                                    >
                                         {/*{option.label}*/}
                                         {t(option.label)}
                                     </Chips.Toggle>

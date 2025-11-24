@@ -1,105 +1,97 @@
 {
-  "content":[
-    {
-      "instanceFlowHeaders":{
-        "sourceApplicationId":2,
-        "sourceApplicationIntegrationId":"TEST163",
-        "sourceApplicationInstanceId":"1515557",
-        "correlationId":"09883c3c-76e4-47fc-8e0b-633aab07b275",
-        "integrationId":2,
-        "instanceId":35,
-        "configurationId":6,
-        "archiveInstanceId":"2023/132"
-      },
-      "name":"instance-dispatched",
-      "timestamp":"2023-06-02T13:40:48.589",
-      "type":"INFO",
-      "applicationId":"fint-flyt-dispatch-service",
-      "errors":[
-
-      ]
+    "content": [
+        {
+            "instanceFlowHeaders": {
+                "sourceApplicationId": 2,
+                "sourceApplicationIntegrationId": "TEST163",
+                "sourceApplicationInstanceId": "1515557",
+                "correlationId": "09883c3c-76e4-47fc-8e0b-633aab07b275",
+                "integrationId": 2,
+                "instanceId": 35,
+                "configurationId": 6,
+                "archiveInstanceId": "2023/132"
+            },
+            "name": "instance-dispatched",
+            "timestamp": "2023-06-02T13:40:48.589",
+            "type": "INFO",
+            "applicationId": "fint-flyt-dispatch-service",
+            "errors": []
+        },
+        {
+            "instanceFlowHeaders": {
+                "sourceApplicationId": 2,
+                "sourceApplicationIntegrationId": "TEST163",
+                "sourceApplicationInstanceId": "1515557",
+                "correlationId": "09883c3c-76e4-47fc-8e0b-633aab07b275",
+                "integrationId": 2,
+                "instanceId": 35,
+                "configurationId": 6,
+                "archiveInstanceId": null
+            },
+            "name": "instance-mapped",
+            "timestamp": "2023-06-02T13:40:41.216",
+            "type": "INFO",
+            "applicationId": "fint-flyt-mapping-service",
+            "errors": []
+        },
+        {
+            "instanceFlowHeaders": {
+                "sourceApplicationId": 2,
+                "sourceApplicationIntegrationId": "TEST163",
+                "sourceApplicationInstanceId": "1515557",
+                "correlationId": "09883c3c-76e4-47fc-8e0b-633aab07b275",
+                "integrationId": 2,
+                "instanceId": 35,
+                "configurationId": null,
+                "archiveInstanceId": null
+            },
+            "name": "instance-registered",
+            "timestamp": "2023-06-02T13:40:40.929",
+            "type": "INFO",
+            "applicationId": "fint-flyt-instance-service",
+            "errors": []
+        },
+        {
+            "instanceFlowHeaders": {
+                "sourceApplicationId": 2,
+                "sourceApplicationIntegrationId": "TEST163",
+                "sourceApplicationInstanceId": "1515557",
+                "correlationId": "09883c3c-76e4-47fc-8e0b-633aab07b275",
+                "integrationId": 2,
+                "instanceId": null,
+                "configurationId": null,
+                "archiveInstanceId": null
+            },
+            "name": "instance-received",
+            "timestamp": "2023-06-02T13:40:40.894",
+            "type": "INFO",
+            "applicationId": "fint-flyt-acos-instance-gateway",
+            "errors": []
+        }
+    ],
+    "pageable": {
+        "sort": {
+            "empty": false,
+            "sorted": true,
+            "unsorted": false
+        },
+        "offset": 0,
+        "pageNumber": 0,
+        "pageSize": 1000,
+        "paged": true,
+        "unpaged": false
     },
-    {
-      "instanceFlowHeaders":{
-        "sourceApplicationId":2,
-        "sourceApplicationIntegrationId":"TEST163",
-        "sourceApplicationInstanceId":"1515557",
-        "correlationId":"09883c3c-76e4-47fc-8e0b-633aab07b275",
-        "integrationId":2,
-        "instanceId":35,
-        "configurationId":6,
-        "archiveInstanceId":null
-      },
-      "name":"instance-mapped",
-      "timestamp":"2023-06-02T13:40:41.216",
-      "type":"INFO",
-      "applicationId":"fint-flyt-mapping-service",
-      "errors":[
-
-      ]
+    "totalPages": 1,
+    "totalElements": 4,
+    "last": true,
+    "size": 1000,
+    "number": 0,
+    "sort": {
+        "empty": false,
+        "sorted": true,
+        "unsorted": false
     },
-    {
-      "instanceFlowHeaders":{
-        "sourceApplicationId":2,
-        "sourceApplicationIntegrationId":"TEST163",
-        "sourceApplicationInstanceId":"1515557",
-        "correlationId":"09883c3c-76e4-47fc-8e0b-633aab07b275",
-        "integrationId":2,
-        "instanceId":35,
-        "configurationId":null,
-        "archiveInstanceId":null
-      },
-      "name":"instance-registered",
-      "timestamp":"2023-06-02T13:40:40.929",
-      "type":"INFO",
-      "applicationId":"fint-flyt-instance-service",
-      "errors":[
-
-      ]
-    },
-    {
-      "instanceFlowHeaders":{
-        "sourceApplicationId":2,
-        "sourceApplicationIntegrationId":"TEST163",
-        "sourceApplicationInstanceId":"1515557",
-        "correlationId":"09883c3c-76e4-47fc-8e0b-633aab07b275",
-        "integrationId":2,
-        "instanceId":null,
-        "configurationId":null,
-        "archiveInstanceId":null
-      },
-      "name":"instance-received",
-      "timestamp":"2023-06-02T13:40:40.894",
-      "type":"INFO",
-      "applicationId":"fint-flyt-acos-instance-gateway",
-      "errors":[
-
-      ]
-    }
-  ],
-  "pageable":{
-    "sort":{
-      "empty":false,
-      "sorted":true,
-      "unsorted":false
-    },
-    "offset":0,
-    "pageNumber":0,
-    "pageSize":1000,
-    "paged":true,
-    "unpaged":false
-  },
-  "totalPages":1,
-  "totalElements":4,
-  "last":true,
-  "size":1000,
-  "number":0,
-  "sort":{
-    "empty":false,
-    "sorted":true,
-    "unsorted":false
-  },
-  "numberOfElements":4,
-  "first":true,
-  "empty":false
+    "numberOfElements": 4,
+    "first": true,
+    "empty": false
 }

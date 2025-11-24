@@ -77,7 +77,8 @@ export default function IntegrationCard(props: Props) {
             size="small"
             aria-label={t('ariaLabel') || 'Default Label'}
             open={props.isOpen}
-            onToggle={() => props.toggleOpen(props.id)}>
+            onToggle={() => props.toggleOpen(props.id)}
+        >
             <ExpansionCard.Header>
                 <ExpansionCard.Title as="h4" size="small">
                     {t('title')}

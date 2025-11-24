@@ -14,14 +14,14 @@ function ProviderWrapper({ children }: { children?: React.ReactNode }) {
     const [basePath, setBasePath] = useState<string | undefined>();
 
     useEffect(() => {
-        get<{basePath: string }>("api/application/configuration")
+        get<{ basePath: string }>('api/application/configuration')
             .then((value) => {
-                setBaseURL(value.data.basePath)
+                setBaseURL(value.data.basePath);
                 setBasePath(value.data.basePath);
             })
             .catch((reason) => {
-                console.log("ProviderWrapper - Error getting config:", reason);
-                setBasePath("/")
+                console.log('ProviderWrapper - Error getting config:', reason);
+                setBasePath('/');
             });
     }, []);
 

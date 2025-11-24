@@ -1,18 +1,18 @@
 [
-  {
-    "value": "TODAY",
-    "label": "Denne dagen"
-  },
-  {
-    "value": "THIS_WEEK",
-    "label": "Denne uka"
-  },
-  {
-    "value": "THIS_MONTH",
-    "label": "Denne måneden"
-  },
-  {
-    "value": "THIS_YEAR",
-    "label": "Dette året"
-  }
+    {
+        "value": "TODAY",
+        "label": "Denne dagen"
+    },
+    {
+        "value": "THIS_WEEK",
+        "label": "Denne uka"
+    },
+    {
+        "value": "THIS_MONTH",
+        "label": "Denne måneden"
+    },
+    {
+        "value": "THIS_YEAR",
+        "label": "Dette året"
+    }
 ]

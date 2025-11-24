@@ -67,10 +67,7 @@ describe('Testing instance list', () => {
         columns.forEach((column) => {
             cy.get('#instance-table > :nth-child(1)').should('contain.text', column);
         });
-        cy.get('#instance-table > :nth-child(1)').should(
-            'not.contain.text',
-            'not_a_column'
-        );
+        cy.get('#instance-table > :nth-child(1)').should('not.contain.text', 'not_a_column');
     });
 
     it('instance table and panel should have correct information', () => {
@@ -82,7 +79,7 @@ describe('Testing instance list', () => {
         cy.get(
             ':nth-child(3) > .navds-table__toggle-expand-cell > .navds-table__toggle-expand-button'
         ).click();
-        cy.get('#instance-panel-1').should("exist");
+        cy.get('#instance-panel-1').should('exist');
     });
 
     it('it should post correct id for retry', () => {
@@ -91,5 +88,4 @@ describe('Testing instance list', () => {
         cy.get('#\\33 -action-toggle > .navds-dropdown__toggle').click();
         cy.get('#retryButton').click();
     });
-
 });

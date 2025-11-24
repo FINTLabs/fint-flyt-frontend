@@ -25,7 +25,7 @@ interface Props {
 const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
     const InstanceRepository = useInstanceRepository();
     const { t } = useTranslation('translations', { keyPrefix: 'pages.instances' });
-    const InstanceFlowTrackingRepository = useInstanceFlowTrackingRepository()
+    const InstanceFlowTrackingRepository = useInstanceFlowTrackingRepository();
     const [selectedRow, setSelectedRow] = useState<IEventNew>();
     const [openCustomDialog, setOpenCustomDialog] = React.useState(false);
     const [page, setPage] = useState(1);
@@ -191,7 +191,8 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                                                 }
                                             />
                                         ) : null
-                                    }>
+                                    }
+                                >
                                     <Table.DataCell scope="row">
                                         {getSourceApplicationDisplayNameById(
                                             String(value.sourceApplicationId)
@@ -246,7 +247,8 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                             variant="secondary"
                             onClick={() =>
                                 setRowCount(String(Number(rowCount) + Number(rowsPerPage)))
-                            }>
+                            }
+                        >
                             {t('filter.loadMore')}
                         </Button>
                     </>
@@ -277,7 +279,8 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                                 onClick={() => {
                                     setSelectedRow(event);
                                     setOpenCustomDialog(true);
-                                }}>
+                                }}
+                            >
                                 {t('customStatus')}
                             </Dropdown.Menu.List.Item>
 
@@ -295,7 +298,8 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                                                 resend(event.latestInstanceId);
                                                 handleRetryButtonClick(id);
                                             }
-                                        }}>
+                                        }}
+                                    >
                                         {t('retry')}
                                     </Dropdown.Menu.List.Item>
                                 </>

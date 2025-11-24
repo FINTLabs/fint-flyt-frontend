@@ -3,34 +3,33 @@ kind: Kustomization
 namespace: ffk-no
 
 resources:
-  - ../../../base
+    - ../../../base
 
 commonLabels:
-  fintlabs.no/org-id: ffk.no
+    fintlabs.no/org-id: ffk.no
 
 patches:
-  - patch: |-
-      - op: replace
-        path: "/metadata/labels/app.kubernetes.io~1instance"
-        value: "fint-flyt-frontend_ffk-no"
-      - op: replace
-        path: "/spec/orgId"
-        value: "ffk.no"
-      - op: replace
-        path: "/spec/env/0/value"
-        value: "/ffk-no"
-      - op: replace
-        path: "/spec/url/basePath"
-        value: "/ffk-no"
-    target:
-      kind: Application
-      name: fint-flyt-frontend
+    - patch: |-
+          - op: replace
+            path: "/metadata/labels/app.kubernetes.io~1instance"
+            value: "fint-flyt-frontend_ffk-no"
+          - op: replace
+            path: "/spec/orgId"
+            value: "ffk.no"
+          - op: replace
+            path: "/spec/env/0/value"
+            value: "/ffk-no"
+          - op: replace
+            path: "/spec/url/basePath"
+            value: "/ffk-no"
+      target:
+          kind: Application
+          name: fint-flyt-frontend
 
-  - patch: |-
-      - op: replace
-        path: "/spec/basePath"
-        value: "/ffk-no"
-    target:
-      kind: FLAISSso
-      name: fint-flyt-auth-forward-sso
-
+    - patch: |-
+          - op: replace
+            path: "/spec/basePath"
+            value: "/ffk-no"
+      target:
+          kind: FLAISSso
+          name: fint-flyt-auth-forward-sso

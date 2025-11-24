@@ -3,34 +3,33 @@ kind: Kustomization
 namespace: vestfoldfylke-no
 
 resources:
-  - ../../../base
+    - ../../../base
 
 commonLabels:
-  fintlabs.no/org-id: vestfoldfylke.no
+    fintlabs.no/org-id: vestfoldfylke.no
 
 patches:
-  - patch: |-
-      - op: replace
-        path: "/metadata/labels/app.kubernetes.io~1instance"
-        value: "fint-flyt-frontend_vestfoldfylke-no"
-      - op: replace
-        path: "/spec/orgId"
-        value: "vestfoldfylke.no"
-      - op: replace
-        path: "/spec/env/0/value"
-        value: "/beta/vestfoldfylke-no"
-      - op: replace
-        path: "/spec/url/basePath"
-        value: "/beta/vestfoldfylke-no"
-    target:
-      kind: Application
-      name: fint-flyt-frontend
+    - patch: |-
+          - op: replace
+            path: "/metadata/labels/app.kubernetes.io~1instance"
+            value: "fint-flyt-frontend_vestfoldfylke-no"
+          - op: replace
+            path: "/spec/orgId"
+            value: "vestfoldfylke.no"
+          - op: replace
+            path: "/spec/env/0/value"
+            value: "/beta/vestfoldfylke-no"
+          - op: replace
+            path: "/spec/url/basePath"
+            value: "/beta/vestfoldfylke-no"
+      target:
+          kind: Application
+          name: fint-flyt-frontend
 
-  - patch: |-
-      - op: replace
-        path: "/spec/basePath"
-        value: "/beta/vestfoldfylke-no"
-    target:
-      kind: FLAISSso
-      name: fint-flyt-auth-forward-sso
-
+    - patch: |-
+          - op: replace
+            path: "/spec/basePath"
+            value: "/beta/vestfoldfylke-no"
+      target:
+          kind: FLAISSso
+          name: fint-flyt-auth-forward-sso

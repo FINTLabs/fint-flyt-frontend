@@ -29,7 +29,8 @@ const DashboardCard: React.FunctionComponent<Props> = (props: Props) => {
                 textAlign: 'center',
                 height: '150px',
                 width: '100%',
-            }}>
+            }}
+        >
             {integrations ? (
                 <>
                     <Heading size="medium"> {props.value}</Heading>

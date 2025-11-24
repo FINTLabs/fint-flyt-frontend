@@ -5,7 +5,7 @@ export const ErrorType = {
     FIELD_PATH: '#fieldPath#',
     NAME: '#name#',
     MEDIA_TYPE: '#mediatype#',
-    VALUE_CONVERTING_ID:'#valueConvertingId#',
-    VALUE_CONVERTING_KEY:'#valueConvertingKey#',
+    VALUE_CONVERTING_ID: '#valueConvertingId#',
+    VALUE_CONVERTING_KEY: '#valueConvertingKey#',
     UNKNOWN: 'unknownErrorType',
-}
+};

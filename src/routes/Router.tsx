@@ -1,7 +1,7 @@
-import { Routes, Route } from "react-router";
-import routes from "./Routes";
-import React from "react";
-import IRoute from "./Route";
+import { Routes, Route } from 'react-router';
+import routes from './Routes';
+import React from 'react';
+import IRoute from './Route';
 
 const Router: React.FunctionComponent = () => {
     return (
@@ -9,11 +9,7 @@ const Router: React.FunctionComponent = () => {
             {routes.map((route: IRoute, index: number) => {
                 const Component = route.component;
                 return (
-                    <Route
-                        key={index}
-                        path={route.path}
-                        element={<Component id={route.name} />}
-                    />
+                    <Route key={index} path={route.path} element={<Component id={route.name} />} />
                 );
             })}
         </Routes>

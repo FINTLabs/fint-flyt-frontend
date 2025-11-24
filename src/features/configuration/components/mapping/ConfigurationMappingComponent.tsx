@@ -259,7 +259,8 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
                             overflowY: 'auto',
                             overflowX: 'hidden',
                             height: 'fit-content',
-                        }}>
+                        }}
+                    >
                         {columns.map(
                             (
                                 columnElement: Omit<ColumnElement, 'nestedColumnElementPerOrder'>,

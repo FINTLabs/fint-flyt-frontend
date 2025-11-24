@@ -1,5 +1,5 @@
-import {createTheme} from "@mui/material";
-import {nbNO} from '@mui/material/locale';
+import { createTheme } from '@mui/material';
+import { nbNO } from '@mui/material/locale';
 
 const theme = createTheme(
     {
@@ -16,19 +16,17 @@ const theme = createTheme(
             },
             background: {
                 default: '#EBF4F5',
-            }
+            },
         },
         spacing: 8,
         typography: {
-            fontFamily: [
-                "Roboto", 'sans-serif'
-            ].join(','),
+            fontFamily: ['Roboto', 'sans-serif'].join(','),
             button: {
                 textTransform: 'none',
-                font: "Roboto",
-                fontSize: 16
-            }
-        }
+                font: 'Roboto',
+                fontSize: 16,
+            },
+        },
     },
     nbNO
 );

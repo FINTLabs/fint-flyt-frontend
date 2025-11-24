@@ -1,15 +1,15 @@
-import React, {createContext, useState} from "react";
+import React, { createContext, useState } from 'react';
 
 import {
     IInstanceMetadataContent,
     IInstanceObjectCollectionMetadata,
     IIntegrationMetadata,
-} from "../features/configuration/types/Metadata/IntegrationMetadata";
-import {ISelect} from "../features/configuration/types/Select";
-import {ContextProps} from "./constants/interface";
-import {MOCK_INSTANCE_METADATA} from "../__tests__/mock/mapping/mock-instans-metadata";
-import i18n from "../util/locale/i18n";
-import {ISourceApplication} from "../features/configuration/types/SourceApplication";
+} from '../features/configuration/types/Metadata/IntegrationMetadata';
+import { ISelect } from '../features/configuration/types/Select';
+import { ContextProps } from './constants/interface';
+import { MOCK_INSTANCE_METADATA } from '../__tests__/mock/mapping/mock-instans-metadata';
+import i18n from '../util/locale/i18n';
+import { ISourceApplication } from '../features/configuration/types/SourceApplication';
 import useSourceApplicationRepository from '../api/useSourceApplicationRepository';
 import useIntegrationRepository from '../api/useIntegrationRepository';
 import useAuthorizationRepository from '../api/useAuthorizationRepository';
@@ -34,7 +34,12 @@ type SourceApplicationContextState = {
     setSourceApplications: (sourceApp: ISourceApplication[]) => void;
     getSourceApplications: () => void;
     currentMetaData: IIntegrationMetadata[] | undefined;
-    getMetadataBySourceApplicationId: (sourceApplicationId: string, onlyLatest: boolean, updateAvailableForms: boolean) => void;};
+    getMetadataBySourceApplicationId: (
+        sourceApplicationId: string,
+        onlyLatest: boolean,
+        updateAvailableForms: boolean
+    ) => void;
+};
 
 const contextDefaultValues: SourceApplicationContextState = {
     availableForms: undefined,
@@ -57,23 +62,34 @@ const contextDefaultValues: SourceApplicationContextState = {
     getMetadataBySourceApplicationId: () => undefined,
 };
 
-const SourceApplicationContext =
-    createContext<SourceApplicationContextState>(contextDefaultValues);
+const SourceApplicationContext = createContext<SourceApplicationContextState>(contextDefaultValues);
 
-const SourceApplicationProvider = ({children}: ContextProps) => {
+const SourceApplicationProvider = ({ children }: ContextProps) => {
     const AuthorizationRepository = useAuthorizationRepository();
     const IntegrationRepository = useIntegrationRepository();
-    const [availableForms, setAvailableForms] = useState<ISelect[] | undefined>(contextDefaultValues.availableForms);
-    const [allMetadata, setAllMetadata] = useState<IIntegrationMetadata[] | undefined>(contextDefaultValues.allMetadata);
-    const [instanceElementMetadata, setInstanceElementMetadata] = useState<IInstanceMetadataContent | undefined>(MOCK_INSTANCE_METADATA);
-    const [instanceObjectCollectionMetadata, setInstanceObjectCollectionMetadata,] = useState<IInstanceObjectCollectionMetadata[]>([]);
-    const [sourceApplication, setSourceApplication] = useState<number | undefined>(contextDefaultValues.sourceApplication);
-    const [sourceApplications, setSourceApplications] = useState<ISourceApplication[] | undefined>(contextDefaultValues.sourceApplications);
+    const [availableForms, setAvailableForms] = useState<ISelect[] | undefined>(
+        contextDefaultValues.availableForms
+    );
+    const [allMetadata, setAllMetadata] = useState<IIntegrationMetadata[] | undefined>(
+        contextDefaultValues.allMetadata
+    );
+    const [instanceElementMetadata, setInstanceElementMetadata] = useState<
+        IInstanceMetadataContent | undefined
+    >(MOCK_INSTANCE_METADATA);
+    const [instanceObjectCollectionMetadata, setInstanceObjectCollectionMetadata] = useState<
+        IInstanceObjectCollectionMetadata[]
+    >([]);
+    const [sourceApplication, setSourceApplication] = useState<number | undefined>(
+        contextDefaultValues.sourceApplication
+    );
+    const [sourceApplications, setSourceApplications] = useState<ISourceApplication[] | undefined>(
+        contextDefaultValues.sourceApplications
+    );
     const [currentMetaData, setCurrentMetaData] = useState<IIntegrationMetadata[] | undefined>(
         contextDefaultValues.currentMetaData
     );
 
-    const SourceApplicationRepository = useSourceApplicationRepository()
+    const SourceApplicationRepository = useSourceApplicationRepository();
 
     function getInstanceObjectCollectionMetadata(keys: string[]): void {
         setInstanceObjectCollectionMetadata(
@@ -84,22 +100,20 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
                             instanceObjectCollectionMetadata.key === key
                     )
                 )
-                .filter(
-                    (metadata): metadata is IInstanceObjectCollectionMetadata =>
-                        !!metadata
-                )
+                .filter((metadata): metadata is IInstanceObjectCollectionMetadata => !!metadata)
         );
     }
 
     const getSourceApplications = () => {
         try {
-            const response: ISourceApplication[] = SourceApplicationRepository.getSourceApplications()
+            const response: ISourceApplication[] =
+                SourceApplicationRepository.getSourceApplications();
             setSourceApplications(response);
         } catch (err) {
             console.error(err);
             setSourceApplications([]);
         }
-    }
+    };
 
     const getAllAvailableFormsBySourceApplicationId = async (
         sourceApplicationId: string,
@@ -151,8 +165,8 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
                             a.disabled === b.disabled
                                 ? a.label.localeCompare(b.label)
                                 : a.disabled
-                                    ? 1
-                                    : -1
+                                  ? 1
+                                  : -1
                         ),
                 ]);
             } else {
@@ -172,14 +186,16 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
         }
     };
 
-    const getAllIntegrationsAndSetAvailableForms = async (forms: ISelect[], sourceApplicationId: string) => {
+    const getAllIntegrationsAndSetAvailableForms = async (
+        forms: ISelect[],
+        sourceApplicationId: string
+    ) => {
         try {
             const selectableForms = forms.filter((form) => sourceApplicationId !== form.value);
             setAvailableForms(selectableForms);
-
         } catch (err) {
             console.error(err);
-            setAvailableForms([{value: "", label: "- Ingen data"}]);
+            setAvailableForms([{ value: '', label: '- Ingen data' }]);
         }
     };
 
@@ -198,7 +214,8 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
                 allMetadata.push(metadataResponse.data);
             }
 
-            const metadata: IIntegrationMetadata[] = allMetadata.reduce((acc, currentArray) => [...acc, ...currentArray], []) || [];
+            const metadata: IIntegrationMetadata[] =
+                allMetadata.reduce((acc, currentArray) => [...acc, ...currentArray], []) || [];
             setAllMetadata(metadata);
         } catch (e) {
             console.error('Error: ', e);
@@ -212,8 +229,10 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
         updateAvailableForms: boolean
     ): Promise<void> => {
         try {
-            const metadataResponse =
-                await SourceApplicationRepository.getMetadata(sourceApplicationId, onlyLatest);
+            const metadataResponse = await SourceApplicationRepository.getMetadata(
+                sourceApplicationId,
+                onlyLatest
+            );
             const metaData = metadataResponse.data || [];
             setCurrentMetaData(metaData);
 
@@ -261,14 +280,11 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
                 getSourceApplications,
                 currentMetaData,
                 getMetadataBySourceApplicationId,
-            }}>
+            }}
+        >
             {children}
         </SourceApplicationContext.Provider>
     );
 };
 
-export {
-    SourceApplicationContext,
-    contextDefaultValues,
-    SourceApplicationProvider as default,
-};
+export { SourceApplicationContext, contextDefaultValues, SourceApplicationProvider as default };

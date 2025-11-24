@@ -18,7 +18,8 @@ const MenuItems = () => {
                         key={route.name}
                         onClick={() => {
                             history(route.path);
-                        }}>
+                        }}
+                    >
                         {t(route.name)}
                     </InternalHeader.Button>
                 ))}
@@ -27,7 +28,8 @@ const MenuItems = () => {
                     key={'useraccess'}
                     onClick={() => {
                         history('/useraccess');
-                    }}>
+                    }}
+                >
                     {t('useraccess')}
                 </InternalHeader.Button>
             )}

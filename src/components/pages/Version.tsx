@@ -29,7 +29,8 @@ const Version: RouteComponent = () => {
                 padding="6"
                 borderRadius={'large'}
                 borderWidth="2"
-                borderColor={'border-subtle'}>
+                borderColor={'border-subtle'}
+            >
                 <VStack gap={'6'}>
                     <BodyLong>{getAboutByLanguage(i18n.language)}</BodyLong>
                     <VStack gap={'6'}>

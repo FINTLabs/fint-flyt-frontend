@@ -41,7 +41,7 @@ const Configuration: RouteComponent = () => {
         useContext(SourceApplicationContext);
     const { completed, setCompleted, resetConfigurationContext } = useContext(ConfigurationContext);
     const { setEditCollectionAbsoluteKey } = useContext(EditingContext);
-    const IntegrationRepository = useIntegrationRepository()
+    const IntegrationRepository = useIntegrationRepository();
 
     const { t } = useTranslation('translations', { keyPrefix: 'pages.configuration' });
     const history = useNavigate();
@@ -53,7 +53,7 @@ const Configuration: RouteComponent = () => {
         setConfiguration,
         resetIntegrationContext,
     } = useContext(IntegrationContext);
-    const ConfigurationRepository = useConfigurationRepository()
+    const ConfigurationRepository = useConfigurationRepository();
     const [active, setActive] = useState<boolean>(
         existingIntegration?.activeConfigurationId === configuration?.id
     );
@@ -299,12 +299,13 @@ const Configuration: RouteComponent = () => {
                                         </Button>
 
                                         <Button
-                                            variant={"secondary"}
+                                            variant={'secondary'}
                                             id="form-cancel-btn"
                                             size={'small'}
                                             onClick={() => {
                                                 history('/');
-                                            }}>
+                                            }}
+                                        >
                                             {t('button.cancel')}
                                         </Button>
                                     </HStack>
@@ -315,14 +316,16 @@ const Configuration: RouteComponent = () => {
                                     autoHideDuration={4000}
                                     open={showAlert}
                                     anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-                                    onClose={handleClose}>
+                                    onClose={handleClose}
+                                >
                                     <Alert
                                         variant={alertContent.severity}
                                         closeButton
                                         onClose={() => {
                                             setShowAlert(false);
                                             setAlertContent(defaultAlert);
-                                        }}>
+                                        }}
+                                    >
                                         {alertContent.message}
                                     </Alert>
                                 </Snackbar>

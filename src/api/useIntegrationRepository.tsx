@@ -3,12 +3,11 @@ import { Page } from '../components/types/TableTypes';
 import { useContext } from 'react';
 import { ApiAdapterContext } from '../context/ApiAdapterContext';
 
-
-export default function useIntegrationRepository () {
-    const { get, post, patch } = useContext(ApiAdapterContext)
+export default function useIntegrationRepository() {
+    const { get, post, patch } = useContext(ApiAdapterContext);
 
     const getAllIntegrations = () => {
-        return get<IIntegration[]>("/api/intern/integrasjoner");
+        return get<IIntegration[]>('/api/intern/integrasjoner');
     };
 
     const getAllIntegrationBySourceApplicationId = (
@@ -23,7 +22,7 @@ export default function useIntegrationRepository () {
         sortProperty: string,
         sortDirection: string
     ) => {
-        return get<Page<IIntegration>>("/api/intern/integrasjoner", {
+        return get<Page<IIntegration>>('/api/intern/integrasjoner', {
             params: {
                 side: page,
                 antall: size,
@@ -37,10 +36,13 @@ export default function useIntegrationRepository () {
         return get(`/api/intern/integrasjoner/${integrationId}`);
     };
     const createIntegration = (data: IIntegration) => {
-        return post<IIntegration>("/api/intern/integrasjoner", data);
+        return post<IIntegration>('/api/intern/integrasjoner', data);
     };
     const updateIntegration = (integrationId: string, data: IIntegrationPatch) => {
-        return patch<{activeConfigurationId: string}>(`/api/intern/integrasjoner/${integrationId}`, data);
+        return patch<{ activeConfigurationId: string }>(
+            `/api/intern/integrasjoner/${integrationId}`,
+            data
+        );
     };
 
     return {
@@ -49,6 +51,6 @@ export default function useIntegrationRepository () {
         getIntegrations,
         updateIntegration,
         getAllIntegrations,
-        getAllIntegrationBySourceApplicationId
-    }
+        getAllIntegrationBySourceApplicationId,
+    };
 }

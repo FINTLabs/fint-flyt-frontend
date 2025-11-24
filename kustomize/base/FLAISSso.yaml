@@ -1,15 +1,15 @@
 apiVersion: fintlabs.no/v1alpha1
 kind: FLAISSso
 metadata:
-  name: fint-flyt-auth-forward-sso
-  labels:
-    app.kubernetes.io/name: fint-flyt-auth-forward-sso
-    app.kubernetes.io/instance: fint-flyt-auth-forward-sso_fintlabs_no
-    app.kubernetes.io/version: latest
-    app.kubernetes.io/component: sso
-    app.kubernetes.io/part-of: fint-flyt
-    fintlabs.no/team: flyt
-    fintlabs.no/org-id: fintlabs.no
+    name: fint-flyt-auth-forward-sso
+    labels:
+        app.kubernetes.io/name: fint-flyt-auth-forward-sso
+        app.kubernetes.io/instance: fint-flyt-auth-forward-sso_fintlabs_no
+        app.kubernetes.io/version: latest
+        app.kubernetes.io/component: sso
+        app.kubernetes.io/part-of: fint-flyt
+        fintlabs.no/team: flyt
+        fintlabs.no/org-id: fintlabs.no
 spec:
-  hostname: flyt.vigoiks.no
-  basePath: path
+    hostname: flyt.vigoiks.no
+    basePath: path

@@ -3,34 +3,33 @@ kind: Kustomization
 namespace: mrfylke-no
 
 resources:
-  - ../../../base
+    - ../../../base
 
 commonLabels:
-  fintlabs.no/org-id: mrfylke.no
+    fintlabs.no/org-id: mrfylke.no
 
 patches:
-  - patch: |-
-      - op: replace
-        path: "/metadata/labels/app.kubernetes.io~1instance"
-        value: "fint-flyt-frontend_mrfylke-no"
-      - op: replace
-        path: "/spec/orgId"
-        value: "mrfylke.no"
-      - op: replace
-        path: "/spec/env/0/value"
-        value: "/mrfylke-no"
-      - op: replace
-        path: "/spec/url/basePath"
-        value: "/mrfylke-no"
-    target:
-      kind: Application
-      name: fint-flyt-frontend
+    - patch: |-
+          - op: replace
+            path: "/metadata/labels/app.kubernetes.io~1instance"
+            value: "fint-flyt-frontend_mrfylke-no"
+          - op: replace
+            path: "/spec/orgId"
+            value: "mrfylke.no"
+          - op: replace
+            path: "/spec/env/0/value"
+            value: "/mrfylke-no"
+          - op: replace
+            path: "/spec/url/basePath"
+            value: "/mrfylke-no"
+      target:
+          kind: Application
+          name: fint-flyt-frontend
 
-  - patch: |-
-      - op: replace
-        path: "/spec/basePath"
-        value: "/mrfylke-no"
-    target:
-      kind: FLAISSso
-      name: fint-flyt-auth-forward-sso
-
+    - patch: |-
+          - op: replace
+            path: "/spec/basePath"
+            value: "/mrfylke-no"
+      target:
+          kind: FLAISSso
+          name: fint-flyt-auth-forward-sso

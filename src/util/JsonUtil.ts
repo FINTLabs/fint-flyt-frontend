@@ -5,4 +5,3 @@ export function toInstanceFieldReference(key: string): string {
 export function toInstanceCollectionFieldReference(collectionIndex: number, key: string): string {
     return '$icf{' + collectionIndex + '}{' + key + '}';
 }
-

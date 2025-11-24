@@ -101,7 +101,7 @@ const routes: IRoute[] = [
         component: UserAccess,
         exact: true,
         inNavigationMenu: false,
-    }
+    },
 ];
 
 export default routes;
