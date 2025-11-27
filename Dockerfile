@@ -1,4 +1,4 @@
-FROM node:22-alpine3.18 AS builder
+FROM node:22.21.1-alpine AS builder
 WORKDIR /src
 COPY package.json .
 COPY yarn.lock .
@@ -7,7 +7,7 @@ COPY . /src
 RUN yarn test:ci && yarn build
 
 
-FROM node:22
+FROM node:22.21.1-alpine
 WORKDIR /usr/src/app
 RUN mkdir -p server
 COPY server/package*.json server
