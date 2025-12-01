@@ -1,4 +1,3 @@
-import { GridCellParams } from '@mui/x-data-grid';
 import * as React from 'react';
 import { ReactElement, useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -139,7 +138,13 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
     ) : summaryList ? (
         <Box>
             <Box background={'surface-default'} style={{ minHeight: '70vh' }}>
-                <CustomStatusDialog row={selectedRow} />
+                {selectedRow &&
+                    <CustomStatusDialogComponent
+                        open={openCustomDialog}
+                        row={selectedRow}
+                        setOpenCustomDialog={setOpenCustomDialog}
+                    />
+                }
                 {summaryList?.length === 0 ? (
                     <Alert variant="info">{t('filter.alerts.noResults')}</Alert>
                 ) : hasFilters ? (
@@ -268,10 +273,6 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                     />
                     <Dropdown.Menu>
                         <Dropdown.Menu.List>
-                            {/*{*/}
-                            {/*    event.intermediateStorageStatus === 'STORED' && (*/}
-                            {/*        // event.latestInstanceId && (*/}
-                            {/*        <>*/}
                             <Dropdown.Menu.List.Item
                                 id={'statusButton'}
                                 onClick={() => {
@@ -300,27 +301,10 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                                     </Dropdown.Menu.List.Item>
                                 </>
                             )}
-
-                            {/*</>*/}
-                            {/*)}*/}
                         </Dropdown.Menu.List>
                     </Dropdown.Menu>
                 </Dropdown>
             </div>
-        );
-    }
-
-    function CustomStatusDialog(props: GridCellParams['row']) {
-        return (
-            <>
-                {props.row && (
-                    <CustomStatusDialogComponent
-                        open={openCustomDialog}
-                        row={props.row}
-                        setOpenCustomDialog={setOpenCustomDialog}
-                    />
-                )}
-            </>
         );
     }
 };
