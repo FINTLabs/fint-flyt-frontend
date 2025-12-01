@@ -6,7 +6,7 @@ import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
 import IncomingDataComponent from '../../features/configuration/components/IncomingDataComponent';
-import { Checkbox, FormControlLabel, Snackbar } from '@mui/material';
+import { Snackbar } from '@mui/material';
 import { IntegrationContext } from '../../context/IntegrationContext';
 import { useTranslation } from 'react-i18next';
 import CheckboxValueComponent from '../../features/configuration/components/common/CheckboxValueComponent';
@@ -31,7 +31,7 @@ import EditingProvider, { EditingContext } from '../../context/EditingContext';
 import { RouteComponent } from '../../routes/Route';
 import { isEmpty } from 'lodash';
 import PageTemplate from '../templates/PageTemplate';
-import { Alert, Button, Heading, HStack, VStack } from '@navikt/ds-react';
+import { Alert, Button, CheckboxGroup, Heading, HStack, VStack, Checkbox } from '@navikt/ds-react';
 import { AuthorizationContext } from '../../context/AuthorizationContext';
 import useConfigurationRepository from '../../api/useConfigurationRepository';
 import useIntegrationRepository from '../../api/useIntegrationRepository';
@@ -41,7 +41,7 @@ const Configuration: RouteComponent = () => {
         useContext(SourceApplicationContext);
     const { completed, setCompleted, resetConfigurationContext } = useContext(ConfigurationContext);
     const { setEditCollectionAbsoluteKey } = useContext(EditingContext);
-    const IntegrationRepository = useIntegrationRepository()
+    const IntegrationRepository = useIntegrationRepository();
 
     const { t } = useTranslation('translations', { keyPrefix: 'pages.configuration' });
     const history = useNavigate();
@@ -53,7 +53,7 @@ const Configuration: RouteComponent = () => {
         setConfiguration,
         resetIntegrationContext,
     } = useContext(IntegrationContext);
-    const ConfigurationRepository = useConfigurationRepository()
+    const ConfigurationRepository = useConfigurationRepository();
     const [active, setActive] = useState<boolean>(
         existingIntegration?.activeConfigurationId === configuration?.id
     );
@@ -265,24 +265,22 @@ const Configuration: RouteComponent = () => {
                                             )}
                                         />
                                         {methods.watch('completed') && (
-                                            <FormControlLabel
-                                                control={
-                                                    <Checkbox
-                                                        id="form-active"
-                                                        checked={active}
-                                                        disabled={completed}
-                                                        onChange={(
-                                                            event: React.ChangeEvent<HTMLInputElement>
-                                                        ) => {
-                                                            setActive(event.target.checked);
-                                                        }}
-                                                        inputProps={{
-                                                            'aria-label': 'active-checkbox',
-                                                        }}
-                                                    />
-                                                }
-                                                label={t('label.activeLabel') as string}
-                                            />
+                                            <CheckboxGroup
+                                                legend="form-active"
+                                                hideLegend
+                                                disabled={completed}
+                                                value={[active && 'form-active']}
+                                                onChange={(val: string[]) => {
+                                                    setActive(val.includes('form-active'));
+                                                }}>
+                                                <Checkbox
+                                                    id="form-active"
+                                                    value="form-active"
+                                                    size={'small'}
+                                                    aria-label="active-checkbox">
+                                                    {t('label.activeLabel')}
+                                                </Checkbox>
+                                            </CheckboxGroup>
                                         )}
                                     </HStack>
                                     <HStack align={'center'} gap={'6'}>
@@ -291,15 +289,14 @@ const Configuration: RouteComponent = () => {
                                             id="form-submit-btn"
                                             size={'small'}
                                             disabled={configuration?.completed}
-                                            type="submit"
-                                        >
+                                            type="submit">
                                             {!methods.watch('completed')
                                                 ? t('button.submit')
                                                 : t('button.complete')}
                                         </Button>
 
                                         <Button
-                                            variant={"secondary"}
+                                            variant={'secondary'}
                                             type="button"
                                             id="form-cancel-btn"
                                             size={'small'}
