@@ -52,12 +52,3 @@ export const errorMsgSX: SxProps<Theme> = {
     padding: (theme: Theme) => theme.spacing(.2),
     marginLeft: (theme: Theme) => theme.spacing(1)
 }
-
-export const tagSX: SxProps<Theme> = {
-    width: 'fit-content',
-    cursor: 'move',
-    backgroundColor: 'white',
-    borderRadius: (theme: Theme) => theme.spacing(0.5),
-    marginLeft: (theme: Theme) => theme.spacing(0),
-    margin: (theme: Theme) => theme.spacing(0)
-}
