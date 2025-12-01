@@ -6,7 +6,7 @@ import { format } from 'date-fns';
 import { getSourceApplicationDisplayNameById } from '../../../util/TableUtil';
 import { IEventNew, ISummary } from '../types/Event';
 import InstancePanel from './InstancePanel';
-import { GetIconTable } from '../util/InstanceUtils';
+import { InstanceStatusWithTooltip } from './InstanceEventStatusWithText';
 import useInstanceRepository from '../../../api/useInstanceRepository';
 import { IIntegrationMetadata } from '../../configuration/types/Metadata/IntegrationMetadata';
 import { SourceApplicationContext } from '../../../context/SourceApplicationContext';
@@ -24,7 +24,7 @@ interface Props {
 const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
     const InstanceRepository = useInstanceRepository();
     const { t } = useTranslation('translations', { keyPrefix: 'pages.instances' });
-    const InstanceFlowTrackingRepository = useInstanceFlowTrackingRepository()
+    const InstanceFlowTrackingRepository = useInstanceFlowTrackingRepository();
     const [selectedRow, setSelectedRow] = useState<IEventNew>();
     const [openCustomDialog, setOpenCustomDialog] = React.useState(false);
     const [page, setPage] = useState(1);
@@ -138,13 +138,13 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
     ) : summaryList ? (
         <Box>
             <Box background={'surface-default'} style={{ minHeight: '70vh' }}>
-                {selectedRow &&
+                {selectedRow && (
                     <CustomStatusDialogComponent
                         open={openCustomDialog}
                         row={selectedRow}
                         setOpenCustomDialog={setOpenCustomDialog}
                     />
-                }
+                )}
                 {summaryList?.length === 0 ? (
                     <Alert variant="info">{t('filter.alerts.noResults')}</Alert>
                 ) : hasFilters ? (
@@ -214,8 +214,7 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                                         {format(value.latestUpdate, 'dd/MM/yy HH:mm')}
                                     </Table.DataCell>
                                     <Table.DataCell>
-                                        {GetIconTable(value.status)}
-                                        {t(value.status)}
+                                        <InstanceStatusWithTooltip status={value.status} />
                                     </Table.DataCell>
                                     <Table.DataCell>
                                         {value.intermediateStorageStatus
