@@ -170,10 +170,10 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                             <Table.ColumnHeader>{t('table.column.timestamp')}</Table.ColumnHeader>
                             <Table.ColumnHeader>{t('table.column.status')}</Table.ColumnHeader>
                             <Table.ColumnHeader>{t('table.column.storage')}</Table.ColumnHeader>
-                            <Table.ColumnHeader>{t('table.column.actions')}</Table.ColumnHeader>
                             <Table.ColumnHeader>
                                 {t('table.column.archiveInstanceId')}
                             </Table.ColumnHeader>
+                            <Table.ColumnHeader>{t('table.column.actions')}</Table.ColumnHeader>
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
@@ -224,10 +224,10 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                                             : null}
                                     </Table.DataCell>
 
+                                    <Table.DataCell>{value.destinationInstanceIds}</Table.DataCell>
                                     <Table.DataCell>
                                         {value.status === 'FAILED' && actionMenu(value, i)}
                                     </Table.DataCell>
-                                    <Table.DataCell>{value.destinationInstanceIds}</Table.DataCell>
                                 </Table.ExpandableRow>
                             );
                         })}
