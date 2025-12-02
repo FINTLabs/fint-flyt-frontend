@@ -221,7 +221,7 @@ describe('Testing fill, save and complete new configuration', () => {
         cy.get(`${newCaseFields}\\.saksmappetype\\.mappingString-option-2`).click()
         cy.get('#form-complete').click()
         cy.get('#form-submit-btn').click()
-        cy.get('#string-value-component-comment > .MuiTypography-root').should("contain.text", "Kommentar er påkrevd ved ferdigstilling")
+        cy.get('#string-value-component-comment > #error-message').should("contain.text", "Kommentar er påkrevd ved ferdigstilling")
         cy.get('#comment').type('kommentar', {delay: 0})
         cy.get('#form-submit-btn').click()
         cy.wait('@postConfiguration').its('request.body').should('deep.equal', {

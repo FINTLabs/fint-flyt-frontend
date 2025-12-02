@@ -15,10 +15,3 @@ export const searchResultSX: SxProps<Theme> = {
     padding: (theme: Theme) => theme.spacing(.2),
     marginLeft: (theme: Theme) => theme.spacing(1)
 }
-
-export const errorMsgSX: SxProps<Theme> = {
-    color: 'red',
-    fontSize: (theme: Theme) => theme.spacing(1.75),
-    padding: (theme: Theme) => theme.spacing(.2),
-    marginLeft: (theme: Theme) => theme.spacing(1)
-}

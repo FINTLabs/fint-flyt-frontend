@@ -7,11 +7,12 @@ import { TextField, Typography } from '@mui/material';
 import { Search } from '../../../../util/UrlUtils';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import useResourceRepository from '../../../../../../api/useResourceRepository';
-import { errorMsgSX, searchResultSX } from '../../../../../../util/styles/SystemStyles';
+import { searchResultSX } from '../../../../../../util/styles/SystemStyles';
 import { Noop } from 'react-hook-form/dist/types';
 import { ControllerFieldState } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import IconButton from '../../../../../../components/atoms/IconButton';
+import FormErrorText from '../../../../../../components/atoms/FormErrorText';
 
 interface Props {
     displayName?: string;
@@ -130,7 +131,7 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = forwardRef<
             />
             {searchResult && <Typography sx={searchResultSX}>{searchResult}</Typography>}
             {props.fieldState?.error && (
-                <Typography sx={errorMsgSX}>{t('label.formatError')}</Typography>
+                <FormErrorText errorMessage={t('label.formatError')}/>
             )}
         </div>
     );

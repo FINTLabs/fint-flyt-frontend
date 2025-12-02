@@ -78,7 +78,7 @@ describe('Testing fill, validate and complete new configuration', () => {
         cy.get('#comment').type('kommentar', {delay: 0})
         cy.get('#form-complete').click()
         cy.get('#form-submit-btn').click()
-        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.tittel\\.mappingString > .MuiTypography-root').should("contain.text", "Feltet oppfyller ikke påkrevd format")
+        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.tittel\\.mappingString > #error-message').should("contain.text", "Feltet oppfyller ikke påkrevd format")
         cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.saksmappetype\\.mappingString > .MuiAutocomplete-root > .MuiFormControl-root > .MuiInputBase-root').type('{backspace}');
         cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.saksmappetype\\.mappingString > .MuiAutocomplete-root > .MuiFormControl-root > .MuiInputBase-root').type('$vc{1}$if{ikke_feil}', {
             parseSpecialCharSequences: false,
@@ -91,7 +91,7 @@ describe('Testing fill, validate and complete new configuration', () => {
             delay: 0
         })
         cy.get('#form-submit-btn').click()
-        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.arkivdel\\.mappingString > .MuiTypography-root').should("contain.text", "Feltet oppfyller ikke påkrevd format")
+        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.arkivdel\\.mappingString > #error-message').should("contain.text", "Feltet oppfyller ikke påkrevd format")
         cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.arkivdel\\.mappingString > .MuiAutocomplete-root > .MuiFormControl-root > .MuiInputBase-root').type('{backspace}');
         cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.arkivdel\\.mappingString > .MuiAutocomplete-root > .MuiFormControl-root > .MuiInputBase-root').type('$if{testy}', {
             parseSpecialCharSequences: false,
