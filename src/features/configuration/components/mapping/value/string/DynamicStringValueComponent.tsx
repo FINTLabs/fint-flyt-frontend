@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { BaseSyntheticEvent, forwardRef, useEffect, useState } from 'react';
 import { useDrop } from 'react-dnd';
+import { BodyShort } from '@navikt/ds-react';
 import { ITag } from '../../../../types/Metadata/Tag';
 import { ValueType } from '../../../../types/Metadata/IntegrationMetadata';
-import { TextField, Typography } from '@mui/material';
+import { TextField } from '@mui/material';
 import { Search } from '../../../../util/UrlUtils';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import useResourceRepository from '../../../../../../api/useResourceRepository';
-import { searchResultSX } from '../../../../../../util/styles/SystemStyles';
 import { Noop } from 'react-hook-form/dist/types';
 import { ControllerFieldState } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -129,7 +129,7 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = forwardRef<
                     ),
                 }}
             />
-            {searchResult && <Typography sx={searchResultSX}>{searchResult}</Typography>}
+            {searchResult && <BodyShort size={'small'} style={{ padding: 'var(--a-spacing-1)'}}>{searchResult}</BodyShort>}
             {props.fieldState?.error && (
                 <FormErrorText errorMessage={t('label.formatError')}/>
             )}
