@@ -57,6 +57,7 @@ const FromCollectionMappingComponent: React.FunctionComponent<Props> = (props: P
                         {t('collections')}
                     </Heading>
                     <IconButton
+                        id={'edit-collection-mapping-button'}
                         ariaLabel="edit"
                         onClick={() => {
                             setEditCollectionAbsoluteKey(isEditingState ? '' : props.absoluteKey);

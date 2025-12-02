@@ -26,6 +26,7 @@ const ToggleButtonComponent: React.FunctionComponent<Props> = (props: Props) => 
         <VStack id={'toggle-button-' + props.displayName + '-' + props.order}>
             <HStack align={'center'} gap={'2'} wrap={false}>
                 <Button
+                    id={'toggle-panel-button'}
                     type="button"
                     size={'small'}
                     style={{
