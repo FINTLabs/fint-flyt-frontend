@@ -4,7 +4,8 @@ import { useFieldArray, useFormContext } from 'react-hook-form';
 import { PlusIcon } from '@navikt/aksel-icons';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { iconButtonSX } from '../../../../../util/styles/SystemStyles';
-import { Box, Button, HStack } from '@navikt/ds-react';
+import { Box, HStack } from '@navikt/ds-react';
+import IconButton from '../../../../../components/atoms/IconButton';
 
 interface Props {
     absoluteKey: string;
@@ -36,34 +37,35 @@ const ArrayComponent: React.FunctionComponent<Props> = (props: Props) => {
                         borderWidth="2"
                         borderColor={'border-subtle'}
                         style={{ marginBottom: '16px' }}>
-                        <li id={'list-item-' + index} style={{ paddingBottom: 'var(--a-spacing-3)'}}>
+                        <li
+                            id={'list-item-' + index}
+                            style={{ paddingBottom: 'var(--a-spacing-3)' }}>
                             {props.fieldComponentCreator(index, props.absoluteKey + '.' + index)}
                         </li>
                     </Box>
                 ) : (
-                    <li id={'list-item-' + index} key={field.id} style={{ paddingBottom: 'var(--a-spacing-3)'}}>
+                    <li
+                        id={'list-item-' + index}
+                        key={field.id}
+                        style={{ paddingBottom: 'var(--a-spacing-3)' }}>
                         {props.fieldComponentCreator(index, props.absoluteKey + '.' + index)}
                     </li>
                 )
             )}
             <HStack gap={'2'}>
-                <Button
+                <IconButton
                     id={'add-icon'}
-                    style={{ borderRadius: 'var(--a-border-radius-full)' }}
-                    aria-label={'add-icon'}
+                    ariaLabel={'add'}
                     onClick={() => {
                         append(props.defaultValueCreator());
                     }}
-                    type={'button'}
                     icon={<PlusIcon />}
                     disabled={props.disabled}
-                    variant="tertiary-neutral"
                 />
                 {fields.length > 0 && (
-                    <Button
+                    <IconButton
                         id={'remove-icon'}
-                        style={{ borderRadius: 'var(--a-border-radius-full)' }}
-                        type={'button'}
+                        ariaLabel={'remove'}
                         onClick={() => {
                             const index = fields.length - 1;
                             remove(fields.length - 1);
@@ -73,7 +75,6 @@ const ArrayComponent: React.FunctionComponent<Props> = (props: Props) => {
                         }}
                         disabled={props.disabled}
                         icon={<RemoveIcon sx={iconButtonSX} />}
-                        variant="tertiary-neutral"
                     />
                 )}
             </HStack>
