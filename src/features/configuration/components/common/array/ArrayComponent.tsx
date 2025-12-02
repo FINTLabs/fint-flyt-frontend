@@ -1,9 +1,7 @@
 import * as React from 'react';
 import { ReactElement } from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
-import { PlusIcon } from '@navikt/aksel-icons';
-import RemoveIcon from '@mui/icons-material/Remove';
-import { iconButtonSX } from '../../../../../util/styles/SystemStyles';
+import { PlusIcon, MinusIcon } from '@navikt/aksel-icons';
 import { Box, HStack } from '@navikt/ds-react';
 import IconButton from '../../../../../components/atoms/IconButton';
 
@@ -74,7 +72,7 @@ const ArrayComponent: React.FunctionComponent<Props> = (props: Props) => {
                             }
                         }}
                         disabled={props.disabled}
-                        icon={<RemoveIcon sx={iconButtonSX} />}
+                        icon={<MinusIcon />}
                     />
                 )}
             </HStack>

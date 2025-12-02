@@ -1,35 +1,5 @@
 import {SxProps, Theme} from "@mui/material";
 
-export const toggleButtonSX: SxProps<Theme> = {
-    height: (theme: Theme) => theme.spacing(5),
-    width: (theme: Theme) => theme.spacing(44),
-    border: '2px solid',
-    color: 'white',
-    // borderColor: '#6B133D',
-    backgroundColor: (theme: Theme) => theme.palette.primary.main,
-    justifyContent: 'space-between',
-    "&:hover": {
-        color: 'white',
-        // borderColor: '#6B133D',
-        backgroundColor: (theme: Theme) => theme.palette.primary.main,
-    },
-    "&.Mui-selected": {
-        color: 'white',
-        backgroundColor: '#6B133D',
-        // borderColor: (theme: Theme) => theme.palette.primary.main,
-    },
-    "&.Mui-selected:hover": {
-        color: 'white',
-        backgroundColor: '#6B133D',
-        // borderColor: (theme: Theme) => theme.palette.primary.main,
-    }
-}
-
-export const iconButtonSX: SxProps<Theme> = {
-    cursor: 'pointer',
-    margin: (theme: Theme) => theme.spacing(0)
-}
-
 export const autoCompleteSX: SxProps<Theme> = {
     backgroundColor: 'white',
     width: (theme: Theme) => theme.spacing(44)
