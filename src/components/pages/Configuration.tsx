@@ -6,7 +6,7 @@ import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
 import IncomingDataComponent from '../../features/configuration/components/IncomingDataComponent';
-import { Snackbar } from '@mui/material';
+import Snackbar from '../molecules/Snackbar';
 import { IntegrationContext } from '../../context/IntegrationContext';
 import { useTranslation } from 'react-i18next';
 import CheckboxValueComponent from '../../features/configuration/components/common/CheckboxValueComponent';
@@ -31,7 +31,7 @@ import EditingProvider, { EditingContext } from '../../context/EditingContext';
 import { RouteComponent } from '../../routes/Route';
 import { isEmpty } from 'lodash';
 import PageTemplate from '../templates/PageTemplate';
-import { Alert, Button, CheckboxGroup, Heading, HStack, VStack, Checkbox } from '@navikt/ds-react';
+import { Button, CheckboxGroup, Heading, HStack, VStack, Checkbox } from '@navikt/ds-react';
 import { AuthorizationContext } from '../../context/AuthorizationContext';
 import useConfigurationRepository from '../../api/useConfigurationRepository';
 import useIntegrationRepository from '../../api/useIntegrationRepository';
@@ -309,20 +309,15 @@ const Configuration: RouteComponent = () => {
                                 </VStack>
 
                                 <Snackbar
+                                    status={
+                                        alertContent.severity === 'info'
+                                            ? 'announcement'
+                                            : alertContent.severity
+                                    }
                                     id="integration-form-snackbar-saved"
-                                    autoHideDuration={4000}
                                     open={showAlert}
-                                    anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
                                     onClose={handleClose}>
-                                    <Alert
-                                        variant={alertContent.severity}
-                                        closeButton
-                                        onClose={() => {
-                                            setShowAlert(false);
-                                            setAlertContent(defaultAlert);
-                                        }}>
-                                        {alertContent.message}
-                                    </Alert>
+                                    {alertContent.message}
                                 </Snackbar>
 
                                 <HStack gap={'8'} wrap={false}>
