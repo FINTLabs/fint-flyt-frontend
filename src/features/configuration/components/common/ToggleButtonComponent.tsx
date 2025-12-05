@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { useCallback, useEffect, useState } from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@navikt/aksel-icons';
-import { Button, HelpText, HStack, VStack } from '@navikt/ds-react';
-import { useFormContext } from 'react-hook-form';
+import { Button, HelpText, HStack } from '@navikt/ds-react';
 
 interface Props {
     order: number;
