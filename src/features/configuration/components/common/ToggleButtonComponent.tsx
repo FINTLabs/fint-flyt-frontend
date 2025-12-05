@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@navikt/aksel-icons';
 import { Button, HelpText, HStack, VStack } from '@navikt/ds-react';
+import { useFormContext } from 'react-hook-form';
 
 interface Props {
     order: number;
@@ -14,46 +15,72 @@ interface Props {
 }
 
 const ToggleButtonComponent: React.FunctionComponent<Props> = (props: Props) => {
-    const [selectedState, setSelectedState] = useState(false);
-    const selected: boolean = props.selected === undefined ? selectedState : props.selected;
-    const setSelected =
-        props.selected === undefined
-            ? setSelectedState
-            : (value: boolean) => {
-                  props.selected = value;
-              };
+    const [selectedState, setSelectedState] = useState<boolean>(props.selected ?? false);
+    const [displayName, setDisplayName] = useState(props.displayName);
+
+    const toggleSelectedState = useCallback(
+        (newValue: boolean) => {
+            if (props.selected === undefined) {
+                setSelectedState(newValue);
+            }
+        },
+        [props.displayName]
+    );
+
+    useEffect(() => {
+        setSelectedState(props.selected ?? false);
+    }, []);
+
+    useEffect(() => {
+        if (props.displayName !== displayName) {
+            setDisplayName(props.displayName);
+            setSelectedState(false);
+        }
+    }, [props.displayName, selectedState, setSelectedState]);
+
+    useEffect(() => {
+        if (!selectedState) {
+            props.onUnselect();
+        }
+    }, [selectedState]);
+
     return (
-        <VStack id={'toggle-button-' + props.displayName + '-' + props.order}>
-            <HStack align={'center'} gap={'2'} wrap={false}>
-                <Button
-                    id={'toggle-panel-button'}
-                    type="button"
-                    size={'small'}
-                    style={{
-                        width: '100%',
-                        justifyContent: 'space-between',
-                    }}
-                    icon={selected ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-                    iconPosition={'right'}
-                    variant={selected ? 'secondary' : 'primary'}
-                    onClick={() => {
-                        if (!selected) {
-                            props.onSelect();
-                        } else {
-                            props.onUnselect();
-                        }
-                        setSelected(!selected);
-                    }}
-                    disabled={props.disabled}>
-                    {props.displayName}
-                </Button>
-                {props.description && (
-                    <HelpText title={'Hva er dette?'} placement={'right'}>
-                        {props.description}
-                    </HelpText>
-                )}
-            </HStack>
-        </VStack>
+        <HStack
+            id={'toggle-button-' + displayName + '-' + props.order}
+            align={'center'}
+            gap={'2'}
+            wrap={false}
+        >
+            <Button
+                id={'toggle-panel-button'}
+                type="button"
+                className={selectedState ? 'toggled' : ''}
+                size={'small'}
+                style={{
+                    width: '100%',
+                    justifyContent: 'space-between',
+                }}
+                icon={selectedState ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+                iconPosition={'right'}
+                variant={selectedState ? 'secondary' : 'primary'}
+                onClick={() => {
+                    if (!selectedState) {
+                        props.onSelect();
+                    } else {
+                        props.onUnselect();
+                    }
+                    toggleSelectedState(!selectedState);
+                }}
+                disabled={props.disabled}
+            >
+                {displayName}
+            </Button>
+            {props.description && (
+                <HelpText title={'Hva er dette?'} placement={'right'}>
+                    {props.description}
+                </HelpText>
+            )}
+        </HStack>
     );
 };
 export default ToggleButtonComponent;

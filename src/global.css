@@ -40,7 +40,11 @@ iframe#webpack-dev-server-client-overlay {
     --ac-button-secondary-hover-text: var(--novari-theme-purple-primary) !important;
     --ac-button-secondary-hover-bg: var(--novari-theme-purple-subtle) !important;
     --ac-button-secondary-active-bg: var(--novari-theme-purple-primary) !important;
+    &.toggled {
+        --ac-button-secondary-bg: var(--novari-theme-purple-subtle) !important;
+    }
 }
+
 
 .navds-button--tertiary {
     --ac-button-tertiary-text: var(--novari-theme-purple-primary) !important;
