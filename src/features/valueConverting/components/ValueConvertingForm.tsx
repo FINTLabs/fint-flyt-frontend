@@ -381,12 +381,15 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
                                 {alertContent.message}
                             </Alert>
                         )}
-                        <HStack id={"button-container"} gap={"6"}>
-                            <Button id={"submit-button"} type="submit" disabled={disabled}>
+                        <HStack justify={'end'} id={"button-container"} gap={"4"}>
+                            <Button id={"submit-button"} type="submit" disabled={disabled} size={"small"}>
                                 {t("button.create")}
                             </Button>
                             <Button
+                                size={"small"}
                                 as={RouterLink}
+                                type={"button"}
+                                variant={'secondary'}
                                 id={"cancel-button"}
                                 onClick={handleCancel}
                                 to={"/valueconverting"}

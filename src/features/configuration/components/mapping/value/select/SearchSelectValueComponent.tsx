@@ -1,10 +1,11 @@
 import * as React from "react";
 import {forwardRef, useEffect, useMemo, useState} from "react";
 import {ISelectable} from "../../../../types/Selectable";
-import {Autocomplete, createFilterOptions, TextField, Typography} from "@mui/material";
-import {autoCompleteSX, errorMsgSX} from "../../../../../../util/styles/SystemStyles";
+import {Autocomplete, createFilterOptions, TextField} from "@mui/material";
+import {autoCompleteSX} from "../../../../../../util/styles/SystemStyles";
 import {Noop} from "react-hook-form/dist/types";
 import {ControllerFieldState} from "react-hook-form";
+import FormErrorText from '../../../../../../components/atoms/FormErrorText';
 
 interface Props {
     displayName: string;
@@ -65,7 +66,7 @@ const SearchSelectValueComponent: React.FunctionComponent<Props> = forwardRef<HT
             ref={ref}
             disabled={props.disabled}
         />
-        {props.fieldState?.error && <Typography sx={errorMsgSX}>{props.fieldState?.error.message}</Typography>}
+        {props.fieldState?.error && <FormErrorText errorMessage={props.fieldState?.error.message} />}
     </div>
 })
 export default SearchSelectValueComponent;

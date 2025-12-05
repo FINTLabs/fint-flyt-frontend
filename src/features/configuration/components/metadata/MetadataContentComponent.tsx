@@ -7,7 +7,7 @@ import {
 } from "../../types/Metadata/IntegrationMetadata";
 import * as React from "react";
 import {ReactElement} from "react";
-import {Tag} from "../common/dnd/Tag";
+import {DraggableTag} from "../common/dnd/DraggableTag";
 import {Heading, HStack, VStack} from "@navikt/ds-react";
 
 interface Props {
@@ -30,7 +30,7 @@ const MetadataContentComponent: React.FunctionComponent<Props> = (props: Props) 
             {props.content.instanceValueMetadata
                 .map((valueMetadata: IInstanceValueMetadata) => {
                         const reference: string = props.keyToReferenceFunction(valueMetadata.key);
-                        return <Tag
+                        return <DraggableTag
                             key={'tagtreeValues-' + valueMetadata.key}
                             type={valueMetadata.type}
                             name={valueMetadata.displayName}
@@ -43,7 +43,7 @@ const MetadataContentComponent: React.FunctionComponent<Props> = (props: Props) 
             {props.content.instanceObjectCollectionMetadata
                 .map((objectCollectionMetadata: IInstanceObjectCollectionMetadata) => {
                     const reference: string = props.keyToReferenceFunction(objectCollectionMetadata.key);
-                    return <Tag
+                    return <DraggableTag
                         key={'tagtreeValues-' + objectCollectionMetadata.key}
                         type={ValueType.COLLECTION}
                         name={objectCollectionMetadata.displayName}

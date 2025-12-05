@@ -1,8 +1,9 @@
 import * as React from "react";
 import {forwardRef} from "react";
 import {ISelectable} from "../../../../types/Selectable";
-import {MenuItem, TextField, Typography} from "@mui/material";
-import {errorMsgSX, selectSX} from "../../../../../../util/styles/SystemStyles";
+import FormErrorText from '../../../../../../components/atoms/FormErrorText';
+import {MenuItem, TextField} from "@mui/material";
+import {selectSX} from "../../../../../../util/styles/SystemStyles";
 import {Noop} from "react-hook-form/dist/types";
 import {ControllerFieldState} from "react-hook-form";
 
@@ -43,7 +44,7 @@ const SelectValueComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivE
                     </MenuItem>)
             }
         </TextField>
-        {props.fieldState?.error && <Typography sx={errorMsgSX}>{props.fieldState?.error.message}</Typography>}
+        {props.fieldState?.error && <FormErrorText errorMessage={props.fieldState?.error.message}/>}
     </div>
 })
 export default SelectValueComponent;

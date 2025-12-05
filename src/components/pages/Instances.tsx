@@ -1,8 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Alert, Box, Button, Heading, HelpText, HGrid, HStack, Loader } from '@navikt/ds-react';
 import { useTranslation } from 'react-i18next';
-import { GridCellParams } from '@mui/x-data-grid';
-import ErrorDialogComponent from '../../features/instances/components/ErrorDialogComponent';
 import { IEvent } from '../../features/instances/types/Event';
 import PageTemplate from '../templates/PageTemplate';
 import InstanceTable from '../../features/instances/components/InstanceTable';
@@ -14,6 +12,7 @@ import { useNavigate } from 'react-router';
 import Filters from '../../features/instances/filter/FilterForm';
 import { ChevronLeftDoubleCircleIcon, ChevronRightDoubleCircleIcon } from '@navikt/aksel-icons';
 import { FilterProvider } from '../../features/instances/filter/FilterContext';
+import ErrorDialog from '../molecules/ErrorDialog';
 
 const Instances: RouteComponent = () => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.instances' });
@@ -38,16 +37,6 @@ const Instances: RouteComponent = () => {
     useEffect(() => {
         getAllMetadata(true);
     }, []);
-
-    function ErrorAlertDialog(props: GridCellParams['row']) {
-        return (
-            <ErrorDialogComponent
-                open={openDialog}
-                setOpenErrorDialog={setOpenDialog}
-                row={props.row}
-            />
-        );
-    }
 
     return (
         <FilterProvider>
@@ -119,7 +108,11 @@ const Instances: RouteComponent = () => {
                         )}
                     </Box>
                 </HGrid>
-                <ErrorAlertDialog row={selectedRow} />
+                <ErrorDialog
+                    open={openDialog}
+                    setOpen={setOpenDialog}
+                    errors={selectedRow?.errors}
+                />
             </PageTemplate>
         </FilterProvider>
     );

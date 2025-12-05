@@ -4,7 +4,7 @@ import {
     getSelectableDefaultByLanguage,
     selectableDestinations,
 } from '../configuration/defaults/DefaultValues';
-import { Snackbar } from '@mui/material';
+import Snackbar from '../../components/molecules/Snackbar';
 import { useNavigate } from 'react-router';
 import { IntegrationContext } from '../../context/IntegrationContext';
 import { useTranslation } from 'react-i18next';
@@ -13,7 +13,6 @@ import { IIntegration, IIntegrationFormData, IntegrationState } from './types/In
 import { toIntegration } from '../../util/mapping/ToIntegration';
 import { IIntegrationMetadata } from '../configuration/types/Metadata/IntegrationMetadata';
 import {
-    Alert,
     Box,
     Button,
     ErrorSummary,
@@ -39,7 +38,7 @@ type Props = {
 
 export const IntegrationForm: React.FunctionComponent<Props> = () => {
     const history = useNavigate();
-    const IntegrationRepository = useIntegrationRepository()
+    const IntegrationRepository = useIntegrationRepository();
     const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationForm' });
     const {
         setExistingIntegrationMetadata,
@@ -54,7 +53,7 @@ export const IntegrationForm: React.FunctionComponent<Props> = () => {
         availableForms,
         setAvailableForms,
         currentMetaData,
-        getInstanceElementMetadata
+        getInstanceElementMetadata,
     } = useContext(SourceApplicationContext);
     const { activeUserSourceApps } = useContext(AuthorizationContext);
     const [destination, setDestination] = useState<string>('');
@@ -82,9 +81,9 @@ export const IntegrationForm: React.FunctionComponent<Props> = () => {
     function getSelectableSourceApplications() {
         const sources: ISelect[] = [];
         activeUserSourceApps &&
-        activeUserSourceApps.map((sa) => {
-            sources.push({ value: sa, label: getSourceApplicationDisplayNameById(sa) });
-        });
+            activeUserSourceApps.map((sa) => {
+                sources.push({ value: sa, label: getSourceApplicationDisplayNameById(sa) });
+            });
         setSelectableSourceApplications([...selectableSourceApplications, ...sources]);
     }
 
@@ -111,7 +110,7 @@ export const IntegrationForm: React.FunctionComponent<Props> = () => {
     useEffect(() => {
         setAvailableForms(undefined);
         if (sourceApplicationId) {
-            getMetadataBySourceApplicationId(sourceApplicationId, true, true)
+            getMetadataBySourceApplicationId(sourceApplicationId, true, true);
         }
     }, [sourceApplication, setSourceApplication]);
 
@@ -126,9 +125,9 @@ export const IntegrationForm: React.FunctionComponent<Props> = () => {
     const onSubmit = (data: IIntegrationFormData) => {
         const selectedForm = currentMetaData
             ? currentMetaData.find(
-                (md: IIntegrationMetadata) =>
-                    md.sourceApplicationIntegrationId === data.sourceApplicationIntegrationId
-            )
+                  (md: IIntegrationMetadata) =>
+                      md.sourceApplicationIntegrationId === data.sourceApplicationIntegrationId
+              )
             : undefined;
         if (!selectedForm) {
             setAlertContent({ severity: 'warning', message: t('alert.missingMetadata') });
@@ -142,7 +141,9 @@ export const IntegrationForm: React.FunctionComponent<Props> = () => {
 
         IntegrationRepository.createIntegration(newIntegration)
             .then((response) => {
-                setSourceApplicationIntegrationId(response.data.sourceApplicationIntegrationId ?? '');
+                setSourceApplicationIntegrationId(
+                    response.data.sourceApplicationIntegrationId ?? ''
+                );
                 setExistingIntegration(response.data);
                 navToConfiguration(response.data.sourceApplicationIntegrationId ?? '');
                 console.log('create new integration', newIntegration);
@@ -161,7 +162,8 @@ export const IntegrationForm: React.FunctionComponent<Props> = () => {
                 borderRadius={'large'}
                 borderWidth="2"
                 borderColor={'border-subtle'}
-                style={{ minWidth: 'fit-content' }}>
+                style={{ minWidth: 'fit-content' }}
+            >
                 <FormProvider {...methods}>
                     <form onSubmit={methods.handleSubmit(onSubmit)}>
                         <VStack gap={'6'}>
@@ -184,7 +186,8 @@ export const IntegrationForm: React.FunctionComponent<Props> = () => {
                                                     {t('labels.sourceApplicationId')}
                                                     <HelpText
                                                         title={'hva er dette'}
-                                                        placement="right">
+                                                        placement="right"
+                                                    >
                                                         {t('help.sourceApplicationId')}
                                                     </HelpText>
                                                 </HStack>
@@ -195,7 +198,8 @@ export const IntegrationForm: React.FunctionComponent<Props> = () => {
                                                 setSourceApplicationId(event.target.value);
                                                 setSourceApplicationIntegrationId('');
                                                 field.onChange(event.target.value);
-                                            }}>
+                                            }}
+                                        >
                                             {selectableSourceApplications.map((option, index) => (
                                                 <option key={index} value={option.value}>
                                                     {option.label}
@@ -217,7 +221,8 @@ export const IntegrationForm: React.FunctionComponent<Props> = () => {
                                                     {t('labels.sourceApplicationIntegrationId')}
                                                     <HelpText
                                                         title={'hva er dette'}
-                                                        placement="right">
+                                                        placement="right"
+                                                    >
                                                         {t('help.sourceApplicationIntegrationId')}
                                                     </HelpText>
                                                 </HStack>
@@ -229,12 +234,14 @@ export const IntegrationForm: React.FunctionComponent<Props> = () => {
                                                 );
                                                 field.onChange(event.target.value);
                                             }}
-                                            disabled={!sourceApplicationId}>
+                                            disabled={!sourceApplicationId}
+                                        >
                                             {integrationOptions.map((option, index) => (
                                                 <option
                                                     key={index}
                                                     value={option.value}
-                                                    disabled={option.disabled}>
+                                                    disabled={option.disabled}
+                                                >
                                                     {option.label}
                                                 </option>
                                             ))}
@@ -256,7 +263,8 @@ export const IntegrationForm: React.FunctionComponent<Props> = () => {
                                                     {t('labels.destination')}
                                                     <HelpText
                                                         title={'hva er dette'}
-                                                        placement="right">
+                                                        placement="right"
+                                                    >
                                                         {t('help.destination')}
                                                     </HelpText>
                                                 </HStack>
@@ -266,7 +274,8 @@ export const IntegrationForm: React.FunctionComponent<Props> = () => {
                                                 setDestination(event.target.value);
                                                 field.onChange(event.target.value);
                                             }}
-                                            disabled={!sourceApplicationId}>
+                                            disabled={!sourceApplicationId}
+                                        >
                                             {selectableDestinations(i18n.language).map(
                                                 (option, index) => (
                                                     <option key={index} value={option.value}>
@@ -305,29 +314,31 @@ export const IntegrationForm: React.FunctionComponent<Props> = () => {
                                         !sourceApplicationId ||
                                         !sourceApplicationIntegrationId ||
                                         !destination
-                                    }>
+                                    }
+                                >
                                     {t('button.confirm')}
                                 </Button>
-                                <Button id="form-settings-cancel-btn" onClick={cancel}>
+                                <Button
+                                    id="form-settings-cancel-btn"
+                                    onClick={cancel}
+                                    variant={'secondary'}
+                                    type="button"
+                                >
                                     {t('button.cancel')}
                                 </Button>
                             </HStack>
                         </VStack>
                         <Snackbar
+                            status={
+                                alertContent.severity === 'info'
+                                    ? 'announcement'
+                                    : alertContent.severity
+                            }
                             id="integration-form-snackbar"
-                            autoHideDuration={4000}
                             open={showAlert}
-                            anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-                            onClose={handleClose}>
-                            <Alert
-                                variant={alertContent.severity}
-                                closeButton
-                                onClose={() => {
-                                    setShowAlert(false);
-                                    setAlertContent(defaultAlert);
-                                }}>
-                                {alertContent.message}
-                            </Alert>
+                            onClose={handleClose}
+                        >
+                            {alertContent.message}
                         </Snackbar>
                     </form>
                 </FormProvider>

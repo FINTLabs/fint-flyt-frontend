@@ -43,7 +43,7 @@ const OutgoingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
                     </HelpText>
                 </HStack>
                 <Spacer />
-                <Box background="surface-action-subtle" borderRadius="medium">
+                <Box borderRadius="medium">
                     <Button
                         variant="tertiary"
                         onClick={() => scroll('left')}
@@ -51,7 +51,6 @@ const OutgoingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
                         type={'button'}
                         size={'medium'}
                     />
-
                     <Button
                         variant="tertiary"
                         onClick={() => scroll('right')}

@@ -1,4 +1,3 @@
-import { GridCellParams } from '@mui/x-data-grid';
 import * as React from 'react';
 import { ReactElement, useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -7,7 +6,7 @@ import { format } from 'date-fns';
 import { getSourceApplicationDisplayNameById } from '../../../util/TableUtil';
 import { IEventNew, ISummary } from '../types/Event';
 import InstancePanel from './InstancePanel';
-import { GetIconTable } from '../util/InstanceUtils';
+import { InstanceStatusWithTooltip } from './InstanceEventStatusWithText';
 import useInstanceRepository from '../../../api/useInstanceRepository';
 import { IIntegrationMetadata } from '../../configuration/types/Metadata/IntegrationMetadata';
 import { SourceApplicationContext } from '../../../context/SourceApplicationContext';
@@ -25,7 +24,7 @@ interface Props {
 const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
     const InstanceRepository = useInstanceRepository();
     const { t } = useTranslation('translations', { keyPrefix: 'pages.instances' });
-    const InstanceFlowTrackingRepository = useInstanceFlowTrackingRepository()
+    const InstanceFlowTrackingRepository = useInstanceFlowTrackingRepository();
     const [selectedRow, setSelectedRow] = useState<IEventNew>();
     const [openCustomDialog, setOpenCustomDialog] = React.useState(false);
     const [page, setPage] = useState(1);
@@ -139,7 +138,13 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
     ) : summaryList ? (
         <Box>
             <Box background={'surface-default'} style={{ minHeight: '70vh' }}>
-                <CustomStatusDialog row={selectedRow} />
+                {selectedRow && (
+                    <CustomStatusDialogComponent
+                        open={openCustomDialog}
+                        row={selectedRow}
+                        setOpenCustomDialog={setOpenCustomDialog}
+                    />
+                )}
                 {summaryList?.length === 0 ? (
                     <Alert variant="info">{t('filter.alerts.noResults')}</Alert>
                 ) : hasFilters ? (
@@ -165,10 +170,10 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                             <Table.ColumnHeader>{t('table.column.timestamp')}</Table.ColumnHeader>
                             <Table.ColumnHeader>{t('table.column.status')}</Table.ColumnHeader>
                             <Table.ColumnHeader>{t('table.column.storage')}</Table.ColumnHeader>
-                            <Table.ColumnHeader>{t('table.column.actions')}</Table.ColumnHeader>
                             <Table.ColumnHeader>
                                 {t('table.column.archiveInstanceId')}
                             </Table.ColumnHeader>
+                            <Table.ColumnHeader>{t('table.column.actions')}</Table.ColumnHeader>
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
@@ -209,8 +214,7 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                                         {format(value.latestUpdate, 'dd/MM/yy HH:mm')}
                                     </Table.DataCell>
                                     <Table.DataCell>
-                                        {GetIconTable(value.status)}
-                                        {t(value.status)}
+                                        <InstanceStatusWithTooltip status={value.status} />
                                     </Table.DataCell>
                                     <Table.DataCell>
                                         {value.intermediateStorageStatus
@@ -220,10 +224,10 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                                             : null}
                                     </Table.DataCell>
 
+                                    <Table.DataCell>{value.destinationInstanceIds}</Table.DataCell>
                                     <Table.DataCell>
                                         {value.status === 'FAILED' && actionMenu(value, i)}
                                     </Table.DataCell>
-                                    <Table.DataCell>{value.destinationInstanceIds}</Table.DataCell>
                                 </Table.ExpandableRow>
                             );
                         })}
@@ -268,10 +272,6 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                     />
                     <Dropdown.Menu>
                         <Dropdown.Menu.List>
-                            {/*{*/}
-                            {/*    event.intermediateStorageStatus === 'STORED' && (*/}
-                            {/*        // event.latestInstanceId && (*/}
-                            {/*        <>*/}
                             <Dropdown.Menu.List.Item
                                 id={'statusButton'}
                                 onClick={() => {
@@ -300,27 +300,10 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                                     </Dropdown.Menu.List.Item>
                                 </>
                             )}
-
-                            {/*</>*/}
-                            {/*)}*/}
                         </Dropdown.Menu.List>
                     </Dropdown.Menu>
                 </Dropdown>
             </div>
-        );
-    }
-
-    function CustomStatusDialog(props: GridCellParams['row']) {
-        return (
-            <>
-                {props.row && (
-                    <CustomStatusDialogComponent
-                        open={openCustomDialog}
-                        row={props.row}
-                        setOpenCustomDialog={setOpenCustomDialog}
-                    />
-                )}
-            </>
         );
     }
 };

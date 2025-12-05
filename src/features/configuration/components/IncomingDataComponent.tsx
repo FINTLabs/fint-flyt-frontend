@@ -6,7 +6,6 @@ import {
     IInstanceMetadataContent,
     IInstanceObjectCollectionMetadata,
     IIntegrationMetadata,
-    ValueType,
 } from '../types/Metadata/IntegrationMetadata';
 import {
     extractCollectionFieldReferenceIndexAndKey,
@@ -17,7 +16,7 @@ import {
 import MetadataContentComponent from './metadata/MetadataContentComponent';
 import { toInstanceFieldReference } from '../../../util/JsonUtil';
 import ObjectCollectionMetadataContentComponent from './metadata/ObjectCollectionMetadataContentComponent';
-import { Tag } from './common/dnd/Tag';
+import DraggableValueConvertingTag from './common/dnd/DraggableValueConvertingTag';
 import { IValueConverting } from '../../valueConverting/types/ValueConverting';
 import { IntegrationContext } from '../../../context/IntegrationContext';
 import { useFormContext } from 'react-hook-form';
@@ -167,18 +166,6 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
         }
     };
 
-    const ValueConvertings = ({ valueConverting }: { valueConverting: IValueConverting }) => {
-        return (
-            <Tag
-                value={'$vc{' + valueConverting.id.toString() + '}'}
-                tagKey={valueConverting.displayName}
-                name={valueConverting.displayName}
-                description={'$vc{' + valueConverting.id.toString() + '}'}
-                type={ValueType.VALUE_CONVERTING}
-            />
-        );
-    };
-
     return (
         <Box
             style={{ minWidth: '400px' }}
@@ -285,12 +272,12 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
                                     (valueConvertings?.length ?? 0) +
                                     ']'
                                 }>
-                                <VStack gap={'2'} style={{ minHeight: '200px' }}>
+                                <VStack gap={'1'} style={{ minHeight: '200px' }}>
                                     {valueConvertings &&
                                         valueConvertings.map(
                                             (valueConverting: IValueConverting, index: number) => {
                                                 return (
-                                                    <ValueConvertings
+                                                    <DraggableValueConvertingTag
                                                         key={'valueConvertingValue-' + index}
                                                         valueConverting={valueConverting}
                                                     />
@@ -306,12 +293,12 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
                                     (applicationValueConvertings?.length ?? 0) +
                                     ']'
                                 }>
-                                <VStack gap={'2'} style={{ minHeight: '200px', overflowY: 'auto' }}>
+                                <VStack gap={'1'} style={{ minHeight: '200px', overflowY: 'auto' }}>
                                     {applicationValueConvertings &&
                                         applicationValueConvertings.map(
                                             (valueConverting: IValueConverting, index: number) => {
                                                 return (
-                                                    <ValueConvertings
+                                                    <DraggableValueConvertingTag
                                                         key={'valueConvertingValue-' + index}
                                                         valueConverting={valueConverting}
                                                     />
@@ -332,7 +319,7 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
                                         destinationValueConvertings.map(
                                             (valueConverting: IValueConverting, index: number) => {
                                                 return (
-                                                    <ValueConvertings
+                                                    <DraggableValueConvertingTag
                                                         key={'valueConvertingValue-' + index}
                                                         valueConverting={valueConverting}
                                                     />

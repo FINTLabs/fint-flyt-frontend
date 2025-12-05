@@ -1,5 +1,3 @@
-import {SystemStyleObject} from "@mui/system";
-
 export function mappingStringToValueArray(input: string): string[] {
     const containsValueConverting: boolean = input.includes('$vc')
     if (containsValueConverting) {
@@ -27,7 +25,7 @@ export function getTagColor(tag: string, disabled?: boolean): string {
     }
 }
 
-export function getTagStyles(tag: string, disabled?: boolean): SystemStyleObject {
+export function getTagStyles(tag: string, disabled?: boolean): Record<string, string> {
     if (tag.includes('$vc')) {
         return {borderRadius: '3px', background: getTagColor(tag, disabled), color: disabled ? 'gray' : 'black'}
     } else if (tag.includes('$if')) {

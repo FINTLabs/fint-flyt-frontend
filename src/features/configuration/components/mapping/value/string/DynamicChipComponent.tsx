@@ -1,13 +1,13 @@
 import * as React from "react";
 import {forwardRef} from "react";
-import {Autocomplete, Chip, TextField, Typography} from "@mui/material";
+import {Autocomplete, Chip, TextField} from "@mui/material";
 import {useDrop} from "react-dnd";
 import {ITag} from "../../../../types/Metadata/Tag";
 import {ValueType} from "../../../../types/Metadata/IntegrationMetadata";
 import {Search} from "../../../../util/UrlUtils";
 import {Noop} from "react-hook-form/dist/types";
 import {ControllerFieldState} from "react-hook-form";
-import {errorMsgSX} from "../../../../../../util/styles/SystemStyles";
+import FormErrorText from '../../../../../../components/atoms/FormErrorText';
 import {getTagStyles, mappingStringToValueArray, valueArrayToMappingString} from "../../../../util/ValueFieldUtils";
 import {useTranslation} from "react-i18next";
 
@@ -115,7 +115,7 @@ const DynamicChipComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivE
                     />
                 )}
             />
-            {props.fieldState?.error && <Typography sx={errorMsgSX}>{t('label.formatError')}</Typography>}
+            {props.fieldState?.error && <FormErrorText errorMessage={t('label.formatError')} />}
         </div>
     )
 
