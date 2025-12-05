@@ -178,7 +178,7 @@ express-prometheus-middleware@^1.2.0:
   optionalDependencies:
     prometheus-gc-stats "^0.6.2"
 
-express-urlrewrite@^2.0.0:
+express-urlrewrite@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/express-urlrewrite/-/express-urlrewrite-2.0.3.tgz#70e0c863743a9e663d9b644ae14aaee478f430f9"
   integrity sha512-NjsmtYZ1Lpie+XR7VIrvI6aeAmRQDf9cHyGjdIxlE9sc+NhTx3z6fJ0wfxV4rS7AY9ncCK7JDge+VX3e+DQ9Mg==
