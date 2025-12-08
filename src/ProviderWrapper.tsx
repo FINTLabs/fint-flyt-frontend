@@ -10,7 +10,7 @@ import { ApiAdapterContext } from './context/ApiAdapterContext';
 const BASE_PATH = import.meta.env.BASE_PATH || '/';
 
 function ProviderWrapper({ children }: { children?: React.ReactNode }) {
-    const { get, setBaseURL } = useContext(ApiAdapterContext);
+    const { setBaseURL } = useContext(ApiAdapterContext);
 
     const [basePath, setBasePath] = useState<string | undefined>();
 
@@ -19,18 +19,6 @@ function ProviderWrapper({ children }: { children?: React.ReactNode }) {
         setBaseURL(BASE_PATH);
         setBasePath(BASE_PATH);
     }, [])
-
-/*    useEffect(() => {
-        get<{basePath: string }>("api/application/configuration")
-            .then((value) => {
-                setBaseURL(value.data.basePath)
-                setBasePath(value.data.basePath);
-            })
-            .catch((reason) => {
-                console.log("ProviderWrapper - Error getting config:", reason);
-                setBasePath("/")
-            });
-    }, []);*/
 
     return basePath ? (
         <ThemeProvider theme={theme}>

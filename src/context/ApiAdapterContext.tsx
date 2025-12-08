@@ -58,18 +58,6 @@ const ApiAdapterContext = createContext<apiAdapterState>(apiAdapterDefaultValues
 const APIAdapterProvider = ({ children }: ContextProps) => {
     const [baseURL, setBaseURL] = useState<string>("");
 
-/*    async function getBaseURL(): Promise<string> {
-        return await get<{ basePath: string }>('api/application/configuration')
-            .then((value) => {
-                setBaseURL(value.data.basePath);
-                return value.data.basePath;
-            })
-            .catch((reason) => {
-                console.error('Error getting config in getBaseURL:', reason);
-                return "/";
-            });
-    }*/
-
     function buildURL(url: string): string {
         if (url.startsWith('http://') || url.startsWith('https://')) {
             return url;
