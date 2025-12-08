@@ -1,9 +1,8 @@
-FROM node:22.21.1-alpine AS builder
+FROM node:22.21.1-alpine
 WORKDIR /src
-COPY package.json .
-COPY yarn.lock .
-RUN yarn install
-COPY . /src
+COPY yarn.lock ./
+RUN yarn install --frozen-lockfile
+COPY . .
 RUN yarn build
 
 ENV PORT=8000
