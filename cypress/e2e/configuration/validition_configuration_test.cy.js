@@ -58,7 +58,7 @@ describe('Testing fill, validate and complete new configuration', () => {
         prep()
         cy.get('#mapping\\.valueMappingPerKey\\.type\\.mappingString').click()
         cy.get('#menu-mapping\\.valueMappingPerKey\\.type\\.mappingString > .MuiPaper-root > .MuiList-root > [tabindex="0"]').type('{enter}')
-        cy.get('.MuiToggleButton-root').click()
+        cy.get('#toggle-panel-button').click()
         cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.tittel\\.mappingString > .MuiFormControl-root > .MuiInputBase-root').type('$if{test', {
             parseSpecialCharSequences: false,
             delay: 0
@@ -78,7 +78,7 @@ describe('Testing fill, validate and complete new configuration', () => {
         cy.get('#comment').type('kommentar', {delay: 0})
         cy.get('#form-complete').click()
         cy.get('#form-submit-btn').click()
-        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.tittel\\.mappingString > .MuiTypography-root').should("contain.text", "Feltet oppfyller ikke påkrevd format")
+        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.tittel\\.mappingString > #error-message').should("contain.text", "Feltet oppfyller ikke påkrevd format")
         cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.saksmappetype\\.mappingString > .MuiAutocomplete-root > .MuiFormControl-root > .MuiInputBase-root').type('{backspace}');
         cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.saksmappetype\\.mappingString > .MuiAutocomplete-root > .MuiFormControl-root > .MuiInputBase-root').type('$vc{1}$if{ikke_feil}', {
             parseSpecialCharSequences: false,
@@ -91,7 +91,7 @@ describe('Testing fill, validate and complete new configuration', () => {
             delay: 0
         })
         cy.get('#form-submit-btn').click()
-        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.arkivdel\\.mappingString > .MuiTypography-root').should("contain.text", "Feltet oppfyller ikke påkrevd format")
+        cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.arkivdel\\.mappingString > #error-message').should("contain.text", "Feltet oppfyller ikke påkrevd format")
         cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.arkivdel\\.mappingString > .MuiAutocomplete-root > .MuiFormControl-root > .MuiInputBase-root').type('{backspace}');
         cy.get('#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.arkivdel\\.mappingString > .MuiAutocomplete-root > .MuiFormControl-root > .MuiInputBase-root').type('$if{testy}', {
             parseSpecialCharSequences: false,

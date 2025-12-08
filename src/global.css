@@ -3,6 +3,8 @@ body {
     --ac-radio-checkbox-border: #5149ca !important;
     --ac-radio-checkbox-action: #5149ca !important;
     --ac-radio-checkbox-action-hover-bg: #e5e4fa !important;
+    --novari-theme-purple-primary: #5149ca;
+    --novari-theme-purple-subtle: #e5e4fa;
 }
 
 iframe#webpack-dev-server-client-overlay {
@@ -15,12 +17,12 @@ iframe#webpack-dev-server-client-overlay {
 }
 
 .navds-pagination__item:hover {
-    background-color: #e5e4fa !important;
+    background-color: var(--novari-theme-purple-subtle) !important;
     color: #5a51e1 !important;
 }
 
 .navds-button--primary:hover {
-    background-color: #5149ca !important;
+    background-color: var(--novari-theme-purple-primary) !important;
 }
 
 .navds-button--primary {
@@ -28,15 +30,28 @@ iframe#webpack-dev-server-client-overlay {
 }
 
 .navds-button--primary:hover {
-    background-color: #5149ca !important;
+    background-color: var(--novari-theme-purple-primary) !important;
 }
 
 .navds-button--secondary {
-    --ac-button-secondary-text: #5149ca !important;
-    --ac-button-secondary-border: #5149ca !important;
-    --ac-button-secondary-hover-border: #5149ca !important;
-    --ac-button-secondary-hover-text: #5149ca !important;
-    --ac-button-secondary-hover-bg: #e5e4fa !important;
+    --ac-button-secondary-text: var(--novari-theme-purple-primary) !important;
+    --ac-button-secondary-border: var(--novari-theme-purple-primary) !important;
+    --ac-button-secondary-hover-border: var(--novari-theme-purple-primary) !important;
+    --ac-button-secondary-hover-text: var(--novari-theme-purple-primary) !important;
+    --ac-button-secondary-hover-bg: var(--novari-theme-purple-subtle) !important;
+    --ac-button-secondary-active-bg: var(--novari-theme-purple-primary) !important;
+    &.toggled {
+        --ac-button-secondary-bg: var(--novari-theme-purple-subtle) !important;
+    }
+}
+
+
+.navds-button--tertiary {
+    --ac-button-tertiary-text: var(--novari-theme-purple-primary) !important;
+    --ac-button-tertiary-hover-text: var(--novari-theme-purple-primary) !important;
+    --ac-button-tertiary-hover-bg: var(--novari-theme-purple-subtle) !important;
+    --ac-button-tertiary-active-bg: var(--novari-theme-purple-primary) !important;
+    --ac-button-tertiary-active-hover-bg: var(--novari-theme-purple-primary) !important;
 }
 
 .navds-internalheader {

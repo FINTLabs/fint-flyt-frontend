@@ -1,9 +1,9 @@
 import * as React from "react";
 import {forwardRef} from "react";
-import {TextField, Typography} from "@mui/material";
+import {TextField} from "@mui/material";
 import {Noop} from "react-hook-form/dist/types";
 import {ControllerFieldState} from "react-hook-form";
-import {errorMsgSX} from "../../../../../../util/styles/SystemStyles";
+import FormErrorText from '../../../../../../components/atoms/FormErrorText';
 
 interface Props {
     displayName: string;
@@ -40,7 +40,7 @@ const StringValueComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivE
                 maxRows={props.multiline ? 4 : undefined}
                 error={!!props.fieldState?.error}
             />
-            {props.fieldState?.error && <Typography sx={errorMsgSX}>{props.fieldState?.error.message}</Typography>}
+            {props.fieldState?.error && <FormErrorText errorMessage={props.fieldState?.error.message}/>}
         </div>
     )
 })

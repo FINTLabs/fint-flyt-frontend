@@ -1,14 +1,13 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { GridCellParams } from '@mui/x-data-grid';
 import { format } from 'date-fns';
 import { IInstanceFlowTracking, IInstanceFlowTrackingResponse } from '../types/Event';
-import ErrorDialogComponent from './ErrorDialogComponent';
+import ErrorDialog from '../../../components/molecules/ErrorDialog';
 import { Box, Button, HStack, Link, Loader, Table } from '@navikt/ds-react';
-import { GetIcon } from '../util/InstanceUtils';
 import { IAlertMessage } from '../../../components/types/TableTypes';
 import useInstanceFlowTrackingRepository from '../../../api/useInstanceFlowTrackingRepository';
+import { InstanceEventStatusWithText } from './InstanceEventStatusWithText';
 
 type Props = {
     id: string;
@@ -20,7 +19,7 @@ type Props = {
 
 const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.instances' });
-    const InstanceFlowTrackingRepository = useInstanceFlowTrackingRepository()
+    const InstanceFlowTrackingRepository = useInstanceFlowTrackingRepository();
     const [selectedRow, setSelectedRow] = useState<IInstanceFlowTracking>();
     const [openErrorDialog, setOpenErrorDialog] = React.useState(false);
     const [selectedInstances, setSelectedInstances] = useState<IInstanceFlowTrackingResponse>();
@@ -74,7 +73,11 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
             <Box id={props.id} padding="4" background={'surface-subtle'} borderRadius="xlarge">
                 {selectedInstances && selectedInstances.content.length > 0 ? (
                     <Box>
-                        <ErrorAlertDialog row={selectedRow} />
+                        <ErrorDialog
+                            errors={selectedRow?.errors}
+                            open={openErrorDialog}
+                            setOpen={setOpenErrorDialog}
+                        />
                         <Table size={'small'}>
                             <Table.Header>
                                 <Table.Row>
@@ -103,20 +106,21 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
                                                 {format(value.timestamp, 'dd/MM/yy HH:mm')}
                                             </Table.DataCell>
                                             <Table.DataCell>
-                                                {GetIcon(value.category)}
-                                                {t(
-                                                    `filter.associatedEventNames.${value.category}`
-                                                )}{' '}
-                                                {value.type === 'ERROR' && (
-                                                    <Link
-                                                        style={{ cursor: 'pointer' }}
-                                                        onClick={() => {
-                                                            setSelectedRow(value);
-                                                            setOpenErrorDialog(true);
-                                                        }}>
-                                                        {t('showError')}
-                                                    </Link>
-                                                )}
+                                                <InstanceEventStatusWithText
+                                                    event={value.category}
+                                                    errorLink={
+                                                        value.type === 'ERROR' && (
+                                                            <Link
+                                                                style={{ cursor: 'pointer' }}
+                                                                onClick={() => {
+                                                                    setSelectedRow(value);
+                                                                    setOpenErrorDialog(true);
+                                                                }}>
+                                                                {t('showError')}
+                                                            </Link>
+                                                        )
+                                                    }
+                                                />
                                             </Table.DataCell>
                                             <Table.DataCell>
                                                 {value.instanceFlowHeaders.archiveInstanceId}
@@ -151,16 +155,6 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
             </HStack>
         </>
     );
-
-    function ErrorAlertDialog(props: GridCellParams['row']) {
-        return (
-            <ErrorDialogComponent
-                open={openErrorDialog}
-                setOpenErrorDialog={setOpenErrorDialog}
-                row={props.row}
-            />
-        );
-    }
 };
 
 export default InstancePanel;
