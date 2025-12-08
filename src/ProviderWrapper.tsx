@@ -15,7 +15,6 @@ function ProviderWrapper({ children }: { children?: React.ReactNode }) {
     const [basePath, setBasePath] = useState<string | undefined>();
 
     useEffect(() => {
-        console.log('BASE_PATH: ', BASE_PATH);
         setBaseURL(BASE_PATH);
         setBasePath(BASE_PATH);
     }, [])
