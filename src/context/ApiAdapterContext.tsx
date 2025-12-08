@@ -19,7 +19,7 @@ export interface AdapterResponse<T> {
 type apiAdapterState = {
     setBaseURL: (url: string) => void;
     baseURL: string;
-    getBaseURL: () => Promise<string>;
+    // getBaseURL: () => Promise<string>;
     get: <T>(url: string, config?: AdapterRequestConfigType) => Promise<AdapterResponse<T>>;
     post: <T>(
         url: string,
@@ -38,7 +38,7 @@ type apiAdapterState = {
 const apiAdapterDefaultValues: apiAdapterState = {
     setBaseURL: () => undefined,
     baseURL: '',
-    getBaseURL: async () => '/',
+   // getBaseURL: async () => '/',
     get: async <T,>() => {
         return { data: {} as T, status: 0 };
     },
@@ -58,7 +58,7 @@ const ApiAdapterContext = createContext<apiAdapterState>(apiAdapterDefaultValues
 const APIAdapterProvider = ({ children }: ContextProps) => {
     const [baseURL, setBaseURL] = useState<string>("");
 
-    async function getBaseURL(): Promise<string> {
+/*    async function getBaseURL(): Promise<string> {
         return await get<{ basePath: string }>('api/application/configuration')
             .then((value) => {
                 setBaseURL(value.data.basePath);
@@ -68,7 +68,7 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
                 console.error('Error getting config in getBaseURL:', reason);
                 return "/";
             });
-    }
+    }*/
 
     function buildURL(url: string): string {
         if (url.startsWith('http://') || url.startsWith('https://')) {
@@ -221,7 +221,7 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
         <ApiAdapterContext.Provider
             value={{
                 setBaseURL,
-                getBaseURL,
+               // getBaseURL,
                 baseURL,
                 get,
                 post,
