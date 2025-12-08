@@ -42,7 +42,12 @@ export default defineConfig({
             '/api/intern/handlinger/instanser': {
                 target: 'http://localhost:8081/beta/vlfk-no',
                 changeOrigin: true,
-            }
+            },
         },
+    },
+    test: {
+        globals: true,
+        environment: 'node',
+        setupFiles: './src/setupTests.js',
     },
 });
