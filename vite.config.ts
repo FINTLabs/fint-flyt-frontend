@@ -2,35 +2,16 @@ import { defineConfig } from 'vitest/config';
 // @ts-ignore
 import react from '@vitejs/plugin-react';
 
-const BASE_URL = process.env.BASE_PATH;
+const BASE_URL = process.env.BASE_PATH || '/';
 
 export default defineConfig({
     plugins: [react()],
-    base: './',
+    base: BASE_URL,
     build: {
         outDir: 'build',
         rollupOptions: {
             output: {
                 manualChunks(id) {
-                    if (
-                        id.includes('@emotion/react') ||
-                        id.includes('@emotion/styled') ||
-                        id.includes('@mui/material')
-                    )
-                        return 'mui';
-                    if (id.includes('@navikt/aksel-icons') || id.includes('@mui/icons-material'))
-                        return 'icons';
-                    if (id.includes('@navikt/ds-css') || id.includes('@navikt/ds-react'))
-                        return 'aksel';
-                    if (
-                        id.includes('/node_modules/react-dom') ||
-                        id.includes('/node_modules/react/') ||
-                        id.includes('\\node_modules\\react-dom') ||
-                        id.includes('\\node_modules\\react\\')
-                    ) {
-                        return 'react';
-                    }
-
                     if (id.includes('node_modules')) return 'vendor';
                 },
             },
@@ -38,6 +19,7 @@ export default defineConfig({
     },
     resolve: {
         extensions: ['.tsx', '.ts', '.js', '.jsx', '.json'],
+        dedupe: ['react', 'react-dom'],
     },
     server: {
         port: 3000,
@@ -76,6 +58,10 @@ export default defineConfig({
                 changeOrigin: true,
             },
         },
+    },
+    preview: {
+        port: 8000,
+        allowedHosts: ['flyt.vigoiks.no'],
     },
     test: {
         globals: true,

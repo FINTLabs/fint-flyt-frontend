@@ -1,5 +1,6 @@
 import { ContextProps } from './constants/interface';
-import { createContext, useState } from 'react';
+import { createContext, useMemo, useState } from 'react';
+const BASE_URL = import.meta.env.BASE_PATH || '/';
 
 export type AdapterRequestConfigType = {
     params?: Record<string, string | string[] | number | boolean | null | undefined>;
@@ -13,7 +14,6 @@ export interface AdapterResponse<T> {
 }
 
 type apiAdapterState = {
-    setBaseURL: (url: string) => void;
     baseURL: string;
     get: <T>(url: string, config?: AdapterRequestConfigType) => Promise<AdapterResponse<T>>;
     post: <T>(
@@ -30,7 +30,6 @@ type apiAdapterState = {
 };
 
 const apiAdapterDefaultValues: apiAdapterState = {
-    setBaseURL: () => undefined,
     baseURL: '',
     get: async <T,>() => {
         return { data: {} as T, status: 0 };
@@ -49,7 +48,7 @@ const apiAdapterDefaultValues: apiAdapterState = {
 const ApiAdapterContext = createContext<apiAdapterState>(apiAdapterDefaultValues);
 
 const APIAdapterProvider = ({ children }: ContextProps) => {
-    const [baseURL, setBaseURL] = useState<string>("");
+    const baseURL: string = useMemo(() => BASE_URL, []);
 
     function buildURL(url: string): string {
         if (url.startsWith('http://') || url.startsWith('https://')) {
@@ -201,7 +200,6 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
     return (
         <ApiAdapterContext.Provider
             value={{
-                setBaseURL,
                 baseURL,
                 get,
                 post,

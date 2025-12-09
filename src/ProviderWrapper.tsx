@@ -6,25 +6,16 @@ import SourceApplicationProvider from './context/SourceApplicationContext';
 import theme from './util/styles/theme/theme';
 import './global.css';
 import AuthorizationProvider from './context/AuthorizationContext';
-import { ApiAdapterContext } from './context/ApiAdapterContext';
 const BASE_PATH = import.meta.env.BASE_PATH || '/';
 
 function ProviderWrapper({ children }: { children?: React.ReactNode }) {
-    const { setBaseURL } = useContext(ApiAdapterContext);
 
-    const [basePath, setBasePath] = useState<string | undefined>();
-
-    useEffect(() => {
-        setBaseURL(BASE_PATH);
-        setBasePath(BASE_PATH);
-    }, [])
-
-    return basePath ? (
+    return BASE_PATH ? (
         <ThemeProvider theme={theme}>
-            <AuthorizationProvider basePath={basePath}>
+            <AuthorizationProvider basePath={BASE_PATH}>
                 <SourceApplicationProvider>
                     <IntegrationProvider>
-                        <BrowserRouter basename={basePath}>{children}</BrowserRouter>
+                        <BrowserRouter basename={BASE_PATH}>{children}</BrowserRouter>
                     </IntegrationProvider>
                 </SourceApplicationProvider>
             </AuthorizationProvider>
