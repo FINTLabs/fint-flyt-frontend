@@ -28,7 +28,7 @@ spec:
       value: path
   resources:
     limits:
-      memory: "64Mi"
+      memory: "256Mi"
       cpu: "25m"
     requests:
       memory: "40Mi"
