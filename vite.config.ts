@@ -2,8 +2,11 @@ import { defineConfig } from 'vitest/config';
 // @ts-ignore
 import react from '@vitejs/plugin-react';
 
+const BASE_URL = process.env.BASE_PATH;
+
 export default defineConfig({
     plugins: [react()],
+    base: BASE_URL,
     build: {
         outDir: 'build',
         rollupOptions: {

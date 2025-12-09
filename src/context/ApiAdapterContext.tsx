@@ -10,16 +10,11 @@ export type AdapterRequestConfigType = {
 export interface AdapterResponse<T> {
     data: T;
     status: number;
-    /*    statusText: string;
-    headers: any;
-    config: any;
-    request?: any; // Or a more specific type if known*/
 }
 
 type apiAdapterState = {
     setBaseURL: (url: string) => void;
     baseURL: string;
-    // getBaseURL: () => Promise<string>;
     get: <T>(url: string, config?: AdapterRequestConfigType) => Promise<AdapterResponse<T>>;
     post: <T>(
         url: string,
@@ -34,11 +29,9 @@ type apiAdapterState = {
     deleteFetch: <T>(url: string, config?: AdapterRequestConfigType) => Promise<AdapterResponse<T>>;
 };
 
-// TODO: do something about the wonky types
 const apiAdapterDefaultValues: apiAdapterState = {
     setBaseURL: () => undefined,
     baseURL: '',
-   // getBaseURL: async () => '/',
     get: async <T,>() => {
         return { data: {} as T, status: 0 };
     },
@@ -209,7 +202,6 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
         <ApiAdapterContext.Provider
             value={{
                 setBaseURL,
-               // getBaseURL,
                 baseURL,
                 get,
                 post,
