@@ -6,7 +6,7 @@ const BASE_URL = process.env.BASE_PATH || '/';
 
 export default defineConfig({
     plugins: [react()],
-    base: BASE_URL,
+    base: '',
     build: {
         outDir: 'build',
         rollupOptions: {
