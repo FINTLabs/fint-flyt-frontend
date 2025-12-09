@@ -26,6 +26,22 @@ spec:
   env:
     - name: BASE_PATH
       value: path
+    - name: AUTH_API
+      value: path
+    - name: INT_API
+      value: path
+    - name: RES_API
+      value: path
+    - name: META_API
+      value: path
+    - name: VALUE_CONV_API
+      value: path
+    - name: CONF_API
+      value: path
+    - name: INS_FLOW_API
+      value: path
+    - name: ACTION_API
+      value: path
   resources:
     limits:
       memory: "256Mi"

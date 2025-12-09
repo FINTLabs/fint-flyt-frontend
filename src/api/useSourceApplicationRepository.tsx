@@ -5,18 +5,22 @@ import {
     IInstanceMetadataContent,
     IIntegrationMetadata,
 } from '../features/configuration/types/Metadata/IntegrationMetadata';
+const API_URL = import.meta.env.META_API || '';
 
 export default function useSourceApplicationRepository() {
     const { get } = useContext(ApiAdapterContext);
 
     const getMetadata = (id: string, onlyLastestVersion?: boolean) => {
-        return get<IIntegrationMetadata[]>('/api/intern/metadata', {
+        return get<IIntegrationMetadata[]>(API_URL, '/api/intern/metadata', {
             params: { kildeapplikasjonId: id, bareSisteVersjoner: onlyLastestVersion },
         });
     };
 
     const getInstanceElementMetadataById = (metadataId: string) => {
-        return get<IInstanceMetadataContent>(`/api/intern/metadata/${metadataId}/instans-metadata`);
+        return get<IInstanceMetadataContent>(
+            API_URL,
+            `/api/intern/metadata/${metadataId}/instans-metadata`
+        );
     };
 
     const getSourceApplications = (): ISourceApplication[] => {

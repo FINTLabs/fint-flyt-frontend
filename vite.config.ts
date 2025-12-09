@@ -62,6 +62,7 @@ export default defineConfig({
     preview: {
         port: 8000,
         allowedHosts: ['flyt.vigoiks.no'],
+        host: '0.0.0.0',
     },
     test: {
         globals: true,

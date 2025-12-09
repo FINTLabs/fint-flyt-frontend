@@ -8,10 +8,10 @@ import {
     ITotalStatistics,
 } from '../features/instances/types/Event';
 import { Page } from '../components/types/TableTypes';
+const API_URL = import.meta.env.INS_FLOW_API || '';
 
-
-export default function useInstanceFlowTrackingRepository () {
-    const { get, post } = useContext(ApiAdapterContext)
+export default function useInstanceFlowTrackingRepository() {
+    const { get, post } = useContext(ApiAdapterContext);
 
     const getLatestSummaries = (size: number, filters?: Filters) => {
         const params: Record<string, string | string[] | boolean | number> = {
@@ -48,7 +48,9 @@ export default function useInstanceFlowTrackingRepository () {
             });
         }
 
-        return get<ISummary[]>('/api/intern/instance-flow-tracking/summaries', { params });
+        return get<ISummary[]>(API_URL, '/api/intern/instance-flow-tracking/summaries', {
+            params,
+        });
     };
 
     const getEventsByInstanceId = (
@@ -58,15 +60,19 @@ export default function useInstanceFlowTrackingRepository () {
         kildeapplikasjonId?: number,
         kildeapplikasjonInstansId?: string
     ) => {
-        return get<IInstanceFlowTrackingResponse>(`/api/intern/instance-flow-tracking/events`, {
-            params: {
-                size: rowCount,
-                sort: sortProperty,
-                sourceApplicationId: kildeapplikasjonId,
-                sourceApplicationInstanceId: kildeapplikasjonInstansId,
-                sourceApplicationIntegrationId: sourceApplicationIntegrationId,
-            },
-        });
+        return get<IInstanceFlowTrackingResponse>(
+            API_URL,
+            `/api/intern/instance-flow-tracking/events`,
+            {
+                params: {
+                    size: rowCount,
+                    sort: sortProperty,
+                    sourceApplicationId: kildeapplikasjonId,
+                    sourceApplicationInstanceId: kildeapplikasjonInstansId,
+                    sourceApplicationIntegrationId: sourceApplicationIntegrationId,
+                },
+            }
+        );
     };
 
     const manualDispatchEvent = (
@@ -75,23 +81,31 @@ export default function useInstanceFlowTrackingRepository () {
         archiveInstanceId: string,
         sourceApplicationIntegrationId: string
     ) => {
-        return post(`/api/intern/instance-flow-tracking/events/instance-manually-processed`, {
-            archiveInstanceId,
-            sourceApplicationId,
-            sourceApplicationInstanceId,
-            sourceApplicationIntegrationId,
-        });
+        return post(
+            API_URL,
+            `/api/intern/instance-flow-tracking/events/instance-manually-processed`,
+            {
+                archiveInstanceId,
+                sourceApplicationId,
+                sourceApplicationInstanceId,
+                sourceApplicationIntegrationId,
+            }
+        );
     };
     const manualRejectEvent = (
         sourceApplicationInstanceId: string,
         sourceApplicationId: number,
         sourceApplicationIntegrationId: string
     ) => {
-        return post(`/api/intern/instance-flow-tracking/events/instance-manually-rejected`, {
-            sourceApplicationId,
-            sourceApplicationInstanceId,
-            sourceApplicationIntegrationId,
-        });
+        return post(
+            API_URL,
+            `/api/intern/instance-flow-tracking/events/instance-manually-rejected`,
+            {
+                sourceApplicationId,
+                sourceApplicationInstanceId,
+                sourceApplicationIntegrationId,
+            }
+        );
     };
 
     const manualTransferEvent = (
@@ -99,19 +113,29 @@ export default function useInstanceFlowTrackingRepository () {
         sourceApplicationId: number,
         sourceApplicationIntegrationId: string
     ) => {
-        return post(`/api/intern/instance-flow-tracking/events/instance-status-overridden-as-transferred`, {
-            sourceApplicationId,
-            sourceApplicationInstanceId,
-            sourceApplicationIntegrationId,
-        });
+        return post(
+            API_URL,
+            `/api/intern/instance-flow-tracking/events/instance-status-overridden-as-transferred`,
+            {
+                sourceApplicationId,
+                sourceApplicationInstanceId,
+                sourceApplicationIntegrationId,
+            }
+        );
     };
 
     const getAllStatistics = () => {
-        return get<ITotalStatistics>('/api/intern/instance-flow-tracking/statistics/total');
+        return get<ITotalStatistics>(
+            API_URL,
+            '/api/intern/instance-flow-tracking/statistics/total'
+        );
     };
 
     const getStatistics = () => {
-        return get<Page<IIntegrationDetailedStatistics>>(`/api/intern/instance-flow-tracking/statistics/integrations`);
+        return get<Page<IIntegrationDetailedStatistics>>(
+            API_URL,
+            `/api/intern/instance-flow-tracking/statistics/integrations`
+        );
     };
 
     return {
@@ -121,6 +145,6 @@ export default function useInstanceFlowTrackingRepository () {
         manualRejectEvent,
         manualTransferEvent,
         getAllStatistics,
-        getStatistics
-    }
+        getStatistics,
+    };
 }
