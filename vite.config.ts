@@ -4,14 +4,24 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
     plugins: [react()],
+    preview: {
+        allowedHosts: ['flyt.vigoiks.no'],
+    },
     build: {
         outDir: 'build',
         rollupOptions: {
             output: {
                 manualChunks(id) {
-                    if (id.includes('@emotion/react') || id.includes('@emotion/styled') || id.includes('@mui/material')) return 'mui';
-                    if (id.includes('@navikt/aksel-icons') || id.includes('@mui/icons-material')) return 'icons';
-                    if (id.includes('@navikt/ds-css') || id.includes('@navikt/ds-react')) return 'aksel';
+                    if (
+                        id.includes('@emotion/react') ||
+                        id.includes('@emotion/styled') ||
+                        id.includes('@mui/material')
+                    )
+                        return 'mui';
+                    if (id.includes('@navikt/aksel-icons') || id.includes('@mui/icons-material'))
+                        return 'icons';
+                    if (id.includes('@navikt/ds-css') || id.includes('@navikt/ds-react'))
+                        return 'aksel';
                     if (
                         id.includes('/node_modules/react-dom') ||
                         id.includes('/node_modules/react/') ||
