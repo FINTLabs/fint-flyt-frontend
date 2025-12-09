@@ -4,9 +4,6 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
     plugins: [react()],
-    preview: {
-        allowedHosts: ['flyt.vigoiks.no'],
-    },
     build: {
         outDir: 'build',
         rollupOptions: {
@@ -41,6 +38,7 @@ export default defineConfig({
     },
     server: {
         port: 3000,
+        allowedHosts: ['flyt.vigoiks.no'],
         proxy: {
             '/api/intern/value-convertings': {
                 target: 'http://localhost:8094/beta/vlfk-no',
