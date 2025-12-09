@@ -6,6 +6,28 @@ export default defineConfig({
     plugins: [react()],
     build: {
         outDir: 'build',
+        rollupOptions: {
+            output: {
+                manualChunks(id) {
+                    if (id.includes('@emotion/react') || id.includes('@emotion/styled') || id.includes('@mui/material')) return 'mui';
+                    if (id.includes('@navikt/aksel-icons') || id.includes('@mui/icons-material')) return 'icons';
+                    if (id.includes('@navikt/ds-css') || id.includes('@navikt/ds-react')) return 'aksel';
+                    if (
+                        id.includes('/node_modules/react-dom') ||
+                        id.includes('/node_modules/react/') ||
+                        id.includes('\\node_modules\\react-dom') ||
+                        id.includes('\\node_modules\\react\\')
+                    ) {
+                        return 'react';
+                    }
+
+                    if (id.includes('node_modules')) return 'vendor';
+                },
+            },
+        },
+    },
+    resolve: {
+        extensions: ['.tsx', '.ts', '.js', '.jsx', '.json'],
     },
     server: {
         port: 3000,
