@@ -5,7 +5,7 @@
 ## Quick Start  
 ### Run the Application locally 
 ```bash
-yarn dev
+yarn start
 ```
 
 ### Run Tests

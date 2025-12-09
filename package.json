@@ -8,8 +8,8 @@
         "node": ">=22.0.0"
     },
     "scripts": {
-        "start": "vite --port 8000 --strictPort",
-        "dev": "vite",
+        "start": "vite",
+        "serve": "vite --port 8000 --strictPort",
         "build": "tsc && vite build",
         "test": "vitest",
         "cypress": "cypress run",
