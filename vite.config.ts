@@ -8,6 +8,8 @@ export default defineConfig(({ mode }) => {
     const basePath = env.BASE_PATH ? `${env.BASE_PATH}/` : '';
 
     console.log(`basePath: ${basePath}`);
+    console.log('env.BASE_PATH', env.BASE_PATH);
+    console.log('env.BASE_URL', env.BASE_URL);
     return {
         plugins: [react()],
         base: mode === 'production' ? '/beta/fintlabs-no/' : '',

@@ -8,11 +8,12 @@ import { APIAdapterProvider } from './context/ApiAdapterContext';
 import AuthorizationProvider from './context/AuthorizationContext';
 import IntegrationProvider from './context/IntegrationContext';
 import SourceApplicationProvider from './context/SourceApplicationContext';
-const BASE_PATH = import.meta.env.BASE_PATH || import.meta.env.BASE_URL || '/';
+const BASE_PATH = import.meta.env.BASE_URL || process.env.BASE_PATH || '/';
 
 function App() {
     console.log('App: ', BASE_PATH);
-    console.log('env:', import.meta.env);
+    console.log('vite BASE_URL:', import.meta.env.BASE_URL);
+    console.log('node BASE_PATH:', process.env.BASE_PATH);
 
     return BASE_PATH ? (
         <APIAdapterProvider>
