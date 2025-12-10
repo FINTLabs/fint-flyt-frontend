@@ -2,16 +2,12 @@ import { defineConfig } from 'vitest/config';
 // @ts-ignore
 import react from '@vitejs/plugin-react';
 
-export default defineConfig((conf) => {
-    const basePath = process.env.BASE_PATH ? `${process.env.BASE_PATH ?? ''}/` : '';
-    const gfheurif = import.meta.env.BASE_PATH;
-
-    console.log(conf)
+export default defineConfig(({mode}) => {
+    const basePath = process.env.BASE_PATH ? `${process.env.BASE_PATH}/` : '';
     console.log(`basePath: ${basePath}`);
-    console.log(`gfheurif: ${gfheurif}`);
     return {
         plugins: [react()],
-        base: '/beta/fintlabs-no/',
+        base: mode === 'production' ? '/beta/fintlabs-no/' : '',
         build: {
             outDir: 'build',
             rollupOptions: {
