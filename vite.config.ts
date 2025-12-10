@@ -1,9 +1,12 @@
 import { defineConfig } from 'vitest/config';
+import { loadEnv } from 'vite';
 // @ts-ignore
 import react from '@vitejs/plugin-react';
 
-export default defineConfig(({mode}) => {
-    const basePath = process.env.BASE_PATH ? `${process.env.BASE_PATH}/` : '';
+export default defineConfig(({ mode }) => {
+    const env = loadEnv(mode, process.cwd(), '');
+    const basePath = env.BASE_PATH ? `${env.BASE_PATH}/` : '';
+
     console.log(`basePath: ${basePath}`);
     return {
         plugins: [react()],

@@ -1,16 +1,32 @@
 import React from 'react';
-import Main from './components/pages/Main';
+import { BrowserRouter } from 'react-router';
+import { ThemeProvider } from '@mui/material';
 import './global.css';
-import ProviderWrapper from './ProviderWrapper';
+import theme from './util/styles/theme/theme';
+import Main from './components/pages/Main';
 import { APIAdapterProvider } from './context/ApiAdapterContext';
+import AuthorizationProvider from './context/AuthorizationContext';
+import IntegrationProvider from './context/IntegrationContext';
+import SourceApplicationProvider from './context/SourceApplicationContext';
+const BASE_PATH = import.meta.env.BASE_PATH || '/';
 
 function App() {
-    return (
+    return BASE_PATH ? (
         <APIAdapterProvider>
-            <ProviderWrapper>
-                <Main />
-            </ProviderWrapper>
+            <ThemeProvider theme={theme}>
+                <AuthorizationProvider basePath={BASE_PATH}>
+                    <SourceApplicationProvider>
+                        <IntegrationProvider>
+                            <BrowserRouter basename={BASE_PATH}>
+                                <Main />
+                            </BrowserRouter>
+                        </IntegrationProvider>
+                    </SourceApplicationProvider>
+                </AuthorizationProvider>
+            </ThemeProvider>
         </APIAdapterProvider>
+    ) : (
+        <h1>Laster...</h1>
     );
 }
 
