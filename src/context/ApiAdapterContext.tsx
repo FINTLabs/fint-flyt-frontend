@@ -1,6 +1,6 @@
 import { ContextProps } from './constants/interface';
 import { createContext, useMemo } from 'react';
-const VITE_BASE_PATH = import.meta.env.VITE_BASE_PATH || '';
+const VITE_BASE_PATH = process.env.VITE_BASE_PATH || '';
 
 export type AdapterRequestConfigType = {
     params?: Record<string, string | string[] | number | boolean | null | undefined>;

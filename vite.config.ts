@@ -23,6 +23,9 @@ export default defineConfig(({ mode }) => {
                 },
             },
         },
+        define: {
+            'process.env': {},
+        },
         resolve: {
             dedupe: ['react', 'react-dom'],
         },
