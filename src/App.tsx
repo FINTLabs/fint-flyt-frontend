@@ -8,7 +8,7 @@ import { APIAdapterProvider } from './context/ApiAdapterContext';
 import AuthorizationProvider from './context/AuthorizationContext';
 import IntegrationProvider from './context/IntegrationContext';
 import SourceApplicationProvider from './context/SourceApplicationContext';
-const BASE_PATH = import.meta.env.BASE_URL || process.env.BASE_PATH || '/';
+const BASE_PATH = process.env.BASE_PATH || '/';
 
 function App() {
     console.log('App: ', BASE_PATH);
