@@ -6,7 +6,7 @@ const BASE_URL = process.env.BASE_PATH || '/';
 
 export default defineConfig({
     plugins: [react()],
-    base: '/beta/fintlabs-no/',
+    base: './',
     build: {
         outDir: 'build',
         rollupOptions: {
