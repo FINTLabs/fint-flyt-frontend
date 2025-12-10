@@ -1,6 +1,6 @@
 import { ContextProps } from './constants/interface';
 import { createContext, useMemo, useState } from 'react';
-const BASE_URL = import.meta.env.VITE_BASE_PATH || '/';
+const BASE_URL = import.meta.env.BASE_PATH || import.meta.env.BASE_URL || '/';
 
 export type AdapterRequestConfigType = {
     params?: Record<string, string | string[] | number | boolean | null | undefined>;

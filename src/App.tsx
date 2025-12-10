@@ -8,17 +8,19 @@ import { APIAdapterProvider } from './context/ApiAdapterContext';
 import AuthorizationProvider from './context/AuthorizationContext';
 import IntegrationProvider from './context/IntegrationContext';
 import SourceApplicationProvider from './context/SourceApplicationContext';
-const VITE_BASE_PATH = import.meta.env.VITE_BASE_PATH || '/';
+const BASE_PATH = import.meta.env.BASE_PATH || import.meta.env.BASE_URL || '/';
 
 function App() {
-    console.log('App: ', VITE_BASE_PATH);
-    return VITE_BASE_PATH ? (
+    console.log('App: ', BASE_PATH);
+    console.log('env:', import.meta.env);
+
+    return BASE_PATH ? (
         <APIAdapterProvider>
             <ThemeProvider theme={theme}>
-                <AuthorizationProvider basePath={VITE_BASE_PATH}>
+                <AuthorizationProvider basePath={BASE_PATH}>
                     <SourceApplicationProvider>
                         <IntegrationProvider>
-                            <BrowserRouter basename={VITE_BASE_PATH}>
+                            <BrowserRouter basename={BASE_PATH}>
                                 <Main />
                             </BrowserRouter>
                         </IntegrationProvider>

@@ -24,7 +24,7 @@ spec:
     middlewares:
       - fint-flyt-auth-forward-sso
   env:
-    - name: VITE_BASE_PATH
+    - name: BASE_PATH
       value: path
     - name: AUTH_API
       value: path
