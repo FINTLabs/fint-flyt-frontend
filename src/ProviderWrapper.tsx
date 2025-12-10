@@ -10,6 +10,7 @@ const BASE_PATH = import.meta.env.BASE_PATH || '/';
 
 function ProviderWrapper({ children }: { children?: React.ReactNode }) {
 
+    console.log("Provider Wrapper", BASE_PATH);
     return BASE_PATH ? (
         <ThemeProvider theme={theme}>
             <AuthorizationProvider basePath={BASE_PATH}>

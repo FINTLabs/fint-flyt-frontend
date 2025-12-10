@@ -2,13 +2,16 @@ import { defineConfig } from 'vitest/config';
 // @ts-ignore
 import react from '@vitejs/plugin-react';
 
-export default defineConfig(({ isPreview }) => {
+export default defineConfig((conf) => {
     const basePath = process.env.BASE_PATH ? `${process.env.BASE_PATH ?? ''}/` : '';
+    const gfheurif = import.meta.env.BASE_PATH;
 
-    console.log(`basePath: ${basePath}`, isPreview);
+    console.log(conf)
+    console.log(`basePath: ${basePath}`);
+    console.log(`gfheurif: ${gfheurif}`);
     return {
         plugins: [react()],
-        base: isPreview ? '/beta/fintlabs-no/' : './',
+        base: '/beta/fintlabs-no/',
         build: {
             outDir: 'build',
             rollupOptions: {
@@ -20,7 +23,6 @@ export default defineConfig(({ isPreview }) => {
             },
         },
         resolve: {
-            extensions: ['.tsx', '.ts', '.js', '.jsx', '.json'],
             dedupe: ['react', 'react-dom'],
         },
         server: {
