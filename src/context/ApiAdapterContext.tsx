@@ -1,6 +1,6 @@
 import { ContextProps } from './constants/interface';
-import { createContext, useMemo, useState } from 'react';
-const BASE_URL = process.env.BASE_URL || '';
+import { createContext, useMemo } from 'react';
+const VITE_BASE_PATH = import.meta.env.VITE_BASE_PATH || '';
 
 export type AdapterRequestConfigType = {
     params?: Record<string, string | string[] | number | boolean | null | undefined>;
@@ -58,7 +58,7 @@ const apiAdapterDefaultValues: apiAdapterState = {
 const ApiAdapterContext = createContext<apiAdapterState>(apiAdapterDefaultValues);
 
 const APIAdapterProvider = ({ children }: ContextProps) => {
-    const baseURL: string = useMemo(() => BASE_URL, []);
+    const baseURL: string = useMemo(() => VITE_BASE_PATH, []);
 
     function buildURL(apiUrl: string, url: string): string {
         if (!baseURL || baseURL === '/') {

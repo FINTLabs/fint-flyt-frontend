@@ -12,7 +12,7 @@ export default defineConfig({
         viewportWidth: 2000,
         experimentalRunAllSpecs: true,
         env: {
-            BASE_PATH: '/beta/test-no',
+            VITE_BASE_PATH: '/beta/test-no',
         },
     },
 

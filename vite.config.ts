@@ -5,10 +5,10 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, process.cwd(), '');
-    const basePath = env.BASE_PATH ? `${env.BASE_PATH}/` : '';
+    const basePath = env.VITE_BASE_PATH ? `${env.VITE_BASE_PATH}/` : '';
 
     console.log(`basePath: ${basePath}`);
-    console.log('env.BASE_PATH', env.BASE_PATH);
+    console.log('env.VITE_BASE_PATH', env.VITE_BASE_PATH);
     console.log('env.BASE_URL', env.BASE_URL);
     return {
         plugins: [react()],
