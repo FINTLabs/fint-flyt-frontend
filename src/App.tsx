@@ -16,7 +16,7 @@ const BASE_PATH_VITE = import.meta.env.VITE_BASE_PATH;
 function App() {
     console.log('App vite VITE_BASE_PATH:', VITE_BASE_PATH);
     console.log('App node BASE_PATH:', BASE_PATH);
-    const basePath: string = useMemo(() => (MODE === 'production' ? BASE_PATH_VITE : '/'), []);
+    const basePath: string = useMemo(() => (BASE_PATH_VITE ? BASE_PATH_VITE : '/'), []);
     console.log('App basePath (BASE_PATH_VITE): ', basePath);
 
     return basePath ? (

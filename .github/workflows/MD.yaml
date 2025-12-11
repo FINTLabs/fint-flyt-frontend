@@ -97,13 +97,6 @@ jobs:
           tags: |
             type=sha,enable=true,priority=100,prefix=sha-,suffix=,format=short
 
-      - name: Bake manifests with Kustomize
-        uses: azure/k8s-bake@v3
-        with:
-          renderEngine: 'kustomize'
-          kustomizationPath: 'kustomize/overlays/${{ env.ORG}}/${{ steps.environment.outputs.result }}'
-        id: bake
-
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
@@ -111,6 +104,15 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            BASE_PATH=/${{ steps.environment.outputs.result }}/${{ env.ORG }}
+
+      - name: Bake manifests with Kustomize
+        uses: azure/k8s-bake@v3
+        with:
+          renderEngine: 'kustomize'
+          kustomizationPath: 'kustomize/overlays/${{ env.ORG}}/${{ steps.environment.outputs.result }}'
+        id: bake
 
       - uses: azure/login@v2
         with:

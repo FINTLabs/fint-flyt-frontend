@@ -26,21 +26,21 @@ spec:
   env:
     - name: VITE_BASE_PATH
       value: path
-    - name: AUTH_API
+    - name: VITE_AUTH_API
       value: path
-    - name: INT_API
+    - name: VITE_INT_API
       value: path
-    - name: RES_API
+    - name: VITE_RES_API
       value: path
-    - name: META_API
+    - name: VITE_META_API
       value: path
-    - name: VALUE_CONV_API
+    - name: VITE_VALUE_CONV_API
       value: path
-    - name: CONF_API
+    - name: VITE_CONF_API
       value: path
-    - name: INS_FLOW_API
+    - name: VITE_INS_FLOW_API
       value: path
-    - name: ACTION_API
+    - name: VITE_ACTION_API
       value: path
   resources:
     limits:
