@@ -61,15 +61,12 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
     const baseURL: string = useMemo(() => BASE_PATH, []);
 
     function buildURL(apiUrl: string, url: string): string {
-        console.log('buildURL apiUrl', apiUrl);
-        console.log('buildURL url', url);
-        console.log('buildURL res', `${apiUrl}${baseURL}${url}`);
-
         if (!baseURL || baseURL === '/') {
             return url;
         }
 
-        return `${apiUrl}${baseURL}${url}`;
+        // return `${apiUrl}${baseURL}${url}`;
+        return `${baseURL}${url}`;
     }
 
     async function handleResponse<T>(response: Response): Promise<{ data: T; status: number }> {

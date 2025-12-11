@@ -4,17 +4,8 @@ import { loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 
 export default defineConfig(({ mode }) => {
-    const allEnv = loadEnv(mode, process.cwd(), '');
-    const basePath = allEnv.VITE_BASE_PATH ? `${allEnv.VITE_BASE_PATH}/` : '';
-    const viteEnv = loadEnv(mode, process.cwd());
+    const apiEnv = loadEnv(mode, process.cwd(), 'VITE_API_');
     const basePathProcess = process.env.BASE_PATH
-
-    console.log(`basePath: ${basePath}`);
-    console.log('allEnv.VITE_BASE_PATH)', allEnv.VITE_BASE_PATH);
-    console.log('allEnv.BASE_URL', allEnv.BASE_URL);
-    console.log('mode', mode);
-    console.log('basePathProcess', basePathProcess);
-    console.log('viteEnv', viteEnv);
 
     return {
         plugins: [react()],
@@ -31,7 +22,7 @@ export default defineConfig(({ mode }) => {
         },
         define: {
             'process.env': {
-                ...viteEnv,
+                ...apiEnv,
                 BASE_PATH: basePathProcess,
             },
         },
