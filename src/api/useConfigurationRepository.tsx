@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { IConfiguration, IConfigurationPatch } from '../features/configuration/types/Configuration';
 import { ApiAdapterContext } from '../context/ApiAdapterContext';
 import { Page } from '../components/types/TableTypes';
-const API_URL = import.meta.env.CONF_API || '';
+const API_URL = import.meta.env.VITE_API_CONF || '';
 
 export default function useConfigurationRepository() {
     const { get, post, patch, deleteFetch } = useContext(ApiAdapterContext);

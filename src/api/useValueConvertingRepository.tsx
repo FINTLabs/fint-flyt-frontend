@@ -2,7 +2,7 @@ import { IValueConverting } from '../features/valueConverting/types/ValueConvert
 import { useContext } from 'react';
 import { ApiAdapterContext } from '../context/ApiAdapterContext';
 import { Page } from '../components/types/TableTypes';
-const API_URL = import.meta.env.VALUE_CONV_API || '';
+const API_URL = import.meta.env.VITE_API_VALUE_CONV || '';
 
 export default function useValueConvertingRepository() {
     const { get, post } = useContext(ApiAdapterContext);

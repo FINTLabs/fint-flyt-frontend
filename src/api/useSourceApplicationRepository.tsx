@@ -5,7 +5,7 @@ import {
     IInstanceMetadataContent,
     IIntegrationMetadata,
 } from '../features/configuration/types/Metadata/IntegrationMetadata';
-const API_URL = import.meta.env.META_API || '';
+const API_URL = import.meta.env.VITE_API_DISC || '';
 
 export default function useSourceApplicationRepository() {
     const { get } = useContext(ApiAdapterContext);

@@ -2,7 +2,7 @@ import { IIntegration, IIntegrationPatch } from '../features/integration/types/I
 import { Page } from '../components/types/TableTypes';
 import { useContext } from 'react';
 import { ApiAdapterContext } from '../context/ApiAdapterContext';
-const API_URL = import.meta.env.INT_API || '';
+const API_URL = import.meta.env.VITE_API_INT || '';
 
 export default function useIntegrationRepository() {
     const { get, post, patch } = useContext(ApiAdapterContext);

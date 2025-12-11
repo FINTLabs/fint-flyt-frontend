@@ -8,7 +8,7 @@ import {
     ITotalStatistics,
 } from '../features/instances/types/Event';
 import { Page } from '../components/types/TableTypes';
-const API_URL = import.meta.env.INS_FLOW_API || '';
+const API_URL = import.meta.env.VITE_API_HISTORY || '';
 
 export default function useInstanceFlowTrackingRepository() {
     const { get, post } = useContext(ApiAdapterContext);

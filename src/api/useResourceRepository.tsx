@@ -6,7 +6,7 @@ import {
     AdapterResponse,
     ApiAdapterContext,
 } from '../context/ApiAdapterContext';
-const API_URL = import.meta.env.RES_API || '';
+const API_URL = import.meta.env.VITE_API_ARCH || '';
 
 export default function useResourceRepository() {
     const { get } = useContext(ApiAdapterContext);

@@ -3,7 +3,7 @@ import { ApiAdapterContext } from '../context/ApiAdapterContext';
 import { Page } from '../components/types/TableTypes';
 import { IUser } from '../components/types/UserTypes';
 
-const API_URL = import.meta.env.AUTH_API || '';
+const API_URL = import.meta.env.VITE_API_AUTH || '';
 
 export default function useAuthorizationRepository() {
     const { get, post } = useContext(ApiAdapterContext);

@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { ApiAdapterContext } from '../../../context/ApiAdapterContext';
-const API_URL = import.meta.env.INS_FLOW_API || '';
+const API_URL = import.meta.env.VITE_API_HISTORY || '';
 
 interface Option {
     value: string;
