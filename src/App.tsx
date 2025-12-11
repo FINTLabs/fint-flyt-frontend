@@ -9,14 +9,14 @@ import AuthorizationProvider from './context/AuthorizationContext';
 import IntegrationProvider from './context/IntegrationContext';
 import SourceApplicationProvider from './context/SourceApplicationContext';
 const VITE_BASE_PATH = import.meta.env.BASE_URL
-const BASE_PATH = process.env.VITE_BASE_PATH || '/'
+const BASE_PATH = process.env.BASE_PATH || '/'
 const MODE = import.meta.env.MODE || '';
 const BASE_PATH_VITE = import.meta.env.VITE_BASE_PATH;
 
 function App() {
     console.log('App vite VITE_BASE_PATH:', VITE_BASE_PATH);
     console.log('App node BASE_PATH:', BASE_PATH);
-    const basePath: string = useMemo(() => (BASE_PATH_VITE ? BASE_PATH_VITE : '/'), []);
+    const basePath: string = useMemo(() => (BASE_PATH ? BASE_PATH : '/'), []);
     console.log('App basePath (BASE_PATH_VITE): ', basePath);
 
     return basePath ? (
