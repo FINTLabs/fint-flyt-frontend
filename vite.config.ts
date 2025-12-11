@@ -19,7 +19,7 @@ export default defineConfig(({ mode }) => {
 
     return {
         plugins: [react()],
-        base: basePath,
+        base: `${basePathProcess}/`,
         build: {
             outDir: 'build',
             rollupOptions: {
@@ -31,7 +31,10 @@ export default defineConfig(({ mode }) => {
             },
         },
         define: {
-            'process.env': viteEnv,
+            'process.env': {
+                ...viteEnv,
+                BASE_PATH: basePathProcess,
+            },
         },
         resolve: {
             dedupe: ['react', 'react-dom'],
