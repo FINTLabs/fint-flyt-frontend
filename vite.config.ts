@@ -9,7 +9,6 @@ export default defineConfig(({ mode }) => {
     const viteEnv = loadEnv(mode, process.cwd());
     const basePathProcess = process.env.BASE_PATH
 
-
     console.log(`basePath: ${basePath}`);
     console.log('allEnv.VITE_BASE_PATH)', allEnv.VITE_BASE_PATH);
     console.log('allEnv.BASE_URL', allEnv.BASE_URL);
@@ -19,7 +18,7 @@ export default defineConfig(({ mode }) => {
 
     return {
         plugins: [react()],
-        base: `${basePathProcess}/`,
+        base: basePathProcess ? `${basePathProcess}/` : '',
         build: {
             outDir: 'build',
             rollupOptions: {
