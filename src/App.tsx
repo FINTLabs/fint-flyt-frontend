@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { BrowserRouter } from 'react-router';
 import { ThemeProvider } from '@mui/material';
 import './global.css';
@@ -8,21 +8,24 @@ import { APIAdapterProvider } from './context/ApiAdapterContext';
 import AuthorizationProvider from './context/AuthorizationContext';
 import IntegrationProvider from './context/IntegrationContext';
 import SourceApplicationProvider from './context/SourceApplicationContext';
-const VITE_BASE_PATH = import.meta.env.VITE_BASE_PATH || '/';
+const VITE_BASE_PATH = import.meta.env.BASE_URL
 const BASE_PATH = process.env.VITE_BASE_PATH || '/'
+const MODE = import.meta.env.MODE || '';
+const BASE_PATH_VITE = import.meta.env.VITE_BASE_PATH;
 
 function App() {
-    console.log('App basePath: ', BASE_PATH);
-    console.log('App vite BASE_URL:', import.meta.env.BASE_URL);
-    console.log('App node BASE_PATH:', process.env.VITE_BASE_PATH);
+    console.log('App vite VITE_BASE_PATH:', VITE_BASE_PATH);
+    console.log('App node BASE_PATH:', BASE_PATH);
+    const basePath: string = useMemo(() => (MODE === 'production' ? BASE_PATH_VITE : '/'), []);
+    console.log('App basePath (BASE_PATH_VITE): ', basePath);
 
-    return BASE_PATH ? (
+    return basePath ? (
         <APIAdapterProvider>
             <ThemeProvider theme={theme}>
-                <AuthorizationProvider basePath={BASE_PATH}>
+                <AuthorizationProvider basePath={basePath}>
                     <SourceApplicationProvider>
                         <IntegrationProvider>
-                            <BrowserRouter basename={BASE_PATH}>
+                            <BrowserRouter basename={basePath}>
                                 <Main />
                             </BrowserRouter>
                         </IntegrationProvider>

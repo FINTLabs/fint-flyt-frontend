@@ -10,9 +10,11 @@ export default defineConfig(({ mode }) => {
     console.log(`basePath: ${basePath}`);
     console.log('env.VITE_BASE_PATH', env.VITE_BASE_PATH);
     console.log('env.BASE_URL', env.BASE_URL);
+    console.log('mode', mode);
+
     return {
         plugins: [react()],
-        base: mode === 'production' ? '/beta/fintlabs-no/' : '',
+        base: mode === 'production' ? basePath : '',
         build: {
             outDir: 'build',
             rollupOptions: {
