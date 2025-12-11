@@ -7,12 +7,15 @@ export default defineConfig(({ mode }) => {
     const allEnv = loadEnv(mode, process.cwd(), '');
     const basePath = allEnv.VITE_BASE_PATH ? `${allEnv.VITE_BASE_PATH}/` : '';
     const viteEnv = loadEnv(mode, process.cwd());
+    const basePathProcess = process.env.BASE_PATH
 
 
     console.log(`basePath: ${basePath}`);
-    console.log('env.VITE_BASE_PATH', allEnv.VITE_BASE_PATH);
-    console.log('env.BASE_URL', allEnv.BASE_URL);
+    console.log('allEnv.VITE_BASE_PATH)', allEnv.VITE_BASE_PATH);
+    console.log('allEnv.BASE_URL', allEnv.BASE_URL);
     console.log('mode', mode);
+    console.log('basePathProcess', basePathProcess);
+    console.log('viteEnv', viteEnv);
 
     return {
         plugins: [react()],
