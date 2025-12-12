@@ -8,7 +8,7 @@ import { AuthorizationContext } from '../../context/AuthorizationContext';
 const MenuItems = () => {
     const { t } = useTranslation('translations', { keyPrefix: 'menuItems' });
     const { hasAccessToUserPermissionPage } = useContext(AuthorizationContext);
-    const history = useNavigate();
+    const navigate = useNavigate();
     return (
         <>
             {routes
@@ -17,7 +17,7 @@ const MenuItems = () => {
                     <InternalHeader.Button
                         key={route.name}
                         onClick={() => {
-                            history(route.path);
+                            navigate(route.path);
                         }}>
                         {t(route.name)}
                     </InternalHeader.Button>
@@ -26,7 +26,7 @@ const MenuItems = () => {
                 <InternalHeader.Button
                     key={'useraccess'}
                     onClick={() => {
-                        history('/useraccess');
+                        navigate('/useraccess');
                     }}>
                     {t('useraccess')}
                 </InternalHeader.Button>

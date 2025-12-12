@@ -111,6 +111,8 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            BASE_PATH=/${{ steps.environment.outputs.result }}/${{ env.ORG }}
 
       - uses: azure/login@v2
         with:

@@ -15,12 +15,7 @@ describe("Testing useraccess page", () => {
 	});
 
 	function prep() {
-		cy.intercept("GET", "**/api/application/configuration", {
-			forceNetworkError: true,
-			fixture: "basepathConfig.json",
-		}).as("getConfig");
 		cy.visit("/useraccess");
-		cy.wait("@getConfig");
 	}
 
 	it("should open user access page and show tables with correct table", () => {
