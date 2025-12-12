@@ -30,7 +30,7 @@ export default defineConfig(({ mode }) => {
             dedupe: ['react', 'react-dom'],
         },
         server: {
-            port: 3000,
+            port: mode === 'production' ? 8000 : 3000,
             allowedHosts: ['flyt.vigoiks.no'],
             proxy: {
                 '/api/intern/value-convertings': {
