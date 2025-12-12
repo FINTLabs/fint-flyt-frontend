@@ -1,11 +1,11 @@
-import { defineConfig } from 'cypress';
+const { defineConfig } = require('cypress');
 
-export default defineConfig({
+module.exports = defineConfig({
     chromeWebSecurity: false,
     video: false,
     e2e: {
         setupNodeEvents(on, config) {
-            return require('./cypress/plugins/index.js')(on, config); // eslint-disable-line
+            return require('./cypress/plugins/index.cjs')(on, config);
         },
         baseUrl: 'http://localhost:3000',
         viewportHeight: 1500,
