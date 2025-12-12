@@ -11,7 +11,8 @@ export default defineConfig(({ mode }) => {
         plugins: [react()],
         base: basePathProcess ? `${basePathProcess}/` : '',
         build: {
-            outDir: 'build',
+            assetsDir: 'static',
+            sourcemap: false,
             rollupOptions: {
                 output: {
                     manualChunks(id: string) {
