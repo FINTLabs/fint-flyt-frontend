@@ -9,22 +9,50 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-
 const PORT = process.env.PORT || 8000;
 const BASE_PATH = process.env.BASE_PATH || '/';
 const DIST_DIR = path.join(__dirname, 'dist');
 const log = log4js.getLogger();
 log.level = process.env.LOGGING_LEVEL || 'info';
 
+const isStaticAsset = (url) =>
+    url.startsWith(`${BASE_PATH}/static/`) ||
+    /\.(?:css|js|map|png|jpg|jpeg|gif|svg|ico|webp|woff2?|ttf|eot)$/.test(url);
+
+const isHealthOrMetrics = (url) => url === `${BASE_PATH}/health` || url === `${BASE_PATH}/metrics`;
+
+morgan.token('short-date', () => new Date().toISOString());
+morgan.token('remote', (req) => req.ip || req.connection?.remoteAddress || '-');
+const conciseFormat = ':short-date :method :url :status :response-time ms :remote';
+
+log4js.configure({
+    appenders: {
+        http: {
+            type: 'stdout',
+        },
+    },
+    categories: {
+        default: {
+            appenders: ['http'],
+            level: 'info',
+        },
+    },
+});
+
+const httpLog = log4js.getLogger('http');
+
 const app = express();
 
-app.use(morgan('combined'));
-// app.use(
-//     promMid({
-//         metricsPath: path.posix.join(BASE_PATH, 'metrics'),
-//         collectDefaultMetrics: true,
-//     })
-// );
+app.use(
+    morgan(conciseFormat, {
+        skip: (req) =>
+            isStaticAsset(req.originalUrl || req.url) ||
+            isHealthOrMetrics(req.originalUrl || req.url),
+        stream: {
+            write: (line) => httpLog.info(line.trim()),
+        },
+    })
+);
 
 app.use(
     `${BASE_PATH}/`,
@@ -43,6 +71,5 @@ app.get(spaRegex, (req, res) => {
     }
     res.sendFile(path.join(DIST_DIR, 'index.html'));
 });
-
 
 app.listen(PORT, () => log.info(`Application started on http://localhost:${PORT}${BASE_PATH}`));
