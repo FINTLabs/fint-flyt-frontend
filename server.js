@@ -42,6 +42,7 @@ log4js.configure({
 const httpLog = log4js.getLogger('http');
 
 const app = express();
+app.disable('x-powered-by');
 
 app.use(
     morgan(conciseFormat, {
