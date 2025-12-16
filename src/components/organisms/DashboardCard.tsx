@@ -1,14 +1,15 @@
 import * as React from 'react';
 import { ILink } from '../../features/dashboard/Link';
-import { Box, Heading, BodyLong, Link, Skeleton } from '@navikt/ds-react';
+import { Box, Heading, Loader, VStack, BodyShort, HStack } from '@navikt/ds-react';
 import { Link as RouterLink } from 'react-router';
 import { useContext } from 'react';
 import { IntegrationContext } from '../../context/IntegrationContext';
+import { ArrowRightIcon } from '@navikt/aksel-icons';
 
 type Props = {
     content: string;
-    value: string;
-    links?: ILink[];
+    value: number | undefined;
+    link?: ILink;
     id: string;
 };
 
@@ -20,36 +21,55 @@ const DashboardCard: React.FunctionComponent<Props> = (props: Props) => {
             id="support-information"
             as="div"
             background="surface-default"
-            padding="6"
             borderRadius="large"
-            borderWidth="2"
+            borderWidth="1"
             borderColor="border-subtle"
             style={{
                 justifyContent: 'center',
                 textAlign: 'center',
                 height: '150px',
                 width: '100%',
-            }}>
-            {integrations ? (
-                <>
-                    <Heading size="medium"> {props.value}</Heading>
+            }}
+        >
+            <VStack gap={'2'} justify={'space-between'} height={'100%'}>
+                <VStack height={'100%'} justify={'center'} align={'center'}>
+                    {integrations ? (
+                        <Heading
+                            size="large"
+                            textColor={!props.value || props.value === 0 ? 'subtle' : 'default'}
+                        >
+                            {props.value ?? 0}
+                        </Heading>
+                    ) : (
+                        <Box paddingBlock={'1'}>
+                            <Loader size="large" title="Venter..." transparent />
+                        </Box>
+                    )}
                     <Heading size="small">{props.content}</Heading>
-                    {props.links &&
-                        props.links.map((link: ILink, index: number) => (
-                            <BodyLong key={index} id={props.id + `-btn-` + index}>
-                                <Link as={RouterLink} to={link.href}>
-                                    {link.name}
-                                </Link>
-                            </BodyLong>
-                        ))}
-                </>
-            ) : (
-                <>
-                    <Skeleton variant="text" width="25%" />
-                    <Skeleton variant="text" width="100%" />
-                    <Skeleton variant="text" width="100%" />
-                </>
-            )}
+                </VStack>
+                {props.link && (
+                    <Box
+                        className="dashboard-card-link"
+                        borderRadius={'0 0 large large'}
+                        as={RouterLink}
+                        to={props.link.href}
+                        paddingInline={'4'}
+                    >
+                        <HStack
+                            justify="center"
+                            align="center"
+                            height="100%"
+                            width="100%"
+                            style={{ position: 'relative' }}
+                        >
+                            <BodyShort id={`${props.id}-btn`}>
+                                {props.link.name}
+                            </BodyShort>
+                            <ArrowRightIcon className="arrow-icon" />
+                        </HStack>
+                    </Box>
+                )}
+            </VStack>
         </Box>
     );
 };
