@@ -19,7 +19,7 @@ jobs:
       matrix:
         org:
 #          - afk-no
-          - agderfk-no
+#          - agderfk-no
 #          - bfk-no
 #          - ffk-no
           - fintlabs-no
@@ -27,7 +27,7 @@ jobs:
 #          - mrfylke-no
 #          - nfk-no
 #          - ofk-no
-#          - rogfk-no
+          - rogfk-no
 #          - telemarkfylke-no
 #          - tromsfylke-no
 #          - trondelagfylke-no
