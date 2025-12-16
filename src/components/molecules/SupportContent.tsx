@@ -20,7 +20,7 @@ const SupportContent = () => {
 	const { i18n } = useTranslation();
 	return (
         <>
-            <Box id={'support-information'} background={'surface-default'} paddingBlock={'6'}>
+            <Box id={'support-information'} paddingBlock={'4'}>
                 <VStack gap={'4'}>
                     <Heading size={'medium'}>{t('description')}</Heading>
                     <BodyLong>{getAboutFlytByLanguage(i18n.language)}</BodyLong>
@@ -33,7 +33,7 @@ const SupportContent = () => {
                 </VStack>
             </Box>
             <Box id={'support-faq'}>
-                <ExpansionCard aria-label="default" size="small">
+                <ExpansionCard aria-label="FAQ" size="small">
                     <ExpansionCard.Header id={'support-faq-header'}>
                         <ExpansionCard.Title size="small"> {t('FAQ')}</ExpansionCard.Title>
                     </ExpansionCard.Header>
