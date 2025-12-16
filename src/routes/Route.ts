@@ -5,7 +5,7 @@ type Props = {
 };
 
 
-export type RouteComponent = React.FunctionComponent<Props>;
+export type RouteComponent = React.ComponentType<Props>;
 
 export default interface IRoute {
 	exact: boolean;

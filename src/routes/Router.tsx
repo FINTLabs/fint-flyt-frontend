@@ -1,22 +1,24 @@
 import { Routes, Route } from "react-router";
 import routes from "./Routes";
-import React from "react";
+import React, { Suspense } from "react";
 import IRoute from "./Route";
 
 const Router: React.FunctionComponent = () => {
     return (
-        <Routes>
-            {routes.map((route: IRoute, index: number) => {
-                const Component = route.component;
-                return (
-                    <Route
-                        key={index}
-                        path={route.path}
-                        element={<Component id={route.name} />}
-                    />
-                );
-            })}
-        </Routes>
+        <Suspense fallback={<div>Loading...</div>}>
+            <Routes>
+                {routes.map((route: IRoute, index: number) => {
+                    const Component = route.component;
+                    return (
+                        <Route
+                            key={index}
+                            path={route.path}
+                            element={<Component id={route.name} />}
+                        />
+                    );
+                })}
+            </Routes>
+        </Suspense>
     );
 };
 

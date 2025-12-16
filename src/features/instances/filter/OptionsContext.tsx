@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { ApiAdapterContext } from '../../../context/ApiAdapterContext';
+const API_URL = import.meta.env.VITE_API_HISTORY || '';
 
 interface Option {
     value: string;
@@ -42,7 +43,7 @@ export const OptionsProvider: React.FC<OptionsProviderProps> = ({ children }) =>
     const fetchData = async (endpoint: string, setState: (data: Option[]) => void) => {
         try {
             const response = await get<Option[]>(
-                `/api/intern/instance-flow-tracking/value-space/${endpoint}`
+                API_URL, `/api/intern/instance-flow-tracking/value-space/${endpoint}`
             );
             setState(response.data);
         } catch (error) {

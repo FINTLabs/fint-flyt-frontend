@@ -52,12 +52,7 @@ describe('Testing integration list', () => {
         cy.intercept('GET', '**/authorization/users?page=0&size=10', { fixture: 'users.json' }).as(
             'getUsersPermissions'
         );
-        cy.intercept('GET', '**/api/application/configuration', {
-            forceNetworkError: true,
-            fixture: 'basepathConfig.json',
-        }).as('getConfig');
         cy.visit('/integration/list');
-        cy.wait('@getConfig');
     }
 
     it('should open and show table', () => {
