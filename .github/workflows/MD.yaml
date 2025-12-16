@@ -112,7 +112,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            BASE_PATH=/${{ steps.environment.outputs.result }}/${{ env.ORG }}
+            BASE_PATH=/${{ steps.environment.outputs.result == 'beta' && '/beta/' || '/' }}/${{ env.ORG }}
 
       - uses: azure/login@v2
         with:
