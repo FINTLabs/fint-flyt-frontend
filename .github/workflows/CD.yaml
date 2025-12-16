@@ -85,7 +85,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            BASE_PATH=/${{ steps.environment.outputs.result }}/${{ matrix.org }}
+            BASE_PATH=${{ steps.environment.outputs.result == 'beta' && '/beta/' || '/' }}${{ matrix.org }}
 
       - name: Bake manifests with Kustomize
         id: bake
