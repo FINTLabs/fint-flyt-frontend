@@ -67,6 +67,12 @@ iframe#webpack-dev-server-client-overlay {
     }
 }
 
+.navds-help-text {
+    --ac-help-text-button-color: var(--novari-theme-purple-dark) !important;
+    --ac-help-text-button-hover-color: var(--novari-theme-purple-dark) !important;
+    --ac-help-text-button-active-color: var(--novari-theme-purple-dark) !important;
+}
+
 .dashboard-card-link {
     background-color: rgba(127, 120, 232, 0.1);
     width: 100%;

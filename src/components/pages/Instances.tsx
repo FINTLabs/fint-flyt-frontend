@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Alert, Box, Button, Heading, HelpText, HGrid, HStack, Loader } from '@navikt/ds-react';
+import { Alert, Box, Button, HGrid, HStack, Loader } from '@navikt/ds-react';
 import { useTranslation } from 'react-i18next';
 import { IEvent } from '../../features/instances/types/Event';
 import PageTemplate from '../templates/PageTemplate';
@@ -40,15 +40,13 @@ const Instances: RouteComponent = () => {
 
     return (
         <FilterProvider>
-            <PageTemplate id={'instances'} keyPrefix={'pages.instances'} customHeading>
-                <HStack id={'instances-custom-header'} justify={'space-between'} wrap={false}>
-                    <HStack align={'center'} gap={'2'} wrap={false}>
-                        <Heading size={'medium'}>{t('header')}</Heading>
-                        <HelpText title={'Hva er dette'} placement="bottom">
-                            {t('help.header')}
-                        </HelpText>
-                    </HStack>
-                </HStack>
+            <PageTemplate
+                id={'instances'}
+                keyPrefix={'pages.instances'}
+                headingHelpText={{
+                    info: t('help.header'),
+                }}
+            >
                 {error && (
                     <Alert style={{ maxWidth: '100%' }} variant="error">
                         {error.message}
@@ -61,7 +59,8 @@ const Instances: RouteComponent = () => {
                             variant="tertiary"
                             onClick={() => setShowFilters(true)}
                             icon={<ChevronRightDoubleCircleIcon aria-hidden />}
-                            size="small">
+                            size="small"
+                        >
                             Filters
                         </Button>
                     </HStack>
@@ -77,13 +76,15 @@ const Instances: RouteComponent = () => {
                             borderRadius="large"
                             borderWidth="2"
                             borderColor="border-subtle"
-                            position="relative">
+                            position="relative"
+                        >
                             <Button
                                 variant="tertiary"
                                 size="small"
                                 icon={<ChevronLeftDoubleCircleIcon aria-hidden />}
                                 onClick={() => setShowFilters(false)}
-                                style={{ position: 'absolute', top: '5px', right: '10px' }}>
+                                style={{ position: 'absolute', top: '5px', right: '10px' }}
+                            >
                                 Lukk
                             </Button>
 
@@ -96,7 +97,8 @@ const Instances: RouteComponent = () => {
                         padding="6"
                         borderRadius={'large'}
                         borderWidth="2"
-                        borderColor={'border-subtle'}>
+                        borderColor={'border-subtle'}
+                    >
                         {allMetadata ? (
                             <InstanceTable
                                 onError={(error) => {
