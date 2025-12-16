@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useMemo } from 'react';
 import { IntegrationContext } from '../../context/IntegrationContext';
 import DashboardCard from '../organisms/DashboardCard';
 import { ICard } from '../../features/dashboard/Card';
@@ -6,13 +6,11 @@ import { useTranslation } from 'react-i18next';
 import PageTemplate from '../templates/PageTemplate';
 import { RouteComponent } from '../../routes/Route';
 import { HGrid } from '@navikt/ds-react';
-import { Contact } from '../atoms/Contact';
 import SupportContent from '../molecules/SupportContent';
 import { AuthorizationContext } from '../../context/AuthorizationContext';
 import { useNavigate } from 'react-router';
 
 const Dashboard: RouteComponent = () => {
-    // const [totalStats, setTotalStats] = useState<ITotalStatistics>();
     const { t } = useTranslation('translations', {
         keyPrefix: 'pages.dashboard',
     });
@@ -22,19 +20,12 @@ const Dashboard: RouteComponent = () => {
         useContext(IntegrationContext);
     const activeIntegrations =
         integrations?.filter((integration) => integration.state === 'ACTIVE') || [];
-    // let currentErrors = 0;
-    // let totalDispatched = 0;
     const totalActive = activeIntegrations.length;
-    // statistics?.map((stat: IIntegrationStatistics) => {
-    //     currentErrors += stat.currentErrors;
-    //     totalDispatched += stat.dispatchedInstances;
-    // });
     const { authorized } = useContext(AuthorizationContext);
 
     useEffect(() => {
         getAllIntegrations();
         resetIntegration();
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -44,82 +35,65 @@ const Dashboard: RouteComponent = () => {
         }
     }, [authorized]);
 
-    const cards: ICard[] = [
-        {
-            value:
-                !totalStatistics?.inProgress || totalStatistics.inProgress === 0
-                    ? t('empty')
-                    : totalStatistics.inProgress.toString(),
-            content: t('cards.inProgress'),
-            links: [
-                {
+    const cards: ICard[] = useMemo(
+        () => [
+            {
+                value: totalStatistics?.inProgress,
+                content: t('cards.inProgress'),
+                link: {
                     name: t('links.instances'),
                     href: '/integration/instance/list?statuses=IN_PROGRESS',
                 },
-            ],
-        },
-        {
-            value:
-                !totalStatistics?.transferred || totalStatistics.transferred === 0
-                    ? t('empty')
-                    : totalStatistics.transferred.toString(),
-            content: t('cards.transferred'),
-            links: [
-                {
+            },
+            {
+                value: totalStatistics?.transferred,
+                content: t('cards.transferred'),
+                link: {
                     name: t('links.instances'),
                     href: '/integration/instance/list?statuses=TRANSFERRED',
                 },
-            ],
-        },
-        {
-            value:
-                !totalStatistics?.aborted || totalStatistics.aborted === 0
-                    ? t('empty')
-                    : totalStatistics.aborted.toString(),
-            content: t('cards.aborted'),
-            links: [
-                { name: t('links.instances'), href: '/integration/instance/list?statuses=ABORTED' },
-            ],
-        },
-        {
-            value:
-                !totalStatistics?.failed || totalStatistics.failed === 0
-                    ? t('empty')
-                    : totalStatistics.failed.toString(),
-            content: t('cards.failed'),
-            links: [
-                { name: t('links.instances'), href: '/integration/instance/list?statuses=FAILED' },
-            ],
-        },
-        {
-            value:
-                integrations === undefined || integrations.length === 0
-                    ? t('empty')
-                    : integrations.length.toString(),
-            content:
-                integrations !== undefined && integrations.length === 1
-                    ? t('oneIntegration')
-                    : t('integrations'),
-            links: [{ name: t('links.integration'), href: '/integration/new' }],
-        },
-        {
-            value: totalActive === 0 ? t('empty') : totalActive.toString(),
-            content: totalActive === 1 ? t('oneActiveIntegration') : t('activeIntegrations'),
-            links: [{ name: t('links.integrations'), href: '/integration/list' }],
-        },
-        {
-            value:
-                !totalStatistics?.total || totalStatistics.total === 0
-                    ? t('empty')
-                    : totalStatistics.total.toString(),
-            content: t('cards.totalInstances'),
-            links: [{ name: t('links.instances'), href: '/integration/instance/list' }],
-        },
-    ];
+            },
+            {
+                value: totalStatistics?.aborted,
+                content: t('cards.aborted'),
+                link: {
+                    name: t('links.instances'),
+                    href: '/integration/instance/list?statuses=ABORTED',
+                },
+            },
+            {
+                value: totalStatistics?.failed,
+                content: t('cards.failed'),
+                link: {
+                    name: t('links.instances'),
+                    href: '/integration/instance/list?statuses=FAILED',
+                },
+            },
+            {
+                value: integrations?.length,
+                content:
+                    integrations !== undefined && integrations.length === 1
+                        ? t('oneIntegration')
+                        : t('integrations'),
+                link: { name: t('links.integration'), href: '/integration/new' },
+            },
+            {
+                value: totalActive,
+                content: totalActive === 1 ? t('oneActiveIntegration') : t('activeIntegrations'),
+                link: { name: t('links.integrations'), href: '/integration/list' },
+            },
+            {
+                value: totalStatistics?.total,
+                content: t('cards.totalInstances'),
+                link: { name: t('links.instances'), href: '/integration/instance/list' },
+            },
+        ],
+        [totalStatistics]
+    );
 
     return (
         <PageTemplate id={'dashboard'} keyPrefix={'pages.dashboard'} customHeading>
-            <HGrid gap="6" columns={{ xs: 1, sm: 2, md: 3, lg: 4 }}>
+            <HGrid gap="6" columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}>
                 {cards.map((card: ICard, index) => {
                     return (
                         <DashboardCard
@@ -127,13 +101,12 @@ const Dashboard: RouteComponent = () => {
                             id={`dashboard-card-` + index}
                             value={card.value}
                             content={card.content}
-                            links={card.links}
+                            link={card.link}
                         />
                     );
                 })}
             </HGrid>
             <SupportContent />
-            <Contact />
         </PageTemplate>
     );
 };
