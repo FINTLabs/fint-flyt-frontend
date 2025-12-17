@@ -77,7 +77,7 @@ export default function InstanceCard(props: Props) {
                 </ExpansionCard.Description>
             </ExpansionCard.Header>
             <ExpansionCard.Content>
-                <VStack gap="8">
+                <VStack gap="4" >
                     <TextField
                         label={t('fields.sourceAppInstanceId.label')}
                         size="small"

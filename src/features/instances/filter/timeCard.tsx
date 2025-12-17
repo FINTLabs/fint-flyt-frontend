@@ -176,7 +176,8 @@ export default function TimeCard(props: Props) {
             size="small"
             aria-label="Tidsperiod"
             open={props.isOpen}
-            onToggle={() => props.toggleOpen(props.id)}>
+            onToggle={() => props.toggleOpen(props.id)}
+        >
             <ExpansionCard.Header>
                 <ExpansionCard.Title as="h4" size="small">
                     {t('title')}
@@ -187,8 +188,8 @@ export default function TimeCard(props: Props) {
             </ExpansionCard.Header>
 
             <ExpansionCard.Content>
-                <VStack gap="8">
-                    <ToggleGroup value={selectedTab} onChange={handleTabChange} fill>
+                <VStack gap="4" paddingBlock="4">
+                    <ToggleGroup value={selectedTab} onChange={handleTabChange} fill size="small">
                         <ToggleGroup.Item
                             value="offset"
                             label={t('tabs.offset')}
@@ -247,7 +248,8 @@ export default function TimeCard(props: Props) {
                                                 'timeCurrentPeriod',
                                                 option.value
                                             )
-                                        }>
+                                        }
+                                    >
                                         {/*{option.label}*/}
                                         {t(option.label)}
                                     </Chips.Toggle>
@@ -258,38 +260,42 @@ export default function TimeCard(props: Props) {
 
                     {selectedTab === 'manual' && (
                         <DatePicker {...datepickerProps}>
-                            <HStack wrap gap="4" justify="center">
-                                <DatePicker.Input
-                                    {...fromInputProps}
-                                    label={t('manual.fromDate')}
-                                    size="small"
-                                />
-                                <TextField
-                                    label={t('manual.fromTime')}
-                                    size="small"
-                                    type="time"
-                                    value={timeMin}
-                                    onChange={(e) =>
-                                        handleTimeChange('timeTimestampMin', e.target.value)
-                                    }
-                                    disabled={!selectedRange?.from}
-                                />
-                                <DatePicker.Input
-                                    {...toInputProps}
-                                    label={t('manual.toDate')}
-                                    size="small"
-                                />
-                                <TextField
-                                    label={t('manual.toTime')}
-                                    size="small"
-                                    type="time"
-                                    value={timeMax}
-                                    onChange={(e) =>
-                                        handleTimeChange('timeTimestampMax', e.target.value)
-                                    }
-                                    disabled={!selectedRange?.to}
-                                />
-                            </HStack>
+                            <VStack gap="4">
+                                <HStack gap="4" justify={'space-between'}>
+                                    <DatePicker.Input
+                                        {...fromInputProps}
+                                        label={t('manual.fromDate')}
+                                        size="small"
+                                    />
+                                    <TextField
+                                        label={t('manual.fromTime')}
+                                        size="small"
+                                        type="time"
+                                        value={timeMin}
+                                        onChange={(e) =>
+                                            handleTimeChange('timeTimestampMin', e.target.value)
+                                        }
+                                        disabled={!selectedRange?.from}
+                                    />
+                                </HStack>
+                                <HStack gap="4">
+                                    <DatePicker.Input
+                                        {...toInputProps}
+                                        label={t('manual.toDate')}
+                                        size="small"
+                                    />
+                                    <TextField
+                                        label={t('manual.toTime')}
+                                        size="small"
+                                        type="time"
+                                        value={timeMax}
+                                        onChange={(e) =>
+                                            handleTimeChange('timeTimestampMax', e.target.value)
+                                        }
+                                        disabled={!selectedRange?.to}
+                                    />
+                                </HStack>
+                            </VStack>
                         </DatePicker>
                     )}
                 </VStack>

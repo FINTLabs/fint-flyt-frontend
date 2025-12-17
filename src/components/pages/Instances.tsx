@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Alert, Box, Button, HGrid, HStack, Loader } from '@navikt/ds-react';
+import { Alert, Box, Button, HGrid, HStack, Loader, VStack } from '@navikt/ds-react';
 import { useTranslation } from 'react-i18next';
 import { IEvent } from '../../features/instances/types/Event';
 import PageTemplate from '../templates/PageTemplate';
@@ -53,63 +53,56 @@ const Instances: RouteComponent = () => {
                     </Alert>
                 )}
 
-                {!showFilters && (
-                    <HStack gap={'10'}>
-                        <Button
-                            variant="tertiary"
-                            onClick={() => setShowFilters(true)}
-                            icon={<ChevronRightDoubleCircleIcon aria-hidden />}
-                            size="small"
-                        >
-                            Filters
-                        </Button>
-                    </HStack>
-                )}
-
-                <HGrid columns={showFilters ? 'minmax(450px, 15%) 1fr' : '1fr'} gap="2">
-                    {showFilters && (
+                <HGrid columns={showFilters ? 'minmax(450px, 15%) 1fr' : '75px 1fr'} gap="4">
+                    {showFilters ? (
                         <Box
                             id="filter-container"
                             background="surface-default"
-                            padding="6"
-                            paddingBlock="10"
-                            borderRadius="large"
-                            borderWidth="2"
-                            borderColor="border-subtle"
+                            borderRadius="medium"
+                            borderWidth="1"
+                            borderColor="border-default"
                             position="relative"
                         >
-                            <Button
-                                variant="tertiary"
-                                size="small"
-                                icon={<ChevronLeftDoubleCircleIcon aria-hidden />}
-                                onClick={() => setShowFilters(false)}
-                                style={{ position: 'absolute', top: '5px', right: '10px' }}
-                            >
-                                Lukk
-                            </Button>
-
-                            {allMetadata && <Filters allMetaData={allMetadata} />}
+                            <VStack gap={'2'}>
+                                <Button
+                                    variant="tertiary"
+                                    type="button"
+                                    icon={
+                                        <ChevronLeftDoubleCircleIcon fontSize="2rem" aria-hidden />
+                                    }
+                                    onClick={() => setShowFilters(false)}
+                                    style={{
+                                        justifyContent: 'end',
+                                        borderRadius:
+                                            'var(--a-border-radius-medium) var(--a-border-radius-medium)  0 0',
+                                    }}
+                                />
+                                {allMetadata && <Filters allMetaData={allMetadata} />}
+                            </VStack>
                         </Box>
+                    ) : (
+                        <Box
+                            id="filter-container"
+                            borderRadius="medium"
+                            borderWidth="1"
+                            borderColor="border-default"
+                            position="relative"
+                            as={Button}
+                            variant="tertiary"
+                            icon={<ChevronRightDoubleCircleIcon fontSize="2rem" aria-hidden />}
+                            onClick={() => setShowFilters(true)}
+                            style={{ alignItems: 'start' }}
+                        ></Box>
                     )}
-                    <Box
-                        id={'instance-table-container'}
-                        background={'surface-default'}
-                        padding="6"
-                        borderRadius={'large'}
-                        borderWidth="2"
-                        borderColor={'border-subtle'}
-                    >
-                        {allMetadata ? (
-                            <InstanceTable
-                                onError={(error) => {
-                                    setError(error);
-                                }}
-                            />
-                        ) : (
-                            <Loader />
-                        )}
+                    <Box id={'instance-table-container'}>
+                        <InstanceTable
+                            onError={(error) => {
+                                setError(error);
+                            }}
+                        />
                     </Box>
                 </HGrid>
+
                 <ErrorDialog
                     open={openDialog}
                     setOpen={setOpenDialog}

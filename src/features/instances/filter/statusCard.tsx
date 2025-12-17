@@ -71,7 +71,8 @@ export default function StatusCard(props: Props) {
             size="small"
             aria-label={t('statusCard.ariaLabel') || ''}
             open={props.isOpen}
-            onToggle={() => props.toggleOpen(props.id)}>
+            onToggle={() => props.toggleOpen(props.id)}
+        >
             <ExpansionCard.Header>
                 <ExpansionCard.Title as="h4" size="small">
                     {t('statusCard.title')}
@@ -81,8 +82,8 @@ export default function StatusCard(props: Props) {
                 </ExpansionCard.Description>
             </ExpansionCard.Header>
             <ExpansionCard.Content>
-                <VStack gap="8">
-                    <ToggleGroup value={selectedTab} onChange={handleTabChange} fill>
+                <VStack gap="4" paddingBlock="4">
+                    <ToggleGroup value={selectedTab} onChange={handleTabChange} fill size="small">
                         <ToggleGroup.Item value="status" label={t('statusCard.tabs.status')} />
                         <ToggleGroup.Item value="event" label={t('statusCard.tabs.event')} />
                     </ToggleGroup>
@@ -102,7 +103,8 @@ export default function StatusCard(props: Props) {
                                             option.value,
                                             !filters.statuses?.includes(option.value)
                                         )
-                                    }>
+                                    }
+                                >
                                     {/*{t(option.label)}*/}
                                     {t(`statusOptions.${option.value}`)}
                                 </Chips.Toggle>
@@ -113,6 +115,7 @@ export default function StatusCard(props: Props) {
                     {selectedTab === 'event' && (
                         <UNSAFE_Combobox
                             allowNewValues
+                            size={'small'}
                             label={t('statusCard.combobox.label')} // Translate the label
                             options={props.associatedEventNamesOptions.map((option) => ({
                                 label: t(`associatedEventNames.${option.value}`),
