@@ -16,6 +16,7 @@ import { MenuElipsisVerticalCircleIcon } from '@navikt/aksel-icons';
 import CustomStatusDialogComponent from './CustomStatusDialogComponent';
 import { useFilters } from '../filter/FilterContext';
 import useInstanceFlowTrackingRepository from '../../../api/useInstanceFlowTrackingRepository';
+import TableLoader from '../../../components/molecules/TableLoader';
 
 interface Props {
     onError: (error: IAlertMessage | undefined) => void;
@@ -133,9 +134,7 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
         );
     };
 
-    return loading ? (
-        <Loader size="large" />
-    ) : summaryList ? (
+    return summaryList ? (
         <Box>
             <Box background={'surface-default'} style={{ minHeight: '70vh' }}>
                 {selectedRow && (
@@ -145,7 +144,7 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                         setOpenCustomDialog={setOpenCustomDialog}
                     />
                 )}
-                {summaryList?.length === 0 ? (
+                {!loading && summaryList?.length === 0 ? (
                     <Alert variant="info">{t('filter.alerts.noResults')}</Alert>
                 ) : hasFilters ? (
                     <Alert variant="info">{t('filter.alerts.tableFiltered')}</Alert>
@@ -177,60 +176,67 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                        {summaryList?.map((value: IEventNew, i: number) => {
-                            return (
-                                <Table.ExpandableRow
-                                    key={i}
-                                    expandOnRowClick
-                                    open={expandedRows.includes(i)}
-                                    onOpenChange={() => handleToggle(i)}
-                                    content={
-                                        expandedRows.includes(i) ? (
-                                            <InstancePanel
-                                                id={`instance-panel-${i}`}
-                                                onError={(error) => onError(error)}
-                                                instanceId={value.sourceApplicationInstanceId}
-                                                sourceApplicationId={value.sourceApplicationId}
-                                                sourceApplicationIntegrationId={
-                                                    value.sourceApplicationIntegrationId
-                                                }
-                                            />
-                                        ) : null
-                                    }>
-                                    <Table.DataCell scope="row">
-                                        {getSourceApplicationDisplayNameById(
-                                            String(value.sourceApplicationId)
-                                        )}
-                                    </Table.DataCell>
+                        {loading ? (
+                            <TableLoader columnLength={10} />
+                        ) : (
+                            summaryList?.map((value: IEventNew, i: number) => {
+                                return (
+                                    <Table.ExpandableRow
+                                        key={i}
+                                        expandOnRowClick
+                                        open={expandedRows.includes(i)}
+                                        onOpenChange={() => handleToggle(i)}
+                                        content={
+                                            expandedRows.includes(i) ? (
+                                                <InstancePanel
+                                                    id={`instance-panel-${i}`}
+                                                    onError={(error) => onError(error)}
+                                                    instanceId={value.sourceApplicationInstanceId}
+                                                    sourceApplicationId={value.sourceApplicationId}
+                                                    sourceApplicationIntegrationId={
+                                                        value.sourceApplicationIntegrationId
+                                                    }
+                                                />
+                                            ) : null
+                                        }
+                                    >
+                                        <Table.DataCell scope="row">
+                                            {getSourceApplicationDisplayNameById(
+                                                String(value.sourceApplicationId)
+                                            )}
+                                        </Table.DataCell>
 
-                                    <Table.DataCell>{value.displayName}</Table.DataCell>
-                                    <Table.DataCell>
-                                        {value.sourceApplicationIntegrationId}
-                                    </Table.DataCell>
-                                    <Table.DataCell>
-                                        {value.sourceApplicationInstanceId}
-                                    </Table.DataCell>
-                                    <Table.DataCell>
-                                        {format(value.latestUpdate, 'dd/MM/yy HH:mm')}
-                                    </Table.DataCell>
-                                    <Table.DataCell>
-                                        <InstanceStatusWithTooltip status={value.status} />
-                                    </Table.DataCell>
-                                    <Table.DataCell>
-                                        {value.intermediateStorageStatus
-                                            ? t(
-                                                  `filter.intermediateStorageStatusOptions.${value.intermediateStorageStatus}`
-                                              )
-                                            : null}
-                                    </Table.DataCell>
+                                        <Table.DataCell>{value.displayName}</Table.DataCell>
+                                        <Table.DataCell>
+                                            {value.sourceApplicationIntegrationId}
+                                        </Table.DataCell>
+                                        <Table.DataCell>
+                                            {value.sourceApplicationInstanceId}
+                                        </Table.DataCell>
+                                        <Table.DataCell>
+                                            {format(value.latestUpdate, 'dd/MM/yy HH:mm')}
+                                        </Table.DataCell>
+                                        <Table.DataCell>
+                                            <InstanceStatusWithTooltip status={value.status} />
+                                        </Table.DataCell>
+                                        <Table.DataCell>
+                                            {value.intermediateStorageStatus
+                                                ? t(
+                                                      `filter.intermediateStorageStatusOptions.${value.intermediateStorageStatus}`
+                                                  )
+                                                : null}
+                                        </Table.DataCell>
 
-                                    <Table.DataCell>{value.destinationInstanceIds}</Table.DataCell>
-                                    <Table.DataCell>
-                                        {value.status === 'FAILED' && actionMenu(value, i)}
-                                    </Table.DataCell>
-                                </Table.ExpandableRow>
-                            );
-                        })}
+                                        <Table.DataCell>
+                                            {value.destinationInstanceIds}
+                                        </Table.DataCell>
+                                        <Table.DataCell>
+                                            {value.status === 'FAILED' && actionMenu(value, i)}
+                                        </Table.DataCell>
+                                    </Table.ExpandableRow>
+                                );
+                            })
+                        )}
                     </Table.Body>
                 </Table>
             </Box>
@@ -250,7 +256,8 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                             variant="secondary"
                             onClick={() =>
                                 setRowCount(String(Number(rowCount) + Number(rowsPerPage)))
-                            }>
+                            }
+                        >
                             {t('filter.loadMore')}
                         </Button>
                     </>
@@ -277,7 +284,8 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                                 onClick={() => {
                                     setSelectedRow(event);
                                     setOpenCustomDialog(true);
-                                }}>
+                                }}
+                            >
                                 {t('customStatus')}
                             </Dropdown.Menu.List.Item>
 
@@ -295,7 +303,8 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                                                 resend(event.latestInstanceId);
                                                 handleRetryButtonClick(id);
                                             }
-                                        }}>
+                                        }}
+                                    >
                                         {t('retry')}
                                     </Dropdown.Menu.List.Item>
                                 </>

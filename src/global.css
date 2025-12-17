@@ -16,6 +16,9 @@ body {
     --ac-table-sort-button-hover-bg: var(--novari-theme-purple-20);
     --ac-table-sort-button-sorted-bg: var(--novari-theme-purple-20);
     --ac-table-sort-button-sorted-text: var(--novari-theme-purple-dark);
+
+    --ac-toggle-group-button-hover-bg: var(--novari-theme-purple-20);
+    --ac-toggle-group-selected-bg: var(--novari-theme-purple-dark);
 }
 
 iframe#webpack-dev-server-client-overlay {
@@ -54,10 +57,11 @@ iframe#webpack-dev-server-client-overlay {
 
 .navds-button--tertiary {
     --ac-button-tertiary-text: var(--novari-theme-purple-dark) !important;
+    --ac-button-tertiary-active-text: var(--novari-theme-purple-dark) !important;
     --ac-button-tertiary-hover-text: var(--novari-theme-purple-dark) !important;
     --ac-button-tertiary-hover-bg: var(--novari-theme-purple-subtle) !important;
-    --ac-button-tertiary-active-bg: var(--novari-theme-purple-dark) !important;
-    --ac-button-tertiary-active-hover-bg: var(--novari-theme-purple-dark) !important;
+    --ac-button-tertiary-active-bg: var(--novari-theme-purple-40) !important;
+    --ac-button-tertiary-active-hover-bg: var(--novari-theme-purple-40) !important;
 }
 
 .navds-internalheader {
@@ -99,5 +103,11 @@ iframe#webpack-dev-server-client-overlay {
         right: 0;
         top: 50%;
         transform: translateY(-50%);
+    }
+}
+
+#filter-container {
+    .navds-expansioncard__header {
+        padding: var(--a-spacing-2)  var(--a-spacing-4) !important;
     }
 }

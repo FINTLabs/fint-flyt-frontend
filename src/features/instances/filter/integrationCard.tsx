@@ -77,7 +77,8 @@ export default function IntegrationCard(props: Props) {
             size="small"
             aria-label={t('ariaLabel') || 'Default Label'}
             open={props.isOpen}
-            onToggle={() => props.toggleOpen(props.id)}>
+            onToggle={() => props.toggleOpen(props.id)}
+        >
             <ExpansionCard.Header>
                 <ExpansionCard.Title as="h4" size="small">
                     {t('title')}
@@ -87,8 +88,8 @@ export default function IntegrationCard(props: Props) {
                 </ExpansionCard.Description>
             </ExpansionCard.Header>
             <ExpansionCard.Content>
-                <VStack gap="8">
-                    <ToggleGroup value={selectedTab} onChange={handleTabChange} fill>
+                <VStack gap="4" paddingBlock="4">
+                    <ToggleGroup value={selectedTab} onChange={handleTabChange} fill size={'small'}>
                         <ToggleGroup.Item value="integration" label={t('tabs.integration')} />
                         <ToggleGroup.Item value="sourceApp" label={t('tabs.sourceApp')} />
                     </ToggleGroup>
@@ -97,6 +98,7 @@ export default function IntegrationCard(props: Props) {
                         <>
                             <UNSAFE_Combobox
                                 label={t('combobox.sourceApp')}
+                                size={'small'}
                                 options={props.sourceApplicationIdsOptions}
                                 isMultiSelect
                                 selectedOptions={props.sourceApplicationIdsOptions.filter((opt) =>
@@ -114,6 +116,7 @@ export default function IntegrationCard(props: Props) {
                             />
                             <UNSAFE_Combobox
                                 label={t('textField.integrationId.label')}
+                                size={'small'}
                                 options={props.sourceApplicationIntegrationOptions}
                                 isMultiSelect
                                 selectedOptions={props.sourceApplicationIntegrationOptions.filter(
@@ -135,6 +138,7 @@ export default function IntegrationCard(props: Props) {
                     {selectedTab === 'integration' && (
                         <UNSAFE_Combobox
                             label={t('combobox.integration')}
+                            size={'small'}
                             options={props.integrationOptions}
                             isMultiSelect
                             selectedOptions={props.integrationOptions.filter((opt) =>

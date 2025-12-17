@@ -101,7 +101,7 @@ const FilterForm: React.FC<FilterFormProps> = ({ allMetaData }) => {
     }, []);
 
     return (
-        <Box minWidth={'300px'} className={'p-20'} data-testid="filters-form">
+        <Box paddingInline={'4'} minWidth={'300px'} className={'p-20'} data-testid="filters-form">
             <VStack gap="4">
                 {/*<SortSelect />*/}
 
@@ -148,14 +148,16 @@ const FilterForm: React.FC<FilterFormProps> = ({ allMetaData }) => {
                     storageStatusesOptions={storageStatusesOptions}
                 />
 
-                <HStack gap={'10'}>
+                <HStack justify={'end'} gap={'4'}>
                     <Button
+                        size={'small'}
                         onClick={() => {
                             saveFilters();
-                        }}>
+                        }}
+                    >
                         Søk
                     </Button>
-                    <Button variant={'tertiary'} onClick={clearFilters}>
+                    <Button variant={'secondary'} onClick={clearFilters} size={'small'}>
                         Tilbakestill
                     </Button>
                 </HStack>
