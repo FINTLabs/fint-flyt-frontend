@@ -6,7 +6,7 @@ import {
     getStateDisplayName,
     integrationComparator,
 } from '../../../util/TableUtil';
-import { Box, HStack, Loader, Pagination, SortState, Table } from '@navikt/ds-react';
+import { Box, HStack, Pagination, SortState, Table } from '@navikt/ds-react';
 import IntegrationPanel from './IntegrationPanel';
 import { useTranslation } from 'react-i18next';
 import { IIntegration } from '../../integration/types/Integration';
@@ -17,12 +17,16 @@ import { IAlertMessage, Page } from '../../../components/types/TableTypes';
 import { IIntegrationDetailedStatistics } from '../../instances/types/Event';
 import useIntegrationRepository from '../../../api/useIntegrationRepository';
 import useInstanceFlowTrackingRepository from '../../../api/useInstanceFlowTrackingRepository';
+import TableLoader from '../../../components/molecules/TableLoader';
 
 type IntegrationProps = {
     id: string;
     onError: (error: IAlertMessage | undefined) => void;
 };
-const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: IntegrationProps) => {
+const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({
+    id,
+    onError,
+}: IntegrationProps) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.integrations' });
     const IntegrationRepository = useIntegrationRepository();
     const InstanceFlowTrackingRepository = useInstanceFlowTrackingRepository();
@@ -46,17 +50,34 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
     ];
     const [detailedStats, setDetailedStats] = useState<IIntegrationDetailedStatistics[]>([]);
 
+    const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [isFetching, setIsFetching] = useState<boolean>(false);
+    const [fetchedContentIds, setFetchedContentIds] = useState<string[]>([]);
+
     useEffect(() => {
-        if (integrations?.totalElements && integrations.totalElements < Number(rowCount)) {
-            setPage(1);
+        if (allMetadata && integrations) {
+            setIsLoading(false);
         }
-        setIntegrations({ content: [] });
-        getAllIntegrations(rowCount, sort);
-    }, [page, setPage, sort, rowCount]);
+    }, [allMetadata, integrations]);
+
+    useEffect(() => {
+        console.log('UseEffect', allMetadata && !isFetching);
+        if (allMetadata && !isFetching) {
+            console.log('GETTING STUFF');
+            if (integrations?.totalElements && integrations.totalElements < Number(rowCount)) {
+                setPage(1);
+            }
+            setIntegrations(undefined);
+            getAllIntegrations(rowCount, sort);
+        }
+    }, [page, setPage, sort, rowCount, allMetadata]);
 
     const getAllIntegrations = async (rowCount: string, sort?: SortState) => {
-        props.onError(undefined);
+        onError(undefined);
         if (allMetadata) {
+            console.log('getAllIntegrations has allMetadata');
+            setIsFetching(true);
+            setIsLoading(true);
             try {
                 const [statsResponse, integrationResponse] = await Promise.all([
                     InstanceFlowTrackingRepository.getStatistics(),
@@ -93,11 +114,14 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
                         return 1;
                     });
                 setIntegrations({ ...mergedList, content: sortedData });
+                setIsFetching(false);
             } catch (e) {
-                props.onError({ message: t('errorMessage') });
+                onError({ message: t('errorMessage') });
                 console.error('Error: ', e);
-                setIntegrations({ content: [] });
+                setIntegrations(undefined);
+                setIsFetching(false);
             }
+        } else {
         }
     };
 
@@ -117,13 +141,14 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
         });
     };
 
-    return integrations ? (
+    return (
         <Box>
             <Box background={'surface-default'} style={{ minHeight: '70vh' }}>
                 <Table
                     sort={sort}
                     onSortChange={(sortKey) => handleSort(sortKey ? sortKey : 'id')}
-                    id={props.id}>
+                    id={id}
+                >
                     <Table.Header>
                         <Table.Row>
                             <Table.ColumnHeader />
@@ -151,57 +176,74 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                        {integrations?.content?.map((value, i) => {
-                            const stats = detailedStats.find(
-                                (stat) => stat.integrationId === value.id
-                            );
-                            return (
-                                <Table.ExpandableRow
-                                    expandOnRowClick
-                                    key={i}
-                                    content={
-                                        <IntegrationPanel
-                                            id={'panel-' + i}
-                                            onError={(error) => {
-                                                props.onError(error);
-                                            }}
-                                            integration={value}
-                                        />
-                                    }>
-                                    <Table.DataCell>{value.id}</Table.DataCell>
-                                    <Table.DataCell scope="row">
-                                        {getSourceApplicationDisplayNameById(
-                                            String(value.sourceApplicationId)
-                                        )}
-                                    </Table.DataCell>
-                                    <Table.DataCell>
-                                        {value.sourceApplicationIntegrationId}
-                                    </Table.DataCell>
-                                    <Table.DataCell>{value.displayName}</Table.DataCell>
-                                    <Table.DataCell>
-                                        {getDestinationDisplayName(value.destination ?? '')}
-                                    </Table.DataCell>
-                                    <Table.DataCell>
-                                        {getStateDisplayName(value.state ?? '')}
-                                    </Table.DataCell>
-                                    <Table.DataCell align={'center'}>
-                                        {stats?.total || '-'}
-                                    </Table.DataCell>
-                                    <Table.DataCell align={'center'}>
-                                        {stats?.inProgress || '-'}
-                                    </Table.DataCell>
-                                    <Table.DataCell align={'center'}>
-                                        {stats?.transferred || '-'}
-                                    </Table.DataCell>
-                                    <Table.DataCell align={'center'}>
-                                        {stats?.aborted || '-'}
-                                    </Table.DataCell>
-                                    <Table.DataCell align={'center'}>
-                                        {stats?.failed || '-'}
-                                    </Table.DataCell>
-                                </Table.ExpandableRow>
-                            );
-                        })}
+                        {isLoading ? (
+                            <TableLoader columnLength={12} />
+                        ) : (
+                            integrations?.content?.map((value, i) => {
+                                const stats = detailedStats.find(
+                                    (stat) => stat.integrationId === value.id
+                                );
+                                return (
+                                    <Table.ExpandableRow
+                                        expandOnRowClick
+                                        key={i}
+                                        onOpenChange={(open) => {
+                                            setFetchedContentIds((prev) => {
+                                                if (open && value.id) {
+                                                    return prev.includes(value.id)
+                                                        ? prev
+                                                        : [...prev, value.id];
+                                                }
+                                                return prev;
+                                            });
+                                        }}
+                                        content={
+                                            fetchedContentIds.find((id) => value.id === id) && (
+                                                <IntegrationPanel
+                                                    id={'panel-' + i}
+                                                    onError={(error) => {
+                                                        onError(error);
+                                                    }}
+                                                    integration={value}
+                                                />
+                                            )
+                                        }
+                                    >
+                                        <Table.DataCell>{value.id}</Table.DataCell>
+                                        <Table.DataCell scope="row">
+                                            {getSourceApplicationDisplayNameById(
+                                                String(value.sourceApplicationId)
+                                            )}
+                                        </Table.DataCell>
+                                        <Table.DataCell>
+                                            {value.sourceApplicationIntegrationId}
+                                        </Table.DataCell>
+                                        <Table.DataCell>{value.displayName}</Table.DataCell>
+                                        <Table.DataCell>
+                                            {getDestinationDisplayName(value.destination ?? '')}
+                                        </Table.DataCell>
+                                        <Table.DataCell>
+                                            {getStateDisplayName(value.state ?? '')}
+                                        </Table.DataCell>
+                                        <Table.DataCell align={'center'}>
+                                            {stats?.total || '-'}
+                                        </Table.DataCell>
+                                        <Table.DataCell align={'center'}>
+                                            {stats?.inProgress || '-'}
+                                        </Table.DataCell>
+                                        <Table.DataCell align={'center'}>
+                                            {stats?.transferred || '-'}
+                                        </Table.DataCell>
+                                        <Table.DataCell align={'center'}>
+                                            {stats?.aborted || '-'}
+                                        </Table.DataCell>
+                                        <Table.DataCell align={'center'}>
+                                            {stats?.failed || '-'}
+                                        </Table.DataCell>
+                                    </Table.ExpandableRow>
+                                );
+                            })
+                        )}
                     </Table.Body>
                 </Table>
             </Box>
@@ -226,8 +268,6 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = (props: Inte
                     )}
             </HStack>
         </Box>
-    ) : (
-        <Loader size={'xlarge'} />
     );
 };
 
