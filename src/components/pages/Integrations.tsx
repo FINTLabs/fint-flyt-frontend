@@ -4,14 +4,14 @@ import PageTemplate from '../templates/PageTemplate';
 import { SourceApplicationContext } from '../../context/SourceApplicationContext';
 import { RouteComponent } from '../../routes/Route';
 import { useNavigate } from 'react-router';
-import { Alert, Box, Loader } from '@navikt/ds-react';
+import { Alert } from '@navikt/ds-react';
 import { useTranslation } from 'react-i18next';
 import { AuthorizationContext } from '../../context/AuthorizationContext';
 import { IAlertMessage } from '../types/TableTypes';
 
 const Integrations: RouteComponent = () => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.integrations' });
-    const { allMetadata, getAllMetadata } = useContext(SourceApplicationContext);
+    const { getAllMetadata } = useContext(SourceApplicationContext);
     const [error, setError] = useState<IAlertMessage | undefined>(undefined);
     const { authorized, getAuthorization } = useContext(AuthorizationContext);
     const history = useNavigate();
@@ -46,20 +46,12 @@ const Integrations: RouteComponent = () => {
                     {error.message}
                 </Alert>
             )}
-            <Box id={'integration-table-container'} background={'surface-default'} paddingBlock="6">
-                {allMetadata ? (
-                    <IntegrationTable
-                        onError={(error) => {
-                            setError(error);
-                        }}
-                        id={'integration-table'}
-                    />
-                ) : (
-                    <>
-                        <Loader size={'xlarge'} />
-                    </>
-                )}
-            </Box>
+            <IntegrationTable
+                onError={(error) => {
+                    setError(error);
+                }}
+                id={'integration-table'}
+            />
         </PageTemplate>
     );
 };
