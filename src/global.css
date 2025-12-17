@@ -11,6 +11,11 @@ body {
     --ac-radio-checkbox-border: #5149ca !important;
     --ac-radio-checkbox-action: #5149ca !important;
     --ac-radio-checkbox-action-hover-bg: #e5e4fa !important;
+
+    --ac-table-sort-button-text: var(--novari-theme-purple-dark);
+    --ac-table-sort-button-hover-bg: var(--novari-theme-purple-20);
+    --ac-table-sort-button-sorted-bg: var(--novari-theme-purple-20);
+    --ac-table-sort-button-sorted-text: var(--novari-theme-purple-dark);
 }
 
 iframe#webpack-dev-server-client-overlay {

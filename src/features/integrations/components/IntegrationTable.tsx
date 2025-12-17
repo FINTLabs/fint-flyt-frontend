@@ -61,9 +61,7 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({
     }, [allMetadata, integrations]);
 
     useEffect(() => {
-        console.log('UseEffect', allMetadata && !isFetching);
         if (allMetadata && !isFetching) {
-            console.log('GETTING STUFF');
             if (integrations?.totalElements && integrations.totalElements < Number(rowCount)) {
                 setPage(1);
             }
@@ -75,7 +73,6 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({
     const getAllIntegrations = async (rowCount: string, sort?: SortState) => {
         onError(undefined);
         if (allMetadata) {
-            console.log('getAllIntegrations has allMetadata');
             setIsFetching(true);
             setIsLoading(true);
             try {
