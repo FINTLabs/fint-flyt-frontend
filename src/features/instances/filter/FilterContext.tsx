@@ -85,20 +85,12 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
     const [refreshKey, setRefreshKey] = useState(0);
 
     const updateFilter = <K extends keyof Filters>(key: K, value: Filters[K]) => {
-        // console.log('UPDATING FILTER:', key, value);
         setFilters((prev) => ({
             ...prev,
             [key]: value,
         }));
         setFiltersSaved(false);
     };
-
-    // const clearFilters = () => {
-    //     setFilters(defaultFilters);
-    //     setSearchParams(new URLSearchParams());
-    //     setFiltersSaved(false);
-    //     setRefreshKey((prev) => prev + 1);
-    // };
 
     const clearFilters = () => {
         setFilters(emptyFilters);

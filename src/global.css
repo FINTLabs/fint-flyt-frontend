@@ -52,6 +52,7 @@ iframe#webpack-dev-server-client-overlay {
     --ac-button-secondary-active-bg: var(--novari-theme-purple-dark) !important;
     &.toggled {
         --ac-button-secondary-bg: var(--novari-theme-purple-subtle) !important;
+        --ac-button-secondary-hover-bg: var(--novari-theme-purple-40) !important;
     }
 }
 
