@@ -111,14 +111,13 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({
                         return 1;
                     });
                 setIntegrations({ ...mergedList, content: sortedData });
-                setIsFetching(false);
             } catch (e) {
                 onError({ message: t('errorMessage') });
                 console.error('Error: ', e);
                 setIntegrations(undefined);
+            } finally {
                 setIsFetching(false);
             }
-        } else {
         }
     };
 
