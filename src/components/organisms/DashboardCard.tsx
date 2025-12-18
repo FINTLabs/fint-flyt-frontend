@@ -61,6 +61,8 @@ const DashboardCard: React.FunctionComponent<Props> = (props: Props) => {
                             height="100%"
                             width="100%"
                             style={{ position: 'relative' }}
+                            wrap={false}
+                            gap={'4'}
                         >
                             <BodyShort id={`${props.id}-btn`}>
                                 {props.link.name}
