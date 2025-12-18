@@ -150,6 +150,7 @@ const FilterForm: React.FC = () => {
                 )}
                 <Button
                     type="button"
+                    data-testid={'filters-form-button'}
                     className={allMetadata && filterCount ? 'toggled' : ''}
                     variant={'secondary'}
                     icon={<FilterIcon aria-hidden />}

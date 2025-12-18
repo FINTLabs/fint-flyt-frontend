@@ -89,11 +89,12 @@ export default function StatusCard(props: Props) {
                     </ToggleGroup>
 
                     {selectedTab === 'status' && (
-                        <Chips>
-                            {props.statusesOptions.map((option) => (
+                        <Chips data-testid="status-options">
+                            {props.statusesOptions.map((option, index) => (
                                 <Chips.Toggle
                                     checkmark
                                     key={option.value}
+                                    data-testid={`status-option-${index}`}
                                     selected={filters.statuses?.includes(option.value)}
                                     onClick={() =>
                                         setArrayValue(
@@ -105,7 +106,6 @@ export default function StatusCard(props: Props) {
                                         )
                                     }
                                 >
-                                    {/*{t(option.label)}*/}
                                     {t(`statusOptions.${option.value}`)}
                                 </Chips.Toggle>
                             ))}
