@@ -31,6 +31,7 @@ import { ISelect } from '../configuration/types/Select';
 import { AuthorizationContext } from '../../context/AuthorizationContext';
 import { getSourceApplicationDisplayNameById } from '../../util/TableUtil';
 import useIntegrationRepository from '../../api/useIntegrationRepository';
+import FormPageWrapper from '../../components/molecules/FormPageWrapper';
 
 type Props = {
     id: string;
@@ -155,15 +156,7 @@ export const IntegrationForm: React.FunctionComponent<Props> = () => {
 
     return (
         <PageTemplate id={'new'} keyPrefix={'pages.integrationForm'}>
-            <Box
-                id={'integration-form'}
-                background={'surface-default'}
-                padding="6"
-                borderRadius={'large'}
-                borderWidth="2"
-                borderColor={'border-subtle'}
-                style={{ minWidth: 'fit-content' }}
-            >
+            <FormPageWrapper id={'integration-form'} variant={'contained'}>
                 <FormProvider {...methods}>
                     <form onSubmit={methods.handleSubmit(onSubmit)}>
                         <VStack gap={'6'}>
@@ -306,10 +299,20 @@ export const IntegrationForm: React.FunctionComponent<Props> = () => {
                                     )}
                                 </ErrorSummary>
                             )}
-                            <HStack id={'button-container'} gap={'6'}>
+                            <HStack id={'button-container'} gap={'6'} justify={'end'}>
+                                <Button
+                                    size={'small'}
+                                    id="form-settings-cancel-btn"
+                                    onClick={cancel}
+                                    variant={'secondary'}
+                                    type="button"
+                                >
+                                    {t('button.cancel')}
+                                </Button>
                                 <Button
                                     id="form-settings-confirm-btn"
                                     type="submit"
+                                    size={'small'}
                                     disabled={
                                         !sourceApplicationId ||
                                         !sourceApplicationIntegrationId ||
@@ -317,14 +320,6 @@ export const IntegrationForm: React.FunctionComponent<Props> = () => {
                                     }
                                 >
                                     {t('button.confirm')}
-                                </Button>
-                                <Button
-                                    id="form-settings-cancel-btn"
-                                    onClick={cancel}
-                                    variant={'secondary'}
-                                    type="button"
-                                >
-                                    {t('button.cancel')}
                                 </Button>
                             </HStack>
                         </VStack>
@@ -342,7 +337,7 @@ export const IntegrationForm: React.FunctionComponent<Props> = () => {
                         </Snackbar>
                     </form>
                 </FormProvider>
-            </Box>
+            </FormPageWrapper>
         </PageTemplate>
     );
 };

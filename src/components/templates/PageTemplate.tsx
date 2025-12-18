@@ -106,6 +106,8 @@ const PageTemplate = ({
     return (
         <Box
             paddingInline={wide ? '8' : '32'}
+            maxWidth={'var(--a-breakpoint-lx)'}
+            marginInline={'auto'}
             paddingBlock="8"
             id={id + '-content'}
             style={{ minWidth: 'fit-content' }}
