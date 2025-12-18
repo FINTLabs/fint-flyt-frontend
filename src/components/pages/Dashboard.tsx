@@ -5,7 +5,7 @@ import { ICard } from '../../features/dashboard/Card';
 import { useTranslation } from 'react-i18next';
 import PageTemplate from '../templates/PageTemplate';
 import { RouteComponent } from '../../routes/Route';
-import { HGrid } from '@navikt/ds-react';
+import { Box, HGrid, VStack } from '@navikt/ds-react';
 import SupportContent from '../molecules/SupportContent';
 import { AuthorizationContext } from '../../context/AuthorizationContext';
 import { useNavigate } from 'react-router';
@@ -93,20 +93,22 @@ const Dashboard: RouteComponent = () => {
 
     return (
         <PageTemplate id={'dashboard'} keyPrefix={'pages.dashboard'} customHeading>
-            <HGrid gap="6" columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}>
-                {cards.map((card: ICard, index) => {
-                    return (
-                        <DashboardCard
-                            key={index}
-                            id={`dashboard-card-` + index}
-                            value={card.value}
-                            content={card.content}
-                            link={card.link}
-                        />
-                    );
-                })}
-            </HGrid>
-            <SupportContent />
+            <VStack gap={'8'} maxWidth={'var(--a-breakpoint-2xl)'} marginInline={'auto'}>
+                <HGrid gap="6" columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}>
+                    {cards.map((card: ICard, index) => {
+                        return (
+                            <DashboardCard
+                                key={index}
+                                id={`dashboard-card-` + index}
+                                value={card.value}
+                                content={card.content}
+                                link={card.link}
+                            />
+                        );
+                    })}
+                </HGrid>
+                <SupportContent />
+            </VStack>
         </PageTemplate>
     );
 };

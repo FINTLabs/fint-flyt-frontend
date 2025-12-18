@@ -241,9 +241,6 @@ const UserAccess: RouteComponent = () => {
                         </Table>
                         {editMode && (
                             <HStack justify={'end'} gap={'6'} style={{ marginRight: '24px' }}>
-                                <Button id="form-save-btn" type="submit" onClick={updateUsers}>
-                                    {t('button.save')}
-                                </Button>
                                 <Button
                                     id="form-cancel-btn"
                                     variant={'secondary'}
@@ -253,6 +250,9 @@ const UserAccess: RouteComponent = () => {
                                     }}
                                 >
                                     {t('button.cancel')}
+                                </Button>
+                                <Button id="form-save-btn" type="submit" onClick={updateUsers}>
+                                    {t('button.save')}
                                 </Button>
                             </HStack>
                         )}
