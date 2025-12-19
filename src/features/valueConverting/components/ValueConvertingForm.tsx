@@ -17,6 +17,7 @@ import {AuthorizationContext} from "../../../context/AuthorizationContext";
 import {getSourceApplicationDisplayNameById} from "../../../util/TableUtil";
 import useValueConvertingRepository from '../../../api/useValueConvertingRepository';
 import useResourceRepository from '../../../api/useResourceRepository';
+import FormPageWrapper from '../../../components/molecules/FormPageWrapper';
 
 type Props = {
     existingValueConverting: IValueConverting | undefined;
@@ -59,10 +60,7 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
             const sortedResult = sortAndHandleSelectables(result.data)
             setToSelectables(sortedResult);
         }))
-/*        getSelectables([{url: "api/intern/arkiv/kodeverk/format",},
-        ]).then((result: ISelectable[]) => {
-            setToSelectables(result);
-        });*/
+
         ValueConvertingRepository.getValueConvertings(0, 1000, 'id', 'DESC', true)
             .then(response => {
                 const data: IValueConverting[] = response.data.content
@@ -172,59 +170,56 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
     }
 
     return (
-        <Box
-            background={"surface-default"}
-            padding="6"
-            borderRadius={"large"}
-            borderWidth="2"
-            borderColor={"border-subtle"}
-        >
+        <FormPageWrapper>
             <FormProvider {...methods}>
                 <form onSubmit={methods.handleSubmit(onSubmit)}>
-                    <VStack gap={"6"}>
-                        <VStack gap={"3"} id={"name-container"}>
-                            <HStack gap={"2"} align="center">
-                                <Heading size={"small"}>{t("valueConvertingName")}</Heading>
+                    <VStack gap={'6'}>
+                        <VStack gap={'3'} id={'name-container'}>
+                            <HStack gap={'2'} align="center">
+                                <Heading size={'small'}>{t('valueConvertingName')}</Heading>
                                 <HelpText title="Hva er dette?" placement="bottom">
-                                    {t("help.valueConvertingName")}
+                                    {t('help.valueConvertingName')}
                                 </HelpText>
                             </HStack>
                             <Controller
                                 rules={{
                                     required: t('requiredField'),
-                                    validate: (value) => !valueConvertings?.includes(value) || t('uniqueField')
+                                    validate: (value) =>
+                                        !valueConvertings?.includes(value) || t('uniqueField'),
                                 }}
-                                name={"displayName"}
-                                defaultValue={""}
-                                render={({field, fieldState}) => (
+                                name={'displayName'}
+                                defaultValue={''}
+                                render={({ field, fieldState }) => (
                                     <StringValueComponent
                                         {...field}
                                         disabled={disabled || !valueConvertings}
-                                        displayName={t("displayName")}
+                                        displayName={t('displayName')}
                                         fieldState={fieldState}
                                     />
                                 )}
                             />
                         </VStack>
-                        <HStack gap={"6"} id={"from-to-container"}>
-                            <VStack gap={"3"}>
-                                <HStack gap={"2"} align="center">
-                                    <Heading size={"small"}>{t("from")}</Heading>
+                        <HStack gap={'6'} id={'from-to-container'}>
+                            <VStack gap={'3'}>
+                                <HStack gap={'2'} align="center">
+                                    <Heading size={'small'}>{t('from')}</Heading>
                                     <HelpText title="Hva er dette?" placement="bottom">
-                                        {t("help.from")}
+                                        {t('help.from')}
                                     </HelpText>
                                 </HStack>
-                                <VStack gap={"3"}>
+                                <VStack gap={'3'}>
                                     <Controller
-                                        rules={{required: {value: true, message: t('requiredField')}}}
-                                        name={"fromApplicationId"}
-                                        defaultValue={""}
-                                        render={({field, fieldState}) => (
+                                        rules={{
+                                            required: { value: true, message: t('requiredField') },
+                                        }}
+                                        name={'fromApplicationId'}
+                                        defaultValue={''}
+                                        render={({ field, fieldState }) => (
                                             <SelectValueComponent
                                                 {...field}
                                                 fieldState={fieldState}
                                                 disabled={disabled}
-                                                displayName={t("fromApplicationId")}
+                                                displayName={t('fromApplicationId')}
                                                 selectables={selectableSourceApplications.map(
                                                     (fromApplicationId) => {
                                                         return {
@@ -237,15 +232,17 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
                                         )}
                                     />
                                     <Controller
-                                        rules={{required: {value: true, message: t('requiredField')}}}
-                                        name={"fromTypeId"}
-                                        defaultValue={""}
-                                        render={({field, fieldState}) => (
+                                        rules={{
+                                            required: { value: true, message: t('requiredField') },
+                                        }}
+                                        name={'fromTypeId'}
+                                        defaultValue={''}
+                                        render={({ field, fieldState }) => (
                                             <SelectValueComponent
                                                 {...field}
                                                 fieldState={fieldState}
                                                 disabled={disabled}
-                                                displayName={t("fromTypeId")}
+                                                displayName={t('fromTypeId')}
                                                 selectables={fromTypeIds.map((fromTypeId) => {
                                                     return {
                                                         displayName: fromTypeId.label,
@@ -257,24 +254,26 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
                                     />
                                 </VStack>
                             </VStack>
-                            <VStack gap={"3"}>
-                                <HStack gap={"2"} align="center">
-                                    <Heading size={"small"}>{t("to")}</Heading>
+                            <VStack gap={'3'}>
+                                <HStack gap={'2'} align="center">
+                                    <Heading size={'small'}>{t('to')}</Heading>
                                     <HelpText title="Hva er dette?" placement="bottom">
-                                        {t("help.to")}
+                                        {t('help.to')}
                                     </HelpText>
                                 </HStack>
-                                <VStack gap={"3"}>
+                                <VStack gap={'3'}>
                                     <Controller
-                                        rules={{required: {value: true, message: t('requiredField')}}}
-                                        name={"toApplicationId"}
-                                        defaultValue={""}
-                                        render={({field, fieldState}) => (
+                                        rules={{
+                                            required: { value: true, message: t('requiredField') },
+                                        }}
+                                        name={'toApplicationId'}
+                                        defaultValue={''}
+                                        render={({ field, fieldState }) => (
                                             <SelectValueComponent
                                                 {...field}
                                                 fieldState={fieldState}
                                                 disabled={disabled}
-                                                displayName={t("toApplicationId")}
+                                                displayName={t('toApplicationId')}
                                                 selectables={destinations.map((destination) => {
                                                     return {
                                                         displayName: destination.label,
@@ -285,15 +284,17 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
                                         )}
                                     />
                                     <Controller
-                                        rules={{required: {value: true, message: t('requiredField')}}}
-                                        name={"toTypeId"}
-                                        defaultValue={""}
-                                        render={({field, fieldState}) => (
+                                        rules={{
+                                            required: { value: true, message: t('requiredField') },
+                                        }}
+                                        name={'toTypeId'}
+                                        defaultValue={''}
+                                        render={({ field, fieldState }) => (
                                             <SelectValueComponent
                                                 {...field}
                                                 fieldState={fieldState}
                                                 disabled={disabled}
-                                                displayName={t("toTypeId")}
+                                                displayName={t('toTypeId')}
                                                 selectables={toTypeIds.map((toTypeId) => {
                                                     return {
                                                         displayName: toTypeId.label,
@@ -306,44 +307,54 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
                                 </VStack>
                             </VStack>
                         </HStack>
-                        <VStack gap={"3"} id={"value-convertings-container"}>
-                            <HStack gap={"2"} align="center">
-                                <Heading id={"value-convertings-header"} size={"small"}>
-                                    {t("convertingMap")}
+                        <VStack gap={'3'} id={'value-convertings-container'}>
+                            <HStack gap={'2'} align="center">
+                                <Heading id={'value-convertings-header'} size={'small'}>
+                                    {t('convertingMap')}
                                 </Heading>
                                 <HelpText title="Konverteringer informasjon" placement="bottom">
-                                    {t("help.convertingMap")}
+                                    {t('help.convertingMap')}
                                 </HelpText>
                             </HStack>
                             <ArrayComponent
-                                absoluteKey={"convertingArray"}
+                                absoluteKey={'convertingArray'}
                                 disabled={disabled}
                                 fieldComponentCreator={(index: number, absoluteKey: string) => (
-                                    <HStack gap={"6"} wrap={false}>
+                                    <HStack gap={'6'} wrap={false}>
                                         <Controller
-                                            rules={{required: {value: true, message: t('requiredField')}}}
+                                            rules={{
+                                                required: {
+                                                    value: true,
+                                                    message: t('requiredField'),
+                                                },
+                                            }}
                                             name={`${absoluteKey}.from`}
-                                            defaultValue={""}
-                                            render={({field, fieldState}) => (
+                                            defaultValue={''}
+                                            render={({ field, fieldState }) => (
                                                 <StringValueComponent
                                                     {...field}
                                                     disabled={disabled}
-                                                    displayName={t("from")}
+                                                    displayName={t('from')}
                                                     multiline={true}
                                                     fieldState={fieldState}
                                                 />
                                             )}
                                         />
                                         <Controller
-                                            rules={{required: {value: true, message: t('requiredField')}}}
+                                            rules={{
+                                                required: {
+                                                    value: true,
+                                                    message: t('requiredField'),
+                                                },
+                                            }}
                                             name={`${absoluteKey}.to`}
-                                            defaultValue={""}
-                                            render={({field, fieldState}) => {
-                                                return toTypeIdWatch === "text" ? (
+                                            defaultValue={''}
+                                            render={({ field, fieldState }) => {
+                                                return toTypeIdWatch === 'text' ? (
                                                     <StringValueComponent
                                                         {...field}
                                                         disabled={disabled}
-                                                        displayName={t("to")}
+                                                        displayName={t('to')}
                                                         multiline={true}
                                                         fieldState={fieldState}
                                                     />
@@ -351,7 +362,7 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
                                                     <SearchSelectValueComponent
                                                         {...field}
                                                         disabled={disabled}
-                                                        displayName={t("to")}
+                                                        displayName={t('to')}
                                                         selectables={toSelectables}
                                                         fieldState={fieldState}
                                                     />
@@ -362,15 +373,15 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
                                 )}
                                 defaultValueCreator={() => {
                                     return {
-                                        from: "",
-                                        to: "",
+                                        from: '',
+                                        to: '',
                                     };
                                 }}
                             />
                         </VStack>
                         {show && (
                             <Alert
-                                size={"small"}
+                                size={'small'}
                                 closeButton
                                 onClose={() => {
                                     setShow(false);
@@ -381,26 +392,31 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
                                 {alertContent.message}
                             </Alert>
                         )}
-                        <HStack justify={'end'} id={"button-container"} gap={"4"}>
-                            <Button id={"submit-button"} type="submit" disabled={disabled} size={"small"}>
-                                {t("button.create")}
+                        <HStack justify={'end'} id={'button-container'} gap={'4'}>
+                            <Button
+                                size={'small'}
+                                as={RouterLink}
+                                type={'button'}
+                                variant={'secondary'}
+                                id={'cancel-button'}
+                                onClick={handleCancel}
+                                to={'/valueconverting'}
+                            >
+                                {disabled ? t('button.back') : t('button.cancel')}
                             </Button>
                             <Button
-                                size={"small"}
-                                as={RouterLink}
-                                type={"button"}
-                                variant={'secondary'}
-                                id={"cancel-button"}
-                                onClick={handleCancel}
-                                to={"/valueconverting"}
+                                id={'submit-button'}
+                                type="submit"
+                                disabled={disabled}
+                                size={'small'}
                             >
-                                {disabled ? t("button.back") : t("button.cancel")}
+                                {t('button.create')}
                             </Button>
                         </HStack>
                     </VStack>
                 </form>
             </FormProvider>
-        </Box>
+        </FormPageWrapper>
     );
 };
 
