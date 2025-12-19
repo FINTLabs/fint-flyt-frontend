@@ -214,7 +214,7 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                                 {t('table.column.sourceApplicationInstanceId')}
                             </Table.ColumnHeader>
                             <Table.ColumnHeader>{t('table.column.timestamp')}</Table.ColumnHeader>
-                            <Table.ColumnHeader>{t('table.column.status')}</Table.ColumnHeader>
+                            <Table.ColumnHeader align={'center'}>{t('table.column.status')}</Table.ColumnHeader>
                             <Table.ColumnHeader>{t('table.column.storage')}</Table.ColumnHeader>
                             <Table.ColumnHeader>
                                 {t('table.column.archiveInstanceId')}

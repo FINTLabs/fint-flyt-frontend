@@ -49,6 +49,7 @@ const MenuItems = () => {
                 .map((route) => (
                     <Hide below="lg" asChild key={route.name}>
                         <InternalHeader.Button
+                            data-testid={`appbar-link-${route.name}`}
                             onClick={() => {
                                 navigate(route.path);
                             }}
@@ -60,6 +61,7 @@ const MenuItems = () => {
             {hasAccessToUserPermissionPage && (
                 <Hide below="lg" asChild key={'useraccess'}>
                     <InternalHeader.Button
+                        data-testid={'appbar-link-useraccess'}
                         onClick={() => {
                             navigate('/useraccess');
                         }}
