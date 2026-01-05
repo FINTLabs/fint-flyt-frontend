@@ -14,6 +14,9 @@ patches:
         path: "/metadata/labels/app.kubernetes.io~1instance"
         value: "fint-flyt-frontend_agderfk-no"
       - op: replace
+        path: "/spec/image"
+        value: ghcr.io/fintlabs/fint-flyt-frontend-agderfk-no-beta
+      - op: replace
         path: "/spec/orgId"
         value: "agderfk.no"
       - op: replace
