@@ -24,13 +24,19 @@ describe("Testing Routes", () => {
             },
         }).as('getAuth');		cy.intercept("GET", "**/authorization/me/restricted-page-authorization", {userPermissionPage: true}).as("getUserPermissionsPage")
 		cy.intercept("GET", "**/authorization/users?page=0&size=10", {fixture: "users.json"}).as("getUsersPermissions")
+		cy.intercept("GET", "**/api/application/configuration", {
+			forceNetworkError: true,
+			fixture: "basepathConfig.json",
+		}).as("getConfig");
 		cy.visit("/");
+		cy.wait("@getConfig");
 	}
 
 	it("should open all links", () => {
 		prep();
 		links.forEach((link) => {
 			cy.visit(link);
+			cy.wait("@getConfig");
 		});
 	});
 

@@ -23,7 +23,12 @@ function prep() {
     }).as('getAuth');    cy.intercept("GET", "**/authorization/me/restricted-page-authorization", {userPermissionPage: true}).as("getUserPermissionsPage")
     cy.intercept("GET", "**/authorization/users?page=0&size=10", {fixture: "users.json"}).as("getUsersPermissions")
     cy.intercept('POST', '**/integrasjoner', {fixture: 'postFixture.json'}).as('postIntegration')
+    cy.intercept('GET', '**/api/application/configuration', {
+        forceNetworkError: true,
+        fixture: 'basepathConfig.json'
+    }).as('getConfig')
     cy.visit('/integration/new')
+    cy.wait('@getConfig')
     fillAll()
     cy.get('#form-settings-confirm-btn').click()
     cy.wait('@postIntegration').its('request.body').should('deep.equal', {

@@ -3,7 +3,7 @@
 [![CI](https://github.com/FINTLabs/fint-flyt-frontend/actions/workflows/CI.yaml/badge.svg)](https://github.com/FINTLabs/fint-flyt-frontend/actions/workflows/CI.yaml)
 
 ## Quick Start  
-### Run the Application locally 
+### Run the Application  
 ```bash
 yarn start
 ```

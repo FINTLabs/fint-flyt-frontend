@@ -1,16 +1,14 @@
-import React, { lazy } from 'react';
 import IRoute from './Route';
-
-const Dashboard = lazy(() => import('../components/pages/Dashboard'));
-const IntegrationForm = lazy(() => import('../features/integration/IntegrationForm'));
-const Configuration = lazy(() => import('../components/pages/Configuration'));
-const UserGuide = lazy(() => import('../features/support/components/UserGuide'));
-const Version = lazy(() => import('../components/pages/Version'));
-const ValueConverting = lazy(() => import('../components/pages/ValueConverting'));
-const Instances = lazy(() => import('../components/pages/Instances'));
-const Integrations = lazy(() => import('../components/pages/Integrations'));
-const Forbidden = lazy(() => import('../components/pages/Forbidden'));
-const UserAccess = lazy(() => import('../components/pages/UserAccess'));
+import Dashboard from '../components/pages/Dashboard';
+import IntegrationForm from '../features/integration/IntegrationForm';
+import Configuration from '../components/pages/Configuration';
+import UserGuide from '../features/support/components/UserGuide';
+import Version from '../components/pages/Version';
+import ValueConverting from '../components/pages/ValueConverting';
+import Instances from '../components/pages/Instances';
+import Integrations from '../components/pages/Integrations';
+import Forbidden from '../components/pages/Forbidden';
+import UserAccess from '../components/pages/UserAccess';
 
 const routes: IRoute[] = [
     {

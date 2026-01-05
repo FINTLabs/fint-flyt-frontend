@@ -8,7 +8,12 @@ describe('Testing version page', () => {
             },
         }).as('getAuth');        cy.intercept("GET", "**/authorization/me/restricted-page-authorization", {userPermissionPage: true}).as("getUserPermissionsPage")
         cy.intercept("GET", "**/authorization/users?page=0&size=10", {fixture: "users.json"}).as("getUsersPermissions")
+        cy.intercept('GET', '**/api/application/configuration', {
+            forceNetworkError: true,
+            fixture: 'basepathConfig.json'
+        }).as('getConfig')
         cy.visit('/version');
+        cy.wait('@getConfig')
     }
 
     it('should show version page', () => {

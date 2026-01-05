@@ -35,7 +35,12 @@ describe('Testing create new configuration from new integration', () => {
             },
         }).as('getAuth');        cy.intercept("GET", "**/authorization/me/restricted-page-authorization", {userPermissionPage: true}).as("getUserPermissionsPage")
         cy.intercept("GET", "**/authorization/users?page=0&size=10", {fixture: "users.json"}).as("getUsersPermissions")
+        cy.intercept('GET', '**/api/application/configuration', {
+            forceNetworkError: true,
+            fixture: 'basepathConfig.json'
+        }).as('getConfig')
         cy.visit('/integration/new')
+        cy.wait('@getConfig')
         fillAll()
         cy.get('#form-settings-confirm-btn').click()
         cy.wait('@postIntegration').its('request.body').should('deep.equal', {
@@ -79,7 +84,12 @@ describe('Testing creating new and editing configurations from integration overv
             },
         }).as('getAuth');        cy.intercept("GET", "**/authorization/me/restricted-page-authorization", {userPermissionPage: true}).as("getUserPermissionsPage")
         cy.intercept("GET", "**/authorization/users?page=0&size=10", {fixture: "users.json"}).as("getUsersPermissions")
+        cy.intercept('GET', '**/api/application/configuration', {
+            forceNetworkError: true,
+            fixture: 'basepathConfig.json'
+        }).as('getConfig')
         cy.visit('/integration/list')
+        cy.wait('@getConfig')
     }
 
     beforeEach(() => {

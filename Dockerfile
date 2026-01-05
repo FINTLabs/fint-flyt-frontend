@@ -1,14 +1,18 @@
-ARG BASE_PATH=/
+FROM node:22.21.1-alpine AS builder
+WORKDIR /src
+COPY package.json .
+COPY yarn.lock .
+RUN yarn install
+COPY . /src
+RUN yarn test:ci && yarn build
+
 
 FROM node:22.21.1-alpine
-WORKDIR /src
-ARG BASE_PATH
-ENV BASE_PATH=$BASE_PATH
-COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
-COPY . .
-RUN yarn build
-
-ENV PORT=8000
-EXPOSE 8000
-CMD ["yarn", "serve"]
+WORKDIR /usr/src/app
+RUN mkdir -p server
+COPY server/package*.json server
+COPY server/yarn.lock*.json server
+COPY --from=builder /src/build/ build
+RUN yarn --cwd server install
+COPY server server
+CMD [ "node", "server/index.js" ]

@@ -6,40 +6,39 @@ import {
     AdapterResponse,
     ApiAdapterContext,
 } from '../context/ApiAdapterContext';
-const API_URL = import.meta.env.VITE_API_ARCH || '';
 
 export default function useResourceRepository() {
     const { get } = useContext(ApiAdapterContext);
 
     const getClasses = (link: string) => {
-        return get(API_URL, `/api/intern/arkiv/kodeverk/klasse/`, {
+        return get(`/api/intern/arkiv/kodeverk/klasse/`, {
             params: { klassifikasjonssystemLink: link },
         });
     };
 
     const getResource = (resource: string) => {
-        return get(API_URL, `/api/intern/arkiv/kodeverk/${resource}`);
+        return get(`/api/intern/arkiv/kodeverk/${resource}`);
     };
 
     const getSelectables = (
         url: string,
         config?: AdapterRequestConfigType
     ): Promise<AdapterResponse<ISelectable[]>> => {
-        return get<ISelectable[]>(API_URL, url, config);
+        return get<ISelectable[]>(url, config);
     };
 
     const getSelectableKodeverkFormat = () => {
-        return get<ISelectable[]>(API_URL, '/api/intern/arkiv/kodeverk/format');
+        return get<ISelectable[]>('/api/intern/arkiv/kodeverk/format');
     };
 
     const getSak = (caseYear: number | string, id: number | string) => {
-        return get(API_URL, `/api/intern/arkiv/saker/${caseYear}/${id}/tittel`, {
+        return get(`/api/intern/arkiv/saker/${caseYear}/${id}/tittel`, {
             timeout: 10000,
         });
     };
 
     const search = (source: Source): Promise<{ value: string } | undefined> => {
-        return get<{ value: string }>(API_URL, source.url, source.config)
+        return get<{ value: string }>(source.url, source.config)
             .then<{ value: string } | undefined>(
                 (
                     response: AdapterResponse<{ value: string } | undefined>
