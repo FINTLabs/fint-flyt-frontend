@@ -19,14 +19,14 @@ jobs:
       matrix:
         org:
 #          - afk-no
-#          - agderfk-no
+          - agderfk-no
 #          - bfk-no
 #          - ffk-no
           - fintlabs-no
 #          - innlandetfylke-no
 #          - mrfylke-no
 #          - nfk-no
-#          - ofk-no
+          - ofk-no
           - rogfk-no
 #          - telemarkfylke-no
 #          - tromsfylke-no
