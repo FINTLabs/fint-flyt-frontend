@@ -19,14 +19,14 @@ jobs:
       matrix:
         org:
 #          - afk-no
-          - agderfk-no
+#          - agderfk-no
 #          - bfk-no
 #          - ffk-no
           - fintlabs-no
 #          - innlandetfylke-no
 #          - mrfylke-no
 #          - nfk-no
-          - ofk-no
+#          - ofk-no
           - rogfk-no
 #          - telemarkfylke-no
 #          - tromsfylke-no
@@ -74,7 +74,7 @@ jobs:
         uses: docker/metadata-action@v5
         id: meta
         with:
-          images: "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}"
+          images: "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-${{ matrix.org }}-${{ steps.environment.outputs.result }}"
           tags: type=sha,enable=true,priority=100,prefix=shaF-,suffix=,format=short
 
       - name: Build and push Docker image
