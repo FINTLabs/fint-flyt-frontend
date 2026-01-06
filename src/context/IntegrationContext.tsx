@@ -129,20 +129,21 @@ const IntegrationProvider = ({ children }: ContextProps) => {
                 ]);
 
             const statistics: ITotalStatistics = statisticsResponse.data || [];
-            const sourceApplicationIds =
-                sourceApplicationsResponse.data.sourceApplicationIds.map(String);
+
+
+            const sourceApplicationIds = sourceApplicationsResponse.data.sourceApplicationIds.map(String).join(',')
             const integrations: IIntegration[] = integrationResponse.data.content || [];
 
             if (integrations.length > 0) {
                 setTotalStatistics(statistics);
 
-                const metadataResponses = await Promise.all(
-                    sourceApplicationIds.map((sourceApplicationId) =>
-                        SourceApplicationRepository.getMetadata(sourceApplicationId, true)
-                    )
-                );
+                const metadataResponse =
+                    await SourceApplicationRepository.getMetadataForSourceApplications(
+                        sourceApplicationIds,
+                        true
+                    );
 
-                const metadata = metadataResponses.flatMap((response) => response.data || []);
+                const metadata = Object.values(metadataResponse.data).flat()
 
                 const updatedIntegrations = integrations.map((integration) => {
                     const meta = metadata.find(

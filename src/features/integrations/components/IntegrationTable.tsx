@@ -82,22 +82,20 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({
                         sort ? (sort.direction === 'ascending' ? 'ASC' : 'DESC') : 'ASC'
                     ),
                 ]);
-                const data = statsResponse.data;
-                setDetailedStats(data.content);
+                const statsData = statsResponse.data;
+                setDetailedStats(statsData.content);
 
-                const mergedList = integrationResponse.data || [];
-                allMetadata.forEach((value: IIntegrationMetadata) => {
-                    mergedList.content.forEach((integration: IIntegration) => {
-                        if (
-                            integration.sourceApplicationIntegrationId ===
-                            value.sourceApplicationIntegrationId
-                        ) {
-                            integration.displayName = value.integrationDisplayName;
-                        }
-                    });
-                });
+                const integrationData = integrationResponse.data || []
+                integrationData.content.map((integration: IIntegration) => {
+                    const integrationMetaData = allMetadata?.find(
+                        (metaData) =>
+                            metaData.sourceApplicationIntegrationId ===
+                            integration.sourceApplicationIntegrationId
+                    );
+                    integration.displayName = integrationMetaData?.integrationDisplayName;
+                })
 
-                const sortedData: IIntegration[] = mergedList.content
+                const sortedData: IIntegration[] = integrationData.content
                     .slice()
                     .sort((a: IIntegration, b: IIntegration) => {
                         if (sort) {
@@ -107,7 +105,7 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({
                         }
                         return 1;
                     });
-                setIntegrations({ ...mergedList, content: sortedData });
+                setIntegrations({ ...integrationData, content: sortedData });
             } catch (e) {
                 onError({ message: t('errorMessage') });
                 console.error('Error: ', e);
@@ -211,7 +209,7 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({
                                         <Table.DataCell>
                                             {value.sourceApplicationIntegrationId}
                                         </Table.DataCell>
-                                        <Table.DataCell>{value.displayName} ?</Table.DataCell>
+                                        <Table.DataCell>{value.displayName}</Table.DataCell>
                                         <Table.DataCell>
                                             {getDestinationDisplayName(value.destination ?? '')}
                                         </Table.DataCell>
