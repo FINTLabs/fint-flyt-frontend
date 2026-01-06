@@ -18,21 +18,21 @@ jobs:
     strategy:
       matrix:
         org:
-#          - afk-no
+          - afk-no
           - agderfk-no
-#          - bfk-no
-#          - ffk-no
+          - bfk-no
+          - ffk-no
           - fintlabs-no
-#          - innlandetfylke-no
-#          - mrfylke-no
-#          - nfk-no
+          - innlandetfylke-no
+          - mrfylke-no
+          - nfk-no
           - ofk-no
           - rogfk-no
-#          - telemarkfylke-no
-#          - tromsfylke-no
-#          - trondelagfylke-no
-#          - vestfoldfylke-no
-#          - vlfk-no
+          - telemarkfylke-no
+          - tromsfylke-no
+          - trondelagfylke-no
+          - vestfoldfylke-no
+          - vlfk-no
 
         cluster:
           - aks-beta-fint-2021-11-23
