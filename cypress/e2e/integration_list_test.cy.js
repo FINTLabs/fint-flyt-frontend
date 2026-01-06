@@ -10,8 +10,8 @@ describe('Testing integration list', () => {
         cy.intercept('GET', '**/instance-flow-tracking/statistics/integrations', {
             fixture: 'historikk.json',
         }).as('getHistory');
-        cy.intercept('GET', '**/metadata?kildeapplikasjonId=*&bareSisteVersjoner=*', {
-            fixture: 'metadata.json',
+        cy.intercept('GET', '**/metadata?kildeapplikasjonIds=*&bareSisteVersjoner=*', {
+            fixture: 'metadataBySourceApplication.json',
         }).as('getMetadata');
         cy.intercept(
             'GET',
@@ -86,6 +86,19 @@ describe('Testing integration list', () => {
         });
 
         cy.get('#integration-table').find('tbody tr').should('have.length', 3); // forventet antall
+    });
+
+    it('should contain correct displayName', () => {
+        prep();
+        cy.wait('@getIntegrations');
+
+        cy.get('#integration-table')
+            .find('tbody tr')
+            .first()
+            .find('td')
+            .eq(4)
+            .should('have.text', 'Arkivsak');
+
     });
 
     it('should open panel', () => {

@@ -18,8 +18,9 @@ describe('Testing create new configuration from new integration', () => {
         cy.intercept('GET', '**/integrasjoner?side=0&antall=10&sorteringFelt=state&sorteringRetning=ASC', {fixture: 'integrations.json'}).as('getIntegrations')
         cy.intercept('GET', '**/metadata?kildeapplikasjonId=2&bareSisteVersjoner=true', {fixture: 'metadataLatest.json'}).as('getLatestMetadata')
         cy.intercept('GET', '**/integrasjoner?sourceApplicationId=*', {fixture: 'integrationForSource2.json'}).as('getAllIntegrationBySourceApplicationId')
-        cy.intercept('GET', '**/metadata?kildeapplikasjonId=*', {fixture: 'metadata.json'}).as('getMetadata')
-        cy.intercept('GET', '**/metadata?kildeapplikasjonId=2&bareSisteVersjoner=false', {fixture: 'metadata.json'}).as('getMetadata')
+        cy.intercept('GET', '**/metadata?kildeapplikasjonIds=*&bareSisteVersjoner=*', {
+            fixture: 'metadataBySourceApplication.json',
+        }).as('getMetadata');
         cy.intercept('GET', '**/metadata/4/instans-metadata', {fixture: 'instansMetadata.json'}).as('getInstansMetadata')
         cy.intercept('GET', '**/value-convertings?page=0&size=100&sortProperty=fromApplicationId&sortDirection=ASC&excludeConvertingMap=true', {fixture: 'valueconverting/valueconvertings.json'}).as('getValueconvertings')
         cy.intercept('GET', '**/value-convertings?page=0&size=100&sortProperty=fromApplicationId&sortDirection=ASC&excludeConvertingMap=false', {fixture: 'valueconverting/valueconvertings.json'}).as('getValueconvertings')
@@ -93,10 +94,9 @@ describe('Testing creating new and editing configurations from integration overv
         cy.intercept('GET', '**/integrasjoner', {fixture: 'allIntegrations.json'}).as('getAllIntegrations');
         // cy.intercept('GET', '**/historikk/statistikk/integrasjoner', {fixture: 'historikk.json'}).as('getHistory')
         cy.intercept('GET', '**/metadata?kildeapplikasjonId=*&bareSisteVersjoner=true', {fixture: 'metadataLatest.json'}).as('getLatestMetadata');
-        cy.intercept('GET', '**/metadata?kildeapplikasjonId=1&bareSisteVersjoner=false', {fixture: 'metadata.json'}).as('getMetadata');
-        cy.intercept('GET', '**/metadata?kildeapplikasjonId=2&bareSisteVersjoner=false', {fixture: 'metadata.json'}).as('getMetadata')
-        cy.intercept('GET', '**/metadata?kildeapplikasjonId=3&bareSisteVersjoner=false', {fixture: 'metadata.json'}).as('getMetadata')
-        cy.intercept('GET', '**/metadata?kildeapplikasjonId=4&bareSisteVersjoner=false', {fixture: 'metadata.json'}).as('getMetadata')
+        cy.intercept('GET', '**/metadata?kildeapplikasjonIds=*&bareSisteVersjoner=*', {
+            fixture: 'metadataBySourceApplication.json',
+        }).as('getMetadata');
         cy.intercept('GET', '**/metadata/11/instans-metadata', {fixture: 'instansMetadata.json'}).as('getInstansMetadata');
         cy.intercept('GET', '**/metadata/1/instans-metadata', {fixture: 'instansMetadata.json'}).as('getInstansMetadata');
         cy.intercept('GET', '**/value-convertings?page=0&size=100&sortProperty=fromApplicationId&sortDirection=ASC&excludeConvertingMap=false', {fixture: 'valueconverting/valueconvertings.json'}).as('getValueconvertings');

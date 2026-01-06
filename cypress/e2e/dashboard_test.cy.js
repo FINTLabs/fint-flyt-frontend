@@ -8,11 +8,9 @@ describe("Testing dashboard", () => {
 		cy.intercept("GET", "**/historikk/statistikk/integrasjoner", {
 			fixture: "historikk.json",
 		}).as("getHistory");
-		cy.intercept(
-			"GET",
-			"**/metadata?kildeapplikasjonId=*&bareSisteVersjoner=true",
-			{ fixture: "metadata.json" }
-		).as("getMetadata");
+        cy.intercept('GET', '**/metadata?kildeapplikasjonIds=*&bareSisteVersjoner=*', {
+            fixture: 'metadataBySourceApplication.json',
+        }).as('getMetadata');
 		cy.intercept("GET", "**/integrasjoner", {
 			fixture: "integrations.json",
 		}).as("getIntegrations");
