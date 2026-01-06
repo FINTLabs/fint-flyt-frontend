@@ -62,20 +62,17 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({
 
     useEffect(() => {
         if (allMetadata && !isFetching) {
-            if (integrations?.totalElements && integrations.totalElements < Number(rowCount)) {
-                setPage(1);
-            }
             setIntegrations(undefined);
             getAllIntegrations(rowCount, sort);
         }
-    }, [page, setPage, sort, rowCount, allMetadata]);
+    }, [page, sort?.orderBy, sort?.direction, rowCount, allMetadata?.length]);
 
     const getAllIntegrations = async (rowCount: string, sort?: SortState) => {
         onError(undefined);
         if (allMetadata) {
-            setIsFetching(true);
-            setIsLoading(true);
             try {
+                setIsFetching(true);
+                setIsLoading(true);
                 const [statsResponse, integrationResponse] = await Promise.all([
                     InstanceFlowTrackingRepository.getStatistics(),
                     IntegrationRepository.getIntegrations(
@@ -214,7 +211,7 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({
                                         <Table.DataCell>
                                             {value.sourceApplicationIntegrationId}
                                         </Table.DataCell>
-                                        <Table.DataCell>{value.displayName}</Table.DataCell>
+                                        <Table.DataCell>{value.displayName} ?</Table.DataCell>
                                         <Table.DataCell>
                                             {getDestinationDisplayName(value.destination ?? '')}
                                         </Table.DataCell>
@@ -247,7 +244,10 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({
                 {integrations?.totalElements !== undefined && (
                     <CustomSelect
                         options={selectOptions}
-                        onChange={setRowCount}
+                        onChange={(value) => {
+                            setPage(1);
+                            setRowCount(value);
+                        }}
                         label={t('numberPerPage')}
                         hideLabel={true}
                         default={rowCount}

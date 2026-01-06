@@ -29,7 +29,7 @@ const FilterForm: React.FC = () => {
     const { allMetadata } = useContext(SourceApplicationContext);
     const { t } = useTranslation('translations', { keyPrefix: 'pages.instances' });
 
-    const { clearFilters, saveFilters, filters, updateFilter, areFiltersActive } = useFilters();
+    const { clearFilters, saveFilters, filters, updateFilter } = useFilters();
     const [openCard, setOpenCard] = useState<string | null>(null);
     const [allIntegrations, setAllIntegrations] = useState<IIntegration[]>([]);
     const ref = useRef<HTMLDialogElement>(null);
@@ -42,6 +42,15 @@ const FilterForm: React.FC = () => {
         timeCurrentPeriodOptions,
         instanceStatusEventCategoriesOptions,
     } = useOptions();
+
+    useEffect(() => {
+        if (filters) {
+            setFilterCount(
+                Object.entries(filters).filter(([, value]) => value != null && value.length > 0)
+                    .length
+            );
+        }
+    }, []);
 
     useEffect(() => {
         IntegrationRepository.getAllIntegrations()

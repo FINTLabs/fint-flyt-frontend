@@ -58,8 +58,8 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
     }, [allMetadata, summaryList]);
 
     useEffect(() => {
-        if (allMetadata && !isFetching) {
-            setIsFetching(true);
+        if (allMetadata?.length && !isFetching) {
+            setLoading(true);
             setExpandedRows([]);
             getLatestInstances(String(Number(rowCount) * Number(fetchMoreCount)));
         }
@@ -74,9 +74,8 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
     const getLatestInstances = async (size: string) => {
         onError(undefined);
         if (allMetadata) {
-            setIsFetching(true);
-            setLoading(true);
             try {
+                setIsFetching(true);
                 const eventResponse = await InstanceFlowTrackingRepository.getLatestEvents(
                     Number(size),
                     filters
@@ -214,12 +213,16 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                                 {t('table.column.sourceApplicationInstanceId')}
                             </Table.ColumnHeader>
                             <Table.ColumnHeader>{t('table.column.timestamp')}</Table.ColumnHeader>
-                            <Table.ColumnHeader align={'center'}>{t('table.column.status')}</Table.ColumnHeader>
+                            <Table.ColumnHeader align={'center'}>
+                                {t('table.column.status')}
+                            </Table.ColumnHeader>
                             <Table.ColumnHeader>{t('table.column.storage')}</Table.ColumnHeader>
                             <Table.ColumnHeader>
                                 {t('table.column.archiveInstanceId')}
                             </Table.ColumnHeader>
-                            <Table.ColumnHeader align={'right'}>{t('table.column.actions')}</Table.ColumnHeader>
+                            <Table.ColumnHeader align={'right'}>
+                                {t('table.column.actions')}
+                            </Table.ColumnHeader>
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>

@@ -11,7 +11,7 @@ import { IAlertMessage } from '../types/TableTypes';
 
 const Integrations: RouteComponent = () => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.integrations' });
-    const { getAllMetadata } = useContext(SourceApplicationContext);
+    const { getAllMetadata, allMetadata } = useContext(SourceApplicationContext);
     const [error, setError] = useState<IAlertMessage | undefined>(undefined);
     const { authorized, getAuthorization } = useContext(AuthorizationContext);
     const history = useNavigate();
@@ -27,7 +27,9 @@ const Integrations: RouteComponent = () => {
     }, []);
 
     useEffect(() => {
-        getAllMetadata(false);
+        if (!allMetadata) {
+            getAllMetadata(true);
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

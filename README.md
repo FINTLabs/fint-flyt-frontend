@@ -30,9 +30,9 @@ yarn test
 3. **Set the Namespace**  
    Confirm the namespace is properly configured:
   
- NAMESPACE="vlfk-no"
+ NAMESPACE="fintlabs-no"
  ```bash
-    kubectl config set-context --current --namespace="vlfk-no"
+    kubectl config set-context --current --namespace="fintlabs-no"
    ```
 
 4. **Check Proxy Configuration**  
