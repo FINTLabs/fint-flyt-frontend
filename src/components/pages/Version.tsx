@@ -28,17 +28,22 @@ const Version: RouteComponent = () => {
                 background={'surface-default'}
                 maxWidth={'var(--a-breakpoint-lg)'}
             >
-                <VStack gap={'16'}>
+                <VStack gap="16">
                     <BodyLong>{getAboutByLanguage(i18n.language)}</BodyLong>
-                    <VStack gap={'8'}>
+
+                    <VStack gap="8">
                         {getVersionDataByLanguage(i18n.language).map((value, i) => (
-                            <VStack key={i} gap={'0'}>
+                            <VStack key={i} gap="0">
                                 <Heading level="2" size="small" spacing={false}>
                                     {value.heading}
                                 </Heading>
+
                                 <List as="ul">
-                                    {value.updates.map((update, liIndex) => (
-                                        <List.Item key={liIndex}>{update}</List.Item>
+                                    {value.updates.map((u, liIndex) => (
+                                        <List.Item key={liIndex}>
+                                            {u.title && <strong>{u.title} </strong>}
+                                            {u.text}
+                                        </List.Item>
                                     ))}
                                 </List>
                             </VStack>

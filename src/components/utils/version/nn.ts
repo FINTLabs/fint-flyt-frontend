@@ -1,101 +1,181 @@
 import { VersionEntry } from './types';
 
 export const ABOUT_VERSIONS_NN =
-    "FLYT er under kontinuerleg utvikling og det blir stadig lagt til ny funksjonalitet og forbetra brukaroppleving basert på innspel frå brukarar. Denne sida beskriv større endringar og feilrettingar i FLYT";
+    'FLYT er under kontinuerleg utvikling og det blir stadig lagt til ny funksjonalitet og forbetra brukaroppleving basert på innspel frå brukarar. Denne sida beskriv større endringar og feilrettingar i FLYT';
 
 export const VERSION_DATA_NN: VersionEntry[] = [
+
     {
-        heading: "Oktober 2025",
+        heading: "Januar 2026",
         updates: [
-            "Du kan no sjå kven som har gjort endringar i konfigurasjonar, og når dei vart gjort."
+            {
+                title: "Visuelle endringar:",
+                text: "Fleire rammer rundt tabellar og element er fjerna, og fargebruken er justert for betre samsvar med Novaria-profilen."
+            },
+            {
+                title: "Dashboard:",
+                text: "Nytt design og optimalisert datainnhenting for raskare innlasting."
+            },
+            {
+                title: "Yting i tabellar:",
+                text: "Tabellar lastar no merkbart raskare med redusert ventetid før vising."
+            },
+            {
+                title: "Designendringar i tabellane:",
+                text: "Ny lastingsindikator gjer at tabellen blir vist før all data er ferdig innlasta."
+            },
+            {
+                title: "Filtrering i instans-tabellen:",
+                text: "Sidepanelet er erstatta av ein modal. Filterknappen viser no talet på aktive filter."
+            },
+            {
+                title: "Konfigurasjonssida:",
+                text: "Små visuelle justeringar for eit meir heilskapleg uttrykk."
+            },
+            {
+                title: "Layout:",
+                text: "Alle sider følgjer no ein einskapleg layout for konsekvent plassering av element."
+            },
+            {
+                title: "Kommentarar i konfigurasjonsversjonstabellar:",
+                text: "Lange kommentarar blir trunkerte med ellipsis for å hindre layoutfeil som skjulte handlingsknappen."
+            }
         ]
     },
     {
-        heading: "Juni 2025",
+        heading: "Desember 2025",
         updates: [
-            "Skjemaet for å opprette ein ny integrasjon er no oppdatert slik at ein ikkje lenger kan velja ein integrasjon frå ei kjelde som allereie finst. Integrasjonen vil vera synleg i nedtrekksfeltet, men ikkje mogleg å velja.",
-            "I tillegg er det same skjemaet no forbetra med ei rekkje små endringar for å gjera det meir brukarvennleg."
-            ]
+            {
+                text: "Omskriving av pakkar og oppdatering av versjonar."
+            }
+        ]
     },
     {
-        heading: "Mai 2025",
+        heading: 'Oktober 2025',
         updates: [
-            "Det er no mogleg å logge ut frå FLYT via ein knapp i menyen.",
-            "Små designforbetringar på menyen.",
-            "Opprydding av versjonsloggar på ulike språk",
+            {
+                text: 'Du kan no sjå kven som har gjort endringar i konfigurasjonar, og når dei vart gjort.',
+            },
         ],
     },
     {
-        heading: "April 2025",
+        heading: 'Juni 2025',
         updates: [
-            "Støtte for filtrering i instansoversikta",
-            "Lagt til fleire detaljar i dashbordet for ulike statusar på instansar",
+            {
+                text: 'Skjemaet for å opprette ein ny integrasjon er no oppdatert slik at ein ikkje lenger kan velja ein integrasjon frå ei kjelde som allereie finst. Integrasjonen vil vera synleg i nedtrekksfeltet, men ikkje mogleg å velja.',
+            },
+            {
+                text: 'I tillegg er det same skjemaet no forbetra med ei rekkje små endringar for å gjera det meir brukarvennleg.',
+            },
         ],
     },
     {
-        heading: "Februar 2025",
+        heading: 'Mai 2025',
         updates: [
-            "Konverter til nytt Novari-tema",
-            "Flytta rullefelt til vindauge, set fokus",
+            { text: 'Det er no mogleg å logge ut frå FLYT via ein knapp i menyen.' },
+            { text: 'Små designforbetringar på menyen.' },
+            { text: 'Opprydding av versjonsloggar på ulike språk' },
         ],
     },
     {
-        heading: "Oktober 2024",
+        heading: 'April 2025',
         updates: [
-            "Støtte for VIGO OT",
-            "Lagt til betre og meir presis feilhandsaming",
+            { text: 'Støtte for filtrering i instansoversikta' },
+            { text: 'Lagt til fleire detaljar i dashbordet for ulike statusar på instansar' },
         ],
     },
     {
-        heading: "September 2024",
+        heading: 'Februar 2025',
         updates: [
-            "Sletting av mellomlagra instansar",
-            "Lagt til tilgangsstyring på kjeldeapplikasjon",
+            { text: 'Konverter til nytt Novari-tema' },
+            { text: 'Flytta rullefelt til vindauge, set fokus' },
         ],
     },
     {
-        heading: "August 2024",
+        heading: 'Oktober 2024',
         updates: [
-            "Lagt til manuell handsaming av instansar",
+            { text: 'Støtte for VIGO OT' },
+            { text: 'Lagt til betre og meir presis feilhandsaming' },
         ],
     },
     {
-        heading: "April 2024",
+        heading: 'September 2024',
         updates: [
-            "10.4 Ny verdikonvertering krev unikt namn for å gjera dei enklare å bruka i konfigurasjonar",
+            { text: 'Sletting av mellomlagra instansar' },
+            { text: 'Lagt til tilgangsstyring på kjeldeapplikasjon' },
         ],
     },
     {
-        heading: "Februar 2024",
+        heading: 'August 2024',
+        updates: [{ text: 'Lagt til manuell handsaming av instansar' }],
+    },
+    {
+        heading: 'April 2024',
         updates: [
-            "3.2 Navneendring i konfigurasjonsoppsett, \"dynamisk verdi\" heiter nå \"eigendefinert verdi\"",
+            {
+                title: '10.4:',
+                text: 'Ny verdikonvertering krev unikt namn for å gjera dei enklare å bruka i konfigurasjonar',
+            },
         ],
     },
     {
-        heading: "Januar 2024",
+        heading: 'Februar 2024',
         updates: [
-            "20.1 Lagt til moglegheit for å velja å visa fleire instansar og integrasjonar per side i tabellane",
-            "11.1 Fjerna menyvalet for \"NY\" og oppretta knapp for ny integrasjon på integrasjonssidaa",
-            "5.1 Oppdatert/nytt design på sidene for ny integrasjon og konfigurasjonsoppsett, språkval på menybar",
-            "5.1 Nytt utseende på Dashbordet - Innhald frå supportsida ligg no her",
+            {
+                title: '3.2:',
+                text: 'Navneendring i konfigurasjonsoppsett, "dynamisk verdi" heiter nå "eigendefinert verdi"',
+            },
         ],
     },
     {
-        heading: "Desember 2023",
+        heading: 'Januar 2024',
         updates: [
-            "27.12 Lagt til støtte for engelsk språk i Flyt",
-            "12.12 Nytt design av integrasjonsoversikta",
-            "11.12 Lagt til støtte for nynorsk språk i Flyt",
-            "8.12 Forbetra visning av verdikonvertering med fleire verdiar. Nytt design av instanssida der all informasjon er samla på éi flate.",
-            "1.12 La til ny side med visning av versjonar og kva som er nytt i Flyt",
+            {
+                title: '20.1:',
+                text: 'Lagt til moglegheit for å velja å visa fleire instansar og integrasjonar per side i tabellane',
+            },
+            {
+                title: '11.1:',
+                text: 'Fjerna menyvalet for "NY" og oppretta knapp for ny integrasjon på integrasjonssidaa',
+            },
+            {
+                title: '5.1:',
+                text: 'Oppdatert/nytt design på sidene for ny integrasjon og konfigurasjonsoppsett, språkval på menybar',
+            },
+            {
+                title: '5.1:',
+                text: 'Nytt utseende på Dashbordet - Innhald frå supportsida ligg no her',
+            },
         ],
     },
     {
-        heading: "November 2023",
+        heading: 'Desember 2023',
         updates: [
-            "30.11  Nytt design av vertikonverteringsida og oppdaterte feilmeldingar for instans som feila ved innsending",
-            "27.11  Nytt design av supportsida",
-            "23.11  Diverse feilrettingar og noko endring av brukargrensesnittet",
+            { title: '27.12:', text: 'Lagt til støtte for engelsk språk i Flyt' },
+            { title: '12.12:', text: 'Nytt design av integrasjonsoversikta' },
+            { title: '11.12:', text: 'Lagt til støtte for nynorsk språk i Flyt' },
+            {
+                title: '8.12:',
+                text: 'Forbetra visning av verdikonvertering med fleire verdiar. Nytt design av instanssida der all informasjon er samla på éi flate.',
+            },
+            {
+                title: '1.12:',
+                text: 'La til ny side med visning av versjonar og kva som er nytt i Flyt',
+            },
+        ],
+    },
+    {
+        heading: 'November 2023',
+        updates: [
+            {
+                title: '30.11:',
+                text: 'Nytt design av vertikonverteringsida og oppdaterte feilmeldingar for instans som feila ved innsending',
+            },
+            { title: '27.11:', text: 'Nytt design av supportsida' },
+            {
+                title: '23.11:',
+                text: 'Diverse feilrettingar og noko endring av brukargrensesnittet',
+            },
         ],
     },
 ];
