@@ -20,6 +20,7 @@ import {
     Modal,
     Pagination,
     Table,
+    Tooltip,
     VStack,
 } from '@navikt/ds-react';
 import { MenuElipsisVerticalCircleIcon, PencilWritingIcon } from '@navikt/aksel-icons';
@@ -203,7 +204,19 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
                                 <Table.Row key={i}>
                                     <Table.DataCell>{value.id}</Table.DataCell>
                                     {completed && <Table.DataCell>{value.version}</Table.DataCell>}
-                                    <Table.DataCell>{value.comment}</Table.DataCell>
+                                    <Table.DataCell className={'truncate-datacell'}>
+                                        {value.comment ? (
+                                            <Tooltip content={value.comment} style={{ width: '100px'}} >
+                                                <BodyShort className={'truncate-text'}>
+                                                    {value.comment}
+                                                </BodyShort>
+                                            </Tooltip>
+                                        ) : (
+                                            <BodyShort className={'truncate-text'}>
+                                                {value.comment}
+                                            </BodyShort>
+                                        )}
+                                    </Table.DataCell>
                                     <Table.DataCell>
                                         {formatTimestampToMinutes(
                                             value.lastModifiedAt,
