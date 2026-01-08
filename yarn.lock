@@ -701,28 +701,33 @@
   resolved "https://registry.yarnpkg.com/@navikt/aksel-icons/-/aksel-icons-7.35.1.tgz#83a5150571dd3c01d44e5f20320e56734ace3dc2"
   integrity sha512-O+hpKCF278r37YqAUW2ZGf7Cy9ZEwMANWNEMcIiFdOLpnwaLr8Jy08kbRTC7hQmftvIFBmCeeEH+nw+jXfIUMg==
 
+"@navikt/aksel-icons@^7.37.0":
+  version "7.37.0"
+  resolved "https://registry.yarnpkg.com/@navikt/aksel-icons/-/aksel-icons-7.37.0.tgz#69470b7e21c152f7705df217fd5e3566237c8bc4"
+  integrity sha512-4FwjmO0m2z1390DUJBISTeR6VRmzJZsyrpp+UWxNBk3marIq5vM/11BF1dnIUOjxM3/n0D8DqXS/1q8YiJWPbA==
+
 "@navikt/ds-css@^7.32.2":
   version "7.35.1"
   resolved "https://registry.yarnpkg.com/@navikt/ds-css/-/ds-css-7.35.1.tgz#ab1b484f0bcc0509e52ca86519d1aedbfd7f650b"
   integrity sha512-0ph6eaxhW2VlYwwhZZ+jk0xW8PzL6mRvSyndJDhaQh0biE8caF5JcgIhjbI0Ulgm4pk7hhSzlVx3RsLNIE6nog==
 
-"@navikt/ds-react@^7.32.2":
-  version "7.35.1"
-  resolved "https://registry.yarnpkg.com/@navikt/ds-react/-/ds-react-7.35.1.tgz#bf251df91151f40d3157a88cd6768ef1c6d5a4af"
-  integrity sha512-aYgeTSY2HejC3wEZDJgeDENIYC7gyq1t12BckpAqCPUhOOpE9W6bCad+YfwANcpM1UEKUsq5UdERAP2atU2D4g==
+"@navikt/ds-react@^7.35.3":
+  version "7.37.0"
+  resolved "https://registry.yarnpkg.com/@navikt/ds-react/-/ds-react-7.37.0.tgz#da57447763c409e4a99673de00cf52d33e3aa693"
+  integrity sha512-6dDTNA6Q/iJ3kiBPk9wzejvsNAHqO/ep+iWrWrMF/dR9u7/xVzc7h1gJG9yz1pTcP9U5pODSS94H8PbkhYmX8w==
   dependencies:
     "@floating-ui/react" "0.27.8"
     "@floating-ui/react-dom" "^2.1.6"
-    "@navikt/aksel-icons" "^7.35.1"
-    "@navikt/ds-tokens" "^7.35.1"
+    "@navikt/aksel-icons" "^7.37.0"
+    "@navikt/ds-tokens" "^7.37.0"
     clsx "^2.1.0"
     date-fns "^4.0.0"
     react-day-picker "9.7.0"
 
-"@navikt/ds-tokens@^7.35.1":
-  version "7.35.1"
-  resolved "https://registry.yarnpkg.com/@navikt/ds-tokens/-/ds-tokens-7.35.1.tgz#c6e84a9e9939fdf8e9c638b6bf9d3de136d95afe"
-  integrity sha512-A9a9qJSgj/TKtNdn/n+tkCpaMIuYkBYzAEn+KvAkV5RVaOCQB9P7pJsgm62ZZh2UdT1Ytv3Hh9DY3YeUeCArhA==
+"@navikt/ds-tokens@^7.37.0":
+  version "7.37.0"
+  resolved "https://registry.yarnpkg.com/@navikt/ds-tokens/-/ds-tokens-7.37.0.tgz#faec0475b4703e1ad10265855d1bca1393f1224b"
+  integrity sha512-+ewS/zBXgDE6NgpCsgZe+szCHVc4L+9M2Hmz5oxwvLE79gc4aoBv05ZYzokE/rZWaHLZxZAtv41Omv4XRwrK8g==
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
