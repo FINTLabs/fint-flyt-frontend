@@ -235,7 +235,7 @@ const Configuration: RouteComponent = () => {
                                     {existingIntegration?.displayName}
                                 </Heading>
 
-                                <VStack gap={'3'}>
+                                <VStack gap={'3'} paddingBlock={'0 4'}>
                                     <HStack gap={'6'}>
                                         <Controller
                                             name={'comment'.toString()}
@@ -284,7 +284,6 @@ const Configuration: RouteComponent = () => {
                                         )}
                                     </HStack>
                                     <HStack align={'center'} gap={'6'}>
-                                        {/*{configuration && (*/}
                                         <Button
                                             id="form-submit-btn"
                                             size={'small'}

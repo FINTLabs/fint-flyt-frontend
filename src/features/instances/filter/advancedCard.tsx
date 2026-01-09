@@ -55,7 +55,8 @@ export default function AdvancedCard(props: Props) {
             size="small"
             aria-label={t('advancedCard.ariaLabel') || ''}
             open={props.isOpen}
-            onToggle={() => props.toggleOpen(props.id)}>
+            onToggle={() => props.toggleOpen(props.id)}
+        >
             <ExpansionCard.Header>
                 <ExpansionCard.Title as="h4" size="small">
                     {t('advancedCard.title')}
@@ -65,8 +66,9 @@ export default function AdvancedCard(props: Props) {
                 </ExpansionCard.Description>
             </ExpansionCard.Header>
             <ExpansionCard.Content>
-                <VStack gap="8">
+                <VStack gap="4" paddingBlock="4">
                     <UNSAFE_Combobox
+                        size={'small'}
                         label={t('advancedCard.combobox.label')}
                         options={props.associatedEventNamesOptions.map((option) => ({
                             label: t(`associatedEventNames.${option.value}`, {
@@ -119,7 +121,8 @@ export default function AdvancedCard(props: Props) {
                                         option.value,
                                         !filters.storageStatuses?.includes(option.value)
                                     )
-                                }>
+                                }
+                            >
                                 {t(`intermediateStorageStatusOptions.${option.value}`)}
                             </Chips.Toggle>
                         ))}

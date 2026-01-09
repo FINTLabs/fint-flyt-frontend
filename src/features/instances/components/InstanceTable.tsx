@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { ReactElement, useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Alert, Box, Button, Dropdown, HStack, Loader, Table } from '@navikt/ds-react';
+import { Alert, Box, Button, Dropdown, HStack, Table } from '@navikt/ds-react';
 import { format } from 'date-fns';
 import { getSourceApplicationDisplayNameById } from '../../../util/TableUtil';
 import { IEventNew, ISummary } from '../types/Event';
@@ -16,6 +16,7 @@ import { MenuElipsisVerticalCircleIcon } from '@navikt/aksel-icons';
 import CustomStatusDialogComponent from './CustomStatusDialogComponent';
 import { useFilters } from '../filter/FilterContext';
 import useInstanceFlowTrackingRepository from '../../../api/useInstanceFlowTrackingRepository';
+import TableLoader from '../../../components/molecules/TableLoader';
 
 interface Props {
     onError: (error: IAlertMessage | undefined) => void;
@@ -27,11 +28,10 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
     const InstanceFlowTrackingRepository = useInstanceFlowTrackingRepository();
     const [selectedRow, setSelectedRow] = useState<IEventNew>();
     const [openCustomDialog, setOpenCustomDialog] = React.useState(false);
-    const [page, setPage] = useState(1);
     const errorsNotForRetry: string[] = ['instance-receival-error', 'instance-registration-error'];
     const [summaryList, setSummaryList] = useState<ISummary[]>();
     const [rowCount, setRowCount] = useState<string>('10');
-    const [rowsPerPage, setRowsPerPage] = useState<string>('10');
+    const [fetchMoreCount, setFetchMoreCount] = useState<string>('1');
     const selectOptions = [
         { value: '', label: t('numberPerPage'), disabled: true },
         {
@@ -48,15 +48,22 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
     const { allMetadata } = useContext(SourceApplicationContext);
     const { filters, refreshKey } = useFilters();
     const [loading, setLoading] = useState(true);
-    const [hasFilters, setHasFilters] = useState(false);
+    const [isFetching, setIsFetching] = useState<boolean>(false);
     const [expandedRows, setExpandedRows] = useState<number[]>([]);
 
     useEffect(() => {
-        setLoading(true);
-        setHasFilters(false);
-        setExpandedRows([]);
-        getLatestInstances(rowCount);
-    }, [page, setPage, rowCount, refreshKey]);
+        if (allMetadata && summaryList) {
+            setLoading(false);
+        }
+    }, [allMetadata, summaryList]);
+
+    useEffect(() => {
+        if (allMetadata?.length && !isFetching) {
+            setLoading(true);
+            setExpandedRows([]);
+            getLatestInstances(String(Number(rowCount) * Number(fetchMoreCount)));
+        }
+    }, [rowCount, fetchMoreCount, refreshKey, allMetadata?.length]);
 
     const handleRetryButtonClick = (index: number) => {
         const newDisabledButtons = [...disabledRetryButtons];
@@ -66,54 +73,51 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
 
     const getLatestInstances = async (size: string) => {
         onError(undefined);
+        if (allMetadata) {
+            try {
+                setIsFetching(true);
+                const eventResponse = await InstanceFlowTrackingRepository.getLatestEvents(
+                    Number(size),
+                    filters
+                );
 
-        try {
-            const eventResponse = await InstanceFlowTrackingRepository.getLatestEvents(
-                Number(size),
-                filters
-            );
-
-            const events: ISummary[] = eventResponse.data;
-            if (allMetadata && events) {
-                allMetadata.forEach((value: IIntegrationMetadata) => {
-                    eventResponse.data.forEach((event: ISummary) => {
-                        if (
-                            event.sourceApplicationIntegrationId ===
-                            value.sourceApplicationIntegrationId
-                        ) {
-                            event.displayName = value.integrationDisplayName;
-                        }
+                const events: ISummary[] = eventResponse.data;
+                if (events) {
+                    allMetadata.forEach((value: IIntegrationMetadata) => {
+                        eventResponse.data.forEach((event: ISummary) => {
+                            if (
+                                event.sourceApplicationIntegrationId ===
+                                value.sourceApplicationIntegrationId
+                            ) {
+                                event.displayName = value.integrationDisplayName;
+                            }
+                        });
                     });
-                });
 
-                setSummaryList(events);
-            } else {
-                setSummaryList([]);
-            }
-        } catch (error: unknown) {
-            if (
-                typeof error === 'object' &&
-                error !== null &&
-                'response' in error &&
-                (error as { response?: { status?: number; data?: string } }).response?.status ===
-                    422
-            ) {
-                const resError = error as { response: { data: string } };
-                onError({ message: resError.response.data || 'Validation error occurred' });
-            } else if (error instanceof Error) {
-                onError({ message: error.message || 'An unexpected error occurred' });
-            } else {
-                onError({ message: 'An unexpected error occurred' });
-            }
-            setSummaryList([]);
-            console.error('Error: ', error);
-        } finally {
-            setLoading(false);
-            Object.entries(filters).forEach(([, value]) => {
-                if (value != null && value.length > 0) {
-                    setHasFilters(true);
+                    setSummaryList(events);
+                } else {
+                    setSummaryList([]);
                 }
-            });
+            } catch (error: unknown) {
+                if (
+                    typeof error === 'object' &&
+                    error !== null &&
+                    'response' in error &&
+                    (error as { response?: { status?: number; data?: string } }).response
+                        ?.status === 422
+                ) {
+                    const resError = error as { response: { data: string } };
+                    onError({ message: resError.response.data || 'Validation error occurred' });
+                } else if (error instanceof Error) {
+                    onError({ message: error.message || 'An unexpected error occurred' });
+                } else {
+                    onError({ message: 'An unexpected error occurred' });
+                }
+                setSummaryList([]);
+                console.error('Error: ', error);
+            } finally {
+                setIsFetching(false);
+            }
         }
     };
 
@@ -133,9 +137,55 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
         );
     };
 
-    return loading ? (
-        <Loader size="large" />
-    ) : summaryList ? (
+    function actionMenu(event: IEventNew, id: number): ReactElement {
+        return (
+            <div id={id + '-action-toggle'} className="min-h-32">
+                <Dropdown>
+                    <Button
+                        as={Dropdown.Toggle}
+                        variant="tertiary-neutral"
+                        icon={<MenuElipsisVerticalCircleIcon aria-hidden />}
+                    />
+                    <Dropdown.Menu>
+                        <Dropdown.Menu.List>
+                            <Dropdown.Menu.List.Item
+                                id={'statusButton'}
+                                onClick={() => {
+                                    setSelectedRow(event);
+                                    setOpenCustomDialog(true);
+                                }}
+                            >
+                                {t('customStatus')}
+                            </Dropdown.Menu.List.Item>
+
+                            {event.intermediateStorageStatus === 'STORED' && (
+                                <>
+                                    <Dropdown.Menu.Divider />
+                                    <Dropdown.Menu.List.Item
+                                        id="retryButton"
+                                        disabled={
+                                            errorsNotForRetry.includes(event.displayName ?? '') ||
+                                            disabledRetryButtons[id]
+                                        }
+                                        onClick={() => {
+                                            if (event.latestInstanceId) {
+                                                resend(event.latestInstanceId);
+                                                handleRetryButtonClick(id);
+                                            }
+                                        }}
+                                    >
+                                        {t('retry')}
+                                    </Dropdown.Menu.List.Item>
+                                </>
+                            )}
+                        </Dropdown.Menu.List>
+                    </Dropdown.Menu>
+                </Dropdown>
+            </div>
+        );
+    }
+
+    return (
         <Box>
             <Box background={'surface-default'} style={{ minHeight: '70vh' }}>
                 {selectedRow && (
@@ -145,11 +195,6 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                         setOpenCustomDialog={setOpenCustomDialog}
                     />
                 )}
-                {summaryList?.length === 0 ? (
-                    <Alert variant="info">{t('filter.alerts.noResults')}</Alert>
-                ) : hasFilters ? (
-                    <Alert variant="info">{t('filter.alerts.tableFiltered')}</Alert>
-                ) : null}
 
                 <Table id={'instance-table'}>
                     <Table.Header>
@@ -168,144 +213,114 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                                 {t('table.column.sourceApplicationInstanceId')}
                             </Table.ColumnHeader>
                             <Table.ColumnHeader>{t('table.column.timestamp')}</Table.ColumnHeader>
-                            <Table.ColumnHeader>{t('table.column.status')}</Table.ColumnHeader>
+                            <Table.ColumnHeader align={'center'}>
+                                {t('table.column.status')}
+                            </Table.ColumnHeader>
                             <Table.ColumnHeader>{t('table.column.storage')}</Table.ColumnHeader>
                             <Table.ColumnHeader>
                                 {t('table.column.archiveInstanceId')}
                             </Table.ColumnHeader>
-                            <Table.ColumnHeader>{t('table.column.actions')}</Table.ColumnHeader>
+                            <Table.ColumnHeader align={'right'}>
+                                {t('table.column.actions')}
+                            </Table.ColumnHeader>
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                        {summaryList?.map((value: IEventNew, i: number) => {
-                            return (
-                                <Table.ExpandableRow
-                                    key={i}
-                                    expandOnRowClick
-                                    open={expandedRows.includes(i)}
-                                    onOpenChange={() => handleToggle(i)}
-                                    content={
-                                        expandedRows.includes(i) ? (
-                                            <InstancePanel
-                                                id={`instance-panel-${i}`}
-                                                onError={(error) => onError(error)}
-                                                instanceId={value.sourceApplicationInstanceId}
-                                                sourceApplicationId={value.sourceApplicationId}
-                                                sourceApplicationIntegrationId={
-                                                    value.sourceApplicationIntegrationId
-                                                }
-                                            />
-                                        ) : null
-                                    }>
-                                    <Table.DataCell scope="row">
-                                        {getSourceApplicationDisplayNameById(
-                                            String(value.sourceApplicationId)
-                                        )}
-                                    </Table.DataCell>
+                        {loading ? (
+                            <TableLoader columnLength={10} />
+                        ) : (
+                            summaryList?.map((value: IEventNew, i: number) => {
+                                return (
+                                    <Table.ExpandableRow
+                                        key={i}
+                                        expandOnRowClick
+                                        open={expandedRows.includes(i)}
+                                        onOpenChange={() => handleToggle(i)}
+                                        content={
+                                            expandedRows.includes(i) ? (
+                                                <InstancePanel
+                                                    id={`instance-panel-${i}`}
+                                                    onError={(error) => onError(error)}
+                                                    instanceId={value.sourceApplicationInstanceId}
+                                                    sourceApplicationId={value.sourceApplicationId}
+                                                    sourceApplicationIntegrationId={
+                                                        value.sourceApplicationIntegrationId
+                                                    }
+                                                />
+                                            ) : null
+                                        }
+                                    >
+                                        <Table.DataCell scope="row">
+                                            {getSourceApplicationDisplayNameById(
+                                                String(value.sourceApplicationId)
+                                            )}
+                                        </Table.DataCell>
 
-                                    <Table.DataCell>{value.displayName}</Table.DataCell>
-                                    <Table.DataCell>
-                                        {value.sourceApplicationIntegrationId}
-                                    </Table.DataCell>
-                                    <Table.DataCell>
-                                        {value.sourceApplicationInstanceId}
-                                    </Table.DataCell>
-                                    <Table.DataCell>
-                                        {format(value.latestUpdate, 'dd/MM/yy HH:mm')}
-                                    </Table.DataCell>
-                                    <Table.DataCell>
-                                        <InstanceStatusWithTooltip status={value.status} />
-                                    </Table.DataCell>
-                                    <Table.DataCell>
-                                        {value.intermediateStorageStatus
-                                            ? t(
-                                                  `filter.intermediateStorageStatusOptions.${value.intermediateStorageStatus}`
-                                              )
-                                            : null}
-                                    </Table.DataCell>
+                                        <Table.DataCell>{value.displayName}</Table.DataCell>
+                                        <Table.DataCell>
+                                            {value.sourceApplicationIntegrationId}
+                                        </Table.DataCell>
+                                        <Table.DataCell>
+                                            {value.sourceApplicationInstanceId}
+                                        </Table.DataCell>
+                                        <Table.DataCell>
+                                            {format(value.latestUpdate, 'dd/MM/yy HH:mm')}
+                                        </Table.DataCell>
+                                        <Table.DataCell>
+                                            <InstanceStatusWithTooltip status={value.status} />
+                                        </Table.DataCell>
+                                        <Table.DataCell>
+                                            {value.intermediateStorageStatus
+                                                ? t(
+                                                      `filter.intermediateStorageStatusOptions.${value.intermediateStorageStatus}`
+                                                  )
+                                                : null}
+                                        </Table.DataCell>
 
-                                    <Table.DataCell>{value.destinationInstanceIds}</Table.DataCell>
-                                    <Table.DataCell>
-                                        {value.status === 'FAILED' && actionMenu(value, i)}
-                                    </Table.DataCell>
-                                </Table.ExpandableRow>
-                            );
-                        })}
+                                        <Table.DataCell>
+                                            {value.destinationInstanceIds}
+                                        </Table.DataCell>
+                                        <Table.DataCell align={'right'}>
+                                            {value.status === 'FAILED' && actionMenu(value, i)}
+                                        </Table.DataCell>
+                                    </Table.ExpandableRow>
+                                );
+                            })
+                        )}
                     </Table.Body>
                 </Table>
+                {!loading && summaryList?.length === 0 && (
+                    <Box paddingBlock={'8'}>
+                        <Alert variant="info">{t('filter.alerts.noResults')}</Alert>
+                    </Box>
+                )}
             </Box>
 
-            {summaryList.length >= 10 && (
+            {summaryList && summaryList.length >= 10 && (
                 <HStack justify={'center'} style={{ marginTop: '16px' }} gap={'10'}>
                     <CustomSelect
                         options={selectOptions}
-                        onChange={setRowsPerPage}
+                        onChange={(val) => {
+                            setFetchMoreCount('1');
+                            setRowCount(val);
+                        }}
                         label={t('numberPerPage')}
                         hideLabel={true}
-                        default={rowsPerPage}
+                        default={rowCount}
                     />
 
                     <>
                         <Button
                             variant="secondary"
-                            onClick={() =>
-                                setRowCount(String(Number(rowCount) + Number(rowsPerPage)))
-                            }>
+                            onClick={() => setFetchMoreCount((prev) => String(Number(prev) + 1))}
+                        >
                             {t('filter.loadMore')}
                         </Button>
                     </>
                 </HStack>
             )}
         </Box>
-    ) : (
-        <Loader />
     );
-
-    function actionMenu(event: IEventNew, id: number): ReactElement {
-        return (
-            <div id={id + '-action-toggle'} className="min-h-32">
-                <Dropdown>
-                    <Button
-                        as={Dropdown.Toggle}
-                        variant="tertiary-neutral"
-                        icon={<MenuElipsisVerticalCircleIcon aria-hidden />}
-                    />
-                    <Dropdown.Menu>
-                        <Dropdown.Menu.List>
-                            <Dropdown.Menu.List.Item
-                                id={'statusButton'}
-                                onClick={() => {
-                                    setSelectedRow(event);
-                                    setOpenCustomDialog(true);
-                                }}>
-                                {t('customStatus')}
-                            </Dropdown.Menu.List.Item>
-
-                            {event.intermediateStorageStatus === 'STORED' && (
-                                <>
-                                    <Dropdown.Menu.Divider />
-                                    <Dropdown.Menu.List.Item
-                                        id="retryButton"
-                                        disabled={
-                                            errorsNotForRetry.includes(event.displayName ?? '') ||
-                                            disabledRetryButtons[id]
-                                        }
-                                        onClick={() => {
-                                            if (event.latestInstanceId) {
-                                                resend(event.latestInstanceId);
-                                                handleRetryButtonClick(id);
-                                            }
-                                        }}>
-                                        {t('retry')}
-                                    </Dropdown.Menu.List.Item>
-                                </>
-                            )}
-                        </Dropdown.Menu.List>
-                    </Dropdown.Menu>
-                </Dropdown>
-            </div>
-        );
-    }
 };
 
 export default InstanceTable;

@@ -16,6 +16,12 @@ export default function useSourceApplicationRepository() {
         });
     };
 
+    const getMetadataForSourceApplications = (ids: string, onlyLastestVersion?: boolean) => {
+        return get<Record<number, IIntegrationMetadata[]>>(API_URL, '/api/intern/metadata', {
+            params: { kildeapplikasjonIds: ids, bareSisteVersjoner: onlyLastestVersion },
+        });
+    };
+
     const getInstanceElementMetadataById = (metadataId: string) => {
         return get<IInstanceMetadataContent>(
             API_URL,
@@ -37,6 +43,7 @@ export default function useSourceApplicationRepository() {
 
     return {
         getMetadata,
+        getMetadataForSourceApplications,
         getInstanceElementMetadataById,
         getSourceApplications,
     };

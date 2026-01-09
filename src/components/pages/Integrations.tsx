@@ -1,20 +1,19 @@
-import React, {useContext, useEffect, useState} from "react";
-import IntegrationTable from "../../features/integrations/components/IntegrationTable";
-import PageTemplate from "../templates/PageTemplate";
-import {SourceApplicationContext} from "../../context/SourceApplicationContext";
-import {RouteComponent} from "../../routes/Route";
-import {Link as RouterLink, useNavigate} from "react-router"
-import {Alert, Box, Button, Heading, HelpText, HStack, Loader} from "@navikt/ds-react";
-import {useTranslation} from "react-i18next";
-import {PlusIcon} from '@navikt/aksel-icons';
-import {AuthorizationContext} from "../../context/AuthorizationContext";
-import {IAlertMessage} from "../types/TableTypes";
+import React, { useContext, useEffect, useState } from 'react';
+import IntegrationTable from '../../features/integrations/components/IntegrationTable';
+import PageTemplate from '../templates/PageTemplate';
+import { SourceApplicationContext } from '../../context/SourceApplicationContext';
+import { RouteComponent } from '../../routes/Route';
+import { useNavigate } from 'react-router';
+import { Alert } from '@navikt/ds-react';
+import { useTranslation } from 'react-i18next';
+import { AuthorizationContext } from '../../context/AuthorizationContext';
+import { IAlertMessage } from '../types/TableTypes';
 
 const Integrations: RouteComponent = () => {
-    const {t} = useTranslation('translations', {keyPrefix: 'pages.integrations'})
-    const {allMetadata, getAllMetadata} = useContext(SourceApplicationContext)
+    const { t } = useTranslation('translations', { keyPrefix: 'pages.integrations' });
+    const { getAllMetadata, allMetadata } = useContext(SourceApplicationContext);
     const [error, setError] = useState<IAlertMessage | undefined>(undefined);
-    const { authorized, getAuthorization} = useContext(AuthorizationContext)
+    const { authorized, getAuthorization } = useContext(AuthorizationContext);
     const history = useNavigate();
 
     useEffect(() => {
@@ -24,48 +23,39 @@ const Integrations: RouteComponent = () => {
     }, [authorized]);
 
     useEffect(() => {
-        getAuthorization()
+        getAuthorization();
     }, []);
 
     useEffect(() => {
-        getAllMetadata(false);
+        if (!allMetadata) {
+            getAllMetadata(true);
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
-        <PageTemplate id={'integration'} keyPrefix={'pages.integrations'} customHeading>
-            <HStack id={'instances-custom-header'} align={"center"} justify={"space-between"} gap={"2"} wrap={false}>
-                <HStack align={"center"} gap={"2"}>
-                    <Heading size={"medium"}>{t('header')}</Heading>
-                    <HelpText title={"Hva er dette"} placement="bottom">
-                        {t('help.header')}
-                    </HelpText>
-                </HStack>
-                <Button
-                    as={RouterLink}
-                    to={"/integration/new"}
-                    size={"small"}
-                    icon={<PlusIcon aria-hidden/>}
-                >{t('button.newIntegration')}
-                </Button>
-            </HStack>
-            {error && <Alert style={{maxWidth: '100%'}} variant="error">{error.message}</Alert>}
-            <Box id={"integration-table-container"} background={"surface-default"} padding="6" borderRadius={"large"}
-                 borderWidth="2" borderColor={"border-subtle"}>
-                {allMetadata ?
-                    <IntegrationTable
-                        onError={(error) => {
-                            setError(error)
-                        }}
-                        id={"integration-table"}/>
-                    :
-                    <>
-                        <Loader size={"xlarge"}/>
-                    </>
-                }
-            </Box>
+        <PageTemplate
+            id={'integration'}
+            keyPrefix={'pages.integrations'}
+            headingHelpText={{ info: t('help.header') }}
+            headerButton={{
+                text: t('button.newIntegration'),
+                to: '/integration/new',
+            }}
+        >
+            {error && (
+                <Alert style={{ maxWidth: '100%' }} variant="error">
+                    {error.message}
+                </Alert>
+            )}
+            <IntegrationTable
+                onError={(error) => {
+                    setError(error);
+                }}
+                id={'integration-table'}
+            />
         </PageTemplate>
     );
-}
+};
 
 export default Integrations;

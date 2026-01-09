@@ -10,8 +10,8 @@ describe('Testing integration list', () => {
         cy.intercept('GET', '**/instance-flow-tracking/statistics/integrations', {
             fixture: 'historikk.json',
         }).as('getHistory');
-        cy.intercept('GET', '**/metadata?kildeapplikasjonId=*&bareSisteVersjoner=*', {
-            fixture: 'metadata.json',
+        cy.intercept('GET', '**/metadata?kildeapplikasjonIds=*&bareSisteVersjoner=*', {
+            fixture: 'metadataBySourceApplication.json',
         }).as('getMetadata');
         cy.intercept(
             'GET',
@@ -57,12 +57,13 @@ describe('Testing integration list', () => {
 
     it('should open and show table', () => {
         prep();
-        cy.get('#integration-table-container').should('be.visible');
+        cy.get('#integration-table').should('be.visible');
     });
 
     it('should contain correct columns', () => {
         prep();
-        let columns = [
+        let tableHeaderTitles = [
+            '',
             'Id',
             'Kildeapplikasjon',
             'Kildeapplikasjons integrasjon-id',
@@ -75,10 +76,29 @@ describe('Testing integration list', () => {
             'Avbrutt',
             'Feilet',
         ];
-        columns.forEach((column) => {
-            cy.get('#integration-table-container').should('contain.text', column);
+
+        cy.get('#integration-table').within(() => {
+            cy.get('thead tr th')
+                .should('have.length', tableHeaderTitles.length)
+                .each(($th, index) => {
+                    expect($th.text().replace(/\s+/g, ' ').trim()).to.eq(tableHeaderTitles[index]);
+                });
         });
-        cy.get('#integration-table-container').should('not.contain.text', 'not_a_column');
+
+        cy.get('#integration-table').find('tbody tr').should('have.length', 3); // forventet antall
+    });
+
+    it('should contain correct displayName', () => {
+        prep();
+        cy.wait('@getIntegrations');
+
+        cy.get('#integration-table')
+            .find('tbody tr')
+            .first()
+            .find('td')
+            .eq(4)
+            .should('have.text', 'Arkivsak');
+
     });
 
     it('should open panel', () => {
@@ -86,5 +106,19 @@ describe('Testing integration list', () => {
         cy.get(
             ':nth-child(3) > .navds-table__toggle-expand-cell > .navds-table__toggle-expand-button'
         ).click();
+        cy.wait('@getConfigDrafts2');
+        cy.wait('@getConfigCompleted2');
+
+        cy.get('#integration-panel-container').should('be.visible');
+        cy.get('label').should('contain.text', 'Aktiv konfigurasjon: ');
+        cy.get('#integration-panel-container table').should('have.length', 2);
+        cy.get('#integration-panel-container table')
+            .first()
+            .find('tbody tr')
+            .should('have.length', 1);
+        cy.get('#integration-panel-container table')
+            .last()
+            .find('tbody tr')
+            .should('have.length', 3);
     });
 });

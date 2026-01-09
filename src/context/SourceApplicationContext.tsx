@@ -185,21 +185,19 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
 
     const getAllMetadata = async (onlyLatest: boolean): Promise<void> => {
         try {
-            const allMetadata: IIntegrationMetadata[][] = [];
-
             const response = await AuthorizationRepository.getUserSourceApplications();
-            const sourceApplications: string[] = response.data.sourceApplicationIds.map(String);
+            const sourceApplicationIds = response.data.sourceApplicationIds.map(String).join(',');
 
-            for (const sourceApplication of sourceApplications) {
-                const metadataResponse = await SourceApplicationRepository.getMetadata(
-                    sourceApplication,
+            const metadataResponse =
+                await SourceApplicationRepository.getMetadataForSourceApplications(
+                    sourceApplicationIds,
                     onlyLatest
                 );
-                allMetadata.push(metadataResponse.data);
-            }
 
-            const metadata: IIntegrationMetadata[] = allMetadata.reduce((acc, currentArray) => [...acc, ...currentArray], []) || [];
-            setAllMetadata(metadata);
+            const metaDataBySourceApplication = metadataResponse.data;
+            const flattenedListOfMetadata = Object.values(metaDataBySourceApplication).flat();
+
+            setAllMetadata(flattenedListOfMetadata);
         } catch (e) {
             console.error('Error: ', e);
             setAllMetadata([]);

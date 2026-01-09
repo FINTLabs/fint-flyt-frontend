@@ -8,11 +8,9 @@ describe("Testing dashboard", () => {
 		cy.intercept("GET", "**/historikk/statistikk/integrasjoner", {
 			fixture: "historikk.json",
 		}).as("getHistory");
-		cy.intercept(
-			"GET",
-			"**/metadata?kildeapplikasjonId=*&bareSisteVersjoner=true",
-			{ fixture: "metadata.json" }
-		).as("getMetadata");
+        cy.intercept('GET', '**/metadata?kildeapplikasjonIds=*&bareSisteVersjoner=*', {
+            fixture: 'metadataBySourceApplication.json',
+        }).as('getMetadata');
 		cy.intercept("GET", "**/integrasjoner", {
 			fixture: "integrations.json",
 		}).as("getIntegrations");
@@ -37,10 +35,10 @@ describe("Testing dashboard", () => {
 
 	it("should open new integration component on link click", () => {
 		prep();
-		cy.get("#dashboard-card-0-btn-0").click();
+		cy.get("#dashboard-card-0-btn").click();
 	});
 	it("should open instance list component on link click", () => {
 		prep();
-		cy.get("#dashboard-card-1-btn-0").click();
+		cy.get("#dashboard-card-1-btn").click();
 	});
 });
