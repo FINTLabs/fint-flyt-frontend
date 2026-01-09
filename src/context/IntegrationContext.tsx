@@ -158,6 +158,8 @@ const IntegrationProvider = ({ children }: ContextProps) => {
                     };
                 });
                 setIntegrations(updatedIntegrations);
+            } else {
+                setIntegrations([]);
             }
         } catch (e) {
             console.error('Error: ', e);
