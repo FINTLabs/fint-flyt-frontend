@@ -10,7 +10,6 @@ import { Box, HStack, Pagination, SortState, Table } from '@navikt/ds-react';
 import IntegrationPanel from './IntegrationPanel';
 import { useTranslation } from 'react-i18next';
 import { IIntegration } from '../../integration/types/Integration';
-import { IIntegrationMetadata } from '../../configuration/types/Metadata/IntegrationMetadata';
 import { SourceApplicationContext } from '../../../context/SourceApplicationContext';
 import { CustomSelect } from '../../../components/organisms/CustomSelect';
 import { IAlertMessage, Page } from '../../../components/types/TableTypes';

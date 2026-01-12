@@ -38,6 +38,7 @@ export default function useSourceApplicationRepository() {
             { id: 4, displayName: 'VIGO', available: true },
             { id: 5, displayName: 'Altinn', available: true },
             { id: 6, displayName: 'HMSReg', available: true },
+            { id: 7, displayName: 'ISY Graving', available: true },
         ];
     };
 

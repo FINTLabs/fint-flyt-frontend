@@ -21,6 +21,7 @@ const apiOptions = {
         { value: '4', label: 'VIGO' },
         { value: '5', label: 'Altinn' },
         { value: '6', label: 'HMSReg' },
+        { value: '7', label: 'ISY Graving' }
     ],
 };
 

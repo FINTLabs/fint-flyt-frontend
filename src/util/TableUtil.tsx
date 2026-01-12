@@ -16,6 +16,8 @@ export function getSourceApplicationDisplayNameById(id: string): string {
         return 'Altinn';
     } else if (id === '6') {
         return 'HMSReg';
+    } else if (id === '7') {
+        return 'ISY Graving';
     } else {
         return 'ukjent';
     }
