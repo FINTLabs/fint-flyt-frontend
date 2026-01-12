@@ -31,15 +31,7 @@ export default function useSourceApplicationRepository() {
 
     const getSourceApplications = (): ISourceApplication[] => {
         //return get("/api/intern/sourceApplicationData")
-        return [
-            { id: 1, displayName: 'ACOS Interact', available: true },
-            { id: 2, displayName: 'eGrunnerverv', available: true },
-            { id: 3, displayName: 'Digisak', available: true },
-            { id: 4, displayName: 'VIGO', available: true },
-            { id: 5, displayName: 'Altinn', available: true },
-            { id: 6, displayName: 'HMSReg', available: true },
-            { id: 7, displayName: 'ISY Graving', available: true },
-        ];
+        return sourceApplications;
     };
 
     return {
@@ -49,3 +41,13 @@ export default function useSourceApplicationRepository() {
         getSourceApplications,
     };
 }
+
+export const sourceApplications : ISourceApplication[] = [
+        { id: 1, displayName: 'ACOS Interact', available: true },
+        { id: 2, displayName: 'eGrunnerverv', available: true },
+        { id: 3, displayName: 'Digisak', available: true },
+        { id: 4, displayName: 'VIGO', available: true },
+        { id: 5, displayName: 'Altinn', available: true },
+        { id: 6, displayName: 'HMSReg', available: true },
+        { id: 7, displayName: 'ISY Graving', available: true },
+    ];

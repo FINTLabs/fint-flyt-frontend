@@ -12,21 +12,13 @@ import useIntegrationRepository from '../../../api/useIntegrationRepository';
 import { FilterIcon } from '@navikt/aksel-icons';
 import { SourceApplicationContext } from '../../../context/SourceApplicationContext';
 import { useTranslation } from 'react-i18next';
-
-const apiOptions = {
-    sourceApplicationIdsOptions: [
-        { value: '1', label: 'ACOS Interact' },
-        { value: '2', label: 'eGrunnerverv' },
-        { value: '3', label: 'Digisak' },
-        { value: '4', label: 'VIGO' },
-        { value: '5', label: 'Altinn' },
-        { value: '6', label: 'HMSReg' },
-        { value: '7', label: 'ISY Graving' }
-    ],
-};
+import useSourceApplicationRepository from '../../../api/useSourceApplicationRepository';
+import { ISourceApplication } from '../../configuration/types/SourceApplication';
 
 const FilterForm: React.FC = () => {
     const IntegrationRepository = useIntegrationRepository();
+    const SourceApplicationRepository = useSourceApplicationRepository()
+
     const { allMetadata } = useContext(SourceApplicationContext);
     const { t } = useTranslation('translations', { keyPrefix: 'pages.instances' });
 
@@ -35,6 +27,16 @@ const FilterForm: React.FC = () => {
     const [allIntegrations, setAllIntegrations] = useState<IIntegration[]>([]);
     const ref = useRef<HTMLDialogElement>(null);
     const [filterCount, setFilterCount] = useState(0);
+
+    const sourceApplicationIdsOptions = useMemo(() => {
+        const response: ISourceApplication[] = SourceApplicationRepository.getSourceApplications();
+        return response.map((sapp) => {
+            return {
+                value: sapp.id.toString(),
+                label: sapp.displayName,
+            };
+        });
+    }, []);
 
     const {
         statusesOptions,
@@ -201,7 +203,7 @@ const FilterForm: React.FC = () => {
                                     toggleOpen={toggleCard}
                                     integrationOptions={integrationsOptions}
                                     sourceApplicationIdsOptions={
-                                        apiOptions.sourceApplicationIdsOptions
+                                        sourceApplicationIdsOptions
                                     }
                                     sourceApplicationIntegrationOptions={
                                         sourceApplicationIntegrationOptions

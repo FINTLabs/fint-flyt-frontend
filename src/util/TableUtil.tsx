@@ -2,24 +2,14 @@ import { MOCK_EVENTS } from '../__tests__/mock/events';
 import { IEventNew } from '../features/instances/types/Event';
 import { IIntegration } from '../features/integration/types/Integration';
 import { MOCK_INTEGRATION } from '../__tests__/mock/integration';
+import { sourceApplications } from '../api/useSourceApplicationRepository';
 
 export function getSourceApplicationDisplayNameById(id: string): string {
-    if (id === '1') {
-        return 'ACOS Interact';
-    } else if (id === '2') {
-        return 'eGrunnerverv';
-    } else if (id === '3') {
-        return 'Digisak';
-    } else if (id === '4') {
-        return 'VIGO';
-    } else if (id === '5') {
-        return 'Altinn';
-    } else if (id === '6') {
-        return 'HMSReg';
-    } else if (id === '7') {
-        return 'ISY Graving';
+    const application = sourceApplications.find((application) => application.id.toString() === id);
+    if (application) {
+        return application.displayName;
     } else {
-        return 'ukjent';
+        return 'ukjent'
     }
 }
 

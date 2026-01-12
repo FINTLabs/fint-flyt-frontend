@@ -11,7 +11,7 @@ import { sortAndHandleSelectables } from '../../configuration/util/SelectablesUt
 import {ISelectable} from "../../configuration/types/Selectable";
 import ArrayComponent from "../../configuration/components/common/array/ArrayComponent";
 import SearchSelectValueComponent from "../../configuration/components/mapping/value/select/SearchSelectValueComponent";
-import {Alert, Box, Button, Heading, HelpText, HStack, VStack,} from "@navikt/ds-react";
+import {Alert, Button, Heading, HelpText, HStack, VStack,} from "@navikt/ds-react";
 import {ISelect} from "../../configuration/types/Select";
 import {AuthorizationContext} from "../../../context/AuthorizationContext";
 import {getSourceApplicationDisplayNameById} from "../../../util/TableUtil";

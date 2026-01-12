@@ -21,6 +21,7 @@ import { useTranslation } from 'react-i18next';
 import { IAlertMessage, Page } from '../types/TableTypes';
 import useAuthorizationRepository from '../../api/useAuthorizationRepository';
 import { IUser } from '../types/UserTypes';
+import { sourceApplications } from '../../api/useSourceApplicationRepository';
 
 const UserAccess: RouteComponent = () => {
     const AuthorizationRepository = useAuthorizationRepository();
@@ -165,33 +166,14 @@ const UserAccess: RouteComponent = () => {
                                     <Table.ColumnHeader id={'column-header-email'}>
                                         {t('table.column.email')}
                                     </Table.ColumnHeader>
-                                    <Table.ColumnHeader id={'column-header-acos'} align={'center'}>
-                                        ACOS
-                                    </Table.ColumnHeader>
-                                    <Table.ColumnHeader id={'column-header-egrv'} align={'center'}>
-                                        eGrunnerverv
-                                    </Table.ColumnHeader>
-                                    <Table.ColumnHeader
-                                        id={'column-header-digisak'}
-                                        align={'center'}
-                                    >
-                                        Digisak
-                                    </Table.ColumnHeader>
-                                    <Table.ColumnHeader id={'column-header-vigo'} align={'center'}>
-                                        VIGO
-                                    </Table.ColumnHeader>
-                                    <Table.ColumnHeader
-                                        id={'column-header-altinn'}
-                                        align={'center'}
-                                    >
-                                        Altinn
-                                    </Table.ColumnHeader>
-                                    <Table.ColumnHeader
-                                        id={'column-header-hmsreg'}
-                                        align={'center'}
-                                    >
-                                        HMSReg
-                                    </Table.ColumnHeader>
+                                    {sourceApplications.map((sourceApp) => (
+                                        <Table.ColumnHeader
+                                            id={'column-header-acos'}
+                                            align={'center'}
+                                        >
+                                            {sourceApp.displayName}
+                                        </Table.ColumnHeader>
+                                    ))}
                                 </Table.Row>
                             </Table.Header>
                             <Table.Body>
@@ -204,9 +186,9 @@ const UserAccess: RouteComponent = () => {
                                             <Table.DataCell id={'table-row-cell-' + i}>
                                                 {value.email}
                                             </Table.DataCell>
-                                            {[1, 2, 3, 4, 5, 6].map((sourceApp) => (
+                                            {sourceApplications.map((sourceApp) => (
                                                 <Table.DataCell
-                                                    key={`${value.objectIdentifier}-permission-${sourceApp}`}
+                                                    key={`${value.objectIdentifier}-permission-${sourceApp.id}`}
                                                 >
                                                     <HStack width={'100%'} justify={'center'}>
                                                         <Checkbox
@@ -214,16 +196,16 @@ const UserAccess: RouteComponent = () => {
                                                                 'check-row-' +
                                                                 i +
                                                                 '-cell-' +
-                                                                sourceApp
+                                                                sourceApp.id
                                                             }
                                                             disabled={!editMode}
                                                             checked={value.sourceApplicationIds.includes(
-                                                                sourceApp
+                                                                sourceApp.id
                                                             )}
                                                             onChange={(e) =>
                                                                 updateUserAccess(
                                                                     value.objectIdentifier,
-                                                                    sourceApp,
+                                                                    sourceApp.id,
                                                                     e.target.checked
                                                                 )
                                                             }
