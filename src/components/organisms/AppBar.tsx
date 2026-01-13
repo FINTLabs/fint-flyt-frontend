@@ -10,15 +10,16 @@ import { AuthorizationContext } from '../../context/AuthorizationContext';
 export const AppBar = () => {
     const history = useNavigate();
     const { t } = useTranslation('translations', { keyPrefix: 'menu' });
-    const {logoutUrl} = useContext(AuthorizationContext)
+    const { logoutUrl } = useContext(AuthorizationContext);
 
     return (
         <InternalHeader>
             <InternalHeader.Title
                 onClick={() => {
                     history('/');
-                }}>
-                <Heading size={'medium'} style={{ color: '#6B133D' }}>
+                }}
+            >
+                <Heading size={'medium'} style={{ color: '#6B133D', whiteSpace: 'nowrap' }}>
                     FINT Flyt
                 </Heading>
             </InternalHeader.Title>
@@ -26,7 +27,7 @@ export const AppBar = () => {
             <Spacer />
             <Dropdown>
                 <InternalHeader.Button as={Dropdown.Toggle}>
-                    <HStack gap={'1'} align={'center'}>
+                    <HStack gap={'1'} align={'center'} wrap={false}>
                         <LanguageIcon aria-hidden />
                         {t('language')}
                     </HStack>
@@ -45,13 +46,12 @@ export const AppBar = () => {
                     </Dropdown.Menu.GroupedList>
                 </Dropdown.Menu>
             </Dropdown>
-            <InternalHeader.Button as={"a"} href={logoutUrl} rel="external noopener noreferrer">
-                <HStack gap={'1'} align={'center'}>
+            <InternalHeader.Button as={'a'} href={logoutUrl} rel="external noopener noreferrer">
+                <HStack gap={'1'} align={'center'} wrap={false}>
                     <LeaveIcon aria-hidden />
                     {t('logout')}
                 </HStack>
             </InternalHeader.Button>
-
         </InternalHeader>
     );
 };

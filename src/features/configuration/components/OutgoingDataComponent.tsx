@@ -32,9 +32,8 @@ const OutgoingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
             background={'surface-default'}
             padding="6"
             borderRadius={'large'}
-            borderWidth="2"
+            borderWidth="1"
             borderColor={'border-subtle'}>
-            {/* Scroll Buttons */}
             <HStack gap={'10'}>
                 <HStack>
                     <Heading size={'small'}>{t('formHeader')}</Heading>

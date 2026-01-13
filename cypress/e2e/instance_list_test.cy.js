@@ -16,8 +16,8 @@ describe('Testing instance list', () => {
             '**/instance-flow-tracking/events?size=10&sort=timestamp,desc&sourceApplicationId=2&sourceApplicationInstanceId=3b59e1204759b910f9f8e7e8036d4378&sourceApplicationIntegrationId=journalpost',
             { fixture: 'hendelser.json' }
         ).as('getHendelser');
-        cy.intercept('GET', '**/metadata?kildeapplikasjonId=*&bareSisteVersjoner=false', {
-            fixture: 'metadata1.json',
+        cy.intercept('GET', '**/metadata?kildeapplikasjonIds=*&bareSisteVersjoner=true', {
+            fixture: 'metadataBySourceApplication1.json',
         }).as('getMetadata1');
         cy.intercept('POST', '**/handlinger/instanser/44/prov-igjen', { statusCode: 200 }).as(
             'postRetry'

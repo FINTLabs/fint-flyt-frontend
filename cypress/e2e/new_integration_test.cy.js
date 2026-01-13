@@ -8,7 +8,9 @@ describe('Testing create new integration', () => {
         cy.intercept('GET', '**/integrasjoner?sourceApplicationId=*', {fixture: 'integrationForSource2.json'}).as('getAllIntegrationBySourceApplicationId')
         cy.intercept('GET', '**/historikk/statistikk/integrasjoner', {fixture: 'historikk.json'}).as('getHistory')
         cy.intercept('GET', '**/metadata?kildeapplikasjonId=*&bareSisteVersjoner=true', {fixture: 'metadataLatest.json'}).as('getLatestMetadata')
-        cy.intercept('GET', '**/metadata?kildeapplikasjonId=*&bareSisteVersjoner=false', {fixture: 'metadata.json'}).as('getMetadata')
+        cy.intercept('GET', '**/metadata?kildeapplikasjonIds=*&bareSisteVersjoner=*', {
+            fixture: 'metadataBySourceApplication.json',
+        }).as('getMetadata');
         cy.intercept('GET', '**/metadata/4/instans-metadata', {fixture: 'instansMetadata.json'}).as('getInstansMetadata')
         cy.intercept('GET', '**/historikk/hendelser?side=0&antall=1000&sorteringFelt=timestamp&sorteringRetning=DESC&bareSistePerInstans=true', {fixture: 'hendelser.json'}).as('getHendelser')
         cy.intercept('GET', '**/value-convertings?page=0&size=100&sortProperty=fromApplicationId&sortDirection=ASC&excludeConvertingMap=true', {fixture: 'valueconverting/valueconvertings.json'}).as('getValueconvertings')

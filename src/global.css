@@ -1,10 +1,24 @@
 body {
     margin: 0;
+    --novari-theme-purple-primary: #7f78e8;
+    --novari-theme-purple-dark: #5a51e1;
+    --novari-theme-purple-subtle: #e5e4fa;
+    --novari-theme-purple-80: rgba(127, 120, 232, 0.8);
+    --novari-theme-purple-60: rgba(127, 120, 232, 0.6);
+    --novari-theme-purple-40: rgba(127, 120, 232, 0.4);
+    --novari-theme-purple-20: rgba(127, 120, 232, 0.2);
+
     --ac-radio-checkbox-border: #5149ca !important;
     --ac-radio-checkbox-action: #5149ca !important;
     --ac-radio-checkbox-action-hover-bg: #e5e4fa !important;
-    --novari-theme-purple-primary: #5149ca;
-    --novari-theme-purple-subtle: #e5e4fa;
+
+    --ac-table-sort-button-text: var(--novari-theme-purple-dark);
+    --ac-table-sort-button-hover-bg: var(--novari-theme-purple-20);
+    --ac-table-sort-button-sorted-bg: var(--novari-theme-purple-20);
+    --ac-table-sort-button-sorted-text: var(--novari-theme-purple-dark);
+
+    --ac-toggle-group-button-hover-bg: var(--novari-theme-purple-20);
+    --ac-toggle-group-selected-bg: var(--novari-theme-purple-dark);
 }
 
 iframe#webpack-dev-server-client-overlay {
@@ -21,37 +35,34 @@ iframe#webpack-dev-server-client-overlay {
     color: #5a51e1 !important;
 }
 
-.navds-button--primary:hover {
-    background-color: var(--novari-theme-purple-primary) !important;
-}
-
 .navds-button--primary {
-    background-color: #5a51e1 !important;
+    background-color: var(--novari-theme-purple-dark) !important;
 }
 
 .navds-button--primary:hover {
-    background-color: var(--novari-theme-purple-primary) !important;
+    background-color: var(--novari-theme-purple-dark) !important;
 }
 
 .navds-button--secondary {
-    --ac-button-secondary-text: var(--novari-theme-purple-primary) !important;
-    --ac-button-secondary-border: var(--novari-theme-purple-primary) !important;
-    --ac-button-secondary-hover-border: var(--novari-theme-purple-primary) !important;
-    --ac-button-secondary-hover-text: var(--novari-theme-purple-primary) !important;
+    --ac-button-secondary-text: var(--novari-theme-purple-dark) !important;
+    --ac-button-secondary-border: var(--novari-theme-purple-dark) !important;
+    --ac-button-secondary-hover-border: var(--novari-theme-purple-dark) !important;
+    --ac-button-secondary-hover-text: var(--novari-theme-purple-dark) !important;
     --ac-button-secondary-hover-bg: var(--novari-theme-purple-subtle) !important;
-    --ac-button-secondary-active-bg: var(--novari-theme-purple-primary) !important;
+    --ac-button-secondary-active-bg: var(--novari-theme-purple-dark) !important;
     &.toggled {
         --ac-button-secondary-bg: var(--novari-theme-purple-subtle) !important;
+        --ac-button-secondary-hover-bg: var(--novari-theme-purple-40) !important;
     }
 }
 
-
 .navds-button--tertiary {
-    --ac-button-tertiary-text: var(--novari-theme-purple-primary) !important;
-    --ac-button-tertiary-hover-text: var(--novari-theme-purple-primary) !important;
+    --ac-button-tertiary-text: var(--novari-theme-purple-dark) !important;
+    --ac-button-tertiary-active-text: var(--novari-theme-purple-dark) !important;
+    --ac-button-tertiary-hover-text: var(--novari-theme-purple-dark) !important;
     --ac-button-tertiary-hover-bg: var(--novari-theme-purple-subtle) !important;
-    --ac-button-tertiary-active-bg: var(--novari-theme-purple-primary) !important;
-    --ac-button-tertiary-active-hover-bg: var(--novari-theme-purple-primary) !important;
+    --ac-button-tertiary-active-bg: var(--novari-theme-purple-40) !important;
+    --ac-button-tertiary-active-hover-bg: var(--novari-theme-purple-40) !important;
 }
 
 .navds-internalheader {
@@ -63,5 +74,55 @@ iframe#webpack-dev-server-client-overlay {
 
     a {
         text-decoration: none;
+    }
+}
+
+.navds-help-text {
+    --ac-help-text-button-color: var(--novari-theme-purple-dark) !important;
+    --ac-help-text-button-hover-color: var(--novari-theme-purple-dark) !important;
+    --ac-help-text-button-active-color: var(--novari-theme-purple-dark) !important;
+}
+
+.dashboard-card-link {
+    background-color: rgba(127, 120, 232, 0.1);
+    width: 100%;
+    height: 40%;
+    color: var(--novari-theme-purple-dark);
+    text-decoration: none;
+
+    &:hover {
+        background-color: var(--novari-theme-purple-20);
+        font-size: large;
+        .arrow-icon {
+            font-size: 2rem;
+        }
+    }
+
+    .arrow-icon {
+        font-size: 1.5rem;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+}
+
+#filter-container {
+    .navds-expansioncard__header {
+        padding: var(--a-spacing-2)  var(--a-spacing-4) !important;
+    }
+}
+
+.truncate-datacell {
+    max-width: 48ch;
+    overflow: hidden;
+
+    .truncate-text {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 4;
+        overflow: hidden;
+        white-space: normal;
+        word-break: break-word;
     }
 }

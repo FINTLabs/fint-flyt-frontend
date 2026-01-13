@@ -18,10 +18,10 @@ import {
     SortState,
 } from '@navikt/ds-react';
 import { useTranslation } from 'react-i18next';
-import { PencilWritingIcon } from '@navikt/aksel-icons';
 import { IAlertMessage, Page } from '../types/TableTypes';
 import useAuthorizationRepository from '../../api/useAuthorizationRepository';
 import { IUser } from '../types/UserTypes';
+import { sourceApplications } from '../../api/useSourceApplicationRepository';
 
 const UserAccess: RouteComponent = () => {
     const AuthorizationRepository = useAuthorizationRepository();
@@ -134,23 +134,17 @@ const UserAccess: RouteComponent = () => {
     ];
 
     return (
-        <PageTemplate id={'useraccess'} keyPrefix={'pages.useraccess'} customHeading>
-            <HStack
-                id={'instances-custom-header'}
-                align={'center'}
-                justify={'space-between'}
-                gap={'2'}
-                wrap={false}>
-                <Heading size={'medium'}>{t('header')}</Heading>
-                <Button
-                    id={'edit-toggle-btn'}
-                    disabled={!users || editMode}
-                    onClick={() => setEditMode((prevState) => !prevState)}
-                    size={'small'}
-                    icon={<PencilWritingIcon aria-hidden />}>
-                    {t('button.edit')}
-                </Button>
-            </HStack>
+        <PageTemplate
+            id={'useraccess'}
+            keyPrefix={'pages.useraccess'}
+            headerButton={{
+                id: 'edit-toggle-btn',
+                text: t('button.edit'),
+                onClick: () => setEditMode((prevState) => !prevState),
+                disabled: !users || editMode,
+                icon: 'edit',
+            }}
+        >
             {error && (
                 <Alert style={{ maxWidth: '100%' }} variant="error">
                     {error.message}
@@ -162,7 +156,8 @@ const UserAccess: RouteComponent = () => {
                         <Table
                             sort={sort}
                             onSortChange={(sortKey) => handleSortChange(sortKey ? sortKey : 'name')}
-                            id={'useraccess-table'}>
+                            id={'useraccess-table'}
+                        >
                             <Table.Header>
                                 <Table.Row id={'table-row-header'}>
                                     <Table.ColumnHeader id={'column-header-name'}>
@@ -171,24 +166,14 @@ const UserAccess: RouteComponent = () => {
                                     <Table.ColumnHeader id={'column-header-email'}>
                                         {t('table.column.email')}
                                     </Table.ColumnHeader>
-                                    <Table.ColumnHeader id={'column-header-acos'} align={'center'}>
-                                        ACOS
-                                    </Table.ColumnHeader>
-                                    <Table.ColumnHeader id={'column-header-egrv'} align={'center'}>
-                                        eGrunnerverv
-                                    </Table.ColumnHeader>
-                                    <Table.ColumnHeader id={'column-header-digisak'} align={'center'}>
-                                        Digisak
-                                    </Table.ColumnHeader>
-                                    <Table.ColumnHeader id={'column-header-vigo'} align={'center'}>
-                                        VIGO
-                                    </Table.ColumnHeader>
-                                    <Table.ColumnHeader id={'column-header-altinn'} align={'center'}>
-                                        Altinn
-                                    </Table.ColumnHeader>
-                                    <Table.ColumnHeader id={'column-header-hmsreg'} align={'center'}>
-                                        HMSReg
-                                    </Table.ColumnHeader>
+                                    {sourceApplications.map((sourceApp) => (
+                                        <Table.ColumnHeader
+                                            id={'column-header-acos'}
+                                            align={'center'}
+                                        >
+                                            {sourceApp.displayName}
+                                        </Table.ColumnHeader>
+                                    ))}
                                 </Table.Row>
                             </Table.Header>
                             <Table.Body>
@@ -201,24 +186,31 @@ const UserAccess: RouteComponent = () => {
                                             <Table.DataCell id={'table-row-cell-' + i}>
                                                 {value.email}
                                             </Table.DataCell>
-                                            {[1, 2, 3, 4, 5, 6].map((sourceApp) => (
+                                            {sourceApplications.map((sourceApp) => (
                                                 <Table.DataCell
-                                                    key={`${value.objectIdentifier}-permission-${sourceApp}`}>
+                                                    key={`${value.objectIdentifier}-permission-${sourceApp.id}`}
+                                                >
                                                     <HStack width={'100%'} justify={'center'}>
                                                         <Checkbox
-                                                            id={'check-row-' + i + '-cell-' + sourceApp}
+                                                            id={
+                                                                'check-row-' +
+                                                                i +
+                                                                '-cell-' +
+                                                                sourceApp.id
+                                                            }
                                                             disabled={!editMode}
                                                             checked={value.sourceApplicationIds.includes(
-                                                                sourceApp
+                                                                sourceApp.id
                                                             )}
                                                             onChange={(e) =>
                                                                 updateUserAccess(
                                                                     value.objectIdentifier,
-                                                                    sourceApp,
+                                                                    sourceApp.id,
                                                                     e.target.checked
                                                                 )
                                                             }
-                                                            hideLabel>
+                                                            hideLabel
+                                                        >
                                                             {t('giveAccess')}
                                                         </Checkbox>
                                                     </HStack>
@@ -231,17 +223,18 @@ const UserAccess: RouteComponent = () => {
                         </Table>
                         {editMode && (
                             <HStack justify={'end'} gap={'6'} style={{ marginRight: '24px' }}>
-                                <Button id="form-save-btn" type="submit" onClick={updateUsers}>
-                                    {t('button.save')}
-                                </Button>
                                 <Button
                                     id="form-cancel-btn"
                                     variant={'secondary'}
                                     onClick={() => {
                                         setUsers(initialUsers);
                                         setEditMode(false);
-                                    }}>
+                                    }}
+                                >
                                     {t('button.cancel')}
+                                </Button>
+                                <Button id="form-save-btn" type="submit" onClick={updateUsers}>
+                                    {t('button.save')}
                                 </Button>
                             </HStack>
                         )}
@@ -249,13 +242,15 @@ const UserAccess: RouteComponent = () => {
                             <HStack
                                 justify={'center'}
                                 align={'center'}
-                                style={{ marginTop: '16px' }}>
+                                style={{ marginTop: '16px' }}
+                            >
                                 <HStack gap={'2'} align={'center'}>
                                     <label htmlFor="select-row-count">{t('numberPerPage')}</label>
                                     <select
                                         id="select-row-count"
                                         value={pageSize}
-                                        onChange={handlePageSizeChange}>
+                                        onChange={handlePageSizeChange}
+                                    >
                                         {selectOptions.map((option) => (
                                             <option key={option.value} value={option.value}>
                                                 {option.label}

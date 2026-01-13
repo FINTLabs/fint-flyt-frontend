@@ -171,10 +171,8 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
             style={{ minWidth: '400px' }}
             id={'incoming-form-panel'}
             background={'surface-default'}
-            padding="6"
-            borderRadius={'large'}
-            borderWidth="2"
-            borderColor={'border-subtle'}>
+            paddingBlock={'4 0'}
+        >
             <VStack gap={'2'}>
                 <HStack align={'center'} justify={'space-between'}>
                     <HStack gap={'2'} align={'center'}>
@@ -221,7 +219,7 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
                             background={'surface-subtle'}
                             padding="6"
                             borderRadius={'large'}
-                            borderWidth="2"
+                            borderWidth="1"
                             borderColor={'border-subtle'}>
                             <MetadataContentComponent
                                 content={instanceElementMetadata}
@@ -245,7 +243,7 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
                                     background={'surface-alt-3-subtle'}
                                     padding="6"
                                     borderRadius={'large'}
-                                    borderWidth="2"
+                                    borderWidth="1"
                                     borderColor={'border-subtle'}>
                                     <ObjectCollectionMetadataContentComponent
                                         collectionIndex={index}
@@ -261,7 +259,7 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
                             background={'surface-subtle'}
                             padding="6"
                             borderRadius={'large'}
-                            borderWidth="2"
+                            borderWidth="1"
                             borderColor={'border-subtle'}>
                             <Heading size={'small'}>{t('metadataPanel.valueConverting')}</Heading>
                             <ReadMore

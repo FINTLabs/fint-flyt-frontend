@@ -101,12 +101,12 @@ describe('Testing instance list', () => {
     it('should show the filters form when the Filters button is clicked', () => {
         prep();
 
-        // Assert that the filters form is initially hidden
+        // Assert that the filters form is initially hidden and the button exists
         cy.get('[data-testid="filters-form"]').should('not.exist'); // Adjust selector as needed
+        cy.get('[data-testid="filters-form-button"]').should('have.text', 'Filtrer tabellen')
 
         // Click the Filters button
-        cy.contains('button', 'Filters').click();
-
+        cy.get('[data-testid="filters-form-button"]').click();
         // Assert that the filters form is now visible
         cy.get('[data-testid="filters-form"]').should('be.visible');
     });
@@ -115,7 +115,7 @@ describe('Testing instance list', () => {
 
         prep();
 
-        cy.contains('button', 'Filters').click();
+        cy.get('[data-testid="filters-form-button"]').click();
 
         // TimeCard options
         cy.get('[data-testid="timeCard"]').should('exist');
@@ -133,8 +133,11 @@ describe('Testing instance list', () => {
 
         // StatusCard options
         cy.get('[data-testid="status"]').should('exist');
+        cy.get('[data-testid="status"]').find('h4').should('have.text', 'Status');
         cy.get('[data-testid="status"]').click();
-        // cy.get('[data-testid="status-options"]').children().should('have.length.at.least', 1);
+        cy.get('[data-testid="status-options"]').children().should('have.length.at.least', 1);
+        cy.get('[data-testid="status-option-1"]').click();
+        cy.get('[data-testid="status"]').find('p').should('have.text', 'Status: Overført');
 
         // AdvancedCard options
         cy.get('[data-testid="advanced"]').should('exist');
