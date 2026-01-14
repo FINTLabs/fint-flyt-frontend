@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { FC, useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import {
     getDestinationDisplayName,
     getSourceApplicationDisplayNameById,
     getStateDisplayName,
     integrationComparator,
 } from '../../../util/TableUtil';
-import { Box, HStack, Loader, Pagination, SortState, Table } from '@navikt/ds-react';
+import { Box, HStack, Pagination, SortState, Table } from '@navikt/ds-react';
 import IntegrationPanel from './IntegrationPanel';
 import { useTranslation } from 'react-i18next';
 import { IIntegration } from '../../integration/types/Integration';
