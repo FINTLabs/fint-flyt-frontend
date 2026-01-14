@@ -3,7 +3,7 @@ import * as React from 'react';
 
 type TableLoaderProps = {
     columnLength: number;
-    type?: 'row' | 'cell';
+    type?: 'row' | 'cells';
     tableSize?: 'medium' | 'small';
 };
 
@@ -38,27 +38,9 @@ const TableLoader = ({ columnLength, type = 'row', tableSize = 'medium' }: Table
 
     return (
         <>
-            <Table.Row>
-                {[...Array(columnLength).keys()].map(() => (
-                    <Table.DataCell style={{ textAlign: 'center' }}>
-                        <Skeleton variant={'rectangle'} width="100%" />
-                    </Table.DataCell>
-                ))}
-            </Table.Row>
-            <Table.Row>
-                {[...Array(columnLength).keys()].map(() => (
-                    <Table.DataCell style={{ textAlign: 'center' }}>
-                        <Skeleton variant={'rectangle'} width="100%" />
-                    </Table.DataCell>
-                ))}
-            </Table.Row>
-            <Table.Row>
-                {[...Array(columnLength).keys()].map(() => (
-                    <Table.DataCell style={{ textAlign: 'center' }}>
-                        <Skeleton variant={'rectangle'} width="100%" />
-                    </Table.DataCell>
-                ))}
-            </Table.Row>
+            <Table.DataCell colSpan={columnLength}  style={{ textAlign: 'center' }}>
+                <Skeleton variant={'rectangle'} width="100%" />
+            </Table.DataCell>
         </>
     );
 };

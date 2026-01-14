@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { useContext, useEffect, useState } from 'react';
+import { FC, useCallback, useContext, useEffect, useState } from 'react';
 import {
     getDestinationDisplayName,
     getSourceApplicationDisplayNameById,
     getStateDisplayName,
     integrationComparator,
 } from '../../../util/TableUtil';
-import { Box, HStack, Pagination, SortState, Table } from '@navikt/ds-react';
+import { Box, HStack, Loader, Pagination, SortState, Table } from '@navikt/ds-react';
 import IntegrationPanel from './IntegrationPanel';
 import { useTranslation } from 'react-i18next';
 import { IIntegration } from '../../integration/types/Integration';
@@ -47,7 +47,9 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({
         { value: '50', label: '50' },
         { value: '100', label: '100' },
     ];
-    const [detailedStats, setDetailedStats] = useState<IIntegrationDetailedStatistics[]>([]);
+    const [detailedStats, setDetailedStats] = useState<
+        IIntegrationDetailedStatistics[] | undefined
+    >(undefined);
 
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [isFetching, setIsFetching] = useState<boolean>(false);
@@ -62,9 +64,17 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({
     useEffect(() => {
         if (allMetadata && !isFetching) {
             setIntegrations(undefined);
+            setDetailedStats(undefined);
             getAllIntegrations(rowCount, sort);
         }
     }, [page, sort?.orderBy, sort?.direction, rowCount, allMetadata?.length]);
+
+    const getDetailedStatistics = useCallback(async (ids: string[]) => {
+        const statsResponse =
+            await InstanceFlowTrackingRepository.getStatisticsForIntegrations(ids);
+        const statsData = statsResponse.data;
+        setDetailedStats(statsData.content);
+    }, []);
 
     const getAllIntegrations = async (rowCount: string, sort?: SortState) => {
         onError(undefined);
@@ -72,19 +82,18 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({
             try {
                 setIsFetching(true);
                 setIsLoading(true);
-                const [statsResponse, integrationResponse] = await Promise.all([
-                    InstanceFlowTrackingRepository.getStatistics(),
-                    IntegrationRepository.getIntegrations(
-                        page - 1,
-                        Number(rowCount),
-                        sort ? sort.orderBy : 'state',
-                        sort ? (sort.direction === 'ascending' ? 'ASC' : 'DESC') : 'ASC'
-                    ),
-                ]);
-                const statsData = statsResponse.data;
-                setDetailedStats(statsData.content);
+                const integrationResponse = await IntegrationRepository.getIntegrations(
+                    page - 1,
+                    Number(rowCount),
+                    sort ? sort.orderBy : 'state',
+                    sort ? (sort.direction === 'ascending' ? 'ASC' : 'DESC') : 'ASC'
+                );
+                const integrationData = integrationResponse.data || [];
 
-                const integrationData = integrationResponse.data || []
+
+                const ids = integrationData.content.map((i: IIntegration) => i.id!);
+                getDetailedStatistics(ids);
+
                 integrationData.content.map((integration: IIntegration) => {
                     const integrationMetaData = allMetadata?.find(
                         (metaData) =>
@@ -92,7 +101,7 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({
                             integration.sourceApplicationIntegrationId
                     );
                     integration.displayName = integrationMetaData?.integrationDisplayName;
-                })
+                });
 
                 const sortedData: IIntegration[] = integrationData.content
                     .slice()
@@ -104,6 +113,7 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({
                         }
                         return 1;
                     });
+
                 setIntegrations({ ...integrationData, content: sortedData });
             } catch (e) {
                 onError({ message: t('errorMessage') });
@@ -170,7 +180,7 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({
                             <TableLoader columnLength={12} />
                         ) : (
                             integrations?.content?.map((value, i) => {
-                                const stats = detailedStats.find(
+                                const stats = detailedStats?.find(
                                     (stat) => stat.integrationId === value.id
                                 );
                                 return (
@@ -215,21 +225,27 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({
                                         <Table.DataCell>
                                             {getStateDisplayName(value.state ?? '')}
                                         </Table.DataCell>
-                                        <Table.DataCell align={'center'}>
-                                            {stats?.total || '-'}
-                                        </Table.DataCell>
-                                        <Table.DataCell align={'center'}>
-                                            {stats?.inProgress || '-'}
-                                        </Table.DataCell>
-                                        <Table.DataCell align={'center'}>
-                                            {stats?.transferred || '-'}
-                                        </Table.DataCell>
-                                        <Table.DataCell align={'center'}>
-                                            {stats?.aborted || '-'}
-                                        </Table.DataCell>
-                                        <Table.DataCell align={'center'}>
-                                            {stats?.failed || '-'}
-                                        </Table.DataCell>
+                                        {!detailedStats ? (
+                                            <TableLoader columnLength={5} type={'cells'} />
+                                        ) : (
+                                            <>
+                                                <Table.DataCell align={'center'}>
+                                                    {stats?.total || '-'}
+                                                </Table.DataCell>
+                                                <Table.DataCell align={'center'}>
+                                                    {stats?.inProgress || '-'}
+                                                </Table.DataCell>
+                                                <Table.DataCell align={'center'}>
+                                                    {stats?.transferred || '-'}
+                                                </Table.DataCell>
+                                                <Table.DataCell align={'center'}>
+                                                    {stats?.aborted || '-'}
+                                                </Table.DataCell>
+                                                <Table.DataCell align={'center'}>
+                                                    {stats?.failed || '-'}
+                                                </Table.DataCell>
+                                            </>
+                                        )}
                                     </Table.ExpandableRow>
                                 );
                             })
