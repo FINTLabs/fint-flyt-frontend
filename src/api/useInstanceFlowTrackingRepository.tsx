@@ -138,6 +138,13 @@ export default function useInstanceFlowTrackingRepository() {
         );
     };
 
+    const getStatisticsForIntegrations = (integrationIds: string[]) => {
+        return get<Page<IIntegrationDetailedStatistics>>(
+            API_URL,
+            `/api/intern/instance-flow-tracking/statistics/integrations?integrationIds=${integrationIds.join(',')}&size=${integrationIds.length}`
+        );
+    };
+
     return {
         getLatestEvents: getLatestSummaries,
         getEventsByInstanceId,
@@ -146,5 +153,6 @@ export default function useInstanceFlowTrackingRepository() {
         manualTransferEvent,
         getAllStatistics,
         getStatistics,
+        getStatisticsForIntegrations,
     };
 }
