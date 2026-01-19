@@ -7,7 +7,7 @@ describe('Testing integration list', () => {
             '**/integrasjoner?side=0&antall=10&sorteringFelt=state&sorteringRetning=ASC',
             { fixture: 'integrationsInList.json' }
         ).as('getIntegrations');
-        cy.intercept('GET', '**/instance-flow-tracking/statistics/integrations', {
+        cy.intercept('GET', '**/instance-flow-tracking/statistics/integrations*', {
             fixture: 'historikk.json',
         }).as('getHistory');
         cy.intercept('GET', '**/metadata?kildeapplikasjonIds=*&bareSisteVersjoner=*', {

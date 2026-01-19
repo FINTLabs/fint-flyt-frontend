@@ -9,10 +9,6 @@ function fillAll() {
 describe('Testing create new configuration from new integration', () => {
     beforeEach(() => {
 
-        cy.intercept('GET', '**/instance-flow-tracking/statistics/integrations', {
-            fixture: 'historikk.json',
-        }).as('getHistory');
-
         cy.intercept('POST', '**/integrasjoner', {fixture: 'postFixture.json'}).as('postIntegration')
         cy.intercept('GET', '**/integrasjoner', {fixture: 'allIntegrations.json'}).as('getAllIntegrations')
         cy.intercept('GET', '**/integrasjoner?side=0&antall=10&sorteringFelt=state&sorteringRetning=ASC', {fixture: 'integrations.json'}).as('getIntegrations')
@@ -85,7 +81,7 @@ describe('Testing creating new and editing configurations from integration overv
 
     beforeEach(() => {
 
-        cy.intercept('GET', '**/instance-flow-tracking/statistics/integrations', {
+        cy.intercept('GET', '**/instance-flow-tracking/statistics/integrations*', {
             fixture: 'historikk.json',
         }).as('getHistory');
 
@@ -112,6 +108,7 @@ describe('Testing creating new and editing configurations from integration overv
 
     it('should navigate to create new blank configuration form', () => {
         prep()
+        cy.wait('@getHistory');
         cy.get(':nth-child(3) > .navds-table__toggle-expand-cell > .navds-table__toggle-expand-button').click()
         cy.get('#panel-1-new-configuration-button').click()
     })
