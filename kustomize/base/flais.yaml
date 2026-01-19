@@ -52,10 +52,10 @@ spec:
   restartPolicy: Always
   replicas: 1
   probes:
-    startup:
+    readiness:
       path: /health
       port: 8000
-      initialDelaySeconds: 70
-      failureThreshold: 12
+      initialDelaySeconds: 0
+      failureThreshold: 5
       periodSeconds: 10
       timeoutSeconds: 3

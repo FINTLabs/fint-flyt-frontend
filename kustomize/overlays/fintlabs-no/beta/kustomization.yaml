@@ -26,7 +26,7 @@ patches:
         path: "/spec/url/basePath"
         value: "/beta/fintlabs-no"
       - op: replace
-        path: "/spec/probes/startup/path"
+        path: "/spec/probes/readiness/path"
         value: "/beta/fintlabs-no/health"
     target:
       kind: Application
