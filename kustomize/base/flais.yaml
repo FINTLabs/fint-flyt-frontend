@@ -51,3 +51,11 @@ spec:
       cpu: "50m"
   restartPolicy: Always
   replicas: 1
+  probes:
+    startup:
+      path: /health
+      port: 8000
+      initialDelaySeconds: 70
+      failureThreshold: 12
+      periodSeconds: 10
+      timeoutSeconds: 3
