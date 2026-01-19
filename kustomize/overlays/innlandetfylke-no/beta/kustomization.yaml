@@ -25,6 +25,9 @@ patches:
       - op: replace
         path: "/spec/url/basePath"
         value: "/beta/innlandetfylke-no"
+      - op: replace
+        path: "/spec/probes/readiness/path"
+        value: "/beta/innlandetfylke-no/health"
     target:
       kind: Application
       name: fint-flyt-frontend
