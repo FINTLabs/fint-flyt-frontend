@@ -1,10 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {IValueConverting} from "../types/ValueConverting";
-import {sortAndHandleSelectables} from "../../configuration/util/SelectablesUtils";
-import {ISelectable} from "../../configuration/types/Selectable";
 import {Box, Heading, Table} from "@navikt/ds-react";
 import {useTranslation} from "react-i18next";
-import useResourceRepository from '../../../api/useResourceRepository';
 
 type Props = {
     id: number;
@@ -12,28 +9,7 @@ type Props = {
 }
 
 export const ValueConvertingPanel: React.FunctionComponent<Props> = (props: Props) => {
-    const ResourceRepository = useResourceRepository()
     const {t} = useTranslation('translations', {keyPrefix: 'pages.valueConverting'});
-    const [toSelectables, setToSelectables] = useState<ISelectable[]>([])
-
-    useEffect(() => {
-        ResourceRepository.getSelectableKodeverkFormat().then((result => {
-            const sortedResult = sortAndHandleSelectables(result.data)
-            setToSelectables(sortedResult);
-
-        }))
-/*        getSelectables([{
-            url: "api/intern/arkiv/kodeverk/format"
-        }])
-            .then((result: ISelectable[]) => {
-                setToSelectables(result);
-            })*/
-    }, [])
-
-    const findDisplayName = (valueToFind: string) => {
-        const selectedItem = toSelectables.find(item => item.value === valueToFind);
-        return selectedItem ? selectedItem.displayName : valueToFind;
-    };
 
     return (
         <Box id={"value-converting-panel-" + props.id} padding="3" background={"surface-subtle"} borderRadius="large">
@@ -50,7 +26,7 @@ export const ValueConvertingPanel: React.FunctionComponent<Props> = (props: Prop
                             return (
                                 <Table.Row key={i}>
                                     <Table.DataCell>{key}</Table.DataCell>
-                                    <Table.DataCell>{findDisplayName(value)}</Table.DataCell>
+                                    <Table.DataCell>{value}</Table.DataCell>
                                 </Table.Row>
                             )
                         }

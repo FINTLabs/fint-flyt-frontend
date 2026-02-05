@@ -12,29 +12,29 @@ import useIntegrationRepository from '../../../api/useIntegrationRepository';
 import { FilterIcon } from '@navikt/aksel-icons';
 import { SourceApplicationContext } from '../../../context/SourceApplicationContext';
 import { useTranslation } from 'react-i18next';
-import useSourceApplicationRepository from '../../../api/useSourceApplicationRepository';
-import { ISourceApplication } from '../../configuration/types/SourceApplication';
+import { AuthorizationContext } from '../../../context/AuthorizationContext';
+import { sourceApplicationsToSelectable } from '../../../util/FormUtil';
 
 const FilterForm: React.FC = () => {
     const IntegrationRepository = useIntegrationRepository();
-    const SourceApplicationRepository = useSourceApplicationRepository()
 
     const { allMetadata } = useContext(SourceApplicationContext);
+    const { getAllSourceApplications } = useContext(AuthorizationContext);
     const { t } = useTranslation('translations', { keyPrefix: 'pages.instances' });
 
     const { clearFilters, saveFilters, filters, updateFilter } = useFilters();
     const [openCard, setOpenCard] = useState<string | null>(null);
     const [allIntegrations, setAllIntegrations] = useState<IIntegration[]>([]);
+    const [sourceApplicationIdsOptions, setSourceApplicationIdsOptions] = useState<
+        { label: string; value: string }[]
+    >([]);
     const ref = useRef<HTMLDialogElement>(null);
     const [filterCount, setFilterCount] = useState(0);
 
-    const sourceApplicationIdsOptions = useMemo(() => {
-        const response: ISourceApplication[] = SourceApplicationRepository.getSourceApplications();
-        return response.map((sapp) => {
-            return {
-                value: sapp.id.toString(),
-                label: sapp.displayName,
-            };
+    const getSourceApplications = useCallback(() => {
+        getAllSourceApplications(true).then((sourceApps) => {
+            const options = sourceApplicationsToSelectable(sourceApps);
+            setSourceApplicationIdsOptions(options);
         });
     }, []);
 
@@ -56,6 +56,7 @@ const FilterForm: React.FC = () => {
     }, []);
 
     useEffect(() => {
+        getSourceApplications();
         IntegrationRepository.getAllIntegrations()
             .then((response) => {
                 const data = response.data;
@@ -202,9 +203,7 @@ const FilterForm: React.FC = () => {
                                     isOpen={openCard === 'integration'}
                                     toggleOpen={toggleCard}
                                     integrationOptions={integrationsOptions}
-                                    sourceApplicationIdsOptions={
-                                        sourceApplicationIdsOptions
-                                    }
+                                    sourceApplicationIdsOptions={sourceApplicationIdsOptions}
                                     sourceApplicationIntegrationOptions={
                                         sourceApplicationIntegrationOptions
                                     }

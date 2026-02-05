@@ -1,5 +1,4 @@
 import { useContext } from 'react';
-import { ISourceApplication } from '../features/configuration/types/SourceApplication';
 import { ApiAdapterContext } from '../context/ApiAdapterContext';
 import {
     IInstanceMetadataContent,
@@ -28,26 +27,9 @@ export default function useSourceApplicationRepository() {
             `/api/intern/metadata/${metadataId}/instans-metadata`
         );
     };
-
-    const getSourceApplications = (): ISourceApplication[] => {
-        //return get("/api/intern/sourceApplicationData")
-        return sourceApplications;
-    };
-
     return {
         getMetadata,
         getMetadataForSourceApplications,
-        getInstanceElementMetadataById,
-        getSourceApplications,
+        getInstanceElementMetadataById
     };
 }
-
-export const sourceApplications : ISourceApplication[] = [
-        { id: 1, displayName: 'ACOS Interact', available: true },
-        { id: 2, displayName: 'eGrunnerverv', available: true },
-        { id: 3, displayName: 'Digisak', available: true },
-        { id: 4, displayName: 'VIGO', available: true },
-        { id: 5, displayName: 'Altinn', available: true },
-        { id: 6, displayName: 'HMSReg', available: true },
-        { id: 7, displayName: 'ISY Graving', available: true },
-    ];

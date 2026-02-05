@@ -3,7 +3,6 @@ import { ReactElement, useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Alert, Box, Button, Dropdown, HStack, Table } from '@navikt/ds-react';
 import { format } from 'date-fns';
-import { getSourceApplicationDisplayNameById } from '../../../util/TableUtil';
 import { IEventNew, ISummary } from '../types/Event';
 import InstancePanel from './InstancePanel';
 import { InstanceStatusWithTooltip } from './InstanceEventStatusWithText';
@@ -17,6 +16,8 @@ import CustomStatusDialogComponent from './CustomStatusDialogComponent';
 import { useFilters } from '../filter/FilterContext';
 import useInstanceFlowTrackingRepository from '../../../api/useInstanceFlowTrackingRepository';
 import TableLoader from '../../../components/molecules/TableLoader';
+import { AuthorizationContext } from '../../../context/AuthorizationContext';
+import { ISourceApplication } from '../../configuration/types/SourceApplication';
 
 interface Props {
     onError: (error: IAlertMessage | undefined) => void;
@@ -24,8 +25,12 @@ interface Props {
 
 const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
     const InstanceRepository = useInstanceRepository();
-    const { t } = useTranslation('translations', { keyPrefix: 'pages.instances' });
     const InstanceFlowTrackingRepository = useInstanceFlowTrackingRepository();
+    const { allMetadata } = useContext(SourceApplicationContext);
+    const { getAllSourceApplications } = useContext(AuthorizationContext);
+    const { t } = useTranslation('translations', { keyPrefix: 'pages.instances' });
+    const { filters, refreshKey } = useFilters();
+
     const [selectedRow, setSelectedRow] = useState<IEventNew>();
     const [openCustomDialog, setOpenCustomDialog] = React.useState(false);
     const errorsNotForRetry: string[] = ['instance-receival-error', 'instance-registration-error'];
@@ -45,11 +50,10 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
     const [disabledRetryButtons, setDisabledRetryButtons] = useState(
         new Array(Number(rowCount)).fill(false)
     );
-    const { allMetadata } = useContext(SourceApplicationContext);
-    const { filters, refreshKey } = useFilters();
     const [loading, setLoading] = useState(true);
     const [isFetching, setIsFetching] = useState<boolean>(false);
     const [expandedRows, setExpandedRows] = useState<number[]>([]);
+    const [sourceApplications, setSourceApplications] = useState<ISourceApplication[]>();
 
     useEffect(() => {
         if (allMetadata && summaryList) {
@@ -76,28 +80,29 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
         if (allMetadata) {
             try {
                 setIsFetching(true);
-                const eventResponse = await InstanceFlowTrackingRepository.getLatestEvents(
-                    Number(size),
-                    filters
-                );
-
-                const events: ISummary[] = eventResponse.data;
-                if (events) {
-                    allMetadata.forEach((value: IIntegrationMetadata) => {
-                        eventResponse.data.forEach((event: ISummary) => {
-                            if (
-                                event.sourceApplicationIntegrationId ===
-                                value.sourceApplicationIntegrationId
-                            ) {
-                                event.displayName = value.integrationDisplayName;
-                            }
+                Promise.all([
+                    InstanceFlowTrackingRepository.getLatestEvents(Number(size), filters),
+                    getAllSourceApplications(false),
+                ]).then(([eventResponse, sourceApps]) => {
+                    setSourceApplications(sourceApps);
+                    const events: ISummary[] = eventResponse.data;
+                    if (events) {
+                        allMetadata.forEach((value: IIntegrationMetadata) => {
+                            eventResponse.data.forEach((event: ISummary) => {
+                                if (
+                                    event.sourceApplicationIntegrationId ===
+                                    value.sourceApplicationIntegrationId
+                                ) {
+                                    event.displayName = value.integrationDisplayName;
+                                }
+                            });
                         });
-                    });
 
-                    setSummaryList(events);
-                } else {
-                    setSummaryList([]);
-                }
+                        setSummaryList(events);
+                    } else {
+                        setSummaryList([]);
+                    }
+                });
             } catch (error: unknown) {
                 if (
                     typeof error === 'object' &&
@@ -251,9 +256,11 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                                         }
                                     >
                                         <Table.DataCell scope="row">
-                                            {getSourceApplicationDisplayNameById(
-                                                String(value.sourceApplicationId)
-                                            )}
+                                            {
+                                                sourceApplications?.find(
+                                                    (sa) => sa.id === value.sourceApplicationId
+                                                )?.displayName
+                                            }
                                         </Table.DataCell>
 
                                         <Table.DataCell>{value.displayName}</Table.DataCell>

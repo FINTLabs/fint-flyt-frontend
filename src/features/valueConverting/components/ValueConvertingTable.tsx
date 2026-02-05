@@ -1,10 +1,10 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
+import { MenuElipsisVerticalCircleIcon } from '@navikt/aksel-icons';
 import { IValueConverting } from '../types/ValueConverting';
 import {
     getDestinationDisplayName,
-    getSourceApplicationDisplayNameById,
 } from '../../../util/TableUtil';
 import {
     Alert,
@@ -12,16 +12,16 @@ import {
     Button,
     Dropdown,
     HStack,
-    Loader,
     Pagination,
     Table,
     VStack,
 } from '@navikt/ds-react';
-import { MenuElipsisVerticalCircleIcon } from '@navikt/aksel-icons';
 import ValueConvertingPanel from './ValueConvertingPanel';
 import { IAlertMessage } from '../../../components/types/TableTypes';
 import useValueConvertingRepository from '../../../api/useValueConvertingRepository';
 import TableLoader from '../../../components/molecules/TableLoader';
+import { ISourceApplication } from '../../configuration/types/SourceApplication';
+import { AuthorizationContext } from '../../../context/AuthorizationContext';
 
 type Props = {
     onValueConvertingSelected: (id: number) => void;
@@ -30,8 +30,10 @@ type Props = {
 
 const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
     const ValueConvertingRepository = useValueConvertingRepository();
+    const { getAllSourceApplications } = useContext(AuthorizationContext);
     const history = useNavigate();
     const { t } = useTranslation('translations', { keyPrefix: 'pages.valueConverting' });
+    const [sourceApplications, setSourceApplications] = useState<ISourceApplication[]>([]);
     const [rows, setRows] = useState<IValueConverting[] | undefined>(undefined);
     const [error, setError] = useState<IAlertMessage | undefined>(undefined);
     const [page, setPage] = useState(1);
@@ -41,13 +43,16 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
     sortData = sortData.slice((page - 1) * rowsPerPage, page * rowsPerPage);
 
     useEffect(() => {
-        // TODO: fix this
-        ValueConvertingRepository.getValueConvertings(0, 100, 'id', 'DESC', false)
-            .then((response) => {
+        Promise.all([
+            ValueConvertingRepository.getValueConvertings(0, 100, 'id', 'DESC', false),
+            getAllSourceApplications(false),
+        ])
+            .then(([valueConvertingResponse, sourceApp]) => {
                 setError(undefined);
-                const data = response.data;
-                if (data.content) {
-                    setRows(data.content);
+                setSourceApplications(sourceApp);
+                const valueConvertingPage = valueConvertingResponse.data;
+                if (valueConvertingPage.content) {
+                    setRows(valueConvertingPage.content);
                 } else {
                     setRows([]);
                 }
@@ -149,9 +154,12 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
                                             {value.toTypeId}
                                         </Table.DataCell>
                                         <Table.DataCell scope="row">
-                                            {getSourceApplicationDisplayNameById(
-                                                String(value.fromApplicationId)
-                                            )}
+                                            {
+                                                sourceApplications.find(
+                                                    (sourceApp) =>
+                                                        sourceApp.id === value.fromApplicationId
+                                                )?.displayName
+                                            }
                                         </Table.DataCell>
                                         <Table.DataCell scope="row">
                                             {getDestinationDisplayName(value.toApplicationId)}

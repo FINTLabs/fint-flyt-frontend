@@ -14,7 +14,7 @@ import SearchSelectValueComponent from "../../configuration/components/mapping/v
 import {Alert, Button, Heading, HelpText, HStack, VStack,} from "@navikt/ds-react";
 import {ISelect} from "../../configuration/types/Select";
 import {AuthorizationContext} from "../../../context/AuthorizationContext";
-import {getSourceApplicationDisplayNameById} from "../../../util/TableUtil";
+import { sourceApplicationsToSelectable } from '../../../util/FormUtil';
 import useValueConvertingRepository from '../../../api/useValueConvertingRepository';
 import useResourceRepository from '../../../api/useResourceRepository';
 import FormPageWrapper from '../../../components/molecules/FormPageWrapper';
@@ -35,7 +35,7 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
     const ResourceRepository = useResourceRepository()
 
     const {t} = useTranslation("translations", {keyPrefix: "pages.valueConverting",});
-    const {activeUserSourceApps} = useContext(AuthorizationContext)
+    const { getAllSourceApplications } = useContext(AuthorizationContext);
     const [disabled, setDisabled] = useState<boolean>(false);
     const [show, setShow] = React.useState(false);
     const [alertContent, setAlertContent] = React.useState<IAlertContent>(defaultAlert);
@@ -45,14 +45,11 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
 
 
     function getSelectableSourceApplications() {
-        const sources: ISelect[] = []
-        activeUserSourceApps && activeUserSourceApps
-            .map((sourceApplication) => {
-                sources.push({value: sourceApplication, label: getSourceApplicationDisplayNameById(sourceApplication)})
-            })
-        setSelectableSourceApplications([...selectableSourceApplications, ...sources]);
+       getAllSourceApplications(true).then((sourceApplications) => {
+           const options = sourceApplicationsToSelectable(sourceApplications);
+           setSelectableSourceApplications(options);
+       })
     }
-
 
     useEffect(() => {
         getSelectableSourceApplications()

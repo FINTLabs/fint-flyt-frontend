@@ -9,7 +9,6 @@ import {ISelect} from "../features/configuration/types/Select";
 import {ContextProps} from "./constants/interface";
 import {MOCK_INSTANCE_METADATA} from "../__tests__/mock/mapping/mock-instans-metadata";
 import i18n from "../util/locale/i18n";
-import {ISourceApplication} from "../features/configuration/types/SourceApplication";
 import useSourceApplicationRepository from '../api/useSourceApplicationRepository';
 import useIntegrationRepository from '../api/useIntegrationRepository';
 import useAuthorizationRepository from '../api/useAuthorizationRepository';
@@ -30,9 +29,6 @@ type SourceApplicationContextState = {
     getInstanceElementMetadata: (metadataId: string) => void;
     sourceApplication: number | undefined;
     setSourceApplication: (id: number | undefined) => void;
-    sourceApplications: ISourceApplication[] | undefined;
-    setSourceApplications: (sourceApp: ISourceApplication[]) => void;
-    getSourceApplications: () => void;
     currentMetaData: IIntegrationMetadata[] | undefined;
     getMetadataBySourceApplicationId: (sourceApplicationId: string, onlyLatest: boolean, updateAvailableForms: boolean) => void;};
 
@@ -50,9 +46,6 @@ const contextDefaultValues: SourceApplicationContextState = {
     getInstanceElementMetadata: () => undefined,
     sourceApplication: undefined,
     setSourceApplication: () => undefined,
-    sourceApplications: undefined,
-    setSourceApplications: () => undefined,
-    getSourceApplications: () => undefined,
     currentMetaData: undefined,
     getMetadataBySourceApplicationId: () => undefined,
 };
@@ -68,7 +61,6 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
     const [instanceElementMetadata, setInstanceElementMetadata] = useState<IInstanceMetadataContent | undefined>(MOCK_INSTANCE_METADATA);
     const [instanceObjectCollectionMetadata, setInstanceObjectCollectionMetadata,] = useState<IInstanceObjectCollectionMetadata[]>([]);
     const [sourceApplication, setSourceApplication] = useState<number | undefined>(contextDefaultValues.sourceApplication);
-    const [sourceApplications, setSourceApplications] = useState<ISourceApplication[] | undefined>(contextDefaultValues.sourceApplications);
     const [currentMetaData, setCurrentMetaData] = useState<IIntegrationMetadata[] | undefined>(
         contextDefaultValues.currentMetaData
     );
@@ -89,16 +81,6 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
                         !!metadata
                 )
         );
-    }
-
-    const getSourceApplications = () => {
-        try {
-            const response: ISourceApplication[] = SourceApplicationRepository.getSourceApplications()
-            setSourceApplications(response);
-        } catch (err) {
-            console.error(err);
-            setSourceApplications([]);
-        }
     }
 
     const getAllAvailableFormsBySourceApplicationId = async (
@@ -254,9 +236,6 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
                 getAllIntegrationsAndSetAvailableForms,
                 sourceApplication,
                 setSourceApplication,
-                sourceApplications,
-                setSourceApplications,
-                getSourceApplications,
                 currentMetaData,
                 getMetadataBySourceApplicationId,
             }}>
