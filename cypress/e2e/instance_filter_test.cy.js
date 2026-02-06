@@ -1,109 +1,48 @@
+import {
+    mockGenericApplicationRepository,
+    mockGenericAuthorizationRepository,
+    mockGenericIntegrationRepository,
+    mockSelectablesFromInstanceFlowTrackingRepository,
+} from '../utils/interceptions.js';
+
 describe('Testing instance list', () => {
     beforeEach(() => {
-        const intercepts = [
-            {
-                method: 'GET',
-                url: '**/api/intern/instance-flow-tracking/summaries?size=10',
-                fixture: 'filter/instanser.json',
-                alias: 'newSummaries1',
-            },
-            {
-                method: 'GET',
-                url: '**/api/intern/instance-flow-tracking/summaries?size=10',
-                fixture: 'filter/instanser.json',
-                alias: 'newSummaries2',
-            },
-            {
-                method: 'GET',
-                url: '**/api/intern/instance-flow-tracking/value-space/instance-status/selectables',
-                fixture: 'filter/instance-status.json',
-                alias: 'instance-status',
-            },
-            {
-                method: 'GET',
-                url: '**/api/intern/instance-flow-tracking/value-space/storage-status/selectables',
-                fixture: 'filter/storage-status.json',
-                alias: 'storage-status',
-            },
-            {
-                method: 'GET',
-                url: '**/api/intern/instance-flow-tracking/value-space/event-category/selectables',
-                fixture: 'filter/event-category.json',
-                alias: 'event-category-1',
-            },
-            {
-                method: 'GET',
-                url: '**/api/intern/instance-flow-tracking/value-space/instance-status-event-category/selectables',
-                fixture: 'filter/instance-status-event-category.json',
-                alias: 'event-category-2',
-            },
-            {
-                method: 'GET',
-                url: '**/api/intern/instance-flow-tracking/value-space/time/current-period/selectables',
-                fixture: 'filter/current-period.json',
-                alias: 'event-category-3',
-            }
-        ];
-
-        intercepts.forEach(({ method, url, fixture, response, alias }) => {
-            if (fixture) {
-                cy.intercept(method, url, { fixture }).as(alias);
-            } else {
-                cy.intercept(method, url, response).as(alias);
-            }
-        });
+        mockGenericAuthorizationRepository();
+        mockSelectablesFromInstanceFlowTrackingRepository();
+        mockGenericIntegrationRepository();
+        mockGenericApplicationRepository();
     });
 
     function prep() {
-        cy.intercept('GET', '**/authorization/me', { fixture: 'me.json' }).as('getMe');
-        cy.intercept('GET', '**/authorization/me/is-authorized', {
-            fixture: 'auth.json',
-            headers: {
-                'Content-Type': 'text/plain',
-            },
-        }).as('getAuth');        cy.intercept('GET', '**/authorization/me/restricted-page-authorization', {
-            userPermissionPage: true,
-        });
-        cy.intercept('GET', '**/authorization/users?page=0&size=10', { fixture: 'users.json' });
-
-        cy.intercept('GET', '**/intern/integrasjoner', { fixture: 'integrations.json' }).as(
-            'getIntegrations'
-        );
-
-
-        cy.intercept('GET', '**/metadata?kildeapplikasjonId=1&bareSisteVersjoner=true', {
-            fixture: 'metadataLatest.json',
-        }).as('getLatestMetadata');
-        cy.intercept('GET', '**/metadata?kildeapplikasjonId=2&bareSisteVersjoner=true', {
-            fixture: 'metadataLatest.json',
-        }).as('getLatestMetadata');
-        cy.intercept('GET', '**/metadata?kildeapplikasjonId=3&bareSisteVersjoner=true', {
-            fixture: 'metadataLatest.json',
-        }).as('getLatestMetadata');
-        cy.intercept('GET', '**/metadata?kildeapplikasjonId=4&bareSisteVersjoner=true', {
-            fixture: 'metadataLatest.json',
-        }).as('getLatestMetadata');
-        cy.intercept('GET', '**/metadata?kildeapplikasjonId=5&bareSisteVersjoner=true', {
-            fixture: 'metadataLatest.json',
-        }).as('getLatestMetadata');
-        cy.intercept('GET', '**/metadata?kildeapplikasjonId=6&bareSisteVersjoner=true', {
-            fixture: 'metadataLatest.json',
-        }).as('getLatestMetadata');
-
         cy.visit('/integration/instance/list');
     }
 
-    it('should open and show table', () => {
+    it('should open and show table and content', () => {
         prep();
-        cy.get('#instances-content-stack > :nth-child(2)').should('be.visible');
+        cy.get('#instance-table').should('be.visible');
+        cy.get('#instance-table thead tr th').should('have.length', 10);
+        cy.get('#instance-table thead tr th').last().should('have.text', 'Handlinger');
+        cy.get('#instance-table > tbody > tr').should('have.length', 20); // 20 because it is an expandable table
+
+        // Status icon should have aria-label
+        cy.get('#instance-table > tbody > :first-child > :nth-child(7) > div').should(
+            'have.attr',
+            'aria-label',
+            'Overført'
+        );
+        cy.get('#instance-table > tbody > :nth-child(7) > :nth-child(7) > div').should(
+            'have.attr',
+            'aria-label',
+            'Feilet'
+        );
     });
 
-    it('should show the filters form when the Filters button is clicked', () => {
+    it('should show the filters form in modal when the Filters button is clicked', () => {
         prep();
 
         // Assert that the filters form is initially hidden and the button exists
         cy.get('[data-testid="filters-form"]').should('not.exist'); // Adjust selector as needed
-        cy.get('[data-testid="filters-form-button"]').should('have.text', 'Filtrer tabellen')
+        cy.get('[data-testid="filters-form-button"]').should('have.text', 'Filtrer tabellen');
 
         // Click the Filters button
         cy.get('[data-testid="filters-form-button"]').click();
@@ -112,7 +51,6 @@ describe('Testing instance list', () => {
     });
 
     it('should load all filter options', () => {
-
         prep();
 
         cy.get('[data-testid="filters-form-button"]').click();
@@ -120,12 +58,10 @@ describe('Testing instance list', () => {
         // TimeCard options
         cy.get('[data-testid="timeCard"]').should('exist');
         cy.get('[data-testid="timeCard"]').click();
-        // cy.get('[data-testid="timeCard-options"]').children().should('have.length.at.least', 1);
 
         // IntegrationCard options
         cy.get('[data-testid="integration"]').should('exist');
         cy.get('[data-testid="integration"]').click();
-        // cy.get('[data-testid="integration-options"]').children().should('have.length', 6);
 
         // InstanceCard
         cy.get('[data-testid="instance"]').should('exist');
@@ -142,10 +78,36 @@ describe('Testing instance list', () => {
         // AdvancedCard options
         cy.get('[data-testid="advanced"]').should('exist');
         cy.get('[data-testid="advanced"]').click();
-        // cy.get('[data-testid="advanced-options"]').children().should('have.length.at.least', 1);
 
         // Buttons
-        cy.contains('button', 'Søk').should('be.visible');
         cy.contains('button', 'Tilbakestill').should('be.visible');
+        cy.contains('button', 'Søk').should('be.visible');
+    });
+
+    it('should show icon indicating active filters', () => {
+        prep();
+
+        cy.intercept(
+            'GET',
+            '**/api/intern/instance-flow-tracking/summaries?size=10&statuses=TRANSFERRED',
+            {
+                fixture: 'filter/instanser.json',
+            }
+        ).as('newSummariesWithFilter');
+
+        cy.get('[data-testid="filters-form-button"]').click();
+        cy.get('[data-testid="status"]').click();
+        cy.get('[data-testid="status-option-1"]').click();
+        cy.contains('button', 'Søk').click();
+
+        cy.get('[data-testid="filters-form-button-container"] > div').should(
+            'have.attr',
+            'aria-label',
+            'Tabellen er filtrert'
+        );
+        cy.get('[data-testid="filters-form-button-container"] > div > span').should(
+            'have.text',
+            '1'
+        );
     });
 });

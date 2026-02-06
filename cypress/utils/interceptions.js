@@ -1,5 +1,3 @@
-
-
 export const mockGenericAuthorizationRepository = () => {
     cy.intercept('GET', '**/authorization/me/is-authorized', {
         fixture: 'auth.json',
@@ -42,10 +40,66 @@ export const mockGenericApplicationRepository = () => {
     cy.intercept('GET', '**/metadata?kildeapplikasjonIds=*&bareSisteVersjoner=*', {
         fixture: 'metadataBySourceApplication.json',
     }).as('getMetadata');
+
 };
 
 export const mockGenericInstanceFlowTrackingRepository = () => {
     cy.intercept('GET', '**/instance-flow-tracking/statistics/total', {
         fixture: 'total.json',
     }).as('getTotal');
+};
+
+export const mockSelectablesFromInstanceFlowTrackingRepository = () => {
+    const intercepts = [
+        {
+            method: 'GET',
+            url: '**/api/intern/instance-flow-tracking/summaries?size=10',
+            fixture: 'filter/instanser.json',
+            alias: 'newSummaries1',
+        },
+        {
+            method: 'GET',
+            url: '**/api/intern/instance-flow-tracking/summaries?size=10',
+            fixture: 'filter/instanser.json',
+            alias: 'newSummaries2',
+        },
+        {
+            method: 'GET',
+            url: '**/api/intern/instance-flow-tracking/value-space/instance-status/selectables',
+            fixture: 'filter/instance-status.json',
+            alias: 'instance-status',
+        },
+        {
+            method: 'GET',
+            url: '**/api/intern/instance-flow-tracking/value-space/storage-status/selectables',
+            fixture: 'filter/storage-status.json',
+            alias: 'storage-status',
+        },
+        {
+            method: 'GET',
+            url: '**/api/intern/instance-flow-tracking/value-space/event-category/selectables',
+            fixture: 'filter/event-category.json',
+            alias: 'event-category-1',
+        },
+        {
+            method: 'GET',
+            url: '**/api/intern/instance-flow-tracking/value-space/instance-status-event-category/selectables',
+            fixture: 'filter/instance-status-event-category.json',
+            alias: 'event-category-2',
+        },
+        {
+            method: 'GET',
+            url: '**/api/intern/instance-flow-tracking/value-space/time/current-period/selectables',
+            fixture: 'filter/current-period.json',
+            alias: 'event-category-3',
+        },
+    ];
+
+    intercepts.forEach(({ method, url, fixture, response, alias }) => {
+        if (fixture) {
+            cy.intercept(method, url, { fixture }).as(alias);
+        } else {
+            cy.intercept(method, url, response).as(alias);
+        }
+    });
 };

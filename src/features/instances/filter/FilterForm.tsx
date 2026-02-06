@@ -145,9 +145,15 @@ const FilterForm: React.FC = () => {
 
     return (
         <Box>
-            <Box style={{ position: 'relative', display: 'inline-block' }}>
+            <Box
+                data-testid={'filters-form-button-container'}
+                style={{ position: 'relative', display: 'inline-block' }}
+            >
                 {allMetadata && filterCount > 0 && (
-                    <Tooltip content={t('filter.alerts.tableFiltered')} placement={'right'}>
+                    <Tooltip
+                        content={t('filter.alerts.tableFiltered')}
+                        placement={'right'}
+                    >
                         <Box
                             style={{
                                 position: 'absolute',

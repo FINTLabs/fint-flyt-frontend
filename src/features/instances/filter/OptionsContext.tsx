@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import { ApiAdapterContext } from '../../../context/ApiAdapterContext';
-const API_URL = import.meta.env.VITE_API_HISTORY || '';
+import useInstanceFlowTrackingRepository from '../../../api/useInstanceFlowTrackingRepository';
 
 interface Option {
     value: string;
@@ -31,7 +30,7 @@ interface OptionsProviderProps {
 }
 
 export const OptionsProvider: React.FC<OptionsProviderProps> = ({ children }) => {
-    const { get } = useContext(ApiAdapterContext)
+    const InstanceFlowTrackingRepository = useInstanceFlowTrackingRepository();
     const [statusesOptions, setStatusesOptions] = useState<Option[]>([]);
     const [storageStatusesOptions, setStorageStatusesOptions] = useState<Option[]>([]);
     const [eventCategoriesOptions, setEventCategoriesOptions] = useState<Option[]>([]);
@@ -42,10 +41,7 @@ export const OptionsProvider: React.FC<OptionsProviderProps> = ({ children }) =>
     // Generic API fetcher
     const fetchData = async (endpoint: string, setState: (data: Option[]) => void) => {
         try {
-            const response = await get<Option[]>(
-                API_URL, `/api/intern/instance-flow-tracking/value-space/${endpoint}`
-            );
-            setState(response.data);
+            InstanceFlowTrackingRepository.getSelectables(endpoint).then((response) => setState(response.data));
         } catch (error) {
             console.error(`Error fetching ${endpoint}:`, error);
         }

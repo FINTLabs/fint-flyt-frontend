@@ -145,6 +145,11 @@ export default function useInstanceFlowTrackingRepository() {
         );
     };
 
+    const getSelectables = (endpoint: string) => {
+        return get<{ value: string; label: string}[]
+        >(API_URL, `/api/intern/instance-flow-tracking/value-space/${endpoint}`);
+    };
+
     return {
         getLatestEvents: getLatestSummaries,
         getEventsByInstanceId,
@@ -154,5 +159,6 @@ export default function useInstanceFlowTrackingRepository() {
         getAllStatistics,
         getStatistics,
         getStatisticsForIntegrations,
+        getSelectables,
     };
 }
