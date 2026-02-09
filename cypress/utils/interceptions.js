@@ -37,16 +37,33 @@ export const mockGenericIntegrationRepository = () => {
 };
 
 export const mockGenericApplicationRepository = () => {
-    cy.intercept('GET', '**/metadata?kildeapplikasjonIds=*&bareSisteVersjoner=*', {
-        fixture: 'metadataBySourceApplication.json',
-    }).as('getMetadata');
+    cy.intercept(
+        {
+            method: 'GET',
+            pathname: '**/metadata',
+            query: {
+                kildeapplikasjonIds: /.*/,
+                bareSisteVersjoner: /^(true|false)$/i,
+            },
+        },
+        {
+            fixture: 'metadataBySourceApplication.json',
+        }
+    ).as('getMetadata');
 
+    // /metadata?kildeapplikasjonIds=1%2C2%2C3%2C4&bareSisteVersjoner=true
 };
 
 export const mockGenericInstanceFlowTrackingRepository = () => {
     cy.intercept('GET', '**/instance-flow-tracking/statistics/total', {
         fixture: 'total.json',
     }).as('getTotal');
+
+    cy.intercept(
+        'GET',
+        '**/instance-flow-tracking/events?size=10&sort=timestamp%2Cdesc&sourceApplicationId=2&sourceApplicationInstanceId=*&sourceApplicationIntegrationId=journalpost',
+        { fixture: 'hendelser.json' }
+    ).as('getHendelser');
 };
 
 export const mockSelectablesFromInstanceFlowTrackingRepository = () => {

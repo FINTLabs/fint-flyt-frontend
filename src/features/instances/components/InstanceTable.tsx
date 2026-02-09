@@ -238,6 +238,7 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                                 return (
                                     <Table.ExpandableRow
                                         key={i}
+                                        id={`instance-row-${i}`}
                                         expandOnRowClick
                                         open={expandedRows.includes(i)}
                                         onOpenChange={() => handleToggle(i)}
