@@ -2,7 +2,7 @@
     "compilerOptions": {
         "target": "ESNext",
         "lib": ["dom", "dom.iterable", "esnext"],
-        "types": ["vite", "vite/client"],
+        "types": ["vite", "vite/client", "vitest/globals"],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,

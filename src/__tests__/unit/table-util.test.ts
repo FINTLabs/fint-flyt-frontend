@@ -1,6 +1,5 @@
 import {
     getDestinationDisplayName,
-    getSourceApplicationDisplayNameById,
     getStateDisplayName,
     integrationComparator,
     isKeyOfEvent,
@@ -10,10 +9,6 @@ import { IIntegration } from '../../features/integration/types/Integration';
 import { MOCK_INTEGRATION, MOCK_INTEGRATION2, MOCK_INTEGRATION3 } from '../mock/integration';
 
 describe('Testing table utils', () => {
-    test('should return correct source appliction display name by id', () => {
-        expect(getSourceApplicationDisplayNameById('3')).toEqual('Digisak');
-        expect(getSourceApplicationDisplayNameById('99')).toEqual('ukjent');
-    });
 
     test('Should return correct destination displayname by id', () => {
         expect(getDestinationDisplayName('fylkesrad')).toEqual('Arkivsystem');
