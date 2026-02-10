@@ -22,7 +22,7 @@ export default defineConfig(({ mode }) => {
     const basePathProcess = process.env.BASE_PATH
 
     return {
-        plugins: [react()],
+        plugins: [react(), removeTestIds(mode === 'production')],
         base: basePathProcess ? `${basePathProcess}/` : '',
         build: {
             assetsDir: 'static',
