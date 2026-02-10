@@ -129,14 +129,11 @@ const IntegrationProvider = ({ children }: ContextProps) => {
                 ]);
 
             const statistics: ITotalStatistics = statisticsResponse.data || [];
-
+            setTotalStatistics(statistics);
 
             const sourceApplicationIds = sourceApplicationsResponse.data.sourceApplicationIds.map(String).join(',')
             const integrations: IIntegration[] = integrationResponse.data.content || [];
-
             if (integrations.length > 0) {
-                setTotalStatistics(statistics);
-
                 const metadataResponse =
                     await SourceApplicationRepository.getMetadataForSourceApplications(
                         sourceApplicationIds,

@@ -1,37 +1,26 @@
-// noinspection DuplicatedCode
+import {
+    mockGenericAuthorizationRepository, mockGenericConfigurationRepository, mockGenericInstanceFlowTrackingRepository,
+    mockGenericIntegrationRepository, mockGenericResourceRepository,
+    mockGenericSourceApplicationRepository,
+    mockGenericValueConvertingRepository,
+} from '../../utils/interceptions.js';
+
 function fillAll() {
     cy.get('#sourceApplicationId').select('2')
     cy.get('#sourceApplicationIntegrationId').select('sak')
     cy.get('#destination').select('fylkesrad')
 }
 
-
 describe('Testing create new configuration from new integration', () => {
     beforeEach(() => {
-
-        cy.intercept('POST', '**/integrasjoner', {fixture: 'postFixture.json'}).as('postIntegration')
-        cy.intercept('GET', '**/integrasjoner', {fixture: 'allIntegrations.json'}).as('getAllIntegrations')
-        cy.intercept('GET', '**/integrasjoner?side=0&antall=10&sorteringFelt=state&sorteringRetning=ASC', {fixture: 'integrations.json'}).as('getIntegrations')
-        cy.intercept('GET', '**/metadata?kildeapplikasjonId=2&bareSisteVersjoner=true', {fixture: 'metadataLatest.json'}).as('getLatestMetadata')
-        cy.intercept('GET', '**/integrasjoner?sourceApplicationId=*', {fixture: 'integrationForSource2.json'}).as('getAllIntegrationBySourceApplicationId')
-        cy.intercept('GET', '**/metadata?kildeapplikasjonIds=*&bareSisteVersjoner=*', {
-            fixture: 'metadataBySourceApplication.json',
-        }).as('getMetadata');
-        cy.intercept('GET', '**/metadata/4/instans-metadata', {fixture: 'instansMetadata.json'}).as('getInstansMetadata')
-        cy.intercept('GET', '**/value-convertings?page=0&size=100&sortProperty=fromApplicationId&sortDirection=ASC&excludeConvertingMap=true', {fixture: 'valueconverting/valueconvertings.json'}).as('getValueconvertings')
-        cy.intercept('GET', '**/value-convertings?page=0&size=100&sortProperty=fromApplicationId&sortDirection=ASC&excludeConvertingMap=false', {fixture: 'valueconverting/valueconvertings.json'}).as('getValueconvertings')
-        cy.intercept('GET', '**/arkiv/kodeverk/**', {fixture: 'kodeverk/mock.json'}).as('getKodeverk')
+        mockGenericAuthorizationRepository()
+        mockGenericIntegrationRepository();
+        mockGenericSourceApplicationRepository();
+        mockGenericValueConvertingRepository();
+        mockGenericResourceRepository();
     })
 
     function prep() {
-        cy.intercept("GET", "**/authorization/me", {fixture: "me.json"}).as("getMe")
-        cy.intercept('GET', '**/authorization/me/is-authorized', {
-            fixture: 'auth.json',
-            headers: {
-                'Content-Type': 'text/plain',
-            },
-        }).as('getAuth');        cy.intercept("GET", "**/authorization/me/restricted-page-authorization", {userPermissionPage: true}).as("getUserPermissionsPage")
-        cy.intercept("GET", "**/authorization/users?page=0&size=10", {fixture: "users.json"}).as("getUsersPermissions")
         cy.visit('/integration/new')
         fillAll()
         cy.get('#form-settings-confirm-btn').click()
@@ -66,49 +55,24 @@ describe('Testing create new configuration from new integration', () => {
     })
 });
 
+
 describe('Testing creating new and editing configurations from integration overview', () => {
     function prep() {
-        cy.intercept("GET", "**/authorization/me", {fixture: "me.json"}).as("getMe")
-        cy.intercept('GET', '**/authorization/me/is-authorized', {
-            fixture: 'auth.json',
-            headers: {
-                'Content-Type': 'text/plain',
-            },
-        }).as('getAuth');        cy.intercept("GET", "**/authorization/me/restricted-page-authorization", {userPermissionPage: true}).as("getUserPermissionsPage")
-        cy.intercept("GET", "**/authorization/users?page=0&size=10", {fixture: "users.json"}).as("getUsersPermissions")
         cy.visit('/integration/list')
     }
 
     beforeEach(() => {
-
-        cy.intercept('GET', '**/instance-flow-tracking/statistics/integrations*', {
-            fixture: 'historikk.json',
-        }).as('getHistory');
-
-        cy.intercept('POST', '**/integrasjoner', {fixture: 'postFixture.json'}).as('postIntegration');
-        cy.intercept('GET', '**/integrasjoner?side=0&antall=10&sorteringFelt=state&sorteringRetning=ASC', {fixture: 'integrationsInList.json'}).as('getIntegrations');
-        cy.intercept('GET', '**/integrasjoner', {fixture: 'allIntegrations.json'}).as('getAllIntegrations');
-        // cy.intercept('GET', '**/historikk/statistikk/integrasjoner', {fixture: 'historikk.json'}).as('getHistory')
-        cy.intercept('GET', '**/metadata?kildeapplikasjonId=*&bareSisteVersjoner=true', {fixture: 'metadataLatest.json'}).as('getLatestMetadata');
-        cy.intercept('GET', '**/metadata?kildeapplikasjonIds=*&bareSisteVersjoner=*', {
-            fixture: 'metadataBySourceApplication.json',
-        }).as('getMetadata');
-        cy.intercept('GET', '**/metadata/11/instans-metadata', {fixture: 'instansMetadata.json'}).as('getInstansMetadata');
-        cy.intercept('GET', '**/metadata/1/instans-metadata', {fixture: 'instansMetadata.json'}).as('getInstansMetadata');
-        cy.intercept('GET', '**/value-convertings?page=0&size=100&sortProperty=fromApplicationId&sortDirection=ASC&excludeConvertingMap=false', {fixture: 'valueconverting/valueconvertings.json'}).as('getValueconvertings');
-        cy.intercept('GET', '**/arkiv/kodeverk/**', {fixture: 'kodeverk/mock.json'}).as('getKodeverk');
-        cy.intercept('GET', '**/konfigurasjoner?side=0&antall=30&sorteringFelt=id&sorteringRetning=DESC&ferdigstilt=false&integrasjonId=1&ekskluderMapping=true', {fixture: 'configDrafts.json'}).as('getConfigDrafts');
-        cy.intercept('GET', '**/konfigurasjoner?side=0&antall=30&sorteringFelt=id&sorteringRetning=DESC&ferdigstilt=false&integrasjonId=2&ekskluderMapping=true', {fixture: 'configDrafts2.json'}).as('getConfigDrafts2');
-        cy.intercept('GET', '**/konfigurasjoner?side=0&antall=30&sorteringFelt=version&sorteringRetning=DESC&ferdigstilt=true&integrasjonId=1&ekskluderMapping=true', {fixture: 'configCompleted.json'}).as('getConfigCompleted');
-        cy.intercept('GET', '**/konfigurasjoner?side=0&antall=30&sorteringFelt=version&sorteringRetning=DESC&ferdigstilt=true&integrasjonId=2&ekskluderMapping=true', {fixture: 'configCompleted2.json'}).as('getConfigCompleted2');
-        cy.intercept('GET', '**/konfigurasjoner/5?ekskluderMapping=false', {fixture: 'config.json'}).as('getConfig');
-        cy.intercept('GET', '**/konfigurasjoner/4?ekskluderMapping=true', {fixture: 'config.json'}).as('getConfig');
-        cy.intercept('GET', '**/konfigurasjoner/7?ekskluderMapping=false', {fixture: 'editConfig.json'}).as('getEditConfig');
+        mockGenericAuthorizationRepository();
+        mockGenericIntegrationRepository();
+        mockGenericSourceApplicationRepository();
+        mockGenericValueConvertingRepository();
+        mockGenericResourceRepository();
+        mockGenericInstanceFlowTrackingRepository();
+        mockGenericConfigurationRepository();
     });
 
     it('should navigate to create new blank configuration form', () => {
         prep()
-        cy.wait('@getHistory');
         cy.get(':nth-child(3) > .navds-table__toggle-expand-cell > .navds-table__toggle-expand-button').click()
         cy.get('#panel-1-new-configuration-button').click()
     })
@@ -132,3 +96,4 @@ describe('Testing creating new and editing configurations from integration overv
         cy.get('#comment').should("contain.text", "rediger denne konfig")
     })
 });
+
