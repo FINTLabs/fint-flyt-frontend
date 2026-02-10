@@ -30,8 +30,16 @@ export const mockGenericIntegrationRepository = () => {
         fixture: 'integrations.json',
     }).as('getIntegrations');
     cy.intercept(
-        'GET',
-        '**/integrasjoner?side=0&antall=10&sorteringFelt=state&sorteringRetning=ASC',
+        {
+            method: 'GET',
+            pathname: '**/integrasjoner',
+            query: {
+                side: '0',
+                antall: '10',
+                sorteringFelt: 'state',
+                sorteringRetning: 'ASC',
+            },
+        },
         { fixture: 'integrationsInList.json' }
     ).as('getIntegrations');
 };
@@ -50,8 +58,6 @@ export const mockGenericApplicationRepository = () => {
             fixture: 'metadataBySourceApplication.json',
         }
     ).as('getMetadata');
-
-    // /metadata?kildeapplikasjonIds=1%2C2%2C3%2C4&bareSisteVersjoner=true
 };
 
 export const mockGenericInstanceFlowTrackingRepository = () => {
@@ -64,6 +70,60 @@ export const mockGenericInstanceFlowTrackingRepository = () => {
         '**/instance-flow-tracking/events?size=10&sort=timestamp%2Cdesc&sourceApplicationId=2&sourceApplicationInstanceId=*&sourceApplicationIntegrationId=journalpost',
         { fixture: 'hendelser.json' }
     ).as('getHendelser');
+
+    cy.intercept('GET', '**/instance-flow-tracking/statistics/integrations*', {
+        fixture: 'historikk.json',
+    }).as('getHistory');
+
+    cy.intercept(
+        {
+            method: 'GET',
+            pathname: '**/instance-flow-tracking/statistics/integrations',
+            query: {
+                integrationIds: /.*/,
+                size: /.*/,
+            },
+        },
+        {
+            fixture: 'historikkByIntegrationId.json',
+        }
+    ).as('getStatisticsForIntegrations');
+};
+
+export const mockGenericConfigurationRepository = () => {
+    cy.intercept(
+        {
+            method: 'GET',
+            pathname: '**/konfigurasjoner',
+            query: {
+                side: '0',
+                antall: '30',
+                sorteringFelt: 'id',
+                sorteringRetning: 'DESC',
+                ferdigstilt: 'false',
+                integrasjonId: '2',
+                ekskluderMapping: 'true',
+            },
+        },
+        { fixture: 'configDrafts2.json' }
+    ).as('getConfigDrafts2');
+
+    cy.intercept(
+        {
+            method: 'GET',
+            pathname: '**/konfigurasjoner',
+            query: {
+                side: '0',
+                antall: '30',
+                sorteringFelt: 'version',
+                sorteringRetning: 'DESC',
+                ferdigstilt: 'true',
+                integrasjonId: '2',
+                ekskluderMapping: 'true',
+            },
+        },
+        { fixture: 'configCompleted2.json' }
+    ).as('getConfigCompleted2');
 };
 
 export const mockSelectablesFromInstanceFlowTrackingRepository = () => {
