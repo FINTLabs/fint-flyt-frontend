@@ -1,14 +1,14 @@
-import React, {createContext, useState} from "react";
+import React, { createContext, useState } from 'react';
 
 import {
     IInstanceMetadataContent,
     IInstanceObjectCollectionMetadata,
     IIntegrationMetadata,
-} from "../features/configuration/types/Metadata/IntegrationMetadata";
-import {ISelect} from "../features/configuration/types/Select";
-import {ContextProps} from "./constants/interface";
-import {MOCK_INSTANCE_METADATA} from "../__tests__/mock/mapping/mock-instans-metadata";
-import i18n from "../util/locale/i18n";
+} from '../features/configuration/types/Metadata/IntegrationMetadata';
+import { ISelect } from '../features/configuration/types/Select';
+import { ContextProps } from './constants/interface';
+import { MOCK_INSTANCE_METADATA } from '../__tests__/mock/mapping/mock-instans-metadata';
+import i18n from '../util/locale/i18n';
 import useSourceApplicationRepository from '../api/useSourceApplicationRepository';
 import useIntegrationRepository from '../api/useIntegrationRepository';
 import useAuthorizationRepository from '../api/useAuthorizationRepository';
@@ -16,7 +16,6 @@ import useAuthorizationRepository from '../api/useAuthorizationRepository';
 type SourceApplicationContextState = {
     availableForms: ISelect[] | undefined;
     getAllIntegrationsAndSetAvailableForms: (forms: ISelect[], sourceApplicationId: string) => void;
-    getAllAvailableFormsBySourceApplicationId: (sourceApplicationId: string) => void;
     setAvailableForms: (forms: ISelect[] | undefined) => void;
     allMetadata: IIntegrationMetadata[] | undefined;
     instanceElementMetadata: IInstanceMetadataContent | undefined;
@@ -30,12 +29,16 @@ type SourceApplicationContextState = {
     sourceApplication: number | undefined;
     setSourceApplication: (id: number | undefined) => void;
     currentMetaData: IIntegrationMetadata[] | undefined;
-    getMetadataBySourceApplicationId: (sourceApplicationId: string, onlyLatest: boolean, updateAvailableForms: boolean) => void;};
+    getMetadataBySourceApplicationId: (
+        sourceApplicationId: string,
+        onlyLatest: boolean,
+        updateAvailableForms: boolean
+    ) => void;
+};
 
 const contextDefaultValues: SourceApplicationContextState = {
     availableForms: undefined,
     getAllIntegrationsAndSetAvailableForms: () => undefined,
-    getAllAvailableFormsBySourceApplicationId: () => undefined,
     setAvailableForms: () => undefined,
     allMetadata: undefined,
     instanceElementMetadata: undefined,
@@ -50,22 +53,31 @@ const contextDefaultValues: SourceApplicationContextState = {
     getMetadataBySourceApplicationId: () => undefined,
 };
 
-const SourceApplicationContext =
-    createContext<SourceApplicationContextState>(contextDefaultValues);
+const SourceApplicationContext = createContext<SourceApplicationContextState>(contextDefaultValues);
 
-const SourceApplicationProvider = ({children}: ContextProps) => {
+const SourceApplicationProvider = ({ children }: ContextProps) => {
     const AuthorizationRepository = useAuthorizationRepository();
     const IntegrationRepository = useIntegrationRepository();
-    const [availableForms, setAvailableForms] = useState<ISelect[] | undefined>(contextDefaultValues.availableForms);
-    const [allMetadata, setAllMetadata] = useState<IIntegrationMetadata[] | undefined>(contextDefaultValues.allMetadata);
-    const [instanceElementMetadata, setInstanceElementMetadata] = useState<IInstanceMetadataContent | undefined>(MOCK_INSTANCE_METADATA);
-    const [instanceObjectCollectionMetadata, setInstanceObjectCollectionMetadata,] = useState<IInstanceObjectCollectionMetadata[]>([]);
-    const [sourceApplication, setSourceApplication] = useState<number | undefined>(contextDefaultValues.sourceApplication);
+    const [availableForms, setAvailableForms] = useState<ISelect[] | undefined>(
+        contextDefaultValues.availableForms
+    );
+    const [allMetadata, setAllMetadata] = useState<IIntegrationMetadata[] | undefined>(
+        contextDefaultValues.allMetadata
+    );
+    const [instanceElementMetadata, setInstanceElementMetadata] = useState<
+        IInstanceMetadataContent | undefined
+    >(MOCK_INSTANCE_METADATA);
+    const [instanceObjectCollectionMetadata, setInstanceObjectCollectionMetadata] = useState<
+        IInstanceObjectCollectionMetadata[]
+    >([]);
+    const [sourceApplication, setSourceApplication] = useState<number | undefined>(
+        contextDefaultValues.sourceApplication
+    );
     const [currentMetaData, setCurrentMetaData] = useState<IIntegrationMetadata[] | undefined>(
         contextDefaultValues.currentMetaData
     );
 
-    const SourceApplicationRepository = useSourceApplicationRepository()
+    const SourceApplicationRepository = useSourceApplicationRepository();
 
     function getInstanceObjectCollectionMetadata(keys: string[]): void {
         setInstanceObjectCollectionMetadata(
@@ -76,10 +88,7 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
                             instanceObjectCollectionMetadata.key === key
                     )
                 )
-                .filter(
-                    (metadata): metadata is IInstanceObjectCollectionMetadata =>
-                        !!metadata
-                )
+                .filter((metadata): metadata is IInstanceObjectCollectionMetadata => !!metadata)
         );
     }
 
@@ -132,9 +141,7 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
                         .sort((a: ISelect, b: ISelect) =>
                             a.disabled === b.disabled
                                 ? a.label.localeCompare(b.label)
-                                : a.disabled
-                                    ? 1
-                                    : -1
+                                : a.disabled ? 1 : -1
                         ),
                 ]);
             } else {
@@ -154,14 +161,16 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
         }
     };
 
-    const getAllIntegrationsAndSetAvailableForms = async (forms: ISelect[], sourceApplicationId: string) => {
+    const getAllIntegrationsAndSetAvailableForms = async (
+        forms: ISelect[],
+        sourceApplicationId: string
+    ) => {
         try {
             const selectableForms = forms.filter((form) => sourceApplicationId !== form.value);
             setAvailableForms(selectableForms);
-
         } catch (err) {
             console.error(err);
-            setAvailableForms([{value: "", label: "- Ingen data"}]);
+            setAvailableForms([{ value: '', label: '- Ingen data' }]);
         }
     };
 
@@ -224,7 +233,6 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
         <SourceApplicationContext.Provider
             value={{
                 availableForms,
-                getAllAvailableFormsBySourceApplicationId,
                 setAvailableForms,
                 allMetadata,
                 instanceElementMetadata,
@@ -238,14 +246,11 @@ const SourceApplicationProvider = ({children}: ContextProps) => {
                 setSourceApplication,
                 currentMetaData,
                 getMetadataBySourceApplicationId,
-            }}>
+            }}
+        >
             {children}
         </SourceApplicationContext.Provider>
     );
 };
 
-export {
-    SourceApplicationContext,
-    contextDefaultValues,
-    SourceApplicationProvider as default,
-};
+export { SourceApplicationContext, contextDefaultValues, SourceApplicationProvider as default };

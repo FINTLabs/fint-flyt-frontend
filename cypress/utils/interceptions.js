@@ -1,3 +1,4 @@
+
 export const mockGenericAuthorizationRepository = () => {
     cy.intercept('GET', '**/authorization/me/is-authorized', {
         fixture: 'auth.json',
@@ -22,10 +23,19 @@ export const mockGenericAuthorizationRepository = () => {
 
 export const mockGenericIntegrationRepository = () => {
     cy.intercept(
-        'GET',
-        '**/integrasjoner?side=0&antall=1000&sorteringFelt=state&sorteringRetning=ASC',
+        {
+            method: 'GET',
+            pathname: '**/integrasjoner',
+            query: {
+                side: '0',
+                antall: '1000',
+                sorteringFelt: 'state',
+                sorteringRetning: 'ASC',
+            },
+        },
         { fixture: 'integrations.json' }
     ).as('getIntegrations');
+
     cy.intercept('GET', '**/integrasjoner', {
         fixture: 'integrations.json',
     }).as('getIntegrations');
@@ -42,9 +52,23 @@ export const mockGenericIntegrationRepository = () => {
         },
         { fixture: 'integrationsInList.json' }
     ).as('getIntegrations');
+
+    cy.intercept(
+        {
+            method: 'GET',
+            pathname: '**/integrasjoner',
+            query: {
+                sourceApplicationId: '2',
+            },
+        },
+        { fixture: 'integrationForSource2.json' }
+    ).as('getAllIntegrationBySourceApplicationId');
+
+
+    cy.intercept('POST', '**/integrasjoner', { fixture: 'postFixture.json' }).as('postIntegration');
 };
 
-export const mockGenericApplicationRepository = () => {
+export const mockGenericSourceApplicationRepository = () => {
     cy.intercept(
         {
             method: 'GET',
@@ -58,6 +82,24 @@ export const mockGenericApplicationRepository = () => {
             fixture: 'metadataBySourceApplication.json',
         }
     ).as('getMetadata');
+
+    cy.intercept(
+        {
+            method: 'GET',
+            pathname: '**/metadata',
+            query: {
+                kildeapplikasjonId: '2',
+                bareSisteVersjoner: 'true',
+            },
+        },
+        {
+            fixture: 'metadataLatest.json',
+        }
+    ).as('getLatestMetadata');
+
+    cy.intercept('GET', '**/metadata/4/instans-metadata', { fixture: 'instansMetadata.json' }).as(
+        'getInstansMetadata'
+    );
 };
 
 export const mockGenericInstanceFlowTrackingRepository = () => {
@@ -124,6 +166,26 @@ export const mockGenericConfigurationRepository = () => {
         },
         { fixture: 'configCompleted2.json' }
     ).as('getConfigCompleted2');
+};
+
+export const mockGenericValueConvertingRepository = () => {
+    cy.intercept(
+        {
+            method: 'GET',
+            pathname: '**/value-convertings',
+            query: {
+                page: '0',
+                size: '100',
+                sortProperty: 'fromApplicationId',
+                sortDirection: 'ASC',
+                excludeConvertingMap: /^(true|false)$/i,
+            },
+        },
+        {
+            fixture: 'valueconverting/valueconvertings.json',
+        }
+    ).as('getValueconvertings');
+
 };
 
 export const mockSelectablesFromInstanceFlowTrackingRepository = () => {

@@ -1,5 +1,5 @@
 import {
-    mockGenericApplicationRepository,
+    mockGenericSourceApplicationRepository,
     mockGenericAuthorizationRepository,
     mockGenericConfigurationRepository,
     mockGenericInstanceFlowTrackingRepository,
@@ -10,7 +10,7 @@ describe('Testing integration list', () => {
     beforeEach(() => {
         mockGenericAuthorizationRepository();
         mockGenericIntegrationRepository();
-        mockGenericApplicationRepository();
+        mockGenericSourceApplicationRepository();
         mockGenericInstanceFlowTrackingRepository();
         mockGenericConfigurationRepository();
     });

@@ -1,38 +1,19 @@
 // noinspection DuplicatedCode
 
+import { mockGenericSourceApplicationRepository, mockGenericAuthorizationRepository, mockGenericIntegrationRepository,
+    mockGenericValueConvertingRepository
+} from '../utils/interceptions.js';
+
 describe('Testing create new integration', () => {
     beforeEach(() => {
-        cy.intercept('POST', '**/integrasjoner', {fixture: 'postFixture.json'}).as('postIntegration')
-        cy.intercept('GET', '**/integrasjoner', {fixture: 'allIntegrations.json'}).as('getAllIntegrations')
-        cy.intercept('GET', '**/integrasjoner?side=0&antall=1000&sorteringFelt=state&sorteringRetning=ASC', {fixture: 'integrations.json'}).as('getIntegrations')
-        cy.intercept('GET', '**/integrasjoner?sourceApplicationId=*', {fixture: 'integrationForSource2.json'}).as('getAllIntegrationBySourceApplicationId')
-        cy.intercept('GET', '**/historikk/statistikk/integrasjoner', {fixture: 'historikk.json'}).as('getHistory')
-        cy.intercept('GET', '**/metadata?kildeapplikasjonId=*&bareSisteVersjoner=true', {fixture: 'metadataLatest.json'}).as('getLatestMetadata')
-        cy.intercept('GET', '**/metadata?kildeapplikasjonIds=*&bareSisteVersjoner=*', {
-            fixture: 'metadataBySourceApplication.json',
-        }).as('getMetadata');
-        cy.intercept('GET', '**/metadata/4/instans-metadata', {fixture: 'instansMetadata.json'}).as('getInstansMetadata')
-        cy.intercept('GET', '**/historikk/hendelser?side=0&antall=1000&sorteringFelt=timestamp&sorteringRetning=DESC&bareSistePerInstans=true', {fixture: 'hendelser.json'}).as('getHendelser')
-        cy.intercept('GET', '**/value-convertings?page=0&size=100&sortProperty=fromApplicationId&sortDirection=ASC&excludeConvertingMap=true', {fixture: 'valueconverting/valueconvertings.json'}).as('getValueconvertings')
-        cy.intercept('GET', '**/value-convertings?page=0&size=100&sortProperty=fromApplicationId&sortDirection=ASC&excludeConvertingMap=false', {fixture: 'valueconverting/valueconvertings.json'}).as('getValueconvertings')
+        mockGenericAuthorizationRepository();
+        mockGenericIntegrationRepository();
+        mockGenericSourceApplicationRepository();
+        mockGenericValueConvertingRepository();
     })
 
     function prep() {
-        cy.intercept("GET", "**/authorization/me", {fixture: "me.json"}).as("getMe")
-        cy.intercept('GET', '**/authorization/me/is-authorized', {
-            fixture: 'auth.json',
-            headers: {
-                'Content-Type': 'text/plain',
-            },
-        }).as('getAuth');        cy.intercept("GET", "**/authorization/me/restricted-page-authorization", {userPermissionPage: true}).as("getUserPermissionsPage")
-        cy.intercept("GET", "**/authorization/users?page=0&size=10", {fixture: "users.json"}).as("getUsersPermissions")
         cy.visit('/integration/new')
-    }
-
-    function fillAll() {
-        cy.get('#sourceApplicationId').select('2')
-        cy.get('#sourceApplicationIntegrationId').select('sak')
-        cy.get('#destination').select('fylkesrad')
     }
 
     it('should open and show form', () => {
@@ -42,7 +23,28 @@ describe('Testing create new integration', () => {
 
     it('should fill form', () => {
         prep()
-        fillAll();
+        cy.wait('@sourceApplications');
+        cy.get('#sourceApplicationId')
+            .find('option')
+            .should('have.length', 6);
+
+        cy.get('#sourceApplicationId').select('2');
+        cy.get('#sourceApplicationId').should('have.value', '2');
+        cy.get('#sourceApplicationId  option:selected').should('have.text', 'eGrunnerverv');
+
+        cy.wait('@getAllIntegrationBySourceApplicationId');
+
+        cy.get('#sourceApplicationIntegrationId').find('option').should('have.length', 3);
+        cy.get('#sourceApplicationIntegrationId').select('sak');
+        cy.get('#sourceApplicationIntegrationId').should('have.value', 'sak');
+        cy.get('#sourceApplicationIntegrationId  option:selected').should(
+            'have.text',
+            '[sak] Arkivsak'
+        );
+
+        cy.get('#destination').select('fylkesrad');
+        cy.get('#destination').should('have.value', 'fylkesrad');
+        cy.get('#destination  option:selected').should('have.text', 'Arkivsystem');
     })
 
     it('should not allow submit on incomplete form', () => {
@@ -54,8 +56,11 @@ describe('Testing create new integration', () => {
 
     it('should submit complete form and navigate to configuration form', () => {
         prep()
-        fillAll()
-        cy.wait(1000)
+        cy.wait('@sourceApplications');
+        cy.get('#sourceApplicationId');
+        cy.get('#sourceApplicationId').select('2');
+        cy.get('#sourceApplicationIntegrationId').select('sak');
+        cy.get('#destination').select('fylkesrad');
         cy.get('#form-settings-confirm-btn').click()
         cy.wait('@postIntegration').its('request.body').should('deep.equal', {
                 "sourceApplicationId": "2",

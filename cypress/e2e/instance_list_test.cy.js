@@ -1,5 +1,5 @@
 import {
-    mockGenericApplicationRepository,
+    mockGenericSourceApplicationRepository,
     mockGenericAuthorizationRepository,
     mockGenericInstanceFlowTrackingRepository,
     mockGenericIntegrationRepository,
@@ -11,7 +11,7 @@ describe('Testing instance list', () => {
         mockGenericAuthorizationRepository();
         mockSelectablesFromInstanceFlowTrackingRepository();
         mockGenericIntegrationRepository();
-        mockGenericApplicationRepository();
+        mockGenericSourceApplicationRepository();
         mockGenericInstanceFlowTrackingRepository();
     });
 

@@ -1,5 +1,5 @@
 import {
-    mockGenericApplicationRepository,
+    mockGenericSourceApplicationRepository,
     mockGenericAuthorizationRepository, mockGenericInstanceFlowTrackingRepository,
     mockGenericIntegrationRepository,
 } from '../utils/interceptions.js';
@@ -8,7 +8,7 @@ describe("Testing dashboard", () => {
 	beforeEach(() => {
         mockGenericIntegrationRepository();
         mockGenericAuthorizationRepository();
-        mockGenericApplicationRepository();
+        mockGenericSourceApplicationRepository();
         mockGenericInstanceFlowTrackingRepository();
 	});
 
