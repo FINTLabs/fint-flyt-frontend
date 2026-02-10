@@ -13,23 +13,6 @@ describe('Testing integration list', () => {
         mockGenericApplicationRepository();
         mockGenericInstanceFlowTrackingRepository();
         mockGenericConfigurationRepository();
-
-
-        // cy.intercept(
-        //     'GET',
-        //     '**/konfigurasjoner?side=0&antall=30&sorteringFelt=id&sorteringRetning=DESC&ferdigstilt=false&integrasjonId=1&ekskluderMapping=true',
-        //     { fixture: 'configDrafts.json' }
-        // ).as('getConfigDrafts');
-
-        // cy.intercept(
-        //     'GET',
-        //     '**/konfigurasjoner?side=0&antall=30&sorteringFelt=version&sorteringRetning=DESC&ferdigstilt=true&integrasjonId=1&ekskluderMapping=true',
-        //     { fixture: 'configCompleted.json' }
-        // ).as('getConfigCompleted');
-
-        // cy.intercept('GET', '**/konfigurasjoner/4?ekskluderMapping=true', {
-        //     fixture: 'config.json',
-        // }).as('getConfig');
     });
 
     function prep() {
@@ -70,9 +53,10 @@ describe('Testing integration list', () => {
         prep();
         cy.get('#integration-table').should('be.visible');
         cy.wait('@getStatisticsForIntegrations');
-        cy.get('#integration-table').within(() => {
-            cy.get('tbody tr td');
-        });
+        cy.get('[data-testid="integration-0-total"]').should('have.text', '4');
+        cy.get('[data-testid="integration-1-total"]').should('have.text', '1');
+        cy.get('[data-testid="integration-0-aborted"]').should('have.text', '3');
+        cy.get('[data-testid="integration-1-aborted"]').should('have.text', '-');
     });
 
     it('should contain correct displayName', () => {

@@ -219,7 +219,12 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({
                                     >
                                         <Table.DataCell>{value.id}</Table.DataCell>
                                         <Table.DataCell scope="row">
-                                            {sourceApplications?.find((sa) => sa.id === Number(value.sourceApplicationId))?.displayName}
+                                            {
+                                                sourceApplications?.find(
+                                                    (sa) =>
+                                                        sa.id === Number(value.sourceApplicationId)
+                                                )?.displayName
+                                            }
                                         </Table.DataCell>
                                         <Table.DataCell>
                                             {value.sourceApplicationIntegrationId}
@@ -235,7 +240,10 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({
                                             <TableLoader columnLength={5} type={'cells'} />
                                         ) : (
                                             <>
-                                                <Table.DataCell align={'center'}>
+                                                <Table.DataCell
+                                                    align={'center'}
+                                                    data-testid={`integration-${i}-total`}
+                                                >
                                                     {stats?.total || '-'}
                                                 </Table.DataCell>
                                                 <Table.DataCell align={'center'}>
@@ -244,7 +252,10 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({
                                                 <Table.DataCell align={'center'}>
                                                     {stats?.transferred || '-'}
                                                 </Table.DataCell>
-                                                <Table.DataCell align={'center'}>
+                                                <Table.DataCell
+                                                    align={'center'}
+                                                    data-testid={`integration-${i}-aborted`}
+                                                >
                                                     {stats?.aborted || '-'}
                                                 </Table.DataCell>
                                                 <Table.DataCell align={'center'}>
