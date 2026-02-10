@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ChangeEvent, useContext } from 'react';
+import { ChangeEvent, forwardRef, useContext } from 'react';
 import { CheckboxGroup, Checkbox } from '@navikt/ds-react';
 import { ConfigurationContext } from '../../../../context/ConfigurationContext';
 import { Noop } from 'react-hook-form/dist/types';
@@ -13,10 +13,11 @@ interface Props {
     value: boolean;
 }
 
-const CheckboxValueComponent: React.FunctionComponent<Props> = (props: Props) => {
-    const { completed } = useContext(ConfigurationContext);
+const CheckboxValueComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivElement, Props>(
+    (props: Props, ref) => {
+        const { completed } = useContext(ConfigurationContext);
 
-    return (
+        return (
             <CheckboxGroup
                 legend={props.displayName}
                 hideLegend
@@ -26,7 +27,8 @@ const CheckboxValueComponent: React.FunctionComponent<Props> = (props: Props) =>
                         props.onChange(val.includes(props.name));
                     }
                 }}
-                value={[props.value && props.name]}>
+                value={[props.value && props.name]}
+            >
                 <Checkbox
                     size={'small'}
                     id="form-complete"
@@ -37,11 +39,13 @@ const CheckboxValueComponent: React.FunctionComponent<Props> = (props: Props) =>
                         if (props.onChange) {
                             props.onChange(event.target.checked);
                         }
-                    }}>
+                    }}
+                >
                     {props.displayName}
                 </Checkbox>
             </CheckboxGroup>
-    );
-};
+        );
+    }
+);
 
 export default CheckboxValueComponent;

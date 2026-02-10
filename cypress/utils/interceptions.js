@@ -1,4 +1,3 @@
-
 export const mockGenericAuthorizationRepository = () => {
     cy.intercept('GET', '**/authorization/me/is-authorized', {
         fixture: 'auth.json',
@@ -64,7 +63,6 @@ export const mockGenericIntegrationRepository = () => {
         { fixture: 'integrationForSource2.json' }
     ).as('getAllIntegrationBySourceApplicationId');
 
-
     cy.intercept('POST', '**/integrasjoner', { fixture: 'postFixture.json' }).as('postIntegration');
 };
 
@@ -97,7 +95,7 @@ export const mockGenericSourceApplicationRepository = () => {
         }
     ).as('getLatestMetadata');
 
-    cy.intercept('GET', '**/metadata/4/instans-metadata', { fixture: 'instansMetadata.json' }).as(
+    cy.intercept('GET', '**/metadata/*/instans-metadata', { fixture: 'instansMetadata.json' }).as(
         'getInstansMetadata'
     );
 };
@@ -166,6 +164,32 @@ export const mockGenericConfigurationRepository = () => {
         },
         { fixture: 'configCompleted2.json' }
     ).as('getConfigCompleted2');
+
+    cy.intercept(
+        {
+            method: 'GET',
+            pathname: '**/konfigurasjoner/5',
+            query: {
+                ekskluderMapping: 'false',
+            },
+        },
+        { fixture: 'config.json' }
+    ).as('getConfig');
+
+    cy.intercept(
+        {
+            method: 'GET',
+            pathname: '**/konfigurasjoner/7',
+            query: {
+                ekskluderMapping: 'false',
+            },
+        },
+        { fixture: 'editConfig.json' }
+    ).as('getEditConfig');
+
+    cy.intercept('POST', '**/konfigurasjoner', { fixture: 'postFixture.json' }).as(
+        'postConfiguration'
+    );
 };
 
 export const mockGenericValueConvertingRepository = () => {
@@ -175,17 +199,41 @@ export const mockGenericValueConvertingRepository = () => {
             pathname: '**/value-convertings',
             query: {
                 page: '0',
-                size: '100',
-                sortProperty: 'fromApplicationId',
-                sortDirection: 'ASC',
+                size: /^(100|1000)$/i,
+                sortProperty: /^(fromApplicationId|id)$/i,
+                sortDirection: /^(ASC|DESC)$/i,
                 excludeConvertingMap: /^(true|false)$/i,
             },
         },
         {
-            fixture: 'valueconverting/valueconvertings.json',
+            fixture: 'valueconverting/valueconvertingsWithMaps.json',
         }
     ).as('getValueconvertings');
 
+    cy.intercept('GET', '**/value-convertings/1', {
+        fixture: 'valueconverting/valueconverting1.json',
+    }).as('getValueconverting');
+
+    cy.intercept('POST', '**/value-convertings', { fixture: 'postFixture.json' }).as(
+        'postValueconverting'
+    );
+};
+
+export const mockGenericResourceRepository = () => {
+    cy.intercept('GET', '**/arkiv/kodeverk/**', { fixture: 'kodeverk/mock.json' }).as(
+        'getKodeverk'
+    );
+    cy.intercept(
+        {
+            method: 'GET',
+            pathname: '**/arkiv/kodeverk/klasse',
+        },
+        { fixture: 'kodeverk/klasse.json' }
+    ).as('getKodeverkKlasse');
+
+    cy.intercept('GET', '**/arkiv/kodeverk/format', { fixture: 'kodeverk/format.json' }).as(
+        'getFormat'
+    );
 };
 
 export const mockSelectablesFromInstanceFlowTrackingRepository = () => {
