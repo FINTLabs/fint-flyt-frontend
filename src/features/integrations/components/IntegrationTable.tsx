@@ -5,12 +5,11 @@ import {
     getStateDisplayName,
     integrationComparator,
 } from '../../../util/TableUtil';
-import { Box, HStack, Pagination, SortState, Table } from '@navikt/ds-react';
+import { Box, SortState, Table } from '@navikt/ds-react';
 import IntegrationPanel from './IntegrationPanel';
 import { useTranslation } from 'react-i18next';
 import { IIntegration } from '../../integration/types/Integration';
 import { SourceApplicationContext } from '../../../context/SourceApplicationContext';
-import { CustomSelect } from '../../../components/organisms/CustomSelect';
 import { IAlertMessage, Page } from '../../../components/types/TableTypes';
 import { IIntegrationDetailedStatistics } from '../../instances/types/Event';
 import useIntegrationRepository from '../../../api/useIntegrationRepository';
@@ -18,6 +17,7 @@ import useInstanceFlowTrackingRepository from '../../../api/useInstanceFlowTrack
 import TableLoader from '../../../components/molecules/TableLoader';
 import { AuthorizationContext } from '../../../context/AuthorizationContext';
 import { ISourceApplication } from '../../configuration/types/SourceApplication';
+import TablePagination from '../../../components/organisms/pagination/TablePagination';
 
 type IntegrationProps = {
     id: string;
@@ -33,24 +33,15 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({
     const { allMetadata } = useContext(SourceApplicationContext);
     const { getAllSourceApplications } = useContext(AuthorizationContext);
 
-    const [page, setPage] = useState(1);
     const [integrations, setIntegrations] = useState<Page<IIntegration> | undefined>();
+    const [page, setPage] = useState(1);
+    const [rowCount, setRowCount] = useState<number>(10);
     const [sourceApplications, setSourceApplications] = useState<ISourceApplication[]>();
     const [sort, setSort] = useState<SortState | undefined>({
         orderBy: 'state',
         direction: 'ascending',
     });
-    const [rowCount, setRowCount] = useState<string>('10');
-    const selectOptions = [
-        { value: '', label: t('numberPerPage'), disabled: true },
-        {
-            value: '10',
-            label: '10',
-        },
-        { value: '25', label: '25' },
-        { value: '50', label: '50' },
-        { value: '100', label: '100' },
-    ];
+
     const [detailedStats, setDetailedStats] = useState<
         IIntegrationDetailedStatistics[] | undefined
     >(undefined);
@@ -69,7 +60,7 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({
         if (allMetadata && !isFetching) {
             setIntegrations(undefined);
             setDetailedStats(undefined);
-            getAllIntegrations(rowCount, sort);
+            getAllIntegrations(rowCount, page, sort);
         }
     }, [page, sort?.orderBy, sort?.direction, rowCount, allMetadata?.length]);
 
@@ -80,7 +71,7 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({
         setDetailedStats(statsData.content);
     }, []);
 
-    const getAllIntegrations = async (rowCount: string, sort?: SortState) => {
+    const getAllIntegrations = async (currentRowCount: number,  currentPage: number, currentSort?: SortState) => {
         onError(undefined);
         if (allMetadata) {
             try {
@@ -88,10 +79,10 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({
                 setIsLoading(true);
                 Promise.all([
                     IntegrationRepository.getIntegrations(
-                        page - 1,
-                        Number(rowCount),
-                        sort ? sort.orderBy : 'state',
-                        sort ? (sort.direction === 'ascending' ? 'ASC' : 'DESC') : 'ASC'
+                        currentPage - 1,
+                        currentRowCount,
+                        currentSort ? currentSort.orderBy : 'state',
+                        currentSort ? (currentSort.direction === 'ascending' ? 'ASC' : 'DESC') : 'ASC'
                     ),
                     getAllSourceApplications(false),
                 ]).then(([integrationResponse, sourceApps]) => {
@@ -113,10 +104,10 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({
                     const sortedData: IIntegration[] = integrationData.content
                         .slice()
                         .sort((a: IIntegration, b: IIntegration) => {
-                            if (sort) {
-                                return sort.direction === 'ascending'
-                                    ? integrationComparator(b, a, sort.orderBy)
-                                    : integrationComparator(a, b, sort.orderBy);
+                            if (currentSort) {
+                                return currentSort.direction === 'ascending'
+                                    ? integrationComparator(b, a, currentSort.orderBy)
+                                    : integrationComparator(a, b, currentSort.orderBy);
                             }
                             return 1;
                         });
@@ -270,29 +261,14 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({
                     </Table.Body>
                 </Table>
             </Box>
-            <HStack justify={'center'} style={{ marginTop: '16px' }}>
-                {integrations?.totalElements !== undefined && (
-                    <CustomSelect
-                        options={selectOptions}
-                        onChange={(value) => {
-                            setPage(1);
-                            setRowCount(value);
-                        }}
-                        label={t('numberPerPage')}
-                        hideLabel={true}
-                        default={rowCount}
-                    />
-                )}
-                {integrations?.totalElements !== undefined &&
-                    integrations?.totalElements > Number(rowCount) && (
-                        <Pagination
-                            page={page}
-                            onPageChange={setPage}
-                            count={integrations?.totalPages ?? 1}
-                            size="small"
-                        />
-                    )}
-            </HStack>
+            <TablePagination
+                totalPages={integrations?.totalPages}
+                totalElements={integrations?.totalElements}
+                page={page}
+                setPage={setPage}
+                rowCount={rowCount}
+                setRowCount={setRowCount}
+            />
         </Box>
     );
 };

@@ -9,7 +9,6 @@ import { InstanceStatusWithTooltip } from './InstanceEventStatusWithText';
 import useInstanceRepository from '../../../api/useInstanceRepository';
 import { IIntegrationMetadata } from '../../configuration/types/Metadata/IntegrationMetadata';
 import { SourceApplicationContext } from '../../../context/SourceApplicationContext';
-import { CustomSelect } from '../../../components/organisms/CustomSelect';
 import { IAlertMessage } from '../../../components/types/TableTypes';
 import { MenuElipsisVerticalCircleIcon } from '@navikt/aksel-icons';
 import CustomStatusDialogComponent from './CustomStatusDialogComponent';
@@ -18,6 +17,7 @@ import useInstanceFlowTrackingRepository from '../../../api/useInstanceFlowTrack
 import TableLoader from '../../../components/molecules/TableLoader';
 import { AuthorizationContext } from '../../../context/AuthorizationContext';
 import { ISourceApplication } from '../../configuration/types/SourceApplication';
+import LoadMorePagination from '../../../components/organisms/pagination/LoadMorePagination';
 
 interface Props {
     onError: (error: IAlertMessage | undefined) => void;
@@ -35,20 +35,11 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
     const [openCustomDialog, setOpenCustomDialog] = React.useState(false);
     const errorsNotForRetry: string[] = ['instance-receival-error', 'instance-registration-error'];
     const [summaryList, setSummaryList] = useState<ISummary[]>();
-    const [rowCount, setRowCount] = useState<string>('10');
-    const [fetchMoreCount, setFetchMoreCount] = useState<string>('1');
-    const selectOptions = [
-        { value: '', label: t('numberPerPage'), disabled: true },
-        {
-            value: '10',
-            label: '10',
-        },
-        { value: '25', label: '25' },
-        { value: '50', label: '50' },
-        { value: '100', label: '100' },
-    ];
+
+    const [size, setSize] = useState<number>(10);
+
     const [disabledRetryButtons, setDisabledRetryButtons] = useState(
-        new Array(Number(rowCount)).fill(false)
+        new Array(size).fill(false)
     );
     const [loading, setLoading] = useState(true);
     const [isFetching, setIsFetching] = useState<boolean>(false);
@@ -65,9 +56,9 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
         if (allMetadata?.length && !isFetching) {
             setLoading(true);
             setExpandedRows([]);
-            getLatestInstances(String(Number(rowCount) * Number(fetchMoreCount)));
+            getLatestInstances(String(size));
         }
-    }, [rowCount, fetchMoreCount, refreshKey, allMetadata?.length]);
+    }, [size, refreshKey, allMetadata?.length]);
 
     const handleRetryButtonClick = (index: number) => {
         const newDisabledButtons = [...disabledRetryButtons];
@@ -304,29 +295,10 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                 )}
             </Box>
 
-            {summaryList && summaryList.length >= 10 && (
-                <HStack justify={'center'} style={{ marginTop: '16px' }} gap={'10'}>
-                    <CustomSelect
-                        options={selectOptions}
-                        onChange={(val) => {
-                            setFetchMoreCount('1');
-                            setRowCount(val);
-                        }}
-                        label={t('numberPerPage')}
-                        hideLabel={true}
-                        default={rowCount}
-                    />
-
-                    <>
-                        <Button
-                            variant="secondary"
-                            onClick={() => setFetchMoreCount((prev) => String(Number(prev) + 1))}
-                        >
-                            {t('filter.loadMore')}
-                        </Button>
-                    </>
-                </HStack>
-            )}
+            <LoadMorePagination
+                hide={!summaryList?.length || summaryList?.length === 0}
+                onFetchMore={setSize}
+            />
         </Box>
     );
 };

@@ -16,8 +16,8 @@
         "test": "vitest",
         "cypress": "cypress run",
         "lint": "eslint --ext ts,tsx src",
-        "forward": "sh ./startUpForwards.sh start",
-        "stop-forward": "sh ./startUpForwards.sh stop"
+        "forward": "bash ./startUpForwards.sh start",
+        "stop-forward": "bash ./startUpForwards.sh stop"
     },
     "dependencies": {
         "@emotion/react": "^11.14.0",
