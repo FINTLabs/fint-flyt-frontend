@@ -101,7 +101,7 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
     };
 
     const saveFilters = () => {
-        const newParams = new URLSearchParams();
+        const newParams = new URLSearchParams(searchParams);
         Object.entries(filters).forEach(([key, value]) => {
             if (Array.isArray(value)) {
                 if (value.length > 0) newParams.set(key, value.join(','));
@@ -110,7 +110,7 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
             }
         });
         const decodedParams = newParams.toString().replace(/%2C/g, ',');
-        window.history.replaceState(null, '', `${window.location.pathname}?${decodedParams}`);
+        setSearchParams(newParams)
         setRefreshKey((prev) => prev + 1);
         setFiltersSaved(true);
     };

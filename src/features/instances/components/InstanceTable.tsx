@@ -10,7 +10,7 @@ import useInstanceRepository from '../../../api/useInstanceRepository';
 import { IIntegrationMetadata } from '../../configuration/types/Metadata/IntegrationMetadata';
 import { SourceApplicationContext } from '../../../context/SourceApplicationContext';
 import { IAlertMessage } from '../../../components/types/TableTypes';
-import { MenuElipsisVerticalCircleIcon } from '@navikt/aksel-icons';
+import { MenuElipsisVerticalIcon } from '@navikt/aksel-icons';
 import CustomStatusDialogComponent from './CustomStatusDialogComponent';
 import { useFilters } from '../filter/FilterContext';
 import useInstanceFlowTrackingRepository from '../../../api/useInstanceFlowTrackingRepository';
@@ -138,9 +138,10 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
             <div id={id + '-action-toggle'} className="min-h-32">
                 <Dropdown>
                     <Button
+                        size={'small'}
                         as={Dropdown.Toggle}
                         variant="tertiary-neutral"
-                        icon={<MenuElipsisVerticalCircleIcon aria-hidden />}
+                        icon={<MenuElipsisVerticalIcon aria-hidden />}
                     />
                     <Dropdown.Menu>
                         <Dropdown.Menu.List>
@@ -216,9 +217,7 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                             <Table.ColumnHeader>
                                 {t('table.column.archiveInstanceId')}
                             </Table.ColumnHeader>
-                            <Table.ColumnHeader align={'right'}>
-                                {t('table.column.actions')}
-                            </Table.ColumnHeader>
+                            <Table.ColumnHeader align={'right'}></Table.ColumnHeader>
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>

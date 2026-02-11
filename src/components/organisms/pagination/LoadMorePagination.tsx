@@ -22,14 +22,12 @@ type Props = {
 // TODO: new translation object
 const LoadMorePagination: FunctionComponent<Props> = ({ hide, onFetchMore }) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.instances' });
+    const [searchParams, setSearchParams] = useSearchParams();
 
-    const [searchParams] = useSearchParams();
-
-    const paramSize = useMemo(() => Number(searchParams.get('size') ?? 10), []);
-
-    useEffect(() => {
-        console.log('paramSize', paramSize);
-    }, [paramSize]);
+    const paramSize = useMemo(
+        () => Number(searchParams.get('size') ?? 10),
+        [searchParams]
+    )
 
     const [numberOfRows, setNumberOfRows] = useState<number>(paramSize);
     const [timesFetched, setTimesFetched] = useState<number>(1);
@@ -43,6 +41,12 @@ const LoadMorePagination: FunctionComponent<Props> = ({ hide, onFetchMore }) => 
         { value: 1000, label: '1000' },
     ];
 
+    const updateSizeParam = (size: number) => {
+        const params = new URLSearchParams(searchParams);
+        params.set('size', String(size));
+        setSearchParams(params);
+    };
+
     const handleFetchMore = useCallback(
         (newTimes?: number, newRowAmount?: number) => {
             const rows = newRowAmount ?? numberOfRows;
@@ -52,9 +56,11 @@ const LoadMorePagination: FunctionComponent<Props> = ({ hide, onFetchMore }) => 
             if (newTimes !== undefined) setTimesFetched(newTimes);
             else setTimesFetched((prev) => prev + 1);
 
-            onFetchMore(rows * times);
+            const size = rows * times;
+            onFetchMore(size);
+            updateSizeParam(size);
         },
-        [numberOfRows, timesFetched, onFetchMore]
+        [numberOfRows, timesFetched, onFetchMore, searchParams]
     );
 
     if (hide) return null;
