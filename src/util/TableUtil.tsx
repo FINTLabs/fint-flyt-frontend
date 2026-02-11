@@ -2,16 +2,6 @@ import { MOCK_EVENTS } from '../__tests__/mock/events';
 import { IEventNew } from '../features/instances/types/Event';
 import { IIntegration } from '../features/integration/types/Integration';
 import { MOCK_INTEGRATION } from '../__tests__/mock/integration';
-import { sourceApplications } from '../api/useSourceApplicationRepository';
-
-export function getSourceApplicationDisplayNameById(id: string): string {
-    const application = sourceApplications.find((application) => application.id.toString() === id);
-    if (application) {
-        return application.displayName;
-    } else {
-        return 'ukjent'
-    }
-}
 
 export function getDestinationDisplayName(id: string): string {
     if (id === 'fylkesrad') return 'Arkivsystem';

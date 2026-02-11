@@ -2,7 +2,6 @@ import * as React from 'react';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import {
     getDestinationDisplayName,
-    getSourceApplicationDisplayNameById,
     getStateDisplayName,
     integrationComparator,
 } from '../../../util/TableUtil';
@@ -17,6 +16,8 @@ import { IIntegrationDetailedStatistics } from '../../instances/types/Event';
 import useIntegrationRepository from '../../../api/useIntegrationRepository';
 import useInstanceFlowTrackingRepository from '../../../api/useInstanceFlowTrackingRepository';
 import TableLoader from '../../../components/molecules/TableLoader';
+import { AuthorizationContext } from '../../../context/AuthorizationContext';
+import { ISourceApplication } from '../../configuration/types/SourceApplication';
 
 type IntegrationProps = {
     id: string;
@@ -26,17 +27,20 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({
     id,
     onError,
 }: IntegrationProps) => {
-    const { t } = useTranslation('translations', { keyPrefix: 'pages.integrations' });
     const IntegrationRepository = useIntegrationRepository();
     const InstanceFlowTrackingRepository = useInstanceFlowTrackingRepository();
+    const { t } = useTranslation('translations', { keyPrefix: 'pages.integrations' });
+    const { allMetadata } = useContext(SourceApplicationContext);
+    const { getAllSourceApplications } = useContext(AuthorizationContext);
+
     const [page, setPage] = useState(1);
     const [integrations, setIntegrations] = useState<Page<IIntegration> | undefined>();
+    const [sourceApplications, setSourceApplications] = useState<ISourceApplication[]>();
     const [sort, setSort] = useState<SortState | undefined>({
         orderBy: 'state',
         direction: 'ascending',
     });
     const [rowCount, setRowCount] = useState<string>('10');
-    const { allMetadata } = useContext(SourceApplicationContext);
     const selectOptions = [
         { value: '', label: t('numberPerPage'), disabled: true },
         {
@@ -82,39 +86,43 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({
             try {
                 setIsFetching(true);
                 setIsLoading(true);
-                const integrationResponse = await IntegrationRepository.getIntegrations(
-                    page - 1,
-                    Number(rowCount),
-                    sort ? sort.orderBy : 'state',
-                    sort ? (sort.direction === 'ascending' ? 'ASC' : 'DESC') : 'ASC'
-                );
-                const integrationData = integrationResponse.data || [];
+                Promise.all([
+                    IntegrationRepository.getIntegrations(
+                        page - 1,
+                        Number(rowCount),
+                        sort ? sort.orderBy : 'state',
+                        sort ? (sort.direction === 'ascending' ? 'ASC' : 'DESC') : 'ASC'
+                    ),
+                    getAllSourceApplications(false),
+                ]).then(([integrationResponse, sourceApps]) => {
+                    setSourceApplications(sourceApps);
+                    const integrationData = integrationResponse.data || [];
 
+                    const ids = integrationData.content.map((i: IIntegration) => i.id!);
+                    getDetailedStatistics(ids);
 
-                const ids = integrationData.content.map((i: IIntegration) => i.id!);
-                getDetailedStatistics(ids);
-
-                integrationData.content.map((integration: IIntegration) => {
-                    const integrationMetaData = allMetadata?.find(
-                        (metaData) =>
-                            metaData.sourceApplicationIntegrationId ===
-                            integration.sourceApplicationIntegrationId
-                    );
-                    integration.displayName = integrationMetaData?.integrationDisplayName;
-                });
-
-                const sortedData: IIntegration[] = integrationData.content
-                    .slice()
-                    .sort((a: IIntegration, b: IIntegration) => {
-                        if (sort) {
-                            return sort.direction === 'ascending'
-                                ? integrationComparator(b, a, sort.orderBy)
-                                : integrationComparator(a, b, sort.orderBy);
-                        }
-                        return 1;
+                    integrationData.content.map((integration: IIntegration) => {
+                        const integrationMetaData = allMetadata?.find(
+                            (metaData) =>
+                                metaData.sourceApplicationIntegrationId ===
+                                integration.sourceApplicationIntegrationId
+                        );
+                        integration.displayName = integrationMetaData?.integrationDisplayName;
                     });
 
-                setIntegrations({ ...integrationData, content: sortedData });
+                    const sortedData: IIntegration[] = integrationData.content
+                        .slice()
+                        .sort((a: IIntegration, b: IIntegration) => {
+                            if (sort) {
+                                return sort.direction === 'ascending'
+                                    ? integrationComparator(b, a, sort.orderBy)
+                                    : integrationComparator(a, b, sort.orderBy);
+                            }
+                            return 1;
+                        });
+
+                    setIntegrations({ ...integrationData, content: sortedData });
+                });
             } catch (e) {
                 onError({ message: t('errorMessage') });
                 console.error('Error: ', e);
@@ -211,9 +219,12 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({
                                     >
                                         <Table.DataCell>{value.id}</Table.DataCell>
                                         <Table.DataCell scope="row">
-                                            {getSourceApplicationDisplayNameById(
-                                                String(value.sourceApplicationId)
-                                            )}
+                                            {
+                                                sourceApplications?.find(
+                                                    (sa) =>
+                                                        sa.id === Number(value.sourceApplicationId)
+                                                )?.displayName
+                                            }
                                         </Table.DataCell>
                                         <Table.DataCell>
                                             {value.sourceApplicationIntegrationId}
@@ -229,7 +240,10 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({
                                             <TableLoader columnLength={5} type={'cells'} />
                                         ) : (
                                             <>
-                                                <Table.DataCell align={'center'}>
+                                                <Table.DataCell
+                                                    align={'center'}
+                                                    data-testid={`integration-${i}-total`}
+                                                >
                                                     {stats?.total || '-'}
                                                 </Table.DataCell>
                                                 <Table.DataCell align={'center'}>
@@ -238,7 +252,10 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({
                                                 <Table.DataCell align={'center'}>
                                                     {stats?.transferred || '-'}
                                                 </Table.DataCell>
-                                                <Table.DataCell align={'center'}>
+                                                <Table.DataCell
+                                                    align={'center'}
+                                                    data-testid={`integration-${i}-aborted`}
+                                                >
                                                     {stats?.aborted || '-'}
                                                 </Table.DataCell>
                                                 <Table.DataCell align={'center'}>

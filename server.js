@@ -1,17 +1,16 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'production';
 
 import express from 'express';
-import path from 'path';
+import path from 'node:path';
 import log4js from 'log4js';
 import morgan from 'morgan';
-import { fileURLToPath } from 'url';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname = import.meta.dirname;
 
 const PORT = process.env.PORT || 8000;
 const BASE_PATH = process.env.VITE_BASE_PATH || process.env.BASE_PATH || '/';
 const DIST_DIR = path.join(__dirname, 'dist');
+
 const log = log4js.getLogger();
 log.level = process.env.LOGGING_LEVEL || 'info';
 

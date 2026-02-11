@@ -1,66 +1,25 @@
-// noinspection DuplicatedCode
+import {
+    mockGenericSourceApplicationRepository,
+    mockGenericAuthorizationRepository,
+    mockGenericConfigurationRepository,
+    mockGenericInstanceFlowTrackingRepository,
+    mockGenericIntegrationRepository,
+} from '../utils/interceptions.js';
 
 describe('Testing integration list', () => {
     beforeEach(() => {
-        cy.intercept(
-            'GET',
-            '**/integrasjoner?side=0&antall=10&sorteringFelt=state&sorteringRetning=ASC',
-            { fixture: 'integrationsInList.json' }
-        ).as('getIntegrations');
-        cy.intercept('GET', '**/instance-flow-tracking/statistics/integrations*', {
-            fixture: 'historikk.json',
-        }).as('getHistory');
-        cy.intercept('GET', '**/metadata?kildeapplikasjonIds=*&bareSisteVersjoner=*', {
-            fixture: 'metadataBySourceApplication.json',
-        }).as('getMetadata');
-        cy.intercept(
-            'GET',
-            '**/konfigurasjoner?side=0&antall=30&sorteringFelt=id&sorteringRetning=DESC&ferdigstilt=false&integrasjonId=1&ekskluderMapping=true',
-            { fixture: 'configDrafts.json' }
-        ).as('getConfigDrafts');
-        cy.intercept(
-            'GET',
-            '**/konfigurasjoner?side=0&antall=30&sorteringFelt=id&sorteringRetning=DESC&ferdigstilt=false&integrasjonId=2&ekskluderMapping=true',
-            { fixture: 'configDrafts2.json' }
-        ).as('getConfigDrafts2');
-        cy.intercept(
-            'GET',
-            '**/konfigurasjoner?side=0&antall=30&sorteringFelt=version&sorteringRetning=DESC&ferdigstilt=true&integrasjonId=1&ekskluderMapping=true',
-            { fixture: 'configCompleted.json' }
-        ).as('getConfigCompleted');
-        cy.intercept(
-            'GET',
-            '**/konfigurasjoner?side=0&antall=30&sorteringFelt=version&sorteringRetning=DESC&ferdigstilt=true&integrasjonId=2&ekskluderMapping=true',
-            { fixture: 'configCompleted2.json' }
-        ).as('getConfigCompleted2');
-        cy.intercept('GET', '**/konfigurasjoner/4?ekskluderMapping=true', {
-            fixture: 'config.json',
-        }).as('getConfig');
+        mockGenericAuthorizationRepository();
+        mockGenericIntegrationRepository();
+        mockGenericSourceApplicationRepository();
+        mockGenericInstanceFlowTrackingRepository();
+        mockGenericConfigurationRepository();
     });
 
     function prep() {
-        cy.intercept('GET', '**/authorization/me', { fixture: 'me.json' }).as('getMe');
-        cy.intercept('GET', '**/authorization/me/is-authorized', {
-            fixture: 'auth.json',
-            headers: {
-                'Content-Type': 'text/plain',
-            },
-        }).as('getAuth');
-        cy.intercept('GET', '**/authorization/me/restricted-page-authorization', {
-            userPermissionPage: true,
-        }).as('getUserPermissionsPage');
-        cy.intercept('GET', '**/authorization/users?page=0&size=10', { fixture: 'users.json' }).as(
-            'getUsersPermissions'
-        );
         cy.visit('/integration/list');
     }
 
-    it('should open and show table', () => {
-        prep();
-        cy.get('#integration-table').should('be.visible');
-    });
-
-    it('should contain correct columns', () => {
+    it('should open and show table with correct columns', () => {
         prep();
         let tableHeaderTitles = [
             '',
@@ -76,6 +35,7 @@ describe('Testing integration list', () => {
             'Avbrutt',
             'Feilet',
         ];
+        cy.get('#integration-table').should('be.visible');
 
         cy.get('#integration-table').within(() => {
             cy.get('thead tr th')
@@ -85,7 +45,18 @@ describe('Testing integration list', () => {
                 });
         });
 
-        cy.get('#integration-table').find('tbody tr').should('have.length', 3); // forventet antall
+        cy.wait('@getIntegrations');
+        cy.get('#integration-table tbody tr').should('have.length', 4);
+    });
+
+    it('should load and show stats', () => {
+        prep();
+        cy.get('#integration-table').should('be.visible');
+        cy.wait('@getStatisticsForIntegrations');
+        cy.get('[data-testid="integration-0-total"]').should('have.text', '4');
+        cy.get('[data-testid="integration-1-total"]').should('have.text', '1');
+        cy.get('[data-testid="integration-0-aborted"]').should('have.text', '3');
+        cy.get('[data-testid="integration-1-aborted"]').should('have.text', '-');
     });
 
     it('should contain correct displayName', () => {
@@ -98,7 +69,6 @@ describe('Testing integration list', () => {
             .find('td')
             .eq(4)
             .should('have.text', 'Arkivsak');
-
     });
 
     it('should open panel', () => {

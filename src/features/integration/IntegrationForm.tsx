@@ -13,7 +13,6 @@ import { IIntegration, IIntegrationFormData, IntegrationState } from './types/In
 import { toIntegration } from '../../util/mapping/ToIntegration';
 import { IIntegrationMetadata } from '../configuration/types/Metadata/IntegrationMetadata';
 import {
-    Box,
     Button,
     ErrorSummary,
     Heading,
@@ -29,7 +28,7 @@ import { IAlertContent } from '../configuration/types/AlertContent';
 import i18n from '../../util/locale/i18n';
 import { ISelect } from '../configuration/types/Select';
 import { AuthorizationContext } from '../../context/AuthorizationContext';
-import { getSourceApplicationDisplayNameById } from '../../util/TableUtil';
+import { sourceApplicationsToSelectable } from '../../util/FormUtil';
 import useIntegrationRepository from '../../api/useIntegrationRepository';
 import FormPageWrapper from '../../components/molecules/FormPageWrapper';
 
@@ -56,7 +55,7 @@ export const IntegrationForm: React.FunctionComponent<Props> = () => {
         currentMetaData,
         getInstanceElementMetadata,
     } = useContext(SourceApplicationContext);
-    const { activeUserSourceApps } = useContext(AuthorizationContext);
+    const { getAllSourceApplications } = useContext(AuthorizationContext);
     const [destination, setDestination] = useState<string>('');
     const [sourceApplicationId, setSourceApplicationId] = useState<string>('');
     const [showAlert, setShowAlert] = React.useState<boolean>(false);
@@ -80,12 +79,10 @@ export const IntegrationForm: React.FunctionComponent<Props> = () => {
         }, [sourceApplication, availableForms, integrations, i18n.language]);
 
     function getSelectableSourceApplications() {
-        const sources: ISelect[] = [];
-        activeUserSourceApps &&
-            activeUserSourceApps.map((sa) => {
-                sources.push({ value: sa, label: getSourceApplicationDisplayNameById(sa) });
-            });
-        setSelectableSourceApplications([...selectableSourceApplications, ...sources]);
+        getAllSourceApplications(true).then((sourceApps) => {
+            const options = sourceApplicationsToSelectable(sourceApps);
+            setSelectableSourceApplications(options);
+        })
     }
 
     const navToConfiguration = (id: string) => {

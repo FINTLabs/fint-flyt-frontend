@@ -1,7 +1,21 @@
 import { defineConfig } from 'vitest/config';
-import { loadEnv } from 'vite';
+import { loadEnv, Plugin } from 'vite';
 // @ts-ignore
 import react from '@vitejs/plugin-react';
+
+function removeTestIds(enabled: boolean): Plugin {
+    return {
+        name: 'remove-testids',
+        enforce: 'pre',
+        apply: 'build',
+        transform(code, id) {
+            if (!enabled) return;
+            if (!/\.(j|t)sx?$/.test(id)) return;
+            const out = code.replace(/\sdata-testid="[^"]*"/g, '');
+            return { code: out, map: null };
+        },
+    };
+}
 
 export default defineConfig(({ mode }) => {
     const apiEnv = loadEnv(mode, process.cwd(), 'VITE_API_');

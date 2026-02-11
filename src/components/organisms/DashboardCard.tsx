@@ -18,7 +18,7 @@ const DashboardCard: React.FunctionComponent<Props> = (props: Props) => {
 
     return (
         <Box
-            id="support-information"
+            id={props.id}
             as="div"
             background="surface-default"
             borderRadius="large"
@@ -36,6 +36,7 @@ const DashboardCard: React.FunctionComponent<Props> = (props: Props) => {
                     {integrations ? (
                         <Heading
                             size="large"
+                            id={`${props.id}-value`}
                             textColor={!props.value || props.value === 0 ? 'subtle' : 'default'}
                         >
                             {props.value ?? 0}
@@ -45,7 +46,9 @@ const DashboardCard: React.FunctionComponent<Props> = (props: Props) => {
                             <Loader size="large" title="Venter..." transparent />
                         </Box>
                     )}
-                    <Heading size="small">{props.content}</Heading>
+                    <Heading size="small" id={`${props.id}-description`}>
+                        {props.content}
+                    </Heading>
                 </VStack>
                 {props.link && (
                     <Box
@@ -64,9 +67,7 @@ const DashboardCard: React.FunctionComponent<Props> = (props: Props) => {
                             wrap={false}
                             gap={'4'}
                         >
-                            <BodyShort id={`${props.id}-btn`}>
-                                {props.link.name}
-                            </BodyShort>
+                            <BodyShort id={`${props.id}-btn`}>{props.link.name}</BodyShort>
                             <ArrowRightIcon className="arrow-icon" />
                         </HStack>
                     </Box>

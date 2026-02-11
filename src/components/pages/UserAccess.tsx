@@ -9,7 +9,6 @@ import {
     Box,
     Button,
     Checkbox,
-    Heading,
     HStack,
     Loader,
     Table,
@@ -21,12 +20,13 @@ import { useTranslation } from 'react-i18next';
 import { IAlertMessage, Page } from '../types/TableTypes';
 import useAuthorizationRepository from '../../api/useAuthorizationRepository';
 import { IUser } from '../types/UserTypes';
-import { sourceApplications } from '../../api/useSourceApplicationRepository';
+import { ISourceApplication } from '../../features/configuration/types/SourceApplication';
 
 const UserAccess: RouteComponent = () => {
     const AuthorizationRepository = useAuthorizationRepository();
     const { t } = useTranslation('translations', { keyPrefix: 'pages.useraccess' });
-    const { hasAccessToUserPermissionPage } = useContext(AuthorizationContext);
+    const { hasAccessToUserPermissionPage, getAllSourceApplications } =
+        useContext(AuthorizationContext);
     const [error, setError] = useState<IAlertMessage | undefined>(undefined);
     const history = useNavigate();
     const { authorized } = useContext(AuthorizationContext);
@@ -44,6 +44,10 @@ const UserAccess: RouteComponent = () => {
     const [users, setUsers] = useState<IUser[] | undefined>(undefined);
     const [initialUsers, setInitialUsers] = useState<IUser[] | undefined>(undefined);
 
+    const [sourceApplications, setSourceApplications] = useState<ISourceApplication[] | undefined>(
+        undefined
+    );
+
     const [editMode, setEditMode] = useState<boolean>(false);
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
@@ -53,10 +57,14 @@ const UserAccess: RouteComponent = () => {
         direction: 'ascending',
     });
 
-    const fetchUsers = () => {
-        AuthorizationRepository.getUsers(page - 1, pageSize)
-            .then((response) => {
-                const pageableResponse: Page<IUser> = response.data;
+    const fetchData = () => {
+        Promise.all([
+            AuthorizationRepository.getUsers(page - 1, pageSize),
+            getAllSourceApplications(true),
+        ])
+            .then(([userResponse, sourceApplications]) => {
+                setSourceApplications(sourceApplications);
+                const pageableResponse: Page<IUser> = userResponse.data;
                 setUsers(pageableResponse.content);
                 setInitialUsers(pageableResponse.content);
                 setTotalPages(pageableResponse.totalPages ?? 0);
@@ -69,14 +77,14 @@ const UserAccess: RouteComponent = () => {
     };
 
     useEffect(() => {
-        fetchUsers();
+        fetchData();
     }, [page, pageSize, sort]);
 
     const updateUsers = () => {
         setEditMode(false);
         AuthorizationRepository.updateUsers(users ? users : [])
             .then(() => {
-                fetchUsers(); // Fetch users after update to refresh the data
+                fetchData(); // Fetch users after update to refresh the data
             })
             .catch((e) => {
                 console.log('error updating data, ', e);
@@ -151,7 +159,7 @@ const UserAccess: RouteComponent = () => {
                 </Alert>
             )}
             <Box background={'surface-default'} style={{ minHeight: '70vh' }}>
-                {users ? (
+                {users && sourceApplications ? (
                     <VStack gap={'6'}>
                         <Table
                             sort={sort}
@@ -170,6 +178,7 @@ const UserAccess: RouteComponent = () => {
                                         <Table.ColumnHeader
                                             id={'column-header-acos'}
                                             align={'center'}
+                                            key={sourceApp.id}
                                         >
                                             {sourceApp.displayName}
                                         </Table.ColumnHeader>

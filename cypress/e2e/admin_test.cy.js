@@ -1,32 +1,23 @@
+import { mockGenericAuthorizationRepository } from '../utils/interceptions.js';
+
 describe("Testing useraccess page", () => {
 	const columns = [
         'Navn',
         'Epost',
-        'ACOS',
-        'eGrunnerverv',
-        'Digisak',
-        'VIGO',
+        'Acos Interact',
         'Altinn',
+        'Digisak',
+        'eGrunnerverv',
         'HMSReg',
-        'ISY Graving',
+        'VIGO',
     ];
-	beforeEach(() => {
-        cy.intercept('GET', '**/authorization/me/is-authorized', {
-            fixture: 'auth.json',
-            headers: {
-                'Content-Type': 'text/plain',
-            },
-        }).as('getAuth');		cy.intercept("GET", "**/authorization/me/restricted-page-authorization", {userPermissionPage: true}).as("getUserPermissionsPage")
-		cy.intercept("GET", "**/authorization/me", {fixture: "me.json"}).as("getMe")
-		cy.intercept("GET", "**/authorization/users?page=0&size=10", {fixture: "users.json"}).as("getUsersPermissions")
-		cy.intercept("POST", "**/authorization/users/actions/userPermissionBatchPut", {fixture: "usersPost.json"}).as("postUsersPermissions")
-	});
+    beforeEach(mockGenericAuthorizationRepository);
 
 	function prep() {
 		cy.visit("/useraccess");
 	}
 
-	it("should open user access page and show tables with correct table", () => {
+	it("should show tables with correct table headers", () => {
 		prep();
 		cy.get('#useraccess-table').should("be.visible")
 		columns.map(column => {

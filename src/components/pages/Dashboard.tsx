@@ -94,7 +94,7 @@ const Dashboard: RouteComponent = () => {
     return (
         <PageTemplate id={'dashboard'} keyPrefix={'pages.dashboard'} customHeading>
             <VStack gap={'8'} maxWidth={'var(--a-breakpoint-2xl)'} marginInline={'auto'}>
-                <HGrid gap="6" columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}>
+                <HGrid id={'dashboard-grid'} gap="6" columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}>
                     {cards.map((card: ICard, index) => {
                         return (
                             <DashboardCard

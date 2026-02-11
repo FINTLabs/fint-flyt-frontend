@@ -1,5 +1,5 @@
 import * as React from "react";
-import {forwardRef, useContext, useState} from "react";
+import {useContext, useState} from "react";
 import {ISelectableValueTemplate, SelectableValueType} from "../../../types/FormTemplate";
 import SelectValueComponent from "./select/SelectValueComponent";
 import {Controller, useFormContext} from "react-hook-form";
@@ -24,7 +24,7 @@ interface Props {
     disabled?: boolean;
 }
 
-const SelectableValueMappingComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivElement, Props>((props) => {
+const SelectableValueMappingComponent: React.FunctionComponent<Props> = (props) => {
     SelectableValueMappingComponent.displayName = "SelectableValueMappingComponent"
     const {control, setValue, getValues, watch} = useFormContext();
     const {completed} = useContext(ConfigurationContext)
@@ -146,5 +146,5 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = forwardR
             }
         }}
     />
-})
+}
 export default SelectableValueMappingComponent;

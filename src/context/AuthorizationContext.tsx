@@ -1,6 +1,7 @@
-import { createContext, useMemo, useState } from 'react';
+import { createContext, useCallback, useMemo, useState } from 'react';
 import { ContextProps } from './constants/interface';
 import useAuthorizationRepository from '../api/useAuthorizationRepository';
+import { ISourceApplication } from '../features/configuration/types/SourceApplication';
 
 type AuthorizationContextState = {
     authorized: boolean | undefined;
@@ -12,6 +13,7 @@ type AuthorizationContextState = {
     activeUserSourceApps: string[] | undefined;
     getActiveUserSourceApps: () => void;
     logoutUrl?: string;
+    getAllSourceApplications: (filterByAvailable: boolean) => Promise<ISourceApplication[]>;
 };
 
 const contextDefaultValues: AuthorizationContextState = {
@@ -24,6 +26,7 @@ const contextDefaultValues: AuthorizationContextState = {
     activeUserSourceApps: undefined,
     getActiveUserSourceApps: () => undefined,
     logoutUrl: undefined,
+    getAllSourceApplications: async () => [],
 };
 
 const AuthorizationContext = createContext<AuthorizationContextState>(contextDefaultValues);
@@ -40,6 +43,11 @@ const AuthorizationProvider = ({ children, basePath }: ContextProps & { basePath
     const [activeUserSourceApps, setActiveUserSourceApps] = useState<string[] | undefined>(
         undefined
     );
+
+    const [sourceApplications, setSourceApplications] = useState<
+        ISourceApplication[] | undefined
+    >();
+
     const logoutUrl = useMemo(() => `${basePath}/_oauth/logout`, [basePath]);
 
     const getAuthorization = async () => {
@@ -65,6 +73,29 @@ const AuthorizationProvider = ({ children, basePath }: ContextProps & { basePath
         }
     };
 
+    const getAllSourceApplications = useCallback(
+        async (filterByAvailable: boolean): Promise<ISourceApplication[]> => {
+            if (sourceApplications) {
+                return filterByAvailable
+                    ? sourceApplications.filter((sa) => sa.available)
+                    : sourceApplications;
+            } else {
+                try {
+                    return AuthorizationRepository.getSourceApplications().then((response) => {
+                        setSourceApplications(response.data);
+                        return filterByAvailable
+                            ? response.data.filter((sa) => sa.available)
+                            : response.data;
+                    });
+                } catch (error) {
+                    console.log(error);
+                    return [];
+                }
+            }
+        },
+        [sourceApplications]
+    );
+
     const getUser = async () => {
         try {
             const response = await AuthorizationRepository.getUser();
@@ -88,7 +119,9 @@ const AuthorizationProvider = ({ children, basePath }: ContextProps & { basePath
                 activeUserSourceApps,
                 getActiveUserSourceApps,
                 logoutUrl,
-            }}>
+                getAllSourceApplications,
+            }}
+        >
             {children}
         </AuthorizationContext.Provider>
     );

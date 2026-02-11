@@ -1,0 +1,47 @@
+[
+    {
+        "id": 1,
+        "displayName": "Acos Interact",
+        "available": true
+    },
+    {
+        "id": 5,
+        "displayName": "Altinn",
+        "available": true
+    },
+    {
+        "id": 3,
+        "displayName": "Digisak",
+        "available": true
+    },
+    {
+        "id": 2,
+        "displayName": "eGrunnerverv",
+        "available": true
+    },
+    {
+        "id": 8,
+        "displayName": "FSkyss",
+        "available": false
+    },
+    {
+        "id": 6,
+        "displayName": "HMSReg",
+        "available": true
+    },
+    {
+        "id": 7,
+        "displayName": "ISY Graving",
+        "available": false
+    },
+    {
+        "id": 9,
+        "displayName": "SiDE",
+        "available": false
+    },
+    {
+        "id": 4,
+        "displayName": "VIGO",
+        "available": true
+    }
+]
