@@ -132,7 +132,7 @@ iframe#webpack-dev-server-client-overlay {
         background-color: var(--a-grayalpha-100);
     }
 
-    .groupedbutton {
+    .filter-toolbar-button {
         box-shadow: none;
         border: 1px solid var(--a-border-strong);
         &.left {
@@ -150,13 +150,25 @@ iframe#webpack-dev-server-client-overlay {
     .active-filters {
         .filter-chip {
             background-color: var(--novari-theme-purple-subtle) !important;
-            border: 2px solid var(--novari-theme-purple-dark) !important;
+            border: 1px solid var(--novari-theme-purple-dark) !important;
             color: var(--novari-theme-purple-dark) !important;
+            &:hover {
+                background-color: var(--novari-theme-purple-40) !important;
+            }
         }
 
         .filter-clear-all {
             border-radius: var(--a-border-radius-full) !important;
             gap: var(--a-spacing-1) !important;
+        }
+    }
+
+    .filter-try-again-button {
+        box-shadow: none;
+        border: 1px solid var(--novari-theme-purple-dark);
+        &:hover {
+            box-shadow: none;
+            border: 1px solid var(--novari-theme-purple-dark);
         }
     }
 }

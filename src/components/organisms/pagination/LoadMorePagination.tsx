@@ -75,7 +75,7 @@ const LoadMorePagination: FunctionComponent<Props> = ({ hide, onFetchMore }) => 
                 default={numberOfRows}
             />
 
-            <Button variant="secondary" onClick={() => handleFetchMore()}>
+            <Button variant="secondary" type={"button"} size={'small'} onClick={() => handleFetchMore()}>
                 {t('filter.loadMore')}
             </Button>
         </HStack>

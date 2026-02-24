@@ -21,6 +21,7 @@ interface FilterContextProps {
     numberOfActiveFilters: number;
     refreshKey: number;
     setQuickFilters: (patch: Partial<Filters>) => void;
+    isSaved: boolean;
 }
 
 const FilterContext = createContext<FilterContextProps | null>(null);
@@ -66,6 +67,7 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
 
     const [filters, setFilters] = useState<Filters>(defaultFilters);
     const [refreshKey, setRefreshKey] = useState(0);
+    const [isSaved, setIsSaved] = useState(true);
 
     const numberOfActiveFilters = useMemo(() => {
         return Object.values(filters).filter((v) => {
@@ -76,6 +78,7 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
 
     const updateFilter = (key: keyof Filters, value: Filters[keyof Filters]) => {
         setFilters((prev) => ({ ...prev, [key]: value }));
+        setIsSaved(false);
     };
 
     const updateFilterAndSave = (key: keyof Filters, value: Filters[keyof Filters]) => {
@@ -92,12 +95,12 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
 
             setSearchParams(params);
             setRefreshKey((r) => r + 1);
+            setIsSaved(true);
             return next;
         });
     };
 
     const setQuickFilters = (patch: Partial<Filters>) => {
-        console.log('PTCH', patch);
         const next: Filters = { ...EMPTY_FILTERS };
 
         Object.keys(patch).forEach((key) => {
@@ -123,6 +126,7 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
         setFilters(next);
         setSearchParams(params);
         setRefreshKey((r) => r + 1);
+        setIsSaved(true);
     };
 
     const clearFilters = () => {
@@ -133,6 +137,7 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
         setSearchParams(params);
         setFilters(EMPTY_FILTERS);
         setRefreshKey((prev) => prev + 1);
+        setIsSaved(true);
     };
 
     const saveFilters = () => {
@@ -157,6 +162,7 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
 
         setSearchParams(params);
         setRefreshKey((v) => v + 1);
+        setIsSaved(true);
     };
 
     return (
@@ -170,6 +176,7 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
                 numberOfActiveFilters,
                 refreshKey,
                 setQuickFilters,
+                isSaved
             }}
         >
             {children}

@@ -166,6 +166,9 @@ const geti18nValue = ({
     i18n: any;
     t: any;
 }): string | undefined => {
+    if (Array.isArray(value)) {
+        return value.map((v) => geti18nValue({ key, value: v, i18n, t })).join(', ');
+    }
     const valueKey = `${key}.${value}`;
     const fullKeyToValue = `pages.instances.filter.activeFilters.${valueKey}`;
 
@@ -188,14 +191,9 @@ export function getFilterLabel({
     options: ReturnType<typeof useFilterOptions>;
 }) {
     let valuetext: string | undefined = undefined;
-    console.log('getFilterLabel', key, value);
     const optionListKey = apiOptionMap[key];
-    console.log('= optionListKey', optionListKey);
     if (optionListKey) {
         const optionList = options[optionListKey] as Array<{ value: string; label: string }>;
-
-        console.log('= optionList', optionList);
-
         if (Array.isArray(value)) {
             valuetext = value
                 .map((val) => optionList.find((o) => o.value === val)?.label ?? val)
@@ -207,7 +205,6 @@ export function getFilterLabel({
         valuetext = geti18nValue({ key, value, i18n, t });
     }
 
-    console.log('= valuetext', valuetext);
     if (VALUE_TEXT_FILTERS.includes(key)) {
         return valuetext || value;
     }

@@ -36,13 +36,13 @@ export default function QuickFiltersDropdownMenu() {
                     variant="secondary-neutral"
                     icon={<ChevronDownIcon aria-hidden />}
                     iconPosition="right"
-                    className={'groupedbutton right'}
+                    className={'filter-toolbar-button right'}
                     size={'small'}
                 >
                     <HStack gap={'2'}>{t('title')}</HStack>
                 </Button>
             </ActionMenu.Trigger>
-            <ActionMenu.Content className={'filter-toolbar-menu-content'}>
+            <ActionMenu.Content>
                 <ActionMenu.Item onClick={() => handleSelectOption('tryAgain')}>
                     {t('tryAgain')}
                 </ActionMenu.Item>

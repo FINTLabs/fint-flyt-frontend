@@ -1,6 +1,6 @@
 import React, { FC, useCallback, useContext, useEffect } from 'react';
 import { HStack, VStack } from '@navikt/ds-react';
-import BatchProcessButtonWithModal from '../batchProcess/BatchProcessButtonWithModal';
+import BulkActions from '../batchProcess/BulkActions';
 import ActiveFilters from './ActiveFilters';
 import { useFilterOptions } from './OptionsContext';
 import FilterDropdownMenu from './toolbarFilters/FilterDropdownMenu';
@@ -16,10 +16,7 @@ const FilterToolbar: FC = () => {
     const IntegrationRepository = useIntegrationRepository();
     const { allMetadata } = useContext(SourceApplicationContext);
     const { getAllSourceApplications } = useContext(AuthorizationContext);
-    const {
-        setAllIntegrations,
-        setSourceApplicationIdOptions,
-    } = useFilterOptions();
+    const { setAllIntegrations, setSourceApplicationIdOptions } = useFilterOptions();
 
     const fetchSourceApplications = useCallback(() => {
         getAllSourceApplications(true).then((sourceApps) => {
@@ -60,7 +57,7 @@ const FilterToolbar: FC = () => {
                     <FilterDropdownMenu />
                     <QuickFiltersDropdownMenu />
                 </HStack>
-                <BatchProcessButtonWithModal />
+                <BulkActions />
             </HStack>
             <ActiveFilters />
         </VStack>

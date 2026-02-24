@@ -31,11 +31,11 @@ export default function FilterDropdownMenu() {
                     icon={<ChevronDownIcon aria-hidden />}
                     iconPosition="right"
                     size="small"
-                    className={`groupedbutton left ${numberOfActiveFilters ? 'toggled' : ''}`}
+                    className={`filter-toolbar-button left ${numberOfActiveFilters ? 'toggled' : ''}`}
                 >
-                    <HStack gap={'2'}>
+                    <HStack gap={'2'} wrap={false}>
                         <FilterIcon aria-hidden fontSize={'1.2rem'} />
-                        {t('filter.filterActionTitle')}
+                        {t('filter.filterMenuButtonText')}
                     </HStack>
                 </Button>
             </ActionMenu.Trigger>

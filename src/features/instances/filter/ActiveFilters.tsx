@@ -1,7 +1,7 @@
 import { useFilters } from './FilterContext';
 import { Button, Chips, HStack } from '@navikt/ds-react';
 import { XMarkIcon } from '@navikt/aksel-icons';
-import { Children, FC, useMemo } from 'react';
+import { Children, FC, useEffect, useMemo, useState } from 'react';
 import { Filters } from './types';
 import { useTranslation } from 'react-i18next';
 import { useFilterOptions } from './OptionsContext';
@@ -14,22 +14,30 @@ const ActiveFilters: FC = () => {
     const { t } = useTranslation('translations', {
         keyPrefix: 'pages.instances.filter.activeFilters',
     });
-    const { clearFilters, filters, updateFilter, saveFilters, updateFilterAndSave } = useFilters();
+    const { clearFilters, filters, updateFilter, saveFilters, updateFilterAndSave, isSaved } =
+        useFilters();
+
+    const [savedFilters, setSavedFilters] = useState<Filters>(() => filters);
+
+    useEffect(() => {
+        if (isSaved) {
+            setSavedFilters(filters);
+        }
+    }, [filters, isSaved]);
 
     const activeFilters: [key: string, value: Filters[keyof Filters]][] = useMemo(() => {
-        console.log('== filters', filters);
-        return Object.entries(filters).filter(([_, value]) => {
+        return Object.entries(savedFilters).filter(([_, value]) => {
             if (Array.isArray(value)) return value.length > 0;
             return value !== null && value !== '' && value !== undefined;
         });
-    }, [filters]);
+    }, [savedFilters]);
 
     if (activeFilters.length === 0) {
         return <HStack>{t('noFilters')}</HStack>;
     }
 
     return (
-        <HStack gap="2" className={'active-filters'}>
+        <HStack gap="2" className={'active-filters'} align={'center'}>
             <Chips size={'small'}>
                 {Children.toArray([
                     ...activeFilters.map(([key, value]) => {
@@ -40,17 +48,17 @@ const ActiveFilters: FC = () => {
                                     filterKey={key}
                                     filterValue={value}
                                     onRemove={() => {
-                                        updateFilterAndSave(key, null);
+                                        updateFilterAndSave(key as keyof Filters, null);
                                     }}
                                 />
                             );
                         }
                     }),
 
-                    (!!filters.timeOffSetHours || !!filters.timeOffsetMinutes) && (
+                    (!!savedFilters.timeOffSetHours || !!savedFilters.timeOffsetMinutes) && (
                         <TimeOffsetChip
-                            timeOffSetHours={filters.timeOffSetHours}
-                            timeOffsetMinutes={filters.timeOffsetMinutes}
+                            timeOffSetHours={savedFilters.timeOffSetHours}
+                            timeOffsetMinutes={savedFilters.timeOffsetMinutes}
                             onRemove={() => {
                                 updateFilter('timeOffSetHours', null);
                                 updateFilter('timeOffsetMinutes', null);
@@ -59,10 +67,10 @@ const ActiveFilters: FC = () => {
                         />
                     ),
 
-                    (!!filters.timeTimestampMin || !!filters.timeTimestampMax) && (
+                    (!!savedFilters.timeTimestampMin || !!savedFilters.timeTimestampMax) && (
                         <TimeRangeChip
-                            from={filters.timeTimestampMin}
-                            to={filters.timeTimestampMax}
+                            from={savedFilters.timeTimestampMin}
+                            to={savedFilters.timeTimestampMax}
                             onRemove={() => {
                                 updateFilter('timeTimestampMin', null);
                                 updateFilter('timeTimestampMax', null);
@@ -79,7 +87,7 @@ const ActiveFilters: FC = () => {
                 icon={<XMarkIcon aria-hidden />}
                 onClick={clearFilters}
             >
-                Fjern alle
+                {t('removeAll')}
             </Button>
         </HStack>
     );
