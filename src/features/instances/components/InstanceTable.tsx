@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { ReactElement, useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Alert, Box, Button, Dropdown, HStack, Table } from '@navikt/ds-react';
+import { Alert, Box, Button, Checkbox, Dropdown, HStack, Table } from '@navikt/ds-react';
 import { format } from 'date-fns';
 import { IEventNew, ISummary } from '../types/Event';
 import InstancePanel from './InstancePanel';
@@ -18,6 +18,7 @@ import TableLoader from '../../../components/molecules/TableLoader';
 import { AuthorizationContext } from '../../../context/AuthorizationContext';
 import { ISourceApplication } from '../../configuration/types/SourceApplication';
 import LoadMorePagination from '../../../components/organisms/pagination/LoadMorePagination';
+import { useTableSelect } from '../batchProcess/TableSelectContext';
 
 interface Props {
     onError: (error: IAlertMessage | undefined) => void;
@@ -30,20 +31,26 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
     const { getAllSourceApplications } = useContext(AuthorizationContext);
     const { t } = useTranslation('translations', { keyPrefix: 'pages.instances' });
     const { filters, refreshKey } = useFilters();
+    const {
+        selectedEvents,
+        toggleSelectedEvents,
+        addAllEvents,
+        removeAllEvents,
+        selectedSize,
+    } = useTableSelect();
 
-    const [selectedRow, setSelectedRow] = useState<IEventNew>();
+    const [selectedRowByActionMenu, setSelectedRowByActionMenu] = useState<IEventNew>();
+    const [expandedRows, setExpandedRows] = useState<number[]>([]);
+
     const [openCustomDialog, setOpenCustomDialog] = React.useState(false);
     const errorsNotForRetry: string[] = ['instance-receival-error', 'instance-registration-error'];
     const [summaryList, setSummaryList] = useState<ISummary[]>();
 
     const [size, setSize] = useState<number>(10);
 
-    const [disabledRetryButtons, setDisabledRetryButtons] = useState(
-        new Array(size).fill(false)
-    );
+    const [disabledRetryButtons, setDisabledRetryButtons] = useState(new Array(size).fill(false));
     const [loading, setLoading] = useState(true);
     const [isFetching, setIsFetching] = useState<boolean>(false);
-    const [expandedRows, setExpandedRows] = useState<number[]>([]);
     const [sourceApplications, setSourceApplications] = useState<ISourceApplication[]>();
 
     useEffect(() => {
@@ -56,6 +63,7 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
         if (allMetadata?.length && !isFetching) {
             setLoading(true);
             setExpandedRows([]);
+            removeAllEvents();
             getLatestInstances(String(size));
         }
     }, [size, refreshKey, allMetadata?.length]);
@@ -127,7 +135,7 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
             });
     };
 
-    const handleToggle = (index: number) => {
+    const toggleExpandableRow = (index: number) => {
         setExpandedRows((prev) =>
             prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
         );
@@ -148,7 +156,7 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                             <Dropdown.Menu.List.Item
                                 id={'statusButton'}
                                 onClick={() => {
-                                    setSelectedRow(event);
+                                    setSelectedRowByActionMenu(event);
                                     setOpenCustomDialog(true);
                                 }}
                             >
@@ -185,10 +193,10 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
     return (
         <Box>
             <Box background={'surface-default'} style={{ minHeight: '70vh' }}>
-                {selectedRow && (
+                {selectedRowByActionMenu && (
                     <CustomStatusDialogComponent
                         open={openCustomDialog}
-                        row={selectedRow}
+                        row={selectedRowByActionMenu}
                         setOpenCustomDialog={setOpenCustomDialog}
                     />
                 )}
@@ -197,6 +205,23 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                     <Table.Header>
                         <Table.Row>
                             <Table.ColumnHeader />
+                            <Table.DataCell>
+                                <Checkbox
+                                    size={'small'}
+                                    checked={selectedSize === summaryList?.length}
+                                    indeterminate={
+                                        selectedSize > 0 && selectedSize !== summaryList?.length
+                                    }
+                                    onChange={() => {
+                                        selectedSize
+                                            ? removeAllEvents()
+                                            : addAllEvents(summaryList);
+                                    }}
+                                    hideLabel
+                                >
+                                    Velg alle rader
+                                </Checkbox>
+                            </Table.DataCell>
                             <Table.ColumnHeader>
                                 {t('table.column.sourceApplicationId')}
                             </Table.ColumnHeader>
@@ -231,7 +256,7 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                                         id={`instance-row-${i}`}
                                         expandOnRowClick
                                         open={expandedRows.includes(i)}
-                                        onOpenChange={() => handleToggle(i)}
+                                        onOpenChange={() => toggleExpandableRow(i)}
                                         content={
                                             expandedRows.includes(i) ? (
                                                 <InstancePanel
@@ -246,6 +271,19 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                                             ) : null
                                         }
                                     >
+                                        <Table.DataCell>
+                                            <Checkbox
+                                                size={'small'}
+                                                hideLabel
+                                                checked={selectedEvents[i] !== undefined}
+                                                onChange={() => {
+                                                    toggleSelectedEvents(i, value);
+                                                }}
+                                                aria-labelledby={`id-${i}`}
+                                            >
+                                                {' '}
+                                            </Checkbox>
+                                        </Table.DataCell>
                                         <Table.DataCell scope="row">
                                             {
                                                 sourceApplications?.find(
