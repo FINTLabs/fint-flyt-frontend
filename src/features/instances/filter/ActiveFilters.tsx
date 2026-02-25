@@ -1,14 +1,11 @@
-import { useFilters } from './FilterContext';
+import { Children, FC, useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button, Chips, HStack } from '@navikt/ds-react';
 import { XMarkIcon } from '@navikt/aksel-icons';
-import { Children, FC, useEffect, useMemo, useState } from 'react';
+import { useFilters } from './FilterContext';
 import { Filters } from './types';
-import { useTranslation } from 'react-i18next';
 import { useFilterOptions } from './OptionsContext';
-import {
-    getFilterLabel,
-    SPECIAL_FILTERS,
-} from './util';
+import { getFilterLabel, SPECIAL_FILTERS } from './util';
 
 const ActiveFilters: FC = () => {
     const { t } = useTranslation('translations', {

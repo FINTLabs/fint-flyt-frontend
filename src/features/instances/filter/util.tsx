@@ -127,14 +127,6 @@ export const deleteAllFilterParams = (params: URLSearchParams): void => {
     }
 };
 
-export const shouldUseApiOptions = (key: string): boolean => {
-    return key === '';
-};
-
-export const shouldInsertValue = (key: string): boolean => {
-    return key === 'timeOffSetHours';
-};
-
 export const getApiLabel = (
     key: string,
     value: Filters[keyof Filters],

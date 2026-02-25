@@ -19,15 +19,11 @@ type Props = {
 };
 
 // TODO: disable restry if no more to fetch
-// TODO: new translation object
 const LoadMorePagination: FunctionComponent<Props> = ({ hide, onFetchMore }) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.instances' });
     const [searchParams, setSearchParams] = useSearchParams();
 
-    const paramSize = useMemo(
-        () => Number(searchParams.get('size') ?? 10),
-        [searchParams]
-    )
+    const paramSize = useMemo(() => Number(searchParams.get('size') ?? 10), [searchParams]);
 
     const [numberOfRows, setNumberOfRows] = useState<number>(paramSize);
     const [timesFetched, setTimesFetched] = useState<number>(1);
@@ -75,7 +71,12 @@ const LoadMorePagination: FunctionComponent<Props> = ({ hide, onFetchMore }) => 
                 default={numberOfRows}
             />
 
-            <Button variant="secondary" type={"button"} size={'small'} onClick={() => handleFetchMore()}>
+            <Button
+                variant="secondary"
+                type={'button'}
+                size={'small'}
+                onClick={() => handleFetchMore()}
+            >
                 {t('filter.loadMore')}
             </Button>
         </HStack>

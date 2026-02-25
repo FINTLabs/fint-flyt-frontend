@@ -176,7 +176,7 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
                 numberOfActiveFilters,
                 refreshKey,
                 setQuickFilters,
-                isSaved
+                isSaved,
             }}
         >
             {children}

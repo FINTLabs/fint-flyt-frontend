@@ -113,13 +113,7 @@ export default function TimeFilter() {
     };
 
     return (
-        <Tabs
-            value={selectedTab}
-            onChange={handleTabChange}
-            size={'small'}
-            iconPosition="top"
-            fill
-        >
+        <Tabs value={selectedTab} onChange={handleTabChange} size={'small'} iconPosition="top" fill>
             <Tabs.List>
                 <Tabs.Tab
                     value="period"

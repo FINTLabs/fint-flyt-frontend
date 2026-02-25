@@ -1,10 +1,4 @@
-import React, {
-    createContext,
-    useContext,
-    useState,
-    ReactNode,
-    useMemo,
-} from 'react';
+import React, { createContext, useContext, useState, ReactNode, useMemo } from 'react';
 import { IEventNew } from '../types/Event';
 
 interface TableSelectContextProps {
@@ -33,11 +27,9 @@ export const TableSelectProvider: React.FC<TableSelectProviderProps> = ({ childr
     const [selectedEvents, setSelectedEvents] = useState<Record<number, IEventNew>>({});
 
     const selectedSize: number = useMemo(
-        () => selectedEvents ? Object.keys(selectedEvents).length : 0,
+        () => (selectedEvents ? Object.keys(selectedEvents).length : 0),
         [selectedEvents]
     );
-
-
 
     const toggleSelectedEvents = (index: number, event: IEventNew) => {
         setSelectedEvents((prev) => {
@@ -53,7 +45,6 @@ export const TableSelectProvider: React.FC<TableSelectProviderProps> = ({ childr
         });
     };
 
-
     const addAllEvents = (events?: IEventNew[]) => {
         setSelectedEvents((prev) => {
             const next = { ...prev };
@@ -68,8 +59,7 @@ export const TableSelectProvider: React.FC<TableSelectProviderProps> = ({ childr
 
     const removeAllEvents = () => {
         setSelectedEvents([]);
-    }
-
+    };
 
     return (
         <TableSelectContext.Provider

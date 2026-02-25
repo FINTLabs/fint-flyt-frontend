@@ -1,4 +1,4 @@
-import { FunctionComponent, useState } from 'react';
+import { FunctionComponent } from 'react';
 import { HStack, Pagination } from '@navikt/ds-react';
 import { CustomSelect } from './CustomSelect';
 import * as React from 'react';
@@ -16,7 +16,6 @@ type Props = {
 };
 
 // TODO: disable restry if no more to fetch
-// TODO: new translation object
 const TablePagination: FunctionComponent<Props> = ({
     hide,
     totalPages = 1,
