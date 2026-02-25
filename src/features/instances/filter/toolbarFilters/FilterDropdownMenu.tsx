@@ -24,7 +24,7 @@ export default function FilterDropdownMenu() {
 
     return (
         <ActionMenu open={isOpen} onOpenChange={(open) => setIsOpen(open)}>
-            <ActionMenu.Trigger>
+            <ActionMenu.Trigger data-testid="filters-form-button">
                 <Button
                     data-color="neutral"
                     variant="secondary-neutral"
@@ -39,7 +39,10 @@ export default function FilterDropdownMenu() {
                     </HStack>
                 </Button>
             </ActionMenu.Trigger>
-            <ActionMenu.Content className={'filter-toolbar-menu-content'}>
+            <ActionMenu.Content
+                className={'filter-toolbar-menu-content'}
+                data-testid="filters-form"
+            >
                 <VStack>
                     <HGrid columns={2}>
                         <VStack className={'filter-menu-options'} paddingBlock={'0 4'}>
@@ -100,6 +103,7 @@ export default function FilterDropdownMenu() {
                         </Button>
                         <Button
                             size={'small'}
+                            data-testid="filters-submit"
                             onClick={() => {
                                 saveFilters();
                                 setIsOpen(false);
@@ -134,6 +138,7 @@ const FilterMenuButton: FC<FilterMenuButtonProps> = ({ id, label, onOpen, active
                 justifyContent: 'space-between',
                 textAlign: 'left',
             }}
+            data-testid={`${id}-filter`}
         >
             <BodyShort>{label}</BodyShort>
         </Button>

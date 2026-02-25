@@ -4,6 +4,7 @@ import {
     mockGenericInstanceFlowTrackingRepository,
     mockGenericIntegrationRepository,
     mockSelectablesFromInstanceFlowTrackingRepository,
+    mockGenericInstanceRepository,
 } from '../utils/interceptions.js';
 
 describe('Testing instance list', () => {
@@ -13,6 +14,7 @@ describe('Testing instance list', () => {
         mockGenericIntegrationRepository();
         mockGenericSourceApplicationRepository();
         mockGenericInstanceFlowTrackingRepository();
+        mockGenericInstanceRepository();
     });
 
     function prep() {
@@ -23,16 +25,16 @@ describe('Testing instance list', () => {
         prep();
         cy.get('#instance-table').should('be.visible');
         cy.get('#instance-table thead tr th').should('have.length', 10);
-        cy.get('#instance-table thead tr th').last().should('have.text', 'Handlinger');
         cy.get('#instance-table > tbody > tr').should('have.length', 20); // 20 because it is an expandable table
 
         // Status icon should have aria-label
-        cy.get('#instance-table > tbody > :first-child > :nth-child(7) > div').should(
+        cy.get('#instance-table > tbody > :first-child > :nth-child(8) > div').should(
             'have.attr',
             'aria-label',
             'Overført'
         );
-        cy.get('#instance-table > tbody > :nth-child(7) > :nth-child(7) > div').should(
+
+        cy.get('#instance-table > tbody > :nth-child(7) > :nth-child(8) > div').should(
             'have.attr',
             'aria-label',
             'Feilet'
@@ -50,8 +52,8 @@ describe('Testing instance list', () => {
             'Tidspunkt',
             'Status',
             'Mellomlagring',
-            'Handlinger',
             'Destinasjons instans-ID',
+            ''
         ];
         columns.forEach((column) => {
             cy.get('#instance-table > :nth-child(1)').should('contain.text', column);
@@ -78,20 +80,11 @@ describe('Testing instance list', () => {
     it('it should post correct id for retry', () => {
         prep();
 
-        cy.intercept('POST', '**/handlinger/instanser/*/prov-igjen', { statusCode: 200 }).as(
-            'postRetry'
-        );
-
         cy.viewport(3000, 2000);
         cy.get('#3-action-toggle > button').click();
         cy.get('#retryButton').click();
 
-        // TODO: fiks datasett fra /summaries slik at dette kallet skjer
-        // cy.wait('@postRetry').its('response.statusCode').should('be.oneOf', [200, 201])
-        /* cy.wait('@postRetry').then((interception) => {
-            expect(interception).to.exist;
-            expect(interception.response.statusCode).to.eq(200);
-        });*/
+        cy.wait('@postRetry').its('response.statusCode').should('be.oneOf', [200])
     });
 
     it('should show the filters form in modal when the Filters button is clicked', () => {
@@ -104,75 +97,54 @@ describe('Testing instance list', () => {
         cy.get('[data-testid="filters-form"]').should('be.visible');
     });
 
-    it('should load all filter options', () => {
+    it('should open filter menu and ann selected filters to toolbar', () => {
         prep();
+
+        cy.get('[data-testid="active-filters"]').should('have.text', 'Ingen aktive filtre');
+
 
         cy.get('[data-testid="filters-form-button"]').click();
 
-        // TimeCard options
-        cy.get('[data-testid="timeCard"]').should('exist');
-        cy.get('[data-testid="timeCard"]').click();
+        cy.get('[data-testid="time-filter"]').should('exist');
+        cy.get('[data-testid="time-filter"]').click();
 
-        // IntegrationCard options
-        cy.get('[data-testid="integration"]').should('exist');
-        cy.get('[data-testid="integration"]').click();
+        cy.get('[data-testid="integration-filter"]').should('exist');
+        cy.get('[data-testid="integration-filter"]').click();
 
-        // InstanceCard
-        cy.get('[data-testid="instance"]').should('exist');
-        cy.get('[data-testid="instance"]').click();
+        cy.get('[data-testid="instance-filter"]').should('exist');
+        cy.get('[data-testid="instance-filter"]').click();
 
-        // StatusCard options
-        cy.get('[data-testid="status"]').should('exist');
-        cy.get('[data-testid="status"]').find('h4').should('have.text', 'Status');
-        cy.get('[data-testid="status"]').click();
-        cy.get('[data-testid="status-options"]').children().should('have.length.at.least', 1);
+        cy.get('[data-testid="status-filter"]').should('exist');
+        cy.get('[data-testid="status-filter"]').click();
+        cy.get('[data-testid="status-options"] > .navds-checkboxes').children().should('have.length', 4);
         cy.get('[data-testid="status-option-1"]').click();
-        cy.get('[data-testid="status"]').find('p').should('have.text', 'Status: Overført');
 
-        // AdvancedCard options
-        cy.get('[data-testid="advanced"]').should('exist');
-        cy.get('[data-testid="advanced"]').click();
+        cy.get('[data-testid="advanced-filter"]').should('exist');
+        cy.get('[data-testid="advanced-filter"]').click();
 
-        // Buttons
         cy.contains('button', 'Tilbakestill').should('be.visible');
-        cy.contains('button', 'Søk').should('be.visible');
+        cy.get('[data-testid="filters-submit"]').should('have.text', 'Søk');
+
     });
 
     it('should show icon indicating active filters', () => {
         prep();
 
-        cy.intercept(
-            {
-                method: 'GET',
-                pathname: '**/api/intern/instance-flow-tracking/summaries',
-                query: {
-                    size: '10',
-                    statuses: 'TRANSFERRED',
-                },
-            },
-            {
-                fixture: 'filter/instanser.json',
-            }
-        ).as('newSummariesWithFilter');
-
         cy.get('[data-testid="filters-form-button"]').click();
-        cy.get('[data-testid="status"]').click();
+        cy.get('[data-testid="status-filter"]').click();
         cy.get('[data-testid="status-option-1"]').click();
-        cy.contains('button', 'Søk').click();
+        cy.get('[data-testid="filters-submit"]').click();
 
         cy.wait('@newSummariesWithFilter').then((interception) => {
             expect(interception).to.exist;
             expect(interception.response.statusCode).to.eq(200);
         });
 
-        cy.get('[data-testid="filters-form-button-container"] > div').should(
-            'have.attr',
-            'aria-label',
-            'Tabellen er filtrert'
-        );
-        cy.get('[data-testid="filters-form-button-container"] > div > span').should(
-            'have.text',
-            '1'
-        );
+            cy.get('[data-testid="active-filters"] > ul > li').should('have.length', 1);
+            cy.get('[data-testid="active-filters"] > ul > li').first().should('have.text', 'Status: Overført');
+
+            cy.get('[data-testid="active-filters"] > button').click();
+            cy.get('[data-testid="active-filters"]').should('have.text', 'Ingen aktive filtre');
+
     });
 });

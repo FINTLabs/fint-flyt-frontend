@@ -33,11 +33,11 @@ const ActiveFilters: FC = () => {
     }, [savedFilters]);
 
     if (activeFilters.length === 0) {
-        return <HStack>{t('noFilters')}</HStack>;
+        return <HStack data-testid="active-filters">{t('noFilters')}</HStack>;
     }
 
     return (
-        <HStack gap="2" className={'active-filters'} align={'center'}>
+        <HStack gap="2" className={'active-filters'} align={'center'} data-testid="active-filters">
             <Chips size={'small'}>
                 {Children.toArray([
                     ...activeFilters.map(([key, value]) => {
