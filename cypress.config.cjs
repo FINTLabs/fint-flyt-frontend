@@ -11,6 +11,7 @@ module.exports = defineConfig({
         viewportHeight: 1500,
         viewportWidth: 2000,
         experimentalRunAllSpecs: true,
+        allowCypressEnv: false,
         env: {
             VITE_BASE_PATH: '/beta/test-no',
         },
