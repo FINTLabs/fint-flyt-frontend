@@ -28,19 +28,19 @@ jobs:
             ${{ runner.OS }}-node-
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: npm ci
 
       - name: Run tests
-        run: yarn test
+        run: npm run test
 
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
-          start: yarn start
+          start: npm run start
           wait-on: "http://localhost:3000"
 
       - name: Build project
-        run: yarn build
+        run: npm run build
 
       - name: Trigger CD
         if: github.ref == 'refs/heads/main'

@@ -5,12 +5,12 @@
 ## Quick Start  
 ### Run the Application locally 
 ```bash
-yarn start
+npm run start
 ```
 
 ### Run Tests
 ```bash
-yarn test
+npm run test
 ```
 
 ## Local Setup
