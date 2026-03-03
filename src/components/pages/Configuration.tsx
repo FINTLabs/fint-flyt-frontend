@@ -88,7 +88,6 @@ const Configuration: RouteComponent = () => {
             return;
         }
         setShowAlert(false);
-        console.log('DEFAULT ALTER TRIGGERED');
         setAlertContent(defaultAlert);
     };
 

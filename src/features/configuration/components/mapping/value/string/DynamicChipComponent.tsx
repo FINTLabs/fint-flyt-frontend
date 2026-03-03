@@ -1,7 +1,8 @@
 import * as React from "react";
 import {forwardRef} from "react";
-import {Autocomplete, Chip, TextField} from "@mui/material";
+import {useTranslation} from "react-i18next";
 import {useDrop} from "react-dnd";
+import {Autocomplete, Chip, TextField} from "@mui/material";
 import {ITag} from "../../../../types/Metadata/Tag";
 import {ValueType} from "../../../../types/Metadata/IntegrationMetadata";
 import {Search} from "../../../../util/UrlUtils";
@@ -9,7 +10,6 @@ import {Noop} from "react-hook-form/dist/types";
 import {ControllerFieldState} from "react-hook-form";
 import FormErrorText from '../../../../../../components/atoms/FormErrorText';
 import {getTagStyles, mappingStringToValueArray, valueArrayToMappingString} from "../../../../util/ValueFieldUtils";
-import {useTranslation} from "react-i18next";
 
 export interface Props {
     displayName?: string;
@@ -67,11 +67,12 @@ const DynamicChipComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivE
 
 
     return (
-        <div id={"dnd-value-component-" + absoluteKey} key={absoluteKey}>
+        <div id={"dnd-value-component-" + absoluteKey} key={absoluteKey} style={{ paddingTop: '5px'}}>
             <Autocomplete
                 multiple
                 disabled={props.disabled}
                 value={values}
+                // @ts-ignore
                 ref={dropRef}
                 id="tags-filled"
                 options={[]}

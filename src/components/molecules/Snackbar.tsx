@@ -16,8 +16,13 @@ const Snackbar: React.FunctionComponent<SnackbarProps> = ({
     open,
     children,
 }: SnackbarProps) => {
-    const timeoutRef = useRef<NodeJS.Timeout | string | number | undefined>();
-        useEffect(() => {
+    const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+    useEffect(() => {
+        if (timeoutRef.current !== null) {
+            clearTimeout(timeoutRef.current);
+            timeoutRef.current = null;
+        }
+
         if (open) {
             timeoutRef.current = setTimeout(() => {
                 onClose(new Event('close'), 'timeOut');
@@ -25,17 +30,22 @@ const Snackbar: React.FunctionComponent<SnackbarProps> = ({
         }
 
         return () => {
-            clearTimeout(timeoutRef.current);
+            if (timeoutRef.current !== null) {
+                clearTimeout(timeoutRef.current);
+                timeoutRef.current = null;
+            }
         };
-    }, [open]);
+    }, [open, autoHideDuration, onClose]);
+
+    const handleManualClose = (e: React.SyntheticEvent) => onClose(e, 'closeButton');
 
     return (
-        <Box position={'absolute'} top={'16'} right={'12'}>
+        <Box position="absolute" top="16" right="12">
             {open && (
                 <LocalAlert id={id} status={status}>
                     <LocalAlert.Header>
                         <LocalAlert.Title>{children}</LocalAlert.Title>
-                        <LocalAlert.CloseButton onClick={onClose} />
+                        <LocalAlert.CloseButton onClick={handleManualClose} />
                     </LocalAlert.Header>
                 </LocalAlert>
             )}

@@ -58,6 +58,7 @@ export const DraggableTag: FunctionComponent<Props> = (props: Props) => {
             <AkselTag
                 variant="neutral"
                 icon={getTypeIcon(props.type)}
+                // @ts-ignore
                 ref={drag}
                 style={{
                     opacity: isDragging ? 0.4 : 1,
