@@ -11,7 +11,7 @@
         "integration": "New",
         "integrations": "Integrations",
         "instances": "Instances",
-        "version": "Version",
+        "version": "Changelog",
         "support": "Help and support",
         "valueConverting": "Value converting",
         "useraccess": "User access"
@@ -541,7 +541,7 @@
             }
         },
         "version": {
-            "header": "Version FLYT"
+            "header": "Overview of changes"
         }
     }
 }

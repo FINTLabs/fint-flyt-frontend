@@ -1,54 +1,76 @@
 import { VersionEntry } from './types';
 
 export const ABOUT_VERSIONS_EN =
-    'FLYT is under continuous development, with new functionality being added regularly and improvements to user experience based on user feedback. This page describes major changes and bug fixes in FLYT.';
+    'FINT Flyt is under continuous development. We are continuously adding new functionality and improving the user experience based on feedback from our users. This page describes major changes and bug fixes in Flyt.';
 
 export const VERSION_DATA_EN: VersionEntry[] = [
-
     {
-        heading: "January 2026",
+        heading: 'February 2026',
         updates: [
             {
-                title: "Visual changes:",
-                text: "Several borders around tables and elements have been removed, and color usage has been adjusted to better align with the Novaria profile."
+                title: 'New toolbar above the instance table:',
+                text: 'The filter has now been moved into a toolbar together with several new features. Active filters are clearly displayed, and they can be removed individually.',
             },
             {
-                title: "Dashboard:",
-                text: "New design and optimized data retrieval for faster loading."
+                title: 'Process multiple instances at the same time:',
+                text: 'It is now possible to select multiple instances in the table and process them together. For now, only re-running is supported, and only instances that qualify for re-run will be affected.',
             },
             {
-                title: "Table performance:",
-                text: "Tables now load significantly faster with reduced waiting time before display."
+                title: 'Display more instances:',
+                text: 'It is now possible to choose to display up to 1000 instances in the table at once.',
             },
             {
-                title: "Table loading design:",
-                text: "A new loading indicator ensures the table is visible before all data is fully loaded."
+                text: 'Source applications are now retrieved and filtered based on availability and user access.',
             },
             {
-                title: "Filtering in the instance table:",
-                text: "The side panel has been replaced by a modal. The filter button now shows the number of active filters."
+                text: 'The page previously called ‘Versions’ is now named ‘Changelog’.',
             },
-            {
-                title: "Configuration page:",
-                text: "Minor visual adjustments for a more consistent look."
-            },
-            {
-                title: "Layout:",
-                text: "All pages now follow a unified layout for consistent element placement."
-            },
-            {
-                title: "Comments in configuration version tables:",
-                text: "Long comments are now truncated with ellipsis to prevent layout issues that previously hid the action button."
-            }
-        ]
+        ],
     },
     {
-        heading: "December 2025",
+        heading: 'January 2026',
         updates: [
             {
-                text: "Refactoring of packages and version updates."
-            }
-        ]
+                title: 'Visual changes:',
+                text: 'Several borders around tables and elements have been removed, and color usage has been adjusted to better align with the Novaria profile.',
+            },
+            {
+                title: 'Dashboard:',
+                text: 'New design and optimized data retrieval for faster loading.',
+            },
+            {
+                title: 'Table performance:',
+                text: 'Tables now load significantly faster with reduced waiting time before display.',
+            },
+            {
+                title: 'Table loading design:',
+                text: 'A new loading indicator ensures the table is visible before all data is fully loaded.',
+            },
+            {
+                title: 'Filtering in the instance table:',
+                text: 'The side panel has been replaced by a modal. The filter button now shows the number of active filters.',
+            },
+            {
+                title: 'Configuration page:',
+                text: 'Minor visual adjustments for a more consistent look.',
+            },
+            {
+                title: 'Layout:',
+                text: 'All pages now follow a unified layout for consistent element placement.',
+            },
+            {
+                title: 'Comments in configuration version tables:',
+                text: 'Long comments are now truncated with ellipsis to prevent layout issues that previously hid the action button.',
+            },
+        ],
+    },
+    {
+        heading: 'December 2025',
+        updates: [
+            {
+                text: 'Refactoring of packages and version updates.',
+            },
+        ],
     },
     {
         heading: 'October 2025',

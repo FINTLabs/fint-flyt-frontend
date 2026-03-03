@@ -11,7 +11,7 @@
         "integration": "Ny",
         "integrations": "Integrasjonar",
         "instances": "Instansar",
-        "version": "Versjon",
+        "version": "Endringslogg",
         "support": "Hjelp og support",
         "valueConverting": "Verdikonvertering",
         "useraccess": "Brukertilgang"
@@ -535,7 +535,7 @@
             }
         },
         "version": {
-            "header": "Versjonering av FLYT"
+            "header": "Oversikt over endringar"
         }
     }
 }
