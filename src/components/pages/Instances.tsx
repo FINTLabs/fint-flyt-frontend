@@ -9,9 +9,11 @@ import { SourceApplicationContext } from '../../context/SourceApplicationContext
 import { IAlertMessage } from '../types/TableTypes';
 import { AuthorizationContext } from '../../context/AuthorizationContext';
 import { useNavigate } from 'react-router';
-import Filters from '../../features/instances/filter/FilterForm';
 import { FilterProvider } from '../../features/instances/filter/FilterContext';
 import ErrorDialog from '../molecules/ErrorDialog';
+import { TableSelectProvider } from '../../features/instances/batchProcess/TableSelectContext';
+import FilterToolbar from '../../features/instances/filter/FilterToolbar';
+import { FilterOptionsProvider } from '../../features/instances/filter/OptionsContext';
 
 const Instances: RouteComponent = () => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.instances' });
@@ -38,35 +40,39 @@ const Instances: RouteComponent = () => {
 
     return (
         <FilterProvider>
-            <PageTemplate
-                id={'instances'}
-                keyPrefix={'pages.instances'}
-                headingHelpText={{
-                    info: t('help.header'),
-                }}
-            >
-                {error && (
-                    <Alert style={{ maxWidth: '100%' }} variant="error">
-                        {error.message}
-                    </Alert>
-                )}
-                <Filters />
-                <HGrid gap="4">
-                    <Box id={'instance-table-container'}>
-                        <InstanceTable
-                            onError={(error) => {
-                                setError(error);
-                            }}
-                        />
-                    </Box>
-                </HGrid>
+            <FilterOptionsProvider>
+                <TableSelectProvider>
+                    <PageTemplate
+                        id={'instances'}
+                        keyPrefix={'pages.instances'}
+                        headingHelpText={{
+                            info: t('help.header'),
+                        }}
+                    >
+                        {error && (
+                            <Alert style={{ maxWidth: '100%' }} variant="error">
+                                {error.message}
+                            </Alert>
+                        )}
+                        <FilterToolbar />
+                        <HGrid gap="4">
+                            <Box id={'instance-table-container'}>
+                                <InstanceTable
+                                    onError={(error) => {
+                                        setError(error);
+                                    }}
+                                />
+                            </Box>
+                        </HGrid>
 
-                <ErrorDialog
-                    open={openDialog}
-                    setOpen={setOpenDialog}
-                    errors={selectedRow?.errors}
-                />
-            </PageTemplate>
+                        <ErrorDialog
+                            open={openDialog}
+                            setOpen={setOpenDialog}
+                            errors={selectedRow?.errors}
+                        />
+                    </PageTemplate>
+                </TableSelectProvider>
+            </FilterOptionsProvider>
         </FilterProvider>
     );
 };

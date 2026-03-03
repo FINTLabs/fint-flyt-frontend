@@ -25,33 +25,55 @@ NAMESPACE="fintlabs-no"
 
 start_port_forwarding() {
   echo "Starting port-forwarding for services..."
-  for i in "${!services[@]}"; do
-    echo "Starting port-forwarding for ${services[$i]} on ${ports[$i]}"
 
-    output=$(kubectl port-forward service/"${services[$i]}" ${ports[$i]} -n $NAMESPACE > /dev/null 2>&1 & echo $!)
-    if [[ $? -ne 0 ]]; then
-      echo "Error: Failed to start port-forwarding for ${services[$i]} on ${ports[$i]}."
-      echo "Details: $output"
+  for i in "${!services[@]}"; do
+    local svc="${services[$i]}"
+    local port="${ports[$i]}"
+    echo "Starting port-forwarding for ${svc} on ${port} (namespace: ${NAMESPACE})"
+
+    kubectl -n "$NAMESPACE" port-forward "service/$svc" "$port" >/dev/null 2>&1 & pid=$!
+
+    if kill -0 "$pid" 2>/dev/null; then
+      echo "- Port-forwarding started for ${svc} (PID: $pid)"
     else
-      echo "Port-forwarding started for ${services[$i]} on ${ports[$i]}"
+       echo "- Error: Failed to start port-forwarding for ${svc}"
     fi
   done
+
   echo "All port-forwarding processes attempted."
 }
 
 stop_port_forwarding() {
   echo "Stopping port-forwarding for services..."
-  for service in "${services[@]}"; do
-    echo "Stopping port-forwarding for $service"
 
-    output=$(pkill -f "kubectl port-forward service/$service" 2>&1)
-    if [[ $? -ne 0 ]]; then
-      echo "Error: Failed to stop port-forwarding for $service."
-      echo "Details: $output"
+  if ps -eo pid,cmd >/dev/null 2>&1; then
+    PS_FORMAT="pid,cmd"
+  else
+    PS_FORMAT="pid,command"
+  fi
+
+  for svc in "${services[@]}"; do
+
+    echo "Stopping port-forwarding for ${svc} (namespace: ${NAMESPACE})"
+
+    pid=$(ps -axo ${PS_FORMAT} \
+      | grep "kubectl -n $NAMESPACE port-forward service/$svc" \
+      | grep -v grep \
+      | awk '{print $1}'
+    )
+
+    if [[ -z "$pid" ]]; then
+      echo "- No running port-forward process found for ${svc}"
+      continue
+    fi
+
+    if kill "$pid" 2>/dev/null; then
+      echo "- Port-forwarding stopped for ${svc} (PID: $pid)"
     else
-      echo "Port-forwarding stopped for $service"
+      echo "- Error: Could not stop port-forwarding for ${svc}"
     fi
   done
+
   echo "All port-forwarding processes stopped (or attempted)."
 }
 

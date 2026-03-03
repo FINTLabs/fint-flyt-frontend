@@ -1,54 +1,76 @@
 import { VersionEntry } from './types';
 
 export const ABOUT_VERSIONS_NN =
-    'FLYT er under kontinuerleg utvikling og det blir stadig lagt til ny funksjonalitet og forbetra brukaroppleving basert på innspel frå brukarar. Denne sida beskriv større endringar og feilrettingar i FLYT';
+    'FINT Flyt er under kontinuerleg utvikling. Vi legg fortløpande til ny funksjonalitet og forbetrar brukaropplevinga basert på tilbakemeldingar frå brukarane. Denne sida skildrar større endringar og feilrettingar i Flyt.';
 
 export const VERSION_DATA_NN: VersionEntry[] = [
-
     {
-        heading: "Januar 2026",
+        heading: 'Februar 2026',
         updates: [
             {
-                title: "Visuelle endringar:",
-                text: "Fleire rammer rundt tabellar og element er fjerna, og fargebruken er justert for betre samsvar med Novaria-profilen."
+                title: 'Ny verktøylinje over instanstabellen:',
+                text: 'Filteret er no flytta til ei verktøylinje saman med fleire nye funksjonar. Aktive filter blir viste tydeleg, og dei kan fjernast enkeltvis.',
             },
             {
-                title: "Dashboard:",
-                text: "Nytt design og optimalisert datainnhenting for raskare innlasting."
+                title: 'Handsaming av fleire instansar samtidig:',
+                text: 'Det er no mogleg å velje fleire instansar i tabellen og handsame dei samla. Førebels er det berre støtte for å køyre dei på nytt, og berre instansar som er kvalifiserte for dette vil bli påverka av handlinga.',
             },
             {
-                title: "Yting i tabellar:",
-                text: "Tabellar lastar no merkbart raskare med redusert ventetid før vising."
+                title: 'Vising av fleire instansar:',
+                text: 'Det er no mogleg å velje at tabellen skal vise opptil 1000 instansar i ei vising.',
             },
             {
-                title: "Designendringar i tabellane:",
-                text: "Ny lastingsindikator gjer at tabellen blir vist før all data er ferdig innlasta."
+                text: 'Kjeldeapplikasjonar blir no henta og filtrerte basert på tilgjenge og brukartilgang.',
             },
             {
-                title: "Filtrering i instans-tabellen:",
-                text: "Sidepanelet er erstatta av ein modal. Filterknappen viser no talet på aktive filter."
+                text: '‘Versjonar’-sida heiter no ‘Endringslogg’.',
             },
-            {
-                title: "Konfigurasjonssida:",
-                text: "Små visuelle justeringar for eit meir heilskapleg uttrykk."
-            },
-            {
-                title: "Layout:",
-                text: "Alle sider følgjer no ein einskapleg layout for konsekvent plassering av element."
-            },
-            {
-                title: "Kommentarar i konfigurasjonsversjonstabellar:",
-                text: "Lange kommentarar blir trunkerte med ellipsis for å hindre layoutfeil som skjulte handlingsknappen."
-            }
-        ]
+        ],
     },
     {
-        heading: "Desember 2025",
+        heading: 'Januar 2026',
         updates: [
             {
-                text: "Omskriving av pakkar og oppdatering av versjonar."
-            }
-        ]
+                title: 'Visuelle endringar:',
+                text: 'Fleire rammer rundt tabellar og element er fjerna, og fargebruken er justert for betre samsvar med Novaria-profilen.',
+            },
+            {
+                title: 'Dashboard:',
+                text: 'Nytt design og optimalisert datainnhenting for raskare innlasting.',
+            },
+            {
+                title: 'Yting i tabellar:',
+                text: 'Tabellar lastar no merkbart raskare med redusert ventetid før vising.',
+            },
+            {
+                title: 'Designendringar i tabellane:',
+                text: 'Ny lastingsindikator gjer at tabellen blir vist før all data er ferdig innlasta.',
+            },
+            {
+                title: 'Filtrering i instans-tabellen:',
+                text: 'Sidepanelet er erstatta av ein modal. Filterknappen viser no talet på aktive filter.',
+            },
+            {
+                title: 'Konfigurasjonssida:',
+                text: 'Små visuelle justeringar for eit meir heilskapleg uttrykk.',
+            },
+            {
+                title: 'Layout:',
+                text: 'Alle sider følgjer no ein einskapleg layout for konsekvent plassering av element.',
+            },
+            {
+                title: 'Kommentarar i konfigurasjonsversjonstabellar:',
+                text: 'Lange kommentarar blir trunkerte med ellipsis for å hindre layoutfeil som skjulte handlingsknappen.',
+            },
+        ],
+    },
+    {
+        heading: 'Desember 2025',
+        updates: [
+            {
+                text: 'Omskriving av pakkar og oppdatering av versjonar.',
+            },
+        ],
     },
     {
         heading: 'Oktober 2025',

@@ -128,8 +128,21 @@ export const mockGenericInstanceFlowTrackingRepository = () => {
             fixture: 'historikkByIntegrationId.json',
         }
     ).as('getStatisticsForIntegrations');
-};
 
+    cy.intercept(
+        {
+            method: 'GET',
+            pathname: '**/instance-flow-tracking/summaries',
+            query: {
+                size: '10',
+                statuses: 'TRANSFERRED',
+            },
+        },
+        {
+            fixture: 'filter/instanser.json',
+        }
+    ).as('newSummariesWithFilter');
+};
 export const mockGenericConfigurationRepository = () => {
     cy.intercept(
         {
@@ -290,3 +303,13 @@ export const mockSelectablesFromInstanceFlowTrackingRepository = () => {
         }
     });
 };
+
+export const mockGenericInstanceRepository = () => {
+    cy.intercept('POST', '**/handlinger/instanser/*/prov-igjen', { statusCode: 200 }).as(
+        'postRetry'
+    );
+
+    cy.intercept('POST', '**/handlinger/instanser/prov-igjen/batch', {
+        fixture: 'postFixture.json',
+    }).as('postRetryBatch');
+}

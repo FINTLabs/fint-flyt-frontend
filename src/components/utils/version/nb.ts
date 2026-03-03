@@ -1,12 +1,34 @@
 import { VersionEntry } from './types';
 
 export const ABOUT_VERSIONS =
-    "FLYT er under kontinuerlig utvikling og det blir stadig lagt til ny funksjonalitet samt forbedret brukeropplevelse basert på brukernes innspill - Denne siden beskriver  " +
-    "større endringer og feilrettinger i FLYT";
+    'FINT Flyt er under kontinuerlig utvikling. Vi legger fortløpende til ny funksjonalitet og forbedrer brukeropplevelsen basert på tilbakemeldinger fra brukerne. Denne siden beskriver større endringer og feilrettinger i Flyt.';
 
 
 
 export const VERSION_DATA: VersionEntry[] = [
+    {
+        heading: 'Februar 2026',
+        updates: [
+            {
+                title: 'Ny verktøylinje over instanstabellen:',
+                text: 'Filteret er nå flyttet til en toolbar sammen med flere nye funksjoner. Aktive filtre vises tydelig, og det er mulig å ta dem vekk enkeltvis.',
+            },
+            {
+                title: 'Behandle flere instanser samtidig:',
+                text: 'Det er nå mulig å velge flere instanser i tabellen for å behandle dem samlet. Foreløpig er det kun støtte for å kjøre dem på nytt, og bare instanser som kvalifiseres for dette som vil bli påvirket av handlingen.',
+            },
+            {
+                title: 'Visning av flere instanser:',
+                text: 'Det er nå mulig å velge at tabellen skal vise opp til 1000 instanser i en visning.',
+            },
+            {
+                text: 'Kildeapplikasjoner hentes og filtreres nå basert på tilgjengelighet og brukertilgang.',
+            },
+            {
+                text: '‘Versjoner’-siden heter nå ‘Endringslogg’.',
+            },
+        ],
+    },
     {
         heading: 'Januar 2026',
         updates: [

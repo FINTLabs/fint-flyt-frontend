@@ -3,15 +3,22 @@ export interface Filters {
     sourceApplicationIntegrationIds: string[] | null;
     sourceApplicationInstanceIds: string[] | null;
     integrationIds: string[] | null;
-    timeOffSetHours: string | null;
-    timeOffsetMinutes: string | null;
+    timeOffSetHours: string | null; //
+    timeOffsetMinutes: string | null; //
     timeCurrentPeriod: string | null;
     timeTimestampMin: Date | null;
     timeTimestampMax: Date | null;
     statuses: string[] | null;
-    storageStatuses: string[] | null;
+    storageStatuses: string[] | null; //
     associatedEvents: string[] | null;
-    lastStatusEvent: string[] | null;
+    lastStatusEvent: string[] | null; //
     destinationIds: string[] | null;
     sort?: string;
+}
+
+export type FilterValue = Filters[keyof Filters];
+
+export interface FilterOption {
+    value: string;
+    label: string;
 }

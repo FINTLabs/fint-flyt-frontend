@@ -28,6 +28,9 @@ export interface IAlertMessage {
     message: string
 }
 
-export interface ITableSelect extends ISelect {
-    disabled?: boolean
+export interface IPaginationSelect {
+    label: string;
+    value: number;
+    description?: string;
+    disabled?: boolean;
 }

@@ -37,7 +37,8 @@
       "latestUpdate": "2025-02-14T00:36:55.591Z",
       "status": "FAILED",
       "intermediateStorageStatus": "STORED",
-      "destinationInstanceIds": null
+      "destinationInstanceIds": null,
+        "latestInstanceId": "instanceID"
     },
     {
       "sourceApplicationId": 2,

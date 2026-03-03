@@ -9,7 +9,7 @@ describe('Testing Appbar', () => {
         '/integration/configuration/list',
         '/integration/instance/list',
         '/valueconverting',
-        '/version',
+        '/changelog',
     ];
 
     const allPages = [
@@ -17,7 +17,7 @@ describe('Testing Appbar', () => {
         { linkName: 'integrations', displayName: 'Integrasjoner' },
         { linkName: 'instances', displayName: 'Instanser' },
         { linkName: 'valueConverting', displayName: 'Verdikonvertering' },
-        { linkName: 'version', displayName: 'Versjon' },
+        { linkName: 'version', displayName: 'Endringslogg' },
         { linkName: 'useraccess', displayName: 'Brukertilgang' },
     ];
 

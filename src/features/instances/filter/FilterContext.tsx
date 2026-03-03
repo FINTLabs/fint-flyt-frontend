@@ -1,14 +1,27 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useMemo } from 'react';
 import { useSearchParams } from 'react-router';
 import { Filters } from './types';
+import {
+    deleteAllFilterParams,
+    EMPTY_FILTERS,
+    FILTER_KEYS,
+    isEmptyFilterValue,
+    parseValueToArray,
+    parseValueToDate,
+    parseValueToString,
+    writeValueToSearchParam,
+} from './util';
 
 interface FilterContextProps {
     filters: Filters;
     updateFilter: (key: keyof Filters, value: string | string[] | Date | null) => void;
+    updateFilterAndSave: (key: keyof Filters, value: string | string[] | Date | null) => void;
     saveFilters: () => void;
     clearFilters: () => void;
-    areFiltersActive: () => boolean;
+    numberOfActiveFilters: number;
     refreshKey: number;
+    setQuickFilters: (patch: Partial<Filters>) => void;
+    isSaved: boolean;
 }
 
 const FilterContext = createContext<FilterContextProps | null>(null);
@@ -27,118 +40,145 @@ interface FilterProviderProps {
 
 export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
     const [searchParams, setSearchParams] = useSearchParams();
-    const [filtersSaved, setFiltersSaved] = useState(false);
-    const [filtersActiveFromUrl, setFiltersActiveFromUrl] = useState(false);
 
-    const emptyFilters: Filters = {
-        sourceApplicationIds: [],
-        sourceApplicationIntegrationIds: [],
-        sourceApplicationInstanceIds: [],
-        integrationIds: [],
-        timeOffSetHours: null,
-        timeOffsetMinutes: null,
-        timeCurrentPeriod: null,
-        timeTimestampMin: null,
-        timeTimestampMax: null,
-        statuses: [],
-        storageStatuses: [],
-        associatedEvents: [],
-        lastStatusEvent: [],
-        destinationIds: [],
-        sort: '',
-    };
+    const defaultFilters = useMemo<Filters>(() => {
+        const get = (key: string) => searchParams.get(key);
 
-    const getParam = (key: string, isArray = false): string | string[] | null => {
-        const value = searchParams.get(key);
-        if (!value) return isArray ? [] : null;
-        return isArray ? value.split(',').map((v) => v.trim()) : value;
-    };
-
-    const parseDateParam = (param: string | null): Date | null => {
-        if (!param) return null;
-        const date = new Date(param);
-        return Number.isNaN(date.getTime()) ? null : date;
-    };
-
-    const defaultFilters: Filters = {
-        sourceApplicationIds: getParam('sourceApplicationIds', true) as string[],
-        sourceApplicationIntegrationIds: getParam(
-            'sourceApplicationIntegrationIds',
-            true
-        ) as string[],
-        sourceApplicationInstanceIds: getParam('sourceApplicationInstanceIds', true) as string[],
-        integrationIds: getParam('integrationIds', true) as string[],
-        timeOffSetHours: getParam('timeOffSetHours', false) as string,
-        timeOffsetMinutes: getParam('timeOffsetMinutes', false) as string,
-        timeCurrentPeriod: getParam('timeCurrentPeriod', false) as string,
-        timeTimestampMin: parseDateParam(getParam('timeTimestampMin', false) as string),
-        timeTimestampMax: parseDateParam(getParam('timeTimestampMax', false) as string),
-        statuses: getParam('statuses', true) as string[],
-        storageStatuses: getParam('storageStatuses', true) as string[],
-        associatedEvents: getParam('associatedEvents', true) as string[],
-        lastStatusEvent: getParam('lastStatusEvent', true) as string[],
-        destinationIds: getParam('destinationIds', true) as string[],
-        sort: getParam('sort', false) as string,
-    };
+        return {
+            sourceApplicationIds: parseValueToArray(get('sourceApplicationIds')),
+            sourceApplicationIntegrationIds: parseValueToArray(
+                get('sourceApplicationIntegrationIds')
+            ),
+            sourceApplicationInstanceIds: parseValueToArray(get('sourceApplicationInstanceIds')),
+            integrationIds: parseValueToArray(get('integrationIds')),
+            timeOffSetHours: parseValueToString(get('timeOffSetHours')),
+            timeOffsetMinutes: parseValueToString(get('timeOffsetMinutes')),
+            timeCurrentPeriod: parseValueToString(get('timeCurrentPeriod')),
+            timeTimestampMin: parseValueToDate(get('timeTimestampMin')),
+            timeTimestampMax: parseValueToDate(get('timeTimestampMax')),
+            statuses: parseValueToArray(get('statuses')),
+            storageStatuses: parseValueToArray(get('storageStatuses')),
+            associatedEvents: parseValueToArray(get('associatedEvents')),
+            lastStatusEvent: parseValueToArray(get('lastStatusEvent')),
+            destinationIds: parseValueToArray(get('destinationIds')),
+            sort: parseValueToString(get('sort')),
+        };
+    }, []);
 
     const [filters, setFilters] = useState<Filters>(defaultFilters);
     const [refreshKey, setRefreshKey] = useState(0);
+    const [isSaved, setIsSaved] = useState(true);
 
-    const updateFilter = <K extends keyof Filters>(key: K, value: Filters[K]) => {
-        setFilters((prev) => ({
-            ...prev,
-            [key]: value,
-        }));
-        setFiltersSaved(false);
+    const numberOfActiveFilters = useMemo(() => {
+        return Object.values(filters).filter((v) => {
+            if (Array.isArray(v)) return v.length > 0;
+            return v !== '' && v !== null && v !== undefined;
+        }).length;
+    }, [filters]);
+
+    const updateFilter = (key: keyof Filters, value: Filters[keyof Filters]) => {
+        setFilters((prev) => ({ ...prev, [key]: value }));
+        setIsSaved(false);
+    };
+
+    const updateFilterAndSave = (key: keyof Filters, value: Filters[keyof Filters]) => {
+        setFilters((prev) => {
+            const next = { ...prev, [key]: value };
+
+            const params = new URLSearchParams(searchParams);
+
+            params.delete(key as string);
+
+            if (!isEmptyFilterValue(key, value)) {
+                writeValueToSearchParam(params, key, value);
+            }
+
+            setSearchParams(params);
+            setRefreshKey((r) => r + 1);
+            setIsSaved(true);
+            return next;
+        });
+    };
+
+    const setQuickFilters = (patch: Partial<Filters>) => {
+        const next: Filters = { ...EMPTY_FILTERS };
+
+        Object.keys(patch).forEach((key) => {
+            const typedKey = key as keyof Filters;
+            const val = patch[typedKey];
+            if (val !== undefined) {
+                // @ts-ignore
+                next[typedKey] = val;
+            }
+        });
+
+        const params = new URLSearchParams(searchParams);
+        deleteAllFilterParams(params);
+
+        for (const key of FILTER_KEYS) {
+            const value = next[key];
+
+            if (!isEmptyFilterValue(key, value)) {
+                writeValueToSearchParam(params, key, value);
+            }
+        }
+
+        setFilters(next);
+        setSearchParams(params);
+        setRefreshKey((r) => r + 1);
+        setIsSaved(true);
     };
 
     const clearFilters = () => {
-        setFilters(emptyFilters);
-        setSearchParams(new URLSearchParams());
-        setFiltersSaved(false);
-        setFiltersActiveFromUrl(false);
+        const params = new URLSearchParams(searchParams);
+
+        FILTER_KEYS.forEach((key) => params.delete(key as string));
+
+        setSearchParams(params);
+        setFilters(EMPTY_FILTERS);
         setRefreshKey((prev) => prev + 1);
+        setIsSaved(true);
     };
 
     const saveFilters = () => {
-        const newParams = new URLSearchParams();
-        Object.entries(filters).forEach(([key, value]) => {
+        const params = new URLSearchParams(searchParams);
+
+        (Object.keys(filters) as Array<keyof Filters>).forEach((key) => {
+            const value = filters[key];
+
+            if (isEmptyFilterValue(key, value)) {
+                params.delete(key as string);
+                return;
+            }
+
             if (Array.isArray(value)) {
-                if (value.length > 0) newParams.set(key, value.join(','));
+                params.set(key as string, value.join(','));
+            } else if (value instanceof Date) {
+                params.set(key as string, value.toISOString());
             } else {
-                if (value !== null && value !== '') newParams.set(key, value);
+                params.set(key as string, String(value));
             }
         });
-        const decodedParams = newParams.toString().replace(/%2C/g, ',');
-        window.history.replaceState(null, '', `${window.location.pathname}?${decodedParams}`);
-        setRefreshKey((prev) => prev + 1);
-        setFiltersSaved(true);
-    };
 
-    const areFiltersActive = (): boolean => {
-        console.log('FROM IS ACTIVE PARAMS', searchParams);
-        return filtersActiveFromUrl || filtersSaved;
+        setSearchParams(params);
+        setRefreshKey((v) => v + 1);
+        setIsSaved(true);
     };
-
-    useEffect(() => {
-        const hasFiltersInUrl = Object.values(defaultFilters).some(
-            (value) =>
-                (Array.isArray(value) && value.length > 0) ||
-                (typeof value === 'string' && value !== '')
-        );
-        setFiltersActiveFromUrl(hasFiltersInUrl);
-    }, []);
 
     return (
         <FilterContext.Provider
             value={{
                 filters,
                 updateFilter,
+                updateFilterAndSave,
                 clearFilters,
                 saveFilters,
-                areFiltersActive,
+                numberOfActiveFilters,
                 refreshKey,
-            }}>
+                setQuickFilters,
+                isSaved,
+            }}
+        >
             {children}
         </FilterContext.Provider>
     );

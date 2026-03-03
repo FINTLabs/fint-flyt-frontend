@@ -78,7 +78,7 @@ const routes: IRoute[] = [
         inNavigationMenu: true,
     },
     {
-        path: '/version',
+        path: '/changelog',
         name: 'version',
         component: Version,
         exact: true,
@@ -103,7 +103,7 @@ const routes: IRoute[] = [
         component: UserAccess,
         exact: true,
         inNavigationMenu: false,
-    }
+    },
 ];
 
 export default routes;

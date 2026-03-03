@@ -8,8 +8,17 @@ export default function useInstanceRepository () {
         return post<string>(API_URL, `/api/intern/handlinger/instanser/${instanceId}/prov-igjen`);
     };
 
+    const resendInstances = (instanceIds: string[]) => {
+        return post<string>(
+            API_URL,
+            `/api/intern/handlinger/instanser/prov-igjen/batch`,
+            instanceIds,
+        );
+    };
+
     return {
-        resendInstance
-    }
+        resendInstance,
+        resendInstances,
+    };
 
 }
