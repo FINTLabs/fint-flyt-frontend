@@ -4,6 +4,7 @@ import express from 'express';
 import path from 'node:path';
 import log4js from 'log4js';
 import morgan from 'morgan';
+import helmet from 'helmet';
 
 const __dirname = import.meta.dirname;
 
@@ -42,6 +43,15 @@ const httpLog = log4js.getLogger('http');
 
 const app = express();
 app.disable('x-powered-by');
+
+
+app.use(
+    helmet({
+        contentSecurityPolicy: {
+            reportOnly: true
+        },
+    })
+);
 
 app.use(
     morgan(conciseFormat, {
