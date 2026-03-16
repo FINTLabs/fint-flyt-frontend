@@ -18,9 +18,13 @@ const Dashboard: RouteComponent = () => {
 
     const { resetIntegration, integrations, getAllIntegrations, totalStatistics } =
         useContext(IntegrationContext);
-    const activeIntegrations =
-        integrations?.filter((integration) => integration.state === 'ACTIVE') || [];
-    const totalActive = activeIntegrations.length;
+
+    const totalActive = useMemo(() => {
+        const activeIntegrations =
+            integrations?.filter((integration) => integration.state === 'ACTIVE') || [];
+        return activeIntegrations.length;
+    }, [integrations]);
+
     const { authorized } = useContext(AuthorizationContext);
 
     useEffect(() => {
@@ -88,7 +92,7 @@ const Dashboard: RouteComponent = () => {
                 link: { name: t('links.instances'), href: '/integration/instance/list' },
             },
         ],
-        [totalStatistics]
+        [totalStatistics, integrations, totalActive]
     );
 
     return (
