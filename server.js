@@ -5,6 +5,7 @@ import path from 'node:path';
 import log4js from 'log4js';
 import morgan from 'morgan';
 import helmet from 'helmet';
+import rateLimit from 'express-rate-limit';
 
 const __dirname = import.meta.dirname;
 
@@ -41,17 +42,51 @@ log4js.configure({
 
 const httpLog = log4js.getLogger('http');
 
+
+const spaLimiter = rateLimit({
+    windowMs: 60 * 1000, // 1 minute
+    max: 100, // 100 requests per IP per minute
+    standardHeaders: true,
+    legacyHeaders: false,
+});
+
+
 const app = express();
 app.disable('x-powered-by');
+
 
 
 app.use(
     helmet({
         contentSecurityPolicy: {
-            reportOnly: true
+            reportOnly: true, // fjern denne naar det er trygt
+            directives: {
+                defaultSrc: ["'self'"],
+
+                scriptSrc: [
+                    "'self'",
+                    "'unsafe-inline'", // for streng?
+                ],
+
+                styleSrc: ["'self'", "'unsafe-inline'"],
+
+                imgSrc: ["'self'", 'data:'],
+
+                fontSrc: ["'self'", 'data:'],
+
+                connectSrc: ["'self'"],
+
+                objectSrc: ["'none'"],
+                frameAncestors: ["'none'"],
+                baseUri: ["'self'"],
+
+                upgradeInsecureRequests: [],
+            },
         },
     })
 );
+// app.set('trust proxy', 1);
+
 
 app.use(
     morgan(conciseFormat, {
@@ -75,7 +110,7 @@ app.use(
 app.get(`${BASE_PATH}/health`, (req, res) => res.status(200).send('OK'));
 
 const spaRegex = new RegExp(`^${BASE_PATH}(?:/.*)?$`);
-app.get(spaRegex, (req, res) => {
+app.get(spaRegex, spaLimiter, (req, res) => {
     if (req.path.startsWith(`${BASE_PATH}/api`)) {
         return res.json([]);
     }
