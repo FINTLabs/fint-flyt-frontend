@@ -62,24 +62,18 @@ app.use(
             reportOnly: true, // fjern denne naar det er trygt
             directives: {
                 defaultSrc: ["'self'"],
-
+                manifestSrc: ["'self'", 'https://idp.felleskomponent.no'],
                 scriptSrc: [
                     "'self'",
                     "'unsafe-inline'", // for streng?
                 ],
-
-                styleSrc: ["'self'", "'unsafe-inline'"],
-
+                styleSrc: ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
+                fontSrc: ["'self'", 'data:', 'https://fonts.gstatic.com'],
                 imgSrc: ["'self'", 'data:'],
-
-                fontSrc: ["'self'", 'data:'],
-
                 connectSrc: ["'self'"],
-
                 objectSrc: ["'none'"],
                 frameAncestors: ["'none'"],
                 baseUri: ["'self'"],
-
                 upgradeInsecureRequests: [],
             },
         },
