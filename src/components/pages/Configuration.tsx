@@ -272,12 +272,14 @@ const Configuration: RouteComponent = () => {
                                                 value={[active && 'form-active']}
                                                 onChange={(val: string[]) => {
                                                     setActive(val.includes('form-active'));
-                                                }}>
+                                                }}
+                                            >
                                                 <Checkbox
                                                     id="form-active"
                                                     value="form-active"
                                                     size={'small'}
-                                                    aria-label="active-checkbox">
+                                                    aria-label="active-checkbox"
+                                                >
                                                     {t('label.activeLabel')}
                                                 </Checkbox>
                                             </CheckboxGroup>
@@ -288,7 +290,8 @@ const Configuration: RouteComponent = () => {
                                             id="form-submit-btn"
                                             size={'small'}
                                             disabled={configuration?.completed}
-                                            type="submit">
+                                            type="submit"
+                                        >
                                             {!methods.watch('completed')
                                                 ? t('button.submit')
                                                 : t('button.complete')}
@@ -301,7 +304,8 @@ const Configuration: RouteComponent = () => {
                                             size={'small'}
                                             onClick={() => {
                                                 history('/');
-                                            }}>
+                                            }}
+                                        >
                                             {t('button.cancel')}
                                         </Button>
                                     </HStack>
@@ -315,7 +319,8 @@ const Configuration: RouteComponent = () => {
                                     }
                                     id="integration-form-snackbar-saved"
                                     open={showAlert}
-                                    onClose={handleClose}>
+                                    onClose={handleClose}
+                                >
                                     {alertContent.message}
                                 </Snackbar>
 
