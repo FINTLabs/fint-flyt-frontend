@@ -59,6 +59,8 @@ const Configuration: RouteComponent = () => {
     );
     const [showAlert, setShowAlert] = React.useState<boolean>(false);
     const [alertContent, setAlertContent] = React.useState<IAlertContent>(defaultAlert);
+    const [loading, setLoading] = React.useState(false);
+
     const [collectionReferencesInEditContext, setCollectionReferencesInEditContext] = useState<
         string[]
     >([]);
@@ -126,6 +128,8 @@ const Configuration: RouteComponent = () => {
             return;
         }
 
+        setLoading(true);
+
         // Force data.mapping to be of type IObjectMapping.
         // This double cast silences the type error by asserting both the input and the output types.
 
@@ -138,6 +142,7 @@ const Configuration: RouteComponent = () => {
                 data as IConfigurationPatch
             )
                 .then((response) => {
+                    setLoading(false);
                     console.log('updated', response);
                     if (!response.data.completed) {
                         setAlertContent(savedAlert);
@@ -153,6 +158,7 @@ const Configuration: RouteComponent = () => {
                     }
                 })
                 .catch((error) => {
+                    setLoading(false);
                     if (error.response?.status) {
                         setAlertContent({
                             severity: 'error',
@@ -171,6 +177,7 @@ const Configuration: RouteComponent = () => {
             // Create configuration branch
             ConfigurationRepository.createConfiguration(data as IConfiguration)
                 .then((response) => {
+                    setLoading(false);
                     console.log('created', response);
                     setConfiguration(response.data);
                     if (!response.data.completed) {
@@ -187,6 +194,7 @@ const Configuration: RouteComponent = () => {
                     }
                 })
                 .catch((error) => {
+                    setLoading(false);
                     if (error.response?.status) {
                         setAlertContent({
                             severity: 'error',
@@ -291,6 +299,7 @@ const Configuration: RouteComponent = () => {
                                             size={'small'}
                                             disabled={configuration?.completed}
                                             type="submit"
+                                            loading={loading}
                                         >
                                             {!methods.watch('completed')
                                                 ? t('button.submit')
