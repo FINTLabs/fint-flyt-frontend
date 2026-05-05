@@ -2,23 +2,27 @@ import * as React from 'react';
 import { useEffect, useRef } from 'react';
 import { Box, LocalAlert, LocalAlertProps } from '@navikt/ds-react';
 
-type SnackbarProps = LocalAlertProps & {
+type SnackbarProps = {
     id: string;
+    status: LocalAlertProps['status'];
     onClose: (event: React.SyntheticEvent | Event, reason?: string) => void;
     autoHideDuration?: number;
     open: boolean;
+    title: string;
+    content?: string;
 };
-const Snackbar: React.FunctionComponent<SnackbarProps> = ({
+const AlertMessage: React.FunctionComponent<SnackbarProps> = ({
     id,
     status,
     onClose,
     autoHideDuration = 4000,
     open,
-    children,
+    title,
+    content,
 }: SnackbarProps) => {
     const timeoutRef = useRef<NodeJS.Timeout | string | number | undefined>();
-        useEffect(() => {
-        if (open) {
+    useEffect(() => {
+        if (open && status !== 'error') {
             timeoutRef.current = setTimeout(() => {
                 onClose(new Event('close'), 'timeOut');
             }, autoHideDuration);
@@ -30,17 +34,18 @@ const Snackbar: React.FunctionComponent<SnackbarProps> = ({
     }, [open]);
 
     return (
-        <Box position={'absolute'} top={'16'} right={'12'}>
+        <Box position={'absolute'} top={'16'} right={'12'} maxWidth={'500px'}>
             {open && (
                 <LocalAlert id={id} status={status}>
                     <LocalAlert.Header>
-                        <LocalAlert.Title>{children}</LocalAlert.Title>
+                        <LocalAlert.Title>{title}</LocalAlert.Title>
                         <LocalAlert.CloseButton onClick={onClose} />
                     </LocalAlert.Header>
+                    {content && <LocalAlert.Content>{content}</LocalAlert.Content>}
                 </LocalAlert>
             )}
         </Box>
     );
 };
 
-export default Snackbar;
+export default AlertMessage;

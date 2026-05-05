@@ -4,7 +4,7 @@ import {
     getSelectableDefaultByLanguage,
     selectableDestinations,
 } from '../configuration/defaults/DefaultValues';
-import Snackbar from '../../components/molecules/Snackbar';
+import AlertMessage from '../../components/molecules/AlertMessage';
 import { useNavigate } from 'react-router';
 import { IntegrationContext } from '../../context/IntegrationContext';
 import { useTranslation } from 'react-i18next';
@@ -117,7 +117,7 @@ export const IntegrationForm: React.FunctionComponent<Props> = () => {
             return;
         }
         setShowAlert(false);
-        setAlertContent({ severity: 'info', message: '' });
+        setAlertContent({ severity: 'announcement', message: '' });
     };
 
     const onSubmit = (data: IIntegrationFormData) => {
@@ -320,18 +320,13 @@ export const IntegrationForm: React.FunctionComponent<Props> = () => {
                                 </Button>
                             </HStack>
                         </VStack>
-                        <Snackbar
-                            status={
-                                alertContent.severity === 'info'
-                                    ? 'announcement'
-                                    : alertContent.severity
-                            }
+                        <AlertMessage
+                            status={alertContent.severity}
                             id="integration-form-snackbar"
                             open={showAlert}
                             onClose={handleClose}
-                        >
-                            {alertContent.message}
-                        </Snackbar>
+                            title={alertContent.message}
+                        />
                     </form>
                 </FormProvider>
             </FormPageWrapper>

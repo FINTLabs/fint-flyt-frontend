@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { SourceApplicationContext } from '../../context/SourceApplicationContext';
 import OutgoingDataComponent from '../../features/configuration/components/OutgoingDataComponent';
@@ -6,7 +6,7 @@ import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
 import IncomingDataComponent from '../../features/configuration/components/IncomingDataComponent';
-import Snackbar from '../molecules/Snackbar';
+import AlertMessage from '../molecules/AlertMessage';
 import { IntegrationContext } from '../../context/IntegrationContext';
 import { useTranslation } from 'react-i18next';
 import CheckboxValueComponent from '../../features/configuration/components/common/CheckboxValueComponent';
@@ -25,6 +25,7 @@ import {
     defaultAlert,
     errorAlert,
     savedAlert,
+    unknownErrorAlert,
 } from '../../features/configuration/defaults/DefaultValues';
 import { pruneObjectMapping } from '../../util/mapping/helpers/pruning';
 import EditingProvider, { EditingContext } from '../../context/EditingContext';
@@ -120,6 +121,38 @@ const Configuration: RouteComponent = () => {
         };
     }, []);
 
+
+    const handleAlertMessageOnSave = useCallback((responseData: IConfiguration) => {
+        if (!responseData.completed) {
+            setAlertContent(savedAlert);
+            setShowAlert(true);
+        }
+        if (responseData.completed && !active) {
+            setAlertContent(completedAlert);
+            setShowAlert(true);
+            setCompleted(true);
+        }
+    }, [])
+
+    const handleAlertMessageOnError = useCallback((error: any) => {
+        if (error.response?.status) {
+            setAlertContent({
+                severity: 'error',
+                message:
+                    t('saveError') +
+                    (error.response.data.message
+                        ? error.response.data.message
+                        : t('genericError')) +
+                    ', status: ' +
+                    error.response.status,
+            });
+            setShowAlert(true);
+        } else {
+            setAlertContent(unknownErrorAlert);
+            setShowAlert(true);
+        }
+    }, []);
+
     const onSubmit = (data: IConfiguration) => {
         // If there are any form errors, immediately notify and exit
         if (!isEmpty(methods.formState.errors)) {
@@ -143,35 +176,15 @@ const Configuration: RouteComponent = () => {
             )
                 .then((response) => {
                     setLoading(false);
+                    handleAlertMessageOnSave(response.data);
                     console.log('updated', response);
-                    if (!response.data.completed) {
-                        setAlertContent(savedAlert);
-                        setShowAlert(true);
-                    }
-                    if (response.data.completed && !active) {
-                        setAlertContent(completedAlert);
-                        setShowAlert(true);
-                        setCompleted(true);
-                    }
                     if (active && existingIntegration && existingIntegration.id) {
                         activateConfiguration(existingIntegration.id, response.data);
                     }
                 })
                 .catch((error) => {
                     setLoading(false);
-                    if (error.response?.status) {
-                        setAlertContent({
-                            severity: 'error',
-                            message:
-                                t('saveError') +
-                                (error.response.data.message
-                                    ? error.response.data.message
-                                    : t('genericError')) +
-                                ', status: ' +
-                                error.response.status,
-                        });
-                        setShowAlert(true);
-                    }
+                    handleAlertMessageOnError(error);
                 });
         } else {
             // Create configuration branch
@@ -180,34 +193,15 @@ const Configuration: RouteComponent = () => {
                     setLoading(false);
                     console.log('created', response);
                     setConfiguration(response.data);
-                    if (!response.data.completed) {
-                        setAlertContent(savedAlert);
-                        setShowAlert(true);
-                    }
-                    if (response.data.completed && !active) {
-                        setAlertContent(completedAlert);
-                        setShowAlert(true);
-                        setCompleted(true);
-                    }
+                    handleAlertMessageOnSave(response.data);
                     if (active && existingIntegration && existingIntegration.id) {
                         activateConfiguration(existingIntegration.id, response.data);
                     }
                 })
                 .catch((error) => {
+
                     setLoading(false);
-                    if (error.response?.status) {
-                        setAlertContent({
-                            severity: 'error',
-                            message:
-                                t('saveError') +
-                                (error.response.data.message
-                                    ? error.response.data.message
-                                    : t('genericError')) +
-                                ', status: ' +
-                                error.response.status,
-                        });
-                        setShowAlert(true);
-                    }
+                    handleAlertMessageOnError(error);
                 });
         }
     };
@@ -320,18 +314,14 @@ const Configuration: RouteComponent = () => {
                                     </HStack>
                                 </VStack>
 
-                                <Snackbar
-                                    status={
-                                        alertContent.severity === 'info'
-                                            ? 'announcement'
-                                            : alertContent.severity
-                                    }
+                                <AlertMessage
+                                    status={alertContent.severity}
                                     id="integration-form-snackbar-saved"
                                     open={showAlert}
                                     onClose={handleClose}
-                                >
-                                    {alertContent.message}
-                                </Snackbar>
+                                    title={alertContent.message}
+                                    content={alertContent.content}
+                                />
 
                                 <HStack gap={'8'} wrap={false}>
                                     <IncomingDataComponent

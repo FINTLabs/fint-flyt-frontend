@@ -5,7 +5,7 @@ import { ICard } from '../../features/dashboard/Card';
 import { useTranslation } from 'react-i18next';
 import PageTemplate from '../templates/PageTemplate';
 import { RouteComponent } from '../../routes/Route';
-import { Box, HGrid, VStack } from '@navikt/ds-react';
+import { HGrid, VStack } from '@navikt/ds-react';
 import SupportContent from '../molecules/SupportContent';
 import { AuthorizationContext } from '../../context/AuthorizationContext';
 import { useNavigate } from 'react-router';
