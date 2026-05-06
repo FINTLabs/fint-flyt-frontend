@@ -36,6 +36,9 @@ import { Button, CheckboxGroup, Heading, HStack, VStack, Checkbox } from '@navik
 import { AuthorizationContext } from '../../context/AuthorizationContext';
 import useConfigurationRepository from '../../api/useConfigurationRepository';
 import useIntegrationRepository from '../../api/useIntegrationRepository';
+import { ProblemDetail } from '../../context/ApiAdapterContext';
+import { Simulate } from 'react-dom/test-utils';
+import load = Simulate.load;
 
 const Configuration: RouteComponent = () => {
     const { getInstanceElementMetadata, setInstanceElementMetadata } =
@@ -134,17 +137,13 @@ const Configuration: RouteComponent = () => {
         }
     }, [])
 
-    const handleAlertMessageOnError = useCallback((error: any) => {
-        if (error.response?.status) {
+    const handleAlertMessageOnError = useCallback((error: ProblemDetail) => {
+        console.log('handleAlertMessageOnError error', error);
+        if (error.status) {
             setAlertContent({
                 severity: 'error',
-                message:
-                    t('saveError') +
-                    (error.response.data.message
-                        ? error.response.data.message
-                        : t('genericError')) +
-                    ', status: ' +
-                    error.response.status,
+                message: t('saveErrorTitle'),
+                content: error.message ? error.message : t('genericError')
             });
             setShowAlert(true);
         } else {
@@ -199,7 +198,6 @@ const Configuration: RouteComponent = () => {
                     }
                 })
                 .catch((error) => {
-
                     setLoading(false);
                     handleAlertMessageOnError(error);
                 });
@@ -250,7 +248,7 @@ const Configuration: RouteComponent = () => {
                                             render={({ field, fieldState }) => (
                                                 <StringValueComponent
                                                     {...field}
-                                                    disabled={completed}
+                                                    disabled={completed || loading}
                                                     displayName={t('comment')}
                                                     multiline
                                                     fieldState={fieldState}
@@ -262,6 +260,7 @@ const Configuration: RouteComponent = () => {
                                             render={({ field }) => (
                                                 <CheckboxValueComponent
                                                     {...field}
+                                                    disabled={loading}
                                                     displayName={t('label.checkLabel')}
                                                 />
                                             )}
@@ -270,7 +269,7 @@ const Configuration: RouteComponent = () => {
                                             <CheckboxGroup
                                                 legend="form-active"
                                                 hideLegend
-                                                disabled={completed}
+                                                disabled={completed || loading}
                                                 value={[active && 'form-active']}
                                                 onChange={(val: string[]) => {
                                                     setActive(val.includes('form-active'));
@@ -305,8 +304,9 @@ const Configuration: RouteComponent = () => {
                                             type="button"
                                             id="form-cancel-btn"
                                             size={'small'}
+                                            disabled={loading}
                                             onClick={() => {
-                                                history('/');
+                                                history('/integration/list');
                                             }}
                                         >
                                             {t('button.cancel')}

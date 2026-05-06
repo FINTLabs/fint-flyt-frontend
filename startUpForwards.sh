@@ -21,7 +21,7 @@ ports=(
   "8086:8080"
 )
 
-NAMESPACE="fintlabs-no"
+NAMESPACE="ofk-no"
 
 start_port_forwarding() {
   echo "Starting port-forwarding for services..."
