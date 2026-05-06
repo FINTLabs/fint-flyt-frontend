@@ -49,35 +49,35 @@ export default defineConfig(({ mode }) => {
             allowedHosts: ['flyt.vigoiks.no'],
             proxy: {
                 '/api/intern/value-convertings': {
-                    target: 'http://localhost:8094/beta/ofk-no',
+                    target: 'http://localhost:8094/beta/fintlabs-no',
                     changeOrigin: true,
                 },
                 '/api/intern/integrasjoner': {
-                    target: 'http://localhost:8090/beta/ofk-no',
+                    target: 'http://localhost:8090/beta/fintlabs-no',
                     changeOrigin: true,
                 },
                 '/api/intern/authorization': {
-                    target: 'http://localhost:8086/beta/ofk-no',
+                    target: 'http://localhost:8086/beta/fintlabs-no',
                     changeOrigin: true,
                 },
                 '/api/intern/arkiv': {
-                    target: 'http://localhost:8085/beta/ofk-no',
+                    target: 'http://localhost:8085/beta/fintlabs-no',
                     changeOrigin: true,
                 },
                 '/api/intern/metadata': {
-                    target: 'http://localhost:8084/beta/ofk-no',
+                    target: 'http://localhost:8084/beta/fintlabs-no',
                     changeOrigin: true,
                 },
                 '/api/intern/instance-flow-tracking': {
-                    target: 'http://localhost:8083/beta/ofk-no',
+                    target: 'http://localhost:8083/beta/fintlabs-no',
                     changeOrigin: true,
                 },
                 '/api/intern/konfigurasjoner': {
-                    target: 'http://localhost:8082/beta/ofk-no',
+                    target: 'http://localhost:8082/beta/fintlabs-no',
                     changeOrigin: true,
                 },
                 '/api/intern/handlinger/instanser': {
-                    target: 'http://localhost:8081/beta/ofk-no',
+                    target: 'http://localhost:8081/beta/fintlabs-no',
                     changeOrigin: true,
                 },
             },
