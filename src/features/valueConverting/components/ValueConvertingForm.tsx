@@ -11,13 +11,14 @@ import { sortAndHandleSelectables } from '../../configuration/util/SelectablesUt
 import {ISelectable} from "../../configuration/types/Selectable";
 import ArrayComponent from "../../configuration/components/common/array/ArrayComponent";
 import SearchSelectValueComponent from "../../configuration/components/mapping/value/select/SearchSelectValueComponent";
-import {Alert, Button, Heading, HelpText, HStack, VStack,} from "@navikt/ds-react";
+import {Button, Heading, HelpText, HStack, VStack,} from "@navikt/ds-react";
 import {ISelect} from "../../configuration/types/Select";
 import {AuthorizationContext} from "../../../context/AuthorizationContext";
 import { sourceApplicationsToSelectable } from '../../../util/FormUtil';
 import useValueConvertingRepository from '../../../api/useValueConvertingRepository';
 import useResourceRepository from '../../../api/useResourceRepository';
 import FormPageWrapper from '../../../components/molecules/FormPageWrapper';
+import AlertMessage from '../../../components/molecules/AlertMessage';
 
 type Props = {
     existingValueConverting: IValueConverting | undefined;
@@ -376,19 +377,16 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
                                 }}
                             />
                         </VStack>
-                        {show && (
-                            <Alert
-                                size={'small'}
-                                closeButton
-                                onClose={() => {
-                                    setShow(false);
-                                    setAlertContent(defaultAlert);
-                                }}
-                                variant={alertContent.severity}
-                            >
-                                {alertContent.message}
-                            </Alert>
-                        )}
+                        <AlertMessage
+                            id="valueconverting"
+                            open={show}
+                            onClose={() => {
+                                setShow(false);
+                                setAlertContent(defaultAlert);
+                            }}
+                            status={alertContent.severity}
+                            title={alertContent.message}
+                        />
                         <HStack justify={'end'} id={'button-container'} gap={'4'}>
                             <Button
                                 size={'small'}
