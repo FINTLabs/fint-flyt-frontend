@@ -92,37 +92,57 @@ function ValidationErrorContent({ message }: { message: string }) {
 function ValidationErrorItem({ error }: { error: string }) {
     const matches = [...error.matchAll(/\[(.*?)\]/g)];
 
-    const faultyMetadataString = matches.length ? matches[matches.length - 1][1] : '';
+    const lastMatch = matches.length ? matches[matches.length - 1][1] : null;
+
+    const hasMetadataReference = lastMatch && error.trim().endsWith(']') && error.includes(':');
 
     // Denne er ikke helt clean, men siden vi sjekker etter "Validation error" i message så kan vi anta...
     const containsIndex = error.indexOf(' contains ');
     const pathToErrorLocation = containsIndex !== -1 ? error.substring(0, containsIndex) : error;
 
-    const lastBracketIndex = error.lastIndexOf('[');
-
-    const middleText =
-        containsIndex !== -1 && lastBracketIndex !== -1
-            ? error.substring(containsIndex, lastBracketIndex).trim()
-            : '';
-
-    const faultyMetadata = faultyMetadataString
-        .split(',')
-        .map((ref) => ref.trim())
-        .filter(Boolean);
-
     const readablePathToErrorLocation = transformPath(pathToErrorLocation);
+    
+    if (hasMetadataReference) {
+        const faultyMetadataMatch = lastMatch;
+        const lastBracketIndex = error.lastIndexOf('[');
+
+        const middleText = error
+            .substring(containsIndex, lastBracketIndex)
+            .trim()
+            .replace(/:\s*$/, '');
+
+        const faultyMetadata = faultyMetadataMatch
+            .split(',')
+            .map((ref) => ref.trim())
+            .filter(Boolean);
+        return (
+            <div>
+                <div style={{ fontWeight: 500, marginTop: '8px' }}>
+                    {readablePathToErrorLocation}
+                </div>
+                <ul>
+                    {middleText && <li>{middleText.replace(':', '')}:</li>}
+                    <ul>
+                        {faultyMetadata.map((ref, i) => (
+                            <li key={i}>{ref}</li>
+                        ))}
+                    </ul>
+                </ul>
+            </div>
+        );
+    }
+
+    const middleText = containsIndex !== -1 ? error.substring(containsIndex).trim() : '';
 
     return (
         <div>
-            <div style={{ fontWeight: 500, marginTop: '8px' }}>{readablePathToErrorLocation}</div>
-            <ul>
-                {middleText && <li>{middleText.replace(':', '')}:</li>}
-                <ul>
-                    {faultyMetadata.map((ref, i) => (
-                        <li key={i}>{ref}</li>
-                    ))}
+            <div style={{ fontWeight: 500 }}>{readablePathToErrorLocation}</div>
+
+            {middleText && (
+                <ul style={{ marginTop: 4 }}>
+                    <li>{middleText}</li>
                 </ul>
-            </ul>
+            )}
         </div>
     );
 }
