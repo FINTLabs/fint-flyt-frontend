@@ -17,7 +17,10 @@
         "cypress": "cypress run",
         "lint": "eslint src",
         "forward": "bash ./startUpForwards.sh start",
-        "stop-forward": "bash ./startUpForwards.sh stop"
+        "forward-stop": "bash ./startUpForwards.sh stop",
+        "forward-stop-all": "bash ./startUpForwards.sh stop-all",
+        "forward-status": "bash ./startUpForwards.sh status",
+        "forward-check": "bash ./startUpForwards.sh check"
     },
     "dependencies": {
         "@emotion/react": "^11.14.0",
