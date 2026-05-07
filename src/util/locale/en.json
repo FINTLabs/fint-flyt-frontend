@@ -64,6 +64,7 @@
             "formHeader": "Outgoing data",
             "saved": "configuration saved",
             "saveError": "Failed saving, error message: ",
+            "saveErrorTitle": "Error when saving",
             "genericError": "An error has occured",
             "version": "Version ",
             "comment": "Comment",

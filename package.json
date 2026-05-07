@@ -17,7 +17,10 @@
         "cypress": "cypress run",
         "lint": "eslint src",
         "forward": "bash ./startUpForwards.sh start",
-        "stop-forward": "bash ./startUpForwards.sh stop"
+        "forward-stop": "bash ./startUpForwards.sh stop",
+        "forward-stop-all": "bash ./startUpForwards.sh stop-all",
+        "forward-status": "bash ./startUpForwards.sh status",
+        "forward-check": "bash ./startUpForwards.sh check"
     },
     "dependencies": {
         "@emotion/react": "^11.14.0",
@@ -29,6 +32,7 @@
         "@navikt/ds-react": "^7.35.3",
         "date-fns": "^4.1.0",
         "express": "^5.2.1",
+        "helmet": "^8.1.0",
         "i18next": "^21.6.14",
         "lodash": "^4.18.1",
         "log4js": "^6.9.1",

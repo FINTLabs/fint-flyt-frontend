@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { SourceApplicationContext } from '../../context/SourceApplicationContext';
 import OutgoingDataComponent from '../../features/configuration/components/OutgoingDataComponent';
@@ -6,7 +6,7 @@ import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
 import IncomingDataComponent from '../../features/configuration/components/IncomingDataComponent';
-import Snackbar from '../molecules/Snackbar';
+import AlertMessage from '../molecules/AlertMessage';
 import { IntegrationContext } from '../../context/IntegrationContext';
 import { useTranslation } from 'react-i18next';
 import CheckboxValueComponent from '../../features/configuration/components/common/CheckboxValueComponent';
@@ -25,6 +25,7 @@ import {
     defaultAlert,
     errorAlert,
     savedAlert,
+    unknownErrorAlert,
 } from '../../features/configuration/defaults/DefaultValues';
 import { pruneObjectMapping } from '../../util/mapping/helpers/pruning';
 import EditingProvider, { EditingContext } from '../../context/EditingContext';
@@ -35,6 +36,9 @@ import { Button, CheckboxGroup, Heading, HStack, VStack, Checkbox } from '@navik
 import { AuthorizationContext } from '../../context/AuthorizationContext';
 import useConfigurationRepository from '../../api/useConfigurationRepository';
 import useIntegrationRepository from '../../api/useIntegrationRepository';
+import { ProblemDetail } from '../../context/ApiAdapterContext';
+import { Simulate } from 'react-dom/test-utils';
+import load = Simulate.load;
 
 const Configuration: RouteComponent = () => {
     const { getInstanceElementMetadata, setInstanceElementMetadata } =
@@ -59,6 +63,8 @@ const Configuration: RouteComponent = () => {
     );
     const [showAlert, setShowAlert] = React.useState<boolean>(false);
     const [alertContent, setAlertContent] = React.useState<IAlertContent>(defaultAlert);
+    const [loading, setLoading] = React.useState(false);
+
     const [collectionReferencesInEditContext, setCollectionReferencesInEditContext] = useState<
         string[]
     >([]);
@@ -118,6 +124,34 @@ const Configuration: RouteComponent = () => {
         };
     }, []);
 
+
+    const handleAlertMessageOnSave = useCallback((responseData: IConfiguration) => {
+        if (!responseData.completed) {
+            setAlertContent(savedAlert);
+            setShowAlert(true);
+        }
+        if (responseData.completed && !active) {
+            setAlertContent(completedAlert);
+            setShowAlert(true);
+            setCompleted(true);
+        }
+    }, [])
+
+    const handleAlertMessageOnError = useCallback((error: ProblemDetail) => {
+        console.log('handleAlertMessageOnError error', error);
+        if (error.status) {
+            setAlertContent({
+                severity: 'error',
+                message: t('saveErrorTitle'),
+                content: error.message ? error.message : t('genericError')
+            });
+            setShowAlert(true);
+        } else {
+            setAlertContent(unknownErrorAlert);
+            setShowAlert(true);
+        }
+    }, []);
+
     const onSubmit = (data: IConfiguration) => {
         // If there are any form errors, immediately notify and exit
         if (!isEmpty(methods.formState.errors)) {
@@ -125,6 +159,8 @@ const Configuration: RouteComponent = () => {
             setShowAlert(true);
             return;
         }
+
+        setLoading(true);
 
         // Force data.mapping to be of type IObjectMapping.
         // This double cast silences the type error by asserting both the input and the output types.
@@ -138,68 +174,32 @@ const Configuration: RouteComponent = () => {
                 data as IConfigurationPatch
             )
                 .then((response) => {
+                    setLoading(false);
+                    handleAlertMessageOnSave(response.data);
                     console.log('updated', response);
-                    if (!response.data.completed) {
-                        setAlertContent(savedAlert);
-                        setShowAlert(true);
-                    }
-                    if (response.data.completed && !active) {
-                        setAlertContent(completedAlert);
-                        setShowAlert(true);
-                        setCompleted(true);
-                    }
                     if (active && existingIntegration && existingIntegration.id) {
                         activateConfiguration(existingIntegration.id, response.data);
                     }
                 })
                 .catch((error) => {
-                    if (error.response?.status) {
-                        setAlertContent({
-                            severity: 'error',
-                            message:
-                                t('saveError') +
-                                (error.response.data.message
-                                    ? error.response.data.message
-                                    : t('genericError')) +
-                                ', status: ' +
-                                error.response.status,
-                        });
-                        setShowAlert(true);
-                    }
+                    setLoading(false);
+                    handleAlertMessageOnError(error);
                 });
         } else {
             // Create configuration branch
             ConfigurationRepository.createConfiguration(data as IConfiguration)
                 .then((response) => {
+                    setLoading(false);
                     console.log('created', response);
                     setConfiguration(response.data);
-                    if (!response.data.completed) {
-                        setAlertContent(savedAlert);
-                        setShowAlert(true);
-                    }
-                    if (response.data.completed && !active) {
-                        setAlertContent(completedAlert);
-                        setShowAlert(true);
-                        setCompleted(true);
-                    }
+                    handleAlertMessageOnSave(response.data);
                     if (active && existingIntegration && existingIntegration.id) {
                         activateConfiguration(existingIntegration.id, response.data);
                     }
                 })
                 .catch((error) => {
-                    if (error.response?.status) {
-                        setAlertContent({
-                            severity: 'error',
-                            message:
-                                t('saveError') +
-                                (error.response.data.message
-                                    ? error.response.data.message
-                                    : t('genericError')) +
-                                ', status: ' +
-                                error.response.status,
-                        });
-                        setShowAlert(true);
-                    }
+                    setLoading(false);
+                    handleAlertMessageOnError(error);
                 });
         }
     };
@@ -248,7 +248,7 @@ const Configuration: RouteComponent = () => {
                                             render={({ field, fieldState }) => (
                                                 <StringValueComponent
                                                     {...field}
-                                                    disabled={completed}
+                                                    disabled={completed || loading}
                                                     displayName={t('comment')}
                                                     multiline
                                                     fieldState={fieldState}
@@ -260,6 +260,7 @@ const Configuration: RouteComponent = () => {
                                             render={({ field }) => (
                                                 <CheckboxValueComponent
                                                     {...field}
+                                                    disabled={loading}
                                                     displayName={t('label.checkLabel')}
                                                 />
                                             )}
@@ -268,16 +269,18 @@ const Configuration: RouteComponent = () => {
                                             <CheckboxGroup
                                                 legend="form-active"
                                                 hideLegend
-                                                disabled={completed}
+                                                disabled={completed || loading}
                                                 value={[active && 'form-active']}
                                                 onChange={(val: string[]) => {
                                                     setActive(val.includes('form-active'));
-                                                }}>
+                                                }}
+                                            >
                                                 <Checkbox
                                                     id="form-active"
                                                     value="form-active"
                                                     size={'small'}
-                                                    aria-label="active-checkbox">
+                                                    aria-label="active-checkbox"
+                                                >
                                                     {t('label.activeLabel')}
                                                 </Checkbox>
                                             </CheckboxGroup>
@@ -288,7 +291,9 @@ const Configuration: RouteComponent = () => {
                                             id="form-submit-btn"
                                             size={'small'}
                                             disabled={configuration?.completed}
-                                            type="submit">
+                                            type="submit"
+                                            loading={loading}
+                                        >
                                             {!methods.watch('completed')
                                                 ? t('button.submit')
                                                 : t('button.complete')}
@@ -299,25 +304,24 @@ const Configuration: RouteComponent = () => {
                                             type="button"
                                             id="form-cancel-btn"
                                             size={'small'}
+                                            disabled={loading}
                                             onClick={() => {
-                                                history('/');
-                                            }}>
+                                                history('/integration/list');
+                                            }}
+                                        >
                                             {t('button.cancel')}
                                         </Button>
                                     </HStack>
                                 </VStack>
 
-                                <Snackbar
-                                    status={
-                                        alertContent.severity === 'info'
-                                            ? 'announcement'
-                                            : alertContent.severity
-                                    }
+                                <AlertMessage
+                                    status={alertContent.severity}
                                     id="integration-form-snackbar-saved"
                                     open={showAlert}
-                                    onClose={handleClose}>
-                                    {alertContent.message}
-                                </Snackbar>
+                                    onClose={handleClose}
+                                    title={alertContent.message}
+                                    content={alertContent.content}
+                                />
 
                                 <HStack gap={'8'} wrap={false}>
                                     <IncomingDataComponent

@@ -66,6 +66,7 @@
             "formHeader": "Utgående data",
             "saved": "Konfigurasjon lagret",
             "saveError": "Feilet under lagring, feilmelding: ",
+            "saveErrorTitle": "Feilet under lagring",
             "genericError": "Det har oppstått en feil",
             "version": "Versjon ",
             "comment": "Kommentar",

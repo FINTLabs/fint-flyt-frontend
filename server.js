@@ -4,6 +4,7 @@ import express from 'express';
 import path from 'node:path';
 import log4js from 'log4js';
 import morgan from 'morgan';
+import helmet from 'helmet';
 
 const __dirname = import.meta.dirname;
 
@@ -42,6 +43,30 @@ const httpLog = log4js.getLogger('http');
 
 const app = express();
 app.disable('x-powered-by');
+
+app.use(
+    helmet({
+        contentSecurityPolicy: {
+            reportOnly: true, // fjern denne naar det er trygt
+            directives: {
+                defaultSrc: ["'self'"],
+                manifestSrc: ["'self'", 'https://idp.felleskomponent.no'],
+                scriptSrc: [
+                    "'self'",
+                    "'unsafe-inline'", // for streng?
+                ],
+                styleSrc: ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
+                fontSrc: ["'self'", 'data:', 'https://fonts.gstatic.com'],
+                imgSrc: ["'self'", 'data:'],
+                connectSrc: ["'self'"],
+                objectSrc: ["'none'"],
+                frameAncestors: ["'none'"],
+                baseUri: ["'self'"],
+                upgradeInsecureRequests: [],
+            },
+        },
+    })
+);
 
 app.use(
     morgan(conciseFormat, {

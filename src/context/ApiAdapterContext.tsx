@@ -39,6 +39,15 @@ type apiAdapterState = {
     ) => Promise<AdapterResponse<T>>;
 };
 
+export interface ProblemDetail {
+    name: string;
+    error: string;
+    status: number;
+    message: string;
+    path: string;
+    timestamp?: string;
+}
+
 const apiAdapterDefaultValues: apiAdapterState = {
     baseURL: '',
     get: async <T,>() => {
@@ -69,19 +78,69 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
         return `${baseURL}${url}`;
     }
 
-    async function handleResponse<T>(response: Response): Promise<{ data: T; status: number }> {
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
+    function buildHeaders(config?: AdapterRequestConfigType): Headers {
+        const headers = new Headers({
+            'Content-Type': 'application/json',
+        });
+
+        config?.headers?.forEach((value, key) => {
+            headers.set(key, value);
+        });
+
+        return headers;
+    }
+
+
+    async function handleResponse<T>(response: Response, url: string): Promise<AdapterResponse<T>> {
         const contentType = response.headers.get('content-type');
-        const isJson = contentType && contentType.includes('application/json');
-        let data: T;
-        if (isJson) {
-            data = (await response.json()) as T;
-        } else {
-            data = (await response.text()) as T;
+        const isJson = contentType?.includes('application/json');
+
+        let responseData: unknown = null;
+
+        try {
+            responseData = isJson ? await response.json() : await response.text();
+        } catch {
+            responseData = null;
         }
-        return { data, status: response.status };
+
+        if (!response.ok) {
+            let apiError: ProblemDetail;
+            const hasValidErrorMessage =
+                typeof responseData === 'object' &&
+                responseData !== null &&
+                'message' in responseData &&
+                typeof (responseData as any).message === 'string' &&
+                (responseData as any).message.length > 0;
+
+
+            if (hasValidErrorMessage) {
+                const problem = responseData as Partial<ProblemDetail>;
+
+                apiError = {
+                    name: 'ProblemDetail',
+                    error: problem.error ?? 'Error',
+                    status: problem.status ?? response.status,
+                    message: problem.message!,
+                    timestamp: problem.timestamp,
+                    path: problem.path ?? url,
+                };
+            } else {
+                apiError = {
+                    name: 'ApiError',
+                    error: response.statusText,
+                    status: response.status,
+                    message: `Request failed (${response.status} ${response.statusText})`,
+                    path: url,
+                };
+            }
+
+            throw apiError;
+        }
+
+        return {
+            data: responseData as T,
+            status: response.status,
+        };
     }
 
     async function get<T>(
@@ -107,15 +166,7 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
                 ? `${fullURL}?${searchParams.toString()}`
                 : fullURL;
 
-            const headers = new Headers({
-                'Content-Type': 'application/json',
-            });
-
-            if (config?.headers) {
-                config.headers.forEach((value, key) => {
-                    headers.append(key, value);
-                });
-            }
+            const headers = buildHeaders(config);
 
             const controller = new AbortController();
             const signal = controller.signal;
@@ -130,7 +181,7 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
                 signal,
             });
 
-            return handleResponse<T>(response);
+            return handleResponse<T>(response, url);
         } catch (error) {
             console.error('error in apiAdapter get: ', error, url);
             throw error;
@@ -145,11 +196,7 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
     ): Promise<AdapterResponse<T>> {
         const fullURL = buildURL(apiUrl, url);
 
-        const defaultHeaders = {
-            'Content-Type': 'application/json',
-        };
-
-        const headers = config?.headers ? { ...defaultHeaders, ...config.headers } : defaultHeaders;
+        const headers = buildHeaders(config);
 
         const response = await fetch(fullURL, {
             method: 'POST',
@@ -157,7 +204,7 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
             body: data ? JSON.stringify(data) : undefined,
         });
 
-        return handleResponse<T>(response);
+        return handleResponse<T>(response, url);
     }
 
     async function patch<T>(
@@ -168,11 +215,7 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
     ): Promise<AdapterResponse<T>> {
         const fullURL = buildURL(apiUrl, url);
 
-        const defaultHeaders = {
-            'Content-Type': 'application/json',
-        };
-
-        const headers = config?.headers ? { ...defaultHeaders, ...config.headers } : defaultHeaders;
+        const headers = buildHeaders(config);
 
         const response = await fetch(fullURL, {
             method: 'PATCH',
@@ -180,7 +223,7 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
             body: data ? JSON.stringify(data) : undefined,
         });
 
-        return handleResponse<T>(response);
+        return handleResponse<T>(response, url);
     }
 
     async function deleteFetch<T>(
@@ -190,18 +233,14 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
     ): Promise<AdapterResponse<T>> {
         const fullURL = buildURL(apiUrl, url);
 
-        const defaultHeaders = {
-            'Content-Type': 'application/json',
-        };
-
-        const headers = config?.headers ? { ...defaultHeaders, ...config.headers } : defaultHeaders;
+        const headers = buildHeaders(config);
 
         const response = await fetch(fullURL, {
             method: 'DELETE',
             headers,
         });
 
-        return handleResponse<T>(response);
+        return handleResponse<T>(response, url);
     }
 
     return (

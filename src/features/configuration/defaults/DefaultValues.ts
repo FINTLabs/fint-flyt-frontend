@@ -1,14 +1,19 @@
 import {ISelect} from "../types/Select";
 import {IAlertContent} from "../types/AlertContent";
 
-export const defaultAlert: IAlertContent = {severity: "info", message: ""};
+export const defaultAlert: IAlertContent = { severity: 'announcement', message: '' };
 export const savedAlert: IAlertContent = {
-    severity: "info",
-    message: "Konfigurasjon lagret",
+    severity: 'success',
+    message: 'Konfigurasjonen er lagret',
 };
 export const errorAlert: IAlertContent = {
     severity: "error",
     message: "Feil eller manglende felter",
+};
+export const unknownErrorAlert: IAlertContent = {
+    severity: 'error',
+    message: 'Handling feilet med ukjent feil',
+    content: 'En ukjent feil oppstod. Ta kontakt med Novari support for å avklare feilen.',
 };
 export const completedAlert: IAlertContent = {
     severity: "success",
