@@ -5,8 +5,9 @@ namespace: tromsfylke-no
 resources:
   - ../../../base
 
-commonLabels:
-  fintlabs.no/org-id: tromsfylke.no
+labels:
+  - pairs:
+      fintlabs.no/org-id: tromsfylke.no
 
 patches:
   - patch: |-
@@ -39,4 +40,3 @@ patches:
     target:
       kind: FLAISSso
       name: fint-flyt-auth-forward-sso
-

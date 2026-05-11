@@ -1,34 +1,34 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: vlfk-no
+namespace: bym-oslo-kommune-no
 
 resources:
   - ../../../base
 
 labels:
   - pairs:
-      fintlabs.no/org-id: vlfk.no
+      fintlabs.no/org-id: bym.oslo.kommune.no
 
 patches:
   - patch: |-
       - op: replace
         path: "/metadata/labels/app.kubernetes.io~1instance"
-        value: "fint-flyt-frontend_vlfk-no"
+        value: "fint-flyt-frontend_bym-oslo-kommune-no"
       - op: replace
         path: "/spec/image"
-        value: ghcr.io/fintlabs/fint-flyt-frontend-vlfk-no-api
+        value: ghcr.io/fintlabs/fint-flyt-frontend-bym-oslo-kommune-no-api
       - op: replace
         path: "/spec/orgId"
-        value: "vlfk.no"
+        value: "bym.oslo.kommune.no"
       - op: replace
         path: "/spec/env/0/value"
-        value: "/vlfk-no"
+        value: "/bym-oslo-kommune-no"
       - op: replace
         path: "/spec/url/basePath"
-        value: "/vlfk-no"
+        value: "/bym-oslo-kommune-no"
       - op: replace
         path: "/spec/probes/readiness/path"
-        value: "/vlfk-no/health"
+        value: "/bym-oslo-kommune-no/health"
     target:
       kind: Application
       name: fint-flyt-frontend
@@ -36,7 +36,7 @@ patches:
   - patch: |-
       - op: replace
         path: "/spec/basePath"
-        value: "/vlfk-no"
+        value: "/bym-oslo-kommune-no"
     target:
       kind: FLAISSso
       name: fint-flyt-auth-forward-sso

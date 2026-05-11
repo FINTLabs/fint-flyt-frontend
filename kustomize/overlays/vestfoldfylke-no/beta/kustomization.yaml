@@ -5,8 +5,9 @@ namespace: vestfoldfylke-no
 resources:
   - ../../../base
 
-commonLabels:
-  fintlabs.no/org-id: vestfoldfylke.no
+labels:
+  - pairs:
+      fintlabs.no/org-id: vestfoldfylke.no
 
 patches:
   - patch: |-
@@ -39,4 +40,3 @@ patches:
     target:
       kind: FLAISSso
       name: fint-flyt-auth-forward-sso
-
