@@ -21,6 +21,7 @@ jobs:
           - afk-no
           - agderfk-no
           - bfk-no
+          - bym-oslo-kommune-no
           - ffk-no
           - fintlabs-no
           - innlandetfylke-no
@@ -38,6 +39,8 @@ jobs:
           - aks-beta-fint-2021-11-23
           - aks-api-fint-2022-02-08
         exclude:
+          - org: bym-oslo-kommune-no
+            cluster: aks-beta-fint-2021-11-23
           - org: fintlabs-no
             cluster: aks-api-fint-2022-02-08
           - org: mrfylke-no
