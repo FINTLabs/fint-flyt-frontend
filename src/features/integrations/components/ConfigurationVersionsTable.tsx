@@ -173,11 +173,12 @@ export const ConfigurationVersionsTable: React.FunctionComponent<ConfigurationTa
                                                         }
                                                     />
                                                 </ActionMenu.Trigger>
-                                                <ActionMenu.Content>
+                                                <ActionMenu.Content data-testid="action-menu-content">
                                                     <ActionMenu.Group
                                                         label={`${t('table.configurationID')}: ${config.id}`}
                                                     >
                                                         <ActionMenu.Item
+                                                            data-testid="view-configuration"
                                                             onSelect={() => {
                                                                 handleNewOrEditConfigClick(
                                                                     config.id
@@ -192,6 +193,7 @@ export const ConfigurationVersionsTable: React.FunctionComponent<ConfigurationTa
                                                             {t('table.show')}
                                                         </ActionMenu.Item>
                                                         <ActionMenu.Item
+                                                            data-testid="create-new-based-on-configuration"
                                                             onSelect={() => {
                                                                 handleNewOrEditConfigClick(
                                                                     config.id,
