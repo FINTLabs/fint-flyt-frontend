@@ -162,18 +162,16 @@ export const ConfigurationVersionsTable: React.FunctionComponent<ConfigurationTa
                                 </Table.DataCell>
                                 <Table.DataCell align={'right'}>
                                     <div id={panelId + '-action-toggle'} className="min-h-32">
-                                        {completed ? (
-                                            <ActionMenu>
-                                                <ActionMenu.Trigger>
-                                                    <Button
-                                                        variant="tertiary-neutral"
-                                                        size={'small'}
-                                                        icon={
-                                                            <MenuElipsisVerticalIcon aria-hidden />
-                                                        }
-                                                    />
-                                                </ActionMenu.Trigger>
-                                                <ActionMenu.Content data-testid="action-menu-content">
+                                        <ActionMenu>
+                                            <ActionMenu.Trigger>
+                                                <Button
+                                                    variant="tertiary-neutral"
+                                                    size={'small'}
+                                                    icon={<MenuElipsisVerticalIcon aria-hidden />}
+                                                />
+                                            </ActionMenu.Trigger>
+                                            <ActionMenu.Content data-testid="action-menu-content">
+                                                {completed ? (
                                                     <ActionMenu.Group
                                                         label={`${t('table.configurationID')}: ${config.id}`}
                                                     >
@@ -221,24 +219,12 @@ export const ConfigurationVersionsTable: React.FunctionComponent<ConfigurationTa
                                                             {t('table.activate')}
                                                         </ActionMenu.Item>
                                                     </ActionMenu.Group>
-                                                </ActionMenu.Content>
-                                            </ActionMenu>
-                                        ) : (
-                                            <ActionMenu>
-                                                <ActionMenu.Trigger>
-                                                    <Button
-                                                        variant="tertiary-neutral"
-                                                        size="small"
-                                                        icon={
-                                                            <MenuElipsisVerticalIcon aria-hidden />
-                                                        }
-                                                    />
-                                                </ActionMenu.Trigger>
-                                                <ActionMenu.Content>
+                                                ) : (
                                                     <ActionMenu.Group
                                                         label={`${t('table.configurationID')}: ${config.id}`}
                                                     >
                                                         <ActionMenu.Item
+                                                            data-testid="edit-draft"
                                                             onSelect={() => {
                                                                 handleNewOrEditConfigClick(
                                                                     config.id
@@ -263,9 +249,9 @@ export const ConfigurationVersionsTable: React.FunctionComponent<ConfigurationTa
                                                             {t('table.deleteDraft')}
                                                         </ActionMenu.Item>
                                                     </ActionMenu.Group>
-                                                </ActionMenu.Content>
-                                            </ActionMenu>
-                                        )}
+                                                )}
+                                            </ActionMenu.Content>
+                                        </ActionMenu>
                                     </div>
                                 </Table.DataCell>
                             </Table.Row>

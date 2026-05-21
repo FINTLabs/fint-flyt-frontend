@@ -109,7 +109,8 @@ describe('Testing creating new and editing configurations from integration overv
         cy.get(
             ':nth-child(3) > .navds-table__toggle-expand-cell > .navds-table__toggle-expand-button'
         ).click();
-        cy.get('#draft-config-table #panel-1-action-toggle > button').click();
+        cy.get('#draft-config-table #panel-1-action-toggle > button').first().click();
+        cy.get('[data-testid="action-menu-content"]').find('[data-testid="edit-draft"]').click();
         cy.get('#comment').should('contain.text', 'rediger denne konfig');
     });
 });
