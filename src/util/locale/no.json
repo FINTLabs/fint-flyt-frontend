@@ -146,8 +146,9 @@
         "integrations": {
             "header": "Integrasjoner",
             "version": "Versjon ",
-            "noActiveConfig": "ingen aktiv konfigurasjon",
+            "noActiveConfig": "Ingen aktiv konfigurasjon",
             "activeConfigurationId": "Aktiv konfigurasjon: ",
+            "activeConfiguration": "Aktiv konfigurasjon",
             "missingDataError": "Mangler tilstrekkelig data for å kunne opprette ny konfigurasjon",
             "errorMessage": "Det oppsto en feil under henting av data, prøv igjen senere.",
             "numberPerPage": "Antall per side",
@@ -166,9 +167,11 @@
             "table": {
                 "completed": "Ferdigstilt",
                 "drafts": "Utkast",
-                "noElements": "No elements",
+                "configurationID": "Konfigurasjonid",
+                "noElements": "Ingen konfigurasjoner",
                 "show": "Vis",
                 "edit": "Rediger",
+                "deleteDraft": "Slett utkast",
                 "basedOn": "Lag ny basert på denne",
                 "activate": "Aktiver",
                 "column": {

@@ -80,7 +80,7 @@ describe('Testing creating new and editing configurations from integration overv
     it('should navigate to create new configuration based on existing completed version', () => {
         prep()
         cy.get(':nth-child(3) > .navds-table__toggle-expand-cell > .navds-table__toggle-expand-button').click()
-        cy.get('#panel-1-action-toggle > .navds-dropdown__toggle').click()
+        cy.get('#panel-1-action-toggle > button').click()
         cy.get('#panel-1-action-toggle > .navds-popover > dl.navds-dropdown__list > :nth-child(2) > .navds-dropdown__item').click()
 
         cy.get('#mapping\\.valueMappingPerKey\\.type\\.mappingString').click()

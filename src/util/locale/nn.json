@@ -146,6 +146,7 @@
             "version": "Versjon ",
             "noActiveConfig": "ingen aktiv konfigurasjon",
             "activeConfigurationId": "Aktiv konfigurasjon: ",
+            "activeConfiguration": "Aktiv konfigurasjon",
             "missingDataError": "Manglar tilstrekkeleg data for å kunna oppretta ny konfigurasjon",
             "errorMessage": "Det oppstod ein feil under henting av data, prøv igjen seinare.",
             "numberPerPage": "Tal per side",
@@ -164,9 +165,11 @@
             "table": {
                 "completed": "Ferdigstilt",
                 "drafts": "Utkast",
+                "configurationID": "Konfigurasjonid",
                 "noElements": "Ingen element",
                 "show": "Vis",
                 "edit": "Rediger",
+                "deleteDraft": "Slett utkast",
                 "basedOn": "Lag ny basert på denne",
                 "activate": "Aktiver",
                 "column": {

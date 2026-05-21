@@ -80,7 +80,10 @@ describe('Testing integration list', () => {
         cy.wait('@getConfigCompleted2');
 
         cy.get('#integration-panel-container').should('be.visible');
-        cy.get('label').should('contain.text', 'Aktiv konfigurasjon: ');
+        cy.get('[data-testid="active-configuration"]').should(
+            'contain.text',
+            'Ingen aktiv konfigurasjon'
+        );
         cy.get('#integration-panel-container table').should('have.length', 2);
         cy.get('#integration-panel-container table')
             .first()

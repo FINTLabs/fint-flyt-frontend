@@ -28,14 +28,17 @@ export default function useConfigurationRepository() {
             },
         });
     };
+
     const getConfigurationById = (configurationId: string, excludeElements?: boolean) => {
         return get<IConfiguration>(API_URL, `/api/intern/konfigurasjoner/${configurationId}`, {
             params: { ekskluderMapping: excludeElements },
         });
     };
+
     const createConfiguration = (data: IConfiguration) => {
         return post<IConfiguration>(API_URL, `/api/intern/konfigurasjoner`, data);
     };
+
     const updateConfiguration = (configurationId: string, data: IConfigurationPatch) => {
         return patch<IConfiguration>(
             API_URL,
@@ -43,6 +46,7 @@ export default function useConfigurationRepository() {
             data
         );
     };
+
     const deleteConfiguration = (configurationId: string) => {
         return deleteFetch(API_URL, `/api/intern/konfigurasjoner/${configurationId}`);
     };
