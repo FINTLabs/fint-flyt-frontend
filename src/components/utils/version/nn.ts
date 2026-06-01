@@ -5,6 +5,27 @@ export const ABOUT_VERSIONS_NN =
 
 export const VERSION_DATA_NN: VersionEntry[] = [
     {
+        heading: 'Mai 2026',
+        updates: [
+            {
+                title: 'Tydlegare feilmeldingar i konfigurasjonsoppsett:',
+                text: 'Feilmeldingane ved lagring av ein konfigurasjon er forbetra. Det kjem no tydelegare fram kva felt som inneheld feil, og om det skuldast utdaterte referansar.',
+            },
+            {
+                title: 'Betre tilbakemelding ved lagring av konfigurasjon:',
+                text: 'Skjemaet viser no tydeleg når lagring er i gang, og gir klar beskjed om lagringa var vellukka eller ikkje.',
+            },
+            {
+                title: 'Forbetra design for versjonar og utkast:',
+                text: 'Tabellane for versjonar og utkast er forenkla. Aktiv versjon er tydeleg markert, og ID-kolonnen er fjerna. ID finst framleis i menyen for kvar konfigurasjon.',
+            },
+            {
+                title: 'Støtte for sletting av utkast:',
+                text: 'Det er no mogleg å slette utkast av konfigurasjonar.',
+            },
+        ],
+    },
+    {
         heading: 'Februar 2026',
         updates: [
             {
@@ -32,7 +53,7 @@ export const VERSION_DATA_NN: VersionEntry[] = [
         updates: [
             {
                 title: 'Visuelle endringar:',
-                text: 'Fleire rammer rundt tabellar og element er fjerna, og fargebruken er justert for betre samsvar med Novaria-profilen.',
+                text: 'Fleire rammer rundt tabellar og element er fjerna, og fargebruken er justert for betre samsvar med Novari-profilen.',
             },
             {
                 title: 'Dashboard:',

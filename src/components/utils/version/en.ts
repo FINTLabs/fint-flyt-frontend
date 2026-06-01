@@ -5,6 +5,27 @@ export const ABOUT_VERSIONS_EN =
 
 export const VERSION_DATA_EN: VersionEntry[] = [
     {
+        heading: 'May 2026',
+        updates: [
+            {
+                title: 'Clearer error messages in configuration setup:',
+                text: 'Error messages during configuration saving have been improved. It is now clearer which field contains an error, and whether it is caused by outdated references.',
+            },
+            {
+                title: 'Improved feedback when saving configurations:',
+                text: 'The form now clearly indicates when a save is in progress, and provides clear feedback on whether the save was successful or not.',
+            },
+            {
+                title: 'Improved design for versions and drafts:',
+                text: 'The tables for versions and drafts have been simplified. The active version is clearly highlighted, and the ID column has been removed. The ID is still available in the menu for each configuration.',
+            },
+            {
+                title: 'Support for deleting drafts:',
+                text: 'It is now possible to delete draft configurations.',
+            },
+        ],
+    },
+    {
         heading: 'February 2026',
         updates: [
             {
@@ -32,7 +53,7 @@ export const VERSION_DATA_EN: VersionEntry[] = [
         updates: [
             {
                 title: 'Visual changes:',
-                text: 'Several borders around tables and elements have been removed, and color usage has been adjusted to better align with the Novaria profile.',
+                text: 'Several borders around tables and elements have been removed, and color usage has been adjusted to better align with the Novari profile.',
             },
             {
                 title: 'Dashboard:',

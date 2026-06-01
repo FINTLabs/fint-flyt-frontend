@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { ReactElement, useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { IntegrationContext } from '../../../context/IntegrationContext';
-import { Link as RouterLink, useNavigate } from 'react-router';
+import { Link as RouterLink } from 'react-router';
 import { SourceApplicationContext } from '../../../context/SourceApplicationContext';
 import { IIntegration, IIntegrationPatch } from '../../integration/types/Integration';
 import { IConfiguration } from '../../configuration/types/Configuration';
@@ -12,21 +12,18 @@ import {
     BodyShort,
     Box,
     Button,
-    Dropdown,
+    Heading,
     HGrid,
     HStack,
     Label,
     Loader,
     Modal,
-    Pagination,
-    Table,
-    Tooltip,
     VStack,
 } from '@navikt/ds-react';
-import { MenuElipsisVerticalCircleIcon, PencilWritingIcon } from '@navikt/aksel-icons';
-import { IAlertMessage, Page } from '../../../components/types/TableTypes';
+import { IAlertMessage } from '../../../components/types/TableTypes';
 import useConfigurationRepository from '../../../api/useConfigurationRepository';
 import useIntegrationRepository from '../../../api/useIntegrationRepository';
+import { ConfigurationVersionsTable } from './ConfigurationVersionsTable';
 
 type Props = {
     id: string;
@@ -35,56 +32,16 @@ type Props = {
 };
 
 const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
-    const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.integrations' });
-    const history = useNavigate();
+    const { t } = useTranslation('translations', { keyPrefix: 'pages.integrations' });
     const IntegrationRepository = useIntegrationRepository();
     const { setConfiguration, setExistingIntegrationMetadata, setExistingIntegration } =
         useContext(IntegrationContext);
     const { allMetadata, setSourceApplication, getInstanceElementMetadata } =
         useContext(SourceApplicationContext);
     const ConfigurationRepository = useConfigurationRepository();
-    const [activeVersion, setActiveVersion] = useState<string>('');
+    const [activeVersion, setActiveVersion] = useState<undefined | null | number>(undefined);
     const [openDialog, setOpenDialog] = useState(false);
     const [configToActivate, setConfigToActivate] = useState<string>('');
-    const [completedConfigs, setCompletedConfigs] = useState<Page<IConfiguration>>();
-    const [draftConfigs, setDraftConfigs] = useState<Page<IConfiguration>>();
-    const [page, setPage] = useState(1);
-    const rowsPerPage = 30;
-
-    useEffect(() => {
-        setCompletedConfigs(undefined);
-        setDraftConfigs(undefined);
-        getAllConfigurations();
-    }, [page, setPage]);
-
-    const getAllConfigurations = async () => {
-        props.onError(undefined);
-        try {
-            const configResponse = await ConfigurationRepository.getConfigurations(
-                page - 1,
-                rowsPerPage,
-                'id',
-                'DESC',
-                false,
-                props.integration.id ?? '',
-                true
-            );
-            const completedConfigResponse = await ConfigurationRepository.getConfigurations(
-                page - 1,
-                rowsPerPage,
-                'version',
-                'DESC',
-                true,
-                props.integration.id ?? '',
-                true
-            );
-            setDraftConfigs(configResponse.data);
-            setCompletedConfigs(completedConfigResponse.data);
-        } catch (e) {
-            props.onError(undefined);
-            console.error('Error: ', e);
-        }
-    };
 
     useEffect(() => {
         setSourceApplication(Number(props.integration.sourceApplicationId) ?? 1);
@@ -96,33 +53,21 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    function formatTimestampToMinutes(timestamp?: string, locale?: string): string {
-        if (!timestamp) return '';
-        const options: Intl.DateTimeFormatOptions = {
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit',
-            hour: '2-digit',
-            minute: '2-digit',
-        };
-        return new Intl.DateTimeFormat(locale ?? 'no-NO', options).format(new Date(timestamp));
-    }
-
     function getVersionForActiveConfig(id: string | undefined): void {
         if (id === undefined) {
-            setActiveVersion(t('noActiveConfig'));
+            setActiveVersion(null);
             return;
         }
         ConfigurationRepository.getConfigurationById(id.toString(), true)
             .then((response) => {
                 const data: IConfiguration = response.data;
                 if (data) {
-                    setActiveVersion(t('version') + data.version);
+                    setActiveVersion(data.version);
                 }
             })
             .catch((e) => {
                 console.error('Error: ', e);
-                setActiveVersion(t('noActiveConfig'));
+                setActiveVersion(null);
             });
     }
 
@@ -150,9 +95,9 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
             });
     }
 
-    const activateConfiguration = (configurationId: string) => {
+    const activateConfiguration = (configurationId: number | string) => {
         const patch: IIntegrationPatch = {
-            activeConfigurationId: configurationId,
+            activeConfigurationId: configurationId.toString(),
             state: 'ACTIVE',
         };
         if (props.integration?.id) {
@@ -171,142 +116,19 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
         }
     };
 
-    function configTable(configs: Page<IConfiguration>, completed: boolean): ReactElement {
-        // tslint-ignore-next-line
-        return configs.content.length > 0 ? (
-            <Box>
-                <Table size={'small'}>
-                    <Table.Header>
-                        <Table.Row>
-                            <Table.HeaderCell scope="col">{t('table.column.id')}</Table.HeaderCell>
-                            {completed && (
-                                <Table.HeaderCell scope="col">
-                                    {t('table.column.version')}
-                                </Table.HeaderCell>
-                            )}
-                            <Table.HeaderCell scope="col">
-                                {t('table.column.comment')}
-                            </Table.HeaderCell>
-                            <Table.HeaderCell scope="col">
-                                {t('table.column.lastModifiedAt')}
-                            </Table.HeaderCell>
-                            <Table.HeaderCell scope="col">
-                                {t('table.column.lastModifiedBy')}
-                            </Table.HeaderCell>
-                            <Table.HeaderCell scope="col">
-                                {t('table.column.actions')}
-                            </Table.HeaderCell>
-                        </Table.Row>
-                    </Table.Header>
-                    <Table.Body>
-                        {configs?.content.map((value, i) => {
-                            return (
-                                <Table.Row key={i}>
-                                    <Table.DataCell>{value.id}</Table.DataCell>
-                                    {completed && <Table.DataCell>{value.version}</Table.DataCell>}
-                                    <Table.DataCell className={'truncate-datacell'}>
-                                        {value.comment ? (
-                                            <Tooltip content={value.comment} style={{ width: '100px'}} >
-                                                <BodyShort className={'truncate-text'}>
-                                                    {value.comment}
-                                                </BodyShort>
-                                            </Tooltip>
-                                        ) : (
-                                            <BodyShort className={'truncate-text'}>
-                                                {value.comment}
-                                            </BodyShort>
-                                        )}
-                                    </Table.DataCell>
-                                    <Table.DataCell>
-                                        {formatTimestampToMinutes(
-                                            value.lastModifiedAt,
-                                            i18n.language
-                                        )}
-                                    </Table.DataCell>
-                                    <Table.DataCell>{value.lastModifiedBy}</Table.DataCell>
-                                    <Table.DataCell>{actionMenu(value)}</Table.DataCell>
-                                </Table.Row>
-                            );
-                        })}
-                    </Table.Body>
-                </Table>
-                <HStack justify={'center'} paddingBlock={'4 0'}>
-                    {configs?.totalElements && configs?.totalElements > rowsPerPage && (
-                        <Pagination
-                            page={page}
-                            onPageChange={setPage}
-                            count={configs?.totalPages ?? 1}
-                            size="small"
-                        />
-                    )}
-                </HStack>
-            </Box>
-        ) : (
-            <BodyShort>{t('table.noElements')}</BodyShort>
-        );
-    }
+    const deleteDraft = useCallback(async (configurationId: number | string): Promise<boolean> => {
+        try {
+            await ConfigurationRepository.deleteConfiguration(configurationId.toString());
+            return true;
+        } catch (error) {
+            console.error('Error: ', error);
+            return false;
+        }
+    }, []);
 
-    function actionMenu(config: IConfiguration): ReactElement {
-        return (
-            <div id={props.id + '-action-toggle'} className="min-h-32">
-                {config.completed ? (
-                    <Dropdown>
-                        <Button
-                            as={Dropdown.Toggle}
-                            variant="tertiary-neutral"
-                            icon={<MenuElipsisVerticalCircleIcon aria-hidden />}
-                        />
-                        <Dropdown.Menu>
-                            <Dropdown.Menu.GroupedList>
-                                <Dropdown.Menu.GroupedList.Item
-                                    onClick={() => {
-                                        handleNewOrEditConfigClick(config.id).then(() =>
-                                            history('/integration/configuration/edit')
-                                        );
-                                    }}
-                                >
-                                    {t('table.show')}
-                                </Dropdown.Menu.GroupedList.Item>
-                                <Dropdown.Menu.GroupedList.Item
-                                    onClick={() => {
-                                        handleNewOrEditConfigClick(config.id, config.version).then(
-                                            () => history('/integration/configuration/edit')
-                                        );
-                                    }}
-                                >
-                                    {t('table.basedOn')}
-                                </Dropdown.Menu.GroupedList.Item>
-                            </Dropdown.Menu.GroupedList>
-                            <Dropdown.Menu.Divider />
-                            <Dropdown.Menu.List>
-                                <Dropdown.Menu.List.Item
-                                    onClick={() => {
-                                        handleActivateAction(config.id.toString());
-                                    }}
-                                >
-                                    {t('table.activate')}
-                                </Dropdown.Menu.List.Item>
-                            </Dropdown.Menu.List>
-                        </Dropdown.Menu>
-                    </Dropdown>
-                ) : (
-                    <Button
-                        variant="tertiary-neutral"
-                        icon={<PencilWritingIcon aria-hidden />}
-                        onClick={() => {
-                            handleNewOrEditConfigClick(config.id).then(() =>
-                                history('/integration/configuration/edit')
-                            );
-                        }}
-                    ></Button>
-                )}
-            </div>
-        );
-    }
-
-    const handleActivateAction = (configId: string) => {
+    const handleActivateAction = (configId: number | string) => {
         setOpenDialog(true);
-        setConfigToActivate(configId);
+        setConfigToActivate(configId.toString());
     };
 
     return (
@@ -342,14 +164,21 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
                 </Modal.Footer>
             </Modal>
             <VStack gap="4">
-                <Label>
-                    {t('activeConfigurationId')}{' '}
-                    {activeVersion === '' ? (
-                        <Loader size="xsmall" title="Venter..." />
+                <HStack gap="2" wrap={false} data-testid="active-configuration">
+                    {activeVersion === null ? (
+                        <BodyShort>{t('noActiveConfig')}</BodyShort>
                     ) : (
-                        activeVersion
+                        <>
+                            <Label>{t('activeConfigurationId')}</Label>
+                            {activeVersion === undefined ? (
+                                <Loader size="xsmall" title="Venter..." />
+                            ) : (
+                                <BodyShort>{`${t('version')} ${activeVersion}`}</BodyShort>
+                            )}
+                        </>
                     )}
-                </Label>
+                </HStack>
+
                 <HGrid gap="6" columns={2}>
                     <Box
                         id={'completed-config-table'}
@@ -358,14 +187,18 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
                         borderRadius="xlarge"
                         style={{ minHeight: '440px' }}
                     >
-                        <BodyShort>{t('table.completed')}:</BodyShort>
-                        {!completedConfigs ? (
-                            <Box padding={'8'}>
-                                <Loader size="medium" title="Venter..." />
-                            </Box>
-                        ) : (
-                            configTable(completedConfigs ?? { content: [] }, true)
-                        )}
+                        <Heading size="small" spacing>
+                            {t('table.completed')}
+                        </Heading>
+                        <ConfigurationVersionsTable
+                            integrationId={props.integration?.id}
+                            panelId={props.id}
+                            completed={true}
+                            handleNewOrEditConfigClick={handleNewOrEditConfigClick}
+                            handleActivateAction={handleActivateAction}
+                            onError={props.onError}
+                            activeVersion={activeVersion}
+                        />
                     </Box>
                     <Box
                         id={'draft-config-table'}
@@ -374,14 +207,18 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
                         borderRadius="xlarge"
                         style={{ height: 'fit-content' }}
                     >
-                        <BodyShort>{t('table.drafts')}:</BodyShort>
-                        {!draftConfigs ? (
-                            <Box padding={'8'}>
-                                <Loader size="medium" title="Venter..." />
-                            </Box>
-                        ) : (
-                            configTable(draftConfigs ?? { content: [] }, false)
-                        )}
+                        <Heading size="small" spacing>
+                            {t('table.drafts')}
+                        </Heading>
+                        <ConfigurationVersionsTable
+                            integrationId={props.integration?.id}
+                            panelId={props.id}
+                            completed={false}
+                            handleNewOrEditConfigClick={handleNewOrEditConfigClick}
+                            handleActivateAction={handleActivateAction}
+                            onError={props.onError}
+                            deleteDraft={deleteDraft}
+                        />
                     </Box>
                 </HGrid>
                 <HStack gap={'6'}>

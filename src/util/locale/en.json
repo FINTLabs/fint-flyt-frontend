@@ -146,6 +146,7 @@
             "version": "Version ",
             "noActiveConfig": "no active configuration",
             "activeConfigurationId": "Active configuration Id: ",
+            "activeConfiguration": "Active configuration",
             "missingDataError": "There is insufficient data to create a new configuration",
             "errorMessage": "There was an error fetching data, try again later.",
             "numberPerPage": "Show per page",
@@ -164,9 +165,11 @@
             "table": {
                 "completed": "Completed",
                 "drafts": "Drafts",
+                "configurationID": "Configuration id",
                 "noElements": "No elements",
                 "show": "Show",
                 "edit": "Edit",
+                "deleteDraft": "Delete draft",
                 "basedOn": "Create new based on this",
                 "activate": "Activate",
                 "column": {
