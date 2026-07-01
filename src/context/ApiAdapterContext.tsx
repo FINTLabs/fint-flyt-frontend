@@ -1,7 +1,18 @@
 import { ContextProps } from './constants/interface';
 import { createContext, useMemo, useRef } from 'react';
+import {
+    buildSearchParams,
+    createAbortSignal,
+    getTokenExpiration,
+    isTokenValid,
+    parseResponse,
+} from './utils/fetchUtils';
+import { createApiError } from './utils/apiErrorUtils';
 
 const BASE_PATH = process.env.BASE_PATH ?? '';
+const USE_AUTH = !!process.env.BASE_PATH;
+
+type HttpMethod = 'GET' | 'POST' | 'PATCH' | 'DELETE';
 
 export type AdapterRequestConfigType = {
     params?: Record<string, string | string[] | number | boolean | null | undefined>;
@@ -40,15 +51,6 @@ type apiAdapterState = {
     ) => Promise<AdapterResponse<T>>;
 };
 
-export interface ProblemDetail {
-    name: string;
-    error: string;
-    status: number;
-    message: string;
-    path: string;
-    timestamp?: string;
-}
-
 const apiAdapterDefaultValues: apiAdapterState = {
     baseURL: '',
     get: async <T,>() => {
@@ -74,26 +76,8 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
     const tokenExpiresAtRef = useRef<number>(0);
     const tokenPromiseRef = useRef<Promise<string> | null>(null);
 
-    function getTokenExpiration(token: string): number {
-        const jwt = token.replace('Bearer ', '');
-        const payload = JSON.parse(atob(jwt.split('.')[1]));
-
-        return payload.exp * 1000;
-    }
-
-    function isTokenValid(): boolean {
-        if (!tokenRef.current) {
-            return false;
-        }
-
-        // forny token ett minutt før utløp
-        const refreshBufferMs = 60_000;
-
-        return Date.now() < tokenExpiresAtRef.current - refreshBufferMs;
-    }
-
     async function getAuthorizationHeader(): Promise<string> {
-        if (isTokenValid()) {
+        if (isTokenValid(tokenRef.current, tokenExpiresAtRef.current)) {
             return tokenRef.current!;
         }
 
@@ -131,16 +115,6 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
         tokenPromiseRef.current = null;
     }
 
-    function createAbortSignal(timeout?: number): AbortSignal | undefined {
-        if (!timeout) {
-            return undefined;
-        }
-
-        const controller = new AbortController();
-        setTimeout(() => controller.abort(), timeout);
-        return controller.signal;
-    }
-
     function buildURL(apiUrl: string, url: string): string {
         return !baseURL || baseURL === '/' ? url : `${baseURL}${url}`;
     }
@@ -150,8 +124,7 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
             'Content-Type': 'application/json',
         });
 
-        if (baseURL) {
-            console.log("setting headers")
+        if (USE_AUTH) {
             const authorization = await getAuthorizationHeader();
             headers.set('Authorization', authorization);
         }
@@ -163,69 +136,11 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
         return headers;
     }
 
-    function buildSearchParams(params?: AdapterRequestConfigType['params']): URLSearchParams {
-        const searchParams = new URLSearchParams();
-
-        if (!params) {
-            return searchParams;
-        }
-
-        Object.entries(params).forEach(([key, value]) => {
-            if (value == null) {
-                return;
-            }
-
-            (Array.isArray(value) ? value : [value]).forEach((v) => {
-                searchParams.append(key, String(v));
-            });
-        });
-
-        return searchParams;
-    }
-
     async function handleResponse<T>(response: Response, url: string): Promise<AdapterResponse<T>> {
-        const contentType = response.headers.get('content-type');
-        const isJson = contentType?.includes('application/json');
-
-        let responseData: unknown = null;
-
-        try {
-            responseData = isJson ? await response.json() : await response.text();
-        } catch {
-            responseData = null;
-        }
+        const responseData = await parseResponse(response);
 
         if (!response.ok) {
-            let apiError: ProblemDetail;
-            const hasValidErrorMessage =
-                typeof responseData === 'object' &&
-                responseData !== null &&
-                'message' in responseData &&
-                typeof (responseData as any).message === 'string' &&
-                (responseData as any).message.length > 0;
-
-            if (hasValidErrorMessage) {
-                const problem = responseData as Partial<ProblemDetail>;
-
-                apiError = {
-                    name: 'ProblemDetail',
-                    error: problem.error ?? 'Error',
-                    status: problem.status ?? response.status,
-                    message: problem.message!,
-                    timestamp: problem.timestamp,
-                    path: problem.path ?? url,
-                };
-            } else {
-                apiError = {
-                    name: 'ApiError',
-                    error: response.statusText,
-                    status: response.status,
-                    message: `Request failed (${response.status} ${response.statusText})`,
-                    path: url,
-                };
-            }
-
-            throw apiError;
+            throw createApiError(response, responseData, url);
         }
 
         return {
@@ -241,7 +156,7 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
     ): Promise<Response> {
         let response = await fetch(url, requestInit);
 
-        if (response.status !== 401) {
+        if (!USE_AUTH || response.status !== 401) {
             return response;
         }
 
@@ -255,14 +170,14 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
     }
 
     async function request<T>(
-        method: string,
+        method: HttpMethod,
         apiUrl: string,
         url: string,
         data?: unknown,
         config?: AdapterRequestConfigType
     ): Promise<AdapterResponse<T>> {
         const requestUrl = buildURL(apiUrl, url);
-        let headers = await buildHeaders(config);
+        const headers = await buildHeaders(config);
 
         const response = await fetchWithAuthRetry(
             requestUrl,
@@ -291,7 +206,7 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
                 ? `${requestUrl}?${params.toString()}`
                 : requestUrl;
 
-            let headers = await buildHeaders(config);
+            const headers = await buildHeaders(config);
 
             const response = await fetchWithAuthRetry(
                 requestUrlWithParams,
