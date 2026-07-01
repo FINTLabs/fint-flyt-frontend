@@ -112,9 +112,8 @@ app.get(`${BASE_PATH}/auth/header`, (req, res) => {
         });
     }
 
-    res.json({
-        authorization,
-    });
+    res.set('Authorization', authorization);
+    res.sendStatus(200);
 });
 
 const spaRegex = new RegExp(`^${BASE_PATH}(?:/.*)?$`);

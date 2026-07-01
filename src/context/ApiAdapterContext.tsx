@@ -67,24 +67,40 @@ const apiAdapterDefaultValues: apiAdapterState = {
 const ApiAdapterContext = createContext<apiAdapterState>(apiAdapterDefaultValues);
 
 const APIAdapterProvider = ({ children }: ContextProps) => {
-    const tokenRef = useRef<string>();
     const baseURL: string = useMemo(() => BASE_PATH, []);
 
-    async function getAccessToken(): Promise<string | undefined> {
+    const tokenRef = useRef<string>();
+    const tokenPromiseRef = useRef<Promise<string> | null>(null);
+
+    async function getAuthorizationHeader(): Promise<string> {
         if (tokenRef.current) {
             return tokenRef.current;
         }
 
-        const response = await fetch(`${baseURL}/auth/header`);
-
-        if (!response.ok) {
-            throw new Error('Kunne ikke hente token');
+        if (tokenPromiseRef.current) {
+            return tokenPromiseRef.current;
         }
 
-        const data = await response.json();
+        tokenPromiseRef.current = fetch(`${baseURL}/auth/header`)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Failed to fetch authorization header');
+                }
 
-        tokenRef.current = data.authorization;
-        return tokenRef.current;
+                const authorization = response.headers.get('Authorization');
+
+                if (!authorization) {
+                    throw new Error('Authorization header missing');
+                }
+
+                tokenRef.current = authorization;
+                return authorization;
+            })
+            .finally(() => {
+                tokenPromiseRef.current = null;
+            });
+
+        return tokenPromiseRef.current;
     }
 
     function buildURL(apiUrl: string, url: string): string {
@@ -102,7 +118,7 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
         });
 
         try {
-            const authorizationHeader = await getAccessToken();
+            const authorizationHeader = await getAuthorizationHeader();
 
             if (authorizationHeader) {
                 headers.set('Authorization', authorizationHeader);
