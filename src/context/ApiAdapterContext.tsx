@@ -150,8 +150,11 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
             'Content-Type': 'application/json',
         });
 
-        const authorization = await getAuthorizationHeader();
-        headers.set('Authorization', authorization);
+        if (baseURL) {
+            console.log("setting headers")
+            const authorization = await getAuthorizationHeader();
+            headers.set('Authorization', authorization);
+        }
 
         config?.headers?.forEach((value, key) => {
             headers.set(key, value);
