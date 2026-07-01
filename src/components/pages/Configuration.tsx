@@ -36,9 +36,7 @@ import { Button, CheckboxGroup, Heading, HStack, VStack, Checkbox } from '@navik
 import { AuthorizationContext } from '../../context/AuthorizationContext';
 import useConfigurationRepository from '../../api/useConfigurationRepository';
 import useIntegrationRepository from '../../api/useIntegrationRepository';
-import { ProblemDetail } from '../../context/ApiAdapterContext';
-import { Simulate } from 'react-dom/test-utils';
-import load = Simulate.load;
+import { ProblemDetail } from '../../context/utils/apiErrorUtils';
 
 const Configuration: RouteComponent = () => {
     const { getInstanceElementMetadata, setInstanceElementMetadata } =
@@ -138,7 +136,6 @@ const Configuration: RouteComponent = () => {
     }, [])
 
     const handleAlertMessageOnError = useCallback((error: ProblemDetail) => {
-        console.log('handleAlertMessageOnError error', error);
         if (error.status) {
             setAlertContent({
                 severity: 'error',
