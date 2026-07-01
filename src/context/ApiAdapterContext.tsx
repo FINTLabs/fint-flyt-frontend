@@ -75,7 +75,7 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
             return tokenRef.current;
         }
 
-        const response = await fetch(`${baseURL}/auth/header`;
+        const response = await fetch(`${baseURL}/auth/header`);
 
         if (!response.ok) {
             throw new Error('Kunne ikke hente token');
