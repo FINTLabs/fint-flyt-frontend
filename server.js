@@ -21,14 +21,6 @@ const isStaticAsset = (url) =>
 
 const isHealthOrMetrics = (url) => url === `${BASE_PATH}/health` || url === `${BASE_PATH}/metrics`;
 
-export function extractAuthorizationHeader(req) {
-    const authorization = req.headers.authorization;
-
-    return typeof authorization === 'string'
-        ? authorization
-        : null;
-}
-
 morgan.token('short-date', () => new Date().toISOString());
 morgan.token('remote', (req) => req.ip || req.connection?.remoteAddress || '-');
 const conciseFormat = ':short-date :method :url :status :response-time ms :remote';
@@ -61,7 +53,6 @@ app.use(
                 manifestSrc: ["'self'", 'https://idp.felleskomponent.no'],
                 scriptSrc: [
                     "'self'",
-                    "'unsafe-inline'", // for streng?
                 ],
                 styleSrc: ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
                 fontSrc: ["'self'", 'data:', 'https://fonts.gstatic.com'],
@@ -87,11 +78,6 @@ app.use(
     })
 );
 
-app.use((req, res, next) => {
-    console.log(JSON.stringify(req.headers, null, 2));
-    next();
-});
-
 app.use(
     `${BASE_PATH}/`,
     express.static(DIST_DIR, {
@@ -104,9 +90,9 @@ app.use(
 app.get(`${BASE_PATH}/health`, (req, res) => res.status(200).send('OK'));
 
 app.get(`${BASE_PATH}/auth/header`, (req, res) => {
-    const authorization = extractAuthorizationHeader(req);
+    const authorization = req.headers.authorization;
 
-    if (!authorization) {
+    if (!authorization || typeof authorization !== 'string') {
         return res.status(401).json({
             message: 'Authorization-header mangler',
         });

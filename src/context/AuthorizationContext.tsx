@@ -49,28 +49,6 @@ const AuthorizationProvider = ({ children, basePath }: ContextProps & { basePath
     >();
 
     const logoutUrl = useMemo(() => `${basePath}/_oauth/logout`, [basePath]);
-    const tokenUrl = useMemo(() => `${basePath}/_oauth`, [basePath]);
-    const fint_access_token_Url = useMemo(() => 'https://idp.felleskomponent.no/nidp/oauth/nam/token', []);
-
-    const getAccessToken = async () => {
-        try {
-            const response = await fetch(`${basePath}/_oauth`);
-
-            if (!response.ok) {
-                throw new Error('Kunne ikke hente token');
-            }
-
-            const data = await response.json();
-
-            console.log("DATA:", data);
-
-            return data.access_token;
-        } catch (error) {
-            console.error('Feil ved henting av token', error);
-            return undefined;
-        }
-
-    }
 
     const getAuthorization = async () => {
         try {

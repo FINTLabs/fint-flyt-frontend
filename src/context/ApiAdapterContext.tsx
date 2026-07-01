@@ -1,6 +1,7 @@
 import { ContextProps } from './constants/interface';
-import { createContext, useMemo, useRef, useState } from 'react';
-const BASE_PATH = process.env.BASE_PATH || '';
+import { createContext, useMemo, useRef } from 'react';
+
+const BASE_PATH = process.env.BASE_PATH ?? '';
 
 export type AdapterRequestConfigType = {
     params?: Record<string, string | string[] | number | boolean | null | undefined>;
@@ -69,12 +70,31 @@ const ApiAdapterContext = createContext<apiAdapterState>(apiAdapterDefaultValues
 const APIAdapterProvider = ({ children }: ContextProps) => {
     const baseURL: string = useMemo(() => BASE_PATH, []);
 
-    const tokenRef = useRef<string>();
+    const tokenRef = useRef<string | null>(null);
+    const tokenExpiresAtRef = useRef<number>(0);
     const tokenPromiseRef = useRef<Promise<string> | null>(null);
 
+    function getTokenExpiration(token: string): number {
+        const jwt = token.replace('Bearer ', '');
+        const payload = JSON.parse(atob(jwt.split('.')[1]));
+
+        return payload.exp * 1000;
+    }
+
+    function isTokenValid(): boolean {
+        if (!tokenRef.current) {
+            return false;
+        }
+
+        // forny token ett minutt før utløp
+        const refreshBufferMs = 60_000;
+
+        return Date.now() < tokenExpiresAtRef.current - refreshBufferMs;
+    }
+
     async function getAuthorizationHeader(): Promise<string> {
-        if (tokenRef.current) {
-            return tokenRef.current;
+        if (isTokenValid()) {
+            return tokenRef.current!;
         }
 
         if (tokenPromiseRef.current) {
@@ -94,6 +114,8 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
                 }
 
                 tokenRef.current = authorization;
+                tokenExpiresAtRef.current = getTokenExpiration(authorization);
+
                 return authorization;
             })
             .finally(() => {
@@ -103,13 +125,24 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
         return tokenPromiseRef.current;
     }
 
-    function buildURL(apiUrl: string, url: string): string {
-        if (!baseURL || baseURL === '/') {
-            return url;
+    function clearAuthorizationHeader(): void {
+        tokenRef.current = null;
+        tokenExpiresAtRef.current = 0;
+        tokenPromiseRef.current = null;
+    }
+
+    function createAbortSignal(timeout?: number): AbortSignal | undefined {
+        if (!timeout) {
+            return undefined;
         }
 
-        // return `${apiUrl}${baseURL}${url}`;
-        return `${baseURL}${url}`;
+        const controller = new AbortController();
+        setTimeout(() => controller.abort(), timeout);
+        return controller.signal;
+    }
+
+    function buildURL(apiUrl: string, url: string): string {
+        return !baseURL || baseURL === '/' ? url : `${baseURL}${url}`;
     }
 
     async function buildHeaders(config?: AdapterRequestConfigType): Promise<Headers> {
@@ -117,21 +150,34 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
             'Content-Type': 'application/json',
         });
 
-        try {
-            const authorizationHeader = await getAuthorizationHeader();
-
-            if (authorizationHeader) {
-                headers.set('Authorization', authorizationHeader);
-            }
-        } catch (error) {
-            console.error('Kunne ikke hente token', error);
-        }
+        const authorization = await getAuthorizationHeader();
+        headers.set('Authorization', authorization);
 
         config?.headers?.forEach((value, key) => {
             headers.set(key, value);
         });
 
         return headers;
+    }
+
+    function buildSearchParams(params?: AdapterRequestConfigType['params']): URLSearchParams {
+        const searchParams = new URLSearchParams();
+
+        if (!params) {
+            return searchParams;
+        }
+
+        Object.entries(params).forEach(([key, value]) => {
+            if (value == null) {
+                return;
+            }
+
+            (Array.isArray(value) ? value : [value]).forEach((v) => {
+                searchParams.append(key, String(v));
+            });
+        });
+
+        return searchParams;
     }
 
     async function handleResponse<T>(response: Response, url: string): Promise<AdapterResponse<T>> {
@@ -185,43 +231,74 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
         };
     }
 
+    async function fetchWithAuthRetry(
+        url: RequestInfo | URL,
+        requestInit: RequestInit,
+        config?: AdapterRequestConfigType
+    ): Promise<Response> {
+        let response = await fetch(url, requestInit);
+
+        if (response.status !== 401) {
+            return response;
+        }
+
+        clearAuthorizationHeader();
+        const headers = await buildHeaders(config);
+
+        return fetch(url, {
+            ...requestInit,
+            headers,
+        });
+    }
+
+    async function request<T>(
+        method: string,
+        apiUrl: string,
+        url: string,
+        data?: unknown,
+        config?: AdapterRequestConfigType
+    ): Promise<AdapterResponse<T>> {
+        const requestUrl = buildURL(apiUrl, url);
+        let headers = await buildHeaders(config);
+
+        const response = await fetchWithAuthRetry(
+            requestUrl,
+            {
+                method,
+                headers,
+                body: data ? JSON.stringify(data) : undefined,
+                signal: createAbortSignal(config?.timeout),
+            },
+            config
+        );
+
+        return handleResponse<T>(response, url);
+    }
+
     async function get<T>(
         apiUrl: string,
         url: string,
         config?: AdapterRequestConfigType
     ): Promise<AdapterResponse<T>> {
         try {
-            const fullURL = buildURL(apiUrl, url);
-            const searchParams = new URLSearchParams();
+            const requestUrl = buildURL(apiUrl, url);
+            const params = buildSearchParams(config?.params);
 
-            if (config?.params) {
-                Object.entries(config.params).forEach(([key, value]) => {
-                    if (value != null) {
-                        (Array.isArray(value) ? value : [value]).forEach((v) => {
-                            searchParams.append(key, String(v));
-                        });
-                    }
-                });
-            }
+            const requestUrlWithParams = params.toString()
+                ? `${requestUrl}?${params.toString()}`
+                : requestUrl;
 
-            const finalURL = searchParams.toString()
-                ? `${fullURL}?${searchParams.toString()}`
-                : fullURL;
+            let headers = await buildHeaders(config);
 
-            const headers = await buildHeaders(config);
-
-            const controller = new AbortController();
-            const signal = controller.signal;
-
-            if (config?.timeout) {
-                setTimeout(() => controller.abort(), config.timeout);
-            }
-
-            const response = await fetch(finalURL, {
-                method: 'GET',
-                headers,
-                signal,
-            });
+            const response = await fetchWithAuthRetry(
+                requestUrlWithParams,
+                {
+                    method: 'GET',
+                    headers,
+                    signal: createAbortSignal(config?.timeout),
+                },
+                config
+            );
 
             return handleResponse<T>(response, url);
         } catch (error) {
@@ -236,17 +313,7 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
         data?: unknown,
         config?: AdapterRequestConfigType
     ): Promise<AdapterResponse<T>> {
-        const fullURL = buildURL(apiUrl, url);
-
-        const headers = await buildHeaders(config);
-
-        const response = await fetch(fullURL, {
-            method: 'POST',
-            headers,
-            body: data ? JSON.stringify(data) : undefined,
-        });
-
-        return handleResponse<T>(response, url);
+        return request<T>('POST', apiUrl, url, data, config);
     }
 
     async function patch<T>(
@@ -255,17 +322,7 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
         data?: unknown,
         config?: AdapterRequestConfigType
     ): Promise<AdapterResponse<T>> {
-        const fullURL = buildURL(apiUrl, url);
-
-        const headers = await buildHeaders(config);
-
-        const response = await fetch(fullURL, {
-            method: 'PATCH',
-            headers,
-            body: data ? JSON.stringify(data) : undefined,
-        });
-
-        return handleResponse<T>(response, url);
+        return request<T>('PATCH', apiUrl, url, data, config);
     }
 
     async function deleteFetch<T>(
@@ -273,16 +330,7 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
         url: string,
         config?: AdapterRequestConfigType
     ): Promise<AdapterResponse<T>> {
-        const fullURL = buildURL(apiUrl, url);
-
-        const headers = await buildHeaders(config);
-
-        const response = await fetch(fullURL, {
-            method: 'DELETE',
-            headers,
-        });
-
-        return handleResponse<T>(response, url);
+        return request<T>('DELETE', apiUrl, url, undefined, config);
     }
 
     return (
