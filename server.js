@@ -21,6 +21,14 @@ const isStaticAsset = (url) =>
 
 const isHealthOrMetrics = (url) => url === `${BASE_PATH}/health` || url === `${BASE_PATH}/metrics`;
 
+export function extractAuthorizationHeader(req) {
+    const authorization = req.headers.authorization;
+
+    return typeof authorization === 'string'
+        ? authorization
+        : null;
+}
+
 morgan.token('short-date', () => new Date().toISOString());
 morgan.token('remote', (req) => req.ip || req.connection?.remoteAddress || '-');
 const conciseFormat = ':short-date :method :url :status :response-time ms :remote';
@@ -79,6 +87,11 @@ app.use(
     })
 );
 
+app.use((req, res, next) => {
+    console.log(JSON.stringify(req.headers, null, 2));
+    next();
+});
+
 app.use(
     `${BASE_PATH}/`,
     express.static(DIST_DIR, {
@@ -87,7 +100,22 @@ app.use(
     })
 );
 
+
 app.get(`${BASE_PATH}/health`, (req, res) => res.status(200).send('OK'));
+
+app.get(`${BASE_PATH}/auth/header`, (req, res) => {
+    const authorization = extractAuthorizationHeader(req);
+
+    if (!authorization) {
+        return res.status(401).json({
+            message: 'Authorization-header mangler',
+        });
+    }
+
+    res.json({
+        authorization,
+    });
+});
 
 const spaRegex = new RegExp(`^${BASE_PATH}(?:/.*)?$`);
 app.get(spaRegex, (req, res) => {

@@ -1,5 +1,5 @@
 import { ContextProps } from './constants/interface';
-import { createContext, useMemo } from 'react';
+import { createContext, useMemo, useRef, useState } from 'react';
 const BASE_PATH = process.env.BASE_PATH || '';
 
 export type AdapterRequestConfigType = {
@@ -67,7 +67,25 @@ const apiAdapterDefaultValues: apiAdapterState = {
 const ApiAdapterContext = createContext<apiAdapterState>(apiAdapterDefaultValues);
 
 const APIAdapterProvider = ({ children }: ContextProps) => {
+    const tokenRef = useRef<string>();
     const baseURL: string = useMemo(() => BASE_PATH, []);
+
+    async function getAccessToken(): Promise<string | undefined> {
+        if (tokenRef.current) {
+            return tokenRef.current;
+        }
+
+        const response = await fetch(`${baseURL}/auth/header`;
+
+        if (!response.ok) {
+            throw new Error('Kunne ikke hente token');
+        }
+
+        const data = await response.json();
+
+        tokenRef.current = data.authorization;
+        return tokenRef.current;
+    }
 
     function buildURL(apiUrl: string, url: string): string {
         if (!baseURL || baseURL === '/') {
@@ -78,10 +96,20 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
         return `${baseURL}${url}`;
     }
 
-    function buildHeaders(config?: AdapterRequestConfigType): Headers {
+    async function buildHeaders(config?: AdapterRequestConfigType): Promise<Headers> {
         const headers = new Headers({
             'Content-Type': 'application/json',
         });
+
+        try {
+            const authorizationHeader = await getAccessToken();
+
+            if (authorizationHeader) {
+                headers.set('Authorization', authorizationHeader);
+            }
+        } catch (error) {
+            console.error('Kunne ikke hente token', error);
+        }
 
         config?.headers?.forEach((value, key) => {
             headers.set(key, value);
@@ -89,7 +117,6 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
 
         return headers;
     }
-
 
     async function handleResponse<T>(response: Response, url: string): Promise<AdapterResponse<T>> {
         const contentType = response.headers.get('content-type');
@@ -111,7 +138,6 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
                 'message' in responseData &&
                 typeof (responseData as any).message === 'string' &&
                 (responseData as any).message.length > 0;
-
 
             if (hasValidErrorMessage) {
                 const problem = responseData as Partial<ProblemDetail>;
@@ -166,7 +192,7 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
                 ? `${fullURL}?${searchParams.toString()}`
                 : fullURL;
 
-            const headers = buildHeaders(config);
+            const headers = await buildHeaders(config);
 
             const controller = new AbortController();
             const signal = controller.signal;
@@ -196,7 +222,7 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
     ): Promise<AdapterResponse<T>> {
         const fullURL = buildURL(apiUrl, url);
 
-        const headers = buildHeaders(config);
+        const headers = await buildHeaders(config);
 
         const response = await fetch(fullURL, {
             method: 'POST',
@@ -215,7 +241,7 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
     ): Promise<AdapterResponse<T>> {
         const fullURL = buildURL(apiUrl, url);
 
-        const headers = buildHeaders(config);
+        const headers = await buildHeaders(config);
 
         const response = await fetch(fullURL, {
             method: 'PATCH',
@@ -233,7 +259,7 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
     ): Promise<AdapterResponse<T>> {
         const fullURL = buildURL(apiUrl, url);
 
-        const headers = buildHeaders(config);
+        const headers = await buildHeaders(config);
 
         const response = await fetch(fullURL, {
             method: 'DELETE',
