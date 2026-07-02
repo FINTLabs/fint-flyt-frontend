@@ -71,11 +71,6 @@
             "version": "Versjon ",
             "comment": "Kommentar",
             "reqFieldMsg": "Kommentar er påkrevd ved ferdigstilling",
-            "valueConverting": {
-                "custom": "Egendefinerte",
-                "application": "Flyt",
-                "destination": "Destinasjon"
-            },
             "label": {
                 "valueConverting": "Verdikonvertering",
                 "customValue": "Egendefinert verdi",
@@ -100,7 +95,8 @@
                 "convertCollectionElements": "Konvertering av samlingselementer"
             },
             "metadataPanel": {
-                "header": "Metadata",
+                "header": "Innkommende data",
+                "metadata": "Metadata",
                 "valueConverting": "Verdikonvertering",
                 "version": "Versjon",
                 "metadataWarning": "Det fins nyere versjon av metadata",
@@ -254,7 +250,6 @@
                         }
                     }
                 }
-
             },
             "filter": {
                 "filterMenuButtonText": "Filtrer tabellen",
@@ -532,9 +527,6 @@
             },
             "header": "Verdikonvertering",
             "errorMessage": "Det oppsto en feil under henting av data, prøv igjen senere.",
-            "custom": "Egendefinerte",
-            "application": "Flyt",
-            "destination": "Destinasjon",
             "panelHeader": "Verdikonverteringer",
             "newHeader": "Ny verdikonvertering",
             "fromApplicationId": "Applikasjon",
