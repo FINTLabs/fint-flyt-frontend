@@ -53,7 +53,6 @@ app.use(
                 manifestSrc: ["'self'", 'https://idp.felleskomponent.no'],
                 scriptSrc: [
                     "'self'",
-                    "'unsafe-inline'", // for streng?
                 ],
                 styleSrc: ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
                 fontSrc: ["'self'", 'data:', 'https://fonts.gstatic.com'],
@@ -87,7 +86,21 @@ app.use(
     })
 );
 
+
 app.get(`${BASE_PATH}/health`, (req, res) => res.status(200).send('OK'));
+
+app.get(`${BASE_PATH}/auth/header`, (req, res) => {
+    const authorization = req.headers.authorization;
+
+    if (!authorization || typeof authorization !== 'string') {
+        return res.status(401).json({
+            message: 'Authorization-header mangler',
+        });
+    }
+
+    res.set('Authorization', authorization);
+    res.sendStatus(200);
+});
 
 const spaRegex = new RegExp(`^${BASE_PATH}(?:/.*)?$`);
 app.get(spaRegex, (req, res) => {
