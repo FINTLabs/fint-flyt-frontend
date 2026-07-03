@@ -43,7 +43,7 @@ describe('Testing create new configuration from new integration', () => {
         cy.get('#value-converting-panel').should('be.visible');
         cy.get('#outgoing-form-panel').should('be.visible');
 
-        cy.get('#metadata-content-panel > .navds-vstack').children().should('have.length', 16);
+        cy.get('#metadata-content-panel #metadata-content').children().should('have.length', 16);
     });
 
     it('should open panels in outgoing data', () => {

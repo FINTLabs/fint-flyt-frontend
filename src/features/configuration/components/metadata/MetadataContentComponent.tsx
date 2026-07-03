@@ -22,7 +22,7 @@ const MetadataContentComponent: React.FunctionComponent<Props> = ({
 
     return (
         <>
-            <VStack gap={'1'}>
+            <VStack gap={'1'} id={'metadata-content'}>
                 {content.instanceValueMetadata.map((valueMetadata: IInstanceValueMetadata) => {
                     const reference: string = keyToReferenceFunction(valueMetadata.key);
                     return (
