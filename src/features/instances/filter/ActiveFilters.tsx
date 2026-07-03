@@ -1,11 +1,11 @@
 import { Children, FC, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, Chips, HStack } from '@navikt/ds-react';
-import { XMarkIcon } from '@navikt/aksel-icons';
 import { useFilters } from './FilterContext';
 import { Filters } from './types';
 import { useFilterOptions } from './OptionsContext';
 import { getFilterLabel, SPECIAL_FILTERS } from './util';
+import { XMarkIcon } from '../../../components/icons';
 
 const ActiveFilters: FC = () => {
     const { t } = useTranslation('translations', {
@@ -23,7 +23,7 @@ const ActiveFilters: FC = () => {
     }, [filters, isSaved]);
 
     const activeFilters: [key: string, value: Filters[keyof Filters]][] = useMemo(() => {
-        return Object.entries(savedFilters).filter(([_, value]) => {
+        return Object.entries(savedFilters).filter(([, value]) => {
             if (Array.isArray(value)) return value.length > 0;
             return value !== null && value !== '' && value !== undefined;
         });

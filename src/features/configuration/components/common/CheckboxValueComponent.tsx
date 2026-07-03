@@ -14,7 +14,7 @@ interface Props {
 }
 
 const CheckboxValueComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivElement, Props>(
-    (props: Props, ref) => {
+    (props: Props) => {
         const { completed } = useContext(ConfigurationContext);
 
         return (

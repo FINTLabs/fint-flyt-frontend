@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { ReactElement, useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Alert, Box, Button, Checkbox, Dropdown, HStack, Table } from '@navikt/ds-react';
+import { Alert, Box, Button, Checkbox, Dropdown, Table } from '@navikt/ds-react';
 import { format } from 'date-fns';
 import { IEventNew, ISummary } from '../types/Event';
 import InstancePanel from './InstancePanel';
@@ -10,7 +10,6 @@ import useInstanceRepository from '../../../api/useInstanceRepository';
 import { IIntegrationMetadata } from '../../configuration/types/Metadata/IntegrationMetadata';
 import { SourceApplicationContext } from '../../../context/SourceApplicationContext';
 import { IAlertMessage } from '../../../components/types/TableTypes';
-import { MenuElipsisVerticalIcon } from '@navikt/aksel-icons';
 import CustomStatusDialogComponent from './CustomStatusDialogComponent';
 import { useFilters } from '../filter/FilterContext';
 import useInstanceFlowTrackingRepository from '../../../api/useInstanceFlowTrackingRepository';
@@ -19,6 +18,7 @@ import { AuthorizationContext } from '../../../context/AuthorizationContext';
 import { ISourceApplication } from '../../configuration/types/SourceApplication';
 import LoadMorePagination from '../../../components/organisms/pagination/LoadMorePagination';
 import { useTableSelect } from '../batchProcess/TableSelectContext';
+import { MenuElipsisVerticalIcon } from '../../../components/icons';
 
 interface Props {
     onError: (error: IAlertMessage | undefined) => void;
@@ -213,9 +213,11 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
                                         selectedSize > 0 && selectedSize !== summaryList?.length
                                     }
                                     onChange={() => {
-                                        selectedSize
-                                            ? removeAllEvents()
-                                            : addAllEvents(summaryList);
+                                        if (selectedSize) {
+                                            removeAllEvents();
+                                        } else {
+                                            addAllEvents(summaryList);
+                                        }
                                     }}
                                     hideLabel
                                 >

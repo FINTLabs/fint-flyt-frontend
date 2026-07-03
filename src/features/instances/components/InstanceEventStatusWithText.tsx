@@ -3,12 +3,12 @@ import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BodyShort, HStack, Tooltip, VStack } from '@navikt/ds-react';
 import {
-    PersonPencilFillIcon,
     CheckmarkCircleFillIcon,
-    XMarkOctagonFillIcon,
     InformationSquareFillIcon,
     MinusCircleIcon,
-} from '@navikt/aksel-icons';
+    PersonPencilFillIcon,
+    XMarkOctagonFillIcon,
+} from '../../../components/icons';
 
 type InstanceEventStatusWithTextProps = {
     event: string;

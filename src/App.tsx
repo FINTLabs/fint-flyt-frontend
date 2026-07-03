@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { BrowserRouter } from 'react-router';
 import { ThemeProvider } from '@mui/material';
 import './global.css';
+
 import theme from './util/styles/theme/theme';
 import Main from './components/pages/Main';
 import { APIAdapterProvider } from './context/ApiAdapterContext';

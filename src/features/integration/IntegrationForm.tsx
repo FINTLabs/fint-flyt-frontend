@@ -153,7 +153,7 @@ export const IntegrationForm: React.FunctionComponent<Props> = () => {
 
     return (
         <PageTemplate id={'new'} keyPrefix={'pages.integrationForm'}>
-            <FormPageWrapper id={'integration-form'} variant={'contained'}>
+            <FormPageWrapper id={'integration-form'}>
                 <FormProvider {...methods}>
                     <form onSubmit={methods.handleSubmit(onSubmit)}>
                         <VStack gap={'6'}>

@@ -13,7 +13,7 @@ import {
     isCollectionFieldReference,
     isFieldReference,
 } from '../util/FieldReferenceUtils';
-import MetadataContentComponent from './metadata/MetadataContentComponent';
+import MetadataContent from './metadata/MetadataContent';
 import {
     toInstanceCollectionFieldReference,
     toInstanceFieldReference,
@@ -24,16 +24,16 @@ import { IntegrationContext } from '../../../context/IntegrationContext';
 import { useFormContext } from 'react-hook-form';
 import { ConfigurationContext } from '../../../context/ConfigurationContext';
 import { Box, Heading, HelpText, HStack, Select, Tooltip, VStack } from '@navikt/ds-react';
-import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
 import useValueConvertingRepository from '../../../api/useValueConvertingRepository';
 import MetadataContentWrapper from './metadata/MetadataContentWrapper';
 import { FormatListNumbered } from '@mui/icons-material';
+import { WarningTriangleIcon } from '../../../components/icons';
 
 export type Props = {
     referencesForCollectionsToShow: string[];
 };
 
-const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => {
+const IncomingData: React.FunctionComponent<Props> = (props: Props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.configuration' });
     const ValueConvertingRepository = useValueConvertingRepository();
     const methods = useFormContext();
@@ -172,7 +172,7 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
                     <HStack gap={'1'} align={'center'}>
                         {availableVersions.some((av) => av.version > Number(version)) && (
                             <Tooltip content={t('metadataPanel.metadataWarning')}>
-                                <ExclamationmarkTriangleFillIcon
+                                <WarningTriangleIcon
                                     color={'orange'}
                                     title="a11y-title"
                                     fontSize="1.5rem"
@@ -205,7 +205,7 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
                         id={'metadata-content-panel'}
                         title={t('metadataPanel.metadata')}
                     >
-                        <MetadataContentComponent
+                        <MetadataContent
                             content={instanceElementMetadata}
                             keyToReferenceFunction={(key: string) => toInstanceFieldReference(key)}
                         />
@@ -228,7 +228,7 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
                                 icon={<FormatListNumbered />}
                                 active={true}
                             >
-                                <MetadataContentComponent
+                                <MetadataContent
                                     content={objectCollectionMetadata.objectMetadata}
                                     keyToReferenceFunction={(key: string) =>
                                         toInstanceCollectionFieldReference(index, key)
@@ -259,4 +259,4 @@ const IncomingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
     );
 };
 
-export default IncomingDataComponent;
+export default IncomingData;

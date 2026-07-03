@@ -1,0 +1,16 @@
+
+.tag {
+    width: fit-content;
+    cursor: move;
+    background-color: white;
+    font-size: small;
+    border-color: var(--a-border-subtle);
+}
+
+.dragging {
+    opacity: 0.4;
+}
+
+.notDragging {
+    opacity: 1;
+}

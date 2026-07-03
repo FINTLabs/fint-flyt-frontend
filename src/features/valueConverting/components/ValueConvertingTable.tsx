@@ -1,7 +1,6 @@
 import React, { ReactElement, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
-import { MenuElipsisVerticalCircleIcon } from '@navikt/aksel-icons';
 import { IValueConverting } from '../types/ValueConverting';
 import {
     getDestinationDisplayName,
@@ -22,6 +21,7 @@ import useValueConvertingRepository from '../../../api/useValueConvertingReposit
 import TableLoader from '../../../components/molecules/TableLoader';
 import { ISourceApplication } from '../../configuration/types/SourceApplication';
 import { AuthorizationContext } from '../../../context/AuthorizationContext';
+import { MenuElipsisVerticalCircleIcon } from '../../../components/icons';
 
 type Props = {
     onValueConvertingSelected: (id: number) => void;

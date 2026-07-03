@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { testObjectTemplateSak } from '../defaults/FormTemplates';
 import ConfigurationMappingComponent from './mapping/ConfigurationMappingComponent';
 import { Box, Button, Heading, HelpText, HStack, Spacer } from '@navikt/ds-react';
-import { ChevronLeftIcon, ChevronRightIcon } from '@navikt/aksel-icons';
+import { ChevronLeftIcon, ChevronRightIcon } from '../../../components/icons';
 
 export interface Props {
     onCollectionReferencesInEditContextChange: (collectionReferences: string[]) => void;

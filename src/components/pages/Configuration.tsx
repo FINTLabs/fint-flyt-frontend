@@ -5,7 +5,7 @@ import OutgoingDataComponent from '../../features/configuration/components/Outgo
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
-import IncomingDataComponent from '../../features/configuration/components/IncomingDataComponent';
+import IncomingData from '../../features/configuration/components/IncomingData';
 import AlertMessage from '../molecules/AlertMessage';
 import { IntegrationContext } from '../../context/IntegrationContext';
 import { useTranslation } from 'react-i18next';
@@ -321,7 +321,7 @@ const Configuration: RouteComponent = () => {
                                 />
 
                                 <HStack gap={'8'} wrap={false}>
-                                    <IncomingDataComponent
+                                    <IncomingData
                                         referencesForCollectionsToShow={
                                             collectionReferencesInEditContext
                                         }

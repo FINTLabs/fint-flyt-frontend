@@ -58,7 +58,7 @@ const AuthorizationProvider = ({ children, basePath }: ContextProps & { basePath
             } else {
                 setAuthorized(false);
             }
-        } catch (err) {
+        } catch {
             setAuthorized(false);
         }
     };
@@ -68,7 +68,7 @@ const AuthorizationProvider = ({ children, basePath }: ContextProps & { basePath
             const response = AuthorizationRepository.getUserSourceApplications();
             const stringArray = (await response).data.sourceApplicationIds.map((id) => String(id));
             setActiveUserSourceApps(stringArray);
-        } catch (err) {
+        } catch {
             setActiveUserSourceApps([]);
         }
     };
@@ -99,10 +99,12 @@ const AuthorizationProvider = ({ children, basePath }: ContextProps & { basePath
     const getUser = async () => {
         try {
             const response = await AuthorizationRepository.getUser();
-            response.data.userPermissionPage
-                ? sethasAccessToUserPermissionPage(true)
-                : sethasAccessToUserPermissionPage(false);
-        } catch (err) {
+            if (response.data.userPermissionPage) {
+                sethasAccessToUserPermissionPage(true);
+            } else {
+                sethasAccessToUserPermissionPage(false);
+            }
+        } catch {
             sethasAccessToUserPermissionPage(false);
         }
     };

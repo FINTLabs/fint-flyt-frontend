@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { ReactElement } from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
-import { PlusIcon, MinusIcon } from '@navikt/aksel-icons';
 import { Box, HStack } from '@navikt/ds-react';
 import IconButton from '../../../../../components/atoms/IconButton';
+import { MinusIcon, PlusIcon } from '../../../../../components/icons';
 
 interface Props {
     absoluteKey: string;

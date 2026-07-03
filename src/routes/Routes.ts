@@ -1,4 +1,4 @@
-import React, { lazy } from 'react';
+import { lazy } from 'react';
 import IRoute from './Route';
 
 const Dashboard = lazy(() => import('../components/pages/Dashboard'));

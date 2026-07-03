@@ -1,16 +1,16 @@
 import React, { FC, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { ActionMenu, BodyLong, Box, Button, HStack, Modal, Table } from '@navikt/ds-react';
-import {
-    ArrowsCirclepathIcon,
-    MenuElipsisVerticalIcon,
-    ArrowCirclepathReverseIcon,
-} from '@navikt/aksel-icons';
 import { useTableSelect } from './TableSelectContext';
 import useInstanceRepository from '../../../api/useInstanceRepository';
 import { ISourceApplication } from '../../configuration/types/SourceApplication';
 import { AuthorizationContext } from '../../../context/AuthorizationContext';
 import { useTranslation } from 'react-i18next';
 import TableLoader from '../../../components/molecules/TableLoader';
+import {
+    ArrowCirclepathReverseIcon,
+    ArrowsCirclepathIcon,
+    MenuElipsisVerticalIcon,
+} from '../../../components/icons';
 
 const BulkActions: FC = ({}) => {
     const InstanceRepository = useInstanceRepository();

@@ -3,10 +3,9 @@ import { Box } from '@navikt/ds-react';
 type FormWrapperProps = {
     children: JSX.Element;
     id?: string;
-    variant?: 'contained' | 'standalone';
 };
 
-const FormPageWrapper = ({ id, children, variant = 'standalone' }: FormWrapperProps) => {
+const FormPageWrapper = ({ id, children }: FormWrapperProps) => {
     return (
         <Box
             id={id}
