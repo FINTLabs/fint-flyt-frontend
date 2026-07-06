@@ -1,3 +1,6 @@
+import { Accordion, VStack } from '@navikt/ds-react';
+import * as React from 'react';
+
 import {
     IInstanceMetadataCategory,
     IInstanceMetadataContent,
@@ -5,10 +8,7 @@ import {
     IInstanceValueMetadata,
     ValueType,
 } from '../../types/Metadata/IntegrationMetadata';
-import * as React from 'react';
 import { DraggableTag } from '../common/dnd/DraggableTag';
-import { Accordion, VStack } from '@navikt/ds-react';
-
 import styles from "./MetadataContent.module.css"
 
 interface Props {
