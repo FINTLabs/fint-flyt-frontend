@@ -1,7 +1,12 @@
 // noinspection DuplicatedCode
 
-import { mockGenericAuthorizationRepository, mockGenericConfigurationRepository, mockGenericIntegrationRepository,
-    mockGenericResourceRepository, mockGenericSourceApplicationRepository, mockGenericValueConvertingRepository
+import {
+    mockGenericAuthorizationRepository,
+    mockGenericConfigurationRepository,
+    mockGenericIntegrationRepository,
+    mockGenericResourceRepository,
+    mockGenericSourceApplicationRepository,
+    mockGenericValueConvertingRepository,
 } from '../../utils/interceptions.js';
 
 function fillAll() {
