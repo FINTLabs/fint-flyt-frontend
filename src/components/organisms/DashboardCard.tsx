@@ -4,7 +4,7 @@ import { Box, Heading, Loader, VStack, BodyShort, HStack } from '@navikt/ds-reac
 import { Link as RouterLink } from 'react-router';
 import { useContext } from 'react';
 import { IntegrationContext } from '../../context/IntegrationContext';
-import { ArrowRightIcon } from '@navikt/aksel-icons';
+import { ArrowRightIcon } from '../icons';
 
 type Props = {
     content: string;

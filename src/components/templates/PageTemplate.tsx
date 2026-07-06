@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Box, Button, HelpText, HStack, VStack } from '@navikt/ds-react';
 import PageHeader from '../atoms/PageHeader';
 import { Link as RouterLink } from 'react-router';
-import { PencilWritingIcon, PlusIcon } from '@navikt/aksel-icons';
+import { PencilWritingIcon, PlusIcon } from '../icons';
 
 type HelperTextProps = {
     title?: string;

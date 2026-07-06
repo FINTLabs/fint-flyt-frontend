@@ -69,11 +69,6 @@
             "version": "Version ",
             "comment": "Comment",
             "reqFieldMsg": "Comment is required on completing configuration",
-            "valueConverting": {
-                "custom": "Custom",
-                "application": "Flyt",
-                "destination": "Destination"
-            },
             "label": {
                 "valueConverting": "Value converting",
                 "customValue": "Custom value",
@@ -98,7 +93,8 @@
                 "convertCollectionElements": "Converting collection elements"
             },
             "metadataPanel": {
-                "header": "Metadata",
+                "header": "Incoming data",
+                "metadata": "Metadata",
                 "valueConverting": "Value converting",
                 "version": "Version",
                 "metadataWarning": "There exists a newer version of metadata",
@@ -504,9 +500,6 @@
             },
             "header": "Value conversion",
             "errorMessage": "There was an error fetching data, try again later.",
-            "custom": "Custom",
-            "application": "Flyt",
-            "destination": "Destination",
             "panelHeader": "Value conversions",
             "newHeader": "New value conversion",
             "fromApplicationId": "Application",

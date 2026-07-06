@@ -107,7 +107,7 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
             const typedKey = key as keyof Filters;
             const val = patch[typedKey];
             if (val !== undefined) {
-                // @ts-ignore
+                // @ts-expect-error TypeScript klarer ikke å koble nøkkel og verdi fra Partial<Filters>
                 next[typedKey] = val;
             }
         });

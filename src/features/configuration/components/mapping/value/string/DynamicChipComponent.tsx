@@ -78,14 +78,15 @@ const DynamicChipComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivE
                 isOptionEqualToValue={() => false} // to allow multiple of same value, i.e. spaces
                 defaultValue={[]}
                 onChange={(event, newValue) => {
-                    newValue ? setValues(newValue) : null;
+                    if (newValue) {
+                        setValues(newValue);
+                    }
                     if (props.onChange && newValue) {
                         props.onChange(valueArrayToMappingString(newValue))
                     }
                 }}
                 renderTags={(tags: readonly string[]) =>
                     tags.map((tag: string, index: number) => {
-                            // eslint-disable-next-line react/jsx-key
                             return <Chip
                                 title={tag}
                                 sx={getTagStyles(tag, props.disabled)}

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useCallback, useEffect, useState } from 'react';
-import { ChevronLeftIcon, ChevronRightIcon } from '@navikt/aksel-icons';
 import { Button, HelpText, HStack } from '@navikt/ds-react';
+import { ChevronLeftIcon, ChevronRightIcon } from '../../../../components/icons';
 
 interface Props {
     order: number;

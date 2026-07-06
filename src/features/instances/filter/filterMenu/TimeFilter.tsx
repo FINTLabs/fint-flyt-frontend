@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { BriefcaseClockIcon, CalendarIcon, ClockDashedIcon } from '@navikt/aksel-icons';
 import {
     DatePicker,
     HStack,
@@ -14,6 +13,7 @@ import {
 import { useFilterOptions } from '../OptionsContext';
 import { useFilters } from '../FilterContext';
 import { setSingleValue } from '../util';
+import { BriefcaseClockIcon, CalendarIcon, ClockDashedIcon } from '../../../../components/icons';
 
 export default function TimeFilter() {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.instances.filter.timeCard' });

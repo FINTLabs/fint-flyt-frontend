@@ -1,10 +1,10 @@
 import { useContext } from 'react';
 import { useNavigate, Link as RouterLink } from 'react-router';
 import { Dropdown, Hide, InternalHeader, Show } from '@navikt/ds-react';
-import { MenuHamburgerIcon } from '@navikt/aksel-icons';
 import { useTranslation } from 'react-i18next';
 import routes from '../../routes/Routes';
 import { AuthorizationContext } from '../../context/AuthorizationContext';
+import { AppBarMenuIcon } from '../icons';
 
 const MenuItems = () => {
     const { t } = useTranslation('translations', { keyPrefix: 'menuItems' });
@@ -15,7 +15,7 @@ const MenuItems = () => {
             <Dropdown>
                 <Show below="lg" asChild>
                     <InternalHeader.Button as={Dropdown.Toggle}>
-                        <MenuHamburgerIcon style={{ fontSize: '1.5rem' }} title="Menu" />
+                        <AppBarMenuIcon style={{ fontSize: '1.5rem' }} title="Menu" />
                     </InternalHeader.Button>
                 </Show>
 

@@ -1,4 +1,3 @@
-import {ISelect} from "../../features/configuration/types/Select";
 
 export interface Page<T> {
     content: T[];

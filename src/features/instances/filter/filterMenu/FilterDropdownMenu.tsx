@@ -1,6 +1,5 @@
 import React, { FC, useCallback, useState } from 'react';
 import { ActionMenu, BodyShort, Button, HGrid, HStack, VStack } from '@navikt/ds-react';
-import { ChevronDownIcon, ChevronRightIcon, FilterIcon } from '@navikt/aksel-icons';
 import { useTranslation } from 'react-i18next';
 import { useFilters } from '../FilterContext';
 import TimeFilter from './TimeFilter';
@@ -8,6 +7,7 @@ import IntegrationFilter from './IntegrationFilter';
 import InstanceFilter from './InstanceFilter';
 import StatusFilter from './StatusFilter';
 import AdvancedFilter from './AdvancedFilter';
+import { ChevronDownIcon, ChevronRightIcon, FilterIcon } from '../../../../components/icons';
 
 export default function FilterDropdownMenu() {
     const { t } = useTranslation('translations', {

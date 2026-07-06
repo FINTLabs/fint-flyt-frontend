@@ -3,18 +3,20 @@ import { useDrag } from 'react-dnd';
 import { Tag as AkselTag } from '@navikt/ds-react';
 import { ValueType } from '../../../types/Metadata/IntegrationMetadata';
 import { Tooltip } from '@navikt/ds-react';
-
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import NumbersIcon from '@mui/icons-material/Numbers';
-import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
-import TextFieldsRoundedIcon from '@mui/icons-material/TextFieldsRounded';
-import AlternateEmailRoundedIcon from '@mui/icons-material/AlternateEmailRounded';
-import DialpadIcon from '@mui/icons-material/Dialpad';
-import FilePresentIcon from '@mui/icons-material/FilePresent';
-import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
-import LinkIcon from '@mui/icons-material/Link';
-import RuleRoundedIcon from '@mui/icons-material/RuleRounded';
-import SwitchAccessShortcutRoundedIcon from '@mui/icons-material/SwitchAccessShortcutRounded';
+import styles from "./DraggableTag.module.css"
+import {
+    AlternateEmailRoundedIcon,
+    CalendarMonthIcon,
+    DialpadIcon,
+    DragIndicatorIcon,
+    FilePresentIcon,
+    FormatListNumberedIcon,
+    LinkIcon,
+    NumbersIcon,
+    RuleRoundedIcon,
+    SwitchAccessShortcutRoundedIcon,
+    TextFieldsRoundedIcon,
+} from '../../../../../components/icons';
 
 export interface Props {
     name: string;
@@ -59,14 +61,8 @@ export const DraggableTag: FunctionComponent<Props> = (props: Props) => {
                 variant="neutral"
                 icon={getTypeIcon(props.type)}
                 ref={drag}
-                style={{
-                    opacity: isDragging ? 0.4 : 1,
-                    width: 'fit-content',
-                    cursor: 'move',
-                    backgroundColor: 'white',
-                    fontSize: 'small',
-                    borderColor: 'var(--a-border-subtle)',
-                }}>
+                className={`${styles.tag} ${isDragging ? styles.dragging : styles.notDragging}`}
+            >
                 {`${props.name} - ${props.description}`}
             </AkselTag>
         </Tooltip>

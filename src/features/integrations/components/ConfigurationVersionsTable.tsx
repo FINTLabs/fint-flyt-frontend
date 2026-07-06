@@ -14,6 +14,9 @@ import {
 } from '@navikt/ds-react';
 import { formatTimestampToReadableText } from '../../../util/TimeAndDateUtils';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router';
+import { useCallback, useEffect, useState } from 'react';
+import useConfigurationRepository from '../../../api/useConfigurationRepository';
 import {
     CheckmarkCircleFillIcon,
     CheckmarkCircleIcon,
@@ -22,10 +25,7 @@ import {
     MagnifyingGlassIcon,
     MenuElipsisVerticalIcon,
     TrashIcon,
-} from '@navikt/aksel-icons';
-import { useNavigate } from 'react-router';
-import { useCallback, useEffect, useState } from 'react';
-import useConfigurationRepository from '../../../api/useConfigurationRepository';
+} from '../../../components/icons';
 
 type ConfigurationTableProps = {
     integrationId: string | undefined;

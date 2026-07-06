@@ -203,3 +203,15 @@ iframe#webpack-dev-server-client-overlay {
         }
     }
 }
+
+.incoming-form-panel {
+    --ac-expansioncard-bg: var(--a-surface-subtle);
+    --ac-expansioncard-border-open-color: var(--a-border-subtle);
+    --ac-expansioncard-border-color: var(--a-border-subtle);
+    --ac-expansioncard-border-hover-color: var(--a-border-subtle-hover);
+    --ac-expansioncard-border-radius: var(--a-border-radius-medium);
+    .active {
+        --ac-expansioncard-bg: var(--a-surface-alt-3-subtle);
+        --ac-expansioncard-header-bg-hover: var(--a-surface-alt-3-moderate);
+    }
+}

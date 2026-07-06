@@ -2,10 +2,10 @@ import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { SourceApplicationContext } from '../../context/SourceApplicationContext';
 import OutgoingDataComponent from '../../features/configuration/components/OutgoingDataComponent';
-import { Controller, FormProvider, useForm } from 'react-hook-form';
+import { Controller, FormProvider, SubmitErrorHandler, useForm } from 'react-hook-form';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
-import IncomingDataComponent from '../../features/configuration/components/IncomingDataComponent';
+import IncomingData from '../../features/configuration/components/IncomingData';
 import AlertMessage from '../molecules/AlertMessage';
 import { IntegrationContext } from '../../context/IntegrationContext';
 import { useTranslation } from 'react-i18next';
@@ -150,13 +150,6 @@ const Configuration: RouteComponent = () => {
     }, []);
 
     const onSubmit = (data: IConfiguration) => {
-        // If there are any form errors, immediately notify and exit
-        if (!isEmpty(methods.formState.errors)) {
-            setAlertContent(errorAlert);
-            setShowAlert(true);
-            return;
-        }
-
         setLoading(true);
 
         // Force data.mapping to be of type IObjectMapping.
@@ -201,6 +194,14 @@ const Configuration: RouteComponent = () => {
         }
     };
 
+    const onSubmitError: SubmitErrorHandler<IConfiguration> = (errors) => {
+        console.error('INVALID FIELDS:', errors);
+
+        setAlertContent(errorAlert);
+        setShowAlert(true);
+    };
+
+
     function activateConfiguration(integrationId: string, configuration: IConfiguration) {
         const patch: IIntegrationPatch = {
             activeConfigurationId: configuration.id.toString(),
@@ -224,7 +225,10 @@ const Configuration: RouteComponent = () => {
             <DndProvider backend={HTML5Backend}>
                 <EditingProvider>
                     <FormProvider {...methods}>
-                        <form id="react-hook-form" onSubmit={methods.handleSubmit(onSubmit)}>
+                        <form
+                            id="react-hook-form"
+                            onSubmit={methods.handleSubmit(onSubmit, onSubmitError)}
+                        >
                             <VStack gap={'3'}>
                                 <Heading size={'small'}>
                                     {t('header')}{' '}
@@ -321,7 +325,7 @@ const Configuration: RouteComponent = () => {
                                 />
 
                                 <HStack gap={'8'} wrap={false}>
-                                    <IncomingDataComponent
+                                    <IncomingData
                                         referencesForCollectionsToShow={
                                             collectionReferencesInEditContext
                                         }

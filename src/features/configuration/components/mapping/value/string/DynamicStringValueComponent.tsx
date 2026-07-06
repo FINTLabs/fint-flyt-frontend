@@ -6,13 +6,13 @@ import { ITag } from '../../../../types/Metadata/Tag';
 import { ValueType } from '../../../../types/Metadata/IntegrationMetadata';
 import { TextField } from '@mui/material';
 import { Search } from '../../../../util/UrlUtils';
-import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import useResourceRepository from '../../../../../../api/useResourceRepository';
 import { Noop } from 'react-hook-form/dist/types';
 import { ControllerFieldState } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import IconButton from '../../../../../../components/atoms/IconButton';
 import FormErrorText from '../../../../../../components/atoms/FormErrorText';
+import { SearchRoundedIcon } from '../../../../../../components/icons';
 
 interface Props {
     displayName?: string;

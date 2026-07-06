@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { ActionMenu, Button, HStack } from '@navikt/ds-react';
-import { ChevronDownIcon } from '@navikt/aksel-icons';
 import { useTranslation } from 'react-i18next';
 import { useFilters } from '../FilterContext';
+import { ChevronDownIcon } from '../../../../components/icons';
 
 export default function QuickFiltersDropdownMenu() {
     const { t } = useTranslation('translations', {
