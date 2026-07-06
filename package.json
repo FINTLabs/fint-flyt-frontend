@@ -15,6 +15,7 @@
         "serve": "node server.js",
         "test": "vitest",
         "cypress": "cypress run",
+        "cy:open": "cypress open",
         "lint": "eslint src",
         "forward": "bash ./startUpForwards.sh start",
         "forward-stop": "bash ./startUpForwards.sh stop",
@@ -53,13 +54,13 @@
         "@typescript-eslint/eslint-plugin": "^8.58.2",
         "@typescript-eslint/parser": "^8.58.2",
         "@vitejs/plugin-react": "^5.1.1",
-        "cypress": "^15.15.0",
+        "cypress": "^15.18.0",
         "eslint": "^9.39.4",
         "eslint-plugin-react": "^7.37.5",
         "eslint-plugin-react-hooks": "^7.1.1",
         "prettier": "^3.4.2",
         "typescript": "~5.4.0",
-        "vite": "~7.3.2",
+        "vite": "~7.3.6",
         "vitest": "^4.0.15"
     },
     "eslintIgnore": [
