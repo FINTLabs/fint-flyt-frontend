@@ -15,7 +15,6 @@ import {
 import ValueCollectionMappingComponent from './collection/ValueCollectionMappingComponent';
 import ObjectCollectionMappingComponent from './collection/ObjectCollectionMappingComponent';
 import ColumnElementComponent from './ColumnElementComponent';
-import { range } from 'lodash';
 import { useFormContext } from 'react-hook-form';
 import ValueWatchComponent from '../common/ValueWatchComponent';
 import { findFromCollectionMappingAbsoluteKeys } from '../../util/KeyUtils';
@@ -199,8 +198,7 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
             [columnElement],
             ...Object.entries(columnElement.nestedColumnElementPerOrder)
                 .sort(([key1], [key2]) => key1.localeCompare(key2, undefined, { numeric: true }))
-                // eslint-disable-next-line
-                .map(([order, nestedColumnElement]) => getElementsByColumn(nestedColumnElement))
+                .map(([, nestedColumnElement]) => getElementsByColumn(nestedColumnElement))
                 .reduce(
                     (
                         combinedChildColumns: Omit<
@@ -209,14 +207,14 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
                         >[][],
                         childColumns: Omit<ColumnElement, 'nestedColumnElementPerOrder'>[][]
                     ) => {
-                        range(0, childColumns.length).forEach((columnIndex: number) => {
-                            if (!combinedChildColumns[columnIndex]) {
-                                combinedChildColumns[columnIndex] = [];
-                            }
-                            combinedChildColumns[columnIndex] = combinedChildColumns[
-                                columnIndex
-                            ].concat(childColumns[columnIndex]);
-                        });
+                        console.log('getElementsByColumn reduce');
+                        for (const [columnIndex, column] of childColumns.entries()) {
+                            combinedChildColumns[columnIndex] ??= [];
+                            combinedChildColumns[columnIndex].push(...column);
+
+                        }
+                        console.log('getElementsByColumn reduce: ', combinedChildColumns);
+
                         return combinedChildColumns;
                     },
                     []
