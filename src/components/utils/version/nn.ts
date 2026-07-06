@@ -9,7 +9,7 @@ export const VERSION_DATA_NN: VersionEntry[] = [
         updates: [
             {
                 title: 'Betre oversikt i konfigurasjonsskjemaet:',
-                text: 'Lista over metadata og verdikonverteringar kan no skjulast og visast etter behov.',
+                text: 'Lista over metadata og verdikonverteringar kan no skjulast og visast etter behov. I tillegg er det gjort fleire mindre forbetringar i design og brukaroppleving.',
             },
             {
                 title: 'Enklare å finne verdikonverteringar:',

@@ -9,7 +9,7 @@ export const VERSION_DATA_EN: VersionEntry[] = [
         updates: [
             {
                 title: 'Improved overview in the configuration form:',
-                text: 'The list of metadata and value conversions can now be collapsed and expanded as needed.',
+                text: 'The list of metadata and value conversions can now be collapsed and expanded as needed. In addition, several minor improvements have been made to the design and user experience.',
             },
             {
                 title: 'Easier to find value conversions:',
