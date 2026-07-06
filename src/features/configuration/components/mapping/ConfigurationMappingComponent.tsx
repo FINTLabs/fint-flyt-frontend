@@ -26,16 +26,18 @@ interface Props {
     onCollectionReferencesInEditContextChange: (collectionReferences: string[]) => void;
 }
 
+type ColumnElement = {
+    path: string[];
+    title: string;
+    reactElement: ReactElement<{ absoluteKey: string }>;
+    nestedColumnElementPerOrder: Record<string, ColumnElement>;
+};
+
+type SimplifiedColumnElement = Omit<ColumnElement, 'nestedColumnElementPerOrder'>;
+
 const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
     const { unregister } = useFormContext();
     const { editCollectionAbsoluteKey } = useContext(EditingContext);
-
-    type ColumnElement = {
-        path: string[];
-        title: string;
-        reactElement: ReactElement<{ absoluteKey: string }>;
-        nestedColumnElementPerOrder: Record<string, ColumnElement>;
-    };
 
     function createRootElement(): ColumnElement {
         const nestedColumnElements = {};
@@ -191,9 +193,7 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
         );
     }
 
-    function getElementsByColumn(
-        columnElement: ColumnElement
-    ): Omit<ColumnElement, 'nestedColumnElementPerOrder'>[][] {
+    function getElementsByColumn(columnElement: ColumnElement): SimplifiedColumnElement[][] {
         return [
             [columnElement],
             ...Object.entries(columnElement.nestedColumnElementPerOrder)
@@ -201,20 +201,13 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
                 .map(([, nestedColumnElement]) => getElementsByColumn(nestedColumnElement))
                 .reduce(
                     (
-                        combinedChildColumns: Omit<
-                            ColumnElement,
-                            'nestedColumnElementPerOrder'
-                        >[][],
-                        childColumns: Omit<ColumnElement, 'nestedColumnElementPerOrder'>[][]
+                        combinedChildColumns: SimplifiedColumnElement[][],
+                        childColumns: SimplifiedColumnElement[][]
                     ) => {
-                        console.log('getElementsByColumn reduce');
                         for (const [columnIndex, column] of childColumns.entries()) {
                             combinedChildColumns[columnIndex] ??= [];
                             combinedChildColumns[columnIndex].push(...column);
-
                         }
-                        console.log('getElementsByColumn reduce: ', combinedChildColumns);
-
                         return combinedChildColumns;
                     },
                     []
@@ -246,21 +239,21 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
                 }}
             />
             {getElementsByColumn(displayRootElement).map(
-                (columns: Omit<ColumnElement, 'nestedColumnElementPerOrder'>[], columnIndex) => (
+                (columns: SimplifiedColumnElement[], columnIndex) => (
                     <Box
                         id={'column-' + columnIndex}
                         key={'column-' + columnIndex}
                         style={{
-                            // maxHeight: 'calc(100vh/1.5)',
                             marginRight: '18px',
                             minWidth: 'fit-content',
                             overflowY: 'auto',
                             overflowX: 'hidden',
                             height: 'fit-content',
-                        }}>
+                        }}
+                    >
                         {columns.map(
                             (
-                                columnElement: Omit<ColumnElement, 'nestedColumnElementPerOrder'>,
+                                columnElement: SimplifiedColumnElement,
                                 columnElementIndex: number
                             ) => {
                                 return (
