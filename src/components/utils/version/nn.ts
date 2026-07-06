@@ -5,6 +5,19 @@ export const ABOUT_VERSIONS_NN =
 
 export const VERSION_DATA_NN: VersionEntry[] = [
     {
+        heading: 'Juli 2026',
+        updates: [
+            {
+                title: 'Betre oversikt i konfigurasjonsskjemaet:',
+                text: 'Lista over metadata og verdikonverteringar kan no skjulast og visast etter behov.',
+            },
+            {
+                title: 'Enklare å finne verdikonverteringar:',
+                text: 'Verdikonverteringar blir no viste i alfabetisk rekkjefølgje.',
+            },
+        ],
+    },
+    {
         heading: 'Mai 2026',
         updates: [
             {
