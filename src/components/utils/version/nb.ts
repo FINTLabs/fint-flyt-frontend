@@ -7,6 +7,19 @@ export const ABOUT_VERSIONS =
 
 export const VERSION_DATA: VersionEntry[] = [
     {
+        heading: 'Juli 2026',
+        updates: [
+            {
+                title: 'Bedre oversikt i konfigurasjonsskjemaet:',
+                text: 'Listen over metadata og verdikonverteringer kan nå skjules og vises etter behov. I tillegg er det gjort flere mindre forbedringer i design og brukeropplevelse.',
+            },
+            {
+                title: 'Enklere å finne verdikonverteringer:',
+                text: 'Verdikonverteringer vises nå i alfabetisk rekkefølge.',
+            },
+        ],
+    },
+    {
         heading: 'Mai 2026',
         updates: [
             {

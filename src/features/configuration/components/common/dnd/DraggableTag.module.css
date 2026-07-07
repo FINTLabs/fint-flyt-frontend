@@ -1,10 +1,25 @@
-
 .tag {
     width: fit-content;
-    cursor: move;
+    cursor: grab;
     background-color: white;
-    font-size: small;
+    font-size: var(--a-font-size-small);
     border-color: var(--a-border-subtle);
+}
+
+.tag :global(svg) {
+    color: var(--a-text-subtle);
+    font-size: 1.25rem;
+}
+
+.tag:hover {
+    transform: translateY(-1px);
+    box-shadow:
+        0 1px 2px rgb(0 0 0 / 10%),
+        0 3px 6px rgb(0 0 0 / 8%);
+}
+
+.tag:active {
+    cursor: grabbing;
 }
 
 .dragging {

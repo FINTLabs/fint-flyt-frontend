@@ -1,7 +1,20 @@
+import { FormatListNumbered } from '@mui/icons-material';
+import { Box, Heading, HelpText, HStack, Select, Tooltip, VStack } from '@navikt/ds-react';
 import * as React from 'react';
 import { useContext, useEffect, useState } from 'react';
+import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+
+import useValueConvertingRepository from '../../../api/useValueConvertingRepository';
+import { WarningTriangleIcon } from '../../../components/icons';
+import { ConfigurationContext } from '../../../context/ConfigurationContext';
+import { IntegrationContext } from '../../../context/IntegrationContext';
 import { SourceApplicationContext } from '../../../context/SourceApplicationContext';
+import {
+    toInstanceCollectionFieldReference,
+    toInstanceFieldReference,
+} from '../../../util/JsonUtil';
+import { IValueConverting } from '../../valueConverting/types/ValueConverting';
 import {
     IInstanceMetadataContent,
     IInstanceObjectCollectionMetadata,
@@ -13,21 +26,9 @@ import {
     isCollectionFieldReference,
     isFieldReference,
 } from '../util/FieldReferenceUtils';
-import MetadataContent from './metadata/MetadataContent';
-import {
-    toInstanceCollectionFieldReference,
-    toInstanceFieldReference,
-} from '../../../util/JsonUtil';
 import DraggableValueConvertingTag from './common/dnd/DraggableValueConvertingTag';
-import { IValueConverting } from '../../valueConverting/types/ValueConverting';
-import { IntegrationContext } from '../../../context/IntegrationContext';
-import { useFormContext } from 'react-hook-form';
-import { ConfigurationContext } from '../../../context/ConfigurationContext';
-import { Box, Heading, HelpText, HStack, Select, Tooltip, VStack } from '@navikt/ds-react';
-import useValueConvertingRepository from '../../../api/useValueConvertingRepository';
+import MetadataContent from './metadata/MetadataContent';
 import MetadataContentWrapper from './metadata/MetadataContentWrapper';
-import { FormatListNumbered } from '@mui/icons-material';
-import { WarningTriangleIcon } from '../../../components/icons';
 
 export type Props = {
     referencesForCollectionsToShow: string[];

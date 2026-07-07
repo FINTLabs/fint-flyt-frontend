@@ -30,7 +30,6 @@ import {
 import { pruneObjectMapping } from '../../util/mapping/helpers/pruning';
 import EditingProvider, { EditingContext } from '../../context/EditingContext';
 import { RouteComponent } from '../../routes/Route';
-import { isEmpty } from 'lodash';
 import PageTemplate from '../templates/PageTemplate';
 import { Button, CheckboxGroup, Heading, HStack, VStack, Checkbox } from '@navikt/ds-react';
 import { AuthorizationContext } from '../../context/AuthorizationContext';

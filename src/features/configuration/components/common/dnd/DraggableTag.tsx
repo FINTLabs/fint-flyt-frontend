@@ -1,9 +1,8 @@
-import { FunctionComponent, ReactElement, useCallback } from 'react';
-import { useDrag } from 'react-dnd';
 import { Tag as AkselTag } from '@navikt/ds-react';
-import { ValueType } from '../../../types/Metadata/IntegrationMetadata';
 import { Tooltip } from '@navikt/ds-react';
-import styles from "./DraggableTag.module.css"
+import { FunctionComponent, ReactElement } from 'react';
+import { useDrag } from 'react-dnd';
+
 import {
     AlternateEmailRoundedIcon,
     CalendarMonthIcon,
@@ -17,6 +16,8 @@ import {
     SwitchAccessShortcutRoundedIcon,
     TextFieldsRoundedIcon,
 } from '../../../../../components/icons';
+import { ValueType } from '../../../types/Metadata/IntegrationMetadata';
+import styles from './DraggableTag.module.css';
 
 export interface Props {
     name: string;
@@ -26,44 +27,50 @@ export interface Props {
     tagKey: string;
 }
 
-const iconProps = { sx: { color: 'var(--a-text-subtle)' } };
-
 const typeIcons: Record<string, ReactElement> = {
-    [ValueType.STRING]: <TextFieldsRoundedIcon {...iconProps} />,
-    [ValueType.FILE]: <FilePresentIcon {...iconProps} />,
-    [ValueType.INTEGER]: <NumbersIcon {...iconProps} />,
-    [ValueType.DATE]: <CalendarMonthIcon {...iconProps} />,
-    [ValueType.PHONE]: <DialpadIcon {...iconProps} />,
-    [ValueType.BOOLEAN]: <RuleRoundedIcon {...iconProps} />,
-    [ValueType.EMAIL]: <AlternateEmailRoundedIcon {...iconProps} />,
-    [ValueType.URL]: <LinkIcon {...iconProps} />,
-    [ValueType.COLLECTION]: <FormatListNumberedIcon {...iconProps} />,
-    [ValueType.VALUE_CONVERTING]: <SwitchAccessShortcutRoundedIcon {...iconProps} />,
+    [ValueType.STRING]: <TextFieldsRoundedIcon />,
+    [ValueType.FILE]: <FilePresentIcon />,
+    [ValueType.INTEGER]: <NumbersIcon />,
+    [ValueType.DATE]: <CalendarMonthIcon />,
+    [ValueType.PHONE]: <DialpadIcon />,
+    [ValueType.BOOLEAN]: <RuleRoundedIcon />,
+    [ValueType.EMAIL]: <AlternateEmailRoundedIcon />,
+    [ValueType.URL]: <LinkIcon />,
+    [ValueType.COLLECTION]: <FormatListNumberedIcon />,
+    [ValueType.VALUE_CONVERTING]: <SwitchAccessShortcutRoundedIcon />,
 };
 
-export const DraggableTag: FunctionComponent<Props> = (props: Props) => {
+export const DraggableTag: FunctionComponent<Props> = ({
+    name,
+    description,
+    type,
+    ...rest
+}: Props) => {
     const [{ isDragging }, drag] = useDrag(() => ({
-        type: props.type,
-        item: { ...props },
+        type,
+        item: {
+            name,
+            description,
+            type,
+            ...rest,
+        },
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
         }),
     }));
 
-    const getTypeIcon = useCallback(
-        (type?: string) => typeIcons[type ?? ''] ?? <DragIndicatorIcon {...iconProps} />,
-        []
-    );
+    const icon = typeIcons[type] ?? <DragIndicatorIcon />;
 
     return (
-        <Tooltip content={props.name}>
+        <Tooltip content={name} placement="right">
             <AkselTag
-                variant="neutral"
-                icon={getTypeIcon(props.type)}
+                size={'medium'}
                 ref={drag}
+                variant="neutral"
+                icon={icon}
                 className={`${styles.tag} ${isDragging ? styles.dragging : styles.notDragging}`}
             >
-                {`${props.name} - ${props.description}`}
+                {name} - {description}
             </AkselTag>
         </Tooltip>
     );

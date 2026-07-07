@@ -5,6 +5,19 @@ export const ABOUT_VERSIONS_EN =
 
 export const VERSION_DATA_EN: VersionEntry[] = [
     {
+        heading: 'July 2026',
+        updates: [
+            {
+                title: 'Improved overview in the configuration form:',
+                text: 'The list of metadata and value conversions can now be collapsed and expanded as needed. In addition, several minor improvements have been made to the design and user experience.',
+            },
+            {
+                title: 'Easier to find value conversions:',
+                text: 'Value conversions are now displayed in alphabetical order.',
+            },
+        ],
+    },
+    {
         heading: 'May 2026',
         updates: [
             {
