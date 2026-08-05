@@ -5,6 +5,19 @@ export const ABOUT_VERSIONS_NN =
 
 export const VERSION_DATA_NN: VersionEntry[] = [
     {
+        heading: 'August 2026',
+        updates: [
+            {
+                title: 'Forbetra vising av feilmeldingar på instansar:',
+                text: 'Når du opnar ei feilmelding på ei instanshending, vert teksten no tydelegare. Forklaringa og sjølve feildetaljane er skilde, slik at det er enklare å lese kva som gjekk gale.',
+            },
+            {
+                title: 'Informasjon når eldre feilmeldingar ikkje lenger finst:',
+                text: 'Feilmeldingar på hendingar eldre enn 60 dagar kan ikkje lenger visast. Du får no ei forklaring om kvifor meldinga manglar, medan hendinga framleis vert vist i lista.',
+            }
+        ],
+    },
+    {
         heading: 'Juli 2026',
         updates: [
             {
