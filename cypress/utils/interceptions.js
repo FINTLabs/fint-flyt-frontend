@@ -1,4 +1,18 @@
+const MOCK_AUTHORIZATION_HEADER =
+    'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjk5OTk5OTk5OTk5fQ.cypress';
+
+export const mockAuthHeader = () => {
+    cy.intercept('GET', '**/auth/header', {
+        statusCode: 200,
+        headers: {
+            Authorization: MOCK_AUTHORIZATION_HEADER,
+        },
+        body: '',
+    }).as('getAuthHeader');
+};
+
 export const mockGenericAuthorizationRepository = () => {
+    mockAuthHeader();
     cy.intercept('GET', '**/authorization/me/is-authorized', {
         fixture: 'auth.json',
         headers: {
