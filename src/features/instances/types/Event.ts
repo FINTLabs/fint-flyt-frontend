@@ -122,6 +122,7 @@ export interface IInstanceFlowTracking {
     type: string;
     applicationId: string;
     errors: any[];
+    isScrubbed: boolean;
 }
 
 export interface IInstanceFlowHeaders {

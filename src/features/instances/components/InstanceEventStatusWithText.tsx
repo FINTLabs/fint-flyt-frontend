@@ -1,7 +1,8 @@
+import { BodyShort, HStack, Tooltip, VStack } from '@navikt/ds-react';
 import * as React from 'react';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { BodyShort, HStack, Tooltip, VStack } from '@navikt/ds-react';
+
 import {
     CheckmarkCircleFillIcon,
     InformationSquareFillIcon,
@@ -99,7 +100,7 @@ const InstanceEventStatusWithText = ({ event, errorLink }: InstanceEventStatusWi
     }, [event]);
 
     return (
-        <HStack align={'center'} gap={'2'}>
+        <HStack align={'center'} gap={'2'} wrap={false}>
             <StatusIcon status={eventIconType} text={eventText} />
             <BodyShort>
                 {eventText} {errorLink}

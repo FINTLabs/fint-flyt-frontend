@@ -1,24 +1,25 @@
+import { Alert, Box, Button, Checkbox, Dropdown, Table } from '@navikt/ds-react';
+import { format } from 'date-fns';
 import * as React from 'react';
 import { ReactElement, useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Alert, Box, Button, Checkbox, Dropdown, Table } from '@navikt/ds-react';
-import { format } from 'date-fns';
-import { IEventNew, ISummary } from '../types/Event';
-import InstancePanel from './InstancePanel';
-import { InstanceStatusWithTooltip } from './InstanceEventStatusWithText';
-import useInstanceRepository from '../../../api/useInstanceRepository';
-import { IIntegrationMetadata } from '../../configuration/types/Metadata/IntegrationMetadata';
-import { SourceApplicationContext } from '../../../context/SourceApplicationContext';
-import { IAlertMessage } from '../../../components/types/TableTypes';
-import CustomStatusDialogComponent from './CustomStatusDialogComponent';
-import { useFilters } from '../filter/FilterContext';
+
 import useInstanceFlowTrackingRepository from '../../../api/useInstanceFlowTrackingRepository';
-import TableLoader from '../../../components/molecules/TableLoader';
-import { AuthorizationContext } from '../../../context/AuthorizationContext';
-import { ISourceApplication } from '../../configuration/types/SourceApplication';
-import LoadMorePagination from '../../../components/organisms/pagination/LoadMorePagination';
-import { useTableSelect } from '../batchProcess/TableSelectContext';
+import useInstanceRepository from '../../../api/useInstanceRepository';
 import { MenuElipsisVerticalIcon } from '../../../components/icons';
+import TableLoader from '../../../components/molecules/TableLoader';
+import LoadMorePagination from '../../../components/organisms/pagination/LoadMorePagination';
+import { IAlertMessage } from '../../../components/types/TableTypes';
+import { AuthorizationContext } from '../../../context/AuthorizationContext';
+import { SourceApplicationContext } from '../../../context/SourceApplicationContext';
+import { IIntegrationMetadata } from '../../configuration/types/Metadata/IntegrationMetadata';
+import { ISourceApplication } from '../../configuration/types/SourceApplication';
+import { useTableSelect } from '../batchProcess/TableSelectContext';
+import { useFilters } from '../filter/FilterContext';
+import { IEventNew, ISummary } from '../types/Event';
+import CustomStatusDialogComponent from './CustomStatusDialogComponent';
+import { InstanceStatusWithTooltip } from './InstanceEventStatusWithText';
+import InstancePanel from './InstancePanel';
 
 interface Props {
     onError: (error: IAlertMessage | undefined) => void;

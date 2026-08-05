@@ -1,24 +1,21 @@
-import React, { useContext, useEffect, useState } from 'react';
 import { Alert, Box, HGrid } from '@navikt/ds-react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { IEvent } from '../../features/instances/types/Event';
-import PageTemplate from '../templates/PageTemplate';
-import InstanceTable from '../../features/instances/components/InstanceTable';
-import { RouteComponent } from '../../routes/Route';
-import { SourceApplicationContext } from '../../context/SourceApplicationContext';
-import { IAlertMessage } from '../types/TableTypes';
-import { AuthorizationContext } from '../../context/AuthorizationContext';
 import { useNavigate } from 'react-router';
-import { FilterProvider } from '../../features/instances/filter/FilterContext';
-import ErrorDialog from '../molecules/ErrorDialog';
+
+import { AuthorizationContext } from '../../context/AuthorizationContext';
+import { SourceApplicationContext } from '../../context/SourceApplicationContext';
 import { TableSelectProvider } from '../../features/instances/batchProcess/TableSelectContext';
+import InstanceTable from '../../features/instances/components/InstanceTable';
+import { FilterProvider } from '../../features/instances/filter/FilterContext';
 import FilterToolbar from '../../features/instances/filter/FilterToolbar';
 import { FilterOptionsProvider } from '../../features/instances/filter/OptionsContext';
+import { RouteComponent } from '../../routes/Route';
+import PageTemplate from '../templates/PageTemplate';
+import { IAlertMessage } from '../types/TableTypes';
 
 const Instances: RouteComponent = () => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.instances' });
-    const [selectedRow] = useState<IEvent>();
-    const [openDialog, setOpenDialog] = React.useState(false);
     const { getAllMetadata } = useContext(SourceApplicationContext);
     const [error, setError] = useState<IAlertMessage | undefined>(undefined);
     const { authorized, getAuthorization } = useContext(AuthorizationContext);
@@ -64,12 +61,6 @@ const Instances: RouteComponent = () => {
                                 />
                             </Box>
                         </HGrid>
-
-                        <ErrorDialog
-                            open={openDialog}
-                            setOpen={setOpenDialog}
-                            errors={selectedRow?.errors}
-                        />
                     </PageTemplate>
                 </TableSelectProvider>
             </FilterOptionsProvider>

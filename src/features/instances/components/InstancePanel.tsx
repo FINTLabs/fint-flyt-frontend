@@ -1,12 +1,13 @@
+import { Box, Button, HStack, Link, Loader, Table } from '@navikt/ds-react';
+import { format } from 'date-fns';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { format } from 'date-fns';
-import { IInstanceFlowTracking, IInstanceFlowTrackingResponse } from '../types/Event';
-import ErrorDialog from '../../../components/molecules/ErrorDialog';
-import { Box, Button, HStack, Link, Loader, Table } from '@navikt/ds-react';
-import { IAlertMessage } from '../../../components/types/TableTypes';
+
 import useInstanceFlowTrackingRepository from '../../../api/useInstanceFlowTrackingRepository';
+import InstanceEventErrorDialog from '../../../components/dialogs/InstanceEventErrorDialog';
+import { IAlertMessage } from '../../../components/types/TableTypes';
+import { IInstanceFlowTracking, IInstanceFlowTrackingResponse } from '../types/Event';
 import { InstanceEventStatusWithText } from './InstanceEventStatusWithText';
 
 type Props = {
@@ -51,8 +52,8 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
                 sourceApplicationId,
                 instanceId
             );
+            const events: IInstanceFlowTrackingResponse = eventResponse.data;
 
-            const events = eventResponse.data;
             if (events) {
                 events.content.sort(
                     (a: IInstanceFlowTracking, b: IInstanceFlowTracking) =>
@@ -73,10 +74,11 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
             <Box id={props.id} padding="4" background={'surface-subtle'} borderRadius="xlarge">
                 {selectedInstances && selectedInstances.content.length > 0 ? (
                     <Box>
-                        <ErrorDialog
+                        <InstanceEventErrorDialog
                             errors={selectedRow?.errors}
                             open={openErrorDialog}
                             setOpen={setOpenErrorDialog}
+                            isScrubbed={selectedRow?.isScrubbed}
                         />
                         <Table size={'small'}>
                             <Table.Header>
@@ -115,7 +117,8 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
                                                                 onClick={() => {
                                                                     setSelectedRow(value);
                                                                     setOpenErrorDialog(true);
-                                                                }}>
+                                                                }}
+                                                            >
                                                                 {t('showError')}
                                                             </Link>
                                                         )
@@ -140,19 +143,19 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
                 ) : (
                     <Loader />
                 )}
+                <HStack justify={'center'} marginBlock={"5 0"}>
+                    {!selectedInstances?.last && (
+                        <>
+                            <Button
+                                variant="secondary"
+                                size={'xsmall'}
+                                onClick={() => setRowCount((prev) => String(Number(prev) + 10))}>
+                                {t('filter.loadMore')}
+                            </Button>
+                        </>
+                    )}
+                </HStack>
             </Box>
-            <HStack justify={'center'}>
-                {!selectedInstances?.last && (
-                    <>
-                        <Button
-                            variant="secondary"
-                            size={'xsmall'}
-                            onClick={() => setRowCount((prev) => String(Number(prev) + 10))}>
-                            {t('filter.loadMore')}
-                        </Button>
-                    </>
-                )}
-            </HStack>
         </>
     );
 };
