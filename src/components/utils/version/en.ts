@@ -5,6 +5,19 @@ export const ABOUT_VERSIONS_EN =
 
 export const VERSION_DATA_EN: VersionEntry[] = [
     {
+        heading: 'August 2026',
+        updates: [
+            {
+                title: 'Improved display of error messages on instances:',
+                text: 'When you open an error message on an instance event, the text is now easier to read. The explanatory text and the error details are shown separately, making it clearer what went wrong.',
+            },
+            {
+                title: 'Information when older error messages are no longer available:',
+                text: 'Error messages for events older than 60 days can no longer be displayed. You now get an explanation of why the message is missing, while the event itself remains visible in the list.',
+            }
+        ],
+    },
+    {
         heading: 'July 2026',
         updates: [
             {

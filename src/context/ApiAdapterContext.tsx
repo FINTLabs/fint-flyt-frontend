@@ -1,5 +1,7 @@
-import { ContextProps } from './constants/interface';
 import { createContext, useMemo, useRef } from 'react';
+
+import { ContextProps } from './constants/interface';
+import { createApiError } from './utils/apiErrorUtils';
 import {
     buildSearchParams,
     createAbortSignal,
@@ -7,10 +9,9 @@ import {
     isTokenValid,
     parseResponse,
 } from './utils/fetchUtils';
-import { createApiError } from './utils/apiErrorUtils';
 
-const BASE_PATH = process.env.BASE_PATH ?? '';
-const USE_AUTH = !!process.env.BASE_PATH;
+const BASE_PATH = process.env.BASE_PATH ?? import.meta.env.VITE_BASE_PATH ?? '';
+const IS_LOCAL = import.meta.env.VITE_IS_LOCAL === 'true';
 
 type HttpMethod = 'GET' | 'POST' | 'PATCH' | 'DELETE';
 
@@ -124,10 +125,10 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
             'Content-Type': 'application/json',
         });
 
-        if (USE_AUTH) {
-            const authorization = await getAuthorizationHeader();
-            headers.set('Authorization', authorization);
-        }
+        const authorization = IS_LOCAL
+            ? `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`
+            : await getAuthorizationHeader();
+        headers.set('Authorization', authorization);
 
         config?.headers?.forEach((value, key) => {
             headers.set(key, value);
@@ -156,7 +157,7 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
     ): Promise<Response> {
         let response = await fetch(url, requestInit);
 
-        if (!USE_AUTH || response.status !== 401) {
+        if (response.status !== 401) {
             return response;
         }
 

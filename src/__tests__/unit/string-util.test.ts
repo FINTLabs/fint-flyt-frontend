@@ -1,4 +1,4 @@
-import {errorStringReplace, getErrorArgs} from "../../util/StringUtil";
+import {errorStringReplace, getErrorArgs, getErrorDisplayParts} from "../../util/StringUtil";
 import {IError, IErrorArg} from "../../features/instances/types/Event";
 
 const testErrorArgs: Record<string, string> = {
@@ -51,4 +51,26 @@ test('It should show error messages correctly', () => {
     expect(errorStringReplace(testStrings[3], resultingErrorArgs)).toEqual("Instans avvist, 'Ingen støtte for dette domenet'")
     expect(errorStringReplace(testStrings[4], errorArgs)).toEqual("Feil under opplasting av fil, filnavn: 'fil.docx' med mediatype: 'app/docx'")
     expect(errorStringReplace(testStrings[5], errorArgs)).toEqual("Feil under verdikonvertering, finner ikke nøkkel: 'image/jpg', i verdikonvertering med ID: 5")    
+});
+
+test('It should split standalone error message templates into intro and detail', () => {
+    const parts = getErrorDisplayParts(testStrings[2], resultingErrorArgs);
+
+    expect(parts.intro).toEqual('Instansen ble avvist av destinasjon med følgende feilmelding:');
+    expect(parts.detail).toEqual("On a scale of 1-10 my friend, you're f'ed");
+});
+
+test('It should keep the full error message detail without stripping text', () => {
+    const raw =
+        "Sak was declined by the destination with message='{\"message\":\"Client received SOAP Fault from server: Du er er ikke autorisert for denne tilgangskoden Please see the server log to find more detail regarding exact cause of the failure.\",\"responseStatus\":\"ERROR\"}'";
+    const parts = getErrorDisplayParts(testStrings[2], [{ type: 'errorMessage', value: raw }]);
+
+    expect(parts.detail).toEqual(raw);
+});
+
+test('It should keep combined placeholders in a single line', () => {
+    const parts = getErrorDisplayParts(testStrings[0], errorArgs);
+
+    expect(parts.detail).toBeUndefined();
+    expect(parts.intro).toEqual("Valideringsfeil i mottak av instans, 'foo bar'");
 });

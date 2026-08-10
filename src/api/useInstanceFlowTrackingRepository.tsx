@@ -1,13 +1,14 @@
-import { Filters } from '../features/instances/filter/types';
 import { useContext } from 'react';
+
+import { Page } from '../components/types/TableTypes';
 import { ApiAdapterContext } from '../context/ApiAdapterContext';
+import { Filters } from '../features/instances/filter/types';
 import {
     IInstanceFlowTrackingResponse,
     IIntegrationDetailedStatistics,
     ISummary,
     ITotalStatistics,
 } from '../features/instances/types/Event';
-import { Page } from '../components/types/TableTypes';
 const API_URL = import.meta.env.VITE_API_HISTORY || '';
 
 export default function useInstanceFlowTrackingRepository() {

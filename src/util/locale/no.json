@@ -198,9 +198,11 @@
         "instances": {
             "header": "Instanser",
             "showError": "vis feilmelding",
-            "errors": "Feilmeldinger:",
-            "oneError": "Feilmelding:",
+            "errors": "Feilmeldinger",
+            "oneError": "Feilmelding",
             "errorMessage": "Det oppsto en feil under henting av data, prøv igjen senere.",
+            "scrubbedErrorTitle": "Feilmelding ikke tilgjengelig",
+            "scrubbedErrorMessage": "Denne feilmeldingen er ikke lenger tilgjengelig. Feilmeldinger slettes automatisk 60 dager etter registrering, av hensyn til personvern og lagringskapasitet. Hendelsen er fortsatt registrert, men innholdet kan ikke vises.",
             "numberPerPage": "Antall per side",
             "customStatus": "Sett status manuelt",
             "retry": "Prøv igjen",

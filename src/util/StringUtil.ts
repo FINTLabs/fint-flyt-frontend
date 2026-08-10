@@ -2,6 +2,8 @@ import {toErrorType} from "./mapping/helpers/ToErrorType";
 import {IError, IErrorArg} from "../features/instances/types/Event";
 import {ErrorType} from "../features/instances/types/ErrorType";
 
+const DETAIL_ARG_TYPES = ['errorMessage', 'message'];
+
 export function errorStringReplace(baseString: string, errorArgs: IErrorArg[]) {
     let errorString = baseString;
     let helpString: string;
@@ -26,6 +28,40 @@ export function errorStringReplace(baseString: string, errorArgs: IErrorArg[]) {
         })
     })
     return errorString;
+}
+
+function isStandaloneDetailTemplate(template: string, placeholder: string): boolean {
+    const escapedPlaceholder = placeholder.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return new RegExp(`:\\s*['"]?${escapedPlaceholder}['"]?\\s*$`).test(template);
+}
+
+export function getErrorDisplayParts(
+    template: string,
+    errorArgs: IErrorArg[]
+): { intro: string; detail?: string } {
+    const detailArg = errorArgs.find((arg) => DETAIL_ARG_TYPES.includes(arg.type));
+    if (!detailArg) {
+        return { intro: errorStringReplace(template, errorArgs) };
+    }
+
+    const placeholder = toErrorType(detailArg.type);
+    if (!template.includes(placeholder) || !isStandaloneDetailTemplate(template, placeholder)) {
+        return { intro: errorStringReplace(template, errorArgs) };
+    }
+
+    const introTemplate = template
+        .replace(new RegExp(`\\s*['"]?${placeholder.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}['"]?`), '')
+        .trim();
+
+    const intro = errorStringReplace(
+        introTemplate,
+        errorArgs.filter((arg) => arg.type !== detailArg.type)
+    );
+
+    return {
+        intro,
+        detail: detailArg.value,
+    };
 }
 
 export function getErrorArgs(error: IError): IErrorArg[] {
