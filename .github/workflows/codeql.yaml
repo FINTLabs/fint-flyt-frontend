@@ -1,0 +1,33 @@
+name: CodeQL
+
+on:
+    pull_request:
+    push:
+        branches:
+            - main
+    schedule:
+        - cron: "24 3 * * 1"
+
+jobs:
+    analyze:
+        name: Analyze JavaScript/TypeScript
+        runs-on: ubuntu-latest
+        permissions:
+            actions: read
+            contents: read
+            security-events: write
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Initialize CodeQL
+              uses: github/codeql-action/init@v4
+              with:
+                  languages: javascript-typescript
+                  dependency-caching: true
+
+            - name: Perform CodeQL Analysis
+              uses: github/codeql-action/analyze@v4
+              with:
+                  category: "/language:javascript-typescript"
