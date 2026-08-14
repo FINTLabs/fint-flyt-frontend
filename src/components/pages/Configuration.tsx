@@ -1,24 +1,23 @@
+import { Button, Checkbox, CheckboxGroup, Heading, HStack, VStack } from '@navikt/ds-react';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
-import { SourceApplicationContext } from '../../context/SourceApplicationContext';
-import OutgoingDataComponent from '../../features/configuration/components/OutgoingDataComponent';
-import { Controller, FormProvider, SubmitErrorHandler, useForm } from 'react-hook-form';
-import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
-import IncomingData from '../../features/configuration/components/IncomingData';
-import AlertMessage from '../molecules/AlertMessage';
-import { IntegrationContext } from '../../context/IntegrationContext';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import { Controller, FormProvider, SubmitErrorHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import CheckboxValueComponent from '../../features/configuration/components/common/CheckboxValueComponent';
-import {
-    IConfiguration,
-    IConfigurationPatch,
-    IObjectMapping,
-} from '../../features/configuration/types/Configuration';
-import { IIntegrationPatch, IntegrationState } from '../../features/integration/types/Integration';
+import { useNavigate } from 'react-router';
+
+import useConfigurationRepository from '../../api/useConfigurationRepository';
+import useIntegrationRepository from '../../api/useIntegrationRepository';
+import { AuthorizationContext } from '../../context/AuthorizationContext';
 import { ConfigurationContext } from '../../context/ConfigurationContext';
+import EditingProvider, { EditingContext } from '../../context/EditingContext';
+import { IntegrationContext } from '../../context/IntegrationContext';
+import { SourceApplicationContext } from '../../context/SourceApplicationContext';
+import { ProblemDetail } from '../../context/utils/apiErrorUtils';
+import CheckboxValueComponent from '../../features/configuration/components/common/CheckboxValueComponent';
+import IncomingData from '../../features/configuration/components/IncomingData';
 import StringValueComponent from '../../features/configuration/components/mapping/value/string/StringValueComponent';
-import { IAlertContent } from '../../features/configuration/types/AlertContent';
+import OutgoingDataComponent from '../../features/configuration/components/OutgoingDataComponent';
 import {
     activeAlert,
     completedAlert,
@@ -27,25 +26,30 @@ import {
     savedAlert,
     unknownErrorAlert,
 } from '../../features/configuration/defaults/DefaultValues';
-import { pruneObjectMapping } from '../../util/mapping/helpers/pruning';
-import EditingProvider, { EditingContext } from '../../context/EditingContext';
+import { IAlertContent } from '../../features/configuration/types/AlertContent';
+import {
+    IConfiguration,
+    IConfigurationPatch,
+    IObjectMapping,
+} from '../../features/configuration/types/Configuration';
+import { IIntegrationPatch, IntegrationState } from '../../features/integration/types/Integration';
 import { RouteComponent } from '../../routes/Route';
+import { pruneObjectMapping } from '../../util/mapping/helpers/pruning';
+import AlertMessage from '../molecules/AlertMessage';
 import PageTemplate from '../templates/PageTemplate';
-import { Button, CheckboxGroup, Heading, HStack, VStack, Checkbox } from '@navikt/ds-react';
-import { AuthorizationContext } from '../../context/AuthorizationContext';
-import useConfigurationRepository from '../../api/useConfigurationRepository';
-import useIntegrationRepository from '../../api/useIntegrationRepository';
-import { ProblemDetail } from '../../context/utils/apiErrorUtils';
 
 const Configuration: RouteComponent = () => {
+    const IntegrationRepository = useIntegrationRepository();
+    const ConfigurationRepository = useConfigurationRepository();
+
+    const { t } = useTranslation('translations', { keyPrefix: 'pages.configuration' });
+    const history = useNavigate();
+
+    const { authorized, getAuthorization } = useContext(AuthorizationContext);
     const { getInstanceElementMetadata, setInstanceElementMetadata } =
         useContext(SourceApplicationContext);
     const { completed, setCompleted, resetConfigurationContext } = useContext(ConfigurationContext);
     const { setEditCollectionAbsoluteKey } = useContext(EditingContext);
-    const IntegrationRepository = useIntegrationRepository();
-
-    const { t } = useTranslation('translations', { keyPrefix: 'pages.configuration' });
-    const history = useNavigate();
     const {
         existingIntegrationMetadata,
         setExistingIntegrationMetadata,
@@ -54,7 +58,7 @@ const Configuration: RouteComponent = () => {
         setConfiguration,
         resetIntegrationContext,
     } = useContext(IntegrationContext);
-    const ConfigurationRepository = useConfigurationRepository();
+
     const [active, setActive] = useState<boolean>(
         existingIntegration?.activeConfigurationId === configuration?.id
     );
@@ -65,13 +69,12 @@ const Configuration: RouteComponent = () => {
     const [collectionReferencesInEditContext, setCollectionReferencesInEditContext] = useState<
         string[]
     >([]);
-    const { authorized, getAuthorization } = useContext(AuthorizationContext);
 
     useEffect(() => {
         if (authorized === false) {
             history('/forbidden');
         }
-    }, [authorized]);
+    }, [authorized, history]);
 
     if (!existingIntegration) {
         history('/');
@@ -121,7 +124,6 @@ const Configuration: RouteComponent = () => {
         };
     }, []);
 
-
     const handleAlertMessageOnSave = useCallback((responseData: IConfiguration) => {
         if (!responseData.completed) {
             setAlertContent(savedAlert);
@@ -132,14 +134,14 @@ const Configuration: RouteComponent = () => {
             setShowAlert(true);
             setCompleted(true);
         }
-    }, [])
+    }, []);
 
     const handleAlertMessageOnError = useCallback((error: ProblemDetail) => {
         if (error.status) {
             setAlertContent({
                 severity: 'error',
                 message: t('saveErrorTitle'),
-                content: error.message ? error.message : t('genericError')
+                content: error.message ? error.message : t('genericError'),
             });
             setShowAlert(true);
         } else {
@@ -199,7 +201,6 @@ const Configuration: RouteComponent = () => {
         setAlertContent(errorAlert);
         setShowAlert(true);
     };
-
 
     function activateConfiguration(integrationId: string, configuration: IConfiguration) {
         const patch: IIntegrationPatch = {

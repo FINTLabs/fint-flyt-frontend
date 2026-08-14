@@ -1,14 +1,15 @@
 import { createContext, useState } from 'react';
-import { IIntegration } from '../features/integration/types/Integration';
+
+import useAuthorizationRepository from '../api/useAuthorizationRepository';
+import useConfigurationRepository from '../api/useConfigurationRepository';
+import useInstanceFlowTrackingRepository from '../api/useInstanceFlowTrackingRepository';
+import useIntegrationRepository from '../api/useIntegrationRepository';
+import useSourceApplicationRepository from '../api/useSourceApplicationRepository';
 import { IConfiguration } from '../features/configuration/types/Configuration';
 import { IIntegrationMetadata } from '../features/configuration/types/Metadata/IntegrationMetadata';
-import { ContextProps } from './constants/interface';
 import { ITotalStatistics } from '../features/instances/types/Event';
-import useSourceApplicationRepository from '../api/useSourceApplicationRepository';
-import useConfigurationRepository from '../api/useConfigurationRepository';
-import useIntegrationRepository from '../api/useIntegrationRepository';
-import useInstanceFlowTrackingRepository from '../api/useInstanceFlowTrackingRepository';
-import useAuthorizationRepository from '../api/useAuthorizationRepository';
+import { IIntegration } from '../features/integration/types/Integration';
+import { ContextProps } from './constants/interface';
 
 type IntegrationContextState = {
     existingIntegration: IIntegration | undefined;
@@ -68,7 +69,7 @@ const IntegrationContext = createContext<IntegrationContextState>(contextDefault
 const IntegrationProvider = ({ children }: ContextProps) => {
     const AuthorizationRepository = useAuthorizationRepository();
     const SourceApplicationRepository = useSourceApplicationRepository();
-    const ConfigurationRepository = useConfigurationRepository()
+    const ConfigurationRepository = useConfigurationRepository();
     const IntegrationRepository = useIntegrationRepository();
     const InstanceFlowTrackingRepository = useInstanceFlowTrackingRepository();
 
@@ -131,7 +132,9 @@ const IntegrationProvider = ({ children }: ContextProps) => {
             const statistics: ITotalStatistics = statisticsResponse.data || [];
             setTotalStatistics(statistics);
 
-            const sourceApplicationIds = sourceApplicationsResponse.data.sourceApplicationIds.map(String).join(',')
+            const sourceApplicationIds = sourceApplicationsResponse.data.sourceApplicationIds
+                .map(String)
+                .join(',');
             const integrations: IIntegration[] = integrationResponse.data.content || [];
             if (integrations.length > 0) {
                 const metadataResponse =
@@ -140,7 +143,7 @@ const IntegrationProvider = ({ children }: ContextProps) => {
                         true
                     );
 
-                const metadata = Object.values(metadataResponse.data).flat()
+                const metadata = Object.values(metadataResponse.data).flat();
 
                 const updatedIntegrations = integrations.map((integration) => {
                     const meta = metadata.find(
@@ -203,7 +206,8 @@ const IntegrationProvider = ({ children }: ContextProps) => {
                 setSourceApplicationId,
                 resetIntegrationContext,
                 resetIntegration,
-            }}>
+            }}
+        >
             {children}
         </IntegrationContext.Provider>
     );
