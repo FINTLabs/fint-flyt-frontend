@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { IUrlBuilder } from '../types/FormTemplate';
-import useResourceRepository from '../../../api/useResourceRepository';
+import useResourceRepository from '../../../shared/api/useResourceRepository';
 import { ISelectable } from '../types/Selectable';
 import { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react';
 import { Control } from 'react-hook-form/dist/types/form';
 import { useWatch } from 'react-hook-form';
 import { createSource, createValueRefPerAbsoluteKey, Source } from './UrlUtils';
-import { AdapterResponse } from '../../../context/ApiAdapterContext';
+import { AdapterResponse } from '../../../shared/api/ApiAdapterContext';
 
 export const useSelectablesStatefulValue = (
     control: Control,

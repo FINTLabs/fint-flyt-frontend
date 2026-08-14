@@ -1,6 +1,3 @@
-import * as React from 'react';
-import { IAlertMessage, Page } from '../../../components/types/TableTypes';
-import { IConfiguration } from '../../configuration/types/Configuration';
 import {
     ActionMenu,
     BodyShort,
@@ -12,11 +9,12 @@ import {
     Table,
     Tooltip,
 } from '@navikt/ds-react';
-import { formatTimestampToReadableText } from '../../../util/TimeAndDateUtils';
+import * as React from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
-import { useCallback, useEffect, useState } from 'react';
-import useConfigurationRepository from '../../../api/useConfigurationRepository';
+
+import useConfigurationRepository from '../../../shared/api/useConfigurationRepository';
 import {
     CheckmarkCircleFillIcon,
     CheckmarkCircleIcon,
@@ -25,7 +23,10 @@ import {
     MagnifyingGlassIcon,
     MenuElipsisVerticalIcon,
     TrashIcon,
-} from '../../../components/icons';
+} from '../../../shared/components/icons';
+import { IAlertMessage, Page } from '../../../shared/components/types/TableTypes';
+import { formatTimestampToReadableText } from '../../../shared/util/TimeAndDateUtils';
+import { IConfiguration } from '../../configuration/types/Configuration';
 
 type ConfigurationTableProps = {
     integrationId: string | undefined;

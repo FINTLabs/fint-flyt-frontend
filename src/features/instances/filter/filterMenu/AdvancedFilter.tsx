@@ -1,9 +1,10 @@
-import { useState } from 'react';
 import { Checkbox, CheckboxGroup, UNSAFE_Combobox, VStack } from '@navikt/ds-react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { useFilters } from '../FilterContext';
-import { setArrayValue, updateArrayValue } from '../util';
 import { useFilterOptions } from '../OptionsContext';
+import { setArrayValue, updateArrayValue } from '../util';
 
 export default function AdvancedFilter() {
     const { t } = useTranslation('translations', {

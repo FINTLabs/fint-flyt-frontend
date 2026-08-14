@@ -4,10 +4,10 @@ import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import useInstanceFlowTrackingRepository from '../../../api/useInstanceFlowTrackingRepository';
-import InstanceEventErrorDialog from '../../../components/dialogs/InstanceEventErrorDialog';
-import { IAlertMessage } from '../../../components/types/TableTypes';
+import useInstanceFlowTrackingRepository from '../../../shared/api/useInstanceFlowTrackingRepository';
+import { IAlertMessage } from '../../../shared/components/types/TableTypes';
 import { IInstanceFlowTracking, IInstanceFlowTrackingResponse } from '../types/Event';
+import InstanceEventErrorDialog from './InstanceEventErrorDialog';
 import { InstanceEventStatusWithText } from './InstanceEventStatusWithText';
 
 type Props = {

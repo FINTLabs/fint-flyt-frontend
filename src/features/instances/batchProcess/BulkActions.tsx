@@ -1,16 +1,17 @@
-import React, { FC, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { ActionMenu, BodyLong, Box, Button, HStack, Modal, Table } from '@navikt/ds-react';
-import { useTableSelect } from './TableSelectContext';
-import useInstanceRepository from '../../../api/useInstanceRepository';
-import { ISourceApplication } from '../../configuration/types/SourceApplication';
-import { AuthorizationContext } from '../../../context/AuthorizationContext';
+import React, { FC, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import TableLoader from '../../../components/molecules/TableLoader';
+
+import useInstanceRepository from '../../../shared/api/useInstanceRepository';
 import {
     ArrowCirclepathReverseIcon,
     ArrowsCirclepathIcon,
     MenuElipsisVerticalIcon,
-} from '../../../components/icons';
+} from '../../../shared/components/icons';
+import TableLoader from '../../../shared/components/TableLoader';
+import { AuthorizationContext } from '../../../shared/context/AuthorizationContext';
+import { ISourceApplication } from '../../configuration/types/SourceApplication';
+import { useTableSelect } from './TableSelectContext';
 
 const BulkActions: FC = ({}) => {
     const InstanceRepository = useInstanceRepository();

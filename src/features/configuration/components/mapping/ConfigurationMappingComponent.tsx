@@ -3,7 +3,7 @@ import * as React from 'react';
 import { ReactElement, useContext, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
-import { EditingContext } from '../../../../context/EditingContext';
+import { EditingContext } from '../../../../shared/context/EditingContext';
 import {
     ICollectionTemplate,
     IMappingTemplate,
@@ -16,7 +16,7 @@ import {
     NestedElementTemplate,
 } from '../../types/NestedElement';
 import { findFromCollectionMappingAbsoluteKeys } from '../../util/KeyUtils';
-import ValueWatchComponent from '../common/ValueWatchComponent';
+import ValueWatchComponent from '../ValueWatchComponent';
 import ObjectCollectionMappingComponent from './collection/ObjectCollectionMappingComponent';
 import ValueCollectionMappingComponent from './collection/ValueCollectionMappingComponent';
 import ColumnElementComponent from './ColumnElementComponent';

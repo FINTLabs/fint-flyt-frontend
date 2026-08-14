@@ -1,8 +1,9 @@
+import {BodyShort, Box, Button, Modal} from "@navikt/ds-react";
 import * as React from "react";
 import {useTranslation} from "react-i18next";
+
+import {errorStringReplace, getErrorArgs} from "../../../shared/util/StringUtil";
 import {IError, IErrorArg, IEvent} from "../types/Event";
-import {errorStringReplace, getErrorArgs} from "../../../util/StringUtil";
-import {BodyShort, Box, Button, Modal} from "@navikt/ds-react";
 
 type Props = {
     row: IEvent | undefined

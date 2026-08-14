@@ -10,11 +10,11 @@ import {
 } from "../../../types/FormTemplate";
 import ValueMappingComponent from "../value/ValueMappingComponent";
 import SelectableValueMappingComponent from "../value/SelectableValueMappingComponent";
-import ToggleButtonComponent from "../../common/ToggleButtonComponent";
+import ToggleButtonComponent from "../../ToggleButtonComponent";
 import {NestedElementsCallbacks} from "../../../types/NestedElement";
 import {DependencySatisfiedStatefulValue} from "../../../util/DependencyUtils";
 import {useFormContext} from "react-hook-form";
-import FieldsetElementComponent from "../../common/FieldsetElementComponent";
+import FieldsetElementComponent from "../../FieldsetElementComponent";
 import {VStack} from "@navikt/ds-react";
 
 export interface Props {

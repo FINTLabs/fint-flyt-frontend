@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
 import { Checkbox, CheckboxGroup, HStack, Tabs, UNSAFE_Combobox } from '@navikt/ds-react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useFilterOptions } from '../OptionsContext';
+
 import { useFilters } from '../FilterContext';
-import { updateArrayValue, setArrayValue } from '../util';
+import { useFilterOptions } from '../OptionsContext';
+import { setArrayValue,updateArrayValue } from '../util';
 
 export default function StatusFilter() {
     const { t } = useTranslation('translations', {

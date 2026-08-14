@@ -1,15 +1,16 @@
+import {Autocomplete, Chip, TextField} from "@mui/material";
 import * as React from "react";
 import {forwardRef} from "react";
-import {Autocomplete, Chip, TextField} from "@mui/material";
 import {useDrop} from "react-dnd";
-import {ITag} from "../../../../types/Metadata/Tag";
-import {ValueType} from "../../../../types/Metadata/IntegrationMetadata";
-import {Search} from "../../../../util/UrlUtils";
-import {Noop} from "react-hook-form/dist/types";
 import {ControllerFieldState} from "react-hook-form";
-import FormErrorText from '../../../../../../components/atoms/FormErrorText';
-import {getTagStyles, mappingStringToValueArray, valueArrayToMappingString} from "../../../../util/ValueFieldUtils";
+import {Noop} from "react-hook-form/dist/types";
 import {useTranslation} from "react-i18next";
+
+import FormErrorText from '../../../FormErrorText';
+import {ValueType} from "../../../../types/Metadata/IntegrationMetadata";
+import {ITag} from "../../../../types/Metadata/Tag";
+import {Search} from "../../../../util/UrlUtils";
+import {getTagStyles, mappingStringToValueArray, valueArrayToMappingString} from "../../../../util/ValueFieldUtils";
 
 export interface Props {
     displayName?: string;

@@ -1,8 +1,9 @@
+import { HStack, Tabs, UNSAFE_Combobox } from '@navikt/ds-react';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { HStack, Tabs, UNSAFE_Combobox } from '@navikt/ds-react';
-import { useFilterOptions } from '../OptionsContext';
+
 import { useFilters } from '../FilterContext';
+import { useFilterOptions } from '../OptionsContext';
 import { updateArrayValue } from '../util';
 
 export default function IntegrationFilter() {

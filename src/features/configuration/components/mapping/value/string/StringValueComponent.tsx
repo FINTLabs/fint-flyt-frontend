@@ -1,9 +1,10 @@
+import {TextField} from "@mui/material";
 import * as React from "react";
 import {forwardRef} from "react";
-import {TextField} from "@mui/material";
-import {Noop} from "react-hook-form/dist/types";
 import {ControllerFieldState} from "react-hook-form";
-import FormErrorText from '../../../../../../components/atoms/FormErrorText';
+import {Noop} from "react-hook-form/dist/types";
+
+import FormErrorText from '../../../FormErrorText';
 
 interface Props {
     displayName: string;

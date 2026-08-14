@@ -1,11 +1,12 @@
+import {MenuItem, TextField} from "@mui/material";
 import * as React from "react";
 import {forwardRef} from "react";
-import {ISelectable} from "../../../../types/Selectable";
-import FormErrorText from '../../../../../../components/atoms/FormErrorText';
-import {MenuItem, TextField} from "@mui/material";
-import {selectSX} from "../../../../../../util/styles/SystemStyles";
-import {Noop} from "react-hook-form/dist/types";
 import {ControllerFieldState} from "react-hook-form";
+import {Noop} from "react-hook-form/dist/types";
+
+import FormErrorText from '../../../FormErrorText';
+import {selectSX} from "../../../../../../shared/util/styles/SystemStyles";
+import {ISelectable} from "../../../../types/Selectable";
 
 interface Props {
     displayName: string;

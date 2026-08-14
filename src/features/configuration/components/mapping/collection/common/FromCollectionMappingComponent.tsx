@@ -1,19 +1,20 @@
+import { EditOffRounded, EditRounded } from '@mui/icons-material';
+import { Box, Heading, HStack } from '@navikt/ds-react';
 import * as React from 'react';
 import { MutableRefObject, ReactElement, useContext, useEffect, useRef, useState } from 'react';
-import ArrayComponent from '../../../common/array/ArrayComponent';
-import { useTranslation } from 'react-i18next';
-import ArrayValueWrapperComponent from '../../../common/array/ArrayValueWrapperComponent';
-import { ConfigurationContext } from '../../../../../../context/ConfigurationContext';
-import { isOutsideCollectionEditContext } from '../../../../util/KeyUtils';
-import IconButton from '../../../../../../components/atoms/IconButton';
-import { EditOffRounded, EditRounded } from '@mui/icons-material';
 import { Controller, useFormContext } from 'react-hook-form';
-import { EditingContext } from '../../../../../../context/EditingContext';
-import { hasValidFormat } from '../../../../util/ValidationUtil';
+import { useTranslation } from 'react-i18next';
+
+import IconButton from '../../../IconButton';
+import { ConfigurationContext } from '../../../../../../shared/context/ConfigurationContext';
+import { EditingContext } from '../../../../../../shared/context/EditingContext';
 import { ValueType as ConfigurationValueType } from '../../../../types/Configuration';
 import { ValueType } from '../../../../types/Metadata/IntegrationMetadata';
+import { isOutsideCollectionEditContext } from '../../../../util/KeyUtils';
+import { hasValidFormat } from '../../../../util/ValidationUtil';
+import ArrayComponent from '../../../array/ArrayComponent';
+import ArrayValueWrapperComponent from '../../../array/ArrayValueWrapperComponent';
 import DynamicChipComponent from '../../value/string/DynamicChipComponent';
-import { Box, Heading, HStack } from '@navikt/ds-react';
 
 interface Props {
     absoluteKey: string;

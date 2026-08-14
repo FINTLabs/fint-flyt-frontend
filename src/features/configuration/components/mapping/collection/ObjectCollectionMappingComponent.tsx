@@ -1,8 +1,9 @@
-import {NestedElementsCallbacks, prefixNestedElementsCallbacks} from "../../../types/NestedElement";
 import * as React from "react";
-import CollectionMappingComponent from "./common/CollectionMappingComponent";
+
 import {IObjectTemplate} from "../../../types/FormTemplate";
+import {NestedElementsCallbacks, prefixNestedElementsCallbacks} from "../../../types/NestedElement";
 import ObjectMappingComponent from "../object/ObjectMappingComponent";
+import CollectionMappingComponent from "./common/CollectionMappingComponent";
 
 export interface Props {
     absoluteKey: string;

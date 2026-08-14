@@ -1,13 +1,14 @@
+import {Box} from "@navikt/ds-react";
 import * as React from "react";
 import {forwardRef, useEffect, useState} from "react";
+import {ControllerFieldState} from "react-hook-form";
+import {Noop} from "react-hook-form/dist/types";
+import {useTranslation} from "react-i18next";
+
+import {ValueType as MetadataValueType} from "../../../types/Metadata/IntegrationMetadata";
 import {ISelectable} from "../../../types/Selectable";
 import SearchSelectValueComponent from "./select/SearchSelectValueComponent";
-import {ValueType as MetadataValueType} from "../../../types/Metadata/IntegrationMetadata";
-import {Noop} from "react-hook-form/dist/types";
-import {ControllerFieldState} from "react-hook-form";
 import DynamicChipComponent from "./string/DynamicChipComponent";
-import {useTranslation} from "react-i18next";
-import {Box} from "@navikt/ds-react";
 
 interface Props {
     displayName: string;

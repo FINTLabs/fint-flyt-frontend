@@ -1,17 +1,3 @@
-import React, { useContext, useEffect, useState, useMemo } from 'react';
-import {
-    defaultAlert,
-    getSelectableDefaultByLanguage,
-    selectableDestinations,
-} from '../configuration/defaults/DefaultValues';
-import AlertMessage from '../../components/molecules/AlertMessage';
-import { useNavigate } from 'react-router';
-import { IntegrationContext } from '../../context/IntegrationContext';
-import { useTranslation } from 'react-i18next';
-import { SourceApplicationContext } from '../../context/SourceApplicationContext';
-import { IIntegration, IIntegrationFormData, IntegrationState } from './types/Integration';
-import { toIntegration } from '../../util/mapping/ToIntegration';
-import { IIntegrationMetadata } from '../configuration/types/Metadata/IntegrationMetadata';
 import {
     Button,
     ErrorSummary,
@@ -22,15 +8,30 @@ import {
     Select,
     VStack,
 } from '@navikt/ds-react';
-import PageTemplate from '../../components/templates/PageTemplate';
+import React, { useContext, useEffect, useMemo,useState } from 'react';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router';
+
+import useIntegrationRepository from '../../shared/api/useIntegrationRepository';
+import AlertMessage from '../../shared/components/AlertMessage';
+import FormPageWrapper from '../../shared/components/layout/FormPageWrapper';
+import { AuthorizationContext } from '../../shared/context/AuthorizationContext';
+import { IntegrationContext } from '../../shared/context/IntegrationContext';
+import { SourceApplicationContext } from '../../shared/context/SourceApplicationContext';
+import PageTemplate from '../../shared/components/layout/PageTemplate';
+import { sourceApplicationsToSelectable } from '../../shared/util/FormUtil';
+import i18n from '../../shared/util/locale/i18n';
+import { toIntegration } from '../../shared/util/mapping/ToIntegration';
+import {
+    defaultAlert,
+    getSelectableDefaultByLanguage,
+    selectableDestinations,
+} from '../configuration/defaults/DefaultValues';
 import { IAlertContent } from '../configuration/types/AlertContent';
-import i18n from '../../util/locale/i18n';
+import { IIntegrationMetadata } from '../configuration/types/Metadata/IntegrationMetadata';
 import { ISelect } from '../configuration/types/Select';
-import { AuthorizationContext } from '../../context/AuthorizationContext';
-import { sourceApplicationsToSelectable } from '../../util/FormUtil';
-import useIntegrationRepository from '../../api/useIntegrationRepository';
-import FormPageWrapper from '../../components/molecules/FormPageWrapper';
+import { IIntegration, IIntegrationFormData, IntegrationState } from './types/Integration';
 
 type Props = {
     id: string;

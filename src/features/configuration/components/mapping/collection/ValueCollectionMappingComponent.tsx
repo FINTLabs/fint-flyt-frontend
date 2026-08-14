@@ -1,7 +1,8 @@
 import * as React from "react";
-import CollectionMappingComponent from "./common/CollectionMappingComponent";
-import ValueMappingComponent from "../value/ValueMappingComponent";
+
 import {IValueTemplate} from "../../../types/FormTemplate";
+import ValueMappingComponent from "../value/ValueMappingComponent";
+import CollectionMappingComponent from "./common/CollectionMappingComponent";
 
 export interface Props {
     absoluteKey: string;

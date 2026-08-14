@@ -1,0 +1,72 @@
+import React, { useContext, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router';
+
+import { RouteComponent } from '../../routes/Route';
+import useValueConvertingRepository from '../../shared/api/useValueConvertingRepository';
+import { AuthorizationContext } from '../../shared/context/AuthorizationContext';
+import PageTemplate from '../../shared/components/layout/PageTemplate';
+import ValueConvertingForm from './components/ValueConvertingForm';
+import ValueConvertingTable from './components/ValueConvertingTable';
+import { IValueConverting } from './types/ValueConverting';
+
+const ValueConverting: RouteComponent = () => {
+    const { t } = useTranslation('translations', { keyPrefix: 'pages.valueConverting' });
+    const ValueConvertingRepository = useValueConvertingRepository();
+    const [existingValueConverting, setExistingValueConverting] = useState<
+        IValueConverting | undefined
+    >(undefined);
+    const [newValueConverting, setNewValueConverting] = useState<boolean>(false);
+    const { authorized, getAuthorization } = useContext(AuthorizationContext);
+    const history = useNavigate();
+
+    useEffect(() => {
+        if (authorized === false) {
+            history('/forbidden');
+        }
+    }, [authorized]);
+
+    useEffect(() => {
+        getAuthorization();
+    }, []);
+
+    return (
+        <PageTemplate
+            id={'valueConverting'}
+            keyPrefix={'pages.valueConverting'}
+            headerButton={
+                !existingValueConverting && !newValueConverting
+                    ? {
+                          text: t('button.newConverting'),
+                          onClick: () => setNewValueConverting(true),
+                          buttonHelpText: { title: 'Knapp informasjon', info: t('help.new') },
+                          id: 'new-button',
+                      }
+                    : undefined
+            }
+        >
+            {existingValueConverting || newValueConverting ? (
+                <ValueConvertingForm
+                    existingValueConverting={existingValueConverting ?? undefined}
+                    setNewValueConverting={setNewValueConverting}
+                    setExistingValueConverting={setExistingValueConverting}
+                />
+            ) : (
+                <ValueConvertingTable
+                    setNewValueConverting={setNewValueConverting}
+                    onValueConvertingSelected={(id: number) => {
+                        return ValueConvertingRepository.getValueConverting(id)
+                            .then((response) => {
+                                setExistingValueConverting(response.data);
+                            })
+                            .catch((e) => {
+                                console.log(e);
+                            });
+                    }}
+                />
+            )}
+        </PageTemplate>
+    );
+};
+
+export default ValueConverting;

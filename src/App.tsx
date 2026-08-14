@@ -3,12 +3,12 @@ import { BrowserRouter } from 'react-router';
 import { ThemeProvider } from '@mui/material';
 import './global.css';
 
-import theme from './util/styles/theme/theme';
-import Main from './components/pages/Main';
-import { APIAdapterProvider } from './context/ApiAdapterContext';
-import AuthorizationProvider from './context/AuthorizationContext';
-import IntegrationProvider from './context/IntegrationContext';
-import SourceApplicationProvider from './context/SourceApplicationContext';
+import theme from './shared/util/styles/theme/theme';
+import Main from './pages/Main';
+import { APIAdapterProvider } from './shared/api/ApiAdapterContext';
+import AuthorizationProvider from './shared/context/AuthorizationContext';
+import IntegrationProvider from './shared/context/IntegrationContext';
+import SourceApplicationProvider from './shared/context/SourceApplicationContext';
 const BASE_PATH = process.env.BASE_PATH || '/'
 
 function App() {
