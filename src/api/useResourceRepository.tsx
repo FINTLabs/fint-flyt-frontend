@@ -1,11 +1,12 @@
-import { ISelectable } from '../features/configuration/types/Selectable';
-import { Source } from '../features/configuration/util/UrlUtils';
 import { useContext } from 'react';
+
 import {
     AdapterRequestConfigType,
     AdapterResponse,
     ApiAdapterContext,
 } from '../context/ApiAdapterContext';
+import { ISelectable } from '../features/configuration/types/Selectable';
+import { Source } from '../features/configuration/util/UrlUtils';
 const API_URL = import.meta.env.VITE_API_ARCH || '';
 
 export default function useResourceRepository() {
@@ -51,6 +52,10 @@ export default function useResourceRepository() {
             });
     };
 
+    const getArchiveTemplate = () => {
+        return get(API_URL, `/api/intern/arkiv/template`);
+    };
+
     return {
         getClasses,
         getSelectableKodeverkFormat,
@@ -58,5 +63,6 @@ export default function useResourceRepository() {
         getSelectables,
         getSak,
         search,
+        getArchiveTemplate,
     };
 }
