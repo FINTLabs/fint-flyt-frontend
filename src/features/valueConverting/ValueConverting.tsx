@@ -2,15 +2,14 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
-import { RouteComponent } from '../../routes/Route';
 import useValueConvertingRepository from '../../shared/api/useValueConvertingRepository';
-import { AuthorizationContext } from '../../shared/context/AuthorizationContext';
 import PageTemplate from '../../shared/components/layout/PageTemplate';
+import { AuthorizationContext } from '../../shared/context/AuthorizationContext';
 import ValueConvertingForm from './components/ValueConvertingForm';
 import ValueConvertingTable from './components/ValueConvertingTable';
 import { IValueConverting } from './types/ValueConverting';
 
-const ValueConverting: RouteComponent = () => {
+const ValueConverting: React.FC = () => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.valueConverting' });
     const ValueConvertingRepository = useValueConvertingRepository();
     const [existingValueConverting, setExistingValueConverting] = useState<

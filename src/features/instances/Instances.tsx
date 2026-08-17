@@ -3,18 +3,17 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
-import { RouteComponent } from '../../routes/Route';
+import PageTemplate from '../../shared/components/layout/PageTemplate';
 import { IAlertMessage } from '../../shared/components/types/TableTypes';
 import { AuthorizationContext } from '../../shared/context/AuthorizationContext';
 import { SourceApplicationContext } from '../../shared/context/SourceApplicationContext';
-import PageTemplate from '../../shared/components/layout/PageTemplate';
 import { TableSelectProvider } from './batchProcess/TableSelectContext';
 import InstanceTable from './components/InstanceTable';
 import { FilterProvider } from './filter/FilterContext';
 import FilterToolbar from './filter/FilterToolbar';
 import { FilterOptionsProvider } from './filter/OptionsContext';
 
-const Instances: RouteComponent = () => {
+const Instances: React.FC = () => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.instances' });
     const { getAllMetadata } = useContext(SourceApplicationContext);
     const [error, setError] = useState<IAlertMessage | undefined>(undefined);

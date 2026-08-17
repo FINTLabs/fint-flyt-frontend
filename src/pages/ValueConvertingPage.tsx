@@ -1,6 +1,6 @@
 import ValueConverting from '../features/valueConverting/ValueConverting';
 import { RouteComponent } from '../routes/Route';
 
-const ValueConvertingPage: RouteComponent = (props) => <ValueConverting {...props} />;
+const ValueConvertingPage: RouteComponent = () => <ValueConverting />;
 
 export default ValueConvertingPage;

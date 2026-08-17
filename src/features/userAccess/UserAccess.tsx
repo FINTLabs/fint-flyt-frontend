@@ -15,7 +15,6 @@ import { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
-import { RouteComponent } from '../../routes/Route';
 import useAuthorizationRepository from '../../shared/api/useAuthorizationRepository';
 import PageTemplate from '../../shared/components/layout/PageTemplate';
 import { IAlertMessage, Page } from '../../shared/components/types/TableTypes';
@@ -23,7 +22,7 @@ import { IUser } from '../../shared/components/types/UserTypes';
 import { AuthorizationContext } from '../../shared/context/AuthorizationContext';
 import { ISourceApplication } from '../configuration/types/SourceApplication';
 
-const UserAccess: RouteComponent = () => {
+const UserAccess: React.FC = () => {
     const AuthorizationRepository = useAuthorizationRepository();
     const { t } = useTranslation('translations', { keyPrefix: 'pages.useraccess' });
     const { hasAccessToUserPermissionPage, getAllSourceApplications } =

@@ -16,10 +16,10 @@ import { useNavigate } from 'react-router';
 import useIntegrationRepository from '../../shared/api/useIntegrationRepository';
 import AlertMessage from '../../shared/components/AlertMessage';
 import FormPageWrapper from '../../shared/components/layout/FormPageWrapper';
+import PageTemplate from '../../shared/components/layout/PageTemplate';
 import { AuthorizationContext } from '../../shared/context/AuthorizationContext';
 import { IntegrationContext } from '../../shared/context/IntegrationContext';
 import { SourceApplicationContext } from '../../shared/context/SourceApplicationContext';
-import PageTemplate from '../../shared/components/layout/PageTemplate';
 import { sourceApplicationsToSelectable } from '../../shared/util/FormUtil';
 import i18n from '../../shared/util/locale/i18n';
 import { toIntegration } from '../../shared/util/mapping/ToIntegration';
@@ -33,11 +33,7 @@ import { IIntegrationMetadata } from '../configuration/types/Metadata/Integratio
 import { ISelect } from '../configuration/types/Select';
 import { IIntegration, IIntegrationFormData, IntegrationState } from './types/Integration';
 
-type Props = {
-    id: string;
-};
-
-export const IntegrationForm: React.FunctionComponent<Props> = () => {
+export const IntegrationForm: React.FC = () => {
     const history = useNavigate();
     const IntegrationRepository = useIntegrationRepository();
     const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationForm' });

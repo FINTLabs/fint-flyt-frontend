@@ -3,9 +3,8 @@ import React, { useContext, useEffect } from 'react';
 
 import Router from '../routes/Router';
 import { AppBar } from '../shared/components/appMenu/AppBar';
-import { AuthorizationContext } from '../shared/context/AuthorizationContext';
-import ConfigurationProvider from '../shared/context/ConfigurationContext';
 import Footer from '../shared/components/layout/Footer';
+import { AuthorizationContext } from '../shared/context/AuthorizationContext';
 
 function Main() {
     const {
@@ -29,11 +28,7 @@ function Main() {
             <Page.Block as="main">
                 {authorized !== undefined &&
                     hasAccessToUserPermissionPage !== undefined &&
-                    activeUserSourceApps !== undefined && (
-                        <ConfigurationProvider>
-                            <Router />
-                        </ConfigurationProvider>
-                    )}
+                    activeUserSourceApps !== undefined && <Router />}
             </Page.Block>
         </Page>
     );

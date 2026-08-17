@@ -2,27 +2,16 @@ import { lazy } from 'react';
 
 import IRoute from './Route';
 
-const Dashboard = lazy(() => import('../features/dashboard/Dashboard'));
-const IntegrationForm = lazy(() => import('../features/integration/IntegrationForm'));
-const Configuration = lazy(() => import('../features/configuration/Configuration'));
-const UserGuide = lazy(() => import('../features/support/UserGuide'));
-const Version = lazy(() => import('../features/changelog/Version'));
-const ValueConverting = lazy(() => import('../features/valueConverting/ValueConverting'));
-const Instances = lazy(() => import('../features/instances/Instances'));
-const Integrations = lazy(() => import('../features/integrations/Integrations'));
-const Forbidden = lazy(() => import('../pages/Forbidden'));
-const UserAccess = lazy(() => import('../features/userAccess/UserAccess'));
-
-const DashboardPage = lazy(() => import('../pages/DashboardPage'));
-const IntegrationFormPage = lazy(() => import('../features/integration/IntegrationForm'));
-const ConfigurationPage = lazy(() => import('../pages/ConfigurationPage'));
-const UserGuidePage = lazy(() => import('../pages/UserGuidePage'));
-const VersionPage = lazy(() => import('../pages/VersionPage'));
-const ValueConvertingPage = lazy(() => import('../pages/ValueConvertingPage'));
-const InstancesPage = lazy(() => import('../pages/InstancesPage'));
-const IntegrationsPage = lazy(() => import('../pages/IntegrationsPage'));
-const ForbiddenPage = lazy(() => import('../pages/Forbidden'));
-const UserAccessPage = lazy(() => import('../pages/UserAccessPage'));
+const Dashboard = lazy(() => import('../pages/DashboardPage'));
+const Forbidden = lazy(() => import('../pages/./ForbiddenPage'));
+const IntegrationForm = lazy(() => import('../pages/IntegrationFormPage'));
+const Configuration = lazy(() => import('../pages/ConfigurationPage'));
+const UserGuide = lazy(() => import('../pages/UserGuidePage'));
+const Version = lazy(() => import('../pages/VersionPage'));
+const ValueConverting = lazy(() => import('../pages/ValueConvertingPage'));
+const Instances = lazy(() => import('../pages/InstancesPage'));
+const Integrations = lazy(() => import('../pages/IntegrationsPage'));
+const UserAccess = lazy(() => import('../pages/UserAccessPage'));
 
 const routes: IRoute[] = [
     {
@@ -105,7 +94,7 @@ const routes: IRoute[] = [
     {
         path: '/support/guide',
         name: 'guide',
-        component: UserGuidePage,
+        component: UserGuide,
         exact: true,
         inNavigationMenu: false,
     },

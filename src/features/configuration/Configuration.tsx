@@ -6,17 +6,16 @@ import { Controller, FormProvider, SubmitErrorHandler, useForm } from 'react-hoo
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
-import { RouteComponent } from '../../routes/Route';
 import useConfigurationRepository from '../../shared/api/useConfigurationRepository';
 import useIntegrationRepository from '../../shared/api/useIntegrationRepository';
 import { ProblemDetail } from '../../shared/api/utils/apiErrorUtils';
 import AlertMessage from '../../shared/components/AlertMessage';
+import PageTemplate from '../../shared/components/layout/PageTemplate';
 import { AuthorizationContext } from '../../shared/context/AuthorizationContext';
 import { ConfigurationContext } from '../../shared/context/ConfigurationContext';
 import EditingProvider, { EditingContext } from '../../shared/context/EditingContext';
 import { IntegrationContext } from '../../shared/context/IntegrationContext';
 import { SourceApplicationContext } from '../../shared/context/SourceApplicationContext';
-import PageTemplate from '../../shared/components/layout/PageTemplate';
 import { pruneObjectMapping } from '../../shared/util/mapping/helpers/pruning';
 import { IIntegrationPatch, IntegrationState } from '../integration/types/Integration';
 import CheckboxValueComponent from './components/CheckboxValueComponent';
@@ -38,7 +37,7 @@ import {
     IObjectMapping,
 } from './types/Configuration';
 
-const Configuration: RouteComponent = () => {
+const Configuration: React.FC = () => {
     const IntegrationRepository = useIntegrationRepository();
     const ConfigurationRepository = useConfigurationRepository();
 
@@ -76,9 +75,12 @@ const Configuration: RouteComponent = () => {
         }
     }, [authorized, history]);
 
-    if (!existingIntegration) {
-        history('/');
-    }
+    useEffect(() => {
+        if (!existingIntegration) {
+            history('/');
+        }
+    }, [existingIntegration, history]);
+
     const methods = useForm<IConfiguration>({
         mode: 'onChange',
         defaultValues: {
@@ -218,6 +220,10 @@ const Configuration: RouteComponent = () => {
             .catch((e: Error) => {
                 console.log('could not set active configuration', e);
             });
+    }
+
+    if (!existingIntegration) {
+        return null;
     }
 
     return (

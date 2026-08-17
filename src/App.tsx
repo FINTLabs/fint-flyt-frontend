@@ -1,14 +1,15 @@
-import React, { useMemo } from 'react';
-import { BrowserRouter } from 'react-router';
-import { ThemeProvider } from '@mui/material';
 import './global.css';
 
-import theme from './shared/util/styles/theme/theme';
+import { ThemeProvider } from '@mui/material';
+import React, { useMemo } from 'react';
+import { BrowserRouter } from 'react-router';
+
 import Main from './pages/Main';
 import { APIAdapterProvider } from './shared/api/ApiAdapterContext';
 import AuthorizationProvider from './shared/context/AuthorizationContext';
 import IntegrationProvider from './shared/context/IntegrationContext';
 import SourceApplicationProvider from './shared/context/SourceApplicationContext';
+import theme from './shared/util/styles/theme/theme';
 const BASE_PATH = process.env.BASE_PATH || '/'
 
 function App() {

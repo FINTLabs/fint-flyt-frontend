@@ -3,15 +3,14 @@ import React, { useContext, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
-import { RouteComponent } from '../../routes/Route';
-import SupportContent from './components/SupportContent';
-import DashboardCard from './components/DashboardCard';
+import PageTemplate from '../../shared/components/layout/PageTemplate';
 import { AuthorizationContext } from '../../shared/context/AuthorizationContext';
 import { IntegrationContext } from '../../shared/context/IntegrationContext';
-import PageTemplate from '../../shared/components/layout/PageTemplate';
+import DashboardCard from './components/DashboardCard';
+import SupportContent from './components/SupportContent';
 import { ICard } from './types/Card';
 
-const Dashboard: RouteComponent = () => {
+const Dashboard: React.FC = () => {
     const { t } = useTranslation('translations', {
         keyPrefix: 'pages.dashboard',
     });

@@ -3,12 +3,11 @@ import React, { useContext, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
-import { RouteComponent } from '../../routes/Route';
+import PageTemplate from '../../shared/components/layout/PageTemplate';
 import { getAboutByLanguage, getVersionDataByLanguage } from '../../shared/components/utils/version/VersionTexts';
 import { AuthorizationContext } from '../../shared/context/AuthorizationContext';
-import PageTemplate from '../../shared/components/layout/PageTemplate';
 
-const Version: RouteComponent = () => {
+const Version: React.FC = () => {
     const { i18n } = useTranslation();
     const { authorized, getAuthorization } = useContext(AuthorizationContext);
     const history = useNavigate();
