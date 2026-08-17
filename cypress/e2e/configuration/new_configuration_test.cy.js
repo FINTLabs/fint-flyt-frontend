@@ -33,6 +33,7 @@ describe('Testing create new configuration from new integration', () => {
             destination: 'fylkesrad',
             state: 'DEACTIVATED',
         });
+        cy.wait('@getArchiveTemplate');
     }
 
     it('should navigate to configuration form and show outgoing and incoming data', () => {
@@ -80,6 +81,9 @@ describe('Testing creating new and editing configurations from integration overv
             ':nth-child(3) > .navds-table__toggle-expand-cell > .navds-table__toggle-expand-button'
         ).click();
         cy.get('#panel-1-new-configuration-button').click();
+        cy.wait('@getArchiveTemplate');
+        cy.get('#outgoing-form-panel').should('be.visible');
+        cy.get('#configuration-mapping-wrapper').should('be.visible');
     });
 
     it('should navigate to create new configuration based on existing completed version', () => {
