@@ -6,90 +6,46 @@ import { Link as RouterLink } from 'react-router';
 import { PencilWritingIcon, PlusIcon } from '../icons';
 import PageHeader from './PageHeader';
 
-type HelperTextProps = {
-    title?: string;
-    info: string;
-};
-
 type HeaderButtonProps = {
-    text: string;
-    buttonHelpText?: HelperTextProps;
+    textKey: string;
+    helpTextKey?: string;
     id?: string;
-    headerButton?: HeaderButtonProps | undefined;
     disabled?: boolean;
     icon?: 'add' | 'edit';
 } & ({ to: string; onClick?: never } | { onClick: () => void; to?: never });
 
-interface InformationTemplateProps {
+interface PageTemplateProps {
     id: string;
     children: React.ReactNode;
     keyPrefix: string;
     wide?: boolean;
     customHeading?: boolean;
-    headingHelpText?: HelperTextProps;
+    headingHelpTextKey?: string;
     headerButton?: HeaderButtonProps;
 }
 
-const HeaderButton: FC<{ headerButton?: HeaderButtonProps }> = ({ headerButton }) => {
-    if (!headerButton) return null;
+const HeaderButton: FC<HeaderButtonProps & { label: string }> = ({
+    label,
+    to,
+    onClick,
+    id,
+    disabled,
+    icon = 'add',
+}) => {
+    const Icon = icon === 'edit' ? <PencilWritingIcon aria-hidden /> : <PlusIcon aria-hidden />;
 
-    if (headerButton.to) {
+    if (to) {
         return (
-            <HStack gap={'2'} align="center">
-                <Button
-                    id={headerButton.id}
-                    disabled={headerButton.disabled}
-                    as={RouterLink}
-                    to={headerButton.to}
-                    size="small"
-                    icon={
-                        headerButton.icon === 'edit' ? (
-                            <PencilWritingIcon aria-hidden />
-                        ) : (
-                            <PlusIcon aria-hidden />
-                        )
-                    }
-                >
-                    {headerButton.text}
-                </Button>
-                {headerButton.buttonHelpText && (
-                    <HelpText
-                        title={headerButton.buttonHelpText.title ?? 'Knapp informasjon'}
-                        placement="left"
-                    >
-                        {headerButton.buttonHelpText.info}
-                    </HelpText>
-                )}
-            </HStack>
+            <Button id={id} disabled={disabled} as={RouterLink} to={to} size="small" icon={Icon}>
+                {label}
+            </Button>
         );
     }
 
     return (
-        <HStack gap={'2'} align="center">
-            <Button
-                id={headerButton.id}
-                disabled={headerButton.disabled}
-                onClick={headerButton.onClick}
-                size="small"
-                icon={
-                    headerButton.icon === 'edit' ? (
-                        <PencilWritingIcon aria-hidden />
-                    ) : (
-                        <PlusIcon aria-hidden />
-                    )
-                }
-            >
-                {headerButton.text}
-            </Button>
-            {headerButton.buttonHelpText && (
-                <HelpText
-                    title={headerButton.buttonHelpText.title ?? 'Knapp informasjon'}
-                    placement="left"
-                >
-                    {headerButton.buttonHelpText.info}
-                </HelpText>
-            )}
-        </HStack>
+        <Button id={id} disabled={disabled} onClick={onClick} size="small" icon={Icon}>
+            {label}
+        </Button>
     );
 };
 
@@ -97,31 +53,39 @@ const PageTemplate = ({
     id,
     children,
     keyPrefix,
-    headingHelpText,
+    headingHelpTextKey,
     wide,
     customHeading,
     headerButton,
-}: InformationTemplateProps) => {
+}: PageTemplateProps) => {
     const { t } = useTranslation('translations', { keyPrefix: keyPrefix });
 
     return (
         <Box
             paddingInline={wide ? '8' : '32'}
-            maxWidth={'var(--a-breakpoint-lx)'}
-            marginInline={'auto'}
+            maxWidth="var(--a-breakpoint-lx)"
+            marginInline="auto"
             paddingBlock="8"
             id={id + '-content'}
             style={{ minWidth: 'fit-content' }}
         >
-            <VStack id={id + '-content-stack'} gap={'6'}>
+            <VStack id={id + '-content-stack'} gap="6">
                 {!customHeading && (
-                    <HStack justify={'space-between'} align={'center'}>
+                    <HStack justify="space-between" align="center">
                         <PageHeader
                             title={t('header')}
-                            helperTextTitle={headingHelpText?.title}
-                            helperText={headingHelpText?.info && headingHelpText.info}
+                            helperText={headingHelpTextKey && t(headingHelpTextKey)}
                         />
-                        <HeaderButton headerButton={headerButton} />
+                        {headerButton && (
+                            <HStack gap="2" align="center">
+                                <HeaderButton {...headerButton} label={t(headerButton.textKey)} />
+                                {headerButton.helpTextKey && (
+                                    <HelpText placement="left">
+                                        {t(headerButton.helpTextKey)}
+                                    </HelpText>
+                                )}
+                            </HStack>
+                        )}
                     </HStack>
                 )}
                 {children}

@@ -4,18 +4,16 @@ import React, { FC } from 'react';
 type PageHeaderProps = {
     title: string;
     helperText?: string;
-    helperTextTitle?: string;
 };
 const PageHeader: FC<PageHeaderProps> = ({
     title,
     helperText = '',
-    helperTextTitle = 'Hva er dette?',
 }: PageHeaderProps) => {
     return (
         <HStack align={'center'} gap={'2'}>
             <Heading size={'large'}>{title}</Heading>
             {helperText && (
-                <HelpText title={helperTextTitle} placement="bottom">
+                <HelpText placement="bottom">
                     {helperText}
                 </HelpText>
             )}

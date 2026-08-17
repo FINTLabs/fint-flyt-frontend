@@ -10,7 +10,6 @@ import useConfigurationRepository from '../../shared/api/useConfigurationReposit
 import useIntegrationRepository from '../../shared/api/useIntegrationRepository';
 import { ProblemDetail } from '../../shared/api/utils/apiErrorUtils';
 import AlertMessage from '../../shared/components/AlertMessage';
-import PageTemplate from '../../shared/components/layout/PageTemplate';
 import { AuthorizationContext } from '../../shared/context/AuthorizationContext';
 import { ConfigurationContext } from '../../shared/context/ConfigurationContext';
 import EditingProvider, { EditingContext } from '../../shared/context/EditingContext';
@@ -31,11 +30,7 @@ import {
     unknownErrorAlert,
 } from './defaults/DefaultValues';
 import { IAlertContent } from './types/AlertContent';
-import {
-    IConfiguration,
-    IConfigurationPatch,
-    IObjectMapping,
-} from './types/Configuration';
+import { IConfiguration, IConfigurationPatch, IObjectMapping } from './types/Configuration';
 
 const Configuration: React.FC = () => {
     const IntegrationRepository = useIntegrationRepository();
@@ -227,131 +222,126 @@ const Configuration: React.FC = () => {
     }
 
     return (
-        <PageTemplate id={'configuration'} keyPrefix={'pages.configuration'} wide customHeading>
-            <DndProvider backend={HTML5Backend}>
-                <EditingProvider>
-                    <FormProvider {...methods}>
-                        <form
-                            id="react-hook-form"
-                            onSubmit={methods.handleSubmit(onSubmit, onSubmitError)}
-                        >
-                            <VStack gap={'3'}>
-                                <Heading size={'small'}>
-                                    {t('header')}{' '}
-                                    {existingIntegration?.sourceApplicationIntegrationId} -{' '}
-                                    {existingIntegration?.displayName}
-                                </Heading>
+        <DndProvider backend={HTML5Backend}>
+            <EditingProvider>
+                <FormProvider {...methods}>
+                    <form
+                        id="react-hook-form"
+                        onSubmit={methods.handleSubmit(onSubmit, onSubmitError)}
+                    >
+                        <VStack gap={'3'}>
+                            <Heading size={'small'}>
+                                {t('header')} {existingIntegration?.sourceApplicationIntegrationId}{' '}
+                                - {existingIntegration?.displayName}
+                            </Heading>
 
-                                <VStack gap={'3'} paddingBlock={'0 4'}>
-                                    <HStack gap={'6'}>
-                                        <Controller
-                                            name={'comment'.toString()}
-                                            rules={{
-                                                required: {
-                                                    value: !!methods.watch('completed'),
-                                                    message: t('reqFieldMsg'),
-                                                },
-                                            }}
-                                            render={({ field, fieldState }) => (
-                                                <StringValueComponent
-                                                    {...field}
-                                                    disabled={completed || loading}
-                                                    displayName={t('comment')}
-                                                    multiline
-                                                    fieldState={fieldState}
-                                                />
-                                            )}
-                                        />
-                                        <Controller
-                                            name={'completed'}
-                                            render={({ field }) => (
-                                                <CheckboxValueComponent
-                                                    {...field}
-                                                    disabled={loading}
-                                                    displayName={t('label.checkLabel')}
-                                                />
-                                            )}
-                                        />
-                                        {methods.watch('completed') && (
-                                            <CheckboxGroup
-                                                legend="form-active"
-                                                hideLegend
-                                                disabled={completed || loading}
-                                                value={[active && 'form-active']}
-                                                onChange={(val: string[]) => {
-                                                    setActive(val.includes('form-active'));
-                                                }}
-                                            >
-                                                <Checkbox
-                                                    id="form-active"
-                                                    value="form-active"
-                                                    size={'small'}
-                                                    aria-label="active-checkbox"
-                                                >
-                                                    {t('label.activeLabel')}
-                                                </Checkbox>
-                                            </CheckboxGroup>
-                                        )}
-                                    </HStack>
-                                    <HStack align={'center'} gap={'6'}>
-                                        <Button
-                                            id="form-submit-btn"
-                                            size={'small'}
-                                            disabled={configuration?.completed}
-                                            type="submit"
-                                            loading={loading}
-                                        >
-                                            {!methods.watch('completed')
-                                                ? t('button.submit')
-                                                : t('button.complete')}
-                                        </Button>
-
-                                        <Button
-                                            variant={'secondary'}
-                                            type="button"
-                                            id="form-cancel-btn"
-                                            size={'small'}
-                                            disabled={loading}
-                                            onClick={() => {
-                                                history('/integration/list');
-                                            }}
-                                        >
-                                            {t('button.cancel')}
-                                        </Button>
-                                    </HStack>
-                                </VStack>
-
-                                <AlertMessage
-                                    status={alertContent.severity}
-                                    id="integration-form-snackbar-saved"
-                                    open={showAlert}
-                                    onClose={handleClose}
-                                    title={alertContent.message}
-                                    content={alertContent.content}
-                                />
-
-                                <HStack gap={'8'} wrap={false}>
-                                    <IncomingData
-                                        referencesForCollectionsToShow={
-                                            collectionReferencesInEditContext
-                                        }
-                                    />
-                                    <OutgoingDataComponent
-                                        onCollectionReferencesInEditContextChange={(
-                                            collectionReferences: string[]
-                                        ) => {
-                                            setCollectionReferencesInEditContext(
-                                                collectionReferences
-                                            );
+                            <VStack gap={'3'} paddingBlock={'0 4'}>
+                                <HStack gap={'6'}>
+                                    <Controller
+                                        name={'comment'.toString()}
+                                        rules={{
+                                            required: {
+                                                value: !!methods.watch('completed'),
+                                                message: t('reqFieldMsg'),
+                                            },
                                         }}
+                                        render={({ field, fieldState }) => (
+                                            <StringValueComponent
+                                                {...field}
+                                                disabled={completed || loading}
+                                                displayName={t('comment')}
+                                                multiline
+                                                fieldState={fieldState}
+                                            />
+                                        )}
                                     />
+                                    <Controller
+                                        name={'completed'}
+                                        render={({ field }) => (
+                                            <CheckboxValueComponent
+                                                {...field}
+                                                disabled={loading}
+                                                displayName={t('label.checkLabel')}
+                                            />
+                                        )}
+                                    />
+                                    {methods.watch('completed') && (
+                                        <CheckboxGroup
+                                            legend="form-active"
+                                            hideLegend
+                                            disabled={completed || loading}
+                                            value={[active && 'form-active']}
+                                            onChange={(val: string[]) => {
+                                                setActive(val.includes('form-active'));
+                                            }}
+                                        >
+                                            <Checkbox
+                                                id="form-active"
+                                                value="form-active"
+                                                size={'small'}
+                                                aria-label="active-checkbox"
+                                            >
+                                                {t('label.activeLabel')}
+                                            </Checkbox>
+                                        </CheckboxGroup>
+                                    )}
+                                </HStack>
+                                <HStack align={'center'} gap={'6'}>
+                                    <Button
+                                        id="form-submit-btn"
+                                        size={'small'}
+                                        disabled={configuration?.completed}
+                                        type="submit"
+                                        loading={loading}
+                                    >
+                                        {!methods.watch('completed')
+                                            ? t('button.submit')
+                                            : t('button.complete')}
+                                    </Button>
+
+                                    <Button
+                                        variant={'secondary'}
+                                        type="button"
+                                        id="form-cancel-btn"
+                                        size={'small'}
+                                        disabled={loading}
+                                        onClick={() => {
+                                            history('/integration/list');
+                                        }}
+                                    >
+                                        {t('button.cancel')}
+                                    </Button>
                                 </HStack>
                             </VStack>
-                        </form>
-                    </FormProvider>
-                </EditingProvider>
-            </DndProvider>
-        </PageTemplate>
+
+                            <AlertMessage
+                                status={alertContent.severity}
+                                id="integration-form-snackbar-saved"
+                                open={showAlert}
+                                onClose={handleClose}
+                                title={alertContent.message}
+                                content={alertContent.content}
+                            />
+
+                            <HStack gap={'8'} wrap={false}>
+                                <IncomingData
+                                    referencesForCollectionsToShow={
+                                        collectionReferencesInEditContext
+                                    }
+                                />
+                                <OutgoingDataComponent
+                                    onCollectionReferencesInEditContextChange={(
+                                        collectionReferences: string[]
+                                    ) => {
+                                        setCollectionReferencesInEditContext(collectionReferences);
+                                    }}
+                                />
+                            </HStack>
+                        </VStack>
+                    </form>
+                </FormProvider>
+            </EditingProvider>
+        </DndProvider>
     );
 };
 

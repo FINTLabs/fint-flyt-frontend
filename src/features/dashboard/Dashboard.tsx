@@ -3,7 +3,6 @@ import React, { useContext, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
-import PageTemplate from '../../shared/components/layout/PageTemplate';
 import { AuthorizationContext } from '../../shared/context/AuthorizationContext';
 import { IntegrationContext } from '../../shared/context/IntegrationContext';
 import DashboardCard from './components/DashboardCard';
@@ -96,24 +95,22 @@ const Dashboard: React.FC = () => {
     );
 
     return (
-        <PageTemplate id={'dashboard'} keyPrefix={'pages.dashboard'} customHeading>
-            <VStack gap={'8'} maxWidth={'var(--a-breakpoint-2xl)'} marginInline={'auto'}>
-                <HGrid id={'dashboard-grid'} gap="6" columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}>
-                    {cards.map((card: ICard, index) => {
-                        return (
-                            <DashboardCard
-                                key={index}
-                                id={`dashboard-card-` + index}
-                                value={card.value}
-                                content={card.content}
-                                link={card.link}
-                            />
-                        );
-                    })}
-                </HGrid>
-                <SupportContent />
-            </VStack>
-        </PageTemplate>
+        <VStack gap={'8'} maxWidth={'var(--a-breakpoint-2xl)'} marginInline={'auto'}>
+            <HGrid id={'dashboard-grid'} gap="6" columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}>
+                {cards.map((card: ICard, index) => {
+                    return (
+                        <DashboardCard
+                            key={index}
+                            id={`dashboard-card-` + index}
+                            value={card.value}
+                            content={card.content}
+                            link={card.link}
+                        />
+                    );
+                })}
+            </HGrid>
+            <SupportContent />
+        </VStack>
     );
 };
 

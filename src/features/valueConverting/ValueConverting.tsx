@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
 import useValueConvertingRepository from '../../shared/api/useValueConvertingRepository';
@@ -10,7 +9,6 @@ import ValueConvertingTable from './components/ValueConvertingTable';
 import { IValueConverting } from './types/ValueConverting';
 
 const ValueConverting: React.FC = () => {
-    const { t } = useTranslation('translations', { keyPrefix: 'pages.valueConverting' });
     const ValueConvertingRepository = useValueConvertingRepository();
     const [existingValueConverting, setExistingValueConverting] = useState<
         IValueConverting | undefined
@@ -36,9 +34,9 @@ const ValueConverting: React.FC = () => {
             headerButton={
                 !existingValueConverting && !newValueConverting
                     ? {
-                          text: t('button.newConverting'),
+                          textKey: 'button.newConverting',
                           onClick: () => setNewValueConverting(true),
-                          buttonHelpText: { title: 'Knapp informasjon', info: t('help.new') },
+                          helpTextKey: 'help.new',
                           id: 'new-button',
                       }
                     : undefined

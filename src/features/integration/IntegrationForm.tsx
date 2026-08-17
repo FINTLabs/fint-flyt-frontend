@@ -8,15 +8,13 @@ import {
     Select,
     VStack,
 } from '@navikt/ds-react';
-import React, { useContext, useEffect, useMemo,useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
 import useIntegrationRepository from '../../shared/api/useIntegrationRepository';
 import AlertMessage from '../../shared/components/AlertMessage';
-import FormPageWrapper from '../../shared/components/layout/FormPageWrapper';
-import PageTemplate from '../../shared/components/layout/PageTemplate';
 import { AuthorizationContext } from '../../shared/context/AuthorizationContext';
 import { IntegrationContext } from '../../shared/context/IntegrationContext';
 import { SourceApplicationContext } from '../../shared/context/SourceApplicationContext';
@@ -79,7 +77,7 @@ export const IntegrationForm: React.FC = () => {
         getAllSourceApplications(true).then((sourceApps) => {
             const options = sourceApplicationsToSelectable(sourceApps);
             setSelectableSourceApplications(options);
-        })
+        });
     }
 
     const navToConfiguration = (id: string) => {
@@ -149,185 +147,168 @@ export const IntegrationForm: React.FC = () => {
     };
 
     return (
-        <PageTemplate id={'new'} keyPrefix={'pages.integrationForm'}>
-            <FormPageWrapper id={'integration-form'}>
-                <FormProvider {...methods}>
-                    <form onSubmit={methods.handleSubmit(onSubmit)}>
-                        <VStack gap={'6'}>
-                            <HStack justify={'space-between'}>
-                                <Heading size={'small'}>{t('incoming')}</Heading>
-                                {sourceApplication !== undefined &&
-                                    sourceApplication !== 0 &&
-                                    !availableForms && <Loader title={t('labels.loading')} />}
-                            </HStack>
-                            <VStack gap={'4'} style={{ maxWidth: '40%' }}>
-                                <Controller
-                                    rules={{ required: true }}
-                                    name={'sourceApplicationId'}
-                                    defaultValue={''}
-                                    render={({ fieldState, field }) => (
-                                        <Select
-                                            id={'sourceApplicationId'}
-                                            label={
-                                                <HStack gap={'2'} align={'center'} wrap={false}>
-                                                    {t('labels.sourceApplicationId')}
-                                                    <HelpText
-                                                        title={'hva er dette'}
-                                                        placement="right"
-                                                    >
-                                                        {t('help.sourceApplicationId')}
-                                                    </HelpText>
-                                                </HStack>
-                                            }
-                                            error={!!fieldState.error}
-                                            onChange={(event) => {
-                                                setSourceApplication(Number(event.target.value));
-                                                setSourceApplicationId(event.target.value);
-                                                setSourceApplicationIntegrationId('');
-                                                field.onChange(event.target.value);
-                                            }}
-                                        >
-                                            {selectableSourceApplications.map((option, index) => (
-                                                <option key={index} value={option.value}>
-                                                    {option.label}
-                                                </option>
-                                            ))}
-                                        </Select>
-                                    )}
-                                />
-
-                                <Controller
-                                    rules={{ required: true }}
-                                    name={'sourceApplicationIntegrationId'}
-                                    defaultValue={''}
-                                    render={({ fieldState, field }) => (
-                                        <Select
-                                            id={'sourceApplicationIntegrationId'}
-                                            label={
-                                                <HStack gap={'2'} align={'center'}>
-                                                    {t('labels.sourceApplicationIntegrationId')}
-                                                    <HelpText
-                                                        title={'hva er dette'}
-                                                        placement="right"
-                                                    >
-                                                        {t('help.sourceApplicationIntegrationId')}
-                                                    </HelpText>
-                                                </HStack>
-                                            }
-                                            error={!!fieldState.error}
-                                            onChange={(event) => {
-                                                setSourceApplicationIntegrationId(
-                                                    event.target.value
-                                                );
-                                                field.onChange(event.target.value);
-                                            }}
-                                            disabled={!sourceApplicationId}
-                                        >
-                                            {integrationOptions.map((option, index) => (
-                                                <option
-                                                    key={index}
-                                                    value={option.value}
-                                                    disabled={option.disabled}
-                                                >
-                                                    {option.label}
-                                                </option>
-                                            ))}
-                                        </Select>
-                                    )}
-                                />
-                            </VStack>
-                            <VStack gap={'3'} style={{ maxWidth: '40%' }}>
-                                <Heading size={'small'}>{t('outgoing')}</Heading>
-                                <Controller
-                                    rules={{ required: true }}
-                                    name={'destination'}
-                                    defaultValue={''}
-                                    render={({ fieldState, field }) => (
-                                        <Select
-                                            id={'destination'}
-                                            label={
-                                                <HStack gap={'2'} align={'center'}>
-                                                    {t('labels.destination')}
-                                                    <HelpText
-                                                        title={'hva er dette'}
-                                                        placement="right"
-                                                    >
-                                                        {t('help.destination')}
-                                                    </HelpText>
-                                                </HStack>
-                                            }
-                                            error={!!fieldState.error}
-                                            onChange={(event) => {
-                                                setDestination(event.target.value);
-                                                field.onChange(event.target.value);
-                                            }}
-                                            disabled={!sourceApplicationId}
-                                        >
-                                            {selectableDestinations(i18n.language).map(
-                                                (option, index) => (
-                                                    <option key={index} value={option.value}>
-                                                        {option.label}
-                                                    </option>
-                                                )
-                                            )}
-                                        </Select>
-                                    )}
-                                />
-                            </VStack>
-                            {!methods.formState.isValid && methods.formState.isSubmitted && (
-                                <ErrorSummary heading={t('errorHeading')} size="small">
-                                    {!sourceApplicationId && (
-                                        <ErrorSummary.Item href="#sourceApplicationId">
+        <FormProvider {...methods}>
+            <form onSubmit={methods.handleSubmit(onSubmit)}>
+                <VStack gap={'6'}>
+                    <HStack justify={'space-between'}>
+                        <Heading size={'small'}>{t('incoming')}</Heading>
+                        {sourceApplication !== undefined &&
+                            sourceApplication !== 0 &&
+                            !availableForms && <Loader title={t('labels.loading')} />}
+                    </HStack>
+                    <VStack gap={'4'} style={{ maxWidth: '40%' }}>
+                        <Controller
+                            rules={{ required: true }}
+                            name={'sourceApplicationId'}
+                            defaultValue={''}
+                            render={({ fieldState, field }) => (
+                                <Select
+                                    id={'sourceApplicationId'}
+                                    label={
+                                        <HStack gap={'2'} align={'center'} wrap={false}>
                                             {t('labels.sourceApplicationId')}
-                                        </ErrorSummary.Item>
-                                    )}
-                                    {!sourceApplicationIntegrationId && (
-                                        <ErrorSummary.Item href="#sourceApplicationIntegrationId">
-                                            {t('labels.sourceApplicationIntegrationId')}
-                                        </ErrorSummary.Item>
-                                    )}
-                                    {!destination && (
-                                        <ErrorSummary.Item href="#destination">
-                                            {t('labels.destination')}
-                                        </ErrorSummary.Item>
-                                    )}
-                                </ErrorSummary>
-                            )}
-                            <HStack id={'button-container'} gap={'6'} justify={'end'}>
-                                <Button
-                                    size={'small'}
-                                    id="form-settings-cancel-btn"
-                                    onClick={cancel}
-                                    variant={'secondary'}
-                                    type="button"
-                                >
-                                    {t('button.cancel')}
-                                </Button>
-                                <Button
-                                    id="form-settings-confirm-btn"
-                                    type="submit"
-                                    size={'small'}
-                                    disabled={
-                                        !sourceApplicationId ||
-                                        !sourceApplicationIntegrationId ||
-                                        !destination
+                                            <HelpText title={'hva er dette'} placement="right">
+                                                {t('help.sourceApplicationId')}
+                                            </HelpText>
+                                        </HStack>
                                     }
+                                    error={!!fieldState.error}
+                                    onChange={(event) => {
+                                        setSourceApplication(Number(event.target.value));
+                                        setSourceApplicationId(event.target.value);
+                                        setSourceApplicationIntegrationId('');
+                                        field.onChange(event.target.value);
+                                    }}
                                 >
-                                    {t('button.confirm')}
-                                </Button>
-                            </HStack>
-                        </VStack>
-                        <AlertMessage
-                            status={alertContent.severity}
-                            id="integration-form-snackbar"
-                            open={showAlert}
-                            onClose={handleClose}
-                            title={alertContent.message}
+                                    {selectableSourceApplications.map((option, index) => (
+                                        <option key={index} value={option.value}>
+                                            {option.label}
+                                        </option>
+                                    ))}
+                                </Select>
+                            )}
                         />
-                    </form>
-                </FormProvider>
-            </FormPageWrapper>
-        </PageTemplate>
+
+                        <Controller
+                            rules={{ required: true }}
+                            name={'sourceApplicationIntegrationId'}
+                            defaultValue={''}
+                            render={({ fieldState, field }) => (
+                                <Select
+                                    id={'sourceApplicationIntegrationId'}
+                                    label={
+                                        <HStack gap={'2'} align={'center'}>
+                                            {t('labels.sourceApplicationIntegrationId')}
+                                            <HelpText title={'hva er dette'} placement="right">
+                                                {t('help.sourceApplicationIntegrationId')}
+                                            </HelpText>
+                                        </HStack>
+                                    }
+                                    error={!!fieldState.error}
+                                    onChange={(event) => {
+                                        setSourceApplicationIntegrationId(event.target.value);
+                                        field.onChange(event.target.value);
+                                    }}
+                                    disabled={!sourceApplicationId}
+                                >
+                                    {integrationOptions.map((option, index) => (
+                                        <option
+                                            key={index}
+                                            value={option.value}
+                                            disabled={option.disabled}
+                                        >
+                                            {option.label}
+                                        </option>
+                                    ))}
+                                </Select>
+                            )}
+                        />
+                    </VStack>
+                    <VStack gap={'3'} style={{ maxWidth: '40%' }}>
+                        <Heading size={'small'}>{t('outgoing')}</Heading>
+                        <Controller
+                            rules={{ required: true }}
+                            name={'destination'}
+                            defaultValue={''}
+                            render={({ fieldState, field }) => (
+                                <Select
+                                    id={'destination'}
+                                    label={
+                                        <HStack gap={'2'} align={'center'}>
+                                            {t('labels.destination')}
+                                            <HelpText title={'hva er dette'} placement="right">
+                                                {t('help.destination')}
+                                            </HelpText>
+                                        </HStack>
+                                    }
+                                    error={!!fieldState.error}
+                                    onChange={(event) => {
+                                        setDestination(event.target.value);
+                                        field.onChange(event.target.value);
+                                    }}
+                                    disabled={!sourceApplicationId}
+                                >
+                                    {selectableDestinations(i18n.language).map((option, index) => (
+                                        <option key={index} value={option.value}>
+                                            {option.label}
+                                        </option>
+                                    ))}
+                                </Select>
+                            )}
+                        />
+                    </VStack>
+                    {!methods.formState.isValid && methods.formState.isSubmitted && (
+                        <ErrorSummary heading={t('errorHeading')} size="small">
+                            {!sourceApplicationId && (
+                                <ErrorSummary.Item href="#sourceApplicationId">
+                                    {t('labels.sourceApplicationId')}
+                                </ErrorSummary.Item>
+                            )}
+                            {!sourceApplicationIntegrationId && (
+                                <ErrorSummary.Item href="#sourceApplicationIntegrationId">
+                                    {t('labels.sourceApplicationIntegrationId')}
+                                </ErrorSummary.Item>
+                            )}
+                            {!destination && (
+                                <ErrorSummary.Item href="#destination">
+                                    {t('labels.destination')}
+                                </ErrorSummary.Item>
+                            )}
+                        </ErrorSummary>
+                    )}
+                    <HStack id={'button-container'} gap={'6'} justify={'end'}>
+                        <Button
+                            size={'small'}
+                            id="form-settings-cancel-btn"
+                            onClick={cancel}
+                            variant={'secondary'}
+                            type="button"
+                        >
+                            {t('button.cancel')}
+                        </Button>
+                        <Button
+                            id="form-settings-confirm-btn"
+                            type="submit"
+                            size={'small'}
+                            disabled={
+                                !sourceApplicationId ||
+                                !sourceApplicationIntegrationId ||
+                                !destination
+                            }
+                        >
+                            {t('button.confirm')}
+                        </Button>
+                    </HStack>
+                </VStack>
+                <AlertMessage
+                    status={alertContent.severity}
+                    id="integration-form-snackbar"
+                    open={showAlert}
+                    onClose={handleClose}
+                    title={alertContent.message}
+                />
+            </form>
+        </FormProvider>
     );
 };
 

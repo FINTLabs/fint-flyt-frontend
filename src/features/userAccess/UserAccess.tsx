@@ -147,7 +147,7 @@ const UserAccess: React.FC = () => {
             keyPrefix={'pages.useraccess'}
             headerButton={{
                 id: 'edit-toggle-btn',
-                text: t('button.edit'),
+                textKey:'button.edit',
                 onClick: () => setEditMode((prevState) => !prevState),
                 disabled: !users || editMode,
                 icon: 'edit',
