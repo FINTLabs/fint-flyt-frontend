@@ -5,8 +5,8 @@ import { useTranslation } from 'react-i18next';
 
 import useInstanceFlowTrackingRepository from '../../../shared/api/useInstanceFlowTrackingRepository';
 import useIntegrationRepository from '../../../shared/api/useIntegrationRepository';
-import TableLoader from '../../../shared/components/TableLoader';
-import TablePagination from '../../../shared/components/pagination/TablePagination';
+import TablePagination from '../../../shared/components/table/pagination/TablePagination';
+import TableLoader from '../../../shared/components/table/TableLoader';
 import { IAlertMessage, Page } from '../../../shared/components/types/TableTypes';
 import { AuthorizationContext } from '../../../shared/context/AuthorizationContext';
 import { SourceApplicationContext } from '../../../shared/context/SourceApplicationContext';

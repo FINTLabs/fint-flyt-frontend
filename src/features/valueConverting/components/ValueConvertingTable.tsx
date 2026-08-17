@@ -1,25 +1,15 @@
-import {
-    Alert,
-    Box,
-    Button,
-    Dropdown,
-    HStack,
-    Pagination,
-    Table,
-    VStack,
-} from '@navikt/ds-react';
+import { ActionMenu, Alert, Box, HStack, Pagination, Table, VStack } from '@navikt/ds-react';
 import React, { ReactElement, useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
 import useValueConvertingRepository from '../../../shared/api/useValueConvertingRepository';
-import { MenuElipsisVerticalCircleIcon } from '../../../shared/components/icons';
-import TableLoader from '../../../shared/components/TableLoader';
+import { FilesIcon } from '../../../shared/components/icons';
+import TableLoader from '../../../shared/components/table/TableLoader';
+import { TableRowActionsMenu } from '../../../shared/components/table/TableRowDropdown';
 import { IAlertMessage } from '../../../shared/components/types/TableTypes';
 import { AuthorizationContext } from '../../../shared/context/AuthorizationContext';
-import {
-    getDestinationDisplayName,
-} from '../../../shared/util/TableUtil';
+import { getDestinationDisplayName } from '../../../shared/util/TableUtil';
 import { ISourceApplication } from '../../configuration/types/SourceApplication';
 import { IValueConverting } from '../types/ValueConverting';
 import ValueConvertingPanel from './ValueConvertingPanel';
@@ -71,26 +61,18 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
 
     function actionMenu(value: IValueConverting): ReactElement {
         return (
-            <Dropdown>
-                <Button
-                    as={Dropdown.Toggle}
-                    variant="tertiary-neutral"
-                    icon={<MenuElipsisVerticalCircleIcon aria-hidden />}
-                />
-                <Dropdown.Menu>
-                    <Dropdown.Menu.GroupedList>
-                        <Dropdown.Menu.GroupedList.Item
-                            onClick={() => {
-                                handleNewOrEditConvertingClick(value.id).then(() =>
-                                    history('/valueconverting')
-                                );
-                            }}
-                        >
-                            {t('button.basedOn')}
-                        </Dropdown.Menu.GroupedList.Item>
-                    </Dropdown.Menu.GroupedList>
-                </Dropdown.Menu>
-            </Dropdown>
+            <TableRowActionsMenu id={'value-convertings'}>
+                <ActionMenu.Item
+                    onClick={() => {
+                        handleNewOrEditConvertingClick(value.id).then(() =>
+                            history('/valueconverting')
+                        );
+                    }}
+                    icon={<FilesIcon />}
+                >
+                    {t('button.basedOn')}
+                </ActionMenu.Item>
+            </TableRowActionsMenu>
         );
     }
 
@@ -107,7 +89,7 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
                     <Table id={'value-convertings-table'} size={'small'}>
                         <Table.Header>
                             <Table.Row>
-                                <Table.HeaderCell scope="col">{t('column.show')}</Table.HeaderCell>
+                                <Table.HeaderCell scope="col"></Table.HeaderCell>
                                 <Table.HeaderCell scope="col">{t('column.id')}</Table.HeaderCell>
                                 <Table.HeaderCell scope="col">
                                     {t('column.displayName')}
@@ -124,9 +106,7 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
                                 <Table.HeaderCell scope="col">
                                     {t('column.toApplication')}
                                 </Table.HeaderCell>
-                                <Table.HeaderCell scope="col" align={'right'}>
-                                    {t('column.actions')}
-                                </Table.HeaderCell>
+                                <Table.HeaderCell scope="col" align={'right'}></Table.HeaderCell>
                             </Table.Row>
                         </Table.Header>
                         <Table.Body>

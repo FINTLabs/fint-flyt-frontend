@@ -1,4 +1,4 @@
-import { Alert, Box, Button, Checkbox, Dropdown, Table } from '@navikt/ds-react';
+import { ActionMenu, Alert, Box, Checkbox, Table } from '@navikt/ds-react';
 import { format } from 'date-fns';
 import * as React from 'react';
 import { ReactElement, useContext, useEffect, useState } from 'react';
@@ -6,9 +6,15 @@ import { useTranslation } from 'react-i18next';
 
 import useInstanceFlowTrackingRepository from '../../../shared/api/useInstanceFlowTrackingRepository';
 import useInstanceRepository from '../../../shared/api/useInstanceRepository';
-import { MenuElipsisVerticalIcon } from '../../../shared/components/icons';
-import TableLoader from '../../../shared/components/TableLoader';
-import LoadMorePagination from '../../../shared/components/pagination/LoadMorePagination';
+import {
+    DocPencilIcon,
+    RetryIcon,
+} from '../../../shared/components/icons';
+import LoadMorePagination from '../../../shared/components/table/pagination/LoadMorePagination';
+import TableLoader from '../../../shared/components/table/TableLoader';
+import {
+    TableRowActionsMenu,
+} from '../../../shared/components/table/TableRowDropdown';
 import { IAlertMessage } from '../../../shared/components/types/TableTypes';
 import { AuthorizationContext } from '../../../shared/context/AuthorizationContext';
 import { SourceApplicationContext } from '../../../shared/context/SourceApplicationContext';
@@ -32,13 +38,8 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
     const { getAllSourceApplications } = useContext(AuthorizationContext);
     const { t } = useTranslation('translations', { keyPrefix: 'pages.instances' });
     const { filters, refreshKey } = useFilters();
-    const {
-        selectedEvents,
-        toggleSelectedEvents,
-        addAllEvents,
-        removeAllEvents,
-        selectedSize,
-    } = useTableSelect();
+    const { selectedEvents, toggleSelectedEvents, addAllEvents, removeAllEvents, selectedSize } =
+        useTableSelect();
 
     const [selectedRowByActionMenu, setSelectedRowByActionMenu] = useState<IEventNew>();
     const [expandedRows, setExpandedRows] = useState<number[]>([]);
@@ -144,50 +145,36 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
 
     function actionMenu(event: IEventNew, id: number): ReactElement {
         return (
-            <div id={id + '-action-toggle'} className="min-h-32">
-                <Dropdown>
-                    <Button
-                        size={'small'}
-                        as={Dropdown.Toggle}
-                        variant="tertiary-neutral"
-                        icon={<MenuElipsisVerticalIcon aria-hidden />}
-                    />
-                    <Dropdown.Menu>
-                        <Dropdown.Menu.List>
-                            <Dropdown.Menu.List.Item
-                                id={'statusButton'}
-                                onClick={() => {
-                                    setSelectedRowByActionMenu(event);
-                                    setOpenCustomDialog(true);
-                                }}
-                            >
-                                {t('customStatus')}
-                            </Dropdown.Menu.List.Item>
-
-                            {event.intermediateStorageStatus === 'STORED' && (
-                                <>
-                                    <Dropdown.Menu.Divider />
-                                    <Dropdown.Menu.List.Item
-                                        id="retryButton"
-                                        disabled={
-                                            errorsNotForRetry.includes(event.displayName ?? '') ||
-                                            disabledRetryButtons[id]
-                                        }
-                                        onClick={() => {
-                                            if (event.latestInstanceId) {
-                                                resend(event.latestInstanceId);
-                                                handleRetryButtonClick(id);
-                                            }
-                                        }}
-                                    >
-                                        {t('retry')}
-                                    </Dropdown.Menu.List.Item>
-                                </>
-                            )}
-                        </Dropdown.Menu.List>
-                    </Dropdown.Menu>
-                </Dropdown>
-            </div>
+            <TableRowActionsMenu id={id}>
+                <ActionMenu.Item
+                    id="statusButton"
+                    onClick={() => {
+                        setSelectedRowByActionMenu(event);
+                        setOpenCustomDialog(true);
+                    }}
+                    icon={<DocPencilIcon />}
+                >
+                    {t('customStatus')}
+                </ActionMenu.Item>
+                {event.intermediateStorageStatus === 'STORED' && (
+                    <ActionMenu.Item
+                        id="retryButton"
+                        disabled={
+                            errorsNotForRetry.includes(event.displayName ?? '') ||
+                            disabledRetryButtons[id]
+                        }
+                        onClick={() => {
+                            if (event.latestInstanceId) {
+                                resend(event.latestInstanceId);
+                                handleRetryButtonClick(id);
+                            }
+                        }}
+                        icon={<RetryIcon />}
+                    >
+                        {t('retry')}
+                    </ActionMenu.Item>
+                )}
+            </TableRowActionsMenu>
         );
     }
 

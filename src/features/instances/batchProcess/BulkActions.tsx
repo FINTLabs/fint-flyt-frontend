@@ -8,7 +8,7 @@ import {
     ArrowsCirclepathIcon,
     MenuElipsisVerticalIcon,
 } from '../../../shared/components/icons';
-import TableLoader from '../../../shared/components/TableLoader';
+import TableLoader from '../../../shared/components/table/TableLoader';
 import { AuthorizationContext } from '../../../shared/context/AuthorizationContext';
 import { ISourceApplication } from '../../configuration/types/SourceApplication';
 import { useTableSelect } from './TableSelectContext';

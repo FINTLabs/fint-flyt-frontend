@@ -1,14 +1,15 @@
+import { Button, HStack } from '@navikt/ds-react';
 import {
     FunctionComponent,
     useCallback,
     useMemo,
     useState,
 } from 'react';
-import { Button, HStack } from '@navikt/ds-react';
-import { CustomSelect } from './CustomSelect';
 import { useTranslation } from 'react-i18next';
-import { IPaginationSelect } from '../types/TableTypes';
 import { useSearchParams } from 'react-router';
+
+import { IPaginationSelect } from '../../types/TableTypes';
+import { CustomSelect } from './CustomSelect';
 
 type Props = {
     hide?: boolean;
