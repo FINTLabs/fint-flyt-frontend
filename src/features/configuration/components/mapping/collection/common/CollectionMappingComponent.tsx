@@ -5,9 +5,9 @@ import FromCollectionMappingComponent from "./FromCollectionMappingComponent";
 import {useTranslation} from "react-i18next";
 import ArrayObjectWrapperComponent from "../../../array/ArrayObjectWrapperComponent";
 import ArrayValueWrapperComponent from "../../../array/ArrayValueWrapperComponent";
-import {ConfigurationContext} from "../../../../../../shared/context/ConfigurationContext";
+import {ConfigurationContext} from "../../../../context/ConfigurationContext";
 import {isOutsideCollectionEditContext} from "../../../../util/KeyUtils";
-import {EditingContext} from "../../../../../../shared/context/EditingContext";
+import {EditingContext} from "../../../../context/EditingContext";
 import {Box, Heading, HelpText, HStack, VStack} from "@navikt/ds-react";
 
 interface Props {

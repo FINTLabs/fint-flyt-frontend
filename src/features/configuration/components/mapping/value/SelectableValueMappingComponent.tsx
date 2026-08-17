@@ -3,8 +3,8 @@ import * as React from "react";
 import {useContext, useState} from "react";
 import {Controller, useFormContext} from "react-hook-form";
 
-import {ConfigurationContext} from "../../../../../shared/context/ConfigurationContext";
-import {EditingContext} from "../../../../../shared/context/EditingContext";
+import {ConfigurationContext} from "../../../context/ConfigurationContext";
+import {EditingContext} from "../../../context/EditingContext";
 import {ValueType as ConfigurationValueType} from "../../../types/Configuration";
 import {ISelectableValueTemplate, SelectableValueType} from "../../../types/FormTemplate";
 import {isOutsideCollectionEditContext} from "../../../util/KeyUtils";

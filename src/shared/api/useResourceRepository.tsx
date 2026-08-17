@@ -1,12 +1,13 @@
 import { useContext } from 'react';
 
+import { ISelectable } from '../../features/configuration/types/Selectable';
+import { Source } from '../../features/configuration/util/UrlUtils';
 import {
     AdapterRequestConfigType,
     AdapterResponse,
     ApiAdapterContext,
 } from './ApiAdapterContext';
-import { ISelectable } from '../../features/configuration/types/Selectable';
-import { Source } from '../../features/configuration/util/UrlUtils';
+import { IMappingTemplate } from '../../features/configuration/types/FormTemplate';
 const API_URL = import.meta.env.VITE_API_ARCH || '';
 
 export default function useResourceRepository() {
@@ -53,7 +54,7 @@ export default function useResourceRepository() {
     };
 
     const getArchiveTemplate = () => {
-        return get(API_URL, `/api/intern/arkiv/template`);
+        return get<IMappingTemplate>(API_URL, `/api/intern/arkiv/template`);
     };
 
     return {

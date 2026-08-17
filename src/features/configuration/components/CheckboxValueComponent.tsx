@@ -3,7 +3,7 @@ import * as React from 'react';
 import { ChangeEvent, forwardRef, useContext } from 'react';
 import { Noop } from 'react-hook-form/dist/types';
 
-import { ConfigurationContext } from '../../../shared/context/ConfigurationContext';
+import { ConfigurationContext } from '../context/ConfigurationContext';
 
 interface Props {
     displayName: string;

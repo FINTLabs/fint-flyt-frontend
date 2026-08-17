@@ -1,7 +1,7 @@
 import Configuration from '../features/configuration/Configuration';
+import ConfigurationProvider from '../features/configuration/context/ConfigurationContext';
 import { RouteComponent } from '../routes/Route';
 import PageTemplate from '../shared/components/layout/PageTemplate';
-import ConfigurationProvider from '../shared/context/ConfigurationContext';
 
 const ConfigurationPage: RouteComponent = () => (
     <ConfigurationProvider>

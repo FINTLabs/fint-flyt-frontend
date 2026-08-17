@@ -4,8 +4,8 @@ import {ReactElement, useContext} from "react";
 import {Controller, ControllerFieldState, FieldValues, useFormContext} from "react-hook-form";
 import {ControllerRenderProps} from "react-hook-form/dist/types/controller";
 
-import {ConfigurationContext} from "../../../../../shared/context/ConfigurationContext";
-import {EditingContext} from "../../../../../shared/context/EditingContext";
+import {ConfigurationContext} from "../../../context/ConfigurationContext";
+import {EditingContext} from "../../../context/EditingContext";
 import {ValueType as ConfigurationValueType} from "../../../types/Configuration";
 import {IValueTemplate, ValueType as TemplateValueType} from "../../../types/FormTemplate";
 import {ValueType as MetadataValueType} from "../../../types/Metadata/IntegrationMetadata";

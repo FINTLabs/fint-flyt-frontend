@@ -6,8 +6,8 @@ import { Controller, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import IconButton from '../../../IconButton';
-import { ConfigurationContext } from '../../../../../../shared/context/ConfigurationContext';
-import { EditingContext } from '../../../../../../shared/context/EditingContext';
+import { ConfigurationContext } from '../../../../context/ConfigurationContext';
+import { EditingContext } from '../../../../context/EditingContext';
 import { ValueType as ConfigurationValueType } from '../../../../types/Configuration';
 import { ValueType } from '../../../../types/Metadata/IntegrationMetadata';
 import { isOutsideCollectionEditContext } from '../../../../util/KeyUtils';

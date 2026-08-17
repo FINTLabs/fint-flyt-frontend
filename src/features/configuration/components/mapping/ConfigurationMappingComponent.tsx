@@ -3,7 +3,7 @@ import * as React from 'react';
 import { ReactElement, useContext, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
-import { EditingContext } from '../../../../shared/context/EditingContext';
+import { EditingContext } from '../../context/EditingContext';
 import {
     ICollectionTemplate,
     IMappingTemplate,

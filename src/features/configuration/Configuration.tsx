@@ -11,8 +11,6 @@ import useIntegrationRepository from '../../shared/api/useIntegrationRepository'
 import { ProblemDetail } from '../../shared/api/utils/apiErrorUtils';
 import AlertMessage from '../../shared/components/AlertMessage';
 import { AuthorizationContext } from '../../shared/context/AuthorizationContext';
-import { ConfigurationContext } from '../../shared/context/ConfigurationContext';
-import EditingProvider, { EditingContext } from '../../shared/context/EditingContext';
 import { IntegrationContext } from '../../shared/context/IntegrationContext';
 import { SourceApplicationContext } from '../../shared/context/SourceApplicationContext';
 import { pruneObjectMapping } from '../../shared/util/mapping/helpers/pruning';
@@ -21,6 +19,8 @@ import CheckboxValueComponent from './components/CheckboxValueComponent';
 import IncomingData from './components/IncomingData';
 import StringValueComponent from './components/mapping/value/string/StringValueComponent';
 import OutgoingDataComponent from './components/OutgoingDataComponent';
+import { ConfigurationContext } from './context/ConfigurationContext';
+import EditingProvider, { EditingContext } from './context/EditingContext';
 import {
     activeAlert,
     completedAlert,

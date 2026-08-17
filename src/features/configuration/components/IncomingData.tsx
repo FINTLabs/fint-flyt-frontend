@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 
 import useValueConvertingRepository from '../../../shared/api/useValueConvertingRepository';
 import { WarningTriangleIcon } from '../../../shared/components/icons';
-import { ConfigurationContext } from '../../../shared/context/ConfigurationContext';
+import { ConfigurationContext } from '../context/ConfigurationContext';
 import { IntegrationContext } from '../../../shared/context/IntegrationContext';
 import { SourceApplicationContext } from '../../../shared/context/SourceApplicationContext';
 import {
