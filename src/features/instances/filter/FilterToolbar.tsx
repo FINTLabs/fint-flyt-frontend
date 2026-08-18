@@ -1,16 +1,17 @@
-import React, { FC, useCallback, useContext, useEffect } from 'react';
 import { HStack, VStack } from '@navikt/ds-react';
-import BulkActions from '../batchProcess/BulkActions';
-import ActiveFilters from './ActiveFilters';
-import { useFilterOptions } from './OptionsContext';
-import FilterDropdownMenu from './filterMenu/FilterDropdownMenu';
-import QuickFiltersDropdownMenu from './filterMenu/QuickFiltersDropdownMenu';
+import React, { FC, useCallback, useContext, useEffect } from 'react';
+
 import useIntegrationRepository from '../../../shared/api/useIntegrationRepository';
-import { SourceApplicationContext } from '../../../shared/context/SourceApplicationContext';
 import { AuthorizationContext } from '../../../shared/context/AuthorizationContext';
+import { SourceApplicationContext } from '../../../shared/context/SourceApplicationContext';
 import { sourceApplicationsToSelectable } from '../../../shared/util/FormUtil';
 import { IIntegrationMetadata } from '../../configuration/types/Metadata/IntegrationMetadata';
 import { IIntegration } from '../../integration/types/Integration';
+import BulkActions from '../batchProcess/BulkActions';
+import ActiveFilters from './ActiveFilters';
+import FilterDropdownMenu from './filterMenu/FilterDropdownMenu';
+import QuickFiltersDropdownMenu from './filterMenu/QuickFiltersDropdownMenu';
+import { useFilterOptions } from './OptionsContext';
 
 const FilterToolbar: FC = () => {
     const IntegrationRepository = useIntegrationRepository();

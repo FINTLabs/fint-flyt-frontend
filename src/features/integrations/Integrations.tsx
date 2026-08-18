@@ -1,15 +1,13 @@
-import { Alert } from '@navikt/ds-react';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 
-import { IAlertMessage } from '../../shared/components/types/TableTypes';
+import { TableLayoutWrapper } from '../../shared/components/table/TableLayoutWrapper';
 import { AuthorizationContext } from '../../shared/context/AuthorizationContext';
 import { SourceApplicationContext } from '../../shared/context/SourceApplicationContext';
 import IntegrationTable from './components/IntegrationTable';
 
 const Integrations: React.FC = () => {
     const { getAllMetadata, allMetadata } = useContext(SourceApplicationContext);
-    const [error, setError] = useState<IAlertMessage | undefined>(undefined);
     const { authorized, getAuthorization } = useContext(AuthorizationContext);
     const history = useNavigate();
 
@@ -31,19 +29,9 @@ const Integrations: React.FC = () => {
     }, []);
 
     return (
-        <>
-            {error && (
-                <Alert style={{ maxWidth: '100%' }} variant="error">
-                    {error.message}
-                </Alert>
-            )}
-            <IntegrationTable
-                onError={(error) => {
-                    setError(error);
-                }}
-                id={'integration-table'}
-            />
-        </>
+        <TableLayoutWrapper>
+            <IntegrationTable id="integration-table" />
+        </TableLayoutWrapper>
     );
 };
 

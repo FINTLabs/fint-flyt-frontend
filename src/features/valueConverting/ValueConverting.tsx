@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router';
 
 import useValueConvertingRepository from '../../shared/api/useValueConvertingRepository';
 import PageTemplate from '../../shared/components/layout/PageTemplate';
+import { TableLayoutWrapper } from '../../shared/components/table/TableLayoutWrapper';
 import { AuthorizationContext } from '../../shared/context/AuthorizationContext';
 import ValueConvertingForm from './components/ValueConvertingForm';
 import ValueConvertingTable from './components/ValueConvertingTable';
@@ -49,18 +50,20 @@ const ValueConverting: React.FC = () => {
                     setExistingValueConverting={setExistingValueConverting}
                 />
             ) : (
-                <ValueConvertingTable
-                    setNewValueConverting={setNewValueConverting}
-                    onValueConvertingSelected={(id: number) => {
-                        return ValueConvertingRepository.getValueConverting(id)
-                            .then((response) => {
-                                setExistingValueConverting(response.data);
-                            })
-                            .catch((e) => {
-                                console.log(e);
-                            });
-                    }}
-                />
+                <TableLayoutWrapper>
+                    <ValueConvertingTable
+                        setNewValueConverting={setNewValueConverting}
+                        onValueConvertingSelected={(id: number) => {
+                            return ValueConvertingRepository.getValueConverting(id)
+                                .then((response) => {
+                                    setExistingValueConverting(response.data);
+                                })
+                                .catch((e) => {
+                                    console.log(e);
+                                });
+                        }}
+                    />
+                </TableLayoutWrapper>
             )}
         </PageTemplate>
     );

@@ -6,16 +6,13 @@ import { useTranslation } from 'react-i18next';
 
 import useInstanceFlowTrackingRepository from '../../../shared/api/useInstanceFlowTrackingRepository';
 import useInstanceRepository from '../../../shared/api/useInstanceRepository';
-import {
-    DocPencilIcon,
-    RetryIcon,
-} from '../../../shared/components/icons';
-import LoadMorePagination from '../../../shared/components/table/pagination/LoadMorePagination';
+import { DocPencilIcon, RetryIcon } from '../../../shared/components/icons';
 import TableLoader from '../../../shared/components/table/TableLoader';
 import {
-    TableRowActionsMenu,
-} from '../../../shared/components/table/TableRowDropdown';
-import { IAlertMessage } from '../../../shared/components/types/TableTypes';
+    useTablePageError,
+    useTablePagination,
+} from '../../../shared/components/table/TablePageContext';
+import { TableRowActionsMenu } from '../../../shared/components/table/TableRowDropdown';
 import { AuthorizationContext } from '../../../shared/context/AuthorizationContext';
 import { SourceApplicationContext } from '../../../shared/context/SourceApplicationContext';
 import { IIntegrationMetadata } from '../../configuration/types/Metadata/IntegrationMetadata';
@@ -27,11 +24,9 @@ import CustomStatusDialogComponent from './CustomStatusDialogComponent';
 import { InstanceStatusWithTooltip } from './InstanceEventStatusWithText';
 import InstancePanel from './InstancePanel';
 
-interface Props {
-    onError: (error: IAlertMessage | undefined) => void;
-}
-
-const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
+const InstanceTable: React.FunctionComponent = () => {
+    const onError = useTablePageError();
+    const { setPaginationMeta } = useTablePagination();
     const InstanceRepository = useInstanceRepository();
     const InstanceFlowTrackingRepository = useInstanceFlowTrackingRepository();
     const { allMetadata } = useContext(SourceApplicationContext);
@@ -60,6 +55,13 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
             setLoading(false);
         }
     }, [allMetadata, summaryList]);
+
+    useEffect(() => {
+        setPaginationMeta({
+            hidePagination: !summaryList?.length,
+            onFetchMore: setSize,
+        });
+    }, [summaryList?.length, setSize, setPaginationMeta]);
 
     useEffect(() => {
         if (allMetadata?.length && !isFetching) {
@@ -180,152 +182,143 @@ const InstanceTable: React.FunctionComponent<Props> = ({ onError }) => {
 
     return (
         <Box>
-            <Box background={'surface-default'} style={{ minHeight: '70vh' }}>
-                {selectedRowByActionMenu && (
-                    <CustomStatusDialogComponent
-                        open={openCustomDialog}
-                        row={selectedRowByActionMenu}
-                        setOpenCustomDialog={setOpenCustomDialog}
-                    />
-                )}
+            {selectedRowByActionMenu && (
+                <CustomStatusDialogComponent
+                    open={openCustomDialog}
+                    row={selectedRowByActionMenu}
+                    setOpenCustomDialog={setOpenCustomDialog}
+                />
+            )}
 
-                <Table id={'instance-table'}>
-                    <Table.Header>
-                        <Table.Row>
-                            <Table.ColumnHeader />
-                            <Table.DataCell>
-                                <Checkbox
-                                    size={'small'}
-                                    checked={selectedSize === summaryList?.length}
-                                    indeterminate={
-                                        selectedSize > 0 && selectedSize !== summaryList?.length
+            <Table id={'instance-table'}>
+                <Table.Header>
+                    <Table.Row>
+                        <Table.ColumnHeader />
+                        <Table.DataCell>
+                            <Checkbox
+                                size={'small'}
+                                checked={selectedSize === summaryList?.length}
+                                indeterminate={
+                                    selectedSize > 0 && selectedSize !== summaryList?.length
+                                }
+                                onChange={() => {
+                                    if (selectedSize) {
+                                        removeAllEvents();
+                                    } else {
+                                        addAllEvents(summaryList);
                                     }
-                                    onChange={() => {
-                                        if (selectedSize) {
-                                            removeAllEvents();
-                                        } else {
-                                            addAllEvents(summaryList);
-                                        }
-                                    }}
-                                    hideLabel
+                                }}
+                                hideLabel
+                            >
+                                Velg alle rader
+                            </Checkbox>
+                        </Table.DataCell>
+                        <Table.ColumnHeader>
+                            {t('table.column.sourceApplicationId')}
+                        </Table.ColumnHeader>
+                        <Table.ColumnHeader>
+                            {t('table.column.sourceApplicationIntegrationIdDisplayName')}
+                        </Table.ColumnHeader>
+                        <Table.ColumnHeader>
+                            {t('table.column.sourceApplicationIntegrationId')}
+                        </Table.ColumnHeader>
+                        <Table.ColumnHeader>
+                            {t('table.column.sourceApplicationInstanceId')}
+                        </Table.ColumnHeader>
+                        <Table.ColumnHeader>{t('table.column.timestamp')}</Table.ColumnHeader>
+                        <Table.ColumnHeader align={'center'}>
+                            {t('table.column.status')}
+                        </Table.ColumnHeader>
+                        <Table.ColumnHeader>{t('table.column.storage')}</Table.ColumnHeader>
+                        <Table.ColumnHeader>
+                            {t('table.column.archiveInstanceId')}
+                        </Table.ColumnHeader>
+                        <Table.ColumnHeader align={'right'}></Table.ColumnHeader>
+                    </Table.Row>
+                </Table.Header>
+                <Table.Body>
+                    {loading ? (
+                        <TableLoader columnLength={10} />
+                    ) : (
+                        summaryList?.map((value: IEventNew, i: number) => {
+                            return (
+                                <Table.ExpandableRow
+                                    key={i}
+                                    id={`instance-row-${i}`}
+                                    expandOnRowClick
+                                    open={expandedRows.includes(i)}
+                                    onOpenChange={() => toggleExpandableRow(i)}
+                                    content={
+                                        expandedRows.includes(i) ? (
+                                            <InstancePanel
+                                                id={`instance-panel-${i}`}
+                                                onError={(error) => onError(error)}
+                                                instanceId={value.sourceApplicationInstanceId}
+                                                sourceApplicationId={value.sourceApplicationId}
+                                                sourceApplicationIntegrationId={
+                                                    value.sourceApplicationIntegrationId
+                                                }
+                                            />
+                                        ) : null
+                                    }
                                 >
-                                    Velg alle rader
-                                </Checkbox>
-                            </Table.DataCell>
-                            <Table.ColumnHeader>
-                                {t('table.column.sourceApplicationId')}
-                            </Table.ColumnHeader>
-                            <Table.ColumnHeader>
-                                {t('table.column.sourceApplicationIntegrationIdDisplayName')}
-                            </Table.ColumnHeader>
-                            <Table.ColumnHeader>
-                                {t('table.column.sourceApplicationIntegrationId')}
-                            </Table.ColumnHeader>
-                            <Table.ColumnHeader>
-                                {t('table.column.sourceApplicationInstanceId')}
-                            </Table.ColumnHeader>
-                            <Table.ColumnHeader>{t('table.column.timestamp')}</Table.ColumnHeader>
-                            <Table.ColumnHeader align={'center'}>
-                                {t('table.column.status')}
-                            </Table.ColumnHeader>
-                            <Table.ColumnHeader>{t('table.column.storage')}</Table.ColumnHeader>
-                            <Table.ColumnHeader>
-                                {t('table.column.archiveInstanceId')}
-                            </Table.ColumnHeader>
-                            <Table.ColumnHeader align={'right'}></Table.ColumnHeader>
-                        </Table.Row>
-                    </Table.Header>
-                    <Table.Body>
-                        {loading ? (
-                            <TableLoader columnLength={10} />
-                        ) : (
-                            summaryList?.map((value: IEventNew, i: number) => {
-                                return (
-                                    <Table.ExpandableRow
-                                        key={i}
-                                        id={`instance-row-${i}`}
-                                        expandOnRowClick
-                                        open={expandedRows.includes(i)}
-                                        onOpenChange={() => toggleExpandableRow(i)}
-                                        content={
-                                            expandedRows.includes(i) ? (
-                                                <InstancePanel
-                                                    id={`instance-panel-${i}`}
-                                                    onError={(error) => onError(error)}
-                                                    instanceId={value.sourceApplicationInstanceId}
-                                                    sourceApplicationId={value.sourceApplicationId}
-                                                    sourceApplicationIntegrationId={
-                                                        value.sourceApplicationIntegrationId
-                                                    }
-                                                />
-                                            ) : null
+                                    <Table.DataCell>
+                                        <Checkbox
+                                            size={'small'}
+                                            hideLabel
+                                            checked={selectedEvents[i] !== undefined}
+                                            onChange={() => {
+                                                toggleSelectedEvents(i, value);
+                                            }}
+                                            aria-labelledby={`id-${i}`}
+                                        >
+                                            {' '}
+                                        </Checkbox>
+                                    </Table.DataCell>
+                                    <Table.DataCell scope="row">
+                                        {
+                                            sourceApplications?.find(
+                                                (sa) => sa.id === value.sourceApplicationId
+                                            )?.displayName
                                         }
-                                    >
-                                        <Table.DataCell>
-                                            <Checkbox
-                                                size={'small'}
-                                                hideLabel
-                                                checked={selectedEvents[i] !== undefined}
-                                                onChange={() => {
-                                                    toggleSelectedEvents(i, value);
-                                                }}
-                                                aria-labelledby={`id-${i}`}
-                                            >
-                                                {' '}
-                                            </Checkbox>
-                                        </Table.DataCell>
-                                        <Table.DataCell scope="row">
-                                            {
-                                                sourceApplications?.find(
-                                                    (sa) => sa.id === value.sourceApplicationId
-                                                )?.displayName
-                                            }
-                                        </Table.DataCell>
+                                    </Table.DataCell>
 
-                                        <Table.DataCell>{value.displayName}</Table.DataCell>
-                                        <Table.DataCell>
-                                            {value.sourceApplicationIntegrationId}
-                                        </Table.DataCell>
-                                        <Table.DataCell>
-                                            {value.sourceApplicationInstanceId}
-                                        </Table.DataCell>
-                                        <Table.DataCell>
-                                            {format(value.latestUpdate, 'dd/MM/yy HH:mm')}
-                                        </Table.DataCell>
-                                        <Table.DataCell>
-                                            <InstanceStatusWithTooltip status={value.status} />
-                                        </Table.DataCell>
-                                        <Table.DataCell>
-                                            {value.intermediateStorageStatus
-                                                ? t(
-                                                      `filter.intermediateStorageStatusOptions.${value.intermediateStorageStatus}`
-                                                  )
-                                                : null}
-                                        </Table.DataCell>
+                                    <Table.DataCell>{value.displayName}</Table.DataCell>
+                                    <Table.DataCell>
+                                        {value.sourceApplicationIntegrationId}
+                                    </Table.DataCell>
+                                    <Table.DataCell>
+                                        {value.sourceApplicationInstanceId}
+                                    </Table.DataCell>
+                                    <Table.DataCell>
+                                        {format(value.latestUpdate, 'dd/MM/yy HH:mm')}
+                                    </Table.DataCell>
+                                    <Table.DataCell>
+                                        <InstanceStatusWithTooltip status={value.status} />
+                                    </Table.DataCell>
+                                    <Table.DataCell>
+                                        {value.intermediateStorageStatus
+                                            ? t(
+                                                  `filter.intermediateStorageStatusOptions.${value.intermediateStorageStatus}`
+                                              )
+                                            : null}
+                                    </Table.DataCell>
 
-                                        <Table.DataCell>
-                                            {value.destinationInstanceIds}
-                                        </Table.DataCell>
-                                        <Table.DataCell align={'right'}>
-                                            {value.status === 'FAILED' && actionMenu(value, i)}
-                                        </Table.DataCell>
-                                    </Table.ExpandableRow>
-                                );
-                            })
-                        )}
-                    </Table.Body>
-                </Table>
-                {!loading && summaryList?.length === 0 && (
-                    <Box paddingBlock={'8'}>
-                        <Alert variant="info">{t('filter.alerts.noResults')}</Alert>
-                    </Box>
-                )}
-            </Box>
-
-            <LoadMorePagination
-                hide={!summaryList?.length || summaryList?.length === 0}
-                onFetchMore={setSize}
-            />
+                                    <Table.DataCell>{value.destinationInstanceIds}</Table.DataCell>
+                                    <Table.DataCell align={'right'}>
+                                        {value.status === 'FAILED' && actionMenu(value, i)}
+                                    </Table.DataCell>
+                                </Table.ExpandableRow>
+                            );
+                        })
+                    )}
+                </Table.Body>
+            </Table>
+            {!loading && summaryList?.length === 0 && (
+                <Box paddingBlock={'8'}>
+                    <Alert variant="info">{t('filter.alerts.noResults')}</Alert>
+                </Box>
+            )}
         </Box>
     );
 };
