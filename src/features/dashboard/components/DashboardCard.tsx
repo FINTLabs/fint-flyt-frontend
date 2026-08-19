@@ -1,0 +1,81 @@
+import { BodyShort, Box, Heading, HStack,Loader, VStack } from '@navikt/ds-react';
+import * as React from 'react';
+import { useContext } from 'react';
+import { Link as RouterLink } from 'react-router';
+
+import { ArrowRightIcon } from '../../../shared/components/icons';
+import { IntegrationContext } from '../../../shared/context/IntegrationContext';
+import { ILink } from '../types/Link';
+
+type Props = {
+    content: string;
+    value: number | undefined;
+    link?: ILink;
+    id: string;
+};
+
+const DashboardCard: React.FunctionComponent<Props> = (props: Props) => {
+    const { integrations } = useContext(IntegrationContext);
+
+    return (
+        <Box
+            id={props.id}
+            as="div"
+            background="surface-default"
+            borderRadius="large"
+            borderWidth="1"
+            borderColor="border-subtle"
+            style={{
+                justifyContent: 'center',
+                textAlign: 'center',
+                height: '150px',
+                width: '100%',
+            }}
+        >
+            <VStack gap={'2'} justify={'space-between'} height={'100%'}>
+                <VStack height={'100%'} justify={'center'} align={'center'}>
+                    {integrations ? (
+                        <Heading
+                            size="large"
+                            id={`${props.id}-value`}
+                            textColor={!props.value || props.value === 0 ? 'subtle' : 'default'}
+                        >
+                            {props.value ?? 0}
+                        </Heading>
+                    ) : (
+                        <Box paddingBlock={'1'}>
+                            <Loader size="large" title="Venter..." transparent />
+                        </Box>
+                    )}
+                    <Heading size="small" id={`${props.id}-description`}>
+                        {props.content}
+                    </Heading>
+                </VStack>
+                {props.link && (
+                    <Box
+                        className="dashboard-card-link"
+                        borderRadius={'0 0 large large'}
+                        as={RouterLink}
+                        to={props.link.href}
+                        paddingInline={'4'}
+                    >
+                        <HStack
+                            justify="center"
+                            align="center"
+                            height="100%"
+                            width="100%"
+                            style={{ position: 'relative' }}
+                            wrap={false}
+                            gap={'4'}
+                        >
+                            <BodyShort id={`${props.id}-btn`}>{props.link.name}</BodyShort>
+                            <ArrowRightIcon className="arrow-icon" />
+                        </HStack>
+                    </Box>
+                )}
+            </VStack>
+        </Box>
+    );
+};
+
+export default DashboardCard;

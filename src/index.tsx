@@ -1,5 +1,5 @@
 import App from './App';
-import './util/locale/i18n.ts';
+import './shared/util/locale/i18n.ts';
 import { createRoot } from 'react-dom/client';
 import '@navikt/ds-css';
 

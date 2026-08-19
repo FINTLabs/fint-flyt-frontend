@@ -1,11 +1,3 @@
-import * as React from 'react';
-import { useCallback, useContext, useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { IntegrationContext } from '../../../context/IntegrationContext';
-import { Link as RouterLink } from 'react-router';
-import { SourceApplicationContext } from '../../../context/SourceApplicationContext';
-import { IIntegration, IIntegrationPatch } from '../../integration/types/Integration';
-import { IConfiguration } from '../../configuration/types/Configuration';
 import {
     Alert,
     BodyLong,
@@ -20,9 +12,18 @@ import {
     Modal,
     VStack,
 } from '@navikt/ds-react';
-import { IAlertMessage } from '../../../components/types/TableTypes';
-import useConfigurationRepository from '../../../api/useConfigurationRepository';
-import useIntegrationRepository from '../../../api/useIntegrationRepository';
+import * as React from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Link as RouterLink } from 'react-router';
+
+import useConfigurationRepository from '../../../shared/api/useConfigurationRepository';
+import useIntegrationRepository from '../../../shared/api/useIntegrationRepository';
+import { IAlertMessage } from '../../../shared/components/types/TableTypes';
+import { IntegrationContext } from '../../../shared/context/IntegrationContext';
+import { SourceApplicationContext } from '../../../shared/context/SourceApplicationContext';
+import { IConfiguration } from '../../configuration/types/Configuration';
+import { IIntegration, IIntegrationPatch } from '../../integration/types/Integration';
 import { ConfigurationVersionsTable } from './ConfigurationVersionsTable';
 
 type Props = {

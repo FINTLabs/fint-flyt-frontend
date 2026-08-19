@@ -1,24 +1,25 @@
-import React, {useContext, useEffect, useState} from "react";
-import {Link as RouterLink} from "react-router";
-import {useTranslation} from "react-i18next";
-import {Controller, FormProvider, useForm, useWatch} from "react-hook-form";
-import SelectValueComponent from "../../configuration/components/mapping/value/select/SelectValueComponent";
-import {defaultAlert, destinations, fromTypeIds, toTypeIds,} from "../../configuration/defaults/DefaultValues";
-import StringValueComponent from "../../configuration/components/mapping/value/string/StringValueComponent";
-import {IValueConverting} from "../types/ValueConverting";
-import {IAlertContent} from "../../configuration/types/AlertContent";
-import { sortAndHandleSelectables } from '../../configuration/util/SelectablesUtils';
-import {ISelectable} from "../../configuration/types/Selectable";
-import ArrayComponent from "../../configuration/components/common/array/ArrayComponent";
-import SearchSelectValueComponent from "../../configuration/components/mapping/value/select/SearchSelectValueComponent";
 import {Button, Heading, HelpText, HStack, VStack,} from "@navikt/ds-react";
+import React, {useContext, useEffect, useState} from "react";
+import {Controller, FormProvider, useForm, useWatch} from "react-hook-form";
+import {useTranslation} from "react-i18next";
+import {Link as RouterLink} from "react-router";
+
+import useResourceRepository from '../../../shared/api/useResourceRepository';
+import useValueConvertingRepository from '../../../shared/api/useValueConvertingRepository';
+import AlertMessage from '../../../shared/components/AlertMessage';
+import FormPageWrapper from '../../../shared/components/layout/FormPageWrapper';
+import {AuthorizationContext} from "../../../shared/context/AuthorizationContext";
+import { sourceApplicationsToSelectable } from '../../../shared/util/FormUtil';
+import ArrayComponent from "../../configuration/components/array/ArrayComponent";
+import SearchSelectValueComponent from "../../configuration/components/mapping/value/select/SearchSelectValueComponent";
+import SelectValueComponent from "../../configuration/components/mapping/value/select/SelectValueComponent";
+import StringValueComponent from "../../configuration/components/mapping/value/string/StringValueComponent";
+import {defaultAlert, destinations, fromTypeIds, toTypeIds,} from "../../configuration/defaults/DefaultValues";
+import {IAlertContent} from "../../configuration/types/AlertContent";
 import {ISelect} from "../../configuration/types/Select";
-import {AuthorizationContext} from "../../../context/AuthorizationContext";
-import { sourceApplicationsToSelectable } from '../../../util/FormUtil';
-import useValueConvertingRepository from '../../../api/useValueConvertingRepository';
-import useResourceRepository from '../../../api/useResourceRepository';
-import FormPageWrapper from '../../../components/molecules/FormPageWrapper';
-import AlertMessage from '../../../components/molecules/AlertMessage';
+import {ISelectable} from "../../configuration/types/Selectable";
+import { sortAndHandleSelectables } from '../../configuration/util/SelectablesUtils';
+import {IValueConverting} from "../types/ValueConverting";
 
 type Props = {
     existingValueConverting: IValueConverting | undefined;

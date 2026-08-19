@@ -1,10 +1,3 @@
-import React, { ReactElement, useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
-import { useTranslation } from 'react-i18next';
-import { IValueConverting } from '../types/ValueConverting';
-import {
-    getDestinationDisplayName,
-} from '../../../util/TableUtil';
 import {
     Alert,
     Box,
@@ -15,13 +8,21 @@ import {
     Table,
     VStack,
 } from '@navikt/ds-react';
-import ValueConvertingPanel from './ValueConvertingPanel';
-import { IAlertMessage } from '../../../components/types/TableTypes';
-import useValueConvertingRepository from '../../../api/useValueConvertingRepository';
-import TableLoader from '../../../components/molecules/TableLoader';
+import React, { ReactElement, useContext, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router';
+
+import useValueConvertingRepository from '../../../shared/api/useValueConvertingRepository';
+import { MenuElipsisVerticalCircleIcon } from '../../../shared/components/icons';
+import TableLoader from '../../../shared/components/TableLoader';
+import { IAlertMessage } from '../../../shared/components/types/TableTypes';
+import { AuthorizationContext } from '../../../shared/context/AuthorizationContext';
+import {
+    getDestinationDisplayName,
+} from '../../../shared/util/TableUtil';
 import { ISourceApplication } from '../../configuration/types/SourceApplication';
-import { AuthorizationContext } from '../../../context/AuthorizationContext';
-import { MenuElipsisVerticalCircleIcon } from '../../../components/icons';
+import { IValueConverting } from '../types/ValueConverting';
+import ValueConvertingPanel from './ValueConvertingPanel';
 
 type Props = {
     onValueConvertingSelected: (id: number) => void;

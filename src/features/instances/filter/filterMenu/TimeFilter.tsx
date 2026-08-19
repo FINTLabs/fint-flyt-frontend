@@ -1,5 +1,3 @@
-import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
     DatePicker,
     HStack,
@@ -10,10 +8,13 @@ import {
     useRangeDatepicker,
     VStack,
 } from '@navikt/ds-react';
-import { useFilterOptions } from '../OptionsContext';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
+import { BriefcaseClockIcon, CalendarIcon, ClockDashedIcon } from '../../../../shared/components/icons';
 import { useFilters } from '../FilterContext';
+import { useFilterOptions } from '../OptionsContext';
 import { setSingleValue } from '../util';
-import { BriefcaseClockIcon, CalendarIcon, ClockDashedIcon } from '../../../../components/icons';
 
 export default function TimeFilter() {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.instances.filter.timeCard' });

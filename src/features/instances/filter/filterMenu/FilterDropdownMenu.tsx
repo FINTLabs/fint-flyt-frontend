@@ -1,13 +1,14 @@
-import React, { FC, useCallback, useState } from 'react';
 import { ActionMenu, BodyShort, Button, HGrid, HStack, VStack } from '@navikt/ds-react';
+import React, { FC, useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
+import { ChevronDownIcon, ChevronRightIcon, FilterIcon } from '../../../../shared/components/icons';
 import { useFilters } from '../FilterContext';
-import TimeFilter from './TimeFilter';
-import IntegrationFilter from './IntegrationFilter';
-import InstanceFilter from './InstanceFilter';
-import StatusFilter from './StatusFilter';
 import AdvancedFilter from './AdvancedFilter';
-import { ChevronDownIcon, ChevronRightIcon, FilterIcon } from '../../../../components/icons';
+import InstanceFilter from './InstanceFilter';
+import IntegrationFilter from './IntegrationFilter';
+import StatusFilter from './StatusFilter';
+import TimeFilter from './TimeFilter';
 
 export default function FilterDropdownMenu() {
     const { t } = useTranslation('translations', {

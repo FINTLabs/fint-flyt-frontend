@@ -5,10 +5,10 @@ import ActiveFilters from './ActiveFilters';
 import { useFilterOptions } from './OptionsContext';
 import FilterDropdownMenu from './filterMenu/FilterDropdownMenu';
 import QuickFiltersDropdownMenu from './filterMenu/QuickFiltersDropdownMenu';
-import useIntegrationRepository from '../../../api/useIntegrationRepository';
-import { SourceApplicationContext } from '../../../context/SourceApplicationContext';
-import { AuthorizationContext } from '../../../context/AuthorizationContext';
-import { sourceApplicationsToSelectable } from '../../../util/FormUtil';
+import useIntegrationRepository from '../../../shared/api/useIntegrationRepository';
+import { SourceApplicationContext } from '../../../shared/context/SourceApplicationContext';
+import { AuthorizationContext } from '../../../shared/context/AuthorizationContext';
+import { sourceApplicationsToSelectable } from '../../../shared/util/FormUtil';
 import { IIntegrationMetadata } from '../../configuration/types/Metadata/IntegrationMetadata';
 import { IIntegration } from '../../integration/types/Integration';
 

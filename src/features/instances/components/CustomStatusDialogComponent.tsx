@@ -1,10 +1,11 @@
+import { Alert, Button, Modal, Select, TextField, VStack } from '@navikt/ds-react';
 import * as React from 'react';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { IEventNew } from '../types/Event';
-import { Alert, Button, Modal, Select, TextField, VStack } from '@navikt/ds-react';
+
+import useInstanceFlowTrackingRepository from '../../../shared/api/useInstanceFlowTrackingRepository';
 import { ISelectable } from '../../configuration/types/Selectable';
-import useInstanceFlowTrackingRepository from '../../../api/useInstanceFlowTrackingRepository';
+import { IEventNew } from '../types/Event';
 
 type Props = {
     row: IEventNew;

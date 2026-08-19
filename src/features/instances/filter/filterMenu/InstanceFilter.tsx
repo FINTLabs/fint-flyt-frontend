@@ -1,7 +1,8 @@
-import { useFilters } from '../FilterContext';
-import { useTranslation } from 'react-i18next';
 import { TextField, VStack } from '@navikt/ds-react';
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
+import { useFilters } from '../FilterContext';
 import { setCommaSeparatedValue } from '../util';
 
 export default function InstanceFilter() {

@@ -9,7 +9,7 @@ import {
     MinusCircleIcon,
     PersonPencilFillIcon,
     XMarkOctagonFillIcon,
-} from '../../../components/icons';
+} from '../../../shared/components/icons';
 
 type InstanceEventStatusWithTextProps = {
     event: string;

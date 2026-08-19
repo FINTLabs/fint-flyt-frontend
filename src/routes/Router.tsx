@@ -1,7 +1,8 @@
-import { Routes, Route } from "react-router";
-import routes from "./Routes";
 import React, { Suspense } from "react";
+import { Route,Routes } from "react-router";
+
 import IRoute from "./Route";
+import routes from "./Routes";
 
 const Router: React.FunctionComponent = () => {
     return (

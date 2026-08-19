@@ -1,18 +1,19 @@
+import { TextField } from '@mui/material';
+import { BodyShort } from '@navikt/ds-react';
 import * as React from 'react';
 import { BaseSyntheticEvent, forwardRef, useEffect, useState } from 'react';
 import { useDrop } from 'react-dnd';
-import { BodyShort } from '@navikt/ds-react';
-import { ITag } from '../../../../types/Metadata/Tag';
-import { ValueType } from '../../../../types/Metadata/IntegrationMetadata';
-import { TextField } from '@mui/material';
-import { Search } from '../../../../util/UrlUtils';
-import useResourceRepository from '../../../../../../api/useResourceRepository';
-import { Noop } from 'react-hook-form/dist/types';
 import { ControllerFieldState } from 'react-hook-form';
+import { Noop } from 'react-hook-form/dist/types';
 import { useTranslation } from 'react-i18next';
-import IconButton from '../../../../../../components/atoms/IconButton';
-import FormErrorText from '../../../../../../components/atoms/FormErrorText';
-import { SearchRoundedIcon } from '../../../../../../components/icons';
+
+import useResourceRepository from '../../../../../../shared/api/useResourceRepository';
+import FormErrorText from '../../../FormErrorText';
+import IconButton from '../../../IconButton';
+import { SearchRoundedIcon } from '../../../../../../shared/components/icons';
+import { ValueType } from '../../../../types/Metadata/IntegrationMetadata';
+import { ITag } from '../../../../types/Metadata/Tag';
+import { Search } from '../../../../util/UrlUtils';
 
 interface Props {
     displayName?: string;

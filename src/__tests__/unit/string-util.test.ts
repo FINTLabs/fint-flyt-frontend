@@ -1,4 +1,4 @@
-import {errorStringReplace, getErrorArgs, getErrorDisplayParts} from "../../util/StringUtil";
+import {errorStringReplace, getErrorArgs, getErrorDisplayParts} from "../../shared/util/StringUtil";
 import {IError, IErrorArg} from "../../features/instances/types/Event";
 
 const testErrorArgs: Record<string, string> = {

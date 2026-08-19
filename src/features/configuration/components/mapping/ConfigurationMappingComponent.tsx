@@ -1,6 +1,9 @@
+import { Box } from '@navikt/ds-react';
 import * as React from 'react';
 import { ReactElement, useContext, useState } from 'react';
-import ObjectMappingComponent from './object/ObjectMappingComponent';
+import { useFormContext } from 'react-hook-form';
+
+import { EditingContext } from '../../context/EditingContext';
 import {
     ICollectionTemplate,
     IMappingTemplate,
@@ -12,14 +15,12 @@ import {
     NestedElementsCallbacks,
     NestedElementTemplate,
 } from '../../types/NestedElement';
-import ValueCollectionMappingComponent from './collection/ValueCollectionMappingComponent';
-import ObjectCollectionMappingComponent from './collection/ObjectCollectionMappingComponent';
-import ColumnElementComponent from './ColumnElementComponent';
-import { useFormContext } from 'react-hook-form';
-import ValueWatchComponent from '../common/ValueWatchComponent';
 import { findFromCollectionMappingAbsoluteKeys } from '../../util/KeyUtils';
-import { EditingContext } from '../../../../context/EditingContext';
-import { Box } from '@navikt/ds-react';
+import ValueWatchComponent from '../ValueWatchComponent';
+import ObjectCollectionMappingComponent from './collection/ObjectCollectionMappingComponent';
+import ValueCollectionMappingComponent from './collection/ValueCollectionMappingComponent';
+import ColumnElementComponent from './ColumnElementComponent';
+import ObjectMappingComponent from './object/ObjectMappingComponent';
 
 interface Props {
     mappingTemplate: IMappingTemplate;

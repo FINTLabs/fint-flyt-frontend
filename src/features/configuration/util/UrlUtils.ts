@@ -3,7 +3,7 @@ import {recordOrEmpty} from "./ObjectUtils";
 import {getAbsoluteKeyFromValueRef} from "./KeyUtils";
 import {useEffect, useState} from "react";
 import {useFormContext, useWatch} from "react-hook-form";
-import { AdapterRequestConfigType } from '../../../context/ApiAdapterContext';
+import { AdapterRequestConfigType } from '../../../shared/api/ApiAdapterContext';
 
 export type Source = { url: string, config?: AdapterRequestConfigType }
 

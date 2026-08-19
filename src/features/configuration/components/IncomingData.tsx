@@ -5,15 +5,15 @@ import { useContext, useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-import useValueConvertingRepository from '../../../api/useValueConvertingRepository';
-import { WarningTriangleIcon } from '../../../components/icons';
-import { ConfigurationContext } from '../../../context/ConfigurationContext';
-import { IntegrationContext } from '../../../context/IntegrationContext';
-import { SourceApplicationContext } from '../../../context/SourceApplicationContext';
+import useValueConvertingRepository from '../../../shared/api/useValueConvertingRepository';
+import { WarningTriangleIcon } from '../../../shared/components/icons';
+import { ConfigurationContext } from '../context/ConfigurationContext';
+import { IntegrationContext } from '../../../shared/context/IntegrationContext';
+import { SourceApplicationContext } from '../../../shared/context/SourceApplicationContext';
 import {
     toInstanceCollectionFieldReference,
     toInstanceFieldReference,
-} from '../../../util/JsonUtil';
+} from '../../../shared/util/JsonUtil';
 import { IValueConverting } from '../../valueConverting/types/ValueConverting';
 import {
     IInstanceMetadataContent,
@@ -26,7 +26,7 @@ import {
     isCollectionFieldReference,
     isFieldReference,
 } from '../util/FieldReferenceUtils';
-import DraggableValueConvertingTag from './common/dnd/DraggableValueConvertingTag';
+import DraggableValueConvertingTag from './dnd/DraggableValueConvertingTag';
 import MetadataContent from './metadata/MetadataContent';
 import MetadataContentWrapper from './metadata/MetadataContentWrapper';
 

@@ -1,13 +1,13 @@
 import * as React from "react";
 import {ReactElement, useContext} from "react";
-import ArrayComponent from "../../../common/array/ArrayComponent";
+import ArrayComponent from "../../../array/ArrayComponent";
 import FromCollectionMappingComponent from "./FromCollectionMappingComponent";
 import {useTranslation} from "react-i18next";
-import ArrayObjectWrapperComponent from "../../../common/array/ArrayObjectWrapperComponent";
-import ArrayValueWrapperComponent from "../../../common/array/ArrayValueWrapperComponent";
-import {ConfigurationContext} from "../../../../../../context/ConfigurationContext";
+import ArrayObjectWrapperComponent from "../../../array/ArrayObjectWrapperComponent";
+import ArrayValueWrapperComponent from "../../../array/ArrayValueWrapperComponent";
+import {ConfigurationContext} from "../../../../context/ConfigurationContext";
 import {isOutsideCollectionEditContext} from "../../../../util/KeyUtils";
-import {EditingContext} from "../../../../../../context/EditingContext";
+import {EditingContext} from "../../../../context/EditingContext";
 import {Box, Heading, HelpText, HStack, VStack} from "@navikt/ds-react";
 
 interface Props {

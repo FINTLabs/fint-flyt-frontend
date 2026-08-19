@@ -1,11 +1,12 @@
+import { Button, Chips, HStack } from '@navikt/ds-react';
 import { Children, FC, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, Chips, HStack } from '@navikt/ds-react';
+
+import { XMarkIcon } from '../../../shared/components/icons';
 import { useFilters } from './FilterContext';
-import { Filters } from './types';
 import { useFilterOptions } from './OptionsContext';
+import { Filters } from './types';
 import { getFilterLabel, SPECIAL_FILTERS } from './util';
-import { XMarkIcon } from '../../../components/icons';
 
 const ActiveFilters: FC = () => {
     const { t } = useTranslation('translations', {

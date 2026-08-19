@@ -1,9 +1,20 @@
+import {
+    Box,
+    Button,
+    Heading,
+    HelpText,
+    HStack,
+    InlineMessage,
+    Loader,
+    Spacer,
+} from '@navikt/ds-react';
 import * as React from 'react';
+import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { testObjectTemplateSak } from '../defaults/FormTemplates';
+
+import { ChevronLeftIcon, ChevronRightIcon } from '../../../shared/components/icons';
+import { ConfigurationContext } from '../context/ConfigurationContext';
 import ConfigurationMappingComponent from './mapping/ConfigurationMappingComponent';
-import { Box, Button, Heading, HelpText, HStack, Spacer } from '@navikt/ds-react';
-import { ChevronLeftIcon, ChevronRightIcon } from '../../../components/icons';
 
 export interface Props {
     onCollectionReferencesInEditContextChange: (collectionReferences: string[]) => void;
@@ -11,6 +22,8 @@ export interface Props {
 
 const OutgoingDataComponent: React.FunctionComponent<Props> = (props: Props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.configuration' });
+
+    const { template, templateStatus } = useContext(ConfigurationContext);
 
     const scrollContainerRef = React.useRef<HTMLDivElement>(null);
 
@@ -33,7 +46,8 @@ const OutgoingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
             padding="6"
             borderRadius={'large'}
             borderWidth="1"
-            borderColor={'border-subtle'}>
+            borderColor={'border-subtle'}
+        >
             <HStack gap={'10'}>
                 <HStack>
                     <Heading size={'small'}>{t('formHeader')}</Heading>
@@ -64,15 +78,24 @@ const OutgoingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
             <Box
                 id="scroll-container"
                 ref={scrollContainerRef}
-                style={{ overflowX: 'auto', display: 'flex', gap: '1rem' }}>
-                <HStack id="configuration-mapping-wrapper" wrap={false}>
-                    <ConfigurationMappingComponent
-                        mappingTemplate={testObjectTemplateSak}
-                        onCollectionReferencesInEditContextChange={(collectionReferences) => {
-                            props.onCollectionReferencesInEditContextChange(collectionReferences);
-                        }}
-                    />
-                </HStack>
+                style={{ overflowX: 'auto', display: 'flex', gap: '1rem' }}
+            >
+                {templateStatus === 'success' && template && (
+                    <HStack id="configuration-mapping-wrapper" wrap={false}>
+                        <ConfigurationMappingComponent
+                            mappingTemplate={template}
+                            onCollectionReferencesInEditContextChange={(collectionReferences) => {
+                                props.onCollectionReferencesInEditContextChange(
+                                    collectionReferences
+                                );
+                            }}
+                        />
+                    </HStack>
+                )}
+                {templateStatus === 'loading' && <Loader size="medium" title="Venter..." />}
+                {templateStatus === 'error' && (
+                    <InlineMessage status={'error'}>{t('genericError')}</InlineMessage>
+                )}
             </Box>
         </Box>
     );

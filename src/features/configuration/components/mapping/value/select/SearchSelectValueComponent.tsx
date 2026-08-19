@@ -1,11 +1,12 @@
+import {Autocomplete, createFilterOptions, TextField} from "@mui/material";
 import * as React from "react";
 import {forwardRef, useEffect, useMemo, useState} from "react";
-import {ISelectable} from "../../../../types/Selectable";
-import {Autocomplete, createFilterOptions, TextField} from "@mui/material";
-import {autoCompleteSX} from "../../../../../../util/styles/SystemStyles";
-import {Noop} from "react-hook-form/dist/types";
 import {ControllerFieldState} from "react-hook-form";
-import FormErrorText from '../../../../../../components/atoms/FormErrorText';
+import {Noop} from "react-hook-form/dist/types";
+
+import FormErrorText from '../../../FormErrorText';
+import {autoCompleteSX} from "../../../../../../shared/util/styles/SystemStyles";
+import {ISelectable} from "../../../../types/Selectable";
 
 interface Props {
     displayName: string;

@@ -1,0 +1,24 @@
+import { useContext } from 'react';
+import { ApiAdapterContext } from './ApiAdapterContext';
+const API_URL = import.meta.env.VITE_API_INST || '';
+
+export default function useInstanceRepository () {
+    const { post } = useContext(ApiAdapterContext)
+    const resendInstance = (instanceId: string) => {
+        return post<string>(API_URL, `/api/intern/handlinger/instanser/${instanceId}/prov-igjen`);
+    };
+
+    const resendInstances = (instanceIds: string[]) => {
+        return post<string>(
+            API_URL,
+            `/api/intern/handlinger/instanser/prov-igjen/batch`,
+            instanceIds,
+        );
+    };
+
+    return {
+        resendInstance,
+        resendInstances,
+    };
+
+}

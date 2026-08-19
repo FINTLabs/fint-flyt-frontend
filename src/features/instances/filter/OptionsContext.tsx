@@ -8,7 +8,7 @@ import React, {
     SetStateAction,
     useCallback,
 } from 'react';
-import useInstanceFlowTrackingRepository from '../../../api/useInstanceFlowTrackingRepository';
+import useInstanceFlowTrackingRepository from '../../../shared/api/useInstanceFlowTrackingRepository';
 import { IIntegration } from '../../integration/types/Integration';
 import { FilterOption, Filters } from './types';
 

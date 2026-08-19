@@ -1,7 +1,8 @@
+import {Box, Heading} from "@navikt/ds-react";
 import * as React from "react";
 import {ReactElement} from "react";
-import PathComponent from "../common/PathComponent";
-import {Box, Heading} from "@navikt/ds-react";
+
+import PathComponent from "../PathComponent";
 
 export interface Props {
     index: number;

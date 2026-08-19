@@ -1,19 +1,20 @@
+import {HelpText, HStack} from "@navikt/ds-react";
 import * as React from "react";
 import {useContext, useState} from "react";
-import {ISelectableValueTemplate, SelectableValueType} from "../../../types/FormTemplate";
-import SelectValueComponent from "./select/SelectValueComponent";
 import {Controller, useFormContext} from "react-hook-form";
+
+import {ConfigurationContext} from "../../../context/ConfigurationContext";
+import {EditingContext} from "../../../context/EditingContext";
 import {ValueType as ConfigurationValueType} from "../../../types/Configuration";
+import {ISelectableValueTemplate, SelectableValueType} from "../../../types/FormTemplate";
+import {isOutsideCollectionEditContext} from "../../../util/KeyUtils";
 import { useSelectablesStatefulValue } from '../../../util/SelectablesUtils';
-import SearchSelectValueComponent from "./select/SearchSelectValueComponent";
+import {hasValidFormat} from "../../../util/ValidationUtil";
 import DynamicStringOrSearchSelectValueComponent, {
     Type as DynamicStringOrSearchSelectType
 } from "./DynamicStringOrSearchSelectValueComponent";
-import {isOutsideCollectionEditContext} from "../../../util/KeyUtils";
-import {ConfigurationContext} from "../../../../../context/ConfigurationContext";
-import {EditingContext} from "../../../../../context/EditingContext";
-import {hasValidFormat} from "../../../util/ValidationUtil";
-import {HelpText, HStack} from "@navikt/ds-react";
+import SearchSelectValueComponent from "./select/SearchSelectValueComponent";
+import SelectValueComponent from "./select/SelectValueComponent";
 
 interface Props {
     order: number;

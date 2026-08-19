@@ -247,6 +247,11 @@ export const mockGenericValueConvertingRepository = () => {
 };
 
 export const mockGenericResourceRepository = () => {
+    cy.intercept(
+        { method: 'GET', pathname: '**/api/intern/arkiv/template' },
+        { fixture: 'arkiv/template.json' }
+    ).as('getArchiveTemplate');
+
     cy.intercept('GET', '**/arkiv/kodeverk/**', { fixture: 'kodeverk/mock.json' }).as(
         'getKodeverk'
     );
@@ -326,4 +331,4 @@ export const mockGenericInstanceRepository = () => {
     cy.intercept('POST', '**/handlinger/instanser/prov-igjen/batch', {
         fixture: 'postFixture.json',
     }).as('postRetryBatch');
-}
+};

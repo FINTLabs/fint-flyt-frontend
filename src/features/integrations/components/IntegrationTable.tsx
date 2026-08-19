@@ -1,23 +1,24 @@
+import { Box, SortState, Table } from '@navikt/ds-react';
 import * as React from 'react';
 import { useCallback, useContext, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
+import useInstanceFlowTrackingRepository from '../../../shared/api/useInstanceFlowTrackingRepository';
+import useIntegrationRepository from '../../../shared/api/useIntegrationRepository';
+import TableLoader from '../../../shared/components/TableLoader';
+import TablePagination from '../../../shared/components/pagination/TablePagination';
+import { IAlertMessage, Page } from '../../../shared/components/types/TableTypes';
+import { AuthorizationContext } from '../../../shared/context/AuthorizationContext';
+import { SourceApplicationContext } from '../../../shared/context/SourceApplicationContext';
 import {
     getDestinationDisplayName,
     getStateDisplayName,
     integrationComparator,
-} from '../../../util/TableUtil';
-import { Box, SortState, Table } from '@navikt/ds-react';
-import IntegrationPanel from './IntegrationPanel';
-import { useTranslation } from 'react-i18next';
-import { IIntegration } from '../../integration/types/Integration';
-import { SourceApplicationContext } from '../../../context/SourceApplicationContext';
-import { IAlertMessage, Page } from '../../../components/types/TableTypes';
-import { IIntegrationDetailedStatistics } from '../../instances/types/Event';
-import useIntegrationRepository from '../../../api/useIntegrationRepository';
-import useInstanceFlowTrackingRepository from '../../../api/useInstanceFlowTrackingRepository';
-import TableLoader from '../../../components/molecules/TableLoader';
-import { AuthorizationContext } from '../../../context/AuthorizationContext';
+} from '../../../shared/util/TableUtil';
 import { ISourceApplication } from '../../configuration/types/SourceApplication';
-import TablePagination from '../../../components/organisms/pagination/TablePagination';
+import { IIntegrationDetailedStatistics } from '../../instances/types/Event';
+import { IIntegration } from '../../integration/types/Integration';
+import IntegrationPanel from './IntegrationPanel';
 
 type IntegrationProps = {
     id: string;

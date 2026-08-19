@@ -1,7 +1,8 @@
-import React from 'react';
-import {IValueConverting} from "../types/ValueConverting";
 import {Box, Heading, Table} from "@navikt/ds-react";
+import React from 'react';
 import {useTranslation} from "react-i18next";
+
+import {IValueConverting} from "../types/ValueConverting";
 
 type Props = {
     id: number;

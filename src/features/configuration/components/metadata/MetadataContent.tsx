@@ -8,7 +8,7 @@ import {
     IInstanceValueMetadata,
     ValueType,
 } from '../../types/Metadata/IntegrationMetadata';
-import { DraggableTag } from '../common/dnd/DraggableTag';
+import { DraggableTag } from '../dnd/DraggableTag';
 import styles from "./MetadataContent.module.css"
 
 interface Props {

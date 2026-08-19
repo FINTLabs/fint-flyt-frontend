@@ -1,20 +1,21 @@
+import {HelpText, HStack} from "@navikt/ds-react";
 import * as React from "react";
 import {ReactElement, useContext} from "react";
-import {IValueTemplate, ValueType as TemplateValueType} from "../../../types/FormTemplate";
-import StringValueComponent from "./string/StringValueComponent";
-import DynamicStringValueComponent from "./string/DynamicStringValueComponent";
 import {Controller, ControllerFieldState, FieldValues, useFormContext} from "react-hook-form";
-import {ValueType as ConfigurationValueType} from "../../../types/Configuration";
-import {ValueType as MetadataValueType} from "../../../types/Metadata/IntegrationMetadata";
-import {Search, SourceStatefulValue} from "../../../util/UrlUtils";
-import {ConfigurationContext} from "../../../../../context/ConfigurationContext";
-import {isOutsideCollectionEditContext} from "../../../util/KeyUtils";
-import {EditingContext} from "../../../../../context/EditingContext";
-import CheckboxValueComponent from "../../common/CheckboxValueComponent";
 import {ControllerRenderProps} from "react-hook-form/dist/types/controller";
+
+import {ConfigurationContext} from "../../../context/ConfigurationContext";
+import {EditingContext} from "../../../context/EditingContext";
+import {ValueType as ConfigurationValueType} from "../../../types/Configuration";
+import {IValueTemplate, ValueType as TemplateValueType} from "../../../types/FormTemplate";
+import {ValueType as MetadataValueType} from "../../../types/Metadata/IntegrationMetadata";
+import {isOutsideCollectionEditContext} from "../../../util/KeyUtils";
+import {Search, SourceStatefulValue} from "../../../util/UrlUtils";
 import {hasValidFormat} from "../../../util/ValidationUtil";
+import CheckboxValueComponent from "../../CheckboxValueComponent";
 import DynamicChipComponent from "./string/DynamicChipComponent";
-import {HelpText, HStack} from "@navikt/ds-react";
+import DynamicStringValueComponent from "./string/DynamicStringValueComponent";
+import StringValueComponent from "./string/StringValueComponent";
 
 interface Props {
     order: number;

@@ -1,8 +1,8 @@
 import {MOCK_EMPTY_MAPPING} from "../mock/mapping/mock-empty.mapping";
-import {pruneObjectMapping} from "../../util/mapping/helpers/pruning";
+import {pruneObjectMapping} from "../../shared/util/mapping/helpers/pruning";
 import {IObjectMapping, ValueType} from "../../features/configuration/types/Configuration";
 import {IIntegration} from "../../features/integration/types/Integration";
-import {toIntegration} from "../../util/mapping/ToIntegration";
+import {toIntegration} from "../../shared/util/mapping/ToIntegration";
 import {MOCK_FORM_INTEGRATION} from "../mock/mapping/mock-form.integration";
 
 const expectedMapping: IObjectMapping = {
