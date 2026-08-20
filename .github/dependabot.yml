@@ -8,9 +8,12 @@ updates:
       day: "monday"
       time: "04:20"
       timezone: "Europe/Oslo"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
   - package-ecosystem: "docker"
     directory: "/"
-    open-pull-requests-limit: 10
     schedule:
       interval: "weekly"
       day: "monday"
@@ -36,11 +39,6 @@ updates:
         patterns:
           - "@mui/*"
           - "@types/mui"
-        update-types:
-          - "minor"
-          - "patch"
-      emotion:
-        patterns:
           - "@emotion/*"
         update-types:
           - "minor"
@@ -56,8 +54,10 @@ updates:
         update-types:
           - "minor"
           - "patch"
-      typescript-eslint:
+      eslint:
         patterns:
+          - "eslint"
+          - "eslint-*"
           - "@typescript-eslint/*"
         update-types:
           - "minor"
