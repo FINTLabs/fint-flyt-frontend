@@ -30,7 +30,7 @@
         "@mui/material": "^5.7.0",
         "@navikt/aksel-icons": "^7.35.3",
         "@navikt/ds-css": "^7.35.3",
-        "@navikt/ds-react": "^7.35.3",
+        "@navikt/ds-react": "^8.16.1",
         "date-fns": "^4.1.0",
         "express": "^5.2.1",
         "helmet": "^8.3.0",
