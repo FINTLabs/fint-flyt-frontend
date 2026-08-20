@@ -5,6 +5,7 @@ import { TableLayoutWrapper } from '../../shared/components/table/TableLayoutWra
 import { AuthorizationContext } from '../../shared/context/AuthorizationContext';
 import { SourceApplicationContext } from '../../shared/context/SourceApplicationContext';
 import IntegrationTable from './components/IntegrationTable';
+import { IntegrationToolbar } from './components/IntegrationToolbar';
 
 const Integrations: React.FC = () => {
     const { getAllMetadata, allMetadata } = useContext(SourceApplicationContext);
@@ -29,7 +30,7 @@ const Integrations: React.FC = () => {
     }, []);
 
     return (
-        <TableLayoutWrapper>
+        <TableLayoutWrapper toolbar={<IntegrationToolbar />}>
             <IntegrationTable id="integration-table" />
         </TableLayoutWrapper>
     );

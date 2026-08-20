@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 
 import useValueConvertingRepository from '../../shared/api/useValueConvertingRepository';
-import PageTemplate from '../../shared/components/layout/PageTemplate';
 import { TableLayoutWrapper } from '../../shared/components/table/TableLayoutWrapper';
 import { AuthorizationContext } from '../../shared/context/AuthorizationContext';
 import ValueConvertingForm from './components/ValueConvertingForm';
@@ -32,7 +31,7 @@ const ValueConverting: React.FC = () => {
     const showForm = existingValueConverting || newValueConverting;
 
     return (
-        <PageTemplate id={'valueConverting'} keyPrefix={'pages.valueConverting'}>
+        <>
             {showForm ? (
                 <ValueConvertingForm
                     existingValueConverting={existingValueConverting ?? undefined}
@@ -61,7 +60,7 @@ const ValueConverting: React.FC = () => {
                     />
                 </TableLayoutWrapper>
             )}
-        </PageTemplate>
+        </>
     );
 };
 
