@@ -115,7 +115,7 @@ jobs:
           build-args: |
             BASE_PATH=${{ steps.environment.outputs.result == 'beta' && '/beta/' || '/' }}${{ env.ORG }}
 
-      - uses: azure/login@v2
+      - uses: azure/login@v3
         with:
           creds: "${{ secrets[format('AKS_{0}_FINT_GITHUB', steps.environment.outputs.result)] }}"
 
