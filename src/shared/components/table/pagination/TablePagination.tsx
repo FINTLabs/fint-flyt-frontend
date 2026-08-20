@@ -49,7 +49,7 @@ const TablePagination: FunctionComponent<Props> = ({
                     }}
                     label={t('numberPerPage')}
                     hideLabel={true}
-                    default={rowsPerPage}
+                    value={rowsPerPage}
                 />
             )}
             {!hide && totalElements !== undefined && totalElements > rowsPerPage && (

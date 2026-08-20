@@ -8,14 +8,14 @@ type SelectProps = {
     onChange: (value: string) => void;
     label: string;
     hideLabel: boolean;
-    default: number;
+    value: number;
 };
 
 export const CustomSelect: FunctionComponent<SelectProps> = (props: SelectProps) => {
     return (
         <Select
             onChange={(e) => props.onChange(e.target.value)}
-            defaultValue={props.default}
+            value={String(props.value)}
             label={props.label}
             hideLabel={props.hideLabel}
             size={'small'}

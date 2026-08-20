@@ -3,6 +3,7 @@ import { format } from 'date-fns';
 import * as React from 'react';
 import { ReactElement, useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSearchParams } from 'react-router';
 
 import useInstanceFlowTrackingRepository from '../../../shared/api/useInstanceFlowTrackingRepository';
 import useInstanceRepository from '../../../shared/api/useInstanceRepository';
@@ -27,6 +28,7 @@ import InstancePanel from './InstancePanel';
 const InstanceTable: React.FunctionComponent = () => {
     const onError = useTablePageError();
     const { setPaginationMeta } = useTablePagination();
+    const [searchParams, setSearchParams] = useSearchParams();
     const InstanceRepository = useInstanceRepository();
     const InstanceFlowTrackingRepository = useInstanceFlowTrackingRepository();
     const { allMetadata } = useContext(SourceApplicationContext);
@@ -43,12 +45,27 @@ const InstanceTable: React.FunctionComponent = () => {
     const errorsNotForRetry: string[] = ['instance-receival-error', 'instance-registration-error'];
     const [summaryList, setSummaryList] = useState<ISummary[]>();
 
-    const [size, setSize] = useState<number>(10);
+    const [size, setSize] = useState(() => {
+        const raw = searchParams.get('size');
+        if (raw === null || raw === '') {
+            return 10;
+        }
+        const fromUrl = Number(raw);
+        return Number.isFinite(fromUrl) && fromUrl > 0 ? fromUrl : 10;
+    });
 
     const [disabledRetryButtons, setDisabledRetryButtons] = useState(new Array(size).fill(false));
     const [loading, setLoading] = useState(true);
-    const [isFetching, setIsFetching] = useState<boolean>(false);
     const [sourceApplications, setSourceApplications] = useState<ISourceApplication[]>();
+
+    useEffect(() => {
+        if (searchParams.get('size')) {
+            return;
+        }
+        const params = new URLSearchParams(searchParams);
+        params.set('size', String(size));
+        setSearchParams(params, { replace: true });
+    }, []);
 
     useEffect(() => {
         if (allMetadata && summaryList) {
@@ -64,12 +81,14 @@ const InstanceTable: React.FunctionComponent = () => {
     }, [summaryList?.length, setSize, setPaginationMeta]);
 
     useEffect(() => {
-        if (allMetadata?.length && !isFetching) {
-            setLoading(true);
-            setExpandedRows([]);
-            removeAllEvents();
-            getLatestInstances(String(size));
+        if (!allMetadata?.length) {
+            return;
         }
+
+        setLoading(true);
+        setExpandedRows([]);
+        removeAllEvents();
+        getLatestInstances(String(size));
     }, [size, refreshKey, allMetadata?.length]);
 
     const handleRetryButtonClick = (index: number) => {
@@ -78,54 +97,52 @@ const InstanceTable: React.FunctionComponent = () => {
         setDisabledRetryButtons(newDisabledButtons);
     };
 
-    const getLatestInstances = async (size: string) => {
+    const getLatestInstances = async (requestSize: string) => {
         onError(undefined);
-        if (allMetadata) {
-            try {
-                setIsFetching(true);
-                Promise.all([
-                    InstanceFlowTrackingRepository.getLatestEvents(Number(size), filters),
-                    getAllSourceApplications(false),
-                ]).then(([eventResponse, sourceApps]) => {
-                    setSourceApplications(sourceApps);
-                    const events: ISummary[] = eventResponse.data;
-                    if (events) {
-                        allMetadata.forEach((value: IIntegrationMetadata) => {
-                            eventResponse.data.forEach((event: ISummary) => {
-                                if (
-                                    event.sourceApplicationIntegrationId ===
-                                    value.sourceApplicationIntegrationId
-                                ) {
-                                    event.displayName = value.integrationDisplayName;
-                                }
-                            });
-                        });
+        if (!allMetadata) {
+            return;
+        }
 
-                        setSummaryList(events);
-                    } else {
-                        setSummaryList([]);
-                    }
+        try {
+            const [eventResponse, sourceApps] = await Promise.all([
+                InstanceFlowTrackingRepository.getLatestEvents(Number(requestSize), filters),
+                getAllSourceApplications(false),
+            ]);
+            setSourceApplications(sourceApps);
+            const events: ISummary[] = eventResponse.data;
+            if (events) {
+                allMetadata.forEach((value: IIntegrationMetadata) => {
+                    eventResponse.data.forEach((event: ISummary) => {
+                        if (
+                            event.sourceApplicationIntegrationId ===
+                            value.sourceApplicationIntegrationId
+                        ) {
+                            event.displayName = value.integrationDisplayName;
+                        }
+                    });
                 });
-            } catch (error: unknown) {
-                if (
-                    typeof error === 'object' &&
-                    error !== null &&
-                    'response' in error &&
-                    (error as { response?: { status?: number; data?: string } }).response
-                        ?.status === 422
-                ) {
-                    const resError = error as { response: { data: string } };
-                    onError({ message: resError.response.data || 'Validation error occurred' });
-                } else if (error instanceof Error) {
-                    onError({ message: error.message || 'An unexpected error occurred' });
-                } else {
-                    onError({ message: 'An unexpected error occurred' });
-                }
+
+                setSummaryList(events);
+            } else {
                 setSummaryList([]);
-                console.error('Error: ', error);
-            } finally {
-                setIsFetching(false);
             }
+        } catch (error: unknown) {
+            if (
+                typeof error === 'object' &&
+                error !== null &&
+                'response' in error &&
+                (error as { response?: { status?: number; data?: string } }).response
+                    ?.status === 422
+            ) {
+                const resError = error as { response: { data: string } };
+                onError({ message: resError.response.data || 'Validation error occurred' });
+            } else if (error instanceof Error) {
+                onError({ message: error.message || 'An unexpected error occurred' });
+            } else {
+                onError({ message: 'An unexpected error occurred' });
+            }
+            setSummaryList([]);
+            console.error('Error: ', error);
         }
     };
 
