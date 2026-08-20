@@ -18,25 +18,45 @@ updates:
       navikt:
         patterns:
           - "@navikt/*"
+        update-types:
+          - "minor"
+          - "patch"
       mui:
         patterns:
           - "@mui/*"
+          - "@types/mui"
+        update-types:
+          - "minor"
+          - "patch"
       emotion:
         patterns:
           - "@emotion/*"
+        update-types:
+          - "minor"
+          - "patch"
       react:
         patterns:
           - "react"
           - "react-dom"
           - "react-*"
+          - "@types/react"
+          - "@types/react-dom"
+          - "@types/react-*"
+        update-types:
+          - "minor"
+          - "patch"
       typescript-eslint:
         patterns:
           - "@typescript-eslint/*"
-      types:
-        patterns:
-          - "@types/*"
+        update-types:
+          - "minor"
+          - "patch"
       vite:
         patterns:
           - "vite"
           - "vitest"
           - "@vitejs/*"
+          - "@types/vite"
+        update-types:
+          - "minor"
+          - "patch"
