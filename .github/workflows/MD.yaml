@@ -99,7 +99,7 @@ jobs:
             type=sha,enable=true,priority=100,prefix=sha-,suffix=,format=short
 
       - name: Bake manifests with Kustomize
-        uses: azure/k8s-bake@v3
+        uses: azure/k8s-bake@v4
         with:
           renderEngine: 'kustomize'
           kustomizationPath: 'kustomize/overlays/${{ env.ORG}}/${{ steps.environment.outputs.result }}'
