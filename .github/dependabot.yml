@@ -8,6 +8,17 @@ updates:
       day: "monday"
       time: "04:20"
       timezone: "Europe/Oslo"
+  - package-ecosystem: "docker"
+    directory: "/"
+    open-pull-requests-limit: 10
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "04:20"
+      timezone: "Europe/Oslo"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
   - package-ecosystem: "npm"
     directory: "/"
     open-pull-requests-limit: 10
