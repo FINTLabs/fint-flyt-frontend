@@ -7,6 +7,7 @@ import { TableLayoutWrapper } from '../../shared/components/table/TableLayoutWra
 import { AuthorizationContext } from '../../shared/context/AuthorizationContext';
 import ValueConvertingForm from './components/ValueConvertingForm';
 import ValueConvertingTable from './components/ValueConvertingTable';
+import { ValueConvertingToolbar } from './components/ValueConvertingToolbar';
 import { IValueConverting } from './types/ValueConverting';
 
 const ValueConverting: React.FC = () => {
@@ -28,31 +29,26 @@ const ValueConverting: React.FC = () => {
         getAuthorization();
     }, []);
 
+    const showForm = existingValueConverting || newValueConverting;
+
     return (
-        <PageTemplate
-            id={'valueConverting'}
-            keyPrefix={'pages.valueConverting'}
-            headerButton={
-                !existingValueConverting && !newValueConverting
-                    ? {
-                          textKey: 'button.newConverting',
-                          onClick: () => setNewValueConverting(true),
-                          helpTextKey: 'help.new',
-                          id: 'new-button',
-                      }
-                    : undefined
-            }
-        >
-            {existingValueConverting || newValueConverting ? (
+        <PageTemplate id={'valueConverting'} keyPrefix={'pages.valueConverting'}>
+            {showForm ? (
                 <ValueConvertingForm
                     existingValueConverting={existingValueConverting ?? undefined}
                     setNewValueConverting={setNewValueConverting}
                     setExistingValueConverting={setExistingValueConverting}
                 />
             ) : (
-                <TableLayoutWrapper initialRowsPerPage={8}>
+                <TableLayoutWrapper
+                    initialRowsPerPage={8}
+                    toolbar={
+                        <ValueConvertingToolbar
+                            onNewConverting={() => setNewValueConverting(true)}
+                        />
+                    }
+                >
                     <ValueConvertingTable
-                        setNewValueConverting={setNewValueConverting}
                         onValueConvertingSelected={(id: number) => {
                             return ValueConvertingRepository.getValueConverting(id)
                                 .then((response) => {

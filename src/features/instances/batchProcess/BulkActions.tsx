@@ -66,7 +66,7 @@ const BulkActions: FC = ({}) => {
                         variant="secondary-neutral"
                         icon={<MenuElipsisVerticalIcon aria-hidden />}
                         iconPosition="right"
-                        className={'filter-toolbar-button'}
+                        className={'table-toolbar-button'}
                         size={'small'}
                     >
                         <HStack gap={'2'} wrap={false}>

@@ -19,7 +19,6 @@ import ValueConvertingPanel from './ValueConvertingPanel';
 
 type Props = {
     onValueConvertingSelected: (id: number) => void;
-    setNewValueConverting: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {

@@ -1,7 +1,7 @@
-import { HStack, VStack } from '@navikt/ds-react';
 import React, { FC, useCallback, useContext, useEffect } from 'react';
 
 import useIntegrationRepository from '../../../shared/api/useIntegrationRepository';
+import { TableToolbar } from '../../../shared/components/table/TableToolbar';
 import { AuthorizationContext } from '../../../shared/context/AuthorizationContext';
 import { SourceApplicationContext } from '../../../shared/context/SourceApplicationContext';
 import { sourceApplicationsToSelectable } from '../../../shared/util/FormUtil';
@@ -52,16 +52,16 @@ const FilterToolbar: FC = () => {
     }, [allMetadata]);
 
     return (
-        <VStack gap={'4'} className={'filter-toolbar'}>
-            <HStack gap={'8'} justify={'space-between'}>
-                <HStack align={'center'} wrap={false}>
+        <TableToolbar
+            start={
+                <>
                     <FilterDropdownMenu />
                     <QuickFiltersDropdownMenu />
-                </HStack>
-                <BulkActions />
-            </HStack>
-            <ActiveFilters />
-        </VStack>
+                </>
+            }
+            end={<BulkActions />}
+            footer={<ActiveFilters />}
+        />
     );
 };
 
