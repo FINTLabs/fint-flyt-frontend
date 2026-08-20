@@ -12,8 +12,8 @@ type Props = {
     totalElements?: number;
     page: number;
     setPage: (value: number) => void;
-    rowCount: number;
-    setRowCount: (value: number) => void;
+    rowsPerPage: number;
+    setRowsPerPage: (value: number) => void;
 };
 
 // TODO: disable restry if no more to fetch
@@ -23,8 +23,8 @@ const TablePagination: FunctionComponent<Props> = ({
     totalElements,
     page,
     setPage,
-    rowCount,
-    setRowCount,
+    rowsPerPage,
+    setRowsPerPage,
 }) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.integrations' });
 
@@ -45,14 +45,14 @@ const TablePagination: FunctionComponent<Props> = ({
                     options={selectOptions}
                     onChange={(value) => {
                         setPage(1);
-                        setRowCount(Number(value));
+                        setRowsPerPage(Number(value));
                     }}
                     label={t('numberPerPage')}
                     hideLabel={true}
-                    default={rowCount}
+                    default={rowsPerPage}
                 />
             )}
-            {!hide && totalElements !== undefined && totalElements > rowCount && (
+            {!hide && totalElements !== undefined && totalElements > rowsPerPage && (
                 <Pagination
                     page={page}
                     onPageChange={setPage}

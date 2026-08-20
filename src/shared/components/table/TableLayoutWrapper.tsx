@@ -6,7 +6,7 @@ type TableLayoutWrapperProps = {
     children: ReactNode;
     toolbar?: ReactNode;
     initialPage?: number;
-    initialRowCount?: number;
+    initialRowsPerPage?: number;
     paginationVariant?: PaginationVariant;
 };
 
@@ -14,13 +14,13 @@ export function TableLayoutWrapper({
     children,
     toolbar,
     initialPage,
-    initialRowCount,
+    initialRowsPerPage,
     paginationVariant,
 }: TableLayoutWrapperProps) {
     return (
         <TablePageProvider
             initialPage={initialPage}
-            initialRowCount={initialRowCount}
+            initialRowsPerPage={initialRowsPerPage}
             paginationVariant={paginationVariant}
         >
             {toolbar}

@@ -10,19 +10,30 @@ export type PaginationVariant = 'pages' | 'load-more';
 type SetTablePageError = (error: IAlertMessage | undefined) => void;
 
 export type TablePaginationMeta = {
+    /** Total number of pages from the API response. */
     totalPages?: number;
+    /** Total number of items from the API response. */
     totalElements?: number;
+    /** Whether to hide the pagination component. */
     hidePagination?: boolean;
+    /** Callback function to fetch more items using the 'load more' pagination variant. */
     onFetchMore?: (size: number) => void;
 };
 
 type TablePaginationState = {
+    /** Current page. */
     page: number;
+    /** Set the current page. */
     setPage: (page: number) => void;
-    rowCount: number;
-    setRowCount: (rowCount: number) => void;
+    /** Number of rows shown per page. */
+    rowsPerPage: number;
+    /** Set the number of rows shown per page. */
+    setRowsPerPage: (rowsPerPage: number) => void;
+    /** Total number of pages from the API response. */
     totalPages?: number;
+    /** Total number of items from the API response. */
     totalElements?: number;
+    /** Whether to hide the pagination component. */
     hidePagination?: boolean;
     setPaginationMeta: (meta: TablePaginationMeta) => void;
 };
@@ -36,19 +47,19 @@ const TablePageContext = createContext<TablePageContextValue | null>(null);
 type TablePageProviderProps = {
     children: ReactNode;
     initialPage?: number;
-    initialRowCount?: number;
+    initialRowsPerPage?: number;
     paginationVariant?: PaginationVariant;
 };
 
 export function TablePageProvider({
     children,
     initialPage = 1,
-    initialRowCount = 10,
+    initialRowsPerPage = 10,
     paginationVariant = 'pages',
 }: TablePageProviderProps) {
     const [error, setError] = useState<IAlertMessage | undefined>(undefined);
     const [page, setPage] = useState(initialPage);
-    const [rowCount, setRowCount] = useState(initialRowCount);
+    const [rowsPerPage, setRowsPerPage] = useState(initialRowsPerPage);
     const [paginationMeta, setPaginationMeta] = useState<TablePaginationMeta>({});
 
     const value = useMemo(
@@ -56,14 +67,14 @@ export function TablePageProvider({
             setError,
             page,
             setPage,
-            rowCount,
-            setRowCount,
+            rowsPerPage,
+            setRowsPerPage,
             totalPages: paginationMeta.totalPages,
             totalElements: paginationMeta.totalElements,
             hidePagination: paginationMeta.hidePagination,
             setPaginationMeta,
         }),
-        [page, rowCount, paginationMeta]
+        [page, rowsPerPage, paginationMeta]
     );
 
     return (
@@ -78,8 +89,8 @@ export function TablePageProvider({
                         totalElements={paginationMeta.totalElements}
                         page={page}
                         setPage={setPage}
-                        rowCount={rowCount}
-                        setRowCount={setRowCount}
+                        rowsPerPage={rowsPerPage}
+                        setRowsPerPage={setRowsPerPage}
                     />
                 )}
                 {paginationVariant === 'load-more' && paginationMeta.onFetchMore && (
@@ -109,8 +120,8 @@ export function useTablePagination(): TablePaginationState {
     const {
         page,
         setPage,
-        rowCount,
-        setRowCount,
+        rowsPerPage,
+        setRowsPerPage,
         totalPages,
         totalElements,
         hidePagination,
@@ -119,8 +130,8 @@ export function useTablePagination(): TablePaginationState {
     return {
         page,
         setPage,
-        rowCount,
-        setRowCount,
+        rowsPerPage,
+        setRowsPerPage,
         totalPages,
         totalElements,
         hidePagination,

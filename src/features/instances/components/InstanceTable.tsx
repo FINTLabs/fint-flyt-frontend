@@ -12,7 +12,7 @@ import {
     useTablePageError,
     useTablePagination,
 } from '../../../shared/components/table/TablePageContext';
-import { TableRowActionsMenu } from '../../../shared/components/table/TableRowDropdown';
+import { TableRowActionsMenu } from '../../../shared/components/table/TableRowActionsMenu';
 import { AuthorizationContext } from '../../../shared/context/AuthorizationContext';
 import { SourceApplicationContext } from '../../../shared/context/SourceApplicationContext';
 import { IIntegrationMetadata } from '../../configuration/types/Metadata/IntegrationMetadata';

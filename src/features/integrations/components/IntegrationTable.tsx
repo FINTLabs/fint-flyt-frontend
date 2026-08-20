@@ -36,7 +36,7 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({ id }: Int
 
     const { t } = useTranslation('translations', { keyPrefix: 'pages.integrations' });
     const onError = useTablePageError();
-    const { page, rowCount, setPaginationMeta } = useTablePagination();
+    const { page, rowsPerPage, setPaginationMeta } = useTablePagination();
 
 
     const [integrations, setIntegrations] = useState<Page<IIntegration> | undefined>();
@@ -64,9 +64,9 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({ id }: Int
         if (allMetadata && !isFetching) {
             setIntegrations(undefined);
             setDetailedStats(undefined);
-            getAllIntegrations(rowCount, page, sort);
+            getAllIntegrations(rowsPerPage, page, sort);
         }
-    }, [page, sort?.orderBy, sort?.direction, rowCount, allMetadata?.length]);
+    }, [page, sort?.orderBy, sort?.direction, rowsPerPage, allMetadata?.length]);
 
     useEffect(() => {
         setPaginationMeta({

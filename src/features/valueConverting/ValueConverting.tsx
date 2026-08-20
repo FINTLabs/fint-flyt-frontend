@@ -50,7 +50,7 @@ const ValueConverting: React.FC = () => {
                     setExistingValueConverting={setExistingValueConverting}
                 />
             ) : (
-                <TableLayoutWrapper>
+                <TableLayoutWrapper initialRowsPerPage={8}>
                     <ValueConvertingTable
                         setNewValueConverting={setNewValueConverting}
                         onValueConvertingSelected={(id: number) => {

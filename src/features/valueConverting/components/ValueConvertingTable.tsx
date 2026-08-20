@@ -10,7 +10,7 @@ import {
     useTablePageError,
     useTablePagination,
 } from '../../../shared/components/table/TablePageContext';
-import { TableRowActionsMenu } from '../../../shared/components/table/TableRowDropdown';
+import { TableRowActionsMenu } from '../../../shared/components/table/TableRowActionsMenu';
 import { AuthorizationContext } from '../../../shared/context/AuthorizationContext';
 import { getDestinationDisplayName } from '../../../shared/util/TableUtil';
 import { ISourceApplication } from '../../configuration/types/SourceApplication';
@@ -22,15 +22,13 @@ type Props = {
     setNewValueConverting: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const rowsPerPage = 8;
-
 const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
     const ValueConvertingRepository = useValueConvertingRepository();
     const { getAllSourceApplications } = useContext(AuthorizationContext);
 
     const history = useNavigate();
     const onError = useTablePageError();
-    const { page, rowCount, setPaginationMeta } = useTablePagination();
+    const { page, rowsPerPage, setPaginationMeta } = useTablePagination();
     const { t } = useTranslation('translations', { keyPrefix: 'pages.valueConverting' });
 
     const [sourceApplications, setSourceApplications] = useState<ISourceApplication[]>([]);
@@ -45,7 +43,7 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
             totalElements: rows?.length,
             hidePagination: !rows || rows.length <= rowsPerPage,
         });
-    }, [rows?.length, setPaginationMeta]);
+    }, [rows?.length, rowsPerPage, setPaginationMeta]);
 
     useEffect(() => {
         Promise.all([
