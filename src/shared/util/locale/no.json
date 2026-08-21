@@ -525,7 +525,36 @@
                 "basedOn": "Lag ny basert på denne",
                 "create": "Opprett",
                 "cancel": "Avbryt",
-                "back": "Tilbake"
+                "back": "Tilbake",
+                "clear": "Nullstill",
+                "search": "Søk"
+            },
+            "filter": {
+                "filterMenuButtonText": "Filtrer tabellen",
+                "sourceApplication": "Kildeapplikasjon",
+                "sourceApplicationCard": {
+                    "title": "Kildeapplikasjon"
+                },
+                "timeCard": {
+                    "title": "Tid",
+                    "tabs": {
+                        "created": "Opprettet",
+                        "modified": "Endret"
+                    },
+                    "fromDate": "Fra dato",
+                    "fromTime": "Fra klokkeslett",
+                    "toDate": "Til dato",
+                    "toTime": "Til klokkeslett"
+                },
+                "activeFilters": {
+                    "noFilters": "Ingen aktive filtre",
+                    "removeAll": "Fjern alle",
+                    "createdPrefix": "Opprettet",
+                    "modifiedPrefix": "Endret",
+                    "range": "{{prefix}}: {{from}} – {{to}}",
+                    "from": "{{prefix}}: fra {{from}}",
+                    "to": "{{prefix}}: til {{to}}"
+                }
             },
             "header": "Verdikonvertering",
             "errorMessage": "Det oppsto en feil under henting av data, prøv igjen senere.",

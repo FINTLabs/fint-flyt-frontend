@@ -20,6 +20,8 @@ import {
 } from '../../../shared/util/TableUtil';
 import { formatTimestampToReadableText } from '../../../shared/util/TimeAndDateUtils';
 import { ISourceApplication } from '../../configuration/types/SourceApplication';
+import { useValueConvertingFilters } from '../filter/FilterContext';
+import { toApiDateTime } from '../filter/TimeFilter';
 import { IValueConverting } from '../types/ValueConverting';
 import ValueConvertingPanel from './ValueConvertingPanel';
 
@@ -35,8 +37,10 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
     const onError = useTablePageError();
     const { page, rowsPerPage, setPaginationMeta } = useTablePagination();
     const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.valueConverting' });
+    const { filters, refreshKey } = useValueConvertingFilters();
 
     const [sourceApplications, setSourceApplications] = useState<ISourceApplication[]>([]);
+    const [rows, setRows] = useState<IValueConverting[] | undefined>(undefined);
     const [valueConvertings, setValueConvertings] = useState<Page<IValueConverting> | undefined>();
     const [sort, setSort] = useState<SortState | undefined>({
         orderBy: 'id',
@@ -65,16 +69,35 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
         onError(undefined);
         setValueConvertings(undefined);
 
+        const sourceApplicationIds = filters.sourceApplicationIds
+            .map(Number)
+            .filter((id) => Number.isFinite(id));
+
         ValueConvertingRepository.getValueConvertings({
             page: page - 1,
             size: rowsPerPage,
             sortProperty: sort?.orderBy,
             sortDirection: toApiSortDirection(sort?.direction),
             excludeConvertingMap: false,
+            sourceApplicationIds:
+                sourceApplicationIds.length > 0 ? sourceApplicationIds : undefined,
+            createdFrom: filters.createdFrom
+                ? toApiDateTime(filters.createdFrom)
+                : undefined,
+            createdTo: filters.createdTo ? toApiDateTime(filters.createdTo) : undefined,
+            modifiedFrom: filters.modifiedFrom
+                ? toApiDateTime(filters.modifiedFrom)
+                : undefined,
+            modifiedTo: filters.modifiedTo ? toApiDateTime(filters.modifiedTo) : undefined,
         })
             .then((valueConvertingResponse) => {
-                console.log('valueConvertingResponse', valueConvertingResponse.data);
+                onError(undefined);
                 setValueConvertings(valueConvertingResponse.data ?? { content: [] });
+                setPaginationMeta({
+                    totalPages: valueConvertingResponse.data.totalPages ?? 0,
+                    totalElements: valueConvertingResponse.data.totalElements ?? 0,
+                    hidePagination: false,
+                });
             })
             .catch(() => {
                 onError({ message: t('errorMessage') });

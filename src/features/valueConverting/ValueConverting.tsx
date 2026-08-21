@@ -7,6 +7,7 @@ import { AuthorizationContext } from '../../shared/context/AuthorizationContext'
 import ValueConvertingForm from './components/ValueConvertingForm';
 import ValueConvertingTable from './components/ValueConvertingTable';
 import { ValueConvertingToolbar } from './components/ValueConvertingToolbar';
+import { ValueConvertingFilterProvider } from './filter/FilterContext';
 import { IValueConverting } from './types/ValueConverting';
 
 const ValueConverting: React.FC = () => {
@@ -39,25 +40,27 @@ const ValueConverting: React.FC = () => {
                     setExistingValueConverting={setExistingValueConverting}
                 />
             ) : (
-                <TableLayoutWrapper
-                    toolbar={
-                        <ValueConvertingToolbar
-                            onNewConverting={() => setNewValueConverting(true)}
+                <ValueConvertingFilterProvider>
+                    <TableLayoutWrapper
+                        toolbar={
+                            <ValueConvertingToolbar
+                                onNewConverting={() => setNewValueConverting(true)}
+                            />
+                        }
+                    >
+                        <ValueConvertingTable
+                            onValueConvertingSelected={(id: number) => {
+                                return ValueConvertingRepository.getValueConverting(id)
+                                    .then((response) => {
+                                        setExistingValueConverting(response.data);
+                                    })
+                                    .catch((e) => {
+                                        console.log(e);
+                                    });
+                            }}
                         />
-                    }
-                >
-                    <ValueConvertingTable
-                        onValueConvertingSelected={(id: number) => {
-                            return ValueConvertingRepository.getValueConverting(id)
-                                .then((response) => {
-                                    setExistingValueConverting(response.data);
-                                })
-                                .catch((e) => {
-                                    console.log(e);
-                                });
-                        }}
-                    />
-                </TableLayoutWrapper>
+                    </TableLayoutWrapper>
+                </ValueConvertingFilterProvider>
             )}
         </>
     );
