@@ -60,7 +60,13 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
             setToSelectables(sortedResult);
         }))
 
-        ValueConvertingRepository.getValueConvertings(0, 1000, 'id', 'DESC', true)
+        ValueConvertingRepository.getValueConvertings({
+            page: 0,
+            size: 1000,
+            sortProperty: 'id',
+            sortDirection: 'DESC',
+            excludeConvertingMap: true,
+        })
             .then(response => {
                 const data: IValueConverting[] = response.data.content
                 if (data) {

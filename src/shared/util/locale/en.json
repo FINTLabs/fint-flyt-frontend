@@ -498,7 +498,36 @@
                 "basedOn": "Create new based on this",
                 "create": "Create",
                 "cancel": "Cancel",
-                "back": "Back"
+                "back": "Back",
+                "clear": "Clear",
+                "search": "Search"
+            },
+            "filter": {
+                "filterMenuButtonText": "Filters",
+                "sourceApplication": "Source application",
+                "sourceApplicationCard": {
+                    "title": "Source application"
+                },
+                "timeCard": {
+                    "title": "Time",
+                    "tabs": {
+                        "created": "Created",
+                        "modified": "Modified"
+                    },
+                    "fromDate": "From date",
+                    "fromTime": "From time",
+                    "toDate": "To date",
+                    "toTime": "To time"
+                },
+                "activeFilters": {
+                    "noFilters": "No active filters",
+                    "removeAll": "Remove all",
+                    "createdPrefix": "Created",
+                    "modifiedPrefix": "Modified",
+                    "range": "{{prefix}}: {{from}} – {{to}}",
+                    "from": "{{prefix}}: from {{from}}",
+                    "to": "{{prefix}}: to {{to}}"
+                }
             },
             "header": "Value conversion",
             "errorMessage": "There was an error fetching data, try again later.",
