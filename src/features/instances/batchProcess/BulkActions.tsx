@@ -8,7 +8,7 @@ import {
     ArrowsCirclepathIcon,
     MenuElipsisVerticalIcon,
 } from '../../../shared/components/icons';
-import TableLoader from '../../../shared/components/TableLoader';
+import TableLoader from '../../../shared/components/table/TableLoader';
 import { AuthorizationContext } from '../../../shared/context/AuthorizationContext';
 import { ISourceApplication } from '../../configuration/types/SourceApplication';
 import { useTableSelect } from './TableSelectContext';
@@ -66,7 +66,7 @@ const BulkActions: FC = ({}) => {
                         variant="secondary-neutral"
                         icon={<MenuElipsisVerticalIcon aria-hidden />}
                         iconPosition="right"
-                        className={'filter-toolbar-button'}
+                        className={'table-toolbar-button'}
                         size={'small'}
                     >
                         <HStack gap={'2'} wrap={false}>

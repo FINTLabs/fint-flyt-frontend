@@ -520,14 +520,12 @@
             "requiredConverting": "Creating a new value converting requires at least one conversion",
             "uniqueField": "Name must be unique",
             "column": {
-                "show": "Show",
                 "id": "Id",
                 "displayName": "Name",
                 "toType": "To type",
                 "fromType": "From type",
                 "toApplication": "To",
-                "fromApplication": "From",
-                "actions": "Actions"
+                "fromApplication": "From"
             },
             "help": {
                 "toggle": "We are working on more ways to use value conversions in Flyt. For now it is as before and only custom value conversions are used",

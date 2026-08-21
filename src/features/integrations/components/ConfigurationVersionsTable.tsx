@@ -2,7 +2,6 @@ import {
     ActionMenu,
     BodyShort,
     Box,
-    Button,
     HStack,
     Loader,
     Pagination,
@@ -21,9 +20,9 @@ import {
     DocPencilIcon,
     FilesIcon,
     MagnifyingGlassIcon,
-    MenuElipsisVerticalIcon,
     TrashIcon,
 } from '../../../shared/components/icons';
+import { TableRowActionsMenu } from '../../../shared/components/table/TableRowActionsMenu';
 import { IAlertMessage, Page } from '../../../shared/components/types/TableTypes';
 import { formatTimestampToReadableText } from '../../../shared/util/TimeAndDateUtils';
 import { IConfiguration } from '../../configuration/types/Configuration';
@@ -162,98 +161,83 @@ export const ConfigurationVersionsTable: React.FunctionComponent<ConfigurationTa
                                     )}
                                 </Table.DataCell>
                                 <Table.DataCell align={'right'}>
-                                    <div id={panelId + '-action-toggle'} className="min-h-32">
-                                        <ActionMenu>
-                                            <ActionMenu.Trigger>
-                                                <Button
-                                                    variant="tertiary-neutral"
-                                                    size={'small'}
-                                                    icon={<MenuElipsisVerticalIcon aria-hidden />}
-                                                />
-                                            </ActionMenu.Trigger>
-                                            <ActionMenu.Content data-testid="action-menu-content">
-                                                {completed ? (
-                                                    <ActionMenu.Group
-                                                        label={`${t('table.configurationID')}: ${config.id}`}
-                                                    >
-                                                        <ActionMenu.Item
-                                                            data-testid="view-configuration"
-                                                            onSelect={() => {
-                                                                handleNewOrEditConfigClick(
-                                                                    config.id
-                                                                ).then(() =>
-                                                                    navigate(
-                                                                        '/integration/configuration/edit'
-                                                                    )
-                                                                );
-                                                            }}
-                                                            icon={<MagnifyingGlassIcon />}
-                                                        >
-                                                            {t('table.show')}
-                                                        </ActionMenu.Item>
-                                                        <ActionMenu.Item
-                                                            data-testid="create-new-based-on-configuration"
-                                                            onSelect={() => {
-                                                                handleNewOrEditConfigClick(
-                                                                    config.id,
-                                                                    config.version
-                                                                ).then(() =>
-                                                                    navigate(
-                                                                        '/integration/configuration/edit'
-                                                                    )
-                                                                );
-                                                            }}
-                                                            icon={<FilesIcon />}
-                                                        >
-                                                            {t('table.basedOn')}
-                                                        </ActionMenu.Item>
-                                                        <ActionMenu.Divider />
-                                                        <ActionMenu.Item
-                                                            disabled={
-                                                                activeVersion === config.version
-                                                            }
-                                                            onSelect={() => {
-                                                                handleActivateAction(config.id);
-                                                            }}
-                                                            icon={<CheckmarkCircleIcon />}
-                                                        >
-                                                            {t('table.activate')}
-                                                        </ActionMenu.Item>
-                                                    </ActionMenu.Group>
-                                                ) : (
-                                                    <ActionMenu.Group
-                                                        label={`${t('table.configurationID')}: ${config.id}`}
-                                                    >
-                                                        <ActionMenu.Item
-                                                            data-testid="edit-draft"
-                                                            onSelect={() => {
-                                                                handleNewOrEditConfigClick(
-                                                                    config.id
-                                                                ).then(() =>
-                                                                    navigate(
-                                                                        '/integration/configuration/edit'
-                                                                    )
-                                                                );
-                                                            }}
-                                                            icon={<DocPencilIcon />}
-                                                        >
-                                                            {t('table.edit')}
-                                                        </ActionMenu.Item>
-                                                        <ActionMenu.Divider />
-                                                        <ActionMenu.Item
-                                                            variant="danger"
-                                                            onSelect={() => {
-                                                                onDeleteDraft(config.id);
-                                                            }}
-                                                            icon={<TrashIcon />}
-                                                        >
-                                                            {t('table.deleteDraft')}
-                                                        </ActionMenu.Item>
-                                                    </ActionMenu.Group>
-                                                )}
-                                            </ActionMenu.Content>
-                                        </ActionMenu>
-                                    </div>
+                                    <TableRowActionsMenu id={panelId}>
+                                        {completed ? (
+                                            <ActionMenu.Group
+                                                label={`${t('table.configurationID')}: ${config.id}`}
+                                            >
+                                                <ActionMenu.Item
+                                                    data-testid="view-configuration"
+                                                    onSelect={() => {
+                                                        handleNewOrEditConfigClick(config.id).then(
+                                                            () =>
+                                                                navigate(
+                                                                    '/integration/configuration/edit'
+                                                                )
+                                                        );
+                                                    }}
+                                                    icon={<MagnifyingGlassIcon />}
+                                                >
+                                                    {t('table.show')}
+                                                </ActionMenu.Item>
+                                                <ActionMenu.Item
+                                                    data-testid="create-new-based-on-configuration"
+                                                    onSelect={() => {
+                                                        handleNewOrEditConfigClick(
+                                                            config.id,
+                                                            config.version
+                                                        ).then(() =>
+                                                            navigate(
+                                                                '/integration/configuration/edit'
+                                                            )
+                                                        );
+                                                    }}
+                                                    icon={<FilesIcon />}
+                                                >
+                                                    {t('table.basedOn')}
+                                                </ActionMenu.Item>
+                                                <ActionMenu.Divider />
+                                                <ActionMenu.Item
+                                                    disabled={activeVersion === config.version}
+                                                    onSelect={() => {
+                                                        handleActivateAction(config.id);
+                                                    }}
+                                                    icon={<CheckmarkCircleIcon />}
+                                                >
+                                                    {t('table.activate')}
+                                                </ActionMenu.Item>
+                                            </ActionMenu.Group>
+                                        ) : (
+                                            <ActionMenu.Group
+                                                label={`${t('table.configurationID')}: ${config.id}`}
+                                            >
+                                                <ActionMenu.Item
+                                                    data-testid="edit-draft"
+                                                    onSelect={() => {
+                                                        handleNewOrEditConfigClick(config.id).then(
+                                                            () =>
+                                                                navigate(
+                                                                    '/integration/configuration/edit'
+                                                                )
+                                                        );
+                                                    }}
+                                                    icon={<DocPencilIcon />}
+                                                >
+                                                    {t('table.edit')}
+                                                </ActionMenu.Item>
+                                                <ActionMenu.Divider />
+                                                <ActionMenu.Item
+                                                    variant="danger"
+                                                    onSelect={() => {
+                                                        onDeleteDraft(config.id);
+                                                    }}
+                                                    icon={<TrashIcon />}
+                                                >
+                                                    {t('table.deleteDraft')}
+                                                </ActionMenu.Item>
+                                            </ActionMenu.Group>
+                                        )}
+                                    </TableRowActionsMenu>
                                 </Table.DataCell>
                             </Table.Row>
                         );

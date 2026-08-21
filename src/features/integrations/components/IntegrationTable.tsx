@@ -1,13 +1,16 @@
-import { Box, SortState, Table } from '@navikt/ds-react';
+import { SortState, Table } from '@navikt/ds-react';
 import * as React from 'react';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import useInstanceFlowTrackingRepository from '../../../shared/api/useInstanceFlowTrackingRepository';
 import useIntegrationRepository from '../../../shared/api/useIntegrationRepository';
-import TableLoader from '../../../shared/components/TableLoader';
-import TablePagination from '../../../shared/components/pagination/TablePagination';
-import { IAlertMessage, Page } from '../../../shared/components/types/TableTypes';
+import TableLoader from '../../../shared/components/table/TableLoader';
+import {
+    useTablePageError,
+    useTablePagination,
+} from '../../../shared/components/table/TablePageContext';
+import { Page } from '../../../shared/components/types/TableTypes';
 import { AuthorizationContext } from '../../../shared/context/AuthorizationContext';
 import { SourceApplicationContext } from '../../../shared/context/SourceApplicationContext';
 import {
@@ -22,21 +25,21 @@ import IntegrationPanel from './IntegrationPanel';
 
 type IntegrationProps = {
     id: string;
-    onError: (error: IAlertMessage | undefined) => void;
 };
-const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({
-    id,
-    onError,
-}: IntegrationProps) => {
+
+const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({ id }: IntegrationProps) => {
     const IntegrationRepository = useIntegrationRepository();
     const InstanceFlowTrackingRepository = useInstanceFlowTrackingRepository();
-    const { t } = useTranslation('translations', { keyPrefix: 'pages.integrations' });
+
     const { allMetadata } = useContext(SourceApplicationContext);
     const { getAllSourceApplications } = useContext(AuthorizationContext);
 
+    const { t } = useTranslation('translations', { keyPrefix: 'pages.integrations' });
+    const onError = useTablePageError();
+    const { page, rowsPerPage, setPaginationMeta } = useTablePagination();
+
+
     const [integrations, setIntegrations] = useState<Page<IIntegration> | undefined>();
-    const [page, setPage] = useState(1);
-    const [rowCount, setRowCount] = useState<number>(10);
     const [sourceApplications, setSourceApplications] = useState<ISourceApplication[]>();
     const [sort, setSort] = useState<SortState | undefined>({
         orderBy: 'state',
@@ -61,9 +64,17 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({
         if (allMetadata && !isFetching) {
             setIntegrations(undefined);
             setDetailedStats(undefined);
-            getAllIntegrations(rowCount, page, sort);
+            getAllIntegrations(rowsPerPage, page, sort);
         }
-    }, [page, sort?.orderBy, sort?.direction, rowCount, allMetadata?.length]);
+    }, [page, sort?.orderBy, sort?.direction, rowsPerPage, allMetadata?.length]);
+
+    useEffect(() => {
+        setPaginationMeta({
+            totalPages: integrations?.totalPages,
+            totalElements: integrations?.totalElements,
+            hidePagination: isLoading,
+        });
+    }, [integrations?.totalPages, integrations?.totalElements, isLoading, setPaginationMeta]);
 
     const getDetailedStatistics = useCallback(async (ids: string[]) => {
         const statsResponse =
@@ -72,7 +83,11 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({
         setDetailedStats(statsData.content);
     }, []);
 
-    const getAllIntegrations = async (currentRowCount: number,  currentPage: number, currentSort?: SortState) => {
+    const getAllIntegrations = async (
+        currentRowCount: number,
+        currentPage: number,
+        currentSort?: SortState
+    ) => {
         onError(undefined);
         if (allMetadata) {
             try {
@@ -83,7 +98,11 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({
                         currentPage - 1,
                         currentRowCount,
                         currentSort ? currentSort.orderBy : 'state',
-                        currentSort ? (currentSort.direction === 'ascending' ? 'ASC' : 'DESC') : 'ASC'
+                        currentSort
+                            ? currentSort.direction === 'ascending'
+                                ? 'ASC'
+                                : 'DESC'
+                            : 'ASC'
                     ),
                     getAllSourceApplications(false),
                 ]).then(([integrationResponse, sourceApps]) => {
@@ -142,135 +161,116 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({
     };
 
     return (
-        <Box>
-            <Box background={'surface-default'} style={{ minHeight: '70vh' }}>
-                <Table
-                    sort={sort}
-                    onSortChange={(sortKey) => handleSort(sortKey ? sortKey : 'id')}
-                    id={id}
-                >
-                    <Table.Header>
-                        <Table.Row>
-                            <Table.ColumnHeader />
-                            <Table.ColumnHeader sortKey="id" sortable>
-                                {t('table.column.id')}
-                            </Table.ColumnHeader>
-                            <Table.ColumnHeader>
-                                {t('table.column.sourceApplicationId')}
-                            </Table.ColumnHeader>
-                            <Table.ColumnHeader sortKey="sourceApplicationIntegrationId" sortable>
-                                {t('table.column.sourceApplicationIntegrationId')}
-                            </Table.ColumnHeader>
-                            <Table.ColumnHeader>
-                                {t('table.column.sourceApplicationIntegrationIdDisplayName')}
-                            </Table.ColumnHeader>
-                            <Table.ColumnHeader>{t('table.column.destination')}</Table.ColumnHeader>
-                            <Table.ColumnHeader sortKey="state" sortable>
-                                {t('table.column.state')}
-                            </Table.ColumnHeader>
-                            <Table.ColumnHeader>{t('table.column.total')}</Table.ColumnHeader>
-                            <Table.ColumnHeader>{t('table.column.inProgress')}</Table.ColumnHeader>
-                            <Table.ColumnHeader>{t('table.column.transferred')}</Table.ColumnHeader>
-                            <Table.ColumnHeader>{t('table.column.aborted')}</Table.ColumnHeader>
-                            <Table.ColumnHeader>{t('table.column.failed')}</Table.ColumnHeader>
-                        </Table.Row>
-                    </Table.Header>
-                    <Table.Body>
-                        {isLoading ? (
-                            <TableLoader columnLength={12} />
-                        ) : (
-                            integrations?.content?.map((value, i) => {
-                                const stats = detailedStats?.find(
-                                    (stat) => stat.integrationId === value.id
-                                );
-                                return (
-                                    <Table.ExpandableRow
-                                        expandOnRowClick
-                                        key={i}
-                                        onOpenChange={(open) => {
-                                            setFetchedContentIds((prev) => {
-                                                if (open && value.id) {
-                                                    return prev.includes(value.id)
-                                                        ? prev
-                                                        : [...prev, value.id];
-                                                }
-                                                return prev;
-                                            });
-                                        }}
-                                        content={
-                                            fetchedContentIds.find((id) => value.id === id) && (
-                                                <IntegrationPanel
-                                                    id={'panel-' + i}
-                                                    onError={(error) => {
-                                                        onError(error);
-                                                    }}
-                                                    integration={value}
-                                                />
-                                            )
+        <Table sort={sort} onSortChange={(sortKey) => handleSort(sortKey ? sortKey : 'id')} id={id}>
+            <Table.Header>
+                <Table.Row>
+                    <Table.ColumnHeader />
+                    <Table.ColumnHeader sortKey="id" sortable>
+                        {t('table.column.id')}
+                    </Table.ColumnHeader>
+                    <Table.ColumnHeader>{t('table.column.sourceApplicationId')}</Table.ColumnHeader>
+                    <Table.ColumnHeader sortKey="sourceApplicationIntegrationId" sortable>
+                        {t('table.column.sourceApplicationIntegrationId')}
+                    </Table.ColumnHeader>
+                    <Table.ColumnHeader>
+                        {t('table.column.sourceApplicationIntegrationIdDisplayName')}
+                    </Table.ColumnHeader>
+                    <Table.ColumnHeader>{t('table.column.destination')}</Table.ColumnHeader>
+                    <Table.ColumnHeader sortKey="state" sortable>
+                        {t('table.column.state')}
+                    </Table.ColumnHeader>
+                    <Table.ColumnHeader>{t('table.column.total')}</Table.ColumnHeader>
+                    <Table.ColumnHeader>{t('table.column.inProgress')}</Table.ColumnHeader>
+                    <Table.ColumnHeader>{t('table.column.transferred')}</Table.ColumnHeader>
+                    <Table.ColumnHeader>{t('table.column.aborted')}</Table.ColumnHeader>
+                    <Table.ColumnHeader>{t('table.column.failed')}</Table.ColumnHeader>
+                </Table.Row>
+            </Table.Header>
+            <Table.Body>
+                {isLoading ? (
+                    <TableLoader columnLength={12} />
+                ) : (
+                    integrations?.content?.map((value, i) => {
+                        const stats = detailedStats?.find(
+                            (stat) => stat.integrationId === value.id
+                        );
+                        return (
+                            <Table.ExpandableRow
+                                expandOnRowClick
+                                key={i}
+                                onOpenChange={(open) => {
+                                    setFetchedContentIds((prev) => {
+                                        if (open && value.id) {
+                                            return prev.includes(value.id)
+                                                ? prev
+                                                : [...prev, value.id];
                                         }
-                                    >
-                                        <Table.DataCell>{value.id}</Table.DataCell>
-                                        <Table.DataCell scope="row">
-                                            {
-                                                sourceApplications?.find(
-                                                    (sa) =>
-                                                        sa.id === Number(value.sourceApplicationId)
-                                                )?.displayName
-                                            }
+                                        return prev;
+                                    });
+                                }}
+                                content={
+                                    fetchedContentIds.find((id) => value.id === id) && (
+                                        <IntegrationPanel
+                                            id={'panel-' + i}
+                                            onError={(error) => {
+                                                onError(error);
+                                            }}
+                                            integration={value}
+                                        />
+                                    )
+                                }
+                            >
+                                <Table.DataCell>{value.id}</Table.DataCell>
+                                <Table.DataCell scope="row">
+                                    {
+                                        sourceApplications?.find(
+                                            (sa) => sa.id === Number(value.sourceApplicationId)
+                                        )?.displayName
+                                    }
+                                </Table.DataCell>
+                                <Table.DataCell>
+                                    {value.sourceApplicationIntegrationId}
+                                </Table.DataCell>
+                                <Table.DataCell>{value.displayName}</Table.DataCell>
+                                <Table.DataCell>
+                                    {getDestinationDisplayName(value.destination ?? '')}
+                                </Table.DataCell>
+                                <Table.DataCell>
+                                    {getStateDisplayName(value.state ?? '')}
+                                </Table.DataCell>
+                                {!detailedStats ? (
+                                    <TableLoader columnLength={5} type={'cells'} />
+                                ) : (
+                                    <>
+                                        <Table.DataCell
+                                            align={'center'}
+                                            data-testid={`integration-${i}-total`}
+                                        >
+                                            {stats?.total || '-'}
                                         </Table.DataCell>
-                                        <Table.DataCell>
-                                            {value.sourceApplicationIntegrationId}
+                                        <Table.DataCell align={'center'}>
+                                            {stats?.inProgress || '-'}
                                         </Table.DataCell>
-                                        <Table.DataCell>{value.displayName}</Table.DataCell>
-                                        <Table.DataCell>
-                                            {getDestinationDisplayName(value.destination ?? '')}
+                                        <Table.DataCell align={'center'}>
+                                            {stats?.transferred || '-'}
                                         </Table.DataCell>
-                                        <Table.DataCell>
-                                            {getStateDisplayName(value.state ?? '')}
+                                        <Table.DataCell
+                                            align={'center'}
+                                            data-testid={`integration-${i}-aborted`}
+                                        >
+                                            {stats?.aborted || '-'}
                                         </Table.DataCell>
-                                        {!detailedStats ? (
-                                            <TableLoader columnLength={5} type={'cells'} />
-                                        ) : (
-                                            <>
-                                                <Table.DataCell
-                                                    align={'center'}
-                                                    data-testid={`integration-${i}-total`}
-                                                >
-                                                    {stats?.total || '-'}
-                                                </Table.DataCell>
-                                                <Table.DataCell align={'center'}>
-                                                    {stats?.inProgress || '-'}
-                                                </Table.DataCell>
-                                                <Table.DataCell align={'center'}>
-                                                    {stats?.transferred || '-'}
-                                                </Table.DataCell>
-                                                <Table.DataCell
-                                                    align={'center'}
-                                                    data-testid={`integration-${i}-aborted`}
-                                                >
-                                                    {stats?.aborted || '-'}
-                                                </Table.DataCell>
-                                                <Table.DataCell align={'center'}>
-                                                    {stats?.failed || '-'}
-                                                </Table.DataCell>
-                                            </>
-                                        )}
-                                    </Table.ExpandableRow>
-                                );
-                            })
-                        )}
-                    </Table.Body>
-                </Table>
-            </Box>
-            <TablePagination
-                totalPages={integrations?.totalPages}
-                totalElements={integrations?.totalElements}
-                page={page}
-                setPage={setPage}
-                rowCount={rowCount}
-                setRowCount={setRowCount}
-            />
-        </Box>
+                                        <Table.DataCell align={'center'}>
+                                            {stats?.failed || '-'}
+                                        </Table.DataCell>
+                                    </>
+                                )}
+                            </Table.ExpandableRow>
+                        );
+                    })
+                )}
+            </Table.Body>
+        </Table>
     );
 };
 

@@ -547,14 +547,12 @@
             "requiredConverting": "Det kreves minst én konvertering for lagring av ny verdikonvertering",
             "uniqueField": "Navn må være unikt",
             "column": {
-                "show": "Vis",
                 "id": "Id",
                 "displayName": "Navn",
                 "toType": "Til type",
                 "fromType": "Fra type",
                 "toApplication": "Til",
-                "fromApplication": "Fra",
-                "actions": "Handlinger"
+                "fromApplication": "Fra"
             },
             "help": {
                 "toggle": "Det jobbes med flere muligheter for å bruke verdikonverteringer i Flyt. For nå er det som før og det er kun egendefinerte verdikonverteringer som benyttes",

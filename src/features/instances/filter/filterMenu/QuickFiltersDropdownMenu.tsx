@@ -37,7 +37,7 @@ export default function QuickFiltersDropdownMenu() {
                     variant="secondary-neutral"
                     icon={<ChevronDownIcon aria-hidden />}
                     iconPosition="right"
-                    className={'filter-toolbar-button right'}
+                    className={'table-toolbar-button right'}
                     size={'small'}
                 >
                     <HStack gap={'2'}>{t('title')}</HStack>

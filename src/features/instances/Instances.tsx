@@ -1,8 +1,7 @@
-import { Alert, Box, HGrid } from '@navikt/ds-react';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 
-import { IAlertMessage } from '../../shared/components/types/TableTypes';
+import { TableLayoutWrapper } from '../../shared/components/table/TableLayoutWrapper';
 import { AuthorizationContext } from '../../shared/context/AuthorizationContext';
 import { SourceApplicationContext } from '../../shared/context/SourceApplicationContext';
 import InstanceTable from './components/InstanceTable';
@@ -10,7 +9,6 @@ import FilterToolbar from './filter/FilterToolbar';
 
 const Instances: React.FC = () => {
     const { getAllMetadata } = useContext(SourceApplicationContext);
-    const [error, setError] = useState<IAlertMessage | undefined>(undefined);
     const { authorized, getAuthorization } = useContext(AuthorizationContext);
     const history = useNavigate();
 
@@ -29,23 +27,9 @@ const Instances: React.FC = () => {
     }, []);
 
     return (
-        <>
-            {error && (
-                <Alert style={{ maxWidth: '100%' }} variant="error">
-                    {error.message}
-                </Alert>
-            )}
-            <FilterToolbar />
-            <HGrid gap="4">
-                <Box id={'instance-table-container'}>
-                    <InstanceTable
-                        onError={(error) => {
-                            setError(error);
-                        }}
-                    />
-                </Box>
-            </HGrid>
-        </>
+        <TableLayoutWrapper paginationVariant="load-more" toolbar={<FilterToolbar />}>
+            <InstanceTable />
+        </TableLayoutWrapper>
     );
 };
 
