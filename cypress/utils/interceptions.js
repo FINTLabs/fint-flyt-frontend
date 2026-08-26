@@ -220,22 +220,29 @@ export const mockGenericConfigurationRepository = () => {
 };
 
 export const mockGenericValueConvertingRepository = () => {
-    cy.intercept(
-        {
-            method: 'GET',
-            pathname: '**/value-convertings',
-            query: {
-                page: '0',
-                size: /^(100|1000)$/i,
-                sortProperty: /^(fromApplicationId|id)$/i,
-                sortDirection: /^(ASC|DESC)$/i,
-                excludeConvertingMap: /^(true|false)$/i,
-            },
-        },
-        {
-            fixture: 'valueconverting/valueconvertingsWithMaps.json',
-        }
-    ).as('getValueconvertings');
+    cy.fixture('valueconverting/valueconvertingsWithMaps.json').then((fixture) => {
+        cy.intercept({ method: 'GET', pathname: '**/value-convertings' }, (req) => {
+            const page = Number(req.query.page ?? 0);
+            const size = Number(req.query.size ?? 8);
+            const all = fixture.content ?? [];
+            const start = page * size;
+            const content = all.slice(start, start + size);
+            const totalElements = all.length;
+            const totalPages = Math.max(1, Math.ceil(totalElements / size));
+
+            req.reply({
+                ...fixture,
+                content,
+                totalElements,
+                totalPages,
+                size,
+                number: page,
+                numberOfElements: content.length,
+                first: page === 0,
+                last: page >= totalPages - 1,
+            });
+        }).as('getValueconvertings');
+    });
 
     cy.intercept('GET', '**/value-convertings/1', {
         fixture: 'valueconverting/valueconverting1.json',

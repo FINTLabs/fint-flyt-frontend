@@ -87,10 +87,11 @@ describe('Testing value converting page', () => {
 
     it('should open and fill converting form based on existing', () => {
         prep();
-        cy.get('#table-row-0 > :nth-child(8) > .navds-dropdown__toggle').click();
-        cy.get(
-            '#table-row-0 > :nth-child(8) > .navds-popover > .navds-dropdown__list > .navds-dropdown__list-item > .navds-dropdown__item'
-        ).click();
+        cy.get('#table-row-0 #value-convertings-action-toggle > button').click();
+        cy.get('[data-testid="action-menu-content"]')
+            .contains('Lag ny basert på denne')
+            .click();
+        cy.wait('@getValueconverting');
         cy.get('#add-icon').click();
         cy.get('#convertingArray\\.1\\.from').type('test2');
         cy.get('#convertingArray\\.1\\.to').type('html');

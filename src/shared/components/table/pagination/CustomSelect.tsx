@@ -1,20 +1,21 @@
-import { FunctionComponent } from 'react';
 import { Select } from '@navikt/ds-react';
-import { IPaginationSelect } from '../types/TableTypes';
+import { FunctionComponent } from 'react';
+
+import { IPaginationSelect } from '../../types/TableTypes';
 
 type SelectProps = {
     options: IPaginationSelect[];
     onChange: (value: string) => void;
     label: string;
     hideLabel: boolean;
-    default: number;
+    value: number;
 };
 
 export const CustomSelect: FunctionComponent<SelectProps> = (props: SelectProps) => {
     return (
         <Select
             onChange={(e) => props.onChange(e.target.value)}
-            defaultValue={props.default}
+            value={String(props.value)}
             label={props.label}
             hideLabel={props.hideLabel}
             size={'small'}

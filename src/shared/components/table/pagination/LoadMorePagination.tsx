@@ -1,37 +1,56 @@
-import {
-    FunctionComponent,
-    useCallback,
-    useMemo,
-    useState,
-} from 'react';
 import { Button, HStack } from '@navikt/ds-react';
-import { CustomSelect } from './CustomSelect';
+import { FunctionComponent, useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { IPaginationSelect } from '../types/TableTypes';
 import { useSearchParams } from 'react-router';
+
+import { IPaginationSelect } from '../../types/TableTypes';
+import { CustomSelect } from './CustomSelect';
+
+const PAGE_SIZE_OPTIONS = [10, 25, 50, 100, 1000] as const;
 
 type Props = {
     hide?: boolean;
     onFetchMore: (size: number) => void;
 };
 
+function resolveInitialPagination(paramSize: number) {
+    if ((PAGE_SIZE_OPTIONS as readonly number[]).includes(paramSize)) {
+        return { numberOfRows: paramSize, timesFetched: 1 };
+    }
+
+    const step =
+        [...PAGE_SIZE_OPTIONS].reverse().find((option) => paramSize % option === 0) ??
+        PAGE_SIZE_OPTIONS[0];
+
+    return {
+        numberOfRows: step,
+        timesFetched: Math.max(1, paramSize / step),
+    };
+}
+
 // TODO: disable restry if no more to fetch
 const LoadMorePagination: FunctionComponent<Props> = ({ hide, onFetchMore }) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.instances' });
     const [searchParams, setSearchParams] = useSearchParams();
 
-    const paramSize = useMemo(() => Number(searchParams.get('size') ?? 10), [searchParams]);
+    const paramSize = useMemo(() => {
+        const fromUrl = Number(searchParams.get('size'));
+        return Number.isFinite(fromUrl) && fromUrl > 0 ? fromUrl : 10;
+    }, [searchParams]);
 
-    const [numberOfRows, setNumberOfRows] = useState<number>(paramSize);
-    const [timesFetched, setTimesFetched] = useState<number>(1);
+    const initialPagination = useMemo(() => resolveInitialPagination(paramSize), [paramSize]);
+
+    const [numberOfRows, setNumberOfRows] = useState<number>(initialPagination.numberOfRows);
+    const [timesFetched, setTimesFetched] = useState(initialPagination.timesFetched);
+
+    useEffect(() => {
+        setNumberOfRows(initialPagination.numberOfRows);
+        setTimesFetched(initialPagination.timesFetched);
+    }, [initialPagination.numberOfRows, initialPagination.timesFetched]);
 
     const selectOptions: IPaginationSelect[] = [
         { value: 0, label: t('numberPerPage'), disabled: true },
-        { value: 10, label: '10' },
-        { value: 25, label: '25' },
-        { value: 50, label: '50' },
-        { value: 100, label: '100' },
-        { value: 1000, label: '1000' },
+        ...PAGE_SIZE_OPTIONS.map((value) => ({ value, label: String(value) })),
     ];
 
     const updateSizeParam = (size: number) => {
@@ -65,7 +84,7 @@ const LoadMorePagination: FunctionComponent<Props> = ({ hide, onFetchMore }) => 
                 onChange={(val) => handleFetchMore(1, Number(val))}
                 label={t('numberPerPage')}
                 hideLabel
-                default={numberOfRows}
+                value={numberOfRows}
             />
 
             <Button

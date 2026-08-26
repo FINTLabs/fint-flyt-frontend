@@ -40,3 +40,4 @@ export { XMarkOctagonFillIcon as XMarkOctagonFillIcon } from '@navikt/aksel-icon
 export { InformationSquareFillIcon as InformationSquareFillIcon } from '@navikt/aksel-icons';
 export { MinusCircleIcon as MinusCircleIcon } from '@navikt/aksel-icons';
 export { DragVerticalIcon as DragIndicatorIcon } from '@navikt/aksel-icons';
+export { ArrowCirclepathIcon as RetryIcon} from '@navikt/aksel-icons';

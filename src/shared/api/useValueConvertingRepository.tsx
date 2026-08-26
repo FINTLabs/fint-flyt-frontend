@@ -11,7 +11,18 @@ export default function useValueConvertingRepository() {
         size: number,
         sortProperty: string,
         sortDirection: string,
-        excludeConvertingMap?: boolean
+        excludeConvertingMap?: boolean,
+        sourceApplicationIds?: number[],
+        fromTypeId?: number,
+        toTypeId?: number,
+        toApplicationId?: number,
+        displayName?: string,
+        createdBy?: string,
+        createdFrom?: string,
+        createdTo?: string,
+        modifiedBy?: string,
+        modifiedFrom?: string,
+        modifiedTo?: string,
     ) => {
         return get<Page<IValueConverting>>(API_URL, '/api/intern/value-convertings', {
             params: {
@@ -20,6 +31,17 @@ export default function useValueConvertingRepository() {
                 sortProperty: sortProperty,
                 sortDirection: sortDirection,
                 excludeConvertingMap: excludeConvertingMap,
+                sourceApplicationIds: sourceApplicationIds?.join(','),
+                fromTypeId: fromTypeId?.toString(),
+                toTypeId: toTypeId?.toString(),
+                toApplicationId: toApplicationId?.toString(),
+                displayName: displayName,
+                createdBy: createdBy,
+                createdFrom: createdFrom,
+                createdTo: createdTo,
+                modifiedBy: modifiedBy,
+                modifiedFrom: modifiedFrom,
+                modifiedTo: modifiedTo,
             },
         });
     };

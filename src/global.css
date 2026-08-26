@@ -127,12 +127,12 @@ iframe#webpack-dev-server-client-overlay {
     }
 }
 
-.filter-toolbar {
+.table-toolbar {
     .toggled {
         background-color: var(--a-grayalpha-100);
     }
 
-    .filter-toolbar-button {
+    .table-toolbar-button {
         box-shadow: none;
         border: 1px solid var(--a-border-strong);
         &.left {

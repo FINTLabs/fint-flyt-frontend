@@ -7,10 +7,6 @@ const IntegrationsPage: RouteComponent = () => (
         id={'integration'}
         keyPrefix={'pages.integrations'}
         headingHelpTextKey="help.header"
-        headerButton={{
-            textKey: 'button.newIntegration',
-            to: '/integration/new',
-        }}
     >
         <Integrations />
     </PageTemplate>

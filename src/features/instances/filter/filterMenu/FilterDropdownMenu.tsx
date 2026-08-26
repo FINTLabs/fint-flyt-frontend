@@ -32,7 +32,7 @@ export default function FilterDropdownMenu() {
                     icon={<ChevronDownIcon aria-hidden />}
                     iconPosition="right"
                     size="small"
-                    className={`filter-toolbar-button left ${numberOfActiveFilters ? 'toggled' : ''}`}
+                    className={`table-toolbar-button left ${numberOfActiveFilters ? 'toggled' : ''}`}
                 >
                     <HStack gap={'2'} wrap={false}>
                         <FilterIcon aria-hidden fontSize={'1.2rem'} />
