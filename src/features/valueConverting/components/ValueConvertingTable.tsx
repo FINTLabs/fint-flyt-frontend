@@ -1,5 +1,5 @@
-import { ActionMenu, Alert, SortState, Table } from '@navikt/ds-react';
-import React, { ReactElement, useContext, useEffect, useMemo, useState } from 'react';
+import { ActionMenu, Table } from '@navikt/ds-react';
+import React, { ReactElement, useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 

@@ -503,7 +503,7 @@
                     "title": "Kjeldeapplikasjon"
                 },
                 "timeCard": {
-                    "title": "Tid",
+                    "title": "Tidsperiode",
                     "tabs": {
                         "created": "Oppretta",
                         "modified": "Endra"
@@ -521,6 +521,22 @@
                     "range": "{{prefix}}: {{from}} – {{to}}",
                     "from": "{{prefix}}: frå {{from}}",
                     "to": "{{prefix}}: til {{to}}"
+                }
+            },
+            "sort": {
+                "sortMenuButtonText": "Sorter",
+                "options": {
+                    "id": "Id",
+                    "displayName": "Namn",
+                    "fromApplicationId": "Frå applikasjon",
+                    "sourceApplicationIds": "Kjeldeapplikasjonar",
+                    "fromTypeId": "Frå type",
+                    "toApplicationId": "Til applikasjon",
+                    "toTypeId": "Til type",
+                    "createdAt": "Oppretta",
+                    "modifiedAt": "Endra",
+                    "createdBy": "Oppretta av",
+                    "modifiedBy": "Endra av"
                 }
             },
             "header": "Verdikonvertering",

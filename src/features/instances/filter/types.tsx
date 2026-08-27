@@ -16,8 +16,6 @@ export interface Filters {
     sort?: string;
 }
 
-export type FilterValue = Filters[keyof Filters];
-
 export interface FilterOption {
     value: string;
     label: string;

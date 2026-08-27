@@ -3,7 +3,7 @@ import { Children, FC, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { XMarkIcon } from '../../../shared/components/icons';
-import { useFilters } from './FilterContext';
+import { useInstanceFilters } from './FilterContext';
 import { useFilterOptions } from './OptionsContext';
 import { Filters } from './types';
 import { getFilterLabel, SPECIAL_FILTERS } from './util';
@@ -13,7 +13,7 @@ const ActiveFilters: FC = () => {
         keyPrefix: 'pages.instances.filter.activeFilters',
     });
     const { clearFilters, filters, updateFilter, saveFilters, updateFilterAndSave, isSaved } =
-        useFilters();
+        useInstanceFilters();
 
     const [savedFilters, setSavedFilters] = useState<Filters>(() => filters);
 

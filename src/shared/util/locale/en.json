@@ -509,7 +509,7 @@
                     "title": "Source application"
                 },
                 "timeCard": {
-                    "title": "Time",
+                    "title": "Time period",
                     "tabs": {
                         "created": "Created",
                         "modified": "Modified"
@@ -527,6 +527,22 @@
                     "range": "{{prefix}}: {{from}} – {{to}}",
                     "from": "{{prefix}}: from {{from}}",
                     "to": "{{prefix}}: to {{to}}"
+                }
+            },
+            "sort": {
+                "sortMenuButtonText": "Sort",
+                "options": {
+                    "id": "Id",
+                    "displayName": "Name",
+                    "fromApplicationId": "From application",
+                    "sourceApplicationIds": "Source applications",
+                    "fromTypeId": "From type",
+                    "toApplicationId": "To application",
+                    "toTypeId": "To type",
+                    "createdAt": "Created",
+                    "modifiedAt": "Modified",
+                    "createdBy": "Created by",
+                    "modifiedBy": "Modified by"
                 }
             },
             "header": "Value conversion",

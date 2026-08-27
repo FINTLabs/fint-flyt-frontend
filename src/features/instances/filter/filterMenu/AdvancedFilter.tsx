@@ -2,7 +2,7 @@ import { Checkbox, CheckboxGroup, UNSAFE_Combobox, VStack } from '@navikt/ds-rea
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useFilters } from '../FilterContext';
+import { useInstanceFilters } from '../FilterContext';
 import { useFilterOptions } from '../OptionsContext';
 import { setArrayValue, updateArrayValue } from '../util';
 
@@ -10,7 +10,7 @@ export default function AdvancedFilter() {
     const { t } = useTranslation('translations', {
         keyPrefix: 'pages.instances.filter',
     });
-    const { filters, updateFilter } = useFilters();
+    const { filters, updateFilter } = useInstanceFilters();
     const { storageStatusesOptions, eventCategoriesOptions } = useFilterOptions();
 
     const [storageStatuses, setSelectedStorageStatuses] = useState(filters.storageStatuses || []);

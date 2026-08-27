@@ -3,7 +3,7 @@ import React, { FC, useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { ChevronDownIcon, ChevronRightIcon, FilterIcon } from '../../../../shared/components/icons';
-import { useFilters } from '../FilterContext';
+import { useInstanceFilters } from '../FilterContext';
 import AdvancedFilter from './AdvancedFilter';
 import InstanceFilter from './InstanceFilter';
 import IntegrationFilter from './IntegrationFilter';
@@ -15,7 +15,7 @@ export default function FilterDropdownMenu() {
         keyPrefix: 'pages.instances',
     });
 
-    const { saveFilters, clearFilters, numberOfActiveFilters } = useFilters();
+    const { saveFilters, clearFilters, numberOfActiveFilters } = useInstanceFilters();
     const [isOpen, setIsOpen] = useState(false);
     const [activeItem, setActiveItem] = useState<string>('time');
 
@@ -34,7 +34,7 @@ export default function FilterDropdownMenu() {
                     size="small"
                     className={`table-toolbar-button left ${numberOfActiveFilters ? 'toggled' : ''}`}
                 >
-                    <HStack gap={'2'} wrap={false}>
+                    <HStack gap={'1'} wrap={false}>
                         <FilterIcon aria-hidden fontSize={'1.2rem'} />
                         {t('filter.filterMenuButtonText')}
                     </HStack>

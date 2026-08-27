@@ -27,10 +27,10 @@ interface FilterContextProps {
 
 const FilterContext = createContext<FilterContextProps | null>(null);
 
-export const useFilters = () => {
+export const useInstanceFilters = () => {
     const context = useContext(FilterContext);
     if (!context) {
-        throw new Error('useFilters must be used within a FilterProvider');
+        throw new Error('useInstanceFilters must be used within a FilterProvider');
     }
     return context;
 };
@@ -39,7 +39,7 @@ interface FilterProviderProps {
     children: ReactNode;
 }
 
-export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
+export const InstanceFilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
     const [searchParams, setSearchParams] = useSearchParams();
 
     const defaultFilters = useMemo<Filters>(() => {

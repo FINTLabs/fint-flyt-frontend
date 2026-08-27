@@ -6,14 +6,16 @@ export type ValueConvertingFilters = {
     createdTo: Date | null;
     modifiedFrom: Date | null;
     modifiedTo: Date | null;
+    sort: string | null;
 };
 
-export const EMPTY_FILTERS: ValueConvertingFilters = {
+const EMPTY_FILTERS: ValueConvertingFilters = {
     sourceApplicationIds: [],
     createdFrom: null,
     createdTo: null,
     modifiedFrom: null,
     modifiedTo: null,
+    sort: null,
 };
 
 type FilterContextProps = {
@@ -28,6 +30,7 @@ type FilterContextProps = {
     numberOfActiveFilters: number;
     refreshKey: number;
     isSaved: boolean;
+    updateSort: (sort: string) => void;
 };
 
 const FilterContext = createContext<FilterContextProps | null>(null);
@@ -65,6 +68,12 @@ export function ValueConvertingFilterProvider({ children }: { children: ReactNod
         setIsSaved(false);
     };
 
+    const updateSort = (sort: string) => {
+        setFilters((prev) => ({ ...prev, sort }));
+        setRefreshKey((prev) => prev + 1);
+        setIsSaved(true);
+    };
+
     const applyFilters = (next: ValueConvertingFilters) => {
         setFilters(next);
         setRefreshKey((prev) => prev + 1);
@@ -94,6 +103,7 @@ export function ValueConvertingFilterProvider({ children }: { children: ReactNod
                 numberOfActiveFilters,
                 refreshKey,
                 isSaved,
+                updateSort,
             }}
         >
             {children}

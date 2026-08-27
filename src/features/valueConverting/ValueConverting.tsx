@@ -7,7 +7,7 @@ import { AuthorizationContext } from '../../shared/context/AuthorizationContext'
 import ValueConvertingForm from './components/ValueConvertingForm';
 import ValueConvertingTable from './components/ValueConvertingTable';
 import { ValueConvertingToolbar } from './components/ValueConvertingToolbar';
-import { ValueConvertingFilterProvider } from './filter/FilterContext';
+import { ValueConvertingFilterProvider } from './tableToolbar/FilterContext';
 import { IValueConverting } from './types/ValueConverting';
 
 const ValueConverting: React.FC = () => {

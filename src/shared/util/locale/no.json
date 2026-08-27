@@ -536,7 +536,7 @@
                     "title": "Kildeapplikasjon"
                 },
                 "timeCard": {
-                    "title": "Tid",
+                    "title": "Tidsperiode",
                     "tabs": {
                         "created": "Opprettet",
                         "modified": "Endret"
@@ -554,6 +554,22 @@
                     "range": "{{prefix}}: {{from}} – {{to}}",
                     "from": "{{prefix}}: fra {{from}}",
                     "to": "{{prefix}}: til {{to}}"
+                }
+            },
+            "sort": {
+                "sortMenuButtonText": "Sorter",
+                "options": {
+                    "id": "Id",
+                    "displayName": "Navn",
+                    "fromApplicationId": "Fra applikasjon",
+                    "sourceApplicationIds": "Kildeapplikasjoner",
+                    "fromTypeId": "Fra type",
+                    "toApplicationId": "Til applikasjon",
+                    "toTypeId": "Til type",
+                    "createdAt": "Opprettet",
+                    "modifiedAt": "Endret",
+                    "createdBy": "Opprettet av",
+                    "modifiedBy": "Endret av"
                 }
             },
             "header": "Verdikonvertering",

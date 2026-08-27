@@ -28,18 +28,15 @@ export default function FilterDropdownMenu() {
                     icon={<ChevronDownIcon aria-hidden />}
                     iconPosition="right"
                     size="small"
-                    className={`table-toolbar-button ${numberOfActiveFilters ? 'toggled' : ''}`}
+                    className={`table-toolbar-button left ${numberOfActiveFilters ? 'toggled' : ''}`}
                 >
-                    <HStack gap="2" wrap={false}>
+                    <HStack gap="1" wrap={false}>
                         <FilterIcon aria-hidden fontSize="1.2rem" />
                         {t('filter.filterMenuButtonText')}
                     </HStack>
                 </Button>
             </ActionMenu.Trigger>
-            <ActionMenu.Content
-                className="filter-toolbar-menu-content"
-                data-testid="filters-form"
-            >
+            <ActionMenu.Content className="filter-toolbar-menu-content" data-testid="filters-form">
                 <VStack>
                     <HGrid columns={2}>
                         <VStack className="filter-menu-options" paddingBlock="0 4">
