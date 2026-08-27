@@ -71,7 +71,7 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
 
         const sourceApplicationIds = filters.sourceApplicationIds
             .map(Number)
-            .filter((id) => Number.isFinite(id));
+            .filter((id: number) => Number.isFinite(id));
 
         ValueConvertingRepository.getValueConvertings({
             page: page - 1,

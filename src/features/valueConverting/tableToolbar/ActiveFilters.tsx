@@ -8,8 +8,9 @@ import {
 import { AuthorizationContext } from '../../../shared/context/AuthorizationContext';
 import { sourceApplicationsToSelectable } from '../../../shared/util/FormUtil';
 import { ISelect } from '../../configuration/types/Select';
-import { useValueConvertingFilters, ValueConvertingFilters } from './FilterContext';
+import { useValueConvertingFilters } from './FilterContext';
 import { clearTimeRange } from './TimeFilter';
+import { ValueConvertingFilters } from './types';
 
 export default function ActiveFilters() {
     const { t } = useTranslation('translations', {

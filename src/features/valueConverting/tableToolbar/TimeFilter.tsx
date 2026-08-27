@@ -9,7 +9,8 @@ import {
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useValueConvertingFilters, ValueConvertingFilters } from './FilterContext';
+import { useValueConvertingFilters } from './FilterContext';
+import { ValueConvertingFilters } from './types';
 
 /** Formats a date for the value-converting API: 2026-01-01T00:00:00Z */
 export function toApiDateTime(date: Date): string {

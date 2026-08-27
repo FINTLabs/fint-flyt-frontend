@@ -1,13 +1,5 @@
 import React, { createContext, ReactNode, useContext, useState } from 'react';
-
-export type ValueConvertingFilters = {
-    sourceApplicationIds: string[];
-    createdFrom: Date | null;
-    createdTo: Date | null;
-    modifiedFrom: Date | null;
-    modifiedTo: Date | null;
-    sort: string | null;
-};
+import { ValueConvertingFilters } from './types';
 
 const EMPTY_FILTERS: ValueConvertingFilters = {
     sourceApplicationIds: [],

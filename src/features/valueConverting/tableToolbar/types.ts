@@ -12,3 +12,12 @@ export const sortOptions = [
     // "createdBy",
     // "modifiedBy",
 ];
+
+export type ValueConvertingFilters = {
+    sourceApplicationIds: string[];
+    createdFrom: Date | null;
+    createdTo: Date | null;
+    modifiedFrom: Date | null;
+    modifiedTo: Date | null;
+    sort: string | null;
+};
