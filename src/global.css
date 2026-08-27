@@ -209,6 +209,20 @@ iframe#webpack-dev-server-client-overlay {
     }
 }
 
+.table-toolbar-sort-menu {
+    --a-surface-action-selected: var(--novari-theme-purple-dark);
+    --ax-bg-strong-pressed: var(--novari-theme-purple-dark);
+    --a-surface-action-subtle-hover: var(--novari-theme-purple-20);
+
+    .navds-action-menu__indicator-icon--checked path {
+        fill: var(--novari-theme-purple-dark) !important;
+    }
+
+    .navds-action-menu__indicator-icon--checked rect[stroke] {
+        stroke: var(--novari-theme-purple-dark) !important;
+    }
+}
+
 .incoming-form-panel {
     --ac-expansioncard-bg: var(--a-surface-subtle);
     --ac-expansioncard-border-open-color: var(--a-border-subtle);

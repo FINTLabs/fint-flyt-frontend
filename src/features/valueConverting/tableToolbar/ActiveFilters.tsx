@@ -1,8 +1,10 @@
-import { Button, Chips, HStack } from '@navikt/ds-react';
 import { useContext, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { XMarkIcon } from '../../../shared/components/icons';
+import {
+    ActiveFilterChip,
+    ActiveFilters as SharedActiveFilters,
+} from '../../../shared/components/table/ActiveFilters';
 import { AuthorizationContext } from '../../../shared/context/AuthorizationContext';
 import { sourceApplicationsToSelectable } from '../../../shared/util/FormUtil';
 import { ISelect } from '../../configuration/types/Select';
@@ -11,7 +13,7 @@ import { clearTimeRange } from './TimeFilter';
 
 export default function ActiveFilters() {
     const { t } = useTranslation('translations', {
-        keyPrefix: 'pages.valueConverting.filter.activeFilters',
+        keyPrefix: 'pages.valueConverting.toolbar',
     });
     const { clearFilters, filters, updateFiltersAndSave, isSaved } = useValueConvertingFilters();
     const { getAllSourceApplications } = useContext(AuthorizationContext);
@@ -30,114 +32,95 @@ export default function ActiveFilters() {
         }
     }, [filters, isSaved]);
 
-    const activeSourceApps = useMemo(
-        () => options.filter((opt) => savedFilters.sourceApplicationIds.includes(opt.value)),
-        [options, savedFilters.sourceApplicationIds]
-    );
+    const chips = useMemo(() => {
+        const next: ActiveFilterChip[] = [];
 
-    const hasCreatedRange = !!(savedFilters.createdFrom || savedFilters.createdTo);
-    const hasModifiedRange = !!(savedFilters.modifiedFrom || savedFilters.modifiedTo);
-    const hasAnyFilters =
-        activeSourceApps.length > 0 || hasCreatedRange || hasModifiedRange;
+        options
+            .filter((opt) => savedFilters.sourceApplicationIds.includes(opt.value))
+            .forEach((opt) => {
+                next.push({
+                    key: `sourceApplication-${opt.value}`,
+                    label: opt.label,
+                    onRemove: () =>
+                        updateFiltersAndSave({
+                            ...savedFilters,
+                            sourceApplicationIds: savedFilters.sourceApplicationIds.filter(
+                                (id) => id !== opt.value
+                            ),
+                        }),
+                });
+            });
 
-    if (!hasAnyFilters) {
-        return <HStack data-testid="active-filters">{t('noFilters')}</HStack>;
-    }
+        const createdLabel = getTimeRangeLabel(
+            savedFilters.createdFrom,
+            savedFilters.createdTo,
+            t('activeFilters.createdPrefix'),
+            t
+        );
+        if (createdLabel) {
+            next.push({
+                key: 'created',
+                label: createdLabel,
+                onRemove: () => updateFiltersAndSave(clearTimeRange(savedFilters, 'created')),
+            });
+        }
+
+        const modifiedLabel = getTimeRangeLabel(
+            savedFilters.modifiedFrom,
+            savedFilters.modifiedTo,
+            t('activeFilters.modifiedPrefix'),
+            t
+        );
+        if (modifiedLabel) {
+            next.push({
+                key: 'modified',
+                label: modifiedLabel,
+                onRemove: () => updateFiltersAndSave(clearTimeRange(savedFilters, 'modified')),
+            });
+        }
+
+        if (savedFilters.sort) {
+            next.push({
+                key: 'sort',
+                label: t('activeFilters.sortedBy', { field: t(`sort.options.${savedFilters.sort}`) }),
+                onRemove: () => updateFiltersAndSave({ ...savedFilters, sort: null }),
+            });
+        }
+
+        return next;
+    }, [options, savedFilters, t, updateFiltersAndSave]);
 
     return (
-        <HStack gap="2" className="active-filters" align="center" data-testid="active-filters">
-            <Chips size="small">
-                {activeSourceApps.map((opt) => (
-                    <Chips.Removable
-                        key={opt.value}
-                        className="filter-chip"
-                        onClick={() => {
-                            updateFiltersAndSave({
-                                ...savedFilters,
-                                sourceApplicationIds: savedFilters.sourceApplicationIds.filter(
-                                    (id) => id !== opt.value
-                                ),
-                            });
-                        }}
-                    >
-                        {opt.label}
-                    </Chips.Removable>
-                ))}
-                {hasCreatedRange && (
-                    <TimeRangeChip
-                        labelKey="created"
-                        from={savedFilters.createdFrom}
-                        to={savedFilters.createdTo}
-                        onRemove={() =>
-                            updateFiltersAndSave(clearTimeRange(savedFilters, 'created'))
-                        }
-                    />
-                )}
-                {hasModifiedRange && (
-                    <TimeRangeChip
-                        labelKey="modified"
-                        from={savedFilters.modifiedFrom}
-                        to={savedFilters.modifiedTo}
-                        onRemove={() =>
-                            updateFiltersAndSave(clearTimeRange(savedFilters, 'modified'))
-                        }
-                    />
-                )}
-            </Chips>
-            <Button
-                size="small"
-                variant="tertiary"
-                className="filter-clear-all"
-                icon={<XMarkIcon aria-hidden />}
-                onClick={clearFilters}
-            >
-                {t('removeAll')}
-            </Button>
-        </HStack>
+        <SharedActiveFilters
+            chips={chips}
+            emptyLabel={t('activeFilters.noFilters')}
+            removeAllLabel={t('activeFilters.removeAll')}
+            onClearAll={clearFilters}
+        />
     );
 }
 
-const TimeRangeChip = ({
-    labelKey,
-    from,
-    to,
-    onRemove,
-}: {
-    labelKey: 'created' | 'modified';
-    from: Date | null;
-    to: Date | null;
-    onRemove: () => void;
-}) => {
-    const { t } = useTranslation('translations', {
-        keyPrefix: 'pages.valueConverting.filter.activeFilters',
-    });
+function getTimeRangeLabel(
+    from: Date | null,
+    to: Date | null,
+    prefix: string,
+    t: (key: string, options?: Record<string, string>) => string
+): string | null {
+    const safeFrom = from ? new Date(from) : null;
+    const safeTo = to ? new Date(to) : null;
 
-    const text = useMemo(() => {
-        const safeFrom = from ? new Date(from) : null;
-        const safeTo = to ? new Date(to) : null;
-        const prefix = t(`${labelKey}Prefix`);
-
-        if (safeFrom && safeTo) {
-            return t('range', {
-                prefix,
-                from: safeFrom.toLocaleDateString(),
-                to: safeTo.toLocaleDateString(),
-            });
-        }
-        if (safeFrom) {
-            return t('from', { prefix, from: safeFrom.toLocaleDateString() });
-        }
-        if (safeTo) {
-            return t('to', { prefix, to: safeTo.toLocaleDateString() });
-        }
-        return null;
-    }, [from, to, labelKey, t]);
-
-    if (!text) return null;
-
-    return (
-        <Chips.Removable className="filter-chip" onClick={onRemove}>
-            {text}
-        </Chips.Removable>
-    );
-};
+    if (safeFrom && safeTo) {
+        return t('range', {
+            prefix,
+            from: safeFrom.toLocaleDateString(),
+            to: safeTo.toLocaleDateString(),
+        });
+    }
+    if (safeFrom) {
+        return t('from', { prefix, from: safeFrom.toLocaleDateString() });
+    }
+    if (safeTo) {
+        return t('to', { prefix, to: safeTo.toLocaleDateString() });
+    }
+    return null;
+}

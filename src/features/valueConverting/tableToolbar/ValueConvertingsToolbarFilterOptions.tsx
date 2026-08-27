@@ -5,7 +5,7 @@ import { useValueConvertingFilters } from './FilterContext';
 import SourceApplicationFilter from './SourceApplicationFilter';
 import TimeFilter from './TimeFilter';
 
-export default function FilterDropdownMenu() {
+export default function ValueConvertingsToolbarFilterOptions() {
     const { t } = useTranslation('translations', {
         keyPrefix: 'pages.valueConverting',
     });
@@ -15,7 +15,7 @@ export default function FilterDropdownMenu() {
         <SharedFilterDropdownMenu
             defaultActiveId="sourceApplication"
             numberOfActiveFilters={numberOfActiveFilters}
-            triggerLabel={t('filter.filterMenuButtonText')}
+            triggerLabel={t('toolbar.filterMenuButtonText')}
             clearLabel={t('button.clear')}
             searchLabel={t('button.search')}
             onClear={clearFilters}
@@ -23,12 +23,12 @@ export default function FilterDropdownMenu() {
             sections={[
                 {
                     id: 'sourceApplication',
-                    label: t('filter.sourceApplicationCard.title'),
+                    label: t('toolbar.sourceApplicationCard.title'),
                     content: <SourceApplicationFilter />,
                 },
                 {
                     id: 'time',
-                    label: t('filter.timeCard.title'),
+                    label: t('toolbar.timeCard.title'),
                     content: <TimeFilter />,
                 },
             ]}

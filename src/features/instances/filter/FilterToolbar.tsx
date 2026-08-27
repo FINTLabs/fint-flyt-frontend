@@ -9,7 +9,7 @@ import { IIntegrationMetadata } from '../../configuration/types/Metadata/Integra
 import { IIntegration } from '../../integration/types/Integration';
 import BulkActions from '../batchProcess/BulkActions';
 import ActiveFilters from './ActiveFilters';
-import FilterDropdownMenu from './filterMenu/FilterDropdownMenu';
+import InstanceToolbarFilterOptions from './filterMenu/InstanceToolbarFilterOptions';
 import QuickFiltersDropdownMenu from './filterMenu/QuickFiltersDropdownMenu';
 import { useFilterOptions } from './OptionsContext';
 
@@ -55,7 +55,7 @@ const FilterToolbar: FC = () => {
         <TableToolbar
             start={
                 <>
-                    <FilterDropdownMenu />
+                    <InstanceToolbarFilterOptions />
                     <QuickFiltersDropdownMenu />
                 </>
             }

@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { PlusIcon } from '../../../shared/components/icons';
 import { TableToolbar } from '../../../shared/components/table/TableToolbar';
 import ActiveFilters from '../tableToolbar/ActiveFilters';
-import FilterDropdownMenu from '../tableToolbar/FilterDropdownMenu';
 import SortDropdownMenu from '../tableToolbar/SortDropdownMenu';
+import ValueConvertingsToolbarFilterOptions from '../tableToolbar/ValueConvertingsToolbarFilterOptions';
 
 type Props = {
     onNewConverting: () => void;
@@ -18,7 +18,7 @@ export function ValueConvertingToolbar({ onNewConverting }: Props) {
         <TableToolbar
             start={
                 <>
-                    <FilterDropdownMenu />
+                    <ValueConvertingsToolbarFilterOptions />
                     <SortDropdownMenu />
                 </>
             }

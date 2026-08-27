@@ -9,7 +9,7 @@ import { useValueConvertingFilters } from './FilterContext';
 
 export default function SourceApplicationFilter() {
     const { t } = useTranslation('translations', {
-        keyPrefix: 'pages.valueConverting.filter',
+        keyPrefix: 'pages.valueConverting.toolbar',
     });
     const { getAllSourceApplications } = useContext(AuthorizationContext);
     const { filters, updateFilter } = useValueConvertingFilters();

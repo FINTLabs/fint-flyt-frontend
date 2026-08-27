@@ -529,7 +529,7 @@
                 "clear": "Nullstill",
                 "search": "Søk"
             },
-            "filter": {
+            "toolbar": {
                 "filterMenuButtonText": "Filtrer tabellen",
                 "sourceApplication": "Kildeapplikasjon",
                 "sourceApplicationCard": {
@@ -553,23 +553,24 @@
                     "modifiedPrefix": "Endret",
                     "range": "{{prefix}}: {{from}} – {{to}}",
                     "from": "{{prefix}}: fra {{from}}",
-                    "to": "{{prefix}}: til {{to}}"
-                }
-            },
-            "sort": {
-                "sortMenuButtonText": "Sorter",
-                "options": {
-                    "id": "Id",
-                    "displayName": "Navn",
-                    "fromApplicationId": "Fra applikasjon",
-                    "sourceApplicationIds": "Kildeapplikasjoner",
-                    "fromTypeId": "Fra type",
-                    "toApplicationId": "Til applikasjon",
-                    "toTypeId": "Til type",
-                    "createdAt": "Opprettet",
-                    "modifiedAt": "Endret",
-                    "createdBy": "Opprettet av",
-                    "modifiedBy": "Endret av"
+                    "to": "{{prefix}}: til {{to}}",
+                    "sortedBy": "Sortert etter: {{field}}"
+                },
+                "sort": {
+                    "sortMenuButtonText": "Sorter",
+                    "options": {
+                        "id": "Id",
+                        "displayName": "Navn",
+                        "fromApplicationId": "Fra applikasjon",
+                        "sourceApplicationIds": "Kildeapplikasjoner",
+                        "fromTypeId": "Fra type",
+                        "toApplicationId": "Til applikasjon",
+                        "toTypeId": "Til type",
+                        "createdAt": "Opprettet",
+                        "modifiedAt": "Endret",
+                        "createdBy": "Opprettet av",
+                        "modifiedBy": "Endret av"
+                    }
                 }
             },
             "header": "Verdikonvertering",

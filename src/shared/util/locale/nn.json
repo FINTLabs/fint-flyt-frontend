@@ -496,7 +496,7 @@
                 "clear": "Nullstill",
                 "search": "Søk"
             },
-            "filter": {
+            "toolbar": {
                 "filterMenuButtonText": "Filtrer tabellen",
                 "sourceApplication": "Kjeldeapplikasjon",
                 "sourceApplicationCard": {
@@ -520,23 +520,24 @@
                     "modifiedPrefix": "Endra",
                     "range": "{{prefix}}: {{from}} – {{to}}",
                     "from": "{{prefix}}: frå {{from}}",
-                    "to": "{{prefix}}: til {{to}}"
-                }
-            },
-            "sort": {
-                "sortMenuButtonText": "Sorter",
-                "options": {
-                    "id": "Id",
-                    "displayName": "Namn",
-                    "fromApplicationId": "Frå applikasjon",
-                    "sourceApplicationIds": "Kjeldeapplikasjonar",
-                    "fromTypeId": "Frå type",
-                    "toApplicationId": "Til applikasjon",
-                    "toTypeId": "Til type",
-                    "createdAt": "Oppretta",
-                    "modifiedAt": "Endra",
-                    "createdBy": "Oppretta av",
-                    "modifiedBy": "Endra av"
+                    "to": "{{prefix}}: til {{to}}",
+                    "sortedBy": "Sortert etter: {{field}}"
+                },
+                "sort": {
+                    "sortMenuButtonText": "Sorter",
+                    "options": {
+                        "id": "Id",
+                        "displayName": "Namn",
+                        "fromApplicationId": "Frå applikasjon",
+                        "sourceApplicationIds": "Kjeldeapplikasjonar",
+                        "fromTypeId": "Frå type",
+                        "toApplicationId": "Til applikasjon",
+                        "toTypeId": "Til type",
+                        "createdAt": "Oppretta",
+                        "modifiedAt": "Endra",
+                        "createdBy": "Oppretta av",
+                        "modifiedBy": "Endra av"
+                    }
                 }
             },
             "header": "Verdikonvertering",

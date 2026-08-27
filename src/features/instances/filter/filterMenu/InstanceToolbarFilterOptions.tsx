@@ -8,7 +8,7 @@ import IntegrationFilter from './IntegrationFilter';
 import StatusFilter from './StatusFilter';
 import TimeFilter from './TimeFilter';
 
-export default function FilterDropdownMenu() {
+export default function InstanceToolbarFilterOptions() {
     const { t } = useTranslation('translations', {
         keyPrefix: 'pages.instances',
     });

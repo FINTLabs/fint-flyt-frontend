@@ -8,7 +8,7 @@ import { sortOptions } from './types';
 
 export default function SortDropdownMenu() {
     const { t } = useTranslation('translations', {
-        keyPrefix: 'pages.valueConverting.sort',
+        keyPrefix: 'pages.valueConverting.toolbar.sort',
     });
     const { updateSort, filters } = useValueConvertingFilters();
 
@@ -27,7 +27,7 @@ export default function SortDropdownMenu() {
                     variant="secondary-neutral"
                     icon={<ChevronDownIcon aria-hidden />}
                     iconPosition="right"
-                    className={'table-toolbar-button right'}
+                    className={`table-toolbar-button right ${!!filters.sort ? 'toggled' : ''}`}
                 >
                     <HStack gap={'1'} wrap={false}>
                         <SortDownIcon aria-hidden fontSize={'1.2rem'} />
@@ -35,8 +35,12 @@ export default function SortDropdownMenu() {
                     </HStack>
                 </Button>
             </ActionMenu.Trigger>
-            <ActionMenu.Content>
-                <ActionMenu.RadioGroup onValueChange={handleSortChange} value={filters.sort || undefined} label={t('sortMenuButtonText')}>
+            <ActionMenu.Content className="table-toolbar-sort-menu">
+                <ActionMenu.RadioGroup
+                    onValueChange={handleSortChange}
+                    value={filters.sort || undefined}
+                    label={t('sortMenuButtonText')}
+                >
                     {sortOptions.map((option) => (
                         <ActionMenu.RadioItem
                             value={option}

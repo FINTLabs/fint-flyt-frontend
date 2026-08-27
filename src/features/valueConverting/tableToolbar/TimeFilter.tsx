@@ -50,7 +50,7 @@ function timeFromDate(date: Date | null): string {
 
 function TimeRangeFilter({ rangeKey }: { rangeKey: TimeRangeKey }) {
     const { t } = useTranslation('translations', {
-        keyPrefix: 'pages.valueConverting.filter.timeCard',
+        keyPrefix: 'pages.valueConverting.toolbar.timeCard',
     });
     const { filters, updateFilter } = useValueConvertingFilters();
     const { fromKey, toKey } = RANGE_FIELDS[rangeKey];
@@ -122,7 +122,7 @@ function TimeRangeFilter({ rangeKey }: { rangeKey: TimeRangeKey }) {
 
 export default function TimeFilter() {
     const { t } = useTranslation('translations', {
-        keyPrefix: 'pages.valueConverting.filter.timeCard',
+        keyPrefix: 'pages.valueConverting.toolbar.timeCard',
     });
     const { filters } = useValueConvertingFilters();
 
