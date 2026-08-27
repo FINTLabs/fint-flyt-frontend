@@ -174,6 +174,8 @@ iframe#webpack-dev-server-client-overlay {
 }
 
 .filter-toolbar-menu-content {
+    min-width: 40rem;
+
     .navds-action-menu__content-inner {
         padding: 0 !important;
     }
@@ -181,6 +183,7 @@ iframe#webpack-dev-server-client-overlay {
         padding: var(--a-spacing-4) var(--a-spacing-2) var(--a-spacing-8) var(--a-spacing-2);
         background-color: var(--a-gray-50);
         border-right: 1px solid var(--a-border-divider);
+        min-width: 12rem;
     }
     .filter-menu-toggled-item {
         background-color: var(--novari-theme-purple-40) !important;
@@ -190,6 +193,8 @@ iframe#webpack-dev-server-client-overlay {
     }
 
     .filter-menu-filters {
+        min-width: 0;
+
         .navds-form-field {
             width: 100%;
         }
