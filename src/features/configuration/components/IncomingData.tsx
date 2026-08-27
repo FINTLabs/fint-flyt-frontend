@@ -105,6 +105,12 @@ const IncomingData: React.FunctionComponent<Props> = (props: Props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    const applySelectedMetadata = (metadata: (typeof availableVersions)[number]) => {
+        setExistingIntegrationMetadata(metadata);
+        methods.setValue('integrationMetadataId', Number(metadata.id));
+        getInstanceElementMetadata(String(metadata.id));
+    };
+
     useEffect(() => {
         if (existingIntegrationMetadata || availableVersions.length === 0) {
             return;
@@ -115,12 +121,12 @@ const IncomingData: React.FunctionComponent<Props> = (props: Props) => {
                 (md) => String(md.id) === String(configuration?.integrationMetadataId)
             ) ?? availableVersions[availableVersions.length - 1];
 
-        setExistingIntegrationMetadata(metadata);
+        applySelectedMetadata(metadata);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
         availableVersions,
         configuration?.integrationMetadataId,
         existingIntegrationMetadata,
-        setExistingIntegrationMetadata,
     ]);
 
     function findInstanceObjectCollectionMetadata(
@@ -182,9 +188,7 @@ const IncomingData: React.FunctionComponent<Props> = (props: Props) => {
         if (!selected) {
             return;
         }
-        setExistingIntegrationMetadata(selected);
-        methods.setValue('integrationMetadataId', Number(selected.id));
-        getInstanceElementMetadata(selected.id);
+        applySelectedMetadata(selected);
     };
 
     return (
