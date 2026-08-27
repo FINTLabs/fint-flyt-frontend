@@ -1,14 +1,14 @@
 import { createContext, useState } from 'react';
 
+import { IConfiguration } from '../../features/configuration/types/Configuration';
+import { IIntegrationMetadata } from '../../features/configuration/types/Metadata/IntegrationMetadata';
+import { ITotalStatistics } from '../../features/instances/types/Event';
+import { IIntegration } from '../../features/integration/types/Integration';
 import useAuthorizationRepository from '../api/useAuthorizationRepository';
 import useConfigurationRepository from '../api/useConfigurationRepository';
 import useInstanceFlowTrackingRepository from '../api/useInstanceFlowTrackingRepository';
 import useIntegrationRepository from '../api/useIntegrationRepository';
 import useSourceApplicationRepository from '../api/useSourceApplicationRepository';
-import { IConfiguration } from '../../features/configuration/types/Configuration';
-import { IIntegrationMetadata } from '../../features/configuration/types/Metadata/IntegrationMetadata';
-import { ITotalStatistics } from '../../features/instances/types/Event';
-import { IIntegration } from '../../features/integration/types/Integration';
 import { ContextProps } from './constants/interface';
 
 type IntegrationContextState = {
@@ -213,4 +213,4 @@ const IntegrationProvider = ({ children }: ContextProps) => {
     );
 };
 
-export { IntegrationContext, IntegrationProvider as default };
+export { IntegrationProvider as default,IntegrationContext };

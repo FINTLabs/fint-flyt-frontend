@@ -31,7 +31,7 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({ id }: Int
     const IntegrationRepository = useIntegrationRepository();
     const InstanceFlowTrackingRepository = useInstanceFlowTrackingRepository();
 
-    const { allMetadata } = useContext(SourceApplicationContext);
+    const { latestMetadata } = useContext(SourceApplicationContext);
     const { getAllSourceApplications } = useContext(AuthorizationContext);
 
     const { t } = useTranslation('translations', { keyPrefix: 'pages.integrations' });
@@ -55,18 +55,18 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({ id }: Int
     const [fetchedContentIds, setFetchedContentIds] = useState<string[]>([]);
 
     useEffect(() => {
-        if (allMetadata && integrations) {
+        if (latestMetadata && integrations) {
             setIsLoading(false);
         }
-    }, [allMetadata, integrations]);
+    }, [latestMetadata, integrations]);
 
     useEffect(() => {
-        if (allMetadata && !isFetching) {
+        if (latestMetadata && !isFetching) {
             setIntegrations(undefined);
             setDetailedStats(undefined);
             getAllIntegrations(rowsPerPage, page, sort);
         }
-    }, [page, sort?.orderBy, sort?.direction, rowsPerPage, allMetadata?.length]);
+    }, [page, sort?.orderBy, sort?.direction, rowsPerPage, latestMetadata?.length]);
 
     useEffect(() => {
         setPaginationMeta({
@@ -89,7 +89,7 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({ id }: Int
         currentSort?: SortState
     ) => {
         onError(undefined);
-        if (allMetadata) {
+        if (latestMetadata) {
             try {
                 setIsFetching(true);
                 setIsLoading(true);
@@ -113,7 +113,7 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({ id }: Int
                     getDetailedStatistics(ids);
 
                     integrationData.content.map((integration: IIntegration) => {
-                        const integrationMetaData = allMetadata?.find(
+                        const integrationMetaData = latestMetadata?.find(
                             (metaData) =>
                                 metaData.sourceApplicationIntegrationId ===
                                 integration.sourceApplicationIntegrationId

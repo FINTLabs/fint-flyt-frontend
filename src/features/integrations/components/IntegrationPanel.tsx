@@ -37,7 +37,7 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
     const IntegrationRepository = useIntegrationRepository();
     const { setConfiguration, setExistingIntegrationMetadata, setExistingIntegration } =
         useContext(IntegrationContext);
-    const { allMetadata, setSourceApplication, getInstanceElementMetadata } =
+    const { latestMetadata, setSourceApplication, getInstanceElementMetadata } =
         useContext(SourceApplicationContext);
     const ConfigurationRepository = useConfigurationRepository();
     const [activeVersion, setActiveVersion] = useState<undefined | null | number>(undefined);
@@ -77,12 +77,10 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
         await ConfigurationRepository.getConfigurationById(id.toString(), false)
             .then(async (response) => {
                 const data = response.data;
-                const usedVersionMetadata = allMetadata?.filter(
-                    (md) => md.id.toString() === data.integrationMetadataId?.toString()
+                const usedVersionMetadata = latestMetadata?.find(
+                    (md) => String(md.id) === String(data.integrationMetadataId)
                 );
-                setExistingIntegrationMetadata(
-                    usedVersionMetadata ? usedVersionMetadata[0] : undefined
-                );
+                setExistingIntegrationMetadata(usedVersionMetadata);
                 if (version) {
                     data.id = 0;
                     data.comment = undefined;
@@ -226,33 +224,27 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
                     <Box>
                         <Button
                             id={props.id + '-new-configuration-button'}
-                            disabled={!allMetadata}
+                            disabled={!latestMetadata}
                             as={RouterLink}
                             size={'small'}
                             to="/integration/configuration/new-configuration"
                             onClick={() => {
                                 setExistingIntegration(props.integration);
-                                const selectedForm = allMetadata
-                                    ? allMetadata.filter(
-                                          (md) =>
-                                              md.sourceApplicationIntegrationId ===
-                                              props.integration?.sourceApplicationIntegrationId
-                                      )
-                                    : [];
-                                setExistingIntegrationMetadata(
-                                    selectedForm.length > 0
-                                        ? selectedForm[selectedForm.length - 1]
-                                        : undefined
+                                const selectedForm = latestMetadata?.find(
+                                    (md) =>
+                                        md.sourceApplicationIntegrationId ===
+                                        props.integration?.sourceApplicationIntegrationId
                                 );
-                                getInstanceElementMetadata(
-                                    selectedForm[selectedForm.length - 1].id
-                                );
+                                setExistingIntegrationMetadata(selectedForm);
+                                if (selectedForm?.id) {
+                                    getInstanceElementMetadata(selectedForm.id);
+                                }
                             }}
                         >
                             {t('button.newConfiguration')}
                         </Button>
                     </Box>
-                    {!allMetadata && (
+                    {!latestMetadata && (
                         <Alert size="small" variant="warning">
                             {t('missingDataError')}{' '}
                         </Alert>

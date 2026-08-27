@@ -18,13 +18,15 @@ type SourceApplicationContextState = {
     getAllIntegrationsAndSetAvailableForms: (forms: ISelect[], sourceApplicationId: string) => void;
     setAvailableForms: (forms: ISelect[] | undefined) => void;
     allMetadata: IIntegrationMetadata[] | undefined;
+    latestMetadata: IIntegrationMetadata[] | undefined;
     instanceElementMetadata: IInstanceMetadataContent | undefined;
     setInstanceElementMetadata: (
         instanceMetadataContent: IInstanceMetadataContent | undefined
     ) => void;
     instanceObjectCollectionMetadata: IInstanceObjectCollectionMetadata[];
     getInstanceObjectCollectionMetadata: (key: string[]) => void;
-    getAllMetadata: (onlyLatest: boolean) => void;
+    getAllMetadata: () => void;
+    getLatestMetadata: () => void;
     getInstanceElementMetadata: (metadataId: string) => void;
     sourceApplication: number | undefined;
     setSourceApplication: (id: number | undefined) => void;
@@ -41,11 +43,13 @@ const contextDefaultValues: SourceApplicationContextState = {
     getAllIntegrationsAndSetAvailableForms: () => undefined,
     setAvailableForms: () => undefined,
     allMetadata: undefined,
+    latestMetadata: undefined,
     instanceElementMetadata: undefined,
     setInstanceElementMetadata: () => undefined,
     instanceObjectCollectionMetadata: [],
     getInstanceObjectCollectionMetadata: () => undefined,
     getAllMetadata: () => undefined,
+    getLatestMetadata: () => undefined,
     getInstanceElementMetadata: () => undefined,
     sourceApplication: undefined,
     setSourceApplication: () => undefined,
@@ -64,6 +68,10 @@ const SourceApplicationProvider = ({ children }: ContextProps) => {
     const [allMetadata, setAllMetadata] = useState<IIntegrationMetadata[] | undefined>(
         contextDefaultValues.allMetadata
     );
+    const [latestMetadata, setLatestMetadata] = useState<IIntegrationMetadata[] | undefined>(
+        contextDefaultValues.latestMetadata
+    );
+
     const [instanceElementMetadata, setInstanceElementMetadata] = useState<
         IInstanceMetadataContent | undefined
     >(MOCK_INSTANCE_METADATA);
@@ -174,24 +182,31 @@ const SourceApplicationProvider = ({ children }: ContextProps) => {
         }
     };
 
-    const getAllMetadata = async (onlyLatest: boolean): Promise<void> => {
+    const fetchMetadata = async (onlyLatest: boolean): Promise<IIntegrationMetadata[]> => {
+        const response = await AuthorizationRepository.getUserSourceApplications();
+        const sourceApplicationIds = response.data.sourceApplicationIds.map(String).join(',');
+        const metadataResponse = await SourceApplicationRepository.getMetadataForSourceApplications(
+            sourceApplicationIds,
+            onlyLatest
+        );
+        return Object.values(metadataResponse.data).flat();
+    };
+
+    const getAllMetadata = async (): Promise<void> => {
         try {
-            const response = await AuthorizationRepository.getUserSourceApplications();
-            const sourceApplicationIds = response.data.sourceApplicationIds.map(String).join(',');
-
-            const metadataResponse =
-                await SourceApplicationRepository.getMetadataForSourceApplications(
-                    sourceApplicationIds,
-                    onlyLatest
-                );
-
-            const metaDataBySourceApplication = metadataResponse.data;
-            const flattenedListOfMetadata = Object.values(metaDataBySourceApplication).flat();
-
-            setAllMetadata(flattenedListOfMetadata);
+            setAllMetadata(await fetchMetadata(false));
         } catch (e) {
             console.error('Error: ', e);
             setAllMetadata([]);
+        }
+    };
+
+    const getLatestMetadata = async (): Promise<void> => {
+        try {
+            setLatestMetadata(await fetchMetadata(true));
+        } catch (e) {
+            console.error('Error: ', e);
+            setLatestMetadata(undefined);
         }
     };
 
@@ -235,11 +250,13 @@ const SourceApplicationProvider = ({ children }: ContextProps) => {
                 availableForms,
                 setAvailableForms,
                 allMetadata,
+                latestMetadata,
                 instanceElementMetadata,
                 setInstanceElementMetadata,
                 instanceObjectCollectionMetadata,
                 getInstanceObjectCollectionMetadata,
                 getAllMetadata,
+                getLatestMetadata,
                 getInstanceElementMetadata,
                 getAllIntegrationsAndSetAvailableForms,
                 sourceApplication,
