@@ -22,7 +22,6 @@ export function UserAccessToolbar({ disabled, onEdit }: Props) {
                         icon={<PencilWritingIcon aria-hidden />}
                         onClick={onEdit}
                         disabled={disabled}
-                        className="table-toolbar-button"
                     >
                         {t('button.edit')}
                     </Button>

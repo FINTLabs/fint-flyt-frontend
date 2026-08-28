@@ -1,4 +1,4 @@
-import { ActionMenu, Box, Table, VStack } from '@navikt/ds-react';
+import { ActionMenu, SortState, Table } from '@navikt/ds-react';
 import React, { ReactElement, useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
@@ -11,8 +11,9 @@ import {
     useTablePagination,
 } from '../../../shared/components/table/TablePageContext';
 import { TableRowActionsMenu } from '../../../shared/components/table/TableRowActionsMenu';
+import { Page } from '../../../shared/components/types/TableTypes';
 import { AuthorizationContext } from '../../../shared/context/AuthorizationContext';
-import { getDestinationDisplayName } from '../../../shared/util/TableUtil';
+import { getDestinationDisplayName, toApiSortDirection } from '../../../shared/util/TableUtil';
 import { ISourceApplication } from '../../configuration/types/SourceApplication';
 import { IValueConverting } from '../types/ValueConverting';
 import ValueConvertingPanel from './ValueConvertingPanel';
@@ -31,28 +32,36 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.valueConverting' });
 
     const [sourceApplications, setSourceApplications] = useState<ISourceApplication[]>([]);
-    const [rows, setRows] = useState<IValueConverting[] | undefined>(undefined);
 
-    let sortData = rows ?? [];
-    sortData = sortData.slice((page - 1) * rowsPerPage, page * rowsPerPage);
+    const [valueConvertings, setValueConvertings] = useState<Page<IValueConverting> | undefined>();
+
+    const [rows, setRows] = useState<IValueConverting[] | undefined>(undefined);
+    const [sort, setSort] = useState<SortState | undefined>({ orderBy: 'id', direction: 'ascending'});
 
     useEffect(() => {
         setPaginationMeta({
-            totalPages: rows ? Math.ceil(rows.length / rowsPerPage) : undefined,
-            totalElements: rows?.length,
-            hidePagination: !rows || rows.length <= rowsPerPage,
+            totalPages: valueConvertings?.totalPages,
+            totalElements: valueConvertings?.totalElements,
+            // hidePagination: !rows || rows.length <= rowsPerPage,
         });
-    }, [rows?.length, rowsPerPage, setPaginationMeta]);
+    }, [valueConvertings?.totalPages, setPaginationMeta, valueConvertings?.totalElements]);
 
     useEffect(() => {
         Promise.all([
-            ValueConvertingRepository.getValueConvertings(0, 100, 'id', 'DESC', false),
+            ValueConvertingRepository.getValueConvertings({
+                page: page - 1,
+                size: rowsPerPage,
+                sortProperty: sort?.orderBy,
+                sortDirection: toApiSortDirection(sort?.direction),
+                excludeConvertingMap: false,
+            }),
             getAllSourceApplications(false),
         ])
             .then(([valueConvertingResponse, sourceApp]) => {
                 onError(undefined);
                 setSourceApplications(sourceApp);
                 const valueConvertingPage = valueConvertingResponse.data;
+                setValueConvertings(valueConvertingPage);
                 if (valueConvertingPage.content) {
                     setRows(valueConvertingPage.content);
                 } else {
@@ -64,7 +73,7 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
                 onError({ message: t('errorMessage') });
                 setRows([]);
             });
-    }, []);
+    }, [page, rowsPerPage, sort]);
 
     async function handleNewOrEditConvertingClick(id: number) {
         props.onValueConvertingSelected(id);
@@ -87,23 +96,34 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
         );
     }
 
+    function handleSort(sortKey: string) {
+        setSort((prevSort: SortState | undefined) => {
+            return prevSort && sortKey === prevSort.orderBy && prevSort.direction === 'descending'
+                ? undefined
+                : {
+                      orderBy: sortKey,
+                      direction: prevSort?.direction === 'ascending' ? 'descending' : 'ascending',
+                  };
+        });
+    }
+
     return (
-        <Table id={'value-convertings-table'} size={'small'}>
+        <Table id={'value-convertings-table'} size={'small'} sort={sort} onSortChange={handleSort}>
             <Table.Header>
                 <Table.Row>
                     <Table.HeaderCell scope="col"></Table.HeaderCell>
-                    <Table.HeaderCell scope="col">{t('column.id')}</Table.HeaderCell>
-                    <Table.HeaderCell scope="col">{t('column.displayName')}</Table.HeaderCell>
-                    <Table.HeaderCell scope="col">{t('column.fromType')}</Table.HeaderCell>
-                    <Table.HeaderCell scope="col">{t('column.toType')}</Table.HeaderCell>
-                    <Table.HeaderCell scope="col">{t('column.fromApplication')}</Table.HeaderCell>
-                    <Table.HeaderCell scope="col">{t('column.toApplication')}</Table.HeaderCell>
+                    <Table.ColumnHeader scope="col" sortKey="id" sortable>{t('column.id')}</Table.ColumnHeader>
+                    <Table.ColumnHeader scope="col" sortKey="displayName" sortable>{t('column.displayName')}</Table.ColumnHeader>
+                    <Table.ColumnHeader scope="col" sortKey="fromTypeId" sortable>{t('column.fromType')}</Table.ColumnHeader>
+                    <Table.ColumnHeader scope="col" sortKey="toTypeId" sortable>{t('column.toType')}</Table.ColumnHeader>
+                    <Table.ColumnHeader scope="col" sortKey="fromApplicationId" sortable>{t('column.fromApplication')}</Table.ColumnHeader>
+                    <Table.ColumnHeader scope="col">{t('column.toApplication')}</Table.ColumnHeader>
                     <Table.HeaderCell scope="col" align={'right'}></Table.HeaderCell>
                 </Table.Row>
             </Table.Header>
             <Table.Body>
                 {!rows && <TableLoader columnLength={8} tableSize={'small'} />}
-                {sortData?.map((value, i) => {
+                {rows?.map((value, i) => {
                     return (
                         <Table.ExpandableRow
                             expandOnRowClick

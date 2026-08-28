@@ -78,7 +78,13 @@ const IncomingData: React.FunctionComponent<Props> = (props: Props) => {
     );
 
     useEffect(() => {
-        ValueConvertingRepository.getValueConvertings(0, 100, 'fromApplicationId', 'ASC', false)
+        ValueConvertingRepository.getValueConvertings({
+            page: 0,
+            size: 100,
+            sortProperty: 'fromApplicationId',
+            sortDirection: 'ASC',
+            excludeConvertingMap: false,
+        })
             .then((response) => {
                 const data: IValueConverting[] = response.data.content;
                 const convertings: IValueConverting[] = existingIntegration?.sourceApplicationId

@@ -17,7 +17,6 @@ export function IntegrationToolbar() {
                         to="/integration/new"
                         size="small"
                         icon={<PlusIcon aria-hidden />}
-                        className="table-toolbar-button"
                     >
                         {t('button.newIntegration')}
                     </Button>
