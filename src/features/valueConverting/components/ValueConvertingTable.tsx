@@ -1,5 +1,5 @@
 import { ActionMenu, SortState, Table } from '@navikt/ds-react';
-import React, { ReactElement, useContext, useEffect, useState } from 'react';
+import React, { ReactElement, useContext, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
@@ -35,38 +35,43 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
     const [valueConvertings, setValueConvertings] = useState<Page<IValueConverting> | undefined>();
     const [sort, setSort] = useState<SortState | undefined>({ orderBy: 'id', direction: 'ascending'});
 
+    const sourceAppDisplayNameById = useMemo(
+        () => new Map(sourceApplications.map((app) => [app.id, app.displayName])),
+        [sourceApplications]
+    );
+
     useEffect(() => {
         setPaginationMeta({
             totalPages: valueConvertings?.totalPages,
             totalElements: valueConvertings?.totalElements,
+            hidePagination: !valueConvertings,
         });
-    }, [valueConvertings?.totalPages, setPaginationMeta, valueConvertings?.totalElements]);
-
-    function getAllValueConvertings(currentPage: number, currentRowCount: number, currentSort?: SortState) {
-        return ValueConvertingRepository.getValueConvertings({
-            page: currentPage - 1,
-            size: currentRowCount,
-            sortProperty: currentSort?.orderBy,
-            sortDirection: toApiSortDirection(currentSort?.direction),
-            excludeConvertingMap: false,
-        }).then((valueConvertingResponse) => {
-            const valueConvertingData = valueConvertingResponse.data || [];
-            setValueConvertings(valueConvertingData);
-        }).catch((error) => {
-            onError({ message: t('errorMessage') });
-            setValueConvertings(undefined);
-        });
-    }
+    }, [valueConvertings, setPaginationMeta]);
 
     useEffect(() => {
-        getAllSourceApplications(false).then((sourceApplications) => {
-            setSourceApplications(sourceApplications);
-        });
-    }, [getAllSourceApplications]);
+        getAllSourceApplications(false).then(setSourceApplications);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     useEffect(() => {
         onError(undefined);
-        getAllValueConvertings(page, rowsPerPage, sort);
+        setValueConvertings(undefined);
+
+        ValueConvertingRepository.getValueConvertings({
+            page: page - 1,
+            size: rowsPerPage,
+            sortProperty: sort?.orderBy,
+            sortDirection: toApiSortDirection(sort?.direction),
+            excludeConvertingMap: false,
+        })
+            .then((valueConvertingResponse) => {
+                setValueConvertings(valueConvertingResponse.data ?? { content: [] });
+            })
+            .catch(() => {
+                onError({ message: t('errorMessage') });
+                setValueConvertings(undefined);
+            });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [page, rowsPerPage, sort?.orderBy, sort?.direction]);
 
     async function handleNewOrEditConvertingClick(id: number) {
@@ -75,7 +80,7 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
 
     function actionMenu(value: IValueConverting): ReactElement {
         return (
-            <TableRowActionsMenu id={'value-convertings'}>
+            <TableRowActionsMenu id={`value-converting-${value.id}`}>
                 <ActionMenu.Item
                     onClick={() => {
                         handleNewOrEditConvertingClick(value.id).then(() =>
@@ -121,11 +126,8 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
                             <Table.DataCell scope="row">{value.fromTypeId}</Table.DataCell>
                             <Table.DataCell scope="row">{value.toTypeId}</Table.DataCell>
                             <Table.DataCell scope="row">
-                                {
-                                    sourceApplications.find(
-                                        (sourceApp) => sourceApp.id === value.fromApplicationId
-                                    )?.displayName || value.fromApplicationId
-                                }
+                                {sourceAppDisplayNameById.get(value.fromApplicationId) ??
+                                    value.fromApplicationId}
                             </Table.DataCell>
                             <Table.DataCell scope="row">
                                 {getDestinationDisplayName(value.toApplicationId)}

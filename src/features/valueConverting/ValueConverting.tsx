@@ -40,6 +40,7 @@ const ValueConverting: React.FC = () => {
                 />
             ) : (
                 <TableLayoutWrapper
+                    initialRowsPerPage={100}
                     toolbar={
                         <ValueConvertingToolbar
                             onNewConverting={() => setNewValueConverting(true)}
