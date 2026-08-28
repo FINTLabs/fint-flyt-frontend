@@ -32,17 +32,13 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.valueConverting' });
 
     const [sourceApplications, setSourceApplications] = useState<ISourceApplication[]>([]);
-
     const [valueConvertings, setValueConvertings] = useState<Page<IValueConverting> | undefined>();
-
-    const [rows, setRows] = useState<IValueConverting[] | undefined>(undefined);
     const [sort, setSort] = useState<SortState | undefined>({ orderBy: 'id', direction: 'ascending'});
 
     useEffect(() => {
         setPaginationMeta({
             totalPages: valueConvertings?.totalPages,
             totalElements: valueConvertings?.totalElements,
-            // hidePagination: !rows || rows.length <= rowsPerPage,
         });
     }, [valueConvertings?.totalPages, setPaginationMeta, valueConvertings?.totalElements]);
 
@@ -63,15 +59,15 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
                 const valueConvertingPage = valueConvertingResponse.data;
                 setValueConvertings(valueConvertingPage);
                 if (valueConvertingPage.content) {
-                    setRows(valueConvertingPage.content);
+                    setValueConvertings(valueConvertingPage);
                 } else {
-                    setRows([]);
+                    setValueConvertings(undefined);
                 }
             })
             .catch((e) => {
                 console.log(e);
                 onError({ message: t('errorMessage') });
-                setRows([]);
+                setValueConvertings(undefined);
             });
     }, [page, rowsPerPage, sort]);
 
@@ -122,8 +118,8 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
                 </Table.Row>
             </Table.Header>
             <Table.Body>
-                {!rows && <TableLoader columnLength={8} tableSize={'small'} />}
-                {rows?.map((value, i) => {
+                {!valueConvertings && <TableLoader columnLength={8} tableSize={'small'} />}
+                {valueConvertings?.content?.map((value, i) => {
                     return (
                         <Table.ExpandableRow
                             expandOnRowClick
