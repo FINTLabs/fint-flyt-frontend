@@ -1,7 +1,7 @@
 import { FormatListNumbered } from '@mui/icons-material';
 import { Box, Heading, HelpText, HStack, Select, Tooltip, VStack } from '@navikt/ds-react';
 import * as React from 'react';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useMemo, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
@@ -18,7 +18,6 @@ import { IValueConverting } from '../../valueConverting/types/ValueConverting';
 import {
     IInstanceMetadataContent,
     IInstanceObjectCollectionMetadata,
-    IIntegrationMetadata,
 } from '../types/Metadata/IntegrationMetadata';
 import {
     extractCollectionFieldReferenceIndexAndKey,
@@ -41,25 +40,42 @@ const IncomingData: React.FunctionComponent<Props> = (props: Props) => {
     const { completed } = useContext(ConfigurationContext);
     const { getInstanceElementMetadata, instanceElementMetadata, getAllMetadata, allMetadata } =
         useContext(SourceApplicationContext);
-    const { existingIntegration, existingIntegrationMetadata, setExistingIntegrationMetadata } =
-        useContext(IntegrationContext);
+    const {
+        existingIntegration,
+        existingIntegrationMetadata,
+        setExistingIntegrationMetadata,
+        configuration,
+    } = useContext(IntegrationContext);
 
     const [valueConvertings, setValueConvertings] = useState<IValueConverting[] | undefined>(
         undefined
     );
-    const [version, setVersion] = React.useState<string>(
-        existingIntegrationMetadata ? String(existingIntegrationMetadata.version) : ''
+
+    const availableVersions = useMemo(
+        () =>
+            allMetadata
+                ?.filter(
+                    (md) =>
+                        String(md.sourceApplicationId) ===
+                            String(existingIntegration?.sourceApplicationId) &&
+                        md.sourceApplicationIntegrationId ===
+                            existingIntegration?.sourceApplicationIntegrationId
+                )
+                .sort((a, b) => a.version - b.version) ?? [],
+        [
+            allMetadata,
+            existingIntegration?.sourceApplicationId,
+            existingIntegration?.sourceApplicationIntegrationId,
+        ]
     );
 
-    const availableVersions: IIntegrationMetadata[] = allMetadata
-        ? allMetadata.filter((md) => {
-              return (
-                  md.sourceApplicationId === existingIntegrationMetadata?.sourceApplicationId &&
-                  md.sourceApplicationIntegrationId ===
-                      existingIntegrationMetadata.sourceApplicationIntegrationId
-              );
-          })
-        : [];
+    const version = String(
+        existingIntegrationMetadata?.version ??
+            availableVersions.find(
+                (md) => String(md.id) === String(configuration?.integrationMetadataId)
+            )?.version ??
+            ''
+    );
 
     useEffect(() => {
         ValueConvertingRepository.getValueConvertings(0, 100, 'fromApplicationId', 'ASC', false)
@@ -83,9 +99,35 @@ const IncomingData: React.FunctionComponent<Props> = (props: Props) => {
     }, []);
 
     useEffect(() => {
-        getAllMetadata(false);
+        if (!allMetadata?.length) {
+            getAllMetadata();
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    const applySelectedMetadata = (metadata: (typeof availableVersions)[number]) => {
+        setExistingIntegrationMetadata(metadata);
+        methods.setValue('integrationMetadataId', Number(metadata.id));
+        getInstanceElementMetadata(String(metadata.id));
+    };
+
+    useEffect(() => {
+        if (existingIntegrationMetadata || availableVersions.length === 0) {
+            return;
+        }
+
+        const metadata =
+            availableVersions.find(
+                (md) => String(md.id) === String(configuration?.integrationMetadataId)
+            ) ?? availableVersions[availableVersions.length - 1];
+
+        applySelectedMetadata(metadata);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [
+        availableVersions,
+        configuration?.integrationMetadataId,
+        existingIntegrationMetadata,
+    ]);
 
     function findInstanceObjectCollectionMetadata(
         metadataContent: IInstanceMetadataContent,
@@ -140,16 +182,13 @@ const IncomingData: React.FunctionComponent<Props> = (props: Props) => {
     }
 
     const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setVersion(event.target.value);
-        const version = Number(event.target.value);
-        const integrationMetadata: IIntegrationMetadata[] = availableVersions.filter(
-            (metadata) => metadata.version === version
+        const selected = availableVersions.find(
+            (metadata) => metadata.version === Number(event.target.value)
         );
-        setExistingIntegrationMetadata(integrationMetadata[0]);
-        if (integrationMetadata[0].id) {
-            methods.setValue('integrationMetadataId', Number(integrationMetadata[0].id));
-            getInstanceElementMetadata(integrationMetadata[0].id);
+        if (!selected) {
+            return;
         }
+        applySelectedMetadata(selected);
     };
 
     return (
@@ -186,7 +225,7 @@ const IncomingData: React.FunctionComponent<Props> = (props: Props) => {
                             hideLabel
                             size={'small'}
                             disabled={completed}
-                            defaultValue={version}
+                            value={version}
                             onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                                 handleSelectChange(e);
                             }}

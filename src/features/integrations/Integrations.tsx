@@ -8,7 +8,7 @@ import IntegrationTable from './components/IntegrationTable';
 import { IntegrationToolbar } from './components/IntegrationToolbar';
 
 const Integrations: React.FC = () => {
-    const { getAllMetadata, allMetadata } = useContext(SourceApplicationContext);
+    const { getLatestMetadata, latestMetadata } = useContext(SourceApplicationContext);
     const { authorized, getAuthorization } = useContext(AuthorizationContext);
     const history = useNavigate();
 
@@ -23,8 +23,8 @@ const Integrations: React.FC = () => {
     }, []);
 
     useEffect(() => {
-        if (!allMetadata) {
-            getAllMetadata(true);
+        if (!latestMetadata) {
+            getLatestMetadata();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);

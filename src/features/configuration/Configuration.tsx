@@ -80,7 +80,11 @@ const Configuration: React.FC = () => {
         mode: 'onChange',
         defaultValues: {
             integrationId: Number(existingIntegration?.id),
-            integrationMetadataId: Number(existingIntegrationMetadata?.id),
+            integrationMetadataId:
+                configuration?.integrationMetadataId ??
+                (existingIntegrationMetadata?.id != null
+                    ? Number(existingIntegrationMetadata.id)
+                    : undefined),
             completed: configuration ? configuration.completed : false,
             comment: configuration?.comment,
         },

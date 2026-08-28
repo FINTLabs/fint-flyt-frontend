@@ -15,7 +15,7 @@ import { useFilterOptions } from './OptionsContext';
 
 const FilterToolbar: FC = () => {
     const IntegrationRepository = useIntegrationRepository();
-    const { allMetadata } = useContext(SourceApplicationContext);
+    const { latestMetadata } = useContext(SourceApplicationContext);
     const { getAllSourceApplications } = useContext(AuthorizationContext);
     const { setAllIntegrations, setSourceApplicationIdOptions } = useFilterOptions();
 
@@ -45,11 +45,11 @@ const FilterToolbar: FC = () => {
     }, []);
 
     useEffect(() => {
-        if (allMetadata) {
-            fetchIntegrations(allMetadata);
+        if (latestMetadata) {
+            fetchIntegrations(latestMetadata);
             fetchSourceApplications();
         }
-    }, [allMetadata]);
+    }, [latestMetadata]);
 
     return (
         <TableToolbar

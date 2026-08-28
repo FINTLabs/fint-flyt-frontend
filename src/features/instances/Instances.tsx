@@ -8,7 +8,7 @@ import InstanceTable from './components/InstanceTable';
 import FilterToolbar from './filter/FilterToolbar';
 
 const Instances: React.FC = () => {
-    const { getAllMetadata } = useContext(SourceApplicationContext);
+    const { getLatestMetadata } = useContext(SourceApplicationContext);
     const { authorized, getAuthorization } = useContext(AuthorizationContext);
     const history = useNavigate();
 
@@ -23,7 +23,7 @@ const Instances: React.FC = () => {
     }, []);
 
     useEffect(() => {
-        getAllMetadata(true);
+        getLatestMetadata();
     }, []);
 
     return (

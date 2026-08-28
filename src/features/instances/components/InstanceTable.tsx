@@ -31,7 +31,7 @@ const InstanceTable: React.FunctionComponent = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const InstanceRepository = useInstanceRepository();
     const InstanceFlowTrackingRepository = useInstanceFlowTrackingRepository();
-    const { allMetadata } = useContext(SourceApplicationContext);
+    const { latestMetadata } = useContext(SourceApplicationContext);
     const { getAllSourceApplications } = useContext(AuthorizationContext);
     const { t } = useTranslation('translations', { keyPrefix: 'pages.instances' });
     const { filters, refreshKey } = useFilters();
@@ -68,10 +68,10 @@ const InstanceTable: React.FunctionComponent = () => {
     }, []);
 
     useEffect(() => {
-        if (allMetadata && summaryList) {
+        if (latestMetadata && summaryList) {
             setLoading(false);
         }
-    }, [allMetadata, summaryList]);
+    }, [latestMetadata, summaryList]);
 
     useEffect(() => {
         setPaginationMeta({
@@ -81,7 +81,7 @@ const InstanceTable: React.FunctionComponent = () => {
     }, [summaryList?.length, setSize, setPaginationMeta]);
 
     useEffect(() => {
-        if (!allMetadata?.length) {
+        if (!latestMetadata?.length) {
             return;
         }
 
@@ -89,7 +89,7 @@ const InstanceTable: React.FunctionComponent = () => {
         setExpandedRows([]);
         removeAllEvents();
         getLatestInstances(String(size));
-    }, [size, refreshKey, allMetadata?.length]);
+    }, [size, refreshKey, latestMetadata?.length]);
 
     const handleRetryButtonClick = (index: number) => {
         const newDisabledButtons = [...disabledRetryButtons];
@@ -99,7 +99,7 @@ const InstanceTable: React.FunctionComponent = () => {
 
     const getLatestInstances = async (requestSize: string) => {
         onError(undefined);
-        if (!allMetadata) {
+        if (!latestMetadata) {
             return;
         }
 
@@ -111,7 +111,7 @@ const InstanceTable: React.FunctionComponent = () => {
             setSourceApplications(sourceApps);
             const events: ISummary[] = eventResponse.data;
             if (events) {
-                allMetadata.forEach((value: IIntegrationMetadata) => {
+                latestMetadata.forEach((value: IIntegrationMetadata) => {
                     eventResponse.data.forEach((event: ISummary) => {
                         if (
                             event.sourceApplicationIntegrationId ===
