@@ -13,7 +13,7 @@ import {
 import { TableRowActionsMenu } from '../../../shared/components/table/TableRowActionsMenu';
 import { Page } from '../../../shared/components/types/TableTypes';
 import { AuthorizationContext } from '../../../shared/context/AuthorizationContext';
-import { getDestinationDisplayName, toApiSortDirection } from '../../../shared/util/TableUtil';
+import { getDestinationDisplayName, handleSortByColumn, toApiSortDirection } from '../../../shared/util/TableUtil';
 import { ISourceApplication } from '../../configuration/types/SourceApplication';
 import { IValueConverting } from '../types/ValueConverting';
 import ValueConvertingPanel from './ValueConvertingPanel';
@@ -42,34 +42,32 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
         });
     }, [valueConvertings?.totalPages, setPaginationMeta, valueConvertings?.totalElements]);
 
+    function getAllValueConvertings(currentPage: number, currentRowCount: number, currentSort?: SortState) {
+        return ValueConvertingRepository.getValueConvertings({
+            page: currentPage - 1,
+            size: currentRowCount,
+            sortProperty: currentSort?.orderBy,
+            sortDirection: toApiSortDirection(currentSort?.direction),
+            excludeConvertingMap: false,
+        }).then((valueConvertingResponse) => {
+            const valueConvertingData = valueConvertingResponse.data || [];
+            setValueConvertings(valueConvertingData);
+        }).catch((error) => {
+            onError({ message: t('errorMessage') });
+            setValueConvertings(undefined);
+        });
+    }
+
     useEffect(() => {
-        Promise.all([
-            ValueConvertingRepository.getValueConvertings({
-                page: page - 1,
-                size: rowsPerPage,
-                sortProperty: sort?.orderBy,
-                sortDirection: toApiSortDirection(sort?.direction),
-                excludeConvertingMap: false,
-            }),
-            getAllSourceApplications(false),
-        ])
-            .then(([valueConvertingResponse, sourceApp]) => {
-                onError(undefined);
-                setSourceApplications(sourceApp);
-                const valueConvertingPage = valueConvertingResponse.data;
-                setValueConvertings(valueConvertingPage);
-                if (valueConvertingPage.content) {
-                    setValueConvertings(valueConvertingPage);
-                } else {
-                    setValueConvertings(undefined);
-                }
-            })
-            .catch((e) => {
-                console.log(e);
-                onError({ message: t('errorMessage') });
-                setValueConvertings(undefined);
-            });
-    }, [page, rowsPerPage, sort]);
+        getAllSourceApplications(false).then((sourceApplications) => {
+            setSourceApplications(sourceApplications);
+        });
+    }, [getAllSourceApplications]);
+
+    useEffect(() => {
+        onError(undefined);
+        getAllValueConvertings(page, rowsPerPage, sort);
+    }, [page, rowsPerPage, sort?.orderBy, sort?.direction]);
 
     async function handleNewOrEditConvertingClick(id: number) {
         props.onValueConvertingSelected(id);
@@ -92,19 +90,8 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
         );
     }
 
-    function handleSort(sortKey: string) {
-        setSort((prevSort: SortState | undefined) => {
-            return prevSort && sortKey === prevSort.orderBy && prevSort.direction === 'descending'
-                ? undefined
-                : {
-                      orderBy: sortKey,
-                      direction: prevSort?.direction === 'ascending' ? 'descending' : 'ascending',
-                  };
-        });
-    }
-
     return (
-        <Table id={'value-convertings-table'} size={'small'} sort={sort} onSortChange={handleSort}>
+        <Table id={'value-convertings-table'} size={'small'} sort={sort} onSortChange={(sortKey) => handleSortByColumn(sortKey, sort, setSort)}>
             <Table.Header>
                 <Table.Row>
                     <Table.HeaderCell scope="col"></Table.HeaderCell>
@@ -124,7 +111,7 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
                         <Table.ExpandableRow
                             expandOnRowClick
                             id={'table-row-' + i}
-                            key={i}
+                            key={value.id}
                             content={
                                 <ValueConvertingPanel id={i} existingValueConverting={value} />
                             }
@@ -137,7 +124,7 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
                                 {
                                     sourceApplications.find(
                                         (sourceApp) => sourceApp.id === value.fromApplicationId
-                                    )?.displayName
+                                    )?.displayName || value.fromApplicationId
                                 }
                             </Table.DataCell>
                             <Table.DataCell scope="row">

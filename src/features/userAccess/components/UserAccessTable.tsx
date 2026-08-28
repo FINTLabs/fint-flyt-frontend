@@ -33,10 +33,6 @@ const UserAccessTable: React.FC<Props> = ({ editMode, setEditMode, onUsersLoaded
     );
     const [totalPages, setTotalPages] = useState<number | undefined>(undefined);
     const [totalElements, setTotalElements] = useState<number | undefined>(undefined);
-    const [sort, setSort] = useState<SortState | undefined>({
-        orderBy: 'name',
-        direction: 'ascending',
-    });
 
     const fetchData = () => {
         Promise.all([
@@ -73,7 +69,7 @@ const UserAccessTable: React.FC<Props> = ({ editMode, setEditMode, onUsersLoaded
     useEffect(() => {
         fetchData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [page, rowsPerPage, sort]);
+    }, [page, rowsPerPage]);
 
     useEffect(() => {
         if (totalElements === undefined) return;
@@ -113,29 +109,11 @@ const UserAccessTable: React.FC<Props> = ({ editMode, setEditMode, onUsersLoaded
         setUsers(updatedUsers);
     };
 
-    const handleSortChange = (sortKey: string) => {
-        setSort((prevSort) => {
-            return prevSort && sortKey === prevSort.orderBy && prevSort.direction === 'descending'
-                ? undefined
-                : {
-                      orderBy: sortKey,
-                      direction:
-                          prevSort &&
-                          sortKey === prevSort.orderBy &&
-                          prevSort.direction === 'ascending'
-                              ? 'descending'
-                              : 'ascending',
-                  };
-        });
-    };
-
     return (
         <Box background={'surface-default'}>
             {users && sourceApplications ? (
                 <VStack gap={'6'}>
                     <Table
-                        sort={sort}
-                        onSortChange={(sortKey) => handleSortChange(sortKey ? sortKey : 'name')}
                         id={'useraccess-table'}
                     >
                         <Table.Header>
