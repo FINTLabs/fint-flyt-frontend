@@ -516,10 +516,15 @@
             "column": {
                 "id": "ID",
                 "displayName": "Namn",
+                "noValueConvertings": "Ingen verdikonverteringar funne",
                 "toType": "Til type",
                 "fromType": "Frå type",
                 "toApplication": "Til",
-                "fromApplication": "Frå"
+                "fromApplication": "Frå",
+                "createdAt": "Opprettet",
+                "modifiedAt": "Sist endra",
+                "createdBy": "Opprettet av",
+                "modifiedBy": "Sist endra av"
             },
             "help": {
                 "toggle": "Det blir jobba med fleire moglegheiter for å bruka verdikonverteringar i Flyt. For no er det som før og det er berre eigendefinerte verdikonverteringar som blir nytta",

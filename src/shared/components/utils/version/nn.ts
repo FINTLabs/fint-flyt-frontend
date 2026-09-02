@@ -9,7 +9,11 @@ export const VERSION_DATA_NN: VersionEntry[] = [
         updates: [
             {
                 title: 'Sortering av verdikonverteringar:',
-                text: 'Tabellen for verdikonvertering kan no sorterast ved å klikka på kolonneoverskrifter (ID, visningsnamn, frå-type, til-type og kjeldeapplikasjon).',
+                text: 'Tabellen for verdikonvertering kan no sorterast ved å klikka på kolonneoverskrifter (ID, visningsnamn, frå-type, til-type, kjeldeapplikasjon, opprettet og sist endra).',
+            },
+            {
+                title: 'Opprettet og sist endra for verdikonverteringar:',
+                text: 'Tabellen for verdikonvertering viser no når kvar verdikonvertering vart oppretta og sist endra.',
             },
         ],
     },

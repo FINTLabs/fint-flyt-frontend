@@ -1,4 +1,4 @@
-export function formatTimestampToReadableText(timestamp?: string, locale: string = 'no-NO'): string {
+export function formatTimestampToReadableText(timestamp?: string, locale: string = 'no-NO', showTime: boolean = true): string {
     if (!timestamp) return '';
 
     const date = new Date(timestamp);
@@ -8,8 +8,8 @@ export function formatTimestampToReadableText(timestamp?: string, locale: string
         year: '2-digit',
         month: '2-digit',
         day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
+        hour: showTime ? '2-digit' : undefined,
+        minute: showTime ? '2-digit' : undefined,
         hour12: false,
         timeZone: 'Europe/Oslo',
     };
