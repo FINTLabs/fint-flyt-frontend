@@ -20,7 +20,6 @@ export function ValueConvertingToolbar({ onNewConverting }: Props) {
                         size="small"
                         icon={<PlusIcon aria-hidden />}
                         onClick={onNewConverting}
-                        className="table-toolbar-button"
                     >
                         {t('button.newConverting')}
                     </Button>

@@ -5,6 +5,15 @@ export const ABOUT_VERSIONS_EN =
 
 export const VERSION_DATA_EN: VersionEntry[] = [
     {
+        heading: 'September 2026',
+        updates: [
+            {
+                title: 'Sorting of value conversions:',
+                text: 'The value converting table now supports sorting by clicking column headers (ID, display name, from type, to type, and source application).',
+            },
+        ],
+    },
+    {
         heading: 'August 2026',
         updates: [
             {

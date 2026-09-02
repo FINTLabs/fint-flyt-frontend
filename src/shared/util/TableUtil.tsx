@@ -1,3 +1,5 @@
+import { SortState } from '@navikt/ds-react';
+
 import { MOCK_EVENTS } from '../../__tests__/mock/events';
 import { IEventNew } from '../../features/instances/types/Event';
 import { IIntegration } from '../../features/integration/types/Integration';
@@ -63,3 +65,33 @@ export const eventComparator = (a: IEventNew, b: IEventNew, orderBy: string) => 
         return -1;
     }
 };
+
+export function toApiSortDirection(
+    direction: SortState['direction'] | undefined
+): 'ASC' | 'DESC' | undefined {
+    if (direction === 'ascending') {
+        return 'ASC';
+    }
+    if (direction === 'descending') {
+        return 'DESC';
+    }
+    return undefined;
+}
+
+export function handleSortByColumn(
+    sortKey: string,
+    sort: SortState | undefined,
+    setSort: (sort: SortState | undefined) => void
+): void {
+    setSort(
+        sort && sortKey === sort.orderBy && sort.direction === 'descending'
+            ? undefined
+            : {
+                  orderBy: sortKey,
+                  direction:
+                      sort && sortKey === sort.orderBy && sort.direction === 'ascending'
+                          ? 'descending'
+                          : 'ascending',
+              }
+    );
+}

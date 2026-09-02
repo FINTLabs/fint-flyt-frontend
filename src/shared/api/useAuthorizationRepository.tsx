@@ -34,7 +34,7 @@ export default function useAuthorizationRepository() {
         return get<Page<IUser>>(API_URL, `/api/intern/authorization/users`, {
             params: {
                 page,
-                size,
+                size
             },
         });
     };

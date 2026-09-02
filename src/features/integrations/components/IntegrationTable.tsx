@@ -17,6 +17,8 @@ import {
     getDestinationDisplayName,
     getStateDisplayName,
     integrationComparator,
+    handleSortByColumn,
+    toApiSortDirection,
 } from '../../../shared/util/TableUtil';
 import { ISourceApplication } from '../../configuration/types/SourceApplication';
 import { IIntegrationDetailedStatistics } from '../../instances/types/Event';
@@ -98,11 +100,7 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({ id }: Int
                         currentPage - 1,
                         currentRowCount,
                         currentSort ? currentSort.orderBy : 'state',
-                        currentSort
-                            ? currentSort.direction === 'ascending'
-                                ? 'ASC'
-                                : 'DESC'
-                            : 'ASC'
+                        toApiSortDirection(currentSort?.direction) ?? 'ASC'
                     ),
                     getAllSourceApplications(false),
                 ]).then(([integrationResponse, sourceApps]) => {
@@ -144,24 +142,8 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({ id }: Int
         }
     };
 
-    const handleSort = (sortKey: string) => {
-        setSort((prevSort) => {
-            return prevSort && sortKey === prevSort.orderBy && prevSort.direction === 'descending'
-                ? undefined
-                : {
-                      orderBy: sortKey,
-                      direction:
-                          prevSort &&
-                          sortKey === prevSort.orderBy &&
-                          prevSort.direction === 'ascending'
-                              ? 'descending'
-                              : 'ascending',
-                  };
-        });
-    };
-
     return (
-        <Table sort={sort} onSortChange={(sortKey) => handleSort(sortKey ? sortKey : 'id')} id={id}>
+        <Table sort={sort} onSortChange={(sortKey) => handleSortByColumn(sortKey, sort, setSort)} id={id}>
             <Table.Header>
                 <Table.Row>
                     <Table.ColumnHeader />

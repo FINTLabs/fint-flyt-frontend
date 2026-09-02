@@ -1,7 +1,7 @@
-import { VersionEntry } from './types';
-import { ABOUT_VERSIONS, VERSION_DATA } from './nb';
 import { ABOUT_VERSIONS_EN, VERSION_DATA_EN } from './en';
+import { ABOUT_VERSIONS, VERSION_DATA } from './nb';
 import { ABOUT_VERSIONS_NN, VERSION_DATA_NN } from './nn';
+import { VersionEntry } from './types';
 
 export function getAboutByLanguage(lang: string): string {
 	if (lang === "no") {

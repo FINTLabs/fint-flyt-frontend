@@ -9,7 +9,7 @@ import {
 } from '../../shared/components/utils/version/VersionTexts';
 import { AuthorizationContext } from '../../shared/context/AuthorizationContext';
 
-const Version: React.FC = () => {
+const Changelog: React.FC = () => {
     const { i18n } = useTranslation();
     const { authorized, getAuthorization } = useContext(AuthorizationContext);
     const history = useNavigate();
@@ -19,6 +19,7 @@ const Version: React.FC = () => {
             history('/forbidden');
         }
     }, [authorized]);
+
     useEffect(() => {
         getAuthorization();
     }, []);
@@ -54,4 +55,4 @@ const Version: React.FC = () => {
         </Box>
     );
 };
-export default Version;
+export default Changelog;
