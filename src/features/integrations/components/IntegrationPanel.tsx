@@ -101,17 +101,10 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
         };
         if (props.integration?.id) {
             IntegrationRepository.updateIntegration(props.integration?.id, patch)
-                .then((response) => {
-                    console.log('updated integration: ', props.integration?.id, response);
+                .then(() => {
+                    getVersionForActiveConfig(configurationId.toString());
                 })
                 .catch((e) => console.error(e));
-            setActiveVersion(t('noActiveConfig'));
-            console.log(
-                'set active config, integrationId',
-                props.integration?.id,
-                'configurationId',
-                configurationId
-            );
         }
     };
 
@@ -150,7 +143,6 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
                         type="button"
                         variant="danger"
                         onClick={() => {
-                            getVersionForActiveConfig(configToActivate);
                             activateConfiguration(configToActivate);
                             setOpenDialog(false);
                         }}
